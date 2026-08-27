@@ -1,0 +1,16 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/diff/*", "/history/*", "/data/*", "*.json"]
+  },
+  "globalHeaders": {
+    "cache-control": "public, max-age=300, must-revalidate",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "no-referrer"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".html": "text/html"
+  }
+}
