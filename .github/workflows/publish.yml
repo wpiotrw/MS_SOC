@@ -1,0 +1,55 @@
+name: Publish routine output
+
+on:
+  push:
+    branches:
+      - 'claude/**'
+    paths:
+      - 'site/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Merge to main and deploy
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Take site/ from the routine branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "+${GITHUB_REF}:refs/remotes/origin/routine"
+          rm -rf site
+          git checkout refs/remotes/origin/routine -- site
+          git add -A site
+          if git diff --cached --quiet; then
+            echo "Brak zmian w site/ - nie commituje."
+          else
+            git commit -m "content: publikacja z ${GITHUB_REF_NAME}"
+            git push origin main
+            echo "Zmiany scalone do main."
+          fi
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/site"
+          api_location: ""
+          output_location: ""
+          skip_app_build: true
