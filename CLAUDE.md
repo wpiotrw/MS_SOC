@@ -43,7 +43,7 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
 ```html
 <header class="top"><div class="top-inner">
 <div class="title-row"><h1>Microsoft SOC Brief</h1>
-<p class="dateline">Friday 28 August 2026 &middot; Warsaw &middot; window 14&ndash;28 August &middot; deadlines to 27 October &middot; <a href="/diff/">Changes since this morning</a></p>
+<p class="dateline">Saturday 29 August 2026 &middot; <b>published 07:12 Warsaw</b> &middot; window 15&ndash;29 August &middot; deadlines to 28 October &middot; Piotr Wisniewski &middot; <a href="/diff/">Changes since this morning</a></p>
 <div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div>
 <div class="counts">
 <a class="count crit" href="#deadlines"><b>34</b> deadlines in 60 days<span>&middot; 12 inside 30</span></a>
@@ -51,6 +51,8 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
 <a class="count" href="#new"><b>110</b> items in window<span>&middot; 14&ndash;28 August</span></a>
 <a class="count" href="#graph"><b>1,020</b> permissions catalogued<span>&middot; 4 API surfaces</span></a>
 <a class="count" href="#roles"><b>1,959</b> role actions<span>&middot; 135 built-in roles</span></a>
+<a class="count" href="#graph"><b>28</b> undocumented at Microsoft<span>&middot; 25 permissions, 3 roles</span></a>
+<a class="count" href="#graph"><b>306</b> deployed, not in this tenant<span>&middot; 20 visible, 286 hidden</span></a>
 </div><nav class="anchors"></nav></div></header>
 ```
 
@@ -61,6 +63,36 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
 - `<nav class="anchors"></nav>` PUSTY, na koncu `.top-inner` — bez niego `buildTabs()` konczy
   dzialanie i nie powstaje pasek zakladek, a zaden panel nie zostaje odsloniety.
 - Nigdy nie wymyslaj wlasnych klas `.inner`, `.meta` ani wlasnego `<nav>`.
+- **`dateline` zawsze niesie godzine generowania i autora.** `published HH:MM Warsaw` na stronie
+  porannej, `re-checked HH:MM Warsaw` dopisywane przez kazdy przebieg diff — nigdy zastepowane.
+  Autor: `Piotr Wisniewski`. Ta sama para wraca w `<footer>`: autor, data i godzina, commit.
+  Strona bez godziny nie mowi czytelnikowi, czy patrzy na dzisiejszy przebieg czy na wczorajszy.
+- Pigulek jest teraz siedem. Kazda `.counts a.count` staje sie kafelkiem w Overview, wiec licznik
+  dodajesz przez dopisanie pigulki, nigdy przez pisanie `.stat` recznie.
+
+## 1a. Naglowek MUSI dac sie przewinac na telefonie
+
+`header.top` ma w powloce `position:sticky;top:0`, a `.counts` ma `flex-wrap:wrap`. Na telefonie
+siedem pigulek lamie sie na siedem wierszy i przyklejony naglowek zjada caly ekran — nie da sie go
+przewinac, zostaje kilka linii tresci. Blok `@media (max-width:760px)` w powloce tego nie rusza.
+
+**Dopisz do istniejacego bloku `@media (max-width:760px)` dokladnie te cztery reguly** (druga
+dozwolona dopisana zmiana CSS obok `.badge.b-undoc`, i tak samo jak tam — nic wiecej):
+
+```css
+@media (max-width:760px){
+  header.top{position:static}
+  .counts{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .counts .count{flex:0 0 auto}
+  .cat-controls{position:static}
+}
+```
+
+Domyslnie wiec naglowek **przewija sie razem ze strona**, a pigulki jada w jednym poziomym pasku.
+`@media print` juz teraz robi `header.top{position:static}`, wiec powloka to znosi. `--hdr-h:112px`
+jest stala i na telefonie i tak klamie — dlatego `.cat-controls` tez przestaje byc sticky.
+Playwright sprawdza przy 390x844: `getComputedStyle(header).position === "static"`, `.counts`
+miesci sie w jednym wierszu, a po przewinieciu o 600 px naglowek jest poza widokiem.
 
 ## 2. Ktora sekcja w ktorym panelu — raport poranny
 
@@ -353,6 +385,23 @@ date ostatniego commita razem z danymi.
   `dateLabel:"Deployed in the service"`, `deployedSeen` = data z gita, plus `isHidden`,
   `environment`, `schemes`. **Nie liczy sie do „permissions in the catalog"** — tego nie nadasz.
   Dzien, w ktorym nazwa wejdzie do A, jest dniem `b-new`.
+
+  **ALE MUSI ZNALEZC SIE W KATALOGU — to blad, ktory juz raz kosztowal cala funkcje.**
+  29 sierpnia 2026 przebieg policzyl `D \ A` = 306, wykluczyl je z licznika „1 037 permissions
+  catalogued" — i **nie dopisal ich nigdzie**, bo regula mowila tylko, czym NIE sa. Na stronie
+  nie bylo ani jednego `IdentityDiagnostic`, a szukajka w katalogu zwracala `0 of 15`.
+  Kazdy wpis `D \ A` idzie do tablicy `graph` z `inInventory:false`, `tracked:true` — dzieki temu
+  jest w wyszukiwarce, w filtrze typu zmiany i w trybie *Microsoft changes*, a `inInventory:false`
+  trzyma go poza licznikiem katalogu. **Nieobecnosc w tablicy nie jest wykluczeniem z licznika,
+  tylko zgubieniem znaleziska.** Licznik ma wlasna, siodma pigulke: `306 deployed, not in this
+  tenant`.
+
+  Sprawdzian, ktory ma to lapac: jesli `len(D \ A) > 0`, a zero wpisow w `graph` ma
+  `kind:"Deployed in the service, not in this tenant"` — **przebieg NIEUDANY, nie publikuj**.
+  Kanarek do recznego sprawdzenia: `IdentityDiagnostic.Read`, `IdentityDiagnostic.Read.All`,
+  `IdentityDiagnostic.StartDiagnosis`, `IdentityDiagnostic.StartDiagnosis.All` musza byc
+  w katalogu, z `isHidden:true`, `environment:"PPE;public"`, `deployedSeen:"2026-02-21"`
+  i GUID-ami z pola `id` mapy D (`f5b84bd9-6ffb-41bf-a2d2-644bcb35a835` dla `.Read`).
 - **C \ A** — udokumentowane, nie ma u nas (0 dnia 29 sierpnia).
 - **A \ C** — mamy, Microsoft nie opisal (25 dnia 29 sierpnia).
 - **B \ A** — inny tenant ma, my nie (0 dnia 29 sierpnia; B odpowiadalo A nazwa w nazwe).
@@ -448,6 +497,77 @@ nie nasz** — nigdy `origin:"brief"`. Odwrotnie tez: nazwa, ktora znika z dokum
 
 Sekcja Sources niesie zdanie: *„Nieudokumentowane u Microsoftu: 25 uprawnien z 1 022 w usludze
 (dokumentacja: 939) i 3 role ze 145 (dokumentacja: 138), sprawdzone <data>."*
+
+## 5f. Inne API i statystyki na powierzchnie
+
+Graph to nie cala powierzchnia uprawnien. Blada *Request API permissions* w portalu wymienia
+kilkanascie innych resource API; nadanie na ktorymkolwiek siega danych tenanta i **nie widac go
+w raporcie uprawnien Graph**. Katalog wozi tablice `apis` — po jednym wpisie na powierzchnie:
+`name`, `description`, `status` (`inventoried`/`queued`), `permissions`, `url`, `socNote`, a przy
+`queued` takze `queuePosition` i `targetDate`.
+
+Kolejnosc: **Office 365 Management APIs** (powierzchnia logow audytu dla SOC), **Exchange Online**
+(`full_access_as_app` = odczyt wszystkich skrzynek), **Azure Service Management**
+(`user_impersonation` na plaszczyznie sterowania), **SharePoint** (stare nadania ACS app-only sa
+poza raportowaniem zgod Graph), dalej Intune, Power BI, Dynamics CRM, Azure DevOps, Purview,
+Power Automate, Azure Storage, Azure RMS, Azure Data Explorer.
+
+**Jedno API z kolejki na przebieg, a „scheduled" musi nazwac dzien.** Pozycja N jest na N-ty dzien
+roboczy po dacie raportu; powloka renderuje **scheduled · #N in the queue · due 26 Aug**, nigdy
+golego myslnika. Kazdy przebieg bierze #1, inwentaryzuje, ustawia `status:"inventoried"` z realna
+liczba w `permissions`, dopisuje jego uprawnienia do tablicy `graph` z `surface` nazywajacym API
+i przelicza pozostale terminy. **Te wpisy sa `origin:"catalog"`, `kind:"Newly inventoried"`,
+`published:null` — nigdy nowe u Microsoftu.** Do czasu inwentaryzacji zostaje `queued`: uczciwa
+kolejka bije zmyslona liste, i **nigdy nie wymyslasz nazwy uprawnienia dla powierzchni, ktorej
+nie przeczytales**. Powierzchnia stojaca na #1 po terminie pokazuje, ze przebieg obiecal date
+i jej nie dotrzymal — i tak ma byc.
+
+Kazda `inventoried` powierzchnia wozi `counts` (`total`, `delegated`, `application`, `both`, `rsc`),
+poprzedni odczyt w `previous`/`previousChecked` i `delta`. Kazdy przebieg: przelicz od nowa;
+przepisz `counts`→`previous` i `checked`→`previousChecked` PRZED nadpisaniem; ustaw `checked` na
+dzis; policz `delta` pole po polu. **Niezerowa delta to znalezisko, nie statystyka** — zrob roznice
+zbiorow nazw i napisz rekord `New at source` albo `No longer listed at source` dla kazdej.
+Przesuniety total bez rekordu zmiany znaczy, ze przebieg zrobil arytmetyke i pominal robote.
+Bez zmian → same zera i „no change", co warto opublikowac: to datowane stwierdzenie, ze ktos
+sprawdzil. Pierwszy przebieg dla powierzchni: `previous` null, „baseline", poprawne dokladnie raz.
+
+**Nigdy nie ustawiaj `complete:true` dla listy, ktorej nie przeczytales w calosci**, i nie pozwol
+`published` odjechac od liczby Microsoftu. Niepelny inwentarz, ktory to mowi, jest uzyteczny;
+taki, ktory udaje komplet, kaze czytelnikowi wywnioskowac, ze uprawnienie nie istnieje.
+
+## 5g. Wersjonowanie wpisow katalogu
+
+Versioning rules, every run:
+
+- **Unchanged entry** — copy forward byte for byte. Do not touch `version`, `lastChanged`, `history`.
+- **Changed entry** — bump `version`, `lastChanged` = today, append `{"v":<new>,"date":"<today>","note":"<what changed, concretely>"}` to `history`, old value into `before`/`privilegedBefore` so the UI strikes it through.
+- **New entry** — `version:1`, `firstSeen`/`lastChanged` today, one history line.
+- **`rolesVersion`/`graphVersion`** — bump by 1 when any entry in that list was added or bumped this run, else leave alone. `baselineDate` never changes after the first run.
+- `apiVersion` is Microsoft's surface (`beta` / `v1.0`), stated only when the page states it; `version` is this catalog's item revision. Never conflate them.
+- **`kind` must be actionable without explanation.** Listed values only; never coin metaphorical jargon ("blast radius grew" is unlookuppable). `Existing permission gained reach` = an already-consented permission that can now do something new — no consent prompt fires, so nothing in the audit trail marks it. Say so in the section's `<p class="sec-note">`.
+- `kind` names WHAT changed, never whether it is dated. A role on the reference but absent from every what's-new log gets `kind:"Undated at source"`, `changed:null`, a `dateNote`. Never "New role" on a guess.
+- Never bump a version to look busy. A quiet catalog is a correct result and the UI says so.
+
+Message Center: your tenant's own MC is unreachable here. Use https://mc.merill.net (RSS https://mc.merill.net/rss.xml) and footnote MC items "vary by tenant — confirm in your own tenant".
+
+Slownik `kind` jest ZAMKNIETY, a walidator przebiegu odrzuca wartosc spoza listy — dlatego nowe
+stany musza byc w nim wymienione, inaczej znalezisko wypada po cichu. Graph dokladamy:
+`New in service, not yet documented`, `Deployed in the service, not in this tenant`,
+`No longer in the service`, `Documented at Microsoft`, `No longer documented`.
+Role dokladamy: `Undocumented at Microsoft`, `Documented at Microsoft`, `No longer documented`.
+**Oba katalogi musza je przyjmowac** — chip przy wpisie i filtr typu zmiany powstaja z zastanych
+wartosci `kind`, wiec to stad bierze sie filtr „nieudokumentowane" i „wdrozone gdzie indziej",
+dla rol tak samo jak dla uprawnien.
+
+## 5h. Kontrola Playwright — pelna lista asercji
+
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; `nav.anchors .tab` is 9, labels human, strip not overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` has a non-transparent background in both themes**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+
+Dodatkowo przy **390x844** (telefon): `getComputedStyle(document.querySelector("header.top")).position`
+zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
+poza widokiem (`getBoundingClientRect().bottom < 0`); `.cat-controls` tez ma `position:static`.
+I jeszcze: wpisanie `IdentityDiagnostic` w szukajke katalogu Graph w trybie **All** zwraca co
+najmniej cztery wiersze — zero znaczy, ze mapa wdrozen nie trafila do danych.
 
 ## 6. Kontrakt w stronie
 
