@@ -3,6 +3,369 @@
 Repozytorium hostuje statyczna strone publikowana automatycznie do Azure Static Web Apps.
 Kazdy push do `main`, ktory dotyka katalogu `site/`, uruchamia deploy.
 
+# 0. LISTA KONTROLNA — wykonywana i sprawdzana w KAZDYM przebiegu
+
+**Ta sekcja jest nadrzedna wobec promptu.** Prompt taska albo routine wymienia z nazwy tylko czesc
+sekcji tego pliku; przebieg, ktory zrobil wylacznie to, co prompt wymienil, jest przebiegiem
+NIEUDANYM. 31 sierpnia 2026 zmierzono to na dwoch stronach tego samego dnia:
+
+| regula | strona SWA (routine, 15:22) | artefakt (scheduled task, 15:25) |
+|---|---|---|
+| §1 kolejnosc pigulek | OK | OK |
+| §1a blok mobilny | OK | OK |
+| §5e `b-undoc` / `b-elsewhere` | OK | OK |
+| §5k `.card-title`, `.cat-changed` | **BRAK** | OK |
+| §5l `site/kql/` | **BRAK** | n/d (artefakt nie ma repo) |
+| §5n `officialTitle` | **BRAK (0)** | OK (156) |
+| §5q `firstTracked`, `discoveries` | **BRAK** | **BRAK** |
+| §5r `linkStatus` | **BRAK (0)** | tylko 3 wpisy |
+| §5t chipy linkow, ramki `h3` | **BRAK** | OK |
+| §5u sekcja `docchanges` | **BRAK** | **BRAK** |
+| §5v denominator DeltaPulse | **BRAK** | OK |
+
+Dwie strony tego samego dnia, ten sam plik specyfikacji, dwa rozne wyniki. Przyczyna nie jest
+w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego, co mowi ten plik.**
+
+## Jak sie tego uzywa
+
+1. **Przeczytaj ten plik w calosci, zanim cokolwiek zbudujesz** — nie tylko sekcje, ktore prompt
+   wymienil z numeru.
+2. **Przejdz ponizsza liste pozycja po pozycji i zapisz wynik kazdej.** Pozycja niewykonana ma
+   powod, nigdy cisze.
+3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
+   gotowym pliku HTML — to nie jest ocena, tylko test.
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Wlasciciel czyta ta liste zamiast
+   szukac braków na stronie.
+
+## Lista
+
+| # | co | sekcja | sprawdzenie na gotowym HTML |
+|---|---|---|---|
+| 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
+| 1 | siedem pigulek, pierwsze trzy: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci |
+| 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
+| 3 | dziewiec paneli `.tabpanel`, identyfikatory sekcji z §2 | 2 | licznik po usunieciu komentarza SHELL CONTRACT = 9 |
+| 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
+| 5 | `KIND_BADGE` + `.badge.b-undoc` + `.badge.b-elsewhere` | 5e | wszystkie trzy obecne w pliku |
+| 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
+| 7 | `descriptionByType` albo `descriptionSource:"none"` z data | 5j | zero wpisow bez jednego z dwoch |
+| 8 | cztery reguly czytelnosci: `.cat-changed`, `summary` 14.5px, `.card-title`, zielone pola szukania | 5k | wszystkie cztery selektory w koncowym CSS |
+| 9 | tresc pod `+` jako `<ul><li>`, nigdy proza | 5k | kazdy `details.foldnote` zawiera `<ul>` |
+| 10 | pliki `site/kql/RRRR-MM-DD-<slug>.kql` + `index.json` | 5l | katalog istnieje i ma wpis na kazde opublikowane zapytanie |
+| 11 | Today mowi, ze jest wyborem z N pozycji; kazdy wiersz Today ma `id` w New | 5m | zero wierszy Today bez pary w New |
+| 12 | `officialTitle` i `reference` na kazdej pozycji stanu; kolumna `Reference` w New | 5n | licznik `officialTitle` = licznik pozycji stanu |
+| 13 | grupowanie miesiacami w New i Deadlines | 5o | osobna tabela z `<caption>` na miesiac |
+| 14 | Top N wazony bezpieczenstwem, `sec-note` mowi czym | 5p | `sec-note` sekcji `top5` zawiera zdanie o wazeniu |
+| 15 | `firstTracked` na KAZDYM wpisie, `changed = deployedSeen` dla `D\A`, tablica `discoveries`, chip `New today` | 5q | licznik `firstTracked` = licznik wpisow; `discoveries` istnieje |
+| 16 | `linkStatus` i `linkCheckedOn` na kazdym wpisie i kazdej pozycji stanu; zdanie w Sources | 5r | licznik `linkStatus` >= licznik pozycji stanu; `a.lnk-dead` = 0 |
+| 17 | zadna fasetowana kolumna nie ma samych jedynek | 5s | dla kazdego `figure.chart` o >=4 slupkach nie wszystkie = 1 |
+| 18 | szesc regul §5t na koncu `<style>` | 5t | `.sec-body a[href^="http"]` i `#tab-products .sec-body h3` obecne |
+| 19 | podloga pokrycia: suma wierszy deep dive = liczba pozycji okna przypisanych do produktu | 5u | roznica zerowa albo opisana wierszem z powodem |
+| 20 | sekcja `<section id="docchanges" data-nav="Doc changes">` w panelu `tab-new` | 5u | `id="docchanges"` obecne |
+| 21 | kazde zrodlo raportuje przeczytane / wniesione / odrzucone | 5u, 5v | kazdy wiersz Sources ma trzy liczby |
+| 22a | kolumna `Source` fasetowalna i przypieta | 5w | `<select>` z `All source` w New i Today; ostatni `th` ma `position:sticky` i `right:0` |
+| 22 | DeltaPulse jako denominator MC + Roadmapy, `previousValues`/`newValues` do `<del>`/`<ins>` | 5v | pigulka „items in window" niesie denominator albo Sources mowi, ze MCP byl niedostepny |
+
+**Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20 sa wiazace: przebieg, ktory je pominie
+bez powodu, nie publikuje.
+
+## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
+
+**Dwa przebiegi budujace niezaleznie te sama strone z tej samej specyfikacji NIE zbiegaja sie.**
+Zmierzone 31 sierpnia 2026, dwie strony w odstepie trzech minut: artefakt mial 1 741 znacznikow,
+380 chipow linkow (`border-radius: 999px`, niebieskie tlo) i 22 wykresy; strona SWA — 601 znacznikow,
+354 kotwice bez ramki (`border-radius: 0px`, tlo przezroczyste) i 19 wykresow. Ten sam dzien,
+ten sam plik regul, dwa rozne produkty. Roznicy nie da sie zamknac dopisywaniem regul, bo
+przyczyna nie jest w regulach.
+
+**Dlatego routine raportu porannego NIE BUDUJE juz strony. Kopiuje artefakt.**
+
+### Kolejnosc dnia
+
+| godzina (Warsaw) | co |
+|---|---|
+| 06:00 | scheduled task poranny buduje i publikuje artefakt `Microsoft SOC Brief <data>` |
+| 07:00 | **routine czyta ten artefakt i odbija go do `site/index.html`** |
+| 16:00 | scheduled task popoludniowy republikuje TEN SAM artefakt (sekcja `#pmdelta`) |
+| 21:00 | routine zmian odbija artefakt `Microsoft SOC Delta <data>` do `site/diff/index.html` |
+
+### Procedura, krok po kroku
+
+1. `Artifact action:"list", scope:"mine", limit:20` — znajdz `Microsoft SOC Brief <dzisiejsza data>`.
+2. `Artifact action:"read"` z jego `url`. Strona ma ~3,8 MB, wiec narzedzie **zapisze ja do pliku
+   i poda sciezke w wyniku** — nie probuj jej czytac oczami, uzyj tej sciezki.
+3. Zapisz ponizszy skrypt do `/tmp/mirror_artifact.py` i uruchom:
+   `python3 /tmp/mirror_artifact.py <sciezka-z-kroku-2> site`
+   Skrypt sam odrzuci przebieg, gdy czegos brakuje — **kod wyjscia 1 znaczy NIE PUBLIKUJ**.
+4. Przenies poprzednia wersje do `site/history/RRRR-MM-DD-poranny.html` (zasada 2).
+5. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
+
+### Strona `/diff/` — ten sam skrypt, tryb `--diff`
+
+`python3 /tmp/mirror_artifact.py <sciezka> site --diff` daje `site/diff/index.html`. Skrypt sam
+rozpoznaje, co dostal:
+
+- **artefakt `Microsoft SOC Delta <data>`** (dwa panele) — odbija go w calosci, podmieniajac tylko
+  link w `dateline` na `/` (zasada 3);
+- **artefakt `Microsoft SOC Brief <data>`** (dziewiec paneli) — wyjmuje z niego sekcje `#pmdelta`
+  i sklada strone o DWOCH panelach, `tab-overview` i `tab-changed`, z ta sama powloka: ten sam
+  `<style>`, te same trzy skrypty zachowania, ten sam masthead, oba bloki JSON;
+- **brief bez `#pmdelta`** — pisze uczciwa strone „bez zmian" z godzina sprawdzenia, zamiast
+  zostawic wczorajsza. Task 2 wymaga, zeby strona zawsze byla nadpisana.
+
+Zmierzone 31 sierpnia 2026 na artefakcie 15:25 (ktory `#pmdelta` NIE mial): `diff/index.html`
+3 626 297 B, render 1500x1000 — 2 zakladki `Overview` i `What changed`, 2 panele, jeden widoczny,
+7 pigulek, 7 kafelkow Overview, sekcja `#delta` z data, link powrotny do `/`, zero kontenerow
+katalogu, **zero bledow konsoli**, zero przewijania w poziomie.
+
+Trzy pulapki, ktore skrypt obchodzi, bo kazda wywrocila go w tescie: komentarz `SHELL CONTRACT`
+**cytuje** `<header class="top">`, `<style>` i `<script>`, a bywa przerwany wczesnym `-->`, wiec
+jego resztki udaja markup — dlatego masthead bierzemy z OSTATNIEGO wystapienia, a przy skladaniu
+`/diff/` caly komentarz wycinamy (`drop_contract`); z dopasowan `<script>` odrzucamy te, ktore
+zawieraja w srodku kolejne `<script` i bierzemy trzy ostatnie; a liczenie elementow idzie przez
+`html.parser`, nie przez wyrazenia regularne, bo powloka trzyma `class="tabpanel"` i
+`data-catalog` takze w kodzie skryptow — zliczanie tekstem dawalo 12 paneli tam, gdzie sa 2.
+
+**Fallback, i tylko on uruchamia stary tryb budowania:** artefaktu na dzisiaj nie ma, albo jego
+`briefDate` nie jest dzisiejsza, albo skrypt zwrocil kod 1. Wtedy budujesz strone sam wedlug
+STEP 2 i STEP 3 promptu — i **piszesz w odpowiedzi, ze lustro zawiodlo i z jakiego powodu**.
+Cicha ucieczka do wlasnego budowania jest tym, przez co strony sie rozjechaly.
+
+### Co robi transformacja — i czego NIE robi
+
+Artefakt jest FRAGMENTEM: powloka `claude.ai` dokleja mu `<head>` z wlasnym runtime'em. Strona SWA
+musi byc samodzielna. Skrypt wycina tresc od `<title>` do `</body>`, opakowuje ja w `<!DOCTYPE html>`
+z `charset` i `viewport`, przenosi `<title>` i linki do fontow do `<head>`, i dopisuje do `dateline`
+link do `/diff/` (zasada 3 — strona nie linkuje do samej siebie). Wyciaga tez oba bloki JSON do
+`site/data/<data>.json`, bez ktorego task 2 nie ma punktu odniesienia.
+
+**Skrypt nie dotyka tresci.** Nie przepisuje tabel, nie zmienia liczb, nie dodaje ani nie usuwa
+sekcji. Gdyby dotykal, znowu mielibysmy dwie rozne strony.
+
+Zmierzone na artefakcie z 31 sierpnia 2026: wejscie 3 843 497 znakow, wyjscie `index.html`
+3 835 792 B, `data/2026-08-31.json` 3,4 MB. Render headless 1500x1000: 9 zakladek, 9 paneli,
+jeden widoczny, 7 pigulek, 7 kafelkow Overview, 22 wykresy, 1 741 znacznikow, 380 chipow linkow
+z `border-radius: 999px`, zero bledow konsoli i strony, zero przewijania w poziomie.
+
+```python
+#!/usr/bin/env python3
+"""artifact -> site/index.html  (SWA mirror)
+Wejscie : plik z pelnym HTML artefaktu (Artifact action:"read" zapisuje go na dysk)
+Wyjscie : samodzielna strona dla Azure Static Web Apps + site/data/<date>.json
+Transformacja jest deterministyczna: nic nie przepisuje tresci, tylko opakowuje.
+"""
+import re, sys, json, os, datetime
+
+def extract_body(raw: str) -> str:
+    """Artefakt to FRAGMENT: runtime ramki siedzi w <head>, tresc zaczyna sie od <title>."""
+    start = raw.find("<title>")
+    if start < 0:
+        raise SystemExit("FAIL: brak <title> w artefakcie")
+    end = raw.rfind("</body>")
+    if end < 0:
+        end = len(raw)
+    return raw[start:end]
+
+def build_page(content: str, diff_href: str = "/diff/") -> str:
+    m = re.search(r"<title>(.*?)</title>", content, re.S)
+    title = m.group(1).strip() if m else "Microsoft SOC Brief"
+    content = content.replace(m.group(0), "", 1) if m else content
+
+    # linki do fontow przenosimy do <head>; w body zostawiamy czysta tresc
+    fonts = re.findall(r'<link[^>]+fonts\.(?:googleapis|gstatic)\.com[^>]*>', content)
+    for f in fonts:
+        content = content.replace(f, "", 1)
+    head_links = "\n".join(fonts) if fonts else ""
+
+    # Zasada 3 CLAUDE.md: index linkuje do /diff/, nigdy do samego siebie.
+    dl = re.search(r'(<p class="dateline">)(.*?)(</p>)', content, re.S)
+    if dl and diff_href not in dl.group(2):
+        inner = dl.group(2).rstrip()
+        inner += ' &middot; <a href="%s">Changes since this morning</a>' % diff_href
+        content = content.replace(dl.group(0), dl.group(1) + inner + dl.group(3), 1)
+
+    return (
+        "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n"
+        "<meta charset=\"utf-8\">\n"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+        "<title>%s</title>\n%s\n</head>\n<body>\n%s\n</body>\n</html>\n"
+        % (title, head_links, content.strip())
+    )
+
+def extract_state(content: str):
+    out = {}
+    for blk in ("soc-brief-state", "soc-catalog"):
+        m = re.search(r'<script type="application/json" id="%s">(.*?)</script>' % blk, content, re.S)
+        if not m:
+            raise SystemExit("FAIL: brak bloku %s" % blk)
+        out[blk] = json.loads(m.group(1))
+    return out
+
+from html.parser import HTMLParser
+
+class _Scan(HTMLParser):
+    """Liczy PRAWDZIWE elementy. HTMLParser sam ignoruje tresc <script>/<style>
+    i komentarze, wiec cytaty markupu w SHELL CONTRACT nie zaklamuja wyniku."""
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.tabpanels = 0; self.navanchors = 0; self.catalogs = set()
+        self.ids = set(); self.scripts = 0; self.jsonblocks = 0; self.styles = 0; self.doctypes = 0
+        self.hrefs = set()
+    def handle_decl(self, decl):
+        if decl.lower().startswith("doctype"): self.doctypes += 1
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        cls = (a.get("class") or "").split()
+        if a.get("id"): self.ids.add(a["id"])
+        if a.get("href"): self.hrefs.add(a["href"])
+        if tag == "div" and "tabpanel" in cls: self.tabpanels += 1
+        if tag == "nav" and "anchors" in cls: self.navanchors += 1
+        if tag == "div" and a.get("data-catalog"): self.catalogs.add(a["data-catalog"])
+        if tag == "style": self.styles += 1
+        if tag == "script":
+            if (a.get("type") or "").strip() == "application/json": self.jsonblocks += 1
+            else: self.scripts += 1
+
+def scan(page: str) -> _Scan:
+    p = _Scan(); p.feed(page); return p
+
+def verify(page: str) -> list:
+    """Asercje strukturalne dla strony glownej. Pusta lista = mozna publikowac."""
+    p = scan(page); errs = []
+    if p.tabpanels != 9: errs.append("tabpanel = %d, ma byc 9" % p.tabpanels)
+    if p.navanchors != 1: errs.append("nav.anchors = %d, ma byc 1" % p.navanchors)
+    if p.catalogs != {"graph", "roles"}: errs.append("data-catalog = %s, ma byc graph+roles" % sorted(p.catalogs))
+    for need in ("soc-brief-state", "soc-catalog"):
+        if need not in p.ids: errs.append("brak bloku %s" % need)
+    if p.jsonblocks != 2: errs.append("blokow JSON = %d, maja byc 2" % p.jsonblocks)
+    if p.scripts < 3: errs.append("skryptow zachowania = %d, ma byc >=3" % p.scripts)
+    if p.styles < 1: errs.append("brak <style>")
+    if p.doctypes != 1: errs.append("DOCTYPE = %d, ma byc 1" % p.doctypes)
+    if "/diff/" not in p.hrefs: errs.append("dateline nie linkuje do /diff/")
+    return errs
+
+DIFF_SHELL = """<div class="wrap">
+<div class="tabpanel" data-tab="Overview" id="tab-overview" hidden></div>
+<div class="tabpanel" data-tab="What changed" id="tab-changed" hidden>
+%s
+</div>
+</div>
+<footer><p>%s</p></footer>"""
+
+def drop_contract(content: str) -> str:
+    """Komentarz SHELL CONTRACT cytuje `<header>`, `<style>` i `<script>` i bywa
+    przerwany wczesnym `-->`, przez co jego resztki udaja markup. Do skladania
+    strony /diff/ wycinamy go w calosci; strona glowna zachowuje go bez zmian."""
+    i = content.find("<!-- SHELL CONTRACT")
+    if i < 0:
+        return content
+    k = content.find("<style", i)
+    j = content.rfind("-->", i, k if k > 0 else len(content))
+    return content[:i] + content[j + 3:] if j > i else content
+
+def parts(content: str):
+    """Powloka: style + trzy skrypty zachowania + oba bloki JSON + masthead."""
+    content = drop_contract(content)
+    p = {}
+    p["styles"] = re.findall(r"<style[^>]*>.*?</style>", content, re.S)
+    p["json"]   = re.findall(r'<script type="application/json" id="[^"]+">.*?</script>', content, re.S)
+    # blok, ktory zawiera w srodku kolejne "<script", to nadmiarowe dopasowanie regexa
+    # po resztkach cytowanego markupu; powloka ma DOKLADNIE trzy skrypty zachowania,
+    # i sa to trzy ostatnie bloki na stronie.
+    raw_scripts = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", content, re.S)
+    clean = [b for b in raw_scripts if "<script" not in b[len("<script"):]]
+    p["scripts"] = clean[-3:]
+    # SHELL CONTRACT cytuje `<header class="top">` w komentarzu — bierzemy OSTATNIE wystapienie
+    i = content.rfind('<header class="top">')
+    j = content.find("</header>", i) if i >= 0 else -1
+    p["header"] = content[i:j + len("</header>")] if (i >= 0 and j > i) else ""
+    m = re.search(r'<section id="pmdelta".*?</section>', content, re.S)
+    p["pmdelta"] = m.group(0) if m else ""
+    return p
+
+def build_diff(content: str, date: str, when: str, home_href: str = "/") -> str:
+    """Delta -> lustro 1:1. Brief bez #pmdelta -> uczciwa strona 'bez zmian', ta sama powloka."""
+    p = parts(content)
+    if scan(content).tabpanels <= 3:
+        return build_page(content, diff_href=home_href)      # to juz jest strona Delta
+
+    body = p["pmdelta"]
+    if body:
+        body = body.replace('id="pmdelta"', 'id="delta"', 1)
+    else:
+        body = ('<section id="delta" data-nav="What changed">'
+                '<div class="sec-head"><h2>Section A</h2>'
+                '<p class="sec-title">Changes since this morning</p></div>'
+                '<div class="sec-body"><p class="sec-note">Re-checked ' + when +
+                ' Warsaw. Today\'s brief carries no delta section, so this run has nothing '
+                'from the afternoon pass to mirror. The morning page is unchanged.</p></div></section>')
+
+    head = p["header"]
+    dl = re.search(r'(<p class="dateline">)(.*?)(</p>)', head, re.S)
+    if dl:
+        inner = re.sub(r'\s*&middot;\s*<a href="/diff/">[^<]*</a>', "", dl.group(2)).rstrip()
+        inner += ' &middot; <a href="%s">Back to the full brief</a>' % home_href
+        head = head.replace(dl.group(0), dl.group(1) + inner + dl.group(3), 1)
+
+    inner = DIFF_SHELL % (body, "Piotr Wisniewski &middot; " + date + " &middot; re-checked " + when)
+    page = ("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
+            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+            "<title>Microsoft SOC Changes %s</title>\n%s\n</head>\n<body>\n%s\n%s\n%s\n%s\n</body>\n</html>\n"
+            % (date, "\n".join(p["styles"]), head, inner,
+               "\n".join(p["json"]), "\n".join(p["scripts"])))
+    return page
+
+def verify_diff(page: str) -> list:
+    """Asercje strukturalne dla strony /diff/."""
+    p = scan(page); errs = []
+    if p.tabpanels != 2: errs.append("tabpanel = %d, strona diff ma miec 2" % p.tabpanels)
+    if "delta" not in p.ids: errs.append("brak sekcji delta")
+    if p.navanchors != 1: errs.append("nav.anchors = %d, ma byc 1" % p.navanchors)
+    if p.catalogs: errs.append("strona diff nie ma katalogu, a ma %s" % sorted(p.catalogs))
+    if p.scripts < 3: errs.append("skryptow zachowania = %d, ma byc >=3" % p.scripts)
+    if p.styles < 1: errs.append("brak <style>")
+    if p.doctypes != 1: errs.append("DOCTYPE = %d, ma byc 1" % p.doctypes)
+    if "/" not in p.hrefs: errs.append("dateline nie linkuje do /")
+    return errs
+
+if __name__ == "__main__":
+    src, outdir = sys.argv[1], sys.argv[2]
+    mode = "--diff" if "--diff" in sys.argv[3:] else "--brief"
+    raw = open(src, encoding="utf-8").read()
+    content = extract_body(raw)
+    state = extract_state(content)
+    date = state["soc-brief-state"].get("briefDate") or datetime.date.today().isoformat()
+
+    if mode == "--diff":
+        when = datetime.datetime.now().strftime("%H:%M")
+        page = build_diff(content, date, when)
+        errs = verify_diff(page)
+        target = os.path.join(outdir, "diff", "index.html")
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+    else:
+        page = build_page(content)
+        errs = verify(page)
+        target = os.path.join(outdir, "index.html")
+
+    if errs:
+        print("PRZEBIEG NIEUDANY - nie publikuj:")
+        for e in errs: print("   -", e)
+        raise SystemExit(1)
+
+    open(target, "w", encoding="utf-8").write(page)
+    if mode == "--brief":
+        os.makedirs(os.path.join(outdir, "data"), exist_ok=True)
+        json.dump(state, open(os.path.join(outdir, "data", date + ".json"), "w", encoding="utf-8"),
+                  ensure_ascii=False)
+    print("OK  %s  %d B  (%s)" % (target, len(page.encode()), mode))
+```
+
+**Asercje w `verify()` sa bramka publikacji**: dziewiec `.tabpanel` po usunieciu komentarza
+SHELL CONTRACT (cytuje markup, ktory opisuje), oba bloki JSON, oba kontenery katalogu, pusty
+`<nav class="anchors">`, co najmniej trzy skrypty zachowania, `<style>`, dokladnie jeden DOCTYPE
+i link do `/diff/`. Kazda z nich broni bledu, ktory juz raz wystapil.
+
 ## Struktura
 
 ```
@@ -508,7 +871,7 @@ Kazdy wpis inwentarza — uprawnienie i rola — dostaje:
    "No longer in the service": "b-dep", "Documented at Microsoft": "b-upd"
    ```
 
-   To jedyna dozwolona zmiana w skryptach powloki i jest to zmiana danych, nie logiki.
+   To jedna z DWOCH dozwolonych zmian w skryptach powloki (druga sa trzy linie `facetCandidates()` z §5w) i jest to zmiana danych, nie logiki.
 4. **Dwie klasy znacznikow dopisujesz na koncu `<style>`** — razem z blokiem mobilnym z sekcji 1a
    sa to jedyne dozwolone dopisane reguly CSS. Zbudowane ze zmiennych, ktore arkusz juz ma
    (`--warn`, `--warn-soft`, `--accent`, `--accent-soft`), wiec oba motywy dzialaja same:
@@ -1110,6 +1473,91 @@ czym jest: *„zglosil to <serwis> <data>; potwierdzone u Microsoftu <gdzie> <da
 zgodnie z sekcja 5u. Dla DeltaPulse to jest dokladnie `total_count` z `list_new_items` kontra liczba
 wierszy, ktore trafily do New. Zrodlo niedostepne w przebiegu wymienia sie z nazwy jako niesprawdzone;
 **MCP, ktorego nie ma, jest zrodlem zdegradowanym, nigdy powodem zatrzymania przebiegu.**
+
+## 5w. Kolumna Source — faseta i przypiecie
+
+Wlasciciel zglosil dwie rzeczy o kolumnie `Source`: nie miesci sie na ekranie i nie da sie po niej
+filtrowac. Obie maja jedna, konkretna przyczyne w powloce i obie sa zmierzone.
+
+### Dlaczego nie ma filtra — jedna linia
+
+`facetCandidates()` w skrypcie 1 zaczyna od jawnego wykluczenia:
+
+```js
+if (/^source$/i.test(h)) return;
+```
+
+Kolumna `Source` nigdy nie trafia do kandydatow, wiec zaden `<select>` dla niej nie powstaje.
+Do tego funkcja konczy sie `return out.slice(0, 2);` — **powloka buduje najwyzej DWA selecty**,
+a w tabeli New zajmuja je `Product` i `Status`, w Today `Product` i `Change type`. Nawet po
+odblokowaniu Source nie byloby dla niego miejsca.
+
+**Trzy zmiany, dokladnie te i zadnych innych** (przed → po, do wklejenia bez interpretacji):
+
+| # | przed | po |
+|---|---|---|
+| 1 | `      if (/^source$/i.test(h)) return;` | usun te linie (mozna zostawic komentarz w jej miejscu) |
+| 2 | `var named = /^(product|service|topic)$/i.test(h);` | `var named = /^(product|service|topic|source)$/i.test(h);` |
+| 3 | `return out.slice(0, 2);` | `return out.slice(0, 3);` |
+
+Zmiana 2 czyni Source kolumna tozsamosciowa: podnosi limit dlugosci wartosci z 34 do 60 znakow
+i liczbe roznych wartosci z 14 do 30, a `out.sort` stawia ja przed kolumnami nietozsamosciowymi.
+Zmiana 3 daje trzecie miejsce, zeby Source nie wypchnal `Status` ani `Change type`.
+
+Zmierzone 31 sierpnia 2026 na artefakcie 15:25, render 1500x1000:
+
+| tabela | przed | po |
+|---|---|---|
+| New (108 wierszy) | `All product`, `All status` | `All product`, **`All source`**, `All status` |
+| Today — zmiany (16 wierszy) | `All product`, `All change type` | `All product`, **`All source`**, `All change type` |
+
+Zero bledow konsoli i strony w obu motywach.
+
+### Dlaczego „nie miesci sie" — i czego to NIE jest
+
+Zmierzone: **chipy w komorce `Source` nie wychodza poza nia ani o piksel** (0 wierszy z
+przekroczeniem, maksimum 0 px). To nie jest przycinanie tekstu. Tabela New ma siedem kolumn
+i **1 576 px szerokosci przy kontenerze 1 460 px**, wiec ostatnia kolumna po prostu stoi poza
+ekranem i trzeba przewinac w bok, zeby ja zobaczyc. Pierwsza kolumna jest juz przypieta
+(`stickyfirst` przy >=6 kolumnach), wiec czytelnik widzi `Product` i traci `Source` — czyli
+dokladnie to, po czym chcialby filtrowac.
+
+**Przypinamy ostatnia kolumne tak samo jak pierwsza.** Trzy reguly na koniec `<style>`, razem
+z blokiem z §1a, §5e, §5k i §5t:
+
+```css
+.sec-body table col:last-child{width:172px!important}
+.sec-body th:last-child,.sec-body td:last-child{position:sticky;right:0;background:var(--surface);box-shadow:inset 1px 0 0 var(--border);white-space:nowrap}
+.sec-body thead th:last-child{background:var(--surface-2)}
+```
+
+`width` musi byc `!important`, bo `sizeTable()` wpisuje szerokosc kolumny stylem inline
+(`col.style.width`), a `Source` dostaje tam 150 px z tablicy `WIDTHS` — za malo na chip
+„Microsoft deployment map". Tlo jest obowiazkowe: bez niego przypieta komorka jest przezroczysta
+i tresc przejezdza pod nia. `--surface` i `--surface-2` sa zadeklarowane (§5t).
+
+Zmierzone po zmianie: w tabeli New `Source` jest widoczne **bez przewijania w bok**
+(`visibleAtScroll0` z `false` na `true`), tabela nadal 1 576 px, kontener 1 460 px, zero bledow.
+
+### To rozszerza liste dozwolonych zmian w skryptach
+
+Do 31 sierpnia 2026 jedyna dozwolona zmiana w skryptach powloki byla mapa `KIND_BADGE` (§5e).
+**Teraz sa dwie pozycje: `KIND_BADGE` oraz trzy zmiany `facetCandidates()` wypisane wyzej.**
+Obie sa wymienione co do znaku i obie zostaly przetestowane renderem. Nic poza nimi w tych
+trzech skryptach nie jest ruszane, a przebieg, ktory chce zmienic cokolwiek innego, tego nie
+robi i pisze o tym w odpowiedzi.
+
+**Na sciezce lustra (§0a) routine nie robi zadnej z tych zmian** — dostaje je gotowe razem
+z odbita strona. Obowiazuja przy budowaniu, czyli w scheduled taskach i w fallbacku routine.
+
+### Asercje Playwright
+
+- w panelu `tab-new` i `tab-today` pasek narzedzi tabeli zawiera `<select>`, ktorego pierwsza
+  opcja brzmi `All source`;
+- `getComputedStyle(th_ostatni).position === "sticky"` i `right === "0px"`;
+- tlo ostatniej komorki nie jest przezroczyste w obu motywach;
+- przy `scrollLeft = 0` prostokat ostatniego `th` miesci sie w prostokacie `.tw`;
+- zaden chip w ostatniej kolumnie nie wystaje poza swoja komorke.
 
 ## 6. Kontrakt w stronie
 
