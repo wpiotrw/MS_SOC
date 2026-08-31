@@ -42,7 +42,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | # | co | sekcja | sprawdzenie na gotowym HTML |
 |---|---|---|---|
 | 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
-| 1 | siedem pigulek, pierwsze trzy: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci |
+| 1 | siedem pigulek na stronie porannej, **osiem po passie popoludniowym** (ta dodatkowa to `since the morning pass`, §4d taska popoludniowego); pierwsze trzy zawsze: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci; licznik 7 albo 8, nigdy mniej |
 | 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
 | 3 | dziewiec paneli `.tabpanel`, identyfikatory sekcji z §2 | 2 | licznik po usunieciu komentarza SHELL CONTRACT = 9 |
 | 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
@@ -178,11 +178,17 @@ def build_page(content: str, diff_href: str = "/diff/") -> str:
         content = content.replace(f, "", 1)
     head_links = "\n".join(fonts) if fonts else ""
 
-    # Zasada 3 CLAUDE.md: index linkuje do /diff/, nigdy do samego siebie.
+    # Zasada 3 CLAUDE.md: index linkuje do /diff/, strona /diff/ do /, nigdy do siebie.
+    # UWAGA: nie testuj `diff_href not in inner` — dla diff_href="/" to zawsze falsz,
+    # bo KAZDY URL zawiera ukosnik. Sprawdzamy kotwice, nie podciag.
+    label = "Back to the full brief" if diff_href == "/" else "Changes since this morning"
     dl = re.search(r'(<p class="dateline">)(.*?)(</p>)', content, re.S)
-    if dl and diff_href not in dl.group(2):
-        inner = dl.group(2).rstrip()
-        inner += ' &middot; <a href="%s">Changes since this morning</a>' % diff_href
+    if dl:
+        inner = dl.group(2)
+        # artefakt Delta linkuje do swojej PRYWATNEJ strony claude.ai — przekieruj ja
+        inner = re.sub(r'href="https://claude\.ai/[^"]*"', 'href="%s"' % diff_href, inner)
+        if not re.search(r'href="%s"' % re.escape(diff_href), inner):
+            inner = inner.rstrip() + ' &middot; <a href="%s">%s</a>' % (diff_href, label)
         content = content.replace(dl.group(0), dl.group(1) + inner + dl.group(3), 1)
 
     return (
@@ -193,12 +199,17 @@ def build_page(content: str, diff_href: str = "/diff/") -> str:
         % (title, head_links, content.strip())
     )
 
-def extract_state(content: str):
+def extract_state(content: str, require_catalog: bool = True):
+    """Strona Delta (sekcja 3) nie ma przegladarki katalogu, wiec `soc-catalog`
+    bywa jej obcy. Wymagamy go tylko dla briefu; brak w trybie --diff nie jest bledem."""
     out = {}
+    need = ("soc-brief-state", "soc-catalog") if require_catalog else ("soc-brief-state",)
     for blk in ("soc-brief-state", "soc-catalog"):
         m = re.search(r'<script type="application/json" id="%s">(.*?)</script>' % blk, content, re.S)
         if not m:
-            raise SystemExit("FAIL: brak bloku %s" % blk)
+            if blk in need:
+                raise SystemExit("FAIL: brak bloku %s" % blk)
+            continue
         out[blk] = json.loads(m.group(1))
     return out
 
@@ -326,7 +337,8 @@ def verify_diff(page: str) -> list:
     if p.scripts < 3: errs.append("skryptow zachowania = %d, ma byc >=3" % p.scripts)
     if p.styles < 1: errs.append("brak <style>")
     if p.doctypes != 1: errs.append("DOCTYPE = %d, ma byc 1" % p.doctypes)
-    if "/" not in p.hrefs: errs.append("dateline nie linkuje do /")
+    if "/" not in p.hrefs:
+        errs.append("brak linku powrotnego do / — czy strona ma <p class=\"dateline\">?")
     return errs
 
 if __name__ == "__main__":
@@ -334,7 +346,7 @@ if __name__ == "__main__":
     mode = "--diff" if "--diff" in sys.argv[3:] else "--brief"
     raw = open(src, encoding="utf-8").read()
     content = extract_body(raw)
-    state = extract_state(content)
+    state = extract_state(content, require_catalog=(mode != "--diff"))
     date = state["soc-brief-state"].get("briefDate") or datetime.date.today().isoformat()
 
     if mode == "--diff":
@@ -360,6 +372,21 @@ if __name__ == "__main__":
                   ensure_ascii=False)
     print("OK  %s  %d B  (%s)" % (target, len(page.encode()), mode))
 ```
+
+**Dwa bledy tego skryptu znalazl przebieg routine 31 sierpnia 2026, oba w trybie `--diff`, oba
+zatrzymane przez bramke — i oba sa juz wyzej poprawione:**
+
+- `extract_state()` zadalo `soc-catalog` bezwarunkowo, a strona Delta (sekcja 3) przegladarki
+  katalogu nie ma, wiec `--diff` konczyl sie kodem 1. Teraz katalog jest wymagany **tylko dla
+  briefu**; kontrola regresji: w trybie `--brief` jego brak nadal jest bledem.
+- Test `diff_href not in dl.group(2)` byl zawsze falszywy dla `diff_href="/"`, bo **kazdy URL
+  zawiera ukosnik**. Link powrotny nie powstawal i `verify_diff` odrzucal strone. Teraz sprawdzamy
+  kotwice, nie podciag, a `href="https://claude.ai/…"` w dateline artefaktu Delta jest
+  przekierowywany na `/`.
+
+Zmierzone po poprawce na czterech wejsciach: brief (`--brief` 3 835 792 B, `--diff` 3 626 297 B),
+prawdziwa Delta z 28 sierpnia (`--diff` 3 283 650 B), Delta pozbawiona `soc-catalog` i Delta
+z linkiem do prywatnego artefaktu w dateline — wszystkie bez bledow.
 
 **Asercje w `verify()` sa bramka publikacji**: dziewiec `.tabpanel` po usunieciu komentarza
 SHELL CONTRACT (cytuje markup, ktory opisuje), oba bloki JSON, oba kontenery katalogu, pusty
