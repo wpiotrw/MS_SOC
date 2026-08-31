@@ -1710,6 +1710,244 @@ specyfikacja UI, wozona razem z powloka, ktora opisuje. Kopiuj go dalej bez zmia
 
 ---
 
+## 7. ZRODLA — lista adresow i dyscyplina swiezosci
+
+**Ta sekcja jest suma tego, co mialy oba prompty.** Zmierzone 31 sierpnia 2026: blok zrodel routine mial 26 441 B, sched 30 599 B, i **zaden nie byl nadzbiorem drugiego** — routine mial regule swiezosci (`coverageByArea`), ktorej sched nie mial wcale, a sched mial 5 875 B wiecej w sekcji Graph. Ta sama choroba co przy stronach: dwie kopie tej samej rzeczy rozjezdzaja sie w obie strony. Od teraz kanoniczna jest ta sekcja, a prompt tylko na nia wskazuje.
+
+Official Microsoft "What's new" and release-notes pages are PRIMARY, aggregators secondary. Third-party only where Microsoft published nothing, and labelled as such.
+
+### 1a. RANK SOURCES BY FRESHNESS, NOT BY TYPE; COVER AREAS, NOT SOURCES
+
+A feed whose newest entry predates the window contributes nothing to that window. On 27 Aug 2026
+Entra what's-new was two months stale, the run leaned on it, and the page shipped without MC1426371
+"Passkeys by default; SMS and voice MFA retiring", deadline 1 Sep 2026. Rules:
+
+1. **Record each source's newest entry date as you read it.** A source whose newest entry predates
+   `window.publishedFrom` is `stale`. **A stale source can never justify a negative.** Writing
+   "nothing new in Authentication Methods" on the strength of a June page is a false negative, not a
+   quiet week. Only a source that is actually current can support "nothing published".
+2. **Where a Learn feed is stale for an area, Message Center becomes that area's primary for this
+   run** — https://mc.merill.net and its RSS https://mc.merill.net/rss.xml, alongside Merill's
+   newsletter https://entra.news and the daily tracker https://daily.entra.news. Say so on the
+   Sources tab, naming the area, the stale feed and its newest heading date. Six of eight passkey
+   items in the 27 Aug catalog came from Message Center, not Learn.
+3. **Cover areas, not sources.** For every area in a product's walk list, produce either a dated
+   finding or an explicit "nothing published, checked <source> on <date>". Carry the result as
+   `coverageByArea: [{"area","lastFinding","checkedOn","sources":[],"status":"covered|quiet|stale"}]`
+   and render it as a table on the Sources tab. **An area with no row at all is the failure this
+   rule exists to prevent** — silent omission is how a five-day deadline disappears.
+4. **A known deadline is never re-discovered.** Build the 60-day tracker from the CARRIED-FORWARD
+   state, re-tiering every item against today's date. Harvesting only ADDS items; it never decides
+   what drops out. MC1426371 was already in the state from 13 July and needed carrying, not finding.
+
+
+Official Microsoft "What's new" and release-notes pages are PRIMARY, aggregators secondary. Third-party only where Microsoft published nothing, and labelled as such.
+
+### Microsoft Entra — HIGHEST PRIORITY
+
+NOTE: Entra publishes ONE consolidated feed, not per-service pages. `entra/id-governance/whats-new` and `entra/global-secure-access/whats-new` do NOT exist (404). Governance, Conditional Access, Authentication, Internet/Private Access all appear on `fundamentals/whats-new` tagged by Service category. Read it by category. That page has run months behind before — if its newest month heading predates the current month, say so in the sources section and lean on Message Center and the release-history pages.
+
+Every run:
+- Consolidated feed: https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
+- Archive: https://learn.microsoft.com/en-us/entra/fundamentals/whats-new-archive
+- What's new hub overview: https://learn.microsoft.com/en-us/entra/fundamentals/whats-new-overview
+- Daily change tracker: https://daily.entra.news
+- Merill's newsletter: https://entra.news
+- Identity blog: https://techcommunity.microsoft.com/category/microsoft-entra-blog/blog/identity
+
+Walk every service category: Conditional Access · Authentications · Authentication Methods · Authenticator · Identity Protection · PIM · Entitlement Management · Access Reviews · Lifecycle Workflows · Identity Governance · User Management · Device Registration · Entra Connect / Cloud Sync · Internet / Private / Network Access · B2B & External ID · Agent ID · RBAC / Roles · Monitoring & Reporting.
+
+Agent and client release notes — security fixes, forced upgrades:
+- Entra Connect: https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
+- Cloud Sync agent: https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/reference-version-history
+- GSA Windows client: https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history
+- GSA macOS client: https://learn.microsoft.com/en-us/entra/global-secure-access/reference-macos-client-release-history
+- Private Access Sensor: https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history
+- Private network connector: https://learn.microsoft.com/en-us/entra/global-secure-access/reference-version-history
+
+Docs-change and breaking-change feeds, secondary:
+- Identity platform breaking changes: https://learn.microsoft.com/en-us/entra/identity-platform/reference-breaking-changes
+- Identity platform docs: https://learn.microsoft.com/en-us/entra/identity-platform/whats-new-docs
+- External ID: https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
+- Verified ID: https://learn.microsoft.com/en-us/entra/verified-id/whats-new
+- Agent ID: https://learn.microsoft.com/en-us/entra/agent-id/whats-new-agent-id
+
+If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSearch — `search_entra_news`, `list_issues`, `get_issue`), use them for Merill's newsletter. They live on the owner's desktop and are usually absent in a scheduled cloud run — then just WebFetch the sites and do not report Entra coverage as degraded.
+
+### Microsoft Graph — permissions, endpoints, breaking changes
+- Changelog: https://developer.microsoft.com/en-us/graph/changelog/ (often lags by weeks — check its newest entry date and say so)
+- What's new overview: https://learn.microsoft.com/en-us/graph/whats-new-overview (the monthly sections are usually fresher than the changelog)
+- Permissions reference: https://learn.microsoft.com/en-us/graph/permissions-reference
+- Known issues: https://learn.microsoft.com/en-us/graph/known-issues
+
+### Entra directory roles and Azure RBAC
+- Entra RBAC what's new: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats-new
+- Entra role permissions reference: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference
+- Azure RBAC what's new: https://learn.microsoft.com/en-us/azure/role-based-access-control/whats-new
+- Azure built-in roles: https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
+- NOTE: `azure/role-based-access-control/change-log-built-in-roles` 404s — it was folded into `whats-new`.
+
+### Microsoft Sentinel
+- https://learn.microsoft.com/en-us/azure/sentinel/whats-new
+- Content Hub / solutions catalog: https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog
+- Blog: https://techcommunity.microsoft.com/category/microsoftsentinel/blog/microsoftsentinelblog
+
+### Defender XDR
+- https://learn.microsoft.com/en-us/defender-xdr/whats-new
+- Advanced hunting schema changes: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
+- Schema tables: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
+
+### Defender for Endpoint / Vulnerability & Exposure Management
+- https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases
+- https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint
+- https://learn.microsoft.com/en-us/security-exposure-management/whats-new
+
+### Defender for Identity
+- https://learn.microsoft.com/en-us/defender-for-identity/whats-new
+
+### Defender for Cloud Apps
+- https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes
+
+### Microsoft Intune
+- https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new
+- In development: https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/in-development
+- Blog: https://techcommunity.microsoft.com/category/microsoft-intune/blog/microsoftintuneblog
+
+### Microsoft Purview
+- https://learn.microsoft.com/en-us/purview/whats-new
+
+### KQL / Hunting
+- https://learn.microsoft.com/en-us/kusto/query/
+- Azure Data Explorer release notes: https://learn.microsoft.com/en-us/azure/data-explorer/release-notes-cloud
+
+### General
+- Microsoft Security Blog: https://www.microsoft.com/en-us/security/blog/
+- Azure Updates RSS: https://www.microsoft.com/releasecommunications/api/v2/azure/rss
+- M365 Message Center archive: https://mc.merill.net
+- Lifecycle end-of-support: https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026 and .../end-of-support-2027
+
+Known limitations: TechCommunity blogs, the M365 Roadmap page and azure.microsoft.com/updates render client-side and return nothing to a server-side fetch. Use the RSS feed for Azure, mc.merill.net for Roadmap items, and cite blogs by title/date/URL backed by the corresponding Learn text.
+
+## 8. SEKCJE RAPORTU A-N — co ma sie znalezc w kazdej
+
+**Kanoniczna definicja tresci kazdej sekcji.** Prompt wymienia je z litery i wskazuje tutaj; nie powtarza ich tresci. Sekcje J i K sa tu celowo krotkie — niosa tylko kontrakt markupu, bo ich reguly danych mieszkaja w §5-§5w i powtarzanie ich byloby trzecia kopia do rozjechania.
+
+Rank findings: 1) breaking changes and items needing administrator action 2) retirements and deprecations with dates 3) new detections, analytics rules and hunting capabilities 4) GA 5) preview 6) security enhancements 7) KQL and schema changes.
+
+Build these sections in order. **Every table's last column is `Source`. Every bullet and card ends with its link.**
+
+### A. TOP N OF THE DAY
+The highest-SOC-impact items, ranked, as hero cards. **Seven by default.** Publish fewer only when the day genuinely lacks seven card-worthy items, and say so in the section note rather than padding. Heading is `Top N of the day` — the shell rewrites the number and the tab from the cards it finds. Each card: rank, product badge, status badge, deadline or publication date, What / Why / Action, source line. Prefer NEW or UPDATED items.
+
+### B. PICK OF THE DAY, ONE PER TECHNOLOGY
+
+A table directly below the Top-N cards, **exactly one row per technology in today's tracked item set**. The cards are ranked across everything and can crowd a product out; this table cannot, so a quiet product still shows it was checked.
+
+Table: | Product | Pick of the day | Why it matters | Reference | Deadline | Source |
+
+- **Product** — the spelling used elsewhere on the page.
+- **Pick of the day** — title in `<b>`, area or status beneath in muted text, prefixed 🔥 for a deadline inside 30 days, ⚠️ inside 60.
+- **Why it matters** — the item's `fingerprint`, so picks and state cannot drift.
+- **Reference** — `<span class="mc">MC1459141</span>` / `<span class="mc">RM557190</span>` when one exists, else the literal "no MC/RM post — Learn only". Never invent an ID.
+- **Deadline** — ISO deadline plus days remaining, else publication date.
+- **Source** — the item's `url`, labelled Message Center / Roadmap / Learn.
+
+**Fixed selection rule:** per product, the item with the nearest live deadline inside 60 days; if none, the most recently published. Sort by days-to-deadline ascending, undated last. Derive the table from the state block's `items` array rather than hand-picking, so every row carries a verified link.
+
+### C. CHANGES SINCE LAST BRIEFING
+Table: | Change type | Item | Product | What changed | Source |
+
+**Two events get called "a change" and merging them wastes the reader's morning:** Microsoft moving, versus this report moving. These values and no others:
+
+*Microsoft moved — the source itself changed:*
+- `New at source` (badge `b-new`) — Microsoft published or first documented it inside the window.
+- `Revised at source` (badge `b-upd`) — Microsoft edited a page or MC post. **Must quote the moved fragment in `<del>` and `<ins>`.** Cannot show both sides → not a source revision; pick an honest value below.
+- `Deadline moved` (badge `b-upd`) — a date changed at source. Give both dates.
+- `No longer listed at source` (badge `b-dep`) — Microsoft removed it from the page it was on.
+
+*This report moved — the source never changed:*
+- `Brief corrected` (`b-own`) — yesterday's brief was wrong. Say what it said and what is true.
+- `Brief backfilled` (`b-own`) — in the window yesterday and missed.
+- `Brief retracted` (`b-own`) — published and did not survive re-checking. Say why.
+- `Tier changed` (`b-own`) — our own classification moved, e.g. horizon into the 60-day tracker.
+- `Catalog bumped` (`b-own`) — an entry gained a version: "Security Operator v1 → v2 — gained `microsoft.directory/users/delete`".
+- `Catalog grew` (`b-own`) — this brief inventoried an API it had not covered. **Not a Microsoft change; never `New at source`.**
+
+Never file our own correction as `Revised at source` — that credits Microsoft with an edit it never made. On a baseline run say so instead of filling the table. Open the section with a `<p class="sec-note">` explaining the two families, so the Change type filter is self-explanatory.
+
+### D. EXECUTIVE SUMMARY BY PRODUCT
+By product, Entra first. Max 5 bullets each: what changed / why it matters / action, with its source link. Omit a product with nothing in window.
+
+### E. NEW THIS WINDOW
+Table: | Product | Feature | Status | Published | Impact | Action Required | Source |
+Status: GA, Preview, Public Preview, Private Preview, Updated, Deprecated, Retiring. Last 14 days.
+
+### F. AUTHENTICATION WATCHLIST
+Table: | Topic | Current Status | What's New in Window | Deadline | Admin Action | Source |
+Cover: Passkeys · Passwordless · FIDO2 · Authentication Methods policy · TAP · Conditional Access · Authentication Strength · MFA enforcement · SMS · Voice · Security Defaults · Identity Protection.
+The ONE section reporting current state regardless of window — a quiet week is not a stable authentication estate. Where nothing was published write "no new announcement in window" and still give status, deadline and action.
+
+### G. DEADLINES INSIDE 60 DAYS
+Table: | Service | Change | Deadline | Days | Impact | Required Action | Source |
+Nearest first. 🔥 under 30 days, ⚠️ 30–60. Cover Sentinel, Defender, MDE, MDI, MDA, Entra, Intune, Purview, Exchange, Graph/API, Windows lifecycle and portals. Then ONE paragraph "On the horizon, not tabulated" listing anything beyond 60 days: name, date, link. No prose.
+
+### H. PER-PRODUCT DEEP DIVE
+One table per product with in-window material — Entra, Sentinel, Defender XDR, MDE, MDI, Intune, Purview. Columns vary, last is always `Source`:
+- Entra — | Area | Change | Security Impact | Action | Source |
+- Sentinel — | Area | Change | SOC Impact | Action | Source |
+- Defender XDR — | Capability | Change | SOC Impact | Action | Source |
+- MDE — | Feature | Release Type | Security Impact | Recommended Action | Source |
+- MDI — | Feature | Change | Impact | Action | Source |
+- Intune — | Area | Feature | Security Impact | Action | Source | (security only; ignore productivity features)
+- Purview — | Area | Change | Impact | Action | Source |
+Omit a product's table when it has nothing in window, saying so in one line rather than filling it with old material.
+
+### I. KQL AND THREAT HUNTING
+For every query-surface change in window: Change / Operational Benefit / Example Query / SOC Use Case / source link. If none, give 3 practical hunting queries tied to this brief plus 3 detection-engineering ideas. Every query in a `<pre><code>` block with real, verified table and column names — check against Microsoft Learn or the KQL Search MCP and cite the schema page. Never invent one; label anything unverified.
+
+### J. GRAPH API PERMISSIONS AND ENDPOINTS — a catalog, not a table
+
+This section is NOT hand-authored HTML. Its markup is exactly:
+
+```html
+<section id="graph" data-nav="Graph API">
+<div class="sec-head"><h2>Section &lt;letter&gt;</h2><p class="sec-title">Graph API permissions and endpoints</p></div>
+<div class="sec-body">
+<p class="sec-note">One or two sentences framing what the catalog is.</p>
+<div class="catalog" data-catalog="graph"></div>
+</div>
+</section>
+```
+
+The shell renders the whole browser from the `graph` array — search row, the what-changed summary, the three-mode switch, every filter, the period selector and the detail pane. **Your job is only the data, and the data rules are NOT repeated here: they are §5 (service state beats documentation), §5a (`sourceChanged`), §5b (parsing the reference), §5d (four sets D/A/B/C and the `D\A` rule), §5e (undocumented at Microsoft), §5f (other API surfaces), §5g (versioning), §5j (descriptions), §5q (found today vs earlier) and §5r (link status).** Read them there and apply them in full; §0 lists them as checklist items and §0b gates the ones a script can verify.
+
+### K. ENTRA DIRECTORY ROLES AND AZURE RBAC — a catalog, not a table
+
+Same shape:
+
+```html
+<section id="roles" data-nav="Roles">
+<div class="sec-head"><h2>Section &lt;letter&gt;</h2><p class="sec-title">Entra directory roles and Azure RBAC</p></div>
+<div class="sec-body">
+<p class="sec-note">One or two sentences framing what the catalog is.</p>
+<div class="catalog" data-catalog="roles"></div>
+</div>
+</section>
+```
+
+Fed by the `roles` array, under exactly the same rules as the Graph catalog — §5e for undocumented roles, §5g for versioning, §5i for the action tables and their provenance, §5q for `firstTracked`. `added`/`removed` are exact action strings, rendered green `+` and red `-`; `privilegedBefore` renders `<del>No</del> -> <ins>Yes</ins>` when Microsoft flips privileged status. A role visible on the reference page but absent from every what's-new log gets `changed: null` and a `dateNote`, never an inferred date.
+
+### L. SOC ACTIONS
+Table: | Priority | Action | Product | Business Value | Source | — Critical / High / Medium / Low. Max 10 rows, actionable only.
+
+### M. STRATEGIC WATCHLIST
+Max 8 bullets on initiatives to track over 3–12 months, each with a link. No action this week; all require a plan.
+
+### N. SOURCES AND VALIDATION
+Not a link dump — every claim is linked in place. Cover: sources unreachable or stale this run, conflicting dates Microsoft publishes, whether a thin window was the filter or a quiet week, and that nothing is verified against the owner's tenant beyond the reads named above.
+
+Accuracy rules: never invent an MC ID, roadmap ID, date, deadline, version number, permission string, role action or KQL table. If a detail is not published, write "not stated by Microsoft". Label anything inferred as "(inferred)". Where Microsoft publishes contradictory dates, give both and say which to plan against.
+
 ## Task 1 — raport poranny
 
 - Plik docelowy: `site/index.html`
