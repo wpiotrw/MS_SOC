@@ -1,0 +1,19 @@
+// title: Is anything still calling the two APIs that stop working on 14 September
+// date: 2026-08-31
+// product: Sentinel
+// tables: Usage
+// purpose: Custom-table ingestion still arriving, and SAP tables still arriving, ahead of 14 September 2026.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/usage
+// Custom-table ingestion still arriving, and SAP tables still arriving, ahead of 14 September 2026.
+// Schema: Usage — learn.microsoft.com/azure/azure-monitor/reference/tables/usage
+Usage
+| where TimeGenerated > ago(14d)
+| where IsBillable == true
+| summarize GB = sum(Quantity) / 1000, LastSeen = max(TimeGenerated) by DataType
+| extend Watch = case(
+    DataType startswith "ABAP" or DataType startswith "SAP" or DataType has "Sap", "SAP connector - disabled 14 Sep 2026",
+    DataType endswith "_CL", "Custom table - check whether the shipper uses the Data Collector API",
+    "")
+| where Watch != ""
+| project DataType, Watch, GB, LastSeen
+| order by GB desc
