@@ -1,0 +1,33 @@
+// title: Who has been granted a permission that can delete someone else’s authentication methods
+// date: 2026-08-31
+// product: Entra
+// tables: AuditLogs
+// purpose: App-role grants against Microsoft Graph, filtered to the delete-credential family.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// App-role grants against Microsoft Graph, filtered to the delete-credential family.
+// Schema: AuditLogs — learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+let DeleteAuthMethodIds = dynamic([
+    "712f5e0d-bc8d-4ae5-8242-cfb9a4921ed3",  // UserAuthenticationMethod.Delete.All
+    "9563fbd0-03a7-466e-8042-63d668b7d1a3",  // UserAuthMethod-Passkey.Delete.All
+    "4f872e9d-d232-4ecd-ab9c-337cbdb184e5",  // UserAuthMethod-TAP.Delete.All
+    "f3197110-aa7f-4acd-a0fd-71981ad68d42",  // UserAuthMethod-WindowsHello.Delete.All
+    "ae494ca6-9612-417a-972a-ef52efaf2de3",  // UserAuthMethod-MicrosoftAuthApp.Delete.All
+    "9d8eb432-7ea3-491a-9ed7-e6361b308f08",  // UserAuthMethod-HardwareOATH.Delete.All
+    "e5676e10-1a16-452b-ad10-71f54b755852",  // UserAuthMethod-SoftwareOATH.Delete.All
+    "59f17651-8b6c-494e-a269-4ac582fbbca0",  // UserAuthMethod-Phone.Delete.All
+    "f0e9adfd-ed6b-45f5-b969-324a75286a39",  // UserAuthMethod-Email.Delete.All
+    "7fa6d39e-1e4e-44be-bf9c-e8260b12e1f5",  // UserAuthMethod-External.Delete.All
+    "bd760918-651f-4e67-b66f-8f614384dec2",  // UserAuthMethod-PlatformCred.Delete.All
+    "e1c34213-26ac-400b-9548-a749f1b1a4e0",  // UserAuthMethod-QR.Delete.All
+    "a71aecaf-82f1-47c5-ad0a-5e63503b928f"   // UserAuthMethod-ResourceKey.Delete.All
+]);
+AuditLogs
+| where TimeGenerated > ago(180d)
+| where OperationName has_any ("Add app role assignment to service principal", "Consent to application")
+| extend Actor      = tostring(InitiatedBy.user.userPrincipalName)
+| extend ClientApp  = tostring(TargetResources[0].displayName)
+| extend Modified   = tostring(TargetResources[0].modifiedProperties)
+| where Modified has_any (DeleteAuthMethodIds)
+   or Modified has_any ("UserAuthenticationMethod.Delete.All", "UserAuthMethod-")
+| project TimeGenerated, OperationName, Actor, ClientApp, Modified, Result
+| order by TimeGenerated desc

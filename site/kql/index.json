@@ -1,0 +1,35 @@
+[
+ {
+  "file": "2026-08-31-who-has-been-granted-a-permission-that-can.kql",
+  "title": "Who has been granted a permission that can delete someone else’s authentication methods",
+  "date": "2026-08-31",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "App-role grants against Microsoft Graph, filtered to the delete-credential family.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
+  "file": "2026-08-31-credential-deletions-that-are-not-followed-by-a.kql",
+  "title": "Credential deletions that are not followed by a re-registration",
+  "date": "2026-08-31",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Authentication-method deletions with no re-registration by the same user afterwards.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
+  "file": "2026-08-31-is-anything-still-calling-the-two-apis-that.kql",
+  "title": "Is anything still calling the two APIs that stop working on 14 September",
+  "date": "2026-08-31",
+  "product": "Sentinel",
+  "tables": [
+   "Usage"
+  ],
+  "purpose": "Custom-table ingestion still arriving, and SAP tables still arriving, ahead of 14 September 2026.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/usage"
+ }
+]
