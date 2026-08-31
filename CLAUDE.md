@@ -22,6 +22,7 @@ NIEUDANYM. 31 sierpnia 2026 zmierzono to na dwoch stronach tego samego dnia:
 | §5t chipy linkow, ramki `h3` | **BRAK** | OK |
 | §5u sekcja `docchanges` | **BRAK** | **BRAK** |
 | §5v denominator DeltaPulse | **BRAK** | OK |
+| §5p `socWeight`, `tier0Touch` | **BRAK** | **BRAK** |
 
 Dwie strony tego samego dnia, ten sam plik specyfikacji, dwa rozne wyniki. Przyczyna nie jest
 w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego, co mowi ten plik.**
@@ -55,7 +56,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 11 | Today mowi, ze jest wyborem z N pozycji; kazdy wiersz Today ma `id` w New | 5m | zero wierszy Today bez pary w New |
 | 12 | `officialTitle` i `reference` na kazdej pozycji stanu; kolumna `Reference` w New | 5n | licznik `officialTitle` = licznik pozycji stanu |
 | 13 | grupowanie miesiacami w New i Deadlines | 5o | osobna tabela z `<caption>` na miesiac |
-| 14 | Top N wazony bezpieczenstwem, `sec-note` mowi czym | 5p | `sec-note` sekcji `top5` zawiera zdanie o wazeniu |
+| 14 | Top N wazony bezpieczenstwem: `socWeight` 1-7 i `tier0Touch` na KAZDEJ pozycji stanu, `sec-note` mowi czym wazyl i podaje liczby | 5p | zero pozycji bez `socWeight`; `sec-note` sekcji `top5` ma slowo o wazeniu i >=2 liczby |
 | 15 | `firstTracked` na KAZDYM wpisie, `changed = deployedSeen` dla `D\A`, tablica `discoveries`, chip `New today` | 5q | licznik `firstTracked` = licznik wpisow; `discoveries` istnieje |
 | 16 | `linkStatus` i `linkCheckedOn` na kazdym wpisie i kazdej pozycji stanu; zdanie w Sources | 5r | licznik `linkStatus` >= licznik pozycji stanu; `a.lnk-dead` = 0 |
 | 17 | zadna fasetowana kolumna nie ma samych jedynek | 5s | dla kazdego `figure.chart` o >=4 slupkach nie wszystkie = 1 |
@@ -65,9 +66,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 21 | kazde zrodlo raportuje przeczytane / wniesione / odrzucone | 5u, 5v | kazdy wiersz Sources ma trzy liczby |
 | 22a | kolumna `Source` fasetowalna i przypieta | 5w | `<select>` z `All source` w New i Today; ostatni `th` ma `position:sticky` i `right:0` |
 | 22 | DeltaPulse jako denominator MC + Roadmapy, `previousValues`/`newValues` do `<del>`/`<ins>` | 5v | pigulka „items in window" niesie denominator albo Sources mowi, ze MCP byl niedostepny |
+| 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20 i 23 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -433,12 +435,13 @@ def blocks(h):
 class Scan(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.ids=set(); self.deadA=0; self.captions=0; self.grp=0
+        self.ids=set(); self.deadA=0; self.captions=0; self.grp=0; self.cards=set()
         self.sec=None; self.notes={}; self._grab=None
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
         if tag=="a" and "lnk-dead" in cls: self.deadA+=1
+        if tag=="article" and "card" in cls and a.get("data-id"): self.cards.add(a["data-id"])
         if tag=="caption": self.captions+=1
         if tag=="tr" and "grp" in cls: self.grp+=1
         if tag=="section" and a.get("id"): self.sec=a["id"]
@@ -489,6 +492,36 @@ def gate(path):
     need("16b","linkStatus na kazdym wpisie katalogu",
          all(e.get("linkStatus") for e in entries), "%d z %d bez" % (sum(1 for e in entries if not e.get("linkStatus")), n))
     need("16c","zadna kotwica a.lnk-dead", s.deadA==0, "%d kotwic prowadzi w 404" % s.deadA)
+    need("14a","socWeight 1-7 na kazdej pozycji stanu",
+         all(isinstance(i.get("socWeight"),int) and 1<=i["socWeight"]<=7 for i in items),
+         "%d z %d bez poprawnego socWeight" % (sum(1 for i in items if not (isinstance(i.get("socWeight"),int) and 1<=i["socWeight"]<=7)), m))
+    need("14b","tier0Touch na kazdej pozycji, tier0Note gdy true",
+         all("tier0Touch" in i for i in items) and all(i.get("tier0Note") for i in items if i.get("tier0Touch")),
+         "%d bez tier0Touch, %d z tier0Touch bez tier0Note" % (
+             sum(1 for i in items if "tier0Touch" not in i),
+             sum(1 for i in items if i.get("tier0Touch") and not i.get("tier0Note"))))
+    top=s.notes.get("top5","")
+    need("14c","sec-note Top N mowi o wazeniu i podaje >=2 liczby",
+         bool(re.search(r"wag|weigh|tier 0", top, re.I)) and len(re.findall(r"\d+", top))>=2,
+         "sec-note top5 %s" % ("nie istnieje" if not top else "bez slowa o wazeniu albo bez dwoch liczb"))
+    # 23 nie moze przejsc PUSTO: brak pola to brak sprawdzenia, nie zgodnosc
+    inwin=[i for i in items if i.get("tier")!="horizon"]
+    hasT0=any("tier0Touch" in i for i in items)
+    hasSW=any(isinstance(i.get("socWeight"),int) for i in items)
+    t0=[i for i in inwin if i.get("tier0Touch")]
+    miss=[i["id"] for i in t0 if i["id"] not in s.cards and i["id"] not in top]
+    need("23a","kazda pozycja okna tier0Touch ma karte Top N albo nazwany powod",
+         hasT0 and not miss,
+         "brak pola tier0Touch — nie da sie sprawdzic" if not hasT0
+         else "bez karty i bez powodu: %s" % ", ".join(miss[:5]))
+    byid={i["id"]:i for i in items}
+    heavy=[i["id"] for i in inwin if (i.get("socWeight") or 9)<=2 and i["id"] not in s.cards]
+    light=[c for c in s.cards if (byid.get(c,{}).get("socWeight") or 0)>=7]
+    need("23b","zadna karta socWeight>=7 przy niewzietej pozycji socWeight<=2",
+         hasSW and not (light and heavy),
+         "brak pola socWeight — nie da sie sprawdzic" if not hasSW
+         else "karty lekkie %s przy %d niewzietych ciezkich" % (light, len(heavy)))
+    need("23c","karty Top N nios data-id", len(s.cards)>=1, "zero <article class=\"card\" data-id=...>")
     need("20", "sekcja docchanges w tab-new", "docchanges" in s.ids, "brak <section id=\"docchanges\">")
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -505,9 +538,23 @@ if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
 
+**Rozszerzone 31 sierpnia 2026 o pozycje 14 i 23 (§5p).** Zmierzone na stronie z 15:37: `socWeight`
+brak na 157 ze 157 pozycji stanu, `tier0Touch` brak na 157, sekcja `top5` **nie miala `sec-note`
+w ogole**, a siedem kart Top N nie nioslo ani jednego `data-id`. Kontrola regresji na czterech
+wariantach tej samej strony: (a) trzy pozycje `tier0Touch` maja karty — wszystkie szesc asercji OK;
+(b) te same trzy pominiete i nienazwane — `23a` BRAK z ich `id`; (c) pominiete, ale **nazwane w
+`sec-note`** — `23a` OK, bo swiadome pominiecie z powodem jest dozwolone, natomiast karta Azure
+o wadze 7 przy 76 niewzietych pozycjach wagi <=2 daje `23b` BRAK; (d) strona bez tych pol —
+`23a`/`23b` daja **BRAK „nie da sie sprawdzic", nie OK.** Ten ostatni wariant byl pierwsza wersja
+bramki i przechodzil pusto: zbior bez elementow spelnia kazdy warunek. **Asercja, ktora przechodzi
+na braku danych, jest gorsza niz jej brak** — uczy przebieg, ze zielone nic nie znaczy.
+
 **Bramka nie zastepuje listy §0 — jest jej wykonywalna czescia.** Pozycje, ktorych nie da sie
 sprawdzic kodem na gotowym pliku (0 lustro, 2 kolejnosc regul w arkuszu, 17 fasety, 19 podloga
-pokrycia, 22 denominator) zostaja do sprawdzenia recznego i do wypisania w odpowiedzi.
+pokrycia, 22 denominator) zostaja do sprawdzenia recznego i do wypisania w odpowiedzi. Sama
+**przypisana wartosc** `socWeight` tez jest ocena redakcyjna — bramka sprawdza, czy pole jest i czy
+miesci sie w 1-7, nie czy przebieg trafnie zaklasyfikowal. Dlatego `sec-note` Top N musi podac liczby:
+zeby wybor dalo sie zakwestionowac bez czytania JSON-a.
 
 ## Struktura
 
@@ -1308,27 +1355,111 @@ miesiac:
   osobne `<div class="tw"><table>` z wlasnym `<caption>`. Druga droga jest domyslna: nie psuje sortowania,
   nie wymaga zmian w skryptach i wyglada dokladnie jak wzor.
 
-## 5p. Top N wazy sie bezpieczenstwem, nie funkcjonalnoscia chmury
+## 5p. Waga bezpieczenstwa jest POLEM, nie zdaniem w `sec-note`
 
-31 sierpnia 2026 w Top 7 trafil element o funkcji sieciowej Azure. Wazny, ale nie dla SOC-a, ktory
-czyta te strone rano. Kolejnosc wagi, od najwyzszej:
+31 sierpnia 2026 wlasciciel wskazal dwie rzeczy naraz i obie sa jednym bledem.
 
-1. **Tozsamosc** — Entra ID, Conditional Access, metody uwierzytelniania, PIM, Identity Protection, role.
-2. **Wykrywanie i reakcja** — Defender XDR, MDE, MDI, MDO, MDCA, Sentinel: nowe detekcje, zmiany schematu
-   hunting, retencja, zmiany w alertach.
-3. **Dane i zgodnosc** — Purview: DLP, audyt, retencja, Insider Risk.
-4. **Zarzadzanie punktem koncowym** — Intune: baseline'y, compliance, ASR, szyfrowanie.
-5. **Powierzchnia dzierzawy** — M365 admin, Exchange Online, SharePoint, Teams: zgody, uprawnienia,
-   udostepnianie zewnetrzne, przeplyw poczty.
-6. **Windows i cykl zycia** — konce wsparcia, wymuszone upgrade'y.
-7. **Azure** — **tylko wtedy**, gdy zmiana rusza kontrole bezpieczenstwa, zrodlo logow albo granice
-   tozsamosci. Sama funkcja platformy (nowy SKU zapory, region, opcja wydajnosci) nie jest materialem
-   na Top N, choc moze byc w New.
+**Pierwsza.** Artykul „Provisioning users and groups from Entra ID into on-premises Active Directory"
+(`entra-cloudsync-provision-to-ad`, opublikowany 28 sierpnia) byl na stronie w New, w exec summary
+i w deep dive — **i w zadnym z tych miejsc nie odpowiadal na pytanie, po co SOC ma tam patrzec.**
+Kierunek tozsamosci hybrydowej sie odwrocil: chmura zapisuje do AD DS z zachowanym SID-em, a host
+agenta provisioningu staje sie aktywem tier 0. To jest najpowazniejsza pozycja okna i **nie miala
+karty w Top 7 ani wiersza w Pick of the day.**
 
-Kryterium rozstrzygajace, gdy dwa elementy waza podobnie: **czy SOC musi cos zrobic albo cos przeoczy?**
-Termin w 30 dniach, wymagana akcja administratora, zmiana domyslna wlaczana bez zgody, nowe uprawnienie
-o zasiegu dzierzawy, wycofanie zrodla logow — to bije kazda nowosc funkcjonalna. Sekcja Top N mowi w
-`sec-note`, wedlug czego wazyla, zeby wybor dalo sie zakwestionowac.
+**Druga.** W Pick of the day pierwszym wierszem od gory bylo „Azure VPN Client for Linux retirement".
+
+**Przyczyna jest jedna i jest mechaniczna, nie gustowa.** Zmierzone tego dnia na `site/index.html`:
+pozycja Cloud Sync ma `deadline: null`. Sortowanie Top N i Pick of the day idzie po dniach do terminu,
+a Azure VPN Client mial termin najblizszy ze wszystkich. **Pozycja bez terminu nie moze wygrac zadnego
+z tych sortowan, choćby byla najciezsza w oknie** — dokladnie tak jak w §5q wpis z `changed: null`
+wypadal z kazdego okna filtra. Ta sama choroba, inna kolumna.
+
+Zdanie „Top N wazy sie bezpieczenstwem" stalo w tej sekcji od 31 sierpnia rano i przebieg je przeczytal.
+Nie pomoglo, bo **regula bez pola do policzenia jest sugestia** (§0b). Dlatego waga jest teraz liczba
+w stanie.
+
+### `socWeight` — liczba 1-7 na KAZDEJ pozycji stanu
+
+Drabina jest ta sama co dotad, ale zapisujesz ja jako `socWeight` przy pozycji, nie trzymasz w glowie:
+
+| `socWeight` | obszar | co tu nalezy |
+|---|---|---|
+| **1** | **Tozsamosc** | Entra ID, Conditional Access, metody uwierzytelniania, PIM, Identity Protection, role katalogowe, Entra Connect / Cloud Sync, uprawnienia Graph |
+| **2** | **Wykrywanie i reakcja** | Defender XDR, MDE, MDI, MDO, MDCA, Sentinel: nowe detekcje, zmiany schematu hunting, retencja, zmiany w alertach, wycofanie zrodla logow |
+| **3** | **Dane i zgodnosc** | Purview: DLP, audyt, retencja, Insider Risk |
+| **4** | **Zarzadzanie punktem koncowym** | Intune: baseline'y, compliance, ASR, szyfrowanie |
+| **5** | **Powierzchnia dzierzawy** | M365 admin, Exchange Online, SharePoint, Teams: zgody, uprawnienia, udostepnianie zewnetrzne, przeplyw poczty |
+| **6** | **Windows i cykl zycia** | konce wsparcia, wymuszone upgrade'y |
+| **7** | **Azure jako platforma** | nowy SKU zapory, region, opcja wydajnosci, klient VPN — **material na New, nie na Top N** |
+
+**Azure nie znika ze strony i nigdy nie znika po cichu.** Wchodzi z waga 7, czyli jest w New, jest
+w deep dive i moze byc w Pick of the day — ale na dole, nie na gorze. Wyjatek jest jeden i awansuje
+pozycje do wagi jej faktycznego skutku: **zmiana Azure, ktora rusza kontrole bezpieczenstwa, zrodlo
+logow albo granice tozsamosci, nie jest „Azure"** — Azure Monitor HTTP Data Collector API to wycofanie
+zrodla logow, czyli waga 2, i slusznie ma karte w Top 7.
+
+### `tier0Touch` — kryterium, ktorego drabina sama nie zlapie
+
+`socWeight` mowi, w ktorym obszarze rzecz sie dzieje. Nie mowi, jak gleboko. Dlatego kazda pozycja
+niesie drugie pole, `tier0Touch: true|false`, i jest `true`, gdy zmiana **tworzy albo zmienia sciezke
+zapisu do aktywa tier 0**: AD DS, kontroler domeny, host agenta synchronizacji lub provisioningu,
+urzad certyfikacji, rola rownowazna Global Adminowi, federacja. Przy `true` dopisujesz `tier0Note`
+jednym zdaniem, co konkretnie zyskuje prawo zapisu i skad.
+
+Zmierzone 31 sierpnia: `tier0Touch: true` maja co najmniej trzy pozycje okna —
+`entra-cloudsync-provision-to-ad` (Entra ID zapisuje uzytkownikow, grupy i czlonkostwa do AD DS
+z zachowanym SID-em), `exchange-hybrid-les-writeback` (`Entra2ADExchangeOnlineAttributeWriteback`
+wlewa atrybuty chmurowe do lokalnego AD) i `eds-samaccountname-onpremises`. **Zadna z nich nie miala
+terminu, wiec zadna nie mogla wygrac sortowania po terminie.** To jest ta luka.
+
+### Jak to zmienia sortowanie — trzy miejsca, konkretnie
+
+1. **Top N (§8 A)** — klucz to `(tier0Touch malejaco, socWeight rosnaco, pilnosc rosnaco)`, gdzie
+   pilnosc to dni do terminu, a pozycja bez terminu dostaje pilnosc rowna dniom od publikacji.
+   **Pozycja bez terminu przestaje byc niesortowalna** — konczy na koncu swojej wagi, nie poza tabela.
+2. **Pick of the day (§8 B)** — nadal DOKLADNIE jeden wiersz na technologie, zeby cichy produkt
+   pokazal, ze byl sprawdzony. Zmienia sie kolejnosc wierszy: `socWeight` rosnaco, w obrebie wagi
+   dni do terminu rosnaco, niedatowane na koncu. Wiersz Azure zostaje, ale na dole tabeli.
+3. **New (§8 E) i deep dive (§8 H)** — kolejnosc produktow idzie drabina, nie alfabetem. Podloga
+   pokrycia z §5u obowiazuje bez zmian: **nic nie wypada, zmienia sie tylko kolejnosc.**
+
+### Kryterium rozstrzygajace i zdanie w `sec-note`
+
+Gdy dwie pozycje waza tak samo: **czy SOC musi cos zrobic albo cos przeoczy?** Termin w 30 dniach,
+wymagana akcja administratora, zmiana domyslna wlaczana bez zgody, nowe uprawnienie o zasiegu
+dzierzawy, wycofanie zrodla logow, **nowa sciezka zapisu do tier 0** — kazde z tych bije nowosc
+funkcjonalna.
+
+`sec-note` sekcji Top N mowi, czym wazyla, **liczbami z tego przebiegu**: *„Wybor 7 z 157 pozycji
+stanu. Wazenie: tier 0 najpierw (3 pozycje), potem drabina bezpieczenstwa — 41 pozycji tozsamosci,
+30 wykrywania, 15 Azure. Azure wchodzi z waga 7 i jest w New."*
+
+### Karta Top N niesie `data-id` — inaczej niczego nie da sie sprawdzic
+
+Zmierzone 31 sierpnia: siedem kart Top N otwiera sie jako `<article class="card hot">` i **zadna nie
+niesie identyfikatora pozycji stanu**. Bez niego nie da sie odpowiedziec kodem na pytanie „czy pozycja
+`entra-cloudsync-provision-to-ad` dostala karte" — a pytanie bez odpowiedzi w kodzie wraca jako
+sugestia. Kazda karta ma wiec `data-id` rowne `id` swojej pozycji stanu:
+
+```html
+<article class="card hot" data-id="entra-cloudsync-provision-to-ad">
+```
+
+Atrybut jest obojetny dla powloki — skrypt 2 liczy `.card` po klasie, nie po atrybutach — a §5m juz
+wymaga, zeby kazdy wiersz Today mial pare w New po `id`, wiec to ta sama dyscyplina. **Sekcja `top5`
+dostaje tez `<p class="sec-note">`, ktorego 31 sierpnia nie miala wcale**; §8 A i pozycja 14 listy §0
+wymagaja go od dawna, a przebieg go po prostu nie napisal.
+
+### Walidator — bo inaczej to znowu bedzie sugestia
+
+- kazda pozycja stanu ma `socWeight` w 1-7 **i** `tier0Touch`; przy `tier0Touch:true` takze `tier0Note`;
+- **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo zdanie z powodem w `sec-note` Top N**
+  — nazwane z `id`, nie ogolnikiem. To jest pozycja, przez ktora ta sekcja istnieje;
+- **zadna karta Top N nie ma `socWeight >= 7`, dopoki istnieje niewzieta pozycja okna z `socWeight <= 2`**;
+- pierwszy wiersz Pick of the day nie ma `socWeight` wiekszego niz ostatni;
+- `sec-note` Top N zawiera slowo o wazeniu i co najmniej dwie liczby.
+
+Pozycje 14 i 23 listy §0 sprawdzaja to na gotowym pliku, a bramka §0b liczy je kodem.
 
 ## 5q. „Znalezione dzis" musi dac sie odroznic od „znalezionego dwa dni temu"
 
@@ -1839,6 +1970,8 @@ Build these sections in order. **Every table's last column is `Source`. Every bu
 ### A. TOP N OF THE DAY
 The highest-SOC-impact items, ranked, as hero cards. **Seven by default.** Publish fewer only when the day genuinely lacks seven card-worthy items, and say so in the section note rather than padding. Heading is `Top N of the day` — the shell rewrites the number and the tab from the cards it finds. Each card: rank, product badge, status badge, deadline or publication date, What / Why / Action, source line. Prefer NEW or UPDATED items.
 
+**Kolejnosc i wybor rzadzi §5p, nie termin.** Klucz sortowania to `(tier0Touch malejaco, socWeight rosnaco, pilnosc rosnaco)`; pozycja bez terminu dostaje pilnosc rowna dniom od publikacji, wiec **przestaje byc niesortowalna**. Kazda karta niesie `data-id` rowne `id` swojej pozycji stanu. Sekcja ma `<p class="sec-note">` mowiacy, czym wazyla, z liczbami z tego przebiegu. Kazda pozycja okna z `tier0Touch:true` ma karte albo jest **nazwana z `id` w `sec-note` jako swiadomie pominieta** — bramka §0b pozycja 23 tego pilnuje.
+
 ### B. PICK OF THE DAY, ONE PER TECHNOLOGY
 
 A table directly below the Top-N cards, **exactly one row per technology in today's tracked item set**. The cards are ranked across everything and can crowd a product out; this table cannot, so a quiet product still shows it was checked.
@@ -1852,7 +1985,9 @@ Table: | Product | Pick of the day | Why it matters | Reference | Deadline | Sou
 - **Deadline** — ISO deadline plus days remaining, else publication date.
 - **Source** — the item's `url`, labelled Message Center / Roadmap / Learn.
 
-**Fixed selection rule:** per product, the item with the nearest live deadline inside 60 days; if none, the most recently published. Sort by days-to-deadline ascending, undated last. Derive the table from the state block's `items` array rather than hand-picking, so every row carries a verified link.
+**Fixed selection rule:** per product, the item with the nearest live deadline inside 60 days; if none, the most recently published. Derive the table from the state block's `items` array rather than hand-picking, so every row carries a verified link.
+
+**Kolejnosc WIERSZY idzie §5p, nie terminem:** `socWeight` rosnaco, w obrebie wagi dni do terminu rosnaco, niedatowane na koncu. 31 sierpnia 2026 sortowanie po samym terminie postawilo „Azure VPN Client for Linux retirement" pierwszym wierszem od gory. **Zaden produkt nie wypada** — jeden wiersz na technologie zostaje bez zmian, zmienia sie tylko to, co czytelnik widzi najpierw.
 
 ### C. CHANGES SINCE LAST BRIEFING
 Table: | Change type | Item | Product | What changed | Source |
@@ -1879,6 +2014,7 @@ Never file our own correction as `Revised at source` — that credits Microsoft 
 By product, Entra first. Max 5 bullets each: what changed / why it matters / action, with its source link. Omit a product with nothing in window.
 
 ### E. NEW THIS WINDOW
+Kolejnosc produktow idzie drabina §5p, nie alfabetem; podloga pokrycia §5u obowiazuje bez zmian, wiec **nic nie wypada, zmienia sie tylko kolejnosc**.
 Table: | Product | Feature | Status | Published | Impact | Action Required | Source |
 Status: GA, Preview, Public Preview, Private Preview, Updated, Deprecated, Retiring. Last 14 days.
 
