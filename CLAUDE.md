@@ -47,12 +47,12 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
 <div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div>
 <div class="counts">
 <a class="count crit" href="#deadlines"><b>34</b> deadlines in 60 days<span>&middot; 12 inside 30</span></a>
+<a class="count" href="#graph"><b>28</b> undocumented at Microsoft<span>&middot; 25 permissions, 3 roles</span></a>
+<a class="count" href="#graph"><b>306</b> deployed, not in this tenant<span>&middot; 20 visible, 286 hidden</span></a>
 <a class="count chg" href="#delta"><b>58</b> changes since 27 Aug<span>&middot; 3 at source, 55 ours</span></a>
 <a class="count" href="#new"><b>110</b> items in window<span>&middot; 14&ndash;28 August</span></a>
 <a class="count" href="#graph"><b>1,020</b> permissions catalogued<span>&middot; 4 API surfaces</span></a>
 <a class="count" href="#roles"><b>1,959</b> role actions<span>&middot; 135 built-in roles</span></a>
-<a class="count" href="#graph"><b>28</b> undocumented at Microsoft<span>&middot; 25 permissions, 3 roles</span></a>
-<a class="count" href="#graph"><b>306</b> deployed, not in this tenant<span>&middot; 20 visible, 286 hidden</span></a>
 </div><nav class="anchors"></nav></div></header>
 ```
 
@@ -69,15 +69,24 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
   Strona bez godziny nie mowi czytelnikowi, czy patrzy na dzisiejszy przebieg czy na wczorajszy.
 - Pigulek jest teraz siedem. Kazda `.counts a.count` staje sie kafelkiem w Overview, wiec licznik
   dodajesz przez dopisanie pigulki, nigdy przez pisanie `.stat` recznie.
+- **Kolejnosc pigulek jest wiazaca: terminy, `undocumented at Microsoft`, `deployed, not in this
+  tenant`, dopiero potem reszta.** Na telefonie pasek jedzie poziomo (sekcja 1a), wiec szosta
+  i siodma pigulka sa poza ekranem. 30 sierpnia 2026 obie byly na stronie i wlasciciel nie zobaczyl
+  zadnej. Pigulka, ktorej nie widac bez przewijania w bok, nie liczy sie jako kafelek.
 
 ## 1a. Naglowek MUSI dac sie przewinac na telefonie
 
 `header.top` ma w powloce `position:sticky;top:0`, a `.counts` ma `flex-wrap:wrap`. Na telefonie
 siedem pigulek lamie sie na siedem wierszy i przyklejony naglowek zjada caly ekran — nie da sie go
-przewinac, zostaje kilka linii tresci. Blok `@media (max-width:760px)` w powloce tego nie rusza.
+przewinac, zostaje kilka linii tresci.
 
-**Dopisz do istniejacego bloku `@media (max-width:760px)` dokladnie te cztery reguly** (druga
-dozwolona dopisana zmiana CSS obok `.badge.b-undoc`, i tak samo jak tam — nic wiecej):
+**Blok mobilny dopisujesz na SAMYM KONCU `<style>`, nigdy do istniejacego bloku `@media`.**
+Zmierzone w arkuszu strony z 30 sierpnia 2026: `header.top{position:sticky}` stoi na pozycji ~19 950,
+wlasny blok `@media (max-width:760px)` powloki na ~35 500, ale `.cat-controls{position:sticky}` jest
+redefiniowane DWA RAZY pozniej — na ~54 050 i ~56 690. Specyficznosc jest ta sama, wiec wygrywa
+regula pozniejsza: naglowek posluchal, a pasek szukania katalogu nie. Zostal przypiety i na telefonie
+zaslanial wyniki w zakladkach Roles i Graph API, dokladnie tak jak zglosil wlasciciel. Blok na koncu
+arkusza wygrywa z obiema redefinicjami:
 
 ```css
 @media (max-width:760px){
@@ -91,8 +100,12 @@ dozwolona dopisana zmiana CSS obok `.badge.b-undoc`, i tak samo jak tam — nic 
 Domyslnie wiec naglowek **przewija sie razem ze strona**, a pigulki jada w jednym poziomym pasku.
 `@media print` juz teraz robi `header.top{position:static}`, wiec powloka to znosi. `--hdr-h:112px`
 jest stala i na telefonie i tak klamie — dlatego `.cat-controls` tez przestaje byc sticky.
+**Na desktopie `.cat-controls` zostaje sticky** — sekcja 5c tego broni i nie odpinasz go tam.
 Playwright sprawdza przy 390x844: `getComputedStyle(header).position === "static"`, `.counts`
-miesci sie w jednym wierszu, a po przewinieciu o 600 px naglowek jest poza widokiem.
+miesci sie w jednym wierszu, po przewinieciu o 600 px naglowek jest poza widokiem,
+`getComputedStyle(document.querySelector(".cat-controls")).position === "static"`, a po przewinieciu
+listy katalogu jej pierwszy wiersz nie jest zaslaniany przez pasek szukania (prostokat wiersza nie
+przecina sie z prostokatem `.cat-controls`).
 
 ## 2. Ktora sekcja w ktorym panelu — raport poranny
 
@@ -475,17 +488,45 @@ Kazdy wpis inwentarza — uprawnienie i rola — dostaje:
    filtr po typie zmiany, wiec dwie nowe wartosci daja jedno i drugie za darmo:
    `New in service, not yet documented` oraz `Deployed in the service, not in this tenant`.
    **Nie dopisuj wlasnego `<select>`** — skrypt 3 buduje liste filtra z wartosci, ktore zastanie.
-2. **Kafelek liczy pigulka w naglowku.** Skrypt 2 przepisuje kazde `.counts a.count` na kafelek
-   w Overview, wiec wystarczy szosta pigulka:
+2. **Kafelek liczy pigulka w naglowku — pozycja DRUGA i TRZECIA**, sekcja 1:
    `<a class="count" href="#graph"><b>28</b> undocumented at Microsoft<span>&middot; 25 permissions, 3 roles</span></a>`
-   Licznik jest sumaryczny, rozbicie w `<span>`. Zero to poprawna wartosc i tez sie pokazuje.
-3. **Znacznik w tabelach** to `<span class="badge b-undoc">Undocumented</span>`. Powloka ma cztery
-   klasy (`b-new`, `b-upd`, `b-dep`, `b-own`), wiec piata trzeba dodac — **jedyna dozwolona
-   dopisana regula CSS**: skopiuj deklaracje `.badge.b-upd` z `<style>` tej strony i zmien w kopii
-   wylacznie kolory, dla obu motywow tak samo jak robi to `b-upd`. Nie wymyslaj zmiennych, ktorych
-   w tym `<style>` nie ma. Playwright sprawdza, ze `.badge.b-undoc` ma niepuste tlo w jasnym
-   i ciemnym; jesli nie da sie tego potwierdzic, uzyj `b-upd` z tekstem `Undocumented` i napisz
-   w odpowiedzi, ze klasa nie powstala.
+   oraz `<a class="count" href="#graph"><b>364</b> deployed, not in this tenant<span>&middot; 73 visible, 291 hidden</span></a>`.
+   Licznik sumaryczny, rozbicie w `<span>`. Zero to poprawna wartosc i tez sie pokazuje.
+   **Dodatkowo `<p class="sec-note">` sekcji `graph` i `roles` otwiera sie tymi samymi liczbami** —
+   kafelek siedzi w Overview, a czytelnik patrzy na panel katalogu i tam ma je zobaczyc.
+3. **Kolor chipa bierze sie z mapy w skrypcie, nie z CSS.** `badge(text, cls)` w skrypcie 3 czyta
+   `KIND_BADGE[text]`, a przy braku klucza spada na `"b-prod"` — zwykly szary. 30 sierpnia 2026
+   wszystkie 364 wpisy `Deployed in the service, not in this tenant` i 16 `New in service, not yet
+   documented` byly szare wylacznie z tego powodu. **Dopisz do `KIND_BADGE` szesc kluczy. Tylko
+   klucze: nie zmieniasz istniejacego wpisu i nie ruszasz zadnej innej linii tego skryptu.**
+
+   ```js
+   "New in service, not yet documented": "b-undoc", "Undocumented at Microsoft": "b-undoc",
+   "No longer documented": "b-undoc", "Deployed in the service, not in this tenant": "b-elsewhere",
+   "No longer in the service": "b-dep", "Documented at Microsoft": "b-upd"
+   ```
+
+   To jedyna dozwolona zmiana w skryptach powloki i jest to zmiana danych, nie logiki.
+4. **Dwie klasy znacznikow dopisujesz na koncu `<style>`** — razem z blokiem mobilnym z sekcji 1a
+   sa to jedyne dozwolone dopisane reguly CSS. Zbudowane ze zmiennych, ktore arkusz juz ma
+   (`--warn`, `--warn-soft`, `--accent`, `--accent-soft`), wiec oba motywy dzialaja same:
+
+   ```css
+   .badge.b-undoc{background:var(--warn-soft);color:var(--warn);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--warn)}
+   .badge.b-elsewhere{background:var(--accent-soft);color:var(--accent);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--accent)}
+   .cc-row:has(.badge.b-undoc){box-shadow:inset 3px 0 0 var(--warn)}
+   .cc-row:has(.badge.b-elsewhere){box-shadow:inset 3px 0 0 var(--accent)}
+   ```
+
+   Szesc istniejacych znacznikow to prostokaty bez obwodki — zaokraglenie i obwodka sa jedynym, co
+   odroznia te dwa na pierwszy rzut oka, i o to prosil wlasciciel. `:has()` daje jeszcze kolorowy
+   pasek na krawedzi wiersza listy; w przegladarce bez `:has()` paska po prostu nie ma, reszta dziala.
+5. **Rola nieudokumentowana ma `kind:"Undocumented at Microsoft"`.** 30 sierpnia 2026 trzy takie role
+   dostaly `New in service, not yet documented` — wartosc Graphowa — i filtr w katalogu rol nie mial
+   pozycji, ktorej wlasciciel szukal. Wartosci graphowe zostaja przy Graphie.
+6. **Wykresu nie musisz dotykac.** Skrypt 2 buduje `By change type` z `msChanged` grupowanego po
+   `kind`, wiec kazda nowa wartosc jest slupkiem sama z siebie. 30 sierpnia 2026 slupkow bylo
+   384 = 364 + 13 + 5 + 2 i zgadzalo sie to z pigulka. Nie dopisuj wlasnego wykresu.
 
 ### Kiedy ramka znika
 
@@ -561,13 +602,47 @@ dla rol tak samo jak dla uprawnien.
 
 ## 5h. Kontrola Playwright — pelna lista asercji
 
-Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; `nav.anchors .tab` is 9, labels human, strip not overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` has a non-transparent background in both themes**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; `nav.anchors .tab` is 9, labels human, strip not overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
 
 Dodatkowo przy **390x844** (telefon): `getComputedStyle(document.querySelector("header.top")).position`
 zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
-poza widokiem (`getBoundingClientRect().bottom < 0`); `.cat-controls` tez ma `position:static`.
+poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
+przewinieciu listy katalogu prostokat paska szukania nie przecina sie z prostokatem pierwszego
+wiersza wynikow** — to jest asercja, ktorej brak przepuscil blad kaskady z sekcji 1a; **pierwsze trzy
+`.counts a.count` to kolejno terminy, `undocumented at Microsoft` i `deployed, not in this tenant`**.
 I jeszcze: wpisanie `IdentityDiagnostic` w szukajke katalogu Graph w trybie **All** zwraca co
 najmniej cztery wiersze — zero znaczy, ze mapa wdrozen nie trafila do danych.
+
+## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
+
+Ta sekcja jest wiazaca dla obu taskow i obu routines; prompty na nia wskazuja zamiast ja powtarzac.
+
+Learn builds each role's Actions table from one file per role in Microsoft's public docs repo.
+**Clone it, do not fetch it:** `git clone --depth 1 --filter=blob:none --sparse
+https://github.com/MicrosoftDocs/entra-docs` then `git sparse-checkout set
+docs/identity/role-based-access-control` gives `permissions-reference.md` and the `includes/` files
+as plain files. A `microsoft_docs_fetch` of that ~400 KB page spills its oversized result into a file
+under `/root/.claude/`, and every later shell command naming that path raises its own approval
+prompt, which a scheduled run has nobody to answer. Print every `## <Role>` heading with the
+`[!INCLUDE …]` path under it — Microsoft's own name-to-file mapping, 132 files on 27 Aug 2026, and
+the source of `actionsSource.github`. **Never construct that path from a guessed slug**; a 404 in the
+verify box is worse than no verify box. For at least one role each run, diff the include file's table
+against your parse and set `checked` only where that diff ran and came back empty.
+
+**Do not "fix" the count to match a third-party site.** Microsoft prints what it prints — Agent ID
+Administrator, 64 rows on 27 Aug 2026, matching its source file row for row; 66 is 64 plus the
+markdown header and separator lines, so drop them. Where a third-party figure is higher, name the
+reason in `actionsProvenance` and add the live `roleDefinition` to `notPublished.roles`.
+**Count in code, never trust a summary's arithmetic** — one pass reported 57 rows for a 64-row file.
+
+On 27 Aug 2026: 133 `##` sections, 1,992 rows — one section, `Roles not shown in the portal`, is a
+page note, not a role: **exclude it**, leaving 132 roles, 1,959 actions, 33 PRIVILEGED, 5 with an
+`appliesTo` table.
+
+**What Microsoft does NOT publish for a role, and what this brief therefore does not print:** a
+role-to-Graph-permission mapping, an attack-path narrative, and an assignment mode for every role.
+Sites showing those compiled them by hand and say so. Carry them in `notPublished.roles` and render
+them, so the absence is stated rather than left for the reader to guess at.
 
 ## 6. Kontrakt w stronie
 
