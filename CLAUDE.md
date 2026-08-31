@@ -393,6 +393,122 @@ SHELL CONTRACT (cytuje markup, ktory opisuje), oba bloki JSON, oba kontenery kat
 `<nav class="anchors">`, co najmniej trzy skrypty zachowania, `<style>`, dokladnie jeden DOCTYPE
 i link do `/diff/`. Kazda z nich broni bledu, ktory juz raz wystapil.
 
+## 0b. BRAMKA PUBLIKACJI — kod, nie dobre checi
+
+Przebieg routine z 31 sierpnia 2026 wypisal dziewiec pozycji listy §0 jako `BRAK` na stronie, ktora
+przeszla caly STEP 4 porannego taska. To nie byl przypadek: **STEP 4 sprawdzal `origin`, `objectType`,
+liczniki katalogu i pigulki, ale nie sprawdzal ani `firstTracked`, ani `linkStatus`, ani `docchanges`.**
+Regula bez asercji jest sugestia, a sugestie przebieg pomija bez konsekwencji — to jest ten sam
+mechanizm, ktory rozjechal obie strony.
+
+Ponizszy skrypt zamyka luke. **Zapisz go do `/tmp/gate.py` i uruchom na gotowym pliku HTML zanim
+cokolwiek opublikujesz: `python3 /tmp/gate.py <plik>`. Kod wyjscia 1 znaczy NIE PUBLIKUJ.**
+Pozycje 15, 16 i 20 sa wiazace (§0), wiec ich brak zatrzymuje przebieg; pozostale wypisz w odpowiedzi
+jako `BRAK <powod>`.
+
+Zmierzone na stronie z 17:15 (lustro artefaktu tego dnia) — bramka odtworzyla wynik przebiegu
+co do liczby: `docStatus` brak na 15 z 1 496 wpisow, `firstTracked` na 0 z 1 496, `discoveries` brak,
+306 z 306 wpisow `D\A` ma `changed` rozne od `deployedSeen`, `linkStatus` brak na 153 ze 157 pozycji
+stanu i na 1 496 z 1 496 wpisow katalogu, brak sekcji `docchanges`, Sources bez trzech liczb.
+**I slusznie NIE zglosila dwoch pozycji, ktore przebieg oznaczyl na czerwono:** `officialTitle` ma
+pokrycie przez `officialTitleNote`, a okno 17–31 sierpnia nie przecina granicy miesiaca, wiec §5o
+grupowania nie wymaga. Bramka ma odrozniac brak od falszywego alarmu — inaczej nauczy przebieg
+ignorowac czerwone.
+
+```python
+#!/usr/bin/env python3
+"""Bramka publikacji dla porannego builda — CLAUDE.md Sec.0b.
+   python3 gate.py <gotowy.html>   |  kod wyjscia 1 = NIE PUBLIKUJ
+Sprawdza pozycje listy Sec.0, ktorych STEP 4 dotad nie sprawdzal wcale."""
+import sys, re, json
+from html.parser import HTMLParser
+
+def blocks(h):
+    out = {}
+    for b in ("soc-brief-state", "soc-catalog"):
+        m = re.search(r'<script type="application/json" id="%s">(.*?)</script>' % b, h, re.S)
+        out[b] = json.loads(m.group(1)) if m else None
+    return out
+
+class Scan(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.ids=set(); self.deadA=0; self.captions=0; self.grp=0
+        self.sec=None; self.notes={}; self._grab=None
+    def handle_starttag(self, tag, attrs):
+        a=dict(attrs); cls=(a.get("class") or "").split()
+        if a.get("id"): self.ids.add(a["id"])
+        if tag=="a" and "lnk-dead" in cls: self.deadA+=1
+        if tag=="caption": self.captions+=1
+        if tag=="tr" and "grp" in cls: self.grp+=1
+        if tag=="section" and a.get("id"): self.sec=a["id"]
+        if tag=="p" and "sec-note" in cls: self._grab=self.sec
+    def handle_data(self, d):
+        if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
+    def handle_endtag(self, tag):
+        if tag=="p": self._grab=None
+
+def gate(path):
+    h=open(path,encoding="utf-8").read()
+    st=blocks(h); s=Scan(); s.feed(h)
+    items=(st["soc-brief-state"] or {}).get("items",[])
+    cat=st["soc-catalog"] or {}
+    entries=(cat.get("graph") or [])+(cat.get("roles") or [])
+    bad=[]
+    def chk(no,name,ok,detail=""):
+        (print if ok else bad.append)("  [%s] %-2s %s %s" % ("OK " if ok else "BRAK", no, name, detail)
+                                       if ok else "%-3s %s — %s" % (no, name, detail))
+        if ok: return
+    def need(no,name,ok,detail=""):
+        if ok: print("  [OK ] %-3s %s" % (no,name))
+        else:  print("  [BRAK] %-3s %s — %s" % (no,name,detail)); bad.append(no)
+
+    n=len(entries); m=len(items)
+    need("6",  "docStatus na kazdym wpisie",
+         all(e.get("docStatus") for e in entries), "%d z %d bez" % (sum(1 for e in entries if not e.get("docStatus")), n))
+    need("11", "Today mowi liczbami, ze jest wyborem",
+         bool(re.search(r"\b(of|z)\s+\d+\b", " ".join(v for k,v in s.notes.items() if k in ("top5","picks","delta")))),
+         "zadna sec-note Today nie podaje 'N z M'")
+    need("12", "officialTitle albo officialTitleNote na kazdej pozycji stanu",
+         all(i.get("officialTitle") or i.get("officialTitleNote") for i in items),
+         "%d z %d bez" % (sum(1 for i in items if not (i.get("officialTitle") or i.get("officialTitleNote"))), m))
+    win=(st["soc-brief-state"] or {}).get("window") or {}
+    crosses = (win.get("publishedFrom","")[:7] != win.get("publishedTo","")[:7])
+    need("13", "grupowanie miesiacami w New/Deadlines",
+         (not crosses) or s.captions>0 or s.grp>0,
+         "okno %s..%s przecina miesiac, a caption=%d tr.grp=%d" % (win.get("publishedFrom"),win.get("publishedTo"),s.captions,s.grp))
+    need("15a","firstTracked na kazdym wpisie katalogu",
+         all(e.get("firstTracked") for e in entries), "%d z %d bez" % (sum(1 for e in entries if not e.get("firstTracked")), n))
+    need("15b","tablica discoveries", bool(cat.get("discoveries")), "brak w soc-catalog")
+    da=[e for e in entries if e.get("kind")=="Deployed in the service, not in this tenant"]
+    need("15c","D\\A: changed == deployedSeen",
+         all(e.get("changed") and e.get("changed")==e.get("deployedSeen") for e in da) if da else True,
+         "%d z %d wpisow D\\A ma changed != deployedSeen" % (sum(1 for e in da if e.get("changed")!=e.get("deployedSeen")), len(da)))
+    need("16a","linkStatus na kazdej pozycji stanu",
+         all(i.get("linkStatus") for i in items), "%d z %d bez" % (sum(1 for i in items if not i.get("linkStatus")), m))
+    need("16b","linkStatus na kazdym wpisie katalogu",
+         all(e.get("linkStatus") for e in entries), "%d z %d bez" % (sum(1 for e in entries if not e.get("linkStatus")), n))
+    need("16c","zadna kotwica a.lnk-dead", s.deadA==0, "%d kotwic prowadzi w 404" % s.deadA)
+    need("20", "sekcja docchanges w tab-new", "docchanges" in s.ids, "brak <section id=\"docchanges\">")
+    src=s.notes.get("sources","")
+    need("21", "Sources podaje trzy liczby na zrodlo",
+         len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
+         "sec-note Sources bez wzorca przeczytane/wniesione/odrzucone")
+    print()
+    if bad:
+        print("PRZEBIEG NIEUDANY — %d pozycji: %s" % (len(bad), ", ".join(bad)))
+        return 1
+    print("Bramka Sec.0b: wszystkie pozycje OK")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(gate(sys.argv[1]))
+```
+
+**Bramka nie zastepuje listy §0 — jest jej wykonywalna czescia.** Pozycje, ktorych nie da sie
+sprawdzic kodem na gotowym pliku (0 lustro, 2 kolejnosc regul w arkuszu, 17 fasety, 19 podloga
+pokrycia, 22 denominator) zostaja do sprawdzenia recznego i do wypisania w odpowiedzi.
+
 ## Struktura
 
 ```
