@@ -35,7 +35,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 27 pozycji. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -67,9 +67,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 22a | kolumna `Source` fasetowalna i przypieta | 5w | `<select>` z `All source` w New i Today; ostatni `th` ma `position:sticky` i `right:0` |
 | 22 | DeltaPulse jako denominator MC + Roadmapy, `previousValues`/`newValues` do `<del>`/`<ins>` | 5v | pigulka „items in window" niesie denominator albo Sources mowi, ze MCP byl niedostepny |
 | 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
+| 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
+| 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
+| 26 | zadna z DZIEWIECIU zakladek nie rozpycha dokumentu przy 390x844 | 5x | dla kazdej zakladki `scrollWidth === clientWidth` |
+| 27 | skrypt 4 obecny; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu z przyciskami Miesiac / Tydzien / Dzien | 5y | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3 |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20 i 23 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23 i 26 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -523,6 +527,27 @@ def gate(path):
          else "karty lekkie %s przy %d niewzietych ciezkich" % (light, len(heavy)))
     need("23c","karty Top N nios data-id", len(s.cards)>=1, "zero <article class=\"card\" data-id=...>")
     need("20", "sekcja docchanges w tab-new", "docchanges" in s.ids, "brak <section id=\"docchanges\">")
+    # 24-27: powloka. Bramka czyta plik, wiec sprawdza OBECNOSC regul i kodu;
+    # wartosci wyliczone i przewijanie sprawdza Playwright (§5h).
+    need("24", "zielone pole szukania o wlasciwej specyficznosci",
+         "input[type=search].tbar-search" in h and ".cat-searchwrap input.cat-search" in h
+         and "var(--ok-soft)" in h,
+         "brak selektora o specyficznosci powloki albo brak --ok-soft")
+    need("25", "trzy zmiany facetCandidates (§5w)",
+         "if (/^source$/i.test(h)) return;" not in h
+         and "/^(product|service|topic|source)$/i" in h
+         and "out.slice(0, 3)" in h,
+         "guard=%s named+source=%s slice3=%s" % (
+             "if (/^source$/i.test(h)) return;" not in h,
+             "/^(product|service|topic|source)$/i" in h,
+             "out.slice(0, 3)" in h))
+    need("26", "blok mobilny §5x przeciw rozpychaniu dokumentu",
+         ".sec-body .lnk-dead{white-space:normal" in h.replace("\n","")
+         or "white-space:normal;max-width:100%;overflow-wrap:anywhere" in h,
+         "brak reguly zdejmujacej nowrap z chipow linkow na telefonie")
+    need("27", "skrypt 4 (agregaty §5y) obecny",
+         "SKRYPT 4" in h and "aggwrap" in h and "aggbtn" in h,
+         "brak skryptu agregatow albo jego klas")
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -537,6 +562,13 @@ def gate(path):
 if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
+
+**Rozszerzone 1 wrzesnia 2026 o pozycje 24-27 (§5k, §5w, §5x, §5y).** Bramka czyta plik, wiec
+sprawdza OBECNOSC selektora, trzech zmian `facetCandidates()`, bloku mobilnego i skryptu 4;
+wartosci wyliczone i przewijanie w poziomie sprawdza Playwright (§5h) — plik moze zawierac regule,
+ktora przegrywa specyficznoscia, i wlasnie tak bylo z zielonym polem szukania. Kontrola na dwoch
+stronach tego samego dnia: strona sprzed poprawek daje `24/25/26/27 BRAK`, strona po poprawkach
+`24/25/26/27 OK`, przy identycznej reszcie wyniku.
 
 **Rozszerzone 31 sierpnia 2026 o pozycje 14 i 23 (§5p).** Zmierzone na stronie z 15:37: `socWeight`
 brak na 157 ze 157 pozycji stanu, `tier0Touch` brak na 157, sekcja `top5` **nie miala `sec-note`
@@ -1168,8 +1200,16 @@ dziesiec i wlasciciel nie mial z niego nic); **kazdy `.sec-body a[href^="http"]`
 **suma wierszy tabel deep dive rowna sie liczbie z jego `sec-note`**, a `sec-note` kazdej tabeli
 produktu zawiera liczbe pozycji okna (sekcja 5u).
 
-Dodatkowo przy **390x844** (telefon): `getComputedStyle(document.querySelector("header.top")).position`
-zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
+Nowe od 1 wrzesnia 2026, kazda z realnego zgloszenia wlasciciela: **oba pola szukania —
+`input.tbar-search` i `.cat-searchwrap .cat-search` — maja TO SAMO, nieprzezroczyste tlo rozne od
+`--surface` w obu motywach** (§5k; regula w pliku nie wystarcza, liczy sie wartosc wyliczona);
+**w `tab-new`, `tab-today` i `tab-deadlines` istnieje `<select>`, ktorego pierwsza opcja brzmi
+`All source`** (§5w); **kazda zakladka tresciowa ma co najmniej trzy `.aggwrap figure.chart` i
+dokladnie trzy `.aggbtn`, a klikniecie „Tydzien" i „Dzien" zmienia liczbe slupkow osi czasu** (§5y).
+
+Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z dziewieciu zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
+(§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
+`getComputedStyle(document.querySelector("header.top")).position` zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
 poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
 przewinieciu listy katalogu prostokat paska szukania nie przecina sie z prostokatem pierwszego
 wiersza wynikow** — to jest asercja, ktorej brak przepuscil blad kaskady z sekcji 1a; **pierwsze trzy
@@ -1250,11 +1290,24 @@ z sekcji 5e. Wygrywaja, bo sa ostatnie — ta sama zasada kaskady:
 details.foldnote>summary,details.cb-more>summary,details.cov-more>summary{font-size:14.5px;font-weight:600;color:var(--text)}
 details.foldnote>summary::before,details.cb-more>summary::before,details.cov-more>summary::before{width:22px;height:22px;flex-basis:22px;font-size:15px;background:var(--accent-soft);border-color:var(--accent)}
 .card-title{display:inline-block;background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-radius:10px;padding:6px 11px}
-.tbar-search,.cat-searchwrap .cat-search{background:var(--ok-soft);border-color:var(--ok);border-width:1.5px;font-weight:500}
-.tbar-search::placeholder,.cat-searchwrap .cat-search::placeholder{color:var(--muted);font-weight:400}
-.tbar input.tbar-search:focus,.cat-searchwrap .cat-search:focus{background:var(--surface);box-shadow:0 0 0 3px var(--ok-soft)}
+.tbar input[type=search].tbar-search,
+.cat-searchwrap input.cat-search{background:var(--ok-soft);border-color:var(--ok);border-width:1.5px;font-weight:500}
+.tbar input[type=search].tbar-search::placeholder,
+.cat-searchwrap input.cat-search::placeholder{color:var(--muted);font-weight:400}
+.tbar input[type=search].tbar-search:focus,
+.cat-searchwrap input.cat-search:focus{background:var(--surface);border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
 .cat-searchicon{color:var(--ok)}
 ```
+
+**SELEKTOR MUSI DOROWNAC SPECYFICZNOSCIA POWLOCE — inaczej reguly nie widac mimo ze jest w pliku.**
+Zmierzone 1 wrzesnia 2026 na `site/index.html`: blok §5k **byl w arkuszu**, a mimo to pole szukania
+tabeli mialo tlo `rgb(255,255,255)` — czyste `--surface`. Powloka deklaruje je jako
+`.tbar input[type=search].tbar-search` (specyficznosc 0,2,2), a nasza regula brzmiala
+`.tbar-search` (0,1,0). Bycie ostatnim w arkuszu **nie wygrywa z wyzsza specyficznoscia** — kaskada
+rozstrzyga kolejnoscia dopiero przy remisie. Drugie pole, `.cat-search`, w ogole nie bylo zielone:
+mialo `rgb(226,234,251)`, czyli `--accent-soft`, bo przebieg wpisal tam zmienne NIEBIESKIE zamiast
+`--ok`. Po poprawce oba pola daja `rgb(219,240,227)` na obwodce `rgb(13,98,54)` w jasnym motywie
+i `rgb(15,51,35)` na `rgb(99,212,149)` w ciemnym — **identycznie**, co jest cala pointa tej reguly.
 
 **Pole szukania ma byc zielone i wygladac tak samo wszedzie.** Powloka daje katalogowi `.cat-search`
 z akcentem i lupka, ale tabelom `.tbar-search` na zwyklym `--surface` — i wlasnie ono ginie na stronie,
@@ -1832,6 +1885,382 @@ z odbita strona. Obowiazuja przy budowaniu, czyli w scheduled taskach i w fallba
 - tlo ostatniej komorki nie jest przezroczyste w obu motywach;
 - przy `scrollLeft = 0` prostokat ostatniego `th` miesci sie w prostokacie `.tw`;
 - zaden chip w ostatniej kolumnie nie wystaje poza swoja komorke.
+
+## 5x. Zadna zakladka nie rozpycha dokumentu w poziomie
+
+Wlasciciel zglosil 1 wrzesnia 2026, ze na telefonie **przy przelaczaniu zakladek sekcje sie
+powiekszaja albo zmniejszaja**. To nie jest animacja ani wina powloki — to zmiana szerokosci
+DOKUMENTU. Zmierzone przy 390x844, dziewiec zakladek po kolei:
+
+| zakladka | `scrollWidth` | `clientWidth` |
+|---|---|---|
+| Overview, New, Products, Roles, Graph API, Hunting, Sources | 390 | 390 |
+| **Today** | **556** | 390 |
+| **Deadlines** | **482** | 390 |
+
+Przelaczanie szlo wiec 390 -> 556 -> 390 -> 482 -> 390, a przegladarka za kazdym razem przeskalowywala
+widok. Dwie przyczyny, obie znalezione przez chodzenie po drzewie i odrzucanie elementow, ktorych
+rodzic ma `overflow-x:auto` (bo te legalnie przewijaja sie same, jak `.tw`):
+
+1. **`white-space:nowrap` na chipach linkow z §5t** — w Deadlines trzy kotwice po 416, 438 i 456 px
+   przy ekranie 390. **To byl regres wprowadzony ta sama specyfikacja**: `nowrap` dodano po to, zeby
+   chip nie czytal sie jak dwa osobne, i na desktopie to jest sluszne. Na telefonie zawiniety chip
+   jest lepszy niz rozwalona strona.
+2. **Nielamliwe nazwy w kartach Top N** — `code` 482 px z nazwa uprawnienia, `span.when` 304 px
+   z `nowrap`. Karta urosla do 544 px w kontenerze 366 px.
+
+Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t i §5w:
+
+```css
+@media (max-width:760px){
+  .sec-body a[href^="http"],
+  .sec-body .lnk-dead{white-space:normal;max-width:100%;overflow-wrap:anywhere}
+  .card,.card-head,.card-title,.card p,.card li{min-width:0}
+  .card .when{white-space:normal}
+  .card code,.card .permname,
+  .sec-body code,.sec-body .permname{overflow-wrap:anywhere;word-break:break-word}
+}
+```
+
+Po poprawce wszystkie dziewiec zakladek daje `scrollWidth == clientWidth == 390`, zero bledow
+konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z dziewieciu zakladek przy 390x844
+`document.documentElement.scrollWidth === clientWidth`** — nie tylko dla tej, ktora akurat jest
+widoczna po zaladowaniu. Poprzednia wersja §5h sprawdzala jedna zakladke i dlatego przepuscila obie.
+
+## 5y. Agregaty: per usluga, udzial i os czasu — SKRYPT 4, dokladany
+
+Wlasciciel wskazal 1 wrzesnia 2026 cztery braki naraz: zakladka Products ma wykres „By topic", ale
+**nie ma per usluga** („entra id xyz, entra connect xyz, sentinel xyz"); **kazda zakladka** ma miec
+taki raport; brakuje wykresow udzialowych i tendencji; i brakuje **podzialu na miesiac / tydzien /
+dzien**, jak agreguje Merill na `daily.entra.news` i `daily.intune.admin.news`.
+
+Powloka tego nie zrobi: `sectionSummaries()` fasetuje JEDNA rozpoznana kolumne i buduje z niej jeden
+wykres, a kolumna `Product` nie odroznia Entra ID od Entra Connect. **Nie ruszamy jednak trzech
+skryptow powloki** — dokladamy **czwarty**, ktory czyta gotowy DOM i blok `soc-brief-state`
+i wstawia wykresy za `.panelhead`. Rysuje klasami powloki (`.chart`, `.cl`, `.ctrack`, `.cbar`,
+`.cv`), wiec wyglada identycznie i dziala w obu motywach bez ani jednej nowej zmiennej koloru.
+
+**Usluga to nie produkt.** `product` mowi „Entra"; SOC pyta osobno o Entra ID, osobno o Entra
+Connect. Skrypt wylicza usluge z `product` + `area` + tytulu, wedlug zamknietego slownika, a kolejnosc
+wyswietlania idzie **drabina §5p, nie liczba i nie alfabet** — uslugi tozsamosci na gorze, Azure na
+dole. Zmierzone na oknie 17-31 sierpnia (109 pozycji): Entra ID 9, Entra Connect / Cloud Sync 6,
+Conditional Access 2, Metody uwierzytelniania 6, Identity Governance / PIM 4, Graph API 6,
+Defender XDR 5, MDE 8, MDI 2, MDCA 1, Exposure Management 4, Sentinel 3, Threat Intel 3, Purview 12,
+Intune 13, Azure 7.
+
+**Zakladki katalogowe licza katalog, nie okno.** `tab-graph` i `tab-roles` nie opisuja okna 14 dni —
+liczenie ich populacja okna bylo bledem kategorii, przez ktory panel Graph API mowilby o Entrze.
+Tam grupujemy po `kind` i po `firstTracked`.
+
+**Os czasu ma trzy tryby i jeden przycisk na tryb.** Zmierzone na tym samym oknie: MIESIAC daje
+`Aug 2026: 102`, TYDZIEN dwa kubelki (`tydz. 17 Aug: 47`, `tydz. 24 Aug: 55`), DZIEN dwanascie
+(`17 Aug: 7`, `19 Aug: 15`, `25 Aug: 23`, ...). W zakladce Deadlines ta sama os liczy `deadline`
+zamiast `published` i nazywa sie „Terminy w czasie". Kubelek tygodnia zaczyna sie w poniedzialek
+w UTC, zeby dwa przebiegi tego samego dnia nie dawaly dwoch roznych tygodni.
+
+**Pierscien udzialow** pokazuje osiem najwiekszych uslug z legenda `nazwa - N * P%`. To on odpowiada
+na pytanie z punktu 1 wlasciciela liczba, a nie wrazeniem: na oknie 17-31 sierpnia **Azure ma 18%
+i jest najwieksza pojedyncza usluga**, przed Intune 15% i Purview 14%, podczas gdy Entra ID ma 11%.
+Dopoki tak jest, §5p nie jest zastosowane.
+
+Skrypt jest **idempotentny** (`if (panel.querySelector(".aggwrap")) return;`), wiec republikacja
+popoludniowa nie dubluje wykresow, i **cichy przy braku danych** — bez bloku stanu nie robi nic
+i nie rzuca bledem. Zmierzone po dolozeniu: dziewiec zakladek, zero bledow konsoli i strony w obu
+motywach przy 1500x1000 i 390x844, `scrollWidth == clientWidth` wszedzie, dwa wykresy w Overview
+i trzy w kazdej zakladce tresciowej.
+
+Do `<style>` dochodzi blok wygladu (na koncu, z pozostalymi):
+
+```css
+.aggwrap{display:grid;gap:14px;margin:0 0 20px;align-items:start}
+@media (min-width:900px){.aggwrap.two{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}}
+.aggwrap figure.chart{margin:0}
+.aggwrap svg.donut{display:block;width:100%;max-width:250px;height:auto;margin:2px auto 0}
+.aggbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.aggbar .agglabel{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
+.aggbtn{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.aggbtn[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.aggbtn:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
+.donut-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:8px 0 0;padding:0;list-style:none;font-size:12.5px}
+.donut-legend li{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.donut-legend .sw{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.donut-legend b{color:var(--text);font-variant-numeric:tabular-nums}
+```
+
+A na koniec `<body>`, jako CZWARTY blok `<script>`, ten kod — kopiowany dalej co do bajtu tak samo
+jak trzy skrypty powloki:
+
+```js
+/* ===========================================================================
+   SKRYPT 4 — AGREGATY (CLAUDE.md §5y). DOKLADANY, nie zastepuje niczego.
+   Trzy skrypty powloki zostaja nietkniete; ten czyta gotowy DOM i blok stanu
+   i dokłada do kazdego panelu tresciowego trzy rzeczy, o ktore prosil wlasciciel:
+     1. "Per usluga" — Entra ID / Entra Connect / Sentinel..., nie sam produkt.
+     2. Os czasu z przelacznikiem MIESIAC / TYDZIEN / DZIEN, jak daily.entra.news.
+     3. Udzial procentowy jako pierscien, obok slupkow.
+   Wszystko rysuje klasami powloki (.chart/.cl/.ctrack/.cbar/.cv), wiec wyglada
+   identycznie i dziala w obu motywach bez ani jednej nowej zmiennej koloru.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function sv(t, a) { var n = document.createElementNS(NS, t); for (var k in a) if (Object.prototype.hasOwnProperty.call(a, k)) n.setAttribute(k, a[k]); return n; }
+  function state() {
+    var s = document.getElementById("soc-brief-state");
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+
+  /* ---------- uslugi: zamkniety slownik, kolejnosc drabiny §5p ----------
+     Produkt mowi "Entra". Wlasciciel pyta o "Entra ID" kontra "Entra Connect",
+     bo to dwie rozne powierzchnie dla SOC. Uslugę wyliczamy z produktu i obszaru. */
+  var SERVICES = [
+    ["Entra Connect / Cloud Sync", /connect|cloud\s*sync|provisioning agent|hybrid/i],
+    ["Conditional Access",         /conditional access/i],
+    ["Metody uwierzytelniania",    /authentication method|passkey|fido|mfa|tap|temporary access|sms|voice|passwordless|authenticator/i],
+    ["Identity Governance / PIM",  /\bpim\b|governance|entitlement|access review|lifecycle workflow|privileged identity/i],
+    ["Role Entra",                 /role|rbac/i],
+    ["Identity Protection",        /identity protection|risk/i],
+    ["Entra ID",                   /.*/]
+  ];
+  var PRODUCT_SERVICE = {
+    "Graph": "Graph API", "Defender XDR": "Defender XDR", "MDE": "Defender for Endpoint",
+    "MDI": "Defender for Identity", "MDA": "Defender for Cloud Apps",
+    "MDVM": "Exposure Management", "Exposure Management": "Exposure Management",
+    "Sentinel": "Sentinel", "Intune": "Intune", "Purview": "Purview",
+    "Exchange Online": "Exchange Online", "Teams": "Teams", "SharePoint": "SharePoint",
+    "M365 admin": "M365 admin", "Windows": "Windows", "Windows Server": "Windows Server",
+    "Azure": "Azure", "Copilot Studio": "Copilot Studio", "Threat Intel": "Threat Intel"
+  };
+  /* Kolejnosc wyswietlania idzie waga bezpieczenstwa §5p, nie alfabetem ani liczba. */
+  var ORDER = ["Entra ID", "Entra Connect / Cloud Sync", "Conditional Access",
+    "Metody uwierzytelniania", "Identity Governance / PIM", "Role Entra", "Identity Protection",
+    "Graph API", "Defender XDR", "Defender for Endpoint", "Defender for Identity",
+    "Defender for Cloud Apps", "Exposure Management", "Sentinel", "Threat Intel",
+    "Purview", "Intune", "M365 admin", "Exchange Online", "SharePoint", "Teams",
+    "Copilot Studio", "Windows", "Windows Server", "Azure"];
+
+  function serviceOf(it) {
+    var p = it.product || "";
+    if (PRODUCT_SERVICE[p]) return PRODUCT_SERVICE[p];
+    if (/entra/i.test(p)) {
+      var hay = [it.area, it.title, it.officialTitle, it.fingerprint].filter(Boolean).join(" ");
+      for (var i = 0; i < SERVICES.length; i++) if (SERVICES[i][1].test(hay)) return SERVICES[i][0];
+    }
+    return p || "Inne";
+  }
+
+  /* ---------- kubelki czasu: miesiac / tydzien / dzien ---------- */
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function parse(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])) : null; }
+  function monday(dt) { var d = new Date(dt.getTime()), w = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - w); return d; }
+  function bucket(dt, mode) {
+    if (mode === "month") return { k: dt.getUTCFullYear() + "-" + ("0" + (dt.getUTCMonth() + 1)).slice(-2), l: MON[dt.getUTCMonth()] + " " + dt.getUTCFullYear() };
+    if (mode === "week") { var m0 = monday(dt); return { k: m0.toISOString().slice(0, 10), l: "tydz. " + m0.getUTCDate() + " " + MON[m0.getUTCMonth()] }; }
+    return { k: dt.toISOString().slice(0, 10), l: dt.getUTCDate() + " " + MON[dt.getUTCMonth()] };
+  }
+
+  /* ---------- wykres slupkowy, klasy powloki ---------- */
+  function bars(rows, opts) {
+    opts = opts || {};
+    var CW = 6.15, W = 620, rowH = 26, pad = 8, valW = 44;
+    var longest = rows.reduce(function (n, r) { return Math.max(n, String(r.k).length); }, 0);
+    var labelW = Math.min(320, Math.max(150, Math.ceil(longest * CW) + 16));
+    var maxChars = Math.floor((labelW - 14) / CW);
+    var H = pad * 2 + rows.length * rowH;
+    var max = Math.max.apply(null, rows.map(function (r) { return r.v; }).concat([1]));
+    var s = sv("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", height: H, role: "img", "aria-label": opts.title || "bar chart", preserveAspectRatio: "xMinYMin meet" });
+    var plotW = W - labelW - valW - 10;
+    rows.forEach(function (r, i) {
+      var y = pad + i * rowH, k = String(r.k);
+      var t = sv("text", { x: labelW - 10, y: y + 15, "text-anchor": "end", class: "cl" });
+      t.textContent = k.length > maxChars ? k.slice(0, maxChars - 1) + "…" : k;
+      var tt = sv("title"); tt.textContent = k + ": " + r.v; t.appendChild(tt); s.appendChild(t);
+      s.appendChild(sv("rect", { x: labelW, y: y + 5, width: plotW, height: 13, rx: 3, class: "ctrack" }));
+      var w = Math.max(3, Math.round(plotW * r.v / max));
+      var bar = sv("rect", { x: labelW, y: y + 5, width: w, height: 13, rx: 3, class: "cbar" });
+      var bt = sv("title"); bt.textContent = k + ": " + r.v; bar.appendChild(bt); s.appendChild(bar);
+      var v = sv("text", { x: labelW + w + 7, y: y + 16, class: "cv" }); v.textContent = r.v; s.appendChild(v);
+    });
+    return s;
+  }
+
+  /* ---------- pierscien udzialow ---------- */
+  var HUES = ["--accent", "--ok", "--warn", "--bad", "--info", "--cond", "--grey", "--accent-line"];
+  function donut(rows, total) {
+    var R = 78, r0 = 46, C = 100, box = 200, acc = 0;
+    var s = sv("svg", { viewBox: "0 0 " + box + " " + box, class: "donut", role: "img", "aria-label": "udzial" });
+    var sum = rows.reduce(function (n, x) { return n + x.v; }, 0) || 1;
+    rows.forEach(function (r, i) {
+      var a0 = acc / sum * Math.PI * 2 - Math.PI / 2; acc += r.v;
+      var a1 = acc / sum * Math.PI * 2 - Math.PI / 2;
+      var big = (a1 - a0) > Math.PI ? 1 : 0;
+      var p = ["M", C + R * Math.cos(a0), C + R * Math.sin(a0),
+        "A", R, R, 0, big, 1, C + R * Math.cos(a1), C + R * Math.sin(a1),
+        "L", C + r0 * Math.cos(a1), C + r0 * Math.sin(a1),
+        "A", r0, r0, 0, big, 0, C + r0 * Math.cos(a0), C + r0 * Math.sin(a0), "Z"].join(" ");
+      var seg = sv("path", { d: p, fill: "var(" + HUES[i % HUES.length] + ")", opacity: "0.92" });
+      var t = sv("title"); t.textContent = r.k + ": " + r.v + " (" + Math.round(r.v / sum * 100) + "%)";
+      seg.appendChild(t); s.appendChild(seg);
+    });
+    var mid = sv("text", { x: C, y: C + 2, "text-anchor": "middle", class: "cv", "font-size": "26" });
+    mid.textContent = String(total === undefined ? sum : total); s.appendChild(mid);
+    var sub = sv("text", { x: C, y: C + 20, "text-anchor": "middle", class: "cl", "font-size": "11" });
+    sub.textContent = "pozycji"; s.appendChild(sub);
+    return s;
+  }
+  function legend(rows) {
+    var ul = el("ul", "donut-legend");
+    var sum = rows.reduce(function (n, x) { return n + x.v; }, 0) || 1;
+    rows.forEach(function (r, i) {
+      var li = el("li");
+      var sw = el("span", "sw"); sw.style.background = "var(" + HUES[i % HUES.length] + ")";
+      li.appendChild(sw);
+      li.appendChild(document.createTextNode(r.k + " "));
+      li.appendChild(el("b", null, r.v + " · " + Math.round(r.v / sum * 100) + "%"));
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function figure(title, note, node) {
+    var f = el("figure", "chart");
+    f.appendChild(el("figcaption", "chart-title", title));
+    if (note) f.appendChild(el("p", "chart-note", note));
+    f.appendChild(node);
+    return f;
+  }
+  function tally(list, keyfn) {
+    var m = {};
+    list.forEach(function (x) { var k = keyfn(x); if (k) m[k] = (m[k] || 0) + 1; });
+    return m;
+  }
+
+  /* ---------- ktora populacja nalezy do ktorego panelu ---------- */
+  function catalogRows(which) {
+    var s = document.getElementById("soc-catalog");
+    if (!s) return [];
+    var c; try { c = JSON.parse(s.textContent); } catch (e) { return []; }
+    return (c[which] || []).map(function (e) {
+      return { product: e.kind || "nieokreslony", area: "", title: e.name || "",
+               published: e.firstTracked || e.deployedSeen || e.sourceChanged || e.changed || null };
+    });
+  }
+
+  function population(id, items) {
+    var win = items.filter(function (i) { return i.tier !== "horizon"; });
+    /* Zakladki katalogowe NIE opisuja okna 14 dni — opisuja katalog. Liczenie ich
+       populacja okna bylo bledem kategorii: panel Graph API mowilby o Entrze. */
+    if (id === "tab-graph") return { rows: catalogRows("graph"), date: "published", what: "wpisow katalogu", byKind: true };
+    if (id === "tab-roles") return { rows: catalogRows("roles"), date: "published", what: "wpisow katalogu", byKind: true };
+    if (id === "tab-deadlines") return { rows: items.filter(function (i) { return i.deadline; }), date: "deadline", what: "pozycji z terminem" };
+    if (id === "tab-today") return { rows: win, date: "published", what: "pozycji okna" };
+    if (id === "tab-new") return { rows: items.filter(function (i) { return i.tier === "published-in-window"; }), date: "published", what: "pozycji okna" };
+    if (id === "tab-products" || id === "tab-hunting" || id === "tab-sources") return { rows: win, date: "published", what: "pozycji okna" };
+    return { rows: win, date: "published", what: "pozycji okna" };
+  }
+
+  function build() {
+    var st = state();
+    if (!st || !st.items || !st.items.length) return;
+    var items = st.items;
+
+    document.querySelectorAll(".tabpanel").forEach(function (panel) {
+      if (panel.id === "tab-overview") return;              // Overview ma wlasny blok nizej
+      if (panel.querySelector(".aggwrap")) return;          // idempotentnie
+      var pop = population(panel.id, items);
+      if (!pop.rows.length) return;
+
+      var wrap = el("div", "aggwrap two");
+
+      /* --- per usluga --- */
+      var svc = tally(pop.rows, pop.byKind ? function (x) { return x.product; } : serviceOf);
+      var srows = ORDER.filter(function (k) { return svc[k]; }).map(function (k) { return { k: k, v: svc[k] }; });
+      Object.keys(svc).forEach(function (k) { if (ORDER.indexOf(k) < 0) srows.push({ k: k, v: svc[k] }); });
+      var top = srows.slice().sort(function (a, b) { return b.v - a.v; }).slice(0, 8);
+      wrap.appendChild(figure(pop.byKind ? "Per rodzaj wpisu" : "Per usluga",
+        srows.length + (pop.byKind ? " rodzajow, " : " uslug, ") + pop.rows.length + " " + pop.what +
+        (pop.byKind ? "." : ". Kolejnosc idzie waga bezpieczenstwa, nie liczba."),
+        bars(srows, { title: pop.byKind ? "Per rodzaj" : "Per usluga" })));
+
+      /* --- udzial --- */
+      var dwrap = el("div");
+      dwrap.appendChild(donut(top, pop.rows.length));
+      dwrap.appendChild(legend(top));
+      wrap.appendChild(figure(pop.byKind ? "Udzial osmiu najwiekszych rodzajow" : "Udzial osmiu najwiekszych uslug",
+        "Reszta mieści sie w slupkach obok.", dwrap));
+
+      /* --- os czasu, przelacznik miesiac/tydzien/dzien --- */
+      var dated = pop.rows.filter(function (i) { return parse(i[pop.date]); });
+      if (dated.length) {
+        var host = el("div");
+        var barsHost = el("div");
+        var ctl = el("div", "aggbar");
+        ctl.appendChild(el("span", "agglabel", pop.date === "deadline" ? "Termin wg" : "Publikacja wg"));
+        var modes = [["month", "Miesiac"], ["week", "Tydzien"], ["day", "Dzien"]];
+        var btns = [];
+        function draw(mode) {
+          var m = {}, lab = {};
+          dated.forEach(function (i) { var b = bucket(parse(i[pop.date]), mode); m[b.k] = (m[b.k] || 0) + 1; lab[b.k] = b.l; });
+          var keys = Object.keys(m).sort();
+          var rows = keys.map(function (k) { return { k: lab[k], v: m[k] }; });
+          barsHost.textContent = "";
+          barsHost.appendChild(bars(rows, { title: "os czasu" }));
+          btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.mode === mode)); });
+        }
+        modes.forEach(function (mm) {
+          var b = el("button", "aggbtn", mm[1]);
+          b.type = "button"; b.dataset.mode = mm[0]; b.setAttribute("aria-pressed", "false");
+          b.addEventListener("click", function () { draw(mm[0]); });
+          btns.push(b); ctl.appendChild(b);
+        });
+        host.appendChild(ctl); host.appendChild(barsHost);
+        draw("month");
+        var f = figure(pop.date === "deadline" ? "Terminy w czasie" : (pop.byKind ? "Znalezione w czasie" : "Opublikowane w czasie"),
+          dated.length + " z " + pop.rows.length + " " + pop.what + " ma date. Klikaj Miesiac / Tydzien / Dzien.", host);
+        f.style.gridColumn = "1 / -1";
+        wrap.appendChild(f);
+      }
+
+      var head = panel.querySelector(".panelhead");
+      if (head && head.nextSibling) panel.insertBefore(wrap, head.nextSibling);
+      else if (head) panel.appendChild(wrap);
+      else panel.insertBefore(wrap, panel.firstChild);
+    });
+
+    /* ---------- Overview: te same agregaty dla calego okna ---------- */
+    var ov = document.getElementById("tab-overview");
+    if (ov && !ov.querySelector(".aggwrap")) {
+      var win = items.filter(function (i) { return i.tier !== "horizon"; });
+      if (win.length) {
+        var w2 = el("div", "aggwrap two");
+        var svc2 = tally(win, serviceOf);
+        var r2 = ORDER.filter(function (k) { return svc2[k]; }).map(function (k) { return { k: k, v: svc2[k] }; });
+        Object.keys(svc2).forEach(function (k) { if (ORDER.indexOf(k) < 0) r2.push({ k: k, v: svc2[k] }); });
+        w2.appendChild(figure("Per usluga — cale okno",
+          r2.length + " uslug, " + win.length + " pozycji okna. Uslugi SOC na gorze, Azure na dole.",
+          bars(r2, { title: "Per usluga" })));
+        var t2 = r2.slice().sort(function (a, b) { return b.v - a.v; }).slice(0, 8);
+        var d2 = el("div"); d2.appendChild(donut(t2, win.length)); d2.appendChild(legend(t2));
+        w2.appendChild(figure("Udzial uslug", "Osiem najwiekszych.", d2));
+        ov.appendChild(w2);
+      }
+    }
+  }
+
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[agg]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 0); });
+  else setTimeout(boot, 0);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** Tamte dwie pozycje —
+`KIND_BADGE` (§5e) i trzy linie `facetCandidates()` (§5w) — zostaja jedynymi. Skrypt 4 jest osobnym
+blokiem, ktory niczego nie nadpisuje; przebieg, ktory chcialby zamiast tego wejsc w skrypt 2, tego
+nie robi i pisze o tym w odpowiedzi.
 
 ## 6. Kontrakt w stronie
 
