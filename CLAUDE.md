@@ -35,7 +35,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 30 pozycji. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 33 pozycje. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -74,9 +74,12 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
 | 30 | **zero polskich slow w warstwie widocznej dla czytelnika** — cala strona jest po angielsku | 5y | `innerText` nie zawiera `Per usluga`, `Udzial`, `Miesiac`, `Tydzien`, `Dzien`, `pozycji okna`, `Metody uwierzytelniania` |
+| 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
+| 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
+| 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26 i 28 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31 i 33 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -443,7 +446,9 @@ class Scan(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.ids=set(); self.deadA=0; self.captions=0; self.grp=0; self.cards=set()
-        self.sec=None; self.notes={}; self._grab=None; self.cardCount=0
+        self.sec=None; self.notes={}; self._grab=None; self.cardCount=0; self.text=[]; self._skip=0
+        # kazdy <tr> jako (sekcja, data-id, tekst) — pozycja 31/32 pyta, W KTOREJ tabeli stoi wiersz
+        self.rows=[]; self._secstack=[]; self._row=None; self._rowid=None; self._rowsec=None
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
@@ -453,12 +458,26 @@ class Scan(HTMLParser):
             if a.get("data-id"): self.cards.add(a["data-id"])
         if tag=="caption": self.captions+=1
         if tag=="tr" and "grp" in cls: self.grp+=1
-        if tag=="section" and a.get("id"): self.sec=a["id"]
+        if tag=="section":
+            self._secstack.append(a.get("id") or "")
+            if a.get("id"): self.sec=a["id"]
+        if tag=="tr":
+            self._row=[]; self._rowid=a.get("data-id"); self._rowsec=self.sec
         if tag=="p" and "sec-note" in cls: self._grab=self.sec
+        if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
+        if not self._skip: self.text.append(d)
+        if self._row is not None and not self._skip: self._row.append(d)
     def handle_endtag(self, tag):
         if tag=="p": self._grab=None
+        if tag=="tr" and self._row is not None:
+            self.rows.append((self._rowsec, self._rowid, " ".join("".join(self._row).split())))
+            self._row=None; self._rowid=None; self._rowsec=None
+        if tag=="section" and self._secstack:
+            self._secstack.pop()
+            self.sec=self._secstack[-1] if self._secstack else None
+        if tag in ("script","style") and self._skip: self._skip-=1
 
 def gate(path):
     h=open(path,encoding="utf-8").read()
@@ -577,11 +596,69 @@ def gate(path):
     # wczesnym "-->", wiec niezachlanne wycinanie komentarzy zjada kawal dokumentu.
     ncards=s.cardCount
     need("29", "naglowek Top N niesie liczbe, kart 7..10",
-         ("Top N of the day" not in body) and 7 <= ncards <= 10,
-         "literal 'Top N' w tresci=%s, kart=%d (7..10)" % ("Top N of the day" in body, ncards))
+         ("Top N of the day" not in "".join(s.text)) and 7 <= ncards <= 10,
+         "literal 'Top N' w tresci=%s, kart=%d (7..10)" % ("Top N of the day" in "".join(s.text), ncards))
     PL=["Per usluga","Udzial","Miesiac","Tydzien","Dzien","pozycji okna","Metody uwierzytelniania","Terminy w czasie"]
-    hit=[w for w in PL if w in body]
+    vis="".join(s.text)
+    hit=[w for w in PL if w in vis]
     need("30", "zero polskich slow w tresci strony", not hit, "znalezione: %s" % ", ".join(hit))
+    # 31-32: §5ab — poza 60 dniem tez tabela, waga promuje z powrotem.
+    # Pytanie brzmi „czy pozycja MA WIERSZ i w KTOREJ tabeli", wiec liczymy wiersze
+    # parserem razem z ich sekcja. Szukanie podciagu „61"/„120" w tresci przechodzilo
+    # przypadkiem — kazda strona z data albo licznikiem zawiera te cyfry.
+    def _norm(x): return " ".join((x or "").lower().split())
+    rowids=set(r[1] for r in s.rows if r[1])
+    rowtx=[(r[0], _norm(r[2])) for r in s.rows]
+    def rowsec_of(it):
+        """Zwraca sekcje wiersza tej pozycji albo None, gdy pozycja nie ma wiersza nigdzie."""
+        if it.get("id") in rowids:
+            for sec,rid,_ in s.rows:
+                if rid==it["id"]: return sec or ""
+        for key in (it.get("title"), it.get("officialTitle"), it.get("id")):
+            k=_norm(key)[:44]
+            if len(k)<12: continue
+            for sec,tx in rowtx:
+                if k in tx: return sec or ""
+        return None
+    byid_all={i.get("id"):i for i in items}
+    dated=[i for i in items if _d(i.get("deadline"))]
+    far=[i for i in dated if (_d(i["deadline"])-today).days > 60]
+    need("31a","sekcja horizon istnieje gdy cos jest poza 60 dniem",
+         (not far) or ("horizon" in s.ids),
+         "%d pozycji poza 60 dniem, a brak <section id=\"horizon\">" % len(far))
+    need("31b","horyzont nie jest proza",
+         "in one paragraph" not in "".join(s.text) and "not tabulated" not in "".join(s.text),
+         "strona nadal zwija horyzont w zdanie")
+    norow=[i["id"] for i in dated if rowsec_of(i) is None]
+    need("31c","kazda pozycja z terminem ma WIERSZ w jakiejs tabeli",
+         bool(dated) and not norow,
+         "brak pozycji z terminem — nie da sie sprawdzic" if not dated
+         else "%d z %d bez wiersza: %s" % (len(norow), len(dated), ", ".join(norow[:5])))
+    # 33: §5ac — KAZDA pozycja stanu ma wiersz, nie tylko datowana. Zmierzone 2 wrzesnia:
+    # 36 ze 191 pozycji nie mialo ani wiersza, ani karty — WSZYSTKIE 36 to `tier:"horizon"`,
+    # czyli caly kubelek, ktorego prezentacja nie renderuje. Szesc z nich ma socWeight 1.
+    nocover=[i["id"] for i in items if rowsec_of(i) is None and i["id"] not in s.cards]
+    need("33","KAZDA pozycja stanu ma wiersz albo karte, nie tylko datowana",
+         bool(items) and not nocover,
+         "brak pozycji stanu — nie da sie sprawdzic" if not items
+         else "%d z %d bez wiersza i bez karty (tier: %s): %s" % (
+             len(nocover), len(items),
+             ",".join(sorted({(byid_all.get(x) or {}).get("tier") or "?" for x in nocover})),
+             ", ".join(nocover[:6])))
+    promo=[i for i in far
+           if (_d(i["deadline"])-today).days <= 120
+           and ((isinstance(i.get("socWeight"),int) and i["socWeight"]<=2) or i.get("tier0Touch"))]
+    hasW=any(isinstance(i.get("socWeight"),int) for i in items) or any("tier0Touch" in i for i in items)
+    # promowany ma stac w GLOWNEJ tabeli terminow, czyli poza sekcja horizon — samo istnienie
+    # wiersza nie wystarcza, bo wiersz w horyzoncie to wlasnie to, czego regula zabrania
+    badpromo=[i["id"] for i in promo if (rowsec_of(i) or "horizon")=="horizon"]
+    band=any(re.search(r"61\s*[-\u2013]\s*120\s*days", tx) for _,tx in rowtx) \
+         or re.search(r"61\s*[-\u2013]\s*120\s*days", "".join(s.text)) is not None
+    need("32","61-120 dni z waga <=2 albo tier0 promowane do glownej tabeli",
+         hasW and not badpromo and (band if promo else True),
+         "brak pol socWeight/tier0Touch — nie da sie sprawdzic" if not hasW
+         else ("%d pozycji stoi w horyzoncie zamiast w glownej tabeli: %s" % (len(badpromo), ", ".join(badpromo[:4]))
+               if badpromo else "brak pasma '61-120 days' przy %d pozycjach do promocji" % len(promo)))
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -596,6 +673,35 @@ def gate(path):
 if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
+
+**Rozszerzone 2 wrzesnia 2026 o pozycje 33 (§5ac) — bo §5ab lapal tylko datowane.** Pozycja 31c
+pyta o pozycje Z TERMINEM; wlasciciel powiedzial, ze MC1448379 bylo przykladem, a nie przypadkiem.
+Pozycja 33 pyta o WSZYSTKIE. Zmierzone na stronie z 2 wrzesnia: **36 ze 191 pozycji stanu nie ma ani
+wiersza, ani karty, i wszystkie 36 to `tier:"horizon"`** — 6 o wadze 1, 13 o wadze 2. Regresja na
+trzech wariantach: strona z 2 wrzesnia `33 BRAK 36/191`, ta sama z tabela horyzontu tylko dla
+datowanych `33 BRAK 30/191`, z tabela biorąca wszystkie — `33 OK`. Bramka wypisuje `id` i `tier`,
+nie sama liczbe.
+
+**Rozszerzone 2 wrzesnia 2026 o pozycje 31-32 (§5ab) — i pierwsza wersja pozycji 32 byla zla.**
+Pytala `"61" in tresc and "120" in tresc`, czyli o PODCIAG, a kazda strona z data albo licznikiem
+zawiera obie cyfry: na zywej stronie z 2 wrzesnia dawala **OK przy dwoch pozycjach zwinietych
+w akapit** — dokladnie tych, o ktore pytal wlasciciel. To ten sam blad co pusty zbior w pozycji 23:
+asercja przechodzila z niewlasciwego powodu. Teraz bramka **liczy wiersze parserem razem z ich
+sekcja** (`self.rows` jako `(sekcja, data-id, tekst)`), wiec potrafi odpowiedziec nie tylko „czy
+pozycja ma wiersz", ale „w KTOREJ tabeli ten wiersz stoi" — a o to wlasnie chodzi w regule promocji.
+Pozycja `31c` dopisana: **kazda pozycja stanu z terminem ma wiersz w jakiejs tabeli**, dopasowywany
+po `data-id` wiersza, a gdy go nie ma — po znormalizowanym tytule.
+
+Zmierzone na zywej stronie z 2 wrzesnia: `31a BRAK` (8 pozycji poza 60 dniem, brak sekcji),
+`31b BRAK`, `31c BRAK` (6 z 51 pozycji z terminem nie ma wiersza NIGDZIE: `MC1448379`,
+`MC1325414-enforcement`, `mda-file-policies-retirement`, `MC1220762`,
+`sentinel-azure-portal-retirement-2027`), `32 BRAK` z nazwiskami: `MC1325414-enforcement`,
+`MC1448379`. Kontrola regresji na szesciu wariantach tej samej strony: (a) tabela horyzontu plus
+pasmo `61-120 days` w tabeli glownej — `31a/31b/31c/32 OK`; (b) wszystko w horyzoncie, promowane
+takze — `32 BRAK` z ich `id`; (c) stan bez `socWeight`/`tier0Touch` — `32 BRAK „nie da sie
+sprawdzic"`, nie OK; (d) stan bez terminow — `31c BRAK „nie da sie sprawdzic"`, nie OK;
+(e) pasmo usuniete, wiersze zostaja — `32 BRAK „brak pasma 61-120 days"`; (f) pasmo z poltuzem
+zamiast dywizu — `32 OK`, bo regex przyjmuje `-` i `–`.
 
 **Rozszerzone 2 wrzesnia 2026 o pozycje 28-30 (§5z, §5aa, §5y).** Dwie pulapki, ktore ta bramka
 musiala obejsc, sa te same, co w §0a: komentarz SHELL CONTRACT **cytuje** przykladowe teksty, wiec
@@ -2486,6 +2592,121 @@ siedem i kazda miala `data-id`, czyli dane byly poprawne; zawiodlo samo podstawi
 
 Pozycje 28 i 29 listy §0 sprawdzaja to na gotowym pliku.
 
+## 5ab. Poza 60 dniem nie zaczyna sie proza — tam tez jest tabela
+
+Wlasciciel zapytal 2 wrzesnia 2026, dlaczego portal „nie lapie w zadnej zakladce"
+`mc.merill.net/message/MC1448379` — **MemberOf rule operator retires**. Sprawdzone: zrodla je
+zlapaly, pozycja JEST w stanie z poprawnym `id: "MC1448379"`, `published: 2026-08-05`,
+`deadline: 2026-11-03`, i **jest na stronie szesc razy**. Odpowiedz na „nie widziales tego MC?"
+brzmi wiec: widzielismy, mamy, datowane dobrze. Zawiodla wylacznie PREZENTACJA.
+
+**Termin wypada 3 listopada — 62 dni od daty briefu.** Okno tabeli terminow ma 60. Dwa dni za
+progiem pozycja przestaje byc wierszem tabeli i staje sie fragmentem zdania:
+
+> **Beyond 1 November 2026, in one paragraph.** MemberOf rule operator retires — 2026-11-03
+> (Message Center); SSPR registered-methods enforcement begins — 2026-11-07 (Message Center); …
+
+**Proza nie jest wierszem.** Pole szukania zakladki, fasety i selektor okresu widza tabele, nie
+akapit — dlatego wlasciciel wpisywal `MC1448379` w Deadlines, New i Today i nie dostawal nic.
+Pozycja byla na ekranie i jednoczesnie nie do znalezienia.
+
+**To jest CZWARTY raz ta sama choroba: twarda granica liczbowa po cichu degraduje pozycje.**
+§5p — `deadline: null` nie moglo wygrac sortowania. §5q — `changed: null` wypadalo z kazdego
+filtra. §5z — liczba ujemna znikala z kazdego widoku. Teraz — 61 dni zamiast 60 spycha wpis
+z tabeli do zdania.
+
+Zmierzone 2 wrzesnia: tabela Deadlines ma **43 wiersze**, a w `tier:"horizon"` z terminem siedzi
+**siedem pozycji**, sklejonych w JEDEN akapit o dlugosci 638 znakow. Trzy z tych siedmiu to
+tozsamosc Entry, a dwie mieszcza sie w 120 dniach:
+
+| dni | produkt | pozycja |
+|---|---|---|
+| **+62** | Entra | MemberOf rule operator retires (`MC1448379`) |
+| **+66** | Entra | SSPR registered-methods enforcement begins (`MC1325414-enforcement`) |
+| +152 | Entra | Microsoft-provided SMS and voice MFA fully retire |
+
+MemberOf nie jest drobiazgiem: konfiguracje z tym operatorem **przestaja sie aktualizowac po
+3 listopada**, a czlonkostwa i przypisania zostaja w ostatnim znanym stanie — czyli nieaktualny
+dostep do Teams i SharePointa, Conditional Access oparty na grupie dynamicznej przestaje
+odzwierciedlac rzeczywistosc, licencje nie schodza, zakres jednostek administracyjnych sie zestarza.
+To jest praca do zaplanowania na tygodnie, a nie notka na koncu akapitu.
+
+### Regula
+
+1. **Sekcja horyzontu jest TABELA, nigdy akapitem.** `<section id="horizon" data-nav="Beyond 60 days">`
+   w panelu `tab-deadlines`, tuz pod tabela terminow, z tymi samymi kolumnami:
+   `Service | Change | Deadline | Days | Impact | Required Action | Source`. Jeden wiersz na pozycje.
+   **Bierze KAZDA pozycje `tier:"horizon"`, takze te bez terminu** (§5ac): `Deadline` = `not stated by
+   Microsoft`, `Days` = `—`. Kolejnosc: `socWeight` rosnaco, w obrebie wagi termin rosnaco, niedatowane
+   na koncu.
+   **Kazdy wiersz terminu — w tabeli glownej, w horyzoncie i w `elapsed` — niesie `data-id` rowne
+   `id` swojej pozycji stanu**, dokladnie tak jak karta Top N w §5p. Bez tego atrybutu pytanie „czy
+   `MC1448379` ma wiersz" nie ma odpowiedzi w kodzie, a pytanie bez odpowiedzi w kodzie wraca jako
+   sugestia; bramka §0b umie wtedy tylko dopasowac tytul, co jest przyblizeniem, nie asercja.
+   **Samo to naprawia zgloszenie**, bo dopiero wiersz jest przeszukiwalny i fasetowalny.
+2. **Waga promuje z powrotem do tabeli glownej.** Pozycja z terminem powyzej 60 dni, ale **do 120 dni**,
+   ktora ma `socWeight <= 2` albo `tier0Touch: true`, wchodzi do GLOWNEJ tabeli terminow we wlasnym
+   pasmie `61–120 days`, bez emoji pilnosci. Zmierzone: promuje to dokladnie te dwie pozycje, ktorych
+   szukal wlasciciel — MemberOf i SSPR. Wycofanie SKU Azure o wadze 7 zostaje w tabeli horyzontu.
+   Uzasadnienie nie jest gustowe: **wycofanie tozsamosciowe wymaga czasu na audyt i migracje**, wiec
+   64 dni to nie „daleko", tylko „zacznij teraz".
+3. **Nigdy nie zwijaj pozycji w zdanie.** Zdanie moze podsumowac tabele („siedem pozycji poza 60 dniem,
+   najblizsza za 62 dni"), ale nie moze jej ZASTEPOWAC. Kazda pozycja stanu z terminem ma gdzies wiersz.
+4. **Pigulka**: `<a class="count" href="#horizon"><b>N</b> beyond 60 days<span>&middot; nearest in NN days</span></a>`.
+5. Sekcja Sources mowi jednym zdaniem, ile pozycji jest za horyzontem i ile z nich promowano waga.
+
+Walidator (pozycje 31 i 32 listy §0, liczone przez bramke §0b): zero pozycji stanu z terminem, ktora
+nie ma wiersza w zadnej tabeli; `<section id="horizon">` istnieje, gdy jakas pozycja ma termin powyzej
+60 dni; **zadna pozycja do promocji nie stoi w sekcji `horizon`** — bramka czyta sekcje kazdego `<tr>`,
+wiec sam fakt, ze wiersz gdzies jest, nie wystarcza; pasmo `61-120 days` wystepuje w tresci, gdy jest
+co promowac; **fraza „in one paragraph" nie wystepuje na stronie**.
+
+## 5ac. Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje
+
+MC1448379 z §5ab bylo przykladem, nie przypadkiem. Wlasciciel powiedzial to wprost 2 wrzesnia:
+*„problem tyczy sie tez innych waznych MC, artykulow, deadline'ow, ktore mozesz pomijac — ja tylko
+dalem przyklad; zrodla masz zapisane, wiec nic nie powinno umknac."* Ma racje i jest to mierzalne.
+
+Zmierzone tego dnia na `site/index.html`: stan ma **191 pozycji**, strona ma **458 wierszy tabel**,
+a **36 pozycji nie ma ani wiersza, ani karty — nigdzie.** Nie jakies 36: **wszystkie 36 to
+`tier:"horizon"`**, czyli caly kubelek, ktorego prezentacja nie renderuje wcale. Osiem z nich ma
+termin (to sa te z §5ab), pozostale 28 terminu nie ma i dlatego nie trafialy nawet do akapitu.
+
+| waga | ile | przyklady |
+|---|---|---|
+| **1 — tozsamosc** | 6 | `MC1303719` *federatedTokenValidationPolicy default blocks cross-domain federated sign-ins* (bez terminu), `MC1325414-enforcement`, `MC1448379`, `flexible-fic-immutable-github-claims`, `graph-crosstenant-m365capability`, `graph-recovery-resource-ga` |
+| **2 — wykrywanie** | 13 | `MC1457836` *Tenants auto-enabled into Defender Unified RBAC*, `MC1220762` *MDE and XDR APIs retire*, `sentinel-azure-portal-retirement-2027`, `mdi-expanded-automatic-auditing` |
+| 3-7 | 17 | Purview 7, Teams 3, M365 admin 3, … |
+
+`MC1303719` jest tu najlepsza ilustracja: **waga 1, zmiana domyslnego zachowania federacji, zadnego
+terminu** — i ani jednego miejsca na stronie. Nie zgubilo go zrodlo. Zgubila je tabela, ktorej nie ma.
+
+### Regula — jedna, ogolna, nadrzedna wobec §5ab
+
+**Kazda pozycja `soc-brief-state.items` ma na stronie co najmniej jeden wiersz `<tr data-id="<id>">`
+albo karte `<article class="card" data-id="<id>">`.** Bez wyjatkow i bez wzgledu na `tier`, `deadline`
+czy `socWeight`. Wiersz moze byc w tabeli terminow, w `elapsed`, w `horizon`, w New, w deep dive —
+byle byl, bo dopiero wiersz jest przeszukiwalny, fasetowalny i sortowalny.
+
+- **`tier:"horizon"` ma swoja tabele** i bierze WSZYSTKIE swoje pozycje, takze te bez terminu (§5ab
+  punkt 1). Pozycja bez terminu drukuje `not stated by Microsoft`, nie puste pole.
+- **Zaden wiersz nie jest juz anonimowy.** Zmierzone 2 wrzesnia: **0 z 458 wierszy** nioslo `data-id`.
+  Dopoki tak jest, pytania „czy `MC1303719` jest na stronie" nie da sie zadac kodem — a §0b
+  odpowiada tylko na pytania zadane kodem. Kazdy wiersz tabeli zbudowanej z pozycji stanu niesie
+  `data-id`; bramka dopuszcza dopasowanie po tytule tylko jako awaryjne przyblizenie.
+- **Pozycja swiadomie niepokazana nie istnieje.** Nie ma stanu „w stanie, ale nie na stronie". Gdy
+  przebieg uzna, ze czegos nie warto pokazywac, USUWA to ze stanu z rekordem `Brief retracted`
+  i powodem — a nie zostawia w JSON-ie, gdzie wyglada na pokryte, a czytelnik tego nie widzi.
+- **Podloga zrodel z §5u dziala w druga strone**: zrodlo raportuje przeczytane / wniesione /
+  odrzucone, a §5ac pilnuje, ze wszystko WNIESIONE ma wiersz. Razem zamykaja obieg: nic nie wypada
+  ani miedzy zrodlem a stanem, ani miedzy stanem a strona.
+
+Walidator (pozycja 33 listy §0, liczona przez bramke §0b): `len([i for i in items if brak wiersza
+i brak karty]) == 0`. Bramka wypisuje `id` i `tier` pierwszych szesciu — po to, zeby raport nazywal
+zgubione pozycje, a nie podawal liczbe. Kontrola regresji: strona z 2 wrzesnia `33 BRAK 36/191
+(tier: horizon)`, ta sama strona z tabela horyzontu tylko dla datowanych `33 BRAK 30/191`, i dopiero
+tabela biorąca WSZYSTKIE 36 daje `33 OK`. Stan pusty daje `BRAK „nie da sie sprawdzic"`, nie OK.
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna
@@ -2678,7 +2899,7 @@ The ONE section reporting current state regardless of window — a quiet week is
 
 ### G. DEADLINES INSIDE 60 DAYS
 Table: | Service | Change | Deadline | Days | Impact | Required Action | Source |
-Nearest first. 🔥 under 30 days, ⚠️ 30–60. Cover Sentinel, Defender, MDE, MDI, MDA, Entra, Intune, Purview, Exchange, Graph/API, Windows lifecycle and portals. Then ONE paragraph "On the horizon, not tabulated" listing anything beyond 60 days: name, date, link. No prose.
+Nearest first. 🔥 under 30 days, ⚠️ 30–60. Cover Sentinel, Defender, MDE, MDI, MDA, Entra, Intune, Purview, Exchange, Graph/API, Windows lifecycle and portals. **`<section id="elapsed">` comes FIRST** (§5z). **Beyond 60 days is a TABLE, never a paragraph** (§5ab): `<section id="horizon" data-nav="Beyond 60 days">` with the same columns, one row per item — prose is not a row and cannot be searched or filtered. An item past 60 days but inside 120 with `socWeight <= 2` or `tier0Touch:true` is promoted back into the MAIN table in a `61–120 days` band.
 
 ### H. PER-PRODUCT DEEP DIVE
 One table per product with in-window material — Entra, Sentinel, Defender XDR, MDE, MDI, Intune, Purview. Columns vary, last is always `Source`:
