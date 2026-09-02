@@ -35,7 +35,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 27 pozycji. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 30 pozycji. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -70,10 +70,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
 | 26 | zadna z DZIEWIECIU zakladek nie rozpycha dokumentu przy 390x844 | 5x | dla kazdej zakladki `scrollWidth === clientWidth` |
-| 27 | skrypt 4 obecny; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu z przyciskami Miesiac / Tydzien / Dzien | 5y | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3 |
+| 27 | skrypt 4 obecny; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu z przyciskami Month / Week / Day | 5y | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3 |
+| 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
+| 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
+| 30 | **zero polskich slow w warstwie widocznej dla czytelnika** — cala strona jest po angielsku | 5y | `innerText` nie zawiera `Per usluga`, `Udzial`, `Miesiac`, `Tydzien`, `Dzien`, `pozycji okna`, `Metody uwierzytelniania` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23 i 26 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26 i 28 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -440,12 +443,14 @@ class Scan(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.ids=set(); self.deadA=0; self.captions=0; self.grp=0; self.cards=set()
-        self.sec=None; self.notes={}; self._grab=None
+        self.sec=None; self.notes={}; self._grab=None; self.cardCount=0
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
         if tag=="a" and "lnk-dead" in cls: self.deadA+=1
-        if tag=="article" and "card" in cls and a.get("data-id"): self.cards.add(a["data-id"])
+        if tag=="article" and "card" in cls:
+            self.cardCount+=1
+            if a.get("data-id"): self.cards.add(a["data-id"])
         if tag=="caption": self.captions+=1
         if tag=="tr" and "grp" in cls: self.grp+=1
         if tag=="section" and a.get("id"): self.sec=a["id"]
@@ -546,8 +551,37 @@ def gate(path):
          or "white-space:normal;max-width:100%;overflow-wrap:anywhere" in h,
          "brak reguly zdejmujacej nowrap z chipow linkow na telefonie")
     need("27", "skrypt 4 (agregaty §5y) obecny",
-         "SKRYPT 4" in h and "aggwrap" in h and "aggbtn" in h,
+         ("SKRYPT 4" in h or "SCRIPT 4" in h) and "aggwrap" in h and "aggbtn" in h,
          "brak skryptu agregatow albo jego klas")
+    # 28-30: §5z, §5aa, §5y — jezyk i terminy, ktore minely
+    import datetime as _dt
+    bd=(st["soc-brief-state"] or {}).get("briefDate") or _dt.date.today().isoformat()
+    try: today=_dt.date(*map(int,bd.split("-")))
+    except Exception: today=_dt.date.today()
+    def _d(x):
+        try: return _dt.date(*map(int,(x or "")[:10].split("-")))
+        except Exception: return None
+    gone=[i for i in items if _d(i.get("deadline")) and 0 < (today-_d(i["deadline"])).days <= 7]
+    need("28a","kazdy termin z ostatnich 7 dni ma tier recently-elapsed",
+         all(i.get("tier")=="recently-elapsed" for i in gone) if gone else True,
+         "%d z %d ma inny tier" % (sum(1 for i in gone if i.get("tier")!="recently-elapsed"), len(gone)))
+    need("28b","sekcja elapsed istnieje gdy sa takie pozycje",
+         (not gone) or ("elapsed" in s.ids),
+         "%d pozycji po terminie, a brak <section id=\"elapsed\">" % len(gone))
+    # Komentarz SHELL CONTRACT cytuje markup ORAZ przykladowe teksty, wiec literalu
+    # szukamy w TRESCI: bez skryptow, bez arkusza i bez komentarzy.
+    body=re.sub(r"<script.*?</script>","",h,flags=re.S)
+    body=re.sub(r"<style.*?</style>","",body,flags=re.S)
+    body=re.sub(r"<!--.*?-->","",body,flags=re.S)
+    # Liczymy karty PARSEREM, nie regexem: komentarz SHELL CONTRACT bywa przerwany
+    # wczesnym "-->", wiec niezachlanne wycinanie komentarzy zjada kawal dokumentu.
+    ncards=s.cardCount
+    need("29", "naglowek Top N niesie liczbe, kart 7..10",
+         ("Top N of the day" not in body) and 7 <= ncards <= 10,
+         "literal 'Top N' w tresci=%s, kart=%d (7..10)" % ("Top N of the day" in body, ncards))
+    PL=["Per usluga","Udzial","Miesiac","Tydzien","Dzien","pozycji okna","Metody uwierzytelniania","Terminy w czasie"]
+    hit=[w for w in PL if w in body]
+    need("30", "zero polskich slow w tresci strony", not hit, "znalezione: %s" % ", ".join(hit))
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -562,6 +596,15 @@ def gate(path):
 if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
+
+**Rozszerzone 2 wrzesnia 2026 o pozycje 28-30 (§5z, §5aa, §5y).** Dwie pulapki, ktore ta bramka
+musiala obejsc, sa te same, co w §0a: komentarz SHELL CONTRACT **cytuje** przykladowe teksty, wiec
+literalu `Top N of the day` szuka sie w TRESCI bez skryptow, arkusza i komentarzy; a karty liczy sie
+**parserem, nie regexem**, bo komentarz bywa przerwany wczesnym `-->` i niezachlanne wycinanie
+komentarzy zjadalo kawal dokumentu — pierwsza wersja pokazala `kart=0` tam, gdzie jest siedem.
+Kontrola na stronie z 2 wrzesnia: `27/29/30 OK`, `28a/28b BRAK` — i to jest poprawny wynik, bo
+sekcje `elapsed` ma napisac PRZEBIEG, a skrypt 4 tylko ja dokłada w przegladarce jako siatka
+bezpieczenstwa. Bramka czyta plik, wiec nie widzi tego, co powstaje dopiero w DOM.
 
 **Rozszerzone 1 wrzesnia 2026 o pozycje 24-27 (§5k, §5w, §5x, §5y).** Bramka czyta plik, wiec
 sprawdza OBECNOSC selektora, trzech zmian `facetCandidates()`, bloku mobilnego i skryptu 4;
@@ -1963,6 +2006,14 @@ na pytanie z punktu 1 wlasciciela liczba, a nie wrazeniem: na oknie 17-31 sierpn
 i jest najwieksza pojedyncza usluga**, przed Intune 15% i Purview 14%, podczas gdy Entra ID ma 11%.
 Dopoki tak jest, §5p nie jest zastosowane.
 
+**CALY TEKST UI SKRYPTU JEST PO ANGIELSKU.** Zmierzone 2 wrzesnia 2026: skrypt wyszedl z polskimi
+tytulami — `Per usluga`, `Udzial osmiu najwiekszych uslug`, `Opublikowane w czasie`, przyciski
+`Miesiac / Tydzien / Dzien` — na stronie, ktorej cala reszta jest angielska. Wlasciciel zglosil to
+pierwszym punktem. **Zadnego polskiego slowa w warstwie widocznej dla czytelnika**: komentarze w kodzie
+i ta specyfikacja moga byc po polsku, `figcaption`, `chart-note`, etykiety przyciskow, nazwy uslug
+i napisy w SVG — nigdy. Asercja: `document.body.innerText` nie zawiera zadnego z `Per usluga`,
+`Udzial`, `Miesiac`, `Tydzien`, `Dzien`, `pozycji okna`, `Metody uwierzytelniania`.
+
 Skrypt jest **idempotentny** (`if (panel.querySelector(".aggwrap")) return;`), wiec republikacja
 popoludniowa nie dubluje wykresow, i **cichy przy braku danych** — bez bloku stanu nie robi nic
 i nie rzuca bledem. Zmierzone po dolozeniu: dziewiec zakladek, zero bledow konsoli i strony w obu
@@ -1993,14 +2044,18 @@ jak trzy skrypty powloki:
 
 ```js
 /* ===========================================================================
-   SKRYPT 4 — AGREGATY (CLAUDE.md §5y). DOKLADANY, nie zastepuje niczego.
-   Trzy skrypty powloki zostaja nietkniete; ten czyta gotowy DOM i blok stanu
-   i dokłada do kazdego panelu tresciowego trzy rzeczy, o ktore prosil wlasciciel:
-     1. "Per usluga" — Entra ID / Entra Connect / Sentinel..., nie sam produkt.
-     2. Os czasu z przelacznikiem MIESIAC / TYDZIEN / DZIEN, jak daily.entra.news.
-     3. Udzial procentowy jako pierscien, obok slupkow.
-   Wszystko rysuje klasami powloki (.chart/.cl/.ctrack/.cbar/.cv), wiec wyglada
-   identycznie i dziala w obu motywach bez ani jednej nowej zmiennej koloru.
+   SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
+   ADDED, never a replacement. The three shell scripts stay untouched; this one
+   reads the finished DOM plus the soc-brief-state block and adds:
+     1. "Per service" — Entra ID apart from Entra Connect, which `product` cannot express.
+     2. A month / week / day time axis, the way daily.entra.news aggregates.
+     3. A share ring, so "too much Azure" is a number instead of an impression.
+     4. "Just passed" — deadlines that elapsed in the last 7 days, which every
+        other view drops the moment the day count goes negative.
+   Everything is drawn with the shell's own classes (.chart/.cl/.ctrack/.cbar/.cv),
+   so it looks identical and works in both themes without one new colour variable.
+   ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
+   in the chart titles was reported by the owner on 2 Sep 2026.
    =========================================================================== */
 (function () {
   "use strict";
@@ -2014,15 +2069,15 @@ jak trzy skrypty powloki:
     try { return JSON.parse(s.textContent); } catch (e) { return null; }
   }
 
-  /* ---------- uslugi: zamkniety slownik, kolejnosc drabiny §5p ----------
-     Produkt mowi "Entra". Wlasciciel pyta o "Entra ID" kontra "Entra Connect",
-     bo to dwie rozne powierzchnie dla SOC. Uslugę wyliczamy z produktu i obszaru. */
+  /* ---------- services: closed vocabulary, ordered by the 5p ladder ----------
+     `product` says "Entra". The owner asks separately about Entra ID and about
+     Entra Connect, because they are two different surfaces for a SOC. */
   var SERVICES = [
     ["Entra Connect / Cloud Sync", /connect|cloud\s*sync|provisioning agent|hybrid/i],
     ["Conditional Access",         /conditional access/i],
-    ["Metody uwierzytelniania",    /authentication method|passkey|fido|mfa|tap|temporary access|sms|voice|passwordless|authenticator/i],
+    ["Authentication methods",     /authentication method|passkey|fido|mfa|tap|temporary access|sms|voice|passwordless|authenticator/i],
     ["Identity Governance / PIM",  /\bpim\b|governance|entitlement|access review|lifecycle workflow|privileged identity/i],
-    ["Role Entra",                 /role|rbac/i],
+    ["Entra roles",                /role|rbac/i],
     ["Identity Protection",        /identity protection|risk/i],
     ["Entra ID",                   /.*/]
   ];
@@ -2035,9 +2090,9 @@ jak trzy skrypty powloki:
     "M365 admin": "M365 admin", "Windows": "Windows", "Windows Server": "Windows Server",
     "Azure": "Azure", "Copilot Studio": "Copilot Studio", "Threat Intel": "Threat Intel"
   };
-  /* Kolejnosc wyswietlania idzie waga bezpieczenstwa §5p, nie alfabetem ani liczba. */
+  /* Display order follows the security ladder of 5p, not the alphabet and not the count. */
   var ORDER = ["Entra ID", "Entra Connect / Cloud Sync", "Conditional Access",
-    "Metody uwierzytelniania", "Identity Governance / PIM", "Role Entra", "Identity Protection",
+    "Authentication methods", "Identity Governance / PIM", "Entra roles", "Identity Protection",
     "Graph API", "Defender XDR", "Defender for Endpoint", "Defender for Identity",
     "Defender for Cloud Apps", "Exposure Management", "Sentinel", "Threat Intel",
     "Purview", "Intune", "M365 admin", "Exchange Online", "SharePoint", "Teams",
@@ -2050,20 +2105,27 @@ jak trzy skrypty powloki:
       var hay = [it.area, it.title, it.officialTitle, it.fingerprint].filter(Boolean).join(" ");
       for (var i = 0; i < SERVICES.length; i++) if (SERVICES[i][1].test(hay)) return SERVICES[i][0];
     }
-    return p || "Inne";
+    return p || "Other";
   }
 
-  /* ---------- kubelki czasu: miesiac / tydzien / dzien ---------- */
+  /* ---------- time buckets: month / week / day ---------- */
   var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function parse(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])) : null; }
   function monday(dt) { var d = new Date(dt.getTime()), w = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - w); return d; }
   function bucket(dt, mode) {
     if (mode === "month") return { k: dt.getUTCFullYear() + "-" + ("0" + (dt.getUTCMonth() + 1)).slice(-2), l: MON[dt.getUTCMonth()] + " " + dt.getUTCFullYear() };
-    if (mode === "week") { var m0 = monday(dt); return { k: m0.toISOString().slice(0, 10), l: "tydz. " + m0.getUTCDate() + " " + MON[m0.getUTCMonth()] }; }
+    if (mode === "week") { var m0 = monday(dt); return { k: m0.toISOString().slice(0, 10), l: "w/c " + m0.getUTCDate() + " " + MON[m0.getUTCMonth()] }; }
     return { k: dt.toISOString().slice(0, 10), l: dt.getUTCDate() + " " + MON[dt.getUTCMonth()] };
   }
+  function briefDay(st) {
+    var d = parse(st && st.briefDate);
+    if (d) return d;
+    var n = new Date();
+    return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
+  }
+  function daysBetween(a, b) { return Math.round((a - b) / 86400000); }
 
-  /* ---------- wykres slupkowy, klasy powloki ---------- */
+  /* ---------- horizontal bars, shell classes ---------- */
   function bars(rows, opts) {
     opts = opts || {};
     var CW = 6.15, W = 620, rowH = 26, pad = 8, valW = 44;
@@ -2088,11 +2150,11 @@ jak trzy skrypty powloki:
     return s;
   }
 
-  /* ---------- pierscien udzialow ---------- */
+  /* ---------- share ring ---------- */
   var HUES = ["--accent", "--ok", "--warn", "--bad", "--info", "--cond", "--grey", "--accent-line"];
   function donut(rows, total) {
     var R = 78, r0 = 46, C = 100, box = 200, acc = 0;
-    var s = sv("svg", { viewBox: "0 0 " + box + " " + box, class: "donut", role: "img", "aria-label": "udzial" });
+    var s = sv("svg", { viewBox: "0 0 " + box + " " + box, class: "donut", role: "img", "aria-label": "share" });
     var sum = rows.reduce(function (n, x) { return n + x.v; }, 0) || 1;
     rows.forEach(function (r, i) {
       var a0 = acc / sum * Math.PI * 2 - Math.PI / 2; acc += r.v;
@@ -2109,7 +2171,7 @@ jak trzy skrypty powloki:
     var mid = sv("text", { x: C, y: C + 2, "text-anchor": "middle", class: "cv", "font-size": "26" });
     mid.textContent = String(total === undefined ? sum : total); s.appendChild(mid);
     var sub = sv("text", { x: C, y: C + 20, "text-anchor": "middle", class: "cl", "font-size": "11" });
-    sub.textContent = "pozycji"; s.appendChild(sub);
+    sub.textContent = "items"; s.appendChild(sub);
     return s;
   }
   function legend(rows) {
@@ -2139,68 +2201,125 @@ jak trzy skrypty powloki:
     return m;
   }
 
-  /* ---------- ktora populacja nalezy do ktorego panelu ---------- */
+  /* ---------- 5z: deadlines that passed in the last 7 days ----------
+     Measured 2 Sep 2026: six items had a deadline already behind them, three of
+     them identity — passkeys by default and the SMS/voice retirement among
+     them — and the Today tab carried the word "passkey" ZERO times. The day
+     AFTER a deadline is when an estate is most exposed, and that is exactly the
+     day this brief fell silent. Nothing was lost from the state; every view
+     simply drops a row once its day count goes negative. */
+  var ELAPSED_WINDOW = 7;
+  function elapsedItems(items, today) {
+    return items.filter(function (i) {
+      var d = parse(i.deadline);
+      if (!d) return false;
+      var n = daysBetween(today, d);
+      return n > 0 && n <= ELAPSED_WINDOW;
+    }).sort(function (a, b) { return parse(b.deadline) - parse(a.deadline); });
+  }
+  function elapsedBlock(list, today) {
+    var wrap = el("div", "elapsed-wrap");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "Just passed"));
+    head.appendChild(el("p", "sec-title", "Deadlines that elapsed in the last " + ELAPSED_WINDOW + " days"));
+    wrap.appendChild(head);
+    var body = el("div", "sec-body");
+    body.appendChild(el("p", "sec-note",
+      list.length + " deadline" + (list.length === 1 ? "" : "s") + " passed in the last " + ELAPSED_WINDOW +
+      " days. They are off every countdown, which is why they are repeated here: the day after a deadline is when the estate is most exposed. Confirm the change landed."));
+    var tw = el("div", "tw");
+    var tb = el("table");
+    var thead = el("thead"), tr = el("tr");
+    ["When", "Product", "What passed", "Confirm", "Source"].forEach(function (h) { tr.appendChild(el("th", null, h)); });
+    thead.appendChild(tr); tb.appendChild(thead);
+    var tbody = el("tbody");
+    list.forEach(function (i) {
+      var n = daysBetween(today, parse(i.deadline));
+      var r = el("tr");
+      var c0 = el("td");
+      c0.appendChild(el("span", "badge b-dep", n === 1 ? "yesterday" : n + " days ago"));
+      r.appendChild(c0);
+      r.appendChild(el("td", null, i.product || ""));
+      var c2 = el("td");
+      c2.appendChild(el("b", null, i.title || i.officialTitle || i.id));
+      if (i.officialTitle && i.title && i.officialTitle !== i.title) {
+        c2.appendChild(document.createElement("br"));
+        c2.appendChild(el("span", "muted", i.officialTitle));
+      }
+      r.appendChild(c2);
+      r.appendChild(el("td", null, i.fingerprint || "Verify the change is in place and nothing broke."));
+      var c4 = el("td");
+      if (i.url) { var a = el("a", null, "Source"); a.href = i.url; a.target = "_blank"; a.rel = "noopener"; c4.appendChild(a); }
+      else c4.appendChild(el("span", "muted", "no link"));
+      r.appendChild(c4);
+      tbody.appendChild(r);
+    });
+    tb.appendChild(tbody); tw.appendChild(tb); body.appendChild(tw);
+    wrap.appendChild(body);
+    return wrap;
+  }
+
+  /* ---------- which population belongs to which panel ---------- */
   function catalogRows(which) {
     var s = document.getElementById("soc-catalog");
     if (!s) return [];
     var c; try { c = JSON.parse(s.textContent); } catch (e) { return []; }
     return (c[which] || []).map(function (e) {
-      return { product: e.kind || "nieokreslony", area: "", title: e.name || "",
+      return { product: e.kind || "unspecified", area: "", title: e.name || "",
                published: e.firstTracked || e.deployedSeen || e.sourceChanged || e.changed || null };
     });
   }
 
   function population(id, items) {
     var win = items.filter(function (i) { return i.tier !== "horizon"; });
-    /* Zakladki katalogowe NIE opisuja okna 14 dni — opisuja katalog. Liczenie ich
-       populacja okna bylo bledem kategorii: panel Graph API mowilby o Entrze. */
-    if (id === "tab-graph") return { rows: catalogRows("graph"), date: "published", what: "wpisow katalogu", byKind: true };
-    if (id === "tab-roles") return { rows: catalogRows("roles"), date: "published", what: "wpisow katalogu", byKind: true };
-    if (id === "tab-deadlines") return { rows: items.filter(function (i) { return i.deadline; }), date: "deadline", what: "pozycji z terminem" };
-    if (id === "tab-today") return { rows: win, date: "published", what: "pozycji okna" };
-    if (id === "tab-new") return { rows: items.filter(function (i) { return i.tier === "published-in-window"; }), date: "published", what: "pozycji okna" };
-    if (id === "tab-products" || id === "tab-hunting" || id === "tab-sources") return { rows: win, date: "published", what: "pozycji okna" };
-    return { rows: win, date: "published", what: "pozycji okna" };
+    /* Catalog tabs do NOT describe the 14-day window — they describe the catalog.
+       Counting them by the window was a category error: the Graph API panel
+       would have talked about Entra. */
+    if (id === "tab-graph") return { rows: catalogRows("graph"), date: "published", what: "catalog entries", byKind: true };
+    if (id === "tab-roles") return { rows: catalogRows("roles"), date: "published", what: "catalog entries", byKind: true };
+    if (id === "tab-deadlines") return { rows: items.filter(function (i) { return i.deadline; }), date: "deadline", what: "items with a deadline" };
+    if (id === "tab-new") return { rows: items.filter(function (i) { return i.tier === "published-in-window"; }), date: "published", what: "items in window" };
+    return { rows: win, date: "published", what: "items in window" };
   }
 
   function build() {
     var st = state();
     if (!st || !st.items || !st.items.length) return;
-    var items = st.items;
+    var items = st.items, today = briefDay(st);
 
     document.querySelectorAll(".tabpanel").forEach(function (panel) {
-      if (panel.id === "tab-overview") return;              // Overview ma wlasny blok nizej
-      if (panel.querySelector(".aggwrap")) return;          // idempotentnie
+      if (panel.id === "tab-overview") return;              // Overview has its own block below
+      if (panel.querySelector(".aggwrap")) return;          // idempotent
       var pop = population(panel.id, items);
       if (!pop.rows.length) return;
 
       var wrap = el("div", "aggwrap two");
 
-      /* --- per usluga --- */
+      /* --- per service --- */
       var svc = tally(pop.rows, pop.byKind ? function (x) { return x.product; } : serviceOf);
       var srows = ORDER.filter(function (k) { return svc[k]; }).map(function (k) { return { k: k, v: svc[k] }; });
       Object.keys(svc).forEach(function (k) { if (ORDER.indexOf(k) < 0) srows.push({ k: k, v: svc[k] }); });
       var top = srows.slice().sort(function (a, b) { return b.v - a.v; }).slice(0, 8);
-      wrap.appendChild(figure(pop.byKind ? "Per rodzaj wpisu" : "Per usluga",
-        srows.length + (pop.byKind ? " rodzajow, " : " uslug, ") + pop.rows.length + " " + pop.what +
-        (pop.byKind ? "." : ". Kolejnosc idzie waga bezpieczenstwa, nie liczba."),
-        bars(srows, { title: pop.byKind ? "Per rodzaj" : "Per usluga" })));
+      wrap.appendChild(figure(pop.byKind ? "Per entry type" : "Per service",
+        srows.length + (pop.byKind ? " types, " : " services, ") + pop.rows.length + " " + pop.what +
+        (pop.byKind ? "." : ". Order follows security weight, not count."),
+        bars(srows, { title: pop.byKind ? "Per entry type" : "Per service" })));
 
-      /* --- udzial --- */
+      /* --- share --- */
       var dwrap = el("div");
       dwrap.appendChild(donut(top, pop.rows.length));
       dwrap.appendChild(legend(top));
-      wrap.appendChild(figure(pop.byKind ? "Udzial osmiu najwiekszych rodzajow" : "Udzial osmiu najwiekszych uslug",
-        "Reszta mieści sie w slupkach obok.", dwrap));
+      wrap.appendChild(figure(pop.byKind ? "Share of the eight largest types" : "Share of the eight largest services",
+        "The rest is in the bars alongside.", dwrap));
 
-      /* --- os czasu, przelacznik miesiac/tydzien/dzien --- */
+      /* --- time axis, month / week / day --- */
       var dated = pop.rows.filter(function (i) { return parse(i[pop.date]); });
       if (dated.length) {
         var host = el("div");
         var barsHost = el("div");
         var ctl = el("div", "aggbar");
-        ctl.appendChild(el("span", "agglabel", pop.date === "deadline" ? "Termin wg" : "Publikacja wg"));
-        var modes = [["month", "Miesiac"], ["week", "Tydzien"], ["day", "Dzien"]];
+        ctl.appendChild(el("span", "agglabel", pop.date === "deadline" ? "Deadline by" : "Published by"));
+        var modes = [["month", "Month"], ["week", "Week"], ["day", "Day"]];
         var btns = [];
         function draw(mode) {
           var m = {}, lab = {};
@@ -2208,7 +2327,7 @@ jak trzy skrypty powloki:
           var keys = Object.keys(m).sort();
           var rows = keys.map(function (k) { return { k: lab[k], v: m[k] }; });
           barsHost.textContent = "";
-          barsHost.appendChild(bars(rows, { title: "os czasu" }));
+          barsHost.appendChild(bars(rows, { title: "time axis" }));
           btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.mode === mode)); });
         }
         modes.forEach(function (mm) {
@@ -2219,8 +2338,8 @@ jak trzy skrypty powloki:
         });
         host.appendChild(ctl); host.appendChild(barsHost);
         draw("month");
-        var f = figure(pop.date === "deadline" ? "Terminy w czasie" : (pop.byKind ? "Znalezione w czasie" : "Opublikowane w czasie"),
-          dated.length + " z " + pop.rows.length + " " + pop.what + " ma date. Klikaj Miesiac / Tydzien / Dzien.", host);
+        var f = figure(pop.date === "deadline" ? "Deadlines over time" : (pop.byKind ? "Found over time" : "Published over time"),
+          dated.length + " of " + pop.rows.length + " " + pop.what + " carry a date. Click Month / Week / Day.", host);
         f.style.gridColumn = "1 / -1";
         wrap.appendChild(f);
       }
@@ -2231,7 +2350,43 @@ jak trzy skrypty powloki:
       else panel.insertBefore(wrap, panel.firstChild);
     });
 
-    /* ---------- Overview: te same agregaty dla calego okna ---------- */
+    /* ---------- 5aa: the heading must carry a NUMBER, never a literal "N" ----------
+       Measured 2 Sep 2026: the page shipped the heading "Top N of the day" verbatim.
+       The shell is supposed to substitute the real card count and did not, so the
+       reader was shown an algebra variable. Seven cards is the default; a run may
+       publish up to TEN when the day genuinely carries more, and never more than
+       ten, because an eleventh card is a list, not a ranking. */
+    var CARD_MIN = 7, CARD_MAX = 10;
+    document.querySelectorAll(".tabpanel").forEach(function (panel) {
+      var n = panel.querySelectorAll("article.card").length;
+      if (!n) return;
+      panel.querySelectorAll(".sec-title, h2, h3, .chart-title").forEach(function (t) {
+        if (/\bTop\s+N\b/i.test(t.textContent)) t.textContent = t.textContent.replace(/\bTop\s+N\b/i, "Top " + n);
+      });
+      document.querySelectorAll("nav.anchors .tab, .anchors a").forEach(function (a) {
+        if (/\bTop\s+N\b/i.test(a.textContent)) a.textContent = a.textContent.replace(/\bTop\s+N\b/i, "Top " + n);
+      });
+      if (n > CARD_MAX && window.console) console.warn("[agg] Top N has " + n + " cards, the ceiling is " + CARD_MAX);
+    });
+
+    /* ---------- 5z: "Just passed", in Deadlines and again in Overview ---------- */
+    var gone = elapsedItems(items, today);
+    if (gone.length) {
+      var dl = document.getElementById("tab-deadlines");
+      if (dl && !dl.querySelector(".elapsed-wrap")) {
+        var sec = el("section", "elapsed"); sec.id = "elapsed"; sec.setAttribute("data-nav", "Just passed");
+        sec.appendChild(elapsedBlock(gone, today));
+        var h = dl.querySelector(".panelhead");
+        if (h && h.nextSibling) dl.insertBefore(sec, h.nextSibling); else dl.insertBefore(sec, dl.firstChild);
+      }
+      var ov0 = document.getElementById("tab-overview");
+      if (ov0 && !ov0.querySelector(".elapsed-wrap")) {
+        var s2 = el("section", "elapsed"); s2.appendChild(elapsedBlock(gone, today));
+        ov0.appendChild(s2);
+      }
+    }
+
+    /* ---------- Overview: the same aggregates for the whole window ---------- */
     var ov = document.getElementById("tab-overview");
     if (ov && !ov.querySelector(".aggwrap")) {
       var win = items.filter(function (i) { return i.tier !== "horizon"; });
@@ -2240,12 +2395,12 @@ jak trzy skrypty powloki:
         var svc2 = tally(win, serviceOf);
         var r2 = ORDER.filter(function (k) { return svc2[k]; }).map(function (k) { return { k: k, v: svc2[k] }; });
         Object.keys(svc2).forEach(function (k) { if (ORDER.indexOf(k) < 0) r2.push({ k: k, v: svc2[k] }); });
-        w2.appendChild(figure("Per usluga — cale okno",
-          r2.length + " uslug, " + win.length + " pozycji okna. Uslugi SOC na gorze, Azure na dole.",
-          bars(r2, { title: "Per usluga" })));
+        w2.appendChild(figure("Per service — whole window",
+          r2.length + " services, " + win.length + " items in window. SOC services on top, Azure at the bottom.",
+          bars(r2, { title: "Per service" })));
         var t2 = r2.slice().sort(function (a, b) { return b.v - a.v; }).slice(0, 8);
         var d2 = el("div"); d2.appendChild(donut(t2, win.length)); d2.appendChild(legend(t2));
-        w2.appendChild(figure("Udzial uslug", "Osiem najwiekszych.", d2));
+        w2.appendChild(figure("Share of services", "The eight largest.", d2));
         ov.appendChild(w2);
       }
     }
@@ -2261,6 +2416,75 @@ jak trzy skrypty powloki:
 `KIND_BADGE` (§5e) i trzy linie `facetCandidates()` (§5w) — zostaja jedynymi. Skrypt 4 jest osobnym
 blokiem, ktory niczego nie nadpisuje; przebieg, ktory chcialby zamiast tego wejsc w skrypt 2, tego
 nie robi i pisze o tym w odpowiedzi.
+
+## 5z. Termin, ktory MINAL, jest najwazniejszym wierszem dnia — nie kasuj go
+
+Wlasciciel zglosil 2 wrzesnia 2026, ze ze strony zniknely pozycje, ktorych termin wlasnie uplynal —
+imiennie **passkeys jako domyslne i wycofywanie SMS oraz polaczen glosowych w MFA**. Zmierzone tego
+dnia na `site/index.html`: **szesc pozycji ma termin juz za soba**, a zakladka Today zawiera slowo
+`passkey` **zero razy**:
+
+| dni | produkt | pozycja |
+|---|---|---|
+| **−1** | Entra | Passkeys by default; Microsoft-provided SMS and voice MFA retiring |
+| **−1** | Entra | Entra Connect Sync 2.5.76.0 reaches end of support |
+| **−1** | Defender XDR | Third-party network signal enrichment deprecated |
+| −2 | Azure | v2.0 API and v2.1 container retire |
+| −2 | Azure | Azure VPN Client for Linux retirement |
+| −5 | Graph | Microsoft Graph Toolkit and Microsoft Graph CLI retire |
+
+**Dane nie zginely.** Wszystkie szesc siedzi w stanie z `tier: "deadline-under-60-days"`, a pigulka
+naglowka nawet je liczy: `43 deadlines in 60 days · 20 inside 30, 6 already elapsed`. Zgubila je
+PREZENTACJA: kazdy widok sortuje i filtruje po dniach do terminu, a wiersz z liczba ujemna wypada
+z kazdego okna. To ta sama choroba co `deadline: null` w §5p i `changed: null` w §5q — trzeci raz ta
+sama kolumna.
+
+**A to jest najgorszy moment na cisze.** Dzien PO terminie jest dniem, w ktorym srodowisko jest
+najbardziej odsloniete: zmiana albo weszla i trzeba potwierdzic, ze nic sie nie wywrocilo, albo nie
+weszla i trzeba dzialac natychmiast. Brief, ktory milczy nazajutrz po wycofaniu SMS-owego MFA, jest
+gorszy niz brief, ktory o tym nie pisal wcale — bo czytelnik ma prawo sadzic, ze temat sie skonczyl.
+
+### Regula
+
+1. **Okno terminow to −7 do +60 dni, nie 0 do +60.** Pozycja, ktorej termin uplynal w ciagu ostatnich
+   SIEDMIU dni, zostaje w stanie z `tier: "recently-elapsed"` i **nie jest usuwana ani przenoszona do
+   `horizon`**. Po siodmym dniu wypada normalnie.
+2. **Wlasna sekcja, po angielsku, jak cala strona**: `<section id="elapsed" data-nav="Just passed">`,
+   `<h2>Just passed</h2>`, `sec-title` **„Deadlines that elapsed in the last 7 days"**. Stoi jako
+   PIERWSZA sekcja panelu `tab-deadlines` i jest powtorzona w `tab-overview`, bo wlasciciel czyta
+   Overview pierwszy i tam ich brakowalo.
+3. **Kolumny**: `When` (`yesterday` albo `N days ago`, jako `<span class="badge b-dep">`), `Product`,
+   `What passed` (nasz tytul pogrubiony, `officialTitle` wyciszony pod nim), `Confirm` (co konkretnie
+   sprawdzic), `Source`. Sortowanie: najswiezszy termin na gorze.
+4. **Pozycja `recently-elapsed` NIE wypada z Today ani z New.** To jest punkt 3 i 4 zgloszenia:
+   wiadomosc tozsamosciowa z terminem nie moze zniknac dlatego, ze termin minal. W Today liczy sie
+   jak kazda inna pozycja i podlega wazeniu §5p — `tier0Touch` i `socWeight` dzialaja bez zmian.
+5. **Pigulka**: `<a class="count crit" href="#elapsed"><b>N</b> passed in the last 7 days<span>&middot; confirm they landed</span></a>`.
+   Skrypt 2 robi z niej kafelek Overview sam z siebie, wiec Overview dostaje licznik bez pisania `.stat`.
+6. **Skrypt 4 (§5y) buduje te sekcje takze sam, ze stanu**, i wstawia ja w `tab-deadlines`
+   oraz w `tab-overview`. To siatka bezpieczenstwa: gdyby przebieg o niej zapomnial, czytelnik i tak
+   ja zobaczy. Zmierzone po dolozeniu: szesc wierszy w obu panelach, `passkey` wraca na strone.
+
+Walidator: kazda pozycja z terminem w przedziale −7..0 ma `tier:"recently-elapsed"`; sekcja
+`id="elapsed"` istnieje, gdy takich pozycji jest wiecej niz zero; jej liczba wierszy rowna sie ich
+liczbie; pigulka podaje te sama liczbe.
+
+## 5aa. Naglowek niesie LICZBE, nigdy litery „N"
+
+Zmierzone 2 wrzesnia 2026: strona wyszla z naglowkiem **`Top N of the day`** dosłownie — powloka
+miala podstawic liczbe kart i tego nie zrobila, wiec czytelnik dostal zmienna z algebry. Kart bylo
+siedem i kazda miala `data-id`, czyli dane byly poprawne; zawiodlo samo podstawienie.
+
+- **Domyslnie SIEDEM kart.** Gdy dzien naprawde niesie wiecej material na karte, wolno opublikowac
+  do **DZIESIECIU** — i ani jednej wiecej, bo jedenasta karta to lista, nie ranking. Mniej niz siedem
+  tylko z powodem podanym w `sec-note`.
+- **Naglowek zawsze pokazuje liczbe**: `Top 7 of the day`, `Top 9 of the day`. Przebieg moze wpisac
+  ja wprost; niezaleznie od tego **skrypt 4 podstawia ja z liczby `article.card` w panelu** i poprawia
+  takze etykiete zakladki, wiec „Top N" nie ma prawa dojsc do czytelnika.
+- Przy liczbie kart powyzej dziesieciu skrypt 4 pisze ostrzezenie do konsoli — to jest sygnal, ze
+  wybor przestal byc rankingiem.
+
+Pozycje 28 i 29 listy §0 sprawdzaja to na gotowym pliku.
 
 ## 6. Kontrakt w stronie
 
@@ -2485,6 +2709,15 @@ This section is NOT hand-authored HTML. Its markup is exactly:
 ```
 
 The shell renders the whole browser from the `graph` array — search row, the what-changed summary, the three-mode switch, every filter, the period selector and the detail pane. **Your job is only the data, and the data rules are NOT repeated here: they are §5 (service state beats documentation), §5a (`sourceChanged`), §5b (parsing the reference), §5d (four sets D/A/B/C and the `D\A` rule), §5e (undocumented at Microsoft), §5f (other API surfaces), §5g (versioning), §5j (descriptions), §5q (found today vs earlier) and §5r (link status).** Read them there and apply them in full; §0 lists them as checklist items and §0b gates the ones a script can verify.
+
+**ASSERTED NEGATIVES LIVE IN `negatives.graph` AND `negatives.roles`, EACH WITH ITS CHECK DATE.**
+One paragraph per catalog, carried forward and updated only for what you actually re-read:
+*"no changes to `RoleManagement.*` in the window, checked against the permissions reference on <date>"*.
+**Never assert a permission negative from the Graph changelog** — it does not track permission names
+at all (2,620 entries since 2019, zero mentions of `UserAuthenticationMethod` or `UserAuthMethod`,
+while the reference carries 54 in that family). Check the prefix in set A first; otherwise write
+"not re-checked this run". An unchecked assertion is worse than silence, and a still-valid one is
+carried forward with its original date rather than re-dated to today.
 
 ### K. ENTRA DIRECTORY ROLES AND AZURE RBAC — a catalog, not a table
 
