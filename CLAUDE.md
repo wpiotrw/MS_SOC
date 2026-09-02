@@ -35,7 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 33 pozycje. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 33 pozycje dla przebiegu,
+   ktory buduje albo odbija strone glowna, plus **pozycje 34 dla przebiegu ZMIAN** — razem 34. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -77,6 +78,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB | 3 | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31 i 33 sa wiazace: przebieg, ktory je pominie
@@ -262,7 +264,7 @@ def verify(page: str) -> list:
     for need in ("soc-brief-state", "soc-catalog"):
         if need not in p.ids: errs.append("brak bloku %s" % need)
     if p.jsonblocks != 2: errs.append("blokow JSON = %d, maja byc 2" % p.jsonblocks)
-    if p.scripts < 3: errs.append("skryptow zachowania = %d, ma byc >=3" % p.scripts)
+    if p.scripts < 4: errs.append("skryptow zachowania = %d, ma byc >=4 (powloka, overview, katalog, agregaty §5y)" % p.scripts)
     if p.styles < 1: errs.append("brak <style>")
     if p.doctypes != 1: errs.append("DOCTYPE = %d, ma byc 1" % p.doctypes)
     if "/diff/" not in p.hrefs: errs.append("dateline nie linkuje do /diff/")
@@ -294,11 +296,14 @@ def parts(content: str):
     p["styles"] = re.findall(r"<style[^>]*>.*?</style>", content, re.S)
     p["json"]   = re.findall(r'<script type="application/json" id="[^"]+">.*?</script>', content, re.S)
     # blok, ktory zawiera w srodku kolejne "<script", to nadmiarowe dopasowanie regexa
-    # po resztkach cytowanego markupu; powloka ma DOKLADNIE trzy skrypty zachowania,
-    # i sa to trzy ostatnie bloki na stronie.
+    # po resztkach cytowanego markupu — te odrzucamy. RESZTE BIERZEMY W CALOSCI.
+    # 2 wrzesnia 2026 stalo tu `clean[-3:]`, z czasow gdy skrypty byly trzy. Po dolozeniu
+    # SKRYPTU 4 (§5y) „trzy ostatnie" to overview + katalog + agregaty, a POWLOKA — ta,
+    # ktora buduje pasek zakladek — wypadala. Strona /diff/ z tego dnia miala 3,6 MB,
+    # zero bledow konsoli i PUSTY `<nav class="anchors">`: zadnej zakladki, oba panele
+    # `hidden`, czytelnik widzial masthead i nic wiecej.
     raw_scripts = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", content, re.S)
-    clean = [b for b in raw_scripts if "<script" not in b[len("<script"):]]
-    p["scripts"] = clean[-3:]
+    p["scripts"] = [b for b in raw_scripts if "<script" not in b[len("<script"):]]
     # SHELL CONTRACT cytuje `<header class="top">` w komentarzu — bierzemy OSTATNIE wystapienie
     i = content.rfind('<header class="top">')
     j = content.find("</header>", i) if i >= 0 else -1
@@ -346,7 +351,7 @@ def verify_diff(page: str) -> list:
     if "delta" not in p.ids: errs.append("brak sekcji delta")
     if p.navanchors != 1: errs.append("nav.anchors = %d, ma byc 1" % p.navanchors)
     if p.catalogs: errs.append("strona diff nie ma katalogu, a ma %s" % sorted(p.catalogs))
-    if p.scripts < 3: errs.append("skryptow zachowania = %d, ma byc >=3" % p.scripts)
+    if p.scripts < 4: errs.append("skryptow zachowania = %d, ma byc >=4 (powloka, overview, katalog, agregaty §5y)" % p.scripts)
     if p.styles < 1: errs.append("brak <style>")
     if p.doctypes != 1: errs.append("DOCTYPE = %d, ma byc 1" % p.doctypes)
     if "/" not in p.hrefs:
@@ -867,17 +872,476 @@ przecina sie z prostokatem `.cat-controls`).
 Panele `tab-roles` i `tab-graph` nie zawieraja tabel — tylko pusty
 `<div class="catalog" data-catalog="roles">` i `…="graph"`, ktore wypelnia skrypt 3.
 
-## 3. Ktora sekcja w ktorym panelu — diff
+## 3. STRONA ZMIAN JEST LICZONA Z DANYCH, NIE ODBIJANA Z ARTEFAKTU
 
-| panel | `data-tab` | sekcje |
+Wlasciciel napisal 2 wrzesnia 2026 wprost: *„calym zamyslem diff jest pokazanie roznic.
+Wylistowanie co ubylo co przybylo. Podsumowanie zmian, a nie powiekanie znowu tego samego.
+Diff ma pokazac co sie dokladnie zmienilo i tylko to — zeby byl czytelny."* Obie sciezki robily
+wtedy cos innego, kazda inaczej zle, i obie da sie zmierzyc.
+
+| | strona `/diff/` (routine 22:05) | artefakt `Microsoft SOC Delta` (sched task) |
 |---|---|---|
-| `tab-overview` | `Overview` | *(pusty)* |
-| `tab-changed` | `What changed` | `delta` · `act` · `sources` |
+| rozmiar | 3 635 058 B | 3 700 020 B |
+| z tego blok `soc-catalog` | 3,3 MB | **3 262 937 B** |
+| przegladarka katalogu, ktora tego JSON-a uzywa | **zero** `data-catalog` | **zero** `data-catalog` |
+| skrypty zachowania | **3** (brak powloki) | 6 |
+| `<nav class="anchors">` po zaladowaniu | **pusty** | — |
+| zakladki widoczne dla czytelnika | **zero**, oba panele `hidden` | 2 |
+| wiersze tresci | 9 | 9 |
+| bledy konsoli | **zero** | zero |
 
-Dwa panele, nigdy wiecej. Zadnego `<div class="catalog">` — strona diff nie ma przegladarki
-katalogu. Liczniki w `.counts` mowia o TYM przebiegu: `0 source-side changes`,
-`0 brief-side changes`, `31 sources re-checked`, `1009 Graph permissions re-counted, unchanged`,
-`137 Entra roles re-counted, unchanged`.
+Czytelnik dostal wiec masthead i pusta strone, a w artefakcie — dziewiec wierszy tresci ubranych
+w 3,7 MB powloki briefu. **Przyczyny sa dwie i sa rozlaczne.**
+
+**Przyczyna pierwsza, mechaniczna: `parts()` brala `clean[-3:]`.** Regula pochodzila z czasow,
+gdy skrypty zachowania byly trzy. Po dolozeniu SKRYPTU 4 (§5y) „trzy ostatnie" to overview,
+katalog i agregaty — a POWLOKA, ta ktora buduje pasek zakladek, wypadala. Skrypty nie zglaszaja
+bledow (sekcja LAYOUT), wiec strona wyszla cicho pusta, a `verify_diff` przepuscil ja, bo pytal
+`scripts < 3`. Oba miejsca sa juz poprawione w §0a: `parts()` bierze WSZYSTKIE bloki niebedace
+nadmiarowym dopasowaniem, a obie bramki zadaja `>= 4`. Zmierzone po poprawce na tym samym
+wejsciu: 4 skrypty (31 508 / 36 661 / 58 248 / 15 207 B), powloka obecna, pasek zakladek
+`["Overview","What changed"]`, panel `tab-overview` widoczny.
+
+**Przyczyna druga, i to ona jest wlasciwym tematem tej sekcji: strona zmian byla LUSTREM.**
+Lustro z definicji powtarza to, co odbija. Zeby pokazac roznice, trzeba je POLICZYC.
+
+### Regula
+
+**Strona `/diff/` i artefakt `Microsoft SOC Delta` powstaja z `make_diff.py`, ktory porownuje DWA
+STANY i nie kopiuje niczego ze strony.** Wejscie to dwa pliki `site/data/RRRR-MM-DD.json` albo dwa
+artefakty, z ktorych skrypt sam wyjmuje `soc-brief-state` i `soc-catalog`.
+
+Strona zmian **nie ma**: zakladek, paneli `.tabpanel`, przegladarki katalogu, blokow
+`<script type="application/json">` ani skryptow powloki. Nie wozi stanu, bo go nie renderuje —
+to jest ta roznica miedzy 11 638 B a 3 635 058 B. Ma **jeden ekran, przewijany**, w tej kolejnosci:
+
+1. **Masthead** — `Microsoft SOC — what changed`, `<data poprzednia> → <data biezaca>`, etykieta
+   porownania (`morning pass 06:35 → evening pass 21:14`), godzina policzenia, autor i link do `/`.
+2. **Pigulki liczbowe** — `N added`, `N removed`, `N changed`, `N deadlines moved`,
+   `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
+   poprawna i tez sie pokazuje.
+3. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, sortowane
+   `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
+4. **Removed** — to samo bez `Status`. **Usuniecie jest znaleziskiem**, nie sprzataniem.
+5. **Changed, field by field** — JEDEN WIERSZ NA POLE: `Item | Field | before → after | Source`,
+   stara wartosc w `<del>`, nowa w `<ins>`. Pola porownywane, w tej kolejnosci: `deadline`,
+   `status`, `published`, `tier`, `socWeight`, `tier0Touch`, `title`, `officialTitle`,
+   `reference`, `fingerprint`, `url`, `linkStatus`, `product`, `area`.
+6. **Catalog** — dodane / usuniete nazwy uprawnien i rol oraz wpisy, ktorym ruszyl
+   `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`.
+7. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
+
+**Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
+zostawia czytelnika z pytaniem, czy przebieg patrzyl.
+
+### Zmierzone 2 wrzesnia 2026
+
+| wejscie | wyjscie | tresc |
+|---|---|---|
+| ranek 06:35 → wieczor 21:14 (ten sam dzien) | **11 638 B** | 6 added, 0 removed, 6 changed, katalog bez zmian, 12 wierszy |
+| brief 31 sierpnia → brief 2 wrzesnia | **105 702 B** | 34 added, 157 changed, +26 uprawnien Graph, 377 wierszy |
+| ten sam stan po obu stronach | **6 216 B** | same zera i zdanie „No difference at all between the two states. Somebody looked; nothing moved." |
+
+Strona dnia jest wiec **312 razy mniejsza** od lustra, ktore zastapila, i pokazuje wylacznie to,
+co sie ruszylo: szesc pozycji, ktorym termin przeszedl w `recently-elapsed` — passkeys, wycofanie
+SMS i polaczen glosowych, Entra Connect Sync 2.5.76.0, wzbogacanie sygnalu sieciowego w Defender
+XDR, Graph Toolkit i CLI, klient Azure VPN dla Linuksa — kazda jako `deadline-under-60-days` →
+`recently-elapsed`, z linkiem do zrodla.
+
+Render headless, jasny i ciemny, 1400x1100 i 390x844: **zero bledow konsoli i strony**,
+`scrollWidth === clientWidth` w obu szerokosciach, `<del>` i `<ins>` obecne w liczbie rownej
+liczbie zmienionych pol. Dwa bledy wlasnego renderu znalezione i poprawione w tym samym przebiegu:
+naglowek tabeli drukowal doslownie `BEFORE &RARR; AFTER`, bo `esc()` szedl takze po MOICH
+naglowkach (naglowki nie sa danymi — nie escapujemy ich), a selektor `.t0` trafial nie tylko
+w chip, ale i w `<tr class="t0">`, malujac caly wiersz na rozowo (teraz `span.t0`).
+
+### Skrypt
+
+Zapisz do `/tmp/make_diff.py` i uruchom:
+
+```
+python3 /tmp/make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label "..."]
+```
+
+**Kod wyjscia 1 znaczy NIE PUBLIKUJ** — wbudowana bramka `verify()` odrzuca strone, ktora ma
+zakladki, kontener katalogu, blok JSON, brak ktorejs z czterech sekcji, brak linku powrotnego,
+podwojny DOCTYPE, wiecej niz 900 kB albo wiersz w sekcji `changed`, ktory nie pokazuje roznicy.
+
+**Licznika `<del>` NIE porownuje sie z licznikiem `<ins>`** — to byla moja pierwsza, falszywa
+asercja w prompcie routine. Pole, ktorego wczesniej nie bylo, ma po lewej `not set`, a `<ins>`
+po prawej; na porownaniu 31 sierpnia z 2 wrzesnia daje to 25 `<del>` przy 250 wierszach.
+Poprawne pytanie brzmi: **czy KAZDY wiersz niesie `<del>` albo `<ins>`** — zmierzone 250 z 250,
+225 z samym `<ins>`, zero bez jednego i drugiego. Kontrola regresji: strona z jednym wierszem
+pozbawionym obu znacznikow jest odrzucana z jego liczba.
+
+```python
+#!/usr/bin/env python3
+"""make_diff.py — strona ZMIAN liczona z danych, nie odbijana z artefaktu.
+
+  python3 make_diff.py <poprzedni.json|.html> <biezacy.json|.html> <plik-wyjsciowy.html> [--home /] [--label "..."]
+
+Wejscie: dwa stany. Kazdy moze byc plikiem `site/data/<data>.json` (obiekt z kluczami
+`soc-brief-state` i opcjonalnie `soc-catalog`) ALBO gotowa strona/artefaktem HTML, z ktorego
+skrypt sam wyjmie oba bloki JSON.
+
+Wyjscie: mala, samodzielna strona pokazujaca WYLACZNIE roznice: co przybylo, co ubylo,
+co sie zmienilo pole po polu. Bez dziewieciu zakladek, bez przegladarki katalogu i bez
+kopiowania megabajtow JSON, ktorych taka strona nie uzywa.
+"""
+import sys, os, re, json, html, datetime
+
+# ---------- wejscie ----------
+
+def load_state(path):
+    raw = open(path, encoding="utf-8").read()
+    if path.lower().endswith(".json"):
+        d = json.loads(raw)
+        if "soc-brief-state" in d:
+            return d.get("soc-brief-state") or {}, d.get("soc-catalog") or {}
+        if "items" in d:
+            return d, {}
+        raise SystemExit("FAIL: %s nie ma ani soc-brief-state ani items" % path)
+    def blk(name):
+        m = re.search(r'<script type="application/json" id="%s">(.*?)</script>' % name, raw, re.S)
+        return json.loads(m.group(1)) if m else {}
+    st = blk("soc-brief-state")
+    if not st:
+        raise SystemExit("FAIL: brak bloku soc-brief-state w %s" % path)
+    return st, blk("soc-catalog")
+
+# ---------- porownanie ----------
+
+# Pola, ktorych zmiana jest ZMIANA MERYTORYCZNA. Kolejnosc = kolejnosc wierszy w tabeli.
+FIELDS = [
+    ("deadline",     "Deadline"),
+    ("status",       "Status"),
+    ("published",    "Published"),
+    ("tier",         "Tier"),
+    ("socWeight",    "SOC weight"),
+    ("tier0Touch",   "Tier 0"),
+    ("title",        "Title"),
+    ("officialTitle","Microsoft's title"),
+    ("reference",    "Reference"),
+    ("fingerprint",  "Substance"),
+    ("url",          "Source link"),
+    ("linkStatus",   "Link status"),
+    ("product",      "Product"),
+    ("area",         "Area"),
+]
+
+def norm(v):
+    if v is None: return ""
+    if isinstance(v, bool): return "yes" if v else "no"
+    return str(v).strip()
+
+def diff_items(prev, curr):
+    p = {i.get("id"): i for i in (prev.get("items") or []) if i.get("id")}
+    c = {i.get("id"): i for i in (curr.get("items") or []) if i.get("id")}
+    added   = [c[k] for k in c if k not in p]
+    removed = [p[k] for k in p if k not in c]
+    changed = []
+    for k in c:
+        if k not in p: continue
+        deltas = [(lab, norm(p[k].get(f)), norm(c[k].get(f)))
+                  for f, lab in FIELDS if norm(p[k].get(f)) != norm(c[k].get(f))]
+        if deltas: changed.append((c[k], deltas))
+    return added, removed, changed, len(p), len(c)
+
+def diff_catalog(prev, curr, which):
+    pe = {e.get("name"): e for e in (prev.get(which) or []) if e.get("name")}
+    ce = {e.get("name"): e for e in (curr.get(which) or []) if e.get("name")}
+    add = sorted(set(ce) - set(pe))
+    rem = sorted(set(pe) - set(ce))
+    mod = []
+    for n in sorted(set(pe) & set(ce)):
+        for f in ("kind", "docStatus", "version", "changed", "serviceStatus"):
+            a, b = norm(pe[n].get(f)), norm(ce[n].get(f))
+            if a != b:
+                mod.append((n, f, a, b))
+    return add, rem, mod, len(pe), len(ce)
+
+# ---------- render ----------
+
+def esc(x): return html.escape(norm(x))
+
+def wkey(it):
+    w = it.get("socWeight")
+    w = w if isinstance(w, int) else 9
+    d = norm(it.get("deadline")) or "9999-99-99"
+    return (0 if it.get("tier0Touch") else 1, w, d)
+
+def a_src(it):
+    u = norm(it.get("url"))
+    if not u: return '<span class="none">no link</span>'
+    return '<a href="%s" target="_blank" rel="noopener">Source</a>' % esc(u)
+
+def name_cell(it):
+    out = "<b>%s</b>" % esc(it.get("title") or it.get("id"))
+    ot = norm(it.get("officialTitle"))
+    if ot and ot != norm(it.get("title")):
+        out += '<br><span class="sub">%s</span>' % esc(ot)
+    ref = norm(it.get("reference"))
+    if ref: out += '<br><span class="ref">%s</span>' % esc(ref)
+    return out
+
+def weight_cell(it):
+    w = it.get("socWeight")
+    t0 = ' <span class="t0">tier 0</span>' if it.get("tier0Touch") else ""
+    return ("w%s" % w if isinstance(w, int) else '<span class="none">—</span>') + t0
+
+def table(head, rows, empty):
+    if not rows:
+        return '<p class="empty">%s</p>' % esc(empty)
+    th = "".join("<th>%s</th>" % h for h in head)   # naglowki sa nasze, nie z danych
+    tb = "".join("<tr%s>%s</tr>" % (r[0], "".join("<td>%s</td>" % c for c in r[1])) for r in rows)
+    return '<div class="tw"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (th, tb)
+
+def cap(lst, n, what):
+    if len(lst) <= n: return lst, ""
+    return lst[:n], '<p class="more">… and %d more %s. The full list is in the brief.</p>' % (len(lst) - n, what)
+
+CSS = """
+:root{color-scheme:light;--bg:#f7f7f4;--surface:#fff;--surface2:#f0f0ec;--text:#141413;--muted:#6b6a66;
+ --border:#ddddd6;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#a3131f;--bad-soft:#fbe3e4;--warn:#8a5a00;
+ --warn-soft:#fdf0d5;--accent:#2f5fd0;--accent-soft:#e2eafb;--del-bg:#fbe3e4;--del-fg:#8a1220;
+ --ins-bg:#dbf0e3;--ins-fg:#0b5730}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#16171a;--surface:#1e2024;
+ --surface2:#25272c;--text:#ecebe6;--muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f28b8b;--bad-soft:#3a1618;--warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;
+ --del-bg:#3a1618;--del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#16171a;--surface:#1e2024;--surface2:#25272c;--text:#ecebe6;
+ --muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;--bad:#f28b8b;--bad-soft:#3a1618;
+ --warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;--del-bg:#3a1618;
+ --del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font:15px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px}
+header .in{max-width:1120px;margin:0 auto}
+h1{font-size:22px;margin:0 0 6px}
+.dateline{margin:0;color:var(--muted);font-size:13.5px}
+.dateline a{color:var(--accent)}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.counts li{background:var(--surface2);border:1px solid var(--border);border-radius:999px;
+ padding:6px 12px;font-size:13.5px;white-space:nowrap}
+.counts li b{font-size:16px}
+.counts li.add{background:var(--ins-bg);border-color:var(--ok);color:var(--ins-fg)}
+.counts li.rem{background:var(--del-bg);border-color:var(--bad);color:var(--del-fg)}
+.counts li.chg{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+section{margin:26px 0 0}
+h2{font-size:16px;margin:0 0 2px}
+.note{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{position:sticky;top:0;background:var(--surface2);text-align:left;font-size:12px;
+ text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:9px 10px;
+ border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tr.t0 td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.sub{color:var(--muted);font-size:12.5px}
+.ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--accent)}
+.none{color:var(--muted)}
+span.t0{background:var(--bad-soft);color:var(--bad);border-radius:999px;padding:1px 7px;
+ font-size:11.5px;font-weight:600;white-space:nowrap}
+del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;
+ padding:1px 5px;border-radius:4px}
+ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1px 5px;border-radius:4px}
+.arrow{color:var(--muted);padding:0 4px}
+.field{font-weight:600;white-space:nowrap}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0}
+.more{color:var(--muted);font-size:13px;margin:8px 0 0}
+a{color:var(--accent)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+ background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+@media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
+"""
+
+def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
+    added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
+    gadd, grem, gmod, gp, gc = diff_catalog(prev_cat, curr_cat, "graph")
+    radd, rrem, rmod, rp, rc = diff_catalog(prev_cat, curr_cat, "roles")
+
+    added.sort(key=wkey); removed.sort(key=wkey)
+    changed.sort(key=lambda t: wkey(t[0]))
+    dl_moved = [(i, d) for i, d in changed if any(l == "Deadline" for l, _, _ in d)]
+
+    prev_d = norm(prev_st.get("briefDate")) or "previous"
+    curr_d = norm(curr_st.get("briefDate")) or "current"
+
+    out = []
+    out.append('<header class="top"><div class="in"><h1>Microsoft SOC &mdash; what changed</h1>')
+    out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
+               'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p>'
+               % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
+    out.append('<ul class="counts">')
+    out.append('<li class="add"><b>%d</b> added</li>' % len(added))
+    out.append('<li class="rem"><b>%d</b> removed</li>' % len(removed))
+    out.append('<li class="chg"><b>%d</b> changed</li>' % len(changed))
+    out.append('<li><b>%d</b> deadlines moved</li>' % len(dl_moved))
+    out.append('<li><b>%+d</b> Graph permissions <span class="sub">%d &rarr; %d</span></li>' % (gc - gp, gp, gc))
+    out.append('<li><b>%+d</b> role entries <span class="sub">%d &rarr; %d</span></li>' % (rc - rp, rp, rc))
+    out.append('<li><b>%d</b> items in state <span class="sub">was %d</span></li>' % (nc, np_))
+    out.append('</ul></div></header><div class="wrap">')
+
+    # --- added
+    rows = [(' class="t0"' if i.get("tier0Touch") else "",
+             [esc(i.get("product")), name_cell(i), esc(i.get("status")),
+              esc(i.get("published")), esc(i.get("deadline")) or '<span class="none">none stated</span>',
+              weight_cell(i), a_src(i)]) for i in added]
+    rows, more = cap(rows, 120, "added items")
+    out.append('<section id="added"><h2>Added since %s</h2>'
+               '<p class="note">In the current state and not in the previous one. Heaviest first: '
+               'tier 0, then SOC weight, then deadline.</p>%s%s</section>'
+               % (esc(prev_d), table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
+                                     rows, "Nothing was added. That is a result, not a gap."), more))
+
+    # --- removed
+    rows = [("", [esc(i.get("product")), name_cell(i), esc(i.get("published")),
+                  esc(i.get("deadline")) or '<span class="none">none stated</span>',
+                  weight_cell(i), a_src(i)]) for i in removed]
+    rows, more = cap(rows, 120, "removed items")
+    out.append('<section id="removed"><h2>Removed</h2>'
+               '<p class="note">Carried in the previous state and gone from the current one. '
+               'A removal is a finding: either the source dropped it or this brief retracted it.</p>%s%s</section>'
+               % (table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
+                        rows, "Nothing was removed."), more))
+
+    # --- changed, field by field
+    rows = []
+    for i, deltas in changed:
+        for n, (lab, a, b) in enumerate(deltas):
+            first = (n == 0)
+            rows.append((' class="t0"' if (first and i.get("tier0Touch")) else "",
+                         [name_cell(i) if first else '<span class="none">&#8942;</span>',
+                          '<span class="field">%s</span>' % esc(lab),
+                          ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
+                          + '<span class="arrow">&rarr;</span>'
+                          + ('<ins>%s</ins>' % esc(b) if b else '<span class="none">cleared</span>'),
+                          a_src(i) if first else ""]))
+    rows, more = cap(rows, 250, "changed fields")
+    out.append('<section id="changed"><h2>Changed, field by field</h2>'
+               '<p class="note">Same <code>id</code> in both states, different value. Old struck through, '
+               'new highlighted &mdash; the difference is shown, not described.</p>%s%s</section>'
+               % (table(["Item", "Field", "Before &rarr; after", "Source"], rows,
+                        "No field moved on any item carried across both states."), more))
+
+    # --- catalog
+    def catrows(add, rem, mod, name):
+        r = []
+        for n in add[:60]: r.append(("", ['<ins>added</ins>', "<code>%s</code>" % esc(n), ""]))
+        for n in rem[:60]: r.append(("", ['<del>removed</del>', "<code>%s</code>" % esc(n), ""]))
+        for n, f, a, b in mod[:60]:
+            r.append(("", ["changed", "<code>%s</code>" % esc(n),
+                           '<span class="field">%s</span> <del>%s</del><span class="arrow">&rarr;</span><ins>%s</ins>'
+                           % (esc(f), esc(a) or "not set", esc(b) or "cleared")]))
+        extra = len(add) + len(rem) + len(mod) - len(r)
+        return r, ('<p class="more">… and %d more %s changes.</p>' % (extra, name) if extra > 0 else "")
+
+    gr, gmore = catrows(gadd, grem, gmod, "Graph")
+    rr, rmore = catrows(radd, rrem, rmod, "role")
+    out.append('<section id="catalog"><h2>Catalog</h2>'
+               '<p class="note">Graph permissions %d &rarr; %d (+%d / &minus;%d, %d entries edited); '
+               'roles %d &rarr; %d (+%d / &minus;%d, %d edited).</p>%s%s%s%s</section>'
+               % (gp, gc, len(gadd), len(grem), len(gmod), rp, rc, len(radd), len(rrem), len(rmod),
+                  table(["What", "Graph permission", "Detail"], gr, "No Graph permission changed."), gmore,
+                  table(["What", "Role", "Detail"], rr, "No role changed."), rmore))
+
+    total = len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)
+    out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
+               'computed from the two state blocks, not copied from the brief. '
+               '<a href="%s">Back to the full brief</a></footer></div>'
+               % (("%d differences in total." % total) if total else
+                  "No difference at all between the two states. Somebody looked; nothing moved.",
+                  esc(when), esc(home)))
+    body = "\n".join(out)
+    return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n</head>\n<body>\n%s\n</body>\n</html>\n'
+            % (esc(curr_d), CSS, body))
+
+# ---------- bramka ----------
+
+def verify(page):
+    from html.parser import HTMLParser
+    class P(HTMLParser):
+        def __init__(s):
+            super().__init__(convert_charrefs=True)
+            s.ids=set(); s.rows=0; s.panels=0; s.cat=0; s.jsonb=0; s.doct=0; s.href=set(); s.dels=0; s.inss=0
+        def handle_decl(s,d):
+            if d.lower().startswith("doctype"): s.doct+=1
+        def handle_starttag(s,t,a):
+            a=dict(a); cls=(a.get("class") or "").split()
+            if a.get("id"): s.ids.add(a["id"])
+            if a.get("href"): s.href.add(a["href"])
+            if t=="tr": s.rows+=1
+            if t=="div" and "tabpanel" in cls: s.panels+=1
+            if t=="div" and a.get("data-catalog"): s.cat+=1
+            if t=="del": s.dels+=1
+            if t=="ins": s.inss+=1
+            if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
+    p=P(); p.feed(page); e=[]
+    for need in ("added","removed","changed","catalog"):
+        if need not in p.ids: e.append("brak sekcji %s" % need)
+    if p.doct!=1: e.append("DOCTYPE = %d, ma byc 1" % p.doct)
+    if p.panels: e.append("strona zmian nie ma zakladek, a ma %d .tabpanel" % p.panels)
+    if p.cat: e.append("strona zmian nie ma przegladarki katalogu, a ma %d" % p.cat)
+    if p.jsonb: e.append("strona zmian nie wozi blokow JSON, a ma %d" % p.jsonb)
+    if len(page.encode()) > 900_000: e.append("strona ma %d B — diff ma byc maly" % len(page.encode()))
+    if not any(h in ("/", "/diff/", "..") or h.startswith("http") for h in p.href):
+        e.append("brak linku powrotnego")
+    # KAZDY wiersz sekcji `changed` pokazuje roznice, a nie ja opisuje. Licznik <del> NIE musi
+    # rownac sie licznikowi <ins>: pole, ktorego wczesniej nie bylo, ma samo <ins> i zdanie
+    # „not set" po lewej. Zmierzone: 250 wierszy, 225 z samym <ins>, zero bez jednego i drugiego.
+    m = re.search(r'<section id="changed">.*?</section>', page, re.S)
+    if m:
+        rows = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", m.group(0), re.S) if "<td" in r]
+        bad = [r for r in rows if "<del>" not in r and "<ins>" not in r]
+        if bad: e.append("%d wierszy w 'changed' nie pokazuje roznicy (<del>/<ins>)" % len(bad))
+    return e
+
+if __name__ == "__main__":
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    opts = sys.argv[1:]
+    home = opts[opts.index("--home") + 1] if "--home" in opts else "/"
+    label = opts[opts.index("--label") + 1] if "--label" in opts else "morning pass → afternoon pass"
+    if len(args) < 3:
+        raise SystemExit("uzycie: make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label ...]")
+    ps, pc = load_state(args[0])
+    cs, cc = load_state(args[1])
+    when = datetime.datetime.now().strftime("%H:%M")
+    page = build(ps, pc, cs, cc, home, label, when)
+    errs = verify(page)
+    if errs:
+        print("PRZEBIEG NIEUDANY - nie publikuj:")
+        for x in errs: print("   -", x)
+        raise SystemExit(1)
+    os.makedirs(os.path.dirname(os.path.abspath(args[2])), exist_ok=True)
+    open(args[2], "w", encoding="utf-8").write(page)
+    print("OK  %s  %d B" % (args[2], len(page.encode())))
+```
+
+### Gdzie to wchodzi w dzien
+
+| godzina (Warsaw) | co | z czego liczy |
+|---|---|---|
+| 06:00 | sched task poranny publikuje artefakt `Microsoft SOC Brief <data>` | — |
+| 07:00 | routine odbija artefakt do `site/index.html` i zapisuje `site/data/<data>.json` (§0a) | — |
+| 21:00 | sched task popoludniowy republikuje TEN SAM brief z sekcja `#pmdelta`, **a potem publikuje `Microsoft SOC Delta <data>` = wyjscie `make_diff.py`** | stan porannego artefaktu → stan po tym passie |
+| 21:30 | routine zmian pisze `site/diff/index.html` = wyjscie `make_diff.py` | `site/data/<poprzedni>.json` → stan dzisiejszego artefaktu |
+
+**Routine zmian nie odbija juz artefaktu Delta.** Liczy strone sama z dwoch stanow, wiec jest
+odporna na to, czy sched task zdazyl i co dokladnie opublikowal; gdy dzisiejszego artefaktu nie
+ma, porownuje dwa ostatnie pliki `site/data/*.json` i mowi w odpowiedzi, ze porownala pliki
+zamiast artefaktu. Tryb `--diff` w `mirror_artifact.py` (§0a) zostaje wylacznie jako awaryjne
+lustro i jest poprawiony, ale **nie jest juz domyslna sciezka**.
+
+**Sekcja `#pmdelta` w briefie zostaje bez zmian.** To jest zapis „co znalazl ten pass" w samym
+briefie i §4 taska popoludniowego dalej go wymaga. Strona zmian jest czyms innym: samodzielnym,
+malym dokumentem dla kogos, kto chce zobaczyc wylacznie roznice.
 
 ## 4. Tabele — powloka nie pokoloruje niczego, czego nie oznaczyles
 
