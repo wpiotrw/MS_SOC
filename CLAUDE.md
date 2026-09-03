@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 33 pozycje dla przebiegu,
-   ktory buduje albo odbija strone glowna, plus **pozycje 34 dla przebiegu ZMIAN** — razem 34. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 34 pozycje dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33 oraz 35), plus **pozycje 34 dla przebiegu ZMIAN** — razem 35. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -78,7 +78,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB | 3 | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 35 | **pasek zakladek ma wlasny, grafitowy kolor, ten sam w obu motywach, a KAZDA zakladka ma ramke** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; regula `nav.anchors .tab` niesie `border`; render: tlo paska identyczne w obu motywach i rozne od `--surface` |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z czterema wierszami i jedna tabela na zakladke w Added / Removed / Changed** (§3a) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31 i 33 sa wiazace: przebieg, ktory je pominie
@@ -580,9 +581,26 @@ def gate(path):
          ".sec-body .lnk-dead{white-space:normal" in h.replace("\n","")
          or "white-space:normal;max-width:100%;overflow-wrap:anywhere" in h,
          "brak reguly zdejmujacej nowrap z chipow linkow na telefonie")
-    need("27", "skrypt 4 (agregaty §5y) obecny",
-         ("SKRYPT 4" in h or "SCRIPT 4" in h) and "aggwrap" in h and "aggbtn" in h,
-         "brak skryptu agregatow albo jego klas")
+    need("27", "skrypty 4 (agregaty §5y) i 5 (filtr kafelkow §5ad) obecne",
+         ("SKRYPT 4" in h or "SCRIPT 4" in h) and "aggwrap" in h and "aggbtn" in h
+         and "SCRIPT 5" in h and "bkbanner" in h and "cc-tile" in h,
+         "brak: %s" % ", ".join(
+             [n for n,ok in (("skrypt 4", ("SKRYPT 4" in h or "SCRIPT 4" in h)),
+                             ("klasy agregatow", "aggwrap" in h and "aggbtn" in h),
+                             ("skrypt 5", "SCRIPT 5" in h),
+                             ("banner kubelka", "bkbanner" in h),
+                             ("kafelki cc-tile", "cc-tile" in h)) if not ok]))
+    # 35: §5ae — pasek zakladek ma wlasny kolor i ramke. Bramka czyta plik, wiec sprawdza
+    # OBECNOSC zmiennych i reguly; wartosci wyliczone i rownosc obu motywow sprawdza Playwright.
+    flat=h.replace("\n","").replace("\r","")
+    need("35","pasek zakladek ma wlasny kolor i ramke na zakladce (§5ae)",
+         "--nav-bg" in h and "--nav-tab-line" in h
+         and re.search(r"nav\.anchors\s*\{[^}]*background", flat) is not None
+         and re.search(r"nav\.anchors\s+\.tab\s*\{[^}]*border", flat) is not None,
+         "zmienne=%s, tlo paska=%s, ramka zakladki=%s" % (
+             "--nav-bg" in h and "--nav-tab-line" in h,
+             re.search(r"nav\.anchors\s*\{[^}]*background", flat) is not None,
+             re.search(r"nav\.anchors\s+\.tab\s*\{[^}]*border", flat) is not None))
     # 28-30: §5z, §5aa, §5y — jezyk i terminy, ktore minely
     import datetime as _dt
     bd=(st["soc-brief-state"] or {}).get("briefDate") or _dt.date.today().isoformat()
@@ -919,26 +937,96 @@ artefakty, z ktorych skrypt sam wyjmuje `soc-brief-state` i `soc-catalog`.
 
 Strona zmian **nie ma**: zakladek, paneli `.tabpanel`, przegladarki katalogu, blokow
 `<script type="application/json">` ani skryptow powloki. Nie wozi stanu, bo go nie renderuje —
-to jest ta roznica miedzy 11 638 B a 3 635 058 B. Ma **jeden ekran, przewijany**, w tej kolejnosci:
+to jest ta roznica miedzy 11 638 B a 3 635 058 B.
+
+**Jedyny wyjatek od „bez skryptow" to przelacznik motywu, i jest nim z powodu.** Wlasciciel zglosil
+3 wrzesnia 2026: *„ten html z diff nie ma przelacznika do motywu"*. Arkusz tej strony wozi OBA
+motywy — `prefers-color-scheme` plus `[data-theme]` — wiec bez przycisku czytelnik jest zamkniety
+w tym, co narzucil mu system, podczas gdy brief obok ma `Theme` od poczatku. Dwa male bloki:
+w `<head>` przywrocenie zapamietanego wyboru przed pierwszym malowaniem (bez tego strona mruga),
+na koncu `<body>` obsluga klikniecia. Zachowanie **identyczne z przyciskiem w briefie** — przerzuca
+jasny/ciemny wzgledem tego, co widac teraz — plus zapamietanie w `localStorage` w `try/catch`,
+bo strone zmian sie odswieza, a wracanie do motywu systemu przy kazdym odswiezeniu bylo by tym
+samym co brak przycisku. `verify()` zada `id="themebtn"` i klucza `soc-diff-theme`: regula bez
+asercji jest sugestia, a sugestie przebieg pomija.
+
+Ma **jeden ekran, przewijany**, w tej kolejnosci:
 
 1. **Masthead** — `Microsoft SOC — what changed`, `<data poprzednia> → <data biezaca>`, etykieta
-   porownania (`morning pass 06:35 → evening pass 21:14`), godzina policzenia, autor i link do `/`.
+   porownania (`morning pass 06:35 → evening pass 21:14`), godzina policzenia, autor i link do `/`,
+   a po prawej stronie **przycisk `Theme`** (`.hdr-tools > button#themebtn`, jak w briefie).
 2. **Pigulki liczbowe** — `N added`, `N removed`, `N changed`, `N deadlines moved`,
    `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
    poprawna i tez sie pokazuje.
-3. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, sortowane
-   `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
-4. **Removed** — to samo bez `Status`. **Usuniecie jest znaleziskiem**, nie sprzataniem.
-5. **Changed, field by field** — JEDEN WIERSZ NA POLE: `Item | Field | before → after | Source`,
+3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
+   Areas touched`, jeden wiersz na zakladke, ZAWSZE cztery wiersze (§3a).
+4. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, **jedna tabela
+   na zakladke**, z `<caption class="tabcap">` niosacym nazwe zakladki, licznik i obszary;
+   sortowane `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
+5. **Removed** — to samo bez `Status`, tak samo grupowane. **Usuniecie jest znaleziskiem**,
+   nie sprzataniem.
+6. **Changed, field by field** — grupowane po zakladce, JEDEN WIERSZ NA POLE:
+   `Item | Field | before → after | Source`,
    stara wartosc w `<del>`, nowa w `<ins>`. Pola porownywane, w tej kolejnosci: `deadline`,
    `status`, `published`, `tier`, `socWeight`, `tier0Touch`, `title`, `officialTitle`,
    `reference`, `fingerprint`, `url`, `linkStatus`, `product`, `area`.
-6. **Catalog** — dodane / usuniete nazwy uprawnien i rol oraz wpisy, ktorym ruszyl
-   `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`.
-7. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
+7. **Catalog — zakladki Graph API i Roles** — dodane / usuniete nazwy uprawnien i rol oraz wpisy,
+   ktorym ruszyl `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`. Dwie tabele,
+   kazda z podpisem nazywajacym swoja zakladke.
+8. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
 
 **Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
+
+### 3a. KAZDA ZMIANA STOI W SWOJEJ ZAKLADCE — i jest podsumowanie, ktore to zbiera
+
+Wlasciciel zglosil 3 wrzesnia 2026, po pierwszym przebiegu na policzonej stronie zmian:
+*„kazda zakladka powinna pokazac tylko roznice od rana. Jakies podsumowanie tez zbiorcze, co
+w jakich zakladkach i obszarach sie zmienilo — np. co zostalo usuniete, co dodane; jak zostalo
+dodane nowe api albo rola, to powinno sie tylko to wyswietlac w zakladce, do ktorej przynalezy."*
+
+Plaska lista „7 added" odpowiada na pytanie ILE, nie na pytanie GDZIE. Czytelnik, ktory rano
+patrzyl na dziewiec zakladek, wieczorem pyta o te same dziewiec — a nie o jeden wor.
+
+1. **Kazda pozycja ma DOM i jest liczona dokladnie raz.** Dom wyliczasz z `tier`, bo to jedyne
+   pole mowiace, gdzie brief ja renderuje: `published-in-window` → **New**; `deadline-under-60-days`,
+   `recently-elapsed`, `horizon` → **Deadlines**; wpis katalogu `graph` → **Graph API**; wpis
+   katalogu `roles` → **Roles**. Pozycja bez `tier`, ale z terminem, idzie do Deadlines.
+2. **Today i Products nie sa niczyim domem.** Today jest wyborem z tych samych pozycji (§5m),
+   a Products drugim widokiem okna — liczenie ich osobno podwoiloby kazda zmiane. Nota sekcji
+   mowi to wprost, zeby czytelnik nie szukal ich w tabeli.
+3. **Podsumowanie ma CZTERY wiersze zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
+   „sprawdzone, nic sie nie ruszylo" i jest wynikiem; brak wiersza znaczy „nie wiadomo".
+4. **Kolumna `Areas touched`** wymienia wartosci `product` dotkniete w tej zakladce, do osmiu, potem
+   wielokropek. To jest „w jakich obszarach" ze zgloszenia.
+5. **Kubelek pusty zachowuje SWOJ PODPIS.** `<p class="emptycap">` z nazwa zakladki stoi nad zdaniem
+   „No role changed." — samo zdanie bez nazwy nie mowi, ktora zakladka jest cicha.
+
+### Zmierzone 3 wrzesnia 2026 — trzy wejscia, ta sama bramka
+
+| wejscie | rozmiar | podsumowanie per zakladka |
+|---|---|---|
+| ranek 07:14 → wieczor 21:15 (ten sam dzien) | **17 052 B** | New +7 (Entra · M365 admin · Dynamics 365), Deadlines 0/0/0, Graph API +35, Roles 0/0/0 |
+| brief 31 sierpnia → wieczor 3 wrzesnia | **186 418 B** | New +59 / 71 zmienionych, Deadlines +10 / 86, Graph API +69 / 331, Roles 0 / 0 / 7 |
+| ten sam stan po obu stronach | **9 899 B** | cztery wiersze samych zer |
+
+Przelacznik motywu zmierzony na wszystkich trzech wejsciach, w czterech kombinacjach (system jasny
+i ciemny, 1400 i 390 px): start bez atrybutu `data-theme` czyli na motywie systemu, **pierwszy klik
+przerzuca na przeciwny** (`rgb(247,247,244)` ↔ `rgb(22,23,26)` na `body`), drugi wraca, a po
+`reload` wybor **zostaje**. Przycisk stoi w gornym wierszu na prawo od tytulu, ma nieprzezroczyste
+tlo w obu motywach (`rgb(240,240,236)` / `rgb(37,39,44)`), zero bledow konsoli i strony,
+`scrollWidth === clientWidth` przy 390 i 1400.
+
+Render headless, jasny i ciemny, 1400x1100 i 390x844, wszystkie trzy wejscia: **zero bledow konsoli
+i strony**, `scrollWidth === clientWidth` w obu szerokosciach, `#bytab` obecne z czterema wierszami,
+link powrotny w stopce. Dwa bledy wlasnego renderu znalezione i poprawione w tym samym przebiegu:
+tabela pusta **gubila podpis** (`table()` zwracalo samo zdanie, wiec „No role changed." wisialo bez
+nazwy zakladki), a podsumowanie **pokazywalo tylko zakladki, ktore sie ruszyly** — czyli dokladnie
+nie odpowiadalo na pytanie „ktora byla cicha".
+
+`verify()` zyskal asercje: sekcja `bytab` istnieje, a **kazda zakladka z niezerowym licznikiem
+w podsumowaniu ma na dole tabele z tym podpisem**. Bez niej podsumowanie moglo by podac liczbe,
+ktorej nic nie pokrywa — a ono jest cala tresc tej strony.
 
 ### Zmierzone 2 wrzesnia 2026
 
@@ -1035,6 +1123,45 @@ FIELDS = [
     ("area",         "Area"),
 ]
 
+# ---------- ktora zakladka briefu jest DOMEM tej pozycji ----------
+# Wlasciciel, 3 wrzesnia 2026: „kazda zakladka powinna pokazac tylko roznice od rana …
+# jak zostalo dodane nowe api albo rola, to powinno sie to wyswietlac w zakladce, do ktorej
+# przynalezy." Dom pozycji wyliczamy z `tier`, bo to jedyne pole, ktore mowi, gdzie brief ja
+# renderuje. Today jest WYBOREM z tych samych pozycji (§5m), wiec nie jest niczyim domem —
+# inaczej ta sama zmiana stanelaby w dwoch miejscach i licznik klamalby.
+TIER_TAB = {
+    "published-in-window":    "New",
+    "deadline-under-60-days": "Deadlines",
+    "recently-elapsed":       "Deadlines",
+    "horizon":                "Deadlines",
+}
+TAB_ORDER = ["New", "Deadlines", "Graph API", "Roles"]
+# Zakladki, ktore ta strona potrafi zliczyc, i ktore dostaja wiersz ZAWSZE — takze z trzema zerami.
+# Today i Products nie sa niczyim domem: Today jest wyborem (§5m), a Products drugim widokiem tych
+# samych pozycji okna, wiec ich ruch jest juz policzony w New i Deadlines. Liczenie ich osobno
+# podwoiloby kazda zmiane.
+SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Roles"]
+
+def tab_of(it):
+    t = TIER_TAB.get(norm(it.get("tier")))
+    if t: return t
+    return "Deadlines" if norm(it.get("deadline")) else "New"
+
+def group(rows, keyfn):
+    """Zwraca [(zakladka, [wiersze])] w kolejnosci TAB_ORDER; nieznane zakladki na koncu."""
+    g = {}
+    for r in rows: g.setdefault(keyfn(r), []).append(r)
+    known = [(t, g.pop(t)) for t in TAB_ORDER if t in g]
+    return known + sorted(g.items())
+
+def areas(items):
+    """Obszary (product) dotkniete w tej zakladce — odpowiedz na 'w jakich obszarach'."""
+    seen = []
+    for i in items:
+        a = norm(i.get("product")) or "unspecified"
+        if a not in seen: seen.append(a)
+    return seen
+
 def norm(v):
     if v is None: return ""
     if isinstance(v, bool): return "yes" if v else "no"
@@ -1095,12 +1222,32 @@ def weight_cell(it):
     t0 = ' <span class="t0">tier 0</span>' if it.get("tier0Touch") else ""
     return ("w%s" % w if isinstance(w, int) else '<span class="none">—</span>') + t0
 
-def table(head, rows, empty):
+def table(head, rows, empty, caption=None):
     if not rows:
-        return '<p class="empty">%s</p>' % esc(empty)
+        # Kubelek pusty mowi to zdaniem — ale musi tez powiedziec, KTORY kubelek jest pusty,
+        # inaczej „No role changed." wisi bez nazwy zakladki, ktorej dotyczy.
+        lead = ('<p class="emptycap">%s</p>' % caption) if caption else ""
+        return lead + '<p class="empty">%s</p>' % esc(empty)
     th = "".join("<th>%s</th>" % h for h in head)   # naglowki sa nasze, nie z danych
     tb = "".join("<tr%s>%s</tr>" % (r[0], "".join("<td>%s</td>" % c for c in r[1])) for r in rows)
-    return '<div class="tw"><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (th, tb)
+    cap = ('<caption class="tabcap">%s</caption>' % caption) if caption else ""
+    return ('<div class="tw"><table>%s<thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>'
+            % (cap, th, tb))
+
+def num(n, kind):
+    """Licznik w podsumowaniu. ZERO tez sie pokazuje — to wynik, nie brak."""
+    if not n: return '<span class="none">0</span>'
+    if kind == "add": return '<b class="nadd">+%d</b>' % n
+    if kind == "rem": return '<b class="nrem">&minus;%d</b>' % n
+    return '<b class="nchg">%d</b>' % n
+
+def tabcap(tab, n, word, items):
+    """Podpis tabeli zakladki: nazwa, licznik i obszary — jednym zdaniem."""
+    a = [esc(x) for x in areas(items)]
+    more = " &middot; …" if len(a) > 8 else ""
+    return ('<b>%s</b> &middot; %d %s <span class="capareas">%s%s</span>'
+            % (esc(tab), n, esc(word if n != 1 else word.rstrip("s")),
+               " &middot; ".join(a[:8]), more))
 
 def cap(lst, n, what):
     if len(lst) <= n: return lst, ""
@@ -1125,6 +1272,13 @@ body{margin:0;background:var(--bg);color:var(--text);
 .wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
 header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px}
 header .in{max-width:1120px;margin:0 auto}
+.title-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.title-row>div:first-child{flex:1 1 320px;min-width:0}
+.hdr-tools{flex:0 0 auto;margin-left:auto}
+.themebtn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;
+ padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.themebtn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 h1{font-size:22px;margin:0 0 6px}
 .dateline{margin:0;color:var(--muted);font-size:13.5px}
 .dateline a{color:var(--accent)}
@@ -1158,6 +1312,14 @@ ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1p
 .field{font-weight:600;white-space:nowrap}
 .empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
  padding:12px 14px;color:var(--muted);margin:0}
+caption.tabcap{caption-side:top;text-align:left;padding:9px 10px;background:var(--surface2);
+ border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+caption.tabcap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.emptycap{margin:0 0 4px;font-size:13px;color:var(--text)}
+.emptycap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.tw+.tw{margin-top:12px}
+b.nadd{color:var(--ins-fg)}b.nrem{color:var(--del-fg)}b.nchg{color:var(--warn)}
+tr.quiet td{color:var(--muted)}
 .more{color:var(--muted);font-size:13px;margin:8px 0 0}
 a{color:var(--accent)}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
@@ -1165,6 +1327,35 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
 footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
 @media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
 """
+
+# Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
+# arkusz wozi oba motywy, a bez przelacznika czytelnik nie ma czym ich zmienic. Zachowanie jest
+# TAKIE SAMO jak przycisk `Theme` w briefie: przerzuca jasny/ciemny wzgledem tego, co widac teraz.
+# Dochodzi pamiec wyboru — strona zmian jest odswiezana, a wracanie do motywu systemu przy kazdym
+# odswiezeniu bylo by tym samym co brak przycisku.
+THEME_HEAD = """<script>
+/* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
+(function(){try{var v=localStorage.getItem('soc-diff-theme');
+if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v);}catch(e){}})();
+</script>"""
+
+THEME_BODY = """<script>
+(function(){
+  "use strict";
+  var r=document.documentElement, b=document.getElementById('themebtn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    try{
+      var explicit=r.getAttribute('data-theme');
+      var dark = explicit==='dark' ||
+                 (!explicit && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      r.setAttribute('data-theme', next);
+      try{ localStorage.setItem('soc-diff-theme', next); }catch(e){}
+    }catch(e){}
+  });
+})();
+</script>"""
 
 def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
@@ -1179,9 +1370,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     curr_d = norm(curr_st.get("briefDate")) or "current"
 
     out = []
-    out.append('<header class="top"><div class="in"><h1>Microsoft SOC &mdash; what changed</h1>')
+    out.append('<header class="top"><div class="in"><div class="title-row"><div>'
+               '<h1>Microsoft SOC &mdash; what changed</h1>')
     out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
-               'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p>'
+               'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p></div>'
+               '<div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button>'
+               '</div></div>'
                % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
     out.append('<ul class="counts">')
     out.append('<li class="add"><b>%d</b> added</li>' % len(added))
@@ -1193,47 +1387,93 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     out.append('<li><b>%d</b> items in state <span class="sub">was %d</span></li>' % (nc, np_))
     out.append('</ul></div></header><div class="wrap">')
 
-    # --- added
-    rows = [(' class="t0"' if i.get("tier0Touch") else "",
-             [esc(i.get("product")), name_cell(i), esc(i.get("status")),
-              esc(i.get("published")), esc(i.get("deadline")) or '<span class="none">none stated</span>',
-              weight_cell(i), a_src(i)]) for i in added]
-    rows, more = cap(rows, 120, "added items")
+    # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
+    # To jest odpowiedz na „jakies podsumowanie tez zbiorcze, co w jakich zakladkach
+    # i obszarach sie zmienilo". Zero jest wartoscia i tez ma wiersz.
+    tally = {}
+    for i_ in added:              tally.setdefault(tab_of(i_), {"a": [], "r": [], "c": []})["a"].append(i_)
+    for i_ in removed:            tally.setdefault(tab_of(i_), {"a": [], "r": [], "c": []})["r"].append(i_)
+    for i_, _d in changed:        tally.setdefault(tab_of(i_), {"a": [], "r": [], "c": []})["c"].append(i_)
+    for tab in SUMMARY_TABS:      tally.setdefault(tab, {"a": [], "r": [], "c": []})
+
+    srows = []
+    for tab in SUMMARY_TABS + sorted(k for k in tally if k not in SUMMARY_TABS):
+        if tab not in tally: continue
+        t = tally[tab]
+        if tab == "Graph API":
+            na, nr, nc = len(gadd), len(grem), len(gmod)
+            ar = "Graph permissions"
+        elif tab == "Roles":
+            na, nr, nc = len(radd), len(rrem), len(rmod)
+            ar = "Entra directory roles"
+        else:
+            na, nr, nc = len(t["a"]), len(t["r"]), len(t["c"])
+            ar = " &middot; ".join(esc(x) for x in areas(t["a"] + t["r"] + t["c"])[:8]) or "&mdash;"
+        srows.append((' class="quiet"' if not (na or nr or nc) else "",
+                      ["<b>%s</b>" % esc(tab), num(na, "add"), num(nr, "rem"), num(nc, "chg"), ar]))
+    out.append('<section id="bytab"><h2>What changed, by tab</h2>'
+               '<p class="note">What moved since %s, tab by tab, and which areas it touched. '
+               'A row of three zeros means that tab was checked and did not move. Each item is counted '
+               'in the ONE tab that is its home &mdash; New for the published window, Deadlines for '
+               'anything dated, Graph API and Roles for the two catalogs &mdash; so nothing is counted '
+               'twice. Today is a selection from New and Deadlines and Products is a second view of the '
+               'same items, so their changes are already in these rows.</p>%s</section>'
+               % (esc(prev_d),
+                  table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
+                        "No tab moved at all.")))
+
+    # --- added, grouped by tab
+    body = []
+    for tab, items_ in group(added, tab_of):
+        rows = [(' class="t0"' if i_.get("tier0Touch") else "",
+                 [esc(i_.get("product")), name_cell(i_), esc(i_.get("status")),
+                  esc(i_.get("published")), esc(i_.get("deadline")) or '<span class="none">none stated</span>',
+                  weight_cell(i_), a_src(i_)]) for i_ in items_]
+        rows, more = cap(rows, 120, "added items")
+        body.append(table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
+                          rows, "", tabcap(tab, len(items_), "items", items_)) + more)
     out.append('<section id="added"><h2>Added since %s</h2>'
-               '<p class="note">In the current state and not in the previous one. Heaviest first: '
-               'tier 0, then SOC weight, then deadline.</p>%s%s</section>'
-               % (esc(prev_d), table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
-                                     rows, "Nothing was added. That is a result, not a gap."), more))
+               '<p class="note">In the current state and not in the previous one, one table per tab of '
+               'the brief. Heaviest first: tier 0, then SOC weight, then deadline.</p>%s</section>'
+               % (esc(prev_d), "".join(body) or
+                  '<p class="empty">Nothing was added. That is a result, not a gap.</p>'))
 
-    # --- removed
-    rows = [("", [esc(i.get("product")), name_cell(i), esc(i.get("published")),
-                  esc(i.get("deadline")) or '<span class="none">none stated</span>',
-                  weight_cell(i), a_src(i)]) for i in removed]
-    rows, more = cap(rows, 120, "removed items")
+    # --- removed, grouped by tab
+    body = []
+    for tab, items_ in group(removed, tab_of):
+        rows = [("", [esc(i_.get("product")), name_cell(i_), esc(i_.get("published")),
+                      esc(i_.get("deadline")) or '<span class="none">none stated</span>',
+                      weight_cell(i_), a_src(i_)]) for i_ in items_]
+        rows, more = cap(rows, 120, "removed items")
+        body.append(table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
+                          rows, "", tabcap(tab, len(items_), "items", items_)) + more)
     out.append('<section id="removed"><h2>Removed</h2>'
-               '<p class="note">Carried in the previous state and gone from the current one. '
-               'A removal is a finding: either the source dropped it or this brief retracted it.</p>%s%s</section>'
-               % (table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
-                        rows, "Nothing was removed."), more))
+               '<p class="note">Carried in the previous state and gone from the current one, by tab. '
+               'A removal is a finding: either the source dropped it or this brief retracted it.</p>%s</section>'
+               % ("".join(body) or '<p class="empty">Nothing was removed.</p>'))
 
-    # --- changed, field by field
-    rows = []
-    for i, deltas in changed:
-        for n, (lab, a, b) in enumerate(deltas):
-            first = (n == 0)
-            rows.append((' class="t0"' if (first and i.get("tier0Touch")) else "",
-                         [name_cell(i) if first else '<span class="none">&#8942;</span>',
-                          '<span class="field">%s</span>' % esc(lab),
-                          ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
-                          + '<span class="arrow">&rarr;</span>'
-                          + ('<ins>%s</ins>' % esc(b) if b else '<span class="none">cleared</span>'),
-                          a_src(i) if first else ""]))
-    rows, more = cap(rows, 250, "changed fields")
+    # --- changed, field by field, grouped by tab
+    body = []
+    for tab, pairs in group(changed, lambda t: tab_of(t[0])):
+        rows = []
+        for i_, deltas in pairs:
+            for n, (lab, a, b) in enumerate(deltas):
+                first = (n == 0)
+                rows.append((' class="t0"' if (first and i_.get("tier0Touch")) else "",
+                             [name_cell(i_) if first else '<span class="none">&#8942;</span>',
+                              '<span class="field">%s</span>' % esc(lab),
+                              ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
+                              + '<span class="arrow">&rarr;</span>'
+                              + ('<ins>%s</ins>' % esc(b) if b else '<span class="none">cleared</span>'),
+                              a_src(i_) if first else ""]))
+        rows, more = cap(rows, 250, "changed fields")
+        body.append(table(["Item", "Field", "Before &rarr; after", "Source"], rows, "",
+                          tabcap(tab, len(pairs), "items", [x[0] for x in pairs])) + more)
     out.append('<section id="changed"><h2>Changed, field by field</h2>'
-               '<p class="note">Same <code>id</code> in both states, different value. Old struck through, '
-               'new highlighted &mdash; the difference is shown, not described.</p>%s%s</section>'
-               % (table(["Item", "Field", "Before &rarr; after", "Source"], rows,
-                        "No field moved on any item carried across both states."), more))
+               '<p class="note">Same <code>id</code> in both states, different value, by tab. Old struck '
+               'through, new highlighted &mdash; the difference is shown, not described.</p>%s</section>'
+               % ("".join(body) or
+                  '<p class="empty">No field moved on any item carried across both states.</p>'))
 
     # --- catalog
     def catrows(add, rem, mod, name):
@@ -1249,12 +1489,19 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
 
     gr, gmore = catrows(gadd, grem, gmod, "Graph")
     rr, rmore = catrows(radd, rrem, rmod, "role")
-    out.append('<section id="catalog"><h2>Catalog</h2>'
+    # Katalog jest domem DWOCH zakladek — kazda dostaje wlasny podpis, zeby wiersz
+    # podsumowania „Graph API / Roles" mial na dole odpowiadajaca mu tabele.
+    out.append('<section id="catalog"><h2>Catalog &mdash; Graph API and Roles tabs</h2>'
                '<p class="note">Graph permissions %d &rarr; %d (+%d / &minus;%d, %d entries edited); '
-               'roles %d &rarr; %d (+%d / &minus;%d, %d edited).</p>%s%s%s%s</section>'
+               'roles %d &rarr; %d (+%d / &minus;%d, %d edited). These two tables are the whole of what '
+               'moved in those two tabs.</p>%s%s%s%s</section>'
                % (gp, gc, len(gadd), len(grem), len(gmod), rp, rc, len(radd), len(rrem), len(rmod),
-                  table(["What", "Graph permission", "Detail"], gr, "No Graph permission changed."), gmore,
-                  table(["What", "Role", "Detail"], rr, "No role changed."), rmore))
+                  table(["What", "Graph permission", "Detail"], gr, "No Graph permission changed.",
+                        '<b>Graph API</b> &middot; +%d / &minus;%d / %d edited' % (len(gadd), len(grem), len(gmod))),
+                  gmore,
+                  table(["What", "Role", "Detail"], rr, "No role changed.",
+                        '<b>Roles</b> &middot; +%d / &minus;%d / %d edited' % (len(radd), len(rrem), len(rmod))),
+                  rmore))
 
     total = len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)
     out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
@@ -1266,8 +1513,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     body = "\n".join(out)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n</head>\n<body>\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, body))
+            '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n%s\n</head>\n'
+            '<body>\n%s\n%s\n</body>\n</html>\n'
+            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY))
 
 # ---------- bramka ----------
 
@@ -1290,9 +1538,25 @@ def verify(page):
             if t=="ins": s.inss+=1
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
-    for need in ("added","removed","changed","catalog"):
+    for need in ("bytab","added","removed","changed","catalog"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
+    # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
+    # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
+    m0 = re.search(r'<section id="bytab">.*?</section>', page, re.S)
+    if m0:
+        for row in re.findall(r"<tr[^>]*>(.*?)</tr>", m0.group(0), re.S):
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)
+            if len(cells) < 4: continue
+            tab = re.sub(r"<[^>]+>", "", cells[0]).strip()
+            nums = [re.sub(r"[^0-9]", "", re.sub(r"<[^>]+>", "", c)) or "0" for c in cells[1:4]]
+            if all(n == "0" for n in nums): continue
+            if ("<b>%s</b>" % tab) not in page:
+                e.append("zakladka %s ma licznik w podsumowaniu, a nie ma tabeli" % tab)
     if p.doct!=1: e.append("DOCTYPE = %d, ma byc 1" % p.doct)
+    # Przelacznik motywu: arkusz wozi oba motywy, wiec strona bez przycisku zostawia czytelnika
+    # z tym, co narzucil system. Regula bez asercji jest sugestia (§0b) — wiec asercja.
+    if 'id="themebtn"' not in page: e.append("brak przycisku motywu (#themebtn)")
+    if "soc-diff-theme" not in page: e.append("brak skryptu przelacznika motywu")
     if p.panels: e.append("strona zmian nie ma zakladek, a ma %d .tabpanel" % p.panels)
     if p.cat: e.append("strona zmian nie ma przegladarki katalogu, a ma %d" % p.cat)
     if p.jsonb: e.append("strona zmian nie wozi blokow JSON, a ma %d" % p.jsonb)
@@ -1825,6 +2089,18 @@ Nowe od 1 wrzesnia 2026, kazda z realnego zgloszenia wlasciciela: **oba pola szu
 **w `tab-new`, `tab-today` i `tab-deadlines` istnieje `<select>`, ktorego pierwsza opcja brzmi
 `All source`** (§5w); **kazda zakladka tresciowa ma co najmniej trzy `.aggwrap figure.chart` i
 dokladnie trzy `.aggbtn`, a klikniecie „Tydzien" i „Dzien" zmienia liczbe slupkow osi czasu** (§5y).
+
+Nowe od 3 wrzesnia 2026, oba ze zgloszenia wlasciciela z tego dnia: **kliknieciecie kafelka
+`Added` / `Removed or breaking` / `Modified` w kazdym katalogu zostawia na liscie pod polem szukania
+wylacznie wpisy tego kubelka** (`.cat-item:not([hidden])` rowna sie liczbie z kafelka albo zero
+z bannerem mowiacym, ze kubelek jest pusty), kafelek dostaje `aria-pressed="true"`, ponowne
+klikniecie przywraca pelna liste, a wpisanie czegokolwiek w pole szukania czysci filtr kubelka;
+**tabela `.cc-table` ma kolumne `Change` z chipem `.badge` w kazdym wierszu** (§5ad).
+I kolor paska (§5ae): **`getComputedStyle(nav.anchors).backgroundColor` jest nieprzezroczyste,
+IDENTYCZNE w obu motywach i rozne od tla `header.top` oraz od `--surface`**; kazda `nav.anchors .tab`
+ma niezerowa `borderTopWidth` i `borderTopColor` rozny od wlasnego tla; zakladka z
+`aria-selected="true"` ma tlo rozne od nieaktywnych; licznik `.navcount` ma nieprzezroczyste tlo
+w obu motywach — te same wartosci, nie tylko „jakies".
 
 Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z dziewieciu zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
 (§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
@@ -3402,6 +3678,90 @@ A na koniec `<body>`, jako **PIATY** blok `<script>`, ten kod — kopiowany co d
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
 linie `facetCandidates()` (§5w) zostaja jedynymi. Skrypty 4 i 5 sa osobnymi blokami, ktore niczego
 nie nadpisuja.
+
+## 5ae. Pasek zakladek ma WLASNY kolor — grafit z ramka na kazdej zakladce
+
+Wlasciciel zglosil 3 wrzesnia 2026: *„pasek z zakladkami prawie ginie w gaszczu tych naszych
+informacji"*, a po pierwszej probie: *„niech sie zakladki odrozniaja, maja jakas ramke, bo teraz
+wszystko sie zlewa"*.
+
+Przyczyna jest mierzalna, nie gustowa. Zmierzone tego dnia na `site/index.html`: `nav.anchors` nie
+ma wlasnego tla (`rgba(0,0,0,0)`), a kazda `.tab` stoi na `--surface`, czyli **na tym samym kolorze,
+co siedem pigulek nad nia i cala tresc pod nia**. Trzy warstwy tego samego bialego prostokata jedna
+pod druga: pasek nie jest wtedy elementem nawigacji, tylko trzecim rzedem kafelkow.
+
+### Regula
+
+Pasek dostaje **wlasna plaszczyzne, ktorej nie ma zadna inna czesc strony**, i jest ona **identyczna
+w obu motywach**. To jest cel, a nie niedopatrzenie: pasek ma byc punktem odniesienia, ktory nie
+zmienia sie razem z motywem. Dlatego szesc grafitowych wartosci wchodzi jako **osobne zmienne
+`--nav-*` deklarowane raz na `:root`** i nieprzedefiniowane w bloku ciemnym — **to jedyny w arkuszu
+wyjatek od §5t** („nie wymyslaj nazw zmiennych") i ma powod: grafit jest celowo poza paleta motywu,
+bo pigulki uzywaja czerwieni, niebieskiego i szarosci powierzchni, a pasek musi byc plaszczyzna,
+ktorej zaden licznik nie ma.
+
+**Kazda zakladka ma ramke.** Bez niej dziewiec etykiet na jednolitym grafitze zlewa sie dokladnie
+tak, jak zglosil wlasciciel — plaszczyzna sama nie wystarcza, bo rozdziela pasek od strony, ale nie
+zakladki od siebie. Aktywna jest biala z bialym pierscieniem, wiec czytelnik widzi ja katem oka.
+
+Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t, §5w, §5x, §5y i §5ad — to sa JEDYNE
+dozwolone dopisane reguly CSS.
+
+```css
+/* §5ae — pasek zakladek ma WLASNY kolor, staly w obu motywach. */
+:root{--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;
+ --nav-fg:#cfd5e2;--nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-on:#1b2030}
+nav.anchors{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;
+ padding:8px 10px;gap:10px}
+nav.anchors .tab{background:var(--nav-tab);border:1.5px solid var(--nav-tab-line);border-radius:9px;
+ color:var(--nav-fg);padding:9px 15px}
+nav.anchors .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:#fff}
+nav.anchors .tab[aria-selected="true"]{background:#fff;border-color:#fff;color:var(--nav-on);
+ font-weight:700;box-shadow:0 0 0 3px rgba(255,255,255,.16)}
+nav.anchors .tab .navcount{background:rgba(255,255,255,.18);color:#e6eaf2}
+nav.anchors .tab:hover .navcount{background:rgba(255,255,255,.26);color:#fff}
+nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-bg);color:#fff}
+@media (max-width:760px){nav.anchors{gap:7px;padding:7px 8px}nav.anchors .tab{padding:8px 12px}}
+```
+
+`--nav-*` sa deklarowane, wiec §5t jest spelnione co do litery: **zadna regula nie uzywa zmiennej,
+ktorej arkusz nie zna**. Surowy `#fff` przy zakladce aktywnej i `rgba(255,255,255,.18)` przy liczniku
+sa swiadome — maja byc biale takze w motywie jasnym, gdzie `--surface` jest bialy i pierscien by zginal.
+
+**Licznik przy nazwie zakladki nazywa sie `.navcount`, nie `.tabn`.** Pierwsza wersja tego bloku
+celowala w `.tabn` i **byla cicha**: klasy o tej nazwie nie ma w powloce ani razu, wiec obie reguly
+nie robily nic, a licznik zostawal przy regulach powloki — `color:var(--faint)` na grafitze i
+`background:var(--on-accent)`, ktore w motywie jasnym jest biale, a w ciemnym prawie czarne. Pasek
+mial wiec wygladac tak samo w obu motywach i **wlasnie w liczniku wygladal inaczej**. Regula CSS
+celujaca w nieistniejaca klase nie zglasza bledu — to ta sama choroba co skrypty z sekcji LAYOUT.
+Selektor sprawdzasz w `<style>` powloki, zanim go napiszesz.
+
+### Zmierzone 3 wrzesnia 2026 (render headless na kopii zywej strony)
+
+| | motyw ciemny | motyw jasny |
+|---|---|---|
+| tlo paska | `rgb(43,49,64)` | `rgb(43,49,64)` |
+| tlo zakladki | `rgb(50,57,73)` | `rgb(50,57,73)` |
+| ramka zakladki | `rgb(109,120,145)` | `rgb(109,120,145)` |
+| zakladka aktywna | `rgb(255,255,255)` na `rgb(27,32,48)` | identycznie |
+| licznik nieaktywny | `rgba(255,255,255,.18)` / `rgb(230,234,242)` | identycznie |
+| licznik aktywny | `rgb(43,49,64)` / `rgb(255,255,255)` | identycznie |
+| tlo `header.top` | `rgb(22,27,34)` | `rgb(255,255,255)` — pasek rozni sie od naglowka w OBU |
+| zakladek | 9 | 9 |
+| bledy strony | 0 | 0 |
+
+Telefon 390x844, wszystkie dziewiec zakladek po kolei: `scrollWidth === clientWidth === 390`,
+czyli §5x nie jest zlamane.
+
+### Asercje Playwright (dochodza do §5h)
+
+- `getComputedStyle(nav.anchors).backgroundColor` **nie jest przezroczyste i jest TAKIE SAMO
+  w obu motywach**;
+- kazda `nav.anchors .tab` ma `borderTopWidth` niezerowa i `borderTopColor` rozny od tla zakladki;
+- zakladka z `aria-selected="true"` ma tlo rozne od zakladek nieaktywnych;
+- tlo paska jest rozne od tla `header.top` i od `--surface` — **plaszczyzna, ktorej nie ma zadna
+  inna czesc strony**;
+- przy 390x844 pasek nadal nie rozpycha dokumentu.
 
 ## 6. Kontrakt w stronie
 
