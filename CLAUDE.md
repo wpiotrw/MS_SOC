@@ -71,7 +71,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
 | 26 | zadna z DZIEWIECIU zakladek nie rozpycha dokumentu przy 390x844 | 5x | dla kazdej zakladki `scrollWidth === clientWidth` |
-| 27 | skrypt 4 obecny; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu z przyciskami Month / Week / Day | 5y | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3 |
+| 27 | skrypty 4 I 5 obecne; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu Month / Week / Day; kafelki `What changed` filtruja liste katalogu | 5y, 5ad | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3; tabela `cc-table` ma kolumne `Change` |
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
 | 30 | **zero polskich slow w warstwie widocznej dla czytelnika** — cala strona jest po angielsku | 5y | `innerText` nie zawiera `Per usluga`, `Udzial`, `Miesiac`, `Tydzien`, `Dzien`, `pozycji okna`, `Metody uwierzytelniania` |
@@ -281,11 +281,17 @@ DIFF_SHELL = """<div class="wrap">
 def drop_contract(content: str) -> str:
     """Komentarz SHELL CONTRACT cytuje `<header>`, `<style>` i `<script>` i bywa
     przerwany wczesnym `-->`, przez co jego resztki udaja markup. Do skladania
-    strony /diff/ wycinamy go w calosci; strona glowna zachowuje go bez zmian."""
+    strony /diff/ wycinamy go w calosci; strona glowna zachowuje go bez zmian.
+
+    3 wrzesnia 2026: granica `content.find("<style", i)` byla ZLA, bo komentarz sam
+    cytuje `<style>` — na stronie z tego dnia trafiala w znak 839 przy komentarzu
+    zaczynajacym sie na 476, `rfind` nie znajdowal nic i funkcja zwracala tresc BEZ
+    ZMIAN. Granica jest PRAWDZIWY arkusz: `<style>`, po ktorym od razu idzie CSS."""
     i = content.find("<!-- SHELL CONTRACT")
     if i < 0:
         return content
-    k = content.find("<style", i)
+    m = re.search(r"<style[^>]*>\s*(?=:root|/\*|@)", content[i:])
+    k = i + m.start() if m else -1
     j = content.rfind("-->", i, k if k > 0 else len(content))
     return content[:i] + content[j + 3:] if j > i else content
 
@@ -3170,6 +3176,232 @@ i brak karty]) == 0`. Bramka wypisuje `id` i `tier` pierwszych szesciu — po to
 zgubione pozycje, a nie podawal liczbe. Kontrola regresji: strona z 2 wrzesnia `33 BRAK 36/191
 (tier: horizon)`, ta sama strona z tabela horyzontu tylko dla datowanych `33 BRAK 30/191`, i dopiero
 tabela biorąca WSZYSTKIE 36 daje `33 OK`. Stan pusty daje `BRAK „nie da sie sprawdzic"`, nie OK.
+
+## 5ad. Kafelki „What changed" MAJA filtrowac liste — SKRYPT 5, dokladany
+
+Wlasciciel zglosil 3 wrzesnia 2026: *„jak podajesz informacje ze cos zostalo dodane zmienione i jak
+ja klikne ten panel to chcialbym aby wynik w tabelach na dole — pod polem search — byl automatycznie
+filtrowany do tego wyniku. teraz kompletnie nie wiem co zostalo dodane."*
+
+Zmierzone tego dnia na zakladce Graph API: kafelki mowia `1 Added`, `0 Removed or breaking`,
+`2 Modified`, a **klikniecie kazdego z nich robi dokladnie to samo** — `jump("microsoft")`, czyli
+przelacza tryb listy na *Microsoft changes* i zostawia w niej **341 wpisow**. Kubelek nie zawezajacy
+listy nie odpowiada na pytanie, ktore zadaje jego wlasna liczba. Do tego tabela podsumowania ma
+kolumny `When / What Microsoft did / Entry` i rozroznia kubelki **wylacznie kolorem klasy**
+`cc-add` / `cc-rem` / `cc-mod` — na ciemnym motywie to nie jest informacja.
+
+**Powloki nie ruszamy.** Trzy skrypty powloki zostaja nietkniete, skrypt 4 (§5y) tez — dokladamy
+**PIATY** blok, ktory czyta gotowy DOM i blok `soc-catalog`, i robi trzy rzeczy:
+
+1. **Kafelek staje sie filtrem.** Klikniecie `Added` zostawia na liscie pod polem szukania wylacznie
+   wpisy z tego kubelka, `aria-pressed="true"` na kaflu, ponowne klikniecie czysci. Dopasowanie idzie
+   po `data-id` wpisu, a gdy go brak — po znormalizowanej nazwie z `.ci-name`.
+2. **Tabela podsumowania dostaje kolumne `Change`** z chipem `Added` / `Removed or breaking` /
+   `Modified`, wyprowadzonym z klasy wiersza. Kolor przestaje byc jedynym nosnikiem tej informacji.
+3. **Banner nad lista nazywa aktywny kubelek** i ma przycisk `Show all`: *„Added — showing 1 entry."*
+   Kubelek pusty mowi to zdaniem: *„Removed or breaking — nothing in this bucket since the last brief."*
+
+**Filtr kubelka ustepuje kazdemu innemu filtrowi.** Wpisanie czegokolwiek w pole szukania albo ruch
+dowolnego `<select>` czysci go, bo dwa filtry walczace o te sama liste to najkrotsza droga do tego,
+zeby czytelnik przestal ufac obu. Skrypt slucha `input` i `change` na `.cat-controls`.
+
+**Powloka przerysowuje liste przy kazdej interakcji**, wiec skrypt trzyma `MutationObserver` na
+`.cat-list` i nakłada filtr ponownie po kazdym renderze — zamiast wchodzic w skrypt 3.
+
+### Zmierzone 3 wrzesnia 2026 na `site/index.html`
+
+| akcja | przed | po |
+|---|---|---|
+| kolumny tabeli podsumowania | `When / What Microsoft did / Entry` | **`Change` / When / What Microsoft did / Entry**, pierwszy wiersz mowi `Added` |
+| klik `1 Added` | 341 wpisow na liscie | **1**: `getStatisticsByPolicy method on Microsoft 365 Backup Storage (beta)`, wiersz tabeli 1, banner „Added — showing 1 entry." |
+| klik `2 Modified` | 341 | **2**: `Group.Read.All → onPremisesExtensionAttributes`, `AgentIdentityBlueprint.ReadWrite.All → isDisabled` |
+| klik `0 Removed or breaking` | 341 | **0** i zdanie „nothing in this bucket since the last brief." |
+| ponowny klik na aktywnym kaflu | — | 341, banner znika |
+| wpisanie `user` w pole szukania | — | filtr kubelka ustepuje, 42 wyniki |
+| katalog rol (wszystkie kubelki 0) | — | brak tabeli podsumowania, skrypt nic nie robi i nie rzuca bledem |
+
+Render 1500x1000, jasny i ciemny: zero bledow strony, `scrollWidth === clientWidth`.
+
+Do `<style>` dochodzi blok (na koncu, z pozostalymi). **`[hidden]` samo nie wystarczy** — `.cat-item`
+ma w powloce wlasny `display`, wiec przegrywa z atrybutem, dokladnie jak `.filterbanner` w §5c:
+
+```css
+.cat-list .cat-item[hidden],.cc-table tbody tr[hidden]{display:none!important}
+.cc-tile[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:-2px;background:var(--accent-soft)}
+.bkbanner{display:flex;align-items:center;gap:12px;margin:0 0 10px;padding:8px 12px;border-radius:10px;
+ background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13.5px}
+.bkbanner[hidden]{display:none!important}
+.bk-msg{flex:1 1 auto}
+.bk-clear{font:inherit;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
+.cc-bucket{white-space:nowrap}
+```
+
+A na koniec `<body>`, jako **PIATY** blok `<script>`, ten kod — kopiowany co do bajtu:
+
+```js
+/* ===========================================================================
+   SCRIPT 5 — THE CHANGE TILES FILTER THE LIST (CLAUDE.md 5ad).
+   ADDED, never a replacement. The three shell scripts and SCRIPT 4 stay untouched;
+   this one reads the finished DOM plus the soc-catalog block and does three things
+   the owner asked for on 3 Sep 2026:
+     1. "What changed at Microsoft" tiles (Added / Removed or breaking / Modified)
+        become real filters: clicking one shows ONLY those entries in the list below
+        the search box, so "1 Added" can be answered without hunting.
+     2. The summary table gains a CHANGE column, so every row says which bucket it is
+        in. Colour alone did not answer "what was added".
+     3. A banner above the list names the active bucket and clears it.
+   Everything is drawn with the shell's own classes, so it looks native in both themes.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  var BUCKETS = [
+    { key: "added",    label: "Added",               cls: "cc-add", badge: "b-new" },
+    { key: "removed",  label: "Removed or breaking", cls: "cc-rem", badge: "b-dep" },
+    { key: "modified", label: "Modified",            cls: "cc-mod", badge: "b-upd" }
+  ];
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function norm(s) { return (s || "").toLowerCase().trim(); }
+
+  function catalog() {
+    var s = document.getElementById("soc-catalog");
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+
+  /* The summary table rows carry cc-add / cc-rem / cc-mod already; the reader just
+     cannot see which is which. One column fixes that, and it is the same column the
+     tiles filter on. */
+  function labelTable(host) {
+    var tb = host.querySelector(".cc-table");
+    if (!tb || tb.dataset.bucketCol === "1") return;
+    var hr = tb.querySelector("thead tr");
+    if (hr) {
+      var th = el("th", null, "Change");
+      hr.insertBefore(th, hr.firstChild);
+    }
+    Array.prototype.forEach.call(tb.querySelectorAll("tbody tr"), function (tr) {
+      var b = BUCKETS.filter(function (x) { return tr.classList.contains(x.cls); })[0];
+      var td = el("td", "cc-bucket");
+      var sp = el("span", "badge " + (b ? b.badge : "b-prod"), b ? b.label : "changed");
+      td.appendChild(sp);
+      tr.insertBefore(td, tr.firstChild);
+    });
+    tb.dataset.bucketCol = "1";
+  }
+
+  function wire(host, sum) {
+    var tiles = host.querySelectorAll(".cc-tiles .cc-tile");
+    if (tiles.length !== BUCKETS.length) return;          // shell changed shape — do nothing, quietly
+    var list = host.querySelector(".cat-list");
+    if (!list) return;
+
+    var ids = BUCKETS.map(function (b) {
+      return (sum[b.key] || []).map(function (r) { return r.id; }).filter(Boolean);
+    });
+    var names = BUCKETS.map(function (b) {
+      return (sum[b.key] || []).map(function (r) { return norm(r.name); }).filter(Boolean);
+    });
+    var active = -1, applying = false;
+
+    var banner = el("div", "bkbanner");
+    banner.hidden = true;
+    var msg = el("span", "bk-msg");
+    var clear = el("button", "bk-clear", "Show all");
+    clear.type = "button";
+    banner.appendChild(msg); banner.appendChild(clear);
+    var split = host.querySelector(".cat-split");
+    if (split && split.parentNode) split.parentNode.insertBefore(banner, split);
+
+    function apply() {
+      if (applying) return;
+      applying = true;
+      try {
+        var idSet = active < 0 ? null : ids[active];
+        var nmSet = active < 0 ? null : names[active];
+        var shown = 0;
+        Array.prototype.forEach.call(list.querySelectorAll(".cat-item"), function (b) {
+          var keep = true;
+          if (idSet) {
+            var nm = norm((b.querySelector(".ci-name") || {}).textContent);
+            keep = idSet.indexOf(b.dataset.id) >= 0 || nmSet.indexOf(nm) >= 0;
+          }
+          b.hidden = !keep;
+          if (keep) shown++;
+        });
+        Array.prototype.forEach.call(host.querySelectorAll(".cc-table tbody tr"), function (tr) {
+          tr.hidden = active >= 0 && !tr.classList.contains(BUCKETS[active].cls);
+        });
+        tiles.forEach(function (t, i) { t.setAttribute("aria-pressed", String(i === active)); });
+        if (active < 0) {
+          banner.hidden = true;
+        } else {
+          var want = Math.max(ids[active].length, names[active].length);
+          banner.hidden = false;
+          if (!want) {
+            /* an empty bucket is a result, not a failed filter — say which one it is */
+            msg.textContent = BUCKETS[active].label + " — nothing in this bucket since the last brief.";
+          } else {
+            msg.textContent = BUCKETS[active].label + " — showing " + shown +
+              (shown === want ? "" : " of " + want) + " " + (want === 1 ? "entry" : "entries") +
+              (shown === 0 ? ". Widen the period or switch to All to see it." : ".");
+          }
+        }
+      } finally { applying = false; }
+    }
+
+    function set(i) { active = (active === i) ? -1 : i; apply(); }
+
+    tiles.forEach(function (t, i) {
+      t.setAttribute("aria-pressed", "false");
+      t.addEventListener("click", function () { setTimeout(function () { set(i); }, 0); });
+    });
+    clear.addEventListener("click", function () { active = -1; apply(); });
+
+    /* Typing in the search box or moving any select is a DIFFERENT question; two filters
+       fighting over the same list is how a reader stops trusting either. The bucket
+       filter steps aside. */
+    var controls = host.querySelector(".cat-controls") || host;
+    ["input", "change"].forEach(function (ev) {
+      controls.addEventListener(ev, function (e) {
+        if (e.target && e.target.closest && e.target.closest(".cc-tiles")) return;
+        if (active >= 0) { active = -1; apply(); }
+      });
+    });
+
+    /* The shell re-renders the list on every interaction, which wipes the hiding.
+       Re-apply after each render instead of touching the shell. */
+    if (window.MutationObserver) {
+      new MutationObserver(function () { if (active >= 0) apply(); })
+        .observe(list, { childList: true });
+    }
+  }
+
+  function build() {
+    var cat = catalog();
+    if (!cat || !cat.changeSummary) return;
+    document.querySelectorAll(".catalog[data-catalog]").forEach(function (host) {
+      var which = host.getAttribute("data-catalog");
+      var sum = cat.changeSummary[which];
+      if (!sum) return;
+      labelTable(host);
+      wire(host, sum);
+    });
+  }
+
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[tiles]", e); } }
+  /* the catalog is rendered by script 3 on DOMContentLoaded, so queue behind it */
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 60); });
+  else setTimeout(boot, 60);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. Skrypty 4 i 5 sa osobnymi blokami, ktore niczego
+nie nadpisuja.
 
 ## 6. Kontrakt w stronie
 
