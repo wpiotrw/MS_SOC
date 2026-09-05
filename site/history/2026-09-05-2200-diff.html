@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft SOC &mdash; what changed 2026-09-04</title>
+<style>
+:root{color-scheme:light;--bg:#f7f7f4;--surface:#fff;--surface2:#f0f0ec;--text:#141413;--muted:#6b6a66;
+ --border:#ddddd6;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#a3131f;--bad-soft:#fbe3e4;--warn:#8a5a00;
+ --warn-soft:#fdf0d5;--accent:#2f5fd0;--accent-soft:#e2eafb;--del-bg:#fbe3e4;--del-fg:#8a1220;
+ --ins-bg:#dbf0e3;--ins-fg:#0b5730}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#16171a;--surface:#1e2024;
+ --surface2:#25272c;--text:#ecebe6;--muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f28b8b;--bad-soft:#3a1618;--warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;
+ --del-bg:#3a1618;--del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#16171a;--surface:#1e2024;--surface2:#25272c;--text:#ecebe6;
+ --muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;--bad:#f28b8b;--bad-soft:#3a1618;
+ --warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;--del-bg:#3a1618;
+ --del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font:15px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px}
+header .in{max-width:1120px;margin:0 auto}
+.title-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.title-row>div:first-child{flex:1 1 320px;min-width:0}
+.hdr-tools{flex:0 0 auto;margin-left:auto}
+.themebtn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;
+ padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.themebtn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1{font-size:22px;margin:0 0 6px}
+.dateline{margin:0;color:var(--muted);font-size:13.5px}
+.dateline a{color:var(--accent)}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.counts li{background:var(--surface2);border:1px solid var(--border);border-radius:999px;
+ padding:6px 12px;font-size:13.5px;white-space:nowrap}
+.counts li b{font-size:16px}
+.counts li.add{background:var(--ins-bg);border-color:var(--ok);color:var(--ins-fg)}
+.counts li.rem{background:var(--del-bg);border-color:var(--bad);color:var(--del-fg)}
+.counts li.chg{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+section{margin:26px 0 0}
+h2{font-size:16px;margin:0 0 2px}
+.note{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{position:sticky;top:0;background:var(--surface2);text-align:left;font-size:12px;
+ text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:9px 10px;
+ border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tr.t0 td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.sub{color:var(--muted);font-size:12.5px}
+.ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--accent)}
+.none{color:var(--muted)}
+span.t0{background:var(--bad-soft);color:var(--bad);border-radius:999px;padding:1px 7px;
+ font-size:11.5px;font-weight:600;white-space:nowrap}
+del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;
+ padding:1px 5px;border-radius:4px}
+ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1px 5px;border-radius:4px}
+.arrow{color:var(--muted);padding:0 4px}
+.field{font-weight:600;white-space:nowrap}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0}
+caption.tabcap{caption-side:top;text-align:left;padding:9px 10px;background:var(--surface2);
+ border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+caption.tabcap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.emptycap{margin:0 0 4px;font-size:13px;color:var(--text)}
+.emptycap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.tw+.tw{margin-top:12px}
+b.nadd{color:var(--ins-fg)}b.nrem{color:var(--del-fg)}b.nchg{color:var(--warn)}
+tr.quiet td{color:var(--muted)}
+.more{color:var(--muted);font-size:13px;margin:8px 0 0}
+a{color:var(--accent)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+ background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+@media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
+</style>
+<script>
+/* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
+(function(){try{var v=localStorage.getItem('soc-diff-theme');
+if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v);}catch(e){}})();
+</script>
+</head>
+<body>
+<header class="top"><div class="in"><div class="title-row"><div><h1>Microsoft SOC &mdash; what changed</h1>
+<p class="dateline">2026-09-04 &rarr; 2026-09-04 &middot; morning pass 06:35 → evening pass 21:15 &middot; compared 20:03 Warsaw &middot; Piotr Wisniewski &middot; <a href="/">Back to the full brief</a></p></div><div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button></div></div>
+<ul class="counts">
+<li class="add"><b>6</b> added</li>
+<li class="rem"><b>0</b> removed</li>
+<li class="chg"><b>0</b> changed</li>
+<li><b>0</b> deadlines moved</li>
+<li><b>+4</b> Graph permissions <span class="sub">1991 &rarr; 1995</span></li>
+<li><b>+0</b> role entries <span class="sub">139 &rarr; 139</span></li>
+<li><b>241</b> items in state <span class="sub">was 235</span></li>
+</ul></div></header><div class="wrap">
+<section id="bytab"><h2>What changed, by tab</h2><p class="note">What moved since 2026-09-04, tab by tab, and which areas it touched. A row of three zeros means that tab was checked and did not move. Each item is counted in the ONE tab that is its home &mdash; New for the published window, Deadlines for anything dated, Graph API and Roles for the two catalogs &mdash; so nothing is counted twice. Today is a selection from New and Deadlines and Products is a second view of the same items, so their changes are already in these rows.</p><div class="tw"><table><thead><tr><th>Tab</th><th>Added</th><th>Removed</th><th>Changed</th><th>Areas touched</th></tr></thead><tbody><tr><td><b>New</b></td><td><b class="nadd">+1</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Entra</td></tr><tr><td><b>Deadlines</b></td><td><b class="nadd">+5</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Graph &middot; Entra &middot; M365 admin &middot; Intune &middot; Teams</td></tr><tr><td><b>Graph API</b></td><td><b class="nadd">+4</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Graph permissions</td></tr><tr><td><b>Roles</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><b class="nchg">3</b></td><td>Entra directory roles</td></tr></tbody></table></div></section>
+<section id="added"><h2>Added since 2026-09-04</h2><p class="note">In the current state and not in the previous one, one table per tab of the brief. Heaviest first: tier 0, then SOC weight, then deadline.</p><div class="tw"><table><caption class="tabcap"><b>New</b> &middot; 1 item <span class="capareas">Entra</span></caption><thead><tr><th>Product</th><th>Item</th><th>Status</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr class="t0"><td>Entra</td><td><b>HiBob writes into on-premises Active Directory through the Entra provisioning agent</b><br><span class="sub">Configure HiBob to Active Directory hybrid user provisioning</span><br><span class="ref">no MC/RM post — Learn only</span></td><td>New</td><td>2026-09-03</td><td><span class="none">none stated</span></td><td>w1 <span class="t0">tier 0</span></td><td><a href="https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div><div class="tw"><table><caption class="tabcap"><b>Deadlines</b> &middot; 5 items <span class="capareas">Graph &middot; Entra &middot; M365 admin &middot; Intune &middot; Teams</span></caption><thead><tr><th>Product</th><th>Item</th><th>Status</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td>Graph</td><td><b>Four UpdateAuthProperties.All permissions enter Microsoft&#x27;s deployment map</b><br><span class="ref">no MC/RM post — repository only</span></td><td>Updated</td><td></td><td><span class="none">none stated</span></td><td>w1</td><td><a href="https://github.com/microsoftgraph/microsoft-graph-devx-content/commit/ec959bb" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Entra</td><td><b>Passkey registration optimisations complete by mid-September</b><br><span class="sub">(Updated) Microsoft Entra ID: Optimizations for passkey registration experience</span><br><span class="ref">MC1440968</span></td><td>Updated</td><td>2026-07-27</td><td><span class="none">none stated</span></td><td>w1</td><td><a href="https://mc.merill.net/message/MC1440968" target="_blank" rel="noopener">Source</a></td></tr><tr><td>M365 admin</td><td><b>Copilot agent flexible query opens a new export surface over employee-linked data</b><br><span class="sub">Microsoft Viva: Agent flexible query in Analytics Workbench</span><br><span class="ref">MC1403410</span></td><td>Updated</td><td>2026-06-24</td><td><span class="none">none stated</span></td><td>w3</td><td><a href="https://mc.merill.net/message/MC1403410" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Intune</td><td><b>Windows 365 User settings retire, taking local-admin and BCDR controls with them</b><br><span class="sub">(Updated) Plan for Change: Windows 365 User settings transition to the new settings framework</span><br><span class="ref">MC1418556</span></td><td>Updated</td><td>2026-07-07</td><td><span class="none">none stated</span></td><td>w4</td><td><a href="https://mc.merill.net/message/MC1418556" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Teams</td><td><b>RTMP-In requires two new ports and a new domain on the egress allow-list</b><br><span class="sub">(Updated) Microsoft Teams: RTMP-In port and domain changes required</span><br><span class="ref">MC1387814</span></td><td>Updated</td><td>2026-06-11</td><td>2027-01-31</td><td>w5</td><td><a href="https://mc.merill.net/message/MC1387814" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></section>
+<section id="removed"><h2>Removed</h2><p class="note">Carried in the previous state and gone from the current one, by tab. A removal is a finding: either the source dropped it or this brief retracted it.</p><p class="empty">Nothing was removed.</p></section>
+<section id="changed"><h2>Changed, field by field</h2><p class="note">Same <code>id</code> in both states, different value, by tab. Old struck through, new highlighted &mdash; the difference is shown, not described.</p><p class="empty">No field moved on any item carried across both states.</p></section>
+<section id="catalog"><h2>Catalog &mdash; Graph API and Roles tabs</h2><p class="note">Graph permissions 1991 &rarr; 1995 (+4 / &minus;0, 0 entries edited); roles 139 &rarr; 139 (+0 / &minus;0, 3 edited). These two tables are the whole of what moved in those two tabs.</p><div class="tw"><table><caption class="tabcap"><b>Graph API</b> &middot; +4 / &minus;0 / 0 edited</caption><thead><tr><th>What</th><th>Graph permission</th><th>Detail</th></tr></thead><tbody><tr><td><ins>added</ins></td><td><code>AgentIdentity.UpdateAuthProperties.All</code></td><td></td></tr><tr><td><ins>added</ins></td><td><code>AgentIdentityBlueprintPrincipal.UpdateAuthProperties.All</code></td><td></td></tr><tr><td><ins>added</ins></td><td><code>AppRegistration.UpdateAuthProperties.All</code></td><td></td></tr><tr><td><ins>added</ins></td><td><code>ServicePrincipal.UpdateAuthProperties.All</code></td><td></td></tr></tbody></table></div><div class="tw"><table><caption class="tabcap"><b>Roles</b> &middot; +0 / &minus;0 / 3 edited</caption><thead><tr><th>What</th><th>Role</th><th>Detail</th></tr></thead><tbody><tr><td>changed</td><td><code>Security Administrator</code></td><td><span class="field">kind</span> <del>Actions added</del><span class="arrow">&rarr;</span><ins>Condition changed</ins></td></tr><tr><td>changed</td><td><code>Security Administrator</code></td><td><span class="field">version</span> <del>3</del><span class="arrow">&rarr;</span><ins>4</ins></td></tr><tr><td>changed</td><td><code>Security Administrator</code></td><td><span class="field">changed</span> <del>2026-09-01</del><span class="arrow">&rarr;</span><ins>2026-09-03</ins></td></tr></tbody></table></div></section>
+<footer>13 differences in total. &middot; Piotr Wisniewski &middot; 20:03 Warsaw &middot; computed from the two state blocks, not copied from the brief. <a href="/">Back to the full brief</a></footer></div>
+<script>
+(function(){
+  "use strict";
+  var r=document.documentElement, b=document.getElementById('themebtn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    try{
+      var explicit=r.getAttribute('data-theme');
+      var dark = explicit==='dark' ||
+                 (!explicit && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      r.setAttribute('data-theme', next);
+      try{ localStorage.setItem('soc-diff-theme', next); }catch(e){}
+    }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
