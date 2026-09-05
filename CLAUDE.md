@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 34 pozycje dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33 oraz 35), plus **pozycje 34 dla przebiegu ZMIAN** — razem 35. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 35 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35 oraz 36), plus **pozycje 34 dla przebiegu ZMIAN** — razem 36. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -79,6 +79,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
 | 35 | **pasek zakladek ma wlasny, grafitowy kolor, ten sam w obu motywach, a KAZDA zakladka ma ramke** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; regula `nav.anchors .tab` niesie `border`; render: tlo paska identyczne w obu motywach i rozne od `--surface` |
+| 36 | **kazdy `<li>` ma JEDEN temat i konczy sie linkiem** — ksztalt punktu z zakladki Products obowiazuje na calej stronie | 5af | zaden `<li>` nie ma naraz >=2 `<b>` i >=3 srednikow, liczone `html.parser`; punkty `sec-note` sekcji `top5` otwieraja sie `<b>` i niosa link (to drugie okiem, §5af) |
 | 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z czterema wierszami i jedna tabela na zakladke w Added / Removed / Changed** (§3a) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -461,6 +462,8 @@ class Scan(HTMLParser):
         self.sec=None; self.notes={}; self._grab=None; self.cardCount=0; self.text=[]; self._skip=0
         # kazdy <tr> jako (sekcja, data-id, tekst) — pozycja 31/32 pyta, W KTOREJ tabeli stoi wiersz
         self.rows=[]; self._secstack=[]; self._row=None; self._rowid=None; self._rowsec=None
+        # §5af: kazdy <li> jako (tekst, liczba <b>, liczba <a>) — kryterium to liczba TEMATOW
+        self.listitems=[]; self._li=None; self._lib=0; self._lia=0
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
@@ -475,17 +478,24 @@ class Scan(HTMLParser):
             if a.get("id"): self.sec=a["id"]
         if tag=="tr":
             self._row=[]; self._rowid=a.get("data-id"); self._rowsec=self.sec
+        if tag=="li": self._li=[]; self._lib=0; self._lia=0
+        elif self._li is not None and tag=="b": self._lib+=1
+        elif self._li is not None and tag=="a": self._lia+=1
         if tag=="p" and "sec-note" in cls: self._grab=self.sec
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
         if not self._skip: self.text.append(d)
         if self._row is not None and not self._skip: self._row.append(d)
+        if self._li is not None and not self._skip: self._li.append(d)
     def handle_endtag(self, tag):
         if tag=="p": self._grab=None
         if tag=="tr" and self._row is not None:
             self.rows.append((self._rowsec, self._rowid, " ".join("".join(self._row).split())))
             self._row=None; self._rowid=None; self._rowsec=None
+        if tag=="li" and self._li is not None:
+            self.listitems.append((" ".join("".join(self._li).split()), self._lib, self._lia))
+            self._li=None
         if tag=="section" and self._secstack:
             self._secstack.pop()
             self.sec=self._secstack[-1] if self._secstack else None
@@ -601,6 +611,16 @@ def gate(path):
              "--nav-bg" in h and "--nav-tab-line" in h,
              re.search(r"nav\.anchors\s*\{[^}]*background", flat) is not None,
              re.search(r"nav\.anchors\s+\.tab\s*\{[^}]*border", flat) is not None))
+    # 36: §5af — punkt listy ma JEDEN temat. Liczymy PARSEREM: komentarz SHELL CONTRACT ma
+    # wczesny "-->", wiec niezachlanne wycinanie komentarzy zjada kawal dokumentu i daje 0 punktow
+    # tam, gdzie jest 98. Kryterium to liczba TEMATOW, nie slow: punkt o 123 slowach opisujacy jedna
+    # rzecz jest poprawny, punkt o 113 slowach opisujacy dziewiec — nie.
+    packed=[t for t,nb,na in s.listitems if nb>=2 and t.count(";")>=3]
+    need("36","kazdy punkt listy ma jeden temat (§5af)",
+         bool(s.listitems) and not packed,
+         "brak punktow listy — nie da sie sprawdzic" if not s.listitems
+         else "%d z %d punktow upycha kilka tematow w jeden: %s" % (
+             len(packed), len(s.listitems), " | ".join(x[:60] for x in packed[:2])))
     # 28-30: §5z, §5aa, §5y — jezyk i terminy, ktore minely
     import datetime as _dt
     bd=(st["soc-brief-state"] or {}).get("briefDate") or _dt.date.today().isoformat()
@@ -3762,6 +3782,81 @@ czyli §5x nie jest zlamane.
 - tlo paska jest rozne od tla `header.top` i od `--surface` — **plaszczyzna, ktorej nie ma zadna
   inna czesc strony**;
 - przy 390x844 pasek nadal nie rozpycha dokumentu.
+
+## 5af. Punkt listy ma JEDEN temat — ksztalt punktu z zakladki Products jest wzorcem dla calej strony
+
+Wlasciciel zglosil 5 wrzesnia 2026, pokazujac dwa zrzuty obok siebie: *„zakladka Today — kompletnie
+nieczytelne, trudno cos znalezc, wychwycic. Zakladka Products — tu dane sa usystematyzowane, ladnie
+poukladane. Czy mozesz w Today rowniez tak przedstawic te dane i upewnic sie, ze jesli w innych
+zakladkach cos podajesz w bullet points, to zrobisz to tak samo jak w Products?"*
+
+Roznica jest mierzalna, nie estetyczna. Zmierzone tego dnia na `site/index.html` — **98 punktow
+`<li>` w calej tresci**, liczonych `html.parser`, nie wyrazeniem regularnym (§0a: komentarz
+SHELL CONTRACT ma wczesny `-->`, wiec niezachlanne wycinanie komentarzy zjada kawal dokumentu
+i daje 0 punktow zamiast 98):
+
+| | zakladka Products (`#exec`) | zakladka Today (`sec-note` sekcji `top5`) |
+|---|---|---|
+| punktow | 60 | 4 |
+| zaczyna sie od `<b>` | **60 z 60** | 0 z 4 |
+| konczy sie linkiem | **60 z 60** | 0 z 4 |
+| tematow w JEDNYM punkcie | 1 | **9** |
+| `<b>` w jednym punkcie | 1 | **9** |
+| srednikow w jednym punkcie | 0 | **8** |
+| slow w tym punkcie | mediana 42 | **113** |
+
+Czwarty punkt Today upycha **dziewiec pozycji tier 0 w jeden akapit** rozdzielony srednikami —
+`MC1456735`, `MC1458947`, `eds-samaccountname-onpremises`, `entra-cloudsync-provision-to-ad`,
+`entra-connect-2-5-79-0-end-of-support`, `entra-security-admin-identity-response`,
+`exchange-hybrid-les-writeback`, `gsa-tls-inspection-managed-certificate`,
+`reference-connect-version-history` — i **ani jednego linku do zrodla**. To sa dokladnie te pozycje,
+ktore §5p kaze NAZWAC z `id`, gdy nie dostaly karty. Zostaly nazwane i jednoczesnie sa nie do
+przeczytania.
+
+**To nie jest nowa regula, tylko regula, ktorej nikt nie mierzyl.** §5k mowi od 31 sierpnia:
+„tresc pod `+` jest lista punktowana, nigdy proza — jeden fakt na punkt". Punkt z dziewiecioma
+`<b>` jest proza w przebraniu punktu. Regula bez asercji jest sugestia (§0b) — i tak samo tu.
+
+### Ksztalt punktu — jeden, dla KAZDEGO `<li>` na stronie
+
+```html
+<li><b>Naglowek nazywajacy JEDNA rzecz</b> &mdash; zdanie albo dwa, co to jest i co z tego wynika. <a href="https://…">Source</a></li>
+```
+
+1. **Jeden temat na punkt.** Lista dziewieciu pozycji to DZIEWIEC punktow, nigdy jeden punkt
+   z dziewiecioma `<b>`. Kazdy dostaje wlasny naglowek i wlasny link.
+2. **Punkt otwiera `<b>`**, po nim `&mdash;`, po nim wyjasnienie. Tak wygladaja wszystkie 60
+   punktow, ktore wlasciciel wskazal jako czytelne.
+3. **Punkt konczy sie swoim linkiem.** To jest regula 1 obu promptow („SOURCE LINK ON EVERY CLAIM"),
+   i punkt bez linku lamie ja tak samo jak wiersz tabeli bez kolumny `Source`. Pozycja, ktora
+   naprawde nie ma URL-a, dostaje `<span class="lnk-dead">` albo doslowne `no MC/RM post — Learn
+   only` (§5n) — nigdy puste miejsce.
+4. **Dlugosc NIE jest kryterium.** Punkt o 123 slowach opisujacy JEDNA rzecz jest poprawny —
+   taki jest na stronie i wlasciciel wskazal go jako dobry. Punkt o 113 slowach opisujacy DZIEWIEC
+   rzeczy jest bledem. Liczy sie liczba tematow, nie liczba slow.
+5. **Siedem punktow to sufit dla listy NARRACYJNEJ** (§5k) — dla wyliczenia nazwanych pozycji sufitu
+   nie ma, bo kazda pozycja musi byc widoczna. Wyliczenie idzie wtedy do wlasnej, zagniezdzonej
+   `<ul>` pod punktem, ktory je zapowiada.
+
+### Gdzie to obowiazuje
+
+Wszedzie, gdzie strona uzywa `<li>`: `sec-note` sekcji `top5`, exec summary, `details.foldnote`,
+strategic watchlist, Sources. **Jedna strona, jeden ksztalt punktu** — czytelnik nie ma sie uczyc
+dwoch konwencji, przechodzac miedzy zakladkami.
+
+Walidator (pozycja 36 listy §0, liczona przez bramke §0b): **zaden `<li>` nie ma naraz co najmniej
+dwoch `<b>` i co najmniej trzech srednikow.** Zmierzone na stronie z 5 wrzesnia: ten warunek lapie
+**dokladnie jeden** punkt — ten z Today — i **nie lapie** punktu z Sources, ktory ma dwa `<b>`, zero
+srednikow i 49 slow, bo tamten opisuje jedna rzecz i jest poprawny. Asercja, ktora lapie oba, byla by
+tak samo bezuzyteczna jak asercja, ktora nie lapie zadnego.
+
+**Reguly 3 (link w kazdym punkcie) bramka NIE sprawdza kodem, i to jest swiadome.** Pierwsza wersja
+tej pozycji zadala linku od kazdego punktu z `<b>` i zmierzone tego dnia zapalila sie na
+**jedenastu** punktach, z ktorych zaden nie byl bledem: to punkty `sec-note` objasniajace, co znaczy
+kolumna `Reference` albo czym roznia sie rodziny `Change type`. One nie stawiaja tezy o Microsofcie,
+wiec nie maja czego cytowac. **Asercja, ktora zapala sie na poprawnej stronie, uczy przebieg, ze
+czerwone nic nie znaczy** — dokladnie tak samo jak asercja przechodzaca na pustych danych (§0b).
+Link w punkcie NIOSACYM TEZE zostaje regula redakcyjna, sprawdzana okiem przy pozycji 21.
 
 ## 6. Kontrakt w stronie
 
