@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 35 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35 oraz 36), plus **pozycje 34 dla przebiegu ZMIAN** — razem 36. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 38 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-39), plus **pozycje 34 dla przebiegu ZMIAN** — razem 39. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -46,7 +46,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
 | 1 | siedem pigulek na stronie porannej, **osiem po passie popoludniowym** (ta dodatkowa to `since the morning pass`, §4d taska popoludniowego); pierwsze trzy zawsze: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci; licznik 7 albo 8, nigdy mniej |
 | 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
-| 3 | dziewiec paneli `.tabpanel`, identyfikatory sekcji z §2 | 2 | licznik po usunieciu komentarza SHELL CONTRACT = 9 |
+| 3 | **dziesiec** paneli `.tabpanel`, identyfikatory sekcji z §2 (od 6 wrzesnia 2026 dochodzi `tab-components`, §5ag) | 2, 5ag | licznik po usunieciu komentarza SHELL CONTRACT = 10 |
 | 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
 | 5 | `KIND_BADGE` + `.badge.b-undoc` + `.badge.b-elsewhere` | 5e | wszystkie trzy obecne w pliku |
 | 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
@@ -70,7 +70,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
-| 26 | zadna z DZIEWIECIU zakladek nie rozpycha dokumentu przy 390x844 | 5x | dla kazdej zakladki `scrollWidth === clientWidth` |
+| 26 | zadna z DZIESIECIU zakladek nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
 | 27 | skrypty 4 I 5 obecne; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu Month / Week / Day; kafelki `What changed` filtruja liste katalogu | 5y, 5ad | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3; tabela `cc-table` ma kolumne `Change` |
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
@@ -78,9 +78,12 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
-| 35 | **pasek zakladek ma wlasny, grafitowy kolor, ten sam w obu motywach, a KAZDA zakladka ma ramke** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; regula `nav.anchors .tab` niesie `border`; render: tlo paska identyczne w obu motywach i rozne od `--surface` |
+| 35 | **pasek ma wlasny, grafitowy kolor na `.navstack`, ten sam w obu motywach, DWA opisane rzedy (`Daily`, `Reference`) i ramke na kazdej zakladce** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; `.navstack` niesie `background`; `nav.anchors .tab` niesie `border`; render: tlo `.navstack` identyczne w obu motywach i rozne od `--surface`; dwa `.navrow`, razem 10 zakladek |
 | 36 | **kazdy `<li>` ma JEDEN temat i konczy sie linkiem** — ksztalt punktu z zakladki Products obowiazuje na calej stronie | 5af | zaden `<li>` nie ma naraz >=2 `<b>` i >=3 srednikow, liczone `html.parser`; punkty `sec-note` sekcji `top5` otwieraja sie `<b>` i niosa link (to drugie okiem, §5af) |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z czterema wierszami i jedna tabela na zakladke w Added / Removed / Changed** (§3a) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 37 | **zakladka Component versions**: kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`, `checkedOn` i zrodlo; kazda wersja ma wlasny `.vbox` z chipem platformy | 5ag | licznik `.vbox` = licznik wpisow `versions[]`; zero platform spoza slownika |
+| 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
+| 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z pieciona wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcja `components` (§3a, §5ag) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31 i 33 sa wiazace: przebieg, ktory je pominie
@@ -464,6 +467,11 @@ class Scan(HTMLParser):
         self.rows=[]; self._secstack=[]; self._row=None; self._rowid=None; self._rowsec=None
         # §5af: kazdy <li> jako (tekst, liczba <b>, liczba <a>) — kryterium to liczba TEMATOW
         self.listitems=[]; self._li=None; self._lib=0; self._lia=0
+        # §5ag: zakladka Component versions
+        self.vboxes=0; self.vboxPchips=0; self._invbox=False
+        self.pchips=[]; self.relitems=0; self.promoted=0; self.rcats=0
+        self._inpromoted=False; self.rulebox=0; self.navstack=0; self.navrows=0
+        self.restsummaries=[]; self._insummary=False; self._sumbuf=[]
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
@@ -481,9 +489,25 @@ class Scan(HTMLParser):
         if tag=="li": self._li=[]; self._lib=0; self._lia=0
         elif self._li is not None and tag=="b": self._lib+=1
         elif self._li is not None and tag=="a": self._lia+=1
+        # --- §5ag ---
+        if tag=="div" and "vbox" in cls: self.vboxes+=1; self._invbox=True
+        if tag=="div" and "rulebox" in cls: self.rulebox+=1
+        if tag=="div" and "navstack" in cls: self.navstack+=1
+        if tag=="div" and "navrow" in cls: self.navrows+=1
+        if tag=="span" and "pchip" in cls:
+            self.pchips.append(" ".join(c for c in cls if c.startswith("p-")))
+            if self._invbox: self.vboxPchips+=1
+        if tag=="span" and "rcat" in cls:
+            self.rcats+=1
+            if self._inpromoted: pass
+        if tag=="li" and "relitem" in cls:
+            self.relitems+=1
+            if "promoted" in cls: self.promoted+=1; self._inpromoted=True
+        if tag=="summary": self._insummary=True; self._sumbuf=[]
         if tag=="p" and "sec-note" in cls: self._grab=self.sec
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
+        if self._insummary: self._sumbuf.append(d)
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
         if not self._skip: self.text.append(d)
         if self._row is not None and not self._skip: self._row.append(d)
@@ -496,6 +520,10 @@ class Scan(HTMLParser):
         if tag=="li" and self._li is not None:
             self.listitems.append((" ".join("".join(self._li).split()), self._lib, self._lia))
             self._li=None
+        if tag=="li": self._inpromoted=False
+        if tag=="div" and self._invbox: self._invbox=False
+        if tag=="summary" and self._insummary:
+            self.restsummaries.append(" ".join("".join(self._sumbuf).split())); self._insummary=False
         if tag=="section" and self._secstack:
             self._secstack.pop()
             self.sec=self._secstack[-1] if self._secstack else None
@@ -708,6 +736,39 @@ def gate(path):
          "brak pol socWeight/tier0Touch — nie da sie sprawdzic" if not hasW
          else ("%d pozycji stoi w horyzoncie zamiast w glownej tabeli: %s" % (len(badpromo), ", ".join(badpromo[:4]))
                if badpromo else "brak pasma '61-120 days' przy %d pozycjach do promocji" % len(promo)))
+    # 37-39: §5ag zakladka Component versions. Bramka czyta plik, wiec liczy elementy i porownuje
+    # je ze stanem; wartosci wyliczone (kolory chipow) sprawdza Playwright.
+    comps=(st["soc-brief-state"] or {}).get("components") or []
+    PLATS={"windows","windows-server","macos","ios","ipados","android","cross","apple"}
+    if comps:
+        nver=sum(len(c.get("versions") or []) for c in comps)
+        badplat=[v.get("platform") for c in comps for v in (c.get("versions") or [])
+                 if v.get("platform") not in PLATS]
+        nofield=[c.get("id") for c in comps
+                 if not (c.get("versions") and c.get("provenance") and c.get("state")
+                         and c.get("checkedOn") and c.get("sources"))]
+        need("37","kazdy komponent kompletny, kazda wersja ma wlasny .vbox z chipem",
+             not badplat and not nofield and s.vboxes==nver and s.vboxPchips>=s.vboxes,
+             "platformy spoza slownika %s; niekompletne %s; vbox=%d przy %d wersjach, chipow w vbox=%d"
+             % (badplat[:3], nofield[:3], s.vboxes, nver, s.vboxPchips))
+        nitems=sum(len(g.get("items") or []) for c in comps
+                   for r in (c.get("releases") or []) for g in (r.get("groups") or []))
+        degen=[x for x in s.restsummaries
+               if re.search(r"remaining\s+(\d+)\s+of\s+\1\b", x)]
+        need("38","nic nie wyciete: li.relitem = liczba punktow w stanie",
+             s.relitems==nitems and not degen,
+             "wyrenderowane %d, w stanie %d; podpisy 'N of N': %s" % (s.relitems, nitems, degen[:2]))
+        band = (100.0*s.promoted/s.relitems) if s.relitems else 0
+        need("39","regula wyboru opublikowana i stosowana",
+             s.rulebox>=1 and s.rcats>=s.promoted and 30 <= band <= 70,
+             "rulebox=%d, etykiet %d przy %d wypromowanych, odsetek %.0f%% (ma byc 30-70)"
+             % (s.rulebox, s.rcats, s.promoted, band))
+    else:
+        need("37","zakladka Component versions ma dane", False, "brak tablicy components w stanie")
+    # 35 (wariant B §5ae): plaszczyzna siedzi na .navstack, nie na nav.anchors
+    need("35b","pasek ma dwa opisane rzedy w jednej ramce .navstack",
+         s.navstack==1 and s.navrows==2,
+         "navstack=%d (ma byc 1), navrow=%d (ma byc 2)" % (s.navstack, s.navrows))
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -722,6 +783,21 @@ def gate(path):
 if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
+
+**Rozszerzone 6 wrzesnia 2026 o pozycje 37-39 (§5ag) i o wariant B pozycji 35 (§5ae).** Pozycja 38
+jest tu najwazniejsza i jest odpowiedzia na pytanie wlasciciela „na jakiej podstawie wybrales te
+trzy poprawki": **bramka liczy `li.relitem` na gotowej stronie i porownuje z liczba punktow
+`releases[].groups[].items[]` w bloku stanu.** Roznica znaczy, ze przebieg cos wyciol, i nie da sie
+jej wytlumaczyc gustem. Kontrola regresji na dziesieciu wariantach tej samej strony: (a) poprawna —
+`37/38/39/35b OK`; (b) dwa punkty niewyrenderowane — `38 BRAK 4 przy 6`, a przy okazji `39 BRAK`,
+bo odsetek wypromowanych skoczyl do 75%; (c) podpis `Show the remaining 3 of 3` — `38 BRAK`
+z cytatem podpisu; (d) platforma `win-typo` spoza slownika — `37 BRAK` z nazwa; (e) brak
+`div.rulebox` — `39 BRAK`; (f) jeden wypromowany punkt bez etykiety `.rcat` — `39 BRAK 2 przy 3`;
+(g) wszystko wypromowane — `39 BRAK 100%`; (h) jeden `.navrow` zamiast dwoch — `35b BRAK`;
+(i) brak `.vbox` przy istniejacej wersji — `37 BRAK 0 przy 1`; (j) stan bez tablicy `components` —
+`37 BRAK „brak tablicy components"`, **nie OK**. Ten ostatni wariant jest ta sama pulapka co przy
+pozycjach 23 i 32: zbior pusty spelnia kazdy warunek, wiec asercja musi odroznic „sprawdzone
+i zgodne" od „nie bylo czego sprawdzac".
 
 **Rozszerzone 2 wrzesnia 2026 o pozycje 33 (§5ac) — bo §5ab lapal tylko datowane.** Pozycja 31c
 pyta o pozycje Z TERMINEM; wlasciciel powiedzial, ze MC1448379 bylo przykladem, a nie przypadkiem.
@@ -901,8 +977,11 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-products` | `Products` | `exec` · `deep` · `auth` |
 | `tab-roles` | `Roles` | `roles` |
 | `tab-graph` | `Graph API` | `graph` |
+| `tab-components` | `Component versions` | `components` |
 | `tab-hunting` | `Hunting & actions` | `kql` · `actions` · `strategic` |
 | `tab-sources` | `Sources` | `sources` |
+
+**Paneli jest DZIESIEC od 6 wrzesnia 2026.** `tab-components` dolozony wraz z §5ag; pasek zakladek przechodzi wtedy na dwa opisane rzedy (§5ae, wariant B). Kazda asercja liczaca panele albo zakladki mowi 10, nie 9 — pozycje 3 i 26 listy §0 sa juz poprawione.
 
 **Identyfikatory sekcji sa kanoniczne — skrypty pytaja o nie po nazwie:**
 
@@ -979,7 +1058,7 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
    poprawna i tez sie pokazuje.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
-   Areas touched`, jeden wiersz na zakladke, ZAWSZE cztery wiersze (§3a).
+   Areas touched`, jeden wiersz na zakladke, ZAWSZE piec wierszy (§3a).
 4. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, **jedna tabela
    na zakladke**, z `<caption class="tabcap">` niosacym nazwe zakladki, licznik i obszary;
    sortowane `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
@@ -1011,12 +1090,16 @@ patrzyl na dziewiec zakladek, wieczorem pyta o te same dziewiec — a nie o jede
 1. **Kazda pozycja ma DOM i jest liczona dokladnie raz.** Dom wyliczasz z `tier`, bo to jedyne
    pole mowiace, gdzie brief ja renderuje: `published-in-window` → **New**; `deadline-under-60-days`,
    `recently-elapsed`, `horizon` → **Deadlines**; wpis katalogu `graph` → **Graph API**; wpis
-   katalogu `roles` → **Roles**. Pozycja bez `tier`, ale z terminem, idzie do Deadlines.
+   katalogu `roles` → **Roles**; wpis tablicy `components` → **Component versions**. Pozycja bez
+   `tier`, ale z terminem, idzie do Deadlines.
 2. **Today i Products nie sa niczyim domem.** Today jest wyborem z tych samych pozycji (§5m),
    a Products drugim widokiem okna — liczenie ich osobno podwoiloby kazda zmiane. Nota sekcji
    mowi to wprost, zeby czytelnik nie szukal ich w tabeli.
-3. **Podsumowanie ma CZTERY wiersze zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
+3. **Podsumowanie ma PIEC wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
    „sprawdzone, nic sie nie ruszylo" i jest wynikiem; brak wiersza znaczy „nie wiadomo".
+   **Od 6 wrzesnia 2026 wierszy jest piec** — dochodzi `Component versions` (§5ag), ktorej domem jest
+   tablica `components` w bloku stanu, porownywana PER PLATFORMA: Authenticator, ktory ruszyl sie na
+   iOS a nie na Androidzie, daje jeden wiersz roznicy, nie dwa.
 4. **Kolumna `Areas touched`** wymienia wartosci `product` dotkniete w tej zakladce, do osmiu, potem
    wielokropek. To jest „w jakich obszarach" ze zgloszenia.
 5. **Kubelek pusty zachowuje SWOJ PODPIS.** `<p class="emptycap">` z nazwa zakladki stoi nad zdaniem
@@ -1155,12 +1238,12 @@ TIER_TAB = {
     "recently-elapsed":       "Deadlines",
     "horizon":                "Deadlines",
 }
-TAB_ORDER = ["New", "Deadlines", "Graph API", "Roles"]
+TAB_ORDER = ["New", "Deadlines", "Graph API", "Roles", "Component versions"]
 # Zakladki, ktore ta strona potrafi zliczyc, i ktore dostaja wiersz ZAWSZE — takze z trzema zerami.
 # Today i Products nie sa niczyim domem: Today jest wyborem (§5m), a Products drugim widokiem tych
 # samych pozycji okna, wiec ich ruch jest juz policzony w New i Deadlines. Liczenie ich osobno
 # podwoiloby kazda zmiane.
-SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Roles"]
+SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Roles", "Component versions"]
 
 def tab_of(it):
     t = TIER_TAB.get(norm(it.get("tier")))
@@ -1212,6 +1295,34 @@ def diff_catalog(prev, curr, which):
             if a != b:
                 mod.append((n, f, a, b))
     return add, rem, mod, len(pe), len(ce)
+
+# Pola komponentu, ktorych ruch jest ZMIANA. §5ag: wersja, stan wydania i termin.
+COMPONENT_FIELDS = [("state","State"),("deadline","Deadline"),("provenance","Provenance"),
+                    ("checkedOn","Checked on")]
+
+def comp_versions(c):
+    """Wersje jako {platforma: numer} — porownanie idzie per platforma, bo komponent
+    o dwoch platformach (Authenticator) rusza sie na kazdej osobno."""
+    return {norm(v.get("platform")): norm(v.get("version")) for v in (c.get("versions") or [])}
+
+def diff_components(prev, curr):
+    p = {c.get("id"): c for c in (prev.get("components") or []) if c.get("id")}
+    c = {x.get("id"): x for x in (curr.get("components") or []) if x.get("id")}
+    added   = [c[k] for k in c if k not in p]
+    removed = [p[k] for k in p if k not in c]
+    changed = []
+    for k in c:
+        if k not in p: continue
+        deltas = []
+        pv, cv = comp_versions(p[k]), comp_versions(c[k])
+        for plat in sorted(set(pv) | set(cv)):
+            if pv.get(plat, "") != cv.get(plat, ""):
+                deltas.append(("Version on " + (plat or "unspecified"), pv.get(plat, ""), cv.get(plat, "")))
+        for f, lab in COMPONENT_FIELDS:
+            if norm(p[k].get(f)) != norm(c[k].get(f)):
+                deltas.append((lab, norm(p[k].get(f)), norm(c[k].get(f))))
+        if deltas: changed.append((c[k], deltas))
+    return added, removed, changed, len(p), len(c)
 
 # ---------- render ----------
 
@@ -1381,6 +1492,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
     gadd, grem, gmod, gp, gc = diff_catalog(prev_cat, curr_cat, "graph")
     radd, rrem, rmod, rp, rc = diff_catalog(prev_cat, curr_cat, "roles")
+    cadd, crem, cmod, cp, cc_ = diff_components(prev_st, curr_st)
 
     added.sort(key=wkey); removed.sort(key=wkey)
     changed.sort(key=lambda t: wkey(t[0]))
@@ -1426,6 +1538,10 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         elif tab == "Roles":
             na, nr, nc = len(radd), len(rrem), len(rmod)
             ar = "Entra directory roles"
+        elif tab == "Component versions":
+            na, nr, nc = len(cadd), len(crem), len(cmod)
+            ar = " &middot; ".join(esc(x.get("name") or x.get("id"))
+                                   for x in (cadd + crem + [t[0] for t in cmod])[:8]) or "&mdash;"
         else:
             na, nr, nc = len(t["a"]), len(t["r"]), len(t["c"])
             ar = " &middot; ".join(esc(x) for x in areas(t["a"] + t["r"] + t["c"])[:8]) or "&mdash;"
@@ -1495,6 +1611,39 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                % ("".join(body) or
                   '<p class="empty">No field moved on any item carried across both states.</p>'))
 
+    # --- component versions (§5ag): wersja, stan i termin, pole po polu
+    crows = []
+    for c_, deltas in cmod:
+        for n, (lab, aa, bb) in enumerate(deltas):
+            first = (n == 0)
+            crows.append(("", [("<b>%s</b>" % esc(c_.get("name") or c_.get("id"))) if first
+                               else '<span class="none">&#8942;</span>',
+                               '<span class="field">%s</span>' % esc(lab),
+                               ('<del>%s</del>' % esc(aa) if aa else '<span class="none">not set</span>')
+                               + '<span class="arrow">&rarr;</span>'
+                               + ('<ins>%s</ins>' % esc(bb) if bb else '<span class="none">cleared</span>'),
+                               a_src(c_) if first else ""]))
+    for c_ in cadd:
+        crows.append(("", ["<b>%s</b>" % esc(c_.get("name") or c_.get("id")),
+                           '<span class="field">Tracked</span>',
+                           '<span class="none">not tracked</span><span class="arrow">&rarr;</span>'
+                           + "<ins>%s</ins>" % esc(", ".join("%s %s" % (k, v) for k, v in
+                                                             sorted(comp_versions(c_).items()))),
+                           a_src(c_)]))
+    for c_ in crem:
+        crows.append(("", ["<b>%s</b>" % esc(c_.get("name") or c_.get("id")),
+                           '<span class="field">Tracked</span>',
+                           "<del>%s</del>" % esc(", ".join("%s %s" % (k, v) for k, v in
+                                                           sorted(comp_versions(c_).items())))
+                           + '<span class="arrow">&rarr;</span><span class="none">no longer tracked</span>',
+                           a_src(c_)]))
+    out.append('<section id="components"><h2>Component versions</h2>'
+               '<p class="note">Versions %d &rarr; %d tracked components. A component moves when a version '
+               'changes on any platform, when its release state changes, or when a deadline moves. Release '
+               'note contents are in the brief, not here &mdash; this page carries the difference.</p>%s</section>'
+               % (cp, cc_, table(["Component", "Field", "Before &rarr; after", "Source"], crows,
+                                 "No tracked component moved.")))
+
     # --- catalog
     def catrows(add, rem, mod, name):
         r = []
@@ -1523,7 +1672,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                         '<b>Roles</b> &middot; +%d / &minus;%d / %d edited' % (len(radd), len(rrem), len(rmod))),
                   rmore))
 
-    total = len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)
+    total = (len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod)
+             + len(radd) + len(rrem) + len(rmod) + len(cadd) + len(crem) + len(cmod))
     out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
                'computed from the two state blocks, not copied from the brief. '
                '<a href="%s">Back to the full brief</a></footer></div>'
@@ -1558,7 +1708,7 @@ def verify(page):
             if t=="ins": s.inss+=1
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
-    for need in ("bytab","added","removed","changed","catalog"):
+    for need in ("bytab","added","removed","changed","components","catalog"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -3730,18 +3880,38 @@ dozwolone dopisane reguly CSS.
 ```css
 /* §5ae — pasek zakladek ma WLASNY kolor, staly w obu motywach. */
 :root{--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;
- --nav-fg:#cfd5e2;--nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-on:#1b2030}
-nav.anchors{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;
- padding:8px 10px;gap:10px}
+ --nav-fg:#cfd5e2;--nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-on:#1b2030;--nav-rowlab:#98a2b8}
+/* WARIANT B (6 wrzesnia 2026): plaszczyzna przenosi sie na .navstack, bo pasek ma teraz DWA
+   opisane rzedy. `nav.anchors` samo w sobie jest odtad przezroczyste — asercja §5h celuje
+   w .navstack, nie w nav.anchors. To jedyna zmiana asercji, ktora ten wariant kosztuje. */
+.navstack{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;
+ padding:8px 10px;display:grid;gap:8px}
+.navstack nav.anchors{background:none;border:0;border-radius:0;padding:0;margin:0;
+ flex-wrap:wrap;overflow-x:visible;row-gap:8px;align-items:center;gap:10px}
+.navrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.navrow+.navrow{padding-top:8px;border-top:1px solid var(--nav-line)}
+.navrow .rowlab{flex:0 0 auto;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;color:var(--nav-rowlab);min-width:74px}
 nav.anchors .tab{background:var(--nav-tab);border:1.5px solid var(--nav-tab-line);border-radius:9px;
- color:var(--nav-fg);padding:9px 15px}
+ color:var(--nav-fg);padding:8px 13px}
 nav.anchors .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:#fff}
 nav.anchors .tab[aria-selected="true"]{background:#fff;border-color:#fff;color:var(--nav-on);
  font-weight:700;box-shadow:0 0 0 3px rgba(255,255,255,.16)}
+.navrow.ref .tab{background:transparent;border-color:#4b5568;color:#aab3c6;font-weight:600}
+.navrow.ref .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:#fff}
 nav.anchors .tab .navcount{background:rgba(255,255,255,.18);color:#e6eaf2}
 nav.anchors .tab:hover .navcount{background:rgba(255,255,255,.26);color:#fff}
 nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-bg);color:#fff}
-@media (max-width:760px){nav.anchors{gap:7px;padding:7px 8px}nav.anchors .tab{padding:8px 12px}}
+@media (max-width:760px){
+  /* zawiniecie dwunastu zakladek kosztuje na telefonie SIEDEM rzedow i 295-358 px ekranu —
+     zmierzone 6 wrzesnia 2026 na wszystkich czterech wariantach. Dlatego na telefonie kazdy
+     rzad wraca do JEDNEGO paska przewijanego w poziomie. */
+  .navstack{gap:7px;padding:7px 8px}
+  .navrow{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .navrow .rowlab{min-width:0}
+  .navstack nav.anchors{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  nav.anchors .tab{flex:0 0 auto;padding:8px 12px}
+}
 ```
 
 `--nav-*` sa deklarowane, wiec §5t jest spelnione co do litery: **zadna regula nie uzywa zmiennej,
@@ -3773,15 +3943,52 @@ Selektor sprawdzasz w `<style>` powloki, zanim go napiszesz.
 Telefon 390x844, wszystkie dziewiec zakladek po kolei: `scrollWidth === clientWidth === 390`,
 czyli §5x nie jest zlamane.
 
+### Dwa opisane rzedy — wariant B, przyjety 6 wrzesnia 2026
+
+Dziesiata zakladka (§5ag) nie miesci sie w jednym pasku i **nie jest to kwestia gustu, tylko pomiaru**.
+Zmierzone na zywej stronie: dziewiec zakladek zajmuje **1238 z 1238 px przy szerokosci 1280** — pasek
+jest dokladnie pelny, wiec dziesiata juz przewija sie w bok. Skrocenie etykiet nie ratuje: „Hunting",
+„Graph", „Lifecycle" daja 1261 px przy tych samych 1238 dostepnych.
+
+Pasek ma wiec **dwa opisane rzedy w jednej grafitowej ramce**:
+
+| rzad | etykieta | zakladki |
+|---|---|---|
+| gorny | `Daily` | Overview · Today · New · Deadlines · Products · Hunting & actions |
+| dolny | `Reference` | Component versions · Roles · Graph API · Sources |
+
+Podzial nie jest wymyslony na potrzeby paska. **§5y stawia go w danych**: „zakladki katalogowe licza
+katalog, nie okno". Rzedy nazywaja rozroznienie, ktore prezentacja i tak robi, a zakladki referencyjne
+sa ciszej (sama obwodka, bez wypelnienia), zeby oko trafialo najpierw w rzad dzienny.
+
+Markup: `<div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav
+class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav
+class="anchors"></nav></div></div>`. **Powloka buduje zakladki do PIERWSZEGO pustego `nav.anchors`**,
+wiec drugi rzad wypelnia skrypt 4 przenoszac do niego zakladki referencyjne po `buildTabs()`.
+Bez tego przeniesienia wszystkie dziesiec zostaje w gornym rzedzie i wariant B nie rozni sie od A.
+
+Zmierzone na czterech wariantach, oba motywy, 24 rendery: **desktop dwa rzedy, 101 px wysokosci przy
+1500 i przy 1280; telefon dwa rzedy po 101 px, kazdy przewijany osobno; zero bledow konsoli;
+`scrollWidth === clientWidth` w kazdej komorce.** Bez reguly telefonowej wszystkie cztery warianty
+zawijaly sie do **siedmiu rzedow i 295-358 px** — gorzej niz dzisiejsze przewijanie w bok.
+
 ### Asercje Playwright (dochodza do §5h)
 
-- `getComputedStyle(nav.anchors).backgroundColor` **nie jest przezroczyste i jest TAKIE SAMO
-  w obu motywach**;
+**Uwaga na przeniesiona asercje.** Wariant B przenosi plaszczyzne z `nav.anchors` na `.navstack`,
+wiec `getComputedStyle(nav.anchors).backgroundColor` zwraca odtad `rgba(0,0,0,0)`. Asercja, ktora
+tego nie uwzglednia, **zapala sie na poprawnej stronie** — a to jest ten sam blad co asercja
+przechodzaca na pustych danych (§0b). Dlatego:
+
+- `getComputedStyle(document.querySelector(".navstack")).backgroundColor` **nie jest przezroczyste
+  i jest TAKIE SAMO w obu motywach**;
+- **sa DWA elementy `.navrow`**, gorny ma etykiete `Daily`, dolny `Reference`, i kazdy niesie
+  `<nav class="anchors">` z co najmniej jedna zakladka;
+- suma zakladek w obu rzedach wynosi **10**, a `Component versions` stoi w rzedzie `Reference`;
 - kazda `nav.anchors .tab` ma `borderTopWidth` niezerowa i `borderTopColor` rozny od tla zakladki;
 - zakladka z `aria-selected="true"` ma tlo rozne od zakladek nieaktywnych;
-- tlo paska jest rozne od tla `header.top` i od `--surface` — **plaszczyzna, ktorej nie ma zadna
-  inna czesc strony**;
-- przy 390x844 pasek nadal nie rozpycha dokumentu.
+- tlo `.navstack` jest rozne od tla `header.top` i od `--surface`;
+- przy 390x844 **kazdy `.navrow` ma `scrollWidth > clientWidth`** (przewija sie sam) a dokument
+  NIE — `document.documentElement.scrollWidth === clientWidth`.
 
 ## 5af. Punkt listy ma JEDEN temat — ksztalt punktu z zakladki Products jest wzorcem dla calej strony
 
@@ -3857,6 +4064,175 @@ kolumna `Reference` albo czym roznia sie rodziny `Change type`. One nie stawiaja
 wiec nie maja czego cytowac. **Asercja, ktora zapala sie na poprawnej stronie, uczy przebieg, ze
 czerwone nic nie znaczy** — dokladnie tak samo jak asercja przechodzaca na pustych danych (§0b).
 Link w punkcie NIOSACYM TEZE zostaje regula redakcyjna, sprawdzana okiem przy pozycji 21.
+
+## 5ag. Zakladka Component versions — wersje komponentow i TRESC kazdego wydania
+
+Wlasciciel poprosil 6 wrzesnia 2026 o zbieranie wersji komponentow bezpieczenstwa: Authenticator na
+iOS i Androida, sensory MDI i MDE, GSA, Entra Connect, najnowsze systemy Apple, wersja poprzednia
+i koniec wsparcia. Po trzech iteracjach widoku (v1-v4, wszystkie zmierzone) reguly ponizej sa tym,
+co z tego zostalo. **Numer wersji sam w sobie nikomu nie mowi, czy trzeba dzialac** — dlatego ta
+zakladka nie jest tabela numerow, tylko numerem plus trescia wydania.
+
+Panel `tab-components`, sekcja `<section id="components" data-nav="Component versions">`, rzad
+`Reference` paska (§5ae).
+
+### Kontrakt danych — `components` w bloku `soc-brief-state`
+
+```json
+"components":[{
+  "id":"entra-connect-sync",
+  "name":"Entra Connect Sync",
+  "scope":"Directory synchronization service",
+  "versions":[{"platform":"windows-server","version":"2.6.84.0","released":"2026-07-07",
+               "releaseLabel":"Released 7 July 2026"}],
+  "provenance":"vendor",
+  "state":"baseline",
+  "deadline":"2026-09-30",
+  "deadlineNote":"Synchronization stops on any server below 2.5.79.0.",
+  "releases":[{"version":"2.6.84.0","date":"Released 7 July 2026","current":true,
+    "groups":[{"title":"Added","items":[
+      {"text":"<doslownie z release notes>","url":"…","label":"Passwordless setup"}]}]}],
+  "sources":[{"url":"…","label":"Entra Connect version history"}],
+  "checkedOn":"2026-09-06"
+}]
+```
+
+- **`platform`** jest slownikiem ZAMKNIETYM: `windows`, `windows-server`, `macos`, `ios`, `ipados`,
+  `android`, `cross`, `apple`. Kolor chipa bierze sie z tej wartosci i jest **ten sam na calej
+  stronie** — takze w tabelach. Wartosc spoza listy = przebieg NIEUDANY.
+- **`provenance`**: `vendor` | `mirror` | `blog`. Nigdy nie mieszasz ich w jednym polu — komponent
+  o dwoch platformach i dwoch pochodzeniach niesie obie wartosci, jak Authenticator.
+- **`state`**: `baseline` | `no-change` | `new-version` | `backfilled` | `corrected`. `baseline`
+  jest poprawne WYLACZNIE w przebiegu, ktory nie ma z czym porownac. Przebieg z wczorajszym
+  `site/data/*.json` i stanem `baseline` na wszystkich komponentach jest przebiegiem NIEUDANYM:
+  to znaczy, ze porownania nie zrobil.
+- **`releases[].items[].text` jest DOSLOWNY** z release notes wydawcy, w JEGO kolejnosci i w JEGO
+  grupach (`Added` / `Changed` / `Fixed`, `Functional changes` / `Other changes`). Nie streszczasz,
+  nie laczysz dwoch punktow w jeden i nie zmieniasz kolejnosci wewnatrz grupy.
+
+### Reguła wyboru — bo „wybralem te trzy" nie jest regula
+
+Pierwsza wersja tej zakladki pisala pod lista *„Three of the nine listed fixes are shown."* i nie
+mowila, na jakiej podstawie. Wlasciciel zapytal wprost i mial racje: **wybor bez kryterium jest
+sugestia, a sugestii nie da sie sprawdzic** — to ten sam mechanizm co regula bez asercji (§0b).
+
+**Nic nie jest wycinane.** Kazdy punkt, ktory wydawca opublikowal, jest na stronie. Zmienia sie
+wylacznie kolejnosc: punkt idzie na przod i dostaje etykiete, gdy jego tekst pasuje do jednej
+z osmiu kategorii ponizej. Reszta zostaje w kolejnosci wydawcy pod `<details class="rest">`
+z podpisem **`Show the remaining N of M`** — licznik zawsze widoczny.
+
+```python
+RULES = [
+ ("credentials & sign-in", r"passkey|fido2|authentication|sign[- ]?in\b|sign[- ]?out\b|credential|"
+                           r"certificate|\btpm\b|\bmsal\b|password"),
+ ("audit & logging",       r"\baudit|event log|windows event|traffic log|log collection|"
+                           r"event tracing|\betw\b|event collection"),
+ ("privilege & directory", r"administrator|\badmin\b|privilege|\brole\b|directory synchronization|"
+                           r"active directory|domain controller|\bad cs\b|\bad fs\b|cross-tenant|tenant id"),
+ ("detection & visibility",r"\bdetect|discover|visibilit|hunting"),
+ ("data protection",       r"\bdlp\b|data loss|classification"),
+ ("control changed",       r"no longer|removed|remove[sd]?\b|disabled|self-healing|falls back|"
+                           r"silently|by default"),
+ ("lifecycle",             r"migration|generally available|end of support|retire|deprecat"),
+ ("vulnerability",         r"vulnerabilit|\bcve\b"),
+]
+def classify(text):
+    t = text.lower()
+    return [name for name, pat in RULES if re.search(pat, t)]
+```
+
+Trzy rzeczy sa w tej regule wiazace i kazda ma powod:
+
+1. **Etykieta na punkcie nazywa kategorie, ktora go zlapala.** Czytelnik sprawdza wybor punkt po
+   punkcie, zamiast brac go na wiare. To jest cala odpowiedz na pytanie „na jakiej podstawie".
+2. **Regula jest wypisana na stronie w `<div class="rulebox">`**, tym samym tekstem co w kodzie.
+   Regula stosowana, ale nieopublikowana, jest z punktu widzenia czytelnika gustem.
+3. **Grupa, w ktorej NIC nie pasuje, pokazuje wszystko od razu** i mowi jednym zdaniem dlaczego.
+   Pierwsza wersja dawala tam `Show the remaining 1 of 1`, co jest absurdem, i `6 of 6`, co jest
+   zwykla lista schowana bez powodu.
+
+Zmierzone 6 wrzesnia 2026 na piu komponentach: **67 punktow zrodlowych, 38 wypromowanych (57%),
+21 pod rozwijaniem, 8 w grupach bez dopasowania — razem 67.** To, co zostaje niewypromowane, to
+wersje .NET Runtime, accessibility, telemetria, kolejnosc kanalow w UI i „miscellaneous fixes".
+**Regula promujaca 90% jest bezuzyteczna tak samo jak promujaca 5%** — pierwsza nie wybiera,
+druga chowa tresc. Gdy pomiar wyjdzie poza pasmo 30-70%, poprawiasz regule i zapisujesz nowy pomiar.
+
+### MDE ma TRZY strumienie wersji i nigdy nie zwijasz ich w jeden
+
+Wlasciciel zglosil to wprost: przy jednej wartosci nie wiadomo, czy to sensor, silnik, czy
+sygnatury. Strona pokazuje cztery wiersze, bo cztery odpowiadaja na rozne pytania:
+
+| strumien | zmierzone 6 wrzesnia 2026 | co to jest |
+|---|---|---|
+| Platform | `4.18.26080.3` | binarka klienta antywirusa |
+| Engine | `1.1.26080.3` | silnik skanujacy |
+| Security intelligence, **wysylana z wydaniem** | `1.159.11.0` | zestaw definicji z sierpniowej platformy |
+| Security intelligence, **zywa** | `1.459.66.0`, 5 wrzesnia 18:59:01 | to, co endpoint faktycznie pobiera |
+
+**Dwie ostatnie sie nie zgadzaja i obie sie publikuje.** Lipcowe wydanie podaje `1.457.11.0`, czyli
+WIECEJ niz sierpniowe `1.159.11.0`. Planuje sie wzgledem zywego feedu, a strona mowi to zdaniem —
+§8 N wymaga podania obu wartosci tam, gdzie Microsoft publikuje sprzeczne.
+
+Serwisowanie: *„After a new package version is released, support for the previous two versions is
+reduced to technical upgrade support only"* — model N−2, cytowany doslownie.
+
+Lista wykrytych zagrozen z kazdej definicji **jest linkowana, nigdy przepisywana**: to setki
+pozycji dziennie i zasypalyby zakladke. Link do `wdsi/definitions/antimalware-definition-release-notes`
+wystarczy.
+
+### Zrodla — kazde sprawdzone, wynik negatywny tez zapisany
+
+Pelna tabela z werdyktem per adres jest w §7 („Wersje komponentow — co da sie zrodlowac, a czego
+NIE"). Tu tylko to, co rozstrzyga codzienny przebieg:
+
+- **Authenticator iOS** — `itunes.apple.com/lookup?id=983156458`, oficjalne API Apple, `version`
+  i `currentVersionReleaseDate` z sekundami. **Nie uzywasz strony App Store do daty** — ona podaje
+  `5d ago`, a data wzgledna nie jest data.
+- **Authenticator Android** — Google Play nie wystawia numeru przy odczycie server-side, a Microsoft
+  nie publikuje historii wersji tej aplikacji wcale. Numer powstaje przez **zgodnosc co najmniej
+  dwoch niezaleznych luster**, data pochodzi WYLACZNIE z `Updated on` Google Play, a wpis jest
+  oznaczony `provenance:"mirror"`. Szczegoly i pulapki parsowania: §7.
+- **MDE, MDI, GSA, Entra Connect** — strony Learn wymienione w §7, kazda z kotwica na konkretne
+  wydanie. Kotwica jest czescia rekordu, nie ozdoba: `#26840` dla Entra Connect,
+  `#windows-antivirus--august-2026--…` i `#macos--august-2026--…` dla MDE.
+- **Apple** — `support.apple.com/en-us/100100` na wszystkie systemy i Safari,
+  `support.apple.com/en-us/109033` na galezie macOS, czyli na „wersje −1". Wiersze niosa
+  `platform:"apple"`, zeby nikt nie wzial ich za komunikat Microsoftu.
+- **Blog niezalezny** (np. Richard M. Hicks o GSA) wchodzi jako `provenance:"blog"`, we WLASNEJ
+  sekcji `Independent commentary`, nigdy wymieszany z punktami wydawcy. 6 wrzesnia dolozyl fakt,
+  ktorego release history nie ma: integracja z Windows Update od listopada 2026.
+
+**Pomylka, ktora ta sekcja ma powstrzymac, zdarzyla sie w tym samym dniu:** przebieg zapisal
+`101.26071.0005 (wrzesien 2026)` jako najnowszy build MDE na macOS, bo odczyt zlapal sekcje
+o Linuksie. Prawidlowa wartosc, po odczycie kotwicy `#macos--august-2026--101260620012`, to
+**`101.26062.0012`, release `20.126062.12.0`, sierpien 2026**. Dlatego kazdy build MDE bierze sie
+z KOTWICY konkretnego wydania, nie z tabeli zbiorczej i nie z wyszukiwania po nazwie systemu.
+
+### Markup — szyna i panel
+
+Kazdy komponent to jeden `<article class="cmp">`: szyna `<div class="rail">` po lewej i panel
+`<div class="pane">` po prawej, rozdzielone od 900 px w gore, zlozone ponizej.
+
+- **Kazda wersja siedzi we wlasnej zaokraglonej ramce `<div class="vbox">`** z chipem platformy nad
+  numerem i data pod nim. Komponent o dwoch platformach ma DWIE ramki — `6.8.54 / 6.2608.5658`
+  w jednym wierszu nie mowi, co jest czym, i zostalo z tego powodu odrzucone.
+- **Chip platformy `<span class="pchip p-…">` niesie kolor** i powtarza sie wszedzie, gdzie ta
+  platforma wystepuje, takze w komorkach tabel.
+- **Kazde wydanie — biezace I poprzednie — ma te sama strukture**: `<div class="relhead">` z numerem
+  i data, potem grupy wydawcy i punkty. **Poprzednie wydania NIE sa proza.** Wersja, ktora zwijala
+  siedem punktow GSA w jedno zdanie rozdzielone srednikami, zostala odrzucona z tego samego powodu
+  co §5af: sklejone punkty sa nie do przeczytania i nie do przeszukania.
+- `<details class="rest">` nigdy nie ma podpisu `N of N`.
+
+### Walidator — pozycje 37, 38 i 39 listy §0
+
+- **37** — kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`,
+  `checkedOn` i co najmniej jedno zrodlo; kazda wersja ma wlasny `vbox` z chipem.
+- **38** — **suma punktow wyrenderowanych rowna sie sumie punktow w danych.** To jest asercja,
+  przez ktora ta sekcja istnieje: liczba `li.relitem` na stronie musi rownac sie liczbie
+  `releases[].groups[].items[]` w bloku stanu. Roznica znaczy, ze przebieg cos wyciol.
+- **39** — reguła wyboru jest opublikowana (`div.rulebox`), kazdy wypromowany punkt niesie co
+  najmniej jedna etykiete `.rcat`, i odsetek wypromowanych miesci sie w 30-70%.
 
 ## 6. Kontrakt w stronie
 
