@@ -384,7 +384,13 @@ def verify_diff(page: str) -> list:
     p = scan(page); errs = []
     if p.tabpanels != 2: errs.append("tabpanel = %d, strona diff ma miec 2" % p.tabpanels)
     if "delta" not in p.ids: errs.append("brak sekcji delta")
-    if p.navanchors != 1: errs.append("nav.anchors = %d, ma byc 1" % p.navanchors)
+    # `build_diff` bierze masthead Z BRIEFU, a ten od §5ae wariantu B wozi `.navstack`
+    # z DWOMA `nav.anchors`, po jednym na rzad. Zaszyte `!= 1` odrzucaloby wiec poprawna
+    # strone awaryjna. Ten sam blad, ta sama rodzina, znaleziony przy przeszukiwaniu pliku
+    # za twardymi licznikami — i to jest dowod, ze ta regula z §0a byla potrzebna.
+    if p.navanchors not in (1, 2):
+        errs.append("nav.anchors = %d, ma byc 2 (jeden na rzad, §5ae) albo 1 przed przejsciem"
+                    % p.navanchors)
     if p.catalogs: errs.append("strona diff nie ma katalogu, a ma %s" % sorted(p.catalogs))
     if p.scripts < 4: errs.append("skryptow zachowania = %d, ma byc >=4 (powloka, overview, katalog, agregaty §5y)" % p.scripts)
     if p.styles < 1: errs.append("brak <style>")
@@ -1206,7 +1212,7 @@ Wejscie: dwa stany. Kazdy moze byc plikiem `site/data/<data>.json` (obiekt z klu
 skrypt sam wyjmie oba bloki JSON.
 
 Wyjscie: mala, samodzielna strona pokazujaca WYLACZNIE roznice: co przybylo, co ubylo,
-co sie zmienilo pole po polu. Bez dziewieciu zakladek, bez przegladarki katalogu i bez
+co sie zmienilo pole po polu. Bez dziesieciu zakladek, bez przegladarki katalogu i bez
 kopiowania megabajtow JSON, ktorych taka strona nie uzywa.
 """
 import sys, os, re, json, html, datetime
@@ -3012,7 +3018,7 @@ Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t i §5w:
 ```
 
 Po poprawce wszystkie dziewiec zakladek daje `scrollWidth == clientWidth == 390`, zero bledow
-konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z dziewieciu zakladek przy 390x844
+konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z DZIESIECIU zakladek przy 390x844
 `document.documentElement.scrollWidth === clientWidth`** — nie tylko dla tej, ktora akurat jest
 widoczna po zaladowaniu. Poprzednia wersja §5h sprawdzala jedna zakladke i dlatego przepuscila obie.
 
