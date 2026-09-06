@@ -1577,7 +1577,23 @@ def gm_schemes(st):
     return {n: (d.get("s") or {}) for n, d in (gm.get("perms") or {}).items()}
 
 def diff_graphmap(prev_st, curr_st):
-    """Zwraca (wiersze, liczniki). Wiersz = (uprawnienie, rodzaj, tekst przed, tekst po)."""
+    """Zwraca (wiersze, liczniki). Wiersz = (uprawnienie, rodzaj, tekst przed, tekst po).
+
+    PIERWSZY PRZEBIEG PO WPROWADZENIU MAPY: wczorajszy plik danych jej nie ma. Bez tego
+    warunku porownanie zbioru pustego z pelnym oglasza KAZDY endpoint jako dodany dzisiaj —
+    zmierzone 7 wrzesnia 2026 na prawdziwych danych: **9 736 wierszy i „24 099 added"**,
+    strona nie do przeczytania, a rejestr §5aj dostalby tyle samo falszywych wpisow.
+    Brak punktu odniesienia nie jest zmiana. To ta sama zasada co `state:"baseline"` w §5ag
+    i `BRAK „nie da sie sprawdzic"` w §0b: pusty zbior spelnia kazdy warunek, wiec trzeba
+    odroznic „sprawdzone i zgodne" od „nie bylo z czym porownac"."""
+    prev_has = bool(((prev_st or {}).get("graphMap") or {}).get("perms"))
+    curr_has = bool(((curr_st or {}).get("graphMap") or {}).get("perms"))
+    if curr_has and not prev_has:
+        n = len((curr_st["graphMap"] or {}).get("perms") or {})
+        return ([("&mdash;", "baseline", "",
+                  "First run carrying graphMap: %d permissions recorded. The previous state has no "
+                  "endpoint map, so there is nothing to compare against and nothing here is a change. "
+                  "Tomorrow's run reports real differences." % n)], 0, 0, 0)
     pp, cp = gm_paths(prev_st), gm_paths(curr_st)
     ps, cs = gm_schemes(prev_st), gm_schemes(curr_st)
     rows, add, rem, chg = [], 0, 0, 0
