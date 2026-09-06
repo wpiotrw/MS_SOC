@@ -127,7 +127,7 @@ rozpoznaje, co dostal:
 
 - **artefakt `Microsoft SOC Delta <data>`** (dwa panele) — odbija go w calosci, podmieniajac tylko
   link w `dateline` na `/` (zasada 3);
-- **artefakt `Microsoft SOC Brief <data>`** (dziewiec paneli) — wyjmuje z niego sekcje `#pmdelta`
+- **artefakt `Microsoft SOC Brief <data>`** (dziewiec albo dziesiec paneli) — wyjmuje z niego sekcje `#pmdelta`
   i sklada strone o DWOCH panelach, `tab-overview` i `tab-changed`, z ta sama powloka: ten sam
   `<style>`, te same trzy skrypty zachowania, ten sam masthead, oba bloki JSON;
 - **brief bez `#pmdelta`** — pisze uczciwa strone „bez zmian" z godzina sprawdzenia, zamiast
@@ -145,6 +145,17 @@ jego resztki udaja markup — dlatego masthead bierzemy z OSTATNIEGO wystapienia
 zawieraja w srodku kolejne `<script` i bierzemy trzy ostatnie; a liczenie elementow idzie przez
 `html.parser`, nie przez wyrazenia regularne, bo powloka trzyma `class="tabpanel"` i
 `data-catalog` takze w kodzie skryptow — zliczanie tekstem dawalo 12 paneli tam, gdzie sa 2.
+
+**Bramka lustra sama byla o krok od wywalenia przebiegu 7 wrzesnia 2026.** `verify()` mial zaszyte
+`tabpanels != 9` i `navanchors != 1` — liczby prawdziwe w dniu, w ktorym je napisano. Po §5ag paneli
+jest dziesiec, a po §5ae wariancie B pasek ma DWA `nav.anchors`, po jednym na rzad. Lustro odrzucilo
+by wiec poprawny artefakt, routine uciekl by w fallback i **zbudowal strone po swojemu** — czyli
+dokladnie ta rozbieznosc, przed ktora ta sekcja istnieje. Zmierzone na szesciu wejsciach po
+poprawce: 10 paneli / 2 rzedy `OK`; 9 paneli / 1 rzad `OK` z ostrzezeniem; 9 paneli / 2 rzedy `OK`
+z ostrzezeniem; 12 paneli, 2 panele i 3 rzedy — `ODRZUCONE` z liczba. Prog jest przedzialem,
+bo zadaniem lustra jest wierna kopia, a ten test lapie ZEPSUTA EKSTRAKCJE, nie brakujaca zakladke.
+**Kazda liczba zapisana w asercji ma date waznosci** — dopisujac panel, zakladke albo skrypt
+przeszukaj plik za twardymi licznikami, zanim opublikujesz.
 
 **Fallback, i tylko on uruchamia stary tryb budowania:** artefaktu na dzisiaj nie ma, albo jego
 `briefDate` nie jest dzisiejsza, albo skrypt zwrocil kod 1. Wtedy budujesz strone sam wedlug
@@ -263,8 +274,21 @@ def scan(page: str) -> _Scan:
 def verify(page: str) -> list:
     """Asercje strukturalne dla strony glownej. Pusta lista = mozna publikowac."""
     p = scan(page); errs = []
-    if p.tabpanels != 9: errs.append("tabpanel = %d, ma byc 9" % p.tabpanels)
-    if p.navanchors != 1: errs.append("nav.anchors = %d, ma byc 1" % p.navanchors)
+    # 6 wrzesnia 2026: paneli jest DZIESIEC (§5ag dokłada `tab-components`), a pasek ma DWA
+    # `nav.anchors`, po jednym na rzad (§5ae wariant B). Zaszyte `!= 9` i `!= 1` odrzucilyby
+    # jutrzejszy artefakt i zepchnelyby routine w fallback, czyli w budowanie strony po swojemu —
+    # a to jest ta sama rozbieznosc, przed ktora §0a istnieje.
+    # Prog jest przedzialem, nie liczba, i to jest swiadome: zadaniem lustra jest WIERNA kopia,
+    # a ten test lapie ZEPSUTA EKSTRAKCJE (0, 2, 12 paneli), nie brakujaca zakladke. Artefakt
+    # o dziewieciu panelach przechodzi, ale przebieg MUSI to zglosic w odpowiedzi.
+    if p.tabpanels not in (9, 10):
+        errs.append("tabpanel = %d, ma byc 10 (9 dopuszczalne przejsciowo)" % p.tabpanels)
+    elif p.tabpanels == 9:
+        print("UWAGA: artefakt ma 9 paneli — brakuje zakladki Component versions (§5ag). "
+              "Lustro publikuje, ale napisz o tym w odpowiedzi jako pozycja 3 BRAK.")
+    if p.navanchors not in (1, 2):
+        errs.append("nav.anchors = %d, ma byc 2 (jeden na rzad, §5ae) albo 1 przed przejsciem"
+                    % p.navanchors)
     if p.catalogs != {"graph", "roles"}: errs.append("data-catalog = %s, ma byc graph+roles" % sorted(p.catalogs))
     for need in ("soc-brief-state", "soc-catalog"):
         if need not in p.ids: errs.append("brak bloku %s" % need)
@@ -416,7 +440,7 @@ Zmierzone po poprawce na czterech wejsciach: brief (`--brief` 3 835 792 B, `--di
 prawdziwa Delta z 28 sierpnia (`--diff` 3 283 650 B), Delta pozbawiona `soc-catalog` i Delta
 z linkiem do prywatnego artefaktu w dateline — wszystkie bez bledow.
 
-**Asercje w `verify()` sa bramka publikacji**: dziewiec `.tabpanel` po usunieciu komentarza
+**Asercje w `verify()` sa bramka publikacji**: dziesiec `.tabpanel` po usunieciu komentarza
 SHELL CONTRACT (cytuje markup, ktory opisuje), oba bloki JSON, oba kontenery katalogu, pusty
 `<nav class="anchors">`, co najmniej trzy skrypty zachowania, `<style>`, dokladnie jeden DOCTYPE
 i link do `/diff/`. Kazda z nich broni bledu, ktory juz raz wystapil.
@@ -2242,7 +2266,7 @@ dla rol tak samo jak dla uprawnien.
 
 ## 5h. Kontrola Playwright — pelna lista asercji
 
-Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; `nav.anchors .tab` is 9, labels human, strip not overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 10 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
 
 Nowe od 31 sierpnia 2026, kazda z nich lapie realny blad z tego dnia: **zaden `figure.chart`
 o co najmniej czterech slupkach nie ma wszystkich slupkow rownych 1** (wykres „By topic" mial ich
@@ -2272,7 +2296,7 @@ ma niezerowa `borderTopWidth` i `borderTopColor` rozny od wlasnego tla; zakladka
 `aria-selected="true"` ma tlo rozne od nieaktywnych; licznik `.navcount` ma nieprzezroczyste tlo
 w obu motywach — te same wartosci, nie tylko „jakies".
 
-Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z dziewieciu zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
+Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z DZIESIECIU zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
 (§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
 `getComputedStyle(document.querySelector("header.top")).position` zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
 poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
@@ -2805,7 +2829,7 @@ co Message Center. Dostaja **wlasna sekcje `docchanges` w panelu `tab-new`**
 `Lines`, `Security impact`, `Product`, `Source`. Roznice bierzesz z gita, nie z oka:
 `git log --since=<okno> --numstat -- <sciezka>` daje `+143/-319` na plik, a `git log -p` daje tresc
 zmiany. **Nie dodajemy dziesiatej zakladki** — pasek przy 1280 px jest juz pelny (sekcja 5h),
-a kontrakt mowi o dziewieciu panelach.
+a kontrakt mowil wtedy o dziewieciu panelach. **Od 6 wrzesnia 2026 panele sa dwa razy piec i pasek ma dwa rzedy (§5ae), wiec ten argument nie blokuje juz nowej zakladki** — blokuje natomiast dokladanie zakladki, ktora nie ma wlasnego domu w diffie (§3a). `docchanges` zostaje sekcja panelu `tab-new`.
 
 ## 5v. Zrodla i MCP — ktore po co, i ktore daje gotowy diff
 
