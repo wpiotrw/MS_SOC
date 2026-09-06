@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 38 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-39), plus **pozycje 34 dla przebiegu ZMIAN** — razem 39. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 39 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-40), plus **pozycje 34 dla przebiegu ZMIAN** — razem 40. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -83,6 +83,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 37 | **zakladka Component versions**: kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`, `checkedOn` i zrodlo; kazda wersja ma wlasny `.vbox` z chipem platformy | 5ag | licznik `.vbox` = licznik wpisow `versions[]`; zero platform spoza slownika |
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
+| 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
 | 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z pieciona wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcja `components` (§3a, §5ag) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -502,6 +503,9 @@ class Scan(HTMLParser):
         self.pchips=[]; self.relitems=0; self.promoted=0; self.rcats=0
         self._inpromoted=False; self.rulebox=0; self.navstack=0; self.navrows=0
         self.restsummaries=[]; self._insummary=False; self._sumbuf=[]
+        # §5ag nawigacja: kotwice kafelkow, id sekcji, liczby panelu
+        self.jtiles=[]; self.cmpids=set(); self.rbnums=[]
+        self._innum=False; self._numbuf=[]
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
@@ -534,10 +538,14 @@ class Scan(HTMLParser):
             self.relitems+=1
             if "promoted" in cls: self.promoted+=1; self._inpromoted=True
         if tag=="summary": self._insummary=True; self._sumbuf=[]
+        if tag=="a" and "jtile" in cls: self.jtiles.append(a.get("href") or "")
+        if tag=="article" and "cmp" in cls and a.get("id"): self.cmpids.add(a["id"])
+        if tag=="span" and "rb-num" in cls: self._innum=True; self._numbuf=[]
         if tag=="p" and "sec-note" in cls: self._grab=self.sec
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
         if self._insummary: self._sumbuf.append(d)
+        if self._innum: self._numbuf.append(d)
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
         if not self._skip: self.text.append(d)
         if self._row is not None and not self._skip: self._row.append(d)
@@ -554,6 +562,8 @@ class Scan(HTMLParser):
         if tag=="div" and self._invbox: self._invbox=False
         if tag=="summary" and self._insummary:
             self.restsummaries.append(" ".join("".join(self._sumbuf).split())); self._insummary=False
+        if tag=="span" and self._innum:
+            self.rbnums.append("".join(self._numbuf).strip()); self._innum=False
         if tag=="section" and self._secstack:
             self._secstack.pop()
             self.sec=self._secstack[-1] if self._secstack else None
@@ -793,8 +803,22 @@ def gate(path):
              s.rulebox>=1 and s.rcats>=s.promoted and 30 <= band <= 70,
              "rulebox=%d, etykiet %d przy %d wypromowanych, odsetek %.0f%% (ma byc 30-70)"
              % (s.rulebox, s.rcats, s.promoted, band))
+        # 40: kafelek prowadzacy donikad jest gorszy niz brak kafelka — obiecuje i nie dowozi.
+        dead=[h for h in s.jtiles if not (h.startswith("#") and h[1:] in s.cmpids)]
+        nums=[int(x) for x in s.rbnums if x.isdigit()]
+        # POZYCYJNIE, nie `w in nums`: pierwsza wersja pytala, czy liczba gdziekolwiek wystepuje,
+        # i przechodzila na stronie z blednym licznikiem komponentow, bo ta sama cyfra stala
+        # w wierszu obok. Asercja, ktora przechodzi z niewlasciwego powodu, jest gorsza niz jej brak.
+        want=[len(comps), sum(len(c.get("versions") or []) for c in comps)]
+        need("40","kafelki nawigacji celuja w istniejace sekcje, liczby panelu zgodne ze stanem",
+             bool(s.jtiles) and not dead and len(s.jtiles)==len(comps)
+             and nums[:len(want)]==want,
+             "brak kafelkow — nie da sie sprawdzic" if not s.jtiles
+             else "martwe kotwice %s; kafelkow %d przy %d komponentach; w panelu %s, oczekiwano %s"
+                  % (dead[:3], len(s.jtiles), len(comps), nums[:len(want)], want))
     else:
         need("37","zakladka Component versions ma dane", False, "brak tablicy components w stanie")
+        need("40","kafelki nawigacji", False, "brak tablicy components w stanie")
     # 35 (wariant B §5ae): plaszczyzna siedzi na .navstack, nie na nav.anchors
     need("35b","pasek ma dwa opisane rzedy w jednej ramce .navstack",
          s.navstack==1 and s.navrows==2,
@@ -813,6 +837,16 @@ def gate(path):
 if __name__ == "__main__":
     sys.exit(gate(sys.argv[1]))
 ```
+
+**Rozszerzone 6 wrzesnia 2026 o pozycje 40 (§5ag, kafelki nawigacji) — i pierwsza wersja tej asercji
+byla zla.** Pytala `all(w in nums for w in want)`, czyli czy liczba GDZIEKOLWIEK wystepuje w panelu,
+i przechodzila na stronie z blednym licznikiem komponentow, bo ta sama cyfra stala w wierszu obok.
+To ten sam blad co podciag „61"/„120" w pozycji 32: asercja przechodzaca z niewlasciwego powodu.
+Teraz porownanie jest POZYCYJNE. Kontrola regresji na czterech wariantach (3 komponenty, 4 wersje):
+(p) poprawna — `40 OK`; (q) jeden kafelek celujacy w nieistniejaca sekcje — `40 BRAK` z nazwa martwej
+kotwicy; (r) panel podaje 5 komponentow zamiast 3 — `40 BRAK [5, 4] przy [3, 4]`; (s) jeden kafelek
+mniej niz komponentow — `40 BRAK 2 przy 3`. Wariant bez tablicy `components` daje `40 BRAK
+„nie da sie sprawdzic"`, nie OK.
 
 **Rozszerzone 6 wrzesnia 2026 o pozycje 37-39 (§5ag) i o wariant B pozycji 35 (§5ae).** Pozycja 38
 jest tu najwazniejsza i jest odpowiedzia na pytanie wlasciciela „na jakiej podstawie wybrales te
@@ -4326,6 +4360,49 @@ Kazdy komponent to jeden `<article class="cmp">`: szyna `<div class="rail">` po 
   co §5af: sklejone punkty sa nie do przeczytania i nie do przeszukania.
 - `<details class="rest">` nigdy nie ma podpisu `N of N`.
 
+### Nawigacja i panel liczb — kontrakt, nie ozdoba
+
+Wlasciciel zglosil 6 wrzesnia 2026, ze do kazdego komponentu trzeba przewijac cala strone recznie.
+Nad sekcja komponentow stoi wiec **siatka kafelkow**, a kafelek jest jednoczesnie nawigacja
+i podsumowaniem — pasek nawigacji, ktory nic nie mowi, marnuje najlepsze miejsce na stronie.
+
+- Kazdy `article.cmp` niesie `id="cmp-<id komponentu>"` i `scroll-margin-top`, zeby naglowek sekcji
+  nie chowal sie pod gorna krawedzia.
+- Kafelek to **zwykla kotwica** `<a class="jtile" href="#cmp-…">`, nie `onclick`. Dziala bez
+  JavaScriptu, otwiera sie w nowej karcie i zostawia adres w pasku, wiec da sie wyslac komus link
+  prosto do jednego komponentu.
+- Kafelek niesie: chipy platform, nazwe, **numer wersji z etykieta** (`Platform 4.18.26080.3`), stan
+  i date. Komponent o dwoch platformach ma dwie linie, nie sklejone `6.8.54 / 6.2608.5658`.
+- **Skrypt tylko podswietla.** `IntersectionObserver` zaznacza kafelek sekcji, ktora jest w polu
+  widzenia (`aria-current="true"`). Brak obserwatora nie psuje niczego.
+- `scroll-behavior:smooth` **tylko** w `@media (prefers-reduced-motion:no-preference)`.
+- Komponent z terminem ma kafelek z czerwona ramka. Zmierzone: jeden na siedem.
+
+**Panel `What this page tracks` opisuje KOMPONENTY, nie mechanike reguly.** Pierwsza wersja podawala
+tam „38 z 67 punktow", czyli stronę mówiącą o sobie samej; liczby reguly przeniesione sa do zdania
+o regule w lewej kolumnie. Panel podaje cztery liczby, kazda **wyliczona ze stanu**, nigdy wpisana:
+komponenty, wersje wraz z liczba platform, wydania z trescia, punkty wydawcow.
+
+**Rozbicia na „tyle poprawek, tyle nowosci" NIE ma i to jest swiadome.** Nazwy grup sa u kazdego
+wydawcy inne: Entra Connect ma `Added` / `Changed` / `Fixed`, GSA `Functional changes` /
+`Other changes`, MDE nazwy obszarow (`Data Loss Prevention`, `Identity`), a MDI i MDE na macOS nie
+maja grup wcale. Jedna liczba „poprawek" wymagalaby wspolnej taksonomii, ktorej ci wydawcy nie maja —
+czyli tego samego bledu co „wybralem te trzy poprawki", tylko w skali strony. Strona podaje wiec
+liczbe, ktora jest prawdziwa: **ile punktow siedzi w grupie nazwanej `Fixed` przez samego wydawce**,
+i mowi wprost, ze pozostali grupuja inaczej. Gdyby to rozbicie bylo potrzebne, droga bez zmyslania
+jest jedna: `releases[].groups[].kind` ze slownika `added|changed|fixed|other`, przypisywany przy
+odczycie zrodla, z jawna regula mapowania nazwy grupy wydawcy.
+
+**Kolor liczby tez cos znaczy i nie wprowadza nowego odcienia do palety**: `--accent` inwentarz,
+`--info` wersje, `--cond` wydania, `--ok` „nic nie wypadlo", `--bad` termin, `--warn` wartosc
+z luster, `--grey` zastrzezenie. Wszystkie siedem liczb — cztery statystyki i trzy flagi — stoi
+w **jednej kolumnie**, w ramkach o tej samej szerokosci. Wiersz z twardym terminem ma wlasne tlo
+i pasek na lewej krawedzi; jest jedynym takim wierszem.
+
+**Pulapka zmierzona przy tej zmianie:** pierwsza wersja dawala temu wierszowi ujemny margines, zeby
+tlo siegalo krawedzi panelu. Wygladalo dobrze i **lamalo wlasna regule §5x** — element byl szerszy
+od rodzica. Wciecie przeniesione na wszystkie wiersze, kolumna liczb sie zgadza, nic nie wystaje.
+
 ### Walidator — pozycje 37, 38 i 39 listy §0
 
 - **37** — kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`,
@@ -4335,6 +4412,9 @@ Kazdy komponent to jeden `<article class="cmp">`: szyna `<div class="rail">` po 
   `releases[].groups[].items[]` w bloku stanu. Roznica znaczy, ze przebieg cos wyciol.
 - **39** — reguła wyboru jest opublikowana (`div.rulebox`), kazdy wypromowany punkt niesie co
   najmniej jedna etykiete `.rcat`, i odsetek wypromowanych miesci sie w 30-70%.
+- **40** — kazdy `a.jtile` ma `href="#cmp-…"` wskazujacy **istniejacy** `article.cmp`; kafelkow jest
+  tyle co komponentow; a liczby w `What this page tracks` rownaja sie policzonym ze stanu. Kafelek
+  prowadzacy donikad jest gorszy niz brak kafelka, bo obiecuje i nie dowozi.
 
 ## 6. Kontrakt w stronie
 
