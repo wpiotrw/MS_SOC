@@ -1099,10 +1099,20 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    stara wartosc w `<del>`, nowa w `<ins>`. Pola porownywane, w tej kolejnosci: `deadline`,
    `status`, `published`, `tier`, `socWeight`, `tier0Touch`, `title`, `officialTitle`,
    `reference`, `fingerprint`, `url`, `linkStatus`, `product`, `area`.
-7. **Catalog — zakladki Graph API i Roles** — dodane / usuniete nazwy uprawnien i rol oraz wpisy,
+7. **Component versions** — sekcja `id="components"`. Tabela roznic pole po polu: `Version on <platforma>`
+   ze stara wartoscia w `<del>` i nowa w `<ins>`, dalej `State`, `Deadline`, `Provenance`, `Checked on`.
+   **Porownanie idzie PER PLATFORMA**: Authenticator, ktory ruszyl sie na iOS a nie na Androidzie, daje
+   jeden wiersz, nie dwa. Pod tabela, dla kazdego komponentu ktoremu ruszyla wersja, **blok
+   `<div class="relnew">` z trescia NOWEGO wydania** — grupy i punkty wydawcy, limit 20 punktow
+   i licznik „and N more in this release". Nowe wydanie nie istnialo w poprzednim stanie, wiec jest
+   roznica, a nie powtorzeniem briefu; to ono odpowiada na pytanie „co ta nowa wersja wnosi".
+   **Reguly promocji z §5ag tu sie NIE powtarza** — dwie kopie jednej reguly rozjezdzaja sie, wiec
+   zamiast wybierac, pokazuje sie cale wydanie z twardym limitem.
+
+8. **Catalog — zakladki Graph API i Roles** — dodane / usuniete nazwy uprawnien i rol oraz wpisy,
    ktorym ruszyl `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`. Dwie tabele,
    kazda z podpisem nazywajacym swoja zakladke.
-8. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
+9. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
 
 **Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
@@ -1473,6 +1483,16 @@ ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1p
 .field{font-weight:600;white-space:nowrap}
 .empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
  padding:12px 14px;color:var(--muted);margin:0}
+.relnew{border:1px solid var(--border);border-radius:10px;background:var(--surface);
+ padding:11px 13px;margin:10px 0 0}
+.relnew h3{font-size:13.5px;margin:0 0 2px}
+.relnew h3 .rv{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ins-fg);
+ background:var(--ins-bg);border-radius:6px;padding:1px 7px;margin-left:7px;font-size:12.5px}
+.relnew .grp{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+ font-weight:700;margin:9px 0 4px}
+.relnew ul{margin:0;padding-left:19px;font-size:13px}
+.relnew li{margin:0 0 5px}
+.relnew li:last-child{margin-bottom:0}
 caption.tabcap{caption-side:top;text-align:left;padding:9px 10px;background:var(--surface2);
  border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
 caption.tabcap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
@@ -1667,12 +1687,64 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                                                            sorted(comp_versions(c_).items())))
                            + '<span class="arrow">&rarr;</span><span class="none">no longer tracked</span>',
                            a_src(c_)]))
+    # Wersja, ktora sie ruszyla, ma TRESC — i to jest ta czesc, na ktorej czytelnik dziala.
+    # Nowe wydanie nie istnialo w poprzednim stanie, wiec jest roznica, nie powtorzeniem briefu.
+    # Reguly promocji z §5ag tu NIE powtarzamy: dwie kopie jednej reguly rozjezdzaja sie
+    # (to jest lekcja §0a). Zamiast tego pokazujemy CALE wydanie z twardym limitem i licznikiem.
+    REL_CAP = 20
+    def new_release(cur, prev_c):
+        # zwraca wydanie obecne w biezacym stanie, ktorego nie bylo w poprzednim
+        seen = {norm(r.get("version")) for r in ((prev_c or {}).get("releases") or [])}
+        for r in (cur.get("releases") or []):
+            if norm(r.get("version")) not in seen:
+                return r
+        return None
+
+    def relblock(c_, rel):
+        if not rel: return ""
+        o = ['<div class="relnew"><h3>%s<span class="rv">%s</span></h3>'
+             % (esc(c_.get("name") or c_.get("id")), esc(rel.get("version")))]
+        if rel.get("date"): o.append('<p class="note">%s</p>' % esc(rel.get("date")))
+        shown = 0
+        for g in (rel.get("groups") or []):
+            items = g.get("items") or []
+            if not items: continue
+            room = REL_CAP - shown
+            if room <= 0: break
+            if g.get("title"): o.append('<p class="grp">%s</p>' % esc(g["title"]))
+            o.append("<ul>%s</ul>" % "".join(
+                "<li>%s%s</li>" % (esc(i.get("text")),
+                                   (" " + '<a href="%s" target="_blank" rel="noopener">%s</a>'
+                                    % (esc(i.get("url")), esc(i.get("label") or "Source")))
+                                   if i.get("url") else "")
+                for i in items[:room]))
+            shown += min(len(items), room)
+        total = sum(len(g.get("items") or []) for g in (rel.get("groups") or []))
+        if total > shown:
+            o.append('<p class="more">… and %d more in this release. The full list is in the brief.</p>'
+                     % (total - shown))
+        o.append("</div>")
+        return "".join(o)
+
+    prevc = {c_.get("id"): c_ for c_ in (prev_st.get("components") or []) if c_.get("id")}
+    relblocks = []
+    for c_, deltas in cmod:
+        if any(l.startswith("Version on") for l, _, _ in deltas):
+            relblocks.append(relblock(c_, new_release(c_, prevc.get(c_.get("id")))))
+    for c_ in cadd:
+        rels = c_.get("releases") or []
+        if rels: relblocks.append(relblock(c_, rels[0]))
+    relblocks = [x for x in relblocks if x]
+
     out.append('<section id="components"><h2>Component versions</h2>'
                '<p class="note">Versions %d &rarr; %d tracked components. A component moves when a version '
-               'changes on any platform, when its release state changes, or when a deadline moves. Release '
-               'note contents are in the brief, not here &mdash; this page carries the difference.</p>%s</section>'
+               'changes on any platform, when its release state changes, or when a deadline moves. '
+               '<b>Where a version moved, what the new release contains is printed below the table</b> '
+               '&mdash; that release did not exist in the previous state, so it is a difference and not a '
+               'repeat of the brief.</p>%s</section>'
                % (cp, cc_, table(["Component", "Field", "Before &rarr; after", "Source"], crows,
-                                 "No tracked component moved.")))
+                                 "No tracked component moved.")
+                  + ("".join(relblocks) if relblocks else "")))
 
     # --- catalog
     def catrows(add, rem, mod, name):
