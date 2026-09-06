@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 39 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-40), plus **pozycje 34 dla przebiegu ZMIAN** — razem 40. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 46 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-47), plus **pozycje 34 dla przebiegu ZMIAN** — razem 47. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -84,10 +84,17 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
 | 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z pieciona wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcja `components` (§3a, §5ag) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z SZESCIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `components` (§5ag) i `endpoints` (§5ah), oraz rejestr dopisany przez `--ledger` (§5aj) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 41 | **`graphMap` w bloku `soc-brief-state`**: `commit`, `readOn`, slownik sciezek `p`, tablica metod `m`; blokow JSON na stronie nadal DWA | 5ah | `graphMap` obecne z czterema polami; `<script type="application/json">` = 2 |
+| 42 | **nic nie obciete z mapy endpointow**: suma par po dekodowaniu `eps` rowna sie liczbie par metoda-sciezka w pliku Microsoftu | 5ah | roznica zerowa (zmierzone 24 099 przy klonie `ec959bb`) |
+| 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
+| 44 | **derywacja rola-uprawnienie ma opublikowana regule i kolumne glebokosci**: `div.rulebox` w zakladce Graph API, `Depth` w kazdym wierszu, mianownik rowny liczbie endpointow z naglowka panelu | 5ah | zaden wiersz nie ma pokrycia >100%; mapa bez `roles` daje `BRAK „nie da sie sprawdzic"`, nie OK |
+| 45 | **rejestr zmian dopisany**: `site/data/changelog.json` ma wpis w `runs` na DZISIEJSZY przebieg, takze przy zerze zmian; zaden wpis nie starszy niz `retentionDays` | 5aj | `runs[-1].date` = data przebiegu; `min(seen)` w oknie |
+| 46 | **kazda zakladka tresciowa ma `details.chg14`**, licznik w podpisie rowny liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element | 5aj | licznik = wiersze dla kazdej zakladki |
+| 47 | **rejestr NIE zostal przepisany**: wpisy starsze niz dzisiaj sa identyczne z poprzednim przebiegiem | 5aj | roznica pusta; pierwszy przebieg daje `BRAK „brak punktu odniesienia"`, nie OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31 i 33 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45 i 47 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -506,6 +513,9 @@ class Scan(HTMLParser):
         # §5ag nawigacja: kotwice kafelkow, id sekcji, liczby panelu
         self.jtiles=[]; self.cmpids=set(); self.rbnums=[]
         self._innum=False; self._numbuf=[]
+        # §5ah / §5aj: bloki JSON musza zostac DWA, a pasek 14 dni ma miec prawdziwy licznik
+        self.jsonblocks=0; self._intb=False
+        self.chg14=[]; self._in14=0; self._c14=None; self._r14=0; self._insum14=False; self._sum14=[]; self._badge14=False
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
@@ -541,9 +551,18 @@ class Scan(HTMLParser):
         if tag=="a" and "jtile" in cls: self.jtiles.append(a.get("href") or "")
         if tag=="article" and "cmp" in cls and a.get("id"): self.cmpids.add(a["id"])
         if tag=="span" and "rb-num" in cls: self._innum=True; self._numbuf=[]
+        if tag=="script" and (a.get("type") or "").strip()=="application/json": self.jsonblocks+=1
+        if tag=="details" and "chg14" in cls:
+            self._in14+=1; self._c14=None; self._r14=0
+        elif self._in14 and tag=="details": self._in14+=1
+        if self._in14 and tag=="summary" and self._c14 is None: self._insum14=True
+        if self._insum14 and tag=="span" and "badge" in cls: self._badge14=True; self._sum14=[]
+        if self._in14 and tag=="tr" and self._intb: self._r14+=1
+        if tag=="tbody": self._intb=True
         if tag=="p" and "sec-note" in cls: self._grab=self.sec
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
+        if getattr(self,"_badge14",False): self._sum14.append(d)
         if self._insummary: self._sumbuf.append(d)
         if self._innum: self._numbuf.append(d)
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
@@ -564,12 +583,24 @@ class Scan(HTMLParser):
             self.restsummaries.append(" ".join("".join(self._sumbuf).split())); self._insummary=False
         if tag=="span" and self._innum:
             self.rbnums.append("".join(self._numbuf).strip()); self._innum=False
+        if tag=="tbody": self._intb=False
+        if tag=="span" and getattr(self,"_badge14",False):
+            m=re.search(r"\d+", "".join(self._sum14))
+            if m and self._c14 is None: self._c14=int(m.group(0))
+            self._badge14=False
+        if tag=="summary" and self._insum14:
+            if self._c14 is None: self._c14=-1
+            self._insum14=False
+        if tag=="details" and self._in14:
+            self._in14-=1
+            if self._in14==0:
+                self.chg14.append((self._c14 if self._c14 is not None else -1, self._r14))
         if tag=="section" and self._secstack:
             self._secstack.pop()
             self.sec=self._secstack[-1] if self._secstack else None
         if tag in ("script","style") and self._skip: self._skip-=1
 
-def gate(path):
+def gate(path, site=None):
     h=open(path,encoding="utf-8").read()
     st=blocks(h); s=Scan(); s.feed(h)
     items=(st["soc-brief-state"] or {}).get("items",[])
@@ -823,6 +854,90 @@ def gate(path):
     need("35b","pasek ma dwa opisane rzedy w jednej ramce .navstack",
          s.navstack==1 and s.navrows==2,
          "navstack=%d (ma byc 1), navrow=%d (ma byc 2)" % (s.navstack, s.navrows))
+
+    # ---- 41-44: mapa Graph API (§5ah). Bramka czyta plik, wiec sprawdza, czy strona NIESIE
+    # to, co przebieg twierdzi, ze przeczytal. Liczbe par podaje sam przebieg w `pairs`;
+    # asercja pyta, czy tyle samo da sie z niej odczytac. Mapa bez `pairs` to brak sprawdzenia.
+    gm=(st["soc-brief-state"] or {}).get("graphMap") or {}
+    need("41","graphMap w bloku stanu, blokow JSON nadal dwa",
+         bool(gm) and all(k in gm for k in ("commit","readOn","p","m")) and s.jsonblocks==2,
+         "brak graphMap" if not gm else "brakuje pol %s; blokow JSON %d" % (
+             [k for k in ("commit","readOn","p","m") if k not in gm], s.jsonblocks))
+    if gm:
+        def dec(txt):
+            n=0
+            for grp in (txt or "").split(";"):
+                if not grp or ":" not in grp: continue
+                for part in grp.split(":",1)[1].split(","):
+                    if "-" in part:
+                        a,b=part.split("-",1); n+=int(b)-int(a)+1
+                    elif part: n+=1
+            return n
+        gp=gm.get("perms") or {}
+        got=sum(dec(v.get("eps")) for v in gp.values())
+        want=gm.get("pairs")
+        need("42","nic nie obciete z mapy endpointow",
+             isinstance(want,int) and got==want,
+             "brak pola pairs — nie da sie sprawdzic" if not isinstance(want,int)
+             else "zdekodowano %d par, przebieg przeczytal %d" % (got,want))
+        noschema=[k for k,v in gp.items()
+                  if not all(isinstance(x,dict) and "l" in x and "c" in x for x in (v.get("s") or {}).values())]
+        need("43","privilegeLevel i zgoda na kazdym schemacie, chip zgody w dwoch kolorach",
+             not noschema and "admin consent required" in h and "no admin consent" in h
+             and "t-bad" in h and "t-ok" in h,
+             "bez pol l/c: %s; czerwony=%s zielony=%s" % (
+                 noschema[:3], "admin consent required" in h, "no admin consent" in h))
+        withroles={k:v for k,v in gp.items() if v.get("roles")}
+        over=[k for k,v in withroles.items() if any((r[1] if len(r)>1 else 0)>100 for r in v["roles"])]
+        need("44","derywacja rol ma regule, glebokosc i sensowne pokrycie",
+             bool(withroles) and not over and s.rulebox>=1
+             and ("whole resource" in h and "selected properties only" in h),
+             "zadne uprawnienie nie ma tablicy roles — nie da sie sprawdzic" if not withroles
+             else "pokrycie >100%% w %s; rulebox=%d; kolumna Depth=%s" % (
+                 over[:3], s.rulebox,
+                 "whole resource" in h and "selected properties only" in h))
+    else:
+        for no,name in (("42","mapa endpointow"),("43","privilegeLevel i zgoda"),("44","derywacja rol")):
+            need(no,name,False,"brak graphMap — nie da sie sprawdzic")
+    # ---- 45-47: rejestr 14 dni (§5aj). Potrzebuje katalogu site/, wiec bez niego
+    # pozycje sa BRAKIEM z powodem, nigdy cicho pominiete.
+    import datetime as _d2, os as _os
+    if site:
+        cl_p=_os.path.join(site,"data","changelog.json")
+        prev_p=_os.path.join(site,"data","changelog.prev.json")
+        if not _os.path.exists(cl_p):
+            need("45","rejestr zmian dopisany",False,"brak %s" % cl_p)
+            need("47","rejestr nie przepisany",False,"brak rejestru")
+        else:
+            cl=json.load(open(cl_p,encoding="utf-8"))
+            runs=cl.get("runs") or []; ent=cl.get("entries") or []
+            ret=cl.get("retentionDays") or 90
+            today=(st["soc-brief-state"] or {}).get("briefDate") or _d2.date.today().isoformat()
+            oldest=min((e.get("seen","") for e in ent), default=today)
+            too_old=(_d2.date.fromisoformat(today)-_d2.date.fromisoformat(oldest)).days > ret if oldest else False
+            need("45","rejestr zmian dopisany, wpis runs na dzis, nic starszego niz retencja",
+                 any(r.get("date")==today for r in runs) and not too_old,
+                 "runs bez dzisiejszej daty %s" % today if not any(r.get("date")==today for r in runs)
+                 else "najstarszy wpis %s przy retencji %d dni" % (oldest,ret))
+            if not _os.path.exists(prev_p):
+                need("47","rejestr nie przepisany",False,
+                     "brak changelog.prev.json — brak punktu odniesienia, nie da sie sprawdzic")
+            else:
+                prev=json.load(open(prev_p,encoding="utf-8"))
+                key=lambda e:(e.get("seen"),e.get("tab"),e.get("kind"),e.get("id"),e.get("field"))
+                old_before={key(e):e for e in (prev.get("entries") or []) if e.get("seen","")<today}
+                new_before={key(e):e for e in ent if e.get("seen","")<today}
+                changed=[k for k,v in old_before.items() if new_before.get(k)!=v]
+                need("47","rejestr nie przepisany — wpisy sprzed dzis identyczne",
+                     not changed, "%d wpisow z przeszlosci zmieniono albo usunieto" % len(changed))
+    else:
+        need("45","rejestr zmian dopisany",False,"nie podano katalogu site/ — uruchom gate.py <html> <site>")
+        need("47","rejestr nie przepisany",False,"nie podano katalogu site/")
+    need("46","kazda zakladka tresciowa ma pasek 14 dni z prawdziwym licznikiem",
+         bool(s.chg14) and all(c==r for c,r in s.chg14),
+         "brak details.chg14" if not s.chg14
+         else "licznik rozny od liczby wierszy w %d zakladkach" % sum(1 for c,r in s.chg14 if c!=r))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -835,8 +950,27 @@ def gate(path):
     return 0
 
 if __name__ == "__main__":
-    sys.exit(gate(sys.argv[1]))
+    sys.exit(gate(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None))
 ```
+
+**Rozszerzone 6 wrzesnia 2026 o pozycje 41-47 (§5ah mapa Graph API, §5aj rejestr 14 dni).**
+Bramka przyjmuje teraz drugi argument: `python3 gate.py <gotowy.html> <katalog site/>`. Bez niego
+pozycje 45 i 47 daja `BRAK „nie podano katalogu site/"` — **nie sa pomijane w ciszy**, bo to ten sam
+blad co asercja przechodzaca na pustych danych. Pozycja 42 jest tu najwazniejsza i odpowiada na
+pytanie „czy przebieg przepisal cala mape": **dekoduje `eps` na gotowej stronie i porownuje z liczba
+par, ktora przebieg sam zapisal w `pairs`.** Roznica znaczy, ze cos obcial, i nie da sie jej
+wytlumaczyc gustem. Kontrola regresji na osmiu wariantach: (a) poprawna strona i poprawny rejestr —
+`41-47 OK`; (b) `pairs` 9 przy piu zdekodowanych — `42 BRAK` z obiema liczbami; (c) chip mowi
+7 zmian przy trzech wierszach — `46 BRAK`; (d) mapa bez tablicy `roles` — `44 BRAK „nie da sie
+sprawdzic"`, nie OK; (e) stan bez `graphMap` — `41` BRAK plus `42-44 BRAK „nie da sie sprawdzic"`;
+(f) rejestr z przepisanym wpisem z przeszlosci — `47 BRAK` z liczba; (g) rejestr bez dzisiejszego
+wpisu w `runs` — `45 BRAK`; (h) wpis starszy niz retencja — `45 BRAK` z data. Pozycje 0-40 daja
+przy tym **identyczne werdykty co przed zmiana** — sprawdzone diffem calego wyjscia.
+
+Licznik paska 14 dni czyta sie **z chipa w podpisie, nie z calego podpisu**: pierwsza wersja brala
+pierwsza liczbe z tekstu i trafiala w „last **14** days" zamiast w liczbe zmian. To ta sama rodzina
+bledow co podciag „61"/„120" w pozycji 32 — asercja, ktora patrzy na zla liczbe, przechodzi albo
+zapala sie z niewlasciwego powodu.
 
 **Rozszerzone 6 wrzesnia 2026 o pozycje 40 (§5ag, kafelki nawigacji) — i pierwsza wersja tej asercji
 byla zla.** Pytala `all(w in nums for w in want)`, czyli czy liczba GDZIEKOLWIEK wystepuje w panelu,
@@ -1122,7 +1256,7 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
    poprawna i tez sie pokazuje.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
-   Areas touched`, jeden wiersz na zakladke, ZAWSZE piec wierszy (§3a).
+   Areas touched`, jeden wiersz na zakladke, **ZAWSZE SZESC wierszy** (§3a).
 4. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, **jedna tabela
    na zakladke**, z `<caption class="tabcap">` niosacym nazwe zakladki, licznik i obszary;
    sortowane `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
@@ -1146,7 +1280,14 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
 8. **Catalog — zakladki Graph API i Roles** — dodane / usuniete nazwy uprawnien i rol oraz wpisy,
    ktorym ruszyl `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`. Dwie tabele,
    kazda z podpisem nazywajacym swoja zakladke.
-9. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
+9. **Graph endpoints** — sekcja `id="endpoints"` (§5ah). Porownanie `graphMap` PARA PO PARZE:
+   endpointy, ktore uprawnienie zyskalo, ktore stracilo, oraz ruch `privilegeLevel`
+   i `requiresAdminConsent`. **To sa endpointy, nie pozycje**, i dlatego maja WLASNY, szosty wiersz
+   w podsumowaniu — doliczenie ich do wiersza `Graph API` zmieszaloby dwie rozne jednostki.
+   Nota sekcji mowi to, co czyni ja wazna dla SOC: **endpoint dopisany do juz nadanej zgody nie
+   wywoluje zadnego promptu, wiec nie ma go w sladzie audytowym** (to jest `Existing permission
+   gained reach` z §5g, tylko policzone).
+10. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
 
 **Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
@@ -1169,9 +1310,10 @@ patrzyl na dziewiec zakladek, wieczorem pyta o te same dziewiec — a nie o jede
 2. **Today i Products nie sa niczyim domem.** Today jest wyborem z tych samych pozycji (§5m),
    a Products drugim widokiem okna — liczenie ich osobno podwoiloby kazda zmiane. Nota sekcji
    mowi to wprost, zeby czytelnik nie szukal ich w tabeli.
-3. **Podsumowanie ma PIEC wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
+3. **Podsumowanie ma SZESC wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
    „sprawdzone, nic sie nie ruszylo" i jest wynikiem; brak wiersza znaczy „nie wiadomo".
-   **Od 6 wrzesnia 2026 wierszy jest piec** — dochodzi `Component versions` (§5ag), ktorej domem jest
+   **Od 6 wrzesnia 2026 wierszy jest szesc** — dochodzi `Component versions` (§5ag) oraz
+   `Graph endpoints` (§5ah, jednostka to endpoint, nie pozycja), ktorej domem jest
    tablica `components` w bloku stanu, porownywana PER PLATFORMA: Authenticator, ktory ruszyl sie na
    iOS a nie na Androidzie, daje jeden wiersz roznicy, nie dwa.
 4. **Kolumna `Areas touched`** wymienia wartosci `product` dotkniete w tej zakladce, do osmiu, potem
@@ -1231,8 +1373,14 @@ w chip, ale i w `<tr class="t0">`, malujac caly wiersz na rozowo (teraz `span.t0
 Zapisz do `/tmp/make_diff.py` i uruchom:
 
 ```
-python3 /tmp/make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label "..."]
+python3 /tmp/make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label "..."] [--ledger site/data/changelog.json]
 ```
+
+**`--ledger` jest OBOWIAZKOWA w obu przebiegach dnia** (§5aj). Ta sama funkcja, ktora liczy strone,
+dopisuje rejestr 14-dniowy; przed dopisaniem kopiuje `changelog.json` do `changelog.prev.json`,
+zeby pozycja 47 listy §0 miala z czym porownac. Zmierzone: dopisanie tych samych dwoch stanow
+drugi raz tego samego dnia daje **+0 wpisow** (deduplikacja po `(seen, tab, kind, id, field)`),
+a pusty rejestr powstaje sam przy pierwszym uruchomieniu.
 
 **Kod wyjscia 1 znaczy NIE PUBLIKUJ** — wbudowana bramka `verify()` odrzuca strone, ktora ma
 zakladki, kontener katalogu, blok JSON, brak ktorejs z czterech sekcji, brak linku powrotnego,
@@ -1312,12 +1460,12 @@ TIER_TAB = {
     "recently-elapsed":       "Deadlines",
     "horizon":                "Deadlines",
 }
-TAB_ORDER = ["New", "Deadlines", "Graph API", "Roles", "Component versions"]
+TAB_ORDER = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions"]
 # Zakladki, ktore ta strona potrafi zliczyc, i ktore dostaja wiersz ZAWSZE — takze z trzema zerami.
 # Today i Products nie sa niczyim domem: Today jest wyborem (§5m), a Products drugim widokiem tych
 # samych pozycji okna, wiec ich ruch jest juz policzony w New i Deadlines. Liczenie ich osobno
 # podwoiloby kazda zmiane.
-SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Roles", "Component versions"]
+SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions"]
 
 def tab_of(it):
     t = TIER_TAB.get(norm(it.get("tier")))
@@ -1397,6 +1545,62 @@ def diff_components(prev, curr):
                 deltas.append((lab, norm(p[k].get(f)), norm(c[k].get(f))))
         if deltas: changed.append((c[k], deltas))
     return added, removed, changed, len(p), len(c)
+
+# ---------- mapa Graph API (§5ah) ----------
+
+def gm_paths(st):
+    """{uprawnienie: {(metoda, sciezka)}} — dekoduje `eps` ze slownika i przedzialow."""
+    gm = (st or {}).get("graphMap") or {}
+    M, P = gm.get("m") or [], gm.get("p") or []
+    out = {}
+    for name, d in (gm.get("perms") or {}).items():
+        s_ = set()
+        for grp in (d.get("eps") or "").split(";"):
+            if not grp or ":" not in grp: continue
+            mi, body = grp.split(":", 1)
+            try: meth = M[int(mi)]
+            except Exception: continue
+            for part in body.split(","):
+                if not part: continue
+                if "-" in part:
+                    a, b = part.split("-", 1)
+                    rng = range(int(a), int(b) + 1)
+                else:
+                    rng = [int(part)]
+                for i in rng:
+                    if 0 <= i < len(P): s_.add((meth, P[i]))
+        out[name] = s_
+    return out
+
+def gm_schemes(st):
+    gm = (st or {}).get("graphMap") or {}
+    return {n: (d.get("s") or {}) for n, d in (gm.get("perms") or {}).items()}
+
+def diff_graphmap(prev_st, curr_st):
+    """Zwraca (wiersze, liczniki). Wiersz = (uprawnienie, rodzaj, tekst przed, tekst po)."""
+    pp, cp = gm_paths(prev_st), gm_paths(curr_st)
+    ps, cs = gm_schemes(prev_st), gm_schemes(curr_st)
+    rows, add, rem, chg = [], 0, 0, 0
+    for name in sorted(set(pp) | set(cp)):
+        a, b = pp.get(name, set()), cp.get(name, set())
+        gained, lost = sorted(b - a), sorted(a - b)
+        for m, p in gained[:40]:
+            rows.append((name, "endpoint added", "", "%s %s" % (m, p))); add += 1
+        if len(gained) > 40:
+            rows.append((name, "endpoint added", "", "\u2026 and %d more" % (len(gained) - 40)))
+        add += max(0, len(gained) - 40)
+        for m, p in lost[:40]:
+            rows.append((name, "endpoint removed", "%s %s" % (m, p), "")); rem += 1
+        rem += max(0, len(lost) - 40)
+        for k in sorted(set(ps.get(name, {})) | set(cs.get(name, {}))):
+            o, n = (ps.get(name) or {}).get(k) or {}, (cs.get(name) or {}).get(k) or {}
+            if norm(o.get("l")) != norm(n.get("l")):
+                rows.append((name, "privilege level \u00b7 " + k, norm(o.get("l")), norm(n.get("l")))); chg += 1
+            if norm(o.get("c")) != norm(n.get("c")):
+                rows.append((name, "admin consent \u00b7 " + k,
+                             "required" if o.get("c") else "not required",
+                             "required" if n.get("c") else "not required")); chg += 1
+    return rows, add, rem, chg
 
 # ---------- render ----------
 
@@ -1603,6 +1807,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     out.append('<li><b>%d</b> items in state <span class="sub">was %d</span></li>' % (nc, np_))
     out.append('</ul></div></header><div class="wrap">')
 
+    ge_rows, ge_add, ge_rem, ge_chg = diff_graphmap(prev_st, curr_st)
+
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
     # To jest odpowiedz na „jakies podsumowanie tez zbiorcze, co w jakich zakladkach
     # i obszarach sie zmienilo". Zero jest wartoscia i tez ma wiersz.
@@ -1622,6 +1828,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         elif tab == "Roles":
             na, nr, nc = len(radd), len(rrem), len(rmod)
             ar = "Entra directory roles"
+        elif tab == "Graph endpoints":
+            na, nr, nc = ge_add, ge_rem, ge_chg
+            ar = "what already-consented permissions can call"
         elif tab == "Component versions":
             na, nr, nc = len(cadd), len(crem), len(cmod)
             ar = " &middot; ".join(esc(x.get("name") or x.get("id"))
@@ -1780,6 +1989,28 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                                  "No tracked component moved.")
                   + ("".join(relblocks) if relblocks else "")))
 
+    # --- Graph endpoints (§5ah): co uprawnienie potrafi wywolac, pole po polu
+    erows = []
+    for nm, what, before, after in ge_rows[:250]:
+        erows.append(("", ["<b>%s</b>" % esc(nm), '<span class="field">%s</span>' % esc(what),
+                           ("<del>%s</del>" % esc(before) if before else '<span class="none">not there</span>')
+                           + '<span class="arrow">&rarr;</span>'
+                           + ("<ins>%s</ins>" % esc(after) if after else '<span class="none">gone</span>')]))
+    emore = ('<p class="more">… and %d more endpoint rows.</p>' % (len(ge_rows) - 250)) if len(ge_rows) > 250 else ""
+    pn = len((prev_st.get("graphMap") or {}).get("perms") or {})
+    cn2 = len((curr_st.get("graphMap") or {}).get("perms") or {})
+    out.append('<section id="endpoints"><h2>Graph endpoints</h2>'
+               '<p class="note">What each permission can call, compared pair by pair from '
+               '<span class="mono">graphMap</span> in the two state blocks: %d &rarr; %d permissions carrying a '
+               'path set. An endpoint appearing here means Microsoft widened or narrowed what an already-granted '
+               'consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. '
+               'These are endpoints, not items, which is why they have their own row in the summary above.</p>%s%s</section>'
+               % (pn, cn2,
+                  table(["Permission", "What", "Before &rarr; after"], erows,
+                        "No permission gained or lost an endpoint, and no privilege level moved.",
+                        '<b>Graph endpoints</b> &middot; +%d / &minus;%d / %d edited' % (ge_add, ge_rem, ge_chg)),
+                  emore))
+
     # --- catalog
     def catrows(add, rem, mod, name):
         r = []
@@ -1844,7 +2075,7 @@ def verify(page):
             if t=="ins": s.inss+=1
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
-    for need in ("bytab","added","removed","changed","components","catalog"):
+    for need in ("bytab","added","removed","changed","components","endpoints","catalog"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -1879,13 +2110,62 @@ def verify(page):
         if bad: e.append("%d wierszy w 'changed' nie pokazuje roznicy (<del>/<ins>)" % len(bad))
     return e
 
+def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
+    """§5aj — rejestr DOPISYWANY. Ta sama funkcja, ktora liczy strone, pisze rejestr:
+    dwa niezalezne liczenia tej samej rzeczy rozjezdzaja sie (§0a)."""
+    today = norm(curr_st.get("briefDate")) or datetime.date.today().isoformat()
+    if os.path.exists(path):
+        cl = json.load(open(path, encoding="utf-8"))
+        # kopia odniesienia dla pozycji 47 listy §0 — bez niej nie da sie sprawdzic,
+        # czy przebieg nie przepisal historii
+        json.dump(cl, open(os.path.join(os.path.dirname(path), "changelog.prev.json"),
+                           "w", encoding="utf-8"), ensure_ascii=False)
+    else:
+        cl = {"retentionDays": 90, "pageWindowDays": 14, "runs": [], "entries": []}
+    seen = {(e.get("seen"), e.get("tab"), e.get("kind"), e.get("id"), e.get("field"))
+            for e in cl.get("entries") or []}
+    new = []
+    def put(tab, kind_, iid, field, before, after, it=None):
+        k = (today, tab, kind_, iid, field)
+        if k in seen: return
+        seen.add(k)
+        it = it or {}
+        new.append({"seen": today, "tab": tab, "kind": kind_, "id": iid, "field": field,
+                    "before": before or None, "after": after or None,
+                    "product": norm(it.get("product")) or None,
+                    "weight": it.get("socWeight"), "tier0": bool(it.get("tier0Touch")),
+                    "msDate": norm(it.get("published")) or norm(it.get("changed")) or None,
+                    "url": norm(it.get("url")) or None})
+    added, removed, changed, _, _ = diff_items(prev_st, curr_st)
+    for i in added:   put(tab_of(i), "added", i.get("id"), None, None, None, i)
+    for i in removed: put(tab_of(i), "removed", i.get("id"), None, None, None, i)
+    for i, deltas in changed:
+        for lab, a, b in deltas: put(tab_of(i), "changed", i.get("id"), lab, a, b, i)
+    pc, cc = prev_cat or {}, curr_cat or {}
+    for which, tab in (("graph", "Graph API"), ("roles", "Roles")):
+        a, r, m, _, _ = diff_catalog(pc, cc, which)
+        for n in a: put(tab, "added", n, None, None, None)
+        for n in r: put(tab, "removed", n, None, None, None)
+        for n, f, o, v in m: put(tab, "changed", n, f, o, v)
+    for nm, what, before, after in diff_graphmap(prev_st, curr_st)[0]:
+        put("Graph endpoints", "changed", nm, what, before, after)
+    cl["entries"] = (cl.get("entries") or []) + new
+    keep = datetime.date.today() - datetime.timedelta(days=cl.get("retentionDays", 90))
+    cl["entries"] = [e for e in cl["entries"] if (e.get("seen") or "9999") >= keep.isoformat()]
+    cl["runs"] = [r for r in (cl.get("runs") or []) if not (r.get("date") == today and r.get("kind") == kind)]
+    cl["runs"].append({"date": today, "kind": kind, "at": when, "entries": len(new)})
+    cl["runs"] = sorted(cl["runs"], key=lambda r: (r.get("date"), r.get("at") or ""))[-200:]
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    json.dump(cl, open(path, "w", encoding="utf-8"), ensure_ascii=False)
+    return len(new), len(cl["entries"])
+
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     opts = sys.argv[1:]
     home = opts[opts.index("--home") + 1] if "--home" in opts else "/"
     label = opts[opts.index("--label") + 1] if "--label" in opts else "morning pass → afternoon pass"
     if len(args) < 3:
-        raise SystemExit("uzycie: make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label ...]")
+        raise SystemExit("uzycie: make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label ...] [--ledger site/data/changelog.json]")
     ps, pc = load_state(args[0])
     cs, cc = load_state(args[1])
     when = datetime.datetime.now().strftime("%H:%M")
@@ -1898,6 +2178,11 @@ if __name__ == "__main__":
     os.makedirs(os.path.dirname(os.path.abspath(args[2])), exist_ok=True)
     open(args[2], "w", encoding="utf-8").write(page)
     print("OK  %s  %d B" % (args[2], len(page.encode())))
+    if "--ledger" in opts:
+        lp = opts[opts.index("--ledger") + 1]
+        n, tot = ledger(lp, ps, pc, cs, cc, when,
+                        "diff" if "--home" in opts and home == "/" else "morning")
+        print("OK  %s  +%d wpisow, razem %d" % (lp, n, tot))
 ```
 
 ### Gdzie to wchodzi w dzien
@@ -2085,17 +2370,37 @@ cokolwiek znaczyc.
 
 RSC to plaska tabela: `| Name | ID | Display text | Description |`.
 
-Trackery pokazuja „Privilege level — Level 2 · Moderate" i „Roles that support this permission".
-**Microsoft nie publikuje ani jednego, ani drugiego** — to wlasna pochodna trackera. Katalog wozi
-`notPublished` i renderuje je w kazdym panelu szczegolow, zeby brak byl powiedziany, a nie zgadniety:
+Trackery pokazuja „Privilege level — Level 2 · Moderate", „Roles that support this permission"
+i „Request samples". **Ta sekcja twierdzila do 6 wrzesnia 2026, ze Microsoft nie publikuje ZADNEGO
+z tych trzech. Dwa z tych trzech twierdzen byly falszywe** — i to jest dokladnie ten sam blad co
+falszywy negatyw z sekcji 5 (`UserAuthMethod-*.Delete.All` odrzucone jako „zmyslone", bo nie bylo
+ich na Learn). Nie ma ich w `permissions-reference`, ale sa w `permissions/new/permissions.json`
+w repo `microsoftgraph/microsoft-graph-devx-content`, ktore i tak klonujemy (§5d).
+
+Zmierzone 6 wrzesnia 2026 na klonie `ec959bb` z 4 wrzesnia — 923 uprawnienia:
+
+| co tracker pokazuje | czy Microsoft to publikuje | gdzie |
+|---|---|---|
+| **Privilege level 1-4** | **TAK** — `schemes[<typ>].privilegeLevel` na **903 z 923** uprawnien; rozklad per schemat: 8 razy 1, 236 razy 2, 1 132 razy 3, 84 razy 4 | `permissions.json` |
+| **Request samples** (co uprawnienie moze wywolac) | **TAK** — `pathSets[]` z `methods`, `paths` i `schemeKeys`; **24 180 par metoda-sciezka** na **7 430** roznych sciezkach | `permissions.json` |
+| **Roles that support this permission** | **NIE** — pole roli nie istnieje nigdzie w tym pliku | — |
+
+Trzeci wiersz jest jedynym prawdziwym brakiem i zostaje w `notPublished`. Sprawdzone tego dnia
+takze po drugiej stronie: **139 plikow rol w `MicrosoftDocs/entra-docs` nie wymienia ani jednego
+uprawnienia Graph**, a dokumentacja API Graph nazywa role na **104 z 11 937 stron (0,9%)**.
 
 ```json
-"notPublished":{"graph":[["Privilege level","Microsoft publishes no severity or privilege tier …"],
-  ["Roles that support this permission","Microsoft publishes no permission-to-role mapping …"],
-  ["Request samples","documented on each API method page, not the permissions reference …"]]}
+"notPublished":{"graph":[["Roles that support this permission",
+  "Microsoft publishes no permission-to-role mapping: no role field in permissions.json, no Graph permission named in any of the 139 Entra role files, and a role named on 104 of 11 937 API reference pages. This brief derives a candidate list and says so; see the rule printed in the tab."]]}
 ```
 
-Nigdy nie drukuj zmyslonej severity z trackera obok pol Microsoftu — czyta sie ja wtedy jak jego.
+**Privilege level i lista endpointow przestaja wiec byc „pochodna trackera" — sa danymi Microsoftu
+i renderuje sie je jak kazde inne** (§5ah). Nigdy natomiast nie drukuj severity, ktorej Microsoft
+nie wydal, obok jego pol — czyta sie ja wtedy jak jego.
+
+**Nauka ogolna, wazniejsza niz same trzy wiersze: „Microsoft tego nie publikuje" jest TWIERDZENIEM
+i wymaga daty oraz nazwy sprawdzonego pliku, tak samo jak kazde inne.** Zapisane bez sprawdzenia,
+zyje w tym pliku miesiacami i kaze kolejnym przebiegom nie szukac.
 
 ## 5c. Katalog: klikalnosc i pasek wyszukiwania
 
@@ -4415,6 +4720,387 @@ od rodzica. Wciecie przeniesione na wszystkie wiersze, kolumna liczb sie zgadza,
 - **40** — kazdy `a.jtile` ma `href="#cmp-…"` wskazujacy **istniejacy** `article.cmp`; kafelkow jest
   tyle co komponentow; a liczby w `What this page tracks` rownaja sie policzonym ze stanu. Kafelek
   prowadzacy donikad jest gorszy niz brak kafelka, bo obiecuje i nie dowozi.
+
+## 5ah. Zakladka Graph API — co uprawnienie POTRAFI WYWOLAC, i ktora rola to pokrywa
+
+Wlasciciel zglosil 6 wrzesnia 2026 szesc rzeczy naraz, pokazujac obok naszej zakladki strone
+`msgraphpermissions.com`: szczegoly rol renderuja sie rozstrzelone albo nachodza na siebie; nie ma
+dopasowania doslownego; **nie widac, na jakie GET / POST / PATCH pozwala uprawnienie**; nie widac,
+ktore role je maja; wejscie w zakladke od razu wlacza filtr `Microsoft changes` zamiast `All`.
+I zdanie, ktore jest tresc tej sekcji: **„najwazniejsze — znajdz to, czego nie umiemy wyswietlic"**.
+
+Odpowiedz nie byla w powloce ani w CSS. **Byla w pliku, ktory klonujemy od 29 sierpnia i z ktorego
+czytalismy jedno pole.** `permissions/new/permissions.json` w `microsoftgraph/microsoft-graph-devx-content`
+niesie na kazde uprawnienie pelna liste endpointow z metodami, poziom uprawnienia i flage zgody
+administratora. §5b twierdzila, ze Microsoft tego nie publikuje — i to twierdzenie bylo falszywe
+przez tydzien, bo nikt go nie sprawdzil.
+
+Zmierzone 6 wrzesnia 2026 na klonie `ec959bb` z 4 wrzesnia:
+
+| co | ile |
+|---|---|
+| uprawnien w pliku | **923** |
+| uprawnien z `pathSets` | 879 |
+| par metoda-sciezka | **24 099** |
+| roznych sciezek | **7 430** |
+| par oznaczonych `isLeastPrivilege` | 11 098 |
+| rozklad metod | GET 13 832 · POST 5 781 · PATCH 2 187 · DELETE 2 131 · PUT 249 |
+| uprawnien z `privilegeLevel` | **903 z 923**; poziomow per schemat: 8 razy 1, 236 razy 2, 1 132 razy 3, 84 razy 4 |
+| identyfikatorow uprawnien (GUID) | 1 979 |
+
+Kontrola trafnosci: `User.Read` daje **205 par** — tyle samo, ile tracker nazywa „205 samples".
+Cztery endpointy `User.Read` weszly do pliku **14 sierpnia 2026, commitem `3f8f987`** (`git log -S`),
+wiec `sourceChanged` dla nich jest data Microsoftu, a nie data naszego odczytu (§5q).
+
+### Kontrakt danych — `graphMap` W BLOKU `soc-brief-state`
+
+**Nie dokladasz trzeciego bloku `<script type="application/json">`.** Bramka lustra (§0a) zada
+DOKLADNIE dwoch i trzeci wywraca caly przebieg — sprawdzone. Mapa jest wiec kluczem w istniejacym
+bloku stanu.
+
+```json
+"graphMap":{
+  "commit":"ec959bb (2026-09-04)", "readOn":"2026-09-06",
+  "m":["GET","POST","PATCH","DELETE","PUT"],
+  "p":["/accessreviews","/accessreviews/{id}", "…7430 sciezek, slownik"],
+  "perms":{
+    "User.Read":{
+      "eps":"0:142-154,156,158-159,164-174;1:3206,3208",
+      "least":"0:142-154,164-174",
+      "s":{"DelegatedWork":{"l":2,"c":0},"DelegatedPersonal":{"l":2,"c":0}},
+      "ids":{"DelegatedWork":"e1fe6dd8-ba31-4d61-89e7-88639da4683d"},
+      "new":{"3206":"2026-08-14"},
+      "roles":[["Global Administrator",96,1],["User Administrator",90,1],["Global Reader",84,1]]
+    }
+  }
+}
+```
+
+- **`eps` i `least` to lancuchy `<indeks metody>:<przedzialy indeksow sciezek>`**, przedzialy
+  rozdzielone przecinkiem, grupy metod srednikiem. `142-154` znaczy trzynascie kolejnych sciezek.
+- **`s`** — schemat: `l` to `privilegeLevel` 1-4, `c` to `requiresAdminConsent` jako 0/1.
+- **`new`** — indeks sciezki na date wejscia do pliku, wyliczona `git log -S` (§5d), **data
+  Microsoftu, nie nasza**.
+- **`roles`** — wynik derywacji nizej: `[nazwa, pokrycie w procentach, 1 gdy caly zasob]`, najwyzej
+  dziesiec pozycji na uprawnienie.
+
+**Kodowanie mierzone, nie wybrane z gustu** — cztery warianty tej samej mapy, ten sam dzien:
+
+| wariant | surowo | gzip |
+|---|---|---|
+| naiwnie, `{"m":"GET","p":"/users"}` na pare | 1,77 MB | 101 kB |
+| slownik sciezek + listy indeksow | 0,67 MB | 83 kB |
+| **slownik sciezek + przedzialy indeksow** | **0,60 MB** | **67 kB** |
+| tylko `isLeastPrivilege` | 0,58 MB | 86 kB |
+
+Wariant trzeci jest kanoniczny. Ostatni odrzucony nie dla rozmiaru, tylko dlatego, ze **traci
+odpowiedz na pytanie „co ta zgoda faktycznie otwiera"** — a to jest cale pytanie SOC.
+
+Koszt calej strony: 5,65 MB / 433 kB gzip przed, **6,32 MB / 537 kB gzip po** (+12% surowo,
++24% gzip). W przegladarce `JSON.parse` 1,6 ms, rozwiniecie jednego uprawnienia 0,8 ms. Budowa:
+sparse clone devx 1,9 s, parsowanie 0,02 s, derywacja rol **0,4 s**. Bramka §0b 0,29 → 0,30 s,
+lustro §0a 0,59 → 0,47 s, `make_diff.py` 0,03 → 0,04 s.
+
+### Co panel uprawnienia pokazuje, w tej kolejnosci
+
+1. **At a glance** — `objectType`, API, **privilege level per schemat**, **admin consent per
+   schemat**, liczba endpointow z rozbiciem na metody, liczba `isLeastPrivilege`, kazdy GUID.
+2. **Published by Microsoft** — na schemat: display name i opis, dokladnie jak w pliku.
+3. **What this permission can call** — `<details class="eps">`, **domyslnie ZWINIETE**, w podpisie
+   liczba endpointow. W srodku pasek filtrow metod (`All 205`, `GET 179`, `POST 18`, `PATCH 4`,
+   `DELETE 4`, `Least privilege 163`) i tabela `Method | Endpoint | Privilege | Change`.
+4. **Entra roles that can do this** — derywacja z regula wypisana na stronie (nizej).
+5. **APIs an app registration can be granted permissions on** — sekcja istniejaca, bez zmian.
+6. **What Microsoft changed** — sekcja istniejaca, bez zmian.
+
+**Kolejnosc jest wiazaca.** Lista endpointow jest zwinieta i stoi NAD dwiema starymi sekcjami, zeby
+nie konkurowaly o gore panelu; wlasciciel poprosil o to wprost. Sekcja 3 rozwinieta ma ~7 400 px
+wysokosci, zwinieta 44 px — pomiar, bo pierwsza wersja tego bloku **nie zwijala sie wcale** i test
+tego nie zlapal, mierzac wysokosc tabeli w srodku (`content-visibility:hidden` zachowuje ostatni
+layout potomkow, wiec tabela raportowala 7 236 px takze zwinieta). **Wysokosc mierzy sie na samym
+`<details>`.**
+
+### Cztery rodzaje zapytania w JEDNYM polu
+
+Pole rozpoznaje, co wpisano, i **mowi o tym chipem `matched by …`** zamiast udawac, ze wszystko jest
+jedna przestrzenia nazw:
+
+| co wpisano | rozpoznanie | wynik |
+|---|---|---|
+| `e1fe6dd8-ba31-4d61-89e7-88639da4683d` | GUID | uprawnienie o tym `id`, nota „GUID belongs to User.Read" |
+| `/drives/{id}/items/{id}/invite` | zaczyna sie od `/` | uprawnienia nadajace ta sciezke; nota nazywa je z imienia |
+| `microsoft.directory/users/inviteGuest` | zaczyna sie od `microsoft.` | **akcja katalogowa, nie endpoint Graph** — nota mowi to wprost i wymienia role, ktore ja niosa |
+| `User.Read` | reszta | nazwa uprawnienia, z `Exact match` albo bez |
+
+**Nota przy sciezce i przy akcji NAZYWA znalezione uprawnienia, nie tylko je liczy.** Sama liczba
+przy pustej liscie kart czyta sie jak porazka, a jest poprawnym wynikiem.
+
+**`Exact match` jest polem wyboru obok szukajki**, nie trybem. Bez niego `User.Read` daje trzy
+wyniki, z nim jeden — zmierzone.
+
+**Tryb domyslny to `All`, nie `Microsoft changes`.** Wejscie w zakladke z wlaczonym filtrem zmian
+pokazuje ulamek katalogu i wyglada na pusta zakladke; wlasciciel zglosil to jako nieintuicyjne
+i ma racje. `Microsoft changes` zostaje jako drugi przycisk.
+
+**Nad polem stoi rzad KLIKALNYCH podpowiedzi** — `name` / `endpoint` / `permission ID` /
+`directory action` — kazda wpisuje swoj przyklad i od razu pokazuje wynik. Podpowiedz, ktora trzeba
+przeczytac, przegrywa z podpowiedzia, ktora sie klika; a placeholder z czterema mozliwosciami
+i tak nie miesci sie na telefonie (zmierzone: obcinany przy 390 px).
+
+### Rola, ktora pokrywa uprawnienie — DERYWACJA, i strona to mowi
+
+To jest odpowiedz na „w jakie role ma zdefiniowane dane uprawnienie". **Zaczyna sie od sprawdzenia,
+czy Microsoft to publikuje. Nie publikuje** — zmierzone 6 wrzesnia 2026 w trzech miejscach:
+
+- `permissions.json` niesie `authorizationType`, `ownerInfo`, `pathSets`, `schemes` — **zero pola roli**;
+- **139 plikow rol** w `MicrosoftDocs/entra-docs` nie wymienia **ani jednego** uprawnienia Graph;
+- dokumentacja API Graph nazywa role na **104 z 11 937 stron (0,9%)**, a akcje `microsoft.directory/…`
+  na **33 stronach**.
+
+Lista „Roles that support this permission" u kazdego trackera jest wiec **czyjas derywacja**.
+Nasza tez jest — i dlatego **regula jest wydrukowana na stronie**, tak samo jak regula wyboru
+punktow w §5ag. Regula bez asercji jest sugestia; regula stosowana, ale nieopublikowana, jest gustem.
+
+```python
+VERB={"GET":"read","POST":"create","PATCH":"update","PUT":"update","DELETE":"delete"}
+# zasob = pierwszy segment sciezki bez parametru; `/me/...` liczy sie jako `users`
+# akcja katalogowa microsoft.directory/<zasob>[/<wlasciwosc>]/<operacja>; `.unified`/`.security` -> baza
+# rola POKRYWA endpoint, gdy ma akcje na tym samym zasobie z ta sama operacja albo `allTasks`
+# pokrycie = udzial ENDPOINTOW uprawnienia, nie liczba akcji roli
+```
+
+**Dwie pulapki, obie zmierzone, obie sa czescia reguly:**
+
+1. **Liczenie akcji zamiast endpointow odwraca ranking.** Pierwsza wersja postawila **Guest Inviter
+   nad Global Readerem** dla `User.Read.All` — bo Guest Inviter ma szesnascie waskich odczytow
+   wlasciwosci, a Global Reader jedna akcje `users/allProperties/read`, ktora pokrywa wiecej.
+   Wazenie liczba endpointow to naprawia.
+2. **Sama liczba nadal klamie, wiec kazdy wiersz niesie kolumne `Depth`**: `whole resource` albo
+   `selected properties only`, i przy rownym pokryciu pierwsza bije druga. W panelu Roles ten sam
+   podzial stoi przy liczniku: **Guest Inviter pokrywa 140 uprawnien na >=50%, z tego 0 na caly
+   zasob i 140 tylko na wybrane wlasciwosci**; Global Reader 187, z tego **185 na caly zasob**.
+   Bez tej kolumny obie liczby wygladaja tak samo.
+
+Zmierzone dla `User.Read.All` (215 endpointow, 36 rol pasuje w ogole):
+
+| rola | pokrycie | glebokosc |
+|---|---|---|
+| Global Administrator | 96% | caly zasob |
+| User Administrator | 90% | caly zasob |
+| Privileged Authentication Administrator | 88% | caly zasob |
+| AI Reader | 84% | caly zasob |
+| Global Reader | 84% | caly zasob |
+| Directory Readers | 84% | tylko wybrane wlasciwosci |
+
+Kazdy wiersz pokazuje **dopasowane akcje katalogowe** (do czterech, potem licznik) i linkuje do
+sekcji tej roli w `permissions-reference`. Nota pod tabela mowi, ile rol pasuje w ogole, ile
+pokazano, z ilu endpointow liczone jest pokrycie i **`Derived by this brief, not published by
+Microsoft`** — pelnym zdaniem, nie gwiazdka.
+
+**Mianownik derywacji bierze sie z TEJ SAMEJ listy endpointow, ktora panel pokazuje wyzej.**
+Pierwsza wersja liczyla z surowego pliku i dawala 202 przy 205 w naglowku — dwie rozne liczby
+o tym samym na jednej stronie sa gorsze niz jedna niedokladna.
+
+**`34 ze 137 rol nie publikuje zadnej akcji katalogowej`** — role Exchange, Defender i DevOps
+miedzy nimi. Nigdy sie tu nie pojawia i **strona mowi to wprost**, zeby ich nieobecnosc nie byla
+czytana jako dowod. To ta sama dyscyplina co `notPublished` w §5b.
+
+### Panel Roles — to samo pole, druga przestrzen nazw
+
+`<input id="rq">` przyjmuje **akcje katalogowa** (`microsoft.directory/users/inviteGuest` -> trzy
+role: Directory Writers, Guest Inviter, User Administrator) albo **nazwe roli** (-> jej akcje plus
+liczba uprawnien Graph, ktore pokrywa, z podzialem na glebokosc). Wlasciciel poprosil o „ta sama
+logike co w wyszukiwarce uprawnien" i to jest ona: jedno pole, rozpoznanie wejscia, jawna nota
+o tym, ktora przestrzen nazw zostala dopasowana.
+
+### Ile to kosztuje i skad sie bierze
+
+| krok | zrodlo | czas |
+|---|---|---|
+| mapa endpointow | `microsoftgraph/microsoft-graph-devx-content` -> `permissions/new/permissions.json` | 1,9 s klon + 0,02 s parsowanie |
+| daty wejscia endpointow | `git log -S` w tym samym repo | w klonie |
+| akcje rol | `MicrosoftDocs/entra-docs` -> `permissions-reference.md` + 139 plikow `includes/` | w klonie §5i |
+| derywacja rola-uprawnienie | powyzsze dwa, 879 uprawnien x 103 role | **0,4 s** |
+
+**Klonuj sparse i blobless** (§5ai) — pelny klon devx zaciaga cala historie, sparse blobless daje `permissions/` w **8,4 MB i 2,0 s** (1,3 s klon + 0,7 s `sparse-checkout set permissions`).
+
+### Co z tego idzie do strony zmian
+
+`make_diff.py` (§3) porownuje `graphMap` pole po polu, PER UPRAWNIENIE: endpointy dodane, endpointy
+usuniete, zmiana `privilegeLevel`, zmiana `requiresAdminConsent`. To jest przycisk „co sie zmienilo
+od ostatniego uruchomienia", o ktory pytal wlasciciel — z ta roznica, ze u nas jest to sekcja
+`id="endpoints"` na stronie `/diff/`, a nie przycisk w katalogu.
+
+### Walidator — pozycje 41-44 listy §0
+
+- **41** — `graphMap` istnieje w `soc-brief-state`, ma `commit`, `readOn`, slownik `p` i tablice
+  metod `m`; blokow JSON na stronie jest nadal DWA.
+- **42** — kazde uprawnienie z `pathSets` w pliku ma `eps` w mapie; suma par po dekodowaniu rowna
+  sie liczbie par w pliku (zmierzone 24 099). **Roznica znaczy, ze przebieg cos obcial.**
+- **43** — `privilegeLevel` i `requiresAdminConsent` sa na kazdym schemacie, ktory ma je w pliku;
+  chip zgody jest CZERWONY przy `required` i ZIELONY przy `not required` — kolor niesie tresc.
+- **44** — kazde uprawnienie z niepusta tablica `roles` niesie regule (`div.rulebox`) i kolumne
+  `Depth`; zaden wiersz derywacji nie ma pokrycia >100%; mianownik rowna sie liczbie endpointow
+  z naglowka panelu. **Mapa bez `roles` daje `BRAK „nie da sie sprawdzic"`, nie OK.**
+
+## 5ai. Klonowanie — sparse i blobless, bo repozytorium ma juz 111 MB
+
+Zmierzone 6 wrzesnia 2026. `MS_SOC` sklonowane plytko to **111 MB i 5,05 s**, z czego `site/` to
+107 MB: `history/` 64 MB i `data/` 38 MB. Przy okolo 7 MB dziennie to 2,5 GB rocznie, a **kazdy
+z czterech przebiegow dnia placi ten koszt od nowa**, choc trzy z nich potrzebuja jednego pliku.
+
+| co przebieg robi | polecenie | zmierzone |
+|---|---|---|
+| **tylko czyta `CLAUDE.md`** | `git clone --depth 1 --filter=blob:none --sparse <repo> x` + `git -C x sparse-checkout set /CLAUDE.md` | **660 kB, 1,13 s** |
+| **pisze strone, nie rusza archiwum** | to samo, dalej `git -C x sparse-checkout set --no-cone '/CLAUDE.md' '/site/**' '!/site/history/**' '!/site/data/**'` | **6,5 MB, ~1,2 s** |
+| pelny plytki klon (stan sprzed) | `git clone --depth 1 <repo>` | 111 MB, 5,05 s |
+| `permissions/` z devx (§5ah) | `git clone --depth 1 --filter=blob:none --sparse … devx` + `sparse-checkout set permissions` | **8,4 MB, 2,0 s** |
+
+**Trzy rzeczy, ktore trzeba wiedziec, zeby to nie skasowalo archiwum:**
+
+1. **Tryb stozkowy przyjmuje KATALOGI, nie pliki.** `sparse-checkout set /CLAUDE.md site/index.html`
+   nie zmaterializuje `site/` w ogole — sprawdzone, katalog po prostu nie powstal. Wykluczenia
+   (`!`) wymagaja `--no-cone`.
+2. **Plik niezmaterializowany NIE jest skasowany.** Po commicie w klonie bez `site/history/`
+   drzewo nadal ma wszystkie 22 pliki archiwum — sprawdzone przed i po. Zasada 2 („nie usuwaj
+   plikow z `history/`") jest wiec bezpieczna.
+3. **Nowy plik w wykluczonym katalogu wymaga `git add --sparse`.** Zwykle `git add` odmawia
+   z komunikatem o regulach rzadkosci. Przebieg, ktory przenosi wczorajsza strone do
+   `site/history/RRRR-MM-DD-poranny.html`, robi wiec `git add --sparse <sciezka>`. Sprawdzone:
+   commit przechodzi, archiwum rosnie z 22 do 23 plikow, nic nie ginie.
+
+**Wszystkie cztery prompty klonuja tak samo.** Przebieg, ktory sklonuje repozytorium w calosci,
+nie jest bledny — jest po prostu dziesiec razy wolniejszy i pisze o tym w odpowiedzi.
+
+### Mapa Graph API idzie do `site/data/<data>.json` W CALOSCI — i to jest pomiar, nie wygoda
+
+Planowalem 6 wrzesnia zapisywac tam tylko commit devx i dzienna delte, bo mapa ma 0,55 MB, a
+`site/data/` juz wazy 38 MB. **Pomiar to obalil.** Dwa kolejne dni tej samej mapy, rozniace sie
+czterema endpointami, w prawdziwym repozytorium git:
+
+| | rozmiar pliku | przyrost `.git` po `gc` |
+|---|---|---|
+| dzien 1 | 546 546 B | 240 kB |
+| dzien 2 | 546 556 B | **0 kB** |
+
+Git pakuje ten plik delta wzgledem wczorajszego i **drugi dzien nie kosztuje nic**. Liczba „730 kB
+dziennie" byla rozmiarem NIESKOMPRESOWANYM i nie opisywala kosztu w repozytorium.
+
+Konsekwencja jest merytoryczna, nie tylko oszczednosciowa: **`diff_graphmap` porownuje dwa stany,
+wiec wczorajszy plik danych MUSI niesc cala mape.** Gdyby niosl sama delte, wczorajszy stan bylby
+pusty i kazdy endpoint wygladalby na dodany dzisiaj — czyli dokladnie ten falszywy alarm, przed
+ktorym broni pozycja 42 listy §0.
+
+## 5aj. Rejestr zmian z oknem 14 dni — bo diff pokazuje JEDEN dzien i potem znika
+
+Wlasciciel zapytal 6 wrzesnia 2026: *„w kazdej zakladce jak cos zbieramy, to ja musze w jasny
+i czytelny sposob widziec, co Microsoft zmienial, dodal itd., bo sie pogubie. Kiedy to realizuje
+diff? Ale co jesli diff wlacze dzisiaj, pokaze on zmiany, a potem diff wlacze jutro? To juz tych
+zmian nie zobacze? Moze jakos historie trzymac przez 14 dni?"*
+
+Ma racje i to jest dziura, nie nieporozumienie. `/diff/` (§3) porownuje **dwa stany** i jego wyjscie
+jest nadpisywane przy kazdym przebiegu. Zmiany z wczoraj zostaja wylacznie jako HTML
+w `site/history/` — nie do przeszukania, nie do zsumowania, nie widoczne z zadnej zakladki briefu.
+Czytelnik, ktory nie otworzyl `/diff/` we wtorek, we srode nie ma **zadnego** sposobu, zeby sie
+dowiedziec, co sie we wtorek ruszylo.
+
+**To jest ta sama choroba co §5z, §5ab i §5ac, tylko w osi czasu zamiast w osi progu:** dane sa,
+prezentacja je gubi, bo kazdy widok pokazuje jedna chwile.
+
+### Rejestr — `site/data/changelog.json`, DOPISYWANY, nigdy nadpisywany
+
+```json
+{"retentionDays":90, "pageWindowDays":14,
+ "runs":[{"date":"2026-09-06","kind":"morning","at":"07:12","entries":23},
+         {"date":"2026-09-05","kind":"morning","at":"07:09","entries":0}],
+ "entries":[
+   {"seen":"2026-09-06","tab":"Graph API","kind":"added","id":"IdentityDiagnostic.Read",
+    "field":null,"before":null,"after":null,"product":"Graph","weight":1,"tier0":false,
+    "msDate":"2026-02-21","url":"https://…","note":"Deployed in the service, not in this tenant"},
+   {"seen":"2026-09-06","tab":"Deadlines","kind":"changed","id":"MC1448379",
+    "field":"deadline","before":"2026-11-03","after":"2026-11-17","product":"Entra",
+    "weight":1,"tier0":false,"msDate":"2026-09-05","url":"https://…"}
+ ]}
+```
+
+- **`seen`** to data, w ktorej TEN raport wykryl zmiane. **`msDate`** to data Microsoftu, gdy
+  istnieje, i `null`, gdy nie — te dwie daty nigdy sie nie zastepuja (§5q).
+- **`tab`** wyliczasz tak samo jak w §3a (`TIER_TAB`), zeby wpis stanal w tej samej zakladce,
+  w ktorej brief go renderuje. Jeden wpis na `(id, pole)`, nie jeden na pozycje.
+- **`weight` i `tier0`** kopiujesz z pozycji stanu, zeby dalo sie filtrowac rejestr waga (§5p).
+- **`runs`** to lista przebiegow, ktore do rejestru pisaly — z liczba wpisow, takze zerowa.
+  **Bez niej „5 wrzesnia nic sie nie zmienilo" jest nieodroznialne od „5 wrzesnia przebieg nie
+  wystartowal"**, a to jest dokladnie to rozroznienie, ktorego pilnuje `coverageByArea` w §7.
+
+### Zasady
+
+1. **Dopisywanie, nigdy edycja.** Wpis raz zapisany nie zmienia sie. Poprawka wczorajszego wpisu to
+   NOWY wpis z `kind:"corrected"` i `note` mowiacym, co bylo i co jest — slownik z §8 C obowiazuje.
+   Rejestr, ktory da sie przepisac, przestaje byc dowodem.
+2. **`make_diff.py` jest jedynym pisarzem.** Ta sama funkcja, ktora liczy strone `/diff/`, dopisuje
+   rejestr — flaga `--ledger site/data/changelog.json`. Dwa niezalezne liczenia tej samej rzeczy
+   rozjezdzaja sie (§0a) i nie ma powodu powtarzac tego bledu.
+3. **Deduplikacja po `(seen, tab, kind, id, field)`.** Przebieg popoludniowy i poranny tego samego
+   dnia moga zobaczyc te sama zmiane; drugi jej nie dubluje. Ta sama pozycja zmieniona 1 i 3
+   wrzesnia daje natomiast DWA wpisy — o to wlasnie chodzi.
+4. **Przycinanie tylko po `retentionDays` (90).** Strona renderuje `pageWindowDays` (14). Oba
+   numery sa wydrukowane, zeby czytelnik wiedzial, czego nie widzi.
+5. **Przed dopisaniem przebieg kopiuje `changelog.json` do `changelog.prev.json`.** Bez tej kopii
+   pozycja 47 nie ma z czym porownac i daje `BRAK „brak punktu odniesienia"`, nie OK. Kopia jest
+   nadpisywana co przebieg i nie jest archiwum — archiwum jest sam rejestr.
+6. **Rejestru nie da sie odtworzyc z niczego innego** — jest jedynym miejscem, gdzie zmiana
+   z przeszlosci zyje po nadpisaniu `/diff/`. Przebieg, ktory go nie zapisal, mowi to w odpowiedzi
+   jako `BRAK`, a nie milczy.
+
+### Gdzie to widac
+
+**W KAZDEJ zakladce tresciowej briefu**, jako pierwszy element pod `.panelhead`:
+
+```html
+<details class="chg14"><summary><span class="sm-t">What changed in the last 14 days</span>
+<span class="badge t-acc">23 changes &middot; 9 days with a run</span></summary>
+  <div class="daystrip">…jeden kafelek na dzien, wysokosc = liczba zmian…</div>
+  <div class="tw"><table><thead><tr><th>Day</th><th>What</th><th>Item</th><th>Field</th>
+  <th>Before &rarr; after</th><th>Source</th></tr></thead><tbody>…</tbody></table></div>
+</details>
+```
+
+- **Zwiniete domyslnie, ale licznik jest w podpisie** — liczbe widac bez klikania, a tabela nie
+  spycha tresci zakladki w dol. To ten sam ksztalt co lista endpointow w §5ah.
+- **Filtrowane do TEJ zakladki.** Zakladka Graph API pokazuje zmiany katalogu Graph, Deadlines —
+  ruchy terminow. Zakladka bez zmian pokazuje zdanie `No change recorded in the last 14 days;
+  N runs looked.` — **zdanie z liczba przebiegow, nigdy pusty element**.
+- **`<del>` i `<ins>`** w kolumnie `Before → after`, jak wszedzie indziej (§4).
+- **Pasek dni** to `N` kafelkow, jeden na dzien okna: wysokosc to liczba zmian, dzien bez przebiegu
+  ma kafelek pusty z obwodka przerywana i tytulem `no run`. Dzien z przebiegiem i zerem zmian ma
+  kafelek plaski i tytul `checked, nothing moved`. **Trzy stany, trzy wyglady** — inaczej „zero"
+  i „nie wiadomo" wygladaja tak samo.
+
+**Na stronie `/diff/`** dochodzi sekcja `<section id="last14">` pod `bytab`: ten sam pasek dni dla
+calego okna i jedna tabela ze wszystkich zakladek, `Day | Tab | What | Item | Field | Before → after`.
+Dzieki niej otwarcie `/diff/` w dowolny dzien odpowiada na oba pytania naraz — „co sie zmienilo od
+rana" i „co sie zmienilo przez dwa tygodnie".
+
+**W pigulce naglowka** briefu: `<a class="count" href="#chg14"><b>N</b> changes in 14 days<span>&middot; M days with a run</span></a>`.
+
+### Zmierzone
+
+Rozmiar: dzien zmian to zwykle kilkanascie do kilkudziesieciu wpisow (zmierzone w §3: 6 wpisow
+przy porownaniu ranek-wieczor, 34 przy porownaniu dwoch dni, 157 przy porownaniu z 31 sierpnia).
+Rejestr 90-dniowy przy sredniej 30 wpisow dziennie to okolo 2 700 wpisow, **okolo 700 kB surowo
+i 40 kB gzip** — mniej niz jeden dzien `site/data/*.json`. Renderowane okno 14 dni to okolo
+420 wierszy rozdzielonych na dziesiec zakladek.
+
+### Walidator — pozycje 45-47 listy §0
+
+- **45** — `site/data/changelog.json` istnieje, ma `runs` z wpisem na DZISIEJSZY przebieg (takze
+  gdy zmian bylo zero) i zaden wpis nie jest starszy niz `retentionDays`.
+- **46** — kazda zakladka tresciowa ma `details.chg14`, ktorego licznik w podpisie rowna sie
+  liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element.
+- **47** — **rejestr nie zostal przepisany**: wpisy o dacie wczesniejszej niz dzisiejsza sa
+  identyczne co do bajtu z tymi z poprzedniego przebiegu. Roznica znaczy, ze przebieg edytowal
+  historie, i jest **przebiegiem NIEUDANYM**. Bramka porownuje z kopia z `site/data/` sprzed
+  commita; przy pierwszym przebiegu pozycja daje `BRAK „brak punktu odniesienia"`, nie OK.
 
 ## 6. Kontrakt w stronie
 
