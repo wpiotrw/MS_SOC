@@ -3950,6 +3950,7 @@ If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSe
 
 ### Defender XDR
 - https://learn.microsoft.com/en-us/defender-xdr/whats-new
+- Blog: https://techcommunity.microsoft.com/category/microsoft-security/blog/microsoft-defender-xdr-blog
 - Advanced hunting schema changes: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
 - Schema tables: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
 
@@ -3964,10 +3965,15 @@ If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSe
 ### Defender for Cloud Apps
 - https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes
 
+### Defender for Office 365
+- https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
+- Blog: https://techcommunity.microsoft.com/category/microsoft-security/blog/microsoftdefenderforoffice365blog
+
 ### Microsoft Intune
 - https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new
 - In development: https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/in-development
 - Blog: https://techcommunity.microsoft.com/category/microsoft-intune/blog/microsoftintuneblog
+- **Intune Customer Success** — INNY blog niz powyzszy, nie mylic: https://techcommunity.microsoft.com/blog/intunecustomersuccess
 
 ### Microsoft Purview
 - https://learn.microsoft.com/en-us/purview/whats-new
@@ -3975,6 +3981,95 @@ If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSe
 ### KQL / Hunting
 - https://learn.microsoft.com/en-us/kusto/query/
 - Azure Data Explorer release notes: https://learn.microsoft.com/en-us/azure/data-explorer/release-notes-cloud
+
+### Poprawki, luki i zdrowie platformy — WSZYSTKIE NOWE, dodane 6 wrzesnia 2026
+
+Wlasciciel przyslal 6 wrzesnia wlasne zestawienie zrodel i porownanie z ta sekcja dalo **15 pozycji
+juz obecnych, 9 luk i 1 czesciowa**. Ponizsze dziewiec to te luki. Najwazniejsza jest pierwsza:
+**MSRC to Patch Tuesday i zero-daye, i nie bylo ich w tym briefie w ogole.**
+
+- **MSRC Security Update Guide** (Patch Tuesday, zero-daye, CVE): https://msrc.microsoft.com/update-guide
+- **Windows Release Health** (znane problemy, wycofania, incydenty): https://learn.microsoft.com/en-us/windows/release-health/
+- **M365 Apps — poprawki bezpieczenstwa**: https://learn.microsoft.com/en-us/officeupdates/microsoft365-apps-security-updates
+- **Security Copilot blog**: https://techcommunity.microsoft.com/category/microsoft-security/blog/microsoft-security-copilot-blog
+- **Windows 365 Cloud PC**: https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new
+- **Azure Virtual Desktop**: https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new
+
+### Wersje komponentow — co da sie zrodlowac, a czego NIE
+
+Wlasciciel poprosil 6 wrzesnia 2026 o zestawienie wersji: Authenticator na iOS i Androida, sensory
+MDI i MDE, najnowsze iOS / macOS / watchOS, GSA, Entra Connect, wersja poprzednia (−1) i koniec
+wsparcia. **Kazdy adres ponizej zostal tego dnia pobrany i sprawdzony — piec dziala w calosci,
+jeden czesciowo, jeden nie dziala wcale, a jednego zrodla po prostu nie ma.** Roznica jest zapisana
+co do adresu, bo regula „nigdy nie wymyslaj numeru wersji" obowiazuje tak samo jak dla GUID-ow.
+**Wynik negatywny tez jest wynikiem i tez sie go zapisuje** — inaczej nastepny przebieg sprawdza
+to samo od zera albo, gorzej, wpisuje numer, ktorego nie widzial.
+
+| co | zrodlo | zmierzone 6 wrzesnia 2026 |
+|---|---|---|
+| **MDE — Windows, macOS, Linux, Android, iOS naraz** | `learn.microsoft.com/defender-endpoint/microsoft-defender-endpoint-releases` | JEDNA tabela: OS, build, miesiac, wersja silnika i sygnatur, szesc miesiecy wstecz. Ta strona **byla juz w §7** — po prostu nie wyciagalismy z niej wersji |
+| **MDI sensor** | `learn.microsoft.com/defender-for-identity/whats-new` | tabela `Version number / Updates`, pelny numer (np. `2.255.19295.47272`); takze migracja v2.x → v3.x |
+| **Entra Connect, Cloud Sync, GSA Windows/macOS, Private Access Sensor, private network connector** | strony release history juz wymienione wyzej w §7 | bez zmian |
+| **iOS, iPadOS, macOS, watchOS, tvOS, visionOS, Safari** | `support.apple.com/en-us/100100` | **dziala** — plain HTML table, produkt + wersja + data wydania, wszystkie systemy Apple i Safari w jednym miejscu |
+| **macOS: wersja biezaca i POPRZEDNIE gałęzie** | `support.apple.com/pl-pl/109033` | **dziala, ale tylko macOS** — tabela „ktora wersja jest najnowsza" per wydanie glowne. To jest zrodlo dla „wersji −1": Tahoe 26.6.2, Sequoia 15.7.9, Sonoma 14.8.9 |
+| **Authenticator iOS — ZRODLO KANONICZNE** | `itunes.apple.com/lookup?id=983156458&country=us` | **dziala w calosci** — oficjalne API Apple, czysty JSON: `version` `6.8.54`, `currentVersionReleaseDate` **`2026-08-31T20:00:12Z`**, `minimumOsVersion` `17.0`, `fileSizeBytes` `233716736`, `sellerName` `Microsoft Corporation`. **To API rozwiazuje problem daty wzglednej** — podaje date pelna, z sekundami, zamiast `5d ago` ze strony sklepu |
+| **Authenticator iOS — strona sklepu** | `apps.apple.com/us/app/microsoft-authenticator/id983156458` | **dziala polowicznie, wiec juz jej nie uzywamy do daty** — numer i minimalne iOS sa, ale data jest WZGLEDNA (`5d ago`), a „What's New" to staly tekst marketingowy. Zostaje wylacznie jako kontrola krzyzowa numeru |
+| **Authenticator Android — oficjalny Google Play** | `play.google.com/store/apps/details?id=com.azure.authenticator` | **NIE podaje numeru wersji przy odczycie server-side.** Zmierzone 6 wrzesnia 2026, dwa adresy: strona glowna zwraca wylacznie `Updated on Aug 26, 2026`, a podstrona `datasafety` konczy sie `ROBOTS_DISALLOWED`. Numer siedzi w bloku `AF_initDataCallback` za modalem „Informacje o aplikacji", ktorego konwersja do markdown nie widzi — i **innej drogi nie probujemy** (zasada systemowa: czego nie da sie pobrac WebFetch-em, tego nie pobiera sie curl-em ani Pythonem) |
+| **Authenticator Android — historia wersji u Microsoftu** | — | **NIE ISTNIEJE.** Wyszukanie 6 wrzesnia 2026 po `learn.microsoft.com` zwrocilo same watki Q&A **pytajace** o release notes tej aplikacji, ani jednej strony je publikujacej |
+| **Authenticator Android — TRZY LUSTRA, werdykt przez ZGODNOSC** | `apkmirror.com/apk/microsoft-corporation/microsoft-authenticator/` · `appglint.com/app/google-play/com.azure.authenticator` · `global.app.mi.com/details?id=com.azure.authenticator` | **wszystkie trzy dzialaja i wszystkie trzy podaja `6.2608.5658`.** APKMirror daje pelna historie (10 wydan wstecz, wiec **stad bierzemy wersje −1**: `6.2607.4697`); AppGlint to lustro metadanych Google Play i podaje **pelny znacznik czasu** `8/26/2026, 10:44:11 PM`, zgodny z oficjalnym `Updated on Aug 26, 2026` u Google; Xiaomi podaje `6.2608.5658`, `27.08.2026`, `60.9 MB` |
+| **Authenticator Android — lustro Aptoide, czwarta kontrola** | `microsoft-corporation-authenticator.en.aptoide.com/versions` | ten sam numer `6.2608.5658`. **Kolumna daty jest niespojna** — wiersze 4 i 5 niosa `5/9/2026` i `4/9/2026` przy STARSZYCH numerach kompilacji |
+
+**Trzy reguly, ktore z tego wynikaja i sa wiazace:**
+
+1. **Data wzgledna nie jest data — ale dla iOS mamy juz date prawdziwa.** Strona App Store podaje
+   `5d ago`; **API `itunes.apple.com/lookup` podaje `currentVersionReleaseDate` z sekundami**, wiec
+   dla Authenticatora na iOS `released` jest wypelnione data z API, a nie `null`. Regula zostaje
+   w mocy wszedzie indziej: **nigdy nie przeliczasz `5d ago` ani `Updated on` na date wydania**
+   i nie podajesz jej jako daty Microsoftu. `versionSeenOn` = data przebiegu, zawsze.
+2. **Wersja Authenticatora na Androida ma trzy pola i powstaje przez ZGODNOSC LUSTER, nie przez
+   zaufanie jednemu.** Zadne oficjalne, maszynowo czytelne zrodlo jej nie podaje: Google Play nie
+   wystawia numeru przy odczycie server-side, a Microsoft nie publikuje historii wersji tej aplikacji
+   wcale. Procedura, zmierzona 6 wrzesnia 2026 na czterech lustrach:
+   - `officialUpdated` — data `Updated on` z Google Play, `vendorConfirmed:true`. **Jedyna liczba
+     z oficjalnego zrodla** i tylko ona stoi bez przypisu.
+   - `mirrorVersion` — numer, ktory podalo **co najmniej DWA niezalezne lustra**, z lista `mirrors`
+     (nazwa, adres, odczytana wartosc, data odczytu) i `vendorConfirmed:false`. Zmierzone: APKMirror,
+     AppGlint, Xiaomi i Aptoide podaly **identycznie `6.2608.5658`**, a AppGlint dolozyl znacznik
+     `8/26/2026, 10:44:11 PM` zgodny z oficjalnym `Updated on Aug 26, 2026`.
+   - `previousVersion` — wersja −1, brana z APKMirror, ktory jako jedyny wozi historie
+     (`6.2607.4697` na ten dzien).
+   - **Jedno lustro to nie werdykt.** Przy zgodzie jednego zrodla wpis dostaje
+     `consensus:"single-source"` i chip `unconfirmed`; strona pokazuje numer, ale mowi, ze potwierdzila
+     go jedna strona. Rozjazd miedzy lustrami jest ZNALEZISKIEM i drukuje sie obie wartosci.
+   - **Zgodnosc trzech luster nie jest trzema niezaleznymi obserwacjami** — lustra przepisuja od
+     siebie i od Google. Dlatego zgodnosc podnosi zaufanie, ale **nie zamienia lustra w zrodlo**
+     (§5, §5d): numer nigdy nie jest drukowany jako liczba Microsoftu, zawsze z przypisem nazywajacym
+     lustra i date odczytu.
+   - **DATY z luster nie bierzemy w ogole.** Zmierzone tego dnia: APKMirror `September 1, 2026`,
+     AppGlint `8/26/2026`, Xiaomi `27.08.2026`, Aptoide `26/8/2026` — cztery rozne daty dla jednego
+     numeru, bo kazde lustro datuje WLASNE przyjecie pliku. Data pochodzi wylacznie z `Updated on`
+     Google Play. Rozjazd wiekszy niz tydzien miedzy nimi daje `mirrorStale:true` z obiema datami.
+   - Pole `whatsNew` zostaje `null` dla obu platform: Apple drukuje tam staly tekst marketingowy,
+     a Google nie drukuje nic. Puste pole z powodem, nigdy zmyslone zdanie.
+   **Rozmiaru pobierania nie porownujesz miedzy zrodlami.** Google podaje go per urzadzenie
+   (61 MB dla Samsunga SM-A176B kontra 64 MB u Aptoide, 60,9 MB u Xiaomi) — to nie jest rozbieznosc,
+   tylko trzy rozne wielkosci, i wiersz albo nazywa urzadzenie, albo w ogole nie ma tej kolumny.
+
+2a. **Trzy pulapki parsowania luster, kazda zmierzona na prawdziwej tresci — nie powtarzaj ich.**
+   Wziely sie z gotowego skryptu PowerShell, ktory wlasciciel przyslal 6 wrzesnia; metoda jest dobra,
+   te trzy szczegoly nie:
+   - **„Najwyzszy numer na stronie" to nie „najnowsza wersja stabilna".** APKMirror publikuje buildy
+     beta, a wzorzec `(\d+\.\d+\.\d+)` obcina sufiks `-beta`, wiec `max()` wybiera bete. Bierzesz
+     **pierwszy wiersz listy wydan**, nie maksimum, i odrzucasz wiersz z `beta` albo `alpha` w tekscie.
+   - **Wzorzec `(?:Version|Wersja)\s*[\r\n\t ]*(\d+\.\d+\.\d+)` lapie takze wymaganie systemu.**
+     Na tresci `Android version 8.0.0 required` zwraca `8.0.0` obok wlasciwego numeru. Kotwicz wzorzec
+     na nazwie pakietu albo na naglowku sekcji, nie na samym slowie „Version".
+   - **Porownanie wersji idzie po LICZBACH, nie po napisie.** `6.9.1` kontra `6.10.1`: sortowanie
+     tekstowe malejaco daje `6.9.1`, bo `9` > `1`. Rozbijasz na krotke liczb calkowitych.
+
+3. **Apple to nie Microsoft, i strona ma to mowic.** Wiersze z `support.apple.com` niosa
+   `vendor:"Apple"`, zeby czytelnik nie wzial ich za komunikat Microsoftu. Sa w briefie dlatego, ze
+   minimalna wersja iOS/macOS rozstrzyga, czy sensor MDE albo Authenticator w ogole ruszy.
 
 ### General
 - Microsoft Security Blog: https://www.microsoft.com/en-us/security/blog/
