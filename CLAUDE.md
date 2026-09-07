@@ -35,8 +35,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
    gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 46 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-47), plus **pozycje 34 dla przebiegu ZMIAN** — razem 47. Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 47 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-48), plus **pozycje 34 dla przebiegu ZMIAN** — razem 48. Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -92,9 +92,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 45 | **rejestr zmian dopisany**: `site/data/changelog.json` ma wpis w `runs` na DZISIEJSZY przebieg, takze przy zerze zmian; zaden wpis nie starszy niz `retentionDays` | 5aj | `runs[-1].date` = data przebiegu; `min(seen)` w oknie |
 | 46 | **kazda zakladka tresciowa ma `details.chg14`**, licznik w podpisie rowny liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element | 5aj | licznik = wiersze dla kazdej zakladki |
 | 47 | **rejestr NIE zostal przepisany**: wpisy starsze niz dzisiaj sa identyczne z poprzednim przebiegiem | 5aj | roznica pusta; pierwszy przebieg daje `BRAK „brak punktu odniesienia"`, nie OK |
+| 48 | **SKRYPT 6 buduje KAZDY panel uprawnienia w ukladzie v13**: `.v13pane` z `At a glance`, kartami schematow, zwinieta lista endpointow i tabela rol, plus `Exact match` przy szukajce katalogu; `Worked example` ukryty | 5ak | `v13pane`, `epsinject`, `s6exact` i `SCRIPT 6` w pliku; render: trzy rozne uprawnienia daja trzy ROZNE liczby endpointow |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45 i 47 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47 i 48 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -938,6 +939,18 @@ def gate(path, site=None):
          "brak details.chg14" if not s.chg14
          else "licznik rozny od liczby wierszy w %d zakladkach" % sum(1 for c,r in s.chg14 if c!=r))
 
+    # 48: §5ak — dane w bloku stanu nie sa renderem. Zmierzone 7 wrzesnia 2026: mapa kompletna,
+    # bramka 45/46, a `details.eps` wyrenderowany RAZ poza panelem, wiec zaden z 1 076 wpisow
+    # katalogu go nie pokazywal. Bramka czyta plik, wiec pyta o OBECNOSC skryptu i jego zaczepy;
+    # to, czy panel sie wypelnia, sprawdza Playwright (§5h) — i to rozroznienie jest tu cala pointa.
+    hasmap = bool((st["soc-brief-state"] or {}).get("graphMap", {}).get("perms"))
+    s6 = all(k in h for k in ("v13pane", "epsinject", "s6exact", "cat-detail-inner")) and "SCRIPT 6" in h
+    # Bez mapy pozycja NIE moze dac OK — pusty zbior spelnia kazdy warunek, a 41 juz wtedy krzyczy.
+    need("48","SKRYPT 6 wypelnia kazdy panel uprawnienia (§5ak)",
+         hasmap and s6,
+         "brak graphMap — nie da sie sprawdzic" if not hasmap
+         else "graphMap jest, a skryptu 6 nie ma — dane sa w stanie, czytelnik ich nie zobaczy: %s" % (
+             ", ".join(k for k in ("SCRIPT 6","v13pane","epsinject","s6exact","cat-detail-inner") if k not in h)))
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -2716,6 +2729,13 @@ Nowe od 1 wrzesnia 2026, kazda z realnego zgloszenia wlasciciela: **oba pola szu
 **w `tab-new`, `tab-today` i `tab-deadlines` istnieje `<select>`, ktorego pierwsza opcja brzmi
 `All source`** (§5w); **kazda zakladka tresciowa ma co najmniej trzy `.aggwrap figure.chart` i
 dokladnie trzy `.aggbtn`, a klikniecie „Tydzien" i „Dzien" zmienia liczbe slupkow osi czasu** (§5y).
+
+Nowe od 7 wrzesnia 2026 (§5ak), i to one lapia blad, ktory bramka przepuscila: **klikniecie TRZECH
+roznych uprawnien w katalogu Graph daje za kazdym razem `details.epsinject` w `.cat-detail-inner`,
+a liczby endpointow w podpisach sa ROZNE** (zmierzone: 2, 1, 14, 5); **pasek chipow zmienia liczbe
+widocznych wierszy** (14 -> GET 5 -> Least privilege 12); **uprawnienie bez pasujacej roli pokazuje
+ZDANIE, nie pusta tabele**; po czterech przelaczeniach tam i z powrotem `.epsinject` i `.rolesinject`
+wystepuja po RAZ jeden (idempotencja).
 
 Nowe od 3 wrzesnia 2026, oba ze zgloszenia wlasciciela z tego dnia: **kliknieciecie kafelka
 `Added` / `Removed or breaking` / `Modified` w kazdym katalogu zostawia na liscie pod polem szukania
@@ -4829,8 +4849,11 @@ lustro §0a 0,59 → 0,47 s, `make_diff.py` 0,03 → 0,04 s.
 5. **APIs an app registration can be granted permissions on** — sekcja istniejaca, bez zmian.
 6. **What Microsoft changed** — sekcja istniejaca, bez zmian.
 
-**Kolejnosc jest wiazaca.** Lista endpointow jest zwinieta i stoi NAD dwiema starymi sekcjami, zeby
-nie konkurowaly o gore panelu; wlasciciel poprosil o to wprost. Sekcja 3 rozwinieta ma ~7 400 px
+**Kolejnosc jest wiazaca. Sekcje 3 i 4 wstawia SKRYPT 6 (§5ak), nie przebieg** — panel buduje
+skrypt 3 powloki, ktorego nie wolno edytowac, wiec bez szostego skryptu dane siedza w bloku stanu,
+a czytelnik ich nie widzi. Zmierzone 7 wrzesnia 2026: mapa kompletna, bramka 45/46, a lista
+endpointow wyrenderowana RAZ, poza panelem. Lista jest zwinieta i stoi NAD dwiema starymi sekcjami,
+zeby nie konkurowaly o gore panelu; wlasciciel poprosil o to wprost. Sekcja 3 rozwinieta ma ~7 400 px
 wysokosci, zwinieta 44 px — pomiar, bo pierwsza wersja tego bloku **nie zwijala sie wcale** i test
 tego nie zlapal, mierzac wysokosc tabeli w srodku (`content-visibility:hidden` zachowuje ostatni
 layout potomkow, wiec tabela raportowala 7 236 px takze zwinieta). **Wysokosc mierzy sie na samym
@@ -4958,6 +4981,561 @@ od ostatniego uruchomienia", o ktory pytal wlasciciel — z ta roznica, ze u nas
 - **44** — kazde uprawnienie z niepusta tablica `roles` niesie regule (`div.rulebox`) i kolumne
   `Depth`; zaden wiersz derywacji nie ma pokrycia >100%; mianownik rowna sie liczbie endpointow
   z naglowka panelu. **Mapa bez `roles` daje `BRAK „nie da sie sprawdzic"`, nie OK.**
+
+## 5ak. Panel uprawnienia — UKLAD z v13, wypelniany przez SKRYPT 6
+
+Wlasciciel zobaczyl 7 wrzesnia 2026 opublikowana strone i napisal: *„nowy artefakt powstal, ale
+z calym szacunkiem — co to jest? Proponowales html v13, co sie z tym stalo? Nie zostalo uzyte…
+caly layout jest zupelnie inny."* Potem trzy konkretne objawy: sekcja `Entra roles that can do this`
+*„cos pokazuje, ale nie wiadomo, z czym to jest zwiazane"*; szukanie `User.Read.All` *„i nie mam
+endpointow, ktore to uprawnienie uzywa"*; *„nie ma przycisku exact match"*.
+
+**Mial racje we wszystkich trzech, a przyczyna byla po mojej stronie, nie po stronie przebiegu.**
+
+### Co zmierzone na tamtej stronie
+
+| co | wynik |
+|---|---|
+| `graphMap` w bloku stanu | **kompletna**: 923 uprawnienia, 24 099 par, 7 430 sciezek, 363 derywacje rol |
+| bramka §0b | **45 z 46 OK** |
+| `details.eps` w calym dokumencie | **jeden**, w `section#graph > .sec-body`, pod naglowkiem `Worked example — User.Read.All` |
+| panel po kliknieciu w ktorekolwiek z **1 076** uprawnien | bez endpointow, bez rol |
+| `Exact match` przy szukajce katalogu | **nie bylo go tam** — istnial w osobnym widgecie `div.gq` NAD katalogiem |
+
+**Dwie porazki, obie moje.** Pierwsza: dane byly, renderu nie bylo, bo panel buduje SKRYPT 3
+powloki, a §5w pozwala ruszyc w skryptach powloki dokladnie dwie rzeczy. Przebieg zrobil jedyna
+rzecz, ktora mu zostawala — jeden przyklad server-side — **i uczciwie go tak podpisal**.
+Druga, powazniejsza: **wlasciciel zatwierdzil UKLAD (makieta v13), a do §5ah wpisalem OPIS.**
+Obrazek i proza to dwa rozne artefakty; przebieg zastosowal proze w ksztalcie powloki i strona
+nie przypominala tego, co zostalo zatwierdzone. To jest §0a o jeden poziom wyzej: nie dwa przebiegi
+sie rozjechaly, tylko makieta ze specyfikacja.
+
+**I bramka to przepuscila**, bo pozycje 41-44 pytaly o blok stanu i o obecnosc napisow w pliku,
+a nie o to, czy panel je pokazuje. Asercja przechodzaca z niewlasciwego powodu — moj wlasny zarzut
+z §0b, popelniony w mojej wlasnej bramce.
+
+### Regula
+
+**Panel uprawnienia Graph ma uklad v13 i buduje go SKRYPT 6**, dokladany tak samo jak skrypt 4
+(§5y) i skrypt 5 (§5ad). **Lista dozwolonych zmian w trzech skryptach powloki sie NIE zmienia.**
+Skrypt obserwuje `.cat-detail`, czyta nazwe z `h3.cat-title` i sklada panel w tej kolejnosci:
+
+1. **Naglowek** — nazwa monospace i chipy przepisane z `.cat-badges` powloki.
+2. **At a glance** — `dl.kv` z: `Kind`, `Object type`, `API`, `Entity` (czytane z tego, co powloka
+   juz wyrenderowala), a dalej **z mapy**: `Privilege level` per schemat jako chip 1-4,
+   `Admin consent` per schemat **czerwony przy `required`, zielony przy `not required`**,
+   `Endpoints` z rozbiciem na metody, `Least privilege`, `Published by Microsoft`, `First tracked`
+   i **kazdy `Permission ID` osobno**.
+3. **Published by Microsoft** — powloka drukuje jedna KOLUMNE na schemat, v13 jedna KARTE; skrypt
+   **transponuje** tabele `proptable` na karty `.scheme` z chipem poziomu i zgody w naglowku.
+4. **What this permission can call** — `details.eps`, **zwiniete**, licznik w podpisie, pasek
+   `All / GET / POST / … / Least privilege` filtrujacy wiersze, tabela
+   `Method | Endpoint | Privilege | Change | Source`, gdzie `Change` niesie date wejscia endpointu
+   do pliku Microsoftu, a `Source` linkuje do pliku w KONKRETNYM commicie.
+5. **Entra roles that can do this** — `div.rulebox` z `graphMap.rule` i `ruleNote`, potem tabela
+   `Entra role | Coverage | Depth | Matched directory actions | Endpoints covered | Source`.
+   **Uprawnienie bez pasujacej roli dostaje ZDANIE, nie pusty element.**
+
+Dwa panele powloki, ktore ten uklad zastepuje (`At a glance`, `Published by Microsoft`), skrypt
+**ukrywa, nigdy nie usuwa** — nalezą do skryptu 3. Pozostale panele zostaja pod spodem nietkniete.
+
+Skrypt robi jeszcze dwie rzeczy, obie ze zgloszenia:
+
+- **Ukrywa `Worked example`** i wstawia w jego miejsce jedno zdanie, ze przyklad jest teraz
+  w kazdym panelu. Blok bez zaznaczonego uprawnienia jest dokladnie tym, co wlasciciel opisal
+  jako „cos pokazuje, ale nie wiadomo z czym zwiazane".
+- **Dokłada `Exact match` DO SZUKAJKI KATALOGU**, a nie obok niej. Pole ma stac tam, gdzie
+  czytelnik pisze; osobny widget nad katalogiem nie odpowiada na pytanie zadane w zielonym polu.
+
+### Dwie pulapki, obie zmierzone i obie sa czescia reguly
+
+1. **`data-id` jest PREFIKSOWANE.** Wpis katalogu ma `data-id="perm-User.Read.All"`, a nazwa siedzi
+   w `.ci-name`. Pierwsza wersja `Exact match` porownywala `data-id` z zapytaniem i dawala **zero
+   wynikow dla `User.Read.All`** — asercja, ktora nie zapala sie nigdy, jest tak samo bezuzyteczna
+   jak ta, ktora zapala sie zawsze.
+2. **Ta sama nazwa istnieje na DWOCH powierzchniach.** Katalog wozi `perm-User.Read.All` (Graph)
+   i `spo-User.Read.All` (SharePoint). Budowanie panelu po samej nazwie pokazywaloby endpointy
+   Grapha przy uprawnieniu SharePointa — ciche pomieszanie dwoch przestrzeni, przed ktorym broni
+   §5c. Skrypt sprawdza prefiks zaznaczonego wpisu i **przy innej powierzchni nie robi nic**.
+
+### Zmierzone po dolozeniu, na PRAWDZIWEJ stronie z 7 wrzesnia
+
+Skrypt i arkusz wstrzykniete w opublikowany plik, render headless, oba motywy, 1500 i 390 px,
+**zero bledow strony i `scrollWidth === clientWidth` wszedzie**:
+
+| scenariusz wlasciciela | wynik |
+|---|---|
+| `Worked example` bez zaznaczenia | ukryty, zastapiony jednym zdaniem |
+| `Exact match` przy szukajce katalogu | jest; `User.Read.All` daje **2 z 1076** (Graph i SharePoint), licznik `2 exact` |
+| Graph `User.Read.All` | panel v13, **215 endpointow**, 10 wierszy rol, GA 97% caly zasob |
+| SharePoint `User.Read.All` | **brak panelu Graph** — poprawnie, inna powierzchnia |
+| `SecurityAlert.Create.All` / `EntraBackup.ReadWrite.Preview` / `AccessReview.ReadWrite.Membership` | 2 / 1 / 14 endpointow, role: zdanie / zdanie / **6 wierszy** |
+| filtr metod | 215 → GET 175 → Least privilege 75 |
+| cztery przelaczenia tam i z powrotem | `.v13pane` = 1, bez duplikatow |
+
+**Kazde uprawnienie ma wlasna liczbe** — to jest cala roznica wzgledem jednego przykladu.
+
+### Walidator — pozycja 48 listy §0
+
+Bramka czyta plik, wiec sprawdza, ze skrypt jest i celuje w istniejace klasy; to, czy panel
+naprawde sie wypelnia, sprawdza Playwright (§5h) — **i to rozroznienie jest tu cala pointa**,
+bo poprzednia wersja bramki dala 45/46 na stronie, ktorej panel byl pusty.
+
+Do `<style>` dochodzi blok wygladu (na koncu, z pozostalymi z §1a, §5e, §5k, §5t, §5w,
+§5x, §5y, §5ad i §5ae). Kazdy selektor zaczyna sie od `.v13pane` albo od klasy, ktora tworzy
+wylacznie skrypt 6, wiec nic stad nie wycieka na reszte strony. **`--surface2` NIE ISTNIEJE
+w tym arkuszu — nazywa sie `--surface-2`** (§5t: sprawdz zmienna, zanim jej uzyjesz):
+
+```css
+/* §5ak — panel uprawnienia w ukladzie v13. Kazdy selektor zaczyna sie od .v13pane
+   albo od klasy, ktora tworzy wylacznie skrypt 6, wiec nic tu nie wycieka na reszte
+   strony. Zmienne sa TE, ktore arkusz juz deklaruje (§5t): `--surface2` nie istnieje,
+   nazywa sie `--surface-2`. */
+.v13pane{margin:0 0 14px}
+.v13pane>header{padding:0 0 10px;border-bottom:1px solid var(--border);margin:0 0 12px}
+.v13pane h2{font-family:var(--mono);font-size:17px;margin:0 0 7px}
+.v13pane .chips{display:flex;flex-wrap:wrap;gap:6px}
+.v13pane .sec{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--border)}
+.v13pane .sec:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.v13pane .sec h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 9px}
+.v13pane dl.kv{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr);gap:7px 16px;margin:0;font-size:13.5px}
+.v13pane dl.kv dt{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.v13pane dl.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.v13pane .scheme{border:1px solid var(--border);border-radius:10px;background:var(--surface-2);padding:11px 13px;margin:0 0 10px}
+.v13pane .scheme:last-child{margin-bottom:0}
+.v13pane .scheme .sh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px}
+.v13pane .scheme .nm{font-weight:700;font-size:13.5px}
+.v13pane .mono{font-family:var(--mono);font-size:12.5px}
+.v13pane .note{color:var(--muted);font-size:12.5px;margin:8px 0 0}
+.v13pane .empty{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+.v13pane .rulebox{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;
+ background:var(--surface-2);padding:10px 13px;margin:0 0 11px;font-size:13px}
+.v13pane .actlist{font-size:12px}
+.v13pane .rname{font-family:var(--sans);font-weight:600;min-width:150px}
+.v13pane .badge.t-ok{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok);border-radius:999px}
+.v13pane .badge.t-bad{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);border-radius:999px}
+.v13pane .badge.t-warn{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn);border-radius:999px}
+.v13pane .badge.t-acc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);border-radius:999px}
+.v13pane .badge.t-grey{background:var(--grey-soft);color:var(--grey);box-shadow:inset 0 0 0 1.5px var(--border);border-radius:999px}
+.v13pane .m{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;background:var(--surface-2);color:var(--muted)}
+.v13pane .m-GET{background:var(--ok-soft);color:var(--ok)}
+.v13pane .m-POST{background:var(--accent-soft);color:var(--accent)}
+.v13pane .m-PATCH{background:var(--warn-soft);color:var(--warn)}
+.v13pane .m-DELETE{background:var(--bad-soft);color:var(--bad)}
+.v13pane .m-PUT{background:var(--info-soft);color:var(--info)}
+.v13pane details.eps{border:1px solid var(--border);border-radius:10px;background:var(--surface-2)}
+.v13pane details.eps>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 13px}
+.v13pane details.eps>summary::-webkit-details-marker{display:none}
+.v13pane details.eps>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.v13pane details.eps[open]>summary::before{content:"\2212"}
+.v13pane details.eps>summary .sm-t{flex:1 1 auto;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+.v13pane .mf{display:flex;flex-wrap:wrap;gap:6px;margin:0 13px 10px}
+.v13pane .mf button{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.v13pane .mf button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.v13pane details.eps>.tw,.v13pane details.eps>.note{margin:0 13px 12px}
+label.s6exact{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+ color:var(--text);white-space:nowrap;margin-left:10px;cursor:pointer}
+p.s6note{color:var(--muted);font-size:13px;margin:0 0 12px}
+@media (max-width:760px){
+  .v13pane dl.kv{grid-template-columns:1fr;gap:3px 0}
+  .v13pane dl.kv dt{padding-top:7px}
+  .v13pane .badge{white-space:normal;overflow-wrap:anywhere}
+}
+```
+
+A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co do bajtu:
+
+```js
+/* ===========================================================================
+   SCRIPT 6 — THE GRAPH PERMISSION PANEL, IN THE APPROVED v13 LAYOUT
+   (CLAUDE.md 5ak). ADDED, never a replacement: shell scripts 1-3 and the added
+   scripts 4 (§5y) and 5 (§5ad) are untouched.
+
+   Two failures on the 7 Sep 2026 page, and both were mine, not the run's:
+   1. `graphMap` carried all 923 permissions, 24,099 pairs and 363 role
+      derivations, and the gate passed 45 of 46 — yet `details.eps` was rendered
+      ONCE, statically, outside the panel. All 1,076 catalog entries opened
+      without endpoints and without roles. The data was complete; the render was
+      missing, because the panel is built by shell script 3 and §5w forbids
+      editing it.
+   2. The owner approved a LAYOUT (the v13 mock) and §5ah carried a DESCRIPTION.
+      The run applied the description inside the shell's own panel shape, so the
+      page bore no resemblance to what was approved. A picture and prose are not
+      the same artefact — that is §0a, one level up.
+
+   This script rebuilds the permission panel in the approved order and shape,
+   from the state block and from what the shell already rendered. It hides the
+   shell's own "At a glance" and "Published by Microsoft" panels rather than
+   deleting them, and leaves every other panel below untouched.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  var SRC = "https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/%C/permissions/new/permissions.json";
+  var ROLEREF = "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#";
+  var LVL = { 1: ["Level 1", "Low"], 2: ["Level 2", "Moderate"], 3: ["Level 3", "High"], 4: ["Level 4", "Critical"] };
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function state() {
+    var s = document.getElementById("soc-brief-state");
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = state(), GM = (ST && ST.graphMap) || null;
+
+  /* `eps` is "<method index>:<index ranges>", ranges comma-separated, method groups
+     semicolon-separated. 142-154 means thirteen consecutive paths. */
+  function decode(txt) {
+    var out = [], M = (GM && GM.m) || [], P = (GM && GM.p) || [];
+    (txt || "").split(";").forEach(function (grp) {
+      if (!grp || grp.indexOf(":") < 0) return;
+      var bits = grp.split(":"), meth = M[parseInt(bits[0], 10)];
+      bits[1].split(",").forEach(function (part) {
+        if (!part) return;
+        var a, b;
+        if (part.indexOf("-") > 0) { var t = part.split("-"); a = +t[0]; b = +t[1]; } else { a = b = +part; }
+        for (var i = a; i <= b; i++) if (P[i] !== undefined) out.push({ m: meth, p: P[i], i: i });
+      });
+    });
+    return out;
+  }
+  function keyset(list) { var s = {}; list.forEach(function (x) { s[x.m + " " + x.p] = 1; }); return s; }
+  function srcLink(label) {
+    var a = el("a", "lnk", label || "Source file");
+    a.href = SRC.replace("%C", ((GM && GM.commit) || "dev").split(" ")[0]);
+    a.target = "_blank"; a.rel = "noopener";
+    return a;
+  }
+  function lvlChip(n) {
+    if (!n || !LVL[n]) return el("span", "badge t-grey", "not stated");
+    var c = n <= 2 ? "t-ok" : (n === 3 ? "t-warn" : "t-bad");
+    return el("span", "badge " + c, LVL[n][0] + " · " + LVL[n][1]);
+  }
+  function consentChip(c, prefix) {
+    return el("span", "badge " + (c ? "t-bad" : "t-ok"),
+      (prefix ? prefix + ": " : "") + (c ? "admin consent required" : "no admin consent"));
+  }
+  function kv(dl, k, v) {
+    dl.appendChild(el("dt", null, k));
+    var dd = el("dd");
+    if (typeof v === "string") dd.textContent = v; else if (v) dd.appendChild(v);
+    dl.appendChild(dd);
+  }
+
+  /* ---------- what the shell already rendered, read back rather than recomputed ---------- */
+  function shellMeta(inner) {
+    var out = [], dl = inner.querySelector("dl.cat-meta");
+    if (!dl) return out;
+    var kids = [].slice.call(dl.children);
+    for (var i = 0; i < kids.length - 1; i++)
+      if (kids[i].tagName === "DT" && kids[i + 1].tagName === "DD")
+        out.push([kids[i].textContent.trim(), kids[i + 1].textContent.trim()]);
+    return out;
+  }
+  function shellPublished(inner) {
+    /* the shell prints one COLUMN per scheme; v13 prints one CARD per scheme, so transpose */
+    var t = inner.querySelector("table.proptable");
+    if (!t) return null;
+    var heads = [].slice.call(t.querySelectorAll("thead th")).map(function (x) { return x.textContent.trim(); });
+    var cols = heads.slice(1), rows = [];
+    [].slice.call(t.querySelectorAll("tbody tr")).forEach(function (tr) {
+      var rh = tr.querySelector("th"); if (!rh) return;
+      rows.push([rh.textContent.trim(), [].slice.call(tr.querySelectorAll("td")).map(function (td) { return td.textContent.trim(); })]);
+    });
+    return { cols: cols, rows: rows };
+  }
+
+  /* ---------- sections ---------- */
+  function glance(name, d, inner) {
+    var sec = el("div", "sec"); sec.appendChild(el("h3", null, "At a glance"));
+    var dl = el("dl", "kv");
+    var meta = shellMeta(inner), seen = {};
+    ["Kind", "Object type", "Origin", "API", "Entity"].forEach(function (want) {
+      meta.forEach(function (p) { if (p[0].toLowerCase() === want.toLowerCase() && !seen[want]) { kv(dl, p[0], p[1]); seen[want] = 1; } });
+    });
+    var sch = (d && d.s) || {};
+    if (Object.keys(sch).length) {
+      var lw = el("span");
+      Object.keys(sch).forEach(function (k, i) {
+        if (i) lw.appendChild(document.createTextNode(" · "));
+        lw.appendChild(document.createTextNode(k + ": "));
+        lw.appendChild(lvlChip(sch[k].l));
+      });
+      kv(dl, "Privilege level", lw);
+      var cw = el("span");
+      Object.keys(sch).forEach(function (k, i) {
+        if (i) cw.appendChild(document.createTextNode(" "));
+        cw.appendChild(consentChip(sch[k].c, k));
+      });
+      kv(dl, "Admin consent", cw);
+    }
+    if (d && d.eps) {
+      var eps = decode(d.eps), least = keyset(decode(d.least)), byM = {};
+      eps.forEach(function (x) { byM[x.m] = (byM[x.m] || 0) + 1; });
+      var n = 0; eps.forEach(function (x) { if (least[x.m + " " + x.p]) n++; });
+      kv(dl, "Endpoints", eps.length + " across " + Object.keys(byM).sort().map(function (m) { return m + " " + byM[m]; }).join(", "));
+      kv(dl, "Least privilege", n + " of " + eps.length + " endpoints list this permission as least privileged");
+    }
+    meta.forEach(function (p) {
+      var k = p[0].toLowerCase();
+      if (k === "published by microsoft" || k === "first tracked" || k === "consent") kv(dl, p[0], p[1]);
+    });
+    Object.keys((d && d.ids) || {}).forEach(function (k) {
+      var s = el("span", "mono", d.ids[k]); kv(dl, "Permission ID · " + k, s);
+    });
+    sec.appendChild(dl);
+    return sec;
+  }
+
+  function published(d, inner) {
+    var pub = shellPublished(inner);
+    if (!pub || !pub.cols.length) return null;
+    var sec = el("div", "sec"); sec.appendChild(el("h3", null, "Published by Microsoft"));
+    var sch = (d && d.s) || {};
+    pub.cols.forEach(function (colName, ci) {
+      var card = el("div", "scheme"), head = el("div", "sh");
+      head.appendChild(el("span", "nm", colName));
+      var key = Object.keys(sch).filter(function (k) { return k.toLowerCase().indexOf(colName.toLowerCase()) >= 0 || colName.toLowerCase().indexOf(k.toLowerCase()) >= 0; })[0];
+      if (key) { head.appendChild(lvlChip(sch[key].l)); head.appendChild(consentChip(sch[key].c)); }
+      card.appendChild(head);
+      var dl = el("dl", "kv");
+      pub.rows.forEach(function (r) {
+        var v = r[1][ci];
+        if (v !== undefined && v !== "" && v !== "—") kv(dl, r[0], v);
+      });
+      card.appendChild(dl); sec.appendChild(card);
+    });
+    return sec;
+  }
+
+  function epsSec(d) {
+    if (!d || !d.eps) return null;
+    var eps = decode(d.eps), least = keyset(decode(d.least)), byM = {};
+    eps.forEach(function (x) { byM[x.m] = (byM[x.m] || 0) + 1; });
+    var nL = 0; eps.forEach(function (x) { if (least[x.m + " " + x.p]) nL++; });
+
+    var sec = el("div", "sec"), det = el("details", "eps epsinject");
+    var sum = el("summary");
+    sum.appendChild(el("span", "sm-t", "What this permission can call"));
+    sum.appendChild(el("span", "badge t-acc", eps.length + " endpoint" + (eps.length === 1 ? "" : "s")));
+    det.appendChild(sum);
+
+    var mf = el("div", "mf");
+    function chip(lab, key) {
+      var b = el("button", null, lab); b.type = "button"; b.dataset.m = key;
+      b.setAttribute("aria-pressed", String(key === "ALL")); mf.appendChild(b);
+    }
+    chip("All " + eps.length, "ALL");
+    Object.keys(byM).sort().forEach(function (m) { chip(m + " " + byM[m], m); });
+    if (nL) chip("Least privilege " + nL, "LEAST");
+    det.appendChild(mf);
+
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), tr = el("tr");
+    ["Method", "Endpoint", "Privilege", "Change", "Source"].forEach(function (h) { tr.appendChild(el("th", null, h)); });
+    th.appendChild(tr); tb.appendChild(th);
+    var body = el("tbody");
+    eps.sort(function (a, b) { return a.p < b.p ? -1 : a.p > b.p ? 1 : (a.m < b.m ? -1 : 1); });
+    eps.forEach(function (x) {
+      var isL = !!least[x.m + " " + x.p], r = el("tr");
+      r.dataset.m = x.m; r.dataset.least = isL ? "1" : "0";
+      var c0 = el("td"); c0.appendChild(el("span", "m m-" + x.m, x.m)); r.appendChild(c0);
+      var c1 = el("td", "p"); c1.appendChild(el("span", "mono", x.p)); r.appendChild(c1);
+      var c2 = el("td");
+      if (isL) c2.appendChild(el("span", "badge t-ok", "least privilege"));
+      r.appendChild(c2);
+      var c3 = el("td"), when = (d["new"] || {})[String(x.i)];
+      if (when) c3.appendChild(el("span", "badge t-acc", "added " + when));
+      r.appendChild(c3);
+      var c4 = el("td"); c4.appendChild(srcLink()); r.appendChild(c4);
+      body.appendChild(r);
+    });
+    tb.appendChild(body); tw.appendChild(tb); det.appendChild(tw);
+    var note = el("p", "note",
+      "Read from Microsoft's own permissions.json in microsoftgraph/microsoft-graph-devx-content, commit " +
+      ((GM && GM.commit) || "unknown") + ". The change column comes from that file's git history, so the date is Microsoft's, not the date this brief noticed.");
+    det.appendChild(note);
+
+    mf.addEventListener("click", function (ev) {
+      var b = ev.target.closest("button"); if (!b) return;
+      [].forEach.call(mf.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      var m = b.dataset.m;
+      [].forEach.call(body.querySelectorAll("tr"), function (r) {
+        r.hidden = !(m === "ALL" || (m === "LEAST" ? r.dataset.least === "1" : r.dataset.m === m));
+      });
+    });
+    sec.appendChild(det);
+    return sec;
+  }
+
+  function rolesSec(d) {
+    var sec = el("div", "sec");
+    sec.appendChild(el("h3", null, "Entra roles that can do this"));
+    var rb = el("div", "rulebox");
+    rb.appendChild(el("b", null, "How this list is derived, and what Microsoft does not publish."));
+    rb.appendChild(document.createTextNode(" " + ((GM && GM.rule) || "")));
+    var n = el("p", "note");
+    n.appendChild(el("b", null, (GM && GM.ruleNote) || "Derived by this brief, not published by Microsoft."));
+    rb.appendChild(n); sec.appendChild(rb);
+
+    var rows = (d && d.roles) || [];
+    if (!rows.length) {
+      sec.appendChild(el("p", "empty",
+        "No Entra directory role holds an action on any resource this permission reaches. That is a result, not a gap: the resources sit outside the microsoft.directory namespace, and 33 of the 136 built-in roles publish no directory action at all, so their absence here is not evidence."));
+      return sec;
+    }
+    var total = d.eps ? decode(d.eps).length : 0;
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), tr = el("tr");
+    ["Entra role", "Coverage", "Depth", "Matched directory actions", "Endpoints covered", "Source"]
+      .forEach(function (h) { tr.appendChild(el("th", null, h)); });
+    th.appendChild(tr); tb.appendChild(th);
+    var body = el("tbody");
+    rows.forEach(function (r) {
+      var nm = r[0], pct = r[1], broad = r[2], acts = r[3] || [], cov = r[4], slug = r[5];
+      var t = el("tr");
+      t.appendChild(el("td", "rname", nm));
+      var c1 = el("td"); c1.appendChild(el("b", null, pct + "%")); t.appendChild(c1);
+      var c2 = el("td");
+      c2.appendChild(el("span", "badge " + (broad ? "t-ok" : "t-warn"), broad ? "whole resource" : "selected properties only"));
+      t.appendChild(c2);
+      var c3 = el("td", "actlist");
+      acts.slice(0, 4).forEach(function (a) { var s = el("div"); s.appendChild(el("span", "mono", a)); c3.appendChild(s); });
+      if (acts.length > 4) c3.appendChild(el("div", "note", "… and " + (acts.length - 4) + " more"));
+      t.appendChild(c3);
+      t.appendChild(el("td", null, (cov !== undefined ? cov : Math.round(total * pct / 100)) + " of " + total));
+      var c5 = el("td"), a = el("a", "lnk", "Role reference");
+      a.href = ROLEREF + (slug || nm.toLowerCase().replace(/[^a-z0-9]+/g, "-"));
+      a.target = "_blank"; a.rel = "noopener"; c5.appendChild(a); t.appendChild(c5);
+      body.appendChild(t);
+    });
+    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    sec.appendChild(el("p", "note",
+      rows.length + " role" + (rows.length === 1 ? "" : "s") + " shown, ranked by the share of this permission's " +
+      total + " endpoints the role also carries as a directory action. Whole resource beats property-limited at equal coverage."));
+    return sec;
+  }
+
+
+  /* ---------- the worked example, and the missing Exact match ----------
+     The 7 Sep page carried a single server-rendered "Worked example — User.Read.All"
+     above the catalog: an endpoint table and a role table attached to no selection,
+     which is what the owner saw as "it shows something and I do not know what it
+     relates to". Once every panel carries its own, the example is redundant and
+     confusing, so it is hidden — never deleted, because the run owns that markup.
+     The Exact match box lived in a SEPARATE query widget, not on the catalog's own
+     search, so searching the green box could not find it. It belongs where the
+     reader types. */
+  function tidySection() {
+    var body = document.querySelector('#graph > .sec-body');
+    if (!body) return;
+    var kids = [].slice.call(body.children), start = -1, end = -1;
+    kids.forEach(function (x, i) {
+      if (start < 0 && x.tagName === "H3" && /worked example/i.test(x.textContent || "")) start = i;
+      if (start >= 0 && x.classList && x.classList.contains("rnote")) end = i;
+    });
+    if (start >= 0) {
+      if (end < start) end = kids.length - 1;
+      for (var i = start; i <= end; i++) { kids[i].hidden = true; kids[i].dataset.s6hidden = "1"; }
+      var note = el("p", "wnote s6note");
+      note.textContent = "The worked example that stood here is now on every permission: open any entry " +
+        "in the catalog below and its own endpoint list and role table are in its panel.";
+      body.insertBefore(note, kids[start]);
+    }
+  }
+
+  function exactMatch() {
+    var cat = document.querySelector('.catalog[data-catalog="graph"]');
+    if (!cat || cat.querySelector(".s6exact")) return;
+    var row = cat.querySelector(".cat-searchrow"), input = cat.querySelector("input.cat-search");
+    if (!row || !input) return;
+    var lab = el("label", "s6exact");
+    var box = document.createElement("input"); box.type = "checkbox"; box.id = "s6exact";
+    lab.appendChild(box); lab.appendChild(document.createTextNode(" Exact match"));
+    var cnt = row.querySelector(".rowcount");
+    if (cnt) row.insertBefore(lab, cnt); else row.appendChild(lab);
+
+    var list = cat.querySelector(".cat-list"), applying = false;
+    function apply() {
+      if (applying || !list) return;
+      applying = true;
+      try {
+        var q = (input.value || "").trim().toLowerCase(), on = box.checked && q, shown = 0;
+        [].forEach.call(list.querySelectorAll(".cat-item"), function (b) {
+          if (on) {
+            var nm = ((b.querySelector(".ci-name") || {}).textContent ||
+                      (b.dataset.id || "").replace(/^[a-z0-9]+-/, "")).trim().toLowerCase();
+            if (nm !== q) { b.hidden = true; return; }
+          }
+          if (b.dataset.s6hid === "1") { b.hidden = false; }
+          if (!b.hidden) shown++;
+        });
+        if (cnt && on) cnt.textContent = shown + " exact";
+      } finally { applying = false; }
+    }
+    box.addEventListener("change", apply);
+    input.addEventListener("input", function () { if (box.checked) setTimeout(apply, 0); });
+    if (window.MutationObserver && list)
+      new MutationObserver(function () { if (box.checked) apply(); }).observe(list, { childList: true });
+  }
+
+  /* ---------- rebuild ---------- */
+  function build(inner) {
+    if (!inner || inner.querySelector(".v13pane")) return;
+    var h = inner.querySelector(".cat-title");
+    if (!h) return;
+    var name = (h.textContent || "").trim();
+    var sel = document.querySelector('.catalog[data-catalog="graph"] .cat-item[aria-selected="true"]');
+    var id = sel ? (sel.dataset.id || "") : "";
+    if (id && id.indexOf("perm-") !== 0) return;   /* another API surface with the same name */
+    if (!id) {
+      var api = "";
+      shellMeta(inner).forEach(function (p) { if (/^api$/i.test(p[0])) api = p[1]; });
+      if (api && !/microsoft graph/i.test(api)) return;
+    }
+    var d = (GM && GM.perms) ? GM.perms[name] : null;
+    if (!d) return;                       /* a role entry, or a permission with no map: stay silent */
+
+    var pane = el("div", "v13pane");
+    var head = el("header"), h2 = el("h2", "mono", name);
+    head.appendChild(h2);
+    var chips = el("div", "chips"), src = inner.querySelector(".cat-badges");
+    if (src) [].forEach.call(src.querySelectorAll(".badge"), function (b) {
+      chips.appendChild(el("span", "badge t-grey", b.textContent.trim()));
+    });
+    head.appendChild(chips); pane.appendChild(head);
+
+    pane.appendChild(glance(name, d, inner));
+    var pb = published(d, inner); if (pb) pane.appendChild(pb);
+    var ep = epsSec(d); if (ep) pane.appendChild(ep);
+    pane.appendChild(rolesSec(d));
+
+    /* the two panels this pane replaces are hidden, never removed: script 3 owns them */
+    [].forEach.call(inner.querySelectorAll("section.cat-panel"), function (s) {
+      var t = (s.querySelector("h4") || {}).textContent || "";
+      if (/at a glance|published by microsoft/i.test(t)) s.hidden = true;
+    });
+    var after = inner.querySelector(".cat-head");
+    if (after && after.nextSibling) inner.insertBefore(pane, after.nextSibling);
+    else inner.appendChild(pane);
+  }
+
+  function boot() {
+    if (!GM || !GM.perms) return;         /* no map: do nothing, and do not throw */
+    tidySection(); exactMatch();
+    [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"] .cat-detail'), function (det) {
+      build(det.querySelector(".cat-detail-inner"));
+      if (window.MutationObserver)
+        new MutationObserver(function () { build(det.querySelector(".cat-detail-inner")); })
+          .observe(det, { childList: true, subtree: false });
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 120); });
+  else setTimeout(boot, 120);
+})();
+```
 
 ## 5ai. Klonowanie — sparse i blobless, bo repozytorium ma juz 111 MB
 
