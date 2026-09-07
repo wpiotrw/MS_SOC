@@ -6104,6 +6104,41 @@ Trzy reguly ksztaltu, kazda z bledu zmierzonego 7 wrzesnia 2026:
 
 Wpis bez `id` (baseline) **nie dostaje przycisku `+`** — nie ma czego otwierac, i to tez jest wynik.
 
+### Migracja przy odczycie — stary rejestr nie unieważnia nowej reguły
+
+Rejestr zapisany PRZED ta poprawka wozi wpisy w starym ksztalcie. Zmierzone w repozytorium
+7 wrzesnia 2026 wieczorem: `site/data/changelog.json` ma **73 wpisy, z tego 33 ze zdaniem w polu
+`id`** (`"AuditLog.Read.All → 1 new endpoint"`) i jeden z encja `&mdash;`. §5aj zabrania
+przepisywania historii, a pozycja 47 listy §0 sprawdza to co do bajtu — wiec **pliku sie nie rusza**.
+
+**Przebieg naprawia to przy ODCZYCIE, gdy wycina okno do `ledger14`:**
+
+```python
+def norm_entry(e):
+    """Stary wpis -> nowy ksztalt. Plik zrodlowy zostaje nietkniety."""
+    ENT = (("&mdash;", "\u2014"), ("&rarr;", "\u2192"), ("&minus;", "\u2212"),
+           ("&middot;", "\u00b7"), ("&amp;", "&"))
+    e = dict(e)
+    for k, v in list(e.items()):
+        if isinstance(v, str):
+            for a, b in ENT: v = v.replace(a, b)
+            e[k] = v
+    iid = e.get("id") or ""
+    if "\u2192" in iid:                      # "X → 1 new endpoint"
+        head, tail = [x.strip() for x in iid.split("\u2192", 1)]
+        e["id"] = head
+        if not e.get("field"): e["field"] = "endpoints"
+        if not e.get("after"):
+            m = re.match(r"(\d+)", tail)
+            e["after"] = ("+" + m.group(1)) if m else tail
+        e["detail"] = e.get("detail") or tail
+    return e
+```
+
+Dzieki temu pozycja 50 listy §0 jest zielona od pierwszego przebiegu po zmianie, a historia
+w pliku zostaje taka, jaka byla — bo to sa dwa rozne pytania: „czy strona niesie czyste dane"
+i „czy przebieg przepisal przeszlosc".
+
 ### Gora zakladki — identyczna w Roles i w Graph API
 
 `kafelki liczbowe` → `zwiniete wyliczenie` → `historia 14 dni (otwarta)` → tresc zakladki.
