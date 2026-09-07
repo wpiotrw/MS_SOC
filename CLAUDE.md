@@ -34,9 +34,14 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 2. **Przejdz ponizsza liste pozycja po pozycji i zapisz wynik kazdej.** Pozycja niewykonana ma
    powod, nigdy cisze.
 3. **Przed publikacja uruchom asercje z kolumny „sprawdzenie".** Kazda jest wykonalna w kodzie na
-   gotowym pliku HTML — to nie jest ocena, tylko test.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 47 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-48), plus **pozycje 34 dla przebiegu ZMIAN** — razem 48. Wlasciciel czyta ta liste zamiast
+   gotowym pliku HTML — to nie jest ocena, tylko test. **Pozycje, ktorych bramka nie umie sprawdzic
+   z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
+   rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
+   uprawnienia byl pusty.
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 52 pozycje dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-52), plus **pozycje 34 dla przebiegu ZMIAN** — razem 53.
+   (Poprzednie wydania mowily „47 … razem 48"; 0-33 to 34 pozycje, a nie 33, wiec liczba byla o jedna za mala.
+   Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a: **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -93,9 +98,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 46 | **kazda zakladka tresciowa ma `details.chg14`**, licznik w podpisie rowny liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element | 5aj | licznik = wiersze dla kazdej zakladki |
 | 47 | **rejestr NIE zostal przepisany**: wpisy starsze niz dzisiaj sa identyczne z poprzednim przebiegiem | 5aj | roznica pusta; pierwszy przebieg daje `BRAK „brak punktu odniesienia"`, nie OK |
 | 48 | **SKRYPT 6 buduje KAZDY panel uprawnienia w ukladzie v13**: `.v13pane` z `At a glance`, kartami schematow, zwinieta lista endpointow i tabela rol, plus `Exact match` przy szukajce katalogu; `Worked example` ukryty | 5ak | `v13pane`, `epsinject`, `s6exact` i `SCRIPT 6` w pliku; render: trzy rozne uprawnienia daja trzy ROZNE liczby endpointow |
+| 49 | **SKRYPT 7 buduje panel roli w tym samym ukladzie**, a pierwsze dwie sekcje OBU paneli to `At a glance` i `What changed … in the last 14 days` | 5al | `SCRIPT 7`, `v13role`, `actinject`, `__socOpenRole` w pliku; render: panel roli ma te dwie sekcje w tej kolejnosci |
+| 50 | **`ledger14` w bloku stanu**: `runs` i `entries`, blokow JSON nadal DWA, zaden wpis bez `tab`, zaden z encja HTML ani ze zdaniem w polu `id` | 5al, 5aj | `ledger14` obecne; `<script type="application/json">` = 2; zero wpisow z `&…;` i z `→` w `id` |
+| 51 | **kazda zakladka tresciowa ma `details.chg14` z SKRYPTU 8**: obie osie wykresu podpisane, licznik rowny liczbie wierszy, kazdy wiersz z przedmiotem ma `+` albo `↗` | 5al | `SCRIPT 8`, `chg14`, `axt`, `howto` w pliku; render: licznik = wiersze, oba podpisy osi obecne |
+| 52 | **`+` w wierszu historii otwiera panel katalogu**, a klon nie ma wlasnej sekcji 14 dni | 5al | `__socOpenPerm` i `__socOpenRole` w pliku; render: trzy rozne wiersze daja trzy ROZNE panele, `[data-hist]` w klonie = 0 |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47 i 48 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47, 48, 49, 51 i 52 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -951,6 +960,32 @@ def gate(path, site=None):
          "brak graphMap — nie da sie sprawdzic" if not hasmap
          else "graphMap jest, a skryptu 6 nie ma — dane sa w stanie, czytelnik ich nie zobaczy: %s" % (
              ", ".join(k for k in ("SCRIPT 6","v13pane","epsinject","s6exact","cat-detail-inner") if k not in h)))
+    # ---- 49-52: uklad v16 w obu zakladkach (§5al). Bramka czyta PLIK, wiec pyta
+    # o obecnosc skryptow i o ksztalt danych; to, czy panel sie wypelnia i czy `+`
+    # otwiera go naprawde, sprawdza Playwright (§5h). To rozroznienie jest cala
+    # pointa pozycji 48 i powtarza sie tutaj.
+    K49 = ("SCRIPT 7","v13role","actinject","__socOpenRole","s7exact","s7tips","rolerank")
+    need("49","SKRYPT 7 buduje panel roli w ukladzie v16 (§5al)",
+         all(k in h for k in K49) and "el(\"details\", \"rank\")" not in h,
+         "brak: %s" % ", ".join(k for k in K49 if k not in h))
+    led=(st["soc-brief-state"] or {}).get("ledger14") or {}
+    lent=led.get("entries") or []
+    ents=[e for e in lent if any(isinstance(v,str) and re.search(r"&(?:mdash|rarr|minus|middot);",v)
+                                 for v in e.values())]
+    packed=[e for e in lent if isinstance(e.get("id"),str) and ("\u2192" in e["id"] or "->" in e["id"])]
+    notab=[e for e in lent if not e.get("tab")]
+    need("50","ledger14 w bloku stanu, bez encji i bez zdan w polu id",
+         bool(led) and bool(led.get("runs")) and s.jsonblocks==2
+         and not ents and not packed and not notab,
+         "brak ledger14 — nie da sie sprawdzic" if not led
+         else "runs=%s, blokow JSON=%d, wpisow z encja=%d, z pakietem w id=%d, bez tab=%d"
+              % (bool(led.get("runs")), s.jsonblocks, len(ents), len(packed), len(notab)))
+    need("51","SKRYPT 8 buduje gore zakladki i rejestr 14 dni z opisanymi osiami",
+         all(k in h for k in ("SCRIPT 8","chg14","axt","howto","How to read this")),
+         "brak: %s" % ", ".join(k for k in ("SCRIPT 8","chg14","axt","howto","How to read this") if k not in h))
+    need("52","`+` w wierszu historii otwiera panel katalogu",
+         all(k in h for k in ("__socOpenPerm","__socOpenRole","__socHistSection","hd-in","data-hist")),
+         "brak: %s" % ", ".join(k for k in ("__socOpenPerm","__socOpenRole","__socHistSection","hd-in","data-hist") if k not in h))
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1292,7 +1327,10 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
 
 8. **Catalog — zakladki Graph API i Roles** — dodane / usuniete nazwy uprawnien i rol oraz wpisy,
    ktorym ruszyl `kind`, `docStatus`, `version`, `changed` albo `serviceStatus`. Dwie tabele,
-   kazda z podpisem nazywajacym swoja zakladke.
+   kazda z podpisem nazywajacym swoja zakladke. **Kazda nazwa, ktora nadal istnieje w katalogu,
+   niesie kotwice `↗` do swojego panelu w briefie** (`/#graph:perm=…`, `/#roles:role=…`, §5al):
+   ta strona z zalozenia nie ma katalogu, wiec nie otworzy panelu u siebie, ale ma w niego wskazac.
+   `verify()` odrzuca strone, na ktorej wiersz katalogu takiej kotwicy nie ma.
 9. **Graph endpoints** — sekcja `id="endpoints"` (§5ah). Porownanie `graphMap` PARA PO PARZE:
    endpointy, ktore uprawnienie zyskalo, ktore stracilo, oraz ruch `privilegeLevel`
    i `requiresAdminConsent`. **To sa endpointy, nie pozycje**, i dlatego maja WLASNY, szosty wiersz
@@ -1421,6 +1459,7 @@ co sie zmienilo pole po polu. Bez dziesieciu zakladek, bez przegladarki katalogu
 kopiowania megabajtow JSON, ktorych taka strona nie uzywa.
 """
 import sys, os, re, json, html, datetime
+from urllib.parse import quote as _q
 
 # ---------- wejscie ----------
 
@@ -1603,7 +1642,7 @@ def diff_graphmap(prev_st, curr_st):
     curr_has = bool(((curr_st or {}).get("graphMap") or {}).get("perms"))
     if curr_has and not prev_has:
         n = len((curr_st["graphMap"] or {}).get("perms") or {})
-        return ([("&mdash;", "baseline", "",
+        return ([("\u2014", "baseline", "",
                   "First run carrying graphMap: %d permissions recorded. The previous state has no "
                   "endpoint map, so there is nothing to compare against and nothing here is a change. "
                   "Tomorrow's run reports real differences." % n)], 0, 0, 0)
@@ -1645,6 +1684,15 @@ def a_src(it):
     u = norm(it.get("url"))
     if not u: return '<span class="none">no link</span>'
     return '<a href="%s" target="_blank" rel="noopener">Source</a>' % esc(u)
+
+def deep_link(tab, key, home="/"):
+    """Strona zmian nie ma katalogu (§3), wiec nie otworzy panelu u siebie —
+    ale moze w niego wskazac. Skrypty 6 i 7 czytaja te kotwice (§5al)."""
+    if not key: return ""
+    frag = ("graph:perm=" if tab == "Graph API" else "roles:role=") + key
+    # spacja w nazwie roli musi byc zakodowana, inaczej kotwica jest niepoprawnym URL-em
+    return (' <a class="deep" href="%s#%s" title="Open the full panel in the brief">\u2197</a>'
+            % (esc(home), esc(_q(frag, safe="=:/."))))
 
 def name_cell(it):
     out = "<b>%s</b>" % esc(it.get("title") or it.get("id"))
@@ -1770,6 +1818,9 @@ b.nadd{color:var(--ins-fg)}b.nrem{color:var(--del-fg)}b.nchg{color:var(--warn)}
 tr.quiet td{color:var(--muted)}
 .more{color:var(--muted);font-size:13px;margin:8px 0 0}
 a{color:var(--accent)}
+a.deep{text-decoration:none;font-weight:700;padding:0 5px;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);font-size:11.5px}
+a.deep:hover{background:var(--accent);color:var(--surface)}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
  background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
@@ -2041,19 +2092,19 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                   emore))
 
     # --- catalog
-    def catrows(add, rem, mod, name):
+    def catrows(add, rem, mod, name, tab=None, home_="/"):
         r = []
-        for n in add[:60]: r.append(("", ['<ins>added</ins>', "<code>%s</code>" % esc(n), ""]))
+        for n in add[:60]: r.append(("", ['<ins>added</ins>', "<code>%s</code>%s" % (esc(n), deep_link(tab, n, home_)), ""]))
         for n in rem[:60]: r.append(("", ['<del>removed</del>', "<code>%s</code>" % esc(n), ""]))
         for n, f, a, b in mod[:60]:
-            r.append(("", ["changed", "<code>%s</code>" % esc(n),
+            r.append(("", ["changed", "<code>%s</code>%s" % (esc(n), deep_link(tab, n, home_)),
                            '<span class="field">%s</span> <del>%s</del><span class="arrow">&rarr;</span><ins>%s</ins>'
                            % (esc(f), esc(a) or "not set", esc(b) or "cleared")]))
         extra = len(add) + len(rem) + len(mod) - len(r)
         return r, ('<p class="more">… and %d more %s changes.</p>' % (extra, name) if extra > 0 else "")
 
-    gr, gmore = catrows(gadd, grem, gmod, "Graph")
-    rr, rmore = catrows(radd, rrem, rmod, "role")
+    gr, gmore = catrows(gadd, grem, gmod, "Graph", "Graph API", home)
+    rr, rmore = catrows(radd, rrem, rmod, "role", "Roles", home)
     # Katalog jest domem DWOCH zakladek — kazda dostaje wlasny podpis, zeby wiersz
     # podsumowania „Graph API / Roles" mial na dole odpowiadajaca mu tabele.
     out.append('<section id="catalog"><h2>Catalog &mdash; Graph API and Roles tabs</h2>'
@@ -2122,6 +2173,13 @@ def verify(page):
     # Przelacznik motywu: arkusz wozi oba motywy, wiec strona bez przycisku zostawia czytelnika
     # z tym, co narzucil system. Regula bez asercji jest sugestia (§0b) — wiec asercja.
     if 'id="themebtn"' not in page: e.append("brak przycisku motywu (#themebtn)")
+    # §5al: wiersz zakladki katalogowej ma prowadzic do panelu w briefie — inaczej
+    # czytelnik strony zmian widzi nazwe i nie ma jak zobaczyc, czego dotyczy.
+    m3 = re.search(r'<section id="catalog">.*?</section>', page, re.S)
+    if m3:
+        rows3 = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", m3.group(0), re.S) if "<code" in r]
+        nolink = [r for r in rows3 if "removed" not in r and 'class="deep"' not in r]
+        if nolink: e.append("%d wierszy katalogu bez kotwicy do panelu w briefie" % len(nolink))
     if "soc-diff-theme" not in page: e.append("brak skryptu przelacznika motywu")
     if p.panels: e.append("strona zmian nie ma zakladek, a ma %d .tabpanel" % p.panels)
     if p.cat: e.append("strona zmian nie ma przegladarki katalogu, a ma %d" % p.cat)
@@ -2154,7 +2212,17 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
     seen = {(e.get("seen"), e.get("tab"), e.get("kind"), e.get("id"), e.get("field"))
             for e in cl.get("entries") or []}
     new = []
+    def clean(x):
+        """Rejestr trzyma ZNAKI, nie encje. Encja w danych wraca potem w kazdym
+        widoku, ktory je czyta — na stronie, w panelu i w `+` wiersza historii."""
+        if not isinstance(x, str): return x
+        for a, b in (("&mdash;", "\u2014"), ("&rarr;", "\u2192"), ("&minus;", "\u2212"),
+                     ("&middot;", "\u00b7"), ("&amp;", "&")):
+            x = x.replace(a, b)
+        return x
+
     def put(tab, kind_, iid, field, before, after, it=None):
+        iid, field, before, after = clean(iid), clean(field), clean(before), clean(after)
         k = (today, tab, kind_, iid, field)
         if k in seen: return
         seen.add(k)
@@ -2176,8 +2244,28 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
         for n in a: put(tab, "added", n, None, None, None)
         for n in r: put(tab, "removed", n, None, None, None)
         for n, f, o, v in m: put(tab, "changed", n, f, o, v)
+    # Ruch endpointow dopisujemy PER UPRAWNIENIE. Jeden wpis na endpoint dawal
+    # 9 736 wierszy pierwszego dnia z mapa (zmierzone 7 wrzesnia 2026) i rejestr
+    # przestawal byc czytelny; liczba plus trzy przyklady odpowiadaja na to samo
+    # pytanie, a panel uprawnienia i tak wymienia wszystkie endpointy.
+    agg = {}
     for nm, what, before, after in diff_graphmap(prev_st, curr_st)[0]:
-        put("Graph endpoints", "changed", nm, what, before, after)
+        if what in ("endpoint added", "endpoint removed"):
+            a = agg.setdefault((nm, what), {"n": 0, "ex": []})
+            a["n"] += 1
+            if len(a["ex"]) < 3: a["ex"].append(after or before)
+        else:
+            put("Graph API", "changed", nm, what, before, after)
+    for (nm, what), a in sorted(agg.items()):
+        sign = "+" if what == "endpoint added" else "\u2212"
+        e = {"seen": today, "tab": "Graph API", "kind": "changed", "id": nm,
+             "field": "endpoints", "before": None, "after": "%s%d" % (sign, a["n"]),
+             "detail": "%s: %s%s" % (what, ", ".join(a["ex"]),
+                                     ", \u2026" if a["n"] > len(a["ex"]) else ""),
+             "product": None, "weight": None, "tier0": False, "msDate": None, "url": None}
+        k = (today, e["tab"], e["kind"], e["id"], e["field"])
+        if k not in seen:
+            seen.add(k); new.append(e)
     cl["entries"] = (cl.get("entries") or []) + new
     keep = datetime.date.today() - datetime.timedelta(days=cl.get("retentionDays", 90))
     cl["entries"] = [e for e in cl["entries"] if (e.get("seen") or "9999") >= keep.isoformat()]
@@ -2729,6 +2817,21 @@ Nowe od 1 wrzesnia 2026, kazda z realnego zgloszenia wlasciciela: **oba pola szu
 **w `tab-new`, `tab-today` i `tab-deadlines` istnieje `<select>`, ktorego pierwsza opcja brzmi
 `All source`** (§5w); **kazda zakladka tresciowa ma co najmniej trzy `.aggwrap figure.chart` i
 dokladnie trzy `.aggbtn`, a klikniecie „Tydzien" i „Dzien" zmienia liczbe slupkow osi czasu** (§5y).
+
+Nowe od 7 wrzesnia 2026 wieczorem (§5al), i kazda odpowiada jednemu punktowi wlasciciela z tego dnia:
+**kazdy `details.chg14` ma DWA elementy `text.axt`** — jeden z tekstem konczacym sie na `per day`,
+drugi zaczynajacym sie od `day of month` — a jego `svg` nie ma `preserveAspectRatio="none"`;
+**sekcja 14 dni stoi w KAZDEJ zakladce tresciowej bezposrednio po `.panelhead`**, a jej `offsetTop`
+wzgledem panelu rozni sie miedzy Roles i Graph API o mniej niz 60 px; **panel roli i panel uprawnienia
+maja te same dwie pierwsze sekcje**, w kolejnosci `At a glance`, `What changed … in the last 14 days`;
+**klikniecie `+` na TRZECH roznych wierszach historii w kazdej z dwoch zakladek daje trzy `.v13pane`
+o ROZNYCH licznikach** (zmierzone: Graph 28 / 85 / 179 endpointow, Roles 1 / 81 / 99 akcji), a w kazdym
+klonie `[data-hist]` = 0; **cztery przelaczenia tego samego `+` daja jeden panel** (idempotencja);
+**wiersz, ktorego katalog nie ma, pokazuje ZDANIE, nie pusty box**; **`Exact match` w Roles zwezasa
+liste regula w arkuszu, a nie atrybutem** — `administrator` 96 wpisow i 0 z zaznaczonym Exact match,
+`User Administrator` 2 → 1; **akcja katalogowa daje note z przyciskami nazywajacymi role**, a klikniecie
+przycisku otwiera panel i przywraca pelna liste; **kotwice `#graph:perm=…` i `#roles:role=…` zaznaczaja
+wpis** po zaladowaniu i przy `hashchange`.
 
 Nowe od 7 wrzesnia 2026 (§5ak), i to one lapia blad, ktory bramka przepuscila: **klikniecie TRZECH
 roznych uprawnien w katalogu Graph daje za kazdym razem `details.epsinject` w `.cat-detail-inner`,
@@ -5017,7 +5120,13 @@ z §0b, popelniony w mojej wlasnej bramce.
 ### Regula
 
 **Panel uprawnienia Graph ma uklad v13 i buduje go SKRYPT 6**, dokladany tak samo jak skrypt 4
-(§5y) i skrypt 5 (§5ad). **Lista dozwolonych zmian w trzech skryptach powloki sie NIE zmienia.**
+(§5y) i skrypt 5 (§5ad).
+
+> **Poprawka z 7 wrzesnia 2026 wieczorem (§5al).** SKRYPT 6 ma od tego dnia trzy zmiany i tylko trzy:
+> sekcja `What changed on this permission in the last 14 days` stoi **DRUGA**, zaraz po `At a glance`
+> (buduje ja `window.__socHistSection` ze SKRYPTU 8); skrypt wystawia `window.__socOpenPerm(nazwa)`,
+> zeby `+` w wierszu historii mogl poprosic katalog o panel; i czyta kotwice `#graph:perm=<nazwa>`,
+> zeby wiersz strony `/diff/` mogl w ten panel wskazac. Pelny kod obu skryptow jest w §5al. **Lista dozwolonych zmian w trzech skryptach powloki sie NIE zmienia.**
 Skrypt obserwuje `.cat-detail`, czyta nazwe z `h3.cat-title` i sklada panel w tej kolejnosci:
 
 1. **Naglowek** — nazwa monospace i chipy przepisane z `.cat-badges` powloki.
@@ -5311,8 +5420,26 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     return sec;
   }
 
-  function epsSec(d) {
-    if (!d || !d.eps) return null;
+  function epsSec(d, api, isPerm) {
+    /* Sekcja istnieje ZAWSZE — inaczej panel wpisu bez mapy wyglada jak inny uklad,
+       a wlasciciel zglosil 7 wrzesnia: „sposob przedstawiania szczegolow tak samo,
+       a mialo byc 1:1". Brak mapy jest ZDANIEM, nie brakiem sekcji. */
+    if (!d || !d.eps) {
+      var s0 = el("div", "sec"), det0 = el("details", "eps epsinject"), sum0 = el("summary");
+      sum0.appendChild(el("span", "sm-t", "What this permission can call"));
+      sum0.appendChild(el("span", "badge t-grey", "no endpoint map"));
+      det0.appendChild(sum0);
+      det0.appendChild(el("p", "note",
+        !isPerm
+          ? ("This entry sits on the " + (api || "another") + " surface. Microsoft's endpoint map covers " +
+             "Microsoft Graph only, so there is nothing to list here — and that absence is the honest " +
+             "answer, not a gap in this page.")
+          : ("Microsoft's permissions.json carries no pathSet for this name" +
+             ((GM && GM.commit) ? (" at commit " + GM.commit) : "") + ", so no endpoint can be listed. " +
+             "The entry is real; the map is silent about it.")));
+      s0.appendChild(det0);
+      return s0;
+    }
     var eps = decode(d.eps), least = keyset(decode(d.least)), byM = {};
     eps.forEach(function (x) { byM[x.m] = (byM[x.m] || 0) + 1; });
     var nL = 0; eps.forEach(function (x) { if (least[x.m + " " + x.p]) nL++; });
@@ -5381,6 +5508,12 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     rb.appendChild(n); sec.appendChild(rb);
 
     var rows = (d && d.roles) || [];
+    if (!d) {
+      sec.appendChild(el("p", "empty",
+        "No endpoint map for this entry, so no role coverage is derived. The rule above still says how it " +
+        "would be derived, and what Microsoft does not publish."));
+      return sec;
+    }
     if (!rows.length) {
       sec.appendChild(el("p", "empty",
         "No Entra directory role holds an action on any resource this permission reaches. That is a result, not a gap: the resources sit outside the microsoft.directory namespace, and 33 of the 136 built-in roles publish no directory action at all, so their absence here is not evidence."));
@@ -5445,6 +5578,71 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     }
   }
 
+  /* ---------- four kinds of query in ONE box (§5ah), and the examples row ----------
+     A GUID, a path, a directory action and a name are four different namespaces.
+     The shell's list searches names only and rebuilds itself from them, so for the
+     other three the answer is a NOTE that names what was found, with each name a
+     button — the same shape SCRIPT 7 uses in Roles. */
+  var PATHIDX = null;
+  function pathIndex() {
+    if (PATHIDX) return PATHIDX;
+    PATHIDX = {};
+    var P = (GM && GM.p) || [];
+    Object.keys((GM && GM.perms) || {}).forEach(function (n) {
+      decode((GM.perms[n] || {}).eps).forEach(function (x) {
+        (PATHIDX[x.p] = PATHIDX[x.p] || {})[n] = 1;
+      });
+    });
+    return PATHIDX;
+  }
+  function byGuid(g) {
+    var out = [];
+    Object.keys((GM && GM.perms) || {}).forEach(function (n) {
+      var ids = GM.perms[n].ids || {};
+      Object.keys(ids).forEach(function (k) {
+        if (String(ids[k]).toLowerCase() === g) out.push(n + " · " + k);
+      });
+    });
+    return out;
+  }
+  function resolveQuery(v) {
+    var s2 = (v || "").trim();
+    if (!s2) return { kind: "", names: null, note: "" };
+    if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s2)) {
+      var hit = byGuid(s2.toLowerCase());
+      return { kind: "permission ID", names: hit.map(function (x) { return x.split(" · ")[0]; }),
+               note: hit.length ? ("That permission ID belongs to " + hit.join(", ") + ".")
+                                : "No permission in Microsoft's map carries that ID." };
+    }
+    if (s2.charAt(0) === "/") {
+      var idx = pathIndex(), hits = {}, n2 = 0;
+      Object.keys(idx).forEach(function (p) {
+        if (p.toLowerCase().indexOf(s2.toLowerCase()) >= 0) {
+          n2++; Object.keys(idx[p]).forEach(function (nm) { hits[nm] = 1; });
+        }
+      });
+      var names = Object.keys(hits).sort();
+      return { kind: "endpoint", names: names,
+               note: names.length ? (n2 + " path" + (n2 === 1 ? "" : "s") + " match, reachable with " +
+                                     names.length + " permission" + (names.length === 1 ? "" : "s") + ".")
+                                  : "No path in Microsoft's map matches that." };
+    }
+    if (s2.toLowerCase().indexOf("microsoft.") === 0) {
+      var ri = window.__socRoleIndex, roles = [];
+      if (ri && ri.byAction) Object.keys(ri.byAction).forEach(function (k) {
+        if (k.toLowerCase().indexOf(s2.toLowerCase()) >= 0)
+          ri.byAction[k].forEach(function (r) { if (roles.indexOf(r) < 0) roles.push(r); });
+      });
+      return { kind: "directory action", names: [],
+               note: "That is an Entra directory action, not a Graph endpoint" +
+                     (roles.length ? (" — " + roles.length + " role" + (roles.length === 1 ? "" : "s") +
+                                      " carry it: " + roles.slice(0, 8).join(", ") +
+                                      (roles.length > 8 ? " …" : "") + ". Open the Roles tab to see them.")
+                                   : ". No role in this catalog publishes it.") };
+    }
+    return { kind: "permission name", names: null, note: "" };
+  }
+
   function exactMatch() {
     var cat = document.querySelector('.catalog[data-catalog="graph"]');
     if (!cat || cat.querySelector(".s6exact")) return;
@@ -5456,11 +5654,60 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     var cnt = row.querySelector(".rowcount");
     if (cnt) row.insertBefore(lab, cnt); else row.appendChild(lab);
 
+    var why = el("p", "s7why"); why.hidden = true;
+    var list0 = cat.querySelector(".cat-list");
+    if (list0 && list0.parentNode) list0.parentNode.insertBefore(why, list0);
+
+    /* the same clickable examples v16 carries; each one is a query this box answers */
+    var tips = el("div", "s7tips");
+    tips.appendChild(el("span", "lab", "Examples — click one"));
+    [["name", "User.Read.All"], ["endpoint", "/users/{id}/manager"],
+     ["permission ID", (function () {
+        var p0 = (GM && GM.perms) ? GM.perms["User.Read"] : null;
+        return p0 && p0.ids ? p0.ids[Object.keys(p0.ids)[0]] : "";
+      })()],
+     ["directory action", "microsoft.directory/users/inviteGuest"]].forEach(function (t) {
+      if (!t[1]) return;
+      var b = el("button", null, ""); b.type = "button";
+      b.appendChild(el("b", null, t[0])); b.appendChild(document.createTextNode(t[1]));
+      b.addEventListener("click", function () {
+        input.value = t[1];
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        setTimeout(apply, 0); input.focus();
+      });
+      tips.appendChild(b);
+    });
+    if (row.parentNode) row.parentNode.insertBefore(tips, row);
+
     var list = cat.querySelector(".cat-list"), applying = false;
     function apply() {
       if (applying || !list) return;
       applying = true;
       try {
+        var r = resolveQuery(input.value);
+        why.textContent = ""; why.hidden = !r.note;
+        if (r.note) {
+          why.appendChild(document.createTextNode(r.note));
+          if (r.names && r.names.length) {
+            why.appendChild(document.createTextNode(" The list below searches names, so it does not answer this " +
+              "question — open a permission from here:"));
+            var hb = el("span", "s7hits");
+            r.names.slice(0, 12).forEach(function (n) {
+              var b2 = el("button", null, n); b2.type = "button";
+              b2.addEventListener("click", function () {
+                input.value = "";
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                setTimeout(function () {
+                  var inner = window.__socOpenPerm && window.__socOpenPerm(n);
+                  if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+                }, 140);
+              });
+              hb.appendChild(b2);
+            });
+            if (r.names.length > 12) hb.appendChild(el("span", "note", " … and " + (r.names.length - 12) + " more"));
+            why.appendChild(hb);
+          }
+        }
         var q = (input.value || "").trim().toLowerCase(), on = box.checked && q, shown = 0;
         [].forEach.call(list.querySelectorAll(".cat-item"), function (b) {
           if (on) {
@@ -5475,7 +5722,9 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       } finally { applying = false; }
     }
     box.addEventListener("change", apply);
-    input.addEventListener("input", function () { if (box.checked) setTimeout(apply, 0); });
+    /* apply() now also writes the note for the three other namespaces, so it must run
+       on EVERY keystroke, not only when Exact match is ticked. */
+    input.addEventListener("input", function () { setTimeout(apply, 0); setTimeout(apply, 200); });
     if (window.MutationObserver && list)
       new MutationObserver(function () { if (box.checked) apply(); }).observe(list, { childList: true });
   }
@@ -5488,14 +5737,18 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     var name = (h.textContent || "").trim();
     var sel = document.querySelector('.catalog[data-catalog="graph"] .cat-item[aria-selected="true"]');
     var id = sel ? (sel.dataset.id || "") : "";
-    if (id && id.indexOf("perm-") !== 0) return;   /* another API surface with the same name */
-    if (!id) {
-      var api = "";
-      shellMeta(inner).forEach(function (p) { if (/^api$/i.test(p[0])) api = p[1]; });
-      if (api && !/microsoft graph/i.test(api)) return;
-    }
-    var d = (GM && GM.perms) ? GM.perms[name] : null;
-    if (!d) return;                       /* a role entry, or a permission with no map: stay silent */
+    var api = "";
+    shellMeta(inner).forEach(function (p) { if (/^(api|surface)$/i.test(p[0])) api = p[1]; });
+    /* The SAME name exists on two surfaces (SharePoint's `Sites.Selected` and Graph's),
+       so the endpoint map is read only for a Microsoft Graph entry. The discriminator is
+       the entry's SURFACE, not a prefix on `data-id`: measured 7 September 2026, the ids
+       in this catalog are not uniformly prefixed — `perm-` exists, but so do bare names
+       and entity-derived ids, and gating on `perm-` silently refused most entries. Only
+       SharePoint uses a prefix (`spo-`), and it also carries the surface. The PANEL is
+       built for every entry either way, because one layout means one layout. */
+    var onGraph = !api || /microsoft graph/i.test(api);
+    var isPerm = onGraph && id.indexOf("spo-") !== 0;
+    var d = (isPerm && GM && GM.perms) ? GM.perms[name] : null;
 
     var pane = el("div", "v13pane");
     var head = el("header"), h2 = el("h2", "mono", name);
@@ -5507,8 +5760,15 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     head.appendChild(chips); pane.appendChild(head);
 
     pane.appendChild(glance(name, d, inner));
+    /* §5al: the 14-day section is SECOND in BOTH panels. The owner's point 2 of
+       7 September was a position, not a preference, so it is set here and in
+       SCRIPT 7 by the same rule. SCRIPT 8 owns the ledger and builds the node. */
+    if (window.__socHistSection) {
+      var hs = window.__socHistSection("perm", name);
+      if (hs) pane.appendChild(hs);
+    }
     var pb = published(d, inner); if (pb) pane.appendChild(pb);
-    var ep = epsSec(d); if (ep) pane.appendChild(ep);
+    var ep = epsSec(d, api, isPerm); if (ep) pane.appendChild(ep);
     pane.appendChild(rolesSec(d));
 
     /* the two panels this pane replaces are hidden, never removed: script 3 owns them */
@@ -5516,14 +5776,98 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       var t = (s.querySelector("h4") || {}).textContent || "";
       if (/at a glance|published by microsoft/i.test(t)) s.hidden = true;
     });
+    /* and so is the shell's own head: the pane carries the name and the chips, and
+       the owner saw the title printed twice. */
+    var ch = inner.querySelector(".cat-head"); if (ch) ch.hidden = true;
     var after = inner.querySelector(".cat-head");
     if (after && after.nextSibling) inner.insertBefore(pane, after.nextSibling);
-    else inner.appendChild(pane);
+    else inner.insertBefore(pane, inner.firstChild);
+  }
+
+  /* the catalog's own rendering, on demand — SCRIPT 8's `+` clones what this
+     returns, so the history row and the catalog show ONE panel, not two builds */
+  window.__socOpenPerm = function (name) {
+    var cat = document.querySelector('.catalog[data-catalog="graph"]');
+    if (!cat) return null;
+    var want = null;
+    [].forEach.call(cat.querySelectorAll(".cat-item"), function (b) {
+      var nm = ((b.querySelector(".ci-name") || {}).textContent ||
+                (b.dataset.id || "").replace(/^[a-z0-9]+-/, "")).trim();
+      if (!want && nm === name && (b.dataset.id || "").indexOf("perm-") === 0) want = b;
+    });
+    if (!want) return null;
+    want.click();
+    return cat.querySelector(".cat-detail .cat-detail-inner");
+  };
+
+
+  /* A row on the /diff/ page cannot open a panel: that page carries no catalog by
+     design (§3). It can point at one. `#graph:perm=<name>` selects the entry
+     here, so a link from the change page lands on the panel itself. */
+  function fromHash() {
+    var m = /^#graph:perm=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+    if (!m) return;
+    var name = m[1];
+    setTimeout(function () {
+      var inner = window.__socOpenPerm && window.__socOpenPerm(name);
+      if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+    }, 260);
+  }
+  /* ---------- the left strip: what v16 puts next to a permission ----------
+     v16 shows the schemes the permission is published under; the shell shows the
+     change kind, `beta`, abbreviations and a date. Same rule as in SCRIPT 7: hide
+     the shell's row, append ours, re-decorate on every render. */
+  function decorate() {
+    var cat = document.querySelector('.catalog[data-catalog="graph"]');
+    if (!cat) return;
+    var list = cat.querySelector(".cat-list"); if (!list) return;
+    [].forEach.call(list.querySelectorAll(".cat-item"), function (b) {
+      if (b.dataset.v16 === "1") return;
+      var nm = ((b.querySelector(".ci-name") || {}).textContent || "").trim();
+      b.dataset.v16 = "1";
+      var d = (GM && GM.perms) ? GM.perms[nm] : null;
+      var keys = d && d.s ? Object.keys(d.s) : [];
+      var m = el("div", "ci-v16");
+      var old = b.querySelector(".ci-meta");
+      if (keys.length) {
+        keys.forEach(function (k) { m.appendChild(el("span", "badge t-grey", k)); });
+      } else if (old) {
+        /* Not in Microsoft's map — a catalog correction or another surface. It still
+           gets OUR chips, rewritten from what the shell knows, because a list that
+           speaks two visual languages is the thing the owner keeps pointing at. */
+        var seen = {};
+        [].forEach.call(old.querySelectorAll(".badge"), function (x) {
+          var t = (x.textContent || "").trim();
+          if (!t || seen[t.toLowerCase()]) return;
+          seen[t.toLowerCase()] = 1;
+          var cls = /correction|catalog/i.test(t) ? "t-warn"
+                  : /beta|preview/i.test(t) ? "t-acc"
+                  : /deleg|app/i.test(t) ? "t-grey" : "t-grey";
+          m.appendChild(el("span", "badge " + cls, t));
+        });
+      }
+      if (m.childNodes.length) {
+        if (old) old.hidden = true;
+        b.appendChild(m);
+      }
+    });
+  }
+  function watchList() {
+    var cat = document.querySelector('.catalog[data-catalog="graph"]');
+    var list = cat && cat.querySelector(".cat-list"); if (!list) return;
+    var busy = false;
+    function run() { if (busy) return; busy = true; try { decorate(); var i2 = cat.querySelector("input.cat-search"); if (i2) i2.placeholder = "Search permissions"; } finally { busy = false; } }
+    run();
+    if (window.MutationObserver)
+      new MutationObserver(function () { if (!busy) run(); }).observe(list, { childList: true });
   }
 
   function boot() {
-    if (!GM || !GM.perms) return;         /* no map: do nothing, and do not throw */
-    tidySection(); exactMatch();
+    /* Bez mapy panel nadal powstaje — At a glance i tresc Microsoftu pochodza z tego,
+       co powloka juz wyrenderowala. Milczenie dawaloby DWA rozne uklady w jednej
+       zakladce, a to jest dokladnie ta rozbieznosc, przed ktora stoi §0a. */
+    tidySection(); exactMatch(); watchList(); fromHash();
+    window.addEventListener("hashchange", fromHash);
     [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"] .cat-detail'), function (det) {
       build(det.querySelector(".cat-detail-inner"));
       if (window.MutationObserver)
@@ -5648,6 +5992,12 @@ prezentacja je gubi, bo kazdy widok pokazuje jedna chwile.
 
 ### Gdzie to widac
 
+> **Od 7 wrzesnia 2026 wieczorem ten blok buduje SKRYPT 8 (§5al), a nie przebieg.** Markup ponizej
+> zostaje jako opis tego, co ma powstac; rozniace sie od niego szczegoly — brak kolumny `Tab`
+> wewnatrz wlasnej zakladki, podpisy obu osi wykresu, `+` przy kazdym wierszu — sa w §5al i to one
+> obowiazuja. Przebieg wkleja do bloku stanu `ledger14` (okno `pageWindowDays` z `changelog.json`)
+> i nie renderuje tej tabeli sam: dwa niezalezne renderowania tej samej rzeczy rozjezdzaja sie (§0a).
+
 **W KAZDEJ zakladce tresciowej briefu**, jako pierwszy element pod `.panelhead`:
 
 ```html
@@ -5695,6 +6045,1488 @@ i 40 kB gzip** — mniej niz jeden dzien `site/data/*.json`. Renderowane okno 14
   identyczne co do bajtu z tymi z poprzedniego przebiegu. Roznica znaczy, ze przebieg edytowal
   historie, i jest **przebiegiem NIEUDANYM**. Bramka porownuje z kopia z `site/data/` sprzed
   commita; przy pierwszym przebiegu pozycja daje `BRAK „brak punktu odniesienia"`, nie OK.
+
+## 5al. Roles i Graph API to JEDEN uklad — i historia otwiera sie w ten sam panel
+
+Wlasciciel zatwierdzil 7 wrzesnia 2026 podglad v16 i powiedzial wprost: *„doklanide taki sam
+layout i sposob zbierania i wyswietlania danych"*. Ta sekcja jest tym ukladem zapisanym KODEM,
+a nie opisem — bo lekcja z 7 wrzesnia (§5ak) brzmi: **wlasciciel zatwierdza uklad, a specyfikacja,
+ktora niesie opis zamiast kodu, produkuje cos innego.** Dlatego SKRYPT 7 i SKRYPT 8 sa tu w calosci
+i kopiuje sie je co do bajtu, tak samo jak skrypty 4, 5 i 6.
+
+### Cztery punkty wlasciciela z 7 wrzesnia i przyczyna kazdego
+
+| zgloszenie | przyczyna | naprawa |
+|---|---|---|
+| „nie wiem co jest na osi x a co y" | pasek dni nie mial ZADNEGO podpisu osi, a `preserveAspectRatio="none"` rozciagalo napisy | obie osie podpisane NA rysunku, zdanie „How to read this" nad nim, liczba na kazdym slupku, `viewBox` 1200x250 bez rozciagania |
+| „w roles sekcja 14 dni na dole, a w graph api na gorze" | gore obu zakladek budowaly dwa rozne kawalki kodu | **JEDNA funkcja buduje gore OBU zakladek**: kafelki, zwiniete wyliczenie, historia. Pozycja wynika z konstrukcji, nie ze starannosci |
+| „jak nacisne + to powinienem miec taki sam widok jak w panelu" (Graph API) | historia byla tabela tekstowa bez zwiazku z katalogiem | `+` **prosi KATALOG o panel** i klonuje to, co katalog wyrenderowal — nie drugi render tych samych danych, tylko ten sam |
+| „ten sam + ze szczegolami dla rol" | panelu roli w ogole nie bylo — czytelnik widzial render powloki | SKRYPT 7 buduje panel roli w tym samym ksztalcie co panel uprawnienia |
+
+### Kolejnosc sekcji w OBU panelach — wiazaca
+
+1. **At a glance**
+2. **What changed on this &lt;role|permission&gt; in the last 14 days**
+3. tresc wydawcy: `Published by Microsoft` (uprawnienie) albo `What Microsoft says this role is for` (rola)
+4. zwijana lista: `What this permission can call` albo `What this role can do`
+5. derywacja: `Entra roles that can do this` albo `Graph permissions this role covers`
+
+Pozycja druga jest wiazaca i jest odpowiedzia na punkt 2 — **to jest pozycja, nie preferencja.**
+Sekcje 14 dni buduje SKRYPT 8 (`window.__socHistSection`), a skrypty 6 i 7 tylko ja wstawiaja:
+jeden pisarz, dwa czytania, wiec nie da sie ich rozjechac (ta sama zasada co `--ledger` w §5aj).
+
+### Kontrakt danych — `ledger14` w bloku `soc-brief-state`
+
+Przebieg wycina z `site/data/changelog.json` (§5aj) okno `pageWindowDays` i wkleja je do bloku stanu:
+
+```json
+"ledger14":{"retentionDays":90,"pageWindowDays":14,
+  "runs":[{"date":"2026-09-07","kind":"morning","at":"07:12","entries":23}],
+  "entries":[{"seen":"2026-09-07","tab":"Graph API","kind":"changed","id":"User.Read",
+              "field":"endpoints","before":null,"after":"+3",
+              "detail":"endpoint added: GET /users/{id}/manager, …"}]}
+```
+
+**Trzeciego bloku JSON NIE dokladasz** — bramka lustra (§0a) zada dokladnie dwoch i trzeci wywraca
+caly przebieg. `ledger14` jest kluczem w istniejacym bloku stanu, tak samo jak `graphMap` (§5ah).
+
+Trzy reguly ksztaltu, kazda z bledu zmierzonego 7 wrzesnia 2026:
+
+- **`id` to PRZEDMIOT zmiany, nigdy zdanie.** W rejestrze z tego dnia stalo
+  `"id": "AuditLog.Read.All → 1 new endpoint"`, wiec zaden kod nie mogl powiazac wiersza z wpisem
+  katalogu. Przedmiot idzie do `id`, pole do `field`, wartosci do `before`/`after`, przyklady do
+  `detail`.
+- **Rejestr trzyma ZNAKI, nie encje HTML.** `&mdash;` zapisane w danych wraca potem w kazdym widoku,
+  ktory je czyta. `make_diff.py` normalizuje je przy zapisie (§3).
+- **Ruch endpointow dopisuje sie PER UPRAWNIENIE**: `field:"endpoints"`, `after:"+41"`, trzy przyklady
+  w `detail`. Jeden wpis na endpoint dawal **9 736 wierszy** pierwszego dnia z mapa; panel uprawnienia
+  i tak wymienia wszystkie endpointy, wiec liczba plus przyklady odpowiadaja na to samo pytanie.
+
+Wpis bez `id` (baseline) **nie dostaje przycisku `+`** — nie ma czego otwierac, i to tez jest wynik.
+
+### Gora zakladki — identyczna w Roles i w Graph API
+
+`kafelki liczbowe` → `zwiniete wyliczenie` → `historia 14 dni (otwarta)` → tresc zakladki.
+Kafelki licza sie ZE STANU, nigdy nie sa wpisywane, a **licznik wiodacy musi byc ten sam, co pokazuje
+reszta strony**: 7 wrzesnia kafelek mowil „139 roles tracked" tuz pod pigulka powloki „137", i to jest
+dokladnie to „jak moze byc 137 of 136", o ktore wlasciciel pytal 5 wrzesnia. Zwiniete wyliczenie
+drukuje cala arytmetyke:
+
+```
+136  ról na opublikowanej referencji Microsoftu
+ +3  dopisane przez ten brief (nazwane z imienia)
+=139 rekordow trzymanych tutaj
+ -2  trzymane, ale poza licznikiem inwentarza (nazwane z imienia)
+=137 liczone w katalogu i na plakietce zakladki
+```
+
+### Wiersz historii otwiera panel — jak dokladnie
+
+`+` wola `window.__socOpenPerm(nazwa)` albo `window.__socOpenRole(nazwa)`, ktore **klikaja wpis
+w katalogu** i zwracaja `.cat-detail-inner`; SKRYPT 8 klonuje ten wezel, usuwa z klonu jego wlasna
+sekcje 14 dni (inaczej historia zawieralaby historie) i wstawia go pod wierszem. Nazwa, ktorej
+katalog dzis nie ma, daje **zdanie**, nie pusty box: *„named in the ledger but carries no entry in the
+catalog as it stands today"* — to jest znalezisko, nie brak.
+
+Zakladki, ktore nie maja katalogu (New, Deadlines, Component versions), dostaja zamiast `+` strzalke
+`↗`, ktora przewija do wiersza `[data-id]` na stronie (§5ac gwarantuje, ze taki wiersz istnieje).
+
+### Gleboki link ze strony zmian
+
+Strona `/diff/` z zalozenia nie ma katalogu (§3), wiec nie otworzy panelu u siebie — ale wskazuje na
+niego. Skrypty 6 i 7 czytaja kotwice **`#graph:perm=<nazwa>`** i **`#roles:role=<nazwa>`** (wartosc
+zakodowana procentowo) i zaznaczaja ten wpis po zaladowaniu oraz przy `hashchange`. `make_diff.py`
+dopisuje te kotwice do kazdego wiersza sekcji `catalog`, a jego `verify()` tego pilnuje.
+
+### Wyszukiwanie w zakladce Roles — trzy rodzaje zapytania, i to, czego NIE da sie zrobic
+
+Pole przyjmuje **nazwe roli**, **akcje katalogowa** (`microsoft.directory/...`) i **template ID**, i za
+kazdym razem MOWI, ktora przestrzen nazw dopasowalo. Obok pola stoi `Exact match`, a nad nim rzad
+KLIKALNYCH przykladow (placeholder z czterema mozliwosciami jest na telefonie obcinany).
+
+**Dwie rzeczy zmierzone tego dnia, obie wiazace:**
+
+1. **O widocznosc wpisu w liscie powloki NIE walczy sie atrybutem `hidden`.** Powloka filtruje ta sama
+   liste po nazwie i robi to PO nas: przy zapytaniu `administrator` `apply()` wykonalo sie **ponad 200
+   razy** i zablokowalo watek strony. `Exact match` wyraza sie wiec REGULA w arkuszu
+   (`<style id="s7filter">`), ktora przezywa przerysowanie listy i nie ma z czym walczyc.
+2. **Akcja katalogowa nie ma odpowiedzi w liscie, bo powloka PRZEBUDOWUJE liste z nazw** i zostawia
+   w DOM zero wpisow. Odpowiedzia jest wiec NOTA, ktora nazywa znalezione role, a **kazda nazwa jest
+   przyciskiem otwierajacym te role** — ta sama zasada co nota przy sciezce w §5ah.
+
+### Co dokladnie robia skrypty 7 i 8 z panelami powloki
+
+**Ukrywaja, nigdy nie usuwaja.** SKRYPT 7 chowa panele powloki `At a glance`, `What this role is for`
+i `Directory actions`; reszta panelu roli (`What Microsoft changed`, `Version history`,
+`Not published by Microsoft`, `Sources`) zostaje nietknieta pod spodem. **Lista dozwolonych zmian
+w trzech skryptach powloki sie NIE zmienia** — nadal sa to `KIND_BADGE` (§5e) i trzy linie
+`facetCandidates()` (§5w).
+
+### Zmierzone 7 wrzesnia 2026 na OPUBLIKOWANEJ stronie
+
+Skrypty 6 (v16), 7 i 8 plus arkusz wstrzykniete w plik z tego dnia, render headless, oba motywy,
+1500 / 1280 / 760 / 390 px, **kazda z dziesieciu zakladek po kolei, z rozwinietym wierszem historii**:
+
+| co | wynik |
+|---|---|
+| bledy konsoli i strony | **0** |
+| `documentElement.scrollWidth === clientWidth` | wszedzie |
+| elementy szersze od rodzica | **0** — dwa znalezione tego dnia (`<dt>` 319>298 w Roles, chip linku 294>237 w Component versions) sa STARSZE niz ta sekcja i zostaly przy okazji poprawione |
+| sekcja 14 dni | w kazdej z pieciu zakladek tresciowych, na tej samej pozycji |
+| Roles: 11 zmian / 10 przyciskow `+` / 7 kafelkow · Graph API: 40 zmian / 39 przyciskow `+` / 5 kafelkow | zgodne z rejestrem |
+| panel roli | `At a glance` · `14 dni` · `What Microsoft says` · `99 directory actions` w 8 chipach filtra · `25` wierszy pokrycia Graph |
+| panel uprawnienia | ta sama kolejnosc, `User.Read.All` 215 endpointow |
+| `+` w Graph API na trzech roznych wierszach | 28 / 85 / 179 endpointow — trzy rozne panele, nie trzy kopie jednego |
+| `+` w Roles na trzech roznych wierszach | 1 / 81 / 99 akcji katalogowych |
+| `Exact match` | `administrator` 96 wpisow, z `Exact match` **0** (zadna rola nie nazywa sie tak doslownie); `User Administrator` 2 → **1** |
+| akcja `microsoft.directory/users/inviteGuest` | nota nazywa **3 role**, kazda jako przycisk; klikniecie otwiera panel i przywraca pelna liste 137 |
+| gleboki link | `#graph:perm=User.Read.All` → panel z 215 endpointami; `#roles:role=Global%20Reader` → panel z 99 akcjami |
+
+### Siedem rzeczy zmierzonych po PIERWSZYM podgladzie — i one sa cala roznica
+
+Wlasciciel obejrzal podglad calego portalu i powiedzial: *„layout sie nie zgadza … lewy pasek
+zupelnie inny, sposob przedstawiania szczegolow tak samo, a mialo byc wszystko 1:1"*. Mial racje
+w kazdym punkcie, a przyczyny sa mechaniczne, nie gustowe. Kazda z nich jest tu zapisana, bo kazda
+wroci przy nastepnym skrypcie.
+
+1. **Nazwa klasy, ktora arkusz JUZ ZNA, po cichu przejmuje twoj element.** `details.rank`
+   dziedziczylo `display:inline-flex` po istniejacej w powloce klasie `.rank` (chip rankingu):
+   blok mial 20 px wysokosci, jego wlasna tabela renderowala sie POZA nim i nachodzila na katalog,
+   a dokument rozpychal sie do 1 599 px przy oknie 1 500. Klasa nazywa sie teraz `rolerank`.
+   To jest bliznie podobne do `.tabn` z §5ae, tylko odwrotnie: tam celowalem w klase, ktorej NIE MA,
+   tu uzylem klasy, ktora JEST. **Przed napisaniem selektora sprawdzasz w arkuszu powloki OBIE
+   rzeczy: czy klasa istnieje i czy nie istnieje.**
+2. **Powierzchnie wpisu rozstrzygaja DANE, nie prefiks `data-id`.** `perm-` istnieje w tym katalogu,
+   ale obok niego stoja bare nazwy i identyfikatory encji; brama `id.indexOf("perm-") === 0`
+   odrzucala **wiekszosc** wpisow, wiec panel v13 dostawala garstka, a reszta zostawala przy
+   renderze powloki — i to jest dokladnie „sposob przedstawiania szczegolow tak samo". Skrypt 6
+   czyta teraz `surface` / `API` z tego, co powloka wyrenderowala. Pulapka dwoch powierzchni
+   (SharePoint `Sites.Selected` kontra Graph) zostaje zamknieta, tylko po danych.
+3. **Panel powstaje dla KAZDEGO wpisu.** Wpis bez wpisu w mapie (poprawka katalogu, nazwa spoza
+   `permissions.json`) dostaje ten sam uklad i ZDANIE w miejscu listy endpointow: *„permissions.json
+   carries no pathSet for this name at commit …"*. Milczenie dawaloby dwa rozne uklady w jednej
+   zakladce.
+4. **Naglowek powloki chowa sie, gdy panel go zastepuje.** `.cat-head` niesie te sama nazwe i te
+   same chipy co naglowek panelu — wlasciciel zobaczyl tytul wydrukowany dwa razy.
+5. **Lista katalogu jest JEDNA karta z wloskowatymi liniami, kolumna ma 300 px.** Powloka rysuje
+   stos osobnych pudelek z lewym paskiem; podglad v16 ma jedna karte. To jest ten „zupelnie inny
+   lewy pasek" i naprawia to piec regul CSS, bez dotykania skryptu 3.
+6. **Tytul panelu nie jest ozdoba.** Powloka nadaje `h2` w sekcji `text-transform:uppercase`,
+   `letter-spacing:1.5px` i 12,5 px, przez co `User.Read.All` czytalo sie jako `USER.READ.ALL`.
+   Nazwa uprawnienia jest napisem, ktory sie kopiuje — 17 px, bez transformacji, monospace tylko
+   dla uprawnienia.
+7. **Ta sama liczba nie stoi dwa razy pod soba.** `.panelhead` powloki drukuje `137 roles in the
+   catalog` i moj kafelek drukowal to samo. Kafelek, ktorego etykiete I wartosc panel juz niesie,
+   jest pomijany — porownanie idzie po wyrenderowanym tekscie, wiec dopasowuje sie samo.
+
+**Osma rzecz jest o tabeli, nie o skrypcie.** Sekcja Roles otwierala sie tabela dwudziestu rol pod
+golym „Search 20 rows…", z dwoma selektami `All of those, whole resource` i `All dominant depth` —
+powloka buduje fasete z NAGLOWKA KOLUMNY, a faseta na kolumnie liczbowej nie grupuje niczego
+(§5s, ta sama choroba co wykres samych jedynek). Tabela jest wartosciowa; nic nie mowilo, czym
+jest. SKRYPT 7 **nazywa ja, mowi jednym zdaniem co szereguje, zwija ja i stawia tuz nad katalogiem**,
+zabiera do srodka jej pasek i note, chowa fasete liczbowa i nadaje drugiej nazwe `All depth`.
+Przy okazji **podpis zwiniety w polowie zdania** (powloka tnie na 88 znakach, wiec czytelnik
+widzial „Recounted in…") dostaje pierwsze PELNE zdanie z tresci.
+
+### Dlaczego podglad i portal rozjezdzaly sie po raz drugi — regula procesu
+
+Wlasciciel zapytal 7 wrzesnia wieczorem: *„jak my dzialamy, podajesz mi jakis layout, ktorego
+potem nie potrafisz zaimplementowac do naszych sched tasks i routines?"*. Pytanie jest sluszne
+i odpowiedz jest jedna, moja: **v16 powstal jako STRONA SAMODZIELNA, w ktorej sam pisalem kazdy
+element. Portal renderuje te dwie zakladki SKRYPTEM 3 powloki, ktorego §5w zabrania edytowac.**
+Makieta, ktora nie stoi na prawdziwym DOM, zawsze bedzie sie roznic — i roznica nie byla w panelu
+(ten dalo sie odtworzyc co do sekcji), tylko w tym, czego makieta nie miala, a powloka rysuje:
+pasek trybow i okien czasu, piec selektow oraz chipy przy wpisach listy.
+
+**Regula, ktora z tego wynika i ktora obowiazuje od teraz:**
+
+> **Podglad ukladu robi sie przez WSTRZYKNIECIE do kopii opublikowanej strony, nigdy jako osobny
+> plik.** Wtedy to, co wlasciciel zatwierdza, jest dokladnie tym, co pojdzie na produkcje, a roznice
+> miedzy makieta a portalem nie maja gdzie powstac. Plik `/tmp/s7/test.html` z tego dnia jest
+> wzorcem takiego podgladu: opublikowana strona + arkusz §5al + skrypty 6, 7 i 8.
+
+To jest ta sama lekcja co §5ak („wlasciciel zatwierdza uklad, a specyfikacja z opisem zamiast kodu
+produkuje cos innego"), o jeden poziom wyzej: **kod bez prawdziwego otoczenia tez jest opisem.**
+
+### Co robimy z paskiem filtrow powloki — decyzja wlasciciela z 7 wrzesnia
+
+Powloka rysuje w obu katalogach trzy przyciski trybu (`Microsoft changes`, `Catalog notes`, `All`),
+szesc przyciskow okna czasu i do pieciu selektow. v16 nie ma ich wcale, ale **one robia prawdziwa
+robote** — `Microsoft changes 449` to filtr, o ktory wlasciciel sam prosil. Nie kasujemy ich wiec,
+tylko **skladamy pod `<details class="morefilters">`**, jedna funkcja SKRYPTU 8 dla obu zakladek,
+zeby nie mogly sie rozjechac. Na wierzchu zostaje dokladnie v16: rzad klikalnych przykladow,
+zielone pole, `Exact match`, licznik.
+
+**Pionowy pasek listy tez jest kontraktem, nie ozdoba.** Powloka pisze przy wpisie rodzaj zmiany
+i date; v16 pisze to, miedzy czym czytelnik wybiera. Chipy sa wiec liczone ze stanu:
+
+| katalog | chipy przy wpisie |
+|---|---|
+| Roles | `PRIV` (gdy Microsoft tak oznacza) · `N actions` albo `no actions table` · `N perms` (pokrycie Graph) |
+| Graph API | schematy z mapy: `DelegatedWork`, `Application`, `DelegatedPersonal` |
+
+Wiersz chipow powloki jest **chowany, nigdy usuwany**, a nasz dokladany; liste powloka przerysowuje
+przy kazdym filtrze, wiec dekoracja wraca po kazdym renderze, pod strazą flagi — inaczej dwa
+obserwatory goniłyby sie nawzajem (§5al, ta sama pulapka co `Exact match` w Roles).
+
+**Chip w pasku listy jest SAMODZIELNY, nie pozycza sie od powloki.** Zmierzone 7 wrzesnia wieczorem
+na moim wlasnym podgladzie: powloka deklaruje `.badge` bez tla, z `border-radius:3px` i
+`text-transform:uppercase`, a kolory `t-grey`/`t-bad`/`t-info` zyja **tylko pod `.v13pane`** — moje
+chipy wyszly wiec jako czarny, wersalikowy tekst bez ramki, i wlasciciel zobaczyl to od razu.
+Regula `.catalog .cat-item .ci-v16 .badge` niesie wlasne tlo, promien 999 px, wage i brak wersalikow,
+w obu motywach. **Wpis, ktorego nie ma w mapie Microsoftu, tez dostaje NASZE chipy** przepisane
+z tego, co powloka o nim wie — lista mowiaca dwoma jezykami wizualnymi jest dokladnie tym, na co
+wlasciciel wskazywal trzy razy z rzedu.
+
+**Nazwa wpisu jest w foncie tekstowym, nie monospace**, a pole szukania mowi `Search permissions` /
+`Search roles` zamiast `Search 1076 entries by name, API, entity or impact…` — powloka nadpisuje ten
+placeholder przy kazdym renderze, wiec ustawia sie go w tym samym obserwatorze.
+
+### Cztery rodzaje zapytania w zakladce Graph API — dopiero teraz sa PRAWDZIWE
+
+§5ah obiecywala je od 6 wrzesnia, a SKRYPT 6 mial tylko `Exact match`: chip zapowiadajacy szukanie
+po endpoincie, ktore nic nie robi, jest gorszy niz brak chipa. Zmierzone po dolozeniu:
+
+| wpisane | odpowiedz |
+|---|---|
+| `/users/{id}/manager` | *„1 path match, reachable with 6 permissions"* + kazda nazwa jako przycisk otwierajacy panel |
+| `e1fe6dd8-ba31-4d61-89e7-88639da4683d` | *„That permission ID belongs to User.Read · DelegatedWork"* + przycisk |
+| `microsoft.directory/users/inviteGuest` | *„That is an Entra directory action, not a Graph endpoint — 3 roles carry it: Directory Writers, Guest Inviter, User Administrator"* |
+| `User.Read.All` | zwykle zawezenie listy, `3 of 1076` |
+
+Indeks sciezek budowany jest **leniwie, przy pierwszym zapytaniu zaczynajacym sie od `/`** —
+dekodowanie 24 099 par dla 923 uprawnien na starcie strony byloby zmarnowana sekunda dla kazdego,
+kto po endpoincie nie szuka.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae i §5ak sa to JEDYNE dozwolone
+dopisane reguly CSS. Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie skrypt 7 albo 8,
+albo od `.v13pane` — nic stad nie wycieka na reszte strony. Zmienne sa te, ktore arkusz juz
+deklaruje (§5t).
+
+```css
+/* §5al — the top of a content tab (counts, the arithmetic, the last 14 days) and
+   the role panel in the same shape as the permission panel. Every selector starts
+   from a class only SCRIPT 7 or SCRIPT 8 creates, or from `.v13pane`, so nothing
+   here leaks onto the rest of the page. Variables are the ones the sheet already
+   declares (§5t): `--surface-2`, never `--surface2`. */
+.s8top{margin:0 0 18px}
+.s8top .factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;margin:0 0 12px}
+.s8top .fact{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 12px}
+.s8top .fact b{display:block;font-size:21px;line-height:1.15;font-variant-numeric:tabular-nums}
+.s8top .fact span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+ color:var(--muted);font-weight:700;margin-top:2px}
+.s8top .fact.acc b{color:var(--accent)}.s8top .fact.ok b{color:var(--ok)}
+.s8top .fact.bad b{color:var(--bad)}.s8top .fact.warn b{color:var(--warn)}.s8top .fact.info b{color:var(--info)}
+details.sumfold{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;
+ background:var(--surface);margin:0 0 12px;font-size:13.5px}
+details.sumfold>summary{list-style:none;cursor:pointer;padding:9px 13px;display:flex;gap:10px;align-items:center}
+details.sumfold>summary::-webkit-details-marker{display:none}
+details.sumfold>summary::before{content:"+";font-family:var(--mono);font-weight:700;width:20px;height:20px;
+ flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.sumfold[open]>summary::before{content:"−"}
+details.sumfold .sum{padding:0 13px 11px;font-size:13px}
+details.sumfold .sum table{border-collapse:collapse;margin:0}
+details.sumfold .sum td{padding:2px 14px 2px 0;border:0}
+details.sumfold .sum td:first-child{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;min-width:52px}
+/* ---- the 14-day block ---- */
+details.chg14{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.chg14>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px}
+details.chg14>summary::-webkit-details-marker{display:none}
+details.chg14>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;width:22px;
+ height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.chg14[open]>summary::before{content:"−"}
+details.chg14>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+details.chg14>summary .sm-r{font-size:12.5px;color:var(--muted)}
+details.chg14>*{margin-left:16px;margin-right:16px}
+details.chg14>summary{margin:0}
+details.chg14>.tw{margin-bottom:14px}
+.howto{background:var(--surface-2);border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);margin:12px 0 0}
+.chartwrap{margin:12px 0 6px;overflow-x:auto}
+.chartwrap svg{display:block;width:100%;min-width:900px;height:auto}
+.chartwrap .b-chg{fill:var(--accent)}
+.chartwrap .b-quiet{fill:var(--grey-soft);stroke:var(--border)}
+.chartwrap .b-norun{fill:none;stroke:var(--border);stroke-dasharray:3 3}
+.chartwrap .trend{fill:none;stroke:var(--warn);stroke-width:2.5;vector-effect:non-scaling-stroke;
+ stroke-linejoin:round;stroke-linecap:round}
+.chartwrap .gl{stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+.chartwrap .ax{fill:var(--muted);font-size:13px;font-family:var(--sans)}
+.chartwrap .axt{fill:var(--muted);font-size:13px;font-weight:700;font-family:var(--sans);
+ letter-spacing:.04em;text-transform:uppercase}
+details.chg14 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:4px 0 10px}
+details.chg14 .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+details.chg14 .legend i.k-chg{background:var(--accent)}
+details.chg14 .legend i.k-quiet{background:var(--grey-soft);box-shadow:inset 0 0 0 1px var(--border)}
+details.chg14 .legend i.k-norun{background:transparent;box-shadow:inset 0 0 0 1px var(--border)}
+details.chg14 .legend i.k-trend{background:var(--warn);height:3px;border-radius:2px;margin-bottom:3px}
+/* ---- a history row opens the real panel ---- */
+td.xc{width:34px;padding-left:8px;padding-right:0}
+.xb{font:inherit;font-family:var(--mono);font-size:14px;font-weight:700;width:24px;height:24px;line-height:1;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent);cursor:pointer;padding:0;text-decoration:none}
+.xb:hover{background:var(--accent);color:var(--surface)}
+.xn{color:var(--muted)}
+tr.hrow[aria-expanded=true]>td{background:var(--accent-soft)}
+tr.hdet>td{padding:0;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--accent)}
+.hd-in{padding:12px 14px}
+.hd-in .cat-detail-inner.embed{background:none;padding:0;border:0}
+.hd-in .v13pane{margin:0}
+.hd-lead{font-size:12px;color:var(--muted);margin:0 0 9px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.s8flash{outline:3px solid var(--accent);outline-offset:-3px}
+/* ---- the roles search: examples you can click, and Exact match ---- */
+.s7tips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:0 0 9px}
+.s7tips .lab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.s7tips button{font:inherit;font-size:12px;font-family:var(--mono);padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--accent);cursor:pointer}
+.s7tips button b{font-family:var(--sans);color:var(--muted);font-weight:700;margin-right:6px}
+label.s7exact{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text);
+ white-space:nowrap;margin-left:10px;cursor:pointer}
+p.s7why{background:var(--info-soft);border:1px solid var(--info);color:var(--text);border-radius:9px;
+ padding:8px 12px;font-size:13px;margin:0 0 10px}
+p.s7why[hidden]{display:none!important}
+/* the role panel reuses the permission panel's own rules; only the action cell differs */
+.v13role td.act code{font-family:var(--mono);font-size:12px;white-space:nowrap;display:inline-block}
+.v13role td.act .what{color:var(--muted);font-size:12.5px;margin-top:2px;white-space:normal}
+.v13role .rname{font-family:var(--sans);font-weight:600;min-width:150px}
+@media (max-width:760px){
+  details.chg14>summary,details.sumfold>summary{flex-wrap:wrap}
+  details.chg14>summary .badge{white-space:nowrap}
+  details.chg14>summary .sm-t{flex:1 1 100%}
+  details.chg14>*{margin-left:11px;margin-right:11px}
+  .s7tips button{white-space:normal;text-align:left;max-width:100%}
+}
+.s7hits{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.s7hits button{font:inherit;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
+.s7hits button:hover{background:var(--accent);color:var(--surface)}
+/* Two overflows measured on the published page of 7 September 2026, both older
+   than this section and both a plain §5x break: the shell's `not published` list
+   in the Roles tab pushed a 319 px <dt> into a 298 px column at 390, and a link
+   chip in Component versions ran 294 px in a 237 px cell at 1280. Neither is
+   caused by scripts 7 and 8; both are fixed here because the rule that forbids
+   them is ours. */
+.catalog dl dt,.catalog dl dd{min-width:0;overflow-wrap:anywhere}
+#tab-components .sec-body a.lnk,#tab-components .sec-body a[href^="http"]{white-space:normal;overflow-wrap:anywhere}
+/* ---- v16 1:1: lista katalogu jest JEDNA karta z wloskowatymi liniami, a nie
+   stosem pudelek; szerokosc kolumny i promienie jak w podgladzie v16. ---- */
+.catalog .cat-split{grid-template-columns:300px minmax(0,1fr)}
+.catalog .cat-list{gap:0;border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ padding:0;overflow:auto}
+.catalog .cat-item{border:0;border-bottom:1px solid var(--border);border-left:0;border-radius:0;
+ background:none;padding:9px 12px;gap:4px}
+.catalog .cat-item:last-child{border-bottom:0}
+.catalog .cat-item[aria-selected="true"]{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.catalog .ci-name{font-size:13px;font-weight:700;line-height:1.3}
+.catalog .cat-detail{border-radius:12px}
+@media (max-width:999px){.catalog .cat-split{grid-template-columns:minmax(0,1fr)}}
+/* ---- ranking rol: nazwany, zwiniety, pod historia ---- */
+details.rolerank{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.rolerank>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px}
+details.rolerank>summary::-webkit-details-marker{display:none}
+details.rolerank>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;width:22px;
+ height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.rolerank[open]>summary::before{content:"−"}
+details.rolerank>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+details.rolerank>*{margin-left:16px;margin-right:16px}
+details.rolerank>summary{margin:0}
+details.rolerank>.tw{margin-bottom:14px}
+/* Tytul panelu: powloka nadaje `h2` w sekcji `text-transform:uppercase`,
+   `letter-spacing:1.5px` i 12,5 px — zmierzone 7 wrzesnia 2026, przez co
+   `User.Read.All` czytalo sie jako `USER.READ.ALL`, a nazwa uprawnienia jest
+   napisem, ktory sie kopiuje, nie naglowkiem ozdobnym. Podglad v16 ma ja
+   zapisana tak, jak brzmi. */
+.catalog .cat-detail .v13pane>header h2{font-size:17px;text-transform:none;letter-spacing:0;
+ line-height:1.25;margin:0 0 7px;color:var(--text);font-weight:700}
+.catalog .cat-detail .v13pane.v13role>header h2{font-family:var(--sans)}
+.catalog .cat-detail .v13pane>header h2.mono{font-family:var(--mono)}
+/* ---- v16 1:1: pionowy pasek listy i schowany pasek filtrow powloki ---- */
+.catalog .ci-name{font-family:var(--sans);font-weight:700;font-size:13px}
+.catalog .cat-item .ci-v16{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.catalog .cat-item .ci-meta[hidden]{display:none!important}
+details.morefilters{margin:8px 0 0;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+details.morefilters>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:8px 12px;flex-wrap:wrap}
+details.morefilters>summary::-webkit-details-marker{display:none}
+details.morefilters>summary::before{content:"+";font-family:var(--mono);font-weight:700;width:20px;height:20px;
+ flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.morefilters[open]>summary::before{content:"−"}
+details.morefilters>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted)}
+details.morefilters>summary .sm-r{font-size:12.5px;color:var(--muted)}
+details.morefilters>.cat-toolbar{margin:0 12px 12px}
+/* Chipy w pionowym pasku listy sa SAMODZIELNE. Zmierzone 7 wrzesnia 2026: powloka
+   deklaruje `.badge` bez tla, z `border-radius:3px` i `text-transform:uppercase`,
+   a kolory (`t-grey`, `t-bad`, `t-info`) zyja tylko pod `.v13pane` — moje chipy
+   wychodzily wiec jako czarny, wersalikowy tekst bez ramki. Ta regula nie opiera
+   sie na zadnej klasie powloki poza sama nazwa `.badge`. */
+.catalog .cat-item .ci-v16{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.catalog .cat-item .ci-v16 .badge{display:inline-block;font-family:var(--sans);font-size:11px;
+ font-weight:700;line-height:1.5;padding:1px 9px;border-radius:999px;letter-spacing:0;
+ text-transform:none;white-space:nowrap;background:var(--grey-soft);color:var(--grey);
+ box-shadow:inset 0 0 0 1.5px var(--border)}
+.catalog .cat-item .ci-v16 .badge.t-bad{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad)}
+.catalog .cat-item .ci-v16 .badge.t-info{background:var(--info-soft);color:var(--info);box-shadow:inset 0 0 0 1.5px var(--info)}
+.catalog .cat-item .ci-v16 .badge.t-warn{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.catalog .cat-item .ci-v16 .badge.t-ok{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.catalog .cat-item .ci-v16 .badge.t-acc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+```
+
+### SKRYPT 7 — panel roli. Na koniec `<body>`, jako SIODMY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 7 — THE ENTRA ROLE PANEL, IN THE SAME v13/v16 SHAPE AS THE PERMISSION
+   PANEL (CLAUDE.md 5al). ADDED, never a replacement: shell scripts 1-3 and the
+   added scripts 4 (5y), 5 (5ad), 6 (5ak) are untouched.
+
+   The owner, 5 and 7 September 2026: the Roles tab was prose where the Graph API
+   tab was a panel, its filters said "All of those / whole resource" which name
+   nothing, its action table did not fit, searching for a directory action
+   returned 0, and it had no Exact match. All five have one cause: nothing was
+   rebuilding that panel, so the reader saw shell script 3's own rendering.
+
+   This script reads the catalog entry the shell already rendered plus
+   `graphMap` in the state block, and builds the panel in the SAME ORDER as the
+   permission panel:
+       At a glance -> what changed in the last 14 days -> what Microsoft says
+       this role is for -> what this role can do -> Graph permissions it covers.
+   The 14-day section sits SECOND in both panels; that is the owner's point 2 of
+   7 September, and it is a position, not a preference.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  var ROLEREF = "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#";
+  var GUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function jsonBlock(id) {
+    var s = document.getElementById(id);
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = jsonBlock("soc-brief-state") || {};
+  var CAT = jsonBlock("soc-catalog") || {};
+  var GM = ST.graphMap || null;
+  var ROLES = {};
+  (CAT.roles || []).forEach(function (r) { if (r && r.name) ROLES[r.name] = r; });
+
+  /* ---- the reverse of graphMap: which permissions does THIS role cover ----
+     Computed in the browser from the same array the permission panel prints, so
+     the two tabs can never disagree: one derivation, two readings of it. */
+  var COVER = {};
+  if (GM && GM.perms) {
+    Object.keys(GM.perms).forEach(function (p) {
+      (GM.perms[p].roles || []).forEach(function (r) {
+        var nm = r[0];
+        (COVER[nm] = COVER[nm] || []).push({ perm: p, pct: r[1], broad: !!r[2], eps: r[4] });
+      });
+    });
+    Object.keys(COVER).forEach(function (k) {
+      COVER[k].sort(function (a, b) { return (b.pct - a.pct) || (b.broad - a.broad) || (a.perm < b.perm ? -1 : 1); });
+    });
+  }
+  /* ---- directory action -> roles, so the search box can answer it ---- */
+  var BYACTION = {};
+  Object.keys(ROLES).forEach(function (n) {
+    (ROLES[n].actionsFull || []).forEach(function (a) {
+      (BYACTION[a.action] = BYACTION[a.action] || []).push(n);
+    });
+  });
+  var BYTEMPLATE = {};
+  Object.keys(ROLES).forEach(function (n) {
+    var t = ROLES[n].templateId; if (t) BYTEMPLATE[String(t).toLowerCase()] = n;
+  });
+  window.__socRoleIndex = { byAction: BYACTION, byTemplate: BYTEMPLATE, cover: COVER };
+
+  function kv(dl, k, v) {
+    dl.appendChild(el("dt", null, k));
+    var dd = el("dd");
+    if (typeof v === "string") dd.textContent = v; else if (v) dd.appendChild(v);
+    dl.appendChild(dd);
+  }
+  function chip(text, cls) { return el("span", "badge " + (cls || "t-grey"), text); }
+
+  /* ---------------- sections, in the order the permission panel uses --------------- */
+  function glance(r) {
+    var acts = r.actionsFull || [];
+    var npriv = 0, ns = {};
+    acts.forEach(function (a) { if (a.privileged) npriv++; ns[String(a.action).split("/")[0]] = 1; });
+    var cov = COVER[r.name] || [];
+    var broad = 0; cov.forEach(function (c) { if (c.broad) broad++; });
+
+    var sec = el("div", "sec"); sec.appendChild(el("h3", null, "At a glance"));
+    var dl = el("dl", "kv");
+    kv(dl, "Object type", r.objectType || "Role");
+    kv(dl, "Scope", r.scope || "");
+    var pv = el("span");
+    pv.appendChild(chip(r.privileged === true || r.privileged === "True" ? "PRIVILEGED" : "not privileged",
+      (r.privileged === true || r.privileged === "True") ? "t-bad" : "t-grey"));
+    if (r.privilegedNote) { var pn = el("span", "note"); pn.style.display = "inline"; pn.style.marginLeft = "8px"; pn.textContent = r.privilegedNote; pv.appendChild(pn); }
+    kv(dl, "Privileged", pv);
+    if (acts.length) {
+      kv(dl, "Directory actions", acts.length + ", of which " + npriv + " privileged, across " +
+        Object.keys(ns).length + " namespace" + (Object.keys(ns).length === 1 ? "" : "s"));
+    } else {
+      var na = el("span", "note"); na.style.display = "inline";
+      na.textContent = "Microsoft publishes no Actions table for this role.";
+      kv(dl, "Directory actions", na);
+    }
+    if (cov.length) {
+      kv(dl, "Graph permissions covered", cov.length + " at 50% or better — " + broad +
+        " whole resource, " + (cov.length - broad) + " selected properties only");
+    } else {
+      var nc = el("span", "note"); nc.style.display = "inline";
+      nc.textContent = GM ? "None reach 50%." : "The endpoint map is not on this page, so coverage is not computed.";
+      kv(dl, "Graph permissions covered", nc);
+    }
+    kv(dl, "Template ID", el("span", "mono", r.templateId || "not published"));
+    kv(dl, "Documented at Microsoft", (r.docStatus || "") + (r.docCheckedOn ? " · checked " + r.docCheckedOn : ""));
+    kv(dl, "First tracked", r.firstTracked || r.firstSeen || "");
+    if (r.url) {
+      var a = el("a", "lnk", "Microsoft’s role reference");
+      a.href = r.url; a.target = "_blank"; a.rel = "noopener";
+      kv(dl, "Source", a);
+    }
+    sec.appendChild(dl);
+    return sec;
+  }
+
+  function purpose(r) {
+    if (!r.description && !(r.tasks && r.tasks.length)) return null;
+    var sec = el("div", "sec");
+    sec.appendChild(el("h3", null, "What Microsoft says this role is for"));
+    if (r.description) { var p = el("p", null, r.description); p.style.margin = "0 0 8px"; sec.appendChild(p); }
+    if (r.tasks && r.tasks.length) {
+      var ul = el("ul"); ul.style.cssText = "margin:0;padding-left:19px;font-size:13.5px";
+      r.tasks.slice(0, 8).forEach(function (t) { ul.appendChild(el("li", null, t)); });
+      sec.appendChild(ul);
+    }
+    return sec;
+  }
+
+  function actions(r) {
+    var acts = (r.actionsFull || []).slice();
+    if (!acts.length) return null;
+    acts.sort(function (a, b) { return a.action < b.action ? -1 : 1; });
+    var npriv = 0, ns = {};
+    acts.forEach(function (a) { if (a.privileged) npriv++; var k = String(a.action).split("/")[0]; ns[k] = (ns[k] || 0) + 1; });
+
+    var sec = el("div", "sec"), det = el("details", "eps actinject"), sum = el("summary");
+    sum.appendChild(el("span", "sm-t", "What this role can do"));
+    sum.appendChild(chip(acts.length + " directory actions", "t-acc"));
+    if (npriv) sum.appendChild(chip(npriv + " privileged", "t-bad"));
+    det.appendChild(sum);
+
+    /* Filter chips name what they filter — the owner's point 3 of 5 September:
+       "All of those" and "whole resource" named nothing he could act on. */
+    var mf = el("div", "mf");
+    function fchip(lab, key, on) {
+      var b = el("button", null, lab); b.type = "button"; b.dataset.f = key;
+      b.setAttribute("aria-pressed", String(!!on)); mf.appendChild(b);
+    }
+    fchip("All " + acts.length, "ALL", true);
+    if (npriv) fchip("Privileged " + npriv, "PRIV", false);
+    Object.keys(ns).sort(function (a, b) { return ns[b] - ns[a]; }).slice(0, 6)
+      .forEach(function (k) { fchip(k + " " + ns[k], k, false); });
+    det.appendChild(mf);
+
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), hr = el("tr");
+    hr.appendChild(el("th", null, "Directory action — and what it allows"));
+    th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    acts.forEach(function (a) {
+      var tr = el("tr");
+      tr.dataset.ns = String(a.action).split("/")[0];
+      tr.dataset.priv = a.privileged ? "1" : "0";
+      var td = el("td", "act");
+      td.appendChild(el("code", null, a.action));
+      if (a.privileged) { td.appendChild(document.createTextNode(" ")); td.appendChild(chip("privileged", "t-bad")); }
+      if (a.description) { var w = el("div", "what", a.description); td.appendChild(w); }
+      tr.appendChild(td); body.appendChild(tr);
+    });
+    tb.appendChild(body); tw.appendChild(tb); det.appendChild(tw);
+    if (r.actionsProvenance) det.appendChild(el("p", "note", String(r.actionsProvenance).slice(0, 400)));
+
+    mf.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest("button") : null; if (!b) return;
+      [].forEach.call(mf.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      var f = b.dataset.f;
+      [].forEach.call(body.querySelectorAll("tr"), function (tr) {
+        tr.hidden = !(f === "ALL" || (f === "PRIV" ? tr.dataset.priv === "1" : tr.dataset.ns === f));
+      });
+    });
+    sec.appendChild(det);
+    return sec;
+  }
+
+  function coverage(r) {
+    var cov = COVER[r.name] || [];
+    var sec = el("div", "sec");
+    sec.appendChild(el("h3", null, "Graph permissions this role covers"));
+    if (!GM) {
+      sec.appendChild(el("p", "empty", "The endpoint map is not carried on this page, so nothing is derived here."));
+      return sec;
+    }
+    var rb = el("div", "rulebox");
+    rb.appendChild(el("b", null, "How this list is derived, and what Microsoft does not publish."));
+    rb.appendChild(document.createTextNode(" " + (GM.rule || "")));
+    var n = el("p", "note");
+    n.appendChild(el("b", null, GM.ruleNote || "Derived by this brief, not published by Microsoft."));
+    rb.appendChild(n); sec.appendChild(rb);
+    if (!cov.length) {
+      sec.appendChild(el("p", "empty",
+        "This role covers no Graph permission at 50% or better. That is a result, not a gap: the role's actions " +
+        "sit outside the resources those permissions reach."));
+      return sec;
+    }
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), hr = el("tr");
+    ["Graph permission", "Coverage", "Depth", "Endpoints"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    cov.slice(0, 25).forEach(function (c) {
+      var tr = el("tr");
+      var c0 = el("td", "rname mono", c.perm); tr.appendChild(c0);
+      var c1 = el("td"); c1.appendChild(el("b", null, c.pct + "%")); tr.appendChild(c1);
+      var c2 = el("td");
+      c2.appendChild(chip(c.broad ? "whole resource" : "selected properties only", c.broad ? "t-ok" : "t-warn"));
+      tr.appendChild(c2);
+      tr.appendChild(el("td", null, (c.eps || 0) + " endpoints"));
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    sec.appendChild(el("p", "note", cov.length + " permissions reach 50% or better; the " +
+      Math.min(25, cov.length) + " strongest are shown. Whole resource beats property-limited at equal coverage."));
+    return sec;
+  }
+
+  /* ---------------- build ---------------- */
+  function build(inner) {
+    if (!inner || inner.querySelector(".v13pane")) return;
+    var h = inner.querySelector(".cat-title");
+    if (!h) return;
+    var name = (h.textContent || "").trim();
+    var r = ROLES[name];
+    if (!r) return;                       /* not a role entry: stay silent */
+
+    var pane = el("div", "v13pane v13role");
+    var head = document.createElement("header");
+    head.appendChild(el("h2", null, name));
+    var chips = el("div", "chips"), src = inner.querySelector(".cat-badges");
+    if (src) [].forEach.call(src.querySelectorAll(".badge"), function (b) {
+      chips.appendChild(chip(b.textContent.trim(), "t-grey"));
+    });
+    head.appendChild(chips); pane.appendChild(head);
+
+    pane.appendChild(glance(r));
+    if (window.__socHistSection) {
+      var hs = window.__socHistSection("role", name);   /* SCRIPT 8 owns the ledger */
+      if (hs) pane.appendChild(hs);
+    }
+    var p = purpose(r); if (p) pane.appendChild(p);
+    var a = actions(r); if (a) pane.appendChild(a);
+    pane.appendChild(coverage(r));
+
+    /* the shell's own versions of these panels are HIDDEN, never removed:
+       script 3 owns that markup and this script does not edit script 3. */
+    [].forEach.call(inner.querySelectorAll("section.cat-panel"), function (s) {
+      var t = (s.querySelector("h4") || {}).textContent || "";
+      if (/at a glance|what this role is for|what this role can do|directory actions/i.test(t)) s.hidden = true;
+    });
+    /* the shell's own head carries the same name and the same chips as this pane's
+       header; leaving both printed the role name twice, which the owner saw */
+    var ch = inner.querySelector(".cat-head"); if (ch) ch.hidden = true;
+    var after = inner.querySelector(".cat-head");
+    if (after && after.nextSibling) inner.insertBefore(pane, after.nextSibling);
+    else inner.appendChild(pane);
+  }
+
+  /* a panel built on demand, for SCRIPT 8's `+` in the history table */
+  window.__socOpenRole = function (name) {
+    var cat = document.querySelector('.catalog[data-catalog="roles"]');
+    if (!cat) return null;
+    var items = [].slice.call(cat.querySelectorAll(".cat-item"));
+    var want = null;
+    items.forEach(function (b) {
+      var nm = ((b.querySelector(".ci-name") || {}).textContent || "").trim();
+      if (!want && nm === name) want = b;
+    });
+    if (!want) return null;
+    want.click();
+    return cat.querySelector(".cat-detail .cat-detail-inner");
+  };
+
+  /* ---------------- Exact match and three kinds of query on the roles search ---------------- */
+  function search() {
+    var cat = document.querySelector('.catalog[data-catalog="roles"]');
+    if (!cat || cat.querySelector(".s7exact")) return;
+    var row = cat.querySelector(".cat-searchrow"), input = cat.querySelector("input.cat-search");
+    if (!row || !input) return;
+    var lab = el("label", "s7exact");
+    var box = document.createElement("input"); box.type = "checkbox"; box.id = "s7exact";
+    lab.appendChild(box); lab.appendChild(document.createTextNode(" Exact match"));
+    var cnt = row.querySelector(".rowcount");
+    if (cnt) row.insertBefore(lab, cnt); else row.appendChild(lab);
+
+    var why = el("p", "s7why"); why.hidden = true;
+    var list = cat.querySelector(".cat-list");
+    if (list && list.parentNode) list.parentNode.insertBefore(why, list);
+
+    /* Examples the reader can CLICK. A placeholder listing four kinds of query is
+       truncated on a phone and cannot be acted on; a chip can. */
+    var tips = el("div", "s7tips");
+    tips.appendChild(el("span", "lab", "Examples — click one"));
+    [["role name", "Global Reader"],
+     ["directory action", "microsoft.directory/users/inviteGuest"],
+     ["template ID", (function () { var k = Object.keys(BYTEMPLATE)[0]; return k || ""; })()]]
+      .forEach(function (t) {
+        if (!t[1]) return;
+        var b = el("button", null, ""); b.type = "button";
+        b.appendChild(el("b", null, t[0])); b.appendChild(document.createTextNode(t[1]));
+        b.addEventListener("click", function () {
+          input.value = t[1];
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+          setTimeout(apply, 0); input.focus();
+        });
+        tips.appendChild(b);
+      });
+    if (row.parentNode) row.parentNode.insertBefore(tips, row);
+
+    function resolve(v) {
+      var s = (v || "").trim();
+      if (!s) return { kind: "", names: null, note: "" };
+      if (GUID.test(s)) {
+        var n = BYTEMPLATE[s.toLowerCase()];
+        return { kind: "template ID", names: n ? [n] : [],
+                 note: n ? ("That template ID belongs to " + n + ".") : "No role in this catalog carries that template ID." };
+      }
+      if (s.toLowerCase().indexOf("microsoft.") === 0) {
+        var exact = BYACTION[s] || null, hits = [], nmatch = 0;
+        if (exact) hits = exact.slice();
+        else {
+          Object.keys(BYACTION).forEach(function (k) {
+            if (k.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
+              nmatch++;
+              BYACTION[k].forEach(function (r) { if (hits.indexOf(r) < 0) hits.push(r); });
+            }
+          });
+        }
+        return { kind: "directory action", names: hits,
+          note: hits.length
+            ? (exact ? (hits.length + " role" + (hits.length === 1 ? "" : "s") + " carry exactly " + s + ": " +
+                        hits.slice(0, 8).join(", ") + (hits.length > 8 ? " …" : "") + ".")
+                     : (nmatch + " action" + (nmatch === 1 ? "" : "s") + " match, carried by " + hits.length +
+                        " role" + (hits.length === 1 ? "" : "s") + "."))
+            : "No role in this catalog publishes an action matching that." };
+      }
+      return { kind: "role name", names: null, note: "" };
+    }
+
+    /* The filter is expressed in the STYLESHEET, never by writing `hidden` on the
+       shell's list items. Measured: writing there made the shell re-render, which
+       made this filter run again, 200+ times, and the page stopped responding.
+       A rule survives a re-render and cannot fight with one. */
+    var sty = document.getElementById("s7filter");
+    if (!sty) { sty = document.createElement("style"); sty.id = "s7filter"; document.head.appendChild(sty); }
+    function idOf(name) { var r = ROLES[name]; return r && r.id ? String(r.id) : null; }
+    function esc2(v) { return String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"'); }
+    function setFilter(ids) {
+      if (!ids) { sty.textContent = ""; return; }
+      var base = '.catalog[data-catalog="roles"] .cat-list .cat-item{display:none!important}';
+      if (!ids.length) { sty.textContent = base; return; }
+      sty.textContent = base + "\n" + ids.map(function (i) {
+        return '.catalog[data-catalog="roles"] .cat-list .cat-item[data-id="' + esc2(i) + '"]';
+      }).join(",") + "{display:flex!important}";
+    }
+
+    function apply() {
+      if (!list) return;
+      var v = (input.value || "").trim(), ex = box.checked, r = resolve(v);
+      /* A role NAME is a question the shell's own list already answers; Exact match
+         only narrows what it produced, and it narrows it with a rule. An ACTION or
+         a TEMPLATE ID is a different namespace: the shell rebuilds its list from
+         names and leaves nothing in the DOM — measured, zero entries — so the
+         answer there is the note, with every role named and each name a button. */
+      if (!r.names && v && ex) {
+        var keep = [];
+        Object.keys(ROLES).forEach(function (n) {
+          if (n.toLowerCase() === v.toLowerCase()) { var i2 = idOf(n); if (i2) keep.push(i2); }
+        });
+        setFilter(keep);
+      } else setFilter(null);
+
+      var shown = 0;
+      [].forEach.call(list.querySelectorAll(".cat-item"), function (b) {
+        if (b.offsetParent !== null || getComputedStyle(b).display !== "none") shown++;
+      });
+
+      why.textContent = "";
+      why.hidden = !r.note;
+      if (r.note) {
+        why.appendChild(document.createTextNode(r.note));
+        if (r.names && r.names.length) {
+          why.appendChild(document.createTextNode(" The list below searches role names, so it does not answer this " +
+            "question — open a role from here:"));
+          var box2 = el("span", "s7hits");
+          r.names.slice(0, 12).forEach(function (n) {
+            var b2 = el("button", null, n); b2.type = "button";
+            b2.addEventListener("click", function () {
+              input.value = "";
+              input.dispatchEvent(new Event("input", { bubbles: true }));
+              setTimeout(function () {
+                var inner = window.__socOpenRole && window.__socOpenRole(n);
+                if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+              }, 120);
+            });
+            box2.appendChild(b2);
+          });
+          if (r.names.length > 12) box2.appendChild(el("span", "note", " … and " + (r.names.length - 12) + " more"));
+          why.appendChild(box2);
+        }
+      }
+      if (cnt && v) cnt.textContent = r.names ? (r.names.length + " roles · " + r.kind)
+                                              : (shown + (ex ? " exact" : "") + (r.kind ? " · " + r.kind : ""));
+    }
+    box.addEventListener("change", function () { setTimeout(apply, 0); });
+    input.addEventListener("input", function () { setTimeout(apply, 0); setTimeout(apply, 180); });
+
+  }
+
+
+  /* A row on the /diff/ page cannot open a panel: that page carries no catalog by
+     design (§3). It can point at one. `#roles:role=<name>` selects the entry
+     here, so a link from the change page lands on the panel itself. */
+  function fromHash() {
+    var m = /^#roles:role=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+    if (!m) return;
+    var name = m[1];
+    setTimeout(function () {
+      var inner = window.__socOpenRole && window.__socOpenRole(name);
+      if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+    }, 260);
+  }
+  /* ---------- the section's own table, and two filters that named nothing ----------
+     Measured on the published page of 7 September 2026: the Roles section opens with
+     a 20-row table under a bare "Search 20 rows…", two selects reading "All of those,
+     whole resource" and "All dominant depth" — the shell builds a facet from the
+     column HEADER, and a numeric column makes a facet that cannot group anything
+     (§5s, the same disease as a chart of ones). The table itself is useful; nothing
+     said what it was. So: name it, say what it ranks, fold it under the history, and
+     drop the facet that cannot work. */
+  function rankTable() {
+    var sec = document.getElementById("roles");
+    if (!sec || sec.querySelector("details.rolerank")) return;
+    var body = sec.querySelector(".sec-body"); if (!body) return;
+    var tw = null;
+    [].forEach.call(body.children, function (x) {
+      if (!tw && x.classList && x.classList.contains("tw")) tw = x;
+    });
+    if (!tw) return;
+    var rows = tw.querySelectorAll("tbody tr").length;
+    if (!rows) return;
+    /* The toolbar and the filter banner are inserted by the shell at load time as
+       SIBLINGS of the table, and the note under it belongs to it too. Take the whole
+       block, or the reader gets a search box floating above nothing. */
+    var bar = [], k;
+    for (k = tw.previousElementSibling; k; k = k.previousElementSibling) {
+      if (k.classList && (k.classList.contains("tbar") || k.classList.contains("filterbanner"))) bar.unshift(k);
+      else break;
+    }
+    var after = [];
+    for (k = tw.nextElementSibling; k; k = k.nextElementSibling) {
+      if (k.classList && (k.classList.contains("rnote") || k.classList.contains("filterbanner"))) after.push(k);
+      else break;
+    }
+
+    var det = el("details", "rolerank");
+    var sum = el("summary");
+    sum.appendChild(el("span", "sm-t", "Roles ranked by the Graph permissions they cover"));
+    sum.appendChild(el("span", "badge t-acc", rows + " roles"));
+    det.appendChild(sum);
+    det.appendChild(el("p", "note",
+      "The " + rows + " roles that cover the most Graph permissions at 50% or better, derived by this brief " +
+      "and not published by Microsoft. Depth says whether the matching directory action reaches the whole " +
+      "resource or only selected properties; at equal coverage, whole resource is the stronger one. " +
+      "Every role in the catalog below has its own panel carrying the same figures."));
+    bar.forEach(function (x) { det.appendChild(x); });
+    det.appendChild(tw);
+    after.forEach(function (x) { det.appendChild(x); });
+
+    /* A facet built from a NUMERIC column groups nothing — "All of those, whole
+       resource" is a filter over counts. Hide it rather than leave it lying there;
+       the depth facet is real, so it only gets a name a reader can act on. */
+    bar.forEach(function (b2) {
+      [].forEach.call(b2.querySelectorAll("select"), function (sl) {
+        var first = (sl.options[0] || {}).textContent || "";
+        if (/^all of those/i.test(first)) sl.hidden = true;
+        else if (/^all dominant depth$/i.test(first)) sl.options[0].textContent = "All depth";
+      });
+      var si = b2.querySelector("input[type=search]");
+      if (si) si.placeholder = "Search these " + rows + " roles\u2026";
+    });
+
+    var cat = body.querySelector(".catalog");
+    if (cat) body.insertBefore(det, cat); else body.appendChild(det);
+  }
+
+  /* A summary cut at 88 characters ends mid-thought — "Recounted in…" tells the reader
+     nothing about whether to open it. The body is untouched; only the label changes,
+     to the first complete sentence. */
+  function fixFoldSummaries() {
+    [].forEach.call(document.querySelectorAll("details.foldnote > summary"), function (sm) {
+      if (sm.dataset.s7fix === "1") return;
+      var body = sm.parentNode.querySelector(".foldnote-body");
+      var full = ((body && body.textContent) || "").trim();
+      if (!full) return;
+      var m = /^(.{20,150}?[.!?])(\s|$)/.exec(full);
+      if (!m) return;
+      sm.dataset.s7fix = "1";
+      sm.textContent = m[1];
+    });
+  }
+
+  /* ---------- the left strip: what v16 puts next to a role ----------
+     The shell writes the change kind and a date; v16 writes what the reader is
+     choosing between — privileged, how many directory actions, how many Graph
+     permissions it covers. The shell's own chip row is HIDDEN, never removed, and
+     ours is appended; the list is rebuilt on every filter, so we re-decorate on
+     each render, guarded so the two cannot chase each other. */
+  function decorate() {
+    var cat = document.querySelector('.catalog[data-catalog="roles"]');
+    if (!cat) return;
+    var list = cat.querySelector(".cat-list"); if (!list) return;
+    [].forEach.call(list.querySelectorAll(".cat-item"), function (b) {
+      if (b.dataset.v16 === "1") return;
+      var nm = ((b.querySelector(".ci-name") || {}).textContent || "").trim();
+      var r = ROLES[nm]; if (!r) return;
+      b.dataset.v16 = "1";
+      var old = b.querySelector(".ci-meta"); if (old) old.hidden = true;
+      var m = el("div", "ci-v16");
+      if (r.privileged === true || r.privileged === "True") m.appendChild(chip("PRIV", "t-bad"));
+      var na = (r.actionsFull || []).length;
+      m.appendChild(chip(na ? (na + " actions") : "no actions table", na ? "t-grey" : "t-warn"));
+      var nc = (COVER[nm] || []).length;
+      if (nc) m.appendChild(chip(nc + " perms", "t-info"));
+      b.appendChild(m);
+    });
+  }
+  function watchList() {
+    var cat = document.querySelector('.catalog[data-catalog="roles"]');
+    var list = cat && cat.querySelector(".cat-list"); if (!list) return;
+    var busy = false;
+    function run() {
+      if (busy) return;
+      busy = true;
+      try { decorate(); var i2 = cat.querySelector("input.cat-search"); if (i2) i2.placeholder = "Search roles"; } finally { busy = false; }
+    }
+    run();
+    if (window.MutationObserver)
+      new MutationObserver(function () { if (!busy) run(); }).observe(list, { childList: true });
+  }
+
+  function boot() {
+    if (!Object.keys(ROLES).length) return;
+    search(); rankTable(); fixFoldSummaries(); watchList(); fromHash();
+    /* the shell builds that toolbar on its own schedule; one late pass, guarded by
+       the `details.rolerank` check, costs nothing and catches the other ordering */
+    setTimeout(function () { rankTable(); fixFoldSummaries(); decorate(); }, 400);
+    window.addEventListener("hashchange", fromHash);
+    [].forEach.call(document.querySelectorAll('.catalog[data-catalog="roles"] .cat-detail'), function (det) {
+      build(det.querySelector(".cat-detail-inner"));
+      if (window.MutationObserver)
+        new MutationObserver(function () { build(det.querySelector(".cat-detail-inner")); })
+          .observe(det, { childList: true, subtree: false });
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 140); });
+  else setTimeout(boot, 140);
+})();
+```
+
+### SKRYPT 8 — gora zakladki i rejestr 14 dni. Jako OSMY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 8 — THE TOP OF EVERY CONTENT TAB: COUNTS, THE ARITHMETIC BEHIND THEM,
+   AND THE LAST 14 DAYS (CLAUDE.md 5al, extending 5aj). ADDED, never a
+   replacement.
+
+   Three findings from the owner, 7 September 2026, and one cause each:
+   1. "I do not know what is on the x axis and what on the y" — the strip had no
+      axis titles at all. Both are now printed ON the drawing, and a sentence
+      above it says how to read it.
+   2. "in Roles that section is at the bottom, in Graph API at the top" — the two
+      tabs were laid out by two different pieces of code. ONE function now builds
+      the top of BOTH tabs, so they cannot drift: tiles, folded arithmetic,
+      history. Position is enforced by construction, not by care.
+   3. "when I press + I should get the same view as the panel below" — every
+      history row carries a `+` that asks the CATALOG for its panel and clones
+      what it renders. Not a second rendering of the same data: the same one.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  var TABS = [
+    { id: "tab-roles",      ledger: ["Roles"],                          kind: "role" },
+    { id: "tab-graph",      ledger: ["Graph API", "Graph endpoints"],   kind: "perm" },
+    { id: "tab-new",        ledger: ["New"],                            kind: "row"  },
+    { id: "tab-deadlines",  ledger: ["Deadlines"],                      kind: "row"  },
+    { id: "tab-components", ledger: ["Component versions"],             kind: "row"  }
+  ];
+  var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function sv(t, a) { var n = document.createElementNS("http://www.w3.org/2000/svg", t);
+    for (var k in a) if (Object.prototype.hasOwnProperty.call(a, k)) n.setAttribute(k, a[k]); return n; }
+  function jsonBlock(id) {
+    var s = document.getElementById(id); if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = jsonBlock("soc-brief-state") || {};
+  var CAT = jsonBlock("soc-catalog") || {};
+  var GM = ST.graphMap || null;
+  var L = ST.ledger14 || null;
+  var ENTRIES = (L && L.entries) || [];
+  var RUNS = {}; ((L && L.runs) || []).forEach(function (r) { RUNS[r.date] = r; });
+  var WINDOW_DAYS = (L && L.pageWindowDays) || 14;
+  var TODAY = ST.briefDate || (new Date()).toISOString().slice(0, 10);
+
+  function nameOf(entry) {
+    /* the ledger writer has packed a sentence into `id` before now; take the
+       subject either way, and never guess what the rest of it meant */
+    return String(entry.id || "").split("→")[0].replace(/&mdash;|—/g, "").trim();
+  }
+
+  /* ---------------- the chart, with BOTH axes named on the drawing ---------------- */
+  function chart(rows, label) {
+    var per = {}, i;
+    rows.forEach(function (r) { per[r.seen] = (per[r.seen] || 0) + 1; });
+    var t = new Date(TODAY + "T00:00:00Z"), ds = [], vals = [];
+    for (i = WINDOW_DAYS - 1; i >= 0; i--) {
+      var d = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10);
+      ds.push(d); vals.push(per[d] || 0);
+    }
+    var mx = Math.max.apply(null, vals.concat([1]));
+    var W = 1200, H = 250, PADL = 92, PADR = 14, PADT = 34, PADB = 74;
+    var plotW = W - PADL - PADR, plotH = H - PADT - PADB, bw = plotW / WINDOW_DAYS;
+    var s = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": label + " per day over the last " + WINDOW_DAYS + " days, with a seven-day moving average" });
+    [0, 0.5, 1].forEach(function (g) {
+      var y = PADT + plotH - plotH * g;
+      s.appendChild(sv("line", { x1: PADL, y1: y, x2: W - PADR, y2: y, "class": "gl" }));
+      var tx = sv("text", { x: PADL - 8, y: y + 5, "class": "ax", "text-anchor": "end" });
+      tx.textContent = Math.round(mx * g); s.appendChild(tx);
+    });
+    s.appendChild(sv("line", { x1: PADL, y1: PADT, x2: PADL, y2: PADT + plotH, "class": "gl" }));
+    var pts = [];
+    ds.forEach(function (d, i2) {
+      var n = vals[i2], x = PADL + i2 * bw, cx = x + bw / 2, r;
+      if (!RUNS[d]) {
+        r = sv("rect", { x: x + 4, y: PADT + plotH - 6, width: bw - 8, height: 6, rx: 2, "class": "b-norun" });
+        r.appendChild(sv("title")).textContent = d + " — no run, so nothing was recorded";
+      } else if (!n) {
+        r = sv("rect", { x: x + 4, y: PADT + plotH - 6, width: bw - 8, height: 6, rx: 2, "class": "b-quiet" });
+        r.appendChild(sv("title")).textContent = d + " — a run looked and nothing moved";
+      } else {
+        var h = Math.max(7, plotH * n / mx);
+        r = sv("rect", { x: x + 4, y: PADT + plotH - h, width: bw - 8, height: h, rx: 3, "class": "b-chg" });
+        r.appendChild(sv("title")).textContent = d + " — " + n + " " + (n === 1 ? label.replace(/s$/, "") : label);
+        var vt = sv("text", { x: cx, y: PADT + plotH - h - 6, "class": "ax", "text-anchor": "middle" });
+        vt.textContent = n; s.appendChild(vt);
+      }
+      s.appendChild(r);
+      var win = [], j;
+      for (j = Math.max(0, i2 - 6); j <= i2; j++) if (RUNS[ds[j]]) win.push(vals[j]);
+      if (win.length) {
+        var avg = win.reduce(function (a, b) { return a + b; }, 0) / win.length;
+        pts.push(cx.toFixed(1) + "," + (PADT + plotH - plotH * avg / mx).toFixed(1));
+      }
+      var dd = new Date(d + "T00:00:00Z");
+      var lt = sv("text", { x: cx, y: PADT + plotH + 18, "class": "ax", "text-anchor": "middle" });
+      lt.textContent = dd.getUTCDate(); s.appendChild(lt);
+      if (i2 === 0 || dd.getUTCDate() === 1) {
+        var mt = sv("text", { x: cx, y: PADT + plotH + 34, "class": "ax", "text-anchor": "middle" });
+        mt.textContent = MON[dd.getUTCMonth()]; s.appendChild(mt);
+      }
+    });
+    if (pts.length > 1) s.appendChild(sv("polyline", { points: pts.join(" "), "class": "trend" }));
+    var yt = sv("text", { "class": "axt", transform: "translate(20," + (PADT + plotH / 2) + ") rotate(-90)", "text-anchor": "middle" });
+    yt.textContent = label + " per day"; s.appendChild(yt);
+    var xt = sv("text", { "class": "axt", x: PADL + plotW / 2, y: H - 14, "text-anchor": "middle" });
+    xt.textContent = "day of month · oldest on the left · today on the right"; s.appendChild(xt);
+
+    var wrap = el("div");
+    var how = el("p", "howto");
+    how.appendChild(el("b", null, "How to read this. "));
+    how.appendChild(document.createTextNode(
+      "The upright axis counts " + label + " recorded on that day — the number is printed on each bar and again " +
+      "on the scale at the left. The flat axis is the day, one bar per day, the oldest " + WINDOW_DAYS +
+      " days ago on the left and today on the right. The orange line is the seven-day moving average, so it " +
+      "shows the trend without one busy day standing for the fortnight."));
+    wrap.appendChild(how);
+    var cw = el("div", "chartwrap"); cw.appendChild(s); wrap.appendChild(cw);
+    var lg = el("div", "legend");
+    [["k-chg", "a day with " + label], ["k-quiet", "a run looked, nothing moved"],
+     ["k-norun", "no run that day, so nothing is known"], ["k-trend", "seven-day moving average"]]
+      .forEach(function (p) {
+        var sp = el("span"); sp.appendChild(el("i", p[0])); sp.appendChild(document.createTextNode(p[1])); lg.appendChild(sp);
+      });
+    wrap.appendChild(lg);
+    return wrap;
+  }
+
+  /* ---------------- one history row, and the `+` that opens the real panel ---------------- */
+  function valueCell(e2) {
+    var td = el("td");
+    /* An increment is not a transition: "+3 endpoints" has no `before`, and
+       printing "not set → +3" invents a previous value that never existed. */
+    if (!e2.before && e2.after && /^[+\u2212-]\d/.test(String(e2.after))) {
+      var ins0 = document.createElement("ins"); ins0.textContent = e2.after;
+      ins0.title = "gained since the previous run";
+      td.appendChild(ins0);
+      return td;
+    }
+    if (e2.before || e2.after) {
+      if (e2.before) { var d = document.createElement("del"); d.textContent = e2.before; td.appendChild(d); }
+      else td.appendChild(el("span", "none", "not set"));
+      td.appendChild(el("span", "arrow", " → "));
+      if (e2.after) { var i2 = document.createElement("ins"); i2.textContent = e2.after; td.appendChild(i2); }
+      else td.appendChild(el("span", "none", "cleared"));
+    } else td.appendChild(document.createTextNode(e2.detail || "—"));
+    return td;
+  }
+
+  function table(rows, kind, ledgerTabs) {
+    /* No `Tab` column: inside the Graph API tab every row said "Graph API".
+       A second ledger tab under the same panel — Graph endpoints — is marked on
+       the row instead, because there the distinction carries something. */
+    var multi = (ledgerTabs || []).length > 1;
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), hr = el("tr");
+    ["", "Day", "What", "Item", "Field", "Before → after"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    rows.forEach(function (e2) {
+      var key = nameOf(e2);
+      var tr = el("tr", "hrow");
+      var c0 = el("td", "xc");
+      if (key && kind !== "row") {
+        var b = el("button", "xb", "+");
+        b.type = "button"; b.dataset.kind = kind; b.dataset.key = key;
+        b.setAttribute("aria-expanded", "false");
+        b.title = "Show the full panel for " + key;
+        c0.appendChild(b);
+      } else if (key && kind === "row") {
+        var a = el("a", "xb", "↗");
+        a.href = "#"; a.title = "Jump to the row for " + key;
+        a.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          var t2 = document.querySelector('[data-id="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+          if (t2) { t2.scrollIntoView({ block: "center" }); t2.classList.add("s8flash");
+                    setTimeout(function () { t2.classList.remove("s8flash"); }, 2000); }
+        });
+        c0.appendChild(a);
+      } else c0.appendChild(el("span", "xn", "—"));
+      tr.appendChild(c0);
+      tr.appendChild(el("td", null, e2.seen || ""));
+      var kc = el("td");
+      kc.appendChild(document.createTextNode(e2.kind || ""));
+      if (multi && e2.tab && e2.tab !== (ledgerTabs || [])[0]) {
+        kc.appendChild(document.createTextNode(" "));
+        kc.appendChild(el("span", "badge t-grey", e2.tab));
+      }
+      tr.appendChild(kc);
+      tr.appendChild(el("td", "rname", key || "—"));
+      var fc = el("td"); if (e2.field) fc.appendChild(el("code", null, e2.field)); tr.appendChild(fc);
+      tr.appendChild(valueCell(e2));
+      body.appendChild(tr);
+      var det = el("tr", "hdet"); det.hidden = true;
+      var dc = el("td"); dc.setAttribute("colspan", "6");
+      dc.appendChild(el("div", "hd-in")); det.appendChild(dc); body.appendChild(det);
+    });
+    tb.appendChild(body); tw.appendChild(tb);
+    return tw;
+  }
+
+  function embed(box, kind, key) {
+    var inner = null;
+    if (kind === "perm" && window.__socOpenPerm) inner = window.__socOpenPerm(key);
+    if (kind === "role" && window.__socOpenRole) inner = window.__socOpenRole(key);
+    /* the catalog renders on the next tick; clone what it produced */
+    setTimeout(function () {
+      var src = inner || null;
+      if (!src) {
+        box.innerHTML = "";
+        box.appendChild(el("p", "empty", key + " is named in the ledger but carries no entry in the catalog as " +
+          "it stands today, so there is no panel to open. That absence is itself the finding: the entry was " +
+          "withdrawn, or it lives on a surface this catalog does not cover."));
+        return;
+      }
+      box.innerHTML = "";
+      box.appendChild(el("p", "hd-lead", "The full panel for " + key + ", the same one the catalog below shows"));
+      var c = src.cloneNode(true);
+      c.classList.add("embed");
+      var h = c.querySelector("[data-hist]"); if (h && h.parentNode) h.parentNode.removeChild(h);
+      box.appendChild(c);
+    }, 90);
+  }
+
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("button.xb") : null; if (!b) return;
+    var tr = b.closest("tr"), det = tr.nextElementSibling;
+    if (!det || !det.classList.contains("hdet")) return;
+    var box = det.querySelector(".hd-in");
+    if (box && box.dataset.built !== "1") {
+      box.dataset.built = "1";
+      box.appendChild(el("p", "note", "Opening …"));
+      embed(box, b.dataset.kind, b.dataset.key);
+    }
+    var open = det.hidden;
+    det.hidden = !open;
+    b.textContent = open ? "−" : "+";
+    b.setAttribute("aria-expanded", String(open));
+    tr.setAttribute("aria-expanded", String(open));
+  });
+
+  /* ---------------- the per-item section scripts 6 and 7 place SECOND ---------------- */
+  window.__socHistSection = function (kind, key) {
+    var mine = ENTRIES.filter(function (e2) { return nameOf(e2) === key; });
+    var sec = el("div", "sec"); sec.dataset.hist = "1";
+    sec.appendChild(el("h3", null, "What changed on this " + (kind === "role" ? "role" : "permission") +
+      " in the last " + WINDOW_DAYS + " days"));
+    if (!L) {
+      sec.appendChild(el("p", "empty", "This page carries no change ledger, so nothing can be shown here."));
+      return sec;
+    }
+    if (!mine.length) {
+      sec.appendChild(el("p", "empty", "Nothing moved on this " + (kind === "role" ? "role" : "permission") +
+        " in the window. " + Object.keys(RUNS).length + " runs looked; that is a result, not a gap."));
+      return sec;
+    }
+    var tw = el("div", "tw"), tb = el("table"), th = el("thead"), hr = el("tr");
+    ["Day", "What", "Field", "Before → after"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    mine.forEach(function (e2) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, e2.seen || ""));
+      tr.appendChild(el("td", null, e2.kind || ""));
+      var fc = el("td"); if (e2.field) fc.appendChild(el("code", null, e2.field)); tr.appendChild(fc);
+      tr.appendChild(valueCell(e2));
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    return sec;
+  };
+
+  /* ---------------- fact tiles and the arithmetic behind them ---------------- */
+  function tiles(spec, panel) {
+    /* The shell's own `.panelhead` already prints some of these numbers. Printing
+       the same figure twice, one under the other, is how a page starts to look
+       unreliable — so a tile whose label AND value the panel already carries is
+       dropped here rather than repeated. The check is on the rendered text, so it
+       self-adjusts when either side changes. */
+    var have = {};
+    if (panel) [].forEach.call(panel.querySelectorAll(".panelhead .stat"), function (st) {
+      have[(st.textContent || "").replace(/\s+/g, "").toLowerCase()] = 1;
+    });
+    var g = el("div", "factgrid");
+    spec.forEach(function (t) {
+      var key = (t[0] + t[1]).replace(/\s+/g, "").toLowerCase();
+      if (have[key]) return;
+      var f = el("div", "fact" + (t[2] ? " " + t[2] : ""));
+      f.appendChild(el("b", null, t[0])); f.appendChild(el("span", null, t[1]));
+      g.appendChild(f);
+    });
+    return g;
+  }
+  function fold(summaryNodes, rows, note) {
+    var d = el("details", "sumfold"), s = el("summary"), sp = el("span");
+    summaryNodes.forEach(function (n) { sp.appendChild(typeof n === "string" ? document.createTextNode(n) : n); });
+    s.appendChild(sp); d.appendChild(s);
+    var box = el("div", "sum"), tb = el("table"), body = el("tbody");
+    rows.forEach(function (r) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, r[0]));
+      var td = el("td"); td.innerHTML = r[1]; tr.appendChild(td);
+      body.appendChild(tr);
+    });
+    tb.appendChild(body); box.appendChild(tb);
+    if (note) box.appendChild(el("p", "note", note));
+    d.appendChild(box);
+    return d;
+  }
+  function nfmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+  function rolesTop(panel) {
+    var R = CAT.roles || [];
+    if (!R.length) return null;
+    var ref = 0, acts = 0, priv = 0, privRole = 0, extra = [], outOfInv = [];
+    R.forEach(function (r) {
+      if (r.fromReference) ref++; else extra.push(r.name);
+      if (r.inInventory === false) outOfInv.push(r.name);
+      (r.actionsFull || []).forEach(function (a) { acts++; if (a.privileged) priv++; });
+      if (r.privileged === true || r.privileged === "True") privRole++;
+    });
+    /* The tab badge and the shell's own stat say 137 while this catalog holds 139
+       records; the owner asked on 5 September "how can it be 137 of 136?". The lead
+       tile therefore carries the SAME number the rest of the page carries, and the
+       fold below prints the whole arithmetic instead of leaving him to infer it. */
+    var inCat = R.length - outOfInv.length;
+    var cov = window.__socRoleIndex ? Object.keys(window.__socRoleIndex.cover).length : 0;
+    var withAct = R.filter(function (r) { return (r.actionsFull || []).length; }).length;
+    var frag = document.createDocumentFragment();
+    frag.appendChild(tiles([
+      [nfmt(inCat), "roles in the catalog", "acc"],
+      [nfmt(ref), "published by Microsoft", ""],
+      ["+" + extra.length, "carried by this brief", "warn"],
+      [nfmt(acts), "directory actions", "info"],
+      [nfmt(priv), "privileged actions", "bad"],
+      [nfmt(privRole), "privileged roles", "bad"],
+      [nfmt(cov), "roles covering a Graph permission", "ok"]
+    ], panel));
+    frag.appendChild(fold(
+      [el("b", null, nfmt(inCat)), " in the catalog, ", el("b", null, nfmt(R.length)),
+       " records held, ", el("b", null, nfmt(ref)), " published by Microsoft \u2014 how the count is made up"],
+      [[nfmt(ref), "roles on Microsoft\u2019s published reference"],
+       ["+" + extra.length, "carried by this brief: " + extra.join(" \u00b7 ")],
+       ["= " + nfmt(R.length), "records held here"],
+       ["\u2212 " + outOfInv.length, "held but outside the inventory count: " + (outOfInv.join(" \u00b7 ") || "none")],
+       ["= " + nfmt(inCat), "counted in the catalog and on the tab badge"]],
+      withAct + " of them publish an Actions table; " + (R.length - withAct) +
+      " do not, and Microsoft is the reason, not this brief."));
+    return frag;
+  }
+
+  function graphTop(panel) {
+    if (!GM || !GM.perms) return null;
+    var n = Object.keys(GM.perms).length;
+    var withRoles = 0, roleSet = {};
+    Object.keys(GM.perms).forEach(function (p) {
+      var rs = GM.perms[p].roles || [];
+      if (rs.length) withRoles++;
+      rs.forEach(function (r) { roleSet[r[0]] = 1; });
+    });
+    var frag = document.createDocumentFragment();
+    frag.appendChild(tiles([
+      [nfmt(GM.permissions || n), "permissions in Microsoft\u2019s map", "acc"],
+      [nfmt(GM.pairs || 0), "endpoint and method pairs", "info"],
+      [nfmt(GM.paths || 0), "distinct paths", ""],
+      [nfmt(withRoles), "permissions with a derived role list", ""],
+      [nfmt(Object.keys(roleSet).length), "roles appearing in those lists", "ok"]
+    ], panel));
+    frag.appendChild(fold(
+      [el("b", null, nfmt(GM.permissions || n)), " permissions · ",
+       el("b", null, nfmt(GM.pairs || 0)), " endpoint and method pairs — where these numbers come from"],
+      [[nfmt(GM.permissions || n), "permissions in <span class=\"mono\">permissions/new/permissions.json</span>, commit " + (GM.commit || "")],
+       [nfmt(GM.pairs || 0), "method-and-path pairs, counted by decoding every <span class=\"mono\">pathSet</span>"],
+       [nfmt(GM.paths || 0), "distinct paths behind those pairs"],
+       [nfmt(withRoles), "permissions carrying a derived Entra role list"]],
+      "Read on " + (GM.readOn || "") + ". The role list is derived by this brief, not published by Microsoft; " +
+      "the rule is printed in every permission panel."));
+    return frag;
+  }
+
+  /* ---------------- v16 controls: one row of examples, a green box, Exact match,
+     and everything the shell adds folded under "More filters" ----------------
+     The owner, 7 September 2026, comparing the portal against the approved v16:
+     "lewy pasek zupelnie inny". Measured, the difference was never the panel — it
+     was this row. The shell renders three mode buttons, six period buttons and up
+     to five selects; v16 has none of them. They do real work, so they are folded,
+     not deleted, and ONE function does it for both catalogs so the two tabs cannot
+     drift apart. */
+  function foldFilters() {
+    [].forEach.call(document.querySelectorAll(".catalog[data-catalog]"), function (cat) {
+      var ctl = cat.querySelector(".cat-controls"); if (!ctl) return;
+      var bar = ctl.querySelector(".cat-toolbar");
+      if (!bar || bar.dataset.folded === "1") return;
+      bar.dataset.folded = "1";
+      var d = el("details", "morefilters");
+      var sm = el("summary");
+      sm.appendChild(el("span", "sm-t", "More filters"));
+      sm.appendChild(el("span", "sm-r", "Microsoft changes · catalog notes · time window · API and entity"));
+      d.appendChild(sm);
+      bar.parentNode.insertBefore(d, bar.nextSibling);
+      d.appendChild(bar);
+      var inp = cat.querySelector("input.cat-search");
+      if (inp) inp.placeholder = cat.getAttribute("data-catalog") === "roles"
+        ? "Search roles" : "Search permissions";
+    });
+  }
+
+  function build() {
+    TABS.forEach(function (T) {
+      var panel = document.getElementById(T.id);
+      if (!panel || panel.querySelector(".s8top")) return;
+      var rows = ENTRIES.filter(function (e2) { return T.ledger.indexOf(e2.tab) >= 0; });
+      var box = el("div", "s8top");
+
+      var top = (T.id === "tab-roles") ? rolesTop(panel) : (T.id === "tab-graph" ? graphTop(panel) : null);
+      if (top) box.appendChild(top);
+
+      if (L) {
+        var det = el("details", "chg14"); det.open = true;
+        var sum = el("summary");
+        sum.appendChild(el("span", "sm-t", "What changed in the last " + WINDOW_DAYS + " days"));
+        sum.appendChild(el("span", "badge t-acc", rows.length + (rows.length === 1 ? " change" : " changes")));
+        sum.appendChild(el("span", "sm-r", "· " + Object.keys(RUNS).length + " days with a run"));
+        det.appendChild(sum);
+        if (rows.length) {
+          var lead = el("p", "note");
+          lead.textContent = "Only this tab's changes are listed: an entry is counted in the one tab that is its " +
+            "home, so nothing appears twice." + (T.kind === "row"
+              ? " Press ↗ on any row to jump to it on this page."
+              : " Press + on any row to open the same panel the catalog below shows for it.");
+          det.appendChild(lead);
+          det.appendChild(chart(rows, T.id === "tab-roles" ? "role changes" :
+                                      T.id === "tab-graph" ? "catalog changes" : "changes"));
+          det.appendChild(table(rows, T.kind, T.ledger));
+          det.appendChild(el("p", "note", "Read from site/data/changelog.json, which is appended to and never " +
+            "rewritten; it keeps " + ((L && L.retentionDays) || 90) + " days and this page renders " + WINDOW_DAYS + "."));
+        } else {
+          det.appendChild(el("p", "empty", "No change recorded in this tab in the last " + WINDOW_DAYS +
+            " days; " + Object.keys(RUNS).length + " runs looked. That is a result, not a gap."));
+        }
+        box.appendChild(det);
+      }
+
+      var head = panel.querySelector(".panelhead");
+      if (head && head.nextSibling) panel.insertBefore(box, head.nextSibling);
+      else if (head) panel.appendChild(box);
+      else panel.insertBefore(box, panel.firstChild);
+    });
+  }
+
+  function boot() {
+    try { build(); } catch (e) { if (window.console) console.error("[chg14]", e); }
+    try { foldFilters(); setTimeout(foldFilters, 400); } catch (e) { if (window.console) console.error("[folds]", e); }
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 160); });
+  else setTimeout(boot, 160);
+})();
+```
+
+### Walidator — pozycje 49-52 listy §0
+
+- **49** — panel roli jest zbudowany: `.v13pane.v13role` w `.cat-detail-inner` katalogu rol, a jego
+  pierwsze dwie sekcje to `At a glance` i `What changed on this role in the last 14 days`.
+  Panel uprawnienia ma te sama pierwsza dwojke — **kolejnosc jest pozycja, nie preferencja.**
+- **50** — `ledger14` jest w bloku stanu, ma `runs` i `entries`, blokow JSON nadal DWA, a **zaden
+  wpis nie niesie encji HTML ani zdania w polu `id`**.
+- **51** — kazda zakladka tresciowa ma `details.chg14` zbudowane przez SKRYPT 8: licznik w podpisie
+  rowny liczbie wierszy, obie osie wykresu podpisane, a kazdy wiersz z przedmiotem ma `+` (albo `↗`
+  w zakladce bez katalogu). Zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element.
+- **52** — `+` otwiera panel: skrypt niesie `__socOpenPerm` i `__socOpenRole`, a klon w wierszu
+  historii **nie ma wlasnej sekcji 14 dni**. Bramka czyta plik, wiec sprawdza obecnosc obu funkcji
+  i klas; to, czy panel sie wypelnia, sprawdza Playwright (§5h) — i to rozroznienie jest tu cala
+  pointa, bo poprzednia wersja bramki dala 45/46 na stronie, ktorej panel byl pusty (§5ak).
 
 ## 6. Kontrakt w stronie
 
