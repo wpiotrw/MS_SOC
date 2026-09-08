@@ -124,8 +124,8 @@ przyczyna nie jest w regulach.
 |---|---|
 | 06:00 | scheduled task poranny buduje i publikuje artefakt `Microsoft SOC Brief <data>` |
 | 07:00 | **routine czyta ten artefakt i odbija go do `site/index.html`** |
-| 16:00 | scheduled task popoludniowy republikuje TEN SAM artefakt (sekcja `#pmdelta`) |
-| 21:00 | routine zmian odbija artefakt `Microsoft SOC Delta <data>` do `site/diff/index.html` |
+| 21:00 | scheduled task popoludniowy republikuje TEN SAM artefakt (sekcja `#pmdelta`) i publikuje `Microsoft SOC Delta <data>` |
+| 22:00 | routine zmian LICZY `site/diff/index.html` z dwoch stanow (§3); lustro artefaktu Delta jest juz tylko trybem awaryjnym |
 
 ### Procedura, krok po kroku
 
@@ -2309,7 +2309,15 @@ if __name__ == "__main__":
 | 06:00 | sched task poranny publikuje artefakt `Microsoft SOC Brief <data>` | — |
 | 07:00 | routine odbija artefakt do `site/index.html` i zapisuje `site/data/<data>.json` (§0a) | — |
 | 21:00 | sched task popoludniowy republikuje TEN SAM brief z sekcja `#pmdelta`, **a potem publikuje `Microsoft SOC Delta <data>` = wyjscie `make_diff.py`** | stan porannego artefaktu → stan po tym passie |
-| 21:30 | routine zmian pisze `site/diff/index.html` = wyjscie `make_diff.py` | `site/data/<poprzedni>.json` → stan dzisiejszego artefaktu |
+| 22:00 | routine zmian pisze `site/diff/index.html` = wyjscie `make_diff.py` | `site/data/<poprzedni>.json` → stan dzisiejszego artefaktu |
+
+**Odstep miedzy passem popoludniowym a routine zmian to GODZINA, nie pol godziny.** Zmierzone
+7 wrzesnia 2026: pass popoludniowy trwal 24,5 minuty (19:05:03 → 19:29:33 UTC), a przebieg poranny
+53 minuty (04:05:07 → 04:58:13). Przy odstepie 30 minut routine startowalby w trakcie passu i
+porownywalby stan PORANNY, oglaszajac „bez zmian od rana" w dniu, w ktorym zmiany byly.
+**Wszystkie cztery crony sa zapisane w postaci `CRON_TZ=Europe/Warsaw <min> <godz> * * *`** —
+cron liczony w UTC przesuwa sie o godzine przy zmianie czasu, a przesuniety harmonogram to ta sama
+rodzina bledow co twardy licznik w asercji: dziala do dnia, w ktorym przestaje.
 
 **Routine zmian nie odbija juz artefaktu Delta.** Liczy strone sama z dwoch stanow, wiec jest
 odporna na to, czy sched task zdazyl i co dokladnie opublikowal; gdy dzisiejszego artefaktu nie
