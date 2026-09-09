@@ -38,8 +38,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 52 pozycje dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-52), plus **pozycje 34 dla przebiegu ZMIAN** — razem 53.
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 55 pozycji dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-55), plus **pozycje 34 dla przebiegu ZMIAN** — razem 56.
    (Poprzednie wydania mowily „47 … razem 48"; 0-33 to 34 pozycje, a nie 33, wiec liczba byla o jedna za mala.
    Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a: **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
@@ -57,7 +57,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
 | 7 | `descriptionByType` albo `descriptionSource:"none"` z data | 5j | zero wpisow bez jednego z dwoch |
 | 8 | cztery reguly czytelnosci: `.cat-changed`, `summary` 14.5px, `.card-title`, zielone pola szukania | 5k | wszystkie cztery selektory w koncowym CSS |
-| 9 | tresc pod `+` jako `<ul><li>`, nigdy proza | 5k | kazdy `details.foldnote` zawiera `<ul>` |
+| 9 | **tresc dluzsza niz kilka zdan jest LISTA `<ul><li>`, nigdy akapitem** — `details.foldnote` powstaje w powloce z dlugiego `sec-note`, wiec pisze sie go od razu jako liste | 5k, 5af | zaden `p.sec-note` nie przekracza 90 slow; render (§5h): kazdy `details.foldnote` powyzej 40 slow ma `<ul>` |
 | 10 | pliki `site/kql/RRRR-MM-DD-<slug>.kql` + `index.json` | 5l | katalog istnieje i ma wpis na kazde opublikowane zapytanie |
 | 11 | Today mowi, ze jest wyborem z N pozycji; kazdy wiersz Today ma `id` w New | 5m | zero wierszy Today bez pary w New |
 | 12 | `officialTitle` i `reference` na kazdej pozycji stanu; kolumna `Reference` w New | 5n | licznik `officialTitle` = licznik pozycji stanu |
@@ -95,16 +95,19 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
 | 44 | **derywacja rola-uprawnienie ma opublikowana regule i kolumne glebokosci**: `div.rulebox` w zakladce Graph API, `Depth` w kazdym wierszu, mianownik rowny liczbie endpointow z naglowka panelu | 5ah | zaden wiersz nie ma pokrycia >100%; mapa bez `roles` daje `BRAK „nie da sie sprawdzic"`, nie OK |
 | 45 | **rejestr zmian dopisany**: `site/data/changelog.json` ma wpis w `runs` na DZISIEJSZY przebieg, takze przy zerze zmian; zaden wpis nie starszy niz `retentionDays` | 5aj | `runs[-1].date` = data przebiegu; `min(seen)` w oknie |
-| 46 | **kazda zakladka tresciowa ma `details.chg14`**, licznik w podpisie rowny liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element | 5aj | licznik = wiersze dla kazdej zakladki |
+| 46 | **kazda zakladka tresciowa ma `details.chg14`**, licznik w podpisie rowny liczbie wierszy w srodku; zakladka bez zmian ma zdanie z liczba przebiegow, nie pusty element | 5aj | w pliku: `ledger14` z `runs` plus SKRYPT 8 (blok powstaje dopiero w przegladarce); render (§5h): licznik = wiersze |
 | 47 | **rejestr NIE zostal przepisany**: wpisy starsze niz dzisiaj sa identyczne z poprzednim przebiegiem | 5aj | roznica pusta; pierwszy przebieg daje `BRAK „brak punktu odniesienia"`, nie OK |
 | 48 | **SKRYPT 6 buduje KAZDY panel uprawnienia w ukladzie v13**: `.v13pane` z `At a glance`, kartami schematow, zwinieta lista endpointow i tabela rol, plus `Exact match` przy szukajce katalogu; `Worked example` ukryty | 5ak | `v13pane`, `epsinject`, `s6exact` i `SCRIPT 6` w pliku; render: trzy rozne uprawnienia daja trzy ROZNE liczby endpointow |
 | 49 | **SKRYPT 7 buduje panel roli w tym samym ukladzie**, a pierwsze dwie sekcje OBU paneli to `At a glance` i `What changed … in the last 14 days` | 5al | `SCRIPT 7`, `v13role`, `actinject`, `__socOpenRole` w pliku; render: panel roli ma te dwie sekcje w tej kolejnosci |
 | 50 | **`ledger14` w bloku stanu**: `runs` i `entries`, blokow JSON nadal DWA, zaden wpis bez `tab`, zaden z encja HTML ani ze zdaniem w polu `id` | 5al, 5aj | `ledger14` obecne; `<script type="application/json">` = 2; zero wpisow z `&…;` i z `→` w `id` |
 | 51 | **kazda zakladka tresciowa ma `details.chg14` z SKRYPTU 8**: obie osie wykresu podpisane, licznik rowny liczbie wierszy, kazdy wiersz z przedmiotem ma `+` albo `↗` | 5al | `SCRIPT 8`, `chg14`, `axt`, `howto` w pliku; render: licznik = wiersze, oba podpisy osi obecne |
 | 52 | **`+` w wierszu historii otwiera panel katalogu**, a klon nie ma wlasnej sekcji 14 dni | 5al | `__socOpenPerm` i `__socOpenRole` w pliku; render: trzy rozne wiersze daja trzy ROZNE panele, `[data-hist]` w klonie = 0 |
+| 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
+| 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
+| 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47, 48, 49, 51 i 52 sa wiazace: przebieg, ktory je pominie
+nigdy nie jest pomijana w ciszy.** Pozycje 9, 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47, 48, 49, 51, 52, 53, 54 i 55 sa wiazace: przebieg, ktory je pominie
 bez powodu, nie publikuje.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
@@ -525,6 +528,12 @@ class Scan(HTMLParser):
         self._innum=False; self._numbuf=[]
         # §5ah / §5aj: bloki JSON musza zostac DWA, a pasek 14 dni ma miec prawdziwy licznik
         self.jsonblocks=0; self._intb=False
+        # §5k / pozycja 9: tresc pod `+` ma byc lista, a `sec-note` nie ma byc poematem.
+        # Zbieramy KAZDY rozwijany blok jako (czy ma <ul>, ile slow) i KAZDY akapit
+        # sec-note osobno — licznik na sekcje sklejal kilka akapitow w jeden i nie
+        # odpowiadal na pytanie „czy ten akapit jest za dlugi".
+        self.folds=[]; self._fold=None; self._folddepth=0
+        self.secnotes=[]; self._notebuf=None
         self.chg14=[]; self._in14=0; self._c14=None; self._r14=0; self._insum14=False; self._sum14=[]; self._badge14=False
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
@@ -569,18 +578,31 @@ class Scan(HTMLParser):
         if self._insum14 and tag=="span" and "badge" in cls: self._badge14=True; self._sum14=[]
         if self._in14 and tag=="tr" and self._intb: self._r14+=1
         if tag=="tbody": self._intb=True
-        if tag=="p" and "sec-note" in cls: self._grab=self.sec
+        if tag=="details" and "foldnote" in cls:
+            self._fold={"ul":0,"w":0}; self._folddepth=1
+        elif self._fold is not None and tag=="details": self._folddepth+=1
+        if self._fold is not None and tag in ("ul","ol"): self._fold["ul"]+=1
+        if tag=="p" and "sec-note" in cls: self._grab=self.sec; self._notebuf=[]
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
         if getattr(self,"_badge14",False): self._sum14.append(d)
         if self._insummary: self._sumbuf.append(d)
         if self._innum: self._numbuf.append(d)
         if self._grab: self.notes[self._grab]=self.notes.get(self._grab,"")+d
+        if self._notebuf is not None: self._notebuf.append(d)
+        if self._fold is not None and not self._skip: self._fold["w"]+=len(d.split())
         if not self._skip: self.text.append(d)
         if self._row is not None and not self._skip: self._row.append(d)
         if self._li is not None and not self._skip: self._li.append(d)
     def handle_endtag(self, tag):
-        if tag=="p": self._grab=None
+        if tag=="p":
+            self._grab=None
+            if self._notebuf is not None:
+                self.secnotes.append(" ".join("".join(self._notebuf).split())); self._notebuf=None
+        if tag=="details" and self._fold is not None:
+            self._folddepth-=1
+            if self._folddepth<=0:
+                self.folds.append((self._fold["ul"], self._fold["w"])); self._fold=None
         if tag=="tr" and self._row is not None:
             self.rows.append((self._rowsec, self._rowid, " ".join("".join(self._row).split())))
             self._row=None; self._rowid=None; self._rowsec=None
@@ -682,6 +704,24 @@ def gate(path, site=None):
          else "karty lekkie %s przy %d niewzietych ciezkich" % (light, len(heavy)))
     need("23c","karty Top N nios data-id", len(s.cards)>=1, "zero <article class=\"card\" data-id=...>")
     need("20", "sekcja docchanges w tab-new", "docchanges" in s.ids, "brak <section id=\"docchanges\">")
+    # ---- 9: pod `+` jest LISTA, a `sec-note` nie jest poematem (§5k, §5af).
+    # Regula stala w §5k od 31 sierpnia i nie byla sprawdzana ANI RAZU — czyli byla
+    # sugestia (§0b). Zmierzone 9 wrzesnia 2026 na opublikowanej stronie: wszystkie
+    # dziesiec zakladek mialo rozwijane bloki bez jednej listy, a `sec-note` zakladki
+    # Sources liczyl 217 slow. Prog jest przy 40 slowach, bo krotkie zdanie pod `+`
+    # jest poprawne i asercja zapalajaca sie na nim uczylaby, ze czerwone nic nie znaczy.
+    # Sprawdzamy AKAPIT, nie rozwijany blok, i to jest cala pointa: `details.foldnote`
+    # NIE MA w pliku — buduje go powloka z dlugiego `p.sec-note` przy renderowaniu
+    # (arkusz: „folded reference prose: one line by default"). Bramka pytajaca o `<ul>`
+    # wewnatrz foldnote dawalaby wiec „nie da sie sprawdzic" na kazdej stronie, czyli
+    # bylaby asercja mierzaca zla rzecz. Prog 90 slow: krotki akapit jest poprawny,
+    # a asercja zapalajaca sie na poprawnej stronie uczy, ze czerwone nic nie znaczy.
+    longn=[t for t in s.secnotes if len(t.split())>90]
+    need("9","zaden akapit `sec-note` nie jest poematem — dluzsza tresc idzie w `<ul><li>` (§5k, §5af)",
+         bool(s.secnotes) and not longn,
+         "brak akapitow sec-note — nie da sie sprawdzic" if not s.secnotes
+         else "%d z %d akapitow przekracza 90 slow, najdluzszy %d: %s…" % (
+             len(longn), len(s.secnotes), max(len(t.split()) for t in longn), longn[0][:80]))
     # 24-27: powloka. Bramka czyta plik, wiec sprawdza OBECNOSC regul i kodu;
     # wartosci wyliczone i przewijanie sprawdza Playwright (§5h).
     need("24", "zielone pole szukania o wlasciwej specyficznosci",
@@ -943,10 +983,21 @@ def gate(path, site=None):
     else:
         need("45","rejestr zmian dopisany",False,"nie podano katalogu site/ — uruchom gate.py <html> <site>")
         need("47","rejestr nie przepisany",False,"nie podano katalogu site/")
-    need("46","kazda zakladka tresciowa ma pasek 14 dni z prawdziwym licznikiem",
-         bool(s.chg14) and all(c==r for c,r in s.chg14),
-         "brak details.chg14" if not s.chg14
-         else "licznik rozny od liczby wierszy w %d zakladkach" % sum(1 for c,r in s.chg14 if c!=r))
+    # Pozycja 46 mierzyla ZLA RZECZ i dlatego byla czerwona na KAZDEJ poprawnej stronie
+    # od 7 wrzesnia: `details.chg14` powstaje w PRZEGLADARCE ze SKRYPTU 8, a bramka czyta
+    # plik. Zmierzone 9 wrzesnia 2026 — jedyna czerwona pozycja na opublikowanej stronie,
+    # ktora poza tym byla poprawna. Asercja zapalajaca sie na poprawnej stronie uczy
+    # przebieg, ze czerwone nic nie znaczy (§0b), tak samo jak twarde `!= 9` w luscie §0a.
+    # Bramka pyta wiec o to, co PLIK niesie; licznik w podpisie sprawdza Playwright (§5h).
+    if s.chg14:
+        need("46","pasek 14 dni ma licznik rowny liczbie wierszy",
+             all(c==r for c,r in s.chg14),
+             "licznik rozny od liczby wierszy w %d zakladkach" % sum(1 for c,r in s.chg14 if c!=r))
+    else:
+        led46=(st["soc-brief-state"] or {}).get("ledger14") or {}
+        need("46","strona niesie rejestr 14 dni i SKRYPT 8, ktory go rysuje (render sprawdza §5h)",
+             bool(led46.get("runs")) and "SCRIPT 8" in h and "chg14" in h,
+             "brak ledger14 w bloku stanu" if not led46.get("runs") else "brak SKRYPTU 8 albo klasy chg14")
 
     # 48: §5ak — dane w bloku stanu nie sa renderem. Zmierzone 7 wrzesnia 2026: mapa kompletna,
     # bramka 45/46, a `details.eps` wyrenderowany RAZ poza panelem, wiec zaden z 1 076 wpisow
@@ -986,6 +1037,18 @@ def gate(path, site=None):
     need("52","`+` w wierszu historii otwiera panel katalogu",
          all(k in h for k in ("__socOpenPerm","__socOpenRole","__socHistSection","hd-in","data-hist")),
          "brak: %s" % ", ".join(k for k in ("__socOpenPerm","__socOpenRole","__socHistSection","hd-in","data-hist") if k not in h))
+    # ---- 53-55: szukanie, filtrowanie i tryb startowy katalogow (§5am, §5ah punkt 5)
+    K53=("__socSearchBox","s9find","s9count",'[data-s6hidden="1"]')
+    need("53","kazda tabela skryptow 6-8 ma zielone pole szukania (§5am)",
+         all(k in h for k in K53),
+         "brak: %s" % ", ".join(k for k in K53 if k not in h))
+    K54=("s9notms","cc-showbtn","bkbanner s9bk")
+    need("54","przycisk 'Show these N in the list' zawezasa liste (§5am)",
+         all(k in h for k in K54),
+         "brak: %s" % ", ".join(k for k in K54 if k not in h))
+    need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
+         "SCRIPT 9" in h and "__socOpenPerm" in h,
+         "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1300,9 +1363,17 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
 1. **Masthead** — `Microsoft SOC — what changed`, `<data poprzednia> → <data biezaca>`, etykieta
    porownania (`morning pass 06:35 → evening pass 21:14`), godzina policzenia, autor i link do `/`,
    a po prawej stronie **przycisk `Theme`** (`.hdr-tools > button#themebtn`, jak w briefie).
-2. **Pigulki liczbowe** — `N added`, `N removed`, `N changed`, `N deadlines moved`,
+2. **Kafelki liczbowe — `.factgrid`, ten sam ksztalt co na stronie porannej (§5al, §5am).**
+   `N added`, `N removed`, `N changed`, `+A / −R Graph endpoints`, `N deadlines moved`,
    `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
    poprawna i tez sie pokazuje.
+   **Trzy pierwsze licza DOKLADNIE to, co sumuje tabela `bytab` ponizej** — obie zakladki
+   katalogowe, komponenty i pozycje razem. Zmierzone 9 wrzesnia 2026 na opublikowanej stronie:
+   pigulki mowily `1 added / 0 removed / 0 changed`, a wlasna tabela tej samej strony sumowala sie
+   do `+71 / −72 / 17`, bo pigulki liczyly wylacznie tablice `items`. **Dwie rozne liczby o tym
+   samym na jednej stronie sa gorsze niz jedna niedokladna**, wiec `verify()` porownuje kafelki
+   z suma kolumn i odrzuca strone przy roznicy. Endpointy maja WLASNY kafelek, bo sa endpointami,
+   a nie pozycjami (punkt 9) — doliczenie ich zmieszaloby dwie jednostki.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
    Areas touched`, jeden wiersz na zakladke, **ZAWSZE SZESC wierszy** (§3a).
 4. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, **jedna tabela
@@ -1342,6 +1413,15 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
 
 **Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
+
+**Kazda sekcja jest zwijana i ma zielone pole szukania.** `details.dsec` z licznikiem w podpisie,
+otwarte domyslnie; nad kazda tabela stoi `.s9find` — zielone pole, fasety zbudowane z kolumn, ktore
+naprawde grupuja, `Reset` i licznik `N of M`. Dokłada je **trzeci maly skrypt strony**, po
+`THEME_HEAD` i `THEME_BODY`; powtorzenie kodu z §5am jest tu swiadome i ograniczone do jednej
+funkcji, bo strona zmian ma zostac samodzielna, a alternatywa byloby wozenie na niej powloki
+briefu — czyli dokladnie te 3,6 MB, ktore §3 usunela. Wlasciciel poprosil o to 9 wrzesnia 2026:
+*„to powinny byc rozwijalne sekcje i kazda powinna miec pole search — zielone tak jak w porannym
++ do tego filtrowanie"*.
 
 ### 3a. KAZDA ZMIANA STOI W SWOJEJ ZAKLADCE — i jest podsumowanie, ktore to zbiera
 
@@ -1735,6 +1815,28 @@ def tabcap(tab, n, word, items):
             % (esc(tab), n, esc(word if n != 1 else word.rstrip("s")),
                " &middot; ".join(a[:8]), more))
 
+def tiles(spec):
+    """Kafelki jak na stronie porannej (§5al) — wlasciciel, 9 wrzesnia 2026:
+    „w glownym porannym sa kafelki a u ciebie w diff zaokraglone ramki. wiec zrobmy
+    w diff tak jak w porannym"."""
+    out = ['<div class="factgrid">']
+    for value, label, cls in spec:
+        out.append('<div class="fact%s"><b>%s</b><span>%s</span></div>'
+                   % ((" " + cls) if cls else "", value, label))
+    out.append("</div>")
+    return "".join(out)
+
+
+def sect(sid, title, note, body, count=None):
+    """Sekcja zwijana z licznikiem w podpisie. Zielone pole szukania i filtry dokłada
+    skrypt strony (jeden na wszystkie tabele), zeby dwie sekcje nie mogly sie rozjechac."""
+    chip = ('<span class="dsum-n">%s</span>' % count) if count is not None else ""
+    return ('<section id="%s"><details class="dsec" open><summary>'
+            '<span class="dsum-t">%s</span>%s</summary>'
+            '<p class="note">%s</p>%s</details></section>'
+            % (sid, title, chip, note, body))
+
+
 def cap(lst, n, what):
     if len(lst) <= n: return lst, ""
     return lst[:n], '<p class="more">… and %d more %s. The full list is in the brief.</p>' % (len(lst) - n, what)
@@ -1825,6 +1927,44 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
  background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
 footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
 @media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
+
+/* --- kafelki jak na stronie porannej (§5al) --- */
+.factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;margin:14px 0 0}
+.fact{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 12px}
+.fact b{display:block;font-size:21px;line-height:1.15;font-variant-numeric:tabular-nums}
+.fact span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+ color:var(--muted);font-weight:700;margin-top:2px}
+.fact.ok b{color:var(--ins-fg)}.fact.bad b{color:var(--del-fg)}.fact.warn b{color:var(--warn)}
+.fact.acc b{color:var(--accent)}.fact.info b{color:var(--accent)}
+.tilenote{margin:9px 0 0;color:var(--muted);font-size:12.5px}
+/* --- sekcje zwijane z licznikiem --- */
+details.dsec{margin:26px 0 0}
+details.dsec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:9px 0;border-bottom:1px solid var(--border)}
+details.dsec>summary::-webkit-details-marker{display:none}
+details.dsec>summary::before{content:"+";font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent)}
+details.dsec[open]>summary::before{content:"−"}
+details.dsec>summary .dsum-t{font-size:16px;font-weight:700}
+details.dsec>summary .dsum-n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.dsec>.note{margin-top:10px}
+/* --- zielone pole szukania, to samo co w briefie (§5am) --- */
+.s9find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.s9find .s9q{flex:1 1 220px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9find .s9q::placeholder{color:var(--muted);font-weight:400}
+.s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
+.s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);max-width:230px}
+.s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
+.s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr[hidden]{display:none!important}
+@media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -1856,6 +1996,84 @@ THEME_BODY = """<script>
 })();
 </script>"""
 
+# Trzeci — i ostatni — skrypt strony zmian. Wlasciciel, 9 wrzesnia 2026: „to powinny byc
+# rozwijalne sekcje i kazda powinna miec pole search — zielone tak jak w porannym + do tego
+# filtrowanie". Kazda tabela dostaje TEN SAM element co panele briefu: zielone pole, fasety
+# zbudowane z kolumn, ktore naprawde grupuja, przycisk Reset i licznik „N of M". Jedna
+# funkcja na wszystkie tabele, zeby dwie sekcje nie mogly sie rozjechac (§0a).
+FIND_BODY = """<script>
+(function () {
+  "use strict";
+  function box(table) {
+    var tb = table.tBodies[0]; if (!tb) return null;
+    var rows = [].slice.call(tb.rows);
+    if (rows.length < 3) return null;
+    var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
+    var wrap = document.createElement("div"); wrap.className = "s9find";
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search " + rows.length + " rows\u2026";
+    wrap.appendChild(q);
+    var sels = [];
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var vals = {}, n = 0;
+      rows.forEach(function (r) {
+        var c = r.cells[ci]; if (!c) return;
+        /* textContent, never innerText: a row inside a closed <details> is not
+           rendered, and innerText of an unrendered row is the empty string */
+        var t = (c.textContent || "").replace(/\s+/g, " ").trim();
+        if (!t || t.length > 42) return;
+        if (!vals[t]) { vals[t] = 0; n++; }
+        vals[t]++;
+      });
+      var keys = Object.keys(vals);
+      if (n < 2 || n > 20) return;
+      if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2) return;
+      var s = document.createElement("select");
+      s.className = "s9f"; s.dataset.col = String(ci);
+      var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
+      s.appendChild(o0);
+      keys.sort().forEach(function (k) {
+        var o = document.createElement("option"); o.value = k; o.textContent = k + " (" + vals[k] + ")";
+        s.appendChild(o);
+      });
+      wrap.appendChild(s); sels.push(s);
+    });
+    var rb = document.createElement("button");
+    rb.type = "button"; rb.className = "s9reset"; rb.textContent = "Reset";
+    wrap.appendChild(rb);
+    var cnt = document.createElement("span"); cnt.className = "s9count";
+    wrap.appendChild(cnt);
+    function apply() {
+      var v = (q.value || "").trim().toLowerCase(), shown = 0;
+      rows.forEach(function (r) {
+        var keep = true;
+        if (v && (r.textContent || "").toLowerCase().indexOf(v) < 0) keep = false;
+        if (keep) sels.forEach(function (s) {
+          if (!s.value) return;
+          var c = r.cells[+s.dataset.col];
+          if (!c || (c.textContent || "").replace(/\s+/g, " ").trim() !== s.value) keep = false;
+        });
+        r.hidden = !keep; if (keep) shown++;
+      });
+      cnt.textContent = shown + " of " + rows.length;
+    }
+    q.addEventListener("input", apply);
+    sels.forEach(function (s) { s.addEventListener("change", apply); });
+    rb.addEventListener("click", function () {
+      q.value = ""; sels.forEach(function (s) { s.value = ""; }); apply();
+    });
+    apply();
+    return wrap;
+  }
+  [].forEach.call(document.querySelectorAll("details.dsec .tw > table"), function (t) {
+    var b = box(t);
+    if (b && t.parentNode && t.parentNode.parentNode) t.parentNode.parentNode.insertBefore(b, t.parentNode);
+  });
+})();
+</script>"""
+
 def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
     gadd, grem, gmod, gp, gc = diff_catalog(prev_cat, curr_cat, "graph")
@@ -1877,17 +2095,32 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '<div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button>'
                '</div></div>'
                % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
-    out.append('<ul class="counts">')
-    out.append('<li class="add"><b>%d</b> added</li>' % len(added))
-    out.append('<li class="rem"><b>%d</b> removed</li>' % len(removed))
-    out.append('<li class="chg"><b>%d</b> changed</li>' % len(changed))
-    out.append('<li><b>%d</b> deadlines moved</li>' % len(dl_moved))
-    out.append('<li><b>%+d</b> Graph permissions <span class="sub">%d &rarr; %d</span></li>' % (gc - gp, gp, gc))
-    out.append('<li><b>%+d</b> role entries <span class="sub">%d &rarr; %d</span></li>' % (rc - rp, rp, rc))
-    out.append('<li><b>%d</b> items in state <span class="sub">was %d</span></li>' % (nc, np_))
-    out.append('</ul></div></header><div class="wrap">')
-
     ge_rows, ge_add, ge_rem, ge_chg = diff_graphmap(prev_st, curr_st)
+
+    # Liczniki u gory MUSZA byc suma tego, co stoi w tabeli ponizej. Zmierzone
+    # 9 wrzesnia 2026 na opublikowanej stronie: pigulki mowily „1 added, 0 removed,
+    # 0 changed", a tabela w tym samym dokumencie +71 / -72 / 17 — bo pigulki liczyly
+    # WYLACZNIE tablice `items`, pomijajac oba katalogi, komponenty i endpointy.
+    # Dwie rozne liczby o tym samym na jednej stronie sa gorsze niz jedna niedokladna.
+    sum_add = len(added) + len(gadd) + len(radd) + len(cadd)
+    sum_rem = len(removed) + len(grem) + len(rrem) + len(crem)
+    sum_chg = len(changed) + len(gmod) + len(rmod) + len(cmod)
+    # Endpointy maja WLASNY kafelek, bo sa endpointami, a nie pozycjami (§3 punkt 9):
+    # doliczenie ich do „added" zmieszaloby dwie rozne jednostki.
+    out.append(tiles([
+        (str(sum_add), "added", "ok"),
+        (str(sum_rem), "removed", "bad"),
+        (str(sum_chg), "changed", "warn"),
+        ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info"),
+        (str(len(dl_moved)), "deadlines moved", "acc"),
+        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), ""),
+        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), ""),
+        (str(nc), "items in state &middot; was %d" % np_, ""),
+    ]))
+    out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
+               'them, both catalogs and the tracked components included. Endpoints are counted '
+               'apart because they are endpoints, not items.</p>')
+    out.append('</div></header><div class="wrap">')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
     # To jest odpowiedz na „jakies podsumowanie tez zbiorcze, co w jakich zakladkach
@@ -1920,16 +2153,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             ar = " &middot; ".join(esc(x) for x in areas(t["a"] + t["r"] + t["c"])[:8]) or "&mdash;"
         srows.append((' class="quiet"' if not (na or nr or nc) else "",
                       ["<b>%s</b>" % esc(tab), num(na, "add"), num(nr, "rem"), num(nc, "chg"), ar]))
-    out.append('<section id="bytab"><h2>What changed, by tab</h2>'
-               '<p class="note">What moved since %s, tab by tab, and which areas it touched. '
+    out.append(sect("bytab", "What changed, by tab", ('What moved since %s, tab by tab, and which areas it touched. '
                'A row of three zeros means that tab was checked and did not move. Each item is counted '
                'in the ONE tab that is its home &mdash; New for the published window, Deadlines for '
                'anything dated, Graph API and Roles for the two catalogs &mdash; so nothing is counted '
                'twice. Today is a selection from New and Deadlines and Products is a second view of the '
-               'same items, so their changes are already in these rows.</p>%s</section>'
-               % (esc(prev_d),
-                  table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
-                        "No tab moved at all.")))
+               'same items, so their changes are already in these rows.') % esc(prev_d),
+               table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
+                     "No tab moved at all."), count="6 tabs"))
 
     # --- added, grouped by tab
     body = []
@@ -1941,11 +2172,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         rows, more = cap(rows, 120, "added items")
         body.append(table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
                           rows, "", tabcap(tab, len(items_), "items", items_)) + more)
-    out.append('<section id="added"><h2>Added since %s</h2>'
-               '<p class="note">In the current state and not in the previous one, one table per tab of '
-               'the brief. Heaviest first: tier 0, then SOC weight, then deadline.</p>%s</section>'
-               % (esc(prev_d), "".join(body) or
-                  '<p class="empty">Nothing was added. That is a result, not a gap.</p>'))
+    out.append(sect("added", "Added since " + esc(prev_d),
+               'In the current state and not in the previous one, one table per tab of '
+               'the brief. Heaviest first: tier 0, then SOC weight, then deadline.',
+               "".join(body) or
+               '<p class="empty">Nothing was added. That is a result, not a gap.</p>',
+               count=len(added)))
 
     # --- removed, grouped by tab
     body = []
@@ -1956,10 +2188,11 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         rows, more = cap(rows, 120, "removed items")
         body.append(table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
                           rows, "", tabcap(tab, len(items_), "items", items_)) + more)
-    out.append('<section id="removed"><h2>Removed</h2>'
-               '<p class="note">Carried in the previous state and gone from the current one, by tab. '
-               'A removal is a finding: either the source dropped it or this brief retracted it.</p>%s</section>'
-               % ("".join(body) or '<p class="empty">Nothing was removed.</p>'))
+    out.append(sect("removed", "Removed",
+               'Carried in the previous state and gone from the current one, by tab. '
+               'A removal is a finding: either the source dropped it or this brief retracted it.',
+               "".join(body) or '<p class="empty">Nothing was removed.</p>',
+               count=len(removed)))
 
     # --- changed, field by field, grouped by tab
     body = []
@@ -1978,11 +2211,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         rows, more = cap(rows, 250, "changed fields")
         body.append(table(["Item", "Field", "Before &rarr; after", "Source"], rows, "",
                           tabcap(tab, len(pairs), "items", [x[0] for x in pairs])) + more)
-    out.append('<section id="changed"><h2>Changed, field by field</h2>'
-               '<p class="note">Same <code>id</code> in both states, different value, by tab. Old struck '
-               'through, new highlighted &mdash; the difference is shown, not described.</p>%s</section>'
-               % ("".join(body) or
-                  '<p class="empty">No field moved on any item carried across both states.</p>'))
+    out.append(sect("changed", "Changed, field by field",
+               'Same <code>id</code> in both states, different value, by tab. Old struck '
+               'through, new highlighted &mdash; the difference is shown, not described.',
+               "".join(body) or
+               '<p class="empty">No field moved on any item carried across both states.</p>',
+               count=len(changed)))
 
     # --- component versions (§5ag): wersja, stan i termin, pole po polu
     crows = []
@@ -2059,15 +2293,16 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         if rels: relblocks.append(relblock(c_, rels[0]))
     relblocks = [x for x in relblocks if x]
 
-    out.append('<section id="components"><h2>Component versions</h2>'
-               '<p class="note">Versions %d &rarr; %d tracked components. A component moves when a version '
-               'changes on any platform, when its release state changes, or when a deadline moves. '
-               '<b>Where a version moved, what the new release contains is printed below the table</b> '
-               '&mdash; that release did not exist in the previous state, so it is a difference and not a '
-               'repeat of the brief.</p>%s</section>'
-               % (cp, cc_, table(["Component", "Field", "Before &rarr; after", "Source"], crows,
-                                 "No tracked component moved.")
-                  + ("".join(relblocks) if relblocks else "")))
+    out.append(sect("components", "Component versions",
+               ('Versions %d &rarr; %d tracked components. A component moves when a version '
+                'changes on any platform, when its release state changes, or when a deadline moves. '
+                '<b>Where a version moved, what the new release contains is printed below the table</b> '
+                '&mdash; that release did not exist in the previous state, so it is a difference and not a '
+                'repeat of the brief.') % (cp, cc_),
+               table(["Component", "Field", "Before &rarr; after", "Source"], crows,
+                     "No tracked component moved.")
+               + ("".join(relblocks) if relblocks else ""),
+               count=len(cadd) + len(crem) + len(cmod)))
 
     # --- Graph endpoints (§5ah): co uprawnienie potrafi wywolac, pole po polu
     erows = []
@@ -2079,17 +2314,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     emore = ('<p class="more">… and %d more endpoint rows.</p>' % (len(ge_rows) - 250)) if len(ge_rows) > 250 else ""
     pn = len((prev_st.get("graphMap") or {}).get("perms") or {})
     cn2 = len((curr_st.get("graphMap") or {}).get("perms") or {})
-    out.append('<section id="endpoints"><h2>Graph endpoints</h2>'
-               '<p class="note">What each permission can call, compared pair by pair from '
-               '<span class="mono">graphMap</span> in the two state blocks: %d &rarr; %d permissions carrying a '
-               'path set. An endpoint appearing here means Microsoft widened or narrowed what an already-granted '
-               'consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. '
-               'These are endpoints, not items, which is why they have their own row in the summary above.</p>%s%s</section>'
-               % (pn, cn2,
-                  table(["Permission", "What", "Before &rarr; after"], erows,
-                        "No permission gained or lost an endpoint, and no privilege level moved.",
-                        '<b>Graph endpoints</b> &middot; +%d / &minus;%d / %d edited' % (ge_add, ge_rem, ge_chg)),
-                  emore))
+    out.append(sect("endpoints", "Graph endpoints",
+               ('What each permission can call, compared pair by pair from '
+                '<span class="mono">graphMap</span> in the two state blocks: %d &rarr; %d permissions carrying a '
+                'path set. An endpoint appearing here means Microsoft widened or narrowed what an already-granted '
+                'consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. '
+                'These are endpoints, not items, which is why they have their own row in the summary above.')
+               % (pn, cn2),
+               table(["Permission", "What", "Before &rarr; after"], erows,
+                     "No permission gained or lost an endpoint, and no privilege level moved.",
+                     '<b>Graph endpoints</b> &middot; +%d / &minus;%d / %d edited' % (ge_add, ge_rem, ge_chg))
+               + emore,
+               count="+%d / &minus;%d" % (ge_add, ge_rem)))
 
     # --- catalog
     def catrows(add, rem, mod, name, tab=None, home_="/"):
@@ -2107,17 +2343,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     rr, rmore = catrows(radd, rrem, rmod, "role", "Roles", home)
     # Katalog jest domem DWOCH zakladek — kazda dostaje wlasny podpis, zeby wiersz
     # podsumowania „Graph API / Roles" mial na dole odpowiadajaca mu tabele.
-    out.append('<section id="catalog"><h2>Catalog &mdash; Graph API and Roles tabs</h2>'
-               '<p class="note">Graph permissions %d &rarr; %d (+%d / &minus;%d, %d entries edited); '
-               'roles %d &rarr; %d (+%d / &minus;%d, %d edited). These two tables are the whole of what '
-               'moved in those two tabs.</p>%s%s%s%s</section>'
-               % (gp, gc, len(gadd), len(grem), len(gmod), rp, rc, len(radd), len(rrem), len(rmod),
-                  table(["What", "Graph permission", "Detail"], gr, "No Graph permission changed.",
-                        '<b>Graph API</b> &middot; +%d / &minus;%d / %d edited' % (len(gadd), len(grem), len(gmod))),
-                  gmore,
-                  table(["What", "Role", "Detail"], rr, "No role changed.",
-                        '<b>Roles</b> &middot; +%d / &minus;%d / %d edited' % (len(radd), len(rrem), len(rmod))),
-                  rmore))
+    out.append(sect("catalog", "Catalog &mdash; Graph API and Roles tabs",
+               ('Graph permissions %d &rarr; %d (+%d / &minus;%d, %d entries edited); '
+                'roles %d &rarr; %d (+%d / &minus;%d, %d edited). These two tables are the whole of what '
+                'moved in those two tabs.')
+               % (gp, gc, len(gadd), len(grem), len(gmod), rp, rc, len(radd), len(rrem), len(rmod)),
+               table(["What", "Graph permission", "Detail"], gr, "No Graph permission changed.",
+                     '<b>Graph API</b> &middot; +%d / &minus;%d / %d edited' % (len(gadd), len(grem), len(gmod)))
+               + gmore
+               + table(["What", "Role", "Detail"], rr, "No role changed.",
+                       '<b>Roles</b> &middot; +%d / &minus;%d / %d edited' % (len(radd), len(rrem), len(rmod)))
+               + rmore,
+               count=len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)))
 
     total = (len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod)
              + len(radd) + len(rrem) + len(rmod) + len(cadd) + len(crem) + len(cmod))
@@ -2132,7 +2369,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY))
+            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY))
 
 # ---------- bramka ----------
 
@@ -2170,6 +2407,43 @@ def verify(page):
             if ("<b>%s</b>" % tab) not in page:
                 e.append("zakladka %s ma licznik w podsumowaniu, a nie ma tabeli" % tab)
     if p.doct!=1: e.append("DOCTYPE = %d, ma byc 1" % p.doct)
+    # Liczniki u gory MUSZA byc suma kolumn tabeli `bytab`. Zmierzone 9 wrzesnia 2026:
+    # strona mowila „1 added / 0 removed / 0 changed", a jej wlasna tabela +71 / -72 / 17.
+    # Regula bez asercji jest sugestia (§0b), wiec asercja liczy jedno i drugie.
+    def _n(x):
+        x = re.sub(r"<[^>]+>", "", x).replace("&minus;", "-").replace("\u2212", "-")
+        m_ = re.search(r"-?\d+", x)
+        return int(m_.group(0)) if m_ else 0
+    tiles_ = dict()
+    for mt in re.finditer(r'<div class="fact[^"]*"><b>(.*?)</b><span>(.*?)</span></div>', page, re.S):
+        tiles_[re.sub(r"<[^>]+>", "", mt.group(2)).split("&middot;")[0].strip()] = mt.group(1)
+    if not tiles_:
+        e.append("brak kafelkow licznikowych (.factgrid)")
+    else:
+        m1 = re.search(r'<section id="bytab">.*?</section>', page, re.S)
+        cols = [0, 0, 0]; ge = [0, 0]
+        if m1:
+            for row in re.findall(r"<tr[^>]*>(.*?)</tr>", m1.group(0), re.S):
+                cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)
+                if len(cells) < 4: continue
+                tab_ = re.sub(r"<[^>]+>", "", cells[0]).strip()
+                vals = [_n(cells[1]), _n(cells[2]), _n(cells[3])]
+                if tab_ == "Graph endpoints": ge = [vals[0], abs(vals[1])]
+                else:
+                    for k in range(3): cols[k] += abs(vals[k])
+        for lab, want in (("added", cols[0]), ("removed", cols[1]), ("changed", cols[2])):
+            got = _n(tiles_.get(lab, ""))
+            if got != want:
+                e.append("kafelek '%s' mowi %d, a tabela bytab sumuje sie do %d" % (lab, got, want))
+        gt = tiles_.get("Graph endpoints", "")
+        if gt and (abs(_n(gt)) != ge[0] or abs(_n(gt.split("/")[-1])) != ge[1]):
+            e.append("kafelek endpointow %s nie zgadza sie z wierszem +%d / -%d" % (
+                re.sub(r"<[^>]+>", "", gt), ge[0], ge[1]))
+    # §5am: kazda sekcja tabelaryczna jest zwijana i ma pole szukania budowane przez skrypt
+    if page.count('<details class="dsec"') < 7:
+        e.append("sekcji zwijanych = %d, ma byc 7" % page.count('<details class="dsec"'))
+    if "s9find" not in page or "details.dsec .tw > table" not in page:
+        e.append("brak skryptu dokladajacego zielone pole szukania do tabel")
     # Przelacznik motywu: arkusz wozi oba motywy, wiec strona bez przycisku zostawia czytelnika
     # z tym, co narzucil system. Regula bez asercji jest sugestia (§0b) — wiec asercja.
     if 'id="themebtn"' not in page: e.append("brak przycisku motywu (#themebtn)")
@@ -2870,6 +3144,17 @@ wiersza wynikow** — to jest asercja, ktorej brak przepuscil blad kaskady z sek
 I jeszcze: wpisanie `IdentityDiagnostic` w szukajke katalogu Graph w trybie **All** zwraca co
 najmniej cztery wiersze — zero znaczy, ze mapa wdrozen nie trafila do danych.
 
+Nowe od 9 wrzesnia 2026 (§5am), kazda z jednego punktu wlasciciela z tego dnia: **w `#graph > .sec-body`
+nie ma ANI JEDNEGO widocznego `.tbar`** (przed poprawka byly dwa, oba z `data-s6hidden="1"` i oba
+z `display:flex`); **kazda tabela zbudowana przez skrypty 6, 7 i 8 ma nad soba `.s9find` z licznikiem
+`N of M`**, a wpisanie tekstu ten licznik zmienia i `Reset` go przywraca; **chip metody i pole
+szukania w `details.eps` filtruja przez JEDEN `apply()`** — `GET` po wpisaniu frazy nie kasuje frazy
+i odwrotnie; **klikniecie `Show these N in the list` zostawia na liscie wylacznie nazwane wpisy**,
+banner nazywa liczbe wpisow i liczbe nazw, a `Show all` przywraca liste; **wpisanie `User.Read.All`
+w szukajke Graph zwraca wpis uprawnienia** (SKRYPT 9 — katalog otwarty na `All`); oraz, jako
+odpowiedz na pozycje 9 listy §0: **kazdy `details.foldnote`, ktorego cialo ma powyzej 40 slow,
+zawiera `<ul>`** — bramka tego nie sprawdzi, bo ten element powstaje dopiero w przegladarce.
+
 ## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
 
 Ta sekcja jest wiazaca dla obu taskow i obu routines; prompty na nia wskazuja zamiast ja powtarzac.
@@ -2977,6 +3262,22 @@ a tego przebieg bez nadzoru robic nie powinien: dozwolona zmiana w skryptach zos
 `<ul><li>`, jeden fakt na punkt, ponizej ~25 slow, najwyzej siedem punktow. Tak samo `sec-note` dluzszy
 niz dwa zdania i karta, ktorej What / Why / Action przekracza trzy linijki. Rozwijany akapit jest
 najczestsza skarga na te strone: czytelnik otwiera go po fakt, a dostaje wypracowanie.
+
+**I ta regula stala tu od 31 sierpnia 2026 nie sprawdzana ani razu, czyli byla sugestia (§0b).**
+Zmierzone 9 wrzesnia 2026 na opublikowanej stronie: **21 akapitow `p.sec-note`, z tego SZESC ponad
+90 slow, najdluzszy 970**, a `<ul>` byl w JEDNYM z dwudziestu jeden. Wlasciciel napisal wtedy:
+*„w zakladce graph api mamy wszechobecna proze — a mielismy nie pisac poematow. mialo byc
+punktowanie, zaznaczanie w zaokraglonych ramkach"* — i mial racje w kazdej zakladce, nie tylko
+w tej jednej.
+
+**Pisze sie to od razu jako liste, bo `details.foldnote` NIE JEST twoim elementem.** Buduje go
+powloka z dlugiego `sec-note` przy renderowaniu (arkusz: „folded reference prose: one line by
+default, open on demand"). W pliku, ktory oddajesz, nie ma zadnego `details.foldnote` — jest
+akapit, ktory powloka zwinie. Dlatego pozycja 9 listy §0 mierzy **akapit**, nie rozwijany blok:
+zaden `p.sec-note` nie przekracza 90 slow. Ksztalt punktu jest ten z §5af — `<li><b>Naglowek</b>
+&mdash; zdanie. <a>Source</a></li>` — a liczba, ktora ma rzucac sie w oczy, idzie w chip
+`<span class="badge b-…">`, nie w srodek zdania. To jest te „zaokraglone ramki" ze zgloszenia:
+klasy znacznikow juz istnieja (§4, §5e) i dzialaja w obu motywach.
 
 ## 5l. Historia KQL zyje w repozytorium, nie na stronie
 
@@ -5074,6 +5375,74 @@ o tym, ktora przestrzen nazw zostala dopasowana.
 
 **Klonuj sparse i blobless** (§5ai) — pelny klon devx zaciaga cala historie, sparse blobless daje `permissions/` w **8,4 MB i 2,0 s** (1,3 s klon + 0,7 s `sparse-checkout set permissions`).
 
+### Katalog otwiera sie na `All`, nie na `Microsoft changes` — SKRYPT 9
+
+Punkt 5 tej sekcji („tryb domyslny to `All`") byl regula bez asercji i bez kodu, wiec zostal
+sugestia. Powloka deklaruje `var mode = "ms"` w skrypcie 3, ktorego §5w zabrania edytowac, wiec
+oba katalogi otwieraly sie zawezone do zmian Microsoftu. Zmierzone przez przebieg 9 wrzesnia 2026
+na jego wlasnej stronie: wpisanie `User.Read.All` w szukajke Graph zwracalo JEDEN wiersz — rekord
+zmiany, nie uprawnienie — `AccessReview.ReadWrite.Membership` zwracalo zero, a lista rol pokazywala
+8 ze 137. **Czytelnik, ktory szuka prawdziwego uprawnienia i dostaje zero, wyciaga wniosek
+o swoim tenancie, a nie o filtrze.**
+
+Tryb ustawia sie tak, jak ustawilby go czytelnik: **przez nacisniecie przycisku, ktory powloka
+i tak rysuje**, raz, po tym jak katalog sie narysuje. SKRYPT 8 składa ten rzad przyciskow pod
+`details.morefilters` (§5al), wiec klikniecie idzie niezaleznie od tego, czy zwijanie juz przeszlo,
+a flaga trzyma jeden klik na katalog.
+
+```js
+/* ============================================================================
+   SCRIPT 9 — THE CATALOGS OPEN ON "ALL" (CLAUDE.md 5ah, point 5).
+   ADDED, never a replacement: shell scripts 1-3 and added scripts 4-8 are
+   untouched, byte for byte. It exists because of a measurement, not a taste.
+
+   Shell script 3 declares `var mode = "ms"`, so both catalogs open filtered to
+   "Microsoft changes". Measured on this page before this script was added:
+   typing `User.Read.All` into the Graph search returned ONE entry — a change
+   record named "User.Read.All -> 1 new endpoint" — and the permission itself
+   was not in the list at all; `AccessReview.ReadWrite.Membership` returned
+   zero; the Roles list held 8 of 137. A reader who searches a real permission
+   and is told it does not exist draws the wrong conclusion about their tenant,
+   which is the failure 5ah point 5 was written to prevent.
+
+   The three shell scripts may not be edited (5w), so the mode is set the way a
+   reader would set it: by pressing the button the shell already renders, once,
+   after the catalog has drawn itself. SCRIPT 8 folds that button row into
+   `details.morefilters`, so the click is made whether or not the fold has run,
+   and a flag stops the two observers chasing each other.
+   ========================================================================== */
+(function () {
+  "use strict";
+  var done = {};
+  function press(cat) {
+    var key = cat.getAttribute("data-catalog") || "?";
+    if (done[key]) return;
+    var b = cat.querySelector('.modeseg [data-mode="all"]');
+    if (!b) return;
+    done[key] = 1;
+    if (b.getAttribute("aria-pressed") !== "true") b.click();
+  }
+  function run() {
+    [].forEach.call(document.querySelectorAll(".catalog[data-catalog]"), press);
+  }
+  function boot() {
+    run();
+    /* the shell builds its toolbar on its own schedule and SCRIPT 8 moves it
+       afterwards; three cheap passes cost nothing and catch either ordering */
+    setTimeout(run, 500); setTimeout(run, 1200); setTimeout(run, 2500);
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 300); });
+  else setTimeout(boot, 300);
+})();
+```
+
+**Ten skrypt napisal przebieg poranny 9 wrzesnia 2026 sam, z wlasnego pomiaru, i to jest wzorcowe
+zachowanie** — regula w tym pliku byla, kodu nie bylo, wiec przebieg dolozyl kod ADDITIVE, opisal
+w komentarzu pomiar, ktory go uzasadnia, i napisal o tym w odpowiedzi. Sekcja zapisuje go tutaj,
+zeby jutrzejszy przebieg go nie wymyslal od nowa i nie zgubil. Pozycja 55 listy §0 pilnuje jego
+obecnosci.
+
 ### Co z tego idzie do strony zmian
 
 `make_diff.py` (§3) porownuje `graphMap` pole po polu, PER UPRAWNIENIE: endpointy dodane, endpointy
@@ -5296,6 +5665,98 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
   var LVL = { 1: ["Level 1", "Low"], 2: ["Level 2", "Moderate"], 3: ["Level 3", "High"], 4: ["Level 4", "Critical"] };
 
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+
+  /* ---------- ONE SEARCH BOX, USED BY EVERY TABLE THESE SCRIPTS BUILD (5am) ----------
+     The owner, 9 September 2026: the 14-day table, the endpoint list, the role's
+     actions and its coverage table "tez nie ma opcji szukania i filtrowania".
+     Measured: every table the SHELL builds carries a green search box, a facet
+     select and an "N of M" counter; every table WE build carried none. Two halves
+     of one tab behaved differently, which is the same divergence 0a is about, one
+     level down. One helper, exported once, so the five places cannot drift.
+
+     Two traps, both measured and both encoded here:
+     - read cells with `textContent`, never `innerText`: these tables live inside a
+       CLOSED `<details>`, and `innerText` of an unrendered row is the empty string,
+       so an innerText filter matches everything and filters nothing.
+     - a table that already has chips (methods, namespaces) must filter through THIS
+       function too. Two independent writers of `row.hidden` fight, and the loser is
+       whichever ran first. The chips set a predicate; `apply()` stays the only writer. */
+  function sbox(table, opt) {
+    opt = opt || {};
+    var tb = table.tBodies[0]; if (!tb) return null;
+    var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
+    var rows = [].slice.call(tb.rows).filter(function (r) { return !r.classList.contains("hdet"); });
+    if (rows.length < (opt.min || 2)) return null;
+    var wrap = document.createElement("div"); wrap.className = "s9find";
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = opt.placeholder || ("Search " + rows.length + " " + (opt.noun || "rows") + "…");
+    wrap.appendChild(q);
+    var sels = [];
+    if (opt.facets !== false) {
+      heads.forEach(function (h, ci) {
+        if (!h) return;
+        var vals = {}, n = 0;
+        rows.forEach(function (r) {
+          var c = r.cells[ci]; if (!c) return;
+          var t = (c.textContent || "").replace(/\s+/g, " ").trim();
+          if (!t || t.length > 42) return;
+          if (!vals[t]) { vals[t] = 0; n++; }
+          vals[t]++;
+        });
+        var keys = Object.keys(vals);
+        /* a facet whose every value appears once groups nothing — 5s, the chart of ones */
+        if (n < 2 || n > 20) return;
+        if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2) return;
+        var s = document.createElement("select");
+        s.className = "s9f"; s.dataset.col = String(ci);
+        var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
+        s.appendChild(o0);
+        keys.sort().forEach(function (k) {
+          var o = document.createElement("option"); o.value = k; o.textContent = k + " (" + vals[k] + ")";
+          s.appendChild(o);
+        });
+        wrap.appendChild(s); sels.push(s);
+      });
+    }
+    var rb = document.createElement("button");
+    rb.type = "button"; rb.className = "s9reset"; rb.textContent = "Reset";
+    wrap.appendChild(rb);
+    var cnt = document.createElement("span"); cnt.className = "s9count";
+    wrap.appendChild(cnt);
+
+    function apply() {
+      var v = (q.value || "").trim().toLowerCase(), shown = 0;
+      rows.forEach(function (r) {
+        var keep = true;
+        if (opt.extra && !opt.extra(r)) keep = false;
+        if (keep && v && (r.textContent || "").toLowerCase().indexOf(v) < 0) keep = false;
+        if (keep) sels.forEach(function (s) {
+          if (!s.value) return;
+          var c = r.cells[+s.dataset.col];
+          if (!c || (c.textContent || "").replace(/\s+/g, " ").trim() !== s.value) keep = false;
+        });
+        r.hidden = !keep;
+        var d = r.nextElementSibling;
+        if (d && d.classList && d.classList.contains("hdet") && !keep) d.hidden = true;
+        if (keep) shown++;
+      });
+      cnt.textContent = shown + " of " + rows.length;
+      if (opt.onapply) opt.onapply(shown, rows.length);
+    }
+    wrap.__apply = apply;
+    q.addEventListener("input", apply);
+    sels.forEach(function (s) { s.addEventListener("change", apply); });
+    rb.addEventListener("click", function () {
+      q.value = ""; sels.forEach(function (s) { s.value = ""; });
+      if (opt.onreset) opt.onreset();
+      apply();
+    });
+    apply();
+    return wrap;
+  }
+  /* SCRIPT 6 parses before 7 and 8, so the export exists by the time they build anything */
+  if (!window.__socSearchBox) window.__socSearchBox = sbox;
   function state() {
     var s = document.getElementById("soc-brief-state");
     if (!s) return null;
@@ -5487,7 +5948,24 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       var c4 = el("td"); c4.appendChild(srcLink()); r.appendChild(c4);
       body.appendChild(r);
     });
-    tb.appendChild(body); tw.appendChild(tb); det.appendChild(tw);
+    tb.appendChild(body); tw.appendChild(tb);
+    /* the method chips and the search box are ONE filter: the chips set a predicate,
+       `apply()` stays the only writer of row.hidden (5am) */
+    var curM = "ALL";
+    var sb = sbox(tb, {
+      noun: "endpoints", placeholder: "Search " + eps.length + " endpoints\u2026", facets: false,
+      extra: function (r) {
+        return curM === "ALL" || (curM === "LEAST" ? r.dataset.least === "1" : r.dataset.m === curM);
+      },
+      onreset: function () {
+        curM = "ALL";
+        [].forEach.call(mf.querySelectorAll("button"), function (x) {
+          x.setAttribute("aria-pressed", String(x.dataset.m === "ALL"));
+        });
+      }
+    });
+    if (sb) det.appendChild(sb);
+    det.appendChild(tw);
     var note = el("p", "note",
       "Read from Microsoft's own permissions.json in microsoftgraph/microsoft-graph-devx-content, commit " +
       ((GM && GM.commit) || "unknown") + ". The change column comes from that file's git history, so the date is Microsoft's, not the date this brief noticed.");
@@ -5496,9 +5974,10 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     mf.addEventListener("click", function (ev) {
       var b = ev.target.closest("button"); if (!b) return;
       [].forEach.call(mf.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      var m = b.dataset.m;
-      [].forEach.call(body.querySelectorAll("tr"), function (r) {
-        r.hidden = !(m === "ALL" || (m === "LEAST" ? r.dataset.least === "1" : r.dataset.m === m));
+      curM = b.dataset.m;
+      if (sb) sb.__apply();
+      else [].forEach.call(body.querySelectorAll("tr"), function (r) {
+        r.hidden = !(curM === "ALL" || (curM === "LEAST" ? r.dataset.least === "1" : r.dataset.m === curM));
       });
     });
     sec.appendChild(det);
@@ -5551,7 +6030,10 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       a.target = "_blank"; a.rel = "noopener"; c5.appendChild(a); t.appendChild(c5);
       body.appendChild(t);
     });
-    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    tb.appendChild(body); tw.appendChild(tb);
+    var sbr = sbox(tb, { noun: "roles", placeholder: "Search " + rows.length + " roles\u2026" });
+    if (sbr) sec.appendChild(sbr);
+    sec.appendChild(tw);
     sec.appendChild(el("p", "note",
       rows.length + " role" + (rows.length === 1 ? "" : "s") + " shown, ranked by the share of this permission's " +
       total + " endpoints the role also carries as a directory action. Whole resource beats property-limited at equal coverage."));
@@ -5579,6 +6061,17 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
     if (start >= 0) {
       if (end < start) end = kids.length - 1;
       for (var i = start; i <= end; i++) { kids[i].hidden = true; kids[i].dataset.s6hidden = "1"; }
+      /* The shell inserts the table toolbars (`.tbar`) and their filter banners on its
+         own schedule, AFTER this pass, so a single run leaves them behind. Measured on
+         the published page of 9 September 2026: two green search boxes reading
+         "Search 2 rows…" and "Search 10 rows…" stood under the note, filtering tables
+         nobody could see. They belong to the tables between `start` and `end`, so any
+         `.tbar`/`.filterbanner` inside that range goes with them, on every pass. */
+      for (var j = start; j <= end; j++) {
+        [].forEach.call(kids[j].querySelectorAll ? kids[j].querySelectorAll(".tbar,.filterbanner") : [],
+          function (x) { x.hidden = true; x.dataset.s6hidden = "1"; });
+      }
+      if (body.querySelector("p.wnote.s6note")) return;   /* idempotent: one note, many passes */
       var note = el("p", "wnote s6note");
       note.textContent = "The worked example that stood here is now on every permission: open any entry " +
         "in the catalog below and its own endpoint list and role table are in its panel.";
@@ -5875,6 +6368,9 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
        co powloka juz wyrenderowala. Milczenie dawaloby DWA rozne uklady w jednej
        zakladce, a to jest dokladnie ta rozbieznosc, przed ktora stoi §0a. */
     tidySection(); exactMatch(); watchList(); fromHash();
+    /* the shell builds those toolbars on its own schedule; two late passes cost nothing
+       and catch either ordering (the same guard SCRIPT 7 uses for the ranking table) */
+    setTimeout(tidySection, 500); setTimeout(tidySection, 1500);
     window.addEventListener("hashchange", fromHash);
     [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"] .cat-detail'), function (det) {
       build(det.querySelector(".cat-detail-inner"));
@@ -6549,6 +7045,7 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
   var GUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function sbox(t, o) { return window.__socSearchBox ? window.__socSearchBox(t, o) : null; }
   function jsonBlock(id) {
     var s = document.getElementById(id);
     if (!s) return null;
@@ -6694,15 +7191,33 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       if (a.description) { var w = el("div", "what", a.description); td.appendChild(w); }
       tr.appendChild(td); body.appendChild(tr);
     });
-    tb.appendChild(body); tw.appendChild(tb); det.appendChild(tw);
+    tb.appendChild(body); tw.appendChild(tb);
+    /* the namespace chips and the search box are ONE filter (5am): the chips set a
+       predicate and `apply()` stays the only writer of row.hidden */
+    var curF = "ALL";
+    var sb = sbox(tb, {
+      noun: "actions", placeholder: "Search " + acts.length + " directory actions\u2026", facets: false,
+      extra: function (tr) {
+        return curF === "ALL" || (curF === "PRIV" ? tr.dataset.priv === "1" : tr.dataset.ns === curF);
+      },
+      onreset: function () {
+        curF = "ALL";
+        [].forEach.call(mf.querySelectorAll("button"), function (x) {
+          x.setAttribute("aria-pressed", String(x.dataset.f === "ALL"));
+        });
+      }
+    });
+    if (sb) det.appendChild(sb);
+    det.appendChild(tw);
     if (r.actionsProvenance) det.appendChild(el("p", "note", String(r.actionsProvenance).slice(0, 400)));
 
     mf.addEventListener("click", function (ev) {
       var b = ev.target.closest ? ev.target.closest("button") : null; if (!b) return;
       [].forEach.call(mf.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      var f = b.dataset.f;
-      [].forEach.call(body.querySelectorAll("tr"), function (tr) {
-        tr.hidden = !(f === "ALL" || (f === "PRIV" ? tr.dataset.priv === "1" : tr.dataset.ns === f));
+      curF = b.dataset.f;
+      if (sb) sb.__apply();
+      else [].forEach.call(body.querySelectorAll("tr"), function (tr) {
+        tr.hidden = !(curF === "ALL" || (curF === "PRIV" ? tr.dataset.priv === "1" : tr.dataset.ns === curF));
       });
     });
     sec.appendChild(det);
@@ -6743,7 +7258,11 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       tr.appendChild(el("td", null, (c.eps || 0) + " endpoints"));
       body.appendChild(tr);
     });
-    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    tb.appendChild(body); tw.appendChild(tb);
+    var sbc = sbox(tb, { noun: "permissions",
+      placeholder: "Search " + Math.min(25, cov.length) + " permissions\u2026" });
+    if (sbc) sec.appendChild(sbc);
+    sec.appendChild(tw);
     sec.appendChild(el("p", "note", cov.length + " permissions reach 50% or better; the " +
       Math.min(25, cov.length) + " strongest are shown. Whole resource beats property-limited at equal coverage."));
     return sec;
@@ -7126,6 +7645,7 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
   var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function sbox(t, o) { return window.__socSearchBox ? window.__socSearchBox(t, o) : null; }
   function sv(t, a) { var n = document.createElementNS("http://www.w3.org/2000/svg", t);
     for (var k in a) if (Object.prototype.hasOwnProperty.call(a, k)) n.setAttribute(k, a[k]); return n; }
   function jsonBlock(id) {
@@ -7294,7 +7814,11 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       dc.appendChild(el("div", "hd-in")); det.appendChild(dc); body.appendChild(det);
     });
     tb.appendChild(body); tw.appendChild(tb);
-    return tw;
+    var frag = document.createDocumentFragment();
+    var sb = sbox(tb, { noun: "changes", placeholder: "Search " + rows.length + " changes\u2026" });
+    if (sb) frag.appendChild(sb);
+    frag.appendChild(tw);
+    return frag;
   }
 
   function embed(box, kind, key) {
@@ -7364,7 +7888,11 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       tr.appendChild(valueCell(e2));
       body.appendChild(tr);
     });
-    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    tb.appendChild(body);
+    var sbh = sbox(tb, { noun: "changes", min: 6,
+      placeholder: "Search " + mine.length + " changes\u2026" });
+    if (sbh) sec.appendChild(sbh);
+    tw.appendChild(tb); sec.appendChild(tw);
     return sec;
   };
 
@@ -7546,9 +8074,95 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     });
   }
 
+  /* ---------- "Show these N in the list" must show THESE N (5am) ----------
+     Measured on the published page of 9 September 2026: the shell's own button calls
+     its jump("notms"), which switches the list to `Catalog notes` and re-renders — the
+     reader lands on the whole catalog where the box had just named ONE entry. The
+     button belongs to shell script 3, which may not be edited (5w), so we listen for
+     the click, read the names the box printed, and express the narrowing as a RULE in
+     the stylesheet. Writing `hidden` on `.cat-item` fights the shell's own re-render:
+     measured at 200+ passes and a frozen page (5al). */
+  function notms() {
+    var sty = document.getElementById("s9notms");
+    if (!sty) { sty = document.createElement("style"); sty.id = "s9notms"; document.head.appendChild(sty); }
+    var rules = {};
+    function esc(v) { return String(v).replace(/\\/g, "\\\\").replace(/"/g, '\\"'); }
+    function write() {
+      var out = [];
+      Object.keys(rules).forEach(function (which) {
+        var ids = rules[which]; if (!ids) return;
+        var base = '.catalog[data-catalog="' + which + '"] .cat-list .cat-item{display:none!important}';
+        out.push(ids.length
+          ? base + "\n" + ids.map(function (i) {
+              return '.catalog[data-catalog="' + which + '"] .cat-list .cat-item[data-id="' + esc(i) + '"]';
+            }).join(",") + "{display:flex!important}"
+          : base);
+      });
+      sty.textContent = out.join("\n");
+    }
+    function banner(cat, msg, clear) {
+      var b = cat.querySelector(".s9bk");
+      if (!b) {
+        b = el("div", "bkbanner s9bk");
+        b.appendChild(el("span", "bk-msg"));
+        var btn = el("button", "bk-clear", "Show all"); btn.type = "button";
+        b.appendChild(btn);
+        var split = cat.querySelector(".cat-split");
+        if (split && split.parentNode) split.parentNode.insertBefore(b, split); else cat.appendChild(b);
+      }
+      b.querySelector(".bk-clear").onclick = clear;
+      b.hidden = !msg;
+      if (msg) b.querySelector(".bk-msg").textContent = msg;
+    }
+    function apply(cat, which, want, names) {
+      var ids = [], seen = {};
+      [].forEach.call(cat.querySelectorAll(".cat-item"), function (x) {
+        var nm = ((x.querySelector(".ci-name") || {}).textContent || "").trim().toLowerCase();
+        if (want[nm] && x.dataset.id && ids.indexOf(x.dataset.id) < 0) { ids.push(x.dataset.id); seen[nm] = 1; }
+      });
+      var missing = names.filter(function (n) { return !seen[n.toLowerCase()]; });
+      function clear() { rules[which] = null; write(); banner(cat, "", clear); }
+      rules[which] = ids; write();
+      /* zero hits is an ANSWER, not a broken filter: the entry can sit outside the
+         mode or the period the list is set to, and the reader has to be told which */
+      /* one NAME can stand for several entries: `user_impersonation` exists on five API
+         surfaces, and "showing 5 of 1" reads like a defect. Count both, and say which. */
+      banner(cat, ids.length
+        ? ("Not a Microsoft change — showing " + ids.length + (ids.length === 1 ? " entry" : " entries") +
+           " for " + names.length + (names.length === 1 ? " name" : " names") + ": " + names.join(", ") +
+           (missing.length ? ". " + missing.length + " of those names are not in the list under the filters now set." : ""))
+        : ("Not a Microsoft change — " + names.join(", ") +
+           " is not in the list under the filters now set. Press Show all, then search for it by name."),
+        clear);
+    }
+    document.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest(".cc-showbtn") : null; if (!b) return;
+      var box = b.closest(".cc-notms"), cat = b.closest(".catalog[data-catalog]");
+      if (!box || !cat) return;
+      var names = [];
+      [].forEach.call(box.querySelectorAll(".cc-names"), function (x) {
+        (x.textContent || "").split(",").forEach(function (t) { t = t.trim(); if (t) names.push(t); });
+      });
+      if (!names.length) return;
+      var want = {}; names.forEach(function (n) { want[n.toLowerCase()] = 1; });
+      var which = cat.getAttribute("data-catalog");
+      /* the shell re-renders after its own handler; two passes catch either ordering */
+      setTimeout(function () { apply(cat, which, want, names); }, 300);
+      setTimeout(function () { apply(cat, which, want, names); }, 1000);
+    }, true);
+    document.addEventListener("input", function (ev) {
+      var t = ev.target;
+      if (!t || !t.classList || !t.classList.contains("cat-search")) return;
+      var cat = t.closest(".catalog[data-catalog]"); if (!cat) return;
+      var w = cat.getAttribute("data-catalog");
+      if (rules[w]) { rules[w] = null; write(); banner(cat, "", function () {}); }
+    }, true);
+  }
+
   function boot() {
     try { build(); } catch (e) { if (window.console) console.error("[chg14]", e); }
     try { foldFilters(); setTimeout(foldFilters, 400); } catch (e) { if (window.console) console.error("[folds]", e); }
+    try { notms(); } catch (e) { if (window.console) console.error("[notms]", e); }
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 160); });
@@ -7570,6 +8184,112 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
   historii **nie ma wlasnej sekcji 14 dni**. Bramka czyta plik, wiec sprawdza obecnosc obu funkcji
   i klas; to, czy panel sie wypelnia, sprawdza Playwright (§5h) — i to rozroznienie jest tu cala
   pointa, bo poprzednia wersja bramki dala 45/46 na stronie, ktorej panel byl pusty (§5ak).
+
+## 5am. Szukanie i filtrowanie jest w KAZDEJ tabeli — a licznik u gory musi zgadzac sie z tabela
+
+Wlasciciel obejrzal 9 wrzesnia 2026 pierwszy dzien, w ktorym wszystko poszlo naraz — poranny
+artefakt, strona zmian i portal — i zglosil dziewiec rzeczy. **Siedem z nich ma jedna przyczyne
+i jest to ta sama przyczyna, co przy pionowym pasku listy w §5al: powloka daje kazdej SWOJEJ
+tabeli zielone pole szukania, fasety i licznik, a tabele, ktore budujemy MY, nie mialy ich wcale.**
+Dwie polowy jednej zakladki zachowywaly sie inaczej, wiec czytelnik uczyl sie dwoch konwencji.
+
+| zgloszenie | przyczyna, zmierzona 9 wrzesnia 2026 | naprawa |
+|---|---|---|
+| „jakies dwa pola do wyszukiwania, ale nie wiem czego" | `tidySection()` ze SKRYPTU 6 ustawia `hidden` na blokach ukrytego `Worked example`, a **powloka deklaruje `.tbar{display:flex}`, ktore wygrywa z atrybutem `hidden`**. Zmierzone: oba paski mialy `data-s6hidden="1"` i `display:flex` — czyli byly oznaczone jako ukryte i widoczne naraz | regula `[data-s6hidden="1"]{display:none!important}` w arkuszu; to trzeci raz ta sama pulapka po `.filterbanner` (§5c) i `.cat-item` (§5ad) |
+| „klikam `Show these 1 in the list` i nic nie jest odfiltrowane" | przycisk jest powloki i wola jej wlasne `jump("notms")`, ktore **przelacza tryb na `Catalog notes` i przerysowuje liste** — zmierzone: 1 169 wpisow przed, 707 po, a nazwana byla JEDNA pozycja | SKRYPT 8 sluchá klikniecia, czyta nazwy z `.cc-names` i zawezasa liste **regula w arkuszu** (`<style id="s9notms">`), plus banner z przyciskiem `Show all` |
+| „na gorze pokazujesz ilosc zmian, ktora nie zgadza sie z tabelka ponizej" | pigulki `make_diff.py` liczyly **wylacznie tablice `items`**, a tabela `bytab` takze oba katalogi, komponenty i endpointy. Zmierzone na opublikowanej stronie: `1 added / 0 removed / 0 changed` przy tabeli sumujacej sie do `+71 / −72 / 17` | liczniki sa suma kolumn tabeli, endpointy maja **wlasny kafelek**, a `verify()` porownuje jedno z drugim i odrzuca strone przy roznicy |
+| „w porannym sa kafelki, a u ciebie w diff zaokraglone ramki" | dwa rozne wyglady tej samej rzeczy, bo powstaly w dwoch miejscach | strona zmian rysuje `.factgrid`/`.fact` — ten sam kafelek co §5al |
+| „`Graph endpoints` i `Catalog` powinny byc rozwijalne i miec pole search + filtrowanie" | sekcje byly plaskie, bez zadnego narzedzia | kazda sekcja to `details.dsec` z licznikiem w podpisie, a **jeden skrypt strony dokłada zielone pole, fasety, `Reset` i licznik `N of M` do KAZDEJ tabeli** |
+| „w sekcji o zmianach w ostatnich 14 dniach nie ma search i filtrowania" | tabela ze SKRYPTU 8 | to samo pole, fasety z kolumn `Day` / `What` / `Field` |
+| „w `What this permission can call` nie ma szukania" | tabela ze SKRYPTU 6 | pole szukania + chipy metod **przez ten sam `apply()`** |
+| „w `What this role can do` i `Graph permissions this role covers` nie ma szukania" | tabele ze SKRYPTU 7 | to samo, chipy przestrzeni nazw przez ten sam `apply()` |
+
+### Kontrakt: JEDNA funkcja, piec miejsc
+
+`window.__socSearchBox(table, opts)` jest zdefiniowana w SKRYPCIE 6 i uzywana przez 7 i 8.
+SKRYPT 6 parsuje sie przed 7 i 8, wiec eksport istnieje, zanim ktorykolwiek panel powstanie;
+7 i 8 wolaja ja przez lokalne `sbox()` z zabezpieczeniem, wiec brak eksportu nie wywraca panelu.
+Zwraca `<div class="s9find">`: zielone pole, fasety, `Reset`, licznik `N of M`.
+
+**Dwie pulapki sa czescia kontraktu, bo obie zostaly zmierzone:**
+
+1. **Komorke czytasz przez `textContent`, nigdy przez `innerText`.** Te tabele siedza w ZAMKNIETYM
+   `<details>`, a `innerText` elementu, ktorego przegladarka nie renderuje, jest pustym napisem —
+   filtr po `innerText` dopasowuje wiec wszystko i nie filtruje nic.
+2. **Tabela, ktora ma juz chipy, filtruje sie PRZEZ TE SAMA funkcje.** Dwaj niezalezni pisarze
+   `row.hidden` walcza ze soba, a wygrywa ten, ktory pisal drugi. Chipy ustawiaja predykat
+   (`opt.extra`), a `apply()` zostaje jedynym pisarzem. Zmierzone po zmianie: wpisanie
+   `/users/{id}/manager` w panelu `User.Read.All` daje `1 of 215`, chip `GET` daje `175 of 215`,
+   `Reset` wraca do `215 of 215`.
+
+**Faseta powstaje tylko z kolumny, ktora naprawde grupuje**: od 2 do 20 roznych wartosci i co
+najmniej jedna wartosc wystepujaca dwa razy. To jest §5s zapisane w kodzie — faseta samych
+jedynek nie grupuje niczego, tak samo jak wykres samych jedynek nie jest raportem.
+
+### Strona zmian dostaje to samo, ale wlasnym skryptem
+
+Strona `/diff/` z zalozenia nie wozi skryptow powloki (§3), wiec nie ma jak uzyc `__socSearchBox`.
+Ma wiec **trzeci maly skrypt** — po `THEME_HEAD` i `THEME_BODY` — ktory robi dokladnie to samo dla
+kazdej tabeli w `details.dsec`. Powtorzenie jest tu swiadome i ograniczone do jednej funkcji:
+strona zmian musi zostac samodzielna, a alternatywa byloby wozenie na niej powloki briefu, czyli
+dokladnie ten 3,6 MB, ktory §3 usunela.
+
+**Sekcje sa zwijane, ale otwarte domyslnie.** Licznik stoi w podpisie, wiec liczbe widac bez
+klikania — ten sam ksztalt co `details.eps` (§5ah) i `details.chg14` (§5al).
+
+### Zmierzone po zmianie
+
+| co | wynik |
+|---|---|
+| strona zmian, 8 → 9 wrzesnia | 43 906 B, **8 pol szukania**, 1-5 faset na tabele, 7 sekcji zwijanych, 8 kafelkow |
+| liczniki kontra tabela | added 13 = 11+0+2+0+0, removed 27 = 9+18, changed 13 = 0+11+1+0+0+1, endpointy osobno `+3 / −0` |
+| render strony zmian, 2 motywy x 1400 i 390 px | zero bledow, `scrollWidth === clientWidth`, zero elementow szerszych od rodzica, pole zielone w obu motywach (`rgb(219,240,227)` / `rgb(15,51,35)`) |
+| portal, zakladka Graph API | **zero osieroconych paskow szukania** (przed zmiana: dwa) |
+| panel `User.Read.All` | dwa pola: `215 of 215` endpointow i `10 of 10` rol |
+| panel `Global Reader` | dwa pola: `99 of 99` akcji katalogowych i `25 of 25` uprawnien; `user` zawezasa do `4 of 99` |
+| `Show these 1 in the list` | 5 wpisow z 1 nazwy (`user_impersonation` istnieje na pieciu powierzchniach API), banner nazywa jedno i drugie, `Show all` przywraca |
+| portal, 2 motywy x 1500 / 1280 / 760 / 390 px x 10 zakladek | **80 renderow, zero bledow strony, zero rozpychania dokumentu, zero elementow szerszych od rodzica** |
+
+**Jedna nazwa moze znaczyc kilka wpisow.** `user_impersonation` stoi na pieciu powierzchniach API,
+wiec banner mowi `showing 5 entries for 1 name`. Pierwsza wersja pisala `showing 5 of 1`, co czyta
+sie jak usterka — licznik ma nazywac to, co liczy.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak i §5al sa to JEDYNE dozwolone
+dopisane reguly CSS.
+
+```css
+/* §5am — jedno zielone pole szukania na KAZDEJ tabeli, ktora buduja skrypty 6, 7 i 8,
+   i pasek narzedzi powloki naprawde schowany, gdy schowana jest jego tabela. */
+[data-s6hidden="1"]{display:none!important}
+.s9find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.s9find .s9q{flex:1 1 220px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9find .s9q::placeholder{color:var(--muted);font-weight:400}
+.s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);max-width:230px}
+.s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.s9find .s9reset:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;
+ white-space:nowrap;font-weight:600}
+.v13pane tbody tr[hidden],details.chg14 tbody tr[hidden],details.rolerank tbody tr[hidden]{display:none!important}
+.v13pane details.eps>.s9find{margin:0 13px 10px}
+details.chg14>.s9find{margin-left:16px;margin-right:16px}
+.bkbanner.s9bk[hidden]{display:none!important}
+@media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
+```
+
+### Walidator — pozycje 53, 54 i 55 listy §0
+
+- **53** — `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` sa w pliku.
+  To, czy pole naprawde zawezasa tabele, sprawdza Playwright (§5h) — bramka czyta plik, a te
+  tabele powstaja w przegladarce, i to rozroznienie jest tu cala pointa (§5ak).
+- **54** — `s9notms`, `cc-showbtn` i `bkbanner s9bk` sa w pliku, czyli przycisk powloki ma swojego
+  sluchacza.
+- **55** — SKRYPT 9 jest w pliku, czyli oba katalogi otwieraja sie na `All` (§5ah punkt 5).
 
 ## 6. Kontrakt w stronie
 
