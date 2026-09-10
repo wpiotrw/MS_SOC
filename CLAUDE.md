@@ -93,7 +93,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
 | 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z SZESCIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `components` (§5ag) i `endpoints` (§5ah), oraz rejestr dopisany przez `--ledger` (§5aj) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z OSMIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 | 41 | **`graphMap` w bloku `soc-brief-state`**: `commit`, `readOn`, slownik sciezek `p`, tablica metod `m`; blokow JSON na stronie nadal DWA | 5ah | `graphMap` obecne z czterema polami; `<script type="application/json">` = 2 |
 | 42 | **nic nie obciete z mapy endpointow**: suma par po dekodowaniu `eps` rowna sie liczbie par metoda-sciezka w pliku Microsoftu | 5ah | roznica zerowa (zmierzone 24 099 przy klonie `ec959bb`) |
 | 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
@@ -1869,11 +1869,34 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    a nie pozycjami (punkt 9) — doliczenie ich zmieszaloby dwie jednostki.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
    Areas touched`, jeden wiersz na zakladke, **ZAWSZE SZESC wierszy** (§3a).
+3a. **`What changed, by technology`** — sekcja `id="bytech"`, tabela
+   `Technology | Added | Removed | Changed | Where it shows up`. **To jest odpowiedz na pytanie, ktore
+   zaczyna sie od nazwy produktu** — MDE, MDI, Sentinel, Purview — a nie od zakladki. Pozycja stanu
+   liczy sie pod swoim `product`, komponent pod wlasna nazwa, artykul spolecznosci i wpis MC pod
+   KAZDYM swoim tagiem technologii, wiec suma tutaj bywa wieksza niz liczba pozycji wyzej i nota mowi
+   to wprost. Nazwa technologii jest linkiem, ktory zawezasa CALA strone (punkt 13).
+
+3b. **`Deadlines — everything dated, in one place`** — sekcja `id="deadlines"`, tabela
+   `What | Product | Item | Deadline | Days | Weight | Source`. Trzy rodzaje wiersza: termin
+   **przesuniety** (`<del>` → `<ins>` plus przesuniecie w dniach ze znakiem), termin, ktory
+   **przyszedl** z nowa pozycja, i termin, ktory **odszedl** razem z usunieta. Terminy sa rozsypane
+   po sekcjach `added`, `removed` i `changed`, a to one zmieniaja plan — jedno miejsce, w ktorym
+   widac wszystkie, jest cala tresc tej sekcji.
+
 4. **Added** — `Product | Item | Status | Published | Deadline | Weight | Source`, **jedna tabela
-   na zakladke**, z `<caption class="tabcap">` niosacym nazwe zakladki, licznik i obszary;
+   na zakladke**, z `<caption class="tabcap">` niosacym **czasownik sekcji**, nazwe zakladki, licznik
+   i obszary;
    sortowane `tier0Touch` malejaco, `socWeight` rosnaco, termin rosnaco (§5p).
 5. **Removed** — to samo bez `Status`, tak samo grupowane. **Usuniecie jest znaleziskiem**,
    nie sprzataniem.
+
+   **Podpis kazdej tabeli zaczyna sie od CZASOWNIKA sekcji** — `Added in New`, `Removed from New`,
+   `Changed in Deadlines` — i to jest poprawka ze zgloszenia z 10 wrzesnia 2026: *„co to znaczy, ze
+   jest sekcja removed, ale tam piszesz, ze cos zostalo dodane, ze jest cos new?"*. Podpis brzmial
+   wtedy `<b>New</b> · 14 items` i **byl prawdziwy** — `New` to zakladka, ktora jest domem tych
+   pozycji — ale czytelnik widzi go pod naglowkiem `Removed` i czyta jako „nowe". Slowo, ktore
+   w jednym miejscu strony znaczy zakladke, a w drugim stan pozycji, **nie moze stac samo**. Nota
+   sekcji mowi to samo zdaniem: nazwa w podpisie to zakladka, w ktorej pozycja mieszkala.
 6. **Changed, field by field** — grupowane po zakladce, JEDEN WIERSZ NA POLE:
    `Item | Field | before → after | Source`,
    stara wartosc w `<del>`, nowa w `<ins>`. Pola porownywane, w tej kolejnosci: `deadline`,
@@ -1911,6 +1934,29 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
 11. **Message Center** — sekcja `id="mcenter"` (§5an). Wpisy MC i Roadmapy dodane oraz usuniete po `id`,
     z kolumna technologii i terminem `actionRequiredBy`; **wpis z terminem stoi wyzej**, bo to on wymaga planu.
 12. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
+13. **KAZDA LICZBA NA TEJ STRONIE JEST KONTROLKA**, plus przyklejony pasek skrotow `nav.dsubnav`
+    z licznikiem przy kazdej sekcji.
+
+**Punkt 13 jest odpowiedzia na trzy zgloszenia wlasciciela z 10 wrzesnia 2026 naraz** i powtarza
+regule, ktora ta specyfikacja ma juz w dwoch innych miejscach — kafelki katalogu (§5ad) i blok
+`Activity` (§5an): *„wybieram jakis numer i myslalem, ze jak klikne, to automatycznie zostane
+przekierowany nizej do przefiltrowanej odpowiednio tabeli"*, to samo o kafelkach, oraz *„po prostu
+powinny byc lepiej widoczne glowne zmiany, zeby je lepiej wylapywac"*. Liczba, ktorej nie da sie
+kliknac, kaze szukac jej znaczenia recznie.
+
+| co klikniete | co sie dzieje |
+|---|---|
+| kafelek `.factgrid a.fact` | otwiera sekcje, ktora go tlumaczy, i do niej przewija; strzalka `↓` w rogu mowi, ze jest linkiem |
+| niezerowa liczba w `bytab` | skacze do `added` / `removed` / `changed` **i zostawia w tej sekcji WYLACZNIE blok tej zakladki** — sam skok zostawia czytelnika przy pierwszej tabeli sekcji, a nie przy tej, ktorej liczbe kliknal. Zakladka z wlasna sekcja (`Graph API`, `Roles`, `Graph endpoints`, `Component versions`, `Community articles`, `Message Center`) prowadzi do niej wprost |
+| nazwa technologii w `bytech` | zawezasa **wszystkie** tabele strony do tej technologii: tam gdzie tabela ma fasete `Product`, przez fasete; gdzie nie ma, przez pole szukania — **i banner mowi, ktora droga poszla**, zeby wiersz dopasowany po prozie nie byl zaskoczeniem. Obie tabele podsumowania zostaja NIETKNIETE, bo sa kontrolkami, a nie trescia |
+| `Show everything` w bannerze | czysci kazde pole, kazda fasete i odslania kazdy blok |
+
+**Zero NIE jest linkiem.** Prowadzilby do pustej tabeli i uczyl, ze klikanie nic nie daje — ta sama
+zasada co pusty kubelek, ktory mowi zdaniem zamiast znikac.
+
+**Nawigacja nie pisze `row.hidden` sama.** Kazde pole szukania rejestruje sie w `window.__s9diff`
+razem ze swoim `apply()`, a skrypt nawigacji ustawia wartosci i wola `apply()`. Dwoch niezaleznych
+pisarzy tego pola walczy ze soba i wygrywa ten, ktory pisal drugi (§5am) — tu byloby ich trzech.
 
 **Kubelek pusty mowi to zdaniem, nie znika.** „Nothing was removed." jest wynikiem; brak sekcji
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
@@ -2103,6 +2149,21 @@ TAB_ORDER = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Compo
 # podwoiloby kazda zmiane.
 SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions",
                 "Community articles", "Message Center"]
+
+# Ktora SEKCJA tej strony odpowiada na klikniecie liczby w wierszu zakladki. Zakladki
+# pozycji stanu (New, Deadlines) maja swoje wiersze w Added/Removed/Changed i tam trzeba
+# je jeszcze zawezic do zakladki; pozostale maja wlasna sekcje i zawezanie jest zbedne.
+TAB_HOME = {"Graph API": "catalog", "Roles": "catalog", "Graph endpoints": "endpoints",
+            "Component versions": "components", "Community articles": "community",
+            "Message Center": "mcenter"}
+
+def goto_num(n, kind, tab, sid):
+    """Licznik, ktory jest linkiem. Zero NIE jest linkiem — prowadzilby do pustej tabeli
+    i uczylby, ze klikanie nic nie daje."""
+    body = num(n, kind)
+    if not n: return body
+    return ('<a class="gnum" href="#%s" data-goto="%s" data-tab="%s">%s</a>'
+            % (sid, sid, esc(tab), body))
 
 def tab_of(it):
     t = TIER_TAB.get(norm(it.get("tier")))
@@ -2369,22 +2430,42 @@ def num(n, kind):
     if kind == "rem": return '<b class="nrem">&minus;%d</b>' % n
     return '<b class="nchg">%d</b>' % n
 
-def tabcap(tab, n, word, items):
-    """Podpis tabeli zakladki: nazwa, licznik i obszary — jednym zdaniem."""
+def tabcap(tab, n, word, items, verb=""):
+    """Podpis tabeli zakladki: CO sie z nia stalo, nazwa, licznik i obszary.
+
+    Wlasciciel, 10 wrzesnia 2026, o sekcji `Removed`: „co to znaczy, ze jest sekcja
+    removed, ale tam piszesz, ze cos zostalo dodane, ze jest cos new?". Podpis brzmial
+    „<b>New</b> · 14 items" i byl PRAWDZIWY — `New` to zakladka, ktora jest domem tych
+    pozycji — ale czytelnik widzi go pod naglowkiem `Removed` i czyta jako „nowe".
+    Slowo, ktore w jednym miejscu znaczy zakladke, a w drugim stan pozycji, nie moze
+    stac samo. Podpis zaczyna sie odtad od czasownika sekcji."""
     a = [esc(x) for x in areas(items)]
     more = " &middot; …" if len(a) > 8 else ""
-    return ('<b>%s</b> &middot; %d %s <span class="capareas">%s%s</span>'
-            % (esc(tab), n, esc(word if n != 1 else word.rstrip("s")),
+    lead = ('<span class="capverb">%s</span> ' % esc(verb)) if verb else ""
+    return ('%s<b>%s</b> &middot; %d %s <span class="capareas">%s%s</span>'
+            % (lead, esc(tab), n, esc(word if n != 1 else word.rstrip("s")),
                " &middot; ".join(a[:8]), more))
+
+def tabblock(tab, html):
+    """Blok jednej zakladki w sekcji. `data-tab` jest po to, zeby wiersz podsumowania
+    mogl pokazac WYLACZNIE ta zakladke — sam skok w dol zostawia czytelnika przy
+    pierwszej tabeli sekcji, a nie przy tej, ktorej liczbe kliknal."""
+    return '<div class="tabblock" data-tab="%s">%s</div>' % (esc(tab), html)
 
 def tiles(spec):
     """Kafelki jak na stronie porannej (§5al) — wlasciciel, 9 wrzesnia 2026:
     „w glownym porannym sa kafelki a u ciebie w diff zaokraglone ramki. wiec zrobmy
     w diff tak jak w porannym"."""
     out = ['<div class="factgrid">']
-    for value, label, cls in spec:
-        out.append('<div class="fact%s"><b>%s</b><span>%s</span></div>'
-                   % ((" " + cls) if cls else "", value, label))
+    for t in spec:
+        value, label, cls = t[0], t[1], t[2]
+        goto = t[3] if len(t) > 3 else None
+        if goto:
+            out.append('<a class="fact%s" href="#%s" data-goto="%s"><b>%s</b><span>%s</span></a>'
+                       % ((" " + cls) if cls else "", goto, goto, value, label))
+        else:
+            out.append('<div class="fact%s"><b>%s</b><span>%s</span></div>'
+                       % ((" " + cls) if cls else "", value, label))
     out.append("</div>")
     return "".join(out)
 
@@ -2527,6 +2608,34 @@ details.dsec>.note{margin-top:10px}
 .s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
 tbody tr[hidden]{display:none!important}
 @media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
+
+/* --- kazda liczba jest kontrolka (10 wrzesnia 2026) --- */
+a.fact{text-decoration:none;color:inherit;display:block;position:relative}
+a.fact:hover{border-color:var(--accent);background:var(--accent-soft)}
+a.fact::after{content:"\\2193";position:absolute;top:7px;right:10px;font-size:11px;color:var(--muted);opacity:.55}
+a.fact:hover::after{color:var(--accent);opacity:1}
+a.fact:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a.gnum,a.gtech{text-decoration:none;border-bottom:1px dashed var(--accent)}
+a.gnum:hover,a.gtech:hover{border-bottom-style:solid;background:var(--accent-soft);border-radius:5px}
+a.gtech b{color:var(--accent)}
+.tabblock[hidden]{display:none!important}
+caption.tabcap .capverb{font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+ font-weight:700;color:var(--muted);margin-right:6px}
+nav.dsubnav{position:sticky;top:0;z-index:40;display:flex;gap:6px;overflow-x:auto;padding:9px 0 8px;
+ margin:0 0 4px;background:var(--bg);border-bottom:1px solid var(--border);-webkit-overflow-scrolling:touch}
+nav.dsubnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);white-space:nowrap;flex:0 0 auto;text-decoration:none}
+nav.dsubnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+nav.dsubnav a .n{color:var(--muted);font-weight:600;margin-left:6px;font-variant-numeric:tabular-nums}
+nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
+section{scroll-margin-top:56px}
+.navbanner{display:flex;align-items:center;gap:12px;margin:10px 0 0;padding:8px 12px;border-radius:10px;
+ background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13px}
+.navbanner[hidden]{display:none!important}
+.navbanner .nb-msg{flex:1 1 auto}
+.navbanner .nb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+@media (max-width:760px){a.fact::after{display:none}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -2627,12 +2736,171 @@ FIND_BODY = """<script>
       q.value = ""; sels.forEach(function (s) { s.value = ""; }); apply();
     });
     apply();
+    /* Rejestr, zeby skrypt nawigacji mogl ustawic te same filtry, ktore ustawilby
+       czytelnik. Dwa niezalezne pisarze `row.hidden` walcza ze soba (§5am), wiec
+       nawigacja NIE chowa wierszy sama — prosi `apply()` tego pudelka. */
+    wrap.__apply = apply;
+    wrap.__q = q;
+    wrap.__sels = sels;
+    (window.__s9diff = window.__s9diff || []).push(wrap);
     return wrap;
   }
   [].forEach.call(document.querySelectorAll("details.dsec .tw > table"), function (t) {
     var b = box(t);
     if (b && t.parentNode && t.parentNode.parentNode) t.parentNode.parentNode.insertBefore(b, t.parentNode);
   });
+})();
+</script>"""
+
+# Czwarty — i ostatni — skrypt strony zmian. Wlasciciel, 10 wrzesnia 2026: „wybieram jakis
+# numer i myslalem, ze jak klikne, to automatycznie zostane przekierowany nizej do
+# przefiltrowanej odpowiednio tabeli"; to samo o kafelkach. Liczba, ktorej nie da sie
+# kliknac, kaze szukac jej znaczenia recznie — dokladnie ta sama skarga co przy kafelkach
+# katalogu (§5ad) i przy bloku Activity (§5an), i naprawiona tak samo: kazdy element
+# statystyki JEST kontrolka. Filtruje przez `apply()` zarejestrowanych pudelek szukania,
+# a nie pisze `row.hidden` sam — dwoch pisarzy tego pola walczy ze soba (§5am).
+NAV_BODY = """<script>
+(function () {
+  "use strict";
+  var banner = null;
+
+  function ensureBanner() {
+    if (banner) return banner;
+    banner = document.createElement("div");
+    banner.className = "navbanner"; banner.hidden = true;
+    var msg = document.createElement("span"); msg.className = "nb-msg";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Show everything";
+    btn.addEventListener("click", clearAll);
+    banner.appendChild(msg); banner.appendChild(btn);
+    var nav = document.querySelector("nav.dsubnav");
+    if (nav && nav.parentNode) nav.parentNode.insertBefore(banner, nav.nextSibling);
+    return banner;
+  }
+  function say(text) {
+    var b = ensureBanner();
+    b.hidden = !text;
+    if (text) b.querySelector(".nb-msg").textContent = text;
+  }
+
+  function boxes() { return window.__s9diff || []; }
+  /* the two summary tables are the CONTROLS, not the content: filtering them by a
+     technology empties the very table the reader just pressed. */
+  function content(w) {
+    var t = w.parentNode && w.parentNode.querySelector(".tw table");
+    var sec = w.closest ? w.closest("section") : null;
+    return !(sec && (sec.id === "bytab" || sec.id === "bytech")) && !!t;
+  }
+
+  function clearAll() {
+    boxes().forEach(function (w) {
+      if (w.__q) w.__q.value = "";
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    say("");
+  }
+
+  function openSection(sid) {
+    var sec = document.getElementById(sid);
+    if (!sec) return null;
+    var det = sec.querySelector("details.dsec");
+    if (det) det.open = true;
+    return sec;
+  }
+
+  /* a number in the by-tab table: go to the section AND show only that tab's block.
+     Jumping without narrowing lands the reader on the first table of the section,
+     which is not the number they pressed. */
+  function goto_(sid, tab) {
+    var sec = openSection(sid);
+    if (!sec) return;
+    var blocks = [].slice.call(document.querySelectorAll(".tabblock"));
+    var hit = 0;
+    blocks.forEach(function (b) {
+      var mine = sec.contains(b);
+      if (!tab) { b.hidden = false; return; }
+      if (!mine) { b.hidden = false; return; }
+      var keep = b.dataset.tab === tab;
+      b.hidden = !keep;
+      if (keep) hit++;
+    });
+    if (tab && sec.querySelector(".tabblock")) {
+      say(hit ? ('Showing the ' + tab + ' rows of this section only.')
+              : ('No ' + tab + ' rows in this section \\u2014 that number belongs to another one.'));
+    } else say("");
+    sec.scrollIntoView({ block: "start" });
+  }
+
+  /* a technology name: narrow EVERY table on the page at once. Where a table has a
+     matching facet we set the facet, which is exact; where it has none we put the name
+     in its search box, which is a text match — and the banner says which was done, so
+     a row that matched on prose rather than on its product column is not a surprise. */
+  function tech(name) {
+    var exact = 0, text = 0;
+    boxes().forEach(function (w) {
+      if (!content(w)) {
+        if (w.__q) w.__q.value = "";
+        (w.__sels || []).forEach(function (s) { s.value = ""; });
+        if (w.__apply) w.__apply();
+        return;
+      }
+      var sel = null;
+      (w.__sels || []).forEach(function (s) {
+        if (sel) return;
+        for (var i = 0; i < s.options.length; i++) if (s.options[i].value === name) { sel = s; return; }
+      });
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (sel) { sel.value = name; if (w.__q) w.__q.value = ""; exact++; }
+      else { if (w.__q) w.__q.value = name; text++; }
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    var how = [];
+    if (exact) how.push(exact + " by " + (exact === 1 ? "its" : "their") + " product column");
+    if (text) how.push(text + " by searching " + (text === 1 ? "its" : "their") + " text");
+    say("Filtered to " + name + " across every section \\u2014 " + how.join(", ") +
+        ". The two summary tables at the top are left whole, because they are the controls.");
+    var a = document.getElementById("added");
+    if (a) { openSection("added"); a.scrollIntoView({ block: "start" }); }
+  }
+
+  document.addEventListener("click", function (ev) {
+    if (!ev.target.closest) return;
+    var t = ev.target.closest("[data-tech]");
+    if (t) { ev.preventDefault(); tech(t.dataset.tech); return; }
+    var g = ev.target.closest("[data-goto]");
+    if (g) {
+      ev.preventDefault();
+      goto_(g.dataset.goto, g.dataset.tab || null);
+    }
+  });
+
+  /* the rail marks where the reader is, by POSITION — a ratio-based observer reports
+     the wrong section after a jump when the sections are taller than the band (§5an) */
+  (function () {
+    var links = [].slice.call(document.querySelectorAll("nav.dsubnav a"));
+    if (!links.length) return;
+    var secs = links.map(function (a) {
+      return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
+    }).filter(function (x) { return x.el; });
+    var queued = false;
+    function mark() {
+      queued = false;
+      var y = window.scrollY + 90, cur = secs[0];
+      secs.forEach(function (s) { if (s.el.offsetTop <= y) cur = s; });
+      secs.forEach(function (s) {
+        if (s === cur) s.a.setAttribute("aria-current", "true");
+        else s.a.removeAttribute("aria-current");
+      });
+    }
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true; window.requestAnimationFrame(mark);
+    }, { passive: true });
+    mark();
+  })();
 })();
 </script>"""
 
@@ -2670,22 +2938,30 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     sum_chg = len(changed) + len(gmod) + len(rmod) + len(cmod) + len(com["srcChg"])
     # Endpointy maja WLASNY kafelek, bo sa endpointami, a nie pozycjami (§3 punkt 9):
     # doliczenie ich do „added" zmieszaloby dwie rozne jednostki.
+    dl_rows_n = len(dl_moved) + len([i for i in added if norm(i.get("deadline"))]) \
+                + len([i for i in removed if norm(i.get("deadline"))])
+    # Kazdy kafelek prowadzi do sekcji, ktora go tlumaczy. Wlasciciel, 10 wrzesnia 2026:
+    # „gorna sekcja z kafelkami — nie da sie tego kliknac, zeby byc przeniesionym ponizej
+    # do przefiltrowanej tabeli". Liczba, ktorej nie da sie klinac, kaze szukac jej znaczenia
+    # recznie — to ta sama skarga co przy kafelkach katalogu (§5ad) i bloku Activity (§5an).
     out.append(tiles([
-        (str(sum_add), "added", "ok"),
-        (str(sum_rem), "removed", "bad"),
-        (str(sum_chg), "changed", "warn"),
-        ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info"),
-        (str(len(dl_moved)), "deadlines moved", "acc"),
-        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), ""),
-        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), ""),
-        (str(nc), "items in state &middot; was %d" % np_, ""),
-        ("%+d / &minus;%d" % (len(com["srcAdd"]), len(com["srcRem"])), "community sources", "info"),
-        (str(len(com["artAdd"])), "new community articles", "ok"),
+        (str(sum_add), "added", "ok", "added"),
+        (str(sum_rem), "removed", "bad", "removed"),
+        (str(sum_chg), "changed", "warn", "changed"),
+        ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info", "endpoints"),
+        (str(dl_rows_n), "deadline rows", "acc", "deadlines"),
+        (str(len(cadd) + len(crem) + len(cmod)), "component versions", "warn", "components"),
+        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), "", "catalog"),
+        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), "", "catalog"),
+        (str(nc), "items in state &middot; was %d" % np_, "", "bytab"),
+        ("%+d / &minus;%d" % (len(com["srcAdd"]), len(com["srcRem"])), "community sources", "info", "community"),
+        (str(len(com["artAdd"])), "new community articles", "ok", "community"),
     ]))
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
                'them, both catalogs and the tracked components included. Endpoints are counted '
-               'apart because they are endpoints, not items.</p>')
-    out.append('</div></header><div class="wrap">')
+               'apart because they are endpoints, not items. <b>Every tile is a link</b>: it jumps to '
+               'the section that explains it and opens that section.</p>')
+    out.append('</div></header><div class="wrap">@@SUBNAV@@')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
     # To jest odpowiedz na „jakies podsumowanie tez zbiorcze, co w jakich zakladkach
@@ -2695,6 +2971,69 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     for i_ in removed:            tally.setdefault(tab_of(i_), {"a": [], "r": [], "c": []})["r"].append(i_)
     for i_, _d in changed:        tally.setdefault(tab_of(i_), {"a": [], "r": [], "c": []})["c"].append(i_)
     for tab in SUMMARY_TABS:      tally.setdefault(tab, {"a": [], "r": [], "c": []})
+
+    # --- co sie ruszylo w KTOREJ TECHNOLOGII (10 wrzesnia 2026) -------------
+    # Wlasciciel: „brakuje mi tabeli czy kafelkow, ktore pokaza zmiany wedlug technologii,
+    # np. MDI, MDE, Sentinel". Zakladka mowi, GDZIE pozycja mieszka na stronie; technologia
+    # mowi, CZEGO dotyczy — i to jest pytanie, od ktorego zaczyna sie dyzur.
+    tech = {}
+    def tput(name, key, where):
+        name = norm(name) or "unspecified"
+        t = tech.setdefault(name, {"a": 0, "r": 0, "c": 0, "w": []})
+        t[key] += 1
+        if where not in t["w"]: t["w"].append(where)
+    for i_ in added:       tput(i_.get("product"), "a", tab_of(i_))
+    for i_ in removed:     tput(i_.get("product"), "r", tab_of(i_))
+    for i_, _d in changed: tput(i_.get("product"), "c", tab_of(i_))
+    for c_ in cadd:        tput(c_.get("name") or c_.get("id"), "a", "Component versions")
+    for c_ in crem:        tput(c_.get("name") or c_.get("id"), "r", "Component versions")
+    for c_, _d in cmod:    tput(c_.get("name") or c_.get("id"), "c", "Component versions")
+    # artykul i wpis MC niosa TAGI technologii, wiec licza sie pod kazdym z nich — nota
+    # sekcji mowi to wprost, zeby suma wieksza od liczby pozycji nie wygladala na blad
+    for x in com["artAdd"]:
+        for t2 in (x.get("categories") or []): tput(t2, "a", "Community articles")
+    for x in com["artRem"]:
+        for t2 in (x.get("categories") or []): tput(t2, "r", "Community articles")
+    for x in com["mcAdd"]:
+        for t2 in (x.get("tech") or []): tput(t2, "a", "Message Center")
+    for x in com["mcRem"]:
+        for t2 in (x.get("tech") or []): tput(t2, "r", "Message Center")
+    trows = []
+    for name in sorted(tech, key=lambda k: (-(tech[k]["a"] + tech[k]["r"] + tech[k]["c"]), k.lower())):
+        t = tech[name]
+        trows.append(("", ['<a class="gtech" href="#added" data-tech="%s"><b>%s</b></a>' % (esc(name), esc(name)),
+                           num(t["a"], "add"), num(t["r"], "rem"), num(t["c"], "chg"),
+                           " &middot; ".join(esc(w) for w in t["w"][:6]) or "&mdash;"]))
+
+    # --- terminy zebrane w jednym miejscu ----------------------------------
+    def _days(a, b):
+        try:
+            d = (datetime.date.fromisoformat(b[:10]) - datetime.date.fromisoformat(a[:10])).days
+            return ('<b class="%s">%+d</b>' % ("nchg" if d else "none", d))
+        except Exception:
+            return '<span class="none">&mdash;</span>'
+    dlrows = []
+    for i_, deltas in dl_moved:
+        for lab, a_, b_ in deltas:
+            if lab != "Deadline": continue
+            dlrows.append((' class="t0"' if i_.get("tier0Touch") else "",
+                ['<span class="field">moved</span>', esc(i_.get("product")), name_cell(i_),
+                 ('<del>%s</del>' % esc(a_) if a_ else '<span class="none">not set</span>')
+                 + '<span class="arrow">&rarr;</span>'
+                 + ('<ins>%s</ins>' % esc(b_) if b_ else '<span class="none">cleared</span>'),
+                 _days(a_, b_) if (a_ and b_) else '<span class="none">&mdash;</span>',
+                 weight_cell(i_), a_src(i_)]))
+    for i_ in added:
+        if not norm(i_.get("deadline")): continue
+        dlrows.append((' class="t0"' if i_.get("tier0Touch") else "",
+            ['<ins>arrived</ins>', esc(i_.get("product")), name_cell(i_),
+             "<ins>%s</ins>" % esc(i_.get("deadline")), '<span class="none">&mdash;</span>',
+             weight_cell(i_), a_src(i_)]))
+    for i_ in removed:
+        if not norm(i_.get("deadline")): continue
+        dlrows.append(("", ['<del>gone</del>', esc(i_.get("product")), name_cell(i_),
+             "<del>%s</del>" % esc(i_.get("deadline")), '<span class="none">&mdash;</span>',
+             weight_cell(i_), a_src(i_)]))
 
     srows = []
     for tab in SUMMARY_TABS + sorted(k for k in tally if k not in SUMMARY_TABS):
@@ -2730,8 +3069,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         else:
             na, nr, nc = len(t["a"]), len(t["r"]), len(t["c"])
             ar = " &middot; ".join(esc(x) for x in areas(t["a"] + t["r"] + t["c"])[:8]) or "&mdash;"
+        home = TAB_HOME.get(tab)
         srows.append((' class="quiet"' if not (na or nr or nc) else "",
-                      ["<b>%s</b>" % esc(tab), num(na, "add"), num(nr, "rem"), num(nc, "chg"), ar]))
+                      ["<b>%s</b>" % esc(tab),
+                       goto_num(na, "add", tab, home or "added"),
+                       goto_num(nr, "rem", tab, home or "removed"),
+                       goto_num(nc, "chg", tab, home or "changed"), ar]))
     out.append(sect("bytab", "What changed, by tab", ('What moved since %s, tab by tab, and which areas it touched. '
                'A row of three zeros means that tab was checked and did not move. Each item is counted '
                'in the ONE tab that is its home &mdash; New for the published window, Deadlines for '
@@ -2739,9 +3082,34 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                'twice. Today is a selection from New and Deadlines and Products is a second view of the '
                'same items, so their changes are already in these rows. A source added to or dropped from '
                'the community list is a change to the LIST, not to an article, so it is counted in its own '
-               'tile and named in the Community section rather than mixed in here.') % esc(prev_d),
+               'tile and named in the Community section rather than mixed in here. '
+               '<b>Every non-zero number below is a link</b>: it jumps to the section that lists '
+               'those rows and narrows it to that tab.') % esc(prev_d),
                table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
-                     "No tab moved at all."), count="8 tabs"))
+                     "No tab moved at all."), count="%d tabs" % len(SUMMARY_TABS)))
+
+    # --- co sie zmienilo w KTOREJ TECHNOLOGII
+    out.append(sect("bytech", "What changed, by technology",
+        'The same movement counted by the technology it touches rather than by the tab it lives in '
+        '&mdash; MDE, MDI, Sentinel, Purview and the rest, so a question that starts with a product '
+        'name has one place to be answered. An item counts under its <code>product</code>; a tracked '
+        'component under its own name; a community article and a Message Center entry under every '
+        'technology tagged on it, so an article carrying two tags is counted under both and the total '
+        'here can exceed the item count above. <b>Every technology name is a link</b>: it filters every '
+        'table on this page to that technology at once.',
+        table(["Technology", "Added", "Removed", "Changed", "Where it shows up"], trows,
+              "Nothing moved under any technology."),
+        count="%d technologies" % len(trows)))
+
+    # --- terminy, zebrane w jednym miejscu
+    out.append(sect("deadlines", "Deadlines &mdash; everything dated, in one place",
+        'Every deadline this comparison touched: dates that moved, dated items that arrived and dated '
+        'items that went away. A date that moved is the row to read first &mdash; it is the one that '
+        'changes a plan. <code>days</code> is the shift in days, positive when Microsoft pushed the '
+        'date out and negative when it pulled the date in.',
+        table(["What", "Product", "Item", "Deadline", "Days", "Weight", "Source"], dlrows,
+              "No deadline moved, arrived or went away between these two states."),
+        count=len(dlrows)))
 
     # --- added, grouped by tab
     body = []
@@ -2751,8 +3119,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                   esc(i_.get("published")), esc(i_.get("deadline")) or '<span class="none">none stated</span>',
                   weight_cell(i_), a_src(i_)]) for i_ in items_]
         rows, more = cap(rows, 120, "added items")
-        body.append(table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
-                          rows, "", tabcap(tab, len(items_), "items", items_)) + more)
+        body.append(tabblock(tab,
+            table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
+                  rows, "", tabcap(tab, len(items_), "items", items_, "Added in")) + more))
     out.append(sect("added", "Added since " + esc(prev_d),
                'In the current state and not in the previous one, one table per tab of '
                'the brief. Heaviest first: tier 0, then SOC weight, then deadline.',
@@ -2767,11 +3136,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                       esc(i_.get("deadline")) or '<span class="none">none stated</span>',
                       weight_cell(i_), a_src(i_)]) for i_ in items_]
         rows, more = cap(rows, 120, "removed items")
-        body.append(table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
-                          rows, "", tabcap(tab, len(items_), "items", items_)) + more)
+        body.append(tabblock(tab,
+            table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
+                  rows, "", tabcap(tab, len(items_), "items", items_, "Removed from")) + more))
     out.append(sect("removed", "Removed",
-               'Carried in the previous state and gone from the current one, by tab. '
-               'A removal is a finding: either the source dropped it or this brief retracted it.',
+               'Carried in the previous state and gone from the current one. A removal is a finding: '
+               'either the source dropped it or this brief retracted it. <b>The name in each caption '
+               'is the tab the removed item used to live in</b>, not what happened to it &mdash; '
+               '&bdquo;Removed from New&rdquo; means it was in the New tab yesterday and is gone today.',
                "".join(body) or '<p class="empty">Nothing was removed.</p>',
                count=len(removed)))
 
@@ -2790,8 +3162,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                               + ('<ins>%s</ins>' % esc(b) if b else '<span class="none">cleared</span>'),
                               a_src(i_) if first else ""]))
         rows, more = cap(rows, 250, "changed fields")
-        body.append(table(["Item", "Field", "Before &rarr; after", "Source"], rows, "",
-                          tabcap(tab, len(pairs), "items", [x[0] for x in pairs])) + more)
+        body.append(tabblock(tab,
+            table(["Item", "Field", "Before &rarr; after", "Source"], rows, "",
+                  tabcap(tab, len(pairs), "items", [x[0] for x in pairs], "Changed in")) + more))
     out.append(sect("changed", "Changed, field by field",
                'Same <code>id</code> in both states, different value, by tab. Old struck '
                'through, new highlighted &mdash; the difference is shown, not described.',
@@ -3039,12 +3412,31 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                % (("%d differences in total." % total) if total else
                   "No difference at all between the two states. Somebody looked; nothing moved.",
                   esc(when), esc(home)))
-    body = "\n".join(out)
+    # Pasek skrotow, ten sam ksztalt co `nav.subnav` zakladki Community (§5an): kazda
+    # sekcja z licznikiem, przyklejony u gory. Wlasciciel, 10 wrzesnia 2026: „zeby to latwo
+    # mozna bylo wszystko odnalezc". Liczba przy nazwie jest po to, zeby dalo sie zdecydowac,
+    # czy warto tam schodzic, przed zejsciem.
+    nav = [("bytab", "By tab", len(SUMMARY_TABS)),
+           ("bytech", "By technology", len(trows)),
+           ("deadlines", "Deadlines", len(dlrows)),
+           ("added", "Added", len(added)),
+           ("removed", "Removed", len(removed)),
+           ("changed", "Changed", len(changed)),
+           ("components", "Components", len(cadd) + len(crem) + len(cmod)),
+           ("endpoints", "Endpoints", ge_add + ge_rem + ge_chg),
+           ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
+           ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
+                                      + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
+           ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"]))]
+    subnav = ('<nav class="dsubnav" aria-label="Sections">'
+              + "".join('<a href="#%s" data-goto="%s">%s<span class="n">%d</span></a>' % (i, i, t, n)
+                        for i, t, n in nav) + "</nav>")
+    body = "\n".join(out).replace("@@SUBNAV@@", subnav)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
             '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY))
+            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY))
 
 # ---------- bramka ----------
 
@@ -3067,7 +3459,8 @@ def verify(page):
             if t=="ins": s.inss+=1
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
-    for need in ("bytab","added","removed","changed","components","endpoints","catalog","community","mcenter"):
+    for need in ("bytab","bytech","deadlines","added","removed","changed","components",
+                 "endpoints","catalog","community","mcenter"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -3090,7 +3483,8 @@ def verify(page):
         m_ = re.search(r"-?\d+", x)
         return int(m_.group(0)) if m_ else 0
     tiles_ = dict()
-    for mt in re.finditer(r'<div class="fact[^"]*"><b>(.*?)</b><span>(.*?)</span></div>', page, re.S):
+    for mt in re.finditer(r'<(?:div|a) class="fact[^"]*"(?:[^>]*)><b>(.*?)</b><span>(.*?)</span></(?:div|a)>',
+                          page, re.S):
         tiles_[re.sub(r"<[^>]+>", "", mt.group(2)).split("&middot;")[0].strip()] = mt.group(1)
     if not tiles_:
         e.append("brak kafelkow licznikowych (.factgrid)")
@@ -3115,8 +3509,31 @@ def verify(page):
             e.append("kafelek endpointow %s nie zgadza sie z wierszem +%d / -%d" % (
                 re.sub(r"<[^>]+>", "", gt), ge[0], ge[1]))
     # §5am: kazda sekcja tabelaryczna jest zwijana i ma pole szukania budowane przez skrypt
-    if page.count('<details class="dsec"') < 9:
-        e.append("sekcji zwijanych = %d, ma byc 9" % page.count('<details class="dsec"'))
+    if page.count('<details class="dsec"') < 11:
+        e.append("sekcji zwijanych = %d, ma byc 11" % page.count('<details class="dsec"'))
+    # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
+    # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
+    for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech"):
+        if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
+    if 'class="fact' in page and 'class="fact' in page and page.count('<a class="fact') < 8:
+        e.append("kafelkow klikalnych = %d, ma byc co najmniej 8" % page.count('<a class="fact'))
+    # kazda niezerowa liczba w podsumowaniu prowadzi gdzies — zero celowo NIE prowadzi
+    mbt = re.search(r'<section id="bytab">.*?</section>', page, re.S)
+    if mbt:
+        loose = 0
+        for row in re.findall(r"<tr[^>]*>(.*?)</tr>", mbt.group(0), re.S):
+            for cell in re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)[1:4]:
+                if re.search(r"<b class=\"n(add|rem|chg)\"", cell) and 'class="gnum"' not in cell:
+                    loose += 1
+        if loose: e.append("%d niezerowych liczb w podsumowaniu nie jest linkiem" % loose)
+    # podpis tabeli musi zaczynac sie od CZASOWNIKA sekcji, inaczej „New" pod naglowkiem
+    # „Removed" czyta sie jako „nowe" (zgloszenie z 10 wrzesnia 2026)
+    for sid, verb in (("added", "Added in"), ("removed", "Removed from"), ("changed", "Changed in")):
+        msec = re.search(r'<section id="%s">.*?</section>' % sid, page, re.S)
+        if not msec: continue
+        caps = re.findall(r'<caption class="tabcap">(.*?)</caption>', msec.group(0), re.S)
+        bad = [c for c in caps if verb not in c]
+        if bad: e.append("%d podpisow w sekcji %s bez czasownika '%s'" % (len(bad), sid, verb))
     # §5an pozycja 62: dodany artykul ma byc NAZWANY, nie policzony
     m4 = re.search(r'<section id="community">.*?</section>', page, re.S)
     if m4 and "baseline" not in m4.group(0):
