@@ -38,10 +38,11 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma 55 pozycji dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-55), plus **pozycje 34 dla przebiegu ZMIAN** — razem 56.
-   (Poprzednie wydania mowily „47 … razem 48"; 0-33 to 34 pozycje, a nie 33, wiec liczba byla o jedna za mala.
-   Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a: **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **56 pozycji** dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-56), plus **pozycje 34 dla przebiegu ZMIAN** — razem 57.
+   (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56"; 0-33 to 34 pozycje, a nie 33, a 10 wrzesnia
+   2026 doszla pozycja 56 (§0c). Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
+   **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
 ## Lista
@@ -105,10 +106,35 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
+| 56 | **skrypty 4-9 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 9` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
-nigdy nie jest pomijana w ciszy.** Pozycje 9, 15, 16, 19, 20, 23, 26, 28, 31, 33, 42, 45, 47, 48, 49, 51, 52, 53, 54 i 55 sa wiazace: przebieg, ktory je pominie
-bez powodu, nie publikuje.
+nigdy nie jest pomijana w ciszy.**
+
+### Ktora pozycja zatrzymuje przebieg, i KTORY przebieg — dwie klasy, nie jedna
+
+**10 wrzesnia 2026 poranny routine nie opublikowal NICZEGO.** Bramka §0b odrzucila go na
+pozycjach 53 i 54 — brak zielonych pol szukania w tabelach skryptow 6-8 — wiec zgodnie z regula
+„wiazaca = nie publikuje" lustro sie zatrzymalo. Skutek: `site/index.html` dalej serwowal strone
+z 9 wrzesnia, **pod data 9 wrzesnia**, a wlasciciel napisal „poranny rotine w ogole nic nie
+wygenerowal". I mial racje, ze to jest gorsze niz to, przed czym bramka bronila.
+
+Blad jest w regule, nie w przebiegu, i jest mechaniczny: **lustro tylko KOPIUJE (§0a) — nie umie
+dolozyc pola szukania, ktorego nie ma w artefakcie.** Zatrzymanie go nie naprawia niczego, tylko
+zamienia „dzisiejsza strona bez jednego widgetu" na „wczorajsza strona udajaca dzisiejsza".
+Pierwsze jest brakiem funkcji, drugie jest KLAMSTWEM o dacie. Sciezka, ktora TE pozycje potrafi
+naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zostaje bez zmian.
+
+| klasa | pozycje | co blokuje |
+|---|---|---|
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+
+**Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
+odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
+ze build wypuscil cos niepelnego — cisza tutaj jest tym samym bledem co cisza przy `BRAK`.
+
+Pozycje spoza obu klas sa informacyjne: wypisujesz je jako `OK` albo `BRAK <powod>` i publikujesz.
 
 ## 0a. LUSTRO — artefakt jest zrodlem, SWA jest jego kopia
 
@@ -138,8 +164,12 @@ przyczyna nie jest w regulach.
 3. Zapisz ponizszy skrypt do `/tmp/mirror_artifact.py` i uruchom:
    `python3 /tmp/mirror_artifact.py <sciezka-z-kroku-2> site`
    Skrypt sam odrzuci przebieg, gdy czegos brakuje — **kod wyjscia 1 znaczy NIE PUBLIKUJ**.
-4. Przenies poprzednia wersje do `site/history/RRRR-MM-DD-poranny.html` (zasada 2).
-5. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
+4. Uruchom bramke §0b **w trybie lustra**: `python3 /tmp/gate.py site/index.html site --mirror`.
+   Kod 1 znaczy NIE PUBLIKUJ i dotyczy wylacznie klasy A (rzetelnosc tresci). Pozycje klasy B —
+   funkcja interfejsu — wypisz w odpowiedzi jako `BRAK` i **publikuj mimo nich**: lustro tylko
+   kopiuje, wiec zatrzymanie go zostawia wczorajsza strone pod wczorajsza data (§0, 10 wrzesnia 2026).
+5. Przenies poprzednia wersje do `site/history/RRRR-MM-DD-poranny.html` (zasada 2).
+6. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
 
 ### Strona `/diff/` — ten sam skrypt, tryb `--diff`
 
@@ -481,9 +511,17 @@ Regula bez asercji jest sugestia, a sugestie przebieg pomija bez konsekwencji �
 mechanizm, ktory rozjechal obie strony.
 
 Ponizszy skrypt zamyka luke. **Zapisz go do `/tmp/gate.py` i uruchom na gotowym pliku HTML zanim
-cokolwiek opublikujesz: `python3 /tmp/gate.py <plik>`. Kod wyjscia 1 znaczy NIE PUBLIKUJ.**
-Pozycje 15, 16 i 20 sa wiazace (§0), wiec ich brak zatrzymuje przebieg; pozostale wypisz w odpowiedzi
-jako `BRAK <powod>`.
+cokolwiek opublikujesz:**
+
+```
+python3 /tmp/gate.py <plik.html> <site/> --doc CLAUDE.md              # przebieg BUDUJACY
+python3 /tmp/gate.py <plik.html> <site/> --doc CLAUDE.md --mirror     # przebieg LUSTRA (§0a)
+```
+
+**Kod wyjscia 1 znaczy NIE PUBLIKUJ.** Bez `--mirror` blokuja obie klasy pozycji wiazacych (§0).
+Z `--mirror` klasa B — funkcja interfejsu, ktorej lustro naprawic nie moze, bo tylko kopiuje —
+jest wypisywana osobnym blokiem i **nie zmienia kodu wyjscia**; przebieg publikuje i wymienia te
+pozycje w odpowiedzi. Pozostale pozycje wypisz jako `OK` albo `BRAK <powod>`.
 
 Zmierzone na stronie z 17:15 (lustro artefaktu tego dnia) — bramka odtworzyla wynik przebiegu
 co do liczby: `docStatus` brak na 15 z 1 496 wpisow, `firstTracked` na 0 z 1 496, `discoveries` brak,
@@ -497,7 +535,7 @@ ignorowac czerwone.
 ```python
 #!/usr/bin/env python3
 """Bramka publikacji dla porannego builda — CLAUDE.md Sec.0b.
-   python3 gate.py <gotowy.html>   |  kod wyjscia 1 = NIE PUBLIKUJ
+   python3 gate.py <gotowy.html> [<site/>] [--doc CLAUDE.md] [--mirror]  | kod 1 = NIE PUBLIKUJ
 Sprawdza pozycje listy Sec.0, ktorych STEP 4 dotad nie sprawdzal wcale."""
 import sys, re, json
 from html.parser import HTMLParser
@@ -632,7 +670,15 @@ class Scan(HTMLParser):
             self.sec=self._secstack[-1] if self._secstack else None
         if tag in ("script","style") and self._skip: self._skip-=1
 
-def gate(path, site=None):
+# §0 dwie klasy pozycji wiazacych. Klasa A to rzetelnosc tresci i zatrzymuje KAZDY przebieg.
+# Klasa B to funkcja interfejsu: potrafi ja naprawic tylko przebieg BUDUJACY, wiec na sciezce
+# lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
+# wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
+CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
+           "28a","28b","31a","31b","31c","33","42","45","47"}
+CLASS_B = {"9","26","48","49","51","52","53","54","55","56"}
+
+def gate(path, site=None, mirror=False, doc=None):
     h=open(path,encoding="utf-8").read()
     st=blocks(h); s=Scan(); s.feed(h)
     items=(st["soc-brief-state"] or {}).get("items",[])
@@ -717,11 +763,17 @@ def gate(path, site=None):
     # bylaby asercja mierzaca zla rzecz. Prog 90 slow: krotki akapit jest poprawny,
     # a asercja zapalajaca sie na poprawnej stronie uczy, ze czerwone nic nie znaczy.
     longn=[t for t in s.secnotes if len(t.split())>90]
+    # `need()` liczy WSZYSTKIE argumenty, takze przy wyniku poprawnym, wiec detal musi byc
+    # bezpieczny dla zbioru pustego. Pierwsza wersja wolala `max(...)` po pustym `longn`
+    # i wywracala bramke `ValueError` na stronie, ktora te pozycje przechodzila — asercja,
+    # ktora sama zabija przebieg przy zielonym wyniku, jest gorsza niz jej brak (§0b).
+    _d9 = ("brak akapitow sec-note — nie da sie sprawdzic" if not s.secnotes
+           else "%d z %d akapitow przekracza 90 slow, najdluzszy %d: %s…" % (
+               len(longn), len(s.secnotes),
+               max((len(t.split()) for t in longn), default=0),
+               (longn[0][:80] if longn else "")) if longn else "")
     need("9","zaden akapit `sec-note` nie jest poematem — dluzsza tresc idzie w `<ul><li>` (§5k, §5af)",
-         bool(s.secnotes) and not longn,
-         "brak akapitow sec-note — nie da sie sprawdzic" if not s.secnotes
-         else "%d z %d akapitow przekracza 90 slow, najdluzszy %d: %s…" % (
-             len(longn), len(s.secnotes), max(len(t.split()) for t in longn), longn[0][:80]))
+         bool(s.secnotes) and not longn, _d9)
     # 24-27: powloka. Bramka czyta plik, wiec sprawdza OBECNOSC regul i kodu;
     # wartosci wyliczone i przewijanie sprawdza Playwright (§5h).
     need("24", "zielone pole szukania o wlasciwej specyficznosci",
@@ -1049,19 +1101,64 @@ def gate(path, site=None):
     need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
          "SCRIPT 9" in h and "__socOpenPerm" in h,
          "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
+    # ---- 56: skrypty 4-9 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
+    # Zmierzone 10 wrzesnia 2026: artefakt mial wszystkie dziewiec skryptow i dziesiec paneli,
+    # a skrypty 6, 7 i 8 byly WCZORAJSZE — przebieg skopiowal powloke z wczorajszej strony,
+    # bo tak kazal mu kontrakt wozony w tej stronie. Zadna inna pozycja tego nie lapie:
+    # obecnosc `SCRIPT 6` w pliku byla prawdziwa, tresc byla stara.
+    if doc:
+        try:
+            docsrc = open(doc, encoding="utf-8").read()
+        except Exception as ex:
+            docsrc = None
+            need("56", "skrypty 4-9 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+        if docsrc:
+            want = {}
+            F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
+            pat = r"^([ \t]*)" + F + r"(js)\n(.*?)\n[ \t]*" + F
+            for ind, lang, body in re.findall(pat, docsrc, re.S | re.M):
+                if ind:
+                    body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
+                m = re.search(r"SCRIPT (\d)", body)
+                if m and m.group(1) in "456789":
+                    want["SCRIPT " + m.group(1)] = body
+            stale = [k for k, v in sorted(want.items()) if v not in h]
+            need("56", "skrypty 4-9 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+                 bool(want) and not stale,
+                 "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
+                 else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
+    else:
+        need("56", "skrypty 4-9 sa te z CLAUDE.md (§0c)", False,
+             "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
          "sec-note Sources bez wzorca przeczytane/wniesione/odrzucone")
     print()
     if bad:
-        print("PRZEBIEG NIEUDANY — %d pozycji: %s" % (len(bad), ", ".join(bad)))
-        return 1
+        hard = [x for x in bad if not (mirror and x in CLASS_B)]
+        soft = [x for x in bad if mirror and x in CLASS_B]
+        if soft:
+            print("KLASA B (funkcja interfejsu) — %d pozycji: %s" % (len(soft), ", ".join(soft)))
+            print("   Lustro tylko kopiuje, wiec tych pozycji naprawic nie moze. PUBLIKUJESZ,")
+            print("   ale MUSISZ wypisac je w odpowiedzi jako BRAK i nazwac scheduled task,")
+            print("   ktory zbudowal artefakt — cisza tutaj jest tym samym bledem co cisza przy BRAK.")
+        if hard:
+            print("PRZEBIEG NIEUDANY — %d pozycji: %s" % (len(hard), ", ".join(hard)))
+            return 1
+        return 0
     print("Bramka Sec.0b: wszystkie pozycje OK")
     return 0
 
 if __name__ == "__main__":
-    sys.exit(gate(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None))
+    _o = sys.argv[1:]
+    _a = [x for x in _o if not x.startswith("--")]
+    # `--mirror` = sciezka lustra (§0a): pozycje klasy B sa raportowane, ale nie blokuja.
+    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-9 ze zrodlem (§0c).
+    _doc = _o[_o.index("--doc") + 1] if "--doc" in _o else None
+    if _doc in _a: _a.remove(_doc)
+    sys.exit(gate(_a[0], _a[1] if len(_a) > 1 else None, "--mirror" in _o, _doc))
 ```
 
 **Rozszerzone 6 wrzesnia 2026 o pozycje 41-47 (§5ah mapa Graph API, §5aj rejestr 14 dni).**
@@ -1170,6 +1267,125 @@ pokrycia, 22 denominator) zostaja do sprawdzenia recznego i do wypisania w odpow
 **przypisana wartosc** `socWeight` tez jest ocena redakcyjna — bramka sprawdza, czy pole jest i czy
 miesci sie w 1-7, nie czy przebieg trafnie zaklasyfikowal. Dlatego `sec-note` Top N musi podac liczby:
 zeby wybor dalo sie zakwestionowac bez czytania JSON-a.
+
+## 0c. KOD DODAWANY BIERZE SIE Z TEGO PLIKU — nigdy z wczorajszej strony
+
+**10 wrzesnia 2026 poranny scheduled task zbudowal artefakt, w ktorym skrypty 6, 7 i 8 byly
+WCZORAJSZE.** Zmierzone na opublikowanym artefakcie `Microsoft SOC Brief 10 Sep 2026`:
+dziesiec paneli, dziewiec skryptow zachowania, `graphMap` kompletna, `ledger14` z 425 wpisami —
+a `__socSearchBox` 0 wystapien, `s9find` 0, `s9count` 0, `s9notms` 0, `[data-s6hidden]` 0.
+Wszystkie dziewiec poprawek, o ktore wlasciciel prosil 9 wrzesnia i ktore tego samego wieczora
+weszly do §5am, **nie dojechalo do czytelnika ani jednego dnia**.
+
+Przyczyna nie jest w danych i nie jest w bramce. Kontrakt `SHELL CONTRACT` wozony w stronie mowi
+przebiegowi: *„Copy its `<style>` block and ALL FIVE trailing behaviour `<script>` blocks into
+today's file verbatim, byte for byte"* — i przebieg zrobil dokladnie to, co mu kazano. **Skopiowal
+wczorajsza powloke.** Kontrakt w stronie starzeje sie razem ze strona: mowi o pieciu skryptach,
+gdy jest ich dziewiec, i o dziewieciu panelach, gdy jest ich dziesiec. Kopiowanie z wczorajszej
+strony daje wiec strone wczorajsza z dzisiejsza data — czyli ten sam blad co lustro, ktore odbija
+samo siebie (§0a), tylko o jeden dzien przesuniety.
+
+### Regula
+
+**Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
+(kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu:**
+
+| co | zrodlo | sekcja |
+|---|---|---|
+| SKRYPT 4 — agregaty | `CLAUDE.md` | 5y |
+| SKRYPT 5 — kafelki filtruja liste | `CLAUDE.md` | 5ad |
+| SKRYPT 6 — panel uprawnienia | `CLAUDE.md` | 5ak |
+| SKRYPT 7 — panel roli | `CLAUDE.md` | 5al |
+| SKRYPT 8 — gora zakladki i rejestr 14 dni | `CLAUDE.md` | 5al |
+| SKRYPT 9 — katalogi otwieraja sie na `All` | `CLAUDE.md` | 5ah |
+| **kazdy dopisany blok CSS** (12 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am |
+| `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
+
+**Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
+pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
+
+```python
+#!/usr/bin/env python3
+"""extract_code.py — kod dodawany prosto z CLAUDE.md. CLAUDE.md Sec.0c.
+   python3 extract_code.py <CLAUDE.md> <katalog wyjsciowy>
+Pisze script4..9.js, appended.css oraz gate.py / make_diff.py / mirror_artifact.py."""
+import re, sys, io, os
+
+def blocks(src):
+    """PULAPKA: czesc plotkow jest WCIETA, bo stoi w punkcie listy numerowanej — tak sa
+    zapisane bloki §5e i §5k. Wzorzec kotwiczony na poczatku linii bez tolerancji na wciecie
+    gubi je po cichu i daje 10 blokow CSS zamiast 12: strona wychodzi wtedy bez znacznikow
+    `b-undoc`/`b-elsewhere` i bez zielonego pola szukania, a nikt nie dostaje bledu."""
+    out = []
+    # Plotek zapisujemy ZLOZONY z pojedynczych znakow: literal trzech grawisow w kodzie
+    # zamknalby plotek, w ktorym ten kod stoi, i wyciety blok bylby ucietym ogryzkiem.
+    F = chr(96) * 3
+    pat = r"^([ \t]*)" + F + r"(js|css|python)\n(.*?)\n[ \t]*" + F
+    for ind, lang, body in re.findall(pat, src, re.S | re.M):
+        if ind:
+            body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
+        out.append((lang, body))
+    return out
+
+def main(doc, outdir):
+    src = io.open(doc, encoding="utf-8").read()
+    os.makedirs(outdir, exist_ok=True)
+    css, got = [], {}
+    for lang, b in blocks(src):
+        if lang == "css":
+            css.append(b)
+        elif lang == "js":
+            m = re.search(r"SCRIPT (\d)", b)
+            if m:
+                got["script%s.js" % m.group(1)] = b
+        elif lang == "python":
+            # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
+            # wlasnym kodzie napis "Bramka publikacji", wiec dopasowanie po calym ciele kazalo mu
+            # uznac SIEBIE za gate.py. Pierwsze 200 znakow to shebang i pierwsza linia dokstringu.
+            head = b[:200]
+            if "Bramka publikacji" in head:                   got["gate.py"] = b
+            elif '"""make_diff.py' in head:                   got["make_diff.py"] = b
+            elif "artifact -> site/index.html" in head:       got["mirror_artifact.py"] = b
+            elif "extract_code.py" in head:                   got["extract_code.py"] = b
+    got["appended.css"] = "\n".join(css)
+    for name, body in got.items():
+        io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
+    # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
+    need = ["script%d.js" % n for n in range(4, 10)] + \
+           ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
+    missing = [n for n in need if n not in got]
+    if missing:
+        raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
+    if len(css) < 12:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 12 — sprawdz wciete plotki" % len(css))
+    for n, b in sorted(got.items()):
+        print("OK  %-20s %7d B" % (n, len(b.encode())))
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
+```
+
+### Asercja, bo inaczej to znowu bedzie sugestia (§0b)
+
+**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-9 na gotowej stronie z blokiem w tym pliku,
+znak w znak.** Uruchamiasz ja z trzecim argumentem: `python3 gate.py <html> <site/> --doc CLAUDE.md`.
+Bez `--doc` pozycja daje `BRAK „nie podano CLAUDE.md"` — **nigdy nie jest pomijana w ciszy**, tak
+samo jak pozycje 45 i 47 bez katalogu `site/`. Pozycja 56 jest **klasy B** (§0): przebieg budujacy
+sie na niej zatrzymuje i poprawia, lustro ja raportuje i publikuje, bo lustro tylko kopiuje.
+
+Zmierzone 10 wrzesnia 2026 na artefakcie z tego dnia: pozycja 56 wskazuje `SCRIPT 6`, `SCRIPT 7`
+i `SCRIPT 8` jako rozne od tego pliku — czyli dokladnie te trzy, ktore przebieg przeniosl z wczoraj.
+Po podmianie tych trzech blokow i dopisaniu 12 blokow CSS ta sama strona daje **wszystkie pozycje OK**,
+a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero bledow strony,
+`scrollWidth === clientWidth` wszedzie, zero elementow szerszych od rodzica.
+
+### Kontrakt w stronie jest OPISEM, nie zrodlem
+
+`SHELL CONTRACT` (§6) zostaje i nadal kopiuje sie go dalej — opisuje powloke, ktora wozi. Ale
+**zdanie „skopiuj piec skryptow z wczorajszej strony" dotyczy WYLACZNIE trzech skryptow powloki**;
+skrypty 4-9 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
+co innego — **wygrywa ten plik** (§6), a przebieg poprawia kontrakt w dzisiejszej stronie, zeby
+jutro nie klamal: liczba paneli, liczba skryptow i lista sekcji maja zgadzac sie z dniem dzisiejszym.
 
 ## Struktura
 
@@ -2495,7 +2711,19 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
             x = x.replace(a, b)
         return x
 
-    def put(tab, kind_, iid, field, before, after, it=None):
+    # §5f klade kazda zinwentaryzowana powierzchnie API do tablicy `graph`, wiec wpis
+    # `vso.*` (Azure DevOps) i `spo-*` (SharePoint) jest w niej rownoprawnie. Rejestr
+    # zapisywal jednak samo `name`, przez co zakladka Graph API pokazywala je w tabeli
+    # 14 dni jako zmiany Grapha — zmierzone 10 wrzesnia 2026 i zgloszone przez wlasciciela.
+    # Powierzchnia byla w katalogu; do rejestru po prostu nie trafiala.
+    SURF = {}
+    for which_ in ("graph", "roles"):
+        for src_ in ((prev_cat or {}).get(which_) or [], (curr_cat or {}).get(which_) or []):
+            for e_ in src_:
+                if isinstance(e_, dict) and e_.get("name") and e_.get("surface"):
+                    SURF[(which_, e_["name"])] = norm(e_.get("surface"))
+
+    def put(tab, kind_, iid, field, before, after, it=None, surface=None):
         iid, field, before, after = clean(iid), clean(field), clean(before), clean(after)
         k = (today, tab, kind_, iid, field)
         if k in seen: return
@@ -2506,6 +2734,7 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
                     "product": norm(it.get("product")) or None,
                     "weight": it.get("socWeight"), "tier0": bool(it.get("tier0Touch")),
                     "msDate": norm(it.get("published")) or norm(it.get("changed")) or None,
+                    "surface": norm(surface) or None,
                     "url": norm(it.get("url")) or None})
     added, removed, changed, _, _ = diff_items(prev_st, curr_st)
     for i in added:   put(tab_of(i), "added", i.get("id"), None, None, None, i)
@@ -2515,9 +2744,10 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
     pc, cc = prev_cat or {}, curr_cat or {}
     for which, tab in (("graph", "Graph API"), ("roles", "Roles")):
         a, r, m, _, _ = diff_catalog(pc, cc, which)
-        for n in a: put(tab, "added", n, None, None, None)
-        for n in r: put(tab, "removed", n, None, None, None)
-        for n, f, o, v in m: put(tab, "changed", n, f, o, v)
+        sf = lambda n_: SURF.get((which, n_))
+        for n in a: put(tab, "added", n, None, None, None, None, sf(n))
+        for n in r: put(tab, "removed", n, None, None, None, None, sf(n))
+        for n, f, o, v in m: put(tab, "changed", n, f, o, v, None, sf(n))
     # Ruch endpointow dopisujemy PER UPRAWNIENIE. Jeden wpis na endpoint dawal
     # 9 736 wierszy pierwszego dnia z mapa (zmierzone 7 wrzesnia 2026) i rejestr
     # przestawal byc czytelny; liczba plus trzy przyklady odpowiadaja na to samo
@@ -2529,14 +2759,15 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
             a["n"] += 1
             if len(a["ex"]) < 3: a["ex"].append(after or before)
         else:
-            put("Graph API", "changed", nm, what, before, after)
+            # graphMap to WYLACZNIE Microsoft Graph, wiec powierzchnia jest znana z konstrukcji
+            put("Graph API", "changed", nm, what, before, after, None, "Microsoft Graph")
     for (nm, what), a in sorted(agg.items()):
         sign = "+" if what == "endpoint added" else "\u2212"
         e = {"seen": today, "tab": "Graph API", "kind": "changed", "id": nm,
              "field": "endpoints", "before": None, "after": "%s%d" % (sign, a["n"]),
              "detail": "%s: %s%s" % (what, ", ".join(a["ex"]),
                                      ", \u2026" if a["n"] > len(a["ex"]) else ""),
-             "product": None, "weight": None, "tier0": False, "msDate": None, "url": None}
+             "product": None, "weight": None, "tier0": False, "surface": "Microsoft Graph", "msDate": None, "url": None}
         k = (today, e["tab"], e["kind"], e["id"], e["field"])
         if k not in seen:
             seen.add(k); new.append(e)
@@ -6902,6 +7133,16 @@ details.chg14 .legend i.k-chg{background:var(--accent)}
 details.chg14 .legend i.k-quiet{background:var(--grey-soft);box-shadow:inset 0 0 0 1px var(--border)}
 details.chg14 .legend i.k-norun{background:transparent;box-shadow:inset 0 0 0 1px var(--border)}
 details.chg14 .legend i.k-trend{background:var(--warn);height:3px;border-radius:2px;margin-bottom:3px}
+/* ---- surface chips on the Graph API 14-day table (10 Sep 2026) ----
+   `.mf` is declared only under `.v13pane`, and these chips live inside `details.chg14`,
+   so they need their own rule or they render as bare buttons. Same shape as the method
+   chips in the permission panel, deliberately: one control, one look. */
+.s8surf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.s8surf button{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s8surf button:hover{background:var(--surface-2)}
+.s8surf button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s8surf button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* ---- a history row opens the real panel ---- */
 td.xc{width:34px;padding-left:8px;padding-right:0}
 .xb{font:inherit;font-family:var(--mono);font-size:14px;font-weight:700;width:24px;height:24px;line-height:1;
@@ -7667,6 +7908,31 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     return String(entry.id || "").split("→")[0].replace(/&mdash;|—/g, "").trim();
   }
 
+  /* ---- which API SURFACE a catalog name lives on (5f, 5am) ----
+     The `graph` array is not "Microsoft Graph": 5f puts every inventoried API surface in
+     it, each entry naming its own `surface`. `diff_catalog` walks the whole array, so the
+     ledger files every one of them under the tab "Graph API" — measured 10 September 2026,
+     the Graph API tab's 14-day table opened with `vso.identity`, `vso.work` and their
+     Azure DevOps siblings, and the owner said, correctly, that this tab is meant to be
+     about Graph. The surface is in the catalog; it simply never reached the reader.
+     Read it from the catalog first and from the ledger entry second, so an OLD ledger —
+     which 5aj forbids rewriting — is classified just as well as a new one. A name we
+     hold no surface for is left as Microsoft Graph rather than guessed at from its
+     spelling: this brief does not infer Microsoft's data from a prefix. */
+  var SURFACE = {};
+  (CAT.graph || []).forEach(function (e2) {
+    if (e2 && e2.name && e2.surface) SURFACE[e2.name] = String(e2.surface).trim();
+  });
+  var GRAPHSURF = "Microsoft Graph";
+  function surfaceOf(e2) {
+    var v = String(e2.surface || SURFACE[nameOf(e2)] || "").trim();
+    /* "Microsoft Graph deployment map" (5d) IS Graph — it is the same permission namespace
+       read from Microsoft's deployment map rather than from our tenant, so it belongs with
+       Graph and not on a chip of its own. */
+    if (!v || /microsoft graph/i.test(v) || /^graph$/i.test(v)) return GRAPHSURF;
+    return v;
+  }
+
   /* ---------------- the chart, with BOTH axes named on the drawing ---------------- */
   function chart(rows, label) {
     var per = {}, i;
@@ -7766,7 +8032,7 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     return td;
   }
 
-  function table(rows, kind, ledgerTabs) {
+  function table(rows, kind, ledgerTabs, surf) {
     /* No `Tab` column: inside the Graph API tab every row said "Graph API".
        A second ledger tab under the same panel — Graph endpoints — is marked on
        the row instead, because there the distinction carries something. */
@@ -7805,6 +8071,7 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
         kc.appendChild(el("span", "badge t-grey", e2.tab));
       }
       tr.appendChild(kc);
+      if (surf) tr.dataset.surf = surfaceOf(e2);
       tr.appendChild(el("td", "rname", key || "—"));
       var fc = el("td"); if (e2.field) fc.appendChild(el("code", null, e2.field)); tr.appendChild(fc);
       tr.appendChild(valueCell(e2));
@@ -7815,8 +8082,54 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     });
     tb.appendChild(body); tw.appendChild(tb);
     var frag = document.createDocumentFragment();
-    var sb = sbox(tb, { noun: "changes", placeholder: "Search " + rows.length + " changes\u2026" });
+
+    /* The surface chips and the search box are ONE filter: the chips set a predicate and
+       `apply()` stays the only writer of row.hidden (5am). The chips appear only when this
+       tab really holds more than one surface — a chip row offering one choice is noise,
+       and a page that shows a control which changes nothing teaches the reader to ignore
+       controls. */
+    var curS = null, held = 0;
+    if (surf && surf.order.length > 1) {
+      curS = GRAPHSURF;
+      surf.order.forEach(function (k) { if (k !== GRAPHSURF) held += surf.count[k]; });
+      var note = el("p", "note");
+      note.appendChild(el("b", null, "This tab is Microsoft Graph. "));
+      note.appendChild(document.createTextNode(
+        surf.count[GRAPHSURF] + " of these " + rows.length + " changes are Graph permissions and are shown; " +
+        held + " belong to the other API surfaces this catalog also inventories (" +
+        surf.order.filter(function (k) { return k !== GRAPHSURF; })
+          .map(function (k) { return k + " " + surf.count[k]; }).join(", ") +
+        "). They are held back, not dropped — press their chip to see them."));
+      frag.appendChild(note);
+      var sf = el("div", "mf s8surf");
+      function schip(lab, key2) {
+        var b = el("button", null, lab); b.type = "button"; b.dataset.s = key2;
+        b.setAttribute("aria-pressed", String(key2 === curS)); sf.appendChild(b);
+      }
+      schip(GRAPHSURF + " " + surf.count[GRAPHSURF], GRAPHSURF);
+      surf.order.forEach(function (k) { if (k !== GRAPHSURF) schip(k + " " + surf.count[k], k); });
+      schip("All " + rows.length, "");
+      frag.appendChild(sf);
+    }
+
+    var sb = sbox(tb, {
+      noun: "changes", placeholder: "Search " + rows.length + " changes\u2026",
+      extra: function (tr) { return !curS || tr.dataset.surf === curS; },
+      onreset: function () {
+        if (!surf || surf.order.length < 2) return;
+        curS = GRAPHSURF;
+        [].forEach.call(sf.querySelectorAll("button"), function (x) {
+          x.setAttribute("aria-pressed", String(x.dataset.s === GRAPHSURF));
+        });
+      }
+    });
     if (sb) frag.appendChild(sb);
+    if (curS && sf) sf.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest("button") : null; if (!b) return;
+      [].forEach.call(sf.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      curS = b.dataset.s || null;
+      if (sb) sb.__apply();
+    });
     frag.appendChild(tw);
     return frag;
   }
@@ -8042,7 +8355,12 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       if (top) box.appendChild(top);
 
       if (L) {
-        var det = el("details", "chg14"); det.open = true;
+        /* Collapsed by default. 5aj says so in as many words — "Zwiniete domyslnie, ale
+           licznik jest w podpisie" — and the count IS in the summary, so the number is
+           visible without a click while the tab's own content stays at the top. Measured
+           10 September 2026: open by default pushed the Graph API catalog 1 340 px down
+           the panel, which is what the owner saw and reported the same morning. */
+        var det = el("details", "chg14");
         var sum = el("summary");
         sum.appendChild(el("span", "sm-t", "What changed in the last " + WINDOW_DAYS + " days"));
         sum.appendChild(el("span", "badge t-acc", rows.length + (rows.length === 1 ? " change" : " changes")));
@@ -8057,7 +8375,19 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
           det.appendChild(lead);
           det.appendChild(chart(rows, T.id === "tab-roles" ? "role changes" :
                                       T.id === "tab-graph" ? "catalog changes" : "changes"));
-          det.appendChild(table(rows, T.kind, T.ledger));
+          var surf = null;
+          if (T.id === "tab-graph") {
+            var cnt = {}, order = [];
+            rows.forEach(function (e2) {
+              var k = surfaceOf(e2);
+              if (cnt[k] === undefined) { cnt[k] = 0; order.push(k); }
+              cnt[k]++;
+            });
+            order.sort(function (a, b) { return a === GRAPHSURF ? -1 : b === GRAPHSURF ? 1 : cnt[b] - cnt[a]; });
+            if (cnt[GRAPHSURF] === undefined) { cnt[GRAPHSURF] = 0; order.unshift(GRAPHSURF); }
+            surf = { count: cnt, order: order };
+          }
+          det.appendChild(table(rows, T.kind, T.ledger, surf));
           det.appendChild(el("p", "note", "Read from site/data/changelog.json, which is appended to and never " +
             "rewritten; it keeps " + ((L && L.retentionDays) || 90) + " days and this page renders " + WINDOW_DAYS + "."));
         } else {
@@ -8169,6 +8499,55 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
   else setTimeout(boot, 160);
 })();
 ```
+
+### Zwiniete domyslnie, i tylko Graph w zakladce Graph API — 10 wrzesnia 2026
+
+Wlasciciel zglosil rano dwie rzeczy o tym bloku i obie sa mechaniczne.
+
+**1. „sekcje co what change in last 14 day sa automatyczine rozwiniete".** §5aj mowi od 6 wrzesnia
+wprost: *„Zwiniete domyslnie, ale licznik jest w podpisie"* — a SKRYPT 8 ustawial `det.open = true`.
+Regula i kod mowily co innego przez cztery dni. Blok jest odtad **zwiniety**, licznik zostaje
+w podpisie, wiec liczbe widac bez klikania, a tresc zakladki nie jest spychana w dol. Zmierzone na
+stronie z 10 wrzesnia: otwarty blok spychal katalog Graph API o 1 340 px.
+
+**2. „w graph api zakladce co sie zmienilo w ostatnich 14 dniach podajesz jakies vso.zyx, a miales
+sie skupic na graph api".** Ma racje i przyczyna jest w §5f: tablica `graph` w katalogu **nie jest
+Microsoft Graphem** — trzyma KAZDA zinwentaryzowana powierzchnie API, kazda z wlasnym polem
+`surface`. `diff_catalog` idzie po calej tablicy, wiec rejestr filowal wszystkie pod zakladka
+`Graph API`. Zmierzone tego dnia na artefakcie: **205 wierszy, z tego 85 `vso.*` (Azure DevOps),
+3 Azure Data Explorer, 1 SharePoint i 116 Grapha.** Powierzchnia byla w katalogu — do czytelnika
+po prostu nie docierala.
+
+Naprawa jest po obu stronach i obie sa potrzebne:
+
+- **`make_diff.py` zapisuje `surface` na kazdym wpisie rejestru pochodzacym z katalogu** (i
+  `"Microsoft Graph"` na wpisach z `graphMap`, ktory z definicji jest Graphem). Zmierzone po
+  zmianie: 30 z 30 wierszy zakladki Graph API niesie powierzchnie.
+- **SKRYPT 8 czyta powierzchnie NAJPIERW z katalogu na stronie**, a dopiero potem z pola we wpisie.
+  Rejestr starszy niz ta zmiana nie ma tego pola, a §5aj zabrania przepisywania historii — wiec
+  klasyfikacja musi dzialac takze dla wpisow sprzed zmiany. `Microsoft Graph deployment map` (§5d)
+  liczy sie jako Graph: to ta sama przestrzen nazw, czytana z mapy wdrozen zamiast z tenanta.
+
+**Zakladka otwiera sie na Microsoft Graph, reszta stoi za chipem.** Nad tabela stoi zdanie
+nazywajace liczby — *„This tab is Microsoft Graph. 116 of these 205 changes are Graph permissions
+and are shown; 89 belong to the other API surfaces this catalog also inventories (Azure DevOps 85,
+Azure Data Explorer 3, SharePoint 1). They are held back, not dropped"* — i rzad chipow
+`Microsoft Graph 116` / `Azure DevOps 85` / … / `All 205`. **Nic nie jest wyciete**, bo wyciecie
+bez powiedzenia o tym jest tym samym bledem co cicha podloga pokrycia z §5u.
+
+Chipy i pole szukania to JEDEN filtr (§5am): chip ustawia predykat, `apply()` zostaje jedynym
+pisarzem `row.hidden`, a `Reset` wraca do **Microsoft Graph**, nie do `All` — bo Graph jest
+domyslna, nie widokiem zawezonym. Chipy pokazuja sie wylacznie wtedy, gdy zakladka naprawde trzyma
+wiecej niz jedna powierzchnie: rzad chipow z jednym wyborem jest halasem, a kontrolka, ktora nic
+nie zmienia, uczy czytelnika ignorowac kontrolki.
+
+Zmierzone po zmianie, wstrzykniete w KOPIE opublikowanego artefaktu z 10 wrzesnia (§5al, regula
+procesu): piec blokow `details.chg14`, **wszystkie zwiniete**, siedem pol `.s9find`, zero widocznych
+osieroconych `.tbar` w `#graph`; chip `Azure DevOps` daje `85 of 205` i pierwsze wiersze
+`vso.advsec`, `vso.advsec_manage`, `vso.advsec_write`; `All` daje `205 of 205`; wpisanie `User`
+przy chipie Grapha daje `2 of 205`; `Reset` wraca do `116 of 205`. Sweep 80 renderow
+(10 zakladek x 2 motywy x 1500/1280/760/390): **zero bledow strony, zero rozpychania dokumentu,
+zero elementow szerszych od rodzica.** Bramka §0b na tej stronie: **wszystkie pozycje OK.**
 
 ### Walidator — pozycje 49-52 listy §0
 
