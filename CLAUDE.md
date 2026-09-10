@@ -38,8 +38,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **56 pozycji** dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-56), plus **pozycje 34 dla przebiegu ZMIAN** — razem 57.
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **57 pozycji** dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-57), plus **pozycje 34 dla przebiegu ZMIAN** — razem 58.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56"; 0-33 to 34 pozycje, a nie 33, a 10 wrzesnia
    2026 doszla pozycja 56 (§0c). Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
@@ -107,6 +107,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 | 56 | **skrypty 4-9 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 9` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
+| 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -169,7 +170,9 @@ przyczyna nie jest w regulach.
    funkcja interfejsu — wypisz w odpowiedzi jako `BRAK` i **publikuj mimo nich**: lustro tylko
    kopiuje, wiec zatrzymanie go zostawia wczorajsza strone pod wczorajsza data (§0, 10 wrzesnia 2026).
 5. Przenies poprzednia wersje do `site/history/RRRR-MM-DD-poranny.html` (zasada 2).
-6. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
+6. Migawka powloki powstala sama w kroku 3 (`site/shell/`, §0d) — **gdy plik sie zmienil,
+   dodaj go `git add --sparse site/shell/`** (§5ai), bo lezy poza materializowanym zestawem.
+7. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
 
 ### Strona `/diff/` — ten sam skrypt, tryb `--diff`
 
@@ -236,7 +239,7 @@ Wejscie : plik z pelnym HTML artefaktu (Artifact action:"read" zapisuje go na dy
 Wyjscie : samodzielna strona dla Azure Static Web Apps + site/data/<date>.json
 Transformacja jest deterministyczna: nic nie przepisuje tresci, tylko opakowuje.
 """
-import re, sys, json, os, datetime
+import re, sys, json, os, datetime, hashlib
 
 def extract_body(raw: str) -> str:
     """Artefakt to FRAGMENT: runtime ramki siedzi w <head>, tresc zaczyna sie od <title>."""
@@ -358,22 +361,90 @@ DIFF_SHELL = """<div class="wrap">
 </div>
 <footer><p>%s</p></footer>"""
 
-def drop_contract(content: str) -> str:
-    """Komentarz SHELL CONTRACT cytuje `<header>`, `<style>` i `<script>` i bywa
-    przerwany wczesnym `-->`, przez co jego resztki udaja markup. Do skladania
-    strony /diff/ wycinamy go w calosci; strona glowna zachowuje go bez zmian.
+def contract_span(content: str):
+    """Granica komentarza SHELL CONTRACT jako (poczatek, koniec), albo None.
 
-    3 wrzesnia 2026: granica `content.find("<style", i)` byla ZLA, bo komentarz sam
-    cytuje `<style>` — na stronie z tego dnia trafiala w znak 839 przy komentarzu
-    zaczynajacym sie na 476, `rfind` nie znajdowal nic i funkcja zwracala tresc BEZ
-    ZMIAN. Granica jest PRAWDZIWY arkusz: `<style>`, po ktorym od razu idzie CSS."""
+    Komentarz cytuje `<header>`, `<style>` i `<script>` i bywa przerwany wczesnym
+    `-->`, przez co jego resztki udaja markup. 3 wrzesnia 2026: granica
+    `content.find("<style", i)` byla ZLA, bo komentarz sam cytuje `<style>` — na
+    stronie z tego dnia trafiala w znak 839 przy komentarzu zaczynajacym sie na 476,
+    `rfind` nie znajdowal nic i funkcja zwracala tresc BEZ ZMIAN. Granica jest
+    PRAWDZIWY arkusz: `<style>`, po ktorym od razu idzie CSS.
+
+    Wydzielone z `drop_contract`, bo §0d potrzebuje komentarza W CALOSCI (do migawki
+    powloki), a `/diff/` potrzebuje go WYCIETEGO. Jedna definicja granicy, dwa uzycia
+    — dwie kopie tej samej logiki rozjechalyby sie (§0a)."""
     i = content.find("<!-- SHELL CONTRACT")
     if i < 0:
-        return content
+        return None
     m = re.search(r"<style[^>]*>\s*(?=:root|/\*|@)", content[i:])
     k = i + m.start() if m else -1
     j = content.rfind("-->", i, k if k > 0 else len(content))
-    return content[:i] + content[j + 3:] if j > i else content
+    return (i, j + 3) if j > i else None
+
+def drop_contract(content: str) -> str:
+    """Do skladania strony /diff/ wycinamy kontrakt w calosci; strona glowna
+    zachowuje go bez zmian."""
+    sp = contract_span(content)
+    return content[:sp[0]] + content[sp[1]:] if sp else content
+
+# ---------- §0d: migawka powloki ----------
+
+def snapshot_shell(content: str):
+    """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
+
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 9`, a nie po
+    pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
+    wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
+    migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
+    body = drop_contract(content)
+    styles = re.findall(r"<style[^>]*>.*?</style>", body, re.S)
+    raw = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", body, re.S)
+    scripts = [b for b in raw if "<script" not in b[len("<script"):]]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+[4-9]\b", b[:4000])]
+    if len(shell) != 3:
+        raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
+                         % (len(shell), len(scripts)))
+    i = body.rfind('<header class="top">')
+    j = body.find("</header>", i) if i >= 0 else -1
+    head = body[i:j + len("</header>")] if (i >= 0 and j > i) else ""
+    if not head:
+        raise SystemExit('FAIL: brak masthead <header class="top">')
+    sp = contract_span(content)
+    contract = content[sp[0]:sp[1]] if sp else ""
+    out = []
+    for name, blk in ([("style", "\n".join(styles))]
+                      + [("script%d" % (n + 1), b) for n, b in enumerate(shell)]
+                      + [("masthead", head), ("contract", contract)]):
+        out.append("<!--SOC-SHELL part=%s-->\n%s" % (name, blk))
+    return "\n".join(out), len(styles), len(scripts), bool(contract)
+
+def write_shell(content: str, outdir: str, src_label: str, brief_date: str) -> bool:
+    """Zapisuje `site/shell/` TYLKO gdy sha256 sie zmienil. Plik nietkniety to plik,
+    ktorego git w ogole nie widzi — zmierzone: 14 dni bez zmian daje 1 commit
+    i +1 B w `.git`, a dzien ze zmieniona powloka +926 B."""
+    blob, nsty, nscr, hascon = snapshot_shell(content)
+    d = os.path.join(outdir, "shell")
+    os.makedirs(d, exist_ok=True)
+    h = hashlib.sha256(blob.encode()).hexdigest()
+    meta_p, blob_p = os.path.join(d, "shell.json"), os.path.join(d, "shell.html")
+    old = None
+    if os.path.exists(meta_p):
+        try: old = json.load(open(meta_p, encoding="utf-8")).get("sha256")
+        except Exception: old = None
+    if old == h:
+        print("OK  powloka bez zmian (%s) — nic nie zapisano" % h[:12])
+        return False
+    open(blob_p, "w", encoding="utf-8").write(blob)
+    json.dump({"sha256": h, "bytes": len(blob.encode()), "capturedOn": brief_date,
+               "capturedAt": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M"),
+               "source": src_label, "styles": nsty, "behaviourScripts": nscr,
+               "shellScripts": 3, "contract": hascon},
+              open(meta_p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("OK  %s  %d B  sha %s  (%s)"
+          % (blob_p, len(blob.encode()), h[:12],
+             "pierwsza migawka" if old is None else "powloka sie zmienila"))
+    return True
 
 def parts(content: str):
     """Powloka: style + trzy skrypty zachowania + oba bloki JSON + masthead."""
@@ -476,6 +547,9 @@ if __name__ == "__main__":
 
     open(target, "w", encoding="utf-8").write(page)
     if mode == "--brief":
+        # §0d: migawka powloki przy KAZDYM luscie. Zapis tylko przy zmianie sha256,
+        # wiec dzien bez zmian nie kosztuje w repozytorium nic.
+        write_shell(content, outdir, os.path.basename(src), date)
         os.makedirs(os.path.join(outdir, "data"), exist_ok=True)
         json.dump(state, open(os.path.join(outdir, "data", date + ".json"), "w", encoding="utf-8"),
                   ensure_ascii=False)
@@ -677,6 +751,11 @@ class Scan(HTMLParser):
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47"}
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56"}
+# Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
+# pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
+# jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
+# jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
+CLASS_INFO = {"57"}
 
 def gate(path, site=None, mirror=False, doc=None):
     h=open(path,encoding="utf-8").read()
@@ -1130,6 +1209,35 @@ def gate(path, site=None, mirror=False, doc=None):
     else:
         need("56", "skrypty 4-9 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
+    # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
+    # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
+    # w ktorym ta pozycja powstaje, migawki jeszcze NIE MA, a asercja zapalajaca sie
+    # na poprawnej stronie uczy przebieg, ze czerwone nic nie znaczy (§0b).
+    if site:
+        import hashlib as _hh
+        sh_b = _os.path.join(site, "shell", "shell.html")
+        sh_m = _os.path.join(site, "shell", "shell.json")
+        if not (_os.path.exists(sh_b) and _os.path.exists(sh_m)):
+            need("57", "migawka powloki zapisana i swieza (§0d)", False,
+                 "brak %s — pierwszy przebieg po wprowadzeniu §0d jeszcze jej nie ma"
+                 % (sh_b if not _os.path.exists(sh_b) else sh_m))
+        else:
+            try:
+                meta = json.load(open(sh_m, encoding="utf-8"))
+                blob = open(sh_b, encoding="utf-8").read()
+                good = _hh.sha256(blob.encode()).hexdigest() == meta.get("sha256")
+                cap = meta.get("capturedOn") or ""
+                bd2 = (st["soc-brief-state"] or {}).get("briefDate") or _d2.date.today().isoformat()
+                age = (_d2.date.fromisoformat(bd2) - _d2.date.fromisoformat(cap)).days if cap else 999
+                need("57", "migawka powloki zapisana i swieza (§0d)",
+                     good and 0 <= age <= 14,
+                     "sha256 nie zgadza sie z trescia shell.html" if not good
+                     else "migawka z %s, czyli %d dni temu (limit 14)" % (cap, age))
+            except Exception as ex:
+                need("57", "migawka powloki zapisana i swieza (§0d)", False,
+                     "nie da sie przeczytac migawki: %s" % ex)
+    else:
+        need("57", "migawka powloki (§0d)", False, "nie podano katalogu site/")
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1137,8 +1245,12 @@ def gate(path, site=None, mirror=False, doc=None):
          "sec-note Sources bez wzorca przeczytane/wniesione/odrzucone")
     print()
     if bad:
-        hard = [x for x in bad if not (mirror and x in CLASS_B)]
-        soft = [x for x in bad if mirror and x in CLASS_B]
+        info = [x for x in bad if x in CLASS_INFO]
+        hard = [x for x in bad if x not in CLASS_INFO and not (mirror and x in CLASS_B)]
+        soft = [x for x in bad if x not in CLASS_INFO and mirror and x in CLASS_B]
+        if info:
+            print("INFORMACYJNE — %d pozycji: %s  (nie blokuja, wypisz je w odpowiedzi)"
+                  % (len(info), ", ".join(info)))
         if soft:
             print("KLASA B (funkcja interfejsu) — %d pozycji: %s" % (len(soft), ", ".join(soft)))
             print("   Lustro tylko kopiuje, wiec tych pozycji naprawic nie moze. PUBLIKUJESZ,")
@@ -1386,6 +1498,104 @@ a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero ble
 skrypty 4-9 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
 co innego — **wygrywa ten plik** (§6), a przebieg poprawia kontrakt w dzisiejszej stronie, zeby
 jutro nie klamal: liczba paneli, liczba skryptow i lista sekcji maja zgadzac sie z dniem dzisiejszym.
+
+## 0d. MIGAWKA POWLOKI — zeby routine mial z czego skladac, gdy artefaktu nie ma
+
+**To jest faza 1 planu samodzielnosci routine, i tylko ona.** Nic tu jeszcze nie sklada strony;
+ta sekcja wylacznie ZAPISUJE to, z czego kiedys da sie ja zlozyc. Pozycja 57 listy §0 jest
+**informacyjna** i nie zatrzymuje zadnego przebiegu.
+
+### Dlaczego nie „ostatni dobry artefakt" w calosci
+
+Wlasciciel zaproponowal 10 wrzesnia 2026, zeby routine trzymal ostatni dobry artefakt i budowal
+z niego. Kierunek jest sluszny, ale **artefakt w calosci jest zla jednostka zapisu i to wlasnie
+zawiodlo tego samego ranka**: artefakt wozi w sobie kod dodany, a ten starzeje sie z dnia na dzien.
+Przebieg 06:00 skopiowal wczorajsza strone razem z jej skryptami 6, 7 i 8, i wlasnie dlatego
+poprawki z 9 wrzesnia nie dojechaly do czytelnika (§0c).
+
+Strona rozpada sie na trzy warstwy o zupelnie roznym cyklu zycia. Zmierzone 10 wrzesnia 2026 na
+opublikowanym artefakcie (7 627 330 B):
+
+| warstwa | co to jest | rozmiar | zrodlo prawdy |
+|---|---|---|---|
+| **L1 POWLOKA** | arkusz `<style>`, TRZY skrypty powloki, masthead, `SHELL CONTRACT` | **230 145 B — 3,0% strony** | `site/shell/shell.html` |
+| **L2 KOD DODANY** | skrypty 4-9 i 12 blokow CSS | 132 246 B | **wylacznie `CLAUDE.md`** (§0c) |
+| **L3 TRESC I STAN** | oba bloki JSON i markup sekcji | 6 957 456 B — **91%** | `site/data/<data>.json` |
+
+L3 juz jest zapisywane codziennie. L2 juz jest wycinane z tego pliku w kazdym przebiegu. **Brakuje
+wylacznie L1 — i to jest cala tresc tej sekcji.**
+
+### Co dokladnie sie zapisuje
+
+`site/shell/shell.html` to konkatenacja czesci rozdzielonych znacznikami
+`<!--SOC-SHELL part=style-->`, `part=script1`, `script2`, `script3`, `part=masthead`,
+`part=contract`. Znacznik jest po to, zeby przyszly skladacz rozlozyl plik z powrotem jednym
+`re.split`, bez zgadywania granic. Obok stoi `site/shell/shell.json`:
+
+```json
+{"sha256":"a5ffa23b…","bytes":230145,"capturedOn":"2026-09-10","capturedAt":"2026-09-10T09:24",
+ "source":"Microsoft SOC Brief 10 Sep 2026","styles":1,"behaviourScripts":9,"shellScripts":3,
+ "contract":true}
+```
+
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 9`, nie po pozycji
+`scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
+Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
+zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
+`clean[-3:]`.
+
+**Granice kontraktu liczy `contract_span`, wydzielone z `drop_contract`.** Komentarz cytuje
+`<style>` i bywa przerwany wczesnym `-->`; jedna definicja granicy obsluguje oba uzycia — migawka
+potrzebuje kontraktu W CALOSCI, a strona `/diff/` potrzebuje go WYCIETEGO. Dwie kopie tej logiki
+rozjechalyby sie (§0a).
+
+### Zapis TYLKO przy zmianie — i dlatego repozytorium od tego nie rosnie
+
+`write_shell` liczy sha256 migawki i porownuje z `shell.json`. **Zgodne — nie zapisuje nic**, wiec
+git w ogole nie widzi zmiany. Wlasciciel zapytal wprost, czy to nie urosnie; zmierzone w prawdziwym
+repozytorium na tej migawce (230 395 B):
+
+| scenariusz | `.git` | przyrost |
+|---|---|---|
+| dzien 1, pierwsza migawka | 89 986 B | — |
+| **14 dni bez zmiany powloki** | 89 987 B | **+1 B, jeden commit** |
+| dzien 15, powloka naprawde zmieniona | 90 913 B | **+926 B** |
+
+Dla porownania: `site/data/2026-09-10.json` wazy **6 957 456 B**, a caly `site/data/` ma juz 65 MB.
+**Migawka powloki kosztuje okolo 0,01% tego, co jeden dzien danych** — i to tylko w dniu, w ktorym
+powloka sie naprawde zmieni. Git adresuje po tresci, wiec identyczny plik to ten sam obiekt; „bedzie
+nadpisywany codziennie" jest wiec pytaniem bez konsekwencji, a i tak nie nadpisujemy go bez potrzeby.
+
+### Kto to uruchamia
+
+**Nikt osobno.** `mirror_artifact.py` w trybie `--brief` wola `write_shell` po zapisaniu
+`site/index.html`, wiec migawka powstaje przy kazdym luscie za darmo — plik i tak jest wtedy
+przeczytany i sparsowany. Przebieg budujacy, ktory sam publikuje strone, robi to samo swoim
+wlasnym wyjsciem.
+
+**Jedna rzecz wymaga uwagi przy commicie:** `site/shell/` lezy poza zestawem materializowanym przez
+sparse-checkout (§5ai), wiec nowy plik dodaje sie `git add --sparse site/shell/`. Zwykle `git add`
+odmowi z komunikatem o regulach rzadkosci — to ta sama pulapka co przy `site/history/`.
+
+### Czego ta sekcja NIE robi, i to jest swiadome
+
+- **Nie sklada strony.** Skladacz (`assemble.py`), tryb `assemble` i deklaracja trybu na stronie to
+  faza 2. Dopoki ich nie ma, migawka jest zapasem, nie sciezka.
+- **Nie zmienia sciezki awaryjnej routine.** Ona dalej jest ta z v1 i dalej jest przeterminowana —
+  zmierzone 10 wrzesnia 2026 w prompcie routine: „dziewiec paneli", „trzy skrypty powloki, potem
+  SKRYPT 4 i SKRYPT 5", „piec pigulek", brak wiersza SPEC MAP dla §5ah. **Poprawianie tych liczb nie
+  jest naprawa** — naprawa jest wyprowadzenie ktorej sciezki budujacej z promptow do tego pliku
+  (faza 3), zeby istniala w JEDNYM miejscu. Ten plik zrobil juz to samo z blokiem zrodel w §7.
+- **Pozycja 57 nie blokuje.** W dniu, w ktorym powstaje, migawki jeszcze nie ma, a asercja zapalajaca
+  sie na poprawnej stronie uczy przebieg, ze czerwone nic nie znaczy (§0b). Klasa A dostanie ja
+  dopiero wtedy, gdy tryb `assemble` bedzie od niej zalezal. **Pierwsza wersja tej pozycji to
+  zlamala**: nie bylo jej ani w `CLASS_A`, ani w `CLASS_B`, wiec wpadala do listy blokujacej i bramka
+  odrzucila poprawny artefakt z 10 wrzesnia kodem 1 — w dniu, w ktorym migawki nie moglo byc.
+  Stad `CLASS_INFO` w §0b. Kontrola regresji na pieciu wariantach: (a) brak migawki — `57 BRAK`,
+  blok `INFORMACYJNE`, **kod 0**; (b) migawka poprawna — `57 OK`, kod 0; (c) `capturedOn` sprzed
+  30 dni — `57 BRAK` z liczba dni; (d) `sha256` niezgodny z trescia — `57 BRAK` z powodem; (e) bez
+  argumentu `site/` — `57 BRAK „nie podano katalogu site/"`, **nie OK**. Pozycje 0-56 daja przy tym
+  identyczne werdykty co przed zmiana.
 
 ## Struktura
 
