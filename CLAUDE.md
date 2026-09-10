@@ -190,7 +190,7 @@ rozpoznaje, co dostal:
 
 - **artefakt `Microsoft SOC Delta <data>`** (dwa panele) — odbija go w calosci, podmieniajac tylko
   link w `dateline` na `/` (zasada 3);
-- **artefakt `Microsoft SOC Brief <data>`** (dziewiec albo dziesiec paneli) — wyjmuje z niego sekcje `#pmdelta`
+- **artefakt `Microsoft SOC Brief <data>`** (dziesiec albo jedenascie paneli) — wyjmuje z niego sekcje `#pmdelta`
   i sklada strone o DWOCH panelach, `tab-overview` i `tab-changed`, z ta sama powloka: ten sam
   `<style>`, te same trzy skrypty zachowania, ten sam masthead, oba bloki JSON;
 - **brief bez `#pmdelta`** — pisze uczciwa strone „bez zmian" z godzina sprawdzenia, zamiast
@@ -402,7 +402,7 @@ def drop_contract(content: str) -> str:
 def snapshot_shell(content: str):
     """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
 
-    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 9`, a nie po
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 10`, a nie po
     pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
     wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
     migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
@@ -410,7 +410,7 @@ def snapshot_shell(content: str):
     styles = re.findall(r"<style[^>]*>.*?</style>", body, re.S)
     raw = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", body, re.S)
     scripts = [b for b in raw if "<script" not in b[len("<script"):]]
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+[4-9]\b", b[:4000])]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|10)\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -1541,7 +1541,7 @@ if __name__ == "__main__":
 
 ### Asercja, bo inaczej to znowu bedzie sugestia (§0b)
 
-**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-9 na gotowej stronie z blokiem w tym pliku,
+**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-10 na gotowej stronie z blokiem w tym pliku,
 znak w znak.** Uruchamiasz ja z trzecim argumentem: `python3 gate.py <html> <site/> --doc CLAUDE.md`.
 Bez `--doc` pozycja daje `BRAK „nie podano CLAUDE.md"` — **nigdy nie jest pomijana w ciszy**, tak
 samo jak pozycje 45 i 47 bez katalogu `site/`. Pozycja 56 jest **klasy B** (§0): przebieg budujacy
@@ -1549,7 +1549,7 @@ sie na niej zatrzymuje i poprawia, lustro ja raportuje i publikuje, bo lustro ty
 
 Zmierzone 10 wrzesnia 2026 na artefakcie z tego dnia: pozycja 56 wskazuje `SCRIPT 6`, `SCRIPT 7`
 i `SCRIPT 8` jako rozne od tego pliku — czyli dokladnie te trzy, ktore przebieg przeniosl z wczoraj.
-Po podmianie tych trzech blokow i dopisaniu 12 blokow CSS ta sama strona daje **wszystkie pozycje OK**,
+Po podmianie tych trzech blokow i dopisaniu 13 blokow CSS ta sama strona daje **wszystkie pozycje OK**,
 a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero bledow strony,
 `scrollWidth === clientWidth` wszedzie, zero elementow szerszych od rodzica.
 
@@ -1581,7 +1581,7 @@ opublikowanym artefakcie (7 627 330 B):
 | warstwa | co to jest | rozmiar | zrodlo prawdy |
 |---|---|---|---|
 | **L1 POWLOKA** | arkusz `<style>`, TRZY skrypty powloki, masthead, `SHELL CONTRACT` | **230 145 B — 3,0% strony** | `site/shell/shell.html` |
-| **L2 KOD DODANY** | skrypty 4-10 i 12 blokow CSS | 132 246 B | **wylacznie `CLAUDE.md`** (§0c) |
+| **L2 KOD DODANY** | skrypty 4-10 i 13 blokow CSS | 132 246 B | **wylacznie `CLAUDE.md`** (§0c) |
 | **L3 TRESC I STAN** | oba bloki JSON i markup sekcji | 6 957 456 B — **91%** | `site/data/<data>.json` |
 
 L3 juz jest zapisywane codziennie. L2 juz jest wycinane z tego pliku w kazdym przebiegu. **Brakuje
@@ -1600,7 +1600,7 @@ wylacznie L1 — i to jest cala tresc tej sekcji.**
  "contract":true}
 ```
 
-**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 9`, nie po pozycji
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 10`, nie po pozycji
 `scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
 Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
 zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
@@ -2034,7 +2034,7 @@ Wejscie: dwa stany. Kazdy moze byc plikiem `site/data/<data>.json` (obiekt z klu
 skrypt sam wyjmie oba bloki JSON.
 
 Wyjscie: mala, samodzielna strona pokazujaca WYLACZNIE roznice: co przybylo, co ubylo,
-co sie zmienilo pole po polu. Bez dziesieciu zakladek, bez przegladarki katalogu i bez
+co sie zmienilo pole po polu. Bez jedenastu zakladek, bez przegladarki katalogu i bez
 kopiowania megabajtow JSON, ktorych taka strona nie uzywa.
 """
 import sys, os, re, json, html, datetime
@@ -3774,7 +3774,7 @@ dla rol tak samo jak dla uprawnien.
 
 ## 5h. Kontrola Playwright — pelna lista asercji
 
-Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 10 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 11 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
 
 Nowe od 31 sierpnia 2026, kazda z nich lapie realny blad z tego dnia: **zaden `figure.chart`
 o co najmniej czterech slupkach nie ma wszystkich slupkow rownych 1** (wykres „By topic" mial ich
@@ -3826,7 +3826,7 @@ ma niezerowa `borderTopWidth` i `borderTopColor` rozny od wlasnego tla; zakladka
 `aria-selected="true"` ma tlo rozne od nieaktywnych; licznik `.navcount` ma nieprzezroczyste tlo
 w obu motywach — te same wartosci, nie tylko „jakies".
 
-Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z DZIESIECIU zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
+Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z JEDENASTU zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
 (§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
 `getComputedStyle(document.querySelector("header.top")).position` zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
 poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
@@ -4584,7 +4584,7 @@ Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t i §5w:
 ```
 
 Po poprawce wszystkie dziewiec zakladek daje `scrollWidth == clientWidth == 390`, zero bledow
-konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z DZIESIECIU zakladek przy 390x844
+konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z JEDENASTU zakladek przy 390x844
 `document.documentElement.scrollWidth === clientWidth`** — nie tylko dla tej, ktora akurat jest
 widoczna po zaladowaniu. Poprzednia wersja §5h sprawdzala jedna zakladke i dlatego przepuscila obie.
 
@@ -7594,7 +7594,7 @@ kto po endpoincie nie szuka.
 
 ### Arkusz — blok dopisywany na koncu `<style>`
 
-Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae i §5ak sa to JEDYNE dozwolone
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak i §5an sa to JEDYNE dozwolone
 dopisane reguly CSS. Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie skrypt 7 albo 8,
 albo od `.v13pane` — nic stad nie wycieka na reszte strony. Zmienne sa te, ktore arkusz juz
 deklaruje (§5t).
@@ -9159,7 +9159,7 @@ sie jak usterka — licznik ma nazywac to, co liczy.
 
 ### Arkusz — blok dopisywany na koncu `<style>`
 
-Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak i §5al sa to JEDYNE dozwolone
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al i §5an sa to JEDYNE dozwolone
 dopisane reguly CSS.
 
 ```css
@@ -9467,7 +9467,7 @@ zrodlo martwe wyglada jak zrodlo ciche**.
 
 ### Arkusz — blok dopisywany na koncu `<style>`
 
-Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al i §5am sa to JEDYNE
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am i §5an sa to JEDYNE
 dozwolone dopisane reguly CSS. Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie zakladka
 Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§5t).
 
