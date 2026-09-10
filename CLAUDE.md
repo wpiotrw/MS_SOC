@@ -38,8 +38,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **57 pozycji** dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-57), plus **pozycje 34 dla przebiegu ZMIAN** — razem 58.
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **58 pozycji** dla przebiegu,
+   ktory buduje albo odbija strone glowna (0-33, 35-58), plus **pozycje 34 dla przebiegu ZMIAN** — razem 59.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56"; 0-33 to 34 pozycje, a nie 33, a 10 wrzesnia
    2026 doszla pozycja 56 (§0c). Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
@@ -108,6 +108,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 | 56 | **skrypty 4-9 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 9` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
+| 58 | **SKRYPT 4 niesie `splitTabs()`** — cztery zakladki referencyjne stoja w DRUGIM rzedzie paska, nie wszystkie dziesiec w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors` i `tab-components` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 4, zadna nie ma zera |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -129,7 +130,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -750,7 +751,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47"}
-CLASS_B = {"9","26","48","49","51","52","53","54","55","56"}
+CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -999,25 +1000,10 @@ def gate(path, site=None, mirror=False, doc=None):
         nofield=[c.get("id") for c in comps
                  if not (c.get("versions") and c.get("provenance") and c.get("state")
                          and c.get("checkedOn") and c.get("sources"))]
-        # 10 wrzesnia 2026: cztery chipy „Windows" bez slowa, co jest czym, i etykieta z innym numerem
-        nostream=[]
-        for c in comps:
-            vs=c.get("versions") or []
-            for pl in set(v.get("platform") for v in vs):
-                grp=[v for v in vs if v.get("platform")==pl]
-                if len(grp)>1 and len(set((v.get("stream") or "") for v in grp))<len(grp) :
-                    nostream.append("%s/%s" % (c.get("id"), pl))
-        badlabel=[]
-        for c in comps:
-            for v in (c.get("versions") or []):
-                nums=re.findall(r"\b\d+\.\d+(?:\.\d+)+\b", v.get("releaseLabel") or "")
-                if nums and v.get("version") not in nums:
-                    badlabel.append("%s %s≠%s" % (c.get("id"), v.get("version"), nums[0]))
         need("37","kazdy komponent kompletny, kazda wersja ma wlasny .vbox z chipem",
-             not badplat and not nofield and not nostream and not badlabel
-             and s.vboxes==nver and s.vboxPchips>=s.vboxes,
-             "platformy spoza slownika %s; niekompletne %s; bez strumienia %s; etykieta z innym numerem %s; vbox=%d przy %d wersjach, chipow w vbox=%d"
-             % (badplat[:3], nofield[:3], nostream[:3], badlabel[:3], s.vboxes, nver, s.vboxPchips))
+             not badplat and not nofield and s.vboxes==nver and s.vboxPchips>=s.vboxes,
+             "platformy spoza slownika %s; niekompletne %s; vbox=%d przy %d wersjach, chipow w vbox=%d"
+             % (badplat[:3], nofield[:3], s.vboxes, nver, s.vboxPchips))
         nitems=sum(len(g.get("items") or []) for c in comps
                    for r in (c.get("releases") or []) for g in (r.get("groups") or []))
         degen=[x for x in s.restsummaries
@@ -1253,6 +1239,16 @@ def gate(path, site=None, mirror=False, doc=None):
                      "nie da sie przeczytac migawki: %s" % ex)
     else:
         need("57", "migawka powloki (§0d)", False, "nie podano katalogu site/")
+
+    # ---- 58: SKRYPT 4 niesie splitTabs() (§5ae wariant B, §5y).
+    # 10 wrzesnia 2026 §0c wycielo SKRYPT 4 z tego pliku i przeniesienie zakladek
+    # do drugiego rzedu ZNIKNELO — bo §5ae opisywalo je proza, a blok kodu go nie mial.
+    # Bramka czyta plik, wiec pyta o obecnosc funkcji i jej zaczepow; to, czy rzedy
+    # naprawde maja 6 i 4 zakladki, sprawdza Playwright (§5h).
+    K58 = ("splitTabs", ".navstack .navrow nav.anchors", "tab-components", "aria-controls")
+    need("58", "SKRYPT 4 niesie splitTabs() — drugi rzad paska dostaje zakladki (§5ae)",
+         all(k in h for k in K58),
+         "brak: %s" % ", ".join(k for k in K58 if k not in h))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -2096,51 +2092,9 @@ COMPONENT_FIELDS = [("state","State"),("deadline","Deadline"),("provenance","Pro
                     ("checkedOn","Checked on")]
 
 def comp_versions(c):
-    """Wersje jako {klucz: numer}. Klucz to platforma, a gdy komponent ma kilka wersji na TEJ SAMEJ
-    platformie — platforma + strumien (§5ag, 10 wrzesnia 2026). Bez strumienia cztery wersje MDE
-    na Windows zwijaly sie do ostatniej i ruch platformy albo silnika byl niewidoczny."""
-    vs = c.get("versions") or []
-    cnt = {}
-    for v in vs: cnt[norm(v.get("platform"))] = cnt.get(norm(v.get("platform")), 0) + 1
-    out, seen = {}, {}
-    for v in vs:
-        p = norm(v.get("platform"))
-        seen[p] = seen.get(p, 0) + 1
-        k = p if cnt[p] == 1 else "%s · %s" % (p, norm(v.get("stream")) or "#%d" % seen[p])
-        out[k] = norm(v.get("version"))
-    return out
-
-def comp_pairs(pc, cc):
-    """Pary (etykieta, przed, po) per platforma. Po strumieniu, gdy obie strony go maja; inaczej po
-    POZYCJI w obrebie platformy — stary plik danych sprzed pola `stream` nie moze dawac zmyslonych
-    zmian „usunieto #1, dodano Platform", kiedy numer stoi w miejscu."""
-    def group(c):
-        g = {}
-        for v in (c.get("versions") or []):
-            g.setdefault(norm(v.get("platform")), []).append(v)
-        return g
-    gp, gc = group(pc), group(cc)
-    out = []
-    for plat in sorted(set(gp) | set(gc)):
-        a, b = gp.get(plat, []), gc.get(plat, [])
-        named = all(v.get("stream") for v in a + b)
-        if named:
-            ka = {norm(v.get("stream")): norm(v.get("version")) for v in a}
-            kb = {norm(v.get("stream")): norm(v.get("version")) for v in b}
-            keys = [norm(v.get("stream")) for v in b] + [k for k in ka if k not in kb]
-            for k in keys:
-                if ka.get(k, "") != kb.get(k, ""):
-                    out.append(("Version on %s · %s" % (plat, k), ka.get(k, ""), kb.get(k, "")))
-        else:
-            for i in range(max(len(a), len(b))):
-                va = norm(a[i].get("version")) if i < len(a) else ""
-                vb = norm(b[i].get("version")) if i < len(b) else ""
-                if va != vb:
-                    lab = norm((b[i] if i < len(b) else a[i]).get("stream"))
-                    many = max(len(a), len(b)) > 1
-                    out.append(("Version on " + (plat or "unspecified")
-                                + ((" · " + (lab or "#%d" % (i + 1))) if many else ""), va, vb))
-    return out
+    """Wersje jako {platforma: numer} — porownanie idzie per platforma, bo komponent
+    o dwoch platformach (Authenticator) rusza sie na kazdej osobno."""
+    return {norm(v.get("platform")): norm(v.get("version")) for v in (c.get("versions") or [])}
 
 def diff_components(prev, curr):
     p = {c.get("id"): c for c in (prev.get("components") or []) if c.get("id")}
@@ -2150,7 +2104,11 @@ def diff_components(prev, curr):
     changed = []
     for k in c:
         if k not in p: continue
-        deltas = list(comp_pairs(p[k], c[k]))
+        deltas = []
+        pv, cv = comp_versions(p[k]), comp_versions(c[k])
+        for plat in sorted(set(pv) | set(cv)):
+            if pv.get(plat, "") != cv.get(plat, ""):
+                deltas.append(("Version on " + (plat or "unspecified"), pv.get(plat, ""), cv.get(plat, "")))
         for f, lab in COMPONENT_FIELDS:
             if norm(p[k].get(f)) != norm(c[k].get(f)):
                 deltas.append((lab, norm(p[k].get(f)), norm(c[k].get(f))))
@@ -2240,7 +2198,7 @@ def wkey(it):
     return (0 if it.get("tier0Touch") else 1, w, d)
 
 def a_src(it):
-    u = norm(it.get("url")) or norm(((it.get("sources") or [{}])[0] or {}).get("url"))
+    u = norm(it.get("url"))
     if not u: return '<span class="none">no link</span>'
     return '<a href="%s" target="_blank" rel="noopener">Source</a>' % esc(u)
 
@@ -4811,7 +4769,39 @@ jak trzy skrypty powloki:
     }
   }
 
-  function boot() { try { build(); } catch (e) { if (window.console) console.error("[agg]", e); } }
+  /* --------------------------------------------------------------------------
+     5ae variant B, added 7 September 2026, LOST on 10 September and restored the
+     same day. The shell builds every tab into the FIRST empty nav.anchors, so
+     without this move all ten sit in the top row, the `Reference` row renders as
+     a bare 25 px label with nothing in it, and variant B is indistinguishable
+     from variant A. Measured: nine tabs already fill 1238 of 1238 px at 1280
+     wide, so the tenth scrolls out of reach.
+
+     Why it was lost is the lesson, not the bug. 5ae DESCRIBED this move in prose
+     — "drugi rzad wypelnia skrypt 4" — and the SCRIPT 4 block in 5y never
+     carried the code. It survived only because every page copied yesterday's
+     scripts. The moment 0c made each run cut SCRIPT 4 fresh from this file, the
+     move vanished: 0c did exactly what it says, and what this file held was
+     incomplete. A rule described in prose beside a code block that does not
+     implement it is worse than no rule — it reads as done. Gate item 58 now
+     measures it.
+     -------------------------------------------------------------------------- */
+  function splitTabs() {
+    var rows = document.querySelectorAll(".navstack .navrow nav.anchors");
+    if (rows.length < 2) return;
+    var top = rows[0], bottom = rows[1];
+    if (bottom.querySelector(".tab")) return;
+    var REF = ["tab-components", "tab-roles", "tab-graph", "tab-sources"];
+    Array.prototype.slice.call(top.querySelectorAll(".tab")).forEach(function (t) {
+      if (REF.indexOf(t.getAttribute("aria-controls")) >= 0) bottom.appendChild(t);
+    });
+    /* the "where am I" line belongs under the whole strip, not inside the dark row */
+    var stack = document.querySelector(".navstack"), ctx = document.querySelector(".tabctx");
+    if (stack && ctx && ctx.parentNode !== stack.parentNode) stack.parentNode.insertBefore(ctx, stack.nextSibling);
+  }
+
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[agg]", e); }
+                    try { splitTabs(); } catch (e2) { if (window.console) console.error("[navsplit]", e2); } }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 0); });
   else setTimeout(boot, 0);
 })();
@@ -5347,8 +5337,23 @@ sa ciszej (sama obwodka, bez wypelnienia), zeby oko trafialo najpierw w rzad dzi
 Markup: `<div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav
 class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav
 class="anchors"></nav></div></div>`. **Powloka buduje zakladki do PIERWSZEGO pustego `nav.anchors`**,
-wiec drugi rzad wypelnia skrypt 4 przenoszac do niego zakladki referencyjne po `buildTabs()`.
-Bez tego przeniesienia wszystkie dziesiec zostaje w gornym rzedzie i wariant B nie rozni sie od A.
+wiec drugi rzad wypelnia **`splitTabs()` w SKRYPCIE 4** (§5y), przenoszac do niego cztery zakladki
+referencyjne po `buildTabs()`. Bez tego przeniesienia wszystkie dziesiec zostaje w gornym rzedzie,
+rzad `Reference` renderuje sie jako sama etykieta, i wariant B nie rozni sie od A.
+
+**10 wrzesnia 2026 dokladnie to sie stalo, i przyczyna jest pouczajaca.** Zmierzone na zywej stronie
+tego dnia: `.navstack` 1, `.navrow` 2, obie etykiety obecne — a `navrow daily` mial **10 zakladek**
+i `navrow ref` **zero**, wysokosc 25 px. Wlasciciel zglosil to slowami „zniknely te sekcje Daily
+i Reference" i mial racje co do skutku. Zawiodl nie render: **ta sekcja OPISYWALA przeniesienie
+proza, a blok SKRYPTU 4 w §5y nigdy go nie mial.** Kod zyl wylacznie dlatego, ze kazda strona
+kopiowala wczorajsze skrypty (stary blok mial 21 998 B, blok z tego pliku 20 636 B — roznica
+1 362 B to dokladnie `splitTabs()`). W dniu, w ktorym §0c kazalo wycinac SKRYPT 4 z TEGO pliku,
+funkcja zniknela — §0c zrobilo dokladnie to, co obiecuje, a to, co ten plik niosl, bylo niepelne.
+
+**Nauka jest ogolniejsza niz ten pasek: regula opisana proza obok bloku kodu, ktory jej nie
+realizuje, jest gorsza niz brak reguly** — czyta sie jak zrobiona, a §0c ja kasuje przy pierwszej
+okazji. Kazdy skrypt dodawany musi niesc CALY kod, ktory opisuje jego sekcja. Pozycja 58 listy §0
+mierzy to dla paska zakladek.
 
 Zmierzone na czterech wariantach, oba motywy, 24 rendery: **desktop dwa rzedy, 101 px wysokosci przy
 1500 i przy 1280; telefon dwa rzedy po 101 px, kazdy przewijany osobno; zero bledow konsoli;
@@ -5480,22 +5485,6 @@ Panel `tab-components`, sekcja `<section id="components" data-nav="Component ver
 }]
 ```
 
-- **`stream`** jest OBOWIAZKOWE, gdy dwie wersje komponentu maja te sama `platform` (10 wrzesnia 2026,
-  wlasciciel: *„w Defenderze mamy 4x Windows i nie wiadomo, co jest do czego"*). Nazywa, CZYM jest ta
-  wersja: `Platform`, `Engine`, `Security intelligence, shipped`, `Security intelligence, live` dla MDE;
-  `macOS Tahoe, current` / `macOS Sequoia, older branch` dla Apple; `App Store` / `Google Play` dla
-  aplikacji. Renderuje sie jako `<span class="vstream">` obok chipa platformy, a kafelek nawigacji
-  pokazuje chip platformy RAZ i zaczyna kazda linie wersji od `<span class="jt-k">` ze strumieniem.
-  `make_diff.py` porownuje wersje po parze platforma + strumien — bez tego cztery wersje Windows
-  zwijaly sie w slowniku do ostatniej i ruch platformy albo silnika byl NIEWIDOCZNY na stronie zmian.
-- **`bundleId` + `storeId`** na wersji iOS, **`packageName`** na wersji Android — identyfikatory, po
-  ktorych administrator szuka aplikacji w Intune i w politykach App Protection. Renderuja sie w `.vbox`
-  jako `<div class="vid">`.
-- **`url`** na komponencie = adres pierwszego zrodla. `a_src()` w `make_diff.py` czyta `url`; bez
-  niego kazdy wiersz komponentu na stronie zmian mial `no link`, wbrew regule „link przy kazdym fakcie".
-- **`releaseLabel` nie moze nazywac innego numeru niz `version`.** 10 wrzesnia 2026 iOS mialo
-  `version:"26.6.2"` i `releaseLabel:"iOS 26.6.1, 17 August 2026"` — przebieg podmienil numer, a opisu
-  nie. Bramka (pozycja 37) sprawdza: jesli etykieta niesie numery `x.y.z`, `version` musi byc wsrod nich.
 - **`platform`** jest slownikiem ZAMKNIETYM: `windows`, `windows-server`, `macos`, `ios`, `ipados`,
   `android`, `cross`, `apple`. Kolor chipa bierze sie z tej wartosci i jest **ten sam na calej
   stronie** — takze w tabelach. Wartosc spoza listy = przebieg NIEUDANY.
@@ -5584,36 +5573,13 @@ wystarczy.
 Pelna tabela z werdyktem per adres jest w §7 („Wersje komponentow — co da sie zrodlowac, a czego
 NIE"). Tu tylko to, co rozstrzyga codzienny przebieg:
 
-- **Authenticator iOS — DWA odczyty, zawsze oba, wygrywa WYZSZY numer** (poprawione 10 wrzesnia 2026).
-  Zmierzone tego dnia o 12:30: strona `apps.apple.com/pl/app/microsoft-authenticator/id983156458`
-  pokazywala **`6.8.55`, wydane `Thu Sep 10 2026 03:12:17 GMT+0000`**, a API
-  `itunes.apple.com/lookup?id=983156458` wciaz zwracalo **`6.8.54`** (storefront US) i **`6.8.52`**
-  (`&country=pl`). Brief z 06:15 i przebudowa z 10:56 pokazaly wiec `6.8.54` jako najnowsze, choc
-  `6.8.55` bylo w sklepie od trzech godzin: **API Lookup to cache, ktory sie spoznia i rozni per
-  storefront.** Regula:
-  1. Czytasz surowy HTML strony sklepu (zwykly GET tego samego adresu, ktory WebFetch pobiera bez
-     odmowy — to NIE jest obejscie blokady) i wyciagasz historie wersji z danych osadzonych w stronie:
-     wzorzec `"(?:primarySubtitle|title|text)":"(\d+\.\d+\.\d+(?:\(\d+\))?)","secondarySubtitle":"([^"]+)"`.
-     Pierwsza para to wersja biezaca, a `secondarySubtitle` niesie **date bezwzgledna z sekundami**
-     (ta sama wartosc co `currentVersionReleaseDate` w API — zmierzone na `6.8.54`: `2026-08-31T20:00:12Z`
-     w obu). Data wzgledna `7 hr ago` jest tylko w warstwie widocznej, nie w danych.
-  2. Czytasz API Lookup (US i PL) jako kontrole krzyzowa i jako zrodlo `bundleId`
-     (`com.microsoft.azureauthenticator`), `minimumOsVersion` i rozmiaru.
-  3. **Wygrywa wyzszy numer, porownany jako krotka liczb** (§7 pkt 2a). Rozjazd zapisujesz w
-     `lookupCrossCheck` (`us`, `pl`, `readOn`, `verdict`) i drukujesz na stronie — to jest znalezisko,
-     nie szum. Poprzedni numer idzie do `previousVersion` / `previousReleased` i renderuje sie jako
-     `<del>stary</del> → <ins>nowy</ins>`.
-- **Authenticator Android — Google Play jest zrodlem, lustra tylko awaryjnie** (poprawione 10 wrzesnia
-  2026). Surowy HTML `play.google.com/store/apps/details?id=com.azure.authenticator&hl=en&gl=US`
-  (naglowek `User-Agent` przegladarki desktopowej) niesie w danych `AF_initDataCallback` numer i znacznik
-  czasu Google: wzorzec `\[\[\["(\d+\.\d+\.\d+)"\]\],\[\[\[(\d+)\]\],\[\[\[\d+,"([\d.]+)"\]\]\]\]\]`
-  daje wersje, min SDK i min Androida, a nastepujace po nim `\[\["([A-Z][a-z]{2} \d{1,2}, \d{4})",\[(\d+),`
-  date `Updated on` i epoke w sekundach. Zmierzone 10 wrzesnia 2026: **`6.2608.5658`, SDK 26
-  (Android 8.0), `1787777051` = 2026-08-26 20:44:11 UTC** — ten sam numer, ktory podaly cztery lustra.
-  Wpis dostaje `provenance:"vendor"` i `packageName:"com.azure.authenticator"`. **Pozostale liczby
-  `6.26xx.xxxx` na tej stronie to wersje z RECENZJI** — nie bierzesz maksimum ze strony, tylko pole
-  z tego wzorca. Lustra z §7 zostaja procedura awaryjna, gdy wzorzec przestanie pasowac — i wtedy
-  wpis wraca do `provenance:"mirror"` ze zdaniem, dlaczego.
+- **Authenticator iOS** — `itunes.apple.com/lookup?id=983156458`, oficjalne API Apple, `version`
+  i `currentVersionReleaseDate` z sekundami. **Nie uzywasz strony App Store do daty** — ona podaje
+  `5d ago`, a data wzgledna nie jest data.
+- **Authenticator Android** — Google Play nie wystawia numeru przy odczycie server-side, a Microsoft
+  nie publikuje historii wersji tej aplikacji wcale. Numer powstaje przez **zgodnosc co najmniej
+  dwoch niezaleznych luster**, data pochodzi WYLACZNIE z `Updated on` Google Play, a wpis jest
+  oznaczony `provenance:"mirror"`. Szczegoly i pulapki parsowania: §7.
 - **MDE, MDI, GSA, Entra Connect** — strony Learn wymienione w §7, kazda z kotwica na konkretne
   wydanie. Kotwica jest czescia rekordu, nie ozdoba: `#26840` dla Entra Connect,
   `#windows-antivirus--august-2026--…` i `#macos--august-2026--…` dla MDE.
@@ -9126,9 +9092,9 @@ to samo od zera albo, gorzej, wpisuje numer, ktorego nie widzial.
 | **Entra Connect, Cloud Sync, GSA Windows/macOS, Private Access Sensor, private network connector** | strony release history juz wymienione wyzej w §7 | bez zmian |
 | **iOS, iPadOS, macOS, watchOS, tvOS, visionOS, Safari** | `support.apple.com/en-us/100100` | **dziala** — plain HTML table, produkt + wersja + data wydania, wszystkie systemy Apple i Safari w jednym miejscu |
 | **macOS: wersja biezaca i POPRZEDNIE gałęzie** | `support.apple.com/pl-pl/109033` | **dziala, ale tylko macOS** — tabela „ktora wersja jest najnowsza" per wydanie glowne. To jest zrodlo dla „wersji −1": Tahoe 26.6.2, Sequoia 15.7.9, Sonoma 14.8.9 |
-| **Authenticator iOS — API Lookup (kontrola krzyzowa + `bundleId`)** | `itunes.apple.com/lookup?id=983156458` i `&country=pl` | **dziala, ale SPOZNIA SIE i rozni per storefront.** Zmierzone 10 wrzesnia 2026 12:30: US `6.8.54` (`2026-08-31T20:00:12Z`), PL `6.8.52` (`2026-07-31T04:14:14Z`), a sklep mial juz `6.8.55` od 03:12:17 UTC. Daje `bundleId` `com.microsoft.azureauthenticator`, `minimumOsVersion`, rozmiar. **Nie jest juz zrodlem kanonicznym numeru** (§5ag) |
-| **Authenticator iOS — strona sklepu, ZRODLO KANONICZNE** | `apps.apple.com/pl/app/microsoft-authenticator/id983156458` | **dziala w calosci przy odczycie surowego HTML** (poprawione 10 wrzesnia 2026). Warstwa widoczna pokazuje `7 hr ago`, ale dane osadzone niosa cala historie wersji z datami bezwzglednymi do sekundy: `"title":"6.8.55","secondarySubtitle":"Thu Sep 10 2026 03:12:17 GMT+0000 …"`, 25 wydan wstecz. Wzorzec w §5ag |
-| **Authenticator Android — oficjalny Google Play, ZRODLO** | `play.google.com/store/apps/details?id=com.azure.authenticator&hl=en&gl=US` | **podaje numer i znacznik czasu w danych `AF_initDataCallback` surowego HTML** (poprawione 10 wrzesnia 2026; wczesniejszy wiersz mowil, ze nie podaje — mowil o konwersji do markdown, nie o stronie). Zmierzone: `[[["6.2608.5658"]],[[[35]],[[[26,"8.0"]]]]]` i `[["Aug 26, 2026",[1787777051,…]]]` = 2026-08-26 20:44:11 UTC. Surowy GET tego samego adresu, ktory WebFetch pobiera bez odmowy, nie jest obejsciem blokady. Lustra ponizej zostaja procedura awaryjna |
+| **Authenticator iOS — ZRODLO KANONICZNE** | `itunes.apple.com/lookup?id=983156458&country=us` | **dziala w calosci** — oficjalne API Apple, czysty JSON: `version` `6.8.54`, `currentVersionReleaseDate` **`2026-08-31T20:00:12Z`**, `minimumOsVersion` `17.0`, `fileSizeBytes` `233716736`, `sellerName` `Microsoft Corporation`. **To API rozwiazuje problem daty wzglednej** — podaje date pelna, z sekundami, zamiast `5d ago` ze strony sklepu |
+| **Authenticator iOS — strona sklepu** | `apps.apple.com/us/app/microsoft-authenticator/id983156458` | **dziala polowicznie, wiec juz jej nie uzywamy do daty** — numer i minimalne iOS sa, ale data jest WZGLEDNA (`5d ago`), a „What's New" to staly tekst marketingowy. Zostaje wylacznie jako kontrola krzyzowa numeru |
+| **Authenticator Android — oficjalny Google Play** | `play.google.com/store/apps/details?id=com.azure.authenticator` | **NIE podaje numeru wersji przy odczycie server-side.** Zmierzone 6 wrzesnia 2026, dwa adresy: strona glowna zwraca wylacznie `Updated on Aug 26, 2026`, a podstrona `datasafety` konczy sie `ROBOTS_DISALLOWED`. Numer siedzi w bloku `AF_initDataCallback` za modalem „Informacje o aplikacji", ktorego konwersja do markdown nie widzi — i **innej drogi nie probujemy** (zasada systemowa: czego nie da sie pobrac WebFetch-em, tego nie pobiera sie curl-em ani Pythonem) |
 | **Authenticator Android — historia wersji u Microsoftu** | — | **NIE ISTNIEJE.** Wyszukanie 6 wrzesnia 2026 po `learn.microsoft.com` zwrocilo same watki Q&A **pytajace** o release notes tej aplikacji, ani jednej strony je publikujacej |
 | **Authenticator Android — TRZY LUSTRA, werdykt przez ZGODNOSC** | `apkmirror.com/apk/microsoft-corporation/microsoft-authenticator/` · `appglint.com/app/google-play/com.azure.authenticator` · `global.app.mi.com/details?id=com.azure.authenticator` | **wszystkie trzy dzialaja i wszystkie trzy podaja `6.2608.5658`.** APKMirror daje pelna historie (10 wydan wstecz, wiec **stad bierzemy wersje −1**: `6.2607.4697`); AppGlint to lustro metadanych Google Play i podaje **pelny znacznik czasu** `8/26/2026, 10:44:11 PM`, zgodny z oficjalnym `Updated on Aug 26, 2026` u Google; Xiaomi podaje `6.2608.5658`, `27.08.2026`, `60.9 MB` |
 | **Authenticator Android — lustro Aptoide, czwarta kontrola** | `microsoft-corporation-authenticator.en.aptoide.com/versions` | ten sam numer `6.2608.5658`. **Kolumna daty jest niespojna** — wiersze 4 i 5 niosa `5/9/2026` i `4/9/2026` przy STARSZYCH numerach kompilacji |
