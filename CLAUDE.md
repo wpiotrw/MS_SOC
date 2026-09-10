@@ -114,7 +114,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
 | 60 | **kazde zrodlo z `community_sources.json` ma wpis w `community.sources`**, kazde nieprzeczytane ma niepusty `note`, kazdy artykul ma `link` i `firstTracked` | 5an | licznik `sources` = liczba pozycji w liscie przeczytanej w tym przebiegu; zero wpisow `failed` bez `note`; zero artykulow bez `link` |
-| 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, kafelki okien czasu, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow | 5an | `SCRIPT 10`, `subnav`, `wintile`, `filterbanner s10`, `sortable` w pliku; render (§5h): kafelek zmienia licznik `N of M`, `Clear filter` go przywraca |
+| 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable` w pliku; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca |
 | 62 | **tylko przebieg ZMIAN**: strona zmian nazywa artykuly z imienia — sekcje `community` i `mcenter`, kazdy dodany artykul z tytulem i linkiem, nie sam licznik | 3, 3a, 5an | `id="community"` i `id="mcenter"` na `/diff/`; zero wierszy `added` bez `<a href`; pierwszy przebieg daje `BRAK „brak punktu odniesienia"` |
 | 63 | **lista zrodel przeczytana W TYM przebiegu i zdiffowana** — `community.listDiff` z `added`/`removed`/`renamed`, `readOn` = data przebiegu | 5an | `readOn` rowne `briefDate`; `listDiff` obecne; przemianowanie NIE jest liczone jako add+remove |
 
@@ -1291,7 +1291,11 @@ def gate(path, site=None, mirror=False, doc=None):
     else:
         need("60", "zakladka Community Articles ma dane", False, "brak klucza community w bloku stanu")
         need("63", "listDiff listy zrodel", False, "brak klucza community — nie da sie sprawdzic")
-    K61 = ("SCRIPT 10", "subnav", "wintile", "filterbanner s10", "sortable", "winrow")
+    # 10 wrzesnia 2026: dwa rzedy kafelkow `.winrow`/`.wintile` zastapil blok `Activity`
+    # (§5an) - klucze musza wiec nazywac to, co strona niesie DZIS, a nie wczoraj.
+    # `inWinDay` jest tu z powodu: to ono trzyma podswietlenie slupkow i filtr tabel
+    # przy jednym warunku, a jego brak byl bledem, przez ktory `Today` zapalalo caly wykres.
+    K61 = ("SCRIPT 10", "subnav", "actbar", "actpre", "inWinDay", "filterbanner s10", "sortable")
     need("61", "SKRYPT 10 buduje zachowanie zakladki (§5an)",
          all(k in h for k in K61),
          "brak: %s" % ", ".join(k for k in K61 if k not in h))
@@ -3839,10 +3843,16 @@ najmniej cztery wiersze — zero znaczy, ze mapa wdrozen nie trafila do danych.
 Nowe od 10 wrzesnia 2026 (§5an), zakladka Community Articles, kazda z jednego punktu wlasciciela:
 **pasek `nav.subnav` jest `position:sticky`, ma dziewiec odnosnikow, a po skoku do sekcji podswietla
 TE sekcje** (zmierzone: `#mc → #mc`, `#articles → #articles`, `#sources → #sources`, `#latest → #latest`);
-**dwa rzedy `.winrow` — `Community articles` i `Message Center` — kazdy z pieciu kafelkami**, a kafelek
-ma `border-width` **2 px** i nieprzezroczyste tlo w obu motywach; **klikniecie kafelka zmienia licznik
+**blok `Activity` ma dwie karty `.actbox`, kazda z czternastoma `.actbar` i pieciu kafelkami `.actpre button`**,
+kafelek ma `border-width` **2 px** i nieprzezroczyste tlo w obu motywach, a **`#tab-community .actbox svg` = 0**
+(liczby stoja w HTML, bo rysunek o `preserveAspectRatio="none"` rozciaga wszystko, co w nim jest — §5al);
+**`Today` zapala DOKLADNIE JEDEN slupek na obu kartach**, `Yesterday` jeden, `3 days` trzy, `7 days` siedem,
+`14 days` czternascie — a nacisniecie zakresu na dowolnej karcie wciska **oba** odpowiadajace sobie kafelki
+(regresja: `(+w || 99)` zapalalo caly wykres dla `Today`, bo zero jest falszywe);
+**klikniecie pojedynczego slupka zawezasa do TEGO dnia**, nie do calego zakresu;
+**klikniecie kafelka zmienia licznik
 `N of M` w KAZDEJ z czterech tabel** i pokazuje `.filterbanner.s10`, ktory wymienia czynne filtry,
-a `Clear filter` przywraca pelne liczby; **zwiniety banner ma `display:none`** (a nie `flex` po powloce —
+a `Clear filter` przywraca pelne liczby i gasi wszystkie slupki; **zwiniety banner ma `display:none`** (a nie `flex` po powloce —
 §5c); **klikniecie slupka, wycinka pierscienia i wiersza legendy filtruje tak samo jak chip**;
 **pierwsze klikniecie naglowka sortuje ROSNACO, drugie malejaco**, a domyslne sortowanie kazdej tabeli
 jest po dacie malejaco; **zaden link w tabelach nie ma wagi >= 600** (zmierzone 0 z 555);
@@ -9405,13 +9415,13 @@ przy nastepnej zakladce.
 | # | element | stan poczatkowy | dlaczego tak |
 |---|---|---|---|
 | 1 | **kafelki licznikowe** `.factgrid` | widoczne | osiem liczb policzonych z przebiegu, nigdy wpisanych |
-| 2 | **DWA rzedy kafelkow okien czasu** `.winrow` — `Community articles` i `Message Center` | widoczne | `dzis · wczoraj · 3 dni · 7 dni · 14 dni`, **liczone osobno dla artykulow i dla MC**; klik zawezasa kazda tabele |
+| 2 | **blok `Activity`** — dwie karty `.actbox` z rozkladem dziennym 14 dni (`Community articles`, `Message Center`) | widoczne | slupek = jeden dzien, pod nim `Today · Yesterday · 3 days · 7 days · 14 days`; klik zawezasa KAZDA tabele zakladki |
 | 3 | **pasek skrotow** `nav.subnav`, przyklejony | widoczny | dziewiec sekcji z licznikami; podswietla te, w ktorej jest czytelnik |
 | 4 | `Today and yesterday` — wykresy + JEDNA wspolna tabela | **otwarte** | po to sie tu wchodzi |
 | 5 | `Reporting` — cztery wykresy | **zwiniete** | najwiekszy zrodlo szumu |
 | 6 | `Technologies` — chipy wszystkich tagow | **zwiniete** | |
 | 7 | `Sources` — jeden wiersz na zrodlo | otwarte | to jest tabela ze zgloszenia |
-| 8 | `Message Center and Roadmap` — wlasny rzad kafelkow i wlasna tabela | otwarte | |
+| 8 | `Message Center and Roadmap` — wlasna tabela | otwarte | jego rozklad dzienny stoi w bloku `Activity` na gorze, nie drugi raz tutaj |
 | 9 | `All articles` | otwarte | |
 | 10 | `Per source and technology` — macierz | **zwiniete** | |
 | 11 | `Where the data comes from` — pelny inwentarz | **zwiniete** | adres z listy, strona przeczytana, sposob, status, powod |
@@ -9421,6 +9431,81 @@ przy nastepnej zakladce.
 **Kazda dluga tabela przewija sie we WLASNYM pudelku** (`.tw.scroll`, 520 px; „dzis i wczoraj" 400 px),
 a nie rozpycha strony. Zmierzone przy 1500 px: strona ma **4 256 px** zamiast 13 000 px, ktore mial
 pierwszy uklad — czyli szesc ekranow zamiast trzynastu.
+
+### Blok `Activity` — rozklad 14 dni JEST kontrolka
+
+Do 10 wrzesnia 2026 staly tu **dwa rzedy kafelkow** `.winrow` — jeden dla artykulow, jeden dla
+Message Center — i wlasciciel zglosil o nich dwie rzeczy naraz: *„dlaczego te zaznaczone na czerwono
+klikaja sie parami? jak kliknę jeden kafelek to od razu zaznacza sie drugi?"* oraz *„te sekcje
+z kafelkami ja bym jednak zrobil profesjonalnie, strasznie obskurnie to wyglada… slabo sie to klika,
+czyta"*.
+
+**Parowanie nie bylo bledem renderu, tylko sprzecznoscia projektu.** Okno czasu jest JEDNYM filtrem
+calej zakladki (nizej, „dwa wymiary globalne"), a SKRYPT 10 trzyma je w jednej zmiennej `win`;
+oba rzedy nosily te same wartosci `data-win`, wiec byly dwiema kontrolkami jednego stanu.
+Zmierzone: „3 days" dawalo `24 of 187` artykulow i `16 of 24` MC — dokladnie te dwie liczby, ktore
+wlasciciel zakreslil. Kafelek, ktory wyglada na wlasny przelacznik, a jest drugim widokiem cudzego,
+zawsze bedzie czytany jako usterka.
+
+Blok wyglada wiec tak, zeby wspolny stan bylo **widac**:
+
+```html
+<div class="acthead"><div class="actt"><h3>Activity</h3>
+<p>Last 14 days. Click a bar for a single day, or a range below it &mdash; every table on this tab follows.</p>
+</div></div>
+<div class="actgrid">
+  <div class="actbox">
+    <div class="acthd"><b>Community articles</b>
+      <span class="actsum">166 dated of 187 collected &middot; peak 15/day</span></div>
+    <div class="actbars">
+      <button type="button" class="actbar" data-r="a" data-d="13" style="--h:13.3%"
+              title="13 days ago: 2" aria-label="13 days ago: 2"><i></i></button>
+      <!-- … czternascie slupkow, najstarszy z lewej, `data-d` = ile dni temu … -->
+    </div>
+    <div class="actax"><span>14 days ago</span><span>today</span></div>
+    <div class="actpre">
+      <button type="button" data-r="a" data-w="0" aria-pressed="false"><span class="actnum">5</span>Today</button>
+      <!-- … Yesterday 1 · 3 days 3 · 7 days 7 · 14 days 14 … -->
+    </div>
+  </div>
+  <!-- druga karta, data-r="m", Message Center -->
+</div>
+```
+
+Piec rzeczy jest w tym wiazacych, i kazda wyszla z pomiaru:
+
+1. **Slupki sa HTML-em, nie SVG.** Pierwsza wersja rysowala je w `<svg viewBox="0 0 100 54"
+   preserveAspectRatio="none">` i przy szerokosci 1370 px **wygladaly jak pastylki**: `preserveAspectRatio="none"`
+   rozciaga wszystko, co stoi w srodku — nie tylko tekst, przed czym ostrzega §5al, ale i promien
+   zaokraglenia (`rx="2"` robilo sie ~29 px w poziomie przy ~2 px w pionie). Slupek jest `<button>`,
+   wiec jest klikalny, ma tooltip i dziala z klawiatury, a wysokosc idzie zmienna `--h` w procentach.
+2. **Zaden `<text>` nie stoi w rysunku.** Liczby — suma i szczyt — sa w naglowku karty, w HTML.
+   Asercja: `#tab-community .actbox svg` = 0.
+3. **Podswietlenie slupkow liczy TEN SAM warunek co filtr tabel.** Jedna funkcja `inWinDay(dni, okno)`
+   obsluguje i rysunek, i `inWin()`. Pierwsza wersja pisala `(+x.dataset.d) < (+t.dataset.w || 99)`
+   i dla `Today` (`w = 0`) zapalala **caly wykres**, bo zero jest w JavaScripcie falszywe i wpadalo
+   w awaryjne 99. To ta sama rodzina bledow co `diff_href not in inner` w §0a: test, ktory dla jednej
+   poprawnej wartosci jest zawsze prawdziwy. Pozostale cztery kafelki dzialaly, wiec objaw byl na
+   jednym z pieciu — i wlasnie dlatego bramka pyta o `Today` z osobna.
+4. **Obie karty pokazuja to samo okno.** Nacisniecie zakresu na dowolnej karcie zapala te same slupki
+   na OBU i wciska oba odpowiadajace sobie kafelki; kazda karta nadal podaje **swoje** liczby.
+   Bez tego druga karta wygladala na nietknieta, chociaz jej tabela wlasnie zostala odfiltrowana —
+   czyli ta sama skarga o parowaniu, tylko odwrocona.
+5. **Klikniecie pojedynczego slupka filtruje DOKLADNIE ten dzien.** Okno ma odtad dwa ksztalty:
+   `{t:"r", n}` (zakres z kafelka) i `{t:"d", n}` (jeden dzien ze slupka). Slupek, ktory obiecuje
+   dzien, a filtruje czternascie, jest kontrolka klamiaca — to ten sam blad co kafelek `Show these N
+   in the list`, ktory pokazywal caly katalog (§5am).
+
+Zmierzone po zmianie, oba motywy, 1460x1000, zero bledow strony i konsoli, po zdjeciu filtra wszystko
+wraca do zera:
+
+| kafelek | slupki na karcie artykulow | slupki na karcie MC | zrodla | MC | artykuly |
+|---|---|---|---|---|---|
+| Today | 1 | 1 | 3 of 55 | 0 of 24 | 5 of 187 |
+| Yesterday | 1 | 1 | 6 of 55 | 4 of 24 | 15 of 187 |
+| 3 days | 3 | 3 | 9 of 55 | 16 of 24 | 24 of 187 |
+| 7 days | 7 | 7 | 16 of 55 | 16 of 24 | 37 of 187 |
+| 14 days | 14 | 14 | 23 of 55 | 17 of 24 | 59 of 187 |
 
 ### Piec regul prezentacji, kazda z konkretnego zgloszenia
 
@@ -9487,22 +9572,52 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 #tab-community section{scroll-margin-top:58px}
 .tw.scroll{max-height:520px;overflow-y:auto}
 .tw.scroll-sm{max-height:400px;overflow-y:auto}
-.winrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0;padding:9px 11px;
- border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface-2)}
-.winrow .wlab{font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;color:var(--text);
- min-width:130px;flex:0 0 auto}
-.wintiles{display:flex;flex-wrap:wrap;gap:7px;margin:0}
-/* zmierzone: 1.5px przegladarka zaokragla do 1px przy DPR 1 i kafelki dalej ginely
-   w tle, wiec ramka jest pelne 2px, a podpis ciemniejszy */
-.wintile{font:inherit;text-align:left;cursor:pointer;border:2px solid var(--border);border-radius:9px;
- background:var(--surface);padding:6px 12px;color:var(--text);min-width:100px}
-.wintile b{display:block;font-size:17px;line-height:1.2;font-variant-numeric:tabular-nums}
-.wintile span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;
- color:var(--text);opacity:.72;font-weight:700}
-.wintile:hover{border-color:var(--accent)}
-.wintile[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);
- box-shadow:inset 0 0 0 1px var(--accent)}
-.wintile[aria-pressed="true"] b{color:var(--accent)}
+/* --- blok Activity: rozklad 14 dni jako kontrolka --- */
+.acthead{display:flex;align-items:flex-start;gap:14px;margin:10px 0 10px}
+.acthead .actt h3{margin:0 0 2px;font-size:14px;font-weight:700;letter-spacing:0;
+ text-transform:none;color:var(--text)}
+.acthead .actt p{margin:0;font-size:12.5px;color:var(--muted);max-width:78ch}
+.actgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin:0}
+.actbox{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px 11px}
+.actbox .acthd{display:flex;align-items:baseline;gap:8px;margin:0 0 9px}
+.actbox .acthd b{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.actbox .acthd .actsum{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* Prefiks `act` nie jest ozdoba: powloka MA JUZ klasy `.cbar` (slupek wykresu,
+   `fill:var(--accent)`) i `.cax` (podpis osi, `fill:var(--faint)`), wiec pierwsza
+   wersja tego bloku przejmowalaby kazdy wykres na stronie - regula `height:100%`
+   dziala takze na `<rect>` w SVG. To ta sama pulapka co `details.rank` w §5al,
+   odwrotna niz `.tabn` w §5ae: tam celowalem w klase, ktorej NIE MA, tu uzylem
+   klasy, ktora JEST. Przed napisaniem selektora sprawdza sie w arkuszu powloki
+   OBIE rzeczy.
+   SLUPKI SA HTML-em, nie SVG: rysunek o preserveAspectRatio="none" rozciaga wszystko,
+   co w nim stoi - nie tylko tekst (5al), ale i promien zaokraglenia, przez co przy
+   1370 px slupki wygladaly jak pastylki. Slupek jest <button>, wiec jest klikalny,
+   ma tooltip i dziala z klawiatury. */
+.actbars{position:relative;display:flex;align-items:flex-end;gap:3px;height:64px;
+ border-bottom:1px solid var(--border)}
+.actbars::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;
+ background:linear-gradient(var(--border),var(--border)) 0 0/100% 1px no-repeat,
+            linear-gradient(var(--border),var(--border)) 0 50%/100% 1px no-repeat;opacity:.6}
+.actbar{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;
+ background:none;border:0;padding:0;cursor:pointer;position:relative}
+.actbar i{display:block;width:100%;height:var(--h);border-radius:3px 3px 0 0;
+ background:var(--accent);opacity:.3;transition:opacity .12s}
+.actbar:hover i{opacity:.62}
+.actbar.on i{opacity:1}
+.actbar:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.actbox .actax{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);
+ margin:5px 1px 0;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+/* kafelki zakresow: ramka ma 2 px, bo 1.5 px przegladarka zaokragla do 1 przy DPR 1
+   i latwo je bylo ominac - to samo zmierzenie co przy poprzednich `.wintile` */
+.actpre{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 0}
+.actpre button{font:inherit;cursor:pointer;display:inline-flex;align-items:baseline;gap:7px;
+ padding:6px 12px;border-radius:9px;border:2px solid var(--border);background:var(--surface-2);
+ color:var(--text);font-weight:600;font-size:12px;transition:border-color .12s,background .12s}
+.actpre button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.actpre button .actnum{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;
+ line-height:1;color:var(--text)}
+.actpre button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.actpre button[aria-pressed="true"] .actnum{color:#fff}
 .catbtn{font:inherit;font-size:12px;font-weight:600;padding:3px 11px 3px 8px;border-radius:999px;cursor:pointer;
  display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--text);border:1px solid var(--border)}
 .catbtn::before{content:"";width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:hsl(var(--h) 38% 52%)}
@@ -9537,7 +9652,8 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 .filterbanner.s10 .fb-clear{font:inherit;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;
  border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
 @media (max-width:760px){
-  #tab-community .winrow .wlab{min-width:0;flex:1 1 100%}
+  #tab-community .acthead{flex-wrap:wrap}
+  #tab-community .actpre button{flex:1 1 auto;justify-content:center}
   #tab-community .desc{max-width:none}
   #tab-community th{position:static}
 }
@@ -9555,10 +9671,11 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
    (CLAUDE.md 5an). ADDED, never a replacement: shell scripts 1-3 and added scripts
    4-9 are untouched, byte for byte.
 
-   The run writes the markup; this script gives it behaviour. Four things here came
+   The run writes the markup; this script gives it behaviour. Five things here came
    out of a measurement rather than a preference, and each is commented where it
    sits: one writer of row.hidden, textContent over innerText, a scroll-position
-   rail instead of an IntersectionObserver, and a banner class of its own.
+   rail instead of an IntersectionObserver, a banner class of its own, and one
+   window state shown on BOTH activity cards.
    ========================================================================== */
 (function () {
   "use strict";
@@ -9567,15 +9684,24 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
      ran first - the same trap the portal's scripts 6-8 hit. */
   var active = null, win = null, boxes = [];
   var TODAY = document.body.dataset.today;
+  /* The window has TWO shapes: {t:"r", n} is a range from a preset tile, {t:"d", n}
+     is one day from a bar. A bar that promises a day and filters a fortnight is a
+     control that lies - the same defect as `Show these N in the list` showing the
+     whole catalog (5am). */
+  function inWinDay(days, w) {
+    if (!w) return true;
+    if (isNaN(days)) return false;
+    if (w.t === "d") return days === w.n;
+    if (w.n === 0) return days === 0;
+    if (w.n === 1) return days === 1;
+    return days >= 0 && days < w.n;
+  }
   function inWin(d) {
-    if (win === null) return true;
+    if (!win) return true;
     if (!d) return false;
     var a = Date.parse(TODAY + "T00:00:00Z"), b = Date.parse(d + "T00:00:00Z");
     if (isNaN(b)) return false;
-    var days = Math.round((a - b) / 86400000);
-    if (win === 0) return days === 0;
-    if (win === 1) return days === 1;
-    return days >= 0 && days < win;
+    return inWinDay(Math.round((a - b) / 86400000), win);
   }
 
   /* ---------- sorting ---------- */
@@ -9687,7 +9813,7 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
       cnt.textContent = shown + " of " + rows.length;
       var on = [];
       if (active) on.push("technology " + active);
-      if (win !== null) on.push(winLabel());
+      if (win) on.push(winLabel());
       if (v) on.push('search "' + q.value.trim() + '"');
       sels.forEach(function (s2) {
         if (s2.value) on.push((s2.options[0].textContent.replace(/^All /, "")) + " = " + s2.value);
@@ -9713,16 +9839,18 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
   }
 
   var banner = document.getElementById("filterbanner");
-  var WINLAB = {0: "published today", 1: "published yesterday"};
   function winLabel() {
-    if (win === null) return null;
-    return WINLAB[win] || ("published in the last " + win + " days");
+    if (!win) return null;
+    if (win.n === 0) return "published today";
+    if (win.n === 1) return "published yesterday";
+    if (win.t === "d") return "published " + win.n + " days ago";
+    return "published in the last " + win.n + " days";
   }
   function refresh() {
     boxes.forEach(function (b) { b.__apply(); });
     var parts = [];
     if (active) parts.push(active);
-    if (win !== null) parts.push(winLabel());
+    if (win) parts.push(winLabel());
     if (banner) {
       banner.hidden = !parts.length;
       if (parts.length) banner.querySelector(".b-msg").textContent =
@@ -9732,19 +9860,30 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
     [].forEach.call(document.querySelectorAll(".catbtn"), function (b) {
       b.setAttribute("aria-pressed", String(b.dataset.cat === active));
     });
-    [].forEach.call(document.querySelectorAll(".wintile"), function (b) {
-      b.setAttribute("aria-pressed", String(win !== null && String(win) === b.dataset.win));
+    /* BOTH cards show the same window: pressing a range on either lights the same
+       bars on both and presses both matching tiles. Without that the second card
+       looked untouched while its table had just been filtered - which is the
+       owner's "the tiles press in pairs" complaint, inverted. */
+    [].forEach.call(document.querySelectorAll(".actpre button"), function (b) {
+      b.setAttribute("aria-pressed",
+        String(!!win && win.t === "r" && parseInt(b.dataset.w, 10) === win.n));
+    });
+    [].forEach.call(document.querySelectorAll(".actbar"), function (b) {
+      b.classList.toggle("on", !!win && inWinDay(parseInt(b.dataset.d, 10), win));
     });
   }
   function setCat(c) { active = (active === c) ? null : c; refresh(); }
-  function setWin(w) { win = (win === w) ? null : w; refresh(); }
+  function sameWin(a, b) { return !!a && !!b && a.t === b.t && a.n === b.n; }
+  function setWin(w) { win = sameWin(win, w) ? null : w; refresh(); }
   window.__setCat = setCat;
 
   /* every chip, every chart bar, every donut slice and every legend row is the same control */
   document.addEventListener("click", function (ev) {
     if (!ev.target.closest) return;
-    var w = ev.target.closest("[data-win]");
-    if (w) { ev.preventDefault(); setWin(parseInt(w.dataset.win, 10)); return; }
+    var pre = ev.target.closest(".actpre button[data-w]");
+    if (pre) { ev.preventDefault(); setWin({ t: "r", n: parseInt(pre.dataset.w, 10) }); return; }
+    var bar = ev.target.closest(".actbar[data-d]");
+    if (bar) { ev.preventDefault(); setWin({ t: "d", n: parseInt(bar.dataset.d, 10) }); return; }
     var t = ev.target.closest("[data-cat]");
     if (t) { ev.preventDefault(); setCat(t.dataset.cat); }
   });
@@ -9800,7 +9939,7 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
 linie `facetCandidates()` (§5w) zostaja jedynymi. Skrypt 10 jest osobnym blokiem, ktory niczego
 nie nadpisuje.
 
-**Cztery pulapki, kazda zmierzona na tej zakladce i kazda znana z wczesniejszych skryptow:**
+**Piec pulapek, kazda zmierzona na tej zakladce i kazda znana z wczesniejszych skryptow:**
 
 1. **JEDEN pisarz `row.hidden`.** Chipy, kafelki, fasety i pole szukania ustawiaja predykat; `apply()`
    jest jedyna funkcja, ktora chowa wiersz. Dwaj niezalezni pisarze walcza, a wygrywa ten, ktory pisal
@@ -9817,6 +9956,13 @@ nie nadpisuje.
    `.cat-item` (§5ad) i `.tbar` (§5am). Klasa jest `filterbanner s10` i ma wlasna regule
    `[hidden]{display:none!important}`. Zmierzone: zwiniety banner daje `display:none`, wlaczony filtr
    `display:flex` na czterech tabelach, `Clear filter` wraca do zera.
+5. **Zero jest w JavaScripcie FALSZYWE, a `Today` to okno zero.** Pierwsza wersja podswietlala slupki
+   warunkiem `(+x.dataset.d) < (+t.dataset.w || 99)`; dla czterech kafelkow z pieciu dzialal, a dla
+   `Today` wpadal w awaryjne 99 i zapalal **caly wykres**. Podswietlenie liczy sie odtad tym samym
+   `inWinDay()`, ktorego uzywa `inWin()` do filtrowania tabel — jedna funkcja, dwa czytania, wiec
+   rysunek i liczniki nie maja jak powiedziec czegos innego (ta sama zasada co `--ledger` w §5aj).
+   To ta sama rodzina bledow co `diff_href not in inner` w §0a: test, ktory dla jednej poprawnej
+   wartosci jest zawsze prawdziwy, i dlatego objaw byl na jednym kafelku z pieciu.
 
 ### Co z tego idzie na strone zmian — imiennie, nie licznikiem
 
@@ -9861,9 +10007,10 @@ ile zrodel i ile artykulow zapisano po raz pierwszy, i ze jutro beda prawdziwe r
   liczbie pozycji w `community_sources.json` przeczytanym w TYM przebiegu. Zrodlo bez odczytu ma
   `status:"failed"` i **niepusty `note`** — cisza jest tu jedynym bledem, ktorego ta zakladka nie wybacza.
   Kazdy artykul ma `link` i `firstTracked`; kazda liczba w kafelkach jest policzona ze stanu.
-- **61** — SKRYPT 10 jest na stronie razem ze swoimi zaczepami (`subnav`, `wintile`, `filterbanner s10`,
-  `s9find`, `sortable`); render (§5h): kliknieciecie kafelka zmienia licznik `N of M` w kazdej tabeli,
-  banner sie pokazuje i `Clear filter` go czysci.
+- **61** — SKRYPT 10 jest na stronie razem ze swoimi zaczepami (`subnav`, `actbar`, `actpre`, `inWinDay`,
+  `filterbanner s10`, `s9find`, `sortable`); render (§5h): `Today` zapala dokladnie jeden slupek na obu
+  kartach, klikniecie kafelka zmienia licznik `N of M` w kazdej tabeli, klikniecie slupka zawezasa do
+  jednego dnia, banner sie pokazuje i `Clear filter` go czysci.
 - **62** — strona `/diff/` niesie sekcje `community` i `mcenter`, a kazdy dodany artykul jest **nazwany
   z tytulem i linkiem**, nie policzony. Przy pierwszym przebiegu z `community` w stanie pozycja daje
   `BRAK „brak punktu odniesienia"`, nie OK.
