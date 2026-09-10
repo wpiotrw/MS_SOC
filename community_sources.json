@@ -1,4 +1,20 @@
 [
+   {
+    "SourceName": "Ali Tajran",
+    "SourceURL": "https://www.alitajran.com/blog/"
+  },
+  {
+    "SourceName": "Cirrius Technologies",
+    "SourceURL": "https://cirriustech.co.uk/"
+  },
+  {
+    "SourceName": "NeonTiger12",
+    "SourceURL": "https://dev.to/neontiger12"
+  },
+  {
+    "SourceName": "Jeffrey Appel - MDE/MDI",
+    "SourceURL": " https://jeffreyappel.nl/"
+  },
   {
     "SourceName": "Call4Cloud - M365",
     "SourceURL": "https://call4cloud.nl/"
