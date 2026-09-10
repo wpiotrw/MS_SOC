@@ -1,0 +1,206 @@
+[
+  {
+    "SourceName": "Call4Cloud - M365",
+    "SourceURL": "https://call4cloud.nl/"
+  },
+  {
+    "SourceName": "Cloud Brothers - EntraID",
+    "SourceURL": "https://cloudbrothers.info/"
+  },
+  {
+    "SourceName": "Cloud Infra - M365, EntraID, Endpoint",
+    "SourceURL": "https://cloudinfra.net/"
+  },
+  {
+    "SourceName": "Cloud Secop - M365",
+    "SourceURL": "https://cloudsecop.com/"
+  },
+  {
+    "SourceName": "Daniel Engberg - Endpoint",
+    "SourceURL": "https://www.danielengberg.com/"
+  },
+  {
+    "SourceName": "Endpoint Tech Blog",
+    "SourceURL": "https://endpointtechblog.com/"
+  },
+  {
+    "SourceName": "Entra.news",
+    "SourceURL": "https://entra.news"
+  },
+  {
+    "SourceName": "Hacker News",
+    "SourceURL": "https://thehackernews.com/"
+  },
+  {
+    "SourceName": "JanBakker Tech - EntraID",
+    "SourceURL": "https://janbakker.tech/"
+  },
+  {
+    "SourceName": "Joey Verlinden - Endpoint & M365",
+    "SourceURL": "https://www.joeyverlinden.com/"
+  },
+  {
+    "SourceName": "Joost Gelijsteen - Just about the Modern Workplace",
+    "SourceURL": "https://joostgelijsteen.com/about/"
+  },
+  {
+    "SourceName": "JoyMalya - Endpoint",
+    "SourceURL": "https://joymalya.com/all-blog-posts-joymalya-basu-roy/"
+  },
+  {
+    "SourceName": "Kevin Malinoski - M365",
+    "SourceURL": "https://malinoski.me/"
+  },
+  {
+    "SourceName": "Malinoski - Entra/Intune",
+    "SourceURL": "https://malinoski.me/"
+  },
+  {
+    "SourceName": "Merill Fernando (merill.net)",
+    "SourceURL": "https://merill.net"
+  },
+  {
+    "SourceName": "Microsoft Entra Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-entra"
+  },
+  {
+    "SourceName": "Microsoft Entra Community Hub",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-entra/ct-p/MicrosoftEntra"
+  },
+  {
+    "SourceName": "Darren Robinson (IAM)",
+    "SourceURL": "https://blog.darrenjrobinson.com/"
+  },
+  {
+    "SourceName": "Microsoft 365 Blog",
+    "SourceURL": "https://www.microsoft.com/en-us/microsoft-365/blog/"
+  },
+  {
+    "SourceName": "MS Cloud Ninja - Identity",
+    "SourceURL": "https://www.mscloudninja.com/pages/latest.html"
+  },
+  {
+    "SourceName": "MS Endpointmgr - Endpoints",
+    "SourceURL": "https://msendpointmgr.com/"
+  },
+  {
+    "SourceName": "Office 365 IT Pros",
+    "SourceURL": "https://office365itpros.com"
+  },
+  {
+    "SourceName": "AdminDroid Blog",
+    "SourceURL": "https://blog.admindroid.com/"
+  },
+  {
+    "SourceName": "Petri IT Knowledgebase",
+    "SourceURL": "https://petri.com/category/microsoft-365/"
+  },
+  {
+    "SourceName": "MS365 News",
+    "SourceURL": "https://ms365news.com"
+  },
+  {
+    "SourceName": "SharePoint Stuff (Joanne Klein)",
+    "SourceURL": "https://joannecklein.com"
+  },
+  {
+    "SourceName": "365CloudCapsule",
+    "SourceURL": "https://cloudcapsule.co.uk"
+  },
+  {
+    "SourceName": "Breakwater IT M365 Update",
+    "SourceURL": "https://breakwaterit.ca/category/microsoft-365/"
+  },
+  {
+    "SourceName": "Microsoft 365 Roadmap",
+    "SourceURL": "https://www.microsoft.com/en-us/microsoft-365/roadmap"
+  },
+  {
+    "SourceName": "Microsoft Security Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-security-baselines/bg-p/Microsoft-Security-Baselines"
+  },
+  {
+    "SourceName": "Microsoft Sentinel Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-sentinel"
+  },
+  {
+    "SourceName": "Microsoft Defender for Endpoint",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-endpoint"
+  },
+  {
+    "SourceName": "Microsoft Security Baselines",
+    "SourceURL": "https://techcommunity.microsoft.com/category/security-baselines"
+  },
+  {
+    "SourceName": "Microsoft Security Community",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-security-community/ct-p/MicrosoftSecurityCommunity"
+  },
+  {
+    "SourceName": "Microsoft Security Experts Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-security-experts/bg-p/MicrosoftSecurityExperts"
+  },
+  {
+    "SourceName": "Microsoft Intune Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/intune"
+  },
+  {
+    "SourceName": "Out of Office Hours (M. Niehaus)",
+    "SourceURL": "https://oofhours.com"
+  },
+  {
+    "SourceName": "Patch My PC Blog",
+    "SourceURL": "https://patchmypc.com/blog"
+  },
+  {
+    "SourceName": "michaelsendpoint.com",
+    "SourceURL": "https://michaelsendpoint.com"
+  },
+  {
+    "SourceName": "Peter van der Woude (Intune)",
+    "SourceURL": "https://www.petervanderwoude.nl"
+  },
+  {
+    "SourceName": "Microsoft Purview Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-purview"
+  },
+  {
+    "SourceName": "BleepingComputer",
+    "SourceURL": "https://www.bleepingcomputer.com/news/"
+  },
+  {
+    "SourceName": "Ourcloudnetwork",
+    "SourceURL": "https://ourcloudnetwork.com/"
+  },
+  {
+    "SourceName": "BleepingComputer Microsoft",
+    "SourceURL": "https://www.bleepingcomputer.com/news/microsoft/"
+  },
+  {
+    "SourceName": "SMBtoTheCloud - M365",
+    "SourceURL": "https://smbtothecloud.com/"
+  },
+  {
+    "SourceName": "Sys Admin Hub - M365",
+    "SourceURL": "https://sysadminhub.info/"
+  },
+  {
+    "SourceName": "SystAndDeploy - Endpoint, Intune, M365",
+    "SourceURL": "https://www.systanddeploy.com/"
+  },
+  {
+    "SourceName": "System Center Dudes - Intune",
+    "SourceURL": "https://www.systemcenterdudes.com/category/intune/"
+  },
+  {
+    "SourceName": "The Lazy Administrator",
+    "SourceURL": "https://www.thelazyadministrator.com/"
+  },
+  {
+    "SourceName": "Welka's World - M365",
+    "SourceURL": "https://www.welkasworld.com/"
+  },
+  {
+    "SourceName": "Dir Team - EntraID",
+    "SourceURL": "https://dirteam.com/feed/"
+  }
+]
