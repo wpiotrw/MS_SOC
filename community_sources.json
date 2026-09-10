@@ -1,5 +1,9 @@
-[
-   {
+[   
+  {
+    "SourceName": "MC - Merill",
+    "SourceURL": "https://mc.merill.net/"
+  },
+  {
     "SourceName": "Ali Tajran",
     "SourceURL": "https://www.alitajran.com/blog/"
   },
@@ -13,7 +17,7 @@
   },
   {
     "SourceName": "Jeffrey Appel - MDE/MDI",
-    "SourceURL": " https://jeffreyappel.nl/"
+    "SourceURL": "https://jeffreyappel.nl/"
   },
   {
     "SourceName": "Call4Cloud - M365",
@@ -64,11 +68,7 @@
     "SourceURL": "https://joymalya.com/all-blog-posts-joymalya-basu-roy/"
   },
   {
-    "SourceName": "Kevin Malinoski - M365",
-    "SourceURL": "https://malinoski.me/"
-  },
-  {
-    "SourceName": "Malinoski - Entra/Intune",
+    "SourceName": "Kevin Malinoski - M365/Entra/Intune",
     "SourceURL": "https://malinoski.me/"
   },
   {
