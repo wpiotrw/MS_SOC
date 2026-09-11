@@ -1,0 +1,122 @@
+[
+  {
+    "SourceName": "Microsoft Learn - Entra",
+    "SourceURL": "https://learn.microsoft.com/en-us/entra/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender for Identity",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-for-identity/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender for Endpoint",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-endpoint/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender XDR",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-xdr/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender for Office 365",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-office-365/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender for Cloud Apps",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-cloud-apps/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender Vulnerability Management",
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-vulnerability-management/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Sentinel",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/sentinel/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Purview",
+    "SourceURL": "https://learn.microsoft.com/en-us/purview/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Security Exposure Management",
+    "SourceURL": "https://learn.microsoft.com/en-us/security-exposure-management/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Security",
+    "SourceURL": "https://learn.microsoft.com/en-us/security/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Zero Trust",
+    "SourceURL": "https://learn.microsoft.com/en-us/security/zero-trust/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Intune",
+    "SourceURL": "https://learn.microsoft.com/en-us/intune/intune-service/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Defender for Cloud",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Security Copilot",
+    "SourceURL": "https://learn.microsoft.com/en-us/copilot/security/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Graph Security",
+    "SourceURL": "https://learn.microsoft.com/en-us/graph/security-concept-overview"
+  },
+  {
+    "SourceName": "Microsoft Learn - Kusto Query Language",
+    "SourceURL": "https://learn.microsoft.com/en-us/kusto/query/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Exchange Online",
+    "SourceURL": "https://learn.microsoft.com/en-us/exchange/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft Teams",
+    "SourceURL": "https://learn.microsoft.com/en-us/microsoftteams/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Microsoft 365",
+    "SourceURL": "https://learn.microsoft.com/en-us/microsoft-365/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Windows",
+    "SourceURL": "https://learn.microsoft.com/en-us/windows/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Windows Security",
+    "SourceURL": "https://learn.microsoft.com/en-us/windows/security/"
+  },
+  {
+    "SourceName": "Microsoft Learn - FSLogix",
+    "SourceURL": "https://learn.microsoft.com/en-us/fslogix/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Arc",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/azure-arc/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Virtual Machines",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/virtual-machines/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Governance",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/governance/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Cost Management and Billing",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/cost-management-billing/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure AI Foundry",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/ai-foundry/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Database Migration Service",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/dms/"
+  },
+  {
+    "SourceName": "Microsoft Learn - Windows Security Baselines",
+    "SourceURL": "https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-baselines"
+  }
+]
