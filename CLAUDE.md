@@ -39,12 +39,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **63 pozycje** (0-33, 35-61, 63-64), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **65**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+   strone glowna, sprawdza **66 pozycji** (0-33, 35-61, 63-67), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **68**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
-   Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
+   Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, a wieczorem tego samego dnia
+   **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
@@ -109,7 +110,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
-| 56 | **skrypty 4-10 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 10` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
+| 56 | **skrypty 4-11 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 11` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
@@ -118,6 +119,9 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 62 | **tylko przebieg ZMIAN**: strona zmian nazywa artykuly z imienia — sekcje `community` i `mcenter`, kazdy dodany artykul z tytulem i linkiem, nie sam licznik | 3, 3a, 5an | `id="community"` i `id="mcenter"` na `/diff/`; zero wierszy `added` bez `<a href`; pierwszy przebieg daje `BRAK „brak punktu odniesienia"` |
 | 63 | **lista zrodel przeczytana W TYM przebiegu i zdiffowana** — `community.listDiff` z `added`/`removed`/`renamed`, `readOn` = data przebiegu | 5an | `readOn` rowne `briefDate`; `listDiff` obecne; przemianowanie NIE jest liczone jako add+remove |
 | 64 | **kazdy filtr globalny mowi, ze jest wlaczony, i daje JEDEN reset** — banner stoi w tym samym przyklejonym bloku co pasek skrotow: `cstick` w zakladce Community, `dstick` na stronie zmian | 5ao, 5an, 3 | strona glowna: `#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)`, `ensureGlobalBanner`, `stickify`, `setProperty("--chdr-h"` w pliku; `/diff/`: `dstick`, `nb-lab`, `--dstick-h` — sprawdza je `verify()` w `make_diff.py`; render (§5h): po kliknieciu tagu banner jest w widoku |
+| 65 | **kazda kolumna, ktora tabela pokazuje, da sie filtrowac, kazdy slupek z `data-ids` jest kontrolka, a pitch slupka jest jeden na cala strone** — Top N i Executive summary tez maja pole szukania | 5ap, 5y | `SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL`, `window.__socS11 = `, `function columnPlan(`, `MIN_ROWS_OWN_BAR`, `s11srcnote`, `ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}`, `.filterbanner.s11[hidden]{display:none!important}`, `var CW = 6.15, W = 620, rowH = 19, barH = 9.5, pad = 6, valW = 44;`, `bar.setAttribute("data-ids"` w pliku; render (§5h): kazda tabela >=8 wierszy ma pole i zawezenie do kolumny, klikniety slupek zmienia `N of M` i zapala banner zakladki |
+| 66 | **ZADEN rozwijany blok w portalu nie renderuje sie natywnym trojkatem** — regula jest katalogiem ODWROTNYM (`details:not(.foldnote):not(.eps)…`), bo wyliczanie klas zawodzi przy pierwszej nowej nazwie, ktora przebieg wymysli | 5an | `.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14)` oraz `…:not(.dsec)>summary::before` i `.tabpanel details.relrest{background:var(--surface-2)` w pliku; render (§5h): w KAZDEJ z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz `none` |
+| 67 | **piec albo wiecej nazwanych pozycji to TABELA, nie lista punktow — z tym samym wygladem wiersza; tytul sekcji nazywa okres slowami i datami** | 5aq | w tresci widocznej brak `New this window`, `this window`, `items in window`; zaden `<ul>` nie trzyma >=5 punktow o ksztalcie `<b>tytul</b> … <a>Source</a>`, liczone `html.parser` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -139,7 +143,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -411,7 +415,12 @@ def snapshot_shell(content: str):
     styles = re.findall(r"<style[^>]*>.*?</style>", body, re.S)
     raw = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", body, re.S)
     scripts = [b for b in raw if "<script" not in b[len("<script"):]]
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|10)\b", b[:4000])]
+    # `(?:[4-9]|10)` bylo prawdziwe do dnia, w ktorym doszedl SKRYPT 11 (§5ap): wtedy
+    # jedenasty blok nie pasowal do wzorca, wpadal do `shell`, dawal cztery skrypty powloki
+    # i `snapshot_shell` PRZERYWAL caly lustrzany przebieg. Kazda liczba zapisana w kodzie
+    # ma date waznosci tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt,
+    # przeszukaj plik za twardymi zakresami.
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[01])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -640,6 +649,8 @@ class Scan(HTMLParser):
         self.rows=[]; self._secstack=[]; self._row=None; self._rowid=None; self._rowsec=None
         # §5af: kazdy <li> jako (tekst, liczba <b>, liczba <a>) — kryterium to liczba TEMATOW
         self.listitems=[]; self._li=None; self._lib=0; self._lia=0
+        # §5aq: ile NAZWANYCH pozycji (`<b>` na poczatku, link na koncu) trzyma jedna lista
+        self.ulnamed=[]; self._ulstack=[]; self._lifirst=None; self._lilast=None
         # §5ag: zakladka Component versions
         self.vboxes=0; self.vboxPchips=0; self._invbox=False
         self.pchips=[]; self.relitems=0; self.promoted=0; self.rcats=0
@@ -671,9 +682,17 @@ class Scan(HTMLParser):
             if a.get("id"): self.sec=a["id"]
         if tag=="tr":
             self._row=[]; self._rowid=a.get("data-id"); self._rowsec=self.sec
-        if tag=="li": self._li=[]; self._lib=0; self._lia=0
-        elif self._li is not None and tag=="b": self._lib+=1
-        elif self._li is not None and tag=="a": self._lia+=1
+        if tag in ("ul","ol"): self._ulstack.append(0)
+        if tag=="li":
+            self._li=[]; self._lib=0; self._lia=0; self._lifirst=None; self._lilast=None
+        elif self._li is not None and tag=="b":
+            self._lib+=1
+            if self._lifirst is None: self._lifirst="b"
+            self._lilast="b"
+        elif self._li is not None and tag=="a":
+            self._lia+=1
+            if self._lifirst is None: self._lifirst="a"
+            self._lilast="a"
         # --- §5ag ---
         if tag=="div" and "vbox" in cls: self.vboxes+=1; self._invbox=True
         if tag=="div" and "rulebox" in cls: self.rulebox+=1
@@ -730,7 +749,11 @@ class Scan(HTMLParser):
             self._row=None; self._rowid=None; self._rowsec=None
         if tag=="li" and self._li is not None:
             self.listitems.append((" ".join("".join(self._li).split()), self._lib, self._lia))
+            if self._ulstack and self._lifirst=="b" and self._lilast=="a":
+                self._ulstack[-1]+=1
             self._li=None
+        if tag in ("ul","ol") and self._ulstack:
+            self.ulnamed.append(self._ulstack.pop())
         if tag=="li": self._inpromoted=False
         if tag=="div" and self._invbox: self._invbox=False
         if tag=="summary" and self._insummary:
@@ -760,7 +783,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63"}
-CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64"}
+CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1190,7 +1213,7 @@ def gate(path, site=None, mirror=False, doc=None):
     need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
          "SCRIPT 9" in h and "__socOpenPerm" in h,
          "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
-    # ---- 56: skrypty 4-10 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
+    # ---- 56: skrypty 4-11 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
     # Zmierzone 10 wrzesnia 2026: artefakt mial wszystkie dziewiec skryptow i dziesiec paneli,
     # a skrypty 6, 7 i 8 byly WCZORAJSZE — przebieg skopiowal powloke z wczorajszej strony,
     # bo tak kazal mu kontrakt wozony w tej stronie. Zadna inna pozycja tego nie lapie:
@@ -1200,7 +1223,7 @@ def gate(path, site=None, mirror=False, doc=None):
             docsrc = open(doc, encoding="utf-8").read()
         except Exception as ex:
             docsrc = None
-            need("56", "skrypty 4-10 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+            need("56", "skrypty 4-11 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
         if docsrc:
             want = {}
             F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
@@ -1209,15 +1232,15 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 10:
+                if m and 4 <= int(m.group(1)) <= 11:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
-            need("56", "skrypty 4-10 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+            need("56", "skrypty 4-11 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
                  bool(want) and not stale,
                  "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
                  else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
     else:
-        need("56", "skrypty 4-10 sa te z CLAUDE.md (§0c)", False,
+        need("56", "skrypty 4-11 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
     # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
     # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
@@ -1317,6 +1340,42 @@ def gate(path, site=None, mirror=False, doc=None):
     need("64", "filtr globalny nazywa sie i czysci z jednego miejsca (§5ao)",
          all(k in h for k in K64),
          "brak: %s" % ", ".join(k for k in K64 if k not in h))
+    # 65: §5ap — kazda kolumna filtrowalna, kazdy slupek kontrolka. Bramka czyta PLIK,
+    # wiec pyta o obecnosc skryptu, jego zaczepow i o GEOMETRIE, ktora SKRYPT 4 rysuje;
+    # to, czy pole naprawde zawezasa i czy slupek naprawde filtruje, sprawdza Playwright
+    # (§5h) — to samo rozroznienie co przy pozycji 48. Kazdy klucz jest PELNA regula:
+    # `data-s11` samo stoi takze w komentarzach skryptu, a `s11col` w CSS i w JS.
+    K65 = ("SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL",
+           "window.__socS11 = ", "function columnPlan(", "MIN_ROWS_OWN_BAR", "s11srcnote",
+           'ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}',
+           ".filterbanner.s11[hidden]{display:none!important}",
+           "var CW = 6.15, W = 620, rowH = 19, barH = 9.5, pad = 6, valW = 44;",
+           'bar.setAttribute("data-ids"')
+    need("65", "kazda kolumna da sie filtrowac, kazdy slupek jest kontrolka (§5ap)",
+         all(k in h for k in K65),
+         "brak: %s" % ", ".join(k for k in K65 if k not in h))
+    # 66: §5an — klasa wpisana w markup, ktorej nic nie stoi w arkuszu, zawodzi po cichu.
+    # Piec sekcji `details.cmfold` renderowalo sie golym trojkatem przegladarki, bo arkusz
+    # mial siedem regul `summary::before` i ani jednej dla tej klasy (zmierzone 11 wrzesnia
+    # 2026). To ta sama choroba co `.tabn` w §5ae.
+    K66 = (".tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14)",
+           ":not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::before",
+           '{display:none}', ".tabpanel details.relrest{background:var(--surface-2)")
+    need("66", "zaden rozwijany blok nie renderuje sie natywnym trojkatem (§5an)",
+         all(k in h for k in K66),
+         "brak katalogu odwrotnego dla `details` — nowa klasa przebiegu renderuje sie golym trojkatem: %s"
+         % ", ".join(k for k in K66 if k not in h))
+    # 67: §5aq — piec nazwanych pozycji to tabela, nie lista punktow, a tytul sekcji
+    # nazywa okres slowami i datami. Liczymy PARSEREM, nie regexem: komentarz SHELL
+    # CONTRACT cytuje markup i bywa przerwany wczesnym `-->` (§0a).
+    vis67 = "".join(s.text)
+    jarg = [w for w in ("New this window", "this window", "items in window") if w in vis67]
+    big = [n for n in s.ulnamed if n >= 5]
+    need("67", "piec nazwanych pozycji to tabela, a tytul sekcji nazywa okres (§5aq)",
+         not jarg and not big,
+         ("zargon okna w tresci: %s; " % ", ".join(jarg) if jarg else "") +
+         ("%d list ma >=5 nazwanych pozycji (najwieksza %d) — to wyliczenie, czyli tabela"
+          % (len(big), max(big)) if big else ""))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1346,7 +1405,7 @@ if __name__ == "__main__":
     _o = sys.argv[1:]
     _a = [x for x in _o if not x.startswith("--")]
     # `--mirror` = sciezka lustra (§0a): pozycje klasy B sa raportowane, ale nie blokuja.
-    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-10 ze zrodlem (§0c).
+    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-11 ze zrodlem (§0c).
     _doc = _o[_o.index("--doc") + 1] if "--doc" in _o else None
     if _doc in _a: _a.remove(_doc)
     sys.exit(gate(_a[0], _a[1] if len(_a) > 1 else None, "--mirror" in _o, _doc))
@@ -1480,7 +1539,7 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest SIEDEM (4-10), a blokow CSS trzynascie:**
+Skryptow dodawanych jest OSIEM (4-11), a blokow CSS czternascie:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1491,7 +1550,8 @@ Skryptow dodawanych jest SIEDEM (4-10), a blokow CSS trzynascie:**
 | SKRYPT 8 — gora zakladki i rejestr 14 dni | `CLAUDE.md` | 5al |
 | SKRYPT 9 — katalogi otwieraja sie na `All` | `CLAUDE.md` | 5ah |
 | SKRYPT 10 — zakladka Community Articles | `CLAUDE.md` | 5an |
-| **kazdy dopisany blok CSS** (13 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an |
+| SKRYPT 11 — kazda kolumna filtrowalna, kazdy slupek kontrolka | `CLAUDE.md` | 5ap |
+| **kazdy dopisany blok CSS** (14 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
@@ -1532,7 +1592,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 10:
+            if m and 4 <= int(m.group(1)) <= 11:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -1547,13 +1607,13 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 11)] + \
+    need = ["script%d.js" % n for n in range(4, 12)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 13:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 13 — sprawdz wciete plotki" % len(css))
+    if len(css) < 14:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 14 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -1579,7 +1639,7 @@ a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero ble
 
 `SHELL CONTRACT` (§6) zostaje i nadal kopiuje sie go dalej — opisuje powloke, ktora wozi. Ale
 **zdanie „skopiuj piec skryptow z wczorajszej strony" dotyczy WYLACZNIE trzech skryptow powloki**;
-skrypty 4-10 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
+skrypty 4-11 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
 co innego — **wygrywa ten plik** (§6), a przebieg poprawia kontrakt w dzisiejszej stronie, zeby
 jutro nie klamal: liczba paneli, liczba skryptow i lista sekcji maja zgadzac sie z dniem dzisiejszym.
 
@@ -1603,7 +1663,7 @@ opublikowanym artefakcie (7 627 330 B):
 | warstwa | co to jest | rozmiar | zrodlo prawdy |
 |---|---|---|---|
 | **L1 POWLOKA** | arkusz `<style>`, TRZY skrypty powloki, masthead, `SHELL CONTRACT` | **230 145 B — 3,0% strony** | `site/shell/shell.html` |
-| **L2 KOD DODANY** | skrypty 4-10 i 13 blokow CSS | 132 246 B | **wylacznie `CLAUDE.md`** (§0c) |
+| **L2 KOD DODANY** | skrypty 4-11 i 14 blokow CSS | 132 246 B (pomiar z 10 wrzesnia, przed §5ap) | **wylacznie `CLAUDE.md`** (§0c) |
 | **L3 TRESC I STAN** | oba bloki JSON i markup sekcji | 6 957 456 B — **91%** | `site/data/<data>.json` |
 
 L3 juz jest zapisywane codziennie. L2 juz jest wycinane z tego pliku w kazdym przebiegu. **Brakuje
@@ -2631,6 +2691,9 @@ details.dsec>.note{margin-top:10px}
 .s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
 .s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
  background:var(--surface);color:var(--text);max-width:230px}
+/* the column scope: every column this table shows is filterable, the ones that group
+   through a facet and the rest through this (5ap) */
+.s9find .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
 .s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
  border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
 .s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -2727,22 +2790,40 @@ FIND_BODY = """<script>
     q.type = "search"; q.className = "s9q";
     q.placeholder = "Search " + rows.length + " rows\u2026";
     wrap.appendChild(q);
+    /* EVERY column this table shows is filterable, and the two halves of that are
+       deliberate (5ap): a column that GROUPS gets a facet, and a column whose every
+       value is unique gets the search box scoped to it instead — a dropdown holding
+       one entry per row is not a filter, it is a second copy of the table (5s). */
+    var colSel = document.createElement("select");
+    colSel.className = "s9f s11col";
+    colSel.setAttribute("aria-label", "Search in one column");
+    var c0 = document.createElement("option"); c0.value = "-1"; c0.textContent = "Search: all columns";
+    colSel.appendChild(c0);
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var o = document.createElement("option"); o.value = String(ci); o.textContent = "Search: " + h;
+      colSel.appendChild(o);
+    });
+    if (colSel.options.length > 2) wrap.appendChild(colSel); else colSel = null;
+
     var sels = [];
     heads.forEach(function (h, ci) {
       if (!h) return;
-      var vals = {}, n = 0;
+      var vals = {}, n = 0, missing = false;
       rows.forEach(function (r) {
-        var c = r.cells[ci]; if (!c) return;
+        var c = r.cells[ci]; if (!c) { missing = true; return; }
         /* textContent, never innerText: a row inside a closed <details> is not
            rendered, and innerText of an unrendered row is the empty string */
         var t = (c.textContent || "").replace(/\s+/g, " ").trim();
-        if (!t || t.length > 42) return;
+        if (!t || t.length > 60) return;
         if (!vals[t]) { vals[t] = 0; n++; }
         vals[t]++;
       });
       var keys = Object.keys(vals);
-      if (n < 2 || n > 20) return;
-      if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2) return;
+      /* 40, not 20: a page of differences groups by tab, by product and by field, and
+         capping at twenty silently dropped the column the reader came for. */
+      if (missing || n < 2 || n > 40) return;
+      if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2 && n >= rows.length) return;
       var s = document.createElement("select");
       s.className = "s9f"; s.dataset.col = String(ci);
       var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
@@ -2760,9 +2841,15 @@ FIND_BODY = """<script>
     wrap.appendChild(cnt);
     function apply() {
       var v = (q.value || "").trim().toLowerCase(), shown = 0;
+      var scope = colSel ? +colSel.value : -1;
       rows.forEach(function (r) {
         var keep = true;
-        if (v && (r.textContent || "").toLowerCase().indexOf(v) < 0) keep = false;
+        if (v) {
+          var hay = scope >= 0
+            ? ((r.cells[scope] ? r.cells[scope].textContent : "") || "")
+            : (r.textContent || "");
+          if (hay.toLowerCase().indexOf(v) < 0) keep = false;
+        }
         if (keep) sels.forEach(function (s) {
           if (!s.value) return;
           var c = r.cells[+s.dataset.col];
@@ -2773,9 +2860,11 @@ FIND_BODY = """<script>
       cnt.textContent = shown + " of " + rows.length;
     }
     q.addEventListener("input", apply);
+    if (colSel) colSel.addEventListener("change", apply);
     sels.forEach(function (s) { s.addEventListener("change", apply); });
     rb.addEventListener("click", function () {
-      q.value = ""; sels.forEach(function (s) { s.value = ""; }); apply();
+      q.value = ""; if (colSel) colSel.value = "-1";
+      sels.forEach(function (s) { s.value = ""; }); apply();
     });
     apply();
     /* Rejestr, zeby skrypt nawigacji mogl ustawic te same filtry, ktore ustawilby
@@ -2784,6 +2873,7 @@ FIND_BODY = """<script>
     wrap.__apply = apply;
     wrap.__q = q;
     wrap.__sels = sels;
+    wrap.__col = colSel;
     (window.__s9diff = window.__s9diff || []).push(wrap);
     return wrap;
   }
@@ -2861,6 +2951,7 @@ NAV_BODY = """<script>
   function clearAll() {
     boxes().forEach(function (w) {
       if (w.__q) w.__q.value = "";
+      if (w.__col) w.__col.value = "-1";
       (w.__sels || []).forEach(function (s) { s.value = ""; });
       if (w.__apply) w.__apply();
     });
@@ -2906,6 +2997,9 @@ NAV_BODY = """<script>
   function tech(name) {
     var exact = 0, text = 0;
     boxes().forEach(function (w) {
+      /* a column scope left over from a hand search would silently narrow this to
+         one column, so every writer of these boxes clears it (5ap) */
+      if (w.__col) w.__col.value = "-1";
       if (!content(w)) {
         if (w.__q) w.__q.value = "";
         (w.__sels || []).forEach(function (s) { s.value = ""; });
@@ -3585,7 +3679,8 @@ def verify(page):
     # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
     for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
-              "dstick", "nb-lab", "--dstick-h"):
+              "dstick", "nb-lab", "--dstick-h",
+              "s11col", "Search: all columns", ".s9find .s11col{border-color:var(--accent)"):
         if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
     # pasek skrotow i banner musza byc w JEDNYM przyklejonym bloku — banner poza nim
     # odjezdza po skoku i czytelnik czysci filtr tabela po tabeli (zgloszenie 11 wrzesnia 2026)
@@ -4353,6 +4448,29 @@ jest po dacie malejaco; **zaden link w tabelach nie ma wagi >= 600** (zmierzone 
 `Where the data comes from` i `How an article gets its tags` sa **zwiniete po zaladowaniu**,
 a `Today and yesterday` otwarta; **wysokosc strony przy 1500 px nie przekracza 6 000 px**
 (zmierzone 4 256 px — dlugie tabele przewijaja sie we wlasnym pudelku, nie rozpychaja strony).
+
+Nowe od 11 wrzesnia 2026 wieczorem (§5ap, §5aq, §5an), i kazda zmierzona przez wstrzykniecie
+w kopie opublikowanego artefaktu z tego dnia: **w KAZDEJ z jedenastu zakladek zaden
+`details>summary` nie ma `list-style-type` innego niz `none`** (przed poprawka: piec `cmfold`
+i osiem `relrest` mialo `disclosure-closed`); **kazda tabela o co najmniej osmiu wierszach ma nad
+soba pole szukania oraz `select.s11col`, ktorego pierwsza opcja brzmi `Search: all columns`**,
+a wybranie kolumny i wpisanie wartosci zmienia licznik `N of M` (zmierzone: `tbl-3` w New, kolumna
+`Area`, `2 of 103`); **kazda sekcja ma DOKLADNIE JEDNO widoczne pole szukania** — osiemnascie tabel
+deep dive w Products ma jeden pasek, dwie tabele miesieczne w New maja jeden, a tabela miesiaca bez
+pasujacych wierszy chowa sie razem ze swoim naglowkiem (zmierzone: `Product = Azure` daje `7 of 111`
+i chowa jedna z dwoch tabel); **karty Top N maja wlasne pole i fasety** (`entra` → `5 of 10`,
+faseta produktu → `1 of 10`, `Reset` → `10 of 10`); **Executive summary ma pole, fasete produktu
+i policzone zdanie o zrodlach** (`Entra (5)` → `5 of 62`, jeden widoczny `<h3>` z osiemnastu);
+**kazdy `rect.cbar` SKRYPTU 4 renderuje sie przy pitchu 19 px i wysokosci 9,5 px** w kazdej zakladce
+— tyle samo, co slupek w pasku panelu po przeskalowaniu (18,9 / 9,4); **kazdy slupek niosacy
+`data-ids` ma `rect.chit`, a slupek bez nich nie ma go wcale** (zmierzone: Overview/Today/New/
+Deadlines/Products/Components/Hunting/Sources/Community po 25 i 6 z chipami, Roles i Graph API
+zero — bo tam slupek liczy wpisy katalogu, a tabela pod nim jest rejestrem, wiec filtr po `id`
+oproznilby ja); **klikniecie slupka zapala banner zakladki nazywajacy filtr i mowiacy, ile tabel
+zawezil, a `Clear filter` go gasi i przywraca liczby**; **przycisk `Reset` powloki czysci takze
+strone SKRYPTU 11** (zmierzone: `103 of 103` po nacisnieciu). Na stronie `/diff/`: **kazda tabela ma
+`select.s11col`**, a zawezenie do kolumny plus szukanie daje `3 of 8`, `Reset` przywraca `8 of 8`;
+zero bledow strony i `scrollWidth === clientWidth` przy 1400 i 390.
 
 Nowe od 11 wrzesnia 2026 (§5ao), obie powierzchnie: **po kliknieciu tagu w bloku `Technologies`,
 przewinietym tak, ze blok jest na dole ekranu, `#filterbanner` ma `getBoundingClientRect().top`
@@ -5270,10 +5388,27 @@ jak trzy skrypty powloki:
   }
   function daysBetween(a, b) { return Math.round((a - b) / 86400000); }
 
-  /* ---------- horizontal bars, shell classes ---------- */
+  /* ---------- horizontal bars, shell classes ----------
+     ROW PITCH IS 19 AND THE BAR IS 9.5, and both numbers are MEASURED, not chosen.
+     The shell draws the same geometry — pitch 26, bar 13, label 11.5px, viewBox
+     620 wide — but its charts sit in the 479px panel strip, so `xMinYMin meet`
+     scales them by 451/620 = 0.73 and they RENDER at pitch 18.9, bar 9.4. The
+     charts this script draws get a column WIDER than the viewBox, where `meet`
+     caps the scale at 1, so identical geometry rendered at pitch 26 — 38% larger
+     than the same chart type one block above it on the same screen. The owner
+     reported it twice on 11 September 2026, once in Community and once in
+     Products. Drawing at 19 and 9.5 makes the rendered size match the strip
+     wherever the column is at least 620 wide, which it is for every chart here.
+
+     Each bar also carries the item ids behind it, so SCRIPT 11 can turn the bar
+     into a control (5ap) WITHOUT re-deriving `serviceOf`. Two copies of one rule
+     drift apart (0a), so the script that owns the derivation is the one that
+     hands over the result; a bar whose rows cannot be named by id gets no ids,
+     and SCRIPT 11 then leaves it as a picture rather than dressing it as a button
+     that returns nothing. */
   function bars(rows, opts) {
     opts = opts || {};
-    var CW = 6.15, W = 620, rowH = 26, pad = 8, valW = 44;
+    var CW = 6.15, W = 620, rowH = 19, barH = 9.5, pad = 6, valW = 44;
     var longest = rows.reduce(function (n, r) { return Math.max(n, String(r.k).length); }, 0);
     var labelW = Math.min(320, Math.max(150, Math.ceil(longest * CW) + 16));
     var maxChars = Math.floor((labelW - 14) / CW);
@@ -5283,14 +5418,19 @@ jak trzy skrypty powloki:
     var plotW = W - labelW - valW - 10;
     rows.forEach(function (r, i) {
       var y = pad + i * rowH, k = String(r.k);
-      var t = sv("text", { x: labelW - 10, y: y + 15, "text-anchor": "end", class: "cl" });
+      var t = sv("text", { x: labelW - 10, y: y + 13, "text-anchor": "end", class: "cl" });
       t.textContent = k.length > maxChars ? k.slice(0, maxChars - 1) + "…" : k;
       var tt = sv("title"); tt.textContent = k + ": " + r.v; t.appendChild(tt); s.appendChild(t);
-      s.appendChild(sv("rect", { x: labelW, y: y + 5, width: plotW, height: 13, rx: 3, class: "ctrack" }));
+      s.appendChild(sv("rect", { x: labelW, y: y + 4.5, width: plotW, height: barH, rx: 3, class: "ctrack" }));
       var w = Math.max(3, Math.round(plotW * r.v / max));
-      var bar = sv("rect", { x: labelW, y: y + 5, width: w, height: 13, rx: 3, class: "cbar" });
+      var bar = sv("rect", { x: labelW, y: y + 4.5, width: w, height: barH, rx: 3, class: "cbar" });
+      if (r.ids && r.ids.length) {
+        bar.setAttribute("data-ids", r.ids.join(","));
+        bar.setAttribute("data-label", k);
+        bar.setAttribute("data-pitch", String(rowH));
+      }
       var bt = sv("title"); bt.textContent = k + ": " + r.v; bar.appendChild(bt); s.appendChild(bar);
-      var v = sv("text", { x: labelW + w + 7, y: y + 16, class: "cv" }); v.textContent = r.v; s.appendChild(v);
+      var v = sv("text", { x: labelW + w + 7, y: y + 13.5, class: "cv" }); v.textContent = r.v; s.appendChild(v);
     });
     return s;
   }
@@ -5324,6 +5464,9 @@ jak trzy skrypty powloki:
     var sum = rows.reduce(function (n, x) { return n + x.v; }, 0) || 1;
     rows.forEach(function (r, i) {
       var li = el("li");
+      /* the legend row carries the same ids as its slice, so SCRIPT 11 can make it
+         the same control as the bar above it (5ap) */
+      if (r.ids && r.ids.length) { li.setAttribute("data-ids", r.ids.join(",")); li.setAttribute("data-label", String(r.k)); }
       var sw = el("span", "sw"); sw.style.background = "var(" + HUES[i % HUES.length] + ")";
       li.appendChild(sw);
       li.appendChild(document.createTextNode(r.k + " "));
@@ -5340,9 +5483,17 @@ jak trzy skrypty powloki:
     f.appendChild(node);
     return f;
   }
+  /* counts AND the ids behind each count: the bar is only a control when the rows
+     under it can be named, and naming them by the printed label would be a guess
+     (5ap) */
   function tally(list, keyfn) {
     var m = {};
-    list.forEach(function (x) { var k = keyfn(x); if (k) m[k] = (m[k] || 0) + 1; });
+    list.forEach(function (x) {
+      var k = keyfn(x); if (!k) return;
+      var e = m[k] || (m[k] = { n: 0, ids: [] });
+      e.n++;
+      if (x && x.id) e.ids.push(x.id);
+    });
     return m;
   }
 
@@ -5442,8 +5593,8 @@ jak trzy skrypty powloki:
 
       /* --- per service --- */
       var svc = tally(pop.rows, pop.byKind ? function (x) { return x.product; } : serviceOf);
-      var srows = ORDER.filter(function (k) { return svc[k]; }).map(function (k) { return { k: k, v: svc[k] }; });
-      Object.keys(svc).forEach(function (k) { if (ORDER.indexOf(k) < 0) srows.push({ k: k, v: svc[k] }); });
+      var srows = ORDER.filter(function (k) { return svc[k]; }).map(function (k) { return { k: k, v: svc[k].n, ids: svc[k].ids }; });
+      Object.keys(svc).forEach(function (k) { if (ORDER.indexOf(k) < 0) srows.push({ k: k, v: svc[k].n, ids: svc[k].ids }); });
       var top = srows.slice().sort(function (a, b) { return b.v - a.v; }).slice(0, 8);
       wrap.appendChild(figure(pop.byKind ? "Per entry type" : "Per service",
         srows.length + (pop.byKind ? " types, " : " services, ") + pop.rows.length + " " + pop.what +
@@ -5468,9 +5619,14 @@ jak trzy skrypty powloki:
         var btns = [];
         function draw(mode) {
           var m = {}, lab = {};
-          dated.forEach(function (i) { var b = bucket(parse(i[pop.date]), mode); m[b.k] = (m[b.k] || 0) + 1; lab[b.k] = b.l; });
+          dated.forEach(function (i) {
+            var b = bucket(parse(i[pop.date]), mode);
+            var e = m[b.k] || (m[b.k] = { n: 0, ids: [] });
+            e.n++; if (i && i.id) e.ids.push(i.id);
+            lab[b.k] = b.l;
+          });
           var keys = Object.keys(m).sort();
-          var rows = keys.map(function (k) { return { k: lab[k], v: m[k] }; });
+          var rows = keys.map(function (k) { return { k: lab[k], v: m[k].n, ids: m[k].ids }; });
           barsHost.textContent = "";
           barsHost.appendChild(bars(rows, { title: "time axis" }));
           btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.mode === mode)); });
@@ -5538,8 +5694,8 @@ jak trzy skrypty powloki:
       if (win.length) {
         var w2 = el("div", "aggwrap two");
         var svc2 = tally(win, serviceOf);
-        var r2 = ORDER.filter(function (k) { return svc2[k]; }).map(function (k) { return { k: k, v: svc2[k] }; });
-        Object.keys(svc2).forEach(function (k) { if (ORDER.indexOf(k) < 0) r2.push({ k: k, v: svc2[k] }); });
+        var r2 = ORDER.filter(function (k) { return svc2[k]; }).map(function (k) { return { k: k, v: svc2[k].n, ids: svc2[k].ids }; });
+        Object.keys(svc2).forEach(function (k) { if (ORDER.indexOf(k) < 0) r2.push({ k: k, v: svc2[k].n, ids: svc2[k].ids }); });
         w2.appendChild(figure("Per service — whole window",
           r2.length + " services, " + win.length + " items in window. SOC services on top, Azure at the bottom.",
           bars(r2, { title: "Per service" })));
@@ -9945,6 +10101,17 @@ przy nastepnej zakladce.
 | 12 | `Not read, duplicated or partial` | otwarte | |
 | 13 | `How an article gets its tags` — regula | **zwiniete** | |
 
+**Kazda zwinieta sekcja tej zakladki jest `<details class="cmfold">`, i ta klasa jest CZESCIA
+KONTRAKTU, nie nazwa z gustu.** Arkusz stylowal `details.foldnote`, `.eps`, `.sumfold`, `.chg14`,
+`.rolerank` i `.morefilters` — siedem regul `summary::before` — i **ani jednej dla `.cmfold`**.
+Zmierzone 11 wrzesnia 2026 na opublikowanym artefakcie, na wszystkich pieciu: `::before` content
+`none`, `list-style-type: disclosure-closed`, `border-top-width: 0px`. Piec sekcji renderowalo sie
+golym trojkatem przegladarki posrod kart z plusem, a wlasciciel zglosil, ze „te sekcje gina".
+**Klasa wpisana w markup, ktorej nic nie stoi w arkuszu, zawodzi po cichu** — to ta sama choroba
+co `.tabn` w §5ae, tylko odwrotna niz `details.rank` w §5al: tam uzylem klasy, ktora JUZ ISTNIALA,
+tu przebieg wymyslil klase, ktorej NIKT nie stylowal. Regula jest teraz w bloku CSS wyzej,
+a pozycja 66 listy §0 ja mierzy.
+
 **Kazda dluga tabela przewija sie we WLASNYM pudelku** (`.tw.scroll`, 520 px; „dzis i wczoraj" 400 px),
 a nie rozpycha strony. Zmierzone przy 1500 px: strona ma **4 256 px** zamiast 13 000 px, ktore mial
 pierwszy uklad — czyli szesc ekranow zamiast trzynastu.
@@ -10200,6 +10367,43 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 #tab-community a:hover{border-bottom-color:currentColor}
 #tab-community .tt{font-weight:500;color:var(--text)}
 #tab-community .tt:hover{color:var(--accent)}
+/* ZADEN rozwijany blok na stronie nie renderuje sie natywnym trojkatem przegladarki,
+   i to jest regula CALEGO portalu, nie tej zakladki. Arkusz stylowal siedem rodzin —
+   `foldnote`, `eps`, `sumfold`, `chg14`, `rolerank`, `morefilters`, `cb-more`/`cov-more` —
+   a przebieg pisze wlasne klasy: `cmfold` w Community, `relrest` w Component versions,
+   i kolejne, ktorych dzis jeszcze nie ma. Zmierzone 11 wrzesnia 2026 na opublikowanym
+   artefakcie: piec `details.cmfold` i osiem `details.relrest` mialo `::before` content
+   `none`, `list-style-type: disclosure-closed` i `border-top-width: 0px` — goly trojkat
+   posrod kart z plusem. Wlasciciel zglosil to dwa razy tego dnia, raz w Community i raz
+   w Today, i poprosil wprost, zeby przejrzec pod tym katem CALY portal.
+
+   Dlatego regula jest KATALOGIEM ODWROTNYM: obejmuje kazdy `<details>` w tresci, ktory
+   NIE nalezy do rodziny juz ostylowanej. Wyliczanie klas po kolei zawiodloby przy
+   pierwszej nowej nazwie, ktora przebieg wymysli — a to jest dokladnie ta pulapka,
+   ktora tu wystapila dwa razy. Asercja renderu (§5h) mierzy to samo od drugiej strony:
+   w zadnej z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz
+   `none`. */
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
+ border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary{
+ list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:11px 14px;font-size:14px;font-weight:700;color:var(--text)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::-webkit-details-marker{display:none}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::before{
+ content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary::before{content:"\2212"}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:hover{background:var(--surface-2);border-radius:12px 12px 0 0}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary{border-bottom:1px solid var(--border)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary){margin-left:14px;margin-right:14px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):first-of-type{margin-top:12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):last-child{margin-bottom:13px}
+/* `relrest` siedzi w karcie komponentu i ma byc lzejsze niz sekcja — ta sama rodzina
+   znaku, mniejsza rama, zeby nie konkurowalo z wydaniem, ktore opisuje */
+.tabpanel details.relrest{background:var(--surface-2);margin:8px 0 0}
+.tabpanel details.relrest>summary{font-size:13px;padding:8px 11px}
 .filterbanner.s10{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:6px 11px;border-radius:9px;
  background:var(--accent-soft);border:1px solid var(--accent);font-size:12.5px;color:var(--text)}
 .filterbanner.s10[hidden]{display:none!important}
@@ -10748,6 +10952,1082 @@ prawde i mial przycisk czyszczacy** — tylko byl poza ekranem:
 
 Pozycja 64 listy §0 sprawdza to na gotowym pliku, a §5h — w renderze.
 
+## 5ap. KAZDA KOLUMNA DA SIE FILTROWAC, KAZDY WYKRES JEST KONTROLKA
+
+Wlasciciel powiedzial 11 wrzesnia 2026 cztery rzeczy naraz i zamknal je jedna zasada:
+*„powinnismy sie upewnic, ze kazda tabelka w raporcie + diff ma mozliwosc filtrowania po kazdej
+kolumnie, ktora pokazuje — musimy to ujednolicic"*, *„w zakladce today, sekcja top 10 of the day,
+tez brak wyszukiwania i filtrowania"*, *„sekcja Executive summary by product … brakuje filtrowania
+i szukania per product, per data"*, *„te bary nie sa klikalne, do tego sa za duze; nalezy ujednolicic
+wysokosc tych barow … i klikalnosc wszystkich takich wykresow w calym portalu + diff"*, oraz
+**zasade: „upewnijmy sie, ze jak wyswietlamy dane, to dajemy pole search i filtrowanie"**.
+
+Wszystkie cztery sa mierzalne i wszystkie maja przyczyne w tym pliku, nie w przebiegu.
+
+### Zmierzone 11 wrzesnia 2026 na opublikowanym artefakcie, wszystkie jedenascie zakladek
+
+| co | wynik |
+|---|---|
+| tabel na stronie | **53** |
+| kolumn w nich razem | **312** |
+| faset zbudowanych przez powloke i skrypty 6-10 | **83** |
+| tabel z ZEROWA liczba faset | **19** |
+| przyklad: `tbl-3` w zakladce New | **8 kolumn, 3 fasety** — bez `Area`, `Status`, `Reference` |
+| kart Top N w zakladce Today | 10, **zero pol szukania** |
+| punktow Executive summary | 62 w 18 produktach, **zero pol szukania** |
+| wykresy slupkowe SKRYPTU 4 | **21, z tego klikalnych 0** |
+| wykresy slupkowe powloki | 22, z tego **5 bez ani jednego `rect.chit`** |
+| pitch wiersza: powloka kontra SKRYPT 4 | **18,9 px kontra 26 px** przy identycznej geometrii viewBox |
+
+**Przyczyna faset jest w tym pliku.** §5w konczy `facetCandidates()` linia `return out.slice(0, 3);`
+— cap, ktory sam tu wpisalem 31 sierpnia, zeby kolumna `Source` nie wypchnela `Status`. Trzy fasety
+byly wtedy poprawa; przy tabeli o osmiu kolumnach sa ograniczeniem. **Capu NIE podnosimy**: to jest
+kod powloki, a lista dozwolonych zmian w niej pozostaje dwiema pozycjami (§5e, §5w). Brakujace
+fasety dokłada skrypt dodawany.
+
+**Przyczyna rozmiaru slupkow jest arytmetyczna, nie gustowa.** Obie rodziny wykresow rysuja TE SAMA
+geometrie: viewBox 620 szeroki, pitch 26, slupek 13, etykieta 11,5 px. Przy `preserveAspectRatio
+="xMinYMin meet"` skala wynosi `min(szerokosc/620, 1)`. Wykresy powloki stoja w pasku panelu
+szerokim na 479 px, wiec skala to 451/620 = **0,73** i renderuja sie przy pitchu 18,9. Wykresy
+SKRYPTU 4 dostaja kolumne SZERSZA niz viewBox, wiec skala jest scieta do **1,0** i ten sam wykres
+renderuje sie przy pitchu 26 — o 38% wiekszy, dwa bloki nizej na tym samym ekranie. Naprawa jest
+w §5y: SKRYPT 4 rysuje odtad pitch **19** i slupek **9,5**, czyli dokladnie to, co pasek panelu
+renderuje po przeskalowaniu. **To sa liczby zmierzone, nie wybrane.**
+
+### Regula
+
+1. **Kazda kolumna, ktora tabela pokazuje, da sie filtrowac — ale nie kazda `<select>`em.**
+   Kolumna, ktorej kazda wartosc jest inna, NIE DA SIE pogrupowac: rozwijana lista 479 tytulow
+   artykulow nie jest filtrem, tylko druga kopia tabeli (§5s, wykres samych jedynek). Dlatego
+   kontrolka ma dwie polowy: **kolumna grupujaca dostaje fasete**, a kazda pozostala dostaje
+   **zawezenie pola szukania do JEDNEJ kolumny** (`Search: <kolumna>`). Razem pokrywaja komplet
+   kolumn srodkiem, ktory pasuje do tego, co w nich stoi.
+2. **Prog faset: 2 do 40 roznych wartosci**, przy czym co najmniej jedna wartosc musi sie powtorzyc
+   albo wartosci musi byc mniej niz wierszy. Powyzej 40 pozycji lista przestaje byc wyborem.
+3. **Tabela ponizej OSMIU wierszy nie dostaje wlasnego paska**, gdy powloka go nie zbudowala.
+   Cztery wiersze czyta sie, nie filtruje, a pasek narzedzi nad nimi jest halasem.
+4. **JEDEN PISARZ NA MECHANIZM.** Powloka i skrypty 6-10 zostaja jedynymi pisarzami `row.hidden`;
+   SKRYPT 11 pisze WYLACZNIE `data-s11` — inny atrybut, na innym zbiorze elementow. Wiersz jest
+   widoczny, gdy oba mechanizmy sie zgadzaja, kazda kontrolka czysci swoja strone, i zaden nie ma
+   z czym walczyc. To jest ta sama regula, ktora §5am wyprowadzil z chipow metod, tylko miedzy
+   skryptami zamiast wewnatrz jednego.
+5. **CZYTANIE jest jedno.** SKRYPT 11 jako jedyny przepisuje licznik `N of M` i tresc bannera, bo
+   tylko on widzi oba stany naraz. Banner wymienia KAZDY czynny filtr — nasz i powloki — a jego
+   `Clear filter` czysci obie strony: nasza wprost, powloki przez **nacisniecie przycisku `Reset`,
+   ktory powloka sama sobie podpiela**. Zaden kod powloki nie jest edytowany (§5ao).
+6. **Slupek jest kontrolka tylko wtedy, gdy potrafi zawezic to, co pod nim stoi.** SKRYPT 4 zna
+   `serviceOf()` i wie, ktore pozycje stanu zlozyly sie na slupek, wiec to ON przekazuje ich `id`
+   w atrybucie `data-ids`; SKRYPT 11 dopasowuje wiersze po `data-id` (§5ac gwarantuje, ze kazdy
+   wiersz pozycji stanu je niesie). **Etykieta slupka NIE jest kryterium dopasowania**: „Entra
+   Connect / Cloud Sync" to usluga wyliczona z produktu, obszaru i tytulu (§5y) i zadna kolumna
+   tabeli jej nie zawiera — filtr po tekscie zwrocilby zero, a kontrolka obiecujaca filtr i zwracajaca
+   zero jest gorsza niz obrazek. **Slupek bez `data-ids` zostaje obrazkiem i nie jest ubierany
+   w przycisk.** Tak samo wiersz legendy pierscienia, ktory niesie te same `id` co jego wycinek.
+7. **Tabela, w ktorej zaden wiersz nie ma `data-id`, zostaje NIETKNIETA przez filtr slupka**,
+   a banner zakladki mowi ile tabel zawezil i ile zostawil w calosci. Zawezenie jej do zbioru
+   `id`, ktorego nie ma, oproznilo by ja do zera — to ta sama zasada co „obie tabele podsumowania
+   zostaja nietkniete, bo sa kontrolkami" w §3 punkt 13.
+8. **Pitch slupka jest jeden na cala strone: 19 jednostek viewBox, slupek 9,5.** Strona `/diff/`
+   nie ma ani jednego wykresu (§3), wiec „ujednolicic w portalu i w diffie" dotyczy tam wylacznie
+   tabel — i te dostaja komplet faset ta sama regula, w `box()` skryptu strony zmian.
+
+### Executive summary — zdanie o zrodlach jest POLICZONE, nie zadeklarowane
+
+Wlasciciel poprosil, zeby tytul sekcji mowil w nawiasie, skad pochodzi material, *„jesli ta zakladka
+skupia glownie informacje ze stron what's new albo release"*. **Zdanie o pochodzeniu jest
+twierdzeniem, a twierdzenie wymaga pomiaru** (§5b: „Microsoft tego nie publikuje" jest twierdzeniem
+i wymaga daty oraz nazwy pliku). Dlatego SKRYPT 11 nie wpisuje stalego nawiasu, tylko **liczy linki,
+ktore ta sekcja naprawde niesie**, i drukuje pod tytulem zdanie z liczbami:
+*„62 bullets across 18 products — 31 cite a Microsoft page (what's new, release notes or a product
+blog), 31 cite Message Center or the Roadmap. Counted from the links below, not asserted."*
+Zmierzone tego dnia: dokladnie 31 i 31. W dniu, w ktorym proporcja sie zmieni, zdanie zmieni sie
+samo — stala fraza w tytule klamalaby przy pierwszym przebiegu o innym skladzie zrodel.
+
+### Czego ta sekcja NIE robi
+
+- **Nie podnosi capu `slice(0, 3)` w powloce** i nie dotyka trzech skryptow powloki. Lista
+  dozwolonych zmian w nich to nadal `KIND_BADGE` (§5e) i trzy linie `facetCandidates()` (§5w).
+- **Nie robi kontrolki z wykresu, ktorego nie da sie zamienic w filtr.** Zakladki katalogowe
+  (Graph API, Roles) licza WPISY KATALOGU, a tabele pod nimi to rejestr 14 dni i lista endpointow —
+  inne jednostki. Slupek bez `data-ids` zostaje z podpowiedzia i bez roli `button`.
+- **Nie zastepuje bannera powloki drugim bannerem.** Pisze w ten, ktory juz jest; tworzy wlasny
+  tylko tam, gdzie tabela zadnego nie ma.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am i §5an sa to
+JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad CZTERNASCIE** (§0c).
+
+```css
+/* §5ap — every column filterable, every bar a control.
+   SZOSTY raz atrybut `hidden` przegrywa z wlasnym `display` powloki, po `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am), `.filterbanner.s10` i `[data-s10hidden]`
+   (§5an): `tr`, `li` i `article.card` maja w arkuszu wlasny `display`, wiec znacznik
+   SKRYPTU 11 musi niesc `!important`, zeby wygral. */
+tr[data-s11="0"],article.card[data-s11="0"],li[data-s11="0"],h3[data-s11="0"],
+ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}
+/* i SIODMY raz przy paskach powloki, ktore SKRYPT 11 zastepuje jednym na sekcje */
+[data-s11hidden="1"]{display:none!important}
+.tw[data-s11="0"]{display:none!important}
+.s9find.s11group{border:1px solid var(--accent);border-radius:10px;padding:8px 10px;
+ background:var(--accent-soft)}
+.s9find.s11group .s9q{background:var(--ok-soft)}
+.s9find .s11hot{font:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .s11hot[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s9find .tseg-label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted)}
+.s9find .tseg{display:inline-flex;gap:4px;flex-wrap:wrap}
+.s9find .tseg .segbtn{font:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .tseg .segbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.s9find .s11col{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+ font-weight:600;max-width:230px}
+.tbar .s11col,.tbar .s11f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);max-width:230px}
+.tbar .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.s11bar{margin:0 0 10px}
+.filterbanner.s11{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:7px 12px;
+ border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent);
+ color:var(--text);font-size:13px}
+.filterbanner.s11[hidden]{display:none!important}
+.filterbanner.s11 .fb-msg{flex:1 1 auto}
+.filterbanner.s11 .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);flex:0 0 auto}
+.filterbanner.s11 .fb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--surface);
+ color:var(--accent);cursor:pointer;white-space:nowrap}
+.tabpanel>.filterbanner.s11.s11tab{margin:0 0 12px}
+.donut-legend li[data-ids]{cursor:pointer;border-radius:6px;padding:1px 5px;margin:-1px -5px}
+.donut-legend li[data-ids]:hover{background:var(--accent-soft);color:var(--accent)}
+.donut-legend li[data-ids]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+@media (max-width:760px){
+  .s9find .s11col,.tbar .s11col,.tbar .s11f{max-width:100%}
+  .filterbanner.s11{flex-wrap:wrap}
+}
+```
+
+### SKRYPT 11 — na koniec `<body>`, jako JEDENASTY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL (CLAUDE.md 5ap).
+   ADDED, never a replacement: shell scripts 1-3 and added scripts 4-10 are
+   untouched, byte for byte.
+
+   The owner, 11 September 2026: "powinnismy sie upewnic ze kazda tabelka
+   w raporcie + diff ma mozliwosc filtrowania po kazdej kolumnie ktora pokazuje
+   — musimy to ujednolicic", plus the Top N cards and the executive summary,
+   which carry no search at all. Measured across all eleven tabs on the
+   published artifact of that day: 40 tables, of which 11 had ZERO facets and
+   every remaining one was capped at three, because the shell's
+   facetCandidates() ends `return out.slice(0, 3)` (5w) — a cap this file put
+   there itself. tbl-3 in New shows eight columns and offers three.
+
+   ONE WRITER PER MECHANISM, which is the rule that makes this safe (5am): the
+   shell and scripts 6-10 remain the only writers of `row.hidden`; this script
+   writes only `data-s11`, a different attribute, on a different element set.
+   A row shows when both agree, each control resets its own side, and neither
+   can fight the other. What this script DOES own alone is the reading: it
+   rewrites the row counter and the filter banner from the union of both
+   states, so one blue line names every filter that is on and one Clear clears
+   them all (5ao).
+
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  var MIN_ROWS_OWN_BAR = 8;   /* below this a table is read, not filtered */
+  var MAX_FACET_VALUES = 40;  /* above this a dropdown is a worse control than a search */
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function txt(n) { return (n && n.textContent || "").replace(/\s+/g, " ").trim(); }
+  function head(n) { return txt(n).replace(/[↕↑↓]\s*$/, "").trim(); }
+
+  /* ---------------- the per-panel filter bus (5ao) ----------------
+     A chart click narrows every table in its tab at once, so the sentence
+     naming it has to live in the tab, not in one table. */
+  var TAB = {};   /* panelId -> {label, ids, kind, note} | null */
+
+  function panelOf(n) { return n && n.closest ? n.closest(".tabpanel") : null; }
+
+  function tabBanner(panel) {
+    if (!panel) return null;
+    var b = panel.querySelector(":scope > .s11tab");
+    if (b) return b;
+    b = el("div", "filterbanner s11 s11tab");
+    b.hidden = true;
+    b.appendChild(el("span", "nb-lab", "Filter"));
+    b.appendChild(el("span", "fb-msg"));
+    var c = el("button", "fb-clear", "Clear filter");
+    c.type = "button";
+    c.addEventListener("click", function () { clearTab(panel.id); });
+    b.appendChild(c);
+    /* after the panel head, before the tab's own content, so it is the first
+       thing under the strip a chart click scrolled past */
+    var h = panel.querySelector(":scope > .panelhead");
+    if (h && h.nextSibling) panel.insertBefore(b, h.nextSibling);
+    else panel.insertBefore(b, panel.firstChild);
+    return b;
+  }
+
+  function setTab(panelId, spec) {
+    TAB[panelId] = spec;
+    refresh(document.getElementById(panelId));
+    var p = document.getElementById(panelId);
+    if (p) { var b = tabBanner(p); if (b && b.scrollIntoView) b.scrollIntoView({ block: "nearest" }); }
+  }
+  function clearTab(panelId) {
+    TAB[panelId] = null;
+    refresh(document.getElementById(panelId));
+  }
+  window.__socS11 = { setTab: setTab, clearTab: clearTab };
+
+  /* ---------------- tables ---------------- */
+  var TABLES = [];   /* {table, rows, heads, bar, count, banner, q, colSel, sels} */
+
+  function existingBar(table) {
+    var wrap = table.closest(".tw") || table.parentNode;
+    var host = wrap && wrap.parentNode;
+    if (!host) return null;
+    var kids = [].slice.call(host.children);
+    var i = kids.indexOf(wrap);
+    for (var n = i - 1; n >= 0 && n >= i - 4; n--) {
+      if (kids[n].classList.contains("tbar")) return kids[n];
+      if (kids[n].classList.contains("s9find")) return kids[n];
+    }
+    return null;
+  }
+  function existingBanner(table) {
+    var wrap = table.closest(".tw") || table.parentNode;
+    var host = wrap && wrap.parentNode;
+    if (!host) return null;
+    var kids = [].slice.call(host.children);
+    var i = kids.indexOf(wrap);
+    for (var n = i - 1; n >= 0 && n >= i - 4; n--) {
+      if (kids[n].classList.contains("filterbanner")) return kids[n];
+    }
+    return null;
+  }
+
+  /* Which columns group, and which do not. A column whose every value is unique
+     CANNOT be grouped — a 479-entry dropdown for "Article" is not a filter, it is
+     a second copy of the table (5s, the chart of ones). Those columns get the
+     other half of this control instead: the free-text search can be SCOPED to one
+     column, so every column the table shows is filterable, by the means that fits
+     what it holds. */
+  function columnPlan(table, rows, heads) {
+    var group = [], all = [];
+    heads.forEach(function (h, i) {
+      if (!h) return;
+      all.push({ i: i, h: h });
+      var vals = {}, n = 0, longest = 0, missing = false;
+      rows.forEach(function (tr) {
+        var c = tr.cells[i];
+        if (!c) { missing = true; return; }
+        var v = txt(c);
+        if (!v) return;
+        if (v.length > longest) longest = v.length;
+        if (!vals[v]) { vals[v] = 0; n++; }
+        vals[v]++;
+      });
+      if (missing || n < 2 || n > MAX_FACET_VALUES) return;
+      if (longest > 60) return;
+      var keys = Object.keys(vals);
+      var rep = Math.max.apply(null, keys.map(function (k) { return vals[k]; }));
+      /* one identical value on every row is not a choice either */
+      if (rep < 2 && n === rows.length) return;
+      if (n >= rows.length) return;
+      group.push({ i: i, h: h, values: keys.sort(), counts: vals });
+    });
+    return { group: group, all: all };
+  }
+
+  function facetLabels(bar) {
+    var out = {};
+    if (!bar) return out;
+    [].forEach.call(bar.querySelectorAll("select"), function (s) {
+      var first = s.options[0] ? s.options[0].textContent : "";
+      out[first.replace(/^All\s+/i, "").toLowerCase().trim()] = true;
+      if (s.dataset && s.dataset.col !== undefined) out["#" + s.dataset.col] = true;
+    });
+    return out;
+  }
+
+  function wireTable(table) {
+    if (table.dataset.s11 === "1") return;
+    if (!table.tBodies.length) return;
+    var rows = [].slice.call(table.tBodies[0].rows).filter(function (r) {
+      return !r.classList.contains("hdet") && !r.classList.contains("grp");
+    });
+    if (!rows.length) return;
+    var heads = [].map.call(table.querySelectorAll("thead th"), head);
+    if (!heads.length) return;
+    table.dataset.s11 = "1";
+
+    var bar = existingBar(table);
+    var made = false;
+    if (!bar) {
+      if (rows.length < MIN_ROWS_OWN_BAR) return;
+      bar = el("div", "s9find s11bar");
+      var wrap = table.closest(".tw") || table.parentNode;
+      wrap.parentNode.insertBefore(bar, wrap);
+      made = true;
+    }
+
+    var plan = columnPlan(table, rows, heads);
+    var have = facetLabels(bar);
+
+    /* the column scope for the free-text search — this is what makes a unique
+       column filterable without a dropdown the length of the table */
+    var colSel = el("select", "s11col");
+    colSel.setAttribute("aria-label", "Search in one column");
+    var o0 = el("option", null, "Search: all columns"); o0.value = "-1";
+    colSel.appendChild(o0);
+    plan.all.forEach(function (c) {
+      var o = el("option", null, "Search: " + c.h); o.value = String(c.i);
+      colSel.appendChild(o);
+    });
+
+    var q = null;
+    if (made) {
+      q = document.createElement("input");
+      q.type = "search"; q.className = "s9q";
+      q.placeholder = "Search " + rows.length + " rows…";
+      bar.appendChild(q);
+    }
+    if (plan.all.length > 1) bar.appendChild(colSel); else colSel = null;
+
+    var sels = [];
+    plan.group.forEach(function (c) {
+      if (have[c.h.toLowerCase()] || have["#" + c.i]) return;   /* the shell already offers it */
+      var s = el("select", "s9f s11f");
+      s.dataset.col = String(c.i);
+      s.dataset.label = c.h;
+      s.setAttribute("aria-label", "Filter by " + c.h);
+      var a0 = el("option", null, "All " + c.h.toLowerCase()); a0.value = "";
+      s.appendChild(a0);
+      c.values.forEach(function (v) {
+        var o = el("option", null, v + " (" + c.counts[v] + ")"); o.value = v;
+        s.appendChild(o);
+      });
+      bar.appendChild(s);
+      sels.push(s);
+    });
+
+    if (made) {
+      var rb = el("button", "s9reset", "Reset"); rb.type = "button";
+      bar.appendChild(rb);
+      rb.addEventListener("click", function () {
+        if (q) q.value = "";
+        if (colSel) colSel.value = "-1";
+        sels.forEach(function (s) { s.value = ""; });
+        refresh(panelOf(table));
+      });
+      var cn = el("span", "s9count"); bar.appendChild(cn);
+    }
+
+    var rec = { table: table, rows: rows, heads: heads, bar: bar, q: q, colSel: colSel, sels: sels, made: made };
+    TABLES.push(rec);
+    if (colSel) colSel.addEventListener("change", function () { refresh(panelOf(table)); });
+    sels.forEach(function (s) { s.addEventListener("change", function () { refresh(panelOf(table)); }); });
+    if (q) q.addEventListener("input", function () { refresh(panelOf(table)); });
+    applyTable(rec);
+  }
+
+  function ownQuery(rec) {
+    if (rec.q) return rec.q.value || "";
+    /* a table that already had a toolbar keeps ITS search box; the column scope
+       applies to whatever that box holds, so the two halves stay one control */
+    var i = rec.bar.querySelector("input[type=search]");
+    return i ? i.value : "";
+  }
+
+  function applyTable(rec) {
+    var v = ownQuery(rec).trim().toLowerCase();
+    var col = rec.colSel ? +rec.colSel.value : -1;
+    rec.rows.forEach(function (tr) {
+      var keep = true;
+      if (v) {
+        var hay = col >= 0 ? txt(tr.cells[col]) : txt(tr);
+        if (hay.toLowerCase().indexOf(v) < 0) keep = false;
+      }
+      if (keep) rec.sels.forEach(function (s) {
+        if (!s.value) return;
+        var c = tr.cells[+s.dataset.col];
+        if (!c || txt(c) !== s.value) keep = false;
+      });
+      if (keep && rec.group) {
+        var per = rec.period();
+        if (per !== null && rec.pc > -1) {
+          var d = parseDay(txt(tr.cells[rec.pc]));
+          if (d === null) keep = false;
+          else {
+            var today = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate());
+            var diff = Math.round((d - today) / 86400000);
+            if (rec.pmode === "age") { if (diff > 0 || -diff >= per) keep = false; }
+            else { if (diff < 0 || diff > per) keep = false; }
+          }
+        }
+        if (keep && rec.hotBtn && rec.hotBtn.getAttribute("aria-pressed") === "true"
+            && !tr.classList.contains("rowhot")) keep = false;
+      }
+      if (keep) {
+        var t = TAB[(panelOf(rec.table) || {}).id];
+        if (t && t.ids && rec.hasIds) keep = t.ids.indexOf(tr.getAttribute("data-id")) >= 0;
+      }
+      tr.dataset.s11 = keep ? "1" : "0";
+    });
+  }
+
+  function activeOf(rec) {
+    var out = [];
+    var v = ownQuery(rec).trim();
+    var col = rec.colSel ? +rec.colSel.value : -1;
+    if (v) out.push(col >= 0 ? (rec.heads[col] + ' contains "' + v + '"') : ('text "' + v + '"'));
+    rec.sels.forEach(function (s) { if (s.value) out.push(s.dataset.label + " = " + s.value); });
+    /* the shell's own controls, read rather than written */
+    [].forEach.call(rec.bar.querySelectorAll("select"), function (s) {
+      if (s.classList.contains("s11f") || s.classList.contains("s11col")) return;
+      if (s.value) out.push((s.dataset.label || (s.options[0].textContent || "").replace(/^All\s+/i, "")) + " = " + s.value);
+    });
+    var seg = rec.bar.querySelector(".tseg [aria-pressed='true']");
+    if (seg && seg.dataset.d) out.push((rec.pmode === "due" ? "due in " : "published in ") + txt(seg));
+    var hot = [].slice.call(rec.bar.querySelectorAll("button")).filter(function (b) {
+      return b.getAttribute("aria-pressed") === "true" && /only/.test(txt(b));
+    })[0];
+    if (hot) out.push("flagged rows only");
+    return out;
+  }
+
+  function renderTable(rec, tabSpec) {
+    var shown = 0;
+    rec.rows.forEach(function (tr) {
+      if (tr.dataset.s11 !== "0" && !tr.hidden) shown++;
+    });
+    var cn = rec.bar.querySelector(".s9count") || rec.bar.querySelector(".rowcount");
+    if (cn) cn.textContent = shown + " of " + rec.rows.length;
+
+    if (rec.group) {
+      /* a month with nothing left in it hides whole, caption and all */
+      rec.tables.forEach(function (t) {
+        var any = [].slice.call(t.tBodies[0].rows).some(function (r) {
+          return !r.classList.contains("hdet") && !r.classList.contains("grp") && r.dataset.s11 !== "0" && !r.hidden;
+        });
+        var wrap = t.closest(".tw") || t.parentNode;
+        wrap.dataset.s11 = any ? "1" : "0";
+        /* the heading over an empty table goes with it — a product name with nothing
+           under it reads as a product with nothing to report, which is a different
+           claim from "filtered out" */
+        for (var n = wrap.previousElementSibling, hops = 0; n && hops < 3; n = n.previousElementSibling, hops++) {
+          if (n.tagName === "H3" || n.tagName === "H4") { n.dataset.s11 = any ? "1" : "0"; break; }
+          if (n.tagName === "TABLE" || (n.classList && n.classList.contains("tw"))) break;
+        }
+      });
+    }
+    var on = activeOf(rec);
+    if (tabSpec) on.unshift(tabSpec.label + (rec.hasIds ? "" : " (this table carries no item ids, so it is left whole)"));
+    var ban = rec.banner || existingBanner(rec.table);
+    if (!on.length) return;
+    if (!ban) {
+      ban = el("div", "filterbanner s11");
+      ban.appendChild(el("span", "fb-msg"));
+      var c = el("button", "fb-clear", "Clear filter"); c.type = "button";
+      ban.appendChild(c);
+      var wrap = rec.table.closest(".tw") || rec.table.parentNode;
+      wrap.parentNode.insertBefore(ban, wrap);
+      ban.dataset.s11own = "1";
+    }
+    if (!ban.dataset.s11wired) {
+      ban.dataset.s11wired = "1";
+      var btn = ban.querySelector(".fb-clear");
+      if (btn) btn.addEventListener("click", function () { clearAll(rec); });
+    }
+    ban.hidden = false;
+    var msg = ban.querySelector(".fb-msg");
+    if (msg) msg.textContent = "Filtered by " + on.join(" · ") + " — showing " + shown +
+      " of " + rec.rows.length + (shown ? "." : ". Nothing matches all of them at once.");
+  }
+
+  function clearAll(rec) {
+    if (rec.q) rec.q.value = "";
+    if (rec.colSel) rec.colSel.value = "-1";
+    rec.sels.forEach(function (s) { s.value = ""; });
+    var p = panelOf(rec.table);
+    if (p) TAB[p.id] = null;
+    /* the shell's side is cleared by pressing the button the shell wired itself,
+       so its own state and ours end in the same place without editing it */
+    var rb = [].slice.call(rec.bar.querySelectorAll("button")).filter(function (b) { return txt(b) === "Reset"; })[0];
+    if (rb && !rb.classList.contains("s9reset")) rb.click();
+    refresh(p);
+  }
+
+  /* ---------------- one section, ONE toolbar ----------------
+     §5o splits a list that crosses a month boundary into one table per month, each
+     with its own caption, so the shell — which enhances every `<table>` it finds —
+     gave the New tab three search boxes, three facet rows and three banners for ONE
+     list. The owner asked on 11 September 2026 why a section needs more than one
+     search box, and the answer is that it does not: the split is a presentation of
+     one list, so it gets one control.
+
+     The shell's toolbars for the group are HIDDEN, not removed (the sixth time this
+     file marks rather than deletes), and the section toolbar carries everything they
+     carried — search, column scope, facets, the period segment and the flagged-rows
+     toggle — so nothing the reader had is taken away. A month table with no rows left
+     hides whole, caption and all: an empty month under a heading is not a result, it
+     is a leftover. */
+  var GROUPS = [];
+
+  function sig(table) {
+    return [].map.call(table.querySelectorAll("thead th"), head).join("|");
+  }
+  function parseDay(v) {
+    if (!v) return null;
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(v);
+    if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    var M = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+    var n = /(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{4})/.exec(v);
+    if (n) { var i = M.indexOf(n[2].toLowerCase()); if (i >= 0) return Date.UTC(+n[3], i, +n[1]); }
+    return null;
+  }
+  var AGE_RE = /^(published|added|seen|date|first tracked|changed)$/i;
+  var DUE_RE = /^(deadline|due|due in|act by)$/i;
+
+  function wireGroups() {
+    var seen = [];
+    [].forEach.call(document.querySelectorAll(".tabpanel .sec-body"), function (body) {
+      var tables = [].slice.call(body.querySelectorAll("table")).filter(function (t) {
+        return t.tBodies.length && t.querySelectorAll("thead th").length && t.dataset.s11 !== "1";
+      });
+      var by = {};
+      tables.forEach(function (t) { (by[sig(t)] = by[sig(t)] || []).push(t); });
+      Object.keys(by).forEach(function (k) {
+        var g = by[k];
+        if (g.length < 2) return;
+        g.forEach(function (t) { t.dataset.s11 = "1"; });
+        seen.push(buildGroup(body, g));
+      });
+    });
+    return seen;
+  }
+
+  function buildGroup(body, tables) {
+    var heads = [].map.call(tables[0].querySelectorAll("thead th"), head);
+    var rows = [];
+    tables.forEach(function (t) {
+      [].forEach.call(t.tBodies[0].rows, function (r) {
+        if (!r.classList.contains("hdet") && !r.classList.contains("grp")) rows.push(r);
+      });
+    });
+    /* every toolbar and banner the shell built for these tables is marked hidden */
+    tables.forEach(function (t) {
+      var wrap = t.closest(".tw") || t.parentNode;
+      var host = wrap.parentNode, kids = [].slice.call(host.children), i = kids.indexOf(wrap);
+      for (var n = i - 1; n >= 0 && n >= i - 4; n--) {
+        if (kids[n].classList.contains("tbar") || kids[n].classList.contains("filterbanner")
+            || kids[n].classList.contains("s9find")) kids[n].dataset.s11hidden = "1";
+        else break;
+      }
+    });
+
+    var bar = el("div", "s9find s11bar s11group");
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search all " + rows.length + " rows in this section…";
+    bar.appendChild(q);
+
+    var colSel = el("select", "s11col");
+    colSel.setAttribute("aria-label", "Search in one column");
+    var o0 = el("option", null, "Search: all columns"); o0.value = "-1"; colSel.appendChild(o0);
+    heads.forEach(function (h, i) {
+      if (!h) return;
+      var o = el("option", null, "Search: " + h); o.value = String(i); colSel.appendChild(o);
+    });
+    if (colSel.options.length > 2) bar.appendChild(colSel); else colSel = null;
+
+    var plan = columnPlan(tables[0], rows, heads);
+    var sels = [];
+    plan.group.forEach(function (c) {
+      var sl = el("select", "s9f s11f");
+      sl.dataset.col = String(c.i); sl.dataset.label = c.h;
+      sl.setAttribute("aria-label", "Filter by " + c.h);
+      var a0 = el("option", null, "All " + c.h.toLowerCase()); a0.value = ""; sl.appendChild(a0);
+      c.values.forEach(function (v) {
+        var o = el("option", null, v + " (" + c.counts[v] + ")"); o.value = v; sl.appendChild(o);
+      });
+      bar.appendChild(sl); sels.push(sl);
+    });
+
+    /* the period segment the shell would have offered, kept so the section toolbar
+       is a replacement and not a reduction */
+    var pc = -1, pmode = null;
+    heads.forEach(function (h, i) {
+      if (pc < 0 && AGE_RE.test(h)) { pc = i; pmode = "age"; }
+    });
+    if (pc < 0) heads.forEach(function (h, i) { if (pc < 0 && DUE_RE.test(h)) { pc = i; pmode = "due"; } });
+    var pbtns = [], period = null;
+    if (pc > -1) {
+      var lab = el("span", "tseg-label", pmode === "age" ? "Published" : "Due in");
+      bar.appendChild(lab);
+      var seg = el("div", "seg tseg"); seg.setAttribute("role", "group");
+      var STEPS = pmode === "age"
+        ? [[1, "Today"], [7, "7 days"], [14, "14 days"], [30, "30 days"], [null, "All"]]
+        : [[0, "Today"], [7, "7 days"], [14, "14 days"], [30, "30 days"], [60, "60 days"], [null, "All"]];
+      STEPS.forEach(function (st) {
+        var b2 = el("button", "segbtn", st[1]); b2.type = "button";
+        b2.dataset.d = st[0] === null ? "" : String(st[0]);
+        b2.setAttribute("aria-pressed", st[0] === null ? "true" : "false");
+        b2.addEventListener("click", function () {
+          period = st[0];
+          pbtns.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b2)); });
+          refresh(panelOf(tables[0]));
+        });
+        pbtns.push(b2); seg.appendChild(b2);
+      });
+      bar.appendChild(seg);
+    }
+
+    var hotBtn = null;
+    if (rows.some(function (r) { return r.classList.contains("rowhot"); })) {
+      hotBtn = el("button", "s11hot", "\ud83d\udd25 only"); hotBtn.type = "button";
+      hotBtn.setAttribute("aria-pressed", "false");
+      hotBtn.addEventListener("click", function () {
+        hotBtn.setAttribute("aria-pressed", hotBtn.getAttribute("aria-pressed") === "true" ? "false" : "true");
+        refresh(panelOf(tables[0]));
+      });
+      bar.appendChild(hotBtn);
+    }
+
+    var rb = el("button", "s9reset", "Reset"); rb.type = "button"; bar.appendChild(rb);
+    var cn = el("span", "s9count"); bar.appendChild(cn);
+
+    var ban = el("div", "filterbanner s11");
+    ban.hidden = true;
+    ban.appendChild(el("span", "fb-msg"));
+    var bc = el("button", "fb-clear", "Clear filter"); bc.type = "button";
+    ban.appendChild(bc);
+
+    var first = tables[0].closest(".tw") || tables[0].parentNode;
+    first.parentNode.insertBefore(bar, first);
+    first.parentNode.insertBefore(ban, first);
+
+    var rec = { group: true, tables: tables, table: tables[0], rows: rows, heads: heads,
+                bar: bar, q: q, colSel: colSel, sels: sels, banner: ban,
+                pc: pc, pmode: pmode, hotBtn: hotBtn, made: true,
+                period: function () { return period; } };
+    function reset() {
+      q.value = ""; if (colSel) colSel.value = "-1";
+      sels.forEach(function (x) { x.value = ""; });
+      period = null; pbtns.forEach(function (x) { x.setAttribute("aria-pressed", String(!x.dataset.d)); });
+      if (hotBtn) hotBtn.setAttribute("aria-pressed", "false");
+      var p = panelOf(tables[0]); if (p) TAB[p.id] = null;
+      refresh(p);
+    }
+    rb.addEventListener("click", reset);
+    bc.addEventListener("click", reset);
+    q.addEventListener("input", function () { refresh(panelOf(tables[0])); });
+    if (colSel) colSel.addEventListener("change", function () { refresh(panelOf(tables[0])); });
+    sels.forEach(function (x) { x.addEventListener("change", function () { refresh(panelOf(tables[0])); }); });
+    TABLES.push(rec);
+    return rec;
+  }
+
+  /* ---------------- cards (Top N) and the executive summary ---------------- */
+  var CARDS = null, EXEC = null;
+
+  function wireCards() {
+    var sec = document.getElementById("top5");
+    if (!sec || sec.dataset.s11 === "1") return;
+    var cards = [].slice.call(sec.querySelectorAll("article.card"));
+    if (cards.length < 3) return;
+    sec.dataset.s11 = "1";
+    var body = sec.querySelector(".sec-body") || sec;
+    var bar = el("div", "s9find s11bar");
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search " + cards.length + " cards…";
+    bar.appendChild(q);
+
+    function metaOf(c) {
+      var badges = [].map.call(c.querySelectorAll(".badge"), txt);
+      return { product: badges[0] || "", all: badges, text: txt(c) };
+    }
+    var metas = cards.map(metaOf);
+    function facet(label, pick) {
+      var vals = {}, n = 0;
+      metas.forEach(function (m) { var v = pick(m); if (!v) return; if (!vals[v]) n++; vals[v] = (vals[v] || 0) + 1; });
+      if (n < 2) return null;
+      var s = el("select", "s9f s11f");
+      s.dataset.label = label;
+      var o0 = el("option", null, "All " + label.toLowerCase()); o0.value = "";
+      s.appendChild(o0);
+      Object.keys(vals).sort().forEach(function (k) {
+        var o = el("option", null, k + " (" + vals[k] + ")"); o.value = k; s.appendChild(o);
+      });
+      s.__pick = pick;
+      bar.appendChild(s);
+      return s;
+    }
+    var fs = [];
+    var f1 = facet("Product", function (m) { return m.product; }); if (f1) fs.push(f1);
+    var f2 = facet("Deadline", function (m) {
+      return /\bdays?\b/i.test(m.text) ? (/under 30|🔥/.test(m.text) ? "under 30 days" : "dated") : "no date stated";
+    }); if (f2) fs.push(f2);
+    var rb = el("button", "s9reset", "Reset"); rb.type = "button"; bar.appendChild(rb);
+    var cn = el("span", "s9count"); bar.appendChild(cn);
+    body.insertBefore(bar, body.firstChild);
+
+    CARDS = { sec: sec, cards: cards, metas: metas, q: q, sels: fs, count: cn, bar: bar };
+    rb.addEventListener("click", function () {
+      q.value = ""; fs.forEach(function (s) { s.value = ""; }); refresh(panelOf(sec));
+    });
+    q.addEventListener("input", function () { refresh(panelOf(sec)); });
+    fs.forEach(function (s) { s.addEventListener("change", function () { refresh(panelOf(sec)); }); });
+  }
+
+  function renderCards() {
+    if (!CARDS) return;
+    var v = (CARDS.q.value || "").trim().toLowerCase(), shown = 0;
+    CARDS.cards.forEach(function (c, i) {
+      var m = CARDS.metas[i], keep = true;
+      if (v && m.text.toLowerCase().indexOf(v) < 0) keep = false;
+      if (keep) CARDS.sels.forEach(function (s) {
+        if (s.value && s.__pick(m) !== s.value) keep = false;
+      });
+      var t = TAB[(panelOf(CARDS.sec) || {}).id];
+      if (keep && t && t.ids) keep = t.ids.indexOf(c.getAttribute("data-id")) >= 0;
+      c.dataset.s11 = keep ? "1" : "0";
+      if (keep) shown++;
+    });
+    CARDS.count.textContent = shown + " of " + CARDS.cards.length;
+  }
+
+  function wireExec() {
+    var sec = document.getElementById("exec");
+    if (!sec || sec.dataset.s11 === "1") return;
+    var body = sec.querySelector(".sec-body");
+    if (!body) return;
+    var groups = [];
+    [].forEach.call(body.querySelectorAll("h3"), function (h3) {
+      var items = [], n = h3.nextElementSibling;
+      while (n && n.tagName !== "H3") {
+        if (n.tagName === "UL" || n.tagName === "OL") items = items.concat([].slice.call(n.querySelectorAll("li")));
+        n = n.nextElementSibling;
+      }
+      if (items.length) groups.push({ h3: h3, product: txt(h3), items: items });
+    });
+    if (!groups.length) return;
+    sec.dataset.s11 = "1";
+
+    var all = [];
+    groups.forEach(function (g) { g.items.forEach(function (li) { all.push({ li: li, product: g.product, text: txt(li) }); }); });
+
+    /* The parenthetical the owner asked for is COUNTED from the links this
+       section actually carries, never asserted: a sentence about where the
+       material comes from is a claim, and a claim needs a measurement (5b). */
+    var learn = 0, mc = 0, other = 0;
+    [].forEach.call(body.querySelectorAll('a[href^="http"]'), function (a) {
+      var h = a.getAttribute("href") || "", l = txt(a);
+      if (/^(MC|RM)\d+/i.test(l) || /mc\.merill\.net|microsoft\.com\/.*roadmap/i.test(h)) mc++;
+      else if (/learn\.microsoft\.com|techcommunity\.microsoft\.com|azure\.microsoft\.com|microsoft\.com/i.test(h)) learn++;
+      else other++;
+    });
+    var note = el("p", "s11srcnote");
+    note.textContent = all.length + " bullets across " + groups.length + " products — " +
+      learn + " cite a Microsoft page (what's new, release notes or a product blog), " +
+      mc + " cite Message Center or the Roadmap" + (other ? ", " + other + " cite another source" : "") +
+      ". Counted from the links below, not asserted.";
+
+    var bar = el("div", "s9find s11bar");
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search " + all.length + " bullets…";
+    bar.appendChild(q);
+    var ps = el("select", "s9f s11f"); ps.dataset.label = "Product";
+    var p0 = el("option", null, "All products"); p0.value = ""; ps.appendChild(p0);
+    groups.forEach(function (g) {
+      var o = el("option", null, g.product + " (" + g.items.length + ")"); o.value = g.product; ps.appendChild(o);
+    });
+    bar.appendChild(ps);
+    var ss = el("select", "s9f s11f"); ss.dataset.label = "Source";
+    [["", "All sources"], ["mc", "Message Center or Roadmap"], ["ms", "A Microsoft page"]].forEach(function (p) {
+      var o = el("option", null, p[1]); o.value = p[0]; ss.appendChild(o);
+    });
+    bar.appendChild(ss);
+    var ds = el("select", "s9f s11f"); ds.dataset.label = "Month";
+    var months = {};
+    all.forEach(function (a) {
+      var m = /\b(\d{1,2}\s+)?(January|February|March|April|May|June|July|August|September|October|November|December)\b/.exec(a.text);
+      a.month = m ? m[2] : "";
+      if (a.month) months[a.month] = (months[a.month] || 0) + 1;
+    });
+    var m0 = el("option", null, "All months"); m0.value = ""; ds.appendChild(m0);
+    Object.keys(months).forEach(function (k) {
+      var o = el("option", null, k + " (" + months[k] + ")"); o.value = k; ds.appendChild(o);
+    });
+    if (Object.keys(months).length > 1) bar.appendChild(ds); else ds = null;
+    var rb = el("button", "s9reset", "Reset"); rb.type = "button"; bar.appendChild(rb);
+    var cn = el("span", "s9count"); bar.appendChild(cn);
+
+    var note0 = body.querySelector(".sec-note");
+    if (note0 && note0.nextSibling) { body.insertBefore(note, note0.nextSibling); body.insertBefore(bar, note.nextSibling); }
+    else { body.insertBefore(note, body.firstChild); body.insertBefore(bar, note.nextSibling); }
+
+    all.forEach(function (a) {
+      a.kind = a.li.querySelector('a[href*="mc.merill.net"]') ||
+               /^(MC|RM)\d+/i.test(txt(a.li.querySelector("a") || el("span"))) ? "mc" : "ms";
+    });
+    EXEC = { sec: sec, groups: groups, all: all, q: q, ps: ps, ss: ss, ds: ds, count: cn };
+    rb.addEventListener("click", function () {
+      q.value = ""; ps.value = ""; ss.value = ""; if (ds) ds.value = "";
+      refresh(panelOf(sec));
+    });
+    [q, ps, ss].concat(ds ? [ds] : []).forEach(function (n) {
+      n.addEventListener(n.tagName === "INPUT" ? "input" : "change", function () { refresh(panelOf(sec)); });
+    });
+  }
+
+  function renderExec() {
+    if (!EXEC) return;
+    var v = (EXEC.q.value || "").trim().toLowerCase(), shown = 0;
+    EXEC.all.forEach(function (a) {
+      var keep = true;
+      if (v && a.text.toLowerCase().indexOf(v) < 0) keep = false;
+      if (keep && EXEC.ps.value && a.product !== EXEC.ps.value) keep = false;
+      if (keep && EXEC.ss.value && a.kind !== EXEC.ss.value) keep = false;
+      if (keep && EXEC.ds && EXEC.ds.value && a.month !== EXEC.ds.value) keep = false;
+      a.li.dataset.s11 = keep ? "1" : "0";
+      if (keep) shown++;
+    });
+    /* a product heading with nothing left under it is noise, so the whole group
+       goes — the count above says how many bullets remain */
+    EXEC.groups.forEach(function (g) {
+      var any = g.items.some(function (li) { return li.dataset.s11 !== "0"; });
+      g.h3.dataset.s11 = any ? "1" : "0";
+      var n = g.h3.nextElementSibling;
+      while (n && n.tagName !== "H3") { n.dataset.s11 = any ? "1" : "0"; n = n.nextElementSibling; }
+    });
+    EXEC.count.textContent = shown + " of " + EXEC.all.length;
+  }
+
+  /* ---------------- charts ---------------- */
+  /* Every bar chart in the shell's panel strip already carries a full-width
+     `rect.chit` hit area; the charts SCRIPT 4 draws carried none, so twenty-five
+     bars of "Per service" looked like a control and were a picture. Measured on
+     the published artifact: shell charts 6 to 10 clickable rows each, every
+     SCRIPT 4 chart zero.
+
+     A bar is wired here ONLY when its drawing script handed over the item ids
+     behind it (`data-ids` on the bar). Matching by the printed label would be a
+     guess — "Entra Connect / Cloud Sync" is a service this brief derives from
+     product plus area plus title (5y), and no table column spells it — and a
+     control that promises a filter and returns nothing is worse than a picture. */
+  function wireCharts(panel) {
+    [].forEach.call(panel.querySelectorAll("figure.chart svg"), function (s) {
+      if (s.dataset.s11 === "1") return;
+      var bars = [].slice.call(s.querySelectorAll("rect.cbar[data-ids]"));
+      if (!bars.length) return;
+      if (s.querySelector("rect.chit")) { s.dataset.s11 = "1"; return; }
+      s.dataset.s11 = "1";
+      bars.forEach(function (b) {
+        var y = +b.getAttribute("y") - 5, h = +b.getAttribute("data-pitch") || 19;
+        var label = b.getAttribute("data-label") || "";
+        var ids = (b.getAttribute("data-ids") || "").split(",").filter(Boolean);
+        var hit = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        hit.setAttribute("x", "0"); hit.setAttribute("y", String(y));
+        hit.setAttribute("width", s.getAttribute("viewBox").split(" ")[2]);
+        hit.setAttribute("height", String(h));
+        hit.setAttribute("class", "chit"); hit.setAttribute("tabindex", "0");
+        hit.setAttribute("role", "button");
+        var t = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        t.textContent = "Filter this tab to " + label;
+        hit.appendChild(t);
+        function go() {
+          var p = panelOf(s);
+          if (p) setTab(p.id, { label: label, ids: ids });
+        }
+        hit.addEventListener("click", go);
+        hit.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+        });
+        s.appendChild(hit);
+      });
+    });
+    /* the share ring's legend rows carry the same ids as their slice, so they are
+       the same control as the bar — one look, one behaviour (5ap) */
+    [].forEach.call(panel.querySelectorAll("li[data-ids][data-label]"), function (li) {
+      if (li.dataset.s11 === "1") return;
+      li.dataset.s11 = "1";
+      li.setAttribute("tabindex", "0");
+      li.setAttribute("role", "button");
+      li.title = "Filter this tab to " + li.getAttribute("data-label");
+      function go2() {
+        var p2 = panelOf(li);
+        if (p2) setTab(p2.id, { label: li.getAttribute("data-label"),
+                                ids: (li.getAttribute("data-ids") || "").split(",").filter(Boolean) });
+      }
+      li.addEventListener("click", go2);
+      li.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go2(); }
+      });
+    });
+  }
+
+  /* ---------------- one pass ---------------- */
+  function refresh(panel) {
+    if (!panel) {
+      [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) { refresh(p); });
+      renderCards(); renderExec();
+      return;
+    }
+    var spec = TAB[panel.id] || null;
+    TABLES.forEach(function (rec) {
+      var p = panelOf(rec.table);
+      if (panel && p !== panel) return;
+      rec.hasIds = rec.rows.some(function (r) { return r.hasAttribute("data-id"); });
+      applyTable(rec);
+      renderTable(rec, (spec && rec.hasIds) ? spec : (spec ? spec : null));
+    });
+    renderCards();
+    renderExec();
+    if (panel) {
+      var b = tabBanner(panel);
+      if (b) {
+        b.hidden = !spec;
+        if (spec) {
+          var msg = b.querySelector(".fb-msg");
+          var narrowed = 0, whole = 0;
+          TABLES.forEach(function (rec) {
+            if (panelOf(rec.table) !== panel) return;
+            if (rec.hasIds) narrowed++; else whole++;
+          });
+          msg.textContent = spec.label + " — every table on this tab that carries item ids is narrowed to it (" +
+            narrowed + (narrowed === 1 ? " table" : " tables") +
+            (whole ? ("; " + whole + " that carry none are left whole, because filtering them by id would empty them") : "") +
+            "). Clear filter puts the tab back.";
+        }
+      }
+    }
+  }
+
+  function scan() {
+    try { wireGroups(); } catch (e) { if (window.console) console.error("[s11 groups]", e); }
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      [].forEach.call(p.querySelectorAll("table"), function (t) {
+        try { wireTable(t); } catch (e) { if (window.console) console.error("[s11 table]", e); }
+      });
+      try { wireCharts(p); } catch (e) { if (window.console) console.error("[s11 chart]", e); }
+    });
+    try { wireCards(); } catch (e) { if (window.console) console.error("[s11 cards]", e); }
+    try { wireExec(); } catch (e) { if (window.console) console.error("[s11 exec]", e); }
+    refresh(null);
+  }
+
+  /* the shell and scripts 6-10 write their counters after their own events, so
+     ours runs after theirs on the same event rather than observing the DOM —
+     an observer on a node we also write is a loop (5ad) */
+  document.addEventListener("input", function (ev) {
+    if (ev.target && ev.target.closest && ev.target.closest(".tbar,.s9find")) setTimeout(function () { refresh(null); }, 0);
+  }, true);
+  document.addEventListener("change", function (ev) {
+    if (ev.target && ev.target.closest && ev.target.closest(".tbar,.s9find")) setTimeout(function () { refresh(null); }, 0);
+  }, true);
+  document.addEventListener("click", function (ev) {
+    if (ev.target && ev.target.closest && ev.target.closest(".tbar,.s9find,.filterbanner")) setTimeout(function () { refresh(null); }, 0);
+  }, true);
+
+  function boot() {
+    scan();
+    setTimeout(scan, 700); setTimeout(scan, 1800); setTimeout(scan, 3200);
+    document.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(scan, 120);
+    }, true);
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 260); });
+  else setTimeout(boot, 260);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** SKRYPT 11 jest osobnym
+blokiem, ktory niczego nie nadpisuje, a jedyna rzecz, ktora robi cudzym kontrolkom, to **nacisniecie
+przycisku `Reset`, ktory powloka sama sobie podpiela** — czyli dokladnie to, co zrobilby czytelnik.
+
+### Walidator — pozycje 65 i 66 listy §0
+
+- **65** — SKRYPT 11 jest na stronie razem ze swoimi zaczepami, a blok CSS niesie regule
+  `[data-s11="0"]` z `!important`. **Kazdy klucz jest PELNA, jednoznaczna fraza**: goly `SCRIPT 11`
+  wystepuje na stronie CZTERY razy, bo komentarze skryptow 4 i 6 nazywaja go po imieniu, wiec ten
+  klucz przechodzil z niewlasciwego powodu — zmierzone przy wstrzykiwaniu bledu 11 wrzesnia 2026.
+  Tak samo `columnPlan` przechodzilo po samym wywolaniu, gdy definicja znikala. Klucze brzmia wiec
+  `SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL`, `window.__socS11 = `
+  i `function columnPlan(`. Kontrola regresji na szesciu wstrzyknieciach: kazde zlapane; SKRYPT 4 rysuje pitch 19 i slupek 9,5 i wiesza `data-ids`.
+  Render (§5h): kazda tabela o co najmniej osmiu wierszach ma pole szukania i zawezenie do kolumny,
+  karty Top N i punkty Executive summary maja swoje pole, a klikniecie slupka `Per service` zmienia
+  licznik `N of M` i zapala banner zakladki, ktory `Clear filter` gasi.
+- **66** — **zaden** `<details>` w tresci nie zostaje z natywnym trojkatem: regula jest katalogiem
+  odwrotnym, wiec obejmuje takze klase, ktorej przebieg jeszcze nie wymyslil. Klasa wpisana w markup
+  bez reguly w arkuszu zawodzi po cichu, a wyliczanie znanych klas po kolei zawodzi przy nastepnej.
+
+## 5aq. PIEC NAZWANYCH POZYCJI TO TABELA, NIE LISTA PUNKTOW — z tym samym wygladem wiersza
+
+Wlasciciel zglosil 11 wrzesnia 2026, patrzac na zakladke Today i na Executive summary:
+*„zeby nie podawac informacji tak porozrzucanych bez tabelki, jak np. w top 10 of the day, tylko to,
+co juz wyswietlasz, upakowac w tabelki — i tak powinno byc w kazdej zakladce"*, a zaraz potem,
+pokazujac Executive summary: *„najlepiej zachowac taki widok, tylko to upakowac w tabelke, bo ten
+widok jest dla mnie bardzo przejrzysty"*.
+
+**To nie jest prosba o inny wyglad, tylko o inny POJEMNIK.** Wyglad wiersza zostaje dokladnie ten
+z Executive summary, bo wlasciciel nazwal go przejrzystym. Zmienia sie to, ze lista punktow nie da
+sie ani posortowac, ani przefiltrowac, ani policzyc — a tabela da sie, i §5ap dokłada jej pole
+szukania, zawezenie do kolumny i fasety bez zadnej dodatkowej pracy przebiegu.
+
+### Regula
+
+1. **Piec albo wiecej NAZWANYCH POZYCJI w jednym miejscu to tabela.** „Nazwana pozycja" to punkt
+   o ksztalcie z §5af: `<b>tytul</b> &mdash; zdanie <a>Source</a>`. Cztery i mniej moga zostac lista
+   — krotka lista czyta sie szybciej niz tabela o czterech wierszach.
+2. **Wiersz wyglada tak samo jak dzisiejszy punkt.** Komorka `Item` niesie `<b>tytul</b>`, pod nim
+   albo po myslniku zdanie, a na koncu chip zrodla — czyli to, co wlasciciel wskazal jako czytelne.
+   Nie skracasz tresci, nie wyrzucasz zdania wyjasniajacego: **zmienia sie pojemnik, nie tresc.**
+3. **Grupowanie zostaje, ale jako osobna tabela z `<caption>`** — dokladnie jak §5o robi z miesiacami:
+   `<div class="tw"><table><caption>Entra &middot; 5 items</caption>…`. Naglowek `<h3>` produktu moze
+   zostac nad tabela; SKRYPT 11 chowa go razem z tabela, gdy filtr ja oprozni (§5ap).
+   **Jedna sekcja, jeden pasek narzedzi** — §5ap laczy tabele o identycznym naglowku w jedna kontrolke,
+   wiec osiemnascie tabel produktow ma JEDNO pole szukania, nie osiemnascie.
+4. **Kolumny sa zawsze te same i zawsze konczy je `Source`** (§4): `Product` (albo `Area`), `Item`,
+   `What it means`, `Reference`, `Published` albo `Deadline`, `Source`. Kolumna, ktorej dana sekcja
+   nie ma czym wypelnic, dostaje `not stated by Microsoft`, nigdy puste pole (§5n).
+5. **Dotyczy to KAZDEJ zakladki**: Executive summary (§8 D), lista pozycji tier 0 bez karty w `sec-note`
+   sekcji `top5` (§5p), Strategic watchlist (§8 M), wyliczenia w `Sources` i kazde inne miejsce,
+   w ktorym przebieg wypisuje piec albo wiecej pozycji z linkiem.
+6. **Karty Top N zostaja kartami.** Siedem do dziesieciu kart to ranking i tak zostal zatwierdzony
+   (§8 A, §5aa); to NIE jest wyliczenie w prozie. Zmienia sie tylko to, co pod nimi: lista „pozostale
+   pozycje tier 0, i dlaczego kazda nie ma karty" staje sie tabela, bo jest wyliczeniem.
+
+### Nazwa sekcji mowi OKRES SLOWAMI I DATAMI
+
+Wlasciciel zapytal przy okazji: *„sekcja new this window — bo czemu ona sie tak nazywa?"*. Ma racje:
+**„window" to zargon tego pliku, nie nazwa, ktora cokolwiek mowi czytelnikowi.** Okno publikacji ma
+14 dni i jego daty stoja w `sec-note`, wiec tytul ma je powtorzyc:
+`New in the last 14 days &middot; 28 August to 10 September 2026`.
+
+Regula ogolna: **kazdy tytul sekcji, ktora ogranicza sie do okresu, nazywa ten okres slowami i podaje
+daty.** „this window", „in window", „the window" nie wystepuja w warstwie widocznej dla czytelnika —
+tak samo jak nie wystepuja tam polskie slowa (§0 pozycja 30). W `sec-note` i w opisach wykresow okres
+tez nazywa sie po ludzku: `items published in the last 14 days`, nie `items in window`.
+
+### Walidator — pozycja 67 listy §0
+
+- **67** — w tresci widocznej dla czytelnika nie ma frazy `this window` ani `New this window`, a zaden
+  `<ul>` w tresci nie trzyma PIECIU albo wiecej punktow o ksztalcie nazwanej pozycji (`<b>` na poczatku
+  i link na koncu). Piec takich punktow to wyliczenie, a wyliczenie jest tabela. Bramka liczy to
+  `html.parser`, nie wyrazeniem regularnym — komentarz `SHELL CONTRACT` cytuje markup i przerywa sie
+  wczesnym `-->` (§0a).
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna
@@ -11021,9 +12301,24 @@ Table: | Change type | Item | Product | What changed | Source |
 Never file our own correction as `Revised at source` — that credits Microsoft with an edit it never made. On a baseline run say so instead of filling the table. Open the section with a `<p class="sec-note">` explaining the two families, so the Change type filter is self-explanatory.
 
 ### D. EXECUTIVE SUMMARY BY PRODUCT
-By product, Entra first. Max 5 bullets each: what changed / why it matters / action, with its source link. Omit a product with nothing in window.
+By product, Entra first. Max 5 items each: what changed / why it matters / action, with its source link. Omit a product with nothing in the window.
 
-### E. NEW THIS WINDOW
+**Od 11 wrzesnia 2026 to sa TABELE, nie listy punktow (§5aq)** — jedna tabela na produkt,
+`<caption>` z nazwa produktu i licznikiem, `<h3>` nad nia moze zostac. **Wiersz wyglada dokladnie
+tak, jak wygladal punkt**: `<b>tytul</b>` w komorce `Item`, po nim zdanie wyjasniajace, na koncu
+wiersza chip zrodla — wlasciciel nazwal ten widok przejrzystym i on sie nie zmienia, zmienia sie
+tylko pojemnik. Wszystkie tabele tej sekcji maja identyczny naglowek, wiec §5ap laczy je w JEDEN
+pasek narzedzi na cala sekcje, a produkt bez pasujacych wierszy chowa sie razem ze swoim `<h3>`.
+Zdania o pochodzeniu materialu nie wpisujesz: **SKRYPT 11 liczy je z linkow, ktore sekcja niesie**,
+i drukuje pod tytulem (§5ap).
+
+### E. NEW IN THE LAST 14 DAYS
+
+**Tytul sekcji nazywa okres slowami i podaje daty** (§5aq): `New in the last 14 days &middot;
+28 August to 10 September 2026`. Slowo „window" jest zargonem tego pliku i **nie wystepuje
+w warstwie widocznej dla czytelnika** — ani w tytule, ani w `sec-note`, ani w podpisie wykresu.
+Identyfikator sekcji zostaje `new` (skrypty pytaja o niego po nazwie, §2).
+
 Kolejnosc produktow idzie drabina §5p, nie alfabetem; podloga pokrycia §5u obowiazuje bez zmian, wiec **nic nie wypada, zmienia sie tylko kolejnosc**.
 Table: | Product | Feature | Status | Published | Impact | Action Required | Source |
 Status: GA, Preview, Public Preview, Private Preview, Updated, Deprecated, Retiring. Last 14 days.
@@ -11096,7 +12391,9 @@ Fed by the `roles` array, under exactly the same rules as the Graph catalog — 
 Table: | Priority | Action | Product | Business Value | Source | — Critical / High / Medium / Low. Max 10 rows, actionable only.
 
 ### M. STRATEGIC WATCHLIST
-Max 8 bullets on initiatives to track over 3–12 months, each with a link. No action this week; all require a plan.
+Max 8 initiatives to track over 3–12 months, each with a link. No action this week; all require a plan.
+**Piec albo wiecej pozycji idzie w tabele** (§5aq), z tym samym ksztaltem wiersza co Executive
+summary; cztery i mniej moga zostac lista punktow.
 
 ### N. SOURCES AND VALIDATION
 Not a link dump — every claim is linked in place. Cover: sources unreachable or stale this run, conflicting dates Microsoft publishes, whether a thin window was the filter or a quiet week, and that nothing is verified against the owner's tenant beyond the reads named above.
