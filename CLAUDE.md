@@ -38,13 +38,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    z pliku, bo powstaja dopiero w przegladarce (49, 51, 52), sprawdza Playwright z §5h** — i to
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
-4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Lista ma **63 pozycje** dla przebiegu,
-   ktory buduje albo odbija strone glowna (0-33, 35-61, 63) — to 62 pozycje — plus **34 i 62 dla przebiegu
-   ZMIAN**, razem 64. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
+   strone glowna, sprawdza **63 pozycje** (0-33, 35-61, 63-64), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **65**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
-   Community Articles (§5an)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
+   Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
@@ -114,9 +114,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
 | 60 | **kazde zrodlo z `community_sources.json` ma wpis w `community.sources`**, kazde nieprzeczytane ma niepusty `note`, kazdy artykul ma `link` i `firstTracked` | 5an | licznik `sources` = liczba pozycji w liscie przeczytanej w tym przebiegu; zero wpisow `failed` bez `note`; zero artykulow bez `link` |
-| 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable` w pliku; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca |
+| 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow, **jedno pole szukania na tabele i czytelne zaznaczenie tekstu** | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable`, `hideShellBars`, `[data-s10hidden="1"]{display:none!important}`, `::selection{background:var(--accent-soft)`, `#tab-community .panelhead figure.chart{display:none}`, `#tab-community .charts figure.chart svg` w pliku — **kazdy klucz pelna regula, nie fragmentem**, bo `.panelhead figure.chart` samo stoi takze w arkuszu powloki; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca, kazda z czterech tabel ma DOKLADNIE jedno pole szukania |
 | 62 | **tylko przebieg ZMIAN**: strona zmian nazywa artykuly z imienia — sekcje `community` i `mcenter`, kazdy dodany artykul z tytulem i linkiem, nie sam licznik | 3, 3a, 5an | `id="community"` i `id="mcenter"` na `/diff/`; zero wierszy `added` bez `<a href`; pierwszy przebieg daje `BRAK „brak punktu odniesienia"` |
 | 63 | **lista zrodel przeczytana W TYM przebiegu i zdiffowana** — `community.listDiff` z `added`/`removed`/`renamed`, `readOn` = data przebiegu | 5an | `readOn` rowne `briefDate`; `listDiff` obecne; przemianowanie NIE jest liczone jako add+remove |
+| 64 | **kazdy filtr globalny mowi, ze jest wlaczony, i daje JEDEN reset** — banner stoi w tym samym przyklejonym bloku co pasek skrotow: `cstick` w zakladce Community, `dstick` na stronie zmian | 5ao, 5an, 3 | strona glowna: `#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)`, `ensureGlobalBanner`, `stickify`, `setProperty("--chdr-h"` w pliku; `/diff/`: `dstick`, `nb-lab`, `--dstick-h` — sprawdza je `verify()` w `make_diff.py`; render (§5h): po kliknieciu tagu banner jest w widoku |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -759,7 +760,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63"}
-CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61"}
+CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1295,10 +1296,27 @@ def gate(path, site=None, mirror=False, doc=None):
     # (§5an) - klucze musza wiec nazywac to, co strona niesie DZIS, a nie wczoraj.
     # `inWinDay` jest tu z powodu: to ono trzyma podswietlenie slupkow i filtr tabel
     # przy jednym warunku, a jego brak byl bledem, przez ktory `Today` zapalalo caly wykres.
-    K61 = ("SCRIPT 10", "subnav", "actbar", "actpre", "inWinDay", "filterbanner s10", "sortable")
+    # Kazdy klucz musi byc JEDNOZNACZNY. `.panelhead figure.chart` samo w sobie stoi takze
+    # w arkuszu powloki (`padding:11px 13px 6px`), a `--chdr-h`/`cstick` w CSS i w JS —
+    # klucz, ktory przechodzi z niewlasciwego powodu, jest gorszy niz jego brak (§0b).
+    K61 = ("SCRIPT 10", "subnav", "actbar", "actpre", "inWinDay", "filterbanner s10", "sortable",
+           "hideShellBars", '[data-s10hidden="1"]{display:none!important}',
+           "::selection{background:var(--accent-soft)",
+           "#tab-community .panelhead figure.chart{display:none}",
+           "#tab-community .charts figure.chart svg")
     need("61", "SKRYPT 10 buduje zachowanie zakladki (§5an)",
          all(k in h for k in K61),
          "brak: %s" % ", ".join(k for k in K61 if k not in h))
+    # 64: §5ao — filtr, ktorego nie widac, jest filtrem, ktorego nie da sie cofnac.
+    # Bramka czyta PLIK, wiec pyta o zaczepy przyklejonego bloku i o to, ze skrypt sam
+    # tworzy banner; to, czy banner jest naprawde w widoku po kliknieciu tagu, sprawdza
+    # Playwright (§5h) — to samo rozroznienie co przy pozycji 48.
+    K64 = ("#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)",
+           "ensureGlobalBanner", 'setProperty("--chdr-h"', 'setProperty("--cstick-h"',
+           "stickify", "measureStick", "scroll-margin-top:var(--cstick-h")
+    need("64", "filtr globalny nazywa sie i czysci z jednego miejsca (§5ao)",
+         all(k in h for k in K64),
+         "brak: %s" % ", ".join(k for k in K64 if k not in h))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1949,7 +1967,17 @@ kliknac, kaze szukac jej znaczenia recznie.
 | kafelek `.factgrid a.fact` | otwiera sekcje, ktora go tlumaczy, i do niej przewija; strzalka `↓` w rogu mowi, ze jest linkiem |
 | niezerowa liczba w `bytab` | skacze do `added` / `removed` / `changed` **i zostawia w tej sekcji WYLACZNIE blok tej zakladki** — sam skok zostawia czytelnika przy pierwszej tabeli sekcji, a nie przy tej, ktorej liczbe kliknal. Zakladka z wlasna sekcja (`Graph API`, `Roles`, `Graph endpoints`, `Component versions`, `Community articles`, `Message Center`) prowadzi do niej wprost |
 | nazwa technologii w `bytech` | zawezasa **wszystkie** tabele strony do tej technologii: tam gdzie tabela ma fasete `Product`, przez fasete; gdzie nie ma, przez pole szukania — **i banner mowi, ktora droga poszla**, zeby wiersz dopasowany po prozie nie byl zaskoczeniem. Obie tabele podsumowania zostaja NIETKNIETE, bo sa kontrolkami, a nie trescia |
-| `Show everything` w bannerze | czysci kazde pole, kazda fasete i odslania kazdy blok |
+| `Clear filter` w bannerze | czysci kazde pole, kazda fasete i odslania kazdy blok |
+
+**Banner stoi W TYM SAMYM PRZYKLEJONYM BLOKU co pasek skrotow** (`<div class="dstick">`), wiec jest
+na ekranie takze wtedy, gdy klikniecie technologii przewinelo czytelnika do `Added`. Wlasciciel
+zglosil 11 wrzesnia 2026: *„nie ma jednoznacznej informacji na niebieskim tle jaki filtr zostal
+zastosowany, zebym mogl go latwo wyczyscic — teraz musze w kazdej tabelce recznie klikac reset"*.
+Filtr byl nazwany i `Show everything` istnialo; **bylo trzy ekrany wyzej**, bo `nav.dsubnav` bylo
+przyklejone, a banner byl zwyklym rodzenstwem pod nim. Kontrolka globalna, ktora odjezdza, jest
+z punktu widzenia czytelnika kontrolka, ktorej nie ma — i wtedy czysci sie tabela po tabeli.
+Wysokosc bloku mierzy skrypt i publikuje jako `--dstick-h`, bo `scroll-margin-top` z twarda liczba
+klamie w chwili, w ktorej banner sie otwiera (§0a).
 
 **Zero NIE jest linkiem.** Prowadzilby do pustej tabeli i uczyl, ze klikanie nic nie daje — ta sama
 zasada co pusty kubelek, ktory mowi zdaniem zamiast znikac.
@@ -2621,16 +2649,30 @@ a.gtech b{color:var(--accent)}
 .tabblock[hidden]{display:none!important}
 caption.tabcap .capverb{font-size:11px;text-transform:uppercase;letter-spacing:.06em;
  font-weight:700;color:var(--muted);margin-right:6px}
-nav.dsubnav{position:sticky;top:0;z-index:40;display:flex;gap:6px;overflow-x:auto;padding:9px 0 8px;
- margin:0 0 4px;background:var(--bg);border-bottom:1px solid var(--border);-webkit-overflow-scrolling:touch}
+/* Rail and banner are ONE sticky block, and that is the fix from 11 September 2026.
+   The rail was sticky and the banner was an ordinary sibling below it, so after the
+   reader pressed a technology and the page scrolled him to `Added`, the only place
+   naming the active filter — and the only Clear that clears all of them at once —
+   was three screens above him. He reported it as having to press Reset in every table
+   by hand, which is exactly what a page does when its one global control scrolls away. */
+.dstick{position:sticky;top:0;z-index:41;background:var(--bg);border-bottom:1px solid var(--border);
+ margin:0 0 4px}
+nav.dsubnav{display:flex;gap:6px;overflow-x:auto;padding:9px 0 8px;
+ margin:0;background:var(--bg);-webkit-overflow-scrolling:touch}
 nav.dsubnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border);
  background:var(--surface);color:var(--text);white-space:nowrap;flex:0 0 auto;text-decoration:none}
 nav.dsubnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 nav.dsubnav a .n{color:var(--muted);font-weight:600;margin-left:6px;font-variant-numeric:tabular-nums}
 nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
-section{scroll-margin-top:56px}
-.navbanner{display:flex;align-items:center;gap:12px;margin:10px 0 0;padding:8px 12px;border-radius:10px;
+/* the jump target clears the sticky block, whose height the script measures and
+   publishes as `--dstick-h` — a hard number here would be wrong the moment the
+   banner appears and taller again when its text wraps on a phone (§0a) */
+section{scroll-margin-top:var(--dstick-h,56px)}
+.navbanner{display:flex;align-items:center;gap:12px;margin:0 0 8px;padding:8px 12px;border-radius:10px;
  background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13px}
+.navbanner .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);flex:0 0 auto}
+.navbanner .nb-msg b{color:var(--accent)}
 .navbanner[hidden]{display:none!important}
 .navbanner .nb-msg{flex:1 1 auto}
 .navbanner .nb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
@@ -2768,20 +2810,44 @@ NAV_BODY = """<script>
     if (banner) return banner;
     banner = document.createElement("div");
     banner.className = "navbanner"; banner.hidden = true;
+    var lab = document.createElement("span"); lab.className = "nb-lab"; lab.textContent = "Filter";
     var msg = document.createElement("span"); msg.className = "nb-msg";
     var btn = document.createElement("button");
-    btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Show everything";
+    btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Clear filter";
     btn.addEventListener("click", clearAll);
-    banner.appendChild(msg); banner.appendChild(btn);
-    var nav = document.querySelector("nav.dsubnav");
-    if (nav && nav.parentNode) nav.parentNode.insertBefore(banner, nav.nextSibling);
+    banner.appendChild(lab); banner.appendChild(msg); banner.appendChild(btn);
+    /* INSIDE the sticky block, never after it. The banner names the one filter that is
+       on and carries the one Clear that clears every table at once; a reader who has to
+       scroll back to the top to find it will clear the tables one Reset at a time
+       instead, which is what happened. */
+    var stick = document.querySelector(".dstick");
+    if (stick) stick.appendChild(banner);
+    else {
+      var nav = document.querySelector("nav.dsubnav");
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(banner, nav.nextSibling);
+    }
     return banner;
   }
-  function say(text) {
+  /* the sticky block gets taller when the banner opens, so republish its height for
+     `scroll-margin-top` rather than leaving a jump target under it */
+  function measure() {
+    var stick = document.querySelector(".dstick");
+    var h = stick ? Math.round(stick.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--dstick-h", (h ? h + 10 : 56) + "px");
+  }
+  function say(text, strong) {
     var b = ensureBanner();
     b.hidden = !text;
-    if (text) b.querySelector(".nb-msg").textContent = text;
+    if (text) {
+      var m = b.querySelector(".nb-msg");
+      m.textContent = "";
+      if (strong) { m.appendChild(document.createElement("b")).textContent = strong;
+                    m.appendChild(document.createTextNode(" \u2014 " + text)); }
+      else m.textContent = text;
+    }
+    measure();
   }
+  window.addEventListener("resize", measure);
 
   function boxes() { return window.__s9diff || []; }
   /* the two summary tables are the CONTROLS, not the content: filtering them by a
@@ -2860,8 +2926,9 @@ NAV_BODY = """<script>
     var how = [];
     if (exact) how.push(exact + " by " + (exact === 1 ? "its" : "their") + " product column");
     if (text) how.push(text + " by searching " + (text === 1 ? "its" : "their") + " text");
-    say("Filtered to " + name + " across every section \\u2014 " + how.join(", ") +
-        ". The two summary tables at the top are left whole, because they are the controls.");
+    say("filtered across every section \\u2014 " + how.join(", ") +
+        ". The two summary tables at the top are left whole, because they are the controls. " +
+        "Clear filter puts every table back at once.", name);
     var a = document.getElementById("added");
     if (a) { openSection("added"); a.scrollIntoView({ block: "start" }); }
   }
@@ -2901,6 +2968,8 @@ NAV_BODY = """<script>
     }, { passive: true });
     mark();
   })();
+
+  measure();
 })();
 </script>"""
 
@@ -3428,9 +3497,11 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                                       + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
            ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"]))]
-    subnav = ('<nav class="dsubnav" aria-label="Sections">'
+    # rail and banner live in ONE sticky block: the banner is the page's only global
+    # control and it has to stay on screen after a jump (§3 punkt 13)
+    subnav = ('<div class="dstick"><nav class="dsubnav" aria-label="Sections">'
               + "".join('<a href="#%s" data-goto="%s">%s<span class="n">%d</span></a>' % (i, i, t, n)
-                        for i, t, n in nav) + "</nav>")
+                        for i, t, n in nav) + "</nav></div>")
     body = "\n".join(out).replace("@@SUBNAV@@", subnav)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
@@ -3513,8 +3584,13 @@ def verify(page):
         e.append("sekcji zwijanych = %d, ma byc 11" % page.count('<details class="dsec"'))
     # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
-    for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech"):
+    for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
+              "dstick", "nb-lab", "--dstick-h"):
         if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
+    # pasek skrotow i banner musza byc w JEDNYM przyklejonym bloku — banner poza nim
+    # odjezdza po skoku i czytelnik czysci filtr tabela po tabeli (zgloszenie 11 wrzesnia 2026)
+    if not re.search(r'<div class="dstick"><nav class="dsubnav"', page):
+        e.append("banner filtra nie stoi w tym samym przyklejonym bloku co pasek skrotow")
     if 'class="fact' in page and 'class="fact' in page and page.count('<a class="fact') < 8:
         e.append("kafelkow klikalnych = %d, ma byc co najmniej 8" % page.count('<a class="fact'))
     # kazda niezerowa liczba w podsumowaniu prowadzi gdzies — zero celowo NIE prowadzi
@@ -4195,7 +4271,7 @@ dla rol tak samo jak dla uprawnien.
 
 ## 5h. Kontrola Playwright — pelna lista asercji
 
-Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 11 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart`**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 11 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart` — PRESENCE, not visibility, and `tab-community` is the one panel whose panelhead chart is deliberately `display:none` (§5an), so assert the element and never its rendered height there**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
 
 Nowe od 31 sierpnia 2026, kazda z nich lapie realny blad z tego dnia: **zaden `figure.chart`
 o co najmniej czterech slupkach nie ma wszystkich slupkow rownych 1** (wykres „By topic" mial ich
@@ -4277,6 +4353,30 @@ jest po dacie malejaco; **zaden link w tabelach nie ma wagi >= 600** (zmierzone 
 `Where the data comes from` i `How an article gets its tags` sa **zwiniete po zaladowaniu**,
 a `Today and yesterday` otwarta; **wysokosc strony przy 1500 px nie przekracza 6 000 px**
 (zmierzone 4 256 px — dlugie tabele przewijaja sie we wlasnym pudelku, nie rozpychaja strony).
+
+Nowe od 11 wrzesnia 2026 (§5ao), obie powierzchnie: **po kliknieciu tagu w bloku `Technologies`,
+przewinietym tak, ze blok jest na dole ekranu, `#filterbanner` ma `getBoundingClientRect().top`
+w przedziale 0..250 px i niepusty tekst**, a `Clear filter` przywraca kazdy licznik `N of M` do
+pelnej liczby wierszy; ten sam test na stronie `/diff/` po kliknieciu nazwy technologii w `bytech`.
+**`#filterbanner` siedzi w `.cstick`, ktore jest bezposrednim dzieckiem `.sec-body`
+i ma `position:sticky`** (na `/diff/` banner stoi razem z paskiem skrotow w `.dstick`), a
+`--chdr-h` rowna sie zmierzonej wysokosci `header.top` w desktopie i **zeru przy 390 px**,
+gdzie §1a czyni naglowek statycznym. `--cstick-h` ROSNIE po otwarciu bannera.
+
+Nowe od 11 wrzesnia 2026, kazda z jednego punktu wlasciciela z tego dnia i kazda zmierzona na
+opublikowanym artefakcie z 11 wrzesnia PRZED poprawka: **`#tab-community .panelhead figure.chart`
+ma `display:none`**, a sam `.panelhead` i jego `.stat` nadal istnieja (przed: wykres `By status`
+1460x467 px nad szescioma wlasnymi wykresami zakladki); **kazdy `#tab-community .aggwrap figure.chart svg`
+renderuje sie w wysokosci rownej swojemu atrybutowi `height`, z tolerancja 2 px**, a `svg.donut`
+nie przekracza 250 px szerokosci (przed: 666 -> 867, 172 -> 398 i 200 -> 591 px, bo regula
+`#tab-community figure.chart svg{height:auto;max-width:100%}` bila kazda regule §5y specyficznoscia
+identyfikatora); **`getComputedStyle(document.body, "::selection").backgroundColor` jest
+nieprzezroczyste i rozne od koloru tekstu w OBU motywach** (przed: w arkuszu nie bylo ani jednej
+reguly `::selection`); **kazda z czterech tabel zakladki ma DOKLADNIE jedno pole szukania** —
+`.s9find` = 4 i widocznych `.tbar` w panelu = 3, czyli tyle, ile tabel SKRYPT 10 nie obsluguje
+(przed: 7 widocznych `.tbar` przy 4 `.s9find`, czyli cztery tabele z dwoma paskami). **Te trzy
+pozostale `.tbar` MUSZA zostac widoczne** — to jedyne pole szukania tamtych tabel, a asercja, ktora
+liczy `.tbar` = 0, kazalaby je schowac i zabrac czytelnikowi szukanie zamiast odduplikowac je.
 
 Nowe od 9 wrzesnia 2026 (§5am), kazda z jednego punktu wlasciciela z tego dnia: **w `#graph > .sec-body`
 nie ma ANI JEDNEGO widocznego `.tbar`** (przed poprawka byly dwa, oba z `data-s6hidden="1"` i oba
@@ -9978,6 +10078,13 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
    pierwsza wersja malowala kazdy tag na wlasny kolor i wlasciciel zglosil, ze
    zrobilo sie za kolorowo. Nasycenie 38% wraca identycznie na slupku wykresu
    i na wycinku pierscienia, wiec kropka jest legenda calej zakladki. */
+/* The global filter banner sticks BELOW the masthead (§5ao). It used to sit wherever
+   the run put it — measured 11 September 2026: 1 968 px above the reader who had just
+   pressed a tag in `Technologies` — so the four tables changed their counts with nothing
+   on screen saying which filter did it. `--chdr-h` is measured by SCRIPT 10, never
+   written down: the masthead is sticky and 303 px tall here, and `static` on a phone. */
+#tab-community .cstick{position:sticky;top:var(--chdr-h,0px);z-index:32;margin:0 0 6px}
+#tab-community .cstick .filterbanner.s10{margin:0 0 8px;box-shadow:0 2px 10px rgba(0,0,0,.18)}
 #tab-community .subnav{position:sticky;top:0;z-index:30;display:flex;gap:6px;overflow-x:auto;
  padding:8px 0 7px;margin:0 0 6px;background:var(--bg);border-bottom:1px solid var(--border);
  -webkit-overflow-scrolling:touch}
@@ -9986,7 +10093,9 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 #tab-community .subnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 #tab-community .subnav a .n{color:var(--muted);font-weight:600;margin-left:5px;font-variant-numeric:tabular-nums}
 #tab-community .subnav a[aria-current="true"] .n{color:var(--accent)}
-#tab-community section{scroll-margin-top:58px}
+/* the jump target clears the sticky block, whose height SCRIPT 10 measures and
+   publishes as `--cstick-h`; a hard number is wrong the moment the banner opens */
+#tab-community section{scroll-margin-top:var(--cstick-h,58px)}
 .tw.scroll{max-height:520px;overflow-y:auto}
 .tw.scroll-sm{max-height:400px;overflow-y:auto}
 /* --- blok Activity: rozklad 14 dni jako kontrolka --- */
@@ -10046,10 +10155,39 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 .badge.cchip::before{content:"";width:6px;height:6px;border-radius:2px;flex:0 0 6px;background:hsl(var(--h) 38% 52%)}
 .badge.cchip:hover{color:var(--text);background:var(--surface)}
 #tab-community .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-#tab-community figure.chart{margin:0;border:1px solid var(--border);border-radius:10px;
+/* SCOPED TO `.charts`, and that scope is the whole point. The first version of these
+   three rules selected `#tab-community figure.chart svg` — specificity (1,1,1), which
+   beats every rule SCRIPT 4 writes for its OWN charts — so `height:auto` threw away the
+   `height` attribute on each of them and re-derived it from the viewBox at the container
+   width. Measured 11 September 2026 on the published artifact at 1500 px: `Per service`
+   666 -> 867 px, `Published over time` 172 -> 398 px, and the share ring, whose
+   `.aggwrap svg.donut{max-width:250px}` lost to `max-width:100%`, 200 -> 591 px. The
+   owner reported it as "wykres published over time ma za duze te bary poziome" and was
+   right to the pixel. The tab's own charts are the ones inside `.charts`; SCRIPT 4's are
+   inside `.aggwrap` and must be left to their own sheet (§5y). */
+#tab-community .charts figure.chart{margin:0;border:1px solid var(--border);border-radius:10px;
  background:var(--surface);padding:9px 11px;min-width:0}
-#tab-community figure.chart svg{display:block;width:100%;height:auto;max-width:100%}
-#tab-community svg.donut{max-width:186px;margin:0 auto}
+#tab-community .charts figure.chart svg{display:block;width:100%;height:auto;max-width:100%}
+#tab-community .charts svg.donut{max-width:186px;margin:0 auto}
+/* The shell's own per-panel categorical chart is NOT wanted here. Script 2 facets the
+   first recognised column and this tab's source table carries `Status`, so the strip
+   opened with a `By status` chart 1460x467 px — measured on the same page — above six
+   charts of the tab's own that already answer the question with the right population.
+   The `.stat` tile stays: it is one number and it is true. §5h's "every panel except
+   Overview and Sources carries >=1 `.stat` and >=1 `figure.chart`" is about PRESENCE,
+   and the element is present; the exemption is written out there so the assertion does
+   not fire on a correct page. */
+#tab-community .panelhead figure.chart{display:none}
+/* Fifth time the shell's own `display` beats the `hidden` attribute, after `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am) and `.filterbanner.s10` (§5an): SCRIPT 10 marks
+   the shell toolbar over each table it owns, and the mark has to carry `!important` to win. */
+[data-s10hidden="1"]{display:none!important}
+/* The ONE deliberately un-scoped selector in this block, and it is un-scoped because the
+   defect is not tab-specific: the sheet declares no `::selection` at all, so the browser
+   picks its own pair, and on a `--surface-2` striped row in the dark theme the owner got
+   selected text he could not read. Declaring it makes the highlight deterministic in both
+   themes instead of leaving it to the platform. */
+::selection{background:var(--accent-soft);color:var(--text)}
 #tab-community .brow{cursor:pointer}
 #tab-community .brow:hover .ctrack{fill:var(--accent-soft)}
 #tab-community .seg{cursor:pointer}
@@ -10255,7 +10393,67 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
     return wrap;
   }
 
-  var banner = document.getElementById("filterbanner");
+  /* ---------- the global banner, and why it has to be sticky (5ao) ----------
+     Measured 11 September 2026 on the published artifact: pressing a tag in
+     `Technologies` filtered all four tables correctly and raised `#filterbanner` with
+     the right sentence — 1 968 px above the reader, because `Technologies` sits two
+     thirds of the way down the tab and the banner sits at the top of it. The counts
+     changed under him with nothing on screen saying why, and the owner asked where the
+     information about the applied filter was. It was there; it was not where he was.
+
+     So the banner joins `nav.subnav` in ONE sticky block, exactly as the rail and the
+     banner do on the change page, and the script creates the banner when the run did
+     not author one: a control this rule depends on cannot be left to a markup habit. */
+  function ensureGlobalBanner() {
+    var b = document.getElementById("filterbanner");
+    if (b) return b;
+    b = document.createElement("div");
+    /* `filterbanner s10`, never a bare `filterbanner`: the shell declares that class as
+       `display:flex`, which beats the `hidden` attribute (5c, 5ad, 5am, 5an). */
+    b.className = "filterbanner s10"; b.id = "filterbanner"; b.hidden = true;
+    var m = document.createElement("span"); m.className = "b-msg fb-msg";
+    var c = document.createElement("button");
+    c.type = "button"; c.className = "fb-clear"; c.textContent = "Clear filter";
+    b.appendChild(m); b.appendChild(c);
+    return b;
+  }
+  /* The banner goes in its OWN wrapper, immediately after the rail, and the WRAPPER is
+     what sticks. Two measured reasons, both of which the first version of this got wrong:
+
+     - a sticky element can only travel inside its containing block, so wrapping the rail
+       AND the banner in one short box pins them for the height of that box and nothing
+       more. The wrapper has to be a direct child of the tall `.sec-body` to travel the
+       whole tab. The rail keeps the `position:sticky;top:0` it always had, untouched.
+     - `header.top` on the brief is itself sticky and 303 px tall at 1500x800 (measured
+       11 September 2026), so `top:0` parks this behind it, out of sight — which is the
+       very failure being fixed. The offset is MEASURED into `--chdr-h`, never written
+       down: the masthead's height depends on how many pills wrap, and on a phone §1a
+       makes it `position:static`, where the offset must be zero. */
+  function stickify(b) {
+    var P = document.getElementById("tab-community");
+    var nav = P && P.querySelector("nav.subnav");
+    var host = nav ? nav.parentElement : P;
+    if (!host) return;
+    var box = host.querySelector(":scope > .cstick");
+    if (!box) {
+      box = document.createElement("div");
+      box.className = "cstick";
+      if (nav) host.insertBefore(box, nav.nextSibling); else host.insertBefore(box, host.firstChild);
+    }
+    if (b.parentNode !== box) box.appendChild(b);
+  }
+  function measureStick() {
+    var hd = document.querySelector("header.top");
+    var off = (hd && getComputedStyle(hd).position === "sticky")
+      ? Math.round(hd.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--chdr-h", off + "px");
+    var st = document.querySelector("#tab-community .cstick");
+    var h = st ? Math.round(st.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--cstick-h", (off + h + 12) + "px");
+  }
+  var banner = ensureGlobalBanner();
+  stickify(banner);
+  window.addEventListener("resize", measureStick);
   function winLabel() {
     if (!win) return null;
     if (win.n === 0) return "published today";
@@ -10288,6 +10486,7 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
     [].forEach.call(document.querySelectorAll(".actbar"), function (b) {
       b.classList.toggle("on", !!win && inWinDay(parseInt(b.dataset.d, 10), win));
     });
+    measureStick();
   }
   function setCat(c) { active = (active === c) ? null : c; refresh(); }
   function sameWin(a, b) { return !!a && !!b && a.t === b.t && a.n === b.n; }
@@ -10309,6 +10508,7 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
   });
 
   /* ---------- wire the tables ---------- */
+  var OWNED = ["latesttable", "srctable", "arttable", "mctable"];
   [["latesttable", "entries",  [[0, "When"], [1, "Kind"], [2, "Source"], [4, "Technology"]], 0, "desc"],
    ["srctable",     "sources",  [[2, "Read by"], [5, "Freshness"], [3, "Technology"], [6, "Status"]], 4, "desc"],
    ["arttable",     "articles", [[1, "Source"], [3, "Technology"], [0, "Month"]], 0, "desc"],
@@ -10320,6 +10520,47 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
     if (b) boxes.push(b);
   });
   refresh();
+
+  /* ---------- one search box per table, not two (5an) ----------
+     The shell builds its own `.tbar` over EVERY table it finds, so each of the four
+     tables this script owns showed the shell's toolbar AND the green box above it.
+     Measured 11 September 2026 on the published artifact: seven `.tbar`, four `.s9find`,
+     and the owner asked "dlaczego mamy podwojne zielone paski search?".
+
+     Only the four OWNED tables lose their shell toolbar. The other three tables in this
+     tab — the two inside the folded `Where the data comes from` block and the findings
+     table — are not wired here, so their shell toolbar is their ONLY search box and
+     hiding it would take the search away rather than de-duplicate it. That distinction
+     is the whole reason this walks table by table instead of selecting `.tbar` wholesale.
+
+     The toolbar is found by walking BACK from the table's `.tw` over the shell's own
+     `.filterbanner`, because the shell inserts banner and toolbar as siblings ahead of
+     the wrapper and their order is its business, not ours. The companion banner is
+     marked too: it belongs to a toolbar nobody can reach any more. */
+  function hideShellBars() {
+    OWNED.forEach(function (id) {
+      var t = document.getElementById(id); if (!t) return;
+      var tw = t.closest(".tw"); if (!tw) return;
+      for (var n = tw.previousElementSibling, hops = 0; n && hops < 4; n = n.previousElementSibling, hops++) {
+        if (n.classList.contains("filterbanner") && !n.classList.contains("s10")) {
+          n.dataset.s10hidden = "1"; continue;
+        }
+        if (n.classList.contains("tbar")) { n.dataset.s10hidden = "1"; return; }
+        if (n.classList.contains("s9find")) continue;      /* ours, leave it alone */
+        return;                                            /* anything else: stop, do not guess */
+      }
+    });
+  }
+  hideShellBars();
+  /* the shell builds those toolbars on its own schedule; two late passes cost nothing
+     and catch either ordering, and the observer catches a re-render (same guard SCRIPT 6
+     uses for `tidySection`) */
+  setTimeout(hideShellBars, 500); setTimeout(hideShellBars, 1500);
+  if (window.MutationObserver) {
+    var host = document.getElementById("tab-community");
+    if (host) new MutationObserver(function () { hideShellBars(); })
+      .observe(host, { childList: true, subtree: true });
+  }
 
   /* The rail marks where the reader is. Measured: an IntersectionObserver on
      ratios reported the wrong section after a jump, because these sections are
@@ -10381,6 +10622,32 @@ nie nadpisuje.
    To ta sama rodzina bledow co `diff_href not in inner` w §0a: test, ktory dla jednej poprawnej
    wartosci jest zawsze prawdziwy, i dlatego objaw byl na jednym kafelku z pieciu.
 
+### Cztery poprawki z 11 wrzesnia 2026 — i jedna przyczyna trzech z nich
+
+Wlasciciel zglosil cztery rzeczy o tej zakladce. **Trzy z nich mialy JEDNA przyczyne**, a czwarta
+jest brakiem, ktorego arkusz nigdy nie mial. Kazda zmierzona na opublikowanym artefakcie
+`Microsoft SOC Brief 11 Sep 2026` przy 1500 px, przed poprawka.
+
+| zgloszenie | zmierzone | przyczyna | naprawa |
+|---|---|---|---|
+| „wielki wykres by status, w ogole nie potrzebny" | `figure.chart` w `.panelhead`, **1460x467 px** | powloka fasetuje pierwsza rozpoznana kolumne (§4), a tabela zrodel wozi `Status` — wiec skrypt 2 rysuje `By status` nad szescioma wlasnymi wykresami zakladki | `#tab-community .panelhead figure.chart{display:none}`; `.stat` zostaje |
+| „published over time ma za duze te bary poziome" | `172` w atrybucie, **398 px** na ekranie; `Per service` 666 -> 867; pierscien 200 -> **591** | `#tab-community figure.chart svg{height:auto;max-width:100%}` — specyficznosc **(1,1,1)**, wiec bije KAZDA regule, ktora §5y pisze dla swoich wlasnych wykresow | trzy reguly zawezone do `#tab-community .charts …`; wykresy `.aggwrap` wracaja do swojego arkusza |
+| „jaki sie robi highlight — kompletnie niewidoczny tekst" | `::selection` w arkuszu: **0 regul** | nikt go nie zadeklarowal, wiec pare kolorow wybiera przegladarka — na pasiastym wierszu `--surface-2` w ciemnym motywie wychodzi nieczytelnie | `::selection{background:var(--accent-soft);color:var(--text)}` |
+| „dlaczego mamy podwojne zielone paski search?" | **7 `.tbar` i 4 `.s9find`** w panelu | powloka buduje `.tbar` nad KAZDA tabela, a SKRYPT 10 dokłada swoje pudelko nad czterema z nich | `hideShellBars()` w SKRYPCIE 10 chowa pasek powloki **tylko nad tymi czterema** |
+
+**Drugi wiersz jest tu lekcja, nie tylko bledem.** Regula z identyfikatorem w selektorze wygrywa
+z kazda regula klasowa, takze z ta, ktora nalezy do CUDZEGO skryptu — a §5y buduje swoje wykresy
+w tej zakladce tak samo jak w kazdej innej. **Blok CSS zakladki nie moze celowac w `figure.chart`
+w calym panelu**, bo w panelu stoja takze wykresy, ktorych ta sekcja nie napisala. Celuje sie
+w kontener, ktory ta zakladka sama tworzy. To jest ta sama dyscyplina co sprawdzanie klasy w OBIE
+strony przed napisaniem selektora (§5al, §5an): tam chodzilo o kolizje nazw, tu o kolizje zasiegu.
+
+**Czwarty wiersz jest odwrotnoscia pokusy.** Najkrotsza naprawa byloby `#tab-community .tbar{display:none}`
+— i **zabralaby szukanie trzem tabelom**, ktorych SKRYPT 10 nie obsluguje: dwoch w zwinietym bloku
+`Where the data comes from` i tabeli ustalen. Dla nich pasek powloki jest JEDYNYM polem szukania.
+Dlatego `hideShellBars()` idzie tabela po tabeli po liscie `OWNED` i zatrzymuje sie, gdy trafi na
+cos, czego nie rozpoznaje — **nigdy nie zgaduje**.
+
 ### Co z tego idzie na strone zmian — imiennie, nie licznikiem
 
 Wlasciciel powiedzial to przy zatwierdzaniu zakladki: *„w diff musimy uwzglednic te statystyki co sie
@@ -10438,6 +10705,48 @@ ile zrodel i ile artykulow zapisano po raz pierwszy, i ze jutro beda prawdziwe r
 **Pozycje 60, 62 i 63 sa KLASY A** (rzetelnosc tresci): zgubione zrodlo, artykul policzony zamiast
 nazwanego i nieaktualna lista to falszywa tresc. **Pozycje 59 i 61 sa KLASY B** (funkcja interfejsu) —
 lustro ich nie naprawi, bo tylko kopiuje, wiec je raportuje i publikuje (§0).
+
+## 5ao. FILTR, KTOREGO NIE WIDAC, JEST FILTREM, KTOREGO NIE DA SIE COFNAC
+
+Wlasciciel powiedzial to 11 wrzesnia 2026 jako regule calego portalu, nie jako uwage do jednej
+zakladki: *„ogolna zasada w portalu — glowny i diff tez — jest taka, ze wszedzie tam, gdzie dajemy
+mozliwosc filtrowania, to potem powinna byc informacja, jaki filtr jest obecnie uzywany, i powinna
+byc mozliwosc jego latwego resetu."*
+
+Tego samego dnia zglosil dwa objawy tej samej choroby i **w obu przypadkach banner ISTNIAL, mowil
+prawde i mial przycisk czyszczacy** — tylko byl poza ekranem:
+
+| gdzie | co zrobil czytelnik | gdzie byl banner | co zrobil zamiast tego |
+|---|---|---|---|
+| zakladka Community, blok `Technologies` | kliknal tag | **1 968 px wyzej**, na gorze zakladki | patrzyl na cztery tabele, ktorym zmienily sie liczniki, bez zdania o powodzie |
+| strona `/diff/`, tabela `What changed, by technology` | kliknal nazwe technologii | trzy ekrany wyzej, bo `nav.dsubnav` bylo przyklejone, a banner byl zwyklym rodzenstwem pod nim | czyscil **kazda tabele osobno** przyciskiem `Reset` |
+
+### Regula
+
+1. **Kazda powierzchnia z filtrem globalnym ma JEDEN banner, ktory nazywa czynny filtr i niesie
+   `Clear filter` czyszczacy WSZYSTKO naraz.** Nie zastepuje `Reset` przy pojedynczej tabeli —
+   tamten dotyczy jednej tabeli, ten calej strony.
+2. **Ten banner jest PRZYKLEJONY.** Filtr wlacza sie z dowolnego miejsca strony, wiec informacja
+   o nim musi byc widoczna z dowolnego miejsca strony. Na stronie zmian stoi razem z paskiem
+   skrotow w `div.dstick`, bo tamtejszy masthead nie jest przyklejony. W briefie stoi w swoim
+   wlasnym `div.cstick` **pod** mastheadem, bo tamten JEST przyklejony i ma 303 px — a element
+   przyklejony przy `top:0` chowa sie za nim. **Wrapper musi byc bezposrednim dzieckiem wysokiego
+   kontenera**: element przyklejony jedzie tylko w obrebie swojego bloku zawierajacego, wiec
+   wspolne pudelko z paskiem skrotow trzymaloby go przez 90 px i ani piksela dalej.
+3. **Wysokosc tego bloku mierzy skrypt i publikuje jako `--cstick-h` / `--dstick-h`**, a
+   `scroll-margin-top` czyta zmienna. Twarda liczba klamie w chwili, w ktorej banner sie otwiera
+   albo jego tekst zawija sie na telefonie — to ta sama regula co „kazda liczba zapisana w asercji
+   ma date waznosci" (§0a), tylko w CSS.
+4. **Skrypt TWORZY banner, gdy przebieg go nie napisal.** Kontrolka, od ktorej zalezy ta regula, nie
+   moze zalezec od nawyku redakcyjnego. SKRYPT 10 robi to przez `ensureGlobalBanner()`.
+5. **Banner nigdy nie jest golym `.filterbanner`** — powloka deklaruje te klase jako `display:flex`,
+   co bije atrybut `hidden`. Klasa jest `filterbanner s10` z wlasna regula
+   `[hidden]{display:none!important}`. To pulapka, ktora ten plik zlapal juz przy `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am) i `.filterbanner.s10` (§5an).
+6. **Filtr lokalny tabeli zostaje jak byl**: `.s9find` niesie swoj licznik `N of M` i swoj `Reset`.
+   Banner globalny mowi o filtrze, ktory dotyczy wielu tabel naraz.
+
+Pozycja 64 listy §0 sprawdza to na gotowym pliku, a §5h — w renderze.
 
 ## 6. Kontrakt w stronie
 
