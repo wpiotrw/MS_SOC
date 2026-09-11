@@ -1,0 +1,11 @@
+{
+ "sha256": "1fc6b39a0fb9cbdfd34837488417333de1198b8fc994c09770d5d55102e95885",
+ "bytes": 238269,
+ "capturedOn": "2026-09-11",
+ "capturedAt": "2026-09-11T05:12",
+ "source": "artifact-2980cdc6-1789102772-4bdc.html",
+ "styles": 1,
+ "behaviourScripts": 10,
+ "shellScripts": 3,
+ "contract": true
+}
