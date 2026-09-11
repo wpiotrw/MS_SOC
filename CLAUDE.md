@@ -39,14 +39,16 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **68 pozycji** (0-33, 35-61, 63-69), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **70**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+   strone glowna, sprawdza **71 pozycji** (0-33, 35-61, 63-72), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **73**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
    Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, wieczorem tego samego dnia
    **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**, a w nocy
-   **68 (§5ar, prowenancja i diff tekstu zrodla)** oraz **69 (§5as, Start here)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
+   **68 (§5ar, prowenancja i diff tekstu zrodla)** oraz **69 (§5as, Start here)**, a po nich **70-72**
+   (§5at: pasek filtra w mastheadzie, liczba prowadzaca do wyniku, monospace tylko na identyfikatorze).
+   Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
@@ -111,7 +113,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
-| 56 | **skrypty 4-11 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 11` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
+| 56 | **skrypty 4-14 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 14` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
@@ -125,6 +127,9 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 67 | **piec albo wiecej nazwanych pozycji to TABELA, nie lista punktow — z tym samym wygladem wiersza; tytul sekcji nazywa okres slowami i datami** | 5aq | w tresci widocznej brak `New this window`, `this window`, `items in window`; zaden `<ul>` nie trzyma >=5 punktow o ksztalcie `<b>tytul</b> … <a>Source</a>`, liczone `html.parser` |
 | 68 | **kazdy wiersz mowi, KTORE ZRODLO go znalazlo, zadne zrodlo nie dalo wiecej niz przeczytalo, a zmiana tekstu zrodla ma swoja strone** — `sources` w bloku stanu, `discoveredBy` na pozycji, `docText` z regula promocji i zdaniem o opoznieniu lustra | 5ar | `68a` klucze `discoveredBy` maja wpis w `sources`, `kind`/`state` ze slownika, SKRYPT 12 w pliku; `68b` `read >= liczba znalezionych`, kazdy `sourceTextChanged` ma `docRef` w `docText`; `68c` `readOn` = `briefDate`, `method`, `rule`, `lag`, kazda zmieniona strona ma hunk |
 | 69 | **Overview jest CALYM BRIEFEM na jednym ekranie** — `Act on this first`, `What's new, by product` (jeden wiersz na monitorowana technologie) i `Reference` (katalogi, wersje komponentow, zrodla); kazda liczba policzona ze stanu i otwierajaca zakladke zawezona po `id`, zero nie jest linkiem | 5as | `SCRIPT 13`, `sec.id = "starthere"`, `shrow`, `shzero`, `shnum`, tytul sekcji i naglowki obu tabel, regula `#starthere .shrow.shzero`, `window.__socS11` w pliku; render (§5h): klikniecie zawezasa i zapala banner |
+| 70 | **jedna linia w mastheadzie nazywa KAZDY czynny filtr, przezywa przelaczenie zakladki i ma jeden `Reset all filters`** — kazdy wlasciciel filtra rejestruje sie na `window.__socFilterBus`, renderuje JEDEN skrypt | 5at | `SCRIPT 14 — ONE LINE…`, `window.__socFilterBus`, `window.__socFilterBarSync = function`, `setProperty("--gfbar-top"`, `Reset all filters`, `.gfbar{position:sticky;top:var(--gfbar-top,0px)` w pliku; render (§5h): pasek widoczny przy kazdym przewinieciu i na kazdej zakladce, reset przywraca kazdy licznik |
+| 71 | **kazda liczba nawigacyjna NAZYWA swoje wiersze albo CZYSCI filtr zakladki docelowej, a skok idzie do pierwszej tabeli z trafieniami** — tabela bez `data-id` zawezana po identyfikatorze w tresci, blok prozy po `data-s11m`, tabela bez trafien zostaje CALA | 5at | `function rowInSpec(`, `function applyBlocks(`, `function land(`, `function firstHit(`, `data-s11m`, `[data-s11m][data-s11="0"]{display:none!important}`, `s11.clearTab(panelId)`, `window.__socSetCat`, `window.__socSetWin` w pliku; render (§5h): klik liczby zostawia czytelnika PRZY zawezonej tabeli, a baner nazywa te liczbe, nie poprzednia |
+| 72 | **monospace tylko na IDENTYFIKATORZE, nigdy na zdaniu** — katalog odwrotny dla kafelka i pudelka wersji, nic ponizej 12,5 px i 4,5:1 | 5at | obie reguly odwrotne oraz `.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}` w arkuszu; render (§5h): w Component versions zaden lisc o >3 slowach nie jest monospace |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -146,7 +151,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -410,7 +415,7 @@ def drop_contract(content: str) -> str:
 def snapshot_shell(content: str):
     """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
 
-    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 13`, a nie po
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 14`, a nie po
     pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
     wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
     migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
@@ -418,13 +423,14 @@ def snapshot_shell(content: str):
     styles = re.findall(r"<style[^>]*>.*?</style>", body, re.S)
     raw = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", body, re.S)
     scripts = [b for b in raw if "<script" not in b[len("<script"):]]
-    # `(?:[4-9]|10)` bylo prawdziwe do dnia, w ktorym doszedl SKRYPT 11 (§5ap), a
-    # `(?:[4-9]|1[01])` do dnia, w ktorym doszly SKRYPTY 12 i 13 (§5ar, §5as): blok spoza
-    # wzorca wpada do `shell`, daje wiecej niz trzy skrypty powloki i `snapshot_shell`
+    # `(?:[4-9]|10)` bylo prawdziwe do dnia, w ktorym doszedl SKRYPT 11 (§5ap),
+    # `(?:[4-9]|1[01])` do dnia, w ktorym doszly SKRYPTY 12 i 13 (§5ar, §5as), a
+    # `(?:[4-9]|1[0-3])` do dnia, w ktorym doszedl SKRYPT 14 (§5at): blok spoza wzorca
+    # wpada do `shell`, daje wiecej niz trzy skrypty powloki i `snapshot_shell`
     # PRZERYWA caly lustrzany przebieg. Kazda liczba zapisana w kodzie ma date waznosci
     # tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt, przeszukaj plik za
     # twardymi zakresami.
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-3])\b", b[:4000])]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-4])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -788,7 +794,7 @@ class Scan(HTMLParser):
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "68a","68c","69"}
+           "68a","68c","69","70","71","72"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1218,7 +1224,7 @@ def gate(path, site=None, mirror=False, doc=None):
     need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
          "SCRIPT 9" in h and "__socOpenPerm" in h,
          "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
-    # ---- 56: skrypty 4-13 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
+    # ---- 56: skrypty 4-14 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
     # Zmierzone 10 wrzesnia 2026: artefakt mial wszystkie dziewiec skryptow i dziesiec paneli,
     # a skrypty 6, 7 i 8 byly WCZORAJSZE — przebieg skopiowal powloke z wczorajszej strony,
     # bo tak kazal mu kontrakt wozony w tej stronie. Zadna inna pozycja tego nie lapie:
@@ -1228,7 +1234,7 @@ def gate(path, site=None, mirror=False, doc=None):
             docsrc = open(doc, encoding="utf-8").read()
         except Exception as ex:
             docsrc = None
-            need("56", "skrypty 4-13 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+            need("56", "skrypty 4-14 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
         if docsrc:
             want = {}
             F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
@@ -1237,15 +1243,15 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 13:
+                if m and 4 <= int(m.group(1)) <= 14:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
-            need("56", "skrypty 4-13 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+            need("56", "skrypty 4-14 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
                  bool(want) and not stale,
                  "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
                  else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
     else:
-        need("56", "skrypty 4-13 sa te z CLAUDE.md (§0c)", False,
+        need("56", "skrypty 4-14 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
     # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
     # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
@@ -1434,6 +1440,29 @@ def gate(path, site=None, mirror=False, doc=None):
     need("69","Overview jest calym briefem na jednym ekranie, a linia zerowa nie jest linkiem (§5as)",
          all(k in h for k in K69),
          "brak: %s" % ", ".join(k for k in K69 if k not in h))
+    # ---- 70-72: §5at. Ta sama zasada co zawsze: obecnosc w PLIKU tu, wartosci
+    # wyliczone w renderze (§5h). Kazdy klucz jest PELNA, jednoznaczna fraza —
+    # goly `SCRIPT 14` wystepuje takze w komentarzu SKRYPTU 11, a `gfbar` w CSS
+    # i w JS; klucz przechodzacy z niewlasciwego powodu jest gorszy niz jego brak.
+    K70 = ("SCRIPT 14 — ONE LINE, ALWAYS ON SCREEN, NAMING EVERY FILTER THAT IS ON",
+           "window.__socFilterBus", "window.__socFilterBarSync = function",
+           'setProperty("--gfbar-top"', "Reset all filters",
+           ".gfbar{position:sticky;top:var(--gfbar-top,0px)", ".gfbar[hidden]{display:none!important}")
+    need("70","jedna linia w mastheadzie nazywa kazdy czynny filtr i ma jeden reset (§5at)",
+         all(k in h for k in K70),
+         "brak: %s" % ", ".join(k for k in K70 if k not in h))
+    K71 = ("function rowInSpec(", "function applyBlocks(", "function land(", "function firstHit(",
+           'data-s11m', '[data-s11m][data-s11="0"]{display:none!important}',
+           "s11.clearTab(panelId)", "window.__socSetCat", "window.__socSetWin")
+    need("71","kazda liczba nazywa swoje wiersze albo czysci filtr, a skok idzie do wyniku (§5at)",
+         all(k in h for k in K71),
+         "brak: %s" % ", ".join(k for k in K71 if k not in h))
+    K72 = ("#tab-components a.jtile,#tab-components a.jtile *,",
+           "#tab-components a.jtile b,#tab-components a.jtile code,#tab-components a.jtile .mono,",
+           ".tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}")
+    need("72","monospace tylko na identyfikatorze, nigdy na zdaniu (§5at)",
+         all(k in h for k in K72),
+         "brak katalogu odwrotnego dla czcionki kafelka: %s" % ", ".join(k for k in K72 if k not in h))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1463,7 +1492,7 @@ if __name__ == "__main__":
     _o = sys.argv[1:]
     _a = [x for x in _o if not x.startswith("--")]
     # `--mirror` = sciezka lustra (§0a): pozycje klasy B sa raportowane, ale nie blokuja.
-    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-11 ze zrodlem (§0c).
+    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-14 ze zrodlem (§0c).
     _doc = _o[_o.index("--doc") + 1] if "--doc" in _o else None
     if _doc in _a: _a.remove(_doc)
     sys.exit(gate(_a[0], _a[1] if len(_a) > 1 else None, "--mirror" in _o, _doc))
@@ -1597,7 +1626,7 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest DZIESIEC (4-13), a blokow CSS szesnascie:**
+Skryptow dodawanych jest JEDENASCIE (4-14), a blokow CSS siedemnascie:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1611,7 +1640,8 @@ Skryptow dodawanych jest DZIESIEC (4-13), a blokow CSS szesnascie:**
 | SKRYPT 11 — kazda kolumna filtrowalna, kazdy slupek kontrolka | `CLAUDE.md` | 5ap |
 | SKRYPT 12 — prowenancja wiersza i diff tekstu zrodla | `CLAUDE.md` | 5ar |
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
-| **kazdy dopisany blok CSS** (16 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as |
+| SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
+| **kazdy dopisany blok CSS** (17 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
@@ -1652,7 +1682,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 13:
+            if m and 4 <= int(m.group(1)) <= 14:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -1667,13 +1697,13 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 14)] + \
+    need = ["script%d.js" % n for n in range(4, 15)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 16:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 16 — sprawdz wciete plotki" % len(css))
+    if len(css) < 17:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 17 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -1683,7 +1713,7 @@ if __name__ == "__main__":
 
 ### Asercja, bo inaczej to znowu bedzie sugestia (§0b)
 
-**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-13 na gotowej stronie z blokiem w tym pliku,
+**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-14 na gotowej stronie z blokiem w tym pliku,
 znak w znak.** Uruchamiasz ja z trzecim argumentem: `python3 gate.py <html> <site/> --doc CLAUDE.md`.
 Bez `--doc` pozycja daje `BRAK „nie podano CLAUDE.md"` — **nigdy nie jest pomijana w ciszy**, tak
 samo jak pozycje 45 i 47 bez katalogu `site/`. Pozycja 56 jest **klasy B** (§0): przebieg budujacy
@@ -1699,7 +1729,7 @@ a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero ble
 
 `SHELL CONTRACT` (§6) zostaje i nadal kopiuje sie go dalej — opisuje powloke, ktora wozi. Ale
 **zdanie „skopiuj piec skryptow z wczorajszej strony" dotyczy WYLACZNIE trzech skryptow powloki**;
-skrypty 4-13 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
+skrypty 4-14 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
 co innego — **wygrywa ten plik** (§6), a przebieg poprawia kontrakt w dzisiejszej stronie, zeby
 jutro nie klamal: liczba paneli, liczba skryptow i lista sekcji maja zgadzac sie z dniem dzisiejszym.
 
@@ -1723,7 +1753,7 @@ opublikowanym artefakcie (7 627 330 B):
 | warstwa | co to jest | rozmiar | zrodlo prawdy |
 |---|---|---|---|
 | **L1 POWLOKA** | arkusz `<style>`, TRZY skrypty powloki, masthead, `SHELL CONTRACT` | **230 145 B — 3,0% strony** | `site/shell/shell.html` |
-| **L2 KOD DODANY** | skrypty 4-13 i 16 blokow CSS | 132 246 B (pomiar z 10 wrzesnia, przed §5ap, §5ar i §5as) | **wylacznie `CLAUDE.md`** (§0c) |
+| **L2 KOD DODANY** | skrypty 4-14 i 17 blokow CSS | 132 246 B (pomiar z 10 wrzesnia, przed §5ap, §5ar i §5as) | **wylacznie `CLAUDE.md`** (§0c) |
 | **L3 TRESC I STAN** | oba bloki JSON i markup sekcji | 6 957 456 B — **91%** | `site/data/<data>.json` |
 
 L3 juz jest zapisywane codziennie. L2 juz jest wycinane z tego pliku w kazdym przebiegu. **Brakuje
@@ -1742,7 +1772,7 @@ wylacznie L1 — i to jest cala tresc tej sekcji.**
  "contract":true}
 ```
 
-**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 13`, nie po pozycji
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 14`, nie po pozycji
 `scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
 Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
 zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
@@ -4653,6 +4683,25 @@ i zapala jej banner**, a banner mowi, ile tabel zakladki nie trzyma zadnego z na
 sekcji jest DOKLADNIE jeden `.s9find`** — tabela referencyjna ma piec wierszy, wiec progu osmiu
 z §5ap nie osiaga, a druga tabela nie przejmuje paska pierwszej. Przy 390x844 `#starthere .shgo`
 ma `display:none`, a dokument nadal nie rozpycha sie w poziomie.
+
+Nowe od 11 wrzesnia 2026 w nocy (§5at), i kazda z jednego zgloszenia tego wieczoru:
+**klikniecie liczby w `#starthere` zostawia czytelnika PRZY zawezonej tabeli** — prostokat pierwszej
+tabeli z trafieniami przecina widok, a nie stoi 6 872 px nizej (zmierzone przed poprawka: `scrollY 0`
+przy tabeli na 6 972 px); **baner zakladki nazywa TE liczbe, ktora wlasnie klikniete** — po
+`Entra · new today`, a potem `MDI · source text edited`, zaden baner na stronie nie zawiera slowa
+`Entra` (przed poprawka: szesc banerow, kazdy z `Filter Entra`); **liczba, ktora nie umie nazwac
+wierszy, CZYSCI filtr zakladki docelowej**, a nie zostawia poprzedniego; **tabela, w ktorej zadna
+igla nie trafia, zostaje CALA** (`N of N`), a baner podaje, ile ich bylo; **karty `[data-s11m]`
+zawezaja sie razem z tabelami** (zmierzone: `3 of 3` przy trzech stronach MDI); **`Community, 7 days`
+naciska kontrolke tamtej zakladki** — licznik artykulow schodzi do liczby z Overview (zmierzone
+`3 of 479` przy `3` w kolumnie), a nie zostaje na pelnym. Pasek mastheadu: **`.gfbar` jest
+RODZENSTWEM `header.top`**, ma `position:sticky`, a jego `top` rowna sie zmierzonej wysokosci
+mastheadu na desktopie (303 px) i **zeru przy 390 px**, gdzie §1a czyni masthead statycznym;
+**jest widoczny przy `scrollY` 0, 1 500 i 6 000 oraz na KAZDEJ z jedenastu zakladek**; `Reset all
+filters` przywraca kazdy licznik `N of M` do pelnej liczby i **chowa pasek**. Czcionka: **w zakladce
+Component versions zaden lisc o wiecej niz trzech slowach nie renderuje sie monospace**, kazdy tekst
+kafelka ma co najmniej 12,5 px poza chipem platformy i kontrast co najmniej 4,5:1 w obu motywach
+(zmierzone 7,20-17,97:1).
 
 Nowe od 11 wrzesnia 2026 (§5ao), obie powierzchnie: **po kliknieciu tagu w bloku `Technologies`,
 przewinietym tak, ze blok jest na dole ekranu, `#filterbanner` ma `getBoundingClientRect().top`
@@ -10849,6 +10898,7 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
   }
   function refresh() {
     boxes.forEach(function (b) { b.__apply(); });
+    if (window.__socFilterBarSync) window.__socFilterBarSync();
     var parts = [];
     if (active) parts.push(active);
     if (win) parts.push(winLabel());
@@ -10878,6 +10928,23 @@ czy filtrowanie, sortowanie i banner naprawde dzialaja. Kopiowany co do bajtu z 
   function sameWin(a, b) { return !!a && !!b && a.t === b.t && a.n === b.n; }
   function setWin(w) { win = sameWin(win, w) ? null : w; refresh(); }
   window.__setCat = setCat;
+  /* 5at: this tab's two global filters register on the bus, so the masthead line
+     names them from any other tab and its Reset puts them back. `__socSetCat` SETS
+     rather than toggles — a caller that wants MDI must get MDI, not the opposite of
+     whatever was on. */
+  window.__socSetCat = function (c) { active = c || null; refresh(); };
+  /* and the day window, so a caller that means "today, tagged X" gets both halves
+     of what that number counted rather than every article ever tagged X */
+  window.__socSetWin = function (n) { win = (n === null || n === undefined) ? null : { t: "r", n: n }; refresh(); };
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var out = [];
+    if (active) out.push({ scope: "Community Articles", label: "technology " + active,
+                           clear: function () { active = null; refresh(); } });
+    if (win) out.push({ scope: "Community Articles", label: winLabel(),
+                        clear: function () { win = null; refresh(); } });
+    return out;
+  });
 
   /* every chip, every chart bar, every donut slice and every legend row is the same control */
   document.addEventListener("click", function (ev) {
@@ -11336,6 +11403,38 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
 
   function panelOf(n) { return n && n.closest ? n.closest(".tabpanel") : null; }
 
+  /* Does this row belong to the set the spec names? A row carrying `data-id` is
+     matched by id, which is exact — 5ac guarantees every state item has one. A
+     table whose rows carry none (the source-text list, the documentation-change
+     table, the community feed) is matched by NEEDLE instead: the caller hands
+     over the paths, links or titles it means, and a row matches when its text
+     contains one of them.
+
+     Measured 11 September 2026: pressing "3" in the Source text edited column of
+     the MDI row navigated to the section and filtered nothing, because that table
+     has no ids and the spec offered nothing else. A control that prints a number
+     and then shows every row is the same lie as a bar that is drawn like a button
+     and does nothing (5ap). */
+  function needles(spec) {
+    if (!spec || !spec.texts || !spec.texts.length) return null;
+    var out = [];
+    spec.texts.forEach(function (t) {
+      t = String(t == null ? "" : t).toLowerCase().trim();
+      if (t.length >= 4) out.push(t);
+    });
+    return out.length ? out : null;
+  }
+  function rowInSpec(tr, spec, hasIds) {
+    if (!spec) return true;
+    if (hasIds && spec.ids && spec.ids.length && tr.hasAttribute("data-id"))
+      return spec.ids.indexOf(tr.getAttribute("data-id")) >= 0;
+    var nd = needles(spec);
+    if (!nd) return true;
+    var hay = txt(tr).toLowerCase();
+    for (var i = 0; i < nd.length; i++) if (hay.indexOf(nd[i]) >= 0) return true;
+    return false;
+  }
+
   function tabBanner(panel) {
     if (!panel) return null;
     var b = panel.querySelector(":scope > .s11tab");
@@ -11356,17 +11455,43 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
     return b;
   }
 
+  /* Where the reader should land. Measured 11 September 2026: pressing "5 in the
+     window" on the MDI row filtered the Products deep dive correctly to `5 of 111`
+     and left the reader at scrollY 0, with the narrowed table 6 972 px below him.
+     The filter was right and invisible, which he read as no filter at all. So the
+     jump goes to the first table that actually HOLDS matches; when the spec names a
+     section, a hit inside that section wins; and when nothing matches anywhere, the
+     jump goes to the banner, because the banner is the sentence that explains it. */
+  function firstHit(panel, anchorId) {
+    var inAnchor = null, any = null;
+    var sec = anchorId ? document.getElementById(anchorId) : null;
+    var blk = panel ? panel.querySelector('[data-s11m][data-s11="1"]') : null;
+    if (blk && sec && sec.contains(blk)) return sec;
+    TABLES.forEach(function (rec) {
+      if (panelOf(rec.table) !== panel) return;
+      if (!rec.__narrowed || !rec.__shown) return;
+      var node = rec.bar || rec.table.closest(".tw") || rec.table;
+      if (!any) any = node;
+      if (sec && !inAnchor && sec.contains(rec.table)) inAnchor = node;
+    });
+    return inAnchor || sec || any;
+  }
+  function land(panelId, anchorId) {
+    var p = document.getElementById(panelId);
+    if (!p) return;
+    var node = firstHit(p, anchorId) || tabBanner(p);
+    if (node && node.scrollIntoView) node.scrollIntoView({ block: "start" });
+  }
   function setTab(panelId, spec) {
     TAB[panelId] = spec;
     refresh(document.getElementById(panelId));
-    var p = document.getElementById(panelId);
-    if (p) { var b = tabBanner(p); if (b && b.scrollIntoView) b.scrollIntoView({ block: "nearest" }); }
+    land(panelId, spec && spec.anchor);
   }
   function clearTab(panelId) {
     TAB[panelId] = null;
     refresh(document.getElementById(panelId));
   }
-  window.__socS11 = { setTab: setTab, clearTab: clearTab };
+  window.__socS11 = { setTab: setTab, clearTab: clearTab, land: land };
 
   /* ---------------- tables ---------------- */
   var TABLES = [];   /* {table, rows, heads, bar, count, banner, q, colSel, sels} */
@@ -11533,6 +11658,23 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
   function applyTable(rec) {
     var v = ownQuery(rec).trim().toLowerCase();
     var col = rec.colSel ? +rec.colSel.value : -1;
+    var spec = TAB[(panelOf(rec.table) || {}).id] || null;
+    var byId = !!(spec && rec.hasIds && spec.ids && spec.ids.length);
+    var nd = byId ? null : needles(spec);
+    if (nd) {
+      /* A needle set that matches nothing in THIS table is not this table's filter.
+         "3 source text edited" names three documentation pages; the item table on
+         the same tab holds none of them. Narrowing it to zero would answer a
+         question nobody asked, and leaving the previous filter on it is the very
+         defect of 11 September. A table the needles cannot reach is left WHOLE,
+         and the banner says which tables those were. An ID spec keeps the opposite
+         rule on purpose: ids are exact and §5ac guarantees the row exists, so an
+         empty result there is a result. */
+      var hit = 0;
+      rec.rows.forEach(function (tr) { if (rowInSpec(tr, spec, false)) hit++; });
+      if (!hit) nd = null;
+    }
+    rec.__narrowed = byId || !!nd;
     rec.rows.forEach(function (tr) {
       var keep = true;
       if (v) {
@@ -11559,10 +11701,7 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
         if (keep && rec.hotBtn && rec.hotBtn.getAttribute("aria-pressed") === "true"
             && !tr.classList.contains("rowhot")) keep = false;
       }
-      if (keep) {
-        var t = TAB[(panelOf(rec.table) || {}).id];
-        if (t && t.ids && rec.hasIds) keep = t.ids.indexOf(tr.getAttribute("data-id")) >= 0;
-      }
+      if (keep && rec.__narrowed) keep = rowInSpec(tr, spec, byId);
       tr.dataset.s11 = keep ? "1" : "0";
     });
   }
@@ -11614,7 +11753,9 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
       });
     }
     var on = activeOf(rec);
-    if (tabSpec) on.unshift(tabSpec.label + (rec.hasIds ? "" : " (this table carries no item ids, so it is left whole)"));
+    if (tabSpec) on.unshift(tabSpec.label +
+      (rec.__narrowed ? (rec.hasIds && tabSpec.ids && tabSpec.ids.length ? "" : " (matched on the text of each row, not on an id)")
+                      : " (this filter names no row this table can match, so it is left whole)"));
     var ban = rec.banner || existingBanner(rec.table);
     if (!on.length) return;
     if (!ban) {
@@ -12062,6 +12203,34 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
   }
 
   /* ---------------- one pass ---------------- */
+  /* Not every named row is a table row. The source-text cards (5ar) are blocks of
+     prose, and the reader who presses "3 source text edited" means those three
+     cards. Rather than teach this script what a source-text card is, the OWNER
+     labels each block with `data-s11m` — the identifier it stands for — and this
+     one filter reaches them. Same reach rule as the tables: a spec that matches no
+     block here leaves every block visible, because an empty section under a filter
+     that was never about it reads as a defect. */
+  function applyBlocks(panel, spec) {
+    var blocks = panel ? [].slice.call(panel.querySelectorAll("[data-s11m]")) : [];
+    if (!blocks.length) return null;
+    var nd = needles(spec);
+    var ids = (spec && spec.ids && spec.ids.length) ? spec.ids : null;
+    function hit(el2) {
+      var key = (el2.getAttribute("data-s11m") || "").toLowerCase();
+      if (nd) return nd.some(function (n2) { return key.indexOf(n2) >= 0 || n2.indexOf(key) >= 0; });
+      if (ids) return ids.indexOf(el2.getAttribute("data-s11m")) >= 0;
+      return true;
+    }
+    var reach = (nd || ids) ? blocks.filter(hit).length : 0;
+    var shown = 0;
+    blocks.forEach(function (el2) {
+      var keep = reach ? hit(el2) : true;
+      el2.dataset.s11 = keep ? "1" : "0";
+      if (keep) shown++;
+    });
+    return { total: blocks.length, shown: shown, narrowed: !!reach };
+  }
+
   function refresh(panel) {
     if (!panel) {
       [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) { refresh(p); });
@@ -12073,11 +12242,13 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
       var p = panelOf(rec.table);
       if (panel && p !== panel) return;
       rec.hasIds = rec.rows.some(function (r) { return r.hasAttribute("data-id"); });
-      applyTable(rec);
-      renderTable(rec, (spec && rec.hasIds) ? spec : (spec ? spec : null));
+      applyTable(rec);   /* sets rec.__narrowed: only a table these needles reach */
+      renderTable(rec, spec);
     });
     renderCards();
     renderExec();
+    var blk = applyBlocks(panel, spec);
+    if (window.__socFilterBarSync) window.__socFilterBarSync();
     if (panel) {
       var b = tabBanner(panel);
       if (b) {
@@ -12087,23 +12258,90 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
           var narrowed = 0, whole = 0, empty = 0;
           TABLES.forEach(function (rec) {
             if (panelOf(rec.table) !== panel) return;
-            if (rec.hasIds) { narrowed++; if (rec.__shown === 0) empty++; } else whole++;
+            if (rec.__narrowed) { narrowed++; if (rec.__shown === 0) empty++; } else whole++;
           });
           /* A control that sends the reader to a tab and lands him on "0 of 10" reads
              as a defect unless the page says the rows it named live in another table
              of the same tab. Reported 11 September 2026 on the Start here row for
              tier 0: the named items sit in the Top-N table and Pick of the day, which
              holds none of them, went to zero with nothing saying why. */
-          msg.textContent = spec.label + " — every table on this tab that carries item ids is narrowed to it (" +
-            narrowed + (narrowed === 1 ? " table" : " tables") +
-            (whole ? ("; " + whole + " that carry none are left whole, because filtering them by id would empty them") : "") +
-            (empty ? ("; " + empty + " of them hold none of these rows, so " + (empty === 1 ? "it is" : "they are") +
-                      " empty rather than broken") : "") +
-            "). Clear filter puts the tab back.";
+          /* Written as sentences rather than assembled from fragments: the first
+             version printed "narrowed (3 of 3 cards and 0 tables; 3 hold nothing…)",
+             which is true and unreadable. What the reader needs is what was narrowed,
+             what was left alone and why, in that order. */
+          var says = [];
+          if (blk && blk.narrowed)
+            says.push(blk.shown + " of " + blk.total + (blk.total === 1 ? " card" : " cards") + " below");
+          if (narrowed)
+            says.push(narrowed + (narrowed === 1 ? " table" : " tables") + " on this tab");
+          var head = says.length ? ("Narrowed to it: " + says.join(" and ") + ".") 
+                                 : "Nothing on this tab is narrowed by it.";
+          var tail = "";
+          if (whole) tail += " The other " + whole + (whole === 1 ? " table holds" : " tables hold") +
+            " nothing this filter names, so " + (whole === 1 ? "it is" : "they are") + " left whole.";
+          if (empty) tail += " " + empty + " of the narrowed " + (empty === 1 ? "table holds" : "tables hold") +
+            " none of these rows, so " + (empty === 1 ? "it is" : "they are") + " empty rather than broken.";
+          msg.textContent = spec.label + " — " + head + tail + " Clear filter puts the tab back.";
         }
       }
     }
   }
+
+  /* ---------------- the filter bus (5at) ----------------
+     One always-visible line has to name every filter that is on, wherever it was
+     set and whichever tab the reader is now looking at. Each OWNER registers what
+     it is filtering by and how to clear it; SCRIPT 14 renders the single bar. One
+     writer per mechanism, one renderer per bar: two scripts composing the same
+     sentence from the same state would drift apart, which is 0a. */
+  function tabLabel(pid) {
+    var t = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (x) {
+      if (!t && x.getAttribute("aria-controls") === pid) t = x;
+    });
+    if (!t) return pid || "this tab";
+    return txt(t).replace(/\d+$/, "").trim() || pid;
+  }
+  function tableLabel(rec) {
+    var cap = rec.table.querySelector("caption");
+    if (cap) return txt(cap).split("·")[0].trim().slice(0, 40);
+    var sec = rec.table.closest("section");
+    var h = sec && sec.querySelector(".sec-title, h2, h3");
+    return h ? txt(h).slice(0, 40) : "a table";
+  }
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var out = [];
+    Object.keys(TAB).forEach(function (pid) {
+      var s = TAB[pid];
+      if (!s) return;
+      out.push({ scope: tabLabel(pid), label: s.label || "a selection",
+                 clear: function () { clearTab(pid); } });
+    });
+    TABLES.forEach(function (rec) {
+      var on = activeOf(rec);
+      if (!on.length) return;
+      out.push({ scope: tabLabel((panelOf(rec.table) || {}).id) + " · " + tableLabel(rec),
+                 label: on.join(" · "), clear: function () { clearAll(rec); } });
+    });
+    if (CARDS) {
+      var c = [];
+      if ((CARDS.q.value || "").trim()) c.push('text "' + CARDS.q.value.trim() + '"');
+      CARDS.sels.forEach(function (s) { if (s.value) c.push(s.dataset.label + " = " + s.value); });
+      if (c.length) out.push({ scope: "Today · Top N", label: c.join(" · "),
+        clear: function () { CARDS.q.value = ""; CARDS.sels.forEach(function (s) { s.value = ""; }); refresh(null); } });
+    }
+    if (EXEC) {
+      var e = [];
+      if ((EXEC.q.value || "").trim()) e.push('text "' + EXEC.q.value.trim() + '"');
+      if (EXEC.ps.value) e.push("Product = " + EXEC.ps.value);
+      if (EXEC.ss.value) e.push("Source = " + EXEC.ss.options[EXEC.ss.selectedIndex].textContent);
+      if (EXEC.ds && EXEC.ds.value) e.push("Month = " + EXEC.ds.value);
+      if (e.length) out.push({ scope: "Products · Executive summary", label: e.join(" · "),
+        clear: function () { EXEC.q.value = ""; EXEC.ps.value = ""; EXEC.ss.value = "";
+                             if (EXEC.ds) EXEC.ds.value = ""; refresh(null); } });
+    }
+    return out;
+  });
 
   function scan() {
     try { wireGroups(); } catch (e) { if (window.console) console.error("[s11 groups]", e); }
@@ -12702,6 +12940,9 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
   }
   function pageBlock(p) {
     var box = el("div", "s12file");
+    /* 5at: the block names the identifier it stands for, so the one filter that
+       narrows the tables can narrow these cards too without knowing what they are */
+    if (p.path) box.dataset.s11m = p.path;
     var h = el("div", "s12fhead");
     var nm = el("div", "s12name");
     if (p.url) { var a = el("a", "lnk", p.name || p.path); a.href = p.url; a.target = "_blank"; a.rel = "noopener"; nm.appendChild(a); }
@@ -13016,6 +13257,13 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
   var COM = ST.community || {};
 
   function d(x) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(x || ""); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : null; }
+  /* The community column counts the SAME seven days the Community tab's own "7 days"
+     tile counts, by the article's own date. Two reasons, both measured on 11 September
+     2026: counting `firstTracked` gave a number that tab cannot reproduce — its day
+     tiles read the publication date — and counting a single day gave a column of
+     zeros, because no community article carried that day's date. A number the
+     destination cannot reproduce is worse than a slightly wider one that it can. */
+  var COM_DAYS = 7;
   var T0 = d(TODAY) || Date.now();
   function days(x) { var v = d(x); return v === null ? null : Math.round((v - T0) / 86400000); }
   function ids(list) { return list.map(function (i) { return i.id; }).filter(Boolean); }
@@ -13030,14 +13278,24 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
     if (tab) tab.click();
     return !!tab;
   }
-  function go(panelId, label, idlist, anchor) {
+  /* A number that cannot name its rows must CLEAR the destination tab, never leave
+     the previous filter standing. Measured 11 September 2026: pressing Entra's
+     "new today" and then MDI's "source text edited" left six banners on the page,
+     every one of them reading "Filter Entra" over a section listing MDI's pages.
+     A stale filter label is worse than no label: it is a true-looking sentence
+     about the wrong thing. */
+  function go(panelId, spec, anchor) {
     openTab(panelId);
     setTimeout(function () {
-      if (idlist && idlist.length && window.__socS11 && window.__socS11.setTab)
-        window.__socS11.setTab(panelId, { label: label, ids: idlist });
-      var a = anchor && document.getElementById(anchor);
-      if (a && a.scrollIntoView) a.scrollIntoView({ block: "start" });
-    }, 150);
+      var s11 = window.__socS11;
+      var real = spec && ((spec.ids && spec.ids.length) || (spec.texts && spec.texts.length));
+      if (s11 && real) { spec.anchor = anchor || null; s11.setTab(panelId, spec); }
+      else {
+        if (s11 && s11.clearTab) s11.clearTab(panelId);
+        var a = anchor && document.getElementById(anchor);
+        if (a && a.scrollIntoView) a.scrollIntoView({ block: "start" });
+      }
+    }, 170);
   }
   /* a cell that is a control when it has something to show, and plain text when
      it does not — the same rule the change page uses for its counters */
@@ -13066,19 +13324,21 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
     var L = [
       { n: due7.length, t: "need action in the next seven days", cls: "bad",
         s: "Anything dated inside a week, whatever tab it lives in.",
-        go: function () { go("tab-deadlines", "Due within seven days", ids(due7)); } },
+        go: function () { go("tab-deadlines", { label: "due within seven days", ids: ids(due7) }); } },
       { n: passed.length, t: "deadlines passed in the last seven days", cls: "bad",
         s: "The day after a deadline is when the estate is most exposed. Confirm the change landed.",
-        go: function () { go("tab-deadlines", "Passed in the last seven days", ids(passed), "elapsed"); } },
+        go: function () { go("tab-deadlines", { label: "passed in the last seven days", ids: ids(passed) }, "elapsed"); } },
       { n: t0.length, t: "touch tier 0 and did not get a card", cls: "warn",
         s: "Domain controllers, sync and provisioning hosts, certificate authorities, Global-Admin-equivalent roles, federation.",
-        go: function () { go("tab-today", "Tier 0 without a card", ids(t0), "top5"); } },
+        go: function () { go("tab-today", { label: "tier 0 without a card", ids: ids(t0) }, "top5"); } },
       { n: gone.length, t: "items left the brief since the last run", cls: "warn",
         s: "A removal is a finding: either the source dropped it or this brief retracted it.",
-        go: function () { go("tab-new", null, null, "docchanges"); } },
+        go: function () { go("tab-new", { label: "left the brief since the last run",
+              texts: gone.map(function (e) { return e.id; }) }, "docchanges"); } },
       { n: bad.length, t: "sources are stale or would not read", cls: "bad",
         s: "A source that stopped reading cannot justify a quiet week.",
-        go: function () { go("tab-sources", null, null, "provenance"); } }
+        go: function () { go("tab-sources", { label: "stale or unread sources",
+              texts: bad.map(function (x) { return x.name; }) }, "provenance"); } }
     ];
     var box = el("div", "shlist");
     L.forEach(function (x) {
@@ -13104,7 +13364,8 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
     var P = {};
     function bucket(p) {
       p = (p || "unspecified");
-      return P[p] || (P[p] = { p: p, win: [], today: [], due: [], pages: [], com: 0, cat: 0 });
+      return P[p] || (P[p] = { p: p, win: [], today: [], due: [], pages: [],
+                               com: 0, comT: [], cat: 0, catT: [], catTab: {} });
     }
     win.forEach(function (i) {
       var b = bucket(i.product);
@@ -13116,13 +13377,25 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
     (DOC.pages || []).forEach(function (pg) {
       if (((pg.added || 0) + (pg.removed || 0)) > 0) bucket(pg.product).pages.push(pg);
     });
+    /* counted the way the Community tab itself can filter — by the article's own
+       date, not by `firstTracked`. Those are two different questions (§5q), and a
+       number the destination cannot reproduce is worse than a number that asks a
+       slightly narrower one: measured 11 September 2026, pressing a firstTracked
+       count landed on "0 of 479" because that tab's day tile reads the publication
+       date. The tooltip and the label say which is meant. */
     (COM.items || []).forEach(function (a) {
-      if (a.firstTracked !== TODAY) return;
-      (a.categories || []).forEach(function (c) { bucket(c).com++; });
+      var n = days(a.date);
+      if (n === null || n > 0 || n <= -COM_DAYS) return;
+      (a.categories || []).forEach(function (c) { bucket(c).com++; bucket(c).comT.push(a.title); });
     });
     LED.forEach(function (e) {
       if (e.seen !== TODAY) return;
-      if (e.tab === "Graph API" || e.tab === "Roles" || e.tab === "Component versions") bucket(e.product || e.tab).cat++;
+      if (e.tab === "Graph API" || e.tab === "Roles" || e.tab === "Component versions") {
+        var b2 = bucket(e.product || e.tab);
+        b2.cat++;
+        if (e.id) b2.catT.push(e.id);
+        b2.catTab[e.tab] = (b2.catTab[e.tab] || 0) + 1;
+      }
     });
     var rows = Object.keys(P).map(function (k) { return P[k]; })
       .filter(function (b) { return b.win.length || b.pages.length || b.com || b.cat; })
@@ -13139,25 +13412,58 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
       " items in the window · every number opens its tab already filtered"));
     t.appendChild(cap);
     var th = el("thead"), hr = el("tr");
-    ["Product", "New today", "In the window", "Due in 30 days", "Source text edited", "Community today", "Catalog moved"]
+    ["Product", "New today", "In the window", "Due in 30 days", "Source text edited", "Community, 7 days", "Catalog moved"]
       .forEach(function (h) { hr.appendChild(el("th", null, h)); });
     th.appendChild(hr); t.appendChild(th);
     var tb = el("tbody");
     rows.forEach(function (b) {
       var tr = el("tr");
       tr.appendChild(el("td", null, b.p));
-      tr.appendChild(numCell(b.today.length, function () { go("tab-new", b.p + " · first tracked today", ids(b.today)); },
-        "Open New, filtered to what arrived today"));
-      tr.appendChild(numCell(b.win.length, function () { go("tab-products", b.p + " · in the window", ids(b.win)); },
-        "Open Products, filtered to this technology"));
-      tr.appendChild(numCell(b.due.length, function () { go("tab-deadlines", b.p + " · due in 30 days", ids(b.due)); },
-        "Open Deadlines, filtered to the next 30 days"));
-      tr.appendChild(numCell(b.pages.length, function () { go("tab-new", null, null, "srcchanges"); },
-        "Open the line-by-line source diff"));
-      tr.appendChild(numCell(b.com, function () { go("tab-community", null, null, "latest"); },
-        "Open Community Articles"));
-      tr.appendChild(numCell(b.cat, function () { go("tab-new", null, null, "docchanges"); },
-        "Open what the catalogs recorded today"));
+      tr.appendChild(numCell(b.today.length, function () {
+        go("tab-new", { label: b.p + " · first tracked today", ids: ids(b.today) }); },
+        "Open New, narrowed to what arrived today"));
+      tr.appendChild(numCell(b.win.length, function () {
+        go("tab-products", { label: b.p + " · in the window", ids: ids(b.win) }); },
+        "Open Products, narrowed to this technology"));
+      tr.appendChild(numCell(b.due.length, function () {
+        go("tab-deadlines", { label: b.p + " · due in 30 days", ids: ids(b.due) }); },
+        "Open Deadlines, narrowed to the next 30 days"));
+      /* these three tabs list rows that carry no item id, so the spec hands over the
+         paths, titles and entry names it means and SCRIPT 11 matches on those (5at) */
+      tr.appendChild(numCell(b.pages.length, function () {
+        go("tab-new", { label: b.p + " · source text edited",
+                        texts: b.pages.map(function (x) { return x.path; }) }, "srcchanges"); },
+        "Open the line-by-line source diff, narrowed to this technology"));
+      tr.appendChild(numCell(b.com, function () {
+        /* The Community tab has its OWN filter and its own counters (§5an). Asking
+           SCRIPT 11 to narrow it by text would hide rows while SCRIPT 10 kept
+           printing "479 of 479" — two writers, one counter, and the reader believing
+           the smaller number is a bug. Measured 11 September 2026. So press the
+           control that tab already owns: it is exact, it is tag-based, and it puts
+           its own filter on the masthead line through the same bus. */
+        openTab("tab-community");
+        setTimeout(function () {
+          if (window.__socSetCat) window.__socSetCat(b.p);
+          if (window.__socSetWin) window.__socSetWin(COM_DAYS);   /* the same seven days this number counted */
+          if (window.__socS11 && window.__socS11.clearTab) window.__socS11.clearTab("tab-community");
+          /* scroll AFTER that tab's own filter has re-laid the page out, or the jump
+             lands on the pre-filter geometry and the reader sees the top of the tab */
+          setTimeout(function () {
+            var a2 = document.getElementById("latest") || document.getElementById("articles");
+            if (a2 && a2.scrollIntoView) a2.scrollIntoView({ block: "start" });
+          }, 220);
+        }, 190); },
+        "Open Community Articles, narrowed to the last seven days and to this technology"));
+      tr.appendChild(numCell(b.cat, function () {
+        /* a catalog entry lives in the tab that owns it, not in New: send the reader
+           where its 14-day record actually is, and pick the tab that holds most of
+           what this number counted */
+        var HOME = { "Graph API": "tab-graph", "Roles": "tab-roles", "Component versions": "tab-components" };
+        var best = null, n = -1;
+        Object.keys(b.catTab).forEach(function (k) { if (b.catTab[k] > n) { n = b.catTab[k]; best = k; } });
+        go(HOME[best] || "tab-new", { label: b.p + " · catalog moved today", texts: b.catT },
+           HOME[best] ? null : "docchanges"); },
+        "Open the catalog tab that recorded it, narrowed to this technology"));
       tb.appendChild(tr);
     });
     t.appendChild(tb); tw.appendChild(t);
@@ -13181,20 +13487,20 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
       { k: "Graph API", holds: nf(gm.permissions || (CAT.graph || []).length) + " permissions · " +
           nf(gm.pairs || 0) + " endpoint and method pairs",
         n: led14("Graph API") + led14("Graph endpoints"),
-        go: function () { go("tab-graph", null, null, "graph"); } },
+        go: function () { go("tab-graph", null, "graph"); } },
       { k: "Roles", holds: nf((CAT.roles || []).length) + " directory roles",
-        n: led14("Roles"), go: function () { go("tab-roles", null, null, "roles"); } },
+        n: led14("Roles"), go: function () { go("tab-roles", null, "roles"); } },
       { k: "Component versions", holds: nf(comps.length) + " components · " + nf(nver) + " tracked versions" +
           (moved.length ? (" · moved today: " + moved.map(function (c) {
             return (c.name || c.id) + " " + ((c.versions || [])[0] || {}).version;
           }).join(", ")) : ""),
-        n: led14("Component versions"), go: function () { go("tab-components", null, null, "components"); } },
+        n: led14("Component versions"), go: function () { go("tab-components", null, "components"); } },
       { k: "Community sources", holds: srcs.length ? (nf(srcs.length) + " sources read · " +
           nf((COM.items || []).length) + " articles held") : ((COM.sources || []).length + " community sources"),
-        n: led14("Community articles"), go: function () { go("tab-community", null, null, "sources"); } },
+        n: led14("Community articles"), go: function () { go("tab-community", null, "sources"); } },
       { k: "Source text", holds: nf(docPages.length) + " watched pages compared" +
           (DOC.method ? (" by " + DOC.method) : "") + " · " + docMoved.length + " moved",
-        n: led14("Source text"), go: function () { go("tab-new", null, null, "srcchanges"); } }
+        n: led14("Source text"), go: function () { go("tab-new", null, "srcchanges"); } }
     ];
     var tw = el("div", "tw"), t = el("table");
     var cap = el("caption", "tabcap");
@@ -13282,6 +13588,350 @@ SKRYPT 13 jest w pliku razem ze swoimi zaczepami i tytulami obu tabel, a blok CS
 `#starthere .shrow.shzero`, czyli wyglad linii zerowej. To, czy liczby sie zgadzaja i czy klikniecie
 zawezasa, sprawdza Playwright (§5h) — bramka czyta plik, a ten blok powstaje dopiero w przegladarce,
 i to rozroznienie jest tu ta sama pointa co przy pozycji 48.
+
+## 5at. LICZBA PROWADZI DO WYNIKU, A FILTR WIDAC ZAWSZE — I MONOSPACE NIE JEST DLA PROZY
+
+Wlasciciel obejrzal 11 wrzesnia 2026 wieczorem strone zbudowana juz z §5as i zglosil cztery rzeczy.
+**Trzy z nich sa jednym bledem w dwoch miejscach, a czwarta jest klasa wpisana w markup, ktorej
+arkusz nie zna** — czyli ta sama choroba co `.tabn` (§5ae) i `.cmfold` (§5an), trzeci raz.
+
+| zgloszenie | zmierzone na opublikowanej stronie | przyczyna |
+|---|---|---|
+| *„klikam w overview jakas liczbe, jestem przenoszony do zakladki, ale ani nie jest przefiltrowana tabela, ani nie jestem przeniesiony do wyniku"* | klik `MDI · 5 in the window` **filtrowal poprawnie** (`5 of 111`) i zostawial czytelnika na `scrollY 0`, z zawezona tabela **6 972 px nizej** | skok szedl na gore panelu, nie do trafien |
+| *„klikam liczbe w wierszu mdi … widze ze dalej filtrowanie jest po entra, pomimo tego ze ponizej pokazujesz zmiany w artykulach MDI"* | po `Entra · new today`, a potem `MDI · source text edited`: **szesc banerow naraz, kazdy z napisem „Filter Entra"** nad sekcja wymieniajaca strony MDI | liczba, ktora nie umie nazwac swoich wierszy, **nie czyscila** filtra zakladki docelowej |
+| *„musimy miec lepsze banery … informacja zawsze widoczna na glownym pasku … i od razu guzik reset"* | kazdy baner tej strony siedzi **wewnatrz tego, co opisuje**; przelaczenie zakladki zabiera go z ekranu, a filtr zostaje | nie bylo ani jednego wskaznika poza panelem |
+| *„czemu w components w tych kafelkach ta czcionka jest taka nieczytelna? nieuzywalbym nigdzie takiej"* | caly kafelek nawigacji w `IBM Plex Mono 11.5px`, stopka `10.5px` Condensed przy kontrascie **4,45:1** — ponizej progu 4,5 i najmniejszy tekst na stronie | `jt-v`, `jt-s`, `vdate` to klasy **wymyslone przez przebieg**; ten plik opisywal kafelek proza i nie niosl dla niego ani jednej reguly |
+
+### Regula 1 — liczba albo NAZYWA swoje wiersze, albo CZYSCI filtr. Nigdy nie zostawia cudzego
+
+Kazde klikniecie liczby przekazuje `setTab` **specyfikacje zbioru**, a nie samo przejscie. Gdy
+liczba nie umie nazwac zadnego wiersza, przebieg wola `clearTab` na zakladce docelowej.
+**Stara etykieta filtra jest gorsza niz jej brak: to prawdziwie wygladajace zdanie o czyms innym.**
+
+### Regula 2 — zbior nazywa sie ID, a gdy tabela ich nie ma, IDENTYFIKATOREM w tekscie
+
+`data-id` jest dokladne i §5ac gwarantuje je na kazdej pozycji stanu. Ale trzy listy tej strony
+wierszy z `id` nie maja wcale: tekst zrodla (§5ar), zmiany dokumentacji (§5u) i kanal spolecznosci
+(§5an). Dla nich specyfikacja niesie `texts` — **sciezki, linki albo tytuly**, po ktorych wiersz
+rozpoznaje sie po swojej tresci. Trzy rzeczy sa przy tym wiazace i kazda wyszla z pomiaru:
+
+1. **Igla jest IDENTYFIKATOREM, nie etykieta.** Pierwsza wersja dokladala do sciezek takze NAZWE
+   strony i zawezila tabele pozycji do czterech wierszy, ktorych chip prowenancji brzmial
+   `MDI what's new` — bo nazwa zrodla i nazwa strony bywaja tym samym napisem.
+2. **Igly, ktore nie trafiaja w TEJ tabeli, nie sa jej filtrem.** Tabela, w ktorej zero wierszy
+   pasuje, zostaje **CALA**, a baner mowi ile takich bylo. Zawezenie jej do zera odpowiadaloby na
+   pytanie, ktorego nikt nie zadal. **Zbior `id` ma regule odwrotna i tez swiadomie**: `id` sa
+   dokladne, a §5ac gwarantuje, ze wiersz gdzies istnieje, wiec pusty wynik jest tam WYNIKIEM.
+3. **Nie kazdy nazwany wiersz jest wierszem tabeli.** Karty tekstu zrodla to bloki prozy, wiec ich
+   wlasciciel oznacza kazdy blok atrybutem **`data-s11m`** — identyfikatorem, za ktory blok stoi —
+   i jeden filtr siega ich, nie wiedzac, czym sa. Ta sama regula zasiegu co wyzej.
+
+### Regula 3 — skok idzie do PIERWSZEJ tabeli z trafieniami
+
+Nie na gore panelu i nie do sekcji, ktora akurat byla pierwsza. Gdy specyfikacja nazywa sekcje
+(`anchor`), wygrywa trafienie w tej sekcji, potem sama sekcja, potem pierwsza inna tabela
+z trafieniami; gdy nie trafia nic — baner, bo to on jest zdaniem, ktore to tlumaczy.
+
+### Regula 4 — kontrolke cudzej zakladki naciska sie, a nie obchodzi
+
+Zakladka Community ma **wlasny filtr i wlasne liczniki** (§5an). Zawezanie jej tekstem z zewnatrz
+chowalo wiersze, podczas gdy SKRYPT 10 dalej drukowal `479 of 479` — dwoch pisarzy, jeden licznik,
+i czytelnik wierzacy mniejszej liczbie. Liczba `Community` naciska wiec `__socSetCat` i
+`__socSetWin` tej zakladki: dokladnie, po tagu, z jej wlasnym licznikiem i jej wpisem na pasku.
+
+**A liczba, ktorej cel nie umie odtworzyc, jest zla liczba.** Kolumna liczyla najpierw
+`firstTracked`, czego kafelki dnia tamtej zakladki nie umieja (czytaja date publikacji), potem
+jeden dzien, co dawalo kolumne samych zer. Liczy odtad **te same siedem dni, ktore ma kafelek
+`7 days`** — i dlatego naglowek brzmi `Community, 7 days`, a nie `Community today`.
+
+### Regula 5 — JEDNA linia w mastheadzie nazywa kazdy czynny filtr
+
+Kazdy baner tej strony opisuje to, w czym siedzi: baner tabeli w tabeli, baner zakladki w zakladce,
+baner Community w jej przyklejonym bloku. Po przelaczeniu zakladki wszystkie znikaja, a filtry
+zostaja. Dlatego jest **dokladnie jedna linia w mastheadzie** — jedynym elemencie wspolnym dla
+wszystkich zakladek — i buduje ja SKRYPT 14.
+
+- **Nic nie komponuje sam.** Kazdy WLASCICIEL filtra rejestruje w `window.__socFilterBus` funkcje
+  zwracajaca `{scope, label, clear}`; skrypt renderuje to, co dostal. Jeden pisarz na mechanizm,
+  jeden renderer na pasek — dwa skrypty skladajace to samo zdanie z tego samego stanu rozjechalyby
+  sie (§0a).
+- **Kazdy wpis ma wlasne `×`**, a pasek ma jeden `Reset all filters`, ktory wola `clear()` KAZDEGO
+  wpisu — nigdy nie pisze do cudzego stanu, bo tylko wlasciciel wie, co jeszcze trzeba przywrocic.
+- **Pasek jest RODZENSTWEM mastheadu, nie jego dzieckiem.** Element przyklejony jedzie tylko
+  w obrebie swojego bloku zawierajacego: w srodku `header.top` trzymal sie przez wysokosc mastheadu
+  i ani piksela dalej, a na telefonie — gdzie §1a czyni masthead statycznym — odjechal na
+  **−14 756 px**, zmierzone. Jako rodzenstwo ma za blok zawierajacy dokument.
+- **Offset jest MIERZONY, nie zapisany**: `--gfbar-top` to wysokosc mastheadu, gdy jest przyklejony,
+  i zero, gdy nie jest. Twarda liczba klamie w chwili, w ktorej zawinie sie inna liczba pigulek
+  (§5ao, §0a).
+- Pasek **znika, gdy nie ma zadnego filtra**. Zawsze widoczna pusta ramka uczy patrzec obok niej.
+- **Strona `/diff/` NIE dostaje tego paska i to jest swiadome.** Nie ma zakladek, wiec nie ma czego
+  przezyc: jej baner stoi juz w przyklejonym bloku razem z paskiem skrotow (§5ao, `.dstick`) i jest
+  na ekranie z kazdego miejsca strony. Dokladanie tam drugiej linii bylo by druga kopia tego samego
+  zdania — §0a. Reguly 1-3 obowiazuja tam natomiast bez zmian: liczba w `bytab` zawezasa sekcje
+  i skacze do niej, a `Clear filter` czysci wszystko naraz.
+
+### Regula 6 — MONOSPACE JEST DLA IDENTYFIKATORA, NIGDY DLA ZDANIA
+
+Numer wersji, sciezka, nazwa uprawnienia, GUID, commit — to sie kopiuje i to jest monospace. Zdanie
+wokol nich nie. **Regula jest katalogiem ODWROTNYM**, z tego samego powodu co §5an: kafelek i pudelko
+wersji sa sans w calosci, a monospace dostaja wylacznie `<b>`, `<code>` i `.mono`. Klasa, ktora
+przebieg wymysli jutro, jest wtedy poprawna z urzedu.
+
+Z tego wynika regula redakcyjna dla markupu: **`<b>` niesie SAM IDENTYFIKATOR.** `Platform 4.18.26080.3`
+w jednym `<b>` jest bledem — etykieta stoi poza nim, numer w srodku. Zmierzone tego dnia: dwa takie
+elementy zostaly i sa jedynymi, ktore po poprawce arkusza nadal drukuja proze monospace.
+
+**Prog czytelnosci**: nic w kafelku ponizej **12,5 px** poza chipem platformy (10,5 px, wersaliki,
+etykieta a nie tekst), i nic ponizej **4,5:1** kontrastu. Zmierzone po poprawce: 7,20-17,97:1 w obu
+motywach, monospace wylacznie na numerze.
+
+### Zmierzone po zmianie, wstrzykniete w kopie opublikowanej strony (§5al)
+
+| co | przed | po |
+|---|---|---|
+| `MDI · 5 in the window` | `5 of 111`, czytelnik na `scrollY 0` | `5 of 111`, czytelnik na `scrollY 6 882` — przy tabeli |
+| `Entra`, potem `MDI · source text edited` | baner `Filter Entra` nad stronami MDI | `Filter MDI · source text edited`, 3 z 3 kart, trzy tabele zostawione cale |
+| `Intune · Community, 7 days` = 3 | `479 of 479` w zakladce | `3 of 479` i `3 of 55` zrodel |
+| pasek w mastheadzie | nie istnial | `top: 303 px` na desktopie i `0 px` na telefonie, widoczny przy `scrollY` 0, 1 500 i 6 000, przezywa kazde przelaczenie zakladki |
+| `Reset all filters` | — | wszystkie liczniki wracaja do pelnych, pasek znika |
+| czcionka kafelka | Mono 11.5 px, stopka 10.5 px przy 4,45:1 | Sans 12.5 px, numer Mono 13 px, kontrast 7,20-17,97:1 |
+| render 11 zakladek x 2 motywy x 1500/1280/760/390 | — | **88 renderow, zero bledow strony, `scrollWidth === clientWidth` wszedzie** |
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap
+i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIEDEMNASCIE** (§0c).
+
+```css
+/* §5at — one line in the masthead that names every filter that is on, and the end
+   of monospace prose. Every selector starts from `.gfbar`, a class only SCRIPT 14
+   creates, or from `#tab-components`. Variables are the ones the sheet already
+   declares (§5t): `--surface-2`, `--accent-soft`, `--muted`, never an invented name. */
+.gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
+ display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto;
+ padding:8px 14px;background:var(--accent-soft);
+ border-bottom:1px solid var(--accent);color:var(--text);font-size:13px;
+ box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.gfbar[hidden]{display:none!important}
+.gfbar .gf-lead{flex:0 0 auto;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-list{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+.gfbar .gf-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
+ padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);
+ border:1px solid var(--accent);color:var(--text);font-size:12.5px;line-height:1.6;
+ overflow-wrap:anywhere}
+.gfbar .gf-chip b{font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;padding:0}
+.gfbar .gf-x:hover{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.gfbar .gf-x:focus-visible,.gfbar .gf-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gfbar .gf-more{color:var(--muted);font-size:12px}
+.gfbar .gf-reset{flex:0 0 auto;font:inherit;font-size:12px;font-weight:600;padding:5px 13px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--accent);
+ color:var(--on-accent);cursor:pointer;white-space:nowrap}
+.gfbar .gf-reset:hover{background:var(--surface);color:var(--accent)}
+@media (max-width:760px){
+  /* §1a makes the masthead static on a phone, so `--gfbar-top` measures to zero and
+     the line sticks to the very top — the one control that survives a tab switch
+     must not be the one control that scrolls away (§5ao). */
+  .gfbar{padding:7px 10px;gap:7px}
+  .gfbar .gf-list{width:100%}
+  .gfbar .gf-reset{width:100%;text-align:center}
+}
+/* --- monospace is for an IDENTIFIER, never for a sentence ---
+   Measured 11 September 2026 on the published page: every line of the component
+   navigation tiles rendered in IBM Plex Mono 11.5px — "Released 7 July 2026",
+   "Build 101.26062.0012, release 20.126062.12.0, August 2026" — with the status
+   footer in 10.5px condensed at a contrast of 4.45:1, under the 4.5 floor and the
+   smallest type on the page. `jt-v`, `jt-s` and `vdate` are classes the RUN
+   invented and the run styled, because this file described the tile in prose and
+   carried no rule for it: the same silent failure as `.tabn` (§5ae) and `.cmfold`
+   (§5an). The rule is a REVERSE catalogue for the same reason as §5an's: the tile
+   is sans throughout, and only `<b>`, `<code>` and `.mono` — the things a reader
+   copies — are monospace, so the next class a run invents is right by default. */
+#tab-components a.jtile,#tab-components a.jtile *,
+#tab-components .vbox,#tab-components .vbox *{font-family:var(--sans);
+ letter-spacing:normal;text-transform:none;color:var(--muted)}
+#tab-components a.jtile *,#tab-components .vbox *{font-size:12.5px;line-height:1.5}
+#tab-components a.jtile b,#tab-components a.jtile code,#tab-components a.jtile .mono,
+#tab-components .vbox b,#tab-components .vbox code,#tab-components .vbox .mono{
+ font-family:var(--mono);font-weight:700;color:var(--text);font-size:13px}
+#tab-components a.jtile .pchip,#tab-components .vbox .pchip{font-size:10.5px;
+ text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+#tab-components a.jtile .jt-n{font-size:14px;font-weight:650;color:var(--text)}
+/* and nowhere else on the page is a paragraph or a bullet set in monospace */
+.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}
+
+/* a named block the one filter did not reach */
+[data-s11m][data-s11="0"]{display:none!important}
+```
+
+### SKRYPT 14 — pasek w mastheadzie. Na koniec `<body>`, jako CZTERNASTY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 14 — ONE LINE, ALWAYS ON SCREEN, NAMING EVERY FILTER THAT IS ON
+   (CLAUDE.md 5at). ADDED, never a replacement: shell scripts 1-3 and added
+   scripts 4-13 are untouched, byte for byte.
+
+   The owner, 11 September 2026: "przy tak duzej ilosci informacji musimy miec
+   lepsze banery na pokazanie po czym jest zrobione filtrowanie nawet jak
+   przelaczamy sie pomiedzy zakladkami — moze jakas informacja zawsze widoczna
+   na glownym pasku … i od razu damy guzik reset do filtrowania?"
+
+   He is right, and the reason is structural rather than cosmetic. Every banner
+   this portal draws lives INSIDE the thing it describes: a table's banner in
+   that table, a tab's banner in that tab, the community banner in that tab's
+   sticky block. Switch tabs and every one of them leaves the screen while the
+   filters stay on. Measured that day on the published page: after two clicks in
+   the Overview, SIX banners were showing at once on three different tabs, and
+   the reader could see none of them from where he stood.
+
+   So this script draws exactly one line, in the masthead, which is the only
+   element on the page every tab shares. It composes NOTHING itself: each filter
+   owner registers what it is filtering by and how to clear it, in
+   `window.__socFilterBus`, and this script renders what it is handed. One writer
+   per mechanism, one renderer per bar — two scripts composing the same sentence
+   from the same state would drift apart, which is 0a.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+
+  var bar = null, list = null, lead = null, queued = false;
+
+  function mount() {
+    if (bar) return bar;
+    var host = document.querySelector("header.top .top-inner") || document.querySelector("header.top");
+    if (!host) return null;
+    bar = el("div", "gfbar");
+    bar.hidden = true;
+    bar.setAttribute("role", "status");
+    lead = el("span", "gf-lead", "Filtered");
+    list = el("div", "gf-list");
+    var reset = el("button", "gf-reset", "Reset all filters");
+    reset.type = "button";
+    reset.addEventListener("click", clearEverything);
+    bar.appendChild(lead); bar.appendChild(list); bar.appendChild(reset);
+    /* The bar is a SIBLING of the masthead, not a child of it, and that is the whole
+       of why it works. A sticky element can only travel inside its containing block:
+       parked inside `header.top` it stuck for the height of the masthead and no
+       further, and on a phone — where §1a deliberately makes the masthead static —
+       it scrolled away at −14 756 px, measured 11 September 2026. As a sibling its
+       containing block is the document, so it travels the whole page. The offset it
+       sticks at is MEASURED, never written down: the masthead is sticky and 303 px
+       tall here, static and zero on a phone, and its height changes with how many
+       pills wrap (§5ao). */
+    var hd = document.querySelector("header.top");
+    if (hd && hd.parentNode) hd.parentNode.insertBefore(bar, hd.nextSibling);
+    else host.appendChild(bar);
+    measure();
+    return bar;
+  }
+
+  function measure() {
+    var hd = document.querySelector("header.top");
+    var off = (hd && getComputedStyle(hd).position === "sticky")
+      ? Math.round(hd.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--gfbar-top", off + "px");
+  }
+  window.addEventListener("resize", function () { measure(); });
+
+  function providers() {
+    var bus = window.__socFilterBus || [];
+    var out = [];
+    bus.forEach(function (fn) {
+      var got = null;
+      try { got = fn(); } catch (e) { if (window.console) console.error("[gfbar provider]", e); }
+      (got || []).forEach(function (x) { if (x && x.label) out.push(x); });
+    });
+    return out;
+  }
+
+  function clearEverything() {
+    /* clear each owner through the function IT gave us, never by writing into its
+       state: the owner knows what else has to be put back (5am, 5ap) */
+    providers().forEach(function (x) {
+      try { if (x.clear) x.clear(); } catch (e) { if (window.console) console.error("[gfbar clear]", e); }
+    });
+    setTimeout(draw, 60);
+  }
+
+  function draw() {
+    queued = false;
+    var b = mount();
+    if (!b) return;
+    var items = providers();
+    if (!items.length) { b.hidden = true; return; }
+    b.hidden = false;
+    measure();
+    lead.textContent = items.length === 1 ? "1 filter is on" : (items.length + " filters are on");
+    list.textContent = "";
+    items.slice(0, 8).forEach(function (x) {
+      var chip = el("span", "gf-chip");
+      chip.appendChild(el("b", null, x.scope || "this page"));
+      chip.appendChild(document.createTextNode(x.label));
+      var k = el("button", "gf-x", "×");
+      k.type = "button";
+      k.title = "Clear this one";
+      k.setAttribute("aria-label", "Clear the filter on " + (x.scope || "this page"));
+      k.addEventListener("click", function () {
+        try { if (x.clear) x.clear(); } catch (e) {}
+        setTimeout(draw, 60);
+      });
+      chip.appendChild(k);
+      list.appendChild(chip);
+    });
+    if (items.length > 8) list.appendChild(el("span", "gf-more", "… and " + (items.length - 8) + " more"));
+  }
+
+  /* the owners call this after every pass of their own; the listeners below are the
+     safety net for a control this script does not know about */
+  window.__socFilterBarSync = function () {
+    if (queued) return;
+    queued = true;
+    (window.requestAnimationFrame || setTimeout)(draw, 0);
+  };
+  ["input", "change", "click"].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (!e.target || !e.target.closest) return;
+      if (e.target.closest(".gfbar")) return;
+      if (e.target.closest(".tbar,.s9find,.filterbanner,.catbtn,.actpre,.actbars,.cc-tiles,.cat-controls,figure.chart,.donut-legend,#starthere"))
+        setTimeout(draw, 220);
+    }, true);
+  });
+
+  function boot() { draw(); setTimeout(draw, 900); setTimeout(draw, 2600); }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 600); });
+  else setTimeout(boot, 600);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 14 jest osobnym blokiem, ktory niczego nie
+nadpisuje i nie pisze do cudzego stanu — czysci wylacznie przez funkcje `clear()`, ktore dostal
+od wlascicieli filtrow.
+
+### Walidator — pozycje 70, 71 i 72 listy §0
+
+- **70** — SKRYPT 14 jest na stronie razem z rejestrem (`window.__socFilterBus`,
+  `window.__socFilterBarSync`), a arkusz niesie regule `.gfbar{position:sticky;top:var(--gfbar-top,0px)`.
+  To, czy pasek naprawde jest widoczny po przelaczeniu zakladki i czy `Reset all filters` przywraca
+  kazdy licznik, sprawdza Playwright (§5h) — bramka czyta plik, a pasek powstaje w przegladarce,
+  i to rozroznienie jest tu ta sama pointa co przy pozycji 48.
+- **71** — SKRYPT 11 umie zawezic po `texts` i po `data-s11m`, a SKRYPT 13 kazda liczba przekazuje
+  specyfikacje albo czysci zakladke docelowa: `function rowInSpec(`, `function applyBlocks(`,
+  `data-s11m`, `s11.clearTab(panelId)`, `function land(`, `__socSetCat`, `__socSetWin` w pliku.
+- **72** — monospace tylko na identyfikatorze: obie reguly katalogu odwrotnego dla kafelka i pudelka
+  wersji obecne w arkuszu. Render (§5h): w zakladce Component versions zaden lisc o wiecej niz
+  trzech slowach nie renderuje sie monospace.
+
+**Wszystkie trzy sa KLASY B** (funkcja interfejsu): lustro tylko kopiuje, wiec paska, ktorego
+artefakt nie niesie, nie doloży — raportuje go i publikuje (§0).
 
 ## 6. Kontrakt w stronie
 
