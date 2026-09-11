@@ -97,7 +97,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
 | 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z DZIEWIECIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), `srctext` (§5ar), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13) | 3, 3a, 5ar | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z DZIEWIECIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), `srctext` (§5ar), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13), **kazdy kafelek-link prowadzacy tam, gdzie jego liczba jest widoczna jako TA SAMA liczba** (§3 punkt 13a) i **kazda sekcja zwinieta domyslnie** (§3 punkt 14) | 3, 3a, 5ar | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 | 41 | **`graphMap` w bloku `soc-brief-state`**: `commit`, `readOn`, slownik sciezek `p`, tablica metod `m`; blokow JSON na stronie nadal DWA | 5ah | `graphMap` obecne z czterema polami; `<script type="application/json">` = 2 |
 | 42 | **nic nie obciete z mapy endpointow**: suma par po dekodowaniu `eps` rowna sie liczbie par metoda-sciezka w pliku Microsoftu | 5ah | roznica zerowa (zmierzone 24 099 przy klonie `ec959bb`) |
 | 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
@@ -2029,7 +2029,8 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    `±N Graph permissions`, `±N role entries`, `N items in state (was M)`. Zero jest wartoscia
    poprawna i tez sie pokazuje.
    **Trzy pierwsze licza DOKLADNIE to, co sumuje tabela `bytab` ponizej** — obie zakladki
-   katalogowe, komponenty i pozycje razem. Zmierzone 9 wrzesnia 2026 na opublikowanej stronie:
+   katalogowe, komponenty i pozycje razem — i **dlatego prowadza do `bytab`, a nie do sekcji
+   `Added`** (punkt 13). Zmierzone 9 wrzesnia 2026 na opublikowanej stronie:
    pigulki mowily `1 added / 0 removed / 0 changed`, a wlasna tabela tej samej strony sumowala sie
    do `+71 / −72 / 17`, bo pigulki liczyly wylacznie tablice `items`. **Dwie rozne liczby o tym
    samym na jednej stronie sa gorsze niz jedna niedokladna**, wiec `verify()` porownuje kafelki
@@ -2122,10 +2123,10 @@ kliknac, kaze szukac jej znaczenia recznie.
 
 | co klikniete | co sie dzieje |
 |---|---|
-| kafelek `.factgrid a.fact` | otwiera sekcje, ktora go tlumaczy, i do niej przewija; strzalka `↓` w rogu mowi, ze jest linkiem |
+| kafelek `.factgrid a.fact` | otwiera **te jedna** sekcje, ktora go tlumaczy, zamyka pozostale i do niej przewija; strzalka `↓` w rogu mowi, ze jest linkiem |
 | niezerowa liczba w `bytab` | skacze do `added` / `removed` / `changed` **i zostawia w tej sekcji WYLACZNIE blok tej zakladki** — sam skok zostawia czytelnika przy pierwszej tabeli sekcji, a nie przy tej, ktorej liczbe kliknal. Zakladka z wlasna sekcja (`Graph API`, `Roles`, `Graph endpoints`, `Component versions`, `Community articles`, `Message Center`) prowadzi do niej wprost |
-| nazwa technologii w `bytech` | zawezasa **wszystkie** tabele strony do tej technologii: tam gdzie tabela ma fasete `Product`, przez fasete; gdzie nie ma, przez pole szukania — **i banner mowi, ktora droga poszla**, zeby wiersz dopasowany po prozie nie byl zaskoczeniem. Obie tabele podsumowania zostaja NIETKNIETE, bo sa kontrolkami, a nie trescia |
-| `Clear filter` w bannerze | czysci kazde pole, kazda fasete i odslania kazdy blok |
+| nazwa technologii w `bytech` | otwiera **kazda sekcje, ktora po zawezeniu nadal ma wiersz**, i zamyka te, ktore nie maja; zawezasa **wszystkie** tabele strony do tej technologii: tam gdzie tabela ma fasete `Product`, przez fasete; gdzie nie ma, przez pole szukania — **i banner mowi, ktora droga poszla**, zeby wiersz dopasowany po prozie nie byl zaskoczeniem. Obie tabele podsumowania zostaja NIETKNIETE, bo sa kontrolkami, a nie trescia |
+| `Clear filter` w bannerze | czysci kazde pole, kazda fasete, odslania kazdy blok **i zwija wszystkie sekcje z powrotem** |
 
 **Banner stoi W TYM SAMYM PRZYKLEJONYM BLOKU co pasek skrotow** (`<div class="dstick">`), wiec jest
 na ekranie takze wtedy, gdy klikniecie technologii przewinelo czytelnika do `Added`. Wlasciciel
@@ -2138,7 +2139,71 @@ Wysokosc bloku mierzy skrypt i publikuje jako `--dstick-h`, bo `scroll-margin-to
 klamie w chwili, w ktorej banner sie otwiera (§0a).
 
 **Zero NIE jest linkiem.** Prowadzilby do pustej tabeli i uczyl, ze klikanie nic nie daje — ta sama
-zasada co pusty kubelek, ktory mowi zdaniem zamiast znikac.
+zasada co pusty kubelek, ktory mowi zdaniem zamiast znikac. **Dotyczy to tak samo kafelkow** jak
+licznikow w `bytab`: kafelek `0 removed` jest zwyklym `div`, nie kotwica.
+
+### Punkt 13a. KAFELEK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA LICZBA
+
+Wlasciciel zglosil 11 wrzesnia 2026: *„in the top tiles showing the numbers vs the actual items in
+the collapsable sections. For example tiles shows X added but once clicked the section shown shows
+Y"*. Zmierzone tego dnia na opublikowanej stronie i **obie liczby byly prawdziwe**:
+
+| kafelek | mowi | prowadzil do | tam stalo | reszta siedziala w |
+|---|---|---|---|---|
+| `added` | **14** | `#added` | **6** | `#catalog` 2 · `#srctext` 6 |
+| `changed` | **18** | `#changed` | **1** | `#catalog` 16 · `#components` 1 |
+| `Graph permissions` | `+2` | `#catalog` | **18** | to nie ta sama jednostka — `+2` to przyrost katalogu, `18` to liczba wierszy zmian |
+| `source pages edited` | `0` | `#srctext` | **6** | kafelek liczyl edycje, chip liczyl takze strony nowo sledzone |
+
+Zle nie bylo zadnej z tych liczb — **zla byla obietnica**, ze klikniecie `14` pokaze czternascie
+rzeczy. To jest ta sama choroba co „dwie rozne liczby o tym samym na jednej stronie" z punktu 2,
+tylko przeniesiona z arytmetyki na nawigacje. Regula:
+
+1. **Kafelek, ktorego liczba rozklada sie na kilka sekcji, prowadzi do `bytab`** — jedynej tabeli,
+   ktora ja rozklada — a jego podpis mowi `across N sections`. `verify()` juz porownuje ten kafelek
+   z suma kolumny `bytab`, wiec kafelek i cel zgadzaja sie **z asercji**, nie z dobrych checi.
+   Stamtad kazda niezerowa liczba wiersza prowadzi dalej i zawezasa (punkt 13).
+2. **Kafelek, ktorego liczba mieszka w jednej sekcji, prowadzi do tej sekcji, a CHIP tej sekcji
+   niesie te sama wartosc co do znaku.** Dlatego dwa kafelki spolecznosci sa odtad jednym (licznik
+   artykulow zszedl do podpisu), Message Center dostal wlasny, a kafelek tekstu zrodla liczy to
+   samo, co jego chip.
+3. **Kafelek STANU nie jest linkiem.** `items in state 169`, `Graph permissions 2179 → 2181`,
+   `role entries 139 → 139` to rozmiary, nie liczby wierszy; link z nich do tabeli zmian uczylby,
+   ze liczby na tej stronie nie znacza tego, co mowia. Cala arytmetyka stoi w ich podpisie.
+
+`verify()` sprawdza wszystkie trzy na gotowym pliku i **jest to asercja, ktorej dotad nie bylo**:
+stala tu tylko `kafelkow klikalnych >= 8`, ktora przechodzila na stronie z 11 wrzesnia i zapalila
+by sie na cichym dniu — czyli byla zla w obie strony (§0b).
+
+### Punkt 14. KAZDA SEKCJA JEST ZWINIETA, A OTWIERA SIE TA, O KTORA POPROSILES
+
+Wlasciciel, tego samego dnia: *„All the sections in the diff that has '+' sign should be collapsed =
+not expanded by default"* i *„once the top tile with number is clicked only this section it
+navigates to should be expanded and all other if not associated should be collapsed"*.
+
+To jest jedna regula, nie dwie: **sekcja jest otwarta wtedy, gdy trzyma to, o co wlasnie zapytales.**
+
+| co zrobil czytelnik | ktore sekcje sa otwarte |
+|---|---|
+| wszedl na strone | **zadna** — licznik stoi w chipie, wiec liczby widac bez otwierania czegokolwiek |
+| kliknal kafelek albo liczbe w `bytab` | **dokladnie jedna**, ta, do ktorej liczba prowadzi |
+| kliknal pozycje paska skrotow | **dokladnie jedna**, ta z paska |
+| kliknal nazwe technologii | **kazda, ktora po zawezeniu nadal ma wiersz**; reszta sie zamyka, a banner mowi ile ich jest |
+| kliknal `Clear filter` | **zadna** — strona wraca do stanu wyjsciowego |
+
+**Chip pod filtrem mowi `N of M rows` i slowo `rows` jest tam z powodu.** Chip w spoczynku liczy to,
+o czym sekcja MOWI — 13 zmienionych pozycji, 10 ruszonych komponentow — a filtr umie policzyc
+wylacznie to, co jest na ekranie, przy czym `Changed, field by field` renderuje dla tych 13 pozycji
+24 wiersze. Pierwsza wersja drukowala golo `7 of 24` nad chipem, ktory przed chwila mowil `13`:
+ta sama dwuznacznosc, ktora ten punkt usuwa z kafelkow. Nazwanie jednostki kosztuje jedno slowo —
+i pada tylko tam, gdzie jest potrzebne: `Added`, `Removed` i `Deadlines` licza wiersze, wiec ich
+chip pod filtrem mowi po prostu `5 of 41`.
+
+Zmierzone po zmianie na porownaniu 8 → 11 wrzesnia (187 807 B, 12 sekcji, oba motywy, 1400 i 390 px):
+**zero bledow strony, `scrollWidth === clientWidth`, zero sekcji otwartych po zaladowaniu**;
+kafelek `101 added` otwiera wylacznie `bytab`, liczba `+37 New` wylacznie `added`, technologia
+`Entra` siedem sekcji z chipami `5 of 41 rows`, `30 of 107 rows`, `7 of 24 rows`, a `Clear filter`
+zwija wszystko i przywraca kazdy chip do wartosci wyjsciowej.
 
 **Nawigacja nie pisze `row.hidden` sama.** Kazde pole szukania rejestruje sie w `window.__s9diff`
 razem ze swoim `apply()`, a skrypt nawigacji ustawia wartosci i wola `apply()`. Dwoch niezaleznych
@@ -2148,7 +2213,7 @@ pisarzy tego pola walczy ze soba i wygrywa ten, ktory pisal drugi (§5am) — tu
 zostawia czytelnika z pytaniem, czy przebieg patrzyl.
 
 **Kazda sekcja jest zwijana i ma zielone pole szukania.** `details.dsec` z licznikiem w podpisie,
-otwarte domyslnie; nad kazda tabela stoi `.s9find` — zielone pole, fasety zbudowane z kolumn, ktore
+**zwiniete domyslnie** (punkt 14); nad kazda tabela stoi `.s9find` — zielone pole, fasety zbudowane z kolumn, ktore
 naprawde grupuja, `Reset` i licznik `N of M`. Dokłada je **trzeci maly skrypt strony**, po
 `THEME_HEAD` i `THEME_BODY`; powtorzenie kodu z §5am jest tu swiadome i ograniczone do jednej
 funkcji, bo strona zmian ma zostac samodzielna, a alternatywa byloby wozenie na niej powloki
@@ -2680,6 +2745,12 @@ def tabblock(tab, html):
     pierwszej tabeli sekcji, a nie przy tej, ktorej liczbe kliknal."""
     return '<div class="tabblock" data-tab="%s">%s</div>' % (esc(tab), html)
 
+def _iszero(v):
+    """Kafelek, ktorego kazda liczba jest zerem, prowadzilby do pustej sekcji i uczyl,
+    ze klikanie nic nie daje — ta sama zasada, ktora `goto_num` stosuje od 10 wrzesnia
+    2026 do licznikow w `bytab` (§3 punkt 13). Tu obowiazuje tak samo."""
+    return not re.search(r"[1-9]", re.sub(r"<[^>]+>", "", str(v)))
+
 def tiles(spec):
     """Kafelki jak na stronie porannej (§5al) — wlasciciel, 9 wrzesnia 2026:
     „w glownym porannym sa kafelki a u ciebie w diff zaokraglone ramki. wiec zrobmy
@@ -2688,6 +2759,8 @@ def tiles(spec):
     for t in spec:
         value, label, cls = t[0], t[1], t[2]
         goto = t[3] if len(t) > 3 else None
+        if goto and _iszero(value):
+            goto = None
         if goto:
             out.append('<a class="fact%s" href="#%s" data-goto="%s"><b>%s</b><span>%s</span></a>'
                        % ((" " + cls) if cls else "", goto, goto, value, label))
@@ -2699,10 +2772,15 @@ def tiles(spec):
 
 
 def sect(sid, title, note, body, count=None):
-    """Sekcja zwijana z licznikiem w podpisie. Zielone pole szukania i filtry dokłada
-    skrypt strony (jeden na wszystkie tabele), zeby dwie sekcje nie mogly sie rozjechac."""
+    """Sekcja zwijana z licznikiem w podpisie, ZWINIETA domyslnie (§3 punkt 14).
+
+    Licznik stoi w chipie, wiec liczbe widac bez otwierania czegokolwiek, a strona
+    otwiera sie na ekranie liczb zamiast na dwunastu ekranach tabel. To ta sama
+    poprawka, ktora §5al zrobilo dla `details.chg14` w briefie, i z tego samego
+    powodu. Zielone pole szukania i filtry dokłada skrypt strony (jeden na wszystkie
+    tabele), zeby dwie sekcje nie mogly sie rozjechac."""
     chip = ('<span class="dsum-n">%s</span>' % count) if count is not None else ""
-    return ('<section id="%s"><details class="dsec" open><summary>'
+    return ('<section id="%s"><details class="dsec"><summary>'
             '<span class="dsum-t">%s</span>%s</summary>'
             '<p class="note">%s</p>%s</details></section>'
             % (sid, title, chip, note, body))
@@ -3096,14 +3174,78 @@ NAV_BODY = """<script>
       if (w.__apply) w.__apply();
     });
     [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    collapseAll();
     say("");
+  }
+
+  /* ---------- folds: a section is open when it holds what you asked for ----------
+     The owner, 11 September 2026: "All the sections in the diff that has '+' sign
+     should be collapsed = not expanded by default", and "once the top tile with
+     number is clicked only this section it navigates to should be expanded and all
+     other if not associated should be collapsed". Both are one rule, and the rule
+     also settles what a FILTER should do to the folds: pressing a technology asks
+     about every section at once, so every section that still holds a row opens and
+     every section that holds none closes. Clearing puts them all back.
+
+     The count stays readable without opening anything, because it is in the chip —
+     the same reason `details.chg14` on the brief is collapsed with its count in the
+     summary (§5al). */
+  function sections() { return [].slice.call(document.querySelectorAll("section > details.dsec")); }
+  function visibleRows(det) {
+    var n = 0;
+    [].forEach.call(det.querySelectorAll("tbody tr"), function (r) {
+      if (!r.hidden && r.querySelector("td")) n++;
+    });
+    return n;
+  }
+  /* The chip must never keep saying 18 over a section a filter has cut to 3: that is
+     the same two-numbers-for-one-thing this page was rebuilt to stop (§5am). The first
+     pass records what the section holds whole, so the narrowed figure can be exact.
+
+     It says "rows" and it says it on purpose. The resting chip counts what the section
+     is ABOUT — 13 changed items, 10 moved components — while a filter can only count
+     what is on screen, and `Changed, field by field` renders 24 rows for those 13 items.
+     Measured 11 September 2026: the first version of this printed a bare "7 of 24" over
+     a chip that had been reading 13, which is the same two-units-one-number the tiles
+     had. Naming the unit costs one word and removes the question. */
+  function syncChips() {
+    sections().forEach(function (det) {
+      var chip = det.querySelector("summary .dsum-n");
+      if (!chip) return;
+      if (chip.dataset.full === undefined) {
+        chip.dataset.full = chip.textContent;
+        chip.dataset.rows = String(visibleRows(det));
+      }
+      var all = +chip.dataset.rows, now = visibleRows(det);
+      /* where the resting chip IS the row count — Added, Removed, Deadlines — the
+         narrowed figure matches it exactly and needs no noun; only where they differ
+         does the noun have to be there, and then it has to be there. */
+      var same = String(all) === String(chip.dataset.full).trim();
+      chip.textContent = (now === all) ? chip.dataset.full
+                         : same ? (now + " of " + all)
+                                : (now + " of " + all + (all === 1 ? " row" : " rows"));
+    });
+  }
+  function focusSection(sid) {
+    sections().forEach(function (det) {
+      var sec = det.parentNode;
+      det.open = !!(sec && sec.id === sid);
+    });
+    syncChips(); measure();
+  }
+  function openWithHits() {
+    sections().forEach(function (det) { det.open = visibleRows(det) > 0; });
+    syncChips(); measure();
+  }
+  function collapseAll() {
+    sections().forEach(function (det) { det.open = false; });
+    syncChips(); measure();
   }
 
   function openSection(sid) {
     var sec = document.getElementById(sid);
     if (!sec) return null;
-    var det = sec.querySelector("details.dsec");
-    if (det) det.open = true;
+    focusSection(sid);          /* this one, and only this one */
     return sec;
   }
 
@@ -3127,6 +3269,7 @@ NAV_BODY = """<script>
       say(hit ? ('Showing the ' + tab + ' rows of this section only.')
               : ('No ' + tab + ' rows in this section \\u2014 that number belongs to another one.'));
     } else say("");
+    syncChips();
     sec.scrollIntoView({ block: "start" });
   }
 
@@ -3157,14 +3300,21 @@ NAV_BODY = """<script>
       if (w.__apply) w.__apply();
     });
     [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    /* a technology asks about every section, so every section that still holds a row
+       opens and every section that holds none closes — the fold follows the answer */
+    openWithHits();
+    var open = sections().filter(function (d) { return d.open; }).length;
     var how = [];
     if (exact) how.push(exact + " by " + (exact === 1 ? "its" : "their") + " product column");
     if (text) how.push(text + " by searching " + (text === 1 ? "its" : "their") + " text");
     say("filtered across every section \\u2014 " + how.join(", ") +
-        ". The two summary tables at the top are left whole, because they are the controls. " +
-        "Clear filter puts every table back at once.", name);
-    var a = document.getElementById("added");
-    if (a) { openSection("added"); a.scrollIntoView({ block: "start" }); }
+        ". " + open + (open === 1 ? " section still holds a row and is open" :
+                       " sections still hold a row and are open") +
+        "; the rest are closed. The two summary tables at the top are left whole, because " +
+        "they are the controls. Clear filter puts every table back at once.", name);
+    var first = sections().filter(function (d) { return d.open; })[0];
+    var host = first ? first.parentNode : document.getElementById("added");
+    if (host) host.scrollIntoView({ block: "start" });
   }
 
   document.addEventListener("click", function (ev) {
@@ -3176,6 +3326,17 @@ NAV_BODY = """<script>
       ev.preventDefault();
       goto_(g.dataset.goto, g.dataset.tab || null);
     }
+  });
+
+  /* Every section starts collapsed, and the census of what each one holds is taken
+     BEFORE anything is filtered, so "N of M" always compares against the whole. */
+  collapseAll();
+  /* a table's own Reset or search changes what a section holds, so the chip follows */
+  ["input", "change", "click"].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (e.target && e.target.closest && e.target.closest("details.dsec .s9find"))
+        setTimeout(syncChips, 0);
+    }, true);
   });
 
   /* the rail marks where the reader is, by POSITION — a ratio-based observer reports
@@ -3247,28 +3408,63 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # doliczenie ich do „added" zmieszaloby dwie rozne jednostki.
     dl_rows_n = len(dl_moved) + len([i for i in added if norm(i.get("deadline"))]) \
                 + len([i for i in removed if norm(i.get("deadline"))])
-    # Kazdy kafelek prowadzi do sekcji, ktora go tlumaczy. Wlasciciel, 10 wrzesnia 2026:
-    # „gorna sekcja z kafelkami — nie da sie tego kliknac, zeby byc przeniesionym ponizej
-    # do przefiltrowanej tabeli". Liczba, ktorej nie da sie klinac, kaze szukac jej znaczenia
-    # recznie — to ta sama skarga co przy kafelkach katalogu (§5ad) i bloku Activity (§5an).
+    # KAZDY KAFELEK-LINK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA
+    # LICZBA. Zmierzone 11 wrzesnia 2026 na opublikowanej stronie: kafelek mowil
+    # `14 added` i prowadzil do sekcji `Added`, ktora pokazuje SZESC — bo pozostale
+    # osiem to dwa wpisy katalogu Graph i szesc stron tekstu zrodla, kazde we WLASNEJ
+    # sekcji; tak samo `18 changed` prowadzilo do sekcji o JEDNYM wierszu. Zaden z tych
+    # numerow nie byl zly: zla byla obietnica, ze klikniecie pokaze te czternascie.
+    # Suma rozklada sie w DOKLADNIE jednym miejscu — w tabeli `bytab` — wiec to ona
+    # jest celem tych trzech kafelkow, a `verify()` juz pilnuje, ze kafelek rowna sie
+    # sumie jej kolumny. Kazdy pozostaly kafelek-link celuje w sekcje, ktorej CHIP
+    # niesie te sama wartosc, i `verify()` porownuje jedno z drugim.
+    def _spread(parts):
+        n = sum(1 for x in parts if x)
+        return "" if n < 2 else " &middot; across %d sections" % n
+    spread_a = _spread([len(added), len(gadd) + len(radd), len(cadd),
+                        len(com["artAdd"]), len(com["mcAdd"]), len(dtadd)])
+    spread_r = _spread([len(removed), len(grem) + len(rrem), len(crem),
+                        len(com["artRem"]), len(com["mcRem"]), len(dtrem)])
+    spread_c = _spread([len(changed), len(gmod) + len(rmod), len(cmod),
+                        len(com["srcChg"]), len(dtchg)])
+    net_src = len(com["srcAdd"]) - len(com["srcRem"])
+    com_n = ("baseline" if com["baseline"] else
+             str(len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
+                 + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])))
+    mc_n = "baseline" if com["baseline"] else str(len(com["mcAdd"]) + len(com["mcRem"]))
     out.append(tiles([
-        (str(sum_add), "added", "ok", "added"),
-        (str(sum_rem), "removed", "bad", "removed"),
-        (str(sum_chg), "changed", "warn", "changed"),
+        (str(sum_add), "added" + spread_a, "ok", "bytab"),
+        (str(sum_rem), "removed" + spread_r, "bad", "bytab"),
+        (str(sum_chg), "changed" + spread_c, "warn", "bytab"),
         ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info", "endpoints"),
         (str(dl_rows_n), "deadline rows", "acc", "deadlines"),
         (str(len(cadd) + len(crem) + len(cmod)), "component versions", "warn", "components"),
-        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), "", "catalog"),
-        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), "", "catalog"),
-        (str(nc), "items in state &middot; was %d" % np_, "", "bytab"),
-        ("%+d / &minus;%d" % (len(com["srcAdd"]), len(com["srcRem"])), "community sources", "info", "community"),
-        (str(len(com["artAdd"])), "new community articles", "ok", "community"),
-        (str(len(dtchg)), "source pages edited", "warn", "srctext"),
+        # Trzy kafelki STANU, i to, ze nie sa linkami, jest swiadome: `+51` mowi, o ile
+        # urosl katalog, a sekcja `Catalog` liczy WIERSZE ZMIAN, ktorych jest 61 — dwie
+        # rozne jednostki. Link prowadzacy od jednej do drugiej uczy, ze liczby na tej
+        # stronie nie znacza tego, co mowia. Cala arytmetyka stoi w podpisie kafelka.
+        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), "", None),
+        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), "", None),
+        (str(nc), "items in state &middot; was %d" % np_, "", None),
+        # Jedna sekcja, jeden kafelek: dwa kafelki celujace w `#community` nie mogly oba
+        # rownac sie jej chipowi, wiec licznik artykulow zszedl do podpisu.
+        (com_n, "community changes &middot; %d new article%s, %s%d source%s"
+                % (len(com["artAdd"]), "" if len(com["artAdd"]) == 1 else "s",
+                   "+" if net_src >= 0 else "&minus;", abs(net_src),
+                   "" if abs(net_src) == 1 else "s"),
+         "info", "community"),
+        (mc_n, "Message Center entries", "acc", "mcenter"),
+        (str(len(dtchg) + len(dtadd) + len(dtrem)),
+         "source pages moved &middot; %d edited" % len(dtchg), "warn", "srctext"),
     ]))
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
                'them, both catalogs and the tracked components included. Endpoints are counted '
-               'apart because they are endpoints, not items. <b>Every tile is a link</b>: it jumps to '
-               'the section that explains it and opens that section.</p>')
+               'apart because they are endpoints, not items. <b>A tile that is a link leads to where '
+               'its own number is visible as the same number</b> &mdash; the three totals to the table '
+               'that decomposes them, every other tile to the section whose count it carries. A tile '
+               'reading zero, and a tile stating a catalog size rather than a count of rows, is '
+               'deliberately not a link. <b>Pressing one opens that section and closes the rest</b>: '
+               'every section starts collapsed, with its count in the chip beside its name.</p>')
     out.append('</div></header><div class="wrap">@@SUBNAV@@')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
@@ -3870,8 +4066,55 @@ def verify(page):
     # odjezdza po skoku i czytelnik czysci filtr tabela po tabeli (zgloszenie 11 wrzesnia 2026)
     if not re.search(r'<div class="dstick"><nav class="dsubnav"', page):
         e.append("banner filtra nie stoi w tym samym przyklejonym bloku co pasek skrotow")
-    if 'class="fact' in page and 'class="fact' in page and page.count('<a class="fact') < 8:
-        e.append("kafelkow klikalnych = %d, ma byc co najmniej 8" % page.count('<a class="fact'))
+    # KAZDY KAFELEK-LINK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA
+    # LICZBA. Poprzednia asercja liczyla tu kafelki klikalne („co najmniej 8") i byla
+    # bezuzyteczna w obie strony: przechodzila na stronie, ktorej kafelek `14 added`
+    # prowadzil do sekcji o szesciu wierszach (zmierzone 11 wrzesnia 2026), a zapalila
+    # by sie na cichym dniu, w ktorym wiekszosc kafelkow to poprawnie nieklikalne zera.
+    # Asercja przechodzaca z niewlasciwego powodu i asercja zapalajaca sie na poprawnej
+    # stronie sa tym samym bledem (§0b) — ta pyta o to, co naprawde ma byc prawda.
+    # PIERWSZA WERSJA TEJ ASERCJI ZLAMALA TO SAMO: zadala „co najmniej jednego kafelka
+    # -linku" i odrzucila dzien, w ktorym oba stany byly identyczne — a to jest wynik
+    # poprawny, ktory §3 mierzy od 2 wrzesnia („same zera i zdanie, ze ktos sprawdzil").
+    # Warunek jest wiec postawiony na kazdym kafelku z osobna i na dniu bez zmian
+    # neutralizuje sie sam.
+    def _t(x): return " ".join(re.sub(r"<[^>]+>", "", x).replace("&minus;", "-").split())
+    chips = {}
+    for ms in re.finditer(r'<section id="([^"]+)">(.*?)</section>', page, re.S):
+        mc = re.search(r'<span class="dsum-n">(.*?)</span>', ms.group(2), re.S)
+        if mc: chips[ms.group(1)] = _t(mc.group(1))
+    STATE_TILES = ("items in state", "Graph permissions", "role entries")
+    for mt in re.finditer(r'<(a|div) class="fact[^"]*"([^>]*)><b>(.*?)</b><span>(.*?)</span></(?:a|div)>',
+                          page, re.S):
+        kind, attrs, val, lab = mt.group(1), mt.group(2), _t(mt.group(3)), _t(mt.group(4))
+        tgt = re.search(r'data-goto="([^"]+)"', attrs)
+        tgt = tgt.group(1) if tgt else None
+        zero = not re.search(r"[1-9]", val)
+        state = any(lab.startswith(x) for x in STATE_TILES)
+        if not tgt:
+            # kafelek NIEKLIKALNY jest poprawny dokladnie wtedy, gdy jest zerem albo stanem
+            if not zero and not state:
+                e.append("kafelek '%s' niesie %s i nie jest linkiem — nie ma jak dojsc do tych wierszy"
+                         % (lab, val))
+            continue
+        if zero:
+            e.append("kafelek '%s' o wartosci zerowej jest linkiem — prowadzi do pustej sekcji" % lab)
+        elif state:
+            # `+51` to przyrost katalogu, a sekcja liczy WIERSZE ZMIAN — dwie jednostki
+            e.append("kafelek stanu '%s' jest linkiem, a prowadzi do innej jednostki" % lab)
+        elif tgt == "bytab":
+            pass                          # sume rozklada tabela, a asercja wyzej ja sprawdza
+        elif tgt not in chips:
+            e.append("kafelek '%s' prowadzi do #%s, ktora nie ma licznika" % (lab, tgt))
+        elif chips[tgt] != val:
+            e.append("kafelek '%s' mowi %s, a sekcja #%s, do ktorej prowadzi, liczy %s"
+                     % (lab, val, tgt, chips[tgt]))
+    # ZWINIETE DOMYSLNIE, i tylko to, co czytelnik otworzyl, jest otwarte
+    if re.search(r'<details class="dsec"[^>]*\sopen', page):
+        e.append("sekcja otwarta domyslnie — na tej stronie wszystkie maja byc zwiniete")
+    for k in ("function focusSection(", "function openWithHits(", "function collapseAll(",
+              "function syncChips(", "function visibleRows("):
+        if k not in page: e.append("brak zaczepu zwijania sekcji: %s" % k)
     # kazda niezerowa liczba w podsumowaniu prowadzi gdzies — zero celowo NIE prowadzi
     mbt = re.search(r'<section id="bytab">.*?</section>', page, re.S)
     if mbt:
@@ -10051,8 +10294,9 @@ kazdej tabeli w `details.dsec`. Powtorzenie jest tu swiadome i ograniczone do je
 strona zmian musi zostac samodzielna, a alternatywa byloby wozenie na niej powloki briefu, czyli
 dokladnie ten 3,6 MB, ktory §3 usunela.
 
-**Sekcje sa zwijane, ale otwarte domyslnie.** Licznik stoi w podpisie, wiec liczbe widac bez
-klikania — ten sam ksztalt co `details.eps` (§5ah) i `details.chg14` (§5al).
+**Sekcje sa zwijane i ZWINIETE domyslnie** (§3 punkt 14). Licznik stoi w podpisie, wiec liczbe
+widac bez klikania — ten sam ksztalt co `details.eps` (§5ah) i `details.chg14` (§5al), i z tego
+samego powodu: dwanascie otwartych sekcji to dwanascie ekranow tabel zamiast jednego ekranu liczb.
 
 ### Zmierzone po zmianie
 
