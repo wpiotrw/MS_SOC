@@ -1,0 +1,114 @@
+[
+  {
+    "SourceName": "Microsoft Entra Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-entra/blog/microsoft-entra-blog"
+  },
+  {
+    "SourceName": "Microsoft Intune Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoftintune/blog/microsoftintuneblog"
+  },
+  {
+    "SourceName": "Microsoft Sentinel Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-sentinel/blog/microsoftsentinelblog"
+  },
+  {
+    "SourceName": "Microsoft Defender for Endpoint Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-endpoint/blog/microsoftdefenderatpblog"
+  },
+  {
+    "SourceName": "Microsoft Security Blog",
+    "SourceURL": "https://www.microsoft.com/en-us/security/blog/"
+  },
+  {
+    "SourceName": "Microsoft Copilot Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-copilot/blog/microsoft-copilot-blog"
+  },
+  {
+    "SourceName": "Microsoft 365 Copilot Blog",
+    "SourceURL": "https://www.microsoft.com/en-us/microsoft-365/blog/product/microsoft-copilot/"
+  },
+  {
+    "SourceName": "Windows IT Pro Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/windows/blog/windows-itpro-blog"
+  },
+  {
+    "SourceName": "Microsoft Data Migration Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/azuredatabases/blog/microsoftdatamigration"
+  },
+  {
+    "SourceName": "Security Copilot Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-security-product/blog/securitycopilotblog"
+  },
+  {
+    "SourceName": "Microsoft Security Product Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoft-security-blog"
+  },
+  {
+    "SourceName": "Exchange Team Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Exchange/blog/Exchange"
+  },
+  {
+    "SourceName": "Microsoft Teams Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/MicrosoftTeams/blog/MicrosoftTeamsBlog"
+  },
+  {
+    "SourceName": "Intune Customer Success Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoftintune/blog/IntuneCustomerSuccess"
+  },
+  {
+    "SourceName": "Azure Arc Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Azure/blog/AzureArcBlog"
+  },
+  {
+    "SourceName": "Azure Compute Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Azure/blog/AzureCompute"
+  },
+  {
+    "SourceName": "Agent 365 Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft365/blog/agent-365-blog"
+  },
+  {
+    "SourceName": "Azure Governance and Management Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Azure/blog/AzureGovernanceandManagementBlog"
+  },
+  {
+    "SourceName": "Skills Hub Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/skills-hub/blog/skills-hub-blog"
+  },
+  {
+    "SourceName": "FSLogix Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Windows/blog/FSLogix-Blog"
+  },
+  {
+    "SourceName": "FinOps Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Azure/blog/FinOpsBlog"
+  },
+  {
+    "SourceName": "Microsoft Defender for Cloud Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-cloud/blog/MicrosoftDefenderCloudBlog"
+  },
+  {
+    "SourceName": "Microsoft Defender for Office 365 Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-office-365/blog/MicrosoftDefenderforOffice365Blog"
+  },
+  {
+    "SourceName": "Microsoft Defender XDR Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-xdr/blog/MicrosoftThreatProtectionBlog"
+  },
+  {
+    "SourceName": "Defender Vulnerability Management Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/vulnerability-management/blog/Vulnerability-Management"
+  },
+  {
+    "SourceName": "Azure AI Foundry Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/azure-ai-foundry/blog/azure-ai-foundry-blog"
+  },
+  {
+    "SourceName": "Microsoft Purview Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/Microsoft-Purview/blog/microsoft-purview-blog"
+  },
+  {
+    "SourceName": "Microsoft Security Baselines Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/security-baselines/blog/Microsoft-Security-Baselines"
+  }
+]
