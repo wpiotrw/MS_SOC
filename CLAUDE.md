@@ -39,13 +39,14 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **66 pozycji** (0-33, 35-61, 63-67), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **68**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+   strone glowna, sprawdza **68 pozycji** (0-33, 35-61, 63-69), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **70**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
-   Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, a wieczorem tego samego dnia
-   **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
+   Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, wieczorem tego samego dnia
+   **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**, a w nocy
+   **68 (§5ar, prowenancja i diff tekstu zrodla)** oraz **69 (§5as, Start here)**. Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
 
@@ -94,7 +95,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
 | 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z OSMIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13) | 3, 3a | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z DZIEWIECIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), `srctext` (§5ar), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13) | 3, 3a, 5ar | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 | 41 | **`graphMap` w bloku `soc-brief-state`**: `commit`, `readOn`, slownik sciezek `p`, tablica metod `m`; blokow JSON na stronie nadal DWA | 5ah | `graphMap` obecne z czterema polami; `<script type="application/json">` = 2 |
 | 42 | **nic nie obciete z mapy endpointow**: suma par po dekodowaniu `eps` rowna sie liczbie par metoda-sciezka w pliku Microsoftu | 5ah | roznica zerowa (zmierzone 24 099 przy klonie `ec959bb`) |
 | 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
@@ -122,6 +123,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 65 | **kazda kolumna, ktora tabela pokazuje, da sie filtrowac, kazdy slupek z `data-ids` jest kontrolka, a pitch slupka jest jeden na cala strone** — Top N i Executive summary tez maja pole szukania | 5ap, 5y | `SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL`, `window.__socS11 = `, `function columnPlan(`, `MIN_ROWS_OWN_BAR`, `s11srcnote`, `ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}`, `.filterbanner.s11[hidden]{display:none!important}`, `var CW = 6.15, W = 620, rowH = 19, barH = 9.5, pad = 6, valW = 44;`, `bar.setAttribute("data-ids"` w pliku; render (§5h): kazda tabela >=8 wierszy ma pole i zawezenie do kolumny, klikniety slupek zmienia `N of M` i zapala banner zakladki |
 | 66 | **ZADEN rozwijany blok w portalu nie renderuje sie natywnym trojkatem** — regula jest katalogiem ODWROTNYM (`details:not(.foldnote):not(.eps)…`), bo wyliczanie klas zawodzi przy pierwszej nowej nazwie, ktora przebieg wymysli | 5an | `.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14)` oraz `…:not(.dsec)>summary::before` i `.tabpanel details.relrest{background:var(--surface-2)` w pliku; render (§5h): w KAZDEJ z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz `none` |
 | 67 | **piec albo wiecej nazwanych pozycji to TABELA, nie lista punktow — z tym samym wygladem wiersza; tytul sekcji nazywa okres slowami i datami** | 5aq | w tresci widocznej brak `New this window`, `this window`, `items in window`; zaden `<ul>` nie trzyma >=5 punktow o ksztalcie `<b>tytul</b> … <a>Source</a>`, liczone `html.parser` |
+| 68 | **kazdy wiersz mowi, KTORE ZRODLO go znalazlo, zadne zrodlo nie dalo wiecej niz przeczytalo, a zmiana tekstu zrodla ma swoja strone** — `sources` w bloku stanu, `discoveredBy` na pozycji, `docText` z regula promocji i zdaniem o opoznieniu lustra | 5ar | `68a` klucze `discoveredBy` maja wpis w `sources`, `kind`/`state` ze slownika, SKRYPT 12 w pliku; `68b` `read >= liczba znalezionych`, kazdy `sourceTextChanged` ma `docRef` w `docText`; `68c` `readOn` = `briefDate`, `method`, `rule`, `lag`, kazda zmieniona strona ma hunk |
+| 69 | **Overview jest CALYM BRIEFEM na jednym ekranie** — `Act on this first`, `What's new, by product` (jeden wiersz na monitorowana technologie) i `Reference` (katalogi, wersje komponentow, zrodla); kazda liczba policzona ze stanu i otwierajaca zakladke zawezona po `id`, zero nie jest linkiem | 5as | `SCRIPT 13`, `sec.id = "starthere"`, `shrow`, `shzero`, `shnum`, tytul sekcji i naglowki obu tabel, regula `#starthere .shrow.shzero`, `window.__socS11` w pliku; render (§5h): klikniecie zawezasa i zapala banner |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -142,8 +145,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67 | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -407,7 +410,7 @@ def drop_contract(content: str) -> str:
 def snapshot_shell(content: str):
     """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
 
-    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 10`, a nie po
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 13`, a nie po
     pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
     wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
     migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
@@ -415,12 +418,13 @@ def snapshot_shell(content: str):
     styles = re.findall(r"<style[^>]*>.*?</style>", body, re.S)
     raw = re.findall(r"<script(?![^>]*application/json)[^>]*>.*?</script>", body, re.S)
     scripts = [b for b in raw if "<script" not in b[len("<script"):]]
-    # `(?:[4-9]|10)` bylo prawdziwe do dnia, w ktorym doszedl SKRYPT 11 (§5ap): wtedy
-    # jedenasty blok nie pasowal do wzorca, wpadal do `shell`, dawal cztery skrypty powloki
-    # i `snapshot_shell` PRZERYWAL caly lustrzany przebieg. Kazda liczba zapisana w kodzie
-    # ma date waznosci tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt,
-    # przeszukaj plik za twardymi zakresami.
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[01])\b", b[:4000])]
+    # `(?:[4-9]|10)` bylo prawdziwe do dnia, w ktorym doszedl SKRYPT 11 (§5ap), a
+    # `(?:[4-9]|1[01])` do dnia, w ktorym doszly SKRYPTY 12 i 13 (§5ar, §5as): blok spoza
+    # wzorca wpada do `shell`, daje wiecej niz trzy skrypty powloki i `snapshot_shell`
+    # PRZERYWA caly lustrzany przebieg. Kazda liczba zapisana w kodzie ma date waznosci
+    # tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt, przeszukaj plik za
+    # twardymi zakresami.
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-3])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -782,8 +786,9 @@ class Scan(HTMLParser):
 # lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
-           "28a","28b","31a","31b","31c","33","42","45","47","60","62","63"}
-CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67"}
+           "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
+CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
+           "68a","68c","69"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1213,7 +1218,7 @@ def gate(path, site=None, mirror=False, doc=None):
     need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
          "SCRIPT 9" in h and "__socOpenPerm" in h,
          "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
-    # ---- 56: skrypty 4-11 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
+    # ---- 56: skrypty 4-13 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
     # Zmierzone 10 wrzesnia 2026: artefakt mial wszystkie dziewiec skryptow i dziesiec paneli,
     # a skrypty 6, 7 i 8 byly WCZORAJSZE — przebieg skopiowal powloke z wczorajszej strony,
     # bo tak kazal mu kontrakt wozony w tej stronie. Zadna inna pozycja tego nie lapie:
@@ -1223,7 +1228,7 @@ def gate(path, site=None, mirror=False, doc=None):
             docsrc = open(doc, encoding="utf-8").read()
         except Exception as ex:
             docsrc = None
-            need("56", "skrypty 4-11 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+            need("56", "skrypty 4-13 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
         if docsrc:
             want = {}
             F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
@@ -1232,15 +1237,15 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 11:
+                if m and 4 <= int(m.group(1)) <= 13:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
-            need("56", "skrypty 4-11 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+            need("56", "skrypty 4-13 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
                  bool(want) and not stale,
                  "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
                  else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
     else:
-        need("56", "skrypty 4-11 sa te z CLAUDE.md (§0c)", False,
+        need("56", "skrypty 4-13 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
     # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
     # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
@@ -1376,6 +1381,59 @@ def gate(path, site=None, mirror=False, doc=None):
          ("zargon okna w tresci: %s; " % ", ".join(jarg) if jarg else "") +
          ("%d list ma >=5 nazwanych pozycji (najwieksza %d) — to wyliczenie, czyli tabela"
           % (len(big), max(big)) if big else ""))
+
+    # ---- 68: kazdy wiersz mowi, ktore zrodlo go znalazlo (§5ar). Bramka czyta PLIK,
+    # wiec sprawdza ksztalt stanu i obecnosc skryptu; to, czy kolumna naprawde jest
+    # i czy klikniecie liczby zawezasa, sprawdza Playwright (§5h) — to samo rozroznienie
+    # co przy pozycji 48. Pusta tablica NIE moze dac OK: zbior bez elementow spelnia
+    # kazdy warunek, a to jest ten sam blad co przy pozycji 23 (§0b).
+    SRC_KIND = {"learn-whatsnew","learn-release","mc","roadmap","rss","community","repo","portal","vendor"}
+    SRC_STATE = {"current","stale","unread","failed","duplicate"}
+    srcs = (st["soc-brief-state"] or {}).get("sources") or []
+    byk = {x.get("key"): x for x in srcs if isinstance(x, dict) and x.get("key")}
+    disc = {}
+    for i in items:
+        ks = i.get("discoveredBy") or []
+        if isinstance(ks, str): ks = [ks]
+        for k in ks: disc[k] = disc.get(k, 0) + 1
+    K68 = ("SCRIPT 12", "s12prov", "discoveredBy", 'sec.id = "provenance"',
+           "__socOpenSource", "s12file", ".s12add{background:var(--ins-bg)", ".s12rem{background:var(--del-bg)")
+    badkey = sorted(set(disc) - set(byk))
+    badkind = [x.get("key") for x in srcs if x.get("kind") not in SRC_KIND]
+    badstate = [x.get("key") for x in srcs if x.get("state") not in SRC_STATE]
+    need("68a","kazda pozycja mowi, ktore zrodlo ja znalazlo, i klucz istnieje w `sources` (§5ar)",
+         bool(srcs) and not badkey and not badkind and not badstate and all(k in h for k in K68),
+         "brak tablicy sources — nie da sie sprawdzic" if not srcs
+         else "klucze bez wpisu: %s; kind spoza slownika: %s; state spoza slownika: %s; brak w pliku: %s"
+              % (badkey[:4], badkind[:3], badstate[:3], ", ".join(k for k in K68 if k not in h)))
+    over = [k for k, v in byk.items()
+            if isinstance(v.get("read"), int) and v["read"] < disc.get(k, 0)]
+    doc = (st["soc-brief-state"] or {}).get("docText") or {}
+    dpaths = {p_.get("path") for p_ in (doc.get("pages") or []) if isinstance(p_, dict)}
+    noref = [i.get("id") for i in items
+             if i.get("sourceTextChanged") and (i.get("docRef") not in dpaths)]
+    need("68b","zadne zrodlo nie dalo wiecej, niz przeczytalo; kazda zmiana tekstu wskazuje strone",
+         bool(srcs) and not over and not noref,
+         "brak tablicy sources — nie da sie sprawdzic" if not srcs
+         else "read < liczba znalezionych przy %s; sourceTextChanged bez docRef w docText: %s"
+              % (over[:4], noref[:4]))
+    nohunk = [p_.get("path") for p_ in (doc.get("pages") or [])
+              if ((p_.get("added") or 0) + (p_.get("removed") or 0)) > 0 and not (p_.get("hunks") or [])]
+    need("68c","docText przeczytane w TYM przebiegu, z opublikowana regula i zdaniem o opoznieniu",
+         bool(doc) and doc.get("readOn") == bd
+         and doc.get("method") in ("git","snapshot") and doc.get("rule") and doc.get("lag")
+         and not nohunk,
+         "brak klucza docText — nie da sie sprawdzic" if not doc
+         else "readOn %s przy briefDate %s; method=%s; rule=%s; lag=%s; strony ze zmiana bez hunkow: %s"
+              % (doc.get("readOn"), bd, doc.get("method"), bool(doc.get("rule")), bool(doc.get("lag")), nohunk[:3]))
+    # ---- 69: Start here (§5as). Ta sama zasada: obecnosc w pliku tu, wartosci w renderze.
+    K69 = ("SCRIPT 13", 'sec.id = "starthere"', "shrow", "shzero", "#starthere .shrow.shzero",
+           "window.__socS11", "What moved today, where it sits, and one click to each of it",
+           "Act on this first", "What's new, by product", "Reference \u2014 catalogs, versions and sources",
+           'el("button", "shnum"')
+    need("69","Overview jest calym briefem na jednym ekranie, a linia zerowa nie jest linkiem (§5as)",
+         all(k in h for k in K69),
+         "brak: %s" % ", ".join(k for k in K69 if k not in h))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1539,7 +1597,7 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest OSIEM (4-11), a blokow CSS czternascie:**
+Skryptow dodawanych jest DZIESIEC (4-13), a blokow CSS szesnascie:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1551,7 +1609,9 @@ Skryptow dodawanych jest OSIEM (4-11), a blokow CSS czternascie:**
 | SKRYPT 9 — katalogi otwieraja sie na `All` | `CLAUDE.md` | 5ah |
 | SKRYPT 10 — zakladka Community Articles | `CLAUDE.md` | 5an |
 | SKRYPT 11 — kazda kolumna filtrowalna, kazdy slupek kontrolka | `CLAUDE.md` | 5ap |
-| **kazdy dopisany blok CSS** (14 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap |
+| SKRYPT 12 — prowenancja wiersza i diff tekstu zrodla | `CLAUDE.md` | 5ar |
+| SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
+| **kazdy dopisany blok CSS** (16 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
@@ -1592,7 +1652,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 11:
+            if m and 4 <= int(m.group(1)) <= 13:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -1607,13 +1667,13 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 12)] + \
+    need = ["script%d.js" % n for n in range(4, 14)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 14:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 14 — sprawdz wciete plotki" % len(css))
+    if len(css) < 16:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 16 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -1623,7 +1683,7 @@ if __name__ == "__main__":
 
 ### Asercja, bo inaczej to znowu bedzie sugestia (§0b)
 
-**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-10 na gotowej stronie z blokiem w tym pliku,
+**Bramka §0b, pozycja 56, porownuje kazdy skrypt 4-13 na gotowej stronie z blokiem w tym pliku,
 znak w znak.** Uruchamiasz ja z trzecim argumentem: `python3 gate.py <html> <site/> --doc CLAUDE.md`.
 Bez `--doc` pozycja daje `BRAK „nie podano CLAUDE.md"` — **nigdy nie jest pomijana w ciszy**, tak
 samo jak pozycje 45 i 47 bez katalogu `site/`. Pozycja 56 jest **klasy B** (§0): przebieg budujacy
@@ -1631,7 +1691,7 @@ sie na niej zatrzymuje i poprawia, lustro ja raportuje i publikuje, bo lustro ty
 
 Zmierzone 10 wrzesnia 2026 na artefakcie z tego dnia: pozycja 56 wskazuje `SCRIPT 6`, `SCRIPT 7`
 i `SCRIPT 8` jako rozne od tego pliku — czyli dokladnie te trzy, ktore przebieg przeniosl z wczoraj.
-Po podmianie tych trzech blokow i dopisaniu 13 blokow CSS ta sama strona daje **wszystkie pozycje OK**,
+Po podmianie tych trzech blokow i dopisaniu wszystkich blokow CSS ta sama strona daje **wszystkie pozycje OK**,
 a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero bledow strony,
 `scrollWidth === clientWidth` wszedzie, zero elementow szerszych od rodzica.
 
@@ -1639,7 +1699,7 @@ a render 80 kombinacji (10 zakladek x 2 motywy x 1500/1280/760/390) — zero ble
 
 `SHELL CONTRACT` (§6) zostaje i nadal kopiuje sie go dalej — opisuje powloke, ktora wozi. Ale
 **zdanie „skopiuj piec skryptow z wczorajszej strony" dotyczy WYLACZNIE trzech skryptow powloki**;
-skrypty 4-11 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
+skrypty 4-13 i dopisane bloki CSS pochodza z tego pliku. Gdy kontrakt w stronie i ten plik mowia
 co innego — **wygrywa ten plik** (§6), a przebieg poprawia kontrakt w dzisiejszej stronie, zeby
 jutro nie klamal: liczba paneli, liczba skryptow i lista sekcji maja zgadzac sie z dniem dzisiejszym.
 
@@ -1663,7 +1723,7 @@ opublikowanym artefakcie (7 627 330 B):
 | warstwa | co to jest | rozmiar | zrodlo prawdy |
 |---|---|---|---|
 | **L1 POWLOKA** | arkusz `<style>`, TRZY skrypty powloki, masthead, `SHELL CONTRACT` | **230 145 B — 3,0% strony** | `site/shell/shell.html` |
-| **L2 KOD DODANY** | skrypty 4-11 i 14 blokow CSS | 132 246 B (pomiar z 10 wrzesnia, przed §5ap) | **wylacznie `CLAUDE.md`** (§0c) |
+| **L2 KOD DODANY** | skrypty 4-13 i 16 blokow CSS | 132 246 B (pomiar z 10 wrzesnia, przed §5ap, §5ar i §5as) | **wylacznie `CLAUDE.md`** (§0c) |
 | **L3 TRESC I STAN** | oba bloki JSON i markup sekcji | 6 957 456 B — **91%** | `site/data/<data>.json` |
 
 L3 juz jest zapisywane codziennie. L2 juz jest wycinane z tego pliku w kazdym przebiegu. **Brakuje
@@ -1682,7 +1742,7 @@ wylacznie L1 — i to jest cala tresc tej sekcji.**
  "contract":true}
 ```
 
-**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 10`, nie po pozycji
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 13`, nie po pozycji
 `scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
 Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
 zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
@@ -1849,16 +1909,16 @@ przecina sie z prostokatem `.cat-controls`).
 
 | panel | `data-tab` | sekcje, w tej kolejnosci |
 |---|---|---|
-| `tab-overview` | `Overview` | *(pusty — wypelnia skrypt 2)* |
+| `tab-overview` | `Overview` | *(pusty — wypelniaja skrypt 2, SKRYPT 4 sekcja `elapsed` §5z i SKRYPT 13 sekcja `starthere` §5as)* |
 | `tab-today` | `Today` | `top5` (Top N) · `picks` · `delta` |
-| `tab-new` | `New` | `new` |
+| `tab-new` | `New` | `new` · `docchanges` (§5u) · `srcchanges` (§5ar, buduje SKRYPT 12) |
 | `tab-deadlines` | `Deadlines` | `deadlines` |
 | `tab-products` | `Products` | `exec` · `deep` · `auth` |
 | `tab-roles` | `Roles` | `roles` |
 | `tab-graph` | `Graph API` | `graph` |
 | `tab-components` | `Component versions` | `components` |
 | `tab-hunting` | `Hunting & actions` | `kql` · `actions` · `strategic` |
-| `tab-sources` | `Sources` | `sources` |
+| `tab-sources` | `Sources` | `provenance` (§5ar, buduje SKRYPT 12) · `sources` |
 | `tab-community` | `Community Articles` | `community` |
 
 **Paneli jest JEDENASCIE od 10 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym rzad `Reference` ma odtad PIEC zakladek, a `Daily` szesc. Kazda asercja liczaca panele albo zakladki mowi 11, nie 10 i nie 9 — pozycje 3, 26 i 59 listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
@@ -1946,7 +2006,7 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    z suma kolumn i odrzuca strone przy roznicy. Endpointy maja WLASNY kafelek, bo sa endpointami,
    a nie pozycjami (punkt 9) — doliczenie ich zmieszaloby dwie jednostki.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
-   Areas touched`, jeden wiersz na zakladke, **ZAWSZE SZESC wierszy** (§3a).
+   Areas touched`, jeden wiersz na zakladke, **ZAWSZE DZIEWIEC wierszy** (§3a).
 3a. **`What changed, by technology`** — sekcja `id="bytech"`, tabela
    `Technology | Added | Removed | Changed | Where it shows up`. **To jest odpowiedz na pytanie, ktore
    zaczyna sie od nazwy produktu** — MDE, MDI, Sentinel, Purview — a nie od zakladki. Pozycja stanu
@@ -2011,6 +2071,14 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
     odpowiada na pytanie ILE, nie na pytanie CO, i dlatego tu jej nie ma samej.
 11. **Message Center** — sekcja `id="mcenter"` (§5an). Wpisy MC i Roadmapy dodane oraz usuniete po `id`,
     z kolumna technologii i terminem `actionRequiredBy`; **wpis z terminem stoi wyzej**, bo to on wymaga planu.
+11a. **Source text** — sekcja `id="srctext"` (§5ar). Linie, ktore Microsoft dopisal i skasowal
+    W SRODKU sledzonej strony: usuniete w `<del>`, dodane w `<ins>`, jeden wiersz na linie, pogrupowane
+    po stronie. **Strone porownuje sie po commicie, nie po liczbie linii** — te same `+21 / −15` przy
+    innej edycji to nadal roznica. Strona, ktora weszla dzis na liste sledzonych, jest `added`, nie
+    `changed`: bez tego pierwszy dzien oglosilby kazda z 42 stron jako zmieniona, czyli ten sam falszywy
+    alarm co `graphMap` bez punktu odniesienia. **To jedyne miejsce na obu stronach, gdzie widac
+    USUNIECIE prozy** — detekcja zdjeta z listy Microsoftu nie zostawia zadnego innego sladu.
+
 12. **Stopka** — laczna liczba roznic albo zdanie, ze nie ma zadnej.
 13. **KAZDA LICZBA NA TEJ STRONIE JEST KONTROLKA**, plus przyklejony pasek skrotow `nav.dsubnav`
     z licznikiem przy kazdej sekcji.
@@ -2076,10 +2144,12 @@ patrzyl na dziewiec zakladek, wieczorem pyta o te same dziewiec — a nie o jede
 2. **Today i Products nie sa niczyim domem.** Today jest wyborem z tych samych pozycji (§5m),
    a Products drugim widokiem okna — liczenie ich osobno podwoiloby kazda zmiane. Nota sekcji
    mowi to wprost, zeby czytelnik nie szukal ich w tabeli.
-3. **Podsumowanie ma OSIEM wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
+3. **Podsumowanie ma DZIEWIEC wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
    „sprawdzone, nic sie nie ruszylo" i jest wynikiem; brak wiersza znaczy „nie wiadomo".
    6 wrzesnia 2026 doszly `Component versions` (§5ag) oraz `Graph endpoints` (§5ah, jednostka to endpoint,
-   nie pozycja), a **10 wrzesnia `Community articles` i `Message Center` (§5an)**. Komponenty porownuje sie
+   nie pozycja), **10 wrzesnia `Community articles` i `Message Center` (§5an)**, a **11 wrzesnia
+   `Source text` (§5ar, jednostka to STRONA, nie pozycja i nie linia — 52 zmienione linie w trzech
+   plikach to trzy wiersze, dokladnie tak jak endpointy licza sie per uprawnienie)**. Komponenty porownuje sie
    PER PLATFORMA: Authenticator, ktory ruszyl sie na iOS a nie na Androidzie, daje jeden wiersz roznicy,
    nie dwa. **Zrodlo dopisane do listy spolecznosci albo z niej usuniete jest zmiana LISTY, nie artykulu** —
    ma wlasny kafelek i wlasna tabele w sekcji `community`, i nie miesza sie z licznikiem artykulow,
@@ -2230,20 +2300,20 @@ TIER_TAB = {
     "horizon":                "Deadlines",
 }
 TAB_ORDER = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions",
-             "Community articles", "Message Center"]
+             "Community articles", "Message Center", "Source text"]
 # Zakladki, ktore ta strona potrafi zliczyc, i ktore dostaja wiersz ZAWSZE — takze z trzema zerami.
 # Today i Products nie sa niczyim domem: Today jest wyborem (§5m), a Products drugim widokiem tych
 # samych pozycji okna, wiec ich ruch jest juz policzony w New i Deadlines. Liczenie ich osobno
 # podwoiloby kazda zmiane.
 SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions",
-                "Community articles", "Message Center"]
+                "Community articles", "Message Center", "Source text"]
 
 # Ktora SEKCJA tej strony odpowiada na klikniecie liczby w wierszu zakladki. Zakladki
 # pozycji stanu (New, Deadlines) maja swoje wiersze w Added/Removed/Changed i tam trzeba
 # je jeszcze zawezic do zakladki; pozostale maja wlasna sekcje i zawezanie jest zbedne.
 TAB_HOME = {"Graph API": "catalog", "Roles": "catalog", "Graph endpoints": "endpoints",
             "Component versions": "components", "Community articles": "community",
-            "Message Center": "mcenter"}
+            "Message Center": "mcenter", "Source text": "srctext"}
 
 def goto_num(n, kind, tab, sid):
     """Licznik, ktory jest linkiem. Zero NIE jest linkiem — prowadzilby do pustej tabeli
@@ -2388,6 +2458,46 @@ def diff_community(prev_st, curr_st):
     return {"baseline": False, "srcAdd": srcAdd, "srcRem": srcRem, "srcRen": ren, "srcChg": srcChg,
             "artAdd": artAdd, "artRem": artRem, "mcAdd": mcAdd, "mcRem": mcRem, "listNotes": notes,
             "sources": len(cs), "items": len(ca), "mc": len(cm)}
+
+# ---------- tekst zrodla (§5ar) ----------
+
+def diff_doctext(prev_st, curr_st):
+    """Strony, ktorych TEKST sie ruszyl miedzy dwoma stanami.
+
+    Porownanie idzie po `commit` (albo `sha`, gdy strona byla czytana z migawki),
+    nie po liczbie linii: ta sama liczba `+21/-15` moze opisywac zupelnie inna
+    edycje. Strona, ktora weszla dzisiaj na liste sledzonych, jest `added`, a nie
+    `changed` — inaczej pierwszy dzien ogloszllby kazda z 42 stron jako zmieniona,
+    czyli ten sam falszywy alarm co `graphMap` bez punktu odniesienia wyzej."""
+    pp = {x.get("path"): x for x in (((prev_st or {}).get("docText") or {}).get("pages") or []) if x.get("path")}
+    cc = {x.get("path"): x for x in (((curr_st or {}).get("docText") or {}).get("pages") or []) if x.get("path")}
+    def stamp(x): return norm(x.get("commit")) or norm(x.get("sha"))
+    added = [cc[k] for k in cc if k not in pp]
+    removed = [pp[k] for k in pp if k not in cc]
+    changed = [cc[k] for k in cc if k in pp and stamp(cc[k]) != stamp(pp[k])]
+    for lst in (added, removed, changed):
+        lst.sort(key=lambda x: -((x.get("added") or 0) + (x.get("removed") or 0)))
+    return added, removed, changed, len(pp), len(cc)
+
+def doctext_rows(pages, cap_lines=40):
+    """Wiersze `Page | What | Line`. Linia dodana idzie w `<ins>`, usunieta w `<del>` —
+    ten sam znacznik, ktorego uzywa cala reszta tej strony (§4), wiec asercja
+    „kazdy wiersz pokazuje roznice" obowiazuje tu tak samo."""
+    rows, n = [], 0
+    for p_ in pages:
+        first = True
+        for h in (p_.get("hunks") or []):
+            for kind_, lines in (("removed", h.get("rem") or []), ("added", h.get("add") or [])):
+                for ln in lines:
+                    if not str(ln).strip(): continue
+                    if n >= cap_lines: break
+                    cell = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                            % (esc(p_.get("url")), esc(p_.get("name") or p_.get("path")))) if first else \
+                           '<span class="none">&#8942;</span>'
+                    body = ("<ins>%s</ins>" % esc(ln)) if kind_ == "added" else ("<del>%s</del>" % esc(ln))
+                    rows.append(("", [cell, '<span class="field">%s</span>' % kind_, body]))
+                    first = False; n += 1
+    return rows
 
 # ---------- mapa Graph API (§5ah) ----------
 
@@ -3073,6 +3183,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     radd, rrem, rmod, rp, rc = diff_catalog(prev_cat, curr_cat, "roles")
     cadd, crem, cmod, cp, cc_ = diff_components(prev_st, curr_st)
     com = diff_community(prev_st, curr_st)
+    dtadd, dtrem, dtchg, dtp, dtc = diff_doctext(prev_st, curr_st)
 
     added.sort(key=wkey); removed.sort(key=wkey)
     changed.sort(key=lambda t: wkey(t[0]))
@@ -3096,9 +3207,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # 0 changed", a tabela w tym samym dokumencie +71 / -72 / 17 — bo pigulki liczyly
     # WYLACZNIE tablice `items`, pomijajac oba katalogi, komponenty i endpointy.
     # Dwie rozne liczby o tym samym na jednej stronie sa gorsze niz jedna niedokladna.
-    sum_add = len(added) + len(gadd) + len(radd) + len(cadd) + len(com["artAdd"]) + len(com["mcAdd"])
-    sum_rem = len(removed) + len(grem) + len(rrem) + len(crem) + len(com["artRem"]) + len(com["mcRem"])
-    sum_chg = len(changed) + len(gmod) + len(rmod) + len(cmod) + len(com["srcChg"])
+    sum_add = (len(added) + len(gadd) + len(radd) + len(cadd) + len(com["artAdd"])
+               + len(com["mcAdd"]) + len(dtadd))
+    sum_rem = (len(removed) + len(grem) + len(rrem) + len(crem) + len(com["artRem"])
+               + len(com["mcRem"]) + len(dtrem))
+    sum_chg = (len(changed) + len(gmod) + len(rmod) + len(cmod) + len(com["srcChg"])
+               + len(dtchg))
     # Endpointy maja WLASNY kafelek, bo sa endpointami, a nie pozycjami (§3 punkt 9):
     # doliczenie ich do „added" zmieszaloby dwie rozne jednostki.
     dl_rows_n = len(dl_moved) + len([i for i in added if norm(i.get("deadline"))]) \
@@ -3119,6 +3233,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         (str(nc), "items in state &middot; was %d" % np_, "", "bytab"),
         ("%+d / &minus;%d" % (len(com["srcAdd"]), len(com["srcRem"])), "community sources", "info", "community"),
         (str(len(com["artAdd"])), "new community articles", "ok", "community"),
+        (str(len(dtchg)), "source pages edited", "warn", "srctext"),
     ]))
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
                'them, both catalogs and the tracked components included. Endpoints are counted '
@@ -3222,6 +3337,13 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 nm = norm(x.get("sourceName"))
                 if nm and nm not in seen_s: seen_s.append(nm)
             ar = " &middot; ".join(esc(x) for x in seen_s[:8]) or "&mdash;"
+        elif tab == "Source text":
+            na, nr, nc = len(dtadd), len(dtrem), len(dtchg)
+            seen_p = []
+            for x in dtadd + dtrem + dtchg:
+                nm = norm(x.get("product"))
+                if nm and nm not in seen_p: seen_p.append(nm)
+            ar = " &middot; ".join(esc(x) for x in seen_p[:8]) or "&mdash;"
         elif tab == "Message Center":
             na, nr, nc = len(com["mcAdd"]), len(com["mcRem"]), 0
             seen_t = []
@@ -3565,10 +3687,41 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                     '<b>Removed</b> &middot; %d' % len(com["mcRem"])),
             count=len(com["mcAdd"]) + len(com["mcRem"])))
 
+    # --- Source text (§5ar): co Microsoft dopisal i skasowal W SRODKU strony
+    dt_rows = doctext_rows(dtchg + dtadd)
+    dt_more = ""
+    dt_lines = sum(len(h.get("add") or []) + len(h.get("rem") or [])
+                   for x in (dtchg + dtadd) for h in (x.get("hunks") or []))
+    if dt_lines > len(dt_rows):
+        dt_more = ('<p class="more">… and %d more changed lines. Every one of them is on the brief, '
+                   'in the Source text section of the New tab.</p>' % (dt_lines - len(dt_rows)))
+    dt_gone = [("", ['<del>no longer watched</del>',
+                     '<span class="field">%s</span>' % esc(x.get("product") or "—"),
+                     ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                      % (esc(x.get("url")), esc(x.get("name") or x.get("path"))))]) for x in dtrem]
+    out.append(sect("srctext", "Source text &mdash; what Microsoft changed inside the page",
+        ('%d of %d watched pages changed their text between these two states. A page is compared by the '
+         'commit it was read at, not by how many lines moved, so the same &bdquo;+21 / &minus;15&rdquo; on '
+         'a different edit is still a difference. Removed text is struck through and added text is '
+         'highlighted, which makes this the only place on either page where a REMOVAL of prose is visible '
+         '&mdash; a detection dropped from Microsoft&rsquo;s own list leaves no other trace.')
+        % (len(dtchg), dtc),
+        table(["Page", "What", "Line"], dt_rows,
+              "No watched page changed its text between these two states.",
+              "<b>Source text</b> &middot; %d page%s edited%s"
+              % (len(dtchg), "" if len(dtchg) == 1 else "s",
+                 (", %d newly watched" % len(dtadd)) if dtadd else ""))
+        + dt_more
+        + (table(["What", "Product", "Page"], dt_gone, "",
+                 "<b>Source text</b> &middot; %d page%s left the watch list" % (len(dtrem), "" if len(dtrem) == 1 else "s"))
+           if dt_gone else ""),
+        count=len(dtchg) + len(dtadd) + len(dtrem)))
+
     total = (len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod)
              + len(radd) + len(rrem) + len(rmod) + len(cadd) + len(crem) + len(cmod)
              + len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
-             + len(com["mcAdd"]) + len(com["mcRem"]))
+             + len(com["mcAdd"]) + len(com["mcRem"])
+             + len(dtadd) + len(dtrem) + len(dtchg))
     out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
                'computed from the two state blocks, not copied from the brief. '
                '<a href="%s">Back to the full brief</a></footer></div>'
@@ -3590,7 +3743,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
            ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                                       + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
-           ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"]))]
+           ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"])),
+           ("srctext", "Source text", len(dtadd) + len(dtrem) + len(dtchg))]
     # rail and banner live in ONE sticky block: the banner is the page's only global
     # control and it has to stay on screen after a jump (§3 punkt 13)
     subnav = ('<div class="dstick"><nav class="dsubnav" aria-label="Sections">'
@@ -3625,7 +3779,7 @@ def verify(page):
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
     for need in ("bytab","bytech","deadlines","added","removed","changed","components",
-                 "endpoints","catalog","community","mcenter"):
+                 "endpoints","catalog","community","mcenter","srctext"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -3674,8 +3828,8 @@ def verify(page):
             e.append("kafelek endpointow %s nie zgadza sie z wierszem +%d / -%d" % (
                 re.sub(r"<[^>]+>", "", gt), ge[0], ge[1]))
     # §5am: kazda sekcja tabelaryczna jest zwijana i ma pole szukania budowane przez skrypt
-    if page.count('<details class="dsec"') < 11:
-        e.append("sekcji zwijanych = %d, ma byc 11" % page.count('<details class="dsec"'))
+    if page.count('<details class="dsec"') < 12:
+        e.append("sekcji zwijanych = %d, ma byc 12" % page.count('<details class="dsec"'))
     # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
     for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
@@ -3801,6 +3955,17 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
         for n in a: put(tab, "added", n, None, None, None, None, sf(n))
         for n in r: put(tab, "removed", n, None, None, None, None, sf(n))
         for n, f, o, v in m: put(tab, "changed", n, f, o, v, None, sf(n))
+    # §5ar: edycja tekstu strony jest zmiana jak kazda inna i wchodzi do rejestru
+    # PER STRONA, a nie per linia — 52 linie dodane w trzech plikach dawaly 52 wiersze
+    # i rejestr przestawal byc czytelny, dokladnie tak jak przy endpointach wyzej.
+    dta, dtr, dtc_, _, _ = diff_doctext(prev_st, curr_st)
+    for x in dta:
+        put("Source text", "added", x.get("path"), "watched", None, "added to the watch list")
+    for x in dtr:
+        put("Source text", "removed", x.get("path"), "watched", "on the watch list", None)
+    for x in dtc_:
+        put("Source text", "changed", x.get("path"), "text",
+            None, "+%d / \u2212%d" % (x.get("added") or 0, x.get("removed") or 0))
     # Ruch endpointow dopisujemy PER UPRAWNIENIE. Jeden wpis na endpoint dawal
     # 9 736 wierszy pierwszego dnia z mapa (zmierzone 7 wrzesnia 2026) i rejestr
     # przestawal byc czytelny; liczba plus trzy przyklady odpowiadaja na to samo
@@ -4471,6 +4636,23 @@ zawezil, a `Clear filter` go gasi i przywraca liczby**; **przycisk `Reset` powlo
 strone SKRYPTU 11** (zmierzone: `103 of 103` po nacisnieciu). Na stronie `/diff/`: **kazda tabela ma
 `select.s11col`**, a zawezenie do kolumny plus szukanie daje `3 of 8`, `Reset` przywraca `8 of 8`;
 zero bledow strony i `scrollWidth === clientWidth` przy 1400 i 390.
+
+Nowe od 11 wrzesnia 2026 w nocy (§5ar, §5as), i kazda odpowiada jednemu pytaniu z tego dnia:
+**kazda tabela pozycji w New, Deadlines, Products i Today ma kolumne `Found in`**, a komorka wiersza
+niesie albo chip `.s12src` z nazwa zrodla, albo `.s12none` z tekstem `not recorded` — nigdy pusta;
+**zaden chip nie ma klasy `.s12bad`** (klucz spoza `sources`); **klikniecie chipa otwiera zakladke
+Sources i podswietla wiersz** (`tr.s12flash` = 1); **klikniecie liczby „on the page" w tabeli
+`#provenance` przelacza na New, zmienia licznik `N of M` i zapala banner zakladki**, a `Clear filter`
+przywraca pelna liczbe; **`#srcchanges` ma co najmniej jeden `.s12file`, a `.s12add` i `.s12rem`
+maja nieprzezroczyste, ROZNE tla w obu motywach**; **`#provenance` ma wlasne zielone pole szukania**;
+**`#starthere` ma piec `.shrow` w `Act on this first`, tabele `What's new, by product` z jednym
+wierszem na monitorowana technologie i piecwierszowa tabele `Reference`; kazda liczba zero jest
+`span.shz` albo `div.shzero`, nigdy przyciskiem**; **klikniecie liczby zawezasa zakladke docelowa
+i zapala jej banner**, a banner mowi, ile tabel zakladki nie trzyma zadnego z nazwanych wierszy
+(regresja z 11 wrzesnia: `Pick of the day` szlo na `0 of 10` bez slowa wyjasnienia); **w calej
+sekcji jest DOKLADNIE jeden `.s9find`** — tabela referencyjna ma piec wierszy, wiec progu osmiu
+z §5ap nie osiaga, a druga tabela nie przejmuje paska pierwszej. Przy 390x844 `#starthere .shgo`
+ma `display:none`, a dokument nadal nie rozpycha sie w poziomie.
 
 Nowe od 11 wrzesnia 2026 (§5ao), obie powierzchnie: **po kliknieciu tagu w bloku `Technologies`,
 przewinietym tak, ze blok jest na dole ekranu, `#filterbanner` ma `getBoundingClientRect().top`
@@ -11189,29 +11371,31 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
   /* ---------------- tables ---------------- */
   var TABLES = [];   /* {table, rows, heads, bar, count, banner, q, colSel, sels} */
 
+  /* The toolbar that belongs to THIS table is the run of toolbars and banners
+     immediately above it. The walk STOPS at the first element that is neither,
+     and that stop is the whole point: without it a second table further down the
+     same section reaches back over a heading and the first table's own wrapper,
+     finds that table's bar and adds its facets and its `N of M` there. Measured
+     11 September 2026 on the Overview block of §5as — two tables, one heading and
+     one paragraph between them, and the second table's counter rendered inside
+     the first table's toolbar. */
+  function nearBar(table, want) {
+    var wrap = table.closest(".tw") || table.parentNode;
+    var host = wrap && wrap.parentNode;
+    if (!host) return null;
+    var kids = [].slice.call(host.children);
+    for (var n = kids.indexOf(wrap) - 1; n >= 0; n--) {
+      var c = kids[n].classList;
+      if (!c) return null;
+      if (c.contains(want)) return kids[n];
+      if (!c.contains("tbar") && !c.contains("s9find") && !c.contains("filterbanner")) return null;
+    }
+    return null;
+  }
   function existingBar(table) {
-    var wrap = table.closest(".tw") || table.parentNode;
-    var host = wrap && wrap.parentNode;
-    if (!host) return null;
-    var kids = [].slice.call(host.children);
-    var i = kids.indexOf(wrap);
-    for (var n = i - 1; n >= 0 && n >= i - 4; n--) {
-      if (kids[n].classList.contains("tbar")) return kids[n];
-      if (kids[n].classList.contains("s9find")) return kids[n];
-    }
-    return null;
+    return nearBar(table, "tbar") || nearBar(table, "s9find");
   }
-  function existingBanner(table) {
-    var wrap = table.closest(".tw") || table.parentNode;
-    var host = wrap && wrap.parentNode;
-    if (!host) return null;
-    var kids = [].slice.call(host.children);
-    var i = kids.indexOf(wrap);
-    for (var n = i - 1; n >= 0 && n >= i - 4; n--) {
-      if (kids[n].classList.contains("filterbanner")) return kids[n];
-    }
-    return null;
-  }
+  function existingBanner(table) { return nearBar(table, "filterbanner"); }
 
   /* Which columns group, and which do not. A column whose every value is unique
      CANNOT be grouped — a 479-entry dropdown for "Article" is not a filter, it is
@@ -11410,6 +11594,7 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
     });
     var cn = rec.bar.querySelector(".s9count") || rec.bar.querySelector(".rowcount");
     if (cn) cn.textContent = shown + " of " + rec.rows.length;
+    rec.__shown = shown;
 
     if (rec.group) {
       /* a month with nothing left in it hides whole, caption and all */
@@ -11899,14 +12084,21 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
         b.hidden = !spec;
         if (spec) {
           var msg = b.querySelector(".fb-msg");
-          var narrowed = 0, whole = 0;
+          var narrowed = 0, whole = 0, empty = 0;
           TABLES.forEach(function (rec) {
             if (panelOf(rec.table) !== panel) return;
-            if (rec.hasIds) narrowed++; else whole++;
+            if (rec.hasIds) { narrowed++; if (rec.__shown === 0) empty++; } else whole++;
           });
+          /* A control that sends the reader to a tab and lands him on "0 of 10" reads
+             as a defect unless the page says the rows it named live in another table
+             of the same tab. Reported 11 September 2026 on the Start here row for
+             tier 0: the named items sit in the Top-N table and Pick of the day, which
+             holds none of them, went to zero with nothing saying why. */
           msg.textContent = spec.label + " — every table on this tab that carries item ids is narrowed to it (" +
             narrowed + (narrowed === 1 ? " table" : " tables") +
             (whole ? ("; " + whole + " that carry none are left whole, because filtering them by id would empty them") : "") +
+            (empty ? ("; " + empty + " of them hold none of these rows, so " + (empty === 1 ? "it is" : "they are") +
+                      " empty rather than broken") : "") +
             "). Clear filter puts the tab back.";
         }
       }
@@ -12027,6 +12219,1069 @@ tez nazywa sie po ludzku: `items published in the last 14 days`, nie `items in w
   i link na koncu). Piec takich punktow to wyliczenie, a wyliczenie jest tabela. Bramka liczy to
   `html.parser`, nie wyrazeniem regularnym — komentarz `SHELL CONTRACT` cytuje markup i przerywa sie
   wczesnym `-->` (§0a).
+
+## 5ar. KAZDY WIERSZ MOWI, KTORE ZRODLO GO ZNALAZLO — i widac, co sie w tym zrodle zmienilo
+
+Wlasciciel zglosil 11 wrzesnia 2026 trzy rzeczy naraz, patrzac na wpisy MDI, ktore Microsoft wydal
+tego tygodnia: *„w zakladce new owszem widze, ze piszesz cos o tym, o czym wspominam, ale tam z kolei
+nie ma napisanego zrodla, z ktorego to pochodzi"*, *„nie wiem tez, co robi zakladka sources — czemu
+ona pisze, ze tam mamy juz cos »in brief«"* oraz *„gdzie np. pokazujesz, co zostalo zmienione w danym
+zrodle? w przypadku ms zostalo tam dopisane kilka informacji, ale nie pokazujesz na czerwono albo
+zielono — sposob github, co zostalo dodane, usuniete"*. **Wszystkie trzy maja jedna przyczyne i jest
+nia brak pola, nie brak starannosci.**
+
+### Zmierzone 11 wrzesnia 2026 na opublikowanym artefakcie
+
+| co | wynik |
+|---|---|
+| wpisy z `defender-for-identity/whats-new` w oknie | **4 z 4** trafily do stanu (3 wrzesniowe, 1 sierpniowy) |
+| wersja sensora `2.255.19295.47272` | jest, w `components`, ze zrodlem `whats-new#july-2026` |
+| pozycje MDI w zakladkach | New i Products po 4; Today 1 (Pick of the day); **kart Top N zero** |
+| **pole nazywajace zrodlo, ktore znalazlo pozycje** | **nie istnieje** — klucze stanu to `briefDate, community, componentRules, componentStats, components, dropped, graphMap, items, ledger14, window` |
+| tablica `sources` w bloku stanu | **brak** — zakladka Sources jest pisana recznie jako HTML |
+| wiersz Sources dla MDI | `4 read · 0 carried · 4 dropped` z powodem „są already in the brief" |
+| **linie tekstu zmienione na stronach, na ktore te wpisy wskazuja** | **52 dodane, 32 usuniete — zero na stronie** |
+
+Ostatni wiersz jest regula, nie wyjatkiem MDI. **Lapiemy wpisy LIST — what's new, Message Center,
+RSS, feedy spolecznosci. Nie lapiemy EDYCJI TEKSTU stron docelowych**, a §7 wymienia 42 adresy
+`learn.microsoft.com`. Zmierzone w tym jednym komicie `2f51dff197` z 4 wrzesnia:
+`whats-new.md +24/−4`, `activate-sensor.md +31/−23`, `deploy-sensor-v3.md +21/−15`. W srodku siedza
+trzy fakty, ktorych brief nie ma i nie mialby jak dostac:
+
+- **dopisane**: *„If you deploy the Defender for Identity sensor v3.x only on AD FS, AD CS, or
+  Microsoft Entra Connect servers, you must also install at least one v3.x sensor on a domain
+  controller."* — twardy wymog wdrozeniowy;
+- **dopisane**: automatyczna aktywacja dotyczy wylacznie serwerow onboardowanych do Defender for
+  Endpoint i **nie** dotyczy nowej sciezki bez MDE ani migracji z v2.x — nasz wiersz mowi, ze wymog
+  MDE zniknal, i nie mowi, ze automat za tym nie poszedl;
+- **usuniete**: `- [Stolen session cookie replay detected]` — alert zniknal z listy Microsoftu.
+  **Zaden inny widok w portalu nie pokazuje usuniecia prozy.** Tabele pozycji pokazuja to, co istnieje
+  dzisiaj; detekcja, ktora po cichu wypada z cudzej listy, nie zostawia zadnego sladu.
+
+### Regula pierwsza — `discoveredBy` na kazdej pozycji, i NIGDY wyprowadzane z adresu
+
+Pozycja niesie `url`, ale to jest **cel** wiersza, nie **zrodlo, ktore go znalazlo**. Wyprowadzanie
+zrodla z hosta adresu jest bledne dokladnie tam, gdzie to wazne: pozycja znaleziona w Message Center
+linkuje do Learn, a artykul spolecznosci bywa cross-postem na cudzej domenie (§5an, 9 z 187 pozycji).
+**Przebieg zapisuje zrodlo w chwili zbierania**, jako tablice kluczy — pozycja moze byc znaleziona
+w dwoch feedach i wtedy ma dwa:
+
+```json
+"discoveredBy": ["mdi-whatsnew"]
+```
+
+### Regula druga — `sources` w bloku stanu, a zakladke Sources BUDUJE skrypt
+
+**Nie dokladasz trzeciego bloku `<script type="application/json">`** — bramka lustra (§0a) zada
+DOKLADNIE dwoch. `sources` jest kluczem w istniejacym bloku stanu, tak samo jak `graphMap` (§5ah),
+`ledger14` (§5al) i `community` (§5an).
+
+```json
+"sources":[{
+  "key":"mdi-whatsnew",
+  "name":"MDI what's new",
+  "url":"https://learn.microsoft.com/en-us/defender-for-identity/whats-new",
+  "kind":"learn-whatsnew",
+  "product":"MDI",
+  "state":"current",
+  "readOn":"2026-09-11",
+  "read":4,
+  "note":"",
+  "notCarriedNote":"Entries outside the window, or already carried with no change since.",
+  "docRef":"defender-for-identity/whats-new.md"
+}]
+```
+
+`kind` jest slownikiem ZAMKNIETYM: `learn-whatsnew` · `learn-release` · `mc` · `roadmap` · `rss` ·
+`community` · `repo` · `portal` · `vendor`. `state` tak samo: `current` · `stale` · `unread` ·
+`failed` · `duplicate` — te same piec stanow co §5an, zeby jedna nazwa znaczyla wszedzie to samo.
+
+**Kolumny `carried` i `dropped` znikaja i to jest cala naprawa drugiego zgloszenia.** Wiersz
+z 11 wrzesnia mowil `4 read · 0 carried · 4 dropped`, bo przebieg policzyl „carried" jako „nowe
+w stanie DZISIAJ", a te cztery pozycje weszly wczoraj (`firstTracked: 2026-09-10`). `dropped` znaczy
+**„przeczytane i nieopublikowane"**, a one sa opublikowane — kolumna mieszala dwa rozne fakty
+i wychodzilo z tego zdanie zaprzeczajace stronie, na ktorej stalo. Kolumny sa odtad trzy:
+
+| kolumna | skad |
+|---|---|
+| **Read** | pole `read` — tylko przebieg wie, ile wpisow przeczytal |
+| **On the page** | **LICZONE** przy renderowaniu z `items[].discoveredBy` — nigdy wpisywane |
+| **Not carried** | `read − on the page`, **liczone**, z powodem w `notCarriedNote` |
+
+**Liczby „on the page" nie ma w stanie i to jest swiadome.** Liczba, ktora przebieg wpisuje, moze sie
+rozejsc z wierszami pod nia; liczba wyliczona z tych wierszy nie moze. Bramka sprawdza tylko to, co
+sensowne: `read >= on the page`. Wartosc mniejsza znaczy, ze zrodlo dalo wiecej pozycji, niz
+przeczytalo — jest niemozliwa i zatrzymuje przebieg.
+
+**Zakladke buduje SKRYPT 12, nie przebieg.** Dwie kopie tej samej tabeli — jedna pisana recznie,
+druga liczona — rozjezdzaja sie (§0a), a wlasnie tak powstalo `0 carried`.
+
+### Regula trzecia — `docText`: co Microsoft zmienil W SRODKU strony
+
+```json
+"docText":{
+  "readOn":"2026-09-11", "method":"git",
+  "repos":[{"repo":"MicrosoftDocs/defender-docs","commit":"2f51dff197","date":"2026-09-04"}],
+  "rule":"<regula promocji, ta sama co w kodzie>",
+  "lag":"<zdanie o opoznieniu lustra, z data>",
+  "pages":[{
+    "path":"defender-for-identity/deploy/deploy-sensor-v3.md",
+    "name":"MDI — Sensor v3.x prerequisites",
+    "url":"https://learn.microsoft.com/en-us/defender-for-identity/deploy/deploy-sensor-v3",
+    "product":"MDI", "commit":"2f51dff197", "date":"2026-09-04",
+    "added":21, "removed":15, "metaAdded":2, "metaRemoved":2,
+    "hunks":[{"at":44,"add":["…"],"rem":["…"]}],
+    "itemIds":["mdi-sensor-v3-identity-servers"],
+    "socNote":"…"
+  }]
+}
+```
+
+**Zmiany czysto metadanowe sa ODDZIELONE, nigdy wyciete.** `ms.date`, `ms.custom`, `title`,
+`description`, `ai-usage` licza sie w `metaAdded`/`metaRemoved` i strona mowi zdaniem, ile ich bylo.
+Podbicie daty jest prawdziwa edycja — po prostu nie taka, na ktora SOC reaguje; ciche wyrzucenie jej
+byloby tym samym milczeniem, ktore §5u zabrania przy podlodze pokrycia.
+
+**Skad sie bierze tekst, w tej kolejnosci:**
+
+1. **Git** — pieć repozytoriow, ktore i tak klonujemy (§5ai, sparse blobless): `MicrosoftDocs/defender-docs`,
+   `MicrosoftDocs/entra-docs`, `MicrosoftDocs/memdocs`, `microsoftgraph/microsoft-graph-docs-contrib`,
+   `microsoftgraph/microsoft-graph-devx-content`. `git log -S`/`git show --numstat -w` daje linie co do bajtu.
+2. **Migawka** — dla stron spoza tych repozytoriow i dla 55 zrodel spolecznosci: `site/docs/<sha1 adresu>.md`
+   plus `index.json`, zapisywane TYLKO przy zmianie sha256, dokladnie tym samym wzorcem co migawka
+   powloki w §0d. Pole `method` mowi, ktora droga poszla dana strona.
+
+**I jedna pulapka, zmierzona tego samego dnia: publiczne lustro spoznia sie za zywa strona.**
+`MicrosoftDocs/defender-docs` mial 11 wrzesnia HEAD z **8 wrzesnia** i **nie mial** sekcji
+„September 2026", ktora zywa strona Learn juz miala. **Git daje diff co do bajtu, ale bywa
+o dni z tylu** — dlatego migawka nie jest awaryjna, tylko rownorzedna: strona, ktorej repozytorium
+jeszcze nie dogonilo, jest porownywana z wczorajsza migawka, a `method` to mowi. Pole `lag` na
+stronie mowi to czytelnikowi jednym zdaniem. **Nigdy nie dopisujesz linii, ktorej nie przeczytales
+w jednym z tych dwoch zrodel** — to ta sama regula co „nie przepisuj GUID-a z ekranu trackera" (§5d).
+
+### Regula czwarta — edycja tekstu MOZE dostac wlasna pozycje, wiec konkuruje o karte
+
+To jest naprawa najwazniejsza i czysto mechaniczna. Regula wyboru Top N (§8 A) patrzy na pozycje
+**nowe albo zmienione**; edycja tekstu strony docelowej nie jest ani jednym, ani drugim, wiec
+**nie moze wygrac karty przy zadnej wadze** — i dlatego wymog „musisz miec sensor v3.x na kontrolerze
+domeny" nie mial szansy trafic do Today. Strona, ktorej diff niesie tresc istotna dla SOC, dostaje
+wiec **pozycje stanu** jak kazda inna:
+
+```json
+{"kind":"Source text changed", "sourceTextChanged":true,
+ "docRef":"defender-for-identity/deploy/deploy-sensor-v3.md",
+ "socWeight":2, "tier0Touch":true, "url":"…", "reference":"no MC/RM post — Learn only"}
+```
+
+`Source text changed` dochodzi do ZAMKNIETEGO slownika `kind` z §5g. Dzieki temu taka zmiana ma
+wiersz w New, wpada do rejestru 14 dni (§5aj), do `/diff/` (§3) i do wazenia §5p — bez ani jednego
+wyjatku w kodzie, bo jest zwykla pozycja.
+
+**Regula promocji jest OPUBLIKOWANA na stronie, znak w znak z kodem** — ta sama dyscyplina co wybor
+punktow wydania (§5ag) i derywacja rol (§5ah):
+
+```python
+PROMOTE = [
+ ("requirement",  r"\bmust\b|\brequired\b|\bisn't supported\b|\baren't supported\b|\bnot supported\b|\bonly\b|\bcan't\b|\bcannot\b"),
+ ("removed entry", r"^\s*[-*]\s*\["),          # a named entry taken off a list
+ ("limit",        r"\b\d+\s*(%|GB|MB|days?|hours?|minutes?)\b|\bat least\b|\bup to\b"),
+ ("security object", r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg"),
+]
+def promote(add, rem):
+    """Zwraca liste nazw kryteriow, ktore zlapaly TE zmiane. Pusta lista = wiersz
+    w docText i nic wiecej. Kryterium jest nazwane przy pozycji, zeby czytelnik
+    mogl zakwestionowac wybor bez czytania kodu."""
+    hit = []
+    for name, pat in PROMOTE:
+        for ln in list(add) + list(rem):
+            if re.search(pat, ln, re.I | re.M):
+                hit.append(name); break
+    return hit
+```
+
+**Odsetek wypromowanych stron poza pasmem 20-70% znaczy, ze regula przestala wybierac** — pierwsza
+nie opisuje niczego, druga zasypuje New. Poprawiasz wzorce i zapisujesz nowy pomiar, tak samo jak
+przy pasmie 30-70% w §5ag.
+
+### Czego ta sekcja NIE robi
+
+- **Nie dokłada zakladki.** Provenance jest sekcja w Sources, `srcchanges` sekcja w New.
+- **Nie zgaduje zrodla z adresu.** Pozycja bez `discoveredBy` drukuje `not recorded` kursywa —
+  pustka jest znaleziskiem, nie luka do zaklejenia.
+- **Nie renderuje diffu jako tabeli.** Blok strony jest karta, bo linie sa tekstem; tabela
+  zapraszalaby pole szukania na kazda strone tam, gdzie czytelnik chce jednego na sekcje (§5am).
+
+### Zmierzone po dolozeniu (wstrzykniecie do kopii opublikowanej strony, §5al)
+
+Render headless, oba motywy, 1500x1000 i 390x844: **zero bledow strony**,
+`scrollWidth === clientWidth` wszedzie, 11 zakladek i 11 paneli bez zmian. Kolumna `Found in` weszla
+do **dwoch** tabel `#new` (miesiecznych) i pominela tabele rejestru 14 dni oraz `docchanges`, bo ich
+wiersze nie niosa `data-id` — 331 komorek provenance, 278 chipow, 53 `not recorded`, zero chipow
+o nieznanym kluczu. Tabela provenance: 13 zrodel, wlasne zielone pole szukania. `srcchanges`:
+3 strony, **52 linie zielone i 32 czerwone**, `rulebox` obecny. Klikniecie liczby „on the page" przy
+`MDI what's new` przelacza na New i daje **`4 of 111`** z bannerem nazywajacym filtr; `Clear filter`
+wraca do `111 of 111`. Klikniecie chipa w wierszu otwiera Sources i podswietla wiersz zrodla.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an i §5ap sa to
+JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SZESNASCIE** (§0c).
+
+```css
+/* §5ar — where each row came from, and what changed inside the source. Every
+   selector starts from a class only SCRIPT 12 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares
+   (§5t): `--surface-2`, `--ins-bg`, `--del-bg`, never an invented name. */
+td.s12prov{white-space:normal;overflow-wrap:anywhere}
+.s12src{font:inherit;font-family:var(--sans);font-size:11.5px;font-weight:600;line-height:1.5;
+ padding:1px 9px;border-radius:999px;border:1px solid var(--info);background:var(--info-soft);
+ color:var(--info);cursor:pointer;white-space:nowrap}
+.s12src:hover{background:var(--info);color:var(--on-accent)}
+.s12src:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+.s12src.s12bad{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+a.s12ext{text-decoration:none;font-weight:700;font-size:11px;color:var(--muted);padding:0 3px}
+a.s12ext:hover{color:var(--info)}
+.s12none{color:var(--muted);font-style:italic;font-size:12.5px}
+tr.s12flash>td{background:var(--accent-soft)!important;box-shadow:inset 3px 0 0 var(--accent)}
+/* the line-by-line view. A page block is a card, not a table: the added and
+   removed lines are text, and a table would invite a search box per page where
+   one search over the section is what a reader wants (§5am). */
+.s12file{border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ margin:0 0 12px;overflow:hidden}
+.s12fhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface-2);border-bottom:1px solid var(--border)}
+.s12fhead .s12name{flex:1 1 260px;min-width:0;font-size:13.5px;font-weight:700}
+.s12fhead .s12path{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400}
+.s12cnt{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap;flex:0 0 auto}
+.s12cnt .p{color:var(--ins-fg);background:var(--ins-bg);border-radius:5px;padding:1px 6px}
+.s12cnt .m{color:var(--del-fg);background:var(--del-bg);border-radius:5px;padding:1px 6px;margin-left:4px}
+.s12hunk{border-top:1px solid var(--border)}
+.s12at{font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px 13px 2px}
+.s12line{display:flex;gap:8px;padding:3px 13px;font-family:var(--mono);font-size:12.5px;
+ line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.s12line .s12sign{flex:0 0 14px;font-weight:700;text-align:center}
+.s12add{background:var(--ins-bg);color:var(--ins-fg)}
+.s12rem{background:var(--del-bg);color:var(--del-fg)}
+.s12meta{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface-2);
+ border-top:1px solid var(--border)}
+.s12why{padding:9px 13px;font-size:13px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border)}
+.s12why b{color:var(--warn)}
+.s12why code{font-family:var(--mono);font-size:12px}
+p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:4px solid var(--grey);
+ border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 12px}
+@media (max-width:760px){.s12line{font-size:11.5px}.s12fhead{gap:6px}}
+
+```
+
+### SKRYPT 12 — na koniec `<body>`, jako DWUNASTY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 12 — WHERE EACH ROW CAME FROM, AND WHAT CHANGED INSIDE THE SOURCE
+   (CLAUDE.md 5ar). ADDED, never a replacement: shell scripts 1-3 and added
+   scripts 4-11 are untouched, byte for byte.
+
+   Three findings from 11 September 2026, and one cause each:
+   1. "w zakladce new nie ma napisanego zrodla z ktorego to pochodzi" — an item
+      carries `url`, which is where the row POINTS, and nothing that says which
+      feed FOUND it. Deriving the feed from the destination host would be wrong
+      exactly when it matters: an item found in Message Center that links to
+      Learn. So the run records `discoveredBy`, and this script renders it.
+   2. "nie wiem co robi zakladka sources - czemu ona pisze ze tam mamy juz cos
+      in brief" — the Sources table was hand-authored and counted `carried` as
+      `new to state THIS run`, so four items that are on the page were reported
+      as "0 carried, 4 dropped, already in the brief". This script BUILDS that
+      table from the state instead, and counts "on the page" by walking
+      items[].discoveredBy, so the number cannot be typed and cannot disagree
+      with the page it stands on.
+   3. "gdzie np pokazujesz co zostalo zmienione w danym zrodle? ... nie pokazujesz
+      na czerwono albo zielono - sposob github" — nowhere. This script renders
+      `docText` line by line, added in green and removed in red. It is the only
+      view in the portal that shows a REMOVAL of prose: a detection dropped from
+      Microsoft's own list leaves no other trace.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function sbox(t, o) { return window.__socSearchBox ? window.__socSearchBox(t, o) : null; }
+  function state() {
+    var s = document.getElementById("soc-brief-state");
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = state() || {};
+  var SRC = ST.sources || [];
+  var DOC = ST.docText || null;
+  var ITEMS = ST.items || [];
+
+  var BYKEY = {};
+  SRC.forEach(function (s) { if (s && s.key) BYKEY[s.key] = s; });
+
+  /* "on the page" is COUNTED here, never read from a field: a number the run
+     types is a number that can disagree with the rows underneath it. */
+  var FOUND = {}, ITEMSRC = {};
+  ITEMS.forEach(function (i) {
+    var ks = i.discoveredBy || [];
+    if (typeof ks === "string") ks = [ks];
+    if (i.id) ITEMSRC[i.id] = ks;
+    ks.forEach(function (k) { (FOUND[k] = FOUND[k] || []).push(i.id); });
+  });
+
+  /* ---------- open the Sources tab on one row ---------- */
+  window.__socOpenSource = function (key) {
+    var tab = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (t) {
+      if (!tab && t.getAttribute("aria-controls") === "tab-sources") tab = t;
+    });
+    if (tab) tab.click();
+    setTimeout(function () {
+      var tr = document.querySelector('#provenance tr[data-src="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+      if (!tr) return;
+      var d = tr.closest("details");
+      if (d) d.open = true;
+      tr.scrollIntoView({ block: "center" });
+      tr.classList.add("s12flash");
+      setTimeout(function () { tr.classList.remove("s12flash"); }, 2200);
+    }, 160);
+  };
+
+  /* ---------- 1. the `Found in` column ---------- */
+  var COLTABS = ["tab-new", "tab-deadlines", "tab-products", "tab-today"];
+  function provCell(id) {
+    var td = el("td", "s12prov");
+    var ks = ITEMSRC[id] || [];
+    if (!ks.length) {
+      /* Silence here would read as "found nowhere", which is never true. An item
+         with no provenance is a gap in the RUN, and the page says so. */
+      td.appendChild(el("span", "s12none", "not recorded"));
+      return td;
+    }
+    ks.forEach(function (k, n) {
+      var s = BYKEY[k];
+      if (n) td.appendChild(document.createTextNode(" "));
+      var b = el("button", "s12src", s ? s.name : k);
+      b.type = "button";
+      b.title = s ? ("Found in " + s.name + " — open it in the Sources tab") : ("Unknown source key " + k);
+      if (!s) b.classList.add("s12bad");
+      b.addEventListener("click", function () { window.__socOpenSource(k); });
+      td.appendChild(b);
+      if (s && s.url) {
+        var a = el("a", "s12ext", "↗");
+        a.href = s.url; a.target = "_blank"; a.rel = "noopener";
+        a.title = "Open " + s.name;
+        td.appendChild(a);
+      }
+    });
+    return td;
+  }
+  function foundColumn() {
+    COLTABS.forEach(function (pid) {
+      var panel = document.getElementById(pid);
+      if (!panel) return;
+      [].forEach.call(panel.querySelectorAll("table"), function (t) {
+        if (t.dataset.s12 === "1" || !t.tHead || !t.tBodies.length) return;
+        var rows = [].slice.call(t.tBodies[0].rows).filter(function (r) { return r.hasAttribute("data-id"); });
+        if (!rows.length) return;                 /* not an item table */
+        t.dataset.s12 = "1";
+        var hr = t.tHead.rows[0];
+        hr.insertBefore(el("th", null, "Found in"), hr.cells[1] || null);
+        [].forEach.call(t.tBodies[0].rows, function (r) {
+          if (r.classList.contains("grp") || r.classList.contains("hdet")) {
+            var c = r.cells[0];
+            if (c && c.hasAttribute("colspan")) c.setAttribute("colspan", String(+c.getAttribute("colspan") + 1));
+            return;
+          }
+          r.insertBefore(provCell(r.getAttribute("data-id")), r.cells[1] || null);
+        });
+      });
+    });
+  }
+
+  /* ---------- 2. what each source gave, built from the state ---------- */
+  function provenance() {
+    var panel = document.getElementById("tab-sources");
+    if (!panel || document.getElementById("provenance")) return;
+    if (!SRC.length) return;
+    var sec = el("section"); sec.id = "provenance";
+    sec.setAttribute("data-nav", "What each source gave");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "Provenance"));
+    head.appendChild(el("p", "sec-title", "What each source gave, counted from the rows it produced"));
+    sec.appendChild(head);
+    var body = el("div", "sec-body");
+
+    var onPage = 0, named = 0;
+    SRC.forEach(function (s) { var n = (FOUND[s.key] || []).length; onPage += n; if (n) named++; });
+    var note = el("p", "sec-note");
+    note.textContent =
+      SRC.length + " sources were read this run. “On the page” is counted by walking every item's " +
+      "provenance, never typed: " + onPage + " item placements across " + named + " sources. " +
+      "“Not carried” is what the source offered and this brief did not publish — it is a number with a " +
+      "reason, not a synonym for “already known”. An entry this brief carried on an earlier run is still " +
+      "on the page, so it counts as on the page.";
+    body.appendChild(note);
+
+    var tw = el("div", "tw"), t = el("table");
+    var th = el("thead"), hr = el("tr");
+    ["Source", "Kind", "State", "Read", "On the page", "Not carried", "Why not", "Source"]
+      .forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); t.appendChild(th);
+    var tb = el("tbody");
+    SRC.slice().sort(function (a, b) {
+      return ((FOUND[b.key] || []).length - (FOUND[a.key] || []).length) ||
+             String(a.name || "").localeCompare(String(b.name || ""));
+    }).forEach(function (s) {
+      var ids = FOUND[s.key] || [], n = ids.length;
+      var read = (typeof s.read === "number") ? s.read : null;
+      var notCarried = (read === null) ? null : Math.max(0, read - n);
+      var tr = el("tr");
+      tr.setAttribute("data-src", s.key);
+      var c0 = el("td");
+      c0.appendChild(el("b", null, s.name || s.key));
+      if (s.product) { c0.appendChild(document.createElement("br")); c0.appendChild(el("span", "sub", s.product)); }
+      tr.appendChild(c0);
+      tr.appendChild(el("td", null, s.kind || "—"));
+      var c2 = el("td");
+      var cls = { current: "t-ok", stale: "t-warn", unread: "t-grey", failed: "t-bad", duplicate: "t-grey" }[s.state] || "t-grey";
+      c2.appendChild(el("span", "badge " + cls, s.state || "not stated"));
+      tr.appendChild(c2);
+      tr.appendChild(el("td", null, read === null ? "—" : String(read)));
+      var c4 = el("td");
+      if (n) {
+        var b = el("button", "s12src", String(n));
+        b.type = "button";
+        b.title = "Show only the rows this source found";
+        b.addEventListener("click", function () { showFrom(s.key); });
+        c4.appendChild(b);
+      } else c4.appendChild(el("span", "s12none", "0"));
+      tr.appendChild(c4);
+      tr.appendChild(el("td", null, notCarried === null ? "—" : String(notCarried)));
+      tr.appendChild(el("td", null, (notCarried ? (s.notCarriedNote || s.note || "") : (s.note || "")) || "—"));
+      var c7 = el("td");
+      if (s.url) { var a = el("a", "lnk", "Source"); a.href = s.url; a.target = "_blank"; a.rel = "noopener"; c7.appendChild(a); }
+      tr.appendChild(c7);
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); tw.appendChild(t);
+    var sb = sbox(t, { noun: "sources", placeholder: "Search " + SRC.length + " sources…" });
+    if (sb) body.appendChild(sb);
+    body.appendChild(tw);
+    sec.appendChild(body);
+    var first = panel.querySelector("section");
+    if (first) first.parentNode.insertBefore(sec, first); else panel.appendChild(sec);
+  }
+
+  /* Clicking a source's count narrows the item tabs to the rows it found. It sets
+     the shell's own search boxes through SCRIPT 11's bus where that exists, and
+     otherwise marks rows itself with its OWN attribute — never `row.hidden`,
+     which belongs to the shell and to scripts 6-10 (5am, 5ap). */
+  function showFrom(key) {
+    var ids = FOUND[key] || [];
+    var s = BYKEY[key] || { name: key };
+    if (window.__socS11 && window.__socS11.setTab) {
+      ["tab-new", "tab-deadlines", "tab-products", "tab-today"].forEach(function (pid) {
+        if (document.getElementById(pid)) window.__socS11.setTab(pid, { label: "Found in " + s.name, ids: ids });
+      });
+    }
+    var tab = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (t) {
+      if (!tab && t.getAttribute("aria-controls") === "tab-new") tab = t;
+    });
+    if (tab) tab.click();
+  }
+
+  /* ---------- 3. what Microsoft changed inside the page ---------- */
+  function diffLine(sign, text) {
+    var d = el("div", "s12line " + (sign === "+" ? "s12add" : "s12rem"));
+    d.appendChild(el("span", "s12sign", sign));
+    d.appendChild(el("span", null, text));
+    return d;
+  }
+  function pageBlock(p) {
+    var box = el("div", "s12file");
+    var h = el("div", "s12fhead");
+    var nm = el("div", "s12name");
+    if (p.url) { var a = el("a", "lnk", p.name || p.path); a.href = p.url; a.target = "_blank"; a.rel = "noopener"; nm.appendChild(a); }
+    else nm.appendChild(el("b", null, p.name || p.path));
+    nm.appendChild(document.createElement("br"));
+    nm.appendChild(el("span", "s12path", p.path + (p.commit ? (" · " + p.commit + " · " + (p.date || "")) : "")));
+    h.appendChild(nm);
+    var c = el("div", "s12cnt");
+    c.appendChild(el("span", "p", "+" + (p.added || 0)));
+    c.appendChild(el("span", "m", "−" + (p.removed || 0)));
+    h.appendChild(c);
+    box.appendChild(h);
+    (p.hunks || []).forEach(function (k) {
+      var w = el("div", "s12hunk");
+      w.appendChild(el("div", "s12at", "line " + (k.at || 0)));
+      (k.rem || []).forEach(function (x) { if (String(x).trim()) w.appendChild(diffLine("−", x)); });
+      (k.add || []).forEach(function (x) { if (String(x).trim()) w.appendChild(diffLine("+", x)); });
+      if (w.children.length > 1) box.appendChild(w);
+    });
+    var mn = (p.metaAdded || 0) + (p.metaRemoved || 0);
+    if (mn) box.appendChild(el("div", "s12meta",
+      mn + " further changed lines are page metadata only — ms.date, ms.custom, the title and description " +
+      "strings. They are counted and set aside here rather than hidden: a date bump is a real edit, it is " +
+      "just not one a SOC acts on."));
+    if (p.socNote) {
+      var w2 = el("div", "s12why");
+      w2.appendChild(el("b", null, "Why this matters. "));
+      w2.appendChild(document.createTextNode(p.socNote));
+      if ((p.itemIds || []).length) {
+        w2.appendChild(document.createTextNode(" Carried as "));
+        p.itemIds.forEach(function (id, n) {
+          if (n) w2.appendChild(document.createTextNode(", "));
+          w2.appendChild(el("code", null, id));
+        });
+        w2.appendChild(document.createTextNode("."));
+      }
+      box.appendChild(w2);
+    }
+    return box;
+  }
+  function srcChanges() {
+    var panel = document.getElementById("tab-new");
+    if (!panel || document.getElementById("srcchanges") || !DOC) return;
+    var pages = (DOC.pages || []).filter(function (p) { return (p.added || 0) + (p.removed || 0) > 0; });
+    var sec = el("section"); sec.id = "srcchanges";
+    sec.setAttribute("data-nav", "Source text changes");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "Source text"));
+    head.appendChild(el("p", "sec-title", "What Microsoft changed inside the page, line by line"));
+    sec.appendChild(head);
+    var body = el("div", "sec-body");
+
+    var promoted = (ITEMS.filter(function (i) { return i.sourceTextChanged; }) || []).length;
+    var note = el("p", "sec-note");
+    note.textContent = pages.length
+      ? (pages.length + " watched page" + (pages.length === 1 ? "" : "s") + " changed text in the window, read " +
+         (DOC.method === "git" ? "from the documentation repositories' own git history" : "by comparing this run's snapshot with the previous one") +
+         " on " + (DOC.readOn || "") + ". Green is text Microsoft added, red is text it removed. " +
+         promoted + " of them carry an item of their own, by the rule printed below; the rest are here and counted. " +
+         "This is the only view in the brief that shows a REMOVAL of prose — a detection dropped from " +
+         "Microsoft's own list leaves no other trace.")
+      : ("No watched page changed its text in the window; " + ((DOC.pages || []).length) +
+         " pages were compared on " + (DOC.readOn || "") + ". That is a result, not a gap.");
+    body.appendChild(note);
+
+    if (DOC.rule) {
+      var rb = el("div", "rulebox");
+      rb.appendChild(el("b", null, "When a page edit becomes an item of its own. "));
+      rb.appendChild(document.createTextNode(DOC.rule));
+      body.appendChild(rb);
+    }
+    if (DOC.lag) {
+      var lg = el("p", "s12lag");
+      lg.appendChild(el("b", null, "What this view cannot see. "));
+      lg.appendChild(document.createTextNode(DOC.lag));
+      body.appendChild(lg);
+    }
+    pages.sort(function (a, b) { return ((b.added || 0) + (b.removed || 0)) - ((a.added || 0) + (a.removed || 0)); });
+    pages.forEach(function (p) { body.appendChild(pageBlock(p)); });
+    sec.appendChild(body);
+    var dc = document.getElementById("docchanges");
+    if (dc && dc.parentNode) dc.parentNode.insertBefore(sec, dc.nextSibling);
+    else panel.appendChild(sec);
+  }
+
+  function boot() {
+    try { provenance(); } catch (e) { if (window.console) console.error("[s12 prov]", e); }
+    try { foundColumn(); } catch (e) { if (window.console) console.error("[s12 col]", e); }
+    try { srcChanges(); } catch (e) { if (window.console) console.error("[s12 diff]", e); }
+  }
+  /* after scripts 4-11 have built their own tables, so the column lands on all of them */
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 320); });
+  else setTimeout(boot, 320);
+})();
+
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 12 jest osobnym blokiem, ktory niczego nie
+nadpisuje, i pisze wylacznie do wlasnych klas — `row.hidden` nalezy do powloki i do skryptow 6-10,
+`data-s11` do SKRYPTU 11 (§5ap), a ten prosi SKRYPT 11 o zawezenie zamiast chowac wiersze sam.
+
+### Walidator — pozycja 68 listy §0
+
+- **68a** — `sources` istnieje, kazdy klucz z `items[].discoveredBy` znajduje w niej wpis, a kazde
+  zrodlo ma `key`, `name`, `kind` ze slownika i `state` ze slownika. Brak tablicy daje
+  `BRAK „nie da sie sprawdzic"`, nie OK. **Klasa B** — lustro tylko kopiuje, wiec kolumny, ktorej
+  artefakt nie niesie, nie doloży; blokuje sie na tym przebieg BUDUJACY.
+- **68b** — **`read >= liczba pozycji, ktore to zrodlo znalazlo`** dla kazdego zrodla, a kazda pozycja
+  z `sourceTextChanged` ma `docRef` wskazujacy istniejaca strone w `docText`. **Klasa A**: liczba
+  mowiaca, ze zrodlo dalo wiecej, niz przeczytalo, i odnosnik prowadzacy w nicosc to falszywa tresc,
+  a nie brakujaca funkcja.
+- **68c** — `docText` ma `readOn` rowne `briefDate`, `method` ze slownika `git|snapshot`, opublikowana
+  `rule` i zdanie `lag`; kazda strona z `added+removed > 0` ma co najmniej jeden `hunk`. **Klasa B.**
+
+Render (§5h) sprawdza to, czego bramka z pliku nie zobaczy: ze kolumna naprawde jest, ze klikniecie
+liczby zawezasa, i ze `srcchanges` renderuje zielen i czerwien w obu motywach.
+
+## 5as. OVERVIEW JEST CALYM BRIEFEM NA JEDNYM EKRANIE
+
+Wlasciciel zglosil 11 wrzesnia 2026: *„mamy tak duzo zakladek, mamy tyle tabel, ze trudno mi sie
+czesto polapac, gdzie co jest, na co mam patrzec"*, a po pierwszej wersji tego bloku doprecyzowal:
+*„nie rozumiem tego… brakuje mi w tej sekcji what's new z kazdej dziedziny, ktora monitorujemy, albo
+releases, current versions for components, albo roles i graph api. overview to taki comprehensive
+view powinien byc — przegladam, od razu widze, co sie dzieje, klikam odpowiednia sekcje i
+automatycznie jestem przeniesiony do tabelek przefiltrowanych"*.
+
+Pierwsza wersja mowila „dziewiec pytan w kolejnosci, w jakiej zadaje je dyzur" i **byla zagadka
+zamiast odpowiedzi**: naglowek nie mowil, co czytelnik zobaczy, a lista pomijala cala warstwe
+referencyjna — katalogi, wersje komponentow, zrodla. Tytul sekcji ma nazywac tresc, nie metafore.
+
+**To jest liczba, nie wrazenie.** Zmierzone tego dnia na opublikowanej stronie, po zbudowaniu
+w przegladarce:
+
+| zakladka | tabel | wierszy | | zakladka | tabel | wierszy |
+|---|---:|---:|---|---|---:|---:|
+| **Overview** | **1** | **1** | | Products | 19 | 121 |
+| Today | 2 | 47 | | Component versions | 1 | 6 |
+| New | 4 | 423 | | Roles | 4 | 21 |
+| Deadlines | 7 | 297 | | Graph API | 5 | 614 |
+| Hunting | 1 | 10 | | Sources | 2 | 91 |
+| | | | | Community | 7 | 869 |
+| | | | | **RAZEM** | **53** | **~2 500** |
+
+**Najpustsza zakladka jest pierwsza.** Pigulki naglowka sa linkami od dawna (§1), ale prowadza do
+SEKCJI, nie do ODPOWIEDZI: `47 deadlines in 60 days` otwiera tabele 67 wierszy, w ktorej nadal
+trzeba znalezc te osiem z terminem w tym tygodniu.
+
+### Regula — trzy bloki, w kolejnosci, w jakiej sie pyta
+
+Panel `tab-overview` dostaje jako PIERWSZA sekcje `<section id="starthere" data-nav="Start here">`
+z tytulem **`What moved today, where it sits, and one click to each of it`**. Nie jest to nowa
+zakladka ani nowa tresc — to droga do tresci, ktora juz jest.
+
+**1. `Act on this first`** — piec linii, ktorych nie da sie odlozyc: terminy w 7 dniach, terminy,
+ktore wlasnie minely (§5z), pozycje tier 0 bez karty, pozycje, ktore wypadly ze strony od ostatniego
+przebiegu, i zrodla, ktore przestaly sie czytac.
+
+**2. `What's new, by product`** — **jeden wiersz na technologie, ktora ten brief monitoruje**,
+i to jest odpowiedz na „what's new z kazdej dziedziny". Kolumny:
+
+| kolumna | co liczy | co otwiera |
+|---|---|---|
+| `New today` | `firstTracked = briefDate` | New, zawezone do tych `id` |
+| `In the window` | pozycje okna tego produktu | Products, zawezone |
+| `Due in 30 days` | termin w 0..30 dniach | Deadlines, zawezone |
+| `Source text edited` | strony `docText` tego produktu ze zmiana (§5ar) | New, sekcja `srcchanges` |
+| `Community today` | artykuly z dzis otagowane ta technologia (§5an) | Community, sekcja `latest` |
+| `Catalog moved` | wpisy rejestru z dzis w Graph API / Roles / Component versions | New, sekcja `docchanges` |
+
+**Grupujemy po `product`, nie po wyliczonej „usludze".** `product` jest slownikiem ZAMKNIETYM (§5s)
+i jest dokladnie ta wartoscia, po ktorej fasetuja tabele — wiersz i filtr, ktory otwiera, nie maja
+wiec jak sie roznic. Wyliczanie tu finezyjniejszej uslugi byloby druga kopia `serviceOf()` ze
+SKRYPTU 4, a dwie kopie jednej reguly rozjezdzaja sie (§0a).
+
+**3. `Reference — catalogs, versions and sources`** — to jest odpowiedz na „releases, current
+versions for components, roles i graph api". Pieć wierszy: `Graph API` (uprawnienia i pary
+metoda-sciezka), `Roles` (role katalogowe), `Component versions` (komponenty, wersje **i te, ktore
+ruszyly dzisiaj, z numerem**), `Community sources` (zrodla przeczytane, artykuly trzymane),
+`Source text` (strony porownane, metoda, ile sie ruszylo). Kolumna `Changed in 14 days` liczy wpisy
+rejestru (§5aj) tej zakladki, a `Open →` otwiera zakladke.
+
+### Cztery rzeczy wiazace
+
+1. **Kazda liczba jest LICZONA ze stanu tego przebiegu**, nigdy wpisana. Liczba wpisana rozjedzie
+   sie z tabela, do ktorej prowadzi — to ten sam blad co kafelki `/diff/` mowiace `1 added` przy
+   tabeli sumujacej sie do `+71` (§3).
+2. **Zero pokazuje sie i NIE jest linkiem.** Zero jest wynikiem, a link do pustej tabeli uczy, ze
+   klikanie nic nie daje (§3 punkt 13).
+3. **Klikniecie nie tylko przewija — ZAWEZA.** Liczba prosi SKRYPT 11 (§5ap) o filtr po `id`, wiec
+   czytelnik lada na tabeli, w ktorej stoja wylacznie te wiersze, z bannerem i jednym
+   `Clear filter`.
+4. **Zadnej nowej tresci.** Gdyby cokolwiek istnialo wylacznie tutaj, byloby to piecdziesiata
+   czwarta tabela — czyli dokladnie problem, ktory ten blok ma rozwiazac.
+
+### Dwie pulapki, obie zmierzone przy pierwszym uruchomieniu i obie juz naprawione
+
+1. **Filtr zakladki moze opróznic tabele, ktora nazwanych wierszy nie trzyma.** Linia „21 tier 0"
+   zawezila Today i zostawila `Pick of the day` na **`0 of 10`** — filtr byl poprawny, ale banner nie
+   mowil o tym ani slowa i czytelnik czytal to jako usterke. Banner SKRYPTU 11 dopisuje odtad zdanie:
+   ile tabel zakladki nie trzyma zadnego z nazwanych wierszy, **wiec jest puste, a nie zepsute**.
+2. **Druga tabela w sekcji przejmowala pasek pierwszej.** `existingBar()` w SKRYPCIE 11 szukalo
+   paska do czterech rodzenstw wstecz i **nie zatrzymywalo sie** na elemencie, ktory paskiem nie
+   jest — tabela referencyjna siegala wiec ponad naglowek i ponad `.tw` tabeli produktow, znajdowala
+   JEJ pasek i dopisywala tam swoje fasety i swoj licznik `5 of 5`. Przejscie zatrzymuje sie odtad
+   na pierwszym elemencie, ktory nie jest `.tbar`, `.s9find` ani `.filterbanner`. **To nie jest blad
+   tej sekcji — to blad §5ap, ktory ta sekcja ujawnila**, i dotyczyl kazdej sekcji z dwiema tabelami
+   rozdzielonymi naglowkiem.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap i §5ar
+sa to JEDYNE dozwolone dopisane reguly CSS.
+
+```css
+/* §5as — the Overview is the whole brief on one screen. Every selector starts
+   from `#starthere` or from a class only SCRIPT 13 creates, so nothing here
+   leaks onto the rest of the page. Variables are the ones the sheet already
+   declares (§5t). */
+#starthere .shh{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+ font-weight:700;margin:18px 0 6px}
+#starthere .shh:first-of-type{margin-top:4px}
+#starthere .shsub{font-size:12.5px;color:var(--muted);margin:0 0 10px;max-width:88ch}
+#starthere .shlist{display:grid;gap:8px;margin:0 0 4px}
+#starthere .shrow{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;
+ font:inherit;font-family:var(--sans);padding:11px 14px;border-radius:12px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+#starthere .shrow:hover{border-color:var(--accent);background:var(--accent-soft)}
+#starthere .shrow:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shrow.shzero{cursor:default;background:var(--surface-2);color:var(--muted)}
+#starthere .shrow.shzero:hover{border-color:var(--border);background:var(--surface-2)}
+#starthere .shn{flex:0 0 62px;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums;
+ text-align:right;font-weight:700}
+#starthere .shrow.sh-bad .shn{color:var(--bad)}
+#starthere .shrow.sh-warn .shn{color:var(--warn)}
+#starthere .shrow.sh-acc .shn{color:var(--accent)}
+#starthere .shrow.sh-ok .shn{color:var(--ok)}
+#starthere .shrow.shzero .shn{color:var(--muted)}
+#starthere .sht{flex:1 1 auto;min-width:0}
+#starthere .sh1{display:block;font-size:14.5px;font-weight:700;line-height:1.35}
+#starthere .sh2{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+#starthere .shgo{flex:0 0 auto;align-self:center;font-size:12px;font-weight:600;color:var(--accent);
+ white-space:nowrap}
+#starthere .shrow.shzero .shgo{display:none}
+/* a count that is a control, and a zero that is honestly not one */
+#starthere .shnum{font:inherit;font-family:var(--sans);font-size:14px;font-weight:700;
+ font-variant-numeric:tabular-nums;padding:2px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+#starthere .shnum:hover{background:var(--accent);color:var(--on-accent)}
+#starthere .shnum:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shnum.shopen{font-size:12px;font-weight:600}
+#starthere .shz{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;padding:0 11px}
+#starthere table td:first-child{font-weight:700}
+@media (max-width:760px){
+  #starthere .shrow{gap:10px;padding:10px 12px}
+  #starthere .shn{flex-basis:46px;font-size:21px}
+  #starthere .shgo{display:none}
+  #starthere .shsub{font-size:12px}
+}
+
+```
+
+### SKRYPT 13 — na koniec `<body>`, jako TRZYNASTY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 13 — THE OVERVIEW IS THE WHOLE BRIEF ON ONE SCREEN (CLAUDE.md 5as).
+   ADDED, never a replacement: shell scripts 1-3 and added scripts 4-12 are
+   untouched, byte for byte.
+
+   The owner, 11 September 2026: "mamy tak duzo zakladek, mamy tyle tabel ze
+   trudno mi sie polapac gdzie co jest, na co mam patrzec", and then, of the
+   first draft of this block: "nie rozumiem tego ... brakuje mi w tej sekcji
+   what's new z kazdej dziedziny ktora monitorujemy, albo releases, current
+   versions for components, albo roles i graph api. overview to taki
+   comprehensive view powinien byc - przegladam, od razu widze co sie dzieje,
+   klikam odpowiednia sekcje i automatycznie jestem przeniesiony do tabelek
+   przefiltrowanych".
+
+   Measured on the published page of that day: eleven tabs, 53 tables, about
+   2 500 rows once the browser has built them, and Overview — the FIRST tab —
+   holding one table of one row. The page said "how much" and never said "what
+   moved and where". This block is three answers, in the order they are asked,
+   and NOTHING in it is new content: every number is counted from this run's own
+   state and every non-zero number opens the tab already narrowed to those rows.
+
+     1. Act on this first  — the handful that cannot wait.
+     2. What's new, by product — one row per technology this brief monitors, so
+        "what happened in MDI today" is a row, not a search.
+     3. Reference — the catalogs, the component versions and the sources, with
+        what moved in them in the last fourteen days.
+
+   A zero shows and is deliberately NOT a link: zero is a result, and a link to
+   an empty table teaches that clicking gives nothing (3 punkt 13).
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function jb(id) {
+    var s = document.getElementById(id);
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = jb("soc-brief-state");
+  if (!ST || !ST.items) return;
+  var CAT = jb("soc-catalog") || {};
+  var ITEMS = ST.items, TODAY = ST.briefDate || "";
+  var LED = (ST.ledger14 || {}).entries || [];
+  var DOC = ST.docText || {};
+  var COM = ST.community || {};
+
+  function d(x) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(x || ""); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : null; }
+  var T0 = d(TODAY) || Date.now();
+  function days(x) { var v = d(x); return v === null ? null : Math.round((v - T0) / 86400000); }
+  function ids(list) { return list.map(function (i) { return i.id; }).filter(Boolean); }
+  /* a four-figure count is read, not scanned, without a separator */
+  function nf(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f"); }
+
+  function openTab(id) {
+    var tab = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (t) {
+      if (!tab && t.getAttribute("aria-controls") === id) tab = t;
+    });
+    if (tab) tab.click();
+    return !!tab;
+  }
+  function go(panelId, label, idlist, anchor) {
+    openTab(panelId);
+    setTimeout(function () {
+      if (idlist && idlist.length && window.__socS11 && window.__socS11.setTab)
+        window.__socS11.setTab(panelId, { label: label, ids: idlist });
+      var a = anchor && document.getElementById(anchor);
+      if (a && a.scrollIntoView) a.scrollIntoView({ block: "start" });
+    }, 150);
+  }
+  /* a cell that is a control when it has something to show, and plain text when
+     it does not — the same rule the change page uses for its counters */
+  function numCell(n, fn, title) {
+    var td = el("td");
+    if (!n) { td.appendChild(el("span", "shz", "0")); return td; }
+    var b = el("button", "shnum", String(n));
+    b.type = "button";
+    if (title) b.title = title;
+    b.addEventListener("click", fn);
+    td.appendChild(b);
+    return td;
+  }
+
+  var win = ITEMS.filter(function (i) { return i.tier !== "horizon"; });
+  var cards = {};
+  [].forEach.call(document.querySelectorAll("article.card[data-id]"), function (c) { cards[c.getAttribute("data-id")] = 1; });
+
+  /* ---------- 1. act on this first ---------- */
+  function urgent() {
+    var due7 = win.filter(function (i) { var n = days(i.deadline); return n !== null && n >= 0 && n <= 7; });
+    var passed = win.filter(function (i) { var n = days(i.deadline); return n !== null && n < 0 && n >= -7; });
+    var t0 = win.filter(function (i) { return i.tier0Touch && !cards[i.id]; });
+    var bad = (ST.sources || []).filter(function (s) { return s.state === "failed" || s.state === "stale"; });
+    var gone = LED.filter(function (e) { return e.seen === TODAY && e.kind === "removed"; });
+    var L = [
+      { n: due7.length, t: "need action in the next seven days", cls: "bad",
+        s: "Anything dated inside a week, whatever tab it lives in.",
+        go: function () { go("tab-deadlines", "Due within seven days", ids(due7)); } },
+      { n: passed.length, t: "deadlines passed in the last seven days", cls: "bad",
+        s: "The day after a deadline is when the estate is most exposed. Confirm the change landed.",
+        go: function () { go("tab-deadlines", "Passed in the last seven days", ids(passed), "elapsed"); } },
+      { n: t0.length, t: "touch tier 0 and did not get a card", cls: "warn",
+        s: "Domain controllers, sync and provisioning hosts, certificate authorities, Global-Admin-equivalent roles, federation.",
+        go: function () { go("tab-today", "Tier 0 without a card", ids(t0), "top5"); } },
+      { n: gone.length, t: "items left the brief since the last run", cls: "warn",
+        s: "A removal is a finding: either the source dropped it or this brief retracted it.",
+        go: function () { go("tab-new", null, null, "docchanges"); } },
+      { n: bad.length, t: "sources are stale or would not read", cls: "bad",
+        s: "A source that stopped reading cannot justify a quiet week.",
+        go: function () { go("tab-sources", null, null, "provenance"); } }
+    ];
+    var box = el("div", "shlist");
+    L.forEach(function (x) {
+      var row = el(x.n ? "button" : "div", "shrow" + (x.n ? " sh-" + x.cls : " shzero"));
+      if (x.n) { row.type = "button"; row.addEventListener("click", x.go); }
+      row.appendChild(el("b", "shn", String(x.n)));
+      var tx = el("span", "sht");
+      tx.appendChild(el("span", "sh1", x.t));
+      tx.appendChild(el("span", "sh2", x.s));
+      row.appendChild(tx);
+      if (x.n) row.appendChild(el("span", "shgo", "Show →"));
+      box.appendChild(row);
+    });
+    return box;
+  }
+
+  /* ---------- 2. what's new, by product ----------
+     Grouped by the item's own `product`, which is a CLOSED vocabulary (5s) and
+     the same value the tables facet on — so the row and the filter it opens can
+     never disagree. Deriving a finer "service" here would be a second copy of
+     SCRIPT 4's `serviceOf()`, and two copies of one rule drift apart (0a). */
+  function byProduct() {
+    var P = {};
+    function bucket(p) {
+      p = (p || "unspecified");
+      return P[p] || (P[p] = { p: p, win: [], today: [], due: [], pages: [], com: 0, cat: 0 });
+    }
+    win.forEach(function (i) {
+      var b = bucket(i.product);
+      b.win.push(i);
+      if (i.firstTracked === TODAY) b.today.push(i);
+      var n = days(i.deadline);
+      if (n !== null && n >= 0 && n <= 30) b.due.push(i);
+    });
+    (DOC.pages || []).forEach(function (pg) {
+      if (((pg.added || 0) + (pg.removed || 0)) > 0) bucket(pg.product).pages.push(pg);
+    });
+    (COM.items || []).forEach(function (a) {
+      if (a.firstTracked !== TODAY) return;
+      (a.categories || []).forEach(function (c) { bucket(c).com++; });
+    });
+    LED.forEach(function (e) {
+      if (e.seen !== TODAY) return;
+      if (e.tab === "Graph API" || e.tab === "Roles" || e.tab === "Component versions") bucket(e.product || e.tab).cat++;
+    });
+    var rows = Object.keys(P).map(function (k) { return P[k]; })
+      .filter(function (b) { return b.win.length || b.pages.length || b.com || b.cat; })
+      .sort(function (a, b) {
+        return (b.today.length - a.today.length) || (b.due.length - a.due.length) ||
+               (b.win.length - a.win.length) || a.p.localeCompare(b.p);
+      });
+    if (!rows.length) return null;
+
+    var tw = el("div", "tw"), t = el("table");
+    var cap = el("caption", "tabcap");
+    cap.appendChild(el("b", null, "What's new, by product"));
+    cap.appendChild(document.createTextNode(" · " + rows.length + " technologies, " + win.length +
+      " items in the window · every number opens its tab already filtered"));
+    t.appendChild(cap);
+    var th = el("thead"), hr = el("tr");
+    ["Product", "New today", "In the window", "Due in 30 days", "Source text edited", "Community today", "Catalog moved"]
+      .forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); t.appendChild(th);
+    var tb = el("tbody");
+    rows.forEach(function (b) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, b.p));
+      tr.appendChild(numCell(b.today.length, function () { go("tab-new", b.p + " · first tracked today", ids(b.today)); },
+        "Open New, filtered to what arrived today"));
+      tr.appendChild(numCell(b.win.length, function () { go("tab-products", b.p + " · in the window", ids(b.win)); },
+        "Open Products, filtered to this technology"));
+      tr.appendChild(numCell(b.due.length, function () { go("tab-deadlines", b.p + " · due in 30 days", ids(b.due)); },
+        "Open Deadlines, filtered to the next 30 days"));
+      tr.appendChild(numCell(b.pages.length, function () { go("tab-new", null, null, "srcchanges"); },
+        "Open the line-by-line source diff"));
+      tr.appendChild(numCell(b.com, function () { go("tab-community", null, null, "latest"); },
+        "Open Community Articles"));
+      tr.appendChild(numCell(b.cat, function () { go("tab-new", null, null, "docchanges"); },
+        "Open what the catalogs recorded today"));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); tw.appendChild(t);
+    return tw;
+  }
+
+  /* ---------- 3. reference: catalogs, versions, sources ---------- */
+  function led14(tab) { return LED.filter(function (e) { return e.tab === tab; }).length; }
+  function reference() {
+    var comps = ST.components || [];
+    var nver = 0, moved = [];
+    comps.forEach(function (c) {
+      nver += (c.versions || []).length;
+      if (c.state === "new-version") moved.push(c);
+    });
+    var gm = ST.graphMap || {};
+    var srcs = ST.sources || [];
+    var docPages = (DOC.pages || []);
+    var docMoved = docPages.filter(function (p) { return ((p.added || 0) + (p.removed || 0)) > 0; });
+    var R = [
+      { k: "Graph API", holds: nf(gm.permissions || (CAT.graph || []).length) + " permissions · " +
+          nf(gm.pairs || 0) + " endpoint and method pairs",
+        n: led14("Graph API") + led14("Graph endpoints"),
+        go: function () { go("tab-graph", null, null, "graph"); } },
+      { k: "Roles", holds: nf((CAT.roles || []).length) + " directory roles",
+        n: led14("Roles"), go: function () { go("tab-roles", null, null, "roles"); } },
+      { k: "Component versions", holds: nf(comps.length) + " components · " + nf(nver) + " tracked versions" +
+          (moved.length ? (" · moved today: " + moved.map(function (c) {
+            return (c.name || c.id) + " " + ((c.versions || [])[0] || {}).version;
+          }).join(", ")) : ""),
+        n: led14("Component versions"), go: function () { go("tab-components", null, null, "components"); } },
+      { k: "Community sources", holds: srcs.length ? (nf(srcs.length) + " sources read · " +
+          nf((COM.items || []).length) + " articles held") : ((COM.sources || []).length + " community sources"),
+        n: led14("Community articles"), go: function () { go("tab-community", null, null, "sources"); } },
+      { k: "Source text", holds: nf(docPages.length) + " watched pages compared" +
+          (DOC.method ? (" by " + DOC.method) : "") + " · " + docMoved.length + " moved",
+        n: led14("Source text"), go: function () { go("tab-new", null, null, "srcchanges"); } }
+    ];
+    var tw = el("div", "tw"), t = el("table");
+    var cap = el("caption", "tabcap");
+    cap.appendChild(el("b", null, "Reference"));
+    cap.appendChild(document.createTextNode(" · what the catalogs hold today, and what moved in them in " +
+      "the last fourteen days"));
+    t.appendChild(cap);
+    var th = el("thead"), hr = el("tr");
+    ["Catalog", "What it holds today", "Changed in 14 days", "Open"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
+    th.appendChild(hr); t.appendChild(th);
+    var tb = el("tbody");
+    R.forEach(function (r) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, r.k));
+      tr.appendChild(el("td", null, r.holds));
+      tr.appendChild(numCell(r.n, r.go, "Open the tab and its 14-day record"));
+      var c3 = el("td");
+      var b = el("button", "shnum shopen", "Open →"); b.type = "button";
+      b.addEventListener("click", r.go); c3.appendChild(b);
+      tr.appendChild(c3);
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); tw.appendChild(t);
+    return tw;
+  }
+
+  function build() {
+    var panel = document.getElementById("tab-overview");
+    if (!panel || document.getElementById("starthere")) return;
+    var sec = el("section"); sec.id = "starthere";
+    sec.setAttribute("data-nav", "Start here");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "Start here"));
+    head.appendChild(el("p", "sec-title", "What moved today, where it sits, and one click to each of it"));
+    sec.appendChild(head);
+    var body = el("div", "sec-body");
+    body.appendChild(el("p", "sec-note",
+      "Nothing on this screen is new content: every number is counted from this run's own state, and " +
+      "every number that is not zero is a button that opens its tab already filtered to exactly those " +
+      "rows — so a question never starts with finding the right table among the " +
+      document.querySelectorAll(".tabpanel").length + " tabs. A zero is a result, so it is shown and is " +
+      "deliberately not a link."));
+    body.appendChild(el("h3", "shh", "Act on this first"));
+    body.appendChild(urgent());
+    var bp = byProduct();
+    if (bp) {
+      body.appendChild(el("h3", "shh", "What's new, by product"));
+      body.appendChild(el("p", "shsub",
+        "One row per technology this brief monitors. The window column is the whole published window; " +
+        "New today is what this run saw for the first time, whatever date Microsoft printed on it."));
+      body.appendChild(bp);
+    }
+    body.appendChild(el("h3", "shh", "Reference — catalogs, versions and sources"));
+    body.appendChild(el("p", "shsub",
+      "What the two catalogs, the tracked components and the source list hold today, and how much of it " +
+      "moved in the fourteen days this page keeps."));
+    body.appendChild(reference());
+    sec.appendChild(body);
+    panel.insertBefore(sec, panel.firstChild);
+  }
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[s13]", e); } }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 520); });
+  else setTimeout(boot, 520);
+})();
+
+```
+
+### Zmierzone po dolozeniu
+
+Wstrzykniecie do kopii opublikowanej strony z 11 wrzesnia (§5al), render headless, oba motywy,
+1500x1000 i 390x844: **zero bledow strony**, `scrollWidth === clientWidth`, 11 zakladek i 11 paneli
+bez zmian. Piec linii `Act on this first` (`8 / 1 / 21 / 10 / 1`), **30 wierszy `What's new, by
+product`** i piec wierszy `Reference`; 60 liczb klikalnych i 130 zer bez linku. Klikniecie `In the
+window` w wierszu MDI przelacza na Products i daje **`5 of 111`** z bannerem nazywajacym filtr.
+Tabela produktow ma wlasny pasek z siedmioma fasetami i licznikiem `30 of 30`, wpisanie `MD` daje
+`2 of 30`; **tabela referencyjna paska nie dostaje i tak ma byc** — piec wierszy czyta sie, nie
+filtruje (§5ap, prog osmiu wierszy). Wiersz `Graph API` pokazuje `925 permissions · 24 110 endpoint
+and method pairs`, a `Component versions` — `moved today: Defender for Endpoint antivirus on Windows
+4.18.26080.3`.
+
+### Walidator — pozycja 69 listy §0
+
+SKRYPT 13 jest w pliku razem ze swoimi zaczepami i tytulami obu tabel, a blok CSS niesie regule
+`#starthere .shrow.shzero`, czyli wyglad linii zerowej. To, czy liczby sie zgadzaja i czy klikniecie
+zawezasa, sprawdza Playwright (§5h) — bramka czyta plik, a ten blok powstaje dopiero w przegladarce,
+i to rozroznienie jest tu ta sama pointa co przy pozycji 48.
 
 ## 6. Kontrakt w stronie
 
