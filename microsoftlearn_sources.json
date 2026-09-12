@@ -31,6 +31,10 @@
     "SourceName": "Microsoft Learn - Microsoft Sentinel",
     "SourceURL": "https://learn.microsoft.com/en-us/azure/sentinel/"
   },
+    {
+    "SourceName": "Microsoft Learn - Unified Security Operations",
+    "SourceURL": "https://learn.microsoft.com/en-us/unified-secops/overview-unified-security"
+  },
   {
     "SourceName": "Microsoft Learn - Microsoft Purview",
     "SourceURL": "https://learn.microsoft.com/en-us/purview/"
