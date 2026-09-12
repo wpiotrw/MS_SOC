@@ -1139,6 +1139,13 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
    pierwsza wersja malowala kazdy tag na wlasny kolor i wlasciciel zglosil, ze
    zrobilo sie za kolorowo. Nasycenie 38% wraca identycznie na slupku wykresu
    i na wycinku pierscienia, wiec kropka jest legenda calej zakladki. */
+/* The global filter banner sticks BELOW the masthead (§5ao). It used to sit wherever
+   the run put it — measured 11 September 2026: 1 968 px above the reader who had just
+   pressed a tag in `Technologies` — so the four tables changed their counts with nothing
+   on screen saying which filter did it. `--chdr-h` is measured by SCRIPT 10, never
+   written down: the masthead is sticky and 303 px tall here, and `static` on a phone. */
+#tab-community .cstick{position:sticky;top:var(--chdr-h,0px);z-index:32;margin:0 0 6px}
+#tab-community .cstick .filterbanner.s10{margin:0 0 8px;box-shadow:0 2px 10px rgba(0,0,0,.18)}
 #tab-community .subnav{position:sticky;top:0;z-index:30;display:flex;gap:6px;overflow-x:auto;
  padding:8px 0 7px;margin:0 0 6px;background:var(--bg);border-bottom:1px solid var(--border);
  -webkit-overflow-scrolling:touch}
@@ -1147,7 +1154,9 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
 #tab-community .subnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 #tab-community .subnav a .n{color:var(--muted);font-weight:600;margin-left:5px;font-variant-numeric:tabular-nums}
 #tab-community .subnav a[aria-current="true"] .n{color:var(--accent)}
-#tab-community section{scroll-margin-top:58px}
+/* the jump target clears the sticky block, whose height SCRIPT 10 measures and
+   publishes as `--cstick-h`; a hard number is wrong the moment the banner opens */
+#tab-community section{scroll-margin-top:var(--cstick-h,58px)}
 .tw.scroll{max-height:520px;overflow-y:auto}
 .tw.scroll-sm{max-height:400px;overflow-y:auto}
 /* --- blok Activity: rozklad 14 dni jako kontrolka --- */
@@ -1207,10 +1216,39 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
 .badge.cchip::before{content:"";width:6px;height:6px;border-radius:2px;flex:0 0 6px;background:hsl(var(--h) 38% 52%)}
 .badge.cchip:hover{color:var(--text);background:var(--surface)}
 #tab-community .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-#tab-community figure.chart{margin:0;border:1px solid var(--border);border-radius:10px;
+/* SCOPED TO `.charts`, and that scope is the whole point. The first version of these
+   three rules selected `#tab-community figure.chart svg` — specificity (1,1,1), which
+   beats every rule SCRIPT 4 writes for its OWN charts — so `height:auto` threw away the
+   `height` attribute on each of them and re-derived it from the viewBox at the container
+   width. Measured 11 September 2026 on the published artifact at 1500 px: `Per service`
+   666 -> 867 px, `Published over time` 172 -> 398 px, and the share ring, whose
+   `.aggwrap svg.donut{max-width:250px}` lost to `max-width:100%`, 200 -> 591 px. The
+   owner reported it as "wykres published over time ma za duze te bary poziome" and was
+   right to the pixel. The tab's own charts are the ones inside `.charts`; SCRIPT 4's are
+   inside `.aggwrap` and must be left to their own sheet (§5y). */
+#tab-community .charts figure.chart{margin:0;border:1px solid var(--border);border-radius:10px;
  background:var(--surface);padding:9px 11px;min-width:0}
-#tab-community figure.chart svg{display:block;width:100%;height:auto;max-width:100%}
-#tab-community svg.donut{max-width:186px;margin:0 auto}
+#tab-community .charts figure.chart svg{display:block;width:100%;height:auto;max-width:100%}
+#tab-community .charts svg.donut{max-width:186px;margin:0 auto}
+/* The shell's own per-panel categorical chart is NOT wanted here. Script 2 facets the
+   first recognised column and this tab's source table carries `Status`, so the strip
+   opened with a `By status` chart 1460x467 px — measured on the same page — above six
+   charts of the tab's own that already answer the question with the right population.
+   The `.stat` tile stays: it is one number and it is true. §5h's "every panel except
+   Overview and Sources carries >=1 `.stat` and >=1 `figure.chart`" is about PRESENCE,
+   and the element is present; the exemption is written out there so the assertion does
+   not fire on a correct page. */
+#tab-community .panelhead figure.chart{display:none}
+/* Fifth time the shell's own `display` beats the `hidden` attribute, after `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am) and `.filterbanner.s10` (§5an): SCRIPT 10 marks
+   the shell toolbar over each table it owns, and the mark has to carry `!important` to win. */
+[data-s10hidden="1"]{display:none!important}
+/* The ONE deliberately un-scoped selector in this block, and it is un-scoped because the
+   defect is not tab-specific: the sheet declares no `::selection` at all, so the browser
+   picks its own pair, and on a `--surface-2` striped row in the dark theme the owner got
+   selected text he could not read. Declaring it makes the highlight deterministic in both
+   themes instead of leaving it to the platform. */
+::selection{background:var(--accent-soft);color:var(--text)}
 #tab-community .brow{cursor:pointer}
 #tab-community .brow:hover .ctrack{fill:var(--accent-soft)}
 #tab-community .seg{cursor:pointer}
@@ -1223,6 +1261,43 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
 #tab-community a:hover{border-bottom-color:currentColor}
 #tab-community .tt{font-weight:500;color:var(--text)}
 #tab-community .tt:hover{color:var(--accent)}
+/* ZADEN rozwijany blok na stronie nie renderuje sie natywnym trojkatem przegladarki,
+   i to jest regula CALEGO portalu, nie tej zakladki. Arkusz stylowal siedem rodzin —
+   `foldnote`, `eps`, `sumfold`, `chg14`, `rolerank`, `morefilters`, `cb-more`/`cov-more` —
+   a przebieg pisze wlasne klasy: `cmfold` w Community, `relrest` w Component versions,
+   i kolejne, ktorych dzis jeszcze nie ma. Zmierzone 11 wrzesnia 2026 na opublikowanym
+   artefakcie: piec `details.cmfold` i osiem `details.relrest` mialo `::before` content
+   `none`, `list-style-type: disclosure-closed` i `border-top-width: 0px` — goly trojkat
+   posrod kart z plusem. Wlasciciel zglosil to dwa razy tego dnia, raz w Community i raz
+   w Today, i poprosil wprost, zeby przejrzec pod tym katem CALY portal.
+
+   Dlatego regula jest KATALOGIEM ODWROTNYM: obejmuje kazdy `<details>` w tresci, ktory
+   NIE nalezy do rodziny juz ostylowanej. Wyliczanie klas po kolei zawiodloby przy
+   pierwszej nowej nazwie, ktora przebieg wymysli — a to jest dokladnie ta pulapka,
+   ktora tu wystapila dwa razy. Asercja renderu (§5h) mierzy to samo od drugiej strony:
+   w zadnej z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz
+   `none`. */
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
+ border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary{
+ list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:11px 14px;font-size:14px;font-weight:700;color:var(--text)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::-webkit-details-marker{display:none}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::before{
+ content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary::before{content:"\2212"}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:hover{background:var(--surface-2);border-radius:12px 12px 0 0}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary{border-bottom:1px solid var(--border)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary){margin-left:14px;margin-right:14px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):first-of-type{margin-top:12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):last-child{margin-bottom:13px}
+/* `relrest` siedzi w karcie komponentu i ma byc lzejsze niz sekcja — ta sama rodzina
+   znaku, mniejsza rama, zeby nie konkurowalo z wydaniem, ktore opisuje */
+.tabpanel details.relrest{background:var(--surface-2);margin:8px 0 0}
+.tabpanel details.relrest>summary{font-size:13px;padding:8px 11px}
 .filterbanner.s10{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:6px 11px;border-radius:9px;
  background:var(--accent-soft);border:1px solid var(--accent);font-size:12.5px;color:var(--text)}
 .filterbanner.s10[hidden]{display:none!important}
@@ -1235,6 +1310,205 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
   #tab-community .desc{max-width:none}
   #tab-community th{position:static}
 }
+/* §5ap — every column filterable, every bar a control.
+   SZOSTY raz atrybut `hidden` przegrywa z wlasnym `display` powloki, po `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am), `.filterbanner.s10` i `[data-s10hidden]`
+   (§5an): `tr`, `li` i `article.card` maja w arkuszu wlasny `display`, wiec znacznik
+   SKRYPTU 11 musi niesc `!important`, zeby wygral. */
+tr[data-s11="0"],article.card[data-s11="0"],li[data-s11="0"],h3[data-s11="0"],
+ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}
+/* i SIODMY raz przy paskach powloki, ktore SKRYPT 11 zastepuje jednym na sekcje */
+[data-s11hidden="1"]{display:none!important}
+.tw[data-s11="0"]{display:none!important}
+.s9find.s11group{border:1px solid var(--accent);border-radius:10px;padding:8px 10px;
+ background:var(--accent-soft)}
+.s9find.s11group .s9q{background:var(--ok-soft)}
+.s9find .s11hot{font:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .s11hot[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s9find .tseg-label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted)}
+.s9find .tseg{display:inline-flex;gap:4px;flex-wrap:wrap}
+.s9find .tseg .segbtn{font:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .tseg .segbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.s9find .s11col{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+ font-weight:600;max-width:230px}
+.tbar .s11col,.tbar .s11f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);max-width:230px}
+.tbar .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.s11bar{margin:0 0 10px}
+.filterbanner.s11{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:7px 12px;
+ border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent);
+ color:var(--text);font-size:13px}
+.filterbanner.s11[hidden]{display:none!important}
+.filterbanner.s11 .fb-msg{flex:1 1 auto}
+.filterbanner.s11 .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);flex:0 0 auto}
+.filterbanner.s11 .fb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--surface);
+ color:var(--accent);cursor:pointer;white-space:nowrap}
+.tabpanel>.filterbanner.s11.s11tab{margin:0 0 12px}
+.donut-legend li[data-ids]{cursor:pointer;border-radius:6px;padding:1px 5px;margin:-1px -5px}
+.donut-legend li[data-ids]:hover{background:var(--accent-soft);color:var(--accent)}
+.donut-legend li[data-ids]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+@media (max-width:760px){
+  .s9find .s11col,.tbar .s11col,.tbar .s11f{max-width:100%}
+  .filterbanner.s11{flex-wrap:wrap}
+}
+/* §5ar — where each row came from, and what changed inside the source. Every
+   selector starts from a class only SCRIPT 12 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares
+   (§5t): `--surface-2`, `--ins-bg`, `--del-bg`, never an invented name. */
+td.s12prov{white-space:normal;overflow-wrap:anywhere}
+.s12src{font:inherit;font-family:var(--sans);font-size:11.5px;font-weight:600;line-height:1.5;
+ padding:1px 9px;border-radius:999px;border:1px solid var(--info);background:var(--info-soft);
+ color:var(--info);cursor:pointer;white-space:nowrap}
+.s12src:hover{background:var(--info);color:var(--on-accent)}
+.s12src:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+.s12src.s12bad{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+a.s12ext{text-decoration:none;font-weight:700;font-size:11px;color:var(--muted);padding:0 3px}
+a.s12ext:hover{color:var(--info)}
+.s12none{color:var(--muted);font-style:italic;font-size:12.5px}
+tr.s12flash>td{background:var(--accent-soft)!important;box-shadow:inset 3px 0 0 var(--accent)}
+/* the line-by-line view. A page block is a card, not a table: the added and
+   removed lines are text, and a table would invite a search box per page where
+   one search over the section is what a reader wants (§5am). */
+.s12file{border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ margin:0 0 12px;overflow:hidden}
+.s12fhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface-2);border-bottom:1px solid var(--border)}
+.s12fhead .s12name{flex:1 1 260px;min-width:0;font-size:13.5px;font-weight:700}
+.s12fhead .s12path{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400}
+.s12cnt{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap;flex:0 0 auto}
+.s12cnt .p{color:var(--ins-fg);background:var(--ins-bg);border-radius:5px;padding:1px 6px}
+.s12cnt .m{color:var(--del-fg);background:var(--del-bg);border-radius:5px;padding:1px 6px;margin-left:4px}
+.s12hunk{border-top:1px solid var(--border)}
+.s12at{font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px 13px 2px}
+.s12line{display:flex;gap:8px;padding:3px 13px;font-family:var(--mono);font-size:12.5px;
+ line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.s12line .s12sign{flex:0 0 14px;font-weight:700;text-align:center}
+.s12add{background:var(--ins-bg);color:var(--ins-fg)}
+.s12rem{background:var(--del-bg);color:var(--del-fg)}
+.s12meta{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface-2);
+ border-top:1px solid var(--border)}
+.s12why{padding:9px 13px;font-size:13px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border)}
+.s12why b{color:var(--warn)}
+.s12why code{font-family:var(--mono);font-size:12px}
+p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:4px solid var(--grey);
+ border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 12px}
+@media (max-width:760px){.s12line{font-size:11.5px}.s12fhead{gap:6px}}
+
+/* §5as — the Overview is the whole brief on one screen. Every selector starts
+   from `#starthere` or from a class only SCRIPT 13 creates, so nothing here
+   leaks onto the rest of the page. Variables are the ones the sheet already
+   declares (§5t). */
+#starthere .shh{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+ font-weight:700;margin:18px 0 6px}
+#starthere .shh:first-of-type{margin-top:4px}
+#starthere .shsub{font-size:12.5px;color:var(--muted);margin:0 0 10px;max-width:88ch}
+#starthere .shlist{display:grid;gap:8px;margin:0 0 4px}
+#starthere .shrow{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;
+ font:inherit;font-family:var(--sans);padding:11px 14px;border-radius:12px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+#starthere .shrow:hover{border-color:var(--accent);background:var(--accent-soft)}
+#starthere .shrow:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shrow.shzero{cursor:default;background:var(--surface-2);color:var(--muted)}
+#starthere .shrow.shzero:hover{border-color:var(--border);background:var(--surface-2)}
+#starthere .shn{flex:0 0 62px;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums;
+ text-align:right;font-weight:700}
+#starthere .shrow.sh-bad .shn{color:var(--bad)}
+#starthere .shrow.sh-warn .shn{color:var(--warn)}
+#starthere .shrow.sh-acc .shn{color:var(--accent)}
+#starthere .shrow.sh-ok .shn{color:var(--ok)}
+#starthere .shrow.shzero .shn{color:var(--muted)}
+#starthere .sht{flex:1 1 auto;min-width:0}
+#starthere .sh1{display:block;font-size:14.5px;font-weight:700;line-height:1.35}
+#starthere .sh2{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+#starthere .shgo{flex:0 0 auto;align-self:center;font-size:12px;font-weight:600;color:var(--accent);
+ white-space:nowrap}
+#starthere .shrow.shzero .shgo{display:none}
+/* a count that is a control, and a zero that is honestly not one */
+#starthere .shnum{font:inherit;font-family:var(--sans);font-size:14px;font-weight:700;
+ font-variant-numeric:tabular-nums;padding:2px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+#starthere .shnum:hover{background:var(--accent);color:var(--on-accent)}
+#starthere .shnum:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shnum.shopen{font-size:12px;font-weight:600}
+#starthere .shz{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;padding:0 11px}
+#starthere table td:first-child{font-weight:700}
+@media (max-width:760px){
+  #starthere .shrow{gap:10px;padding:10px 12px}
+  #starthere .shn{flex-basis:46px;font-size:21px}
+  #starthere .shgo{display:none}
+  #starthere .shsub{font-size:12px}
+}
+
+/* §5at — one line in the masthead that names every filter that is on, and the end
+   of monospace prose. Every selector starts from `.gfbar`, a class only SCRIPT 14
+   creates, or from `#tab-components`. Variables are the ones the sheet already
+   declares (§5t): `--surface-2`, `--accent-soft`, `--muted`, never an invented name. */
+.gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
+ display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto;
+ padding:8px 14px;background:var(--accent-soft);
+ border-bottom:1px solid var(--accent);color:var(--text);font-size:13px;
+ box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.gfbar[hidden]{display:none!important}
+.gfbar .gf-lead{flex:0 0 auto;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-list{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+.gfbar .gf-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
+ padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);
+ border:1px solid var(--accent);color:var(--text);font-size:12.5px;line-height:1.6;
+ overflow-wrap:anywhere}
+.gfbar .gf-chip b{font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;padding:0}
+.gfbar .gf-x:hover{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.gfbar .gf-x:focus-visible,.gfbar .gf-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gfbar .gf-more{color:var(--muted);font-size:12px}
+.gfbar .gf-reset{flex:0 0 auto;font:inherit;font-size:12px;font-weight:600;padding:5px 13px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--accent);
+ color:var(--on-accent);cursor:pointer;white-space:nowrap}
+.gfbar .gf-reset:hover{background:var(--surface);color:var(--accent)}
+@media (max-width:760px){
+  /* §1a makes the masthead static on a phone, so `--gfbar-top` measures to zero and
+     the line sticks to the very top — the one control that survives a tab switch
+     must not be the one control that scrolls away (§5ao). */
+  .gfbar{padding:7px 10px;gap:7px}
+  .gfbar .gf-list{width:100%}
+  .gfbar .gf-reset{width:100%;text-align:center}
+}
+/* --- monospace is for an IDENTIFIER, never for a sentence ---
+   Measured 11 September 2026 on the published page: every line of the component
+   navigation tiles rendered in IBM Plex Mono 11.5px — "Released 7 July 2026",
+   "Build 101.26062.0012, release 20.126062.12.0, August 2026" — with the status
+   footer in 10.5px condensed at a contrast of 4.45:1, under the 4.5 floor and the
+   smallest type on the page. `jt-v`, `jt-s` and `vdate` are classes the RUN
+   invented and the run styled, because this file described the tile in prose and
+   carried no rule for it: the same silent failure as `.tabn` (§5ae) and `.cmfold`
+   (§5an). The rule is a REVERSE catalogue for the same reason as §5an's: the tile
+   is sans throughout, and only `<b>`, `<code>` and `.mono` — the things a reader
+   copies — are monospace, so the next class a run invents is right by default. */
+#tab-components a.jtile,#tab-components a.jtile *,
+#tab-components .vbox,#tab-components .vbox *{font-family:var(--sans);
+ letter-spacing:normal;text-transform:none;color:var(--muted)}
+#tab-components a.jtile *,#tab-components .vbox *{font-size:12.5px;line-height:1.5}
+#tab-components a.jtile b,#tab-components a.jtile code,#tab-components a.jtile .mono,
+#tab-components .vbox b,#tab-components .vbox code,#tab-components .vbox .mono{
+ font-family:var(--mono);font-weight:700;color:var(--text);font-size:13px}
+#tab-components a.jtile .pchip,#tab-components .vbox .pchip{font-size:10.5px;
+ text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+#tab-components a.jtile .jt-n{font-size:14px;font-weight:650;color:var(--text)}
+/* and nowhere else on the page is a paragraph or a bullet set in monospace */
+.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}
+
+/* a named block the one filter did not reach */
+[data-s11m][data-s11="0"]{display:none!important}
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -4079,7 +4353,7 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 11 September 2026</b> &middot; published 06:56 Warsaw &middot; window 29 August &ndash; 11 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>47</b> deadlines in 60 days<span>&middot; 28 inside 30, 1 promoted from 61&ndash;120</span></a><a class="count" href="#graph"><b>603</b> undocumented at Microsoft<span>&middot; 603 permissions, 0 roles</span></a><a class="count" href="#graph"><b>375</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>1</b> passed in the last 7 days<span>&middot; MC1462915, 1 day ago</span></a><a class="count" href="#horizon"><b>14</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>36</b> changes since 10 Sep<span>&middot; 17 new items, 9 left the window</span></a><a class="count chg" href="#chg14"><b>564</b> changes in 14 days<span>&middot; 5 days with a run</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 12 September 2026</b> &middot; published 06:40 Warsaw &middot; window 29 August &ndash; 12 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 32 inside 30, 1 promoted from 61&ndash;120</span></a><a class="count" href="#graph"><b>603</b> undocumented at Microsoft<span>&middot; 603 permissions, 0 roles</span></a><a class="count" href="#graph"><b>377</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>1</b> passed in the last 7 days<span>&middot; MC1462915, 2 days ago</span></a><a class="count" href="#horizon"><b>16</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>31</b> changes since 11 Sep<span>&middot; 21 new items, none left the window</span></a><a class="count chg" href="#chg14"><b>685</b> changes in 14 days<span>&middot; 6 days with a run</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -4087,7 +4361,7 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
 
 ## 3a. REUSE THE UI SHELL — DO NOT REDESIGN IT
 
-In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-10 and the thirteen appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries TEN behaviour scripts in all. Order matters:
+In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-14 and the seventeen appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries FOURTEEN behaviour scripts in all. Order matters:
 
 1. **Shell** — builds the tab strip from the panels, wires ARIA and arrow keys, rewrites the Top-N heading from the real card count, adds toolbars / sortable headers / `<colgroup>` sizing, paints row severity edges, applies diff marks, makes sections collapsible.
 2. **Overview and charts** — builds the Overview panel, stat tiles, single-hue charts, per-section summary chips, the header's global product filter, and the per-tab statistics strip described in 3d.
@@ -4194,7 +4468,7 @@ glyph. It was a 12.5 px box wedged between two selects and the owner could not f
 - One idea per table cell. If a cell needs three sentences, the first sentence carries the point and the rest supports it.
 - Never repeat the same item in full across sections — the deep dive expands a Top-N item, it does not restate it.
 - A section with nothing in window gets one line saying so. Do not fill it with older material.
-- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-10 from `CLAUDE.md` — ten behaviour scripts, last.
+- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-14 from `CLAUDE.md` — fourteen behaviour scripts, last.
 
 ## 3g. THE CATALOG DETAIL PANE — panels, not a wall
 
@@ -4257,7 +4531,7 @@ catalog did not parse the table, and the run must fix the parse, not print the z
   block states in words that the tile's changes are older than the comparison.
 
 
-## 3z. SCRIPTS 4-10 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
+## 3z. SCRIPTS 4-14 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
 
 Seven behaviour scripts follow the three shell scripts: 4 aggregates (5y), 5 change-tile filter (5ad), 6 permission
 panel (5ak), 7 role panel (5al), 8 tab top and 14-day ledger (5al), 9 catalogs open on All (5ah, 5am), 10 Community Articles tab (5an). None of
