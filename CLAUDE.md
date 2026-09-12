@@ -155,8 +155,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b, 76, 77** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -817,10 +817,20 @@ class Scan(HTMLParser):
 # Klasa B to funkcja interfejsu: potrafi ja naprawic tylko przebieg BUDUJACY, wiec na sciezce
 # lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
-CLASS_A = {"73","76","77","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
+CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
+# 12 wrzesnia 2026: pozycje 76 i 77 zeszly z klasy A do B, i jest to poprawka DOKLADNIE
+# tego bledu, ktory §0 opisuje przy 10 wrzesnia. Wiersz bez kolumny znaczenia i link bez
+# nazwy zrodla to brak ETYKIETY, nie falszywe zdanie: pozycja na stronie jest, jest
+# prawdziwa i niesie swoje zrodlo — jest tylko slabiej opisana. A LUSTRO TYLKO KOPIUJE
+# (§0a): nie umie dopisac kolumny ani przemianowac linku, wiec blokada zamienia
+# „dzisiejsza strona bez kolumny" na „wczorajsza strona pod wczorajsza data", czyli na
+# klamstwo o DACIE. Zmierzone tego dnia na OPUBLIKOWANEJ stronie: 183 anonimowe linki
+# i 9 tabel bez kolumny znaczenia — przy klasie A poranne lustro nie opublikowaloby
+# nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
+# je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "68a","68c","69","70","71","72","74","75"}
+           "68a","68c","69","70","71","72","74","75","76","77"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -4524,8 +4534,19 @@ od poczatku, wiec raport znal ten wzorzec i po prostu go nie stosowal.
    Kolumna `Where its row sits` mowi zakladke i termin po ludzku (`Deadlines, due 31 Oct 2026`),
    a nie w formacie ISO — reszta strony pisze daty tak samo.
 
-Pozycje **76** i **77** listy §0 pilnuja punktow 1 i 4 kodem, i sa **klasy A**: wiersz, ktory nie
-mowi, czego dotyczy, i link, ktory nie mowi, dokad prowadzi, to brak TRESCI, nie brak funkcji.
+Pozycje **76** i **77** listy §0 pilnuja punktow 1 i 4 kodem, i sa **klasy B**: zatrzymuja kazdy
+przebieg BUDUJACY, a na sciezce lustra sa raportowane i nie blokuja publikacji.
+
+**Pierwsza wersja stawiala je w klasie A i to bylo zle — z tego samego mechanicznego powodu, ktory
+§0 opisuje przy 10 wrzesnia 2026.** Rozumowanie brzmialo „wiersz, ktory nie mowi, czego dotyczy,
+to brak TRESCI", i jest falszywe: pozycja na stronie **jest**, jest prawdziwa, ma date i ma swoje
+zrodlo — brakuje jej ETYKIETY, nie faktu. Klasa A jest dla tresci NIEPRAWDZIWEJ albo ZGUBIONEJ:
+zgubiona pozycja (15), martwy link (16), przepisany rejestr (47), obcieta mapa (42), wyciek
+diagnostyki (73). A rozstrzyga to lustro: **ono tylko kopiuje i nie umie dopisac kolumny ani
+przemianowac linku**, wiec blokada nie naprawia niczego — zamienia „dzisiejsza strona bez kolumny"
+na „wczorajsza strona pod wczorajsza data", czyli brak funkcji na klamstwo o dacie. Zmierzone
+12 wrzesnia 2026 na opublikowanej stronie: **183 anonimowe linki i 9 tabel bez kolumny znaczenia**,
+wiec przy klasie A poranne lustro nastepnego dnia nie opublikowaloby NICZEGO.
 
 ## 5. Stan uslugi bije dokumentacje
 
