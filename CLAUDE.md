@@ -39,9 +39,9 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **76 pozycji** (0-33, 35-61, 63-77), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **78**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
-   strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
+   strone glowna, sprawdza **76 pozycji** (0-33, 35-61, 63-77), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **79**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
    Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, wieczorem tego samego dnia
@@ -59,7 +59,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
 | 1 | siedem pigulek na stronie porannej, **osiem po passie popoludniowym** (ta dodatkowa to `since the morning pass`, §4d taska popoludniowego); pierwsze trzy zawsze: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci; licznik 7 albo 8, nigdy mniej |
 | 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
-| 3 | **jedenascie** paneli `.tabpanel`, identyfikatory sekcji z §2 (6 wrzesnia 2026 doszedl `tab-components` §5ag, 10 wrzesnia `tab-community` §5an) | 2, 5ag, 5an | licznik po usunieciu komentarza SHELL CONTRACT = 11 |
+| 3 | **kazdy panel z listy §2 jest na stronie, po swoim `id`** — dzis jedenascie (`tab-components` doszedl 6 wrzesnia 2026 §5ag, `tab-community` 10 wrzesnia §5an). **Sprawdza sie NAZWY, nie liczbe**: brak panelu z listy jest znaleziskiem, panel SPOZA niej jest nowa zakladka i nie jest bledem | 2, 5ag, 5an, 0a | `CANON_PANELS` w `mirror_artifact.py`: kazdy `id` obecny (brak = `BRAK`, klasa B); paneli >= progu 8, inaczej ekstrakcja jest zepsuta i lustro NIE publikuje |
 | 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
 | 5 | `KIND_BADGE` + `.badge.b-undoc` + `.badge.b-elsewhere` | 5e | wszystkie trzy obecne w pliku |
 | 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
@@ -83,7 +83,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
-| 26 | zadna z JEDENASTU zakladek nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
+| 26 | zadna zakladka — przejdz je WSZYSTKIE, ile ich jest w pasku — nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
 | 27 | skrypty 4 I 5 obecne; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu Month / Week / Day; kafelki `What changed` filtruja liste katalogu | 5y, 5ad | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3; tabela `cc-table` ma kolumne `Change` |
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
@@ -121,9 +121,9 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow, **jedno pole szukania na tabele i czytelne zaznaczenie tekstu** | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable`, `hideShellBars`, `[data-s10hidden="1"]{display:none!important}`, `::selection{background:var(--accent-soft)`, `#tab-community .panelhead figure.chart{display:none}`, `#tab-community .charts figure.chart svg` w pliku — **kazdy klucz pelna regula, nie fragmentem**, bo `.panelhead figure.chart` samo stoi takze w arkuszu powloki; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca, kazda z czterech tabel ma DOKLADNIE jedno pole szukania |
 | 62 | **tylko przebieg ZMIAN**: strona zmian nazywa artykuly z imienia — sekcje `community` i `mcenter`, kazdy dodany artykul z tytulem i linkiem, nie sam licznik | 3, 3a, 5an | `id="community"` i `id="mcenter"` na `/diff/`; zero wierszy `added` bez `<a href`; pierwszy przebieg daje `BRAK „brak punktu odniesienia"` |
 | 63 | **lista zrodel przeczytana W TYM przebiegu i zdiffowana** — `community.listDiff` z `added`/`removed`/`renamed`, `readOn` = data przebiegu | 5an | `readOn` rowne `briefDate`; `listDiff` obecne; przemianowanie NIE jest liczone jako add+remove |
-| 64 | **kazdy filtr globalny mowi, ze jest wlaczony, i daje JEDEN reset** — banner stoi w tym samym przyklejonym bloku co pasek skrotow: `cstick` w zakladce Community, `dstick` na stronie zmian | 5ao, 5an, 3 | strona glowna: `#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)`, `ensureGlobalBanner`, `stickify`, `setProperty("--chdr-h"` w pliku; `/diff/`: `dstick`, `nb-lab`, `--dstick-h` — sprawdza je `verify()` w `make_diff.py`; render (§5h): po kliknieciu tagu banner jest w widoku |
+| 64 | **kazdy filtr globalny mowi, ze jest wlaczony, jest ZIELONY i daje JEDEN reset** — banner stoi w tym samym przyklejonym bloku co pasek skrotow: `cstick` w zakladce Community, `dstick` na stronie zmian, a kazda powierzchnia maluje go `--ok-soft` na `--ok`, nigdy `--accent` (§5av) | 5ao, 5av, 5an, 3 | strona glowna: `#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)`, `ensureGlobalBanner`, `stickify`, `setProperty("--chdr-h"` w pliku; `/diff/`: `dstick`, `nb-lab`, `--dstick-h`, `window.__socDiffBar = sync`, `nb-chips`, `function describeBox(`, `Clear all filters`, `wrap.__describe = describeBox`, `background:var(--ok-soft);border:1px solid var(--ok)` — sprawdza je `verify()` w `make_diff.py`; strona glowna dodatkowo cztery reguly bloku §5av; render (§5h): po kliknieciu tagu banner jest w widoku i ma tlo `--ok-soft`, a po wpisaniu czegokolwiek do pola szukania tabeli banner ma chip nazywajacy TE tabele |
 | 65 | **kazda kolumna, ktora tabela pokazuje, da sie filtrowac, kazdy slupek z `data-ids` jest kontrolka, a pitch slupka jest jeden na cala strone** — Top N i Executive summary tez maja pole szukania | 5ap, 5y | `SCRIPT 11 — EVERY COLUMN FILTERABLE, EVERY CHART A CONTROL`, `window.__socS11 = `, `function columnPlan(`, `MIN_ROWS_OWN_BAR`, `s11srcnote`, `ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}`, `.filterbanner.s11[hidden]{display:none!important}`, `var CW = 6.15, W = 620, rowH = 19, barH = 9.5, pad = 6, valW = 44;`, `bar.setAttribute("data-ids"` w pliku; render (§5h): kazda tabela >=8 wierszy ma pole i zawezenie do kolumny, klikniety slupek zmienia `N of M` i zapala banner zakladki |
-| 66 | **ZADEN rozwijany blok w portalu nie renderuje sie natywnym trojkatem** — regula jest katalogiem ODWROTNYM (`details:not(.foldnote):not(.eps)…`), bo wyliczanie klas zawodzi przy pierwszej nowej nazwie, ktora przebieg wymysli | 5an | `.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14)` oraz `…:not(.dsec)>summary::before` i `.tabpanel details.relrest{background:var(--surface-2)` w pliku; render (§5h): w KAZDEJ z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz `none` |
+| 66 | **ZADEN rozwijany blok w portalu nie renderuje sie natywnym trojkatem** — regula jest katalogiem ODWROTNYM (`details:not(.foldnote):not(.eps)…`), bo wyliczanie klas zawodzi przy pierwszej nowej nazwie, ktora przebieg wymysli | 5an | `.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14)` oraz `…:not(.dsec)>summary::before` i `.tabpanel details.relrest{background:var(--surface-2)` w pliku; render (§5h): w KAZDEJ zakladce paska zaden `summary` nie ma `list-style-type` innego niz `none` |
 | 67 | **piec albo wiecej nazwanych pozycji to TABELA, nie lista punktow — z tym samym wygladem wiersza; tytul sekcji nazywa okres slowami i datami** | 5aq | w tresci widocznej brak `New this window`, `this window`, `items in window`; zaden `<ul>` nie trzyma >=5 punktow o ksztalcie `<b>tytul</b> … <a>Source</a>`, liczone `html.parser` |
 | 68 | **kazdy wiersz mowi, KTORE ZRODLO go znalazlo, zadne zrodlo nie dalo wiecej niz przeczytalo, a zmiana tekstu zrodla ma swoja strone** — `sources` w bloku stanu, `discoveredBy` na pozycji, `docText` z regula promocji i zdaniem o opoznieniu lustra | 5ar | `68a` klucze `discoveredBy` maja wpis w `sources`, `kind`/`state` ze slownika, SKRYPT 12 w pliku; `68b` `read >= liczba znalezionych`, kazdy `sourceTextChanged` ma `docRef` w `docText`; `68c` `readOn` = `briefDate`, `method`, `rule`, `lag`, kazda zmieniona strona ma hunk |
 | 69 | **Overview jest CALYM BRIEFEM na jednym ekranie** — `Act on this first`, `What's new, by product` (jeden wiersz na monitorowana technologie) i `Reference` (katalogi, wersje komponentow, zrodla); kazda liczba policzona ze stanu i otwierajaca zakladke zawezona po `id`, zero nie jest linkiem | 5as | `SCRIPT 13`, `sec.id = "starthere"`, `shrow`, `shzero`, `shnum`, tytul sekcji i naglowki obu tabel, regula `#starthere .shrow.shzero`, `window.__socS11` w pliku; render (§5h): klikniecie zawezasa i zapala banner |
@@ -135,6 +135,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 75 | **najechanie podswietla CALY wiersz, takze parzysty** — powloka maluje pasek inline w `restripe()`, wiec regula bez `!important` zapala tylko komorki dolozone przez skrypty | 5au | `.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}` w arkuszu; render (§5h): kazda komorka wiersza pod kursorem ma to samo tlo, w obu motywach |
 | 76 | **kazdy link zrodla NAZYWA zrodlo** — `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`, nigdy goly wyraz `Source` ani sam numer MC | 4a | zero kotwic o etykiecie `Source`, `Link`, `here`, `read more` |
 | 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
+| 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -331,7 +332,7 @@ class _Scan(HTMLParser):
     i komentarze, wiec cytaty markupu w SHELL CONTRACT nie zaklamuja wyniku."""
     def __init__(self):
         super().__init__(convert_charrefs=False)
-        self.tabpanels = 0; self.navanchors = 0; self.catalogs = set()
+        self.tabpanels = 0; self.navanchors = 0; self.catalogs = set(); self.panelids = set()
         self.ids = set(); self.scripts = 0; self.jsonblocks = 0; self.styles = 0; self.doctypes = 0
         self.hrefs = set()
     def handle_decl(self, decl):
@@ -341,7 +342,9 @@ class _Scan(HTMLParser):
         cls = (a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
         if a.get("href"): self.hrefs.add(a["href"])
-        if tag == "div" and "tabpanel" in cls: self.tabpanels += 1
+        if tag == "div" and "tabpanel" in cls:
+            self.tabpanels += 1
+            if a.get("id"): self.panelids.add(a["id"])
         if tag == "nav" and "anchors" in cls: self.navanchors += 1
         if tag == "div" and a.get("data-catalog"): self.catalogs.add(a["data-catalog"])
         if tag == "style": self.styles += 1
@@ -351,6 +354,19 @@ class _Scan(HTMLParser):
 
 def scan(page: str) -> _Scan:
     p = _Scan(); p.feed(page); return p
+
+# Kanoniczne panele §2 — LISTA, nie liczba, i to jest cala poprawka z 12 wrzesnia 2026.
+# Zaszyte `not in (10, 11)` bylo trzecim wcieleniem tej samej pomylki: 6 wrzesnia stalo tam
+# `!= 9`, potem `not in (10, 11)`, i kazde z nich bylo prawdziwe w dniu, w ktorym je napisano.
+# W dniu, w ktorym dojdzie DWUNASTA zakladka, taki warunek odrzuca POPRAWNY artefakt i spycha
+# routine w fallback, czyli w budowanie strony po swojemu — dokladnie ta rozbieznosc, przed
+# ktora §0a istnieje. Nazwy nie maja daty waznosci tak, jak ma ja liczba: brak panelu z tej
+# listy jest znaleziskiem, a panel SPOZA niej jest nowa zakladka i lustro ma go skopiowac.
+CANON_PANELS = ("tab-overview", "tab-today", "tab-new", "tab-deadlines", "tab-products",
+                "tab-components", "tab-roles", "tab-graph", "tab-hunting", "tab-sources",
+                "tab-community")
+PANEL_FLOOR = 8          # ponizej tego to nie jest kopia, tylko poszarpana ekstrakcja
+
 
 def verify(page: str) -> list:
     """Asercje strukturalne dla strony glownej. Pusta lista = mozna publikowac."""
@@ -362,14 +378,27 @@ def verify(page: str) -> list:
     # Prog jest przedzialem, nie liczba, i to jest swiadome: zadaniem lustra jest WIERNA kopia,
     # a ten test lapie ZEPSUTA EKSTRAKCJE (0, 2, 12 paneli), nie brakujaca zakladke. Artefakt
     # o dziewieciu panelach przechodzi, ale przebieg MUSI to zglosic w odpowiedzi.
-    if p.tabpanels not in (10, 11):
-        errs.append("tabpanel = %d, ma byc 11 (10 dopuszczalne przejsciowo)" % p.tabpanels)
-    elif p.tabpanels == 10:
-        print("UWAGA: artefakt ma 10 paneli — brakuje zakladki Community Articles (§5an). "
-              "Lustro publikuje, ale napisz o tym w odpowiedzi jako pozycja 59 BRAK.")
-    if p.navanchors not in (1, 2):
-        errs.append("nav.anchors = %d, ma byc 2 (jeden na rzad, §5ae) albo 1 przed przejsciem"
-                    % p.navanchors)
+    # BLOKUJE tylko poszarpana ekstrakcja. Brakujaca zakladka jest pozycja KLASY B (§0):
+    # lustro tylko kopiuje, wiec dolozyc jej nie umie, a zatrzymanie go zostawia wczorajsza
+    # strone pod wczorajsza data — gorsze klamstwo niz brak jednej zakladki.
+    if p.tabpanels < PANEL_FLOOR:
+        errs.append("tabpanel = %d, ponizej progu %d — to nie jest kopia, tylko zepsuta ekstrakcja"
+                    % (p.tabpanels, PANEL_FLOOR))
+    missing = [x for x in CANON_PANELS if x not in p.panelids]
+    if missing:
+        print("UWAGA: artefakt nie ma paneli %s (§2 wymienia %d). Lustro publikuje, ale wypisz je "
+              "w odpowiedzi jako pozycja 3 BRAK i nazwij scheduled task, ktory zbudowal artefakt."
+              % (", ".join(missing), len(CANON_PANELS)))
+    extra = sorted(x for x in p.panelids if x not in CANON_PANELS)
+    if extra:
+        print("UWAGA: artefakt ma zakladki spoza §2: %s. Lustro kopiuje je WIERNIE — to nie jest "
+              "blad. Dopisz je do §2, do `CANON_PANELS` i do pozycji 3, 26 i 59 listy §0, zanim "
+              "ktorakolwiek asercja zacznie liczyc panele." % ", ".join(extra))
+    if p.navanchors < 1:
+        errs.append("nav.anchors = 0 — pasek zakladek nie przetrwal ekstrakcji")
+    elif p.navanchors > 2:
+        print("UWAGA: nav.anchors = %d, §5ae wariant B ma dwa rzedy. Lustro kopiuje; sprawdz, czy "
+              "pasek nie ma trzeciego rzedu przez pomylke." % p.navanchors)
     if p.catalogs != {"graph", "roles"}: errs.append("data-catalog = %s, ma byc graph+roles" % sorted(p.catalogs))
     for need in ("soc-brief-state", "soc-catalog"):
         if need not in p.ids: errs.append("brak bloku %s" % need)
@@ -605,10 +634,44 @@ Zmierzone po poprawce na czterech wejsciach: brief (`--brief` 3 835 792 B, `--di
 prawdziwa Delta z 28 sierpnia (`--diff` 3 283 650 B), Delta pozbawiona `soc-catalog` i Delta
 z linkiem do prywatnego artefaktu w dateline — wszystkie bez bledow.
 
-**Asercje w `verify()` sa bramka publikacji**: dziesiec `.tabpanel` po usunieciu komentarza
-SHELL CONTRACT (cytuje markup, ktory opisuje), oba bloki JSON, oba kontenery katalogu, pusty
-`<nav class="anchors">`, co najmniej trzy skrypty zachowania, `<style>`, dokladnie jeden DOCTYPE
-i link do `/diff/`. Kazda z nich broni bledu, ktory juz raz wystapil.
+**Asercje w `verify()` sa bramka publikacji**: kazdy panel z `CANON_PANELS` obecny po swoim `id`
+(liczone po usunieciu komentarza SHELL CONTRACT, ktory cytuje markup, ktory opisuje), oba bloki JSON,
+oba kontenery katalogu, `<nav class="anchors">`, co najmniej cztery skrypty zachowania, `<style>`,
+dokladnie jeden DOCTYPE i link do `/diff/`. Kazda z nich broni bledu, ktory juz raz wystapil.
+
+### Panele liczy sie po NAZWACH, nie po liczbie — poprawka z 12 wrzesnia 2026
+
+**To byla trzecia wersja tej samej pomylki.** 6 wrzesnia stalo w `verify()` `tabpanels != 9`,
+potem `not in (10, 11)`, i **kazda z tych liczb byla prawdziwa w dniu, w ktorym ja napisano**.
+Kazda tez mowila to samo o dniu nastepnym: w chwili, w ktorej dojdzie DWUNASTA zakladka, lustro
+odrzuca **poprawny** artefakt, routine ucieka w fallback i **buduje strone po swojemu** — czyli
+dokladnie ta rozbieznosc, przed ktora ta sekcja istnieje. Zmierzone tego dnia na artefakcie
+z dopisanym dwunastym panelem: stara bramka `PRZEBIEG NIEUDANY — tabpanel = 12, ma byc 11`.
+
+Liczba ma date waznosci; **nazwa jej nie ma**. `CANON_PANELS` jest wiec lista jedenastu
+identyfikatorow z §2, a nie liczba, i rozstrzyga trzy rozne przypadki trzema roznymi
+zachowaniami:
+
+| co w artefakcie | co robi lustro |
+|---|---|
+| komplet `CANON_PANELS` | publikuje po cichu |
+| **brak** ktoregos z nich | **publikuje** i drukuje `UWAGA` z nazwami — pozycja 3 to klasa B (§0), a lustro tylko kopiuje, wiec zakladki dolozyc nie umie |
+| panel **spoza** listy | **publikuje** i drukuje `UWAGA`, ze kopiuje wiernie i ze trzeba dopisac go do §2 i do `CANON_PANELS`, zanim ktorakolwiek asercja zacznie liczyc panele |
+| mniej niz **8** paneli (`PANEL_FLOOR`) | **NIE publikuje** — to nie jest kopia, tylko poszarpana ekstrakcja |
+| `nav.anchors` = 0 | **NIE publikuje** — pasek zakladek nie przetrwal ekstrakcji; 3 rzedy sa `UWAGA`, nie bledem |
+
+Kontrola regresji na pieciu wejsciach, oba lustra obok siebie: prawdziwy artefakt (11 paneli) —
+stare i nowe `exit 0` i **wyjscie bajt w bajt identyczne**, takze w trybie `--diff`; dwunasty panel —
+**stare `exit 1`, nowe `exit 0` z `UWAGA` nazywajaca `tab-mslearn`**; brak `tab-community` — oba
+`exit 0`, nowe nazywa brakujacy panel; jeden panel — oba `exit 1`; pasek bez `nav.anchors` — oba
+`exit 1`. **Prog `PANEL_FLOOR` jest tym, czym mial byc przedzial: testem na ZEPSUTA EKSTRAKCJE,
+a nie na brakujaca zakladke.**
+
+**Ta sama zasada obowiazuje w KAZDEJ asercji renderu.** Zdanie „dla kazdej z jedenastu zakladek"
+znaczy **„dla kazdej zakladki, ktora pasek niesie"** — liczba jest opisem dnia, w ktorym zdanie
+napisano, a warunkiem jest petla. Przebieg, ktory sprawdzi jedenascie zakladek na stronie o dwunastu,
+przepuscil jedna nietknieta; §5x powstalo dokladnie z takiego bledu (sprawdzanie JEDNEJ zakladki
+przepuscilo Today 556 px i Deadlines 482 px przy ekranie 390).
 
 ## 0b. BRAMKA PUBLIKACJI — kod, nie dobre checi
 
@@ -1383,8 +1446,16 @@ def gate(path, site=None, mirror=False, doc=None):
     # Playwright (§5h) — to samo rozroznienie co przy pozycji 48.
     K64 = ("#tab-community .cstick{position:sticky;top:var(--chdr-h,0px)",
            "ensureGlobalBanner", 'setProperty("--chdr-h"', 'setProperty("--cstick-h"',
-           "stickify", "measureStick", "scroll-margin-top:var(--cstick-h")
-    need("64", "filtr globalny nazywa sie i czysci z jednego miejsca (§5ao)",
+           "stickify", "measureStick", "scroll-margin-top:var(--cstick-h",
+           # 5av: kazdy pasek MOWIACY o filtrze jest zielony, na kazdej powierzchni.
+           # Pelne reguly, nie fragmenty: `var(--ok-soft)` samo stoi takze przy polu
+           # szukania (5k), a klucz przechodzacy z niewlasciwego powodu jest gorszy
+           # niz jego brak (0b).
+           ".filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}",
+           ".filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}",
+           ".gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}",
+           ".filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}")
+    need("64", "filtr globalny nazywa sie, jest ZIELONY i czysci z jednego miejsca (§5ao, §5av)",
          all(k in h for k in K64),
          "brak: %s" % ", ".join(k for k in K64 if k not in h))
     # 65: §5ap — kazda kolumna filtrowalna, kazdy slupek kontrolka. Bramka czyta PLIK,
@@ -1701,7 +1772,7 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS osiemnascie:**
+Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS dziewietnascie:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1717,7 +1788,7 @@ Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS osiemnascie:**
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
 | SKRYPT 15 — Advanced filtering, jeden pasek na zakladke | `CLAUDE.md` | 5au |
-| **kazdy dopisany blok CSS** (18 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au |
+| **kazdy dopisany blok CSS** (19 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
@@ -1778,8 +1849,8 @@ def main(doc, outdir):
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 18:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 18 — sprawdz wciete plotki" % len(css))
+    if len(css) < 19:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 19 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -2231,8 +2302,20 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
     czytana strona albo swiezosc, oraz ustalenia o samym pliku listy. **Zrodlo, ktore przeszlo z `ok`
     na `failed`, jest pierwszym wierszem** — to jest zmiana warta reakcji. Liczba „+7 artykulow"
     odpowiada na pytanie ILE, nie na pytanie CO, i dlatego tu jej nie ma samej.
-11. **Message Center** — sekcja `id="mcenter"` (§5an). Wpisy MC i Roadmapy dodane oraz usuniete po `id`,
-    z kolumna technologii i terminem `actionRequiredBy`; **wpis z terminem stoi wyzej**, bo to on wymaga planu.
+11. **Message Center** — sekcja `id="mcenter"` (§5an). **WIDOK, nie druga populacja**: zbiera KAZDY
+    identyfikator MC/RM, ktory ruszyl sie w tym porownaniu, z OBU miejsc, w ktorych moze sie ruszyc —
+    z indeksu `community.messageCenter[]` i z pozycji na tej stronie, ktora go cytuje w `reference`.
+    Kolumna `Where it came from` mowi, ktora droga. **Wpis z terminem stoi wyzej**, bo to on wymaga planu.
+
+    Do 12 wrzesnia 2026 sekcja liczyla sam indeks i przez to **klamala cisza**: wiersz w `added` mowil
+    „Teams · Message Center · opublikowane 12.09", a ta sekcja mowila `0` i „No new Message Center or
+    Roadmap entry". Oba zdania byly prawdziwe osobno i wykluczaly sie razem. Zmierzone tego dnia:
+    `items[]` mialo trzy nowe pozycje z `reference: "MC…"`, `community.messageCenter[]` mialo 201 wpisow
+    wczoraj i 201 dzisiaj, **i zadnego z tych trzech w nim nie bylo**.
+
+    Poniewaz pozycja cytujaca MC jest juz policzona w SWOJEJ zakladce (§3a, jeden dom na pozycje),
+    **ta sekcja zostaje poza suma kafelkow** — dokladnie tak, jak endpointy, i z tego samego powodu.
+    `verify()` pomija oba wiersze przy sumowaniu kolumn `bytab`.
 11a. **Source text** — sekcja `id="srctext"` (§5ar). Linie, ktore Microsoft dopisal i skasowal
     W SRODKU sledzonej strony: usuniete w `<del>`, dodane w `<ins>`, jeden wiersz na linie, pogrupowane
     po stronie. **Strone porownuje sie po commicie, nie po liczbie linii** — te same `+21 / −15` przy
@@ -2272,6 +2355,91 @@ klamie w chwili, w ktorej banner sie otwiera (§0a).
 **Zero NIE jest linkiem.** Prowadzilby do pustej tabeli i uczyl, ze klikanie nic nie daje — ta sama
 zasada co pusty kubelek, ktory mowi zdaniem zamiast znikac. **Dotyczy to tak samo kafelkow** jak
 licznikow w `bytab`: kafelek `0 removed` jest zwyklym `div`, nie kotwica.
+
+### Punkt 15. DOWOD STOI PRZY SWOIM WIERSZU, A NIE W OSOBNEJ SEKCJI
+
+Wlasciciel zglosil 12 wrzesnia 2026, patrzac na wiersz Entry w `Added` i na sekcje `Source text`
+o tej samej stronie: *„maybe that would be better to have the »+« sign in the section »Added since«
+i dodac tam info z sekcji »Source text what microsoft changed inside this page«… once i click the
+plus sign in the row we will see what was changed"*.
+
+**Powiazanie juz bylo w danych i nikt go nie czytal.** §5ar zapisuje je w obie strony —
+`docText.pages[].itemIds` i `items[].docRef` — a `make_diff.py` nie siegal po zadne z tych pol
+(grep pusty). Czytelnik dostawal te sama historie dwa razy: raz jako wiersz, raz jako dziewiec
+linii nizej, i nic ich nie laczylo.
+
+1. **Kazda tabela pozycji — `added`, `removed`, `changed` — ma pierwsza kolumne dowodu.** Pozycja,
+   ktora wskazuje sledzona strone ze zmienionym tekstem, dostaje `+`; klikniecie rozwija pod jej
+   wierszem pelnej szerokosci blok ze zmiana. Pozycja bez takiej strony dostaje **myslnik**, nie pusty
+   przycisk: kontrolka, ktora nic nie otwiera, uczy, ze klikanie nic nie daje (punkt 13).
+2. **Blok ma ksztalt SKRYPTU 12** (§5ar) — nazwa strony, sciezka z commitem, `+N / −N`, numer linii,
+   pelne pasy `+` i `−`, zdanie o metadanych i `Why this matters`. **Jeden ksztalt na obu stronach**:
+   do 12 wrzesnia ta strona miala wlasny render (wiersz na linie, kolumna `What` z wartoscia `added`),
+   czyli druga kopie jednej rzeczy — a te rozjezdzaja sie zawsze (§0a) i te dwie juz sie rozjechaly.
+3. **Sekcja `Source text` zostaje wylacznie dla SIEROT** — stron, ktore sie ruszyly, a zadna pozycja
+   ich nie niesie. To jest znalezisko: tekst sie zmienil, a brief nie zrobil z tego pozycji.
+   Gdy sierot nie ma, sekcja mowi to zdaniem i podaje, ile stron stoi wyzej.
+4. **Trzy liczniki tej sekcji musza mowic o tym samym.** Zmierzone 12 wrzesnia na opublikowanej
+   stronie: chip mowil `1`, podpis tabeli „0 pages edited, 1 newly watched", zdanie „0 of 7 watched
+   pages changed their text", a tabela pokazywala **dziewiec linii** — bo render bral `dtchg + dtadd`,
+   a podpis liczyl samo `dtchg`. Liczy sie odtad to, co naprawde stoi na ekranie.
+5. **Zaden czwarty skrypt.** `+` obsluguje skrypt nawigacji, ktory i tak sluchá klikniec na calym
+   dokumencie; pole szukania pomija wiersze `tr.det` i chowa je razem z rodzicem (§5am, ten sam
+   wzorzec co `hdet` w briefie). Strona zostaje na trzech skryptach, tak jak mowi §3.
+
+### Punkt 16. ADVANCED FILTERING JEST TU TAKI SAM JAK W PORTALU
+
+Wlasciciel, 12 wrzesnia 2026: *„nie ma w diff advance filtering takiego jaki mamy w glownym
+portalu"*. Mial racje i roznica byla strukturalna, nie estetyczna: ta strona miala WYLACZNIE
+zielone pudelko przy kazdej tabeli — jedna kolumna naraz, jedna wartosc naraz — wiec pytania
+„Entra ALBO Intune" nie dalo sie tu zadac w ogole, a pytanie „Entra ORAZ termin w pazdzierniku"
+wymagalo obejscia dwunastu tabel po kolei.
+
+Pasek ma **ten sam ksztalt co §5au**: jedno rozwijane menu na kolumne, ktora grupuje, pola wyboru
+w srodku (kilka wartosci w JEDNYM menu znaczy KTORAKOLWIEK z nich, dwa menu naraz znacza OBA),
+licznik przy kazdej wartosci liczony przy wlaczonych pozostalych filtrach, szukanie z zakresem
+kolumny dla kazdej kolumny, ktora faseta byc nie moze, i jeden `Reset`. Stoi tuz pod przyklejonym
+blokiem `.dstick`, zwiniety, a licznik „N filters on" w jego podpisie mowi, czy cos jest wlaczone,
+bez otwierania go.
+
+**Nie jest to piaty skrypt.** §3 mowi o czterech blokach — `THEME_HEAD`, `THEME_BODY`, `FIND_BODY`,
+`NAV_BODY` — i tak zostaje: pasek mieszka w `FIND_BODY`, bo dziala na dokladnie tych pudelkach,
+ktore `FIND_BODY` rejestruje, i potrzebuje ich `apply()`. Blok osobny byloby piatym skryptem
+i drugim pisarzem naraz.
+
+**JEDEN PISARZ NA MECHANIZM** (§5am, §5ap). Pasek nie pisze ani `row.hidden`, ani licznika
+`N of M`. Ustawia `window.__s9adv`, ktore kazde pudelko `.s9find` czyta w swoim `apply()` — ten sam
+ksztalt `opt.extra`, ktorego SKRYPT 6 uzywa w briefie dla chipow metod. Dzieki temu licznik nad
+tabela, chip sekcji i ten pasek nie maja jak powiedziec trzech roznych rzeczy.
+
+**Trzy reguly, kazda przeniesiona z §5au razem z jej powodem:**
+
+1. **Faseta musi GRUPOWAC** (§5s). Kolumna, ktorej wartosci sa niemal wszystkie unikalne, jest
+   identyfikatorem: menu z jednym wpisem na wiersz to druga kopia tabeli. Taka kolumna idzie do
+   ZAKRESU SZUKANIA, wiec kazda kolumna tej strony jest osiagalna jedna albo druga droga.
+2. **Tabela, ktorej ta kolumna nie dotyczy, zostaje CALA** (§5at). Kolumny, ktorej tabela nie ma,
+   nie stosuje sie do niej — zawezenie do zera odpowiadaloby na pytanie, ktorego nikt nie zadal.
+3. **Obie tabele podsumowania sa wylaczone** — `bytab` i `bytech` sa KONTROLKAMI (punkt 13),
+   wiec `window.__s9adv` zwraca dla nich zawsze prawde.
+
+**Pasek zglasza sie na tej samej magistrali co reszta** (§5ao): `window.__s9advDesc()` zwraca
+jeden wpis na wymiar, a zielony banner rysuje z tego chip z wlasnym `×`. `Clear filter` w bannerze
+czysci takze pasek, a `window.__socDiffFolds` otwiera sekcje, ktore po zawezeniu nadal maja wiersz —
+dokladnie tak, jak robi to filtr technologii.
+
+**Sekcje sa zwijane, a menu pozycjonuje sie wzgledem OKNA i odbija w gore**, gdy pod przyciskiem
+nie ma miejsca. Wybor wartosci NIE przewija strony — zmierzone 12 wrzesnia 2026 na porownaniu
+11 → 12 wrzesnia: trzy klikniecia pod rzad w menu `Product`, `scrollY 0 → 0`, menu otwarte przez
+caly czas, przycisk pokazuje `3`.
+
+Zmierzone tego dnia po zbudowaniu, oba motywy, 1400 i 390 px: pasek z **szescioma menu**
+(`Field`, `Product`, `Published`, `Weight`, `Deadline`, `Status`), 23 pozycje w zakresie szukania,
+13 zarejestrowanych pudelek; `Product = Azure, Entra, Graph` daje `4 of 8` w `Added`, `7 of 24`
+w `Changed` i zostawia `9 of 9` w `bytab` oraz `22 of 22` w `bytech`; banner mowi `1 filter is on`
+z chipem `Advanced filtering — product Azure, Entra, Graph`; dolozenie technologii na wierzchu daje
+`2 filters are on` i `Clear all filters`; `Clear` przywraca **kazdy** licznik i zwija wszystko poza
+dwiema tabelami podsumowania. Zero bledow strony, `scrollWidth === clientWidth` przy obu
+szerokosciach.
 
 ### Punkt 13a. KAFELEK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA LICZBA
 
@@ -2316,7 +2484,7 @@ To jest jedna regula, nie dwie: **sekcja jest otwarta wtedy, gdy trzyma to, o co
 
 | co zrobil czytelnik | ktore sekcje sa otwarte |
 |---|---|
-| wszedl na strone | **zadna** — licznik stoi w chipie, wiec liczby widac bez otwierania czegokolwiek |
+| wszedl na strone | **zadna sekcja tresci** — licznik stoi w chipie, wiec liczby widac bez otwierania czegokolwiek. Wyjatkiem sa DWIE tabele podsumowania, `bytab` i `bytech`, ktore punkt 13 nazywa **kontrolkami, a nie trescia** i z tego powodu wylacza z filtrowania: kontrolka, ktora trzeba najpierw otworzyc, nie jest kontrolka, wiec przy niezerowym ruchu stoja otwarte. W dzien bez zmian zwijaja sie razem z reszta, bo otwarta tabela samych zer jest halasem. `verify()` odrzuca kazda INNA otwarta sekcje |
 | kliknal kafelek albo liczbe w `bytab` | **dokladnie jedna**, ta, do ktorej liczba prowadzi |
 | kliknal pozycje paska skrotow | **dokladnie jedna**, ta z paska |
 | kliknal nazwe technologii | **kazda, ktora po zawezeniu nadal ma wiersz**; reszta sie zamyka, a banner mowi ile ich jest |
@@ -2644,6 +2812,7 @@ def diff_community(prev_st, curr_st):
     if cc and not pc:
         return {"baseline": True, "sources": len(cc.get("sources") or []),
                 "items": len(cc.get("items") or []), "mc": len(cc.get("messageCenter") or []),
+                "messageCenter": list(cc.get("messageCenter") or []),
                 "srcAdd": [], "srcRem": [], "srcRen": [], "srcChg": [],
                 "artAdd": [], "artRem": [], "mcAdd": [], "mcRem": [], "listNotes": []}
     ps = {x.get("name"): x for x in (pc.get("sources") or []) if x.get("name")}
@@ -2683,9 +2852,56 @@ def diff_community(prev_st, curr_st):
             notes.append((kind, " · ".join(str(x) for x in row)))
     return {"baseline": False, "srcAdd": srcAdd, "srcRem": srcRem, "srcRen": ren, "srcChg": srcChg,
             "artAdd": artAdd, "artRem": artRem, "mcAdd": mcAdd, "mcRem": mcRem, "listNotes": notes,
+            "messageCenter": list(cm.values()),
             "sources": len(cs), "items": len(ca), "mc": len(cm)}
 
 # ---------- tekst zrodla (§5ar) ----------
+
+MCREF = re.compile(r"^\s*(MC|RM)\d+", re.I)
+
+def mc_view(com, added, removed):
+    """Wiersze sekcji Message Center — WIDOK, nie druga populacja.
+
+    Wlasciciel, 12 wrzesnia 2026: wiersz Teams mowil „Message Center, opublikowane
+    12.09", a sekcja Message Center mowila 0 i „No new Message Center or Roadmap
+    entry". Oba zdania byly prawdziwe osobno i wykluczaly sie razem, bo licznik czytal
+    `community.messageCenter[]`, a wiersz `items[].reference`. Zmierzone tego dnia:
+    indeks mial 201 wpisow wczoraj i 201 dzisiaj, a zadnego z trzech nowych MC w nim
+    nie bylo.
+
+    Ta sekcja zbiera wiec KAZDY identyfikator MC/RM, ktory ruszyl sie w tym porownaniu,
+    z obu zrodel — z indeksu i z pozycji, ktora go cytuje. To jest widok, dokladnie tak
+    jak `Deadlines &mdash; everything dated, in one place` (§3 punkt 3b) zbiera terminy
+    rozsypane po trzech sekcjach. Pozycja cytujaca MC jest nadal liczona w SWOJEJ
+    zakladce (§3a, jeden dom na pozycje), a zeby nie policzyc jej drugi raz, kafelki
+    sumaryczne pomijaja te sekcje tak samo, jak pomijaja endpointy."""
+    rows, seen = [], set()
+    def put(kind_, mid, title, link, tech, action, date, origin, it=None):
+        key = (kind_, norm(mid).upper())
+        if not mid or key in seen: return
+        seen.add(key)
+        rows.append({"kind": kind_, "id": norm(mid), "title": norm(title), "link": norm(link),
+                     "tech": tech or [], "action": norm(action), "date": norm(date),
+                     "origin": origin, "item": it})
+    for x in (com.get("mcAdd") or []):
+        put("added", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
+            x.get("action"), x.get("date"), "index")
+    for x in (com.get("mcRem") or []):
+        put("removed", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
+            x.get("action"), x.get("date"), "index")
+    idx = {norm(x.get("id")).upper() for x in ((com.get("messageCenter") or []))}
+    for kind_, lst in (("added", added), ("removed", removed)):
+        for i_ in lst:
+            ref = norm(i_.get("reference"))
+            if not MCREF.match(ref): continue
+            mid = MCREF.match(ref).group(0).strip().upper()
+            put(kind_, mid, i_.get("officialTitle") or i_.get("title"), i_.get("url"),
+                [norm(i_.get("product"))] if i_.get("product") else [],
+                i_.get("deadline"), i_.get("published"),
+                "item" if mid not in idx else "both", i_)
+    # wpis z terminem idzie na gore — to po niego czyta sie te sekcje
+    rows.sort(key=lambda r: (0 if r["action"] else 1, r["kind"] != "added", r["id"]))
+    return rows
 
 def diff_doctext(prev_st, curr_st):
     """Strony, ktorych TEKST sie ruszyl miedzy dwoma stanami.
@@ -2704,26 +2920,6 @@ def diff_doctext(prev_st, curr_st):
     for lst in (added, removed, changed):
         lst.sort(key=lambda x: -((x.get("added") or 0) + (x.get("removed") or 0)))
     return added, removed, changed, len(pp), len(cc)
-
-def doctext_rows(pages, cap_lines=40):
-    """Wiersze `Page | What | Line`. Linia dodana idzie w `<ins>`, usunieta w `<del>` —
-    ten sam znacznik, ktorego uzywa cala reszta tej strony (§4), wiec asercja
-    „kazdy wiersz pokazuje roznice" obowiazuje tu tak samo."""
-    rows, n = [], 0
-    for p_ in pages:
-        first = True
-        for h in (p_.get("hunks") or []):
-            for kind_, lines in (("removed", h.get("rem") or []), ("added", h.get("add") or [])):
-                for ln in lines:
-                    if not str(ln).strip(): continue
-                    if n >= cap_lines: break
-                    cell = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
-                            % (esc(p_.get("url")), esc(p_.get("name") or p_.get("path")))) if first else \
-                           '<span class="none">&#8942;</span>'
-                    body = ("<ins>%s</ins>" % esc(ln)) if kind_ == "added" else ("<del>%s</del>" % esc(ln))
-                    rows.append(("", [cell, '<span class="field">%s</span>' % kind_, body]))
-                    first = False; n += 1
-    return rows
 
 # ---------- mapa Graph API (§5ah) ----------
 
@@ -2827,6 +3023,88 @@ def a_src(it):
     if not u: return '<span class="none">no link</span>'
     return '<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(u), esc(source_name(u)))
 
+# ---------- §3 punkt 15: DOWOD STOI PRZY SWOIM WIERSZU ----------
+# Wlasciciel, 12 wrzesnia 2026: „raz klikne plus w sekcji Added i zobacze, co zostalo
+# zmienione". Powiazanie JUZ bylo w danych — §5ar zapisuje je w obie strony,
+# `docText.pages[].itemIds` i `items[].docRef` — a ta strona nie czytala ani jednego
+# z tych pol i renderowala zmiane tekstu jako osobna sekcje. Czytelnik dostawal te sama
+# historie dwa razy: raz jako wiersz w `added`, raz jako dziewiec linii nizej, i nic
+# ich nie laczylo.
+
+def doc_pages(curr_st):
+    """{id pozycji: [strony docText]} — z pola, ktore stan juz niesie."""
+    out = {}
+    for p_ in (((curr_st or {}).get("docText") or {}).get("pages") or []):
+        for iid in (p_.get("itemIds") or []):
+            if iid: out.setdefault(norm(iid), []).append(p_)
+    return out
+
+def hunk_lines(p_):
+    n = 0
+    for h in (p_.get("hunks") or []):
+        for k in ("add", "rem"):
+            n += len([x for x in (h.get(k) or []) if str(x).strip()])
+    return n
+
+def file_block(p_, cap_lines=60):
+    """Zmiana tekstu w ksztalcie SKRYPTU 12 (§5ar) — tym samym, ktorym brief rysuje ja
+    w zakladce New. Do 12 wrzesnia ta strona miala WLASNY render: wiersz na linie plus
+    kolumna `What` z wartoscia `added`. Dwie kopie jednej rzeczy rozjezdzaja sie (§0a),
+    a te dwie juz sie rozjechaly. Zostaje ksztalt z briefu, bo usuniecie prozy widac
+    w nim bez czytania kolumny."""
+    o = ['<div class="s12file">']
+    nm = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+          % (esc(p_.get("url")), esc(p_.get("name") or p_.get("path")))) if p_.get("url") \
+         else ("<b>%s</b>" % esc(p_.get("name") or p_.get("path")))
+    stamp = " &middot; ".join(x for x in (esc(p_.get("commit")), esc(p_.get("date"))) if x)
+    o.append('<div class="s12fhead"><div class="s12name">%s<span class="s12path">%s</span></div>'
+             '<div class="s12cnt"><span class="p">+%d</span><span class="m">&minus;%d</span></div></div>'
+             % (nm, esc(p_.get("path")) + ((" &middot; " + stamp) if stamp else ""),
+                p_.get("added") or 0, p_.get("removed") or 0))
+    shown = 0
+    for h in (p_.get("hunks") or []):
+        rows = []
+        for kind_, lines in (("rem", h.get("rem") or []), ("add", h.get("add") or [])):
+            for ln in lines:
+                if not str(ln).strip() or shown >= cap_lines: continue
+                rows.append('<div class="s12line s12%s"><span class="s12sign">%s</span>'
+                            '<span>%s</span></div>'
+                            % (kind_, "&minus;" if kind_ == "rem" else "+", esc(ln)))
+                shown += 1
+        if rows:
+            o.append('<div class="s12hunk"><div class="s12at">line %s</div>%s</div>'
+                     % (esc(h.get("at") or 0), "".join(rows)))
+    total = hunk_lines(p_)
+    if total > shown:
+        o.append('<p class="s12more">&hellip; and %d more changed lines. Every one of them is on the '
+                 'brief, in the Source text section of the New tab.</p>' % (total - shown))
+    mn = (p_.get("metaAdded") or 0) + (p_.get("metaRemoved") or 0)
+    if mn:
+        o.append('<p class="s12meta">%d further changed line%s page metadata only &mdash; ms.date, '
+                 'ms.custom, the title and description strings. Counted and set aside here rather than '
+                 'hidden: a date bump is a real edit, it is just not one a SOC acts on.</p>'
+                 % (mn, " is" if mn == 1 else "s are"))
+    if p_.get("socNote"):
+        o.append('<p class="s12why"><b>Why this matters.</b> %s</p>' % esc(p_.get("socNote")))
+    o.append("</div>")
+    return "".join(o)
+
+def evidence(it, docmap):
+    """(komorka pierwszej kolumny, HTML dowodu). Pozycja bez sledzonej strony dostaje
+    MYSLNIK, nie pusty przycisk: kontrolka, ktora nic nie otwiera, uczy czytelnika, ze
+    klikanie nic nie daje — ta sama zasada co zero, ktore nie jest linkiem (§3 punkt 13)."""
+    pages = docmap.get(norm(it.get("id"))) or []
+    pages = [p_ for p_ in pages if hunk_lines(p_)]
+    if not pages:
+        return '<span class="xn">&mdash;</span>', ""
+    n = sum(hunk_lines(p_) for p_ in pages)
+    lead = ('<p class="hd-lead">What Microsoft changed inside %s &mdash; %d changed line%s</p>'
+            % ("the page this item came from" if len(pages) == 1 else "the %d pages this item came from" % len(pages),
+               n, "" if n == 1 else "s"))
+    return ('<button class="xb" type="button" data-diff="1" aria-expanded="false" '
+            'title="Show what changed inside the source page">+</button>',
+            lead + "".join(file_block(p_) for p_ in pages))
+
 def deep_link(tab, key, home="/"):
     """Strona zmian nie ma katalogu (§3), wiec nie otworzy panelu u siebie —
     ale moze w niego wskazac. Skrypty 6 i 7 czytaja te kotwice (§5al)."""
@@ -2857,7 +3135,17 @@ def table(head, rows, empty, caption=None):
         lead = ('<p class="emptycap">%s</p>' % caption) if caption else ""
         return lead + '<p class="empty">%s</p>' % esc(empty)
     th = "".join("<th>%s</th>" % h for h in head)   # naglowki sa nasze, nie z danych
-    tb = "".join("<tr%s>%s</tr>" % (r[0], "".join("<td>%s</td>" % c for c in r[1])) for r in rows)
+    # Trzeci element wiersza, gdy jest, to DOWOD: pelnej szerokosci wiersz pod swoim
+    # wierszem, zwiniety. Chowa go atrybut `hidden`, a nie klasa — pole szukania musi
+    # umiec go schowac razem z rodzicem (§5am, ten sam wzorzec co `hdet` w briefie).
+    _tb = []
+    for r in rows:
+        _tb.append("<tr%s>%s</tr>" % (r[0], "".join("<td>%s</td>" % c for c in r[1])))
+        det = r[2] if len(r) > 2 else ""
+        if det:
+            _tb.append('<tr class="det" hidden><td colspan="%d"><div class="det-in">%s</div></td></tr>'
+                       % (len(r[1]), det))
+    tb = "".join(_tb)
     cap = ('<caption class="tabcap">%s</caption>' % caption) if caption else ""
     return ('<div class="tw"><table>%s<thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>'
             % (cap, th, tb))
@@ -2917,7 +3205,7 @@ def tiles(spec):
     return "".join(out)
 
 
-def sect(sid, title, note, body, count=None):
+def sect(sid, title, note, body, count=None, open_=False):
     """Sekcja zwijana z licznikiem w podpisie, ZWINIETA domyslnie (§3 punkt 14).
 
     Licznik stoi w chipie, wiec liczbe widac bez otwierania czegokolwiek, a strona
@@ -2926,10 +3214,15 @@ def sect(sid, title, note, body, count=None):
     powodu. Zielone pole szukania i filtry dokłada skrypt strony (jeden na wszystkie
     tabele), zeby dwie sekcje nie mogly sie rozjechac."""
     chip = ('<span class="dsum-n">%s</span>' % count) if count is not None else ""
-    return ('<section id="%s"><details class="dsec"><summary>'
+    # §3 punkt 14 zwija KAZDA sekcje tresci — i tak zostaje. Wyjatkiem sa DWIE tabele
+    # podsumowania, ktore punkt 13 nazywa kontrolkami, a nie trescia, i z tego powodu
+    # wylacza z filtrowania. Kontrolka, ktora trzeba najpierw otworzyc, nie jest
+    # kontrolka, wiec przy niezerowym ruchu otwieraja sie same; w dzien bez zmian
+    # zostaja zwiniete, bo otwarta tabela samych zer jest halasem.
+    return ('<section id="%s"><details class="dsec"%s><summary>'
             '<span class="dsum-t">%s</span>%s</summary>'
             '<p class="note">%s</p>%s</details></section>'
-            % (sid, title, chip, note, body))
+            % (sid, " open" if open_ else "", title, chip, note, body))
 
 
 def cap(lst, n, what):
@@ -3100,15 +3393,153 @@ nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
    banner appears and taller again when its text wraps on a phone (§0a) */
 section{scroll-margin-top:var(--dstick-h,56px)}
 .navbanner{display:flex;align-items:center;gap:12px;margin:0 0 8px;padding:8px 12px;border-radius:10px;
- background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13px}
+ background:var(--ok-soft);border:1px solid var(--ok);color:var(--text);font-size:13px}
 .navbanner .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
- color:var(--accent);flex:0 0 auto}
-.navbanner .nb-msg b{color:var(--accent)}
+ color:var(--ok);flex:0 0 auto}
+.navbanner .nb-msg b{color:var(--ok)}
 .navbanner[hidden]{display:none!important}
 .navbanner .nb-msg{flex:1 1 auto}
 .navbanner .nb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
- border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
-@media (max-width:760px){a.fact::after{display:none}}
+ border:1px solid var(--ok);background:var(--ok);color:var(--surface);cursor:pointer;white-space:nowrap}
+.navbanner .nb-clear:hover{background:var(--surface);color:var(--ok)}
+/* One line names EVERY filter that is on, not only the global one (5ao). Until
+   12 September 2026 this banner spoke only for the technology and tile filters, so
+   a reader who typed into a table's own green box got a count that dropped with
+   nothing on screen saying why — the same defect the portal fixed with its masthead
+   line (5at), on the one page that had been exempted from it. */
+.navbanner{flex-wrap:wrap}
+.navbanner .nb-msg[hidden]{display:none!important}
+.navbanner .nb-chips{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 100%;min-width:0}
+.navbanner .nb-chips:empty{display:none}
+.navbanner .nb-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
+ padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--ok);
+ color:var(--text);font-size:12.5px;line-height:1.6;overflow-wrap:anywhere}
+.navbanner .nb-chip b{font-weight:700;color:var(--ok);white-space:nowrap}
+.navbanner .nb-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;padding:0}
+.navbanner .nb-x:hover{background:var(--del-bg);border-color:var(--bad);color:var(--bad)}
+.navbanner .nb-x:focus-visible,.navbanner .nb-clear:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
+@media (max-width:760px){a.fact::after{display:none}.navbanner .nb-clear{width:100%;text-align:center}}
+
+/* --- Advanced filtering, the same control the portal carries on every tab (5au).
+   Until 12 September 2026 this page had only the per-table green box: one column
+   at a time, one value at a time, and no way to ask for "Entra OR Intune". The
+   owner asked for the portal's bar here, and the bar is the same shape — one menu
+   per groupable column, checkboxes inside, a live count on every value, a search
+   scoped to any single column, one Reset.
+
+   It writes NOTHING itself. ONE WRITER PER MECHANISM (5am, 5ap): every `.s9find`
+   box stays the only writer of `row.hidden` for its own table, and this bar sets a
+   PREDICATE those boxes consult — the same `opt.extra` shape SCRIPT 6 uses for its
+   method chips in the brief. --- */
+details.s9adv{border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.s9adv.on{border-color:var(--accent);background:var(--accent-soft)}
+details.s9adv>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+ flex-wrap:wrap;padding:10px 14px}
+details.s9adv>summary::-webkit-details-marker{display:none}
+details.s9adv>summary::before{content:"+";font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent)}
+details.s9adv[open]>summary::before{content:"\2212"}
+.s9advt{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
+.s9advs{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--muted)}
+.s9advon{font-size:11.5px;font-weight:700;color:var(--ok);background:var(--surface);
+ border:1px solid var(--ok);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.s9advon[hidden]{display:none!important}
+.s9advq{display:flex;gap:8px;align-items:center;margin:0 14px 9px;flex-wrap:wrap}
+.s9advqin{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9advqin::placeholder{color:var(--muted);font-weight:400}
+.s9advqin:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
+.s9advqc{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+.s9advrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 14px 8px}
+.s9advdim{position:relative}
+.s9advbtn{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer;white-space:nowrap}
+.s9advbtn:hover{border-color:var(--accent)}
+.s9advbtn.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.s9advbtn i{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--accent);display:inline-block}
+.s9advbtn b{font-variant-numeric:tabular-nums;color:var(--accent)}
+.s9advcar{color:var(--muted);font-size:10px}
+.s9advbtn:focus-visible,.s9advreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s9advpop{display:none;position:fixed;z-index:70;min-width:270px;max-width:340px;
+ background:var(--surface);border:1px solid var(--border);border-radius:12px;
+ box-shadow:0 10px 30px rgba(0,0,0,.28);padding:9px}
+.s9advdim.open .s9advpop{display:block}
+.s9advfind{width:100%;font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);margin:0 0 7px}
+.s9advfind[hidden]{display:none}
+.s9advlist{overflow:auto;display:flex;flex-direction:column;gap:1px}
+.s9advopt{font:inherit;font-size:12.5px;display:flex;align-items:center;gap:9px;width:100%;
+ text-align:left;padding:6px 8px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer}
+.s9advopt:hover{background:var(--surface2)}
+.s9advopt i{width:14px;height:14px;flex:0 0 14px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface);display:inline-block}
+.s9advopt.on i{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--surface)}
+.s9advopt span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s9advopt b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.s9advempty{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.s9advfoot{display:flex;align-items:center;gap:8px;margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--border)}
+.s9advclr{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
+.s9advpn{margin-left:auto;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.s9advreset{font:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--accent);color:var(--surface);cursor:pointer;margin-left:auto}
+.s9advsum{margin:0 14px 12px;font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){
+  .s9advqc{max-width:100%;width:100%}
+  .s9advreset{margin-left:0;width:100%;text-align:center}
+  .s9advpop{max-width:calc(100vw - 24px)}
+}
+
+/* --- the evidence under a row: the change Microsoft made inside the source page.
+   Same shape as SCRIPT 12 draws in the brief (5ar) and deliberately so: two renderers
+   of one thing drift apart (0a), and these two already had. --- */
+td.xc{width:34px;padding-left:10px;padding-right:0}
+.xb{font:inherit;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;font-weight:700;
+ width:24px;height:24px;line-height:1;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);
+ cursor:pointer;padding:0}
+.xb:hover{background:var(--accent);color:var(--surface)}
+.xn{color:var(--muted)}
+tr.hasdet[aria-expanded="true"]>td{background:var(--accent-soft)}
+tr.det>td{padding:0;background:var(--surface2);box-shadow:inset 3px 0 0 var(--accent)}
+tr.det[hidden]{display:none!important}
+.det-in{padding:13px 14px}
+.hd-lead{margin:0 0 9px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted)}
+.s12file{border:1px solid var(--border);border-radius:11px;background:var(--surface);overflow:hidden}
+.s12file+.s12file{margin-top:10px}
+.s12fhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface2);border-bottom:1px solid var(--border)}
+.s12name{flex:1 1 240px;min-width:0;font-size:13.5px;font-weight:700}
+.s12path{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+ color:var(--muted);font-weight:400;margin-top:2px;overflow-wrap:anywhere}
+.s12cnt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:700;
+ white-space:nowrap;flex:0 0 auto}
+.s12cnt .p{color:var(--ins-fg);background:var(--ins-bg);border-radius:5px;padding:1px 6px}
+.s12cnt .m{color:var(--del-fg);background:var(--del-bg);border-radius:5px;padding:1px 6px;margin-left:4px}
+.s12hunk{border-top:1px solid var(--border)}
+.s12at{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted);
+ padding:6px 13px 2px}
+.s12line{display:flex;gap:8px;padding:3px 13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:12.5px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.s12sign{flex:0 0 14px;font-weight:700;text-align:center}
+.s12add{background:var(--ins-bg);color:var(--ins-fg)}
+.s12rem{background:var(--del-bg);color:var(--del-fg)}
+.s12meta,.s12more{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface2);
+ border-top:1px solid var(--border);margin:0}
+.s12why{padding:9px 13px;font-size:12.5px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border);margin:0}
+.s12why b{color:var(--warn)}
+@media (max-width:760px){.s12line{font-size:11.5px}.det-in{padding:10px 11px}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -3150,7 +3581,10 @@ FIND_BODY = """<script>
   "use strict";
   function box(table) {
     var tb = table.tBodies[0]; if (!tb) return null;
-    var rows = [].slice.call(tb.rows);
+    /* A detail row is not a row of this table: it is the evidence belonging to the row
+       above it. Counting it would make "Search 8 rows" wrong and filtering would leave
+       an orphan block behind — the same trap SCRIPT 6 handles with `hdet` in the brief. */
+    var rows = [].slice.call(tb.rows).filter(function (r) { return !r.classList.contains("det"); });
     if (rows.length < 3) return null;
     var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
     var wrap = document.createElement("div"); wrap.className = "s9find";
@@ -3207,12 +3641,41 @@ FIND_BODY = """<script>
     wrap.appendChild(rb);
     var cnt = document.createElement("span"); cnt.className = "s9count";
     wrap.appendChild(cnt);
+    /* what this box is filtering, named the way the reader sees it on the page:
+       the section it sits in, and the caption of its own table when the section
+       holds more than one. Without a name the banner would say "a filter is on"
+       and leave the reader to find which table it means. */
+    var sec0 = table.closest ? table.closest("section") : null;
+    var st0 = sec0 && sec0.querySelector("summary .dsum-t");
+    var cap0 = table.querySelector("caption");
+    function clip(t, n) {
+      t = (t || "").replace(/\s+/g, " ").trim();
+      if (t.length <= n) return t;
+      var c = t.slice(0, n), sp = c.lastIndexOf(" ");
+      return (sp > n * 0.6 ? c.slice(0, sp) : c) + "\u2026";
+    }
+    var label = clip(st0 ? st0.textContent : (sec0 ? sec0.id : "This page"), 34);
+    if (cap0) label += " \u00b7 " + clip((cap0.textContent || "").split("\u00b7")[0], 30);
+    function describeBox() {
+      var out = [], v = (q.value || "").trim();
+      var sc = colSel ? +colSel.value : -1;
+      if (v) out.push(sc >= 0 ? ((heads[sc] || "a column") + ' contains "' + v + '"') : ('text "' + v + '"'));
+      sels.forEach(function (s) {
+        if (s.value) out.push((s.options[0].textContent || "").replace(/^All\s+/i, "") + " = " + s.value);
+      });
+      return out.join(" \u00b7 ");
+    }
     function apply() {
       var v = (q.value || "").trim().toLowerCase(), shown = 0;
       var scope = colSel ? +colSel.value : -1;
       rows.forEach(function (r) {
         var keep = true;
-        if (v) {
+        /* the Advanced filtering bar sets a PREDICATE and this box stays the only
+           writer of `row.hidden` for its table — the same `opt.extra` shape SCRIPT 6
+           uses for its method chips in the brief. Two independent writers of this
+           field fight and the loser is whichever ran first (5am). */
+        if (window.__s9adv && !window.__s9adv(r, table)) keep = false;
+        if (keep && v) {
           var hay = scope >= 0
             ? ((r.cells[scope] ? r.cells[scope].textContent : "") || "")
             : (r.textContent || "");
@@ -3223,17 +3686,42 @@ FIND_BODY = """<script>
           var c = r.cells[+s.dataset.col];
           if (!c || (c.textContent || "").replace(/\s+/g, " ").trim() !== s.value) keep = false;
         });
-        r.hidden = !keep; if (keep) shown++;
+        r.hidden = !keep;
+        var d = r.nextElementSibling;
+        if (d && d.classList && d.classList.contains("det") && !keep) {
+          /* hide the evidence with its row AND put its + back: a button reading
+             minus over a block nobody can see is the control and the page saying
+             two different things, which is the whole disease this page fixes */
+          d.hidden = true;
+          var x = r.querySelector("button.xb[data-diff]");
+          if (x) { x.textContent = "+"; x.setAttribute("aria-expanded", "false"); }
+          r.removeAttribute("aria-expanded");
+        }
+        if (keep) shown++;
       });
       cnt.textContent = shown + " of " + rows.length;
+      /* the one line that names every filter is rendered by the navigation script,
+         from what each box reports here — one renderer, many owners (5at). The
+         Advanced bar re-applies every box at once, so it silences the per-box call
+         and syncs the line once at the end rather than thirteen times. */
+      if (window.__socDiffBar && !window.__s9advBusy) window.__socDiffBar();
     }
-    q.addEventListener("input", apply);
-    if (colSel) colSel.addEventListener("change", apply);
-    sels.forEach(function (s) { s.addEventListener("change", apply); });
-    rb.addEventListener("click", function () {
+    /* A box the page filled IN on the reader's behalf is not a filter he set: while
+       the technology filter is on, the banner already says in one sentence that it
+       narrowed eleven tables, and repeating that as eleven chips is the same
+       two-copies-of-one-sentence defect this banner exists to remove. The mark is
+       dropped the moment he touches the box himself, and then it IS his filter and
+       gets its own chip. */
+    function byHand() { wrap.__byGlobal = false; apply(); }
+    q.addEventListener("input", byHand);
+    if (colSel) colSel.addEventListener("change", byHand);
+    sels.forEach(function (s) { s.addEventListener("change", byHand); });
+    function resetBox() {
+      wrap.__byGlobal = false;
       q.value = ""; if (colSel) colSel.value = "-1";
       sels.forEach(function (s) { s.value = ""; }); apply();
-    });
+    }
+    rb.addEventListener("click", resetBox);
     apply();
     /* Rejestr, zeby skrypt nawigacji mogl ustawic te same filtry, ktore ustawilby
        czytelnik. Dwa niezalezne pisarze `row.hidden` walcza ze soba (§5am), wiec
@@ -3242,6 +3730,11 @@ FIND_BODY = """<script>
     wrap.__q = q;
     wrap.__sels = sels;
     wrap.__col = colSel;
+    wrap.__table = table;
+    wrap.__rows = rows;
+    wrap.__label = label;
+    wrap.__describe = describeBox;
+    wrap.__reset = resetBox;
     (window.__s9diff = window.__s9diff || []).push(wrap);
     return wrap;
   }
@@ -3249,6 +3742,356 @@ FIND_BODY = """<script>
     var b = box(t);
     if (b && t.parentNode && t.parentNode.parentNode) t.parentNode.parentNode.insertBefore(b, t.parentNode);
   });
+
+  /* ====================================================================
+     ADVANCED FILTERING — the same control the portal carries on every tab
+     (5au), on this page too. The owner, 12 September 2026: "nie ma w diff
+     advance filtering takiego jaki mamy w glownym portalu".
+
+     Shape: one menu per groupable column, checkboxes inside (several values
+     in one menu mean ANY of them, two menus at once mean BOTH), a live count
+     on every value, a search box scoped to any single column, one Reset.
+
+     THREE RULES, and each is a measurement, not a taste:
+     1. ONE WRITER PER MECHANISM (5am, 5ap). This bar never writes `row.hidden`
+        and never writes an `N of M` counter. It sets `window.__s9adv`, which
+        every `.s9find` box consults inside its own `apply()`, and those boxes
+        stay the only writers of both.
+     2. A FACET MUST GROUP (5s). A column whose values are nearly all unique is
+        an identifier, not a filter: a menu holding one entry per row is a second
+        copy of the table. Such a column is offered to the SEARCH SCOPE instead,
+        so every column this page shows is reachable one way or the other.
+     3. A TABLE THIS FILTER CANNOT NAME IS LEFT WHOLE (5at). A column the table
+        does not carry is skipped for that table rather than emptying it, and the
+        two summary tables — the controls, 3 punkt 13 — are exempt entirely.
+     ==================================================================== */
+  var ADV = {}, ADVQ = { q: "", raw: "", col: "" }, DIMS = [], MENUS = [];
+  var ADVBAR = null, ADVQIN = null, ADVQSEL = null, ADVCHIP = null, ADVSUM = null;
+  var MAX_VALUES = 40;
+  var MEASURE = /^(\d+([.,]\d+)?%?|[+−-]\d+|\d+\s*of\s*\d+|—|–|-|n\/a)$/i;
+  var NEVER = /^(item|article|page|title|detail|note|entry|comment|endpoint|graph permission|directory action|before → after|before &rarr; after|what|what it means|what it says|why|why not|days|lines)$/i;
+
+  function txt(n) { return ((n && n.textContent) || "").replace(/\s+/g, " ").trim(); }
+  function cellText(tr, ci) { var c = tr.cells[ci]; return c ? txt(c) : ""; }
+  function isSummary(table) {
+    var sec = table && table.closest ? table.closest("section") : null;
+    return !!(sec && (sec.id === "bytab" || sec.id === "bytech"));
+  }
+  function headMap(table) {
+    if (table.__s9h) return table.__s9h;
+    var m = {};
+    [].forEach.call(table.querySelectorAll("thead th"), function (t, i) {
+      var h = txt(t);
+      if (h && m[h] === undefined) m[h] = i;
+    });
+    return (table.__s9h = m);
+  }
+  function advBoxes() {
+    return (window.__s9diff || []).filter(function (w) {
+      return w.__table && !isSummary(w.__table);
+    });
+  }
+  function advMatch(tr, table, skip) {
+    var m = headMap(table), lab, i;
+    for (lab in ADV) {
+      if (!Object.prototype.hasOwnProperty.call(ADV, lab)) continue;
+      if (lab === skip) continue;
+      var chosen = ADV[lab];
+      if (!chosen || !chosen.length) continue;
+      var ci = m[lab];
+      if (ci === undefined) continue;          /* this table has no such column: left whole */
+      var v = cellText(tr, ci), hit = false;
+      for (i = 0; i < chosen.length; i++) if (chosen[i] === v) { hit = true; break; }
+      if (!hit) return false;
+    }
+    if (skip !== "__q" && ADVQ.q) {
+      var hay;
+      if (ADVQ.col) {
+        var cj = m[ADVQ.col];
+        if (cj === undefined) return true;
+        hay = cellText(tr, cj);
+      } else hay = (tr.textContent || "");
+      if (hay.toLowerCase().indexOf(ADVQ.q) < 0) return false;
+    }
+    return true;
+  }
+  window.__s9adv = function (tr, table) {
+    if (isSummary(table)) return true;         /* the controls are never narrowed */
+    return advMatch(tr, table, null);
+  };
+
+  function buildDims() {
+    var acc = {};
+    advBoxes().forEach(function (w) {
+      var m = headMap(w.__table);
+      Object.keys(m).forEach(function (h) {
+        var d = acc[h] || (acc[h] = { label: h, tables: 0, vals: {}, filled: 0, num: 0, longest: 0 });
+        d.tables++;
+        w.__rows.forEach(function (tr) {
+          var v = cellText(tr, m[h]);
+          if (!v) return;
+          d.filled++;
+          if (MEASURE.test(v)) d.num++;
+          if (v.length > d.longest) d.longest = v.length;
+          d.vals[v] = (d.vals[v] || 0) + 1;
+        });
+      });
+    });
+    var out = [];
+    Object.keys(acc).forEach(function (h) {
+      if (NEVER.test(h)) return;
+      var d = acc[h], keys = Object.keys(d.vals), n = keys.length;
+      if (n < 2 || n > MAX_VALUES || d.longest > 60 || !d.filled) return;
+      var rep = 0, idlike = 0;
+      keys.forEach(function (k) {
+        if (d.vals[k] > rep) rep = d.vals[k];
+        if (d.vals[k] === 1 && k.length >= 8 && k.indexOf(" ") < 0 && /\d/.test(k)) idlike++;
+      });
+      if (rep < 2) return;                     /* every value unique = a second copy of the table */
+      if (n >= d.filled) return;
+      if (d.num / d.filled > 0.6) return;      /* a column of numbers is a MEASURE, not a facet */
+      if (idlike / n > 0.34) return;           /* a column of identifiers is not a facet either */
+      d.n = n;
+      d.score = d.tables * 18 + Math.max(0, 24 - Math.abs(n - 8) * 2);
+      out.push(d);
+    });
+    out.sort(function (a, b) { return b.score - a.score || a.n - b.n || a.label.localeCompare(b.label); });
+    return out.slice(0, 6);
+  }
+
+  function valueCount(dim, v) {
+    var n = 0;
+    advBoxes().forEach(function (w) {
+      var ci = headMap(w.__table)[dim.label];
+      if (ci === undefined) return;
+      w.__rows.forEach(function (tr) {
+        if (cellText(tr, ci) === v && advMatch(tr, w.__table, dim.label)) n++;
+      });
+    });
+    return n;
+  }
+  function anyOn() {
+    if (ADVQ.q) return true;
+    for (var k in ADV) if (Object.prototype.hasOwnProperty.call(ADV, k) && ADV[k] && ADV[k].length) return true;
+    return false;
+  }
+  function describeAdv() {
+    var out = [];
+    DIMS.forEach(function (d) {
+      var vs = ADV[d.label] || [];
+      if (!vs.length) return;
+      out.push({
+        label: d.label.toLowerCase() + " " + vs.slice(0, 4).join(", ") +
+               (vs.length > 4 ? (" … +" + (vs.length - 4)) : ""),
+        clear: function () { ADV[d.label] = []; advApply(); }
+      });
+    });
+    if (ADVQ.q) out.push({
+      label: (ADVQ.col ? (ADVQ.col + " contains ") : "text ") + '"' + ADVQ.raw + '"',
+      clear: function () { ADVQ.q = ""; ADVQ.raw = ""; if (ADVQIN) ADVQIN.value = ""; advApply(); }
+    });
+    return out;
+  }
+  window.__s9advDesc = describeAdv;
+  window.__s9advClear = function (quiet) {
+    DIMS.forEach(function (d) { ADV[d.label] = []; });
+    ADVQ.q = ""; ADVQ.raw = ""; ADVQ.col = "";
+    if (ADVQIN) ADVQIN.value = "";
+    if (ADVQSEL) ADVQSEL.selectedIndex = 0;
+    if (quiet) { paint(); return; }
+    advApply();
+  };
+
+  function advApply() {
+    window.__s9advBusy = 1;
+    try { advBoxes().forEach(function (w) { if (w.__apply) w.__apply(); }); }
+    finally { window.__s9advBusy = 0; }
+    paint();
+    if (window.__socDiffFolds) window.__socDiffFolds(anyOn());
+    if (window.__socDiffBar) window.__socDiffBar();
+  }
+
+  /* ---- the menus ---- */
+  var OPENM = null;
+  function closeMenu() { if (OPENM) { OPENM.classList.remove("open"); OPENM = null; } }
+  document.addEventListener("click", function (e) { if (OPENM && !OPENM.contains(e.target)) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  function el(t, c, x) {
+    var n = document.createElement(t);
+    if (c) n.className = c;
+    if (x !== undefined) n.textContent = x;
+    return n;
+  }
+  function menuFor(dim) {
+    var wrap = el("div", "s9advdim");
+    var btn = el("button", "s9advbtn"); btn.type = "button";
+    btn.appendChild(el("i"));
+    var lab = el("span", null, dim.label); btn.appendChild(lab);
+    var cnt = el("b", null, ""); btn.appendChild(cnt);
+    btn.appendChild(el("span", "s9advcar", "▾"));
+    wrap.appendChild(btn);
+
+    var pop = el("div", "s9advpop");
+    var find = el("input", "s9advfind"); find.type = "search";
+    find.placeholder = "Search " + dim.label.toLowerCase() + "…";
+    var list = el("div", "s9advlist");
+    var foot = el("div", "s9advfoot");
+    var clr = el("button", "s9advclr", "Clear this one"); clr.type = "button";
+    var pn = el("span", "s9advpn", "");
+    foot.appendChild(clr); foot.appendChild(pn);
+    pop.appendChild(find); pop.appendChild(list); pop.appendChild(foot);
+    wrap.appendChild(pop);
+
+    function repaint() {
+      var chosen = ADV[dim.label] || (ADV[dim.label] = []);
+      var vs = Object.keys(dim.vals).sort();
+      var f = (find.value || "").trim().toLowerCase(), shown = 0;
+      list.textContent = "";
+      vs.forEach(function (v) {
+        var n = valueCount(dim, v), on = chosen.indexOf(v) >= 0;
+        if (!n && !on) return;               /* a choice that yields nothing is not a choice (5s) */
+        if (f && v.toLowerCase().indexOf(f) < 0) return;
+        shown++;
+        var r = el("button", "s9advopt" + (on ? " on" : "")); r.type = "button";
+        r.setAttribute("aria-checked", on ? "true" : "false");
+        r.appendChild(el("i"));
+        r.appendChild(el("span", null, v));
+        r.appendChild(el("b", null, String(n)));
+        r.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          var a = ADV[dim.label], i = a.indexOf(v);
+          if (i < 0) a.push(v); else a.splice(i, 1);
+          advApply(); place();
+        });
+        list.appendChild(r);
+      });
+      if (!shown) list.appendChild(el("p", "s9advempty", "Nothing matches that here."));
+      pn.textContent = chosen.length ? (chosen.length + " selected") : "";
+      cnt.textContent = chosen.length ? String(chosen.length) : "";
+      btn.classList.toggle("on", !!chosen.length);
+      lab.textContent = chosen.length === 1 ? (dim.label + ": " + chosen[0]) : dim.label;
+      find.hidden = vs.length <= 8;
+    }
+    /* the menu is positioned against the WINDOW and flips up when there is no room
+       below, and its list height comes from the real chrome rather than a guessed
+       constant; the sticky rail is the upper bound, because a button hidden behind
+       it has nothing to open (5au) */
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var st = document.querySelector(".dstick");
+      var top0 = st ? st.getBoundingClientRect().bottom : 0;
+      var gap = 6, margin = 12;
+      var below = window.innerHeight - r.bottom - gap - margin;
+      var above = r.top - Math.max(top0, 0) - gap - margin;
+      if (r.bottom < top0 + 4 || r.top > window.innerHeight - 24) { closeMenu(); return; }
+      var up = below < 240 && above > below;
+      var space = Math.max(160, Math.min(360, up ? above : below));
+      pop.style.left = Math.round(Math.max(margin,
+        Math.min(r.left, window.innerWidth - pop.offsetWidth - margin))) + "px";
+      if (up) { pop.style.top = ""; pop.style.bottom = Math.round(window.innerHeight - r.top + gap) + "px"; }
+      else { pop.style.bottom = ""; pop.style.top = Math.round(r.bottom + gap) + "px"; }
+      list.style.maxHeight = "none";
+      var chrome = pop.offsetHeight - list.offsetHeight;
+      list.style.maxHeight = Math.max(120, Math.round(space - chrome)) + "px";
+    }
+    wrap.__repaint = repaint; wrap.__place = place;
+    find.addEventListener("input", repaint);
+    find.addEventListener("click", function (e) { e.stopPropagation(); });
+    clr.addEventListener("click", function (e) { e.stopPropagation(); ADV[dim.label] = []; advApply(); });
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var was = wrap.classList.contains("open");
+      closeMenu();
+      if (!was) {
+        wrap.classList.add("open"); OPENM = wrap; repaint(); place();
+        setTimeout(function () { if (!find.hidden) find.focus(); place(); }, 30);
+      }
+    });
+    return wrap;
+  }
+  window.addEventListener("scroll", function () { if (OPENM && OPENM.__place) OPENM.__place(); }, { passive: true });
+  window.addEventListener("resize", function () { if (OPENM && OPENM.__place) OPENM.__place(); });
+
+  function paint() {
+    if (!ADVBAR) return;
+    MENUS.forEach(function (m) { m.__repaint(); });
+    var parts = describeAdv().map(function (x) { return x.label; });
+    ADVBAR.classList.toggle("on", !!parts.length);
+    ADVCHIP.textContent = parts.length ? (parts.length === 1 ? "1 filter on" : parts.length + " filters on") : "";
+    ADVCHIP.hidden = !parts.length;
+    if (parts.length && !ADVBAR.open) ADVBAR.open = true;
+    /* THE BAR GIVES NO ROW COUNT OF ITS OWN. `N of M` belongs to each table's box and
+       stands over that table; a second total here would be a second number about the
+       same thing, which is the defect this page was rebuilt to remove (3 punkt 13a). */
+    ADVSUM.textContent = parts.length
+      ? (parts.join("  ·  ") + "  —  every section on this page is narrowed to it; the counter " +
+         "above each table says how many of its rows match, and a table that does not carry one of these " +
+         "columns is left whole. Several values inside one menu mean any of them; two menus at once mean both.")
+      : "Nothing is filtered. Pick values in one menu to widen, in two menus to narrow.";
+  }
+
+  function buildBar() {
+    DIMS = buildDims();
+    if (!DIMS.length) return;
+    DIMS.forEach(function (d) { ADV[d.label] = []; });
+
+    var box = el("details", "s9adv");
+    var sum = el("summary");
+    sum.appendChild(el("span", "s9advt", "Advanced filtering"));
+    sum.appendChild(el("span", "s9advs",
+      "Applies to every section on this page at once — each menu narrows all of them together."));
+    ADVCHIP = el("span", "s9advon", ""); ADVCHIP.hidden = true;
+    sum.appendChild(ADVCHIP);
+    box.appendChild(sum);
+
+    var qrow = el("div", "s9advq");
+    ADVQIN = el("input", "s9advqin"); ADVQIN.type = "search";
+    ADVQIN.placeholder = "Search every section on this page…";
+    qrow.appendChild(ADVQIN);
+    ADVQSEL = el("select", "s9advqc");
+    ADVQSEL.setAttribute("aria-label", "Search in one column");
+    var o0 = el("option", null, "in: all columns"); o0.value = ""; ADVQSEL.appendChild(o0);
+    /* EVERY column this page shows reaches the reader here: the ones that group get a
+       menu above, the rest get the search scoped to them (5ap) */
+    var cols = {};
+    advBoxes().forEach(function (w) { Object.keys(headMap(w.__table)).forEach(function (h) { cols[h] = 1; }); });
+    Object.keys(cols).sort().forEach(function (h) {
+      var o = el("option", null, "in: " + h); o.value = h; ADVQSEL.appendChild(o);
+    });
+    if (ADVQSEL.options.length > 1) qrow.appendChild(ADVQSEL);
+    box.appendChild(qrow);
+
+    function readq() {
+      ADVQ.raw = (ADVQIN.value || "").trim();
+      ADVQ.q = ADVQ.raw.toLowerCase();
+      ADVQ.col = ADVQSEL ? ADVQSEL.value : "";
+      advApply();
+    }
+    ADVQIN.addEventListener("input", readq);
+    ADVQSEL.addEventListener("change", readq);
+
+    var row = el("div", "s9advrow");
+    MENUS = [];
+    DIMS.forEach(function (d) { var m = menuFor(d); row.appendChild(m); MENUS.push(m); });
+    var rb = el("button", "s9advreset", "Reset"); rb.type = "button";
+    rb.addEventListener("click", function () { window.__s9advClear(); });
+    row.appendChild(rb);
+    box.appendChild(row);
+
+    ADVSUM = el("p", "s9advsum");
+    box.appendChild(ADVSUM);
+
+    ADVBAR = box;
+    var stick = document.querySelector(".dstick");
+    if (stick && stick.parentNode) stick.parentNode.insertBefore(box, stick.nextSibling);
+    else {
+      var wrapEl = document.querySelector(".wrap");
+      if (wrapEl) wrapEl.insertBefore(box, wrapEl.firstChild);
+    }
+    paint();
+  }
+  try { buildBar(); } catch (e) { if (window.console) console.error("[s9adv]", e); }
 })();
 </script>"""
 
@@ -3270,10 +4113,12 @@ NAV_BODY = """<script>
     banner.className = "navbanner"; banner.hidden = true;
     var lab = document.createElement("span"); lab.className = "nb-lab"; lab.textContent = "Filter";
     var msg = document.createElement("span"); msg.className = "nb-msg";
+    var chips = document.createElement("div"); chips.className = "nb-chips";
     var btn = document.createElement("button");
     btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Clear filter";
     btn.addEventListener("click", clearAll);
     banner.appendChild(lab); banner.appendChild(msg); banner.appendChild(btn);
+    banner.appendChild(chips);
     /* INSIDE the sticky block, never after it. The banner names the one filter that is
        on and carries the one Clear that clears every table at once; a reader who has to
        scroll back to the top to find it will clear the tables one Reset at a time
@@ -3293,18 +4138,76 @@ NAV_BODY = """<script>
     var h = stick ? Math.round(stick.getBoundingClientRect().height) : 0;
     document.documentElement.style.setProperty("--dstick-h", (h ? h + 10 : 56) + "px");
   }
-  function say(text, strong) {
+  /* ONE LINE NAMES EVERY FILTER THAT IS ON (5ao, and the portal's own rule in 5at).
+     The owner, 12 September 2026: "ustalilismy ze w calym portalu robimy info
+     o filtrowaniu na zielonym pasku - tego kompletnie brakuje w diff". He is right
+     and the reason is structural: this banner spoke only for the technology and
+     tile filters, which are the ones IT sets. A reader who typed into a table's own
+     green box saw its count drop with nothing anywhere saying why, and had to
+     remember which of twelve sections he had touched. So the banner is rendered
+     from a BUS: the global filter reports through `say()`, every search box reports
+     through its own `__describe()`, and this one function draws all of them. One
+     renderer, many owners — two renderers of one sentence drift apart (0a). */
+  var GLOBAL = null;
+  function say(text, strong) { GLOBAL = text ? { text: text, strong: strong || "" } : null; sync(); }
+  function sync() {
     var b = ensureBanner();
-    b.hidden = !text;
-    if (text) {
-      var m = b.querySelector(".nb-msg");
-      m.textContent = "";
-      if (strong) { m.appendChild(document.createElement("b")).textContent = strong;
-                    m.appendChild(document.createTextNode(" \u2014 " + text)); }
-      else m.textContent = text;
+    var lab = b.querySelector(".nb-lab");
+    var msg = b.querySelector(".nb-msg");
+    var chips = b.querySelector(".nb-chips");
+    var n = 0;
+    msg.textContent = "";
+    msg.hidden = !GLOBAL;
+    if (GLOBAL) {
+      n++;
+      if (GLOBAL.strong) { msg.appendChild(document.createElement("b")).textContent = GLOBAL.strong;
+                           msg.appendChild(document.createTextNode(" \u2014 " + GLOBAL.text)); }
+      else msg.textContent = GLOBAL.text;
     }
+    chips.textContent = "";
+    boxes().forEach(function (w) {
+      if (w.__byGlobal) return;          /* the global sentence above already names it */
+      var on = w.__describe ? w.__describe() : "";
+      if (!on) return;
+      n++;
+      var c = document.createElement("span"); c.className = "nb-chip";
+      c.appendChild(document.createElement("b")).textContent = w.__label || "a table";
+      c.appendChild(document.createTextNode(" \u2014 " + on));
+      var x = document.createElement("button");
+      x.type = "button"; x.className = "nb-x"; x.textContent = "\u00d7";
+      x.title = "Clear this one";
+      x.setAttribute("aria-label", "Clear the filter on " + (w.__label || "this table"));
+      /* cleared through the box's OWN reset, never by writing into its fields: the
+         box knows what else has to be put back, and it is the only writer of
+         `row.hidden` for its table (5am) */
+      x.addEventListener("click", function () { if (w.__reset) w.__reset(); });
+      c.appendChild(x);
+      chips.appendChild(c);
+    });
+    /* the Advanced filtering bar is an owner like any other: it reports what it is
+       filtering by and how to clear it, and this one function draws it (5au) */
+    (window.__s9advDesc ? window.__s9advDesc() : []).forEach(function (x) {
+      n++;
+      var c = document.createElement("span"); c.className = "nb-chip";
+      c.appendChild(document.createElement("b")).textContent = "Advanced filtering";
+      c.appendChild(document.createTextNode(" \u2014 " + x.label));
+      var k = document.createElement("button");
+      k.type = "button"; k.className = "nb-x"; k.textContent = "\u00d7";
+      k.title = "Clear this one";
+      k.setAttribute("aria-label", "Clear " + x.label);
+      k.addEventListener("click", function () { if (x.clear) x.clear(); });
+      c.appendChild(k);
+      chips.appendChild(c);
+    });
+    b.hidden = !n;
+    lab.textContent = n === 1 ? "1 filter is on" : (n + " filters are on");
+    b.querySelector(".nb-clear").textContent = n > 1 ? "Clear all filters" : "Clear filter";
     measure();
   }
+  window.__socDiffBar = sync;
+  /* the Advanced bar changes what each section holds, so the folds follow it exactly
+     as they follow the technology filter — one owner of the fold rule (3 punkt 14) */
+  window.__socDiffFolds = function (on) { if (on) openWithHits(); else collapseAll(); };
   window.addEventListener("resize", measure);
 
   function boxes() { return window.__s9diff || []; }
@@ -3317,7 +4220,9 @@ NAV_BODY = """<script>
   }
 
   function clearAll() {
+    if (window.__s9advClear) window.__s9advClear(true);
     boxes().forEach(function (w) {
+      w.__byGlobal = false;
       if (w.__q) w.__q.value = "";
       if (w.__col) w.__col.value = "-1";
       (w.__sels || []).forEach(function (s) { s.value = ""; });
@@ -3379,7 +4284,7 @@ NAV_BODY = """<script>
   function focusSection(sid) {
     sections().forEach(function (det) {
       var sec = det.parentNode;
-      det.open = !!(sec && sec.id === sid);
+      det.open = !!(sec && sec.id === sid) || (isSummary(det) && det.dataset.hadopen === "1");
     });
     syncChips(); measure();
   }
@@ -3387,8 +4292,15 @@ NAV_BODY = """<script>
     sections().forEach(function (det) { det.open = visibleRows(det) > 0; });
     syncChips(); measure();
   }
+  /* The two summary tables are CONTROLS, not content (§3 punkt 13), which is why the
+     technology filter already leaves them whole. A control the reader has to open first
+     is not a control, so they stay open here; everything else folds. */
+  function isSummary(det) {
+    var sec = det.parentNode;
+    return !!(sec && (sec.id === "bytab" || sec.id === "bytech"));
+  }
   function collapseAll() {
-    sections().forEach(function (det) { det.open = false; });
+    sections().forEach(function (det) { det.open = isSummary(det) && det.dataset.hadopen === "1"; });
     syncChips(); measure();
   }
 
@@ -3436,6 +4348,7 @@ NAV_BODY = """<script>
       if (!content(w)) {
         if (w.__q) w.__q.value = "";
         (w.__sels || []).forEach(function (s) { s.value = ""; });
+        w.__byGlobal = false;
         if (w.__apply) w.__apply();
         return;
       }
@@ -3447,6 +4360,7 @@ NAV_BODY = """<script>
       (w.__sels || []).forEach(function (s) { s.value = ""; });
       if (sel) { sel.value = name; if (w.__q) w.__q.value = ""; exact++; }
       else { if (w.__q) w.__q.value = name; text++; }
+      w.__byGlobal = true;
       if (w.__apply) w.__apply();
     });
     [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
@@ -3467,6 +4381,22 @@ NAV_BODY = """<script>
     if (host) host.scrollIntoView({ block: "start" });
   }
 
+  /* the + that opens the evidence under a row. It lives in THIS script rather than in a
+     fourth one, because §3 keeps this page down to three: theme, find, navigation. */
+  document.addEventListener("click", function (ev) {
+    var x = ev.target.closest ? ev.target.closest("button.xb[data-diff]") : null;
+    if (!x) return;
+    ev.preventDefault();
+    var tr = x.closest("tr"), det = tr && tr.nextElementSibling;
+    if (!det || !det.classList.contains("det")) return;
+    var open = det.hidden;
+    det.hidden = !open;
+    x.textContent = open ? "\u2212" : "+";
+    x.setAttribute("aria-expanded", String(open));
+    tr.classList.add("hasdet");
+    tr.setAttribute("aria-expanded", String(open));
+  });
+
   document.addEventListener("click", function (ev) {
     if (!ev.target.closest) return;
     var t = ev.target.closest("[data-tech]");
@@ -3478,8 +4408,11 @@ NAV_BODY = """<script>
     }
   });
 
-  /* Every section starts collapsed, and the census of what each one holds is taken
-     BEFORE anything is filtered, so "N of M" always compares against the whole. */
+  /* Remember which sections the page was published open — the two summaries, and only
+     when something actually moved — so folding never takes a control away for good. */
+  sections().forEach(function (det) { if (det.open) det.dataset.hadopen = "1"; });
+  /* Every content section starts collapsed, and the census of what each one holds is
+     taken BEFORE anything is filtered, so "N of M" always compares against the whole. */
   collapseAll();
   /* a table's own Reset or search changes what a section holds, so the chip follows */
   ["input", "change", "click"].forEach(function (ev) {
@@ -3515,6 +4448,7 @@ NAV_BODY = """<script>
   })();
 
   measure();
+  sync();
 })();
 </script>"""
 
@@ -3525,7 +4459,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     cadd, crem, cmod, cp, cc_ = diff_components(prev_st, curr_st)
     com = diff_community(prev_st, curr_st)
     dtadd, dtrem, dtchg, dtp, dtc = diff_doctext(prev_st, curr_st)
+    DOCMAP = doc_pages(curr_st)
 
+    MCV = [] if com.get("baseline") else mc_view(com, added, removed)
+    mcv_add = len([r for r in MCV if r["kind"] == "added"])
+    mcv_rem = len([r for r in MCV if r["kind"] == "removed"])
+    mcv_item = len([r for r in MCV if r["origin"] == "item"])
     added.sort(key=wkey); removed.sort(key=wkey)
     changed.sort(key=lambda t: wkey(t[0]))
     dl_moved = [(i, d) for i, d in changed if any(l == "Deadline" for l, _, _ in d)]
@@ -3548,10 +4487,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # 0 changed", a tabela w tym samym dokumencie +71 / -72 / 17 — bo pigulki liczyly
     # WYLACZNIE tablice `items`, pomijajac oba katalogi, komponenty i endpointy.
     # Dwie rozne liczby o tym samym na jednej stronie sa gorsze niz jedna niedokladna.
+    # Message Center jest WIDOKIEM nad pozycjami i indeksem (mc_view), wiec NIE wchodzi
+    # do tych sum — inaczej pozycja cytujaca MC byla by policzona dwa razy: raz w swojej
+    # zakladce, raz tutaj. To samo wylaczenie, ktore endpointy maja od 6 wrzesnia i z tego
+    # samego powodu. `verify()` pomija oba wiersze przy sumowaniu kolumn.
     sum_add = (len(added) + len(gadd) + len(radd) + len(cadd) + len(com["artAdd"])
-               + len(com["mcAdd"]) + len(dtadd))
+               + len(dtadd))
     sum_rem = (len(removed) + len(grem) + len(rrem) + len(crem) + len(com["artRem"])
-               + len(com["mcRem"]) + len(dtrem))
+               + len(dtrem))
     sum_chg = (len(changed) + len(gmod) + len(rmod) + len(cmod) + len(com["srcChg"])
                + len(dtchg))
     # Endpointy maja WLASNY kafelek, bo sa endpointami, a nie pozycjami (§3 punkt 9):
@@ -3572,16 +4515,16 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         n = sum(1 for x in parts if x)
         return "" if n < 2 else " &middot; across %d sections" % n
     spread_a = _spread([len(added), len(gadd) + len(radd), len(cadd),
-                        len(com["artAdd"]), len(com["mcAdd"]), len(dtadd)])
+                        len(com["artAdd"]), len(dtadd)])
     spread_r = _spread([len(removed), len(grem) + len(rrem), len(crem),
-                        len(com["artRem"]), len(com["mcRem"]), len(dtrem)])
+                        len(com["artRem"]), len(dtrem)])
     spread_c = _spread([len(changed), len(gmod) + len(rmod), len(cmod),
                         len(com["srcChg"]), len(dtchg)])
     net_src = len(com["srcAdd"]) - len(com["srcRem"])
     com_n = ("baseline" if com["baseline"] else
              str(len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                  + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])))
-    mc_n = "baseline" if com["baseline"] else str(len(com["mcAdd"]) + len(com["mcRem"]))
+    mc_n = "baseline" if com["baseline"] else str(len(MCV))
     out.append(tiles([
         (str(sum_add), "added" + spread_a, "ok", "bytab"),
         (str(sum_rem), "removed" + spread_r, "bad", "bytab"),
@@ -3603,13 +4546,17 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                    "+" if net_src >= 0 else "&minus;", abs(net_src),
                    "" if abs(net_src) == 1 else "s"),
          "info", "community"),
-        (mc_n, "Message Center entries", "acc", "mcenter"),
+        (mc_n, "Message Center entries" + ((" &middot; %d cited by an item" % mcv_item) if mcv_item else ""),
+         "acc", "mcenter"),
         (str(len(dtchg) + len(dtadd) + len(dtrem)),
-         "source pages moved &middot; %d edited" % len(dtchg), "warn", "srctext"),
+         "source pages moved &middot; %d edited%s" % (len(dtchg),
+            " &middot; shown under their own rows" if len(dtchg) + len(dtadd) else ""),
+         "warn", "bytab"),
     ]))
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
-               'them, both catalogs and the tracked components included. Endpoints are counted '
-               'apart because they are endpoints, not items. <b>A tile that is a link leads to where '
+               'them, both catalogs and the tracked components included. Endpoints and Message Center '
+               'are counted apart: endpoints are not items, and Message Center is a VIEW over entries '
+               'that are already counted in their own tab. <b>A tile that is a link leads to where '
                'its own number is visible as the same number</b> &mdash; the three totals to the table '
                'that decomposes them, every other tile to the section whose count it carries. A tile '
                'reading zero, and a tile stating a catalog size rather than a count of rows, is '
@@ -3721,21 +4668,28 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 if nm and nm not in seen_p: seen_p.append(nm)
             ar = " &middot; ".join(esc(x) for x in seen_p[:8]) or "&mdash;"
         elif tab == "Message Center":
-            na, nr, nc = len(com["mcAdd"]), len(com["mcRem"]), 0
+            na, nr, nc = mcv_add, mcv_rem, 0
             seen_t = []
-            for x in com["mcAdd"] + com["mcRem"]:
+            for x in MCV:
                 for t2 in (x.get("tech") or []):
-                    if t2 not in seen_t: seen_t.append(t2)
+                    if t2 and t2 not in seen_t: seen_t.append(t2)
             ar = " &middot; ".join(esc(x) for x in seen_t[:8]) or "&mdash;"
+            if mcv_item:
+                ar += ' <span class="t0">%d cited by an item</span>' % mcv_item
         else:
             na, nr, nc = len(t["a"]), len(t["r"]), len(t["c"])
             ar = " &middot; ".join(esc(x) for x in areas(t["a"] + t["r"] + t["c"])[:8]) or "&mdash;"
-        home = TAB_HOME.get(tab)
+        # NIE `home` — ta nazwa jest parametrem build() i niesie adres strony glownej.
+        # Przykryta tutaj, po petli wskazywala ostatnia wartosc TAB_HOME, czyli "srctext",
+        # i stopka linkowala „Back to the full brief" w /diff/srctext, czyli w 404.
+        # Zmierzone 12 wrzesnia 2026 na OPUBLIKOWANEJ stronie. `verify()` tego nie zlapal,
+        # bo pytal, czy JAKIS link na stronie prowadzi do "/" — a dateline swoj ma.
+        tabsec = TAB_HOME.get(tab)
         srows.append((' class="quiet"' if not (na or nr or nc) else "",
                       ["<b>%s</b>" % esc(tab),
-                       goto_num(na, "add", tab, home or "added"),
-                       goto_num(nr, "rem", tab, home or "removed"),
-                       goto_num(nc, "chg", tab, home or "changed"), ar]))
+                       goto_num(na, "add", tab, tabsec or "added"),
+                       goto_num(nr, "rem", tab, tabsec or "removed"),
+                       goto_num(nc, "chg", tab, tabsec or "changed"), ar]))
     out.append(sect("bytab", "What changed, by tab", ('What moved since %s, tab by tab, and which areas it touched. '
                'A row of three zeros means that tab was checked and did not move. Each item is counted '
                'in the ONE tab that is its home &mdash; New for the published window, Deadlines for '
@@ -3747,7 +4701,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '<b>Every non-zero number below is a link</b>: it jumps to the section that lists '
                'those rows and narrows it to that tab.') % esc(prev_d),
                table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
-                     "No tab moved at all."), count="%d tabs" % len(SUMMARY_TABS)))
+                     "No tab moved at all."), count="%d tabs" % len(SUMMARY_TABS),
+               open_=bool(sum_add or sum_rem or sum_chg or ge_add or ge_rem or ge_chg or MCV)))
 
     # --- co sie zmienilo w KTOREJ TECHNOLOGII
     out.append(sect("bytech", "What changed, by technology",
@@ -3760,7 +4715,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         'table on this page to that technology at once.',
         table(["Technology", "Added", "Removed", "Changed", "Where it shows up"], trows,
               "Nothing moved under any technology."),
-        count="%d technologies" % len(trows)))
+        count="%d technologies" % len(trows), open_=bool(trows)))
 
     # --- terminy, zebrane w jednym miejscu
     out.append(sect("deadlines", "Deadlines &mdash; everything dated, in one place",
@@ -3775,17 +4730,24 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # --- added, grouped by tab
     body = []
     for tab, items_ in group(added, tab_of):
-        rows = [(' class="t0"' if i_.get("tier0Touch") else "",
-                 [esc(i_.get("product")), name_cell(i_), esc(i_.get("status")),
-                  esc(i_.get("published")), esc(i_.get("deadline")) or '<span class="none">none stated</span>',
-                  weight_cell(i_), a_src(i_)]) for i_ in items_]
+        rows = []
+        for i_ in items_:
+            xc, det = evidence(i_, DOCMAP)
+            rows.append((' class="t0"' if i_.get("tier0Touch") else "",
+                         [xc, esc(i_.get("product")), name_cell(i_), esc(i_.get("status")),
+                          esc(i_.get("published")),
+                          esc(i_.get("deadline")) or '<span class="none">none stated</span>',
+                          weight_cell(i_), a_src(i_)], det))
         rows, more = cap(rows, 120, "added items")
         body.append(tabblock(tab,
-            table(["Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
+            table(["", "Product", "Item", "Status", "Published", "Deadline", "Weight", "Source"],
                   rows, "", tabcap(tab, len(items_), "items", items_, "Added in")) + more))
     out.append(sect("added", "Added since " + esc(prev_d),
                'In the current state and not in the previous one, one table per tab of '
-               'the brief. Heaviest first: tier 0, then SOC weight, then deadline.',
+               'the brief. Heaviest first: tier 0, then SOC weight, then deadline. '
+               '<b>A row with a + carries the change Microsoft made inside the page it came from</b> '
+               '&mdash; the same story, so it is in one place rather than repeated in a section of '
+               'its own. A row with a dash has no watched page behind it.',
                "".join(body) or
                '<p class="empty">Nothing was added. That is a result, not a gap.</p>',
                count=len(added)))
@@ -3793,12 +4755,15 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # --- removed, grouped by tab
     body = []
     for tab, items_ in group(removed, tab_of):
-        rows = [("", [esc(i_.get("product")), name_cell(i_), esc(i_.get("published")),
-                      esc(i_.get("deadline")) or '<span class="none">none stated</span>',
-                      weight_cell(i_), a_src(i_)]) for i_ in items_]
+        rows = []
+        for i_ in items_:
+            xc, det = evidence(i_, DOCMAP)
+            rows.append(("", [xc, esc(i_.get("product")), name_cell(i_), esc(i_.get("published")),
+                              esc(i_.get("deadline")) or '<span class="none">none stated</span>',
+                              weight_cell(i_), a_src(i_)], det))
         rows, more = cap(rows, 120, "removed items")
         body.append(tabblock(tab,
-            table(["Product", "Item", "Published", "Deadline", "Weight", "Source"],
+            table(["", "Product", "Item", "Published", "Deadline", "Weight", "Source"],
                   rows, "", tabcap(tab, len(items_), "items", items_, "Removed from")) + more))
     out.append(sect("removed", "Removed",
                'Carried in the previous state and gone from the current one. A removal is a finding: '
@@ -3813,18 +4778,20 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     for tab, pairs in group(changed, lambda t: tab_of(t[0])):
         rows = []
         for i_, deltas in pairs:
+            xc, det = evidence(i_, DOCMAP)
             for n, (lab, a, b) in enumerate(deltas):
                 first = (n == 0)
                 rows.append((' class="t0"' if (first and i_.get("tier0Touch")) else "",
-                             [name_cell(i_) if first else '<span class="none">&#8942;</span>',
+                             [xc if first else '<span class="xn">&nbsp;</span>',
+                              name_cell(i_) if first else '<span class="none">&#8942;</span>',
                               '<span class="field">%s</span>' % esc(lab),
                               ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
                               + '<span class="arrow">&rarr;</span>'
                               + ('<ins>%s</ins>' % esc(b) if b else '<span class="none">cleared</span>'),
-                              a_src(i_) if first else ""]))
+                              a_src(i_) if first else ""], det if first else ""))
         rows, more = cap(rows, 250, "changed fields")
         body.append(tabblock(tab,
-            table(["Item", "Field", "Before &rarr; after", "Source"], rows, "",
+            table(["", "Item", "Field", "Before &rarr; after", "Source"], rows, "",
                   tabcap(tab, len(pairs), "items", [x[0] for x in pairs], "Changed in")) + more))
     out.append(sect("changed", "Changed, field by field",
                'Same <code>id</code> in both states, different value, by tab. Old struck '
@@ -4042,56 +5009,77 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             'reading is the first row of the third table: that is the change worth acting on.',
             body_c, count=len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                           + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])))
-        def mcrows_(lst, word):
-            return [(' class="t0"' if x.get("action") else "",
-                     ['<span class="badge">%s</span>' % esc(x.get("type")),
-                      '<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(x.get("link")), esc(x.get("id"))),
-                      '<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(x.get("link")), esc(x.get("title"))),
-                      " ".join('<span class="t0">%s</span>' % esc(t2) for t2 in (x.get("tech") or [])) or "&mdash;",
-                      ('<span class="t0">act by %s</span>' % esc(x.get("action"))) if x.get("action")
-                      else '<span class="none">none stated</span>',
-                      esc(x.get("date")) or '<span class="none">not printed</span>']) for x in lst[:120]]
+        def mcrow(r):
+            idc = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(r["link"]), esc(r["id"]))) \
+                  if r["link"] else ("<code>%s</code>" % esc(r["id"]))
+            ttl = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(r["link"]), esc(r["title"]))) \
+                  if r["link"] else esc(r["title"])
+            ORIG = {"index": "Message Center index",
+                    "item":  "cited by an item on this page, not in the index we read",
+                    "both":  "index and an item on this page"}
+            return ((' class="t0"' if r["action"] else ""),
+                    ['<ins>added</ins>' if r["kind"] == "added" else '<del>removed</del>',
+                     idc, ttl,
+                     " ".join('<span class="t0">%s</span>' % esc(t2) for t2 in r["tech"]) or "&mdash;",
+                     ('<span class="t0">act by %s</span>' % esc(r["action"])) if r["action"]
+                     else '<span class="none">none stated</span>',
+                     esc(r["date"]) or '<span class="none">not printed</span>',
+                     '<span class="field">%s</span>' % ORIG.get(r["origin"], r["origin"])])
         out.append(sect("mcenter", "Message Center &mdash; what is new",
-            'Message Center and Roadmap entries that appeared since the previous state, by identifier. '
-            'An entry carrying a deadline is listed first, because that is the one that needs a plan. '
-            'Message Center content varies by tenant &mdash; confirm anything here in your own tenant.',
-            table(["Type", "ID", "Title", "Technology", "Action required by", "Published"],
-                  mcrows_(com["mcAdd"], "added"), "No new Message Center or Roadmap entry.",
-                  '<b>Added</b> &middot; %d' % len(com["mcAdd"]))
-            + table(["Type", "ID", "Title", "Technology", "Action required by", "Published"],
-                    mcrows_(com["mcRem"], "removed"), "Nothing dropped off the Message Center index.",
-                    '<b>Removed</b> &middot; %d' % len(com["mcRem"])),
-            count=len(com["mcAdd"]) + len(com["mcRem"])))
+            'Every Message Center and Roadmap identifier that moved between these two states, from '
+            '<b>both</b> places it can move: the index this brief reads, and an item on this page that '
+            'cites one. Until 12 September 2026 this section counted the index alone, so a row above '
+            'could say &bdquo;Message Center, published today&rdquo; while this section said zero &mdash; '
+            'both true, and together nonsense. <b>This is a view, not a second population</b>: an item '
+            'that cites MC is still counted once, in its own tab, which is why the totals at the top of '
+            'the page leave this section out. An entry carrying a deadline is listed first, because that '
+            'is the one that needs a plan. Message Center content varies by tenant &mdash; confirm '
+            'anything here in your own tenant.',
+            table(["What", "ID", "Title", "Technology", "Action required by", "Published", "Where it came from"],
+                  [mcrow(r) for r in MCV],
+                  "No Message Center or Roadmap identifier moved, in the index or on this page.",
+                  '<b>Message Center</b> &middot; +%d / &minus;%d%s'
+                  % (mcv_add, mcv_rem,
+                     (' &middot; %d cited by an item' % mcv_item) if mcv_item else '')),
+            count=len(MCV)))
 
-    # --- Source text (§5ar): co Microsoft dopisal i skasowal W SRODKU strony
-    dt_rows = doctext_rows(dtchg + dtadd)
-    dt_more = ""
-    dt_lines = sum(len(h.get("add") or []) + len(h.get("rem") or [])
-                   for x in (dtchg + dtadd) for h in (x.get("hunks") or []))
-    if dt_lines > len(dt_rows):
-        dt_more = ('<p class="more">… and %d more changed lines. Every one of them is on the brief, '
-                   'in the Source text section of the New tab.</p>' % (dt_lines - len(dt_rows)))
+    # --- Source text (§5ar): TYLKO strony, ktorych zadna pozycja nie opisuje.
+    # Strona wskazana przez pozycje stoi POD SWOIM WIERSZEM (`evidence`), wiec powtorzenie
+    # jej tutaj dawalo te sama historie dwa razy. Zostaje sierota: strona, ktora sie ruszyla,
+    # a zadna pozycja jej nie niesie — to jest znalezisko, bo znaczy, ze tekst sie zmienil,
+    # a brief nie zrobil z tego pozycji.
+    #
+    # I TRZY LICZNIKI TEJ SEKCJI MUSZA MOWIC O TYM SAMYM. Zmierzone 12 wrzesnia 2026 na
+    # opublikowanej stronie: chip mowil `1`, podpis tabeli „0 pages edited, 1 newly watched",
+    # zdanie „0 of 7 watched pages changed their text", a tabela pokazywala DZIEWIEC linii —
+    # bo render brał `dtchg + dtadd`, a podpis liczyl samo `dtchg`. Liczymy odtad to, co
+    # naprawde stoi na ekranie.
+    owned = set()
+    for _ids in DOCMAP.values():
+        for _p in _ids: owned.add(norm(_p.get("path")))
+    dt_shown = [x for x in (dtchg + dtadd)
+                if hunk_lines(x) and norm(x.get("path")) not in owned]
+    dt_lines = sum(hunk_lines(x) for x in dt_shown)
     dt_gone = [("", ['<del>no longer watched</del>',
-                     '<span class="field">%s</span>' % esc(x.get("product") or "—"),
+                     '<span class="field">%s</span>' % esc(x.get("product") or "&mdash;"),
                      ('<a href="%s" target="_blank" rel="noopener">%s</a>'
                       % (esc(x.get("url")), esc(x.get("name") or x.get("path"))))]) for x in dtrem]
-    out.append(sect("srctext", "Source text &mdash; what Microsoft changed inside the page",
-        ('%d of %d watched pages changed their text between these two states. A page is compared by the '
-         'commit it was read at, not by how many lines moved, so the same &bdquo;+21 / &minus;15&rdquo; on '
-         'a different edit is still a difference. Removed text is struck through and added text is '
-         'highlighted, which makes this the only place on either page where a REMOVAL of prose is visible '
-         '&mdash; a detection dropped from Microsoft&rsquo;s own list leaves no other trace.')
-        % (len(dtchg), dtc),
-        table(["Page", "What", "Line"], dt_rows,
-              "No watched page changed its text between these two states.",
-              "<b>Source text</b> &middot; %d page%s edited%s"
-              % (len(dtchg), "" if len(dtchg) == 1 else "s",
-                 (", %d newly watched" % len(dtadd)) if dtadd else ""))
-        + dt_more
+    n_owned = len([x for x in (dtchg + dtadd) if hunk_lines(x) and norm(x.get("path")) in owned])
+    out.append(sect("srctext", "Source text &mdash; pages no item carries",
+        ('%d of %d watched pages changed their text between these two states%s. <b>A page an item '
+         'carries is shown under that item&rsquo;s own row above</b>, behind its +, because it is the '
+         'same story; what is left here is a page that moved with no item to its name, which is itself '
+         'a finding. A page is compared by the commit it was read at, not by how many lines moved, so '
+         'the same &bdquo;+21 / &minus;15&rdquo; on a different edit is still a difference.')
+        % (len(dtchg), dtc,
+           (", and %d of them %s shown above" % (n_owned, "is" if n_owned == 1 else "are")) if n_owned else ""),
+        ("".join(file_block(x) for x in dt_shown) if dt_shown
+         else '<p class="empty">Every page that moved is carried by an item above%s.</p>'
+              % ("" if n_owned else ", and no watched page moved at all"))
         + (table(["What", "Product", "Page"], dt_gone, "",
-                 "<b>Source text</b> &middot; %d page%s left the watch list" % (len(dtrem), "" if len(dtrem) == 1 else "s"))
-           if dt_gone else ""),
-        count=len(dtchg) + len(dtadd) + len(dtrem)))
+                 "<b>Source text</b> &middot; %d page%s left the watch list"
+                 % (len(dtrem), "" if len(dtrem) == 1 else "s")) if dt_gone else ""),
+        count=len(dt_shown) + len(dtrem)))
 
     total = (len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod)
              + len(radd) + len(rrem) + len(rmod) + len(cadd) + len(crem) + len(cmod)
@@ -4192,7 +5180,10 @@ def verify(page):
                 if len(cells) < 4: continue
                 tab_ = re.sub(r"<[^>]+>", "", cells[0]).strip()
                 vals = [_n(cells[1]), _n(cells[2]), _n(cells[3])]
+                # Message Center jest WIDOKIEM nad pozycjami, ktore maja juz swoj dom,
+                # a endpointy sa inna jednostka — obie zostaja poza suma kafelkow.
                 if tab_ == "Graph endpoints": ge = [vals[0], abs(vals[1])]
+                elif tab_ == "Message Center": pass
                 else:
                     for k in range(3): cols[k] += abs(vals[k])
         for lab, want in (("added", cols[0]), ("removed", cols[1]), ("changed", cols[2])):
@@ -4210,7 +5201,17 @@ def verify(page):
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
     for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
               "dstick", "nb-lab", "--dstick-h",
-              "s11col", "Search: all columns", ".s9find .s11col{border-color:var(--accent)"):
+              # 5ao: one line names EVERY filter, not only the global one
+              "window.__socDiffBar = sync", "nb-chips", "function describeBox(",
+              "Clear all filters", "wrap.__describe = describeBox",
+              "s11col", "Search: all columns", ".s9find .s11col{border-color:var(--accent)",
+              # 5ao: the filter line is GREEN on every surface of the portal
+              ".navbanner{display:flex;align-items:center;gap:12px;margin:0 0 8px;padding:8px 12px;border-radius:10px;\n background:var(--ok-soft);border:1px solid var(--ok)",
+              ".navbanner .nb-chip b{font-weight:700;color:var(--ok)",
+              # 5au: Advanced filtering, the same control the portal carries
+              "window.__s9adv = function (tr, table)", "function buildDims(", "details.s9adv{",
+              "window.__s9advDesc = describeAdv", "window.__s9advClear = function (quiet)",
+              "window.__socDiffFolds = function (on)", "s9advqc", ".s9advpop{display:none;position:fixed"):
         if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
     # pasek skrotow i banner musza byc w JEDNYM przyklejonym bloku — banner poza nim
     # odjezdza po skoku i czytelnik czysci filtr tabela po tabeli (zgloszenie 11 wrzesnia 2026)
@@ -4259,9 +5260,12 @@ def verify(page):
         elif chips[tgt] != val:
             e.append("kafelek '%s' mowi %s, a sekcja #%s, do ktorej prowadzi, liczy %s"
                      % (lab, val, tgt, chips[tgt]))
-    # ZWINIETE DOMYSLNIE, i tylko to, co czytelnik otworzyl, jest otwarte
-    if re.search(r'<details class="dsec"[^>]*\sopen', page):
-        e.append("sekcja otwarta domyslnie — na tej stronie wszystkie maja byc zwiniete")
+    # ZWINIETE DOMYSLNIE — z jednym wyjatkiem, ktory jest regula, a nie odstepstwem:
+    # `bytab` i `bytech` sa KONTROLKAMI (§3 punkt 13), wiec przy niezerowym ruchu stoja
+    # otwarte. Kazda inna otwarta sekcja to blad.
+    for _m in re.finditer(r'<section id="([^"]+)"><details class="dsec"([^>]*)>', page):
+        if " open" in _m.group(2) and _m.group(1) not in ("bytab", "bytech"):
+            e.append("sekcja %s otwarta domyslnie — otwierac wolno tylko bytab i bytech" % _m.group(1))
     for k in ("function focusSection(", "function openWithHits(", "function collapseAll(",
               "function syncChips(", "function visibleRows("):
         if k not in page: e.append("brak zaczepu zwijania sekcji: %s" % k)
@@ -4288,6 +5292,25 @@ def verify(page):
         rows4 = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", m4.group(0), re.S) if "<td" in r]
         nolink4 = [r for r in rows4 if "<ins>added</ins>" in r and "<a href" not in r]
         if nolink4: e.append("%d dodanych pozycji community bez linku" % len(nolink4))
+    # §3 punkt 15: kazdy przycisk dowodu ma pod soba swoj wiersz, a wiersz ma tresc.
+    nxb = len(re.findall(r'<button class="xb" type="button" data-diff="1"', page))
+    ndet = len(re.findall(r'<tr class="det" hidden>', page))
+    if nxb != ndet:
+        e.append("przyciskow dowodu %d, a wierszy szczegolow %d" % (nxb, ndet))
+    if ndet and '<div class="s12file">' not in page:
+        e.append("wiersz dowodu istnieje, a nie ma w nim bloku zmiany tekstu (.s12file)")
+    if re.search(r'<tr class="det" hidden><td colspan="\d+"><div class="det-in"></div></tr>', page):
+        e.append("pusty wiersz dowodu — przycisk obiecuje i nic nie otwiera")
+    # stary render (wiersz na linie, kolumna `What`) zniknal — jeden ksztalt na obu stronach
+    _ms = re.search(r'<section id="srctext">.*?</section>', page, re.S)
+    if _ms and "<th>Line</th>" in _ms.group(0):
+        e.append("sekcja srctext nadal renderuje wiersz na linie zamiast bloku .s12file")
+    # kazda dodana pozycja Message Center jest NAZWANA z linkiem, nie policzona
+    _mm = re.search(r'<section id="mcenter">.*?</section>', page, re.S)
+    if _mm and "baseline" not in _mm.group(0):
+        _bad = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _mm.group(0), re.S)
+                if "<ins>added</ins>" in r and "<a href" not in r]
+        if _bad: e.append("%d dodanych wpisow Message Center bez linku" % len(_bad))
     if "s9find" not in page or "details.dsec .tw > table" not in page:
         e.append("brak skryptu dokladajacego zielone pole szukania do tabel")
     # Przelacznik motywu: arkusz wozi oba motywy, wiec strona bez przycisku zostawia czytelnika
@@ -4307,6 +5330,14 @@ def verify(page):
     if len(page.encode()) > 900_000: e.append("strona ma %d B — diff ma byc maly" % len(page.encode()))
     if not any(h in ("/", "/diff/", "..") or h.startswith("http") for h in p.href):
         e.append("brak linku powrotnego")
+    # i ten w STOPCE musi prowadzic tam, gdzie obiecuje. Pytanie „czy jakis link prowadzi
+    # do /" przechodzilo, bo dateline swoj ma, a stopka linkowala w 404 przez przykryta
+    # zmienna. Asercja, ktora przechodzi z niewlasciwego powodu, jest gorsza niz jej brak.
+    _f = re.search(r'<footer>.*?<a href="([^"]*)">Back to the full brief</a>', page, re.S)
+    if not _f:
+        e.append("stopka nie ma linku powrotnego")
+    elif _f.group(1) not in ("/", "/diff/", "..") and not _f.group(1).startswith("http"):
+        e.append("link powrotny w stopce prowadzi do %r, a ma do strony glownej" % _f.group(1))
     # KAZDY wiersz sekcji `changed` pokazuje roznice, a nie ja opisuje. Licznik <del> NIE musi
     # rownac sie licznikowi <ins>: pole, ktorego wczesniej nie bylo, ma samo <ins> i zdanie
     # „not set" po lewej. Zmierzone: 250 wierszy, 225 z samym <ins>, zero bez jednego i drugiego.
@@ -5005,7 +6036,7 @@ dla rol tak samo jak dla uprawnien.
 
 ## 5h. Kontrola Playwright — pelna lista asercji
 
-Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry 11 `.tab` between them** (§5ae wariant B), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart` — PRESENCE, not visibility, and `tab-community` is the one panel whose panelhead chart is deliberately `display:none` (§5an), so assert the element and never its rendered height there**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
+Render headless at 1500x1000 in light AND dark and assert — every one of these has caught a real regression: no console or page errors; exactly one visible `.tabpanel`; **the two `.navrow` strips carry ONE `.tab` per panel between them, every `aria-controls` pointing at a `.tabpanel` that exists and every panel reachable from one of them** (§5ae wariant B — count the panels, never a literal), labels human, neither row overflowing, also at 1280px; **`header.top .hdr-tools` holds the Theme button and a `select.globalfilter` whose first option is `All products`, and every `header.top .counts a.count` is mirrored into a `#tab-overview .stat` tile**; **every panel except Overview and Sources has exactly one `.panelhead`, built by the script, carrying ≥1 `.stat` and ≥1 `figure.chart` — PRESENCE, not visibility, and `tab-community` is the one panel whose panelhead chart is deliberately `display:none` (§5an), so assert the element and never its rendered height there**; **every panel that lists a deadline inside 60 days shows a `🔥 under 30 days` or `⚠️ 30–60 days` chip — absent means the rows lack the emoji**; **`.badge` count across the page is in the hundreds, not the tens**; a picks product chip leaves only that product's rows, raises a `.filterbanner`, Clear filter restores them; **`.filterbanner[hidden]` computes to `display:none`, and with a filter active the banner is visible with a non-empty `.fb-msg`**; **`.cat-controls` is `position:sticky` at desktop width and the search input stays in the viewport after scrolling `.cat-split` into view**; both catalogs render a non-zero count and three modes — Microsoft changes / Catalog notes / All — defaulting to the first with no `catalog`/`brief` entry in it; **`.badge.b-undoc` and `.badge.b-elsewhere` both have a non-transparent background and a non-zero `border-radius` in both themes, and each is carried by at least one rendered chip**; **every `input.tbar-search` and `.cat-searchwrap .cat-search` has a non-transparent, non-`--surface` background in both themes; `.cat-changed` scrollHeight may exceed its clientHeight but `.cat-searchrow` is within 480 px of the panel top; `details.foldnote>summary` computes a font-size of at least 14 px; `.card-title` has a non-transparent background and a non-zero border-radius; every open `details.foldnote` body contains a `ul` and no bare `p` over 40 words**; `scrollWidth` never exceeds client width; **open a role with actions: the action table holds exactly as many rows as `actionsFull`, the count line carries the provenance sentence, `.cp-privbtn` filters to privileged-only with `aria-pressed="true"` and toggles back, and `.cp-verify` links a real `entra-docs/blob/main/.../includes/<slug>.md` URL**. Skip this step rather than failing the run if Playwright is missing.
 
 Nowe od 31 sierpnia 2026, kazda z nich lapie realny blad z tego dnia: **zaden `figure.chart`
 o co najmniej czterech slupkach nie ma wszystkich slupkow rownych 1** (wykres „By topic" mial ich
@@ -11644,6 +12675,45 @@ prawde i mial przycisk czyszczacy** — tylko byl poza ekranem:
 6. **Filtr lokalny tabeli zostaje jak byl**: `.s9find` niesie swoj licznik `N of M` i swoj `Reset`.
    Banner globalny mowi o filtrze, ktory dotyczy wielu tabel naraz.
 
+### Banner nazywa KAZDY czynny filtr, nie tylko ten globalny — 12 wrzesnia 2026
+
+Wlasciciel wrocil do tej reguly nastepnego dnia, patrzac na opublikowana strone zmian:
+*„ustalilismy, ze w calym portalu robimy info o filtrowaniu na zielonym pasku — tego kompletnie
+brakuje w diff"*. Mial racje, a przyczyna byla strukturalna, nie estetyczna: **banner mowil wylacznie
+za filtry, ktore SAM ustawia** — technologie z `bytech`, kafelek i liczbe z `bytab`. Zielone pole
+szukania kazdej tabeli (§5am) nie raportowalo nic, wiec czytelnik, ktory wpisal `Teams` w sekcji
+`Added`, dostawal `1 of 3` i **ani jednego zdania o tym, dlaczego licznik spadl** — a przy dwunastu
+sekcjach musial pamietac, ktorej dotknal.
+
+Zmierzone tego dnia na opublikowanej stronie: **trzynascie pudelek szukania, zero z nich widocznych
+w bannerze**; strona glowna nazywa je wszystkie od 11 wrzesnia (§5at, `window.__socFilterBus`).
+Jedna powierzchnia portalu byla wiec zwolniona z reguly, ktora ten plik ogloszil dla calego portalu.
+
+1. **Banner jest renderowany z MAGISTRALI, nie skladany w dwoch miejscach.** Filtr globalny zglasza
+   sie przez `say()`, kazde pudelko szukania przez wlasne `__describe()`, a **jedna funkcja `sync()`
+   rysuje calosc**. Dwa renderery jednego zdania rozjezdzaja sie (§0a), a dokladnie tak powstalo
+   `0 carried` w §5ar.
+2. **Jeden chip na wlasciciela filtra, z nazwa, ktora czytelnik widzi na stronie** — tytul sekcji
+   i podpis tabeli — plus wlasne `×`. Chip czysci sie przez `__reset()` TEGO pudelka, nigdy przez
+   pisanie w jego pola: pudelko jest jedynym pisarzem `row.hidden` swojej tabeli (§5am).
+3. **Etykieta liczy: `1 filter is on` albo `N filters are on`**, a przycisk zmienia sie na
+   `Clear all filters`, gdy jest ich wiecej niz jeden. Przycisk obiecujacy „clear filter" przy
+   trzech czynnych filtrach mowi nieprawde o tym, co zrobi.
+4. **Pudelko, ktore wypelnil FILTR GLOBALNY, nie dostaje wlasnego chipa** (`__byGlobal`). Zmierzone
+   przed ta poprawka: klikniecie technologii `Intune` dawalo **`12 filters are on` i jedenascie
+   chipow** powtarzajacych to, co zdanie globalne mowilo juz jednym wierszem („2 by their product
+   column, 9 by searching their text"). To jest ten sam blad „dwie kopie jednego zdania", ktory ten
+   banner ma usuwac — i ta sama poprawka, ktora SKRYPT 15 ma w portalu (`DELEG[pid]`, §5au).
+   **Znacznik znika, gdy czytelnik sam dotknie pudelka** — wtedy jest to JEGO filtr i dostaje chip.
+
+Zmierzone po zmianie, oba motywy, 1400 i 390 px: banner ukryty przy starcie; po wpisaniu `Teams`
+w sekcji `Added` — `1 filter is on` i chip `Added since 2026-09-11 · Added in New — text "Teams"`;
+po dolozeniu fasety w innej tabeli — `2 filters are on` i `Clear all filters`; po kliknieciu
+technologii — `1 filter is on`, samo zdanie globalne, **zero chipow**; po dopisaniu wlasnego
+szukania na wierzchu — `2 filters are on` i jeden chip; banner widoczny po przewinieciu na sam dol
+(`top: 45 px`); `Clear all filters` przywraca **kazdy z trzynastu licznikow** do pelnej liczby
+i chowa banner; zero bledow strony, zero rozpychania dokumentu.
+
 Pozycja 64 listy §0 sprawdza to na gotowym pliku, a §5h — w renderze.
 
 ## 5ap. KAZDA KOLUMNA DA SIE FILTROWAC, KAZDY WYKRES JEST KONTROLKA
@@ -14128,11 +15198,16 @@ wszystkich zakladek — i buduje ja SKRYPT 14.
   i zero, gdy nie jest. Twarda liczba klamie w chwili, w ktorej zawinie sie inna liczba pigulek
   (§5ao, §0a).
 - Pasek **znika, gdy nie ma zadnego filtra**. Zawsze widoczna pusta ramka uczy patrzec obok niej.
-- **Strona `/diff/` NIE dostaje tego paska i to jest swiadome.** Nie ma zakladek, wiec nie ma czego
-  przezyc: jej baner stoi juz w przyklejonym bloku razem z paskiem skrotow (§5ao, `.dstick`) i jest
-  na ekranie z kazdego miejsca strony. Dokladanie tam drugiej linii bylo by druga kopia tego samego
-  zdania — §0a. Reguly 1-3 obowiazuja tam natomiast bez zmian: liczba w `bytab` zawezasa sekcje
-  i skacze do niej, a `Clear filter` czysci wszystko naraz.
+- **Strona `/diff/` nie dostaje DRUGIEJ linii — dostaje te sama regule w bannerze, ktory juz ma.**
+  Nie ma zakladek, wiec nie ma czego przezyc: jej baner stoi w przyklejonym bloku razem z paskiem
+  skrotow (§5ao, `.dstick`) i jest na ekranie z kazdego miejsca strony, wiec dokladanie tam
+  `.gfbar` byloby druga kopia tego samego zdania (§0a). **Ale tresc reguly obowiazuje tam tak samo,
+  i do 12 wrzesnia 2026 nie obowiazywala**: baner mowil wylacznie za filtry, ktore sam ustawil,
+  a trzynascie pol szukania tabel nie raportowalo nic. Od tego dnia baner `/diff/` jest renderowany
+  z magistrali dokladnie jak ten pasek — jeden chip na wlasciciela, wlasne `×`, `Clear all filters`
+  i pominiecie pudelek, ktore wypelnil filtr globalny (§5ao). **Zwolnienie jednej powierzchni
+  z reguly ogloszonej dla calego portalu jest samo w sobie bledem** — reguly 1-3 dzialaly tam od
+  poczatku, a regula 5 nie, i nikt tego nie zmierzyl przez dobe.
 
 ### Regula 6 — MONOSPACE JEST DLA IDENTYFIKATORA, NIGDY DLA ZDANIA
 
@@ -14457,7 +15532,13 @@ Pasek montuje sie na OSMIU zakladkach: Today (`Change type · Status · Product 
 New (`Product · Status · Kind · What · Deadline`), Deadlines (`Status · Product · What · Deadline ·
 Day`), Products (`Status · Published · Deadline`), Graph API (`Source · What · Day · Change since
 last check · Field`), Hunting & actions (`Product`), Sources (`Source · State · Kind · Status ·
-Last finding`) oraz — po dolozeniu obu nowych zakladek — Microsoft Learn i Microsoft Blogs.
+Last finding`) **Zakladek jest jedenascie i `Microsoft Learn` ani `Microsoft Blogs` NIE sa wsrod nich** —
+pierwsza wersja tego akapitu wymieniala je tak, jakby istnialy, a §2 nigdy ich nie zdefiniowala
+i zaden opublikowany artefakt ich nie mial (zmierzone 12 wrzesnia 2026 na `site/index.html`:
+jedenascie `.tabpanel`, `tab-overview` … `tab-community`). To jest ten sam blad co w §5ae:
+**regula opisana proza obok kodu, ktory jej nie realizuje, czyta sie jak zrobiona**. Gdy te dwie
+zakladki powstana, dopisuje sie je do §2, do `CANON_PANELS` (§0a) i do pozycji 3, 26 i 59 listy §0
+— i dopiero wtedy do tego zdania.
 Nie montuje sie na Overview i Community Articles (wyzej), ani na Component versions (6 wierszy)
 i Roles (21 wierszy, same kolumny miar).
 
@@ -15080,6 +16161,113 @@ nadpisuje i nie pisze do cudzego stanu.
   `What it means` z §4) inline'u nie dostaly — i zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia
   2026 na opublikowanej stronie i zgloszone przez wlasciciela: *„co drugi wiersz jak sie najedzie
   myszka to zaznaczy tylko maly niebieski kwadrat"*.
+
+## 5av. ZIELONY JEST KOLOREM FILTRA — na kazdej powierzchni portalu
+
+Wlasciciel ustalil to jako regule calego portalu jeszcze przy §5ao: *„ustalilismy ze w calym portalu
+robimy info o filtrowaniu na zielonym pasku"*. 12 wrzesnia 2026, patrzac na nowy pasek `/diff/`,
+zglosil to drugi raz: *„zobacz jak zbudowales info o filtrze. raz ze niebieskie a nie zielone tak
+jak pisalem wyzej i tak jak to bedzie w porannym artefakcie i routine"*.
+
+**I mial racje dwa razy, bo zielony NIE BYL nigdzie.** Zmierzone tego dnia na opublikowanej stronie
+i na stronie zmian — kazdy pasek informacji o filtrze stal na `--accent`, czyli na tym samym
+niebieskim, ktorym strona maluje KAZDY link, kazda kotwice i kazdy chip nawigacji:
+
+| pasek | gdzie | tlo / ramka przed |
+|---|---|---|
+| `.filterbanner` (powloka) | banner tabeli w kazdej zakladce | `--accent-soft` / `--accent` |
+| `.filterbanner.s10` (§5an) | zakladka Community Articles | `--accent-soft` / `--accent` |
+| `.filterbanner.s11` (§5ap) | banner zakladki | `--accent-soft` / `--accent` |
+| `.bkbanner` (§5ad) | kubelek katalogu | `--accent-soft` / `--accent` |
+| `.gfbar` (§5at) | jedna linia w mastheadzie | `--accent-soft` / `--accent` |
+| `.navbanner` (§3, `/diff/`) | jedna linia strony zmian | `--accent-soft` / `--accent` |
+
+### Regula
+
+**Kazdy element, ktory MOWI o czynnym filtrze, jest zielony — `--ok-soft` na tle, `--ok` na ramce
+i na etykiecie — a przycisk czyszczacy jest zielony wypelniony.** Zielen jest w arkuszu od §5k
+(`--ok`, `--ok-soft`) i jest juz kolorem POLA SZUKANIA, wiec „gdzie sie filtruje" i „co jest
+przefiltrowane" staja sie jednym systemem zamiast dwoch. Niebieski zostaje tam, gdzie byl od
+poczatku: na linkach, kotwicach, zakladkach i na pasku **Advanced filtering**, ktory jest
+KONTROLKA, a nie informacja o stanie.
+
+**To jest blok NADPISUJACY, a nie edycja szesciu blokow.** Kazda z tych regul stoi w bloku, ktorego
+fragmenty sa kluczami bramki (pozycje 61, 64, 65, 70) — przepisanie ich w miejscu rozjechaloby
+asercje, ktore od tego dnia sa poprawne. Dopisany blok wygrywa kolejnoscia w kaskadzie przy tej
+samej specyficznosci (§5k), wiec selektory musza DOROWNAC specyficznoscia oryginalom: `.filterbanner`
+nie bije `.filterbanner.s11`, a `.filterbanner .fb-clear` nie bije `.filterbanner.s10 .fb-clear`.
+Dlatego kazda para jest wypisana z osobna — to nie jest nadmiarowosc, tylko warunek, zeby regula
+w ogole zadzialala.
+
+**Czerwony `×` przy chipie zostaje czerwony.** On nie mowi, ze filtr jest wlaczony — mowi, ze go
+zdejmiesz, a to jest inna rzecz i ma inny kolor.
+
+Zmierzone po zmianie, oba motywy, `/diff/` i portal: tlo bannera `rgb(219,240,227)` przy ramce
+`rgb(13,98,54)` w jasnym i `rgb(15,51,35)` przy `rgb(99,212,149)` w ciemnym; kontrast etykiety do
+tla **6,24:1** i **7,50:1**, kontrast przycisku `Clear` **7,45:1** i **8,84:1** — wszystkie powyzej
+progu 4,5:1 z §5at.
+
+### Arkusz — blok dopisywany na SAMYM KONCU `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
+§5ar, §5as, §5at i §5au sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad
+DZIEWIETNASCIE** (§0c), a ten jest OSTATNI — nadpisuje, wiec musi stac za wszystkimi, ktore
+nadpisuje.
+
+```css
+/* §5av — green is the colour of a filter, on every surface of the portal.
+   An OVERRIDING block: each of these rules lives in a block whose fragments are gate
+   keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
+   are correct as they stand. This wins by source order at EQUAL specificity (5k), which
+   is why every pair is spelled out: `.filterbanner` does not beat `.filterbanner.s11`,
+   and `.filterbanner .fb-clear` does not beat `.filterbanner.s10 .fb-clear`. */
+.filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}
+.filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}
+.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}
+.filterbanner .fb-msg b,.bkbanner .bk-msg b{color:var(--ok)}
+.filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}
+.gfbar .gf-chip{border-color:var(--ok)}
+.gfbar .gf-chip b{color:var(--ok)}
+.filterbanner .fb-clear,.bkbanner .bk-clear,.gfbar .gf-reset{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner.s10 .fb-clear,.filterbanner.s11 .fb-clear{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner .fb-clear:hover,.bkbanner .bk-clear:hover,.gfbar .gf-reset:hover,
+.filterbanner.s10 .fb-clear:hover,.filterbanner.s11 .fb-clear:hover{
+ background:var(--surface);color:var(--ok)}
+.filterbanner .fb-clear:focus-visible,.bkbanner .bk-clear:focus-visible,
+.gfbar .gf-reset:focus-visible,.gfbar .gf-x:focus-visible{outline-color:var(--ok)}
+/* the red x stays red: it does not say a filter is ON, it says you can take it off */
+```
+
+### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
+
+Pierwszy pomiar tego bloku **nie zadzialal** i wygladal na blad regul. Nie byl: blok zostal wstrzykniety
+jako NOWY `<style>` w `<head>`, a arkusz powloki siedzi w `<body>` (lustro §0a przenosi do `<head>`
+tylko `<title>` i linki do fontow). Przy rownej specyficznosci wygrywa regula POZNIEJSZA w dokumencie,
+wiec arkusz powloki bil kazda linie tego bloku i pomiar dawal `rgb(226,234,251)` — czyli dokladnie
+ten niebieski, ktory blok mial usunac. Po wstawieniu tresci na koniec ISTNIEJACEGO `<style>` te same
+selektory daja `rgb(219,240,227)`.
+
+**Dopisany blok CSS wstawia sie do wnetrza arkusza strony, nigdy jako drugi `<style>` w naglowku.**
+Dotyczy to wszystkich dziewietnastu blokow, ale tylko ten nadpisuje cudze reguly, wiec tylko przy nim
+pomylka jest cicha: pozostale dokladaja klasy, ktorych nikt inny nie deklaruje, i dzialaja z kazdego
+miejsca.
+
+### Czego ten blok NIE maluje na zielono
+
+- **Paska `Advanced filtering`** (§5au, `.s15bar`, oraz `.s9adv` na `/diff/`) — to jest kontrolka,
+  a nie informacja o stanie. Jego wlasny chip „N filters on" jest zielony, bo to JEST informacja.
+- **Kafelkow, licznikow i kotwic nawigacji** — one prowadza, a nie filtruja.
+- **Zielonego pola szukania** — ono bylo zielone od §5k i to wlasnie z nim reszta ma sie zgadzac.
+
+### Walidator
+
+Pozycja **64** listy §0 sprawdza to na obu powierzchniach: `gate.py` szuka regul zielonego bloku
+w pliku strony glownej, a `verify()` w `make_diff.py` zielonego `.navbanner` na `/diff/`.
+**Zadnej nowej pozycji nie dodajemy** — to jest ten sam wymog co „filtr globalny mowi, ze jest
+wlaczony", tylko dopowiedziany do konca: pasek, ktorego czytelnik nie odroznia od kazdego innego
+niebieskiego elementu strony, mowi slabiej, niz mogl.
 
 ## 6. Kontrakt w stronie
 
