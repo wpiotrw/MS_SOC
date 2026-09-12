@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **71 pozycji** (0-33, 35-61, 63-72), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **73**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+   strone glowna, sprawdza **72 pozycje** (0-33, 35-61, 63-73), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **74**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -130,6 +130,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 70 | **jedna linia w mastheadzie nazywa KAZDY czynny filtr, przezywa przelaczenie zakladki i ma jeden `Reset all filters`** — kazdy wlasciciel filtra rejestruje sie na `window.__socFilterBus`, renderuje JEDEN skrypt | 5at | `SCRIPT 14 — ONE LINE…`, `window.__socFilterBus`, `window.__socFilterBarSync = function`, `setProperty("--gfbar-top"`, `Reset all filters`, `.gfbar{position:sticky;top:var(--gfbar-top,0px)` w pliku; render (§5h): pasek widoczny przy kazdym przewinieciu i na kazdej zakladce, reset przywraca kazdy licznik |
 | 71 | **kazda liczba nawigacyjna NAZYWA swoje wiersze albo CZYSCI filtr zakladki docelowej, a skok idzie do pierwszej tabeli z trafieniami** — tabela bez `data-id` zawezana po identyfikatorze w tresci, blok prozy po `data-s11m`, tabela bez trafien zostaje CALA | 5at | `function rowInSpec(`, `function applyBlocks(`, `function land(`, `function firstHit(`, `data-s11m`, `[data-s11m][data-s11="0"]{display:none!important}`, `s11.clearTab(panelId)`, `window.__socSetCat`, `window.__socSetWin` w pliku; render (§5h): klik liczby zostawia czytelnika PRZY zawezonej tabeli, a baner nazywa te liczbe, nie poprzednia |
 | 72 | **monospace tylko na IDENTYFIKATORZE, nigdy na zdaniu** — katalog odwrotny dla kafelka i pudelka wersji, nic ponizej 12,5 px i 4,5:1 | 5at | obie reguly odwrotne oraz `.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}` w arkuszu; render (§5h): w Component versions zaden lisc o >3 slowach nie jest monospace |
+| 73 | **zero diagnostyki wlasnej infrastruktury w tresci widocznej dla czytelnika** — odmowa serwisu publikujacego jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu | 0e | `innerText` nie zawiera `publishing service`, `pull-request review`, `bisection`, `canary`, `test artifact`, `artifact publishing` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -791,7 +792,7 @@ class Scan(HTMLParser):
 # Klasa B to funkcja interfejsu: potrafi ja naprawic tylko przebieg BUDUJACY, wiec na sciezce
 # lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
-CLASS_A = {"15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
+CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "68a","68c","69","70","71","72"}
@@ -1464,6 +1465,18 @@ def gate(path, site=None, mirror=False, doc=None):
          all(k in h for k in K72),
          "brak katalogu odwrotnego dla czcionki kafelka: %s" % ", ".join(k for k in K72 if k not in h))
 
+    # 73: §0e — diagnostyka wlasnej infrastruktury NIE jest trescia briefu. Szukamy w TRESCI
+    # (bez skryptow, arkusza i komentarzy), bo komentarz SHELL CONTRACT cytuje przykladowe teksty.
+    # Zmierzone 12 wrzesnia 2026: strona poranna niosla w sekcji Sources wiersz o "pull-request
+    # review machinery" i o bisekcji na artefakcie testowym. Czytelnik briefu SOC nie jest
+    # adresatem raportu o cudzej infrastrukturze, a odmowa publikacji byla przejsciowa (§0e).
+    LEAK = ["publishing service", "pull-request review", "pull request review",
+            "bisection", "canary", "test artifact", "artifact publishing"]
+    vis73 = "".join(s.text).lower()
+    leak = [w for w in LEAK if w in vis73]
+    need("73", "zero diagnostyki infrastruktury w tresci widocznej dla czytelnika (§0e)",
+         not leak, "znalezione frazy: %s" % ", ".join(leak))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1830,6 +1843,61 @@ odmowi z komunikatem o regulach rzadkosci — to ta sama pulapka co przy `site/h
   30 dni — `57 BRAK` z liczba dni; (d) `sha256` niezgodny z trescia — `57 BRAK` z powodem; (e) bez
   argumentu `site/` — `57 BRAK „nie podano katalogu site/"`, **nie OK**. Pozycje 0-56 daja przy tym
   identyczne werdykty co przed zmiana.
+
+## 0e. ODMOWA PUBLIKACJI NIE JEST DIAGNOZA — i nigdy nie trafia do tresci strony
+
+12 wrzesnia 2026 poranny przebieg **usunal ze strony caly rejestr 14 dni** — 685 wpisow, 11 przebiegow,
+6 dni historii — i opublikowal brief bez niego. Pozycje 46 i 50 listy §0 poszly jako `BRAK`.
+W odpowiedzi napisal, ze serwis publikujacy klasyfikuje tablice rekordow `added` / `removed` /
+`changed` z wartosciami `before` i `after` jako maszynerie przegladu pull requestow i odmawia
+przyjecia strony. Dolozyl do tego bisekcje na dwoch artefaktach testowych.
+
+**Diagnoza byla falszywa w kazdym punkcie.** Sprawdzone tego samego dnia, trzema publikacjami:
+
+| wariant | wynik |
+|---|---|
+| mala strona, 340 wpisow rejestru w surowym ksztalcie | **opublikowana** |
+| mala strona, pelne 685 wpisow | **opublikowana** |
+| **dokladnie ta strona, ktora rano odrzucono** — 8,35 MB, 685 wpisow, komplet pozostalych kluczy | **opublikowana** |
+
+Ani ksztalt rekordow, ani rozmiar, ani linki do GitHuba nie byly przyczyna. Odmowa byla
+**przejsciowa**, a bisekcja potwierdzila teze, bo jej negatywne wyniki byly tak samo przejsciowe.
+
+### Regula
+
+1. **Odmowa serwisu jest OBJAWEM, nie przyczyna.** Zanim przebieg usunie ze strony cokolwiek, co sam
+   policzyl, musi **odtworzyc odmowe co najmniej dwa razy, w odstepie**, i wykazac, ze wariant bez
+   danych naprawde przechodzi. Jedna odmowa i jedno przejscie to nie jest bisekcja — to dwie proby
+   z serwisu, ktory moze miec zly kwadrans.
+2. **Bisekcja, ktorej negatywy sa przejsciowe, dowodzi dowolnej tezy.** Kazdy krok bisekcji powtarza
+   sie tyle razy, ile trzeba, zeby wynik byl stabilny; krok niestabilny jest **niekonkluzywny**
+   i tak sie go zapisuje.
+3. **Usuniecie policzonych danych ze strony jest decyzja KLASY A** (§0, rzetelnosc tresci) — strona
+   bez rejestru, ktory istnieje, mowi czytelnikowi cos nieprawdziwego o tym, co wiadomo. Przebieg,
+   ktory nie potrafi opublikowac kompletu, **publikuje wczorajsza strone pod wczorajsza data
+   i mowi o tym**, albo zatrzymuje sie i pyta — nie wydaje okrojonej strony pod dzisiejsza data.
+4. **Diagnostyka serwisu publikujacego NIGDY nie trafia do tresci widocznej dla czytelnika.**
+   12 wrzesnia w sekcji Sources stanal wiersz o „pull-request review machinery" i bisekcji na
+   artefakcie testowym. Czytelnik briefu SOC nie jest adresatem raportu o infrastrukturze serwisu
+   publikujacego. Do strony idzie **jedno zdanie w jego jezyku** — *„The 14-day history is not on
+   this page today; it was computed and is in the repository"* — a caly opis awarii idzie
+   **do odpowiedzi przebiegu**, gdzie jest adresat, ktory moze z nim cos zrobic.
+5. **Artefakty testowe kasuje ten przebieg, ktory je utworzyl**, w tym samym przebiegu. Zostawienie
+   ich wlascicielowi do sprzatniecia jest przerzuceniem na niego kosztu wlasnej diagnostyki.
+
+### Przy okazji: §5al bylo w pliku i nie bylo stosowane
+
+Po przywroceniu rejestru bramka odrzucila strone na pozycji 50 z liczbami: **39 wpisow ze zdaniem
+w polu `id`** (`AuditLog.Read.All → 1 new endpoint`) i **1 z encja HTML**. Funkcja `norm_entry`
+stoi w §5al od 7 wrzesnia dokladnie po to i **nie byla wolana ani razu** — czyli byla sugestia (§0b).
+Po jej zastosowaniu przy ODCZYCIE (plik `changelog.json` nietkniety, §5aj) bramka daje
+**wszystkie pozycje OK**, a render: 11 paneli, piec blokow `details.chg14`, liczniki 185 / 131 / 3 /
+0 / 354 — **kazdy rowny liczbie wierszy**, obie osie podpisane, zero rozpychania dokumentu.
+
+**Wycinanie `ledger14` do bloku stanu wola `norm_entry` na kazdym wpisie. Bez wyjatku.**
+
+Pozycja **73** listy §0 pilnuje punktu 4 kodem; jej asercja stoi w `gate.py` (§0b),
+a klasa A oznacza, ze blokuje **kazdy** przebieg, takze lustro — skopiowany wyciek jest nadal wyciekiem.
 
 ## Struktura
 
