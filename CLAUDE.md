@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **72 pozycje** (0-33, 35-61, 63-73), a przebieg ZMIAN dokłada **34 i 62**,
-   razem **74**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
+   strone glowna, sprawdza **76 pozycji** (0-33, 35-61, 63-77), a przebieg ZMIAN dokłada **34 i 62**,
+   razem **78**. Pozycji 34 i 62 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: obie dotycza
    strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -113,7 +113,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
-| 56 | **skrypty 4-14 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 14` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
+| 56 | **skrypty 4-15 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 15` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
@@ -131,6 +131,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 71 | **kazda liczba nawigacyjna NAZYWA swoje wiersze albo CZYSCI filtr zakladki docelowej, a skok idzie do pierwszej tabeli z trafieniami** — tabela bez `data-id` zawezana po identyfikatorze w tresci, blok prozy po `data-s11m`, tabela bez trafien zostaje CALA | 5at | `function rowInSpec(`, `function applyBlocks(`, `function land(`, `function firstHit(`, `data-s11m`, `[data-s11m][data-s11="0"]{display:none!important}`, `s11.clearTab(panelId)`, `window.__socSetCat`, `window.__socSetWin` w pliku; render (§5h): klik liczby zostawia czytelnika PRZY zawezonej tabeli, a baner nazywa te liczbe, nie poprzednia |
 | 72 | **monospace tylko na IDENTYFIKATORZE, nigdy na zdaniu** — katalog odwrotny dla kafelka i pudelka wersji, nic ponizej 12,5 px i 4,5:1 | 5at | obie reguly odwrotne oraz `.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}` w arkuszu; render (§5h): w Component versions zaden lisc o >3 slowach nie jest monospace |
 | 73 | **zero diagnostyki wlasnej infrastruktury w tresci widocznej dla czytelnika** — odmowa serwisu publikujacego jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu | 0e | `innerText` nie zawiera `publishing service`, `pull-request review`, `bisection`, `canary`, `test artifact`, `artifact publishing` |
+| 74 | **Advanced filtering: JEDEN pasek na zakladke, jedno menu na kolumne, kazda kolumna osiagalna** — faseta tam, gdzie kolumna grupuje, zakres szukania tam, gdzie nie; pasek NIE pisze ani `row.hidden`, ani licznika `N of M` | 5au | `SCRIPT 15 — ADVANCED FILTERING…`, `details.s15bar`, `function dimsFor(`, `function allCols(`, `s15qc`, `.s15pop{display:none;position:fixed`, `window.__socFilterBus` w pliku; render (§5h): trzy wybory pod rzad nie przewijaja strony, menu zostaje otwarte, `Reset all filters` czysci kazde menu |
+| 75 | **najechanie podswietla CALY wiersz, takze parzysty** — powloka maluje pasek inline w `restripe()`, wiec regula bez `!important` zapala tylko komorki dolozone przez skrypty | 5au | `.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}` w arkuszu; render (§5h): kazda komorka wiersza pod kursorem ma to samo tlo, w obu motywach |
+| 76 | **kazdy link zrodla NAZYWA zrodlo** — `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`, nigdy goly wyraz `Source` ani sam numer MC | 4a | zero kotwic o etykiecie `Source`, `Link`, `here`, `read more` |
+| 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -151,8 +155,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b, 76, 77** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -416,7 +420,7 @@ def drop_contract(content: str) -> str:
 def snapshot_shell(content: str):
     """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
 
-    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 14`, a nie po
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`, a nie po
     pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
     wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
     migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
@@ -431,7 +435,7 @@ def snapshot_shell(content: str):
     # PRZERYWA caly lustrzany przebieg. Kazda liczba zapisana w kodzie ma date waznosci
     # tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt, przeszukaj plik za
     # twardymi zakresami.
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-4])\b", b[:4000])]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-5])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -679,9 +683,16 @@ class Scan(HTMLParser):
         self.folds=[]; self._fold=None; self._folddepth=0
         self.secnotes=[]; self._notebuf=None
         self.chg14=[]; self._in14=0; self._c14=None; self._r14=0; self._insum14=False; self._sum14=[]; self._badge14=False
+        # §4: etykieta kazdego linku oraz naglowki kazdej tabeli pozycji
+        self.links=[]; self._a=None; self._ahref=None
+        self.itemtables=[]; self._th=[]; self._inth=False; self._thbuf=[]
     def handle_starttag(self, tag, attrs):
         a=dict(attrs); cls=(a.get("class") or "").split()
         if a.get("id"): self.ids.add(a["id"])
+        if tag=="a":
+            self._a=[]; self._ahref=a.get("href") or ""
+        if tag=="table": self._th=[]
+        if tag=="th": self._inth=True; self._thbuf=[]
         if tag=="a" and "lnk-dead" in cls: self.deadA+=1
         if tag=="article" and "card" in cls:
             self.cardCount+=1
@@ -737,6 +748,8 @@ class Scan(HTMLParser):
         if tag=="p" and "sec-note" in cls: self._grab=self.sec; self._notebuf=[]
         if tag in ("script","style"): self._skip+=1
     def handle_data(self, d):
+        if self._a is not None: self._a.append(d)
+        if self._inth: self._thbuf.append(d)
         if getattr(self,"_badge14",False): self._sum14.append(d)
         if self._insummary: self._sumbuf.append(d)
         if self._innum: self._numbuf.append(d)
@@ -747,6 +760,18 @@ class Scan(HTMLParser):
         if self._row is not None and not self._skip: self._row.append(d)
         if self._li is not None and not self._skip: self._li.append(d)
     def handle_endtag(self, tag):
+        if tag=="a" and self._a is not None:
+            self.links.append((" ".join("".join(self._a).split()), self._ahref or ""))
+            self._a=None; self._ahref=None
+        if tag=="th" and self._inth:
+            self._th.append(" ".join("".join(self._thbuf).split())); self._inth=False
+        if tag=="table" and self._th:
+            MEAN=("what it means","why it matters","what changed","impact","security impact",
+                  "soc impact","what it says","comment","what it allows","business value")
+            if "Item" in self._th:
+                self.itemtables.append((" | ".join(self._th),
+                                        any(any(m in x.lower() for m in MEAN) for x in self._th)))
+            self._th=[]
         if tag=="p":
             self._grab=None
             if self._notebuf is not None:
@@ -792,10 +817,10 @@ class Scan(HTMLParser):
 # Klasa B to funkcja interfejsu: potrafi ja naprawic tylko przebieg BUDUJACY, wiec na sciezce
 # lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
-CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
+CLASS_A = {"73","76","77","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "68a","68c","69","70","71","72"}
+           "68a","68c","69","70","71","72","74","75"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1235,7 +1260,7 @@ def gate(path, site=None, mirror=False, doc=None):
             docsrc = open(doc, encoding="utf-8").read()
         except Exception as ex:
             docsrc = None
-            need("56", "skrypty 4-14 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+            need("56", "skrypty 4-15 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
         if docsrc:
             want = {}
             F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
@@ -1244,15 +1269,15 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 14:
+                if m and 4 <= int(m.group(1)) <= 15:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
-            need("56", "skrypty 4-14 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+            need("56", "skrypty 4-15 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
                  bool(want) and not stale,
                  "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
                  else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
     else:
-        need("56", "skrypty 4-14 sa te z CLAUDE.md (§0c)", False,
+        need("56", "skrypty 4-15 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
     # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
     # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
@@ -1477,6 +1502,33 @@ def gate(path, site=None, mirror=False, doc=None):
     need("73", "zero diagnostyki infrastruktury w tresci widocznej dla czytelnika (§0e)",
          not leak, "znalezione frazy: %s" % ", ".join(leak))
 
+    # ---- 74-75: pasek Advanced filtering i podswietlenie wiersza (§5au) ----
+    K74 = ("SCRIPT 15 — ADVANCED FILTERING: ONE BAR PER TAB, EVERY COLUMN REACHABLE",
+           "details.s15bar", "function dimsFor(", "function allCols(", "s15qc",
+           '.s15pop{display:none;position:fixed', "window.__socFilterBus")
+    need("74", "Advanced filtering: jeden pasek na zakladke, kazda kolumna osiagalna (§5au)",
+         all(k in h for k in K74),
+         "brak: %s" % ", ".join(k for k in K74 if k not in h))
+    K75 = (".tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}",)
+    need("75", "najechanie podswietla CALY wiersz, takze parzysty (§5au)",
+         all(k in h for k in K75),
+         "brak reguly bijacej styl inline z `restripe()` — zapala sie jedna komorka, nie wiersz")
+    # ---- 76-77: tresc wiersza (§4) ----
+    # Link, ktorego etykieta brzmi „Source", nie mowi, DOKAD prowadzi, i psuje fasete
+    # kolumny Source (§5au regula 2). Liczymy PARSEREM: komentarz SHELL CONTRACT
+    # cytuje markup i bywa przerwany wczesnym `-->` (§0a).
+    anon = [t for t, href in s.links if t.strip().lower() in ("source", "link", "here", "read more")]
+    need("76", "kazdy link zrodla NAZYWA zrodlo, nie sam wyraz Source (§4)",
+         bool(s.links) and not anon,
+         "brak linkow — nie da sie sprawdzic" if not s.links
+         else "%d linkow o etykiecie bez nazwy zrodla" % len(anon))
+    nomean = [c for c in s.itemtables if not c[1]]
+    need("77", "kazda tabela pozycji ma kolumne znaczenia (§4, §5aq)",
+         bool(s.itemtables) and not nomean,
+         "brak tabel pozycji — nie da sie sprawdzic" if not s.itemtables
+         else "%d tabel z kolumna `Item` nie mowi, czego wiersz dotyczy: %s"
+              % (len(nomean), ", ".join(c[0][:40] for c in nomean[:3])))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1639,7 +1691,7 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest JEDENASCIE (4-14), a blokow CSS siedemnascie:**
+Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS osiemnascie:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1654,7 +1706,8 @@ Skryptow dodawanych jest JEDENASCIE (4-14), a blokow CSS siedemnascie:**
 | SKRYPT 12 — prowenancja wiersza i diff tekstu zrodla | `CLAUDE.md` | 5ar |
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
-| **kazdy dopisany blok CSS** (17 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at |
+| SKRYPT 15 — Advanced filtering, jeden pasek na zakladke | `CLAUDE.md` | 5au |
+| **kazdy dopisany blok CSS** (18 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
@@ -1695,7 +1748,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 14:
+            if m and 4 <= int(m.group(1)) <= 15:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -1710,13 +1763,13 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 15)] + \
+    need = ["script%d.js" % n for n in range(4, 16)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 17:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 17 — sprawdz wciete plotki" % len(css))
+    if len(css) < 18:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 18 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -1785,7 +1838,7 @@ wylacznie L1 — i to jest cala tresc tej sekcji.**
  "contract":true}
 ```
 
-**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 14`, nie po pozycji
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`, nie po pozycji
 `scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
 Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
 zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
@@ -2744,10 +2797,25 @@ def wkey(it):
     d = norm(it.get("deadline")) or "9999-99-99"
     return (0 if it.get("tier0Touch") else 1, w, d)
 
+SRC_NAME = [("mc.merill.net", "Message Center"), ("learn.microsoft.com", "Microsoft Learn"),
+            ("techcommunity.microsoft.com", "TechCommunity blog"), ("msrc.microsoft.com", "MSRC"),
+            ("support.apple.com", "Apple"), ("developer.microsoft.com", "Graph changelog"),
+            ("azure.microsoft.com", "Azure updates"), ("deltapulse", "DeltaPulse"),
+            ("graphpermissions", "Graph permissions tracker"), ("github", "Repository"),
+            ("entra.news", "entra.news")]
+
+def source_name(url):
+    """Link ma mowic, DOKAD prowadzi. Goly wyraz `Source` nie mowi nic, a do tego psuje
+    fasete kolumny `Source`, ktora buduje sie z etykiet linkow (§4a punkt 4, §5au)."""
+    h = norm(url).split("//")[-1].split("/")[0].lower()
+    for frag, name in SRC_NAME:
+        if frag in h: return name
+    return h or "Source"
+
 def a_src(it):
     u = norm(it.get("url"))
     if not u: return '<span class="none">no link</span>'
-    return '<a href="%s" target="_blank" rel="noopener">Source</a>' % esc(u)
+    return '<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(u), esc(source_name(u)))
 
 def deep_link(tab, key, home="/"):
     """Strona zmian nie ma katalogu (§3), wiec nie otworzy panelu u siebie —
@@ -2984,6 +3052,10 @@ details.dsec>.note{margin-top:10px}
  border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
 .s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
 tbody tr[hidden]{display:none!important}
+/* Najechanie podswietla CALY wiersz. Ta strona nie pasuje wierszy inline, wiec
+   `!important` nie jest tu potrzebne — ale zachowanie ma byc to samo co w briefie
+   (§5au pozycja 75), bo czytelnik przechodzi miedzy nimi jednym linkiem. */
+tbody tr:hover td{background:var(--accent-soft)}
 @media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
 
 /* --- kazda liczba jest kontrolka (10 wrzesnia 2026) --- */
@@ -4414,6 +4486,46 @@ malym dokumentem dla kogos, kto chce zobaczyc wylacznie roznice.
   `<p class="sec-title">`) › `.sec-body`. Tabele w `<div class="tw"><table>…</table></div>`,
   kolumna `Source` zawsze ostatnia.
 - Roznice pokazuj, nie opisuj: `<del>` stara wartosc, `<ins>` nowa.
+
+### 4a. KAZDY WIERSZ MOWI, CZEGO DOTYCZY, A KAZDY LINK MOWI, DOKAD PROWADZI
+
+Wlasciciel zglosil 12 wrzesnia 2026, patrzac na tabele pozycji tier 0 w sekcji B:
+*„pole item mi nic nie mowi … source powinien pokazywac pelny hyperlink z nazwa … do tego powinno
+byc jakies pole comment, tam gdzie wpiszesz swoje podsumowanie, czego ten wiersz dotyczy"*,
+i zaraz potem: *„takie pole comment powinno byc w kazdej z naszych tabelek"*.
+
+Mial racje, a przyczyna nie byla w gustach: **zdanie, ktorego brakowalo, JUZ BYLO W DANYCH.**
+Pozycja stanu niesie `fingerprint` — jedno zdanie o tym, co sie zmienia — a tabele New i Deadlines,
+najwieksze w calym raporcie, nie renderowaly go wcale. Tabele deep dive maja kolumne `What it means`
+od poczatku, wiec raport znal ten wzorzec i po prostu go nie stosowal.
+
+1. **KAZDA tabela, ktorej wiersz jest ZNALEZISKIEM, ma kolumne znaczenia.** Jedno zdanie, z danych:
+   `fingerprint` dla pozycji stanu, `summary` dla artykulu spolecznosci i wpisu MC, pierwsza linia
+   dopisana albo skasowana dla zmiany tekstu zrodla (§5ar). Naglowek: `What it means` dla pozycji,
+   `What it says` dla artykulu, `What changed` dla edycji. Pole puste drukuje **powod**, nigdy
+   pustke: `not stated in this run`, `summary not read this run`.
+   **Wyjatek sa tabele LICZNIKOW i POKRYCIA** — Overview, `Provenance`, `coverageByArea`, rozmiary
+   katalogow: tam wiersz jest statystyka, a kolumny juz mowia, co znacza.
+2. **Kolumna `Item` niesie TYTUL, nie identyfikator.** Tytul pogrubiony, pod nim `officialTitle`
+   wyciszony (§5n), a identyfikator na koncu, mniejszym drukiem, jako `<span class="ref">` —
+   identyfikator jest do WYSZUKANIA, nie do czytania. Wiersz, ktory zaczyna sie od
+   `entra-security-admin-identity-response`, nie mowi czytelnikowi niczego.
+3. **KAZDA tabela pozycji ma kolumne `Product`.** Tabela pozycji tier 0 w sekcji B jej nie miala,
+   wiec czytelnik nie wiedzial, czego dotyczy wiersz, dopoki go nie przeczytal do konca.
+4. **Link zrodla NAZYWA zrodlo.** `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`,
+   `Azure updates`, `DeltaPulse`, `Graph permissions tracker`, `Apple`, `Repository` — nazwa wyprowadzona
+   z hosta adresu, nigdy goly wyraz `Source`, `Link` ani sam numer MC (ten ma wlasna kolumne
+   `Reference`). **To nie jest kosmetyka**: faseta kolumny `Source` budowala sie z etykiet linkow,
+   wiec menu filtra pokazywalo `Microsoft 45`, `Source 22` i osiem numerow MC po jednym, czyli nie
+   grupowalo niczego (§5au regula 2). Po nazwaniu zrodel to samo menu pokazuje
+   `Microsoft Learn 44 · Message Center 14 · TechCommunity blog 3 · MSRC 2`.
+5. **Tabela pozycji tier 0 bez karty (sekcja B, §5p) ma ksztalt:**
+   `Product | Item | What it means | Where its row sits | Weight | Reference | Source`.
+   Kolumna `Where its row sits` mowi zakladke i termin po ludzku (`Deadlines, due 31 Oct 2026`),
+   a nie w formacie ISO — reszta strony pisze daty tak samo.
+
+Pozycje **76** i **77** listy §0 pilnuja punktow 1 i 4 kodem, i sa **klasy A**: wiersz, ktory nie
+mowi, czego dotyczy, i link, ktory nie mowi, dokad prowadzi, to brak TRESCI, nie brak funkcji.
 
 ## 5. Stan uslugi bije dokumentacje
 
@@ -11795,12 +11907,30 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
     if (node && node.scrollIntoView) node.scrollIntoView({ block: "start" });
   }
   function setTab(panelId, spec) {
+    /* SKOK NALEZY DO TEGO, KTO O NIEGO POPROSIL. Liczba w Start here prosi: czytelnik
+       nacisnal ja, zeby zobaczyc te wiersze. Menu filtra, w ktorym czytelnik wlasnie
+       stoi, nie prosi o nic — a skok zabieral mu przycisk z ekranu i zamykal menu, wiec
+       drugiej wartosci nie dalo sie wybrac bez przewijania z powrotem (zmierzone
+       12 wrzesnia 2026 na zakladce Today: 1 105 px -> 3 704 px po jednym kliknieciu).
+       Decyduje WOLAJACY, przez `spec.quiet` (5at, 5au).
+
+       `onclear` poprzednika wola sie tylko wtedy, gdy filtr przejmuje INNY wlasciciel.
+       Ten sam wlasciciel dokladajacy druga wartosc nie sprzata po sobie — pierwsza
+       wersja tego nie rozrozniala i drugi wybor w menu KASOWAL pierwszy. */
+    var prev = TAB[panelId];
+    if (prev && prev.onclear && prev !== spec && prev.owner !== (spec && spec.owner))
+      { try { prev.onclear(); } catch (e) {} }
     TAB[panelId] = spec;
     refresh(document.getElementById(panelId));
-    land(panelId, spec && spec.anchor);
+    if (!(spec && spec.quiet)) land(panelId, spec && spec.anchor);
   }
   function clearTab(panelId) {
+    /* Filtr zdjety z paska w mastheadzie musi wrocic do KONTROLKI, ktora go ustawila,
+       inaczej filtr jest zdjety, a menu dalej pokazuje zaznaczenia (zgloszenie
+       z 12 wrzesnia 2026). Ustawiajacy zostawia `onclear` i to on sprzata u siebie. */
+    var prev = TAB[panelId];
     TAB[panelId] = null;
+    if (prev && prev.onclear) { try { prev.onclear(); } catch (e) {} }
     refresh(document.getElementById(panelId));
   }
   window.__socS11 = { setTab: setTab, clearTab: clearTab, land: land };
@@ -14244,6 +14374,691 @@ od wlascicieli filtrow.
 
 **Wszystkie trzy sa KLASY B** (funkcja interfejsu): lustro tylko kopiuje, wiec paska, ktorego
 artefakt nie niesie, nie doloży — raportuje go i publikuje (§0).
+
+## 5au. ADVANCED FILTERING — JEDEN PASEK NA ZAKLADKE, KAZDA KOLUMNA OSIAGALNA
+
+Wlasciciel przeszedl przez cztery rundy tego widoku miedzy 11 a 12 wrzesnia 2026:
+*„wszystkie sekcje powinny miec szybkie filtrowanie w postaci tagow … wspolne dla kazdej sekcji
+w zakladce"*, potem *„te filtry za bardzo sie zlewaja, malo to jest czytelne z uwagi na ich duza
+ilosc"*, potem *„moze tez pozwolilbym na multifiltering? … sprawdz jak to robia inni"*, i na koncu
+*„skoro tak nam dobrze poszlo z tym advanced filteringiem, wprowadz go w kazda zakladke, ktora mamy
+w raporcie"*.
+
+Sciana szescdziesieciu pigulek nie byla filtrem, tylko druga kopia danych. Ksztaltem, ktory to
+rozwiazuje, jest **poziomy pasek z jednym rozwijanym menu na kolumne** — wzorzec faceted filtering
+uzywany wszedzie tam, gdzie wymiarow jest wiecej niz kilka: menu zamiast plaskiej listy, pole wyboru
+zamiast chipa (bo multiselect musi byc widoczny jako multiselect), licznik przy kazdej wartosci,
+szukanie w menu, gdy wartosci jest wiecej niz osiem, i jeden `Reset`.
+
+### Co pasek robi
+
+| element | zachowanie |
+|---|---|
+| **menu wymiaru** | wartosci z zaznaczaniem; **kilka wartosci w JEDNYM menu znaczy KTORAKOLWIEK z nich, dwa menu naraz znacza OBA** — zdanie pod paskiem mowi to wprost |
+| **licznik przy wartosci** | liczony przy WLACZONYCH pozostalych filtrach, ale z pominieciem tego wymiaru — inaczej po pierwszym wyborze wszystkie inne pokazywalyby zero |
+| **pole szukania z zakresem kolumny** | `in: all columns` albo `in: <kolumna>`; **tu trafia kazda kolumna, ktora faseta byc nie moze** |
+| **`Tier 0 only`** | przelacznik, bo ma dwa stany; lista o dwoch pozycjach to ta sama informacja w dwoch klikach |
+| **`Reset`** | czysci ten pasek; `Reset all filters` w mastheadzie (§5at) czysci wszystkie i **wraca po te pola** przez `onclear` |
+
+### Trzy reguly, ktore ten skrypt ma wypisane w kodzie, bo kazda jest pomiarem
+
+1. **JEDEN PISARZ NA MECHANIZM** (§5am, §5ap). Pasek nie pisze ani `row.hidden`, ani licznika
+   `N of M`. Przekazuje SKRYPTOWI 11 zbior wierszy, ktory ma na mysli, a SKRYPT 11 zostaje jedynym
+   pisarzem obu. **Pasek nie podaje tez wlasnej liczby wierszy** — pierwsza wersja mowila
+   `208 of 327` nad tabelami czytajacymi `185 of 185` i `15 of 134`, bo tabela, ktorej filtr nie
+   nazywa, zostaje CALA (§5at). Dwie liczby o tym samym na jednym ekranie sa gorsze niz jedna.
+2. **FASETA MUSI GRUPOWAC** (§5s). Kolumna, ktorej wartosci sa niemal wszystkie unikalne, jest
+   IDENTYFIKATOREM, nie filtrem: rozwijana lista 512 tytulow to druga kopia tabeli. Taka kolumna
+   idzie do ZAKRESU SZUKANIA, wiec kazda kolumna zakladki jest osiagalna jedna albo druga droga.
+   Zmierzone 12 wrzesnia 2026: menu `Source` w Today dawalo `Microsoft 45`, `Source 22` i OSIEM
+   numerow MC po jednym — bo link zrodla raz nazywal sie „Source", raz „Microsoft", a raz niosl
+   identyfikator wpisu. **Stad twarda regula: kolumna, w ktorej wiecej niz trzecia czesc roznych
+   wartosci wystepuje RAZ i wyglada jak identyfikator, faseta nie jest.**
+3. **CZYTELNIK NIE JEST PRZESUWANY.** Wybor wartosci w menu nie przewija strony — `spec.quiet`
+   (§5ap). Zanim ta regula powstala, jedno klikniecie przesuwalo zakladke z 1 105 px na 3 704 px,
+   zabieralo przycisk z ekranu i zamykalo menu, wiec drugiej wartosci nie dalo sie wybrac bez
+   przewijania z powrotem.
+
+### Dwie rzeczy, ktorych pasek NIE robi, i obie sa swiadome
+
+- **Emoji pilnosci zdejmuje sie z wartosci fasety.** `🔥 Entra 7` i `⚠ Entra 5` to jedna
+  technologia: po normalizacji Deadlines ma `Entra 12` i 16 wartosci zamiast 28. Pilnosc stoi
+  w kolumnie terminu i tam zostaje. To ta sama choroba co `Exposure Management` kontra
+  `Exposure Mgmt` (§5ag).
+- **Zakladka z wlasnym filtrem globalnym nie dostaje drugiego.** `tab-community` ma filtr
+  technologii i czasu ze SKRYPTU 10 (§5an), a `tab-overview` ma tabele, ktore SA nawigacja (§5as) —
+  zawezanie ich zabieraloby czytelnikowi droge, a nie halas. Zakladka ponizej DWUNASTU wierszy
+  paska nie dostaje: tyle wierszy sie czyta, nie filtruje.
+
+### Zmierzone 12 wrzesnia 2026 na opublikowanej stronie z tego dnia
+
+Pasek montuje sie na OSMIU zakladkach: Today (`Change type · Status · Product · Deadline · When`),
+New (`Product · Status · Kind · What · Deadline`), Deadlines (`Status · Product · What · Deadline ·
+Day`), Products (`Status · Published · Deadline`), Graph API (`Source · What · Day · Change since
+last check · Field`), Hunting & actions (`Product`), Sources (`Source · State · Kind · Status ·
+Last finding`) oraz — po dolozeniu obu nowych zakladek — Microsoft Learn i Microsoft Blogs.
+Nie montuje sie na Overview i Community Articles (wyzej), ani na Component versions (6 wierszy)
+i Roles (21 wierszy, same kolumny miar).
+
+Trzy klikniecia pod rzad w jednym menu: `scrollY` bez zmiany, menu otwarte i przyklejone do
+przycisku, jeden chip w mastheadzie na wymiar, `Reset all filters` przywraca kazde menu do stanu
+pustego. Sweep: 11 zakladek x 2 motywy x 1500/1280/390 px — zero bledow strony, zero rozpychania
+dokumentu w poziomie.
+
+### Arkusz — blok dopisywany na koncu `<style>`
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
+§5ar, §5as i §5at sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad OSIEMNASCIE**
+(§0c).
+
+```css
+/* §5au — Advanced filtering: jeden pasek na zakladke, jedno menu na kolumne.
+   Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie SKRYPT 15, poza
+   jedna regula podswietlenia wiersza, ktora jest tu z powodu opisanego nizej.
+   Zmienne sa te, ktore arkusz juz deklaruje (5t). */
+details.s15bar{border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.s15bar.on{border-color:var(--accent);background:var(--accent-soft)}
+details.s15bar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+ flex-wrap:wrap;padding:10px 14px}
+details.s15bar>summary::-webkit-details-marker{display:none}
+details.s15bar>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.s15bar[open]>summary::before{content:"−"}
+.s15ttl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
+.s15scope{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--muted)}
+.s15on{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
+ border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.s15on[hidden]{display:none!important}
+.s15qrow{display:flex;gap:8px;align-items:center;margin:0 14px 9px}
+.s15qin{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s15qin::placeholder{color:var(--muted);font-weight:400}
+.s15qin:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.s15qc{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+.s15row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 14px 8px}
+.s15dim{position:relative}
+.s15btn{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer;white-space:nowrap}
+.s15btn:hover{border-color:var(--s15c,var(--accent))}
+.s15btn.on{border-color:var(--s15c,var(--accent));background:var(--surface);
+ box-shadow:inset 0 0 0 1px var(--s15c,var(--accent))}
+.s15btn .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--s15c,var(--accent))}
+.s15btn b{font-variant-numeric:tabular-nums;color:var(--s15c,var(--accent))}
+.s15car{color:var(--muted);font-size:10px}
+.s15btn:focus-visible,.s15t0:focus-visible,.s15reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s15pop{display:none;position:fixed;z-index:70;min-width:270px;max-width:340px;
+ background:var(--surface);border:1px solid var(--border);border-radius:12px;
+ box-shadow:0 10px 30px rgba(0,0,0,.28);padding:9px}
+.s15dim.open .s15pop{display:block}
+.s15q{width:100%;font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);margin:0 0 7px}
+.s15q[hidden]{display:none}
+.s15list{overflow:auto;display:flex;flex-direction:column;gap:1px}
+.s15opt{font:inherit;font-size:12.5px;display:flex;align-items:center;gap:9px;width:100%;
+ text-align:left;padding:6px 8px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer}
+.s15opt:hover{background:var(--surface-2)}
+.s15opt .s15box{width:14px;height:14px;flex:0 0 14px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface)}
+.s15opt.on .s15box{background:var(--accent);border-color:var(--accent);
+ box-shadow:inset 0 0 0 2px var(--surface)}
+.s15opt .s15name{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s15opt b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.s15none{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.s15foot{display:flex;align-items:center;gap:8px;margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--border)}
+.s15clr{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.s15pn{margin-left:auto;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.s15sep{width:1px;height:20px;background:var(--border)}
+.s15t0{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer}
+.s15t0 .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--bad)}
+.s15t0 b{font-variant-numeric:tabular-nums;color:var(--bad)}
+.s15t0.on{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.s15reset{font:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer;margin-left:auto}
+.s15sum{margin:0 14px 12px;font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){
+  .s15qrow{flex-wrap:wrap}.s15qc{max-width:100%;width:100%}
+  .s15reset{margin-left:0;width:100%;text-align:center}
+  .s15pop{max-width:calc(100vw - 24px)}
+}
+/* PODSWIETLENIE WIERSZA PRZY NAJECHANIU — cala szerokosc, nie jedna komorka.
+   Powloka pasuje wiersze parzyste RECZNIE, w `restripe()`, ktore pisze
+   `td.style.background` INLINE, bo wiersze ukryte filtrem lamia `nth-child`.
+   Styl inline bije kazda regule arkusza, wiec `tbody tr:hover td` nie mial na
+   wierszu parzystym zadnych szans — a komorki DOLOZONE pozniej przez skrypty
+   (`Found in` ze SKRYPTU 12, `What it means` z §4) inline'u nie dostaly, wiec
+   zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia 2026 na opublikowanej
+   stronie: wiersz nieparzysty caly `--accent-soft`, parzysty tylko kolumna
+   `Found in`. `!important` jest tu konieczne i jest jedynym miejscem, w ktorym
+   uzywamy go do koloru: tylko ono wygrywa ze stylem inline. */
+.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}
+```
+
+### SKRYPT 15 — na koniec `<body>`, jako PIETNASTY blok `<script>`
+
+```js
+/* ===========================================================================
+   SCRIPT 15 — ADVANCED FILTERING: ONE BAR PER TAB, EVERY COLUMN REACHABLE
+   (CLAUDE.md 5au). ADDED, never a replacement: shell scripts 1-3 and added
+   scripts 4-14 are untouched, byte for byte.
+
+   The owner, 11-12 September 2026: "wszystkie sekcje powinny miec szybkie
+   filtrowanie ... wspolne dla kazdej sekcji w zakladce", then "moze tez
+   pozwolilbym na multifiltering", then "sprawdz jak to robia inni", and finally
+   "wprowadz go w kazda zakladke ktora mamy w raporcie".
+
+   What it is: one horizontal bar at the top of a tab with a dropdown menu per
+   groupable column, checkboxes inside (several values in one menu mean ANY of
+   them, two menus at once mean BOTH), a live count on every value, a search box
+   scoped to any single column, a tier-0 toggle and one Reset.
+
+   THREE RULES IT OBEYS, and each of them is a measurement, not a taste:
+
+   1. ONE WRITER PER MECHANISM (5am, 5ap). This script never writes `row.hidden`
+      and never writes a `N of M` counter. It hands SCRIPT 11 the set of rows it
+      means, through `setTab`, and SCRIPT 11 stays the only writer of both. That
+      is why the section chip, the table counter and this bar can never disagree.
+   2. A FACET MUST GROUP (5s). A column whose values are nearly all unique is an
+      identifier, not a filter: a dropdown with 512 article titles is a second
+      copy of the table. Such a column is offered to the SEARCH SCOPE instead, so
+      every column the tab shows is reachable by one means or the other.
+   3. THE READER IS NOT MOVED. Picking a value inside a menu does not scroll the
+      page — `spec.quiet` (5ap). Before that rule existed, one click scrolled the
+      tab from 1 105 px to 3 704 px, took the button off screen and closed the
+      menu, so a second value could not be picked without scrolling back.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  var MIN_ROWS   = 12;   /* ponizej tego tabele zakladki sie czyta, nie filtruje */
+  var MAX_VALUES = 40;   /* powyzej tego lista wartosci przestaje byc wyborem */
+  var HUE = ["--accent", "--ok", "--warn", "--info", "--cond"];
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function txt(n) { return ((n && n.textContent) || "").replace(/\s+/g, " ").trim(); }
+  function head(n) { return txt(n).replace(/[↕↑↓]\s*$/, "").trim(); }
+
+  var F = {};                                   /* pid -> stan filtra */
+  var TAB = {};                                 /* pid -> {tables:[{el,head}], dims:[]} */
+  var INCLR = 0;
+  var DELEG = {};                               /* pid -> czy nazywa go juz SKRYPT 11 */
+  function fstate(pid) { return F[pid] || (F[pid] = {}); }
+  function sel(pid, k) { var st = fstate(pid); return st[k] || (st[k] = []); }
+
+  /* ---------------- rejestr kolumn ---------------- */
+  function register(pid) {
+    var p = document.getElementById(pid); if (!p) return null;
+    var tables = [];
+    [].forEach.call(p.querySelectorAll("table"), function (t) {
+      if (!t.tHead || !t.tBodies.length) return;
+      var hs = [].map.call(t.querySelectorAll("thead th"), head);
+      if (!hs.length) return;
+      var rows = [].slice.call(t.tBodies[0].rows).filter(function (r) {
+        return !r.classList.contains("hdet") && !r.classList.contains("grp") && r.cells.length === hs.length;
+      });
+      if (!rows.length) return;
+      var h = {}; hs.forEach(function (x, i) { if (x) h[x] = i; });
+      var ti = tables.length;
+      rows.forEach(function (r) { r.__s15 = ti; });
+      tables.push({ el: t, head: h, rows: rows });
+    });
+    if (!tables.length) return null;
+    return (TAB[pid] = { tables: tables, dims: [] });
+  }
+  function rowsOf(pid) {
+    var T = TAB[pid], out = [];
+    if (T) T.tables.forEach(function (r) { out = out.concat(r.rows); });
+    return out;
+  }
+  function cellText(tr, dim) {
+    if (!dim || !dim.idx) return null;
+    var i = dim.idx[tr.__s15];
+    if (i === undefined) return null;                 /* ta tabela nie ma tej kolumny */
+    var c = tr.cells[i]; if (!c) return "";
+    /* Emoji pilnosci stoi w tresci komorki i DZIELILO jedna technologie na dwie
+       wartosci: menu `Product` w Deadlines mialo osobno `🔥 Entra 7`
+       i `⚠ Entra 5` zamiast `Entra 12`. Pilnosc jest juz w kolumnie terminu. */
+    return txt(c).replace(/^[🔥⚠️\s]+/, "").trim();
+  }
+
+  /* ---------------- ktora kolumna jest faseta ---------------- */
+  var GOOD    = /^(product|service|technology|area|status|state|kind|type|change type|source|found in|severity|weight|soc weight|platform|freshness|tier|category|api|surface|role|method|what|scope|read by|read as|month)$/i;
+  var MEASURE = /^(\d+([.,]\d+)?%?|[+−-]\d+|\d+\s*of\s*\d+|—|–|-|n\/a)$/i;
+  var IDVAL   = /^(MC|RM)\d+$|^CVE-\d/i;
+  var NEVER   = /^(link|article|post|title|item|page|entry|detail|note|why|before|after|action|directory action|open|what it holds|what it allows|what it means|what it says|what changed|what was tried|why it matters|commit|reference)/i;
+  var NEVER2  = /^(coverage|endpoints|days|lines|count|rows|articles|age|changed in|total|delegated|application|both|rsc)/i;
+
+  function dimsFor(pid) {
+    var T = TAB[pid]; if (!T) return [];
+    var labels = {};
+    T.tables.forEach(function (rec, ti) {
+      Object.keys(rec.head).forEach(function (h) { (labels[h] = labels[h] || {})[ti] = rec.head[h]; });
+    });
+    var rows = rowsOf(pid), out = [];
+    Object.keys(labels).forEach(function (h) {
+      if (NEVER.test(h) || NEVER2.test(h)) return;
+      if (h.indexOf("/") >= 0) return;                /* "Read / carried / dropped" to trzy liczby */
+      var dim = { k: "col:" + h, label: h, idx: labels[h] };
+      var vals = {}, n = 0, seen = 0, filled = 0, num = 0, longest = 0;
+      rows.forEach(function (tr) {
+        var t = cellText(tr, dim); if (t === null) return;
+        seen++; if (!t) return;
+        filled++;
+        if (MEASURE.test(t)) num++;
+        if (t.length > longest) longest = t.length;
+        if (!vals[t]) { vals[t] = 0; n++; } vals[t]++;
+      });
+      if (n < 2 || n > MAX_VALUES || longest > 60 || !filled) return;
+      var rep = 0; Object.keys(vals).forEach(function (k) { if (vals[k] > rep) rep = vals[k]; });
+      if (rep < 2) return;                            /* kazda wartosc unikalna = druga kopia tabeli (5s) */
+      if (n >= filled) return;
+      if (num / filled > 0.6) return;                 /* kolumna liczb jest MIARA, nie faseta */
+      if (filled / seen < 0.5) return;
+      /* KOLUMNA IDENTYFIKATOROW nie jest faseta, choćby miala jedna duza grupe.
+         Zmierzone 12 wrzesnia 2026: `Source` w Today dawalo `Microsoft 45`,
+         `Source 22` i OSIEM numerow MC po jednym, bo link zrodla raz nazywal sie
+         „Source", raz „Microsoft", a raz niosl identyfikator wpisu. */
+      var idlike = 0;
+      Object.keys(vals).forEach(function (k) {
+        if (vals[k] === 1 && (IDVAL.test(k) || (k.length >= 8 && k.indexOf(" ") < 0 && /\d/.test(k)))) idlike++;
+      });
+      if (idlike / n > 0.34) return;
+      var score = (GOOD.test(h) ? 100 : 0) + Object.keys(labels[h]).length * 18
+                + Math.max(0, 24 - Math.abs(n - 8) * 2)
+                + Math.min(20, Math.round(filled / Math.max(1, seen) * 20));
+      dim.__score = score; dim.__n = n;
+      out.push(dim);
+    });
+    out.sort(function (a, b) { return b.__score - a.__score || a.__n - b.__n || a.label.localeCompare(b.label); });
+    out = out.slice(0, 5);
+    out.forEach(function (d, i) { d.c = HUE[i % HUE.length]; });
+    return out;
+  }
+  /* KAZDA kolumna zakladki — do zakresu szukania. Faseta wymaga, zeby kolumna
+     grupowala; szukanie wymaga tylko tego, zeby kolumna istniala. */
+  function allCols(pid) {
+    var T = TAB[pid]; if (!T) return [];
+    var labels = {};
+    T.tables.forEach(function (rec, ti) {
+      Object.keys(rec.head).forEach(function (h) { (labels[h] = labels[h] || {})[ti] = rec.head[h]; });
+    });
+    return Object.keys(labels).sort().map(function (h) { return { k: "col:" + h, label: h, idx: labels[h] }; });
+  }
+
+  /* ---------------- dopasowanie ---------------- */
+  function rowHas(tr, dim, val) {
+    var t = cellText(tr, dim);
+    return t === null ? null : (t === val);
+  }
+  function isT0(tr) { return !!tr.querySelector(".t0, .badge.t-bad"); }
+  function matches(tr, st, skip) {
+    if (st.q && skip !== "q") {
+      var hay = st.qd ? cellText(tr, st.qd) : (tr.textContent || "");
+      if (hay !== null && hay.toLowerCase().indexOf(st.q) < 0) return false;
+    }
+    var dims = st.__dims || [];
+    for (var i = 0; i < dims.length; i++) {
+      var dim = dims[i]; if (dim.k === skip) continue;
+      var chosen = st[dim.k]; if (!chosen || !chosen.length) continue;
+      var any = false, rel = false;
+      for (var j = 0; j < chosen.length; j++) {
+        var r = rowHas(tr, dim, chosen[j]);
+        if (r === null) continue;
+        rel = true; if (r) { any = true; break; }
+      }
+      if (rel && !any) return false;
+    }
+    if (skip !== "t0" && st.t0 && !isT0(tr)) return false;
+    return true;
+  }
+  function countFor(pid, dim, val) {
+    var st = fstate(pid), n = 0;
+    rowsOf(pid).forEach(function (tr) { if (matches(tr, st, dim.k) && rowHas(tr, dim, val) === true) n++; });
+    return n;
+  }
+  function values(pid, dim) {
+    var out = {};
+    rowsOf(pid).forEach(function (tr) { var t = cellText(tr, dim); if (t) out[t] = 1; });
+    return Object.keys(out);
+  }
+  function describe(pid) {
+    var st = fstate(pid), out = [];
+    (TAB[pid] || {}).dims && TAB[pid].dims.forEach(function (d) {
+      var a = st[d.k]; if (!a || !a.length) return;
+      out.push(d.label + ": " + (a.length <= 3 ? a.join(", ") : a.length + " selected"));
+    });
+    if (st.t0) out.push("Tier 0 only");
+    if (st.q) out.push((st.qLabel ? (st.qLabel + " contains ") : "text ") + '"' + st.qRaw + '"');
+    return out;
+  }
+
+  /* ---------------- oddanie zawezenia SKRYPTOWI 11 ---------------- */
+  function s11set(pid, spec) {
+    spec.quiet = true;
+    spec.owner = "advanced-filtering";
+    spec.onclear = function () {
+      if (INCLR) return;
+      if (!F[pid] || !Object.keys(F[pid]).length) return;
+      INCLR = 1; F[pid] = {}; try { apply(pid); } finally { INCLR = 0; }
+    };
+    window.__socS11.setTab(pid, spec);
+  }
+  function apply(pid) {
+    var pids = pid ? [pid] : Object.keys(TAB);
+    pids.forEach(function (id) {
+      var st = fstate(id); st.__dims = (TAB[id] || {}).dims || [];
+      var ids = [], texts = [], on = describe(id).length, left = 0;
+      rowsOf(id).forEach(function (tr) {
+        if (!matches(tr, st)) return;
+        left++;
+        var i = tr.getAttribute("data-id");
+        if (i) ids.push(i);
+        else {
+          /* Wiersz bez `data-id` nazywa sie swoja trescia — ta sama droga, ktora
+             SKRYPT 11 dostaje od Start here dla tabel tekstu zrodla (5at). */
+          var t = txt(tr.cells[0]) || txt(tr.cells[1]);
+          if (t && t.length >= 4) texts.push(t.slice(0, 80));
+        }
+      });
+      DELEG[id] = false;
+      if (window.__socS11) {
+        if (on && (ids.length || texts.length)) {
+          s11set(id, { label: describe(id).join(" · "), ids: ids, texts: texts });
+          DELEG[id] = true;
+        } else if (window.__socS11.clearTab) window.__socS11.clearTab(id);
+      }
+      /* Liczbe podajemy TA, ktora pokazuja tabele. SKRYPT 11 zostawia CALA tabele,
+         ktorej nazwany zbior nie dotyczy (5at), wiec moje wlasne liczenie dawalo
+         `208 of 327` nad tabelami mowiacymi `185 of 185` i `15 of 134` — czyli dwie
+         liczby o tym samym na jednym ekranie, dokladnie to, czego ten pasek ma nie
+         robic. Czytamy wiec stan PO tym, jak SKRYPT 11 go zapisal. */
+      var shown = 0;
+      rowsOf(id).forEach(function (tr) { if (tr.dataset.s11 !== "0" && !tr.hidden) shown++; });
+      var bar = document.getElementById(id + "-s15");
+      if (bar && bar.__render) bar.__render(shown);
+    });
+    if (window.__socFilterBarSync) window.__socFilterBarSync();
+  }
+
+  /* ---------------- jedno menu ---------------- */
+  var OPEN = null;
+  function closeMenu() { if (OPEN) { OPEN.classList.remove("open"); OPEN = null; } }
+  document.addEventListener("click", function (e) {
+    if (OPEN && !OPEN.contains(e.target)) closeMenu();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  function dimMenu(pid, dim) {
+    var wrap = el("div", "s15dim");
+    var btn = el("button", "s15btn"); btn.type = "button";
+    btn.appendChild(el("i", "s15dot"));
+    var lab = el("span", null, dim.label); btn.appendChild(lab);
+    var cnt = el("b", null, ""); btn.appendChild(cnt);
+    btn.appendChild(el("span", "s15car", "▾"));
+    wrap.appendChild(btn);
+
+    var pop = el("div", "s15pop");
+    var q = el("input", "s15q"); q.type = "search"; q.placeholder = "Search " + dim.label.toLowerCase() + "…";
+    var list = el("div", "s15list");
+    var foot = el("div", "s15foot");
+    var clr = el("button", "s15clr", "Clear this one"); clr.type = "button";
+    var pn = el("span", "s15pn", "");
+    foot.appendChild(clr); foot.appendChild(pn);
+    pop.appendChild(q); pop.appendChild(list); pop.appendChild(foot);
+    wrap.appendChild(pop);
+
+    function paint() {
+      var chosen = sel(pid, dim.k), vs = values(pid, dim).sort();
+      var f = (q.value || "").trim().toLowerCase(), shown = 0;
+      list.textContent = "";
+      vs.forEach(function (v) {
+        var n = countFor(pid, dim, v), on = chosen.indexOf(v) >= 0;
+        if (!n && !on) return;                       /* wybor, ktory nic nie da, nie jest wyborem (5s) */
+        if (f && v.toLowerCase().indexOf(f) < 0) return;
+        shown++;
+        var r = el("button", "s15opt" + (on ? " on" : "")); r.type = "button";
+        r.setAttribute("aria-checked", on ? "true" : "false");
+        r.appendChild(el("i", "s15box"));
+        r.appendChild(el("span", "s15name", v));
+        r.appendChild(el("b", null, String(n)));
+        r.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          var a = sel(pid, dim.k), i = a.indexOf(v);
+          if (i < 0) a.push(v); else a.splice(i, 1);
+          apply(pid); place();
+        });
+        list.appendChild(r);
+      });
+      if (!shown) list.appendChild(el("p", "s15none", "Nothing matches that here."));
+      pn.textContent = chosen.length ? (chosen.length + " selected") : "";
+      cnt.textContent = chosen.length ? String(chosen.length) : "";
+      btn.classList.toggle("on", !!chosen.length);
+      lab.textContent = chosen.length === 1 ? (dim.label + ": " + chosen[0]) : dim.label;
+      q.hidden = vs.length <= 8;                     /* pole, ktore nic nie zawezasa, uczy ze kontrolki nic nie robia */
+    }
+    /* Menu pozycjonuje sie wzgledem OKNA, nie rodzica, i odbija sie w gore, gdy pod
+       przyciskiem nie ma miejsca; wysokosc listy liczy sie z RZECZYWISTEJ obudowy,
+       nie ze zgadnietej stalej. Przycisk schowany pod przyklejonym mastheadem nie ma
+       czego otwierac — menu, ktore za nim jedzie, konczy sie ZA naglowkiem. */
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var hd = document.querySelector("header.top");
+      var top0 = (hd && getComputedStyle(hd).position === "sticky") ? hd.getBoundingClientRect().bottom : 0;
+      var gap = 6, margin = 12;
+      var below = window.innerHeight - r.bottom - gap - margin;
+      var above = r.top - Math.max(top0, 0) - gap - margin;
+      if (r.bottom < top0 + 4 || r.top > window.innerHeight - 24) { closeMenu(); return; }
+      var up = below < 240 && above > below;
+      var space = Math.max(160, Math.min(360, up ? above : below));
+      pop.style.position = "fixed";
+      pop.style.left = Math.round(Math.max(margin, Math.min(r.left, window.innerWidth - pop.offsetWidth - margin))) + "px";
+      if (up) { pop.style.top = ""; pop.style.bottom = Math.round(window.innerHeight - r.top + gap) + "px"; }
+      else { pop.style.bottom = ""; pop.style.top = Math.round(r.bottom + gap) + "px"; }
+      list.style.maxHeight = "none";
+      var chrome = pop.offsetHeight - list.offsetHeight;
+      list.style.maxHeight = Math.max(120, Math.round(space - chrome)) + "px";
+    }
+    wrap.__place = place; wrap.__paint = paint;
+    q.addEventListener("input", paint);
+    q.addEventListener("click", function (e) { e.stopPropagation(); });
+    clr.addEventListener("click", function (e) { e.stopPropagation(); fstate(pid)[dim.k] = []; apply(pid); });
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var was = wrap.classList.contains("open");
+      closeMenu();
+      if (!was) { wrap.classList.add("open"); OPEN = wrap; paint(); place();
+                  setTimeout(function () { if (!q.hidden) q.focus(); place(); }, 30); }
+    });
+    return wrap;
+  }
+  /* Zawezenie skraca dokument, a przegladarka przycina wtedy `scrollY` — przycisk
+     jedzie wzgledem okna, a menu jest `position:fixed`. */
+  window.addEventListener("scroll", function () { if (OPEN && OPEN.__place) OPEN.__place(); }, { passive: true });
+  window.addEventListener("resize", function () { if (OPEN && OPEN.__place) OPEN.__place(); });
+
+  /* ---------------- pasek ---------------- */
+  function buildBar(pid) {
+    var p = document.getElementById(pid);
+    var T = TAB[pid]; if (!p || !T) return;
+    var box = el("details", "s15bar"); box.id = pid + "-s15";
+    var sum = el("summary");
+    sum.appendChild(el("span", "s15ttl", "Advanced filtering"));
+    sum.appendChild(el("span", "s15scope",
+      "Applies to every section in this tab at once — each menu narrows all of them together."));
+    var chip = el("span", "s15on", ""); sum.appendChild(chip);
+    box.appendChild(sum);
+
+    var qrow = el("div", "s15qrow");
+    var qin = el("input", "s15qin"); qin.type = "search";
+    qin.placeholder = "Search every section in this tab…";
+    var qsel = el("select", "s15qc"); qsel.setAttribute("aria-label", "Search in one column");
+    var o0 = el("option", null, "in: all columns"); o0.value = ""; qsel.appendChild(o0);
+    allCols(pid).forEach(function (c) {
+      var o = el("option", null, "in: " + c.label); o.value = c.k; o.__d = c; qsel.appendChild(o);
+    });
+    qrow.appendChild(qin);
+    if (qsel.options.length > 1) qrow.appendChild(qsel);
+    function readq() {
+      var st = fstate(pid), o = qsel.options[qsel.selectedIndex];
+      st.qRaw = (qin.value || "").trim();
+      st.q = st.qRaw.toLowerCase();
+      st.qd = (o && o.__d) || null;
+      st.qLabel = st.qd ? st.qd.label : "";
+      apply(pid);
+    }
+    qin.addEventListener("input", readq);
+    qsel.addEventListener("change", readq);
+    box.appendChild(qrow);
+
+    var row = el("div", "s15row"), menus = [];
+    T.dims.forEach(function (d) {
+      if (values(pid, d).length < 2) return;
+      var w = dimMenu(pid, d); w.style.setProperty("--s15c", "var(" + d.c + ")");
+      row.appendChild(w); menus.push(w);
+    });
+    var t0 = el("button", "s15t0"); t0.type = "button";
+    t0.appendChild(el("i", "s15dot")); t0.appendChild(el("span", null, "Tier 0 only"));
+    var t0n = el("b", null, ""); t0.appendChild(t0n);
+    t0.addEventListener("click", function () { var st = fstate(pid); st.t0 = st.t0 ? 0 : 1; apply(pid); });
+    row.appendChild(el("span", "s15sep"));
+    row.appendChild(t0);
+    var rb = el("button", "s15reset", "Reset"); rb.type = "button";
+    rb.addEventListener("click", function () {
+      F[pid] = {}; qin.value = ""; qsel.selectedIndex = 0; apply(pid);
+    });
+    row.appendChild(rb);
+    box.appendChild(row);
+    var note = el("p", "s15sum"); box.appendChild(note);
+
+    box.__render = function (left) {
+      var st = fstate(pid), tot = rowsOf(pid).length;
+      if (left === undefined) left = tot;
+      if (!st.q && qin.value) { qin.value = ""; qsel.selectedIndex = 0; }
+      menus.forEach(function (w) { w.__paint(); });
+      var n = 0; rowsOf(pid).forEach(function (tr) {
+        var s2 = {}; for (var k in st) s2[k] = st[k]; s2.t0 = 1;
+        if (matches(tr, s2)) n++;
+      });
+      t0n.textContent = String(n);
+      t0.classList.toggle("on", !!st.t0);
+      var parts = describe(pid);
+      box.classList.toggle("on", !!parts.length);
+      chip.textContent = parts.length ? (parts.length === 1 ? "1 filter on" : parts.length + " filters on") : "";
+      chip.hidden = !parts.length;
+      if (parts.length && !box.open) box.open = true;
+      /* PASEK NIE PODAJE WLASNEJ LICZBY WIERSZY. Licznik `N of M` nalezy do SKRYPTU 11
+         i stoi nad kazda tabela; moja wlasna suma mowila `208 of 327` nad tabelami
+         czytajacymi `185 of 185` i `15 of 134`, bo tabela, ktorej filtr nie nazywa,
+         zostaje CALA (5at). Dwie liczby o tym samym na jednym ekranie sa gorsze niz
+         jedna — wiec pasek nazywa FILTR, a liczby zostawia tam, gdzie maja wlasciciela. */
+      note.textContent = parts.length
+        ? (parts.join("  ·  ") + "  —  every table in this tab is narrowed to it; the counter above " +
+           "each table says how many of its rows match, and a table this filter names no row in is " +
+           "left whole. Several values inside one menu mean any of them; two menus at once mean both.")
+        : ("Nothing is filtered — all " + tot + " rows in this tab are shown. Pick values in one menu " +
+           "to widen, in two menus to narrow.");
+    };
+    var headEl = p.querySelector(":scope > .panelhead");
+    var after = p.querySelector(":scope > .filterbanner.s11.s11tab");
+    if (after) after.parentNode.insertBefore(box, after.nextSibling);
+    else if (headEl && headEl.nextSibling) p.insertBefore(box, headEl.nextSibling);
+    else p.insertBefore(box, p.firstChild);
+  }
+
+  /* Zakladka z wlasnym filtrem globalnym nie dostaje drugiego — dwie kontrolki nad
+     jednym licznikiem to dwoch pisarzy (5am). */
+  var HASOWN = { "tab-community": 1,   /* ma wlasny filtr technologii i czasu (SKRYPT 10) */
+                 "tab-overview": 1 };  /* jego tabele SA nawigacja (5as), a nie trescia do zawezania */
+
+  function mount() {
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      if (!p.id || HASOWN[p.id]) return;
+      if (document.getElementById(p.id + "-s15")) return;
+      var T = register(p.id);
+      if (!T) return;
+      if (rowsOf(p.id).length < MIN_ROWS) { delete TAB[p.id]; return; }
+      T.dims = dimsFor(p.id);
+      if (!T.dims.length) { delete TAB[p.id]; return; }
+      buildBar(p.id);
+      apply(p.id);
+    });
+  }
+
+  /* ---------------- magistrala filtrow (5at) ---------------- */
+  function tabLabel(pid) {
+    var t = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (x) {
+      if (!t && x.getAttribute("aria-controls") === pid) t = x;
+    });
+    return t ? (txt(t).replace(/\d+$/, "").trim() || pid) : pid;
+  }
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var out = [];
+    Object.keys(TAB).forEach(function (pid) {
+      /* Zakladke, ktorej zawezenie oddalismy SKRYPTOWI 11, nazywa w pasku ON — i to
+         jego `clear()` wraca po nasze pola przez `onclear` (5ap). Dopisanie sie tutaj
+         dawalo KAZDY filtr dwa razy. Jeden filtr, jedno zdanie (5at). */
+      if (DELEG[pid]) return;
+      var st = F[pid] || {};
+      /* JEDEN chip na WYMIAR, nie na wartosc: trzy technologie to trzy identycznie
+         wygladajace chipy, a pasek ma sie czytac jednym rzutem oka. */
+      (TAB[pid].dims || []).forEach(function (d) {
+        var vs = st[d.k] || []; if (!vs.length) return;
+        var shown = vs.slice(0, 4).join(", ") + (vs.length > 4 ? (" … +" + (vs.length - 4)) : "");
+        out.push({ scope: tabLabel(pid), label: d.label.toLowerCase() + " " + shown,
+                   clear: function () { F[pid][d.k] = []; apply(pid); } });
+      });
+      if (st.t0) out.push({ scope: tabLabel(pid), label: "tier 0 only",
+                            clear: function () { F[pid].t0 = 0; apply(pid); } });
+      if (st.q) out.push({ scope: tabLabel(pid),
+                           label: (st.qLabel ? (st.qLabel + " contains ") : "text ") + '"' + st.qRaw + '"',
+                           clear: function () { F[pid].q = ""; F[pid].qRaw = ""; F[pid].qd = null; apply(pid); } });
+    });
+    return out;
+  });
+
+  function boot() {
+    try { mount(); } catch (e) { if (window.console) console.error("[s15]", e); }
+    /* skrypty 4-14 dokladaja kolumny i tabele na wlasnym harmonogramie, wiec
+       rejestr odswieza sie jeszcze dwa razy — tanio i lapie kazda kolejnosc */
+    setTimeout(function () { try { mount(); } catch (e) {} }, 1500);
+    setTimeout(function () { try { mount(); } catch (e) {} }, 3400);
+    document.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab"))
+        setTimeout(function () { try { mount(); } catch (e) {} }, 160);
+    }, true);
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 700); });
+  else setTimeout(boot, 700);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 15 jest osobnym blokiem, ktory niczego nie
+nadpisuje i nie pisze do cudzego stanu.
+
+### Walidator — pozycje 74 i 75 listy §0
+
+- **74** — SKRYPT 15 jest w pliku razem ze swoimi zaczepami, a arkusz niesie regule paska.
+  To, czy menu naprawde zawezaja i czy multiselect dziala bez przewijania, sprawdza Playwright (§5h).
+- **75** — regula podswietlenia wiersza jest w arkuszu. **Powloka pasuje wiersze parzyste RECZNIE**,
+  w `restripe()`, ktore pisze `td.style.background` INLINE — bo wiersze ukryte filtrem lamia
+  `nth-child`. Styl inline bije kazda regule arkusza, wiec `tbody tr:hover td` nie mial na wierszu
+  parzystym zadnych szans, a komorki DOLOZONE pozniej przez skrypty (`Found in` ze SKRYPTU 12,
+  `What it means` z §4) inline'u nie dostaly — i zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia
+  2026 na opublikowanej stronie i zgloszone przez wlasciciela: *„co drugi wiersz jak sie najedzie
+  myszka to zaznaczy tylko maly niebieski kwadrat"*.
 
 ## 6. Kontrakt w stronie
 
