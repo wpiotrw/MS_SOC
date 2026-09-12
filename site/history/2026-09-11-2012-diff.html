@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft SOC &mdash; what changed 2026-09-11</title>
+<style>
+:root{color-scheme:light;--bg:#f7f7f4;--surface:#fff;--surface2:#f0f0ec;--text:#141413;--muted:#6b6a66;
+ --border:#ddddd6;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#a3131f;--bad-soft:#fbe3e4;--warn:#8a5a00;
+ --warn-soft:#fdf0d5;--accent:#2f5fd0;--accent-soft:#e2eafb;--del-bg:#fbe3e4;--del-fg:#8a1220;
+ --ins-bg:#dbf0e3;--ins-fg:#0b5730}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#16171a;--surface:#1e2024;
+ --surface2:#25272c;--text:#ecebe6;--muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f28b8b;--bad-soft:#3a1618;--warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;
+ --del-bg:#3a1618;--del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#16171a;--surface:#1e2024;--surface2:#25272c;--text:#ecebe6;
+ --muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;--bad:#f28b8b;--bad-soft:#3a1618;
+ --warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;--del-bg:#3a1618;
+ --del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font:15px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px}
+header .in{max-width:1120px;margin:0 auto}
+.title-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.title-row>div:first-child{flex:1 1 320px;min-width:0}
+.hdr-tools{flex:0 0 auto;margin-left:auto}
+.themebtn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;
+ padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.themebtn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1{font-size:22px;margin:0 0 6px}
+.dateline{margin:0;color:var(--muted);font-size:13.5px}
+.dateline a{color:var(--accent)}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.counts li{background:var(--surface2);border:1px solid var(--border);border-radius:999px;
+ padding:6px 12px;font-size:13.5px;white-space:nowrap}
+.counts li b{font-size:16px}
+.counts li.add{background:var(--ins-bg);border-color:var(--ok);color:var(--ins-fg)}
+.counts li.rem{background:var(--del-bg);border-color:var(--bad);color:var(--del-fg)}
+.counts li.chg{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+section{margin:26px 0 0}
+h2{font-size:16px;margin:0 0 2px}
+.note{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{position:sticky;top:0;background:var(--surface2);text-align:left;font-size:12px;
+ text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:9px 10px;
+ border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tr.t0 td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.sub{color:var(--muted);font-size:12.5px}
+.ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--accent)}
+.none{color:var(--muted)}
+span.t0{background:var(--bad-soft);color:var(--bad);border-radius:999px;padding:1px 7px;
+ font-size:11.5px;font-weight:600;white-space:nowrap}
+del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;
+ padding:1px 5px;border-radius:4px}
+ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1px 5px;border-radius:4px}
+.arrow{color:var(--muted);padding:0 4px}
+.field{font-weight:600;white-space:nowrap}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0}
+.relnew{border:1px solid var(--border);border-radius:10px;background:var(--surface);
+ padding:11px 13px;margin:10px 0 0}
+.relnew h3{font-size:13.5px;margin:0 0 2px}
+.relnew h3 .rv{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ins-fg);
+ background:var(--ins-bg);border-radius:6px;padding:1px 7px;margin-left:7px;font-size:12.5px}
+.relnew .grp{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+ font-weight:700;margin:9px 0 4px}
+.relnew ul{margin:0;padding-left:19px;font-size:13px}
+.relnew li{margin:0 0 5px}
+.relnew li:last-child{margin-bottom:0}
+caption.tabcap{caption-side:top;text-align:left;padding:9px 10px;background:var(--surface2);
+ border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+caption.tabcap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.emptycap{margin:0 0 4px;font-size:13px;color:var(--text)}
+.emptycap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.tw+.tw{margin-top:12px}
+b.nadd{color:var(--ins-fg)}b.nrem{color:var(--del-fg)}b.nchg{color:var(--warn)}
+tr.quiet td{color:var(--muted)}
+.more{color:var(--muted);font-size:13px;margin:8px 0 0}
+a{color:var(--accent)}
+a.deep{text-decoration:none;font-weight:700;padding:0 5px;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);font-size:11.5px}
+a.deep:hover{background:var(--accent);color:var(--surface)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+ background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+@media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
+
+/* --- kafelki jak na stronie porannej (§5al) --- */
+.factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;margin:14px 0 0}
+.fact{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 12px}
+.fact b{display:block;font-size:21px;line-height:1.15;font-variant-numeric:tabular-nums}
+.fact span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+ color:var(--muted);font-weight:700;margin-top:2px}
+.fact.ok b{color:var(--ins-fg)}.fact.bad b{color:var(--del-fg)}.fact.warn b{color:var(--warn)}
+.fact.acc b{color:var(--accent)}.fact.info b{color:var(--accent)}
+.tilenote{margin:9px 0 0;color:var(--muted);font-size:12.5px}
+/* --- sekcje zwijane z licznikiem --- */
+details.dsec{margin:26px 0 0}
+details.dsec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:9px 0;border-bottom:1px solid var(--border)}
+details.dsec>summary::-webkit-details-marker{display:none}
+details.dsec>summary::before{content:"+";font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent)}
+details.dsec[open]>summary::before{content:"−"}
+details.dsec>summary .dsum-t{font-size:16px;font-weight:700}
+details.dsec>summary .dsum-n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.dsec>.note{margin-top:10px}
+/* --- zielone pole szukania, to samo co w briefie (§5am) --- */
+.s9find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.s9find .s9q{flex:1 1 220px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9find .s9q::placeholder{color:var(--muted);font-weight:400}
+.s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
+.s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);max-width:230px}
+/* the column scope: every column this table shows is filterable, the ones that group
+   through a facet and the rest through this (5ap) */
+.s9find .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
+.s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr[hidden]{display:none!important}
+@media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
+
+/* --- kazda liczba jest kontrolka (10 wrzesnia 2026) --- */
+a.fact{text-decoration:none;color:inherit;display:block;position:relative}
+a.fact:hover{border-color:var(--accent);background:var(--accent-soft)}
+a.fact::after{content:"\2193";position:absolute;top:7px;right:10px;font-size:11px;color:var(--muted);opacity:.55}
+a.fact:hover::after{color:var(--accent);opacity:1}
+a.fact:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a.gnum,a.gtech{text-decoration:none;border-bottom:1px dashed var(--accent)}
+a.gnum:hover,a.gtech:hover{border-bottom-style:solid;background:var(--accent-soft);border-radius:5px}
+a.gtech b{color:var(--accent)}
+.tabblock[hidden]{display:none!important}
+caption.tabcap .capverb{font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+ font-weight:700;color:var(--muted);margin-right:6px}
+/* Rail and banner are ONE sticky block, and that is the fix from 11 September 2026.
+   The rail was sticky and the banner was an ordinary sibling below it, so after the
+   reader pressed a technology and the page scrolled him to `Added`, the only place
+   naming the active filter — and the only Clear that clears all of them at once —
+   was three screens above him. He reported it as having to press Reset in every table
+   by hand, which is exactly what a page does when its one global control scrolls away. */
+.dstick{position:sticky;top:0;z-index:41;background:var(--bg);border-bottom:1px solid var(--border);
+ margin:0 0 4px}
+nav.dsubnav{display:flex;gap:6px;overflow-x:auto;padding:9px 0 8px;
+ margin:0;background:var(--bg);-webkit-overflow-scrolling:touch}
+nav.dsubnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);white-space:nowrap;flex:0 0 auto;text-decoration:none}
+nav.dsubnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+nav.dsubnav a .n{color:var(--muted);font-weight:600;margin-left:6px;font-variant-numeric:tabular-nums}
+nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
+/* the jump target clears the sticky block, whose height the script measures and
+   publishes as `--dstick-h` — a hard number here would be wrong the moment the
+   banner appears and taller again when its text wraps on a phone (§0a) */
+section{scroll-margin-top:var(--dstick-h,56px)}
+.navbanner{display:flex;align-items:center;gap:12px;margin:0 0 8px;padding:8px 12px;border-radius:10px;
+ background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13px}
+.navbanner .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);flex:0 0 auto}
+.navbanner .nb-msg b{color:var(--accent)}
+.navbanner[hidden]{display:none!important}
+.navbanner .nb-msg{flex:1 1 auto}
+.navbanner .nb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+@media (max-width:760px){a.fact::after{display:none}}
+</style>
+<script>
+/* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
+(function(){try{var v=localStorage.getItem('soc-diff-theme');
+if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v);}catch(e){}})();
+</script>
+</head>
+<body>
+<header class="top"><div class="in"><div class="title-row"><div><h1>Microsoft SOC &mdash; what changed</h1>
+<p class="dateline">2026-09-11 &rarr; 2026-09-11 &middot; morning pass 05:12 → evening pass 22:01 &middot; compared 20:11 Warsaw &middot; Piotr Wisniewski &middot; <a href="/">Back to the full brief</a></p></div><div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button></div></div>
+<div class="factgrid"><a class="fact ok" href="#added" data-goto="added"><b>14</b><span>added</span></a><a class="fact bad" href="#removed" data-goto="removed"><b>0</b><span>removed</span></a><a class="fact warn" href="#changed" data-goto="changed"><b>18</b><span>changed</span></a><a class="fact info" href="#endpoints" data-goto="endpoints"><b>+29 / &minus;3</b><span>Graph endpoints</span></a><a class="fact acc" href="#deadlines" data-goto="deadlines"><b>3</b><span>deadline rows</span></a><a class="fact warn" href="#components" data-goto="components"><b>1</b><span>component versions</span></a><a class="fact" href="#catalog" data-goto="catalog"><b>+2</b><span>Graph permissions &middot; 2179 &rarr; 2181</span></a><a class="fact" href="#catalog" data-goto="catalog"><b>+0</b><span>role entries &middot; 139 &rarr; 139</span></a><a class="fact" href="#bytab" data-goto="bytab"><b>169</b><span>items in state &middot; was 163</span></a><a class="fact info" href="#community" data-goto="community"><b>+0 / &minus;0</b><span>community sources</span></a><a class="fact ok" href="#community" data-goto="community"><b>0</b><span>new community articles</span></a><a class="fact warn" href="#srctext" data-goto="srctext"><b>0</b><span>source pages edited</span></a></div>
+<p class="tilenote">Added, removed and changed count every row of the table below them, both catalogs and the tracked components included. Endpoints are counted apart because they are endpoints, not items. <b>Every tile is a link</b>: it jumps to the section that explains it and opens that section.</p>
+</div></header><div class="wrap"><div class="dstick"><nav class="dsubnav" aria-label="Sections"><a href="#bytab" data-goto="bytab">By tab<span class="n">9</span></a><a href="#bytech" data-goto="bytech">By technology<span class="n">6</span></a><a href="#deadlines" data-goto="deadlines">Deadlines<span class="n">3</span></a><a href="#added" data-goto="added">Added<span class="n">6</span></a><a href="#removed" data-goto="removed">Removed<span class="n">0</span></a><a href="#changed" data-goto="changed">Changed<span class="n">1</span></a><a href="#components" data-goto="components">Components<span class="n">1</span></a><a href="#endpoints" data-goto="endpoints">Endpoints<span class="n">36</span></a><a href="#catalog" data-goto="catalog">Catalog<span class="n">18</span></a><a href="#community" data-goto="community">Community<span class="n">0</span></a><a href="#mcenter" data-goto="mcenter">Message Center<span class="n">0</span></a><a href="#srctext" data-goto="srctext">Source text<span class="n">6</span></a></nav></div>
+<section id="bytab"><details class="dsec" open><summary><span class="dsum-t">What changed, by tab</span><span class="dsum-n">9 tabs</span></summary><p class="note">What moved since 2026-09-11, tab by tab, and which areas it touched. A row of three zeros means that tab was checked and did not move. Each item is counted in the ONE tab that is its home &mdash; New for the published window, Deadlines for anything dated, Graph API and Roles for the two catalogs &mdash; so nothing is counted twice. Today is a selection from New and Deadlines and Products is a second view of the same items, so their changes are already in these rows. A source added to or dropped from the community list is a change to the LIST, not to an article, so it is counted in its own tile and named in the Community section rather than mixed in here. <b>Every non-zero number below is a link</b>: it jumps to the section that lists those rows and narrows it to that tab.</p><div class="tw"><table><thead><tr><th>Tab</th><th>Added</th><th>Removed</th><th>Changed</th><th>Areas touched</th></tr></thead><tbody><tr><td><b>New</b></td><td><a class="gnum" href="#added" data-goto="added" data-tab="New"><b class="nadd">+3</b></a></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Entra &middot; Azure</td></tr><tr><td><b>Deadlines</b></td><td><a class="gnum" href="#added" data-goto="added" data-tab="Deadlines"><b class="nadd">+3</b></a></td><td><span class="none">0</span></td><td><a class="gnum" href="#changed" data-goto="changed" data-tab="Deadlines"><b class="nchg">1</b></a></td><td>Azure &middot; Purview &middot; Windows Server &middot; Exchange Online</td></tr><tr><td><b>Graph API</b></td><td><a class="gnum" href="#catalog" data-goto="catalog" data-tab="Graph API"><b class="nadd">+2</b></a></td><td><span class="none">0</span></td><td><a class="gnum" href="#catalog" data-goto="catalog" data-tab="Graph API"><b class="nchg">16</b></a></td><td>Graph permissions</td></tr><tr><td><b>Graph endpoints</b></td><td><a class="gnum" href="#endpoints" data-goto="endpoints" data-tab="Graph endpoints"><b class="nadd">+29</b></a></td><td><a class="gnum" href="#endpoints" data-goto="endpoints" data-tab="Graph endpoints"><b class="nrem">&minus;3</b></a></td><td><a class="gnum" href="#endpoints" data-goto="endpoints" data-tab="Graph endpoints"><b class="nchg">4</b></a></td><td>what already-consented permissions can call</td></tr><tr class="quiet"><td><b>Roles</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Entra directory roles</td></tr><tr><td><b>Component versions</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><a class="gnum" href="#components" data-goto="components" data-tab="Component versions"><b class="nchg">1</b></a></td><td>Defender for Endpoint antivirus on Windows</td></tr><tr class="quiet"><td><b>Community articles</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>&mdash;</td></tr><tr class="quiet"><td><b>Message Center</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>&mdash;</td></tr><tr><td><b>Source text</b></td><td><a class="gnum" href="#srctext" data-goto="srctext" data-tab="Source text"><b class="nadd">+6</b></a></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Azure &middot; Entra</td></tr></tbody></table></div></details></section>
+<section id="bytech"><details class="dsec" open><summary><span class="dsum-t">What changed, by technology</span><span class="dsum-n">6 technologies</span></summary><p class="note">The same movement counted by the technology it touches rather than by the tab it lives in &mdash; MDE, MDI, Sentinel, Purview and the rest, so a question that starts with a product name has one place to be answered. An item counts under its <code>product</code>; a tracked component under its own name; a community article and a Message Center entry under every technology tagged on it, so an article carrying two tags is counted under both and the total here can exceed the item count above. <b>Every technology name is a link</b>: it filters every table on this page to that technology at once.</p><div class="tw"><table><thead><tr><th>Technology</th><th>Added</th><th>Removed</th><th>Changed</th><th>Where it shows up</th></tr></thead><tbody><tr><td><a class="gtech" href="#added" data-tech="Azure"><b>Azure</b></a></td><td><b class="nadd">+3</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Deadlines &middot; New</td></tr><tr><td><a class="gtech" href="#added" data-tech="Defender for Endpoint antivirus on Windows"><b>Defender for Endpoint antivirus on Windows</b></a></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><b class="nchg">1</b></td><td>Component versions</td></tr><tr><td><a class="gtech" href="#added" data-tech="Entra"><b>Entra</b></a></td><td><b class="nadd">+1</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>New</td></tr><tr><td><a class="gtech" href="#added" data-tech="Exchange Online"><b>Exchange Online</b></a></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><b class="nchg">1</b></td><td>Deadlines</td></tr><tr><td><a class="gtech" href="#added" data-tech="Purview"><b>Purview</b></a></td><td><b class="nadd">+1</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Deadlines</td></tr><tr><td><a class="gtech" href="#added" data-tech="Windows Server"><b>Windows Server</b></a></td><td><b class="nadd">+1</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Deadlines</td></tr></tbody></table></div></details></section>
+<section id="deadlines"><details class="dsec" open><summary><span class="dsum-t">Deadlines &mdash; everything dated, in one place</span><span class="dsum-n">3</span></summary><p class="note">Every deadline this comparison touched: dates that moved, dated items that arrived and dated items that went away. A date that moved is the row to read first &mdash; it is the one that changes a plan. <code>days</code> is the shift in days, positive when Microsoft pushed the date out and negative when it pulled the date in.</p><div class="tw"><table><thead><tr><th>What</th><th>Product</th><th>Item</th><th>Deadline</th><th>Days</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td><ins>arrived</ins></td><td>Azure</td><td><b>Defender for Cloud retires the grouped &#x27;vulnerability assessment solution&#x27; recommendation on 11 Oct 2026</b><br><span class="sub">Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation</span><br><span class="ref">no MC/RM post — Learn only</span></td><td><ins>2026-10-11</ins></td><td><span class="none">&mdash;</span></td><td>w2</td><td><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation" target="_blank" rel="noopener">Source</a></td></tr><tr><td><ins>arrived</ins></td><td>Purview</td><td><b>Insider Risk Management retires the &#x27;Alerts (classic)&#x27; tab on 1 Oct 2026 for the unified alert queue</b><br><span class="sub">Microsoft Purview: Insider Risk Management - Unified alert queue</span><br><span class="ref">MC1430536</span></td><td><ins>2026-10-01</ins></td><td><span class="none">&mdash;</span></td><td>w3</td><td><a href="https://mc.merill.net/message/MC1430536" target="_blank" rel="noopener">Source</a></td></tr><tr><td><ins>arrived</ins></td><td>Windows Server</td><td><b>30-day reminder: Windows Server 2022 mainstream support ends 13 Oct 2026</b><br><span class="sub">30-Day Reminder: Windows Server 2022 will reach end of mainstream support on October 13, 2026</span><br><span class="ref">MC1470756</span></td><td><ins>2026-10-13</ins></td><td><span class="none">&mdash;</span></td><td>w6</td><td><a href="https://learn.microsoft.com/en-us/windows/release-health/windows-message-center" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></details></section>
+<section id="added"><details class="dsec" open><summary><span class="dsum-t">Added since 2026-09-11</span><span class="dsum-n">6</span></summary><p class="note">In the current state and not in the previous one, one table per tab of the brief. Heaviest first: tier 0, then SOC weight, then deadline.</p><div class="tabblock" data-tab="New"><div class="tw"><table><caption class="tabcap"><span class="capverb">Added in</span> <b>New</b> &middot; 3 items <span class="capareas">Entra &middot; Azure</span></caption><thead><tr><th>Product</th><th>Item</th><th>Status</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td>Entra</td><td><b>My Staff access now follows admin role assignment alone; the &#x27;Administrators can access My Staff&#x27; toggle no longer does anything</b><br><span class="sub">Manage your users with My Staff</span><br><span class="ref">no MC/RM post — Learn only</span></td><td>Updated</td><td>2026-09-08</td><td><span class="none">none stated</span></td><td>w1</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/my-staff-configure#who-can-access-my-staff" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Azure</td><td><b>Container Apps Operator and Jobs Operator roles can read secret values in plain text</b><br><span class="sub">Permissions for managing secrets</span><br><span class="ref">no MC/RM post — Learn only</span></td><td>Updated</td><td>2026-09-11</td><td><span class="none">none stated</span></td><td>w5</td><td><a href="https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Azure</td><td><b>Azure RBAC role assignment limit per subscription rises from 4,000 to 5,000</b><br><span class="sub">Troubleshoot Azure RBAC limits</span><br><span class="ref">no MC/RM post — Learn only</span></td><td>Updated</td><td>2026-09-11</td><td><span class="none">none stated</span></td><td>w7</td><td><a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshoot-limits" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></div><div class="tabblock" data-tab="Deadlines"><div class="tw"><table><caption class="tabcap"><span class="capverb">Added in</span> <b>Deadlines</b> &middot; 3 items <span class="capareas">Azure &middot; Purview &middot; Windows Server</span></caption><thead><tr><th>Product</th><th>Item</th><th>Status</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td>Azure</td><td><b>Defender for Cloud retires the grouped &#x27;vulnerability assessment solution&#x27; recommendation on 11 Oct 2026</b><br><span class="sub">Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation</span><br><span class="ref">no MC/RM post — Learn only</span></td><td>Retiring</td><td>2026-09-10</td><td>2026-10-11</td><td>w2</td><td><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Purview</td><td><b>Insider Risk Management retires the &#x27;Alerts (classic)&#x27; tab on 1 Oct 2026 for the unified alert queue</b><br><span class="sub">Microsoft Purview: Insider Risk Management - Unified alert queue</span><br><span class="ref">MC1430536</span></td><td>Plan for change</td><td>2026-07-17</td><td>2026-10-01</td><td>w3</td><td><a href="https://mc.merill.net/message/MC1430536" target="_blank" rel="noopener">Source</a></td></tr><tr><td>Windows Server</td><td><b>30-day reminder: Windows Server 2022 mainstream support ends 13 Oct 2026</b><br><span class="sub">30-Day Reminder: Windows Server 2022 will reach end of mainstream support on October 13, 2026</span><br><span class="ref">MC1470756</span></td><td>Retiring</td><td>2026-09-11</td><td>2026-10-13</td><td>w6</td><td><a href="https://learn.microsoft.com/en-us/windows/release-health/windows-message-center" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></div></details></section>
+<section id="removed"><details class="dsec" open><summary><span class="dsum-t">Removed</span><span class="dsum-n">0</span></summary><p class="note">Carried in the previous state and gone from the current one. A removal is a finding: either the source dropped it or this brief retracted it. <b>The name in each caption is the tab the removed item used to live in</b>, not what happened to it &mdash; &bdquo;Removed from New&rdquo; means it was in the New tab yesterday and is gone today.</p><p class="empty">Nothing was removed.</p></details></section>
+<section id="changed"><details class="dsec" open><summary><span class="dsum-t">Changed, field by field</span><span class="dsum-n">1</span></summary><p class="note">Same <code>id</code> in both states, different value, by tab. Old struck through, new highlighted &mdash; the difference is shown, not described.</p><div class="tabblock" data-tab="Deadlines"><div class="tw"><table><caption class="tabcap"><span class="capverb">Changed in</span> <b>Deadlines</b> &middot; 1 item <span class="capareas">Exchange Online</span></caption><thead><tr><th>Item</th><th>Field</th><th>Before &rarr; after</th><th>Source</th></tr></thead><tbody><tr><td><b>EWS starts requiring a configured EWSAllowedAppIDs list, and Microsoft will generate one from 60 days of observed usage where none exists</b><br><span class="sub">Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes</span><br><span class="ref">MC1469960</span></td><td><span class="field">Substance</span></td><td><del>From early October 2026, with EWSEnabled True, EWS requires an EWSAllowedAppIDs list; where the tenant has not written one Microsoft generates it from the previous 60 days of observed EWS use, which may omit infrequent applications. Rollout completes late June 2027. Changes take up to 24 hours to propagate.</del><span class="arrow">&rarr;</span><ins>From early October 2026, with EWSEnabled True, EWS requires an EWSAllowedAppIDs list; where the tenant has not written one Microsoft generates it from the previous 60 days of observed EWS use, which may omit infrequent applications, and it will not overwrite a list the tenant configured. Rollout completes late April 2027. Changes take up to 24 hours to propagate.</ins></td><td><a href="https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></div></details></section>
+<section id="components"><details class="dsec" open><summary><span class="dsum-t">Component versions</span><span class="dsum-n">1</span></summary><p class="note">Versions 10 &rarr; 10 tracked components. A component moves when a version changes on any platform, when its release state changes, or when a deadline moves. <b>Where a version moved, what the new release contains is printed below the table</b> &mdash; that release did not exist in the previous state, so it is a difference and not a repeat of the brief.</p><div class="tw"><table><thead><tr><th>Component</th><th>Field</th><th>Before &rarr; after</th><th>Source</th></tr></thead><tbody><tr><td><b>Defender for Endpoint antivirus on Windows</b></td><td><span class="field">Version on windows</span></td><td><del>1.459.153.0</del><span class="arrow">&rarr;</span><ins>1.459.163.0</ins></td><td><a href="https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases#windows-antivirus--august-2026--platform-418260803--engine-11260803" target="_blank" rel="noopener">Source</a></td></tr></tbody></table></div></details></section>
+<section id="endpoints"><details class="dsec" open><summary><span class="dsum-t">Graph endpoints</span><span class="dsum-n">+29 / &minus;3</span></summary><p class="note">What each permission can call, compared pair by pair from <span class="mono">graphMap</span> in the two state blocks: 925 &rarr; 927 permissions carrying a path set. An endpoint appearing here means Microsoft widened or narrowed what an already-granted consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. These are endpoints, not items, which is why they have their own row in the summary above.</p><div class="tw"><table><caption class="tabcap"><b>Graph endpoints</b> &middot; +29 / &minus;3 / 4 edited</caption><thead><tr><th>Permission</th><th>What</th><th>Before &rarr; after</th></tr></thead><tbody><tr><td><b>Application.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /admin/serviceTreeConfiguration/validate</ins></td></tr><tr><td><b>Calendars.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations</ins></td></tr><tr><td><b>Calendars.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations/occurrencesView(startDateTime={value},endDateTime={value})</ins></td></tr><tr><td><b>Calendars.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations/recurrences</ins></td></tr><tr><td><b>Calendars.Read.All</b></td><td><span class="field">privilege level · Application</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>3</ins></td></tr><tr><td><b>Calendars.Read.All</b></td><td><span class="field">admin consent · Application</span></td><td><del>not required</del><span class="arrow">&rarr;</span><ins>required</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>DELETE /users/{id}/settings/workHoursAndLocations/occurrences/{id}</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>DELETE /users/{id}/settings/workHoursAndLocations/recurrences/{id}</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations/occurrencesView(startDateTime={value},endDateTime={value})</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /users/{id}/settings/workHoursAndLocations/recurrences</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>PATCH /users/{id}/settings/workHoursAndLocations</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>POST /users/{id}/settings/workHoursAndLocations/occurrences</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>POST /users/{id}/settings/workHoursAndLocations/occurrences/setCurrentLocation</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>POST /users/{id}/settings/workHoursAndLocations/recurrences</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>PUT /users/{id}/settings/workHoursAndLocations/occurrences/{id}</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>PUT /users/{id}/settings/workHoursAndLocations/recurrences/{id}</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">privilege level · Application</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>3</ins></td></tr><tr><td><b>Calendars.ReadWrite.All</b></td><td><span class="field">admin consent · Application</span></td><td><del>not required</del><span class="arrow">&rarr;</span><ins>required</ins></td></tr><tr><td><b>EntitlementManagement.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets/{id}</ins></td></tr><tr><td><b>EntitlementManagement.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackages/{id}/getaccesspackageassignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>DELETE /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets/{id}</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>DELETE /identitygovernance/entitlementmanagement/accesspackages/{id}/assignmentpolicypresets/{id}</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets/{id}</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /identitygovernance/entitlementmanagement/accesspackages/{id}/getaccesspackageassignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>POST /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>POST /identitygovernance/entitlementmanagement/accesspackages/{id}/assignmentpolicypresets</ins></td></tr><tr><td><b>EntitlementManagement.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>PUT /identitygovernance/entitlementmanagement/accesspackageassignmentpolicypresets/{id}</ins></td></tr><tr><td><b>NetworkAccess.Read.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /networkAccess/tls/settings</ins></td></tr><tr><td><b>NetworkAccess.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>GET /networkAccess/tls/settings</ins></td></tr><tr><td><b>NetworkAccess.ReadWrite.All</b></td><td><span class="field">endpoint added</span></td><td><span class="none">not there</span><span class="arrow">&rarr;</span><ins>PATCH /networkAccess/tls/settings</ins></td></tr><tr><td><b>PrivilegedAssignmentSchedule.Read.AzureADGroup</b></td><td><span class="field">endpoint removed</span></td><td><del>GET /identityGovernance/privilegedAccess/group/assignmentScheduleRequests</del><span class="arrow">&rarr;</span><span class="none">gone</span></td></tr><tr><td><b>PrivilegedAssignmentSchedule.Read.AzureADGroup</b></td><td><span class="field">endpoint removed</span></td><td><del>GET /identityGovernance/privilegedAccess/group/assignmentScheduleRequests/filterByCurrentUser(on={value})</del><span class="arrow">&rarr;</span><span class="none">gone</span></td></tr><tr><td><b>PrivilegedAssignmentSchedule.Read.AzureADGroup</b></td><td><span class="field">endpoint removed</span></td><td><del>GET /identityGovernance/privilegedAccess/group/assignmentScheduleRequests/{id}</del><span class="arrow">&rarr;</span><span class="none">gone</span></td></tr></tbody></table></div></details></section>
+<section id="catalog"><details class="dsec" open><summary><span class="dsum-t">Catalog &mdash; Graph API and Roles tabs</span><span class="dsum-n">18</span></summary><p class="note">Graph permissions 2179 &rarr; 2181 (+2 / &minus;0, 16 entries edited); roles 139 &rarr; 139 (+0 / &minus;0, 0 edited). These two tables are the whole of what moved in those two tabs.</p><div class="tw"><table><caption class="tabcap"><b>Graph API</b> &middot; +2 / &minus;0 / 16 edited</caption><thead><tr><th>What</th><th>Graph permission</th><th>Detail</th></tr></thead><tbody><tr><td><ins>added</ins></td><td><code>CopilotCostManagement-CreditReq.Read.All</code> <a class="deep" href="srctext#graph:perm=CopilotCostManagement-CreditReq.Read.All" title="Open the full panel in the brief">↗</a></td><td></td></tr><tr><td><ins>added</ins></td><td><code>CopilotCostManagement-CreditReq.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=CopilotCostManagement-CreditReq.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td></td></tr><tr><td>changed</td><td><code>Application.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=Application.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Existing permission gained reach</ins></td></tr><tr><td>changed</td><td><code>Application.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=Application.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>Calendars.Read.All</code> <a class="deep" href="srctext#graph:perm=Calendars.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Endpoint added</ins></td></tr><tr><td>changed</td><td><code>Calendars.Read.All</code> <a class="deep" href="srctext#graph:perm=Calendars.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>Calendars.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=Calendars.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Endpoint added</ins></td></tr><tr><td>changed</td><td><code>Calendars.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=Calendars.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>EntitlementManagement.Read.All</code> <a class="deep" href="srctext#graph:perm=EntitlementManagement.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Existing permission gained reach</ins></td></tr><tr><td>changed</td><td><code>EntitlementManagement.Read.All</code> <a class="deep" href="srctext#graph:perm=EntitlementManagement.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>EntitlementManagement.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=EntitlementManagement.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Existing permission gained reach</ins></td></tr><tr><td>changed</td><td><code>EntitlementManagement.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=EntitlementManagement.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>NetworkAccess.Read.All</code> <a class="deep" href="srctext#graph:perm=NetworkAccess.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Existing permission gained reach</ins></td></tr><tr><td>changed</td><td><code>NetworkAccess.Read.All</code> <a class="deep" href="srctext#graph:perm=NetworkAccess.Read.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>NetworkAccess.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=NetworkAccess.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Existing permission gained reach</ins></td></tr><tr><td>changed</td><td><code>NetworkAccess.ReadWrite.All</code> <a class="deep" href="srctext#graph:perm=NetworkAccess.ReadWrite.All" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr><tr><td>changed</td><td><code>PrivilegedAssignmentSchedule.Read.AzureADGroup</code> <a class="deep" href="srctext#graph:perm=PrivilegedAssignmentSchedule.Read.AzureADGroup" title="Open the full panel in the brief">↗</a></td><td><span class="field">kind</span> <del>Permission</del><span class="arrow">&rarr;</span><ins>Changed permission</ins></td></tr><tr><td>changed</td><td><code>PrivilegedAssignmentSchedule.Read.AzureADGroup</code> <a class="deep" href="srctext#graph:perm=PrivilegedAssignmentSchedule.Read.AzureADGroup" title="Open the full panel in the brief">↗</a></td><td><span class="field">changed</span> <del>not set</del><span class="arrow">&rarr;</span><ins>2026-09-11</ins></td></tr></tbody></table></div><p class="emptycap"><b>Roles</b> &middot; +0 / &minus;0 / 0 edited</p><p class="empty">No role changed.</p></details></section>
+<section id="community"><details class="dsec" open><summary><span class="dsum-t">Community articles</span><span class="dsum-n">0</span></summary><p class="note">Every new article is named with its title and its link, not counted. A source that stopped reading is the first row of the third table: that is the change worth acting on.</p><p class="emptycap"><b>The source list</b> &middot; +0 / &minus;0 / 0 renamed</p><p class="empty">No source was added, removed or renamed in the list.</p><p class="emptycap"><b>Added</b> &middot; 0 articles</p><p class="empty">No new article in any community source.</p><p class="emptycap"><b>Removed</b> &middot; 0</p><p class="empty">No article dropped out of a feed.</p><p class="emptycap"><b>Sources that moved</b> &middot; 0</p><p class="empty">No source changed how it reads or how fresh it is.</p></details></section>
+<section id="mcenter"><details class="dsec" open><summary><span class="dsum-t">Message Center &mdash; what is new</span><span class="dsum-n">0</span></summary><p class="note">Message Center and Roadmap entries that appeared since the previous state, by identifier. An entry carrying a deadline is listed first, because that is the one that needs a plan. Message Center content varies by tenant &mdash; confirm anything here in your own tenant.</p><p class="emptycap"><b>Added</b> &middot; 0</p><p class="empty">No new Message Center or Roadmap entry.</p><p class="emptycap"><b>Removed</b> &middot; 0</p><p class="empty">Nothing dropped off the Message Center index.</p></details></section>
+<section id="srctext"><details class="dsec" open><summary><span class="dsum-t">Source text &mdash; what Microsoft changed inside the page</span><span class="dsum-n">6</span></summary><p class="note">0 of 6 watched pages changed their text between these two states. A page is compared by the commit it was read at, not by how many lines moved, so the same &bdquo;+21 / &minus;15&rdquo; on a different edit is still a difference. Removed text is struck through and added text is highlighted, which makes this the only place on either page where a REMOVAL of prose is visible &mdash; a detection dropped from Microsoft&rsquo;s own list leaves no other trace.</p><div class="tw"><table><caption class="tabcap"><b>Source text</b> &middot; 0 pages edited, 6 newly watched</caption><thead><tr><th>Page</th><th>What</th><th>Line</th></tr></thead><tbody><tr><td><a href="https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets" target="_blank" rel="noopener">Azure Container Apps — Manage secrets</a></td><td><span class="field">added</span></td><td><ins>## Permissions for managing secrets</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>Azure Container Apps exposes separate `listSecrets` operations for container apps, jobs, and Dapr components. These operations return secret values in plain text. Grant these permissions only to identities that need to read secret values.</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>Several Azure built-in roles for Container Apps define permissions using wildcard patterns as a convenience. The following examples grant the ability to read secret values through a wildcard or explicit `listSecrets` permission, even when the role name or description suggests narrower access. This list isn&#x27;t exhaustive; review the current [Azure built-in roles for containers](/azure/role-based-access-control/built-in-roles/containers) before assigning a role.</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>The following roles grant access to container app or job secret values:</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| Built-in role | Relevant permissions in the role definition | Matching secrets operation |</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| --- | --- | --- |</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| Container Apps Contributor | `Microsoft.App/containerApps/*/action` | `Microsoft.App/containerApps/listSecrets/action` |</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| Container Apps Operator | `Microsoft.App/containerApps/*/action` | `Microsoft.App/containerApps/listSecrets/action` |</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| Container Apps Jobs Contributor | `Microsoft.App/jobs/*/action` | `Microsoft.App/jobs/listSecrets/action` |</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>| Container Apps Jobs Operator | `Microsoft.App/jobs/*/action` | `Microsoft.App/jobs/listSecrets/action` |</ins></td></tr><tr><td><a href="https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/my-staff-configure" target="_blank" rel="noopener">Entra — Manage your users with My Staff</a></td><td><span class="field">removed</span></td><td><del>## How to enable My Staff</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&lt;a name=&quot;how-to-enable-my-staff&quot;&gt;&lt;/a&gt;</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>## Who can access My Staff</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>After configuring administrative units, you can apply this scope to your users who access My Staff. Only users who are assigned an administrative role can access My Staff. To enable My Staff, complete the following steps:</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>Access to My Staff is determined by administrative role assignment. Only users who are assigned an administrative role can access My Staff, and the administrative unit scope of that role assignment determines which users they can manage. After you configure administrative units and assign roles, those users can sign in to My Staff at [https://mystaff.microsoft.com](https://mystaff.microsoft.com).</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as at least a [User Administrator](~/identity/role-based-access-control/permissions-reference.md#user-administrator) or [Groups Administrator](~/identity/role-based-access-control/permissions-reference.md#groups-administrator).</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Browse to **Entra ID** &gt; **Users** &gt; **User settings**.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Under **User feature**, select **Manage user feature settings**.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Under **Administrators can access My Staff**, you can choose to enable for all users, selected users, or no user access.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>&gt; [!Note]</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>&gt; Only users who&#x27;ve been assigned an admin role can access My Staff. If you enable My Staff for a user who is not assigned an admin role, they won&#x27;t be able to access My Staff.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&gt; [!NOTE]</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&gt; The legacy My Apps and My Staff experience settings, such as **Administrators can access My Staff** under **Manage user feature settings**, are no longer used by the service and don&#x27;t affect user behavior. These settings are being removed from the Microsoft Entra admin center. No administrator action is required.</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>After My Staff has been enabled, the users who are enabled and have been assigned an administrative role can access it through [https://mystaff.microsoft.com](https://mystaff.microsoft.com). They can select an administrative unit to view the users in that unit, and select a user to open their profile.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>Users who are assigned an administrative role can access My Staff through [https://mystaff.microsoft.com](https://mystaff.microsoft.com). They can select an administrative unit to view the users in that unit, and select a user to open their profile.</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>&gt; The legacy My Apps and My Staff experience settings, such as **Administrators can access My Staff** under **Manage user feature settings**, are no longer used by the service and don&#x27;t affect user behavior. These settings are being removed from the Microsoft Entra admin center. No administrator action is required.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&gt; The legacy My Apps and My Staff experience settings, such as **Administrators can access My Staff**, are no longer used by the service and don&#x27;t affect user behavior. These settings are being removed from the Microsoft Entra admin center. No administrator action is required.</ins></td></tr><tr><td><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/end-user-experiences" target="_blank" rel="noopener">Entra — End-user experiences for applications</a></td><td><span class="field">removed</span></td><td><del>## Manage preview settings</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&lt;a name=&quot;manage-preview-settings&quot;&gt;&lt;/a&gt;</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>As an admin, you can choose to try out new app launcher features while they are in preview. Enabling a preview feature means that the feature is turned on for your organization. The preview feature is also reflected in the My Apps portal and other app launchers for all your users.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>## Legacy My Apps experience settings</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>To enable or disable previews for your app launchers:</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>The legacy My Apps preview settings, such as **Users can use preview features for My Apps**, are no longer used by the My Apps portal or other app launchers. These settings don&#x27;t affect what your users see or how the app launchers behave.</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as at least a [Cloud Application Administrator](~/identity/role-based-access-control/permissions-reference.md#cloud-application-administrator).</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Browse to **Entra ID** &gt; **Enterprise apps**.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. On the left menu, select **App launchers**, then select **Settings**.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Under **Preview settings**, toggle the checkboxes for the previews you want to enable or disable. To opt into a preview, toggle the associated checkbox to the checked state. To opt out of a preview, toggle the associated checkbox to the unchecked state.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>1. Select **Save**. Wait a few minutes for the changes to take effect.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">removed</span></td><td><del>Navigate to the My Apps portal and verify that the preview you enabled or disabled is reflected.</del></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">added</span></td><td><ins>&gt; [!NOTE]</ins></td></tr></tbody></table></div><p class="more">… and 30 more changed lines. Every one of them is on the brief, in the Source text section of the New tab.</p></details></section>
+<footer>32 differences in total. &middot; Piotr Wisniewski &middot; 20:11 Warsaw &middot; computed from the two state blocks, not copied from the brief. <a href="srctext">Back to the full brief</a></footer></div>
+<script>
+(function(){
+  "use strict";
+  var r=document.documentElement, b=document.getElementById('themebtn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    try{
+      var explicit=r.getAttribute('data-theme');
+      var dark = explicit==='dark' ||
+                 (!explicit && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      r.setAttribute('data-theme', next);
+      try{ localStorage.setItem('soc-diff-theme', next); }catch(e){}
+    }catch(e){}
+  });
+})();
+</script><script>
+(function () {
+  "use strict";
+  function box(table) {
+    var tb = table.tBodies[0]; if (!tb) return null;
+    var rows = [].slice.call(tb.rows);
+    if (rows.length < 3) return null;
+    var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
+    var wrap = document.createElement("div"); wrap.className = "s9find";
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search " + rows.length + " rows…";
+    wrap.appendChild(q);
+    /* EVERY column this table shows is filterable, the ones that group through a facet
+       and the rest through this (5ap): a column that GROUPS gets a facet, and a column whose every
+       value is unique gets the search box scoped to it instead — a dropdown holding
+       one entry per row is not a filter, it is a second copy of the table (5s). */
+    var colSel = document.createElement("select");
+    colSel.className = "s9f s11col";
+    colSel.setAttribute("aria-label", "Search in one column");
+    var c0 = document.createElement("option"); c0.value = "-1"; c0.textContent = "Search: all columns";
+    colSel.appendChild(c0);
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var o = document.createElement("option"); o.value = String(ci); o.textContent = "Search: " + h;
+      colSel.appendChild(o);
+    });
+    if (colSel.options.length > 2) wrap.appendChild(colSel); else colSel = null;
+
+    var sels = [];
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var vals = {}, n = 0, missing = false;
+      rows.forEach(function (r) {
+        var c = r.cells[ci]; if (!c) { missing = true; return; }
+        /* textContent, never innerText: a row inside a closed <details> is not
+           rendered, and innerText of an unrendered row is the empty string */
+        var t = (c.textContent || "").replace(/\s+/g, " ").trim();
+        if (!t || t.length > 60) return;
+        if (!vals[t]) { vals[t] = 0; n++; }
+        vals[t]++;
+      });
+      var keys = Object.keys(vals);
+      /* 40, not 20: a page of differences groups by tab, by product and by field, and
+         capping at twenty silently dropped the column the reader came for. */
+      if (missing || n < 2 || n > 40) return;
+      if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2 && n >= rows.length) return;
+      var s = document.createElement("select");
+      s.className = "s9f"; s.dataset.col = String(ci);
+      var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
+      s.appendChild(o0);
+      keys.sort().forEach(function (k) {
+        var o = document.createElement("option"); o.value = k; o.textContent = k + " (" + vals[k] + ")";
+        s.appendChild(o);
+      });
+      wrap.appendChild(s); sels.push(s);
+    });
+    var rb = document.createElement("button");
+    rb.type = "button"; rb.className = "s9reset"; rb.textContent = "Reset";
+    wrap.appendChild(rb);
+    var cnt = document.createElement("span"); cnt.className = "s9count";
+    wrap.appendChild(cnt);
+    function apply() {
+      var v = (q.value || "").trim().toLowerCase(), shown = 0;
+      var scope = colSel ? +colSel.value : -1;
+      rows.forEach(function (r) {
+        var keep = true;
+        if (v) {
+          var hay = scope >= 0
+            ? ((r.cells[scope] ? r.cells[scope].textContent : "") || "")
+            : (r.textContent || "");
+          if (hay.toLowerCase().indexOf(v) < 0) keep = false;
+        }
+        if (keep) sels.forEach(function (s) {
+          if (!s.value) return;
+          var c = r.cells[+s.dataset.col];
+          if (!c || (c.textContent || "").replace(/\s+/g, " ").trim() !== s.value) keep = false;
+        });
+        r.hidden = !keep; if (keep) shown++;
+      });
+      cnt.textContent = shown + " of " + rows.length;
+    }
+    q.addEventListener("input", apply);
+    if (colSel) colSel.addEventListener("change", apply);
+    sels.forEach(function (s) { s.addEventListener("change", apply); });
+    rb.addEventListener("click", function () {
+      q.value = ""; if (colSel) colSel.value = "-1";
+      sels.forEach(function (s) { s.value = ""; }); apply();
+    });
+    apply();
+    /* Rejestr, zeby skrypt nawigacji mogl ustawic te same filtry, ktore ustawilby
+       czytelnik. Dwa niezalezne pisarze `row.hidden` walcza ze soba (§5am), wiec
+       nawigacja NIE chowa wierszy sama — prosi `apply()` tego pudelka. */
+    wrap.__apply = apply;
+    wrap.__q = q;
+    wrap.__sels = sels;
+    wrap.__col = colSel;
+    (window.__s9diff = window.__s9diff || []).push(wrap);
+    return wrap;
+  }
+  [].forEach.call(document.querySelectorAll("details.dsec .tw > table"), function (t) {
+    var b = box(t);
+    if (b && t.parentNode && t.parentNode.parentNode) t.parentNode.parentNode.insertBefore(b, t.parentNode);
+  });
+})();
+</script><script>
+(function () {
+  "use strict";
+  var banner = null;
+
+  function ensureBanner() {
+    if (banner) return banner;
+    banner = document.createElement("div");
+    banner.className = "navbanner"; banner.hidden = true;
+    var lab = document.createElement("span"); lab.className = "nb-lab"; lab.textContent = "Filter";
+    var msg = document.createElement("span"); msg.className = "nb-msg";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Clear filter";
+    btn.addEventListener("click", clearAll);
+    banner.appendChild(lab); banner.appendChild(msg); banner.appendChild(btn);
+    /* INSIDE the sticky block, never after it. The banner names the one filter that is
+       on and carries the one Clear that clears every table at once; a reader who has to
+       scroll back to the top to find it will clear the tables one Reset at a time
+       instead, which is what happened. */
+    var stick = document.querySelector(".dstick");
+    if (stick) stick.appendChild(banner);
+    else {
+      var nav = document.querySelector("nav.dsubnav");
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(banner, nav.nextSibling);
+    }
+    return banner;
+  }
+  /* the sticky block gets taller when the banner opens, so republish its height for
+     `scroll-margin-top` rather than leaving a jump target under it */
+  function measure() {
+    var stick = document.querySelector(".dstick");
+    var h = stick ? Math.round(stick.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--dstick-h", (h ? h + 10 : 56) + "px");
+  }
+  window.addEventListener("resize", measure);
+
+  function say(text, strong) {
+    var b = ensureBanner();
+    b.hidden = !text;
+    if (text) {
+      var m = b.querySelector(".nb-msg");
+      m.textContent = "";
+      if (strong) { m.appendChild(document.createElement("b")).textContent = strong;
+                    m.appendChild(document.createTextNode(" — " + text)); }
+      else m.textContent = text;
+    }
+    measure();
+  }
+  window.addEventListener("resize", measure);
+
+  function boxes() { return window.__s9diff || []; }
+  /* the two summary tables are the CONTROLS, not the content: filtering them by a
+     technology empties the very table the reader just pressed. */
+  function content(w) {
+    var t = w.parentNode && w.parentNode.querySelector(".tw table");
+    var sec = w.closest ? w.closest("section") : null;
+    return !(sec && (sec.id === "bytab" || sec.id === "bytech")) && !!t;
+  }
+
+  function clearAll() {
+    boxes().forEach(function (w) {
+      if (w.__q) w.__q.value = "";
+      if (w.__col) w.__col.value = "-1";
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    say("");
+  }
+
+  function openSection(sid) {
+    var sec = document.getElementById(sid);
+    if (!sec) return null;
+    var det = sec.querySelector("details.dsec");
+    if (det) det.open = true;
+    return sec;
+  }
+
+  /* a number in the by-tab table: go to the section AND show only that tab's block.
+     Jumping without narrowing lands the reader on the first table of the section,
+     which is not the number they pressed. */
+  function goto_(sid, tab) {
+    var sec = openSection(sid);
+    if (!sec) return;
+    var blocks = [].slice.call(document.querySelectorAll(".tabblock"));
+    var hit = 0;
+    blocks.forEach(function (b) {
+      var mine = sec.contains(b);
+      if (!tab) { b.hidden = false; return; }
+      if (!mine) { b.hidden = false; return; }
+      var keep = b.dataset.tab === tab;
+      b.hidden = !keep;
+      if (keep) hit++;
+    });
+    if (tab && sec.querySelector(".tabblock")) {
+      say(hit ? ('Showing the ' + tab + ' rows of this section only.')
+              : ('No ' + tab + ' rows in this section \u2014 that number belongs to another one.'));
+    } else say("");
+    sec.scrollIntoView({ block: "start" });
+  }
+
+  /* a technology name: narrow EVERY table on the page at once. Where a table has a
+     matching facet we set the facet, which is exact; where it has none we put the name
+     in its search box, which is a text match — and the banner says which was done, so
+     a row that matched on prose rather than on its product column is not a surprise. */
+  function tech(name) {
+    var exact = 0, text = 0;
+    boxes().forEach(function (w) {
+      /* a column scope left over from a hand search would silently narrow this to
+         one column, so every writer of these boxes clears it (5ap) */
+      if (w.__col) w.__col.value = "-1";
+      if (!content(w)) {
+        if (w.__q) w.__q.value = "";
+        (w.__sels || []).forEach(function (s) { s.value = ""; });
+        if (w.__apply) w.__apply();
+        return;
+      }
+      var sel = null;
+      (w.__sels || []).forEach(function (s) {
+        if (sel) return;
+        for (var i = 0; i < s.options.length; i++) if (s.options[i].value === name) { sel = s; return; }
+      });
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (sel) { sel.value = name; if (w.__q) w.__q.value = ""; exact++; }
+      else { if (w.__q) w.__q.value = name; text++; }
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    var how = [];
+    if (exact) how.push(exact + " by " + (exact === 1 ? "its" : "their") + " product column");
+    if (text) how.push(text + " by searching " + (text === 1 ? "its" : "their") + " text");
+    say("filtered across every section \u2014 " + how.join(", ") +
+        ". The two summary tables at the top are left whole, because they are the controls. " +
+        "Clear filter puts every table back at once.", name);
+    var a = document.getElementById("added");
+    if (a) { openSection("added"); a.scrollIntoView({ block: "start" }); }
+  }
+
+  document.addEventListener("click", function (ev) {
+    if (!ev.target.closest) return;
+    var t = ev.target.closest("[data-tech]");
+    if (t) { ev.preventDefault(); tech(t.dataset.tech); return; }
+    var g = ev.target.closest("[data-goto]");
+    if (g) {
+      ev.preventDefault();
+      goto_(g.dataset.goto, g.dataset.tab || null);
+    }
+  });
+
+  /* the rail marks where the reader is, by POSITION — a ratio-based observer reports
+     the wrong section after a jump when the sections are taller than the band (§5an) */
+  (function () {
+    var links = [].slice.call(document.querySelectorAll("nav.dsubnav a"));
+    if (!links.length) return;
+    var secs = links.map(function (a) {
+      return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
+    }).filter(function (x) { return x.el; });
+    var queued = false;
+    function mark() {
+      queued = false;
+      var y = window.scrollY + 90, cur = secs[0];
+      secs.forEach(function (s) { if (s.el.offsetTop <= y) cur = s; });
+      secs.forEach(function (s) {
+        if (s === cur) s.a.setAttribute("aria-current", "true");
+        else s.a.removeAttribute("aria-current");
+      });
+    }
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true; window.requestAnimationFrame(mark);
+    }, { passive: true });
+    mark();
+  })();
+
+  measure();
+})();
+</script>
+</body>
+</html>
