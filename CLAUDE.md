@@ -131,11 +131,11 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 71 | **kazda liczba nawigacyjna NAZYWA swoje wiersze albo CZYSCI filtr zakladki docelowej, a skok idzie do pierwszej tabeli z trafieniami** — tabela bez `data-id` zawezana po identyfikatorze w tresci, blok prozy po `data-s11m`, tabela bez trafien zostaje CALA | 5at | `function rowInSpec(`, `function applyBlocks(`, `function land(`, `function firstHit(`, `data-s11m`, `[data-s11m][data-s11="0"]{display:none!important}`, `s11.clearTab(panelId)`, `window.__socSetCat`, `window.__socSetWin` w pliku; render (§5h): klik liczby zostawia czytelnika PRZY zawezonej tabeli, a baner nazywa te liczbe, nie poprzednia |
 | 72 | **monospace tylko na IDENTYFIKATORZE, nigdy na zdaniu** — katalog odwrotny dla kafelka i pudelka wersji, nic ponizej 12,5 px i 4,5:1 | 5at | obie reguly odwrotne oraz `.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}` w arkuszu; render (§5h): w Component versions zaden lisc o >3 slowach nie jest monospace |
 | 73 | **zero diagnostyki wlasnej infrastruktury w tresci widocznej dla czytelnika** — odmowa serwisu publikujacego jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu | 0e | `innerText` nie zawiera `publishing service`, `pull-request review`, `bisection`, `canary`, `test artifact`, `artifact publishing` |
-| 74 | **Advanced filtering: JEDEN pasek na zakladke, jedno menu na kolumne, kazda kolumna osiagalna** — faseta tam, gdzie kolumna grupuje, zakres szukania tam, gdzie nie; pasek NIE pisze ani `row.hidden`, ani licznika `N of M` | 5au | `SCRIPT 15 — ADVANCED FILTERING…`, `details.s15bar`, `function dimsFor(`, `function allCols(`, `s15qc`, `.s15pop{display:none;position:fixed`, `window.__socFilterBus` w pliku; render (§5h): trzy wybory pod rzad nie przewijaja strony, menu zostaje otwarte, `Reset all filters` czysci kazde menu |
+| 74 | **Advanced filtering: JEDEN pasek na zakladke, jedno menu na kolumne, kazda kolumna osiagalna** — faseta tam, gdzie kolumna grupuje, zakres szukania tam, gdzie nie; **wymiar jest PYTANIEM, nie napisem w naglowku, a komorka bywa LISTA wartosci** (§5au, poprawka z 12 wrzesnia); pasek NIE pisze ani `row.hidden`, ani licznika `N of M` | 5au | `SCRIPT 15 — ADVANCED FILTERING…`, `details.s15bar`, `function dimsFor(`, `function allCols(`, `function dimKey(`, `function canonVal(`, `function cellVals(`, `s15qc`, `.s15pop{display:none;position:fixed`, `window.__socFilterBus` w pliku; render (§5h): trzy wybory pod rzad nie przewijaja strony, menu zostaje otwarte, `Reset all filters` czysci kazde menu |
 | 75 | **najechanie podswietla CALY wiersz, takze parzysty** — powloka maluje pasek inline w `restripe()`, wiec regula bez `!important` zapala tylko komorki dolozone przez skrypty | 5au | `.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}` w arkuszu; render (§5h): kazda komorka wiersza pod kursorem ma to samo tlo, w obu motywach |
 | 76 | **kazdy link zrodla NAZYWA zrodlo** — `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`, nigdy goly wyraz `Source` ani sam numer MC | 4a | zero kotwic o etykiecie `Source`, `Link`, `here`, `read more` |
 | 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
-| 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
+| 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; **obie tabele podsumowania TEZ sie zawezaja**, wymiar scala synonimy naglowka, a wartosc scala aliasy (§3 punkt 16 reguly 3-6); pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `function dimKey(`, `function cellTokens(`, `function colsFor(`, `function canonVal(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -1586,7 +1586,12 @@ def gate(path, site=None, mirror=False, doc=None):
     # ---- 74-75: pasek Advanced filtering i podswietlenie wiersza (§5au) ----
     K74 = ("SCRIPT 15 — ADVANCED FILTERING: ONE BAR PER TAB, EVERY COLUMN REACHABLE",
            "details.s15bar", "function dimsFor(", "function allCols(", "s15qc",
-           '.s15pop{display:none;position:fixed', "window.__socFilterBus")
+           '.s15pop{display:none;position:fixed', "window.__socFilterBus",
+           # 12 wrzesnia 2026: wymiar jest PYTANIEM, nie napisem w naglowku, a komorka
+           # bywa lista wartosci. Bez tych czterech pasek zostawia cala tabele, ktora
+           # pyta o to samo pod inna nazwa, a `Entra` i `Entra ID` stoja w menu osobno.
+           "function dimKey(", "function canonVal(", "function cellVals(",
+           '["Product", /^(product|technology|areas touched|service)$/i]')
     need("74", "Advanced filtering: jeden pasek na zakladke, kazda kolumna osiagalna (§5au)",
          all(k in h for k in K74),
          "brak: %s" % ", ".join(k for k in K74 if k not in h))
@@ -2269,7 +2274,9 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    w jednym miejscu strony znaczy zakladke, a w drugim stan pozycji, **nie moze stac samo**. Nota
    sekcji mowi to samo zdaniem: nazwa w podpisie to zakladka, w ktorej pozycja mieszkala.
 6. **Changed, field by field** — grupowane po zakladce, JEDEN WIERSZ NA POLE:
-   `Item | Field | before → after | Source`,
+   `Product | Item | Field | before → after | Source` (kolumna `Product` dopisana 12 wrzesnia 2026
+   — §4a punkt 3 wymaga jej od kazdej tabeli pozycji, a bez niej Advanced filtering nie mial
+   w tej tabeli czego dopasowac),
    stara wartosc w `<del>`, nowa w `<ins>`. Pola porownywane, w tej kolejnosci: `deadline`,
    `status`, `published`, `tier`, `socWeight`, `tier0Touch`, `title`, `officialTitle`,
    `reference`, `fingerprint`, `url`, `linkStatus`, `product`, `area`.
@@ -2419,8 +2426,41 @@ tabela, chip sekcji i ten pasek nie maja jak powiedziec trzech roznych rzeczy.
    ZAKRESU SZUKANIA, wiec kazda kolumna tej strony jest osiagalna jedna albo druga droga.
 2. **Tabela, ktorej ta kolumna nie dotyczy, zostaje CALA** (§5at). Kolumny, ktorej tabela nie ma,
    nie stosuje sie do niej — zawezenie do zera odpowiadaloby na pytanie, ktorego nikt nie zadal.
-3. **Obie tabele podsumowania sa wylaczone** — `bytab` i `bytech` sa KONTROLKAMI (punkt 13),
-   wiec `window.__s9adv` zwraca dla nich zawsze prawde.
+3. **OBIE TABELE PODSUMOWANIA TEZ SIE ZAWEZAJA** — i to jest poprawka z 12 wrzesnia 2026,
+   zglszona zrzutem ekranu: przy pasku mowiacym `Advanced filtering — product Azure, Entra`
+   tabela `What changed, by technology` stala nietknieta, z chipem `22 technologies` i wierszami
+   `Intune +13`, `Windows +7`. Wylaczenie ich bylo moje i bylo bledne. Argument „to sa
+   kontrolki" (punkt 13) zarabia na siebie przy **filtrze technologii**, gdzie zawezenie
+   `bytech` zabiera czytelnikowi tabele spod kursora w chwili, w ktorej w nia kliknal — i tam
+   wylaczenie ZOSTAJE, w `content()` skryptu nawigacji. Przy pasku Advanced nie zarabia na nic:
+   daje strone, ktora sama sobie przeczy, czyli ten sam blad „dwie rozne liczby o tym samym",
+   ktory punkt 2 usuwa z kafelkow. Zadna kontrolka nie ginie, bo kazda wartosc stoi w menu
+   jedno klikniecie wyzej, a `Reset` przywraca tabele w calosci.
+
+4. **WYMIAR JEST PYTANIEM, NIE NAPISEM W NAGLOWKU.** Ten sam zrzut pokazal drugie, wieksze:
+   przy `product = Azure, Entra` **szesc sekcji nie ruszylo sie wcale** — `Changed`,
+   `Components`, `Graph endpoints`, `Catalog`, `Community articles` i `Message Center`. Pasek
+   porownywal TEKST naglowka, wiec tabela pytajaca o to samo pod nazwa `Technology` byla dla
+   niego tabela, ktora o to nie pyta, a regula „tabela, ktorej ta kolumna nie dotyczy, zostaje
+   CALA" (punkt 2 wyzej) przykrywala usterke zamiast opisywac swiadome wyjatki. **Regula, ktora
+   przykrywa blad, jest gorsza niz brak reguly: czyta sie jak przemyslana.** Odtad `dimKey()`
+   scala `Product`, `Technology` i `Areas touched` w jedno pytanie, a `cellTokens()` czyta
+   komorke jako LISTE wartosci rozdzielona srodkowa kropka — nigdy po spacji, bo
+   „Windows Server" i „Defender for Endpoint" to po jednej wartosci.
+
+5. **ANI WARTOSC NIE JEST NAPISEM.** Pozycja stanu pisze produkt tak, jak pisze go blok stanu,
+   a kanal spolecznosci tak, jak kaza jego wlasne reguly tagowania (§5an) — wiec menu oferowalo
+   `Entra` i `Entra ID`, `Graph` i `Graph API` jako dwa osobne wybory jednej rzeczy, a wybor
+   `Entra` zawezal tabele artykulow do zera, podczas gdy podsumowanie technologii liczylo te
+   artykuly pod Entra. Zmierzone: **21 wartosci tam, gdzie rzeczy jest 16.** `canonVal()`
+   scala wylacznie pary, ktore sa JEDNA rzecza — `Windows` i `Windows Server` nia nie sa,
+   `Copilot & AI` i `Copilot Studio` tez nie, bo **bledne scalenie CHOWA wiersze, a to jest
+   gorsze niz zdublowana pozycja w menu**.
+
+6. **Tabela `Changed` dostaje kolumne `Product`**, ktorej §4a punkt 3 wymaga od kazdej tabeli
+   pozycji i ktorej ta jedna nigdy nie miala. Wartosc powtarza sie na wierszach ciaglych
+   (wyciszona), bo pozycja o trzech zmienionych polach ma trzy wiersze, a filtr, ktory bierze
+   pierwszy i gubi dwa nastepne, rozrywa pozycje na pol.
 
 **Pasek zglasza sie na tej samej magistrali co reszta** (§5ao): `window.__s9advDesc()` zwraca
 jeden wpis na wymiar, a zielony banner rysuje z tego chip z wlasnym `×`. `Clear filter` w bannerze
@@ -2432,14 +2472,32 @@ nie ma miejsca. Wybor wartosci NIE przewija strony — zmierzone 12 wrzesnia 202
 11 → 12 wrzesnia: trzy klikniecia pod rzad w menu `Product`, `scrollY 0 → 0`, menu otwarte przez
 caly czas, przycisk pokazuje `3`.
 
-Zmierzone tego dnia po zbudowaniu, oba motywy, 1400 i 390 px: pasek z **szescioma menu**
-(`Field`, `Product`, `Published`, `Weight`, `Deadline`, `Status`), 23 pozycje w zakresie szukania,
-13 zarejestrowanych pudelek; `Product = Azure, Entra, Graph` daje `4 of 8` w `Added`, `7 of 24`
-w `Changed` i zostawia `9 of 9` w `bytab` oraz `22 of 22` w `bytech`; banner mowi `1 filter is on`
-z chipem `Advanced filtering — product Azure, Entra, Graph`; dolozenie technologii na wierzchu daje
-`2 filters are on` i `Clear all filters`; `Clear` przywraca **kazdy** licznik i zwija wszystko poza
-dwiema tabelami podsumowania. Zero bledow strony, `scrollWidth === clientWidth` przy obu
-szerokosciach.
+Zmierzone **po poprawce z 12 wrzesnia 2026**, na porownaniu 11 → 12 wrzesnia, oba motywy,
+1400 i 390 px: pasek z **szescioma menu** (`Product`, `Field`, `Published`, `Weight`, `Deadline`,
+`Status`), **22 pozycje w zakresie szukania**, 13 zarejestrowanych pudelek, **18 wartosci** w menu
+produktu (przed scaleniem aliasow bylo ich 21). `Product = Azure, Entra` daje:
+
+| sekcja | przed | po |
+|---|---|---|
+| `bytab` | 9 | **3** |
+| `bytech` | 22 | **3** |
+| `Deadlines` | 8 | **4** |
+| `Added` | 24 + 8 | **4 + 4** |
+| `Changed` | 4 + 4 | **0 + 2** |
+| `Community articles` | 45 + 59 | **6 + 59** |
+| `Message Center` | 3 | **0** |
+| `Components`, `Graph endpoints`, `Catalog`, `Sources that moved` | 3 / 36 / 18 / 59 | **bez zmian — nie pytaja o produkt** |
+
+i nota pod paskiem **wymienia te cztery z nazwy**, zamiast powtarzac regule: *„4 tables name none
+of these columns and are left whole: Component versions; Graph endpoints; Catalog — Graph API and
+Roles tabs; Community articles · Sources that moved."* Czytelnik, ktory widzi 36 niezmienionych
+wierszy endpointow, ma sie dowiedziec, ze tabela endpointow nie nazywa produktu — a nie zgadywac,
+czy filtr jest zepsuty. Banner mowi `1 filter is on` z chipem `Advanced filtering — product Azure,
+Entra`; dolozenie technologii na wierzchu daje `2 filters are on` i `Clear all filters`; `Clear`
+przywraca **kazdy z trzynastu** licznikow. Trzy wybory pod rzad w jednym menu: `scrollY 0 → 0`,
+menu otwarte przez caly czas, przycisk pokazuje `3`. Klikniecie **nazwy technologii** nadal
+zostawia `bytab` i `bytech` w calosci (9 i 22 wiersze) — to jest ten jeden wyjatek, ktory zostaje.
+Zero bledow strony, `scrollWidth === clientWidth` przy obu szerokosciach, w obu motywach.
 
 ### Punkt 13a. KAFELEK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA LICZBA
 
@@ -3777,46 +3835,129 @@ FIND_BODY = """<script>
     var sec = table && table.closest ? table.closest("section") : null;
     return !!(sec && (sec.id === "bytab" || sec.id === "bytech"));
   }
+  /* A DIMENSION IS A QUESTION, NOT A HEADER STRING. Measured 12 September 2026 on
+     the published page with `product = Azure, Entra` switched on: Added narrowed
+     32 -> 8 and Deadlines 8 -> 4, and SIX sections did not move at all — Changed,
+     Components, Endpoints, Catalog, Community articles and Message Center. Two of
+     them spell the same question `Technology`, and this bar was comparing header
+     TEXT, so a table that asks "which technology" under another name was treated as
+     a table that does not ask it. 5at's rule 3 — leave such a table whole — then
+     covered a defect instead of a deliberate exemption, which is the worst shape a
+     rule can take: it reads as considered. Synonyms are declared once, here. */
+  var SYN = [
+    ["Product", /^(product|technology|areas touched)$/i],
+    ["Tab",     /^(tab|where it shows up)$/i]
+  ];
+  function dimKey(h) {
+    for (var i = 0; i < SYN.length; i++) if (SYN[i][1].test(h)) return SYN[i][0];
+    return h;
+  }
+  /* AND NEITHER IS A VALUE. The item tables spell a product the way the state block
+     spells it, and the community feed spells it the way its own tag rules do (5an), so
+     the menu offered `Entra` and `Entra ID`, `Graph` and `Graph API` as separate
+     choices for one thing — and picking `Entra` narrowed the article table to nothing
+     while the technology summary still counted those articles under Entra. Measured
+     12 September 2026: 21 values where 16 things exist. This is the same disease as
+     `Exposure Management` against `Exposure Mgmt` (5ag) and the urgency emoji splitting
+     one technology in two (5au), so it gets the same treatment: an alias list, declared
+     here, short, and only for pairs that are genuinely one thing. `Windows` and
+     `Windows Server` are NOT aliases, and neither are `Copilot & AI` and
+     `Copilot Studio` — a wrong merge hides rows, which is worse than a duplicate. */
+  var ALIAS = [
+    ["Entra",        /^(entra|entra id|azure ad|aad)$/i],
+    ["Graph",        /^(graph|graph api|microsoft graph)$/i],
+    ["MDE",          /^(mde|defender for endpoint)$/i],
+    ["MDI",          /^(mdi|defender for identity)$/i],
+    ["MDA",          /^(mda|mdca|defender for cloud apps)$/i],
+    ["Defender XDR", /^(defender xdr|xdr)$/i],
+    ["Exchange",     /^(exchange|exchange online)$/i]
+  ];
+  function canonVal(v) {
+    for (var i = 0; i < ALIAS.length; i++) if (ALIAS[i][1].test(v)) return ALIAS[i][0];
+    return v;
+  }
+  /* A cell can hold SEVERAL values: a Message Center entry tagged for three
+     technologies, a tab touching eight products. Equality against the whole cell
+     matches none of them, so a cell is read as a TOKEN LIST, split on the middot
+     this page already prints between chips. Nothing is split on spaces, because
+     "Windows Server" is one value and "Defender for Endpoint" is one value. */
+  function cellTokens(tr, ci) {
+    var t = cellText(tr, ci);
+    if (!t) return [];
+    if (t.indexOf("\u00b7") < 0) return [canonVal(t)];
+    var out = [];
+    t.split("\u00b7").forEach(function (x) {
+      x = x.replace(/\s+/g, " ").trim();
+      if (x && x !== "\u2026") out.push(canonVal(x));
+    });
+    return out.length ? out : [canonVal(t)];
+  }
+  /* keyed by DIMENSION and holding every column that asks it — a table may ask one
+     question in two columns, and both have to answer */
   function headMap(table) {
     if (table.__s9h) return table.__s9h;
     var m = {};
     [].forEach.call(table.querySelectorAll("thead th"), function (t, i) {
       var h = txt(t);
-      if (h && m[h] === undefined) m[h] = i;
+      if (!h) return;
+      var k = dimKey(h);
+      (m[k] = m[k] || []).push(i);
     });
     return (table.__s9h = m);
   }
+  function colsFor(table, label) { return headMap(table)[label] || null; }
+  /* TWO different populations, and confusing them is what made the correction of
+     12 September 2026 incomplete on its first pass. `advBoxes` is where the DIMENSIONS
+     and the per-value counts come from — the content of the page — and the two summary
+     tables are excluded from it, or the menu would offer a technology whose only row is
+     the summary row naming it. `allBoxes` is what gets RE-APPLIED, and it is everything,
+     summaries included: leaving them out meant `window.__s9adv` narrowed them correctly
+     and nobody ever asked it to. */
   function advBoxes() {
     return (window.__s9diff || []).filter(function (w) {
       return w.__table && !isSummary(w.__table);
     });
   }
+  function allBoxes() {
+    return (window.__s9diff || []).filter(function (w) { return !!w.__table; });
+  }
   function advMatch(tr, table, skip) {
-    var m = headMap(table), lab, i;
+    var lab, i, j;
     for (lab in ADV) {
       if (!Object.prototype.hasOwnProperty.call(ADV, lab)) continue;
       if (lab === skip) continue;
       var chosen = ADV[lab];
       if (!chosen || !chosen.length) continue;
-      var ci = m[lab];
-      if (ci === undefined) continue;          /* this table has no such column: left whole */
-      var v = cellText(tr, ci), hit = false;
-      for (i = 0; i < chosen.length; i++) if (chosen[i] === v) { hit = true; break; }
+      var cols = colsFor(table, lab);
+      if (!cols) continue;                     /* this table does not ask it: left whole */
+      var toks = [];
+      for (i = 0; i < cols.length; i++) toks = toks.concat(cellTokens(tr, cols[i]));
+      var hit = false;
+      for (i = 0; i < chosen.length && !hit; i++)
+        for (j = 0; j < toks.length; j++) if (toks[j] === chosen[i]) { hit = true; break; }
       if (!hit) return false;
     }
     if (skip !== "__q" && ADVQ.q) {
       var hay;
       if (ADVQ.col) {
-        var cj = m[ADVQ.col];
-        if (cj === undefined) return true;
-        hay = cellText(tr, cj);
+        var cj = colsFor(table, ADVQ.col);
+        if (!cj) return true;
+        hay = cellText(tr, cj[0]);
       } else hay = (tr.textContent || "");
       if (hay.toLowerCase().indexOf(ADVQ.q) < 0) return false;
     }
     return true;
   }
   window.__s9adv = function (tr, table) {
-    if (isSummary(table)) return true;         /* the controls are never narrowed */
+    /* THE TWO SUMMARY TABLES ARE NARROWED BY THIS BAR, and that is the correction of
+       12 September 2026. They stay exempt from the TECHNOLOGY LINK, where the
+       exemption earns its keep — a reader who presses `Entra` in that table must not
+       have the table vanish under his cursor — but exempting them HERE made the page
+       contradict itself: `22 technologies`, listing Intune and Windows, directly
+       under a bar reading `product Azure, Entra`. A summary that does not summarise
+       the page it stands on is the two-numbers-for-one-thing defect this page was
+       rebuilt to remove (3 punkt 2), and no control is lost: every value is still one
+       press away in the menu above, and Reset puts the table back whole. */
     return advMatch(tr, table, null);
   };
 
@@ -3828,12 +3969,15 @@ FIND_BODY = """<script>
         var d = acc[h] || (acc[h] = { label: h, tables: 0, vals: {}, filled: 0, num: 0, longest: 0 });
         d.tables++;
         w.__rows.forEach(function (tr) {
-          var v = cellText(tr, m[h]);
-          if (!v) return;
-          d.filled++;
-          if (MEASURE.test(v)) d.num++;
-          if (v.length > d.longest) d.longest = v.length;
-          d.vals[v] = (d.vals[v] || 0) + 1;
+          m[h].forEach(function (ci) {
+            cellTokens(tr, ci).forEach(function (v) {
+              if (!v) return;
+              d.filled++;
+              if (MEASURE.test(v)) d.num++;
+              if (v.length > d.longest) d.longest = v.length;
+              d.vals[v] = (d.vals[v] || 0) + 1;
+            });
+          });
         });
       });
     });
@@ -3862,10 +4006,12 @@ FIND_BODY = """<script>
   function valueCount(dim, v) {
     var n = 0;
     advBoxes().forEach(function (w) {
-      var ci = headMap(w.__table)[dim.label];
-      if (ci === undefined) return;
+      var cols = colsFor(w.__table, dim.label);
+      if (!cols) return;
       w.__rows.forEach(function (tr) {
-        if (cellText(tr, ci) === v && advMatch(tr, w.__table, dim.label)) n++;
+        var hit = false;
+        cols.forEach(function (ci) { if (cellTokens(tr, ci).indexOf(v) >= 0) hit = true; });
+        if (hit && advMatch(tr, w.__table, dim.label)) n++;
       });
     });
     return n;
@@ -3904,7 +4050,7 @@ FIND_BODY = """<script>
 
   function advApply() {
     window.__s9advBusy = 1;
-    try { advBoxes().forEach(function (w) { if (w.__apply) w.__apply(); }); }
+    try { allBoxes().forEach(function (w) { if (w.__apply) w.__apply(); }); }
     finally { window.__s9advBusy = 0; }
     paint();
     if (window.__socDiffFolds) window.__socDiffFolds(anyOn());
@@ -4024,10 +4170,27 @@ FIND_BODY = """<script>
     /* THE BAR GIVES NO ROW COUNT OF ITS OWN. `N of M` belongs to each table's box and
        stands over that table; a second total here would be a second number about the
        same thing, which is the defect this page was rebuilt to remove (3 punkt 13a). */
+    /* WHICH tables were left whole, by name — not "a table that does not carry one
+       of these columns", which is a rule and not an answer. The reader who filters to
+       Azure and sees Endpoints still showing 36 rows deserves to be told that the
+       endpoint table names no product, rather than left to decide whether the filter
+       is broken (12 September 2026). */
+    var whole = [];
+    if (parts.length) allBoxes().forEach(function (w) {
+      var named = false;
+      Object.keys(ADV).forEach(function (k) {
+        if (ADV[k] && ADV[k].length && colsFor(w.__table, k)) named = true;
+      });
+      if (!named) whole.push(w.__label || "a table");
+    });
     ADVSUM.textContent = parts.length
-      ? (parts.join("  ·  ") + "  —  every section on this page is narrowed to it; the counter " +
-         "above each table says how many of its rows match, and a table that does not carry one of these " +
-         "columns is left whole. Several values inside one menu mean any of them; two menus at once mean both.")
+      ? (parts.join("  ·  ") + "  —  every section on this page is narrowed to it, the two summary " +
+         "tables included; the counter above each table says how many of its rows match. " +
+         (whole.length ? (whole.length + (whole.length === 1 ? " table names" : " tables name") +
+            " none of these columns and " + (whole.length === 1 ? "is" : "are") + " left whole: " +
+            whole.slice(0, 4).join("; ") + (whole.length > 4 ? (" and " + (whole.length - 4) + " more") : "") +
+            ". ") : "") +
+         "Several values inside one menu mean any of them; two menus at once mean both.")
       : "Nothing is filtered. Pick values in one menu to widen, in two menus to narrow.";
   }
 
@@ -4783,6 +4946,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 first = (n == 0)
                 rows.append((' class="t0"' if (first and i_.get("tier0Touch")) else "",
                              [xc if first else '<span class="xn">&nbsp;</span>',
+                              # 4a punkt 3 asks every item table for a Product column and this one
+                              # never had it, so a reader could not see whose change he was reading
+                              # and the filter had nothing to match on (12 September 2026). The value
+                              # is REPEATED on the continuation rows, muted: printing it once would
+                              # leave rows 2..n of an item with no product, and a filter would take
+                              # the item's first line and drop the rest of it.
+                              (esc(i_.get("product")) if first
+                               else '<span class="sub">%s</span>' % esc(i_.get("product"))),
                               name_cell(i_) if first else '<span class="none">&#8942;</span>',
                               '<span class="field">%s</span>' % esc(lab),
                               ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
@@ -4791,7 +4962,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                               a_src(i_) if first else ""], det if first else ""))
         rows, more = cap(rows, 250, "changed fields")
         body.append(tabblock(tab,
-            table(["", "Item", "Field", "Before &rarr; after", "Source"], rows, "",
+            table(["", "Product", "Item", "Field", "Before &rarr; after", "Source"], rows, "",
                   tabcap(tab, len(pairs), "items", [x[0] for x in pairs], "Changed in")) + more))
     out.append(sect("changed", "Changed, field by field",
                'Same <code>id</code> in both states, different value, by tab. Old struck '
@@ -4955,7 +5126,11 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             r = [("", [esc(x.get("sourceName")),
                        ('<a href="%s" target="_blank" rel="noopener">%s</a>'
                         % (esc(x.get("link")), esc(x.get("title")))) if x.get("link") else esc(x.get("title")),
-                       " ".join('<span class="t0">%s</span>' % esc(c) for c in (x.get("categories") or [])[:4])
+                       # separated by a middot, not by a space: this cell holds SEVERAL values and
+                       # the filter reads it as a token list — "Windows Server" is one value, and a
+                       # space is not a separator (12 September 2026)
+                       ' <span class="none">&middot;</span> '.join(
+                           '<span class="t0">%s</span>' % esc(c) for c in (x.get("categories") or [])[:4])
                        or '<span class="none">untagged</span>',
                        esc(x.get("date")) or '<span class="none">undated</span>']) for x in lst[:cap_n]]
             more = ('<p class="more">… and %d more.</p>' % (len(lst) - cap_n)) if len(lst) > cap_n else ""
@@ -5020,7 +5195,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             return ((' class="t0"' if r["action"] else ""),
                     ['<ins>added</ins>' if r["kind"] == "added" else '<del>removed</del>',
                      idc, ttl,
-                     " ".join('<span class="t0">%s</span>' % esc(t2) for t2 in r["tech"]) or "&mdash;",
+                     ' <span class="none">&middot;</span> '.join(
+                         '<span class="t0">%s</span>' % esc(t2) for t2 in r["tech"]) or "&mdash;",
                      ('<span class="t0">act by %s</span>' % esc(r["action"])) if r["action"]
                      else '<span class="none">none stated</span>',
                      esc(r["date"]) or '<span class="none">not printed</span>',
@@ -5210,6 +5386,10 @@ def verify(page):
               ".navbanner .nb-chip b{font-weight:700;color:var(--ok)",
               # 5au: Advanced filtering, the same control the portal carries
               "window.__s9adv = function (tr, table)", "function buildDims(", "details.s9adv{",
+              # 12 September 2026: a dimension is a QUESTION, not a header string, and a cell can
+              # hold several values. Without these three the bar silently leaves six sections whole.
+              "function dimKey(", "function cellTokens(", "function colsFor(", "function canonVal(",
+              '["Product", /^(product|technology|areas touched)$/i],',
               "window.__s9advDesc = describeAdv", "window.__s9advClear = function (quiet)",
               "window.__socDiffFolds = function (on)", "s9advqc", ".s9advpop{display:none;position:fixed"):
         if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
@@ -15514,6 +15694,24 @@ szukanie w menu, gdy wartosci jest wiecej niz osiem, i jeden `Reset`.
    (§5ap). Zanim ta regula powstala, jedno klikniecie przesuwalo zakladke z 1 105 px na 3 704 px,
    zabieralo przycisk z ekranu i zamykalo menu, wiec drugiej wartosci nie dalo sie wybrac bez
    przewijania z powrotem.
+4. **WYMIAR JEST PYTANIEM, A NIE NAPISEM W NAGLOWKU — I WARTOSC TEZ NIM NIE JEST** (dopisane
+   12 wrzesnia 2026). Znalezione na stronie zmian, gdzie ta sama logika stoi w `FIND_BODY`:
+   przy `product = Azure, Entra` szesc sekcji nie ruszylo sie wcale, bo pisza to samo pytanie pod
+   naglowkiem `Technology`, a `Entra` i `Entra ID` staly w menu jako dwa osobne wybory jednej
+   rzeczy. **Portal ma ten sam ksztalt kodu, wiec dostaje te sama poprawke** — inaczej dwie
+   powierzchnie jednego portalu odpowiadaja inaczej na jedno pytanie (§0a). Trzy prymitywy,
+   zadeklarowane raz: `dimKey()` scala synonimy naglowka, `canonVal()` scala aliasy wartosci,
+   `cellVals()` czyta komorke jako liste tokenow rozdzielona srodkowa kropka.
+   **Synonim dopisuje sie dopiero po zmierzeniu, co znika.** Pierwsza wersja scalala takze
+   `Status` ze `State`; zmierzone tego samego dnia: zakladka Sources stracila jedno z dwoch menu
+   (poprawa), ale zakladka Products stracila `Status` CALKIEM, bo po scaleniu kolumna istnieje
+   takze w tabelach, w ktorych bywa pusta, i wymiar wypada na progu `filled / seen < 0.5`.
+   **Utrata kontrolki jest gorsza niz zdublowane menu, ktore filtruje poprawnie**, wiec zostaje
+   scalona wylacznie rodzina produktu — ta, ktora byla zepsuta. Kontrola regresji na zywej stronie,
+   stary i nowy pasek obok siebie: siedem paskow na obu, te same menu na kazdej zakladce,
+   `Exchange Online` scalone do `Exchange`, `Product = Entra` w zakladce New zawezajace
+   `128 → 30` i `6 → 2` przy dwoch tabelach bez tej kolumny zostawionych w calosci; 44 rendery
+   (11 zakladek x 2 motywy x 1500/390) — zero bledow strony, zero rozpychania dokumentu.
 
 ### Dwie rzeczy, ktorych pasek NIE robi, i obie sa swiadome
 
@@ -15721,15 +15919,78 @@ details.s15bar[open]>summary::before{content:"−"}
     if (T) T.tables.forEach(function (r) { out = out.concat(r.rows); });
     return out;
   }
-  function cellText(tr, dim) {
-    if (!dim || !dim.idx) return null;
-    var i = dim.idx[tr.__s15];
-    if (i === undefined) return null;                 /* ta tabela nie ma tej kolumny */
-    var c = tr.cells[i]; if (!c) return "";
+  /* WYMIAR JEST PYTANIEM, NIE NAPISEM W NAGLOWKU, a komorka bywa LISTA wartosci.
+     Zmierzone 12 wrzesnia 2026 na stronie zmian, gdzie ta sama logika stala obok:
+     przy `product = Azure, Entra` szesc sekcji nie ruszylo sie wcale, bo pisza to
+     samo pytanie jako `Technology`, a `Entra` i `Entra ID` staly w menu jako dwa
+     osobne wybory. Portal ma ten sam ksztalt kodu, wiec dostaje te sama poprawke —
+     inaczej dwie powierzchnie jednego portalu odpowiadaja inaczej na jedno pytanie
+     (§0a). Trzy prymitywy, zadeklarowane raz: synonim naglowka, alias wartosci,
+     rozbicie komorki na tokeny. */
+  var SYN = [
+    ["Product", /^(product|technology|areas touched|service)$/i]
+  ];
+  /* `Status` i `State` TEZ sa jednym pytaniem i pierwsza wersja je scalala — zmierzone
+     tego samego dnia: zakladka Sources stracila jedno z dwoch menu, co bylo poprawa,
+     ale zakladka Products stracila menu `Status` CALKIEM, bo po scaleniu kolumna
+     istnieje w tabelach, w ktorych bywa pusta, i wymiar wypada na progu
+     `filled / seen < 0.5`. Utrata kontrolki jest gorsza niz zdublowane menu, ktore
+     filtruje poprawnie, wiec scalamy wylacznie rodzine produktu — to ona byla
+     zepsuta. Nowy synonim dopisuje sie dopiero po zmierzeniu, co znika. */
+  function dimKey(h) {
+    for (var i = 0; i < SYN.length; i++) if (SYN[i][1].test(h)) return SYN[i][0];
+    return h;
+  }
+  /* Tylko pary, ktore sa JEDNA rzecza. `Windows` i `Windows Server` nia nie sa,
+     `Copilot & AI` i `Copilot Studio` tez nie: bledne scalenie CHOWA wiersze,
+     a to jest gorsze niz zdublowana pozycja w menu. */
+  var ALIAS = [
+    ["Entra",        /^(entra|entra id|azure ad|aad)$/i],
+    ["Graph",        /^(graph|graph api|microsoft graph)$/i],
+    ["MDE",          /^(mde|defender for endpoint)$/i],
+    ["MDI",          /^(mdi|defender for identity)$/i],
+    ["MDA",          /^(mda|mdca|defender for cloud apps)$/i],
+    ["Defender XDR", /^(defender xdr|xdr)$/i],
+    ["Exchange",     /^(exchange|exchange online)$/i]
+  ];
+  function canonVal(v) {
+    for (var i = 0; i < ALIAS.length; i++) if (ALIAS[i][1].test(v)) return ALIAS[i][0];
+    return v;
+  }
+  function clean(v) {
     /* Emoji pilnosci stoi w tresci komorki i DZIELILO jedna technologie na dwie
        wartosci: menu `Product` w Deadlines mialo osobno `🔥 Entra 7`
        i `⚠ Entra 5` zamiast `Entra 12`. Pilnosc jest juz w kolumnie terminu. */
+    return canonVal(String(v).replace(/^[🔥⚠️\s]+/, "").trim());
+  }
+  function cols(dim, tr) {
+    if (!dim || !dim.idx) return null;
+    var a = dim.idx[tr.__s15];
+    return (a && a.length) ? a : null;                /* ta tabela nie ma tej kolumny */
+  }
+  function cellText(tr, dim) {
+    var a = cols(dim, tr);
+    if (!a) return null;
+    var c = tr.cells[a[0]]; if (!c) return "";
     return txt(c).replace(/^[🔥⚠️\s]+/, "").trim();
+  }
+  /* Komorka rozbita na tokeny po srodkowej kropce — nigdy po spacji, bo
+     „Windows Server" i „Defender for Endpoint" to po jednej wartosci. */
+  function cellVals(tr, dim) {
+    var a = cols(dim, tr);
+    if (!a) return null;
+    var out = [];
+    a.forEach(function (i) {
+      var c = tr.cells[i]; if (!c) return;
+      var t = txt(c);
+      if (!t) return;
+      if (t.indexOf("\u00b7") < 0) { out.push(clean(t)); return; }
+      t.split("\u00b7").forEach(function (x) {
+        x = x.replace(/\s+/g, " ").trim();
+        if (x && x !== "\u2026") out.push(clean(x));
+      });
+    });
+    return out;
   }
 
   /* ---------------- ktora kolumna jest faseta ---------------- */
@@ -15743,7 +16004,10 @@ details.s15bar[open]>summary::before{content:"−"}
     var T = TAB[pid]; if (!T) return [];
     var labels = {};
     T.tables.forEach(function (rec, ti) {
-      Object.keys(rec.head).forEach(function (h) { (labels[h] = labels[h] || {})[ti] = rec.head[h]; });
+      Object.keys(rec.head).forEach(function (h) {
+        var k = dimKey(h), m = (labels[k] = labels[k] || {});
+        (m[ti] = m[ti] || []).push(rec.head[h]);
+      });
     });
     var rows = rowsOf(pid), out = [];
     Object.keys(labels).forEach(function (h) {
@@ -15752,12 +16016,15 @@ details.s15bar[open]>summary::before{content:"−"}
       var dim = { k: "col:" + h, label: h, idx: labels[h] };
       var vals = {}, n = 0, seen = 0, filled = 0, num = 0, longest = 0;
       rows.forEach(function (tr) {
-        var t = cellText(tr, dim); if (t === null) return;
-        seen++; if (!t) return;
-        filled++;
-        if (MEASURE.test(t)) num++;
-        if (t.length > longest) longest = t.length;
-        if (!vals[t]) { vals[t] = 0; n++; } vals[t]++;
+        var ts = cellVals(tr, dim); if (ts === null) return;
+        seen++; if (!ts.length) return;
+        ts.forEach(function (t) {
+          if (!t) return;
+          filled++;
+          if (MEASURE.test(t)) num++;
+          if (t.length > longest) longest = t.length;
+          if (!vals[t]) { vals[t] = 0; n++; } vals[t]++;
+        });
       });
       if (n < 2 || n > MAX_VALUES || longest > 60 || !filled) return;
       var rep = 0; Object.keys(vals).forEach(function (k) { if (vals[k] > rep) rep = vals[k]; });
@@ -15791,15 +16058,18 @@ details.s15bar[open]>summary::before{content:"−"}
     var T = TAB[pid]; if (!T) return [];
     var labels = {};
     T.tables.forEach(function (rec, ti) {
-      Object.keys(rec.head).forEach(function (h) { (labels[h] = labels[h] || {})[ti] = rec.head[h]; });
+      Object.keys(rec.head).forEach(function (h) {
+        var k = dimKey(h), m = (labels[k] = labels[k] || {});
+        (m[ti] = m[ti] || []).push(rec.head[h]);
+      });
     });
     return Object.keys(labels).sort().map(function (h) { return { k: "col:" + h, label: h, idx: labels[h] }; });
   }
 
   /* ---------------- dopasowanie ---------------- */
   function rowHas(tr, dim, val) {
-    var t = cellText(tr, dim);
-    return t === null ? null : (t === val);
+    var ts = cellVals(tr, dim);
+    return ts === null ? null : (ts.indexOf(val) >= 0);
   }
   function isT0(tr) { return !!tr.querySelector(".t0, .badge.t-bad"); }
   function matches(tr, st, skip) {
@@ -15829,7 +16099,9 @@ details.s15bar[open]>summary::before{content:"−"}
   }
   function values(pid, dim) {
     var out = {};
-    rowsOf(pid).forEach(function (tr) { var t = cellText(tr, dim); if (t) out[t] = 1; });
+    rowsOf(pid).forEach(function (tr) {
+      (cellVals(tr, dim) || []).forEach(function (t) { if (t) out[t] = 1; });
+    });
     return Object.keys(out);
   }
   function describe(pid) {
