@@ -1,6 +1,7 @@
 <!--SOC-SHELL part=style-->
 <style>
 
+
 :root{
   --bg:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf3; --surface-3:#dfe4ec; --border:#ccd4de; --border-soft:#e2e7ee;
   --text:#111721; --muted:#4e5867; --faint:#78838f;
@@ -784,6 +785,10 @@ td.nums{font-family:var(--mono);font-size:12px;white-space:nowrap}
 /* ===== The twelve appended blocks (§1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am)
    are cut out of CLAUDE.md by extract_code.py in the run that builds this page (CLAUDE.md §0c).
    They are never copied forward from yesterday's page. ===== */
+
+/* ===== The nineteen appended blocks (CLAUDE.md 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al,
+   5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5av) are cut out of CLAUDE.md by extract_code.py in the run
+   that builds this page (CLAUDE.md 0c). They are never copied forward from yesterday. ===== */
 @media (max-width:760px){
   header.top{position:static}
   .counts{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -1509,6 +1514,117 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 
 /* a named block the one filter did not reach */
 [data-s11m][data-s11="0"]{display:none!important}
+/* §5au — Advanced filtering: jeden pasek na zakladke, jedno menu na kolumne.
+   Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie SKRYPT 15, poza
+   jedna regula podswietlenia wiersza, ktora jest tu z powodu opisanego nizej.
+   Zmienne sa te, ktore arkusz juz deklaruje (5t). */
+details.s15bar{border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.s15bar.on{border-color:var(--accent);background:var(--accent-soft)}
+details.s15bar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+ flex-wrap:wrap;padding:10px 14px}
+details.s15bar>summary::-webkit-details-marker{display:none}
+details.s15bar>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.s15bar[open]>summary::before{content:"−"}
+.s15ttl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
+.s15scope{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--muted)}
+.s15on{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
+ border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.s15on[hidden]{display:none!important}
+.s15qrow{display:flex;gap:8px;align-items:center;margin:0 14px 9px}
+.s15qin{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s15qin::placeholder{color:var(--muted);font-weight:400}
+.s15qin:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.s15qc{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+.s15row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 14px 8px}
+.s15dim{position:relative}
+.s15btn{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer;white-space:nowrap}
+.s15btn:hover{border-color:var(--s15c,var(--accent))}
+.s15btn.on{border-color:var(--s15c,var(--accent));background:var(--surface);
+ box-shadow:inset 0 0 0 1px var(--s15c,var(--accent))}
+.s15btn .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--s15c,var(--accent))}
+.s15btn b{font-variant-numeric:tabular-nums;color:var(--s15c,var(--accent))}
+.s15car{color:var(--muted);font-size:10px}
+.s15btn:focus-visible,.s15t0:focus-visible,.s15reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s15pop{display:none;position:fixed;z-index:70;min-width:270px;max-width:340px;
+ background:var(--surface);border:1px solid var(--border);border-radius:12px;
+ box-shadow:0 10px 30px rgba(0,0,0,.28);padding:9px}
+.s15dim.open .s15pop{display:block}
+.s15q{width:100%;font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);margin:0 0 7px}
+.s15q[hidden]{display:none}
+.s15list{overflow:auto;display:flex;flex-direction:column;gap:1px}
+.s15opt{font:inherit;font-size:12.5px;display:flex;align-items:center;gap:9px;width:100%;
+ text-align:left;padding:6px 8px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer}
+.s15opt:hover{background:var(--surface-2)}
+.s15opt .s15box{width:14px;height:14px;flex:0 0 14px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface)}
+.s15opt.on .s15box{background:var(--accent);border-color:var(--accent);
+ box-shadow:inset 0 0 0 2px var(--surface)}
+.s15opt .s15name{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s15opt b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.s15none{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.s15foot{display:flex;align-items:center;gap:8px;margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--border)}
+.s15clr{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.s15pn{margin-left:auto;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.s15sep{width:1px;height:20px;background:var(--border)}
+.s15t0{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer}
+.s15t0 .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--bad)}
+.s15t0 b{font-variant-numeric:tabular-nums;color:var(--bad)}
+.s15t0.on{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.s15reset{font:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer;margin-left:auto}
+.s15sum{margin:0 14px 12px;font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){
+  .s15qrow{flex-wrap:wrap}.s15qc{max-width:100%;width:100%}
+  .s15reset{margin-left:0;width:100%;text-align:center}
+  .s15pop{max-width:calc(100vw - 24px)}
+}
+/* PODSWIETLENIE WIERSZA PRZY NAJECHANIU — cala szerokosc, nie jedna komorka.
+   Powloka pasuje wiersze parzyste RECZNIE, w `restripe()`, ktore pisze
+   `td.style.background` INLINE, bo wiersze ukryte filtrem lamia `nth-child`.
+   Styl inline bije kazda regule arkusza, wiec `tbody tr:hover td` nie mial na
+   wierszu parzystym zadnych szans — a komorki DOLOZONE pozniej przez skrypty
+   (`Found in` ze SKRYPTU 12, `What it means` z §4) inline'u nie dostaly, wiec
+   zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia 2026 na opublikowanej
+   stronie: wiersz nieparzysty caly `--accent-soft`, parzysty tylko kolumna
+   `Found in`. `!important` jest tu konieczne i jest jedynym miejscem, w ktorym
+   uzywamy go do koloru: tylko ono wygrywa ze stylem inline. */
+.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}
+/* §5av — green is the colour of a filter, on every surface of the portal.
+   An OVERRIDING block: each of these rules lives in a block whose fragments are gate
+   keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
+   are correct as they stand. This wins by source order at EQUAL specificity (5k), which
+   is why every pair is spelled out: `.filterbanner` does not beat `.filterbanner.s11`,
+   and `.filterbanner .fb-clear` does not beat `.filterbanner.s10 .fb-clear`. */
+.filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}
+.filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}
+.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}
+.filterbanner .fb-msg b,.bkbanner .bk-msg b{color:var(--ok)}
+.filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}
+.gfbar .gf-chip{border-color:var(--ok)}
+.gfbar .gf-chip b{color:var(--ok)}
+.filterbanner .fb-clear,.bkbanner .bk-clear,.gfbar .gf-reset{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner.s10 .fb-clear,.filterbanner.s11 .fb-clear{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner .fb-clear:hover,.bkbanner .bk-clear:hover,.gfbar .gf-reset:hover,
+.filterbanner.s10 .fb-clear:hover,.filterbanner.s11 .fb-clear:hover{
+ background:var(--surface);color:var(--ok)}
+.filterbanner .fb-clear:focus-visible,.bkbanner .bk-clear:focus-visible,
+.gfbar .gf-reset:focus-visible,.gfbar .gf-x:focus-visible{outline-color:var(--ok)}
+/* the red x stays red: it does not say a filter is ON, it says you can take it off */
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -4353,7 +4469,7 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 12 September 2026</b> &middot; published 06:40 Warsaw &middot; window 29 August &ndash; 12 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 32 inside 30, 1 promoted from 61&ndash;120</span></a><a class="count" href="#graph"><b>603</b> undocumented at Microsoft<span>&middot; 603 permissions, 0 roles</span></a><a class="count" href="#graph"><b>377</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>1</b> passed in the last 7 days<span>&middot; MC1462915, 2 days ago</span></a><a class="count" href="#horizon"><b>16</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>31</b> changes since 11 Sep<span>&middot; 21 new items, none left the window</span></a><a class="count chg" href="#chg14"><b>685</b> changes in 14 days<span>&middot; 6 days with a run</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 13 September 2026</b> &middot; published 06:25 Warsaw &middot; window 30 August &ndash; 13 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 33 inside 30, 1 promoted from 61&ndash;120</span></a><a class="count" href="#graph"><b>603</b> undocumented at Microsoft<span>&middot; 603 permissions, 0 roles</span></a><a class="count" href="#graph"><b>377</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>1</b> passed in the last 7 days<span>&middot; MC1462915, 3 days ago</span></a><a class="count" href="#horizon"><b>18</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>11</b> changes since 12 Sep<span>&middot; 9 newly inventoried, 1 re-tiered, 1 corrected here</span></a><a class="count chg" href="#chg14"><b>706</b> changes in 14 days<span>&middot; 7 days with a run</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -4361,7 +4477,7 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 
 ## 3a. REUSE THE UI SHELL — DO NOT REDESIGN IT
 
-In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-14 and the seventeen appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries FOURTEEN behaviour scripts in all. Order matters:
+In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-15 and the nineteen appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries FIFTEEN behaviour scripts in all: three shell scripts copied from yesterday, and SCRIPTS 4-15 cut out of CLAUDE.md by extract_code.py in the run that builds this page. Order matters:
 
 1. **Shell** — builds the tab strip from the panels, wires ARIA and arrow keys, rewrites the Top-N heading from the real card count, adds toolbars / sortable headers / `<colgroup>` sizing, paints row severity edges, applies diff marks, makes sections collapsible.
 2. **Overview and charts** — builds the Overview panel, stat tiles, single-hue charts, per-section summary chips, the header's global product filter, and the per-tab statistics strip described in 3d.
@@ -4375,7 +4491,7 @@ With no previous artifact, build to spec: IBM Plex Sans / Mono / Sans Condensed 
 
 ## 3b. TAB PANELS — every tab holds its own content
 
-A tabbed application, not one long document: each tab shows its panel, hides the rest. Eleven panels, in order:
+A tabbed application, not one long document: each tab shows its panel, hides the rest. Eleven panels, in order (this page carries all eleven):
 
 | Panel id | `data-tab` | Sections inside |
 |---|---|---|
@@ -4468,7 +4584,7 @@ glyph. It was a 12.5 px box wedged between two selects and the owner could not f
 - One idea per table cell. If a cell needs three sentences, the first sentence carries the point and the rest supports it.
 - Never repeat the same item in full across sections — the deep dive expands a Top-N item, it does not restate it.
 - A section with nothing in window gets one line saying so. Do not fill it with older material.
-- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-14 from `CLAUDE.md` — fourteen behaviour scripts, last.
+- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-15 from `CLAUDE.md` — fifteen behaviour scripts in all, last.
 
 ## 3g. THE CATALOG DETAIL PANE — panels, not a wall
 
@@ -4531,9 +4647,9 @@ catalog did not parse the table, and the run must fix the parse, not print the z
   block states in words that the tile's changes are older than the comparison.
 
 
-## 3z. SCRIPTS 4-14 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
+## 3z. SCRIPTS 4-15 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
 
-Seven behaviour scripts follow the three shell scripts: 4 aggregates (5y), 5 change-tile filter (5ad), 6 permission
+Twelve behaviour scripts follow the three shell scripts: 4 aggregates (5y), 5 change-tile filter (5ad), 6 permission
 panel (5ak), 7 role panel (5al), 8 tab top and 14-day ledger (5al), 9 catalogs open on All (5ah, 5am), 10 Community Articles tab (5an). None of
 them is copied forward from yesterday's page: on 10 Sep 2026 that sentence shipped yesterday's scripts 4, 6, 7
 and 8 under today's date. Each run cuts them out of CLAUDE.md with extract_code.py. What follows describes script 4. It is ADDITIVE: it touches nothing the three shell scripts do. It reads the
