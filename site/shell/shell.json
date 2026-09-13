@@ -1,11 +1,11 @@
 {
- "sha256": "df9decd4067aa1af6ae1f04de2f53d18d232c67e5745989b70b24862f8df0cf7",
- "bytes": 259195,
- "capturedOn": "2026-09-12",
- "capturedAt": "2026-09-12T05:18",
- "source": "artifact-5a67a1cb-1789189809-51a0.html",
+ "sha256": "1f8ec54c84474e820edc0aaf0fa7a7fb3570e5d3afca44662d6156cd2aa3a667",
+ "bytes": 267825,
+ "capturedOn": "2026-09-13",
+ "capturedAt": "2026-09-13T05:14",
+ "source": "artifact-4afe4ae8-1789273788-b31c.html",
  "styles": 1,
- "behaviourScripts": 14,
+ "behaviourScripts": 15,
  "shellScripts": 3,
  "contract": true
 }
