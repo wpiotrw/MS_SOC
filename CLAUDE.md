@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **76 pozycji** (0-33, 35-61, 63-77), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **79**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **77 pozycji** (0-33, 35-61, 63-77, 79), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **80**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -136,6 +136,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 76 | **kazdy link zrodla NAZYWA zrodlo** — `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`, nigdy goly wyraz `Source` ani sam numer MC | 4a | zero kotwic o etykiecie `Source`, `Link`, `here`, `read more` |
 | 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
 | 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; **obie tabele podsumowania TEZ sie zawezaja**, wymiar scala synonimy naglowka, a wartosc scala aliasy (§3 punkt 16 reguly 3-6); pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `function dimKey(`, `function cellTokens(`, `function colsFor(`, `function canonVal(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
+| 79 | **rejestr uzgodnien jest wypisany** — kazdy wpis §0f bez stanu `ZBUDOWANE` stoi w odpowiedzi przebiegu z nazwy, stanem i tym, czego brakuje; **pozycja INFORMACYJNA**, nie zatrzymuje zadnego przebiegu, bo blokada zamienilaby „brak uzgodnionej zakladki” na „wczorajsza strone pod wczorajsza data” (§0) | 0f | `gate.py … --doc CLAUDE.md`: blok `UZGODNIONE, JESZCZE NIEZBUDOWANE` wydrukowany; bez `--doc` albo bez sekcji §0f **`BRAK` „nie da sie odczytac rejestru”**, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -193,7 +194,9 @@ przyczyna nie jest w regulach.
 3. Zapisz ponizszy skrypt do `/tmp/mirror_artifact.py` i uruchom:
    `python3 /tmp/mirror_artifact.py <sciezka-z-kroku-2> site`
    Skrypt sam odrzuci przebieg, gdy czegos brakuje — **kod wyjscia 1 znaczy NIE PUBLIKUJ**.
-4. Uruchom bramke §0b **w trybie lustra**: `python3 /tmp/gate.py site/index.html site --mirror`.
+4. Uruchom bramke §0b **w trybie lustra**: `python3 /tmp/gate.py site/index.html site --doc CLAUDE.md --mirror`.
+   **`--doc` jest obowiazkowe takze tutaj**: bez niego pozycja 56 daje `BRAK „nie podano CLAUDE.md”`,
+   a pozycja 79 nie ma skad przeczytac rejestru §0f i takze daje `BRAK` — na kazdym luscie, co dzien.
    Kod 1 znaczy NIE PUBLIKUJ i dotyczy wylacznie klasy A (rzetelnosc tresci). Pozycje klasy B —
    funkcja interfejsu — wypisz w odpowiedzi jako `BRAK` i **publikuj mimo nich**: lustro tylko
    kopiuje, wiec zatrzymanie go zostawia wczorajsza strone pod wczorajsza data (§0, 10 wrzesnia 2026).
@@ -898,9 +901,91 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
 # jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
-CLASS_INFO = {"57"}
+CLASS_INFO = {"57", "79"}
+
+# ---- 0f: rejestr uzgodnien. Bramka sprawdza, czy zbudowano to, co ZAPISANO, i z definicji
+# nigdy nie powie, ze czegos nie zapisano — 13 wrzesnia 2026 dwie uzgodnione zakladki nie
+# powstaly, a cala lista — wtedy 79 pozycji — byla zielona, bo zadna z nich o te zakladki nie pytala.
+# Rejestr zamyka te luke od drugiej strony: czyta wpisy z sekcji 0f tego pliku i wypisuje
+# kazdy, ktory nie ma stanu ZBUDOWANE, przy KAZDYM przebiegu, zielonym czy czerwonym.
+REG_STATES = ("UZGODNIONE", "ZASPECYFIKOWANE", "CZEKA", "ZBUDOWANE")
+
+def read_register(doc):
+    """[(id, co, kiedy, stan, brakuje)] z sekcji 0f. Brak pliku albo brak sekcji zwraca None,
+    a None znaczy `nie da sie sprawdzic` — nigdy `nic nie zalega` (ta sama zasada co pusty
+    zbior w pozycjach 23 i 32)."""
+    if not doc:
+        return None
+    try:
+        src = open(doc, encoding="utf-8").read()
+    except Exception:
+        return None
+    # Kotwiczymy na POCZATKU LINII, i to nie jest ozdoba: `src.find("## 0f.")` trafialo
+    # we wlasna linijke tego kodu — plik zawiera ten napis dwa razy, raz jako naglowek
+    # sekcji i raz tutaj. To ta sama rodzina bledow co `extract_code.py`, ktory uznawal
+    # SIEBIE za `gate.py`, bo cytuje w swoim ciele napis "Bramka publikacji" (0c).
+    i = src.find("\n## 0f.")
+    if i < 0:
+        return None
+    j = src.find("\n## ", i + 8)
+    body = src[i:j if j > 0 else len(src)]
+    B = chr(96)
+    rows, seen_head = [], False
+    for line in body.split("\n"):
+        line = line.strip()
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) != 5:
+            continue
+        # Grawisy zdejmujemy TYLKO z `id` i ze `stan` — kolumny opisowe ciagna je w srodku
+        # zdania, a obustronny `strip` urywal tam pierwszy znak (`make_diff.py` bez grawisu).
+        for _k in (0, 3):
+            cells[_k] = cells[_k].strip(B).strip()
+        if cells[0].lower() == "id":
+            seen_head = True
+            continue
+        if not seen_head or set(cells[0]) <= set("-: "):
+            continue
+        if cells[3] not in REG_STATES:
+            continue
+        rows.append(tuple(cells))
+    return rows
+
+def print_register(rows):
+    """Zwraca (ok, detal) dla pozycji 79 i drukuje blok. Cisza tutaj jest tym samym bledem
+    co cisza przy BRAK, wiec drukuje sie zawsze — takze gdy nie zalega nic."""
+    if rows is None:
+        print("  [BRAK] 79  rejestr uzgodnien (0f) — nie podano CLAUDE.md albo brak sekcji 0f")
+        return False, "nie da sie odczytac rejestru"
+    print()
+    if not rows:
+        # Zero wpisow to NIE jest pusta kolejka, tylko zepsuty odczyt: sekcja 0f ma tabele
+        # rejestru zawsze. Asercja przechodzaca na pustych danych uczy, ze zielone nic nie
+        # znaczy — dokladnie ten blad, ktory ta pozycja ma usunac (0b, pozycje 23 i 32).
+        print("  [BRAK] 79  rejestr uzgodnien (0f) — sekcja jest, a tabela nie dala ani jednego")
+        print("            wpisu. To nie znaczy, ze nic nie zalega: to znaczy, ze odczyt sie zepsul.")
+        return False, "tabela rejestru pusta"
+    open_ = [r for r in rows if r[3] != "ZBUDOWANE"]
+    if not open_:
+        print("REJESTR UZGODNIEN (0f): %d wpisow, wszystkie ZBUDOWANE — nic nie zalega." % len(rows))
+        return True, ""
+    print("UZGODNIONE, JESZCZE NIEZBUDOWANE — %d z %d wpisow rejestru 0f."
+          % (len(open_), len(rows)))
+    print("   Nie blokuja publikacji, ale MUSZA znalezc sie w odpowiedzi przebiegu z nazwy:")
+    for r in open_:
+        print("   - %-16s %-15s %s" % (r[0], r[3], r[1][:96]))
+        print("     %-32s brakuje: %s" % ("uzgodnione " + r[2], r[4][:110]))
+    return True, ""
 
 def gate(path, site=None, mirror=False, doc=None):
+    # Sciezke do CLAUDE.md zapamietujemy OD RAZU, bo `doc` jest nizej PRZYKRYWANE przez
+    # `doc = (st["soc-brief-state"] or {}).get("docText")` w pozycji 68 — i pozycja 79
+    # czytala wtedy slownik zamiast sciezki, dajac `BRAK "nie podano CLAUDE.md"` mimo
+    # podanego `--doc`. Ta sama rodzina bledow co przykryta nazwa `home` w `make_diff.py`
+    # (stopka linkowala w 404) i ta sama nauka: parametr, ktory funkcja pozniej nadpisuje,
+    # przestaje byc parametrem.
+    _docpath = doc
     h=open(path,encoding="utf-8").read()
     st=blocks(h); s=Scan(); s.feed(h)
     items=(st["soc-brief-state"] or {}).get("items",[])
@@ -1619,6 +1704,10 @@ def gate(path, site=None, mirror=False, doc=None):
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
          "sec-note Sources bez wzorca przeczytane/wniesione/odrzucone")
+    # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
+    _reg_ok, _reg_detail = print_register(read_register(_docpath))
+    if not _reg_ok:
+        bad.append("79")
     print()
     if bad:
         info = [x for x in bad if x in CLASS_INFO]
@@ -2037,6 +2126,82 @@ Po jej zastosowaniu przy ODCZYCIE (plik `changelog.json` nietkniety, §5aj) bram
 
 Pozycja **73** listy §0 pilnuje punktu 4 kodem; jej asercja stoi w `gate.py` (§0b),
 a klasa A oznacza, ze blokuje **kazdy** przebieg, takze lustro — skopiowany wyciek jest nadal wyciekiem.
+
+## 0f. REJESTR UZGODNIEN — bo cisza o rzeczy UZGODNIONEJ wyglada tak samo jak jej brak
+
+13 wrzesnia 2026 wlasciciel napisal: *„both morning sched and routines generated but no new two
+additional tabs we talked about. I also do not know of all agreed items, and updated configs are in
+place. I do not see anything wrong on the artifact summary."* — i kazde z tych trzech zdan jest
+osobnym faktem, ktory da sie zmierzyc.
+
+**Zakladki `Microsoft Learn` i `Microsoft Blogs` nie powstaly, bo NIKT ICH NIGDY NIE ZAMOWIL
+w tym pliku.** Plan powstal 11 wrzesnia 2026 jako osobny dokument w katalogu roboczym, konczyl sie
+zdaniem „powiedz tak albo popraw" — i ani jedna jego linia nie zostala przeniesiona tutaj. Zmierzone
+13 wrzesnia na oddanym zestawie: **zero z pietnastu kluczy planu** (`tab-learn`, `tab-blogs`,
+`learnDocs`, `msblogs`, `storyLinks`, `SCRIPT 16`, `SCRIPT 17`, `By story`, `Product docs`,
+`Product blogs`, `learnwatch`, `blogwatch`, `no counterpart yet`, `Silent days`, `Source lists`)
+wystepuje w `CLAUDE.md` ani w zadnym z czterech promptow. Katalog roboczy nie jest zrodlem: przebieg
+klonuje repozytorium i czyta TEN plik (§0), wiec dokument, ktorego tu nie ma, nie istnieje dla
+zadnego przebiegu.
+
+**A bramka milczala, bo nie miala o co zapytac.** Pozycja 3 sprawdza, czy kazda nazwa z
+`CANON_PANELS` jest na stronie; nazwa, ktorej w tej liscie nie ma, **nie moze z niej zniknac**.
+Pozycja 26 chodzi po zakladkach, ktore pasek NIESIE. Pozycja 59 pyta o `tab-community`. Zaden
+z owczesnych 79 testow nie pytal o zakladke, ktorej §2 nie definiuje — wiec przebieg z pelna zielona lista byl
+poprawny wzgledem specyfikacji, ktora tych zakladek nie zamawia. **To nie jest awaria bramki, to
+jest granica bramki:** bramka sprawdza, czy zbudowano to, co zapisano, i nigdy nie powie, ze czegos
+nie zapisano.
+
+### Regula
+
+**Rzecz uzgodniona z wlascicielem wchodzi do tego rejestru w TYM SAMYM przebiegu, w ktorym zostala
+uzgodniona — zanim powstanie dla niej kod, sekcja albo pozycja bramki.** Wpis kosztuje jeden wiersz
+i od tej chwili **kazdy przebieg wypisuje go w odpowiedzi**, dopoki nie ma stanu `ZBUDOWANE`.
+Rejestr nie zastepuje listy §0: lista pyta „czy zbudowane jest poprawne", rejestr pyta
+„czy w ogole zamowione".
+
+Slownik stanow jest ZAMKNIETY, jak kazdy inny slownik w tym pliku:
+
+| stan | znaczy |
+|---|---|
+| `UZGODNIONE` | wlasciciel powiedzial tak, w tym pliku **nie ma jeszcze niczego** — zadnej sekcji, zadnego kodu, zadnej asercji |
+| `ZASPECYFIKOWANE` | sekcja i kod sa w tym pliku, ale zaden opublikowany artefakt tego jeszcze nie niosl |
+| `CZEKA` | przebieg nie moze ruszyc, bo czeka na decyzje albo dane od wlasciciela — powod w kolumnie `co brakuje` |
+| `ZBUDOWANE` | jest w opublikowanym artefakcie i pilnuje tego pozycja listy §0, wymieniona z numeru |
+
+**Wpis `ZBUDOWANE` usuwa sie z rejestru dopiero wtedy, gdy jego pozycja bramki istnieje i przeszla
+co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo sie zakwestionowac.
+
+### Rejestr
+
+| id | co uzgodniono | uzgodnione | stan | co brakuje |
+|---|---|---|---|---|
+| `tab-learn` | zakladka `Product docs` — zmiany stron Learn per obszar, 22 obszary gitem i 8 migawka, sekcje `learnwatch` `learnproducts` `learnplatform` `learnpages` `learnsources` | 2026-09-11 | `UZGODNIONE` | §2 nie ma tego panelu; `CANON_PANELS` nie ma tej nazwy; brak SKRYPTU 16 i bloku CSS; poz. 3, 26 i 59 nie znaja tej zakladki |
+| `tab-blogs` | zakladka `Product blogs` — 28 blogow produktowych, 27 czytelnych, piec stanow swiezosci ze slownika §5an, sekcje `blogwatch` `blogproducts` `blogplatform` `blogposts` `blogsources` | 2026-09-11 | `UZGODNIONE` | jak wyzej, plus brak SKRYPTU 17 |
+| `storyLinks` | przelacznik `By source` / `By story` — powiazanie wpisu blogowego ze strona Learn PO ADRESIE, kolumna `Lead` z wyprzedzeniem w dniach, chip `no counterpart yet` | 2026-09-11 | `UZGODNIONE` | brak SKRYPTU 18 i klucza `storyLinks` w bloku stanu |
+| `docsdiff` | sekcja strony zmian: strony dokumentacji, ktore zmienily tekst, porownywane po commicie | 2026-09-11 | `UZGODNIONE` | `make_diff.py` nie ma tej sekcji; tabela `bytab` ma dziewiec wierszy, nie jedenascie |
+| `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `UZGODNIONE` | jak wyzej |
+| `srclists` | ramka `Source lists` w Overview: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, chip `updated today`, bez sciezek i adresow | 2026-09-11 | `UZGODNIONE` | SKRYPT 13 (§5as) nie buduje tej ramki |
+| `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn, adres `learn.microsoft.com/en-us/unified-secops/overview-unified-security` | 2026-09-11 | `CZEKA` | wlasciciel mial dopisac pozycje do listy JSON po zatwierdzeniu planu; przebieg jej tam nie dopisuje sam, bo lista jest jego |
+
+### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
+
+Plan z 11 wrzesnia rezerwowal §5au, §5av i §5aw oraz skrypty 15-17. **Wszystkie trzy numery zostaly
+w miedzyczasie zajete**: §5au to Advanced filtering (SKRYPT 15), §5av to zielony kolor filtra.
+Budujac te zakladki bierze sie wiec **§5aw (SKRYPT 16, Product docs)**, **§5ax (SKRYPT 17, Product
+blogs)** i **§5ay (SKRYPT 18, powiazanie i toggle)**, a §0c dostaje trzy nowe wiersze i liczbe
+**pietnascie skryptow dodawanych** zamiast dwunastu. Zapisane tutaj, zeby nastepny przebieg nie
+odkryl kolizji dopiero przy pisaniu kodu.
+
+### Asercja — pozycja 79 listy §0
+
+`gate.py` czyta ten rejestr z `CLAUDE.md` (argument `--doc`) i **przy kazdym przebiegu, zielonym czy
+czerwonym, wypisuje kazdy wpis, ktory nie ma stanu `ZBUDOWANE`**. Pozycja jest INFORMACYJNA i nie
+zatrzymuje niczego — blokowanie publikacji briefu dlatego, ze uzgodniona zakladka jeszcze nie
+powstala, zamienilo by „dzisiejsza strona bez jednej zakladki" na „wczorajsza strona pod wczorajsza
+data", czyli dokladnie blad z 10 wrzesnia (§0). Ale **cisza jest tu zakazana**: przebieg, ktory nie
+wypisal rejestru w odpowiedzi, jest przebiegiem NIEUDANYM tak samo jak przebieg, ktory przemilczal
+`BRAK`.
 
 ## Struktura
 
@@ -15736,7 +15901,11 @@ i zaden opublikowany artefakt ich nie mial (zmierzone 12 wrzesnia 2026 na `site/
 jedenascie `.tabpanel`, `tab-overview` … `tab-community`). To jest ten sam blad co w §5ae:
 **regula opisana proza obok kodu, ktory jej nie realizuje, czyta sie jak zrobiona**. Gdy te dwie
 zakladki powstana, dopisuje sie je do §2, do `CANON_PANELS` (§0a) i do pozycji 3, 26 i 59 listy §0
-— i dopiero wtedy do tego zdania.
+— i dopiero wtedy do tego zdania. **Do tego czasu stoja w rejestrze §0f ze stanem `UZGODNIONE`**,
+wiec kazdy przebieg wypisuje je w odpowiedzi z nazwy: 13 wrzesnia 2026 obie byly uzgodnione od dwoch
+dni, zaden przebieg ich nie zbudowal i **zadna z owczesnych 79 pozycji nie miala prawa tego zauwazyc** — bo nazwa,
+ktorej nie ma w `CANON_PANELS`, nie moze z niej zniknac. Zdanie w tej sekcji bylo jedynym sladem
+i nikt go nie czytal w porze przebiegu.
 Nie montuje sie na Overview i Community Articles (wyzej), ani na Component versions (6 wierszy)
 i Roles (21 wierszy, same kolumny miar).
 
