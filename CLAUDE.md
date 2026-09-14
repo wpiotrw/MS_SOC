@@ -39,15 +39,16 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **80 pozycji** (0-33, 35-61, 63-77, 79-82), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **83**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **82 pozycje** (0-33, 35-61, 63-77, 79-84), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **85**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
    Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, wieczorem tego samego dnia
    **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**, a w nocy
    **68 (§5ar, prowenancja i diff tekstu zrodla)** oraz **69 (§5as, Start here)**, a po nich **70-72**
-   (§5at: pasek filtra w mastheadzie, liczba prowadzaca do wyniku, monospace tylko na identyfikatorze).
+   (§5at: pasek filtra w mastheadzie, liczba prowadzaca do wyniku, monospace tylko na identyfikatorze), a 14 wrzesnia **80-82** razem z zakladkami
+   Microsoft Learn i Microsoft Blogs (§5aw) oraz **83 i 84** (§5ag kontrakt markupu, §5ay przypiety pasek).
    Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
@@ -140,6 +141,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: `navrow ref` ma 7 zakladek |
 | 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu | 5aw | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
 | 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
+| 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0 |
+| 84 | **przypiety pasek szukania katalogu jest PASKIEM**: `--hdr-h` mierzone przez SKRYPT 14, a w `.cat-controls` zostaje tylko `.cat-searchrow` | 5ay, 5at, 5c | `setProperty("--hdr-h"` w SKRYPCIE 14, `.cat-controls{top:var(--hdr-h,0px)`, `ctl.parentNode.insertBefore(d, ctl)`, `row.closest(".cat-controls")` w pliku; render (§5h): pasek przypiety tuz pod naglowkiem (odstep <= 4 px), wysokosc <= 90 px, zero nachodzenia na `.cat-detail` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -161,7 +164,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -900,7 +903,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "68a","68c","69","70","71","72","74","75","76","77","80","82"}
+           "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1769,6 +1772,55 @@ def gate(path, site=None, mirror=False, doc=None):
          ("stary pasek §5au nadal na stronie" if "details.s15bar" in h
           else "brak: %s" % ", ".join(k for k in K82 if k not in h)))
 
+    # ---- 83: zakladka Component versions ma KSZTALT, nie tylko dane (§5ag) ----
+    # 14 wrzesnia 2026 pozycje 37-40 przeszly — 10 komponentow, 18 wersji, 94 punkty,
+    # `rulebox` obecny — a zakladka wyrenderowala sie jako dziesiec pelnej szerokosci
+    # wierszy, bo przebieg napisal wlasny markup: `.jgrid` zamiast `.jumpwrap`+`.jumpgrid`,
+    # zero `.rail`/`.pane`, zero `span.jt-n`, `.relbox` zamiast `.release`. Zadna z tamtych
+    # czterech pozycji nie pytala o ksztalt, bo wszystkie pytaja o DANE. Ta pyta o ksztalt.
+    _ci = h.find('id="tab-components"')
+    _cj = h.find('<div class="tabpanel"', _ci + 10) if _ci > 0 else -1
+    _cseg = h[_ci:_cj if _cj > 0 else len(h)] if _ci > 0 else ""
+    if not _cseg:
+        need("83", "ksztalt zakladki Component versions (§5ag)", False,
+             "brak panelu tab-components — nie da sie sprawdzic")
+    else:
+        _n_art  = _cseg.count('<article class="cmp')
+        _n_rail = _cseg.count('class="rail"')
+        _n_pane = _cseg.count('class="pane"')
+        _n_tile = _cseg.count('class="jtile')
+        _n_jtn  = _cseg.count('class="jt-n"')
+        # klasa wymyslona przez przebieg, ktorej nie zna zaden arkusz — DENY, bo
+        # wyliczanie dozwolonych nazw zawodzi przy pierwszej nowej (§5an, katalog odwrotny)
+        _bad = [k for k in ('class="jgrid"', 'class="relbox"', 'class="jumpgrid2"')
+                if k in _cseg]
+        _miss = [k for k in ('class="jumpwrap"', 'class="jumpgrid"', 'class="rbpanel"',
+                             'class="release', 'class="relhead"')
+                 if k not in _cseg]
+        _ok = (not _bad and not _miss and _n_art > 0
+               and _n_rail == _n_art and _n_pane == _n_art
+               and _n_tile > 0 and _n_jtn >= _n_tile)
+        need("83", "zakladka Component versions ma ksztalt z §5ag, nie tylko dane",
+             _ok,
+             ("klasy spoza bloku CSS §5ag: %s; " % ", ".join(_bad) if _bad else "") +
+             ("brak: %s; " % ", ".join(_miss) if _miss else "") +
+             ("article.cmp=%d rail=%d pane=%d jtile=%d jt-n=%d"
+              % (_n_art, _n_rail, _n_pane, _n_tile, _n_jtn)))
+
+    # ---- 84: przypiety pasek szukania katalogu jest PASKIEM (§5ay) ----
+    # Zmierzone 14 wrzesnia 2026: `--hdr-h` deklarowane 428 px przy naglowku 353 px, wiec
+    # pasek parkowal 76 px PONIZEJ naglowka, w srodku listy, i malowal po niej 153 px
+    # wlasnego tla. Bramka czyta plik, wiec pyta o pomiar i o wyprowadzenie dzieci;
+    # geometrie sprawdza Playwright (§5h) — to samo rozroznienie co przy pozycji 48.
+    K84 = ('setProperty("--hdr-h"',
+           ".cat-controls{top:var(--hdr-h,0px)",
+           'row.closest(".cat-controls")',
+           "ctl.parentNode.insertBefore(d, ctl)",
+           ".catalog .cat-split{scroll-margin-top:calc(var(--hdr-h,0px)")
+    need("84", "przypiety pasek szukania katalogu jest paskiem, a naglowek jest mierzony (§5ay)",
+         all(k in h for k in K84),
+         "brak: %s" % ", ".join(k for k in K84 if k not in h))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1952,7 +2004,7 @@ SKRYPT 15 z §5au), a blokow CSS dwadziescia. Do tego cztery KOLEKTORY (§5aw), 
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
 | SKRYPT 15 v2 — Microsoft Learn i Microsoft Blogs, **oraz pasek Advanced filtering na CALY portal** (zastepuje SKRYPT 15 z §5au) | `CLAUDE.md` | 5aw |
-| **kazdy dopisany blok CSS** (20 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5av (ostatni — nadpisuje)** |
+| **kazdy dopisany blok CSS** (22 bloki) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 
@@ -2019,8 +2071,8 @@ def main(doc, outdir):
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 20:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 20 — sprawdz wciete plotki" % len(css))
+    if len(css) < 22:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 22 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -6863,6 +6915,21 @@ Component versions zaden lisc o wiecej niz trzech slowach nie renderuje sie mono
 kafelka ma co najmniej 12,5 px poza chipem platformy i kontrast co najmniej 4,5:1 w obu motywach
 (zmierzone 7,20-17,97:1).
 
+Nowe od 14 wrzesnia 2026 wieczorem (§5ag, §5ay), obie z jednego zgloszenia wlasciciela:
+**zakladka Component versions ma KSZTALT** — `.jumpwrap` i `.jumpgrid` obecne, `a.jtile` tyle co
+komponentow i KAZDY niesie `span.jt-n`, `article.cmp` ma dokladnie dwoje dzieci i sa nimi `.rail`
+i `.pane` (`getComputedStyle(article.cmp).gridTemplateColumns` daje DWIE sciezki, a `.rail` i `.pane`
+leza obok siebie, nie jedno pod drugim), `.rbpanel` obecny, a `getComputedStyle(.jumpgrid).display`
+to `grid` — kafelek renderujacy sie na pelna szerokosc panelu znaczy, ze kontener siatki nie ma
+reguly; **przypiety pasek katalogu jest paskiem** — w `#tab-graph` i `#tab-roles`, po przewinieciu
+listy w widok, `.cat-controls` ma `position:sticky`, jego gorna krawedz lezy nie dalej niz **4 px**
+pod dolna krawedzia `header.top`, jego wysokosc nie przekracza **90 px**, jego jedynym dzieckiem jest
+`.cat-searchrow`, tlo jest nieprzezroczyste i rozne od `--bg`, a prostokat paska **nie przecina sie**
+z prostokatem `.cat-detail`; `--hdr-h` rowna sie zmierzonej wysokosci mastheadu na desktopie
+i **zeru przy 390 px**, gdzie §1a czyni naglowek statycznym. Zmierzone przed poprawka na artefakcie
+z 14 wrzesnia: `--hdr-h` 428 px przy naglowku 353 px, pasek 153 px, odstep 76 px, nachodzenie 47 px;
+po poprawce 353 / 67 / 1 / 0, a przy 390 px pasek statyczny i `scrollWidth === clientWidth`.
+
 Nowe od 14 wrzesnia 2026 (§5aw), zakladki Microsoft Learn i Microsoft Blogs: **oba panele istnieja
 i obie zakladki stoja w rzedzie `Reference`** (`navrow ref` ma siedem zakladek, `navrow daily` szesc);
 **kazda sekcja obu zakladek to `details.ntsec` ZWINIETA po zaladowaniu, z licznikiem w podpisie**;
@@ -8958,6 +9025,213 @@ Kazdy komponent to jeden `<article class="cmp">`: szyna `<div class="rail">` po 
   co §5af: sklejone punkty sa nie do przeczytania i nie do przeszukania.
 - `<details class="rest">` nigdy nie ma podpisu `N of N`.
 
+### KONTRAKT MARKUPU — 14 wrzesnia 2026, bo proza nie wystarczyla
+
+**Ta zakladka rozpadla sie 14 wrzesnia 2026 i przyczyna nie byla w danych.** Zmierzone na
+opublikowanej stronie tego dnia i na trzech poprzednich:
+
+| | 11 wrzesnia | 12 wrzesnia | 13 wrzesnia | **14 wrzesnia** |
+|---|---|---|---|---|
+| `class="rail"` | 10 | 10 | 10 | **0** |
+| `class="pane"` | 10 | 10 | 10 | **0** |
+| `span.jt-n` w kafelku | 10 | 10 | 10 | **0** |
+| `.relhead` | 21 | 21 | 21 | **0** |
+| kontener kafelkow | `.jumpwrap` + `.jumpgrid` | to samo | to samo | **`.jgrid`** — klasa, ktorej arkusz nie zna |
+| ramka wydania | `.release` | to samo | to samo | **`.relbox`** — jak wyzej |
+| panel `What this page tracks` | `.rbpanel` | to samo | to samo | **brak** |
+| dlugosc panelu | 43 096 B | 43 646 B | 43 646 B | **29 128 B** |
+
+**Dane byly komplet**: 10 komponentow, 18 wersji, 94 punkty wydawcow, `rulebox` obecny — pozycje
+37-40 listy §0 przeszly, bo pytaja o DANE. Zawiodl KSZTALT: przebieg napisal wlasny markup, bo ta
+sekcja opisywala go proza, a `a.jtile{display:flex;flex-direction:column}` w arkuszu zamienilo
+dziesiec kafelkow bez kontenera siatki w dziesiec pelnej szerokosci wierszy — dokladnie to, co
+wlasciciel zobaczyl.
+
+**To jest ta sama rodzina bledow, ktora ten plik nazwal juz trzy razy** — `.tabn` (§5ae),
+`.cmfold` (§5an), `jt-*` (§5at): klasa w markupie, ktorej nic nie stoi w arkuszu, zawodzi po cichu,
+a regula opisana proza obok kodu, ktory jej nie realizuje, czyta sie jak zrobiona. Odtad markup tej
+zakladki jest KONTRAKTEM, a nie opisem, i pilnuje go pozycja 83 listy §0.
+
+**Szkielet, ktory przebieg wypelnia danymi — nazwy klas sa wiazace co do znaku:**
+
+```html
+<div class="jumpwrap">
+  <div class="jumpgrid">
+    <a class="jtile hasdl" href="#cmp-<id>">
+      <span class="jt-p"><span class="pchip p-windows-server">Windows Server</span></span>
+      <span class="jt-n">Entra Connect Sync</span>
+      <span class="jt-v">Released 7 July 2026 <b>2.6.84.0</b></span>
+      <span class="jt-s">no-change &middot; checked 2026-09-11</span>
+    </a>
+  </div>
+  <div class="rbpanel">
+    <h3>What this page tracks</h3>
+    <div class="rbrow"><span class="rb-num n-acc">10</span><span class="rb-lab">components under watch</span></div>
+    <div class="rbrow hard"><span class="rb-num n-bad">1</span><span class="rb-lab">components with a hard cut-off date</span></div>
+  </div>
+</div>
+<div class="rulebox">…regula wyboru, wydrukowana…</div>
+
+<article class="cmp" id="cmp-<id>">
+  <div class="rail">
+    <h3>Entra Connect Sync</h3>
+    <p class="cscope">Directory synchronization service</p>
+    <div class="vbox"><span class="pchip p-windows-server">Windows Server</span>
+      <div class="vnum">2.6.84.0</div><div class="vdate">Released 7 July 2026</div></div>
+    <p class="cprov"><span class="badge b-own">vendor</span> <span class="badge b-prod">no-change</span></p>
+    <div class="cdl"><span class="badge b-dep">Hard deadline 30 Sep 2026</span><p>…</p></div>
+    <p class="ceos">…</p>
+    <p class="csrc"><a class="lnk" href="…">…</a> &middot; checked 2026-09-11</p>
+  </div>
+  <div class="pane">
+    <div class="release current">
+      <div class="relhead"><span class="relv">2.6.84.0</span><span class="reld">Released 7 July 2026</span><span class="badge b-ga">current</span></div>
+      <div class="relgroup"><h5>Added features</h5>
+        <ul><li class="relitem promoted"><span class="rcat">credentials &amp; sign-in</span>…</li></ul></div>
+      <details class="rest"><summary>Show the remaining 3 of 9</summary><ul>…</ul></details>
+    </div>
+  </div>
+</article>
+```
+
+**Trzy rzeczy sa w tym wiazace, kazda wprost z pomiaru:**
+
+1. **`article.cmp` ma DOKLADNIE DWOJE dzieci: `.rail` i `.pane`.** Arkusz deklaruje
+   `article.cmp{display:grid;grid-template-columns:270px minmax(0,1fr)}`, wiec kazde dodatkowe
+   dziecko wpada do siatki naprzemiennie do kolumny 270 px i do kolumny elastycznej. 14 wrzesnia
+   przebieg dal szescioro dzieci i wydanie rozlozylo sie na przemian w waskiej i szerokiej kolumnie.
+2. **Kafelek nie jest golym tekstem.** Cztery `<span>` — `.jt-p`, `.jt-n`, `.jt-v`, `.jt-s` — sa tym,
+   co §5ag nazywa „chipy platform, nazwe, numer wersji z etykieta, stan i date". Kafelek
+   `<a class="jtile">Nazwa</a>` spelnia pozycje 40 listy §0 i **nie spelnia tej sekcji**.
+3. **Nie wymyslasz nazwy kontenera.** `jgrid` i `relbox` nie istnialy w zadnym arkuszu tego portalu.
+   Kazda klasa uzyta tutaj ma regule w bloku ponizej; klasa spoza tego bloku jest bledem, a nie
+   wariantem.
+
+**Arkusz tej zakladki jest odtad blokiem CSS wycinanym z TEGO pliku (§0c), a nie fragmentem powloki
+przenoszonym z wczorajszej strony.** Do 14 wrzesnia zyl wylacznie dlatego, ze kazda strona kopiowala
+wczorajszy `<style>` — ta sama krucha sciezka, przez ktora zniknelo `splitTabs()` (§5ae). Blok jest
+dopisywany na koncu arkusza, wiec **wygrywa kolejnoscia** z kazda kopia niesiona przez powloke.
+
+```css
+/* ===== §5ag — component versions. KONTRAKT: kazda klasa uzyta w markupie tej
+   zakladki ma regule TUTAJ. Klasa spoza tego bloku jest bledem, nie wariantem —
+   14 wrzesnia 2026 przebieg wymyslil `.jgrid` i `.relbox`, ktorych nie zna zaden
+   arkusz, i dziesiec kafelkow wyrenderowalo sie jako dziesiec pelnej szerokosci
+   wierszy (§5ae, §5an, §5at — ta sama rodzina bledow po raz czwarty). ===== */
+.jumpwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;margin:0 0 22px;align-items:start}
+.jumpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
+a.jtile{display:flex;flex-direction:column;gap:4px;padding:11px 13px;border:1px solid var(--border);
+ border-left:3px solid var(--info);border-radius:7px;background:var(--surface);color:inherit;text-decoration:none}
+a.jtile:hover{background:var(--surface-2);text-decoration:none;border-left-color:var(--accent)}
+a.jtile[aria-current="true"]{background:var(--accent-soft);border-color:var(--accent)}
+a.jtile.hasdl{border-left-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad-soft)}
+.jt-p{display:flex;gap:4px;flex-wrap:wrap}
+.jt-n{font-size:13.5px;font-weight:650;line-height:1.25}
+.jt-v{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+.jt-v b{color:var(--text)}
+.jt-s{font-size:10.5px;color:var(--faint);font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em}
+.jtile .jt-k{font-weight:700;color:var(--text);margin-right:4px}
+.jtile .jt-v del{font-size:.92em}
+.rbpanel{border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:13px 15px}
+.rbpanel h3{margin:0 0 10px;font-size:12px;font-family:var(--cond);text-transform:uppercase;
+ letter-spacing:.09em;color:var(--muted);background:none;border:none;padding:0}
+.rbrow{display:flex;gap:11px;align-items:baseline;padding:6px 8px;border-radius:5px}
+.rbrow.hard{background:var(--bad-soft);box-shadow:inset 3px 0 0 var(--bad)}
+.rb-num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;min-width:46px;text-align:right;flex:0 0 auto}
+.n-acc{color:var(--accent)}.n-info{color:var(--info)}.n-cond{color:var(--grey)}
+.n-ok{color:var(--ok)}.n-bad{color:var(--bad)}.n-warn{color:var(--warn)}.n-grey{color:var(--faint)}
+.rb-lab{font-size:12px;color:var(--muted);line-height:1.45}
+.rulebox{border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;
+ background:var(--accent-soft);padding:13px 16px;margin:0 0 20px}
+.rulebox h4{margin:0 0 7px;font-size:13.5px;font-weight:650}
+.rulebox p{margin:0 0 7px;font-size:13px;color:var(--text)}
+.rulebox ul{margin:0;padding-left:20px}
+.rulebox li{font-size:12.5px}
+.rb-src{margin:8px 0 0!important;font-size:12px}
+article.cmp{display:grid;grid-template-columns:270px minmax(0,1fr);gap:0;border:1px solid var(--border);
+ border-radius:8px;overflow:hidden;background:var(--surface);margin:0 0 14px;scroll-margin-top:170px}
+article.cmp .rail{padding:15px 16px;background:var(--surface-2);border-right:1px solid var(--border)}
+article.cmp .pane{padding:15px 18px;min-width:0}
+article.cmp .rail h3{margin:0 0 3px;font-size:15px;font-weight:650;background:none;border:none;padding:0}
+.cscope{margin:0 0 10px;font-size:11.5px;color:var(--faint)}
+.vbox{border:1px solid var(--border);border-radius:7px;background:var(--surface);padding:8px 10px;margin:0 0 7px}
+.vnum{font-family:var(--mono);font-size:15px;font-weight:600;word-break:break-all;margin-top:4px}
+.vdate{font-size:11px;color:var(--muted);margin-top:2px}
+.vbox .vstream{display:inline-block;margin-left:7px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text)}
+.vbox .vprev,.vbox .vid{margin-top:4px;font-size:11.5px;color:var(--muted);overflow-wrap:anywhere}
+.vbox .vid code{font-size:11px}
+.pchip{display:inline-block;font-family:var(--cond);font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.05em;padding:1px 7px;border-radius:3px}
+/* chipy platform sa slownikiem ZAMKNIETYM, wiec dostaja wlasne tokeny zamiast literalow:
+   kolor zdefiniowany tylko dla jednego motywu to klasyczny blad nieczytelnego artefaktu */
+:root{
+ --pf-win-bg:#dbeafe; --pf-win-fg:#1b3f86;
+ --pf-wsv-bg:#e0e7ff; --pf-wsv-fg:#31307e;
+ --pf-mac-bg:#e4e7ec; --pf-mac-fg:#33404f;
+ --pf-ios-bg:#fde3e0; --pf-ios-fg:#8d2420;
+ --pf-ipd-bg:#fdeacf; --pf-ipd-fg:#8a3d13;
+ --pf-and-bg:#d9f2e0; --pf-and-fg:#17603a;
+ --pf-crs-bg:#efe3fb; --pf-crs-fg:#63258c;
+ --pf-apl-bg:#e8edf3; --pf-apl-fg:#22303f;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --pf-win-bg:#16294a; --pf-win-fg:#9dc2ff;
+ --pf-wsv-bg:#1d2050; --pf-wsv-fg:#b0b3ff;
+ --pf-mac-bg:#242b34; --pf-mac-fg:#c3cdd8;
+ --pf-ios-bg:#40191a; --pf-ios-fg:#f5a49e;
+ --pf-ipd-bg:#3a2410; --pf-ipd-fg:#f0b378;
+ --pf-and-bg:#123322; --pf-and-fg:#7fdca6;
+ --pf-crs-bg:#2b1a3d; --pf-crs-fg:#cea6ec;
+ --pf-apl-bg:#1d242c; --pf-apl-fg:#c8d3de;
+}}
+:root[data-theme="dark"]{
+ --pf-win-bg:#16294a; --pf-win-fg:#9dc2ff;
+ --pf-wsv-bg:#1d2050; --pf-wsv-fg:#b0b3ff;
+ --pf-mac-bg:#242b34; --pf-mac-fg:#c3cdd8;
+ --pf-ios-bg:#40191a; --pf-ios-fg:#f5a49e;
+ --pf-ipd-bg:#3a2410; --pf-ipd-fg:#f0b378;
+ --pf-and-bg:#123322; --pf-and-fg:#7fdca6;
+ --pf-crs-bg:#2b1a3d; --pf-crs-fg:#cea6ec;
+ --pf-apl-bg:#1d242c; --pf-apl-fg:#c8d3de;
+}
+.p-windows{background:var(--pf-win-bg);color:var(--pf-win-fg)}
+.p-windows-server{background:var(--pf-wsv-bg);color:var(--pf-wsv-fg)}
+.p-macos{background:var(--pf-mac-bg);color:var(--pf-mac-fg)}
+.p-ios{background:var(--pf-ios-bg);color:var(--pf-ios-fg)}
+.p-ipados{background:var(--pf-ipd-bg);color:var(--pf-ipd-fg)}
+.p-android{background:var(--pf-and-bg);color:var(--pf-and-fg)}
+.p-cross{background:var(--pf-crs-bg);color:var(--pf-crs-fg)}
+.p-apple{background:var(--pf-apl-bg);color:var(--pf-apl-fg)}
+.cdl{margin:10px 0;padding:9px 11px;border-radius:5px;background:var(--bad-soft);border-left:3px solid var(--bad)}
+.cdl p{margin:5px 0 0;font-size:12px;color:var(--text)}
+.cprov{margin:9px 0;display:flex;gap:5px;flex-wrap:wrap}
+.ceos,.csrc,.cnote{font-size:11.5px;color:var(--muted);line-height:1.55}
+.cnote{background:var(--surface-2);border-left:3px solid var(--warn);padding:9px 12px;border-radius:0 5px 5px 0;margin:0 0 14px}
+.release{border:1px solid var(--border-soft);border-radius:7px;padding:11px 13px;margin:0 0 11px;background:var(--surface)}
+.release.current{border-color:var(--ok);background:var(--surface)}
+.relhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding-bottom:7px;
+ border-bottom:1px solid var(--border-soft);margin-bottom:9px}
+.relv{font-family:var(--mono);font-size:13.5px;font-weight:600}
+.reld{font-size:11.5px;color:var(--muted)}
+.relgroup{margin:0 0 11px}
+.relgroup h5{margin:0 0 4px;font-size:11.5px;font-family:var(--cond);text-transform:uppercase;
+ letter-spacing:.08em;color:var(--muted);font-weight:700}
+li.relitem{font-size:13px;color:var(--text);margin:4px 0}
+li.relitem.promoted{color:var(--text)}
+.rcat{display:inline-block;font-family:var(--cond);font-size:10px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.05em;padding:0 6px;border-radius:3px;background:var(--accent-soft);color:var(--accent);margin-right:5px}
+details.rest{margin:5px 0 0;border:1px dashed var(--border);border-radius:5px;background:var(--surface-2)}
+details.rest>summary{cursor:pointer;padding:6px 11px;font-size:12px;color:var(--muted);font-weight:600}
+details.rest ul{padding:0 11px 9px 30px}
+.grpnote{font-size:11.5px;color:var(--faint);margin:5px 0 0;font-style:normal}
+.tw-n{font-family:var(--cond);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-left:8px}
+@media (max-width:900px){
+ .jumpwrap{grid-template-columns:minmax(0,1fr)}
+ article.cmp{grid-template-columns:minmax(0,1fr)}
+ article.cmp .rail{border-right:0;border-bottom:1px solid var(--border)}
+}
+```
+
 ### Nawigacja i panel liczb — kontrakt, nie ozdoba
 
 Wlasciciel zglosil 6 wrzesnia 2026, ze do kazdego komponentu trzeba przewijac cala strone recznie.
@@ -10023,7 +10297,14 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       });
       tips.appendChild(b);
     });
-    if (row.parentNode) row.parentNode.insertBefore(tips, row);
+    /* §5ay: the examples row is NOT pinned. `.cat-controls` is the sticky strip, so
+       whatever stays inside it is chrome the reader carries down 1 221 rows; measured
+       14 September 2026 the strip had grown to 153px of a 1000px viewport. Examples are
+       clicked once, at the start, so they go OUT — a sibling immediately before the strip,
+       in the same place in the document, scrolling normally. */
+    var ccx = row.closest ? row.closest(".cat-controls") : null;
+    if (ccx && ccx.parentNode) ccx.parentNode.insertBefore(tips, ccx);
+    else if (row.parentNode) row.parentNode.insertBefore(tips, row);
 
     var list = cat.querySelector(".cat-list"), applying = false;
     function apply() {
@@ -11213,7 +11494,14 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
         });
         tips.appendChild(b);
       });
-    if (row.parentNode) row.parentNode.insertBefore(tips, row);
+    /* §5ay: the examples row is NOT pinned. `.cat-controls` is the sticky strip, so
+       whatever stays inside it is chrome the reader carries down 1 221 rows; measured
+       14 September 2026 the strip had grown to 153px of a 1000px viewport. Examples are
+       clicked once, at the start, so they go OUT — a sibling immediately before the strip,
+       in the same place in the document, scrolling normally. */
+    var ccx = row.closest ? row.closest(".cat-controls") : null;
+    if (ccx && ccx.parentNode) ccx.parentNode.insertBefore(tips, ccx);
+    else if (row.parentNode) row.parentNode.insertBefore(tips, row);
 
     function resolve(v) {
       var s = (v || "").trim();
@@ -11950,7 +12238,11 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
       sm.appendChild(el("span", "sm-t", "More filters"));
       sm.appendChild(el("span", "sm-r", "Microsoft changes · catalog notes · time window · API and entity"));
       d.appendChild(sm);
-      bar.parentNode.insertBefore(d, bar.nextSibling);
+      /* §5ay: `More filters` is secondary by construction — that is why it was folded —
+         so it does not travel inside the pinned strip either. Out it goes, as a sibling
+         immediately before `.cat-controls`, which leaves the strip at the search row alone. */
+      if (ctl.parentNode) ctl.parentNode.insertBefore(d, ctl);
+      else bar.parentNode.insertBefore(d, bar.nextSibling);
       d.appendChild(bar);
       var inp = cat.querySelector("input.cat-search");
       if (inp) inp.placeholder = cat.getAttribute("data-catalog") === "roles"
@@ -16076,6 +16368,11 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
     var off = (hd && getComputedStyle(hd).position === "sticky")
       ? Math.round(hd.getBoundingClientRect().height) : 0;
     document.documentElement.style.setProperty("--gfbar-top", off + "px");
+    /* §5ay: the catalog's pinned strip parks at `--hdr-h`, and until 14 September 2026
+       that was a CONSTANT in the shell sheet — 428px against a masthead that really
+       measures 353. The strip hung 76px below the header, in the middle of the list,
+       painting over it. One measurement, one writer: the same `off` publishes both. */
+    document.documentElement.style.setProperty("--hdr-h", off + "px");
   }
   window.addEventListener("resize", function () { measure(); });
 
@@ -18621,6 +18918,103 @@ Render (§5h) sprawdza to, czego bramka z pliku nie zobaczy: ze obie zakladki ma
 `details.ntsec` zwiniete domyslnie z licznikiem w podpisie, ze pasek jest `DETAILS` ze znacznikiem
 `+` na KAZDEJ zakladce, ktora go niesie, i ze wybor wartosci w menu zmienia licznik `N of M`
 oraz zapala jedna linie w mastheadzie.
+
+## 5ay. PRZYPIETY PASEK SZUKANIA JEST PASKIEM, NIE PANELEM — i mierzy naglowek, nie zgaduje go
+
+Wlasciciel zglosil 14 wrzesnia 2026, pokazujac zakladki Roles i Graph API: *„jak tylko przewine do
+listy rol albo listy graph api to pole search caly czas jest »blokowane« na ekranie, jak przewijam
+to nachodzi na sekcje"*.
+
+**Mial racje i sa to DWA bledy, oba mierzalne, oba z rodziny „liczba zapisana na sztywno ma date
+waznosci" (§0a).** Zmierzone tego dnia na opublikowanym artefakcie, render 1500x1000, zakladka
+Roles po przewinieciu do listy:
+
+| co | zmierzone | co powinno byc |
+|---|---|---|
+| `--hdr-h` zadeklarowane w `:root` | **428 px** | — |
+| rzeczywista wysokosc `header.top` | **353 px** | — |
+| `.cat-controls` przypiete na | `top: 428 px` | tuz pod naglowkiem, czyli **353 px** |
+| odstep miedzy dolem naglowka a paskiem | **76 px** — pasek wisi w powietrzu NAD trescia | 0 |
+| wysokosc przypietego bloku | **153 px** (`.s7tips` 28 + `.cat-searchrow` 47 + `details.morefilters` 40 + odstepy) | ~67 px |
+| naglowek + pasek | **506 px z 1000 px okna** | ~420 px |
+| nachodzenie paska na `.cat-detail` | **47 px**, a caly blok malowal `--bg` po liscie i po panelu od 428 do 581 | 0 |
+
+**Blad pierwszy: `--hdr-h:112px` w arkuszu powloki jest stala, ktora sie przeterminowala.**
+Naglowek mial 112 px, gdy ta zmienna powstala; dzis wozi osiem pigulek i DWA rzedy trzynastu
+zakladek (§5ae wariant B) i ma 353 px. Przebieg podbijal te stala recznie — stad 428, liczba
+prawdziwa w jakims dniu i nieprawdziwa dzis. **Ten plik rozwiazal ten sam problem juz dwa razy**:
+`--chdr-h` w §5ao i `--gfbar-top` w §5at sa MIERZONE w przegladarce, a nie zapisane. Pasek katalogu
+jako jedyny nigdy tego nie dostal.
+
+**Blad drugi: przypiety pasek urosl w panel.** `.cat-controls` mial byc „szukajka i filtry w jednym
+przypietym pasku tuz nad lista" (§5c). Potem SKRYPT 6 i SKRYPT 7 wlozyly do niego rzad klikalnych
+przykladow (§5ak, §5al), a SKRYPT 8 zwinieta ramke `More filters` (§5al) — kazde z osobna sluszne,
+razem 153 px chromu przyklejonego na stale nad kazda lista. **Przypiete zostaje to, czego czytelnik
+potrzebuje, PRZEWIJAJAC 1 221 wierszy: pole szukania i licznik.** Przyklady klika sie raz, na
+poczatku; `More filters` jest z definicji drugorzedny — po to zostal zwiniety.
+
+### Regula
+
+1. **`--hdr-h` jest MIERZONE, nie zapisane.** Publikuje je SKRYPT 14 (§5at), ta sama funkcja
+   `measure()`, ktora liczy juz `--gfbar-top`: jeden pomiar, jeden pisarz. Gdy §1a czyni naglowek
+   statycznym na telefonie, `--hdr-h` wynosi **0** — tak samo jak `--gfbar-top`.
+   Przy okazji naprawia to `section{scroll-margin-top:var(--hdr-h)}`: kotwice przestaja przestrzeliwac
+   o 75 px.
+2. **W przypietym pasku zostaje TYLKO `.cat-searchrow`.** Rzad przykladow (`.s7tips`) i `details.morefilters`
+   przenosza sie na zewnatrz `.cat-controls`, jako rodzenstwo TUZ PRZED nim — zostaja w tym samym
+   miejscu dokumentu i przewijaja sie normalnie. Robia to skrypty, ktore je tworza: SKRYPT 6, SKRYPT 7
+   i SKRYPT 8. Nikt nie edytuje trzech skryptow powloki.
+3. **Pasek wyglada jak chrom, nie jak karta lezaca na tresci**: nieprzezroczyste `--surface`, ramka,
+   promien i cien. Blok o tle `--bg` bez cienia, zawieszony 76 px pod naglowkiem, czyta sie jako
+   element tresci, ktory nachodzi na inne — i dokladnie tak zostal zglоszony.
+4. **`position` zostaje po staremu**: `sticky` z powloki na desktopie, `static` z §1a na telefonie.
+   Ten blok go nie dotyka, wiec §1a nadal wygrywa ponizej 760 px; zdejmuje tam tylko ramke i cien.
+
+### Pulapka, ktora ta poprawka minela, i dlatego jest tu zapisana
+
+Pierwsza wersja robila to inaczej: zostawiala `.cat-controls` statycznym, a przyklejala samo
+`.cat-searchrow` w jego srodku. **Zmierzone — pasek odjezdzal po 86 px.** Element przyklejony jedzie
+wylacznie w obrebie swojego bloku zawierajacego, a `.cat-controls` ma 153 px; przy `scrollY` 4 000
+`.cat-searchrow` mial `top: -2 220`. To jest DOKLADNIE ta sama pulapka, ktora §5ao opisuje przy
+bannerze zakladki Community („wspolne pudelko z paskiem skrotow trzymaloby go przez 90 px i ani
+piksela dalej"). Przyklejony musi byc element, ktorego rodzicem jest `.catalog` — czyli sam
+`.cat-controls` — a jego wysokosc zmniejsza sie przez WYPROWADZENIE dzieci, nie przez CSS.
+
+### Zmierzone po poprawce
+
+Ten sam artefakt, te same dwie zakladki, render 1500x1000, 1280x900 i 390x844, po wstrzyknieciu
+bloku i poprawek skryptow (§5al, regula podgladu przez wstrzykniecie):
+
+| | przed | po |
+|---|---|---|
+| `--hdr-h` | 428 px (zapisane) | **353 px (zmierzone)**, 0 px przy 390 |
+| odstep naglowek → pasek, przypiety | 76 px | **1 px** |
+| wysokosc przypietego paska | 153 px | **67 px** |
+| dzieci `.cat-controls` | `s7tips`, `cat-searchrow`, `morefilters` | **`cat-searchrow`** |
+| nachodzenie na `.cat-detail` | 47 px | **0** |
+| tlo paska | `--bg` (to samo co strona) | **`--surface`** z ramka i cieniem |
+| bledy strony, `scrollWidth === clientWidth` | 0 / OK | **0 / OK** przy 1500, 1280 i 390 |
+
+Pozycja **84** listy §0 pilnuje tego kodem, a §5h w renderze.
+
+```css
+/* §5ay — the pinned catalog strip is a STRIP, not a panel, and it parks at the
+   MEASURED height of the masthead rather than at a constant that expired.
+   `--hdr-h` is published by SCRIPT 14 (§5at) — the same measure() that already
+   publishes `--gfbar-top`, so there is one writer for one measurement. The
+   fallback 0px matters: a run whose SCRIPT 14 did not boot gets a strip flush
+   with the top of the viewport, never a strip parked 428px down the page. */
+.cat-controls{top:var(--hdr-h,0px);z-index:31;background:var(--surface);
+ border:1px solid var(--border);border-radius:9px;padding:9px 12px;margin:0 0 12px;
+ box-shadow:0 3px 12px rgba(0,0,0,.16)}
+.cat-controls .cat-searchrow{margin:0}
+.cat-controls .s7tips,.cat-controls details.morefilters{margin-left:0;margin-right:0}
+.catalog .cat-split{scroll-margin-top:calc(var(--hdr-h,0px) + 84px)}
+@media (max-width:760px){
+ /* §1a already makes it static below 760px; here it only stops looking like chrome */
+ .cat-controls{box-shadow:none;border:0;padding:0;background:none;margin:0 0 10px}
+}
+```
 
 ## 5av. ZIELONY JEST KOLOREM FILTRA — na kazdej powierzchni portalu
 
