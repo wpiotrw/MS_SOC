@@ -141,7 +141,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: `navrow ref` ma 7 zakladek |
 | 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu | 5aw | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
 | 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
-| 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0 |
+| 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0; kazdy `pchip p-…` ze slownika osmiu platform (pozycja 37 czyta STAN, wiec chipa wymyslonego nie widzi) |
 | 84 | **przypiety pasek szukania katalogu jest PASKIEM**: `--hdr-h` mierzone przez SKRYPT 14, a w `.cat-controls` zostaje tylko `.cat-searchrow` | 5ay, 5at, 5c | `setProperty("--hdr-h"` w SKRYPCIE 14, `.cat-controls{top:var(--hdr-h,0px)`, `ctl.parentNode.insertBefore(d, ctl)`, `row.closest(".cat-controls")` w pliku; render (§5h): pasek przypiety tuz pod naglowkiem (odstep <= 4 px), wysokosc <= 90 px, zero nachodzenia na `.cat-detail` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -1797,12 +1797,22 @@ def gate(path, site=None, mirror=False, doc=None):
         _miss = [k for k in ('class="jumpwrap"', 'class="jumpgrid"', 'class="rbpanel"',
                              'class="release', 'class="relhead"')
                  if k not in _cseg]
-        _ok = (not _bad and not _miss and _n_art > 0
+        # Chip platformy tez jest KSZTALTEM, a nie danymi, i pozycja 37 go nie widzi:
+        # ona czyta `versions[].platform` z bloku stanu, wiec stan moze byc poprawny,
+        # a chip wymyslony. Zmierzone 14 wrzesnia 2026: `p-crit` przy poprawnym
+        # `platform:"windows-server"` — klasa, ktorej nie zna zaden arkusz, wiec chip
+        # wyrenderowal sie bez tla, a pozycja 37 byla zielona.
+        _PCHIP = ("p-windows", "p-windows-server", "p-macos", "p-ios", "p-ipados",
+                  "p-android", "p-cross", "p-apple")
+        _badchip = sorted({m for m in re.findall(r'pchip\s+(p-[a-z0-9-]+)', _cseg)
+                           if m not in _PCHIP})
+        _ok = (not _bad and not _miss and not _badchip and _n_art > 0
                and _n_rail == _n_art and _n_pane == _n_art
                and _n_tile > 0 and _n_jtn >= _n_tile)
         need("83", "zakladka Component versions ma ksztalt z §5ag, nie tylko dane",
              _ok,
              ("klasy spoza bloku CSS §5ag: %s; " % ", ".join(_bad) if _bad else "") +
+             ("chipy platform spoza slownika: %s; " % ", ".join(_badchip) if _badchip else "") +
              ("brak: %s; " % ", ".join(_miss) if _miss else "") +
              ("article.cmp=%d rail=%d pane=%d jtile=%d jt-n=%d"
               % (_n_art, _n_rail, _n_pane, _n_tile, _n_jtn)))
@@ -9046,6 +9056,23 @@ opublikowanej stronie tego dnia i na trzech poprzednich:
 sekcja opisywala go proza, a `a.jtile{display:flex;flex-direction:column}` w arkuszu zamienilo
 dziesiec kafelkow bez kontenera siatki w dziesiec pelnej szerokosci wierszy — dokladnie to, co
 wlasciciel zobaczyl.
+
+**A SPUST POCIAGNAL TEN PLIK, nie zaniedbanie przebiegu — i to jest cala nauka z tego dnia.**
+Pierwsza wersja tej sekcji sugerowala, ze zepsuty markup byl starszy niz zmiana §5aw. Byl mlodszy
+o jeden przebieg i wlasciciel to sprostowal. Widac to w LITEROWANIU SEKCJI: strona z 13 wrzesnia
+niesie czysty ciag `A` … `T`, a strona z 14 wrzesnia `K, O, P, Q, L, M, N, R, S` — przebieg
+**przeplanowal caly dokument** pod dwie dodatkowe zakladki, ktore §5aw kazalo mu zbudowac.
+Przeplanowanie znaczy przepisanie KAZDEJ sekcji od nowa, z prozy, a nie przepisanie wczorajszego
+ksztaltu. Sekcja opisana proza wyszla wtedy z wymyslonymi klasami `.jgrid`, `.relbox`, `.callout`,
+`.permname` i chipem platformy `p-crit` spoza zamknietego slownika — a dwie nowe zakladki w tym
+samym przebiegu **i tak nie powstaly**, wiec strona stracila dzialajaca zakladke i nie zyskala nic.
+
+**Regula, ktora z tego wynika i obowiazuje poza ta zakladka: zmiana specyfikacji, ktora kaze
+przebiegowi PRZEPLANOWAC strone — nowa zakladka, nowa sekcja, przenumerowanie — wystawia na ryzyko
+KAZDA sekcje, ktorej ksztalt stoi w tym pliku wylacznie proza.** Ksztalt przenoszony z wczorajszej
+strony przezywa dzien po dniu tylko dopoty, dopoki przebieg nie ma powodu zaczac od nowa. Dopisujac
+zakladke, przejrzyj sekcje bez kontraktu markupu i bez pozycji listy §0 pytajacej o KSZTALT —
+to one wypadaja pierwsze, a bramka ich nie zlapie, bo kazda dotychczasowa asercja pyta o DANE.
 
 **To jest ta sama rodzina bledow, ktora ten plik nazwal juz trzy razy** — `.tabn` (§5ae),
 `.cmfold` (§5an), `jt-*` (§5at): klasa w markupie, ktorej nic nie stoi w arkuszu, zawodzi po cichu,
