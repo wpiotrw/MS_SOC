@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **77 pozycji** (0-33, 35-61, 63-77, 79), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **80**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **80 pozycji** (0-33, 35-61, 63-77, 79-82), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **83**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -59,7 +59,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
 | 1 | siedem pigulek na stronie porannej, **osiem po passie popoludniowym** (ta dodatkowa to `since the morning pass`, §4d taska popoludniowego); pierwsze trzy zawsze: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci; licznik 7 albo 8, nigdy mniej |
 | 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
-| 3 | **kazdy panel z listy §2 jest na stronie, po swoim `id`** — dzis jedenascie (`tab-components` doszedl 6 wrzesnia 2026 §5ag, `tab-community` 10 wrzesnia §5an). **Sprawdza sie NAZWY, nie liczbe**: brak panelu z listy jest znaleziskiem, panel SPOZA niej jest nowa zakladka i nie jest bledem | 2, 5ag, 5an, 0a | `CANON_PANELS` w `mirror_artifact.py`: kazdy `id` obecny (brak = `BRAK`, klasa B); paneli >= progu 8, inaczej ekstrakcja jest zepsuta i lustro NIE publikuje |
+| 3 | **kazdy panel z listy §2 jest na stronie, po swoim `id`** — dzis trzynascie (`tab-components` doszedl 6 wrzesnia 2026 §5ag, `tab-community` 10 wrzesnia §5an, `tab-learn` i `tab-blogs` 14 wrzesnia §5aw). **Sprawdza sie NAZWY, nie liczbe**: brak panelu z listy jest znaleziskiem, panel SPOZA niej jest nowa zakladka i nie jest bledem | 2, 5ag, 5an, 5aw, 0a | `CANON_PANELS` w `mirror_artifact.py`: kazdy `id` obecny (brak = `BRAK`, klasa B); paneli >= progu 8, inaczej ekstrakcja jest zepsuta i lustro NIE publikuje |
 | 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
 | 5 | `KIND_BADGE` + `.badge.b-undoc` + `.badge.b-elsewhere` | 5e | wszystkie trzy obecne w pliku |
 | 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
@@ -83,7 +83,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
-| 26 | zadna zakladka — przejdz je WSZYSTKIE, ile ich jest w pasku — nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
+| 26 | zadna zakladka — przejdz je WSZYSTKIE, ile ich jest w pasku, dzis trzynascie — nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae, 5aw | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
 | 27 | skrypty 4 I 5 obecne; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu Month / Week / Day; kafelki `What changed` filtruja liste katalogu | 5y, 5ad | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3; tabela `cc-table` ma kolumne `Change` |
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
@@ -97,7 +97,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
 | 39 | **reguła wyboru jest opublikowana i stosowana**: `div.rulebox` na stronie, kazdy wypromowany punkt niesie etykiete `.rcat`, odsetek wypromowanych w 30-70% | 5ag | `.rulebox` obecny; `li.promoted` bez `.rcat` = 0; `promoted/total` w pasmie |
 | 40 | **kafelki nawigacji**: kazdy `a.jtile` wskazuje istniejacy `article.cmp[id]`, kafelkow tyle co komponentow, panel `What this page tracks` podaje liczby zgodne ze stanem | 5ag | zero kotwic bez sekcji; `a.jtile` = liczba `components`; liczba w panelu = policzona ze stanu |
-| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z DZIEWIECIOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), `srctext` (§5ar), rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13), **kazdy kafelek-link prowadzacy tam, gdzie jego liczba jest widoczna jako TA SAMA liczba** (§3 punkt 13a) i **kazda sekcja zwinieta domyslnie** (§3 punkt 14) | 3, 3a, 5ar | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
+| 34 | **tylko przebieg ZMIAN**: strona zmian jest LICZONA przez `make_diff.py`, nie odbijana — bez zakladek, bez katalogu, bez blokow JSON, ponizej 900 kB; **sekcja `bytab` z JEDENASTOMA wierszami i jedna tabela na zakladke w Added / Removed / Changed**, plus sekcje `bytech`, `deadlines`, `components` (§5ag), `endpoints` (§5ah), `community` i `mcenter` (§5an), `srctext` (§5ar), **`docsdiff` i `blogsdiff` (§5aw)**, rejestr dopisany przez `--ledger` (§5aj), **kazdy podpis tabeli z czasownikiem sekcji i kazda niezerowa liczba jako link** (§3 punkt 13), **kazdy kafelek-link prowadzacy tam, gdzie jego liczba jest widoczna jako TA SAMA liczba** (§3 punkt 13a) i **kazda sekcja zwinieta domyslnie** (§3 punkt 14) | 3, 3a, 5ar | `verify()` w `make_diff.py` konczy sie bez bledu; rozmiar pliku w dziesiatkach kB, nie w megabajtach |
 | 41 | **`graphMap` w bloku `soc-brief-state`**: `commit`, `readOn`, slownik sciezek `p`, tablica metod `m`; blokow JSON na stronie nadal DWA | 5ah | `graphMap` obecne z czterema polami; `<script type="application/json">` = 2 |
 | 42 | **nic nie obciete z mapy endpointow**: suma par po dekodowaniu `eps` rowna sie liczbie par metoda-sciezka w pliku Microsoftu | 5ah | roznica zerowa (zmierzone 24 099 przy klonie `ec959bb`) |
 | 43 | `privilegeLevel` i `requiresAdminConsent` na kazdym schemacie, ktory ma je w pliku; chip zgody CZERWONY przy `required`, ZIELONY przy `not required` | 5ah | zero schematow bez `l`/`c`; oba kolory obecne i rozne |
@@ -115,7 +115,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 | 56 | **skrypty 4-15 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 15` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
-| 58 | **SKRYPT 4 niesie `splitTabs()`** — piec zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie jedenascie w pierwszym (§5ae wariant B) | 5y, 5ae | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components` i `tab-community` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 5, zadna nie ma zera |
+| 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie trzynascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 7, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
 | 60 | **kazde zrodlo z `community_sources.json` ma wpis w `community.sources`**, kazde nieprzeczytane ma niepusty `note`, kazdy artykul ma `link` i `firstTracked` | 5an | licznik `sources` = liczba pozycji w liscie przeczytanej w tym przebiegu; zero wpisow `failed` bez `note`; zero artykulow bez `link` |
 | 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow, **jedno pole szukania na tabele i czytelne zaznaczenie tekstu** | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable`, `hideShellBars`, `[data-s10hidden="1"]{display:none!important}`, `::selection{background:var(--accent-soft)`, `#tab-community .panelhead figure.chart{display:none}`, `#tab-community .charts figure.chart svg` w pliku — **kazdy klucz pelna regula, nie fragmentem**, bo `.panelhead figure.chart` samo stoi takze w arkuszu powloki; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca, kazda z czterech tabel ma DOKLADNIE jedno pole szukania |
@@ -131,12 +131,15 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 71 | **kazda liczba nawigacyjna NAZYWA swoje wiersze albo CZYSCI filtr zakladki docelowej, a skok idzie do pierwszej tabeli z trafieniami** — tabela bez `data-id` zawezana po identyfikatorze w tresci, blok prozy po `data-s11m`, tabela bez trafien zostaje CALA | 5at | `function rowInSpec(`, `function applyBlocks(`, `function land(`, `function firstHit(`, `data-s11m`, `[data-s11m][data-s11="0"]{display:none!important}`, `s11.clearTab(panelId)`, `window.__socSetCat`, `window.__socSetWin` w pliku; render (§5h): klik liczby zostawia czytelnika PRZY zawezonej tabeli, a baner nazywa te liczbe, nie poprzednia |
 | 72 | **monospace tylko na IDENTYFIKATORZE, nigdy na zdaniu** — katalog odwrotny dla kafelka i pudelka wersji, nic ponizej 12,5 px i 4,5:1 | 5at | obie reguly odwrotne oraz `.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}` w arkuszu; render (§5h): w Component versions zaden lisc o >3 slowach nie jest monospace |
 | 73 | **zero diagnostyki wlasnej infrastruktury w tresci widocznej dla czytelnika** — odmowa serwisu publikujacego jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu | 0e | `innerText` nie zawiera `publishing service`, `pull-request review`, `bisection`, `canary`, `test artifact`, `artifact publishing` |
-| 74 | **Advanced filtering: JEDEN pasek na zakladke, jedno menu na kolumne, kazda kolumna osiagalna** — faseta tam, gdzie kolumna grupuje, zakres szukania tam, gdzie nie; **wymiar jest PYTANIEM, nie napisem w naglowku, a komorka bywa LISTA wartosci** (§5au, poprawka z 12 wrzesnia); pasek NIE pisze ani `row.hidden`, ani licznika `N of M` | 5au | `SCRIPT 15 — ADVANCED FILTERING…`, `details.s15bar`, `function dimsFor(`, `function allCols(`, `function dimKey(`, `function canonVal(`, `function cellVals(`, `s15qc`, `.s15pop{display:none;position:fixed`, `window.__socFilterBus` w pliku; render (§5h): trzy wybory pod rzad nie przewijaja strony, menu zostaje otwarte, `Reset all filters` czysci kazde menu |
+| 74 | **Advanced filtering: JEDEN pasek na zakladke, jedno menu na kolumne, kazda kolumna osiagalna** — faseta tam, gdzie kolumna grupuje, zakres szukania tam, gdzie nie; pasek NIE pisze ani `row.hidden`, ani licznika `N of M`; od 14 wrzesnia 2026 buduje go SKRYPT 15 v2 (§5aw), ten sam na calym portalu | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `function buildDims(`, `function buildPanel(`, `function tablesOf(`, `.ntfpop{display:none;position:fixed`, `window.__socFilterBus`, `function mountEverywhere(`, `ntfbtn`, `ntfopt`, `ntfsum` w pliku, a `details.s15bar` NIE; render (§5h): trzy wybory pod rzad nie przewijaja strony, menu zostaje otwarte, `Reset all filters` czysci kazde menu |
 | 75 | **najechanie podswietla CALY wiersz, takze parzysty** — powloka maluje pasek inline w `restripe()`, wiec regula bez `!important` zapala tylko komorki dolozone przez skrypty | 5au | `.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}` w arkuszu; render (§5h): kazda komorka wiersza pod kursorem ma to samo tlo, w obu motywach |
 | 76 | **kazdy link zrodla NAZYWA zrodlo** — `Message Center`, `Microsoft Learn`, `TechCommunity blog`, `MSRC`, nigdy goly wyraz `Source` ani sam numer MC | 4a | zero kotwic o etykiecie `Source`, `Link`, `here`, `read more` |
 | 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
 | 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; **obie tabele podsumowania TEZ sie zawezaja**, wymiar scala synonimy naglowka, a wartosc scala aliasy (§3 punkt 16 reguly 3-6); pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `function dimKey(`, `function cellTokens(`, `function colsFor(`, `function canonVal(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
 | 79 | **rejestr uzgodnien jest wypisany** — kazdy wpis §0f bez stanu `ZBUDOWANE` stoi w odpowiedzi przebiegu z nazwy, stanem i tym, czego brakuje; **pozycja INFORMACYJNA**, nie zatrzymuje zadnego przebiegu, bo blokada zamienilaby „brak uzgodnionej zakladki” na „wczorajsza strone pod wczorajsza data” (§0) | 0f | `gate.py … --doc CLAUDE.md`: blok `UZGODNIONE, JESZCZE NIEZBUDOWANE` wydrukowany; bez `--doc` albo bez sekcji §0f **`BRAK` „nie da sie odczytac rejestru”**, nigdy OK |
+| 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: `navrow ref` ma 7 zakladek |
+| 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu | 5aw | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
+| 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -157,8 +160,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73 | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -367,7 +370,7 @@ def scan(page: str) -> _Scan:
 # listy jest znaleziskiem, a panel SPOZA niej jest nowa zakladka i lustro ma go skopiowac.
 CANON_PANELS = ("tab-overview", "tab-today", "tab-new", "tab-deadlines", "tab-products",
                 "tab-components", "tab-roles", "tab-graph", "tab-hunting", "tab-sources",
-                "tab-community")
+                "tab-community", "tab-learn", "tab-blogs")
 PANEL_FLOOR = 8          # ponizej tego to nie jest kopia, tylko poszarpana ekstrakcja
 
 
@@ -651,7 +654,7 @@ odrzuca **poprawny** artefakt, routine ucieka w fallback i **buduje strone po sw
 dokladnie ta rozbieznosc, przed ktora ta sekcja istnieje. Zmierzone tego dnia na artefakcie
 z dopisanym dwunastym panelem: stara bramka `PRZEBIEG NIEUDANY — tabpanel = 12, ma byc 11`.
 
-Liczba ma date waznosci; **nazwa jej nie ma**. `CANON_PANELS` jest wiec lista jedenastu
+Liczba ma date waznosci; **nazwa jej nie ma**. `CANON_PANELS` jest wiec lista trzynastu
 identyfikatorow z §2, a nie liczba, i rozstrzyga trzy rozne przypadki trzema roznymi
 zachowaniami:
 
@@ -884,7 +887,8 @@ class Scan(HTMLParser):
 # lustra jest raportowana i NIE blokuje — 10 wrzesnia 2026 zablokowala i strona zostala
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
-           "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b"}
+           "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b",
+           "81a","81b","81c"}
 # 12 wrzesnia 2026: pozycje 76 i 77 zeszly z klasy A do B, i jest to poprawka DOKLADNIE
 # tego bledu, ktory §0 opisuje przy 10 wrzesnia. Wiersz bez kolumny znaczenia i link bez
 # nazwy zrodla to brak ETYKIETY, nie falszywe zdanie: pozycja na stronie jest, jest
@@ -896,7 +900,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "68a","68c","69","70","71","72","74","75","76","77"}
+           "68a","68c","69","70","71","72","74","75","76","77","80","82"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1669,17 +1673,17 @@ def gate(path, site=None, mirror=False, doc=None):
          not leak, "znalezione frazy: %s" % ", ".join(leak))
 
     # ---- 74-75: pasek Advanced filtering i podswietlenie wiersza (§5au) ----
-    K74 = ("SCRIPT 15 — ADVANCED FILTERING: ONE BAR PER TAB, EVERY COLUMN REACHABLE",
-           "details.s15bar", "function dimsFor(", "function allCols(", "s15qc",
-           '.s15pop{display:none;position:fixed', "window.__socFilterBus",
-           # 12 wrzesnia 2026: wymiar jest PYTANIEM, nie napisem w naglowku, a komorka
-           # bywa lista wartosci. Bez tych czterech pasek zostawia cala tabele, ktora
-           # pyta o to samo pod inna nazwa, a `Entra` i `Entra ID` stoja w menu osobno.
-           "function dimKey(", "function canonVal(", "function cellVals(",
-           '["Product", /^(product|technology|areas touched|service)$/i]')
-    need("74", "Advanced filtering: jeden pasek na zakladke, kazda kolumna osiagalna (§5au)",
-         all(k in h for k in K74),
-         "brak: %s" % ", ".join(k for k in K74 if k not in h))
+    # 14 wrzesnia 2026: pasek buduje SKRYPT 15 v2 (§5aw), ten sam na CALYM portalu.
+    # Stary blok §5au zostal usuniety z tego pliku i ze strony — dwa paski nad jedna
+    # zakladka to dwie kontrolki jednego stanu (§5am, §5an).
+    K74 = ("SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS",
+           "details.ntfbar", "function buildDims(", "function buildPanel(", "function tablesOf(",
+           ".ntfpop{display:none;position:fixed", "window.__socFilterBus",
+           "function mountEverywhere(", "ntfbtn", "ntfopt", "ntfsum")
+    need("74", "Advanced filtering: jeden pasek na zakladke, kazda kolumna osiagalna (§5aw)",
+         all(k in h for k in K74) and "details.s15bar" not in h,
+         ("stary pasek §5au nadal na stronie — dwa paski nad jedna zakladka"
+          if "details.s15bar" in h else "brak: %s" % ", ".join(k for k in K74 if k not in h)))
     K75 = (".tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}",)
     need("75", "najechanie podswietla CALY wiersz, takze parzysty (§5au)",
          all(k in h for k in K75),
@@ -1699,6 +1703,71 @@ def gate(path, site=None, mirror=False, doc=None):
          "brak tabel pozycji — nie da sie sprawdzic" if not s.itemtables
          else "%d tabel z kolumna `Item` nie mowi, czego wiersz dotyczy: %s"
               % (len(nomean), ", ".join(c[0][:40] for c in nomean[:3])))
+
+    # ---- 80-82: zakladki Microsoft Learn i Microsoft Blogs (§5aw) ----
+    # Pozycja 81 jest KLASY A i to jest cala jej pointa: zgubiony obszar albo zgubiony
+    # blog to falszywa tresc, a nie brakujaca funkcja — dokladnie jak przy pozycji 60.
+    # Listy sa CUDZE i leza w repozytorium, wiec bez katalogu `site/` nie da sie ich
+    # przeczytac i pozycja daje `BRAK „nie podano katalogu"`, nigdy OK (§0b).
+    need("80", "panele tab-learn i tab-blogs sa na stronie, obie zakladki w rzedzie Reference (§5aw)",
+         'id="tab-learn"' in h and 'id="tab-blogs"' in h
+         and '"tab-learn", "tab-blogs"' in h.replace("\n", " ").replace("  ", " "),
+         "brak: %s" % ", ".join(x for x in ('id="tab-learn"', 'id="tab-blogs"',
+                                            'tab-learn/tab-blogs w splitTabs()')
+                                if x not in h))
+    _nt = (st["soc-brief-state"] or {}).get("nt") or {}
+    if not _nt:
+        for _n, _t in (("81a", "kazdy obszar Learn ma wpis w nt.learn"),
+                       ("81b", "kazdy blog ma wpis w nt.blogs"),
+                       ("81c", "nt przeczytane w TYM przebiegu")):
+            need(_n, _t, False, "brak klucza nt w bloku stanu — nie da sie sprawdzic")
+    else:
+        _root = site if site else None
+        def _srclist(fn):
+            if not _root: return None
+            p_ = _os.path.join(_os.path.dirname(_os.path.abspath(_root)), fn)
+            if not _os.path.exists(p_): p_ = _os.path.join(_root, "..", fn)
+            try: return json.load(open(p_, encoding="utf-8"))
+            except Exception: return None
+        _wantL = _srclist("microsoftlearn_sources.json")
+        _wantB = _srclist("microsoftblogs_sources.json")
+        _gotL = {str(x.get("name") or "").replace("Microsoft Learn - ", "")
+                 for x in (_nt.get("learn") or [])}
+        _gotB = {str(x.get("name") or "") for x in (_nt.get("blogs") or [])}
+        _missL = ([x["SourceName"].replace("Microsoft Learn - ", "") for x in _wantL
+                   if x["SourceName"].replace("Microsoft Learn - ", "") not in _gotL]
+                  if _wantL else None)
+        _missB = ([x["SourceName"] for x in _wantB if x["SourceName"] not in _gotB]
+                  if _wantB else None)
+        need("81a", "kazdy obszar z microsoftlearn_sources.json ma wpis w nt.learn",
+             _missL is not None and not _missL,
+             "nie znaleziono microsoftlearn_sources.json — nie da sie sprawdzic" if _missL is None
+             else "brakuje %d z %d: %s" % (len(_missL), len(_wantL), ", ".join(_missL[:5])))
+        need("81b", "kazdy blog z microsoftblogs_sources.json ma wpis w nt.blogs",
+             _missB is not None and not _missB,
+             "nie znaleziono microsoftblogs_sources.json — nie da sie sprawdzic" if _missB is None
+             else "brakuje %d z %d: %s" % (len(_missB), len(_wantB), ", ".join(_missB[:5])))
+        # cisza zamiast powodu jest tu jedynym bledem, ktorego ta zakladka nie wybacza (§5an poz. 60)
+        _silent = [x.get("name") for x in (_nt.get("learn") or []) + (_nt.get("blogs") or [])
+                   if (x.get("status") or "ok") != "ok" and not (x.get("note") or "").strip()]
+        # zmiana `what's new` niesie ADRES SWOJEJ STRONY w `url` i linki wewnetrzne
+        # w `links` — pola `link` nie ma i pytanie o nie bylo pytaniem o zla rzecz
+        _nolink = [c.get("title") for c in (_nt.get("changes") or [])
+                   if not c.get("url") and not (c.get("links") or [])]
+        _noart = [a.get("title") for a in (_nt.get("items") or []) if not a.get("link")]
+        _bd2 = (st["soc-brief-state"] or {}).get("briefDate")
+        need("81c", "nt przeczytane w TYM przebiegu, kazdy brak z powodem, kazda zmiana z linkiem",
+             _nt.get("briefDate") == _bd2 and not _silent and not _nolink and not _noart
+             and s.jsonblocks == 2,
+             "nt.briefDate %s przy briefDate %s; bez powodu: %s; zmian bez adresu: %d; "
+             "artykulow bez linku: %d; blokow JSON %d"
+             % (_nt.get("briefDate"), _bd2, _silent[:3], len(_nolink), len(_noart), s.jsonblocks))
+    K82 = ("SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS", "details.ntfbar", ".ntfon",
+           "function mountEverywhere(", "details.ntsec", "nt-changes", "nt-sources")
+    need("82", "SKRYPT 15 v2 buduje obie zakladki i JEDEN pasek na caly portal (§5aw)",
+         all(k in h for k in K82) and "details.s15bar" not in h,
+         ("stary pasek §5au nadal na stronie" if "details.s15bar" in h
+          else "brak: %s" % ", ".join(k for k in K82 if k not in h)))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -1866,7 +1935,8 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS dziewietnascie:**
+Skryptow dodawanych jest DWANASCIE (4-15; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
+SKRYPT 15 z §5au), a blokow CSS dwadziescia. Do tego cztery KOLEKTORY (§5aw), wycinane tak samo:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -1881,9 +1951,10 @@ Skryptow dodawanych jest DWANASCIE (4-15), a blokow CSS dziewietnascie:**
 | SKRYPT 12 — prowenancja wiersza i diff tekstu zrodla | `CLAUDE.md` | 5ar |
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
-| SKRYPT 15 — Advanced filtering, jeden pasek na zakladke | `CLAUDE.md` | 5au |
-| **kazdy dopisany blok CSS** (19 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, **5av (ostatni — nadpisuje)** |
+| SKRYPT 15 v2 — Microsoft Learn i Microsoft Blogs, **oraz pasek Advanced filtering na CALY portal** (zastepuje SKRYPT 15 z §5au) | `CLAUDE.md` | 5aw |
+| **kazdy dopisany blok CSS** (20 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
+| `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -1934,17 +2005,22 @@ def main(doc, outdir):
             elif '"""make_diff.py' in head:                   got["make_diff.py"] = b
             elif "artifact -> site/index.html" in head:       got["mirror_artifact.py"] = b
             elif "extract_code.py" in head:                   got["extract_code.py"] = b
+            elif "probe_learn.py" in head or "original_content_git_url" in head: got["probe_learn.py"] = b
+            elif "Zmiany stron Learn per obszar" in head:      got["learn_changes.py"] = b
+            elif "microsoftblogs_sources.json" in head:        got["collect_blogs.py"] = b
+            elif "window.__NT" in head:                        got["collect_nt.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
     need = ["script%d.js" % n for n in range(4, 16)] + \
-           ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css"]
+           ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
+            "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 19:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 19 — sprawdz wciete plotki" % len(css))
+    if len(css) < 20:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 20 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -2176,20 +2252,22 @@ co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo
 
 | id | co uzgodniono | uzgodnione | stan | co brakuje |
 |---|---|---|---|---|
-| `tab-learn` | zakladka `Product docs` — zmiany stron Learn per obszar, 22 obszary gitem i 8 migawka, sekcje `learnwatch` `learnproducts` `learnplatform` `learnpages` `learnsources` | 2026-09-11 | `UZGODNIONE` | §2 nie ma tego panelu; `CANON_PANELS` nie ma tej nazwy; brak SKRYPTU 16 i bloku CSS; poz. 3, 26 i 59 nie znaja tej zakladki |
-| `tab-blogs` | zakladka `Product blogs` — 28 blogow produktowych, 27 czytelnych, piec stanow swiezosci ze slownika §5an, sekcje `blogwatch` `blogproducts` `blogplatform` `blogposts` `blogsources` | 2026-09-11 | `UZGODNIONE` | jak wyzej, plus brak SKRYPTU 17 |
-| `storyLinks` | przelacznik `By source` / `By story` — powiazanie wpisu blogowego ze strona Learn PO ADRESIE, kolumna `Lead` z wyprzedzeniem w dniach, chip `no counterpart yet` | 2026-09-11 | `UZGODNIONE` | brak SKRYPTU 18 i klucza `storyLinks` w bloku stanu |
-| `docsdiff` | sekcja strony zmian: strony dokumentacji, ktore zmienily tekst, porownywane po commicie | 2026-09-11 | `UZGODNIONE` | `make_diff.py` nie ma tej sekcji; tabela `bytab` ma dziewiec wierszy, nie jedenascie |
-| `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `UZGODNIONE` | jak wyzej |
-| `srclists` | ramka `Source lists` w Overview: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, chip `updated today`, bez sciezek i adresow | 2026-09-11 | `UZGODNIONE` | SKRYPT 13 (§5as) nie buduje tej ramki |
-| `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn, adres `learn.microsoft.com/en-us/unified-secops/overview-unified-security` | 2026-09-11 | `CZEKA` | wlasciciel mial dopisac pozycje do listy JSON po zatwierdzeniu planu; przebieg jej tam nie dopisuje sam, bo lista jest jego |
+| `tab-learn` | zakladka **`Microsoft Learn`** wedlug makiety z 12 wrzesnia 2026 — zmiany `what's new` per obszar jako TRESC, pokrycie obszarow, strony ze zmiana tekstu, korelacja z blogami; sekcje `nt-changes` `nt-older` `nt-coverage` `nt-pages` `nt-corr-learn` | 2026-09-11 | `ZASPECYFIKOWANE` | §5aw niesie markup, kontrakt `nt`, cztery kolektory, arkusz i SKRYPT 15 v2; `CANON_PANELS`, §2 oraz poz. 3, 26, 58, 80-82 juz o niej wiedza. Zostaje jedno: **zaden opublikowany artefakt jeszcze jej nie niosl** |
+| `tab-blogs` | zakladka **`Microsoft Blogs`** wedlug tej samej makiety — 28 blogow produktowych, wybor dnia, wszystkie artykuly okna, jeden wiersz na blog z powodem przy braku; sekcje `nt-top` `nt-posts` `nt-sources` `nt-corr-blogs` | 2026-09-11 | `ZASPECYFIKOWANE` | jak wyzej — kod i kontrakt sa w §5aw, brakuje tylko pierwszego opublikowanego artefaktu |
+| `storyLinks` | powiazanie ruchu w dokumentacji z ruchem na blogach | 2026-09-11 | `ZASPECYFIKOWANE` | makieta z 12 wrzesnia rozwiazala to inaczej niz plan: zamiast przelacznika `By source`/`By story` sa sekcje `nt-corr-learn` i `nt-corr-blogs` z kluczem `nt.corr` (produkt, obszary, strony, linie, artykuly 14 dni, `both`). **Kolumny `Lead` w dniach nie ma** i to jest swiadome: wyprzedzenie liczone po dacie commita lustra klamie o tyle, o ile lustro sie spoznia (§5ar) |
+| `docsdiff` | sekcja strony zmian: obszary Learn, ktorym ruszyl sie tekst — strony NAZWANE z tytulem i linkiem, porownywane po commicie, plus zmiany `what's new` dodane i usuniete | 2026-09-11 | `ZASPECYFIKOWANE` | `make_diff.py` niesie sekcje `docsdiff` i wiersz `Microsoft Learn` w `bytab` (§3, §5aw); brakuje pierwszego przebiegu, ktory ma dwa stany z kluczem `nt` do porownania |
+| `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZASPECYFIKOWANE` | `make_diff.py` niesie sekcje `blogsdiff` i wiersz `Microsoft Blogs` w `bytab`; jak wyzej — brakuje punktu odniesienia |
+| `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZASPECYFIKOWANE` | klucz `nt.jsons` w §5aw niesie wszystkie trzy listy (31 / 28 / 55) z data ostatniej zmiany pliku w gicie; ramke rysuje SKRYPT 15 v2 |
+| `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
-Plan z 11 wrzesnia rezerwowal §5au, §5av i §5aw oraz skrypty 15-17. **Wszystkie trzy numery zostaly
-w miedzyczasie zajete**: §5au to Advanced filtering (SKRYPT 15), §5av to zielony kolor filtra.
-Budujac te zakladki bierze sie wiec **§5aw (SKRYPT 16, Product docs)**, **§5ax (SKRYPT 17, Product
-blogs)** i **§5ay (SKRYPT 18, powiazanie i toggle)**, a §0c dostaje trzy nowe wiersze i liczbe
+Plan z 11 wrzesnia rezerwowal §5au, §5av i §5aw oraz skrypty 15-17. **Zrealizowane 14 wrzesnia 2026
+inaczej i to jest wynik, nie odstepstwo**: obie zakladki mieszkaja w JEDNEJ sekcji §5aw i w JEDNYM
+skrypcie — SKRYPT 15 v2 — bo zatwierdzona makieta ma jeden skrypt, a ten skrypt buduje takze pasek
+Advanced filtering na calym portalu, wiec rozbicie go na trzy dawaloby trzech pisarzy jednego stanu
+(§5am). Skryptow dodawanych jest nadal dwanascie (4-15), bo v2 **zastepuje** SKRYPT 15 z §5au.
+Ponizsze zdanie jest zapisem tego, co plan przewidywal, i zostaje jako slad:
 **pietnascie skryptow dodawanych** zamiast dwunastu. Zapisane tutaj, zeby nastepny przebieg nie
 odkryl kolizji dopiero przy pisaniu kodu.
 
@@ -2322,8 +2400,10 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-hunting` | `Hunting & actions` | `kql` · `actions` · `strategic` |
 | `tab-sources` | `Sources` | `provenance` (§5ar, buduje SKRYPT 12) · `sources` |
 | `tab-community` | `Community Articles` | `community` |
+| `tab-learn` | `Microsoft Learn` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-changes` · `nt-older` · `nt-coverage` · `nt-pages` · `nt-corr-learn`)* |
+| `tab-blogs` | `Microsoft Blogs` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-top` · `nt-posts` · `nt-sources` · `nt-corr-blogs`)* |
 
-**Paneli jest JEDENASCIE od 10 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym rzad `Reference` ma odtad PIEC zakladek, a `Daily` szesc. Kazda asercja liczaca panele albo zakladki mowi 11, nie 10 i nie 9 — pozycje 3, 26 i 59 listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
+**Paneli jest TRZYNASCIE od 14 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an, a `tab-learn` i `tab-blogs` 14 wrzesnia wraz z §5aw; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym rzad `Reference` ma odtad SIEDEM zakladek, a `Daily` szesc. Kazda asercja liczaca panele albo zakladki mowi 13, nie 11 i nie 9 — pozycje 3, 26, 58, 59 i 80 listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
 
 **Identyfikatory sekcji sa kanoniczne — skrypty pytaja o nie po nazwie:**
 
@@ -2409,7 +2489,7 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
    z suma kolumn i odrzuca strone przy roznicy. Endpointy maja WLASNY kafelek, bo sa endpointami,
    a nie pozycjami (punkt 9) — doliczenie ich zmieszaloby dwie jednostki.
 3. **`What changed, by tab`** — sekcja `id="bytab"`, tabela `Tab | Added | Removed | Changed |
-   Areas touched`, jeden wiersz na zakladke, **ZAWSZE DZIEWIEC wierszy** (§3a).
+   Areas touched`, jeden wiersz na zakladke, **ZAWSZE JEDENASCIE wierszy** (§3a).
 3a. **`What changed, by technology`** — sekcja `id="bytech"`, tabela
    `Technology | Added | Removed | Changed | Where it shows up`. **To jest odpowiedz na pytanie, ktore
    zaczyna sie od nazwy produktu** — MDE, MDI, Sentinel, Purview — a nie od zakladki. Pozycja stanu
@@ -2488,6 +2568,14 @@ Ma **jeden ekran, przewijany**, w tej kolejnosci:
     Poniewaz pozycja cytujaca MC jest juz policzona w SWOJEJ zakladce (§3a, jeden dom na pozycje),
     **ta sekcja zostaje poza suma kafelkow** — dokladnie tak, jak endpointy, i z tego samego powodu.
     `verify()` pomija oba wiersze przy sumowaniu kolumn `bytab`.
+11b. **Microsoft Learn** — sekcja `id="docsdiff"` (§5aw). Zmiany `what's new`, ktore doszly i ktore
+    odeszly, dopasowywane po parze (obszar, tytul), bo Microsoft nie nadaje im identyfikatora; obszary,
+    ktorym ruszyl sie sposob odczytu albo status; i strony dokumentacji, ktorym ruszyl sie TEKST,
+    **porownywane po commicie, nie po liczbie linii**, w tym samym ksztalcie `.s12file` co §5ar.
+11c. **Microsoft Blogs** — sekcja `id="blogsdiff"` (§5aw). **Kazdy dodany i usuniety artykul NAZWANY
+    z tytulem i linkiem**, dopasowywany po adresie; blogi, ktorym ruszyl sie `status`, sposob odczytu
+    albo identyfikator kanalu. **Blog, ktory przeszedl z `ok` na `failed`, jest pierwszym wierszem**
+    tabeli blogow — to jest zmiana warta reakcji, dokladnie jak zrodlo spolecznosci w §5an.
 11a. **Source text** — sekcja `id="srctext"` (§5ar). Linie, ktore Microsoft dopisal i skasowal
     W SRODKU sledzonej strony: usuniete w `<del>`, dodane w `<ins>`, jeden wiersz na linie, pogrupowane
     po stronie. **Strone porownuje sie po commicie, nie po liczbie linii** — te same `+21 / −15` przy
@@ -2761,12 +2849,15 @@ patrzyl na dziewiec zakladek, wieczorem pyta o te same dziewiec — a nie o jede
 2. **Today i Products nie sa niczyim domem.** Today jest wyborem z tych samych pozycji (§5m),
    a Products drugim widokiem okna — liczenie ich osobno podwoiloby kazda zmiane. Nota sekcji
    mowi to wprost, zeby czytelnik nie szukal ich w tabeli.
-3. **Podsumowanie ma DZIEWIEC wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
+3. **Podsumowanie ma JEDENASCIE wierszy zawsze**, takze z samymi zerami. `New | 0 | 0 | 0 | —` znaczy
    „sprawdzone, nic sie nie ruszylo" i jest wynikiem; brak wiersza znaczy „nie wiadomo".
    6 wrzesnia 2026 doszly `Component versions` (§5ag) oraz `Graph endpoints` (§5ah, jednostka to endpoint,
-   nie pozycja), **10 wrzesnia `Community articles` i `Message Center` (§5an)**, a **11 wrzesnia
+   nie pozycja), **10 wrzesnia `Community articles` i `Message Center` (§5an)**, **11 wrzesnia
    `Source text` (§5ar, jednostka to STRONA, nie pozycja i nie linia — 52 zmienione linie w trzech
-   plikach to trzy wiersze, dokladnie tak jak endpointy licza sie per uprawnienie)**. Komponenty porownuje sie
+   plikach to trzy wiersze, dokladnie tak jak endpointy licza sie per uprawnienie)**, a **14 wrzesnia
+   `Microsoft Learn` i `Microsoft Blogs` (§5aw)**: jednostka pierwszej jest ZMIANA `what's new` albo
+   sledzona STRONA, drugiej ARTYKUL albo BLOG, wiec artykul spolecznosci i artykul blogowy nie
+   mieszaja sie w jednym liczniku, tak samo jak endpoint nie miesza sie z pozycja. Komponenty porownuje sie
    PER PLATFORMA: Authenticator, ktory ruszyl sie na iOS a nie na Androidzie, daje jeden wiersz roznicy,
    nie dwa. **Zrodlo dopisane do listy spolecznosci albo z niej usuniete jest zmiana LISTY, nie artykulu** —
    ma wlasny kafelek i wlasna tabele w sekcji `community`, i nie miesza sie z licznikiem artykulow,
@@ -2917,20 +3008,25 @@ TIER_TAB = {
     "horizon":                "Deadlines",
 }
 TAB_ORDER = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions",
-             "Community articles", "Message Center", "Source text"]
+             "Community articles", "Message Center", "Source text",
+             "Microsoft Learn", "Microsoft Blogs"]
 # Zakladki, ktore ta strona potrafi zliczyc, i ktore dostaja wiersz ZAWSZE — takze z trzema zerami.
 # Today i Products nie sa niczyim domem: Today jest wyborem (§5m), a Products drugim widokiem tych
 # samych pozycji okna, wiec ich ruch jest juz policzony w New i Deadlines. Liczenie ich osobno
 # podwoiloby kazda zmiane.
+# 14 wrzesnia 2026 doszly "Microsoft Learn" i "Microsoft Blogs" (§5aw) — obie maja wlasny
+# dom, wiec tabela `bytab` ma odtad JEDENASCIE wierszy, nie dziewiec.
 SUMMARY_TABS = ["New", "Deadlines", "Graph API", "Graph endpoints", "Roles", "Component versions",
-                "Community articles", "Message Center", "Source text"]
+                "Community articles", "Message Center", "Source text",
+                "Microsoft Learn", "Microsoft Blogs"]
 
 # Ktora SEKCJA tej strony odpowiada na klikniecie liczby w wierszu zakladki. Zakladki
 # pozycji stanu (New, Deadlines) maja swoje wiersze w Added/Removed/Changed i tam trzeba
 # je jeszcze zawezic do zakladki; pozostale maja wlasna sekcje i zawezanie jest zbedne.
 TAB_HOME = {"Graph API": "catalog", "Roles": "catalog", "Graph endpoints": "endpoints",
             "Component versions": "components", "Community articles": "community",
-            "Message Center": "mcenter", "Source text": "srctext"}
+            "Message Center": "mcenter", "Source text": "srctext",
+            "Microsoft Learn": "docsdiff", "Microsoft Blogs": "blogsdiff"}
 
 def goto_num(n, kind, tab, sid):
     """Licznik, ktory jest linkiem. Zero NIE jest linkiem — prowadzilby do pustej tabeli
@@ -3143,6 +3239,88 @@ def diff_doctext(prev_st, curr_st):
     for lst in (added, removed, changed):
         lst.sort(key=lambda x: -((x.get("added") or 0) + (x.get("removed") or 0)))
     return added, removed, changed, len(pp), len(cc)
+
+# ---------- zakladki Microsoft Learn i Microsoft Blogs (§5aw) ----------
+# Wlasciciel, 14 wrzesnia 2026: „mam nadzieje, ze diff w sched tasku i routine tez bedzie
+# zbieral aktualizacje i zmiany co do danych oraz artykulow z tych dwoch nowych zakladek".
+# Liczba „+7 artykulow" odpowiada na pytanie ILE, nie na pytanie CO — ten sam blad, ktory
+# §3a naprawilo dla zakladek i §5an dla spolecznosci. Tu wiec kazdy artykul i kazda strona
+# sa NAZWANE z tytulem i linkiem.
+
+LEARN_FIELDS = [("status", "Status"), ("method", "Read by"), ("note", "Note")]
+BLOG_FIELDS  = [("status", "Status"), ("method", "Read by"), ("feed", "Feed id")]
+
+def diff_nt(prev_st, curr_st):
+    """Zwraca slownik roznic obu zakladek. Pierwszy przebieg z kluczem `nt` w stanie NIE
+    oglasza 773 zmian i 533 artykulow jako dodanych: brak punktu odniesienia nie jest
+    zmiana — ta sama zasada co `state:"baseline"` w §5ag i `graphMap` bez poprzednika."""
+    pn = (prev_st or {}).get("nt") or {}
+    cn = (curr_st or {}).get("nt") or {}
+    if cn and not pn:
+        return {"baseline": True, "areas": len(cn.get("learn") or []),
+                "blogs": len(cn.get("blogs") or []), "changes": len(cn.get("changes") or []),
+                "arts": len(cn.get("items") or []), "pages": len(cn.get("pages") or []),
+                "areaAdd": [], "areaRem": [], "areaChg": [], "pageAdd": [], "pageRem": [],
+                "pageChg": [], "wnAdd": [], "wnRem": [], "blogAdd": [], "blogRem": [],
+                "blogChg": [], "artAdd": [], "artRem": []}
+    if not cn:
+        return {"none": True}
+
+    def by(lst, k): return {norm(x.get(k)): x for x in (lst or []) if norm(x.get(k))}
+    pa, ca = by(pn.get("learn"), "name"), by(cn.get("learn"), "name")
+    areaAdd = [ca[k] for k in ca if k not in pa]
+    areaRem = [pa[k] for k in pa if k not in ca]
+    areaChg = []
+    for k in ca:
+        if k not in pa: continue
+        d = [(lab, norm(pa[k].get(f)), norm(ca[k].get(f)))
+             for f, lab in LEARN_FIELDS if norm(pa[k].get(f)) != norm(ca[k].get(f))]
+        if d: areaChg.append((ca[k], d))
+    # zrodlo, ktore przestalo sie czytac, jest najwazniejszym wierszem tej sekcji
+    areaChg.sort(key=lambda t: 0 if any(l == "Status" and b != "ok" for l, a, b in t[1]) else 1)
+
+    # strony: porownanie PO COMMICIE, nie po liczbie linii — te same `+21/-15` przy innej
+    # edycji to nadal roznica (§5ar)
+    pp = {norm(x.get("path")): x for x in (pn.get("pages") or []) if x.get("path")}
+    cp = {norm(x.get("path")): x for x in (cn.get("pages") or []) if x.get("path")}
+    pageAdd = [cp[k] for k in cp if k not in pp]
+    pageRem = [pp[k] for k in pp if k not in cp]
+    pageChg = [cp[k] for k in cp if k in pp and norm(cp[k].get("commit")) != norm(pp[k].get("commit"))]
+    for L in (pageAdd, pageRem, pageChg):
+        L.sort(key=lambda x: -((x.get("added") or 0) + (x.get("removed") or 0)))
+
+    # zmiany `what's new` dopasowywane po (obszar, tytul): Microsoft nie nadaje im id
+    def wnkey(x): return (norm(x.get("area")), norm(x.get("title")))
+    pw = {wnkey(x): x for x in (pn.get("changes") or [])}
+    cw = {wnkey(x): x for x in (cn.get("changes") or [])}
+    wnAdd = [cw[k] for k in cw if k not in pw]
+    wnRem = [pw[k] for k in pw if k not in cw]
+    wnAdd.sort(key=lambda x: (x.get("weight") or 9, norm(x.get("area"))))
+
+    pb, cb = by(pn.get("blogs"), "name"), by(cn.get("blogs"), "name")
+    blogAdd = [cb[k] for k in cb if k not in pb]
+    blogRem = [pb[k] for k in pb if k not in cb]
+    blogChg = []
+    for k in cb:
+        if k not in pb: continue
+        d = [(lab, norm(pb[k].get(f)), norm(cb[k].get(f)))
+             for f, lab in BLOG_FIELDS if norm(pb[k].get(f)) != norm(cb[k].get(f))]
+        if d: blogChg.append((cb[k], d))
+    blogChg.sort(key=lambda t: 0 if any(l == "Status" and b == "failed" for l, a, b in t[1]) else 1)
+
+    pi = {norm(x.get("link")): x for x in (pn.get("items") or []) if x.get("link")}
+    ci = {norm(x.get("link")): x for x in (cn.get("items") or []) if x.get("link")}
+    artAdd = [ci[k] for k in ci if k not in pi]
+    artRem = [pi[k] for k in pi if k not in ci]
+    artAdd.sort(key=lambda x: (norm(x.get("date")), norm(x.get("source"))), reverse=True)
+
+    return {"baseline": False, "areas": len(ca), "blogs": len(cb),
+            "changes": len(cw), "arts": len(ci), "pages": len(cp),
+            "areaAdd": areaAdd, "areaRem": areaRem, "areaChg": areaChg,
+            "pageAdd": pageAdd, "pageRem": pageRem, "pageChg": pageChg,
+            "wnAdd": wnAdd, "wnRem": wnRem,
+            "blogAdd": blogAdd, "blogRem": blogRem, "blogChg": blogChg,
+            "artAdd": artAdd, "artRem": artRem}
 
 # ---------- mapa Graph API (§5ah) ----------
 
@@ -4787,6 +4965,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     cadd, crem, cmod, cp, cc_ = diff_components(prev_st, curr_st)
     com = diff_community(prev_st, curr_st)
     dtadd, dtrem, dtchg, dtp, dtc = diff_doctext(prev_st, curr_st)
+    NT = diff_nt(prev_st, curr_st)
     DOCMAP = doc_pages(curr_st)
 
     MCV = [] if com.get("baseline") else mc_view(com, added, removed)
@@ -4819,12 +4998,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # do tych sum — inaczej pozycja cytujaca MC byla by policzona dwa razy: raz w swojej
     # zakladce, raz tutaj. To samo wylaczenie, ktore endpointy maja od 6 wrzesnia i z tego
     # samego powodu. `verify()` pomija oba wiersze przy sumowaniu kolumn.
+    _ntA = len(NT.get("wnAdd") or []) + len(NT.get("pageAdd") or []) + len(NT.get("areaAdd") or [])
+    _ntR = len(NT.get("wnRem") or []) + len(NT.get("pageRem") or []) + len(NT.get("areaRem") or [])
+    _ntC = len(NT.get("pageChg") or []) + len(NT.get("areaChg") or [])
+    _nbA = len(NT.get("artAdd") or []) + len(NT.get("blogAdd") or [])
+    _nbR = len(NT.get("artRem") or []) + len(NT.get("blogRem") or [])
+    _nbC = len(NT.get("blogChg") or [])
     sum_add = (len(added) + len(gadd) + len(radd) + len(cadd) + len(com["artAdd"])
-               + len(dtadd))
+               + len(dtadd) + _ntA + _nbA)
     sum_rem = (len(removed) + len(grem) + len(rrem) + len(crem) + len(com["artRem"])
-               + len(dtrem))
+               + len(dtrem) + _ntR + _nbR)
     sum_chg = (len(changed) + len(gmod) + len(rmod) + len(cmod) + len(com["srcChg"])
-               + len(dtchg))
+               + len(dtchg) + _ntC + _nbC)
     # Endpointy maja WLASNY kafelek, bo sa endpointami, a nie pozycjami (§3 punkt 9):
     # doliczenie ich do „added" zmieszaloby dwie rozne jednostki.
     dl_rows_n = len(dl_moved) + len([i for i in added if norm(i.get("deadline"))]) \
@@ -4995,6 +5180,20 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 nm = norm(x.get("product"))
                 if nm and nm not in seen_p: seen_p.append(nm)
             ar = " &middot; ".join(esc(x) for x in seen_p[:8]) or "&mdash;"
+        elif tab == "Microsoft Learn":
+            na, nr, nc = _ntA, _ntR, _ntC
+            seen_l = []
+            for x in (NT.get("wnAdd") or []) + (NT.get("pageAdd") or []) + (NT.get("pageChg") or []):
+                nm = norm(x.get("area"))
+                if nm and nm not in seen_l: seen_l.append(nm)
+            ar = " &middot; ".join(esc(x) for x in seen_l[:8]) or "&mdash;"
+        elif tab == "Microsoft Blogs":
+            na, nr, nc = _nbA, _nbR, _nbC
+            seen_b = []
+            for x in (NT.get("artAdd") or []) + (NT.get("artRem") or []):
+                nm = norm(x.get("source"))
+                if nm and nm not in seen_b: seen_b.append(nm)
+            ar = " &middot; ".join(esc(x) for x in seen_b[:8]) or "&mdash;"
         elif tab == "Message Center":
             na, nr, nc = mcv_add, mcv_rem, 0
             seen_t = []
@@ -5422,11 +5621,137 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                  % (len(dtrem), "" if len(dtrem) == 1 else "s")) if dt_gone else ""),
         count=len(dt_shown) + len(dtrem)))
 
+    # --- Microsoft Learn (§5aw): obszary, strony i zmiany `what's new` ---
+    if NT.get("none"):
+        out.append(sect("docsdiff", "Microsoft Learn",
+            'Ten przebieg nie ma klucza <span class="mono">nt</span> w biezacym stanie.',
+            '<p class="empty">The current state carries no <code>nt</code> key, so nothing about the '
+            'documentation areas can be compared. That is a gap in the run, not a quiet day.</p>',
+            count="no data"))
+        out.append(sect("blogsdiff", "Microsoft Blogs",
+            'Ten przebieg nie ma klucza <span class="mono">nt</span> w biezacym stanie.',
+            '<p class="empty">The current state carries no <code>nt</code> key, so nothing about the '
+            'product blogs can be compared.</p>', count="no data"))
+    elif NT.get("baseline"):
+        out.append(sect("docsdiff", "Microsoft Learn",
+            'First run carrying the documentation areas in the state block.',
+            '<p class="empty">%d areas, %d published changes and %d watched pages were recorded for the '
+            'first time. The previous state has no <code>nt</code> key, so there is nothing to compare '
+            'against and nothing here is a change. Tomorrow&rsquo;s run reports real differences.</p>'
+            % (NT["areas"], NT["changes"], NT["pages"]), count="baseline"))
+        out.append(sect("blogsdiff", "Microsoft Blogs",
+            'First run carrying the product blogs in the state block.',
+            '<p class="empty">%d blogs and %d articles were recorded for the first time; nothing here '
+            'is a change yet.</p>' % (NT["blogs"], NT["arts"]), count="baseline"))
+    else:
+        def wnrow(x, kind_):
+            ttl = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                   % (esc(x.get("url")), esc(x.get("title")))) if x.get("url") else esc(x.get("title"))
+            crit = " &middot; ".join('<span class="t0">%s</span>' % esc(c)
+                                     for c in (x.get("criteria") or [])[:4]) or '<span class="none">untagged</span>'
+            return ((' class="t0"' if x.get("tier0") else ""),
+                    ['<ins>added</ins>' if kind_ == "added" else '<del>removed</del>',
+                     esc(x.get("area")), ttl, crit,
+                     ("w%s" % x.get("weight")) if x.get("weight") else '<span class="none">&mdash;</span>',
+                     esc(x.get("monthLabel"))])
+        wnrows = [wnrow(x, "added") for x in (NT["wnAdd"] or [])[:120]] + \
+                 [wnrow(x, "removed") for x in (NT["wnRem"] or [])[:40]]
+        arows = []
+        for x in NT["areaAdd"]:
+            arows.append(("", ['<ins>added</ins>', esc(x.get("name")),
+                               '<span class="field">Tracked</span>',
+                               '<span class="none">not tracked</span><span class="arrow">&rarr;</span>'
+                               + "<ins>%s</ins>" % esc(x.get("method") or "")]))
+        for x in NT["areaRem"]:
+            arows.append(("", ['<del>removed</del>', esc(x.get("name")),
+                               '<span class="field">Tracked</span>',
+                               "<del>%s</del>" % esc(x.get("method") or "")
+                               + '<span class="arrow">&rarr;</span><span class="none">no longer tracked</span>']))
+        for x, deltas in NT["areaChg"]:
+            for n2, (lab, a_, b_) in enumerate(deltas):
+                first = (n2 == 0)
+                arows.append((' class="t0"' if (first and any(l == "Status" and bb != "ok"
+                                                              for l, aa, bb in deltas)) else "",
+                    ["changed" if first else '<span class="none">&#8942;</span>',
+                     esc(x.get("name")) if first else '<span class="none">&#8942;</span>',
+                     '<span class="field">%s</span>' % esc(lab),
+                     ('<del>%s</del>' % esc(a_) if a_ else '<span class="none">not set</span>')
+                     + '<span class="arrow">&rarr;</span>'
+                     + ('<ins>%s</ins>' % esc(b_) if b_ else '<span class="none">cleared</span>')]))
+        pgshow = (NT["pageChg"] + NT["pageAdd"])[:25]
+        out.append(sect("docsdiff", "Microsoft Learn",
+            ('%d published changes arrived and %d went away across %d documentation areas; %d watched '
+             'pages changed their text and %d came onto the watch list. <b>A page is compared by the '
+             'commit it was read at</b>, not by how many lines moved, so the same &bdquo;+21 / '
+             '&minus;15&rdquo; on a different edit is still a difference. A published change is matched '
+             'by its area and its title, because Microsoft gives it no identifier.')
+            % (len(NT["wnAdd"]), len(NT["wnRem"]), NT["areas"], len(NT["pageChg"]), len(NT["pageAdd"])),
+            table(["What", "Area", "Change", "Criteria", "Weight", "Published"], wnrows,
+                  "No published change arrived or went away in any area.",
+                  '<b>What&rsquo;s new</b> &middot; +%d / &minus;%d' % (len(NT["wnAdd"]), len(NT["wnRem"])))
+            + table(["What", "Area", "Field", "Before &rarr; after"], arows,
+                    "No area changed how it is read.",
+                    '<b>Areas that moved</b> &middot; %d' % (len(NT["areaAdd"]) + len(NT["areaRem"])
+                                                             + len(NT["areaChg"])))
+            + ("".join(file_block(x) for x in pgshow) if pgshow else
+               '<p class="empty">No watched documentation page changed its text.</p>')
+            + (('<p class="more">&hellip; and %d more pages moved. The full list is in the brief.</p>'
+                % (len(NT["pageChg"]) + len(NT["pageAdd"]) - len(pgshow)))
+               if (len(NT["pageChg"]) + len(NT["pageAdd"])) > len(pgshow) else ""),
+            count=_ntA + _ntR + _ntC))
+
+        def artrow(x, kind_):
+            ttl = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                   % (esc(x.get("link")), esc(x.get("title")))) if x.get("link") else esc(x.get("title"))
+            tg = " &middot; ".join('<span class="t0">%s</span>' % esc(t)
+                                   for t in (x.get("tags") or [])[:4]) or '<span class="none">untagged</span>'
+            return ("", ['<ins>added</ins>' if kind_ == "added" else '<del>removed</del>',
+                         esc(x.get("source")), ttl, tg,
+                         esc(x.get("date")) or '<span class="none">undated</span>'])
+        brows = [artrow(x, "added") for x in (NT["artAdd"] or [])[:120]] + \
+                [artrow(x, "removed") for x in (NT["artRem"] or [])[:60]]
+        srows2 = []
+        for x in NT["blogAdd"]:
+            srows2.append(("", ['<ins>added</ins>',
+                                ('<a href="%s" target="_blank" rel="noopener">%s</a>'
+                                 % (esc(x.get("listUrl")), esc(x.get("name")))) if x.get("listUrl")
+                                else esc(x.get("name")),
+                                esc(x.get("status")), esc(x.get("note"))]))
+        for x in NT["blogRem"]:
+            srows2.append(("", ['<del>removed</del>', esc(x.get("name")),
+                                esc(x.get("status")), esc(x.get("note"))]))
+        for x, deltas in NT["blogChg"]:
+            for n2, (lab, a_, b_) in enumerate(deltas):
+                first = (n2 == 0)
+                srows2.append((' class="t0"' if (first and any(l == "Status" and bb == "failed"
+                                                               for l, aa, bb in deltas)) else "",
+                    ["changed" if first else '<span class="none">&#8942;</span>',
+                     esc(x.get("name")) if first else '<span class="none">&#8942;</span>',
+                     '<span class="field">%s</span>' % esc(lab),
+                     ('<del>%s</del>' % esc(a_) if a_ else '<span class="none">not set</span>')
+                     + '<span class="arrow">&rarr;</span>'
+                     + ('<ins>%s</ins>' % esc(b_) if b_ else '<span class="none">cleared</span>')]))
+        out.append(sect("blogsdiff", "Microsoft Blogs",
+            ('%d articles arrived and %d went away across %d product blogs. <b>Every article is named '
+             'with its title and its link</b>, not counted: a number answers how many, never what. '
+             'A blog that stopped reading is the first row of the second table &mdash; that is the '
+             'change worth acting on.')
+            % (len(NT["artAdd"]), len(NT["artRem"]), NT["blogs"]),
+            table(["What", "Blog", "Article", "Technology", "Date"], brows,
+                  "No article arrived or went away in any product blog.",
+                  '<b>Articles</b> &middot; +%d / &minus;%d' % (len(NT["artAdd"]), len(NT["artRem"])))
+            + table(["What", "Blog", "Field", "Before &rarr; after"], srows2,
+                    "No blog changed how it is read.",
+                    '<b>Blogs that moved</b> &middot; %d' % (len(NT["blogAdd"]) + len(NT["blogRem"])
+                                                             + len(NT["blogChg"]))),
+            count=_nbA + _nbR + _nbC))
+
     total = (len(added) + len(removed) + len(changed) + len(gadd) + len(grem) + len(gmod)
              + len(radd) + len(rrem) + len(rmod) + len(cadd) + len(crem) + len(cmod)
              + len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
              + len(com["mcAdd"]) + len(com["mcRem"])
-             + len(dtadd) + len(dtrem) + len(dtchg))
+             + len(dtadd) + len(dtrem) + len(dtchg)
+             + _ntA + _ntR + _ntC + _nbA + _nbR + _nbC)
     out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
                'computed from the two state blocks, not copied from the brief. '
                '<a href="%s">Back to the full brief</a></footer></div>'
@@ -5449,7 +5774,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                                       + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
            ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"])),
-           ("srctext", "Source text", len(dtadd) + len(dtrem) + len(dtchg))]
+           ("srctext", "Source text", len(dtadd) + len(dtrem) + len(dtchg)),
+           ("docsdiff", "Microsoft Learn", _ntA + _ntR + _ntC),
+           ("blogsdiff", "Microsoft Blogs", _nbA + _nbR + _nbC)]
     # rail and banner live in ONE sticky block: the banner is the page's only global
     # control and it has to stay on screen after a jump (§3 punkt 13)
     subnav = ('<div class="dstick"><nav class="dsubnav" aria-label="Sections">'
@@ -5484,7 +5811,7 @@ def verify(page):
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
     for need in ("bytab","bytech","deadlines","added","removed","changed","components",
-                 "endpoints","catalog","community","mcenter","srctext"):
+                 "endpoints","catalog","community","mcenter","srctext","docsdiff","blogsdiff"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -5536,8 +5863,8 @@ def verify(page):
             e.append("kafelek endpointow %s nie zgadza sie z wierszem +%d / -%d" % (
                 re.sub(r"<[^>]+>", "", gt), ge[0], ge[1]))
     # §5am: kazda sekcja tabelaryczna jest zwijana i ma pole szukania budowane przez skrypt
-    if page.count('<details class="dsec"') < 12:
-        e.append("sekcji zwijanych = %d, ma byc 12" % page.count('<details class="dsec"'))
+    if page.count('<details class="dsec"') < 14:
+        e.append("sekcji zwijanych = %d, ma byc 14" % page.count('<details class="dsec"'))
     # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
     for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
@@ -5637,6 +5964,19 @@ def verify(page):
         rows4 = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", m4.group(0), re.S) if "<td" in r]
         nolink4 = [r for r in rows4 if "<ins>added</ins>" in r and "<a href" not in r]
         if nolink4: e.append("%d dodanych pozycji community bez linku" % len(nolink4))
+    # §5aw: dodany artykul blogowy jest NAZWANY z linkiem, nie policzony — ta sama
+    # asercja co przy spolecznosci (poz. 62), bo to ten sam blad w innej zakladce.
+    _mb = re.search(r'<section id="blogsdiff">.*?</section>', page, re.S)
+    if _mb and "baseline" not in _mb.group(0) and "no data" not in _mb.group(0):
+        _bad = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _mb.group(0), re.S)
+                if "<ins>added</ins>" in r and "<a href" not in r]
+        if _bad: e.append("%d dodanych artykulow blogowych bez linku" % len(_bad))
+    _md = re.search(r'<section id="docsdiff">.*?</section>', page, re.S)
+    if _md and "baseline" not in _md.group(0) and "no data" not in _md.group(0):
+        _bad2 = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _md.group(0), re.S)
+                 if "<ins>added</ins>" in r and "<a href" not in r and "Tracked" not in r]
+        if _bad2: e.append("%d dodanych zmian what's new bez linku" % len(_bad2))
+
     # §3 punkt 15: kazdy przycisk dowodu ma pod soba swoj wiersz, a wiersz ma tresc.
     nxb = len(re.findall(r'<button class="xb" type="button" data-diff="1"', page))
     ndet = len(re.findall(r'<tr class="det" hidden>', page))
@@ -6433,7 +6773,7 @@ ma niezerowa `borderTopWidth` i `borderTopColor` rozny od wlasnego tla; zakladka
 `aria-selected="true"` ma tlo rozne od nieaktywnych; licznik `.navcount` ma nieprzezroczyste tlo
 w obu motywach — te same wartosci, nie tylko „jakies".
 
-Dodatkowo przy **390x844** (telefon): **dla KAZDEJ z JEDENASTU zakladek po kolei `document.documentElement.scrollWidth === clientWidth`**
+Dodatkowo przy **390x844** (telefon): **dla KAZDEJ zakladki paska po kolei — dzis TRZYNASTU — `document.documentElement.scrollWidth === clientWidth`**
 (§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
 `getComputedStyle(document.querySelector("header.top")).position` zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
 poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
@@ -6522,6 +6862,20 @@ filters` przywraca kazdy licznik `N of M` do pelnej liczby i **chowa pasek**. Cz
 Component versions zaden lisc o wiecej niz trzech slowach nie renderuje sie monospace**, kazdy tekst
 kafelka ma co najmniej 12,5 px poza chipem platformy i kontrast co najmniej 4,5:1 w obu motywach
 (zmierzone 7,20-17,97:1).
+
+Nowe od 14 wrzesnia 2026 (§5aw), zakladki Microsoft Learn i Microsoft Blogs: **oba panele istnieja
+i obie zakladki stoja w rzedzie `Reference`** (`navrow ref` ma siedem zakladek, `navrow daily` szesc);
+**kazda sekcja obu zakladek to `details.ntsec` ZWINIETA po zaladowaniu, z licznikiem w podpisie**;
+**pasek Advanced filtering jest `DETAILS` ze znacznikiem `+` i `list-style-type: none` na KAZDEJ
+zakladce, ktora go niesie, a `details.s15bar` nie wystepuje w dokumencie ani razu** — jeden ksztalt
+paska na caly portal; klikniecie podpisu otwiera pasek i odslania menu wymiarow, a wybor wartosci
+daje chip `N filters on`, zdanie `N of M rows in this tab` i **jeden wpis w linii mastheadu** (§5at),
+ktory `Reset all filters` czysci; **zaden `a[href]` w tabelach obu zakladek nie ma pustego `href`**,
+a kazdy wiersz artykulu niesie link do artykulu. Zmierzone 14 wrzesnia 2026 na trzynastu zakladkach:
+pasek na dziewieciu, `open: false` na kazdej, `Microsoft Learn` po otwarciu piec menu, wybor
+`Microsoft Intune` daje `1 filter on` i `120 of 397 rows in this tab`. Na stronie `/diff/`:
+**sekcje `docsdiff` i `blogsdiff` istnieja**, `nav.dsubnav` ma czternascie pozycji, `details.dsec`
+czternascie, zero bledow strony i `scrollWidth === clientWidth` przy 1400 i 390 px.
 
 Nowe od 11 wrzesnia 2026 (§5ao), obie powierzchnie: **po kliknieciu tagu w bloku `Technologies`,
 przewinietym tak, ze blok jest na dole ekranu, `#filterbanner` ma `getBoundingClientRect().top`
@@ -7280,7 +7634,7 @@ Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t i §5w:
 ```
 
 Po poprawce wszystkie dziewiec zakladek daje `scrollWidth == clientWidth == 390`, zero bledow
-konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ z JEDENASTU zakladek przy 390x844
+konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ zakladki paska — dzis TRZYNASTU — przy 390x844
 `document.documentElement.scrollWidth === clientWidth`** — nie tylko dla tej, ktora akurat jest
 widoczna po zaladowaniu. Poprzednia wersja §5h sprawdzala jedna zakladke i dlatego przepuscila obie.
 
@@ -7780,7 +8134,8 @@ jak trzy skrypty powloki:
     if (rows.length < 2) return;
     var top = rows[0], bottom = rows[1];
     if (bottom.querySelector(".tab")) return;
-    var REF = ["tab-components", "tab-roles", "tab-graph", "tab-sources", "tab-community"];
+    var REF = ["tab-components", "tab-roles", "tab-graph", "tab-sources", "tab-community",
+               "tab-learn", "tab-blogs"];
     Array.prototype.slice.call(top.querySelectorAll(".tab")).forEach(function (t) {
       if (REF.indexOf(t.getAttribute("aria-controls")) >= 0) bottom.appendChild(t);
     });
@@ -8317,7 +8672,7 @@ Pasek ma wiec **dwa opisane rzedy w jednej grafitowej ramce**:
 | rzad | etykieta | zakladki |
 |---|---|---|
 | gorny | `Daily` | Overview · Today · New · Deadlines · Products · Hunting & actions |
-| dolny | `Reference` | Component versions · Roles · Graph API · Sources · **Community Articles** |
+| dolny | `Reference` | Component versions · Roles · Graph API · Sources · **Community Articles** · **Microsoft Learn** · **Microsoft Blogs** |
 
 Podzial nie jest wymyslony na potrzeby paska. **§5y stawia go w danych**: „zakladki katalogowe licza
 katalog, nie okno". Rzedy nazywaja rozroznienie, ktore prezentacja i tak robi, a zakladki referencyjne
@@ -8360,8 +8715,9 @@ przechodzaca na pustych danych (§0b). Dlatego:
   i jest TAKIE SAMO w obu motywach**;
 - **sa DWA elementy `.navrow`**, gorny ma etykiete `Daily`, dolny `Reference`, i kazdy niesie
   `<nav class="anchors">` z co najmniej jedna zakladka;
-- suma zakladek w obu rzedach wynosi **11**, a `Component versions` i `Community Articles` stoja
-  w rzedzie `Reference`, przy czym `Community Articles` jest **ostatnia, zaraz po Sources** (§5an);
+- suma zakladek w obu rzedach wynosi **13**, a `Component versions`, `Community Articles`,
+  `Microsoft Learn` i `Microsoft Blogs` stoja w rzedzie `Reference`, przy czym `Community Articles`
+  idzie zaraz po Sources (§5an), a obie zakladki §5aw **na samym koncu**;
 - kazda `nav.anchors .tab` ma `borderTopWidth` niezerowa i `borderTopColor` rozny od tla zakladki;
 - zakladka z `aria-selected="true"` ma tlo rozne od zakladek nieaktywnych;
 - tlo `.navstack` jest rozne od tla `header.top` i od `--surface`;
@@ -15921,84 +16277,12 @@ Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak,
 (§0c).
 
 ```css
-/* §5au — Advanced filtering: jeden pasek na zakladke, jedno menu na kolumne.
-   Kazdy selektor zaczyna sie od klasy, ktora tworzy wylacznie SKRYPT 15, poza
-   jedna regula podswietlenia wiersza, ktora jest tu z powodu opisanego nizej.
-   Zmienne sa te, ktore arkusz juz deklaruje (5t). */
-details.s15bar{border:1px solid var(--border);border-left:4px solid var(--accent);
- border-radius:12px;background:var(--surface);margin:0 0 14px}
-details.s15bar.on{border-color:var(--accent);background:var(--accent-soft)}
-details.s15bar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
- flex-wrap:wrap;padding:10px 14px}
-details.s15bar>summary::-webkit-details-marker{display:none}
-details.s15bar>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
- width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
- border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
-details.s15bar[open]>summary::before{content:"−"}
-.s15ttl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
- color:var(--accent);background:var(--surface);border:1px solid var(--accent);
- border-radius:999px;padding:3px 11px;white-space:nowrap}
-.s15scope{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--muted)}
-.s15on{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
- border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
-.s15on[hidden]{display:none!important}
-.s15qrow{display:flex;gap:8px;align-items:center;margin:0 14px 9px}
-.s15qin{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
- background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
-.s15qin::placeholder{color:var(--muted);font-weight:400}
-.s15qin:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
-.s15qc{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
- background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
-.s15row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 14px 8px}
-.s15dim{position:relative}
-.s15btn{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
- padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
- color:var(--text);cursor:pointer;white-space:nowrap}
-.s15btn:hover{border-color:var(--s15c,var(--accent))}
-.s15btn.on{border-color:var(--s15c,var(--accent));background:var(--surface);
- box-shadow:inset 0 0 0 1px var(--s15c,var(--accent))}
-.s15btn .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--s15c,var(--accent))}
-.s15btn b{font-variant-numeric:tabular-nums;color:var(--s15c,var(--accent))}
-.s15car{color:var(--muted);font-size:10px}
-.s15btn:focus-visible,.s15t0:focus-visible,.s15reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.s15pop{display:none;position:fixed;z-index:70;min-width:270px;max-width:340px;
- background:var(--surface);border:1px solid var(--border);border-radius:12px;
- box-shadow:0 10px 30px rgba(0,0,0,.28);padding:9px}
-.s15dim.open .s15pop{display:block}
-.s15q{width:100%;font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
- background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);margin:0 0 7px}
-.s15q[hidden]{display:none}
-.s15list{overflow:auto;display:flex;flex-direction:column;gap:1px}
-.s15opt{font:inherit;font-size:12.5px;display:flex;align-items:center;gap:9px;width:100%;
- text-align:left;padding:6px 8px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer}
-.s15opt:hover{background:var(--surface-2)}
-.s15opt .s15box{width:14px;height:14px;flex:0 0 14px;border-radius:4px;border:1.5px solid var(--border);
- background:var(--surface)}
-.s15opt.on .s15box{background:var(--accent);border-color:var(--accent);
- box-shadow:inset 0 0 0 2px var(--surface)}
-.s15opt .s15name{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.s15opt b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
-.s15none{margin:6px 8px;font-size:12.5px;color:var(--muted)}
-.s15foot{display:flex;align-items:center;gap:8px;margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--border)}
-.s15clr{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
- border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
-.s15pn{margin-left:auto;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.s15sep{width:1px;height:20px;background:var(--border)}
-.s15t0{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
- padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
- color:var(--text);cursor:pointer}
-.s15t0 .s15dot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--bad)}
-.s15t0 b{font-variant-numeric:tabular-nums;color:var(--bad)}
-.s15t0.on{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
-.s15reset{font:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
- border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer;margin-left:auto}
-.s15sum{margin:0 14px 12px;font-size:12.5px;color:var(--muted)}
-@media (max-width:760px){
-  .s15qrow{flex-wrap:wrap}.s15qc{max-width:100%;width:100%}
-  .s15reset{margin-left:0;width:100%;text-align:center}
-  .s15pop{max-width:calc(100vw - 24px)}
-}
-/* PODSWIETLENIE WIERSZA PRZY NAJECHANIU — cala szerokosc, nie jedna komorka.
+/* §5au — po 14 wrzesnia 2026 zostaje w tym bloku JEDNA regula. Klasy `s15bar`,
+   `s15pop`, `s15btn` i reszta rodziny odeszly razem ze SKRYPTEM 15, ktory zastapil
+   SKRYPT 15 v2 (§5aw): regula w arkuszu dla klasy, ktorej nic nie renderuje, jest
+   martwa i myli nastepny przebieg tak samo, jak klasa w markupie bez reguly w arkuszu
+   myli przegladarke (§5ae, §5an). Wyglad paska stoi odtad w bloku §5aw.
+   PODSWIETLENIE WIERSZA PRZY NAJECHANIU zostaje i nie nalezalo do paska.
    Powloka pasuje wiersze parzyste RECZNIE, w `restripe()`, ktore pisze
    `td.style.background` INLINE, bo wiersze ukryte filtrem lamia `nth-child`.
    Styl inline bije kazda regule arkusza, wiec `tbody tr:hover td` nie mial na
@@ -16011,581 +16295,26 @@ details.s15bar[open]>summary::before{content:"−"}
 .tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}
 ```
 
-### SKRYPT 15 — na koniec `<body>`, jako PIETNASTY blok `<script>`
+### SKRYPT 15 — ZASTAPIONY przez SKRYPT 15 v2 (§5aw) 14 wrzesnia 2026
 
-```js
-/* ===========================================================================
-   SCRIPT 15 — ADVANCED FILTERING: ONE BAR PER TAB, EVERY COLUMN REACHABLE
-   (CLAUDE.md 5au). ADDED, never a replacement: shell scripts 1-3 and added
-   scripts 4-14 are untouched, byte for byte.
+**Blok kodu tej sekcji zostal USUNIETY z tego pliku i nie ma go na stronie.** Zatwierdzona
+makieta z 12 wrzesnia 2026 nie niesie klasy `s15bar` ani razu, a wlasciciel poprosil 14 wrzesnia
+o JEDEN ksztalt paska w calym portalu: *„ujednolic prosze sposob wyswietlania advanced
+filtering — np. w obecnych zakladkach, ktore mamy, advanced filtering jest rozwijalny"*.
+Dwa paski nad jedna zakladka to dwie kontrolki tego samego stanu, czyli ten sam blad co dwa
+pola szukania w §5am i dwa zielone paski w §5an.
 
-   The owner, 11-12 September 2026: "wszystkie sekcje powinny miec szybkie
-   filtrowanie ... wspolne dla kazdej sekcji w zakladce", then "moze tez
-   pozwolilbym na multifiltering", then "sprawdz jak to robia inni", and finally
-   "wprowadz go w kazda zakladke ktora mamy w raporcie".
+**Co z tej sekcji ZOSTAJE i obowiazuje bez zmian:** trzy reguly wyzej (jeden pisarz na mechanizm,
+faseta musi grupowac, czytelnik nie jest przesuwany), poprawka 4 o wymiarze jako PYTANIU i o
+wartosci jako aliasie, blok CSS ponizej wraz z regula podswietlenia calego wiersza, oraz pozycja
+75 listy §0. **Co ODCHODZI:** blok `SCRIPT 15` i klasy `s15bar`/`s15pop`/`s15btn`.
+Kod paska stoi odtad w §5aw, razem z obiema nowymi zakladkami, bo to jeden skrypt.
 
-   What it is: one horizontal bar at the top of a tab with a dropdown menu per
-   groupable column, checkboxes inside (several values in one menu mean ANY of
-   them, two menus at once mean BOTH), a live count on every value, a search box
-   scoped to any single column, a tier-0 toggle and one Reset.
+Regula ogolna, ktora z tego wynika: **sekcja, ktorej kod zostal zastapiony, traci swoj blok
+kodu w TYM pliku** — inaczej `extract_code.py` wycialby dwa bloki o tym samym znaczniku
+`SCRIPT 15`, a `gate.py` pozycja 56 porownywalaby ze strona ten, ktory akurat wypadl ostatni
+w slowniku. Kod w dwoch miejscach rozjezdza sie zawsze (§0a).
 
-   THREE RULES IT OBEYS, and each of them is a measurement, not a taste:
-
-   1. ONE WRITER PER MECHANISM (5am, 5ap). This script never writes `row.hidden`
-      and never writes a `N of M` counter. It hands SCRIPT 11 the set of rows it
-      means, through `setTab`, and SCRIPT 11 stays the only writer of both. That
-      is why the section chip, the table counter and this bar can never disagree.
-   2. A FACET MUST GROUP (5s). A column whose values are nearly all unique is an
-      identifier, not a filter: a dropdown with 512 article titles is a second
-      copy of the table. Such a column is offered to the SEARCH SCOPE instead, so
-      every column the tab shows is reachable by one means or the other.
-   3. THE READER IS NOT MOVED. Picking a value inside a menu does not scroll the
-      page — `spec.quiet` (5ap). Before that rule existed, one click scrolled the
-      tab from 1 105 px to 3 704 px, took the button off screen and closed the
-      menu, so a second value could not be picked without scrolling back.
-   ALL UI TEXT IS ENGLISH.
-   =========================================================================== */
-(function () {
-  "use strict";
-
-  var MIN_ROWS   = 12;   /* ponizej tego tabele zakladki sie czyta, nie filtruje */
-  var MAX_VALUES = 40;   /* powyzej tego lista wartosci przestaje byc wyborem */
-  var HUE = ["--accent", "--ok", "--warn", "--info", "--cond"];
-
-  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
-  function txt(n) { return ((n && n.textContent) || "").replace(/\s+/g, " ").trim(); }
-  function head(n) { return txt(n).replace(/[↕↑↓]\s*$/, "").trim(); }
-
-  var F = {};                                   /* pid -> stan filtra */
-  var TAB = {};                                 /* pid -> {tables:[{el,head}], dims:[]} */
-  var INCLR = 0;
-  var DELEG = {};                               /* pid -> czy nazywa go juz SKRYPT 11 */
-  function fstate(pid) { return F[pid] || (F[pid] = {}); }
-  function sel(pid, k) { var st = fstate(pid); return st[k] || (st[k] = []); }
-
-  /* ---------------- rejestr kolumn ---------------- */
-  function register(pid) {
-    var p = document.getElementById(pid); if (!p) return null;
-    var tables = [];
-    [].forEach.call(p.querySelectorAll("table"), function (t) {
-      if (!t.tHead || !t.tBodies.length) return;
-      var hs = [].map.call(t.querySelectorAll("thead th"), head);
-      if (!hs.length) return;
-      var rows = [].slice.call(t.tBodies[0].rows).filter(function (r) {
-        return !r.classList.contains("hdet") && !r.classList.contains("grp") && r.cells.length === hs.length;
-      });
-      if (!rows.length) return;
-      var h = {}; hs.forEach(function (x, i) { if (x) h[x] = i; });
-      var ti = tables.length;
-      rows.forEach(function (r) { r.__s15 = ti; });
-      tables.push({ el: t, head: h, rows: rows });
-    });
-    if (!tables.length) return null;
-    return (TAB[pid] = { tables: tables, dims: [] });
-  }
-  function rowsOf(pid) {
-    var T = TAB[pid], out = [];
-    if (T) T.tables.forEach(function (r) { out = out.concat(r.rows); });
-    return out;
-  }
-  /* WYMIAR JEST PYTANIEM, NIE NAPISEM W NAGLOWKU, a komorka bywa LISTA wartosci.
-     Zmierzone 12 wrzesnia 2026 na stronie zmian, gdzie ta sama logika stala obok:
-     przy `product = Azure, Entra` szesc sekcji nie ruszylo sie wcale, bo pisza to
-     samo pytanie jako `Technology`, a `Entra` i `Entra ID` staly w menu jako dwa
-     osobne wybory. Portal ma ten sam ksztalt kodu, wiec dostaje te sama poprawke —
-     inaczej dwie powierzchnie jednego portalu odpowiadaja inaczej na jedno pytanie
-     (§0a). Trzy prymitywy, zadeklarowane raz: synonim naglowka, alias wartosci,
-     rozbicie komorki na tokeny. */
-  var SYN = [
-    ["Product", /^(product|technology|areas touched|service)$/i]
-  ];
-  /* `Status` i `State` TEZ sa jednym pytaniem i pierwsza wersja je scalala — zmierzone
-     tego samego dnia: zakladka Sources stracila jedno z dwoch menu, co bylo poprawa,
-     ale zakladka Products stracila menu `Status` CALKIEM, bo po scaleniu kolumna
-     istnieje w tabelach, w ktorych bywa pusta, i wymiar wypada na progu
-     `filled / seen < 0.5`. Utrata kontrolki jest gorsza niz zdublowane menu, ktore
-     filtruje poprawnie, wiec scalamy wylacznie rodzine produktu — to ona byla
-     zepsuta. Nowy synonim dopisuje sie dopiero po zmierzeniu, co znika. */
-  function dimKey(h) {
-    for (var i = 0; i < SYN.length; i++) if (SYN[i][1].test(h)) return SYN[i][0];
-    return h;
-  }
-  /* Tylko pary, ktore sa JEDNA rzecza. `Windows` i `Windows Server` nia nie sa,
-     `Copilot & AI` i `Copilot Studio` tez nie: bledne scalenie CHOWA wiersze,
-     a to jest gorsze niz zdublowana pozycja w menu. */
-  var ALIAS = [
-    ["Entra",        /^(entra|entra id|azure ad|aad)$/i],
-    ["Graph",        /^(graph|graph api|microsoft graph)$/i],
-    ["MDE",          /^(mde|defender for endpoint)$/i],
-    ["MDI",          /^(mdi|defender for identity)$/i],
-    ["MDA",          /^(mda|mdca|defender for cloud apps)$/i],
-    ["Defender XDR", /^(defender xdr|xdr)$/i],
-    ["Exchange",     /^(exchange|exchange online)$/i]
-  ];
-  function canonVal(v) {
-    for (var i = 0; i < ALIAS.length; i++) if (ALIAS[i][1].test(v)) return ALIAS[i][0];
-    return v;
-  }
-  function clean(v) {
-    /* Emoji pilnosci stoi w tresci komorki i DZIELILO jedna technologie na dwie
-       wartosci: menu `Product` w Deadlines mialo osobno `🔥 Entra 7`
-       i `⚠ Entra 5` zamiast `Entra 12`. Pilnosc jest juz w kolumnie terminu. */
-    return canonVal(String(v).replace(/^[🔥⚠️\s]+/, "").trim());
-  }
-  function cols(dim, tr) {
-    if (!dim || !dim.idx) return null;
-    var a = dim.idx[tr.__s15];
-    return (a && a.length) ? a : null;                /* ta tabela nie ma tej kolumny */
-  }
-  function cellText(tr, dim) {
-    var a = cols(dim, tr);
-    if (!a) return null;
-    var c = tr.cells[a[0]]; if (!c) return "";
-    return txt(c).replace(/^[🔥⚠️\s]+/, "").trim();
-  }
-  /* Komorka rozbita na tokeny po srodkowej kropce — nigdy po spacji, bo
-     „Windows Server" i „Defender for Endpoint" to po jednej wartosci. */
-  function cellVals(tr, dim) {
-    var a = cols(dim, tr);
-    if (!a) return null;
-    var out = [];
-    a.forEach(function (i) {
-      var c = tr.cells[i]; if (!c) return;
-      var t = txt(c);
-      if (!t) return;
-      if (t.indexOf("\u00b7") < 0) { out.push(clean(t)); return; }
-      t.split("\u00b7").forEach(function (x) {
-        x = x.replace(/\s+/g, " ").trim();
-        if (x && x !== "\u2026") out.push(clean(x));
-      });
-    });
-    return out;
-  }
-
-  /* ---------------- ktora kolumna jest faseta ---------------- */
-  var GOOD    = /^(product|service|technology|area|status|state|kind|type|change type|source|found in|severity|weight|soc weight|platform|freshness|tier|category|api|surface|role|method|what|scope|read by|read as|month)$/i;
-  var MEASURE = /^(\d+([.,]\d+)?%?|[+−-]\d+|\d+\s*of\s*\d+|—|–|-|n\/a)$/i;
-  var IDVAL   = /^(MC|RM)\d+$|^CVE-\d/i;
-  var NEVER   = /^(link|article|post|title|item|page|entry|detail|note|why|before|after|action|directory action|open|what it holds|what it allows|what it means|what it says|what changed|what was tried|why it matters|commit|reference)/i;
-  var NEVER2  = /^(coverage|endpoints|days|lines|count|rows|articles|age|changed in|total|delegated|application|both|rsc)/i;
-
-  function dimsFor(pid) {
-    var T = TAB[pid]; if (!T) return [];
-    var labels = {};
-    T.tables.forEach(function (rec, ti) {
-      Object.keys(rec.head).forEach(function (h) {
-        var k = dimKey(h), m = (labels[k] = labels[k] || {});
-        (m[ti] = m[ti] || []).push(rec.head[h]);
-      });
-    });
-    var rows = rowsOf(pid), out = [];
-    Object.keys(labels).forEach(function (h) {
-      if (NEVER.test(h) || NEVER2.test(h)) return;
-      if (h.indexOf("/") >= 0) return;                /* "Read / carried / dropped" to trzy liczby */
-      var dim = { k: "col:" + h, label: h, idx: labels[h] };
-      var vals = {}, n = 0, seen = 0, filled = 0, num = 0, longest = 0;
-      rows.forEach(function (tr) {
-        var ts = cellVals(tr, dim); if (ts === null) return;
-        seen++; if (!ts.length) return;
-        ts.forEach(function (t) {
-          if (!t) return;
-          filled++;
-          if (MEASURE.test(t)) num++;
-          if (t.length > longest) longest = t.length;
-          if (!vals[t]) { vals[t] = 0; n++; } vals[t]++;
-        });
-      });
-      if (n < 2 || n > MAX_VALUES || longest > 60 || !filled) return;
-      var rep = 0; Object.keys(vals).forEach(function (k) { if (vals[k] > rep) rep = vals[k]; });
-      if (rep < 2) return;                            /* kazda wartosc unikalna = druga kopia tabeli (5s) */
-      if (n >= filled) return;
-      if (num / filled > 0.6) return;                 /* kolumna liczb jest MIARA, nie faseta */
-      if (filled / seen < 0.5) return;
-      /* KOLUMNA IDENTYFIKATOROW nie jest faseta, choćby miala jedna duza grupe.
-         Zmierzone 12 wrzesnia 2026: `Source` w Today dawalo `Microsoft 45`,
-         `Source 22` i OSIEM numerow MC po jednym, bo link zrodla raz nazywal sie
-         „Source", raz „Microsoft", a raz niosl identyfikator wpisu. */
-      var idlike = 0;
-      Object.keys(vals).forEach(function (k) {
-        if (vals[k] === 1 && (IDVAL.test(k) || (k.length >= 8 && k.indexOf(" ") < 0 && /\d/.test(k)))) idlike++;
-      });
-      if (idlike / n > 0.34) return;
-      var score = (GOOD.test(h) ? 100 : 0) + Object.keys(labels[h]).length * 18
-                + Math.max(0, 24 - Math.abs(n - 8) * 2)
-                + Math.min(20, Math.round(filled / Math.max(1, seen) * 20));
-      dim.__score = score; dim.__n = n;
-      out.push(dim);
-    });
-    out.sort(function (a, b) { return b.__score - a.__score || a.__n - b.__n || a.label.localeCompare(b.label); });
-    out = out.slice(0, 5);
-    out.forEach(function (d, i) { d.c = HUE[i % HUE.length]; });
-    return out;
-  }
-  /* KAZDA kolumna zakladki — do zakresu szukania. Faseta wymaga, zeby kolumna
-     grupowala; szukanie wymaga tylko tego, zeby kolumna istniala. */
-  function allCols(pid) {
-    var T = TAB[pid]; if (!T) return [];
-    var labels = {};
-    T.tables.forEach(function (rec, ti) {
-      Object.keys(rec.head).forEach(function (h) {
-        var k = dimKey(h), m = (labels[k] = labels[k] || {});
-        (m[ti] = m[ti] || []).push(rec.head[h]);
-      });
-    });
-    return Object.keys(labels).sort().map(function (h) { return { k: "col:" + h, label: h, idx: labels[h] }; });
-  }
-
-  /* ---------------- dopasowanie ---------------- */
-  function rowHas(tr, dim, val) {
-    var ts = cellVals(tr, dim);
-    return ts === null ? null : (ts.indexOf(val) >= 0);
-  }
-  function isT0(tr) { return !!tr.querySelector(".t0, .badge.t-bad"); }
-  function matches(tr, st, skip) {
-    if (st.q && skip !== "q") {
-      var hay = st.qd ? cellText(tr, st.qd) : (tr.textContent || "");
-      if (hay !== null && hay.toLowerCase().indexOf(st.q) < 0) return false;
-    }
-    var dims = st.__dims || [];
-    for (var i = 0; i < dims.length; i++) {
-      var dim = dims[i]; if (dim.k === skip) continue;
-      var chosen = st[dim.k]; if (!chosen || !chosen.length) continue;
-      var any = false, rel = false;
-      for (var j = 0; j < chosen.length; j++) {
-        var r = rowHas(tr, dim, chosen[j]);
-        if (r === null) continue;
-        rel = true; if (r) { any = true; break; }
-      }
-      if (rel && !any) return false;
-    }
-    if (skip !== "t0" && st.t0 && !isT0(tr)) return false;
-    return true;
-  }
-  function countFor(pid, dim, val) {
-    var st = fstate(pid), n = 0;
-    rowsOf(pid).forEach(function (tr) { if (matches(tr, st, dim.k) && rowHas(tr, dim, val) === true) n++; });
-    return n;
-  }
-  function values(pid, dim) {
-    var out = {};
-    rowsOf(pid).forEach(function (tr) {
-      (cellVals(tr, dim) || []).forEach(function (t) { if (t) out[t] = 1; });
-    });
-    return Object.keys(out);
-  }
-  function describe(pid) {
-    var st = fstate(pid), out = [];
-    (TAB[pid] || {}).dims && TAB[pid].dims.forEach(function (d) {
-      var a = st[d.k]; if (!a || !a.length) return;
-      out.push(d.label + ": " + (a.length <= 3 ? a.join(", ") : a.length + " selected"));
-    });
-    if (st.t0) out.push("Tier 0 only");
-    if (st.q) out.push((st.qLabel ? (st.qLabel + " contains ") : "text ") + '"' + st.qRaw + '"');
-    return out;
-  }
-
-  /* ---------------- oddanie zawezenia SKRYPTOWI 11 ---------------- */
-  function s11set(pid, spec) {
-    spec.quiet = true;
-    spec.owner = "advanced-filtering";
-    spec.onclear = function () {
-      if (INCLR) return;
-      if (!F[pid] || !Object.keys(F[pid]).length) return;
-      INCLR = 1; F[pid] = {}; try { apply(pid); } finally { INCLR = 0; }
-    };
-    window.__socS11.setTab(pid, spec);
-  }
-  function apply(pid) {
-    var pids = pid ? [pid] : Object.keys(TAB);
-    pids.forEach(function (id) {
-      var st = fstate(id); st.__dims = (TAB[id] || {}).dims || [];
-      var ids = [], texts = [], on = describe(id).length, left = 0;
-      rowsOf(id).forEach(function (tr) {
-        if (!matches(tr, st)) return;
-        left++;
-        var i = tr.getAttribute("data-id");
-        if (i) ids.push(i);
-        else {
-          /* Wiersz bez `data-id` nazywa sie swoja trescia — ta sama droga, ktora
-             SKRYPT 11 dostaje od Start here dla tabel tekstu zrodla (5at). */
-          var t = txt(tr.cells[0]) || txt(tr.cells[1]);
-          if (t && t.length >= 4) texts.push(t.slice(0, 80));
-        }
-      });
-      DELEG[id] = false;
-      if (window.__socS11) {
-        if (on && (ids.length || texts.length)) {
-          s11set(id, { label: describe(id).join(" · "), ids: ids, texts: texts });
-          DELEG[id] = true;
-        } else if (window.__socS11.clearTab) window.__socS11.clearTab(id);
-      }
-      /* Liczbe podajemy TA, ktora pokazuja tabele. SKRYPT 11 zostawia CALA tabele,
-         ktorej nazwany zbior nie dotyczy (5at), wiec moje wlasne liczenie dawalo
-         `208 of 327` nad tabelami mowiacymi `185 of 185` i `15 of 134` — czyli dwie
-         liczby o tym samym na jednym ekranie, dokladnie to, czego ten pasek ma nie
-         robic. Czytamy wiec stan PO tym, jak SKRYPT 11 go zapisal. */
-      var shown = 0;
-      rowsOf(id).forEach(function (tr) { if (tr.dataset.s11 !== "0" && !tr.hidden) shown++; });
-      var bar = document.getElementById(id + "-s15");
-      if (bar && bar.__render) bar.__render(shown);
-    });
-    if (window.__socFilterBarSync) window.__socFilterBarSync();
-  }
-
-  /* ---------------- jedno menu ---------------- */
-  var OPEN = null;
-  function closeMenu() { if (OPEN) { OPEN.classList.remove("open"); OPEN = null; } }
-  document.addEventListener("click", function (e) {
-    if (OPEN && !OPEN.contains(e.target)) closeMenu();
-  });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
-
-  function dimMenu(pid, dim) {
-    var wrap = el("div", "s15dim");
-    var btn = el("button", "s15btn"); btn.type = "button";
-    btn.appendChild(el("i", "s15dot"));
-    var lab = el("span", null, dim.label); btn.appendChild(lab);
-    var cnt = el("b", null, ""); btn.appendChild(cnt);
-    btn.appendChild(el("span", "s15car", "▾"));
-    wrap.appendChild(btn);
-
-    var pop = el("div", "s15pop");
-    var q = el("input", "s15q"); q.type = "search"; q.placeholder = "Search " + dim.label.toLowerCase() + "…";
-    var list = el("div", "s15list");
-    var foot = el("div", "s15foot");
-    var clr = el("button", "s15clr", "Clear this one"); clr.type = "button";
-    var pn = el("span", "s15pn", "");
-    foot.appendChild(clr); foot.appendChild(pn);
-    pop.appendChild(q); pop.appendChild(list); pop.appendChild(foot);
-    wrap.appendChild(pop);
-
-    function paint() {
-      var chosen = sel(pid, dim.k), vs = values(pid, dim).sort();
-      var f = (q.value || "").trim().toLowerCase(), shown = 0;
-      list.textContent = "";
-      vs.forEach(function (v) {
-        var n = countFor(pid, dim, v), on = chosen.indexOf(v) >= 0;
-        if (!n && !on) return;                       /* wybor, ktory nic nie da, nie jest wyborem (5s) */
-        if (f && v.toLowerCase().indexOf(f) < 0) return;
-        shown++;
-        var r = el("button", "s15opt" + (on ? " on" : "")); r.type = "button";
-        r.setAttribute("aria-checked", on ? "true" : "false");
-        r.appendChild(el("i", "s15box"));
-        r.appendChild(el("span", "s15name", v));
-        r.appendChild(el("b", null, String(n)));
-        r.addEventListener("click", function (ev) {
-          ev.stopPropagation();
-          var a = sel(pid, dim.k), i = a.indexOf(v);
-          if (i < 0) a.push(v); else a.splice(i, 1);
-          apply(pid); place();
-        });
-        list.appendChild(r);
-      });
-      if (!shown) list.appendChild(el("p", "s15none", "Nothing matches that here."));
-      pn.textContent = chosen.length ? (chosen.length + " selected") : "";
-      cnt.textContent = chosen.length ? String(chosen.length) : "";
-      btn.classList.toggle("on", !!chosen.length);
-      lab.textContent = chosen.length === 1 ? (dim.label + ": " + chosen[0]) : dim.label;
-      q.hidden = vs.length <= 8;                     /* pole, ktore nic nie zawezasa, uczy ze kontrolki nic nie robia */
-    }
-    /* Menu pozycjonuje sie wzgledem OKNA, nie rodzica, i odbija sie w gore, gdy pod
-       przyciskiem nie ma miejsca; wysokosc listy liczy sie z RZECZYWISTEJ obudowy,
-       nie ze zgadnietej stalej. Przycisk schowany pod przyklejonym mastheadem nie ma
-       czego otwierac — menu, ktore za nim jedzie, konczy sie ZA naglowkiem. */
-    function place() {
-      var r = btn.getBoundingClientRect();
-      var hd = document.querySelector("header.top");
-      var top0 = (hd && getComputedStyle(hd).position === "sticky") ? hd.getBoundingClientRect().bottom : 0;
-      var gap = 6, margin = 12;
-      var below = window.innerHeight - r.bottom - gap - margin;
-      var above = r.top - Math.max(top0, 0) - gap - margin;
-      if (r.bottom < top0 + 4 || r.top > window.innerHeight - 24) { closeMenu(); return; }
-      var up = below < 240 && above > below;
-      var space = Math.max(160, Math.min(360, up ? above : below));
-      pop.style.position = "fixed";
-      pop.style.left = Math.round(Math.max(margin, Math.min(r.left, window.innerWidth - pop.offsetWidth - margin))) + "px";
-      if (up) { pop.style.top = ""; pop.style.bottom = Math.round(window.innerHeight - r.top + gap) + "px"; }
-      else { pop.style.bottom = ""; pop.style.top = Math.round(r.bottom + gap) + "px"; }
-      list.style.maxHeight = "none";
-      var chrome = pop.offsetHeight - list.offsetHeight;
-      list.style.maxHeight = Math.max(120, Math.round(space - chrome)) + "px";
-    }
-    wrap.__place = place; wrap.__paint = paint;
-    q.addEventListener("input", paint);
-    q.addEventListener("click", function (e) { e.stopPropagation(); });
-    clr.addEventListener("click", function (e) { e.stopPropagation(); fstate(pid)[dim.k] = []; apply(pid); });
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      var was = wrap.classList.contains("open");
-      closeMenu();
-      if (!was) { wrap.classList.add("open"); OPEN = wrap; paint(); place();
-                  setTimeout(function () { if (!q.hidden) q.focus(); place(); }, 30); }
-    });
-    return wrap;
-  }
-  /* Zawezenie skraca dokument, a przegladarka przycina wtedy `scrollY` — przycisk
-     jedzie wzgledem okna, a menu jest `position:fixed`. */
-  window.addEventListener("scroll", function () { if (OPEN && OPEN.__place) OPEN.__place(); }, { passive: true });
-  window.addEventListener("resize", function () { if (OPEN && OPEN.__place) OPEN.__place(); });
-
-  /* ---------------- pasek ---------------- */
-  function buildBar(pid) {
-    var p = document.getElementById(pid);
-    var T = TAB[pid]; if (!p || !T) return;
-    var box = el("details", "s15bar"); box.id = pid + "-s15";
-    var sum = el("summary");
-    sum.appendChild(el("span", "s15ttl", "Advanced filtering"));
-    sum.appendChild(el("span", "s15scope",
-      "Applies to every section in this tab at once — each menu narrows all of them together."));
-    var chip = el("span", "s15on", ""); sum.appendChild(chip);
-    box.appendChild(sum);
-
-    var qrow = el("div", "s15qrow");
-    var qin = el("input", "s15qin"); qin.type = "search";
-    qin.placeholder = "Search every section in this tab…";
-    var qsel = el("select", "s15qc"); qsel.setAttribute("aria-label", "Search in one column");
-    var o0 = el("option", null, "in: all columns"); o0.value = ""; qsel.appendChild(o0);
-    allCols(pid).forEach(function (c) {
-      var o = el("option", null, "in: " + c.label); o.value = c.k; o.__d = c; qsel.appendChild(o);
-    });
-    qrow.appendChild(qin);
-    if (qsel.options.length > 1) qrow.appendChild(qsel);
-    function readq() {
-      var st = fstate(pid), o = qsel.options[qsel.selectedIndex];
-      st.qRaw = (qin.value || "").trim();
-      st.q = st.qRaw.toLowerCase();
-      st.qd = (o && o.__d) || null;
-      st.qLabel = st.qd ? st.qd.label : "";
-      apply(pid);
-    }
-    qin.addEventListener("input", readq);
-    qsel.addEventListener("change", readq);
-    box.appendChild(qrow);
-
-    var row = el("div", "s15row"), menus = [];
-    T.dims.forEach(function (d) {
-      if (values(pid, d).length < 2) return;
-      var w = dimMenu(pid, d); w.style.setProperty("--s15c", "var(" + d.c + ")");
-      row.appendChild(w); menus.push(w);
-    });
-    var t0 = el("button", "s15t0"); t0.type = "button";
-    t0.appendChild(el("i", "s15dot")); t0.appendChild(el("span", null, "Tier 0 only"));
-    var t0n = el("b", null, ""); t0.appendChild(t0n);
-    t0.addEventListener("click", function () { var st = fstate(pid); st.t0 = st.t0 ? 0 : 1; apply(pid); });
-    row.appendChild(el("span", "s15sep"));
-    row.appendChild(t0);
-    var rb = el("button", "s15reset", "Reset"); rb.type = "button";
-    rb.addEventListener("click", function () {
-      F[pid] = {}; qin.value = ""; qsel.selectedIndex = 0; apply(pid);
-    });
-    row.appendChild(rb);
-    box.appendChild(row);
-    var note = el("p", "s15sum"); box.appendChild(note);
-
-    box.__render = function (left) {
-      var st = fstate(pid), tot = rowsOf(pid).length;
-      if (left === undefined) left = tot;
-      if (!st.q && qin.value) { qin.value = ""; qsel.selectedIndex = 0; }
-      menus.forEach(function (w) { w.__paint(); });
-      var n = 0; rowsOf(pid).forEach(function (tr) {
-        var s2 = {}; for (var k in st) s2[k] = st[k]; s2.t0 = 1;
-        if (matches(tr, s2)) n++;
-      });
-      t0n.textContent = String(n);
-      t0.classList.toggle("on", !!st.t0);
-      var parts = describe(pid);
-      box.classList.toggle("on", !!parts.length);
-      chip.textContent = parts.length ? (parts.length === 1 ? "1 filter on" : parts.length + " filters on") : "";
-      chip.hidden = !parts.length;
-      if (parts.length && !box.open) box.open = true;
-      /* PASEK NIE PODAJE WLASNEJ LICZBY WIERSZY. Licznik `N of M` nalezy do SKRYPTU 11
-         i stoi nad kazda tabela; moja wlasna suma mowila `208 of 327` nad tabelami
-         czytajacymi `185 of 185` i `15 of 134`, bo tabela, ktorej filtr nie nazywa,
-         zostaje CALA (5at). Dwie liczby o tym samym na jednym ekranie sa gorsze niz
-         jedna — wiec pasek nazywa FILTR, a liczby zostawia tam, gdzie maja wlasciciela. */
-      note.textContent = parts.length
-        ? (parts.join("  ·  ") + "  —  every table in this tab is narrowed to it; the counter above " +
-           "each table says how many of its rows match, and a table this filter names no row in is " +
-           "left whole. Several values inside one menu mean any of them; two menus at once mean both.")
-        : ("Nothing is filtered — all " + tot + " rows in this tab are shown. Pick values in one menu " +
-           "to widen, in two menus to narrow.");
-    };
-    var headEl = p.querySelector(":scope > .panelhead");
-    var after = p.querySelector(":scope > .filterbanner.s11.s11tab");
-    if (after) after.parentNode.insertBefore(box, after.nextSibling);
-    else if (headEl && headEl.nextSibling) p.insertBefore(box, headEl.nextSibling);
-    else p.insertBefore(box, p.firstChild);
-  }
-
-  /* Zakladka z wlasnym filtrem globalnym nie dostaje drugiego — dwie kontrolki nad
-     jednym licznikiem to dwoch pisarzy (5am). */
-  var HASOWN = { "tab-community": 1,   /* ma wlasny filtr technologii i czasu (SKRYPT 10) */
-                 "tab-overview": 1 };  /* jego tabele SA nawigacja (5as), a nie trescia do zawezania */
-
-  function mount() {
-    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
-      if (!p.id || HASOWN[p.id]) return;
-      if (document.getElementById(p.id + "-s15")) return;
-      var T = register(p.id);
-      if (!T) return;
-      if (rowsOf(p.id).length < MIN_ROWS) { delete TAB[p.id]; return; }
-      T.dims = dimsFor(p.id);
-      if (!T.dims.length) { delete TAB[p.id]; return; }
-      buildBar(p.id);
-      apply(p.id);
-    });
-  }
-
-  /* ---------------- magistrala filtrow (5at) ---------------- */
-  function tabLabel(pid) {
-    var t = null;
-    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (x) {
-      if (!t && x.getAttribute("aria-controls") === pid) t = x;
-    });
-    return t ? (txt(t).replace(/\d+$/, "").trim() || pid) : pid;
-  }
-  window.__socFilterBus = window.__socFilterBus || [];
-  window.__socFilterBus.push(function () {
-    var out = [];
-    Object.keys(TAB).forEach(function (pid) {
-      /* Zakladke, ktorej zawezenie oddalismy SKRYPTOWI 11, nazywa w pasku ON — i to
-         jego `clear()` wraca po nasze pola przez `onclear` (5ap). Dopisanie sie tutaj
-         dawalo KAZDY filtr dwa razy. Jeden filtr, jedno zdanie (5at). */
-      if (DELEG[pid]) return;
-      var st = F[pid] || {};
-      /* JEDEN chip na WYMIAR, nie na wartosc: trzy technologie to trzy identycznie
-         wygladajace chipy, a pasek ma sie czytac jednym rzutem oka. */
-      (TAB[pid].dims || []).forEach(function (d) {
-        var vs = st[d.k] || []; if (!vs.length) return;
-        var shown = vs.slice(0, 4).join(", ") + (vs.length > 4 ? (" … +" + (vs.length - 4)) : "");
-        out.push({ scope: tabLabel(pid), label: d.label.toLowerCase() + " " + shown,
-                   clear: function () { F[pid][d.k] = []; apply(pid); } });
-      });
-      if (st.t0) out.push({ scope: tabLabel(pid), label: "tier 0 only",
-                            clear: function () { F[pid].t0 = 0; apply(pid); } });
-      if (st.q) out.push({ scope: tabLabel(pid),
-                           label: (st.qLabel ? (st.qLabel + " contains ") : "text ") + '"' + st.qRaw + '"',
-                           clear: function () { F[pid].q = ""; F[pid].qRaw = ""; F[pid].qd = null; apply(pid); } });
-    });
-    return out;
-  });
-
-  function boot() {
-    try { mount(); } catch (e) { if (window.console) console.error("[s15]", e); }
-    /* skrypty 4-14 dokladaja kolumny i tabele na wlasnym harmonogramie, wiec
-       rejestr odswieza sie jeszcze dwa razy — tanio i lapie kazda kolejnosc */
-    setTimeout(function () { try { mount(); } catch (e) {} }, 1500);
-    setTimeout(function () { try { mount(); } catch (e) {} }, 3400);
-    document.addEventListener("click", function (ev) {
-      if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab"))
-        setTimeout(function () { try { mount(); } catch (e) {} }, 160);
-    }, true);
-  }
-  if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 700); });
-  else setTimeout(boot, 700);
-})();
-```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
 linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 15 jest osobnym blokiem, ktory niczego nie
@@ -16602,6 +16331,2296 @@ nadpisuje i nie pisze do cudzego stanu.
   `What it means` z §4) inline'u nie dostaly — i zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia
   2026 na opublikowanej stronie i zgloszone przez wlasciciela: *„co drugi wiersz jak sie najedzie
   myszka to zaznaczy tylko maly niebieski kwadrat"*.
+
+## 5aw. ZAKLADKI MICROSOFT LEARN I MICROSOFT BLOGS — makieta z 12 wrzesnia 2026 jest specyfikacja
+
+Wlasciciel zglosil 13 i 14 wrzesnia 2026 to samo trzy razy: *„znowu artefakt i routine
+opublikowaly sie rano, ale bez dwoch nowych zakladek"*, *„pare konwersacji wyzej zapewniales, ze
+juz naprawiles"*, i wreszcie, z zalacznikiem: *„uzgodnilismy, jak maja wygladac nasze nowe
+zakladki, jaka ma byc w srodku mechanika i zbierane dane — podales mi nawet przykladowy HTML,
+ktory zaakceptowalem. Ty przedstawiles mi zupelnie cos innego — nawet nazwy zakladek sie nie
+zgadzaja, a co najgorsze, dane i sposob ich wyswietlania rowniez."*
+
+**Mial racje w kazdym z tych trzech zdan i kazde ma inna, mierzalna przyczyne.**
+
+| zgloszenie | przyczyna |
+|---|---|
+| zakladki nie powstaly | **nikt ich nigdy nie zamowil w TYM pliku.** Plan z 11 wrzesnia byl osobnym dokumentem w katalogu roboczym; przebieg klonuje repozytorium i czyta ten plik (§0), wiec dokument, ktorego tu nie ma, nie istnieje dla zadnego przebiegu (§0f) |
+| bramka tego nie zauwazyla | pozycja 3 sprawdza, czy kazda nazwa z `CANON_PANELS` jest na stronie; **nazwa, ktorej w tej liscie nie ma, nie moze z niej zniknac**. Cala lista §0 byla zielona na stronie bez tych zakladek, bo zadna pozycja o nie nie pytala — to nie awaria bramki, tylko jej granica |
+| nazwy, dane i prezentacja sie nie zgadzaly | budowalem z PLANU (11 wrzesnia, `Product docs` / `Product blogs`, metadane gita), a wlasciciel zatwierdzil MAKIETE (12 wrzesnia, `Microsoft Learn` / `Microsoft Blogs`, tresc `what's new`). Komentarz w samej makiecie mowi to wprost: *„pierwsza wersja pokazywala METADANE gita (ile linii, jaki commit), a nie TRESC zmiany"* — czyli plan byl juz odrzucony w dniu, w ktorym makieta powstala |
+
+**Zrodlem prawdy dla obu zakladek jest zatwierdzona makieta z 12 wrzesnia 2026, a nie plan
+z 11 wrzesnia.** Ta sekcja jest ta makieta przepisana do tego pliku: markup, kontrakt danych,
+regula zbierania, arkusz i SKRYPT 15 v2 co do bajtu. Od tej chwili zakladki sa zamowione tam,
+gdzie przebieg patrzy.
+
+### Dwa panele, PUSTE w markupie
+
+```html
+<div class="tabpanel" id="tab-learn"  data-tab="Microsoft Learn"  hidden></div>
+<div class="tabpanel" id="tab-blogs"  data-tab="Microsoft Blogs"  hidden></div>
+```
+
+Tyle i nic wiecej — **cala tresc obu zakladek buduje SKRYPT 15 v2 z bloku stanu.** To jest ten
+sam podzial co przy §5ad, §5am i §5an: przebieg oddaje DANE, skrypt oddaje WIDOK. Dwie kopie
+jednej tabeli — jedna pisana recznie, druga liczona — rozjezdzaja sie zawsze (§0a), a `0 carried`
+w §5ar powstalo dokladnie tak.
+
+Panele stoja **po `tab-community`**, a ich zakladki w rzedzie `Reference` paska (§5ae wariant B),
+wiec `splitTabs()` w SKRYPCIE 4 (§5y) wymienia je w tablicy `REF`. Bez tego obie zostaja w rzedzie
+`Daily`, ktory przy 1280 px jest pelny juz przy dziewieciu zakladkach.
+
+### Dane mieszkaja w bloku stanu, pod kluczem `nt`
+
+**TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** — bramka lustra (§0a) zada
+DOKLADNIE dwoch i trzeci wywraca caly przebieg. I **nie wolno wozic danych w osobnym
+`<script>window.__NT=…`**: `snapshot_shell` (§0d) rozpoznaje skrypty powloki po BRAKU znacznika
+`SCRIPT 4`..`SCRIPT 15`, wiec taki blok policzylby sie jako CZWARTY skrypt powloki i **przerwal
+kazdy przebieg lustrzany**. `nt` jest wiec kluczem w `soc-brief-state`, tak samo jak `graphMap`
+(§5ah), `ledger14` (§5al), `community` (§5an), `sources` i `docText` (§5ar).
+
+```json
+"nt":{
+  "briefDate":"2026-09-14", "windowFrom":"2026-08-31", "pagesSince":"2026-08-31",
+  "learn":[{"name":"Entra","url":"…","method":"git","repo":"entra-docs","path":"docs",
+            "status":"ok","note":"","commits":62,"bulk":0,"product":"Entra",
+            "pages":[{"path":"docs/…md","added":0,"removed":627,"commits":1,
+                      "newest":"2026-09-09","dates":["2026-09-09"],"subject":"…"}]}],
+  "wnMeta":[{"area":"Microsoft Learn - Entra","repo":"entra-docs",
+             "page":"docs/fundamentals/whats-new.md","status":"ok","entries":118,
+             "msDate":"2026-06-26","headDate":"2026-06-30","url":"…"}],
+  "changes":[{"area":"Defender for Endpoint","year":2026,"month":9,
+              "monthLabel":"September 2026","title":"Memory scan for Linux","text":"<akapit Microsoftu>",
+              "url":"…/whats-new-in-microsoft-defender-endpoint","msDate":"2026-06-22",
+              "links":[{"text":"Memory scan for Linux","url":"…"}],
+              "criteria":["detection","sensor or agent"],"why":"<zdanie na kryterium>",
+              "tags":["MDE"],"weight":2,"tier0":false,
+              "blogs":[{"title":"…","link":"…","source":"…","date":"…","how":"both tagged MDE"}],
+              "hasBlog":true}],
+  "recent":[ … ],
+  "pages":[{"area":"Azure Arc","repo":"azure-management-docs","path":"articles/…md",
+            "name":"Verify artifact signatures","url":"…","commit":"e6685e8047",
+            "date":"2026-09-08","added":694,"removed":0,"metaAdded":6,"metaRemoved":0,
+            "promote":["requirement"],"socWeight":7,"tier0":false,
+            "hunks":[{"at":1,"add":["…"],"rem":["…"]}]}],
+  "pageAreas":[{"area":"Entra","repo":"entra-docs","status":"git","head":"2026-09-11",
+                "files":113,"tag":"Entra","add":2988,"rem":3373}],
+  "blogs":[{"name":"Microsoft Entra Blog","listUrl":"…","feed":"microsoft-entra-blog",
+            "method":"rss","status":"ok","note":"","tried":[]}],
+  "items":[{"source":"Microsoft Copilot Blog","sourceUrl":"…","feed":"…","title":"…",
+            "link":"…","date":"2026-09-12","age":2,"author":"","summary":"…","tags":["…"]}],
+  "top":[ … ],
+  "corr":[{"product":"Entra","weight":1,"areas":1,"areasGit":1,"docPages":113,
+           "docLines":6361,"blogs14":4,"blogsAll":19,"sources":["…"],"leadDays":0,"both":true}],
+  "jsons":[{"label":"JSON MS Learn","updated":"2026-09-14T05:17:32+00:00","entries":31,
+            "changes":0,"what":"documentation areas"}]
+}
+```
+
+**`briefDate` w `nt` rowna sie `briefDate` briefu.** Klucz `nt` przeczytany wczoraj i wklejony
+dzisiaj jest bledem tej samej rodziny co lista zrodel czytana z wczorajszego stanu (§5an
+pozycja 63): wlasciciel dopisuje obszary i blogi w ciagu dnia.
+
+### Listy zrodel sa CUDZE i czyta sie je W KAZDYM przebiegu
+
+```
+microsoftlearn_sources.json    31 obszarow dokumentacji   -> zakladka Microsoft Learn
+microsoftblogs_sources.json    28 blogow produktowych     -> zakladka Microsoft Blogs
+community_sources.json         55 zrodel spolecznosci     -> zakladka Community Articles (§5an)
+```
+
+Wszystkie trzy leza w korzeniu repozytorium MS_SOC i **nalezą do wlasciciela**. Obowiazuja te same
+trzy reguly co w §5an: czytasz je z repozytorium w tym przebiegu, a nie z pamieci i nie
+z wczorajszego stanu; **numer pozycji bierze sie z KOLEJNOSCI w pliku, a dane wiaze sie po NAZWIE**;
+a znalezisko o samej liscie — biale znaki, duplikat adresu, dwa wpisy o tej samej tresci — jest
+WIERSZEM w raporcie, nigdy cicha poprawka. **Z cudzej listy niczego nie kasujesz.**
+
+Ramka `Source lists` w Overview (klucz `jsons`, wpis `srclists` rejestru §0f) podaje dla kazdej
+z trzech list liczbe pozycji i date ostatniej zmiany pliku w gicie — **bez sciezek i bez adresow**,
+bo czytelnik briefu nie jest adresatem struktury repozytorium (§0e).
+
+### Zrodlem TRESCI jest `what's new`, a git pokazuje, co zmienilo sie W SRODKU strony
+
+To jest ustalenie, przez ktore makieta powstala, i jest zapisane w jej wlasnym komentarzu.
+Metadane gita — `+694 / −0`, commit `e6685e8`, 113 plikow — odpowiadaja na pytanie ILE, a nie na
+pytanie CO. Wlasciciel powiedzial to wprost: *„nie widze realnych zmian, nie wiem, na co zwracac
+uwage"*. Dlatego zakladka `Microsoft Learn` ma **dwa rozne zrodla i obu uzywa do czego innego**:
+
+| zrodlo | co daje | klucz |
+|---|---|---|
+| **strona `what's new` obszaru** | datowana liste zmian Microsoftu, tytul plus akapit tresci, z linkiem | `changes`, `recent`, `wnMeta` |
+| **historia gita lustra dokumentacji** | co zmienilo sie w SRODKU sledzonej strony, linia po linii, w ksztalcie §5ar | `pages`, `pageAreas`, `learn` |
+
+**Strony `what's new` sa WYMIENIONE, nie zgadywane.** Heurystyka „najkrotsza sciezka pasujaca do
+`whats-new`" wybierala dla Entry `docs/verified-id/whats-new.md`, czyli strone podproduktu — czyli
+zla odpowiedz, ktora wyglada na dobra. Slownik `WN` w kolektorze wymienia dziesiec obszarow, ktore
+taka strone maja w publicznym lustrze; **pozostale dwadziescia jeden to `BRAK` z POWODEM**
+(`no what's new page` albo `no public mirror`), wypisany w tabeli zakladki, nigdy przemilczany —
+to jest podloga pokrycia z §5u zastosowana do obszarow zamiast do produktow.
+
+Zmierzone 14 wrzesnia 2026 na kompletnej liscie wlasciciela: **31 obszarow, 10 ze strona
+`what's new`, 773 zmiany Microsoftu, z tego 38 w oknie 14 dni; 16 obszarow czytanych gitem, 145
+sledzonych stron ze zmiana tekstu; 28 blogow, 28 przeczytanych, 533 artykuly, 58 w oknie.**
+
+### Regula klasyfikacji jest OPUBLIKOWANA na stronie, znak w znak z kodem
+
+Ta sama dyscyplina co regula wyboru punktow wydania (§5ag), derywacja rol (§5ah) i tagowanie
+artykulow (§5an): **regula stosowana, ale nieopublikowana, jest z punktu widzenia czytelnika
+gustem.** Kazda zmiana `what's new` przechodzi przez zamknieta tablice kryteriow; kazde
+dopasowane kryterium dokłada swoje ZDANIE do kolumny `Why it matters`, a najmocniejsze z nich
+ustawia wage §5p. Zmiana, ktora nie pasuje do zadnego kryterium, **jest na stronie** z waga
+domyslna i bez zdania — nigdy wciskana na sile do kategorii i nigdy wycinana.
+
+`tier0` ustawia sie osobno i niezaleznie od wagi: kontroler domeny, AD DS, host agenta
+synchronizacji albo provisioningu, urzad certyfikacji, federacja, rola rownowazna Global Adminowi
+(§5p). Pozycja `tier0` z zakladki Learn liczy sie w Top N tak samo jak kazda inna.
+
+### Blogi — kanal TechCommunity nie jest wyprowadzalny z adresu
+
+Zmierzone 14 wrzesnia 2026 na wszystkich 28 blogach: **28 przeczytanych, 0 nieprzeczytanych.**
+Ale identyfikator kanalu **nie jest** ostatnim segmentem adresu i jego wielkosc liter tez nie jest:
+`…/category/microsoft-entra/blog/microsoft-entra-blog` czyta sie przez
+`…/t5/s/gxcuf89792/rss/board?board.id=Identity`, a nie przez `microsoft-entra-blog`. Dlatego
+kolektor probuje **czterech wariantow po kolei** i zapisuje w `tried` kazdy, ktorego uzyl:
+`rss/board?board.id=<ostatni segment>`, `rss/Category?category.id=<segment kategorii>`,
+`rss/board?board.id=<segment kategorii>` i `<adres>/rss`. Blog nieprzeczytany dostaje
+`status:"failed"` i **niepusty `note`** z nazwa tego, co probowano — cisza jest tu jedynym bledem,
+ktorego ta zakladka nie wybacza (§5an pozycja 60).
+
+Blogi spoza TechCommunity (`microsoft.com/security/blog`, `azure.microsoft.com`) maja wlasne
+kanaly i ida sciezka czwarta.
+
+### Historia gita: klon bez blobow, okno, i regula zdarzenia masowego
+
+Klon kazdego lustra dokumentacji idzie `--filter=blob:none --no-checkout` (§5ai), a historia
+**jednym wywolaniem `git log --numstat` na OBSZAR, nie jednym na plik**: w klonie blobless kazde
+`numstat` dociaga bloby, wiec wywolanie per plik zamienia to w setki rund sieciowych i konczy sie
+przekroczeniem czasu. Zmierzone: jedno wywolanie na obszar — 16 obszarow w minutach; per plik —
+nie skonczylo sie wcale.
+
+**Commit dotykajacy wiecej niz 60 plikow jest ZDARZENIEM MASOWYM i dostaje JEDEN wiersz.**
+Klasyfikacja idzie po LICZBIE PLIKOW, nigdy po tresci komunikatu commita: `entra-docs` dostaje
+pojedyncze commity autorow, a `defender-docs` **wylacznie** zbiorcze synchronizacje
+(`Resolve syncing conflicts from repo_sync_working_branch`), wiec odrzucenie ich po nazwie
+wyzerowaloby dziesiec obszarow naraz.
+
+**Kazda strona Learn SAMA podaje swoje repozytorium** w znaczniku `original_content_git_url` —
+czytasz je, nie zgadujesz. Publiczne lustro to ta sama nazwa bez sufiksu `-pr`. Obszar, ktorego
+lustro jest prywatne albo ktorego klon sie nie powiodl, dostaje `method:"snapshot"` i **`note`
+z nazwa repozytorium**; zmierzone 14 wrzesnia: 8 z 31 obszarow nie ma publicznego lustra.
+
+### Sekcje obu zakladek
+
+| sekcja | zakladka | co pokazuje |
+|---|---|---|
+| `nt-changes` | Learn | zmiany `what's new` w oknie: obszar, tytul, TRESC, kryteria, waga, link |
+| `nt-older` | Learn | ta sama lista poza oknem, zwinieta |
+| `nt-coverage` | Learn | jeden wiersz na obszar: sposob odczytu, strona `what's new`, liczba wpisow, powod przy braku |
+| `nt-pages` | Learn | strony ze zmiana tekstu, blok `+`/`−` w ksztalcie §5ar |
+| `nt-corr-learn` | Learn | produkt kontra ruch w dokumentacji i na blogach — `both` mowi, ze obie strony sie ruszyly |
+| `nt-top` | Blogs | wybor dnia z kanalow |
+| `nt-posts` | Blogs | wszystkie artykuly okna: zrodlo, tytul, tagi, data |
+| `nt-sources` | Blogs | jeden wiersz na blog: sposob odczytu, status, powod, co probowano |
+| `nt-corr-blogs` | Blogs | ta sama korelacja, od strony blogow |
+
+Kazda sekcja jest `<details class="ntsec">`, **zwinieta domyslnie, z licznikiem w podpisie** —
+ten sam ksztalt co `details.eps` (§5ah), `details.chg14` (§5al) i sekcje strony zmian (§3 punkt 14),
+i z tego samego powodu: liczbe widac bez otwierania czegokolwiek.
+
+### JEDEN ksztalt paska Advanced filtering na CALY portal — SKRYPT 15 v2 ZASTEPUJE SKRYPT 15
+
+Wlasciciel, 14 wrzesnia 2026: *„ujednolic prosze sposob wyswietlania advanced filtering — np.
+w obecnych zakladkach, ktore mamy, advanced filtering jest rozwijalny"*.
+
+**W zatwierdzonej makiecie klasa `s15bar` nie wystepuje ani razu.** To nie jest przeoczenie: pasek
+z §5au i pasek tej makiety to dwie kontrolki tego samego stanu, a dwie kontrolki nad jedna
+zakladka to dokladnie ten blad, ktory wlasciciel zglaszal juz przy dwoch paskach szukania (§5an)
+i przy dwoch zielonych polach (§5am). **SKRYPT 15 v2 zastepuje SKRYPT 15 na kazdej zakladce
+portalu**, a nie tylko na dwoch nowych: skryptow dodawanych jest nadal dwanascie (4-15), a §5au
+zostaje jako opis regul, ktore v2 stosuje, i traci swoj blok kodu.
+
+Trzy zmiany wzgledem makiety, kazda konieczna i kazda wypisana tutaj, zeby nastepny przebieg nie
+uznal ich za rozjazd:
+
+1. **Pasek jest `<details class="ntfbar">` ze znacznikiem `+`**, zwiniety domyslnie, z chipem
+   `N filters on` w podpisie i automatycznym otwarciem, gdy filtr jest wlaczony — czyli dokladnie
+   to, o co poprosil wlasciciel, i dokladnie ten sam ksztalt co `details.s15bar` mial w §5au.
+2. **Dane czyta sie z bloku stanu** (`nt`), a `window.__NT` zostaje jako wejscie makiety
+   i podgladu — powod wyzej, przy kontrakcie danych.
+3. **W komentarzu tego skryptu nie wolno napisac zamykajacego znacznika `script`, nawet
+   w komentarzu.** Przegladarka konczy element na pierwszym takim napisie w tresci: zmierzone
+   14 wrzesnia 2026 — skrypt urwal sie na 880 bajtach z `SyntaxError: Invalid or unexpected token`
+   i nie zbudowal ani jednej sekcji, a strona poza tym wygladala poprawnie.
+
+Pasek nie powstaje na zakladce, ktora **ma juz swoj filtr globalny** (`tab-community`, §5an),
+ani tam, gdzie zakladka nie ma tabel albo ma mniej niz dwanascie wierszy: kontrolka bez czego
+filtrowac uczy, ze kontrolki nic nie robia (§5ap). Zmierzone po zmianie na trzynastu zakladkach:
+pasek na dziewieciu, `tag: DETAILS`, `open: false`, znacznik `"+"`, `list-style-type: none`;
+klikniecie podpisu otwiera go i odslania piec menu; wybor wartosci daje `1 filter on`,
+`120 of 397 rows in this tab` i chip `Microsoft Learn · area or blog Microsoft Intune ×`
+w jednej linii mastheadu (§5at). Zero bledow strony.
+
+### Arkusz — blok dopisywany na koncu `<style>`, PRZED blokiem §5av
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
+§5ar, §5as, §5at i §5au sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad
+DWADZIESCIA**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
+
+```css
+/* §5aw/§5ax: zakladki Microsoft Learn i Microsoft Blogs — arkusz z zatwierdzonej makiety */
+.ntfhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 9px;
+ padding-bottom:9px;border-bottom:1px solid var(--border)}
+.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+ color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px}
+.ntfscope{font-size:12.5px;color:var(--muted);flex:1 1 240px;min-width:0}
+.ntfbar{border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ padding:10px 12px;margin:0 0 14px}
+.ntfbar.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ntfrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ntfsep{flex:1 1 12px;min-width:0}
+.ntfdim{position:relative}
+.ntfbtn,.ntft0,.ntfreset{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;
+ display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);white-space:nowrap}
+.ntfbtn:hover,.ntft0:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.ntfbtn:focus-visible,.ntft0:focus-visible,.ntfreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ntfdot{width:8px;height:8px;border-radius:3px;flex:0 0 8px;background:var(--dc,var(--accent))}
+.ntft0 .ntfdot{background:var(--bad)}
+.ntfcar{font-size:9px;color:var(--muted);margin-left:1px}
+.ntfbn:empty,.ntft0 b:empty{display:none}
+.ntfbn{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
+ border-radius:999px;background:var(--accent);color:var(--on-accent)}
+.ntft0 b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
+ border-radius:999px;background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+.ntfbtn.on{border-color:var(--dc,var(--accent));background:var(--surface);color:var(--text)}
+.ntft0.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.ntft0.on b{background:rgba(255,255,255,.24);color:#fff;border-color:transparent}
+.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.ntfreset:hover{background:var(--surface);color:var(--accent)}
+.ntfpop{display:none;position:fixed;z-index:70;min-width:268px;width:288px;
+ max-width:calc(100vw - 24px);background:var(--surface);border:1px solid var(--accent);
+ border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.34);padding:9px}
+.ntfdim.open .ntfpop{display:block}
+.ntfq{width:100%;font:inherit;font-size:12.5px;padding:7px 10px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);margin:0 0 8px}
+.ntfq[hidden]{display:none}
+.ntflist{max-height:290px;overflow-y:auto;overscroll-behavior:contain;display:grid;gap:2px}
+.ntfopt{font:inherit;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:9px;
+ width:100%;text-align:left;padding:6px 8px;border-radius:8px;border:1px solid transparent;
+ background:none;color:var(--text)}
+.ntfopt:hover{background:var(--surface-2)}
+.ntfopt .ntfbox{width:15px;height:15px;flex:0 0 15px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface)}
+.ntfopt.on .ntfbox{background:var(--accent);border-color:var(--accent);
+ box-shadow:inset 0 0 0 2px var(--surface)}
+.ntfopt.on{background:var(--accent-soft)}
+.ntfoname{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ntfopt b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);
+ padding:1px 7px;border-radius:999px;background:var(--surface-2);flex:0 0 auto}
+.ntfopt.on b{background:var(--surface);color:var(--accent)}
+.ntfnone{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.ntfpfoot{display:flex;align-items:center;gap:10px;margin-top:8px;padding-top:8px;
+ border-top:1px solid var(--border)}
+.ntfclr{font:inherit;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.ntfclr:hover{border-color:var(--bad);color:var(--bad)}
+.ntfpn{font-size:11.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.ntfpn:empty{display:none}
+.ntfq2{display:flex;gap:8px;align-items:center;margin:0 0 9px}
+.ntfq2i{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.ntfq2i::placeholder{color:var(--muted);font-weight:400}
+.ntfq2i:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.ntfq2c{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+@media (max-width:760px){.ntfq2{flex-wrap:wrap}.ntfq2c{max-width:100%;width:100%}}
+.ntfsum{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--border);
+ font-size:12.5px;color:var(--muted)}
+.ntfbar.on .ntfsum{color:var(--text)}
+details.ntsec.ntempty>summary{opacity:.55}
+details.ntsec.ntempty>summary .ntn{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
+@media (max-width:760px){
+  .ntfrow{gap:6px}
+  .ntfbtn,.ntft0,.ntfreset{flex:1 1 auto;justify-content:center}
+  .ntfsep{display:none}
+  .ntfpop{left:0;right:0;min-width:0;max-width:none}
+}
+}
+
+
+#tab-learn .ntdiffs{display:grid;gap:12px;margin:14px 0 0}
+#tab-learn .ntdiff{border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow:hidden}
+#tab-learn .ntdh{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface-2);border-bottom:1px solid var(--border);font-size:13.5px;font-weight:700}
+#tab-learn .ntdh .ntpath{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400;
+ overflow-wrap:anywhere}
+#tab-learn .ntdc{margin-left:auto;font-family:var(--mono);font-size:12px;white-space:nowrap;flex:0 0 auto}
+#tab-learn .nthunk{border-top:1px solid var(--border)}
+#tab-learn .ntat{font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px 13px 2px}
+#tab-learn .ntline{padding:3px 13px;font-family:var(--mono);font-size:12.5px;line-height:1.55;
+ white-space:pre-wrap;overflow-wrap:anywhere}
+#tab-learn .ntadd{background:var(--ins-bg);color:var(--ins-fg)}
+#tab-learn .ntrem{background:var(--del-bg);color:var(--del-fg)}
+#tab-learn .ntmeta{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface-2);
+ border-top:1px solid var(--border)}
+#tab-learn .ntwhy2{padding:9px 13px;font-size:13px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border)}
+#tab-learn .ntwhy2 b{color:var(--warn)}
+#tab-learn .ntwhy2 code,#tab-learn .ntdiffs code{font-family:var(--mono);font-size:12px}
+@media (max-width:760px){#tab-learn .ntline{font-size:11.5px}}
+#tab-learn .factgrid,#tab-blogs .factgrid{display:grid;gap:8px;margin:0 0 14px;
+ grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
+#tab-learn .factgrid .fact,#tab-blogs .factgrid .fact{border:1px solid var(--border);
+ border-radius:10px;background:var(--surface);padding:9px 12px}
+#tab-learn .factgrid .fact b,#tab-blogs .factgrid .fact b{display:block;font-size:21px;
+ line-height:1.15;font-variant-numeric:tabular-nums;margin:0}
+#tab-learn .factgrid .fact span,#tab-blogs .factgrid .fact span{display:block;font-size:11.5px;
+ text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-top:3px}
+#tab-learn .factgrid .fact.ok b,#tab-blogs .factgrid .fact.ok b{color:var(--ok)}
+#tab-learn .factgrid .fact.bad b,#tab-blogs .factgrid .fact.bad b{color:var(--bad)}
+#tab-learn .factgrid .fact.warn b,#tab-blogs .factgrid .fact.warn b{color:var(--warn)}
+#tab-learn .factgrid .fact.acc b,#tab-blogs .factgrid .fact.acc b{color:var(--accent)}
+#tab-learn .factgrid .fact.info b,#tab-blogs .factgrid .fact.info b{color:var(--info)}
+details.ntsec{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+details.ntsec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:12px 15px;font-size:15px;font-weight:700;color:var(--text)}
+details.ntsec>summary::-webkit-details-marker{display:none}
+details.ntsec>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.ntsec[open]>summary::before{content:"\2212"}
+details.ntsec>summary .ntlab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted);flex:0 0 auto}
+details.ntsec>summary .ntn{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.ntsec[open]>summary{border-bottom:1px solid var(--border)}
+details.ntsec>.ntbody{padding:13px 15px}
+details.ntsec.ntflash{outline:2px solid var(--accent);outline-offset:-2px}
+.ntwhy{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;max-width:70ch}
+.ntcrit{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.04em;padding:1px 7px;border-radius:5px;background:var(--surface-2);
+ color:var(--muted);box-shadow:inset 0 0 0 1px var(--border);margin:2px 3px 0 0;white-space:nowrap}
+.ntcrit.c1{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.ntcrit.c2{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.ntchip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+ padding:1px 9px 1px 7px;border-radius:999px;background:var(--surface-2);color:var(--muted);
+ box-shadow:inset 0 0 0 1px var(--border);cursor:pointer;white-space:nowrap;margin:2px 2px 0 0}
+.ntchip::before{content:"";width:6px;height:6px;border-radius:2px;flex:0 0 6px;background:hsl(var(--h) 38% 52%)}
+.ntchip:hover{color:var(--text);background:var(--surface)}
+.ntt0{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);
+ border-radius:999px;font-size:10.5px;font-weight:700;padding:1px 8px;white-space:nowrap}
+.ntw{font-family:var(--mono);font-size:12px;font-weight:700}
+.ntsrc a{display:inline-block;margin:2px 4px 0 0}
+.ntmeth{display:inline-block;font-size:11px;font-weight:700;padding:1px 9px;border-radius:999px;white-space:nowrap}
+.ntmeth.m-git{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.ntmeth.m-snap{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.ntmeth.m-rss{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.ntseg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;align-items:center}
+.ntseg button{font:inherit;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.ntseg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ntseg .ntseglab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.ntview[hidden]{display:none!important}
+.jsonbox{border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:12px;
+ background:var(--surface);padding:12px 15px;margin:0 0 16px}
+.jsonbox h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;margin:0 0 3px}
+.jsonbox .jb-note{font-size:12.5px;color:var(--muted);margin:0 0 11px;max-width:92ch}
+.jsonbox .jb-grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.jsonbox .jb-row{border:1px solid var(--border);border-radius:10px;background:var(--surface-2);padding:9px 12px}
+.jsonbox .jb-nm{display:block;font-size:13.5px;font-weight:700;color:var(--text)}
+.jsonbox .jb-w{display:block;font-size:11.5px;color:var(--muted);margin-top:1px}
+.jsonbox .jb-d{display:flex;align-items:baseline;gap:8px;margin-top:7px;flex-wrap:wrap}
+.jsonbox .jb-d b{font-size:17px;font-variant-numeric:tabular-nums;color:var(--accent)}
+.jsonbox .jb-d span{font-size:11.5px;color:var(--muted)}
+.jsonbox .jb-age{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;
+ background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.jsonbox .jb-age.old{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.ntbar{position:relative;display:flex;align-items:flex-end;gap:4px;height:74px;border-bottom:1px solid var(--border)}
+.ntbar button{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;background:none;
+ border:0;padding:0;cursor:pointer}
+.ntbar button i{display:block;width:100%;height:var(--h);border-radius:3px 3px 0 0;background:var(--accent);opacity:.34}
+.ntbar button:hover i{opacity:.66}
+.ntbar button.on i{opacity:1}
+.ntbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ntaxr{display:flex;gap:4px;margin:5px 0 0}
+.ntaxr span{flex:1 1 0;min-width:0;text-align:center;font-size:10px;color:var(--muted);
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#tab-learn .ntcards,#tab-blogs .ntcards{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+#tab-learn article.card,#tab-blogs article.card,#tab-learn article.card *,#tab-blogs article.card *{min-width:0}
+@media (max-width:760px){
+  .jsonbox .jb-grid{grid-template-columns:1fr}
+  .ntseg button{flex:1 1 auto;text-align:center}
+  details.ntsec>.ntbody{padding:11px}
+}
+
+/* Pasek Advanced filtering ma JEDEN ksztalt na caly portal: rozwijany `<details>`
+   ze znacznikiem `+`, zwiniety domyslnie, z licznikiem `N filters on` w podpisie.
+   Te same wartosci co `details.s15bar` w 5au — dwa wyglady jednej kontrolki uczylyby
+   dwoch konwencji, a czytelnik przechodzi miedzy zakladkami jednym klikiem. */
+details.ntfbar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+ gap:12px;flex-wrap:wrap;margin:0}
+details.ntfbar>summary::-webkit-details-marker{display:none}
+details.ntfbar>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.ntfbar[open]>summary::before{content:"\2212"}
+details.ntfbar>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details.ntfbar>summary .ntfscope{flex:1 1 240px}
+.ntfon{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
+ border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.ntfon[hidden]{display:none!important}
+details.ntfbar>*:not(summary){margin-top:9px}
+```
+
+### Kolektory — cztery skrypty, w tej kolejnosci, wycinane z TEGO pliku
+
+§0f powstalo dlatego, ze plan opisany proza w katalogu roboczym nie istnial dla zadnego przebiegu.
+Ta sama nauka obowiazuje o poziom nizej: **regula zbierania opisana proza obok kodu, ktorego tu
+nie ma, czyta sie jak zrobiona** (§5ae, 10 wrzesnia 2026). Dlatego cztery kolektory stoja tutaj
+w calosci i wycina sie je `extract_code.py` (§0c) tak samo jak `gate.py`, `make_diff.py`
+i `mirror_artifact.py`.
+
+Uruchamia sie je w katalogu roboczym przebiegu, w tej kolejnosci:
+
+```
+SOC_DATE=<briefDate>  SOC_REPO=<klon MS_SOC>
+python3 probe_learn.py  <klon>/microsoftlearn_sources.json  learn_probe.json
+for r in $(cut -d' ' -f1 repos.txt); do ./clone.sh "$r"; done      # git clone --filter=blob:none --no-checkout
+python3 learn_changes.py                                           # -> learn_changes.json
+python3 collect_blogs.py <klon>/microsoftblogs_sources.json blogs_raw.json
+python3 collect_nt.py                                              # -> NT.json  == klucz `nt`
+```
+
+**Zadna data i zadna sciezka nie jest w nich zapisana na sztywno** — `SOC_DATE` i `SOC_REPO` ida
+z otoczenia, a przy ich braku kolektor bierze dzien dzisiejszy i `../chk`. To jest ta sama regula
+co „kazda liczba zapisana w asercji ma date waznosci" (§0a), przeniesiona na kod zbierajacy.
+
+Lista lustr, ktore trzeba sklonowac, powstaje z `learn_probe.json` — kazda strona sama deklaruje
+swoje repozytorium. **Klon, ktory sie nie powiodl, jest `snapshot` z nazwa repozytorium w `note`,
+nigdy cicha strata obszaru.**
+
+```python
+#!/usr/bin/env python3
+"""Kazda strona Learn SAMA podaje swoje zrodlo w `original_content_git_url`.
+Nie zgadujemy repozytorium — czytamy je. Publiczne lustro to ta sama nazwa bez `-pr`."""
+import json,re,subprocess,sys,concurrent.futures as cf
+UA="Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+def one(s):
+    url=(s.get("SourceURL") or "").strip(); name=s.get("SourceName","").strip()
+    try:
+        p=subprocess.run(["curl","-sS","--compressed","-L","--max-time","25","-A",UA,url],
+                         capture_output=True,text=True,timeout=35)
+        h=p.stdout
+    except Exception as e:
+        return {"name":name,"url":url,"repo":None,"path":None,"note":"fetch failed: %s"%e}
+    m=re.search(r'original_content_git_url"?\s*(?:content=)?"([^"]+)"',h)
+    if not m: return {"name":name,"url":url,"repo":None,"path":None,"note":"page declares no original_content_git_url"}
+    g=m.group(1)
+    m2=re.search(r"github\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.*)$",g)
+    if not m2: return {"name":name,"url":url,"repo":None,"path":None,"note":"unrecognised git url %s"%g[:80]}
+    org,repo,branch,path=m2.groups()
+    pub=repo[:-3] if repo.endswith("-pr") else repo
+    return {"name":name,"url":url,"org":org,"repo":pub,"prRepo":repo,"branch":branch,
+            "path":path,"dir":path.rsplit("/",1)[0] if "/" in path else "","note":""}
+src=json.load(open(sys.argv[1],encoding="utf-8"))
+with cf.ThreadPoolExecutor(max_workers=10) as ex: out=list(ex.map(one,src))
+json.dump(out,open(sys.argv[2],"w",encoding="utf-8"),ensure_ascii=False,indent=1)
+for r in out: print("%-52s %-28s %s"%(r["name"][:52].replace("Microsoft Learn - ",""), r.get("repo") or "—", r.get("dir") or r.get("note","")[:50]))
+```
+
+```python
+#!/usr/bin/env python3
+"""Zmiany stron Learn per obszar, okno 14 dni.
+
+Klasyfikacja idzie po LICZBIE PLIKOW, nie po tresci komunikatu commita: `entra-docs`
+dostaje pojedyncze commity autorow, a `defender-docs` WYLACZNIE zbiorcze synchronizacje
+(`Resolve syncing conflicts from repo_sync_working_branch`). Odrzucenie ich po nazwie
+wyzerowaloby dziesiec obszarow naraz. Commit dotykajacy wiecej niz BULK stron jest
+zdarzeniem masowym i dostaje JEDEN wiersz, a nie tysiac.
+
+JEDNO wywolanie `git log --numstat` na obszar, nie jedno na plik: w klonie blobless
+kazde numstat dociaga bloby, a wywolanie per plik zamienia to w setki rund sieciowych."""
+import json,subprocess,sys,os,datetime,collections
+BULK=60; WIN=14
+# data przebiegu, nigdy zapisana na sztywno: `SOC_DATE=RRRR-MM-DD` albo dzis (0a)
+TODAY=datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
+
+def git(repo,*a,timeout=240):
+    try:
+        p=subprocess.run(["git","-C",repo]+list(a),capture_output=True,text=True,timeout=timeout)
+        return p.stdout
+    except Exception:
+        return ""
+
+def area(a):
+    rec={"name":a["name"].replace("Microsoft Learn - ",""),"url":a["url"],
+         "repo":a.get("repo"),"dir":a.get("dir"),"method":None,"note":a.get("note",""),
+         "pages":[],"bulk":[],"commits":0,"add":0,"rem":0}
+    repo=os.path.join("repos",a.get("repo") or "")
+    if not a.get("repo") or not os.path.isdir(repo):
+        rec["method"]="snapshot"
+        rec["note"]=rec["note"] or ("no public mirror for %s — this area is read by snapshot, not by git"
+                                    % (a.get("repo") or "this area"))
+        return rec
+    rec["method"]="git"
+    since=(TODAY-datetime.timedelta(days=WIN)).isoformat()
+    d=a.get("dir") or "."
+    raw=git(repo,"log","--since",since,"--pretty=format:@@%H|%cI|%s","--numstat","--",d)
+    cur=None; per=collections.OrderedDict()
+    for line in raw.split("\n"):
+        if line.startswith("@@"):
+            h,iso,subj=line[2:].split("|",2)
+            cur={"h":h[:9],"date":iso[:10],"subj":subj,"files":[]}; per[h]=cur
+        elif line.strip() and cur is not None:
+            p=line.split("\t")
+            if len(p)==3:
+                f=p[2]
+                if f.endswith(".md") or f.endswith(".yml"):
+                    cur["files"].append((f,int(p[0]) if p[0].isdigit() else 0,
+                                          int(p[1]) if p[1].isdigit() else 0))
+    files=collections.OrderedDict()
+    for h,c in per.items():
+        if not c["files"]: continue
+        rec["commits"]+=1
+        if len(c["files"])>BULK:
+            rec["bulk"].append({"commit":c["h"],"date":c["date"],
+                                "subject":c["subj"][:160],"files":len(c["files"])})
+            continue
+        for f,ad,rm in c["files"]:
+            e=files.setdefault(f,{"path":f,"date":c["date"],"add":0,"rem":0,"commits":[]})
+            e["add"]+=ad; e["rem"]+=rm
+            e["commits"].append({"h":c["h"],"date":c["date"],"subj":c["subj"][:160]})
+            if c["date"]>e["date"]: e["date"]=c["date"]
+    for e in files.values(): rec["add"]+=e["add"]; rec["rem"]+=e["rem"]
+    rec["pages"]=sorted(files.values(),key=lambda x:-(x["add"]+x["rem"]))
+    return rec
+
+def main():
+    probe=json.load(open("learn_probe.json",encoding="utf-8"))
+    out=[]
+    for a in probe:
+        r=area(a); out.append(r)
+        print("%-44s %-9s stron %-4s +%-6d -%-6d masowe %d"%(
+            r["name"][:44],r["method"],len(r["pages"]) if r["method"]=="git" else "-",
+            r["add"],r["rem"],len(r["bulk"])),flush=True)
+    json.dump(out,open("learn_changes.json","w",encoding="utf-8"),ensure_ascii=False)
+    g=[r for r in out if r["method"]=="git"]
+    print("\nRAZEM obszarow %d — gitem %d, migawka %d; stron %d, +%d/-%d, zdarzen masowych %d"%(
+        len(out),len(g),len(out)-len(g),sum(len(r["pages"]) for r in g),
+        sum(r["add"] for r in g),sum(r["rem"] for r in g),sum(len(r["bulk"]) for r in g)))
+main()
+```
+
+```python
+#!/usr/bin/env python3
+"""Zbiera wpisy z listy microsoftblogs_sources.json.
+Kolejnosc prob: board.id (cztery warianty zapisu) -> category.id -> wlasny RSS -> HTML.
+Zapisuje identyfikator, ktory ZADZIALAL, zeby nastepny przebieg nie szukal od zera."""
+import json, re, io, html, subprocess, sys, os, datetime, concurrent.futures as cf
+from email.utils import parsedate_to_datetime
+
+TC = "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/"
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+
+def fetch(url, timeout=25):
+    try:
+        p = subprocess.run(["curl","-sS","--compressed","-L","--max-time",str(timeout),
+                            "-A",UA,"-w","\\n%{http_code}",url],
+                           capture_output=True, text=True, timeout=timeout+8)
+        out = p.stdout
+        if "\n" not in out: return None, 0
+        body, code = out.rsplit("\n",1)
+        return body, int(code.strip() or 0)
+    except Exception:
+        return None, 0
+
+def items(xml):
+    if not xml or "<item" not in xml: return []
+    out = []
+    for blk in re.findall(r"<item[^>]*>(.*?)</item>", xml, re.S):
+        def g(tag):
+            m = re.search(r"<%s[^>]*>(.*?)</%s>" % (tag,tag), blk, re.S)
+            if not m: return ""
+            v = m.group(1)
+            v = re.sub(r"^<!\[CDATA\[|\]\]>$","",v.strip())
+            return html.unescape(re.sub("<[^>]+>","",v)).strip()
+        link = g("link") or ""
+        m = re.search(r"<link[^>]*>(.*?)</link>", blk, re.S)
+        if m: link = re.sub(r"^<!\[CDATA\[|\]\]>$","",m.group(1).strip())
+        d = g("pubDate") or g("published") or g("updated")
+        iso = None
+        if d:
+            try: iso = parsedate_to_datetime(d).date().isoformat()
+            except Exception:
+                m2 = re.search(r"(\d{4})-(\d{2})-(\d{2})", d)
+                if m2: iso = m2.group(0)
+        body = ""
+        m3 = re.search(r"<(?:content:encoded|description)[^>]*>(.*?)</(?:content:encoded|description)>", blk, re.S)
+        if m3: body = re.sub(r"^<!\[CDATA\[|\]\]>$","",m3.group(1).strip())
+        out.append({"title": g("title"), "link": html.unescape(link), "date": iso,
+                    "dateText": d, "bodyLen": len(body), "body": body[:60000]})
+    return out
+
+def variants(slug):
+    """board.id NIE wynika z adresu: /blog/microsoftintuneblog dziala tylko jako
+    MicrosoftIntuneBlog. Cztery warianty zapisu, zapisujemy ten, ktory odpowiedzial."""
+    v = [slug, slug.lower()]
+    parts = re.split(r"[-_]", slug)
+    v.append("".join(p[:1].upper()+p[1:] for p in parts))
+    v.append(slug[:1].upper()+slug[1:])
+    seen, out = set(), []
+    for x in v:
+        if x and x not in seen: seen.add(x); out.append(x)
+    return out
+
+def one(src):
+    name, url = src.get("SourceName","").strip(), (src.get("SourceURL") or "").strip()
+    rec = {"name": name, "listUrl": url, "method": None, "feedId": None,
+           "status": "failed", "note": "", "items": []}
+    m = re.search(r"techcommunity\.microsoft\.com/category/([^/]+)/blog/([^/?#]+)", url, re.I)
+    if m:
+        cat, board = m.group(1), m.group(2)
+        for b in variants(board):
+            xml, code = fetch(TC + "board?board.id=" + b)
+            it = items(xml)
+            if it:
+                rec.update(method="rss-board", feedId=b, status="ok", items=it); return rec
+        for c in variants(cat):
+            xml, code = fetch(TC + "Category?category.id=" + c)
+            it = items(xml)
+            if it:
+                rec.update(method="rss-category", feedId=c, status="ok", items=it,
+                           note="read through the CATEGORY feed, not the board feed: it can carry "
+                                "discussion threads as well as blog posts")
+                return rec
+        rec["note"] = ("no board.id and no category.id answered; tried %s and %s"
+                       % (", ".join(variants(board)), ", ".join(variants(cat))))
+        return rec
+    base = url.rstrip("/")
+    for suf in ["/feed/", "/feed", "/rss", "/rss.xml", "/index.xml", "/feed.rss"]:
+        xml, code = fetch(base + suf)
+        it = items(xml)
+        if it:
+            rec.update(method="rss-own", feedId=base+suf, status="ok", items=it); return rec
+    page, code = fetch(url)
+    if page:
+        for m2 in re.finditer(r'<link[^>]+type="application/(?:rss|atom)\+xml"[^>]*href="([^"]+)"', page, re.I):
+            href = html.unescape(m2.group(1))
+            if href.startswith("/"): href = base.split("/en-us")[0] + href
+            xml, code = fetch(href)
+            it = items(xml)
+            if it:
+                rec.update(method="rss-discovered", feedId=href, status="ok", items=it); return rec
+    rec["note"] = "no feed found by guessing or by reading the page for a feed link"
+    return rec
+
+def main():
+    src = json.load(open(sys.argv[1], encoding="utf-8"))
+    with cf.ThreadPoolExecutor(max_workers=8) as ex:
+        recs = list(ex.map(one, src))
+    json.dump(recs, open(sys.argv[2],"w",encoding="utf-8"), ensure_ascii=False)
+    ok = [r for r in recs if r["status"]=="ok"]
+    n = sum(len(r["items"]) for r in recs)
+    print("blogow %d, przeczytanych %d, pozycji %d" % (len(recs), len(ok), n))
+    for r in recs:
+        if r["status"] != "ok": print("  BRAK  %-42s %s" % (r["name"][:42], r["note"][:90]))
+
+main()
+```
+
+```python
+#!/usr/bin/env python3
+"""Zbiera `window.__NT` w ksztalcie z zatwierdzonej makiety.
+
+Najwazniejsze ustalenie z 12 wrzesnia 2026: zrodlem TRESCI nie sa metadane gita
+(ile linii, jaki commit), tylko strona `what's new` obszaru — Microsoft sam publikuje
+datowana liste zmian z linkami. Git sluzy do tego, do czego jest dobry: do pokazania,
+co zmienilo sie W SRODKU strony, linia po linii.
+"""
+import json,re,os,subprocess,datetime,collections,html,io
+
+# data przebiegu i katalog repozytorium MS_SOC z otoczenia — zadna liczba i zadna
+# sciezka nie jest tu zapisana na sztywno (0a: kazda liczba ma date waznosci)
+TODAY=datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
+WIN=14
+REPO=os.environ.get("SOC_REPO","../chk")
+def git(repo,*a,timeout=180):
+    try: return subprocess.run(["git","-C",repo]+list(a),capture_output=True,text=True,timeout=timeout).stdout
+    except Exception: return ""
+
+# Strony `what's new` sa WYMIENIONE, nie zgadywane: heurystyka „najkrotsza sciezka"
+# wybierala `docs/verified-id/whats-new.md` dla Entry, czyli stronę podproduktu.
+WN={
+ "Microsoft Learn - Entra":("entra-docs","docs/fundamentals/whats-new.md","https://learn.microsoft.com/en-us/entra/fundamentals/whats-new"),
+ "Microsoft Learn - Defender for Identity":("defender-docs","defender-for-identity/whats-new.md","https://learn.microsoft.com/en-us/defender-for-identity/whats-new"),
+ "Microsoft Learn - Defender for Endpoint":("defender-docs","defender-endpoint/whats-new-in-microsoft-defender-endpoint.md","https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint"),
+ "Microsoft Learn - Defender XDR":("defender-docs","defender-xdr/whats-new.md","https://learn.microsoft.com/en-us/defender-xdr/whats-new"),
+ "Microsoft Learn - Defender for Office 365":("defender-docs","defender-office-365/defender-for-office-365-whats-new.md","https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new"),
+ "Microsoft Learn - Defender for Cloud Apps":("defender-docs","defender-for-cloud-apps/release-notes.md","https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes"),
+ "Microsoft Learn - Microsoft Sentinel":("defender-docs","sentinel/whats-new.md","https://learn.microsoft.com/en-us/azure/sentinel/whats-new"),
+ "Microsoft Learn - Unified Security Operations":("defender-docs","unified-secops-platform/whats-new.md","https://learn.microsoft.com/en-us/unified-secops/whats-new"),
+ "Microsoft Learn - Security Exposure Management":("defender-docs","exposure-management/whats-new.md","https://learn.microsoft.com/en-us/security-exposure-management/whats-new"),
+ "Microsoft Learn - Microsoft Intune":("memdocs","intune/whats-new/index.md","https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"),
+}
+AREA_SHORT={k:k.replace("Microsoft Learn - ","") for k in WN}
+
+# ---- slownik kryteriow i zdan `why`: JEDEN slownik, jedno zdanie na kryterium ----
+CRIT=[
+ ("action required",   r"\baction (is )?required\b|\byou must\b|\bmust be\b|\badmins? (must|need)\b|\bby (january|february|march|april|may|june|july|august|september|october|november|december)\b|\bbefore \w+ \d{1,2}, 20\d\d",
+   ["Names something an administrator has to do, or a date to do it by"],1),
+ ("retirement",        r"\bretire|\bdeprecat|\bend of support\b|\bno longer (be )?(supported|available)\b|\bsunset\b|\bremoved\b",
+   ["Something is going away","Anything depending on it needs a plan before the date"],1),
+ ("default changed",   r"\bby default\b|\bdefault(s)? (is|are|will|change|now)\b|\bautomatic(ally)?\b|\bwithout (any )?(additional )?configuration\b|\bturned on for\b|\benabled for all\b",
+   ["Behaviour changes without anyone opting in, so an estate can move under you"],1),
+ ("permission or role",r"\bpermission|\brole\b|\brbac\b|\bconsent\b|\bprivileg|\bscope[sd]?\b|\bgrant",
+   ["Touches who can do what","A permission or role change widens or narrows blast radius"],1),
+ ("identity surface",  r"\bentra\b|\bactive directory\b|\bad fs\b|\bad cs\b|\bdomain controller|\bidentity\b|\bauthentic|\btoken\b|\bcredential|\bpasskey|\bmfa\b|\bsign-?in\b",
+   ["Reaches an identity surface, which is where an intrusion becomes a takeover"],1),
+ ("audit or logging",  r"\baudit|\blogging\b|\bevent (log|collection|tracing)\b|\betw\b|\btelemetry\b|\bretention\b|\bingest",
+   ["Changes what is recorded","A detection you own may gain or lose its evidence"],2),
+ ("detection",         r"\bdetect|\balert|\banalytic(s| rule)|\bhunting\b|\bincident\b|\bthreat\b|\bquery\b|\brule[s]?\b",
+   ["Adds or alters a detection, so alert volume and coverage move with it"],2),
+ ("sensor or agent",   r"\bsensor\b|\bagent\b|\bversion \d|\bv\d+\.\d|\bmigrat|\bupgrade\b|\bconnector\b|\bclient\b|\bdeploy",
+   ["A version or migration step on a component you deploy and patch"],2),
+ ("data protection",   r"\bdlp\b|\bpurview\b|\bsensitivity label|\bclassif|\bdata loss\b|\bretention polic|\binsider risk\b",
+   ["Changes how data is classified, retained or prevented from leaving"],2),
+ ("preview or GA",     r"\bpublic preview\b|\bpreview\b|\bgenerally available\b|\bga\b\.?|\brolling out\b",
+   ["A maturity change only: worth knowing, not worth a plan on its own"],2),
+]
+TIER0=re.compile(r"\bdomain controller|\bad cs\b|\bad fs\b|\bactive directory\b|\bentra connect\b|\bcloud sync\b|"
+                 r"\bcertificate authorit|\bglobal admin|\bfederat|\bsync(hronization)? (agent|server)\b|\btier 0\b",re.I)
+TAGS=[("Entra",r"\bentra\b|azure ad|\bconditional access\b|\bpasskey|\bmfa\b|\bidentity protection\b|\bpim\b"),
+ ("MDI",r"defender for identity|\bmdi\b"),("MDE",r"defender for endpoint|\bmde\b|\bedr\b"),
+ ("Defender XDR",r"defender xdr|advanced hunting|\bxdr\b"),("MDO",r"defender for office|\bmdo\b|\bsafe links\b|\bquarantine\b"),
+ ("MDCA",r"defender for cloud apps|\bmdca\b|\bmda\b"),("Exposure Mgmt",r"exposure management|attack path|\bmdvm\b|vulnerability management|secure score"),
+ ("Sentinel",r"\bsentinel\b|\bdata connector\b|\blog analytics\b"),("Purview",r"\bpurview\b|\bdlp\b|sensitivity label"),
+ ("Intune",r"\bintune\b|autopilot|\bmam\b|compliance polic"),("Graph",r"microsoft graph|graph api|graph powershell"),
+ ("Windows",r"windows server|windows 1[01]|\bwindows\b"),("Copilot & AI",r"\bcopilot\b|\bai\b|security copilot"),
+ ("Exchange",r"\bexchange\b|\bmailbox\b"),("Teams",r"\bteams\b"),("SharePoint",r"sharepoint|onedrive")]
+
+def classify(title,text,area):
+    h=(title+" "+text).lower()
+    crit=[]; why=[]; w=9
+    for name,pat,sent,weight in CRIT:
+        if re.search(pat,h,re.I):
+            crit.append(name)
+            for s in sent:
+                if s not in why: why.append(s)
+            w=min(w,weight)
+    if w==9: w=2
+    tags=[t for t,p in TAGS if re.search(p,h,re.I)]
+    return crit,why,w,bool(TIER0.search(h)),tags
+
+MON={m:i for i,m in enumerate(["january","february","march","april","may","june","july",
+     "august","september","october","november","december"],1)}
+LINK=re.compile(r"\[([^\]]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
+def abs_url(target,area_url,repo_path):
+    t=target.strip()
+    if t.startswith("http"): return t
+    if t.startswith("/"): return "https://learn.microsoft.com/en-us"+t.split("#")[0]
+    base=re.sub(r"/[^/]+$","",repo_path)
+    p=os.path.normpath(os.path.join(base,t.split("#")[0]))
+    p=re.sub(r"\.md$","",p)
+    root=re.sub(r"/[^/]+$","",area_url.rstrip("/"))
+    # adres artykulu buduje sie z korzenia obszaru, nie ze sciezki w repo
+    seg=p.split("/")
+    try: seg=seg[seg.index(repo_path.split("/")[0])+1:]
+    except ValueError: pass
+    return re.sub(r"/whats-new.*$","",area_url.rstrip("/")).rstrip("/")+"/"+"/".join(seg)
+
+def parse_whatsnew(md,area,url,repo_path):
+    """Trzy ksztalty stron `what's new` Microsoftu, zmierzone na dziesieciu obszarach:
+       1. `## Month Year` -> `### Tytul` -> akapit            (MDI, Sentinel, Entra, Exposure, MDCA, Unified)
+       2. `## Month Year` -> punkty `- **Tytul**: tresc`      (Defender XDR, Defender for Office 365)
+          albo wiersze tabeli `|Typ |[Funkcja](link) |GA |Opis |`   (Defender for Endpoint)
+       3. `## Week of Month D, Year` -> `### kategoria` -> `#### Tytul` -> akapit  (Intune)
+    Parser, ktory zna jeden ksztalt, po cichu zwraca zero wpisow dla czterech obszarow —
+    zmierzone: MDE, XDR, MDO i Intune wypadly calkiem przy pierwszym podejsciu."""
+    fm=re.match(r"^---\n(.*?)\n---\n",md,re.S)
+    msdate=None
+    if fm:
+        m=re.search(r"^ms\.date:\s*(\S+)",fm.group(1),re.M)
+        if m:
+            try:
+                mm,dd,yy=m.group(1).split("/"); msdate="%s-%s-%s"%(yy,mm.zfill(2),dd.zfill(2))
+            except Exception: msdate=m.group(1)
+    out=[];cur=None;intbl=False
+    def head2(line):
+        t=line.strip()
+        m=re.match(r"^##\s+([A-Z][a-z]+)\s+(20\d\d)\s*$",t)
+        if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
+        m=re.match(r"^##\s+Week of\s+([A-Z][a-z]+)\s+\d{1,2},\s*(20\d\d)",t)
+        if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
+        return None
+    def put(title,text):
+        if title: out.append({"year":cur[0],"month":cur[1],"monthLabel":cur[2],
+                              "title":re.sub(r"[*_`]","",title).strip()[:170],"lines":[text] if text else []})
+    for line in md.split("\n"):
+        h=head2(line)
+        if h: cur=h; intbl=False; continue
+        if not cur: continue
+        st=line.strip()
+        if st.startswith("|"):
+            cells=[c.strip() for c in st.strip("|").split("|")]
+            if len(cells)>=4 and not set("".join(cells))<=set("-: "):
+                if re.match(r"^(type|feature|version)",cells[0],re.I) and re.search(r"description|updates",cells[-1],re.I):
+                    intbl=True; continue
+                if intbl:
+                    ttl=cells[1] if len(cells)>3 else cells[0]
+                    put(ttl,cells[-1]); continue
+            continue
+        intbl=False
+        m=re.match(r"^###\s+(.+?)\s*$",line)
+        if m and not re.match(r"^###\s+(Advanced capabilities|App management|Device |Intune apps|Monitor|Role-based|Scripts|Tenant)",line):
+            put(m.group(1),""); continue
+        m=re.match(r"^####\s+(.+?)\s*$",line)
+        if m: put(re.sub(r"<!--.*?-->","",m.group(1)),""); continue
+        m=re.match(r"^[-*]\s+(?:\((Preview|GA)\)\s*)?\*\*(.+?)\*\*\s*[:.]?\s*(.*)$",line)
+        if m:
+            put(m.group(2),((m.group(1)+": ") if m.group(1) else "")+m.group(3)); continue
+        m=re.match(r"^[-*]\s+\((Preview|GA)\)\s+(.{25,})$",line)
+        if m: put(m.group(2)[:120],m.group(1)+": "+m.group(2)); continue
+        if out and st and not st.startswith("#") and not st.startswith(">"):
+            if len(out[-1]["lines"])<8: out[-1]["lines"].append(line.rstrip())
+    ent=[]
+    for o in out:
+        raw=" ".join(o["lines"]).strip()
+        body=(o["title"]+" "+raw) if len(raw)<25 else raw
+        links=[{"text":m.group(1),"url":abs_url(m.group(2),url,repo_path)} for m in LINK.finditer(o["title"]+" "+raw)]
+        text=LINK.sub(lambda m:m.group(1),raw)
+        text=re.sub(r"<br\s*/?>"," ",text); text=re.sub(r"[*_`|]"," ",text); text=re.sub(r"\s+"," ",text).strip()
+        title=LINK.sub(lambda m:m.group(1),o["title"]); title=re.sub(r"[*_`]","",title).strip()
+        if len(text)<25 and len(title)<25: continue
+        crit,why,w,t0,tags=classify(title,text,area)
+        ent.append({"area":area,"year":o["year"],"month":o["month"],"monthLabel":o["monthLabel"],
+                    "title":title,"text":text[:900],"links":links[:4],"msDate":msdate,"url":url,
+                    "weight":w,"tier0":t0,"criteria":crit,"tags":tags,"why":". ".join(why)+"." if why else "",
+                    "blogs":[],"hasBlog":False})
+    return ent,msdate
+
+# ---------------- blogi ----------------
+LADDER=[("Entra",1),("MDI",2),("MDE",2),("Defender XDR",2),("MDO",2),("MDCA",2),
+        ("Exposure Mgmt",2),("Sentinel",2),("Purview",3),("Intune",4),("Graph",1),
+        ("Exchange",5),("Teams",5),("SharePoint",5),("Windows",6),("Copilot & AI",6)]
+def blog_weight(tags):
+    w=[v for t,v in LADDER if t in tags]
+    return min(w) if w else 7
+
+def strip_html(s):
+    s=re.sub(r"<[^>]+>"," ",s or ""); s=html.unescape(s)
+    return re.sub(r"\s+"," ",s).strip()
+
+def build_blogs():
+    raw=json.load(open("blogs_raw.json",encoding="utf-8"))
+    srcs=[];items=[]
+    for b in raw:
+        srcs.append({"name":b["name"],"listUrl":b["listUrl"],"feed":b["feedId"],
+                     "method":"rss" if b["method"].startswith("rss") else b["method"],
+                     "status":b["status"],"note":b["note"],"tried":[]})
+        for i in b["items"]:
+            try: dt=datetime.date.fromisoformat(i["date"]) if i["date"] else None
+            except Exception: dt=None
+            if not dt: continue
+            body=strip_html(i.get("body",""))
+            tags=[t for t,p in TAGS if re.search(p,(i["title"]+" "+body[:1500]),re.I)]
+            items.append({"source":b["name"],"sourceUrl":b["listUrl"],"feed":b["feedId"],
+                "title":i["title"],"link":i["link"],"date":i["date"],"age":(TODAY-dt).days,
+                "author":"","summary":body[:420],"tags":tags,"weight":blog_weight(tags)})
+    items.sort(key=lambda x:(x["date"],),reverse=True)
+    win=[x for x in items if 0<=x["age"]<WIN]
+    top=sorted(win,key=lambda x:(x["weight"],x["age"]))[:10]
+    return srcs,items,top,win
+
+# ---------------- strony: co zmienilo sie W SRODKU (5ar) ----------------
+PROMOTE=[("requirement",r"\bmust\b|\brequired\b|\bisn't supported\b|\baren't supported\b|\bnot supported\b|\bonly\b|\bcan't\b|\bcannot\b"),
+ ("removed entry",r"^\s*[-*]\s*\["),("limit",r"\b\d+\s*(%|GB|MB|days?|hours?|minutes?)\b|\bat least\b|\bup to\b"),
+ ("security object",r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg")]
+META=re.compile(r"^[+-]\s*(ms\.date|ms\.custom|ms\.reviewer|ai-usage|title|description|ms\.topic|author|manager):",re.I)
+
+def page_diffs(probe,areas_changes):
+    out=[];byarea=[]
+    since=(TODAY-datetime.timedelta(days=WIN)).isoformat()
+    for a in probe:
+        repo=a.get("repo"); d=(a.get("dir") or "").strip("/")
+        p=os.path.join("repos",repo or "")
+        if not repo or not os.path.isdir(p): continue
+        short=a["name"].replace("Microsoft Learn - ","")
+        rec=next((x for x in areas_changes if x["name"]==short),None)
+        if not rec or not rec["pages"]: continue
+        byarea.append({"area":a["name"].replace("Microsoft Learn - ",""),"repo":repo,"status":"git",
+            "head":max(x["date"] for x in rec["pages"]),"files":len(rec["pages"]),
+            "tag":(rec.get("tag") or a["name"].replace("Microsoft Learn - ","")),
+            "add":rec["add"],"rem":rec["rem"]})
+        for pg in rec["pages"][:14]:
+            diff=git(p,"log","--since",since,"-p","--unified=2","--pretty=format:@@%H|%cI|%s","--",pg["path"],timeout=90)
+            hunks=[];add=rem=ma=mr=0;commit="";date=pg["date"]
+            for blk in diff.split("\n"):
+                mh=re.match(r"^@@([0-9a-f]{40})\|([^|]+)\|(.*)$",blk)
+                if mh:
+                    commit=commit or mh.group(1)[:10]; date=mh.group(2)[:10]; continue
+                if blk.startswith("+++") or blk.startswith("---"): continue
+                if blk.startswith("@@"):
+                    m=re.search(r"\+(\d+)",blk)
+                    hunks.append({"at":int(m.group(1)) if m else 0,"add":[],"rem":[]}); continue
+                if not hunks: continue
+                if blk.startswith("+"):
+                    if META.match(blk): ma+=1; continue
+                    add+=1
+                    if len(hunks[-1]["add"])<6 and blk[1:].strip(): hunks[-1]["add"].append(blk[1:].rstrip()[:300])
+                elif blk.startswith("-"):
+                    if META.match(blk): mr+=1; continue
+                    rem+=1
+                    if len(hunks[-1]["rem"])<6 and blk[1:].strip(): hunks[-1]["rem"].append(blk[1:].rstrip()[:300])
+            text=" ".join(l for h in hunks for l in h["add"]+h["rem"])
+            promo=[n for n,pat in PROMOTE if re.search(pat,text,re.I|re.M)]
+            nm=re.sub(r"\.(md|yml)$","",pg["path"].split("/")[-1]).replace("-"," ").capitalize()
+            tags=[t for t,pt in TAGS if re.search(pt,text+" "+nm,re.I)]
+            out.append({"area":a["name"].replace("Microsoft Learn - ",""),"tag":tags[0] if tags else "",
+                "repo":repo,"path":pg["path"],"name":nm,
+                "url":re.sub(r"/whats-new.*$","",a["url"].rstrip("/")).rstrip("/")+"/"+
+                      re.sub(r"\.(md|yml)$","",pg["path"].split("/")[-1]),
+                "commit":commit,"date":date,"added":add,"removed":rem,
+                "metaAdded":ma,"metaRemoved":mr,"promote":promo,
+                "socWeight":blog_weight(tags),"tier0":bool(TIER0.search(text)),
+                "hunks":[h for h in hunks if h["add"] or h["rem"]][:4]})
+    out.sort(key=lambda x:(0 if x["promote"] else 1,-(x["added"]+x["removed"])))
+    return out,byarea
+
+def main():
+    probe=json.load(open("learn_probe.json",encoding="utf-8"))
+    lchg=json.load(open("learn_changes.json",encoding="utf-8"))
+    srcs,items,top,win=build_blogs()
+
+    changes=[];wnmeta=[]
+    for a in probe:
+        key=a["name"]
+        if key not in WN:
+            if a.get("repo") and os.path.isdir(os.path.join("repos",a["repo"])):
+                wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"no what's new page",
+                    "entries":0,"msDate":None,"headDate":None,"url":a["url"]})
+            else:
+                wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"no public mirror",
+                    "entries":0,"msDate":None,"headDate":None,"url":a["url"]})
+            continue
+        repo,path,url=WN[key]
+        md=git(os.path.join("repos",repo),"show","HEAD:"+path,timeout=90)
+        if not md:
+            wnmeta.append({"area":key,"repo":repo,"page":path,"status":"page not in mirror",
+                "entries":0,"msDate":None,"headDate":None,"url":url}); continue
+        ent,msdate=parse_whatsnew(md,AREA_SHORT[key],url,path)
+        head=git(os.path.join("repos",repo),"log","-1","--format=%cI","--",path,timeout=60)[:10] or None
+        wnmeta.append({"area":key,"repo":repo,"page":path,"status":"ok","entries":len(ent),
+                       "msDate":msdate,"headDate":head,"url":url})
+        changes.extend(ent)
+
+    # powiazanie z blogami: po TAGU, i wiersz mowi ktora droga (`how`)
+    bytag=collections.defaultdict(list)
+    for i in win:
+        for t in i["tags"]: bytag[t].append(i)
+    for c in changes:
+        seen=[];b=[]
+        for t in c["tags"]:
+            for i in bytag.get(t,[]):
+                if i["link"] in seen: continue
+                seen.append(i["link"])
+                b.append({"title":i["title"],"link":i["link"],"source":i["source"],
+                          "date":i["date"],"how":"both tagged "+t})
+        c["blogs"]=sorted(b,key=lambda x:x["date"],reverse=True)[:3]; c["hasBlog"]=bool(b)
+    changes.sort(key=lambda c:(-(c["year"]*100+c["month"]),c["weight"],c["area"]))
+    newest=max((c["year"]*100+c["month"] for c in changes),default=0)
+    recent=[c for c in changes if (c["year"]*100+c["month"])>=newest-1]
+
+    pages,pageAreas=page_diffs(probe,lchg)
+
+    # korelacja per produkt
+    corr=[];bysrc=collections.defaultdict(list)
+    for i in items: bysrc[i["source"]].append(i)
+    prods=sorted({c["area"] for c in changes}|{a["area"] for a in pageAreas})
+    for p in prods:
+        ar=[x for x in lchg if x["name"]==p]
+        bl=[i for i in win if p.split()[0] in " ".join(i["tags"]) or any(t in p for t in i["tags"])]
+        corr.append({"product":p,"weight":blog_weight([p]) if p else 7,
+            "areas":len(ar),"areasGit":sum(1 for x in ar if x["method"]=="git"),
+            "docPages":sum(len(x["pages"]) for x in ar),"docLines":sum(x["add"]+x["rem"] for x in ar),
+            "blogs14":len(bl),"blogsAll":len([i for i in items if any(t in p for t in i["tags"])]),
+            "sources":sorted({i["source"] for i in bl})[:6],
+            "leadDays":0,"both":bool(ar and bl)})
+
+    # trzy listy JSON
+    jsons=[]
+    for lab,f,what in [("JSON MS Learn","microsoftlearn_sources.json","documentation areas"),
+                       ("JSON MS Blogs","microsoftblogs_sources.json","product blogs"),
+                       ("JSON Community sources","community_sources.json","community sources")]:
+        pth=os.path.join(REPO,f)
+        n=len(json.load(open(pth,encoding="utf-8"))) if os.path.exists(pth) else 0
+        upd=git(REPO,"log","-1","--format=%cI","--",f,timeout=60).strip() or None
+        jsons.append({"label":lab,"updated":upd,"entries":n,"changes":0,"what":what})
+
+    NT={"briefDate":TODAY.isoformat(),"windowFrom":(TODAY-datetime.timedelta(days=WIN)).isoformat(),
+        "learn":[{"name":x["name"],"url":x["url"],"method":x["method"],"repo":x.get("repo"),
+                  "path":x.get("dir"),"status":"ok" if x["method"]=="git" else "snapshot",
+                  "note":x.get("note",""),"commits":x["commits"],"bulk":len(x["bulk"]),
+                  "pages":[{"path":p["path"],"added":p["add"],"removed":p["rem"],
+                            "commits":len(p["commits"]),"newest":p["date"],
+                            "dates":[c["date"] for c in p["commits"][:3]],
+                            "subject":p["commits"][0]["subj"] if p["commits"] else ""}
+                           for p in x["pages"][:40]],
+                  "product":x["name"].replace("Microsoft Learn - ","")} for x in lchg],
+        "items":items,"corr":corr,"top":top,"blogs":srcs,"changes":changes,"recent":recent,
+        "wnMeta":wnmeta,"jsons":jsons,"pages":pages,"pageAreas":pageAreas,
+        "pagesSince":(TODAY-datetime.timedelta(days=WIN)).isoformat()}
+    io.open("NT.json","w",encoding="utf-8").write(json.dumps(NT,ensure_ascii=False))
+    print("changes %d (recent %d) | wnMeta ok %d/%d | items %d (okno %d) | top %d | pages %d | corr %d | blogs %d"%(
+      len(changes),len(recent),sum(1 for w in wnmeta if w["status"]=="ok"),len(wnmeta),
+      len(items),len(win),len(top),len(pages),len(corr),len(srcs)))
+    for w in wnmeta:
+        if w["status"]=="ok": print("   %-40s wpisow %-4d head %s"%(w["area"].replace("Microsoft Learn - ","")[:40],w["entries"],w["headDate"]))
+main()
+```
+
+### SKRYPT 15 v2 — na koniec `<body>`, jako PIETNASTY blok `<script>`
+
+Kopiowany co do bajtu z tego pliku, jak kazdy skrypt dodawany (§0c). **Zastepuje SKRYPT 15
+z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki jednego stanu.
+
+```js
+/* ===========================================================================
+   SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS.
+   Odpowiedz na uwagi z 12 wrzesnia. Najwazniejsza jest osma: "nie widze realnych
+   zmian, nie wiem na co zwracac uwage". Miala racje — pierwsza wersja pokazywala
+   METADANE gita (ile linii, jaki commit), a nie TRESC zmiany. Zrodlem tresci jest
+   strona `what's new` kazdego obszaru: Microsoft sam publikuje datowana liste zmian
+   z linkami, i czyta sie ja niezaleznie od tego, czy lustro ma historie.
+   =========================================================================== */
+(function () {
+  "use strict";
+  /* Dane obu zakladek mieszkaja w bloku `soc-brief-state` pod kluczem `nt`. TRZECIEGO
+     bloku `<script type="application/json">` NIE dokladamy — bramka lustra (§0a) zada
+     DOKLADNIE dwoch — a osobny blok `script` z `window.__NT` wpadlby w `snapshot_shell`
+     (§0d) jako czwarty skrypt powloki i PRZERWAL caly przebieg lustrzany, bo ta funkcja
+     rozpoznaje powloke po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`. I nie wolno tu napisac
+     zamykajacego znacznika skryptu nawet W KOMENTARZU: przegladarka konczy element na
+     pierwszym takim napisie w tresci, wiec ten skrypt urwal sie na 880 bajtach i nie
+     zbudowal ani jednej sekcji. `window.__NT` zostaje jako wejscie makiety i podgladu,
+     wiec ten sam kod dziala w obu miejscach. */
+  var D = (function () {
+    if (window.__NT) return window.__NT;
+    var s = document.getElementById("soc-brief-state");
+    if (!s) return null;
+    try { return (JSON.parse(s.textContent) || {}).nt || null; } catch (e) { return null; }
+  })();
+  if (!D) return;
+  var HUE = {};
+  function hue(k){ if(!(k in HUE)){var h=0;for(var i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))%360;HUE[k]=h;} return HUE[k]; }
+  function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n;}
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function A(href,txt,cls){return '<a class="'+(cls||"lnk")+'" href="'+esc(href)+
+    '" target="_blank" rel="noopener">'+esc(txt)+"</a>";}
+  function chip(g){return '<span class="ntchip" style="--h:'+hue(g)+'" data-ntcat="'+esc(g)+'">'+esc(g)+"</span>";}
+
+  function tiles(spec){var g=el("div","factgrid");spec.forEach(function(t){
+    var f=el("div","fact"+(t[2]?" "+t[2]:""));f.appendChild(el("b",null,String(t[0])));
+    f.appendChild(el("span",null,t[1]));g.appendChild(f);});return g;}
+
+  function table(head,rows,cap,empty){
+    if(!rows.length) return el("p","empty",empty||"Nothing to show.");
+    var tw=el("div","tw"),t=el("table");
+    if(cap){var c=el("caption","tabcap");c.innerHTML=cap;t.appendChild(c);}
+    var th=el("thead"),hr=el("tr");head.forEach(function(x){hr.appendChild(el("th",null,x));});
+    th.appendChild(hr);t.appendChild(th);
+    var tb=el("tbody");
+    rows.forEach(function(r){var tr=el("tr");
+      if(r.id) tr.setAttribute("data-id",r.id);
+      /* wymiary filtrowania jako atrybuty wiersza: jeden slownik, jeden czytelnik.
+         Wyciaganie ich z komorek przy kazdym filtrze bylo zgadywaniem po tekscie —
+         "Defender for Endpoint" w komorce obszaru i w tytule to dwie rozne rzeczy. */
+      if(r.attrs) for(var k in r.attrs){ if(r.attrs[k]!==undefined&&r.attrs[k]!==null&&r.attrs[k]!=="")
+        tr.setAttribute("data-nt-"+k,String(r.attrs[k])); }
+      r.cells.forEach(function(cc){var td=el("td");td.innerHTML=cc;tr.appendChild(td);});
+      tb.appendChild(tr);});
+    t.appendChild(tb);tw.appendChild(t);return tw;}
+
+  /* 5 i 7: kazda sekcja to <details> z plusem. `open` dostaja WYLACZNIE te,
+     ktore niosa realna zmiane tresci — reszta czeka zwinieta. */
+  function sec(id,label,title,count,open,note,node,rank){
+    var d=el("details","ntsec");d.id=id;if(open)d.open=true;
+    /* ranga rozstrzyga, ktora sekcje otwiera klik w wykres. Liczba wierszy tego NIE
+       rozstrzyga: archiwum ma ich zawsze najwiecej, wiec wygrywalo kazde klikniecie
+       (zmierzone 12 wrzesnia 2026 — `nt-older` otwieralo sie przy kazdym slupku).
+       Sekcja bez rangi dostaje 9, wiec nowa sekcja wymusza decyzje, a nie dziedziczy jej po cichu. */
+    d.dataset.ntrank=String(rank===undefined?9:rank);
+    d.dataset.ntdefault=open?"1":"0";
+    var s=el("summary");
+    s.appendChild(el("span","ntlab",label));
+    s.appendChild(el("span",null,title));
+    if(count!==undefined&&count!==null)s.appendChild(el("span","ntn",String(count)));
+    d.appendChild(s);
+    var b=el("div","ntbody");
+    if(note){var p=el("p","sec-note");p.innerHTML=note;b.appendChild(p);}
+    if(node)b.appendChild(node);
+    d.appendChild(b);d.__body=b;return d;}
+
+  /* 5: klik w wykres przenosi do sekcji, rozwija ja, a POPRZEDNIA zwija.
+     Jedna funkcja, zeby dwa wywolania nie mogly sie rozjechac. */
+  var opened=null;
+  function focusSection(id){
+    var d=document.getElementById(id); if(!d) return;
+    if(opened&&opened!==d){opened.open=false;opened.classList.remove("ntflash");}
+    d.open=true;opened=d;
+    d.classList.add("ntflash");setTimeout(function(){d.classList.remove("ntflash");},1600);
+    d.scrollIntoView({block:"start"});
+  }
+  window.__ntFocus=focusSection;
+
+  /* ---------- 8 i 10: REALNE ZMIANY TRESCI, z komentarzem i tagami ----------
+     Tabela, nie karty (uwaga 6). Kazdy wiersz mowi CO Microsoft zmienil, DLACZEGO
+     to dotyczy SOC, jakimi tagami jest opisany i GDZIE to sprawdzic — artykul
+     docelowy, strona what's new i blog, jesli mowi o tym samym (uwaga 9). */
+  function changeRows(list){
+    return list.map(function(e){
+      var w='<span class="ntw">w'+e.weight+"</span>"+(e.tier0?' <span class="ntt0">tier 0</span>':"");
+      var crit=e.criteria.slice(0,3).map(function(c,i){
+        return '<span class="ntcrit '+(i===0?(e.weight<=1?"c1":"c2"):"")+'">'+esc(c)+"</span>";}).join("");
+      var what='<b>'+esc(e.title)+"</b>"+
+        '<span class="ntwhy">'+esc(e.text.slice(0,260))+(e.text.length>260?"…":"")+"</span>";
+      var why='<span class="ntwhy" style="margin-top:0">'+esc(e.why)+"</span>"+crit;
+      var src=[A(e.url,"What's new")];
+      (e.links||[]).slice(0,2).forEach(function(l){src.push(A(l.url,l.text.slice(0,42)));});
+      var shared=(e.blogs||[]).filter(function(b){return b.how.indexOf("shared wording")===0;});
+      shared.slice(0,2).forEach(function(b){src.push(A(b.link,b.source+" ↗"));});
+      return {id:e.title,
+        attrs:{area:e.area,tag:"|"+(e.tags||[]).join("|")+"|",w:e.weight,
+               t0:e.tier0?"1":"0",crit:"|"+(e.criteria||[]).join("|")+"|",
+               ym:(e.year&&e.month)?(e.year+"-"+("0"+e.month).slice(-2)):"",blog:(e.blogs&&e.blogs.length)?"1":"0"},
+        cells:[
+        esc(e.monthLabel.replace(/\s*\(Service release.*\)/,"")),
+        esc(e.area), w, what, why,
+        e.tags.map(chip).join(""),
+        '<span class="ntsrc">'+src.join("")+"</span>"]};
+    });
+  }
+
+  function learnTab(){
+    var p=document.getElementById("tab-learn"); if(!p||p.querySelector("details.ntsec"))return;
+    var rec=D.recent, all=D.changes, L=D.learn;
+    var t0=all.filter(function(e){return e.tier0;});
+    var act=all.filter(function(e){return e.criteria.indexOf("action required")>=0||e.criteria.indexOf("retirement")>=0;});
+
+    p.appendChild(tiles([
+      [rec.length,"changes in the last 3 months","acc"],
+      [all.length,"changes that matter to a SOC","info"],
+      [t0.length,"touch a tier 0 surface","bad"],
+      [act.length,"need action or name a retirement","warn"],
+      [D.wnMeta.length,"areas read for content","ok"],
+      [all.filter(function(e){return e.blogs&&e.blogs.length;}).length,"also covered by a blog",""]
+    ]));
+
+    /* rozklad po obszarze — KLIKALNY, przenosi do sekcji i ja rozwija (uwaga 5) */
+    var per={};rec.forEach(function(e){per[e.area]=(per[e.area]||0)+1;});
+    var keys=Object.keys(per).sort(function(a,b){return per[b]-per[a];});
+    var fig=el("figure","chart");
+    fig.appendChild(el("figcaption","chart-title","Changes per area, last 3 months"));
+    fig.appendChild(el("p","chart-note","Click a bar: the tab filters to that area and the section that lists it opens. The one that was open closes."));
+    var mx=Math.max.apply(null,keys.map(function(k){return per[k];}).concat([1]));
+    var bw=el("div","ntbar"),ax=el("div","ntaxr");
+    keys.forEach(function(k){
+      var b=el("button");b.type="button";b.title=k+": "+per[k];
+      b.style.setProperty("--h",Math.max(6,Math.round(100*per[k]/mx))+"%");
+      b.appendChild(el("i"));
+      b.addEventListener("click",function(){setArea(k);});
+      bw.appendChild(b);ax.appendChild(el("span",null,k.replace("Microsoft ","").slice(0,14)));
+    });
+    var fw=el("div");fw.appendChild(bw);fw.appendChild(ax);fig.appendChild(fw);
+    p.appendChild(fig);
+
+    var s1=sec("nt-changes","Section A","What Microsoft changed, and why it matters",rec.length,true,
+      "Every row is an entry Microsoft published on the area's own <b>what's new</b> page, "+
+      "not a count of edited lines. <b>Weight</b> is the security ladder of &sect;5p and "+
+      "<b>tier 0</b> marks a change that reaches a domain controller, AD FS, AD CS, Entra Connect, "+
+      "a certificate authority or a Global-Admin-equivalent role. The <b>Why</b> column is derived "+
+      "by this brief from the criteria named beside it, not written by Microsoft — so you can "+
+      "disagree with the reason without having to re-read the source.",
+      table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
+        changeRows(rec),
+        "<b>Changes Microsoft published</b> &middot; "+rec.length+" entries since July 2026 &middot; "+
+        "heaviest first, tier 0 before the rest"),1);
+    p.appendChild(s1);
+
+    var s2=sec("nt-older","Section B","Everything else this run read, back to January",all.length-rec.length,false,
+      "The same rule, applied to the rest of each what's new page. Kept because a retirement "+
+      "announced in March still has its date in front of it.",
+      table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
+        changeRows(all.filter(function(e){return D.recent.indexOf(e)<0;}).slice(0,180)),
+        "<b>Earlier entries</b> &middot; heaviest first"),8);
+    p.appendChild(s2);
+
+    var mrows=D.wnMeta.map(function(m){
+      return {cells:[esc(m.area.replace("Microsoft Learn - ","")),
+        m.status==="ok"?'<span class="ntmeth m-rss">what’s new</span>':'<span class="ntmeth m-snap">not read</span>',
+        String(m.entries),
+        esc(m.msDate||"—"),
+        m.url?A(m.url,"Page"):"—"]};});
+    var cov=L.filter(function(x){return !D.wnMeta.some(function(m){return m.area===x.name;});});
+    var crows=cov.map(function(x){
+      return {cells:[esc(x.name.replace("Microsoft Learn - ","")),
+        '<span class="ntmeth m-snap">not read for content</span>',"0","—",A(x.url,"Page")]};});
+    var s3=sec("nt-coverage","Section C","Which areas were read for content, and which were not",
+      D.wnMeta.length+" of "+L.length,false,
+      "An area is read for content when it publishes a what’s new page this run could parse. "+
+      "The rest are watched but contributed nothing here, and that is a gap in coverage, not a quiet month.",
+      table(["Area","Read as","Entries","Page last stamped","Source"],mrows.concat(crows),
+        "<b>Content coverage</b> &middot; "+D.wnMeta.length+" areas read, "+cov.length+" not"),3);
+    p.appendChild(s3);
+
+    /* 3 i 8: TO jest sekcja, ktora wlasciciel nazwal po imieniu. Poprzednia wersja
+       pokazywala tu wylacznie Entre i azure-docs, a w danych stalo, ze lustra
+       Defendera "carry one commit in its entire history". To bylo twierdzenie
+       o MOIM klonowaniu — klonowalem z `--depth 1`, wiec kazde lustro ma wtedy
+       jeden commit — a nie o Microsofcie (5b: brak publikacji jest TWIERDZENIEM
+       i wymaga daty oraz nazwy sprawdzonego pliku). Po doglebieniu tego samego
+       lustra: MDI 64 pliki, MDE 246, Sentinel 274, XDR 157 w tym samym oknie.
+       Obie strony, o ktore pytal, sa tu z linia po linii. */
+    var pg=D.pages||[], pa=D.pageAreas||[];
+    var withRule=pg.filter(function(x){return x.promote&&x.promote.length;});
+    function lineBox(x){
+      var b=el("div","ntdiff");
+      var h=el("div","ntdh");
+      var a=A(x.url,x.name); h.innerHTML=a+' <span class="ntpath">'+esc(x.path)+"</span>";
+      var c=el("span","ntdc");
+      c.innerHTML='<ins>+'+x.added+"</ins> <del>−"+x.removed+"</del>";
+      h.appendChild(c); b.appendChild(h);
+      (x.hunks||[]).forEach(function(k){
+        var w=el("div","nthunk");
+        w.appendChild(el("div","ntat","line "+k.at));
+        (k.rem||[]).forEach(function(t){var d=el("div","ntline ntrem");d.textContent="− "+t;w.appendChild(d);});
+        (k.add||[]).forEach(function(t){var d=el("div","ntline ntadd");d.textContent="+ "+t;w.appendChild(d);});
+        b.appendChild(w);
+      });
+      if(x.metaAdded||x.metaRemoved)
+        b.appendChild(el("div","ntmeta",(x.metaAdded+x.metaRemoved)+
+          " further changed lines are page metadata only — ms.date, ms.custom, the title and "+
+          "description strings. Counted and set aside here rather than hidden: a date bump is a real "+
+          "edit, it is just not one a SOC acts on."));
+      if(x.promote&&x.promote.length){
+        var w2=el("div","ntwhy2");
+        w2.innerHTML="<b>Why this is promoted. </b>The rule below matched: "+
+          x.promote.map(function(r){return "<code>"+esc(r)+"</code>";}).join(", ")+
+          ". Every other edited page in this area is counted in the table above and left unpromoted.";
+        b.appendChild(w2);
+      }
+      return b;
+    }
+    var arows=pa.map(function(r){
+      return {cells:[esc(r.area),
+        r.status==="git"?'<span class="badge t-ok">git history</span>'
+                        :'<span class="badge t-grey">'+esc(r.status)+"</span>",
+        String(r.files||0),
+        r.files?('<ins>+'+r.add+"</ins> <del>−"+r.rem+"</del>"):'<span class="none">0</span>',
+        esc(r.head||"—"),
+        r.files?"":(r.status!=="git"?"no public mirror, so no diff is possible"
+                    :"the mirror HEAD predates this window, so nothing here changed in it")]};});
+    /* nic nie jest wyciete: tabela bierze KAZDA wypromowana strone, a karty ponizej
+       sa jej pierwszymi czternastoma w tej samej kolejnosci. Tabela powyzej osmiu
+       wierszy dostaje od SKRYPTU 11 pole szukania i zawezenie po kolumnie (5ap),
+       wiec strona, ktorej tu nie widac okiem, jest jedno slowo od znalezienia. */
+    function firstLine(x){
+      var best=null,sign="+";
+      (x.hunks||[]).forEach(function(h){
+        (h.add||[]).forEach(function(l){ if(!best&&String(l).trim().length>25){best=l;sign="+";} });
+      });
+      if(!best) (x.hunks||[]).forEach(function(h){
+        (h.rem||[]).forEach(function(l){ if(!best&&String(l).trim().length>25){best=l;sign="\u2212";} });
+      });
+      if(!best) return '<span class="none">only formatting or metadata</span>';
+      var t=String(best).replace(/^[-*+>#\s]+/,"").replace(/\[([^\]]+)\]\([^)]*\)/g,"$1").trim();
+      if(t.length>150) t=t.slice(0,148)+"\u2026";
+      return '<span class="'+(sign==="+"?"ntadd":"ntrem")+'">'+sign+"</span> "+esc(t);
+    }
+    var prows=withRule.map(function(x){
+      return {id:x.path,
+        attrs:{area:x.area,tag:"|"+x.tag+"|",w:x.socWeight,t0:x.tier0?"1":"0",
+               crit:"|"+(x.promote||[]).join("|")+"|",ym:(x.date||"").slice(0,7)},
+        cells:[esc(x.date||"—"),chip(x.tag),
+        (x.tier0?'<span class="badge t-bad">tier 0</span> ':"")+
+        A(x.url,x.name),
+        '<ins>+'+x.added+"</ins> <del>−"+x.removed+"</del>",
+        x.promote.map(function(r){return "<code>"+esc(r)+"</code>";}).join(" "),
+        /* KOMENTARZ: pierwsza linia, ktora Microsoft dopisal albo skasowal w tej
+           edycji — nie streszczenie od przebiegu, tylko jego wlasny tekst. Wiersz
+           bez zdania mowiacego, CZEGO dotyczy, kaze otwierac kazda strone po kolei
+           (prosba wlasciciela z 12 wrzesnia 2026). */
+        firstLine(x),
+        esc(x.commit||"")]};});
+    var body=el("div");
+    body.appendChild(table(["Area","Mirror","Files edited","Lines","Mirror HEAD","Note"],arows,
+      "<b>Coverage</b> &middot; "+pa.filter(function(r){return r.status==="git";}).length+
+      " of "+pa.length+" areas expose usable history"));
+    body.appendChild(table(["Edited","Technology","Page","Lines","Rule that promoted it","What changed","Commit"],prows,
+      "<b>Pages that changed something a SOC acts on</b> &middot; "+withRule.length+
+      " of "+pg.length+" pages read"));
+    var dl=el("div","ntdiffs");
+    withRule.slice(0,14).forEach(function(x){dl.appendChild(lineBox(x));});
+    body.appendChild(dl);
+    var s4=sec("nt-pages","Section D","What Microsoft changed inside the page, line by line",withRule.length,false,
+      "Green is text Microsoft added, red is text it removed, read from the documentation "+
+      "repositories' own git history since "+esc(D.pagesSince||"")+". <b>This is the only view in the brief "+
+      "that shows a REMOVAL of prose</b> — a detection dropped from Microsoft's own list leaves no "+
+      "other trace. A page is listed when the rule matched a requirement, a removed entry, a stated "+
+      "limit or a security object; the rest are counted in the coverage table and left alone. "+
+      "The table lists every promoted page and the cards below are its first fourteen, one per area "+
+      "before a second from any — so no area is crowded out by the one that changed most lines.",
+      body,2);
+    p.appendChild(s4);
+  }
+
+  /* ---------- zakladka Microsoft Blogs ----------
+     Uwaga 6: "ten sposob pokazywania do mnie nie przemawia, wole w tabelce".
+     Top 10 jest odtad TABELA w ksztalcie sekcji J zakladki Products. */
+  function blogsTab(){
+    var p=document.getElementById("tab-blogs"); if(!p||p.querySelector("details.ntsec"))return;
+    var it=D.items, win=it.filter(function(x){return x.age!==null&&x.age<=13;});
+    var CH={};D.changes.forEach(function(e){e.tags.forEach(function(g){CH[g]=(CH[g]||0)+1;});});
+
+    p.appendChild(tiles([
+      [D.blogs.length,"blogs read","acc"],
+      [win.length,"posts in the window","ok"],
+      [it.length,"posts held","info"],
+      [Math.round(100*it.filter(function(x){return x.tags.length;}).length/it.length)+"%","tagged by product",""],
+      [D.blogs.filter(function(x){return x.status!=="ok";}).length,"could not be read","bad"],
+      [new Set(win.map(function(x){return x.source;})).size,"blogs that moved","warn"]
+    ]));
+
+    var per={},i,d0=new Date(D.briefDate+"T00:00:00Z");
+    for(i=13;i>=0;i--){per[new Date(d0-i*86400000).toISOString().slice(0,10)]=0;}
+    win.forEach(function(x){if(x.date in per)per[x.date]++;});
+    var ks=Object.keys(per).sort(),mx=Math.max.apply(null,ks.map(function(k){return per[k];}).concat([1]));
+    var fig=el("figure","chart");
+    fig.appendChild(el("figcaption","chart-title","Posts per day"));
+    fig.appendChild(el("p","chart-note","Click a day: the tab filters to it and the post list opens."));
+    var bw=el("div","ntbar"),ax=el("div","ntaxr");
+    ks.forEach(function(k){
+      var b=el("button");b.type="button";b.title=k+": "+per[k]+" posts";
+      b.style.setProperty("--h",Math.max(5,Math.round(100*per[k]/mx))+"%");
+      b.appendChild(el("i"));
+      b.addEventListener("click",function(){setDay(k);});
+      bw.appendChild(b);ax.appendChild(el("span",null,k.slice(8)));
+    });
+    var fw=el("div");fw.appendChild(bw);fw.appendChild(ax);fig.appendChild(fw);
+    p.appendChild(fig);
+
+    function postRows(list){
+      return list.map(function(x){
+        var hit=x.tags.filter(function(g){return CH[g];});
+        return {id:x.link,
+          attrs:{area:x.source,tag:"|"+(x.tags||[]).join("|")+"|",w:x.weight,
+                 ym:(x.date||"").slice(0,7),t0:"0",crit:"",doc:hit.length?"1":"0"},
+          cells:[
+          esc(x.date)+'<span class="ntwhy" style="margin-top:0">'+
+            (x.age===0?"today":(x.age===1?"yesterday":x.age+" days ago"))+"</span>",
+          '<span class="ntw">w'+(x.weight<9?x.weight:"–")+"</span>",
+          A(x.sourceUrl,x.source),
+          "<b>"+A(x.link,x.title,"tt")+"</b>"+
+            (x.summary?'<span class="ntwhy">'+esc(x.summary.slice(0,220))+"</span>":""),
+          x.tags.map(chip).join("")||'<span class="none">untagged</span>',
+          hit.length?('<span class="ntwhy" style="margin-top:0">Documentation for '+
+            esc(hit.join(", "))+" also moved this window — "+
+            hit.reduce(function(n,g){return n+CH[g];},0)+" entries.</span>")
+            :'<span class="none">blog only</span>']};});
+    }
+    var s1=sec("nt-top","Section A","Top 10 of the day",10,true,
+      "Ranked by the security ladder of &sect;5p, freshness only inside a weight. "+
+      "The last column says whether the documentation moved on the same technology in this window, "+
+      "so a post confirmed from two sides can be told apart from one that only a blog saw.",
+      table(["Published","Weight","Blog","Post","Technology","Also in the documentation"],
+        postRows(D.top),"<b>Top 10</b> &middot; weighted by SOC impact"),1);
+    p.appendChild(s1);
+
+    var s2=sec("nt-posts","Section B","Every post published in the window",win.length,false,
+      "Newest first. Same columns as the ranking above, so the two read the same way.",
+      table(["Published","Weight","Blog","Post","Technology","Also in the documentation"],
+        postRows(win),"<b>Posts in the window</b> &middot; "+win.length+" of "+it.length+" held"),8);
+    p.appendChild(s2);
+
+    var srows=D.blogs.map(function(b){
+      var mine=it.filter(function(x){return x.source===b.name;});
+      var ds=mine.map(function(x){return x.date;}).filter(Boolean).sort();
+      var nw=ds.length?ds[ds.length-1]:null;
+      var age=nw?Math.round((new Date(D.briefDate)-new Date(nw))/86400000):null;
+      var fresh=age===null?"undated":(age<=30?"current":(age<=120?"aging":"stale"));
+      return {cells:[A(b.listUrl,b.name),
+        b.status==="ok"?'<span class="ntmeth m-rss">RSS</span>':'<span class="ntmeth m-snap">not read</span>',
+        String(mine.length),String(mine.filter(function(x){return x.age!==null&&x.age<=13;}).length),
+        esc(nw||"—"),
+        '<span class="badge '+(fresh==="current"?"b-new":(fresh==="aging"?"b-upd":"b-dep"))+'">'+
+          fresh+(age!==null?" · "+age+"d":"")+"</span>"]};});
+    var s3=sec("nt-sources","Section C","Every blog, and how fresh it is",D.blogs.length,false,
+      "Freshness and readability are two different columns on purpose: a blog that cannot be read "+
+      "is a defect here, a blog that is simply quiet is a fact about Microsoft.",
+      table(["Blog","Read by","Posts held","In window","Newest post","Freshness"],srows,
+        "<b>Product blogs</b> &middot; "+D.blogs.length+" sources"),3);
+    p.appendChild(s3);
+  }
+
+  /* ---------- 9: widok powiazany, jeden wiersz na technologie ---------- */
+  function corrTab(pid){
+    var CH={},CT={};
+    D.changes.forEach(function(e){e.tags.forEach(function(g){
+      CH[g]=(CH[g]||0)+1; if(e.tier0)CT[g]=(CT[g]||0)+1;});});
+    var BL={};D.items.forEach(function(x){if(x.age!==null&&x.age<=13)
+      x.tags.forEach(function(g){BL[g]=(BL[g]||0)+1;});});
+    var keys=Object.keys(CH).concat(Object.keys(BL)).filter(function(v,i,a){return a.indexOf(v)===i;});
+    var rows=keys.map(function(g){
+      var c=CH[g]||0,b=BL[g]||0;
+      return {g:g,c:c,b:b,t0:CT[g]||0};
+    }).sort(function(x,y){return (y.c+y.b)-(x.c+x.b);}).map(function(r){
+      return {cells:[chip(r.g),
+        r.c?String(r.c):'<span class="none">0</span>',
+        r.t0?'<span class="ntt0">'+r.t0+"</span>":'<span class="none">0</span>',
+        r.b?String(r.b):'<span class="none">0</span>',
+        (r.c&&r.b)?'<span class="badge b-new">both sides</span>':
+          (r.b?'<span class="badge b-upd">blog only</span>':
+           (r.c?'<span class="badge b-upd">documentation only</span>':'<span class="none">quiet</span>'))]};});
+    return sec("nt-corr-"+pid,"Section E","The same technology, seen from both sides",rows.length,false,
+      "One row per technology. <b>Documentation</b> counts entries Microsoft published on a what’s new "+
+      "page; <b>blog posts</b> counts the window. A technology moving on both sides at once is the "+
+      "strongest signal this brief can offer without reading the tenant.",
+      table(["Technology","Documentation entries","Of those, tier 0","Blog posts in window","Seen where"],
+        rows,"<b>Both sides, by technology</b> &middot; "+rows.length+" technologies"),2);
+  }
+
+  /* ---------- JEDEN SILNIK FILTRA NA ZAKLADKE (uwagi 2 i 3) ----------
+     Trzy rzeczy, ktore ta przebudowa zalatwia naraz:
+
+     1. Filtry byly rozsypane: chip w wierszu, slupek wykresu, nic wiecej. Teraz
+        kazdy wymiar — technologia, obszar, waga, tier 0, kryterium, miesiac — jest
+        atrybutem wiersza i kazdy ma swoj tag z licznikiem w jednym panelu.
+     2. Panel jest JEDEN NA ZAKLADKE, nie jeden na sekcje. Te filtry i tak dzialaja
+        na cala zakladke, wiec piec kopii tej samej kontrolki to piec rzeczy, ktore
+        moga sie rozjechac (0a) — a licznik przy sekcji i tak mowi, ile jej zostalo.
+     3. Byly DWA paski o tym samym: przyklejony pasek mastheadu (SKRYPT 14, 5at)
+        i moj wlasny baner w zakladce. Dwa zdania o jednym filtrze sa gorsze niz
+        jedno, wiec baner zakladki znika — nazywanie filtra nalezy do paska, ktory
+        widac z kazdego miejsca i z kazdej zakladki. */
+  var F={};                       /* pid -> {area,tag,w,t0,crit,ym} */
+  function fstate(pid){return F[pid]||(F[pid]={});}
+  /* ---------- wymiary: z ATRYBUTOW tam, gdzie tabele sa nasze, z KOLUMN wszedzie indziej ----------
+     Dwie zakladki, ktore budujemy sami, niosa na wierszu gotowe atrybuty (waga, tier 0,
+     kryterium). Pozostalych jedenastu nie budujemy — ich tabele stawia powloka i skrypty
+     4-14 — wiec wymiary wyprowadzamy z tego, co tabela i tak pokazuje: z jej KOLUMN.
+     Jeden silnik, dwa zrodla wartosci; dwa osobne silniki rozjechalyby sie (0a). */
+  var MINE={"tab-learn":1,"tab-blogs":1};
+  var TAB={};                      /* pid -> {tables:[{el,head:{label:idx}}], dims:[...] } */
+
+  function tablesOf(pid){
+    var p=document.getElementById(pid); if(!p) return [];
+    var out=[];
+    [].forEach.call(p.querySelectorAll("table"),function(t,i){
+      if(!t.tHead||!t.tBodies.length) return;
+      var rows=t.tBodies[0].rows.length;
+      if(rows<2) return;
+      var head={};
+      [].forEach.call(t.tHead.rows[0].cells,function(th,ci){
+        var h=(th.textContent||"").replace(/[↕↑↓]/g,"").replace(/\s+/g," ").trim();
+        if(h&&h.length<=28&&head[h]===undefined) head[h]=ci;
+      });
+      t.dataset.ntt=String(out.length);
+      out.push({el:t,head:head});
+    });
+    return out;
+  }
+  function rowsOf(pid){
+    var T=TAB[pid]; if(!T) return [];
+    var out=[];
+    T.tables.forEach(function(rec,ti){
+      [].forEach.call(rec.el.tBodies[0].rows,function(tr){
+        if(tr.classList.contains("hdet")||tr.classList.contains("grp")) return;
+        tr.__ntt=ti; out.push(tr);
+      });
+    });
+    return out;
+  }
+  function cellText(tr,ti,dim){
+    if(!dim||!dim.idx){ if(window.console)console.warn("[nt] wymiar bez idx:",dim); return null; }
+    var idx=dim.idx[ti]; if(idx===undefined) return null;   /* ta tabela nie ma tej kolumny */
+    var c=tr.cells[idx]; if(!c) return "";
+    /* Emoji pilnosci stoi w tresci komorki i DZIELILO jedna technologie na dwie
+       wartosci: w Deadlines menu `Product` mialo osobno `\ud83d\udd25 Entra 7`
+       i `\u26a0 Entra 5` zamiast `Entra 12`. Pilnosc jest juz w kolumnie terminu,
+       wiec z wartosci faseta ja zdejmujemy (to ta sama choroba co `Exposure
+       Management` kontra `Exposure Mgmt`). */
+    return (c.textContent||"").replace(/\s+/g," ").replace(/^[\ud83d\udd25\u26a0\ufe0f\s]+/,"").trim();
+  }
+  function rowHas(tr,dim,val){
+    if(dim.kind==="attr"){
+      var a=tr.getAttribute("data-nt-"+dim.k);
+      if(a===null) return false;
+      return (dim.k==="tag"||dim.k==="crit") ? a.indexOf("|"+val+"|")>=0 : a===val;
+    }
+    var t=cellText(tr,tr.__ntt,dim);
+    return t===null ? null : t===val;      /* null = wymiar tej tabeli nie dotyczy */
+  }
+  /* LUB wewnatrz wymiaru, I miedzy wymiarami. Tabela, ktorej dany wymiar nie dotyczy,
+     zostaje CALA — to ta sama zasada, ktora 5at stosuje do liczb nawigacyjnych: filtr,
+     ktory nie umie nazwac wierszy tej tabeli, nie jest jej filtrem. */
+  function matches(tr,st,skip){
+    /* SZUKANIE po kolumnie, ktorej faseta byc nie moze. Wlasciciel, 12 wrzesnia 2026:
+       „mamy kolumne item, ale nie ma tego w advanced filtering". I nie bedzie — kazda
+       wartosc `Item` jest inna, a rozwijana lista 512 tytulow to druga kopia tabeli
+       (5s). Kolumna, ktora nie grupuje, dostaje wiec DRUGA polowe tej kontrolki:
+       pole szukania zawezone do niej. Tabela, ktora tej kolumny nie ma, zostaje CALA
+       (5at) — inaczej szukanie po `Item` oproznialoby tabele rejestru. */
+    if(st.q&&skip!=="q"){
+      var hay=null;
+      if(st.qc){
+        var qd=st.__qd||null;
+        if(qd) hay=cellText(tr,tr.__ntt,qd);   /* null = tej kolumny tu nie ma, wiersz zostaje */
+      }else hay=tr.textContent||"";
+      if(hay!==null&&hay.toLowerCase().indexOf(st.q)<0) return false;
+    }
+    for(var i=0;i<(st.__dims||[]).length;i++){
+      var dim=st.__dims[i],k=dim.k; if(k===skip) continue;
+      var chosen=st[k]; if(!chosen||!chosen.length) continue;
+      var any=false,rel=false;
+      for(var j=0;j<chosen.length;j++){
+        var r=rowHas(tr,dim,chosen[j]);
+        if(r===null) continue;
+        rel=true; if(r){any=true;break;}
+      }
+      if(rel&&!any) return false;
+    }
+    if(skip!=="t0"&&st.t0&&tr.getAttribute("data-nt-t0")!=="1") return false;
+    return true;
+  }
+  function dimsOf(pid){return (TAB[pid]||{}).dims||[];}
+  function sel(pid,dim){var st=fstate(pid);return st[dim]||(st[dim]=[]);}
+  var DIRTY=null,DELEG={};
+  /* SKRYPT 11 konczy `setTab` skokiem do pierwszej tabeli z trafieniami (5at) i tak
+     ma byc, gdy liczbe klika sie w Overview: czytelnik PROSI, zeby go tam zabrac.
+     Menu, w ktorym czytelnik wlasnie stoi, o nic takiego nie prosi — a skok zabieral
+     przycisk z ekranu i zamykal menu, wiec drugiej wartosci nie dalo sie wybrac bez
+     przewijania z powrotem (zgloszenie 1 z 12 wrzesnia 2026). Wolamy wiec `setTab`
+     z wyciszonym przewijaniem; w docelowej implementacji `setTab` dostaje trzeci
+     argument `{quiet:true}`, bo to WOLAJACY wie, czy czytelnik prosil o podroz. */
+  var INCLR=0;
+  /* SKRYPT 11 przyjmuje od nas `quiet` (nie skacz — czytelnik stoi w menu) oraz
+     `onclear` (gdy filtr zdejmie pasek w mastheadzie, wroc po nasze pola). Obie rzeczy
+     wchodza do jego kontraktu (5ap, 5at), wiec nie obchodzimy go zadnym obejsciem:
+     wolajacy wie, czy czytelnik prosil o podroz, i wie, co u siebie posprzatac. */
+  function s11set(pid,spec){
+    spec.quiet=true;
+    spec.owner="advanced-filtering";
+    spec.onclear=function(){
+      if(INCLR) return;
+      if(!F[pid]||!Object.keys(F[pid]).length) return;
+      INCLR=1; F[pid]={}; try{ apply(pid); } finally{ INCLR=0; }
+    };
+    window.__socS11.setTab(pid,spec);
+  }
+  function s11clear(pid){ if(window.__socS11&&window.__socS11.clearTab) window.__socS11.clearTab(pid); }
+  function toggle(pid,dim,val,quiet){
+    var a=sel(pid,dim),i=a.indexOf(val);
+    if(i<0) a.push(val); else a.splice(i,1);
+    apply(pid);
+    if(quiet) DIRTY=pid; else openBest(pid,true);
+  }
+  function countFor(pid,dim,val){
+    var st=fstate(pid),n=0;
+    rowsOf(pid).forEach(function(tr){ if(matches(tr,st,dim.k)&&rowHas(tr,dim,val)===true) n++; });
+    return n;
+  }
+  function values(pid,dim){
+    var out={};
+    rowsOf(pid).forEach(function(tr){
+      if(dim.kind==="attr"){
+        var a=tr.getAttribute("data-nt-"+dim.k); if(!a) return;
+        if(dim.k==="tag"||dim.k==="crit") a.split("|").forEach(function(v){if(v)out[v]=1;});
+        else out[a]=1;
+      }else{
+        var t=cellText(tr,tr.__ntt,dim);
+        if(t) out[t]=1;
+      }
+    });
+    return Object.keys(out);
+  }
+
+  var HUE=["--accent","--info","--warn","--ok","--cond","--bad","--grey"];
+  var ATTRDIM=[
+    {k:"area", label:"Area or blog",   kind:"attr"},
+    {k:"tag",  label:"Technology",     kind:"attr"},
+    {k:"crit", label:"Kind of change", kind:"attr"},
+    {k:"w",    label:"SOC weight",     kind:"attr"},
+    {k:"ym",   label:"Month",          kind:"attr"},
+  ];
+  /* Kolumna nadaje sie na wymiar, gdy naprawde GRUPUJE: od dwoch do czterdziestu
+     roznych wartosci i co najmniej jedna powtorzona. Kolumna, w ktorej kazda wartosc
+     jest inna, to nie filtr, tylko druga kopia tabeli (5s). */
+  /* Kolumna nadaje sie na wymiar, gdy naprawde GRUPUJE. Sama liczba roznych wartosci
+     tego nie rozstrzyga — zmierzone 12 wrzesnia 2026: pierwsza wersja wybrala w Roles
+     "Endpoints" i "Coverage", w Component versions "Before → after", a w Overview trzy
+     kolumny LICZB. To sa miary, nie fasety: filtr "Coverage = 84%" odpowiada na pytanie,
+     ktorego nikt nie zadaje. Kolumna dostaje wiec punkty, a nie samo przejscie progu. */
+  var GOODCOL=/^(product|service|technology|area|status|state|kind|type|change type|source|found in|severity|weight|soc weight|platform|freshness|tier|category|api|surface|role|mirror|method|what|scope)$/i;
+  var MEASURE=/^(\d+([.,]\d+)?%?|[+−-]\d+|\d+\s*of\s*\d+|—|–|-|n\/a)$/i;
+  var IDVAL=/^(MC|RM)\d+$|^CVE-\d/i;
+  /* KAZDA kolumna zakladki jako deskryptor — do zakresu szukania. Faseta wymaga,
+     zeby kolumna grupowala; szukanie nie wymaga niczego poza tym, ze kolumna istnieje. */
+  function allCols(pid){
+    var T=TAB[pid]; if(!T) return [];
+    var labels={};
+    T.tables.forEach(function(rec,ti){
+      Object.keys(rec.head).forEach(function(h){ (labels[h]=labels[h]||{})[ti]=rec.head[h]; });
+    });
+    return Object.keys(labels).sort().map(function(h){
+      return {k:"col:"+h,label:h,kind:"col",idx:labels[h]};
+    });
+  }
+  function colDims(pid){
+    var T=TAB[pid],labels={};
+    T.tables.forEach(function(rec,ti){
+      Object.keys(rec.head).forEach(function(h){
+        (labels[h]=labels[h]||{})[ti]=rec.head[h];
+      });
+    });
+    var out=[];
+    Object.keys(labels).forEach(function(h){
+      var dim={k:"col:"+h,label:h,kind:"col",idx:labels[h]};
+      var vals={},n=0,rows=0,longest=0,num=0,filled=0;
+      rowsOf(pid).forEach(function(tr){
+        var t=cellText(tr,tr.__ntt,dim); if(t===null) return;
+        rows++; if(!t) return;
+        filled++;
+        if(MEASURE.test(t)) num++;
+        if(t.length>longest) longest=t.length;
+        if(!vals[t]){vals[t]=0;n++;} vals[t]++;
+      });
+      if(n<2||n>40||longest>60||!filled) return;
+      var rep=0; Object.keys(vals).forEach(function(k){ if(vals[k]>rep) rep=vals[k]; });
+      if(rep<2) return;                       /* kazda wartosc unikalna = druga kopia tabeli (5s) */
+      if(n>=filled) return;
+      if(num/filled>0.6) return;              /* kolumna liczb jest MIARA, nie faseta */
+      if(filled/rows<0.5) return;             /* kolumna pusta w polowie wierszy nie grupuje */
+      var score=0;
+      if(GOODCOL.test(h)) score+=100;         /* rodzina nazw, ktora powloka fasetuje od 5w */
+      score+=Object.keys(labels[h]).length*18;/* wymiar dotykajacy wielu tabel jest wart wiecej */
+      score+=Math.max(0,24-Math.abs(n-8)*2);  /* od dwoch do kilkunastu wartosci czyta sie najlepiej */
+      score+=Math.min(20,Math.round(filled/Math.max(1,rows)*20));
+      /* nazwy, ktore z definicji nie sa fasetami: identyfikator wiersza (link, tytul,
+         artykul) i miara (pokrycie, liczba endpointow, dni). Odrzucamy je po nazwie,
+         a nie punktami — punkty przepuscily "Endpoints" w Roles i "Newest article"
+         w Community, czyli kolumny, po ktorych nikt nie filtruje. */
+      if(/^(link|article|post|title|item|page|entry|detail|note|why|before|after|action|directory action|open|what it holds|what it allows|what was tried)/i.test(h)) return;
+      if(/^(coverage|endpoints|days|lines|count|rows|articles|age|changed in)/i.test(h)) return;
+      if(h.indexOf("/")>=0&&/\d/.test(Object.keys(vals)[0]||"")) return;   /* "Read / carried / dropped" to trzy liczby, nie faseta */
+      /* KOLUMNA IDENTYFIKATOROW nie jest faseta, choćby miala jedna duza grupe.
+         Zmierzone 12 wrzesnia 2026 na zakladce Today: `Source` dawalo `Microsoft 45`,
+         `Source 22` i OSIEM numerow MC po jednym, bo link zrodla raz nazywal sie
+         „Source", raz „Microsoft", a raz niosl identyfikator wpisu. Wartosc, ktora
+         wystepuje RAZ i wyglada jak identyfikator, nie jest wyborem; kolumna, w ktorej
+         takich jest wiecej niz trzecia czesc, jest kolumna identyfikatorow (5s). */
+      var idlike=0;
+      Object.keys(vals).forEach(function(k){
+        if(vals[k]===1&&(IDVAL.test(k)||(k.length>=8&&k.indexOf(" ")<0&&/\d/.test(k)))) idlike++;
+      });
+      if(idlike/n>0.34) return;
+      dim.__score=score; dim.__n=n;
+      out.push(dim);
+    });
+    out.sort(function(a,b){return b.__score-a.__score||a.__n-b.__n||a.label.localeCompare(b.label);});
+    return out.filter(function(d){return d.__score>0;}).slice(0,5);
+  }
+  function buildDims(pid){
+    var dims=MINE[pid]?ATTRDIM.slice():colDims(pid);
+    dims.forEach(function(d,i){d.c=HUE[i%HUE.length];});
+    return dims;
+  }
+
+  var MON=["","January","February","March","April","May","June","July","August","September","October","November","December"];
+  function labelOf(k,v){
+    if(k==="w") return "w"+v;
+    if(k==="ym"){var q=v.split("-");return (MON[+q[1]]||v)+" "+q[0];}
+    return v;
+  }
+  function sortVals(pid,dim,vs){
+    if(dim.k==="w") return vs.sort(function(a,b){return (+a)-(+b);});
+    if(dim.k==="ym") return vs.sort().reverse();
+    /* reszta po liczbie malejaco: wartosc, ktora opisuje najwiecej wierszy, jest
+       najczesciej ta, ktorej czytelnik szuka */
+    return vs.sort(function(a,b){return countFor(pid,dim,b)-countFor(pid,dim,a)||a.localeCompare(b);});
+  }
+
+  /* ---------- pasek filtra: menu na wymiar, wybor wielokrotny ----------
+     Plaska sciana szescdziesieciu pigulek byla nie do przeczytania — wlasciciel
+     zglosil to 12 wrzesnia i mial racje. Wzorzec jest ten, ktory stosuja narzedzia
+     filtrujace duze zbiory: JEDEN przycisk na wymiar, a wartosci w rozwijanym menu
+     z polem szukania i checkboxami. Stan widac w trzech warstwach naraz — zaznaczenie
+     zostaje w menu, przycisk niesie licznik, a pasek mastheadu wymienia filtry z nazwy. */
+  var OPEN=null;
+  function closeMenu(){
+    if(!OPEN) return;
+    OPEN.classList.remove("open");OPEN=null;
+    if(DIRTY){var pid=DIRTY;DIRTY=null;openBest(pid);}
+  }
+  document.addEventListener("click",function(ev){
+    if(OPEN&&!(ev.target.closest&&ev.target.closest(".ntfdim"))) closeMenu();
+  });
+  document.addEventListener("keydown",function(ev){ if(ev.key==="Escape") closeMenu(); });
+  ["scroll","resize"].forEach(function(e2){
+    window.addEventListener(e2,function(){ if(OPEN&&OPEN.__place) OPEN.__place(); },{passive:true});
+  });
+
+  function dimButton(pid,dim){
+    var wrap=el("div","ntfdim");wrap.style.setProperty("--dc","var("+dim.c+")");
+    var btn=el("button","ntfbtn");btn.type="button";
+    var lab=el("span","ntfblab",dim.label);
+    var cnt=el("span","ntfbn");
+    var car=el("span","ntfcar","▾");
+    btn.appendChild(el("i","ntfdot"));btn.appendChild(lab);btn.appendChild(cnt);btn.appendChild(car);
+    wrap.appendChild(btn);
+    var pop=el("div","ntfpop");
+    var q=document.createElement("input");
+    q.type="search";q.className="ntfq";q.placeholder="Search "+dim.label.toLowerCase()+"…";
+    var list=el("div","ntflist");
+    var foot=el("div","ntfpfoot");
+    var clr=el("button","ntfclr","Clear this one");clr.type="button";
+    var cn2=el("span","ntfpn");
+    foot.appendChild(clr);foot.appendChild(cn2);
+    pop.appendChild(q);pop.appendChild(list);pop.appendChild(foot);
+    wrap.appendChild(pop);
+
+    function paint(){
+      var chosen=sel(pid,dim.k),vs=sortVals(pid,dim,values(pid,dim));
+      var f=(q.value||"").trim().toLowerCase(),shown=0;
+      list.textContent="";
+      vs.forEach(function(v){
+        var n=countFor(pid,dim,v),on=chosen.indexOf(v)>=0;
+        if(!n&&!on) return;                       /* wybor, ktory nic nie da, nie jest wyborem (5s) */
+        var txt=labelOf(dim.k,v);
+        if(f&&txt.toLowerCase().indexOf(f)<0) return;
+        shown++;
+        var r=el("button","ntfopt"+(on?" on":""));r.type="button";
+        r.appendChild(el("i","ntfbox"));
+        r.appendChild(el("span","ntfoname",txt));
+        r.appendChild(el("b",null,String(n)));
+        r.addEventListener("click",function(ev){ev.stopPropagation();toggle(pid,dim.k,v,true);place();});
+        list.appendChild(r);
+      });
+      if(!shown) list.appendChild(el("p","ntfnone","Nothing matches that here."));
+      cn2.textContent=chosen.length?(chosen.length+" selected"):"";
+      cnt.textContent=chosen.length?String(chosen.length):"";
+      btn.classList.toggle("on",!!chosen.length);
+      lab.textContent=chosen.length===1?(dim.label+": "+labelOf(dim.k,chosen[0])):dim.label;
+    }
+    q.addEventListener("input",paint);
+    q.addEventListener("click",function(ev){ev.stopPropagation();});
+    clr.addEventListener("click",function(ev){ev.stopPropagation();fstate(pid)[dim.k]=[];apply(pid);});
+    /* Menu pozycjonuje sie wzgledem OKNA, nie rodzica, i odbija sie w gore, gdy pod
+       przyciskiem nie ma miejsca. Zmierzone 12 wrzesnia 2026 przy 1460x1020: menu
+       o wysokosci 397 px otwarte przy gorze strony konczylo sie 41 px POD krawedzia
+       okna, a nizej na stronie otwieralo sie POD przyklejonym mastheadem, ktory konczy
+       sie na 344 px. Menu, ktorego nie widac, jest menu, ktorego nie ma. */
+    function place(){
+      var r=btn.getBoundingClientRect();
+      var hd=document.querySelector("header.top");
+      var top0=(hd&&getComputedStyle(hd).position==="sticky")?hd.getBoundingClientRect().bottom:0;
+      var gap=6,margin=12;
+      var below=window.innerHeight-r.bottom-gap-margin;
+      var above=r.top-Math.max(top0,0)-gap-margin;
+      /* przycisk schowany pod przyklejonym mastheadem nie ma czego otwierac —
+         menu, ktore za nim jedzie, konczy sie ZA naglowkiem */
+      if(r.bottom<top0+4||r.top>window.innerHeight-24){closeMenu();return;}
+      var up=below<240&&above>below;
+      var space=Math.max(160,Math.min(360,up?above:below));
+      pop.style.position="fixed";
+      pop.style.left=Math.round(Math.max(margin,
+        Math.min(r.left,window.innerWidth-pop.offsetWidth-margin)))+"px";
+      if(up){pop.style.top="";pop.style.bottom=Math.round(window.innerHeight-r.top+gap)+"px";}
+      else  {pop.style.bottom="";pop.style.top=Math.round(r.bottom+gap)+"px";}
+      /* wysokosc listy liczy sie z RZECZYWISTEJ obudowy menu (pole szukania, stopka,
+         marginesy), nie ze zgadnietej stalej: przy stalej 92 px menu wychodzilo
+         3 px poza okno, bo obudowa ma 107 */
+      list.style.maxHeight="none";
+      var chrome=pop.offsetHeight-list.offsetHeight;
+      list.style.maxHeight=Math.max(120,Math.round(space-chrome))+"px";
+    }
+    wrap.__place=place;
+    btn.addEventListener("click",function(ev){
+      ev.stopPropagation();
+      var was=wrap.classList.contains("open");
+      closeMenu();
+      if(!was){wrap.classList.add("open");OPEN=wrap;paint();place();
+               setTimeout(function(){q.focus();place();},30);}
+    });
+    wrap.__paint=paint;
+    /* menu z ośmioma i mniej wartosciami nie potrzebuje szukania — pole, ktore nic
+       nie zawezasa, to kontrolka ucząca, ze kontrolki nic nie robia */
+    wrap.__sizeq=function(){ q.hidden=values(pid,dim).length<=8; };
+    return wrap;
+  }
+
+  /* Zawezenie skraca dokument, a przegladarka przycina wtedy `scrollY` — przycisk
+     jedzie wzgledem okna, a menu jest `position:fixed`. Bez tego po drugim wyborze
+     menu wisialo obok przycisku. */
+  window.addEventListener("scroll",function(){ if(OPEN&&OPEN.__place) OPEN.__place(); },{passive:true});
+  window.addEventListener("resize",function(){ if(OPEN&&OPEN.__place) OPEN.__place(); });
+
+  function buildPanel(pid){
+    var p=document.getElementById(pid); if(!p) return null;
+    /* JEDEN ksztalt paska na caly portal: rozwijany `<details>` ze znacznikiem `+`,
+       dokladnie tak, jak pasek Advanced filtering w pozostalych zakladkach (5au).
+       Pierwsza wersja v2 zostawiala go otwartym na stale i nad jedna zakladka stal
+       inaczej niz nad kazda inna — dwa wyglady jednej kontrolki ucza dwoch konwencji.
+       Licznik `N filters on` stoi w podpisie, wiec stan widac BEZ otwierania, a pasek
+       otwiera sie sam, gdy cokolwiek jest wlaczone. */
+    var box=el("details","ntfbar");box.id=pid+"-filter";
+    var head=el("summary","ntfhead");
+    head.appendChild(el("span","ntfttl","Advanced filtering"));
+    head.appendChild(el("span","ntfscope",
+      "Applies to every section in this tab at once — each menu narrows all of them together."));
+    var onchip=el("span","ntfon","");onchip.hidden=true;
+    head.appendChild(onchip);
+    box.appendChild(head);
+    /* Pole szukania z ZAKRESEM kolumny — druga polowa kontrolki (5ap): kolumna,
+       ktora grupuje, dostaje menu; kazda pozostala, w tym `Item`, jest tutaj. */
+    var qrow=el("div","ntfq2");
+    var qin=el("input","ntfq2i");qin.type="search";
+    qin.placeholder="Search every section in this tab\u2026";
+    var qsel=el("select","ntfq2c");qsel.setAttribute("aria-label","Search in one column");
+    var o0=el("option",null,"in: all columns");o0.value="";qsel.appendChild(o0);
+    (allCols(pid)||[]).forEach(function(c){
+      var o=el("option",null,"in: "+c.label);o.value=c.k;o.__d=c;qsel.appendChild(o);
+    });
+    qrow.appendChild(qin);
+    if(qsel.options.length>1) qrow.appendChild(qsel);
+    function readq(){
+      var st=fstate(pid);
+      st.qRaw=(qin.value||"").trim();
+      st.q=st.qRaw.toLowerCase();
+      var o=qsel.options[qsel.selectedIndex];
+      st.qc=qsel.value||"";
+      st.__qd=(o&&o.__d)||null;
+      st.qcLabel=st.qc?(o?o.textContent.replace(/^in:\s*/,""):""):"";
+      apply(pid);
+    }
+    qin.addEventListener("input",readq);
+    qsel.addEventListener("change",readq);
+    qrow.__reset=function(){qin.value="";qsel.selectedIndex=0;};
+    box.appendChild(qrow);
+    var row=el("div","ntfrow");
+    var dims=[];
+    dimsOf(pid).forEach(function(dim){
+      if(values(pid,dim).length<2) return;
+      var w=dimButton(pid,dim);row.appendChild(w);dims.push(w);
+    });
+    /* tier 0 jest przelacznikiem, nie lista: ma dwa stany, a lista o dwoch pozycjach
+       to ta sama informacja w dwoch klikach */
+    var t0=el("button","ntft0");t0.type="button";
+    t0.appendChild(el("i","ntfdot"));
+    t0.appendChild(el("span",null,"Tier 0 only"));
+    var t0n=el("b",null,"");t0.appendChild(t0n);
+    t0.addEventListener("click",function(){var st=fstate(pid);st.t0=st.t0?0:1;apply(pid);openBest(pid);});
+    row.appendChild(el("span","ntfsep"));
+    row.appendChild(t0);
+    var rb=el("button","ntfreset","Reset");rb.type="button";
+    rb.addEventListener("click",function(){F[pid]={};qrow.__reset();apply(pid);resetFolds();});
+    row.appendChild(rb);
+    box.appendChild(row);
+    var sum=el("p","ntfsum");
+    box.appendChild(sum);
+    box.__render=function(){
+      var st=fstate(pid);
+      /* pasek mastheadu czysci NASZ stan przez `clear()`, wiec pola tez musza wrocic —
+         inaczej filtr jest zdjety, a kontrolka dalej pokazuje wybor (zgloszenie 2
+         z 12 wrzesnia 2026) */
+      if(!st.q&&qin.value) qrow.__reset();
+      dims.forEach(function(w){w.__sizeq();w.__paint();});
+      var n=0;rowsOf(pid).forEach(function(tr){var s2={};for(var k in st)s2[k]=st[k];s2.t0=1;if(matches(tr,s2))n++;});
+      t0n.textContent=String(n);
+      t0.classList.toggle("on",!!st.t0);
+      var parts=describe(pid),tot=rowsOf(pid).length;
+      /* Liczymy WSZYSTKIE zarejestrowane wiersze zakladki, nie tylko te w zwijanych
+         sekcjach: tabela pozycji tier 0 stoi w sekcji `top5` razem z kartami, ktorej
+         nie zwijamy (5aa), wiec liczenie po `details.ntsec` pokazywalo `0 of 75` tam,
+         gdzie trafienie bylo — i wygladalo to jak zepsuty filtr, a nie jak brak. */
+      var left=0;rowsOf(pid).forEach(function(tr){if(tr.dataset.nt!=="0")left++;});
+      box.classList.toggle("on",!!parts.length);
+      onchip.textContent=parts.length?(parts.length===1?"1 filter on":parts.length+" filters on"):"";
+      onchip.hidden=!parts.length;
+      if(parts.length&&!box.open) box.open=true;
+      sum.textContent=parts.length
+        ? (parts.join("  ·  ")+"  —  "+left+" of "+tot+" rows in this tab. "+
+           "Several values inside one menu mean any of them; two menus at once mean both.")
+        : ("Nothing is filtered — all "+tot+" rows in this tab are shown. Pick values in one menu "+
+           "to widen, in two menus to narrow.");
+    };
+    return box;
+  }
+
+  /* pasek stoi NAD sekcjami, zaraz pod kafelkami i wykresem: to kontrolka calej
+     zakladki, wiec nie moze mieszkac w zadnej z sekcji, ktore filtruje. Jest rozwijany
+     i zwiniety domyslnie — tak samo jak w kazdej innej zakladce portalu — a licznik
+     `N filters on` w podpisie mowi stan bez otwierania. */
+  /* Zakladka, ktora MA JUZ swoj filtr, drugiego nie dostaje. Community ma wlasny
+     (SKRYPT 10, 5an) z tagami technologii i oknem dni — dolozenie mojego dalo by dwie
+     kontrolki o tym samym na jednym ekranie, czyli dokladnie to, na co wlasciciel
+     zwrocil uwage przy dwoch paskach. */
+  var HASOWN={"tab-community":"its own technology and time filter (SCRIPT 10)"};
+  function mountPanel(pid){
+    var p=document.getElementById(pid); if(!p||document.getElementById(pid+"-filter")) return;
+    if(HASOWN[pid]) return;
+    var tables=tablesOf(pid); if(!tables.length) return;
+    TAB[pid]={tables:tables,dims:[]};
+    /* pasek nad dwunastoma wierszami to halas — tyle sie czyta, nie filtruje (5ap) */
+    if(rowsOf(pid).length<12){delete TAB[pid];return;}
+    TAB[pid].dims=buildDims(pid);
+    if(!TAB[pid].dims.length){delete TAB[pid];return;}
+    var d=buildPanel(pid); if(!d){delete TAB[pid];return;}
+    /* pasek stoi NAD trescia zakladki: to kontrolka calej zakladki, wiec nie moze
+       mieszkac w zadnej z sekcji, ktore filtruje. Wchodzi za naglowek panelu i za
+       wykresy powloki, zeby nie rozdzielac ich od liczb, ktore opisuja. */
+    var after=p.querySelector(":scope > .aggwrap")||p.querySelector(":scope > figure.chart")||
+              p.querySelector(":scope > .panelhead")||p.querySelector(":scope > .factgrid");
+    var first=p.querySelector("details.ntsec")||p.querySelector(":scope > section");
+    if(after&&after.nextSibling) p.insertBefore(d,after.nextSibling);
+    else if(first) p.insertBefore(d,first);
+    else p.appendChild(d);
+    if(d.__render) d.__render();
+    apply(pid);
+  }
+
+  /* Uwaga wlasciciela z 12 wrzesnia: "wprowadz go w kazda zakladke". Pasek powstaje
+     wszedzie tam, gdzie zakladka ma tabele i gdzie z jej kolumn da sie zlozyc choc
+     jeden sensowny wymiar. Zakladka bez tabel (Overview) go nie dostaje — kontrolka
+     bez czego filtrowac uczy, ze kontrolki nic nie robia. */
+  function mountEverywhere(){
+    [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
+      if(!p.id) return;
+      try{ mountPanel(p.id); }catch(e){ if(window.console) console.error("[nt bar "+p.id+"]",e); }
+    });
+  }
+
+  /* uwaga 1: zakladka ma podac liczbe tak samo jak kazda inna. Powloka liczy
+     `tbody tr` w chwili budowania paska (panelCount), a moich tabel wtedy jeszcze
+     nie ma — wiec stemplujemy licznik sami, ta sama klasa i ta sama semantyka. */
+  function stampCounts(){
+    ["tab-learn","tab-blogs"].forEach(function(pid){
+      var p=document.getElementById(pid); if(!p) return;
+      var n=p.querySelectorAll("details.ntsec tbody tr").length; if(!n) return;
+      var btn=document.getElementById("tabbtn-"+pid)||
+        [].slice.call(document.querySelectorAll("nav.anchors .tab")).filter(function(b){
+          return b.getAttribute("aria-controls")===pid;})[0];
+      if(!btn) return;
+      var c=btn.querySelector(".navcount");
+      if(!c){c=el("span","navcount");btn.appendChild(c);}
+      c.textContent=String(n);
+    });
+  }
+
+  function describe(pid){
+    var st=fstate(pid),out=[];
+    dimsOf(pid).forEach(function(d2){
+      var a=st[d2.k]; if(!a||!a.length) return;
+      /* podsumowanie skraca sie po trzech wartosciach: pelna lista dwunastu nazw
+         w jednej linii jest nie do przeczytania, a liczba mowi to samo */
+      out.push(d2.label+": "+(a.length<=3
+        ? a.map(function(v){return labelOf(d2.k,v);}).join(", ")
+        : a.length+" selected"));
+    });
+    if(st.t0) out.push("Tier 0 only");
+    if(st.q) out.push((st.qcLabel?(st.qcLabel+" contains "):"text ")+'"'+st.qRaw+'"');
+    return out;
+  }
+
+  /* Poza naszymi dwiema zakladkami `row.hidden` NALEZY do powloki i skryptow 6-10
+     (5am), wiec zeby nie walczyc o to pole, zapamietujemy, ktory wiersz schowalismy
+     MY. Czyszczenie odslania wylacznie te wiersze — czyjes wlasne ukrycie zostaje. */
+  function apply(pid){
+    var pids=pid?[pid]:Object.keys(TAB);
+    pids.forEach(function(id){
+      var p=document.getElementById(id); if(!p)return;
+      var st=fstate(id); st.__dims=dimsOf(id);
+      var ids=[],on=describe(id).length;
+      rowsOf(id).forEach(function(tr){
+        var ok=matches(tr,st);
+        tr.dataset.nt=ok?"1":"0";
+        if(ok&&tr.getAttribute("data-id")) ids.push(tr.getAttribute("data-id"));
+        if(MINE[id]){
+          /* tu tabele sa nasze i nikt inny nie pisze `hidden`, wiec ustawiamy je
+             obok atrybutu — dzieki temu licznik SKRYPTU 11 nad tabela mowi to samo,
+             co licznik przy sekcji */
+          if(!ok){ tr.hidden=true; tr.dataset.ntHid="1"; }
+          else if(tr.dataset.ntHid==="1"){ tr.hidden=false; delete tr.dataset.ntHid; }
+        }
+      });
+      /* Poza naszymi dwiema zakladkami `row.hidden` nalezy do powloki i skryptow 6-10
+         (5am), a licznik `N of M` do SKRYPTU 11 (5ap). Nie pisemy wiec ani jednego,
+         ani drugiego — prosimy SKRYPT 11 o zawezenie po `id`, czyli tym samym
+         mechanizmem, ktorego uzywa Start here (5as). Jeden wlasciciel, jedna liczba. */
+      DELEG[id]=false;
+      if(!MINE[id]&&window.__socS11){
+        if(on&&ids.length){ s11set(id,{label:describe(id).join(" \u00b7 "),ids:ids});
+                            DELEG[id]=true; }
+        else if(window.__socS11.clearTab) s11clear(id);
+      }
+      /* licznik przy KAZDEJ sekcji mowi, ile jej zostalo — to jest ta liczba
+         per sekcja, ktorej pasek per zakladka sam z siebie nie daje */
+      [].forEach.call(p.querySelectorAll("details.ntsec"),function(d3){
+        var n=d3.querySelectorAll('tbody tr[data-nt="1"]').length;
+        var all=d3.querySelectorAll("tbody tr").length;
+        var b=d3.querySelector("summary .ntn"); if(!b||!all) return;
+        if(b.dataset.full===undefined) b.dataset.full=b.textContent.trim()||String(all);
+        b.textContent=(n===all)?b.dataset.full:(n+" of "+all);
+        d3.classList.toggle("ntempty",all>0&&n===0);
+      });
+      var f=document.getElementById(id+"-filter");
+      if(f&&f.__render) f.__render();
+    });
+    if(window.__socFilterBarSync)window.__socFilterBarSync();
+    /* SKRYPT 11 i powloka przeliczaja swoje liczniki po zdarzeniu, ktorego cel lezy
+       w ICH pasku — zdarzenie na `document` ich nie dosiega. Wysylamy je z ich wlasnych
+       pol szukania, czyli tak, jak zrobilby to czytelnik, i bez siegania do ich stanu. */
+    pids.forEach(function(id){
+      if(!MINE[id]) return;           /* tam liczniki przepisuje SKRYPT 11, patrz wyzej */
+      var p2=document.getElementById(id); if(!p2) return;
+      [].forEach.call(p2.querySelectorAll(".s9find input[type=search]"),
+        function(q){ q.dispatchEvent(new Event("input",{bubbles:true})); });
+    });
+  }
+  function setCat(g){
+    var id=(document.getElementById("tab-learn")&&!document.getElementById("tab-learn").hidden)?"tab-learn":"tab-blogs";
+    toggle(id,"tag",g);openBest(id,true);}
+  function setArea(a){toggle("tab-learn","area",a);openBest("tab-learn",true);}
+  function setDay(d4){toggle("tab-blogs","ym",d4);openBest("tab-blogs",true);}
+  function clearAll(){F={};apply();resetFolds();}
+
+  document.addEventListener("click",function(ev){
+    var t=ev.target.closest?ev.target.closest("#tab-learn [data-ntcat],#tab-blogs [data-ntcat]"):null;
+    if(!t)return;ev.preventDefault();setCat(t.dataset.ntcat);
+  });
+  /* 5at: kazdy WYMIAR rejestruje sie osobno, ze swoim wlasnym czyszczeniem — dzieki
+     temu pasek mastheadu wymienia je z nazwy i kazdy da sie zdjac krzyzykiem, zamiast
+     kasowac wszystko naraz. To jest jedyne miejsce, ktore nazywa filtr czytelnikowi. */
+  /* nazwa zakladki bierze sie z jej WLASNEGO przycisku — slownik dwoch pozycji
+     kazal paskowi mastheadu mowic "tab-new" na kazdej innej zakladce */
+  function tabName(pid){
+    var t=[].slice.call(document.querySelectorAll("nav.anchors .tab")).filter(function(b){
+      return b.getAttribute("aria-controls")===pid;})[0];
+    if(!t) return pid;
+    return (t.textContent||"").replace(/\d+$/,"").trim()||pid;
+  }
+  window.__socFilterBus=window.__socFilterBus||[];
+  window.__socFilterBus.push(function(){
+    var o=[];
+    Object.keys(F).forEach(function(pid){
+      /* W obcych zakladkach zawezenie robi SKRYPT 11 i to ON rejestruje sie na
+         magistrali — dopisanie sie tutaj dawalo KAZDY filtr dwa razy w pasku
+         mastheadu. Jeden filtr, jedno zdanie (5at). */
+      /* zakladka, ktorej zawezenie oddalismy SKRYPTOWI 11, jest przez niego nazwana
+         w pasku; tam, gdzie wiersze nie maja `data-id` i oddac sie nie dalo, nazywamy
+         ja sami — inaczej filtr dziala, a nic go nie wymienia (5at) */
+      if(!MINE[pid]&&DELEG[pid]) return;
+      var st=F[pid]||{};
+      /* JEDEN chip na WYMIAR, nie na wartosc. Multi-select (5at, prosba z 12 wrzesnia)
+         daje przy trzech technologiach trzy identycznie wygladajace chipy, a pasek ma
+         byc czytelny z jednego rzutu oka: `technology Entra, MDI, Sentinel` mowi to samo
+         w jednym elemencie, a pojedyncza wartosc zdejmuje sie w menu, ktore i tak jest
+         jedynym miejscem, gdzie sie ja wybiera. */
+      dimsOf(pid).forEach(function(d2){
+        var vs=st[d2.k]||[];
+        if(!vs.length) return;
+        var names=vs.map(function(v){return labelOf(d2.k,v);});
+        var shown=names.slice(0,4).join(", ")+(names.length>4?(" \u2026 +"+(names.length-4)):"");
+        o.push({scope:tabName(pid),label:d2.label.toLowerCase()+" "+shown,
+                clear:function(){F[pid][d2.k]=[];apply(pid);}});
+      });
+      if(st.t0) o.push({scope:tabName(pid),label:"tier 0 only",
+                        clear:function(){F[pid].t0=0;apply(pid);}});
+    });
+    return o;
+  });
+
+  /* ---------- ramka z datami list zrodel ---------- */
+  function jsonBox(){
+    var ov=document.getElementById("tab-overview");
+    if(!ov||document.querySelector(".jsonbox"))return;
+    var box=el("div","jsonbox");
+    box.appendChild(el("h3",null,"Source lists — when each was last updated"));
+    var n=el("p","jb-note");
+    n.textContent="Three lists decide what this brief reads. Each date comes from the repository "+
+      "history, never from a hand-kept field, so a list edited without touching that field cannot "+
+      "claim to be fresher than it is.";
+    box.appendChild(n);
+    var g=el("div","jb-grid");
+    D.jsons.forEach(function(j){
+      var r=el("div","jb-row");
+      r.appendChild(el("b","jb-nm",j.label));
+      r.appendChild(el("span","jb-w",j.what));
+      var d=el("div","jb-d");
+      d.appendChild(el("b",null,String(j.entries)));
+      d.appendChild(el("span",null,j.entries===1?"source":"sources"));
+      var days=Math.round((new Date(D.briefDate+"T00:00:00Z")-new Date(j.updated))/86400000);
+      d.appendChild(el("span","jb-age"+(days>14?" old":""),
+        days<=0?"updated today":(days===1?"updated yesterday":"updated "+days+" days ago")));
+      r.appendChild(d);
+      var t=el("p","jb-w");t.style.marginTop="5px";
+      t.textContent=j.updated.slice(0,16).replace("T"," ")+" · "+j.changes+
+        (j.changes===1?" change recorded":" changes recorded");
+      r.appendChild(t);g.appendChild(r);
+    });
+    box.appendChild(g);
+    var sh=document.getElementById("starthere");
+    if(sh&&sh.parentNode)sh.parentNode.insertBefore(box,sh);else ov.insertBefore(box,ov.firstChild);
+  }
+
+  /* ---------- 7: KAZDA sekcja calego raportu dostaje + ----------
+     Sekcje pozostalych zakladek sa `<section data-nav>`; owijamy je w <details>
+     bez ruszania ich zawartosci i BEZ zabierania im identyfikatora, zeby kotwice
+     i skoki z Overview nadal trafialy. Otwarta zostaje pierwsza sekcja zakladki. */
+  function foldEverySection(){
+    [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
+      if(p.id==="tab-learn"||p.id==="tab-blogs")return;
+      var first=true;
+      [].forEach.call(p.querySelectorAll(":scope > section[data-nav]"),function(s){
+        if(s.parentNode&&s.parentNode.classList&&s.parentNode.classList.contains("ntwrap"))return;
+        var head=s.querySelector(":scope > .sec-head"), body=s.querySelector(":scope > .sec-body");
+        if(!head||!body||s.dataset.ntfold==="1")return;
+        s.dataset.ntfold="1";
+        var d=el("details","ntsec");if(first){d.open=true;first=false;}
+        var sm=el("summary");
+        var h2=head.querySelector("h2"), ti=head.querySelector(".sec-title");
+        sm.appendChild(el("span","ntlab",h2?h2.textContent.trim():""));
+        sm.appendChild(el("span",null,ti?ti.textContent.trim():(s.getAttribute("data-nav")||s.id)));
+        var nrows=s.querySelectorAll("tbody tr").length;
+        if(nrows)sm.appendChild(el("span","ntn",nrows+(nrows===1?" row":" rows")));
+        d.appendChild(sm);
+        var wrap=el("div","ntbody");
+        s.parentNode.insertBefore(d,s);
+        wrap.appendChild(s);d.appendChild(wrap);
+        head.hidden=true;
+      });
+    });
+  }
+
+  /* SKRYPT 4 (5y) buduje agregaty w KAZDYM panelu procz Overview, z populacji pozycji
+     stanu. W tych dwoch zakladkach to CUDZA populacja: wykres "26 services, 179 items in
+     window" nie opisuje ani dokumentacji, ani blogow, a stoi nad trescia, ktora opisuje.
+     Zmierzone 12 wrzesnia 2026 — wlasciciel zobaczyl go pierwszy. Usuwamy go z tych
+     dwoch paneli i mowimy dlaczego; kazdy inny panel zostaje nietkniety. */
+  function dropForeignAggregates(){
+    ["tab-learn","tab-blogs"].forEach(function(pid){
+      var p=document.getElementById(pid); if(!p) return;
+      [].forEach.call(p.querySelectorAll(":scope > .aggwrap"),function(n){n.remove();});
+    });
+  }
+
+  /* 5: po kazdym filtrze otwiera sie TA sekcja, ktora naprawde trzyma wynik,
+     a pozostale sie zwijaja. Bez tego klik w wykres otwieral zawsze te sama. */
+  /* `scroll` tylko wtedy, gdy czytelnik POPROSIL, zeby go gdzies przeniesc — czyli
+     przy kliknieciu wykresu albo chipa w wierszu. Pasek filtra fold ustawia, ale
+     strony nie rusza: skok po kazdym zamknieciu menu gubi miejsce, w ktorym sie bylo. */
+  function openBest(pid,scroll){
+    var p=document.getElementById(pid); if(!p) return;
+    var best=null,br=99,bn=0;
+    [].forEach.call(p.querySelectorAll("details.ntsec"),function(d){
+      var n=d.querySelectorAll('tbody tr[data-nt="1"]').length;
+      if(!n) return;
+      var r=+(d.dataset.ntrank||9);
+      if(r<br||(r===br&&n>bn)){br=r;bn=n;best=d;}
+    });
+    [].forEach.call(p.querySelectorAll("details.ntsec"),function(d){d.open=(d===best);});
+    if(best){opened=best;
+      if(scroll){best.classList.add("ntflash");
+        setTimeout(function(){best.classList.remove("ntflash");},1600);
+        best.scrollIntoView({block:"start"});}}
+  }
+
+  /* Clear wraca do stanu WYJSCIOWEGO, nie zostawia tego, co otworzyl filtr:
+     inaczej „wyczyszczona" zakladka wyglada inaczej niz ta sama zakladka po wejsciu. */
+  function resetFolds(){
+    ["tab-learn","tab-blogs"].forEach(function(pid){
+      var p=document.getElementById(pid); if(!p) return;
+      [].forEach.call(p.querySelectorAll("details.ntsec"),function(d){
+        d.open=d.dataset.ntdefault==="1";d.classList.remove("ntflash");
+      });
+    });
+    opened=null;
+  }
+
+  function boot(){
+    try{jsonBox();}catch(e){if(window.console)console.error("[nt json]",e);}
+    try{learnTab();}catch(e){if(window.console)console.error("[nt learn]",e);}
+    try{blogsTab();}catch(e){if(window.console)console.error("[nt blogs]",e);}
+    try{
+      var L=document.getElementById("tab-learn"),B=document.getElementById("tab-blogs");
+      if(L&&!L.querySelector(".ntfbar")) L.appendChild(corrTab("learn"));
+      if(B&&!B.querySelector(".ntfbar")) B.appendChild(corrTab("blogs"));
+    }catch(e){if(window.console)console.error("[nt corr]",e);}
+    try{foldEverySection();}catch(e){if(window.console)console.error("[nt fold]",e);}
+    /* paski po foldach: sekcje musza juz byc zwiniete, zeby licznik przy kazdej
+       mial z czego wystartowac */
+    try{mountEverywhere();setTimeout(mountEverywhere,1400);setTimeout(mountEverywhere,3000);}
+    catch(e){if(window.console)console.error("[nt bars]",e);}
+    try{dropForeignAggregates();setTimeout(dropForeignAggregates,900);setTimeout(dropForeignAggregates,2200);}
+    catch(e){if(window.console)console.error("[nt agg]",e);}
+    try{apply();}catch(e){}
+    try{stampCounts();setTimeout(stampCounts,1200);}catch(e){if(window.console)console.error("[nt count]",e);}
+  }
+  if(document.readyState==="loading")
+    document.addEventListener("DOMContentLoaded",function(){setTimeout(boot,800);});
+  else setTimeout(boot,800);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 15 v2 jest osobnym blokiem, ktory niczego
+nie nadpisuje poza SKRYPTEM 15 z §5au, i nie pisze do cudzego stanu.
+
+### Co idzie na strone zmian
+
+Wlasciciel, 14 wrzesnia 2026: *„mam nadzieje, ze diff w sched tasku i routine tez bedzie zbieral
+aktualizacje i zmiany co do danych oraz artykulow z tych dwoch nowych zakladek"*. Tak —
+`make_diff.py` (§3) porownuje `nt` z obu stanow i sklada **dwie sekcje**, a tabela
+`What changed, by tab` idzie z dziewieciu wierszy na **jedenascie**:
+
+- **`<section id="docsdiff">`** — obszary Learn, ktorym ruszyl sie tekst: strony **NAZWANE**
+  z tytulem i linkiem, porownywane **po commicie**, nie po liczbie linii (te same `+21 / −15`
+  przy innej edycji to nadal roznica); obszary, ktorym zmienil sie sposob odczytu (`git` ↔
+  `snapshot`) albo status strony `what's new`; oraz zmiany `what's new` dodane i usuniete,
+  dopasowywane po `(area, title)`.
+- **`<section id="blogsdiff">`** — artykuly **dodane i usuniete NAZWANE z tytulem i linkiem**,
+  dopasowywane po `link`; blogi, ktorym ruszyl sie `status`, `method` albo `feed`. **Blog, ktory
+  przeszedl z `ok` na `failed`, jest pierwszym wierszem tej sekcji** — to jest zmiana warta
+  reakcji, dokladnie jak zrodlo spolecznosci w §5an.
+
+**Pierwszy przebieg z kluczem `nt` w stanie nie oglasza 773 zmian i 533 artykulow jako dodanych.**
+Poprzedni stan tego klucza nie ma, wiec porownanie zbioru pustego z pelnym byloby falszywym
+alarmem — ta sama zasada co `state:"baseline"` w §5ag i `graphMap` bez punktu odniesienia w §3.
+Sekcja pisze wtedy jedno zdanie z liczbami i mowi, ze jutro beda prawdziwe roznice.
+
+Obie zakladki dostaja tez **wlasny dom w rejestrze 14 dni** (§5aj): wpis `tab` = `Microsoft Learn`
+albo `Microsoft Blogs`, wiec `details.chg14` pokazuje w nich to samo, co w kazdej innej zakladce.
+
+### Walidator — pozycje 80, 81 i 82 listy §0
+
+- **80** — oba panele sa na stronie po swoim `id`, a `splitTabs()` wymienia je w tablicy `REF`,
+  wiec ich zakladki stoja w rzedzie `Reference`. **Klasa B**: lustro tylko kopiuje, wiec zakladki,
+  ktorej artefakt nie niesie, nie doloży — raportuje ja i publikuje (§0).
+- **81** — klucz `nt` w bloku stanu: `briefDate` rowne `briefDate` briefu; **kazdy obszar
+  z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json`
+  ma wpis w `nt.blogs`**; kazdy wpis o statusie innym niz `ok` ma **niepusty `note`**; kazda
+  zmiana `what's new` ma `area`, `title` i `link`; kazdy artykul ma `link` i `date`; blokow JSON
+  nadal DWA. **Klasa A** — zgubiony obszar, zgubiony blog i cisza zamiast powodu to falszywa
+  tresc, dokladnie jak przy pozycji 60.
+- **82** — SKRYPT 15 v2 jest w pliku razem ze swoimi zaczepami, arkusz niesie regule rozwijanego
+  paska, a **`details.s15bar` nie wystepuje na stronie ani razu**: jeden ksztalt paska na caly
+  portal. **Klasa B.**
+
+Render (§5h) sprawdza to, czego bramka z pliku nie zobaczy: ze obie zakladki maja sekcje
+`details.ntsec` zwiniete domyslnie z licznikiem w podpisie, ze pasek jest `DETAILS` ze znacznikiem
+`+` na KAZDEJ zakladce, ktora go niesie, i ze wybor wartosci w menu zmienia licznik `N of M`
+oraz zapala jedna linie w mastheadzie.
 
 ## 5av. ZIELONY JEST KOLOREM FILTRA — na kazdej powierzchni portalu
 
