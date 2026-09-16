@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **89 pozycji** (0-33, 35-61, 63-77, 79-91), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **92**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **90 pozycji** (0-33, 35-61, 63-77, 79-92), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **93**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -157,6 +157,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 89 | **data przy pozycji jest data ZRODLA** — klucz `dateAudit` z `readOn`, opublikowana `rule`, licznikiem `checked` dla czterech rodzin (`mc`, `learn`, `blogs`, `community`) i tablica `mismatch`, w ktorej kazdy rozjazd ma `atSource` i `reason`. **Pozycja nie zada ZERA rozjazdow, tylko ich POMIARU** | 5ba | `dateAudit.readOn` = `briefDate`; `rule` niepusta; wszystkie cztery rodziny w `checked`; zero wpisow `mismatch` bez `kind` ze slownika, bez `atSource` albo bez `reason`; **suma `checked` wieksza od zera, gdy `items` nie jest puste** — audyt, ktory nie porownal ani jednej daty, nie jest audytem bez rozjazdow; brak klucza daje `BRAK`, nigdy OK |
 | 90 | **Message Center jest WYMIAREM** — klucz `mc` w bloku stanu, kolumna `Message Center` w Overview, Today i New, oraz CZTERNASTY panel `tab-mc` z sekcjami `mc-today`, `mc-map`, `mc-all`, `mc-sources` | 5az, 2 | `90a` kazdy wpis `entries` ma `id`, `link`, `published` albo `note`, `origin` ze slownika `index`/`item`/`both` i `storyKey`, a `mc.readOn` = `briefDate`; `90b` `SCRIPT 16`, `mccol`, `__socOpenMC`, `data-mc="` w pliku; `90c` piec identyfikatorow sekcji obecnych |
 | 91 | **`storyKey` laczy wpis MC ze strona Learn i artykulem blogowym** — kazda pozycja cytujaca `MC…`/`RM…` w `reference` ma ten sam `storyKey`, a kazdy wpis `mc.map` niesie klucz, niepuste `seenIn` ze slownika i `items[]` wskazujace na PRAWDZIWE pozycje | 5az | `mc.map` niepuste; zero pozycji z `reference` MC/RM i innym `storyKey`; zero wpisow mapy bez klucza albo bez `seenIn`; zero wartosci `seenIn` spoza slownika; zero `items[]` bez pozycji o tym `id`; brak `mc` daje `BRAK`, nigdy OK |
+| 92 | **zbior rewizji Message Center PRZECZYTANY, a kazdy nietrzymany NAZWANY** — `mc.revisionSweep` z `readOn`, oknem, `indexPages`/`indexRead` i tablica `reported`; kazdy `held:false` ma wiersz w `missed` z powodem. **Pozycja nie zada ZERA nietrzymanych, tylko ich POMIARU i NAZWANIA** | 5az | `revisionSweep.readOn` = `briefDate`; `reported` niepuste, gdy `items` niepuste (zbior pusty znaczy „nie przeczytano", nie „nie bylo rewizji"); zero wpisow z `source` spoza slownika `deltapulse`/`index`/`item`; zero bez `revisedOn`; zero `held:false` bez wiersza w `missed`; zero wierszy `missed` bez `reason`; zero `held:true` nieobecnych w `mc.entries`; brak klucza daje `BRAK`, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -917,7 +918,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "85","86","87","88a","88b","89","90b","90c","91",
+           "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
@@ -2024,7 +2025,8 @@ def gate(path, site=None, mirror=False, doc=None):
         for _n90, _t90 in (("90a", "klucz mc w bloku stanu"),
                            ("90b", "kolumna Message Center w Overview, Today i New"),
                            ("90c", "panel tab-mc z mapowaniem zrodel"),
-                           ("91", "storyKey laczy wpis MC ze strona Learn i artykulem")):
+                           ("91", "storyKey laczy wpis MC ze strona Learn i artykulem"),
+                           ("92", "zbior rewizji Message Center przeczytany")):
             need(_n90, _t90, False, "brak klucza mc w bloku stanu — nie da sie sprawdzic")
     else:
         _ent = _mc.get("entries") or []
@@ -2089,6 +2091,43 @@ def gate(path, site=None, mirror=False, doc=None):
                   "albo bez seenIn: %s; mapowanie wskazujace na nieistniejaca pozycje: %s; "
                   "seenIn spoza slownika: %s"
                   % (_wrong91[:4], _badmap[:3], _deadmap[:3], _badseen[:3]))
+        # ---- 92: zbior rewizji przeczytany, a kazdy nietrzymany NAZWANY (§5az) ----
+        # Zgloszenie z 16 wrzesnia 2026: `MC1426371` i `MC1413308` ruszyly sie w oknie,
+        # sa w DeltaPulse i u Merilla, a strona zmian nie pokazala zadnego. Pomiar tego
+        # dnia: indeks czytany jest na PIERWSZEJ stronie (200 z 2458), wiec wpis
+        # opublikowany w lipcu i zrewidowany we wrzesniu nie wchodzi w ten wycinek;
+        # DeltaPulse na jedno wywolanie zwrocil 61 rewizji w oknie, z ktorych brief
+        # trzymal 36, a 25 nie trzymal wcale. Pozycja NIE zada zera nietrzymanych —
+        # asercja zadajaca zera zapalilaby sie pierwszego dnia, zanim ktokolwiek zmierzyl
+        # pokrycie (§0b). Zada, zeby zbior zostal PRZECZYTANY i zeby kazdy brak mial nazwe
+        # i powod. Do klasy A przechodzi, gdy `missed` bedzie puste dwa przebiegi z rzedu.
+        _SRC92 = {"deltapulse", "index", "item"}
+        _sw = _mc.get("revisionSweep") or {}
+        _rep = _sw.get("reported") or []
+        _mis = _sw.get("missed") or []
+        _held = {str(x.get("id")).upper() for x in _ent if x.get("id")}
+        _badsrc92 = [x.get("id") for x in _rep if x.get("source") not in _SRC92]
+        _nodate92 = [x.get("id") for x in _rep if not x.get("revisedOn")]
+        _named92 = {str(x.get("id")).upper() for x in _mis if x.get("id")}
+        _silent92 = [x.get("id") for x in _rep
+                     if not x.get("held") and str(x.get("id")).upper() not in _named92]
+        _nowhy92 = [x.get("id") for x in _mis if not (x.get("reason") or "").strip()]
+        _lost92 = [x.get("id") for x in _rep
+                   if x.get("held") and str(x.get("id")).upper() not in _held]
+        _empty92 = bool(items) and not _rep and not (_sw.get("note") or "").strip()
+        need("92", "zbior rewizji Message Center przeczytany, a kazdy nietrzymany NAZWANY (§5az)",
+             bool(_sw) and _sw.get("readOn") == _bd4 and not _empty92
+             and not _badsrc92 and not _nodate92 and not _silent92 and not _nowhy92
+             and not _lost92,
+             "brak klucza mc.revisionSweep — nie da sie sprawdzic" if not _sw
+             else "readOn %s przy briefDate %s; zgloszonych rewizji %d (%s); source spoza "
+                  "slownika %s; bez revisedOn %s; nietrzymanych bez wiersza w `missed` %s; "
+                  "wierszy `missed` bez powodu %s; zadeklarowanych jako trzymane, a nieobecnych "
+                  "w mc.entries %s"
+                  % (_sw.get("readOn"), _bd4, len(_rep),
+                     ("PUSTE przy niepustym items — zbioru nie przeczytano"
+                      if _empty92 else "trzymanych %d" % sum(1 for x in _rep if x.get("held"))),
+                     _badsrc92[:3], _nodate92[:3], _silent92[:4], _nowhy92[:3], _lost92[:4]))
 
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
@@ -2603,7 +2642,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZBUDOWANE` | sekcja `blogsdiff` i wiersz `Microsoft Blogs` w `bytab` — jak wyzej, pozycja 34 |
 | `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZBUDOWANE` | klucz `nt.jsons` niesie wszystkie trzy listy z data ostatniej zmiany PLIKU, ramke rysuje SKRYPT 15 v2; pozycja 85 listy §0 zglosila OK 16 wrzesnia 2026 |
 | `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
-| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. **16 wrzesnia 2026 wieczorem wlasciciel pokazal, ze populacja NADAL byla niepelna**: sekcja drukowala `+0 / −0`, a podsumowanie tego samego przebiegu nazywalo dwa ruszone wpisy — `MC1426371` zrewidowane 15 wrzesnia i `MC1413308` odwolane. Dwie luki: indeks byl porownywany po samej OBECNOSCI klucza, a petla po pozycjach chodzila po `added` i `removed`, nie po `changed`. Obie zamkniete tego wieczoru (`mcChg`, trzeci rodzaj wiersza, asercja `verify()` „kazdy cytowany MC ma wiersz”). **Brakuje pierwszej strony zmian z ta wersja skryptu** — i tym razem wiadomo, czego szukac |
+| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. **16 wrzesnia 2026 wieczorem wlasciciel pokazal, ze populacja NADAL byla niepelna**: sekcja drukowala `+0 / −0`, a podsumowanie tego samego przebiegu nazywalo dwa ruszone wpisy — `MC1426371` zrewidowane 15 wrzesnia i `MC1413308` odwolane. Dwie luki: indeks byl porownywany po samej OBECNOSCI klucza, a petla po pozycjach chodzila po `added` i `removed`, nie po `changed`. Obie zamkniete tego wieczoru (`mcChg`, trzeci rodzaj wiersza, asercja `verify()` „kazdy cytowany MC ma wiersz”), a przy okazji trzecia i czwarta: `MC_FIELDS` nie porownywalo pola rewizji, a strona zmian czytala `community.messageCenter[]` (201 wpisow), podczas gdy brief buduje juz `mc.entries[]` (239) — `MC1426371` jest WYLACZNIE w tym drugim. Zmierzone na prawdziwych stanach 14 → 16 wrzesnia: przed poprawka 20 wierszy i zaden z dwoch zgloszonych, po poprawce 27 wierszy i `MC1426371` obecne jako `changed`. **Piata przyczyna zostaje i ma wlasny wpis `mc-revision-sweep`**: `MC1413308` nie da sie pokazac zadnym algorytmem, bo brief nigdy go nie trzymal. **Brakuje pierwszej strony zmian z ta wersja skryptu** — i tym razem wiadomo, czego szukac |
 | `mc-on-brief` | **Message Center jest WYMIAREM, nie zrodlem** — kolumna `Message Center` w Overview, Today i New, plus WLASNA zakladka `tab-mc` z pelnym widokiem, a w kazdej z nich **mapowanie miedzy wpisem MC a strona Learn i artykulem blogowym**, zeby widac bylo, co Microsoft oglosil i gdzie to opisal | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: Overview + Today + New + osobna zakladka, i do tego mapowanie.** §5az niesie kontrakt `mc`, slowniki `origin` i `seenIn`, klucz `storyKey`, markup czterech sekcji, arkusz i SKRYPT 16; artefakt z 16 wrzesnia niesie panel `tab-mc`, a pozycje 90a, 90b, 90c i 91 zglosily OK. Wieczorem tego dnia doszlo `revisedOn`: `mc-today` wybieralo po `firstTracked` i `published`, wiec rewizja wpisu sprzed dwoch miesiecy — `MC1426371` z druga data wycofania SMS — nie miala jak sie pokazac |
 | `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: jedna funkcja.** `window.__socFileBlock` jest jedynym rendererem, `lineBox()` i rodzina `.ntdiff*` usuniete, `make_diff.py` znaczy kazdy blok `data-ntowner`; pozycje 88a i 88b zglosily OK 16 wrzesnia 2026 |
 | `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `ZBUDOWANE` | artefakt przeczytany 16 wrzesnia i rozlozony na szesc dzialan: 1 i 2 (dowod pod wierszem, `+` przy pozycji) w §3 punkt 15; 3 (sekcje zwiniete) w §3 punkt 14; 4 (Message Center jako widok) w `mc_view()`; 5 (jeden renderer zmiany tekstu) w §5bb; 6 (jedna lista paneli) w `CANON_PANELS`. Wszystkie szesc w przebiegu z 16 wrzesnia 2026, pilnuja ich pozycje 34, 88a, 88b i 3 |
@@ -2614,6 +2653,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZBUDOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, a pozycja 85 lapie sygnature plytkiego klonu — OK w przebiegu z 16 wrzesnia 2026 |
 | `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZBUDOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach); pozycja 86 zglosila OK 16 wrzesnia 2026 |
 | `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate` — OK w przebiegu z 16 wrzesnia 2026 |
+| `mc-revision-sweep` | **wpis Message Center ZREWIDOWANY w oknie nalezy do dzisiejszego briefu, takze gdy opublikowano go dawno** — indeks czytany jest na PIERWSZEJ stronie (`Showing 200 of 2458`), wiec wpis z lipca zrewidowany we wrzesniu nie wchodzi w ten wycinek; zbior rewizji czyta sie z DeltaPulse `list_updated_items` plus stronicowanym indeksem, a kazdy nietrzymany identyfikator jest NAZWANY z powodem | 2026-09-16 | `ZASPECYFIKOWANE` | §5az niesie regule, kontrakt `mc.revisionSweep` (`reported`, `missed`, slownik `source`) i pozycje 92 listy §0. **Zmierzone 16 wrzesnia 2026**: DeltaPulse zwrocil 61 rewizji w oknie 2–16 wrzesnia (`hasMore:false`), brief trzymal 36 w `mc.entries`, 34 w indeksie i 25 w zadnym z nich — `MC1413308` jest jednym z tych 25. Brakuje pierwszego przebiegu niosacego klucz `mc.revisionSweep` i wypelnione `revisedOn` (dzis 0 z 239 wpisow) |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -3507,8 +3547,43 @@ SOURCE_FIELDS = [("status","Status"),("method","Read by"),("page","Page read"),
                  ("fresh","Freshness"),("items","Items"),("newestDate","Newest article")]
 # Pola wpisu Message Center, ktorych ruch jest ZMIANA. `action` pierwsze, bo przesuniety
 # albo dopisany termin jest jedynym powodem, dla ktorego ktos czyta te sekcje o 22:00.
-MC_FIELDS = [("action","Action required by"),("date","Published"),("title","Title"),
+MC_FIELDS = [("action","Action required by"),("revisedOn","Revised at source"),
+             ("date","Published"),("title","Title"),
              ("summary","Summary"),("link","Link")]
+
+def mc_norm(x):
+    """JEDEN ksztalt wpisu Message Center, niezaleznie od klucza, z ktorego przyszedl.
+
+    `mc.entries[]` (§5az) nazywa date publikacji `published` i rewizje `revisedOn`;
+    stary indeks `community.messageCenter[]` nazywa je `date` i `updated`. Renderer
+    i `MC_FIELDS` czytaja jedna nazwe, wiec roznice zdejmujemy TUTAJ, raz — dwa
+    ksztalty jednej rzeczy rozjezdzaja sie zawsze (§0a)."""
+    y = dict(x or {})
+    if not y.get("date"):      y["date"] = y.get("published")
+    if not y.get("revisedOn"): y["revisedOn"] = y.get("updated")
+    return y
+
+def mc_pop(st):
+    """Populacja Message Center TEGO stanu, z klucza, ktory stan NIESIE.
+
+    16 wrzesnia 2026, zgloszenie wlasciciela o `MC1426371` i `MC1413308`: strona zmian
+    czytala `community.messageCenter[]` (201 wpisow, sam indeks), a brief od tego dnia
+    buduje `mc.entries[]` (§5az; 239 wpisow, bo dochodza te wniesione przez pozycje
+    cytujaca numer MC). Zmierzone tego dnia: `MC1426371` jest WYLACZNIE w `mc.entries`,
+    wiec porownanie czytajace stary klucz nie mialo jak go zobaczyc — nie z powodu
+    algorytmu, tylko dlatego, ze patrzylo w inna tablice.
+
+    Czytamy wiec klucz nowszy, gdy jest, a stan zapisany ZANIM §5az powstalo dziala
+    dalej przez fallback: nazwa klucza ma date waznosci tak samo jak liczba w asercji
+    (§0a)."""
+    st = st or {}
+    ent = (st.get("mc") or {}).get("entries") or []
+    if ent: return ent
+    return (st.get("community") or {}).get("messageCenter") or []
+
+def mc_src(st):
+    """`mc` albo `index` — ktora tablice przeczytal `mc_pop` dla tego stanu."""
+    return "mc" if ((st or {}).get("mc") or {}).get("entries") else "index"
 
 def diff_community(prev_st, curr_st):
     """Zwraca slownik roznic. Pierwszy przebieg z `community` w stanie NIE oglasza
@@ -3518,8 +3593,9 @@ def diff_community(prev_st, curr_st):
     cc = (curr_st or {}).get("community") or {}
     if cc and not pc:
         return {"baseline": True, "sources": len(cc.get("sources") or []),
-                "items": len(cc.get("items") or []), "mc": len(cc.get("messageCenter") or []),
-                "messageCenter": list(cc.get("messageCenter") or []),
+                "items": len(cc.get("items") or []), "mc": len(mc_pop(curr_st)),
+                "messageCenter": [mc_norm(x) for x in mc_pop(curr_st)],
+                "mcPopShift": None,
                 "srcAdd": [], "srcRem": [], "srcRen": [], "srcChg": [],
                 "artAdd": [], "artRem": [], "mcAdd": [], "mcRem": [], "mcChg": [],
                 "listNotes": []}
@@ -3547,10 +3623,26 @@ def diff_community(prev_st, curr_st):
     artAdd = [ca[k] for k in ca if k not in pa]
     artRem = [pa[k] for k in pa if k not in ca]
     artAdd.sort(key=lambda x: (norm(x.get("date")), norm(x.get("sourceName"))), reverse=True)
-    pm = {x.get("id"): x for x in (pc.get("messageCenter") or []) if x.get("id")}
-    cm = {x.get("id"): x for x in (cc.get("messageCenter") or []) if x.get("id")}
-    mcAdd = [cm[k] for k in cm if k not in pm]
-    mcRem = [pm[k] for k in pm if k not in cm]
+    # §5az / 16 wrzesnia 2026: populacja z klucza, ktory stan NIESIE, i JEDEN ksztalt
+    # wpisu po obu stronach. Do tego dnia obie linie czytaly `community.messageCenter[]`
+    # i dlatego `MC1426371` — obecne wylacznie w `mc.entries[]` — nie mialo jak sie
+    # pokazac ani jako dodane, ani jako zmienione.
+    pm = {x.get("id"): mc_norm(x) for x in mc_pop(prev_st) if x.get("id")}
+    cm = {x.get("id"): mc_norm(x) for x in mc_pop(curr_st) if x.get("id")}
+    # POROWNUJEMY TYLKO POPULACJE TEGO SAMEGO RODZAJU. Gdy wczorajszy stan czytal
+    # `community.messageCenter[]`, a dzisiejszy `mc.entries[]`, obie tablice opisuja te
+    # sama rzecz INNYMI polami — `date` kontra `published`, inny `summary`, inny `link` —
+    # wiec porownanie pole po polu oglasza kazdy wpis jako zmieniony. Zmierzone
+    # 16 wrzesnia 2026 na prawdziwych stanach 14 -> 16 wrzesnia: **201 z 201 wpisow
+    # indeksu wyszlo jako `changed`, a sekcja urosla z 20 do 259 wierszy** — czyli
+    # dokladnie ten falszywy alarm, przed ktorym stoi `graphMap` bez punktu odniesienia
+    # (§3) i `state:"baseline"` w §5ag. Przy zmianie populacji indeks jest wiec
+    # BASELINE: nie oglasza niczego i mowi o tym zdaniem, a ruch z drugiej strony —
+    # pozycji cytujacej numer MC — idzie przez `mc_view` bez zmian, bo nie zalezy od
+    # tego, ktora tablice czytamy. To wlasnie ta druga droga zlapala `MC1426371`.
+    shift = mc_src(prev_st) != mc_src(curr_st)
+    mcAdd = [] if shift else [cm[k] for k in cm if k not in pm]
+    mcRem = [] if shift else [pm[k] for k in pm if k not in cm]
     # WPIS ZREWIDOWANY TO TEZ RUCH. Do 16 wrzesnia 2026 indeks byl porownywany
     # WYLACZNIE po obecnosci klucza, wiec Microsoft mogl dopisac do MC1426371 druga
     # date wycofania SMS i polaczen glosowych — 1 lipca 2027 dla Global Adminow
@@ -3561,7 +3653,7 @@ def diff_community(prev_st, curr_st):
     # choroba co 12 wrzesnia (§3 punkt 11) — dwa prawdziwe zdania, ktore razem sa
     # nonsensem — naprawiona wtedy dla jednej z trzech luk i zostawiona w dwoch.
     mcChg = []
-    for k in cm:
+    for k in (() if shift else cm):
         if k not in pm: continue
         d = [(lab, norm(pm[k].get(f)), norm(cm[k].get(f)))
              for f, lab in MC_FIELDS if norm(pm[k].get(f)) != norm(cm[k].get(f))]
@@ -3579,6 +3671,14 @@ def diff_community(prev_st, curr_st):
             "artAdd": artAdd, "artRem": artRem, "mcAdd": mcAdd, "mcRem": mcRem,
             "mcChg": mcChg, "listNotes": notes,
             "messageCenter": list(cm.values()),
+            # Gdy wczorajszy stan czytal INNA tablice niz dzisiejszy, czesc wierszy
+            # `added` jest zmiana POPULACJI, a nie ruchem Microsoftu — ta sama zasada,
+            # ktora kaze `graphMap` bez poprzednika mowic `baseline` zamiast oglaszac
+            # 24 099 dodanych endpointow (§3). Sekcja mowi to zdaniem; nie zgadujemy,
+            # ktory wiersz jest ktory, bo tego nie da sie rozstrzygnac z dwoch stanow.
+            "mcPopShift": (None if not shift
+                           else {"prev": mc_src(prev_st), "curr": mc_src(curr_st),
+                                 "prevCount": len(pm), "currCount": len(cm)}),
             "sources": len(cs), "items": len(ca), "mc": len(cm)}
 
 # ---------- tekst zrodla (§5ar) ----------
@@ -6049,7 +6149,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             'and an item whose reference was corrected from &bdquo;Learn only&rdquo; to an MC number, '
             'were both counted as zero &mdash; the same two-true-sentences defect as above, fixed in '
             'one of its three places and left standing in the other two. Message Center content '
-            'varies by tenant &mdash; confirm anything here in your own tenant.',
+            'varies by tenant &mdash; confirm anything here in your own tenant.'
+            + ((' <b>These two states read different populations</b> &mdash; yesterday %s (%d entries), '
+                'today %s (%d) &mdash; so the index side is a BASELINE this run and announces nothing: '
+                'comparing two differently-shaped tables field by field would report all of them as '
+                'revised, which is the same false alarm an endpoint map without a predecessor would '
+                'raise. What is listed below moved on the ITEM side, which does not depend on which '
+                'table was read. Tomorrow both states read the same one and the index reports again.'
+                % ({"mc": "mc.entries", "index": "community.messageCenter"}[com["mcPopShift"]["prev"]],
+                   com["mcPopShift"]["prevCount"],
+                   {"mc": "mc.entries", "index": "community.messageCenter"}[com["mcPopShift"]["curr"]],
+                   com["mcPopShift"]["currCount"]))
+               if com.get("mcPopShift") else ''),
             table(["What", "ID", "Title", "Technology", "Action required by", "What moved",
                    "Published", "Where it came from"],
                   [mcrow(r) for r in MCV],
@@ -20180,6 +20291,90 @@ i przerwal kazdy przebieg lustrzany.
   rodziny co `components` przed 16 wrzesnia (§5ag, pozycja 86).
 - **Kazdy wpis MC nosi przypis z §5g**: tresc Message Center rozni sie miedzy dzierzawami —
   potwierdz we wlasnej. Zdanie stoi raz, w `sec-note` zakladki, nie przy kazdym wierszu.
+
+### REWIZJA JEST RUCHEM, A INDEKS TO JEDNA TRZYNASTA — zbior rewizji, nie pierwsza strona
+
+Wlasciciel zglosil 16 wrzesnia 2026 wieczorem dwa wpisy z imienia: `MC1426371` i `MC1413308`.
+Oba sa w DeltaPulse, oba sa u Merilla, oba ruszyly sie w oknie — i **strona zmian nie pokazala
+zadnego**. Przebieg zaczal od POMIARU, bo poprawka bez pomiaru nie ma jak byc poprawna (§5ba),
+i przyczyny okazaly sie **cztery, nie jedna**:
+
+| # | przyczyna | zmierzone 16 wrzesnia 2026 | gdzie naprawiona |
+|---|---|---|---|
+| A | **indeks czytany jest tylko na PIERWSZEJ stronie** | `mc.merill.net/?type=mc` drukuje `Showing 200 of 2458 results`, a brief trzyma 201. Wpis opublikowany w lipcu i zrewidowany we wrzesniu **nigdy nie wchodzi w ten wycinek** | ta sekcja |
+| B | indeks porownywany po samej OBECNOSCI klucza, a `mc_view()` chodzil po `added`/`removed` | wpis zrewidowany liczyl sie jako zero | §3, wieczorem tego dnia |
+| C | `MC_FIELDS` nie porownywalo pola, ktore przy rewizji jako jedyne sie rusza | stan niesie `updated` na **201 z 201** wpisow indeksu, **81** z data inna niz `date` — sygnal byl w danych i nikt go nie czytal | §3, `MC_FIELDS` + `mc_norm()` |
+| D | strona zmian czytala `community.messageCenter[]`, a brief buduje juz `mc.entries[]` | 201 kontra **239**; `MC1426371` jest WYLACZNIE w `mc.entries`, wiec porownanie patrzylo w inna tablice | §3, `mc_pop()` |
+
+**B, C i D sa zamkniete i udowodnione na prawdziwych stanach 14 → 16 wrzesnia**: przed poprawka
+sekcja miala 20 wierszy i `MC1426371` nie bylo w zadnym; po poprawce jest, jako
+`changed / origin=gained`, a strona przechodzi `verify()` bez bledu. **`MC1413308` nadal nie ma
+i nie da sie go pokazac zadnym algorytmem — brief nigdy go nie trzymal.** To jest przyczyna A
+i to jest tresc tej sekcji.
+
+### Regula
+
+1. **Indeks czyta sie az do POKRYCIA OKNA, nie do konca pierwszej strony.** Przebieg idzie kolejnymi
+   stronami `?type=mc`, dopoki najstarszy wpis strony nie jest starszy niz `window.from`, i zapisuje
+   `indexPages` oraz `indexRead`. Strona pierwsza jest wycinkiem 200 z 2458 — **osma czescia** tego,
+   co Microsoft ma w indeksie, a osiem procent to nie jest „przeczytalismy indeks".
+2. **Rewizji nie wykrywa sie przez czytanie calego indeksu, tylko przez zapytanie o rewizje.**
+   §5v dopuszcza DeltaPulse jako zrodlo denominatora MC, a `list_updated_items` odpowiada dokladnie
+   na to pytanie **jednym wywolaniem**: `source:"messages"`, `startDate` = `window.from`,
+   `endDate` = `briefDate`. Zmierzone tego dnia dla okna 2–16 wrzesnia: **61 wpisow zrewidowanych,
+   `hasMore: false`**, kazdy z `lastUpdatedDate` co do sekundy. Z tych 61 brief trzymal **36**
+   w `mc.entries`, 34 w indeksie i **25 w zadnym z nich**.
+3. **`lastUpdatedDate` z DeltaPulse JEST `revisedOn`.** Dzis `revisedOn` stoi na **0 z 239** wpisow,
+   czyli pole kontraktu §5az jest puste, choc `updated` indeksu niesie ten sam fakt na 201 z 201.
+   Przebieg wypelnia `revisedOn` z tego, co przeczytal: z DeltaPulse, a przy jego braku z `updated`
+   indeksu. **Nie zgadujesz daty rewizji z niczego innego** — `published` przy rewizji sie nie rusza.
+4. **Wpis zrewidowany w oknie wchodzi do `mc.entries`, takze gdy opublikowano go dawno.**
+   To jest cala poprawka od strony tresci: `MC1426371` z lipca i `MC1413308` z lipca **naleza do
+   dzisiejszego briefu**, bo Microsoft ruszyl je wczoraj. Selekcja po `published` ich nie widzi
+   i dlatego selekcja idzie po `published` **albo** `revisedOn`.
+5. **Czego przebieg nie zdazyl przeczytac, NAZYWA.** Budzet stron wiadomosci to nadal pietnascie na
+   przebieg (§5an), wiec wpis zrewidowany, ktorego strony nie otwarto, wchodzi z data z DeltaPulse
+   i `note` mowiacym, ze tresci nie przeczytano. Cisza jest tu jedynym bledem, ktorego ta zakladka
+   nie wybacza — ta sama zasada co przy zrodlach spolecznosci (§5an pozycja 60).
+
+### Kontrakt — `mc.revisionSweep`
+
+```json
+"revisionSweep":{
+  "readOn":"2026-09-16","method":"deltapulse+index",
+  "window":{"from":"2026-09-02","to":"2026-09-16"},
+  "indexPages":2,"indexRead":400,"indexTotal":2458,
+  "reported":[{"id":"MC1426371","revisedOn":"2026-09-15","source":"deltapulse","held":true},
+              {"id":"MC1413308","revisedOn":"2026-09-16","source":"deltapulse","held":true}],
+  "missed":[{"id":"MC1309746","revisedOn":"2026-09-02",
+             "reason":"revised inside the window but outside every page of the index this run read, and no item on this page cites it"}],
+  "note":""
+}
+```
+
+- **`source`** slownik ZAMKNIETY: `deltapulse` · `index` · `item`.
+- **`held:true`** znaczy, ze ten identyfikator jest w `mc.entries[]` TEGO przebiegu. Kazdy
+  `held:false` ma swoj wiersz w `missed` z POWODEM — liczba bez nazw odpowiada na pytanie ILE,
+  a nie na pytanie CO (§3a, §5an).
+- **`reported` puste przy niepustym `items` jest BLEDEM**, nie cichym dniem: zero porownan to nie
+  jest zbior bez rewizji, tylko zbior, ktorego nie przeczytano (ta sama pulapka co pusty zbior
+  w pozycjach 23, 32 i 89).
+- Zrodlo niedostepne w przebiegu — DeltaPulse bez odpowiedzi — daje `method:"index"` i **niepusty
+  `note`** z nazwa zrodla; MCP, ktorego nie ma, jest zrodlem zdegradowanym, nigdy powodem
+  zatrzymania przebiegu (§5v).
+
+### Gdzie to widac
+
+W sekcji `mc-sources` zakladki, jako dwa dodatkowe wiersze tabeli kompletnosci: **„zrewidowanych
+w oknie wedlug DeltaPulse"** i **„z tego trzymanych przez ten brief"**, a pod tabela lista tych,
+ktorych nie trzyma, z powodem. Wiersz, ktory mowi `61 / 36`, jest uczciwy; wiersz, ktorego nie ma,
+mowi czytelnikowi, ze indeks jest kompletny, a nie jest.
+
+Pozycja **92** listy §0 pilnuje tego kodem. **Nie zada, zeby `missed` bylo puste** — zada, zeby
+zbior zostal PRZECZYTANY i zeby kazdy nietrzymany identyfikator byl nazwany z powodem. Asercja
+zadajaca zera zapalilaby sie pierwszego dnia, zanim ktokolwiek zdazyl zmierzyc pokrycie, a asercja
+zapalajaca sie na poprawnym przebiegu uczy, ze czerwone nic nie znaczy (§0b). Do klasy A przechodzi
+w dniu, w ktorym `missed` bedzie puste w dwoch przebiegach z rzedu — tak samo jak pozycja 89.
 
 ### Cztery sekcje zakladki `tab-mc`
 
