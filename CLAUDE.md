@@ -1353,9 +1353,15 @@ def gate(path, site=None, mirror=False, doc=None):
             today=(st["soc-brief-state"] or {}).get("briefDate") or _d2.date.today().isoformat()
             oldest=min((e.get("seen","") for e in ent), default=today)
             too_old=(_d2.date.fromisoformat(today)-_d2.date.fromisoformat(oldest)).days > ret if oldest else False
+            # KIND ZE SLOWNIKA, bo `runs` sa deduplikowane po parze (data, kind): przebieg
+            # z blednym albo brakujacym rodzajem NADPISUJE wpis innego przebiegu tego dnia
+            # i dzien z dwoma przebiegami wyglada jak dzien z jednym (§5aj, 16 wrzesnia 2026).
+            KINDS45 = ("morning","afternoon","diff")
+            badk = [r.get("kind") for r in runs if r.get("date")==today and r.get("kind") not in KINDS45]
             need("45","rejestr zmian dopisany, wpis runs na dzis, nic starszego niz retencja",
-                 any(r.get("date")==today for r in runs) and not too_old,
+                 any(r.get("date")==today for r in runs) and not too_old and not badk,
                  "runs bez dzisiejszej daty %s" % today if not any(r.get("date")==today for r in runs)
+                 else ("dzisiejsze wpisy runs z rodzajem spoza slownika: %s" % badk[:3]) if badk
                  else "najstarszy wpis %s przy retencji %d dni" % (oldest,ret))
             if not _os.path.exists(prev_p):
                 need("47","rejestr nie przepisany",False,
@@ -1701,14 +1707,22 @@ def gate(path, site=None, mirror=False, doc=None):
     # 14 wrzesnia 2026: pasek buduje SKRYPT 15 v2 (§5aw), ten sam na CALYM portalu.
     # Stary blok §5au zostal usuniety z tego pliku i ze strony — dwa paski nad jedna
     # zakladka to dwie kontrolki jednego stanu (§5am, §5an).
+    # Stary pasek §5au poznaje sie po jego REGULE W ARKUSZU, nie po nazwie klasy.
+    # Nazwa klasy jest slowem i trafia do HTML takze z komentarza — 16 wrzesnia 2026
+    # jeden komentarz w bloku CSS §5aw zapalil pozycje 74 i 82 na poprawnej stronie,
+    # a przebieg musial przeredagowac komentarz zamiast publikowac. Regula `…{` nie
+    # powstaje w prozie: zeby zapalic ten klucz, trzeba naprawde wrocic stary arkusz.
+    # Skladamy ja ze znakow, zeby TEN plik takze jej nie niosl doslownie (0c: bramka
+    # porownuje swoj wlasny kod ze strona, wiec literal tutaj wrocilby na strone).
+    OLDBAR = "details.s15" + "bar{"
     K74 = ("SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS",
            "details.ntfbar", "function buildDims(", "function buildPanel(", "function tablesOf(",
            ".ntfpop{display:none;position:fixed", "window.__socFilterBus",
            "function mountEverywhere(", "ntfbtn", "ntfopt", "ntfsum")
     need("74", "Advanced filtering: jeden pasek na zakladke, kazda kolumna osiagalna (§5aw)",
-         all(k in h for k in K74) and "details.s15bar" not in h,
+         all(k in h for k in K74) and OLDBAR not in h,
          ("stary pasek §5au nadal na stronie — dwa paski nad jedna zakladka"
-          if "details.s15bar" in h else "brak: %s" % ", ".join(k for k in K74 if k not in h)))
+          if OLDBAR in h else "brak: %s" % ", ".join(k for k in K74 if k not in h)))
     K75 = (".tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}",)
     need("75", "najechanie podswietla CALY wiersz, takze parzysty (§5au)",
          all(k in h for k in K75),
@@ -1790,8 +1804,8 @@ def gate(path, site=None, mirror=False, doc=None):
     K82 = ("SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS", "details.ntfbar", ".ntfon",
            "function mountEverywhere(", "details.ntsec", "nt-changes", "nt-sources")
     need("82", "SKRYPT 15 v2 buduje obie zakladki i JEDEN pasek na caly portal (§5aw)",
-         all(k in h for k in K82) and "details.s15bar" not in h,
-         ("stary pasek §5au nadal na stronie" if "details.s15bar" in h
+         all(k in h for k in K82) and OLDBAR not in h,
+         ("stary pasek §5au nadal na stronie" if OLDBAR in h
           else "brak: %s" % ", ".join(k for k in K82 if k not in h)))
 
     # ---- 83: zakladka Component versions ma KSZTALT, nie tylko dane (§5ag) ----
@@ -2561,28 +2575,45 @@ Slownik stanow jest ZAMKNIETY, jak kazdy inny slownik w tym pliku:
 **Wpis `ZBUDOWANE` usuwa sie z rejestru dopiero wtedy, gdy jego pozycja bramki istnieje i przeszla
 co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo sie zakwestionowac.
 
+**PRZEBIEG, KTORY COS ZBUDOWAL, PROMUJE TO W TYM SAMYM PRZEBIEGU.** Stan w tej tabeli zmienia ten,
+kto opublikowal artefakt niosacy uzgodniona rzecz i zobaczyl jej pozycje bramki na zielono —
+nie nastepny przebieg i nie wlasciciel. Zmierzone 16 wrzesnia 2026: **17 z 18 wpisow nadal mowilo
+`ZASPECYFIKOWANE` przy „Brakuje pierwszego opublikowanego artefaktu", podczas gdy strona tego dnia
+niosla je wszystkie**, a bramka zglaszala pozycje 80-91 jako OK. Wlasciciel musial to zauwazyc sam,
+czyli rejestr — ktory istnieje po to, zeby cisza o rzeczy uzgodnionej nie wygladala jak jej brak —
+zaczal klamac w druga strone: mowil o braku tam, gdzie braku juz nie bylo. **Rejestr, ktoremu nie
+mozna wierzyc w obie strony, nie jest rejestrem.**
+
+Promocja ma dwa warunki i oba musza byc spelnione w tym samym przebiegu:
+**(1)** rzecz jest w artefakcie, ktory ten przebieg wlasnie opublikowal albo odbil, oraz
+**(2)** pozycja listy §0, ktora jej pilnuje, dala `OK` — z numeru, a nie „chyba przeszlo".
+Kolumna `co brakuje` zamienia sie wtedy w **dowod**: numer pozycji i data przebiegu. Rzecz
+zbudowana, ktorej zadna pozycja nie pilnuje, **nie jest `ZBUDOWANE`** — jest `ZASPECYFIKOWANE`
+z powodem „brakuje pozycji bramki", bo bez niej jutro nie da sie odroznic dzialajacej funkcji
+od tej, ktora po cichu wypadla (§0b).
+
 ### Rejestr
 
 | id | co uzgodniono | uzgodnione | stan | co brakuje |
 |---|---|---|---|---|
-| `tab-learn` | zakladka **`Microsoft Learn`** wedlug makiety z 12 wrzesnia 2026 — zmiany `what's new` per obszar jako TRESC, pokrycie obszarow, strony ze zmiana tekstu, korelacja z blogami; sekcje `nt-changes` `nt-older` `nt-coverage` `nt-pages` `nt-corr-learn` | 2026-09-11 | `ZASPECYFIKOWANE` | §5aw niesie markup, kontrakt `nt`, cztery kolektory, arkusz i SKRYPT 15 v2; `CANON_PANELS`, §2 oraz poz. 3, 26, 58, 80-82 juz o niej wiedza. Zostaje jedno: **zaden opublikowany artefakt jeszcze jej nie niosl** |
-| `tab-blogs` | zakladka **`Microsoft Blogs`** wedlug tej samej makiety — 28 blogow produktowych, wybor dnia, wszystkie artykuly okna, jeden wiersz na blog z powodem przy braku; sekcje `nt-top` `nt-posts` `nt-sources` `nt-corr-blogs` | 2026-09-11 | `ZASPECYFIKOWANE` | jak wyzej — kod i kontrakt sa w §5aw, brakuje tylko pierwszego opublikowanego artefaktu |
-| `storyLinks` | powiazanie ruchu w dokumentacji z ruchem na blogach | 2026-09-11 | `ZASPECYFIKOWANE` | makieta z 12 wrzesnia rozwiazala to inaczej niz plan: zamiast przelacznika `By source`/`By story` sa sekcje `nt-corr-learn` i `nt-corr-blogs` z kluczem `nt.corr` (produkt, obszary, strony, linie, artykuly 14 dni, `both`). **Kolumny `Lead` w dniach nie ma** i to jest swiadome: wyprzedzenie liczone po dacie commita lustra klamie o tyle, o ile lustro sie spoznia (§5ar) |
-| `docsdiff` | sekcja strony zmian: obszary Learn, ktorym ruszyl sie tekst — strony NAZWANE z tytulem i linkiem, porownywane po commicie, plus zmiany `what's new` dodane i usuniete | 2026-09-11 | `ZASPECYFIKOWANE` | `make_diff.py` niesie sekcje `docsdiff` i wiersz `Microsoft Learn` w `bytab` (§3, §5aw); brakuje pierwszego przebiegu, ktory ma dwa stany z kluczem `nt` do porownania |
-| `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZASPECYFIKOWANE` | `make_diff.py` niesie sekcje `blogsdiff` i wiersz `Microsoft Blogs` w `bytab`; jak wyzej — brakuje punktu odniesienia |
-| `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZASPECYFIKOWANE` | klucz `nt.jsons` w §5aw niesie wszystkie trzy listy (31 / 28 / 55) z data ostatniej zmiany pliku w gicie; ramke rysuje SKRYPT 15 v2 |
+| `tab-learn` | zakladka **`Microsoft Learn`** wedlug makiety z 12 wrzesnia 2026 — zmiany `what's new` per obszar jako TRESC, pokrycie obszarow, strony ze zmiana tekstu, korelacja z blogami; sekcje `nt-changes` `nt-older` `nt-coverage` `nt-pages` `nt-corr-learn` | 2026-09-11 | `ZBUDOWANE` | artefakt z 16 wrzesnia 2026 niesie panel `tab-learn`, a przebieg tego dnia zglosil pozycje 80, 81 i 82 jako OK. Pilnuja tego pozycje 3, 26, 58 i 80-82 listy §0 |
+| `tab-blogs` | zakladka **`Microsoft Blogs`** wedlug tej samej makiety — 28 blogow produktowych, wybor dnia, wszystkie artykuly okna, jeden wiersz na blog z powodem przy braku; sekcje `nt-top` `nt-posts` `nt-sources` `nt-corr-blogs` | 2026-09-11 | `ZBUDOWANE` | jak wyzej — panel `tab-blogs` w artefakcie z 16 wrzesnia 2026, pozycje 80-82 OK |
+| `storyLinks` | powiazanie ruchu w dokumentacji z ruchem na blogach | 2026-09-11 | `ZBUDOWANE` | sekcje `nt-corr-learn` i `nt-corr-blogs` buduje SKRYPT 15 v2 z klucza `nt.corr`, obie w artefakcie z 16 wrzesnia 2026; pilnuje tego pozycja 82. **Kolumny `Lead` w dniach nie ma** i to jest swiadome: wyprzedzenie liczone po dacie commita lustra klamie o tyle, o ile lustro sie spoznia (§5ar) |
+| `docsdiff` | sekcja strony zmian: obszary Learn, ktorym ruszyl sie tekst — strony NAZWANE z tytulem i linkiem, porownywane po commicie, plus zmiany `what's new` dodane i usuniete | 2026-09-11 | `ZBUDOWANE` | sekcja `docsdiff` i wiersz `Microsoft Learn` w `bytab` sa na stronie zmian z 16 wrzesnia 2026; `verify()` w `make_diff.py` przeszlo, a pozycja 34 listy §0 tego pilnuje |
+| `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZBUDOWANE` | sekcja `blogsdiff` i wiersz `Microsoft Blogs` w `bytab` — jak wyzej, pozycja 34 |
+| `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZBUDOWANE` | klucz `nt.jsons` niesie wszystkie trzy listy z data ostatniej zmiany PLIKU, ramke rysuje SKRYPT 15 v2; pozycja 85 listy §0 zglosila OK 16 wrzesnia 2026 |
 | `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
-| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. `verify()` ma asercje „pasek skrotow rowna sie licznikowi sekcji". Brakuje pierwszej opublikowanej strony zmian z ta wersja skryptu |
-| `mc-on-brief` | **Message Center jest WYMIAREM, nie zrodlem** — kolumna `Message Center` w Overview, Today i New, plus WLASNA zakladka `tab-mc` z pelnym widokiem, a w kazdej z nich **mapowanie miedzy wpisem MC a strona Learn i artykulem blogowym**, zeby widac bylo, co Microsoft oglosil i gdzie to opisal | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: Overview + Today + New + osobna zakladka, i do tego mapowanie.** §5az niesie kontrakt `mc`, slowniki `origin` i `seenIn`, klucz `storyKey`, markup czterech sekcji, arkusz i SKRYPT 16; `CANON_PANELS`, §2 oraz pozycje 3, 26, 58, 90 i 91 juz o niej wiedza. Zostaje jedno: **zaden opublikowany artefakt jeszcze jej nie niosl** |
-| `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: jedna funkcja.** §5bb wprowadza `window.__socFileBlock` jako jedyny renderer; `lineBox()` ze SKRYPTU 15 v2 i jego rodzina CSS `.ntdiff*` sa USUNIETE, `make_diff.py` znaczy kazdy blok `data-ntowner`, a pozycje 88a i 88b to mierza. Brakuje pierwszego opublikowanego przebiegu |
-| `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `ZASPECYFIKOWANE` | artefakt przeczytany 16 wrzesnia i rozlozony na szesc dzialan: 1 i 2 (dowod pod wierszem, `+` przy pozycji) sa w §3 punkt 15 od 12 wrzesnia; 3 (sekcje zwiniete) w §3 punkt 14; 4 (Message Center jako widok) w `mc_view()`; 6 (jedna lista paneli) w `CANON_PANELS`. **Zostawalo dzialanie 5 — ten sam renderer zmiany tekstu w zakladce Learn — i to dowozi §5bb.** Brakuje pierwszego przebiegu z komplet |
-| `merge-sources` | **konsolidacja zrodel wokol JEDNEJ zmiany** — pozycja o SMS w Entra ID pokazuje obok siebie swoja strone Learn, wpis Message Center i artykul blogowy, w jednej tabeli, tak zeby dalo sie je znalezc razem rano i w diffie | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: kluczem jest numer MC/RM, a gdy go nie ma — adres strony Learn; widok jest rozwijany `+`, tak jak w istniejacych sekcjach.** §5az niesie `storyKey`, tablice `mc.map[]` i sekcje `mc-map`, a pozycja 91 sprawdza, ze klucz naprawde laczy trzy zrodla. Brakuje pierwszego opublikowanego artefaktu |
-| `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: zmierz i od razu zaimplementuj.** §5ba mowi, skad pochodzi data zrodla kazdej z czterech rodzin, wprowadza kontrakt `dateAudit` z budzetem odczytow, sekcje `<section id="dateaudit">` w Sources i pozycje 89 — swiadomie KLASY B, bo asercja klasy A zapalilaby sie pierwszego dnia i zatrzymala publikacje; przechodzi do klasy A, gdy `dateAudit.mismatch` jest puste dwa przebiegi z rzedu. Brakuje pierwszego pomiaru na zywych danych |
-| `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: mierz i od razu napraw.** §5bb nadaje kazdemu blokowi `data-ntowner` z nazwa sekcji, ktora go zamowila, `window.__socAuditOwners()` znajduje sierote i maluje ja `.s12orphan`, a pozycja 88b sprawdza obecnosc obu zaczepow. Brakuje pierwszego przebiegu |
-| `bytab-open` | **`What changed, by tab` i `What changed, by technology` otwarte, gdy cokolwiek sie ruszylo** | 2026-09-16 | `ZASPECYFIKOWANE` | §3 punkt 14 mowi to od 11 wrzesnia, a `verify()` odrzuca kazda INNA otwarta sekcje. Wlasciciel widzi je zwiniete, bo opublikowana strona zmian pochodzi sprzed tej wersji skryptu — brakuje przebiegu, nie reguly |
-| `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, pozycja 85 lapie sygnature plytkiego klonu. Brakuje pierwszego przebiegu z ta wersja kolektora |
-| `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach) i pozycja 86. Brakuje pierwszego opublikowanego artefaktu zbudowanego z kolektora |
-| `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate`. Brakuje pierwszego przebiegu |
+| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. **16 wrzesnia 2026 wieczorem wlasciciel pokazal, ze populacja NADAL byla niepelna**: sekcja drukowala `+0 / −0`, a podsumowanie tego samego przebiegu nazywalo dwa ruszone wpisy — `MC1426371` zrewidowane 15 wrzesnia i `MC1413308` odwolane. Dwie luki: indeks byl porownywany po samej OBECNOSCI klucza, a petla po pozycjach chodzila po `added` i `removed`, nie po `changed`. Obie zamkniete tego wieczoru (`mcChg`, trzeci rodzaj wiersza, asercja `verify()` „kazdy cytowany MC ma wiersz”). **Brakuje pierwszej strony zmian z ta wersja skryptu** — i tym razem wiadomo, czego szukac |
+| `mc-on-brief` | **Message Center jest WYMIAREM, nie zrodlem** — kolumna `Message Center` w Overview, Today i New, plus WLASNA zakladka `tab-mc` z pelnym widokiem, a w kazdej z nich **mapowanie miedzy wpisem MC a strona Learn i artykulem blogowym**, zeby widac bylo, co Microsoft oglosil i gdzie to opisal | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: Overview + Today + New + osobna zakladka, i do tego mapowanie.** §5az niesie kontrakt `mc`, slowniki `origin` i `seenIn`, klucz `storyKey`, markup czterech sekcji, arkusz i SKRYPT 16; artefakt z 16 wrzesnia niesie panel `tab-mc`, a pozycje 90a, 90b, 90c i 91 zglosily OK. Wieczorem tego dnia doszlo `revisedOn`: `mc-today` wybieralo po `firstTracked` i `published`, wiec rewizja wpisu sprzed dwoch miesiecy — `MC1426371` z druga data wycofania SMS — nie miala jak sie pokazac |
+| `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: jedna funkcja.** `window.__socFileBlock` jest jedynym rendererem, `lineBox()` i rodzina `.ntdiff*` usuniete, `make_diff.py` znaczy kazdy blok `data-ntowner`; pozycje 88a i 88b zglosily OK 16 wrzesnia 2026 |
+| `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `ZBUDOWANE` | artefakt przeczytany 16 wrzesnia i rozlozony na szesc dzialan: 1 i 2 (dowod pod wierszem, `+` przy pozycji) w §3 punkt 15; 3 (sekcje zwiniete) w §3 punkt 14; 4 (Message Center jako widok) w `mc_view()`; 5 (jeden renderer zmiany tekstu) w §5bb; 6 (jedna lista paneli) w `CANON_PANELS`. Wszystkie szesc w przebiegu z 16 wrzesnia 2026, pilnuja ich pozycje 34, 88a, 88b i 3 |
+| `merge-sources` | **konsolidacja zrodel wokol JEDNEJ zmiany** — pozycja o SMS w Entra ID pokazuje obok siebie swoja strone Learn, wpis Message Center i artykul blogowy, w jednej tabeli, tak zeby dalo sie je znalezc razem rano i w diffie | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: kluczem jest numer MC/RM, a gdy go nie ma — adres strony Learn; widok jest rozwijany `+`.** §5az niesie `storyKey`, tablice `mc.map[]` i sekcje `mc-map`; pozycja 91 zglosila OK 16 wrzesnia 2026 |
+| `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: zmierz i od razu zaimplementuj.** §5ba, kontrakt `dateAudit`, sekcja `<section id="dateaudit">` w Sources i pozycja 89 — OK w przebiegu z 16 wrzesnia 2026. **Pozycja zostaje KLASY B**, a do klasy A przechodzi dopiero, gdy `dateAudit.mismatch` bedzie puste w dwoch przebiegach z rzedu; to jest osobne uzgodnienie, nie brak budowy |
+| `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: mierz i od razu napraw.** Kazdy blok niesie `data-ntowner`, `window.__socAuditOwners()` znajduje sierote i maluje ja `.s12orphan`; pozycja 88b zglosila OK 16 wrzesnia 2026 |
+| `bytab-open` | **`What changed, by tab` i `What changed, by technology` otwarte, gdy cokolwiek sie ruszylo** | 2026-09-16 | `ZBUDOWANE` | §3 punkt 14, a `verify()` odrzuca kazda INNA otwarta sekcje; strona zmian z 16 wrzesnia 2026 przeszla `verify()`, ktorego pilnuje pozycja 34 |
+| `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZBUDOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, a pozycja 85 lapie sygnature plytkiego klonu — OK w przebiegu z 16 wrzesnia 2026 |
+| `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZBUDOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach); pozycja 86 zglosila OK 16 wrzesnia 2026 |
+| `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate` — OK w przebiegu z 16 wrzesnia 2026 |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -3247,14 +3278,39 @@ w chip, ale i w `<tr class="t0">`, malujac caly wiersz na rozowo (teraz `span.t0
 Zapisz do `/tmp/make_diff.py` i uruchom:
 
 ```
-python3 /tmp/make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label "..."] [--ledger site/data/changelog.json]
+python3 /tmp/make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label "..."] \
+        [--ledger site/data/changelog.json --kind morning|afternoon|diff] [--ledger-only]
 ```
 
-**`--ledger` jest OBOWIAZKOWA w obu przebiegach dnia** (§5aj). Ta sama funkcja, ktora liczy strone,
-dopisuje rejestr 14-dniowy; przed dopisaniem kopiuje `changelog.json` do `changelog.prev.json`,
-zeby pozycja 47 listy §0 miala z czym porownac. Zmierzone: dopisanie tych samych dwoch stanow
-drugi raz tego samego dnia daje **+0 wpisow** (deduplikacja po `(seen, tab, kind, id, field)`),
-a pusty rejestr powstaje sam przy pierwszym uruchomieniu.
+**`--ledger` jest OBOWIAZKOWA we WSZYSTKICH CZTERECH przebiegach dnia** (§5aj) — takze w tych
+dwoch, ktore strony zmian nie publikuja. Ta sama funkcja, ktora liczy strone, dopisuje rejestr
+14-dniowy; przed dopisaniem kopiuje `changelog.json` do `changelog.prev.json`, zeby pozycja 47
+listy §0 miala z czym porownac. Zmierzone: dopisanie tych samych dwoch stanow drugi raz tego
+samego dnia daje **+0 wpisow** (deduplikacja po `(seen, tab, kind, id, field)`), a pusty rejestr
+powstaje sam przy pierwszym uruchomieniu.
+
+**Przebieg, ktory strony zmian nie buduje, dopisuje rejestr trybem `--ledger-only`:**
+
+```
+python3 /tmp/make_diff.py site/data/<wczoraj>.json site/data/<dzis>.json \
+        --ledger-only --ledger site/data/changelog.json --kind morning
+```
+
+Zmierzone 16 wrzesnia 2026 w repozytorium: **`site/data/changelog.json` nie mial ani jednego wpisu
+z tego dnia**, a przebieg musial odbudowac go u siebie z porannej strony. Przyczyna nie byla
+w skrypcie — **byla w tym zdaniu.** Mowilo „w obu przebiegach dnia", a rejestr umie zapisac
+WYLACZNIE `make_diff.py`, ktory w dwoch porannych przebiegach nie jest uruchamiany wcale; wpis
+powstawal wiec dopiero o 22:00 i kazda godzina wczesniej widziala dzien bez przebiegu. To jest
+ta sama choroba co §5ae: regula opisana proza obok kodu, ktory jej nie realizuje, czyta sie jak
+zrobiona. **Tryb `--ledger-only` pomija `build()` i `verify()`, wiec kosztuje ulamek sekundy
+i nie ma jak zablokowac publikacji**, a rejestr dostaje wpis `runs` z wlasciwym `kind` w tym
+przebiegu, ktory go wypracowal.
+
+**`--kind` jest WYMAGANY razem z `--ledger` i pochodzi ze slownika `morning` · `afternoon` ·
+`diff`.** Do 16 wrzesnia 2026 wyliczal sie z flagi NAWIGACYJNEJ `--home`, wiec pass popoludniowy
+zapisal sie jako `morning` — a `runs` sa deduplikowane po parze (data, kind), wiec **drugi
+przebieg dnia nadpisywal wpis pierwszego** i dzien z dwoma przebiegami wygladal jak dzien
+z jednym. Rodzaj przebiegu wie tylko ten, kto go uruchomil.
 
 **Kod wyjscia 1 znaczy NIE PUBLIKUJ** — wbudowana bramka `verify()` odrzuca strone, ktora ma
 zakladki, kontener katalogu, blok JSON, brak ktorejs z czterech sekcji, brak linku powrotnego,
@@ -3449,6 +3505,10 @@ def diff_components(prev, curr):
 # na pytanie ILE, nie na pytanie CO - ten sam blad, ktory §3a naprawilo dla zakladek.
 SOURCE_FIELDS = [("status","Status"),("method","Read by"),("page","Page read"),
                  ("fresh","Freshness"),("items","Items"),("newestDate","Newest article")]
+# Pola wpisu Message Center, ktorych ruch jest ZMIANA. `action` pierwsze, bo przesuniety
+# albo dopisany termin jest jedynym powodem, dla ktorego ktos czyta te sekcje o 22:00.
+MC_FIELDS = [("action","Action required by"),("date","Published"),("title","Title"),
+             ("summary","Summary"),("link","Link")]
 
 def diff_community(prev_st, curr_st):
     """Zwraca slownik roznic. Pierwszy przebieg z `community` w stanie NIE oglasza
@@ -3461,7 +3521,8 @@ def diff_community(prev_st, curr_st):
                 "items": len(cc.get("items") or []), "mc": len(cc.get("messageCenter") or []),
                 "messageCenter": list(cc.get("messageCenter") or []),
                 "srcAdd": [], "srcRem": [], "srcRen": [], "srcChg": [],
-                "artAdd": [], "artRem": [], "mcAdd": [], "mcRem": [], "listNotes": []}
+                "artAdd": [], "artRem": [], "mcAdd": [], "mcRem": [], "mcChg": [],
+                "listNotes": []}
     ps = {x.get("name"): x for x in (pc.get("sources") or []) if x.get("name")}
     cs = {x.get("name"): x for x in (cc.get("sources") or []) if x.get("name")}
     # przemianowanie rozpoznajemy po ADRESIE: gdy URL zostal, a nazwa sie zmienila, to JEDEN
@@ -3490,6 +3551,23 @@ def diff_community(prev_st, curr_st):
     cm = {x.get("id"): x for x in (cc.get("messageCenter") or []) if x.get("id")}
     mcAdd = [cm[k] for k in cm if k not in pm]
     mcRem = [pm[k] for k in pm if k not in cm]
+    # WPIS ZREWIDOWANY TO TEZ RUCH. Do 16 wrzesnia 2026 indeks byl porownywany
+    # WYLACZNIE po obecnosci klucza, wiec Microsoft mogl dopisac do MC1426371 druga
+    # date wycofania SMS i polaczen glosowych — 1 lipca 2027 dla Global Adminow
+    # i uzytkownikow zewnetrznych obok 1 lutego 2027 dla reszty — a ta sekcja
+    # liczyla to jako ZERO, bo identyfikator byl w indeksie juz w lipcu. Zmierzone
+    # tego dnia na opublikowanej stronie zmian: podsumowanie przebiegu nazywalo
+    # z imienia DWA ruszone wpisy MC, a sekcja drukowala `+0 / -0`. To ta sama
+    # choroba co 12 wrzesnia (§3 punkt 11) — dwa prawdziwe zdania, ktore razem sa
+    # nonsensem — naprawiona wtedy dla jednej z trzech luk i zostawiona w dwoch.
+    mcChg = []
+    for k in cm:
+        if k not in pm: continue
+        d = [(lab, norm(pm[k].get(f)), norm(cm[k].get(f)))
+             for f, lab in MC_FIELDS if norm(pm[k].get(f)) != norm(cm[k].get(f))]
+        if d: mcChg.append((cm[k], d))
+    # termin, ktory sie ruszyl, jest najwazniejszym wierszem tej sekcji
+    mcChg.sort(key=lambda t: 0 if any(l == "Action required by" for l, a, b in t[1]) else 1)
     # wpis z terminem idzie na gore - to po niego czyta sie te sekcje
     mcAdd.sort(key=lambda x: (0 if norm(x.get("action")) else 1, norm(x.get("date"))), reverse=False)
     notes = []
@@ -3498,7 +3576,8 @@ def diff_community(prev_st, curr_st):
         for row in ((cc.get("listDiff") or {}).get(key) or []):
             notes.append((kind, " · ".join(str(x) for x in row)))
     return {"baseline": False, "srcAdd": srcAdd, "srcRem": srcRem, "srcRen": ren, "srcChg": srcChg,
-            "artAdd": artAdd, "artRem": artRem, "mcAdd": mcAdd, "mcRem": mcRem, "listNotes": notes,
+            "artAdd": artAdd, "artRem": artRem, "mcAdd": mcAdd, "mcRem": mcRem,
+            "mcChg": mcChg, "listNotes": notes,
             "messageCenter": list(cm.values()),
             "sources": len(cs), "items": len(ca), "mc": len(cm)}
 
@@ -3506,7 +3585,7 @@ def diff_community(prev_st, curr_st):
 
 MCREF = re.compile(r"^\s*(MC|RM)\d+", re.I)
 
-def mc_view(com, added, removed):
+def mc_view(com, added, removed, changed):
     """Wiersze sekcji Message Center — WIDOK, nie druga populacja.
 
     Wlasciciel, 12 wrzesnia 2026: wiersz Teams mowil „Message Center, opublikowane
@@ -3522,20 +3601,38 @@ def mc_view(com, added, removed):
     rozsypane po trzech sekcjach. Pozycja cytujaca MC jest nadal liczona w SWOJEJ
     zakladce (§3a, jeden dom na pozycje), a zeby nie policzyc jej drugi raz, kafelki
     sumaryczne pomijaja te sekcje tak samo, jak pomijaja endpointy."""
-    rows, seen = [], set()
-    def put(kind_, mid, title, link, tech, action, date, origin, it=None):
+    rows, bykey = [], {}
+    def put(kind_, mid, title, link, tech, action, date, origin, it=None, deltas=None):
         key = (kind_, norm(mid).upper())
-        if not mid or key in seen: return
-        seen.add(key)
-        rows.append({"kind": kind_, "id": norm(mid), "title": norm(title), "link": norm(link),
-                     "tech": tech or [], "action": norm(action), "date": norm(date),
-                     "origin": origin, "item": it})
+        if not mid: return
+        if key in bykey:
+            # JEDEN IDENTYFIKATOR, JEDEN WIERSZ — ale nie kosztem zgubienia drugiej
+            # drogi, ktora sie ruszyl. Do 16 wrzesnia 2026 drugie wystapienie bylo
+            # po prostu odrzucane, wiec `MC1426371` zrewidowane w indeksie I dopisane
+            # do `reference` pozycji na tej stronie mowilo w kolumnie pochodzenia
+            # wylacznie „Message Center index", a fakt, ze wiersz briefu wlasnie
+            # przestal mowic „Learn only", znikal. To jest to samo ciche gubienie,
+            # przed ktorym ta sekcja stoi — tylko o jeden poziom nizej.
+            r = bykey[key]
+            if origin in ("item", "gained") and r["origin"] == "index":
+                r["origin"] = origin if origin == "gained" else "both"
+            if it and not r.get("item"): r["item"] = it
+            if deltas and not r.get("deltas"): r["deltas"] = deltas
+            return
+        row = {"kind": kind_, "id": norm(mid), "title": norm(title), "link": norm(link),
+               "tech": tech or [], "action": norm(action), "date": norm(date),
+               "origin": origin, "item": it, "deltas": deltas or []}
+        bykey[key] = row
+        rows.append(row)
     for x in (com.get("mcAdd") or []):
         put("added", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
             x.get("action"), x.get("date"), "index")
     for x in (com.get("mcRem") or []):
         put("removed", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
             x.get("action"), x.get("date"), "index")
+    for x, d in (com.get("mcChg") or []):
+        put("changed", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
+            x.get("action"), x.get("date"), "index", None, d)
     idx = {norm(x.get("id")).upper() for x in ((com.get("messageCenter") or []))}
     for kind_, lst in (("added", added), ("removed", removed)):
         for i_ in lst:
@@ -3546,8 +3643,31 @@ def mc_view(com, added, removed):
                 [norm(i_.get("product"))] if i_.get("product") else [],
                 i_.get("deadline"), i_.get("published"),
                 "item" if mid not in idx else "both", i_)
+    # POZYCJA, KTOREJ RUSZYLO SIE POLE, TEZ RUSZYLA SWOJE MC. Do 16 wrzesnia 2026 ta
+    # petla chodzila po `added` i `removed`, a NIE po `changed` — wiec pozycja, ktorej
+    # `reference` poprawiono z „no MC/RM post — Learn only" na `MC1426371`, nie miala
+    # tu wiersza. Zmierzone tego dnia: przebieg nazwal te poprawke w swoim wlasnym
+    # podsumowaniu, a sekcja obok mowila `+0 / -0`. Identyfikator bierzemy z OBU stron
+    # zmiany, bo MC potrafi zarowno przyjsc do wiersza, jak i z niego odejsc, a jedno
+    # i drugie jest ruchem tego identyfikatora na tej stronie.
+    for i_, deltas in (changed or []):
+        refs, gained = [], False
+        for lab, before, after in deltas:
+            if lab != "Reference": continue
+            for side, v in (("before", before), ("after", after)):
+                if MCREF.match(norm(v)): refs.append(MCREF.match(norm(v)).group(0).strip().upper())
+            if MCREF.match(norm(after)) and not MCREF.match(norm(before)): gained = True
+        cur = norm(i_.get("reference"))
+        if MCREF.match(cur): refs.append(MCREF.match(cur).group(0).strip().upper())
+        for mid in refs:
+            put("changed", mid, i_.get("officialTitle") or i_.get("title"), i_.get("url"),
+                [norm(i_.get("product"))] if i_.get("product") else [],
+                i_.get("deadline"), i_.get("published"),
+                ("gained" if gained else ("item" if mid not in idx else "both")), i_,
+                [(l, b, a) for l, b, a in deltas])
     # wpis z terminem idzie na gore — to po niego czyta sie te sekcje
-    rows.sort(key=lambda r: (0 if r["action"] else 1, r["kind"] != "added", r["id"]))
+    ORDER = {"added": 0, "changed": 1, "removed": 2}
+    rows.sort(key=lambda r: (0 if r["action"] else 1, ORDER.get(r["kind"], 3), r["id"]))
     return rows
 
 def diff_doctext(prev_st, curr_st):
@@ -5300,10 +5420,11 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     NT = diff_nt(prev_st, curr_st)
     DOCMAP = doc_pages(curr_st)
 
-    MCV = [] if com.get("baseline") else mc_view(com, added, removed)
+    MCV = [] if com.get("baseline") else mc_view(com, added, removed, changed)
     mcv_add = len([r for r in MCV if r["kind"] == "added"])
     mcv_rem = len([r for r in MCV if r["kind"] == "removed"])
-    mcv_item = len([r for r in MCV if r["origin"] == "item"])
+    mcv_chg = len([r for r in MCV if r["kind"] == "changed"])
+    mcv_item = len([r for r in MCV if r["origin"] in ("item", "gained")])
     added.sort(key=wkey); removed.sort(key=wkey)
     changed.sort(key=lambda t: wkey(t[0]))
     dl_moved = [(i, d) for i, d in changed if any(l == "Deadline" for l, _, _ in d)]
@@ -5527,7 +5648,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 if nm and nm not in seen_b: seen_b.append(nm)
             ar = " &middot; ".join(esc(x) for x in seen_b[:8]) or "&mdash;"
         elif tab == "Message Center":
-            na, nr, nc = mcv_add, mcv_rem, 0
+            na, nr, nc = mcv_add, mcv_rem, mcv_chg
             seen_t = []
             for x in MCV:
                 for t2 in (x.get("tech") or []):
@@ -5887,14 +6008,31 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                   if r["link"] else esc(r["title"])
             ORIG = {"index": "Message Center index",
                     "item":  "cited by an item on this page, not in the index we read",
-                    "both":  "index and an item on this page"}
+                    "both":  "index and an item on this page",
+                    "gained": "an item on this page gained this reference \u2014 until this run "
+                              "that row said there was no MC or RM post"}
+            WHAT = {"added": '<ins>added</ins>', "removed": '<del>removed</del>',
+                    "changed": '<span class="field">revised</span>'}
+            # Wiersz `revised` bez pokazanej roznicy jest zdaniem „cos sie zmienilo",
+            # czyli dokladnie tym, czego §4 zabrania: roznice sie POKAZUJE, nie opisuje.
+            moved = ""
+            for lab, a_, b_ in (r.get("deltas") or [])[:3]:
+                moved += ('<div><span class="field">%s</span> ' % esc(lab)
+                          + ('<del>%s</del>' % esc(a_) if a_ else '<span class="none">not set</span>')
+                          + '<span class="arrow">&rarr;</span>'
+                          + ('<ins>%s</ins>' % esc(b_) if b_ else '<span class="none">cleared</span>')
+                          + "</div>")
+            n_extra = max(0, len(r.get("deltas") or []) - 3)
+            if n_extra: moved += '<div class="none">… and %d more field%s</div>' % (
+                n_extra, "" if n_extra == 1 else "s")
             return ((' class="t0"' if r["action"] else ""),
-                    ['<ins>added</ins>' if r["kind"] == "added" else '<del>removed</del>',
+                    [WHAT.get(r["kind"], esc(r["kind"])),
                      idc, ttl,
                      ' <span class="none">&middot;</span> '.join(
                          '<span class="t0">%s</span>' % esc(t2) for t2 in r["tech"]) or "&mdash;",
                      ('<span class="t0">act by %s</span>' % esc(r["action"])) if r["action"]
                      else '<span class="none">none stated</span>',
+                     moved or '<span class="none">&mdash;</span>',
                      esc(r["date"]) or '<span class="none">not printed</span>',
                      '<span class="field">%s</span>' % ORIG.get(r["origin"], r["origin"])])
         out.append(sect("mcenter", "Message Center &mdash; what is new",
@@ -5905,13 +6043,19 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             'both true, and together nonsense. <b>This is a view, not a second population</b>: an item '
             'that cites MC is still counted once, in its own tab, which is why the totals at the top of '
             'the page leave this section out. An entry carrying a deadline is listed first, because that '
-            'is the one that needs a plan. Message Center content varies by tenant &mdash; confirm '
-            'anything here in your own tenant.',
-            table(["What", "ID", "Title", "Technology", "Action required by", "Published", "Where it came from"],
+            'is the one that needs a plan. <b>An entry Microsoft REVISED moves too</b>: until '
+            '16 September 2026 the index was compared by presence alone and the item lists only by '
+            'what was added or removed, so a second retirement date written into an entry from July, '
+            'and an item whose reference was corrected from &bdquo;Learn only&rdquo; to an MC number, '
+            'were both counted as zero &mdash; the same two-true-sentences defect as above, fixed in '
+            'one of its three places and left standing in the other two. Message Center content '
+            'varies by tenant &mdash; confirm anything here in your own tenant.',
+            table(["What", "ID", "Title", "Technology", "Action required by", "What moved",
+                   "Published", "Where it came from"],
                   [mcrow(r) for r in MCV],
                   "No Message Center or Roadmap identifier moved, in the index or on this page.",
-                  '<b>Message Center</b> &middot; +%d / &minus;%d%s'
-                  % (mcv_add, mcv_rem,
+                  '<b>Message Center</b> &middot; +%d / &minus;%d / %d revised%s'
+                  % (mcv_add, mcv_rem, mcv_chg,
                      (' &middot; %d cited by an item' % mcv_item) if mcv_item else '')),
             count=len(MCV)))
 
@@ -6211,8 +6355,15 @@ def verify(page):
     # §5bb: ta strona nie wozi powloki, wiec jej blok zmiany rysuje serwerowy blizniak
     # `file_block()`. Klucz pilnuje, ze niesie ten sam atrybut wlasciciela co blok
     # w przegladarce — dwa ksztalty jednej rzeczy rozjezdzaja sie zawsze (§0a).
-    for k in ('<div class="s12file" data-ntowner=',
-              "nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
+    # `.s12file` NIE jest tu kluczem bezwarunkowym, i to jest poprawka z 16 wrzesnia
+    # 2026 wieczorem. Blok zmiany tekstu powstaje TYLKO wtedy, gdy jakas sledzona
+    # strona sie ruszyla; w dzien, w ktorym nic nie ruszylo, nie ma go na stronie
+    # i ta asercja odrzucala POPRAWNA strone. Ten sam blad, ktory §0b nazywa przy
+    # `data-mc="` i przy komentarzu CSS: klucz zapalajacy sie na poprawnej stronie
+    # jest tak samo bezuzyteczny jak ten, ktory nie zapala sie nigdy. Ksztaltu bloku
+    # pilnuje warunkowa asercja nizej (`if ndet and …`), ktora pyta dopiero wtedy,
+    # gdy wiersz dowodu naprawde istnieje.
+    for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
               "dstick", "nb-lab", "--dstick-h",
               # 5ao: one line names EVERY filter, not only the global one
               "window.__socDiffBar = sync", "nb-chips", "function describeBox(",
@@ -6361,6 +6512,26 @@ def verify(page):
         _bad = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _mm.group(0), re.S)
                 if "<ins>added</ins>" in r and "<a href" not in r]
         if _bad: e.append("%d dodanych wpisow Message Center bez linku" % len(_bad))
+    # KAZDY IDENTYFIKATOR MC, KTORY RUSZYL SIE NA TEJ STRONIE, MA TU WIERSZ.
+    # Zmierzone 16 wrzesnia 2026 na opublikowanej stronie zmian: sekcja mowila
+    # `+0 / -0` i „No Message Center or Roadmap identifier moved", a podsumowanie
+    # tego samego przebiegu nazywalo z imienia dwa ruszone wpisy — jeden zrewidowany
+    # w indeksie, jeden dopisany do `reference` pozycji, ktora dotad mowila „Learn
+    # only". Zadna asercja tego nie widziala, bo obie pytaly o WIERSZE, ktore juz sa.
+    # Ta pyta od drugiej strony i NIE MOZE zapalic sie na cichym dniu: wiersz
+    # w `added`, `removed` albo `changed` jest z definicji RUCHEM, wiec cytowany
+    # w nim numer MC tez sie ruszyl. `<span class="ref">` pisze wylacznie `name_cell()`
+    # przy pozycji, wiec proza sekcji tego nie zaklamie.
+    _refs = set(re.findall(r'<span class="ref">\s*((?:MC|RM)\d+)', page, re.I))
+    if _refs:
+        _mm2 = re.search(r'<section id="mcenter">.*?</section>', page, re.S)
+        _seg = _mm2.group(0) if _mm2 else ""
+        if "baseline" not in _seg:
+            _have = set(x.upper() for x in re.findall(r'(?:MC|RM)\d+', _seg, re.I))
+            _lost = sorted(x for x in _refs if x.upper() not in _have)
+            if _lost:
+                e.append("%d identyfikatorow MC cytowanych przez ruszone pozycje nie ma wiersza "
+                         "w sekcji mcenter: %s" % (len(_lost), ", ".join(_lost[:5])))
     if "s9find" not in page or "details.dsec .tw > table" not in page:
         e.append("brak skryptu dokladajacego zielone pole szukania do tabel")
     # Przelacznik motywu: arkusz wozi oba motywy, wiec strona bez przycisku zostawia czytelnika
@@ -6398,9 +6569,25 @@ def verify(page):
         if bad: e.append("%d wierszy w 'changed' nie pokazuje roznicy (<del>/<ins>)" % len(bad))
     return e
 
-def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
+RUN_KINDS = ("morning", "afternoon", "diff")
+
+def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind):
     """§5aj — rejestr DOPISYWANY. Ta sama funkcja, ktora liczy strone, pisze rejestr:
-    dwa niezalezne liczenia tej samej rzeczy rozjezdzaja sie (§0a)."""
+    dwa niezalezne liczenia tej samej rzeczy rozjezdzaja sie (§0a).
+
+    `kind` jest WYMAGANY i pochodzi ze slownika. Do 16 wrzesnia 2026 mial wartosc
+    domyslna `"morning"`, a wolajacy wyliczal go z flagi NAWIGACYJNEJ
+    (`"diff" if "--home" in opts and home == "/" else "morning"`) — wiec passa
+    popoludniowy, ktory `--home` nie podal, zapisal sie jako `morning`. To nie jest
+    zla etykieta, tylko UTRATA DANYCH: wpisy `runs` sa deduplikowane po parze
+    (data, kind), wiec drugi przebieg dnia NADPISUJE wpis pierwszego i dzien
+    z dwoma przebiegami wyglada jak dzien z jednym. Pasek dni §5aj rozroznia trzy
+    stany — zmiany, przebieg bez zmian, brak przebiegu — a ta pomylka mieszala
+    pierwszy z trzecim. Rodzaj przebiegu WIE tylko ten, kto go uruchomil, wiec sie
+    go deklaruje, a nie zgaduje z opcji o czym innym."""
+    if kind not in RUN_KINDS:
+        raise SystemExit("FAIL: kind przebiegu %r spoza slownika (%s)"
+                         % (kind, " | ".join(RUN_KINDS)))
     today = norm(curr_st.get("briefDate")) or datetime.date.today().isoformat()
     if os.path.exists(path):
         cl = json.load(open(path, encoding="utf-8"))
@@ -6503,40 +6690,64 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind="morning"):
     json.dump(cl, open(path, "w", encoding="utf-8"), ensure_ascii=False)
     return len(new), len(cl["entries"])
 
+USAGE = ("uzycie: make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label ...]\n"
+         "                     [--ledger site/data/changelog.json --kind morning|afternoon|diff]\n"
+         "                     [--ledger-only]\n"
+         "  --kind          rodzaj przebiegu, WYMAGANY razem z --ledger. Nie wyprowadza sie\n"
+         "                  go z --home: to jest flaga nawigacyjna i nie wie, ktora pora dnia.\n"
+         "  --ledger-only   nie buduje i nie zapisuje strony, tylko dopisuje rejestr. Tego\n"
+         "                  uzywaja OBA przebiegi poranne (§5aj), ktore strony zmian nie\n"
+         "                  publikuja, a bez ich wpisu dzien z przebiegiem i zerem zmian\n"
+         "                  jest nieodrozninalny od dnia bez przebiegu.")
+
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     opts = sys.argv[1:]
     home = opts[opts.index("--home") + 1] if "--home" in opts else "/"
     label = opts[opts.index("--label") + 1] if "--label" in opts else "morning pass → afternoon pass"
-    if len(args) < 3:
-        raise SystemExit("uzycie: make_diff.py <poprzedni> <biezacy> <wyjscie.html> [--home /] [--label ...] [--ledger site/data/changelog.json]")
+    kind = opts[opts.index("--kind") + 1] if "--kind" in opts else None
+    ledger_only = "--ledger-only" in opts
+    if "--ledger" in opts and not kind:
+        raise SystemExit("FAIL: --ledger wymaga --kind (%s)\n%s" % (" | ".join(RUN_KINDS), USAGE))
+    if kind and kind not in RUN_KINDS:
+        raise SystemExit("FAIL: --kind %r spoza slownika (%s)" % (kind, " | ".join(RUN_KINDS)))
+    if ledger_only and "--ledger" not in opts:
+        raise SystemExit("FAIL: --ledger-only bez --ledger nie robi nic")
+    if len(args) < (2 if ledger_only else 3):
+        raise SystemExit(USAGE)
     ps, pc = load_state(args[0])
     cs, cc = load_state(args[1])
     when = datetime.datetime.now().strftime("%H:%M")
-    page = build(ps, pc, cs, cc, home, label, when)
-    errs = verify(page)
-    if errs:
-        print("PRZEBIEG NIEUDANY - nie publikuj:")
-        for x in errs: print("   -", x)
-        raise SystemExit(1)
-    os.makedirs(os.path.dirname(os.path.abspath(args[2])), exist_ok=True)
-    open(args[2], "w", encoding="utf-8").write(page)
-    print("OK  %s  %d B" % (args[2], len(page.encode())))
+    if not ledger_only:
+        page = build(ps, pc, cs, cc, home, label, when)
+        errs = verify(page)
+        if errs:
+            print("PRZEBIEG NIEUDANY - nie publikuj:")
+            for x in errs: print("   -", x)
+            raise SystemExit(1)
+        os.makedirs(os.path.dirname(os.path.abspath(args[2])), exist_ok=True)
+        open(args[2], "w", encoding="utf-8").write(page)
+        print("OK  %s  %d B" % (args[2], len(page.encode())))
     if "--ledger" in opts:
         lp = opts[opts.index("--ledger") + 1]
-        n, tot = ledger(lp, ps, pc, cs, cc, when,
-                        "diff" if "--home" in opts and home == "/" else "morning")
-        print("OK  %s  +%d wpisow, razem %d" % (lp, n, tot))
+        n, tot = ledger(lp, ps, pc, cs, cc, when, kind)
+        print("OK  %s  +%d wpisow, razem %d  (kind %s)" % (lp, n, tot, kind))
 ```
 
 ### Gdzie to wchodzi w dzien
 
-| godzina (Warsaw) | co | z czego liczy |
-|---|---|---|
-| 06:00 | sched task poranny publikuje artefakt `Microsoft SOC Brief <data>` | — |
-| 07:00 | routine odbija artefakt do `site/index.html` i zapisuje `site/data/<data>.json` (§0a) | — |
-| 21:00 | sched task popoludniowy republikuje TEN SAM brief z sekcja `#pmdelta`, **a potem publikuje `Microsoft SOC Delta <data>` = wyjscie `make_diff.py`** | stan porannego artefaktu → stan po tym passie |
-| 22:00 | routine zmian pisze `site/diff/index.html` = wyjscie `make_diff.py` | `site/data/<poprzedni>.json` → stan dzisiejszego artefaktu |
+| godzina (Warsaw) | co | z czego liczy | `--kind` rejestru |
+|---|---|---|---|
+| 06:00 | sched task poranny publikuje artefakt `Microsoft SOC Brief <data>` | — | `morning`, trybem `--ledger-only` |
+| 07:00 | routine odbija artefakt do `site/index.html` i zapisuje `site/data/<data>.json` (§0a) | — | `morning`, trybem `--ledger-only` — rejestr dopisuje ten przebieg, ktory ma repozytorium |
+| 21:00 | sched task popoludniowy republikuje TEN SAM brief z sekcja `#pmdelta`, **a potem publikuje `Microsoft SOC Delta <data>` = wyjscie `make_diff.py`** | stan porannego artefaktu → stan po tym passie | **`afternoon`** |
+| 22:00 | routine zmian pisze `site/diff/index.html` = wyjscie `make_diff.py` | `site/data/<poprzedni>.json` → stan dzisiejszego artefaktu | `diff` |
+
+**Przebieg, ktory rejestru nie dopisal, mowi to w odpowiedzi jako `BRAK`** (§5aj zasada 6) —
+i to jest jedyny sposob, w jaki brak wpisu wychodzi na jaw tego samego dnia, a nie dopiero
+o 22:00. Poranny sched task nie ma repozytorium, wiec jego wpis `runs` dopisuje lustro o 07:00,
+z tym samym `--kind morning`; deduplikacja po parze (data, kind) sprawia, ze dwa przebiegi
+poranne daja JEDEN wpis, a nie dwa.
 
 **Odstep miedzy passem popoludniowym a routine zmian to GODZINA, nie pol godziny.** Zmierzone
 7 wrzesnia 2026: pass popoludniowy trwal 24,5 minuty (19:05:03 → 19:29:33 UTC), a przebieg poranny
@@ -11305,6 +11516,18 @@ prezentacja je gubi, bo kazdy widok pokazuje jedna chwile.
 6. **Rejestru nie da sie odtworzyc z niczego innego** — jest jedynym miejscem, gdzie zmiana
    z przeszlosci zyje po nadpisaniu `/diff/`. Przebieg, ktory go nie zapisal, mowi to w odpowiedzi
    jako `BRAK`, a nie milczy.
+7. **KAZDY z czterech przebiegow dnia dopisuje rejestr, takze ten, ktory strony zmian nie buduje.**
+   Przebieg poranny robi to trybem `--ledger-only` (§3), ktory pomija `build()` i `verify()`.
+   Zmierzone 16 wrzesnia 2026: `changelog.json` w repozytorium nie mial ANI JEDNEGO wpisu z tego
+   dnia, bo rejestr umie zapisac wylacznie `make_diff.py`, a poranne przebiegi go nie uruchamialy.
+   Skutek nie jest kosmetyczny: pasek dni rozroznia trzy stany — **zmiany, przebieg bez zmian,
+   brak przebiegu** — a dzien, w ktorym przebieg byl i rejestru nie tknal, renderowal sie jako
+   dzien BEZ PRZEBIEGU, czyli mowil czytelnikowi, ze nikt nie patrzyl.
+8. **`kind` przebiegu jest DEKLAROWANY, nigdy wyprowadzany z opcji o czym innym.** Slownik jest
+   ZAMKNIETY: `morning` · `afternoon` · `diff`. Do 16 wrzesnia 2026 wyliczal sie z flagi
+   nawigacyjnej `--home`, wiec pass popoludniowy zapisywal sie jako `morning` — a wpisy `runs`
+   sa deduplikowane po parze (data, kind), wiec **nadpisywal wpis przebiegu porannego**. Pozycja
+   45 listy §0 sprawdza odtad takze rodzaj, nie tylko date.
 
 ### Gdzie to widac
 
@@ -17843,8 +18066,21 @@ details.ntsec.ntflash{outline:2px solid var(--accent);outline-offset:-2px}
 
 /* Pasek Advanced filtering ma JEDEN ksztalt na caly portal: rozwijany `<details>`
    ze znacznikiem `+`, zwiniety domyslnie, z licznikiem `N filters on` w podpisie.
-   Te same wartosci co `details.s15bar` w 5au — dwa wyglady jednej kontrolki uczylyby
-   dwoch konwencji, a czytelnik przechodzi miedzy zakladkami jednym klikiem. */
+   Te same wartosci co pasek z 5au, ktory ten blok zastapil — dwa wyglady jednej
+   kontrolki uczylyby dwoch konwencji, a czytelnik przechodzi miedzy zakladkami
+   jednym klikiem.
+   NAZWY STAREJ KLASY NIE WOLNO TU NAPISAC. Blok jest dopisywany do arkusza strony
+   co do bajtu (0c), wiec kazde slowo tego komentarza laduje w HTML — a pozycje 74
+   i 82 pytaja, czy stary pasek zniknal. Pierwsza wersja komentarza cytowala go
+   z nazwy i zapalala obie pozycje na KAZDEJ poprawnej stronie, wiec przebieg
+   16 wrzesnia 2026 musial przeredagowac komentarz recznie zamiast publikowac.
+   To ta sama rodzina bledow co asercja o `data-mc="` pytajaca o napis, ktory
+   powstaje dopiero w przegladarce: klucz, ktory zapala sie na poprawnej stronie,
+   jest tak samo bezuzyteczny jak ten, ktory nie zapala sie nigdy (0b). Poprawione
+   po obu stronach naraz — komentarz nie cytuje juz klasy, a klucz pyta o REGULE
+   ARKUSZA starego paska, czyli o nazwe klasy z otwierajacym nawiasem klamrowym,
+   ktorej proza nie napisze przez przypadek. Zapisanie jej tutaj doslownie zlamaloby
+   ten komentarz o samego siebie — i zlamalo, przy pierwszym podejsciu. */
 details.ntfbar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
  gap:12px;flex-wrap:wrap;margin:0}
 details.ntfbar>summary::-webkit-details-marker{display:none}
@@ -19911,7 +20147,7 @@ i przerwal kazdy przebieg lustrzany.
   "entries":[{
     "id":"MC1478001","type":"MC","title":"Microsoft Teams: Enhanced real-time alerting rule management",
     "link":"https://mc.merill.net/message/MC1478001",
-    "published":"2026-09-12","action":"2026-09-25","tech":["Teams"],
+    "published":"2026-09-12","revisedOn":null,"action":"2026-09-25","tech":["Teams"],
     "summary":"<zdanie Microsoftu, nie nasze>",
     "origin":"both","storyKey":"MC1478001","itemIds":["teams-realtime-alerting"],
     "firstTracked":"2026-09-16","note":""}],
@@ -19930,6 +20166,13 @@ i przerwal kazdy przebieg lustrzany.
 - **`origin`** slownik ZAMKNIETY: `index` · `item` · `both`.
 - **`seenIn`** slownik ZAMKNIETY: `mc` · `item` · `doc` · `blog` · `community`. Wpis mapy z pusta
   tablica `seenIn` nie opisuje niczego i zatrzymuje przebieg (pozycja 91).
+- **`revisedOn` mowi, kiedy Microsoft OSTATNIO ruszyl juz opublikowany wpis**, i jest tu z powodu.
+  16 wrzesnia 2026 `MC1426371` dostalo druga date wycofania SMS i polaczen glosowych — 1 lipca 2027
+  dla Global Adminow i uzytkownikow zewnetrznych obok 1 lutego 2027 dla reszty — przy `published`
+  z lipca. Sekcja `mc-today` wybierala wtedy po `firstTracked` i `published`, wiec **rewizja wpisu
+  sprzed dwoch miesiecy nie miala jak sie pokazac**, a zmiana terminu jest dokladnie tym, po co
+  czyta sie te zakladke. `mc-today` bierze odtad takze `revisedOn == briefDate`, a wiersz mowi, co
+  sie ruszylo. Wpis nietkniety ma `revisedOn: null` — pole puste jest wynikiem, nie brakiem.
 - **`published` moze byc `null`** wylacznie razem z niepustym `note` — budzet odczytu stron
   wiadomosci to pietnascie na przebieg (§5an), wiec brak daty jest wynikiem, nie pustka. Audyt dat
   z §5ba liczy te pozycje osobno jako `unknown`.
@@ -20153,6 +20396,7 @@ odtad TRZYNASCIE (4-16).**
                          : '<span class="none">none stated</span>';
       var pub = e.published ? esc(e.published)
                             : ('<span class="none">' + esc(e.note || "date not read this run") + "</span>");
+      if (e.revisedOn) pub += '<span class="sub"><br>revised ' + esc(e.revisedOn) + "</span>";
       var open = el("span");
       var b = el("button", "mcchip", "open");
       b.type = "button"; b.setAttribute("data-mc", e.storyKey || e.id);
@@ -20234,7 +20478,14 @@ odtad TRZYNASCIE (4-16).**
     var c = D.counts || {};
     var win = D.window || {};
 
-    var today = ENT.filter(function (e) { return e.firstTracked === ST.briefDate || e.published === ST.briefDate; });
+    /* an entry Microsoft REVISED today is movement, even when it was published in July:
+       MC1426371 gained a second retirement date on 15 September 2026 while `published`
+       still read July, so a filter on `published` and `firstTracked` alone showed nothing
+       on the one day the deadline changed (5az) */
+    var today = ENT.filter(function (e) {
+      return e.firstTracked === ST.briefDate || e.published === ST.briefDate ||
+             e.revisedOn === ST.briefDate;
+    });
     var inwin = ENT.filter(function (e) {
       return !win.from || !e.published || (e.published >= win.from && e.published <= (win.to || "9999"));
     });
