@@ -2321,6 +2321,14 @@ co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo
 | `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZASPECYFIKOWANE` | `make_diff.py` niesie sekcje `blogsdiff` i wiersz `Microsoft Blogs` w `bytab`; jak wyzej — brakuje punktu odniesienia |
 | `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZASPECYFIKOWANE` | klucz `nt.jsons` w §5aw niesie wszystkie trzy listy (31 / 28 / 55) z data ostatniej zmiany pliku w gicie; ramke rysuje SKRYPT 15 v2 |
 | `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
+| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. `verify()` ma asercje „pasek skrotow rowna sie licznikowi sekcji". Brakuje pierwszej opublikowanej strony zmian z ta wersja skryptu |
+| `mc-on-brief` | **Message Center na stronie PORANNEJ**, nie tylko w diffie: kolumna `Message Center` w tabeli `What's new, by product` w Overview, wpieta w szukanie i Advanced filtering, a liczba otwiera zawezony widok. Do rozstrzygniecia z wlascicielem: czy wystarczy Overview, czy takze Today i New, czy osobna zakladka obok New | 2026-09-16 | `UZGODNIONE` | w tym pliku NIE MA jeszcze niczego: ani kolumny w §5as, ani wymiaru w §5aw, ani pozycji listy §0. Zakres (Overview / Today / New / osobna zakladka) czeka na decyzje |
+| `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `UZGODNIONE` | §3 punkt 15 wprowadzil ten ksztalt dla dowodu pod wierszem, ale sekcje `docsdiff`, `blogsdiff` i katalogi nadal maja wlasne uklady. Brakuje: jednej funkcji renderujacej, jej uzycia we wszystkich sekcjach i pozycji listy §0, ktora to zmierzy |
+| `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `UZGODNIONE` | makieta nie zostala przeniesiona do tego pliku ani jedna linia. Dopoki nie ma jej tutaj, nie istnieje dla zadnego przebiegu — to ta sama przyczyna, dla ktorej §0f powstalo |
+| `merge-sources` | **konsolidacja zrodel wokol JEDNEJ zmiany** — pozycja o SMS w Entra ID pokazuje obok siebie swoja strone Learn, wpis Message Center i artykul blogowy, w jednej tabeli, tak zeby dalo sie je znalezc razem rano i w diffie | 2026-09-16 | `UZGODNIONE` | dane czesciowo sa (`discoveredBy`, `docRef`, `nt.corr`, `mc_view`), ale nie ma ani wspolnego klucza laczacego trzy zrodla na poziomie POZYCJI, ani widoku, ktory je zestawia. Brakuje kontraktu pola i sekcji |
+| `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `UZGODNIONE` | nie ma ani pomiaru, ile pozycji sie rozjezdza, ani asercji porownujacej `published` pozycji z data w jej zrodle. Pierwszy krok to POMIAR na opublikowanym stanie, nie poprawka |
+| `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `UZGODNIONE` | zgloszone na zrzucie z 16 wrzesnia; §5aw sekcja `nt-pages` sklada tabele i karty razem, wiec trzeba zmierzyc, czy karty wypadaja poza `details.ntsec`, czy tabela ich nie wymienia |
+| `bytab-open` | **`What changed, by tab` i `What changed, by technology` otwarte, gdy cokolwiek sie ruszylo** | 2026-09-16 | `ZASPECYFIKOWANE` | §3 punkt 14 mowi to od 11 wrzesnia, a `verify()` odrzuca kazda INNA otwarta sekcje. Wlasciciel widzi je zwiniete, bo opublikowana strona zmian pochodzi sprzed tej wersji skryptu — brakuje przebiegu, nie reguly |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -5835,8 +5843,17 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
            ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                                       + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
-           ("mcenter", "Message Center", len(com["mcAdd"]) + len(com["mcRem"])),
-           ("srctext", "Source text", len(dtadd) + len(dtrem) + len(dtchg)),
+           # WIDOK `mc_view()`, nie sam indeks. Zmierzone 16 wrzesnia 2026 na opublikowanej
+           # stronie zmian: pasek mowil `Message Center 0`, wiersz tabeli `+3`, a kafelek `3` —
+           # bo pasek liczyl `community.messageCenter[]`, a tabela i kafelek zbieraly takze
+           # pozycje cytujace MC w `reference`. Dwie rozne liczby o tym samym na jednej
+           # stronie sa gorsze niz jedna niedokladna (§3 punkt 2), a pasek jest LINKIEM,
+           # wiec obowiazuje go punkt 13a: prowadzi tam, gdzie jego liczba jest widoczna
+           # jako TA SAMA liczba.
+           ("mcenter", "Message Center", len(MCV)),
+           # tak samo tutaj: sekcja pokazuje SIEROTY plus strony zdjete z listy (§3 punkt 15),
+           # a nie wszystkie ruszone strony — te, ktore niesie pozycja, stoja pod jej wierszem
+           ("srctext", "Source text", len(dt_shown) + len(dtrem)),
            ("docsdiff", "Microsoft Learn", _ntA + _ntR + _ntC),
            ("blogsdiff", "Microsoft Blogs", _nbA + _nbR + _nbC)]
     # rail and banner live in ONE sticky block: the banner is the page's only global
@@ -5994,6 +6011,22 @@ def verify(page):
         elif chips[tgt] != val:
             e.append("kafelek '%s' mowi %s, a sekcja #%s, do ktorej prowadzi, liczy %s"
                      % (lab, val, tgt, chips[tgt]))
+    # §3 punkt 13a dotyczy TAKZE paska skrotow: on tez jest linkiem z liczba, wiec musi
+    # prowadzic tam, gdzie ta sama liczba jest widoczna. Do 16 wrzesnia 2026 nie sprawdzala
+    # tego zadna asercja i strona wypuscila `Message Center 0` w pasku nad tabela mowiaca
+    # `+3` — dokladnie ten blad, ktory punkt 2 usunal z kafelkow, tylko w innej kontrolce.
+    # Chip bedacy ROZBICIEM (`+3 / -0`, endpointy) albo slowem (`baseline`, `no data`) jest
+    # pomijany: to inna jednostka, a asercja zapalajaca sie na poprawnej stronie uczy, ze
+    # czerwone nic nie znaczy (§0b).
+    for mr in re.finditer(r'<a href="#([^"]+)" data-goto="[^"]+">(.*?)<span class="n">(\d+)</span></a>',
+                          page, re.S):
+        _sid, _lab, _n = mr.group(1), _t(mr.group(2)), int(mr.group(3))
+        _ch = chips.get(_sid)
+        if _ch is None: continue
+        _m3 = re.match(r"^(\d+)(?:\s+[a-z]+)?$", _ch)
+        if not _m3: continue
+        if int(_m3.group(1)) != _n:
+            e.append("pasek skrotow mowi '%s %d', a sekcja #%s liczy %s" % (_lab, _n, _sid, _ch))
     # ZWINIETE DOMYSLNIE — z jednym wyjatkiem, ktory jest regula, a nie odstepstwem:
     # `bytab` i `bytech` sa KONTROLKAMI (§3 punkt 13), wiec przy niezerowym ruchu stoja
     # otwarte. Kazda inna otwarta sekcja to blad.
@@ -18993,7 +19026,7 @@ poczatku; `More filters` jest z definicji drugorzedny — po to zostal zwiniety.
    i SKRYPT 8. Nikt nie edytuje trzech skryptow powloki.
 3. **Pasek wyglada jak chrom, nie jak karta lezaca na tresci**: nieprzezroczyste `--surface`, ramka,
    promien i cien. Blok o tle `--bg` bez cienia, zawieszony 76 px pod naglowkiem, czyta sie jako
-   element tresci, ktory nachodzi na inne — i dokladnie tak zostal zglоszony.
+   element tresci, ktory nachodzi na inne — i dokladnie tak zostal zgloszony.
 4. **`position` zostaje po staremu**: `sticky` z powloki na desktopie, `static` z §1a na telefonie.
    Ten blok go nie dotyka, wiec §1a nadal wygrywa ponizej 760 px; zdejmuje tam tylko ramke i cien.
 
