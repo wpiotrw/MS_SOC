@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **84 pozycje** (0-33, 35-61, 63-77, 79-86), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **87**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **89 pozycji** (0-33, 35-61, 63-77, 79-91), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **92**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -52,6 +52,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    ramka `Source lists` (§5aw) i swiezosc wersji komponentow (§5ag), obie z jednego zgloszenia:
    pudelko mowilo „updated today / 0 updates" o plikach, ktorych nikt nie tknal, a zakladka
    Component versions podawala iOS 26.6.2 dwa dni po tym, jak Apple wydal 26.7 i 27.
+   **16 wrzesnia wieczorem doszly 87-91**, wszystkie z jednej rozmowy o zaleglych uzgodnieniach
+   (§0f): 87 swiezosc `graphMap`, `sources` i `serviceRead`, 88 jeden renderer zmiany tekstu
+   (§5bb), 89 audyt dat zrodla (§5ba), 90 i 91 Message Center jako wymiar razem z `storyKey`
+   (§5az).
    Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
@@ -63,7 +67,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 0 | **routine odbija artefakt, nie buduje strony sam** | 0a | `verify()` w `mirror_artifact.py` konczy sie bez bledu; fallback opisany w odpowiedzi |
 | 1 | siedem pigulek na stronie porannej, **osiem po passie popoludniowym** (ta dodatkowa to `since the morning pass`, §4d taska popoludniowego); pierwsze trzy zawsze: terminy, `undocumented at Microsoft`, `deployed, not in this tenant` | 1, 5e | pierwsze trzy `.counts a.count` w tej kolejnosci; licznik 7 albo 8, nigdy mniej |
 | 2 | blok mobilny jako OSTATNI w `<style>` | 1a | `@media (max-width:760px)` wystepuje po ostatnim `.cat-controls{position:sticky` |
-| 3 | **kazdy panel z listy §2 jest na stronie, po swoim `id`** — dzis trzynascie (`tab-components` doszedl 6 wrzesnia 2026 §5ag, `tab-community` 10 wrzesnia §5an, `tab-learn` i `tab-blogs` 14 wrzesnia §5aw). **Sprawdza sie NAZWY, nie liczbe**: brak panelu z listy jest znaleziskiem, panel SPOZA niej jest nowa zakladka i nie jest bledem | 2, 5ag, 5an, 5aw, 0a | `CANON_PANELS` w `mirror_artifact.py`: kazdy `id` obecny (brak = `BRAK`, klasa B); paneli >= progu 8, inaczej ekstrakcja jest zepsuta i lustro NIE publikuje |
+| 3 | **kazdy panel z listy §2 jest na stronie, po swoim `id`** — dzis czternascie (`tab-components` doszedl 6 wrzesnia 2026 §5ag, `tab-community` 10 wrzesnia §5an, `tab-learn` i `tab-blogs` 14 wrzesnia §5aw, `tab-mc` 16 wrzesnia §5az). **Sprawdza sie NAZWY, nie liczbe**: brak panelu z listy jest znaleziskiem, panel SPOZA niej jest nowa zakladka i nie jest bledem | 2, 5ag, 5an, 5aw, 0a | `CANON_PANELS` w `mirror_artifact.py`: kazdy `id` obecny (brak = `BRAK`, klasa B); paneli >= progu 8, inaczej ekstrakcja jest zepsuta i lustro NIE publikuje |
 | 4 | znaczniki `<span class="badge b-…">` w kazdej tabeli, emoji 🔥/⚠️ w kazdej zakladce | 4 | `.badge` liczony w setkach, nie dziesiatkach |
 | 5 | `KIND_BADGE` + `.badge.b-undoc` + `.badge.b-elsewhere` | 5e | wszystkie trzy obecne w pliku |
 | 6 | `docStatus`, `docSource`, `docCheckedOn` na kazdym wpisie | 5e | zero wpisow bez `docStatus` |
@@ -87,7 +91,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 23 | **kazda pozycja okna z `tier0Touch:true` ma karte w Top N albo nazwany powod w `sec-note`**; zadna karta Top N nie ma `socWeight>=7`, dopoki jest niewzieta pozycja okna z `socWeight<=2` | 5p | roznica zbiorow `tier0Touch` kontra `id` kart Top N jest pusta albo opisana |
 | 24 | pole szukania zielone w OBU miejscach: selektor `.tbar input[type=search].tbar-search` i `.cat-searchwrap input.cat-search`, nigdy nizsza specyficznosc, nigdy `--accent` | 5k | oba pola daja to samo `background` i nie jest to `--surface` |
 | 25 | trzy zmiany `facetCandidates()` zastosowane — kazda tabela z kolumna `Source` ma `<select>` `All source` | 5w | brak `if (/^source$/i.test(h)) return;`, `named` zawiera `source`, `slice(0, 3)` |
-| 26 | zadna zakladka — przejdz je WSZYSTKIE, ile ich jest w pasku, dzis trzynascie — nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae, 5aw | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
+| 26 | zadna zakladka — przejdz je WSZYSTKIE, ile ich jest w pasku, dzis czternascie — nie rozpycha dokumentu przy 390x844; kazdy `.navrow` przewija sie sam, dokument NIE | 5x, 5ae, 5aw, 5az | dla kazdej zakladki `scrollWidth === clientWidth` na `documentElement` |
 | 27 | skrypty 4 I 5 obecne; kazda zakladka tresciowa ma wykres per usluga, pierscien udzialu i os czasu Month / Week / Day; kafelki `What changed` filtruja liste katalogu | 5y, 5ad | `.aggwrap figure.chart` >= 3 w kazdym panelu procz Overview; `.aggbtn` = 3; tabela `cc-table` ma kolumne `Change` |
 | 28 | **kazdy termin z ostatnich 7 dni zostaje**: `tier:"recently-elapsed"`, sekcja `id="elapsed"` w `tab-deadlines` I w `tab-overview`, pigulka `passed in the last 7 days`; pozycja nie wypada z Today ani z New | 5z | liczba pozycji z terminem w −7..0 = liczba wierszy `.elapsed-wrap tbody tr` w obu panelach |
 | 29 | naglowek Top N niesie LICZBE; 7 domyslnie, najwyzej 10 | 5aa | `document.body.innerText` nie zawiera `Top N`; `article.card` w `tab-today` miesci sie w 7..10 |
@@ -95,7 +99,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
-| 35 | **pasek ma wlasny, grafitowy kolor na `.navstack`, ten sam w obu motywach, DWA opisane rzedy (`Daily`, `Reference`) i ramke na kazdej zakladce** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; `.navstack` niesie `background`; `nav.anchors .tab` niesie `border`; render: tlo `.navstack` identyczne w obu motywach i rozne od `--surface`; dwa `.navrow`, razem 10 zakladek |
+| 35 | **pasek ma wlasny, grafitowy kolor na `.navstack`, ten sam w obu motywach, DWA opisane rzedy (`Daily`, `Reference`) i ramke na kazdej zakladce** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; `.navstack` niesie `background`; `nav.anchors .tab` niesie `border`; render: tlo `.navstack` identyczne w obu motywach i rozne od `--surface`; dwa `.navrow`, razem tyle zakladek, ile paneli niesie `CANON_PANELS` — dzis 14, po siedem w rzedzie |
 | 36 | **kazdy `<li>` ma JEDEN temat i konczy sie linkiem** — ksztalt punktu z zakladki Products obowiazuje na calej stronie | 5af | zaden `<li>` nie ma naraz >=2 `<b>` i >=3 srednikow, liczone `html.parser`; punkty `sec-note` sekcji `top5` otwieraja sie `<b>` i niosa link (to drugie okiem, §5af) |
 | 37 | **zakladka Component versions**: kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`, `checkedOn` i zrodlo; kazda wersja ma wlasny `.vbox` z chipem platformy | 5ag | licznik `.vbox` = licznik wpisow `versions[]`; zero platform spoza slownika |
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
@@ -119,8 +123,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 | 56 | **skrypty 4-15 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 15` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
-| 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie trzynascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 6 zakladek, `navrow ref` 7, zadna nie ma zera |
-| 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: `navrow ref` ma 5 zakladek |
+| 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie czternascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw, 5az | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 7 zakladek (`tab-mc` zostaje w rzedzie dziennym, §2), `navrow ref` 7, zadna nie ma zera |
+| 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: zakladka `Community Articles` stoi w `navrow ref` zaraz po `Sources` — **pozycja, nie liczba**: licznik rzedu przeterminowal sie tu dwa razy, 14 i 16 wrzesnia (§0a) |
 | 60 | **kazde zrodlo z `community_sources.json` ma wpis w `community.sources`**, kazde nieprzeczytane ma niepusty `note`, kazdy artykul ma `link` i `firstTracked` | 5an | licznik `sources` = liczba pozycji w liscie przeczytanej w tym przebiegu; zero wpisow `failed` bez `note`; zero artykulow bez `link` |
 | 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow, **jedno pole szukania na tabele i czytelne zaznaczenie tekstu** | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable`, `hideShellBars`, `[data-s10hidden="1"]{display:none!important}`, `::selection{background:var(--accent-soft)`, `#tab-community .panelhead figure.chart{display:none}`, `#tab-community .charts figure.chart svg` w pliku — **kazdy klucz pelna regula, nie fragmentem**, bo `.panelhead figure.chart` samo stoi takze w arkuszu powloki; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca, kazda z czterech tabel ma DOKLADNIE jedno pole szukania |
 | 62 | **tylko przebieg ZMIAN**: strona zmian nazywa artykuly z imienia — sekcje `community` i `mcenter`, kazdy dodany artykul z tytulem i linkiem, nie sam licznik | 3, 3a, 5an | `id="community"` i `id="mcenter"` na `/diff/`; zero wierszy `added` bez `<a href`; pierwszy przebieg daje `BRAK „brak punktu odniesienia"` |
@@ -141,13 +145,18 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 77 | **kazda tabela pozycji ma kolumne znaczenia** — jedno zdanie z danych (`fingerprint`, `summary`), a puste pole drukuje POWOD | 4a, 5aq | kazda tabela z kolumna `Item` ma `What it means`, `Why it matters`, `What changed` albo `What it says` |
 | 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; **obie tabele podsumowania TEZ sie zawezaja**, wymiar scala synonimy naglowka, a wartosc scala aliasy (§3 punkt 16 reguly 3-6); pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `function dimKey(`, `function cellTokens(`, `function colsFor(`, `function canonVal(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
 | 79 | **rejestr uzgodnien jest wypisany** — kazdy wpis §0f bez stanu `ZBUDOWANE` stoi w odpowiedzi przebiegu z nazwy, stanem i tym, czego brakuje; **pozycja INFORMACYJNA**, nie zatrzymuje zadnego przebiegu, bo blokada zamienilaby „brak uzgodnionej zakladki” na „wczorajsza strone pod wczorajsza data” (§0) | 0f | `gate.py … --doc CLAUDE.md`: blok `UZGODNIONE, JESZCZE NIEZBUDOWANE` wydrukowany; bez `--doc` albo bez sekcji §0f **`BRAK` „nie da sie odczytac rejestru”**, nigdy OK |
-| 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: `navrow ref` ma 7 zakladek |
+| 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: obie stoja w `navrow ref` na samym koncu, zaraz po `Community Articles` — pozycja, nie liczba |
 | 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu | 5aw | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
 | 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
 | 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0; kazdy `pchip p-…` ze slownika osmiu platform (pozycja 37 czyta STAN, wiec chipa wymyslonego nie widzi) |
 | 84 | **przypiety pasek szukania katalogu jest PASKIEM**: `--hdr-h` mierzone przez SKRYPT 14, a w `.cat-controls` zostaje tylko `.cat-searchrow` | 5ay, 5at, 5c | `setProperty("--hdr-h"` w SKRYPCIE 14, `.cat-controls{top:var(--hdr-h,0px)`, `ctl.parentNode.insertBefore(d, ctl)`, `row.closest(".cat-controls")` w pliku; render (§5h): pasek przypiety tuz pod naglowkiem (odstep <= 4 px), wysokosc <= 90 px, zero nachodzenia na `.cat-detail` |
 | 85 | **ramka `Source lists` mowi o PLIKACH, nie o repozytorium** — data pochodzi z commita, ktory ruszyl TEN plik, a `changes` jest policzone w oknie i okno stoi w zdaniu; historia, ktorej przebieg nie ma, daje `updated:null` z powodem, nigdy date pusha | 5aw | `nt.jsons` obecne; NIE jest tak, ze wszystkie trzy daty sa identyczne i rowne `briefDate` przy zerowych licznikach (to sygnatura klonu `--depth 1`); kazdy wpis z data ma `window` |
 | 86 | **kazdy komponent PRZECZYTANY w tym przebiegu** — `checkedOn` rowne `briefDate` na KAZDYM wpisie, `state:"unread"` tylko z niepustym `note`, i nie wszystkie `baseline`, gdy jest z czym porownac | 5ag | licznik komponentow z `checkedOn` innym niz `briefDate` = 0; zero `unread` bez `note`; brak tablicy `components` daje `BRAK „nie da sie sprawdzic"`, nigdy OK |
+| 87 | **kazdy klucz stanu przeczytany DZISIAJ** — `graphMap`, `sources` i `serviceRead` katalogu maja `readOn` rowne `briefDate`; zrodlo nieodczytane przechodzi tylko z niepustym `note`, a `graphMap` czyta sie CODZIENNIE (decyzja z 16 wrzesnia 2026) | 5ah, 5ar | `graphMap.readOn` = `briefDate`; zero zrodel z innym `readOn` i bez powodu; `serviceRead.date` = `briefDate` albo `source:"none"`; brak wszystkich trzech kluczy daje `BRAK „nie da sie sprawdzic"`, nigdy OK |
+| 88 | **JEDEN renderer zmiany tekstu na caly portal** — `window.__socFileBlock` rysuje ksztalt `.s12file` w SKRYPCIE 12, w SKRYPCIE 15 v2 i odwzorowuje go `file_block()` w `make_diff.py`; **kazdy blok niesie `data-ntowner` i stoi w sekcji, ktora ten atrybut nazywa** | 5bb, 5ar | `88a` `window.__socFileBlock = `, `function fileBlock(`, `window.__socFileBlock(` w pliku, a `function lineBox(` NIE; `88b` `box.dataset.ntowner`, `function ownerOf(`, `[data-ntowner]` w pliku |
+| 89 | **data przy pozycji jest data ZRODLA** — klucz `dateAudit` z `readOn`, opublikowana `rule`, licznikiem `checked` dla czterech rodzin (`mc`, `learn`, `blogs`, `community`) i tablica `mismatch`, w ktorej kazdy rozjazd ma `atSource` i `reason`. **Pozycja nie zada ZERA rozjazdow, tylko ich POMIARU** | 5ba | `dateAudit.readOn` = `briefDate`; `rule` niepusta; wszystkie cztery rodziny w `checked`; zero wpisow `mismatch` bez `kind` ze slownika, bez `atSource` albo bez `reason`; **suma `checked` wieksza od zera, gdy `items` nie jest puste** — audyt, ktory nie porownal ani jednej daty, nie jest audytem bez rozjazdow; brak klucza daje `BRAK`, nigdy OK |
+| 90 | **Message Center jest WYMIAREM** — klucz `mc` w bloku stanu, kolumna `Message Center` w Overview, Today i New, oraz CZTERNASTY panel `tab-mc` z sekcjami `mc-today`, `mc-map`, `mc-all`, `mc-sources` | 5az, 2 | `90a` kazdy wpis `entries` ma `id`, `link`, `published` albo `note`, `origin` ze slownika `index`/`item`/`both` i `storyKey`, a `mc.readOn` = `briefDate`; `90b` `SCRIPT 16`, `mccol`, `__socOpenMC`, `data-mc="` w pliku; `90c` piec identyfikatorow sekcji obecnych |
+| 91 | **`storyKey` laczy wpis MC ze strona Learn i artykulem blogowym** — kazda pozycja cytujaca `MC…`/`RM…` w `reference` ma ten sam `storyKey`, a kazdy wpis `mc.map` niesie klucz, niepuste `seenIn` ze slownika i `items[]` wskazujace na PRAWDZIWE pozycje | 5az | `mc.map` niepuste; zero pozycji z `reference` MC/RM i innym `storyKey`; zero wpisow mapy bez klucza albo bez `seenIn`; zero wartosci `seenIn` spoza slownika; zero `items[]` bez pozycji o tym `id`; brak `mc` daje `BRAK`, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -168,8 +177,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81**, **90a** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86**, **87, 88, 89, 90b, 90c, 91** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -376,9 +385,9 @@ def scan(page: str) -> _Scan:
 # routine w fallback, czyli w budowanie strony po swojemu — dokladnie ta rozbieznosc, przed
 # ktora §0a istnieje. Nazwy nie maja daty waznosci tak, jak ma ja liczba: brak panelu z tej
 # listy jest znaleziskiem, a panel SPOZA niej jest nowa zakladka i lustro ma go skopiowac.
-CANON_PANELS = ("tab-overview", "tab-today", "tab-new", "tab-deadlines", "tab-products",
-                "tab-components", "tab-roles", "tab-graph", "tab-hunting", "tab-sources",
-                "tab-community", "tab-learn", "tab-blogs")
+CANON_PANELS = ("tab-overview", "tab-today", "tab-new", "tab-mc", "tab-deadlines",
+                "tab-products", "tab-components", "tab-roles", "tab-graph", "tab-hunting",
+                "tab-sources", "tab-community", "tab-learn", "tab-blogs")
 PANEL_FLOOR = 8          # ponizej tego to nie jest kopia, tylko poszarpana ekstrakcja
 
 
@@ -478,7 +487,7 @@ def snapshot_shell(content: str):
     # PRZERYWA caly lustrzany przebieg. Kazda liczba zapisana w kodzie ma date waznosci
     # tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt, przeszukaj plik za
     # twardymi zakresami.
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-5])\b", b[:4000])]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-6])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -896,7 +905,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b",
-           "81a","81b","81c"}
+           "81a","81b","81c","90a"}
 # 12 wrzesnia 2026: pozycje 76 i 77 zeszly z klasy A do B, i jest to poprawka DOKLADNIE
 # tego bledu, ktory §0 opisuje przy 10 wrzesnia. Wiersz bez kolumny znaczenia i link bez
 # nazwy zrodla to brak ETYKIETY, nie falszywe zdanie: pozycja na stronie jest, jest
@@ -908,8 +917,15 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
-           "85","86",
+           "85","86","87","88a","88b","89","90b","90c","91",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84"}
+# 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
+# Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
+# ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
+# jakikolwiek przebieg zdazyl policzyc rozjazdy, i zatrzymalaby publikacje calkiem.
+# Dlatego 89 nie zada ZERA rozjazdow: zada POMIARU i nazwania kazdego z nich. Do klasy A
+# przechodzi w dniu, w ktorym `dateAudit.mismatch` bedzie puste w dwoch przebiegach
+# z rzedu — wtedy zadanie zera przestaje byc zyczeniem i staje sie opisem stanu.
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
@@ -1440,7 +1456,7 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 15:
+                if m and 4 <= int(m.group(1)) <= 16:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
             need("56", "skrypty 4-15 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
@@ -1891,6 +1907,175 @@ def gate(path, site=None, mirror=False, doc=None):
              if _silent else
              "wszystkie komponenty `baseline` przy istniejacym katalogu site/ — porownania nie bylo")
 
+    # ---- 87: KAZDY klucz stanu przeczytany W TYM przebiegu (§5ah, §5ar) ----
+    # 16 wrzesnia 2026 pozycja 86 zamknela te luke dla `components`, a pomiar tego samego
+    # dnia pokazal, ze jest ona szersza: `community` (63), `nt` (81c), `docText` (68c)
+    # i `ledger14` (45) maja asercje swiezosci, natomiast `graphMap`, `sources`
+    # i `serviceRead` katalogu maja pole `readOn` i ZADNA pozycja nie porownywala go
+    # z `briefDate`. Klucz z wczorajsza data jest polem OBECNYM i POPRAWNYM, wiec kazda
+    # pozostala asercja go przepuszcza — dokladnie tak, jak `checkedOn` sprzed dwoch
+    # tygodni przepuszczaly pozycje 37-40.
+    # Wlasciciel rozstrzygnal 16 wrzesnia: `graphMap` czyta sie CODZIENNIE, jak reszta.
+    # Sparse blobless klon devx to 2,0 s (§5ah), wiec nie ma czego oszczedzac, a klucz
+    # czytany raz na kilka dni wrocilby do przezywania przez kopiowanie.
+    # Zrodlo, ktore sie nie odczytalo, jest WYNIKIEM i przechodzi — pod warunkiem, ze
+    # niesie powod: to ta sama zasada co `state:"unread"` z niepustym `note` w pozycji 86.
+    _bd4 = (st["soc-brief-state"] or {}).get("briefDate")
+    _gm4 = (st["soc-brief-state"] or {}).get("graphMap") or {}
+    _src4 = (st["soc-brief-state"] or {}).get("sources") or []
+    _sr4 = (cat or {}).get("serviceRead") or {}
+    _bad87 = []
+    if not _gm4:
+        _bad87.append("graphMap: brak klucza")
+    elif _gm4.get("readOn") != _bd4:
+        _bad87.append("graphMap.readOn = %s" % (_gm4.get("readOn") or "brak"))
+    if not _src4:
+        _bad87.append("sources: brak tablicy")
+    else:
+        _s87 = [x.get("key") for x in _src4
+                if x.get("readOn") != _bd4 and not (x.get("note") or "").strip()]
+        if _s87:
+            _bad87.append("zrodel bez readOn z dzis i bez powodu: %d (%s)"
+                          % (len(_s87), ", ".join(str(x) for x in _s87[:4])))
+    if not _sr4:
+        _bad87.append("soc-catalog.serviceRead: brak klucza")
+    elif _sr4.get("date") != _bd4 and (_sr4.get("source") or "none") != "none":
+        _bad87.append("serviceRead.date = %s przy source = %s"
+                      % (_sr4.get("date"), _sr4.get("source")))
+    need("87", "graphMap, sources i serviceRead przeczytane W TYM przebiegu (§5ah, §5ar)",
+         bool(_gm4 or _src4 or _sr4) and not _bad87,
+         "nie ma zadnego z trzech kluczy — nie da sie sprawdzic"
+         if not (_gm4 or _src4 or _sr4) else "; ".join(_bad87))
+
+    # ---- 88: JEDEN renderer zmiany tekstu na caly portal (§5bb) ----
+    # Wlasciciel, 16 wrzesnia 2026: „tak — jedna funkcja". Do tego dnia ksztalt `.s12file`
+    # rysowaly TRZY kawalki kodu: `file_block()` w `make_diff.py`, `fileBlock()` w SKRYPCIE 12
+    # i `lineBox()` w SKRYPCIE 15 v2. Dwie kopie jednej rzeczy rozjezdzaja sie (§0a),
+    # a te trzy juz sie rozjechaly: blok w zakladce Learn nie mial ani daty, ani zdania
+    # o metadanych, ani `Why this matters`.
+    K88 = ("window.__socFileBlock = ", "function fileBlock(", "window.__socFileBlock(")
+    need("88a", "jeden renderer zmiany tekstu, uzywany przez kazda zakladke (§5bb)",
+         all(k in h for k in K88) and "function lineBox(" not in h,
+         ("SKRYPT 15 v2 nadal ma wlasny `lineBox()` — dwa renderery jednego ksztaltu"
+          if "function lineBox(" in h
+          else "brak: %s" % ", ".join(k for k in K88 if k not in h)))
+    # 88b: karta, ktora nie wie, czyja jest, laduje poza tabela i poza sekcja — zgloszone
+    # na zrzucie z 16 wrzesnia jako bloki bez daty i bez naglowka. Kazdy blok niesie
+    # `data-ntowner` z `id` sekcji, w ktorej ma stac, a skrypt to sprawdza przy montazu.
+    K88b = ('box.dataset.ntowner', 'function ownerOf(', '[data-ntowner]')
+    need("88b", "zaden blok zmiany nie stoi poza swoja sekcja (§5bb)",
+         all(k in h for k in K88b),
+         "brak: %s" % ", ".join(k for k in K88b if k not in h))
+
+    # ---- 89: data przy pozycji jest data ZRODLA (§5ba) ----
+    # Zgloszenie z 16 wrzesnia 2026: wpis MC opisany jako 1.09, ktory w Message Center ma
+    # 12.09. Wlasciciel poprosil, zeby zaczac od POMIARU i zaraz potem poprawic — wiec ta
+    # pozycja nie zada ZERA rozjazdow. Zada, zeby przebieg je POLICZYL i kazdy NAZWAL
+    # z powodem. Asercja zadajaca zera zapalilaby sie pierwszego dnia na kazdym przebiegu
+    # i nauczylaby, ze czerwone nic nie znaczy (§0b).
+    _KIND89 = {"mc", "learn", "blogs", "community"}
+    _da = (st["soc-brief-state"] or {}).get("dateAudit") or {}
+    if not _da:
+        need("89", "audyt dat zrodla (§5ba)", False,
+             "brak klucza dateAudit — nie da sie sprawdzic")
+    else:
+        _m89 = _da.get("mismatch") or []
+        _chk89 = _da.get("checked") or {}
+        _miss89 = [k for k in sorted(_KIND89) if k not in _chk89]
+        _nokind = [x.get("id") for x in _m89 if x.get("kind") not in _KIND89]
+        _noreason = [x.get("id") for x in _m89 if not (x.get("reason") or "").strip()]
+        _nosrc89 = [x.get("id") for x in _m89 if not x.get("atSource")]
+        # Zero porownan to NIE jest audyt bez rozjazdow, tylko audyt, ktorego nie bylo —
+        # ta sama pulapka co pusty zbior w pozycjach 23 i 32 (§0b). Przy pustej tablicy
+        # `items` nie ma czego porownywac i zero jest wynikiem; przy niepustej jest brakiem.
+        _sum89 = sum(v for v in _chk89.values() if isinstance(v, int))
+        _none89 = bool(items) and _sum89 == 0
+        need("89", "kazda data jest data ZRODLA, a kazdy rozjazd jest policzony i NAZWANY (§5ba)",
+             _da.get("readOn") == _bd4 and bool(_da.get("rule")) and not _miss89
+             and not _nokind and not _noreason and not _nosrc89 and not _none89,
+             "readOn %s przy briefDate %s; rule=%s; porownanych dat %d przy %d pozycjach; "
+             "nieprzeliczone rodziny %s; kind spoza slownika %s; rozjazd bez powodu %s; "
+             "rozjazd bez daty zrodla %s"
+             % (_da.get("readOn"), _bd4, bool(_da.get("rule")), _sum89, len(items), _miss89,
+                _nokind[:3], _noreason[:3], _nosrc89[:3]))
+
+    # ---- 90-91: Message Center jako WYMIAR, nie przypis (§5az) ----
+    # Wlasciciel, 16 wrzesnia 2026: „robimy w overview, today, new i do tego osobna
+    # zakladke … musi tez byc mapowanie pomiedzy zmianami, ktore wykrywasz w artykulach
+    # i blogach, a Message Center". Kolumna liczy, zakladka pokazuje, a `map` laczy —
+    # i to `map` jest tu trescia, bo bez niej trzy zrodla opisuja te sama zmiane osobno.
+    _MCORIG = {"index", "item", "both"}
+    _mc = (st["soc-brief-state"] or {}).get("mc") or {}
+    if not _mc:
+        for _n90, _t90 in (("90a", "klucz mc w bloku stanu"),
+                           ("90b", "kolumna Message Center w Overview, Today i New"),
+                           ("90c", "panel tab-mc z mapowaniem zrodel"),
+                           ("91", "storyKey laczy wpis MC ze strona Learn i artykulem")):
+            need(_n90, _t90, False, "brak klucza mc w bloku stanu — nie da sie sprawdzic")
+    else:
+        _ent = _mc.get("entries") or []
+        _noid90 = [x.get("title") for x in _ent if not x.get("id")]
+        _nolink90 = [x.get("id") for x in _ent if not x.get("link")]
+        _nopub90 = [x.get("id") for x in _ent
+                    if not x.get("published") and not (x.get("note") or "").strip()]
+        _badorig = [x.get("id") for x in _ent if x.get("origin") not in _MCORIG]
+        _nostory = [x.get("id") for x in _ent if not x.get("storyKey")]
+        need("90a", "kazdy wpis MC ma id, link, date albo powod, origin ze slownika i storyKey (§5az)",
+             bool(_ent) and not _noid90 and not _nolink90 and not _nopub90
+             and not _badorig and not _nostory and _mc.get("readOn") == _bd4,
+             "brak tablicy entries — nie da sie sprawdzic" if not _ent
+             else "bez id: %d; bez linku: %s; bez daty i bez powodu: %s; origin spoza "
+                  "slownika: %s; bez storyKey: %s; readOn %s przy briefDate %s"
+                  % (len(_noid90), _nolink90[:3], _nopub90[:3], _badorig[:3],
+                     _nostory[:3], _mc.get("readOn"), _bd4))
+        # Klucz musi stac w PLIKU, a nie w renderze: kolumne buduje SKRYPT 16 w przegladarce,
+        # wiec `data-mc="` nie ma prawa wystapic w HTML-u i pytanie o nie bylo pytaniem
+        # o rzecz niemozliwa — asercja, ktora nie zapala sie NIGDY, jest tak samo bezuzyteczna
+        # jak ta, ktora zapala sie zawsze (§0b, §5ak). Pytamy wiec o zrodlo, pelna fraza.
+        K90b = ("SCRIPT 16", 'el("td", "mccol")', "window.__socOpenMC = ",
+                'b.setAttribute("data-mc", e.storyKey || e.id)')
+        need("90b", "kolumna Message Center w Overview, Today i New (§5az)",
+             all(k in h for k in K90b),
+             "brak: %s" % ", ".join(k for k in K90b if k not in h))
+        # `id="tab-mc"` pisze przebieg (pusty panel, §2), a cztery sekcje buduje SKRYPT 16 —
+        # wiec tylko pierwszy klucz jest markupem, a pozostale sa wywolaniami w zrodle.
+        K90c = ('id="tab-mc"', 'sec("mc-today"', 'sec("mc-map"', 'sec("mc-all"', 'sec("mc-sources"')
+        need("90c", "czternasty panel tab-mc z czterema sekcjami (§5az)",
+             all(k in h for k in K90c),
+             "brak: %s" % ", ".join(k for k in K90c if k not in h))
+        # 91: klucz laczacy. Wlasciciel wybral 16 wrzesnia: numer MC/RM, gdy istnieje,
+        # a w przeciwnym razie adres strony Learn. Dopasowanie po podobienstwie tytulu
+        # zostalo odrzucone, bo zgaduje — a zgadywanie chowa wiersze (§5au regula 5).
+        _MCREF91 = re.compile(r"^\s*(MC|RM)\d+", re.I)
+        _wrong91 = []
+        for _i91 in items:
+            _r91 = _MCREF91.match(str(_i91.get("reference") or ""))
+            if not _r91:
+                continue
+            if str(_i91.get("storyKey") or "").strip().upper() != _r91.group(0).strip().upper():
+                _wrong91.append(_i91.get("id"))
+        _map91 = _mc.get("map") or []
+        _badmap = [m.get("storyKey") for m in _map91
+                   if not m.get("storyKey") or not (m.get("seenIn") or [])]
+        # Mapowanie, ktore wskazuje w nicosc, jest gorsze niz jego brak: obiecuje trzy
+        # zrodla jednej zmiany i prowadzi donikad — ta sama choroba co kafelek celujacy
+        # w nieistniejaca sekcje (pozycja 40). Kazdy `items[]` ma nazywac PRAWDZIWA pozycje.
+        _ids91 = {str(i.get("id")) for i in items if i.get("id")}
+        _deadmap = [m.get("storyKey") for m in _map91
+                    for x in (m.get("items") or []) if str(x) not in _ids91]
+        # `seenIn` jest slownikiem ZAMKNIETYM (§5az): wartosc spoza niego nie mowi
+        # czytelnikowi, gdzie ta zmiana byla widziana, tylko wyglada, jakby mowila.
+        _SEEN91 = {"mc", "item", "doc", "blog", "community"}
+        _badseen = sorted({v for m in _map91 for v in (m.get("seenIn") or [])
+                           if v not in _SEEN91})
+        need("91", "storyKey laczy wpis MC ze strona Learn i artykulem blogowym (§5az)",
+             bool(_map91) and not _wrong91 and not _badmap and not _deadmap and not _badseen,
+             "brak tablicy mc.map — nie da sie sprawdzic" if not _map91
+             else "pozycje cytujace MC bez zgodnego storyKey: %s; wpisy mapy bez klucza "
+                  "albo bez seenIn: %s; mapowanie wskazujace na nieistniejaca pozycje: %s; "
+                  "seenIn spoza slownika: %s"
+                  % (_wrong91[:4], _badmap[:3], _deadmap[:3], _badseen[:3]))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -2057,9 +2242,9 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest DWANASCIE (4-15; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
-SKRYPT 15 z §5au), a blokow CSS **dwadziescia dwa** — liczbe sprawdza `extract_code.py`, a nie to
-zdanie (§0a). Do tego **piec KOLEKTOROW**: cztery z §5aw i `collect_components.py` z §5ag,
+Skryptow dodawanych jest TRZYNASCIE (4-16; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
+SKRYPT 15 z §5au, a szesnasty to SKRYPT 16 z §5az), a blokow CSS **dwadziescia cztery** — liczbe
+sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **piec KOLEKTOROW**: cztery z §5aw i `collect_components.py` z §5ag,
 wycinane tak samo:**
 
 | co | zrodlo | sekcja |
@@ -2076,7 +2261,8 @@ wycinane tak samo:**
 | SKRYPT 13 — Start here | `CLAUDE.md` | 5as |
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
 | SKRYPT 15 v2 — Microsoft Learn i Microsoft Blogs, **oraz pasek Advanced filtering na CALY portal** (zastepuje SKRYPT 15 z §5au) | `CLAUDE.md` | 5aw |
-| **kazdy dopisany blok CSS** (22 bloki) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5av (ostatni — nadpisuje)** |
+| SKRYPT 16 — Message Center jako wymiar | `CLAUDE.md` | 5az |
+| **kazdy dopisany blok CSS** (24 bloki) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5az**, **5bb**, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 | `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
@@ -2119,7 +2305,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 15:
+            if m and 4 <= int(m.group(1)) <= 16:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -2139,15 +2325,15 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 16)] + \
+    need = ["script%d.js" % n for n in range(4, 17)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
             "collect_components.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 22:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 22 — sprawdz wciete plotki" % len(css))
+    if len(css) < 24:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 24 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -2387,16 +2573,16 @@ co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo
 | `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZASPECYFIKOWANE` | klucz `nt.jsons` w §5aw niesie wszystkie trzy listy (31 / 28 / 55) z data ostatniej zmiany pliku w gicie; ramke rysuje SKRYPT 15 v2 |
 | `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
 | `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. `verify()` ma asercje „pasek skrotow rowna sie licznikowi sekcji". Brakuje pierwszej opublikowanej strony zmian z ta wersja skryptu |
-| `mc-on-brief` | **Message Center na stronie PORANNEJ**, nie tylko w diffie: kolumna `Message Center` w tabeli `What's new, by product` w Overview, wpieta w szukanie i Advanced filtering, a liczba otwiera zawezony widok. Do rozstrzygniecia z wlascicielem: czy wystarczy Overview, czy takze Today i New, czy osobna zakladka obok New | 2026-09-16 | `UZGODNIONE` | w tym pliku NIE MA jeszcze niczego: ani kolumny w §5as, ani wymiaru w §5aw, ani pozycji listy §0. Zakres (Overview / Today / New / osobna zakladka) czeka na decyzje |
-| `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `UZGODNIONE` | §3 punkt 15 wprowadzil ten ksztalt dla dowodu pod wierszem, ale sekcje `docsdiff`, `blogsdiff` i katalogi nadal maja wlasne uklady. Brakuje: jednej funkcji renderujacej, jej uzycia we wszystkich sekcjach i pozycji listy §0, ktora to zmierzy |
-| `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `UZGODNIONE` | makieta nie zostala przeniesiona do tego pliku ani jedna linia. Dopoki nie ma jej tutaj, nie istnieje dla zadnego przebiegu — to ta sama przyczyna, dla ktorej §0f powstalo |
-| `merge-sources` | **konsolidacja zrodel wokol JEDNEJ zmiany** — pozycja o SMS w Entra ID pokazuje obok siebie swoja strone Learn, wpis Message Center i artykul blogowy, w jednej tabeli, tak zeby dalo sie je znalezc razem rano i w diffie | 2026-09-16 | `UZGODNIONE` | dane czesciowo sa (`discoveredBy`, `docRef`, `nt.corr`, `mc_view`), ale nie ma ani wspolnego klucza laczacego trzy zrodla na poziomie POZYCJI, ani widoku, ktory je zestawia. Brakuje kontraktu pola i sekcji |
-| `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `UZGODNIONE` | nie ma ani pomiaru, ile pozycji sie rozjezdza, ani asercji porownujacej `published` pozycji z data w jej zrodle. Pierwszy krok to POMIAR na opublikowanym stanie, nie poprawka |
-| `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `UZGODNIONE` | zgloszone na zrzucie z 16 wrzesnia; §5aw sekcja `nt-pages` sklada tabele i karty razem, wiec trzeba zmierzyc, czy karty wypadaja poza `details.ntsec`, czy tabela ich nie wymienia |
+| `mc-on-brief` | **Message Center jest WYMIAREM, nie zrodlem** — kolumna `Message Center` w Overview, Today i New, plus WLASNA zakladka `tab-mc` z pelnym widokiem, a w kazdej z nich **mapowanie miedzy wpisem MC a strona Learn i artykulem blogowym**, zeby widac bylo, co Microsoft oglosil i gdzie to opisal | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: Overview + Today + New + osobna zakladka, i do tego mapowanie.** §5az niesie kontrakt `mc`, slowniki `origin` i `seenIn`, klucz `storyKey`, markup czterech sekcji, arkusz i SKRYPT 16; `CANON_PANELS`, §2 oraz pozycje 3, 26, 58, 90 i 91 juz o niej wiedza. Zostaje jedno: **zaden opublikowany artefakt jeszcze jej nie niosl** |
+| `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: jedna funkcja.** §5bb wprowadza `window.__socFileBlock` jako jedyny renderer; `lineBox()` ze SKRYPTU 15 v2 i jego rodzina CSS `.ntdiff*` sa USUNIETE, `make_diff.py` znaczy kazdy blok `data-ntowner`, a pozycje 88a i 88b to mierza. Brakuje pierwszego opublikowanego przebiegu |
+| `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `ZASPECYFIKOWANE` | artefakt przeczytany 16 wrzesnia i rozlozony na szesc dzialan: 1 i 2 (dowod pod wierszem, `+` przy pozycji) sa w §3 punkt 15 od 12 wrzesnia; 3 (sekcje zwiniete) w §3 punkt 14; 4 (Message Center jako widok) w `mc_view()`; 6 (jedna lista paneli) w `CANON_PANELS`. **Zostawalo dzialanie 5 — ten sam renderer zmiany tekstu w zakladce Learn — i to dowozi §5bb.** Brakuje pierwszego przebiegu z komplet |
+| `merge-sources` | **konsolidacja zrodel wokol JEDNEJ zmiany** — pozycja o SMS w Entra ID pokazuje obok siebie swoja strone Learn, wpis Message Center i artykul blogowy, w jednej tabeli, tak zeby dalo sie je znalezc razem rano i w diffie | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: kluczem jest numer MC/RM, a gdy go nie ma — adres strony Learn; widok jest rozwijany `+`, tak jak w istniejacych sekcjach.** §5az niesie `storyKey`, tablice `mc.map[]` i sekcje `mc-map`, a pozycja 91 sprawdza, ze klucz naprawde laczy trzy zrodla. Brakuje pierwszego opublikowanego artefaktu |
+| `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: zmierz i od razu zaimplementuj.** §5ba mowi, skad pochodzi data zrodla kazdej z czterech rodzin, wprowadza kontrakt `dateAudit` z budzetem odczytow, sekcje `<section id="dateaudit">` w Sources i pozycje 89 — swiadomie KLASY B, bo asercja klasy A zapalilaby sie pierwszego dnia i zatrzymala publikacje; przechodzi do klasy A, gdy `dateAudit.mismatch` jest puste dwa przebiegi z rzedu. Brakuje pierwszego pomiaru na zywych danych |
+| `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: mierz i od razu napraw.** §5bb nadaje kazdemu blokowi `data-ntowner` z nazwa sekcji, ktora go zamowila, `window.__socAuditOwners()` znajduje sierote i maluje ja `.s12orphan`, a pozycja 88b sprawdza obecnosc obu zaczepow. Brakuje pierwszego przebiegu |
 | `bytab-open` | **`What changed, by tab` i `What changed, by technology` otwarte, gdy cokolwiek sie ruszylo** | 2026-09-16 | `ZASPECYFIKOWANE` | §3 punkt 14 mowi to od 11 wrzesnia, a `verify()` odrzuca kazda INNA otwarta sekcje. Wlasciciel widzi je zwiniete, bo opublikowana strona zmian pochodzi sprzed tej wersji skryptu — brakuje przebiegu, nie reguly |
 | `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, pozycja 85 lapie sygnature plytkiego klonu. Brakuje pierwszego przebiegu z ta wersja kolektora |
 | `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach) i pozycja 86. Brakuje pierwszego opublikowanego artefaktu zbudowanego z kolektora |
-| `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `UZGODNIONE` | pomiar zrobiony, kodu nie ma: trzeba trzech asercji na wzor 68c i decyzji, czy `graphMap` wolno czytac rzadziej niz raz dziennie (klon devx to 2,0 s, wiec raczej nie) |
+| `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate`. Brakuje pierwszego przebiegu |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -2404,7 +2590,8 @@ Plan z 11 wrzesnia rezerwowal §5au, §5av i §5aw oraz skrypty 15-17. **Zrealiz
 inaczej i to jest wynik, nie odstepstwo**: obie zakladki mieszkaja w JEDNEJ sekcji §5aw i w JEDNYM
 skrypcie — SKRYPT 15 v2 — bo zatwierdzona makieta ma jeden skrypt, a ten skrypt buduje takze pasek
 Advanced filtering na calym portalu, wiec rozbicie go na trzy dawaloby trzech pisarzy jednego stanu
-(§5am). Skryptow dodawanych jest nadal dwanascie (4-15), bo v2 **zastepuje** SKRYPT 15 z §5au.
+(§5am). Tego dnia skryptow dodawanych bylo nadal dwanascie (4-15), bo v2 **zastepuje** SKRYPT 15
+z §5au; 16 wrzesnia 2026 doszedl SKRYPT 16 (§5az) i jest ich trzynascie.
 Ponizsze zdanie jest zapisem tego, co plan przewidywal, i zostaje jako slad:
 **pietnascie skryptow dodawanych** zamiast dwunastu. Zapisane tutaj, zeby nastepny przebieg nie
 odkryl kolizji dopiero przy pisaniu kodu.
@@ -2530,6 +2717,7 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-overview` | `Overview` | *(pusty — wypelniaja skrypt 2, SKRYPT 4 sekcja `elapsed` §5z i SKRYPT 13 sekcja `starthere` §5as)* |
 | `tab-today` | `Today` | `top5` (Top N) · `picks` · `delta` |
 | `tab-new` | `New` | `new` · `docchanges` (§5u) · `srcchanges` (§5ar, buduje SKRYPT 12) |
+| `tab-mc` | `Message Center` | *(pusty — buduje SKRYPT 16 §5az: `mc-today` · `mc-map` · `mc-all` · `mc-sources`)* |
 | `tab-deadlines` | `Deadlines` | `deadlines` |
 | `tab-products` | `Products` | `exec` · `deep` · `auth` |
 | `tab-roles` | `Roles` | `roles` |
@@ -2541,7 +2729,9 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-learn` | `Microsoft Learn` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-changes` · `nt-older` · `nt-coverage` · `nt-pages` · `nt-corr-learn`)* |
 | `tab-blogs` | `Microsoft Blogs` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-top` · `nt-posts` · `nt-sources` · `nt-corr-blogs`)* |
 
-**Paneli jest TRZYNASCIE od 14 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an, a `tab-learn` i `tab-blogs` 14 wrzesnia wraz z §5aw; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym rzad `Reference` ma odtad SIEDEM zakladek, a `Daily` szesc. Kazda asercja liczaca panele albo zakladki mowi 13, nie 11 i nie 9 — pozycje 3, 26, 58, 59 i 80 listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
+**Paneli jest CZTERNASCIE od 16 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an, `tab-learn` i `tab-blogs` 14 wrzesnia wraz z §5aw, a `tab-mc` 16 wrzesnia wraz z §5az; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym oba rzedy maja odtad po SIEDEM zakladek — `Daily` szesc dotychczasowych plus `Message Center`, `Reference` siedem. Kazda asercja liczaca panele albo zakladki mowi 14, nie 13 i nie 11 — pozycje 3, 26, 58, 59, 80 i 90c listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
+
+**`tab-mc` stoi w rzedzie `Daily`, a nie `Reference`, i to nie jest kwestia miejsca.** Rzedy nazywaja rozroznienie, ktore prezentacja i tak robi (§5ae): `Reference` to zakladki liczace KATALOG, `Daily` to zakladki liczace OKNO. Message Center jest okienne — mowi, co Microsoft oglosil w tych dniach — wiec nalezy do `Daily`. Skutkiem ubocznym jest rownowaga 7/7 przy 1280 px; przyczyna jest w danych.
 
 **Identyfikatory sekcji sa kanoniczne — skrypty pytaja o nie po nazwie:**
 
@@ -3585,13 +3775,17 @@ def hunk_lines(p_):
             n += len([x for x in (h.get(k) or []) if str(x).strip()])
     return n
 
-def file_block(p_, cap_lines=60):
+def file_block(p_, cap_lines=60, owner=""):
     """Zmiana tekstu w ksztalcie SKRYPTU 12 (§5ar) — tym samym, ktorym brief rysuje ja
     w zakladce New. Do 12 wrzesnia ta strona miala WLASNY render: wiersz na linie plus
     kolumna `What` z wartoscia `added`. Dwie kopie jednej rzeczy rozjezdzaja sie (§0a),
     a te dwie juz sie rozjechaly. Zostaje ksztalt z briefu, bo usuniecie prozy widac
     w nim bez czytania kolumny."""
-    o = ['<div class="s12file">']
+    # §5bb: `data-ntowner` niesie `id` sekcji, w ktorej ten blok ma stac. Strona zmian
+    # nie wozi powloki (§3), wiec nie ma tu zadnego `window.__socFileBlock` do wolania —
+    # ta funkcja jest jego SERWEROWYM blizniakiem. Wolno miec dwa wykonania, nie wolno
+    # miec dwoch KSZTALTOW: klasy i ich kolejnosc musza sie zgadzac klasa w klase.
+    o = ['<div class="s12file" data-ntowner="%s">' % esc(owner)]
     nm = ('<a href="%s" target="_blank" rel="noopener">%s</a>'
           % (esc(p_.get("url")), esc(p_.get("name") or p_.get("path")))) if p_.get("url") \
          else ("<b>%s</b>" % esc(p_.get("name") or p_.get("path")))
@@ -3642,7 +3836,7 @@ def evidence(it, docmap):
                n, "" if n == 1 else "s"))
     return ('<button class="xb" type="button" data-diff="1" aria-expanded="false" '
             'title="Show what changed inside the source page">+</button>',
-            lead + "".join(file_block(p_) for p_ in pages))
+            lead + "".join(file_block(p_, owner=it.get("id") or "") for p_ in pages))
 
 def deep_link(tab, key, home="/"):
     """Strona zmian nie ma katalogu (§3), wiec nie otworzy panelu u siebie —
@@ -5751,7 +5945,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
          'the same &bdquo;+21 / &minus;15&rdquo; on a different edit is still a difference.')
         % (len(dtchg), dtc,
            (", and %d of them %s shown above" % (n_owned, "is" if n_owned == 1 else "are")) if n_owned else ""),
-        ("".join(file_block(x) for x in dt_shown) if dt_shown
+        ("".join(file_block(x, owner="srctext") for x in dt_shown) if dt_shown
          else '<p class="empty">Every page that moved is carried by an item above%s.</p>'
               % ("" if n_owned else ", and no watched page moved at all"))
         + (table(["What", "Product", "Page"], dt_gone, "",
@@ -5831,7 +6025,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                     "No area changed how it is read.",
                     '<b>Areas that moved</b> &middot; %d' % (len(NT["areaAdd"]) + len(NT["areaRem"])
                                                              + len(NT["areaChg"])))
-            + ("".join(file_block(x) for x in pgshow) if pgshow else
+            + ("".join(file_block(x, owner="docsdiff") for x in pgshow) if pgshow else
                '<p class="empty">No watched documentation page changed its text.</p>')
             + (('<p class="more">&hellip; and %d more pages moved. The full list is in the brief.</p>'
                 % (len(NT["pageChg"]) + len(NT["pageAdd"]) - len(pgshow)))
@@ -6014,7 +6208,11 @@ def verify(page):
         e.append("sekcji zwijanych = %d, ma byc 14" % page.count('<details class="dsec"'))
     # §3 punkt 13: kazda liczba jest kontrolka. Bez tego wracamy do strony, na ktorej
     # czytelnik widzi „+14" i musi sam znalezc te czternascie wierszy nizej.
-    for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
+    # §5bb: ta strona nie wozi powloki, wiec jej blok zmiany rysuje serwerowy blizniak
+    # `file_block()`. Klucz pilnuje, ze niesie ten sam atrybut wlasciciela co blok
+    # w przegladarce — dwa ksztalty jednej rzeczy rozjezdzaja sie zawsze (§0a).
+    for k in ('<div class="s12file" data-ntowner=',
+              "nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
               "dstick", "nb-lab", "--dstick-h",
               # 5ao: one line names EVERY filter, not only the global one
               "window.__socDiffBar = sync", "nb-chips", "function describeBox(",
@@ -6145,7 +6343,11 @@ def verify(page):
     ndet = len(re.findall(r'<tr class="det" hidden>', page))
     if nxb != ndet:
         e.append("przyciskow dowodu %d, a wierszy szczegolow %d" % (nxb, ndet))
-    if ndet and '<div class="s12file">' not in page:
+    # §5bb: blok niesie odtad `data-ntowner`, wiec literal bez atrybutu nie pasuje juz
+    # do niczego. Asercja pytajaca o napis, ktory nie ma prawa wystapic, zapala sie na
+    # KAZDEJ poprawnej stronie — dokladnie ten blad, ktory §0b zabrania popelniac,
+    # i zlapany tu smoke-testem tego samego dnia, w ktorym atrybut doszedl.
+    if ndet and '<div class="s12file" data-ntowner=' not in page:
         e.append("wiersz dowodu istnieje, a nie ma w nim bloku zmiany tekstu (.s12file)")
     if re.search(r'<tr class="det" hidden><td colspan="\d+"><div class="det-in"></div></tr>', page):
         e.append("pusty wiersz dowodu — przycisk obiecuje i nic nie otwiera")
@@ -6936,7 +7138,7 @@ ma niezerowa `borderTopWidth` i `borderTopColor` rozny od wlasnego tla; zakladka
 `aria-selected="true"` ma tlo rozne od nieaktywnych; licznik `.navcount` ma nieprzezroczyste tlo
 w obu motywach — te same wartosci, nie tylko „jakies".
 
-Dodatkowo przy **390x844** (telefon): **dla KAZDEJ zakladki paska po kolei — dzis TRZYNASTU — `document.documentElement.scrollWidth === clientWidth`**
+Dodatkowo przy **390x844** (telefon): **dla KAZDEJ zakladki paska po kolei — dzis CZTERNASTU — `document.documentElement.scrollWidth === clientWidth`**
 (§5x — sprawdzanie jednej zakladki przepuscilo Today 556 i Deadlines 482 przy ekranie 390);
 `getComputedStyle(document.querySelector("header.top")).position` zwraca `static`; `.counts` miesci sie w jednym wierszu; po `window.scrollBy(0,600)` naglowek jest
 poza widokiem (`getBoundingClientRect().bottom < 0`); **`.cat-controls` ma `position:static`, a po
@@ -7042,7 +7244,7 @@ z 14 wrzesnia: `--hdr-h` 428 px przy naglowku 353 px, pasek 153 px, odstep 76 px
 po poprawce 353 / 67 / 1 / 0, a przy 390 px pasek statyczny i `scrollWidth === clientWidth`.
 
 Nowe od 14 wrzesnia 2026 (§5aw), zakladki Microsoft Learn i Microsoft Blogs: **oba panele istnieja
-i obie zakladki stoja w rzedzie `Reference`** (`navrow ref` ma siedem zakladek, `navrow daily` szesc);
+i obie zakladki stoja w rzedzie `Reference`** (`navrow ref` ma siedem zakladek, `navrow daily` siedem od 16 wrzesnia 2026, odkad `tab-mc` stoi w rzedzie dziennym — §5az);
 **kazda sekcja obu zakladek to `details.ntsec` ZWINIETA po zaladowaniu, z licznikiem w podpisie**;
 **pasek Advanced filtering jest `DETAILS` ze znacznikiem `+` i `list-style-type: none` na KAZDEJ
 zakladce, ktora go niesie, a `details.s15bar` nie wystepuje w dokumencie ani razu** — jeden ksztalt
@@ -7812,7 +8014,7 @@ Blok idzie na koniec `<style>`, razem z §1a, §5e, §5k, §5t i §5w:
 ```
 
 Po poprawce wszystkie dziewiec zakladek daje `scrollWidth == clientWidth == 390`, zero bledow
-konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ zakladki paska — dzis TRZYNASTU — przy 390x844
+konsoli w obu motywach. **Asercja Playwright: dla KAZDEJ zakladki paska — dzis CZTERNASTU — przy 390x844
 `document.documentElement.scrollWidth === clientWidth`** — nie tylko dla tej, ktora akurat jest
 widoczna po zaladowaniu. Poprzednia wersja §5h sprawdzala jedna zakladke i dlatego przepuscila obie.
 
@@ -8849,7 +9051,7 @@ Pasek ma wiec **dwa opisane rzedy w jednej grafitowej ramce**:
 
 | rzad | etykieta | zakladki |
 |---|---|---|
-| gorny | `Daily` | Overview · Today · New · Deadlines · Products · Hunting & actions |
+| gorny | `Daily` | Overview · Today · New · **Message Center** · Deadlines · Products · Hunting & actions |
 | dolny | `Reference` | Component versions · Roles · Graph API · Sources · **Community Articles** · **Microsoft Learn** · **Microsoft Blogs** |
 
 Podzial nie jest wymyslony na potrzeby paska. **§5y stawia go w danych**: „zakladki katalogowe licza
@@ -8893,9 +9095,10 @@ przechodzaca na pustych danych (§0b). Dlatego:
   i jest TAKIE SAMO w obu motywach**;
 - **sa DWA elementy `.navrow`**, gorny ma etykiete `Daily`, dolny `Reference`, i kazdy niesie
   `<nav class="anchors">` z co najmniej jedna zakladka;
-- suma zakladek w obu rzedach wynosi **13**, a `Component versions`, `Community Articles`,
-  `Microsoft Learn` i `Microsoft Blogs` stoja w rzedzie `Reference`, przy czym `Community Articles`
-  idzie zaraz po Sources (§5an), a obie zakladki §5aw **na samym koncu**;
+- suma zakladek w obu rzedach rowna sie liczbie paneli z `CANON_PANELS` — dzis **14**, po siedem
+  w rzedzie. `Component versions`, `Community Articles`, `Microsoft Learn` i `Microsoft Blogs` stoja
+  w rzedzie `Reference`, przy czym `Community Articles` idzie zaraz po Sources (§5an), a obie
+  zakladki §5aw **na samym koncu**; `Message Center` stoi w rzedzie `Daily`, zaraz po `New` (§2);
 - kazda `nav.anchors .tab` ma `borderTopWidth` niezerowa i `borderTopColor` rozny od tla zakladki;
 - zakladka z `aria-selected="true"` ma tlo rozne od zakladek nieaktywnych;
 - tlo `.navstack` jest rozne od tla `header.top` i od `--surface`;
@@ -15992,6 +16195,119 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
     }
     return box;
   }
+
+  /* §5bb: JEDEN renderer zmiany tekstu na caly portal. Do 16 wrzesnia 2026 ten sam
+     ksztalt rysowaly TRZY kawalki kodu — `file_block()` w `make_diff.py`, `pageBlock()`
+     tutaj i `lineBox()` w SKRYPCIE 15 v2 — a ten trzeci byl inna rodzina klas i nie mial
+     ani daty, ani commita w naglowku. Wlasciciel zobaczyl to jako „bloki bez daty i bez
+     naglowka" w zakladce Learn; to nie byl blad renderu, tylko druga kopia jednej rzeczy,
+     a dwie kopie rozjezdzaja sie zawsze (§0a).
+     `owner` to `id` sekcji, w ktorej blok ma stac. Blok, ktory tego nie wie, laduje poza
+     tabela i poza sekcja — a ukrycie takiego bloku zamienilo by widoczny blad w cichy,
+     wiec zamiast chowac go, oznaczamy. */
+  function fileBlock(p, owner) {
+    var box = pageBlock(p);
+    box.dataset.ntowner = owner || "";
+    return box;
+  }
+  window.__socFileBlock = fileBlock;
+  function ownerOf(node) {
+    var s = node && node.closest ? node.closest("details.ntsec,details.mcsec,details.dsec,section[id]") : null;
+    while (s && !s.id && s.parentNode && s.parentNode.closest) s = s.parentNode.closest("section[id]");
+    return s ? (s.id || "") : "";
+  }
+  window.__socAuditOwners = function () {
+    var bad = 0;
+    [].forEach.call(document.querySelectorAll(".s12file[data-ntowner]"), function (b) {
+      var want = b.getAttribute("data-ntowner"), got = ownerOf(b);
+      var orphan = !!want && want !== got;
+      b.classList.toggle("s12orphan", orphan);
+      if (orphan) { bad++; if (window.console) console.warn("[s12 orphan]", want, "!=", got); }
+    });
+    return bad;
+  };
+
+  /* ---------- §5ba: audyt dat zrodla ----------
+     Zgloszenie z 16 wrzesnia 2026: wpis MC opisany jako 1.09, ktory w Message Center ma
+     12.09. Sekcja NIE jest lista bledow do poprawienia recznie — przebieg juz podmienil
+     daty tam, gdzie mogl je odczytac. Jest zapisem tego, co podmienil i dlaczego, zeby
+     dalo sie to zakwestionowac bez czytania JSON-a. Zero rozjazdow jest WYNIKIEM i mowi
+     to zdaniem z liczbami, a nie pusta sekcja. */
+  function dateAudit() {
+    var panel = document.getElementById("tab-sources");
+    var DA = ST.dateAudit || null;
+    if (!panel || !DA || document.getElementById("dateaudit")) return;
+    var sec = el("section"); sec.id = "dateaudit";
+    sec.setAttribute("data-nav", "Date audit");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "Date audit"));
+    head.appendChild(el("p", "sec-title", "Every date on this page, checked against the source that prints it"));
+    sec.appendChild(head);
+    var body = el("div", "sec-body");
+    var chk = DA.checked || {}, unk = DA.unknown || {}, bad = DA.mismatch || [];
+    var nchk = 0, nunk = 0;
+    Object.keys(chk).forEach(function (k) { nchk += chk[k] || 0; });
+    Object.keys(unk).forEach(function (k) { nunk += unk[k] || 0; });
+    var note = el("p", "sec-note");
+    note.textContent = nchk + " dates were compared against the source that prints them on " +
+      (DA.readOn || "") + " — " +
+      Object.keys(chk).sort().map(function (k) { return chk[k] + " " + k; }).join(", ") + ". " +
+      (bad.length
+        ? (bad.length + " differed; where the source date could be read this run it WON and the item's " +
+           "date was rewritten, and every row below says which and why.")
+        : "None differed.") +
+      (nunk ? (" " + nunk + " more carry no date at the source and are counted apart, never as agreeing.") : "");
+    body.appendChild(note);
+    if (DA.rule) {
+      var rb = el("div", "rulebox");
+      rb.appendChild(el("b", null, "How a date is compared. "));
+      rb.appendChild(document.createTextNode(DA.rule));
+      body.appendChild(rb);
+    }
+    if (!bad.length) {
+      body.appendChild(el("p", "empty",
+        "No date on this page differs from the date its source prints. That is a result, not a gap."));
+    } else {
+      var tw = el("div", "tw"), t = el("table"), th = el("thead"), hr = el("tr");
+      ["Item", "Family", "Date shown", "Date at source", "Fixed", "Why they differed", "Source"]
+        .forEach(function (x) { hr.appendChild(el("th", null, x)); });
+      th.appendChild(hr); t.appendChild(th);
+      var tb = el("tbody");
+      bad.forEach(function (m) {
+        var tr = el("tr");
+        if (m.id) tr.setAttribute("data-id", m.id);
+        tr.appendChild(el("td", null, m.id || ""));
+        tr.appendChild(el("td", null, m.kind || ""));
+        var c2 = el("td");
+        var d0 = document.createElement("del"); d0.textContent = m.shown || "not stated";
+        c2.appendChild(d0); tr.appendChild(c2);
+        var c3 = el("td");
+        var i0 = document.createElement("ins"); i0.textContent = m.atSource || "not read this run";
+        c3.appendChild(i0); tr.appendChild(c3);
+        var c4 = el("td");
+        c4.appendChild(el("span", "badge " + (m.fixed ? "b-upd" : "b-dep"),
+          m.fixed ? "rewritten to the source date" : "left as it was"));
+        tr.appendChild(c4);
+        tr.appendChild(el("td", null, m.reason || ""));
+        var c6 = el("td");
+        if (m.sourceUrl) {
+          var a = el("a", "lnk", "Source"); a.href = m.sourceUrl; a.target = "_blank"; a.rel = "noopener";
+          c6.appendChild(a);
+        } else c6.appendChild(el("span", "none", "no link"));
+        tr.appendChild(c6);
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb); tw.appendChild(t);
+      var sb = sbox(t, { noun: "rows", placeholder: "Search " + bad.length + " rows\u2026" });
+      if (sb) body.appendChild(sb);
+      body.appendChild(tw);
+    }
+    sec.appendChild(body);
+    var pv = document.getElementById("provenance");
+    if (pv && pv.parentNode) pv.parentNode.insertBefore(sec, pv.nextSibling);
+    else panel.appendChild(sec);
+  }
+
   function srcChanges() {
     var panel = document.getElementById("tab-new");
     if (!panel || document.getElementById("srcchanges") || !DOC) return;
@@ -16030,7 +16346,7 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
       body.appendChild(lg);
     }
     pages.sort(function (a, b) { return ((b.added || 0) + (b.removed || 0)) - ((a.added || 0) + (a.removed || 0)); });
-    pages.forEach(function (p) { body.appendChild(pageBlock(p)); });
+    pages.forEach(function (p) { body.appendChild(fileBlock(p, "srcchanges")); });
     sec.appendChild(body);
     var dc = document.getElementById("docchanges");
     if (dc && dc.parentNode) dc.parentNode.insertBefore(sec, dc.nextSibling);
@@ -16039,8 +16355,10 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 
   function boot() {
     try { provenance(); } catch (e) { if (window.console) console.error("[s12 prov]", e); }
+    try { dateAudit(); } catch (e) { if (window.console) console.error("[s12 dates]", e); }
     try { foundColumn(); } catch (e) { if (window.console) console.error("[s12 col]", e); }
     try { srcChanges(); } catch (e) { if (window.console) console.error("[s12 diff]", e); }
+    try { window.__socAuditOwners(); } catch (e) { if (window.console) console.error("[s12 owners]", e); }
   }
   /* after scripts 4-11 have built their own tables, so the column lands on all of them */
   if (document.readyState === "loading")
@@ -17316,7 +17634,8 @@ w obecnych zakladkach, ktore mamy, advanced filtering jest rozwijalny"*.
 z §5au i pasek tej makiety to dwie kontrolki tego samego stanu, a dwie kontrolki nad jedna
 zakladka to dokladnie ten blad, ktory wlasciciel zglaszal juz przy dwoch paskach szukania (§5an)
 i przy dwoch zielonych polach (§5am). **SKRYPT 15 v2 zastepuje SKRYPT 15 na kazdej zakladce
-portalu**, a nie tylko na dwoch nowych: skryptow dodawanych jest nadal dwanascie (4-15), a §5au
+portalu**, a nie tylko na dwoch nowych: skryptow dodawanych jest odtad trzynascie (4-16; SKRYPT 16
+z §5az doszedl 16 wrzesnia 2026), a §5au
 zostaje jako opis regul, ktore v2 stosuje, i traci swoj blok kodu.
 
 Trzy zmiany wzgledem makiety, kazda konieczna i kazda wypisana tutaj, zeby nastepny przebieg nie
@@ -17429,26 +17748,13 @@ details.ntsec.ntempty>summary .ntn{background:var(--surface-2);color:var(--muted
 }
 
 
+/* §5bb: rodzina `.ntdiff*` odeszla razem z `lineBox()`. Zakladka Learn rysuje zmiane
+   tekstu tym samym `.s12file` co reszta portalu (§5ar), wiec reguly dla klas, ktorych
+   nic juz nie renderuje, byly by martwe i mylily by nastepny przebieg (§5au, §5ae).
+   Zostaje wylacznie odstep miedzy kartami, bo tylko on jest tej zakladce wlasny. */
 #tab-learn .ntdiffs{display:grid;gap:12px;margin:14px 0 0}
-#tab-learn .ntdiff{border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow:hidden}
-#tab-learn .ntdh{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
- background:var(--surface-2);border-bottom:1px solid var(--border);font-size:13.5px;font-weight:700}
-#tab-learn .ntdh .ntpath{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400;
- overflow-wrap:anywhere}
-#tab-learn .ntdc{margin-left:auto;font-family:var(--mono);font-size:12px;white-space:nowrap;flex:0 0 auto}
-#tab-learn .nthunk{border-top:1px solid var(--border)}
-#tab-learn .ntat{font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px 13px 2px}
-#tab-learn .ntline{padding:3px 13px;font-family:var(--mono);font-size:12.5px;line-height:1.55;
- white-space:pre-wrap;overflow-wrap:anywhere}
-#tab-learn .ntadd{background:var(--ins-bg);color:var(--ins-fg)}
-#tab-learn .ntrem{background:var(--del-bg);color:var(--del-fg)}
-#tab-learn .ntmeta{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface-2);
- border-top:1px solid var(--border)}
-#tab-learn .ntwhy2{padding:9px 13px;font-size:13px;background:var(--warn-soft);color:var(--text);
- border-top:1px solid var(--border)}
-#tab-learn .ntwhy2 b{color:var(--warn)}
-#tab-learn .ntwhy2 code,#tab-learn .ntdiffs code{font-family:var(--mono);font-size:12px}
-@media (max-width:760px){#tab-learn .ntline{font-size:11.5px}}
+#tab-learn .ntempty{background:var(--surface-2);border:1px dashed var(--border);
+ border-radius:10px;padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
 #tab-learn .factgrid,#tab-blogs .factgrid{display:grid;gap:8px;margin:0 0 14px;
  grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
 #tab-learn .factgrid .fact,#tab-blogs .factgrid .fact{border:1px solid var(--border);
@@ -18400,33 +18706,20 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
        Obie strony, o ktore pytal, sa tu z linia po linii. */
     var pg=D.pages||[], pa=D.pageAreas||[];
     var withRule=pg.filter(function(x){return x.promote&&x.promote.length;});
-    function lineBox(x){
-      var b=el("div","ntdiff");
-      var h=el("div","ntdh");
-      var a=A(x.url,x.name); h.innerHTML=a+' <span class="ntpath">'+esc(x.path)+"</span>";
-      var c=el("span","ntdc");
-      c.innerHTML='<ins>+'+x.added+"</ins> <del>−"+x.removed+"</del>";
-      h.appendChild(c); b.appendChild(h);
-      (x.hunks||[]).forEach(function(k){
-        var w=el("div","nthunk");
-        w.appendChild(el("div","ntat","line "+k.at));
-        (k.rem||[]).forEach(function(t){var d=el("div","ntline ntrem");d.textContent="− "+t;w.appendChild(d);});
-        (k.add||[]).forEach(function(t){var d=el("div","ntline ntadd");d.textContent="+ "+t;w.appendChild(d);});
-        b.appendChild(w);
-      });
-      if(x.metaAdded||x.metaRemoved)
-        b.appendChild(el("div","ntmeta",(x.metaAdded+x.metaRemoved)+
-          " further changed lines are page metadata only — ms.date, ms.custom, the title and "+
-          "description strings. Counted and set aside here rather than hidden: a date bump is a real "+
-          "edit, it is just not one a SOC acts on."));
-      if(x.promote&&x.promote.length){
-        var w2=el("div","ntwhy2");
-        w2.innerHTML="<b>Why this is promoted. </b>The rule below matched: "+
-          x.promote.map(function(r){return "<code>"+esc(r)+"</code>";}).join(", ")+
+    /* §5bb: JEDEN renderer zmiany tekstu na caly portal. Do 16 wrzesnia 2026 stala tu
+       wlasna funkcja `lineBox()` z rodzina klas `.ntdiff*` — inna niz `.s12file`, ktore
+       rysuje SKRYPT 12 w zakladce New i `make_diff.py` na stronie zmian. Nie mialo ani
+       daty, ani commita w naglowku, i dokladnie tak zostalo zgloszone: „bloki bez daty
+       i bez naglowka". To nie byl blad renderu, tylko druga kopia jednej rzeczy (§0a).
+       Powod promocji przekazujemy POLEM, ktore renderer juz zna (`socNote`), zamiast
+       drugiego bloku o innej nazwie: jeden ksztalt znaczy takze jeden zestaw pol. */
+    function lineBoxSrc(x){
+      if(!x.socNote&&x.promote&&x.promote.length)
+        x.socNote="The rule matched: "+x.promote.join(", ")+
           ". Every other edited page in this area is counted in the table above and left unpromoted.";
-        b.appendChild(w2);
-      }
-      return b;
+      return window.__socFileBlock
+        ? window.__socFileBlock(x,"nt-pages")
+        : el("p","ntempty","The shared change renderer is not on this page, so this diff cannot be drawn.");
     }
     var arows=pa.map(function(r){
       return {cells:[esc(r.area),
@@ -18477,7 +18770,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       "<b>Pages that changed something a SOC acts on</b> &middot; "+withRule.length+
       " of "+pg.length+" pages read"));
     var dl=el("div","ntdiffs");
-    withRule.slice(0,14).forEach(function(x){dl.appendChild(lineBox(x));});
+    withRule.slice(0,14).forEach(function(x){dl.appendChild(lineBoxSrc(x));});
     body.appendChild(dl);
     var s4=sec("nt-pages","Section D","What Microsoft changed inside the page, line by line",withRule.length,false,
       "Green is text Microsoft added, red is text it removed, read from the documentation "+
@@ -19549,6 +19842,812 @@ Pozycja **84** listy §0 pilnuje tego kodem, a §5h w renderze.
  .cat-controls{box-shadow:none;border:0;padding:0;background:none;margin:0 0 10px}
 }
 ```
+
+## 5az. MESSAGE CENTER JEST WYMIAREM, NIE PRZYPISEM — i laczy zmiane z jej zrodlami
+
+Wlasciciel rozstrzygnal 16 wrzesnia 2026: *„robimy w overview, today, new i do tego osobna zakladke,
+oczywiscie w kazdej wymienionej zakladce Message Center odpowiadajacy np. danemu dniu, tego co sie
+zmienilo itd., a pelne info w osobnej zakladce; musi tez byc w zakladkach mapowanie pomiedzy zmianami
+i aktualizacjami, ktore wykrywasz w artykulach i blogach, a Message Center, zeby widziec, co sie
+dokladnie w Microsoft dzieje i co zostalo opublikowane, zeby lepiej sledzic zmiany i sie nie zgubic."*
+
+Dwie rzeczy naraz, i dopiero razem maja sens. **Kolumna odpowiada na pytanie „ile", zakladka na
+pytanie „co", a mapowanie na pytanie, ktore do 16 wrzesnia nie mialo w tym briefie zadnego miejsca:
+CZY TO JEST TA SAMA ZMIANA.**
+
+### Co bylo przed ta sekcja
+
+Zmierzone na opublikowanej stronie z 16 wrzesnia: Message Center zyje w briefie w **dwoch
+niepolaczonych miejscach** — jako `community.messageCenter[]` (indeks z `mc.merill.net`, §5an)
+i jako `items[].reference` zaczynajace sie od `MC…`/`RM…`. Strona zmian pogodzila je 16 wrzesnia
+funkcja `mc_view()` (§3, punkt 11), **a strona poranna nie ma ani jednego elementu, ktory mowilby
+„to jest Message Center"**: nie da sie tego policzyc, nie da sie po tym filtrowac i nie da sie
+przejsc od wpisu MC do strony dokumentacji, ktora ten sam wpis opisuje.
+
+To jest ta sama choroba, ktora §3 punkt 15 usunal ze strony zmian — **ta sama historia opowiedziana
+dwa razy i nic, co by ja lączyło** — tylko po drugiej stronie portalu.
+
+### Regula
+
+1. **`mc` jest WIDOKIEM, nie trzecia populacja.** Powstaje z tych samych dwoch zrodel, z ktorych
+   liczy je strona zmian: z indeksu i z kazdej pozycji cytujacej `MC…`/`RM…`. `origin` mowi, ktora
+   droga: `index` · `item` · `both`. **Slownik ZAMKNIETY.** Wpis widziany tylko w pozycji, a
+   nieobecny w indeksie, jest ZNALEZISKIEM o kompletnosci indeksu i mowi to wprost — cisza w tym
+   miejscu byla przyczyna zgloszenia z 12 wrzesnia (§3 punkt 11).
+2. **Pozycja nie jest liczona dwa razy.** Wpis MC cytowany przez pozycje ma swoj dom w zakladce tej
+   pozycji (§3a) i **dlatego zakladka `Message Center` nie ma wiersza w `bytab`** — dokladnie tak,
+   jak endpointy Graph nie maja swojego wiersza wsrod pozycji. Ma za to wlasny wiersz `Message
+   Center` w `bytab`, ktory jest WIDOKIEM i jest z sumy kafelkow wylaczony (§3).
+3. **`storyKey` jest jeden na cala strone**: numer `MC…`/`RM…`, gdy istnieje, a w przeciwnym razie
+   **adres strony Learn**, ktorej zmiana dotyczy. Wlasciciel wybral to 16 wrzesnia wprost. Trzeci
+   wariant — dopasowanie po podobienstwie tytulu — zostal odrzucony, bo ZGADUJE, a zgadywanie chowa
+   wiersze i to jest gorsze niz zdublowana pozycja (§5au regula 5).
+4. **`storyKey` niesie KAZDE zrodlo, ktore moze**: pozycja stanu, wpis indeksu MC, zmiana `what's
+   new` (§5aw), sledzona strona `docText` (§5ar), artykul blogowy i artykul spolecznosci. Tablica
+   `mc.map` zestawia je po tym kluczu, jeden wiersz na historie.
+5. **Mapowanie ma `+`, nie osobna sekcje.** Wlasciciel wybral rozwijany wiersz — ten sam ksztalt, co
+   dowod tekstu zrodla w §3 punkt 15 i uklad **WERSJA A** z zatwierdzonego artefaktu. Rozwiniecie
+   pokazuje zmiane tekstu strony przez **`window.__socFileBlock`** (§5bb), a pod nia linki do
+   artykulow — nie drugi render, tylko ten sam.
+6. **Kolumna `Message Center` wchodzi do Overview, Today i New, i w kazdej znaczy co innego**, bo
+   kazda z nich liczy co innego:
+   - **Overview**, tabela `What's new, by product` (§5as) — LICZBA wpisow MC tego produktu w oknie;
+     klikniecie otwiera `tab-mc` zawezone do tego produktu;
+   - **Today** i **New** — wpis MC TEGO wiersza jako chip z numerem; klikniecie otwiera `tab-mc`
+     zawezone do tego `storyKey`. Wiersz bez wpisu MC drukuje **myslnik**, nigdy pusty przycisk:
+     kontrolka, ktora nic nie otwiera, uczy, ze klikanie nic nie daje (§3 punkt 13).
+
+### Kontrakt danych — `mc` w bloku `soc-brief-state`
+
+**TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** (§0a) i **nie wozisz danych
+w osobnym `<script>window.__MC=…`**: `snapshot_shell` (§0d) rozpoznaje skrypty powloki po BRAKU
+znacznika `SCRIPT 4`..`SCRIPT 16`, wiec taki blok policzylby sie jako czwarty skrypt powloki
+i przerwal kazdy przebieg lustrzany.
+
+```json
+"mc":{
+  "readOn":"2026-09-16","indexUrl":"https://mc.merill.net/","indexRead":201,
+  "window":{"from":"2026-09-02","to":"2026-09-16"},
+  "entries":[{
+    "id":"MC1478001","type":"MC","title":"Microsoft Teams: Enhanced real-time alerting rule management",
+    "link":"https://mc.merill.net/message/MC1478001",
+    "published":"2026-09-12","action":"2026-09-25","tech":["Teams"],
+    "summary":"<zdanie Microsoftu, nie nasze>",
+    "origin":"both","storyKey":"MC1478001","itemIds":["teams-realtime-alerting"],
+    "firstTracked":"2026-09-16","note":""}],
+  "map":[{
+    "storyKey":"MC1478001","mc":"MC1478001","product":"Teams",
+    "items":["teams-realtime-alerting"],
+    "docRefs":["defender-office-365/…md"],
+    "blogs":["https://techcommunity.microsoft.com/…"],
+    "community":["https://…"],
+    "seenIn":["mc","item","blog"]}],
+  "counts":{"index":201,"cited":3,"both":1,"onlyItem":2,"onlyIndex":198,
+            "newToday":4,"withDeadline":6,"stories":47,"multiSource":12}
+}
+```
+
+- **`origin`** slownik ZAMKNIETY: `index` · `item` · `both`.
+- **`seenIn`** slownik ZAMKNIETY: `mc` · `item` · `doc` · `blog` · `community`. Wpis mapy z pusta
+  tablica `seenIn` nie opisuje niczego i zatrzymuje przebieg (pozycja 91).
+- **`published` moze byc `null`** wylacznie razem z niepustym `note` — budzet odczytu stron
+  wiadomosci to pietnascie na przebieg (§5an), wiec brak daty jest wynikiem, nie pustka. Audyt dat
+  z §5ba liczy te pozycje osobno jako `unknown`.
+- **`readOn` rowne `briefDate`.** Klucz przeczytany wczoraj i wklejony dzisiaj jest bledem tej samej
+  rodziny co `components` przed 16 wrzesnia (§5ag, pozycja 86).
+- **Kazdy wpis MC nosi przypis z §5g**: tresc Message Center rozni sie miedzy dzierzawami —
+  potwierdz we wlasnej. Zdanie stoi raz, w `sec-note` zakladki, nie przy kazdym wierszu.
+
+### Cztery sekcje zakladki `tab-mc`
+
+| sekcja | co pokazuje | stan poczatkowy |
+|---|---|---|
+| `mc-today` | wpisy z DZISIAJ i z okna, najpierw te z terminem — po to sie tu wchodzi | **otwarta** |
+| `mc-map` | **jeden wiersz na `storyKey`**: MC, pozycja na stronie, strona dokumentacji, blog, spolecznosc, `Seen in`; `+` rozwija zmiane tekstu i linki | **otwarta**, gdy `counts.multiSource > 0` |
+| `mc-all` | pelny indeks przeczytany w tym przebiegu | zwinieta |
+| `mc-sources` | kompletnosc: ile wpisow z indeksu, ile z pozycji, ile tylko z jednej strony, ile bez daty i dlaczego | zwinieta |
+
+Kazda jest `<details class="mcsec">`, wiec katalog odwrotny z §5an nadaje jej znak `+` bez ani
+jednej nowej reguly — a licznik w podpisie mowi liczbe bez otwierania (§5ah, §5al).
+
+### Co z tego idzie na strone zmian
+
+**Nic nowego.** Strona zmian ma `mc_view()` i sekcje `mcenter` od 16 wrzesnia (§3 punkt 11), a jej
+liczba pochodzi z tych samych dwoch populacji. Ta sekcja dokłada wylacznie `storyKey`, ktory
+`make_diff.py` przenosi do rejestru (§5aj) jako pole wpisu — dzieki temu `details.chg14` w zakladce
+`Message Center` pokazuje historie po tej samej osi, co reszta portalu. **Drugiej sekcji `mcenter`
+nie dopisujemy** — dwie sekcje o jednym byc mogly by podac dwie liczby (§3 punkt 2).
+
+### Arkusz — blok dopisywany na koncu `<style>`, PRZED blokiem §5av
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
+§5ar, §5as, §5at, §5au, §5aw, §5ay i §5bb sa to JEDYNE dozwolone dopisane reguly CSS.
+**Blokow CSS jest odtad DWADZIESCIA CZTERY**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
+
+```css
+/* §5az — Message Center jako wymiar. Kazdy selektor zaczyna sie od klasy, ktora tworzy
+   wylacznie SKRYPT 16, albo od `#tab-mc`, wiec nic stad nie wycieka na reszte strony.
+   Zwijanie sekcji `.mcsec` przychodzi z katalogu odwrotnego §5an bez ani jednej nowej
+   reguly — i to jest cala korzysc z tego, ze katalog jest ODWROTNY. */
+details.mcsec>summary .mcn{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted);flex:0 0 auto}
+.mcchip{font:inherit;font-family:var(--mono);font-size:11.5px;font-weight:700;line-height:1.5;
+ padding:1px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);
+ color:var(--accent);cursor:pointer;white-space:nowrap}
+.mcchip:hover{background:var(--accent);color:var(--on-accent)}
+.mcchip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mcnone{color:var(--muted);font-family:var(--mono);font-size:12px}
+.mccount{font:inherit;font-family:var(--sans);font-size:14px;font-weight:700;
+ font-variant-numeric:tabular-nums;padding:2px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+.mccount:hover{background:var(--accent);color:var(--on-accent)}
+.mcz{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;padding:0 11px}
+.mcseen{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.04em;padding:1px 7px;border-radius:5px;margin:2px 3px 0 0;white-space:nowrap;
+ background:var(--surface-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--border)}
+.mcseen.s-mc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.mcseen.s-doc{background:var(--ins-bg);color:var(--ins-fg);box-shadow:inset 0 0 0 1px var(--ok)}
+.mcseen.s-blog{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.mcact{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);
+ border-radius:999px;font-size:10.5px;font-weight:700;padding:1px 8px;white-space:nowrap}
+#tab-mc tr.mcflash>td{background:var(--accent-soft)!important;box-shadow:inset 3px 0 0 var(--accent)}
+#tab-mc .mclinks{margin:10px 0 0;padding:0;list-style:none;font-size:13px}
+#tab-mc .mclinks li{margin:0 0 5px}
+#tab-mc .mclinks .mcwhat{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted);margin-right:7px}
+#tab-mc .mcempty{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0;font-size:13px}
+@media (max-width:760px){.mcchip,.mccount{white-space:normal}}
+```
+
+### SKRYPT 16 — na koniec `<body>`, jako SZESNASTY blok `<script>`
+
+Kopiowany co do bajtu z tego pliku, jak kazdy skrypt dodawany (§0c). **Skryptow dodawanych jest
+odtad TRZYNASCIE (4-16).**
+
+```js
+/* ===========================================================================
+   SCRIPT 16 — MESSAGE CENTER JAKO WYMIAR (CLAUDE.md 5az). ADDED, never a
+   replacement: shell scripts 1-3 and added scripts 4-15 are untouched, byte
+   for byte.
+
+   The owner, 16 September 2026: Message Center belongs in Overview, in Today
+   and in New, AND in a tab of its own — and the tabs have to map what this
+   brief finds in documentation and in blogs onto what Microsoft actually
+   published in Message Center, "zeby lepiej sledzic zmiany i sie nie zgubic".
+
+   Measured on the published page that morning: Message Center exists in the
+   brief in TWO unconnected places — `community.messageCenter[]` (the index,
+   5an) and `items[].reference` starting MC/RM — and NOTHING on the morning
+   page says "this is Message Center". It cannot be counted, cannot be
+   filtered on, and there is no way to get from an entry to the documentation
+   page describing the same change. The change page reconciled the two on
+   12 September with `mc_view()`; this is the same reconciliation on the other
+   side of the portal, plus the join the change page never needed.
+
+   ONE WRITER PER MECHANISM (5am, 5ap): this script writes its own column and
+   its own panel, and narrows OTHER tabs by asking SCRIPT 11 through
+   `window.__socS11.setTab` — never by writing `row.hidden` itself.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function txt(n) { return ((n && n.textContent) || "").replace(/\s+/g, " ").trim(); }
+  function jb(id) {
+    var s = document.getElementById(id);
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = jb("soc-brief-state") || {};
+  var D = ST.mc || null;
+  if (!D) return;
+  var ENT = D.entries || [], MAP = D.map || [];
+  var DOCP = {};
+  (((ST.docText || {}).pages) || []).forEach(function (p) { if (p.path) DOCP[p.path] = p; });
+  var ITEMS = ST.items || [], BYITEM = {};
+  ITEMS.forEach(function (i) { if (i.id) BYITEM[i.id] = i; });
+
+  /* an item id -> the Message Center entry that names it. Built from `itemIds`,
+     which the run fills, never guessed from the reference string here: the run
+     is the one that read both populations and knows which way each was seen. */
+  var MCOF = {};
+  ENT.forEach(function (e) { (e.itemIds || []).forEach(function (id) { MCOF[id] = e; }); });
+  var BYKEY = {};
+  MAP.forEach(function (m) { if (m.storyKey) BYKEY[m.storyKey] = m; });
+
+  /* per product, for the Overview column. An entry counts under every technology
+     tagged on it AND under the product of every item it names, so an entry
+     tagged Teams that an Entra item cites is counted under both — the note under
+     the table says so, exactly as 5as says of its own community column. */
+  var BYPROD = {};
+  function put(p, e) {
+    if (!p) return;
+    var a = BYPROD[p] || (BYPROD[p] = []);
+    if (a.indexOf(e) < 0) a.push(e);
+  }
+  ENT.forEach(function (e) {
+    (e.tech || []).forEach(function (t) { put(t, e); });
+    (e.itemIds || []).forEach(function (id) { var it = BYITEM[id]; if (it) put(it.product, e); });
+  });
+
+  function link(href, label, cls) {
+    var a = el("a", cls || "lnk", label);
+    a.href = href; a.target = "_blank"; a.rel = "noopener";
+    return a;
+  }
+  function chipFor(e) {
+    var b = el("button", "mcchip", e.id);
+    b.type = "button";
+    b.title = "Open Message Center, narrowed to " + e.id;
+    b.setAttribute("data-mc", e.storyKey || e.id);
+    b.addEventListener("click", function () { window.__socOpenMC(e.storyKey || e.id); });
+    return b;
+  }
+  function dash() { return el("span", "mcnone", "—"); }
+
+  /* ---------------- the tab ---------------- */
+  function sec(id, label, title, count, open, note, node) {
+    var d = el("details", "mcsec"); d.id = id;
+    if (open) d.open = true;
+    var s = el("summary");
+    s.appendChild(el("span", "mclab", label));
+    s.appendChild(el("span", null, title));
+    if (count !== undefined && count !== null) s.appendChild(el("span", "mcn", String(count)));
+    d.appendChild(s);
+    if (note) { var p = el("p", "sec-note"); p.innerHTML = note; d.appendChild(p); }
+    if (node) d.appendChild(node);
+    return d;
+  }
+  function table(head, rows, cap, empty) {
+    if (!rows.length) return el("p", "mcempty", empty || "Nothing to show.");
+    var tw = el("div", "tw"), t = el("table");
+    if (cap) { var c = el("caption", "tabcap"); c.innerHTML = cap; t.appendChild(c); }
+    var th = el("thead"), hr = el("tr");
+    head.forEach(function (x) { hr.appendChild(el("th", null, x)); });
+    th.appendChild(hr); t.appendChild(th);
+    var tb = el("tbody");
+    rows.forEach(function (r) {
+      var tr = el("tr");
+      if (r.key) tr.setAttribute("data-story", r.key);
+      if (r.id) tr.setAttribute("data-id", r.id);
+      r.cells.forEach(function (cc) {
+        var td = el("td");
+        if (typeof cc === "string") td.innerHTML = cc; else if (cc) td.appendChild(cc);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+      if (r.detail) {
+        var dr = el("tr", "det"); dr.hidden = true;
+        var dc = el("td"); dc.setAttribute("colspan", String(r.cells.length));
+        dc.appendChild(el("div", "det-in"));
+        dr.appendChild(dc); tb.appendChild(dr);
+        tr.__detail = r.detail;
+      }
+    });
+    t.appendChild(tb); tw.appendChild(t);
+    return tw;
+  }
+  function esc(x) {
+    return String(x === undefined || x === null ? "" : x)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  var ORIGIN = { index: "Message Center index", item: "cited by an item on this page, not in the index we read",
+                 both: "index and an item on this page" };
+
+  function entryRows(list) {
+    return list.map(function (e) {
+      var id = el("span");
+      if (e.link) id.appendChild(link(e.link, e.id, "lnk")); else id.appendChild(el("code", null, e.id));
+      var title = el("span");
+      title.appendChild(el("b", null, e.title || e.id));
+      if (e.summary) { title.appendChild(document.createElement("br")); title.appendChild(el("span", "sub", e.summary)); }
+      var tech = (e.tech || []).length
+        ? (e.tech || []).map(function (t) { return '<span class="mcseen">' + esc(t) + "</span>"; }).join("")
+        : '<span class="none">untagged</span>';
+      var act = e.action ? ('<span class="mcact">act by ' + esc(e.action) + "</span>")
+                         : '<span class="none">none stated</span>';
+      var pub = e.published ? esc(e.published)
+                            : ('<span class="none">' + esc(e.note || "date not read this run") + "</span>");
+      var open = el("span");
+      var b = el("button", "mcchip", "open");
+      b.type = "button"; b.setAttribute("data-mc", e.storyKey || e.id);
+      b.addEventListener("click", function () { window.__socOpenMC(e.storyKey || e.id); });
+      open.appendChild(b);
+      return { id: e.id, key: e.storyKey || e.id,
+               cells: [pub, id, title, tech, act,
+                       '<span class="field">' + esc(ORIGIN[e.origin] || e.origin) + "</span>", open] };
+    });
+  }
+
+  function mapDetail(m) {
+    var box = el("div");
+    var any = false;
+    (m.docRefs || []).forEach(function (path) {
+      var p = DOCP[path];
+      if (!p || !window.__socFileBlock) return;
+      any = true;
+      box.appendChild(window.__socFileBlock(p, "mc-map"));
+    });
+    var ul = el("ul", "mclinks");
+    (m.blogs || []).forEach(function (u) {
+      var li = el("li");
+      li.appendChild(el("span", "mcwhat", "blog"));
+      li.appendChild(link(u, u.replace(/^https?:\/\//, "").slice(0, 90)));
+      ul.appendChild(li); any = true;
+    });
+    (m.community || []).forEach(function (u) {
+      var li = el("li");
+      li.appendChild(el("span", "mcwhat", "community"));
+      li.appendChild(link(u, u.replace(/^https?:\/\//, "").slice(0, 90)));
+      ul.appendChild(li); any = true;
+    });
+    (m.items || []).forEach(function (id) {
+      var it = BYITEM[id]; if (!it) return;
+      var li = el("li");
+      li.appendChild(el("span", "mcwhat", "on this page"));
+      li.appendChild(el("b", null, it.title || id));
+      ul.appendChild(li); any = true;
+    });
+    if (ul.childNodes.length) box.appendChild(ul);
+    if (!any) box.appendChild(el("p", "mcempty",
+      "Only Message Center carries this one. No tracked documentation page and no article says the " +
+      "same thing yet — that is a finding about coverage, not an empty row."));
+    return box;
+  }
+
+  function mapRows() {
+    return MAP.slice().sort(function (a, b) {
+      return ((b.seenIn || []).length - (a.seenIn || []).length) ||
+             String(a.storyKey || "").localeCompare(String(b.storyKey || ""));
+    }).map(function (m) {
+      var e = m.mc ? ENT.filter(function (x) { return x.id === m.mc; })[0] : null;
+      var plus = el("span");
+      if ((m.docRefs || []).length || (m.blogs || []).length || (m.community || []).length || (m.items || []).length) {
+        var b = el("button", "xb", "+");
+        b.type = "button"; b.setAttribute("data-mcplus", "1"); b.setAttribute("aria-expanded", "false");
+        b.title = "Show what this change looks like in every source that carries it";
+        plus.appendChild(b);
+      } else plus.appendChild(el("span", "xn", "—"));
+      var seen = (m.seenIn || []).map(function (s2) {
+        return '<span class="mcseen s-' + esc(s2) + '">' + esc(s2) + "</span>";
+      }).join("") || '<span class="none">not stated</span>';
+      return { key: m.storyKey, detail: mapDetail(m),
+        cells: [plus,
+          '<code>' + esc(m.storyKey) + "</code>",
+          esc(m.product || (e && (e.tech || [])[0]) || "—"),
+          e ? ('<b>' + esc(e.title || e.id) + "</b>") : '<span class="none">no Message Center entry</span>',
+          String((m.items || []).length) + " on this page",
+          String((m.docRefs || []).length) + " documentation",
+          String((m.blogs || []).length + (m.community || []).length) + " articles",
+          seen] };
+    });
+  }
+
+  function buildTab() {
+    var p = document.getElementById("tab-mc");
+    if (!p || p.querySelector("details.mcsec")) return;
+    var c = D.counts || {};
+    var win = D.window || {};
+
+    var today = ENT.filter(function (e) { return e.firstTracked === ST.briefDate || e.published === ST.briefDate; });
+    var inwin = ENT.filter(function (e) {
+      return !win.from || !e.published || (e.published >= win.from && e.published <= (win.to || "9999"));
+    });
+    var pick = today.length ? today : inwin;
+    pick = pick.slice().sort(function (a, b) {
+      return (a.action ? 0 : 1) - (b.action ? 0 : 1) ||
+             String(b.published || "").localeCompare(String(a.published || ""));
+    });
+
+    p.appendChild(sec("mc-today", "Section A",
+      today.length ? "What Microsoft published today" : "What Microsoft published in this window",
+      pick.length, true,
+      "Every entry Microsoft posted to Message Center or the Roadmap, read on " + esc(D.readOn || "") +
+      ". An entry carrying a date to act by is listed first, because that is the one that needs a plan. " +
+      "<b>Message Center content varies by tenant</b> — confirm anything here in your own tenant.",
+      table(["Published", "ID", "What it says", "Technology", "Action required by", "Where it came from", ""],
+        entryRows(pick),
+        "<b>Message Center</b> &middot; " + pick.length + " entries &middot; " +
+        (c.withDeadline || 0) + " carry a date to act by",
+        "Microsoft published nothing in this window. That is a result, not a gap.")));
+
+    p.appendChild(sec("mc-map", "Section B", "The same change, seen from every source",
+      MAP.length, (c.multiSource || 0) > 0,
+      "One row per change, joined by <code>storyKey</code> — the MC or RM number when there is one, " +
+      "and otherwise the address of the documentation page it is about. <b>Press + to see what the " +
+      "change looks like in each source</b>: the lines Microsoft added or removed inside the page, and " +
+      "the articles that describe it. A row seen in only one source is not a defect — it says the " +
+      "other sources have not covered it yet, and that is worth knowing on its own.",
+      table(["", "Story", "Product", "What Microsoft says", "On this page", "Documentation", "Articles", "Seen in"],
+        mapRows(),
+        "<b>Joined changes</b> &middot; " + MAP.length + " stories &middot; " +
+        (c.multiSource || 0) + " carried by more than one source",
+        "Nothing could be joined this run: no entry, page or article shared a story key.")));
+
+    p.appendChild(sec("mc-all", "Section C", "Every entry this run read", ENT.length, false,
+      "The whole index as it stood on " + esc(D.readOn || "") + ", including entries outside the window.",
+      table(["Published", "ID", "What it says", "Technology", "Action required by", "Where it came from", ""],
+        entryRows(ENT.slice().sort(function (a, b) {
+          return String(b.published || "").localeCompare(String(a.published || ""));
+        })),
+        "<b>Full index</b> &middot; " + ENT.length + " entries",
+        "The index was not read this run.")));
+
+    var srows = [
+      ["Entries in the index this run read", String(c.index === undefined ? D.indexRead || 0 : c.index)],
+      ["Cited by an item on this page", String(c.cited || 0)],
+      ["In both the index and an item", String(c.both || 0)],
+      ["Cited by an item and NOT in the index", String(c.onlyItem || 0)],
+      ["In the index and not cited by any item", String(c.onlyIndex || 0)],
+      ["First tracked today", String(c.newToday || 0)],
+      ["Carrying a date to act by", String(c.withDeadline || 0)],
+      ["Entries with no published date read this run", String(ENT.filter(function (e) { return !e.published; }).length)]
+    ].map(function (r) { return { cells: [r[0], r[1]] }; });
+    p.appendChild(sec("mc-sources", "Section D", "How complete this index is", srows.length, false,
+      "The row that matters is the fourth: an entry cited by an item and absent from the index we read " +
+      "is a finding about the INDEX, not about the item. Until 12 September 2026 the brief was silent " +
+      "about exactly that, and the change page said zero over a table saying three (§3 punkt 11).",
+      table(["What", "How many"], srows, "<b>Completeness</b>")));
+  }
+
+  /* the + on a joined row. One listener on the panel, not one per row (5al). */
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("button[data-mcplus]") : null;
+    if (!b) return;
+    ev.preventDefault();
+    var tr = b.closest("tr"), det = tr && tr.nextElementSibling;
+    if (!det || !det.classList.contains("det")) return;
+    var host = det.querySelector(".det-in");
+    if (host && !host.childElementCount && tr.__detail) host.appendChild(tr.__detail);
+    var open = det.hidden;
+    det.hidden = !open;
+    b.textContent = open ? "−" : "+";
+    b.setAttribute("aria-expanded", String(open));
+    if (open && window.__socAuditOwners) window.__socAuditOwners();
+  });
+
+  /* ---------------- the column, three tabs, two meanings ---------------- */
+  function headOf(t) {
+    return [].map.call(t.querySelectorAll("thead th"), function (x) {
+      return txt(x).replace(/[↕↑↓]/g, "").trim();
+    });
+  }
+  function addCell(tr, node) {
+    if (tr.classList.contains("grp") || tr.classList.contains("hdet") ||
+        tr.classList.contains("det") || tr.classList.contains("s12det")) {
+      var c = tr.cells[0];
+      if (c && c.hasAttribute("colspan")) c.setAttribute("colspan", String(+c.getAttribute("colspan") + 1));
+      return;
+    }
+    var td = el("td", "mccol");
+    if (node) td.appendChild(node); else td.appendChild(dash());
+    tr.appendChild(td);
+  }
+  function itemColumn() {
+    ["tab-today", "tab-new"].forEach(function (pid) {
+      var p = document.getElementById(pid);
+      if (!p) return;
+      [].forEach.call(p.querySelectorAll("table"), function (t) {
+        if (t.dataset.mc === "1" || !t.tHead || !t.tBodies.length) return;
+        var rows = [].slice.call(t.tBodies[0].rows).filter(function (r) { return r.hasAttribute("data-id"); });
+        if (!rows.length) return;
+        t.dataset.mc = "1";
+        t.tHead.rows[0].appendChild(el("th", null, "Message Center"));
+        [].forEach.call(t.tBodies[0].rows, function (r) {
+          var e = r.hasAttribute("data-id") ? MCOF[r.getAttribute("data-id")] : null;
+          addCell(r, e ? chipFor(e) : null);
+        });
+      });
+    });
+  }
+  function overviewColumn() {
+    var p = document.getElementById("tab-overview");
+    if (!p) return;
+    [].forEach.call(p.querySelectorAll("table"), function (t) {
+      if (t.dataset.mc === "1" || !t.tHead || !t.tBodies.length) return;
+      var h = headOf(t);
+      if (h[0] !== "Product" || h.indexOf("New today") < 0) return;   /* only the by-product table */
+      t.dataset.mc = "1";
+      t.tHead.rows[0].appendChild(el("th", null, "Message Center"));
+      [].forEach.call(t.tBodies[0].rows, function (r) {
+        var prod = txt(r.cells[0]);
+        var list = BYPROD[prod] || [];
+        var cell;
+        if (!list.length) cell = el("span", "mcz", "0");
+        else {
+          cell = el("button", "mccount", String(list.length));
+          cell.type = "button";
+          cell.setAttribute("data-mc", prod);
+          cell.title = "Open Message Center, narrowed to " + prod;
+          cell.addEventListener("click", function () { window.__socOpenMC(null, prod); });
+        }
+        addCell(r, cell);
+      });
+      var cap = t.querySelector("caption");
+      if (cap) cap.appendChild(document.createTextNode(
+        " · Message Center counts an entry under every technology tagged on it and under the " +
+        "product of every item that cites it, so the column can total more than the index holds."));
+    });
+  }
+
+  /* ---------------- opening the tab, narrowed ---------------- */
+  window.__socOpenMC = function (key, product) {
+    var tab = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (t) {
+      if (!tab && t.getAttribute("aria-controls") === "tab-mc") tab = t;
+    });
+    if (tab) tab.click();
+    setTimeout(function () {
+      var s11 = window.__socS11;
+      if (key) {
+        var m = BYKEY[key], ids = [key];
+        if (m) ids = [key].concat(m.items || []).concat(m.mc ? [m.mc] : []);
+        if (s11 && s11.setTab) s11.setTab("tab-mc", { label: "story " + key, texts: ids, anchor: "mc-map" });
+        var tr = document.querySelector('#tab-mc tr[data-story="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+        if (tr) {
+          var d = tr.closest("details");
+          if (d) d.open = true;
+          tr.scrollIntoView({ block: "center" });
+          tr.classList.add("mcflash");
+          setTimeout(function () { tr.classList.remove("mcflash"); }, 2200);
+        }
+      } else if (product) {
+        var names = (BYPROD[product] || []).map(function (e) { return e.id; });
+        if (s11 && s11.setTab) s11.setTab("tab-mc", { label: "product " + product, texts: names, anchor: "mc-today" });
+      } else if (s11 && s11.clearTab) s11.clearTab("tab-mc");
+    }, 180);
+  };
+
+  function boot() {
+    try { buildTab(); } catch (e) { if (window.console) console.error("[s16 tab]", e); }
+    try { itemColumn(); } catch (e) { if (window.console) console.error("[s16 col]", e); }
+    try { overviewColumn(); } catch (e) { if (window.console) console.error("[s16 ov]", e); }
+    try { if (window.__socAuditOwners) window.__socAuditOwners(); } catch (e) {}
+  }
+  /* after SCRIPT 13 (520 ms) has built the Overview table and SCRIPT 15 v2 (800 ms)
+     its own, so the column lands on a table that already exists; two late passes
+     catch a tab the reader opens for the first time */
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 900); });
+  else setTimeout(boot, 900);
+  setTimeout(boot, 2400);
+  document.addEventListener("click", function (ev) {
+    if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 160);
+  }, true);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 16 jest osobnym blokiem, ktory niczego nie
+nadpisuje: kolumne dokłada wlasnym atrybutem `data-mc`, panel buduje od zera, a zawezenie CUDZEJ
+zakladki zleca SKRYPTOWI 11 (§5ap) zamiast pisac `row.hidden` samemu.
+
+### Walidator — pozycje 90 i 91 listy §0
+
+- **90a** — kazdy wpis `mc.entries` ma `id`, `link`, `published` albo niepusty `note`, `origin`
+  ze slownika `index`/`item`/`both` i `storyKey`, a `mc.readOn` rowna sie `briefDate`. **Klasa A**:
+  zgubiony wpis Message Center i wpis bez linku to falszywa tresc, dokladnie jak przy pozycji 60
+  (zrodla spolecznosci) i 81 (obszary Learn).
+- **90b** — `SCRIPT 16`, `mccol`, `__socOpenMC` i `data-mc="` sa w pliku. **Klasa B.**
+- **90c** — panel `tab-mc` i cztery sekcje po swoich `id`. **Klasa B.**
+- **91** — kazda pozycja z `reference` zaczynajacym sie od `MC`/`RM` ma `storyKey` rowny temu
+  numerowi, a `mc.map` jest niepusta i kazdy jej wpis ma `storyKey` oraz niepuste `seenIn`.
+  **Klasa B.**
+
+Render (§5h) sprawdza to, czego bramka z pliku nie zobaczy: ze kolumna `Message Center` naprawde
+stoi w tabeli Overview, Today i New; ze klikniecie chipa otwiera `tab-mc` i podswietla wiersz;
+ze `+` w `mc-map` rozwija blok `.s12file` z `data-ntowner="mc-map"` i ze ten blok NIE ma klasy
+`s12orphan`; oraz ze `navrow daily` ma siedem zakladek.
+
+## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
+
+Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
+w samym Message Center ma **12.09**. Poprosil, zeby *„zmierzyc, ale od razu potem zaimplementowac"* —
+i ta kolejnosc jest tu cala regula.
+
+**Poprawka bez pomiaru nie ma jak byc poprawna.** Nie wiadomo, czy to jeden wpis, czy setka; czy
+rozjezdza sie MC, czy takze Learn, blogi i spolecznosc; czy przyczyna jest w odczycie, czy w tym, ze
+zrodlo w ogole daty nie drukuje. Dlatego przebieg najpierw **liczy**, a dopiero potem **podmienia** —
+i jedno i drugie zapisuje, zeby dalo sie zakwestionowac.
+
+### Skad bierze sie data ZRODLA, rodzina po rodzinie
+
+| rodzina | co jest data zrodla | gdzie ja czytamy |
+|---|---|---|
+| `mc` | `publishedDate` na stronie pojedynczej wiadomosci `https://mc.merill.net/message/<ID>` | §5an: indeks **dat nie drukuje**, drukuje je strona wiadomosci; budzet 15 stron na przebieg |
+| `learn` | naglowek miesiaca wpisu `what's new` plus `ms.date` strony | §5aw: `nt.changes[].monthLabel` i `nt.wnMeta[].msDate` |
+| `blogs` | `pubDate` z kanalu RSS | §5aw: `nt.items[].date` |
+| `community` | data z listingu albo ze strony artykulu, nigdy dopowiedziany rok | §5an: `community.items[].date` i `dateSource` |
+
+### Regula
+
+1. **Porownujemy tylko tam, gdzie OBIE daty istnieja.** Brak daty u zrodla nie jest rozjazdem —
+   jest `unknown` i ma wlasny licznik. Zrownanie „nie znam" z „nie zgadza sie" produkowaloby
+   dziesiatki falszywych trafien i nauczyloby ignorowac cala tablice (§0b).
+2. **Przy rozjezdzie wygrywa ZRODLO.** `published` pozycji jest podmieniane na date zrodla,
+   a wpis dostaje `fixed:true`. Data, ktorej nie udalo sie odczytac w tym przebiegu, zostaje jak
+   byla, z `fixed:false` i powodem — nigdy nie nadpisujemy prawdziwej daty zgadnieta.
+3. **Kazdy rozjazd jest NAZWANY.** `{"id","kind","shown","atSource","sourceUrl","reason","fixed"}`.
+   Sama liczba odpowiada na pytanie ILE, nie na pytanie CO — to ta sama zasada co przy artykulach
+   spolecznosci (§5an) i przy `bytab` (§3a).
+4. **Budzet odczytu jest czescia wyniku.** `checked.mc` bywa mniejsze niz liczba wpisow, bo strony
+   wiadomosci czyta sie najwyzej pietnascie na przebieg. Liczba przeczytanych stoi w `checked`,
+   a reszta w `unknown` — strona mowi wiec „sprawdzono 15 z 24", a nie udaje kompletu.
+5. **Pozycja 89 listy §0 NIE zada zera rozjazdow.** Zada pomiaru, reguly i nazwania. Asercja
+   zadajaca zera zapalilaby sie pierwszego dnia na kazdym przebiegu, zanim ktokolwiek zdazyl
+   cokolwiek policzyc — a asercja zapalajaca sie na poprawnym przebiegu uczy, ze czerwone nic nie
+   znaczy (§0b). Do klasy A przechodzi w dniu, w ktorym `mismatch` bedzie puste w dwoch przebiegach
+   z rzedu.
+
+### Kontrakt danych — `dateAudit` w bloku `soc-brief-state`
+
+**TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** (§0a). `dateAudit` jest kluczem
+w istniejacym bloku stanu, tak samo jak `graphMap` (§5ah), `ledger14` (§5al), `community` (§5an),
+`sources` i `docText` (§5ar) oraz `nt` (§5aw).
+
+```json
+"dateAudit":{
+  "readOn":"2026-09-16",
+  "rule":"A date is compared only where the source prints one. Where they differ the SOURCE wins and the item's published date is rewritten; where the source date could not be read this run the item keeps its date and the row says why. Message Center pages are read at most 15 per run, so `checked.mc` can be lower than the number of entries and the rest are counted as unknown, never as agreeing.",
+  "checked":{"mc":15,"learn":38,"blogs":58,"community":163},
+  "unknown":{"mc":9,"learn":0,"blogs":0,"community":24},
+  "mismatch":[{"id":"MC1478001","kind":"mc","shown":"2026-09-01","atSource":"2026-09-12",
+               "sourceUrl":"https://mc.merill.net/message/MC1478001",
+               "reason":"the index row carried no date and the run dated it from the item that cites it; the message page prints 12 September",
+               "fixed":true}],
+  "note":""
+}
+```
+
+`kind` jest slownikiem ZAMKNIETYM: `mc` · `learn` · `blogs` · `community`. Wartosc spoza listy
+zatrzymuje przebieg tak samo, jak platforma spoza slownika w §5ag — inaczej nowa rodzina wchodzi
+po cichu i nikt nie zauwaza, ze nikt jej nie liczy.
+
+### Gdzie to widac
+
+**W zakladce Sources**, jako sekcja `<section id="dateaudit" data-nav="Date audit">` zaraz po
+`provenance` (§5ar). Tabela: `Item | Family | Date shown | Date at source | Fixed | Why they differed | Source`.
+Zero rozjazdow jest WYNIKIEM i mowi to zdaniem z liczbami — *„274 dates compared against their
+source, none differed; 33 sources print no date and are counted apart"* — a nie pusta sekcja.
+
+**Sekcje buduje SKRYPT 12** (§5ar), ten sam, ktory buduje `provenance`: jeden skrypt jest juz
+wlascicielem zakladki Sources, a drugi pisarz tej samej zakladki bylby dokladnie tym, przed czym
+stoi §5am.
+
+### Walidator — pozycja 89 listy §0
+
+`dateAudit.readOn` rowne `briefDate`; `rule` niepusta; wszystkie cztery rodziny obecne w `checked`;
+kazdy wpis `mismatch` z `kind` ze slownika, z `atSource` i z niepustym `reason`, oraz **suma
+`checked` wieksza od zera przy niepustym `items`** — zero porownan to nie jest czysty audyt, tylko
+audyt, ktorego nie bylo (ta sama pulapka co pusty zbior w pozycjach 23 i 32). Brak klucza daje
+`BRAK „nie da sie sprawdzic"`, nigdy OK. **Klasa B** — powod wyzej, punkt 5.
+
+## 5bb. JEDEN RENDERER ZMIANY TEKSTU NA CALY PORTAL
+
+Wlasciciel, 16 wrzesnia 2026, na pytanie o ujednolicenie: *„tak — jedna funkcja, chyba ze widzisz
+cos inaczej? lepiej?"*. Nie widze inaczej, i powod jest mierzalny, nie estetyczny.
+
+Ksztalt „zielone dodane, czerwone usuniete" rysowaly do tego dnia **TRZY niezalezne kawalki kodu**,
+kazdy pod inna nazwa klasy:
+
+| gdzie | funkcja | klasy, ktore produkuje | czego NIE ma |
+|---|---|---|---|
+| `make_diff.py` (§3 punkt 15) | `file_block()` | `.s12file` `.s12fhead` `.s12path` `.s12cnt` `.s12hunk` `.s12line` `.s12meta` `.s12why` `.s12more` | — wzorzec |
+| SKRYPT 12 (§5ar) | `pageBlock()` | te same, bez `.s12more` | licznika „i N kolejnych linii" |
+| SKRYPT 15 v2 (§5aw) | `lineBox()` | **`.ntdiff` `.ntdh` `.ntpath` `.ntdc` `.nthunk` `.ntat` `.ntline` `.ntmeta` `.ntwhy2`** | **daty i commita w naglowku, licznika pominietych linii** |
+
+Trzeci wiersz jest odpowiedzia na zgloszenie o „blokach bez daty i bez naglowka" w zakladce
+Microsoft Learn: te bloki **nie sa** `.s12file` i nigdy nimi nie byly — maja wlasna rodzine klas,
+wlasny arkusz i wlasny, ubozszy naglowek. **To nie byl blad renderu, tylko druga kopia jednej
+rzeczy**, a dwie kopie rozjezdzaja sie zawsze (§0a). Te akurat rozjechaly sie o date.
+
+### Regula
+
+1. **Jest DOKLADNIE jedna funkcja rysujaca zmiane tekstu w przegladarce.** SKRYPT 12 (§5ar)
+   definiuje ja przy parsowaniu i eksportuje jako `window.__socFileBlock(page, owner)`. SKRYPT 15 v2
+   (§5aw) **traci `lineBox()`** i wola eksport; kazdy nastepny skrypt robi to samo.
+2. **`make_diff.py` ma serwerowy blizniak tej funkcji i to jest swiadome.** Strona `/diff/` nie wozi
+   powloki (§3), wiec nie ma dostepu do zadnego `window.*`. Wolno miec dwa wykonania, **nie wolno
+   miec dwoch KSZTALTOW**: `file_block()` produkuje te same klasy w tej samej kolejnosci, a pozycja
+   88a mierzy oba miejsca na jednym pliku.
+3. **Kazdy blok niesie `data-ntowner` z `id` sekcji, w ktorej ma stac**, a `ownerOf()` sprawdza po
+   zamontowaniu, czy naprawde tam stoi. Blok, ktory nie wie, czyj jest, laduje poza tabela i poza
+   sekcja — dokladnie tak, jak wygladalo zgloszenie. Blok osierocony dostaje klase `s12orphan`
+   i ostrzezenie w konsoli; **nie jest ukrywany**, bo ukrycie zamienilo by widoczny blad w cichy.
+4. **Arkusz traci rodzine `.ntdiff*`.** Regula w arkuszu dla klasy, ktorej nic juz nie renderuje,
+   jest martwa i myli nastepny przebieg tak samo, jak klasa w markupie bez reguly w arkuszu myli
+   przegladarke (§5ae, §5an, §5au).
+5. **`docsdiff`, `blogsdiff` i katalogi na stronie zmian uzywaja `file_block()`**, a nie wlasnych
+   tabel „wiersz na linie". Sekcja `docsdiff` juz to robi od 14 wrzesnia; ta regula czyni to
+   wiazacym dla kazdej sekcji, ktora pokazuje ROZNICE TEKSTU. Tabela roznicy POL (`before → after`)
+   to co innego i zostaje tabela — `<del>`/`<ins>` w komorce jest tam poprawnym ksztaltem (§4).
+
+### Co sie NIE zmienia
+
+- **`.s12file` nie zyskuje nowych pol.** Naglowek dalej niesie nazwe, sciezke, commit i date,
+  liczniki `+N / −N`, hunki z numerem linii, zdanie o metadanych i `Why this matters`. Zakladka
+  Learn **zyskuje** date i commit, bo dotad ich nie miala.
+- **Limity zostaja przy WOLAJACYM**, nie w rendererze: `make_diff.py` tnie na 60 liniach i dopisuje
+  `.s12more`, SKRYPT 15 v2 pokazuje czternascie kart. Renderer, ktory sam decyduje, ile pokazac,
+  odbiera te decyzje sekcji, ktora jedyna wie, ile miejsca ma.
+
+### Arkusz — blok dopisywany na koncu `<style>`, PRZED blokiem §5av
+
+```css
+/* §5bb — jeden renderer zmiany tekstu. Klas `.ntdiff*` juz nie ma: rodzine usunieto
+   z bloku §5aw razem z `lineBox()`, bo regula dla klasy, ktorej nic nie renderuje,
+   jest martwa i myli nastepny przebieg (§5au). Zostaje tu wylacznie to, czego
+   `.s12file` z §5ar jeszcze nie mialo: znacznik sieroty. */
+.s12file:not([data-ntowner]){outline:2px dashed var(--warn);outline-offset:-2px}
+.s12file.s12orphan{outline:2px dashed var(--bad);outline-offset:-2px}
+.s12file.s12orphan::before{content:"This change block is not inside the section its owner names";
+ display:block;padding:7px 13px;background:var(--bad-soft);color:var(--bad);
+ font-size:12px;font-weight:700;border-bottom:1px solid var(--bad)}
+#tab-learn .s12file+.s12file,#tab-blogs .s12file+.s12file{margin-top:10px}
+```
+
+### Kod, ktory sie zmienia — trzy punkty, kazdy co do bajtu
+
+**W SKRYPCIE 12 (§5ar)**, zaraz po definicji `pageBlock()`, dochodzi eksport. Nic poza tym w tym
+skrypcie sie nie zmienia:
+
+```
+  /* §5bb: JEDEN renderer zmiany tekstu na caly portal. Do 16 wrzesnia 2026 ten sam
+     ksztalt rysowaly trzy kawalki kodu, a ten w zakladce Learn byl inna rodzina klas
+     i nie mial ani daty, ani commita. `owner` to `id` sekcji, w ktorej blok ma stac —
+     blok, ktory tego nie wie, laduje poza tabela i poza sekcja. */
+  function fileBlock(p, owner) {
+    var box = pageBlock(p);
+    box.dataset.ntowner = owner || "";
+    return box;
+  }
+  window.__socFileBlock = fileBlock;
+  function ownerOf(node) {
+    var s = node && node.closest ? node.closest("details.ntsec,details.dsec,section[id]") : null;
+    while (s && !s.id && s.parentNode && s.parentNode.closest) s = s.parentNode.closest("section[id]");
+    return s ? (s.id || "") : "";
+  }
+  window.__socAuditOwners = function () {
+    var bad = 0;
+    [].forEach.call(document.querySelectorAll(".s12file[data-ntowner]"), function (b) {
+      var want = b.getAttribute("data-ntowner");
+      var got = ownerOf(b);
+      var orphan = !!want && want !== got;
+      b.classList.toggle("s12orphan", orphan);
+      if (orphan) { bad++; if (window.console) console.warn("[s12 orphan]", want, "!=", got); }
+    });
+    return bad;
+  };
+```
+
+**W SKRYPCIE 15 v2 (§5aw)** znika cala funkcja `lineBox(x)`, a jej dwa wywolania zmieniaja sie na:
+
+```
+      dl.appendChild(window.__socFileBlock(x, "nt-pages"));
+```
+
+**W `make_diff.py` (§3)** `file_block()` dostaje drugi argument i wypisuje atrybut:
+
+```
+def file_block(p_, cap_lines=60, owner=""):
+    o = ['<div class="s12file" data-ntowner="%s">' % esc(owner)]
+```
+
+### Walidator — pozycja 88 listy §0
+
+- **88a** — `window.__socFileBlock = `, `function fileBlock(` i `window.__socFileBlock(` sa w pliku,
+  a `function lineBox(` **NIE**. Zostawienie starej funkcji obok nowej daje dwa renderery i zero
+  korzysci.
+- **88b** — `box.dataset.ntowner`, `function ownerOf(` i `[data-ntowner]` sa w pliku.
+  Render (§5h): **zero elementow `.s12file` bez `data-ntowner` i zero z klasa `s12orphan`**,
+  a w zakladce Microsoft Learn kazdy blok stoi wewnatrz `details#nt-pages`.
+
+Obie sa **klasy B**: lustro tylko kopiuje, wiec renderera nie podmieni — raportuje i publikuje (§0).
 
 ## 5av. ZIELONY JEST KOLOREM FILTRA — na kazdej powierzchni portalu
 
