@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **82 pozycje** (0-33, 35-61, 63-77, 79-84), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **85**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **84 pozycje** (0-33, 35-61, 63-77, 79-86), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **87**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -48,7 +48,10 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    **65 (§5ap)**, **66 (§5an, katalog odwrotny dla `details`)** i **67 (§5aq)**, a w nocy
    **68 (§5ar, prowenancja i diff tekstu zrodla)** oraz **69 (§5as, Start here)**, a po nich **70-72**
    (§5at: pasek filtra w mastheadzie, liczba prowadzaca do wyniku, monospace tylko na identyfikatorze), a 14 wrzesnia **80-82** razem z zakladkami
-   Microsoft Learn i Microsoft Blogs (§5aw) oraz **83 i 84** (§5ag kontrakt markupu, §5ay przypiety pasek).
+   Microsoft Learn i Microsoft Blogs (§5aw) oraz **83 i 84** (§5ag kontrakt markupu, §5ay przypiety pasek), a 16 wrzesnia **85 i 86** —
+   ramka `Source lists` (§5aw) i swiezosc wersji komponentow (§5ag), obie z jednego zgloszenia:
+   pudelko mowilo „updated today / 0 updates" o plikach, ktorych nikt nie tknal, a zakladka
+   Component versions podawala iOS 26.6.2 dwa dni po tym, jak Apple wydal 26.7 i 27.
    Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
@@ -143,6 +146,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
 | 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0; kazdy `pchip p-…` ze slownika osmiu platform (pozycja 37 czyta STAN, wiec chipa wymyslonego nie widzi) |
 | 84 | **przypiety pasek szukania katalogu jest PASKIEM**: `--hdr-h` mierzone przez SKRYPT 14, a w `.cat-controls` zostaje tylko `.cat-searchrow` | 5ay, 5at, 5c | `setProperty("--hdr-h"` w SKRYPCIE 14, `.cat-controls{top:var(--hdr-h,0px)`, `ctl.parentNode.insertBefore(d, ctl)`, `row.closest(".cat-controls")` w pliku; render (§5h): pasek przypiety tuz pod naglowkiem (odstep <= 4 px), wysokosc <= 90 px, zero nachodzenia na `.cat-detail` |
+| 85 | **ramka `Source lists` mowi o PLIKACH, nie o repozytorium** — data pochodzi z commita, ktory ruszyl TEN plik, a `changes` jest policzone w oknie i okno stoi w zdaniu; historia, ktorej przebieg nie ma, daje `updated:null` z powodem, nigdy date pusha | 5aw | `nt.jsons` obecne; NIE jest tak, ze wszystkie trzy daty sa identyczne i rowne `briefDate` przy zerowych licznikach (to sygnatura klonu `--depth 1`); kazdy wpis z data ma `window` |
+| 86 | **kazdy komponent PRZECZYTANY w tym przebiegu** — `checkedOn` rowne `briefDate` na KAZDYM wpisie, `state:"unread"` tylko z niepustym `note`, i nie wszystkie `baseline`, gdy jest z czym porownac | 5ag | licznik komponentow z `checkedOn` innym niz `briefDate` = 0; zero `unread` bez `note`; brak tablicy `components` daje `BRAK „nie da sie sprawdzic"`, nigdy OK |
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -164,7 +169,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -903,6 +908,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # nastepnego dnia NICZEGO. Dla przebiegu BUDUJACEGO obie zostaja wiazace, bo tam da sie
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
+           "85","86",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84"}
 # Pozycje INFORMACYJNE: raportowane, nigdy blokujace, w zadnym trybie. Pierwsza wersja
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
@@ -1831,6 +1837,60 @@ def gate(path, site=None, mirror=False, doc=None):
          all(k in h for k in K84),
          "brak: %s" % ", ".join(k for k in K84 if k not in h))
 
+    # ---- 85: ramka Source lists mowi o PLIKACH, nie o repozytorium (§5aw) ----
+    # Zgloszenie z 16 wrzesnia 2026: pudelko mowilo "updated today" o trzech listach,
+    # ktorych wlasciciel nie tknal, a pod spodem "0 updates". Dwa bledy naraz:
+    # `git log -1 -- <plik>` w klonie `--depth 1` (§5ai) zwraca JEDYNY commit, jaki ten
+    # klon ma, czyli HEAD, a HEAD to nasz wlasny push sprzed godziny; `changes` bylo
+    # zapisane jako `0` i nigdy nie liczone. SYGNATURA tej awarii jest jednoznaczna
+    # i tylko ja lapiemy: wszystkie trzy daty IDENTYCZNE, rowne dacie briefu, przy
+    # wszystkich licznikach zerowych. Trzy listy naprawde zmienione jednym commitem
+    # dzisiaj daja te sama date, ale niezerowe liczniki — wiec asercja nie zapala sie
+    # na poprawnej stronie (§0b).
+    _js = (st["soc-brief-state"] or {}).get("nt", {}).get("jsons") or []
+    if not _js:
+        need("85", "ramka Source lists podaje date pliku i policzone zmiany (§5aw)", False,
+             "brak nt.jsons w bloku stanu — nie da sie sprawdzic")
+    else:
+        _up = [str(x.get("updated") or "")[:10] for x in _js]
+        _ch = [x.get("changes") for x in _js]
+        _same = len(set(_up)) == 1 and _up[0] == (st["soc-brief-state"] or {}).get("briefDate")
+        _zero = all((c in (0, None)) for c in _ch)
+        _nowin = [x.get("label") for x in _js if x.get("updated") and not x.get("window")]
+        need("85", "ramka Source lists podaje date PLIKU i policzone zmiany, nie daty pusha (§5aw)",
+             not (_same and _zero) and not _nowin,
+             ("wszystkie %d list ma te sama date %s i zerowy licznik — to sygnatura plytkiego "
+              "klonu, a nie trzech list zmienionych naraz" % (len(_js), _up[0]))
+             if (_same and _zero) else
+             "wpisy z data, ale bez okna liczenia zmian: %s" % ", ".join(str(x) for x in _nowin[:3]))
+
+    # ---- 86: wersje komponentow PRZECZYTANE w tym przebiegu (§5ag) ----
+    # 16 wrzesnia 2026: strona podawala iOS 26.6.2, a Apple wydal 26.7 i 27 dwa dni
+    # wczesniej. Pozycje 37-40 przeszly, bo pytaja o KSZTALT danych — `checkedOn` sprzed
+    # dwoch tygodni jest polem obecnym i poprawnym. Zadna pozycja nie pytala, czy
+    # cokolwiek zostalo DZISIAJ przeczytane, wiec tablica przezywala przez kopiowanie.
+    # `unread` z niepustym `note` jest WYNIKIEM i przechodzi: zrodlo, ktore nie
+    # odpowiedzialo, jest znaleziskiem, a nie powodem, zeby przepisac wczorajszy numer.
+    _cmp = (st["soc-brief-state"] or {}).get("components") or []
+    if not _cmp:
+        need("86", "kazdy komponent przeczytany w TYM przebiegu (§5ag)", False,
+             "brak tablicy components — nie da sie sprawdzic")
+    else:
+        _bd3 = (st["soc-brief-state"] or {}).get("briefDate")
+        _stale = [c.get("id") for c in _cmp if c.get("checkedOn") != _bd3]
+        _silent = [c.get("id") for c in _cmp
+                   if c.get("state") == "unread" and not (c.get("note") or "").strip()]
+        _base = [c.get("id") for c in _cmp if c.get("state") == "baseline"]
+        _allbase = bool(_base) and len(_base) == len(_cmp) and site is not None
+        need("86", "kazdy komponent ma checkedOn z DZISIAJ, a nieodczytany ma powod (§5ag)",
+             not _stale and not _silent and not _allbase,
+             ("%d z %d komponentow ma checkedOn sprzed dzis (przepisane, nie przeczytane): %s"
+              % (len(_stale), len(_cmp), ", ".join(str(x) for x in _stale[:5])))
+             if _stale else
+             ("%d komponentow `unread` bez powodu: %s" % (len(_silent), _silent[:4]))
+             if _silent else
+             "wszystkie komponenty `baseline` przy istniejacym katalogu site/ — porownania nie bylo")
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
@@ -1998,7 +2058,9 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
 Skryptow dodawanych jest DWANASCIE (4-15; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
-SKRYPT 15 z §5au), a blokow CSS dwadziescia. Do tego cztery KOLEKTORY (§5aw), wycinane tak samo:**
+SKRYPT 15 z §5au), a blokow CSS **dwadziescia dwa** — liczbe sprawdza `extract_code.py`, a nie to
+zdanie (§0a). Do tego **piec KOLEKTOROW**: cztery z §5aw i `collect_components.py` z §5ag,
+wycinane tak samo:**
 
 | co | zrodlo | sekcja |
 |---|---|---|
@@ -2017,6 +2079,7 @@ SKRYPT 15 z §5au), a blokow CSS dwadziescia. Do tego cztery KOLEKTORY (§5aw), 
 | **kazdy dopisany blok CSS** (22 bloki) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
+| `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -2071,13 +2134,15 @@ def main(doc, outdir):
             elif "Zmiany stron Learn per obszar" in head:      got["learn_changes.py"] = b
             elif "microsoftblogs_sources.json" in head:        got["collect_blogs.py"] = b
             elif "window.__NT" in head:                        got["collect_nt.py"] = b
+            elif "collect_components.py" in head:              got["collect_components.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
     need = ["script%d.js" % n for n in range(4, 16)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
-            "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py"]
+            "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
+            "collect_components.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
@@ -2329,6 +2394,9 @@ co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo
 | `date-audit` | **data publikacji pokazana przy pozycji jest data ZRODLA** — wpis MC opisany jako 1.09, ktory w Message Center ma 12.09, jest bledem; audyt obejmuje MC, Learn, blogi i spolecznosc | 2026-09-16 | `UZGODNIONE` | nie ma ani pomiaru, ile pozycji sie rozjezdza, ani asercji porownujacej `published` pozycji z data w jej zrodle. Pierwszy krok to POMIAR na opublikowanym stanie, nie poprawka |
 | `learn-orphan-blocks` | **blok zmiany strony w zakladce Microsoft Learn nie stoi poza tabela i poza sekcja** — karty `.s12file` bez daty, bez naglowka i bez wiersza, na ktory wskazuja, sa znaleziskiem do wyjasnienia albo bledem renderu | 2026-09-16 | `UZGODNIONE` | zgloszone na zrzucie z 16 wrzesnia; §5aw sekcja `nt-pages` sklada tabele i karty razem, wiec trzeba zmierzyc, czy karty wypadaja poza `details.ntsec`, czy tabela ich nie wymienia |
 | `bytab-open` | **`What changed, by tab` i `What changed, by technology` otwarte, gdy cokolwiek sie ruszylo** | 2026-09-16 | `ZASPECYFIKOWANE` | §3 punkt 14 mowi to od 11 wrzesnia, a `verify()` odrzuca kazda INNA otwarta sekcje. Wlasciciel widzi je zwiniete, bo opublikowana strona zmian pochodzi sprzed tej wersji skryptu — brakuje przebiegu, nie reguly |
+| `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, pozycja 85 lapie sygnature plytkiego klonu. Brakuje pierwszego przebiegu z ta wersja kolektora |
+| `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZASPECYFIKOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach) i pozycja 86. Brakuje pierwszego opublikowanego artefaktu zbudowanego z kolektora |
+| `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `UZGODNIONE` | pomiar zrobiony, kodu nie ma: trzeba trzech asercji na wzor 68c i decyzji, czy `graphMap` wolno czytac rzadziej niz raz dziennie (klon devx to 2,0 s, wiec raczej nie) |
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -9051,6 +9119,361 @@ NIE"). Tu tylko to, co rozstrzyga codzienny przebieg:
 o Linuksie. Prawidlowa wartosc, po odczycie kotwicy `#macos--august-2026--101260620012`, to
 **`101.26062.0012`, release `20.126062.12.0`, sierpien 2026**. Dlatego kazdy build MDE bierze sie
 z KOTWICY konkretnego wydania, nie z tabeli zbiorczej i nie z wyszukiwania po nazwie systemu.
+
+### KOLEKTOR — bo proza obok braku kodu czyta sie jak zrobiona
+
+**16 wrzesnia 2026 wlasciciel zauwazyl, ze zakladka Component versions podaje iOS 26.6.2,
+a Apple wydal 26.7 i 27 dwa dni wczesniej.** Zmierzone tego dnia na zywych zrodlach:
+
+| komponent | co niosla strona | co naprawde bylo 16 wrzesnia |
+|---|---|---|
+| iOS / iPadOS | 26.6.2 (8 wrzesnia) | **27 i 26.7, oba 14 wrzesnia** |
+| macOS | Tahoe 26.6.2 | **Golden Gate 27, Tahoe 26.7, Sequoia 15.8** |
+| Authenticator na iOS | 6.8.54 (31 sierpnia) | **6.8.55, 10 wrzesnia** |
+| MDI sensor, MDE platform | 2.255.19295.47272 · 4.18.26080.3 | **te same** — te dwa byly aktualne |
+
+**Przyczyna nie byla w danych ani w zaniedbaniu przebiegu.** Ta sekcja opisywala zrodla PROZA
+i nie niosla ani jednej linii kodu, ktory by je czytal — w odroznieniu od §5aw, ktora wozi cztery
+kolektory. `components` przezywalo wiec wylacznie przez kopiowanie z wczorajszego artefaktu,
+dokladnie tak jak `splitTabs()` przezywalo do dnia, w ktorym §0c kazalo wycinac skrypty z tego
+pliku (§5ae). **I zadna pozycja listy §0 tego nie widziala**: pozycje 37-40 pytaja o KSZTALT danych
+(czy kazdy komponent ma `versions[]`, `provenance`, `state`, `checkedOn`), a `checkedOn` sprzed
+dwoch tygodni jest polem obecnym i poprawnym. Bramka sprawdzala, czy pole JEST, nie czy cokolwiek
+zostalo dzisiaj PRZECZYTANE.
+
+**Odtad `components` powstaje z kolektora wycinanego z TEGO pliku (§0c), a pozycja 86 listy §0
+mierzy swiezosc.** Dwie reguly sa przy tym wiazace i obie wynikaja z pomiaru:
+
+1. **`checkedOn` znaczy PRZECZYTANE W TYM PRZEBIEGU, nigdy „przepisane z wczoraj".** Komponent,
+   ktorego zrodla nie udalo sie odczytac, dostaje `state:"unread"` i **niepusty `note`** z powodem —
+   a nie wczorajszy numer pod dzisiejsza data. To jest ta sama dyscyplina, ktora §5a stosuje do
+   katalogu uprawnien: *„odczyt sie nie udal → nie ruszasz katalogu i piszesz na stronie, ze stan
+   uslugi nie byl sprawdzony"*. Slownik `state` rosnie wiec o szosta wartosc: `baseline` ·
+   `no-change` · `new-version` · `backfilled` · `corrected` · **`unread`**.
+2. **Apple wydaje GALEZIE, nie kolejne buildy jednej linii.** 14 wrzesnia 2026 wyszly naraz
+   `iOS 27` i `iOS 26.7`, a `macOS` ma trzy latane galezie (`Golden Gate 27`, `Tahoe 26.7`,
+   `Sequoia 15.8`). „Wersja −1" nie jest wiec poprzednim buildem tej samej linii, tylko **poprzednia
+   galezia**, i kazda idzie do `versions[]` jako osobny wpis ze `stream:"previous branch"`.
+   Sprowadzenie tego do jednej liczby zabiera czytelnikowi dokladnie te informacje, po ktora tu
+   przychodzi: czy jego flota jest na galezi, ktora Apple nadal lata.
+
+Kolektor czyta **z KLONU, gdy jest** (§5ai, §5b: „klonuj, nie pobieraj"), a z `raw.githubusercontent`
+tylko wtedy, gdy klonu nie ma — i zapisuje przy kazdym komponencie, ktora droga poszedl. Uruchamia
+sie go po kolektorach §5aw, bo korzysta z tych samych klonow:
+
+```
+SOC_DATE=<briefDate> SOC_REPOS=repos python3 collect_components.py components.json <poprzedni site/data/*.json>
+```
+
+**Pulapka, ktora ten skrypt obchodzi i ktora wywrocila jego pierwsza wersje:** `[!INCLUDE]` podaza
+sie **tylko wtedy, gdy strona jest samym odnosnikiem**. `cloud-sync/reference-version-history.md`
+ma 426 bajtow i nic wlasnego, wiec bez podazenia za includem nie ma tam zadnej wersji; ale strona
+wydan MDE ma 80 kB WLASNEJ TRESCI i takze jeden `[!INCLUDE]` w srodku — podazenie za nim oddaje
+zupelnie inny plik i komponent wychodzi `unread` mimo poprawnego zrodla. Prog jest na tresci
+wlasnej krotszej niz 900 znakow po zdjeciu front matter.
+
+Zmierzone 16 wrzesnia 2026 na zywych zrodlach, bez klonow (sciezka `raw`): **13 komponentow,
+33 wersje, 13 odczytanych, 0 nieodczytanych.** Kontrola regresji na trzech wejsciach: poprzedni
+stan identyczny — **13 razy `no-change`**; poprzedni stan z `apple-ios 26.6.2` — **`apple-ios`
+`new-version`, reszta `no-change`**; brak poprzedniego stanu — `baseline` wszedzie.
+
+```python
+#!/usr/bin/env python3
+"""collect_components.py - wersje komponentow bezpieczenstwa. CLAUDE.md Sec.5ag.
+
+Istnieje, bo 16 wrzesnia 2026 wlasciciel zauwazyl, ze zakladka Component versions
+podaje iOS 26.6.2, podczas gdy Apple wydal 26.7 i 27 dwa dni wczesniej. Przyczyna nie
+byla w danych i nie byla w zaniedbaniu przebiegu: 5ag opisywala zrodla PROZA, a
+kolektora dla `components` nie bylo w tym pliku ani jednego - w odroznieniu od 5aw,
+ktora wozi cztery. Tablica przezywala wiec wylacznie przez kopiowanie z wczorajszej
+strony, dokladnie tak, jak `splitTabs()` przezywalo do dnia, w ktorym 0c kazalo wycinac
+skrypty z tego pliku (5ae).
+
+  SOC_DATE=<briefDate> SOC_REPOS=<katalog z klonami> python3 collect_components.py components.json [prev.json]
+
+Czyta z KLONU, gdy jest (5ai, 5b: "klonuj, nie pobieraj"), a z raw.githubusercontent
+tylko wtedy, gdy klonu nie ma - i zapisuje, ktora droga poszedl kazdy komponent.
+Komponent, ktorego nie udalo sie odczytac, dostaje `state:"unread"` i NIEPUSTY `note`;
+nigdy nie przepisuje sie wczorajszego numeru jako dzisiejszego odczytu.
+"""
+import re, os, sys, json, html, datetime, subprocess
+
+TODAY = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+REPOS = os.environ.get("SOC_REPOS", "repos")
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+
+def curl(url, timeout=30):
+    try:
+        p = subprocess.run(["curl", "-sS", "--compressed", "-L", "--max-time", str(timeout),
+                            "-A", UA, url], capture_output=True, text=True, timeout=timeout + 10)
+        return p.stdout
+    except Exception:
+        return ""
+
+def doc(repo, path, depth=0):
+    """Tresc pliku dokumentacji plus sposob odczytu. PODAZAMY za `[!INCLUDE]`:
+    `cloud-sync/reference-version-history.md` ma 426 bajtow i jest samym odnosnikiem,
+    a sklejanie sciezki ze zgadnietego sluga jest tym, czego zabrania 5i."""
+    how = "git"
+    d = os.path.join(REPOS, repo)
+    md = ""
+    if os.path.isdir(d):
+        try:
+            md = subprocess.run(["git", "-C", d, "show", "HEAD:" + path],
+                                capture_output=True, text=True, timeout=60).stdout
+        except Exception:
+            md = ""
+    if not md:
+        how = "raw"
+        md = curl("https://raw.githubusercontent.com/MicrosoftDocs/%s/main/%s" % (repo, path))
+    # Podazamy za `[!INCLUDE]` TYLKO wtedy, gdy strona jest samym odnosnikiem.
+    # `cloud-sync/reference-version-history.md` ma 426 bajtow i nic wlasnego; strona
+    # wydan MDE ma 80 kB TRESCI i takze jeden `[!INCLUDE]` w srodku - podazenie za nim
+    # oddaje zupelnie inny plik i komponent wychodzi `unread` mimo poprawnego zrodla
+    # (zmierzone przy pisaniu tego skryptu).
+    body = re.sub(r"^---\n.*?\n---\n", "", md or "", flags=re.S)
+    body = re.sub(r"\[!INCLUDE[^\]]*\][^\n]*", "", body)
+    m = re.search(r"\[!INCLUDE\s*\[[^\]]*\]\(([^)]+)\)\]", md or "")
+    if m and depth < 2 and len(body.strip()) < 900:
+        t = m.group(1).strip().replace("~/", (path.split("/")[0] + "/") if repo.endswith("entra-docs") else "")
+        return doc(repo, t, depth + 1)
+    return md or "", how
+
+def comp(cid, name, scope, platform, version, released=None, label=None,
+         prov="vendor", url=None, src=None, note="", deadline=None, dnote=None, extra=None):
+    c = {"id": cid, "name": name, "scope": scope,
+         "versions": [{"platform": platform, "version": version, "released": released,
+                       "releaseLabel": label or (("Released " + released) if released else "release date not stated")}],
+         "provenance": prov, "state": "unread" if version is None else "no-change",
+         "checkedOn": TODAY, "note": note,
+         "sources": [{"url": url, "label": src or name}] if url else []}
+    if deadline:
+        c["deadline"] = deadline
+        c["deadlineNote"] = dnote or ""
+    if extra:
+        c["versions"].extend(extra)
+    return c
+
+OUT, WARN = [], []
+
+# ---------- Entra Connect Sync ----------
+# Biezaca wersja to PIERWSZY naglowek `## <n.n.n.n>`, a tabela wycofan daje TERMIN:
+# wiersz z pusta data konca wsparcia jest wersja biezaca, kazdy inny niesie date.
+U = "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history"
+md, how = doc("entra-docs", "docs/identity/hybrid/connect/reference-connect-version-history.md")
+m = re.search(r"^##\s+(\d+\.\d+\.\d+\.\d+)\s*$", md, re.M)
+eos = {}
+for line in md.split("\n"):
+    r = re.match(r"^\|\s*\[?(\d+\.\d+\.\d+\.\d+)\]?[^|]*\|([^|]*)\|", line.strip())
+    if r:
+        eos[r.group(1)] = r.group(2).strip()
+cur = m.group(1) if m else None
+dl = None
+if cur:
+    for v, d2 in eos.items():
+        if v != cur and d2:
+            try:
+                dt = datetime.datetime.strptime(re.sub(r"\s*\(.*\)$", "", d2).strip(),
+                                                "%d %b %Y").date().isoformat()
+            except Exception:
+                try:
+                    dt = datetime.datetime.strptime(re.sub(r"\s*\(.*\)$", "", d2).strip(),
+                                                    "%d %B %Y").date().isoformat()
+                except Exception:
+                    dt = None
+            if dt and dt >= TODAY and (dl is None or dt < dl):
+                dl = dt
+OUT.append(comp("entra-connect-sync", "Entra Connect Sync", "Directory synchronization service",
+                "windows-server", cur, url=U, src="Entra Connect version history",
+                note="" if cur else "no version heading in the version history page",
+                deadline=dl,
+                dnote="Synchronization stops on any server below the version whose support ends on this date."))
+if cur: OUT[-1]["how"] = how
+
+# ---------- Cloud Sync provisioning agent ----------
+U = "https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/reference-version-history"
+md, how = doc("entra-docs", "docs/identity/hybrid/cloud-sync/reference-version-history.md")
+m = re.search(r"^##\s+(\d+\.\d+\.\d+\.\d+)\s*$", md, re.M)
+OUT.append(comp("entra-cloud-sync-agent", "Entra cloud sync provisioning agent",
+                "Cloud sync agent on the domain-joined host", "windows-server",
+                m.group(1) if m else None, url=U, src="Provisioning agent version history",
+                note="" if m else "no version heading in the include this page points at"))
+OUT[-1]["how"] = how
+
+# ---------- GSA Windows client ----------
+U = "https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history"
+md, how = doc("entra-docs", "docs/global-secure-access/reference-windows-client-release-history.md")
+m = re.search(r"^##\s+(?:Version\s+)?(\d+\.\d+\.\d+)", md, re.M)
+OUT.append(comp("gsa-windows-client", "Global Secure Access Windows client",
+                "Endpoint client for Internet and Private Access", "windows",
+                m.group(1) if m else None, url=U, src="GSA Windows client release history",
+                note="" if m else "no version heading in the release history page"))
+OUT[-1]["how"] = how
+
+# ---------- MDI sensor ----------
+U = "https://learn.microsoft.com/en-us/defender-for-identity/whats-new"
+md, how = doc("defender-docs", "defender-for-identity/whats-new.md")
+m = re.search(r"\b(2\.\d+\.\d+\.\d+)\b", md)
+OUT.append(comp("mdi-sensor", "Defender for Identity sensor",
+                "Sensor on domain controllers, AD FS, AD CS and Entra Connect hosts",
+                "windows-server", m.group(1) if m else None, url=U, src="MDI what's new",
+                note="" if m else "no sensor version on the what's new page this run read"))
+OUT[-1]["how"] = how
+
+# ---------- MDE: TRZY strumienie, nigdy zwiniete w jeden ----------
+# 5ag: przy jednej wartosci nie wiadomo, czy to sensor, silnik, czy sygnatury.
+U = "https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases"
+md, how = doc("defender-docs", "defender-endpoint/microsoft-defender-endpoint-releases.md")
+pf = re.search(r"Platform.{0,40}?(\d+\.\d+\.\d+\.\d+)", md, re.S)
+en = re.search(r"Engine.{0,40}?(1\.1\.\d+\.\d+)", md, re.S)
+si = re.search(r"[Ss]ecurity intelligence.{0,60}?(1\.\d{3}\.\d+\.\d+)", md, re.S)
+c = comp("mde-windows", "Defender for Endpoint antivirus on Windows",
+         "Platform, engine and the signature set shipped with the release", "windows",
+         pf.group(1) if pf else None, url=U, src="MDE release notes",
+         note="" if pf else "no platform build on the release page this run read")
+if en: c["versions"].append({"platform": "windows", "version": en.group(1),
+                             "releaseLabel": "Engine", "stream": "engine"})
+if si: c["versions"].append({"platform": "windows", "version": si.group(1),
+                             "releaseLabel": "Security intelligence shipped with the release",
+                             "stream": "signatures-shipped"})
+c["versions"][0]["stream"] = "platform"
+c["how"] = how
+OUT.append(c)
+
+# ---------- Authenticator na iOS: OFICJALNE API Apple ----------
+# 5ag/7: strony sklepu NIE uzywamy do daty - podaje `5d ago`, a data wzgledna nie jest data.
+raw = curl("https://itunes.apple.com/lookup?id=983156458&country=us")
+v = rel = None
+try:
+    r = json.loads(raw)["results"][0]
+    v, rel = r.get("version"), (r.get("currentVersionReleaseDate") or "")[:10]
+except Exception:
+    pass
+OUT.append(comp("authenticator-ios", "Microsoft Authenticator on iOS", "Authenticator app",
+                "ios", v, rel, prov="vendor",
+                url="https://apps.apple.com/us/app/microsoft-authenticator/id983156458",
+                src="Apple lookup API",
+                note="" if v else "the Apple lookup API did not answer this run"))
+
+# ---------- Authenticator na Androidzie: ZGODNOSC LUSTER, nigdy jedno zrodlo ----------
+# 7: Google Play nie wystawia numeru przy odczycie server-side, a Microsoft nie publikuje
+# historii wersji tej aplikacji wcale. Numer powstaje przez zgodnosc co najmniej DWOCH
+# niezaleznych luster, a DATY z luster nie bierzemy w ogole - kazde datuje wlasne
+# przyjecie pliku i 6 wrzesnia 2026 daly cztery rozne daty dla jednego numeru.
+MIRRORS = [("APKMirror", "https://www.apkmirror.com/apk/microsoft-corporation/microsoft-authenticator/",
+            r"microsoft-authenticator-(\d+[-.]\d+)-release"),
+           ("AppGlint", "https://appglint.com/app/google-play/com.azure.authenticator",
+            r"\b(\d+\.\d{4}\.\d{4})\b"),
+           ("Xiaomi GetApps", "https://global.app.mi.com/details?id=com.azure.authenticator",
+            r"\b(\d+\.\d{4}\.\d{4})\b")]
+seen, mirrors = {}, []
+for nm, u, pat in MIRRORS:
+    body = curl(u, 25)
+    m2 = re.search(pat, body or "")
+    val = m2.group(1).replace("-", ".") if m2 else None
+    mirrors.append({"mirror": nm, "url": u, "read": val, "readOn": TODAY})
+    if val:
+        seen[val] = seen.get(val, 0) + 1
+best = max(seen, key=lambda k: seen[k]) if seen else None
+agree = seen.get(best, 0)
+c = comp("authenticator-android", "Microsoft Authenticator on Android", "Authenticator app",
+         "android", best if agree >= 2 else None, None, prov="mirror",
+         url="https://play.google.com/store/apps/details?id=com.azure.authenticator",
+         src="Google Play (date only)",
+         note=("read from mirrors, not from a vendor page: Google Play does not serve the "
+               "version number to a server-side read and Microsoft publishes no version "
+               "history for this app at all"
+               if agree >= 2 else
+               ("no two mirrors agreed on a version this run" if seen
+                else "no mirror answered this run")))
+c["mirrors"] = mirrors
+c["consensus"] = ("agreed" if agree >= 2 else ("single-source" if agree == 1 else "none"))
+if agree == 1:
+    c["versions"][0]["version"] = best
+    c["state"] = "no-change"
+OUT.append(c)
+
+# ---------- Apple: systemy i Safari ----------
+# 7: `support.apple.com/en-us/100100` to jedna tabela - produkt, wersja, data wydania.
+# Wiersze z `vendor:"Apple"`, zeby czytelnik nie wzial ich za komunikat Microsoftu.
+APPLE = [("apple-ios", "iOS and iPadOS", r"^iOS ([\d.]+) and iPadOS", "ios"),
+         ("apple-macos", "macOS", r"^macOS ([A-Za-z ]+?) ?([\d.]+)?$", "macos"),
+         ("apple-watchos", "watchOS", r"^watchOS ([\d.]+)", "apple"),
+         ("apple-tvos", "tvOS", r"^tvOS ([\d.]+)", "apple"),
+         ("apple-visionos", "visionOS", r"^visionOS ([\d.]+)", "apple"),
+         ("apple-safari", "Safari", r"^Safari ([\d.]+)", "apple")]
+h = curl("https://support.apple.com/en-us/100100", 35)
+rows = []
+for r in re.findall(r"<tr[^>]*>(.*?)</tr>", h or "", re.S):
+    cells = [html.unescape(re.sub("<[^>]+>", "", x)).strip()
+             for x in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", r, re.S)]
+    if len(cells) >= 3 and cells[0]:
+        rows.append((re.sub(r"This update has no published CVE entries\.?$", "", cells[0]).strip(),
+                     cells[2].strip()))
+def apple_date(s):
+    for f in ("%d %b %Y", "%d %B %Y"):
+        try: return datetime.datetime.strptime(s, f).date().isoformat()
+        except Exception: pass
+    return None
+for cid, nm, pat, plat in APPLE:
+    hit = [(a, b) for a, b in rows if re.match(pat, a)]
+    if not hit:
+        OUT.append(comp(cid, nm, "Apple platform", plat, None,
+                        url="https://support.apple.com/en-us/100100", src="Apple security releases",
+                        note="no row for this product in Apple's security releases table this run"))
+        OUT[-1]["vendor"] = "Apple"
+        continue
+    title, when = hit[0]
+    mv = re.search(r"([\d]+(?:\.[\d]+)*)\s*$", title)
+    OUT.append(comp(cid, nm, "Apple platform", plat, (mv.group(1) if mv else title),
+                    apple_date(when), label=title,
+                    url="https://support.apple.com/en-us/100100", src="Apple security releases"))
+    OUT[-1]["vendor"] = "Apple"
+    # 5ag: kazde wydanie glowne, ktore Apple nadal lata, jest osobna wersja -
+    # "wersja -1" to nie poprzedni build tej samej galezi, tylko poprzednia galaz.
+    older = [(a, b) for a, b in hit[1:6]]
+    for a, b in older[:3]:
+        mv2 = re.search(r"([\d]+(?:\.[\d]+)*)\s*$", a)
+        if mv2 and mv2.group(1) != (mv.group(1) if mv else None):
+            OUT[-1]["versions"].append({"platform": plat, "version": mv2.group(1),
+                                        "released": apple_date(b), "releaseLabel": a,
+                                        "stream": "previous branch"})
+
+# ---------- stan wzgledem poprzedniego przebiegu ----------
+# 5ag: `baseline` jest poprawne WYLACZNIE tam, gdzie nie ma z czym porownac. Przebieg
+# z wczorajszym plikiem danych i `baseline` na wszystkich komponentach jest przebiegiem
+# NIEUDANYM - to znaczy, ze porownania nie zrobil.
+prev = {}
+if len(sys.argv) > 2 and os.path.exists(sys.argv[2]):
+    try:
+        d3 = json.load(open(sys.argv[2], encoding="utf-8"))
+        st = d3.get("soc-brief-state", d3)
+        prev = {c2.get("id"): c2 for c2 in (st.get("components") or []) if c2.get("id")}
+    except Exception:
+        prev = {}
+def vmap(c2):
+    return {v.get("stream") or v.get("platform"): v.get("version") for v in (c2.get("versions") or [])}
+for c2 in OUT:
+    if c2["versions"][0]["version"] is None:
+        c2["state"] = "unread"
+        WARN.append((c2["id"], c2["note"]))
+        continue
+    p2 = prev.get(c2["id"])
+    if not p2:
+        c2["state"] = "baseline" if not prev else "backfilled"
+    else:
+        c2["state"] = "new-version" if vmap(p2) != vmap(c2) else "no-change"
+
+json.dump(OUT, open(sys.argv[1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+nv = sum(len(c2["versions"]) for c2 in OUT)
+print("komponentow %d, wersji %d, odczytanych %d, nieodczytanych %d"
+      % (len(OUT), nv, sum(1 for c2 in OUT if c2["state"] != "unread"), len(WARN)))
+for c2 in OUT:
+    print("  %-24s %-9s %-22s %s" % (c2["id"], c2["state"],
+          c2["versions"][0]["version"] or "-", c2["versions"][0].get("released") or ""))
+for i, n in WARN:
+    print("  BRAK  %-22s %s" % (i, n))
+```
 
 ### Markup — szyna i panel
 
@@ -17705,15 +18128,50 @@ def main():
             "sources":sorted({i["source"] for i in bl})[:6],
             "leadDays":0,"both":bool(ar and bl)})
 
-    # trzy listy JSON
+    # ---- trzy listy JSON ----
+    # Zmierzone 16 wrzesnia 2026, zgloszenie wlasciciela: ramka mowila "updated today"
+    # i "0 updates" pod spodem, a wlasciciel nie tknal tych plikow od dni. DWA bledy
+    # w jednym pudelku, oba mechaniczne:
+    #
+    #  1. `git log -1 -- <plik>` w klonie `--depth 1` (5ai) zwraca JEDYNY commit, jaki
+    #     ten klon ma, czyli HEAD. HEAD to ostatni push do `main`, a pushuja tam nasze
+    #     wlasne przebiegi — codziennie. Data nie mowila wiec nic o PLIKU, tylko
+    #     o repozytorium, i z konstrukcji wychodzila "dzisiaj" dla kazdej z trzech list.
+    #  2. `changes` bylo zapisane jako `0` i nigdy nie liczone. Liczba wpisana zamiast
+    #     policzonej to ten sam blad, ktory 5as usunal z Overview i 3 punkt 2 z kafelkow
+    #     strony zmian: liczba, ktora nie pochodzi z pomiaru, nie ma jak sie zgadzac.
+    #
+    # Poprawka: historie POGLEBIAMY (klon blobless placi za to tylko metadanymi), date
+    # bierzemy z commita, ktory naprawde ruszyl PLIK, a `changes` liczymy commitami
+    # w oknie retencji. Gdy poglebienie sie nie uda, `updated` jest `None` z powodem —
+    # data, ktora znaczy co innego, niz mowi, jest gorsza niz brak daty (0b).
+    JSON_WIN = 90
+    shallow = git(REPO, "rev-parse", "--is-shallow-repository", timeout=30).strip() == "true"
+    deep_note = ""
+    if shallow:
+        # `--deepen` dziala na klonie plytkim i w trybie blobless dociaga same commity;
+        # przy 90-dniowym oknie 400 commitow to zapas, nie wymiar.
+        git(REPO, "fetch", "--deepen=400", "--filter=blob:none", timeout=240)
+        if git(REPO, "rev-parse", "--is-shallow-repository", timeout=30).strip() == "true":
+            deep_note = ("shallow clone: this run could not deepen the history, so the date "
+                         "below is the repository HEAD, not this file's own last change")
+    since = (TODAY - datetime.timedelta(days=JSON_WIN)).isoformat()
     jsons=[]
     for lab,f,what in [("JSON MS Learn","microsoftlearn_sources.json","documentation areas"),
                        ("JSON MS Blogs","microsoftblogs_sources.json","product blogs"),
                        ("JSON Community sources","community_sources.json","community sources")]:
         pth=os.path.join(REPO,f)
         n=len(json.load(open(pth,encoding="utf-8"))) if os.path.exists(pth) else 0
-        upd=git(REPO,"log","-1","--format=%cI","--",f,timeout=60).strip() or None
-        jsons.append({"label":lab,"updated":upd,"entries":n,"changes":0,"what":what})
+        hist=[x for x in git(REPO,"log","--since",since,"--format=%cI","--",f,timeout=90).split("\n") if x.strip()]
+        upd=(hist[0].strip() if hist else
+             (git(REPO,"log","-1","--format=%cI","--",f,timeout=60).strip() or None))
+        if deep_note:
+            # historii nie ma, wiec nie udajemy, ze data cokolwiek o pliku mowi
+            upd, chg, note = None, None, deep_note
+        else:
+            chg, note = len(hist), ""
+        jsons.append({"label":lab,"updated":upd,"entries":n,"changes":chg,
+                      "window":JSON_WIN,"note":note,"what":what})
 
     NT={"briefDate":TODAY.isoformat(),"windowFrom":(TODAY-datetime.timedelta(days=WIN)).isoformat(),
         "learn":[{"name":x["name"],"url":x["url"],"method":x["method"],"repo":x.get("repo"),
@@ -18817,13 +19275,29 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       var d=el("div","jb-d");
       d.appendChild(el("b",null,String(j.entries)));
       d.appendChild(el("span",null,j.entries===1?"source":"sources"));
-      var days=Math.round((new Date(D.briefDate+"T00:00:00Z")-new Date(j.updated))/86400000);
-      d.appendChild(el("span","jb-age"+(days>14?" old":""),
-        days<=0?"updated today":(days===1?"updated yesterday":"updated "+days+" days ago")));
+      /* Brak daty jest WYNIKIEM i wyglada jak wynik. Do 16 wrzesnia 2026 ta ramka
+         liczyla wiek z `j.updated` bez sprawdzenia, czy cokolwiek tam stoi, i drukowala
+         `j.updated.slice(...)` — przy `null` caly `jsonBox` wywracal sie wyjatkiem,
+         a przy dacie z plytkiego klonu mowila "updated today" o pliku, ktorego nikt
+         nie tknal. Teraz: data jest albo prawdziwa, albo jej nie ma i pudelko mowi
+         dlaczego. */
+      if(j.updated){
+        var days=Math.round((new Date(D.briefDate+"T00:00:00Z")-new Date(j.updated))/86400000);
+        d.appendChild(el("span","jb-age"+(days>14?" old":""),
+          days<=0?"updated today":(days===1?"updated yesterday":"updated "+days+" days ago")));
+      }else d.appendChild(el("span","jb-age old","last change not known"));
       r.appendChild(d);
       var t=el("p","jb-w");t.style.marginTop="5px";
-      t.textContent=j.updated.slice(0,16).replace("T"," ")+" · "+j.changes+
-        (j.changes===1?" change recorded":" changes recorded");
+      /* `changes` to LICZBA COMMITOW, ktore ruszyly ten plik w oknie — a okno stoi
+         w zdaniu, bo "0 changes" bez okresu nie mowi, czy plik jest spokojny, czy
+         nieczytany. `null` znaczy "nie policzone", i tak jest napisane. */
+      t.textContent=j.updated
+        ? (j.updated.slice(0,16).replace("T"," ")+" · "+
+           (j.changes===null||j.changes===undefined
+             ? "change count not available"
+             : (j.changes===1?"1 change":j.changes+" changes")+
+               " in the last "+(j.window||90)+" days"))
+        : (j.note||"the repository history this run holds does not reach this file's own commits");
       r.appendChild(t);g.appendChild(r);
     });
     box.appendChild(g);
