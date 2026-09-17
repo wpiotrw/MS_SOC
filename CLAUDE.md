@@ -39,9 +39,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **96 pozycji** (0-33, 35-61, 63-77, 79-98), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **99**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
-   trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
+   strone glowna, sprawdza **96 pozycji** (0-33, 35-61, 63-77, 79-98), a przebieg ZMIAN dokłada **34, 62, 78
+   i 99-102**, razem **103**. Pozycji 34, 62, 78 i 99-102 nie sprawdza `gate.py`, tylko `verify()`
+   w `make_diff.py`: wszystkie dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
+   **17 wrzesnia 2026 wieczorem doszly 99-102** (§3 punkty 17-20), wszystkie z jednego zgloszenia po
+   wieczornym artefakcie Delta: strona mowila `0 added` nad sekcja Message Center liczaca `+9`, tabela
+   MC nie miala kolumny daty publikacji ani rewizji, pasek skrotow nie podswietlal sekcji po skoku,
+   a czternascie pozycji staly w jednym przewijanym rzedzie.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
    Community Articles (§5an)**; 11 wrzesnia doszla **64 (§5ao)**, wieczorem tego samego dnia
@@ -171,6 +175,11 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 96 | **chip wpisu katalogu niesie POZIOM UPRAWNIENIA** z `graphMap.perms[].s[].l` i flage zgody — liczba, ktora inne trackery drukuja jako naglowek, byla w JSON i nie byla na liscie | 5bc, 5ak, 5ah | `k + (lv ? (" \u00b7 L" + lv) : "")` w `decorate()` SKRYPTU 6; render (§5h): wpis z `s{}` w mapie ma chip `L1`-`L4` |
 | 97 | **ruch katalogu liczy sie w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview `Catalog, 7 days`, a Graph API i Roles otwieraja sie sekcja `details.g7`, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz | 5bc, 5as, 5aj | `var CAT_DAYS = 7;`, `"Catalog, 7 days"`, `function headline(`, `details.g7`, `g7quiet` w pliku; render (§5h): sekcja stoi nad katalogiem w obu zakladkach |
 | 98 | **kazdy z ostatnich 14 dni ma przebieg, a kazdy dzien ma przebieg PORANNY** — dzien bez wpisu w `runs` i dzien bez `kind:"morning"` sa WYPISANE z daty w odpowiedzi, razem ze zdaniem, jaka tresc strona serwowala w tym czasie. **Pozycja INFORMACYJNA**: nie zatrzymuje niczego, bo brakujacy przebieg juz sie wydarzyl i dzisiejsza publikacja go nie naprawi — ale cisza o nim jest tym samym bledem co cisza przy `BRAK` | 0g, 5aj | `gate.py <html> <site/>`: `runs` rejestru maja wpis na kazdy z ostatnich 14 dni i kazdy z nich ma rodzaj `morning`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
+| 99 | **tylko przebieg ZMIAN**: kafelek Message Center niesie RUCH (`+N / &minus;N / N`), a nie liczbe wierszy widoku, i ta sama wartosc stoi w chipie sekcji `mcenter`, w jej podpisie i w wierszu `bytab` | 3 punkt 17 | `verify()` w `make_diff.py`: kafelek `Message Center` = chip sekcji `#mcenter`; wartosc pasuje do `+N / &minus;N / N` |
+| 100 | **tylko przebieg ZMIAN**: strona NAZYWA wylaczenie Message Center z sumy — `tilenote` podaje jego ruch liczbami, a pusta sekcja `Added since` mowi, ile wpisow MC przyszlo w tym samym oknie i dlaczego stoja poza suma | 3 punkt 17 | `verify()`: przy niezerowym ruchu MC `tilenote` zawiera `Message Center moved on its own this run`; pusta sekcja `added` przy niezerowym `mcv_add` nazywa liczbe wpisow |
+| 101 | **tylko przebieg ZMIAN**: tabela Message Center ma daty jako trzecia i czwarta kolumne — `What / ID / Published / Revised` — a brak daty drukuje POWOD, nigdy pustki | 3 punkt 18 | `verify()`: cztery pierwsze `<th>` sekcji `mcenter` to dokladnie `What`, `ID`, `Published`, `Revised` |
+| 102 | **tylko przebieg ZMIAN**: pasek skrotow ma DWA opisane rzedy w przyklejonym bloku, a po skoku podswietla sekcje docelowa | 3 punkt 19, 20 | `verify()`: `<div class="dstick"><div class="dnavstack">`, `div.dnavrow` = 2, `drowlab`, `function markOne(`, `window.__socDiffMark = function` w pliku |
+
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
@@ -191,8 +200,8 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 
 | klasa | pozycje | co blokuje |
 |---|---|---|
-| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81**, **90a** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86**, **87, 88, 89, 90b, 90c, 91**, **92**, **93-97** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81**, **90a**, **99, 100** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86**, **87, 88, 89, 90b, 90c, 91**, **92**, **93-97**, **101, 102** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -2759,6 +2768,10 @@ od tej, ktora po cichu wypadla (§0b).
 | `catalog-says-its-size` | **katalog mowi, ILE GO JEST, i da sie przeszukac w CALOSCI** — tryb opisany jako „everything Microsoft publishes" pokazywal 1221 z 2238 wpisow, wiec `Group.ReadBasic.All` byl nieznajdowalny z trybu domyslnego | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja: flagi `inInventory` NIE ruszamy** — napedza szesc liczb w powloce, dwie stalyby sie nieprawdziwe, a trzecia lamalaby §5d. §5bc zmienia ETYKIETE trybu i dokłada szukanie po calym katalogu, w ktorym trafienie spoza trybu jest NAZWANE przyciskiem (SKRYPT 17). Pilnuje tego pozycja 95. Brakuje pierwszego opublikowanego artefaktu |
 | `privilege-level-on-the-list` | **poziom uprawnienia na liscie katalogu** — `graphMap` niesie `s[schemat] = {l, c}` dla 925 wpisow, a lista pokazywala `privilegeLevel` na JEDNYM z 2238 | 2026-09-17 | `ZASPECYFIKOWANE` | §5bc dokłada chip `L1`-`L4` z flaga zgody w `decorate()` SKRYPTU 6, czyli u wlasciciela dekoracji listy. **Opisu NIE dorabiamy**: `permissions-descriptions.json` zna 716 z 1933 nazw i `Group.ReadBasic.All` nie jest wsrod nich, wiec `descriptionSource:"none"` zostaje (§5j). Pilnuje tego pozycja 96. Brakuje pierwszego opublikowanego artefaktu |
 | `catalog-7-day-headline` | **ruch katalogu liczony w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview liczyla „dzisiaj", a rejestr ma dla Graph API zero wpisow w czterech z siedmiu ostatnich dni | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „adding section at the top saying what exactly changed during last 7 days".** §5bc: `CAT_DAYS = 7` w SKRYPCIE 13 i sekcja `details.g7` nad katalogiem w Graph API i Roles, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz. Pilnuje tego pozycja 97. Brakuje pierwszego opublikowanego artefaktu |
+| `mc-not-in-totals` | **wylaczenie Message Center z sumy kafelkow jest NAZWANE liczbami** — kafelek niesie ruch `+N / &minus;N / N`, chip sekcji te sama wartosc, a `tilenote` i pusta sekcja `Added since` mowia, ile wpisow przyszlo i dlaczego stoja poza suma | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 17 i pozycje 99-100 listy §0 (`verify()` w `make_diff.py`). **Zmierzone 17 wrzesnia 2026** na artefakcie Delta: kafelki `0/0/0` nad wierszem `bytab` mowiacym `+9 / 0 / 7`, a wszystkie dziewiec dodanych wpisow mialo `origin:index`, czyli nie bylo liczone nigdzie indziej. Brakuje pierwszej opublikowanej strony zmian z ta wersja |
+| `mc-dates-column` | **tabela Message Center niesie `Published` i `Revised` zaraz po identyfikatorze**, a brak daty drukuje powod | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 18 i pozycja 101. `mc_view()` przenosi `revisedOn` na wiersz. **Luka pomiarowa zostaje i ma wlasny wpis** — `revisedOn` stoi dzis na 0 z 239 wpisow, a zamyka to `mc-revision-sweep`. Brakuje pierwszej opublikowanej strony zmian |
+| `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian |
+
 
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
@@ -3388,6 +3401,113 @@ briefu — czyli dokladnie te 3,6 MB, ktore §3 usunela. Wlasciciel poprosil o t
 *„to powinny byc rozwijalne sekcje i kazda powinna miec pole search — zielone tak jak w porannym
 + do tego filtrowanie"*.
 
+### Punkt 17. WYLACZENIE Z SUMY JEST NAZWANE LICZBAMI, NIGDY CISZA
+
+Wlasciciel zglosil 17 wrzesnia 2026 wieczorem, patrzac na swiezo opublikowany artefakt Delta:
+*„Piszesz no ze sa update w message center ale w sekcji: added since jest pusto, o co tu vhodzi?"*
+
+**Mial racje i nie byl to blad renderu — byla to regula stosowana bez wyjasnienia.** Zmierzone na
+tym artefakcie: kafelki `0 added / 0 removed / 0 changed`, sekcja `Added since` ze zdaniem
+„Nothing was added. That is a result, not a gap.", a **wiersz `Message Center` w tabeli `bytab`
+mowil `+9 / 0 / 7`**. Cztery rozne liczby o jednym dniu na jednym ekranie, bez ani jednego zdania,
+ktore by je pogodzilo — czyli dokladnie ten blad, ktory punkt 2 usunal z kafelkow i punkt 11
+z sekcji Message Center.
+
+Przyczyna jest w samej regule §3a, a nie w jej wykonaniu. Message Center i endpointy sa **swiadomie
+wylaczone z sumy kafelkow**, bo pozycja cytujaca `MC…` ma juz swoj dom w swojej zakladce
+(§3a, jeden dom na pozycje). **Ale to uzasadnienie jest WARUNKOWE, a wylaczenie bylo bezwarunkowe**:
+zmierzone tego dnia **wszystkie dziewiec dodanych wpisow mialo `origin: index`**, czyli nie bylo
+liczone NIGDZIE INDZIEJ. Regula, ktora przy jednym ukladzie danych jest sluszna, a przy drugim
+chowa dziewiec wpisow i o tym milczy, jest regula stosowana bez pomiaru.
+
+1. **Kafelek Message Center niesie RUCH, nie rozmiar widoku**: `+N / &minus;N / N`, dokladnie tak jak
+   kafelek endpointow, bo obie te rzeczy sa z sumy wylaczone i obie musza to powiedziec tym samym
+   ksztaltem. Liczba wierszy widoku schodzi do podpisu kafelka.
+2. **Chip sekcji `mcenter` niesie TE SAMA wartosc** — dzieki temu asercja punktu 13a („kafelek
+   prowadzi tam, gdzie jego liczba jest widoczna jako TA SAMA liczba") sprawdza to kodem, zamiast
+   polegac na starannosci.
+3. **`tilenote` nazywa wylaczenie LICZBAMI**: ile wpisow sie ruszylo i **ile z nich przyszlo z samego
+   indeksu**, czyli nie ma zadnej zakladki, w ktorej byloby policzone. Gdy z indeksu nie przyszedl
+   ani jeden, zdanie mowi to wprost zamiast drukowac zero.
+4. **Pusta sekcja `Added since` mowi, ile wpisow MC przyszlo w tym samym oknie** i dlaczego stoja
+   poza suma. Bez tego zdania dzien czyta sie jako dzien, w ktorym nic sie nie stalo — a to jest
+   falszywa tresc, nie brakujaca funkcja.
+
+Pozycje **99** i **100** listy §0 pilnuja tego kodem i sa **klasy A**: liczba, ktora przeczy innej
+liczbie na tej samej stronie, jest falszywa trescia.
+
+### Punkt 18. TABELA MESSAGE CENTER NIESIE OBIE DATY, ZARAZ PO IDENTYFIKATORZE
+
+Drugie zgloszenie tego wieczoru: *„Selcja i zakladka message center w tsbelce nie ma kokimn updsted,
+created. Woec kluczowych informacji. A jak sobie klikniesz ktores z tych MC na stornie merilla to
+masz i date publikacji o altualizacji"*.
+
+Zmierzone: kolumna `Published` **istniala**, ale byla **osma z osmiu** w tabeli przewijanej
+w poziomie — na telefonie poza ekranem, dokladnie jak kolumna `Source` przed §5w. Kolumny `Revised`
+**nie bylo wcale**: data rewizji siedziala w prozie wewnatrz komorki `What moved`, wiec nie dalo sie
+po niej ani sortowac, ani filtrowac, ani jej zobaczyc bez czytania zdania.
+
+1. **`mc_view()` przenosi date rewizji na WIERSZ** (`revised`), zamiast zostawiac ja w prozie.
+   Bierze ja z `revisedOn` wpisu, a przy stanie sprzed §5az z `updated` indeksu — `mc_norm()` zna
+   obie nazwy.
+2. **Kolejnosc kolumn jest wiazaca**: `What | ID | Published | Revised | Title | …`. Obie daty stoja
+   bezposrednio po identyfikatorze, bo to po nie siega sie najpierw.
+3. **Brak daty drukuje POWOD**: `not printed at source` dla publikacji i `not stated at source` dla
+   rewizji. Zmierzone na artefakcie z 17 wrzesnia: **9 z 16 wierszy** nie ma daty publikacji, a
+   `revisedOn` stoi na **0 z 239** wpisow stanu. To nie jest blad renderu — to jest luka pomiarowa,
+   ktora zamyka `mc.revisionSweep` (§5az) i audyt dat (§5ba), i do tego czasu strona ma ja NAZYWAC.
+   **Slowo `not revised` w wierszu, ktorego rodzaj brzmi `revised`, jest zdaniem zaprzeczajacym
+   samemu sobie** — i pierwsza wersja tej poprawki je wydrukowala.
+
+Pozycja **101**, klasa B.
+
+### Punkt 19. PASEK SKROTOW PODSWIETLA SEKCJE, DO KTOREJ SAM PRZENIOSL
+
+Trzecie zgloszenie: *„jak np kliknie sie jakas wpis w zakladce updsted by tab albo innej i ak
+jestesmy przenoszeni do tej sekcji potem automatycznei, to na gorze na pasku poziomym gdzie mamy
+sylisotwane sakladki taka aakladka soe nie podswietla i nie wiemy gdzie jestesmy"*.
+
+Przyczyna jest mechaniczna. `mark()` w `NAV_BODY` ustawia `aria-current` po **pozycji przewijania**
+(`window.scrollY + 90` wzgledem `offsetTop` sekcji) i robi to **wylacznie na zdarzeniu `scroll`**
+oraz raz przy starcie. `goto_()` i `focusSection()` zwijaja i rozwijaja sekcje, wiec zmieniaja
+`offsetTop` KAZDEJ z nich **po** tym, jak procedura przewijania juz przebiegla — a kolejne zdarzenie
+`scroll` nie nadchodzi, bo czytelnik niczego nie przewija. Pasek zostaje z podswietleniem sprzed
+skoku albo bez zadnego.
+
+**Liczenie po pozycji zostaje** — §5an zapisalo, dlaczego `IntersectionObserver` byl gorszy — ale
+dochodzi `markOne(sid)`, ktore podswietla sekcje **nazwana przez wolajacego**, bo skaczacy wie,
+dokad skoczyl, a geometria po zwinieciu sekcji tego juz nie wie. **Pisarz zostaje JEDEN**: `markOne`
+mieszka w tym samym domkniecu co `mark()` i jest jedyna funkcja ustawiajaca `aria-current` obok
+niego; `goto_()` i `tech()` tylko go wolaja przez `window.__socDiffMark`.
+
+Przy okazji `markOne` **przewija sam pasek w poziomie**, gdy podswietlona pozycja jest poza jego
+widokiem: podswietlenie, ktorego nie widac, jest podswietleniem, ktorego nie ma.
+
+### Punkt 20. PASEK SKROTOW MA DWA OPISANE RZEDY
+
+Czwarte zgloszenie: *„poziomy pasek z nazwami wszystki zakladek jest za szwroii, trzbe by go moze
+podzielic na dwa?"*.
+
+Czternascie pozycji w jednym przewijanym rzedzie. To jest dokladnie ten sam pomiar, ktory
+6 wrzesnia 2026 rozbil pasek zakladek briefu na dwa rzedy (§5ae wariant B) — i ta sama naprawa,
+przeniesiona na strone zmian, ktora jej nigdy nie dostala.
+
+| rzad | etykieta | pozycje |
+|---|---|---|
+| gorny | `What moved` | By tab · By technology · Deadlines · Added · Removed · Changed |
+| dolny | `Where from` | Components · Endpoints · Catalog · Community · Message Center · Source text · Microsoft Learn · Microsoft Blogs |
+
+**Podzial nie jest wymyslony na potrzeby paska.** Gorny rzad to CO sie ruszylo, dolny to ZRODLO,
+w ktorym sie ruszylo — rzedy nazywaja rozroznienie, ktore strona i tak robi: pierwsze szesc sekcji
+liczy pozycje, pozostale osiem liczy wlasne jednostki (endpoint, komponent, artykul, strone), i to
+wlasnie dlatego dwie z nich sa wylaczone z sumy kafelkow (punkt 17).
+
+Oba rzedy stoja w tym samym przyklejonym bloku `.dstick`, razem z bannerem filtra (§5ao), wiec
+`--dstick-h` mierzy je oba i `scroll-margin-top` nadal jest prawdziwy. Na telefonie etykiety rzedow
+znikaja, a kazdy rzad przewija sie sam — tak samo jak `.navrow` w §5ae.
+
+Pozycja **102**, klasa B.
+
 ### 3a. KAZDA ZMIANA STOI W SWOJEJ ZAKLADCE — i jest podsumowanie, ktore to zbiera
 
 Wlasciciel zglosil 3 wrzesnia 2026, po pierwszym przebiegu na policzonej stronie zmian:
@@ -3860,7 +3980,8 @@ def mc_view(com, added, removed, changed):
     zakladce (§3a, jeden dom na pozycje), a zeby nie policzyc jej drugi raz, kafelki
     sumaryczne pomijaja te sekcje tak samo, jak pomijaja endpointy."""
     rows, bykey = [], {}
-    def put(kind_, mid, title, link, tech, action, date, origin, it=None, deltas=None):
+    def put(kind_, mid, title, link, tech, action, date, origin, it=None, deltas=None,
+            revised=""):
         key = (kind_, norm(mid).upper())
         if not mid: return
         if key in bykey:
@@ -3876,21 +3997,30 @@ def mc_view(com, added, removed, changed):
                 r["origin"] = origin if origin == "gained" else "both"
             if it and not r.get("item"): r["item"] = it
             if deltas and not r.get("deltas"): r["deltas"] = deltas
+            if revised and not r.get("revised"): r["revised"] = norm(revised)
             return
         row = {"kind": kind_, "id": norm(mid), "title": norm(title), "link": norm(link),
                "tech": tech or [], "action": norm(action), "date": norm(date),
-               "origin": origin, "item": it, "deltas": deltas or []}
+               "origin": origin, "item": it, "deltas": deltas or [],
+               # §3 punkt 18: data REWIZJI jest wlasna KOLUMNA, nie zdaniem w prozie.
+               # Merill drukuje przy wpisie obie daty; do 17 wrzesnia 2026 ta strona
+               # niosla tylko `published`, i to jako OSTATNIA z osmiu kolumn tabeli,
+               # ktora przewija sie w poziomie — na telefonie byla poza ekranem.
+               "revised": norm(revised)}
         bykey[key] = row
         rows.append(row)
     for x in (com.get("mcAdd") or []):
         put("added", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
-            x.get("action"), x.get("date"), "index")
+            x.get("action"), x.get("date"), "index",
+            revised=x.get("revisedOn") or x.get("updated"))
     for x in (com.get("mcRem") or []):
         put("removed", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
-            x.get("action"), x.get("date"), "index")
+            x.get("action"), x.get("date"), "index",
+            revised=x.get("revisedOn") or x.get("updated"))
     for x, d in (com.get("mcChg") or []):
         put("changed", x.get("id"), x.get("title"), x.get("link"), x.get("tech"),
-            x.get("action"), x.get("date"), "index", None, d)
+            x.get("action"), x.get("date"), "index", None, d,
+            revised=x.get("revisedOn") or x.get("updated"))
     idx = {norm(x.get("id")).upper() for x in ((com.get("messageCenter") or []))}
     for kind_, lst in (("added", added), ("removed", removed)):
         for i_ in lst:
@@ -4499,6 +4629,18 @@ nav.dsubnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999p
 nav.dsubnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 nav.dsubnav a .n{color:var(--muted);font-weight:600;margin-left:6px;font-variant-numeric:tabular-nums}
 nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
+/* §3 punkt 20: dwa opisane rzedy skrotow, ten sam ksztalt co pasek zakladek briefu
+   (§5ae wariant B). Czternascie nazw w jednym rzedzie przewijalo sie w poziomie
+   i polowa byla poza ekranem. */
+.dnavstack{display:block;padding:8px 0 7px}
+.dnavrow{display:flex;align-items:center;gap:9px;min-width:0}
+.dnavrow+.dnavrow{margin-top:6px;padding-top:6px;border-top:1px solid var(--border)}
+.dnavrow .drowlab{flex:0 0 auto;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;color:var(--muted);min-width:74px}
+.dnavstack nav.dsubnav{padding:0;flex:1 1 auto;min-width:0}
+/* §3 punkt 19: podswietlony skrot ma byc WIDOCZNY, nie tylko pokolorowany */
+nav.dsubnav a[aria-current="true"]{box-shadow:inset 0 0 0 1px var(--accent)}
+@media (max-width:760px){.dnavrow .drowlab{display:none}.dnavrow{gap:6px}}
 /* the jump target clears the sticky block, whose height the script measures and
    publishes as `--dstick-h` — a hard number here would be wrong the moment the
    banner appears and taller again when its text wraps on a phone (§0a) */
@@ -5549,6 +5691,9 @@ NAV_BODY = """<script>
     } else say("");
     syncChips();
     sec.scrollIntoView({ block: "start" });
+    /* zwijanie i rozwijanie sekcji zmienia kazdy `offsetTop`, wiec pasek dostaje cel
+       WPROST, zamiast zgadywac go z pozycji przewijania (§3 punkt 19) */
+    if (window.__socDiffMark) window.__socDiffMark(sid);
   }
 
   /* a technology name: narrow EVERY table on the page at once. Where a table has a
@@ -5595,6 +5740,7 @@ NAV_BODY = """<script>
     var first = sections().filter(function (d) { return d.open; })[0];
     var host = first ? first.parentNode : document.getElementById("added");
     if (host) host.scrollIntoView({ block: "start" });
+    if (window.__socDiffMark) window.__socDiffMark(host && host.id);
   }
 
   /* the + that opens the evidence under a row. It lives in THIS script rather than in a
@@ -5656,6 +5802,29 @@ NAV_BODY = """<script>
         else s.a.removeAttribute("aria-current");
       });
     }
+    /* §3 punkt 19: po SKOKU pasek nie podswietlal celu. `mark()` czyta pozycje
+       przewijania, a skok ZMIENIA zwiniecia sekcji po tym, jak handler przewijania
+       juz sie wykonal, i zadne kolejne zdarzenie `scroll` nie nadchodzi — czytelnik
+       ladowal w sekcji, ktorej pasek nie nazywal. Jeden pisarz stanu paska zostaje
+       (5am), a skok go WOLA i podaje swoj cel: pozycja bywa nieosiagalna, gdy celem
+       jest ostatnia sekcja, a strona nie ma juz o ile sie przewinac. */
+    function markOne(sid) {
+      var cur = null;
+      secs.forEach(function (s) { if (s.el.id === sid) cur = s; });
+      if (!cur) { mark(); return; }
+      secs.forEach(function (s) {
+        if (s === cur) s.a.setAttribute("aria-current", "true");
+        else s.a.removeAttribute("aria-current");
+      });
+      /* kazdy rzad paska przewija sie sam w poziomie, wiec podswietlony skrot musi byc
+         W NIM widoczny: podswietlenie poza widokiem jest podswietleniem, ktorego nie ma */
+      var nv = cur.a.parentNode;
+      if (nv && nv.scrollWidth > nv.clientWidth) {
+        var r = cur.a.getBoundingClientRect(), nr = nv.getBoundingClientRect();
+        if (r.left < nr.left || r.right > nr.right) nv.scrollLeft += (r.left - nr.left) - 12;
+      }
+    }
+    window.__socDiffMark = function (sid) { if (sid) markOne(sid); else mark(); };
     window.addEventListener("scroll", function () {
       if (queued) return;
       queued = true; window.requestAnimationFrame(mark);
@@ -5748,7 +5917,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     com_n = ("baseline" if com["baseline"] else
              str(len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                  + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])))
-    mc_n = "baseline" if com["baseline"] else str(len(MCV))
+    # §3 punkt 17: kafelek Message Center niesie RUCH, nie liczbe wierszy. Zmierzone
+    # 17 wrzesnia 2026 na opublikowanym artefakcie Delta: kafelki mowily `0 added /
+    # 0 removed / 0 changed`, wiersz `bytab` `Message Center +9 / 0 / 7`, podpis sekcji
+    # `+9 / &minus;0 / 7 revised`, a kafelek `16` — cztery rozne liczby o jednym dniu.
+    # Kafelek dostaje wiec ten sam ksztalt co endpointy, a chip sekcji te sama wartosc,
+    # zeby punkt 13a byl spelniony z asercji, a nie z dobrych checi.
+    mc_n = ("baseline" if com["baseline"]
+            else "+%d / &minus;%d / %d" % (mcv_add, mcv_rem, mcv_chg))
     out.append(tiles([
         (str(sum_add), "added" + spread_a, "ok", "bytab"),
         (str(sum_rem), "removed" + spread_r, "bad", "bytab"),
@@ -5770,13 +5946,15 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                    "+" if net_src >= 0 else "&minus;", abs(net_src),
                    "" if abs(net_src) == 1 else "s"),
          "info", "community"),
-        (mc_n, "Message Center entries" + ((" &middot; %d cited by an item" % mcv_item) if mcv_item else ""),
+        (mc_n, "Message Center &middot; %d rows in view%s" % (len(MCV),
+            (" &middot; %d cited by an item" % mcv_item) if mcv_item else ""),
          "acc", "mcenter"),
         (str(len(dtchg) + len(dtadd) + len(dtrem)),
          "source pages moved &middot; %d edited%s" % (len(dtchg),
             " &middot; shown under their own rows" if len(dtchg) + len(dtadd) else ""),
          "warn", "bytab"),
     ]))
+    _mc_idx = len([r for r in MCV if r.get("origin") == "index"])
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
                'them, both catalogs and the tracked components included. Endpoints and Message Center '
                'are counted apart: endpoints are not items, and Message Center is a VIEW over entries '
@@ -5785,7 +5963,21 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                'that decomposes them, every other tile to the section whose count it carries. A tile '
                'reading zero, and a tile stating a catalog size rather than a count of rows, is '
                'deliberately not a link. <b>Pressing one opens that section and closes the rest</b>: '
-               'every section starts collapsed, with its count in the chip beside its name.</p>')
+               'every section starts collapsed, with its count in the chip beside its name.'
+               + ((' <b>Message Center moved on its own this run: +%d / &minus;%d / %d revised.</b> '
+                   'None of that is in the three totals above, and that is deliberate: an entry an '
+                   'item on this page cites is already counted in that item&rsquo;s own tab '
+                   '(&sect;3a, one home per item). %d of these came from the index alone, so they '
+                   'have no item tab to be counted in and live only in the Message Center section.'
+                   % (mcv_add, mcv_rem, mcv_chg, _mc_idx)
+                   if _mc_idx else
+                   ' <b>Message Center moved on its own this run: +%d / &minus;%d / %d revised.</b> '
+                   'None of that is in the three totals above, and that is deliberate: every one of '
+                   'these entries is cited by an item on this page, so it is already counted in that '
+                   'item&rsquo;s own tab (&sect;3a, one home per item).'
+                   % (mcv_add, mcv_rem, mcv_chg))
+                  if (mcv_add or mcv_rem or mcv_chg) else '')
+               + '</p>')
     out.append('</div></header><div class="wrap">@@SUBNAV@@')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
@@ -5987,7 +6179,15 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '&mdash; the same story, so it is in one place rather than repeated in a section of '
                'its own. A row with a dash has no watched page behind it.',
                "".join(body) or
-               '<p class="empty">Nothing was added. That is a result, not a gap.</p>',
+               ('<p class="empty">Nothing was added to any item tab. That is a result, not a gap.'
+                + ((' <b>%d Message Center entr%s arrived in the same window</b> and %s named in '
+                    'the Message Center section below. An entry nothing on this page cites has no '
+                    'item tab of its own, so it stands outside these totals by design (&sect;3a) '
+                    '&mdash; and without this sentence the day reads as one on which nothing '
+                    'happened, which is the defect this page exists to remove (&sect;3 punkt 2).'
+                    % (mcv_add, "y" if mcv_add == 1 else "ies",
+                       "is" if mcv_add == 1 else "are")) if mcv_add else "")
+                + '</p>'),
                count=len(added)))
 
     # --- removed, grouped by tab
@@ -6283,15 +6483,22 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             n_extra = max(0, len(r.get("deltas") or []) - 3)
             if n_extra: moved += '<div class="none">… and %d more field%s</div>' % (
                 n_extra, "" if n_extra == 1 else "s")
+            # §3 punkt 18: `Published` i `Revised` stoja zaraz po identyfikatorze.
+            # Zmierzone 17 wrzesnia 2026: `Published` bylo OSMA z osmiu kolumn, a data
+            # rewizji nie miala kolumny wcale — siedziala w prozie `What moved`, wiec
+            # dwie daty, ktore Microsoft drukuje przy kazdym wpisie, byly na tej stronie
+            # najtrudniej dostepnymi liczbami.
             return ((' class="t0"' if r["action"] else ""),
                     [WHAT.get(r["kind"], esc(r["kind"])),
-                     idc, ttl,
+                     idc,
+                     esc(r["date"]) or '<span class="none">not printed at source</span>',
+                     esc(r.get("revised")) or '<span class="none">not revised</span>',
+                     ttl,
                      ' <span class="none">&middot;</span> '.join(
                          '<span class="t0">%s</span>' % esc(t2) for t2 in r["tech"]) or "&mdash;",
                      ('<span class="t0">act by %s</span>' % esc(r["action"])) if r["action"]
                      else '<span class="none">none stated</span>',
                      moved or '<span class="none">&mdash;</span>',
-                     esc(r["date"]) or '<span class="none">not printed</span>',
                      '<span class="field">%s</span>' % ORIG.get(r["origin"], r["origin"])])
         out.append(sect("mcenter", "Message Center &mdash; what is new",
             'Every Message Center and Roadmap identifier that moved between these two states, from '
@@ -6319,14 +6526,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                    {"mc": "mc.entries", "index": "community.messageCenter"}[com["mcPopShift"]["curr"]],
                    com["mcPopShift"]["currCount"]))
                if com.get("mcPopShift") else ''),
-            table(["What", "ID", "Title", "Technology", "Action required by", "What moved",
-                   "Published", "Where it came from"],
+            table(["What", "ID", "Published", "Revised", "Title", "Technology",
+                   "Action required by", "What moved", "Where it came from"],
                   [mcrow(r) for r in MCV],
                   "No Message Center or Roadmap identifier moved, in the index or on this page.",
                   '<b>Message Center</b> &middot; +%d / &minus;%d / %d revised%s'
                   % (mcv_add, mcv_rem, mcv_chg,
                      (' &middot; %d cited by an item' % mcv_item) if mcv_item else '')),
-            count=len(MCV)))
+            count=mc_n))
 
     # --- Source text (§5ar): TYLKO strony, ktorych zadna pozycja nie opisuje.
     # Strona wskazana przez pozycje stoi POD SWOIM WIERSZEM (`evidence`), wiec powtorzenie
@@ -6533,9 +6740,22 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("blogsdiff", "Microsoft Blogs", _nbA + _nbR + _nbC)]
     # rail and banner live in ONE sticky block: the banner is the page's only global
     # control and it has to stay on screen after a jump (§3 punkt 13)
-    subnav = ('<div class="dstick"><nav class="dsubnav" aria-label="Sections">'
-              + "".join('<a href="#%s" data-goto="%s">%s<span class="n">%d</span></a>' % (i, i, t, n)
-                        for i, t, n in nav) + "</nav></div>")
+    # §3 punkt 20: czternascie skrotow w JEDNYM rzedzie nie miesci sie na ekranie —
+    # pasek przewijal sie w poziomie i czesc nazw byla poza widokiem, dokladnie tak,
+    # jak pasek zakladek briefu przed §5ae wariantem B. Dwa OPISANE rzedy, a podzial
+    # jest ten, ktory strona i tak robi: CO sie ruszylo kontra SKAD to przyszlo.
+    ROW1 = ["bytab", "bytech", "deadlines", "added", "removed", "changed"]
+    def _navrow(lab, keys):
+        got = [x for x in nav if x[0] in keys]
+        return ('<div class="dnavrow"><span class="drowlab">%s</span>'
+                '<nav class="dsubnav" aria-label="%s">%s</nav></div>'
+                % (lab, lab,
+                   "".join('<a href="#%s" data-goto="%s">%s<span class="n">%d</span></a>'
+                           % (i, i, t, n) for i, t, n in got)))
+    subnav = ('<div class="dstick"><div class="dnavstack">'
+              + _navrow("What moved", ROW1)
+              + _navrow("Where from", [x[0] for x in nav if x[0] not in ROW1])
+              + "</div></div>")
     body = "\n".join(out).replace("@@SUBNAV@@", subnav)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
@@ -6634,6 +6854,9 @@ def verify(page):
     # gdy wiersz dowodu naprawde istnieje.
     for k in ("nav.dsubnav", "__s9diff", "data-goto", "navbanner", "data-tech",
               "dstick", "nb-lab", "--dstick-h",
+              # §3 punkt 19 i 20: pasek podswietla CEL skoku i ma dwa opisane rzedy
+              "dnavstack", "dnavrow", "drowlab",
+              "function markOne(", "window.__socDiffMark = function",
               # 5ao: one line names EVERY filter, not only the global one
               "window.__socDiffBar = sync", "nb-chips", "function describeBox(",
               "Clear all filters", "wrap.__describe = describeBox",
@@ -6652,8 +6875,11 @@ def verify(page):
         if k not in page: e.append("brak zaczepu nawigacji: %s" % k)
     # pasek skrotow i banner musza byc w JEDNYM przyklejonym bloku — banner poza nim
     # odjezdza po skoku i czytelnik czysci filtr tabela po tabeli (zgloszenie 11 wrzesnia 2026)
-    if not re.search(r'<div class="dstick"><nav class="dsubnav"', page):
-        e.append("banner filtra nie stoi w tym samym przyklejonym bloku co pasek skrotow")
+    if not re.search(r'<div class="dstick"><div class="dnavstack">', page):
+        e.append("pasek skrotow nie jest dwurzedowy w przyklejonym bloku (§3 punkt 20)")
+    _nr = len(re.findall(r'<div class="dnavrow">', page))
+    if _nr != 2:
+        e.append("rzedow paska skrotow = %d, maja byc 2 (§3 punkt 20)" % _nr)
     # KAZDY KAFELEK-LINK PROWADZI TAM, GDZIE JEGO LICZBA JEST WIDOCZNA JAKO TA SAMA
     # LICZBA. Poprzednia asercja liczyla tu kafelki klikalne („co najmniej 8") i byla
     # bezuzyteczna w obie strony: przechodzila na stronie, ktorej kafelek `14 added`
@@ -6781,6 +7007,12 @@ def verify(page):
         _bad = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _mm.group(0), re.S)
                 if "<ins>added</ins>" in r and "<a href" not in r]
         if _bad: e.append("%d dodanych wpisow Message Center bez linku" % len(_bad))
+        # §3 punkt 18: obie daty sa KOLUMNAMI i stoja zaraz po identyfikatorze
+        _mh = re.search(r"<thead><tr>(.*?)</tr>", _mm.group(0), re.S)
+        _hh = re.findall(r"<th>(.*?)</th>", _mh.group(1)) if _mh else []
+        if _hh[:4] != ["What", "ID", "Published", "Revised"]:
+            e.append("naglowek tabeli Message Center zaczyna sie %s, ma byc "
+                     "What / ID / Published / Revised (§3 punkt 18)" % _hh[:4])
     # KAZDY IDENTYFIKATOR MC, KTORY RUSZYL SIE NA TEJ STRONIE, MA TU WIERSZ.
     # Zmierzone 16 wrzesnia 2026 na opublikowanej stronie zmian: sekcja mowila
     # `+0 / -0` i „No Message Center or Roadmap identifier moved", a podsumowanie
