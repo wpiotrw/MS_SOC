@@ -39,8 +39,8 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **90 pozycji** (0-33, 35-61, 63-77, 79-92), a przebieg ZMIAN dokłada **34, 62 i 78**,
-   razem **93**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
+   strone glowna, sprawdza **96 pozycji** (0-33, 35-61, 63-77, 79-98), a przebieg ZMIAN dokłada **34, 62 i 78**,
+   razem **99**. Pozycji 34, 62 i 78 nie sprawdza `gate.py`, tylko `verify()` w `make_diff.py`: wszystkie
    trzy dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    (Poprzednie wydania mowily „47 … razem 48", potem „55 … razem 56" i „58 … razem 59"; 0-33 to 34 pozycje,
    a nie 33, 10 wrzesnia 2026 doszly pozycja 56 (§0c), 57 (§0d), 58 (§5ae) i **59-63 razem z zakladka
@@ -55,7 +55,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    **16 wrzesnia wieczorem doszly 87-91**, wszystkie z jednej rozmowy o zaleglych uzgodnieniach
    (§0f): 87 swiezosc `graphMap`, `sources` i `serviceRead`, 88 jeden renderer zmiany tekstu
    (§5bb), 89 audyt dat zrodla (§5ba), 90 i 91 Message Center jako wymiar razem z `storyKey`
-   (§5az).
+   (§5az). **17 wrzesnia doszly 93-97** (§5bc), wszystkie z jednego zgloszenia po porannym
+   artefakcie: brakujace liczniki zakladek, niepodlaczony wykres rejestru, katalog pokazujacy
+   1221 z 2238 wpisow pod etykieta „All", poziom uprawnienia siedzacy w JSON zamiast na liscie
+   i okno „dzisiaj" tam, gdzie ruch katalogu jest rzadszy niz codzienny.
+   **17 wrzesnia wieczorem doszla 98 (§0g, ciaglosc przebiegow)**: 15 wrzesnia nie uruchomilo
+   sie NIC, 16 wrzesnia nie uruchomilo sie lustro, a `site/index.html` serwowal tresc z 14 wrzesnia
+   przez TRZY dni — i zaden przebieg ani razu o tym nie wspomnial.
    Liczbe w kazdej asercji sprawdza sie tak samo jak kazda inna — §0a:
    **kazda liczba zapisana w asercji ma date waznosci**.) Wlasciciel czyta ta liste zamiast
    szukac braków na stronie.
@@ -121,7 +127,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 53 | **kazda tabela zbudowana przez skrypty 6-8 ma zielone pole szukania, fasety i licznik `N of M`**; pasek narzedzi powloki nad ukryta tabela jest naprawde ukryty | 5am | `__socSearchBox`, `s9find`, `s9count` i regula `[data-s6hidden="1"]` w pliku; render: zero widocznych `.tbar` w `#graph > .sec-body` |
 | 54 | **`Show these N in the list` zawezasa liste do TYCH N** i mowi zdaniem, gdy ich tam nie ma | 5am | `s9notms`, `cc-showbtn`, `bkbanner s9bk` w pliku; render: po kliknieciu widoczne sa wylacznie nazwane wpisy |
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
-| 56 | **skrypty 4-15 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 15` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
+| 56 | **skrypty 4-17 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 17` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
 | 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie czternascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw, 5az | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 7 zakladek (`tab-mc` zostaje w rzedzie dziennym, §2), `navrow ref` 7, zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: zakladka `Community Articles` stoi w `navrow ref` zaraz po `Sources` — **pozycja, nie liczba**: licznik rzedu przeterminowal sie tu dwa razy, 14 i 16 wrzesnia (§0a) |
@@ -159,6 +165,13 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 91 | **`storyKey` laczy wpis MC ze strona Learn i artykulem blogowym** — kazda pozycja cytujaca `MC…`/`RM…` w `reference` ma ten sam `storyKey`, a kazdy wpis `mc.map` niesie klucz, niepuste `seenIn` ze slownika i `items[]` wskazujace na PRAWDZIWE pozycje | 5az | `mc.map` niepuste; zero pozycji z `reference` MC/RM i innym `storyKey`; zero wpisow mapy bez klucza albo bez `seenIn`; zero wartosci `seenIn` spoza slownika; zero `items[]` bez pozycji o tym `id`; brak `mc` daje `BRAK`, nigdy OK |
 | 92 | **zbior rewizji Message Center PRZECZYTANY, a kazdy nietrzymany NAZWANY** — `mc.revisionSweep` z `readOn`, oknem, `indexPages`/`indexRead` i tablica `reported`; kazdy `held:false` ma wiersz w `missed` z powodem. **Pozycja nie zada ZERA nietrzymanych, tylko ich POMIARU i NAZWANIA** | 5az | `revisionSweep.readOn` = `briefDate`; `reported` niepuste, gdy `items` niepuste (zbior pusty znaczy „nie przeczytano", nie „nie bylo rewizji"); zero wpisow z `source` spoza slownika `deltapulse`/`index`/`item`; zero bez `revisedOn`; zero `held:false` bez wiersza w `missed`; zero wierszy `missed` bez `reason`; zero `held:true` nieobecnych w `mc.entries`; brak klucza daje `BRAK`, nigdy OK |
 
+| 93 | **KAZDA zakladka paska ma licznik pozycji** — `stampCounts()` chodzi po tym, co pasek NIESIE, i stempluje tylko tam, gdzie licznika nie ma; lista dwoch nazw zostawiala `tab-mc` i `tab-components` bez liczby | 5bc, 5aw | `[].forEach.call(document.querySelectorAll("nav.anchors .tab"),function(btn){` w bloku SKRYPTU 15 v2, a `p.querySelectorAll("details.ntsec tbody tr").length` — cialo starej funkcji — NIE; render (§5h): kazda zakladka z niepusta tabela albo z kartami ma `.navcount` |
+| 94 | **wykres rejestru 14 dni jest KONTROLKA** — SKRYPT 8 wiesza na slupku `data-ids`, `data-label`, `data-hit` i klase `cbar`, a SKRYPT 11 rozumie geometrie KOLUMNY i przekazuje `texts` obok `ids`; zwolnienie zakladek katalogowych z §5ap jest UCHYLONE | 5bc, 5ap, 5al | `r.setAttribute("data-hit"`, `"class": "b-chg cbar"`, `var vert = hs.length === 4`, `{ label: label, ids: ids, texts: ids }` w pliku; render (§5h): klikniecie slupka zawezasa zakladke i zapala jej banner |
+| 95 | **katalog mowi, ILE GO JEST, i da sie przeszukac w CALOSCI** — etykieta trybu nazywa tenant zamiast obiecywac „wszystko", zdanie pod rzedem trybow podaje obie liczby, a szukanie nad lista NAZYWA trafienie, ktorego biezacy tryb nie trzyma, jako przycisk | 5bc, 5ah | `SCRIPT 17`, `function relabel(`, `function openIn(`, `catmore`, `catfind`, `cathits` w pliku; render (§5h): `Group.ReadBasic.All` jest znajdowalne z trybu domyslnego |
+| 96 | **chip wpisu katalogu niesie POZIOM UPRAWNIENIA** z `graphMap.perms[].s[].l` i flage zgody — liczba, ktora inne trackery drukuja jako naglowek, byla w JSON i nie byla na liscie | 5bc, 5ak, 5ah | `k + (lv ? (" \u00b7 L" + lv) : "")` w `decorate()` SKRYPTU 6; render (§5h): wpis z `s{}` w mapie ma chip `L1`-`L4` |
+| 97 | **ruch katalogu liczy sie w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview `Catalog, 7 days`, a Graph API i Roles otwieraja sie sekcja `details.g7`, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz | 5bc, 5as, 5aj | `var CAT_DAYS = 7;`, `"Catalog, 7 days"`, `function headline(`, `details.g7`, `g7quiet` w pliku; render (§5h): sekcja stoi nad katalogiem w obu zakladkach |
+| 98 | **kazdy z ostatnich 14 dni ma przebieg, a kazdy dzien ma przebieg PORANNY** — dzien bez wpisu w `runs` i dzien bez `kind:"morning"` sa WYPISANE z daty w odpowiedzi, razem ze zdaniem, jaka tresc strona serwowala w tym czasie. **Pozycja INFORMACYJNA**: nie zatrzymuje niczego, bo brakujacy przebieg juz sie wydarzyl i dzisiejsza publikacja go nie naprawi — ale cisza o nim jest tym samym bledem co cisza przy `BRAK` | 0g, 5aj | `gate.py <html> <site/>`: `runs` rejestru maja wpis na kazdy z ostatnich 14 dni i kazdy z nich ma rodzaj `morning`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
+
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
 nigdy nie jest pomijana w ciszy.**
 
@@ -179,7 +192,7 @@ naprawic, to sciezka BUDUJACA — scheduled task i fallback — i tam blokada zo
 | klasa | pozycje | co blokuje |
 |---|---|---|
 | **A — rzetelnosc tresci** | 15, 16, 19, 20, 23, 28, 31, 33, 42, 45, 47, 60, 62, 63, **68b**, 73, **81**, **90a** | **KAZDY przebieg.** Zgubiona pozycja, martwy link, przepisany rejestr albo obcieta mapa to falszywa tresc — publikacja takiej strony jest gorsza niz jej brak, takze na luscie, bo lustro powiela klamstwo dalej |
-| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86**, **87, 88, 89, 90b, 90c, 91** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
+| **B — funkcja interfejsu** | 9, 26, 48, 49, 51, 52, 53, 54, 55, 56, 58, 59, 61, 64, 65, 66, 67, **68a, 68c, 69, 70, 71, 72, 74, 75, 76, 77, 80, 82**, 83, 84, **85, 86**, **87, 88, 89, 90b, 90c, 91**, **92**, **93-97** | **tylko przebieg BUDUJACY** (scheduled task poranny i popoludniowy, oraz fallback routine z §0a). Na **sciezce lustra** pozycja klasy B jest `BRAK` w odpowiedzi — wypisana z numerem, powodem i zdaniem „artefakt tego dnia tego nie niosl" — a strona **i tak zostaje opublikowana** |
 
 **Przebieg lustra, ktory zglosil pozycje klasy B, ma OBOWIAZEK napisac to w pierwszym akapicie
 odpowiedzi**, razem z nazwa scheduled taska, ktory zbudowal artefakt. To jest jedyny sygnal,
@@ -473,7 +486,7 @@ def drop_contract(content: str) -> str:
 def snapshot_shell(content: str):
     """L1 = arkusz + TRZY skrypty powloki + masthead + kontrakt.
 
-    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`, a nie po
+    Skrypty powloki rozpoznajemy po BRAKU znacznika `SCRIPT 4`..`SCRIPT 17`, a nie po
     pozycji `scripts[:3]`: pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak
     wymaga tych znacznikow. Gdy wyjdzie inna liczba niz trzy, przerywamy — cicha
     migawka o dwoch skryptach zbudowalaby jutro pusty pasek zakladek (§3)."""
@@ -488,7 +501,7 @@ def snapshot_shell(content: str):
     # PRZERYWA caly lustrzany przebieg. Kazda liczba zapisana w kodzie ma date waznosci
     # tak samo jak kazda liczba w asercji (§0a) — dopisujac skrypt, przeszukaj plik za
     # twardymi zakresami.
-    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-6])\b", b[:4000])]
+    shell = [b for b in scripts if not re.search(r"SCRIPT\s+(?:[4-9]|1[0-7])\b", b[:4000])]
     if len(shell) != 3:
         raise SystemExit("FAIL: skryptow powloki %d, ma byc 3 (blokow zachowania %d)"
                          % (len(shell), len(scripts)))
@@ -919,7 +932,8 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 # je naprawic, i to on ma je z tej strony usunac.
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
-           "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84"}
+           "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
+           "93","94","95","96","97"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -931,7 +945,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
 # jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
-CLASS_INFO = {"57", "79"}
+CLASS_INFO = {"57", "79", "98"}
 
 # ---- 0f: rejestr uzgodnien. Bramka sprawdza, czy zbudowano to, co ZAPISANO, i z definicji
 # nigdy nie powie, ze czegos nie zapisano — 13 wrzesnia 2026 dwie uzgodnione zakladki nie
@@ -1444,7 +1458,7 @@ def gate(path, site=None, mirror=False, doc=None):
     need("55","SKRYPT 9 otwiera oba katalogi na 'All' (§5ah punkt 5)",
          "SCRIPT 9" in h and "__socOpenPerm" in h,
          "brak SKRYPTU 9 — katalog otwiera sie na 'Microsoft changes' i szukanie nazwy zwraca zero")
-    # ---- 56: skrypty 4-14 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
+    # ---- 56: skrypty 4-17 na stronie sa TE z CLAUDE.md, znak w znak (§0c).
     # Zmierzone 10 wrzesnia 2026: artefakt mial wszystkie dziewiec skryptow i dziesiec paneli,
     # a skrypty 6, 7 i 8 byly WCZORAJSZE — przebieg skopiowal powloke z wczorajszej strony,
     # bo tak kazal mu kontrakt wozony w tej stronie. Zadna inna pozycja tego nie lapie:
@@ -1454,7 +1468,7 @@ def gate(path, site=None, mirror=False, doc=None):
             docsrc = open(doc, encoding="utf-8").read()
         except Exception as ex:
             docsrc = None
-            need("56", "skrypty 4-15 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
+            need("56", "skrypty 4-17 sa te z CLAUDE.md", False, "nie da sie przeczytac %s: %s" % (doc, ex))
         if docsrc:
             want = {}
             F = chr(96) * 3          # nigdy literalem: zamknalby plotek, w ktorym ten kod stoi
@@ -1463,15 +1477,15 @@ def gate(path, site=None, mirror=False, doc=None):
                 if ind:
                     body = "\n".join(l[len(ind):] if l.startswith(ind) else l for l in body.split("\n"))
                 m = re.search(r"SCRIPT (\d+)", body)
-                if m and 4 <= int(m.group(1)) <= 16:
+                if m and 4 <= int(m.group(1)) <= 17:
                     want["SCRIPT " + m.group(1)] = body
             stale = [k for k, v in sorted(want.items()) if v not in h]
-            need("56", "skrypty 4-15 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
+            need("56", "skrypty 4-17 na stronie sa TE z CLAUDE.md, znak w znak (§0c)",
                  bool(want) and not stale,
                  "z CLAUDE.md nie wyciagnieto zadnego skryptu — sprawdz wzorzec plotka" if not want
                  else "rozne od tego pliku (przeniesione z wczorajszej strony?): %s" % ", ".join(stale))
     else:
-        need("56", "skrypty 4-15 sa te z CLAUDE.md (§0c)", False,
+        need("56", "skrypty 4-17 sa te z CLAUDE.md (§0c)", False,
              "nie podano CLAUDE.md — uruchom gate.py <html> <site/> --doc CLAUDE.md")
     # ---- 57: migawka powloki (§0d). INFORMACYJNA — nie ma jej ani w CLASS_A, ani
     # w CLASS_B, wiec nie zatrzymuje zadnego przebiegu. Tak ma byc do fazy 2: w dniu,
@@ -2129,10 +2143,94 @@ def gate(path, site=None, mirror=False, doc=None):
                       if _empty92 else "trzymanych %d" % sum(1 for x in _rep if x.get("held"))),
                      _badsrc92[:3], _nodate92[:3], _silent92[:4], _nowhy92[:3], _lost92[:4]))
 
+    # ---- 93-97: katalog mowi ile go jest, wykres jest kontrolka (§5bc) ----
+    # Wszystkie piec z jednego zgloszenia z 17 wrzesnia 2026, i wszystkie piec sa KLASY B:
+    # lustro tylko kopiuje, wiec niczego z tego nie doloży. Bramka czyta PLIK, wiec pyta
+    # o obecnosc kodu i o jego zaczepy; to, czy licznik naprawde stoi przy zakladce i czy
+    # klikniety slupek zawezasa, sprawdza Playwright (§5h) — to samo rozroznienie, ktore
+    # przy pozycji 48 zdecydowalo o wszystkim.
+    # Klucz NEGATYWNY celuje w cialo starej funkcji, nie w napis `["tab-learn","tab-blogs"]`:
+    # ten sam napis stoi poprawnie w `dropForeignAggregates()` i w `resetFolds()`, ktore
+    # dotycza dokladnie tych dwoch zakladek i maja tam zostac. Klucz zapalajacy sie na
+    # poprawnej stronie jest tak samo bezuzyteczny jak ten, ktory nie zapala sie nigdy (§0b).
+    OLD93 = 'p.querySelectorAll("details.ntsec tbody tr").length'
+    K93 = ('[].forEach.call(document.querySelectorAll("nav.anchors .tab"),function(btn){',
+           'var pid=btn.getAttribute("aria-controls");',
+           'if(c&&(c.textContent||"").trim()) return;')
+    need("93", "kazda zakladka paska ma licznik pozycji, nie tylko dwie wymienione z nazwy (§5bc)",
+         all(k in h for k in K93) and OLD93 not in h,
+         ("stara lista dwoch nazw nadal w `stampCounts` — `tab-mc` i `tab-components` zostaja bez liczby"
+          if OLD93 in h
+          else "brak: %s" % ", ".join(k for k in K93 if k not in h)))
+    # 94: slupek, ktory wyglada jak przycisk i nic nie robi, uczy ignorowac przyciski (§5ap).
+    # SKRYPT 8 wiesza `data-ids` na slupku, SKRYPT 11 rozumie geometrie KOLUMNY (`data-hit`)
+    # i przekazuje `texts` obok `ids`, zeby tabela bez `data-id` tez dala sie zawezic (§5at).
+    K94 = ('r.setAttribute("data-hit"', '"class": "b-chg cbar"', 'var dayIds = (pids[d] || [])',
+           "var vert = hs.length === 4", "{ label: label, ids: ids, texts: ids }")
+    need("94", "wykres rejestru 14 dni jest kontrolka, a nie obrazkiem (§5bc, §5ap)",
+         all(k in h for k in K94),
+         "brak: %s" % ", ".join(k for k in K94 if k not in h))
+    K95 = ("SCRIPT 17", "function relabel(", "function openIn(", "function search(",
+           "catmore", "catfind", "cathits", "In this tenant")
+    need("95", "katalog mowi, ile go jest, i da sie przeszukac w calosci (§5bc)",
+         all(k in h for k in K95),
+         "brak: %s" % ", ".join(k for k in K95 if k not in h))
+    # 96: `privilegeLevel` stoi na 1 z 2238 wpisow katalogu, a `graphMap` niesie `s{}` dla 925 —
+    # liczba byla na stronie w JSON i nie byla na liscie (zmierzone 17 wrzesnia 2026).
+    K96 = ('k + (lv ? (" \\u00b7 L" + lv) : "")', 'var s2 = d.s[k] || {}, lv = s2.l;')
+    need("96", "chip wpisu katalogu niesie poziom uprawnienia (§5bc, §5ah)",
+         all(k in h for k in K96),
+         "brak: %s" % ", ".join(k for k in K96 if k not in h))
+    # 97: rejestr ma dla Graph API zero wpisow w czterech z siedmiu ostatnich dni, wiec okno
+    # „dzisiaj" bylo zerem przez wiekszosc tygodnia — prawdziwie i bezuzytecznie.
+    K97 = ("var CAT_DAYS = 7;", '"Catalog, 7 days"', "function headline(", "details.g7", "g7quiet")
+    need("97", "ruch katalogu liczy sie w siedmiu dniach, a zakladka mowi, co sie ruszylo (§5bc)",
+         all(k in h for k in K97),
+         "brak: %s" % ", ".join(k for k in K97 if k not in h))
+
     src=s.notes.get("sources","")
     need("21", "Sources podaje trzy liczby na zrodlo",
          len(re.findall(r"\d+\s*/\s*\d+\s*/\s*\d+", src))>0 or len(re.findall(r"read\D+\d+.*?carried\D+\d+.*?dropped\D+\d+", src, re.I))>0,
          "sec-note Sources bez wzorca przeczytane/wniesione/odrzucone")
+    # ---- 98: PRZEBIEG, KTOREGO NIE BYLO (0g). INFORMACYJNA — nie zatrzymuje niczego,
+    # bo brakujacy przebieg juz sie wydarzyl i dzisiejsza publikacja go nie naprawi.
+    # Zmierzone 17 wrzesnia 2026: 15 wrzesnia nie uruchomilo sie NIC, a 16 wrzesnia
+    # zbudowal sie artefakt i przebieg zmian, ale lustro 07:00 nie ruszylo — wiec
+    # `site/index.html` serwowal tresc z 14 wrzesnia przez TRZY dni, i zaden przebieg
+    # ani razu o tym nie wspomnial. Kazda inna pozycja tej listy patrzy na DZISIEJSZA
+    # strone, wiec zadna nie ma jak zobaczyc dnia, ktorego nie bylo — ta patrzy na
+    # rejestr, czyli na jedyne miejsce, w ktorym nieobecnosc zostawia slad.
+    if site:
+        _clp = _os.path.join(site, "data", "changelog.json")
+        if not _os.path.exists(_clp):
+            need("98", "ciaglosc przebiegow (0g)", False, "brak %s" % _clp)
+        else:
+            try:
+                _cl98 = json.load(open(_clp, encoding="utf-8"))
+                _bd98 = (st["soc-brief-state"] or {}).get("briefDate") or _d2.date.today().isoformat()
+                _t98 = _d2.date.fromisoformat(_bd98)
+                _by98 = {}
+                for _r98 in (_cl98.get("runs") or []):
+                    _by98.setdefault(_r98.get("date"), set()).add(_r98.get("kind"))
+                _dead98, _nomorn98 = [], []
+                for _i98 in range(1, 15):
+                    _d98 = (_t98 - _d2.timedelta(days=_i98)).isoformat()
+                    _k98 = _by98.get(_d98)
+                    if not _k98:
+                        _dead98.append(_d98)
+                    elif "morning" not in _k98:
+                        _nomorn98.append(_d98)
+                need("98", "kazdy z ostatnich 14 dni ma przebieg, a kazdy dzien ma przebieg PORANNY (0g)",
+                     not _dead98 and not _nomorn98,
+                     "dni bez ZADNEGO przebiegu: %s; dni bez przebiegu porannego: %s — wypisz je "
+                     "w odpowiedzi z data i napisz, jaka tresc strona serwowala w tym czasie"
+                     % (", ".join(_dead98) or "brak", ", ".join(_nomorn98) or "brak"))
+            except Exception as _ex98:
+                need("98", "ciaglosc przebiegow (0g)", False,
+                     "nie da sie przeczytac rejestru: %s" % _ex98)
+    else:
+        need("98", "ciaglosc przebiegow (0g)", False, "nie podano katalogu site/")
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2161,7 +2259,7 @@ if __name__ == "__main__":
     _o = sys.argv[1:]
     _a = [x for x in _o if not x.startswith("--")]
     # `--mirror` = sciezka lustra (§0a): pozycje klasy B sa raportowane, ale nie blokuja.
-    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-14 ze zrodlem (§0c).
+    # `--doc <CLAUDE.md>` wlacza pozycje 56 — porownanie skryptow 4-17 ze zrodlem (§0c).
     _doc = _o[_o.index("--doc") + 1] if "--doc" in _o else None
     if _doc in _a: _a.remove(_doc)
     sys.exit(gate(_a[0], _a[1] if len(_a) > 1 else None, "--mirror" in _o, _doc))
@@ -2295,8 +2393,9 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 **Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
 (kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
-Skryptow dodawanych jest TRZYNASCIE (4-16; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
-SKRYPT 15 z §5au, a szesnasty to SKRYPT 16 z §5az), a blokow CSS **dwadziescia cztery** — liczbe
+Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
+SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
+**dwadziescia piec** — liczbe
 sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **piec KOLEKTOROW**: cztery z §5aw i `collect_components.py` z §5ag,
 wycinane tak samo:**
 
@@ -2315,7 +2414,8 @@ wycinane tak samo:**
 | SKRYPT 14 — pasek filtra w mastheadzie | `CLAUDE.md` | 5at |
 | SKRYPT 15 v2 — Microsoft Learn i Microsoft Blogs, **oraz pasek Advanced filtering na CALY portal** (zastepuje SKRYPT 15 z §5au) | `CLAUDE.md` | 5aw |
 | SKRYPT 16 — Message Center jako wymiar | `CLAUDE.md` | 5az |
-| **kazdy dopisany blok CSS** (24 bloki) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5az**, **5bb**, **5av (ostatni — nadpisuje)** |
+| SKRYPT 17 — katalog mowi, ile go jest, i co ruszylo w 7 dni | `CLAUDE.md` | 5bc |
+| **kazdy dopisany blok CSS** (25 blokow) | `CLAUDE.md` | 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, **5ag**, 5ak, 5al, 5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, **5ay**, **5az**, **5bb**, **5bc**, **5av (ostatni — nadpisuje)** |
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 | `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
@@ -2358,7 +2458,7 @@ def main(doc, outdir):
             # "SCRIPT 1" i nadpisywalo nim plik skryptu 1. Kazda liczba zapisana w kodzie
             # ma date waznosci tak samo jak kazda liczba w asercji (§0a).
             m = re.search(r"SCRIPT (\d+)", b)
-            if m and 4 <= int(m.group(1)) <= 16:
+            if m and 4 <= int(m.group(1)) <= 17:
                 got["script%s.js" % m.group(1)] = b
         elif lang == "python":
             # Rozpoznajemy po DOKSTRINGU, nie po tresci gdziekolwiek: ten skrypt cytuje w swoim
@@ -2378,15 +2478,15 @@ def main(doc, outdir):
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
     # Asercje: brak pliku znaczy, ze wzorzec przestal pasowac, a nie ze bloku nie ma.
-    need = ["script%d.js" % n for n in range(4, 17)] + \
+    need = ["script%d.js" % n for n in range(4, 18)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
             "collect_components.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
-    if len(css) < 24:
-        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 24 — sprawdz wciete plotki" % len(css))
+    if len(css) < 25:
+        raise SystemExit("FAIL: blokow CSS %d, ma byc co najmniej 25 — sprawdz wciete plotki" % len(css))
     for n, b in sorted(got.items()):
         print("OK  %-20s %7d B" % (n, len(b.encode())))
 
@@ -2455,7 +2555,7 @@ wylacznie L1 — i to jest cala tresc tej sekcji.**
  "contract":true}
 ```
 
-**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`, nie po pozycji
+**Skrypty powloki rozpoznaje sie po BRAKU znacznika `SCRIPT 4`..`SCRIPT 17`, nie po pozycji
 `scripts[:3]`.** Pozycja jest zalozeniem, znacznik jest faktem, a §0c i tak wymaga tych znacznikow.
 Gdy wyjdzie inna liczba niz trzy, `snapshot_shell` przerywa: cicha migawka o dwoch skryptach
 zbudowalaby jutro strone z pustym paskiem zakladek — dokladnie ten blad, ktory §3 opisuje przy
@@ -2654,6 +2754,12 @@ od tej, ktora po cichu wypadla (§0b).
 | `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZBUDOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach); pozycja 86 zglosila OK 16 wrzesnia 2026 |
 | `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate` — OK w przebiegu z 16 wrzesnia 2026 |
 | `mc-revision-sweep` | **wpis Message Center ZREWIDOWANY w oknie nalezy do dzisiejszego briefu, takze gdy opublikowano go dawno** — indeks czytany jest na PIERWSZEJ stronie (`Showing 200 of 2458`), wiec wpis z lipca zrewidowany we wrzesniu nie wchodzi w ten wycinek; zbior rewizji czyta sie z DeltaPulse `list_updated_items` plus stronicowanym indeksem, a kazdy nietrzymany identyfikator jest NAZWANY z powodem | 2026-09-16 | `ZASPECYFIKOWANE` | §5az niesie regule, kontrakt `mc.revisionSweep` (`reported`, `missed`, slownik `source`) i pozycje 92 listy §0. **Zmierzone 16 wrzesnia 2026**: DeltaPulse zwrocil 61 rewizji w oknie 2–16 wrzesnia (`hasMore:false`), brief trzymal 36 w `mc.entries`, 34 w indeksie i 25 w zadnym z nich — `MC1413308` jest jednym z tych 25. Brakuje pierwszego przebiegu niosacego klucz `mc.revisionSweep` i wypelnione `revisedOn` (dzis 0 z 239 wpisow) |
+| `tab-counts-everywhere` | **kazda zakladka paska ma licznik pozycji** — `stampCounts()` wymienial `tab-learn` i `tab-blogs` z nazwy, wiec `tab-mc` i `tab-components` zostawaly bez liczby | 2026-09-17 | `ZASPECYFIKOWANE` | §5bc zamienia liste dwoch nazw na petle po tym, co pasek NIESIE, a pozycja 93 listy §0 tego pilnuje. **Zmierzone 17 wrzesnia 2026**: `.navcount` na dwunastu zakladkach, zero na dwoch. Brakuje pierwszego opublikowanego artefaktu |
+| `every-chart-a-control` | **wykres rejestru 14 dni jest KONTROLKA** — klikniecie slupka zawezasa zakladke do wpisow, ktore ten slupek policzyl; zwolnienie zakladek katalogowych z §5ap jest uchylone | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „every graph should be clickable and once item is clicked the autofilter should happen".** §5bc: SKRYPT 8 wiesza `data-ids` i `data-hit`, SKRYPT 11 rozumie geometrie kolumny i przekazuje `texts` obok `ids` (§5at). Argument, ktory trzymal zwolnienie — „filtr po `id` oproznilby rejestr" — przestal obowiazywac w dniu, w ktorym `rowInSpec()` nauczyl sie dopasowywac po tresci. Pilnuje tego pozycja 94. Brakuje pierwszego opublikowanego artefaktu |
+| `catalog-says-its-size` | **katalog mowi, ILE GO JEST, i da sie przeszukac w CALOSCI** — tryb opisany jako „everything Microsoft publishes" pokazywal 1221 z 2238 wpisow, wiec `Group.ReadBasic.All` byl nieznajdowalny z trybu domyslnego | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja: flagi `inInventory` NIE ruszamy** — napedza szesc liczb w powloce, dwie stalyby sie nieprawdziwe, a trzecia lamalaby §5d. §5bc zmienia ETYKIETE trybu i dokłada szukanie po calym katalogu, w ktorym trafienie spoza trybu jest NAZWANE przyciskiem (SKRYPT 17). Pilnuje tego pozycja 95. Brakuje pierwszego opublikowanego artefaktu |
+| `privilege-level-on-the-list` | **poziom uprawnienia na liscie katalogu** — `graphMap` niesie `s[schemat] = {l, c}` dla 925 wpisow, a lista pokazywala `privilegeLevel` na JEDNYM z 2238 | 2026-09-17 | `ZASPECYFIKOWANE` | §5bc dokłada chip `L1`-`L4` z flaga zgody w `decorate()` SKRYPTU 6, czyli u wlasciciela dekoracji listy. **Opisu NIE dorabiamy**: `permissions-descriptions.json` zna 716 z 1933 nazw i `Group.ReadBasic.All` nie jest wsrod nich, wiec `descriptionSource:"none"` zostaje (§5j). Pilnuje tego pozycja 96. Brakuje pierwszego opublikowanego artefaktu |
+| `catalog-7-day-headline` | **ruch katalogu liczony w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview liczyla „dzisiaj", a rejestr ma dla Graph API zero wpisow w czterech z siedmiu ostatnich dni | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „adding section at the top saying what exactly changed during last 7 days".** §5bc: `CAT_DAYS = 7` w SKRYPCIE 13 i sekcja `details.g7` nad katalogiem w Graph API i Roles, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz. Pilnuje tego pozycja 97. Brakuje pierwszego opublikowanego artefaktu |
+
 
 ### Numeracja sekcji dla tych zakladek jest JUZ INNA niz w planie
 
@@ -2676,6 +2782,58 @@ powstala, zamienilo by „dzisiejsza strona bez jednej zakladki" na „wczorajsz
 data", czyli dokladnie blad z 10 wrzesnia (§0). Ale **cisza jest tu zakazana**: przebieg, ktory nie
 wypisal rejestru w odpowiedzi, jest przebiegiem NIEUDANYM tak samo jak przebieg, ktory przemilczal
 `BRAK`.
+
+## 0g. PRZEBIEG, KTOREGO NIE BYLO — bo strona bez daty publikacji nie mowi, ze jest stara
+
+**15 wrzesnia 2026 nie uruchomilo sie NIC.** Zadnego artefaktu, zadnego `site/data/2026-09-15.json`,
+zadnego wpisu w `runs`, zadnego commita. **16 wrzesnia scheduled task o 06:00 zbudowal artefakt
+`Microsoft SOC Brief 16 Sep 2026`, a routine zmian o 22:00 policzyl i wypchnal strone zmian — ale
+lustro o 07:00 nie ruszylo w ogole.** Skutek jest mierzalny co do commita: `site/index.html` byl
+aktualizowany 12, 13 i 14 wrzesnia, a potem dopiero **17 wrzesnia 05:36 UTC**. Przez trzy dni
+strona serwowala tresc z 14 wrzesnia, a przebieg z 17 wrzesnia — poprawny, zielony, z kompletem
+danych — przeniosl do archiwum plik `site/history/2026-09-14-poranny.html` i **ani slowem nie
+wspomnial, ze zastepuje strone sprzed trzech dni.**
+
+**Zadna z dotychczasowych 97 pozycji nie mogla tego zobaczyc, i to nie jest awaria bramki, tylko
+jej granica** — dokladnie ta sama granica, ktora §0f opisuje przy uzgodnionych zakladkach. Kazda
+pozycja listy §0 patrzy na DZISIEJSZA strone i pyta, czy jest poprawna. Dzien, ktorego nie bylo,
+nie zostawia sladu na dzisiejszej stronie: nie ma zlego wiersza, nie ma brakujacego panelu, nie ma
+pustego klucza. Zostawia slad w JEDNYM miejscu — w `runs` rejestru §5aj — i dlatego pozycja 98
+patrzy tam, a nie na HTML.
+
+### Regula
+
+1. **Kazdy przebieg sprawdza ciaglosc ostatnich 14 dni i wypisuje kazda dziure z DATA.** Dzien bez
+   wpisu w `runs` znaczy „nikt nie patrzyl", a dzien z wpisem i zerem zmian znaczy „ktos patrzyl
+   i nic sie nie ruszylo" — to sa dwie rozne rzeczy i §5aj rozroznia je od 6 wrzesnia. Pozycja 98
+   pilnuje, ze czytelnik dowiaduje sie o pierwszej z nich.
+2. **Dzien bez przebiegu PORANNEGO jest osobnym znaleziskiem**, nawet gdy inne przebiegi tego dnia
+   byly. To wlasnie przydarzylo sie 16 wrzesnia: artefakt powstal, strona zmian powstala, a strona
+   glowna nie — bo `site/index.html` i `site/data/<data>.json` pisze WYLACZNIE lustro (§0a krok 3).
+   Przebieg zmian o 22:00 nie jest zastepstwem: on liczy roznice, nie publikuje briefu.
+3. **Pozycja 98 jest INFORMACYJNA i nigdy nie zatrzymuje przebiegu.** Brakujacy przebieg juz sie
+   wydarzyl, a wstrzymanie dzisiejszej publikacji zostawiloby strone jeszcze starsza — czyli
+   dokladnie blad z 10 wrzesnia (§0). Zatrzymanie naprawia zero, wypisanie naprawia wszystko, co da
+   sie tu naprawic: wlasciciel dowiaduje sie, ze przez trzy dni patrzyl na wczorajsza tresc.
+4. **Przebieg, ktory wykryl dziure, pisze w odpowiedzi TRZY rzeczy**: ktore dni nie mialy przebiegu,
+   jaka date nosila tresc, ktora strona serwowala w tym czasie, i **ktory plik potwierdza jedno
+   i drugie** (`site/history/<data>-poranny.html` przeniesiony w tym przebiegu). Zdanie „byla luka"
+   bez daty jest tym samym co licznik bez nazw (§3a, §5an).
+5. **Dziura starsza niz okno rejestru nie jest znaleziskiem**, tylko brakiem danych: rejestr trzyma
+   `retentionDays`, a przed pierwszym wpisem nie ma czego porownywac. Pozycja wypisuje wtedy daty
+   i mowi, ze rejestr zaczyna sie pozniej — nigdy nie udaje, ze tamte dni byly ciche.
+
+### Czego ta sekcja NIE robi
+
+- **Nie uruchamia brakujacego przebiegu i nie odtwarza go wstecz.** Artefaktu z 15 wrzesnia nie ma
+  i nie da sie go zbudowac z danych, ktorych nikt tamtego dnia nie przeczytal; `site/data/` zostaje
+  z luka, a `/diff/` porownuje dwa najnowsze stany, ktore ma (§3).
+- **Nie zgaduje przyczyny.** Rejestr mowi, ze przebiegu nie bylo, i tyle. Dlaczego go nie bylo —
+  to jest pytanie do ustawien zadania, nie do tresci strony, i idzie do odpowiedzi przebiegu,
+  nigdy do tresci briefu (§0e).
+
+Pozycja **98** listy §0 sprawdza to kodem, czyta `site/data/changelog.json` i **bez katalogu
+`site/` daje `BRAK „nie podano site/"`, nigdy OK**.
 
 ## Struktura
 
@@ -7614,6 +7772,22 @@ w szukajke Graph zwraca wpis uprawnienia** (SKRYPT 9 — katalog otwarty na `All
 odpowiedz na pozycje 9 listy §0: **kazdy `details.foldnote`, ktorego cialo ma powyzej 40 slow,
 zawiera `<ul>`** — bramka tego nie sprawdzi, bo ten element powstaje dopiero w przegladarce.
 
+Nowe od 17 wrzesnia 2026 (§5bc), wszystkie z jednego zgloszenia po porannym artefakcie:
+**KAZDA zakladka paska, ktorej panel niesie niepusta tabele albo karty, ma `.navcount`
+z liczba** — nie tylko dwanascie z czternastu (zmierzone przed poprawka: `tab-mc`
+i `tab-components` bez licznika); **w zakladce Graph API kazdy slupek `details.chg14`
+o niezerowej wysokosci ma rodzenstwo `rect.chit`**, a klikniecie go zmienia licznik
+`N of M` co najmniej jednej tabeli zakladki i zapala jej banner, ktory `Clear filter`
+gasi; **z trybu domyslnego katalogu Graph wpisanie `Group.ReadBasic.All` w pole `.catfind`
+daje trafienie** — jako wiersz listy albo jako przycisk w `.cathits`, ktorego nacisniecie
+przelacza tryb i otwiera panel tego uprawnienia; **kazdy wpis katalogu, ktory ma `s{}`
+w `graphMap`, niesie w pasku listy chip konczacy sie `L1`..`L4`**, a chip zgody jest
+czerwony przy `required` i zielony przy `not required` w obu motywach; **zakladki Graph API
+i Roles otwieraja sie sekcja `details.g7` stojaca NAD `.catalog`**, ktora albo wymienia
+wpisy z nazwy, albo mowi zdaniem, ile przebiegow patrzylo i kiedy cos ruszylo sie ostatni
+raz; oraz **kolumna Overview nazywa sie `Catalog, 7 days`** i jej niezerowa liczba otwiera
+zakladke, ktora ten ruch zapisala.
+
 ## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
 
 Ta sekcja jest wiazaca dla obu taskow i obu routines; prompty na nia wskazuja zamiast ja powtarzac.
@@ -11465,7 +11639,24 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
       var m = el("div", "ci-v16");
       var old = b.querySelector(".ci-meta");
       if (keys.length) {
-        keys.forEach(function (k) { m.appendChild(el("span", "badge t-grey", k)); });
+        /* 5bc: chip niesie SCHEMAT I POZIOM, nie sam schemat. `privilegeLevel`
+           i `requiresAdminConsent` sa w `graphMap` na 925 z 2238 wpisow katalogu
+           (zmierzone 17 wrzesnia 2026), a na samym wpisie stoja na JEDNYM — czyli
+           ta sama liczba, ktora inne trackery drukuja jako naglowek, byla na tej
+           stronie w JSON i nie byla na liscie. To jest ten sam blad co dane bez
+           renderu w 5ak, tylko o jeden poziom nizej. Opisu NIE dorabiamy:
+           `permissions-descriptions.json` zna 716 nazw z 1933 mapy wdrozen,
+           a `Group.ReadBasic.All` nie jest wsrod nich — wiec `descriptionSource:
+           "none"` jest tam uczciwe i zostaje (5j). */
+        keys.forEach(function (k) {
+          var s2 = d.s[k] || {}, lv = s2.l;
+          var cls = !lv ? "t-grey" : (lv <= 2 ? "t-ok" : (lv === 3 ? "t-warn" : "t-bad"));
+          var chip = el("span", "badge " + cls,
+            k + (lv ? (" \u00b7 L" + lv) : "") + (s2.c ? " \u00b7 consent" : ""));
+          chip.title = k + (lv ? (" \u2014 privilege level " + lv + " of 4") : " \u2014 level not stated") +
+            (s2.c ? ", admin consent required" : ", no admin consent");
+          m.appendChild(chip);
+        });
       } else if (old) {
         /* Not in Microsoft's map — a catalog correction or another surface. It still
            gets OUR chips, rewritten from what the shell knows, because a list that
@@ -12857,8 +13048,17 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
 
   /* ---------------- the chart, with BOTH axes named on the drawing ---------------- */
   function chart(rows, label) {
-    var per = {}, i;
-    rows.forEach(function (r) { per[r.seen] = (per[r.seen] || 0) + 1; });
+    /* 5bc: the bar hands over the ids behind it, so SCRIPT 11 can make it a control.
+       Until 17 September 2026 this chart drew counts and nothing else, so pressing a
+       day did nothing — the owner reported it as "i told 100times that every graph
+       should be clickable". Deriving the rows from the printed date would be a guess;
+       the script that COUNTED them is the one that knows which they were (5ap). */
+    var per = {}, pids = {}, i;
+    rows.forEach(function (r) {
+      per[r.seen] = (per[r.seen] || 0) + 1;
+      var k = nameOf(r);
+      if (k) (pids[r.seen] = pids[r.seen] || []).push(k);
+    });
     var t = new Date(TODAY + "T00:00:00Z"), ds = [], vals = [];
     for (i = WINDOW_DAYS - 1; i >= 0; i--) {
       var d = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10);
@@ -12887,8 +13087,19 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
         r.appendChild(sv("title")).textContent = d + " — a run looked and nothing moved";
       } else {
         var h = Math.max(7, plotH * n / mx);
-        r = sv("rect", { x: x + 4, y: PADT + plotH - h, width: bw - 8, height: h, rx: 3, "class": "b-chg" });
-        r.appendChild(sv("title")).textContent = d + " — " + n + " " + (n === 1 ? label.replace(/s$/, "") : label);
+        r = sv("rect", { x: x + 4, y: PADT + plotH - h, width: bw - 8, height: h, rx: 3, "class": "b-chg cbar" });
+        /* `cbar` and `data-ids` are what SCRIPT 11 looks for; `data-hit` gives it the
+           COLUMN to make clickable, because a vertical bar's hit area is not the row
+           band a horizontal chart uses (5bc). The ids are also handed over as `texts`
+           by SCRIPT 11, because this table's rows carry no `data-id` (5at). */
+        var dayIds = (pids[d] || []).filter(function (v, j2, a2) { return a2.indexOf(v) === j2; });
+        if (dayIds.length) {
+          r.setAttribute("data-ids", dayIds.join(","));
+          r.setAttribute("data-label", d);
+          r.setAttribute("data-hit", [x, PADT, bw, plotH].join(","));
+        }
+        r.appendChild(sv("title")).textContent = d + " — " + n + " " + (n === 1 ? label.replace(/s$/, "") : label) +
+          (dayIds.length ? ". Click to narrow this tab to them." : "");
         var vt = sv("text", { x: cx, y: PADT + plotH - h - 6, "class": "ax", "text-anchor": "middle" });
         vt.textContent = n; s.appendChild(vt);
       }
@@ -14824,9 +15035,14 @@ samo — stala fraza w tytule klamalaby przy pierwszym przebiegu o innym skladzi
 
 - **Nie podnosi capu `slice(0, 3)` w powloce** i nie dotyka trzech skryptow powloki. Lista
   dozwolonych zmian w nich to nadal `KIND_BADGE` (§5e) i trzy linie `facetCandidates()` (§5w).
-- **Nie robi kontrolki z wykresu, ktorego nie da sie zamienic w filtr.** Zakladki katalogowe
-  (Graph API, Roles) licza WPISY KATALOGU, a tabele pod nimi to rejestr 14 dni i lista endpointow —
-  inne jednostki. Slupek bez `data-ids` zostaje z podpowiedzia i bez roli `button`.
+- **Nie robi kontrolki z wykresu, ktorego nie da sie zamienic w filtr.** Slupek bez `data-ids`
+  zostaje z podpowiedzia i bez roli `button`. **UWAGA — zwolnienie zakladek katalogowych, ktore
+  stalo w tym punkcie do 17 wrzesnia 2026, jest UCHYLONE (§5bc).** Brzmialo: *„Graph API i Roles
+  licza WPISY KATALOGU, a tabele pod nimi to rejestr 14 dni i lista endpointow — inne jednostki"*,
+  a argument, ktory je trzymal, to obawa, ze filtr po `id` oprozni rejestr. Ta obawa przestala
+  obowiazywac w dniu, w ktorym §5at nauczyl `rowInSpec()` dopasowywac wiersz po IDENTYFIKATORZE
+  W TRESCI — wystarczy przekazac te same nazwy takze jako `texts`. Wlasciciel zglosil skutek
+  zwolnienia trzy razy, ostatni raz slowami „i told 100times that every graph should be clickable".
 - **Nie zastepuje bannera powloki drugim bannerem.** Pisze w ten, ktory juz jest; tworzy wlasny
   tylko tam, gdzie tabela zadnego nie ma.
 
@@ -15705,12 +15921,20 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
       if (s.querySelector("rect.chit")) { s.dataset.s11 = "1"; return; }
       s.dataset.s11 = "1";
       bars.forEach(function (b) {
-        var y = +b.getAttribute("y") - 5, h = +b.getAttribute("data-pitch") || 19;
         var label = b.getAttribute("data-label") || "";
         var ids = (b.getAttribute("data-ids") || "").split(",").filter(Boolean);
+        /* Two chart shapes, one wiring. A horizontal bar is one ROW, so its hit area
+           is the band across the whole viewBox. A vertical bar is one COLUMN, and the
+           drawing script hands that geometry over in `data-hit` rather than leaving
+           this one to infer it from the drawing — inferring it is how the 14-day chart
+           went unwired for ten days (5bc). */
+        var hs = (b.getAttribute("data-hit") || "").split(",").map(Number);
+        var vert = hs.length === 4 && !hs.some(function (v) { return isNaN(v); });
+        var y = vert ? hs[1] : (+b.getAttribute("y") - 5);
+        var h = vert ? hs[3] : (+b.getAttribute("data-pitch") || 19);
         var hit = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        hit.setAttribute("x", "0"); hit.setAttribute("y", String(y));
-        hit.setAttribute("width", s.getAttribute("viewBox").split(" ")[2]);
+        hit.setAttribute("x", vert ? String(hs[0]) : "0"); hit.setAttribute("y", String(y));
+        hit.setAttribute("width", vert ? String(hs[2]) : s.getAttribute("viewBox").split(" ")[2]);
         hit.setAttribute("height", String(h));
         hit.setAttribute("class", "chit"); hit.setAttribute("tabindex", "0");
         hit.setAttribute("role", "button");
@@ -15719,7 +15943,11 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
         hit.appendChild(t);
         function go() {
           var p = panelOf(s);
-          if (p) setTab(p.id, { label: label, ids: ids });
+          /* `texts` alongside `ids`: a table whose rows carry `data-id` matches by id,
+             and one that does not — the 14-day ledger, the source-text list — matches
+             the same names in its own text (5at). Handing over both costs nothing and
+             stops a chart being a control on one tab and a picture on the next. */
+          if (p) setTab(p.id, { label: label, ids: ids, texts: ids });
         }
         hit.addEventListener("click", go);
         hit.addEventListener("keydown", function (e) {
@@ -15738,8 +15966,8 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
       li.title = "Filter this tab to " + li.getAttribute("data-label");
       function go2() {
         var p2 = panelOf(li);
-        if (p2) setTab(p2.id, { label: li.getAttribute("data-label"),
-                                ids: (li.getAttribute("data-ids") || "").split(",").filter(Boolean) });
+        var lids = (li.getAttribute("data-ids") || "").split(",").filter(Boolean);
+        if (p2) setTab(p2.id, { label: li.getAttribute("data-label"), ids: lids, texts: lids });
       }
       li.addEventListener("click", go2);
       li.addEventListener("keydown", function (e) {
@@ -16773,7 +17001,7 @@ i to jest odpowiedz na „what's new z kazdej dziedziny". Kolumny:
 | `Due in 30 days` | termin w 0..30 dniach | Deadlines, zawezone |
 | `Source text edited` | strony `docText` tego produktu ze zmiana (§5ar) | New, sekcja `srcchanges` |
 | `Community today` | artykuly z dzis otagowane ta technologia (§5an) | Community, sekcja `latest` |
-| `Catalog moved` | wpisy rejestru z dzis w Graph API / Roles / Component versions | New, sekcja `docchanges` |
+| `Catalog, 7 days` | wpisy rejestru z OSTATNICH SIEDMIU DNI w Graph API / Roles / Component versions (§5bc) | zakladka, ktora ten ruch zapisala, zawezona po nazwach |
 
 **Grupujemy po `product`, nie po wyliczonej „usludze".** `product` jest slownikiem ZAMKNIETYM (§5s)
 i jest dokladnie ta wartoscia, po ktorej fasetuja tabele — wiersz i filtr, ktory otwiera, nie maja
@@ -16925,6 +17153,8 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
      zeros, because no community article carried that day's date. A number the
      destination cannot reproduce is worse than a slightly wider one that it can. */
   var COM_DAYS = 7;
+  /* to samo okno dla ruchu katalogu — 5bc */
+  var CAT_DAYS = 7;
   var T0 = d(TODAY) || Date.now();
   function days(x) { var v = d(x); return v === null ? null : Math.round((v - T0) / 86400000); }
   function ids(list) { return list.map(function (i) { return i.id; }).filter(Boolean); }
@@ -17049,8 +17279,17 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
       if (n === null || n > 0 || n <= -COM_DAYS) return;
       (a.categories || []).forEach(function (c) { bucket(c).com++; bucket(c).comT.push(a.title); });
     });
+    /* 5bc: SIEDEM DNI, nie dzisiaj. Katalog rusza sie skokami — Microsoft synchronizuje
+       `permissions.json` raz na kilka dni — wiec kolumna liczaca WYLACZNIE dzisiaj jest
+       zerem przez wiekszosc tygodnia, a czytelnik czyta zero jako „nic sie nie dzieje".
+       Zmierzone 17 wrzesnia 2026 na rejestrze: Graph API 7 IX 39, 8 IX 132, 9 IX 31,
+       10 IX 30, 11 IX 91, 12 IX 30, 16 IX 4, a 13, 14, 15 i 17 IX ZERO. Kolumna mowila
+       wiec „0" w dniu, w ktorym ostatni ruch mial dwie doby — i wlasciciel zglosil to
+       jako „nie rozumiem, czemu overview ani new tego nie pokazuje dla graph api".
+       Okno jest to samo, ktore liczy kolumna spolecznosci, i naglowek je NAZYWA. */
     LED.forEach(function (e) {
-      if (e.seen !== TODAY) return;
+      var ln = days(e.seen);
+      if (ln === null || ln > 0 || ln <= -CAT_DAYS) return;
       if (e.tab === "Graph API" || e.tab === "Roles" || e.tab === "Component versions") {
         var b2 = bucket(e.product || e.tab);
         b2.cat++;
@@ -17073,7 +17312,7 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
       " items in the window · every number opens its tab already filtered"));
     t.appendChild(cap);
     var th = el("thead"), hr = el("tr");
-    ["Product", "New today", "In the window", "Due in 30 days", "Source text edited", "Community, 7 days", "Catalog moved"]
+    ["Product", "New today", "In the window", "Due in 30 days", "Source text edited", "Community, 7 days", "Catalog, 7 days"]
       .forEach(function (h) { hr.appendChild(el("th", null, h)); });
     th.appendChild(hr); t.appendChild(th);
     var tb = el("tbody");
@@ -17122,7 +17361,7 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
         var HOME = { "Graph API": "tab-graph", "Roles": "tab-roles", "Component versions": "tab-components" };
         var best = null, n = -1;
         Object.keys(b.catTab).forEach(function (k) { if (b.catTab[k] > n) { n = b.catTab[k]; best = k; } });
-        go(HOME[best] || "tab-new", { label: b.p + " · catalog moved today", texts: b.catT },
+        go(HOME[best] || "tab-new", { label: b.p + " · catalog moved in the last 7 days", texts: b.catT },
            HOME[best] ? null : "docchanges"); },
         "Open the catalog tab that recorded it, narrowed to this technology"));
       tb.appendChild(tr);
@@ -17807,7 +18046,7 @@ wiec `splitTabs()` w SKRYPCIE 4 (§5y) wymienia je w tablicy `REF`. Bez tego obi
 **TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** — bramka lustra (§0a) zada
 DOKLADNIE dwoch i trzeci wywraca caly przebieg. I **nie wolno wozic danych w osobnym
 `<script>window.__NT=…`**: `snapshot_shell` (§0d) rozpoznaje skrypty powloki po BRAKU znacznika
-`SCRIPT 4`..`SCRIPT 15`, wiec taki blok policzylby sie jako CZWARTY skrypt powloki i **przerwal
+`SCRIPT 4`..`SCRIPT 17`, wiec taki blok policzylby sie jako CZWARTY skrypt powloki i **przerwal
 kazdy przebieg lustrzany**. `nt` jest wiec kluczem w `soc-brief-state`, tak samo jak `graphMap`
 (§5ah), `ledger14` (§5al), `community` (§5an), `sources` i `docText` (§5ar).
 
@@ -17968,7 +18207,7 @@ w obecnych zakladkach, ktore mamy, advanced filtering jest rozwijalny"*.
 z §5au i pasek tej makiety to dwie kontrolki tego samego stanu, a dwie kontrolki nad jedna
 zakladka to dokladnie ten blad, ktory wlasciciel zglaszal juz przy dwoch paskach szukania (§5an)
 i przy dwoch zielonych polach (§5am). **SKRYPT 15 v2 zastepuje SKRYPT 15 na kazdej zakladce
-portalu**, a nie tylko na dwoch nowych: skryptow dodawanych jest odtad trzynascie (4-16; SKRYPT 16
+portalu**, a nie tylko na dwoch nowych: skryptow dodawanych jest odtad czternascie (4-17; SKRYPT 16
 z §5az doszedl 16 wrzesnia 2026), a §5au
 zostaje jako opis regul, ktore v2 stosuje, i traci swoj blok kodu.
 
@@ -18868,7 +19107,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
      bloku `<script type="application/json">` NIE dokladamy — bramka lustra (§0a) zada
      DOKLADNIE dwoch — a osobny blok `script` z `window.__NT` wpadlby w `snapshot_shell`
      (§0d) jako czwarty skrypt powloki i PRZERWAL caly przebieg lustrzany, bo ta funkcja
-     rozpoznaje powloke po BRAKU znacznika `SCRIPT 4`..`SCRIPT 15`. I nie wolno tu napisac
+     rozpoznaje powloke po BRAKU znacznika `SCRIPT 4`..`SCRIPT 17`. I nie wolno tu napisac
      zamykajacego znacznika skryptu nawet W KOMENTARZU: przegladarka konczy element na
      pierwszym takim napisie w tresci, wiec ten skrypt urwal sie na 880 bajtach i nie
      zbudowal ani jednej sekcji. `window.__NT` zostaje jako wejscie makiety i podgladu,
@@ -19760,14 +19999,29 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
      `tbody tr` w chwili budowania paska (panelCount), a moich tabel wtedy jeszcze
      nie ma — wiec stemplujemy licznik sami, ta sama klasa i ta sama semantyka. */
   function stampCounts(){
-    ["tab-learn","tab-blogs"].forEach(function(pid){
+    /* 5bc: KAZDA zakladka niesie licznik, i to jest KATALOG ODWROTNY, nie lista dwoch
+       nazw. Powloka stempluje te panele, ktore sama zbudowala, a panel zbudowany
+       pozniej przez skrypt dodawany zostaje bez liczby: zmierzone 17 wrzesnia 2026 —
+       `Message Center` (SKRYPT 16) i `Component versions` nie mialy zadnego badge'a,
+       podczas gdy dwanascie pozostalych mialo. Pierwsza wersja tej funkcji wymieniala
+       `tab-learn` i `tab-blogs` z nazwy, wiec kazda nastepna zakladka dziedziczyla ten
+       sam brak — ta sama pomylka, ktora `CANON_PANELS` naprawilo w §0a: lista nazw ma
+       date waznosci, petla po tym, co pasek NIESIE, jej nie ma.
+       Stemplujemy TYLKO tam, gdzie licznika nie ma albo jest pusty — powloka zostaje
+       jedynym pisarzem swoich liczb (§5am), a my dokladamy brakujace. */
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"),function(btn){
+      var pid=btn.getAttribute("aria-controls"); if(!pid) return;
       var p=document.getElementById(pid); if(!p) return;
-      var n=p.querySelectorAll("details.ntsec tbody tr").length; if(!n) return;
-      var btn=document.getElementById("tabbtn-"+pid)||
-        [].slice.call(document.querySelectorAll("nav.anchors .tab")).filter(function(b){
-          return b.getAttribute("aria-controls")===pid;})[0];
-      if(!btn) return;
       var c=btn.querySelector(".navcount");
+      if(c&&(c.textContent||"").trim()) return;      /* powloka juz to policzyla */
+      var rows=p.querySelectorAll("tbody tr"),n=0;
+      [].forEach.call(rows,function(tr){
+        if(tr.classList.contains("grp")||tr.classList.contains("hdet")||
+           tr.classList.contains("det")) return;
+        n++;
+      });
+      if(!n) n=p.querySelectorAll("article.card[data-id]").length;
+      if(!n) return;                                  /* zero to nie jest licznik, tylko cisza */
       if(!c){c=el("span","navcount");btn.appendChild(c);}
       c.textContent=String(n);
     });
@@ -20248,7 +20502,7 @@ dwa razy i nic, co by ja lączyło** — tylko po drugiej stronie portalu.
 
 **TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** (§0a) i **nie wozisz danych
 w osobnym `<script>window.__MC=…`**: `snapshot_shell` (§0d) rozpoznaje skrypty powloki po BRAKU
-znacznika `SCRIPT 4`..`SCRIPT 16`, wiec taki blok policzylby sie jako czwarty skrypt powloki
+znacznika `SCRIPT 4`..`SCRIPT 17`, wiec taki blok policzylby sie jako czwarty skrypt powloki
 i przerwal kazdy przebieg lustrzany.
 
 ```json
@@ -20400,7 +20654,7 @@ nie dopisujemy** — dwie sekcje o jednym byc mogly by podac dwie liczby (§3 pu
 
 Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
 §5ar, §5as, §5at, §5au, §5aw, §5ay i §5bb sa to JEDYNE dozwolone dopisane reguly CSS.
-**Blokow CSS jest odtad DWADZIESCIA CZTERY**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
+**Blokow CSS jest odtad DWADZIESCIA PIEC**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
 
 ```css
 /* §5az — Message Center jako wymiar. Kazdy selektor zaczyna sie od klasy, ktora tworzy
@@ -20444,7 +20698,7 @@ details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-sp
 ### SKRYPT 16 — na koniec `<body>`, jako SZESNASTY blok `<script>`
 
 Kopiowany co do bajtu z tego pliku, jak kazdy skrypt dodawany (§0c). **Skryptow dodawanych jest
-odtad TRZYNASCIE (4-16).**
+odtad CZTERNASCIE (4-17).**
 
 ```js
 /* ===========================================================================
@@ -21094,6 +21348,474 @@ def file_block(p_, cap_lines=60, owner=""):
   a w zakladce Microsoft Learn kazdy blok stoi wewnatrz `details#nt-pages`.
 
 Obie sa **klasy B**: lustro tylko kopiuje, wiec renderera nie podmieni — raportuje i publikuje (§0).
+
+## 5bc. KATALOG MOWI, ILE GO JEST, A KAZDY WYKRES JEST KONTROLKA
+
+Wlasciciel zglosil 17 wrzesnia 2026, po opublikowaniu porannego artefaktu, piec rzeczy naraz.
+Trzy z nich nazwal „real issue" i „RAL BUG", i **wszystkie piec zostalo zmierzone na TYM artefakcie
+przed napisaniem jednej linii kodu** — bo poprawka bez pomiaru nie ma jak byc poprawna (§0b, §5ba).
+
+| # | zgloszenie | zmierzone 17 wrzesnia 2026 | werdykt |
+|---|---|---|---|
+| 1 | „message center and components lack the number of item near the tab name" | `.navcount` na dwunastu zakladkach, **zero** na `tab-mc` i `tab-components` | **nasz blad** |
+| 2 | „graph in the graph api tab is not clickable … i told 100times that every graph should be clickable" | slupki SKRYPTU 8 maja klase `b-chg`, **zero `data-ids`**, wiec `wireCharts()` ze §5ap ich nie widzi | **nasz blad** |
+| 3 | „bradley's page shows exact updates … even not showing the global full list" | katalog trzyma **2238** wpisow, a tryb `All`, opisany jako „everything Microsoft publishes", pokazuje **1221**. Szukanie `group.rea` w tym trybie daje **2 z 1221**, podczas gdy katalog ma **5** trafien, w tym `Group.ReadBasic.All` | **nasz blad, ale nie ten, ktory wyglada** |
+| 4 | „bradley also shows many other updates which we do not track … nothing on Sep 15" | zadne z czterech zrodel §5d nie ruszylo sie 15-17 wrzesnia | **nasza strona mowi prawde** |
+| 5 | „it is very hard to track changes on our graph api tab … why even today overview or new tab do not show it" | kolumna `Catalog moved` liczyla **wylacznie dzisiaj**, a rejestr ma dla Graph API 39/132/31/30/91/30 wpisow 7-12 wrzesnia, **4** szesnastego i **zero** 13, 14, 15 i 17 | **nasz blad** |
+
+### Punkt 4 zostaje bez zmiany w kodzie — i to jest wynik, nie uchylenie sie
+
+Zmierzone tego dnia na wszystkich czterech zbiorach §5d, klon po klonie:
+
+| zbior | plik | ostatni commit ruszajacy TEN plik |
+|---|---|---|
+| **D** — mapa wdrozen | `permissions/new/provisioningInfo.json` | **11 wrzesnia** (`4105bf3`) |
+| **D** — schematy i endpointy | `permissions/new/permissions.json` | **14 wrzesnia** (`ab289c3`), 927 uprawnien |
+| **B** — eksport SP Merilla | `_info/GraphAppRoles.*`, `GraphDelegateRoles.*` | **13 wrzesnia** (`82f4a5e`), 732 + 816 |
+| **C** — dokumentacja | `concepts/permissions-reference.md` | **4 sierpnia** |
+
+Roznica `permissions.json` miedzy 11 a 14 wrzesnia: **dodane 0, usuniete 0, zmienione 1** —
+`AgentIdentity.ReadWrite.All`. Dokladnie te cztery wpisy rejestru, ktore strona pokazala 16 wrzesnia.
+**Pusty slupek 15 wrzesnia jest prawda o tym, co Microsoft opublikowal**, a nie brakiem po naszej
+stronie.
+
+Tracker, ktory pokazuje wtedy ruch, czyta **service principala ze swojego tenanta** — to jest ta
+sama obserwacja, ktora §5 zapisala 29 sierpnia 2026 przy `IdentityDiagnostic.Read`: *„Autor trackera
+czyta service principala ze SWOJEGO tenanta, ktory dostal wdrozenie wczesniej."* Pierscienie
+wdrozeniowe Microsoftu sprawiaja, ze **data zobaczenia zalezy od tenanta**, a nasza data pochodzi
+z mapy wdrozen i z NASZEGO SP. Obie sa prawdziwe i obie sa inne.
+
+**Zakladka Sources mowi to zdaniem** — jednym, w `sec-note` katalogu Graph — zeby czytelnik nie
+musial wyprowadzac tego z ciszy: *„Where a third-party tracker shows movement on a day this page is
+quiet, it is usually reading its own tenant's service principal; Microsoft rolls permissions out in
+rings, so the date a permission becomes visible depends on the tenant. This page dates from
+Microsoft's deployment map and from this tenant."*
+
+### Punkt 3 — flagi NIE ruszamy, bo napedza szesc liczb, a zle sa dwie
+
+Kuszace bylo ustawic `inInventory:true` na 377 wpisach `D\A`. Zmierzony zasieg tej flagi w powloce:
+
+| gdzie | dzis | po flipie |
+|---|---|---|
+| `poolFor("all")` — lista trybu `All` | 1221 | 2238 — **poprawa** |
+| `stampTabCount()` — licznik zakladki | 1221 | 2238 — obojetne |
+| kafelek `permissions in the catalog` | 1221 | 2238 — **lamie §5d** |
+| kafelek `inventory / cov.published` | 1221 / 939 | 2238 / 939 — **klamie** |
+| wykres `How the N permissions can be granted` | 1221 | 2238 — **klamie**, bo `D\A` nie da sie nadac |
+| arytmetyka `outOfInv` w SKRYPCIE 8 | poprawna | pusta |
+
+**Dwie z szesciu robily by sie nieprawdziwe, a trzecia lamalaby regule §5d, ktora ta flaga istnieje,
+zeby chronic.** Jedna flaga robi tu dwie robote — jest licznikiem „co da sie nadac" i filtrem
+listy — a poprawka nie moze polegac na zepsuciu tej pierwszej roli.
+
+**Zmieniamy wiec ETYKIETE i ZASIEG SZUKANIA, nie flage.** Kazdy wpis jest juz osiagalny: zmierzone
+`ms=477`, `own=760`, `all=1221`, **niewidocznych w zadnym trybie ZERO**. Problem nie polega na tym,
+ze czegos nie ma — tylko na tym, ze **nie ma jednej listy i jednego szukania nad calym zbiorem**,
+a przycisk mowi „All".
+
+1. **Przycisk `All N` nazywa sie odtad `In this tenant N`**, a pod rzedem trybow stoi zdanie
+   z obiema liczbami: *„2238 entries in this catalog — 1221 grantable in this tenant, 1017 deployed
+   in the service and not grantable here. The search below reaches all of them."*
+2. **Nad lista stoi szukanie po CALYM katalogu.** Trafienie, ktorego biezacy tryb nie trzyma, jest
+   NAZWANE — przyciskiem, ktory przelacza tryb i otwiera wpis. To jest dokladnie ten ksztalt, ktory
+   §5ak i §5al juz stosuja przy sciezce, GUID-zie i akcji katalogowej: **lista powloki nie umie
+   odpowiedziec na to pytanie, wiec odpowiada NOTA, a kazda nazwa w niej jest przyciskiem.**
+   Zaden drugi pisarz listy nie powstaje (§5am).
+3. **Chip wpisu niesie POZIOM UPRAWNIENIA.** Zmierzone: `privilegeLevel` stoi na **1** z 2238 wpisow
+   katalogu, a `graphMap` niesie `s[schemat] = {l, c}` dla **925** z nich. Ta sama liczba, ktora inne
+   trackery drukuja jako naglowek — `Group.ReadBasic.All` ma tam `DelegatedWork L2` i `Application
+   L3`, oba z wymagana zgoda administratora — byla na tej stronie w JSON i nie byla na liscie.
+   Dokłada ja `decorate()` w SKRYPCIE 6, czyli ten, kto juz jest wlascicielem dekoracji listy.
+4. **Opisu NIE dorabiamy i to jest swiadome.** `permissions-descriptions.json` zna **716** nazw
+   z 1933 w mapie wdrozen, a `Group.ReadBasic.All` **nie jest wsrod nich** — wiec
+   `descriptionSource:"none"` z data jest uczciwe i zostaje (§5j). 377 z 377 wpisow `D\A` ma dzis
+   `none` i **to jest poprawny wynik**, a nie luka do zaklejenia zmyslonym zdaniem.
+
+### Punkt 5 — ruch katalogu jest rzadki, wiec okno „dzisiaj" jest zerem przez wiekszosc tygodnia
+
+Zmierzone na rejestrze z 17 wrzesnia: Graph API **357** wpisow w oknie 14 dni, rozlozone
+7 IX 39 · 8 IX 132 · 9 IX 31 · 10 IX 30 · 11 IX 91 · 12 IX 30 · 16 IX 4, a 13, 14, 15 i 17 wrzesnia
+**zero**. Kolumna Overview liczyla `e.seen === briefDate`, wiec w dniu zgloszenia pokazywala zero —
+prawdziwie i bezuzytecznie, bo ostatni ruch mial dwie doby.
+
+1. **Kolumna `Catalog moved` liczy SIEDEM DNI i nazywa sie `Catalog, 7 days`** — to samo okno, ktore
+   liczy juz kolumna spolecznosci, i naglowek je nazywa (§5as, §5aq: tytul mowi okres slowami).
+2. **Zakladki Graph API i Roles otwieraja sie sekcja `What changed in the last 7 days`**, ktora
+   NAZYWA to, co sie ruszylo — nazwa wpisu, pole, wartosc przed i po — a nie podaje samego licznika.
+   Sekcja bez ruchu mowi zdaniem, ile przebiegow patrzylo i **kiedy cokolwiek ruszylo sie ostatni
+   raz**: *„Nothing moved in the last 7 days; 7 runs looked. The last change was on 16 September."*
+   Cisza, ktora nie mowi, kiedy bylo ostatnio, jest nieodroznialna od zepsutego zrodla (§5aj).
+
+### Punkty 1 i 2 — dwa braki jednej rodziny: lista nazw zamiast petli
+
+**Licznik zakladki.** `stampCounts()` w SKRYPCIE 15 v2 wymienial `tab-learn` i `tab-blogs` **z nazwy**,
+wiec kazda zakladka zbudowana pozniej przez skrypt dodawany zostawala bez liczby — `tab-mc`
+(SKRYPT 16) i `tab-components` wlasnie tak. Odtad funkcja **chodzi po kazdej zakladce, ktora pasek
+NIESIE**, i stempluje TYLKO tam, gdzie licznika nie ma albo jest pusty; powloka zostaje jedynym
+pisarzem swoich liczb (§5am). To ta sama poprawka co `CANON_PANELS` w §0a: **lista nazw ma date
+waznosci, petla po tym, co pasek niesie, jej nie ma.**
+
+**Klikalny wykres.** §5ap mowi „kazdy slupek z `data-ids` jest kontrolka" i **zwalnialo z tego
+zakladki katalogowe**: *„tam slupek liczy wpisy katalogu, a tabela pod nim jest rejestrem, wiec
+filtr po `id` oproznilby ja."* **To zwolnienie jest odtad UCHYLONE** i argument, ktory je trzymal,
+juz nie obowiazuje: §5at nauczyl `rowInSpec()` dopasowywac wiersz po IDENTYFIKATORZE W TRESCI, gdy
+tabela nie ma `data-id`. Wystarczy wiec przekazac te same nazwy takze jako `texts`.
+
+Trzy zmiany, kazda w skrypcie, ktory juz jest wlascicielem swojego mechanizmu:
+
+- **SKRYPT 8** zbiera nazwy wpisow rejestru per dzien i wiesza je na slupku jako `data-ids`,
+  dokladajac klase `cbar` i `data-hit` z geometria KOLUMNY. Wyliczanie wierszy z wydrukowanej daty
+  byloby zgadywaniem — **ten, kto je policzyl, jest tym, kto wie, ktore to byly** (§5ap).
+- **SKRYPT 11** rozumie dwa ksztalty wykresu: slupek poziomy to WIERSZ (pasmo przez caly `viewBox`),
+  slupek pionowy to KOLUMNA (geometria z `data-hit`). Wnioskowanie jej z rysunku jest tym, przez co
+  ten wykres byl niepodlaczony.
+- **SKRYPT 11** przekazuje odtad `texts` obok `ids` w KAZDEJ specyfikacji z wykresu. Tabela
+  z `data-id` dopasowuje po `id`, tabela bez niego po tresci — a wykres przestaje byc kontrolka
+  w jednej zakladce i obrazkiem w nastepnej.
+
+### Arkusz — blok dopisywany na koncu `<style>`, PRZED blokiem §5av
+
+Razem z blokami z §1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am, §5an, §5ap,
+§5ar, §5as, §5at, §5au, §5aw, §5ay, §5az i §5bb sa to JEDYNE dozwolone dopisane reguly CSS.
+**Blokow CSS jest odtad DWADZIESCIA PIEC**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
+
+```css
+/* §5bc — the catalog says how big it is, and the seven-day headline says what moved.
+   Every selector starts from a class only SCRIPT 17 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares (§5t). */
+.catmore{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:var(--surface-2);
+ border:1px solid var(--border);border-left:4px solid var(--accent);font-size:12.5px;color:var(--text)}
+.catmore b{color:var(--accent)}
+.catfind{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 9px}
+.catfind input{flex:1 1 240px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;
+ border-radius:8px;background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.catfind input::placeholder{color:var(--muted);font-weight:400}
+.catfind input:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.catfind .cfn{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.catwhy{background:var(--info-soft);border:1px solid var(--info);border-radius:10px;
+ padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 10px}
+.catwhy[hidden]{display:none!important}
+.cathits{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.cathits button{font:inherit;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--info);background:var(--surface);color:var(--info);cursor:pointer}
+.cathits button:hover{background:var(--info);color:var(--on-accent)}
+.cathits button .cfw{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+ color:var(--muted);margin-left:6px}
+.cathits button:hover .cfw{color:var(--on-accent)}
+details.g7{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.g7>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 15px}
+details.g7>summary::-webkit-details-marker{display:none}
+details.g7>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.g7[open]>summary::before{content:"\2212"}
+details.g7>summary .g7t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted)}
+details.g7>summary .g7n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.g7[open]>summary{border-bottom:1px solid var(--border)}
+details.g7>*:not(summary){margin-left:15px;margin-right:15px}
+details.g7>*:not(summary):first-of-type{margin-top:12px}
+details.g7>*:not(summary):last-child{margin-bottom:14px}
+.g7quiet{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;
+ padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+.g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
+@media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
+```
+
+### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
+
+Kopiowany co do bajtu z tego pliku, jak kazdy skrypt dodawany (§0c). **Skryptow dodawanych jest
+odtad CZTERNASCIE (4-17).**
+
+```js
+/* ===========================================================================
+   SCRIPT 17 — THE CATALOG SAYS HOW BIG IT IS, AND WHAT MOVED THIS WEEK
+   (CLAUDE.md 5bc). ADDED, never a replacement: shell scripts 1-3 and added
+   scripts 4-16 are untouched, byte for byte.
+
+   The owner, 17 September 2026: "bradley's msgraphpermission page show exact
+   updates and changes ... even not showing the global full list", and "it is
+   very hard to track changes on our graph api tab ... adding section at the top
+   saying what exactly changed during last 7days".
+
+   Measured on the published page that morning: the catalog holds 2238 graph
+   entries and the mode button labelled "All", whose active-filter line reads
+   "everything Microsoft publishes", lists 1221. Searching `group.rea` there
+   returns 2 while the catalog holds 5, `Group.ReadBasic.All` among the three it
+   does not show. Nothing is unreachable — ms=477, own=760, all=1221, invisible
+   in every mode 0 — but no single list and no single search spans the whole
+   catalog, and the button says otherwise.
+
+   The flag is NOT flipped. `inInventory` drives six numbers in the shell and two
+   of them would become untrue and a third would break the rule 5d keeps it for.
+   So this script fixes the LABEL and the REACH: it renames the mode, prints both
+   figures, and puts a search over the WHOLE catalog above the list. A hit the
+   current mode does not hold is NAMED, as a button that switches to the mode
+   holding it and opens it — the shape 5ak and 5al already use for a path, a GUID
+   and a directory action. No second writer of the list is created (5am).
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; }
+  function jb(id) {
+    var s = document.getElementById(id);
+    if (!s) return null;
+    try { return JSON.parse(s.textContent); } catch (e) { return null; }
+  }
+  var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {};
+  var LED = (ST.ledger14 || {}).entries || [], RUNS = (ST.ledger14 || {}).runs || [];
+  var TODAY = ST.briefDate || "";
+  var WIN = 7;
+
+  function days(x) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(x || "");
+    if (!m) return null;
+    var a = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+    var b = /^(\d{4})-(\d{2})-(\d{2})/.exec(TODAY);
+    var t = b ? Date.UTC(+b[1], +b[2] - 1, +b[3]) : Date.now();
+    return Math.round((a - t) / 86400000);
+  }
+  function inWin(d) { var n = days(d); return n !== null && n <= 0 && n > -WIN; }
+
+  /* Which mode holds an entry. Read from the same two flags the shell reads, so
+     the answer cannot disagree with the list it points at. */
+  function modeOf(e) {
+    if (e.inInventory) return "all";
+    if (e.tracked) return (!e.origin || e.origin === "microsoft") ? "ms" : "own";
+    return null;
+  }
+  var MODENAME = { all: "In this tenant", ms: "Microsoft changes", own: "Catalog notes" };
+
+  /* ---------------- 1. the mode row tells the truth about its own size ---------------- */
+  function relabel(host, which) {
+    var items = CAT[which] || [];
+    if (!items.length) return;
+    var seg = host.querySelector(".modeseg");
+    if (!seg || seg.dataset.s17 === "1") return;
+    var inv = 0, out = 0;
+    items.forEach(function (e) { if (e.inInventory) inv++; else out++; });
+    if (!out) { seg.dataset.s17 = "1"; return; }   /* nothing is held back: nothing to explain */
+    seg.dataset.s17 = "1";
+    var b = seg.querySelector('[data-mode="all"]');
+    if (b) b.textContent = MODENAME.all + " " + inv;
+    var note = el("p", "catmore");
+    var noun = which === "roles" ? "roles" : "permissions";
+    note.appendChild(el("b", null, String(items.length) + " " + noun + " in this catalog"));
+    note.appendChild(document.createTextNode(
+      " — " + inv + " grantable in this tenant, " + out + " deployed in the service and not " +
+      "grantable here. The three buttons above list them separately; the search below reaches all " +
+      "of them at once and says which list holds each hit."));
+    var ctl = host.querySelector(".cat-controls") || seg.parentNode;
+    if (ctl && ctl.parentNode) ctl.parentNode.insertBefore(note, ctl);
+  }
+
+  /* ---------------- 2. one search over the WHOLE catalog ---------------- */
+  function openIn(which, name, mode) {
+    var host = document.querySelector('.catalog[data-catalog="' + which + '"]');
+    if (!host) return;
+    var b = host.querySelector('.modeseg [data-mode="' + mode + '"]');
+    if (b && b.getAttribute("aria-pressed") !== "true") b.click();
+    setTimeout(function () {
+      var f = which === "roles" ? window.__socOpenRole : window.__socOpenPerm;
+      var inner = f ? f(name) : null;
+      if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+    }, 220);
+  }
+
+  function search(host, which) {
+    var items = CAT[which] || [];
+    if (!items.length || host.querySelector(".catfind")) return;
+    var wrap = el("div", "catfind");
+    var q = document.createElement("input");
+    q.type = "search";
+    q.placeholder = "Search all " + items.length + " entries, in every list…";
+    wrap.appendChild(q);
+    var cnt = el("span", "cfn", "");
+    wrap.appendChild(cnt);
+    var why = el("p", "catwhy"); why.hidden = true;
+
+    function run() {
+      var v = (q.value || "").trim().toLowerCase();
+      why.textContent = ""; why.hidden = true;
+      if (v.length < 2) { cnt.textContent = ""; return; }
+      var hits = items.filter(function (e) {
+        return String(e.name || "").toLowerCase().indexOf(v) >= 0;
+      });
+      cnt.textContent = hits.length + " of " + items.length;
+      if (!hits.length) {
+        why.hidden = false;
+        why.appendChild(document.createTextNode(
+          "No entry in this catalog matches that. The catalog holds what Microsoft's deployment map " +
+          "and this tenant's service principal carry; a name a third-party tracker shows and this " +
+          "one does not is usually a permission deployed to another tenant's ring first."));
+        return;
+      }
+      var cur = null;
+      var pressed = host.querySelector('.modeseg [aria-pressed="true"]');
+      if (pressed) cur = pressed.getAttribute("data-mode");
+      var elsewhere = hits.filter(function (e) { return modeOf(e) !== cur; });
+      why.hidden = false;
+      why.appendChild(document.createTextNode(
+        hits.length + (hits.length === 1 ? " entry matches" : " entries match") + " across the whole " +
+        "catalog" + (elsewhere.length
+          ? (", and " + elsewhere.length + " of them " + (elsewhere.length === 1 ? "is" : "are") +
+             " in a list this mode does not show. Open one from here:")
+          : ". All of them are in the list below.")));
+      if (!elsewhere.length) return;
+      var box = el("span", "cathits");
+      elsewhere.slice(0, 14).forEach(function (e) {
+        var m = modeOf(e);
+        var b = el("button", null, e.name);
+        b.type = "button";
+        b.appendChild(el("span", "cfw", MODENAME[m] || "not listed"));
+        b.title = e.kind ? (e.name + " — " + e.kind) : e.name;
+        b.addEventListener("click", function () { openIn(which, e.name, m); });
+        box.appendChild(b);
+      });
+      if (elsewhere.length > 14)
+        box.appendChild(el("span", "cfn", " … and " + (elsewhere.length - 14) + " more"));
+      why.appendChild(box);
+    }
+    q.addEventListener("input", function () { setTimeout(run, 0); });
+    /* the shell repaints its own mode row, so re-run on a mode press: the same hit
+       can move from "elsewhere" to "in the list below" and the sentence has to follow */
+    host.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest(".modeseg")) setTimeout(run, 260);
+    }, true);
+
+    var ctl = host.querySelector(".cat-controls") || host.querySelector(".cat-split");
+    if (ctl && ctl.parentNode) {
+      ctl.parentNode.insertBefore(wrap, ctl);
+      ctl.parentNode.insertBefore(why, ctl);
+    }
+  }
+
+  /* ---------------- 3. what moved in the last seven days ----------------
+     The 14-day block SCRIPT 8 builds is a register: 357 rows for Graph API on
+     17 September 2026, collapsed, and the reader has to open it and read it to
+     learn that nothing has moved since the 16th. This says it in one line, names
+     what moved, and — when nothing did — says when something last did. Silence
+     that does not say "last change was on the 16th" is indistinguishable from a
+     source that stopped reading (5aj). */
+  var TABOF = { graph: "Graph API", roles: "Roles" };
+  function headline(host, which) {
+    var sec = host.closest ? host.closest("section") : null;
+    if (!sec || sec.querySelector("details.g7")) return;
+    var tab = TABOF[which];
+    var mine = LED.filter(function (e) { return e.tab === tab || (which === "graph" && e.tab === "Graph endpoints"); });
+    var recent = mine.filter(function (e) { return inWin(e.seen); });
+    var looked = RUNS.filter(function (r) { return inWin(r.date); }).length;
+
+    var d = el("details", "g7");
+    if (recent.length) d.open = true;
+    var s = el("summary");
+    s.appendChild(el("span", "g7t", "What changed in the last " + WIN + " days"));
+    s.appendChild(el("span", null, tab));
+    s.appendChild(el("span", "g7n", String(recent.length)));
+    d.appendChild(s);
+
+    if (!recent.length) {
+      var last = mine.map(function (e) { return e.seen; }).sort().pop();
+      var p = el("p", "g7quiet");
+      p.textContent = "Nothing moved in the last " + WIN + " days; " + looked +
+        (looked === 1 ? " run looked" : " runs looked") + ". " +
+        (last ? ("The last change this page recorded was on " + last + ", and it is in the 14-day " +
+                 "register below.")
+              : "Nothing has moved inside the window this register keeps.") +
+        " A quiet week is a result: Microsoft syncs the permission file every few days, so the " +
+        "catalog moves in steps rather than daily.";
+      d.appendChild(p);
+    } else {
+      var by = {};
+      recent.forEach(function (e) {
+        var k = e.seen + "|" + (e.kind || "changed");
+        (by[k] = by[k] || []).push(e);
+      });
+      var tw = el("div", "tw"), t = el("table"), th = el("thead"), hr = el("tr");
+      ["Day", "What", "Entry", "Field", "Before → after"].forEach(function (x) { hr.appendChild(el("th", null, x)); });
+      th.appendChild(hr); t.appendChild(th);
+      var tb = el("tbody");
+      recent.slice().sort(function (a, b) {
+        return String(b.seen).localeCompare(String(a.seen)) ||
+               String(a.id || "").localeCompare(String(b.id || ""));
+      }).forEach(function (e) {
+        var tr = el("tr");
+        tr.appendChild(el("td", null, e.seen || ""));
+        tr.appendChild(el("td", null, e.kind || ""));
+        var c2 = el("td");
+        var nm = String(e.id || "").split("→")[0].trim();
+        c2.appendChild(el("span", "g7name", nm || "—"));
+        tr.appendChild(c2);
+        var c3 = el("td");
+        if (e.field) c3.appendChild(el("code", null, e.field));
+        tr.appendChild(c3);
+        var c4 = el("td");
+        if (e.before || e.after) {
+          if (e.before) { var dd = document.createElement("del"); dd.textContent = e.before; c4.appendChild(dd); }
+          else c4.appendChild(el("span", "none", "not set"));
+          c4.appendChild(el("span", "arrow", " → "));
+          if (e.after) { var ii = document.createElement("ins"); ii.textContent = e.after; c4.appendChild(ii); }
+          else c4.appendChild(el("span", "none", "cleared"));
+        } else c4.appendChild(document.createTextNode(e.detail || "—"));
+        tr.appendChild(c4);
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb); tw.appendChild(t);
+      var note = el("p", "note");
+      note.textContent = recent.length + " change" + (recent.length === 1 ? "" : "s") + " in " +
+        looked + (looked === 1 ? " run" : " runs") + ", newest first. The 14-day register below " +
+        "holds the rest, and its chart is a control: press a day to narrow this tab to what moved on it.";
+      d.appendChild(note);
+      var sb = window.__socSearchBox ? window.__socSearchBox(t, { noun: "changes", min: 6,
+        placeholder: "Search " + recent.length + " changes…" }) : null;
+      if (sb) d.appendChild(sb);
+      d.appendChild(tw);
+    }
+    var body = sec.querySelector(".sec-body") || sec;
+    var first = body.querySelector(".catalog");
+    if (first) body.insertBefore(d, first); else body.appendChild(d);
+  }
+
+  function boot() {
+    ["graph", "roles"].forEach(function (which) {
+      var host = document.querySelector('.catalog[data-catalog="' + which + '"]');
+      if (!host) return;
+      try { relabel(host, which); } catch (e) { if (window.console) console.error("[s17 label]", e); }
+      try { search(host, which); } catch (e) { if (window.console) console.error("[s17 find]", e); }
+      try { headline(host, which); } catch (e) { if (window.console) console.error("[s17 7d]", e); }
+    });
+  }
+  /* after SCRIPT 8 has folded the shell toolbar (it moves `.cat-toolbar` into
+     `details.morefilters`) and after SCRIPT 9 has pressed the opening mode, so the
+     label this script rewrites is the one the reader ends up looking at */
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1000); });
+  else setTimeout(boot, 1000);
+  setTimeout(boot, 2600);
+})();
+```
+
+**To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
+linie `facetCandidates()` (§5w) zostaja jedynymi. SKRYPT 17 jest osobnym blokiem, ktory niczego nie
+nadpisuje: etykiete trybu przepisuje na przycisku, ktory powloka i tak rysuje, a **tryb zmienia
+przez NACISNIECIE tego przycisku** — czyli tak, jak zrobilby to czytelnik (§5ah, SKRYPT 9).
+
+### Walidator — pozycje 93-97 listy §0
+
+- **93** — `stampCounts()` chodzi po KAZDEJ zakladce paska, nie po liscie dwoch nazw. **Klasa B.**
+- **94** — SKRYPT 8 wiesza `data-ids`, `data-label`, `data-hit` i klase `cbar` na slupku z ruchem,
+  a SKRYPT 11 rozumie `data-hit` i przekazuje `texts` obok `ids`. **Klasa B.**
+- **95** — SKRYPT 17 jest na stronie: etykieta trybu, zdanie z obiema liczbami i szukanie po calym
+  katalogu. **Klasa B.**
+- **96** — chip wpisu katalogu niesie poziom uprawnienia z `graphMap`. **Klasa B.**
+- **97** — Overview liczy ruch katalogu w oknie SIEDMIU dni i nazywa okres w naglowku, a zakladki
+  Graph API i Roles otwieraja sie sekcja `details.g7`. **Klasa B.**
+
+Wszystkie piec sa **klasy B** (funkcja interfejsu): lustro tylko kopiuje, wiec niczego z tego nie
+doloży — raportuje i publikuje (§0).
 
 ## 5av. ZIELONY JEST KOLOREM FILTRA — na kazdej powierzchni portalu
 
