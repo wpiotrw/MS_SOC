@@ -39,8 +39,11 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **96 pozycji** (0-33, 35-61, 63-77, 79-98), a przebieg ZMIAN dokłada **34, 62, 78
-   i 99-102**, razem **103**. Pozycji 34, 62, 78 i 99-102 nie sprawdza `gate.py`, tylko `verify()`
+   strone glowna, sprawdza **97 pozycji** (0-33, 35-61, 63-77, 79-98, 103), a przebieg ZMIAN dokłada
+   **34, 62, 78 i 99-102**, razem **104**. **17 wrzesnia 2026 wieczorem doszla 103 (§0h)**: tego dnia
+   OBA przebiegi zaraportowaly sukces, a Azure odrzucil oba deploye — `site/` mial 267 674 662 B przy
+   limicie 262 144 000 B, wiec strona serwowala tresc sprzed dwoch dni, a wlasciciel dowiedzial sie
+   o tym z maila GitHuba, nie z odpowiedzi przebiegu. Pozycji 34, 62, 78 i 99-102 nie sprawdza `gate.py`, tylko `verify()`
    w `make_diff.py`: wszystkie dotycza strony `/diff/`, ktorej bramka strony glownej nigdy nie oglada.
    **17 wrzesnia 2026 wieczorem doszly 99-102** (§3 punkty 17-20), wszystkie z jednego zgloszenia po
    wieczornym artefakcie Delta: strona mowila `0 added` nad sekcja Message Center liczaca `+9`, tabela
@@ -179,6 +182,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 100 | **tylko przebieg ZMIAN**: strona NAZYWA wylaczenie Message Center z sumy — `tilenote` podaje jego ruch liczbami, a pusta sekcja `Added since` mowi, ile wpisow MC przyszlo w tym samym oknie i dlaczego stoja poza suma | 3 punkt 17 | `verify()`: przy niezerowym ruchu MC `tilenote` zawiera `Message Center moved on its own this run`; pusta sekcja `added` przy niezerowym `mcv_add` nazywa liczbe wpisow |
 | 101 | **tylko przebieg ZMIAN**: tabela Message Center ma daty jako trzecia i czwarta kolumne — `What / ID / Published / Revised` — a brak daty drukuje POWOD, nigdy pustki | 3 punkt 18 | `verify()`: cztery pierwsze `<th>` sekcji `mcenter` to dokladnie `What`, `ID`, `Published`, `Revised` |
 | 102 | **tylko przebieg ZMIAN**: pasek skrotow ma DWA opisane rzedy w przyklejonym bloku, a po skoku podswietla sekcje docelowa | 3 punkt 19, 20 | `verify()`: `<div class="dstick"><div class="dnavstack">`, `div.dnavrow` = 2, `drowlab`, `function markOne(`, `window.__socDiffMark = function` w pliku |
+| 103 | **rozmiar `site/` MIESCI SIE W LIMICIE, policzony PRZED pushem** — Azure Static Web Apps na planie Free przyjmuje najwyzej **262 144 000 B**, a push przechodzi niezaleznie od tego, wiec zasada 7 (`AFTER != BEFORE`) jest zielona na przebiegu, ktorego deploy zostal odrzucony | 0h | `gate.py <html> <site/>`: suma bajtow wszystkich plikow pod `site/` (bez `.git`) <= 262 144 000; brak katalogu `site/` daje `BRAK "nie podano site/"`, nigdy OK |
 
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -928,7 +932,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b",
-           "81a","81b","81c","90a"}
+           "81a","81b","81c","90a","103"}
 # 12 wrzesnia 2026: pozycje 76 i 77 zeszly z klasy A do B, i jest to poprawka DOKLADNIE
 # tego bledu, ktory §0 opisuje przy 10 wrzesnia. Wiersz bez kolumny znaczenia i link bez
 # nazwy zrodla to brak ETYKIETY, nie falszywe zdanie: pozycja na stronie jest, jest
@@ -2240,6 +2244,34 @@ def gate(path, site=None, mirror=False, doc=None):
     else:
         need("98", "ciaglosc przebiegow (0g)", False, "nie podano katalogu site/")
 
+    # ---- 103: ROZMIAR `site/` PRZED PUSHEM (0h). KLASA A, i to jest jedyna pozycja tej listy,
+    # ktora nie patrzy na tresc strony, tylko na to, czy da sie ja OPUBLIKOWAC. Zasada 7 dowodzi
+    # wylacznie, ze push wyladowal (`AFTER != BEFORE`), a Azure odrzuca zawartosc DOPIERO w deployu —
+    # wiec przebieg jest zielony, a serwis oddaje wczorajsza strone. Zmierzone 17 wrzesnia 2026:
+    # `site/` 267 674 662 B przy limicie 262 144 000 B, przekroczone commitem `c154a4ae` z 05:36 UTC
+    # (+22,5 MB w jednym przebiegu), a OBA przebiegi tego dnia zaraportowaly sukces.
+    SWA_LIMIT = 262144000
+    if site:
+        _tot103, _nf103 = 0, 0
+        for _r103, _dd103, _fs103 in _os.walk(site):
+            if ".git" in _r103.split(_os.sep):
+                continue
+            for _f103 in _fs103:
+                try:
+                    _tot103 += _os.path.getsize(_os.path.join(_r103, _f103))
+                    _nf103 += 1
+                except OSError:
+                    pass
+        need("103", "rozmiar site/ miesci sie w limicie Azure Static Web Apps (0h)",
+             _tot103 <= SWA_LIMIT,
+             "site/ ma %d B w %d plikach, czyli %.1f%% limitu %d B — przekroczenie o %d B. "
+             "Spakuj archiwum wedlug 0h i policz ponownie; jesli dalej sie nie miesci, NIE publikuj "
+             "i napisz to w odpowiedzi zamiast raportowac sukces (0e: to idzie do odpowiedzi, nigdy "
+             "do tresci strony)."
+             % (_tot103, _nf103, 100.0 * _tot103 / SWA_LIMIT, SWA_LIMIT, _tot103 - SWA_LIMIT))
+    else:
+        need("103", "rozmiar site/ (0h)", False, "nie podano katalogu site/")
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2771,6 +2803,8 @@ od tej, ktora po cichu wypadla (§0b).
 | `mc-not-in-totals` | **wylaczenie Message Center z sumy kafelkow jest NAZWANE liczbami** — kafelek niesie ruch `+N / &minus;N / N`, chip sekcji te sama wartosc, a `tilenote` i pusta sekcja `Added since` mowia, ile wpisow przyszlo i dlaczego stoja poza suma | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 17 i pozycje 99-100 listy §0 (`verify()` w `make_diff.py`). **Zmierzone 17 wrzesnia 2026** na artefakcie Delta: kafelki `0/0/0` nad wierszem `bytab` mowiacym `+9 / 0 / 7`, a wszystkie dziewiec dodanych wpisow mialo `origin:index`, czyli nie bylo liczone nigdzie indziej. Brakuje pierwszej opublikowanej strony zmian z ta wersja |
 | `mc-dates-column` | **tabela Message Center niesie `Published` i `Revised` zaraz po identyfikatorze**, a brak daty drukuje powod | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 18 i pozycja 101. `mc_view()` przenosi `revisedOn` na wiersz. **Luka pomiarowa zostaje i ma wlasny wpis** — `revisedOn` stoi dzis na 0 z 239 wpisow, a zamyka to `mc-revision-sweep`. Brakuje pierwszej opublikowanej strony zmian |
 | `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian |
+| `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** |
+| `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **Brakuje pierwszego przebiegu, ktory spakuje archiwum w repozytorium** — z sesji 17 wrzesnia nie dalo sie tego wypchnac, bo proxy odmowilo pushu do `wpiotrw/MS_SOC` |
 
 
 
@@ -2847,6 +2881,121 @@ patrzy tam, a nie na HTML.
 
 Pozycja **98** listy §0 sprawdza to kodem, czyta `site/data/changelog.json` i **bez katalogu
 `site/` daje `BRAK „nie podano site/"`, nigdy OK**.
+
+## 0h. ROZMIAR `site/` JEST CZESCIA PUBLIKACJI — push, ktory przeszedl, to nie deploy, ktory przeszedl
+
+**17 wrzesnia 2026 oba przebiegi dnia — lustro o 07:00 i przebieg zmian o 22:00 — zaraportowaly
+sukces, a Azure odrzucil oba deploye.** Wlasciciel dowiedzial sie o tym z dwoch maili GitHuba
+i sam sprawdzil zakladke Actions; w odpowiedziach przebiegow nie bylo o tym ani slowa. Log deployu:
+
+```
+The content server has rejected the request with: BadRequest
+Reason: The size of the app content was too large. The limit for this Static Web App is 262144000 bytes.
+```
+
+**Przyczyna jest mechaniczna i jest dokladnie ta sama rodziny co §0g.** Zasada 7 kaze udowodnic, ze
+`AFTER != BEFORE` na `origin/main` — czyli dowodzi, ze **push wyladowal**. Azure ocenia zawartosc
+DOPIERO w kroku deployu, kilkadziesiat sekund pozniej i w innym systemie, wiec przebieg jest zielony,
+commit jest w `main`, a serwis dalej oddaje wczorajsza strone. **To jest ten sam ksztalt klamstwa co
+„wczorajsza strona pod wczorajsza data" (§0), tylko przesuniety o jeden krok: dzisiejsza strona jest
+w repozytorium i nie ma jej pod adresem.**
+
+### Co zmierzono 17 wrzesnia 2026
+
+| co | wartosc |
+|---|---|
+| limit Azure Static Web Apps, plan Free | **262 144 000 B** |
+| `site/` w HEAD `93be3352` | **267 674 662 B** — 102,1% limitu, przekroczenie o 5 530 662 B |
+| `site/history/` | 146 526 964 B (40 plikow) — **55% calosci** |
+| `site/data/` | 108 755 316 B (21 plikow) — **41% calosci** |
+| `site/index.html` | 12 009 030 B |
+| reszta (`shell`, `diff`, `kql`, konfiguracja) | 383 352 B |
+| commit, ktory przekroczyl limit | **`c154a4ae`, 2026-09-17T05:36:13 UTC**, „content: raport poranny (mirror) 2026-09-17": 245 075 020 → 267 552 715 B, **+22,5 MB w jednym przebiegu** |
+| linkow ze strony do `/history/` albo `/data/` | **ZERO** — `grep href` na `site/index.html` trafia wylacznie w adresy `learn.microsoft.com`, a `site/diff/index.html` nie trafia w nic |
+
+Ostatni wiersz rozstrzyga o ksztalcie naprawy: **96% ladunku deployu to pliki, do ktorych nic na
+opublikowanej stronie nie prowadzi.** Czytaja je wylacznie przebiegi — i czytaja je Z REPOZYTORIUM
+(`git show`, `open()`), nigdy po HTTP.
+
+### Regula
+
+1. **Przebieg liczy rozmiar `site/` PRZED pushem** i porownuje z 262 144 000 B. Pilnuje tego
+   **pozycja 103** listy §0, **klasy A**: blokuje kazdy przebieg, takze lustro, bo tu nie chodzi
+   o brakujacy widget, tylko o to, ze publikacja **nie dojdzie do skutku** i nikt sie o tym nie
+   dowie.
+2. **Przekroczenie nie jest od razu porazka — najpierw przebieg PAKUJE archiwum i liczy ponownie.**
+   Dopiero gdy po spakowaniu dalej sie nie miesci, przebieg **nie publikuje i pisze to w odpowiedzi
+   zamiast raportowac sukces.** Cisza w tym miejscu jest tym samym bledem co cisza przy `BRAK` (§0).
+3. **Archiwum jest spakowane na stale, nie awaryjnie.** `site/history/*.html` i wszystkie
+   `site/data/*.json` poza **dwoma najnowszymi** i oboma rejestrami (`changelog.json`,
+   `changelog.prev.json`) leza jako `.gz`. Nowe pliki kazdego dnia pakuje przebieg, ktory je tworzy.
+4. **`site/data/` ma retencje 30 dni.** Zasada 2 chroni **wylacznie `history/`** („Nie usuwaj plikow
+   z `history/`") — `data/` nie jest nia objete, a pliki stanu starsze niz miesiac nie sluza juz
+   niczemu: `make_diff.py` porownuje dwa najnowsze stany, `collect_components.py` bierze poprzedni,
+   a rejestr 14-dniowy ma wlasna retencje 90 dni w `changelog.json`. Zmierzone 17 wrzesnia: retencja
+   usuwa **zero plikow** (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac **27 wrzesnia 2026**.
+5. **Nie ruszamy tego, czego ruszac nie wolno.** `site/history/` nie traci ani jednego pliku — traci
+   wylacznie rozmiar; `.github/workflows/*` i `staticwebapp.config.json` zostaja nietkniete (zasada
+   „Czego nie robic"); nic nie wyjezdza poza `site/`, bo `publish.yml` przenosi z galezi przebiegu
+   **tylko `site/`** i cokolwiek poza nim zniknelo by po cichu.
+
+### Procedura — dokladnie ta, ktora zmierzono
+
+```bash
+cd site
+KEEP=$(ls data/*.json | grep -v changelog | sort | tail -2 | tr '\n' ' ')
+find history -type f -name '*.html' -print0 | xargs -0 -P 4 gzip -9
+for f in data/*.json; do
+  case " $KEEP " in *" $f "*) continue;; esac
+  case "$f" in *changelog*) continue;; esac
+  gzip -9 "$f"
+done
+# retencja: stan starszy niz 30 dni nie ma juz czytelnika (punkt 4)
+find data -name '*.json.gz' -mtime +30 -delete
+git add --sparse history data          # oba katalogi leza poza zestawem sparse (§5ai)
+```
+
+**Zmierzone na kopii repozytorium, 17 wrzesnia 2026:**
+
+| | przed | po |
+|---|---|---|
+| `site/` | 267 674 662 B (102,1% limitu) | **49 672 857 B (18,9% limitu)**, zapas 212 MB |
+| `site/history/` | 146 526 964 B | 12 477 272 B |
+| `site/data/` | 108 755 316 B | 24 803 203 B |
+| czas operacji | — | **4,7 s** |
+| plikow | 70 | **70** — ani jeden nie zniknal |
+| kontrola integralnosci | — | 57 z 57 `.gz` przechodzi `gzip -t`; `gunzip -c` bajt w bajt zgodne pod `cmp` |
+
+Wspolczynniki kompresji zmierzone na prawdziwych plikach: `index.html` **11,5%**, stan JSON **9,7%**,
+strona archiwum **9,8%**.
+
+### Czego pakowanie KOSZTUJE — i dlaczego to i tak jest tanie
+
+**Archiwum przestaje byc przegladalne po HTTP.** Adres `/history/2026-09-14-poranny.html` po
+spakowaniu zwraca 404, bo plik nazywa sie teraz `.html.gz`. **Nikt na to nie wchodzil**: strona nie
+linkuje tam ani razu (pomiar wyzej), a `staticwebapp.config.json` i tak wyklucza `/history/*`
+i `/data/*` z przepisywania. Przebiegi czytaja te pliki z repozytorium, wiec ich nie dotyczy;
+czlowiek otwiera je jednym `gunzip -c`, a `gunzip -r site/history` cofa cala operacje.
+
+**Wzrost dzienny po spakowaniu**, wyliczony ze zmierzonych wspolczynnikow: `index.html` jest
+NADPISYWANY, wiec rosnie o zero; kopia do `history/` to okolo 1,1 MB spakowana, a nowy stan w `data/`
+okolo 1,0 MB — razem **okolo 2 MB dziennie** zamiast 22,5 MB. Przy 212 MB zapasu to okolo trzech
+miesiecy, a retencja z punktu 4 zatrzymuje wzrost `data/` calkiem. **To jest szacunek, nie pomiar** —
+i dlatego istnieje pozycja 103: dzien, w ktorym szacunek przestanie byc prawdziwy, ma byc dniem
+glosnym, a nie kolejnym cichym odrzuceniem deployu.
+
+### Czego ta sekcja NIE robi
+
+- **Nie czyta wyniku deployu z API GitHuba.** Sprawdzone 17 wrzesnia: `GET /repos/wpiotrw/MS_SOC/actions/runs`
+  odpowiada *„GitHub access to this repository is not enabled for this session"*, a narzedzia do
+  nadania dostepu w tej sesji nie ma. Bramka rozmiaru jest lokalna i deterministyczna, wiec dziala
+  bez zadnego tokenu — i lapie DOKLADNIE te przyczyne, ktora wystapila. Odrzucenie deployu z innego
+  powodu niz rozmiar nadal nie bedzie widoczne dla przebiegu; gdy takie wystapi, nalezy je tu dopisac
+  razem z pomiarem, a nie zgadywac z gory.
+- **Nie zmienia planu Azure.** Upgrade do Standard podnosi limit i jest decyzja wlasciciela
+  o koszcie, nie poprawka przebiegu.
+- **Nie pisze o tym na stronie.** §0e punkt 4 obowiazuje bez wyjatku: odmowa serwisu publikujacego
+  jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu, a pozycja 73 pilnuje tego kodem.
 
 ## Struktura
 
