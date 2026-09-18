@@ -1914,6 +1914,48 @@ details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-sp
  display:block;padding:7px 13px;background:var(--bad-soft);color:var(--bad);
  font-size:12px;font-weight:700;border-bottom:1px solid var(--bad)}
 #tab-learn .s12file+.s12file,#tab-blogs .s12file+.s12file{margin-top:10px}
+/* §5bc — the catalog says how big it is, and the seven-day headline says what moved.
+   Every selector starts from a class only SCRIPT 17 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares (§5t). */
+.catmore{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:var(--surface-2);
+ border:1px solid var(--border);border-left:4px solid var(--accent);font-size:12.5px;color:var(--text)}
+.catmore b{color:var(--accent)}
+.catfind{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 9px}
+.catfind input{flex:1 1 240px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;
+ border-radius:8px;background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.catfind input::placeholder{color:var(--muted);font-weight:400}
+.catfind input:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.catfind .cfn{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.catwhy{background:var(--info-soft);border:1px solid var(--info);border-radius:10px;
+ padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 10px}
+.catwhy[hidden]{display:none!important}
+.cathits{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.cathits button{font:inherit;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--info);background:var(--surface);color:var(--info);cursor:pointer}
+.cathits button:hover{background:var(--info);color:var(--on-accent)}
+.cathits button .cfw{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+ color:var(--muted);margin-left:6px}
+.cathits button:hover .cfw{color:var(--on-accent)}
+details.g7{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.g7>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 15px}
+details.g7>summary::-webkit-details-marker{display:none}
+details.g7>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.g7[open]>summary::before{content:"\2212"}
+details.g7>summary .g7t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted)}
+details.g7>summary .g7n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.g7[open]>summary{border-bottom:1px solid var(--border)}
+details.g7>*:not(summary){margin-left:15px;margin-right:15px}
+details.g7>*:not(summary):first-of-type{margin-top:12px}
+details.g7>*:not(summary):last-child{margin-bottom:14px}
+.g7quiet{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;
+ padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+.g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
+@media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
 /* §5av — green is the colour of a filter, on every surface of the portal.
    An OVERRIDING block: each of these rules lives in a block whose fragments are gate
    keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
@@ -4780,7 +4822,7 @@ details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-sp
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 17 September 2026</b> &middot; published 06:40 Warsaw &middot; 3 &ndash; 17 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>51</b> deadlines in 60 days<span>&middot; 38 inside 30, 2 due today</span></a><a class="count" href="#graph"><b>603</b> undocumented at Microsoft<span>&middot; 603 permissions, 0 roles</span></a><a class="count" href="#graph"><b>377</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>7</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>18</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>15</b> changes since 16 Sep<span>&middot; 5 moved at Microsoft, 10 moved here</span></a><a class="count" href="#chg14"><b>827</b> changes in 14 days<span>&middot; 10 days with a run, 16 runs</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 18 September 2026</b> &middot; published 06:12 Warsaw &middot; 4 &ndash; 18 September 2026 &middot; Piotr Wi&#347;niewski</p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 40 inside 30, 1 due today</span></a><a class="count" href="#graph"><b>617</b> undocumented at Microsoft<span>&middot; 617 permissions, 0 roles</span></a><a class="count" href="#graph"><b>381</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>8</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>18</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>34</b> changes since 17 Sep<span>&middot; 31 new at Microsoft, 3 re-tiered here</span></a><a class="count" href="#chg14"><b>1076</b> changes in 14 days<span>&middot; 11 days with a run, 18 runs</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -4788,7 +4830,7 @@ details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-sp
 
 ## 3a. REUSE THE UI SHELL — DO NOT REDESIGN IT
 
-In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-15 and the twenty-four appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries SIXTEEN behaviour scripts in all: three shell scripts copied from yesterday, and SCRIPTS 4-16 cut out of CLAUDE.md by extract_code.py in the run that builds this page. Order matters:
+In STEP 0 you read yesterday's artifact. **Copy its base `<style>` sheet and the THREE shell behaviour `<script>` blocks (1-3 below) into today's file verbatim, byte for byte.** SCRIPTS 4-17 and the twenty-five appended CSS blocks are NOT copied from yesterday's page: every run cuts them out of `CLAUDE.md` with `extract_code.py` (CLAUDE.md §0c) and pastes them byte for byte; gate item 56 compares them against `CLAUDE.md`. Where this comment and `CLAUDE.md` disagree, `CLAUDE.md` wins. The page carries SEVENTEEN behaviour scripts in all: three shell scripts copied from yesterday, and SCRIPTS 4-17 cut out of CLAUDE.md by extract_code.py in the run that builds this page. Order matters:
 
 1. **Shell** — builds the tab strip from the panels, wires ARIA and arrow keys, rewrites the Top-N heading from the real card count, adds toolbars / sortable headers / `<colgroup>` sizing, paints row severity edges, applies diff marks, makes sections collapsible.
 2. **Overview and charts** — builds the Overview panel, stat tiles, single-hue charts, per-section summary chips, the header's global product filter, and the per-tab statistics strip described in 3d.
@@ -4802,7 +4844,7 @@ With no previous artifact, build to spec: IBM Plex Sans / Mono / Sans Condensed 
 
 ## 3b. TAB PANELS — every tab holds its own content
 
-A tabbed application, not one long document: each tab shows its panel, hides the rest. Fourteen panels, in order (this page carries all fourteen; `tab-mc` / `Message Center` sits after `tab-new` and SCRIPT 16 builds it, CLAUDE.md 5az):
+A tabbed application, not one long document: each tab shows its panel, hides the rest. Fourteen panels, in order (this page carries all fourteen on 18 September 2026; `tab-mc` / `Message Center` sits after `tab-new` and SCRIPT 16 builds it, CLAUDE.md 5az):
 
 | Panel id | `data-tab` | Sections inside |
 |---|---|---|
@@ -4831,7 +4873,7 @@ Markup:
 
 Every panel carries `hidden`; the script un-hides the first. `data-tab` is the SHORT label, one or two words — the fourteen tabs sit in two labelled rows, `Daily` and `Reference` (CLAUDE.md §5ae). `CANON_PANELS` in CLAUDE.md §2 is the list; a name missing from the page is a finding, a name outside the list is a new tab to add there first.
 
-A–N are authoring labels for STEP 2 only. On the page, letters run in READING ORDER across panels: Overview none, Today's two become A and B, New's C, Deadlines' D, and so on. Relabel every `<h2>Section X</h2>` so letters never jump backwards. `sec-title` is unaffected.
+A–N are authoring labels for STEP 2 only. On the page, letters run in READING ORDER across panels: Overview none, Today's two become A and B, New's C, Deadlines' D, and so on. Relabel every `<h2>Section Y</h2>` so letters never jump backwards. `sec-title` is unaffected.
 
 ## 3c. MARKUP CONTRACT — the shell depends on these exact shapes
 
@@ -4897,7 +4939,7 @@ glyph. It was a 12.5 px box wedged between two selects and the owner could not f
 - One idea per table cell. If a cell needs three sentences, the first sentence carries the point and the rest supports it.
 - Never repeat the same item in full across sections — the deep dive expands a Top-N item, it does not restate it.
 - A section with nothing in window gets one line saying so. Do not fill it with older material.
-- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-16 from `CLAUDE.md` — sixteen behaviour scripts in all, last.
+- Keep the two JSON blocks together after the footer, then the three shell behaviour `<script>` blocks in their original order, then SCRIPTS 4-17 from `CLAUDE.md` — seventeen behaviour scripts in all, last.
 
 ## 3g. THE CATALOG DETAIL PANE — panels, not a wall
 
@@ -4960,10 +5002,10 @@ catalog did not parse the table, and the run must fix the parse, not print the z
   block states in words that the tile's changes are older than the comparison.
 
 
-## 3z. SCRIPTS 4-15 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
+## 3z. SCRIPTS 4-17 — FROM CLAUDE.md, NEVER FROM YESTERDAY (CLAUDE.md 0c)
 
-Twelve behaviour scripts follow the three shell scripts: 4 aggregates (5y), 5 change-tile filter (5ad), 6 permission
-panel (5ak), 7 role panel (5al), 8 tab top and 14-day ledger (5al), 9 catalogs open on All (5ah, 5am), 10 Community Articles tab (5an). None of
+Fourteen behaviour scripts follow the three shell scripts: 4 aggregates (5y), 5 change-tile filter (5ad), 6 permission
+panel (5ak), 7 role panel (5al), 8 tab top and 14-day ledger (5al), 9 catalogs open on All (5ah, 5am), 10 Community Articles tab (5an), 11 every column filterable (5ap), 12 row provenance and source text diff (5ar), 13 Start here (5as), 14 the masthead filter line (5at), 15 v2 Microsoft Learn and Microsoft Blogs plus the one Advanced filtering bar (5aw), 16 Message Center as a dimension (5az), 17 the catalog says how big it is (5bc). None of
 them is copied forward from yesterday's page: on 10 Sep 2026 that sentence shipped yesterday's scripts 4, 6, 7
 and 8 under today's date. Each run cuts them out of CLAUDE.md with extract_code.py. What follows describes script 4. It is ADDITIVE: it touches nothing the three shell scripts do. It reads the
 finished DOM and the `soc-brief-state` block and inserts, after `.panelhead` in every content panel,
