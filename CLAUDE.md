@@ -2899,6 +2899,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** |
 | `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **Brakuje pierwszego przebiegu, ktory spakuje archiwum w repozytorium** — z sesji 17 wrzesnia nie dalo sie tego wypchnac, bo proxy odmowilo pushu do `wpiotrw/MS_SOC` |
 | `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
+| `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
 
 
 
@@ -3091,6 +3092,91 @@ glosnym, a nie kolejnym cichym odrzuceniem deployu.
 - **Nie pisze o tym na stronie.** §0e punkt 4 obowiazuje bez wyjatku: odmowa serwisu publikujacego
   jest tematem ODPOWIEDZI przebiegu, nigdy tresci briefu, a pozycja 73 pilnuje tego kodem.
 
+## 0i. GALAZ `claude/**` TEZ PUBLIKUJE — most `publish.yml` i koniec falszywych alarmow
+
+**18 wrzesnia 2026 o 22:05 przebieg zmian policzyl strone poprawnie, wypchnal ja, `verify()`
+przeszlo bez bledu — i zakonczyl sie zdaniem, ze NIC nie zostalo opublikowane.** Napisal wprost:
+*„tonight's routine-zmian commit landed on that feature branch instead of the origin/main
+convention CLAUDE.md's automation assumes … Someone needs to merge
+github.com/wpiotrw/MS_SOC/tree/claude/epic-euler-b6k036 for the Azure Static Web App to pick up
+tonight's diff."* Wlasciciel przeczytal to jako awarie i zapytal, co znowu jest nie tak.
+
+**Nic nie bylo nie tak. Scalenie wydarzylo sie samo, dwie minuty wczesniej**, a przebieg poprosil
+czlowieka o zrobienie czegos, co juz bylo zrobione. Zmierzone tego wieczoru na `origin/main`:
+
+```
+528da31  2026-09-18T20:22:01+00:00  content: publikacja z claude/epic-euler-b6k036
+```
+
+Ten commit niesie `site/diff/index.html` (+240 linii) i nowy `site/history/2026-09-18-2220-diff.html`
+— czyli dokladnie wyjscie tamtego przebiegu. **Przyczyna nie jest w przebiegu i nie jest w gicie:
+jest w TYM pliku.** Zmierzone tego samego wieczoru: fraza `claude/**` wystepowala w `CLAUDE.md`
+**zero** razy, `publish.yml` **raz**, a `origin/main` **trzy** razy — w tym w zasadzie 7, ktora jest
+jedynym dowodem publikacji, jaki przebieg ma. **Specyfikacja opisywala jedna z dwoch sciezek
+deployu i milczala o drugiej**, wiec przebieg zepchniety na galaz `claude/**` nie mial jak uznac
+swojej wlasnej pracy za wykonana.
+
+### Dwa workflow, jeden deploy — jak to naprawde dziala
+
+| workflow | wyzwalacz | co robi |
+|---|---|---|
+| `azure-static-web-apps-orange-ground-019f30603.yml` | push do **`main`** dotykajacy **`site/**`** | deploy wprost na Azure Static Web Apps |
+| **`publish.yml`** | push do **`claude/**`** dotykajacy **`site/**`** | checkout `main`, wziecie `site/` Z GALEZI WYZWALAJACEJ, commit `content: publikacja z <galaz>`, push do `main`, deploy |
+
+**Most jest automatyczny i dziala dla KAZDEJ galezi `claude/**`.** Kluczowa linia:
+
+```
+git fetch origin "+${GITHUB_REF}:refs/remotes/origin/routine"
+git checkout refs/remotes/origin/routine -- site
+```
+
+`origin/routine` **nie jest galezia w repozytorium** — jest lokalnym aliasem tworzonym przy kazdym
+uruchomieniu z `${GITHUB_REF}`, czyli z tej galezi, ktora wlasnie wyzwolila workflow. Nazwa
+`routine` w tej sciezce mylila juz jedna sesje, ktora uznala ja za galaz stala i chciala ostrzec
+wlasciciela, ze scalenie bierze `site/` z niewlasciwego miejsca. **To ostrzezenie bylo falszywe** —
+i jest tu zapisane, zeby nastepny przebieg nie odkryl go od nowa. Workflow bierze `site/` DOKLADNIE
+z tej galezi, na ktora przebieg wypchnal.
+
+**`publish.yml` i `azure-static-web-apps-*.yml` sa objete zakazem z „Czego nie robic": przebieg ich
+nie edytuje, nie poprawia i nie tworzy.** Ta sekcja je OPISUJE, zeby przebieg wiedzial, czego
+dowodzi jego wlasny push — nic wiecej.
+
+### Regula
+
+1. **Push na galaz `claude/**`, ktory dotknal `site/`, JEST publikacja.** Nie jest polowa roboty
+   i nie wymaga niczyjej reki. Przebieg, ktory na taka galaz wypchnal, ma prawo napisac, ze
+   opublikowal, i **ma obowiazek NIE prosic czlowieka o scalenie**.
+2. **Zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE**, a nie dowodzi literalnie
+   `origin/main` (patrz nowe brzmienie zasady 7 nizej). Refy konsumowane sa dwa i tylko dwa:
+   `main` oraz dowolna galaz `claude/**`. Push na cokolwiek innego nie jest publikacja i wtedy
+   proba scalenia przez czlowieka jest uzasadniona — ale wtedy trzeba NAZWAC galaz i powiedziec,
+   ze nie pasuje do wzorca `claude/**`.
+3. **Scalenie sprawdza sie POMIAREM, nie zalozeniem.** Przebieg na galezi `claude/**` po swoim
+   pushu robi `git fetch origin` i sprawdza, czy `origin/main` ruszyl sie w ciagu ostatnich
+   kilku minut; gdy tak, wypisuje ten commit z data i tresci commit message. Gdy `main` jeszcze
+   nie ruszyl — bo `publish.yml` potrzebuje kilkudziesieciu sekund, a `concurrency: swa-deploy`
+   moze go ustawic w kolejce — przebieg pisze, ze **most jeszcze nie przebiegl, i ze to normalne**,
+   a nie ze publikacja zawiodla. Roznica miedzy „jeszcze nie" a „nigdy" jest ta sama roznica co
+   miedzy dniem bez zmian a dniem bez przebiegu (§0g).
+4. **Zadna z tych sciezek nie dowodzi, ze Azure PRZYJAL zawartosc.** §0h zostaje w mocy bez zmian:
+   rozmiar `site/` liczy sie PRZED pushem (pozycja 103), bo odrzucenie przychodzi z innego systemu
+   i po fakcie. Most rozstrzyga pytanie „czy to wyladowalo tam, gdzie deploy patrzy", a nie „czy
+   deploy sie udal".
+5. **Cisza o moscie jest bledem tej samej rodziny co cisza przy `BRAK`.** Przebieg na galezi
+   `claude/**` pisze w odpowiedzi JEDNO zdanie: na ktora galaz wypchnal, ze `publish.yml` przenosi
+   z niej `site/` do `main` automatycznie, i czy zdazyl to zobaczyc. Bez tego zdania wlasciciel
+   czyta nazwe galezi jako blad — i przeczytal tak dwa razy.
+
+### Czego ta sekcja NIE robi
+
+- **Nie zmienia zadnego workflow.** Oba pliki w `.github/workflows/` zostaja nietkniete; zakaz
+  z „Czego nie robic" obowiazuje bez wyjatku.
+- **Nie kaze przebiegowi wybierac galezi.** Przebieg pisze tam, gdzie postawila go sesja: czasem
+  jest to `main`, czasem galaz `claude/**`. Obie sa poprawne i obie publikuja.
+- **Nie otwiera Pull Requestow.** Most scala sam; PR byl by trzecia sciezka do tego samego miejsca,
+  a trzy sciezki rozjezdzaja sie tak samo jak dwie kopie jednej reguly (§0a).
+
+
 ## Struktura
 
 ```
@@ -3112,11 +3198,27 @@ site/
    Zadna strona nie linkuje do samej siebie.
 4. Strony sa samodzielne: HTML + inline CSS, bez zewnetrznych zaleznosci i bez CDN.
 5. Commit message: `content: <nazwa taska> <RRRR-MM-DD HH:MM>`.
-6. Przed pushem zrob `git pull --rebase origin main`. Dwa taski pisza do tego samego
-   repozytorium i moga sie minac.
-7. Po pushu udowodnij, ze cos sie zmienilo: `BEFORE=$(git rev-parse origin/main)` przed
-   pushem, `git fetch origin` i `AFTER=$(git rev-parse origin/main)` po. `AFTER` musi sie
-   roznic od `BEFORE` i rownac twojemu `HEAD`. Rowne = przebieg NIEUDANY, napisz to wprost.
+6. Przed pushem zrob `git pull --rebase origin <twoj ref>` — `main`, gdy przebieg pracuje na
+   `main`, albo ta sama galaz `claude/**`, na ktora bedziesz pchal. Dwa taski pisza do tego
+   samego repozytorium i moga sie minac. **Rebase na `main` z galezi `claude/**` jest bledem**:
+   most `publish.yml` (§0i) i tak przeniesie `site/` do `main`, a sciagniecie tam historii `main`
+   przed pushem robi z jednego commita tresci dziesiec commitow cudzych.
+7. **Po pushu udowodnij, ze cos sie zmienilo — na REFIE, NA KTORY PCHALES.**
+   `BEFORE=$(git rev-parse origin/<ref>)` przed pushem, `git fetch origin` i
+   `AFTER=$(git rev-parse origin/<ref>)` po. `AFTER` musi sie roznic od `BEFORE` i rownac twojemu
+   `HEAD`. Rowne = przebieg NIEUDANY, napisz to wprost.
+
+   **`<ref>` to `main` ALBO twoja galaz `claude/**`, i oba sa poprawne** (§0i): lancuch deployu
+   konsumuje jedno i drugie, bo `publish.yml` przenosi `site/` z kazdej galezi `claude/**` do
+   `main` automatycznie. Do 18 wrzesnia 2026 ta zasada byla napisana wylacznie przeciw
+   `origin/main` — wiec przebieg pchajacy na galaz nie mial jak jej spelnic, oglaszal PORAZKE mimo
+   poprawnej publikacji i prosil czlowieka o scalenie, ktore workflow zrobil dwie minuty wczesniej.
+   Push na ref SPOZA tych dwoch nie jest publikacja: wtedy napisz to wprost i **nazwij galaz**,
+   zamiast pisac ogolnie o „konwencji `main`".
+
+   **Przebieg na galezi `claude/**` dopisuje jedno zdanie o moscie** — na ktora galaz wypchnal,
+   ze `publish.yml` scala z niej `site/` do `main`, i czy `origin/main` zdazyl sie ruszyc, zanim
+   przebieg konczyl. Brak ruchu w tej chwili znaczy „jeszcze nie", a nie „nigdy" (§0i punkt 3).
 
 ---
 
