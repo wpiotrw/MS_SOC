@@ -39,8 +39,11 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
    rozroznienie jest tu istotne, bo 7 wrzesnia 2026 bramka dala 45/46 na stronie, ktorej panel
    uprawnienia byl pusty.
 4. **W odpowiedzi wypisz liste jako `OK` / `BRAK <powod>`.** Przebieg, ktory buduje albo odbija
-   strone glowna, sprawdza **97 pozycji** (0-33, 35-61, 63-77, 79-98, 103), a przebieg ZMIAN dokłada
-   **34, 62, 78 i 99-102**, razem **104**. **17 wrzesnia 2026 wieczorem doszla 103 (§0h)**: tego dnia
+   strone glowna, sprawdza **98 pozycji** (0-33, 35-61, 63-77, 79-98, 103, 104), a przebieg ZMIAN
+   dokłada **34, 62, 78 i 99-102**, razem **105**. **18 wrzesnia 2026 doszla 104 (§0a)**: artefakt
+   tego dnia byl na liscie i poprawnie datowany, a jego tresc zwracala HTTP 503 przy kazdej z jedenastu
+   prob, wiec lustro slusznie nic nie zbudowalo — i strona przez caly dzien serwowala tresc z 17
+   wrzesnia, nie mowiac o tym ani slowem. **17 wrzesnia 2026 wieczorem doszla 103 (§0h)**: tego dnia
    OBA przebiegi zaraportowaly sukces, a Azure odrzucil oba deploye — `site/` mial 267 674 662 B przy
    limicie 262 144 000 B, wiec strona serwowala tresc sprzed dwoch dni, a wlasciciel dowiedzial sie
    o tym z maila GitHuba, nie z odpowiedzi przebiegu. Pozycji 34, 62, 78 i 99-102 nie sprawdza `gate.py`, tylko `verify()`
@@ -182,6 +185,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 100 | **tylko przebieg ZMIAN**: strona NAZYWA wylaczenie Message Center z sumy — `tilenote` podaje jego ruch liczbami, a pusta sekcja `Added since` mowi, ile wpisow MC przyszlo w tym samym oknie i dlaczego stoja poza suma | 3 punkt 17 | `verify()`: przy niezerowym ruchu MC `tilenote` zawiera `Message Center moved on its own this run`; pusta sekcja `added` przy niezerowym `mcv_add` nazywa liczbe wpisow |
 | 101 | **tylko przebieg ZMIAN**: tabela Message Center ma daty jako trzecia i czwarta kolumne — `What / ID / Published / Revised` — a brak daty drukuje POWOD, nigdy pustki | 3 punkt 18 | `verify()`: cztery pierwsze `<th>` sekcji `mcenter` to dokladnie `What`, `ID`, `Published`, `Revised` |
 | 102 | **tylko przebieg ZMIAN**: pasek skrotow ma DWA opisane rzedy w przyklejonym bloku, a po skoku podswietla sekcje docelowa | 3 punkt 19, 20 | `verify()`: `<div class="dstick"><div class="dnavstack">`, `div.dnavrow` = 2, `drowlab`, `function markOne(`, `window.__socDiffMark = function` w pliku |
+| 104 | **strona STARSZA niz dzien przebiegu MOWI o tym w `dateline`** — artefakt, ktorego tresci nie dalo sie pobrac (§0a, czwarty tryb awarii), zostawia wczorajsza strone pod wczorajsza data, a czytelnik nie ma jak odroznic „dzis nic sie nie zmienilo" od „dzis nikt nie patrzyl" | 0a | `gate.py <html>`: gdy `briefDate` bloku stanu jest wczesniejsza niz dzien przebiegu, `dateline` zawiera `No new brief was published on`; strona z dzisiejsza `briefDate` przechodzi bez warunku |
 | 103 | **rozmiar `site/` MIESCI SIE W LIMICIE, policzony PRZED pushem** — Azure Static Web Apps na planie Free przyjmuje najwyzej **262 144 000 B**, a push przechodzi niezaleznie od tego, wiec zasada 7 (`AFTER != BEFORE`) jest zielona na przebiegu, ktorego deploy zostal odrzucony | 0h | `gate.py <html> <site/>`: suma bajtow wszystkich plikow pod `site/` (bez `.git`) <= 262 144 000; brak katalogu `site/` daje `BRAK "nie podano site/"`, nigdy OK |
 
 
@@ -293,6 +297,71 @@ przeszukaj plik za twardymi licznikami, zanim opublikujesz.
 `briefDate` nie jest dzisiejsza, albo skrypt zwrocil kod 1. Wtedy budujesz strone sam wedlug
 STEP 2 i STEP 3 promptu — i **piszesz w odpowiedzi, ze lustro zawiodlo i z jakiego powodu**.
 Cicha ucieczka do wlasnego budowania jest tym, przez co strony sie rozjechaly.
+
+### Czwarty tryb awarii — artefakt JEST, a jego TRESCI nie da sie przeczytac
+
+**18 wrzesnia 2026 poranne lustro nie opublikowalo niczego i mialo racje, ze nie zbudowalo strony
+samo — a mimo to dzien wyszedl gorszy, niz musial.** Zmierzone tego dnia: artefakt
+`Microsoft SOC Brief 18 Sep 2026` **byl** na liscie, z dzisiejsza data, a `Artifact action:"read"`
+zwracalo **HTTP 503 przy kazdej probie — jedenascie prob, na DWOCH roznych artefaktach**, w tym na
+starszym, niezwiazanym z tym przebiegiem. Diagnostyka proxy nie pokazala ani jednej nieudanej
+przekazki, wiec to byla awaria po stronie uslugi, a nie cos, co naprawia ponowienie.
+
+Przebieg zacytowal te sekcje poprawnie: *„fallback uruchamia sie, gdy artefaktu nie ma, jest zle
+datowany albo nie przechodzi weryfikacji strukturalnej — nic z tego nie zachodzi, ja go po prostu
+nie umiem pobrac"*. **I to jest prawda o REGULE, a nie o rzeczywistosci: ta sekcja opisywala trzy
+tryby awarii i nie przewidziala czwartego.** Skutek: strona serwowala tresc z 17 wrzesnia, nic tego
+nie mowilo, a czytelnik, ktory wszedl na nia 18 wrzesnia, nie mial jak odroznic „dzis nic sie nie
+zmienilo" od „dzis nikt nie patrzyl". To jest dokladnie rozroznienie, ktorego §0g i §5aj pilnuja
+w rejestrze — i ktorego na SAMEJ STRONIE nie bylo.
+
+**Czwarty tryb brzmi: artefakt jest wymieniony na liscie, jego `briefDate` jest dzisiejsza, a jego
+tresci nie da sie pobrac.** Obowiazuje w nim procedura ponizej, a NIE fallback budujacy.
+
+1. **Ponow, ale z odstepem i z sufitem.** Co najmniej trzy proby rozlozone na **20 minut**, nie
+   jedenascie prob w jednej minucie: jedenascie odczytow w ciagu sekund mierzy jedna chwile, a nie
+   awarie. Gdy jedna z prob sie uda, przebieg idzie dalej normalnie i nic z tej sekcji nie
+   obowiazuje.
+2. **NIE budujesz strony od zera.** Lustro istnieje po to, zeby dwa przebiegi nie rozjechaly sie
+   z jednej specyfikacji (§0a, pomiar z 31 sierpnia 2026), a budowanie na podstawie niedostepnego
+   artefaktu jest najgorszym momentem na taka rozbieznosc: nie da sie jej nawet porownac ze
+   zrodlem. Przebieg, ktory tu zbuduje strone sam, lamie te sekcje, a nie ratuje dnia.
+3. **NIE dopisujesz wpisu do `runs`.** Slownik `kind` jest zamkniety (§5aj), a wpis `morning`
+   z zerem zmian znaczy **„ktos patrzyl i nic sie nie ruszylo"** — czyli zdanie nieprawdziwe.
+   Dzien zostaje w rejestrze PUSTY i nastepnego dnia wypisuje go pozycja 98 (§0g). Cisza w rejestrze
+   jest tu poprawna, bo rejestr mowi wtedy prawde: przebiegu, ktory cos zobaczyl, nie bylo.
+4. **Dopisujesz JEDNO zdanie do `dateline` istniejacej strony i publikujesz tylko to.**
+   Strona zostaje ta, ktora byla — ta sama tresc, ta sama data — a zdanie mowi, ze dzisiejszego
+   briefu nie ma:
+
+   ```
+   &middot; <b>No new brief was published on 18 September 2026; this page is the brief of 17 September.</b>
+   ```
+
+   **Zdanie jest w jezyku CZYTELNIKA i nie nazywa zadnej uslugi.** §0e punkt 4 obowiazuje bez
+   wyjatku: „Artifact-read service", „HTTP 503", „publishing service" i kazda inna diagnostyka
+   naszej wlasnej infrastruktury idzie do ODPOWIEDZI przebiegu, nigdy do tresci strony — pozycja 73
+   listy §0 jest klasy A i zatrzymuje takze lustro. Wzorem jest zdanie z §0e punkt 4 („The 14-day
+   history is not on this page today; it was computed and is in the repository"): czytelnik
+   dowiaduje sie, CZEGO nie ma, i nic wiecej.
+5. **Zdanie znika samo.** Nastepne udane lustro nadpisuje `site/index.html` w calosci, wiec nie ma
+   czego sprzatac i nie ma sladu do zapomnienia — to jest cala korzysc z tego, ze jest to jedno
+   zdanie w `dateline`, a nie osobny banner albo osobna sekcja.
+6. **Pozycja 104 listy §0 sprawdza to kodem**: strona, ktorej `briefDate` jest STARSZA niz dzien
+   przebiegu, MUSI niesc to zdanie. **Klasa A** — strona, ktora milczy o tym, ze jest wczorajsza,
+   mowi czytelnikowi cos nieprawdziwego o tym, co wiadomo, a to jest ta sama rodzina co usuniety
+   rejestr z §0e i jak zawsze: gorsza jest strona UDAJACA dzisiejsza niz strona, ktora mowi, ze nia
+   nie jest.
+7. **W odpowiedzi przebiegu opisujesz awarie w calosci** — ile prob, w jakim odstepie, jaki kod
+   bledu, ktory artefakt, co mowi diagnostyka proxy — **i ile dni z rzedu strona jest juz stara**.
+   Sama informacja „lustro zawiodlo" jest tu za slaba: 18 wrzesnia byl TRZECIM dniem tygodnia bez
+   porannej publikacji (15 wrzesnia nie uruchomilo sie nic, 16 wrzesnia nie ruszylo lustro), a zaden
+   z tych trzech przebiegow nie zsumowal tego czytelnikowi w jednym zdaniu.
+
+**Czego ta procedura NIE robi:** nie odtwarza dnia i nie udaje, ze go odtworzyla. Artefakt, ktorego
+nie dalo sie przeczytac, moze byc poprawny i kompletny; `site/data/` zostaje wtedy z luka, a
+`/diff/` porownuje dwa najnowsze stany, ktore MA (§3). Przebieg nastepnego dnia porownuje wiec
+przez dwa dni i mowi to w podpisie — nie jest to blad, tylko szersze okno.
 
 ### Co robi transformacja — i czego NIE robi
 
@@ -932,7 +1001,7 @@ class Scan(HTMLParser):
 # wczorajsza pod wczorajsza data, co jest gorszym klamstwem niz brak pola szukania.
 CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
            "28a","28b","31a","31b","31c","33","42","45","47","60","62","63","68b",
-           "81a","81b","81c","90a","103"}
+           "81a","81b","81c","90a","103","104"}
 # 12 wrzesnia 2026: pozycje 76 i 77 zeszly z klasy A do B, i jest to poprawka DOKLADNIE
 # tego bledu, ktory §0 opisuje przy 10 wrzesnia. Wiersz bez kolumny znaczenia i link bez
 # nazwy zrodla to brak ETYKIETY, nie falszywe zdanie: pozycja na stronie jest, jest
@@ -2272,6 +2341,30 @@ def gate(path, site=None, mirror=False, doc=None):
     else:
         need("103", "rozmiar site/ (0h)", False, "nie podano katalogu site/")
 
+    # ---- 104: STRONA STARSZA NIZ DZIS MOWI O TYM (0a, czwarty tryb awarii). KLASA A.
+    # 18 wrzesnia 2026: artefakt byl na liscie, mial dzisiejsza date, a jego tresc zwracala HTTP 503
+    # przy kazdej z jedenastu prob. Lustro slusznie nie zbudowalo strony samo (0a) — i rownie slusznie
+    # nic nie opublikowalo. Skutek: `site/index.html` serwowal tresc z 17 wrzesnia, a NIC na stronie
+    # tego nie mowilo, wiec czytelnik nie mial jak odroznic „dzis nic sie nie zmienilo" od „dzis nikt
+    # nie patrzyl" — czyli dokladnie to rozroznienie, ktorego 0g i 5aj pilnuja w rejestrze i ktorego
+    # na samej stronie nie bylo. Asercja NIE zapala sie na poprawnej stronie: `briefDate` rowne dniu
+    # przebiegu przechodzi bez zadnego warunku, wiec czerwone zostaje czerwonym (0b).
+    _bd104 = (st["soc-brief-state"] or {}).get("briefDate")
+    _now104 = _d2.date.today().isoformat()
+    if not _bd104:
+        need("104", "strona starsza niz dzis mowi o tym w dateline (0a)", False,
+             "brak briefDate w bloku stanu — nie da sie sprawdzic")
+    elif _bd104 >= _now104:
+        need("104", "strona starsza niz dzis mowi o tym w dateline (0a)", True)
+    else:
+        _dl104 = re.search(r'<p class="dateline">(.*?)</p>', h, re.S)
+        _txt104 = _dl104.group(1) if _dl104 else ""
+        need("104", "strona starsza niz dzis mowi o tym w dateline (0a)",
+             "No new brief was published on" in _txt104,
+             "briefDate %s przy dniu przebiegu %s, a dateline nie mowi, ze dzisiejszego briefu nie ma. "
+             "Dopisz zdanie z 0a punkt 4 — w jezyku czytelnika, bez nazywania uslugi (0e punkt 4, "
+             "pozycja 73)." % (_bd104, _now104))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2805,6 +2898,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian |
 | `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** |
 | `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **Brakuje pierwszego przebiegu, ktory spakuje archiwum w repozytorium** — z sesji 17 wrzesnia nie dalo sie tego wypchnac, bo proxy odmowilo pushu do `wpiotrw/MS_SOC` |
+| `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
 
 
 
