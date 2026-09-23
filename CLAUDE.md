@@ -1675,7 +1675,7 @@ def gate(path, site=None, mirror=False, doc=None):
            # niz jego brak (0b).
            ".filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}",
            ".filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}",
-           ".gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}",
+           ".gfbar{background:var(--ok-soft);border-color:var(--ok)}",
            ".filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}")
     need("64", "filtr globalny nazywa sie, jest ZIELONY i czysci z jednego miejsca (§5ao, §5av)",
          all(k in h for k in K64),
@@ -18244,7 +18244,7 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
 .gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
  max-width:1500px;margin:0 auto;padding:8px 20px;background:var(--accent-soft);
- border-bottom:1px solid var(--accent);border-radius:0 0 10px 10px;
+ border:1px solid var(--accent);border-radius:10px;
  color:var(--text);font-size:13px;
  box-shadow:0 2px 10px rgba(0,0,0,.18)}
 .gfbar[hidden]{display:none!important}
@@ -22507,7 +22507,7 @@ nadpisuje.
    and `.filterbanner .fb-clear` does not beat `.filterbanner.s10 .fb-clear`. */
 .filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}
 .filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}
-.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}
+.gfbar{background:var(--ok-soft);border-color:var(--ok)}
 .filterbanner .fb-msg b,.bkbanner .bk-msg b{color:var(--ok)}
 .filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}
 .gfbar .gf-chip{border-color:var(--ok)}
@@ -22617,13 +22617,24 @@ Wlasciciel poprosil o szerokosc tresci, i to jest ta sama decyzja co §5x: **jed
 caly portal.** `max-width:1500px` razem z `padding:8px 20px`, czyli tym samym paddingiem co `.wrap`
 — sam `max-width` przy innym paddingu daje krawedzie rozjezdzajace sie o 12 px, bo `*` ma
 `box-sizing:border-box` (§5k). Na telefonie padding idzie na 12 px, tak jak `.top-inner` w §1a.
-Doklejone `border-radius:0 0 10px 10px`, zeby skrocony pasek czytal sie jako pasek, a nie jako
-przyciete pasmo.
+Ksztaltem jest **pudelko**: ramka z czterech stron i `border-radius:10px`.
 
-**`border-bottom` zostaje `border-bottom`, nie staje sie `border`** — i to jest swiadome. §5av
-ustawia zielen filtru regula `.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}`,
-ktora koloruje WYLACZNIE dolna krawedz; ramka z czterech stron dalaby trzy krawedzie akcentowe
-i jedna zielona, czyli pasek filtru w dwoch kolorach naraz.
+**Ramka idzie na cztery strony, a §5av idzie za nia.** Pierwsza wersja tej sekcji zostawiala
+`border-bottom` i tlumaczyla to tym, ze §5av koloruje zielenia WYLACZNIE dolna krawedz, wiec ramka
+z czterech stron dalaby trzy krawedzie akcentowe i jedna zielona. To bylo prawdziwe **o tamtej
+regule**, a nie o ksztalcie — regula stoi w tym pliku i wolno ja zmienic. Wlasciciel poprosil tego
+samego dnia o JEDEN ksztalt paska filtru w calym portalu, a wzorcem jest `.navbanner` na `/diff/`:
+pudelko z ramka z czterech stron i `border-radius:10px`. Zmieniaja sie wiec OBIE rzeczy naraz,
+w jednym przebiegu: `border:1px solid var(--accent)` tutaj, a w bloku §5av
+`border-color:var(--ok)` zamiast `border-bottom-color`. **Klucz pozycji 64 celuje w te sama regule
+i jest przepisany razem z nia** — klucz, ktory przezyl swoja regule, zapala sie na POPRAWNEJ
+stronie, co §0b nazywa gorszym niz brak asercji.
+
+Dlaczego `/diff/` tego problemu nie mial: tam pasek jest **dzieckiem `.wrap`**
+(`<div class="wrap"><div class="dstick">`), wiec szerokosc tresci dostaje za darmo. Tutaj pasek
+MUSI byc rodzenstwem `header.top`, bo element przyklejony jedzie wylacznie w obrebie swojego bloku
+zawierajacego — zaparkowany w `header.top` trzymal sie przez wysokosc mastheadu i ani piksela dalej
+(§5at, pomiar z 11 wrzesnia 2026). Stad `max-width`, a nie przeniesienie w drzewie.
 
 ### Zmierzone po poprawce
 
