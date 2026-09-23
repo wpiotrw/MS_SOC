@@ -1978,6 +1978,1196 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
  background:var(--surface);color:var(--ok)}
 .filterbanner .fb-clear:focus-visible,.bkbanner .bk-clear:focus-visible,
 .gfbar .gf-reset:focus-visible,.gfbar .gf-x:focus-visible{outline-color:var(--ok)}
+/* the red x stays red: it does not say a filter is ON, it says you can take it off */
+@media (max-width:760px){
+  header.top{position:static}
+  .counts{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .counts .count{flex:0 0 auto}
+  .cat-controls{position:static}
+}
+.badge.b-undoc{background:var(--warn-soft);color:var(--warn);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--warn)}
+.badge.b-elsewhere{background:var(--accent-soft);color:var(--accent);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.cc-row:has(.badge.b-undoc){box-shadow:inset 3px 0 0 var(--warn)}
+.cc-row:has(.badge.b-elsewhere){box-shadow:inset 3px 0 0 var(--accent)}
+.cat-changed{max-height:min(58vh,430px);overflow:auto;overscroll-behavior:contain}
+details.foldnote>summary,details.cb-more>summary,details.cov-more>summary{font-size:14.5px;font-weight:600;color:var(--text)}
+details.foldnote>summary::before,details.cb-more>summary::before,details.cov-more>summary::before{width:22px;height:22px;flex-basis:22px;font-size:15px;background:var(--accent-soft);border-color:var(--accent)}
+.card-title{display:inline-block;background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-radius:10px;padding:6px 11px}
+.tbar input[type=search].tbar-search,
+.cat-searchwrap input.cat-search{background:var(--ok-soft);border-color:var(--ok);border-width:1.5px;font-weight:500}
+.tbar input[type=search].tbar-search::placeholder,
+.cat-searchwrap input.cat-search::placeholder{color:var(--muted);font-weight:400}
+.tbar input[type=search].tbar-search:focus,
+.cat-searchwrap input.cat-search:focus{background:var(--surface);border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
+.cat-searchicon{color:var(--ok)}
+.sec-body a[href^="http"]{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--info-soft);color:var(--info);border:1px solid var(--info);font-weight:600;line-height:1.6;white-space:nowrap}
+.sec-body a[href^="http"]:hover{background:var(--info);color:var(--on-accent);text-decoration:none}
+.sec-body a.lnk-moved{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.sec-body .lnk-dead{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad);font-weight:600;white-space:nowrap}
+#tab-products .sec-body h3{display:block;background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:10px;padding:8px 12px;margin:24px 0 12px}
+#tab-products .sec-body .tw{border:1px solid var(--border);border-radius:12px}
+.sec-body table col:last-child{width:172px!important}
+.sec-body th:last-child,.sec-body td:last-child{position:sticky;right:0;background:var(--surface);box-shadow:inset 1px 0 0 var(--border);white-space:nowrap}
+.sec-body thead th:last-child{background:var(--surface-2)}
+@media (max-width:760px){
+  .sec-body a[href^="http"],
+  .sec-body .lnk-dead{white-space:normal;max-width:100%;overflow-wrap:anywhere}
+  .card,.card-head,.card-title,.card p,.card li{min-width:0}
+  .card .when{white-space:normal}
+  .card code,.card .permname,
+  .sec-body code,.sec-body .permname{overflow-wrap:anywhere;word-break:break-word}
+}
+.aggwrap{display:grid;gap:14px;margin:0 0 20px;align-items:start}
+@media (min-width:900px){.aggwrap.two{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}}
+.aggwrap figure.chart{margin:0}
+.aggwrap svg.donut{display:block;width:100%;max-width:250px;height:auto;margin:2px auto 0}
+.aggbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.aggbar .agglabel{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
+.aggbtn{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.aggbtn[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.aggbtn:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
+.donut-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:8px 0 0;padding:0;list-style:none;font-size:12.5px}
+.donut-legend li{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.donut-legend .sw{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.donut-legend b{color:var(--text);font-variant-numeric:tabular-nums}
+.cat-list .cat-item[hidden],.cc-table tbody tr[hidden]{display:none!important}
+.cc-tile[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:-2px;background:var(--accent-soft)}
+.bkbanner{display:flex;align-items:center;gap:12px;margin:0 0 10px;padding:8px 12px;border-radius:10px;
+ background:var(--accent-soft);border:1px solid var(--accent);color:var(--text);font-size:13.5px}
+.bkbanner[hidden]{display:none!important}
+.bk-msg{flex:1 1 auto}
+.bk-clear{font:inherit;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
+.cc-bucket{white-space:nowrap}
+/* §5ae — pasek zakladek ma WLASNY kolor, staly w obu motywach. */
+:root{--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;
+ --nav-fg:#cfd5e2;--nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-on:#1b2030;--nav-rowlab:#98a2b8}
+/* WARIANT B (6 wrzesnia 2026): plaszczyzna przenosi sie na .navstack, bo pasek ma teraz DWA
+   opisane rzedy. `nav.anchors` samo w sobie jest odtad przezroczyste — asercja §5h celuje
+   w .navstack, nie w nav.anchors. To jedyna zmiana asercji, ktora ten wariant kosztuje. */
+.navstack{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;
+ padding:8px 10px;display:grid;gap:8px}
+.navstack nav.anchors{background:none;border:0;border-radius:0;padding:0;margin:0;
+ flex-wrap:wrap;overflow-x:visible;row-gap:8px;align-items:center;gap:10px}
+.navrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.navrow+.navrow{padding-top:8px;border-top:1px solid var(--nav-line)}
+.navrow .rowlab{flex:0 0 auto;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;color:var(--nav-rowlab);min-width:74px}
+nav.anchors .tab{background:var(--nav-tab);border:1.5px solid var(--nav-tab-line);border-radius:9px;
+ color:var(--nav-fg);padding:8px 13px}
+nav.anchors .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:#fff}
+nav.anchors .tab[aria-selected="true"]{background:#fff;border-color:#fff;color:var(--nav-on);
+ font-weight:700;box-shadow:0 0 0 3px rgba(255,255,255,.16)}
+.navrow.ref .tab{background:transparent;border-color:#4b5568;color:#aab3c6;font-weight:600}
+.navrow.ref .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:#fff}
+nav.anchors .tab .navcount{background:rgba(255,255,255,.18);color:#e6eaf2}
+nav.anchors .tab:hover .navcount{background:rgba(255,255,255,.26);color:#fff}
+nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-bg);color:#fff}
+@media (max-width:760px){
+  /* zawiniecie dwunastu zakladek kosztuje na telefonie SIEDEM rzedow i 295-358 px ekranu —
+     zmierzone 6 wrzesnia 2026 na wszystkich czterech wariantach. Dlatego na telefonie kazdy
+     rzad wraca do JEDNEGO paska przewijanego w poziomie. */
+  .navstack{gap:7px;padding:7px 8px}
+  .navrow{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .navrow .rowlab{min-width:0}
+  .navstack nav.anchors{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  nav.anchors .tab{flex:0 0 auto;padding:8px 12px}
+}
+/* ===== §5ag — component versions. KONTRAKT: kazda klasa uzyta w markupie tej
+   zakladki ma regule TUTAJ. Klasa spoza tego bloku jest bledem, nie wariantem —
+   14 wrzesnia 2026 przebieg wymyslil `.jgrid` i `.relbox`, ktorych nie zna zaden
+   arkusz, i dziesiec kafelkow wyrenderowalo sie jako dziesiec pelnej szerokosci
+   wierszy (§5ae, §5an, §5at — ta sama rodzina bledow po raz czwarty). ===== */
+.jumpwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;margin:0 0 22px;align-items:start}
+.jumpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
+a.jtile{display:flex;flex-direction:column;gap:4px;padding:11px 13px;border:1px solid var(--border);
+ border-left:3px solid var(--info);border-radius:7px;background:var(--surface);color:inherit;text-decoration:none}
+a.jtile:hover{background:var(--surface-2);text-decoration:none;border-left-color:var(--accent)}
+a.jtile[aria-current="true"]{background:var(--accent-soft);border-color:var(--accent)}
+a.jtile.hasdl{border-left-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad-soft)}
+.jt-p{display:flex;gap:4px;flex-wrap:wrap}
+.jt-n{font-size:13.5px;font-weight:650;line-height:1.25}
+.jt-v{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+.jt-v b{color:var(--text)}
+.jt-s{font-size:10.5px;color:var(--faint);font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em}
+.jtile .jt-k{font-weight:700;color:var(--text);margin-right:4px}
+.jtile .jt-v del{font-size:.92em}
+.rbpanel{border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:13px 15px}
+.rbpanel h3{margin:0 0 10px;font-size:12px;font-family:var(--cond);text-transform:uppercase;
+ letter-spacing:.09em;color:var(--muted);background:none;border:none;padding:0}
+.rbrow{display:flex;gap:11px;align-items:baseline;padding:6px 8px;border-radius:5px}
+.rbrow.hard{background:var(--bad-soft);box-shadow:inset 3px 0 0 var(--bad)}
+.rb-num{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;min-width:46px;text-align:right;flex:0 0 auto}
+.n-acc{color:var(--accent)}.n-info{color:var(--info)}.n-cond{color:var(--grey)}
+.n-ok{color:var(--ok)}.n-bad{color:var(--bad)}.n-warn{color:var(--warn)}.n-grey{color:var(--faint)}
+.rb-lab{font-size:12px;color:var(--muted);line-height:1.45}
+.rulebox{border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;
+ background:var(--accent-soft);padding:13px 16px;margin:0 0 20px}
+.rulebox h4{margin:0 0 7px;font-size:13.5px;font-weight:650}
+.rulebox p{margin:0 0 7px;font-size:13px;color:var(--text)}
+.rulebox ul{margin:0;padding-left:20px}
+.rulebox li{font-size:12.5px}
+.rb-src{margin:8px 0 0!important;font-size:12px}
+article.cmp{display:grid;grid-template-columns:270px minmax(0,1fr);gap:0;border:1px solid var(--border);
+ border-radius:8px;overflow:hidden;background:var(--surface);margin:0 0 14px;scroll-margin-top:170px}
+article.cmp .rail{padding:15px 16px;background:var(--surface-2);border-right:1px solid var(--border)}
+article.cmp .pane{padding:15px 18px;min-width:0}
+article.cmp .rail h3{margin:0 0 3px;font-size:15px;font-weight:650;background:none;border:none;padding:0}
+.cscope{margin:0 0 10px;font-size:11.5px;color:var(--faint)}
+.vbox{border:1px solid var(--border);border-radius:7px;background:var(--surface);padding:8px 10px;margin:0 0 7px}
+.vnum{font-family:var(--mono);font-size:15px;font-weight:600;word-break:break-all;margin-top:4px}
+.vdate{font-size:11px;color:var(--muted);margin-top:2px}
+.vbox .vstream{display:inline-block;margin-left:7px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text)}
+.vbox .vprev,.vbox .vid{margin-top:4px;font-size:11.5px;color:var(--muted);overflow-wrap:anywhere}
+.vbox .vid code{font-size:11px}
+.pchip{display:inline-block;font-family:var(--cond);font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.05em;padding:1px 7px;border-radius:3px}
+/* chipy platform sa slownikiem ZAMKNIETYM, wiec dostaja wlasne tokeny zamiast literalow:
+   kolor zdefiniowany tylko dla jednego motywu to klasyczny blad nieczytelnego artefaktu */
+:root{
+ --pf-win-bg:#dbeafe; --pf-win-fg:#1b3f86;
+ --pf-wsv-bg:#e0e7ff; --pf-wsv-fg:#31307e;
+ --pf-mac-bg:#e4e7ec; --pf-mac-fg:#33404f;
+ --pf-ios-bg:#fde3e0; --pf-ios-fg:#8d2420;
+ --pf-ipd-bg:#fdeacf; --pf-ipd-fg:#8a3d13;
+ --pf-and-bg:#d9f2e0; --pf-and-fg:#17603a;
+ --pf-crs-bg:#efe3fb; --pf-crs-fg:#63258c;
+ --pf-apl-bg:#e8edf3; --pf-apl-fg:#22303f;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --pf-win-bg:#16294a; --pf-win-fg:#9dc2ff;
+ --pf-wsv-bg:#1d2050; --pf-wsv-fg:#b0b3ff;
+ --pf-mac-bg:#242b34; --pf-mac-fg:#c3cdd8;
+ --pf-ios-bg:#40191a; --pf-ios-fg:#f5a49e;
+ --pf-ipd-bg:#3a2410; --pf-ipd-fg:#f0b378;
+ --pf-and-bg:#123322; --pf-and-fg:#7fdca6;
+ --pf-crs-bg:#2b1a3d; --pf-crs-fg:#cea6ec;
+ --pf-apl-bg:#1d242c; --pf-apl-fg:#c8d3de;
+}}
+:root[data-theme="dark"]{
+ --pf-win-bg:#16294a; --pf-win-fg:#9dc2ff;
+ --pf-wsv-bg:#1d2050; --pf-wsv-fg:#b0b3ff;
+ --pf-mac-bg:#242b34; --pf-mac-fg:#c3cdd8;
+ --pf-ios-bg:#40191a; --pf-ios-fg:#f5a49e;
+ --pf-ipd-bg:#3a2410; --pf-ipd-fg:#f0b378;
+ --pf-and-bg:#123322; --pf-and-fg:#7fdca6;
+ --pf-crs-bg:#2b1a3d; --pf-crs-fg:#cea6ec;
+ --pf-apl-bg:#1d242c; --pf-apl-fg:#c8d3de;
+}
+.p-windows{background:var(--pf-win-bg);color:var(--pf-win-fg)}
+.p-windows-server{background:var(--pf-wsv-bg);color:var(--pf-wsv-fg)}
+.p-macos{background:var(--pf-mac-bg);color:var(--pf-mac-fg)}
+.p-ios{background:var(--pf-ios-bg);color:var(--pf-ios-fg)}
+.p-ipados{background:var(--pf-ipd-bg);color:var(--pf-ipd-fg)}
+.p-android{background:var(--pf-and-bg);color:var(--pf-and-fg)}
+.p-cross{background:var(--pf-crs-bg);color:var(--pf-crs-fg)}
+.p-apple{background:var(--pf-apl-bg);color:var(--pf-apl-fg)}
+.cdl{margin:10px 0;padding:9px 11px;border-radius:5px;background:var(--bad-soft);border-left:3px solid var(--bad)}
+.cdl p{margin:5px 0 0;font-size:12px;color:var(--text)}
+.cprov{margin:9px 0;display:flex;gap:5px;flex-wrap:wrap}
+.ceos,.csrc,.cnote{font-size:11.5px;color:var(--muted);line-height:1.55}
+.cnote{background:var(--surface-2);border-left:3px solid var(--warn);padding:9px 12px;border-radius:0 5px 5px 0;margin:0 0 14px}
+.release{border:1px solid var(--border-soft);border-radius:7px;padding:11px 13px;margin:0 0 11px;background:var(--surface)}
+.release.current{border-color:var(--ok);background:var(--surface)}
+.relhead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding-bottom:7px;
+ border-bottom:1px solid var(--border-soft);margin-bottom:9px}
+.relv{font-family:var(--mono);font-size:13.5px;font-weight:600}
+.reld{font-size:11.5px;color:var(--muted)}
+.relgroup{margin:0 0 11px}
+.relgroup h5{margin:0 0 4px;font-size:11.5px;font-family:var(--cond);text-transform:uppercase;
+ letter-spacing:.08em;color:var(--muted);font-weight:700}
+li.relitem{font-size:13px;color:var(--text);margin:4px 0}
+li.relitem.promoted{color:var(--text)}
+.rcat{display:inline-block;font-family:var(--cond);font-size:10px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.05em;padding:0 6px;border-radius:3px;background:var(--accent-soft);color:var(--accent);margin-right:5px}
+details.rest{margin:5px 0 0;border:1px dashed var(--border);border-radius:5px;background:var(--surface-2)}
+details.rest>summary{cursor:pointer;padding:6px 11px;font-size:12px;color:var(--muted);font-weight:600}
+details.rest ul{padding:0 11px 9px 30px}
+.grpnote{font-size:11.5px;color:var(--faint);margin:5px 0 0;font-style:normal}
+.tw-n{font-family:var(--cond);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-left:8px}
+@media (max-width:900px){
+ .jumpwrap{grid-template-columns:minmax(0,1fr)}
+ article.cmp{grid-template-columns:minmax(0,1fr)}
+ article.cmp .rail{border-right:0;border-bottom:1px solid var(--border)}
+}
+/* §5ak — panel uprawnienia w ukladzie v13. Kazdy selektor zaczyna sie od .v13pane
+   albo od klasy, ktora tworzy wylacznie skrypt 6, wiec nic tu nie wycieka na reszte
+   strony. Zmienne sa TE, ktore arkusz juz deklaruje (§5t): `--surface2` nie istnieje,
+   nazywa sie `--surface-2`. */
+.v13pane{margin:0 0 14px}
+.v13pane>header{padding:0 0 10px;border-bottom:1px solid var(--border);margin:0 0 12px}
+.v13pane h2{font-family:var(--mono);font-size:17px;margin:0 0 7px}
+.v13pane .chips{display:flex;flex-wrap:wrap;gap:6px}
+.v13pane .sec{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--border)}
+.v13pane .sec:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.v13pane .sec h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 9px}
+.v13pane dl.kv{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr);gap:7px 16px;margin:0;font-size:13.5px}
+.v13pane dl.kv dt{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.v13pane dl.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.v13pane .scheme{border:1px solid var(--border);border-radius:10px;background:var(--surface-2);padding:11px 13px;margin:0 0 10px}
+.v13pane .scheme:last-child{margin-bottom:0}
+.v13pane .scheme .sh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 8px}
+.v13pane .scheme .nm{font-weight:700;font-size:13.5px}
+.v13pane .mono{font-family:var(--mono);font-size:12.5px}
+.v13pane .note{color:var(--muted);font-size:12.5px;margin:8px 0 0}
+.v13pane .empty{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+.v13pane .rulebox{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;
+ background:var(--surface-2);padding:10px 13px;margin:0 0 11px;font-size:13px}
+.v13pane .actlist{font-size:12px}
+.v13pane .rname{font-family:var(--sans);font-weight:600;min-width:150px}
+.v13pane .badge.t-ok{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok);border-radius:999px}
+.v13pane .badge.t-bad{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);border-radius:999px}
+.v13pane .badge.t-warn{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn);border-radius:999px}
+.v13pane .badge.t-acc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);border-radius:999px}
+.v13pane .badge.t-grey{background:var(--grey-soft);color:var(--grey);box-shadow:inset 0 0 0 1.5px var(--border);border-radius:999px}
+.v13pane .m{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;background:var(--surface-2);color:var(--muted)}
+.v13pane .m-GET{background:var(--ok-soft);color:var(--ok)}
+.v13pane .m-POST{background:var(--accent-soft);color:var(--accent)}
+.v13pane .m-PATCH{background:var(--warn-soft);color:var(--warn)}
+.v13pane .m-DELETE{background:var(--bad-soft);color:var(--bad)}
+.v13pane .m-PUT{background:var(--info-soft);color:var(--info)}
+.v13pane details.eps{border:1px solid var(--border);border-radius:10px;background:var(--surface-2)}
+.v13pane details.eps>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 13px}
+.v13pane details.eps>summary::-webkit-details-marker{display:none}
+.v13pane details.eps>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.v13pane details.eps[open]>summary::before{content:"\2212"}
+.v13pane details.eps>summary .sm-t{flex:1 1 auto;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+.v13pane .mf{display:flex;flex-wrap:wrap;gap:6px;margin:0 13px 10px}
+.v13pane .mf button{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.v13pane .mf button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.v13pane details.eps>.tw,.v13pane details.eps>.note{margin:0 13px 12px}
+label.s6exact{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+ color:var(--text);white-space:nowrap;margin-left:10px;cursor:pointer}
+p.s6note{color:var(--muted);font-size:13px;margin:0 0 12px}
+@media (max-width:760px){
+  .v13pane dl.kv{grid-template-columns:1fr;gap:3px 0}
+  .v13pane dl.kv dt{padding-top:7px}
+  .v13pane .badge{white-space:normal;overflow-wrap:anywhere}
+}
+/* §5al — the top of a content tab (counts, the arithmetic, the last 14 days) and
+   the role panel in the same shape as the permission panel. Every selector starts
+   from a class only SCRIPT 7 or SCRIPT 8 creates, or from `.v13pane`, so nothing
+   here leaks onto the rest of the page. Variables are the ones the sheet already
+   declares (§5t): `--surface-2`, never `--surface2`. */
+.s8top{margin:0 0 18px}
+.s8top .factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;margin:0 0 12px}
+.s8top .fact{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 12px}
+.s8top .fact b{display:block;font-size:21px;line-height:1.15;font-variant-numeric:tabular-nums}
+.s8top .fact span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+ color:var(--muted);font-weight:700;margin-top:2px}
+.s8top .fact.acc b{color:var(--accent)}.s8top .fact.ok b{color:var(--ok)}
+.s8top .fact.bad b{color:var(--bad)}.s8top .fact.warn b{color:var(--warn)}.s8top .fact.info b{color:var(--info)}
+details.sumfold{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;
+ background:var(--surface);margin:0 0 12px;font-size:13.5px}
+details.sumfold>summary{list-style:none;cursor:pointer;padding:9px 13px;display:flex;gap:10px;align-items:center}
+details.sumfold>summary::-webkit-details-marker{display:none}
+details.sumfold>summary::before{content:"+";font-family:var(--mono);font-weight:700;width:20px;height:20px;
+ flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.sumfold[open]>summary::before{content:"−"}
+details.sumfold .sum{padding:0 13px 11px;font-size:13px}
+details.sumfold .sum table{border-collapse:collapse;margin:0}
+details.sumfold .sum td{padding:2px 14px 2px 0;border:0}
+details.sumfold .sum td:first-child{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;min-width:52px}
+/* ---- the 14-day block ---- */
+details.chg14{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.chg14>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px}
+details.chg14>summary::-webkit-details-marker{display:none}
+details.chg14>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;width:22px;
+ height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.chg14[open]>summary::before{content:"−"}
+details.chg14>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+details.chg14>summary .sm-r{font-size:12.5px;color:var(--muted)}
+details.chg14>*{margin-left:16px;margin-right:16px}
+details.chg14>summary{margin:0}
+details.chg14>.tw{margin-bottom:14px}
+.howto{background:var(--surface-2);border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);margin:12px 0 0}
+.chartwrap{margin:12px 0 6px;overflow-x:auto}
+.chartwrap svg{display:block;width:100%;min-width:900px;height:auto}
+.chartwrap .b-chg{fill:var(--accent)}
+.chartwrap .b-quiet{fill:var(--grey-soft);stroke:var(--border)}
+.chartwrap .b-norun{fill:none;stroke:var(--border);stroke-dasharray:3 3}
+.chartwrap .trend{fill:none;stroke:var(--warn);stroke-width:2.5;vector-effect:non-scaling-stroke;
+ stroke-linejoin:round;stroke-linecap:round}
+.chartwrap .gl{stroke:var(--border);stroke-width:1;vector-effect:non-scaling-stroke}
+.chartwrap .ax{fill:var(--muted);font-size:13px;font-family:var(--sans)}
+.chartwrap .axt{fill:var(--muted);font-size:13px;font-weight:700;font-family:var(--sans);
+ letter-spacing:.04em;text-transform:uppercase}
+details.chg14 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:4px 0 10px}
+details.chg14 .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+details.chg14 .legend i.k-chg{background:var(--accent)}
+details.chg14 .legend i.k-quiet{background:var(--grey-soft);box-shadow:inset 0 0 0 1px var(--border)}
+details.chg14 .legend i.k-norun{background:transparent;box-shadow:inset 0 0 0 1px var(--border)}
+details.chg14 .legend i.k-trend{background:var(--warn);height:3px;border-radius:2px;margin-bottom:3px}
+/* ---- surface chips on the Graph API 14-day table (10 Sep 2026) ----
+   `.mf` is declared only under `.v13pane`, and these chips live inside `details.chg14`,
+   so they need their own rule or they render as bare buttons. Same shape as the method
+   chips in the permission panel, deliberately: one control, one look. */
+.s8surf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.s8surf button{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s8surf button:hover{background:var(--surface-2)}
+.s8surf button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s8surf button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ---- a history row opens the real panel ---- */
+td.xc{width:34px;padding-left:8px;padding-right:0}
+.xb{font:inherit;font-family:var(--mono);font-size:14px;font-weight:700;width:24px;height:24px;line-height:1;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent);cursor:pointer;padding:0;text-decoration:none}
+.xb:hover{background:var(--accent);color:var(--surface)}
+.xn{color:var(--muted)}
+tr.hrow[aria-expanded=true]>td{background:var(--accent-soft)}
+tr.hdet>td{padding:0;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--accent)}
+.hd-in{padding:12px 14px}
+.hd-in .cat-detail-inner.embed{background:none;padding:0;border:0}
+.hd-in .v13pane{margin:0}
+.hd-lead{font-size:12px;color:var(--muted);margin:0 0 9px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.s8flash{outline:3px solid var(--accent);outline-offset:-3px}
+/* ---- the roles search: examples you can click, and Exact match ---- */
+.s7tips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:0 0 9px}
+.s7tips .lab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.s7tips button{font:inherit;font-size:12px;font-family:var(--mono);padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--accent);cursor:pointer}
+.s7tips button b{font-family:var(--sans);color:var(--muted);font-weight:700;margin-right:6px}
+label.s7exact{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text);
+ white-space:nowrap;margin-left:10px;cursor:pointer}
+p.s7why{background:var(--info-soft);border:1px solid var(--info);color:var(--text);border-radius:9px;
+ padding:8px 12px;font-size:13px;margin:0 0 10px}
+p.s7why[hidden]{display:none!important}
+/* the role panel reuses the permission panel's own rules; only the action cell differs */
+.v13role td.act code{font-family:var(--mono);font-size:12px;white-space:nowrap;display:inline-block}
+.v13role td.act .what{color:var(--muted);font-size:12.5px;margin-top:2px;white-space:normal}
+.v13role .rname{font-family:var(--sans);font-weight:600;min-width:150px}
+@media (max-width:760px){
+  details.chg14>summary,details.sumfold>summary{flex-wrap:wrap}
+  details.chg14>summary .badge{white-space:nowrap}
+  details.chg14>summary .sm-t{flex:1 1 100%}
+  details.chg14>*{margin-left:11px;margin-right:11px}
+  .s7tips button{white-space:normal;text-align:left;max-width:100%}
+}
+.s7hits{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.s7hits button{font:inherit;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer}
+.s7hits button:hover{background:var(--accent);color:var(--surface)}
+/* Two overflows measured on the published page of 7 September 2026, both older
+   than this section and both a plain §5x break: the shell's `not published` list
+   in the Roles tab pushed a 319 px <dt> into a 298 px column at 390, and a link
+   chip in Component versions ran 294 px in a 237 px cell at 1280. Neither is
+   caused by scripts 7 and 8; both are fixed here because the rule that forbids
+   them is ours. */
+.catalog dl dt,.catalog dl dd{min-width:0;overflow-wrap:anywhere}
+#tab-components .sec-body a.lnk,#tab-components .sec-body a[href^="http"]{white-space:normal;overflow-wrap:anywhere}
+/* ---- v16 1:1: lista katalogu jest JEDNA karta z wloskowatymi liniami, a nie
+   stosem pudelek; szerokosc kolumny i promienie jak w podgladzie v16. ---- */
+.catalog .cat-split{grid-template-columns:300px minmax(0,1fr)}
+.catalog .cat-list{gap:0;border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ padding:0;overflow:auto}
+.catalog .cat-item{border:0;border-bottom:1px solid var(--border);border-left:0;border-radius:0;
+ background:none;padding:9px 12px;gap:4px}
+.catalog .cat-item:last-child{border-bottom:0}
+.catalog .cat-item[aria-selected="true"]{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.catalog .ci-name{font-size:13px;font-weight:700;line-height:1.3}
+.catalog .cat-detail{border-radius:12px}
+@media (max-width:999px){.catalog .cat-split{grid-template-columns:minmax(0,1fr)}}
+/* ---- ranking rol: nazwany, zwiniety, pod historia ---- */
+details.rolerank{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.rolerank>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 16px}
+details.rolerank>summary::-webkit-details-marker{display:none}
+details.rolerank>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;width:22px;
+ height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.rolerank[open]>summary::before{content:"−"}
+details.rolerank>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+details.rolerank>*{margin-left:16px;margin-right:16px}
+details.rolerank>summary{margin:0}
+details.rolerank>.tw{margin-bottom:14px}
+/* Tytul panelu: powloka nadaje `h2` w sekcji `text-transform:uppercase`,
+   `letter-spacing:1.5px` i 12,5 px — zmierzone 7 wrzesnia 2026, przez co
+   `User.Read.All` czytalo sie jako `USER.READ.ALL`, a nazwa uprawnienia jest
+   napisem, ktory sie kopiuje, nie naglowkiem ozdobnym. Podglad v16 ma ja
+   zapisana tak, jak brzmi. */
+.catalog .cat-detail .v13pane>header h2{font-size:17px;text-transform:none;letter-spacing:0;
+ line-height:1.25;margin:0 0 7px;color:var(--text);font-weight:700}
+.catalog .cat-detail .v13pane.v13role>header h2{font-family:var(--sans)}
+.catalog .cat-detail .v13pane>header h2.mono{font-family:var(--mono)}
+/* ---- v16 1:1: pionowy pasek listy i schowany pasek filtrow powloki ---- */
+.catalog .ci-name{font-family:var(--sans);font-weight:700;font-size:13px}
+.catalog .cat-item .ci-v16{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.catalog .cat-item .ci-meta[hidden]{display:none!important}
+details.morefilters{margin:8px 0 0;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+details.morefilters>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:8px 12px;flex-wrap:wrap}
+details.morefilters>summary::-webkit-details-marker{display:none}
+details.morefilters>summary::before{content:"+";font-family:var(--mono);font-weight:700;width:20px;height:20px;
+ flex:0 0 20px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.morefilters[open]>summary::before{content:"−"}
+details.morefilters>summary .sm-t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted)}
+details.morefilters>summary .sm-r{font-size:12.5px;color:var(--muted)}
+details.morefilters>.cat-toolbar{margin:0 12px 12px}
+/* Chipy w pionowym pasku listy sa SAMODZIELNE. Zmierzone 7 wrzesnia 2026: powloka
+   deklaruje `.badge` bez tla, z `border-radius:3px` i `text-transform:uppercase`,
+   a kolory (`t-grey`, `t-bad`, `t-info`) zyja tylko pod `.v13pane` — moje chipy
+   wychodzily wiec jako czarny, wersalikowy tekst bez ramki. Ta regula nie opiera
+   sie na zadnej klasie powloki poza sama nazwa `.badge`. */
+.catalog .cat-item .ci-v16{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.catalog .cat-item .ci-v16 .badge{display:inline-block;font-family:var(--sans);font-size:11px;
+ font-weight:700;line-height:1.5;padding:1px 9px;border-radius:999px;letter-spacing:0;
+ text-transform:none;white-space:nowrap;background:var(--grey-soft);color:var(--grey);
+ box-shadow:inset 0 0 0 1.5px var(--border)}
+.catalog .cat-item .ci-v16 .badge.t-bad{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad)}
+.catalog .cat-item .ci-v16 .badge.t-info{background:var(--info-soft);color:var(--info);box-shadow:inset 0 0 0 1.5px var(--info)}
+.catalog .cat-item .ci-v16 .badge.t-warn{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.catalog .cat-item .ci-v16 .badge.t-ok{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.catalog .cat-item .ci-v16 .badge.t-acc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+/* §5am — jedno zielone pole szukania na KAZDEJ tabeli, ktora buduja skrypty 6, 7 i 8,
+   i pasek narzedzi powloki naprawde schowany, gdy schowana jest jego tabela. */
+[data-s6hidden="1"]{display:none!important}
+.s9find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.s9find .s9q{flex:1 1 220px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9find .s9q::placeholder{color:var(--muted);font-weight:400}
+.s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);max-width:230px}
+.s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.s9find .s9reset:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;
+ white-space:nowrap;font-weight:600}
+.v13pane tbody tr[hidden],details.chg14 tbody tr[hidden],details.rolerank tbody tr[hidden]{display:none!important}
+.v13pane details.eps>.s9find{margin:0 13px 10px}
+details.chg14>.s9find{margin-left:16px;margin-right:16px}
+.bkbanner.s9bk[hidden]{display:none!important}
+@media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
+/* §5an — zakladka Community Articles. Kolor niesie KROPKA, nie cala pigulka:
+   pierwsza wersja malowala kazdy tag na wlasny kolor i wlasciciel zglosil, ze
+   zrobilo sie za kolorowo. Nasycenie 38% wraca identycznie na slupku wykresu
+   i na wycinku pierscienia, wiec kropka jest legenda calej zakladki. */
+/* The global filter banner sticks BELOW the masthead (§5ao). It used to sit wherever
+   the run put it — measured 11 September 2026: 1 968 px above the reader who had just
+   pressed a tag in `Technologies` — so the four tables changed their counts with nothing
+   on screen saying which filter did it. `--chdr-h` is measured by SCRIPT 10, never
+   written down: the masthead is sticky and 303 px tall here, and `static` on a phone. */
+#tab-community .cstick{position:sticky;top:var(--chdr-h,0px);z-index:32;margin:0 0 6px}
+#tab-community .cstick .filterbanner.s10{margin:0 0 8px;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+#tab-community .subnav{position:sticky;top:0;z-index:30;display:flex;gap:6px;overflow-x:auto;
+ padding:8px 0 7px;margin:0 0 6px;background:var(--bg);border-bottom:1px solid var(--border);
+ -webkit-overflow-scrolling:touch}
+#tab-community .subnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);white-space:nowrap;flex:0 0 auto}
+#tab-community .subnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+#tab-community .subnav a .n{color:var(--muted);font-weight:600;margin-left:5px;font-variant-numeric:tabular-nums}
+#tab-community .subnav a[aria-current="true"] .n{color:var(--accent)}
+/* the jump target clears the sticky block, whose height SCRIPT 10 measures and
+   publishes as `--cstick-h`; a hard number is wrong the moment the banner opens */
+#tab-community section{scroll-margin-top:var(--cstick-h,58px)}
+.tw.scroll{max-height:520px;overflow-y:auto}
+.tw.scroll-sm{max-height:400px;overflow-y:auto}
+/* --- blok Activity: rozklad 14 dni jako kontrolka --- */
+.acthead{display:flex;align-items:flex-start;gap:14px;margin:10px 0 10px}
+.acthead .actt h3{margin:0 0 2px;font-size:14px;font-weight:700;letter-spacing:0;
+ text-transform:none;color:var(--text)}
+.acthead .actt p{margin:0;font-size:12.5px;color:var(--muted);max-width:78ch}
+.actgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin:0}
+.actbox{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px 11px}
+.actbox .acthd{display:flex;align-items:baseline;gap:8px;margin:0 0 9px}
+.actbox .acthd b{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.actbox .acthd .actsum{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* Prefiks `act` nie jest ozdoba: powloka MA JUZ klasy `.cbar` (slupek wykresu,
+   `fill:var(--accent)`) i `.cax` (podpis osi, `fill:var(--faint)`), wiec pierwsza
+   wersja tego bloku przejmowalaby kazdy wykres na stronie - regula `height:100%`
+   dziala takze na `<rect>` w SVG. To ta sama pulapka co `details.rank` w §5al,
+   odwrotna niz `.tabn` w §5ae: tam celowalem w klase, ktorej NIE MA, tu uzylem
+   klasy, ktora JEST. Przed napisaniem selektora sprawdza sie w arkuszu powloki
+   OBIE rzeczy.
+   SLUPKI SA HTML-em, nie SVG: rysunek o preserveAspectRatio="none" rozciaga wszystko,
+   co w nim stoi - nie tylko tekst (5al), ale i promien zaokraglenia, przez co przy
+   1370 px slupki wygladaly jak pastylki. Slupek jest <button>, wiec jest klikalny,
+   ma tooltip i dziala z klawiatury. */
+.actbars{position:relative;display:flex;align-items:flex-end;gap:3px;height:64px;
+ border-bottom:1px solid var(--border)}
+.actbars::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;
+ background:linear-gradient(var(--border),var(--border)) 0 0/100% 1px no-repeat,
+            linear-gradient(var(--border),var(--border)) 0 50%/100% 1px no-repeat;opacity:.6}
+.actbar{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;
+ background:none;border:0;padding:0;cursor:pointer;position:relative}
+.actbar i{display:block;width:100%;height:var(--h);border-radius:3px 3px 0 0;
+ background:var(--accent);opacity:.3;transition:opacity .12s}
+.actbar:hover i{opacity:.62}
+.actbar.on i{opacity:1}
+.actbar:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.actbox .actax{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);
+ margin:5px 1px 0;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+/* kafelki zakresow: ramka ma 2 px, bo 1.5 px przegladarka zaokragla do 1 przy DPR 1
+   i latwo je bylo ominac - to samo zmierzenie co przy poprzednich `.wintile` */
+.actpre{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 0}
+.actpre button{font:inherit;cursor:pointer;display:inline-flex;align-items:baseline;gap:7px;
+ padding:6px 12px;border-radius:9px;border:2px solid var(--border);background:var(--surface-2);
+ color:var(--text);font-weight:600;font-size:12px;transition:border-color .12s,background .12s}
+.actpre button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.actpre button .actnum{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;
+ line-height:1;color:var(--text)}
+.actpre button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.actpre button[aria-pressed="true"] .actnum{color:#fff}
+.catbtn{font:inherit;font-size:12px;font-weight:600;padding:3px 11px 3px 8px;border-radius:999px;cursor:pointer;
+ display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.catbtn::before{content:"";width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:hsl(var(--h) 38% 52%)}
+.catbtn b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.catbtn[aria-pressed="true"]{border-color:hsl(var(--h) 38% 52%);background:var(--surface-2);
+ box-shadow:inset 0 0 0 1px hsl(var(--h) 38% 52%)}
+.badge.cchip{cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:0 8px 0 6px;
+ background:var(--surface-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--border);font-weight:600}
+.badge.cchip::before{content:"";width:6px;height:6px;border-radius:2px;flex:0 0 6px;background:hsl(var(--h) 38% 52%)}
+.badge.cchip:hover{color:var(--text);background:var(--surface)}
+#tab-community .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+/* SCOPED TO `.charts`, and that scope is the whole point. The first version of these
+   three rules selected `#tab-community figure.chart svg` — specificity (1,1,1), which
+   beats every rule SCRIPT 4 writes for its OWN charts — so `height:auto` threw away the
+   `height` attribute on each of them and re-derived it from the viewBox at the container
+   width. Measured 11 September 2026 on the published artifact at 1500 px: `Per service`
+   666 -> 867 px, `Published over time` 172 -> 398 px, and the share ring, whose
+   `.aggwrap svg.donut{max-width:250px}` lost to `max-width:100%`, 200 -> 591 px. The
+   owner reported it as "wykres published over time ma za duze te bary poziome" and was
+   right to the pixel. The tab's own charts are the ones inside `.charts`; SCRIPT 4's are
+   inside `.aggwrap` and must be left to their own sheet (§5y). */
+#tab-community .charts figure.chart{margin:0;border:1px solid var(--border);border-radius:10px;
+ background:var(--surface);padding:9px 11px;min-width:0}
+#tab-community .charts figure.chart svg{display:block;width:100%;height:auto;max-width:100%}
+#tab-community .charts svg.donut{max-width:186px;margin:0 auto}
+/* The shell's own per-panel categorical chart is NOT wanted here. Script 2 facets the
+   first recognised column and this tab's source table carries `Status`, so the strip
+   opened with a `By status` chart 1460x467 px — measured on the same page — above six
+   charts of the tab's own that already answer the question with the right population.
+   The `.stat` tile stays: it is one number and it is true. §5h's "every panel except
+   Overview and Sources carries >=1 `.stat` and >=1 `figure.chart`" is about PRESENCE,
+   and the element is present; the exemption is written out there so the assertion does
+   not fire on a correct page. */
+#tab-community .panelhead figure.chart{display:none}
+/* Fifth time the shell's own `display` beats the `hidden` attribute, after `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am) and `.filterbanner.s10` (§5an): SCRIPT 10 marks
+   the shell toolbar over each table it owns, and the mark has to carry `!important` to win. */
+[data-s10hidden="1"]{display:none!important}
+/* The ONE deliberately un-scoped selector in this block, and it is un-scoped because the
+   defect is not tab-specific: the sheet declares no `::selection` at all, so the browser
+   picks its own pair, and on a `--surface-2` striped row in the dark theme the owner got
+   selected text he could not read. Declaring it makes the highlight deterministic in both
+   themes instead of leaving it to the platform. */
+::selection{background:var(--accent-soft);color:var(--text)}
+#tab-community .brow{cursor:pointer}
+#tab-community .brow:hover .ctrack{fill:var(--accent-soft)}
+#tab-community .seg{cursor:pointer}
+#tab-community .donut-legend li{cursor:pointer}
+#tab-community th.sortable{cursor:pointer;user-select:none}
+#tab-community th.sortable::after{content:"\2195";opacity:.35;margin-left:5px;font-size:10px}
+#tab-community th.sortable[data-dir="asc"]::after{content:"\2191";opacity:1;color:var(--accent)}
+#tab-community th.sortable[data-dir="desc"]::after{content:"\2193";opacity:1;color:var(--accent)}
+#tab-community a{font-weight:400;text-decoration:none;border-bottom:1px solid transparent}
+#tab-community a:hover{border-bottom-color:currentColor}
+#tab-community .tt{font-weight:500;color:var(--text)}
+#tab-community .tt:hover{color:var(--accent)}
+/* ZADEN rozwijany blok na stronie nie renderuje sie natywnym trojkatem przegladarki,
+   i to jest regula CALEGO portalu, nie tej zakladki. Arkusz stylowal siedem rodzin —
+   `foldnote`, `eps`, `sumfold`, `chg14`, `rolerank`, `morefilters`, `cb-more`/`cov-more` —
+   a przebieg pisze wlasne klasy: `cmfold` w Community, `relrest` w Component versions,
+   i kolejne, ktorych dzis jeszcze nie ma. Zmierzone 11 wrzesnia 2026 na opublikowanym
+   artefakcie: piec `details.cmfold` i osiem `details.relrest` mialo `::before` content
+   `none`, `list-style-type: disclosure-closed` i `border-top-width: 0px` — goly trojkat
+   posrod kart z plusem. Wlasciciel zglosil to dwa razy tego dnia, raz w Community i raz
+   w Today, i poprosil wprost, zeby przejrzec pod tym katem CALY portal.
+
+   Dlatego regula jest KATALOGIEM ODWROTNYM: obejmuje kazdy `<details>` w tresci, ktory
+   NIE nalezy do rodziny juz ostylowanej. Wyliczanie klas po kolei zawiodloby przy
+   pierwszej nowej nazwie, ktora przebieg wymysli — a to jest dokladnie ta pulapka,
+   ktora tu wystapila dwa razy. Asercja renderu (§5h) mierzy to samo od drugiej strony:
+   w zadnej z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz
+   `none`. */
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
+ border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary{
+ list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:11px 14px;font-size:14px;font-weight:700;color:var(--text)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::-webkit-details-marker{display:none}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary::before{
+ content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary::before{content:"\2212"}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:hover{background:var(--surface-2);border-radius:12px 12px 0 0}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)[open]>summary{border-bottom:1px solid var(--border)}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary){margin-left:14px;margin-right:14px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):first-of-type{margin-top:12px}
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>*:not(summary):last-child{margin-bottom:13px}
+/* `relrest` siedzi w karcie komponentu i ma byc lzejsze niz sekcja — ta sama rodzina
+   znaku, mniejsza rama, zeby nie konkurowalo z wydaniem, ktore opisuje */
+.tabpanel details.relrest{background:var(--surface-2);margin:8px 0 0}
+.tabpanel details.relrest>summary{font-size:13px;padding:8px 11px}
+.filterbanner.s10{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:6px 11px;border-radius:9px;
+ background:var(--accent-soft);border:1px solid var(--accent);font-size:12.5px;color:var(--text)}
+.filterbanner.s10[hidden]{display:none!important}
+.filterbanner.s10 .fb-msg{flex:1 1 auto}
+.filterbanner.s10 .fb-clear{font:inherit;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+@media (max-width:760px){
+  #tab-community .acthead{flex-wrap:wrap}
+  #tab-community .actpre button{flex:1 1 auto;justify-content:center}
+  #tab-community .desc{max-width:none}
+  #tab-community th{position:static}
+}
+/* §5ap — every column filterable, every bar a control.
+   SZOSTY raz atrybut `hidden` przegrywa z wlasnym `display` powloki, po `.filterbanner`
+   (§5c), `.cat-item` (§5ad), `.tbar` (§5am), `.filterbanner.s10` i `[data-s10hidden]`
+   (§5an): `tr`, `li` i `article.card` maja w arkuszu wlasny `display`, wiec znacznik
+   SKRYPTU 11 musi niesc `!important`, zeby wygral. */
+tr[data-s11="0"],article.card[data-s11="0"],li[data-s11="0"],h3[data-s11="0"],
+ul[data-s11="0"],ol[data-s11="0"],p[data-s11="0"]{display:none!important}
+/* i SIODMY raz przy paskach powloki, ktore SKRYPT 11 zastepuje jednym na sekcje */
+[data-s11hidden="1"]{display:none!important}
+.tw[data-s11="0"]{display:none!important}
+.s9find.s11group{border:1px solid var(--accent);border-radius:10px;padding:8px 10px;
+ background:var(--accent-soft)}
+.s9find.s11group .s9q{background:var(--ok-soft)}
+.s9find .s11hot{font:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .s11hot[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s9find .tseg-label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted)}
+.s9find .tseg{display:inline-flex;gap:4px;flex-wrap:wrap}
+.s9find .tseg .segbtn{font:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s9find .tseg .segbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.s9find .s11col{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+ font-weight:600;max-width:230px}
+.tbar .s11col,.tbar .s11f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);max-width:230px}
+.tbar .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.s11bar{margin:0 0 10px}
+.filterbanner.s11{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding:7px 12px;
+ border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent);
+ color:var(--text);font-size:13px}
+.filterbanner.s11[hidden]{display:none!important}
+.filterbanner.s11 .fb-msg{flex:1 1 auto}
+.filterbanner.s11 .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);flex:0 0 auto}
+.filterbanner.s11 .fb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--surface);
+ color:var(--accent);cursor:pointer;white-space:nowrap}
+.tabpanel>.filterbanner.s11.s11tab{margin:0 0 12px}
+.donut-legend li[data-ids]{cursor:pointer;border-radius:6px;padding:1px 5px;margin:-1px -5px}
+.donut-legend li[data-ids]:hover{background:var(--accent-soft);color:var(--accent)}
+.donut-legend li[data-ids]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
+@media (max-width:760px){
+  .s9find .s11col,.tbar .s11col,.tbar .s11f{max-width:100%}
+  .filterbanner.s11{flex-wrap:wrap}
+}
+/* §5ar — where each row came from, and what changed inside the source. Every
+   selector starts from a class only SCRIPT 12 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares
+   (§5t): `--surface-2`, `--ins-bg`, `--del-bg`, never an invented name. */
+td.s12prov{white-space:normal;overflow-wrap:anywhere}
+.s12src{font:inherit;font-family:var(--sans);font-size:11.5px;font-weight:600;line-height:1.5;
+ padding:1px 9px;border-radius:999px;border:1px solid var(--info);background:var(--info-soft);
+ color:var(--info);cursor:pointer;white-space:nowrap}
+.s12src:hover{background:var(--info);color:var(--on-accent)}
+.s12src:focus-visible{outline:2px solid var(--info);outline-offset:2px}
+.s12src.s12bad{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+a.s12ext{text-decoration:none;font-weight:700;font-size:11px;color:var(--muted);padding:0 3px}
+a.s12ext:hover{color:var(--info)}
+.s12none{color:var(--muted);font-style:italic;font-size:12.5px}
+tr.s12flash>td{background:var(--accent-soft)!important;box-shadow:inset 3px 0 0 var(--accent)}
+/* the line-by-line view. A page block is a card, not a table: the added and
+   removed lines are text, and a table would invite a search box per page where
+   one search over the section is what a reader wants (§5am). */
+.s12file{border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ margin:0 0 12px;overflow:hidden}
+.s12fhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface-2);border-bottom:1px solid var(--border)}
+.s12fhead .s12name{flex:1 1 260px;min-width:0;font-size:13.5px;font-weight:700}
+.s12fhead .s12path{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:400}
+.s12cnt{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap;flex:0 0 auto}
+.s12cnt .p{color:var(--ins-fg);background:var(--ins-bg);border-radius:5px;padding:1px 6px}
+.s12cnt .m{color:var(--del-fg);background:var(--del-bg);border-radius:5px;padding:1px 6px;margin-left:4px}
+.s12hunk{border-top:1px solid var(--border)}
+.s12at{font-family:var(--mono);font-size:11px;color:var(--muted);padding:6px 13px 2px}
+.s12line{display:flex;gap:8px;padding:3px 13px;font-family:var(--mono);font-size:12.5px;
+ line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.s12line .s12sign{flex:0 0 14px;font-weight:700;text-align:center}
+.s12add{background:var(--ins-bg);color:var(--ins-fg)}
+.s12rem{background:var(--del-bg);color:var(--del-fg)}
+.s12meta{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface-2);
+ border-top:1px solid var(--border)}
+.s12why{padding:9px 13px;font-size:13px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border)}
+.s12why b{color:var(--warn)}
+.s12why code{font-family:var(--mono);font-size:12px}
+p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:4px solid var(--grey);
+ border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 12px}
+@media (max-width:760px){.s12line{font-size:11.5px}.s12fhead{gap:6px}}
+
+/* §5as — the Overview is the whole brief on one screen. Every selector starts
+   from `#starthere` or from a class only SCRIPT 13 creates, so nothing here
+   leaks onto the rest of the page. Variables are the ones the sheet already
+   declares (§5t). */
+#starthere .shh{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+ font-weight:700;margin:18px 0 6px}
+#starthere .shh:first-of-type{margin-top:4px}
+#starthere .shsub{font-size:12.5px;color:var(--muted);margin:0 0 10px;max-width:88ch}
+#starthere .shlist{display:grid;gap:8px;margin:0 0 4px}
+#starthere .shrow{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;
+ font:inherit;font-family:var(--sans);padding:11px 14px;border-radius:12px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+#starthere .shrow:hover{border-color:var(--accent);background:var(--accent-soft)}
+#starthere .shrow:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shrow.shzero{cursor:default;background:var(--surface-2);color:var(--muted)}
+#starthere .shrow.shzero:hover{border-color:var(--border);background:var(--surface-2)}
+#starthere .shn{flex:0 0 62px;font-size:26px;line-height:1.05;font-variant-numeric:tabular-nums;
+ text-align:right;font-weight:700}
+#starthere .shrow.sh-bad .shn{color:var(--bad)}
+#starthere .shrow.sh-warn .shn{color:var(--warn)}
+#starthere .shrow.sh-acc .shn{color:var(--accent)}
+#starthere .shrow.sh-ok .shn{color:var(--ok)}
+#starthere .shrow.shzero .shn{color:var(--muted)}
+#starthere .sht{flex:1 1 auto;min-width:0}
+#starthere .sh1{display:block;font-size:14.5px;font-weight:700;line-height:1.35}
+#starthere .sh2{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+#starthere .shgo{flex:0 0 auto;align-self:center;font-size:12px;font-weight:600;color:var(--accent);
+ white-space:nowrap}
+#starthere .shrow.shzero .shgo{display:none}
+/* a count that is a control, and a zero that is honestly not one */
+#starthere .shnum{font:inherit;font-family:var(--sans);font-size:14px;font-weight:700;
+ font-variant-numeric:tabular-nums;padding:2px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+#starthere .shnum:hover{background:var(--accent);color:var(--on-accent)}
+#starthere .shnum:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#starthere .shnum.shopen{font-size:12px;font-weight:600}
+#starthere .shz{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;padding:0 11px}
+#starthere table td:first-child{font-weight:700}
+@media (max-width:760px){
+  #starthere .shrow{gap:10px;padding:10px 12px}
+  #starthere .shn{flex-basis:46px;font-size:21px}
+  #starthere .shgo{display:none}
+  #starthere .shsub{font-size:12px}
+}
+
+/* §5at — one line in the masthead that names every filter that is on, and the end
+   of monospace prose. Every selector starts from `.gfbar`, a class only SCRIPT 14
+   creates, or from `#tab-components`. Variables are the ones the sheet already
+   declares (§5t): `--surface-2`, `--accent-soft`, `--muted`, never an invented name. */
+.gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
+ display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto;
+ padding:8px 14px;background:var(--accent-soft);
+ border-bottom:1px solid var(--accent);color:var(--text);font-size:13px;
+ box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.gfbar[hidden]{display:none!important}
+.gfbar .gf-lead{flex:0 0 auto;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-list{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+.gfbar .gf-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
+ padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);
+ border:1px solid var(--accent);color:var(--text);font-size:12.5px;line-height:1.6;
+ overflow-wrap:anywhere}
+.gfbar .gf-chip b{font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;padding:0}
+.gfbar .gf-x:hover{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.gfbar .gf-x:focus-visible,.gfbar .gf-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gfbar .gf-more{color:var(--muted);font-size:12px}
+.gfbar .gf-reset{flex:0 0 auto;font:inherit;font-size:12px;font-weight:600;padding:5px 13px;
+ border-radius:999px;border:1px solid var(--accent);background:var(--accent);
+ color:var(--on-accent);cursor:pointer;white-space:nowrap}
+.gfbar .gf-reset:hover{background:var(--surface);color:var(--accent)}
+@media (max-width:760px){
+  /* §1a makes the masthead static on a phone, so `--gfbar-top` measures to zero and
+     the line sticks to the very top — the one control that survives a tab switch
+     must not be the one control that scrolls away (§5ao). */
+  .gfbar{padding:7px 10px;gap:7px}
+  .gfbar .gf-list{width:100%}
+  .gfbar .gf-reset{width:100%;text-align:center}
+}
+/* --- monospace is for an IDENTIFIER, never for a sentence ---
+   Measured 11 September 2026 on the published page: every line of the component
+   navigation tiles rendered in IBM Plex Mono 11.5px — "Released 7 July 2026",
+   "Build 101.26062.0012, release 20.126062.12.0, August 2026" — with the status
+   footer in 10.5px condensed at a contrast of 4.45:1, under the 4.5 floor and the
+   smallest type on the page. `jt-v`, `jt-s` and `vdate` are classes the RUN
+   invented and the run styled, because this file described the tile in prose and
+   carried no rule for it: the same silent failure as `.tabn` (§5ae) and `.cmfold`
+   (§5an). The rule is a REVERSE catalogue for the same reason as §5an's: the tile
+   is sans throughout, and only `<b>`, `<code>` and `.mono` — the things a reader
+   copies — are monospace, so the next class a run invents is right by default. */
+#tab-components a.jtile,#tab-components a.jtile *,
+#tab-components .vbox,#tab-components .vbox *{font-family:var(--sans);
+ letter-spacing:normal;text-transform:none;color:var(--muted)}
+#tab-components a.jtile *,#tab-components .vbox *{font-size:12.5px;line-height:1.5}
+#tab-components a.jtile b,#tab-components a.jtile code,#tab-components a.jtile .mono,
+#tab-components .vbox b,#tab-components .vbox code,#tab-components .vbox .mono{
+ font-family:var(--mono);font-weight:700;color:var(--text);font-size:13px}
+#tab-components a.jtile .pchip,#tab-components .vbox .pchip{font-size:10.5px;
+ text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+#tab-components a.jtile .jt-n{font-size:14px;font-weight:650;color:var(--text)}
+/* and nowhere else on the page is a paragraph or a bullet set in monospace */
+.tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}
+
+/* a named block the one filter did not reach */
+[data-s11m][data-s11="0"]{display:none!important}
+/* §5au — po 14 wrzesnia 2026 zostaje w tym bloku JEDNA regula. Klasy `s15bar`,
+   `s15pop`, `s15btn` i reszta rodziny odeszly razem ze SKRYPTEM 15, ktory zastapil
+   SKRYPT 15 v2 (§5aw): regula w arkuszu dla klasy, ktorej nic nie renderuje, jest
+   martwa i myli nastepny przebieg tak samo, jak klasa w markupie bez reguly w arkuszu
+   myli przegladarke (§5ae, §5an). Wyglad paska stoi odtad w bloku §5aw.
+   PODSWIETLENIE WIERSZA PRZY NAJECHANIU zostaje i nie nalezalo do paska.
+   Powloka pasuje wiersze parzyste RECZNIE, w `restripe()`, ktore pisze
+   `td.style.background` INLINE, bo wiersze ukryte filtrem lamia `nth-child`.
+   Styl inline bije kazda regule arkusza, wiec `tbody tr:hover td` nie mial na
+   wierszu parzystym zadnych szans — a komorki DOLOZONE pozniej przez skrypty
+   (`Found in` ze SKRYPTU 12, `What it means` z §4) inline'u nie dostaly, wiec
+   zapalala sie dokladnie JEDNA. Zmierzone 12 wrzesnia 2026 na opublikowanej
+   stronie: wiersz nieparzysty caly `--accent-soft`, parzysty tylko kolumna
+   `Found in`. `!important` jest tu konieczne i jest jedynym miejscem, w ktorym
+   uzywamy go do koloru: tylko ono wygrywa ze stylem inline. */
+.tabpanel tbody tr:hover>td,.tabpanel tbody tr:hover>th{background:var(--accent-soft)!important}
+/* §5aw/§5ax: zakladki Microsoft Learn i Microsoft Blogs — arkusz z zatwierdzonej makiety */
+.ntfhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 9px;
+ padding-bottom:9px;border-bottom:1px solid var(--border)}
+.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+ color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px}
+.ntfscope{font-size:12.5px;color:var(--muted);flex:1 1 240px;min-width:0}
+.ntfbar{border:1px solid var(--border);border-radius:12px;background:var(--surface);
+ padding:10px 12px;margin:0 0 14px}
+.ntfbar.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ntfrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ntfsep{flex:1 1 12px;min-width:0}
+.ntfdim{position:relative}
+.ntfbtn,.ntft0,.ntfreset{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;
+ display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);white-space:nowrap}
+.ntfbtn:hover,.ntft0:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.ntfbtn:focus-visible,.ntft0:focus-visible,.ntfreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ntfdot{width:8px;height:8px;border-radius:3px;flex:0 0 8px;background:var(--dc,var(--accent))}
+.ntft0 .ntfdot{background:var(--bad)}
+.ntfcar{font-size:9px;color:var(--muted);margin-left:1px}
+.ntfbn:empty,.ntft0 b:empty{display:none}
+.ntfbn{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
+ border-radius:999px;background:var(--accent);color:var(--on-accent)}
+.ntft0 b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
+ border-radius:999px;background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+.ntfbtn.on{border-color:var(--dc,var(--accent));background:var(--surface);color:var(--text)}
+.ntft0.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.ntft0.on b{background:rgba(255,255,255,.24);color:#fff;border-color:transparent}
+.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.ntfreset:hover{background:var(--surface);color:var(--accent)}
+.ntfpop{display:none;position:fixed;z-index:70;min-width:268px;width:288px;
+ max-width:calc(100vw - 24px);background:var(--surface);border:1px solid var(--accent);
+ border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.34);padding:9px}
+.ntfdim.open .ntfpop{display:block}
+.ntfq{width:100%;font:inherit;font-size:12.5px;padding:7px 10px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);margin:0 0 8px}
+.ntfq[hidden]{display:none}
+.ntflist{max-height:290px;overflow-y:auto;overscroll-behavior:contain;display:grid;gap:2px}
+.ntfopt{font:inherit;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:9px;
+ width:100%;text-align:left;padding:6px 8px;border-radius:8px;border:1px solid transparent;
+ background:none;color:var(--text)}
+.ntfopt:hover{background:var(--surface-2)}
+.ntfopt .ntfbox{width:15px;height:15px;flex:0 0 15px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface)}
+.ntfopt.on .ntfbox{background:var(--accent);border-color:var(--accent);
+ box-shadow:inset 0 0 0 2px var(--surface)}
+.ntfopt.on{background:var(--accent-soft)}
+.ntfoname{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ntfopt b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);
+ padding:1px 7px;border-radius:999px;background:var(--surface-2);flex:0 0 auto}
+.ntfopt.on b{background:var(--surface);color:var(--accent)}
+.ntfnone{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.ntfpfoot{display:flex;align-items:center;gap:10px;margin-top:8px;padding-top:8px;
+ border-top:1px solid var(--border)}
+.ntfclr{font:inherit;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer}
+.ntfclr:hover{border-color:var(--bad);color:var(--bad)}
+.ntfpn{font-size:11.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.ntfpn:empty{display:none}
+.ntfq2{display:flex;gap:8px;align-items:center;margin:0 0 9px}
+.ntfq2i{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.ntfq2i::placeholder{color:var(--muted);font-weight:400}
+.ntfq2i:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.ntfq2c{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+@media (max-width:760px){.ntfq2{flex-wrap:wrap}.ntfq2c{max-width:100%;width:100%}}
+.ntfsum{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--border);
+ font-size:12.5px;color:var(--muted)}
+.ntfbar.on .ntfsum{color:var(--text)}
+details.ntsec.ntempty>summary{opacity:.55}
+details.ntsec.ntempty>summary .ntn{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
+@media (max-width:760px){
+  .ntfrow{gap:6px}
+  .ntfbtn,.ntft0,.ntfreset{flex:1 1 auto;justify-content:center}
+  .ntfsep{display:none}
+  .ntfpop{left:0;right:0;min-width:0;max-width:none}
+}
+}
+
+
+/* §5bb: rodzina `.ntdiff*` odeszla razem z `lineBox()`. Zakladka Learn rysuje zmiane
+   tekstu tym samym `.s12file` co reszta portalu (§5ar), wiec reguly dla klas, ktorych
+   nic juz nie renderuje, byly by martwe i mylily by nastepny przebieg (§5au, §5ae).
+   Zostaje wylacznie odstep miedzy kartami, bo tylko on jest tej zakladce wlasny. */
+#tab-learn .ntdiffs{display:grid;gap:12px;margin:14px 0 0}
+#tab-learn .ntempty{background:var(--surface-2);border:1px dashed var(--border);
+ border-radius:10px;padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+#tab-learn .factgrid,#tab-blogs .factgrid{display:grid;gap:8px;margin:0 0 14px;
+ grid-template-columns:repeat(auto-fit,minmax(178px,1fr))}
+#tab-learn .factgrid .fact,#tab-blogs .factgrid .fact{border:1px solid var(--border);
+ border-radius:10px;background:var(--surface);padding:9px 12px}
+#tab-learn .factgrid .fact b,#tab-blogs .factgrid .fact b{display:block;font-size:21px;
+ line-height:1.15;font-variant-numeric:tabular-nums;margin:0}
+#tab-learn .factgrid .fact span,#tab-blogs .factgrid .fact span{display:block;font-size:11.5px;
+ text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-top:3px}
+#tab-learn .factgrid .fact.ok b,#tab-blogs .factgrid .fact.ok b{color:var(--ok)}
+#tab-learn .factgrid .fact.bad b,#tab-blogs .factgrid .fact.bad b{color:var(--bad)}
+#tab-learn .factgrid .fact.warn b,#tab-blogs .factgrid .fact.warn b{color:var(--warn)}
+#tab-learn .factgrid .fact.acc b,#tab-blogs .factgrid .fact.acc b{color:var(--accent)}
+#tab-learn .factgrid .fact.info b,#tab-blogs .factgrid .fact.info b{color:var(--info)}
+details.ntsec{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+details.ntsec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:12px 15px;font-size:15px;font-weight:700;color:var(--text)}
+details.ntsec>summary::-webkit-details-marker{display:none}
+details.ntsec>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.ntsec[open]>summary::before{content:"\2212"}
+details.ntsec>summary .ntlab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted);flex:0 0 auto}
+details.ntsec>summary .ntn{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.ntsec[open]>summary{border-bottom:1px solid var(--border)}
+details.ntsec>.ntbody{padding:13px 15px}
+details.ntsec.ntflash{outline:2px solid var(--accent);outline-offset:-2px}
+.ntwhy{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;max-width:70ch}
+.ntcrit{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.04em;padding:1px 7px;border-radius:5px;background:var(--surface-2);
+ color:var(--muted);box-shadow:inset 0 0 0 1px var(--border);margin:2px 3px 0 0;white-space:nowrap}
+.ntcrit.c1{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.ntcrit.c2{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.ntchip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+ padding:1px 9px 1px 7px;border-radius:999px;background:var(--surface-2);color:var(--muted);
+ box-shadow:inset 0 0 0 1px var(--border);cursor:pointer;white-space:nowrap;margin:2px 2px 0 0}
+.ntchip::before{content:"";width:6px;height:6px;border-radius:2px;flex:0 0 6px;background:hsl(var(--h) 38% 52%)}
+.ntchip:hover{color:var(--text);background:var(--surface)}
+.ntt0{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);
+ border-radius:999px;font-size:10.5px;font-weight:700;padding:1px 8px;white-space:nowrap}
+.ntw{font-family:var(--mono);font-size:12px;font-weight:700}
+.ntsrc a{display:inline-block;margin:2px 4px 0 0}
+.ntmeth{display:inline-block;font-size:11px;font-weight:700;padding:1px 9px;border-radius:999px;white-space:nowrap}
+.ntmeth.m-git{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.ntmeth.m-snap{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.ntmeth.m-rss{background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.ntseg{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;align-items:center}
+.ntseg button{font:inherit;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.ntseg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ntseg .ntseglab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--muted)}
+.ntview[hidden]{display:none!important}
+.jsonbox{border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:12px;
+ background:var(--surface);padding:12px 15px;margin:0 0 16px}
+.jsonbox h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;margin:0 0 3px}
+.jsonbox .jb-note{font-size:12.5px;color:var(--muted);margin:0 0 11px;max-width:92ch}
+.jsonbox .jb-grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.jsonbox .jb-row{border:1px solid var(--border);border-radius:10px;background:var(--surface-2);padding:9px 12px}
+.jsonbox .jb-nm{display:block;font-size:13.5px;font-weight:700;color:var(--text)}
+.jsonbox .jb-w{display:block;font-size:11.5px;color:var(--muted);margin-top:1px}
+.jsonbox .jb-d{display:flex;align-items:baseline;gap:8px;margin-top:7px;flex-wrap:wrap}
+.jsonbox .jb-d b{font-size:17px;font-variant-numeric:tabular-nums;color:var(--accent)}
+.jsonbox .jb-d span{font-size:11.5px;color:var(--muted)}
+.jsonbox .jb-age{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;
+ background:var(--ok-soft);color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.jsonbox .jb-age.old{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.ntbar{position:relative;display:flex;align-items:flex-end;gap:4px;height:74px;border-bottom:1px solid var(--border)}
+.ntbar button{flex:1 1 0;min-width:0;height:100%;display:flex;align-items:flex-end;background:none;
+ border:0;padding:0;cursor:pointer}
+.ntbar button i{display:block;width:100%;height:var(--h);border-radius:3px 3px 0 0;background:var(--accent);opacity:.34}
+.ntbar button:hover i{opacity:.66}
+.ntbar button.on i{opacity:1}
+.ntbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ntaxr{display:flex;gap:4px;margin:5px 0 0}
+.ntaxr span{flex:1 1 0;min-width:0;text-align:center;font-size:10px;color:var(--muted);
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#tab-learn .ntcards,#tab-blogs .ntcards{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+#tab-learn article.card,#tab-blogs article.card,#tab-learn article.card *,#tab-blogs article.card *{min-width:0}
+@media (max-width:760px){
+  .jsonbox .jb-grid{grid-template-columns:1fr}
+  .ntseg button{flex:1 1 auto;text-align:center}
+  details.ntsec>.ntbody{padding:11px}
+}
+
+/* Pasek Advanced filtering ma JEDEN ksztalt na caly portal: rozwijany `<details>`
+   ze znacznikiem `+`, zwiniety domyslnie, z licznikiem `N filters on` w podpisie.
+   Te same wartosci co pasek z 5au, ktory ten blok zastapil — dwa wyglady jednej
+   kontrolki uczylyby dwoch konwencji, a czytelnik przechodzi miedzy zakladkami
+   jednym klikiem.
+   NAZWY STAREJ KLASY NIE WOLNO TU NAPISAC. Blok jest dopisywany do arkusza strony
+   co do bajtu (0c), wiec kazde slowo tego komentarza laduje w HTML — a pozycje 74
+   i 82 pytaja, czy stary pasek zniknal. Pierwsza wersja komentarza cytowala go
+   z nazwy i zapalala obie pozycje na KAZDEJ poprawnej stronie, wiec przebieg
+   16 wrzesnia 2026 musial przeredagowac komentarz recznie zamiast publikowac.
+   To ta sama rodzina bledow co asercja o `data-mc="` pytajaca o napis, ktory
+   powstaje dopiero w przegladarce: klucz, ktory zapala sie na poprawnej stronie,
+   jest tak samo bezuzyteczny jak ten, ktory nie zapala sie nigdy (0b). Poprawione
+   po obu stronach naraz — komentarz nie cytuje juz klasy, a klucz pyta o REGULE
+   ARKUSZA starego paska, czyli o nazwe klasy z otwierajacym nawiasem klamrowym,
+   ktorej proza nie napisze przez przypadek. Zapisanie jej tutaj doslownie zlamaloby
+   ten komentarz o samego siebie — i zlamalo, przy pierwszym podejsciu. */
+details.ntfbar>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+ gap:12px;flex-wrap:wrap;margin:0}
+details.ntfbar>summary::-webkit-details-marker{display:none}
+details.ntfbar>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.ntfbar[open]>summary::before{content:"\2212"}
+details.ntfbar>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+details.ntfbar>summary .ntfscope{flex:1 1 240px}
+.ntfon{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
+ border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.ntfon[hidden]{display:none!important}
+details.ntfbar>*:not(summary){margin-top:9px}
+/* §5ay — the pinned catalog strip is a STRIP, not a panel, and it parks at the
+   MEASURED height of the masthead rather than at a constant that expired.
+   `--hdr-h` is published by SCRIPT 14 (§5at) — the same measure() that already
+   publishes `--gfbar-top`, so there is one writer for one measurement. The
+   fallback 0px matters: a run whose SCRIPT 14 did not boot gets a strip flush
+   with the top of the viewport, never a strip parked 428px down the page. */
+.cat-controls{top:var(--hdr-h,0px);z-index:31;background:var(--surface);
+ border:1px solid var(--border);border-radius:9px;padding:9px 12px;margin:0 0 12px;
+ box-shadow:0 3px 12px rgba(0,0,0,.16)}
+.cat-controls .cat-searchrow{margin:0}
+.cat-controls .s7tips,.cat-controls details.morefilters{margin-left:0;margin-right:0}
+.catalog .cat-split{scroll-margin-top:calc(var(--hdr-h,0px) + 84px)}
+@media (max-width:760px){
+ /* §1a already makes it static below 760px; here it only stops looking like chrome */
+ .cat-controls{box-shadow:none;border:0;padding:0;background:none;margin:0 0 10px}
+}
+/* §5az — Message Center jako wymiar. Kazdy selektor zaczyna sie od klasy, ktora tworzy
+   wylacznie SKRYPT 16, albo od `#tab-mc`, wiec nic stad nie wycieka na reszte strony.
+   Zwijanie sekcji `.mcsec` przychodzi z katalogu odwrotnego §5an bez ani jednej nowej
+   reguly — i to jest cala korzysc z tego, ze katalog jest ODWROTNY. */
+details.mcsec>summary .mcn{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted);flex:0 0 auto}
+.mcchip{font:inherit;font-family:var(--mono);font-size:11.5px;font-weight:700;line-height:1.5;
+ padding:1px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);
+ color:var(--accent);cursor:pointer;white-space:nowrap}
+.mcchip:hover{background:var(--accent);color:var(--on-accent)}
+.mcchip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mcnone{color:var(--muted);font-family:var(--mono);font-size:12px}
+.mccount{font:inherit;font-family:var(--sans);font-size:14px;font-weight:700;
+ font-variant-numeric:tabular-nums;padding:2px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+.mccount:hover{background:var(--accent);color:var(--on-accent)}
+.mcz{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;padding:0 11px}
+.mcseen{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+ letter-spacing:.04em;padding:1px 7px;border-radius:5px;margin:2px 3px 0 0;white-space:nowrap;
+ background:var(--surface-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--border)}
+.mcseen.s-mc{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.mcseen.s-doc{background:var(--ins-bg);color:var(--ins-fg);box-shadow:inset 0 0 0 1px var(--ok)}
+.mcseen.s-blog{background:var(--warn-soft);color:var(--warn);box-shadow:inset 0 0 0 1px var(--warn)}
+.mcact{background:var(--bad-soft);color:var(--bad);box-shadow:inset 0 0 0 1.5px var(--bad);
+ border-radius:999px;font-size:10.5px;font-weight:700;padding:1px 8px;white-space:nowrap}
+#tab-mc tr.mcflash>td{background:var(--accent-soft)!important;box-shadow:inset 3px 0 0 var(--accent)}
+#tab-mc .mclinks{margin:10px 0 0;padding:0;list-style:none;font-size:13px}
+#tab-mc .mclinks li{margin:0 0 5px}
+#tab-mc .mclinks .mcwhat{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted);margin-right:7px}
+#tab-mc .mcempty{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0;font-size:13px}
+@media (max-width:760px){.mcchip,.mccount{white-space:normal}}
+/* §5bb — jeden renderer zmiany tekstu. Klas `.ntdiff*` juz nie ma: rodzine usunieto
+   z bloku §5aw razem z `lineBox()`, bo regula dla klasy, ktorej nic nie renderuje,
+   jest martwa i myli nastepny przebieg (§5au). Zostaje tu wylacznie to, czego
+   `.s12file` z §5ar jeszcze nie mialo: znacznik sieroty. */
+.s12file:not([data-ntowner]){outline:2px dashed var(--warn);outline-offset:-2px}
+.s12file.s12orphan{outline:2px dashed var(--bad);outline-offset:-2px}
+.s12file.s12orphan::before{content:"This change block is not inside the section its owner names";
+ display:block;padding:7px 13px;background:var(--bad-soft);color:var(--bad);
+ font-size:12px;font-weight:700;border-bottom:1px solid var(--bad)}
+#tab-learn .s12file+.s12file,#tab-blogs .s12file+.s12file{margin-top:10px}
+/* §5bc — the catalog says how big it is, and the seven-day headline says what moved.
+   Every selector starts from a class only SCRIPT 17 creates, so nothing here leaks
+   onto the rest of the page. Variables are the ones the sheet already declares (§5t). */
+.catmore{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:var(--surface-2);
+ border:1px solid var(--border);border-left:4px solid var(--accent);font-size:12.5px;color:var(--text)}
+.catmore b{color:var(--accent)}
+.catfind{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 9px}
+.catfind input{flex:1 1 240px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;
+ border-radius:8px;background:var(--ok-soft);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.catfind input::placeholder{color:var(--muted);font-weight:400}
+.catfind input:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ok-soft)}
+.catfind .cfn{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.catwhy{background:var(--info-soft);border:1px solid var(--info);border-radius:10px;
+ padding:9px 12px;font-size:13px;color:var(--text);margin:0 0 10px}
+.catwhy[hidden]{display:none!important}
+.cathits{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.cathits button{font:inherit;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--info);background:var(--surface);color:var(--info);cursor:pointer}
+.cathits button:hover{background:var(--info);color:var(--on-accent)}
+.cathits button .cfw{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+ color:var(--muted);margin-left:6px}
+.cathits button:hover .cfw{color:var(--on-accent)}
+details.g7{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.g7>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 15px}
+details.g7>summary::-webkit-details-marker{display:none}
+details.g7>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;
+ width:22px;height:22px;flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.g7[open]>summary::before{content:"\2212"}
+details.g7>summary .g7t{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;
+ font-weight:700;color:var(--muted)}
+details.g7>summary .g7n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.g7[open]>summary{border-bottom:1px solid var(--border)}
+details.g7>*:not(summary){margin-left:15px;margin-right:15px}
+details.g7>*:not(summary):first-of-type{margin-top:12px}
+details.g7>*:not(summary):last-child{margin-bottom:14px}
+.g7quiet{background:var(--surface-2);border:1px dashed var(--border);border-radius:10px;
+ padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
+.g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
+@media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
+/* §5av — green is the colour of a filter, on every surface of the portal.
+   An OVERRIDING block: each of these rules lives in a block whose fragments are gate
+   keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
+   are correct as they stand. This wins by source order at EQUAL specificity (5k), which
+   is why every pair is spelled out: `.filterbanner` does not beat `.filterbanner.s11`,
+   and `.filterbanner .fb-clear` does not beat `.filterbanner.s10 .fb-clear`. */
+.filterbanner,.bkbanner{background:var(--ok-soft);border-color:var(--ok)}
+.filterbanner.s10,.filterbanner.s11{background:var(--ok-soft);border-color:var(--ok)}
+.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}
+.filterbanner .fb-msg b,.bkbanner .bk-msg b{color:var(--ok)}
+.filterbanner.s11 .nb-lab,.gfbar .gf-lead{color:var(--ok)}
+.gfbar .gf-chip{border-color:var(--ok)}
+.gfbar .gf-chip b{color:var(--ok)}
+.filterbanner .fb-clear,.bkbanner .bk-clear,.gfbar .gf-reset{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner.s10 .fb-clear,.filterbanner.s11 .fb-clear{
+ border-color:var(--ok);background:var(--ok);color:var(--on-accent)}
+.filterbanner .fb-clear:hover,.bkbanner .bk-clear:hover,.gfbar .gf-reset:hover,
+.filterbanner.s10 .fb-clear:hover,.filterbanner.s11 .fb-clear:hover{
+ background:var(--surface);color:var(--ok)}
+.filterbanner .fb-clear:focus-visible,.bkbanner .bk-clear:focus-visible,
+.gfbar .gf-reset:focus-visible,.gfbar .gf-x:focus-visible{outline-color:var(--ok)}
 /* the red x stays red: it does not say a filter is ON, it says you can take it off */</style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -4822,7 +6012,7 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 20 September 2026</b> &middot; published 06:08 Warsaw &middot; 6 &ndash; 20 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since this morning</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 42 inside 30, 0 due today</span></a><a class="count" href="#graph"><b>617</b> undocumented at Microsoft<span>&middot; 617 permissions, 0 roles</span></a><a class="count" href="#graph"><b>386</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>9</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>30</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>7</b> changes since 19 Sep<span>&middot; 5 at Microsoft, 2 in this report</span></a><a class="count" href="#chg14"><b>1119</b> changes in 14 days<span>&middot; 13 days with a run, 22 runs</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 23 September 2026</b> &middot; published 13:05 &middot; re-checked 21:10 Warsaw &middot; 9 &ndash; 23 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since this morning</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 41 inside 30, 0 due today</span></a><a class="count" href="#graph"><b>631</b> undocumented at Microsoft<span>&middot; 631 permissions, 0 roles</span></a><a class="count" href="#graph"><b>374</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>4</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>58</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>8</b> changes since 20 Sep<span>&middot; 5 at Microsoft, 3 in this report</span></a><a class="count chg" href="#pmdelta"><b>10</b> since the morning pass<span>&middot; 8 at Microsoft, 2 in this report</span></a><a class="count" href="#chg14"><b>983</b> changes in 14 days<span>&middot; 11 days with a run, 18 runs, 3 days with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -4880,7 +6070,7 @@ A–N are authoring labels for STEP 2 only. On the page, letters run in READING 
 - **Header**: `<header class="top">` › `.top-inner` › `.title-row` (h1 + `.dateline` + `.hdr-tools` with `<button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button>`), then `.counts` with one `<a class="count" href="#section">` per counter — each links to its explaining section and switches tab; `crit` for deadlines, `chg` for changes. Then an empty `<nav class="anchors"></nav>`.
 - **The header is the masthead, not a caption.** h1 27px, dateline 14px, counters 17px in padded pills. Never shrink them.
 - **Navigation is the primary control.** The shell renders a boxed segmented tab bar — active tab filled with the accent, every tab count-badged — and beneath it a `.tabctx` line naming the open tab, its section count and a chip per section. You author neither: only `data-tab` on each panel (one or two words) and a real `<p class="sec-title">` per section. Those two strings are the navigation.
-- **Sections**: `<section id="delta" data-nav="Changes">` › `<div class="sec-head"><h2>Section B</h2><p class="sec-title">Changes since the 18 September briefing</p></div>` › `<div class="sec-body">…</div>`. `<h2>` is the letter marker, `sec-title` the title. The script appends row count and collapse control.
+- **Sections**: `<section id="delta" data-nav="Changes">` › `<div class="sec-head"><h2>Section E</h2><p class="sec-title">Changes since the 18 September briefing</p></div>` › `<div class="sec-body">…</div>`. `<h2>` is the letter marker, `sec-title` the title. The script appends row count and collapse control.
 - **Top-N takes no `data-nav`** and no number you can get wrong: write `Top N of the day` and give it the cards; the script counts and rewrites.
 - **Tables**: `<div class="tw"><table><thead><tr><th>…</th></tr></thead><tbody>…</tbody></table></div>`. No hand-written colgroups, toolbars or sort handlers. Headers stay in the standard vocabulary (Product, Item, Kind, Change type, Status, Published, Deadline, Do it before, Days, Scope, Consent, Privileged, Impact, Action, Source and variants) — widths and the window control come from those names.
 - **EVERY TABLE NEEDS A TIME AXIS STARTING AT "TODAY".** The shell puts **Today / 7 / 14 / 30 / All** on any table with `Published`, `Dated`, `Changed`, `Last updated` or `Revised`, and **Today / 7 / 14 / 30 / 60 / All** "Due in" on any with `Deadline`, `Due`, `Do it before`, `Act by`, `Effective` or `Retires`. Both catalogs carry **Today / 7 / 14 / 30 / 90 / All**. Identical vocabulary everywhere: one mental model, one first click. `All` is the default; `Today` means published/due/changed today. A table with neither column gets no window and the reader cannot ask *what landed today?* So:
@@ -5022,4 +6212,11 @@ does not duplicate the figures, and silent when the state block is absent.
 
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
+
+CORRECTED 23 September 2026: this page carries FOURTEEN `.tabpanel` divs, THREE shell behaviour scripts copied from the
+previous page's shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus twenty-five appended CSS blocks, all of
+which were cut out of CLAUDE.md in this run and never copied from yesterday's page (CLAUDE.md 0c). The sections are:
+elapsed-overview, top5, picks, delta, new, docchanges, elapsed, deadlines, horizon, exec, products, watchlist, components, roles,
+graph, kql, actions, strategic, sources, coverage, community. tab-mc, tab-learn and tab-blogs are written EMPTY and are built by
+SCRIPT 16 and SCRIPT 15 v2 from the `mc` and `nt` keys of soc-brief-state.
 -->
