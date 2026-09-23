@@ -254,7 +254,12 @@ przyczyna nie jest w regulach.
 5. Przenies poprzednia wersje do `site/history/RRRR-MM-DD-poranny.html` (zasada 2).
 6. Migawka powloki powstala sama w kroku 3 (`site/shell/`, §0d) — **gdy plik sie zmienil,
    dodaj go `git add --sparse site/shell/`** (§5ai), bo lezy poza materializowanym zestawem.
-7. `git pull --rebase origin main`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
+7. **Spakuj archiwum procedura §0h — TO JEST KROK LUSTRA, nie osobny przebieg.** Lustro jako
+   jedyny przebieg poranny trzyma repozytorium, wiec jako jedyne moze to zrobic; scheduled task
+   buduje artefakt i nie commituje niczego (§0a, podzial rol). Pakowanie idzie PRZED commitem
+   z kroku 8, zeby dzisiejszy stan i wczorajsza strona weszly do niego juz spakowane. Zasada 2
+   nie jest naruszona: `site/history/` nie traci ani jednego pliku, traci wylacznie rozmiar.
+8. `git pull --rebase origin <twoj ref>`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
 
 ### Strona `/diff/` — ten sam skrypt, tryb `--diff`
 
@@ -2848,18 +2853,33 @@ Slownik stanow jest ZAMKNIETY, jak kazdy inny slownik w tym pliku:
 **Wpis `ZBUDOWANE` usuwa sie z rejestru dopiero wtedy, gdy jego pozycja bramki istnieje i przeszla
 co najmniej jeden przebieg.** Do tego czasu zostaje, zeby „zbudowane" tez dalo sie zakwestionowac.
 
-**PRZEBIEG, KTORY COS ZBUDOWAL, PROMUJE TO W TYM SAMYM PRZEBIEGU.** Stan w tej tabeli zmienia ten,
-kto opublikowal artefakt niosacy uzgodniona rzecz i zobaczyl jej pozycje bramki na zielono —
-nie nastepny przebieg i nie wlasciciel. Zmierzone 16 wrzesnia 2026: **17 z 18 wpisow nadal mowilo
-`ZASPECYFIKOWANE` przy „Brakuje pierwszego opublikowanego artefaktu", podczas gdy strona tego dnia
-niosla je wszystkie**, a bramka zglaszala pozycje 80-91 jako OK. Wlasciciel musial to zauwazyc sam,
+**PROMUJE LUSTRO, BO TYLKO ONO TRZYMA REPOZYTORIUM.** Pierwsza wersja tej reguly brzmiala
+„przebieg, ktory cos zbudowal, promuje to w tym samym przebiegu" i **byla niewykonalna z konstrukcji**:
+buduje scheduled task, a scheduled task **nie commituje niczego** (§0a, podzial rol) — nie ma wiec
+jak zmienic wiersza w tym pliku. Regula zadala czynnosci od przebiegu, ktory fizycznie nie moze jej
+wykonac, wiec promocja nie zdarzyla sie ani razu i rejestr sie zatkal. Zmierzone 23 wrzesnia 2026:
+**14 z 31 wpisow stalo przy `ZASPECYFIKOWANE` i „Brakuje pierwszego opublikowanego artefaktu",
+podczas gdy pilnujace ich pozycje 90-97 zglaszaly `OK` na opublikowanej stronie** — dokladnie ten
+sam objaw, ktory 16 wrzesnia dal 17 z 18, opisany nizej, i naprawiony wtedy regula, ktorej nikt nie
+mogl wykonac. **To jest ta sama choroba co regula opisana proza obok kodu, ktory jej nie realizuje
+(§5ae): czyta sie jak zrobiona.**
+
+Stan w tej tabeli zmienia wiec **routine lustra o 07:00**, w kroku 7 swojej procedury (§0a), bo
+jest jedynym przebiegiem porannym, ktory ma repozytorium i pisze do niego. Scheduled task, ktory
+zbudowal artefakt niosacy uzgodniona rzecz, **wymienia ja w odpowiedzi z nazwy wpisu** — i to jest
+cale, co moze zrobic; lustro nastepnego dnia czyta artefakt, widzi ja u siebie i promuje. Wlasciciel
+nie promuje nigdy. Zmierzone 16 wrzesnia 2026: **17 z 18 wpisow nadal mowilo `ZASPECYFIKOWANE`
+przy „Brakuje pierwszego opublikowanego artefaktu", podczas gdy strona tego dnia niosla je
+wszystkie**, a bramka zglaszala pozycje 80-91 jako OK. Wlasciciel musial to zauwazyc sam,
 czyli rejestr — ktory istnieje po to, zeby cisza o rzeczy uzgodnionej nie wygladala jak jej brak —
 zaczal klamac w druga strone: mowil o braku tam, gdzie braku juz nie bylo. **Rejestr, ktoremu nie
 mozna wierzyc w obie strony, nie jest rejestrem.**
 
-Promocja ma dwa warunki i oba musza byc spelnione w tym samym przebiegu:
-**(1)** rzecz jest w artefakcie, ktory ten przebieg wlasnie opublikowal albo odbil, oraz
+Promocja ma dwa warunki i oba musza byc spelnione w tym samym przebiegu LUSTRA:
+**(1)** rzecz jest w artefakcie, ktory to lustro wlasnie odbilo do `site/index.html`, oraz
 **(2)** pozycja listy §0, ktora jej pilnuje, dala `OK` — z numeru, a nie „chyba przeszlo".
+Pozycja klasy B zgloszona jako `BRAK` na sciezce lustra **nie promuje**: artefakt tego dnia tej
+rzeczy nie niosl, a to jest dokladnie stan, o ktorym rejestr ma mowic (§0).
 Kolumna `co brakuje` zamienia sie wtedy w **dowod**: numer pozycji i data przebiegu. Rzecz
 zbudowana, ktorej zadna pozycja nie pilnuje, **nie jest `ZBUDOWANE`** — jest `ZASPECYFIKOWANE`
 z powodem „brakuje pozycji bramki", bo bez niej jutro nie da sie odroznic dzialajacej funkcji
@@ -2897,7 +2917,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `mc-dates-column` | **tabela Message Center niesie `Published` i `Revised` zaraz po identyfikatorze**, a brak daty drukuje powod | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 18 i pozycja 101. `mc_view()` przenosi `revisedOn` na wiersz. **Luka pomiarowa zostaje i ma wlasny wpis** — `revisedOn` stoi dzis na 0 z 239 wpisow, a zamyka to `mc-revision-sweep`. Brakuje pierwszej opublikowanej strony zmian |
 | `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian |
 | `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** |
-| `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **Brakuje pierwszego przebiegu, ktory spakuje archiwum w repozytorium** — z sesji 17 wrzesnia nie dalo sie tego wypchnac, bo proxy odmowilo pushu do `wpiotrw/MS_SOC` |
+| `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **ZROBIONE miedzy 17 a 20 wrzesnia 2026** — zmierzone na `main` HEAD `658e17d` dnia 23 wrzesnia: **59 plikow `.gz`**, `site/` **98 168 539 B**, czyli **37% limitu 262 144 000 B** zamiast 102%. Niespakowane zostaja wylacznie cztery ostatnie stany (`data/2026-09-17..20.json`) i dwie ostatnie strony poranne — to jest wynik procedury, a nie jej brak, bo dwa najnowsze stany i oba rejestry zostaja jawne z zalozenia. Pakowanie jest odtad **krokiem 7 procedury lustra (§0a)**, wiec nie wymaga osobnego przebiegu |
 | `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
 | `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
 
