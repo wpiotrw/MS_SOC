@@ -1020,7 +1020,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97"}
+           "93","94","95","96","97","105","106"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2370,6 +2370,35 @@ def gate(path, site=None, mirror=False, doc=None):
              "Dopisz zdanie z 0a punkt 4 — w jezyku czytelnika, bez nazywania uslugi (0e punkt 4, "
              "pozycja 73)." % (_bd104, _now104))
 
+    # ---- 105: BANER, KTORY NIE MA CZEGO ZGLOSIC, JEST CHOWANY (5bd). KLASA B.
+    # 23 wrzesnia 2026, zmierzone na opublikowanej stronie: po `Reset all filters` wiersze
+    # wracaly (Deadlines 265 -> 311), ale CZTERY banery `filterbanner s11` zostawaly na
+    # ekranie i dalej mowily „showing 6 of 9". Czytelnik widzi baner, nie tablice wierszy,
+    # wiec dla niego filtr NIE zostal zdjety. Przyczyna: `if (!on.length) return;` wychodzilo
+    # z funkcji PRZED schowaniem banera, ktory juz wisial. To ta sama rodzina co §5ao
+    # odwrocona: filtr, ktorego nie widac, jest nie do cofniecia — a baner bez filtru jest
+    # zdaniem o stanie, ktorego nie ma (§4).
+    K105 = ("if (!on.length) { if (ban) ban.hidden = true; return; }",
+            '.filterbanner.s11[hidden]{display:none!important}')
+    need("105", "baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem (5bd)",
+         all(k in h for k in K105),
+         "brak: %s" % ", ".join(k for k in K105 if k not in h))
+
+    # ---- 106: JEDEN PISARZ NA ZDJECIE FILTRU, I PASEK ROWNA SIE Z TRESCIA (5bd). KLASA B.
+    # `clearAll` pisalo `TAB[p.id] = null` wprost, wiec `onclear` ustawiajacego NIE bylo
+    # wolane i menu paska Advanced filtering zostawalo zaznaczone po `Clear filter` przy
+    # tabeli — dokladnie ten kontrakt, ktory §5au opisuje i ktorego ta jedna linia nie
+    # dotrzymywala. Zdejmowanie filtru ma JEDNA droge: `clearTab`, bo to ona wola `onclear`.
+    # Szerokosc: `.gfbar` nie miala `max-width`, wiec przy 1900 px miala 1885 px przy tresci
+    # 1500 px i wystawala o 192 px z kazdej strony — jedyny element portalu, ktory nie stoi
+    # w siatce §5x. Klucz celuje w `max-width` RAZEM z paddingiem `.wrap`, bo sam `max-width`
+    # przy innym paddingu daje krawedzie rozjezdzajace sie o 12 px.
+    K106 = ("    if (p) clearTab(p.id);",
+            "max-width:1500px;margin:0 auto;padding:8px 20px;background:var(--accent-soft);")
+    need("106", "filtr zdejmuje sie przez clearTab, a pasek stoi w siatce tresci (5bd)",
+         all(k in h for k in K106),
+         "brak: %s" % ", ".join(k for k in K106 if k not in h))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2920,6 +2949,8 @@ od tej, ktora po cichu wypadla (§0b).
 | `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **ZROBIONE miedzy 17 a 20 wrzesnia 2026** — zmierzone na `main` HEAD `658e17d` dnia 23 wrzesnia: **59 plikow `.gz`**, `site/` **98 168 539 B**, czyli **37% limitu 262 144 000 B** zamiast 102%. Niespakowane zostaja wylacznie cztery ostatnie stany (`data/2026-09-17..20.json`) i dwie ostatnie strony poranne — to jest wynik procedury, a nie jej brak, bo dwa najnowsze stany i oba rejestry zostaja jawne z zalozenia. Pakowanie jest odtad **krokiem 7 procedury lustra (§0a)**, wiec nie wymaga osobnego przebiegu |
 | `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
 | `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
+| `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — `max-width:1500px` i ten sam padding co `.wrap`, wiec jego krawedzie sa krawedziami paska zakladek i tabel | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `filter-removal-one-writer` | **zdjecie filtru ma JEDNA droge** — `clearTab`, bo tylko ona wola `onclear` ustawiajacego; a baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 105. **Zgloszenie wlasciciela z 23 wrzesnia: `Reset all filters` nic nie robi.** Zmierzone na opublikowanej stronie: wiersze WRACALY (Deadlines 265→311, Today 19→34), ale zostawaly 2-4 banery `filterbanner s11` mowiace `showing 6 of 9`, wiec dla czytelnika filtr wisial dalej. Po poprawce piec zakladek wraca do stanu wyjsciowego z zerem banerow i zerem chipow. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 
 
 
@@ -16116,7 +16147,7 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
       (rec.__narrowed ? (rec.hasIds && tabSpec.ids && tabSpec.ids.length ? "" : " (matched on the text of each row, not on an id)")
                       : " (this filter names no row this table can match, so it is left whole)"));
     var ban = rec.banner || existingBanner(rec.table);
-    if (!on.length) return;
+    if (!on.length) { if (ban) ban.hidden = true; return; }
     if (!ban) {
       ban = el("div", "filterbanner s11");
       ban.appendChild(el("span", "fb-msg"));
@@ -16142,7 +16173,7 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
     if (rec.colSel) rec.colSel.value = "-1";
     rec.sels.forEach(function (s) { s.value = ""; });
     var p = panelOf(rec.table);
-    if (p) TAB[p.id] = null;
+    if (p) clearTab(p.id);
     /* the shell's side is cleared by pressing the button the shell wired itself,
        so its own state and ours end in the same place without editing it */
     var rb = [].slice.call(rec.bar.querySelectorAll("button")).filter(function (b) { return txt(b) === "Reset"; })[0];
@@ -18211,9 +18242,10 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
    creates, or from `#tab-components`. Variables are the ones the sheet already
    declares (§5t): `--surface-2`, `--accent-soft`, `--muted`, never an invented name. */
 .gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
- display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto;
- padding:8px 14px;background:var(--accent-soft);
- border-bottom:1px solid var(--accent);color:var(--text);font-size:13px;
+ display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+ max-width:1500px;margin:0 auto;padding:8px 20px;background:var(--accent-soft);
+ border-bottom:1px solid var(--accent);border-radius:0 0 10px 10px;
+ color:var(--text);font-size:13px;
  box-shadow:0 2px 10px rgba(0,0,0,.18)}
 .gfbar[hidden]{display:none!important}
 .gfbar .gf-lead{flex:0 0 auto;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
@@ -18238,7 +18270,7 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
   /* §1a makes the masthead static on a phone, so `--gfbar-top` measures to zero and
      the line sticks to the very top — the one control that survives a tab switch
      must not be the one control that scrolls away (§5ao). */
-  .gfbar{padding:7px 10px;gap:7px}
+  .gfbar{padding:7px 12px;gap:7px}
   .gfbar .gf-list{width:100%}
   .gfbar .gf-reset{width:100%;text-align:center}
 }
@@ -18372,7 +18404,7 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
     var b = mount();
     if (!b) return;
     var items = providers();
-    if (!items.length) { b.hidden = true; return; }
+    if (!items.length) { lead.textContent = "Filtered"; list.textContent = ""; b.hidden = true; return; }
     b.hidden = false;
     measure();
     lead.textContent = items.length === 1 ? "1 filter is on" : (items.length + " filters are on");
@@ -22520,6 +22552,108 @@ w pliku strony glownej, a `verify()` w `make_diff.py` zielonego `.navbanner` na 
 **Zadnej nowej pozycji nie dodajemy** — to jest ten sam wymog co „filtr globalny mowi, ze jest
 wlaczony", tylko dopowiedziany do konca: pasek, ktorego czytelnik nie odroznia od kazdego innego
 niebieskiego elementu strony, mowi slabiej, niz mogl.
+
+## 5bd. FILTR ZDEJMUJE SIE JEDNA DROGA, A PASEK STOI W SIATCE TRESCI
+
+Zgloszenie wlasciciela z 23 wrzesnia 2026, dwa zdania i obydwa byly prawdziwe:
+*„patrze jak wyglada w kazdej zakladce, a chcialbym zeby byl wielkosci tak jak ta czerwona ramka"*
+oraz *„jak kliknie reset filters na tym zielonym pasku to nic sie nie dzieje — ani nie resetuje sie
+filtr, ani pasek nie znika"*. Obie rzeczy zostaly NAJPIERW zmierzone na opublikowanej stronie
+(`orange-ground-019f30603.7.azurestaticapps.net`, build z 20 wrzesnia), dopiero potem poprawione.
+
+### 1. `Reset all filters` czyscil wiersze i zostawial zdanie, ze tego nie zrobil
+
+**Zmierzone, zakladka Deadlines:** stan wyjsciowy 311 wierszy i zero banerow; po jednym wyborze
+w pasku Advanced filtering 265 wierszy i piec banerow; po `Reset all filters` **311 wierszy** —
+czyli filtr ZOSTAL zdjety — i **cztery banery**, ktore dalej mowily `Filtered by Status: Retiring
+— showing 6 of 9`. To samo na Today (19 → 34 wierszy, dwa banery zostaja), New (495 → 572, trzy
+banery) i Graph API.
+
+Czytelnik nie liczy wierszy. Czytelnik czyta baner. **Dla niego filtr nie zostal zdjety** — i to
+jest cala tresc zgloszenia „nic sie nie dzieje".
+
+Przyczyna jest jedna linia w SKRYPCIE 11:
+
+```
+var ban = rec.banner || existingBanner(rec.table);
+if (!on.length) return;
+```
+
+Gdy ostatni filtr znika, `on` jest puste i funkcja wychodzi **przed** schowaniem banera, ktory juz
+wisi. Baner nie jest rysowany na nowo, wiec zostaje z licznikiem sprzed zdjecia filtru. Poprawka:
+
+```
+if (!on.length) { if (ban) ban.hidden = true; return; }
+```
+
+To jest §5ao odwrocone. Tamta sekcja mowi, ze **filtr, ktorego nie widac, jest filtrem, ktorego nie
+da sie cofnac**; ta mowi, ze **baner bez filtru jest zdaniem o stanie, ktorego nie ma** (§4). Regula
+ogolna, ktora z tego wynika i obowiazuje kazdy baner w portalu: **element, ktory oglasza stan,
+odpowiada rowniez za oglaszanie jego braku — wyjscie z funkcji przed schowaniem to nie to samo co
+schowanie.**
+
+### 2. Zdjecie filtru mialo dwie drogi, a `onclear` znal tylko jedna
+
+`clearAll(rec)` pisalo `TAB[p.id] = null` **wprost**. `onclear` ustawiajacego wola wylacznie
+`clearTab` (§5at), wiec przy `Clear filter` przy tabeli menu paska Advanced filtering zostawalo
+zaznaczone: filtr zdjety, kontrolka dalej pokazuje wybor. Dokladnie ten kontrakt §5au opisuje
+i dokladnie ta jedna linia go nie dotrzymywala.
+
+Poprawka to `if (p) clearTab(p.id);` — **jeden pisarz na zdjecie filtru**, ta sama zasada co
+„jeden pisarz na mechanizm" z §5au i §5ap. Zmierzone po zmianie: `Clear filter` przy tabeli
+zostawia 0 banerow, 0 chipow i puste menu, przy 311 wierszach z powrotem.
+
+Przy okazji: `draw()` w SKRYPCIE 14 chowal pasek, nie kasujac jego tresci, wiec w DOM zostawal chip
+sprzed zdjecia filtru — niewidoczny, ale pasek ma `role="status"` i czytnik ekranu dostawal zdanie
+o filtrze, ktorego nie ma. `lead` wraca do `Filtered`, `list` do pustego.
+
+### 3. Pasek byl jedynym elementem portalu poza siatka
+
+**Zmierzone przy 1900 px:** `.gfbar` zajmowal `0 → 1885`, a `.wrap` i `.top-inner` `200 → 1700`.
+Pasek wystawal o **192 px z kazdej strony** i nie mial `max-width` wcale — `margin:0 auto` bez
+gornego limitu nie centruje niczego, bo nie ma czego centrowac.
+
+Wlasciciel poprosil o szerokosc tresci, i to jest ta sama decyzja co §5x: **jedna linia siatki na
+caly portal.** `max-width:1500px` razem z `padding:8px 20px`, czyli tym samym paddingiem co `.wrap`
+— sam `max-width` przy innym paddingu daje krawedzie rozjezdzajace sie o 12 px, bo `*` ma
+`box-sizing:border-box` (§5k). Na telefonie padding idzie na 12 px, tak jak `.top-inner` w §1a.
+Doklejone `border-radius:0 0 10px 10px`, zeby skrocony pasek czytal sie jako pasek, a nie jako
+przyciete pasmo.
+
+**`border-bottom` zostaje `border-bottom`, nie staje sie `border`** — i to jest swiadome. §5av
+ustawia zielen filtru regula `.gfbar{background:var(--ok-soft);border-bottom-color:var(--ok)}`,
+ktora koloruje WYLACZNIE dolna krawedz; ramka z czterech stron dalaby trzy krawedzie akcentowe
+i jedna zielona, czyli pasek filtru w dwoch kolorach naraz.
+
+### Zmierzone po poprawce
+
+| co | przed | po |
+|---|---|---|
+| `.gfbar` przy 1900 px | `0 → 1885` przy tresci `200 → 1700` | `200 → 1700`, **identyczne z `.wrap`** |
+| 1500 / 1280 / 390 px | wystawal | `0 → 1500`, `0 → 1280`, `0 → 390`, zawsze rowno z `.wrap` |
+| `Reset all filters`, piec zakladek | wiersze wracaly, **2-4 banery zostawaly** | wiersze wracaja, **0 banerow, 0 chipow, pasek schowany** |
+| `Clear filter` przy tabeli | 4 banery zostawaly, menu zaznaczone | 0 banerow, menu puste |
+| krzyzyk na jednym chipie przy dwoch wymiarach | chip zostawal w DOM | chip znika, pozostale filtry zostaja |
+| przewijanie poziome, 4 szerokosci x 2 motywy | 0 px | 0 px |
+| bledy strony i konsoli | zero | zero |
+
+Kontrola odwrotna (§0b): pozycje 105 i 106 uruchomione na **starej** opublikowanej stronie daja
+`BRAK` obie, a na stronie z tym plikiem `OK` obie. Asercja, ktora nie zapala sie na zepsutej
+stronie, jest tym samym co asercja zapalajaca sie na poprawnej — obie sa bezuzyteczne.
+
+### Arkusz i kod
+
+**Nowego bloku CSS NIE MA** — zmiana siedzi w istniejacym bloku §5at, wiec blokow zostaje tyle,
+ile bylo (§0c). Nowego skryptu tez nie ma: trzy linie w SKRYPCIE 11 i jedna w SKRYPCIE 14.
+
+### Walidator — pozycje 105 i 106 listy §0
+
+- **105** — `if (!on.length) { if (ban) ban.hidden = true; return; }` jest w pliku, a arkusz niesie
+  `.filterbanner.s11[hidden]{display:none!important}`, bo `hidden` bez tej reguly nic nie chowa
+  w elemencie o `display` ustawionym z arkusza (§5ae).
+- **106** — `if (p) clearTab(p.id);` jest w pliku, a `.gfbar` niesie `max-width:1500px` RAZEM
+  z paddingiem `.wrap`. Obie klasy B: lustro tylko kopiuje, wiec naprawi je pierwszy przebieg
+  BUDUJACY.
 
 ## 6. Kontrakt w stronie
 
