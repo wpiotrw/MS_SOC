@@ -833,6 +833,7 @@ ignorowac czerwone.
    python3 gate.py <gotowy.html> [<site/>] [--doc CLAUDE.md] [--mirror]  | kod 1 = NIE PUBLIKUJ
 Sprawdza pozycje listy Sec.0, ktorych STEP 4 dotad nie sprawdzal wcale."""
 import sys, re, json
+import html as _htmllib
 from html.parser import HTMLParser
 
 def blocks(h):
@@ -1020,7 +1021,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106"}
+           "93","94","95","96","97","105","106","107","83b"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -1989,8 +1990,24 @@ def gate(path, site=None, mirror=False, doc=None):
         _same = len(set(_up)) == 1 and _up[0] == (st["soc-brief-state"] or {}).get("briefDate")
         _zero = all((c in (0, None)) for c in _ch)
         _nowin = [x.get("label") for x in _js if x.get("updated") and not x.get("window")]
-        need("85", "ramka Source lists podaje date PLIKU i policzone zmiany, nie daty pusha (§5aw)",
-             not (_same and _zero) and not _nowin,
+        # §5be, 24 wrzesnia 2026: przebieg NAPISAL `nt.jsons` sam — z polem `file` zamiast
+        # `label`, bez `what` i z `updated:null` "bo klon jest --depth 1". Kolektor z §5aw sam
+        # poglebia klon (`fetch --deepen=400 --filter=blob:none`) i pisze `label`, `what`,
+        # `window`; wpis bez tych kluczy nie wyszedl z kolektora. `null` jest dozwolony
+        # WYLACZNIE z notatka kolektora, ktora zaczyna sie od "shallow clone:" — czyli wtedy,
+        # gdy kolektor sprobowal poglebic i nie mogl. Ramka rysuje nazwe z `label`, wiec wpis
+        # bez niego to wiersz bez nazwy pliku — dokladnie to, co wlasciciel zobaczyl.
+        _noschema = ["%s bez %s" % (x.get("label") or x.get("file") or "?",
+                                    ",".join(k for k in ("label", "what", "window") if k not in x))
+                     for x in _js if any(k not in x for k in ("label", "what", "window"))]
+        _nullbad = [x.get("label") for x in _js
+                    if all(k in x for k in ("label", "what", "window")) and not x.get("updated")
+                    and not str(x.get("note") or "").startswith("shallow clone:")]
+        need("85", "ramka Source lists podaje date PLIKU i policzone zmiany, nie daty pusha (§5aw, §5be)",
+             not (_same and _zero) and not _nowin and not _noschema and not _nullbad,
+             ("wpisy nie z kolektora (§5be): %s" % "; ".join(_noschema)) if _noschema else
+             ("updated:null bez notatki kolektora 'shallow clone:' (§5be): %s" % ", ".join(_nullbad))
+             if _nullbad else
              ("wszystkie %d list ma te sama date %s i zerowy licznik — to sygnatura plytkiego "
               "klonu, a nie trzech list zmienionych naraz" % (len(_js), _up[0]))
              if (_same and _zero) else
@@ -2399,6 +2416,54 @@ def gate(path, site=None, mirror=False, doc=None):
          all(k in h for k in K106),
          "brak: %s" % ", ".join(k for k in K106 if k not in h))
 
+    # ---- 107: ARKUSZ BAZOWY ZACZYNA SIE OD :root (§5be, §0c). KLASA B. ----
+    # 24 wrzesnia 2026: przebieg wycial arkusz od napisu `<style>` stojacego w SRODKU kontraktu
+    # SHELL CONTRACT, wiec przed `:root{` stanal kawalek komentarza z `-->` i `<link>`. Parser CSS
+    # potraktowal go jako selektor i odrzucil cala regule `:root{…}`: zadnego `--sans`, zadnej
+    # palety jasnej, strona w Times New Roman. Komentarze HTML zdejmujemy tak, jak parser —
+    # nieleniwie, od `<!--` do PIERWSZEGO `-->` — bo `drop_contract()` z §0a konczy kontrakt
+    # na OSTATNIM `-->` przed arkuszem i ukrylby dokladnie ten blad. Asercja nie zapala sie na
+    # poprawnej stronie: tam komentarz konczy sie przed `<link>`, a arkusz od `:root{`.
+    _hnc = re.sub(r"<!--.*?-->", "", h, flags=re.S)
+    _sty = re.findall(r"<style[^>]*>(.*?)</style>", _hnc, re.S)
+    _base = [x for x in _sty if "--sans:" in x]
+    _dirty = [i for i, x in enumerate(_sty) if "-->" in x or "<link" in x or "SHELL CONTRACT" in x]
+    _lead = re.sub(r"^\s*(?:/\*.*?\*/\s*)*", "", _base[0], flags=re.S)[:6] if _base else ""
+    need("107", "arkusz bazowy zaczyna sie od :root, a zaden <style> nie niesie tekstu kontraktu (§5be)",
+         bool(_base) and _lead == ":root{" and not _dirty,
+         "arkuszy z --sans: %d; poczatek: %r; <style> z '-->'/'<link'/kontraktem: %s — powloke bierze sie "
+         "z site/shell/shell.html albo z snapshot_shell(), nigdy po napisie <style> (§0c)"
+         % (len(_base), _lead, _dirty or "brak"))
+
+    # ---- 83b: TABELA ZBIORCZA komponentow, wiersz po wierszu zgodna ze stanem (§5ag, §5be). KLASA B. ----
+    # Do 23 wrzesnia 2026 przebiegi dopisywaly ja z wlasnej inicjatywy, 24 wrzesnia jej nie bylo,
+    # a wersja z 23 wrzesnia miala `no-change` przy komponencie, ktorego `state` bylo `changed`.
+    # Tabela pisana reka jest wiec DOPUSZCZALNA tylko pod kontrola: kazdy komponent ma wiersz,
+    # a nazwa, wersja i stan w tym wierszu to dokladnie wartosci z bloku stanu.
+    _CHEAD = ["Component", "Platform", "Version", "Released", "State", "End of support", "Source"]
+    _comps = (st["soc-brief-state"] or {}).get("components") or []
+    _ctab, _crows = None, []
+    for _t in re.findall(r"<table[^>]*>(.*?)</table>", _cseg, re.S) if _cseg else []:
+        _th = [re.sub(r"<[^>]+>", "", x).strip() for x in re.findall(r"<th[^>]*>(.*?)</th>", _t, re.S)]
+        if _th == _CHEAD:
+            _ctab = _t
+            _crows = [[_htmllib.unescape(re.sub(r"<[^>]+>", "", c)).strip()
+                       for c in re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)]
+                      for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _t.split("</thead>")[-1], re.S)]
+            break
+    _cbad = []
+    for _c in _comps:
+        _v = ((_c.get("versions") or [{}])[0] or {}).get("version")
+        _hit = [r for r in _crows if r and r[0] == _c.get("name")]
+        if not _hit:
+            _cbad.append("%s: brak wiersza" % _c.get("name"))
+        elif len(_hit[0]) >= 5 and (_hit[0][2] != str(_v) or _hit[0][4] != str(_c.get("state"))):
+            _cbad.append("%s: %s/%s zamiast %s/%s" % (_c.get("name"), _hit[0][2], _hit[0][4], _v, _c.get("state")))
+    need("83b", "tabela zbiorcza Component versions: wiersz na komponent, nazwa/wersja/stan ze stanu (§5ag, §5be)",
+         _ctab is not None and bool(_comps) and not _cbad,
+         ("brak tabeli z naglowkiem %s" % " | ".join(_CHEAD)) if _ctab is None else
+         ("brak components w stanie" if not _comps else "; ".join(_cbad[:5])))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2559,8 +2624,18 @@ samo siebie (§0a), tylko o jeden dzien przesuniety.
 
 ### Regula
 
-**Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z wczorajszej strony
-(kontrakt §6, `SHELL CONTRACT`). Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
+**Powloka — trzy skrypty zachowania, arkusz podstawowy i masthead — idzie z MIGAWKI
+`site/shell/shell.html` (§0d), ktora zapisuje kod `snapshot_shell()`, a nie reka.** Czesci
+bierze sie po znacznikach `<!--SOC-SHELL part=style-->`, `part=script1..3`, `part=masthead`.
+Gdy migawki nie ma, powloke wycina z wczorajszej strony WYLACZNIE `snapshot_shell()` z §0a —
+**nigdy wyszukiwanie napisu `<style>` w tresci strony**: kontrakt `SHELL CONTRACT` wozony w
+stronie sam zawiera ten napis kilka razy (*„Copy its base `<style>` sheet…"*, *„appended at the END
+of `<style>`"*). Zmierzone 24 wrzesnia 2026 (§5be): przebieg poranny wycial „arkusz" od napisu
+`<style>` w SRODKU kontraktu, strona dostala przed `:root{` kawalek komentarza, parser CSS odrzucil
+cala regule `:root{…}` — i zniknely zmienne `--sans`, `--mono` oraz cala paleta jasna. Strona
+wyrenderowala sie w Times New Roman na przezroczystym tle. Pozycja 107 listy §0 lapie to kodem.
+Punkt 4 kroku STEP 0 w prompcie porannym (*„the `<style>` block, the five behaviour `<script>`
+blocks"*) jest nieaktualny w obu liczbach; **gdzie prompt i ten plik sie roznia, wygrywa ten plik**. Kod DODAWANY idzie z TEGO PLIKU, zawsze, co do bajtu.
 Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
 SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
 **dwadziescia piec** — liczbe
@@ -2951,6 +3026,10 @@ od tej, ktora po cichu wypadla (§0b).
 | `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
 | `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — `max-width:1500px` i ten sam padding co `.wrap`, wiec jego krawedzie sa krawedziami paska zakladek i tabel | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `filter-removal-one-writer` | **zdjecie filtru ma JEDNA droge** — `clearTab`, bo tylko ona wola `onclear` ustawiajacego; a baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 105. **Zgloszenie wlasciciela z 23 wrzesnia: `Reset all filters` nic nie robi.** Zmierzone na opublikowanej stronie: wiersze WRACALY (Deadlines 265→311, Today 19→34), ale zostawaly 2-4 banery `filterbanner s11` mowiace `showing 6 of 9`, wiec dla czytelnika filtr wisial dalej. Po poprawce piec zakladek wraca do stanu wyjsciowego z zerem banerow i zerem chipow. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `shell-from-snapshot` | **arkusz bazowy i trzy skrypty powloki ida z `site/shell/shell.html`**, nigdy z recznego ciecia wczorajszej strony po napisie `<style>` | 2026-09-24 | `ZASPECYFIKOWANE` | §0c, §5be i pozycja 107. Zmierzone 24 IX: `font-family` body = `"Times New Roman"`, tlo przezroczyste, `--sans` puste — regula `:root{…}` odrzucona przez parser. Na stronie z 23 IX pozycja daje `OK`, na stronie z 24 IX `BRAK`. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `srclists-from-collector` | **`nt.jsons` pisze wylacznie kolektor z §5aw** — `label`, `what`, `window`, a `updated:null` tylko z jego notatka `shallow clone:` | 2026-09-24 | `ZASPECYFIKOWANE` | pozycja 85 zaostrzona (§5be). 24 IX trzy wpisy mialy `file` zamiast `label` i `null` zamiast daty, wiec ramka nie pokazala ani nazw plikow, ani dat. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `components-summary-table` | **tabela zbiorcza Component versions** — siedem kolumn, wiersz na komponent, nazwa/wersja/stan skopiowane ze stanu | 2026-09-24 | `ZASPECYFIKOWANE` | §5ag i pozycja 83b. 24 IX tabeli nie bylo; 23 IX byla, ale z bledem stanu w wierszu Cloud Sync. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `advanced-bar-like-diff` | **pasek Advanced filtering portalu ma ksztalt paska ze strony zmian** — lewa krawedz 4 px w kolorze akcentu, tlo akcentu przy czynnym filtrze, przyciski-pigulki z kwadratowa kropka w jednym kolorze, licznik w przycisku jako liczba, zielone `N filter on`, `Reset` po prawej | 2026-09-24 | `ZASPECYFIKOWANE` | zmiana wylacznie regul bloku CSS §5aw, liczba blokow bez zmian (§0c); bloki CSS wycina z tego pliku kazdy przebieg budujacy (§0c) — pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz, wiec tej zmiany zadna pozycja nie pilnuje kodem i sprawdza ja render (§5h). **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 
 
 
@@ -5092,7 +5171,7 @@ details.s9adv>summary::before{content:"+";font-family:ui-monospace,SFMono-Regula
  font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
  align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
  color:var(--accent);border:1px solid var(--accent)}
-details.s9adv[open]>summary::before{content:"\2212"}
+details.s9adv[open]>summary::before{content:"−"}
 .s9advt{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
  color:var(--accent);background:var(--surface);border:1px solid var(--accent);
  border-radius:999px;padding:3px 11px;white-space:nowrap}
@@ -11098,6 +11177,36 @@ od rodzica. Wciecie przeniesione na wszystkie wiersze, kolumna liczb sie zgadza,
   tyle co komponentow; a liczby w `What this page tracks` rownaja sie policzonym ze stanu. Kafelek
   prowadzacy donikad jest gorszy niz brak kafelka, bo obiecuje i nie dowozi.
 
+### Tabela zbiorcza — jedna tabela pod kafelkami, wiersz na komponent (dopisane 24 wrzesnia 2026, §5be)
+
+Pod ostatnim `article.cmp` zakladka ma JEDNA tabele, ktora pozwala porownac wszystkie komponenty
+jednym spojrzeniem i ktora powloka zamienia w liste z sortowaniem, szukaniem i oknem czasu
+(`Released` jest w slowniku kolumn z datami, §3c). Do 23 wrzesnia 2026 przebiegi dopisywaly ja
+z wlasnej inicjatywy, 24 wrzesnia jej nie bylo — rzecz, ktorej specyfikacja nie nazywa, raz jest,
+a raz nie ma. Od teraz jest zawsze i ma DOKLADNIE ten ksztalt:
+
+```html
+<div class="tw"><table><thead><tr><th>Component</th><th>Platform</th><th>Version</th><th>Released</th><th>State</th><th>End of support</th><th>Source</th></tr></thead><tbody>
+<tr><td>Entra Connect Sync</td><td>Windows Server</td><td>2.6.91.0</td><td>release date not stated</td><td>no-change</td><td>Synchronization stops on any server below the version whose support ends on this date.</td><td class="src"><a href="…" target="_blank" rel="noopener">Entra Connect version history</a></td></tr>
+</tbody></table></div>
+```
+
+| kolumna | skad | gdy brak |
+|---|---|---|
+| Component | `name` | — (zawsze jest) |
+| Platform | `versions[0].platform` przez slownik chipow: `windows` Windows, `windows-server` Windows Server, `macos` macOS, `ios` iOS, `ipados` iPadOS, `android` Android, `apple` Apple, `cross` Cross-platform | — |
+| Version | `versions[0].version` | `unread` wg pozycji 86 |
+| Released | `versions[0].released` (ISO) | `release date not stated` |
+| State | `state` **doslownie**, jak stoi w bloku stanu (`no-change`, `changed`, `new-version`, `unread`…) | — |
+| End of support | `deadlineNote`, a gdy jest `deadline` — data przed zdaniem | `No end-of-support date stated.` |
+| Source | `sources[0]` jako link z `label` | — |
+
+**Wiersz na komponent, nie na wersje** — historia wersji zostaje w `article.cmp` nad tabela.
+**Stan jest kopiowany, nigdy przepisywany wlasnymi slowami**: tabela z 23 wrzesnia 2026 miala
+`no-change` przy agencie Cloud Sync, ktorego `state` bylo `changed`, a zdanie nad tabela mowilo
+o jego nowej wersji. Pozycja **83b** listy §0 porownuje nazwe, wersje i stan kazdego wiersza z
+blokiem stanu i nie przepuszcza strony, w ktorej choc jeden sie rozni albo brakuje wiersza.
+
 ## 5ah. Zakladka Graph API — co uprawnienie POTRAFI WYWOLAC, i ktora rola to pokrywa
 
 Wlasciciel zglosil 6 wrzesnia 2026 szesc rzeczy naraz, pokazujac obok naszej zakladki strone
@@ -14941,8 +15050,13 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
    pierwszej nowej nazwie, ktora przebieg wymysli — a to jest dokladnie ta pulapka,
    ktora tu wystapila dwa razy. Asercja renderu (§5h) mierzy to samo od drugiej strony:
    w zadnej z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz
-   `none`. */
-.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
+   `none`.
+
+   24 wrzesnia 2026 (§5be): pasek Advanced filtering ma WLASNY ksztalt (§5aw) — lewa krawedz
+   4 px i tlo akcentu przy czynnym filtrze — a ta regula ma dziesiec klas w selektorze, wiec
+   przebijala go w kazdej zakladce i pasek nigdy nie mogl wygladac jak ten na stronie zmian.
+   Z RAMKI I TLA jest wiec wylaczony; regul dla `summary` ponizej to nie dotyczy. */
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.ntfbar):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
  border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
 .tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary{
  list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
@@ -18871,33 +18985,32 @@ DWADZIESCIA**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
 /* §5aw/§5ax: zakladki Microsoft Learn i Microsoft Blogs — arkusz z zatwierdzonej makiety */
 .ntfhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 9px;
  padding-bottom:9px;border-bottom:1px solid var(--border)}
-.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
- color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);
- border-radius:999px;padding:3px 11px}
+.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
 .ntfscope{font-size:12.5px;color:var(--muted);flex:1 1 240px;min-width:0}
-.ntfbar{border:1px solid var(--border);border-radius:12px;background:var(--surface);
- padding:10px 12px;margin:0 0 14px}
-.ntfbar.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ntfbar{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;
+ background:var(--surface);padding:10px 14px;margin:0 0 14px}
+.ntfbar.on{border-color:var(--accent);background:var(--accent-soft)}
 .ntfrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .ntfsep{flex:1 1 12px;min-width:0}
 .ntfdim{position:relative}
 .ntfbtn,.ntft0,.ntfreset{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;
- display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;
- border:1px solid var(--border);background:var(--surface-2);color:var(--text);white-space:nowrap}
-.ntfbtn:hover,.ntft0:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+ display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
+ border:1.5px solid var(--border);background:var(--surface);color:var(--text);white-space:nowrap}
+.ntfbtn:hover,.ntft0:hover{border-color:var(--accent)}
 .ntfbtn:focus-visible,.ntft0:focus-visible,.ntfreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.ntfdot{width:8px;height:8px;border-radius:3px;flex:0 0 8px;background:var(--dc,var(--accent))}
+.ntfdot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--accent)}
 .ntft0 .ntfdot{background:var(--bad)}
 .ntfcar{font-size:9px;color:var(--muted);margin-left:1px}
 .ntfbn:empty,.ntft0 b:empty{display:none}
-.ntfbn{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
- border-radius:999px;background:var(--accent);color:var(--on-accent)}
+.ntfbn{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent)}
 .ntft0 b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
  border-radius:999px;background:var(--surface);color:var(--muted);border:1px solid var(--border)}
-.ntfbtn.on{border-color:var(--dc,var(--accent));background:var(--surface);color:var(--text)}
+.ntfbtn.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--surface);color:var(--text)}
 .ntft0.on{background:var(--bad);border-color:var(--bad);color:#fff}
 .ntft0.on b{background:rgba(255,255,255,.24);color:#fff;border-color:transparent}
-.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent);margin-left:auto}
 .ntfreset:hover{background:var(--surface);color:var(--accent)}
 .ntfpop{display:none;position:fixed;z-index:70;min-width:268px;width:288px;
  max-width:calc(100vw - 24px);background:var(--surface);border:1px solid var(--accent);
@@ -18936,8 +19049,7 @@ DWADZIESCIA**, a blok §5av zostaje OSTATNI, bo nadpisuje (§0c).
 .ntfq2c{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
  background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
 @media (max-width:760px){.ntfq2{flex-wrap:wrap}.ntfq2c{max-width:100%;width:100%}}
-.ntfsum{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--border);
- font-size:12.5px;color:var(--muted)}
+.ntfsum{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
 .ntfbar.on .ntfsum{color:var(--text)}
 details.ntsec.ntempty>summary{opacity:.55}
 details.ntsec.ntempty>summary .ntn{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
@@ -19069,8 +19181,8 @@ details.ntfbar>summary::before{content:"+";font-family:var(--mono);font-size:15p
 details.ntfbar[open]>summary::before{content:"\2212"}
 details.ntfbar>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 details.ntfbar>summary .ntfscope{flex:1 1 240px}
-.ntfon{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
- border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.ntfon{font-size:11.5px;font-weight:700;color:var(--ok);background:var(--surface);
+ border:1px solid var(--ok);border-radius:999px;padding:2px 10px;white-space:nowrap}
 .ntfon[hidden]{display:none!important}
 details.ntfbar>*:not(summary){margin-top:9px}
 ```
@@ -22665,6 +22777,91 @@ ile bylo (§0c). Nowego skryptu tez nie ma: trzy linie w SKRYPCIE 11 i jedna w S
 - **106** — `if (p) clearTab(p.id);` jest w pliku, a `.gfbar` niesie `max-width:1500px` RAZEM
   z paddingiem `.wrap`. Obie klasy B: lustro tylko kopiuje, wiec naprawi je pierwszy przebieg
   BUDUJACY.
+
+## 5be. POWLOKA Z MIGAWKI, RAMKA ZRODEL Z KOLEKTORA, TABELA KOMPONENTOW I JEDEN KSZTALT PASKA
+
+Zgloszenie wlasciciela z 24 wrzesnia 2026, po pierwszym porannym przebiegu po wyczerpanym limicie:
+*„czemu w tym dzisiejszym i na stronie orange jest inna zupelnie czcionka? tego nie da sie czytac"*,
+*„sekcja Source lists … nie pokazuje nazw plikow json oraz informacji, kiedy pliki zostaly
+zaktualizowane"*, *„pasek advance search jest, ale nie jest on taki jak w diff"*. Wszystko zmierzone
+na artefaktach `Microsoft SOC Brief 23 Sep 2026` i `24 Sep 2026` w Playwright, zanim cokolwiek zmieniono.
+
+### 1. Czcionka — arkusz wyciety od napisu w SRODKU komentarza
+
+| pomiar | 23 IX | 24 IX |
+|---|---|---|
+| `getComputedStyle(body).fontFamily` | `"IBM Plex Sans", …` | **`"Times New Roman"`** |
+| tlo `body` | `rgb(242,244,247)` | **przezroczyste** |
+| `--sans` na `:root` | ustawione | **puste** |
+| `<style>` z `-->` albo `<link>` w tresci | 0 | **1** |
+
+Przebieg poranny zlozyl naglowek sam: napisal nowy komentarz `SHELL CONTRACT`, otworzyl `<style>`,
+a jako „arkusz" wkleil tekst wczorajszej strony od napisu `<style>` stojacego w SRODKU wczorajszego
+kontraktu (*„…is appended at the END of `<style>`, before the mobile block"*). Przed `:root{` stanal
+wiec kawalek komentarza z `-->` i `<link>`. Parser CSS traktuje wszystko przed `{` jako selektor,
+selektor byl nieprawidlowy i **cala regula `:root{…}` zostala odrzucona** — z nia `--sans`, `--mono`
+i paleta jasna. Tryb ciemny mial kolory (redefinicja w `@media`), ale czcionek nie mial nigdzie.
+Lustro skopiowalo artefakt bajt w bajt, wiec to samo stalo na SWA.
+
+**Migawka `site/shell/shell.html` byla przez caly czas CZYSTA** — robi ja `snapshot_shell()`,
+a `contract_span()` konczy kontrakt na ostatnim `-->` przed prawdziwym arkuszem. Blad powstal
+wylacznie dlatego, ze przebieg cial reka. Stad regula w §0c: powloka z migawki, a gdy jej nie ma —
+wylacznie z `snapshot_shell()`. **Pozycja 107** zdejmuje komentarze tak jak parser (do PIERWSZEGO
+`-->`) i pyta, czy arkusz z `--sans:` zaczyna sie od `:root{` i czy zaden `<style>` nie niesie
+`-->`, `<link>` ani tekstu kontraktu. 23 IX: `OK`. 24 IX: `BRAK`.
+
+### 2. Ramka Source lists — dane napisane reka zamiast przez kolektor
+
+| | 23 IX | 24 IX |
+|---|---|---|
+| wpis | `{"label":"JSON MS Learn","updated":"2026-09-12T09:17:59+02:00","changes":2,"window":90,"what":"documentation areas"}` | `{"file":"microsoftlearn_sources.json","updated":null,"changes":0,"note":"…clone is --depth 1…"}` |
+| co widzi czytelnik | nazwa listy, data, `2 changes in the last 90 days` | **bez nazwy**, `last change not known` |
+
+Kolektor z §5aw sam poglebia klon (`git fetch --deepen=400 --filter=blob:none`) i dopiero gdy to
+nie wyjdzie, pisze `updated:null` z notatka zaczynajaca sie od `shallow clone:`. Wpis z 24 IX nie
+ma `label`, `what` ani `window`, czyli **kolektor nie zostal uruchomiony**. Pozycja 85 przepuszczala
+to, bo pytala tylko o sygnature trzech identycznych dat; teraz pyta tez o schemat. 23 IX: `OK`,
+24 IX: `BRAK`.
+
+### 3. Tabela zbiorcza komponentow — rzecz, ktorej specyfikacja nie nazywala
+
+23 IX zakladka Component versions miala pod kafelkami tabele siedmiu kolumn z 13 wierszami,
+24 IX nie miala zadnej. §5ag jej nie opisywal, wiec przebiegi dopisywaly ja albo nie — i ta
+z 23 IX miala blad (`no-change` przy komponencie o stanie `changed`). Ksztalt i mapowanie stoja
+odtad w §5ag, a **pozycja 83b** porownuje wiersz po wierszu nazwe, wersje i stan z blokiem stanu.
+Na 23 IX pozycja zglasza wlasnie ten jeden wiersz; na 24 IX — brak tabeli.
+
+### 4. Pasek Advanced filtering — jeden ksztalt z paskiem strony zmian
+
+Ta sama kontrolka na dwoch powierzchniach wygladala inaczej. Zmierzone przy 1500 px w trybie
+ciemnym na czynnym filtrze:
+
+| | `/diff/` (`details.s9adv`) | portal przed (`details.ntfbar`) |
+|---|---|---|
+| lewa krawedz | `4px solid` akcent | `1px` ramki |
+| tlo przy czynnym filtrze | `--accent-soft` | `--surface` + cien wewnetrzny 3 px |
+| przyciski wymiarow | pigulka `999px`, ramka 1.5 px, kropka w kolorze akcentu | zaokraglenie 9 px, tlo `--surface-2`, kropka w innym kolorze na kazdy wymiar |
+| licznik w przycisku | liczba w kolorze akcentu | wypelniona pigulka |
+| `N filter on` | **zielone** (`--ok`) | niebieskie |
+| `Reset` | po prawej | w rzedzie |
+
+Zmienione sa WYLACZNIE reguly istniejacego bloku CSS §5aw — nowego bloku nie ma, liczba blokow
+zostaje (§0c). **Pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz** — sprawdzone na
+stronie z 24 IX, ktora miala stare reguly §5aw i dostala od 56 `OK` — wiec o tym, czy ksztalt
+dojechal, mowi render (§5h), nie bramka. Zielone `N filter on` to §5av: zielony jest
+kolorem filtra na kazdej powierzchni.
+
+**Przy okazji — blad na samej stronie zmian.** `details.s9adv[open]>summary::before{content:"\2212"}`
+stal w ZWYKLYM napisie Pythona `CSS = """…"""` w `make_diff.py`, wiec `\221` zostalo odczytane
+jako ucieczka osemkowa: strona dostawala znak sterujacy U+0091 i cyfre `2` zamiast minusa — to jest
+ten kwadracik z dwojka w naglowku paska na `/diff/`. Kilkanascie linii wyzej `details.dsec` ma
+poprawnie znak `−` wprost; tak samo jest teraz tutaj.
+
+### Czego ta sekcja NIE naprawia
+
+Strona z 24 wrzesnia zostaje taka, jaka jest, do nastepnego przebiegu budujacego — kod w tym pliku
+nie zmienia opublikowanego artefaktu. Obie poprawki danych (ramka zrodel, tabela komponentow)
+wymagaja przebiegu, ktory uruchomi kolektor i zbuduje zakladke z tego pliku.
 
 ## 6. Kontrakt w stronie
 
