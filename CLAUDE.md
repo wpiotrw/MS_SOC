@@ -25133,7 +25133,7 @@ odtad CZTERNASCIE (4-17).**
     Object.keys(SRCN).map(function (k) {
       var x = SRCS[k] || {}, url = x.repo ? "https://github.com/" + x.repo : "";
       return [SRCN[k][0], url, (x.state === "unread" ? "NOT READ (" + (x.note || "") + ") · " : "") + SRCN[k][1] + (x.commit ? " · last change " + x.commit : "")];
-    }).concat(D.tenant && D.tenant.clients ? [["Tenant check (Graph, read-only)", "", "service principals owned by Microsoft (" + D.tenant.spMicrosoft + " of " + D.tenant.spTotal + ") and the consents and app roles they hold in tenant " + String(D.tenant.tenant).slice(0, 8) + "… on " + D.tenant.read + " · .github/workflows/fpa-tenant.yml"]]
+    }).concat(D.tenant && D.tenant.clients ? [["Tenant check (Graph, read-only)", "", "service principals owned by Microsoft (" + D.tenant.spMicrosoft + " of " + D.tenant.spTotal + ") and the consents and app roles they hold in tenant " + String(D.tenant.tenant).slice(0, 8) + "… on " + D.tenant.read + " · .github/workflows/fpa-tenant.yml" + (D.tenant.grantsNote ? " · " + D.tenant.grantsNote : "")]]
       : [["Tenant check", "", "no snapshot yet — site/data/fpa-tenant.json is written by .github/workflows/fpa-tenant.yml once its app is admin-consented (README.md)"]])
     .forEach(function (s) {
       var p = el("p", "mc-text");
@@ -25811,7 +25811,7 @@ SharePoint Online Web Client Extensibility).
 | zh54321/GraphPreConsentExplorer | `lists/GraphPreConsent.json` | uprawnienia Graph, auth code, device code, FOCI |
 | microsoftgraph/microsoft-graph-devx-content | `permissions/new/permissions.json` | poziom L1-L4 kazdego uprawnienia Graph |
 | f-bader/entrascopes.com | `resources.json`, `bypasses.json` | nazwy API, znane obejscia Conditional Access (bez licencji: tylko odczyt z podaniem autorow) |
-| workflow `.github/workflows/fpa-tenant.yml` | `site/data/fpa-tenant.json` | zgody delegowane i role aplikacyjne aplikacji spoza tenanta; aplikacja Entra „MS-SOC First-party apps reader", Directory.Read.All, poswiadczenie federacyjne GitHub (bez sekretu) |
+| workflow `.github/workflows/fpa-tenant.yml` | `site/data/fpa-tenant.json` | zgody delegowane i role aplikacyjne aplikacji spoza tenanta; aplikacja Entra „MS-SOC First-party apps reader", Application.Read.All + DelegatedPermissionGrant.Read.All (zawezone 25 IX 2026 z Directory.Read.All; przy 403 na zgodach skrypt zapisuje `grantsNote`), poswiadczenie federacyjne GitHub (bez sekretu) |
 
 **Przebieg poranny** uruchamia kolektor po kolektorach §5aw i §5ag, w klonie MS_SOC jako `SOC_REPO`:
 

@@ -3,15 +3,20 @@
 
 Runs in GitHub Actions (.github/workflows/fpa-tenant.yml). Signs in as the Entra app
 "MS-SOC First-party apps reader" with a federated credential - the GitHub OIDC token is the
-client assertion, so there is no secret anywhere. Needs Directory.Read.All (application),
-admin-consented. Writes site/data/fpa-tenant.json:
+client assertion, so there is no secret anywhere. Needs, admin-consented, two read-only
+application permissions: Application.Read.All (service principals and their app role
+assignments) and DelegatedPermissionGrant.Read.All (delegated permission grants). Microsoft's
+docs list Directory.Read.All as the least privileged for GET /oauth2PermissionGrants; the
+narrower DelegatedPermissionGrant.Read.All exists as a Graph app role ("Read all delegated
+permission grants") - if Graph refuses it (403), the snapshot keeps the app roles and records
+`grantsNote` instead of failing. Writes site/data/fpa-tenant.json:
 
   {read, tenant, spTotal, spMicrosoft, clients:[{n, appId, owner, microsoft, grants:{API: scopes}, roles:[API: role]}]}
 
 A client is any service principal NOT owned by this tenant that holds a delegated grant
 (oauth2PermissionGrants) or an application permission (appRoleAssignments) here.
 Env: AZURE_TENANT_ID, AZURE_CLIENT_ID, ACTIONS_ID_TOKEN_REQUEST_URL/_TOKEN (set by GitHub)."""
-import json, os, sys, urllib.parse, urllib.request, datetime
+import json, os, sys, urllib.error, urllib.parse, urllib.request, datetime
 
 MS = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011db47",
       "cdc5aeea-15c5-4db6-b079-fcadd2505dc2", "33e01921-4d64-4f8c-a055-5bdaffd5e33d",
@@ -50,7 +55,11 @@ def main(out_path):
     G = "https://graph.microsoft.com/v1.0"
     sps = pages(tok, G + "/servicePrincipals?$top=999&$select=id,appId,displayName,appOwnerOrganizationId")
     by_id = {s["id"]: s for s in sps}
-    grants = pages(tok, G + "/oauth2PermissionGrants?$top=999")
+    grants, grants_note = [], None
+    try:
+        grants = pages(tok, G + "/oauth2PermissionGrants?$top=999")
+    except urllib.error.HTTPError as ex:
+        grants_note = "GET /oauth2PermissionGrants refused (%s) - DelegatedPermissionGrant.Read.All not enough or not consented" % ex.code
     clients = {}
     def client(spid):
         s = by_id.get(spid) or {}
@@ -82,6 +91,7 @@ def main(out_path):
                 c["roles"].append("%s: %s" % (rn, roles.get(a.get("appRoleId"), a.get("appRoleId"))))
     out = {"read": datetime.date.today().isoformat(), "tenant": tid, "spTotal": len(sps),
            "spMicrosoft": sum(1 for s in sps if (s.get("appOwnerOrganizationId") or "").lower() in MS),
+           "grantsNote": grants_note,
            "clients": sorted([dict(c, roles=sorted(set(c["roles"]))) for c in clients.values()], key=lambda c: c["n"] or "")}
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
