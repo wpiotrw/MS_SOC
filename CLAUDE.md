@@ -1021,7 +1021,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2533,6 +2533,12 @@ def gate(path, site=None, mirror=False, doc=None):
          all(k in h for k in K109) and bool(_dated109),
          ("brak: %s" % ", ".join(k for k in K109 if k not in h)) if not all(k in h for k in K109)
          else "katalog nie ma ani jednego datowanego wpisu Microsoftu (origin microsoft + changed)")
+
+    # ---- 110: etap 1 przegladu portalu (§5bg). KLASA B. ----
+    K110 = ('function fixCoverage(', 'function fixA11y(', 'function badgeNew(', '.badge.s5bg-new{',
+            'details.ntsec>.ntbody>section>.sec-head{display:none!important}')
+    need("110", "poprawki etapu 1 przegladu: etykiety pokrycia, role tablist/main, NEW przy wierszach, 12 px (§5bg)",
+         all(k in h for k in K110), "brak: %s" % ", ".join(k for k in K110 if k not in h))
 
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
@@ -5457,7 +5463,10 @@ nav.dsubnav a[aria-current="true"]{background:var(--nav-on-bg);border-color:var(
  font-weight:700;box-shadow:0 0 0 3px var(--nav-ring)}
 nav.dsubnav a[aria-current="true"] .n{background:var(--nav-on-count-bg);color:var(--nav-on-count-fg)}
 .tw{border-radius:4px}
-th{font-family:var(--cond);font-size:11.5px;letter-spacing:.06em}
+th{font-family:var(--cond);font-size:12px;letter-spacing:.06em}
+/* §5bg: 12 px floor on the change page too (429 texts measured below it on 25 IX) */
+span.t0,.s12at,.s12path,nav.dsubnav a .n,.s9advcar,.capverb,.dnavrow .drowlab,.s9advt,
+caption.tabcap .capverb,.relnew .grp{font-size:12px}
 @media (max-width:760px){
   .wrap{padding:14px 12px 56px}header.top{padding:14px 12px}h1{font-size:21px}
   nav.dsubnav{flex-wrap:nowrap;overflow-x:auto}nav.dsubnav a{flex:0 0 auto;padding:7px 11px}
@@ -5550,6 +5559,7 @@ FIND_BODY = """<script>
       if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2 && n >= rows.length) return;
       var s = document.createElement("select");
       s.className = "s9f"; s.dataset.col = String(ci);
+      s.setAttribute("aria-label", "Filter by " + h);   /* §5bg: axe select-name, 8 on 25 IX */
       var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
       s.appendChild(o0);
       keys.sort().forEach(function (k) {
@@ -6516,6 +6526,17 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     dtadd, dtrem, dtchg, dtp, dtc = diff_doctext(prev_st, curr_st)
     NT = diff_nt(prev_st, curr_st)
     DOCMAP = doc_pages(curr_st)
+    # §5bg (25 IX 2026): ZNIKNIECIE Z OKNA NIE JEST USUNIECIEM. Artykul spolecznosci, strona
+    # tekstu zrodla, artykul bloga i wpis "What's new", ktorych dzis nie ma, wypadly z okna czasu
+    # albo z kanalu RSS zrodla (Hacker News trzyma tylko najnowsze) — nikt ich nie usunal.
+    # Zmierzone 24->25 IX: Community -83, Source text -70, Blogs -6, Learn -3 liczone jako
+    # "removed". Nie liczymy ich; strona mowi o nich jednym zdaniem pod kafelkami.
+    ROLLED = {"community": len(com.get("artRem") or []), "srctext": len(dtrem),
+              "blogs": len(NT.get("artRem") or []), "learn": len(NT.get("wnRem") or [])}
+    com["artRem"] = []
+    dtrem = []
+    NT["artRem"] = []
+    NT["wnRem"] = []
 
     MCV = [] if com.get("baseline") else mc_view(com, added, removed, changed)
     mcv_add = len([r for r in MCV if r["kind"] == "added"])
@@ -6654,8 +6675,14 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                    'source was read, the date it was checked, a component&rsquo;s state ageing by one '
                    'day at the same version.' % (NOISE["first recorded"], NOISE["bookkeeping"]))
                   if (NOISE["first recorded"] or NOISE["bookkeeping"]) else '')
+               + ((' <b>Left the window, not removed (&sect;5bg):</b> %d community articles, %d source '
+                   'pages, %d blog articles and %d Learn &ldquo;what&rsquo;s new&rdquo; entries are no '
+                   'longer in the 14-day window or in their source&rsquo;s feed. Nobody deleted them, so '
+                   'they are not in the totals.' % (ROLLED["community"], ROLLED["srctext"],
+                                                    ROLLED["blogs"], ROLLED["learn"]))
+                  if sum(ROLLED.values()) else '')
                + '</p>')
-    out.append('</div></header><div class="wrap">@@SUBNAV@@')
+    out.append('</div></header><div class="wrap" role="main">@@SUBNAV@@')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
     # To jest odpowiedz na „jakies podsumowanie tez zbiorcze, co w jakich zakladkach
@@ -7381,7 +7408,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
              + len(com["mcAdd"]) + len(com["mcRem"])
              + len(dtadd) + len(dtrem) + len(dtchg)
              + _ntA + _ntR + _ntC + _nbA + _nbR + _nbC)
-    out.append('<footer>%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
+    out.append('<footer role="none">%s &middot; Piotr Wisniewski &middot; %s Warsaw &middot; '
                'computed from the two state blocks, not copied from the brief. '
                '<a href="%s">Back to the full brief</a></footer></div>'
                % (("%d differences in total." % total) if total else
@@ -7735,7 +7762,7 @@ def verify(page):
     # i ten w STOPCE musi prowadzic tam, gdzie obiecuje. Pytanie „czy jakis link prowadzi
     # do /" przechodzilo, bo dateline swoj ma, a stopka linkowala w 404 przez przykryta
     # zmienna. Asercja, ktora przechodzi z niewlasciwego powodu, jest gorsza niz jej brak.
-    _f = re.search(r'<footer>.*?<a href="([^"]*)">Back to the full brief</a>', page, re.S)
+    _f = re.search(r'<footer[^>]*>.*?<a href="([^"]*)">Back to the full brief</a>', page, re.S)
     if not _f:
         e.append("stopka nie ma linku powrotnego")
     elif _f.group(1) not in ("/", "/diff/", "..") and not _f.group(1).startswith("http"):
@@ -22672,6 +22699,19 @@ details.mschg[open]>summary::before{content:"\2212"}
 .mschg .mcopen:hover{background:var(--accent);color:var(--on-accent)}
 @media (max-width:760px){.mschg .mc-text,.mschg .mc-det{margin-left:0}
  .mschg .mcpane dl.kv{grid-template-columns:1fr}.mschg .mc-when{margin-left:0}}
+/* §5bg (25 IX 2026): stage 1 of the portal review — readability floor and contrast.
+   224 visible texts measured below 12 px; the section letters ("SECTION C") at --faint
+   failed 4.5:1 (axe). Charts keep their own sizes (svg text is excluded on purpose). */
+details.ntsec>.ntbody>section>.sec-head{display:none!important}
+details.ntsec>.ntbody>section{margin-top:12px}
+section h2,.sec-head h2{color:var(--muted)}
+.badge,.chip,.stat-l,.navcount,.lr-u,.lr-prod,.lr-date,.when,.rank,.lbl,.mc,.mcchip,.mcseen,.mcact,
+.s12src,.s12ext,.s12at,.s12path,.segbtn,.chart-note,.ntlab,.tseg-label,.as-muted,.as-soc-inline,
+.cc-when,.jb-w,.jb-age,thead th,.rowlab{font-size:12px}
+.dateline a,.sec-note a,.cb-note a{text-decoration:underline;text-underline-offset:2px}
+.badge.s5bg-new{background:var(--ok-soft);color:var(--ok);margin-right:6px}
+.tc-sep,footer{color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:2px}
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -23309,6 +23349,107 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1200); });
   else setTimeout(boot, 1200);
 })();
+/* ---------------------------------------------------------------------------
+   §5bg (25 IX 2026) — STAGE 1 OF THE PORTAL REVIEW: nine defects measured on the
+   live page, fixed where the shell renders them. The shell scripts (1-3) are
+   frozen (§5w), so the labels they write are corrected here, after they ran:
+   1. "Partial: 1231 of 1030 published" read as a counting error when the catalog
+      holds MORE than Microsoft publishes — it now says what it is;
+   2. the Graph tile "18 endpoints tracked" sat beside a map of 24 161 pairs;
+   3. "Section 0" in the Overview fold;
+   6. the second tab row had no role="tablist" (axe: critical);
+   8. focusable bars inside a focusable chart (axe: nested-interactive), and the
+      donut legend list (axe: list);
+   R7. a NEW badge on every table row whose item is new since the last brief.
+   A landmark (`role="main"`) closes axe's region/landmark findings.
+   It writes NOTHING any other script owns: labels, roles and one badge per row.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  function json(idv) {
+    var n = document.getElementById(idv);
+    try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; }
+  }
+  function fixCoverage() {
+    [].forEach.call(document.querySelectorAll(".cat-coverage"), function (c) {
+      if (c.getAttribute("data-s5bg")) return;
+      var w = document.createTreeWalker(c, NodeFilter.SHOW_TEXT), n;
+      while ((n = w.nextNode())) {
+        var m = /Partial:\s*(\d[\d,]*)\s+of\s+(\d[\d,]*)\s+published\.?/.exec(n.textContent);
+        if (!m) continue;
+        var held = +m[1].replace(/,/g, ""), pub = +m[2].replace(/,/g, "");
+        var txt = held >= pub
+          ? "Held " + held + " · Microsoft publishes " + pub + " · +" + (held - pub) + " found outside Microsoft's reference."
+          : "Held " + held + " of the " + pub + " Microsoft publishes · " + (pub - held) + " not yet in the catalog.";
+        n.textContent = n.textContent.replace(m[0], txt);
+        c.setAttribute("data-s5bg", "1");
+        break;
+      }
+    });
+    [].forEach.call(document.querySelectorAll(".panelhead .stat"), function (s) {
+      var l = s.querySelector(".stat-l"), v = s.querySelector(".stat-n");
+      if (!l || !v) return;
+      var lt = l.textContent.trim();
+      if (/^held vs Microsoft.s published count$/i.test(lt)) {
+        var mm = /^(\d+)\s*\/\s*(\d+)$/.exec(v.textContent.trim());
+        if (mm) { v.textContent = mm[1]; l.textContent = "held · Microsoft publishes " + mm[2]; }
+      } else if (/^endpoints tracked$/i.test(lt)) {
+        l.textContent = "endpoints with their own catalog entry";
+      }
+    });
+  }
+  function fixSections() {
+    [].forEach.call(document.querySelectorAll("details.ntsec > summary .ntlab"), function (l) {
+      if (/^Section 0$/i.test(l.textContent.trim())) l.hidden = true;
+    });
+  }
+  function fixA11y() {
+    [].forEach.call(document.querySelectorAll("nav.anchors"), function (n) {
+      if (n.getAttribute("role") !== "tablist") n.setAttribute("role", "tablist");
+    });
+    var w = document.querySelector("body > .wrap, .wrap");
+    if (w && !document.querySelector("[role=main], main")) w.setAttribute("role", "main");
+    [].forEach.call(document.querySelectorAll("[role=main] footer"), function (f) { f.setAttribute("role", "none"); });
+    [].forEach.call(document.querySelectorAll("figure svg"), function (s) {
+      if (s.querySelector("[tabindex], a, button") && (s.getAttribute("role") === "img" || s.hasAttribute("tabindex"))) {
+        s.setAttribute("role", "group"); s.removeAttribute("tabindex");
+      }
+    });
+    [].forEach.call(document.querySelectorAll("ul.donut-legend"), function (u) { u.setAttribute("role", "none"); });
+  }
+  function badgeNew() {
+    var st = json("soc-brief-state") || {};
+    var ids = st.newToday || []; if (!ids.length) return;
+    var since = String((st.comparedWith || {}).date || "");
+    var items = {}; (st.items || []).forEach(function (i) { items[i.id] = i; });
+    var needles = [];
+    ids.forEach(function (id) {
+      if (/^MC\d+$/.test(id)) needles.push(id);
+      var it = items[id]; if (it && it.title && it.title.length > 24) needles.push(it.title.slice(0, 60));
+    });
+    ["tab-today", "tab-new", "tab-deadlines", "tab-products", "tab-hunting"].forEach(function (pid) {
+      var p = document.getElementById(pid); if (!p) return;
+      [].forEach.call(p.querySelectorAll("tbody tr"), function (r) {
+        if (r.getAttribute("data-s5bg-new") || !r.cells || !r.cells.length) return;
+        var t = r.textContent || "";
+        if (!needles.some(function (n) { return t.indexOf(n) >= 0; })) return;
+        r.setAttribute("data-s5bg-new", "1");
+        var b = document.createElement("span");
+        b.className = "badge s5bg-new"; b.textContent = since ? "NEW since " + since : "NEW";
+        r.cells[0].insertBefore(b, r.cells[0].firstChild);
+      });
+    });
+  }
+  function boot() {
+    [fixCoverage, fixSections, fixA11y, badgeNew].forEach(function (f) {
+      try { f(); } catch (e) { if (window.console) console.error("[s17 5bg]", e); }
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1400); });
+  else setTimeout(boot, 1400);
+  setTimeout(boot, 3000);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -23833,6 +23974,30 @@ Blok nie pisze niczego, co nalezy do innych skryptow (zadnego `row.hidden`, zadn
 Pozycja **109** (klasa B) pyta o kod bloku i o datowane wpisy Microsoftu w katalogu. Zmierzone na
 stronie 25 IX: Graph 26 / 51 / 180 / 207 / 506 wpisow w oknach 7 / 14 / 30 / 90 / All, Roles
 0 / 0 / 3 / 8 / 8 (blok otwiera sie na 30 dniach), zero bledow skryptow w obu motywach.
+
+
+## 5bg. PRZEGLAD PORTALU — ETAP 1: POPRAWKI (25 IX 2026)
+
+Wlasciciel zlecil przeglad strony glownej i `/diff/` (dokument „MS SOC — przeglad portalu i /diff/")
+i wdrozenie planu w trzech etapach. Etap 1 to poprawki bez zmiany ukladu, zmierzone na zywo
+(Playwright i axe-core, 1500 px i 390 px, oba motywy):
+
+| # | usterka | poprawka |
+|---|---|---|
+| 1 | „Partial: 1231 of 1030 published" przy stanie WIEKSZYM niz opublikowany | SKRYPT 17 `fixCoverage()`: „Held 1231 · Microsoft publishes 1030 · +201 found outside Microsoft's reference"; kafelek „1243 / 1030" → „1243 held · Microsoft publishes 1030" |
+| 2 | kafelek „18 endpoints tracked" obok mapy 24 161 par | „endpoints with their own catalog entry" |
+| 3 | „Section 0 · Overview" i podwojny naglowek sekcji w kazdym `details.ntsec` | etykieta ukryta; wewnetrzny `.sec-head` schowany, bo `summary` juz go niesie |
+| 5 | `/diff/`: Community −83, Source text −70, Blogs −6 jako *removed* | `make_diff.py`: wypadniecie z okna lub kanalu RSS to nie usuniecie — poza sumami, jedno zdanie pod kafelkami |
+| 6 | drugi rzad zakladek bez `role="tablist"` (axe: krytyczne) | `fixA11y()` |
+| 7 | `/diff/`: 8 list rozwijanych bez etykiety (axe: krytyczne) | `aria-label="Filter by <kolumna>"` |
+| 8 | klikalne slupki w klikalnym SVG, lista legendy (axe: powazne) | SVG z elementami interaktywnymi dostaje `role="group"`, legenda `role="none"` |
+| 9 | 224 teksty < 12 px, szare litery sekcji < 4,5:1 | minimum 12 px na etykietach, `--muted` zamiast `--faint`, podkreslone linki w tekscie |
+| R7 | brak znacznika nowosci na wierszach | plakietka `NEW since <data>` przy wierszach pozycji z `newToday` (Today, New, Deadlines, Products, Hunting) |
+
+Obie strony dostaly obszar `role="main"`. Zmierzone po poprawkach: axe na `/diff/` **0 naruszen**
+(bylo 3 reguly, 1 krytyczna), na stronie glownej zero krytycznych (bylo 8 regul, 1 krytyczna,
+4 powazne); tekstow < 12 px: 50 zamiast 224 na glownej, 12 zamiast 341 na `/diff/`. Licznikow
+w naglowku (punkt 4) dotyczy etap 2 (§5bh). Pozycja **110** (klasa B) pilnuje kodu tego etapu.
 
 
 ## 6. Kontrakt w stronie
