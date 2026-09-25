@@ -1,0 +1,128 @@
+{
+ "read": "2026-09-25",
+ "tenant": "ea0d500a-496c-42eb-a3c0-d834e723edc2",
+ "spTotal": 194,
+ "spMicrosoft": 186,
+ "clients": [
+  {
+   "n": "ME-SecurityScanner",
+   "appId": "f50d0784-cb84-4838-8b38-2fafa5860e72",
+   "owner": "33e01921-4d64-4f8c-a055-5bdaffd5e33d",
+   "microsoft": true,
+   "grants": {},
+   "roles": [
+    "Microsoft Graph: Directory.Read.All",
+    "Microsoft Graph: Policy.Read.All",
+    "Microsoft Graph: PrivilegedAccess.Read.AzureResources"
+   ]
+  },
+  {
+   "n": "MOD Demo Platform UnifiedApiConsumer",
+   "appId": "aff75787-e598-43f9-a0ea-7a0ca00ababc",
+   "owner": "a942cf59-f3c6-4338-acac-d26c18783a46",
+   "microsoft": false,
+   "grants": {
+    "Microsoft Graph": "AdministrativeUnit.ReadWrite.All AllSites.FullControl AppCatalog.ReadWrite.All Application-RemoteDesktopConfig.ReadWrite.All Application.ReadWrite.All Bookings.Manage.All Bookings.ReadWrite.All BookingsAppointment.ReadWrite.All Calendars.ReadWrite Calendars.ReadWrite.Shared Channel.ReadBasic.All ChannelMember.ReadWrite.All ChannelMessage.Read.All ChannelMessage.Send Chat.ReadWrite ChatMessage.Send CloudPC.ReadWrite.All Community.Read.All Community.ReadWrite.All Contacts.ReadWrite Contacts.ReadWrite.Shared DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.PrivilegedOperations.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.ReadWrite.All DeviceManagementScripts.ReadWrite.All DeviceManagementServiceConfig.ReadWrite.All DeviceManagementServiceConfiguration.ReadWrite.All Directory.AccessAsUser.All Directory.Read.All Directory.ReadWrite.All Files.ReadWrite Files.ReadWrite.All Files.ReadWrite.AppFolder Files.ReadWrite.Selected Group.Read.All Group.ReadWrite.All GroupMember.Read.All GroupMember.ReadWrite.All Mail.ReadWrite Mail.ReadWrite.Shared Mail.Send Mail.Send.Shared MailboxSettings.ReadWrite Notes.ReadWrite Notes.ReadWrite.All Notes.read OnlineMeetings.ReadWrite Policy.Read.All Policy.ReadWrite.AuthenticationMethod Policy.ReadWrite.ConditionalAccess Policy.ReadWrite.MobilityManagement Policy.ReadWrite.SecurityDefaults Sites.Manage.All Sites.Read.All Sites.ReadWrite.All Sites.Search.All Tasks.ReadWrite Tasks.ReadWrite.Shared TeamMember.ReadWrite.All TeamMember.ReadWriteNonOwnerRole.All TermStore.ReadWrite.All User.Read User.Read.All User.ReadWrite User.ReadWrite.All eDiscovery.Read.All eDiscovery.ReadWrite.All openid profile",
+    "Windows Azure Active Directory": "Bookings.Manage.All Bookings.ReadWrite.All BookingsAppointment.ReadWrite.All",
+    "Office 365 Exchange Online": "Mail.ReadWrite Mail.Send full_access_as_user",
+    "Office 365 SharePoint Online": "AllSites.FullControl",
+    "Microsoft Teams Retail Service": "WalkieTalkie.Channels.ReadWrite"
+   },
+   "roles": [
+    "Microsoft Graph: AdministrativeUnit.ReadWrite.All",
+    "Microsoft Graph: CloudPC.ReadWrite.All",
+    "Microsoft Graph: DeviceManagementConfiguration.ReadWrite.All",
+    "Microsoft Graph: DeviceManagementServiceConfig.ReadWrite.All",
+    "Microsoft Graph: EduRoster.ReadWrite.All",
+    "Microsoft Graph: MailboxSettings.ReadWrite",
+    "Microsoft Graph: SecurityActions.ReadWrite.All",
+    "Microsoft Graph: SecurityEvents.Read.All",
+    "Microsoft Graph: User.Read.All",
+    "Microsoft Graph: User.ReadWrite.All"
+   ]
+  },
+  {
+   "n": "Microsoft Graph Command Line Tools",
+   "appId": "14d82eec-204b-4c2f-b7e8-296a70dab67e",
+   "owner": "cdc5aeea-15c5-4db6-b079-fcadd2505dc2",
+   "microsoft": true,
+   "grants": {
+    "Microsoft Graph": "AppRoleAssignment.ReadWrite.All Application.ReadWrite.All DeviceManagementApps.ReadWrite.All Directory.Read.All Directory.ReadWrite.All Policy.Read.All Policy.ReadWrite.ConditionalAccess User.Read offline_access openid profile"
+   },
+   "roles": []
+  },
+  {
+   "n": "ProvisioningHealthPME",
+   "appId": "30b96d53-9fc1-4139-9bae-7bf8a1ded937",
+   "owner": "975f013f-7f24-47e8-a7d3-abc4752bf346",
+   "microsoft": true,
+   "grants": {
+    "Microsoft Graph": "AppCertTrustConfiguration.ReadWrite.All CloudPC.ReadWrite.All DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.ReadWrite.All DeviceManagementServiceConfig.ReadWrite.All Directory.AccessAsUser.All Directory.Read.All Directory.ReadWrite.All Files.ReadWrite.All Financials.ReadWrite.All Group.ReadWrite.All Mail.ReadWrite Organization.Read.All Policy.ReadWrite.Authorization Sites.Read.All Sites.ReadWrite.All User-PasswordProfile.ReadWrite.All User.EnableDisableAccount.All User.Export.All User.Invite.All User.ManageIdentities.All User.Read User.Read.All User.ReadBasic.All User.ReadWrite User.ReadWrite.All UserAuthenticationMethod.ReadWrite.All"
+   },
+   "roles": [
+    "Microsoft Graph: AuditLog.Read.All",
+    "Microsoft Graph: Directory.Read.All",
+    "Microsoft Graph: Directory.ReadWrite.All",
+    "Microsoft Graph: Mail.ReadWrite",
+    "Microsoft Graph: Mail.Send",
+    "Microsoft Graph: Policy.Read.All",
+    "Microsoft Graph: Policy.ReadWrite.AuthenticationMethod",
+    "Microsoft Graph: Policy.ReadWrite.ConditionalAccess",
+    "Microsoft Graph: RoleManagement.Read.Directory",
+    "Microsoft Graph: RoleManagement.ReadWrite.Directory",
+    "Microsoft Graph: User-PasswordProfile.ReadWrite.All",
+    "Microsoft Graph: User.EnableDisableAccount.All",
+    "Microsoft Graph: User.ManageIdentities.All",
+    "Microsoft Graph: User.Read.All",
+    "Microsoft Graph: User.ReadWrite.All"
+   ]
+  },
+  {
+   "n": "SharePoint Online Web Client Extensibility",
+   "appId": "08e18876-6177-487e-b8b5-cf950c1e598c",
+   "owner": "f8cdef31-a31e-4b4a-93e4-5f571e91255a",
+   "microsoft": true,
+   "grants": {
+    "Microsoft Graph": "AppCatalog.Read.All AppCatalog.Submit Calendars.Read Channel.Create Channel.ReadBasic.All ChatMember.Read EduAssignments.ReadBasic EduRoster.ReadBasic FileStorageContainer.Selected Files.Read Files.Read.All Files.ReadWrite.All Group-Conversation.ReadWrite.All Group.Read.All GroupMember.Read.All InformationProtectionPolicy.Read People.Read People.Read.All Presence.Read.All PrintJob.Create PrintJob.ReadBasic PrinterShare.ReadBasic.All SensitivityLabel.Read Sites.Read.All Tasks.ReadWrite Team.ReadBasic.All TeamsAppInstallation.ReadWriteForTeam TeamsAppInstallation.ReadWriteSelfForTeam TeamsTab.Create User.Read User.ReadBasic.All",
+    "Office 365 Exchange Online": "Calendars.Read User.Read User.ReadBasic.All",
+    "Office 365 SharePoint Online": "Files.ReadWrite.All M365BillingPlatform.Read.All Sites.FullControl.All Sites.ReadWrite.All TermStore.ReadWrite.All",
+    "Power BI Service": "App.Read.All Dashboard.Read.All Dataset.Read.All Fabric.Embed Item.Read.All MLModel.Execute.All Report.Read.All UserState.ReadWrite.All Workspace.Read.All",
+    "Dataverse": "user_impersonation",
+    "Microsoft Forms": "Forms.ReadWrite",
+    "PowerApps Service": "user_impersonation",
+    "Graph Connector Service": "ExternalConnection.ReadWrite.All Sites.FullControl.All"
+   },
+   "roles": []
+  },
+  {
+   "n": "managedenvironments-ar-tenant-connector-ame",
+   "appId": "9d0b50c2-e9ec-404d-8b4d-28662857d597",
+   "owner": "33e01921-4d64-4f8c-a055-5bdaffd5e33d",
+   "microsoft": true,
+   "grants": {
+    "Azure Resource Manager": "user_impersonation",
+    "Microsoft Graph": "AppCertTrustConfiguration.ReadWrite.All AuditLog.Read.All DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.ReadWrite.All DeviceManagementServiceConfig.ReadWrite.All Directory.AccessAsUser.All Directory.Read.All Directory.ReadWrite.All Files.ReadWrite.All Financials.ReadWrite.All Group.ReadWrite.All Mail.ReadWrite Organization.Read.All Policy.ReadWrite.AuthenticationMethod Policy.ReadWrite.Authorization Sites.Manage.All Sites.ReadWrite.All User.EnableDisableAccount.All User.Export.All User.Invite.All User.ManageIdentities.All User.Read User.Read.All User.ReadBasic.All User.ReadWrite User.ReadWrite.All UserAuthenticationMethod.ReadWrite.All"
+   },
+   "roles": [
+    "Microsoft Graph: AuditLog.Read.All",
+    "Microsoft Graph: CloudPC.ReadWrite.All",
+    "Microsoft Graph: Directory.Read.All",
+    "Microsoft Graph: Directory.ReadWrite.All",
+    "Microsoft Graph: Mail.ReadWrite",
+    "Microsoft Graph: Mail.Send",
+    "Microsoft Graph: Policy.Read.All",
+    "Microsoft Graph: Policy.ReadWrite.AuthenticationMethod",
+    "Microsoft Graph: Policy.ReadWrite.Authorization",
+    "Microsoft Graph: Policy.ReadWrite.ConditionalAccess",
+    "Microsoft Graph: RoleManagement.Read.Directory",
+    "Microsoft Graph: RoleManagement.ReadWrite.Directory",
+    "Microsoft Graph: User.EnableDisableAccount.All",
+    "Microsoft Graph: User.ManageIdentities.All",
+    "Microsoft Graph: User.Read.All",
+    "Microsoft Graph: User.ReadWrite.All",
+    "Microsoft Graph: UserAuthenticationMethod.ReadWrite.All"
+   ]
+  }
+ ],
+ "note": "First snapshot taken by hand through Lokka (Graph GET, read-only) on 25 Sep 2026; from 26 Sep written daily by .github/workflows/fpa-tenant.yml"
+}

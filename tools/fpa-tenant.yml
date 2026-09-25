@@ -1,0 +1,43 @@
+name: First-party apps tenant snapshot
+
+# Daily, before the 06:00 Warsaw morning task (04:00 UTC), so the brief reads a fresh file.
+# Signs in with a federated credential (no secret): Entra app "MS-SOC First-party apps reader",
+# Directory.Read.All (application), admin-consented. To move to another tenant, change the two
+# values below and follow README.md, "First-party apps: tenant snapshot".
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  id-token: write      # the GitHub OIDC token is the client assertion
+  contents: write      # commit site/data/fpa-tenant.json
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+env:
+  AZURE_TENANT_ID: ea0d500a-496c-42eb-a3c0-d834e723edc2
+  AZURE_CLIENT_ID: 373c2197-64a1-41a4-a8b4-70719dc89a27
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Read the tenant (Graph, read-only)
+        run: python3 tools/fpa_tenant.py site/data/fpa-tenant.json
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/fpa-tenant.json
+          if git diff --cached --quiet; then echo "No change."; else
+            git commit -m "data: first-party apps tenant snapshot $(date -u +%F)"
+            git pull --rebase -q origin main
+            git push origin main
+          fi
