@@ -1021,7 +1021,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b"}
+           "93","94","95","96","97","105","106","107","83b","83c","108"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2440,7 +2440,8 @@ def gate(path, site=None, mirror=False, doc=None):
     # a wersja z 23 wrzesnia miala `no-change` przy komponencie, ktorego `state` bylo `changed`.
     # Tabela pisana reka jest wiec DOPUSZCZALNA tylko pod kontrola: kazdy komponent ma wiersz,
     # a nazwa, wersja i stan w tym wierszu to dokladnie wartosci z bloku stanu.
-    _CHEAD = ["Component", "Platform", "Version", "Released", "State", "End of support", "Source"]
+    # 25 wrzesnia 2026 (§5bf) doszla kolumna `Change`: poprzednia -> obecna wersja z `lastChange`.
+    _CHEAD = ["Component", "Platform", "Version", "Change", "Released", "State", "End of support", "Source"]
     _comps = (st["soc-brief-state"] or {}).get("components") or []
     _ctab, _crows = None, []
     for _t in re.findall(r"<table[^>]*>(.*?)</table>", _cseg, re.S) if _cseg else []:
@@ -2452,17 +2453,72 @@ def gate(path, site=None, mirror=False, doc=None):
                       for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _t.split("</thead>")[-1], re.S)]
             break
     _cbad = []
+    _crowsraw = {}
+    if _ctab:
+        for r in re.findall(r"<tr[^>]*>(.*?)</tr>", _ctab.split("</thead>")[-1], re.S):
+            _cc = re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)
+            if _cc:
+                _crowsraw.setdefault(_htmllib.unescape(re.sub(r"<[^>]+>", "", _cc[0])).strip(), _cc)
     for _c in _comps:
         _v = ((_c.get("versions") or [{}])[0] or {}).get("version")
+        _vs = "unread" if _v is None else str(_v)
         _hit = [r for r in _crows if r and r[0] == _c.get("name")]
         if not _hit:
             _cbad.append("%s: brak wiersza" % _c.get("name"))
-        elif len(_hit[0]) >= 5 and (_hit[0][2] != str(_v) or _hit[0][4] != str(_c.get("state"))):
-            _cbad.append("%s: %s/%s zamiast %s/%s" % (_c.get("name"), _hit[0][2], _hit[0][4], _v, _c.get("state")))
-    need("83b", "tabela zbiorcza Component versions: wiersz na komponent, nazwa/wersja/stan ze stanu (§5ag, §5be)",
+        elif len(_hit[0]) >= 6 and (_hit[0][2] != _vs or _hit[0][5] != str(_c.get("state"))):
+            _cbad.append("%s: %s/%s zamiast %s/%s" % (_c.get("name"), _hit[0][2], _hit[0][5], _vs, _c.get("state")))
+        elif len(_hit[0]) >= 6:
+            _lc = _c.get("lastChange") or {}
+            _raw = (_crowsraw.get(_c.get("name")) or ["", "", "", ""])[3]
+            _del = [_htmllib.unescape(x) for x in re.findall(r"<del>(.*?)</del>", _raw)]
+            _ins = [_htmllib.unescape(x) for x in re.findall(r"<ins>(.*?)</ins>", _raw)]
+            if _lc.get("to") and (_ins != [str(_lc["to"])] or _del != ([str(_lc["from"])] if _lc.get("from") else [])):
+                _cbad.append("%s: Change %s->%s zamiast %s->%s" % (_c.get("name"), _del, _ins, _lc.get("from"), _lc.get("to")))
+    need("83b", "tabela zbiorcza Component versions: wiersz na komponent, nazwa/wersja/zmiana/stan ze stanu (§5ag, §5be, §5bf)",
          _ctab is not None and bool(_comps) and not _cbad,
          ("brak tabeli z naglowkiem %s" % " | ".join(_CHEAD)) if _ctab is None else
          ("brak components w stanie" if not _comps else "; ".join(_cbad[:5])))
+
+    # ---- 83c: KAZDY komponent pokazuje zmiane a -> b, takze w kafelku i w szynie (§5bf). KLASA B. ----
+    # 25 wrzesnia 2026 Entra Connect Sync mial 2.6.92.0 i `no-change`, a o 2.6.91.0 strona
+    # milczala. `lastChange` liczy kolektor (§5ag); tu sprawdzamy, ze KAZDY komponent z wersja
+    # ma `lastChange.to` rowne tej wersji, a kazdy kafelek niesie `.vchg` z tym samym <ins>.
+    _bad83c = []
+    for _c in _comps:
+        _v = ((_c.get("versions") or [{}])[0] or {}).get("version")
+        _lc = _c.get("lastChange")
+        if _v is None:
+            continue
+        if not _lc or str(_lc.get("to")) != str(_v):
+            _bad83c.append("%s: lastChange %s przy wersji %s" % (_c.get("id"), _lc and _lc.get("to"), _v))
+            continue
+        _tile = re.search(r'<a class="jtile[^"]*" href="#cmp-%s">(.*?)</a>' % re.escape(str(_c.get("id"))), _cseg or "", re.S)
+        _tins = _tile and re.findall(r"<ins>(.*?)</ins>", _tile.group(1))
+        if not _tile or not _tins or _htmllib.unescape(_tins[0]) != str(_v):
+            _bad83c.append("%s: kafelek bez .vchg z <ins>%s</ins>" % (_c.get("id"), _v))
+    need("83c", "kazdy komponent: lastChange ze stanu i zmiana a -> b w kafelku (§5bf)",
+         bool(_comps) and not _bad83c, "; ".join(_bad83c[:5]) or "brak components")
+
+    # ---- 108: strona NIE wyglada dla CLI jak strona przegladu PR (§5bf, §0e). KLASA B. ----
+    # Walidator publikacji w CLI (artifact-pr-review) uznaje strone za "maszynerie przegladu"
+    # (i odrzuca ja jako "too large for a review page", >512 KiB), gdy gdziekolwiek w tekscie
+    # stoi `id=`, po ktorym nie da sie domknac wartosci atrybutu: w minifikowanym JSON
+    # `...updates?id=569904"},{...` ciagnie sie bez bialego znaku dluzej niz 2048 znakow.
+    # 25 IX 2026: 10 takich miejsc w `ledger14`/`coverageByArea`, 3 odmowy w przebiegu i 3 u mnie.
+    # Wyspy JSON pisze sie przez write_island() (§5bf), ktore zamienia `=` na \u003d.
+    _prr = re.compile(r"""(?<!-)\bid[\t\n\f\r ]*=[\t\n\f\r ]*(?:"([^"]{0,2048})"|'([^']{0,2048})'|([^\t\n\f\r >"'][^\t\n\f\r >]{0,2048})(?=[\t\n\f\r >]|$)|([\s\S]))""", re.I)
+    _prrhits = []
+    for _m in _prr.finditer(h):
+        if _m.group(4) is not None:
+            if _m.group(4) != ">":
+                _prrhits.append(_m.start())
+        elif "&#" in (_m.group(1) or _m.group(2) or _m.group(3) or ""):
+            _prrhits.append(_m.start())
+    _prrids = re.findall(r"(?<!-)\bid\s*=\s*[\"']?prr-(?:anchor|decisions|stamp)", h, re.I)
+    need("108", "zaden `id=` bez domknietej wartosci i zadna wyspa prr-* (CLI bierze strone za przeglad PR, §5bf)",
+         not _prrhits and not _prrids,
+         "%d miejsc `id=` bez domkniecia (pierwsze na pozycji %s: %r), wysp prr-*: %d — wyspy JSON przez write_island()"
+         % (len(_prrhits), _prrhits[:1], h[_prrhits[0]:_prrhits[0] + 60] if _prrhits else "", len(_prrids)))
 
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
@@ -2876,6 +2932,12 @@ przyjecia strony. Dolozyl do tego bisekcje na dwoch artefaktach testowych.
 Ani ksztalt rekordow, ani rozmiar, ani linki do GitHuba nie byly przyczyna. Odmowa byla
 **przejsciowa**, a bisekcja potwierdzila teze, bo jej negatywne wyniki byly tak samo przejsciowe.
 
+**Sprostowanie z 25 wrzesnia 2026 (§5bf).** Odmowa „artifact-pr-review machinery" nie jest kaprysem
+serwisu, tylko regula walidatora w CLI: `id=` bez domknietej wartosci (np. `updates?id=569904` w
+minifikowanym JSON bez spacji na 2048 znakow) — deterministyczna i odtwarzalna. Tabela wyzej
+pokazywala „przejsciowosc", bo ponowne zapisanie JSON-u zmienialo uklad bialych znakow. Pierwszy
+krok przy tej odmowie to pozycja **108**; reguly ponizej obowiazuja dla kazdej innej odmowy.
+
 ### Regula
 
 1. **Odmowa serwisu jest OBJAWEM, nie przyczyna.** Zanim przebieg usunie ze strony cokolwiek, co sam
@@ -3030,6 +3092,8 @@ od tej, ktora po cichu wypadla (§0b).
 | `srclists-from-collector` | **`nt.jsons` pisze wylacznie kolektor z §5aw** — `label`, `what`, `window`, a `updated:null` tylko z jego notatka `shallow clone:` | 2026-09-24 | `ZASPECYFIKOWANE` | pozycja 85 zaostrzona (§5be). 24 IX trzy wpisy mialy `file` zamiast `label` i `null` zamiast daty, wiec ramka nie pokazala ani nazw plikow, ani dat. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `components-summary-table` | **tabela zbiorcza Component versions** — siedem kolumn, wiersz na komponent, nazwa/wersja/stan skopiowane ze stanu | 2026-09-24 | `ZASPECYFIKOWANE` | §5ag i pozycja 83b. 24 IX tabeli nie bylo; 23 IX byla, ale z bledem stanu w wierszu Cloud Sync. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `advanced-bar-like-diff` | **pasek Advanced filtering portalu ma ksztalt paska ze strony zmian** — lewa krawedz 4 px w kolorze akcentu, tlo akcentu przy czynnym filtrze, przyciski-pigulki z kwadratowa kropka w jednym kolorze, licznik w przycisku jako liczba, zielone `N filter on`, `Reset` po prawej | 2026-09-24 | `ZASPECYFIKOWANE` | zmiana wylacznie regul bloku CSS §5aw, liczba blokow bez zmian (§0c); bloki CSS wycina z tego pliku kazdy przebieg budujacy (§0c) — pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz, wiec tej zmiany zadna pozycja nie pilnuje kodem i sprawdza ja render (§5h). **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `component-change-a-to-b` | **kazdy komponent pokazuje poprzednia i obecna wersje jak diff na GitHubie** — `<del>` stara, `→`, `<ins>` nowa, z data wydania albo dniem zaobserwowania; w kafelku, w szynie i w kolumnie `Change` tabeli zbiorczej | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `lastChange` liczy kolektor §5ag, pozycje 83b i 83c. **Brakuje pierwszego przebiegu kolektora z `last_change()`** |
+| `island-no-pr-review` | **wyspy JSON pisze `write_island()`** — `=` jako `\u003d`, zeby CLI nie wzielo strony za przeglad PR i nie odmowilo publikacji | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; pozycja 108 uruchamia ten sam wzorzec co CLI. **Brakuje pierwszego przebiegu budujacego z `write_island()`** |
 
 
 
@@ -10870,6 +10934,84 @@ for c2 in OUT:
     else:
         c2["state"] = "new-version" if vmap(p2) != vmap(c2) else "no-change"
 
+
+# ---------- 5bf: lastChange - poprzednia -> obecna wersja, dla KAZDEGO komponentu ----------
+# Stan `no-change` mowi "od wczoraj nic", a czytelnik pyta "co bylo przed ta wersja".
+# 25 wrzesnia 2026 Entra Connect Sync pokazal 2.6.92.0 i `no-change`, choc dzien wczesniej
+# przeszedl z 2.6.91.0 - obie rzeczy prawdziwe, a strona pokazala tylko jedna.
+# Kolejnosc zrodel: (1) wlasna historia site/data/*.json - zmiana ZAOBSERWOWANA, z data
+# pierwszego dnia, w ktorym nowa wersja byla na stronie; (2) lastChange z poprzedniego pliku,
+# jesli jego `to` to dzisiejsza wersja; (3) release notes wydawcy - poprzednie wydanie na
+# liscie; (4) poprzednia galaz w tabeli wydawcy (Apple); (5) nic - `from: null`.
+def last_change(OUT, data_dir, today):
+    import glob as _g, os as _o, json as _j, re as _r
+    hist = []
+    for f in sorted(_g.glob(_o.path.join(data_dir or ".", "20??-??-??.json")), reverse=True):
+        d = _o.path.basename(f)[:10]
+        if d >= today:
+            continue
+        try:
+            s4 = _j.load(open(f, encoding="utf-8"))
+            s4 = s4.get("soc-brief-state", s4)
+            hist.append((d, {c4.get("id"): c4 for c4 in (s4.get("components") or []) if c4.get("id")}))
+        except Exception:
+            pass
+    iso = lambda s: s if isinstance(s, str) and _r.match(r"^\d{4}-\d{2}-\d{2}$", s) else None
+    for c2 in OUT:
+        v = (c2.get("versions") or [{}])[0].get("version")
+        lc = None
+        if v is not None:
+            newer = today
+            for d, m in hist:
+                p = m.get(c2.get("id")) or {}
+                pv = ((p.get("versions") or [{}])[0] or {}).get("version")
+                if pv is None:
+                    continue
+                if pv == v:
+                    newer = d
+                    continue
+                lc = {"from": pv, "to": v, "seen": newer, "basis": "observed"}
+                break
+            if lc is None and hist:
+                p = hist[0][1].get(c2.get("id")) or {}
+                plc = p.get("lastChange") or {}
+                if plc.get("to") == v and plc.get("from"):
+                    lc = dict(plc)
+            if lc is None:
+                rel = [r4.get("version") for r4 in (c2.get("releases") or []) if r4.get("version")]
+                if v in rel and rel.index(v) + 1 < len(rel):
+                    r0 = (c2.get("releases") or [])[rel.index(v)]
+                    lc = {"from": rel[rel.index(v) + 1], "to": v, "seen": None,
+                          "basis": "vendor release notes"}
+            if lc is None:
+                pb = [x for x in (c2.get("versions") or [])[1:] if x.get("stream") == "previous branch"]
+                if pb:
+                    lc = {"from": pb[0].get("version"), "to": v, "seen": None,
+                          "basis": "vendor table"}
+            if lc is None:
+                lc = {"from": None, "to": v, "seen": None, "basis": "first recorded"}
+        else:
+            p = (hist[0][1].get(c2.get("id")) if hist else None) or {}
+            lc = p.get("lastChange")   # nieodczytany dzis: ostatnia znana zmiana, jesli byla
+        # Released: versions[0].released puste, a wydanie tej samej wersji w release notes ma
+        # date ISO - 25 IX tabela mowila "release date not stated" przy 2.6.92.0 z 23 IX.
+        v0 = (c2.get("versions") or [{}])[0]
+        if v0.get("released") is None and v is not None:
+            for r4 in c2.get("releases") or []:
+                if r4.get("version") == v and iso(r4.get("date")):
+                    v0["released"] = r4["date"]
+                    break
+        # `released` = data wydania nowej wersji od wydawcy (ISO albo null). Data na stronie
+        # to `released`, a gdy jej nie ma - `seen`, z dopiskiem "seen", zeby nie udawala daty wydawcy.
+        if lc is not None:
+            lc["released"] = iso(v0.get("released")) if lc.get("to") == v else lc.get("released")
+        c2["lastChange"] = lc
+    return OUT
+
+_ddir = os.environ.get("SOC_DATA_DIR") or (os.path.dirname(os.path.abspath(sys.argv[2]))
+                                         if len(sys.argv) > 2 else "")
+last_change(OUT, _ddir, TODAY)
+
 json.dump(OUT, open(sys.argv[1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 nv = sum(len(c2["versions"]) for c2 in OUT)
 print("komponentow %d, wersji %d, odczytanych %d, nieodczytanych %d"
@@ -10950,6 +11092,7 @@ zakladki jest KONTRAKTEM, a nie opisem, i pilnuje go pozycja 83 listy §0.
       <span class="jt-p"><span class="pchip p-windows-server">Windows Server</span></span>
       <span class="jt-n">Entra Connect Sync</span>
       <span class="jt-v">Released 7 July 2026 <b>2.6.84.0</b></span>
+      <span class="jt-c vchg"><del>2.6.80.0</del><span class="varr">→</span><ins>2.6.84.0</ins><span class="vwhen">released <span class="dt">2026-07-07</span></span></span>
       <span class="jt-s">no-change &middot; checked 2026-09-11</span>
     </a>
   </div>
@@ -10966,7 +11109,8 @@ zakladki jest KONTRAKTEM, a nie opisem, i pilnuje go pozycja 83 listy §0.
     <h3>Entra Connect Sync</h3>
     <p class="cscope">Directory synchronization service</p>
     <div class="vbox"><span class="pchip p-windows-server">Windows Server</span>
-      <div class="vnum">2.6.84.0</div><div class="vdate">Released 7 July 2026</div></div>
+      <div class="vnum">2.6.84.0</div><div class="vdate">Released 7 July 2026</div>
+      <div class="vchg"><del>2.6.80.0</del><span class="varr">→</span><ins>2.6.84.0</ins><span class="vwhen">released <span class="dt">2026-07-07</span></span></div></div>
     <p class="cprov"><span class="badge b-own">vendor</span> <span class="badge b-prod">no-change</span></p>
     <div class="cdl"><span class="badge b-dep">Hard deadline 30 Sep 2026</span><p>…</p></div>
     <p class="ceos">…</p>
@@ -11019,6 +11163,16 @@ a.jtile.hasdl{border-left-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad-
 .jt-v{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 .jt-v b{color:var(--text)}
 .jt-s{font-size:10.5px;color:var(--faint);font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em}
+/* §5bf: poprzednia -> obecna wersja, jak na GitHubie: stara czerwona i przekreslona, nowa zielona */
+.vchg{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 6px;font-family:var(--mono);font-size:12px;line-height:1.5;margin-top:4px}
+.vchg del,.vchg ins{white-space:nowrap}
+.vchg del,a.jtile .vchg del{color:var(--del-fg);background:var(--del-bg);text-decoration:line-through}
+.vchg ins,a.jtile .vchg ins{color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;font-weight:600}
+.vchg .varr{color:var(--muted);font-family:var(--sans);font-weight:600}
+.vchg .vfirst,.vchg .vwhen{font-family:var(--sans);font-size:11px;color:var(--muted)}
+.vchg.none{color:var(--faint);font-family:var(--sans);font-size:11px}
+a.jtile .vchg{margin-top:1px}
+a.jtile:hover .vchg del{text-decoration:line-through}
 .jtile .jt-k{font-weight:700;color:var(--text);margin-right:4px}
 .jtile .jt-v del{font-size:.92em}
 .rbpanel{border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:13px 15px}
@@ -11179,15 +11333,15 @@ od rodzica. Wciecie przeniesione na wszystkie wiersze, kolumna liczb sie zgadza,
 
 ### Tabela zbiorcza — jedna tabela pod kafelkami, wiersz na komponent (dopisane 24 wrzesnia 2026, §5be)
 
-Pod ostatnim `article.cmp` zakladka ma JEDNA tabele, ktora pozwala porownac wszystkie komponenty
+Pod ostatnim `article.cmp` zakladka ma JEDNA tabele (od 25 wrzesnia 2026 OSMIOkolumnowa — doszla `Change`, §5bf), ktora pozwala porownac wszystkie komponenty
 jednym spojrzeniem i ktora powloka zamienia w liste z sortowaniem, szukaniem i oknem czasu
 (`Released` jest w slowniku kolumn z datami, §3c). Do 23 wrzesnia 2026 przebiegi dopisywaly ja
 z wlasnej inicjatywy, 24 wrzesnia jej nie bylo — rzecz, ktorej specyfikacja nie nazywa, raz jest,
 a raz nie ma. Od teraz jest zawsze i ma DOKLADNIE ten ksztalt:
 
 ```html
-<div class="tw"><table><thead><tr><th>Component</th><th>Platform</th><th>Version</th><th>Released</th><th>State</th><th>End of support</th><th>Source</th></tr></thead><tbody>
-<tr><td>Entra Connect Sync</td><td>Windows Server</td><td>2.6.91.0</td><td>release date not stated</td><td>no-change</td><td>Synchronization stops on any server below the version whose support ends on this date.</td><td class="src"><a href="…" target="_blank" rel="noopener">Entra Connect version history</a></td></tr>
+<div class="tw"><table><thead><tr><th>Component</th><th>Platform</th><th>Version</th><th>Change</th><th>Released</th><th>State</th><th>End of support</th><th>Source</th></tr></thead><tbody>
+<tr><td>Entra Connect Sync</td><td>Windows Server</td><td>2.6.92.0</td><td><span class="vchg"><del>2.6.91.0</del><span class="varr">→</span><ins>2.6.92.0</ins><span class="vwhen">released <span class="dt">2026-09-23</span></span></span></td><td>2026-09-23</td><td>no-change</td><td>Synchronization stops on any server below the version whose support ends on this date.</td><td class="src"><a href="…" target="_blank" rel="noopener">Entra Connect version history</a></td></tr>
 </tbody></table></div>
 ```
 
@@ -11195,8 +11349,9 @@ a raz nie ma. Od teraz jest zawsze i ma DOKLADNIE ten ksztalt:
 |---|---|---|
 | Component | `name` | — (zawsze jest) |
 | Platform | `versions[0].platform` przez slownik chipow: `windows` Windows, `windows-server` Windows Server, `macos` macOS, `ios` iOS, `ipados` iPadOS, `android` Android, `apple` Apple, `cross` Cross-platform | — |
-| Version | `versions[0].version` | `unread` wg pozycji 86 |
-| Released | `versions[0].released` (ISO) | `release date not stated` |
+| Version | `versions[0].version` | `unread` wg pozycji 86 — nigdy `None` (25 IX 2026 dwa wiersze mialy doslowne `None` z Pythona) |
+| Change | `lastChange` przez `chg_html()` z §5bf: `<del>from</del>→<ins>to</ins>` + data | bez `from`: `<ins>to</ins>` i `no earlier version on record`; `lastChange` null: `unread` |
+| Released | `versions[0].released` (ISO); kolektor uzupelnia je data wydania tej samej wersji z `releases[]` | `release date not stated` |
 | State | `state` **doslownie**, jak stoi w bloku stanu (`no-change`, `changed`, `new-version`, `unread`…) | — |
 | End of support | `deadlineNote`, a gdy jest `deadline` — data przed zdaniem | `No end-of-support date stated.` |
 | Source | `sources[0]` jako link z `label` | — |
@@ -18409,6 +18564,9 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
 #tab-components a.jtile .pchip,#tab-components .vbox .pchip{font-size:10.5px;
  text-transform:uppercase;letter-spacing:.05em;font-weight:700}
 #tab-components a.jtile .jt-n{font-size:14px;font-weight:650;color:var(--text)}
+/* §5bf: a version CHANGE is two identifiers — mono, and red/green like a GitHub diff, not muted */
+#tab-components a.jtile .vchg del,#tab-components .vbox .vchg del{font-family:var(--mono);color:var(--del-fg);background:var(--del-bg);text-decoration:line-through}
+#tab-components a.jtile .vchg ins,#tab-components .vbox .vchg ins{font-family:var(--mono);color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;font-weight:600}
 /* and nowhere else on the page is a paragraph or a bullet set in monospace */
 .tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}
 
@@ -22862,6 +23020,111 @@ poprawnie znak `−` wprost; tak samo jest teraz tutaj.
 Strona z 24 wrzesnia zostaje taka, jaka jest, do nastepnego przebiegu budujacego — kod w tym pliku
 nie zmienia opublikowanego artefaktu. Obie poprawki danych (ramka zrodel, tabela komponentow)
 wymagaja przebiegu, ktory uruchomi kolektor i zbuduje zakladke z tego pliku.
+
+## 5bf. ZMIANA WERSJI JAK NA GITHUBIE, I STRONA, KTOREJ CLI NIE BIERZE ZA PRZEGLAD PR
+
+Dopisane 25 wrzesnia 2026 po porannym przebiegu, ktory zbudowal kompletna strone (bramka: 106 OK,
+1 informacyjna) i **nie opublikowal jej** — trzy odmowy narzedzia Artifact z tym samym zdaniem:
+*„This page carries the artifact-pr-review machinery but failed publish-time validation: the page
+is too large for a review page"*. Lustro o 07:00 nie znalazlo artefaktu z 25 IX i zgodnie z §0a
+dopisalo do wczorajszej strony zdanie o braku nowego briefu. Wlasciciel zobaczyl tego dnia dwie
+rzeczy: brak artefaktu i komponent Entra Connect Sync z wersja 2.6.92.0 i stanem `no-change`,
+bez sladu po 2.6.91.0.
+
+### Odmowa publikacji — przyczyna ZMIERZONA, nie zgadnieta
+
+§0e mowi, ze odmowa jest objawem, a jedna proba nie jest bisekcja. Tym razem przyczyna jest
+w kodzie narzedzia, nie w kaprysie serwisu, i odtwarza sie deterministycznie:
+
+| probka | wynik |
+|---|---|
+| strona z 25 IX, bez zmian | odmowa (3 razy w przebiegu, 1 raz przy odtworzeniu) |
+| strona z 24 IX (ta, ktora wczoraj przeszla), opublikowana dzis | **opublikowana** |
+| strona z 25 IX z blokiem `soc-brief-state` z 24 IX | **opublikowana** |
+| strona z 25 IX z samym `nt`, z samym `community`+`docText`+`mc`+`items`+`dropped`, albo z reszta kluczy z 24 IX | odmowa — trzy rozlaczne polowy, kazda z odmowa |
+
+Trzy rozlaczne polowy z odmowa znacza, ze przyczyna siedzi w WIELU kluczach naraz. Walidator
+w CLI (funkcja wykrywajaca strone przegladu PR) szuka w CALYM tekscie strony wzorca
+`(?<!-)\bid\s*=\s*…` i uznaje strone za „maszynerie przegladu", gdy po `id=` nie da sie domknac
+wartosci atrybutu: ani w cudzyslowie, ani jako ciag bez bialych znakow do 2048 znakow. W
+minifikowanym JSON adres `https://azure.microsoft.com/updates?id=569904"},{"seen":…` ciagnie sie
+bez spacji dalej niz 2048 znakow — i to wystarcza. Strona uznana za przeglad PR ma limit 512 KiB,
+stad „too large". Na stronie z 25 IX takich miejsc jest **10** (`ledger14`, `coverageByArea`),
+na stronie z 24 IX **0**. Ta sama maszyneria stala najpewniej za odmowa z 12 IX (§0e) — wtedy
+wyciety zostal `ledger14`, a w nim sa te same adresy `updates?id=`.
+
+**Regula.** Kazda wyspa JSON na stronie (`soc-brief-state`, `soc-catalog`, wyspa bez `id`) jest
+pisana przez `write_island()`. `=` zamienione na `=` jest poprawnym JSON-em, `JSON.parse`
+zwraca ten sam napis, a wzorzec `id=` przestaje wystepowac. Pozycja **108** listy §0 (klasa B)
+uruchamia ten sam wzorzec co CLI i nie przepuszcza strony z choc jednym trafieniem — przebieg
+naprawia to PRZED publikacja, zamiast dowiadywac sie o tym z trzech odmow.
+
+```python
+def write_island(island_id, obj):
+    """§5bf: wyspa JSON, ktorej CLI nie bierze za przeglad PR, a parser HTML za koniec skryptu."""
+    s = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
+    s = (s.replace("<", "\\u003c").replace(">", "\\u003e")
+          .replace("&", "\\u0026").replace("=", "\\u003d"))
+    attr = ' id="%s"' % island_id if island_id else ""
+    return '<script type="application/json"%s>%s</script>' % (attr, s)
+```
+
+Znaki `<`, `>`, `&` i `=` wystepuja w JSON-ie wylacznie wewnatrz napisow, wiec zamiana na
+sekwencje `\uXXXX` nie zmienia zadnej wartosci. **Odmowa, ktorej pozycja 108 nie tlumaczy, dalej
+podlega §0e**: odtworzyc dwa razy, nie wycinac danych, a gdy nic nie pomaga — oddac plik
+i opisac odmowe W ODPOWIEDZI przebiegu, nigdy na stronie.
+
+### Zmiana wersji: poprzednia czerwona i przekreslona, nowa zielona — przy KAZDYM komponencie
+
+Stan `no-change` byl prawdziwy (od poprzedniego sprawdzenia nic sie nie ruszylo), ale czytelnik
+pyta o co innego: *z czego na co ostatnio sie zmienilo?* Od teraz kazdy komponent niesie w bloku
+stanu `lastChange`, liczone przez kolektor (§5ag, funkcja `last_change()`):
+
+```json
+"lastChange":{"from":"2.6.91.0","to":"2.6.92.0","released":"2026-09-23","seen":"2026-09-25","basis":"observed"}
+```
+
+| `basis` | skad | kolejnosc |
+|---|---|---|
+| `observed` | wlasna historia `site/data/*.json`: najnowszy dzien z INNA wersja; `seen` = pierwszy dzien z obecna | 1 |
+| (przeniesione) | `lastChange` z poprzedniego pliku danych, gdy jego `to` to dzisiejsza wersja | 2 |
+| `vendor release notes` | poprzednie wydanie na liscie `releases[]` wydawcy | 3 |
+| `vendor table` | poprzednia galaz w tabeli wydawcy (`stream:"previous branch"`, Apple) | 4 |
+| `first recorded` | nic z powyzszych — `from:null`, strona mowi to wprost | 5 |
+
+Komponent nieodczytany dzis (`unread`) przenosi ostatnie znane `lastChange` albo ma `null`.
+Kolektor uzupelnia tez `versions[0].released` data wydania TEJ SAMEJ wersji z `releases[]`, jesli
+wydawca ja podal — 25 IX tabela mowila „release date not stated" przy 2.6.92.0 wydanym 23 IX.
+
+Render jest jeden, na kafelek (`span.jt-c.vchg` miedzy `.jt-v` a `.jt-s`), szyne (`div.vchg`
+wewnatrz pierwszego `.vbox`) i kolumne `Change` tabeli zbiorczej:
+
+```python
+def chg_html(lc, tag="span", extra=""):
+    """§5bf: <del>stara</del> -> <ins>nowa</ins>, jak w diffie na GitHubie."""
+    E = html.escape
+    cls = ("%s vchg" % extra).strip()
+    if not lc:
+        return '<%s class="%s none">unread</%s>' % (tag, cls, tag)
+    if lc.get("from"):
+        s = '<del>%s</del><span class="varr">→</span><ins>%s</ins>' % (E(str(lc["from"])), E(str(lc["to"])))
+    else:
+        s = '<ins>%s</ins><span class="vfirst">no earlier version on record</span>' % E(str(lc["to"]))
+    if lc.get("released"):
+        s += '<span class="vwhen">released <span class="dt">%s</span></span>' % lc["released"]
+    elif lc.get("seen"):
+        s += '<span class="vwhen">seen <span class="dt">%s</span></span>' % lc["seen"]
+    return '<%s class="%s">%s</%s>' % (tag, cls, s, tag)
+```
+
+`<del>` i `<ins>` maja juz style w powloce (§3e: `--del-*` czerwone i przekreslone, `--ins-*`
+zielone); blok CSS §5ag dostal wylacznie uklad `.vchg`, `.varr`, `.vfirst`, `.vwhen` — liczba
+blokow bez zmian (§0c). Stan (`no-change`, `new-version`…) zostaje w kolumnie `State`
+doslownie; kolumna `Change` stoi obok i mowi, od czego ten stan jest liczony.
+
+**Pilnuja tego kodem:** pozycja **83b** (osiem kolumn; `<del>`/`<ins>` w `Change` rowne
+`lastChange.from`/`to`) i pozycja **83c** (kazdy komponent z wersja ma `lastChange.to` rowne tej
+wersji, a jego kafelek niesie `<ins>` z ta wersja). Obie klasy B.
 
 ## 6. Kontrakt w stronie
 
