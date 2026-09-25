@@ -24264,6 +24264,7 @@ odtad CZTERNASCIE (4-17).**
   /* ---- R6: CSV ---- */
   function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
   function csv() {
+    if (!onSite()) return;   // the claude.ai artifact viewer grants pages no download permission
     [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
       if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
       t.setAttribute("data-s5bi-csv", "1");
@@ -24893,7 +24894,7 @@ po §5bh; dwa nowe pliki pisze lustro poranne (`--brief`) w `mirror_artifact.py`
 | R1 | **kolejka do przejrzenia** | na Today i Deadlines przy kazdym wierszu z identyfikatorem przycisk ○ → ◐ → ● (to review → reviewed → done), licznik „N of M to review", „Hide done". Stan w `localStorage` `soc-review` — **tylko w tej przegladarce**; wspolna kolejka zespolu wymaga serwera, ktorego strona statyczna nie ma |
 | R2 | **historia wpisu** | `write_history()` porownuje kolejne pliki dnia z 14 dni i zapisuje `site/data/history.json`: pole, data, stara → nowa wartosc; tylko pola zmieniane u zrodla (tytul, status, termin, akcja, data publikacji, `revisedOn`), bez ksiegowosci i bez pierwszego zapisu (ta sama regula co `moved()`, §5bf). Przycisk „history · N" przy wierszu, stara wartosc czerwona i przekreslona, nowa zielona. W claude.ai pliku nie ma, wiec przycisku tez nie |
 | R4 | **Ctrl+K albo /** | okno wyszukiwania po wszystkich wierszach 14 zakladek i po katalogu Graph i rol; Enter otwiera zakladke, rozwija sekcje i podswietla wiersz |
-| R6 | **CSV** | przycisk nad kazda tabela z co najmniej 3 wierszami; plik ma to, co widac po filtrach, z BOM dla Excela |
+| R6 | **CSV** | przycisk nad kazda tabela z co najmniej 3 wierszami; plik ma to, co widac po filtrach, z BOM dla Excela. Tylko na orange: przegladarka artefaktow claude.ai nie daje stronie prawa do pobierania, wiec w artefakcie przycisku nie ma |
 | R8 | **strona tygodnia** `site/week/` | `write_week()`: dzien po dniu z plikow dnia (nowe w porannym briefie, terminy ≤ 7 i < 30 dni jak w KPI), 10 najblizszych terminow, nowe w tygodniu, zmiany Microsoftu w Graph i rolach; „Save as PDF" to druk przegladarki (`@media print`); link „Week" w naglowku |
 | R10 | **NIE wdrozone** | zmierzone: `content-visibility` nie skraca przelaczania zakladek (ukryte zakladki i tak maja `display:none`); prawdziwa poprawka to budowanie zakladki przy pierwszym otwarciu i katalog jako osobny plik — zmiana zamrozonej powloki (§5w) i buildera, decyzja wlasciciela |
 
