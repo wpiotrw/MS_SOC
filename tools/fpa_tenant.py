@@ -25,14 +25,29 @@ MS = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011d
 
 def http(url, data=None, headers=None):
     req = urllib.request.Request(url, data=data, headers=headers or {})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        # Entra/Graph error bodies carry the AADSTS code and description, no secrets
+        e.body = e.read().decode("utf-8", "replace")
+        print("HTTP %s %s\n%s" % (e.code, url.split("?")[0], e.body[:2000]), file=sys.stderr)
+        raise
+
+
+def claims(jwt):
+    """Non-secret claims of the GitHub OIDC token - they must match the federated credential."""
+    import base64
+    part = jwt.split(".")[1]
+    c = json.loads(base64.urlsafe_b64decode(part + "=" * (-len(part) % 4)))
+    return {k: c.get(k) for k in ("iss", "sub", "aud")}
 
 
 def token():
     tid, cid = os.environ["AZURE_TENANT_ID"], os.environ["AZURE_CLIENT_ID"]
     oidc = http(os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] + "&audience=api://AzureADTokenExchange",
                 headers={"Authorization": "bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]})["value"]
+    print("OIDC claims (federated credential must match):", json.dumps(claims(oidc)), file=sys.stderr)
     body = urllib.parse.urlencode({
         "client_id": cid, "scope": "https://graph.microsoft.com/.default", "grant_type": "client_credentials",
         "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
