@@ -2,6 +2,7 @@
 <style>
 
 
+
 :root{
   --bg:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf3; --surface-3:#dfe4ec; --border:#ccd4de; --border-soft:#e2e7ee;
   --text:#111721; --muted:#4e5867; --faint:#78838f;
@@ -782,13 +783,9 @@ details.eps .tw{margin:0 15px 12px}
 .lnk-none{color:var(--faint);font-style:normal}
 td.nums{font-family:var(--mono);font-size:12px;white-space:nowrap}
 
-/* ===== The twelve appended blocks (§1a, §5e, §5k, §5t, §5w, §5x, §5y, §5ad, §5ae, §5ak, §5al, §5am)
-   are cut out of CLAUDE.md by extract_code.py in the run that builds this page (CLAUDE.md §0c).
-   They are never copied forward from yesterday's page. ===== */
-
-/* ===== The twenty-four appended blocks (CLAUDE.md 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ag, 5ak, 5al,
-   5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, 5ay, 5az, 5bb, 5av) are cut out of CLAUDE.md by extract_code.py in the run
-   that builds this page (CLAUDE.md 0c). They are never copied forward from yesterday. ===== */
+/* ===== The twenty-five appended blocks (CLAUDE.md 1a, 5e, 5k, 5t, 5w, 5x, 5y, 5ad, 5ae, 5ag, 5ak, 5al,
+   5am, 5an, 5ap, 5ar, 5as, 5at, 5au, 5aw, 5ay, 5az, 5bb, 5bc, 5av) are cut out of CLAUDE.md by extract_code.py
+   in the run that builds this page (CLAUDE.md 0c). They are never copied forward from yesterday. ===== */
 
 @media (max-width:760px){
   header.top{position:static}
@@ -902,6 +899,16 @@ a.jtile.hasdl{border-left-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad-
 .jt-v{display:block;font-size:11.5px;color:var(--muted);font-family:var(--mono)}
 .jt-v b{color:var(--text)}
 .jt-s{font-size:10.5px;color:var(--faint);font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em}
+/* §5bf: poprzednia -> obecna wersja, jak na GitHubie: stara czerwona i przekreslona, nowa zielona */
+.vchg{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 6px;font-family:var(--mono);font-size:12px;line-height:1.5;margin-top:4px}
+.vchg del,.vchg ins{white-space:nowrap}
+.vchg del,a.jtile .vchg del{color:var(--del-fg);background:var(--del-bg);text-decoration:line-through}
+.vchg ins,a.jtile .vchg ins{color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;font-weight:600}
+.vchg .varr{color:var(--muted);font-family:var(--sans);font-weight:600}
+.vchg .vfirst,.vchg .vwhen{font-family:var(--sans);font-size:11px;color:var(--muted)}
+.vchg.none{color:var(--faint);font-family:var(--sans);font-size:11px}
+a.jtile .vchg{margin-top:1px}
+a.jtile:hover .vchg del{text-decoration:line-through}
 .jtile .jt-k{font-weight:700;color:var(--text);margin-right:4px}
 .jtile .jt-v del{font-size:.92em}
 .rbpanel{border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:13px 15px}
@@ -1399,8 +1406,13 @@ details.chg14>.s9find{margin-left:16px;margin-right:16px}
    pierwszej nowej nazwie, ktora przebieg wymysli — a to jest dokladnie ta pulapka,
    ktora tu wystapila dwa razy. Asercja renderu (§5h) mierzy to samo od drugiej strony:
    w zadnej z jedenastu zakladek zaden `summary` nie ma `list-style-type` innego niz
-   `none`. */
-.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
+   `none`.
+
+   24 wrzesnia 2026 (§5be): pasek Advanced filtering ma WLASNY ksztalt (§5aw) — lewa krawedz
+   4 px i tlo akcentu przy czynnym filtrze — a ta regula ma dziesiec klas w selektorze, wiec
+   przebijala go w kazdej zakladce i pasek nigdy nie mogl wygladac jak ten na stronie zmian.
+   Z RAMKI I TLA jest wiec wylaczony; regul dla `summary` ponizej to nie dotyczy. */
+.tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.ntfbar):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec){
  border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
 .tabpanel details:not(.foldnote):not(.eps):not(.sumfold):not(.chg14):not(.rolerank):not(.morefilters):not(.cb-more):not(.cov-more):not(.dsec)>summary{
  list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
@@ -1628,6 +1640,9 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 #tab-components a.jtile .pchip,#tab-components .vbox .pchip{font-size:10.5px;
  text-transform:uppercase;letter-spacing:.05em;font-weight:700}
 #tab-components a.jtile .jt-n{font-size:14px;font-weight:650;color:var(--text)}
+/* §5bf: a version CHANGE is two identifiers — mono, and red/green like a GitHub diff, not muted */
+#tab-components a.jtile .vchg del,#tab-components .vbox .vchg del{font-family:var(--mono);color:var(--del-fg);background:var(--del-bg);text-decoration:line-through}
+#tab-components a.jtile .vchg ins,#tab-components .vbox .vchg ins{font-family:var(--mono);color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;font-weight:600}
 /* and nowhere else on the page is a paragraph or a bullet set in monospace */
 .tabpanel .sec-body p:not(.mono),.tabpanel .sec-body li:not(.mono){font-family:var(--sans)}
 
@@ -1652,33 +1667,32 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 /* §5aw/§5ax: zakladki Microsoft Learn i Microsoft Blogs — arkusz z zatwierdzonej makiety */
 .ntfhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 9px;
  padding-bottom:9px;border-bottom:1px solid var(--border)}
-.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;
- color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);
- border-radius:999px;padding:3px 11px}
+.ntfttl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
 .ntfscope{font-size:12.5px;color:var(--muted);flex:1 1 240px;min-width:0}
-.ntfbar{border:1px solid var(--border);border-radius:12px;background:var(--surface);
- padding:10px 12px;margin:0 0 14px}
-.ntfbar.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.ntfbar{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;
+ background:var(--surface);padding:10px 14px;margin:0 0 14px}
+.ntfbar.on{border-color:var(--accent);background:var(--accent-soft)}
 .ntfrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .ntfsep{flex:1 1 12px;min-width:0}
 .ntfdim{position:relative}
 .ntfbtn,.ntft0,.ntfreset{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;
- display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:9px;
- border:1px solid var(--border);background:var(--surface-2);color:var(--text);white-space:nowrap}
-.ntfbtn:hover,.ntft0:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+ display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
+ border:1.5px solid var(--border);background:var(--surface);color:var(--text);white-space:nowrap}
+.ntfbtn:hover,.ntft0:hover{border-color:var(--accent)}
 .ntfbtn:focus-visible,.ntft0:focus-visible,.ntfreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.ntfdot{width:8px;height:8px;border-radius:3px;flex:0 0 8px;background:var(--dc,var(--accent))}
+.ntfdot{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--accent)}
 .ntft0 .ntfdot{background:var(--bad)}
 .ntfcar{font-size:9px;color:var(--muted);margin-left:1px}
 .ntfbn:empty,.ntft0 b:empty{display:none}
-.ntfbn{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
- border-radius:999px;background:var(--accent);color:var(--on-accent)}
+.ntfbn{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--accent)}
 .ntft0 b{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 7px;
  border-radius:999px;background:var(--surface);color:var(--muted);border:1px solid var(--border)}
-.ntfbtn.on{border-color:var(--dc,var(--accent));background:var(--surface);color:var(--text)}
+.ntfbtn.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--surface);color:var(--text)}
 .ntft0.on{background:var(--bad);border-color:var(--bad);color:#fff}
 .ntft0.on b{background:rgba(255,255,255,.24);color:#fff;border-color:transparent}
-.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.ntfreset{border-color:var(--accent);background:var(--accent);color:var(--on-accent);margin-left:auto}
 .ntfreset:hover{background:var(--surface);color:var(--accent)}
 .ntfpop{display:none;position:fixed;z-index:70;min-width:268px;width:288px;
  max-width:calc(100vw - 24px);background:var(--surface);border:1px solid var(--accent);
@@ -1717,8 +1731,7 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
 .ntfq2c{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
  background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
 @media (max-width:760px){.ntfq2{flex-wrap:wrap}.ntfq2c{max-width:100%;width:100%}}
-.ntfsum{margin:9px 0 0;padding-top:9px;border-top:1px solid var(--border);
- font-size:12.5px;color:var(--muted)}
+.ntfsum{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
 .ntfbar.on .ntfsum{color:var(--text)}
 details.ntsec.ntempty>summary{opacity:.55}
 details.ntsec.ntempty>summary .ntn{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
@@ -1850,8 +1863,8 @@ details.ntfbar>summary::before{content:"+";font-family:var(--mono);font-size:15p
 details.ntfbar[open]>summary::before{content:"\2212"}
 details.ntfbar>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 details.ntfbar>summary .ntfscope{flex:1 1 240px}
-.ntfon{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--surface);
- border:1px solid var(--accent);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.ntfon{font-size:11.5px;font-weight:700;color:var(--ok);background:var(--surface);
+ border:1px solid var(--ok);border-radius:999px;padding:2px 10px;white-space:nowrap}
 .ntfon[hidden]{display:none!important}
 details.ntfbar>*:not(summary){margin-top:9px}
 /* §5ay — the pinned catalog strip is a STRIP, not a panel, and it parks at the
@@ -4825,7 +4838,7 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 24 September 2026</b> &middot; published 07:05 Warsaw &middot; 10 &ndash; 24 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 42 inside 30, 0 due today</span></a><a class="count" href="#graph"><b>631</b> undocumented at Microsoft<span>&middot; 631 permissions, 0 roles</span></a><a class="count" href="#graph"><b>374</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>4</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>61</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>12</b> changes since 23 Sep<span>&middot; 6 at Microsoft, 6 in this report</span></a><a class="count" href="#chg14"><b>880</b> changes in 14 days<span>&middot; 11 days with a run, 3 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 25 September 2026</b> &middot; published 06:36 Warsaw &middot; 11 &ndash; 25 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>57</b> deadlines in 60 days<span>&middot; 43 inside 30, 1 due today</span></a><a class="count" href="#graph"><b>632</b> undocumented at Microsoft<span>&middot; 632 permissions, 0 roles</span></a><a class="count" href="#graph"><b>367</b> deployed, not in this tenant<span>&middot; read from the service map, not from documentation</span></a><a class="count" href="#elapsed"><b>2</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>81</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>15</b> changes since 24 Sep<span>&middot; 11 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>813</b> changes in 14 days<span>&middot; 11 days with a run, 3 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -5026,24 +5039,13 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 24 September 2026: this page carries FOURTEEN `.tabpanel` divs, THREE shell behaviour scripts copied
-from the previous page's shell, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus twenty-five appended CSS blocks,
-all of which were cut out of CLAUDE.md in this run by extract_code.py and never copied from yesterday's page (CLAUDE.md 0c).
+CORRECTED 25 September 2026, morning pass at 06:36 Warsaw: this page carries FOURTEEN `.tabpanel` divs, THREE shell
+behaviour scripts taken from site/shell/shell.html, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus twenty-five
+appended CSS blocks, all cut out of CLAUDE.md by extract_code.py in this run and never copied from yesterday's page
+(CLAUDE.md 0c). The base stylesheet begins at `:root{` and no stylesheet carries contract text (CLAUDE.md 5be, list item 107).
 This is a MORNING build, so there is no `pmdelta` section and the masthead carries SEVEN counter pills, not eight.
 The twenty-one sections, in reading order, are: elapsed-overview, top5, picks, delta, new, docchanges, elapsed, deadlines,
 horizon, exec, products, watchlist, components, roles, graph, kql, actions, strategic, sources, coverage, community.
 Section letters run A..U in that order. tab-mc, tab-learn and tab-blogs are written EMPTY and are built by SCRIPT 16 and
 SCRIPT 15 v2 from the `mc` and `nt` keys of soc-brief-state.
--->
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-`, before the
-mobile block, which stays last so it wins on order.
-
-CORRECTED 23 September 2026: this page carries FOURTEEN `.tabpanel` divs, THREE shell behaviour scripts copied from the
-previous page's shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus twenty-five appended CSS blocks, all of
-which were cut out of CLAUDE.md in this run and never copied from yesterday's page (CLAUDE.md 0c). The sections are:
-elapsed-overview, top5, picks, delta, new, docchanges, elapsed, deadlines, horizon, exec, products, watchlist, components, roles,
-graph, kql, actions, strategic, sources, coverage, community. tab-mc, tab-learn and tab-blogs are written EMPTY and are built by
-SCRIPT 16 and SCRIPT 15 v2 from the `mc` and `nt` keys of soc-brief-state.
 -->
