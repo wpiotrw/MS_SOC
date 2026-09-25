@@ -2332,6 +2332,60 @@ html.s5bh-nocharts .tabpanel:not(#tab-overview) .aggwrap{display:none!important}
 @media (max-width:760px){.kpi5{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(132px,42%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
 .kpi5 .k5{scroll-snap-align:start;padding:7px 9px}.kpi5 .k5n{font-size:20px}.kpi5 svg{display:none}.kpi5 .k5t{font-size:12px}}
 .cc-tile.zero{opacity:1!important}.cc-tile.zero .cc-l,.cc-tile.zero .cc-when,.tbar .rowcount,.as-muted,.cov-hint,.cat-n,.cat-hist .hd{color:var(--muted)!important}
+/* §5bi (25 IX 2026): stage 3 of the portal review — groups, phone menu, review queue,
+   history, Ctrl+K, CSV, week link, lazy layout. */
+nav.anchors .s5bi-grp{align-self:center;font-size:12px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--nav-muted,var(--muted));padding:0 6px 0 12px;white-space:nowrap}
+nav.anchors .s5bi-grp:first-child{padding-left:2px}
+.navrow[data-s5bi-grouped] .rowlab{display:none}
+nav.anchors .s5bi-grp:not(:first-child){border-left:1px solid var(--nav-border,var(--border));margin-left:6px}
+.s5bi-morewrap{display:none}
+@media (max-width:760px){
+  .navrow.ref{display:none!important}
+  nav.anchors .tab:not(.s5bi-core):not([aria-selected=true]){display:none!important}
+  nav.anchors .s5bi-grp{display:none}
+  .navrow.daily{flex-wrap:wrap}.navrow.daily .rowlab{display:none}
+  .navrow.daily nav.anchors{flex:1 1 100%;min-width:0}
+  .s5bi-morewrap{display:flex;align-items:center;padding:4px 0;flex:1 1 100%}.s5bi-more{flex:1}
+  .kpi5{align-items:start}
+  .s5bi-more{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--nav-border,var(--border));
+    background:var(--surface);color:var(--ink);min-height:36px}
+}
+.s5bi-rv{font:inherit;font-size:14px;line-height:1;width:26px;height:26px;margin:0 6px 0 0;border-radius:50%;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--accent);vertical-align:middle}
+.s5bi-rv:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+tr[data-review=done]>td{opacity:.62}
+tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
+.s5bi-hidedone tr[data-review=done]{display:none}
+.s5bi-rqbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0;font-size:13px}
+.s5bi-rqn{font-weight:650}
+.s5bi-rqnote{color:var(--muted);font-size:12px}
+.s5bi-hide,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--ink);text-decoration:none}
+.s5bi-hide[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.s5bi-csv{display:inline-block;margin:0 0 6px;font-size:12px}
+.s5bi-hist{margin:4px 0 0;display:inline-block}
+.s5bi-hbox{margin:6px 0 2px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-2,var(--surface));font-size:12.5px}
+.s5bi-hl{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;padding:2px 0}
+.s5bi-hd{color:var(--muted);font-variant-numeric:tabular-nums}.s5bi-hf{font-weight:650}
+.s5bi-hl del{color:var(--bad);text-decoration:line-through}.s5bi-hl ins{color:var(--ok,#067647);text-decoration:none;font-weight:600}
+.s5bi-arr{color:var(--muted)}
+.kpi5 .s5bi-side{display:flex;flex-direction:column;gap:6px;justify-content:center;align-items:stretch}
+.kpi5 .s5bi-side>*{text-align:center;white-space:nowrap}
+@media (max-width:760px){.kpi5 .s5bi-side{scroll-snap-align:start}}
+.s5bi-sk{position:fixed;inset:0;z-index:1000;background:rgba(10,15,20,.45);display:flex;justify-content:center;align-items:flex-start;padding:10vh 16px 0}
+.s5bi-sk[hidden]{display:none}
+.s5bi-skin{width:min(720px,100%);background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
+.s5bi-skq{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px 16px;border:0;border-bottom:1px solid var(--border);background:transparent;color:inherit;outline:none}
+.s5bi-skr{list-style:none;margin:0;padding:4px 0;max-height:55vh;overflow:auto}
+.s5bi-skr li{padding:8px 16px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+.s5bi-skr li.on,.s5bi-skr li:hover{background:var(--surface-2,rgba(0,0,0,.05))}
+.s5bi-skt{flex:0 0 auto;font-size:12px;font-weight:650;color:var(--accent);min-width:110px}
+.s5bi-sks{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5bi-skf{margin:0;padding:8px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
+@keyframes s5biflash{0%,40%{background:rgba(255,196,0,.35)}100%{background:transparent}}
+@media print{.s5bi-rv,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week,.s5bi-rqbar{display:none!important}}
 /* §5av — green is the colour of a filter, on every surface of the portal.
    An OVERRIDING block: each of these rules lives in a block whose fragments are gate
    keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
@@ -12937,6 +12991,302 @@ SigninLogs
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1700); });
   else setTimeout(boot, 1700);
+})();
+
+/* ---------------------------------------------------------------------------
+   §5bi (25 IX 2026) — STAGE 3 OF THE PORTAL REVIEW: new ways to work with the page.
+   U5  the fourteen tabs in four named groups (Today · Changes · Sources · Act);
+   U7  the phone gets Today, Deadlines and New as tabs, everything else in one menu;
+   R1  a review queue on Today and Deadlines: new -> reviewed -> done per row, kept in
+       THIS browser (localStorage "soc-review"), with "Hide done" and a to-review count;
+   R2  "history" on every row that has an id: the values that changed at the source,
+       day by day, old red and struck, new green — from site/data/history.json, which
+       the mirror writes (§5bi); inside claude.ai the file is not reachable, so no button;
+   R4  Ctrl+K (or /) searches every row of every tab and the Graph and role catalog;
+   R6  CSV of any table as filtered on screen; the week page (site/week/) prints to PDF;
+   R8  a "Week" link to that page;
+   R10 is NOT here: measured, content-visibility gained nothing (hidden tabs are already
+       display:none); the real fix is lazy tab building in the frozen shell (§5w), see §5bi.
+   It writes NOTHING any other script owns: it moves tab buttons between the two rows
+   the shell built, adds its own controls, and reads the two JSON islands.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var booted = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function ls(k, v) {
+    try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
+    return null;
+  }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
+  function openTab(id) { var b = tabBtn(id); if (b) b.click(); }
+
+  /* ---- U5: four groups ---- */
+  var GROUPS = [
+    ["Today", ["overview", "today", "deadlines", "mc"]],
+    ["Changes", ["new", "graph", "roles", "components"]],
+    ["Sources", ["learn", "blogs", "community", "sources"]],
+    ["Act", ["hunting", "products"]]
+  ];
+  function tabGroups() {
+    var navs = document.querySelectorAll(".navrow nav.anchors");
+    if (navs.length < 2 || navs[0].getAttribute("data-s5bi")) return;
+    var rows = [navs[0], navs[0], navs[1], navs[1]];
+    GROUPS.forEach(function (g, gi) {
+      var nav = rows[gi], lab = el("span", "s5bi-grp", g[0]); lab.setAttribute("aria-hidden", "true");
+      nav.appendChild(lab);
+      g[1].forEach(function (id) { var b = tabBtn(id); if (b) { b.setAttribute("data-grp", g[0]); nav.appendChild(b); } });
+    });
+    // anything the shell adds later and we did not name stays where it was, after the groups
+    [].forEach.call(navs, function (n) { n.setAttribute("data-s5bi", "1"); if (n.parentNode) n.parentNode.setAttribute("data-s5bi-grouped", "1"); });
+  }
+
+  /* ---- U7: phone menu ---- */
+  function phoneMenu() {
+    if (document.querySelector(".s5bi-more")) return;
+    var first = document.querySelector(".navrow.daily");
+    if (!first) return;
+    var wrap = el("div", "s5bi-morewrap");
+    var sel = el("select", "s5bi-more"); sel.setAttribute("aria-label", "All tabs");
+    var o0 = el("option", null, "More tabs ▾"); o0.value = ""; sel.appendChild(o0);
+    GROUPS.forEach(function (g) {
+      var og = document.createElement("optgroup"); og.label = g[0];
+      g[1].forEach(function (id) {
+        var b = tabBtn(id); if (!b) return;
+        var o = el("option", null, (b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.nodeValue : b.textContent).trim());
+        o.value = id; og.appendChild(o);
+      });
+      sel.appendChild(og);
+    });
+    sel.addEventListener("change", function () { if (sel.value) { openTab(sel.value); scrollTo(0, 0); } sel.value = ""; });
+    wrap.appendChild(sel);
+    first.appendChild(wrap);
+    ["today", "deadlines", "new"].forEach(function (id) { var b = tabBtn(id); if (b) b.classList.add("s5bi-core"); });
+  }
+
+  /* ---- R1: review queue ---- */
+  var RV = null;
+  function rv() { if (!RV) { try { RV = JSON.parse(ls("soc-review") || "{}") || {}; } catch (e) { RV = {}; } } return RV; }
+  function rvSave() { ls("soc-review", JSON.stringify(RV)); }
+  var RSTATE = { "": ["○", "to review", "reviewed"], reviewed: ["◐", "reviewed", "done"], done: ["●", "done", ""] };
+  function rowId(r) {
+    var id = r.getAttribute("data-id"); if (id) return id;
+    var ref = r.querySelector(".ref, .rname"); var t = ref ? ref.textContent.trim() : "";
+    return /^(MC\d+|[\w.-]{6,})$/.test(t) ? t : null;
+  }
+  function paintRow(r, b, id) {
+    var s = rv()[id] || ""; var m = RSTATE[s] || RSTATE[""];
+    b.textContent = m[0]; b.title = "Review state: " + m[1] + " — click for " + (m[2] || "to review");
+    b.setAttribute("aria-label", "Review state " + m[1] + " for " + id);
+    r.setAttribute("data-review", s || "new");
+  }
+  function reviewQueue() {
+    ["today", "deadlines"].forEach(function (pid) {
+      var p = document.getElementById("tab-" + pid); if (!p || p.getAttribute("data-s5bi-rq")) return;
+      p.setAttribute("data-s5bi-rq", "1");
+      var n = 0;
+      [].forEach.call(p.querySelectorAll("tbody tr"), function (r) {
+        if (!r.cells || !r.cells.length || r.classList.contains("hrow") || r.classList.contains("det")) return;
+        var id = rowId(r); if (!id) return;
+        var b = el("button", "s5bi-rv"); b.type = "button";
+        b.addEventListener("click", function (ev) {
+          ev.stopPropagation(); var s = rv()[id] || ""; var nx = RSTATE[s][2];
+          if (nx) RV[id] = nx; else delete RV[id]; rvSave(); paintRow(r, b, id); count(p);
+        });
+        r.cells[0].insertBefore(b, r.cells[0].firstChild); paintRow(r, b, id); n++;
+      });
+      if (!n) return;
+      var bar = el("div", "s5bi-rqbar");
+      var c = el("span", "s5bi-rqn"); bar.appendChild(c);
+      var h = el("button", "s5bi-hide", "Hide done"); h.type = "button"; h.setAttribute("aria-pressed", "false");
+      h.addEventListener("click", function () {
+        var on = p.classList.toggle("s5bi-hidedone"); h.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      bar.appendChild(h);
+      var note = el("span", "s5bi-rqnote", "Kept in this browser only."); bar.appendChild(note);
+      var ph = p.querySelector(".panelhead"); (ph && ph.parentNode === p ? p.insertBefore(bar, ph.nextSibling) : p.insertBefore(bar, p.firstChild));
+      count(p);
+    });
+  }
+  function count(p) {
+    var all = p.querySelectorAll("tr[data-review]").length, left = p.querySelectorAll("tr[data-review=new]").length;
+    var c = p.querySelector(".s5bi-rqn"); if (c) c.textContent = left + " of " + all + " to review";
+  }
+
+  /* ---- R2: history per entry ---- */
+  var HIST = null, HISTP = null;
+  function loadHist() {
+    if (HISTP) return HISTP;
+    HISTP = fetch("/data/history.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { HIST = (j && j.entries) || {}; return HIST; }).catch(function () { HIST = {}; return HIST; });
+    return HISTP;
+  }
+  function histButtons() {
+    if (!onSite()) return;
+    loadHist().then(function (H) {
+      [].forEach.call(document.querySelectorAll(".tabpanel tbody tr"), function (r) {
+        if (r.getAttribute("data-s5bi-h") || !r.cells || !r.cells.length) return;
+        var id = rowId(r); if (!id || !H[id] || !H[id].length) return;
+        r.setAttribute("data-s5bi-h", "1");
+        var b = el("button", "s5bi-hist", "history · " + H[id].length); b.type = "button"; b.setAttribute("aria-expanded", "false");
+        var box = null;
+        b.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          if (box) { box.remove(); box = null; b.setAttribute("aria-expanded", "false"); return; }
+          box = el("div", "s5bi-hbox");
+          H[id].slice().reverse().forEach(function (h) {
+            var line = el("div", "s5bi-hl");
+            line.appendChild(el("span", "s5bi-hd", h.d)); line.appendChild(el("span", "s5bi-hf", h.f));
+            var a = el("del", null, String(h.a)), z = el("ins", null, String(h.b));
+            line.appendChild(a); line.appendChild(el("span", "s5bi-arr", "→")); line.appendChild(z);
+            box.appendChild(line);
+          });
+          var cell = r.cells[Math.min(2, r.cells.length - 1)]; cell.appendChild(box); b.setAttribute("aria-expanded", "true");
+        });
+        var cell = r.cells[Math.min(2, r.cells.length - 1)]; cell.appendChild(b);
+      });
+    });
+  }
+
+  /* ---- R4: Ctrl+K ---- */
+  var IDX = null;
+  function index() {
+    if (IDX) return IDX;
+    IDX = [];
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      var tab = p.id.replace(/^tab-/, ""), btn = tabBtn(tab);
+      var tname = btn ? (btn.firstChild && btn.firstChild.nodeType === 3 ? btn.firstChild.nodeValue : btn.textContent).trim() : tab;
+      [].forEach.call(p.querySelectorAll("tbody tr"), function (r) {
+        if (!r.cells || r.cells.length < 2 || r.classList.contains("det")) return;
+        var t = [].map.call(r.cells, function (c) {
+          var x = c.cloneNode(true); [].forEach.call(x.querySelectorAll("button, .s5bi-hbox, .s12ext, .xb"), function (n) { n.remove(); });
+          return (x.textContent || "").replace(/\s+/g, " ").trim();
+        }).filter(Boolean).join(" · "); if (t.length < 8) return;
+        IDX.push({ t: t, l: t.toLowerCase(), tab: tab, tn: tname, row: r });
+      });
+    });
+    var cat = json("soc-catalog") || {};
+    ["graph", "roles"].forEach(function (k) {
+      (cat[k] || []).forEach(function (e) {
+        if (!e || String(e.id || "").indexOf("reach-") === 0) return;
+        var t = [e.name || e.id, e.kind || "", e.scope || "", e.description || ""].join(" · ").replace(/\s+/g, " ");
+        IDX.push({ t: t, l: t.toLowerCase(), tab: k, tn: k === "graph" ? "Graph API catalog" : "Roles catalog", cat: e.name || e.id });
+      });
+    });
+    return IDX;
+  }
+  function search() {
+    if (document.querySelector(".s5bi-sk")) return;
+    var dlg = el("div", "s5bi-sk"); dlg.hidden = true; dlg.setAttribute("role", "dialog"); dlg.setAttribute("aria-modal", "true"); dlg.setAttribute("aria-label", "Search the whole brief");
+    var inner = el("div", "s5bi-skin");
+    var q = el("input", "s5bi-skq"); q.type = "search"; q.placeholder = "Search every tab and the catalog — MC number, product, permission, role…"; q.setAttribute("aria-label", "Search every tab");
+    var res = el("ul", "s5bi-skr"); var foot = el("p", "s5bi-skf", "↑ ↓ to move · Enter to open · Esc to close");
+    inner.appendChild(q); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
+    var hits = [], cur = 0, last = null;
+    function close() { dlg.hidden = true; if (last && last.focus) last.focus(); }
+    function go(h) {
+      close();
+      openTab(h.tab);
+      setTimeout(function () {
+        if (h.row) {
+          var d = h.row.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+          h.row.scrollIntoView({ block: "center" }); h.row.classList.add("s5bi-flash");
+          setTimeout(function () { h.row.classList.remove("s5bi-flash"); }, 2200);
+        } else if (h.cat) {
+          var box = document.querySelector('#tab-' + h.tab + ' [data-catalog] .cat-q, #tab-' + h.tab + ' [data-catalog] input[type=search]');
+          if (box) { box.value = h.cat; box.dispatchEvent(new Event("input", { bubbles: true })); box.scrollIntoView({ block: "center" }); }
+        }
+      }, 250);
+    }
+    function paint() {
+      res.textContent = "";
+      hits.forEach(function (h, i) {
+        var li = el("li", i === cur ? "on" : ""); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
+        li.appendChild(el("span", "s5bi-skt", h.tn)); li.appendChild(el("span", "s5bi-sks", h.t.slice(0, 160)));
+        li.addEventListener("click", function () { go(h); });
+        res.appendChild(li);
+      });
+    }
+    res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Results");
+    q.addEventListener("input", function () {
+      var words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+      hits = !words.length ? [] : index().filter(function (x) { return words.every(function (w) { return x.l.indexOf(w) >= 0; }); }).slice(0, 30);
+      cur = 0; paint();
+    });
+    q.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { cur = Math.min(hits.length - 1, cur + 1); paint(); e.preventDefault(); }
+      else if (e.key === "ArrowUp") { cur = Math.max(0, cur - 1); paint(); e.preventDefault(); }
+      else if (e.key === "Enter" && hits[cur]) { go(hits[cur]); e.preventDefault(); }
+      else if (e.key === "Escape") { close(); e.preventDefault(); }
+    });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
+    function open() { last = document.activeElement; dlg.hidden = false; q.focus(); q.select(); }
+    document.addEventListener("keydown", function (e) {
+      var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || "");
+      if ((e.key === "k" || e.key === "K") && (e.ctrlKey || e.metaKey)) { e.preventDefault(); open(); }
+      else if (e.key === "/" && !typing && dlg.hidden) { e.preventDefault(); open(); }
+    });
+    var top = document.querySelector("header.top");
+    if (top) {
+      var b = el("button", "s5bi-skbtn", "Search · Ctrl K"); b.type = "button"; b.setAttribute("aria-label", "Search every tab (Ctrl+K)");
+      b.addEventListener("click", open);
+      var kp = top.querySelector(".kpi5"), more = kp && kp.querySelector(".k5more");
+      if (kp) {
+        var side = el("div", "s5bi-side"); if (more) side.appendChild(more); side.appendChild(b); kp.appendChild(side);
+      } else top.appendChild(b);
+    }
+  }
+
+  /* ---- R6: CSV ---- */
+  function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+  function csv() {
+    [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
+      if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
+      t.setAttribute("data-s5bi-csv", "1");
+      var b = el("button", "s5bi-csv", "CSV"); b.type = "button"; b.title = "Download this table as filtered on screen (CSV for Excel)";
+      b.setAttribute("aria-label", "Download this table as CSV");
+      b.addEventListener("click", function () {
+        var out = [];
+        var hr = t.tHead.rows[t.tHead.rows.length - 1];
+        out.push([].map.call(hr.cells, function (c) { return csvCell(c.textContent); }).join(","));
+        [].forEach.call(t.tBodies[0].rows, function (r) {
+          if (r.offsetParent === null && r.closest(".tabpanel") && r.closest(".tabpanel").offsetParent !== null) return; // filtered out
+          if (r.classList.contains("det")) return;
+          out.push([].map.call(r.cells, function (c) {
+            var x = c.cloneNode(true); [].forEach.call(x.querySelectorAll("button, .s5bi-hbox, .badge.s5bg-new"), function (n) { n.remove(); });
+            return csvCell(x.textContent);
+          }).join(","));
+        });
+        var p = t.closest(".tabpanel"), sec = t.closest("section, details");
+        var name = ((p ? p.id.replace(/^tab-/, "") : "table") + "-" + (sec && sec.id ? sec.id : "t") + "-" + (json("soc-brief-state") || {}).briefDate).replace(/[^\w.-]+/g, "-");
+        var blob = new Blob(["﻿" + out.join("\r\n")], { type: "text/csv;charset=utf-8" });
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name + ".csv"; a.textContent = "CSV"; a.hidden = true;
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      });
+      var host = t.closest(".tw") || t;
+      host.parentNode.insertBefore(b, host);
+    });
+  }
+
+  /* ---- R8: week link ---- */
+  function weekLink() {
+    if (!onSite() || document.querySelector(".s5bi-week")) return;
+    var top = document.querySelector("header.top .s5bi-skbtn"); if (!top) return;
+    var a = el("a", "s5bi-week", "Week"); a.href = "/week/"; a.title = "The last seven days on one page — prints to PDF";
+    top.parentNode.appendChild(a);
+  }
+
+  function boot() {
+    if (booted) return; booted = true;
+    [tabGroups, phoneMenu, reviewQueue, histButtons, search, csv, weekLink].forEach(function (f) {
+      try { f(); } catch (e) { if (window.console) console.error("[s17 5bi]", e); }
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2000); });
+  else setTimeout(boot, 2000);
 })();
 </script>
 </body>
