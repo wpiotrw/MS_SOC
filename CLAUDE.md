@@ -2411,7 +2411,7 @@ def gate(path, site=None, mirror=False, doc=None):
     # w siatce §5x. Klucz celuje w `max-width` RAZEM z paddingiem `.wrap`, bo sam `max-width`
     # przy innym paddingu daje krawedzie rozjezdzajace sie o 12 px.
     K106 = ("    if (p) clearTab(p.id);",
-            "max-width:1500px;margin:0 auto;padding:8px 20px;background:var(--accent-soft);")
+            "width:calc(100% - 40px);max-width:1460px;margin:0 auto 8px;padding:8px 12px;")
     need("106", "filtr zdejmuje sie przez clearTab, a pasek stoi w siatce tresci (5bd)",
          all(k in h for k in K106),
          "brak: %s" % ", ".join(k for k in K106 if k not in h))
@@ -3086,7 +3086,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **ZROBIONE miedzy 17 a 20 wrzesnia 2026** — zmierzone na `main` HEAD `658e17d` dnia 23 wrzesnia: **59 plikow `.gz`**, `site/` **98 168 539 B**, czyli **37% limitu 262 144 000 B** zamiast 102%. Niespakowane zostaja wylacznie cztery ostatnie stany (`data/2026-09-17..20.json`) i dwie ostatnie strony poranne — to jest wynik procedury, a nie jej brak, bo dwa najnowsze stany i oba rejestry zostaja jawne z zalozenia. Pakowanie jest odtad **krokiem 7 procedury lustra (§0a)**, wiec nie wymaga osobnego przebiegu |
 | `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
 | `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
-| `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — `max-width:1500px` i ten sam padding co `.wrap`, wiec jego krawedzie sa krawedziami paska zakladek i tabel | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — od 25 IX 2026 `width:calc(100% - 40px);max-width:1460px`, czyli krawedzie TRESCI `.wrap` (20→1480 przy 1500 px), a nie jej ramki; ksztalt `.navbanner` z `/diff/` (§5bf) | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `filter-removal-one-writer` | **zdjecie filtru ma JEDNA droge** — `clearTab`, bo tylko ona wola `onclear` ustawiajacego; a baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 105. **Zgloszenie wlasciciela z 23 wrzesnia: `Reset all filters` nic nie robi.** Zmierzone na opublikowanej stronie: wiersze WRACALY (Deadlines 265→311, Today 19→34), ale zostawaly 2-4 banery `filterbanner s11` mowiace `showing 6 of 9`, wiec dla czytelnika filtr wisial dalej. Po poprawce piec zakladek wraca do stanu wyjsciowego z zerem banerow i zerem chipow. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `shell-from-snapshot` | **arkusz bazowy i trzy skrypty powloki ida z `site/shell/shell.html`**, nigdy z recznego ciecia wczorajszej strony po napisie `<style>` | 2026-09-24 | `ZASPECYFIKOWANE` | §0c, §5be i pozycja 107. Zmierzone 24 IX: `font-family` body = `"Times New Roman"`, tlo przezroczyste, `--sans` puste — regula `:root{…}` odrzucona przez parser. Na stronie z 23 IX pozycja daje `OK`, na stronie z 24 IX `BRAK`. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `srclists-from-collector` | **`nt.jsons` pisze wylacznie kolektor z §5aw** — `label`, `what`, `window`, a `updated:null` tylko z jego notatka `shallow clone:` | 2026-09-24 | `ZASPECYFIKOWANE` | pozycja 85 zaostrzona (§5be). 24 IX trzy wpisy mialy `file` zamiast `label` i `null` zamiast daty, wiec ramka nie pokazala ani nazw plikow, ani dat. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
@@ -18511,27 +18511,30 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
    creates, or from `#tab-components`. Variables are the ones the sheet already
    declares (§5t): `--surface-2`, `--accent-soft`, `--muted`, never an invented name. */
 .gfbar{position:sticky;top:var(--gfbar-top,0px);z-index:60;
- display:flex;align-items:center;gap:10px;flex-wrap:wrap;
- max-width:1500px;margin:0 auto;padding:8px 20px;background:var(--accent-soft);
+ display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+ width:calc(100% - 40px);max-width:1460px;margin:0 auto 8px;padding:8px 12px;background:var(--accent-soft);
  border:1px solid var(--accent);border-radius:10px;
- color:var(--text);font-size:13px;
- box-shadow:0 2px 10px rgba(0,0,0,.18)}
+ color:var(--text);font-size:13px}
 .gfbar[hidden]{display:none!important}
 .gfbar .gf-lead{flex:0 0 auto;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
  font-weight:700;color:var(--accent);white-space:nowrap}
-.gfbar .gf-list{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+/* §5bf: the shape of `.navbanner` on /diff/ — label, then the one reset beside it, then the
+   chips on a row of their own. The owner compared the two with a filter on and asked for this one. */
+.gfbar .gf-list{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 100%;min-width:0;order:2}
+.gfbar .gf-list:empty{display:none}
 .gfbar .gf-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
  padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);
  border:1px solid var(--accent);color:var(--text);font-size:12.5px;line-height:1.6;
  overflow-wrap:anywhere}
 .gfbar .gf-chip b{font-weight:700;color:var(--accent);white-space:nowrap}
+.gfbar .gf-chip b::after{content:" \2014";font-weight:400;color:var(--muted)}
 .gfbar .gf-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
  display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
  border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;padding:0}
 .gfbar .gf-x:hover{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
 .gfbar .gf-x:focus-visible,.gfbar .gf-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gfbar .gf-more{color:var(--muted);font-size:12px}
-.gfbar .gf-reset{flex:0 0 auto;font:inherit;font-size:12px;font-weight:600;padding:5px 13px;
+.gfbar .gf-reset{order:1;flex:0 0 auto;font:inherit;font-size:12px;font-weight:600;padding:4px 11px;
  border-radius:999px;border:1px solid var(--accent);background:var(--accent);
  color:var(--on-accent);cursor:pointer;white-space:nowrap}
 .gfbar .gf-reset:hover{background:var(--surface);color:var(--accent)}
@@ -18539,8 +18542,7 @@ i §5ar sa to JEDYNE dozwolone dopisane reguly CSS. **Blokow CSS jest odtad SIED
   /* §1a makes the masthead static on a phone, so `--gfbar-top` measures to zero and
      the line sticks to the very top — the one control that survives a tab switch
      must not be the one control that scrolls away (§5ao). */
-  .gfbar{padding:7px 12px;gap:7px}
-  .gfbar .gf-list{width:100%}
+  .gfbar{width:calc(100% - 24px);padding:7px 12px;gap:7px}
   .gfbar .gf-reset{width:100%;text-align:center}
 }
 /* --- monospace is for an IDENTIFIER, never for a sentence ---
@@ -19343,6 +19345,13 @@ details.ntfbar>summary .ntfscope{flex:1 1 240px}
  border:1px solid var(--ok);border-radius:999px;padding:2px 10px;white-space:nowrap}
 .ntfon[hidden]{display:none!important}
 details.ntfbar>*:not(summary){margin-top:9px}
+/* §5bf: the last two differences from `details.s9adv` on /diff/, measured 25 IX 2026 — the
+   summary carries `.ntfhead` from the mock-up (padding-bottom + border-bottom = a rule under a
+   CLOSED bar, 70 px tall against 47), and the details carried its own 10px 14px padding. */
+details.ntfbar{padding:0}
+details.ntfbar>summary.ntfhead,details.ntfbar>summary{margin:0;padding:10px 14px;border-bottom:0;font-weight:400}
+details.ntfbar>*:not(summary){margin:0 14px 9px}
+details.ntfbar>*:not(summary):last-child{margin-bottom:12px}
 ```
 
 ### Kolektory — cztery skrypty, w tej kolejnosci, wycinane z TEGO pliku
@@ -23125,6 +23134,19 @@ doslownie; kolumna `Change` stoi obok i mowi, od czego ten stan jest liczony.
 **Pilnuja tego kodem:** pozycja **83b** (osiem kolumn; `<del>`/`<ins>` w `Change` rowne
 `lastChange.from`/`to`) i pozycja **83c** (kazdy komponent z wersja ma `lastChange.to` rowne tej
 wersji, a jego kafelek niesie `<ins>` z ta wersja). Obie klasy B.
+
+### Zielony pasek filtru i pasek Advanced filtering — ksztalt z `/diff/` (dopisane 25 IX 2026 wieczorem)
+
+Wlasciciel nalozyl filtr na obu stronach i poprosil o pasek ze strony zmian. Zmierzone na zywo
+przy 1500 px: `.gfbar` mial 1500 px szerokosci przy tresci 20→1480 — §5bd wyrownal RAMKE `.wrap`,
+a nie jej tresc, wiec pasek wystawal o 20 px z kazdej strony poza pasek zakladek — i jeden rzad
+z `Reset all filters` na prawym koncu. `.navbanner` na `/diff/`: etykieta, obok niej przycisk,
+a chipy w osobnym rzedzie. Po zmianie regul bloku §5at: `.gfbar` 20→1480 przy 1500 px i 220→1680
+przy 1900 px (rowno z tabelami), przycisk obok etykiety, chipy pod spodem, `×` na chipie chowa
+pasek, zero przewijania poziomego przy 390 / 1500 / 1900 px. Pasek `details.ntfbar` zwiniety mial
+70 px wobec 47 px na `/diff/` i kreske pod naglowkiem — to regula `.ntfhead` z makiety plus
+wlasny padding ramki; oba zdjete regulami na koncu bloku §5aw (zwiniety: 49 px). Liczba blokow CSS
+bez zmian (§0c). Pozycja **106** celuje odtad w `width:calc(100% - 40px);max-width:1460px`.
 
 ## 6. Kontrakt w stronie
 
