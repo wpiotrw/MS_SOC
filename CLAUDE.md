@@ -139,7 +139,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 55 | **oba katalogi otwieraja sie na `All`**, nie na `Microsoft changes` | 5ah, 5am | `SCRIPT 9` w pliku; render: szukanie `User.Read.All` zwraca wpis uprawnienia, nie sam rekord zmiany |
 | 56 | **skrypty 4-17 na stronie sa TE z `CLAUDE.md`, znak w znak** — nigdy przeniesione z wczorajszej strony | 0c | `gate.py … --doc CLAUDE.md`: kazdy blok `SCRIPT 4`-`SCRIPT 17` z tego pliku wystepuje w HTML doslownie; bez `--doc` **`BRAK` „nie podano CLAUDE.md"**, nigdy OK |
 | 57 | **migawka powloki zapisana i swieza** — `site/shell/shell.html` + `shell.json`, wiek do 14 dni (§0d). **Pozycja INFORMACYJNA**: nie blokuje zadnego przebiegu, dopoki nie ruszy faza 2 | 0d | `gate.py <html> <site/>`: oba pliki istnieja, sha256 zgadza sie z trescia, `capturedOn` nie starsze niz 14 dni od `briefDate`; brak katalogu `site/` daje `BRAK „nie podano site/"`, nigdy OK |
-| 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie czternascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw, 5az | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 7 zakladek (`tab-mc` zostaje w rzedzie dziennym, §2), `navrow ref` 7, zadna nie ma zera |
+| 58 | **SKRYPT 4 niesie `splitTabs()`** — SIEDEM zakladek referencyjnych stoi w DRUGIM rzedzie paska, nie wszystkie czternascie w pierwszym (§5ae wariant B) | 5y, 5ae, 5aw, 5az | `splitTabs`, `navstack .navrow nav.anchors`, `tab-components`, `tab-community`, `tab-learn` i `tab-blogs` w bloku SKRYPTU 4; render (§5h): `navrow daily` ma 7 zakladek (`tab-mc` zostaje w rzedzie dziennym, §2), `navrow ref` 8 od 26 IX 2026 (`tab-fpa`, §5bl; wczesniej 7), zadna nie ma zera |
 | 59 | **jedenasty panel `tab-community`**, zakladka w rzedzie `Reference` zaraz po Sources | 5an, 5ae | `id="tab-community"` obecne; `splitTabs()` wymienia `tab-community`; render: zakladka `Community Articles` stoi w `navrow ref` zaraz po `Sources` — **pozycja, nie liczba**: licznik rzedu przeterminowal sie tu dwa razy, 14 i 16 wrzesnia (§0a) |
 | 60 | **kazde zrodlo z `community_sources.json` ma wpis w `community.sources`**, kazde nieprzeczytane ma niepusty `note`, kazdy artykul ma `link` i `firstTracked` | 5an | licznik `sources` = liczba pozycji w liscie przeczytanej w tym przebiegu; zero wpisow `failed` bez `note`; zero artykulow bez `link` |
 | 61 | **SKRYPT 10 buduje zachowanie zakladki**: pasek skrotow, blok `Activity` z rozkladem 14 dni, banner filtra przy KAZDEJ tabeli, sortowanie naglowkow, **jedno pole szukania na tabele i czytelne zaznaczenie tekstu** | 5an | `SCRIPT 10`, `subnav`, `actbar`, `actpre`, `inWinDay`, `filterbanner s10`, `sortable`, `hideShellBars`, `[data-s10hidden="1"]{display:none!important}`, `::selection{background:var(--accent-soft)`, `#tab-community .panelhead figure.chart{display:none}`, `#tab-community .charts figure.chart svg` w pliku — **kazdy klucz pelna regula, nie fragmentem**, bo `.panelhead figure.chart` samo stoi takze w arkuszu powloki; render (§5h): `Today` zapala jeden slupek na obu kartach, kafelek zmienia licznik `N of M`, `Clear filter` go przywraca, kazda z czterech tabel ma DOKLADNIE jedno pole szukania |
@@ -488,7 +488,7 @@ def scan(page: str) -> _Scan:
 # listy jest znaleziskiem, a panel SPOZA niej jest nowa zakladka i lustro ma go skopiowac.
 CANON_PANELS = ("tab-overview", "tab-today", "tab-new", "tab-mc", "tab-deadlines",
                 "tab-products", "tab-components", "tab-roles", "tab-graph", "tab-hunting",
-                "tab-sources", "tab-community", "tab-learn", "tab-blogs")
+                "tab-sources", "tab-community", "tab-learn", "tab-blogs", "tab-fpa")
 PANEL_FLOOR = 8          # ponizej tego to nie jest kopia, tylko poszarpana ekstrakcja
 
 
@@ -1254,7 +1254,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2791,6 +2791,13 @@ def gate(path, site=None, mirror=False, doc=None):
     need("113", "etap 4 przegladu: Overview (trzy zdania, karty z pozycjami, 14 dni, zmiany Microsoftu, tabela bez tagow, zdrowie zbierania) i telefon (§5bk)",
          all(k in h for k in K113), "brak: %s" % ", ".join(k for k in K113 if k not in h))
 
+    # ---- 114: zakladka First-party apps (§5bl). KLASA B. ----
+    K114 = ('id="tab-fpa"', 'the First-party apps tab', '#tab-fpa .fpa-p{', '"tab-fpa"')
+    _h114 = h.replace("\\u003d", "=")
+    need("114", "zakladka First-party apps: panel, SKRYPT 17 i klucz `fpa` w bloku stanu (§5bl)",
+         all(k in h for k in K114) and '"fpa":{"built":' in _h114,
+         "brak: %s" % ", ".join([k for k in K114 if k not in h] + ([] if '"fpa":{"built":' in _h114 else ['klucz fpa w soc-brief-state (collect_fpa.py nie uruchomiony?)'])))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2966,7 +2973,7 @@ blocks"*) jest nieaktualny w obu liczbach; **gdzie prompt i ten plik sie roznia,
 Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
 SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
 **dwadziescia piec** — liczbe
-sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **piec KOLEKTOROW**: cztery z §5aw i `collect_components.py` z §5ag,
+sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **szesc KOLEKTOROW** (od 26 IX 2026): cztery z §5aw, `collect_components.py` z §5ag i `collect_fpa.py` z §5bl,
 wycinane tak samo:**
 
 | co | zrodlo | sekcja |
@@ -2989,6 +2996,7 @@ wycinane tak samo:**
 | `gate.py`, `make_diff.py`, `mirror_artifact.py` | `CLAUDE.md` | 0b, 3, 0a |
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 | `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
+| `collect_fpa.py` — aplikacje Microsoftu i ich uprawnienia (od 26 IX 2026) | `CLAUDE.md` | 5bl |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -3044,6 +3052,7 @@ def main(doc, outdir):
             elif "microsoftblogs_sources.json" in head:        got["collect_blogs.py"] = b
             elif "window.__NT" in head:                        got["collect_nt.py"] = b
             elif "collect_components.py" in head:              got["collect_components.py"] = b
+            elif "collect_fpa.py" in head:                     got["collect_fpa.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -3051,7 +3060,7 @@ def main(doc, outdir):
     need = ["script%d.js" % n for n in range(4, 18)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
-            "collect_components.py"]
+            "collect_components.py", "collect_fpa.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
@@ -3374,6 +3383,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 | `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZASPECYFIKOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 | `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZASPECYFIKOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
+| `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZASPECYFIKOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** |
 
 
 
@@ -3783,6 +3793,7 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-products` | `Products` | `exec` · `deep` · `auth` |
 | `tab-roles` | `Roles` | `roles` |
 | `tab-graph` | `Graph API` | `graph` |
+| `tab-fpa` | `First-party apps` | *(pusty — buduje SKRYPT 17 §5bl z klucza `fpa` bloku stanu: blok What Microsoft changed · `fpa` · zrodla)* |
 | `tab-components` | `Component versions` | `components` |
 | `tab-hunting` | `Hunting & actions` | `kql` · `actions` · `strategic` |
 | `tab-sources` | `Sources` | `provenance` (§5ar, buduje SKRYPT 12) · `sources` |
@@ -3790,7 +3801,7 @@ przecina sie z prostokatem `.cat-controls`).
 | `tab-learn` | `Microsoft Learn` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-changes` · `nt-older` · `nt-coverage` · `nt-pages` · `nt-corr-learn`)* |
 | `tab-blogs` | `Microsoft Blogs` | *(pusty — buduje SKRYPT 15 v2 §5aw: `nt-top` · `nt-posts` · `nt-sources` · `nt-corr-blogs`)* |
 
-**Paneli jest CZTERNASCIE od 16 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an, `tab-learn` i `tab-blogs` 14 wrzesnia wraz z §5aw, a `tab-mc` 16 wrzesnia wraz z §5az; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym oba rzedy maja odtad po SIEDEM zakladek — `Daily` szesc dotychczasowych plus `Message Center`, `Reference` siedem. Kazda asercja liczaca panele albo zakladki mowi 14, nie 13 i nie 11 — pozycje 3, 26, 58, 59, 80 i 90c listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
+**Paneli jest PIETNASCIE od 26 wrzesnia 2026** — `tab-fpa` (§5bl) stoi w rzedzie `Reference` zaraz po Graph API, bo liczy KATALOG (aplikacje Microsoftu), a nie okno; rzedy maja odtad 7 i 8 zakladek. Ponizsze zdanie jest historia sprzed tego dnia. **Paneli bylo CZTERNASCIE od 16 wrzesnia 2026.** `tab-components` doszedl 6 wrzesnia wraz z §5ag, `tab-community` 10 wrzesnia wraz z §5an, `tab-learn` i `tab-blogs` 14 wrzesnia wraz z §5aw, a `tab-mc` 16 wrzesnia wraz z §5az; pasek zakladek stoi na dwoch opisanych rzedach (§5ae, wariant B), przy czym oba rzedy maja odtad po SIEDEM zakladek — `Daily` szesc dotychczasowych plus `Message Center`, `Reference` siedem. Kazda asercja liczaca panele albo zakladki mowi 14, nie 13 i nie 11 — pozycje 3, 26, 58, 59, 80 i 90c listy §0 sa juz poprawione. **Kazda liczba zapisana w asercji ma date waznosci** (§0a): dokladajac panel, przeszukaj plik za twardymi licznikami.
 
 **`tab-mc` stoi w rzedzie `Daily`, a nie `Reference`, i to nie jest kwestia miejsca.** Rzedy nazywaja rozroznienie, ktore prezentacja i tak robi (§5ae): `Reference` to zakladki liczace KATALOG, `Daily` to zakladki liczace OKNO. Message Center jest okienne — mowi, co Microsoft oglosil w tych dniach — wiec nalezy do `Daily`. Skutkiem ubocznym jest rownowaga 7/7 przy 1280 px; przyczyna jest w danych.
 
@@ -5041,6 +5052,43 @@ def gm_paths(st):
 def gm_schemes(st):
     gm = (st or {}).get("graphMap") or {}
     return {n: (d.get("s") or {}) for n, d in (gm.get("perms") or {}).items()}
+
+def diff_fpa(prev_st, curr_st):
+    """§5bl (26 IX 2026): aplikacje Microsoftu. Zmiany liczy KOLEKTOR (`collect_fpa.py`) i trzyma je
+    w `fpa.chg` z data; tutaj bierzemy te z datami po `fpa.built` poprzedniego stanu. Pierwszy stan z
+    kluczem `fpa` jest baseline'em - brak punktu odniesienia nie jest zmiana (ta sama regula co
+    `diff_graphmap()`). Zwraca (wiersze, dodane, usuniete, zmienione, baseline)."""
+    pf, cf = (prev_st or {}).get("fpa") or {}, (curr_st or {}).get("fpa") or {}
+    if not cf.get("apps"):
+        return [], 0, 0, 0, "absent"
+    if not pf.get("apps"):
+        return [("\u2014", "baseline", "", "First state carrying first-party apps: %d apps recorded. The previous "
+                 "state has none, so nothing here is a change. Tomorrow's run reports real differences."
+                 % len(cf["apps"]))], 0, 0, 0, "baseline"
+    since, upto = str(pf.get("built") or ""), str(cf.get("built") or "9999")
+    LAB = {"added": "app added", "removed": "no longer listed", "renamed": "renamed", "owner": "owner tenant changed",
+           "scopes": "permissions changed", "redirects": "redirect URIs changed", "foci": "FOCI changed"}
+    rows, a, r, c = [], 0, 0, 0
+    for x in cf.get("chg") or []:
+        d = str(x.get("d") or "")
+        if not (since < d <= upto):
+            continue
+        t = x.get("t")
+        if t == "added":
+            rows.append((x.get("n") or x.get("id"), LAB[t], "", x.get("id"))); a += 1
+        elif t == "removed":
+            rows.append((x.get("n") or x.get("id"), LAB[t], x.get("id"), "")); r += 1
+        elif t == "scopes":
+            RN = dict(cf.get("res") or {}); RN["00000003-0000-0000-c000-000000000000"] = "Microsoft Graph"
+            b = "; ".join("%s (%s)" % (p[1], RN.get(p[0]) or p[0][:8]) for p in (x.get("rem") or [])[:12])
+            n_ = "; ".join("%s (%s)" % (p[1], RN.get(p[0]) or p[0][:8]) for p in (x.get("add") or [])[:12])
+            rows.append((x.get("n"), "%s +%d / -%d" % (LAB[t], x.get("na", 0), x.get("nr", 0)), b, n_)); c += 1
+        elif t == "redirects":
+            rows.append((x.get("n"), LAB[t], "; ".join(x.get("rem") or []), "; ".join(x.get("add") or []))); c += 1
+        elif t in LAB:
+            rows.append((x.get("n"), LAB[t], str(x.get("a")), str(x.get("b")))); c += 1
+    return rows, a, r, c, ""
+
 
 def diff_graphmap(prev_st, curr_st):
     """Zwraca (wiersze, liczniki). Wiersz = (uprawnienie, rodzaj, tekst przed, tekst po).
@@ -6895,6 +6943,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '</div></div>'
                % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
     ge_rows, ge_add, ge_rem, ge_chg = diff_graphmap(prev_st, curr_st)
+    fp_rows, fp_add, fp_rem, fp_chg, fp_base = diff_fpa(prev_st, curr_st)
+    fp_n = {"baseline": "baseline", "absent": "not collected"}.get(fp_base) or "+%d / &minus;%d / %d" % (fp_add, fp_rem, fp_chg)
 
     # Liczniki u gory MUSZA byc suma tego, co stoi w tabeli ponizej. Zmierzone
     # 9 wrzesnia 2026 na opublikowanej stronie: pigulki mowily „1 added, 0 removed,
@@ -6957,6 +7007,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         (str(sum_rem), "removed" + spread_r, "bad", "bytab"),
         (str(sum_chg), "changed" + spread_c, "warn", "bytab"),
         ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info", "endpoints"),
+        (fp_n, "first-party apps", "info", "fpa"),
         (str(dl_rows_n), "deadline rows", "acc", "deadlines"),
         (str(len(cadd) + len(crem) + len(cmod)), "component versions", "warn", "components"),
         # Trzy kafelki STANU: `+51` mowi, o ile urosl katalog, a sekcja `Catalog` liczy
@@ -7395,6 +7446,27 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                + emore,
                count="+%d / &minus;%d" % (ge_add, ge_rem)))
 
+    # --- first-party apps (§5bl)
+    frows = []
+    for nm, what, before, after in fp_rows[:300]:
+        frows.append(("", ["<b>%s</b>" % esc(nm), '<span class="field">%s</span>' % esc(what),
+                           ("<del>%s</del>" % esc(before) if before else '<span class="none">not there</span>')
+                           + '<span class="arrow">&rarr;</span>'
+                           + ("<ins>%s</ins>" % esc(after) if after else '<span class="none">gone</span>')]))
+    _fc = len(((curr_st.get("fpa") or {}).get("apps")) or [])
+    _fp = len(((prev_st.get("fpa") or {}).get("apps")) or [])
+    out.append(sect("fpa", "First-party apps",
+               ("Microsoft's own Entra applications, snapshot to snapshot: %d &rarr; %d apps. An app ID that appears "
+                "or leaves the list (after three runs without it), a new name or owner tenant, and permissions an app "
+                "can newly obtain or no longer obtains &mdash; found by ROADtools and Graph Pre-Consent Explorer, not "
+                "published by Microsoft. The changes are counted by <span class=\"mono\">collect_fpa.py</span> (&sect;5bl).")
+               % (_fp, _fc),
+               table(["App", "What", "Before &rarr; after"], frows,
+                     "No first-party app appeared, left, or changed what it can obtain." if not fp_base else
+                     "Baseline: nothing to compare against yet.",
+                     "<b>First-party apps</b> &middot; %s" % fp_n),
+               count=fp_n))
+
     # --- catalog
     def catrows(add, rem, mod, name, tab=None, home_="/"):
         r = []
@@ -7762,6 +7834,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("changed", "Changed", len(changed)),
            ("components", "Components", len(cadd) + len(crem) + len(cmod)),
            ("endpoints", "Endpoints", ge_add + ge_rem + ge_chg),
+           ("fpa", "First-party apps", fp_add + fp_rem + fp_chg),
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
            ("community", "Community", len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                                       + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])),
@@ -7830,7 +7903,7 @@ def verify(page):
             if t=="script" and (a.get("type") or "")=="application/json": s.jsonb+=1
     p=P(); p.feed(page); e=[]
     for need in ("bytab","bytech","deadlines","added","removed","changed","components",
-                 "endpoints","catalog","community","mcenter","srctext","docsdiff","blogsdiff"):
+                 "endpoints","fpa","catalog","community","mcenter","srctext","docsdiff","blogsdiff"):
         if need not in p.ids: e.append("brak sekcji %s" % need)
     # KAZDA zakladka z niezerowym licznikiem w podsumowaniu ma na dole tabele z tym podpisem.
     # Bez tego „podsumowanie per zakladka" moglo by klamac, a to jest cala tresc tej strony.
@@ -10305,7 +10378,7 @@ jak trzy skrypty powloki:
     if (rows.length < 2) return;
     var top = rows[0], bottom = rows[1];
     if (bottom.querySelector(".tab")) return;
-    var REF = ["tab-components", "tab-roles", "tab-graph", "tab-sources", "tab-community",
+    var REF = ["tab-components", "tab-roles", "tab-graph", "tab-fpa", "tab-sources", "tab-community",
                "tab-learn", "tab-blogs"];
     Array.prototype.slice.call(top.querySelectorAll(".tab")).forEach(function (t) {
       if (REF.indexOf(t.getAttribute("aria-controls")) >= 0) bottom.appendChild(t);
@@ -19923,6 +19996,7 @@ for r in $(cut -d' ' -f1 repos.txt); do ./clone.sh "$r"; done      # git clone -
 python3 learn_changes.py                                           # -> learn_changes.json
 python3 collect_blogs.py <klon>/microsoftblogs_sources.json blogs_raw.json
 python3 collect_nt.py                                              # -> NT.json  == klucz `nt`
+SOC_REPOS=repos python3 collect_fpa.py FPA.json <poprzedni site/data/*.json>   # -> FPA.json == klucz `fpa` (§5bl)
 ```
 
 **Zadna data i zadna sciezka nie jest w nich zapisana na sztywno** — `SOC_DATE` i `SOC_REPO` ida
@@ -23236,6 +23310,19 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
   a.lnk,a.cb-link{display:inline-block;padding:5px 0}
 }
 /* end §5bk */
+/* §5bl (prototype): First-party apps tab — only what the portal classes do not already give */
+#tab-fpa .fpa-id{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+#tab-fpa .fpa-det{display:flex;flex-direction:column;gap:6px;padding:6px 4px 10px}
+#tab-fpa .fpa-h{margin:8px 0 0;font-size:13px;font-weight:650}
+#tab-fpa .fpa-chips{display:flex;flex-wrap:wrap;gap:4px}
+#tab-fpa .fpa-p{font-family:var(--mono);font-size:12px;padding:1px 7px;border-radius:4px;border:1px solid var(--border-soft);background:var(--surface-2)}
+#tab-fpa .fpa-p.l4{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+#tab-fpa .fpa-p.l3{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+#tab-fpa td .badge{margin:0 4px 2px 0}
+#tab-fpa tr.fpa-row>td{background:var(--surface)!important}
+#tab-fpa .stats button.stat{font:inherit;text-align:left;cursor:pointer}
+#tab-fpa .s9find{margin:10px 0}
+#tab-fpa>section{margin-top:18px}
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -24248,7 +24335,7 @@ odtad CZTERNASCIE (4-17).**
   /* ---- U5: four groups ---- */
   var GROUPS = [
     ["Today", ["overview", "today", "deadlines", "mc"]],
-    ["Changes", ["new", "graph", "roles", "components"]],
+    ["Changes", ["new", "graph", "roles", "fpa", "components"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "products"]]
   ];
@@ -24778,6 +24865,295 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2200); });
   else setTimeout(boot, 2200);
+})();
+/* ---------------------------------------------------------------------------
+   §5bl (25 IX 2026) — the First-party apps tab. Microsoft's own Entra
+   applications: which exist, what they can obtain from which API, what changed.
+   Reads the `fpa` key of soc-brief-state (collect_fpa.py, built from merill/microsoft-info,
+   ROADtools firstpartyscopes, Graph Pre-Consent Explorer, the Graph permissions
+   reference and entrascopes resource names), renders into `#tab-fpa` with the portal's
+   own classes: stat tiles, the What-Microsoft-changed block (§5bf), a green search bar,
+   a table with + per row, CSV of what the filters show.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var booted = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  var G = "00000003-0000-0000-c000-000000000000";
+
+  function build() {
+    var panel = document.getElementById("tab-fpa"), st = json("soc-brief-state") || {}, D = st.fpa || json("soc-fpa");
+    if (!panel || panel.getAttribute("data-built")) return;
+    if (!D || !D.apps) { panel.setAttribute("data-built", "1"); panel.appendChild(el("p", "sec-note", "No first-party app data in this brief: the collector (collect_fpa.py, CLAUDE.md §5bl) did not run or wrote nothing.")); return; }
+    panel.setAttribute("data-built", "1");
+    var TODAY = D.built || (D.meta || {}).built, dic = D.dic;
+    var TEN = { "f8cdef31-a31e-4b4a-93e4-5f571e91255a": "Microsoft Services", "72f988bf-86f1-41af-91ab-2d7cd011db47": "Microsoft (corp)", "cdc5aeea-15c5-4db6-b079-fcadd2505dc2": "Microsoft (developer tools)" };
+    function resName(r) { return r === G ? "Microsoft Graph" : (D.res[r] || r); }
+    function lvl(s) { var p = D.priv[s]; return p && p[0] ? p[0] : 0; }
+    /* Graph permissions an app can obtain: ROADtools' Graph list and Graph Pre-Consent Explorer, merged */
+    D.apps.forEach(function (a) {
+      var g = {}, rt = (a.sc || {})[G] || [];
+      rt.forEach(function (i) { g[dic[i]] = (g[dic[i]] || "") + "R"; });
+      (a.gp || []).forEach(function (i) { g[dic[i]] = (g[dic[i]] || "") + "P"; });
+      a.graph = g; a.ng = Object.keys(g).length;
+      a.maxl = Object.keys(g).reduce(function (m, s) { return Math.max(m, lvl(s)); }, 0);
+      a.nres = Object.keys(a.sc || {}).length + (a.gp && !(a.sc || {})[G] ? 1 : 0);
+      a.nsc = 0; for (var r in (a.sc || {})) a.nsc += a.sc[r].length;
+    });
+    var added = {}; D.chg.forEach(function (c) { if (c.t === "added" && days(c.d, TODAY) <= 30) added[c.id] = c.d; });
+    var tenantBy = {}; ((D.tenant || {}).clients || []).forEach(function (c) { tenantBy[c.appId] = c; });
+
+    /* ---- panel head: tiles ---- */
+    var head = el("div", "panelhead"), stats = el("div", "stats"); head.appendChild(stats);
+    var S = { q: "", k: "", res: "" };
+    var TILES = [
+      ["", D.apps.length, "first-party apps held", ""],
+      ["perm", D.apps.filter(function (a) { return a.ng || a.nsc; }).length, "with API permissions known", "chg"],
+      ["l4", D.apps.filter(function (a) { return a.maxl >= 4; }).length, "can obtain a level 4 Graph permission", "crit"],
+      ["new", Object.keys(added).length, "added in 30 days", "chg"],
+      ["foci", D.apps.filter(function (a) { return a.foci; }).length, "FOCI family", ""],
+      ["dc", D.apps.filter(function (a) { return a.dc; }).length, "allow device code sign-in", ""],
+      ["byp", D.apps.filter(function (a) { return a.byp; }).length, "known CA bypass", "crit"],
+      ["ten", Object.keys(tenantBy).length, "hold consents in the checked tenant", ""]
+    ];
+    TILES.forEach(function (t) {
+      var b = el("button", "stat" + (t[3] ? " " + t[3] : "")); b.type = "button";
+      b.appendChild(el("span", "stat-n", String(t[1]))); b.appendChild(el("span", "stat-l", t[2]));
+      b.addEventListener("click", function () { S.k = S.k === t[0] ? "" : t[0]; kind.value = S.k; shown = 60; draw(); bar.scrollIntoView({ block: "start" }); });
+      stats.appendChild(b);
+    });
+    panel.appendChild(head);
+
+    /* ---- what Microsoft changed (same block as Graph API and Roles, §5bf) ---- */
+    var LAB = { added: "Added", renamed: "Renamed", owner: "Owner tenant changed", scopes: "Permissions changed", redirects: "Redirect URIs changed", foci: "FOCI flag changed", removed: "No longer listed" };
+    var box = el("details", "mschg"); box.setAttribute("data-mschg", "fpa");
+    var sm = el("summary"); sm.appendChild(el("span", "mc-title", "What Microsoft changed in first-party apps"));
+    var cnt = el("span", "mc-cnt"); sm.appendChild(cnt); box.appendChild(sm);
+    var seg = el("div", "mc-seg"), body = el("div", "mc-body"); box.appendChild(seg); box.appendChild(body);
+    var cur = "30", WINS = [["7", "7 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
+    function inWin(c, w) { return w === "all" || days(c.d, TODAY) < +w; }
+    function tone(t) { return t === "removed" ? "rem" : t === "added" ? "add" : "chg"; }
+    function scopeLine(list, tag) {
+      var p = el("p", "mc-text");
+      list.forEach(function (x, i) { if (i) p.appendChild(document.createTextNode(" ")); p.appendChild(el(tag, null, x[1] + " · " + resName(x[0]))); });
+      return p;
+    }
+    function drawMs() {
+      [].forEach.call(seg.children, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-w") === cur ? "true" : "false"); });
+      body.textContent = "";
+      var L = D.chg.filter(function (c) { return inWin(c, cur); });
+      cnt.textContent = L.length + " change" + (L.length === 1 ? "" : "s") + " · " + (cur === "all" ? "all held" : "last " + cur + " days");
+      if (!L.length) { body.appendChild(el("p", "mc-empty", "Microsoft changed nothing here in this window — widen it above.")); return; }
+      ["added", "scopes", "renamed", "owner", "redirects", "foci", "removed"].forEach(function (t) {
+        var R = L.filter(function (c) { return c.t === t; }); if (!R.length) return;
+        var gh = el("h3", "mc-gh", LAB[t] + " · " + R.length); gh.setAttribute("aria-level", "2"); body.appendChild(gh);
+        var list = el("div", "mc-list"); body.appendChild(list);
+        R.slice(0, 50).forEach(function (c) {
+          var item = el("div", "mc-item mc-" + tone(t)), row = el("div", "mc-row");
+          var x = el("button", "mc-x", "+"); x.type = "button"; x.setAttribute("aria-expanded", "false"); x.setAttribute("aria-label", "Show the detail of " + c.n);
+          row.appendChild(x); row.appendChild(el("span", "mc-name mono", c.n));
+          var chips = el("span", "mc-chips"); chips.appendChild(el("span", "badge mc-t-" + tone(t), t === "scopes" ? "+" + c.na + " / −" + c.nr : LAB[t]));
+          row.appendChild(chips); row.appendChild(el("span", "mc-when dt", c.d)); item.appendChild(row);
+          var det = el("div", "mc-det"); det.hidden = true; item.appendChild(det);
+          x.addEventListener("click", function () {
+            var open = det.hidden;
+            if (open && !det.firstChild) {
+              if (c.a != null) { var p = el("p", "mc-text"); p.appendChild(el("del", null, String(c.a))); p.appendChild(document.createTextNode(" → ")); p.appendChild(el("ins", null, String(c.b))); det.appendChild(p); }
+              if (c.t === "scopes") { if (c.add.length) det.appendChild(scopeLine(c.add, "ins")); if (c.rem.length) det.appendChild(scopeLine(c.rem, "del")); }
+              if (c.t === "redirects") { c.add.forEach(function (u) { det.appendChild(el("p", "mc-text")).appendChild(el("ins", null, u)); }); c.rem.forEach(function (u) { det.appendChild(el("p", "mc-text")).appendChild(el("del", null, u)); }); }
+              det.appendChild(el("p", "mc-text", "App ID " + c.id + " · source: " + c.src));
+              var go = el("button", "s5bk-more", "Open in the list →"); go.type = "button";
+              go.addEventListener("click", function () { q.value = c.id; S.q = c.id; S.k = ""; kind.value = ""; shown = 60; draw(); bar.scrollIntoView({ block: "start" }); });
+              det.appendChild(go);
+            }
+            det.hidden = !open; x.textContent = open ? "−" : "+"; x.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+          list.appendChild(item);
+        });
+        if (R.length > 50) body.appendChild(el("p", "mc-empty", "+ " + (R.length - 50) + " more in this group"));
+      });
+    }
+    WINS.forEach(function (w) {
+      var b = el("button", null, w[1] + " · " + D.chg.filter(function (c) { return inWin(c, w[0]); }).length); b.type = "button"; b.setAttribute("data-w", w[0]);
+      b.addEventListener("click", function () { cur = w[0]; drawMs(); }); seg.appendChild(b);
+    });
+    box.open = D.chg.some(function (c) { return inWin(c, "7"); });
+    drawMs(); panel.appendChild(box);
+
+    /* ---- the catalog: search bar, table, + per row ---- */
+    var sec = el("section"); sec.id = "fpa";
+    var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "First-party apps")); sh.appendChild(el("p", "sec-title", "Microsoft's own Entra applications and the API permissions they can obtain")); sec.appendChild(sh);
+    var sb = el("div", "sec-body"); sec.appendChild(sb);
+    sb.appendChild(el("p", "sec-note", "One row per Microsoft application ID. Permissions are what the app can obtain for a signed-in user without anyone consenting — Microsoft pre-authorizes its own apps, so this is found by signing in with each app (ROADtools, Graph Pre-Consent Explorer), not published by Microsoft. Level L1–L4 is Microsoft's own privilege level from the Graph permissions reference."));
+    var bar = el("div", "s9find"); bar.setAttribute("data-fpa", "1"); sb.appendChild(bar);
+    var q = el("input", "s9q"); q.type = "search"; q.placeholder = "Search name, app ID or permission…"; q.setAttribute("aria-label", "Search first-party apps"); bar.appendChild(q);
+    var kind = el("select", "s9f"); kind.setAttribute("aria-label", "Filter by trait");
+    [["", "Any trait"], ["perm", "With API permissions known"], ["l4", "Level 4 Graph permission"], ["new", "Added in 30 days"], ["foci", "FOCI family"], ["dc", "Device code sign-in"], ["byp", "Known CA bypass"], ["ten", "Consents in the checked tenant"]].forEach(function (o) { var e = el("option", null, o[1]); e.value = o[0]; kind.appendChild(e); });
+    bar.appendChild(kind);
+    var fres = el("select", "s9f"); fres.setAttribute("aria-label", "Filter by API");
+    var rc = {}; D.apps.forEach(function (a) { for (var r in (a.sc || {})) rc[r] = (rc[r] || 0) + 1; if (a.gp && !(a.sc || {})[G]) rc[G] = (rc[G] || 0) + 1; });
+    var o0 = el("option", null, "Any API"); o0.value = ""; fres.appendChild(o0);
+    Object.keys(rc).sort(function (x, y) { return rc[y] - rc[x]; }).slice(0, 50).forEach(function (r) { var e = el("option", null, resName(r) + " · " + rc[r]); e.value = r; fres.appendChild(e); });
+    bar.appendChild(fres);
+    var csvb = el("button", "s5bi-csv", onSite() ? "CSV" : "Copy CSV"); csvb.type = "button"; csvb.setAttribute("data-fpa", "1"); csvb.style.margin = "0";
+    csvb.title = "App name, app ID and its API permissions, for the rows the filters show"; bar.appendChild(csvb);
+    var cntl = el("span", "rowcount"); bar.appendChild(cntl);
+
+    var tw = el("div", "tw"), tbl = el("table"); tw.appendChild(tbl); sb.appendChild(tw);
+    tbl.appendChild(el("caption", "tabcap", "First-party apps · + opens what the app can obtain, per API"));
+    var th = el("thead"), hr = el("tr"); ["Open", "App", "App ID", "Client", "Graph permissions", "Highest level", "Other APIs", "Flags"].forEach(function (h) { hr.appendChild(el("th", null, h)); }); th.appendChild(hr); tbl.appendChild(th);
+    var tb = el("tbody"); tbl.appendChild(tb);
+    var more = el("button", "s5bk-more", ""); more.type = "button"; sb.appendChild(more);
+    panel.appendChild(sec);
+
+    function match(a) {
+      var k = S.k;
+      if (k === "perm" && !(a.ng || a.nsc)) return false;
+      if (k === "l4" && a.maxl < 4) return false;
+      if (k === "new" && !added[a.id]) return false;
+      if (k === "foci" && !a.foci) return false;
+      if (k === "dc" && !a.dc) return false;
+      if (k === "byp" && !a.byp) return false;
+      if (k === "ten" && !tenantBy[a.id]) return false;
+      if (S.res && !((a.sc || {})[S.res] || (S.res === G && a.ng))) return false;
+      if (S.q) {
+        var t = S.q.toLowerCase();
+        if ((a.n + " " + a.id).toLowerCase().indexOf(t) < 0 && !Object.keys(a.graph).some(function (s) { return s.toLowerCase().indexOf(t) >= 0; })) return false;
+      }
+      return true;
+    }
+    function lvlBadge(n) { return n ? el("span", "badge " + (n >= 4 ? "b-dep" : n === 3 ? "b-prev" : "b-upd"), "L" + n) : el("span", "as-muted", "—"); }
+    function detail(a) {
+      var d = el("div", "fpa-det");
+      var meta = el("p", "mc-text");
+      meta.textContent = "Owner tenant: " + (a.o ? (TEN[a.o] || "") + " " + a.o : "not stated") + " · sign-in: " + [a.pub ? "public client" : a.sc ? "confidential client" : "", a.ac ? "auth code" : "", a.dc ? "device code" : "", a.foci ? "FOCI" : ""].filter(Boolean).join(", ") + " · listed in: " + a.src.join(", ");
+      d.appendChild(meta);
+      var gk = Object.keys(a.graph).sort(function (x, y) { return lvl(y) - lvl(x) || (x < y ? -1 : 1); });
+      if (gk.length) {
+        d.appendChild(el("p", "fpa-h", "Microsoft Graph · " + gk.length + " permissions"));
+        var c = el("div", "fpa-chips");
+        gk.forEach(function (s) {
+          var L = lvl(s), e = el("span", "fpa-p" + (L >= 4 ? " l4" : L === 3 ? " l3" : ""), s + (L ? " · L" + L : ""));
+          var p = D.priv[s]; e.title = (p && p[2] ? p[2] + " · " : "") + (a.graph[s] === "RP" ? "ROADtools and Graph Pre-Consent Explorer" : a.graph[s] === "R" ? "ROADtools" : "Graph Pre-Consent Explorer");
+          c.appendChild(e);
+        });
+        d.appendChild(c);
+      }
+      Object.keys(a.sc || {}).filter(function (r) { return r !== G; }).sort(function (x, y) { return a.sc[y].length - a.sc[x].length; }).forEach(function (r) {
+        d.appendChild(el("p", "fpa-h", resName(r) + " · " + a.sc[r].length));
+        var c = el("div", "fpa-chips"); a.sc[r].forEach(function (i) { c.appendChild(el("span", "fpa-p", dic[i])); }); d.appendChild(c);
+      });
+      if (!gk.length && !a.nsc) d.appendChild(el("p", "mc-empty", "No permission profile: neither ROADtools nor Graph Pre-Consent Explorer could sign in with this app."));
+      var t = tenantBy[a.id];
+      if (t) {
+        d.appendChild(el("p", "fpa-h", "Consented in the checked tenant (" + D.tenant.read + ")"));
+        Object.keys(t.grants).forEach(function (r) { var p = el("p", "mc-text"); p.appendChild(el("b", null, r + ": ")); p.appendChild(document.createTextNode(t.grants[r])); d.appendChild(p); });
+        var rl = [].concat(t.roles || []);
+        if (rl.length) { var rp = el("p", "mc-text"); rp.appendChild(el("b", null, "Application permissions: ")); rp.appendChild(document.createTextNode(rl.join(", "))); d.appendChild(rp); }
+      }
+      if (a.byp) a.byp.forEach(function (x) { d.appendChild(el("p", "mc-text", "Conditional Access bypass (" + (x.st || "") + "): " + String(x.d || "").slice(0, 300))); });
+      if (a.nru) d.appendChild(el("p", "mc-text", a.nru + " redirect URIs" + (a.ru && a.ru.length ? " · brokers: " + a.ru.join(", ") : "")));
+      return d;
+    }
+    var shown = 60, L = [];
+    function draw() {
+      S.q = q.value.trim(); S.res = fres.value;
+      L = D.apps.filter(match).sort(function (x, y) { return (y.maxl - x.maxl) || (y.ng + y.nsc - x.ng - x.nsc) || (x.n.toLowerCase() < y.n.toLowerCase() ? -1 : 1); });
+      cntl.textContent = L.length + " of " + D.apps.length;
+      tb.textContent = "";
+      L.slice(0, shown).forEach(function (a) {
+        var tr = el("tr"); if (added[a.id]) tr.className = "rownew";
+        var td0 = el("td"), x = el("button", "mc-x", "+"); x.type = "button"; x.setAttribute("aria-expanded", "false"); x.setAttribute("aria-label", "Show what " + a.n + " can obtain"); td0.appendChild(x); tr.appendChild(td0);
+        var tdn = el("td"); tdn.appendChild(el("b", null, a.n || "(no display name)")); tr.appendChild(tdn);
+        tr.appendChild(el("td", "mono fpa-id", a.id));
+        tr.appendChild(el("td", null, a.sc || a.gp ? (a.pub ? "public" : a.sc ? "confidential" : "public") : "—"));
+        tr.appendChild(el("td", null, a.ng ? String(a.ng) : "—"));
+        var tl = el("td"); tl.appendChild(lvlBadge(a.maxl)); tr.appendChild(tl);
+        tr.appendChild(el("td", null, Object.keys(a.sc || {}).filter(function (r) { return r !== G; }).length || "—"));
+        var tf = el("td");
+        if (added[a.id]) tf.appendChild(el("span", "badge b-new", "new"));
+        if (a.foci) tf.appendChild(el("span", "badge b-prev", "FOCI"));
+        if (a.dc) tf.appendChild(el("span", "badge b-own", "device code"));
+        if (a.byp) tf.appendChild(el("span", "badge b-dep", "CA bypass"));
+        if (tenantBy[a.id]) tf.appendChild(el("span", "badge b-upd", "consented here"));
+        tr.appendChild(tf); tb.appendChild(tr);
+        var dr = el("tr", "det fpa-row"); dr.hidden = true; var dtd = el("td"); dtd.colSpan = 8; dr.appendChild(dtd); tb.appendChild(dr);
+        x.addEventListener("click", function () {
+          var open = dr.hidden; if (open && !dtd.firstChild) dtd.appendChild(detail(a));
+          dr.hidden = !open; x.textContent = open ? "−" : "+"; x.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      });
+      more.hidden = L.length <= shown; more.textContent = "Show 60 more of " + (L.length - shown);
+    }
+    more.addEventListener("click", function () { shown += 60; draw(); });
+    q.addEventListener("input", function () { shown = 60; draw(); });
+    kind.addEventListener("change", function () { S.k = kind.value; shown = 60; draw(); });
+    fres.addEventListener("change", function () { shown = 60; draw(); });
+
+    /* ---- CSV: app name, app ID, and what it can obtain ---- */
+    function cell(s) { s = String(s == null ? "" : s); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+    function csv() {
+      var out = [["App name", "App ID", "Owner tenant", "Client type", "FOCI", "Device code", "Graph permissions", "Highest Graph level", "Other API permissions", "Consented in checked tenant", "Sources"].join(",")];
+      L.forEach(function (a) {
+        var other = Object.keys(a.sc || {}).filter(function (r) { return r !== G; }).map(function (r) { return resName(r) + ": " + a.sc[r].map(function (i) { return dic[i]; }).join(" "); }).join(" | ");
+        var t = tenantBy[a.id];
+        out.push([a.n, a.id, a.o, a.sc ? (a.pub ? "public" : "confidential") : "", a.foci ? "yes" : "", a.dc ? "yes" : "",
+          Object.keys(a.graph).sort().join(" "), a.maxl ? "L" + a.maxl : "", other,
+          t ? Object.keys(t.grants).map(function (r) { return r + ": " + t.grants[r]; }).join(" | ") : "", a.src.join(" ")].map(cell).join(","));
+      });
+      return "﻿" + out.join("\r\n");
+    }
+    csvb.addEventListener("click", function () {
+      var text = csv();
+      if (onSite()) {
+        var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/csv;charset=utf-8" }));
+        a.download = "first-party-apps-" + TODAY + ".csv"; a.textContent = "CSV"; a.hidden = true; document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      } else {
+        var p = navigator.clipboard && navigator.clipboard.writeText(text);
+        var done = function (ok) { csvb.textContent = ok ? "Copied " + L.length + " rows" : "Copy failed"; setTimeout(function () { csvb.textContent = "Copy CSV"; }, 2500); };
+        if (p && p.then) p.then(function () { done(true); }, function () { done(false); }); else done(false);
+      }
+    });
+
+    /* ---- sources ---- */
+    var src = el("details", "s5bk-health"); var ss = el("summary");
+    ss.appendChild(el("span", "s5bk-hh", "Where this tab's data comes from")); ss.appendChild(el("span", "s5bk-hs", "5 public sources · tenant check · read " + TODAY)); src.appendChild(ss);
+    var sbd = el("div", "s5bk-hb"); src.appendChild(sbd);
+    var SRCN = { merill: ["merill/microsoft-info", "app ID, name and owner tenant; a Graph sweep of Microsoft-owned service principals, twice a day · MIT"],
+      roadtools: ["ROADtools firstpartyscopes", "permissions per API, client type, FOCI, redirect URIs; updated by hand · MIT"],
+      gpc: ["Graph Pre-Consent Explorer", "Graph permissions, auth code and device code support, FOCI; found by signing in with each app · MIT"],
+      graph: ["Graph permissions reference", "Microsoft's privilege level L1–L4 of each Graph permission · daily · MIT"],
+      res: ["entrascopes.com — resources.json", "API display names · credited, no licence file"],
+      byp: ["entrascopes.com — bypasses.json", "known Conditional Access bypasses · credited, no licence file"] };
+    var SRCS = D.sources || {};
+    Object.keys(SRCN).map(function (k) {
+      var x = SRCS[k] || {}, url = x.repo ? "https://github.com/" + x.repo : "";
+      return [SRCN[k][0], url, (x.state === "unread" ? "NOT READ (" + (x.note || "") + ") · " : "") + SRCN[k][1] + (x.commit ? " · last change " + x.commit : "")];
+    }).concat(D.tenant && D.tenant.clients ? [["Tenant check (Graph, read-only)", "", "service principals owned by Microsoft (" + D.tenant.spMicrosoft + " of " + D.tenant.spTotal + ") and the consents and app roles they hold in tenant " + String(D.tenant.tenant).slice(0, 8) + "… on " + D.tenant.read + " · .github/workflows/fpa-tenant.yml"]]
+      : [["Tenant check", "", "no snapshot yet — site/data/fpa-tenant.json is written by .github/workflows/fpa-tenant.yml once its app is admin-consented (README.md)"]])
+    .forEach(function (s) {
+      var p = el("p", "mc-text");
+      if (s[1]) { var a = el("a", null, s[0]); a.href = s[1]; a.target = "_blank"; a.rel = "noopener"; p.appendChild(a); } else p.appendChild(el("b", null, s[0]));
+      p.appendChild(document.createTextNode(" — " + s[2])); sbd.appendChild(p);
+    });
+    panel.appendChild(src);
+    draw();
+    /* the shell's own search bar and CSV button (§5ap, §5bi) would sit on this table a second time */
+    function tidy() {
+      [].forEach.call(sb.querySelectorAll(".s9find:not([data-fpa]), .s5bi-csv:not([data-fpa])"), function (n) { n.remove(); });
+      var nc = document.querySelector("#tabbtn-tab-fpa .navcount"); if (nc) nc.textContent = String(D.apps.length);
+    }
+    tidy(); [800, 2500, 5000].forEach(function (t) { setTimeout(tidy, t); });
+    document.getElementById("tabbtn-tab-fpa") && document.getElementById("tabbtn-tab-fpa").addEventListener("click", function () { setTimeout(tidy, 300); });
+    setTimeout(function () { var n2 = document.querySelector("#tabbtn-tab-fpa .navcount"); if (n2) n2.textContent = String(D.apps.length); }, 2500);
+  }
+  function boot() { if (booted) return; booted = true; try { build(); } catch (e) { if (window.console) console.error("[fpa]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1300); });
+  else setTimeout(boot, 1300);
 })();
 ```
 
@@ -25413,6 +25789,337 @@ stronie glownej (1500, 1100, 414, 390, 360 px, oba motywy, wszystkie 14 zakladek
 na `/diff/` (1500 px oba motywy, 414/390/360 px); zadnego przewijania poziomego; tekstow < 12 px na
 telefonie: `/diff/` 0 (bylo 914), strona glowna kilkadziesiat na zakladke (byly tysiace; zostaja
 strzalki sortowania). Pozycja **113** (klasa B) pilnuje kodu strony glownej.
+
+## 5bl. ZAKLADKA FIRST-PARTY APPS (26 IX 2026)
+
+Zlecenie wlasciciela (25 IX 2026): zakladka z aplikacjami Microsoftu (first-party apps) — co istnieje, jakie
+uprawnienia do API te aplikacje moga uzyskac, co sie zmienilo — z sekcja na `/diff/`, w ukladzie portalu,
+z eksportem CSV (nazwa, appId, uprawnienia). Pelny opis zrodel, aplikacji Entra i odtwarzania na innym
+tenancie jest w `README.md` repozytorium.
+
+**Skad dane.** Microsoft nie publikuje listy swoich aplikacji ani ich uprawnien (Microsoft Q&A odsyla do
+merill/microsoft-info). Uprawnienia, ktore aplikacja Microsoftu dostaje bez zgody (pre-authorization),
+WYKRYWA sie logujac sie kazda aplikacja — tak robia ROADtools (Dirk-jan Mollema, zrodlo entrascopes.com) i
+Graph Pre-Consent Explorer. Tenant pokazuje tylko zgody i role nadane U NAS (zmierzone 25 IX 2026 w tenancie
+ea0d500a: zadna z 186 aplikacji Microsoftu nie miala roli aplikacyjnej Graph, zgode delegowana miala jedna —
+SharePoint Online Web Client Extensibility).
+
+| zrodlo | plik | daje |
+|---|---|---|
+| merill/microsoft-info | `_info/MicrosoftApps.json` | appId, nazwa, tenant wlasciciela; 2x dziennie |
+| dirkjanm/ROADtools | `roadtx/roadtools/roadtx/firstpartyscopes.json` | uprawnienia per API, FOCI, public client, redirect URI; recznie co 1-3 mies. |
+| zh54321/GraphPreConsentExplorer | `lists/GraphPreConsent.json` | uprawnienia Graph, auth code, device code, FOCI |
+| microsoftgraph/microsoft-graph-devx-content | `permissions/new/permissions.json` | poziom L1-L4 kazdego uprawnienia Graph |
+| f-bader/entrascopes.com | `resources.json`, `bypasses.json` | nazwy API, znane obejscia Conditional Access (bez licencji: tylko odczyt z podaniem autorow) |
+| workflow `.github/workflows/fpa-tenant.yml` | `site/data/fpa-tenant.json` | zgody delegowane i role aplikacyjne aplikacji spoza tenanta; aplikacja Entra „MS-SOC First-party apps reader", Directory.Read.All, poswiadczenie federacyjne GitHub (bez sekretu) |
+
+**Przebieg poranny** uruchamia kolektor po kolektorach §5aw i §5ag, w klonie MS_SOC jako `SOC_REPO`:
+
+```
+SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> SOC_REPOS=repos python3 collect_fpa.py FPA.json <poprzedni site/data/*.json>
+```
+
+i wklada `FPA.json` do bloku stanu jako klucz **`fpa`** (tak samo jak `NT.json` jako `nt`), a do strony
+jeden pusty panel — zakladke buduje SKRYPT 17 z bloku stanu:
+
+```html
+<div class="tabpanel" id="tab-fpa" data-tab="First-party apps" hidden></div>
+```
+
+Panel stoi zaraz po `tab-graph`. Zrodlo nieodczytane ma `state:"unread"` z powodem w `fpa.sources`; gdy
+nie da sie przeczytac merilla albo ROADtools, kolektor przepisuje wczorajsze aplikacje i nie liczy zmian
+(zadna lista nie moze „zniknac" przez awarie sieci). Pierwszy stan z kluczem `fpa` jest baseline'em: historie
+zasiewa git log merilla (90 dni) i dwie ostatnie rewizje ROADtools, a `/diff/` mowi „baseline", a nie
+„+1 736 added". Usuniecie aplikacji liczy sie dopiero po trzech przebiegach bez niej.
+
+**Zakladka** (SKRYPT 17, IIFE „the First-party apps tab"): kafelki-filtry, blok What Microsoft changed
+(ten sam co §5bf) z oknem 7/30/90/All, zielone pole szukania, tabela z `+` przy kazdym wierszu
+(uprawnienia per API z poziomem L1-L4, zgody w tenancie, obejscia CA), CSV wierszy widocznych po filtrach
+(na orange plik, w artefakcie „Copy CSV" — przegladarka artefaktow blokuje pobieranie). Skrypty powloki
+dokladaja do tej tabeli drugi pasek szukania i drugi CSV — `tidy()` je zdejmuje.
+
+**`/diff/`**: `diff_fpa()` bierze zmiany z `fpa.chg` z datami po `fpa.built` poprzedniego stanu; kafelek
+`first-party apps`, pozycja paska `Where from`, sekcja `#fpa`. Zmierzone 25 IX 2026: kolektor na zywych
+zrodlach — 1 736 aplikacji, 524 ze znanymi uprawnieniami, 203 zmiany w historii zasianej (baseline);
+ponowny przebieg na tych samych danych — 0 nowych zmian. Pozycja **114** (klasa B) pilnuje panelu, kodu
+i klucza `fpa`.
+
+```python
+#!/usr/bin/env python3
+"""collect_fpa.py - Microsoft first-party apps and the API permissions they can obtain. CLAUDE.md Sec.5bl.
+
+  SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> SOC_REPOS=<katalog na klony> \
+      python3 collect_fpa.py FPA.json [poprzedni site/data/<D>.json]      # -> FPA.json == klucz `fpa`
+
+Microsoft nie publikuje listy swoich aplikacji ani ich uprawnien (Microsoft Q&A odsyla do
+merill/microsoft-info). Zrodla, wszystkie publiczne, czytane przy kazdym przebiegu:
+  merill/microsoft-info       _info/MicrosoftApps.json      appId, nazwa, tenant wlasciciela (MIT)
+  dirkjanm/ROADtools          firstpartyscopes.json         uprawnienia per API, FOCI, public, redirect URI (MIT)
+  zh54321/GraphPreConsentExplorer lists/GraphPreConsent.json uprawnienia Graph, auth/device code, FOCI (MIT)
+  microsoftgraph/microsoft-graph-devx-content permissions.json   poziom L1-L4 (MIT)
+  f-bader/entrascopes.com     resources.json, bypasses.json nazwy API, obejscia CA (bez licencji: tylko odczyt, z podaniem autorow)
+oraz, gdy jest, <SOC_REPO>/site/data/fpa-tenant.json - migawka tenanta pisana przez workflow
+.github/workflows/fpa-tenant.yml (README.md). Zrodlo, ktorego nie udalo sie odczytac, dostaje
+state "unread" i note; wczorajsze dane NIE udaja dzisiejszych (ta sama regula co Sec.5ag).
+
+Zmiana = nowy appId, zmiana nazwy (bez sufiksu "[Community Contributed]" i wielkosci liter),
+zmiana tenanta, uprawnienie +/- (appId, API, uprawnienie), redirect URI, FOCI. Usuniecie dopiero
+po TRZECH przebiegach nieobecnosci - lista merilla pochodzi z jednego tenanta demo. Pierwszy
+przebieg (brak `fpa` w poprzednim stanie) jest baseline'em: historie zasiewa z git log merilla
+i z dwoch ostatnich rewizji ROADtools, a nie oglasza 1 700 aplikacji jako dodanych dzisiaj."""
+import json, os, sys, re, subprocess, datetime, urllib.request
+
+G = "00000003-0000-0000-c000-000000000000"
+RAW = "https://raw.githubusercontent.com/"
+SRC = {
+    "merill": ("merill/microsoft-info", "main", "_info/MicrosoftApps.json"),
+    "roadtools": ("dirkjanm/ROADtools", "master", "roadtx/roadtools/roadtx/firstpartyscopes.json"),
+    "gpc": ("zh54321/GraphPreConsentExplorer", "main", "lists/GraphPreConsent.json"),
+    "graph": ("microsoftgraph/microsoft-graph-devx-content", "master", "permissions/new/permissions.json"),
+    "res": ("f-bader/entrascopes.com", "main", "resources.json"),
+    "byp": ("f-bader/entrascopes.com", "main", "bypasses.json"),
+}
+TEN = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011db47", "cdc5aeea-15c5-4db6-b079-fcadd2505dc2"}
+KEEP_DAYS = 120
+
+
+def fetch(key):
+    repo, br, path = SRC[key]
+    url = RAW + "%s/%s/%s" % (repo, br, path)
+    req = urllib.request.Request(url, headers={"User-Agent": "MS_SOC collect_fpa"})
+    with urllib.request.urlopen(req, timeout=90) as r:
+        return json.loads(r.read().decode("utf-8"))
+
+
+def last_commit(key, repos):
+    """Data ostatniego commita pliku zrodla - z klonu, gdy jest (Sec.5b: klonuj, nie pobieraj)."""
+    repo, br, path = SRC[key]
+    d = os.path.join(repos, repo.replace("/", "__"))
+    try:
+        if not os.path.isdir(d):
+            subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout",
+                            "https://github.com/%s.git" % repo, d], check=True, timeout=240)
+        out = subprocess.check_output(["git", "-C", d, "log", "-1", "--format=%ad", "--date=short",
+                                       "origin/" + br, "--", path], timeout=60).decode().strip()
+        return out or None, d
+    except Exception:
+        return None, None
+
+
+def norm_name(n):
+    return re.sub(r"\s*\[Community Contributed\]\s*$", "", str(n or "")).strip()
+
+
+def build_apps(m, rt, gpc, bypasses):
+    apps = {}
+    for x in m or []:
+        a = str(x.get("AppId") or "").lower()
+        if not a:
+            continue
+        src = {"Graph": "tenant", "EntraDocs": "docs", "GitHub": "community", "Learn": "learn"}.get(x.get("Source"), str(x.get("Source") or "").lower())
+        e = apps.setdefault(a, {"id": a, "n": norm_name(x.get("AppDisplayName")), "o": x.get("AppOwnerOrganizationId") or "", "src": []})
+        if src not in e["src"]:
+            e["src"].append(src)
+    for a, v in ((rt or {}).get("apps") or {}).items():
+        a = a.lower()
+        e = apps.setdefault(a, {"id": a, "n": v.get("name") or "", "o": "", "src": []})
+        e["src"].append("roadtools")
+        if not e["n"]:
+            e["n"] = v.get("name") or ""
+        e["foci"] = bool(v.get("foci")) or e.get("foci", False)
+        e["pub"] = bool(v.get("public_client"))
+        e["sc"] = {r.lower(): sorted(set(ss)) for r, ss in (v.get("scopes") or {}).items()}
+        ru = v.get("redirect_uris") or []
+        if ru:
+            e["nru"] = len(ru)
+            e["ru"] = [u for u in ru if str(u).lower().startswith("brk-")][:10]
+        e["rus"] = sorted(ru)
+    for g in gpc or []:
+        a = str(g.get("client_id") or "").lower()
+        if not a:
+            continue
+        e = apps.setdefault(a, {"id": a, "n": g.get("name") or "", "o": "", "src": []})
+        e["src"].append("gpc")
+        if not e["n"]:
+            e["n"] = g.get("name") or ""
+        e["gp"] = sorted(set(g.get("graph_api_permissions") or []))
+        e["dc"] = bool(g.get("device_code"))
+        e["ac"] = bool(g.get("auth_code"))
+        if g.get("foci") is True:
+            e["foci"] = True
+    for b in bypasses or []:
+        a = str(b.get("AppID") or "").lower()
+        if a in apps:
+            apps[a].setdefault("byp", []).append({"p": b.get("ProtectionBypass"), "st": b.get("CurrentState"),
+                                                   "d": b.get("Description"), "r": (b.get("ReadMore") or [])[:2]})
+    # a name only from Microsoft's docs dictionary is not an app we can say anything about
+    return {k: v for k, v in apps.items() if any(s != "docs" for s in v["src"])}
+
+
+def perm_set(e):
+    s = set()
+    for r, ss in (e.get("sc") or {}).items():
+        for x in ss:
+            s.add((r, x))
+    for x in e.get("gp") or []:
+        s.add((G, x))
+    return s
+
+
+def diff(prev_apps, cur_apps, day, miss):
+    """prev/cur: {id: app}. Zwraca (zmiany, nowy slownik nieobecnosci)."""
+    out, nmiss = [], {}
+    for k, v in cur_apps.items():
+        o = prev_apps.get(k)
+        if not o:
+            out.append({"d": day, "t": "added", "id": k, "n": v["n"], "src": ",".join(v["src"])})
+            continue
+        if norm_name(o.get("n")).lower() != norm_name(v.get("n")).lower() and o.get("n") and v.get("n"):
+            out.append({"d": day, "t": "renamed", "id": k, "n": v["n"], "a": o["n"], "b": v["n"], "src": ",".join(v["src"])})
+        if (o.get("o") or "") != (v.get("o") or "") and o.get("o") and v.get("o"):
+            out.append({"d": day, "t": "owner", "id": k, "n": v["n"], "a": o["o"], "b": v["o"], "src": ",".join(v["src"])})
+        pa, pb = perm_set(o), perm_set(v)
+        if pa != pb and (pa or pb):
+            add, rem = sorted(pb - pa), sorted(pa - pb)
+            out.append({"d": day, "t": "scopes", "id": k, "n": v["n"], "add": [list(x) for x in add[:60]],
+                        "rem": [list(x) for x in rem[:60]], "na": len(add), "nr": len(rem), "src": ",".join(v["src"])})
+        ra, rb = set(o.get("rus") or []), set(v.get("rus") or [])
+        if ra != rb and "rus" in o:
+            out.append({"d": day, "t": "redirects", "id": k, "n": v["n"], "add": sorted(rb - ra)[:20], "rem": sorted(ra - rb)[:20], "src": "roadtools"})
+        if bool(o.get("foci")) != bool(v.get("foci")):
+            out.append({"d": day, "t": "foci", "id": k, "n": v["n"], "a": bool(o.get("foci")), "b": bool(v.get("foci")), "src": ",".join(v["src"])})
+    for k, o in prev_apps.items():
+        if k in cur_apps:
+            continue
+        n = int(miss.get(k, 0)) + 1
+        if n >= 3:
+            out.append({"d": day, "t": "removed", "id": k, "n": o.get("n"), "src": ",".join(o.get("src") or [])})
+        else:
+            nmiss[k] = n
+            cur_apps[k] = dict(o, miss=n)     # still shown, marked, until the third run without it
+    return out, nmiss
+
+
+def seed_history(repos, day):
+    """Pierwszy przebieg: historia z git log merilla (90 dni) i dwoch ostatnich rewizji ROADtools."""
+    chg = []
+    for key, span in (("merill", 90), ("roadtools", 400)):
+        repo, br, path = SRC[key]
+        d = os.path.join(repos, repo.replace("/", "__"))
+        try:
+            since = (datetime.date.fromisoformat(day) - datetime.timedelta(days=span)).isoformat()
+            revs = subprocess.check_output(["git", "-C", d, "log", "--format=%h %ad", "--date=short",
+                                            "--since=" + since, "origin/" + br, "--", path], timeout=120).decode().split("\n")
+            revs = [r.split() for r in revs if r.strip()][::-1]
+            if key == "roadtools":
+                revs = revs[-2:]
+            prev = None
+            for h, dd in revs:
+                raw = json.loads(subprocess.check_output(["git", "-C", d, "show", h + ":" + path], timeout=120))
+                cur = build_apps(raw, None, None, None) if key == "merill" else build_apps(None, raw, None, None)
+                if prev is not None:
+                    c, _ = diff(prev, cur, dd, {})
+                    chg.extend(x for x in c if x["t"] != "removed")
+                prev = {k: v for k, v in cur.items() if not v.get("miss")}
+        except Exception as ex:
+            chg.append({"d": day, "t": "note", "id": "", "n": "history of %s not read: %s" % (repo, str(ex)[:120]), "src": repo})
+    return [c for c in chg if c["t"] != "note"]
+
+
+def main(out_path, prev_path=None):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    repos = os.environ.get("SOC_REPOS") or "repos"
+    soc_repo = os.environ.get("SOC_REPO") or "../chk"
+    os.makedirs(repos, exist_ok=True)
+    data, state = {}, {}
+    for k in SRC:
+        try:
+            data[k] = fetch(k)
+            commit, _ = last_commit(k, repos) if k in ("merill", "roadtools", "gpc") else (None, None)
+            state[k] = {"state": "read", "repo": SRC[k][0], "file": SRC[k][2], "commit": commit}
+        except Exception as ex:
+            data[k] = None
+            state[k] = {"state": "unread", "repo": SRC[k][0], "file": SRC[k][2], "note": str(ex)[:200]}
+    prev = {}
+    if prev_path and os.path.exists(prev_path):
+        try:
+            prev = (json.load(open(prev_path, encoding="utf-8")).get("soc-brief-state") or {}).get("fpa") or {}
+        except Exception:
+            prev = {}
+    # an unread source must not look like every one of its apps vanished: keep yesterday's apps for it
+    if data.get("merill") is None or data.get("roadtools") is None:
+        print("UWAGA: zrodlo nieodczytane (%s) - apps z poprzedniego stanu, bez zmian dnia"
+              % ", ".join(k for k in ("merill", "roadtools") if data.get(k) is None))
+    apps = build_apps(data.get("merill"), data.get("roadtools"), data.get("gpc"), data.get("byp"))
+    prev_apps = {}
+    for a in prev.get("apps") or []:
+        e = dict(a); dic = prev.get("dic") or []
+        if "sc" in e:
+            e["sc"] = {r: [dic[i] for i in ii] for r, ii in e["sc"].items()}
+        if "gp" in e:
+            e["gp"] = [dic[i] for i in e["gp"]]
+        prev_apps[e["id"]] = e
+    baseline = not prev_apps
+    if baseline:
+        chg = seed_history(repos, day)
+    elif data.get("merill") is None or data.get("roadtools") is None:
+        chg, apps = list(prev.get("chg") or []), prev_apps
+    else:
+        today, miss = diff(prev_apps, apps, day, prev.get("miss") or {})
+        chg = today + list(prev.get("chg") or [])
+        prev["miss"] = miss
+    cut = (datetime.date.fromisoformat(day) - datetime.timedelta(days=KEEP_DAYS)).isoformat()
+    # ROADtools changes by hand every 1-3 months, so its last revision is kept whatever its age
+    chg = sorted([c for c in chg if str(c.get("d") or "") >= cut or "roadtools" in str(c.get("src") or "")],
+                 key=lambda c: c["d"], reverse=True)
+    # privilege level of every Graph permission from Microsoft's own reference
+    perms = ((data.get("graph") or {}).get("permissions") or {})
+    dic, out = {}, []
+    def ix(s):
+        if s not in dic:
+            dic[s] = len(dic)
+        return dic[s]
+    for a in sorted(apps.values(), key=lambda a: (not str(a.get("n") or "").strip(), str(a.get("n") or "").lower())):
+        e = {"id": a["id"], "n": a.get("n") or "", "o": a.get("o", ""), "src": sorted(set(a.get("src") or []))}
+        for k in ("foci", "pub", "dc", "ac", "byp", "nru", "ru", "miss"):
+            if a.get(k):
+                e[k] = a[k]
+        if a.get("sc"):
+            e["sc"] = {r: [ix(s) for s in ss] for r, ss in a["sc"].items()}
+        if a.get("gp"):
+            e["gp"] = [ix(s) for s in a["gp"]]
+        if a.get("rus"):
+            e["rus"] = a["rus"]
+        out.append(e)
+    priv = {}
+    for s in dic:
+        v = ((perms.get(s) or {}).get("schemes") or {}).get("DelegatedWork") or {}
+        if v:
+            priv[s] = [v.get("privilegeLevel"), v.get("requiresAdminConsent"), v.get("adminDisplayName")]
+    resn = {str(r.get("resourceId") or "").lower(): r.get("displayName") for r in (data.get("res") or [])}
+    used = set(r for a in out for r in (a.get("sc") or {}))
+    tenant = None
+    tp = os.path.join(soc_repo, "site", "data", "fpa-tenant.json")
+    if os.path.exists(tp):
+        try:
+            tenant = json.load(open(tp, encoding="utf-8"))
+        except Exception as ex:
+            tenant = {"state": "unread", "note": str(ex)[:200]}
+    fpa = {"built": day, "baseline": baseline, "sources": state, "apps": out, "dic": list(dic.keys()),
+           "res": {r: resn.get(r, "") for r in used}, "priv": priv, "chg": chg, "miss": prev.get("miss") or {},
+           "tenant": tenant}
+    json.dump(fpa, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    n_perm = sum(1 for a in out if a.get("sc") or a.get("gp"))
+    print("OK  %s  %d apps, %d with permissions, %d changes held%s, sources: %s"
+          % (out_path, len(out), n_perm, len(chg), " (baseline, history seeded)" if baseline else "",
+             ", ".join("%s=%s" % (k, v["state"]) for k, v in state.items())))
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        raise SystemExit(__doc__)
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+```
 (klasa B) pilnuje kodu tego etapu.
 
 
