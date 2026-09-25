@@ -3097,6 +3097,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `diff-wears-brief-look` | **strona zmian i artefakt Delta w wygladzie briefu** — paleta, IBM Plex, 1500 px, kafelki `.stat`, plaszczyzna nawigacji §5ae; uklad bez zmian | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, blok na koncu `CSS` w `make_diff.py`. Zmierzone na danych 24→25 IX: tlo, czcionka i kolumna jak w briefie w obu motywach. **Brakuje pierwszego przebiegu zmian z tego pliku** |
 | `diff-every-tile-a-link` | **kazdy kafelek na stronie zmian jest linkiem**, takze zero i rozmiar katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `verify()` odrzuca kafelek bez linku. Na danych 24→25 IX: 12 kafelkow, 12 linkow. **Brakuje pierwszego przebiegu zmian z tego pliku** |
 | `nav-follows-theme` | **pasek zakladek zmienia kolor z motywem** — jasna plaszczyzna w jasnym, grafit w ciemnym; brief i `/diff/` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, zmienne `--nav-*` w bloku §5ae i w `make_diff.py`; pozycja 35 i asercja render §5ae przepisane. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `diff-counts-changes-not-bookkeeping` | **strona zmian liczy ZMIANY, nie ksiegowosc, i od stanu KONCOWEGO poprzedniego dnia** — wartosc zapisana po raz pierwszy, okno czasu, sposob i data odczytu nie sa zmianami; plik dnia nadpisuje przebieg wieczorny | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, `moved()` i zapis stanu koncowego w `make_diff.py`. Na 24→25 IX: Graph permissions +0, komponenty 0, Message Center 12 zamiast 184. **Brakuje pierwszego przebiegu zmian z tego pliku** |
 
 
 
@@ -4305,6 +4306,31 @@ def norm(v):
     if isinstance(v, bool): return "yes" if v else "no"
     return str(v).strip()
 
+# §5bf (25 IX 2026): KSIEGOWOSC NIE JEST ZMIANA. Wlasciciel porownal zakladke Graph API
+# ("What changed at Microsoft since 24 Sep: 0 / 0 / 0") ze strona zmian ("+6 Graph permissions",
+# "13 component versions changed", "184 revised" w Message Center) i zapytal, ktora klamie.
+# Zmierzone na stanach 24 IX (po przebiegu 21:15) -> 25 IX: 22 z 26 zmian pol pozycji to `tier`
+# (horizon <-> published-in-window: przesuniecie okna czasu, nie ruch Microsoftu), 13 z 13
+# komponentow to `checkedOn` i stan `new-version -> no-change` przy tej samej wersji, 57 zrodel
+# spolecznosci to `method` z pustego na `rss-guessed`, a 184 wpisy Message Center to `revisedOn`
+# i `published` z PUSTEGO na date — brief zaczal czytac indeks w calosci, Microsoft nic nie ruszyl.
+# Takich roznic nie liczymy; liczymy je w NOISE i mowimy o nich jednym zdaniem pod kafelkami.
+BOOKKEEPING = {"tier", "method", "checkedOn"}        # jak/gdzie brief to trzyma, nie co zrobil Microsoft
+APPEARS_IS_NEWS = {"deadline", "status", "action"}   # pojawienie sie TYCH pol jest wiadomoscia
+NOISE = {"first recorded": 0, "bookkeeping": 0}
+
+def moved(f, a, b):
+    """Czy roznica pola `f` z `a` na `b` jest ZMIANA (§5bf)."""
+    if a == b:
+        return False
+    if f in BOOKKEEPING:
+        NOISE["bookkeeping"] += 1
+        return False
+    if a == "" and f not in APPEARS_IS_NEWS:
+        NOISE["first recorded"] += 1
+        return False
+    return True
+
 def diff_items(prev, curr):
     p = {i.get("id"): i for i in (prev.get("items") or []) if i.get("id")}
     c = {i.get("id"): i for i in (curr.get("items") or []) if i.get("id")}
@@ -4314,7 +4340,7 @@ def diff_items(prev, curr):
     for k in c:
         if k not in p: continue
         deltas = [(lab, norm(p[k].get(f)), norm(c[k].get(f)))
-                  for f, lab in FIELDS if norm(p[k].get(f)) != norm(c[k].get(f))]
+                  for f, lab in FIELDS if moved(f, norm(p[k].get(f)), norm(c[k].get(f)))]
         if deltas: changed.append((c[k], deltas))
     return added, removed, changed, len(p), len(c)
 
@@ -4332,13 +4358,20 @@ def diff_catalog(prev, curr, which):
     return add, rem, mod, len(pe), len(ce)
 
 # Pola komponentu, ktorych ruch jest ZMIANA. §5ag: wersja, stan wydania i termin.
-COMPONENT_FIELDS = [("state","State"),("deadline","Deadline"),("provenance","Provenance"),
-                    ("checkedOn","Checked on")]
+# §5bf: `checkedOn` zmienia sie przy kazdym przebiegu (to data ODCZYTU), a `lastChange` jest
+# wyliczany z historii — zadne z nich nie jest ruchem komponentu. `state` liczy sie tylko wtedy,
+# gdy ruszyla sie wersja: `new-version -> no-change` przy tej samej wersji to uplyw jednego dnia.
+COMPONENT_FIELDS = [("state","State"),("deadline","Deadline"),("provenance","Provenance")]
 
 def comp_versions(c):
     """Wersje jako {platforma: numer} — porownanie idzie per platforma, bo komponent
-    o dwoch platformach (Authenticator) rusza sie na kazdej osobno."""
-    return {norm(v.get("platform")): norm(v.get("version")) for v in (c.get("versions") or [])}
+    o dwoch platformach (Authenticator) rusza sie na kazdej osobno. §5bf: nieodczytana wersja
+    ma jedno znaczenie niezaleznie od zapisu (`None`, `"not read in this run"`, `"unread"`) —
+    25 IX MDI i MDE pokazaly `not read in this run -> cleared`, czyli nieodczytane -> nieodczytane."""
+    def _v(x):
+        x = norm(x)
+        return "" if x.lower() in ("not read in this run", "unread", "not read") else x
+    return {norm(v.get("platform")): _v(v.get("version")) for v in (c.get("versions") or [])}
 
 def diff_components(prev, curr):
     p = {c.get("id"): c for c in (prev.get("components") or []) if c.get("id")}
@@ -4354,7 +4387,10 @@ def diff_components(prev, curr):
             if pv.get(plat, "") != cv.get(plat, ""):
                 deltas.append(("Version on " + (plat or "unspecified"), pv.get(plat, ""), cv.get(plat, "")))
         for f, lab in COMPONENT_FIELDS:
-            if norm(p[k].get(f)) != norm(c[k].get(f)):
+            if f == "state" and pv == cv and norm(p[k].get(f)) != norm(c[k].get(f)):
+                NOISE["bookkeeping"] += 1
+                continue
+            if moved(f, norm(p[k].get(f)), norm(c[k].get(f))):
                 deltas.append((lab, norm(p[k].get(f)), norm(c[k].get(f))))
         if deltas: changed.append((c[k], deltas))
     return added, removed, changed, len(p), len(c)
@@ -4434,7 +4470,7 @@ def diff_community(prev_st, curr_st):
     for n in cs:
         if n not in ps: continue
         d = [(lab, norm(ps[n].get(f)), norm(cs[n].get(f)))
-             for f, lab in SOURCE_FIELDS if norm(ps[n].get(f)) != norm(cs[n].get(f))]
+             for f, lab in SOURCE_FIELDS if moved(f, norm(ps[n].get(f)), norm(cs[n].get(f)))]
         if d: srcChg.append((cs[n], d))
     # zrodlo, ktore przestalo sie czytac, jest najwazniejszym wierszem tej sekcji
     srcChg.sort(key=lambda t: 0 if any(l == "Status" and b == "failed" for l, a, b in t[1]) else 1)
@@ -4476,7 +4512,7 @@ def diff_community(prev_st, curr_st):
     for k in (() if shift else cm):
         if k not in pm: continue
         d = [(lab, norm(pm[k].get(f)), norm(cm[k].get(f)))
-             for f, lab in MC_FIELDS if norm(pm[k].get(f)) != norm(cm[k].get(f))]
+             for f, lab in MC_FIELDS if moved(f, norm(pm[k].get(f)), norm(cm[k].get(f)))]
         if d: mcChg.append((cm[k], d))
     # termin, ktory sie ruszyl, jest najwazniejszym wierszem tej sekcji
     mcChg.sort(key=lambda t: 0 if any(l == "Action required by" for l, a, b in t[1]) else 1)
@@ -4652,7 +4688,7 @@ def diff_nt(prev_st, curr_st):
     for k in ca:
         if k not in pa: continue
         d = [(lab, norm(pa[k].get(f)), norm(ca[k].get(f)))
-             for f, lab in LEARN_FIELDS if norm(pa[k].get(f)) != norm(ca[k].get(f))]
+             for f, lab in LEARN_FIELDS if moved(f, norm(pa[k].get(f)), norm(ca[k].get(f)))]
         if d: areaChg.append((ca[k], d))
     # zrodlo, ktore przestalo sie czytac, jest najwazniejszym wierszem tej sekcji
     areaChg.sort(key=lambda t: 0 if any(l == "Status" and b != "ok" for l, a, b in t[1]) else 1)
@@ -4682,7 +4718,7 @@ def diff_nt(prev_st, curr_st):
     for k in cb:
         if k not in pb: continue
         d = [(lab, norm(pb[k].get(f)), norm(cb[k].get(f)))
-             for f, lab in BLOG_FIELDS if norm(pb[k].get(f)) != norm(cb[k].get(f))]
+             for f, lab in BLOG_FIELDS if moved(f, norm(pb[k].get(f)), norm(cb[k].get(f)))]
         if d: blogChg.append((cb[k], d))
     blogChg.sort(key=lambda t: 0 if any(l == "Status" and b == "failed" for l, a, b in t[1]) else 1)
 
@@ -6456,6 +6492,7 @@ NAV_BODY = """<script>
 </script>"""
 
 def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
+    NOISE["first recorded"] = NOISE["bookkeeping"] = 0
     added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
     gadd, grem, gmod, gp, gc = diff_catalog(prev_cat, curr_cat, "graph")
     radd, rrem, rmod, rp, rc = diff_catalog(prev_cat, curr_cat, "roles")
@@ -6596,6 +6633,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                    'item&rsquo;s own tab (&sect;3a, one home per item).'
                    % (mcv_add, mcv_rem, mcv_chg))
                   if (mcv_add or mcv_rem or mcv_chg) else '')
+               + ((' <b>Not counted as changes (&sect;5bf): %d values recorded for the first time on '
+                   'an entry that already existed</b> &mdash; the brief read more, Microsoft moved '
+                   'nothing &mdash; <b>and %d bookkeeping differences</b>: window placement, how a '
+                   'source was read, the date it was checked, a component&rsquo;s state ageing by one '
+                   'day at the same version.' % (NOISE["first recorded"], NOISE["bookkeeping"]))
+                  if (NOISE["first recorded"] or NOISE["bookkeeping"]) else '')
                + '</p>')
     out.append('</div></header><div class="wrap">@@SUBNAV@@')
 
@@ -7855,6 +7898,22 @@ if __name__ == "__main__":
         os.makedirs(os.path.dirname(os.path.abspath(args[2])), exist_ok=True)
         open(args[2], "w", encoding="utf-8").write(page)
         print("OK  %s  %d B" % (args[2], len(page.encode())))
+        # §5bf (25 IX 2026): plik dnia ma trzymac stan KONCOWY dnia. `site/data/<D>.json` pisze
+        # lustro o 07:00 ze stanu PORANNEGO, a przebieg 21:00 republikuje artefakt po swojemu —
+        # wiec nastepnego dnia strona zmian liczyla od porannego stanu i pokazywala popoludniowe
+        # zmiany wczoraj JESZCZE RAZ (24 IX: +6 uprawnien Graph, ktore zakladka Graph API slusznie
+        # uznala za stare). Przebieg wieczorny (`--kind diff`) nadpisuje wiec plik dnia stanem,
+        # ktory wlasnie porownal jako NOWSZY, o ile ten plik juz istnieje (napisal go poranek)
+        # i data sie zgadza. Brief jutro porownuje sie z tym samym stanem (`comparedDate`).
+        if kind == "diff" and os.path.basename(os.path.dirname(os.path.abspath(args[2]))) == "diff":
+            _dd = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[2]))), "data")
+            _bd = str(cs.get("briefDate") or "")
+            _dp = os.path.join(_dd, "%s.json" % _bd)
+            if re.match(r"^\d{4}-\d{2}-\d{2}$", _bd) and os.path.exists(_dp) \
+                    and os.path.abspath(_dp) != os.path.abspath(args[1]):
+                json.dump({"soc-brief-state": cs, "soc-catalog": cc},
+                          open(_dp, "w", encoding="utf-8"), ensure_ascii=False)
+                print("OK  %s  <- stan koncowy dnia (%d pozycji)" % (_dp, len(cs.get("items") or [])))
     if "--ledger" in opts:
         lp = opts[opts.index("--ledger") + 1]
         n, tot = ledger(lp, ps, pc, cs, cc, when, kind)
@@ -23286,6 +23345,27 @@ aktywna wypelniona akcentem `#14479e`), ciemny zostaje grafitowy. Wszystkie suro
 §5ae staly sie zmiennymi `--nav-*` przedefiniowanymi w bloku ciemnym. To samo na `/diff/`.
 Zmierzone: jasny `.navstack` rgb(223,229,238), ciemny rgb(43,49,64), klik `Theme` przelacza oba;
 zero przewijania poziomego przy 390 i 1500 px, zero bledow skryptow.
+
+
+### Strona zmian liczyla ksiegowosc i porownywala z porannym stanem (25 IX 2026, wieczorem)
+
+Wlasciciel pokazal dwa zrzuty: zakladka Graph API na stronie glownej — *„What changed at Microsoft
+since 24 Sep: 0 / 0 / 0"* — i `/diff/` — *„+6 Graph permissions · 2198 → 2204"*. Obie strony liczyly
+poprawnie, ale NIE TO SAMO. Zmierzone:
+
+| roznica | przyczyna | poprawka |
+|---|---|---|
+| `+6 Graph permissions`, `items in state · was 207` | `/diff/` porownywal z `site/data/2026-09-24.json`, czyli ze stanem PORANNYM 24 IX (207 pozycji, 2198 uprawnien, Entra Connect 2.6.91.0). Przebieg 21:15 dopisal 6 uprawnien i 9 pozycji tylko do artefaktu; zakladka Graph API porownuje z briefem PO tym przebiegu (`comparedDate`), wiec slusznie mowi 0 | `make_diff.py` przy `--kind diff` nadpisuje `site/data/<dzien>.json` stanem, ktory porownal jako nowszy (stan koncowy dnia); plik 24 IX w repozytorium zastapiony stanem artefaktu 24 IX po 21:15 |
+| `13 component versions` changed | `checkedOn` (data odczytu, zmienia sie codziennie) i `state` `new-version → no-change` przy tej samej wersji; MDI i MDE `not read in this run → cleared` | `checkedOn` poza polami zmiany, `state` liczony tylko przy ruchu wersji, nieodczytana wersja ma jeden zapis |
+| `184 revised` w Message Center | `revisedOn` i `published` z PUSTEGO na date — 25 IX brief zaczal czytac indeks w calosci | `moved()`: wartosc zapisana po raz pierwszy na istniejacym wpisie nie jest zmiana (poza `deadline`, `status`, `action`) |
+| 22 zmiany `Tier` | `horizon ↔ published-in-window` — przesuniecie okna czasu | `tier` i `method` (sposob odczytu zrodla) to ksiegowosc, nie zmiana |
+
+Po poprawkach, na stanach 24 IX (po 21:15) → 25 IX: `Graph permissions +0` (jak zakladka Graph API),
+`component versions 0` (jak zakladka Component versions: *Nothing moved*), Message Center `+45 / −0 / 12`.
+Pod kafelkami strona mowi jednym zdaniem, ile roznic NIE policzyla i dlaczego. Zostaje swiadomie:
+`Graph endpoints +12 / −9` — mapa endpointow w bloku stanu zostala 25 IX przebudowana z commita
+274c9b9 (katalog nazywa to wlasna zmiana briefu), a `Community −83` to artykuly, ktore wypadly z okna
+albo z kanalu RSS zrodla (Hacker News trzyma tylko najnowsze), nie artykuly usuniete przez autorow.
 
 
 ## 6. Kontrakt w stronie
