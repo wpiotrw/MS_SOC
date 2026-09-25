@@ -25800,7 +25800,9 @@ tenancie jest w `README.md` repozytorium.
 **Skad dane.** Microsoft nie publikuje listy swoich aplikacji ani ich uprawnien (Microsoft Q&A odsyla do
 merill/microsoft-info). Uprawnienia, ktore aplikacja Microsoftu dostaje bez zgody (pre-authorization),
 WYKRYWA sie logujac sie kazda aplikacja — tak robia ROADtools (Dirk-jan Mollema, zrodlo entrascopes.com) i
-Graph Pre-Consent Explorer. Tenant pokazuje tylko zgody i role nadane U NAS (zmierzone 25 IX 2026 w tenancie
+Graph Pre-Consent Explorer. Tenant pokazuje tylko zgody i role nadane U NAS. Workflow czyta tenant wisnia
+833fd6f2-76f2-4750-b776-b9228da14a4e (azureme.ovh), aplikacja appId 87ab5007-2910-44ee-8715-6475dfd76254 (od 25 IX
+2026; wczesniejsza kopia w demo tenancie Contoso ea0d500a nie jest uzywana). Pomiar probny 25 IX 2026 w demo tenancie
 ea0d500a: zadna z 186 aplikacji Microsoftu nie miala roli aplikacyjnej Graph, zgode delegowana miala jedna —
 SharePoint Online Web Client Extensibility).
 

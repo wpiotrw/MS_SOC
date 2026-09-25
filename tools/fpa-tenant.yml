@@ -18,8 +18,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  AZURE_TENANT_ID: ea0d500a-496c-42eb-a3c0-d834e723edc2
-  AZURE_CLIENT_ID: 373c2197-64a1-41a4-a8b4-70719dc89a27
+  AZURE_TENANT_ID: 833fd6f2-76f2-4750-b776-b9228da14a4e   # wisnia (azureme.ovh)
+  AZURE_CLIENT_ID: 87ab5007-2910-44ee-8715-6475dfd76254   # MS-SOC First-party apps reader
 
 jobs:
   snapshot:

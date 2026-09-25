@@ -107,19 +107,20 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
 
 | Pole | Wartość |
 |---|---|
-| Tenant | Contoso, `ea0d500a-496c-42eb-a3c0-d834e723edc2` (`m365b327862.onmicrosoft.com`) |
+| Tenant | **wisnia**, `833fd6f2-76f2-4750-b776-b9228da14a4e` (domena domyślna `azureme.ovh`) |
 | Aplikacja Entra | **MS-SOC First-party apps reader** |
-| Application (client) ID | `373c2197-64a1-41a4-a8b4-70719dc89a27` |
-| Object ID aplikacji | `7c947ef0-62f1-4228-8ed9-25a1e77733e3` |
-| Object ID service principala | `a38f1760-8903-43d4-901c-dd795e8864cb` |
+| Application (client) ID | `87ab5007-2910-44ee-8715-6475dfd76254` |
+| Object ID aplikacji | `161afcd6-bb77-4ff0-ad5a-1075b8053549` |
+| Object ID service principala | `66acc967-7c6e-451c-abb1-d1e9e6f8f7fb` |
 | Uprawnienia (Application, tylko odczyt) | Microsoft Graph → **Application.Read.All** (service principale i ich role aplikacyjne) + **DelegatedPermissionGrant.Read.All** (tylko zgody delegowane) |
 | Dlaczego nie Directory.Read.All | Directory.Read.All czyta cały katalog: użytkowników, grupy, urządzenia. Dokumentacja Microsoftu podaje go jako „least privileged” dla `GET /oauth2PermissionGrants`, ale Graph ma węższą rolę **DelegatedPermissionGrant.Read.All** („Read all delegated permission grants”). Jeśli Graph jej nie przyjmie (403), skrypt zapisze migawkę bez zgód delegowanych, z polem `grantsNote`, i nie przerwie działania — wtedy decydujemy, czy dodać Directory.Read.All |
-| Zgoda administratora | **DO WYKONANIA RAZ** — pkt 5.3, krok 1 |
+| Zgoda administratora | **nadana** 25 IX 2026 przez skrypt (obie role przypisane do service principala); sprawdzenie — pkt 5.3, krok 1 |
 | Poświadczenie federacyjne | nazwa `github-ms-soc-main`, issuer `https://token.actions.githubusercontent.com`, subject `repo:wpiotrw/MS_SOC:ref:refs/heads/main`, audience `api://AzureADTokenExchange` |
 | Sekrety | **brak** |
 | Workflow | `.github/workflows/fpa-tenant.yml` (codziennie 03:30 UTC i ręcznie); do czasu przeniesienia leży w `tools/fpa-tenant.yml` — pkt 5.3, krok 2 |
 | Wynik | `site/data/fpa-tenant.json` |
-| Utworzono | 25 IX 2026 przez Microsoft Graph (narzędzie Lokka, aplikacja „Lokka-CA-Automation” z Application.ReadWrite.All); pierwsza migawka zrobiona ręcznie tym samym narzędziem |
+| Utworzono | 25 IX 2026 skryptem `tools/New-FpaReaderApp.ps1` (logowanie kodem urządzenia kontem `admin@pwisniewskisbhu.onmicrosoft.com`). Pierwszą migawkę zrobi workflow po przeniesieniu (pkt 5.3, krok 2) |
+| Poprzednia wersja | Tego samego dnia aplikacja powstała omyłkowo w demo tenancie Contoso (`ea0d500a-…`, appId `373c2197-…`), bo do niego było podłączone narzędzie Lokka. Migawka z Contoso została usunięta ze strony; aplikację w Contoso można usunąć (pkt 5.3, „Usunięcie”) |
 
 #### Jak działa logowanie bez sekretu (poświadczenie federacyjne)
 
@@ -131,7 +132,7 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
    - Entra sprawdza podpis GitHuba i zgodność `iss`/`sub`/`aud` z poświadczeniem i wydaje token Graph z uprawnieniami aplikacji.
 4. Token Graph żyje około godziny i istnieje tylko w pamięci przebiegu. Nie ma czego ukraść ani odnawiać: token OIDC wystawiony dla innego repozytorium, innej gałęzi albo forka ma inny `sub` i zostanie odrzucony.
 
-Poświadczenie utworzono wywołaniem Graph `POST /applications/7c947ef0-62f1-4228-8ed9-25a1e77733e3/federatedIdentityCredentials` z polami z tabeli wyżej. Skrypt `fpa_tenant.py` go **nie tworzy**, tylko z niego korzysta. Tworzy je skrypt odtworzeniowy niżej (`New-MgApplicationFederatedIdentityCredential`).
+Poświadczenie tworzy skrypt `tools/New-FpaReaderApp.ps1` wywołaniem Graph `POST /applications/{id}/federatedIdentityCredentials` z polami z tabeli wyżej. Skrypt `fpa_tenant.py` go **nie tworzy**, tylko z niego korzysta.
 
 #### Dlaczego GitHub Actions i co nam to daje
 
@@ -144,13 +145,15 @@ Poświadczenie utworzono wywołaniem Graph `POST /applications/7c947ef0-62f1-422
 
 ### 5.3 Do zrobienia raz (właściciel)
 
-**Krok 1 — zgoda administratora (formatka w Entra)**
+**Krok 1 — zgoda administratora (sprawdzenie)**
+
+Zgodę nadał skrypt `tools/New-FpaReaderApp.ps1` (przypisanie obu ról aplikacyjnych). Aby to sprawdzić albo nadać ją ręcznie:
 
 1. Otwórz stronę uprawnień aplikacji w Entra admin center (konto z rolą Privileged Role Administrator albo Global Administrator):
-   https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/CallAnAPI/appId/373c2197-64a1-41a4-a8b4-70719dc89a27/isMSAApp~/false
+   https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/CallAnAPI/appId/87ab5007-2910-44ee-8715-6475dfd76254/isMSAApp~/false
    Jeśli link nie otworzy właściwej strony: **Entra admin center → Identity → Applications → App registrations → All applications → MS-SOC First-party apps reader → API permissions**.
-2. Sprawdź, że lista zawiera dokładnie dwie pozycje Microsoft Graph typu **Application**: `Application.Read.All` i `DelegatedPermissionGrant.Read.All`.
-3. Kliknij **Grant admin consent for Contoso** → **Yes**. Kolumna Status pokaże zielone „Granted for Contoso”.
+2. Lista zawiera dokładnie dwie pozycje Microsoft Graph typu **Application**: `Application.Read.All` i `DelegatedPermissionGrant.Read.All`.
+3. Kolumna Status pokazuje zielone „Granted for wisnia”. Jeśli nie — kliknij **Grant admin consent for wisnia** → **Yes**.
 
 **Krok 2 — przeniesienie workflow do `.github/workflows` (PowerShell + git + gh)**
 
@@ -185,28 +188,23 @@ gh run watch --repo wpiotrw/MS_SOC $(gh run list --repo wpiotrw/MS_SOC --workflo
 
 Poprawny przebieg kończy się linią `OK site/data/fpa-tenant.json: …` i commitem `data: first-party apps tenant snapshot …` na `main`. Jeśli pojawi się `AADSTS70021` (brak pasującego poświadczenia federacyjnego), workflow nie uruchomił się z gałęzi `main`. Błąd `403` przy `servicePrincipals` oznacza, że krok 1 nie został wykonany.
 
-**Odtworzenie na innym tenancie** (Graph PowerShell, konto z rolą Cloud Application Administrator albo wyższą; nadanie zgody wymaga Privileged Role Administrator albo Global Administrator):
+**Odtworzenie na innym tenancie — skrypt `tools/New-FpaReaderApp.ps1`**
+
+Skrypt robi wszystko w jednym przebiegu i można go uruchamiać wielokrotnie (nie tworzy duplikatów): aplikacja z dwiema rolami Graph, service principal, poświadczenie federacyjne GitHub, zgoda administratora. Loguje się **raz, kodem urządzenia**, przez publicznego klienta Microsoft Graph Command Line Tools, a potem wywołuje Graph REST tym jednym tokenem. Nie potrzebuje modułów `Microsoft.Graph` ani okna logowania WAM, więc działa też z procesu bez okna. Wymaga PowerShell 7 (`pwsh`). Konto: Cloud Application Administrator (aplikacja) oraz Privileged Role Administrator albo Global Administrator (zgoda).
 
 ```powershell
-$TenantId = "00000000-0000-0000-0000-000000000000"   # wpisz ID nowego tenanta
-Connect-MgGraph -TenantId $TenantId -Scopes "Application.ReadWrite.All","AppRoleAssignment.ReadWrite.All"
-$graph = Get-MgServicePrincipal -Filter "appId eq '00000003-0000-0000-c000-000000000000'"
-$roles = $graph.AppRoles | Where-Object { $_.Value -in "Application.Read.All","DelegatedPermissionGrant.Read.All" }
-$app = New-MgApplication -DisplayName "MS-SOC First-party apps reader" -SignInAudience AzureADMyOrg `
-  -RequiredResourceAccess @{ ResourceAppId = $graph.AppId; ResourceAccess = @($roles | ForEach-Object { @{ Id = $_.Id; Type = "Role" } }) }
-$sp  = New-MgServicePrincipal -AppId $app.AppId
-New-MgApplicationFederatedIdentityCredential -ApplicationId $app.Id -BodyParameter @{
-  name = "github-ms-soc-main"; issuer = "https://token.actions.githubusercontent.com"
-  subject = "repo:wpiotrw/MS_SOC:ref:refs/heads/main"; audiences = @("api://AzureADTokenExchange") }
-foreach ($r in $roles) {
-  New-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $graph.Id -BodyParameter @{
-    principalId = $sp.Id; resourceId = $graph.Id; appRoleId = $r.Id } | Out-Null }
-"AZURE_TENANT_ID=$((Get-MgContext).TenantId)  AZURE_CLIENT_ID=$($app.AppId)"
+Set-Location "$env:LOCALAPPDATA\Temp\mssoc-repo"; git pull origin main
+pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId "<ID tenanta>"
+# Skrypt wypisze: KOD: XXXXXXXXX  STRONA: https://login.microsoft.com/device
+# Otworz strone, wpisz kod, zaloguj sie kontem admina docelowego tenanta.
+# Na koncu wypisze AZURE_TENANT_ID i AZURE_CLIENT_ID (i zapisze JSON w %TEMP%\ms-soc-fpa-app.json).
 ```
 
-Wypisane wartości wpisz w `env:` pliku `.github/workflows/fpa-tenant.yml` i uruchom workflow ręcznie. Jeśli zmieni się nazwa repozytorium albo gałąź, zmień `subject` poświadczenia (`repo:<właściciel>/<repo>:ref:refs/heads/<gałąź>`).
+Wypisane wartości wpisz w `env:` pliku `.github/workflows/fpa-tenant.yml` i uruchom workflow ręcznie. Inne repozytorium albo gałąź: parametry `-Repo "<właściciel>/<repo>"` i `-Branch "<gałąź>"` (subject poświadczenia `repo:<właściciel>/<repo>:ref:refs/heads/<gałąź>`).
 
-**Usunięcie** (gdy zakładka nie jest już potrzebna): usuń aplikację w App registrations (usuwa też service principal i poświadczenie) oraz plik workflow.
+Dlaczego nie `Connect-MgGraph`: w Windows moduł loguje przez WAM, który z procesu bez okna kończy się błędem „A window handle must be configured”, a przy `-UseDeviceCode` każde kolejne polecenie prosiło o nowy kod (sprawdzone 25 IX 2026, Microsoft.Graph.Authentication 2.40.0).
+
+**Usunięcie** (gdy zakładka nie jest już potrzebna): usuń aplikację w App registrations (usuwa też service principal i poświadczenie) oraz plik workflow. Niepotrzebna kopia w demo tenancie Contoso: appId `373c2197-64a1-41a4-a8b4-70719dc89a27`, tenant `ea0d500a-496c-42eb-a3c0-d834e723edc2`.
 
 ## 6. Pliki danych na stronie
 
@@ -231,5 +229,6 @@ Wypisane wartości wpisz w `env:` pliku `.github/workflows/fpa-tenant.yml` i uru
 
 | Data | Zmiana |
 |---|---|
+| 2026-09-25 | Aplikacja „MS-SOC First-party apps reader” przeniesiona do właściwego tenanta **wisnia** (`833fd6f2-…`, azureme.ovh), appId `87ab5007-…`, zgoda administratora nadana; workflow zaktualizowany; dodany skrypt `tools/New-FpaReaderApp.ps1` (logowanie kodem urządzenia) w miejsce przykładu z `Connect-MgGraph`; migawka z demo tenanta Contoso usunięta. |
 | 2026-09-25 | Uprawnienia aplikacji zawężone z Directory.Read.All do Application.Read.All + DelegatedPermissionGrant.Read.All; opis logowania federacyjnego, uzasadnienie GitHub Actions, instrukcja zgody administratora i przeniesienia workflow (PowerShell, git, gh). |
 | 2026-09-25 | Pełny opis: przepływ dnia, repozytorium, Azure Static Web App (z pozycjami do uzupełnienia), zadania Claude, zakładka First-party apps ze źródłami, aplikacją Entra „MS-SOC First-party apps reader”, poświadczeniem federacyjnym, instrukcją odtworzenia na innym tenancie, pliki danych, diagnostyka. Poprzednia wersja miała 11 linii. |
