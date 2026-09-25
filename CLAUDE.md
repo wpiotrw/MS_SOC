@@ -708,6 +708,173 @@ def verify_diff(page: str) -> list:
         errs.append("brak linku powrotnego do / — czy strona ma <p class=\"dateline\">?")
     return errs
 
+def _daily_states(outdir, date, n):
+    """§5bi: the last `n` daily data files (site/data/<date>.json or .json.gz) up to `date`,
+    oldest first, as [(date, soc-brief-state)]. A missing day is skipped, not invented."""
+    import gzip as _gz, datetime as _dt
+    out = []
+    d0 = _dt.date.fromisoformat(date)
+    for k in range(n - 1, -1, -1):
+        d = (d0 - _dt.timedelta(days=k)).isoformat()
+        p = os.path.join(outdir, "data", d + ".json")
+        try:
+            if os.path.exists(p):
+                st = json.load(open(p, encoding="utf-8"))
+            elif os.path.exists(p + ".gz"):
+                st = json.load(_gz.open(p + ".gz", "rt", encoding="utf-8"))
+            else:
+                continue
+        except Exception:
+            continue
+        out.append((d, st.get("soc-brief-state") or {}))
+    return out
+
+
+# Fields whose change is a change AT THE SOURCE. Bookkeeping (days, tier, note, seenIn,
+# checkedOn ...) is not history — same rule as moved()/NOISE in make_diff.py (§5bf).
+_HIST_ITEM = ("title", "officialTitle", "status", "deadline", "action", "published", "changeType")
+_HIST_MC = ("title", "published", "revisedOn", "action", "isMajor")
+
+
+def write_history(outdir, date, days=14):
+    """§5bi R2: site/data/history.json — per entry, every value that changed between two
+    consecutive daily files in the last `days` days: {id: [{"d","f","a","b"}]}. A value
+    written for the first time (empty -> something) is not a change and is not listed.
+    The page loads this file only when a reader opens an entry's history."""
+    snaps = _daily_states(outdir, date, days)
+    hist, prev_i, prev_m = {}, None, None
+    for d, st in snaps:
+        cur_i = {i.get("id"): i for i in st.get("items") or [] if i.get("id")}
+        cur_m = {e.get("id"): e for e in (st.get("mc") or {}).get("entries") or [] if e.get("id")}
+        for cur, prev, fields in ((cur_i, prev_i, _HIST_ITEM), (cur_m, prev_m, _HIST_MC)):
+            if prev is None:
+                continue
+            for k, v in cur.items():
+                o = prev.get(k)
+                if not o:
+                    continue
+                for f in fields:
+                    a, b = o.get(f), v.get(f)
+                    if a in (None, "", []) or b in (None, "", []) or a == b:
+                        continue
+                    row = {"d": d, "f": f, "a": a, "b": b}
+                    if row not in hist.setdefault(k, []):
+                        hist[k].append(row)
+        prev_i, prev_m = cur_i, cur_m
+    doc = {"generated": date, "days": [d for d, _ in snaps], "entries": hist}
+    os.makedirs(os.path.join(outdir, "data"), exist_ok=True)
+    json.dump(doc, open(os.path.join(outdir, "data", "history.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, separators=(",", ":"))
+    return len(hist)
+
+
+def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
+    """§5bi R8/R6: site/week/index.html — the week in one page, printable to PDF: per-day
+    counts from the last 7 daily files, the ten items due soonest, new items of the week,
+    and Microsoft changes in Graph permissions and roles in 7 days. Static HTML, no script,
+    same palette as the brief; `@media print` gives the weekly PDF."""
+    import html as _h, datetime as _dt
+    E = lambda s: _h.escape(str(s if s is not None else ""), quote=True)
+    st = state.get("soc-brief-state") or {}
+    cat = state.get("soc-catalog") or {}
+    snaps = _daily_states(outdir, date, 7)
+    d0 = _dt.date.fromisoformat(date)
+    wk_from = (d0 - _dt.timedelta(days=6)).isoformat()
+
+    def left(dl):
+        try:
+            return (_dt.date.fromisoformat(str(dl)[:10]) - d0).days
+        except Exception:
+            return None
+    items = st.get("items") or []
+    rows_days = []
+    for d, s in snaps:
+        its = s.get("items") or []
+        dd = _dt.date.fromisoformat(d)
+        def within(i, n):
+            try:
+                x = (_dt.date.fromisoformat(str(i.get("deadline"))[:10]) - dd).days
+                return 0 <= x <= n if n == 7 else 0 <= x < n   # same rule as the masthead KPIs (§5bh)
+            except Exception:
+                return False
+        rows_days.append((d, len(s.get("newToday") or []), sum(within(i, 7) for i in its),
+                          sum(within(i, 30) for i in its), len(its)))
+    due = sorted([i for i in items if left(i.get("deadline")) is not None and left(i.get("deadline")) >= 0],
+                 key=lambda i: (left(i.get("deadline")), -(i.get("socWeight") or 0)))[:10]
+    newwk = sorted([i for i in items if str(i.get("firstSeen") or i.get("firstTracked") or "")[:10] >= wk_from],
+                   key=lambda i: str(i.get("firstSeen") or i.get("firstTracked") or ""), reverse=True)
+    ms = []
+    for kind in ("graph", "roles"):
+        for e in cat.get(kind) or []:
+            if not isinstance(e, dict) or e.get("origin") != "microsoft":
+                continue
+            if str(e.get("id") or "").startswith("reach-") or "deployed in the service" in str(e.get("kind") or "").lower():
+                continue
+            ch = str(e.get("changed") or "")[:10]
+            if ch >= wk_from:
+                ms.append((ch, "Graph API" if kind == "graph" else "Roles", e.get("name") or e.get("id"), e.get("kind") or ""))
+    ms.sort(reverse=True)
+    maxv = max([r[2] for r in rows_days] + [1])
+
+    def tr(cells):
+        return "<tr>" + "".join("<td>%s</td>" % c for c in cells) + "</tr>"
+    bars = "".join('<div class="b" title="%s: %d due within 7 days"><b>%d</b><i style="height:%d%%"></i><span>%s</span></div>'
+                   % (E(d), n7, n7, max(3, round(85 * n7 / maxv)), E(d[5:])) for d, _, n7, _, _ in rows_days)
+    page = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft SOC · week %(f)s → %(t)s</title>
+<style>
+:root{--bg:#f6f7f9;--surface:#fff;--ink:#17202a;--muted:#4e5867;--border:#dde2e8;--accent:#0b6bcb;--bad:#b42318;--ok:#067647}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1419;--surface:#172029;--ink:#e6edf3;--muted:#9fa9b6;--border:#2a3642;--accent:#58a6ff;--bad:#ff7b72;--ok:#3fb950}}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:24px;margin:0 0 2px}h2{font-size:17px;margin:26px 0 8px}
+.sub{color:var(--muted);margin:0 0 14px}a{color:var(--accent)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}.bar a,.bar button{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer}
+table{width:100%%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border)}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--border);vertical-align:top;font-size:13px}
+th{font-size:12px;color:var(--muted);font-weight:600}
+.chart{display:flex;gap:8px;align-items:flex-end;height:120px;background:var(--surface);border:1px solid var(--border);padding:10px}
+.chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%%}
+.chart i{display:block;width:70%%;background:var(--accent);border-radius:3px 3px 0 0}.chart span{font-size:12px;color:var(--muted)}
+.d0{color:var(--bad);font-weight:600}
+td:first-child{white-space:nowrap}.chart b{font-size:12px;font-weight:600}
+.tw{overflow-x:auto;margin:0 0 4px}.tw:focus-visible{outline:2px solid var(--accent)}
+@media print{.bar{display:none}body{background:#fff;color:#000}main{max-width:none;padding:0}table,.chart{break-inside:avoid}}
+</style></head><body><main role="main">
+<h1>The week in Microsoft security changes</h1>
+<p class="sub">%(f)s → %(t)s · built from %(n)d daily files · <a href="%(u)s">today's brief</a> · <a href="%(u)sdiff/">what changed since yesterday</a></p>
+<div class="bar"><button type="button" onclick="print()">Save as PDF</button><a href="%(u)sfeed.xml">RSS</a></div>
+<h2>Day by day</h2>
+<p class="sub">Bars: items due within seven days, as each morning saw them. A day without a daily file has no bar.</p>
+<div class="chart" role="img" aria-label="Items due within 7 days, per day">%(bars)s</div>
+<div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>Day</th><th>New in that morning's brief</th><th>Due within 7 days</th><th>Due within 30 days</th><th>Items tracked</th></tr></thead><tbody>%(days)s</tbody></table></div>
+<h2>Ten items due soonest</h2>
+<div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>Due</th><th>Days left</th><th>Product</th><th>Item</th><th>Reference</th></tr></thead><tbody>%(due)s</tbody></table></div>
+<h2>New this week · %(nn)d</h2>
+<div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>First seen</th><th>Product</th><th>Item</th><th>Reference</th></tr></thead><tbody>%(new)s</tbody></table></div>
+<h2>Microsoft changes in Graph API and roles · %(nm)d</h2>
+<div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>Changed</th><th>Where</th><th>Entry</th><th>Change</th></tr></thead><tbody>%(ms)s</tbody></table></div>
+</main></body></html>
+""" % {
+        "f": E(wk_from), "t": E(date), "n": len(snaps), "u": E(site_url), "bars": bars,
+        "days": "".join(tr([E(d), a, b, c, n]) for d, a, b, c, n in reversed(rows_days)),
+        "due": "".join(tr([E(i.get("deadline")), ('<span class="d0">%d</span>' % left(i.get("deadline"))) if left(i.get("deadline")) <= 7 else left(i.get("deadline")),
+                           E(i.get("product")), ('<a href="%s">%s</a>' % (E(i.get("url")), E(i.get("title")))) if i.get("url") else E(i.get("title")),
+                           E(i.get("reference") or i.get("id"))]) for i in due) or tr(["—", "", "", "nothing due", ""]),
+        "nn": len(newwk),
+        "new": "".join(tr([E(str(i.get("firstSeen") or i.get("firstTracked"))[:10]), E(i.get("product")),
+                           ('<a href="%s">%s</a>' % (E(i.get("url")), E(i.get("title")))) if i.get("url") else E(i.get("title")),
+                           E(i.get("reference") or i.get("id"))]) for i in newwk) or tr(["—", "", "nothing new", ""]),
+        "nm": len(ms),
+        "ms": "".join(tr([E(a), E(b), E(c), E(d)]) for a, b, c, d in ms) or tr(["—", "", "no dated Microsoft change", ""]),
+    }
+    for lab in ("Day by day", "Due soonest", "New this week", "Microsoft changes"):
+        page = page.replace('aria-label="Table, scrolls sideways"', 'aria-label="%s, table"' % lab, 1)
+    os.makedirs(os.path.join(outdir, "week"), exist_ok=True)
+    open(os.path.join(outdir, "week", "index.html"), "w", encoding="utf-8").write(page)
+    return len(snaps)
+
+
 def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
     """§5bh R3: site/feed.xml — RSS 2.0 for a reader who will not open the portal every day:
     items due within 7 days, items new since the last brief, and Microsoft changes in Graph
@@ -804,6 +971,8 @@ if __name__ == "__main__":
         json.dump(state, open(os.path.join(outdir, "data", date + ".json"), "w", encoding="utf-8"),
                   ensure_ascii=False)
         print("OK  %s/feed.xml  %d items  (§5bh)" % (outdir, write_feed(state, outdir, date)))
+        print("OK  %s/data/history.json  %d entries with history  (§5bi)" % (outdir, write_history(outdir, date)))
+        print("OK  %s/week/index.html  %d daily files  (§5bi)" % (outdir, write_week(state, outdir, date)))
     print("OK  %s  %d B  (%s)" % (target, len(page.encode()), mode))
 ```
 
@@ -1085,7 +1254,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2610,6 +2779,12 @@ def gate(path, site=None, mirror=False, doc=None):
     need("111", "etap 2 przegladu: piec KPI, zwijany naglowek, ⓘ zamiast akapitow, wykresy na zadanie, link do widoku (§5bh)",
          all(k in h for k in K111), "brak: %s" % ", ".join(k for k in K111 if k not in h))
 
+    # ---- 112: etap 3 przegladu portalu (§5bi). KLASA B. ----
+    K112 = ('function tabGroups(', 'function phoneMenu(', 'function reviewQueue(', 'function histButtons(',
+            'function search(', 'function csv(', 'function weekLink(', '.s5bi-sk{')
+    need("112", "etap 3 przegladu: grupy zakladek, menu na telefonie, kolejka do przejrzenia, historia wpisu, Ctrl+K, CSV, link do tygodnia (§5bi)",
+         all(k in h for k in K112), "brak: %s" % ", ".join(k for k in K112 if k not in h))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -3191,6 +3366,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `ms-changes-first-in-catalog-tabs` | **zakladki Graph API i Roles zaczynaja sie od „What Microsoft changed"** — okno 7/14/30/90/All i od ostatniego briefu, grupy Added/Changed/Removed, `+` przy kazdym wpisie ze szczegolami jak w katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, SKRYPT 17 i blok CSS §5bc; pozycja 109. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `review-stage1-fixes` | **etap 1 przegladu portalu: poprawki bez zmiany ukladu** — etykiety pokrycia, Section 0, role tablist/main, NEW przy wierszach, 12 px, wypadniecie z okna to nie usuniecie | 2026-09-25 | `ZASPECYFIKOWANE` | §5bg, pozycja 110; zmierzone na probce 25 IX (axe `/diff/` 0 naruszen). **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
 | `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
+| `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZASPECYFIKOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 
 
 
@@ -22823,6 +22999,60 @@ html.s5bh-nocharts .tabpanel:not(#tab-overview) .aggwrap{display:none!important}
 @media (max-width:760px){.kpi5{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(132px,42%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
 .kpi5 .k5{scroll-snap-align:start;padding:7px 9px}.kpi5 .k5n{font-size:20px}.kpi5 svg{display:none}.kpi5 .k5t{font-size:12px}}
 .cc-tile.zero{opacity:1!important}.cc-tile.zero .cc-l,.cc-tile.zero .cc-when,.tbar .rowcount,.as-muted,.cov-hint,.cat-n,.cat-hist .hd{color:var(--muted)!important}
+/* §5bi (25 IX 2026): stage 3 of the portal review — groups, phone menu, review queue,
+   history, Ctrl+K, CSV, week link, lazy layout. */
+nav.anchors .s5bi-grp{align-self:center;font-size:12px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--nav-muted,var(--muted));padding:0 6px 0 12px;white-space:nowrap}
+nav.anchors .s5bi-grp:first-child{padding-left:2px}
+.navrow[data-s5bi-grouped] .rowlab{display:none}
+nav.anchors .s5bi-grp:not(:first-child){border-left:1px solid var(--nav-border,var(--border));margin-left:6px}
+.s5bi-morewrap{display:none}
+@media (max-width:760px){
+  .navrow.ref{display:none!important}
+  nav.anchors .tab:not(.s5bi-core):not([aria-selected=true]){display:none!important}
+  nav.anchors .s5bi-grp{display:none}
+  .navrow.daily{flex-wrap:wrap}.navrow.daily .rowlab{display:none}
+  .navrow.daily nav.anchors{flex:1 1 100%;min-width:0}
+  .s5bi-morewrap{display:flex;align-items:center;padding:4px 0;flex:1 1 100%}.s5bi-more{flex:1}
+  .kpi5{align-items:start}
+  .s5bi-more{font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--nav-border,var(--border));
+    background:var(--surface);color:var(--ink);min-height:36px}
+}
+.s5bi-rv{font:inherit;font-size:14px;line-height:1;width:26px;height:26px;margin:0 6px 0 0;border-radius:50%;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--accent);vertical-align:middle}
+.s5bi-rv:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+tr[data-review=done]>td{opacity:.62}
+tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
+.s5bi-hidedone tr[data-review=done]{display:none}
+.s5bi-rqbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0;font-size:13px}
+.s5bi-rqn{font-weight:650}
+.s5bi-rqnote{color:var(--muted);font-size:12px}
+.s5bi-hide,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--ink);text-decoration:none}
+.s5bi-hide[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.s5bi-csv{display:inline-block;margin:0 0 6px;font-size:12px}
+.s5bi-hist{margin:4px 0 0;display:inline-block}
+.s5bi-hbox{margin:6px 0 2px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-2,var(--surface));font-size:12.5px}
+.s5bi-hl{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;padding:2px 0}
+.s5bi-hd{color:var(--muted);font-variant-numeric:tabular-nums}.s5bi-hf{font-weight:650}
+.s5bi-hl del{color:var(--bad);text-decoration:line-through}.s5bi-hl ins{color:var(--ok,#067647);text-decoration:none;font-weight:600}
+.s5bi-arr{color:var(--muted)}
+.kpi5 .s5bi-side{display:flex;flex-direction:column;gap:6px;justify-content:center;align-items:stretch}
+.kpi5 .s5bi-side>*{text-align:center;white-space:nowrap}
+@media (max-width:760px){.kpi5 .s5bi-side{scroll-snap-align:start}}
+.s5bi-sk{position:fixed;inset:0;z-index:1000;background:rgba(10,15,20,.45);display:flex;justify-content:center;align-items:flex-start;padding:10vh 16px 0}
+.s5bi-sk[hidden]{display:none}
+.s5bi-skin{width:min(720px,100%);background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
+.s5bi-skq{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px 16px;border:0;border-bottom:1px solid var(--border);background:transparent;color:inherit;outline:none}
+.s5bi-skr{list-style:none;margin:0;padding:4px 0;max-height:55vh;overflow:auto}
+.s5bi-skr li{padding:8px 16px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+.s5bi-skr li.on,.s5bi-skr li:hover{background:var(--surface-2,rgba(0,0,0,.05))}
+.s5bi-skt{flex:0 0 auto;font-size:12px;font-weight:650;color:var(--accent);min-width:110px}
+.s5bi-sks{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5bi-skf{margin:0;padding:8px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
+@keyframes s5biflash{0%,40%{background:rgba(255,196,0,.35)}100%{background:transparent}}
+@media print{.s5bi-rv,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week,.s5bi-rqbar{display:none!important}}
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -23784,6 +24014,302 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1700); });
   else setTimeout(boot, 1700);
 })();
+
+/* ---------------------------------------------------------------------------
+   §5bi (25 IX 2026) — STAGE 3 OF THE PORTAL REVIEW: new ways to work with the page.
+   U5  the fourteen tabs in four named groups (Today · Changes · Sources · Act);
+   U7  the phone gets Today, Deadlines and New as tabs, everything else in one menu;
+   R1  a review queue on Today and Deadlines: new -> reviewed -> done per row, kept in
+       THIS browser (localStorage "soc-review"), with "Hide done" and a to-review count;
+   R2  "history" on every row that has an id: the values that changed at the source,
+       day by day, old red and struck, new green — from site/data/history.json, which
+       the mirror writes (§5bi); inside claude.ai the file is not reachable, so no button;
+   R4  Ctrl+K (or /) searches every row of every tab and the Graph and role catalog;
+   R6  CSV of any table as filtered on screen; the week page (site/week/) prints to PDF;
+   R8  a "Week" link to that page;
+   R10 is NOT here: measured, content-visibility gained nothing (hidden tabs are already
+       display:none); the real fix is lazy tab building in the frozen shell (§5w), see §5bi.
+   It writes NOTHING any other script owns: it moves tab buttons between the two rows
+   the shell built, adds its own controls, and reads the two JSON islands.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var booted = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function ls(k, v) {
+    try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
+    return null;
+  }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
+  function openTab(id) { var b = tabBtn(id); if (b) b.click(); }
+
+  /* ---- U5: four groups ---- */
+  var GROUPS = [
+    ["Today", ["overview", "today", "deadlines", "mc"]],
+    ["Changes", ["new", "graph", "roles", "components"]],
+    ["Sources", ["learn", "blogs", "community", "sources"]],
+    ["Act", ["hunting", "products"]]
+  ];
+  function tabGroups() {
+    var navs = document.querySelectorAll(".navrow nav.anchors");
+    if (navs.length < 2 || navs[0].getAttribute("data-s5bi")) return;
+    var rows = [navs[0], navs[0], navs[1], navs[1]];
+    GROUPS.forEach(function (g, gi) {
+      var nav = rows[gi], lab = el("span", "s5bi-grp", g[0]); lab.setAttribute("aria-hidden", "true");
+      nav.appendChild(lab);
+      g[1].forEach(function (id) { var b = tabBtn(id); if (b) { b.setAttribute("data-grp", g[0]); nav.appendChild(b); } });
+    });
+    // anything the shell adds later and we did not name stays where it was, after the groups
+    [].forEach.call(navs, function (n) { n.setAttribute("data-s5bi", "1"); if (n.parentNode) n.parentNode.setAttribute("data-s5bi-grouped", "1"); });
+  }
+
+  /* ---- U7: phone menu ---- */
+  function phoneMenu() {
+    if (document.querySelector(".s5bi-more")) return;
+    var first = document.querySelector(".navrow.daily");
+    if (!first) return;
+    var wrap = el("div", "s5bi-morewrap");
+    var sel = el("select", "s5bi-more"); sel.setAttribute("aria-label", "All tabs");
+    var o0 = el("option", null, "More tabs ▾"); o0.value = ""; sel.appendChild(o0);
+    GROUPS.forEach(function (g) {
+      var og = document.createElement("optgroup"); og.label = g[0];
+      g[1].forEach(function (id) {
+        var b = tabBtn(id); if (!b) return;
+        var o = el("option", null, (b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.nodeValue : b.textContent).trim());
+        o.value = id; og.appendChild(o);
+      });
+      sel.appendChild(og);
+    });
+    sel.addEventListener("change", function () { if (sel.value) { openTab(sel.value); scrollTo(0, 0); } sel.value = ""; });
+    wrap.appendChild(sel);
+    first.appendChild(wrap);
+    ["today", "deadlines", "new"].forEach(function (id) { var b = tabBtn(id); if (b) b.classList.add("s5bi-core"); });
+  }
+
+  /* ---- R1: review queue ---- */
+  var RV = null;
+  function rv() { if (!RV) { try { RV = JSON.parse(ls("soc-review") || "{}") || {}; } catch (e) { RV = {}; } } return RV; }
+  function rvSave() { ls("soc-review", JSON.stringify(RV)); }
+  var RSTATE = { "": ["○", "to review", "reviewed"], reviewed: ["◐", "reviewed", "done"], done: ["●", "done", ""] };
+  function rowId(r) {
+    var id = r.getAttribute("data-id"); if (id) return id;
+    var ref = r.querySelector(".ref, .rname"); var t = ref ? ref.textContent.trim() : "";
+    return /^(MC\d+|[\w.-]{6,})$/.test(t) ? t : null;
+  }
+  function paintRow(r, b, id) {
+    var s = rv()[id] || ""; var m = RSTATE[s] || RSTATE[""];
+    b.textContent = m[0]; b.title = "Review state: " + m[1] + " — click for " + (m[2] || "to review");
+    b.setAttribute("aria-label", "Review state " + m[1] + " for " + id);
+    r.setAttribute("data-review", s || "new");
+  }
+  function reviewQueue() {
+    ["today", "deadlines"].forEach(function (pid) {
+      var p = document.getElementById("tab-" + pid); if (!p || p.getAttribute("data-s5bi-rq")) return;
+      p.setAttribute("data-s5bi-rq", "1");
+      var n = 0;
+      [].forEach.call(p.querySelectorAll("tbody tr"), function (r) {
+        if (!r.cells || !r.cells.length || r.classList.contains("hrow") || r.classList.contains("det")) return;
+        var id = rowId(r); if (!id) return;
+        var b = el("button", "s5bi-rv"); b.type = "button";
+        b.addEventListener("click", function (ev) {
+          ev.stopPropagation(); var s = rv()[id] || ""; var nx = RSTATE[s][2];
+          if (nx) RV[id] = nx; else delete RV[id]; rvSave(); paintRow(r, b, id); count(p);
+        });
+        r.cells[0].insertBefore(b, r.cells[0].firstChild); paintRow(r, b, id); n++;
+      });
+      if (!n) return;
+      var bar = el("div", "s5bi-rqbar");
+      var c = el("span", "s5bi-rqn"); bar.appendChild(c);
+      var h = el("button", "s5bi-hide", "Hide done"); h.type = "button"; h.setAttribute("aria-pressed", "false");
+      h.addEventListener("click", function () {
+        var on = p.classList.toggle("s5bi-hidedone"); h.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      bar.appendChild(h);
+      var note = el("span", "s5bi-rqnote", "Kept in this browser only."); bar.appendChild(note);
+      var ph = p.querySelector(".panelhead"); (ph && ph.parentNode === p ? p.insertBefore(bar, ph.nextSibling) : p.insertBefore(bar, p.firstChild));
+      count(p);
+    });
+  }
+  function count(p) {
+    var all = p.querySelectorAll("tr[data-review]").length, left = p.querySelectorAll("tr[data-review=new]").length;
+    var c = p.querySelector(".s5bi-rqn"); if (c) c.textContent = left + " of " + all + " to review";
+  }
+
+  /* ---- R2: history per entry ---- */
+  var HIST = null, HISTP = null;
+  function loadHist() {
+    if (HISTP) return HISTP;
+    HISTP = fetch("/data/history.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { HIST = (j && j.entries) || {}; return HIST; }).catch(function () { HIST = {}; return HIST; });
+    return HISTP;
+  }
+  function histButtons() {
+    if (!onSite()) return;
+    loadHist().then(function (H) {
+      [].forEach.call(document.querySelectorAll(".tabpanel tbody tr"), function (r) {
+        if (r.getAttribute("data-s5bi-h") || !r.cells || !r.cells.length) return;
+        var id = rowId(r); if (!id || !H[id] || !H[id].length) return;
+        r.setAttribute("data-s5bi-h", "1");
+        var b = el("button", "s5bi-hist", "history · " + H[id].length); b.type = "button"; b.setAttribute("aria-expanded", "false");
+        var box = null;
+        b.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          if (box) { box.remove(); box = null; b.setAttribute("aria-expanded", "false"); return; }
+          box = el("div", "s5bi-hbox");
+          H[id].slice().reverse().forEach(function (h) {
+            var line = el("div", "s5bi-hl");
+            line.appendChild(el("span", "s5bi-hd", h.d)); line.appendChild(el("span", "s5bi-hf", h.f));
+            var a = el("del", null, String(h.a)), z = el("ins", null, String(h.b));
+            line.appendChild(a); line.appendChild(el("span", "s5bi-arr", "→")); line.appendChild(z);
+            box.appendChild(line);
+          });
+          var cell = r.cells[Math.min(2, r.cells.length - 1)]; cell.appendChild(box); b.setAttribute("aria-expanded", "true");
+        });
+        var cell = r.cells[Math.min(2, r.cells.length - 1)]; cell.appendChild(b);
+      });
+    });
+  }
+
+  /* ---- R4: Ctrl+K ---- */
+  var IDX = null;
+  function index() {
+    if (IDX) return IDX;
+    IDX = [];
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      var tab = p.id.replace(/^tab-/, ""), btn = tabBtn(tab);
+      var tname = btn ? (btn.firstChild && btn.firstChild.nodeType === 3 ? btn.firstChild.nodeValue : btn.textContent).trim() : tab;
+      [].forEach.call(p.querySelectorAll("tbody tr"), function (r) {
+        if (!r.cells || r.cells.length < 2 || r.classList.contains("det")) return;
+        var t = [].map.call(r.cells, function (c) {
+          var x = c.cloneNode(true); [].forEach.call(x.querySelectorAll("button, .s5bi-hbox, .s12ext, .xb"), function (n) { n.remove(); });
+          return (x.textContent || "").replace(/\s+/g, " ").trim();
+        }).filter(Boolean).join(" · "); if (t.length < 8) return;
+        IDX.push({ t: t, l: t.toLowerCase(), tab: tab, tn: tname, row: r });
+      });
+    });
+    var cat = json("soc-catalog") || {};
+    ["graph", "roles"].forEach(function (k) {
+      (cat[k] || []).forEach(function (e) {
+        if (!e || String(e.id || "").indexOf("reach-") === 0) return;
+        var t = [e.name || e.id, e.kind || "", e.scope || "", e.description || ""].join(" · ").replace(/\s+/g, " ");
+        IDX.push({ t: t, l: t.toLowerCase(), tab: k, tn: k === "graph" ? "Graph API catalog" : "Roles catalog", cat: e.name || e.id });
+      });
+    });
+    return IDX;
+  }
+  function search() {
+    if (document.querySelector(".s5bi-sk")) return;
+    var dlg = el("div", "s5bi-sk"); dlg.hidden = true; dlg.setAttribute("role", "dialog"); dlg.setAttribute("aria-modal", "true"); dlg.setAttribute("aria-label", "Search the whole brief");
+    var inner = el("div", "s5bi-skin");
+    var q = el("input", "s5bi-skq"); q.type = "search"; q.placeholder = "Search every tab and the catalog — MC number, product, permission, role…"; q.setAttribute("aria-label", "Search every tab");
+    var res = el("ul", "s5bi-skr"); var foot = el("p", "s5bi-skf", "↑ ↓ to move · Enter to open · Esc to close");
+    inner.appendChild(q); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
+    var hits = [], cur = 0, last = null;
+    function close() { dlg.hidden = true; if (last && last.focus) last.focus(); }
+    function go(h) {
+      close();
+      openTab(h.tab);
+      setTimeout(function () {
+        if (h.row) {
+          var d = h.row.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+          h.row.scrollIntoView({ block: "center" }); h.row.classList.add("s5bi-flash");
+          setTimeout(function () { h.row.classList.remove("s5bi-flash"); }, 2200);
+        } else if (h.cat) {
+          var box = document.querySelector('#tab-' + h.tab + ' [data-catalog] .cat-q, #tab-' + h.tab + ' [data-catalog] input[type=search]');
+          if (box) { box.value = h.cat; box.dispatchEvent(new Event("input", { bubbles: true })); box.scrollIntoView({ block: "center" }); }
+        }
+      }, 250);
+    }
+    function paint() {
+      res.textContent = "";
+      hits.forEach(function (h, i) {
+        var li = el("li", i === cur ? "on" : ""); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
+        li.appendChild(el("span", "s5bi-skt", h.tn)); li.appendChild(el("span", "s5bi-sks", h.t.slice(0, 160)));
+        li.addEventListener("click", function () { go(h); });
+        res.appendChild(li);
+      });
+    }
+    res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Results");
+    q.addEventListener("input", function () {
+      var words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+      hits = !words.length ? [] : index().filter(function (x) { return words.every(function (w) { return x.l.indexOf(w) >= 0; }); }).slice(0, 30);
+      cur = 0; paint();
+    });
+    q.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { cur = Math.min(hits.length - 1, cur + 1); paint(); e.preventDefault(); }
+      else if (e.key === "ArrowUp") { cur = Math.max(0, cur - 1); paint(); e.preventDefault(); }
+      else if (e.key === "Enter" && hits[cur]) { go(hits[cur]); e.preventDefault(); }
+      else if (e.key === "Escape") { close(); e.preventDefault(); }
+    });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
+    function open() { last = document.activeElement; dlg.hidden = false; q.focus(); q.select(); }
+    document.addEventListener("keydown", function (e) {
+      var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || "");
+      if ((e.key === "k" || e.key === "K") && (e.ctrlKey || e.metaKey)) { e.preventDefault(); open(); }
+      else if (e.key === "/" && !typing && dlg.hidden) { e.preventDefault(); open(); }
+    });
+    var top = document.querySelector("header.top");
+    if (top) {
+      var b = el("button", "s5bi-skbtn", "Search · Ctrl K"); b.type = "button"; b.setAttribute("aria-label", "Search every tab (Ctrl+K)");
+      b.addEventListener("click", open);
+      var kp = top.querySelector(".kpi5"), more = kp && kp.querySelector(".k5more");
+      if (kp) {
+        var side = el("div", "s5bi-side"); if (more) side.appendChild(more); side.appendChild(b); kp.appendChild(side);
+      } else top.appendChild(b);
+    }
+  }
+
+  /* ---- R6: CSV ---- */
+  function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+  function csv() {
+    [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
+      if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
+      t.setAttribute("data-s5bi-csv", "1");
+      var b = el("button", "s5bi-csv", "CSV"); b.type = "button"; b.title = "Download this table as filtered on screen (CSV for Excel)";
+      b.setAttribute("aria-label", "Download this table as CSV");
+      b.addEventListener("click", function () {
+        var out = [];
+        var hr = t.tHead.rows[t.tHead.rows.length - 1];
+        out.push([].map.call(hr.cells, function (c) { return csvCell(c.textContent); }).join(","));
+        [].forEach.call(t.tBodies[0].rows, function (r) {
+          if (r.offsetParent === null && r.closest(".tabpanel") && r.closest(".tabpanel").offsetParent !== null) return; // filtered out
+          if (r.classList.contains("det")) return;
+          out.push([].map.call(r.cells, function (c) {
+            var x = c.cloneNode(true); [].forEach.call(x.querySelectorAll("button, .s5bi-hbox, .badge.s5bg-new"), function (n) { n.remove(); });
+            return csvCell(x.textContent);
+          }).join(","));
+        });
+        var p = t.closest(".tabpanel"), sec = t.closest("section, details");
+        var name = ((p ? p.id.replace(/^tab-/, "") : "table") + "-" + (sec && sec.id ? sec.id : "t") + "-" + (json("soc-brief-state") || {}).briefDate).replace(/[^\w.-]+/g, "-");
+        var blob = new Blob(["﻿" + out.join("\r\n")], { type: "text/csv;charset=utf-8" });
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name + ".csv"; a.textContent = "CSV"; a.hidden = true;
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      });
+      var host = t.closest(".tw") || t;
+      host.parentNode.insertBefore(b, host);
+    });
+  }
+
+  /* ---- R8: week link ---- */
+  function weekLink() {
+    if (!onSite() || document.querySelector(".s5bi-week")) return;
+    var top = document.querySelector("header.top .s5bi-skbtn"); if (!top) return;
+    var a = el("a", "s5bi-week", "Week"); a.href = "/week/"; a.title = "The last seven days on one page — prints to PDF";
+    top.parentNode.appendChild(a);
+  }
+
+  function boot() {
+    if (booted) return; booted = true;
+    [tabGroups, phoneMenu, reviewQueue, histButtons, search, csv, weekLink].forEach(function (f) {
+      try { f(); } catch (e) { if (window.console) console.error("[s17 5bi]", e); }
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2000); });
+  else setTimeout(boot, 2000);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -24354,6 +24880,28 @@ Dostepnosc (`a11y2()`): etykiety list `.s9f` i `listbox` katalogu, `tabindex` pr
 zerowych, historii katalogu i licznikach wierszy. Zmierzone po zmianach (Playwright + axe-core,
 z kliknieciem KPI do Graph API): **0 naruszen** w 1500 px w obu motywach i w 390 px; bez przewijania
 poziomego i bledow JS; naglowek telefonu 411 px (KPI w jednym przewijanym rzedzie). Pozycja **111**
+
+## 5bi. PRZEGLAD PORTALU — ETAP 3: NARZEDZIA PRACY (25 IX 2026)
+
+Etap 3 planu (U5, U7, R1, R2, R4, R6, R8, R10). Kod: trzecia IIFE na koncu SKRYPTU 17 i blok CSS
+po §5bh; dwa nowe pliki pisze lustro poranne (`--brief`) w `mirror_artifact.py`.
+
+| # | zmiana | jak dziala |
+|---|---|---|
+| U5 | **14 zakladek w 4 grupach** | Today (Overview, Today, Deadlines, Message Center) · Changes (New, Graph API, Roles, Component versions) · Sources (Learn, Blogs, Community, Sources) · Act (Hunting, Products); przyciski przeniesione miedzy dwoma rzedami powloki, etykiety grup `aria-hidden` |
+| U7 | **telefon (≤ 760 px)** | widac Today, Deadlines, New i biezaca zakladke; reszta w liscie „More tabs" z grupami; drugi rzad schowany |
+| R1 | **kolejka do przejrzenia** | na Today i Deadlines przy kazdym wierszu z identyfikatorem przycisk ○ → ◐ → ● (to review → reviewed → done), licznik „N of M to review", „Hide done". Stan w `localStorage` `soc-review` — **tylko w tej przegladarce**; wspolna kolejka zespolu wymaga serwera, ktorego strona statyczna nie ma |
+| R2 | **historia wpisu** | `write_history()` porownuje kolejne pliki dnia z 14 dni i zapisuje `site/data/history.json`: pole, data, stara → nowa wartosc; tylko pola zmieniane u zrodla (tytul, status, termin, akcja, data publikacji, `revisedOn`), bez ksiegowosci i bez pierwszego zapisu (ta sama regula co `moved()`, §5bf). Przycisk „history · N" przy wierszu, stara wartosc czerwona i przekreslona, nowa zielona. W claude.ai pliku nie ma, wiec przycisku tez nie |
+| R4 | **Ctrl+K albo /** | okno wyszukiwania po wszystkich wierszach 14 zakladek i po katalogu Graph i rol; Enter otwiera zakladke, rozwija sekcje i podswietla wiersz |
+| R6 | **CSV** | przycisk nad kazda tabela z co najmniej 3 wierszami; plik ma to, co widac po filtrach, z BOM dla Excela |
+| R8 | **strona tygodnia** `site/week/` | `write_week()`: dzien po dniu z plikow dnia (nowe w porannym briefie, terminy ≤ 7 i < 30 dni jak w KPI), 10 najblizszych terminow, nowe w tygodniu, zmiany Microsoftu w Graph i rolach; „Save as PDF" to druk przegladarki (`@media print`); link „Week" w naglowku |
+| R10 | **NIE wdrozone** | zmierzone: `content-visibility` nie skraca przelaczania zakladek (ukryte zakladki i tak maja `display:none`); prawdziwa poprawka to budowanie zakladki przy pierwszym otwarciu i katalog jako osobny plik — zmiana zamrozonej powloki (§5w) i buildera, decyzja wlasciciela |
+
+Zmierzone (Playwright + axe-core, strona z `http://`, zeby zadzialal R2): 14/14 zakladek otwiera sie
+po przegrupowaniu, 183 przyciski kolejki, 145 przyciskow historii, Ctrl+K znajduje MC1470871 i
+skacze do wiersza, 57 przyciskow CSV, pobrany plik ma naglowek i wiersze; **axe 0 naruszen** w
+1500 px w obu motywach i w 390 px; strona tygodnia 0 naruszen, bez przewijania poziomego na telefonie.
+Pozycja **112** (klasa B) pilnuje kodu tego etapu.
 (klasa B) pilnuje kodu tego etapu.
 
 
