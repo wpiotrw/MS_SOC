@@ -13242,6 +13242,7 @@ SigninLogs
   /* ---- R6: CSV ---- */
   function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
   function csv() {
+    if (!onSite()) return;   // the claude.ai artifact viewer grants pages no download permission
     [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
       if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
       t.setAttribute("data-s5bi-csv", "1");
