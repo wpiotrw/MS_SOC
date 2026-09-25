@@ -14,7 +14,7 @@
     1. aplikacja (single tenant) z uprawnieniami aplikacyjnymi Graph: Application.Read.All
        i DelegatedPermissionGrant.Read.All - tworzy albo poprawia requiredResourceAccess,
     2. service principal,
-    3. poswiadczenie federacyjne GitHub OIDC (repo:<Repo>:ref:refs/heads/<Branch>) - bez sekretu,
+    3. poswiadczenie federacyjne GitHub OIDC (repo:<Repo>:ref:refs/heads/<Branch> albo -Subject) - bez sekretu,
     4. zgoda administratora = przypisanie obu rol aplikacyjnych do service principala.
   Wynik trafia na ekran i do pliku JSON ($OutFile). Wartosci tenantId i appId wpisz w env:
   pliku .github/workflows/fpa-tenant.yml (README.md, rozdz. 5.3).
@@ -25,16 +25,24 @@
 
 .EXAMPLE
   pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId 833fd6f2-76f2-4750-b776-b9228da14a4e
+.EXAMPLE
+  # subject niezmienny - dokladnie ten, ktory workflow wypisuje w linii "OIDC claims"
+  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId 833fd6f2-76f2-4750-b776-b9228da14a4e `
+    -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
 #>
 param(
   [Parameter(Mandatory)] [ValidatePattern('^[0-9a-fA-F-]{36}$')] [string] $TenantId,
   [string] $Name    = 'MS-SOC First-party apps reader',
   [string] $Repo    = 'wpiotrw/MS_SOC',
   [string] $Branch  = 'main',
+  # Pelny subject OIDC, gdy GitHub wystawia format niezmienny (repo:<owner>@<owner_id>/<repo>@<repo_id>:ref:...),
+  # domyslny dla repozytoriow utworzonych po 15 VII 2026. Pusty = stary format nazwowy repo:<Repo>:ref:refs/heads/<Branch>.
+  [string] $Subject = '',
   [string] $OutFile = (Join-Path ([IO.Path]::GetTempPath()) 'ms-soc-fpa-app.json')
 )
 $ErrorActionPreference = 'Stop'
-$Subject = "repo:${Repo}:ref:refs/heads/$Branch"
+$Immutable = [bool]$Subject
+if (-not $Subject) { $Subject = "repo:${Repo}:ref:refs/heads/$Branch" }
 $Client  = '14d82eec-204b-4c2f-b7e8-296a70dab67e'
 $Scope   = 'https://graph.microsoft.com/Application.ReadWrite.All https://graph.microsoft.com/AppRoleAssignment.ReadWrite.All openid profile offline_access'
 $Auth    = "https://login.microsoftonline.com/$TenantId/oauth2/v2.0"
@@ -81,7 +89,7 @@ if (-not $sp) { throw 'Nie udalo sie utworzyc service principala' }
 $fics = (Gr GET "/applications/$($app.id)/federatedIdentityCredentials").value
 if (-not ($fics | Where-Object { $_.subject -eq $Subject })) {
   Gr POST "/applications/$($app.id)/federatedIdentityCredentials" @{
-    name = "github-$($Repo.Split('/')[1].ToLower() -replace '_','-')-$Branch"; issuer = 'https://token.actions.githubusercontent.com'
+    name = "github-$($Repo.Split('/')[1].ToLower() -replace '_','-')-$Branch$(if ($Immutable) { '-immutable' })"; issuer = 'https://token.actions.githubusercontent.com'
     subject = $Subject; audiences = @('api://AzureADTokenExchange') } | Out-Null
 }
 
