@@ -285,7 +285,7 @@ sequenceDiagram
 | Workflow SWA | push na `main` w `site/**` → wdrożenie | sekret `AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603` |
 | `fpa-tenant.yml` | migawka tenanta | `GITHUB_TOKEN` (`contents: write`, `id-token: write`), **bez sekretu Entra** |
 | Wspólna kolejka | wszystkie trzy workflow mają [`concurrency`](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs) `group: swa-deploy` — nigdy nie wdrażają równolegle | — |
-| Sesje Claude (Cowork) | zmiany w repozytorium z rozmów: z chmury `git push` dostaje **403**, więc push idzie z klona na komputerze właściciela (`%LOCALAPPDATA%\Temp\mssoc-repo`, Git Credential Manager) | konto GitHub właściciela |
+| Sesje Claude (Cowork) | zmiany w repozytorium z rozmów: z chmury `git push` dostaje **403**, więc commit, push i kontrola przebiegów Actions (`gh run list`, `gh workflow run`) idą z klona na komputerze właściciela (`%LOCALAPPDATA%\Temp\mssoc-repo`, Git Credential Manager, `gh` zalogowany z zakresem `workflow`); workflow uruchamiane ręcznie właściciel potwierdza sam | konto GitHub właściciela |
 
 > [!NOTE]
 > Commit zrobiony w workflow tokenem `GITHUB_TOKEN` **nie uruchamia** innych workflow ([GitHub Docs](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows): poza `workflow_dispatch` i `repository_dispatch` zdarzenia z `GITHUB_TOKEN` nie tworzą przebiegów). Commit migawki tenanta nie wdraża więc strony sam — plik trafia na SWA przy najbliższym wdrożeniu (push routine porannej). Dla zakładki to wystarcza, bo brief czyta plik z repozytorium, nie ze strony.
@@ -513,8 +513,8 @@ git commit -m "ci: workflow migawki tenanta dla zakladki First-party apps"
 git push origin main
 
 # 4. Pierwsze uruchomienie i podglad (bez czekania do 05:30).
-#    gh nie jest w PATH na komputerze apn-k622-2024 (sprawdzone 25 IX 2026);
-#    instalacja: winget install --id GitHub.cli, potem nowe okno PowerShell i: gh auth login
+#    gh 2.101.0 jest zainstalowany na komputerze apn-k622-2024 (winget) i zalogowany jako wpiotrw, zakresy repo + workflow (sprawdzone 26 IX 2026);
+#    na nowym komputerze: winget install --id GitHub.cli, potem nowe okno PowerShell i: gh auth login
 #    Bez gh: github.com/wpiotrw/MS_SOC -> Actions -> "First-party apps tenant snapshot" -> Run workflow (main)
 gh workflow run fpa-tenant.yml --repo wpiotrw/MS_SOC --ref main
 Start-Sleep -Seconds 10
@@ -670,6 +670,7 @@ Wszystkie linki sprawdzone 25–26 IX 2026 (Microsoft Learn przez wyszukiwarkę 
 
 | Data | Zmiana |
 |---|---|
+| 2026-09-26 | Pkt 5.3 i 4b: `gh` jest zainstalowany i zalogowany na komputerze właściciela (wcześniej zapis „nie jest w PATH”); commit, push i kontrola Actions z sesji Claude idą przez `git` i `gh` na tym komputerze. |
 | 2026-09-26 | Hiperłącza do dokumentacji Microsoft (Entra, Graph, Static Web Apps, Microsoft 365), GitHub i projektów społeczności w treści (tabele SWA, uprawnień, migawki, logowania, kodu urządzenia) oraz nowa sekcja 8 „Dokumentacja i źródła” z linkami pogrupowanymi tematycznie. |
 | 2026-09-26 | Opis całego narzędzia: spis treści, architektura (diagram), oś dnia (diagram Gantta), ostrzeżenie o zmianie czasu 25 X 2026 (routines w UTC), szczegóły czterech zadań Claude (ID, harmonogramy, model, konektory, wejście/wyjście, ostatnie przebiegi, kroki), mapa `CLAUDE.md` i skryptów, integracje GitHub, co robi migawka tenanta i wynik pierwszego przebiegu (475 SP, 17 klientów, `grantsNote` puste), nowe wiersze diagnostyki. Nowe skróty: MCP, UTC, CEST/CET, SP, RSS, CI/CD. |
 | 2026-09-25 | Przyczyna błędu AADSTS700213 w pierwszym przebiegu workflow: GitHub wystawia dla `MS_SOC` (utworzone 27 VIII 2026) subject niezmienny z ID właściciela i repozytorium; dodane poświadczenie `github-ms-soc-main-immutable` (skrypt z nowym parametrem `-Subject`). Nowe opisy: jak działa logowanie bez sekretu (tabela danych, diagram, kroki), składnia subjectu i skąd są ID (log, API GitHub), dodanie poświadczenia skryptem albo w portalu i dlaczego skrypt przyjmuje tylko subject; `fpa_tenant.py` wypisuje w logu `iss`/`sub`/`aud` i treść błędu Entra. Nowe skróty: JWT, JWKS, FIC, AADSTS. |
