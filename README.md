@@ -319,9 +319,9 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
 
 | Pole | Wartość |
 |---|---|
-| Tenant | **(tenant właściciela)**, `833fd6f2-…` (domena domyślna `(domena tenanta)`) |
+| Tenant | **(tenant właściciela)**, `833fd6f2-…` (domena domyślna `(domena tenanta)`; pełne ID: `AZURE_TENANT_ID` w `.github/workflows/fpa-tenant.yml`) |
 | Aplikacja Entra | **MS-SOC First-party apps reader** |
-| Application (client) ID | `87ab5007-…` |
+| Application (client) ID | `87ab5007-…` (pełne: `AZURE_CLIENT_ID` w `.github/workflows/fpa-tenant.yml`) |
 | Object ID aplikacji | `161afcd6-…` |
 | Object ID service principala | `66acc967-…` |
 | Uprawnienia (Application, tylko odczyt) | Microsoft Graph → [**Application.Read.All**](https://learn.microsoft.com/graph/permissions-reference#applicationreadall) (service principale i ich role aplikacyjne) + [**DelegatedPermissionGrant.Read.All**](https://learn.microsoft.com/graph/permissions-reference#delegatedpermissiongrantreadall) (tylko zgody delegowane) |
@@ -332,7 +332,7 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
 | Sekrety | **brak** |
 | Workflow | `.github/workflows/fpa-tenant.yml` (codziennie 03:30 UTC i ręcznie); przeniesiony z `tools/` przez właściciela 25 IX 2026 (commit `e2d3f64`) |
 | Wynik | `site/data/fpa-tenant.json` |
-| Utworzono | 25 IX 2026 skryptem `tools/New-FpaReaderApp.ps1` (logowanie kodem urządzenia kontem `konto administratora tenanta`). Pierwszą migawkę zrobi workflow po przeniesieniu (pkt 5.3, krok 2) |
+| Utworzono | 25 IX 2026 skryptem `tools/New-FpaReaderApp.ps1` (logowanie kodem urządzenia kontem administratora tenanta). Pierwsza udana migawka: 25 IX 2026 (commit `c75f0ce`) |
 | Poprzednia wersja | Tego samego dnia aplikacja powstała omyłkowo w demo tenancie Contoso (`ea0d500a-…`, appId `373c2197-…`), bo do niego było podłączone narzędzie Lokka. Migawka z Contoso została usunięta ze strony; aplikację w Contoso można usunąć (pkt 5.3, „Usunięcie”) |
 
 #### Co dokładnie robi migawka i kiedy
@@ -456,7 +456,9 @@ Poświadczenie ma zawsze **trzy** pola i wszystkie trzy muszą zgadzać się z t
 
 ```powershell
 Set-Location "$env:LOCALAPPDATA\Temp\mssoc-repo"; git pull origin main
-pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId 833fd6f2-… `
+# ID tenanta bierzemy z workflow, żeby nie trzymać go w dokumentacji
+$tid = (Select-String .github\workflows\fpa-tenant.yml -Pattern 'AZURE_TENANT_ID:\s*([0-9a-f-]{36})').Matches[0].Groups[1].Value
+pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId $tid `
   -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
 ```
 
@@ -490,8 +492,7 @@ Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main` 
 Zgodę nadał skrypt `tools/New-FpaReaderApp.ps1` (przypisanie obu ról aplikacyjnych). Aby to sprawdzić albo nadać ją ręcznie:
 
 1. Otwórz stronę uprawnień aplikacji w Entra admin center (konto z rolą Privileged Role Administrator albo Global Administrator):
-   [API permissions aplikacji MS-SOC First-party apps reader](https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/CallAnAPI/appId/87ab5007-…/isMSAApp~/false)
-   Jeśli link nie otworzy właściwej strony: **Entra admin center → Identity → Applications → App registrations → All applications → MS-SOC First-party apps reader → API permissions**.
+   [Microsoft Entra admin center](https://entra.microsoft.com) → **Identity → Applications → App registrations → All applications → MS-SOC First-party apps reader → API permissions**.
 2. Lista zawiera dokładnie dwie pozycje Microsoft Graph typu **Application**: `Application.Read.All` i `DelegatedPermissionGrant.Read.All`.
 3. Kolumna Status pokazuje zielone „Granted for (tenant właściciela)”. Jeśli nie — kliknij **Grant admin consent for (tenant właściciela)** → **Yes**.
 
@@ -520,7 +521,7 @@ git commit -m "ci: workflow migawki tenanta dla zakladki First-party apps"
 git push origin main
 
 # 4. Pierwsze uruchomienie i podglad (bez czekania do 05:30).
-#    gh 2.101.0 jest zainstalowany na komputerze apn-k622-2024 (winget) i zalogowany jako wpiotrw, zakresy repo + workflow (sprawdzone 26 IX 2026);
+#    gh 2.101.0 jest zainstalowany na komputerze właściciela (winget) i zalogowany jako wpiotrw, zakresy repo + workflow (sprawdzone 26 IX 2026);
 #    na nowym komputerze: winget install --id GitHub.cli, potem nowe okno PowerShell i: gh auth login
 #    Bez gh: github.com/wpiotrw/MS_SOC -> Actions -> "First-party apps tenant snapshot" -> Run workflow (main)
 gh workflow run fpa-tenant.yml --repo wpiotrw/MS_SOC --ref main
@@ -677,6 +678,7 @@ Wszystkie linki sprawdzone 25–26 IX 2026 (Microsoft Learn przez wyszukiwarkę 
 
 | Data | Zmiana |
 |---|---|
+| 2026-09-26 | Przegląd danych w README pod kątem publicznego repozytorium: usunięte konto administratora tenanta i nazwa komputera; ID tenanta, aplikacji, obiektów i demo tenanta Contoso skrócone do pierwszego bloku (pełne ID tenanta i appId zostają w `env:` workflow); polecenie skryptu czyta ID tenanta z workflow; link do portalu bez appId; poprawione zdanie o pierwszej migawce (działa od 25 IX 2026). Sekretów w README nie było. |
 | 2026-09-26 | Pkt 1: harmonogramu routines nie da się zmienić z sesji Claude ani wybrać strefy w interfejsie — tabela ręcznego przestawienia godzin na 25 X 2026 i 28 III 2027 z linkami do routines oraz ID dwóch przypomnień (24 X 2026, 27 III 2027). |
 | 2026-09-26 | Pkt 5.3 i 4b: `gh` jest zainstalowany i zalogowany na komputerze właściciela (wcześniej zapis „nie jest w PATH”); commit, push i kontrola Actions z sesji Claude idą przez `git` i `gh` na tym komputerze. |
 | 2026-09-26 | Hiperłącza do dokumentacji Microsoft (Entra, Graph, Static Web Apps, Microsoft 365), GitHub i projektów społeczności w treści (tabele SWA, uprawnień, migawki, logowania, kodu urządzenia) oraz nowa sekcja 8 „Dokumentacja i źródła” z linkami pogrupowanymi tematycznie. |
