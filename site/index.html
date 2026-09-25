@@ -1102,6 +1102,33 @@ nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-bg);color:
   .navstack nav.anchors{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
   nav.anchors .tab{flex:0 0 auto;padding:8px 12px}
 }
+/* §5bf (25 IX 2026) — the owner reversed "one colour in both themes": pressing Theme must
+   change this bar too, and the light theme gets a LIGHT plane that belongs to its layout
+   (blue-grey plane, white tabs, accent-filled active tab). Dark keeps the graphite of §5ae.
+   Every raw white of the rules above becomes a variable, so both themes follow one set of rules. */
+:root{ --nav-bg:#dfe5ee;--nav-line:#c4cdd9;--nav-tab:#ffffff;--nav-tab-line:#b3bfce;--nav-fg:#26303f;
+ --nav-hover:#eef2f8;--nav-hover-line:#14479e;--nav-hover-fg:#111721;--nav-on:#ffffff;
+ --nav-on-bg:#14479e;--nav-on-line:#14479e;--nav-rowlab:#5b6677;--nav-count-bg:#e3e8f0;
+ --nav-count-fg:#3a4556;--nav-on-count-bg:#ffffff;--nav-on-count-fg:#14479e;--nav-ref-line:#c4cdd9;
+ --nav-ref-fg:#3a4556;--nav-ring:rgba(20,71,158,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16)}}
+:root[data-theme="dark"]{ --nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16)}
+nav.anchors .tab{background:var(--nav-tab);border-color:var(--nav-tab-line);color:var(--nav-fg)}
+nav.anchors .tab:hover,.navrow.ref .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+nav.anchors .tab[aria-selected="true"],.navrow.ref .tab[aria-selected="true"]{background:var(--nav-on-bg);
+ border-color:var(--nav-on-line);color:var(--nav-on);box-shadow:0 0 0 3px var(--nav-ring)}
+.navrow.ref .tab{background:transparent;border-color:var(--nav-ref-line);color:var(--nav-ref-fg)}
+nav.anchors .tab .navcount{background:var(--nav-count-bg);color:var(--nav-count-fg)}
+nav.anchors .tab:hover .navcount{background:var(--nav-count-bg);color:var(--nav-hover-fg)}
+nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-on-count-bg);color:var(--nav-on-count-fg)}
 /* ===== §5ag — component versions. KONTRAKT: kazda klasa uzyta w markupie tej
    zakladki ma regule TUTAJ. Klasa spoza tego bloku jest bledem, nie wariantem —
    14 wrzesnia 2026 przebieg wymyslil `.jgrid` i `.relbox`, ktorych nie zna zaden

@@ -115,7 +115,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 31 | **kazda pozycja stanu z terminem ma WIERSZ w jakiejs tabeli** — poza 60 dniem jest `<section id="horizon">` z tabela, nigdy akapit; fraza „in one paragraph" nie wystepuje; kazdy wiersz terminu niesie `data-id` | 5ab | dla kazdej pozycji z `deadline` istnieje `<tr>` o tym `data-id` (albo z jej tytulem w tresci); `horizon` w `ids`; brak frazy „in one paragraph" |
 | 32 | pozycja 61-120 dni z `socWeight<=2` albo `tier0Touch` promowana do GLOWNEJ tabeli, pasmo `61-120 days` | 5ab | zero takich pozycji poza glowna tabela |
 | 33 | **KAZDA pozycja stanu ma wiersz albo karte — nie tylko datowana.** Zaden `tier` nie jest kubelkiem, ktorego strona nie renderuje | 5ac | zero pozycji `items` bez `<tr data-id>` albo `article.card[data-id]` |
-| 35 | **pasek ma wlasny, grafitowy kolor na `.navstack`, ten sam w obu motywach, DWA opisane rzedy (`Daily`, `Reference`) i ramke na kazdej zakladce** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; `.navstack` niesie `background`; `nav.anchors .tab` niesie `border`; render: tlo `.navstack` identyczne w obu motywach i rozne od `--surface`; dwa `.navrow`, razem tyle zakladek, ile paneli niesie `CANON_PANELS` — dzis 14, po siedem w rzedzie |
+| 35 | **pasek ma wlasny kolor na `.navstack` — od 25 IX 2026 jasny w motywie jasnym i grafitowy w ciemnym (§5bf), DWA opisane rzedy (`Daily`, `Reference`) i ramke na kazdej zakladce** | 5ae | `--nav-bg` i `--nav-tab-line` zadeklarowane; `.navstack` niesie `background`; `nav.anchors .tab` niesie `border`; render: tlo `.navstack` rozne w motywie jasnym i ciemnym (§5bf) i rozne od `--surface`; dwa `.navrow`, razem tyle zakladek, ile paneli niesie `CANON_PANELS` — dzis 14, po siedem w rzedzie |
 | 36 | **kazdy `<li>` ma JEDEN temat i konczy sie linkiem** — ksztalt punktu z zakladki Products obowiazuje na calej stronie | 5af | zaden `<li>` nie ma naraz >=2 `<b>` i >=3 srednikow, liczone `html.parser`; punkty `sec-note` sekcji `top5` otwieraja sie `<b>` i niosa link (to drugie okiem, §5af) |
 | 37 | **zakladka Component versions**: kazdy komponent ma `versions[]` z platforma ze slownika, `provenance`, `state`, `checkedOn` i zrodlo; kazda wersja ma wlasny `.vbox` z chipem platformy | 5ag | licznik `.vbox` = licznik wpisow `versions[]`; zero platform spoza slownika |
 | 38 | **nic nie zostalo wyciete**: liczba `li.relitem` na stronie rowna sie liczbie punktow `releases[].groups[].items[]` w bloku stanu | 5ag | roznica zerowa; zaden `details.rest` nie ma podpisu `N of N` |
@@ -3094,6 +3094,9 @@ od tej, ktora po cichu wypadla (§0b).
 | `advanced-bar-like-diff` | **pasek Advanced filtering portalu ma ksztalt paska ze strony zmian** — lewa krawedz 4 px w kolorze akcentu, tlo akcentu przy czynnym filtrze, przyciski-pigulki z kwadratowa kropka w jednym kolorze, licznik w przycisku jako liczba, zielone `N filter on`, `Reset` po prawej | 2026-09-24 | `ZASPECYFIKOWANE` | zmiana wylacznie regul bloku CSS §5aw, liczba blokow bez zmian (§0c); bloki CSS wycina z tego pliku kazdy przebieg budujacy (§0c) — pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz, wiec tej zmiany zadna pozycja nie pilnuje kodem i sprawdza ja render (§5h). **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `component-change-a-to-b` | **kazdy komponent pokazuje poprzednia i obecna wersje jak diff na GitHubie** — `<del>` stara, `→`, `<ins>` nowa, z data wydania albo dniem zaobserwowania; w kafelku, w szynie i w kolumnie `Change` tabeli zbiorczej | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `lastChange` liczy kolektor §5ag, pozycje 83b i 83c. **Brakuje pierwszego przebiegu kolektora z `last_change()`** |
 | `island-no-pr-review` | **wyspy JSON pisze `write_island()`** — `=` jako `\u003d`, zeby CLI nie wzielo strony za przeglad PR i nie odmowilo publikacji | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; pozycja 108 uruchamia ten sam wzorzec co CLI. **Brakuje pierwszego przebiegu budujacego z `write_island()`** |
+| `diff-wears-brief-look` | **strona zmian i artefakt Delta w wygladzie briefu** — paleta, IBM Plex, 1500 px, kafelki `.stat`, plaszczyzna nawigacji §5ae; uklad bez zmian | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, blok na koncu `CSS` w `make_diff.py`. Zmierzone na danych 24→25 IX: tlo, czcionka i kolumna jak w briefie w obu motywach. **Brakuje pierwszego przebiegu zmian z tego pliku** |
+| `diff-every-tile-a-link` | **kazdy kafelek na stronie zmian jest linkiem**, takze zero i rozmiar katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `verify()` odrzuca kafelek bez linku. Na danych 24→25 IX: 12 kafelkow, 12 linkow. **Brakuje pierwszego przebiegu zmian z tego pliku** |
+| `nav-follows-theme` | **pasek zakladek zmienia kolor z motywem** — jasna plaszczyzna w jasnym, grafit w ciemnym; brief i `/diff/` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, zmienne `--nav-*` w bloku §5ae i w `make_diff.py`; pozycja 35 i asercja render §5ae przepisane. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 
 
 
@@ -4973,8 +4976,9 @@ def tiles(spec):
     for t in spec:
         value, label, cls = t[0], t[1], t[2]
         goto = t[3] if len(t) > 3 else None
-        if goto and _iszero(value):
-            goto = None
+        # §5bf (25 IX 2026): KAZDY kafelek jest linkiem, takze zero i rozmiar katalogu —
+        # decyzja wlasciciela. Zero prowadzi do sekcji, ktora mowi, co porownano i ze nic
+        # sie nie ruszylo; to tez jest odpowiedz, a martwy kafelek wygladal na zepsuty.
         if goto:
             out.append('<a class="fact%s" href="#%s" data-goto="%s"><b>%s</b><span>%s</span></a>'
                        % ((" " + cls) if cls else "", goto, goto, value, label))
@@ -5332,6 +5336,81 @@ tr.det[hidden]{display:none!important}
  border-top:1px solid var(--border);margin:0}
 .s12why b{color:var(--warn)}
 @media (max-width:760px){.s12line{font-size:11.5px}.det-in{padding:10px 11px}}
+
+/* ===== §5bf (25 IX 2026) — the change page wears the BRIEF's look. The owner put the two
+   side by side: different background, font, column, tiles and navigation, because this
+   page kept its own sheet from early September while the brief was redesigned four times.
+   Layout and content stay; only the look moves, by overriding at the END of this sheet:
+   the brief's palette in both themes, IBM Plex, the 1500 px column, `.stat`-shaped tiles
+   (4 px corners, 3 px coloured left edge, 26 px number, condensed caps label) and the
+   graphite navigation plane of §5ae with tab-shaped links. No backslash in this block:
+   CSS is an ordinary Python string (the minus-sign lesson of §5be). ===== */
+:root{--bg:#f2f4f7;--surface:#fff;--surface2:#e9edf3;--text:#111721;--muted:#4e5867;
+ --border:#ccd4de;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#9c1f1b;--bad-soft:#fbdedc;--warn:#7d4d00;
+ --warn-soft:#fceece;--accent:#14479e;--accent-soft:#e2eafb;--del-bg:#fbdcda;--del-fg:#96201c;
+ --ins-bg:#d7f0de;--ins-fg:#0d5c31;--grey:#465061;
+ --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+ --cond:"IBM Plex Sans Condensed","IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+ --nav-bg:#dfe5ee;--nav-line:#c4cdd9;--nav-tab:#ffffff;--nav-tab-line:#b3bfce;--nav-fg:#26303f;
+ --nav-hover:#eef2f8;--nav-hover-line:#14479e;--nav-hover-fg:#111721;--nav-on:#ffffff;
+ --nav-on-bg:#14479e;--nav-on-line:#14479e;--nav-rowlab:#5b6677;--nav-count-bg:#e3e8f0;
+ --nav-count-fg:#3a4556;--nav-on-count-bg:#ffffff;--nav-on-count-fg:#14479e;--nav-ref-line:#c4cdd9;
+ --nav-ref-fg:#3a4556;--nav-ring:rgba(20,71,158,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16);
+ --bg:#0d1116;--surface:#161b22;
+ --surface2:#1e242d;--text:#e8ecf1;--muted:#9fa9b6;--border:#2f3846;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f4867f;--bad-soft:#401718;--warn:#efba60;--warn-soft:#382a0d;--accent:#7fabf7;
+ --accent-soft:#182a48;--del-bg:#3f1618;--del-fg:#f79b95;--ins-bg:#123a24;--ins-fg:#79e0a5;--grey:#aeb8c4}}
+:root[data-theme=dark]{--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16);
+ --bg:#0d1116;--surface:#161b22;--surface2:#1e242d;--text:#e8ecf1;--muted:#9fa9b6;
+ --border:#2f3846;--ok:#63d495;--ok-soft:#0f3323;--bad:#f4867f;--bad-soft:#401718;--warn:#efba60;
+ --warn-soft:#382a0d;--accent:#7fabf7;--accent-soft:#182a48;--del-bg:#3f1618;--del-fg:#f79b95;
+ --ins-bg:#123a24;--ins-fg:#79e0a5;--grey:#aeb8c4}
+body{font-family:var(--sans);font-size:14.5px;-webkit-font-smoothing:antialiased}
+code,.ref,.s12line,.s12cnt,.s12path,.s12at,.xb,.relnew h3 .rv{font-family:var(--mono)}
+.wrap{max-width:1500px;padding:20px 20px 72px}
+header.top{padding:16px 20px 14px}
+header .in{max-width:1460px}
+h1{font-size:27px;font-weight:650;letter-spacing:-.02em;line-height:1.15}
+.dateline{font-size:14px}
+/* tiles: the brief's `.stat` */
+.factgrid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.fact{border:1px solid var(--border);border-left:3px solid var(--grey);border-radius:4px;
+ background:var(--surface);padding:11px 13px}
+.fact b{font-size:26px;font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--text)}
+.fact span{font-family:var(--cond);font-size:11.5px;font-weight:400;letter-spacing:.05em;color:var(--muted);margin-top:3px}
+.fact.ok{border-left-color:var(--ok)}.fact.bad{border-left-color:var(--bad)}
+.fact.warn{border-left-color:var(--warn)}.fact.acc,.fact.info{border-left-color:var(--accent)}
+a.fact:hover{background:var(--surface2);border-color:var(--border);border-left-color:var(--accent)}
+a.fact::after{display:none}
+/* navigation: the graphite plane of §5ae, links shaped like its tabs */
+.dstick{background:var(--bg);border-bottom:0;padding:8px 0 6px}
+.dnavstack{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;padding:8px 10px}
+.dnavrow+.dnavrow{border-top-color:var(--nav-line);margin-top:8px;padding-top:8px}
+.dnavrow .drowlab{font-size:10.5px;color:var(--nav-rowlab)}
+nav.dsubnav{background:none;padding:0;gap:10px;flex-wrap:wrap;overflow-x:visible}
+nav.dsubnav a{font-size:13.5px;font-weight:600;padding:8px 13px;border-radius:9px;
+ background:var(--nav-tab);border:1.5px solid var(--nav-tab-line);color:var(--nav-fg)}
+nav.dsubnav a:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+nav.dsubnav a .n{background:var(--nav-count-bg);color:var(--nav-count-fg);padding:1px 6px;border-radius:9px;font-size:11px}
+nav.dsubnav a[aria-current="true"]{background:var(--nav-on-bg);border-color:var(--nav-on-line);color:var(--nav-on);
+ font-weight:700;box-shadow:0 0 0 3px var(--nav-ring)}
+nav.dsubnav a[aria-current="true"] .n{background:var(--nav-on-count-bg);color:var(--nav-on-count-fg)}
+.tw{border-radius:4px}
+th{font-family:var(--cond);font-size:11.5px;letter-spacing:.06em}
+@media (max-width:760px){
+  .wrap{padding:14px 12px 56px}header.top{padding:14px 12px}h1{font-size:21px}
+  nav.dsubnav{flex-wrap:nowrap;overflow-x:auto}nav.dsubnav a{flex:0 0 auto;padding:7px 11px}
+}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -6471,13 +6550,13 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         ("+%d / &minus;%d" % (ge_add, ge_rem), "Graph endpoints", "info", "endpoints"),
         (str(dl_rows_n), "deadline rows", "acc", "deadlines"),
         (str(len(cadd) + len(crem) + len(cmod)), "component versions", "warn", "components"),
-        # Trzy kafelki STANU, i to, ze nie sa linkami, jest swiadome: `+51` mowi, o ile
-        # urosl katalog, a sekcja `Catalog` liczy WIERSZE ZMIAN, ktorych jest 61 — dwie
-        # rozne jednostki. Link prowadzacy od jednej do drugiej uczy, ze liczby na tej
-        # stronie nie znacza tego, co mowia. Cala arytmetyka stoi w podpisie kafelka.
-        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), "", None),
-        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), "", None),
-        (str(nc), "items in state &middot; was %d" % np_, "", None),
+        # Trzy kafelki STANU: `+51` mowi, o ile urosl katalog, a sekcja `Catalog` liczy
+        # WIERSZE ZMIAN — dwie rozne jednostki, cala arytmetyka stoi w podpisie. Od 25 IX 2026
+        # (§5bf) sa jednak linkami, bo wlasciciel chce klikalnego KAZDEGO kafelka: prowadza do
+        # sekcji, w ktorej ten katalog jest porownany, a verify() nie zada tu rownosci liczb.
+        ("%+d" % (gc - gp), "Graph permissions &middot; %d &rarr; %d" % (gp, gc), "", "catalog"),
+        ("%+d" % (rc - rp), "role entries &middot; %d &rarr; %d" % (rp, rc), "", "catalog"),
+        (str(nc), "items in state &middot; was %d" % np_, "", "bytab"),
         # Jedna sekcja, jeden kafelek: dwa kafelki celujace w `#community` nie mogly oba
         # rownac sie jej chipowi, wiec licznik artykulow zszedl do podpisu.
         (com_n, "community changes &middot; %d new article%s, %s%d source%s"
@@ -6499,9 +6578,10 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                'are counted apart: endpoints are not items, and Message Center is a VIEW over entries '
                'that are already counted in their own tab. <b>A tile that is a link leads to where '
                'its own number is visible as the same number</b> &mdash; the three totals to the table '
-               'that decomposes them, every other tile to the section whose count it carries. A tile '
-               'reading zero, and a tile stating a catalog size rather than a count of rows, is '
-               'deliberately not a link. <b>Pressing one opens that section and closes the rest</b>: '
+               'that decomposes them, every other tile to the section whose count it carries. '
+               '<b>Every tile is a link</b>: a zero opens its section, which says what was compared '
+               'and that nothing moved, and a tile stating a catalog size opens the section where '
+               'that catalog is compared. <b>Pressing one opens that section and closes the rest</b>: '
                'every section starts collapsed, with its count in the chip beside its name.'
                + ((' <b>Message Center moved on its own this run: +%d / &minus;%d / %d revised.</b> '
                    'None of that is in the three totals above, and that is deliberate: an entry an '
@@ -7298,7 +7378,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     body = "\n".join(out).replace("@@SUBNAV@@", subnav)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            '<title>Microsoft SOC &mdash; what changed %s</title>\n<style>%s</style>\n%s\n</head>\n'
+            '<title>Microsoft SOC &mdash; what changed %s</title>\n'
+            '<link rel="preconnect" href="https://fonts.googleapis.com">'
+            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+            '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700'
+            '&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700'
+            '&display=swap" rel="stylesheet">\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
             % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY))
 
@@ -7445,16 +7530,14 @@ def verify(page):
         zero = not re.search(r"[1-9]", val)
         state = any(lab.startswith(x) for x in STATE_TILES)
         if not tgt:
-            # kafelek NIEKLIKALNY jest poprawny dokladnie wtedy, gdy jest zerem albo stanem
-            if not zero and not state:
-                e.append("kafelek '%s' niesie %s i nie jest linkiem — nie ma jak dojsc do tych wierszy"
-                         % (lab, val))
+            # §5bf (25 IX 2026): kazdy kafelek jest linkiem — decyzja wlasciciela
+            e.append("kafelek '%s' (%s) nie jest linkiem — od 25 IX 2026 kazdy kafelek prowadzi do swojej sekcji"
+                     % (lab, val))
             continue
-        if zero:
-            e.append("kafelek '%s' o wartosci zerowej jest linkiem — prowadzi do pustej sekcji" % lab)
-        elif state:
-            # `+51` to przyrost katalogu, a sekcja liczy WIERSZE ZMIAN — dwie jednostki
-            e.append("kafelek stanu '%s' jest linkiem, a prowadzi do innej jednostki" % lab)
+        if tgt not in chips and tgt != "bytab":
+            e.append("kafelek '%s' prowadzi do #%s, ktorej nie ma na stronie" % (lab, tgt))
+        elif zero or state:
+            pass                          # zero i rozmiar katalogu: sekcja, nie rownosc liczb
         elif tgt == "bytab":
             pass                          # sume rozklada tabela, a asercja wyzej ja sprawdza
         elif tgt not in chips:
@@ -7604,7 +7687,11 @@ def verify(page):
     # „not set" po lewej. Zmierzone: 250 wierszy, 225 z samym <ins>, zero bez jednego i drugiego.
     m = re.search(r'<section id="changed">.*?</section>', page, re.S)
     if m:
-        rows = [r for r in re.findall(r"<tr[^>]*>(.*?)</tr>", m.group(0), re.S) if "<td" in r]
+        # §5bf (25 IX 2026): wiersz `tr.det` to DOWOD pod wierszem (§5ar) — diff tekstu zrodla
+        # w liniach .s12add/.s12rem, nie wiersz pola. Liczony jako wiersz zmiany zatrzymal
+        # strone z 25 IX na jednym wierszu Entra ID Protection, choc roznica byla pokazana.
+        rows = [r.group(2) for r in re.finditer(r"<tr([^>]*)>(.*?)</tr>", m.group(0), re.S)
+                if "<td" in r.group(2) and not re.search(r'class="[^"]*\bdet\b', r.group(1))]
         bad = [r for r in rows if "<del>" not in r and "<ins>" not in r]
         if bad: e.append("%d wierszy w 'changed' nie pokazuje roznicy (<del>/<ins>)" % len(bad))
     return e
@@ -10276,6 +10363,33 @@ nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-bg);color:
   .navstack nav.anchors{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
   nav.anchors .tab{flex:0 0 auto;padding:8px 12px}
 }
+/* §5bf (25 IX 2026) — the owner reversed "one colour in both themes": pressing Theme must
+   change this bar too, and the light theme gets a LIGHT plane that belongs to its layout
+   (blue-grey plane, white tabs, accent-filled active tab). Dark keeps the graphite of §5ae.
+   Every raw white of the rules above becomes a variable, so both themes follow one set of rules. */
+:root{ --nav-bg:#dfe5ee;--nav-line:#c4cdd9;--nav-tab:#ffffff;--nav-tab-line:#b3bfce;--nav-fg:#26303f;
+ --nav-hover:#eef2f8;--nav-hover-line:#14479e;--nav-hover-fg:#111721;--nav-on:#ffffff;
+ --nav-on-bg:#14479e;--nav-on-line:#14479e;--nav-rowlab:#5b6677;--nav-count-bg:#e3e8f0;
+ --nav-count-fg:#3a4556;--nav-on-count-bg:#ffffff;--nav-on-count-fg:#14479e;--nav-ref-line:#c4cdd9;
+ --nav-ref-fg:#3a4556;--nav-ring:rgba(20,71,158,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16)}}
+:root[data-theme="dark"]{ --nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16)}
+nav.anchors .tab{background:var(--nav-tab);border-color:var(--nav-tab-line);color:var(--nav-fg)}
+nav.anchors .tab:hover,.navrow.ref .tab:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+nav.anchors .tab[aria-selected="true"],.navrow.ref .tab[aria-selected="true"]{background:var(--nav-on-bg);
+ border-color:var(--nav-on-line);color:var(--nav-on);box-shadow:0 0 0 3px var(--nav-ring)}
+.navrow.ref .tab{background:transparent;border-color:var(--nav-ref-line);color:var(--nav-ref-fg)}
+nav.anchors .tab .navcount{background:var(--nav-count-bg);color:var(--nav-count-fg)}
+nav.anchors .tab:hover .navcount{background:var(--nav-count-bg);color:var(--nav-hover-fg)}
+nav.anchors .tab[aria-selected="true"] .navcount{background:var(--nav-on-count-bg);color:var(--nav-on-count-fg)}
 ```
 
 `--nav-*` sa deklarowane, wiec §5t jest spelnione co do litery: **zadna regula nie uzywa zmiennej,
@@ -10359,7 +10473,8 @@ tego nie uwzglednia, **zapala sie na poprawnej stronie** — a to jest ten sam b
 przechodzaca na pustych danych (§0b). Dlatego:
 
 - `getComputedStyle(document.querySelector(".navstack")).backgroundColor` **nie jest przezroczyste
-  i jest TAKIE SAMO w obu motywach**;
+  i od 25 IX 2026 jest INNE w motywie jasnym i ciemnym** (§5bf — wlasciciel odwrocil decyzje
+  z §5ae: przycisk `Theme` ma zmieniac takze ten pasek);
 - **sa DWA elementy `.navrow`**, gorny ma etykiete `Daily`, dolny `Reference`, i kazdy niesie
   `<nav class="anchors">` z co najmniej jedna zakladka;
 - suma zakladek w obu rzedach rowna sie liczbie paneli z `CANON_PANELS` — dzis **14**, po siedem
@@ -23147,6 +23262,31 @@ pasek, zero przewijania poziomego przy 390 / 1500 / 1900 px. Pasek `details.ntfb
 70 px wobec 47 px na `/diff/` i kreske pod naglowkiem — to regula `.ntfhead` z makiety plus
 wlasny padding ramki; oba zdjete regulami na koncu bloku §5aw (zwiniety: 49 px). Liczba blokow CSS
 bez zmian (§0c). Pozycja **106** celuje odtad w `width:calc(100% - 40px);max-width:1460px`.
+
+### Strona zmian w wygladzie briefu, kazdy kafelek jest linkiem, pasek zakladek zmienia sie z motywem (25 IX 2026)
+
+Wlasciciel porownal `/diff/` ze strona glowna: inne tlo, czcionka, kolumna, kafelki i nawigacja.
+Przyczyna: `make_diff.py` ma WLASNY arkusz z poczatku wrzesnia, a brief przeszedl od tego czasu
+cztery przebudowy wygladu. Decyzja wlasciciela: **wyglad briefu, uklad bez zmian** — na koncu
+arkusza `CSS` w `make_diff.py` stoi blok §5bf z paleta briefu w obu motywach, IBM Plex (link do
+Google Fonts w `<head>`), kolumna 1500 px, kafelki w ksztalcie `.stat` i plaszczyzna nawigacji
+z §5ae z linkami w ksztalcie zakladek. Artefakt `Microsoft SOC Delta` wychodzi z tego samego
+skryptu, wiec zmienia sie razem ze strona.
+
+**Kazdy kafelek jest linkiem** (decyzja wlasciciela; do dzis zero i rozmiar katalogu nie byly):
+`Graph permissions` i `role entries` prowadza do `#catalog`, `items in state` do `#bytab`, zero do
+swojej sekcji. `verify()` odrzuca odtad kafelek bez linku; rownosci liczby z chipem sekcji zada
+tylko od kafelka niezerowego, ktory nie jest rozmiarem katalogu. Przy okazji `verify()` przestal
+liczyc wiersz dowodu `tr.det` (§5ar) jako wiersz zmiany bez `<del>`/`<ins>` — na danych 24→25 IX
+zatrzymywal strone na jednym wierszu, ktorego roznica byla pokazana.
+
+**Pasek zakladek zmienia sie z motywem.** §5ae trzymal grafit w obu motywach celowo; wlasciciel
+odwrocil te decyzje: motyw jasny dostaje jasna plaszczyzne (`--nav-bg:#dfe5ee`, biale zakladki,
+aktywna wypelniona akcentem `#14479e`), ciemny zostaje grafitowy. Wszystkie surowe biele z regul
+§5ae staly sie zmiennymi `--nav-*` przedefiniowanymi w bloku ciemnym. To samo na `/diff/`.
+Zmierzone: jasny `.navstack` rgb(223,229,238), ciemny rgb(43,49,64), klik `Theme` przelacza oba;
+zero przewijania poziomego przy 390 i 1500 px, zero bledow skryptow.
+
 
 ## 6. Kontrakt w stronie
 
