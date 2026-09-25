@@ -2524,7 +2524,7 @@ def gate(path, site=None, mirror=False, doc=None):
     # Wlasciciel, 25 IX 2026: sledzenie rol i uprawnien Graph jest najwazniejsze, a zmiana Microsoftu
     # ma stac PIERWSZA w zakladce, z `+` przy kazdym wpisie. Blok buduje SKRYPT 17 z katalogu; tu
     # pytamy o kod i o dane, z ktorych go buduje (render sprawdza §5h).
-    K109 = ('data-mschg', 'function detailGraph(', 'function detailRole(', '"What Microsoft changed — "',
+    K109 = ('data-mschg', 'function detailGraph(', 'function detailRole(', '"What Microsoft changed in "',
             '.mschg .mc-x{')
     _cat109 = st.get("soc-catalog") or {}
     _dated109 = [e for w in ("graph", "roles") for e in (_cat109.get(w) or [])
@@ -22619,52 +22619,58 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
  padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
 .g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
 @media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
-/* §5bf: "What Microsoft changed" — the first block of the Graph API and Roles tabs */
-.mschg{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
- border-radius:10px;padding:14px 16px;margin:0 0 18px}
-.mschg .mc-title{font-family:var(--sans);font-size:18px;font-weight:650;letter-spacing:-.01em;
- text-transform:none;color:var(--text);margin:0 0 4px}
-.mschg .mc-sub{font-size:13px;color:var(--muted);margin:0 0 10px}
-.mschg .mc-widened{color:var(--warn);font-weight:600}
-.mschg .mc-seg{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+/* §5bf: "What Microsoft changed" — the first block of the Graph API and Roles tabs, folded */
+details.mschg{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:10px;margin:0 0 18px}
+details.mschg>summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:11px 14px}
+details.mschg>summary::-webkit-details-marker{display:none}
+details.mschg>summary::before{content:"+";font-family:var(--mono);font-size:15px;font-weight:700;width:22px;height:22px;
+ flex:0 0 22px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+details.mschg[open]>summary::before{content:"\2212"}
+.mschg .mc-title{font-size:16px;font-weight:650;color:var(--text)}
+.mschg .mc-cnt{font-size:12.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);
+ border:1px solid var(--accent);border-radius:999px;padding:2px 10px}
+.mschg .badge.mc-new{background:var(--ok-soft);color:var(--ok)}
+.mschg .mc-seg{display:flex;flex-wrap:wrap;gap:6px;margin:0 14px 10px}
 .mschg .mc-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;
  border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
 .mschg .mc-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.mschg .mc-sum{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
-.mschg .mc-n{font-size:12.5px;padding:4px 11px;border-radius:6px;border:1px solid var(--border);
- border-left:3px solid var(--grey);background:var(--surface-2)}
-.mschg .mc-n b{font-size:15px;margin-right:2px}
-.mschg .mc-n.mc-add,.mschg .mc-item.mc-add{border-left-color:var(--ok)}
-.mschg .mc-n.mc-chg,.mschg .mc-item.mc-chg{border-left-color:var(--warn)}
-.mschg .mc-n.mc-rem,.mschg .mc-item.mc-rem{border-left-color:var(--bad)}
+.mschg .mc-body{margin:0 14px 14px;max-height:70vh;overflow:auto;padding-right:4px}
 .mschg .mc-gh{font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-family:var(--cond);
- margin:14px 0 6px;color:var(--muted)}
-.mschg .mc-gh.mc-add{color:var(--ok)}.mschg .mc-gh.mc-chg{color:var(--warn)}.mschg .mc-gh.mc-rem{color:var(--bad)}
-.mschg .mc-body{max-height:72vh;overflow:auto;padding-right:4px}
-.mschg .mc-list{display:flex;flex-direction:column;gap:6px}
-.mschg .mc-item{border:1px solid var(--border-soft);border-left:3px solid var(--grey);border-radius:6px;
- background:var(--surface);padding:7px 10px}
+ margin:10px 0 6px;color:var(--muted)}
+.mschg .mc-list{display:flex;flex-direction:column;gap:5px}
+.mschg .mc-item{border:1px solid var(--border-soft);border-left:3px solid var(--warn);border-radius:6px;
+ background:var(--surface);padding:6px 10px}
+.mschg .mc-item.mc-add{border-left-color:var(--ok)}.mschg .mc-item.mc-rem{border-left-color:var(--bad)}
 .mschg .mc-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .mschg .mc-x{font-family:var(--mono);font-size:14px;font-weight:700;width:24px;height:24px;flex:0 0 24px;
  display:inline-flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;padding:0;
  background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
 .mschg .mc-x:hover{background:var(--accent);color:var(--on-accent)}
-.mschg .mc-name{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--text);word-break:break-word;flex:1 1 280px;min-width:0}
+.mschg .mc-name{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text);word-break:break-word;min-width:0}
+.mschg .mc-chips{display:inline-flex;flex-wrap:wrap;gap:5px}
+.mschg .badge.mc-t-add{background:var(--ok-soft);color:var(--ok)}
+.mschg .badge.mc-t-chg{background:var(--warn-soft);color:var(--warn)}
+.mschg .badge.mc-t-rem{background:var(--bad-soft);color:var(--bad)}
 .mschg .mc-when{font-size:12px;color:var(--muted);margin-left:auto}
-.mschg .badge.mc-new{background:var(--ok-soft);color:var(--ok)}
-.mschg .mcdiff{margin:5px 0 0 32px;font-size:12.5px;line-height:1.6}
+.mschg .mc-text{margin:3px 0 0 32px;font-size:12.5px;color:var(--muted);word-break:break-word}
+.mschg .mcdiff{margin:4px 0 0;font-size:12.5px;line-height:1.6}
 .mschg .mc-det{margin:8px 0 2px 32px}
+.mschg .mc-det .mcpane+.mcpane{border-top:1px dashed var(--border);padding-top:8px;margin-top:8px}
 .mschg .mc-empty{margin:4px 0 0;padding:10px 12px;border:1px dashed var(--border);border-radius:8px;color:var(--muted);font-size:13px}
 .mschg .mcpane .sec{margin:0 0 10px}
 .mschg .mcpane .sec h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-family:var(--cond);color:var(--muted);margin:0 0 5px}
 .mschg .mcpane dl.kv{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr);gap:3px 12px;margin:0;font-size:12.5px}
 .mschg .mcpane dl.kv dt{color:var(--muted)}.mschg .mcpane dl.kv dd{margin:0}
-.mschg .mceps,.mschg .mchist{margin:0;padding-left:18px;font-size:12.5px;max-height:260px;overflow:auto}
+.mschg .mceps,.mschg .mchist{margin:0;padding-left:18px;font-size:12.5px;max-height:240px;overflow:auto}
 .mschg .mceps .mono{font-family:var(--mono);font-size:12px}
+.mschg .mceps .mc-hit{color:var(--ins-fg);font-weight:600}
+.mschg .mceps .mc-hit .badge{margin-left:6px}
 .mschg .mcopen{font:inherit;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;
  border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
 .mschg .mcopen:hover{background:var(--accent);color:var(--on-accent)}
-@media (max-width:760px){.mschg{padding:12px}.mschg .mcdiff,.mschg .mc-det{margin-left:0}
+@media (max-width:760px){.mschg .mc-text,.mschg .mc-det{margin-left:0}
  .mschg .mcpane dl.kv{grid-template-columns:1fr}.mschg .mc-when{margin-left:0}}
 ```
 
@@ -23058,7 +23064,13 @@ odtad CZTERNASCIE (4-17).**
     var eps = perm ? endpointsOf(gm, perm) : [];
     if (eps.length) {
       var s4 = sec(pane, "What " + perm + " can call — " + eps.length + (eps.length >= 400 ? "+" : "") + " endpoints");
-      var ul = el("ul", "mceps"); eps.slice(0, 60).forEach(function (x) { ul.appendChild(el("li", "mono", x)); });
+      var hit = /gained reach|endpoint added/i.test(e.kind || "") ? String(e.kind).match(/endpoint added/i) ? String(e.name || "").split(" ").pop() : pathOf(e) : "";
+      eps.sort(function (a, b) { return (b.split(" ")[1] === hit) - (a.split(" ")[1] === hit); });
+      var ul = el("ul", "mceps"); eps.slice(0, 60).forEach(function (x) {
+        var li = el("li", "mono", x);
+        if (hit && x.split(" ")[1] === hit) { li.className = "mono mc-hit"; li.appendChild(el("span", "badge mc-t-add", "new")); }
+        ul.appendChild(li);
+      });
       s4.appendChild(ul);
       if (eps.length > 60) s4.appendChild(el("p", "none", "…and " + (eps.length - 60) + " more — the full, searchable list is in the catalog panel."));
     }
@@ -23129,6 +23141,72 @@ odtad CZTERNASCIE (4-17).**
     pane.appendChild(b);
   }
 
+  function short(t, n) { t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1) + "…" : t; }
+  function pathOf(e) {
+    var n = String(e.name || ""); if (n.indexOf("→") > 0) return n.split("→")[1].trim();
+    return n;
+  }
+  function tone(label) {
+    return /removed|breaking|deprecat|no longer/i.test(label) ? "rem" : (/^new|added/i.test(label) ? "add" : "chg");
+  }
+  /* Graph: one row per PERMISSION and one per ENDPOINT, in plain words. The owner, 25 IX 2026:
+     the first version listed every catalog entry (51 in 14 days, most of them the deployment map
+     of other resource apps) and drowned the view. What matters here is Graph permissions and
+     endpoints, so: surface "Microsoft Graph" only, deployment-map entries out, and the
+     "existing permission gained reach" entries folded into their permission as "can now call N
+     more endpoints". */
+  function graphRows(list) {
+    var perms = {}, eps = {};
+    list.forEach(function (e) {
+      if (e.surface && e.surface !== "Microsoft Graph") return;
+      if (/deployed in the service/i.test(e.kind || "")) return;
+      var k = String(e.kind || ""), d = when(e);
+      if (e.objectType === "Endpoint" || /^endpoint/i.test(k)) {
+        var p = pathOf(e), r = eps[p] || (eps[p] = { name: p, entries: [], date: "", label: "", perms: [] });
+        r.entries.push(e); if (d > r.date) r.date = d;
+        r.label = /breaking/i.test(k) ? "Breaking change" : (/deprecat|removed/i.test(k) ? "Removed" : "New endpoint");
+        var m = /bound to ([A-Za-z0-9._-]+)/.exec(String(e.after || "")); if (m && r.perms.indexOf(m[1]) < 0) r.perms.push(m[1]);
+        return;
+      }
+      var pn = permOf(e) || String(e.name || ""), q = perms[pn] || (perms[pn] = { name: pn, entries: [], date: "", labels: [], reach: [] });
+      q.entries.push(e); if (d > q.date) q.date = d;
+      if (/gained reach/i.test(k)) q.reach.push(pathOf(e));
+      else {
+        var lab = /no longer/i.test(k) ? "Removed from Graph" : /breaking/i.test(k) ? "Breaking change" :
+                  /^new in service/i.test(k) ? "New (in the service, not yet in Microsoft's reference)" :
+                  /^new/i.test(k) ? "New permission" : "Changed";
+        if (q.labels.indexOf(lab) < 0) q.labels.push(lab);
+      }
+    });
+    var P = Object.keys(perms).map(function (k) {
+      var q = perms[k];
+      if (q.reach.length) q.labels.push("Can call " + q.reach.length + " more endpoint" + (q.reach.length === 1 ? "" : "s"));
+      var own = q.entries.filter(function (e) { return !/gained reach/i.test(e.kind || ""); })[0];
+      var main = own || q.entries[0];
+      q.text = !own ? "Now also calls " + q.reach.slice(0, 3).join(" · ") + (q.reach.length > 3 ? " · …" : "")
+             : (/^new/i.test(own.kind || "") ? short([ (own.permTypes || []).join(" + "), own.consent ].filter(Boolean).join(" · ") || own.after, 150)
+             : short(own.after || own.before, 150));
+      q.main = main; return q;
+    });
+    var E = Object.keys(eps).map(function (k) {
+      var r = eps[k]; r.labels = [r.label];
+      r.text = r.perms.length ? "Reachable with " + r.perms.join(", ") : short(r.entries[0].after, 150);
+      r.main = r.entries[0]; return r;
+    });
+    var byDate = function (a, b) { return b.date.localeCompare(a.date) || a.name.localeCompare(b.name); };
+    return { perms: P.sort(byDate), eps: E.sort(byDate) };
+  }
+  function roleRows(list) {
+    return list.map(function (e) {
+      var lab = String(e.kind || "Changed"), t = "";
+      if (Array.isArray(e.added) && e.added.length) t = "+" + e.added.length + " action" + (e.added.length === 1 ? "" : "s") + ": " + short(e.added.map(function (x) { return x.action || x; }).join(", "), 120);
+      else if (Array.isArray(e.removed) && e.removed.length) t = "−" + e.removed.length + " action" + (e.removed.length === 1 ? "" : "s");
+      else if (e.privilegedBefore != null && e.privilegedBefore !== e.privileged) t = "privileged: " + e.privilegedBefore + " → " + e.privileged;
+      else t = short(e.after || e.description || e.intro, 150);
+      return { name: e.name || e.id, labels: [lab], text: t, date: when(e), main: e, entries: [e] };
+    }).sort(function (a, b) { return b.date.localeCompare(a.date) || a.name.localeCompare(b.name); });
+  }
+
   function build(which) {
     var panel = document.getElementById(which === "graph" ? "tab-graph" : "tab-roles");
     if (!panel || panel.querySelector(".mschg")) return;
@@ -23139,86 +23217,87 @@ odtad CZTERNASCIE (4-17).**
     var today = String(st.briefDate || cat.briefDate || new Date().toISOString().slice(0, 10));
     var since = String(meta.comparedDate || "");
     var all = (cat[which] || []).filter(function (e) { return e && e.origin === "microsoft" && when(e); });
-    all.sort(function (a, b) { return when(b).localeCompare(when(a)) || String(a.name).localeCompare(String(b.name)); });
 
-    var box = el("div", "mschg"); box.setAttribute("data-mschg", which);
-    var head = el("div", "mc-head");
-    head.appendChild(el("h2", "mc-title", "What Microsoft changed — " + (which === "graph" ? "Graph API permissions and endpoints" : "Entra directory roles")));
-    head.appendChild(el("p", "mc-sub", "Every catalog entry Microsoft added, changed or removed, newest first. " +
-      "Press + on a row for its full detail. " + (since ? "Entries newer than the last brief (" + since + ") are marked NEW." : "")));
-    box.appendChild(head);
+    function inWin(d, w) {
+      if (w === "all") return true;
+      if (w === "since") return !!since && d > since;
+      return daysBetween(d, today) < +w;
+    }
+    function model(w) {
+      var list = all.filter(function (e) { return inWin(when(e), w); });
+      return which === "graph" ? graphRows(list) : { perms: roleRows(list), eps: [] };
+    }
+    function size(m) { return m.perms.length + m.eps.length; }
+    function words(m) {
+      return which === "graph"
+        ? m.perms.length + " permission" + (m.perms.length === 1 ? "" : "s") + " · " + m.eps.length + " endpoint" + (m.eps.length === 1 ? "" : "s")
+        : m.perms.length + " role" + (m.perms.length === 1 ? "" : "s");
+    }
+    var WINS = [["since", since ? "Since the last brief" : null], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
+    var cur = null;
+    ["since", "14", "30", "90", "all"].some(function (w) { if ((w !== "since" || since) && size(model(w))) { cur = w; return true; } return false; });
+    if (!cur) cur = "14";
+    var nNew = since ? size(model("since")) : 0;
+
+    var box = el("details", "mschg"); box.setAttribute("data-mschg", which);
+    if (nNew) box.open = true;
+    var sm = el("summary");
+    sm.appendChild(el("span", "mc-title", "What Microsoft changed in " + (which === "graph" ? "Graph API" : "Entra and Azure roles")));
+    var cnt = el("span", "mc-cnt"); sm.appendChild(cnt);
+    if (nNew) sm.appendChild(el("span", "badge mc-new", nNew + " new since " + since));
+    box.appendChild(sm);
     var seg = el("div", "mc-seg"); box.appendChild(seg);
     var body = el("div", "mc-body"); box.appendChild(body);
-    var WINS = [["since", since ? "Since the last brief" : null], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
-    var cur = "14";
 
-    function inWin(e, w) {
-      var d = when(e);
-      if (w === "all") return true;
-      if (w === "since") return since && d > since;
-      return daysBetween(d, today) < +w;
+    function table(title, rows, kindOf) {
+      if (!rows.length) return;
+      body.appendChild(el("h3", "mc-gh", title + " · " + rows.length));
+      var list = el("div", "mc-list"); body.appendChild(list);
+      rows.forEach(function (r) {
+        var item = el("div", "mc-item mc-" + tone(r.labels[0]));
+        var row = el("div", "mc-row");
+        var btn = el("button", "mc-x", "+"); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Show the detail of " + r.name);
+        row.appendChild(btn);
+        row.appendChild(el("span", "mc-name mono", r.name));
+        var chips = el("span", "mc-chips");
+        r.labels.forEach(function (l) { chips.appendChild(el("span", "badge mc-t-" + tone(l), l)); });
+        if (since && r.date > since) chips.appendChild(el("span", "badge mc-new", "NEW"));
+        row.appendChild(chips);
+        row.appendChild(el("span", "mc-when dt", r.date));
+        item.appendChild(row);
+        if (r.text) item.appendChild(el("p", "mc-text", r.text));
+        var det = el("div", "mc-det"); det.hidden = true; item.appendChild(det);
+        btn.addEventListener("click", function () {
+          var open = det.hidden;
+          if (open && !det.firstChild) {
+            r.entries.forEach(function (e, i) {
+              det.appendChild(which === "graph" ? detailGraph(e, gm, i === 0) : detailRole(e, true));
+            });
+          }
+          det.hidden = !open; btn.textContent = open ? "−" : "+"; btn.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        list.appendChild(item);
+      });
     }
     function render() {
       [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-w") === cur ? "true" : "false"); });
       body.textContent = "";
-      var rows = all.filter(function (e) { return inWin(e, cur); });
-      var sum = el("div", "mc-sum");
-      ["add", "chg", "rem"].forEach(function (g) {
-        var n = rows.filter(function (e) { return group(e.kind) === g; }).length;
-        var t = el("span", "mc-n mc-" + g); t.appendChild(el("b", null, String(n))); t.appendChild(document.createTextNode(" " + GLAB[g]));
-        sum.appendChild(t);
-      });
-      body.appendChild(sum);
-      if (!rows.length) {
-        var last = all.length ? when(all[0]) : "";
-        body.appendChild(el("p", "mc-empty", "Microsoft changed nothing here in this window. " +
-          (last ? "The newest Microsoft change in the catalog is from " + last + " — widen the window to see it." :
-                  "The catalog holds no dated Microsoft change.")));
+      var m = model(cur);
+      cnt.textContent = words(m) + " · " + (cur === "since" ? "since " + since : cur === "all" ? "all dated" : "last " + cur + " days");
+      if (!size(m)) {
+        body.appendChild(el("p", "mc-empty", "Microsoft changed nothing here in this window — widen it above."));
         return;
       }
-      ["add", "chg", "rem"].forEach(function (g) {
-        var gr = rows.filter(function (e) { return group(e.kind) === g; });
-        if (!gr.length) return;
-        var gh = el("h3", "mc-gh mc-" + g, GLAB[g] + " · " + gr.length); body.appendChild(gh);
-        var list = el("div", "mc-list"); body.appendChild(list);
-        gr.slice(0, 200).forEach(function (e) {
-          var item = el("div", "mc-item mc-" + g);
-          var row = el("div", "mc-row");
-          var btn = el("button", "mc-x", "+"); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
-          btn.setAttribute("aria-label", "Show the detail of " + e.name);
-          row.appendChild(btn);
-          row.appendChild(el("span", "badge b-" + (g === "add" ? "new" : g === "rem" ? "dep" : "upd"), e.kind || GLAB[g]));
-          if (since && when(e) > since) row.appendChild(el("span", "badge mc-new", "NEW since " + since));
-          row.appendChild(el("span", "mc-name mono", e.name || e.id));
-          row.appendChild(el("span", "mc-when dt", when(e)));
-          item.appendChild(row);
-          if (e.before || e.after) item.appendChild(diffLine(e.before, e.after));
-          var det = el("div", "mc-det"); det.hidden = true; item.appendChild(det);
-          btn.addEventListener("click", function () {
-            var open = det.hidden;
-            if (open && !det.firstChild) det.appendChild(which === "graph" ? detailGraph(e, gm, true) : detailRole(e, true));
-            det.hidden = !open; btn.textContent = open ? "−" : "+"; btn.setAttribute("aria-expanded", open ? "true" : "false");
-          });
-          list.appendChild(item);
-        });
-        if (gr.length > 200) list.appendChild(el("p", "none", "…and " + (gr.length - 200) + " more in the catalog below."));
-      });
+      if (which === "graph") { table("Permissions", m.perms); table("Endpoints", m.eps); }
+      else table("Roles", m.perms);
     }
     WINS.forEach(function (w) {
       if (!w[1]) return;
-      var n = all.filter(function (e) { return inWin(e, w[0]); }).length;
-      var b = el("button", null, w[1] + " · " + n); b.type = "button"; b.setAttribute("data-w", w[0]);
+      var b = el("button", null, w[1] + " · " + size(model(w[0]))); b.type = "button"; b.setAttribute("data-w", w[0]);
       b.addEventListener("click", function () { cur = w[0]; render(); });
       seg.appendChild(b);
     });
-    /* open on 14 days; when that is empty, on the first wider window that is not, and say so —
-       the Roles catalog moves every few weeks, and an empty first screen hides that it moves */
-    var order = ["14", "30", "90", "all"];
-    for (var oi = 0; oi < order.length; oi++) {
-      if (all.filter(function (e) { return inWin(e, order[oi]); }).length) { cur = order[oi]; break; }
-    }
-    if (cur !== "14") head.appendChild(el("p", "mc-sub mc-widened",
-      "Nothing moved in the last 14 days, so this opens on " + (cur === "all" ? "all dated changes" : "the last " + cur + " days") + "."));
     render();
     panel.insertBefore(box, panel.firstChild);
   }
@@ -23728,7 +23807,15 @@ na liscie wszystkich rol i API.* Do dzis jedynym takim miejscem byl licznik „W
 Microsoft" pod wykresami, ktory w cichy dzien mowi 0 / 0 / 0 i nie nazywa niczego starszego niz
 ostatni brief (25 IX: 0, choc w 14 dniach Microsoft ruszyl 51 wpisow Graph).
 
-SKRYPT 17 wstawia odtad na POCZATEK `tab-graph` i `tab-roles` blok `div.mschg`:
+SKRYPT 17 wstawia odtad na POCZATEK `tab-graph` i `tab-roles` ZWINIETY blok `details.mschg`
+(otwarty tylko wtedy, gdy cos jest nowsze niz ostatni brief). **Poprawione tego samego wieczoru**
+po uwadze wlasciciela: pierwsza wersja wypisywala kazdy wpis katalogu — 51 w 14 dniach, w wiekszosci
+mapa wdrozen innych aplikacji zasobow — i zaglada widok. Teraz Graph pokazuje WYLACZNIE
+`surface:"Microsoft Graph"` bez wpisow `Deployed in the service, not in this tenant`, w dwoch
+tabelach: *Permissions* (jeden wiersz na uprawnienie; wpisy `gained reach` sa zlozone w
+„Can call N more endpoints") i *Endpoints* (jeden wiersz na sciezke, z uprawnieniem, ktore ja
+otwiera), kazdy wiersz jednym zdaniem prostym jezykiem. Role: jeden wiersz na role z rodzajem zmiany
+(`+N actions`, zmiana uprzywilejowania). Reszta opisu ponizej obowiazuje:
 - zrodlo: wpisy `soc-catalog` z `origin:"microsoft"`, data `changed` (role: `lastChanged` albo
   ostatni wiersz `history`), od najnowszych;
 - okno jako kontrolka: *Since the last brief* (`comparedDate`), 7, 14, 30, 90 dni, *All*, kazde
