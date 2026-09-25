@@ -152,7 +152,14 @@ gantt
 ```
 
 > [!WARNING]
-> **Zmiana czasu 25 X 2026.** Scheduled tasks mają harmonogram w strefie `Europe/Warsaw` (`CRON_TZ=Europe/Warsaw 0 6 * * *`, `… 0 21 * * *`), a obie routines w **UTC** (`0 5 * * *`, `0 20 * * *`). Latem to 07:00 i 22:00 w Warszawie, ale **od 25 X 2026 (czas zimowy) routines ruszą o 06:00 i 21:00** — w tej samej minucie co scheduled tasks, zanim artefakt dnia powstanie (poranny brief trwa ~45 min). Lustro nie znajdzie dzisiejszego artefaktu. Rozwiązanie: przed 25 X ustawić w routines `CRON_TZ=Europe/Warsaw 0 7 * * *` i `CRON_TZ=Europe/Warsaw 0 22 * * *` (sam harmonogram, bez zmiany promptu). Workflow `fpa-tenant.yml` (03:30 UTC) zimą ruszy o 04:30 — nadal przed briefem, bez zmian.
+> **Zmiana czasu 25 X 2026.** Scheduled tasks mają harmonogram w strefie `Europe/Warsaw` (`CRON_TZ=Europe/Warsaw 0 6 * * *`, `… 0 21 * * *`), a obie routines w **UTC** (`0 5 * * *`, `0 20 * * *`). Latem to 07:00 i 22:00 w Warszawie, ale **od 25 X 2026 (czas zimowy) routines ruszą o 06:00 i 21:00** — w tej samej minucie co scheduled tasks, zanim artefakt dnia powstanie (poranny brief trwa ~45 min). Lustro nie znajdzie dzisiejszego artefaktu. **Zmienić może tylko właściciel, w interfejsie.** Sesja Claude nie może edytować tych routines (utworzone przez API; próba 26 IX 2026 odrzucona: „Agents can only update routines they created”), a interfejs routines nie ma wyboru strefy czasowej. Dlatego godziny przestawia się ręcznie dwa razy w roku:
+>
+> | Kiedy | [raport poranny v2](https://claude.ai/code/routines/trig_01WgAAz5UkKaKwE49VY6Y6XG) | [zmiany v2](https://claude.ai/code/routines/trig_01Gv6tSXTD64NChhaQ2Brx8H) |
+> |---|---|---|
+> | 25 X 2026 (czas zimowy) | 05:00 → **06:00 UTC** (= 07:00 w Polsce) | 20:00 → **21:00 UTC** (= 22:00) |
+> | 28 III 2027 (czas letni) | 06:00 → **05:00 UTC** (= 07:00) | 21:00 → **20:00 UTC** (= 22:00) |
+>
+> Przypomnienia (scheduled tasks z powiadomieniem push i e-mail): 24 X 2026 08:00 (`trig_01WBLcAdqi7jH2P1EEtanwtz`) i 27 III 2027 08:00 (`trig_01B73NRpvGfX5fNQZSVYDXXX`). Jeśli interfejs pokazuje godzinę lokalną, po zmianie czasu sprawdź, czy nadal widać 07:00 i 22:00. Workflow `fpa-tenant.yml` (03:30 UTC) zimą ruszy o 04:30 — nadal przed briefem, bez zmian.
 
 
 Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
@@ -589,7 +596,7 @@ Uwaga bezpieczeństwa: kod urządzenia daje token temu, kto go wpisze i się zal
 | Workflow migawki: `HTTP 401` i `AADSTS700213` | `sub` z linii `OIDC claims` w logu nie pasuje do poświadczenia federacyjnego (pkt 5.2, „Subject tokenu GitHub”) |
 | Workflow migawki: `HTTP 403` przy Graph | brak zgody administratora (pkt 5.3, krok 1) |
 | Routine nie wystartowała albo ma status FAILED | historia uruchomień zadania w Claude (link do sesji w e-mailu z powiadomieniem); częsta przyczyna we wrześniu 2026: wyczerpany tygodniowy limit użycia |
-| Po 25 X 2026 strona rano nieświeża | routines w UTC ruszają godzinę wcześniej, razem z briefem — pkt 1, ostrzeżenie o zmianie czasu |
+| Po 25 X 2026 strona rano nieświeża | routines w UTC ruszają godzinę wcześniej, razem z briefem — przestaw godziny w interfejsie routines (pkt 1, ostrzeżenie o zmianie czasu) |
 
 ## 8. Dokumentacja i źródła
 
@@ -670,6 +677,7 @@ Wszystkie linki sprawdzone 25–26 IX 2026 (Microsoft Learn przez wyszukiwarkę 
 
 | Data | Zmiana |
 |---|---|
+| 2026-09-26 | Pkt 1: harmonogramu routines nie da się zmienić z sesji Claude ani wybrać strefy w interfejsie — tabela ręcznego przestawienia godzin na 25 X 2026 i 28 III 2027 z linkami do routines oraz ID dwóch przypomnień (24 X 2026, 27 III 2027). |
 | 2026-09-26 | Pkt 5.3 i 4b: `gh` jest zainstalowany i zalogowany na komputerze właściciela (wcześniej zapis „nie jest w PATH”); commit, push i kontrola Actions z sesji Claude idą przez `git` i `gh` na tym komputerze. |
 | 2026-09-26 | Hiperłącza do dokumentacji Microsoft (Entra, Graph, Static Web Apps, Microsoft 365), GitHub i projektów społeczności w treści (tabele SWA, uprawnień, migawki, logowania, kodu urządzenia) oraz nowa sekcja 8 „Dokumentacja i źródła” z linkami pogrupowanymi tematycznie. |
 | 2026-09-26 | Opis całego narzędzia: spis treści, architektura (diagram), oś dnia (diagram Gantta), ostrzeżenie o zmianie czasu 25 X 2026 (routines w UTC), szczegóły czterech zadań Claude (ID, harmonogramy, model, konektory, wejście/wyjście, ostatnie przebiegi, kroki), mapa `CLAUDE.md` i skryptów, integracje GitHub, co robi migawka tenanta i wynik pierwszego przebiegu (475 SP, 17 klientów, `grantsNote` puste), nowe wiersze diagnostyki. Nowe skróty: MCP, UTC, CEST/CET, SP, RSS, CI/CD. |
