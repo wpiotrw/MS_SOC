@@ -708,6 +708,69 @@ def verify_diff(page: str) -> list:
         errs.append("brak linku powrotnego do / — czy strona ma <p class=\"dateline\">?")
     return errs
 
+def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
+    """§5bh R3: site/feed.xml — RSS 2.0 for a reader who will not open the portal every day:
+    items due within 7 days, items new since the last brief, and Microsoft changes in Graph
+    permissions and roles in the last 7 days. Written by every --brief mirror; the masthead's
+    RSS link points here. One <item> per subject and day, guid stable, so a feed reader shows
+    a deadline once per day it is still open rather than once per run."""
+    import html as _h, email.utils as _eu, datetime as _dt
+    st = state.get("soc-brief-state") or {}
+    cat = state.get("soc-catalog") or {}
+    E = lambda s: _h.escape(str(s or ""), quote=True)
+    def rfc(d):
+        try:
+            return _eu.format_datetime(_dt.datetime.fromisoformat(str(d)[:10]).replace(
+                hour=6, tzinfo=_dt.timezone.utc))
+        except Exception:
+            return _eu.format_datetime(_dt.datetime.now(_dt.timezone.utc))
+    def days(d):
+        try:
+            return (_dt.date.fromisoformat(str(d)[:10]) - _dt.date.fromisoformat(date)).days
+        except Exception:
+            return None
+    out = []
+    new_ids = set(st.get("newToday") or [])
+    for it in st.get("items") or []:
+        n = days(it.get("deadline")) if it.get("deadline") else None
+        tag = None
+        if n is not None and 0 <= n <= 7:
+            tag = "Due today" if n == 0 else "Due in %d day%s" % (n, "" if n == 1 else "s")
+        elif it.get("id") in new_ids:
+            tag = "New"
+        if not tag:
+            continue
+        out.append((tag, it.get("title") or it.get("id"), it.get("url") or site_url,
+                    "%s|%s|%s" % (it.get("id"), tag, date), date,
+                    "%s · %s%s" % (it.get("product") or "", tag,
+                                   (" · deadline " + it["deadline"]) if it.get("deadline") else "")))
+    for w, lab in (("graph", "Graph"), ("roles", "Role")):
+        for e in cat.get(w) or []:
+            if e.get("origin") != "microsoft" or "deployed in the service" in str(e.get("kind", "")).lower():
+                continue
+            if w == "graph" and e.get("surface") and e.get("surface") != "Microsoft Graph":
+                continue
+            ch = str(e.get("changed") or e.get("lastChanged") or "")
+            n = days(ch) if ch else None
+            if n is None or n < -7 or n > 0:
+                continue
+            out.append(("%s: %s" % (lab, e.get("kind") or "changed"), e.get("name") or e.get("id"),
+                        e.get("url") or e.get("docSource") or site_url, "%s|%s" % (e.get("id"), ch), ch,
+                        str(e.get("after") or e.get("description") or "")[:400]))
+    rss = ['<?xml version="1.0" encoding="utf-8"?>',
+           '<rss version="2.0"><channel>',
+           '<title>Microsoft SOC Brief</title>', '<link>%s</link>' % E(site_url),
+           '<description>Due within 7 days, new since the last brief, Microsoft changes in Graph and roles</description>',
+           '<lastBuildDate>%s</lastBuildDate>' % rfc(date)]
+    for tag, title, link, guid, when, desc in out[:200]:
+        rss.append('<item><title>%s</title><link>%s</link><guid isPermaLink="false">%s</guid>'
+                   '<pubDate>%s</pubDate><category>%s</category><description>%s</description></item>'
+                   % (E("[%s] %s" % (tag, title)), E(link), E(guid), rfc(when), E(tag), E(desc)))
+    rss.append('</channel></rss>')
+    open(os.path.join(outdir, "feed.xml"), "w", encoding="utf-8").write("\n".join(rss) + "\n")
+    return len(out)
+
+
 if __name__ == "__main__":
     src, outdir = sys.argv[1], sys.argv[2]
     mode = "--diff" if "--diff" in sys.argv[3:] else "--brief"
@@ -740,6 +803,7 @@ if __name__ == "__main__":
         os.makedirs(os.path.join(outdir, "data"), exist_ok=True)
         json.dump(state, open(os.path.join(outdir, "data", date + ".json"), "w", encoding="utf-8"),
                   ensure_ascii=False)
+        print("OK  %s/feed.xml  %d items  (§5bh)" % (outdir, write_feed(state, outdir, date)))
     print("OK  %s  %d B  (%s)" % (target, len(page.encode()), mode))
 ```
 
@@ -1021,7 +1085,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109","110"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2540,6 +2604,12 @@ def gate(path, site=None, mirror=False, doc=None):
     need("110", "poprawki etapu 1 przegladu: etykiety pokrycia, role tablist/main, NEW przy wierszach, 12 px (§5bg)",
          all(k in h for k in K110), "brak: %s" % ", ".join(k for k in K110 if k not in h))
 
+    # ---- 111: etap 2 przegladu portalu (§5bh). KLASA B. ----
+    K111 = ('function kpis(', 'function compactHeader(', 'function infoize(', 'function chartsToggle(',
+            'function viewLink(', 'function a11y2(', '.kpi5{')
+    need("111", "etap 2 przegladu: piec KPI, zwijany naglowek, ⓘ zamiast akapitow, wykresy na zadanie, link do widoku (§5bh)",
+         all(k in h for k in K111), "brak: %s" % ", ".join(k for k in K111 if k not in h))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -3119,6 +3189,8 @@ od tej, ktora po cichu wypadla (§0b).
 | `nav-follows-theme` | **pasek zakladek zmienia kolor z motywem** — jasna plaszczyzna w jasnym, grafit w ciemnym; brief i `/diff/` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, zmienne `--nav-*` w bloku §5ae i w `make_diff.py`; pozycja 35 i asercja render §5ae przepisane. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `diff-counts-changes-not-bookkeeping` | **strona zmian liczy ZMIANY, nie ksiegowosc, i od stanu KONCOWEGO poprzedniego dnia** — wartosc zapisana po raz pierwszy, okno czasu, sposob i data odczytu nie sa zmianami; plik dnia nadpisuje przebieg wieczorny | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, `moved()` i zapis stanu koncowego w `make_diff.py`. Na 24→25 IX: Graph permissions +0, komponenty 0, Message Center 12 zamiast 184. **Brakuje pierwszego przebiegu zmian z tego pliku** |
 | `ms-changes-first-in-catalog-tabs` | **zakladki Graph API i Roles zaczynaja sie od „What Microsoft changed"** — okno 7/14/30/90/All i od ostatniego briefu, grupy Added/Changed/Removed, `+` przy kazdym wpisie ze szczegolami jak w katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, SKRYPT 17 i blok CSS §5bc; pozycja 109. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `review-stage1-fixes` | **etap 1 przegladu portalu: poprawki bez zmiany ukladu** — etykiety pokrycia, Section 0, role tablist/main, NEW przy wierszach, 12 px, wypadniecie z okna to nie usuniecie | 2026-09-25 | `ZASPECYFIKOWANE` | §5bg, pozycja 110; zmierzone na probce 25 IX (axe `/diff/` 0 naruszen). **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
+| `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 
 
 
@@ -22712,6 +22784,45 @@ section h2,.sec-head h2{color:var(--muted)}
 .badge.s5bg-new{background:var(--ok-soft);color:var(--ok);margin-right:6px}
 .tc-sep,footer{color:var(--muted)}
 footer a{text-decoration:underline;text-underline-offset:2px}
+/* §5bh (25 IX 2026): stage 2 — the first screen */
+.kpi5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) auto;gap:8px;margin:14px 0 0;align-items:stretch}
+.kpi5 .k5{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;font:inherit;cursor:pointer;
+ padding:9px 12px;border:1px solid var(--border);border-left:3px solid var(--grey);border-radius:6px;background:var(--surface);color:var(--text)}
+.kpi5 .k5:hover{background:var(--surface-2);border-left-color:var(--accent)}
+.kpi5 .k5:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpi5 .k5-bad{border-left-color:var(--bad)}.kpi5 .k5-warn{border-left-color:var(--warn)}.kpi5 .k5-acc{border-left-color:var(--accent)}
+.kpi5 .k5n{font-size:26px;font-weight:650;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi5 .k5-bad .k5n{color:var(--bad)}.kpi5 .k5-warn .k5n{color:var(--warn)}.kpi5 .k5-acc .k5n{color:var(--accent)}
+.kpi5 .k5t{font-size:12.5px;color:var(--muted);line-height:1.3}
+.kpi5 svg{margin-top:4px;display:block}
+.kpi5 .k5bar{fill:var(--accent);opacity:.75}.kpi5 .k5-bad .k5bar{fill:var(--bad)}.kpi5 .k5-warn .k5bar{fill:var(--warn)}
+.kpi5 .k5zero{fill:var(--border)}
+.kpi5 .k5more{align-self:center;font:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--muted);white-space:nowrap}
+header .counts.s5bh-more{display:none}
+header .counts.s5bh-more.open{display:flex}
+header.top.compact .kpi5,header.top.compact .counts,header.top.compact .tabctx{display:none!important}
+header.top.compact{padding-top:8px}
+header.top.compact h1{font-size:19px}
+header.top.compact .title-row{gap:6px 14px}
+header.top.compact .navstack{padding:5px 8px;gap:5px;margin-top:6px}
+header.top.compact nav.anchors .tab{padding:5px 10px;font-size:12.5px}
+header.top.compact .navrow+.navrow{padding-top:5px}
+.rsslink{font-size:12.5px;font-weight:700;padding:6px 11px;border-radius:6px;border:1px solid var(--warn);color:var(--warn);text-decoration:none}
+.rsslink:hover{background:var(--warn-soft);text-decoration:none}
+.s5bh-info{font:inherit;font-size:12px;font-weight:600;padding:1px 8px;margin-left:4px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--accent)}
+.s5bh-ct{font:inherit;font-size:12px;font-weight:600;padding:5px 12px;margin:0 0 12px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--border);background:var(--surface);color:var(--muted)}
+.s5bh-ct[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+html.s5bh-nocharts .tabpanel:not(#tab-overview) .panelhead .chartgrid,
+html.s5bh-nocharts .tabpanel:not(#tab-overview) .aggwrap{display:none!important}
+.s5bh-tile{cursor:pointer}
+.s5bh-tile:hover{background:var(--surface-2);border-left-color:var(--accent)}
+.s5bh-tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){.kpi5{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(132px,42%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+.kpi5 .k5{scroll-snap-align:start;padding:7px 9px}.kpi5 .k5n{font-size:20px}.kpi5 svg{display:none}.kpi5 .k5t{font-size:12px}}
+.cc-tile.zero{opacity:1!important}.cc-tile.zero .cc-l,.cc-tile.zero .cc-when,.tbar .rowcount,.as-muted,.cov-hint,.cat-n,.cat-hist .hd{color:var(--muted)!important}
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -23291,7 +23402,7 @@ odtad CZTERNASCIE (4-17).**
 
     function table(title, rows, kindOf) {
       if (!rows.length) return;
-      body.appendChild(el("h3", "mc-gh", title + " · " + rows.length));
+      var gh = el("h3", "mc-gh", title + " · " + rows.length); gh.setAttribute("aria-level", "2"); body.appendChild(gh);
       var list = el("div", "mc-list"); body.appendChild(list);
       rows.forEach(function (r) {
         var item = el("div", "mc-item mc-" + tone(r.labels[0]));
@@ -23338,6 +23449,7 @@ odtad CZTERNASCIE (4-17).**
       b.addEventListener("click", function () { cur = w[0]; render(); });
       seg.appendChild(b);
     });
+    box.setAttribute("data-n14", String(size(model("14"))));
     render();
     panel.insertBefore(box, panel.firstChild);
   }
@@ -23449,6 +23561,228 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1400); });
   else setTimeout(boot, 1400);
   setTimeout(boot, 3000);
+})();
+/* ---------------------------------------------------------------------------
+   §5bh (25 IX 2026) — STAGE 2 OF THE PORTAL REVIEW: the first screen.
+   U2  five numbers the owner chose, each with a 14-day mini chart and a click
+       that lands on exactly those rows: due today, due within 7 days, due within
+       30 days, new since the last brief, Microsoft changes in Graph and roles;
+   U1  the masthead folds to one line (title, date, tabs) once the reader scrolls,
+       and unfolds at the top — 309 px of a 1000 px screen was the masthead;
+   U3  long method paragraphs keep their first sentence and fold the rest under ⓘ;
+   U4  the chart rows of each tab start folded behind one "Charts" toggle,
+       remembered per browser; Overview keeps its charts, they ARE its content;
+   U6  the per-tab tiles ("42 rows in this tab") become buttons;
+   R3  an RSS link in the masthead to /feed.xml (written by the mirror, §5bh);
+   R5  the address remembers the tab (#tab=<id>) and the product filter
+       (&product=<name>), so a pasted link opens the same view.
+   Reads the state block and the DOM the other scripts built; owns only the
+   elements it creates, the `compact` class on the masthead and the hash.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function tab(id) {
+    var b = document.getElementById("tabbtn-" + id) || document.querySelector('nav.anchors .tab[aria-controls="' + id + '"]');
+    if (b) b.click(); return document.getElementById(id);
+  }
+  function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+  function addDays(d, n) { var x = new Date(Date.parse(d) + n * 864e5); return x.toISOString().slice(0, 10); }
+
+  function spark(vals, label) {
+    var w = 112, h = 26, n = vals.length, max = Math.max.apply(null, vals.concat([1]));
+    var ns = "http://www.w3.org/2000/svg", s = document.createElementNS(ns, "svg");
+    s.setAttribute("viewBox", "0 0 " + w + " " + h); s.setAttribute("width", w); s.setAttribute("height", h);
+    s.setAttribute("role", "img"); s.setAttribute("aria-label", label);
+    var bw = w / n;
+    vals.forEach(function (v, i) {
+      var r = document.createElementNS(ns, "rect"), bh = v ? Math.max(2, Math.round((h - 2) * v / max)) : 1;
+      r.setAttribute("x", (i * bw + 1).toFixed(1)); r.setAttribute("y", h - bh);
+      r.setAttribute("width", Math.max(1, bw - 2).toFixed(1)); r.setAttribute("height", bh);
+      r.setAttribute("class", v ? "k5bar" : "k5zero");
+      s.appendChild(r);
+    });
+    return s;
+  }
+
+  function kpis() {
+    var hdr = document.querySelector("header.top"); if (!hdr || hdr.querySelector(".kpi5")) return;
+    var st = json("soc-brief-state") || {}, cat = json("soc-catalog") || {};
+    var today = String(st.briefDate || new Date().toISOString().slice(0, 10));
+    var items = st.items || [];
+    var dl = items.filter(function (i) { return i.deadline && /^\d{4}-\d{2}-\d{2}$/.test(i.deadline); })
+                  .map(function (i) { return days(today, i.deadline); });
+    var next14 = []; for (var d = 0; d < 14; d++) next14.push(dl.filter(function (x) { return x === d; }).length);
+    var nToday = dl.filter(function (x) { return x === 0; }).length;
+    var n7 = dl.filter(function (x) { return x >= 0 && x <= 7; }).length;
+    var n30 = dl.filter(function (x) { return x >= 0 && x < 30; }).length;
+    var nNew = (st.delta || []).reduce(function (a, x) { return a + (+x.n || 0); }, 0) || (st.newToday || []).length;
+    var since = String((st.comparedWith || {}).date || "");
+    var newDays = []; for (var k = 13; k >= 0; k--) { var dd = addDays(today, -k); newDays.push(items.filter(function (i) { return i.firstTracked === dd; }).length); }
+    var ms = []; ["graph", "roles"].forEach(function (w) { (cat[w] || []).forEach(function (e) {
+      if (e.origin !== "microsoft" || /deployed in the service/i.test(e.kind || "") || (e.surface && w === "graph" && e.surface !== "Microsoft Graph")) return;
+      var c = String(e.changed || e.lastChanged || ""); if (c) ms.push(c); }); });
+    var msDays = []; for (var q = 13; q >= 0; q--) { var d2 = addDays(today, -q); msDays.push(ms.filter(function (x) { return x === d2; }).length); }
+    var gbox = document.querySelector('details.mschg[data-mschg="graph"]'), rbox = document.querySelector('details.mschg[data-mschg="roles"]');
+    var nMs = (gbox && +gbox.getAttribute("data-n14") || 0) + (rbox && +rbox.getAttribute("data-n14") || 0);
+    if (!gbox) nMs = msDays.reduce(function (a, b) { return a + b; }, 0);
+
+    var K = [
+      { n: nToday, t: "due today", s: next14, sl: "Deadlines on each of the next 14 days", tone: nToday ? "bad" : "",
+        go: function () { var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="0"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
+      { n: n7, t: "due within 7 days", s: next14.slice(0, 8), sl: "Deadlines on each of the next 8 days", tone: "bad",
+        go: function () { var r = document.querySelector("#starthere .shrow"); tab("tab-overview"); if (r) r.click(); } },
+      { n: n30, t: "due within 30 days", s: next14, sl: "Deadlines on each of the next 14 days", tone: "warn",
+        go: function () { var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="30"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
+      { n: nNew, t: since ? "new since the " + since.slice(8) + "." + since.slice(5, 7) + " brief" : "new since the last brief", s: newDays, sl: "Items first tracked on each of the last 14 days", tone: "acc",
+        go: function () { var a = document.querySelector("header .counts a.count.chg"); if (a) a.click(); else tab("tab-new"); } },
+      { n: nMs, t: "Microsoft changes in Graph and roles · 14 days", s: msDays, sl: "Microsoft changes in Graph and roles on each of the last 14 days", tone: "acc",
+        go: function () { var p = tab("tab-graph"); var m = p && p.querySelector("details.mschg"); if (m) { m.open = true; m.scrollIntoView({ block: "start" }); } } }
+    ];
+    var box = el("div", "kpi5"); box.setAttribute("role", "group"); box.setAttribute("aria-label", "Key figures");
+    K.forEach(function (k) {
+      var b = el("button", "k5 " + (k.tone ? "k5-" + k.tone : "")); b.type = "button";
+      b.appendChild(el("span", "k5n", String(k.n)));
+      b.appendChild(el("span", "k5t", k.t));
+      b.appendChild(spark(k.s, k.sl));
+      b.addEventListener("click", function () { try { k.go(); } catch (e) {} });
+      box.appendChild(b);
+    });
+    var counts = hdr.querySelector(".counts");
+    if (counts) { counts.parentNode.insertBefore(box, counts); counts.classList.add("s5bh-more"); }
+    else (hdr.querySelector(".top-inner") || hdr).appendChild(box);
+    if (counts) {
+      var t = el("button", "k5more", "All counters ▾"); t.type = "button"; t.setAttribute("aria-expanded", "false");
+      t.addEventListener("click", function () { var o = counts.classList.toggle("open"); t.setAttribute("aria-expanded", o ? "true" : "false"); t.textContent = o ? "Fewer counters ▴" : "All counters ▾"; remeasure(); });
+      box.appendChild(t);
+    }
+  }
+  function remeasure() { try { window.dispatchEvent(new Event("resize")); } catch (e) {} }
+
+  function compactHeader() {
+    var hdr = document.querySelector("header.top"); if (!hdr || hdr.getAttribute("data-s5bh")) return;
+    hdr.setAttribute("data-s5bh", "1");
+    var on = false, tick = false;
+    function apply() {
+      tick = false;
+      var want = (window.scrollY || document.documentElement.scrollTop) > 160 && window.innerWidth > 760;
+      if (want !== on) { on = want; hdr.classList.toggle("compact", on); remeasure(); }
+    }
+    window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(apply); } }, { passive: true });
+    apply();
+  }
+
+  function rss() {
+    var tools = document.querySelector("header .hdr-tools"); if (!tools || tools.querySelector(".rsslink")) return;
+    if (location.protocol !== "https:" || /claude\.ai|claudeusercontent/.test(location.host)) return;   /* only where /feed.xml is served */
+    var a = el("a", "rsslink", "RSS"); a.href = "/feed.xml"; a.title = "Subscribe: act-today items, deadlines within 7 days, new items and Microsoft changes in Graph and roles";
+    tools.insertBefore(a, tools.firstChild);
+  }
+
+  function infoize() {
+    var sel = "p.sec-note:not(.is-folded), p.howto, p.cb-method, p.chart-note, p.cov-body";
+    [].forEach.call(document.querySelectorAll(sel), function (p) {
+      if (p.getAttribute("data-s5bh") || p.querySelector("button, select, input, details") || (p.textContent || "").length < 220) return;
+      var html = p.innerHTML, txt = p.textContent;
+      var m = /^(.{40,220}?[.!?])\s/.exec(txt); if (!m) return;
+      p.setAttribute("data-s5bh", "1");
+      var first = m[1], rest = el("span", "s5bh-rest"); rest.hidden = true;
+      rest.innerHTML = html; p.textContent = ""; p.appendChild(document.createTextNode(first + " "));
+      var b = el("button", "s5bh-info", "ⓘ how this is counted"); b.type = "button"; b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () { var o = rest.hidden; rest.hidden = !o; b.setAttribute("aria-expanded", o ? "true" : "false"); b.textContent = o ? "ⓘ hide" : "ⓘ how this is counted"; if (o) { p.firstChild.nodeValue = ""; } else { p.firstChild.nodeValue = first + " "; } });
+      p.appendChild(b); p.appendChild(rest);
+    });
+  }
+
+  function chartsToggle() {
+    var pref = ls("soc-charts") || "hidden";
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      if (p.id === "tab-overview" || p.querySelector(":scope > .s5bh-ct")) return;
+      var ph = p.querySelector(".panelhead"), ag = p.querySelector(".aggwrap");
+      var n = p.querySelectorAll(".panelhead figure.chart, .aggwrap figure.chart").length;
+      if (!n) return;
+      var b = el("button", "s5bh-ct", ""); b.type = "button";
+      function paint() {
+        var hid = document.documentElement.classList.contains("s5bh-nocharts");
+        b.textContent = (hid ? "Show charts · " : "Hide charts · ") + n; b.setAttribute("aria-pressed", hid ? "false" : "true");
+      }
+      b.addEventListener("click", function () {
+        var hid = document.documentElement.classList.toggle("s5bh-nocharts"); ls("soc-charts", hid ? "hidden" : "shown");
+        [].forEach.call(document.querySelectorAll(".s5bh-ct"), function (x) { x.dispatchEvent(new Event("s5bh-paint")); });
+      });
+      b.addEventListener("s5bh-paint", paint);
+      var anchor = ph || ag; if (!anchor) return;
+      anchor.parentNode.insertBefore(b, anchor);
+      paint();
+    });
+    if (pref !== "shown") document.documentElement.classList.add("s5bh-nocharts");
+    [].forEach.call(document.querySelectorAll(".s5bh-ct"), function (x) { x.dispatchEvent(new Event("s5bh-paint")); });
+  }
+
+  function tiles() {
+    [].forEach.call(document.querySelectorAll(".tabpanel .panelhead div.stat"), function (s) {
+      if (s.getAttribute("data-s5bh")) return;
+      var l = ((s.querySelector(".stat-l") || {}).textContent || "").toLowerCase(), p = s.closest(".tabpanel");
+      var go = null;
+      if (/rows in this tab|sections in this tab/.test(l)) go = function () { var t = p.querySelector("details.ntsec, section, table"); if (t) { if (t.tagName === "DETAILS") t.open = true; t.scrollIntoView({ block: "start" }); } };
+      else if (/products covered/.test(l)) go = function () { var g = document.querySelector("select.globalfilter"); if (g) { g.focus(); if (g.showPicker) { try { g.showPicker(); } catch (e) {} } } };
+      else if (/under 30 days|30.60 days/.test(l)) { var d = /under 30/.test(l) ? "30" : "60"; go = function () { var b = p.querySelector('.seg.tseg .segbtn[data-d="' + d + '"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } }; }
+      if (!go) return;
+      s.setAttribute("data-s5bh", "1"); s.setAttribute("role", "button"); s.setAttribute("tabindex", "0"); s.classList.add("s5bh-tile");
+      s.addEventListener("click", go);
+      s.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+  }
+
+  function viewLink() {
+    function write() {
+      var b = document.querySelector('nav.anchors .tab[aria-selected="true"]'); if (!b) return;
+      var h = "#tab=" + (b.getAttribute("aria-controls") || "").replace(/^tab-/, "");
+      var g = document.querySelector("select.globalfilter");
+      if (g && g.value && g.selectedIndex > 0) h += "&product=" + encodeURIComponent(g.value);
+      if (/^#(graph|roles):/.test(location.hash)) return;          /* a catalog deep link owns the hash */
+      if (location.hash !== h) try { history.replaceState(null, "", h); } catch (e) {}
+    }
+    var m = /^#tab=([a-z0-9-]+)(?:&product=([^&]+))?/.exec(location.hash || "");
+    if (m) {
+      tab("tab-" + m[1]);
+      if (m[2]) { var g = document.querySelector("select.globalfilter"); if (g) { g.value = decodeURIComponent(m[2]); g.dispatchEvent(new Event("change", { bubbles: true })); } }
+    }
+    document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("nav.anchors .tab")) setTimeout(write, 0); });
+    document.addEventListener("change", function (e) { if (e.target.matches && e.target.matches("select.globalfilter")) setTimeout(write, 0); });
+  }
+
+  var booted = false;
+  function a11y2() {
+    [].forEach.call(document.querySelectorAll("select.s9f:not([aria-label])"), function (sel) {
+      var t = sel.closest("table") || (sel.closest(".s9find") || {}).nextElementSibling, lab = "";
+      var tb = sel.closest("details") && sel.closest("details").querySelector("table");
+      var th = tb && tb.querySelectorAll("thead th")[+sel.getAttribute("data-col")];
+      lab = th ? th.textContent.trim() : "column " + (+sel.getAttribute("data-col") + 1);
+      sel.setAttribute("aria-label", "Filter by " + lab);
+    });
+    [].forEach.call(document.querySelectorAll("[role=listbox]:not([aria-label]):not([aria-labelledby])"), function (l) {
+      var c = l.closest("[data-catalog]"); l.setAttribute("aria-label", (c ? c.getAttribute("data-catalog") : "Catalog") + " catalog entries");
+    });
+    [].forEach.call(document.querySelectorAll("nav, .kpi5, .tw"), function (n) {
+      if (n.scrollWidth > n.clientWidth + 2 && !n.querySelector("a[href]:not([tabindex='-1']), button:not([tabindex='-1']), select, input, [tabindex='0']")) n.setAttribute("tabindex", "0");
+    });
+  }
+
+  function boot() {
+    if (booted) return; booted = true;
+    [kpis, compactHeader, rss, infoize, chartsToggle, tiles, viewLink, a11y2].forEach(function (f) {
+      try { f(); } catch (e) { if (window.console) console.error("[s17 5bh]", e); }
+    });
+    remeasure();
+    var again = function () { setTimeout(function () { try { a11y2(); } catch (e) {} }, 400); };
+    document.addEventListener("click", again); window.addEventListener("resize", again);
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1700); });
+  else setTimeout(boot, 1700);
 })();
 ```
 
@@ -23998,6 +24332,29 @@ Obie strony dostaly obszar `role="main"`. Zmierzone po poprawkach: axe na `/diff
 (bylo 3 reguly, 1 krytyczna), na stronie glownej zero krytycznych (bylo 8 regul, 1 krytyczna,
 4 powazne); tekstow < 12 px: 50 zamiast 224 na glownej, 12 zamiast 341 na `/diff/`. Licznikow
 w naglowku (punkt 4) dotyczy etap 2 (§5bh). Pozycja **110** (klasa B) pilnuje kodu tego etapu.
+
+## 5bh. PRZEGLAD PORTALU — ETAP 2: NAGLOWEK I CZYTELNOSC (25 IX 2026)
+
+Etap 2 planu z dokumentu przegladu (U1, U2, U3, U4, U6, R3, R5). Wlasciciel wybral piec KPI
+zaproponowanych w dokumencie („te ktore proponujesz"). Kod: kolejna IIFE na koncu SKRYPTU 17
+(liczba skryptow bez zmian) i blok CSS po §5bc; RSS pisze `write_feed()` w `mirror_artifact.py`.
+
+| # | zmiana | jak dziala |
+|---|---|---|
+| U1 | naglowek to **piec KPI** z mini-wykresem 14 dni | due today · due within 7 days · due within 30 days · new since the last brief · Microsoft changes in Graph and roles (14 dni); dawne liczniki pod przyciskiem „All counters ▾" |
+| U2 | **KPI to kontrolka** | klikniecie otwiera zakladke Deadlines z oknem 7/30 dni, zakladke New albo blok What Microsoft changed |
+| U3 | **naglowek zwija sie** po przewinieciu | > 160 px i szerokosc > 760 px: KPI i liczniki znikaja (326 → 139 px) |
+| U4 | **ⓘ zamiast akapitow** | notatka > 220 znakow pokazuje pierwsze zdanie i przycisk „ⓘ how this is counted" (23 na probce) |
+| U6 | **wykresy na zadanie** | domyslnie schowane, przycisk w kazdej zakladce, wybor w `localStorage` `soc-charts` |
+| R3 | **adres niesie widok** | `#tab=<id>&product=`; link otwiera te sama zakladke |
+| R5 | **RSS** `site/feed.xml` | terminy ≤ 7 dni, nowe od briefu, zmiany Graph i rol z 7 dni; link tylko na https poza claude.ai |
+
+Dostepnosc (`a11y2()`): etykiety list `.s9f` i `listbox` katalogu, `tabindex` przewijanych pasow,
+`aria-level` naglowkow bloku §5bf, kontrast szarego tekstu (`--faint` → `--muted`) na kafelkach
+zerowych, historii katalogu i licznikach wierszy. Zmierzone po zmianach (Playwright + axe-core,
+z kliknieciem KPI do Graph API): **0 naruszen** w 1500 px w obu motywach i w 390 px; bez przewijania
+poziomego i bledow JS; naglowek telefonu 411 px (KPI w jednym przewijanym rzedzie). Pozycja **111**
+(klasa B) pilnuje kodu tego etapu.
 
 
 ## 6. Kontrakt w stronie
