@@ -12873,11 +12873,28 @@ SigninLogs
     var hdr = document.querySelector("header.top"); if (!hdr || hdr.getAttribute("data-s5bh")) return;
     hdr.setAttribute("data-s5bh", "1");
     var on = false, tick = false;
+    var base = parseFloat(getComputedStyle(hdr).marginBottom) || 0;
+    /* §5bj (25 IX): the header is sticky and IN FLOW, so shrinking it moved the page up by
+       ~190 px, scroll anchoring pulled scrollY back under the threshold, the header grew
+       again — 17 toggles in 12 wheel steps (the jitter the owner saw). The height it gives
+       up is now kept as margin below it (no layout shift, nothing for anchoring to fix),
+       and the threshold has hysteresis: compact above 200 px, full again below 120 px. */
     function apply() {
       tick = false;
-      var want = (window.scrollY || document.documentElement.scrollTop) > 160 && window.innerWidth > 760;
-      if (want !== on) { on = want; hdr.classList.toggle("compact", on); remeasure(); }
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var want = window.innerWidth > 760 && (on ? y > 120 : y > 200);
+      if (want === on) return;
+      var root = document.documentElement, y0 = y;
+      root.style.overflowAnchor = "none";            /* the measuring layout below must not re-anchor */
+      var h0 = hdr.getBoundingClientRect().height;
+      on = want; hdr.classList.toggle("compact", on);
+      var h1 = hdr.getBoundingClientRect().height;
+      hdr.style.marginBottom = on ? (base + Math.max(0, h0 - h1)) + "px" : "";
+      if (Math.abs((window.scrollY || root.scrollTop) - y0) > 1) window.scrollTo(0, y0);
+      requestAnimationFrame(function () { root.style.overflowAnchor = ""; });
+      remeasure();
     }
+    window.addEventListener("resize", function () { if (on && window.innerWidth <= 760) { on = false; hdr.classList.remove("compact"); hdr.style.marginBottom = ""; } });
     window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(apply); } }, { passive: true });
     apply();
   }
