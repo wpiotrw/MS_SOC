@@ -2227,6 +2227,53 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
  padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
 .g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
 @media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
+/* §5bf: "What Microsoft changed" — the first block of the Graph API and Roles tabs */
+.mschg{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:10px;padding:14px 16px;margin:0 0 18px}
+.mschg .mc-title{font-family:var(--sans);font-size:18px;font-weight:650;letter-spacing:-.01em;
+ text-transform:none;color:var(--text);margin:0 0 4px}
+.mschg .mc-sub{font-size:13px;color:var(--muted);margin:0 0 10px}
+.mschg .mc-widened{color:var(--warn);font-weight:600}
+.mschg .mc-seg{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.mschg .mc-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;
+ border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.mschg .mc-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.mschg .mc-sum{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.mschg .mc-n{font-size:12.5px;padding:4px 11px;border-radius:6px;border:1px solid var(--border);
+ border-left:3px solid var(--grey);background:var(--surface-2)}
+.mschg .mc-n b{font-size:15px;margin-right:2px}
+.mschg .mc-n.mc-add,.mschg .mc-item.mc-add{border-left-color:var(--ok)}
+.mschg .mc-n.mc-chg,.mschg .mc-item.mc-chg{border-left-color:var(--warn)}
+.mschg .mc-n.mc-rem,.mschg .mc-item.mc-rem{border-left-color:var(--bad)}
+.mschg .mc-gh{font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-family:var(--cond);
+ margin:14px 0 6px;color:var(--muted)}
+.mschg .mc-gh.mc-add{color:var(--ok)}.mschg .mc-gh.mc-chg{color:var(--warn)}.mschg .mc-gh.mc-rem{color:var(--bad)}
+.mschg .mc-body{max-height:72vh;overflow:auto;padding-right:4px}
+.mschg .mc-list{display:flex;flex-direction:column;gap:6px}
+.mschg .mc-item{border:1px solid var(--border-soft);border-left:3px solid var(--grey);border-radius:6px;
+ background:var(--surface);padding:7px 10px}
+.mschg .mc-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.mschg .mc-x{font-family:var(--mono);font-size:14px;font-weight:700;width:24px;height:24px;flex:0 0 24px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;padding:0;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.mschg .mc-x:hover{background:var(--accent);color:var(--on-accent)}
+.mschg .mc-name{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--text);word-break:break-word;flex:1 1 280px;min-width:0}
+.mschg .mc-when{font-size:12px;color:var(--muted);margin-left:auto}
+.mschg .badge.mc-new{background:var(--ok-soft);color:var(--ok)}
+.mschg .mcdiff{margin:5px 0 0 32px;font-size:12.5px;line-height:1.6}
+.mschg .mc-det{margin:8px 0 2px 32px}
+.mschg .mc-empty{margin:4px 0 0;padding:10px 12px;border:1px dashed var(--border);border-radius:8px;color:var(--muted);font-size:13px}
+.mschg .mcpane .sec{margin:0 0 10px}
+.mschg .mcpane .sec h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-family:var(--cond);color:var(--muted);margin:0 0 5px}
+.mschg .mcpane dl.kv{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr);gap:3px 12px;margin:0;font-size:12.5px}
+.mschg .mcpane dl.kv dt{color:var(--muted)}.mschg .mcpane dl.kv dd{margin:0}
+.mschg .mceps,.mschg .mchist{margin:0;padding-left:18px;font-size:12.5px;max-height:260px;overflow:auto}
+.mschg .mceps .mono{font-family:var(--mono);font-size:12px}
+.mschg .mcopen{font:inherit;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
+.mschg .mcopen:hover{background:var(--accent);color:var(--on-accent)}
+@media (max-width:760px){.mschg{padding:12px}.mschg .mcdiff,.mschg .mc-det{margin-left:0}
+ .mschg .mcpane dl.kv{grid-template-columns:1fr}.mschg .mc-when{margin-left:0}}
 /* §5av — green is the colour of a filter, on every surface of the portal.
    An OVERRIDING block: each of these rules lives in a block whose fragments are gate
    keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
@@ -12145,6 +12192,296 @@ SigninLogs
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1000); });
   else setTimeout(boot, 1000);
   setTimeout(boot, 2600);
+})();
+/* ---------------------------------------------------------------------------
+   §5bf (25 IX 2026) — "WHAT MICROSOFT CHANGED" is the FIRST thing on the Graph API
+   and the Roles tab. The owner: tracking roles and Graph permissions matters most,
+   and a change Microsoft made must be caught and shown plainly, every entry with a
+   `+` that opens the same kind of detail the full catalog list opens. Until now the
+   only place was the "What changed at Microsoft" counter block below the charts,
+   which on a quiet day reads 0 / 0 / 0 and names nothing older than the last brief.
+
+   Source: the catalog entries themselves (`soc-catalog`, origin "microsoft"), dated
+   by `changed` (roles fall back to `lastChanged` and the newest history row). The
+   window is a control — since the last brief, 7, 14, 30, 90 days or all — and opens
+   on 14 days; an entry newer than the compared brief carries a green NEW badge.
+   Three groups: Added, Changed, Removed or breaking. The detail is drawn from the
+   same JSON the catalog pane reads, in the pane's own classes (`.v13pane`, `.sec`,
+   `dl.kv`), and offers the full interactive pane in the catalog below.
+   This block writes NOTHING any other script owns: no row.hidden, no filter bus.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) {
+    var n = document.getElementById(idv);
+    try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; }
+  }
+  function lastHist(e) {
+    var h = Array.isArray(e.history) ? e.history : [];
+    return h.length ? String(h[h.length - 1].date || "") : "";
+  }
+  function when(e) { return String(e.changed || e.lastChanged || lastHist(e) || e.firstTracked || ""); }
+  function group(kind) {
+    var k = String(kind || "");
+    if (/no longer|breaking|deprecat|removed|retire|withdrawn/i.test(k)) return "rem";
+    if (/^new\b|new role|new permission|endpoint added|deployed in the service|new in service/i.test(k)) return "add";
+    return "chg";
+  }
+  var GLAB = { add: "Added", chg: "Changed", rem: "Removed or breaking" };
+  function daysBetween(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+
+  function kvRow(dl, k, v) {
+    if (v == null || v === "" || (Array.isArray(v) && !v.length)) return;
+    dl.appendChild(el("dt", null, k));
+    var dd = el("dd");
+    if (v instanceof Node) dd.appendChild(v); else dd.textContent = Array.isArray(v) ? v.join(", ") : String(v);
+    dl.appendChild(dd);
+  }
+  function sec(pane, title) { var s = el("div", "sec"); s.appendChild(el("h3", null, title)); pane.appendChild(s); return s; }
+  function diffLine(before, after) {
+    var p = el("p", "mcdiff");
+    if (before) { var d = document.createElement("del"); d.textContent = before; p.appendChild(d); }
+    else p.appendChild(el("span", "none", "not set"));
+    p.appendChild(el("span", "arrow", " → "));
+    if (after) { var i = document.createElement("ins"); i.textContent = after; p.appendChild(i); }
+    else p.appendChild(el("span", "none", "cleared"));
+    return p;
+  }
+  function history(pane, e) {
+    var h = Array.isArray(e.history) ? e.history : [];
+    if (!h.length) return;
+    var s = sec(pane, "Version history");
+    var ul = el("ul", "mchist");
+    h.slice().reverse().forEach(function (r) {
+      var li = el("li");
+      li.appendChild(el("b", null, "v" + (r.v != null ? r.v : "?") + " · " + (r.date || "")));
+      li.appendChild(document.createTextNode(" " + (r.note || "")));
+      ul.appendChild(li);
+    });
+    s.appendChild(ul);
+  }
+  function source(pane, e) {
+    var u = e.url || e.docSource;
+    if (!u) return;
+    var s = sec(pane, "Source");
+    var a = el("a", null, u); a.href = u; a.target = "_blank"; a.rel = "noopener";
+    s.appendChild(a);
+  }
+
+  /* graphMap: perms[name].eps = "methodIdx:pathIdx-pathIdx,...;..." over graphMap.m / graphMap.p */
+  function endpointsOf(gm, perm) {
+    var x = gm && gm.perms && gm.perms[perm];
+    if (!x || !x.eps) return [];
+    var out = [];
+    String(x.eps).split(";").forEach(function (part) {
+      var mm = part.split(":"); if (mm.length < 2) return;
+      var meth = (gm.m || [])[+mm[0]] || "?";
+      mm[1].split(",").forEach(function (r) {
+        var ab = r.split("-"), a = +ab[0], b = ab.length > 1 ? +ab[1] : a;
+        for (var i = a; i <= b && out.length < 400; i++) out.push(meth + " " + ((gm.p || [])[i] || "?"));
+      });
+    });
+    return out;
+  }
+  function permOf(e) {
+    var n = String(e.name || "");
+    if (n.indexOf("→") > 0) return n.split("→")[0].trim();
+    var m = /bound to ([A-Za-z0-9._-]+)/.exec(String(e.after || e.before || ""));
+    if (m) return m[1];
+    return /^[A-Z][A-Za-z0-9]+\.[A-Za-z0-9.]+$/.test(n) ? n : "";
+  }
+
+  function detailGraph(e, gm, open) {
+    var pane = el("div", "v13pane mcpane");
+    var s1 = sec(pane, "At a glance"), dl = el("dl", "kv"); s1.appendChild(dl);
+    var perm = permOf(e);
+    kvRow(dl, "Kind", e.kind); kvRow(dl, "Object type", e.objectType);
+    kvRow(dl, "Permission", perm && perm !== e.name ? perm : null);
+    kvRow(dl, "API", e.surface); kvRow(dl, "Entity", e.entity);
+    kvRow(dl, "Permission types", e.permTypes); kvRow(dl, "Consent", e.consent);
+    kvRow(dl, (e.dateLabel || "Changed at Microsoft"), when(e));
+    kvRow(dl, "Published by Microsoft", e.published); kvRow(dl, "First tracked", e.firstTracked);
+    if (e.before || e.after) { var s2 = sec(pane, "What Microsoft changed"); s2.appendChild(diffLine(e.before, e.after)); }
+    var dbt = e.descriptionByType || {};
+    if (Object.keys(dbt).length) {
+      var s3 = sec(pane, "Published by Microsoft"), dl3 = el("dl", "kv"); s3.appendChild(dl3);
+      Object.keys(dbt).forEach(function (k) { kvRow(dl3, k, dbt[k]); });
+    }
+    var eps = perm ? endpointsOf(gm, perm) : [];
+    if (eps.length) {
+      var s4 = sec(pane, "What " + perm + " can call — " + eps.length + (eps.length >= 400 ? "+" : "") + " endpoints");
+      var ul = el("ul", "mceps"); eps.slice(0, 60).forEach(function (x) { ul.appendChild(el("li", "mono", x)); });
+      s4.appendChild(ul);
+      if (eps.length > 60) s4.appendChild(el("p", "none", "…and " + (eps.length - 60) + " more — the full, searchable list is in the catalog panel."));
+    }
+    var roles = perm && gm && gm.perms && gm.perms[perm] && gm.perms[perm].roles;
+    if (roles && roles.length) {
+      var s5 = sec(pane, "Entra roles that cover it (derived by this brief)");
+      var ul5 = el("ul", "mceps");
+      roles.slice(0, 12).forEach(function (r) { ul5.appendChild(el("li", null, r[0] + " — " + r[1] + " endpoints")); });
+      s5.appendChild(ul5);
+    }
+    if (e.impact) { var s6 = sec(pane, "SOC impact"); s6.appendChild(el("p", null, e.impact)); }
+    if (e.action) { var s7 = sec(pane, "Action"); s7.appendChild(el("p", null, e.action)); }
+    history(pane, e); source(pane, e);
+    if (open && perm && window.__socOpenPerm) addOpen(pane, function () { return window.__socOpenPerm(perm); }, "graph");
+    return pane;
+  }
+  function detailRole(e, open) {
+    var pane = el("div", "v13pane mcpane");
+    var s1 = sec(pane, "At a glance"), dl = el("dl", "kv"); s1.appendChild(dl);
+    kvRow(dl, "Kind", e.kind); kvRow(dl, "Privileged", e.privileged === true ? "yes" : (e.privileged === false ? "no" : e.privileged));
+    kvRow(dl, "Built in", e.builtIn === true ? "yes" : (e.builtIn === false ? "no" : null));
+    kvRow(dl, "Template ID", e.templateId); kvRow(dl, "Category", e.category); kvRow(dl, "Scope", e.scope);
+    kvRow(dl, (e.dateLabel || "Changed at Microsoft"), when(e)); kvRow(dl, "First tracked", e.firstTracked);
+    if (e.before_kind || e.privilegedBefore != null) {
+      var s2 = sec(pane, "What Microsoft changed");
+      if (e.before_kind) s2.appendChild(diffLine(e.before_kind, e.kind));
+      if (e.privilegedBefore != null && e.privilegedBefore !== e.privileged)
+        s2.appendChild(diffLine("privileged: " + e.privilegedBefore, "privileged: " + e.privileged));
+    }
+    if (Array.isArray(e.added) && e.added.length) {
+      var sa = sec(pane, "Actions Microsoft added"); var ua = el("ul", "permlist");
+      e.added.forEach(function (x) { ua.appendChild(el("li", "add", "+ " + (x.action || x))); }); sa.appendChild(ua);
+    }
+    if (Array.isArray(e.removed) && e.removed.length) {
+      var sr = sec(pane, "Actions Microsoft removed"); var ur = el("ul", "permlist");
+      e.removed.forEach(function (x) { ur.appendChild(el("li", "rem", "− " + (x.action || x))); }); sr.appendChild(ur);
+    }
+    if (e.description || e.intro) { var s3 = sec(pane, "What this role is for"); s3.appendChild(el("p", null, e.description || e.intro)); }
+    var af = Array.isArray(e.actionsFull) ? e.actionsFull : [];
+    if (af.length) {
+      var np = af.filter(function (a) { return a.privileged; }).length;
+      var s4 = sec(pane, "Directory actions — " + af.length + (np ? " (" + np + " privileged)" : ""));
+      if (e.actionsProvenance) s4.appendChild(el("p", "none", e.actionsProvenance));
+      var ul = el("ul", "mceps");
+      af.slice(0, 80).forEach(function (a) {
+        var li = el("li"); li.appendChild(el("span", "mono", a.action || ""));
+        if (a.privileged) li.appendChild(el("span", "badge t-bad", "privileged"));
+        if (a.description) li.appendChild(el("span", "none", " — " + a.description));
+        ul.appendChild(li);
+      });
+      s4.appendChild(ul);
+      if (af.length > 80) s4.appendChild(el("p", "none", "…and " + (af.length - 80) + " more — the full, filterable table is in the catalog panel."));
+    }
+    if (e.impact) { var s6 = sec(pane, "SOC impact"); s6.appendChild(el("p", null, e.impact)); }
+    if (e.action) { var s7 = sec(pane, "Action"); s7.appendChild(el("p", null, e.action)); }
+    history(pane, e); source(pane, e);
+    if (open && window.__socOpenRole) addOpen(pane, function () { return window.__socOpenRole(e.name); }, "roles");
+    return pane;
+  }
+  function addOpen(pane, fn, which) {
+    var b = el("button", "mcopen", "Open the full interactive panel in the catalog below ↓");
+    b.type = "button";
+    b.addEventListener("click", function () {
+      var inner = null; try { inner = fn(); } catch (x) {}
+      var tgt = inner || document.querySelector('.catalog[data-catalog="' + which + '"]');
+      if (tgt && tgt.scrollIntoView) tgt.scrollIntoView({ block: "start" });
+    });
+    pane.appendChild(b);
+  }
+
+  function build(which) {
+    var panel = document.getElementById(which === "graph" ? "tab-graph" : "tab-roles");
+    if (!panel || panel.querySelector(".mschg")) return;
+    var cat = json("soc-catalog"); if (!cat) return;
+    var st = json("soc-brief-state") || {};
+    var gm = st.graphMap || {};
+    var meta = cat.catalog || {};
+    var today = String(st.briefDate || cat.briefDate || new Date().toISOString().slice(0, 10));
+    var since = String(meta.comparedDate || "");
+    var all = (cat[which] || []).filter(function (e) { return e && e.origin === "microsoft" && when(e); });
+    all.sort(function (a, b) { return when(b).localeCompare(when(a)) || String(a.name).localeCompare(String(b.name)); });
+
+    var box = el("div", "mschg"); box.setAttribute("data-mschg", which);
+    var head = el("div", "mc-head");
+    head.appendChild(el("h2", "mc-title", "What Microsoft changed — " + (which === "graph" ? "Graph API permissions and endpoints" : "Entra directory roles")));
+    head.appendChild(el("p", "mc-sub", "Every catalog entry Microsoft added, changed or removed, newest first. " +
+      "Press + on a row for its full detail. " + (since ? "Entries newer than the last brief (" + since + ") are marked NEW." : "")));
+    box.appendChild(head);
+    var seg = el("div", "mc-seg"); box.appendChild(seg);
+    var body = el("div", "mc-body"); box.appendChild(body);
+    var WINS = [["since", since ? "Since the last brief" : null], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
+    var cur = "14";
+
+    function inWin(e, w) {
+      var d = when(e);
+      if (w === "all") return true;
+      if (w === "since") return since && d > since;
+      return daysBetween(d, today) < +w;
+    }
+    function render() {
+      [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-w") === cur ? "true" : "false"); });
+      body.textContent = "";
+      var rows = all.filter(function (e) { return inWin(e, cur); });
+      var sum = el("div", "mc-sum");
+      ["add", "chg", "rem"].forEach(function (g) {
+        var n = rows.filter(function (e) { return group(e.kind) === g; }).length;
+        var t = el("span", "mc-n mc-" + g); t.appendChild(el("b", null, String(n))); t.appendChild(document.createTextNode(" " + GLAB[g]));
+        sum.appendChild(t);
+      });
+      body.appendChild(sum);
+      if (!rows.length) {
+        var last = all.length ? when(all[0]) : "";
+        body.appendChild(el("p", "mc-empty", "Microsoft changed nothing here in this window. " +
+          (last ? "The newest Microsoft change in the catalog is from " + last + " — widen the window to see it." :
+                  "The catalog holds no dated Microsoft change.")));
+        return;
+      }
+      ["add", "chg", "rem"].forEach(function (g) {
+        var gr = rows.filter(function (e) { return group(e.kind) === g; });
+        if (!gr.length) return;
+        var gh = el("h3", "mc-gh mc-" + g, GLAB[g] + " · " + gr.length); body.appendChild(gh);
+        var list = el("div", "mc-list"); body.appendChild(list);
+        gr.slice(0, 200).forEach(function (e) {
+          var item = el("div", "mc-item mc-" + g);
+          var row = el("div", "mc-row");
+          var btn = el("button", "mc-x", "+"); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
+          btn.setAttribute("aria-label", "Show the detail of " + e.name);
+          row.appendChild(btn);
+          row.appendChild(el("span", "badge b-" + (g === "add" ? "new" : g === "rem" ? "dep" : "upd"), e.kind || GLAB[g]));
+          if (since && when(e) > since) row.appendChild(el("span", "badge mc-new", "NEW since " + since));
+          row.appendChild(el("span", "mc-name mono", e.name || e.id));
+          row.appendChild(el("span", "mc-when dt", when(e)));
+          item.appendChild(row);
+          if (e.before || e.after) item.appendChild(diffLine(e.before, e.after));
+          var det = el("div", "mc-det"); det.hidden = true; item.appendChild(det);
+          btn.addEventListener("click", function () {
+            var open = det.hidden;
+            if (open && !det.firstChild) det.appendChild(which === "graph" ? detailGraph(e, gm, true) : detailRole(e, true));
+            det.hidden = !open; btn.textContent = open ? "−" : "+"; btn.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+          list.appendChild(item);
+        });
+        if (gr.length > 200) list.appendChild(el("p", "none", "…and " + (gr.length - 200) + " more in the catalog below."));
+      });
+    }
+    WINS.forEach(function (w) {
+      if (!w[1]) return;
+      var n = all.filter(function (e) { return inWin(e, w[0]); }).length;
+      var b = el("button", null, w[1] + " · " + n); b.type = "button"; b.setAttribute("data-w", w[0]);
+      b.addEventListener("click", function () { cur = w[0]; render(); });
+      seg.appendChild(b);
+    });
+    /* open on 14 days; when that is empty, on the first wider window that is not, and say so —
+       the Roles catalog moves every few weeks, and an empty first screen hides that it moves */
+    var order = ["14", "30", "90", "all"];
+    for (var oi = 0; oi < order.length; oi++) {
+      if (all.filter(function (e) { return inWin(e, order[oi]); }).length) { cur = order[oi]; break; }
+    }
+    if (cur !== "14") head.appendChild(el("p", "mc-sub mc-widened",
+      "Nothing moved in the last 14 days, so this opens on " + (cur === "all" ? "all dated changes" : "the last " + cur + " days") + "."));
+    render();
+    panel.insertBefore(box, panel.firstChild);
+  }
+  function boot() {
+    try { build("graph"); } catch (e) { if (window.console) console.error("[s17 mschg graph]", e); }
+    try { build("roles"); } catch (e) { if (window.console) console.error("[s17 mschg roles]", e); }
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1200); });
+  else setTimeout(boot, 1200);
 })();
 </script>
 </body>
