@@ -2,7 +2,7 @@ name: First-party apps tenant snapshot
 
 # Daily, before the 06:00 Warsaw morning task (04:00 UTC), so the brief reads a fresh file.
 # Signs in with a federated credential (no secret): Entra app "MS-SOC First-party apps reader",
-# Directory.Read.All (application), admin-consented. To move to another tenant, change the two
+# Application.Read.All + DelegatedPermissionGrant.Read.All (application, read-only), admin-consented. To move to another tenant, change the two
 # values below and follow README.md, "First-party apps: tenant snapshot".
 on:
   schedule:
