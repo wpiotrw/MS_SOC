@@ -1254,7 +1254,7 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113"}
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2769,7 +2769,7 @@ def gate(path, site=None, mirror=False, doc=None):
 
     # ---- 110: etap 1 przegladu portalu (§5bg). KLASA B. ----
     K110 = ('function fixCoverage(', 'function fixA11y(', 'function badgeNew(', '.badge.s5bg-new{',
-            'details.ntsec>.ntbody>section>.sec-head{display:none!important}')
+            'details.ntsec>.ntbody>section>.sec-head{position:absolute!important')
     need("110", "poprawki etapu 1 przegladu: etykiety pokrycia, role tablist/main, NEW przy wierszach, 12 px (§5bg)",
          all(k in h for k in K110), "brak: %s" % ", ".join(k for k in K110 if k not in h))
 
@@ -2784,6 +2784,12 @@ def gate(path, site=None, mirror=False, doc=None):
             'function search(', 'function csv(', 'function weekLink(', '.s5bi-sk{')
     need("112", "etap 3 przegladu: grupy zakladek, menu na telefonie, kolejka do przejrzenia, historia wpisu, Ctrl+K, CSV, link do tygodnia (§5bi)",
          all(k in h for k in K112), "brak: %s" % ", ".join(k for k in K112 if k not in h))
+
+    # ---- 113: etap 4 przegladu portalu — Overview i telefon (§5bk). KLASA B. ----
+    K113 = ('function goItem(', 'function msChanges(', 'function products(', 'function health(',
+            'function phoneFilters(', '.s5bk-top{', '.s5bk-ptab tr{display:grid')
+    need("113", "etap 4 przegladu: Overview (trzy zdania, karty z pozycjami, 14 dni, zmiany Microsoftu, tabela bez tagow, zdrowie zbierania) i telefon (§5bk)",
+         all(k in h for k in K113), "brak: %s" % ", ".join(k for k in K113 if k not in h))
 
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
@@ -3367,6 +3373,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `review-stage1-fixes` | **etap 1 przegladu portalu: poprawki bez zmiany ukladu** — etykiety pokrycia, Section 0, role tablist/main, NEW przy wierszach, 12 px, wypadniecie z okna to nie usuniecie | 2026-09-25 | `ZASPECYFIKOWANE` | §5bg, pozycja 110; zmierzone na probce 25 IX (axe `/diff/` 0 naruszen). **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
 | `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 | `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZASPECYFIKOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
+| `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZASPECYFIKOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
 
 
 
@@ -5719,6 +5726,35 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
   .wrap{padding:14px 12px 56px}header.top{padding:14px 12px}h1{font-size:21px}
   nav.dsubnav{flex-wrap:nowrap;overflow-x:auto}nav.dsubnav a{flex:0 0 auto;padding:7px 11px}
 }
+/* §5bk (25 IX 2026): the change page on a phone. Measured at 390 px: twelve tiles took
+   1 250 px before the first table, every table was wider than the screen (up to 1 944 px)
+   and its last column ("Areas touched") sat off to the right; 902 texts at 11.5 px.
+   Tiles go compact, each table row becomes a card (labels from the header, written by
+   MOBILE_BODY), filter menus fold behind one "Filters" button. */
+.dfbtn{display:none}
+@media (max-width:760px){
+  .factgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .factgrid .fact{padding:8px 10px!important}
+  .factgrid .fact b{font-size:22px!important;line-height:1.1}
+  .factgrid .fact span{font-size:12px!important;letter-spacing:.02em}
+  .s12sign,.s12line span,.fact span{font-size:12px!important}
+  .tw table.dcard{min-width:0!important;width:100%!important}
+  .tw table.dcard thead{display:none}
+  .tw table.dcard,.tw table.dcard tbody{display:block}
+  .tw table.dcard tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;padding:10px 8px;border-bottom:1px solid var(--border)}
+  .tw table.dcard td{display:block;border:0!important;padding:0!important;min-width:0;overflow-wrap:anywhere}
+  .tw table.dcard td:first-child,.tw table.dcard td[colspan],.tw table.dcard td.dwide{grid-column:1/-1}
+  .tw table.dcard td:first-child{font-weight:650}
+  .tw table.dcard td[data-label]:not(:first-child)::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted);font-weight:400;margin-bottom:1px}
+  .tw table.dcard td.dzero{display:none}
+  .s9find .dfbtn{display:inline-flex;align-items:center;font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:36px}
+  .s9find:not(.dfopen)>select,.s9find:not(.dfopen)>button:not(.dfbtn){display:none!important}
+  .dnotebtn{display:inline-block;font:inherit;font-size:13px;font-weight:600;color:var(--accent,#0b6bcb);background:none;border:0;padding:6px 0;cursor:pointer}
+  .dnote:not(.dnote-open){display:none}
+}
+.dnotebtn{display:none}
+@media (max-width:760px){.dnotebtn{display:inline-block}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -6387,6 +6423,58 @@ FIND_BODY = """<script>
 # katalogu (§5ad) i przy bloku Activity (§5an), i naprawiona tak samo: kazdy element
 # statystyki JEST kontrolka. Filtruje przez `apply()` zarejestrowanych pudelek szukania,
 # a nie pisze `row.hidden` sam — dwoch pisarzy tego pola walczy ze soba (§5am).
+# §5bk (25 IX 2026): piaty skrypt strony zmian — telefon. Czyta naglowek kazdej tabeli i
+# dopisuje `data-label` do komorek, zeby CSS §5bk ulozyl wiersz jako karte; zwija menu
+# filtrow pod jeden przycisk. Nie pisze `row.hidden` (jedyny pisarz to `apply()`, §5am).
+MOBILE_BODY = """<script>
+(function () {
+  "use strict";
+  function labels() {
+    [].forEach.call(document.querySelectorAll(".tw table"), function (t) {
+      if (t.getAttribute("data-dcard") || !t.tHead || !t.tBodies.length) return;
+      var hr = t.tHead.rows[t.tHead.rows.length - 1]; if (!hr) return;
+      var heads = [].map.call(hr.cells, function (c) { return (c.textContent || "").replace(/\s+/g, " ").trim(); });
+      t.setAttribute("data-dcard", "1"); t.classList.add("dcard");
+      [].forEach.call(t.tBodies, function (tb) {
+        [].forEach.call(tb.rows, function (r) {
+          var k = 0;
+          [].forEach.call(r.cells, function (c) {
+            var span = +c.getAttribute("colspan") || 1;
+            if (span === 1 && heads[k]) c.setAttribute("data-label", heads[k]);
+            var tx = (c.textContent || "").trim();
+            if (k > 0 && (tx === "0" || tx === "" || tx === "\u2014")) c.classList.add("dzero");
+            if (tx.length > 38) c.classList.add("dwide");
+            k += span;
+          });
+        });
+      });
+    });
+  }
+  function filters() {
+    [].forEach.call(document.querySelectorAll(".s9find"), function (f) {
+      if (f.querySelector(".dfbtn") || !f.querySelector("select")) return;
+      var b = document.createElement("button"); b.type = "button"; b.className = "dfbtn"; b.textContent = "Filters \u25be";
+      b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () { var on = f.classList.toggle("dfopen"); b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "Filters \u25b4" : "Filters \u25be"; });
+      var q = f.querySelector("input"); if (q && q.nextSibling) f.insertBefore(b, q.nextSibling); else f.appendChild(b);
+    });
+  }
+  function note() {
+    var g = document.querySelector(".factgrid"), n = g && g.nextElementSibling;
+    if (!n || n.getAttribute("data-dnote") || (n.textContent || "").length < 300 || n.querySelector("table,select,input")) return;
+    n.setAttribute("data-dnote", "1"); n.classList.add("dnote");
+    var b = document.createElement("button"); b.type = "button"; b.className = "dnotebtn"; b.textContent = "\u24d8 how these tiles are counted";
+    b.setAttribute("aria-expanded", "false");
+    b.addEventListener("click", function () { var on = n.classList.toggle("dnote-open"); b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "\u24d8 hide" : "\u24d8 how these tiles are counted"; });
+    n.parentNode.insertBefore(b, n);
+  }
+  function run() { try { labels(); filters(); note(); } catch (e) { if (window.console) console.error("[5bk]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(run, 50); });
+  else setTimeout(run, 50);
+  setTimeout(run, 800);
+})();
+</script>"""
+
 NAV_BODY = """<script>
 (function () {
   "use strict";
@@ -7718,7 +7806,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             '&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700'
             '&display=swap" rel="stylesheet">\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY))
+            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY))
 
 # ---------- bramka ----------
 
@@ -22950,7 +23038,8 @@ details.mschg[open]>summary::before{content:"\2212"}
 /* §5bg (25 IX 2026): stage 1 of the portal review — readability floor and contrast.
    224 visible texts measured below 12 px; the section letters ("SECTION C") at --faint
    failed 4.5:1 (axe). Charts keep their own sizes (svg text is excluded on purpose). */
-details.ntsec>.ntbody>section>.sec-head{display:none!important}
+/* §5bk: hidden from sight, NOT from screen readers — display:none took the only h2 of the section away (axe heading-order on the phone) */
+details.ntsec>.ntbody>section>.sec-head{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;margin:0!important;padding:0!important;border:0!important}
 details.ntsec>.ntbody>section{margin-top:12px}
 section h2,.sec-head h2{color:var(--muted)}
 .badge,.chip,.stat-l,.navcount,.lr-u,.lr-prod,.lr-date,.when,.rank,.lbl,.mc,.mcchip,.mcseen,.mcact,
@@ -23053,6 +23142,100 @@ tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
 tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 @keyframes s5biflash{0%,40%{background:rgba(255,196,0,.35)}100%{background:transparent}}
 @media print{.s5bi-rv,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week,.s5bi-rqbar{display:none!important}}
+/* §5bk (25 IX 2026): stage 4 — the Overview says what matters first; phone-ready. */
+.s5bk-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:4px 0 16px}
+.s5bk-top>section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-width:0}
+.s5bk-top{grid-template-areas:"sum ms" "act act" "tl tl"}
+.s5bk-sum{grid-area:sum}.s5bk-ms{grid-area:ms}.s5bk-act{grid-area:act}.s5bk-tl{grid-area:tl}
+.s5bk-top>section{margin:0!important}
+.s5bk-top .s5bk-h{font-family:inherit!important;font-size:15px;font-weight:700;margin:0 0 10px;color:var(--ink);letter-spacing:0;text-transform:none}
+.s5bk-daypane[hidden]{display:none}
+.s5bk-3{margin:0;padding:0 0 0 20px;display:grid;gap:8px}
+.s5bk-3 li{font-size:14px;line-height:1.45}
+.s5bk-3 li>b{font-weight:650}
+.s5bk-it{display:inline-flex;flex-direction:column;align-items:flex-start;text-align:left;font:inherit;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);max-width:100%}
+.s5bk-it:hover .s5bk-itt{color:var(--accent);text-decoration:underline}
+.s5bk-it:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.s5bk-itt{font-weight:600;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.s5bk-itm{font-size:12.5px;color:var(--muted);line-height:1.3;margin-top:1px}
+.s5bk-cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.s5bk-card{border:1px solid var(--border);border-left:4px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface);min-width:0}
+.s5bk-bad{border-left-color:var(--bad)}.s5bk-warn{border-left-color:var(--warn)}.s5bk-acc{border-left-color:var(--accent)}
+.s5bk-chd{display:flex;gap:12px;align-items:flex-start}
+.s5bk-cn{font-size:28px;line-height:1;font-weight:650;font-variant-numeric:tabular-nums;min-width:38px}
+.s5bk-bad .s5bk-cn{color:var(--bad)}.s5bk-warn .s5bk-cn{color:var(--warn)}.s5bk-acc .s5bk-cn{color:var(--accent)}
+.s5bk-ct{font-weight:650;font-size:14px}.s5bk-cs{font-size:12.5px;color:var(--muted);line-height:1.35}
+.s5bk-cl{display:flex;flex-direction:column;gap:9px;padding-top:8px;border-top:1px solid var(--border)}
+.s5bk-none{margin:0;color:var(--muted);font-size:13px}
+.s5bk-more{align-self:flex-start;font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface);color:var(--accent)}
+.s5bk-more:hover{border-color:var(--accent)}.s5bk-more[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.s5bk-strip{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;align-items:end}
+.s5bk-day{display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;background:none;border:1px solid transparent;border-radius:6px;padding:4px 0;cursor:pointer;color:var(--ink);min-width:0}
+.s5bk-day:hover:not(:disabled){border-color:var(--border)}
+.s5bk-day[aria-pressed=true]{border-color:var(--accent);background:var(--surface-2,transparent)}
+.s5bk-day:disabled{cursor:default;opacity:1}
+.s5bk-day:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.s5bk-dn,.s5bk-dd{font-size:12px;color:var(--muted);white-space:nowrap}
+.s5bk-bar{height:56px;width:62%;display:flex;align-items:flex-end;background:var(--surface-2,rgba(0,0,0,.04));border-radius:3px}
+.s5bk-bar i{display:block;width:100%;background:var(--bad);border-radius:3px 3px 0 0}
+.s5bk-day:nth-child(n+8) .s5bk-bar i{background:var(--warn)}
+.s5bk-dc{font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}
+.s5bk-empty .s5bk-dc{color:var(--muted);font-weight:400}
+.s5bk-daypane{margin-top:10px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;display:flex;flex-direction:column;gap:8px}
+.s5bk-dph{font-size:12.5px;font-weight:650;color:var(--muted)}
+.s5bk-msl{display:flex;flex-direction:column}
+.s5bk-msr{display:grid;grid-template-columns:52px 74px minmax(0,1fr);gap:2px 10px;text-align:left;font:inherit;background:none;border:0;border-top:1px solid var(--border);padding:8px 2px;cursor:pointer;color:var(--ink)}
+.s5bk-msr:first-child{border-top:0}
+.s5bk-msr:hover .s5bk-msn{color:var(--accent);text-decoration:underline}
+.s5bk-msr:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.s5bk-msd{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.s5bk-mst{font-size:12px;font-weight:650;color:var(--accent)}
+.s5bk-msn{font-weight:600;font-size:13.5px;overflow-wrap:anywhere}
+.s5bk-msk{grid-column:3;font-size:12.5px;color:var(--muted)}
+.shrow.s5bk-dup{display:none!important}
+.s5bk-ptab tr.s5bk-quiet{display:none}
+.s5bk-ptab.s5bk-showall tr.s5bk-quiet{display:table-row}
+.s5bk-pbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 8px;font-size:13px;color:var(--muted)}
+.s5bk-hide{display:none!important}
+#tab-overview .aggwrap.s5bk-one{grid-template-columns:minmax(0,1fr)!important}
+.s5bk-health{margin:18px 0 0;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5bk-health>summary{cursor:pointer;padding:12px 16px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;list-style:none}
+.s5bk-health>summary::-webkit-details-marker{display:none}
+.s5bk-health>summary::before{content:"+";display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid var(--border);border-radius:5px;font-weight:700;color:var(--accent)}
+.s5bk-health[open]>summary::before{content:"−"}
+.s5bk-hh{font-weight:650}.s5bk-hs{font-size:13px;color:var(--muted)}
+.s5bk-health>summary.s5bk-warn .s5bk-hs{color:var(--warn)}
+.s5bk-hb{padding:0 16px 14px;display:flex;flex-direction:column;gap:10px}
+.s5bk-fbtn{display:none}
+@media (max-width:980px){.s5bk-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"sum" "act" "tl" "ms"}.s5bk-cards3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .s5bk-top>section{padding:12px}
+  .s5bk-strip{grid-template-columns:repeat(7,minmax(0,1fr));row-gap:8px}
+  .s5bk-bar{height:40px}
+  .s5bk-msr{grid-template-columns:48px minmax(0,1fr)}.s5bk-mst{display:none}.s5bk-msk{grid-column:2}
+  .s9find .s5bk-fbtn{display:inline-flex;align-items:center;font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink);min-height:36px}
+  .s9find:not(.s5bk-fopen)>select,.s9find:not(.s5bk-fopen)>.s9reset,.s9find:not(.s5bk-fopen)>button:not(.s5bk-fbtn){display:none!important}
+  .s5bk-ptab thead{display:none}
+  .s5bk-ptab,.s5bk-ptab tbody{display:block}
+  .s5bk-ptab tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 8px;padding:10px 4px;border-bottom:1px solid var(--border)}
+  .s5bk-ptab.s5bk-showall tr.s5bk-quiet{display:grid}
+  .s5bk-ptab td{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:0!important;padding:0!important;background:none!important;box-shadow:none!important}
+  .s5bk-ptab td:first-child{grid-column:1/-1;font-weight:650;font-size:14px}
+  .s5bk-ptab td:not(:first-child)::before{content:attr(data-label);font-size:12px;color:var(--muted);font-weight:400;line-height:1.2}
+  .s5bk-ptab td.s5bk-zero{display:none!important}
+  .s5bk-ptab caption{display:none}
+  .s5bk-ptab td:not(:first-child){flex-direction:row;align-items:center;gap:6px}
+}
+@media (max-width:760px){
+  /* phone floor: 12 px for chips, badges and small labels (2 505 badges measured at 11 px on 390 px) */
+  .badge,.s12sign,.s12line span,.s12ext,.ntchip,td .mc,.ntcrit,.ntmeth,.segbtn,.s12path,.navcount,.ntlab,.pchip,p .lbl,dl.kv dt,
+  .sec-count,.fact span,.vchg,.vwhen,.ntt0,.rcat,.ntaxr span,.ntfttl,.ntft0 b,.tseg-label,.sm-t{font-size:12px!important}
+  /* tap targets */
+  .seg .segbtn{min-height:32px}
+  a.lnk,a.cb-link{display:inline-block;padding:5px 0}
+}
+/* end §5bk */
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -24328,6 +24511,274 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2000); });
   else setTimeout(boot, 2000);
 })();
+/* ---------------------------------------------------------------------------
+   §5bk (25 IX 2026) — STAGE 4 OF THE PORTAL REVIEW: the Overview tab says what matters
+   first, on a laptop and on a phone. Measured before: 5 754 px of Overview, a source-list
+   box on top, 77 product rows of which 45 were community article tags with zeros in every
+   brief column, the same "21 in 7 days" twice, a donut repeating the bar chart.
+   Now, top to bottom: Today in three sentences · Act on this first (cards with the items
+   themselves) · the next 14 days · what Microsoft changed in Graph and roles · the product
+   table without community tags (one click shows them) · one chart · collection health,
+   folded, at the bottom. On a phone every filter bar folds behind one "Filters" button and
+   the product table becomes cards. Everything is read from the two JSON islands and the
+   rows the shell already rendered; nothing any other script owns is rewritten.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var booted = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
+  function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
+  function openTab(id) { var b = tabBtn(id); if (b) b.click(); }
+  function fmt(d) { var m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; var x = new Date(d + "T00:00:00Z"); return x.getUTCDate() + " " + m[x.getUTCMonth()]; }
+  function rowIdOf(r) {
+    var id = r.getAttribute("data-id"); if (id) return id;
+    var ref = r.querySelector(".ref, .rname"); return ref ? ref.textContent.trim() : "";
+  }
+  function goItem(id) {
+    var order = ["deadlines", "today", "new", "products", "mc"];
+    for (var i = 0; i < order.length; i++) {
+      var p = document.getElementById("tab-" + order[i]); if (!p) continue;
+      var rows = p.querySelectorAll("tbody tr"), hit = null;
+      for (var j = 0; j < rows.length && !hit; j++) if (!rows[j].classList.contains("hrow") && rowIdOf(rows[j]) === id) hit = rows[j];
+      if (!hit) continue;
+      openTab(order[i]);
+      setTimeout(function () {
+        var d = hit.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+        hit.scrollIntoView({ block: "center" }); hit.classList.add("s5bi-flash");
+        setTimeout(function () { hit.classList.remove("s5bi-flash"); }, 2200);
+      }, 220);
+      return true;
+    }
+    return false;
+  }
+  function itemLink(it, extra) {
+    var b = el("button", "s5bk-it"); b.type = "button";
+    b.appendChild(el("span", "s5bk-itt", it.title || it.officialTitle || it.id));
+    var meta = [it.product, extra].filter(Boolean).join(" · ");
+    if (meta) b.appendChild(el("span", "s5bk-itm", meta));
+    b.addEventListener("click", function () { if (!goItem(it.id) && it.url) window.open(it.url, "_blank", "noopener"); });
+    return b;
+  }
+  function msChanges(cat, today) {
+    function lastHist(e) { var h = Array.isArray(e.history) ? e.history : []; return h.length ? String(h[h.length - 1].date || "") : ""; }
+    function when(e) { return String(e.changed || e.lastChanged || lastHist(e) || e.firstTracked || "").slice(0, 10); }
+    var out = [];
+    ["graph", "roles"].forEach(function (k) {
+      (cat[k] || []).forEach(function (e) {
+        if (!e || e.origin !== "microsoft") return;
+        if (String(e.id || "").indexOf("reach-") === 0 || /deployed in the service/i.test(String(e.kind || ""))) return;
+        var w = when(e); if (!w) return;
+        out.push({ tab: k, name: e.name || e.id, kind: e.kind || "", d: w, age: days(w, today) });
+      });
+    });
+    out.sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+    return out;
+  }
+
+  function build() {
+    var panel = document.getElementById("tab-overview");
+    if (!panel || panel.querySelector(".s5bk-top")) return;
+    var st = json("soc-brief-state") || {}, cat = json("soc-catalog") || {};
+    var today = String(st.briefDate || new Date().toISOString().slice(0, 10));
+    var items = (st.items || []).filter(function (i) { return i && i.id; });
+    var w = function (i) { return +i.socWeight || 9; };
+    var dated = items.filter(function (i) { return /^\d{4}-\d{2}-\d{2}/.test(String(i.deadline || "")); })
+      .map(function (i) { return { it: i, n: days(today, String(i.deadline).slice(0, 10)) }; });
+    var due7 = dated.filter(function (x) { return x.n >= 0 && x.n <= 7; }).sort(function (a, b) { return a.n - b.n || w(a.it) - w(b.it); });
+    var passed = dated.filter(function (x) { return x.n < 0 && x.n >= -7; }).sort(function (a, b) { return b.n - a.n || w(a.it) - w(b.it); });
+    var newIds = {}; (st.newToday || []).forEach(function (id) { newIds[id] = 1; });
+    var fresh = items.filter(function (i) { return newIds[i.id]; }).sort(function (a, b) { return w(a) - w(b); });
+    var ms = msChanges(cat, today);
+    var since = String((st.comparedWith || {}).date || "");
+
+    var top = el("div", "s5bk-top");
+    /* 1. today in three sentences */
+    var sum = el("section", "s5bk-sum"); sum.setAttribute("aria-label", "Today in three sentences");
+    sum.appendChild(el("h2", "s5bk-h", "Today in three sentences"));
+    var ol = el("ol", "s5bk-3");
+    function sentence(lead, node) { var li = el("li"); li.appendChild(el("b", null, lead + " ")); if (node) li.appendChild(node); ol.appendChild(li); }
+    if (due7.length) {
+      var u = due7[0];
+      sentence("Most urgent:", itemLink(u.it, u.n === 0 ? "due today" : "due in " + u.n + " day" + (u.n === 1 ? "" : "s") + " (" + fmt(String(u.it.deadline).slice(0, 10)) + ")"));
+    } else sentence("Most urgent:", el("span", null, "nothing is due in the next seven days."));
+    if (fresh.length) sentence("Biggest new item:", itemLink(fresh[0], (fresh.length > 1 ? "one of " + fresh.length + " new" : "new") + (since ? " since the " + fmt(since) + " brief" : "")));
+    else sentence("New:", el("span", null, "nothing entered the brief since the last run."));
+    /* the count is the masthead KPI's own: the two What-Microsoft-changed blocks, 14 days (§5bf, §5bh) */
+    var gb = document.querySelector('details.mschg[data-mschg="graph"]'), rb = document.querySelector('details.mschg[data-mschg="roles"]');
+    var ms14 = ms.filter(function (x) { return x.age >= 0 && x.age < 14; });
+    var nMs = gb || rb ? (gb && +gb.getAttribute("data-n14") || 0) + (rb && +rb.getAttribute("data-n14") || 0) : ms14.length;
+    if (ms14.length) {
+      var b3 = el("button", "s5bk-it"); b3.type = "button";
+      b3.appendChild(el("span", "s5bk-itt", nMs + " change" + (nMs === 1 ? "" : "s") + " in Graph API and roles in 14 days"));
+      b3.appendChild(el("span", "s5bk-itm", "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
+      b3.addEventListener("click", function () { goMs(ms14[0].tab); });
+      sentence("Microsoft:", b3);
+    } else sentence("Microsoft:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
+    sum.appendChild(ol); top.appendChild(sum);
+
+    /* 2. act on this first — cards with the items */
+    var act = el("section", "s5bk-act"); act.setAttribute("aria-label", "Act on this first");
+    act.appendChild(el("h2", "s5bk-h", "Act on this first"));
+    var grid = el("div", "s5bk-cards3");
+    function card(tone, n, title, sub, list, extra, more) {
+      var c = el("div", "s5bk-card s5bk-" + tone);
+      var hd = el("div", "s5bk-chd"); hd.appendChild(el("b", "s5bk-cn", String(n))); var tt = el("div"); tt.appendChild(el("div", "s5bk-ct", title)); tt.appendChild(el("div", "s5bk-cs", sub)); hd.appendChild(tt);
+      c.appendChild(hd);
+      var ul = el("div", "s5bk-cl");
+      list.slice(0, 3).forEach(function (x) { ul.appendChild(itemLink(x.it || x, extra(x))); });
+      if (!list.length) ul.appendChild(el("p", "s5bk-none", "Nothing here today."));
+      c.appendChild(ul);
+      if (more && list.length > 3) { var m = el("button", "s5bk-more", "All " + list.length + " →"); m.type = "button"; m.addEventListener("click", more); c.appendChild(m); }
+      grid.appendChild(c);
+    }
+    function clickShrow(re) { return function () { var r = [].filter.call(document.querySelectorAll("#starthere .shrow"), function (b) { return re.test(b.textContent); })[0]; if (r) r.click(); }; }
+    card("bad", due7.length, "Due within 7 days", "Anything dated inside a week, whatever tab it lives in.", due7,
+      function (x) { return x.n === 0 ? "today" : "in " + x.n + " d · " + fmt(String(x.it.deadline).slice(0, 10)); }, clickShrow(/next seven days/i));
+    card("warn", passed.length, "Deadlines passed, last 7 days", "The day after a deadline is when the estate is most exposed — confirm the change landed.", passed,
+      function (x) { return -x.n + " d ago · " + fmt(String(x.it.deadline).slice(0, 10)); }, clickShrow(/deadlines passed/i));
+    card("acc", fresh.length, "New since the last brief", since ? "First tracked after the " + fmt(since) + " brief, heaviest first." : "First tracked in this run, heaviest first.", fresh,
+      function (i) { return "weight " + (i.socWeight || "—"); }, function () { openTab("new"); });
+    act.appendChild(grid); top.appendChild(act);
+
+    /* 3. the next 14 days */
+    var tl = el("section", "s5bk-tl"); tl.setAttribute("aria-label", "Deadlines in the next 14 days");
+    tl.appendChild(el("h2", "s5bk-h", "The next 14 days"));
+    var strip = el("div", "s5bk-strip"), pane = el("div", "s5bk-daypane"); pane.hidden = true;
+    var max = 1, byDay = [];
+    for (var d = 0; d < 14; d++) { var L = dated.filter(function (x) { return x.n === d; }); byDay.push(L); if (L.length > max) max = L.length; }
+    byDay.forEach(function (L, d) {
+      var dt = new Date(Date.parse(today + "T00:00:00Z") + d * 864e5).toISOString().slice(0, 10);
+      var b = el("button", "s5bk-day" + (L.length ? "" : " s5bk-empty")); b.type = "button";
+      b.setAttribute("aria-label", fmt(dt) + ": " + L.length + " deadline" + (L.length === 1 ? "" : "s"));
+      b.appendChild(el("span", "s5bk-dn", d === 0 ? "Today" : ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(dt + "T00:00:00Z").getUTCDay()]));
+      var bar = el("span", "s5bk-bar"); var i2 = el("i"); i2.style.height = (L.length ? Math.max(12, Math.round(100 * L.length / max)) : 0) + "%"; bar.appendChild(i2); b.appendChild(bar);
+      b.appendChild(el("span", "s5bk-dc", String(L.length)));
+      b.appendChild(el("span", "s5bk-dd", fmt(dt)));
+      if (!L.length) b.disabled = true;
+      b.addEventListener("click", function () {
+        var on = b.getAttribute("aria-pressed") === "true";
+        [].forEach.call(strip.children, function (x) { x.setAttribute("aria-pressed", "false"); });
+        pane.textContent = ""; pane.hidden = on;
+        if (on) return;
+        b.setAttribute("aria-pressed", "true");
+        pane.appendChild(el("div", "s5bk-dph", fmt(dt) + " · " + L.length + " deadline" + (L.length === 1 ? "" : "s")));
+        L.sort(function (a, c) { return w(a.it) - w(c.it); }).forEach(function (x) { pane.appendChild(itemLink(x.it, x.it.deadlineNote ? String(x.it.deadlineNote).slice(0, 80) : "")); });
+      });
+      b.setAttribute("aria-pressed", "false");
+      strip.appendChild(b);
+    });
+    tl.appendChild(strip); tl.appendChild(pane); top.appendChild(tl);
+
+    /* 4. what Microsoft changed */
+    var mc = el("section", "s5bk-ms"); mc.setAttribute("aria-label", "What Microsoft changed in Graph API and roles");
+    var msl = ms14;
+    mc.appendChild(el("h2", "s5bk-h", "What Microsoft changed · Graph API and roles · 14 days"));
+    if (!msl.length) mc.appendChild(el("p", "s5bk-none", "No dated change in the last 14 days."));
+    var tbl = el("div", "s5bk-msl");
+    msl.slice(0, 5).forEach(function (x) {
+      var b = el("button", "s5bk-msr"); b.type = "button";
+      b.appendChild(el("span", "s5bk-msd", fmt(x.d)));
+      b.appendChild(el("span", "s5bk-mst", x.tab === "graph" ? "Graph API" : "Roles"));
+      b.appendChild(el("span", "s5bk-msn", x.name));
+      b.appendChild(el("span", "s5bk-msk", x.kind));
+      b.addEventListener("click", function () { goMs(x.tab); });
+      tbl.appendChild(b);
+    });
+    mc.appendChild(tbl);
+    if (msl.length > 5) { var mm = el("button", "s5bk-more", "All " + nMs + " in Graph API and Roles →"); mm.type = "button"; mm.addEventListener("click", function () { goMs(msl[0].tab); }); mc.appendChild(mm); }
+    top.appendChild(mc);
+
+    var first = panel.querySelector(".jsonbox") || panel.firstElementChild;
+    panel.insertBefore(top, first);
+
+    /* the two rows the cards now carry leave the shell list; the rest stays as "Also check" */
+    [].forEach.call(document.querySelectorAll("#starthere .shrow"), function (r) {
+      if (/next seven days|deadlines passed/i.test(r.textContent)) r.classList.add("s5bk-dup");
+    });
+    [].forEach.call(document.querySelectorAll("#starthere h3.shh"), function (h) { if (/^Act on this first$/i.test(h.textContent.trim())) h.textContent = "Also check"; });
+
+    products();
+    oneChart(panel);
+    health(panel, st);
+  }
+  function goMs(tab) {
+    openTab(tab);
+    setTimeout(function () { var m = document.querySelector('#tab-' + tab + ' details.mschg'); if (m) { m.open = true; m.scrollIntoView({ block: "start" }); } }, 250);
+  }
+
+  /* 5. product table: brief activity first, community-only tags behind one click */
+  function products() {
+    var t = [].filter.call(document.querySelectorAll("#starthere table"), function (x) { return /What.s new, by product/.test(x.textContent); })[0];
+    if (!t || t.getAttribute("data-s5bk")) return;
+    t.setAttribute("data-s5bk", "1"); t.classList.add("s5bk-ptab");
+    var heads = [].map.call(t.tHead.rows[t.tHead.rows.length - 1].cells, function (c) { return c.textContent.trim(); });
+    var ci = heads.map(function (h) { return h.toLowerCase(); }).indexOf("community, 7 days");
+    var quiet = 0;
+    [].forEach.call(t.tBodies[0].rows, function (r) {
+      [].forEach.call(r.cells, function (c, i) { c.setAttribute("data-label", heads[i] || ""); if (i && /^0$/.test(c.textContent.trim())) c.classList.add("s5bk-zero"); });
+      var busy = [].some.call(r.cells, function (c, i) { return i > 0 && i !== ci && +c.textContent.trim() > 0; });
+      if (!busy) { r.classList.add("s5bk-quiet"); quiet++; }
+    });
+    if (!quiet) return;
+    var all = t.tBodies[0].rows.length;
+    var bar = el("div", "s5bk-pbar");
+    bar.appendChild(el("span", null, (all - quiet) + " technologies with activity in this brief"));
+    var b = el("button", "s5bk-more", "Show " + quiet + " community tags too"); b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function () {
+      var on = t.classList.toggle("s5bk-showall"); b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.textContent = on ? "Hide the " + quiet + " community tags" : "Show " + quiet + " community tags too";
+    });
+    bar.appendChild(b);
+    var host = t.closest(".tw") || t; host.parentNode.insertBefore(bar, host);
+  }
+  /* 6. one chart: the donut repeated the bars */
+  function oneChart(panel) {
+    [].forEach.call(panel.querySelectorAll(".aggwrap > figure"), function (f) {
+      if (/Share of services/i.test(f.textContent)) { f.classList.add("s5bk-hide"); f.parentNode.classList.add("s5bk-one"); }
+    });
+  }
+  /* 7. collection health, folded, at the bottom */
+  function health(panel, st) {
+    var jb = panel.querySelector(".jsonbox"); if (!jb || panel.querySelector(".s5bk-health")) return;
+    var det = el("details", "s5bk-health"); var sm = el("summary");
+    var stale = [].filter.call(document.querySelectorAll("#starthere .shrow"), function (b) { return /sources are stale/i.test(b.textContent); })[0];
+    var n = stale ? +(stale.querySelector(".shn") || {}).textContent || 0 : 0;
+    var runs = st.runs || [], last = runs.length ? runs[runs.length - 1] : null;
+    sm.appendChild(el("span", "s5bk-hh", "Collection health"));
+    sm.appendChild(el("span", "s5bk-hs", [
+      last && (last.date || last.at) ? "last run " + String(last.date || last.at).slice(0, 16).replace("T", " ") : null,
+      n ? n + " source" + (n === 1 ? "" : "s") + " stale or unread" : "all sources read",
+      "source lists"].filter(Boolean).join(" · ")));
+    if (n) sm.classList.add("s5bk-warn");
+    det.appendChild(sm);
+    var body = el("div", "s5bk-hb"); det.appendChild(body);
+    if (stale) { var b = el("button", "s5bk-more", "Show the " + n + " stale sources →"); b.type = "button"; b.addEventListener("click", function () { stale.click(); }); body.appendChild(b); }
+    body.appendChild(jb);
+    panel.appendChild(det);
+  }
+
+  /* phone: every filter bar folds behind one button */
+  function phoneFilters() {
+    [].forEach.call(document.querySelectorAll(".s9find"), function (f) {
+      if (f.querySelector(".s5bk-fbtn")) return;
+      var ctl = f.querySelectorAll("select, .s9reset, button:not(.s5bk-fbtn)").length; if (!ctl) return;
+      var b = el("button", "s5bk-fbtn", "Filters ▾"); b.type = "button"; b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () { var on = f.classList.toggle("s5bk-fopen"); b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "Filters ▴" : "Filters ▾"; });
+      var q = f.querySelector(".s9q"); if (q && q.nextSibling) f.insertBefore(b, q.nextSibling); else f.appendChild(b);
+    });
+  }
+
+  function boot() {
+    if (booted) return; booted = true;
+    [build, phoneFilters].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[s17 5bk]", e); } });
+    document.addEventListener("click", function () { setTimeout(function () { try { phoneFilters(); } catch (e) {} }, 400); });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2200); });
+  else setTimeout(boot, 2200);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -24929,6 +25380,39 @@ na 12 krokow kolka przy 1500 px, a przy 1100 px strona wracala na sama gore. Pop
 pomiaru `overflow-anchor:none`, prog z histereza (zwija > 200 px, rozwija < 120 px). Zmierzone po
 poprawce: dokladnie 2 przelaczenia na przewiniecie w dol i w gore, pozycja tresci stala, przy
 768, 800, 1100, 1280, 1500 i 1920 px w obu motywach.
+
+## 5bk. PRZEGLAD PORTALU — ETAP 4: OVERVIEW I TELEFON (25 IX 2026)
+
+Zlecenie wlasciciela: „Wdroz jako etap 4. Upewnij sie tez ze zarowno strona glowna jak i diff
+prawidlowo wyswietlaja sie na urzadzeniach mobilnych". Zmierzone PRZED: Overview 5 754 px, na gorze
+ramka list zrodel, tabela „What's new, by product" 77 wierszy, z czego 45 to tagi artykulow
+spolecznosci z zerami we wszystkich kolumnach briefu, „21 w 7 dni" dwa razy, donut powtarzajacy
+slupki; na 390 px 2 505 plakietek po 11 px, a na `/diff/` tabele do 1 944 px szerokosci.
+
+Kod: czwarta IIFE na koncu SKRYPTU 17 i blok CSS po §5bi (strona glowna); `MOBILE_BODY` i blok
+CSS w `make_diff.py` (strona zmian).
+
+| czesc | co robi |
+|---|---|
+| Today in three sentences | najpilniejszy termin (najblizszy, przy remisie najciezszy `socWeight`), najwieksza nowosc od briefu, liczba zmian Microsoftu w Graph i rolach — TA SAMA co KPI w naglowku (`data-n14` blokow §5bf) — z ostatnia z nich; kazde zdanie otwiera wiersz |
+| Act on this first | trzy karty: due within 7 days, deadlines passed (7 dni), new since the last brief — liczba i trzy pozycje, „All N →"; dwa wiersze powloki, ktore to powtarzaly, sa schowane, reszta listy nazywa sie „Also check" |
+| The next 14 days | pasek dni z liczba terminow; klikniecie pokazuje pozycje dnia |
+| What Microsoft changed | 5 ostatnich wpisow Graph API i rol z 14 dni (bez `reach-*` i „Deployed in the service", jak §5bf) |
+| tabela produktow | wiersz bez aktywnosci w kolumnach briefu (poza Community) jest ukryty; „Show 45 community tags too" go pokazuje |
+| jeden wykres | donut „Share of services" schowany, slupki na cala szerokosc |
+| Collection health | zwiniety na dole: ostatni przebieg, zrodla nieaktualne, listy zrodel |
+| telefon (≤ 760 px) | filtry pod „Filters ▾" w kazdym pasku szukania; tabela produktow jako karty bez zer; 12 px dla plakietek i etykiet; przyciski segmentow ≥ 32 px |
+| `/diff/` na telefonie | kafelki kompaktowe, dlugi opis pod „ⓘ how these tiles are counted", kazda tabela jako karty (etykiety z naglowka, zera ukryte), filtry pod „Filters ▾" |
+
+Przy okazji: `sec-head` w sekcjach `details.ntsec` byl `display:none` (§5bg) i zabieral sekcji
+jedyne `h2` — axe `heading-order` na telefonie. Teraz jest ukryty tylko wizualnie (czytnik ekranu go
+czyta); klucz pozycji 110 zmieniony odpowiednio.
+
+Zmierzone po zmianach (Playwright + axe-core): Overview 4 502 px przy 1500 px; **axe 0 naruszen** na
+stronie glownej (1500, 1100, 414, 390, 360 px, oba motywy, wszystkie 14 zakladek na telefonie) i
+na `/diff/` (1500 px oba motywy, 414/390/360 px); zadnego przewijania poziomego; tekstow < 12 px na
+telefonie: `/diff/` 0 (bylo 914), strona glowna kilkadziesiat na zakladke (byly tysiace; zostaja
+strzalki sortowania). Pozycja **113** (klasa B) pilnuje kodu strony glownej.
 (klasa B) pilnuje kodu tego etapu.
 
 
