@@ -24,10 +24,10 @@
   Application.ReadWrite.All, AppRoleAssignment.ReadWrite.All.
 
 .EXAMPLE
-  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId 833fd6f2-…
+  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta>
 .EXAMPLE
   # subject niezmienny - dokladnie ten, ktory workflow wypisuje w linii "OIDC claims"
-  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId 833fd6f2-… `
+  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta> `
     -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
 #>
 param(
