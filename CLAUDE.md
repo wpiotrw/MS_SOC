@@ -24673,6 +24673,11 @@ odtad CZTERNASCIE (4-17).**
     [tabGroups, phoneMenu, reviewQueue, histButtons, search, csv, weekLink].forEach(function (f) {
       try { f(); } catch (e) { if (window.console) console.error("[s17 5bi]", e); }
     });
+    /* §5bm (26 IX 2026): naglowek i pasek zakladek sa ukryte (visibility), dopoki kafelki
+       KPI (§5bh, 1700 ms) i cztery grupy zakladek (tu, 2000 ms) nie stana na miejscu —
+       czytelnik nie widzi starego ukladu, ktory zmienia sie na jego oczach. Arkusz odslania
+       je sam po 4,5 s, gdyby ten skrypt nie doszedl do tej linii. */
+    document.documentElement.classList.add("s5ready");
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2000); });
@@ -25332,6 +25337,15 @@ nadpisuje.
 .filterbanner .fb-clear:focus-visible,.bkbanner .bk-clear:focus-visible,
 .gfbar .gf-reset:focus-visible,.gfbar .gf-x:focus-visible{outline-color:var(--ok)}
 /* the red x stays red: it does not say a filter is ON, it says you can take it off */
+/* §5bm (26 IX 2026) — the header does not rebuild in front of the reader. Owner: "when i
+   navigate to the site i see the tabs shown correctly, but after a short while the view
+   changes dynamically". Measured the same day: the page arrives with the old counters and
+   the DAILY/REFERENCE rows, and §5bh (1700 ms) and §5bi (2000 ms) then replace them with the
+   KPI tiles and the four groups. Until §5bi sets html.s5ready the three parts are kept
+   invisible (their space stays reserved); the animation reveals them after 4.5 s anyway,
+   so a script that dies can never leave the page without its tabs. */
+html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5ready) .navrow{visibility:hidden;animation:s5reveal 0s linear 4.5s forwards}
+@keyframes s5reveal{to{visibility:visible}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
