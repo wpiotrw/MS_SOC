@@ -4338,6 +4338,32 @@ znikaja, a kazdy rzad przewija sie sam — tak samo jak `.navrow` w §5ae.
 
 Pozycja **102**, klasa B.
 
+### Punkt 21. KAZDA ZAKLADKA STRONY ZMIAN TO OSOBNY PANEL (26 IX 2026)
+
+Wlasciciel, 26 IX 2026: „the diff page is just a huge simple one with markers … all tab has it
+own separate section instead of one to scroll down", oraz: „i click first party apps once and
+i am navigated to the endpoints instead". Zmierzone tego dnia: klik w skrot przewijal strone do
+sekcji i podswietlal ja, po czym zdarzenie `scroll` liczylo podswietlenie od nowa z pozycji
+przewijania — a gdy sekcja stala nisko i strona nie mogla sie do niej przewinac, wygrywala
+sekcja wyzej (Endpoints zamiast First-party apps).
+
+Regula:
+
+1. **Widoczna jest JEDNA sekcja paska** (`section[id]` z `nav.dsubnav`); pozostale maja
+   `hidden`. Klik w skrot albo w liczbe tabeli podsumowania (`data-goto`) otwiera panel
+   tej sekcji, rozwiniety. Adres niesie `#sekcja` — odswiezenie i link prowadza do tego
+   samego panelu; bez kotwicy strona otwiera sie na `bytab`.
+2. **W trybie paneli pasek podswietla panel, nie pozycje przewijania** (`__socPanelCur`).
+3. **Filtr po technologii i pasek Advanced** pytaja o cala strone, wiec na czas filtra widac
+   wszystkie sekcje z trafieniami (`__socPanelAll` w `openWithHits`); „Clear filter" wraca
+   do ostatniego panelu (`__socPanelBack`).
+4. Liczba skryptow strony sie nie zmienia — panele zyja w skrypcie nawigacji (NAV_BODY).
+
+Sprawdzone 26 IX 2026 w Playwright na stanach 24 → 25 IX: 15 z 15 skrotow otwiera wlasciwy
+panel i podswietla wlasciwy skrot (1400 px i 400 px), wejscie z `#mcenter` otwiera panel
+Message Center, filtr po technologii pokazuje sekcje z trafieniami, wyczyszczenie wraca do
+panelu, zero bledow w konsoli.
+
 ### 3a. KAZDA ZMIANA STOI W SWOJEJ ZAKLADCE — i jest podsumowanie, ktore to zbiera
 
 Wlasciciel zglosil 3 wrzesnia 2026, po pierwszym przebiegu na policzonej stronie zmian:
@@ -5499,6 +5525,7 @@ details.dsec>.note{margin-top:10px}
  border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
 .s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
 tbody tr[hidden]{display:none!important}
+section[hidden]{display:none!important}
 /* Najechanie podswietla CALY wiersz. Ta strona nie pasuje wierszy inline, wiec
    `!important` nie jest tu potrzebne — ale zachowanie ma byc to samo co w briefie
    (§5au pozycja 75), bo czytelnik przechodzi miedzy nimi jednym linkiem. */
@@ -6652,6 +6679,7 @@ NAV_BODY = """<script>
     [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
     collapseAll();
     say("");
+    if (window.__socPanelBack) window.__socPanelBack();
   }
 
   /* ---------- folds: a section is open when it holds what you asked for ----------
@@ -6710,6 +6738,9 @@ NAV_BODY = """<script>
     syncChips(); measure();
   }
   function openWithHits() {
+    /* filtr po technologii albo pasek Advanced pyta o WSZYSTKIE sekcje naraz, wiec
+       pokazuje wszystkie, w ktorych cos zostalo (§3 punkt 21) */
+    if (window.__socPanelAll) window.__socPanelAll();
     sections().forEach(function (det) { det.open = visibleRows(det) > 0; });
     syncChips(); measure();
   }
@@ -6736,6 +6767,9 @@ NAV_BODY = """<script>
      Jumping without narrowing lands the reader on the first table of the section,
      which is not the number they pressed. */
   function goto_(sid, tab) {
+    /* §3 punkt 21: skrot i liczba w tabeli podsumowania OTWIERAJA PANEL tej sekcji —
+       pozostale sekcje znikaja, zamiast przewijac do niej jedna dluga strone */
+    if (window.__socPanel) window.__socPanel(sid);
     var sec = openSection(sid);
     if (!sec) return;
     var blocks = [].slice.call(document.querySelectorAll(".tabblock"));
@@ -6858,6 +6892,12 @@ NAV_BODY = """<script>
     var queued = false;
     function mark() {
       queued = false;
+      /* §3 punkt 21: w trybie paneli widoczna jest jedna sekcja, wiec pasek podswietla
+         JA, a nie to, co wynika z pozycji przewijania. To usuwa blad z 26 IX 2026:
+         klik w „First-party apps" podswietlal „Endpoints", bo po skoku zdarzenie
+         `scroll` liczylo podswietlenie od nowa z pozycji, ktorej strona nie mogla
+         osiagnac. */
+      if (window.__socPanelCur) { markOne(window.__socPanelCur); return; }
       var y = window.scrollY + 90, cur = secs[0];
       secs.forEach(function (s) { if (s.el.offsetTop <= y) cur = s; });
       secs.forEach(function (s) {
@@ -6888,6 +6928,41 @@ NAV_BODY = """<script>
       }
     }
     window.__socDiffMark = function (sid) { if (sid) markOne(sid); else mark(); };
+
+    /* ---- §3 punkt 21 (26 IX 2026): KAZDA ZAKLADKA TO OSOBNY PANEL ----
+       Wlasciciel: „all tab has it own separate section instead of one to scroll down".
+       Widac zawsze JEDNA sekcje paska; reszta ma `hidden`. Adres niesie `#sekcja`, wiec
+       odswiezenie i link prowadza do tego samego panelu. Filtr po technologii i pasek
+       Advanced pytaja o cala strone, wiec na czas filtra widac wszystkie sekcje
+       z trafieniami; wyczyszczenie filtra wraca do ostatniego panelu. */
+    var PANELS = secs.map(function (s) { return s.el; });
+    var LAST = null;
+    function panel(sid) {
+      if (!secs.some(function (s) { return s.el.id === sid; })) sid = secs[0].el.id;
+      LAST = sid; window.__socPanelCur = sid;
+      document.body.classList.add("dpanels");
+      PANELS.forEach(function (el) { el.hidden = el.id !== sid; });
+      /* widoczny panel jest zawsze ROZWINIETY — zwiniety panel to pusta zakladka */
+      var det = document.querySelector("#" + sid + " > details.dsec");
+      if (det) det.open = true;
+      markOne(sid);
+      try { history.replaceState(null, "", "#" + sid); } catch (e) {}
+      var st = document.querySelector(".dstick");
+      var top = st ? st.getBoundingClientRect().top + window.scrollY : 0;
+      if (window.scrollY > top) window.scrollTo(0, top);
+    }
+    function panelAll() {
+      window.__socPanelCur = null;
+      document.body.classList.remove("dpanels");
+      PANELS.forEach(function (el) { el.hidden = false; });
+    }
+    window.__socPanel = panel;
+    window.__socPanelAll = panelAll;
+    window.__socPanelBack = function () { panel(LAST || secs[0].el.id); };
+    window.addEventListener("hashchange", function () {
+      var h = location.hash.slice(1);
+      if (h && h !== window.__socPanelCur) panel(h);
+    });
     window.addEventListener("scroll", function () {
       if (queued) return;
       queued = true; window.requestAnimationFrame(mark);
@@ -6897,6 +6972,11 @@ NAV_BODY = """<script>
 
   measure();
   sync();
+  /* §3 punkt 21: strona otwiera sie na panelu z adresu albo na pierwszym („By tab") */
+  if (window.__socPanel) {
+    var h0 = location.hash.slice(1);
+    window.__socPanel(h0 || "bytab");
+  }
 })();
 </script>"""
 
