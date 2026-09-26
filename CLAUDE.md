@@ -2370,7 +2370,7 @@ def gate(path, site=None, mirror=False, doc=None):
     # zakladke … musi tez byc mapowanie pomiedzy zmianami, ktore wykrywasz w artykulach
     # i blogach, a Message Center". Kolumna liczy, zakladka pokazuje, a `map` laczy —
     # i to `map` jest tu trescia, bo bez niej trzy zrodla opisuja te sama zmiane osobno.
-    _MCORIG = {"index", "item", "both"}
+    _MCORIG = {"index", "item", "both", "prev", "feed", "deltapulse", "tenant"}   # + §5bo
     _mc = (st["soc-brief-state"] or {}).get("mc") or {}
     if not _mc:
         for _n90, _t90 in (("90a", "klucz mc w bloku stanu"),
@@ -2385,7 +2385,10 @@ def gate(path, site=None, mirror=False, doc=None):
         _nolink90 = [x.get("id") for x in _ent if not x.get("link")]
         _nopub90 = [x.get("id") for x in _ent
                     if not x.get("published") and not (x.get("note") or "").strip()]
-        _badorig = [x.get("id") for x in _ent if x.get("origin") not in _MCORIG]
+        # §5bo: collect_mc.py joins every source that knows the post with "+"
+        # ("index+feed+deltapulse"); each part must still come from the dictionary
+        _badorig = [x.get("id") for x in _ent
+                    if not x.get("origin") or any(o not in _MCORIG for o in str(x.get("origin")).split("+"))]
         _nostory = [x.get("id") for x in _ent if not x.get("storyKey")]
         need("90a", "kazdy wpis MC ma id, link, date albo powod, origin ze slownika i storyKey (§5az)",
              bool(_ent) and not _noid90 and not _nolink90 and not _nopub90
@@ -22115,213 +22118,6 @@ dwa razy i nic, co by ja lączyło** — tylko po drugiej stronie portalu.
      zawezone do tego `storyKey`. Wiersz bez wpisu MC drukuje **myslnik**, nigdy pusty przycisk:
      kontrolka, ktora nic nie otwiera, uczy, ze klikanie nic nie daje (§3 punkt 13).
 
-## 5bo. MESSAGE CENTER Z KODU, NIE Z PRZEPISYWANIA — i bez filtrowania (26 IX 2026)
-
-Wlasciciel, 26 IX 2026: „to nie filtrujmy. musimy wylapywac takie wiadomosci, bo te akurat sa
-wazne" — o MC1479509 (Exchange Online, sprawdzanie pisowni przed wyslaniem w nowym Outlooku)
-i MC1478962 (Conditional Access a logowanie urzadzen Teams Android). Zmierzone tego dnia:
-brief z 26 IX niosl **145** wpisow `mc.entries`, dzien wczesniej **368**; MC1479509 nie bylo,
-choc MC1479503 i MC1479516 obok niego byly. Indeks byl PRZEPISYWANY przez przebieg, nie czytany
-kodem — i wpisy wypadaly bez sladu.
-
-Regula:
-
-1. **Liste wpisow MC robi `collect_mc.py`** (kod ponizej, uruchamiany z pozostalymi
-   kolektorami). Czyta trzy zrodla, kazde ze stanem `ok`/`unread`: pierwsza strone indeksu
-   `mc.merill.net/?type=mc` (200 ostatnio ZAKTUALIZOWANYCH wierszy, MC i Roadmapa razem;
-   Roadmapa jest pomijana), kanal `msmessagecenter.com/feed.xml` (100 ostatnich wpisow z data
-   publikacji i kategoria) oraz `site/data/mc-tenant.json` — Message Center tenanta wlasciciela
-   z Microsoft Graph (`tools/mc_tenant.py`, workflow co 3 godziny, uprawnienie
-   `ServiceMessage.Read.All`). Zadne z nich nie jest jedynym zrodlem prawdy; `origin` wpisu
-   nazywa wszystkie, ktore go znaja.
-2. **`mc.entries` = WSZYSTKIE wpisy z `MC_INDEX.json`** (unia, po `id`). Przebieg je WZBOGACA —
-   `summary` (zdanie Microsoftu), `action`, `itemIds`, `note` — ale nie WYBIERA. **Zadnego
-   filtra „tylko bezpieczenstwo"**: istotnosc dla bezpieczenstwa to znacznik i kolejnosc na
-   stronie, nigdy powod pominiecia wpisu. `firstTracked`, `link` i `published` bierze sie
-   z kolektora.
-3. `feedSummary` to streszczenie msmessagecenter.com, NIE Microsoftu — nie przenosi sie go do
-   `summary`.
-4. Liczba wpisow nie spada miedzy przebiegami inaczej niz przez okno czasu (§5bg). Wpis znany
-   poprzedniemu stanowi zostaje (kolektor go przenosi); o jego wyjsciu decyduje okno, nie przebieg.
-5. Przebieg zapisuje `mc.collector = {"readOn", "counts", "sources"}` z `MC_INDEX.json` —
-   po tym widac na stronie i w `/diff/`, ze kolektor sie uruchomil i co przeczytal. Brak klucza
-   `mc.collector` w stanie znaczy, ze lista MC znow zostala przepisana recznie.
-6. Kolektor uruchamiaja OBA przebiegi briefu: poranny i popoludniowy (nowe wpisy MC przychodza
-   w ciagu dnia; 25 IX MC1479509 opublikowano o 21:37 UTC).
-7. W odpowiedzi przebiegu: `MC_INDEX.json counts` i stan kazdego zrodla.
-
-```python
-#!/usr/bin/env python3
-"""collect_mc.py - Message Center: EVERY post, read by code, never retyped by the run (CLAUDE.md 5bo).
-
-  SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> python3 collect_mc.py MC_INDEX.json [<poprzedni site/data/*.json>]
-
-Why: 26 IX 2026 the morning brief carried 145 Message Center entries where the day before it
-carried 368, and MC1479509 ("Spell check before sending emails in new Outlook", Exchange Online)
-was missing although MC1479503 and MC1479516 around it were there - the index was re-typed by the
-run and posts fell out. The owner: "do not filter - we must catch such messages". So the list
-comes from code, and the brief ENRICHES it (summary, action, items), it does not choose it.
-
-Sources, each with its own state (ok / unread + note), none of them the only truth:
-  index   https://mc.merill.net/?type=mc - the 200 most recently UPDATED rows (MC and Roadmap
-          mixed; Roadmap rows are skipped). Row = id, title, service badges, "Last updated".
-  feed    https://msmessagecenter.com/feed.xml - RSS, the 100 most recent posts with the publication
-          time and category (Plan for Change / Stay Informed / Prevent or Fix Issue).
-  tenant  <SOC_REPO>/site/data/mc-tenant.json - Message Center of the owner's tenant through
-          Microsoft Graph (tools/mc_tenant.py, GitHub Actions). Covers only services the tenant
-          subscribes to, but carries category, severity, major, action date and field changes.
-  prev    mc.entries of the previous state - every entry already known stays (the window, not
-          this run, decides when an entry leaves - 5bg).
-Output (MC_INDEX.json): {readOn, sources:{index:{...}, feed:{...}, tenant:{...}},
-  entries:[{id,type:"MC",title,link,updated,published,tech,origin,firstTracked,category,feedSummary,
-            severity,isMajor,action,tenantChange}], added:[ids first seen now], counts:{...}}
-`origin` names every source that knows the entry (prev, index, feed, tenant joined by "+")."""
-import datetime, html, json, os, re, sys, urllib.request
-
-UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
-INDEX = "https://mc.merill.net/?type=mc"
-FEED = "https://msmessagecenter.com/feed.xml"
-MON = {m: i + 1 for i, m in enumerate(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"])}
-
-
-def iso(txt):
-    m = re.match(r"([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", (txt or "").strip())
-    return "%s-%02d-%02d" % (m.group(3), MON[m.group(1)], int(m.group(2))) if m and m.group(1) in MON else None
-
-
-def read_index():
-    req = urllib.request.Request(INDEX, headers={"User-Agent": UA})
-    h = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
-    total = re.search(r"Showing (\d+) of (\d+) results", h)
-    rows = re.findall(r'<tr class="border-b[^"]*cursor-pointer"[^>]*>(.*?)</tr>', h, re.S)
-    out = []
-    for r in rows:
-        m = re.search(r'href="/message/(MC\d+)">MC\d+</a>', r)
-        if not m:
-            continue                                   # Roadmap row (RM...), not Message Center
-        mid = m.group(1)
-        t = re.search(r'href="/message/%s">(?!%s<)(.*?)</a>' % (mid, mid), r, re.S)
-        sv = [html.unescape(x).strip() for x in re.findall(r'text-nowrap">([^<]+)</div>', r)]
-        d = re.findall(r'<span class="text-nowrap leading-7[^"]*">([^<]+)</span>', r)
-        out.append({"id": mid, "title": html.unescape(re.sub(r"\s+", " ", t.group(1))).strip() if t else "",
-                    "tech": sv, "updated": iso(d[-1]) if d else None,
-                    "link": "https://mc.merill.net/message/" + mid})
-    return out, len(rows), int(total.group(2)) if total else None
-
-
-def read_feed():
-    import email.utils
-    req = urllib.request.Request(FEED, headers={"User-Agent": UA})
-    x = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
-    out = []
-    for it in re.findall(r"<item>(.*?)</item>", x, re.S):
-        g = lambda tag: (re.search(r"<%s>(.*?)</%s>" % (tag, tag), it, re.S) or [None, ""])[1]
-        tt = html.unescape(g("title"))
-        m = re.match(r"(MC\d+)\s*[\u2013-]\s*(.*)", tt)
-        if not m:
-            continue
-        cats = [html.unescape(c) for c in re.findall(r"<category>(.*?)</category>", it)]
-        try:
-            pub = email.utils.parsedate_to_datetime(g("pubDate")).date().isoformat()
-        except Exception:
-            pub = None
-        out.append({"id": m.group(1), "title": m.group(2).strip(), "published": pub,
-                    "category": cats[0] if cats else None, "tech": cats[1:],
-                    "summary": html.unescape(re.sub(r"<[^>]+>", "", g("description")))[:400],
-                    "feedLink": "https://msmessagecenter.com/" + m.group(1)})
-    return out
-
-
-def main(out_path, prev_path=None):
-    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
-    repo = os.environ.get("SOC_REPO") or "../chk"
-    src = {}
-    try:
-        idx, nrows, total = read_index()
-        src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": total, "url": INDEX, "note": ""}
-    except Exception as ex:
-        idx = []
-        src["index"] = {"state": "unread", "rows": 0, "mc": 0, "total": None, "url": INDEX, "note": str(ex)[:200]}
-    try:
-        fd = read_feed()
-        src["feed"] = {"state": "ok", "items": len(fd), "url": FEED, "note": ""}
-    except Exception as ex:
-        fd = []
-        src["feed"] = {"state": "unread", "items": 0, "url": FEED, "note": str(ex)[:200]}
-    ten = {}
-    tp = os.path.join(repo, "site", "data", "mc-tenant.json")
-    try:
-        ten = json.load(open(tp, encoding="utf-8"))
-        src["tenant"] = {"state": "ok" if ten.get("messages") else "unread", "count": ten.get("count", 0),
-                         "read": ten.get("read"), "note": ten.get("note") or ""}
-    except Exception as ex:
-        src["tenant"] = {"state": "unread", "count": 0, "read": None, "note": "no %s (%s)" % (tp, str(ex)[:120])}
-    prev = []
-    if prev_path and os.path.exists(prev_path):
-        try:
-            p = json.load(open(prev_path, encoding="utf-8"))
-            prev = ((p.get("soc-brief-state") or p).get("mc") or {}).get("entries") or []
-        except Exception:
-            prev = []
-    known = {e.get("id"): e for e in prev if e.get("id")}
-    tmsg = {m["id"]: m for m in (ten.get("messages") or []) if m.get("id")}
-    tchg = {}
-    for c in ten.get("changes") or []:
-        if c.get("date") == ten.get("read") and c.get("type") == "changed":
-            tchg[c["id"]] = c.get("fields") or {}
-    ent = {}
-    for e in prev:                                     # everything already known stays
-        if e.get("id"):
-            ent[e["id"]] = {"id": e["id"], "type": "MC", "title": e.get("title") or "", "link": e.get("link") or "",
-                            "updated": e.get("revisedOn") or e.get("published"), "tech": e.get("tech") or [],
-                            "origin": "prev", "firstTracked": e.get("firstTracked") or day}
-    for r in idx:
-        x = ent.setdefault(r["id"], {"id": r["id"], "type": "MC", "firstTracked": day, "origin": "index"})
-        x.update({k: v for k, v in r.items() if v})
-        if x["origin"] == "prev":
-            x["origin"] = "index"
-    for f in fd:
-        x = ent.setdefault(f["id"], {"id": f["id"], "type": "MC", "firstTracked": day, "origin": "feed",
-                                     "title": f["title"], "link": f["feedLink"], "tech": f["tech"]})
-        if x.get("origin") == "index":
-            x["origin"] = "index+feed"
-        # the feed's description is msmessagecenter.com's own summary, not Microsoft's sentence,
-        # so it never goes into `summary` (5an: "<zdanie Microsoftu, nie nasze>")
-        if f.get("summary") and not x.get("feedSummary"):
-            x["feedSummary"] = f["summary"]
-        for k in ("published", "feedLink"):
-            if f.get(k) and not x.get(k):
-                x[k] = f[k]
-        if f.get("category") and not x.get("category"):
-            x["category"] = f["category"]
-        if not x.get("tech"):
-            x["tech"] = f["tech"]
-    for i, m in tmsg.items():
-        x = ent.setdefault(i, {"id": i, "type": "MC", "title": m.get("title") or "", "firstTracked": day,
-                               "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/" + i,
-                               "tech": m.get("services") or [], "origin": "tenant"})
-        if x.get("origin") != "tenant":
-            x["origin"] = x["origin"] + "+tenant"
-        x.update({"category": m.get("category"), "severity": m.get("severity"), "isMajor": m.get("major"),
-                  "action": m.get("actionBy"), "tenantUpdated": m.get("modified")})
-        if i in tchg:
-            x["tenantChange"] = tchg[i]
-    entries = sorted(ent.values(), key=lambda e: (e.get("updated") or e.get("published") or e.get("tenantUpdated") or "", e["id"]), reverse=True)
-    added = [e["id"] for e in entries if e["id"] not in known]
-    out = {"readOn": day, "sources": src, "entries": entries, "added": added,
-           "counts": {"entries": len(entries), "added": len(added), "fromIndex": len(idx),
-                      "fromFeed": len(fd), "fromTenant": len(tmsg), "fromPrev": len(known)}}
-    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    print("OK  %s  %d entries (%d new this run) - index %s %d MC of %d rows, feed %s %d, tenant %s %d, prev %d"
-          % (out_path, len(entries), len(added), src["index"]["state"], len(idx), src["index"]["rows"],
-             src["feed"]["state"], len(fd), src["tenant"]["state"], len(tmsg), len(known)))
-
-
-if __name__ == "__main__":
-    a = [x for x in sys.argv[1:] if not x.startswith("--")]
-    main(a[0] if a else "MC_INDEX.json", a[1] if len(a) > 1 else None)
-```
-
 ### Kontrakt danych — `mc` w bloku `soc-brief-state`
 
 **TRZECIEGO bloku `<script type="application/json">` NIE dokladasz** (§0a) i **nie wozisz danych
@@ -22770,7 +22566,7 @@ odtad CZTERNASCIE (4-17).**
 
     p.appendChild(sec("mc-today", "Section A",
       today.length ? "What Microsoft published today" : "What Microsoft published in this window",
-      pick.length, true,
+      pick.length, !window.__socMCB,   /* §5bp: the browser above is the way in; this table stays */
       "Every entry Microsoft posted to Message Center or the Roadmap, read on " + esc(D.readOn || "") +
       ". An entry carrying a date to act by is listed first, because that is the one that needs a plan. " +
       "<b>Message Center content varies by tenant</b> — confirm anything here in your own tenant.",
@@ -22900,13 +22696,16 @@ odtad CZTERNASCIE (4-17).**
   }
 
   /* ---------------- opening the tab, narrowed ---------------- */
-  window.__socOpenMC = function (key, product) {
+  window.__socOpenMC = function (key, product, toMap) {
     var tab = null;
     [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (t) {
       if (!tab && t.getAttribute("aria-controls") === "tab-mc") tab = t;
     });
     if (tab) tab.click();
     setTimeout(function () {
+      /* §5bp: an MC number or a product opens the Message Center browser; a story key
+         that is not a post, or `toMap`, still goes to Section B as before */
+      if (!toMap && window.__socMCB && window.__socMCB.handle(key, product)) return;
       var s11 = window.__socS11;
       if (key) {
         var m = BYKEY[key], ids = [key];
@@ -22967,6 +22766,400 @@ Render (§5h) sprawdza to, czego bramka z pliku nie zobaczy: ze kolumna `Message
 stoi w tabeli Overview, Today i New; ze klikniecie chipa otwiera `tab-mc` i podswietla wiersz;
 ze `+` w `mc-map` rozwija blok `.s12file` z `data-ntowner="mc-map"` i ze ten blok NIE ma klasy
 `s12orphan`; oraz ze `navrow daily` ma siedem zakladek.
+
+
+## 5bo. MESSAGE CENTER Z KODU, NIE Z PRZEPISYWANIA — i bez filtrowania (26 IX 2026)
+
+Wlasciciel, 26 IX 2026: „to nie filtrujmy. musimy wylapywac takie wiadomosci, bo te akurat sa
+wazne" — o MC1479509 (Exchange Online, sprawdzanie pisowni przed wyslaniem w nowym Outlooku)
+i MC1478962 (Conditional Access a logowanie urzadzen Teams Android). Zmierzone tego dnia:
+brief z 26 IX niosl **145** wpisow `mc.entries`, dzien wczesniej **368**; MC1479509 nie bylo,
+choc MC1479503 i MC1479516 obok niego byly. Indeks byl PRZEPISYWANY przez przebieg, nie czytany
+kodem — i wpisy wypadaly bez sladu.
+
+Regula:
+
+1. **Liste wpisow MC robi `collect_mc.py`** (kod ponizej, uruchamiany z pozostalymi
+   kolektorami). Czyta cztery zrodla, kazde ze stanem `ok`/`unread`: pierwsza strone indeksu
+   `mc.merill.net/?type=mc` (200 ostatnio ZAKTUALIZOWANYCH wierszy, MC i Roadmapa razem;
+   Roadmapa jest pomijana), kanal `msmessagecenter.com/feed.xml` (100 ostatnich wpisow z data
+   publikacji i kategoria), **DeltaPulse** — publiczny serwer MCP `https://deltapulse.app/mcp`
+   (JSON-RPC po HTTPS, bez klucza; jedno wywolanie `search` = kazdy wpis MC opublikowany lub
+   zmieniony w ostatnich 30 dniach z usluga, kategoria, waga, major, terminem dzialania,
+   miesiacami i tagami; `fetch` dokłada krotkie streszczenie dla najwyzej 40 wpisow nowych
+   w tym przebiegu) oraz `site/data/mc-tenant.json` — Message Center tenanta wlasciciela
+   z Microsoft Graph (`tools/mc_tenant.py`, workflow co 3 godziny, uprawnienie
+   `ServiceMessage.Read.All`). Zadne z nich nie jest jedynym zrodlem prawdy; `origin` wpisu
+   nazywa wszystkie, ktore go znaja.
+2. **`mc.entries` = WSZYSTKIE wpisy z `MC_INDEX.json`** (unia, po `id`). Przebieg je WZBOGACA —
+   `summary` (zdanie Microsoftu), `action`, `itemIds`, `note` — ale nie WYBIERA. **Zadnego
+   filtra „tylko bezpieczenstwo"**: istotnosc dla bezpieczenstwa to znacznik i kolejnosc na
+   stronie, nigdy powod pominiecia wpisu. `firstTracked`, `link` i `published` bierze sie
+   z kolektora — a takze, BEZ ZMIAN, `type`, `storyKey`, `tech`, `category`, `severity`,
+   `isMajor`, `months`, `tags`, `feedLink`, `dpLink`, `feedSummary`, `dpSummary`, `late`,
+   `backfill` i `note`. `updated` kolektora, gdy jest pozniejszy niz `published`, idzie do
+   `revisedOn`; data `action` kolektora (termin Microsoftu z DeltaPulse lub tenanta) idzie do
+   `deadline`, a `action` zostaje zdaniem przebiegu „co zrobic". Te pola czyta przegladarka
+   Message Center (§5bp) — bez nich kolumna uslug znow mowi „untagged".
+3. `feedSummary` to streszczenie msmessagecenter.com, a `dpSummary` streszczenie DeltaPulse —
+   ZADNE nie jest zdaniem Microsoftu i zadnego nie przenosi sie do `summary`. DeltaPulse czyta sie
+   WYLACZNIE przez serwer MCP: regulamin serwisu zabrania scrapingu, a robots.txt zamyka `/api/`,
+   wiec kod nigdy nie pobiera stron `/item/<ID>` (link do nich — `dpLink` — wolno pokazywac).
+4. Liczba wpisow nie spada miedzy przebiegami inaczej niz przez okno czasu (§5bg). Wpis znany
+   poprzedniemu stanowi zostaje (kolektor go przenosi); o jego wyjsciu decyduje okno, nie przebieg.
+5. Przebieg zapisuje `mc.collector = {"readOn", "counts", "sources"}` z `MC_INDEX.json` —
+   po tym widac na stronie i w `/diff/`, ze kolektor sie uruchomil i co przeczytal. Brak klucza
+   `mc.collector` w stanie znaczy, ze lista MC znow zostala przepisana recznie.
+6. Kolektor uruchamiaja OBA przebiegi briefu: poranny i popoludniowy (nowe wpisy MC przychodza
+   w ciagu dnia; 25 IX MC1479509 opublikowano o 21:37 UTC).
+7. W odpowiedzi przebiegu: `MC_INDEX.json counts` i stan kazdego zrodla.
+8. **Nowe od poprzedniego briefu** (`firstTracked == briefDate`, §5bn) liczy sie uczciwie, choc
+   DeltaPulse siega 30 dni wstecz: wpis nieznany poprzedniemu stanowi, opublikowany PRZED
+   poprzednim briefem i starszy niz 7 dni, dostaje `firstTracked = published` i `backfill`
+   (uzupelnienie, nie nowosc); opublikowany w ostatnich 7 dniach zostaje nowy i niesie `late`
+   (dzien publikacji) — pasek pokazuje go jako „caught late, published <data>". Zmierzone
+   26 IX 2026: DeltaPulse dolozyl 22 takie wpisy z tygodnia, ktorych zaden brief nie mial,
+   w tym MC1478962.
+
+```python
+#!/usr/bin/env python3
+"""collect_mc.py - Message Center: EVERY post, read by code, never retyped by the run (CLAUDE.md 5bo).
+
+  SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> python3 collect_mc.py MC_INDEX.json [<poprzedni site/data/*.json>]
+
+Why: 26 IX 2026 the morning brief carried 145 Message Center entries where the day before it
+carried 368, and MC1479509 ("Spell check before sending emails in new Outlook", Exchange Online)
+was missing although MC1479503 and MC1479516 around it were there - the index was re-typed by the
+run and posts fell out. The owner: "do not filter - we must catch such messages". So the list
+comes from code, and the brief ENRICHES it (summary, action, items), it does not choose it.
+
+Sources, each with its own state (ok / unread + note), none of them the only truth:
+  index   https://mc.merill.net/?type=mc - the 200 most recently UPDATED rows (MC and Roadmap
+          mixed; Roadmap rows are skipped). Row = id, title, service badges, "Last updated".
+  feed    https://msmessagecenter.com/feed.xml - RSS, the 100 most recent posts with the publication
+          time and category (Plan for Change / Stay Informed / Prevent or Fix Issue).
+  tenant  <SOC_REPO>/site/data/mc-tenant.json - Message Center of the owner's tenant through
+          Microsoft Graph (tools/mc_tenant.py, GitHub Actions). Covers only services the tenant
+          subscribes to, but carries category, severity, major, action date and field changes.
+  deltapulse  https://deltapulse.app/mcp - DeltaPulse's public MCP server (JSON-RPC over HTTPS, no key,
+          documented in deltapulse.app/llms-full.txt as THE programmatic access; the site's terms forbid
+          scraping and robots.txt closes /api/, so item pages are never read by code). One `search`
+          call returns every Message Center post published or updated in the last 30 days with
+          service, category, severity, major, action date, months and tags; `fetch` adds a short
+          summary for at most DP_FETCH entries first seen now. Added 26 IX 2026: MC1478962 (Teams,
+          Conditional Access on Teams Android devices) was on DeltaPulse but in neither index nor feed.
+  prev    mc.entries of the previous state - every entry already known stays (the window, not
+          this run, decides when an entry leaves - 5bg).
+Output (MC_INDEX.json): {readOn, sources:{index:{...}, feed:{...}, tenant:{...}},
+  entries:[{id,type:"MC",title,link,updated,published,tech,origin,firstTracked,category,feedSummary,
+            severity,isMajor,action,months,tags,dpLink,dpSummary,backfill,late,tenantChange}], added:[ids first seen now], counts:{...}}
+`origin` names every source that knows the entry (prev, index, feed, deltapulse, tenant joined by "+")."""
+import datetime, html, json, os, re, sys, urllib.request
+
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+INDEX = "https://mc.merill.net/?type=mc"
+FEED = "https://msmessagecenter.com/feed.xml"
+DPMCP = "https://deltapulse.app/mcp"
+DP_FETCH = 40
+LATE_DAYS = 7
+DPCAT = {"planForChange": "Plan for Change", "stayInformed": "Stay Informed", "preventOrFixIssue": "Prevent or Fix Issue"}
+MON = {m: i + 1 for i, m in enumerate(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"])}
+
+
+def iso(txt):
+    m = re.match(r"([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", (txt or "").strip())
+    return "%s-%02d-%02d" % (m.group(3), MON[m.group(1)], int(m.group(2))) if m and m.group(1) in MON else None
+
+
+def read_index():
+    req = urllib.request.Request(INDEX, headers={"User-Agent": UA})
+    h = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    total = re.search(r"Showing (\d+) of (\d+) results", h)
+    rows = re.findall(r'<tr class="border-b[^"]*cursor-pointer"[^>]*>(.*?)</tr>', h, re.S)
+    out = []
+    for r in rows:
+        m = re.search(r'href="/message/(MC\d+)">MC\d+</a>', r)
+        if not m:
+            continue                                   # Roadmap row (RM...), not Message Center
+        mid = m.group(1)
+        t = re.search(r'href="/message/%s">(?!%s<)(.*?)</a>' % (mid, mid), r, re.S)
+        sv = [html.unescape(x).strip() for x in re.findall(r'text-nowrap">([^<]+)</div>', r)]
+        d = re.findall(r'<span class="text-nowrap leading-7[^"]*">([^<]+)</span>', r)
+        out.append({"id": mid, "title": html.unescape(re.sub(r"\s+", " ", t.group(1))).strip() if t else "",
+                    "tech": sv, "updated": iso(d[-1]) if d else None,
+                    "link": "https://mc.merill.net/message/" + mid})
+    return out, len(rows), int(total.group(2)) if total else None
+
+
+def read_feed():
+    import email.utils
+    req = urllib.request.Request(FEED, headers={"User-Agent": UA})
+    x = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    out = []
+    for it in re.findall(r"<item>(.*?)</item>", x, re.S):
+        g = lambda tag: (re.search(r"<%s>(.*?)</%s>" % (tag, tag), it, re.S) or [None, ""])[1]
+        tt = html.unescape(g("title"))
+        m = re.match(r"(MC\d+)\s*[\u2013-]\s*(.*)", tt)
+        if not m:
+            continue
+        cats = [html.unescape(c) for c in re.findall(r"<category>(.*?)</category>", it)]
+        try:
+            pub = email.utils.parsedate_to_datetime(g("pubDate")).date().isoformat()
+        except Exception:
+            pub = None
+        out.append({"id": m.group(1), "title": m.group(2).strip(), "published": pub,
+                    "category": cats[0] if cats else None, "tech": cats[1:],
+                    "summary": html.unescape(re.sub(r"<[^>]+>", "", g("description")))[:400],
+                    "feedLink": "https://msmessagecenter.com/" + m.group(1)})
+    return out
+
+
+def dp_call(name, args):
+    body = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+                       "params": {"name": name, "arguments": args}}).encode()
+    req = urllib.request.Request(DPMCP, body, {"User-Agent": UA, "Content-Type": "application/json",
+                                               "Accept": "application/json, text/event-stream"})
+    j = json.load(urllib.request.urlopen(req, timeout=90))
+    if j.get("error"):
+        raise RuntimeError("deltapulse %s: %s" % (name, str(j["error"])[:150]))
+    o = json.loads(j["result"]["content"][0]["text"])
+    while isinstance(o, dict) and isinstance(o.get("content"), list) and o["content"] and o["content"][0].get("type") == "text":
+        o = json.loads(o["content"][0]["text"])          # the server wraps its answer twice
+    return o
+
+
+def read_deltapulse():
+    o = dp_call("search", {"source": "messages", "dateRange": "last_30_days", "limit": 2000})
+    rows = o.get("results") or o.get("items") or []
+    out = []
+    for r in rows:
+        mid = r.get("id") or ""
+        if not re.match(r"MC\d+$", mid):
+            continue
+        d = lambda k: (r.get(k) or "")[:10] or None
+        out.append({"id": mid, "title": (r.get("title") or "").strip(), "published": d("publishedDate"),
+                    "updated": d("lastUpdatedDate"), "tech": r.get("service") or [],
+                    "category": DPCAT.get(r.get("category"), r.get("category")), "severity": r.get("severity"),
+                    "isMajor": r.get("isMajorChange"), "action": d("actionRequiredByDateTime"),
+                    "months": r.get("months") or [], "tags": r.get("tags") or [],
+                    "dpLink": r.get("url") or "https://deltapulse.app/item/" + mid})
+    return out, o.get("total_count"), bool(o.get("hasMore"))
+
+
+def main(out_path, prev_path=None):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    repo = os.environ.get("SOC_REPO") or "../chk"
+    src = {}
+    try:
+        idx, nrows, total = read_index()
+        src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": total, "url": INDEX, "note": ""}
+    except Exception as ex:
+        idx = []
+        src["index"] = {"state": "unread", "rows": 0, "mc": 0, "total": None, "url": INDEX, "note": str(ex)[:200]}
+    try:
+        fd = read_feed()
+        src["feed"] = {"state": "ok", "items": len(fd), "url": FEED, "note": ""}
+    except Exception as ex:
+        fd = []
+        src["feed"] = {"state": "unread", "items": 0, "url": FEED, "note": str(ex)[:200]}
+    try:
+        dp, dptotal, dpmore = read_deltapulse()
+        src["deltapulse"] = {"state": "ok" if dp else "unread", "items": len(dp), "total": dptotal, "url": DPMCP,
+                             "window": "last_30_days", "fetched": 0,
+                             "note": "hasMore - raise the limit" if dpmore else ("" if dp else "0 rows")}
+    except Exception as ex:
+        dp = []
+        src["deltapulse"] = {"state": "unread", "items": 0, "total": None, "url": DPMCP, "window": "last_30_days",
+                             "fetched": 0, "note": str(ex)[:200]}
+    ten = {}
+    tp = os.path.join(repo, "site", "data", "mc-tenant.json")
+    try:
+        ten = json.load(open(tp, encoding="utf-8"))
+        src["tenant"] = {"state": "ok" if ten.get("messages") else "unread", "count": ten.get("count", 0),
+                         "read": ten.get("read"), "note": ten.get("note") or ""}
+    except Exception as ex:
+        src["tenant"] = {"state": "unread", "count": 0, "read": None, "note": "no %s (%s)" % (tp, str(ex)[:120])}
+    prev = []
+    prevDay = None
+    if prev_path and os.path.exists(prev_path):
+        try:
+            p = json.load(open(prev_path, encoding="utf-8"))
+            ps = p.get("soc-brief-state") or p
+            prev = (ps.get("mc") or {}).get("entries") or []
+            prevDay = ps.get("briefDate") or prevDay
+        except Exception:
+            prev = []
+    known = {e.get("id"): e for e in prev if e.get("id")}
+    tmsg = {m["id"]: m for m in (ten.get("messages") or []) if m.get("id")}
+    tchg = {}
+    for c in ten.get("changes") or []:
+        if c.get("date") == ten.get("read") and c.get("type") == "changed":
+            tchg[c["id"]] = c.get("fields") or {}
+    ent = {}
+    for e in prev:                                     # everything already known stays
+        if e.get("id"):
+            x = {"id": e["id"], "type": "RM" if str(e["id"]).upper().startswith("RM") else "MC",
+                 "title": e.get("title") or "", "link": e.get("link") or "",
+                 "updated": e.get("revisedOn") or e.get("published"), "tech": e.get("tech") or [],
+                 "origin": "prev", "firstTracked": e.get("firstTracked") or day}
+            for k in ("published", "category", "severity", "isMajor", "months", "tags", "dpLink",
+                      "feedLink", "feedSummary", "dpSummary", "late", "backfill"):
+                if e.get(k) not in (None, "", []):
+                    x[k] = e[k]                          # what an earlier run read is not lost
+            ent[e["id"]] = x
+    for r in idx:
+        x = ent.setdefault(r["id"], {"id": r["id"], "type": "MC", "firstTracked": day, "origin": "index"})
+        x.update({k: v for k, v in r.items() if v})
+        if x["origin"] == "prev":
+            x["origin"] = "index"
+    for f in fd:
+        x = ent.setdefault(f["id"], {"id": f["id"], "type": "MC", "firstTracked": day, "origin": "feed",
+                                     "title": f["title"], "link": f["feedLink"], "tech": f["tech"]})
+        if x.get("origin") == "index":
+            x["origin"] = "index+feed"
+        # the feed's description is msmessagecenter.com's own summary, not Microsoft's sentence,
+        # so it never goes into `summary` (5an: "<zdanie Microsoftu, nie nasze>")
+        if f.get("summary") and not x.get("feedSummary"):
+            x["feedSummary"] = f["summary"]
+        for k in ("published", "feedLink"):
+            if f.get(k) and not x.get(k):
+                x[k] = f[k]
+        if f.get("category") and not x.get("category"):
+            x["category"] = f["category"]
+        if not x.get("tech"):
+            x["tech"] = f["tech"]
+    for r in dp:
+        x = ent.setdefault(r["id"], {"id": r["id"], "type": "MC", "firstTracked": day, "origin": "deltapulse",
+                                     "title": r["title"], "link": r["dpLink"], "tech": r["tech"]})
+        if x.get("origin") != "deltapulse":
+            x["origin"] = "deltapulse" if x["origin"] == "prev" else x["origin"] + "+deltapulse"
+        if r["updated"] and r["updated"] > (x.get("updated") or ""):
+            x["updated"] = r["updated"]                  # the latest revision any source saw
+        for k in ("published", "category", "severity", "isMajor", "action", "title"):
+            if r.get(k) not in (None, "") and x.get(k) in (None, ""):
+                x[k] = r[k]
+        for k in ("months", "tags", "dpLink"):
+            if r.get(k):
+                x[k] = r[k]
+        if not x.get("tech"):
+            x["tech"] = r["tech"]
+    # a short summary from DeltaPulse for entries first seen now (bounded; DeltaPulse's own words,
+    # so a separate field like feedSummary - never `summary`)
+    n = 0
+    for r in dp:
+        x = ent[r["id"]]
+        if r["id"] in known or x.get("feedSummary") or x.get("dpSummary") or n >= DP_FETCH:
+            continue
+        try:
+            f = dp_call("fetch", {"id": r["id"], "includeChangeHistory": False})
+            if f.get("content"):
+                x["dpSummary"] = re.sub(r"\s+", " ", f["content"]).strip()[:400]
+            n += 1
+        except Exception as ex:
+            src["deltapulse"]["note"] = (src["deltapulse"]["note"] + " fetch %s: %s" % (r["id"], str(ex)[:80])).strip()
+            break
+    src["deltapulse"]["fetched"] = n
+    for i, m in tmsg.items():
+        x = ent.setdefault(i, {"id": i, "type": "MC", "title": m.get("title") or "", "firstTracked": day,
+                               "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/" + i,
+                               "tech": m.get("services") or [], "origin": "tenant"})
+        if x.get("origin") != "tenant":
+            x["origin"] = x["origin"] + "+tenant"
+        x.update({"category": m.get("category"), "severity": m.get("severity"), "isMajor": m.get("major"),
+                  "action": m.get("actionBy"), "tenantUpdated": m.get("modified")})
+        if i in tchg:
+            x["tenantChange"] = tchg[i]
+    # backfill: a source that reaches further back (DeltaPulse: 30 days) brings posts published
+    # before the previous brief. They are known now, but they are not NEW since that brief, so
+    # firstTracked takes the publication day (5bn counts firstTracked == briefDate as new).
+    # A post of the last LATE_DAYS that no earlier brief carried (MC1478962, 24 IX 2026) stays new
+    # today and carries `late` (its publication day) so the page can say it was caught late.
+    nb = nl = 0
+    week = (datetime.date.fromisoformat(day) - datetime.timedelta(days=LATE_DAYS)).isoformat()
+    for x in ent.values():
+        if x["id"] not in known and prevDay and x.get("firstTracked") == day and x.get("published") \
+                and x["published"] < prevDay:
+            if x["published"] >= week:
+                x["late"] = x["published"]
+                nl += 1
+            else:
+                x["firstTracked"] = x["published"]
+                x["backfill"] = day
+                nb += 1
+    for x in ent.values():
+        x.setdefault("storyKey", x["id"])               # 5az: the MC/RM number IS the story key
+        if not x.get("link"):
+            x["link"] = x.get("dpLink") or "https://mc.merill.net/message/" + x["id"]
+        if not x.get("published") and not x.get("note"):
+            x["note"] = "no source read a publication date for this post"
+    entries = sorted(ent.values(), key=lambda e: (e.get("updated") or e.get("published") or e.get("tenantUpdated") or "", e["id"]), reverse=True)
+    added = [e["id"] for e in entries if e["id"] not in known]
+    out = {"readOn": day, "sources": src, "entries": entries, "added": added, "prevBrief": prevDay,
+           "counts": {"entries": len(entries), "added": len(added), "fromIndex": len(idx),
+                      "fromFeed": len(fd), "fromDeltaPulse": len(dp), "fromTenant": len(tmsg), "fromPrev": len(known), "backfill": nb, "late": nl}}
+    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("OK  %s  %d entries (%d new this run) - index %s %d MC of %d rows, feed %s %d, deltapulse %s %d (%d fetched), tenant %s %d, prev %d"
+          % (out_path, len(entries), len(added), src["index"]["state"], len(idx), src["index"]["rows"],
+             src["feed"]["state"], len(fd), src["deltapulse"]["state"], len(dp), src["deltapulse"]["fetched"],
+             src["tenant"]["state"], len(tmsg), len(known)))
+
+
+if __name__ == "__main__":
+    a = [x for x in sys.argv[1:] if not x.startswith("--")]
+    main(a[0] if a else "MC_INDEX.json", a[1] if len(a) > 1 else None)
+```
+
+## 5bp. PRZEGLADARKA MESSAGE CENTER — widoki, fasety z licznikami, jedna linia na wpis (26 IX 2026)
+
+Wlasciciel, 26 IX 2026: *„przemysl dokladnie jak chcemy pokazywac tak duza ilosc informacji …
+zeby poprawic nawigacje i latwosc odnajdywania danych i odnalezienia sie w portalu. Moze trzeba
+przejrzec jak robia to inni"*. Zmierzone tego dnia na `art26_b.html`: zakladka Message Center
+miala **12 983 px** i 550 wierszy tabel, kolumna TECHNOLOGY mowila „untagged" przy wiekszosci
+wpisow, a jedyna droga do wpisu bylo przewijanie. Wzorzec wziety od serwisow, ktore robia to
+codziennie (DeltaPulse, mc.merill.net): kilka WIDOKOW odpowiadajacych na pytanie, FASETY
+z licznikami, jedna linia na wpis, szczegoly na zadanie, link do kazdego wpisu. Propozycja dla
+calego portalu: dokument projektu `claude/ms-soc-navigation-proposal-large-tabs.md` (D1 = ta
+zakladka, D2 Graph API, D3 artykuly).
+
+Regula (kod: ostatni blok SKRYPTU 17, CSS: blok po §5bn):
+
+1. **`#mc-browse` stoi zaraz pod paskiem §5bn** i jest drzwiami do zakladki. Sekcje A–D
+   SKRYPTU 16 zostaja (bramka 90c ich wymaga), ale Sekcja A startuje zwinieta, gdy przegladarka
+   istnieje.
+2. **Cztery widoki**, kazdy z licznikiem, ktory idzie za filtrami: *Needs action* (wpisy
+   z `deadline`, najblizszy termin pierwszy, grupy „Act by <miesiac>" i „Date already passed"),
+   *New* (`firstTracked == briefDate`), *Revised* (`revisedOn` w ostatnich 7 dniach), *All*
+   (najnowsza aktywnosc pierwsza). Poza *Needs action* lista jest grupowana po tygodniach.
+3. **Fasety z licznikami**: usluga (8 najczestszych + lista „more"), kategoria, flagi
+   (termin, major, high, *caught late*), zrodlo (merill, msmessagecenter, DeltaPulse, tenant,
+   pozycja strony) i typ MC / Roadmapa (Roadmapa NIE jest liczona jako Message Center).
+   Zero nie jest linkiem (przycisk wylaczony). Czynny filtr jest ZIELONY (§5av): chip, pasek
+   „Filtered · N shown" z `×` przy kazdym filtrze i zielonym „Clear all"; widoki i typ sa
+   kontrolkami, wiec sa niebieskie.
+4. **Jedna linia na wpis**: data, numer, tytul, do trzech uslug, kategoria i pigulki (NEW,
+   NEW · late, rev <data>, act by <data>, MAJOR, HIGH). Klikniecie rozwija szczegoly w miejscu:
+   streszczenia z PODPISANYM zrodlem (Microsoft / msmessagecenter.com / DeltaPulse — nigdy
+   zmieszane), „What to do" przebiegu, daty, uslugi, miesiace, tagi, zmiany w tenancie,
+   znaczki zrodel i linki (centrum administracyjne, merill, msmessagecenter, DeltaPulse).
+5. **Deep link `#MC<numer>`** (tylko goly token, §5bj) otwiera zakladke, widok *All* bez
+   filtrow, rozwija wpis i przewija do niego; rozwiniecie wpisu wpisuje jego numer do adresu,
+   a „Copy link to this post" kopiuje ten adres.
+6. **`__socOpenMC(key, product)`** (SKRYPT 16, chipy z Today/New i licznik w Overview) najpierw
+   pyta przegladarke: numer wpisu otwiera wpis, produkt ustawia fasete uslugi. Klucz historii,
+   ktory nie jest wpisem, albo trzeci argument `toMap` prowadza jak dotad do Sekcji B —
+   przycisk „Same change in documentation and articles" w szczegolach uzywa `toMap`.
+7. **Licznik zakladki to liczba WPISOW MC**, nie wierszy tabel (26 IX: 746 wierszy przy 414
+   wpisach) — ten sam precedens co zakladka First-party apps (§5bl).
+8. Stronicowanie: 80 wierszy na komputerze, 30 na telefonie, „Show N more (M left)".
+9. Jeden pisarz: blok pisze tylko `#mc-browse` i licznik zakladki; nigdy `row.hidden` ani
+   `data-s11`.
+
+Zmierzone 26 IX 2026 w Playwright (1500 px jasny, 400 px ciemny) na `art26_b.html` z wpisami
+z `collect_mc.py`: zakladka 6 089 px zamiast 12 983 (telefon 4 811), 414 wpisow MC + 160
+Roadmapy, 0 bez tytulu, 0 bez uslugi, faseta Microsoft Teams → 72 wpisy (wszystkie Teams),
+pasek filtra `rgb(219,240,227)`, deep link `#MC1479509` otwiera wpis, `__socOpenMC(null,
+"Exchange Online")` → 24 wpisy, 0 bledow konsoli, brak przewijania w bok; bramka: te same
+pozycje co przed zmiana (90a przechodzi po poszerzeniu slownika `origin`).
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
@@ -25568,15 +25761,17 @@ odtad CZTERNASCIE (4-17).**
     MC.forEach(function (m) {
       var isNew = m.firstTracked ? m.firstTracked === day : after(m.published);
       var act = m.action && !/^no action/i.test(m.action) ? m.action : "";
+      /* `late` (collect_mc.py, 5bo): published days ago, but no earlier brief carried it -
+         DeltaPulse caught it (MC1478962, 24 IX 2026) */
       if (isNew) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "",
-        field: act ? "action" : "", after: act });
+        field: act ? "action" : m.late ? "caught late, published" : "", after: act || (m.late ? dmy(m.late) : "") });
       else if (m.revisedOn && (m.revisedOn === day || after(m.revisedOn))) mcRows.push({ kind: "changed", id: m.id,
         title: m.title || "", link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
     });
     mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
     strip(document.getElementById("tab-mc"), { title: since, rows: mcRows, diff: "mcenter",
       empty: "No Message Center post first seen or revised in this brief (" + dmy(day) + ").",
-      more: "every post is in the table below, newest first." });
+      more: "every post is in the Message Center list below — open the New view." });
 
     /* 3. First-party apps: the collector's own change list for this build */
     var F = ST.fpa || {};
@@ -25620,6 +25815,391 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2100); });
   else setTimeout(boot, 2100);
+})();
+/* ===========================================================================
+   §5bp — MESSAGE CENTER BROWSER (26 IX 2026). Views, facets with counts,
+   a compact list grouped by week, details in place, deep link #MC<number>.
+
+   Owner, 26 IX 2026: think through how to show this much information so the
+   reader finds things and does not get lost. Measured that morning: the tab was
+   12 983 px tall with 550 table rows, the TECHNOLOGY column said "untagged"
+   on most of them and the only way in was scrolling. Pattern taken from the
+   sites that do this every day (DeltaPulse, mc.merill.net): a few VIEWS that
+   answer a question (what needs action, what is new, what changed), FACETS
+   with counts, one line per post, details on demand, a link per post.
+
+   ONE WRITER PER MECHANISM: this block owns #mc-browse and nothing else. It
+   never writes row.hidden or data-s11; Section A-D stay SCRIPT 16's.
+   Active-filter information is GREEN (§5av); views and chips are controls.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  var PAGE = 80;
+  try { if (window.matchMedia("(max-width: 760px)").matches) PAGE = 30; } catch (x) {}
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = null, D = null, ALL = [], BYID = {}, DAY = "", PREV = "";
+  var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] + " " + m[1] : (d || ""); }
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
+  function iso(x) { var m = /(\d{4}-\d{2}-\d{2})/.exec(x || ""); return m ? m[1] : ""; }
+  function addDays(d, n) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+  function monday(d) { var t = new Date(d + "T12:00:00Z"); var w = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - w); return t.toISOString().slice(0, 10); }
+  var CAT = { planforchange: "Plan for change", stayinformed: "Stay informed", preventorfixissue: "Prevent or fix issue" };
+  var SRC = { index: "mc.merill.net", feed: "msmessagecenter.com", deltapulse: "DeltaPulse", tenant: "Our tenant (Graph)",
+              item: "Cited by an item", prev: "Earlier brief", both: "mc.merill.net" };
+
+  /* one normalised record per post; every field says where it came from */
+  function norm(e) {
+    var items = ST.items || [], byItem = {};
+    items.forEach(function (i) { if (i.id) byItem[i.id] = i; });
+    var tech = (e.tech || []).slice();
+    if (!tech.length) (e.itemIds || []).forEach(function (id) { var it = byItem[id]; if (it && it.product && tech.indexOf(it.product) < 0) tech.push(it.product); });
+    if (!tech.length && e.product) tech.push(e.product);
+    var pub = iso(e.published) || iso(e.firstTracked);
+    var rev = iso(e.revisedOn) || iso(e.updated);
+    if (rev && pub && rev <= pub) rev = "";
+    var dl = iso(e.deadline) || iso(e.action);
+    var actText = e.action && !iso(e.action) && !/^no action/i.test(e.action) ? e.action : "";
+    var src = String(e.origin || "").split("+").filter(Boolean).map(function (s) { return s === "both" ? "index" : s; });
+    if (e.dpLink && src.indexOf("deltapulse") < 0) src.push("deltapulse");
+    var title = e.title && e.title !== e.id ? e.title : "";
+    return { e: e, id: e.id, rm: /^RM/i.test(e.id || "") || e.type === "RM", title: title, tech: tech,
+      cat: CAT[String(e.category || "").toLowerCase().replace(/[^a-z]/g, "")] || (e.category || ""),
+      major: e.isMajor === true, high: /high/i.test(e.severity || ""), pub: pub, rev: rev, dl: dl, act: actText,
+      isNew: e.firstTracked ? e.firstTracked === DAY : !!(pub && PREV && pub >= PREV && pub <= DAY),
+      late: e.late || "", src: src, key: e.storyKey || "",
+      hay: ((e.id || "") + " " + title + " " + tech.join(" ") + " " + (e.tags || []).join(" ")).toLowerCase() };
+  }
+
+  /* ---------------- state of the browser ---------------- */
+  var S = { view: "all", svc: "", cat: "", flag: "", src: "", type: "MC", q: "", shown: PAGE, open: "" };
+  var VIEWS = [
+    ["action", "Needs action", "posts with a date to act by, soonest first"],
+    ["new", "New", "first seen by this brief"],
+    ["revised", "Revised", "changed at source in the last 7 days"],
+    ["all", "All", "every post, newest activity first"]];
+  function inView(r, v) {
+    if (v === "action") return !!r.dl;
+    if (v === "new") return r.isNew;
+    if (v === "revised") return !!r.rev && r.rev >= addDays(DAY, -7);
+    return true;
+  }
+  function pass(r, skip, view) {
+    if (r.rm !== (S.type === "RM")) return false;
+    if (!inView(r, view || S.view)) return false;
+    if (skip !== "svc" && S.svc && r.tech.indexOf(S.svc) < 0) return false;
+    if (skip !== "cat" && S.cat && r.cat !== S.cat) return false;
+    if (skip !== "flag" && S.flag && !flagOf(r, S.flag)) return false;
+    if (skip !== "src" && S.src && r.src.indexOf(S.src) < 0) return false;
+    if (S.q && r.hay.indexOf(S.q.toLowerCase()) < 0) return false;
+    return true;
+  }
+  function flagOf(r, f) { return f === "major" ? r.major : f === "high" ? r.high : f === "late" ? !!r.late : f === "action" ? !!r.dl : false; }
+  function lastAct(r) { return r.rev && r.rev > r.pub ? r.rev : r.pub; }
+  function sorted(list) {
+    if (S.view === "action") return list.slice().sort(function (a, b) { return a.dl.localeCompare(b.dl) || b.id.localeCompare(a.id); });
+    if (S.view === "revised") return list.slice().sort(function (a, b) { return b.rev.localeCompare(a.rev) || b.id.localeCompare(a.id); });
+    return list.slice().sort(function (a, b) { return lastAct(b).localeCompare(lastAct(a)) || b.id.localeCompare(a.id); });
+  }
+  function groupOf(r) {
+    if (S.view === "action") {
+      if (r.dl < DAY) return ["past", "Date already passed"];
+      var m = r.dl.slice(0, 7); return [m, "Act by " + MONS[+m.slice(5) - 1] + " " + m.slice(0, 4)];
+    }
+    var d = S.view === "revised" ? r.rev : lastAct(r);
+    if (!d) return ["nodate", "No date read"];
+    var w = monday(d);
+    return [w, w === monday(DAY) ? "This week" : "Week of " + dmy(w)];
+  }
+
+  /* ---------------- building ---------------- */
+  var root, list, bar, banner, info, viewsEl;
+  function chip(label, n, on, click, title) {
+    var b = el("button", "mcb-chip" + (on ? " on" : "") + (n === 0 && !on ? " zero" : ""));
+    b.type = "button";
+    b.appendChild(el("span", null, label));
+    if (n !== null && n !== undefined) b.appendChild(el("span", "mcb-cn", String(n)));
+    if (title) b.title = title;
+    if (n === 0 && !on) b.disabled = true;           /* zero is not a link */
+    else b.addEventListener("click", click);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    return b;
+  }
+  function counts(skip, fn) {
+    var c = {};
+    ALL.forEach(function (r) { if (!pass(r, skip)) return; fn(r).forEach(function (k) { if (k) c[k] = (c[k] || 0) + 1; }); });
+    return c;
+  }
+  function renderViews() {
+    viewsEl.textContent = "";
+    VIEWS.forEach(function (v) {
+      var n = ALL.filter(function (r) { return pass(r, "", v[0]); }).length;   /* counts follow the filters */
+      var b = el("button", "mcb-view" + (S.view === v[0] ? " on" : ""));
+      b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", S.view === v[0] ? "true" : "false");
+      b.title = v[2];
+      b.appendChild(el("span", null, v[1])); b.appendChild(el("span", "mcb-cn", String(n)));
+      if (!n && S.view !== v[0]) b.disabled = true;
+      b.addEventListener("click", function () { S.view = v[0]; S.shown = PAGE; render(); });
+      viewsEl.appendChild(b);
+    });
+  }
+  function facetRow(label, key, pairs, more, cls) {
+    var row = el("div", "mcb-frow" + (cls ? " " + cls : ""));
+    row.appendChild(el("span", "mcb-flab", label));
+    var box = el("div", "mcb-fbox");
+    pairs.forEach(function (p) {
+      box.appendChild(chip(p[1], p[2], S[key] === p[0], function () {
+        S[key] = key === "type" ? p[0] : (S[key] === p[0] ? "" : p[0]); S.shown = PAGE; render(); }, p[3]));
+    });
+    if (more && more.length) {
+      var sel = el("select", "mcb-more"); sel.setAttribute("aria-label", "More " + label.toLowerCase());
+      sel.appendChild(el("option", null, "+" + more.length + " more…")); sel.options[0].value = "";
+      more.forEach(function (p) { var o = el("option", null, p[1] + " (" + p[2] + ")"); o.value = p[0]; if (S[key] === p[0]) o.selected = true; sel.appendChild(o); });
+      sel.addEventListener("change", function () { S[key] = sel.value; S.shown = PAGE; render(); });
+      box.appendChild(sel);
+    }
+    row.appendChild(box);
+    return row;
+  }
+  function renderBar() {
+    bar.textContent = "";
+    var sc = counts("svc", function (r) { return r.tech; });
+    var svc = Object.keys(sc).sort(function (a, b) { return sc[b] - sc[a] || a.localeCompare(b); });
+    if (S.svc && svc.indexOf(S.svc) < 0) svc.unshift(S.svc);
+    var top = svc.slice(0, 8), rest = svc.slice(8);
+    if (S.svc && top.indexOf(S.svc) < 0) { top.push(S.svc); rest = rest.filter(function (x) { return x !== S.svc; }); }
+    bar.appendChild(facetRow("Service", "svc", top.map(function (k) { return [k, k, sc[k] || 0]; }),
+      rest.map(function (k) { return [k, k, sc[k]]; })));
+    var cc = counts("cat", function (r) { return [r.cat]; });
+    bar.appendChild(facetRow("Category", "cat", ["Plan for change", "Stay informed", "Prevent or fix issue"].map(function (k) { return [k, k, cc[k] || 0]; })));
+    var fc = counts("flag", function (r) { return ["major", "high", "late", "action"].filter(function (f) { return flagOf(r, f); }); });
+    bar.appendChild(facetRow("Flags", "flag", [
+      ["action", "Date to act by", fc.action || 0, "Microsoft states a date by which to act"],
+      ["major", "Major change", fc.major || 0, "Microsoft marks the post as a major change"],
+      ["high", "High severity", fc.high || 0],
+      ["late", "Caught late", fc.late || 0, "Published days ago, first seen by this brief — no earlier brief carried it"]]));
+    var so = counts("src", function (r) { return r.src; });
+    bar.appendChild(facetRow("Source", "src", ["index", "feed", "deltapulse", "tenant", "item"].map(function (k) {
+      return [k, SRC[k], so[k] || 0, "Posts this source knows (a post can be known to several)"]; })));
+    var nMC = ALL.filter(function (r) { return !r.rm; }).length, nRM = ALL.length - nMC;
+    if (nRM) bar.appendChild(facetRow("Type", "type", [["MC", "Message Center", nMC], ["RM", "Roadmap", nRM]], null, "mcb-seg"));
+  }
+  function renderBanner(n) {
+    var act = [];
+    if (S.svc) act.push(["svc", "service: " + S.svc]);
+    if (S.cat) act.push(["cat", "category: " + S.cat]);
+    if (S.flag) act.push(["flag", { action: "date to act by", major: "major change", high: "high severity", late: "caught late" }[S.flag]]);
+    if (S.src) act.push(["src", "source: " + SRC[S.src]]);
+    if (S.q) act.push(["q", "text: “" + S.q + "”"]);
+    banner.textContent = "";
+    banner.hidden = !act.length;
+    if (!act.length) return;
+    banner.appendChild(el("b", null, "Filtered · " + n + " shown"));
+    act.forEach(function (a) {
+      var s = el("span", "mcb-af", a[1]);
+      var x = el("button", "mcb-x", "×"); x.type = "button"; x.title = "Remove this filter";
+      x.addEventListener("click", function () { S[a[0]] = ""; if (a[0] === "q") qIn.value = ""; S.shown = PAGE; render(); });
+      s.appendChild(x); banner.appendChild(s);
+    });
+    var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
+    c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = ""; qIn.value = ""; S.shown = PAGE; render(); });
+    banner.appendChild(c);
+  }
+  function pill(cls, t, title) { var s = el("span", "mcb-p " + cls, t); if (title) s.title = title; return s; }
+  function rowOf(r) {
+    var li = el("li", "mcb-row" + (r.isNew ? " is-new" : "")); li.id = "mcb-" + r.id; li.setAttribute("data-mcb", r.id);
+    var head = el("button", "mcb-head"); head.type = "button"; head.setAttribute("aria-expanded", "false");
+    var d = el("span", "mcb-d");
+    if (S.view === "action") { d.appendChild(el("b", null, dm(r.dl))); d.title = "act by " + dmy(r.dl); }
+    else { d.appendChild(el("b", null, dm(S.view === "revised" ? r.rev : lastAct(r)))); }
+    head.appendChild(d);
+    head.appendChild(el("span", "mcb-id", r.id));
+    var main = el("span", "mcb-main");
+    main.appendChild(el("span", "mcb-ti", r.title || "Title not read this run"));
+    var meta = el("span", "mcb-meta");
+    r.tech.slice(0, 3).forEach(function (t) { meta.appendChild(el("span", "mcb-svc", t)); });
+    if (r.tech.length > 3) meta.appendChild(el("span", "mcb-svc", "+" + (r.tech.length - 3)));
+    if (!r.tech.length) meta.appendChild(el("span", "mcb-none", "service not stated"));
+    if (r.cat) meta.appendChild(el("span", "mcb-cat", r.cat));
+    main.appendChild(meta);
+    head.appendChild(main);
+    var pl = el("span", "mcb-pills");
+    if (r.isNew) pl.appendChild(pill(r.late ? "late" : "new", r.late ? "NEW · late" : "NEW", r.late ? "Published " + dmy(r.late) + "; no earlier brief carried it" : "First seen by this brief"));
+    if (r.rev && S.view !== "revised") pl.appendChild(pill("rev", "rev " + dm(r.rev), "Revised at source " + dmy(r.rev)));
+    if (r.dl && S.view !== "action") pl.appendChild(pill(r.dl < DAY ? "past" : "dl", "act by " + dm(r.dl), "Microsoft: act by " + dmy(r.dl)));
+    if (r.major) pl.appendChild(pill("maj", "MAJOR"));
+    if (r.high) pl.appendChild(pill("high", "HIGH"));
+    head.appendChild(pl);
+    head.addEventListener("click", function () { toggle(li, r); });
+    li.appendChild(head);
+    return li;
+  }
+  function a(href, t) { var x = el("a", null, t); x.href = href; x.target = "_blank"; x.rel = "noopener"; return x; }
+  function detail(r) {
+    var e = r.e, box = el("div", "mcb-det");
+    var sums = [["summary", "Microsoft"], ["feedSummary", "msmessagecenter.com summary"], ["dpSummary", "DeltaPulse summary"]];
+    var any = false;
+    sums.forEach(function (s) {
+      if (!e[s[0]]) return; any = true;
+      var p = el("p", "mcb-sum"); p.appendChild(el("span", "mcb-k", s[1])); p.appendChild(document.createTextNode(e[s[0]])); box.appendChild(p);
+    });
+    if (!any) box.appendChild(el("p", "mcb-none", "No summary was read for this post — open it at the source."));
+    if (r.act) { var pa = el("p", "mcb-sum"); pa.appendChild(el("span", "mcb-k", "What to do")); pa.appendChild(document.createTextNode(r.act)); box.appendChild(pa); }
+    var dl = el("dl", "mcb-dl");
+    function kv(k, v) { if (!v) return; dl.appendChild(el("dt", null, k)); var dd = el("dd"); if (typeof v === "string") dd.textContent = v; else dd.appendChild(v); dl.appendChild(dd); }
+    kv("Published", r.pub ? dmy(r.pub) : "");
+    kv("Revised at source", r.rev ? dmy(r.rev) : "");
+    kv("Act by", r.dl ? dmy(r.dl) + (r.dl < DAY ? " (passed)" : "") : "");
+    kv("First seen by the brief", e.firstTracked ? dmy(e.firstTracked) + (r.late ? " — published " + dmy(r.late) + ", caught late" : "") + (e.backfill ? " (backfilled)" : "") : "");
+    kv("Services", r.tech.join(", "));
+    kv("Category", r.cat + (r.major ? " · major change" : "") + (e.severity ? " · severity " + e.severity : ""));
+    kv("Rollout months", (e.months || []).join(", "));
+    kv("Tags", (e.tags || []).join(", "));
+    if (e.tenantChange) kv("Changed in our tenant", Object.keys(e.tenantChange).join(", "));
+    var src = el("span", "mcb-srcs");
+    r.src.forEach(function (s) { src.appendChild(el("span", "mcb-src s-" + s, SRC[s] || s)); });
+    kv("Known to", src);
+    var ln = el("span", "mcb-links");
+    var num = String(r.id).replace(/^MC/i, "");
+    if (!r.rm) {
+      ln.appendChild(a("https://admin.microsoft.com/#/MessageCenter/:/messages/" + r.id, "Microsoft 365 admin center"));
+      ln.appendChild(a("https://mc.merill.net/message/" + r.id, "mc.merill.net"));
+      if (e.feedLink || r.src.indexOf("feed") >= 0) ln.appendChild(a(e.feedLink || "https://msmessagecenter.com/" + r.id, "msmessagecenter.com"));
+      ln.appendChild(a(e.dpLink || "https://deltapulse.app/item/" + r.id, "DeltaPulse"));
+    } else ln.appendChild(a("https://www.microsoft.com/microsoft-365/roadmap?id=" + num.replace(/\D/g, ""), "Microsoft 365 Roadmap"));
+    kv("Open at", ln);
+    box.appendChild(dl);
+    var tools = el("div", "mcb-tools");
+    var cp = el("button", "mcb-btn", "Copy link to this post"); cp.type = "button";
+    cp.addEventListener("click", function () {
+      var u = location.href.split("#")[0] + "#" + r.id;
+      var ok = function () { cp.textContent = "Link copied"; setTimeout(function () { cp.textContent = "Copy link to this post"; }, 1600); };
+      try { navigator.clipboard.writeText(u).then(ok, function () { prompt0(u); }); } catch (x) { prompt0(u); }
+      function prompt0(t) { cp.textContent = t; }
+    });
+    tools.appendChild(cp);
+    var m = r.key && (D.map || []).filter(function (x) { return x.storyKey === r.key && ((x.docRefs || []).length || (x.blogs || []).length || (x.community || []).length || (x.items || []).length); })[0];
+    if (m && window.__socOpenMC) {
+      var sb = el("button", "mcb-btn", "Same change in documentation and articles"); sb.type = "button";
+      sb.addEventListener("click", function () { window.__socOpenMC(r.key, null, true); });
+      tools.appendChild(sb);
+    }
+    box.appendChild(tools);
+    return box;
+  }
+  function toggle(li, r, force) {
+    var h = li.querySelector(".mcb-head"), d = li.querySelector(".mcb-det");
+    var open = force === undefined ? !d : force;
+    if (open && !d) li.appendChild(detail(r));
+    if (!open && d) d.remove();
+    h.setAttribute("aria-expanded", open ? "true" : "false");
+    li.classList.toggle("open", open);
+    S.open = open ? r.id : (S.open === r.id ? "" : S.open);
+    try { history.replaceState(null, "", open ? "#" + r.id : location.pathname + location.search); } catch (x) {}
+  }
+  var qIn;
+  function render() {
+    renderViews(); renderBar();
+    var rows = sorted(ALL.filter(function (r) { return pass(r); }));
+    renderBanner(rows.length);
+    var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
+    info.textContent = rows.length + " post" + (rows.length === 1 ? "" : "s") + " · " + v[2] +
+      (S.view === "action" ? "" : " · grouped by week");
+    list.textContent = "";
+    if (!rows.length) { list.appendChild(el("li", "mcb-empty", "No post matches. Remove a filter above — zero here is a result, not an error.")); return; }
+    var g = null, ul = null;
+    rows.slice(0, S.shown).forEach(function (r) {
+      var k = groupOf(r);
+      if (!g || g[0] !== k[0]) {
+        g = k;
+        var n = rows.filter(function (x) { return groupOf(x)[0] === k[0]; }).length;
+        var h = el("li", "mcb-g"); h.appendChild(el("span", null, k[1])); h.appendChild(el("span", "mcb-cn", String(n)));
+        list.appendChild(h);
+      }
+      var li = rowOf(r);
+      list.appendChild(li);
+      if (S.open === r.id) toggle(li, r, true);
+    });
+    if (rows.length > S.shown) {
+      var more = el("li", "mcb-morebox");
+      var b = el("button", "mcb-btn", "Show " + Math.min(PAGE, rows.length - S.shown) + " more (" + (rows.length - S.shown) + " left)");
+      b.type = "button"; b.addEventListener("click", function () { S.shown += PAGE; render(); });
+      more.appendChild(b); list.appendChild(more);
+    }
+  }
+  function build() {
+    var p = document.getElementById("tab-mc");
+    if (!p || document.getElementById("mc-browse")) return !!p;
+    ST = jb("soc-brief-state") || {}; D = ST.mc || null;
+    if (!D) return true;
+    DAY = ST.briefDate || D.readOn || "";
+    var cw = ST.comparedWith || {}; PREV = typeof cw === "string" ? cw : (cw.date || "");
+    ALL = (D.entries || []).filter(function (e) { return e && e.id; }).map(norm);
+    ALL.forEach(function (r) { BYID[r.id] = r; });
+    root = el("section", "mcb"); root.id = "mc-browse"; root.setAttribute("aria-label", "Message Center browser");
+    var hd = el("div", "mcb-top");
+    viewsEl = el("div", "mcb-views"); viewsEl.setAttribute("role", "tablist"); viewsEl.setAttribute("aria-label", "Message Center views");
+    hd.appendChild(viewsEl);
+    qIn = el("input", "mcb-q"); qIn.type = "search"; qIn.placeholder = "Find MC number, title or service"; qIn.setAttribute("aria-label", "Find in Message Center");
+    var tmr; qIn.addEventListener("input", function () { clearTimeout(tmr); tmr = setTimeout(function () { S.q = qIn.value.trim(); S.shown = PAGE; render(); }, 160); });
+    hd.appendChild(qIn);
+    root.appendChild(hd);
+    var fd = el("details", "mcb-facets"); var fs = el("summary", null, "Filter by service, category, flag, source");
+    fd.appendChild(fs); bar = el("div", "mcb-bar"); fd.appendChild(bar);
+    try { fd.open = window.matchMedia("(min-width: 760px)").matches; } catch (x) { fd.open = true; }
+    root.appendChild(fd);
+    banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.appendChild(banner);
+    info = el("p", "mcb-info"); root.appendChild(info);
+    list = el("ul", "mcb-list"); root.appendChild(list);
+    var strip = p.querySelector(":scope > .s5bn"), head = p.querySelector(":scope > .panelhead");
+    var after = strip || head;
+    if (after && after.parentNode === p) p.insertBefore(root, after.nextSibling); else p.insertBefore(root, p.firstChild);
+    render();
+    /* the tab's number is the number of POSTS, not of table rows (Sections A-D counted 746
+       rows for 414 posts on 26 IX 2026); same precedent as the First-party apps tab */
+    var nMC = ALL.filter(function (r) { return !r.rm; }).length;
+    function stamp() { var nc = document.querySelector('nav.anchors .tab[aria-controls="tab-mc"] .navcount'); if (nc) nc.textContent = String(nMC); }
+    stamp(); setTimeout(stamp, 2500);
+    return true;
+  }
+  /* SCRIPT 16 and §5bn call in here: an MC number or a product opens the browser */
+  function show(id) {
+    var r = BYID[id]; if (!r) return false;
+    S.view = "all"; S.svc = S.cat = S.flag = S.src = S.q = ""; if (qIn) qIn.value = ""; S.type = r.rm ? "RM" : "MC";
+    var rows = sorted(ALL.filter(function (x) { return pass(x); }));
+    var i = rows.indexOf(r); S.shown = Math.max(PAGE, Math.ceil((i + 1) / PAGE) * PAGE); S.open = id;
+    render();
+    var li = document.getElementById("mcb-" + id);
+    if (li) { li.scrollIntoView({ block: "center" }); li.classList.add("mcb-flash"); setTimeout(function () { li.classList.remove("mcb-flash"); }, 2200); }
+    return true;
+  }
+  function openTab() {
+    var t = null;
+    [].forEach.call(document.querySelectorAll("nav.anchors .tab"), function (x) { if (!t && x.getAttribute("aria-controls") === "tab-mc") t = x; });
+    if (t && t.getAttribute("aria-selected") !== "true") t.click();
+  }
+  window.__socMCB = {
+    handle: function (key, product) {
+      if (!build() || !ALL.length) return false;
+      if (product) { S.view = "all"; S.svc = product; S.cat = S.flag = S.src = S.q = ""; if (qIn) qIn.value = ""; S.shown = PAGE; render();
+        root.scrollIntoView({ block: "start" }); return true; }
+      if (key && BYID[key]) return show(key);
+      return false;
+    }
+  };
+  function fromHash() {
+    var m = /^#((?:MC|RM)\d+)$/i.exec(location.hash || "");
+    if (!m) return;
+    var id = m[1].toUpperCase();
+    openTab();
+    setTimeout(function () { if (build()) show(id); }, 200);
+  }
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[5bp]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 950); setTimeout(fromHash, 2300); });
+  else { setTimeout(boot, 950); setTimeout(fromHash, 2300); }
+  window.addEventListener("hashchange", fromHash);
 })();
 ```
 
@@ -25750,6 +26330,94 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .s5bn-ch ins{color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;padding:0 3px;border-radius:3px}
 .s5bn-empty,.s5bn-more{margin:6px 0 0;color:var(--muted);font-size:13px}
 .s5bn-diff{display:inline-block;margin-top:6px;font-size:12.5px}
+/* §5bp (26 IX 2026) — Message Center browser: views, facets with counts, one line per post (script 17). */
+.mcb{margin:0 0 18px;display:grid;gap:10px;min-width:0}
+.mcb-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;position:sticky;top:var(--hdr-h,0px);z-index:20;background:var(--bg,var(--surface));padding:8px 0;border-bottom:1px solid var(--border)}
+.mcb-views{display:flex;flex-wrap:wrap;gap:6px}
+.mcb-view{display:inline-flex;align-items:center;gap:6px;font:600 13px/1.2 var(--sans);color:var(--accent);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 12px;cursor:pointer}
+.mcb-view:hover{border-color:var(--accent)}
+.mcb-view.on{color:var(--on-accent);background:var(--accent);border-color:var(--accent)}
+.mcb-view:disabled{color:var(--muted);cursor:default;opacity:.6}
+.mcb-cn{font:600 11.5px/1.4 var(--sans);font-variant-numeric:tabular-nums;padding:0 7px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.mcb-view.on .mcb-cn{background:rgba(255,255,255,.22);color:var(--on-accent)}
+.mcb-q{flex:1 1 220px;min-width:0;max-width:420px;font:13.5px/1.3 var(--sans);color:var(--text);background:var(--surface);border:1px solid var(--ok);border-radius:8px;padding:7px 10px}
+.mcb-q:focus-visible{outline:2px solid var(--ok);outline-offset:1px}
+.mcb-facets{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:0 12px}
+.mcb-facets>summary{cursor:pointer;padding:9px 0;font:600 12.5px/1.3 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.mcb-bar{display:grid;gap:8px;padding:0 0 12px}
+.mcb-frow{display:grid;grid-template-columns:88px 1fr;gap:8px;align-items:start}
+.mcb-flab{font:700 10.5px/2.2 var(--sans);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.mcb-fbox{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.mcb-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;font:500 12.5px/1.3 var(--sans);color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;text-align:left}
+.mcb-chip>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mcb-chip:hover{border-color:var(--accent);color:var(--accent)}
+.mcb-chip.on{color:var(--ok);background:var(--ok-soft);border-color:var(--ok);font-weight:700}
+.mcb-seg .mcb-chip.on{color:var(--on-accent);background:var(--accent);border-color:var(--accent)}
+.mcb-chip.zero,.mcb-chip:disabled{color:var(--muted);opacity:.55;cursor:default}
+.mcb-chip:disabled:hover{border-color:var(--border);color:var(--muted)}
+.mcb-more{font:12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:4px 6px;max-width:100%}
+.mcb-banner{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:8px 12px;border:1px solid var(--ok);border-radius:8px;background:var(--ok-soft);color:var(--ok);font-size:13px}
+.mcb-banner b{color:var(--ok)}
+.mcb-af{display:inline-flex;align-items:center;gap:4px;padding:1px 4px 1px 8px;border:1px solid var(--ok);border-radius:999px;color:var(--text);background:var(--surface)}
+.mcb-x{border:0;background:none;color:var(--bad);font:700 14px/1 var(--sans);cursor:pointer;padding:2px 4px}
+.mcb-clear{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.mcb-info{margin:0;color:var(--muted);font-size:13px}
+.mcb-list{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+.mcb-g{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--surface-2);border-top:1px solid var(--border);font:700 11.5px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.mcb-g:first-child{border-top:0}
+.mcb-row{border-top:1px solid var(--border)}
+.mcb-g+.mcb-row{border-top:0}
+.mcb-head{display:grid;grid-template-columns:56px 92px minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;width:100%;padding:8px 12px;border:0;background:none;color:var(--text);text-align:left;font:inherit;cursor:pointer}
+.mcb-head:hover{background:var(--surface-2)}
+.mcb-head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.mcb-row.open>.mcb-head{background:var(--surface-2)}
+.mcb-d{font:12.5px/1.4 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mcb-d b{font-weight:600}
+.mcb-id{font:600 12.5px/1.4 var(--mono);color:var(--accent);white-space:nowrap}
+.mcb-main{display:grid;gap:2px;min-width:0}
+.mcb-ti{font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.mcb-row.is-new .mcb-ti{font-weight:600}
+.mcb-meta{display:flex;flex-wrap:wrap;gap:4px 6px}
+.mcb-svc{font-size:11.5px;line-height:1.5;color:var(--muted);background:var(--surface-2);border-radius:4px;padding:0 6px}
+.mcb-cat{font-size:11.5px;line-height:1.5;color:var(--muted)}
+.mcb-none{color:var(--muted);font-style:italic;font-size:12px}
+.mcb-pills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px}
+.mcb-p{font:700 10.5px/1.6 var(--sans);letter-spacing:.04em;padding:0 6px;border-radius:4px;white-space:nowrap;border:1px solid transparent}
+.mcb-p.new{color:var(--ok);background:var(--ok-soft)}
+.mcb-p.late{color:var(--warn);background:var(--warn-soft)}
+.mcb-p.rev{color:var(--muted);border-color:var(--border)}
+.mcb-p.dl{color:var(--warn);background:var(--warn-soft)}
+.mcb-p.past{color:var(--muted);border-color:var(--border);text-decoration:line-through}
+.mcb-p.maj,.mcb-p.high{color:var(--bad);background:var(--bad-soft)}
+.mcb-det{padding:4px 12px 14px 172px;display:grid;gap:8px;background:var(--surface-2)}
+.mcb-sum{margin:0;font-size:13.5px;line-height:1.55;max-width:80ch}
+.mcb-k{display:inline-block;margin-right:8px;font:700 10.5px/1.6 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.mcb-dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:3px 14px;margin:0;font-size:13px}
+.mcb-dl dt{color:var(--muted)}
+.mcb-dl dd{margin:0;overflow-wrap:anywhere}
+.mcb-srcs,.mcb-links{display:flex;flex-wrap:wrap;gap:4px 12px}
+.mcb-src{font-size:12px;padding:0 6px;border:1px solid var(--border);border-radius:4px}
+.mcb-src.s-deltapulse{border-color:var(--accent);color:var(--accent)}
+.mcb-src.s-tenant{border-color:var(--ok);color:var(--ok)}
+.mcb-tools{display:flex;flex-wrap:wrap;gap:8px}
+.mcb-btn{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:5px 10px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
+.mcb-morebox,.mcb-empty{padding:12px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+.mcb-flash>.mcb-head{box-shadow:inset 4px 0 0 var(--accent)}
+@media (max-width:760px){
+ .mcb-head{grid-template-columns:auto minmax(0,1fr);gap:2px 10px}
+ .mcb-d{grid-column:1;grid-row:1}
+ .mcb-id{grid-column:2;grid-row:1}
+ .mcb-main{grid-column:1 / -1}
+ .mcb-pills{grid-column:1 / -1;justify-content:flex-start}
+ .mcb-det{padding:4px 12px 14px}
+ .mcb-frow{grid-template-columns:1fr;gap:4px}
+ .mcb-flab{line-height:1.4}
+ .mcb-top{position:static}
+ .mcb-ti{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px}
+ .mcb-row.open .mcb-ti{display:block}
+ .mcb-cat{display:none}
+ .mcb-head{padding:7px 12px}
+}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
