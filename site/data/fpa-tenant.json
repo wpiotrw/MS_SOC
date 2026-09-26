@@ -57,8 +57,8 @@
     "Office 365 SharePoint Online": "Files.ReadWrite.All M365BillingPlatform.Read.All Sites.FullControl.All Sites.ReadWrite.All TermStore.ReadWrite.All",
     "Graph Connector Service": "ExternalConnection.ReadWrite.All Sites.FullControl.All",
     "Power BI Service": "App.Read.All Dashboard.Read.All Dataset.Read.All Fabric.Embed Item.Read.All MLModel.Execute.All Report.Read.All UserState.ReadWrite.All Workspace.Read.All",
-    "Dataverse": "user_impersonation",
     "Microsoft Forms": "Forms.ReadWrite",
+    "Dataverse": "user_impersonation",
     "PowerApps Service": "user_impersonation"
    },
    "roles": []
