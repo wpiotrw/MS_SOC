@@ -6,7 +6,9 @@ name: First-party apps tenant snapshot
 # values below and follow README.md, "First-party apps: tenant snapshot".
 on:
   schedule:
-    - cron: "30 3 * * *"
+    # every 3 hours: GitHub delays scheduled runs (26 IX 2026: 03:30 ran at 08:46), and Message
+    # Center moves during the day; a commit is made only when a file changed
+    - cron: "15 */3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -32,14 +34,18 @@ jobs:
           ref: main
       - name: Read the tenant (Graph, read-only)
         run: python3 tools/fpa_tenant.py site/data/fpa-tenant.json
+      - name: Read Message Center of the tenant (Graph, read-only)
+        # ServiceMessage.Read.All; a 403 is recorded in the file, never fails the snapshot above
+        continue-on-error: true
+        run: python3 tools/mc_tenant.py site/data/mc-tenant.json
       - name: Commit when it changed
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/data/fpa-tenant.json
+          git add site/data/fpa-tenant.json site/data/mc-tenant.json 2>/dev/null || git add site/data/fpa-tenant.json
           if git diff --cached --quiet; then echo "No change."; else
-            git commit -m "data: first-party apps tenant snapshot $(date -u +%F)"
+            git commit -m "data: tenant snapshot (first-party apps, Message Center) $(date -u +%F)"
             git pull --rebase -q origin main
             git push origin main
           fi
