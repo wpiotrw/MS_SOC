@@ -1,20 +1,11 @@
 {
  "read": "2026-09-26",
- "tenant": "833fd6f2-76f2-4750-b776-b9228da14a4e",
+ "tenant": "833fd6f2-…",
  "spTotal": 475,
  "spMicrosoft": 410,
  "grantsNote": null,
+ "otherClients": 12,
  "clients": [
-  {
-   "n": "AADInternals OSINT",
-   "appId": "08449b24-4aa6-4049-93ef-0c17b87c8d98",
-   "owner": "c5ff949d-2696-4b68-9e13-055f19ed2d51",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "openid profile"
-   },
-   "roles": []
-  },
   {
    "n": "Graph Explorer",
    "appId": "de8bc8b5-d9f9-48b1-a8ad-b748da725064",
@@ -32,36 +23,6 @@
    "microsoft": true,
    "grants": {
     "Microsoft Graph": "Calendars.Read Contacts.Read Files.Read Files.Read.All Files.ReadWrite Files.ReadWrite.All Group.Read.All Mail.Read Mail.ReadBasic People.Read People.Read.All Presence.Read Presence.Read.All Sites.Read.All Tasks.Read Tasks.ReadWrite User.Read User.Read.All User.ReadBasic.All offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "Intune Documentation",
-   "appId": "56066daa-baba-438f-89d0-7ea3be2e2222",
-   "owner": "ffc10f05-e837-4803-81b1-7c4dee678c2a",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "DeviceManagementApps.Read.All DeviceManagementConfiguration.Read.All DeviceManagementManagedDevices.Read.All DeviceManagementRBAC.Read.All DeviceManagementScripts.Read.All DeviceManagementServiceConfig.Read.All Group.Read.All Policy.Read.All User.Read offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "Intune Documentation",
-   "appId": "b82babfc-7028-46a9-b850-d5018c19c7ca",
-   "owner": "96c21bc2-67e5-41aa-9334-e0fc104874b2",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "DeviceManagementApps.Read.All DeviceManagementConfiguration.Read.All DeviceManagementManagedDevices.Read.All DeviceManagementRBAC.Read.All DeviceManagementScripts.Read.All DeviceManagementServiceConfig.Read.All Group.Read.All User.Read offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "Lokka",
-   "appId": "a9bac4c3-af0d-4292-9453-9da89e390140",
-   "owner": "10407d69-1ba5-4bec-8ebe-9af2f0b9e06a",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "Application.Read.All Application.ReadWrite.All AuditLog.Read.All DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.ReadWrite.All DeviceManagementScripts.ReadWrite.All DeviceManagementServiceConfig.ReadWrite.All Directory.Read.All Directory.ReadWrite.All Group.Read.All Group.ReadWrite.All Policy.Read.All Policy.ReadWrite.ConditionalAccess RoleManagement.Read.Directory SecurityEvents.Read.All SecurityEvents.ReadWrite.All Synchronization.Read.All ThreatHunting.Read.All User.Read User.ReadBasic.All offline_access openid profile"
    },
    "roles": []
   },
@@ -86,45 +47,6 @@
    "roles": []
   },
   {
-   "n": "OpenIntuneBaseline Deployer",
-   "appId": "17142cd1-33b9-4c27-a60e-245ab6b7a5d4",
-   "owner": "4281fdf5-1277-4a0a-98c3-8d20aeb7867b",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "DeviceManagementConfiguration.ReadWrite.All offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "PIMActivation Portal",
-   "appId": "d3e13acf-c60d-46b4-b8e7-c077a7bf532a",
-   "owner": "d8614e07-30b5-4f3c-9d6a-f18e7f1ebe5d",
-   "microsoft": false,
-   "grants": {
-    "Azure Resource Manager": "user_impersonation",
-    "Microsoft Graph": "AdministrativeUnit.Read.All AuditLog.Read.All Policy.Read.All PrivilegedAccess.ReadWrite.AzureADGroup RoleManagement.ReadWrite.Directory RoleManagementPolicy.Read.AzureADGroup User.Read email offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "Robopack",
-   "appId": "8a363ebc-c281-4360-bbcc-4b1ee485ef7e",
-   "owner": "9e78d557-2a84-4d8d-9025-6b622ce3bfe2",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "DeviceManagementApps.ReadWrite.All Organization.Read.All User.Read"
-   },
-   "roles": [
-    "Microsoft Graph: Device.Read.All",
-    "Microsoft Graph: DeviceManagementApps.ReadWrite.All",
-    "Microsoft Graph: DeviceManagementConfiguration.Read.All",
-    "Microsoft Graph: DeviceManagementManagedDevices.Read.All",
-    "Microsoft Graph: DeviceManagementServiceConfig.ReadWrite.All",
-    "Microsoft Graph: Group.ReadWrite.All",
-    "Microsoft Graph: Organization.Read.All"
-   ]
-  },
-  {
    "n": "SharePoint Online Web Client Extensibility",
    "appId": "08e18876-6177-487e-b8b5-cf950c1e598c",
    "owner": "f8cdef31-a31e-4b4a-93e4-5f571e91255a",
@@ -138,58 +60,6 @@
     "Dataverse": "user_impersonation",
     "Microsoft Forms": "Forms.ReadWrite",
     "PowerApps Service": "user_impersonation"
-   },
-   "roles": []
-  },
-  {
-   "n": "TenantManager",
-   "appId": "a56a525c-aa0a-4698-8cf2-703f64485c5d",
-   "owner": "271e3bd1-5e51-415e-a2c7-744dc8ee4261",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "Organization.Read.All User.Read User.ReadBasic.All email offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "TenantManager SSO",
-   "appId": "d0f0a612-0d84-40e9-b860-789d3661c002",
-   "owner": "271e3bd1-5e51-415e-a2c7-744dc8ee4261",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "email offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "automationsandboxerforentra",
-   "appId": "1d2f6e77-52c4-4469-b0ef-4e46a5cb05c5",
-   "owner": "",
-   "microsoft": false,
-   "grants": {},
-   "roles": [
-    "Microsoft Graph: Application.Read.All",
-    "Microsoft Graph: Mail.Send",
-    "Microsoft Graph: Organization.Read.All"
-   ]
-  },
-  {
-   "n": "idPowerToys",
-   "appId": "6ce0484b-2ae6-4458-b2b9-b3369f42fd6f",
-   "owner": "10407d69-1ba5-4bec-8ebe-9af2f0b9e06a",
-   "microsoft": false,
-   "grants": {
-    "Microsoft Graph": "Agreement.Read.All CrossTenantInformation.ReadBasic.All Directory.Read.All Policy.Read.All User.Read offline_access openid profile"
-   },
-   "roles": []
-  },
-  {
-   "n": "www.myo365.site",
-   "appId": "5a2d9517-0fe6-48ea-b09c-3c5ae4a3e7dc",
-   "owner": "3c69ab9f-19ba-445c-a110-7f0e80665836",
-   "microsoft": false,
-   "grants": {
-    "Windows Azure Active Directory": "User.Read"
    },
    "roles": []
   }

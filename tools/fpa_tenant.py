@@ -11,7 +11,8 @@ narrower DelegatedPermissionGrant.Read.All exists as a Graph app role ("Read all
 permission grants") - if Graph refuses it (403), the snapshot keeps the app roles and records
 `grantsNote` instead of failing. Writes site/data/fpa-tenant.json:
 
-  {read, tenant, spTotal, spMicrosoft, clients:[{n, appId, owner, microsoft, grants:{API: scopes}, roles:[API: role]}]}
+  {read, tenant (8 chars), spTotal, spMicrosoft, grantsNote, otherClients (count),
+   clients:[{n, appId, owner, microsoft, grants:{API: scopes}, roles:[API: role]}]}  -- Microsoft apps only
 
 A client is any service principal NOT owned by this tenant that holds a delegated grant
 (oauth2PermissionGrants) or an application permission (appRoleAssignments) here.
@@ -104,14 +105,20 @@ def main(out_path):
             if c is not None:
                 rn, roles = role_names[rid]
                 c["roles"].append("%s: %s" % (rn, roles.get(a.get("appRoleId"), a.get("appRoleId"))))
-    out = {"read": datetime.date.today().isoformat(), "tenant": tid, "spTotal": len(sps),
+    # The file is PUBLIC (repository and the site). The First-party apps tab matches only
+    # Microsoft apps (by appId), so apps of other publishers are reduced to a count: their
+    # names and scopes would be a ready target list for consent phishing (README 5.2).
+    # The tenant ID is shortened for the same reason; the page shows 8 characters anyway.
+    allc = [dict(c, roles=sorted(set(c["roles"]))) for c in clients.values()]
+    out = {"read": datetime.date.today().isoformat(), "tenant": tid[:8] + "-…", "spTotal": len(sps),
            "spMicrosoft": sum(1 for s in sps if (s.get("appOwnerOrganizationId") or "").lower() in MS),
            "grantsNote": grants_note,
-           "clients": sorted([dict(c, roles=sorted(set(c["roles"]))) for c in clients.values()], key=lambda c: c["n"] or "")}
+           "otherClients": sum(1 for c in allc if not c["microsoft"]),
+           "clients": sorted([c for c in allc if c["microsoft"]], key=lambda c: c["n"] or "")}
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("OK %s: %d service principals, %d from Microsoft tenants, %d clients with grants or app roles"
-          % (out_path, out["spTotal"], out["spMicrosoft"], len(out["clients"])))
+    print("OK %s: %d service principals, %d from Microsoft tenants, %d Microsoft clients with grants or app roles, %d other (count only)"
+          % (out_path, out["spTotal"], out["spMicrosoft"], len(out["clients"]), out["otherClients"]))
 
 
 if __name__ == "__main__":

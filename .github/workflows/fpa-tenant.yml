@@ -18,8 +18,10 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  AZURE_TENANT_ID: 833fd6f2-76f2-4750-b776-b9228da14a4e   # wisnia (azureme.ovh)
-  AZURE_CLIENT_ID: 87ab5007-2910-44ee-8715-6475dfd76254   # MS-SOC First-party apps reader
+  # Repository variables (Settings > Secrets and variables > Actions > Variables), not written here:
+  # the repository is public (README.md 5.2).
+  AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}   # MS-SOC First-party apps reader
 
 jobs:
   snapshot:
