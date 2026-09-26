@@ -2973,7 +2973,7 @@ blocks"*) jest nieaktualny w obu liczbach; **gdzie prompt i ten plik sie roznia,
 Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
 SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
 **dwadziescia piec** — liczbe
-sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **szesc KOLEKTOROW** (od 26 IX 2026): cztery z §5aw, `collect_components.py` z §5ag i `collect_fpa.py` z §5bl,
+sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **siedem KOLEKTOROW** (od 26 IX 2026): cztery z §5aw, `collect_components.py` z §5ag, `collect_fpa.py` z §5bl i `collect_mc.py` z §5bo,
 wycinane tak samo:**
 
 | co | zrodlo | sekcja |
@@ -2997,6 +2997,7 @@ wycinane tak samo:**
 | `probe_learn.py`, `learn_changes.py`, `collect_blogs.py`, `collect_nt.py` | `CLAUDE.md` | 5aw |
 | `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
 | `collect_fpa.py` — aplikacje Microsoftu i ich uprawnienia (od 26 IX 2026) | `CLAUDE.md` | 5bl |
+| `collect_mc.py` — KAZDY wpis Message Center, bez filtrowania (od 26 IX 2026) | `CLAUDE.md` | 5bo |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -3053,6 +3054,7 @@ def main(doc, outdir):
             elif "window.__NT" in head:                        got["collect_nt.py"] = b
             elif "collect_components.py" in head:              got["collect_components.py"] = b
             elif "collect_fpa.py" in head:                     got["collect_fpa.py"] = b
+            elif "collect_mc.py" in head:                      got["collect_mc.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -3060,7 +3062,7 @@ def main(doc, outdir):
     need = ["script%d.js" % n for n in range(4, 18)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
-            "collect_components.py", "collect_fpa.py"]
+            "collect_components.py", "collect_fpa.py", "collect_mc.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
@@ -20077,6 +20079,7 @@ python3 learn_changes.py                                           # -> learn_ch
 python3 collect_blogs.py <klon>/microsoftblogs_sources.json blogs_raw.json
 python3 collect_nt.py                                              # -> NT.json  == klucz `nt`
 SOC_REPOS=repos python3 collect_fpa.py FPA.json <poprzedni site/data/*.json>   # -> FPA.json == klucz `fpa` (§5bl)
+python3 collect_mc.py MC_INDEX.json <poprzedni site/data/*.json>              # -> MC_INDEX.json, baza `mc.entries` (§5bo)
 ```
 
 **Zadna data i zadna sciezka nie jest w nich zapisana na sztywno** — `SOC_DATE` i `SOC_REPO` ida
@@ -22111,6 +22114,213 @@ dwa razy i nic, co by ja lączyło** — tylko po drugiej stronie portalu.
    - **Today** i **New** — wpis MC TEGO wiersza jako chip z numerem; klikniecie otwiera `tab-mc`
      zawezone do tego `storyKey`. Wiersz bez wpisu MC drukuje **myslnik**, nigdy pusty przycisk:
      kontrolka, ktora nic nie otwiera, uczy, ze klikanie nic nie daje (§3 punkt 13).
+
+## 5bo. MESSAGE CENTER Z KODU, NIE Z PRZEPISYWANIA — i bez filtrowania (26 IX 2026)
+
+Wlasciciel, 26 IX 2026: „to nie filtrujmy. musimy wylapywac takie wiadomosci, bo te akurat sa
+wazne" — o MC1479509 (Exchange Online, sprawdzanie pisowni przed wyslaniem w nowym Outlooku)
+i MC1478962 (Conditional Access a logowanie urzadzen Teams Android). Zmierzone tego dnia:
+brief z 26 IX niosl **145** wpisow `mc.entries`, dzien wczesniej **368**; MC1479509 nie bylo,
+choc MC1479503 i MC1479516 obok niego byly. Indeks byl PRZEPISYWANY przez przebieg, nie czytany
+kodem — i wpisy wypadaly bez sladu.
+
+Regula:
+
+1. **Liste wpisow MC robi `collect_mc.py`** (kod ponizej, uruchamiany z pozostalymi
+   kolektorami). Czyta trzy zrodla, kazde ze stanem `ok`/`unread`: pierwsza strone indeksu
+   `mc.merill.net/?type=mc` (200 ostatnio ZAKTUALIZOWANYCH wierszy, MC i Roadmapa razem;
+   Roadmapa jest pomijana), kanal `msmessagecenter.com/feed.xml` (100 ostatnich wpisow z data
+   publikacji i kategoria) oraz `site/data/mc-tenant.json` — Message Center tenanta wlasciciela
+   z Microsoft Graph (`tools/mc_tenant.py`, workflow co 3 godziny, uprawnienie
+   `ServiceMessage.Read.All`). Zadne z nich nie jest jedynym zrodlem prawdy; `origin` wpisu
+   nazywa wszystkie, ktore go znaja.
+2. **`mc.entries` = WSZYSTKIE wpisy z `MC_INDEX.json`** (unia, po `id`). Przebieg je WZBOGACA —
+   `summary` (zdanie Microsoftu), `action`, `itemIds`, `note` — ale nie WYBIERA. **Zadnego
+   filtra „tylko bezpieczenstwo"**: istotnosc dla bezpieczenstwa to znacznik i kolejnosc na
+   stronie, nigdy powod pominiecia wpisu. `firstTracked`, `link` i `published` bierze sie
+   z kolektora.
+3. `feedSummary` to streszczenie msmessagecenter.com, NIE Microsoftu — nie przenosi sie go do
+   `summary`.
+4. Liczba wpisow nie spada miedzy przebiegami inaczej niz przez okno czasu (§5bg). Wpis znany
+   poprzedniemu stanowi zostaje (kolektor go przenosi); o jego wyjsciu decyduje okno, nie przebieg.
+5. Przebieg zapisuje `mc.collector = {"readOn", "counts", "sources"}` z `MC_INDEX.json` —
+   po tym widac na stronie i w `/diff/`, ze kolektor sie uruchomil i co przeczytal. Brak klucza
+   `mc.collector` w stanie znaczy, ze lista MC znow zostala przepisana recznie.
+6. Kolektor uruchamiaja OBA przebiegi briefu: poranny i popoludniowy (nowe wpisy MC przychodza
+   w ciagu dnia; 25 IX MC1479509 opublikowano o 21:37 UTC).
+7. W odpowiedzi przebiegu: `MC_INDEX.json counts` i stan kazdego zrodla.
+
+```python
+#!/usr/bin/env python3
+"""collect_mc.py - Message Center: EVERY post, read by code, never retyped by the run (CLAUDE.md 5bo).
+
+  SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> python3 collect_mc.py MC_INDEX.json [<poprzedni site/data/*.json>]
+
+Why: 26 IX 2026 the morning brief carried 145 Message Center entries where the day before it
+carried 368, and MC1479509 ("Spell check before sending emails in new Outlook", Exchange Online)
+was missing although MC1479503 and MC1479516 around it were there - the index was re-typed by the
+run and posts fell out. The owner: "do not filter - we must catch such messages". So the list
+comes from code, and the brief ENRICHES it (summary, action, items), it does not choose it.
+
+Sources, each with its own state (ok / unread + note), none of them the only truth:
+  index   https://mc.merill.net/?type=mc - the 200 most recently UPDATED rows (MC and Roadmap
+          mixed; Roadmap rows are skipped). Row = id, title, service badges, "Last updated".
+  feed    https://msmessagecenter.com/feed.xml - RSS, the 100 most recent posts with the publication
+          time and category (Plan for Change / Stay Informed / Prevent or Fix Issue).
+  tenant  <SOC_REPO>/site/data/mc-tenant.json - Message Center of the owner's tenant through
+          Microsoft Graph (tools/mc_tenant.py, GitHub Actions). Covers only services the tenant
+          subscribes to, but carries category, severity, major, action date and field changes.
+  prev    mc.entries of the previous state - every entry already known stays (the window, not
+          this run, decides when an entry leaves - 5bg).
+Output (MC_INDEX.json): {readOn, sources:{index:{...}, feed:{...}, tenant:{...}},
+  entries:[{id,type:"MC",title,link,updated,published,tech,origin,firstTracked,category,feedSummary,
+            severity,isMajor,action,tenantChange}], added:[ids first seen now], counts:{...}}
+`origin` names every source that knows the entry (prev, index, feed, tenant joined by "+")."""
+import datetime, html, json, os, re, sys, urllib.request
+
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+INDEX = "https://mc.merill.net/?type=mc"
+FEED = "https://msmessagecenter.com/feed.xml"
+MON = {m: i + 1 for i, m in enumerate(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"])}
+
+
+def iso(txt):
+    m = re.match(r"([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", (txt or "").strip())
+    return "%s-%02d-%02d" % (m.group(3), MON[m.group(1)], int(m.group(2))) if m and m.group(1) in MON else None
+
+
+def read_index():
+    req = urllib.request.Request(INDEX, headers={"User-Agent": UA})
+    h = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    total = re.search(r"Showing (\d+) of (\d+) results", h)
+    rows = re.findall(r'<tr class="border-b[^"]*cursor-pointer"[^>]*>(.*?)</tr>', h, re.S)
+    out = []
+    for r in rows:
+        m = re.search(r'href="/message/(MC\d+)">MC\d+</a>', r)
+        if not m:
+            continue                                   # Roadmap row (RM...), not Message Center
+        mid = m.group(1)
+        t = re.search(r'href="/message/%s">(?!%s<)(.*?)</a>' % (mid, mid), r, re.S)
+        sv = [html.unescape(x).strip() for x in re.findall(r'text-nowrap">([^<]+)</div>', r)]
+        d = re.findall(r'<span class="text-nowrap leading-7[^"]*">([^<]+)</span>', r)
+        out.append({"id": mid, "title": html.unescape(re.sub(r"\s+", " ", t.group(1))).strip() if t else "",
+                    "tech": sv, "updated": iso(d[-1]) if d else None,
+                    "link": "https://mc.merill.net/message/" + mid})
+    return out, len(rows), int(total.group(2)) if total else None
+
+
+def read_feed():
+    import email.utils
+    req = urllib.request.Request(FEED, headers={"User-Agent": UA})
+    x = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    out = []
+    for it in re.findall(r"<item>(.*?)</item>", x, re.S):
+        g = lambda tag: (re.search(r"<%s>(.*?)</%s>" % (tag, tag), it, re.S) or [None, ""])[1]
+        tt = html.unescape(g("title"))
+        m = re.match(r"(MC\d+)\s*[\u2013-]\s*(.*)", tt)
+        if not m:
+            continue
+        cats = [html.unescape(c) for c in re.findall(r"<category>(.*?)</category>", it)]
+        try:
+            pub = email.utils.parsedate_to_datetime(g("pubDate")).date().isoformat()
+        except Exception:
+            pub = None
+        out.append({"id": m.group(1), "title": m.group(2).strip(), "published": pub,
+                    "category": cats[0] if cats else None, "tech": cats[1:],
+                    "summary": html.unescape(re.sub(r"<[^>]+>", "", g("description")))[:400],
+                    "feedLink": "https://msmessagecenter.com/" + m.group(1)})
+    return out
+
+
+def main(out_path, prev_path=None):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    repo = os.environ.get("SOC_REPO") or "../chk"
+    src = {}
+    try:
+        idx, nrows, total = read_index()
+        src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": total, "url": INDEX, "note": ""}
+    except Exception as ex:
+        idx = []
+        src["index"] = {"state": "unread", "rows": 0, "mc": 0, "total": None, "url": INDEX, "note": str(ex)[:200]}
+    try:
+        fd = read_feed()
+        src["feed"] = {"state": "ok", "items": len(fd), "url": FEED, "note": ""}
+    except Exception as ex:
+        fd = []
+        src["feed"] = {"state": "unread", "items": 0, "url": FEED, "note": str(ex)[:200]}
+    ten = {}
+    tp = os.path.join(repo, "site", "data", "mc-tenant.json")
+    try:
+        ten = json.load(open(tp, encoding="utf-8"))
+        src["tenant"] = {"state": "ok" if ten.get("messages") else "unread", "count": ten.get("count", 0),
+                         "read": ten.get("read"), "note": ten.get("note") or ""}
+    except Exception as ex:
+        src["tenant"] = {"state": "unread", "count": 0, "read": None, "note": "no %s (%s)" % (tp, str(ex)[:120])}
+    prev = []
+    if prev_path and os.path.exists(prev_path):
+        try:
+            p = json.load(open(prev_path, encoding="utf-8"))
+            prev = ((p.get("soc-brief-state") or p).get("mc") or {}).get("entries") or []
+        except Exception:
+            prev = []
+    known = {e.get("id"): e for e in prev if e.get("id")}
+    tmsg = {m["id"]: m for m in (ten.get("messages") or []) if m.get("id")}
+    tchg = {}
+    for c in ten.get("changes") or []:
+        if c.get("date") == ten.get("read") and c.get("type") == "changed":
+            tchg[c["id"]] = c.get("fields") or {}
+    ent = {}
+    for e in prev:                                     # everything already known stays
+        if e.get("id"):
+            ent[e["id"]] = {"id": e["id"], "type": "MC", "title": e.get("title") or "", "link": e.get("link") or "",
+                            "updated": e.get("revisedOn") or e.get("published"), "tech": e.get("tech") or [],
+                            "origin": "prev", "firstTracked": e.get("firstTracked") or day}
+    for r in idx:
+        x = ent.setdefault(r["id"], {"id": r["id"], "type": "MC", "firstTracked": day, "origin": "index"})
+        x.update({k: v for k, v in r.items() if v})
+        if x["origin"] == "prev":
+            x["origin"] = "index"
+    for f in fd:
+        x = ent.setdefault(f["id"], {"id": f["id"], "type": "MC", "firstTracked": day, "origin": "feed",
+                                     "title": f["title"], "link": f["feedLink"], "tech": f["tech"]})
+        if x.get("origin") == "index":
+            x["origin"] = "index+feed"
+        # the feed's description is msmessagecenter.com's own summary, not Microsoft's sentence,
+        # so it never goes into `summary` (5an: "<zdanie Microsoftu, nie nasze>")
+        if f.get("summary") and not x.get("feedSummary"):
+            x["feedSummary"] = f["summary"]
+        for k in ("published", "feedLink"):
+            if f.get(k) and not x.get(k):
+                x[k] = f[k]
+        if f.get("category") and not x.get("category"):
+            x["category"] = f["category"]
+        if not x.get("tech"):
+            x["tech"] = f["tech"]
+    for i, m in tmsg.items():
+        x = ent.setdefault(i, {"id": i, "type": "MC", "title": m.get("title") or "", "firstTracked": day,
+                               "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/" + i,
+                               "tech": m.get("services") or [], "origin": "tenant"})
+        if x.get("origin") != "tenant":
+            x["origin"] = x["origin"] + "+tenant"
+        x.update({"category": m.get("category"), "severity": m.get("severity"), "isMajor": m.get("major"),
+                  "action": m.get("actionBy"), "tenantUpdated": m.get("modified")})
+        if i in tchg:
+            x["tenantChange"] = tchg[i]
+    entries = sorted(ent.values(), key=lambda e: (e.get("updated") or e.get("published") or e.get("tenantUpdated") or "", e["id"]), reverse=True)
+    added = [e["id"] for e in entries if e["id"] not in known]
+    out = {"readOn": day, "sources": src, "entries": entries, "added": added,
+           "counts": {"entries": len(entries), "added": len(added), "fromIndex": len(idx),
+                      "fromFeed": len(fd), "fromTenant": len(tmsg), "fromPrev": len(known)}}
+    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("OK  %s  %d entries (%d new this run) - index %s %d MC of %d rows, feed %s %d, tenant %s %d, prev %d"
+          % (out_path, len(entries), len(added), src["index"]["state"], len(idx), src["index"]["rows"],
+             src["feed"]["state"], len(fd), src["tenant"]["state"], len(tmsg), len(known)))
+
+
+if __name__ == "__main__":
+    a = [x for x in sys.argv[1:] if not x.startswith("--")]
+    main(a[0] if a else "MC_INDEX.json", a[1] if len(a) > 1 else None)
+```
 
 ### Kontrakt danych — `mc` w bloku `soc-brief-state`
 
@@ -25240,6 +25450,170 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1300); });
   else setTimeout(boot, 1300);
 })();
+/* ---------------------------------------------------------------------------
+   §5bn (26 IX 2026) — "SINCE THE PREVIOUS BRIEF" AT THE TOP OF EVERY TAB.
+   Owner, 26 IX 2026: "each tab should have a section on the top indicating what the recent
+   changes are … what exactly changed / removed / updated … now I am totally lost in each tab".
+   The 14-day register (§5aj, script 8) answers that, but it is folded on purpose (it pushed the
+   catalog 1 340 px down) and exists on five tabs only. This strip is small, always open, and
+   says for THIS tab: how many entries are new, changed and removed in this brief, and names
+   the first ones with before → after. It reads only what the page already carries:
+     ledger14.entries (seen == briefDate)  New, Deadlines, Graph API, Roles, Component versions
+     mc.entries (firstTracked / revisedOn) Message Center
+     fpa.chg (d == fpa.built)              First-party apps
+     community.newToday + items            Community Articles
+     newToday + items                      Today
+   Learn and Blogs have no per-day key in the state; their strip links to the panel on /diff/.
+   It writes nothing any other script owns: one <div class="s5bn"> per panel.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var booted = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  var MAXROWS = 8;
+
+  function dmy(d) {
+    var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || "");
+  }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+
+  function strip(panel, spec) {
+    if (!panel || panel.querySelector(".s5bn")) return;
+    var box = el("div", "s5bn"); box.setAttribute("role", "region");
+    box.setAttribute("aria-label", "What changed in this tab since the previous brief");
+    var head = el("div", "s5bn-h");
+    head.appendChild(el("span", "s5bn-t", spec.title));
+    var n = { added: 0, changed: 0, removed: 0 };
+    spec.rows.forEach(function (r) { n[r.kind] = (n[r.kind] || 0) + 1; });
+    [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) {
+      var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]);
+      if (!n[k[0]]) b.classList.add("zero");
+      head.appendChild(b);
+    });
+    box.appendChild(head);
+    if (!spec.rows.length) {
+      box.appendChild(el("p", "s5bn-empty", spec.empty));
+    } else {
+      var ul = el("ul", "s5bn-l");
+      spec.rows.slice(0, MAXROWS).forEach(function (r) {
+        var li = el("li", "s5bn-r s5bn-" + r.kind);
+        li.appendChild(el("span", "s5bn-k", r.kind === "added" ? "NEW" : r.kind === "removed" ? "REMOVED" : "CHANGED"));
+        var nm = r.link ? el("a", "s5bn-id", r.id) : el("span", "s5bn-id", r.id);
+        if (r.link) { nm.href = r.link; nm.target = "_blank"; nm.rel = "noopener"; }
+        li.appendChild(nm);
+        if (r.title) li.appendChild(el("span", "s5bn-ti", r.title));
+        if (r.field || r.before || r.after) {
+          var ch = el("span", "s5bn-ch");
+          if (r.field) ch.appendChild(el("span", "s5bn-f", r.field + ":"));
+          if (r.before) ch.appendChild(el("del", null, r.before));
+          if (r.before && r.after) ch.appendChild(document.createTextNode(" → "));
+          if (r.after) ch.appendChild(el("ins", null, r.after));
+          li.appendChild(ch);
+        }
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+      if (spec.rows.length > MAXROWS) box.appendChild(el("p", "s5bn-more",
+        (spec.rows.length - MAXROWS) + " more — " + spec.more));
+    }
+    if (spec.diff) {
+      var a = el("a", "s5bn-diff", "Everything that moved here, field by field, on the changes page →");
+      a.href = (onSite() ? "/diff/" : "https://orange-ground-019f30603.7.azurestaticapps.net/diff/") + "#" + spec.diff;
+      box.appendChild(a);
+    }
+    var ph = panel.querySelector(".panelhead");
+    if (ph && ph.parentNode === panel) panel.insertBefore(box, ph.nextSibling);
+    else panel.insertBefore(box, panel.firstChild);
+  }
+
+  function build() {
+    var ST = json("soc-brief-state") || {};
+    var day = ST.briefDate || "";
+    var cw = ST.comparedWith || "";
+    var prev = typeof cw === "string" ? cw : (cw.date || "");
+    var since = "Since the previous brief" + (prev ? " (" + dmy(prev) + (cw.when && /afternoon|21:/.test(cw.what + cw.when) ? ", afternoon pass" : "") + ")" : "");
+    var items = {}; (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
+    function itemRow(kind, id, field, before, after) {
+      var it = items[id] || {};
+      return { kind: kind, id: id, title: it.title || "", link: it.url || "", field: field || "", before: before || "", after: after || "" };
+    }
+
+    /* 1. tabs fed by the register: entries recorded by THIS brief */
+    var L = (ST.ledger14 || {}).entries || [];
+    var today = L.filter(function (e) { return e.seen === day; });
+    [["tab-new", ["New"], "added"], ["tab-deadlines", ["Deadlines"], "added"],
+     ["tab-graph", ["Graph API", "Graph endpoints"], "catalog"], ["tab-roles", ["Roles"], "catalog"],
+     ["tab-components", ["Component versions"], "components"]].forEach(function (t) {
+      var rows = today.filter(function (e) { return t[1].indexOf(e.tab) >= 0; }).map(function (e) {
+        /* an endpoint move carries its path in `detail`: that, not "+1", is the news */
+        var r = e.detail ? itemRow(e.kind, e.id, "", "", e.detail) : itemRow(e.kind, e.id, e.field, e.before, e.after);
+        if (!r.link && e.url) r.link = e.url;
+        return r;
+      });
+      strip(document.getElementById(t[0]), { title: since, rows: rows, diff: t[2],
+        empty: "Nothing moved in this tab in this brief — the register recorded no change here on " + dmy(day) + ".",
+        more: "the full list is in “What changed in the last 14 days” below." });
+    });
+
+    /* 2. Message Center: entries this brief saw for the first time, and revisions */
+    var MC = (ST.mc || {}).entries || [];
+    var mcRows = [];
+    MC.forEach(function (m) {
+      if (m.firstTracked === day) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "",
+        field: m.action ? "action" : "", after: m.action || "" });
+      else if (m.revisedOn && m.revisedOn === day) mcRows.push({ kind: "changed", id: m.id, title: m.title || "",
+        link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
+    });
+    mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
+    strip(document.getElementById("tab-mc"), { title: since, rows: mcRows, diff: "mcenter",
+      empty: "No Message Center post first seen or revised in this brief (" + dmy(day) + ").",
+      more: "every post is in the table below, newest first." });
+
+    /* 3. First-party apps: the collector's own change list for this build */
+    var F = ST.fpa || {};
+    var fRows = (F.chg || []).filter(function (x) { return x.d === F.built; }).map(function (x) {
+      var k = x.t === "added" ? "added" : x.t === "removed" ? "removed" : "changed";
+      return { kind: k, id: x.n || x.id, title: x.t === "added" || x.t === "removed" ? (x.id || "") : "",
+        field: k === "changed" ? x.t : "", before: x.a != null ? String(x.a) : (x.nr ? "−" + x.nr : ""),
+        after: x.b != null ? String(x.b) : (x.na ? "+" + x.na : "") };
+    });
+    strip(document.getElementById("tab-fpa"), { title: since, rows: fRows, diff: "fpa",
+      empty: F.apps ? "No first-party app added, removed or changed in this build (" + dmy(F.built) + ")." :
+                      "No first-party app data in this brief.",
+      more: "the change list is in the tab below." });
+
+    /* 4. Community Articles: titles this brief saw for the first time */
+    var C = ST.community || {};
+    var byTitle = {}; (C.items || []).forEach(function (a) { if (a && a.title) byTitle[a.title] = a; });
+    var cRows = (C.newToday || []).map(function (t) {
+      var a = byTitle[t] || {};
+      return { kind: "added", id: a.sourceName || a.source || "article", title: t, link: a.link || "" };
+    });
+    strip(document.getElementById("tab-community"), { title: since, rows: cRows, diff: "community",
+      empty: "No new community article in this brief.", more: "all of them are in the list below." });
+
+    /* 5. Today: the items this brief added */
+    var tRows = (ST.newToday || []).map(function (id) { return itemRow("added", id); });
+    strip(document.getElementById("tab-today"), { title: since, rows: tRows, diff: "added",
+      empty: "No new entry in this brief.", more: "all of them are in New." });
+
+    /* 6. Learn and Blogs: no per-day key in the state; the changes page carries it */
+    [["tab-learn", "docsdiff", "Microsoft Learn"], ["tab-blogs", "blogsdiff", "Microsoft Blogs"]].forEach(function (t) {
+      strip(document.getElementById(t[0]), { title: since, rows: [], diff: t[1],
+        empty: "What moved in " + t[2] + " since the previous run is computed on the changes page.", more: "" });
+    });
+  }
+
+  function boot() {
+    if (booted) return; booted = true;
+    try { build(); } catch (e) { if (window.console) console.error("[s17 5bn]", e); }
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2100); });
+  else setTimeout(boot, 2100);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -25346,6 +25720,29 @@ nadpisuje.
    so a script that dies can never leave the page without its tabs. */
 html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5ready) .navrow{visibility:hidden;animation:s5reveal 0s linear 4.5s forwards}
 @keyframes s5reveal{to{visibility:visible}}
+/* §5bn (26 IX 2026) — "Since the previous brief" strip at the top of every tab (script 17). */
+.s5bn{margin:0 0 14px;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface)}
+.s5bn-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.s5bn-t{font-weight:700;color:var(--text)}
+.s5bn-n{font:600 12.5px/1.2 var(--sans);padding:2px 8px;border-radius:999px;border:1px solid var(--border)}
+.s5bn-n.s5bn-added{color:var(--ok);background:var(--ok-soft);border-color:transparent}
+.s5bn-n.s5bn-changed{color:var(--warn);background:var(--warn-soft);border-color:transparent}
+.s5bn-n.s5bn-removed{color:var(--bad);background:var(--bad-soft);border-color:transparent}
+.s5bn-n.zero{color:var(--muted);background:transparent;border-color:var(--border)}
+.s5bn-l{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.s5bn-r{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:13px;line-height:1.45;min-width:0}
+.s5bn-k{flex:0 0 auto;font:700 10.5px/1.6 var(--sans);letter-spacing:.06em;padding:0 6px;border-radius:4px}
+.s5bn-added .s5bn-k{color:var(--ok);background:var(--ok-soft)}
+.s5bn-changed .s5bn-k{color:var(--warn);background:var(--warn-soft)}
+.s5bn-removed .s5bn-k{color:var(--bad);background:var(--bad-soft)}
+.s5bn-id{font-family:var(--mono);font-size:12.5px;color:var(--accent);overflow-wrap:anywhere}
+.s5bn-ti{color:var(--text);overflow-wrap:anywhere}
+.s5bn-ch{color:var(--muted);overflow-wrap:anywhere}
+.s5bn-f{margin-right:4px}
+.s5bn-ch del{color:var(--del-fg);background:var(--del-bg);text-decoration:line-through;padding:0 3px;border-radius:3px}
+.s5bn-ch ins{color:var(--ins-fg);background:var(--ins-bg);text-decoration:none;padding:0 3px;border-radius:3px}
+.s5bn-empty,.s5bn-more{margin:6px 0 0;color:var(--muted);font-size:13px}
+.s5bn-diff{display:inline-block;margin-top:6px;font-size:12.5px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
