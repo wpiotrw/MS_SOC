@@ -25503,7 +25503,7 @@ odtad CZTERNASCIE (4-17).**
         var nm = r.link ? el("a", "s5bn-id", r.id) : el("span", "s5bn-id", r.id);
         if (r.link) { nm.href = r.link; nm.target = "_blank"; nm.rel = "noopener"; }
         li.appendChild(nm);
-        if (r.title) li.appendChild(el("span", "s5bn-ti", r.title));
+        if (r.title && r.title !== r.id) li.appendChild(el("span", "s5bn-ti", r.title));
         if (r.field || r.before || r.after) {
           var ch = el("span", "s5bn-ch");
           if (r.field) ch.appendChild(el("span", "s5bn-f", r.field + ":"));
@@ -25560,11 +25560,18 @@ odtad CZTERNASCIE (4-17).**
     /* 2. Message Center: entries this brief saw for the first time, and revisions */
     var MC = (ST.mc || {}).entries || [];
     var mcRows = [];
+    /* new = first seen by this brief; a state without `firstTracked` (26 IX 2026: none of 145
+       entries carried it) falls back to a publication date after the previous brief */
+    /* day granularity: the previous brief's DAY counts, because a post published that afternoon
+       came after the morning brief that day (MC1479503, 25 IX 2026) */
+    function after(d) { return !!(d && prev && d >= prev && d <= day); }
     MC.forEach(function (m) {
-      if (m.firstTracked === day) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "",
-        field: m.action ? "action" : "", after: m.action || "" });
-      else if (m.revisedOn && m.revisedOn === day) mcRows.push({ kind: "changed", id: m.id, title: m.title || "",
-        link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
+      var isNew = m.firstTracked ? m.firstTracked === day : after(m.published);
+      var act = m.action && !/^no action/i.test(m.action) ? m.action : "";
+      if (isNew) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "",
+        field: act ? "action" : "", after: act });
+      else if (m.revisedOn && (m.revisedOn === day || after(m.revisedOn))) mcRows.push({ kind: "changed", id: m.id,
+        title: m.title || "", link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
     });
     mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
     strip(document.getElementById("tab-mc"), { title: since, rows: mcRows, diff: "mcenter",
