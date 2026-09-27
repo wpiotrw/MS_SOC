@@ -23161,6 +23161,51 @@ pasek filtra `rgb(219,240,227)`, deep link `#MC1479509` otwiera wpis, `__socOpen
 "Exchange Online")` → 24 wpisy, 0 bledow konsoli, brak przewijania w bok; bramka: te same
 pozycje co przed zmiana (90a przechodzi po poszerzeniu slownika `origin`).
 
+## 5bq. OVERVIEW: DZIESIEC ZDAN DNIA I JEDNA LINIA NA TECHNOLOGIE (27 IX 2026)
+
+Wlasciciel, 27 IX 2026, patrzac na telefon: *„Today in three sentences … mozesz to rozszerzyc do 10
+zdan? … m365, security, copilot, entra, entra connect, defenderow, sentinela, intune, teams, purview
+… moze dorzucisz tez osobna sekcje dot 1 zdania per technologia"*.
+
+Regula (kod: IIFE §5bk w SKRYPCIE 17, CSS: blok §5bk):
+
+1. **Trzy pierwsze zdania zostaja policzone kodem** (najpilniejszy termin, najwieksza nowosc,
+   zmiany Microsoftu w Graph i rolach) — to sa liczby, a nie proza.
+2. **Do siedmiu kolejnych zdan**, kazde z etykieta technologii. Zrodlo:
+   `soc-brief-state.digest.sentences` (proza przebiegu) albo — gdy klucza nie ma — kod: najciezsze
+   nowe pozycje (`newToday`, tytul + pierwsze zdanie `why`), pozycje z terminem w 14 dniach, nowe
+   wpisy Message Center (major i z terminem pierwsze; tytul + pierwsze zdanie streszczenia).
+   Najpierw jedna technologia na zdanie, potem dopelnienie. Naglowek mowi, ile zdan jest naprawde
+   („Today in ten sentences", przy mniejszej puli mniej) — nie ma zdan-wypelniaczy.
+3. **„One line per technology"** — osobna sekcja: Copilot, Entra Connect, Entra ID, Defender
+   (XDR, MDE, MDI, MDA, MDO, Exposure Management, Threat Intelligence), Sentinel, Intune, Teams,
+   Purview, Exchange & Outlook, SharePoint & OneDrive, Windows, Azure, Graph API, Power Platform,
+   Microsoft 365. Linia TYLKO tam, gdzie cos sie ruszylo (brak linii „nothing new"), z liczba
+   pozostalych pozycji tej technologii. Zrodlo: `digest.byTech` albo ta sama pula co w pkt 2.
+4. **Kazde zdanie wskazuje pozycje albo wpis MC, ktory jest na stronie** (`refs`). Klikniecie
+   otwiera pozycje (`goItem`) albo wpis w przegladarce Message Center (§5bp). Zdanie przebiegu,
+   ktorego `refs` nie wskazuja niczego na stronie, jest pomijane (ostrzezenie w konsoli) — proza
+   bez zrodla nie trafia na strone.
+5. Uklad: na komputerze zdania po lewej, po prawej „What Microsoft changed" i pod nim linie
+   technologii; ponizej 980 px jedna kolumna w kolejnosci zdania → technologie → karty → 14 dni.
+
+Kontrakt dla przebiegu (klucz opcjonalny; zdania po angielsku, jak caly interfejs):
+
+```json
+"digest": {
+  "sentences": [ { "tech": "Entra ID", "text": "One sentence, what changes and why it matters.", "refs": ["<id pozycji albo MC…>"] } ],
+  "byTech":    [ { "tech": "Sentinel", "text": "…", "refs": ["…"] } ]
+}
+```
+
+Najwyzej 7 zdan w `sentences`, najwyzej dwa z jednej technologii; `tech` z listy w pkt 3; zdanie
+mowi, co sie zmienia i dlaczego to wazne dla bezpieczenstwa lub administracji — nie powtarza tytulu.
+
+Zmierzone 27 IX 2026 w Playwright na `art26_b.html` (bez `digest`, wiec pula z kodu): 10 zdan
+(Defender, Teams, Microsoft 365, Copilot, Exchange & Outlook, Windows, Purview po trzech policzonych),
+14 linii technologii (Sentinel bez linii — tego dnia nic nowego), klikniecie zdania otwiera zakladke
+z pozycja, 0 bledow konsoli, brak przewijania w bok na 1500 i 400 px.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -23702,8 +23747,12 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 /* §5bk (25 IX 2026): stage 4 — the Overview says what matters first; phone-ready. */
 .s5bk-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;margin:4px 0 16px}
 .s5bk-top>section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-width:0}
-.s5bk-top{grid-template-areas:"sum ms" "act act" "tl tl"}
-.s5bk-sum{grid-area:sum}.s5bk-ms{grid-area:ms}.s5bk-act{grid-area:act}.s5bk-tl{grid-area:tl}
+.s5bk-top{grid-template-areas:"sum ms" "sum tech" "act act" "tl tl";align-items:start}
+.s5bk-sum{grid-area:sum}.s5bk-ms{grid-area:ms}.s5bk-act{grid-area:act}.s5bk-tl{grid-area:tl}.s5bk-tech{grid-area:tech}
+.s5bk-sum{align-self:stretch}
+.s5bk-techl{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.s5bk-tl1{display:grid;grid-template-columns:128px minmax(0,1fr);gap:2px 10px;align-items:baseline;font-size:14px;line-height:1.4}
+.s5bk-tl1>b{font-size:12.5px;font-weight:700;color:var(--muted)}
 .s5bk-top>section{margin:0!important}
 .s5bk-top .s5bk-h{font-family:inherit!important;font-size:15px;font-weight:700;margin:0 0 10px;color:var(--ink);letter-spacing:0;text-transform:none}
 .s5bk-daypane[hidden]{display:none}
@@ -23765,7 +23814,7 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 .s5bk-health>summary.s5bk-warn .s5bk-hs{color:var(--warn)}
 .s5bk-hb{padding:0 16px 14px;display:flex;flex-direction:column;gap:10px}
 .s5bk-fbtn{display:none}
-@media (max-width:980px){.s5bk-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"sum" "act" "tl" "ms"}.s5bk-cards3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:980px){.s5bk-top{grid-template-columns:minmax(0,1fr);grid-template-areas:"sum" "tech" "act" "tl" "ms"}.s5bk-tl1{grid-template-columns:minmax(0,1fr)}.s5bk-cards3{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){
   .s5bk-top>section{padding:12px}
   .s5bk-strip{grid-template-columns:repeat(7,minmax(0,1fr));row-gap:8px}
@@ -25170,8 +25219,8 @@ odtad CZTERNASCIE (4-17).**
 
     var top = el("div", "s5bk-top");
     /* 1. today in three sentences */
-    var sum = el("section", "s5bk-sum"); sum.setAttribute("aria-label", "Today in three sentences");
-    sum.appendChild(el("h2", "s5bk-h", "Today in three sentences"));
+    var sum = el("section", "s5bk-sum"); sum.setAttribute("aria-label", "Today in ten sentences");
+    var sumH = el("h2", "s5bk-h", "Today in ten sentences"); sum.appendChild(sumH);
     var ol = el("ol", "s5bk-3");
     function sentence(lead, node) { var li = el("li"); li.appendChild(el("b", null, lead + " ")); if (node) li.appendChild(node); ol.appendChild(li); }
     if (due7.length) {
@@ -25191,7 +25240,97 @@ odtad CZTERNASCIE (4-17).**
       b3.addEventListener("click", function () { goMs(ms14[0].tab); });
       sentence("Microsoft:", b3);
     } else sentence("Microsoft:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
+    /* §5bq (27 IX 2026): owner — "rozszerz do 10 zdan … m365, security, copilot, entra, entra connect,
+       defender, sentinel, intune, teams, purview … i osobna sekcja: 1 zdanie per technologia".
+       The three sentences above stay computed. Up to seven more come from `st.digest.sentences`
+       (the run's own prose, §5bq) or, without it, from the day's heaviest new items and new
+       Message Center posts — one technology per sentence first. Every sentence points at an item
+       or an MC post that exists on this page; a sentence whose refs resolve to nothing is dropped. */
+    var TECH = [["Copilot", /copilot/i], ["Entra Connect", /entra connect|cloud sync/i], ["Entra ID", /entra|identity/i],
+      ["Defender", /defender|^md[eiao]$|exposure management|threat intel/i], ["Sentinel", /sentinel/i],
+      ["Intune", /intune/i], ["Teams", /teams/i], ["Purview", /purview/i], ["Exchange & Outlook", /exchange|outlook/i],
+      ["SharePoint & OneDrive", /sharepoint|onedrive/i], ["Windows", /^windows/i], ["Azure", /^azure/i],
+      ["Graph API", /graph/i], ["Power Platform", /power (platform|apps|automate|bi)/i],
+      ["Microsoft 365", /m365|microsoft 365|office|viva|planner/i]];
+    function techOf(names) {
+      for (var t = 0; t < TECH.length; t++)
+        for (var k = 0; k < names.length; k++) if (TECH[t][1].test(String(names[k] || ""))) return TECH[t][0];
+      return "";
+    }
+    var MCE = ((st.mc || {}).entries || []).filter(function (e) { return e && e.id && !/^RM/i.test(e.id); });
+    var BYID = {}; items.forEach(function (i) { BYID[i.id] = { kind: "item", it: i }; });
+    MCE.forEach(function (e) { if (!BYID[e.id]) BYID[e.id] = { kind: "mc", e: e }; });
+    function firstSentence(t) {
+      t = String(t || "").replace(/\s+/g, " ").trim();
+      var m = /^(.{30,200}?[.!?])(\s|$)/.exec(t); if (m) return m[1];
+      if (t.length <= 200) return t;
+      return t.slice(0, 200).replace(/\s+\S*$/, "") + "…";   /* never cut inside a word */
+    }
+    var used = {}; if (due7.length) used[due7[0].it.id] = 1; if (fresh.length) used[fresh[0].id] = 1;
+    /* the pool: new items (heaviest first), items due within 14 days, then new MC posts
+       (major or dated first) — the same ground the cards and the MC browser stand on */
+    var pool = [];
+    fresh.forEach(function (i) { pool.push({ id: i.id, tech: techOf([i.product, i.area]), text: i.title || i.officialTitle || i.id,
+      sub: firstSentence(i.why), meta: "new" }); });
+    dated.filter(function (x) { return x.n >= 0 && x.n <= 14 && !newIds[x.it.id]; })
+      .sort(function (a, b) { return a.n - b.n || w(a.it) - w(b.it); })
+      .forEach(function (x) { pool.push({ id: x.it.id, tech: techOf([x.it.product, x.it.area]), text: x.it.title || x.it.id,
+        sub: firstSentence(x.it.why), meta: "due " + fmt(String(x.it.deadline).slice(0, 10)) }); });
+    MCE.filter(function (e) { return e.firstTracked === today && !BYID[e.id].it; })
+      .sort(function (a, b) { return (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0) || (b.deadline ? 1 : 0) - (a.deadline ? 1 : 0) || String(b.id).localeCompare(String(a.id)); })
+      .forEach(function (e) { pool.push({ id: e.id, tech: techOf(e.tech || []), text: e.title || e.id,
+        sub: firstSentence(e.summary || e.dpSummary || e.feedSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
+    pool = pool.filter(function (x) { return x.tech && BYID[x.id]; });
+    function go(id) {
+      var r = BYID[id]; if (!r) return;
+      if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
+      if (!goItem(id) && r.it && r.it.url) window.open(r.it.url, "_blank", "noopener");
+    }
+    function line(lead, x, host, cls) {
+      var li = el("li", cls || null); li.appendChild(el("b", null, lead + " "));
+      var b = el("button", "s5bk-it"); b.type = "button";
+      b.appendChild(el("span", "s5bk-itt", x.text));
+      var m = [x.sub, x.meta].filter(Boolean).join(" · ");
+      if (m) b.appendChild(el("span", "s5bk-itm", m));
+      b.addEventListener("click", function () { go(x.id); });
+      li.appendChild(b); host.appendChild(li);
+    }
+    function refOk(d) { return (d.refs || []).filter(function (r) { return BYID[r]; }); }
+    var dg = st.digest || {}, more = [];
+    (dg.sentences || []).forEach(function (d) {
+      var ok = refOk(d);
+      if (!d.text || !ok.length) { if (window.console) console.warn("[5bq] sentence dropped, no ref on this page:", d.text); return; }
+      more.push({ id: ok[0], tech: d.tech || techOf([d.tech]), text: d.text, sub: "", meta: ok.join(", ") });
+    });
+    var fromRun = more.length > 0;
+    if (!fromRun) {
+      var seenT = {};
+      pool.forEach(function (x) { if (more.length < 7 && !used[x.id] && !seenT[x.tech]) { seenT[x.tech] = 1; more.push(x); } });
+      pool.forEach(function (x) { if (more.length < 7 && !used[x.id] && more.indexOf(x) < 0) more.push(x); });
+    }
+    more = more.slice(0, 7);
+    more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
+    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten"][ol.children.length] || String(ol.children.length);
+    sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     sum.appendChild(ol); top.appendChild(sum);
+
+    /* one line per technology — only where something moved; no "nothing new" filler lines */
+    var tech = el("section", "s5bk-tech"); tech.setAttribute("aria-label", "One line per technology");
+    tech.appendChild(el("h2", "s5bk-h", "One line per technology"));
+    var tl2 = el("ul", "s5bk-techl"), byT = {};
+    (dg.byTech || []).forEach(function (d) { var ok = refOk(d); if (d.tech && d.text && ok.length && !byT[d.tech])
+      byT[d.tech] = { id: ok[0], tech: d.tech, text: d.text, sub: "", meta: "" }; });
+    if (!Object.keys(byT).length) {
+      TECH.forEach(function (t) {
+        var c = pool.filter(function (x) { return x.tech === t[0]; });
+        var pick = c.filter(function (x) { return !used[x.id]; })[0] || c[0];
+        if (pick) byT[t[0]] = { id: pick.id, tech: t[0], text: pick.text, sub: "", meta: c.length > 1 ? (c.length - 1) + " more" : "" };
+      });
+    }
+    TECH.forEach(function (t) { if (byT[t[0]]) line(t[0], byT[t[0]], tl2, "s5bk-tl1"); });
+    if (tl2.children.length) { tech.appendChild(tl2); top.appendChild(tech); }
+    tech.setAttribute("data-src", (dg.byTech || []).length ? "run" : "computed");
+    sum.setAttribute("data-src", fromRun ? "run" : "computed");
 
     /* 2. act on this first — cards with the items */
     var act = el("section", "s5bk-act"); act.setAttribute("aria-label", "Act on this first");
@@ -26936,7 +27075,7 @@ CSS w `make_diff.py` (strona zmian).
 
 | czesc | co robi |
 |---|---|
-| Today in three sentences | najpilniejszy termin (najblizszy, przy remisie najciezszy `socWeight`), najwieksza nowosc od briefu, liczba zmian Microsoftu w Graph i rolach — TA SAMA co KPI w naglowku (`data-n14` blokow §5bf) — z ostatnia z nich; kazde zdanie otwiera wiersz |
+| Today in three sentences (od 27 IX: w dziesieciu, §5bq) | najpilniejszy termin (najblizszy, przy remisie najciezszy `socWeight`), najwieksza nowosc od briefu, liczba zmian Microsoftu w Graph i rolach — TA SAMA co KPI w naglowku (`data-n14` blokow §5bf) — z ostatnia z nich; kazde zdanie otwiera wiersz |
 | Act on this first | trzy karty: due within 7 days, deadlines passed (7 dni), new since the last brief — liczba i trzy pozycje, „All N →"; dwa wiersze powloki, ktore to powtarzaly, sa schowane, reszta listy nazywa sie „Also check" |
 | The next 14 days | pasek dni z liczba terminow; klikniecie pokazuje pozycje dnia |
 | What Microsoft changed | 5 ostatnich wpisow Graph API i rol z 14 dni (bez `reach-*` i „Deployed in the service", jak §5bf) |
