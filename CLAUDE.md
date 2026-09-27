@@ -2985,7 +2985,7 @@ blocks"*) jest nieaktualny w obu liczbach; **gdzie prompt i ten plik sie roznia,
 Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
 SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
 **dwadziescia piec** — liczbe
-sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **osiem KOLEKTOROW** (od 27 IX 2026): cztery z §5aw, `collect_components.py` z §5ag, `collect_fpa.py` z §5bl, `collect_mc.py` z §5bo i `collect_graph_diff.py` z §5bs,
+sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **dziewiec KOLEKTOROW** (od 27 IX 2026): cztery z §5aw, `collect_components.py` z §5ag, `collect_fpa.py` z §5bl, `collect_mc.py` z §5bo, `collect_graph_diff.py` z §5bs i `collect_graph_cmds.py` z §5bt,
 wycinane tak samo:**
 
 | co | zrodlo | sekcja |
@@ -3011,6 +3011,7 @@ wycinane tak samo:**
 | `collect_fpa.py` — aplikacje Microsoftu i ich uprawnienia (od 26 IX 2026) | `CLAUDE.md` | 5bl |
 | `collect_mc.py` — KAZDY wpis Message Center, bez filtrowania (od 26 IX 2026) | `CLAUDE.md` | 5bo |
 | `collect_graph_diff.py` — kazda aktualizacja `permissions.json` Microsoftu, uprawnienie po uprawnieniu (od 27 IX 2026) | `CLAUDE.md` | 5bs |
+| `collect_graph_cmds.py` — polecenia Graph PowerShell SDK, dla ktorych uprawnienie jest najmniejszym (od 27 IX 2026) | `CLAUDE.md` | 5bt |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -3069,6 +3070,7 @@ def main(doc, outdir):
             elif "collect_fpa.py" in head:                     got["collect_fpa.py"] = b
             elif "collect_mc.py" in head:                      got["collect_mc.py"] = b
             elif "collect_graph_diff.py" in head:              got["collect_graph_diff.py"] = b
+            elif "collect_graph_cmds.py" in head:              got["collect_graph_cmds.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -3076,7 +3078,7 @@ def main(doc, outdir):
     need = ["script%d.js" % n for n in range(4, 18)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
-            "collect_components.py", "collect_fpa.py", "collect_mc.py", "collect_graph_diff.py"]
+            "collect_components.py", "collect_fpa.py", "collect_mc.py", "collect_graph_diff.py", "collect_graph_cmds.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
@@ -20139,6 +20141,7 @@ python3 collect_nt.py                                              # -> NT.json 
 SOC_REPOS=repos python3 collect_fpa.py FPA.json <poprzedni site/data/*.json>   # -> FPA.json == klucz `fpa` (§5bl)
 python3 collect_mc.py MC_INDEX.json <poprzedni site/data/*.json>              # -> MC_INDEX.json, baza `mc.entries` (§5bo)
 python3 collect_graph_diff.py GRAPH_DIFF.json <poprzedni site/data/*.json> --devx <klon devx>  # -> klucz `gdiff` (§5bs)
+python3 collect_graph_cmds.py GRAPH_CMDS.json                                  # -> klucz `gcmd` (§5bt)
 ```
 
 **Zadna data i zadna sciezka nie jest w nich zapisana na sztywno** — `SOC_DATE` i `SOC_REPO` ida
@@ -23544,6 +23547,138 @@ if __name__ == "__main__":
     main(a[0] if a else "GRAPH_DIFF.json", a[1] if len(a) > 1 else None, dv)
 ```
 
+## 5bt. KTO URUCHAMIA UPRAWNIENIE GRAPH: POLECENIA POWERSHELL I APLIKACJE (27 IX 2026)
+
+Wlasciciel, 27 IX 2026: *„myslalem ze mapowanie polecen to juz mielismy"* — zmierzone tego dnia:
+opublikowana strona nie niosla ani jednego „Get-Mg". Role wbudowane pokrywajace uprawnienie SA
+(`graphMap.perms[].roles`, §5ah) i zostaja bez zmian. Drugie zyczenie: *„przy gained reach
+pokazywac aplikacje w tenancie, ktore maja dane uprawnienie"*.
+
+1. `collect_graph_cmds.py` (ponizej) czyta `MgCommandMetadata.json` z
+   `microsoftgraph/msgraph-sdk-powershell` (MIT, galaz `main`) — te same dane, ktore czyta
+   `Find-MgGraphCommand`. Klucz `gcmd` w stanie: polecenia, dla ktorych uprawnienie jest
+   NAJMNIEJSZYM (`IsLeastPrivilege`), po nazwie, i liczba wszystkich polecen, ktore je przyjmuja.
+   Zmierzone: 31 201 rekordow, 27 252 polecenia, 693 uprawnienia; 527 uprawnien jest najmniejszym
+   dla 7 912 polecen; 481 KB, 1,8 s.
+2. Panel uprawnienia dostaje NA KONCU (pod sekcjami Microsoftu i rolami) dwie sekcje: „PowerShell commands (Microsoft Graph
+   SDK)" — v1.0 i beta osobno, kazde polecenie z linkiem do Learn — i „Apps that hold it":
+   aplikacje pierwszej strony Microsoftu z tym uprawnieniem jako wstepnie zgodzonym zakresem Graph
+   (`fpa.apps[].sc` i `fpa.dic`, §5bl) oraz z migawki tenanta klienci Microsoftu z delegowanym
+   grantem. **Klienci spoza Microsoftu tylko jako LICZBA** — decyzja o ukryciu danych tenanta
+   z 26 IX 2026.
+
+```python
+#!/usr/bin/env python3
+"""collect_graph_cmds.py - which Microsoft Graph PowerShell commands each permission runs (CLAUDE.md 5bt).
+
+  SOC_DATE=<briefDate> python3 collect_graph_cmds.py GRAPH_CMDS.json
+
+Why: 27 IX 2026 the owner took the command mapping for granted ("myslalem ze mapowanie polecen
+to juz mielismy") - measured that day, the published page carried no "Get-Mg" at all, while
+msgraphpermissions.com lists the commands under every permission.
+
+Source: Microsoft's own command metadata, shipped with the Graph PowerShell SDK (MIT):
+  microsoftgraph/msgraph-sdk-powershell, branch main,
+  src/Authentication/Authentication/custom/common/MgCommandMetadata.json
+One record per command variant: Command, Module, Method, Uri, ApiVersion and Permissions[] with
+Name, PermissionType and IsLeastPrivilege - the same data Find-MgGraphCommand reads.
+Measured 27 IX 2026: 31 201 records, 27 252 commands, 693 permissions; 527 permissions are the
+LEAST privilege of 7 912 commands.
+
+Output (GRAPH_CMDS.json, carried whole into soc-brief-state.gcmd): compact, because the page
+already carries megabytes -
+  {readOn, repo, file, commit, counts, cmds:[name], mods:[module], cm:[module index per cmd],
+   least:{permission:[cmd index]}, total:{permission:number of commands that accept it}}
+Only least-privilege commands are listed by name; `total` says how many more accept it."""
+import datetime, json, os, subprocess, sys, urllib.request
+
+REPO = "https://github.com/microsoftgraph/msgraph-sdk-powershell"
+FILE = "src/Authentication/Authentication/custom/common/MgCommandMetadata.json"
+RAW = "https://raw.githubusercontent.com/microsoftgraph/msgraph-sdk-powershell/main/" + FILE
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+
+
+def main(out_path):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    try:
+        head = subprocess.run(["git", "ls-remote", REPO, "refs/heads/main"], capture_output=True,
+                              text=True, timeout=60).stdout.split()[0][:7]
+    except Exception:
+        head = ""
+    req = urllib.request.Request(RAW, headers={"User-Agent": UA})
+    data = json.load(urllib.request.urlopen(req, timeout=120))
+    total, least, mod = {}, {}, {}
+    for x in data:
+        c = x.get("Command")
+        if not c:
+            continue
+        mod.setdefault(c, x.get("Module") or "")
+        seen = set()
+        for p in x.get("Permissions") or []:
+            n = p.get("Name")
+            if not n or (n, c) in seen:
+                continue
+            seen.add((n, c))
+            total.setdefault(n, set()).add(c)
+            if p.get("IsLeastPrivilege"):
+                least.setdefault(n, set()).add(c)
+    cmds = sorted({c for v in least.values() for c in v})
+    ix = {c: i for i, c in enumerate(cmds)}
+    mods = sorted({mod[c] for c in cmds})
+    mx = {m: i for i, m in enumerate(mods)}
+    out = {"readOn": day, "repo": REPO, "file": FILE, "commit": head,
+           "cmds": cmds, "mods": mods, "cm": [mx[mod[c]] for c in cmds],
+           "least": {n: sorted(ix[c] for c in v) for n, v in sorted(least.items())},
+           "total": {n: len(v) for n, v in sorted(total.items())},
+           "counts": {"records": len(data), "commands": len(mod), "permissions": len(total),
+                      "leastPermissions": len(least), "leastCommands": len(cmds)}}
+    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    c = out["counts"]
+    print("OK  %s  %s: %d records, %d commands, %d permissions; %d permissions least-privilege for %d commands, %d KB"
+          % (out_path, head, c["records"], c["commands"], c["permissions"], c["leastPermissions"],
+             c["leastCommands"], os.path.getsize(out_path) // 1024))
+
+
+if __name__ == "__main__":
+    a = [x for x in sys.argv[1:] if not x.startswith("--")]
+    main(a[0] if a else "GRAPH_CMDS.json")
+```
+
+## 5bu. GRAPH API I ROLES: WEJSCIE DO ZAKLADKI (27 IX 2026) — D2 i D4 planu nawigacji
+
+Zmierzone na stronie z 26 IX: Graph API 20 112 px na komputerze i **132 634 px na telefonie**, gdzie
+sama lista katalogu miala 99 871 px (ponizej 1000 px nie miala ograniczenia), a tabela 7 dni
+11 649 px; Roles 31 840 px na telefonie, w tym 29 047 px tej samej listy. Na pytanie, dla ktorego
+zakladka istnieje — „jakie uprawnienie do tego wywolania?" — nie bylo pola.
+
+1. Graph API: ramka „Which permission for this call?" — pole na wywolanie (`GET /groups/{id}/members`,
+   pelny URL, GUID zamieniany na `{id}`) i wybor metody; wynik z `graphMap`: kazde uprawnienie
+   siegajace pasujacych endpointow, od najnizszego poziomu. To NIE jest werdykt „least privilege"
+   — Microsoft nie oznacza go w tym pliku (`leastPairs` 0) i ramka to mowi.
+2. „Browse by resource" (Graph) i „Find a role" (Roles, „By kind", „By area"): chipy z licznikami,
+   ktore WPISUJA tekst do wlasnej szukajki katalogu — szukajka zostaje jedynym pisarzem filtra.
+3. Ponizej 1000 px lista katalogu ma `max-height:62vh` i przewija sie w sobie, a wybrany wpis
+   przewija strone do panelu.
+4. Tabela `details.g7` pokazuje 15 wierszy i „Show all N rows" (klasa na tabeli, nigdy `row.hidden`);
+   lista §5bs pokazuje trzy ostatnie commity Microsoftu i „Show all", a przy czynnym filtrze wszystko.
+
+Zmierzone 27 IX 2026 w Playwright na stronie z 26 IX (wysokosc zakladki, przed → po):
+Graph API 20 112 → 8 964 px na komputerze i 124 100 → 23 198 px przy 390 px; Roles 33 683 →
+25 915 px przy 390 px (reszta to panel roli). „GET https://graph.microsoft.com/v1.0/groups/<guid>/members"
+daje `/groups/{id}/members` i 7 uprawnien od Group.ReadBasic.All (L2); chip „Group" zaweza liste
+katalogu do 71 wpisow. Panel Group.ReadWrite.All: 15 polecen (7 v1.0, 8 beta) z 439 przyjmujacych
+i 23 aplikacje Microsoftu; User.Read: 126 polecen i 177 aplikacji. Community Articles przy 390 px
+10 667 → 18 193 px — wyzej, ale kazda kolumna jest czytelna i nic nie wychodzi poza ekran.
+0 bledow konsoli, brak przewijania w bok, oba motywy.
+
+## 5bv. TABELE ARTYKULOW NA TELEFONIE JAKO KARTY (27 IX 2026) — D3
+
+Ponizej 760 px kazda tabela w Community Articles, Microsoft Blogs i w sekcjach 7 dni Graph API
+i Roles jest stosem kart (Learn i New NIE: ich wiersze niosa hunki zmian i bloki plikow, szersze
+niz telefon z natury — karty daly Learn 11 949 → 59 321 px): komorka niesie nazwe kolumny z naglowka tabeli
+(`data-label`), puste komorki i zera znikaja. Blok pisze tylko `data-label` i klase `gv-cards` —
+zadnego wiersza nie ukrywa i nie usuwa, wiec filtry SKRYPTU 11 i liczniki zostaja jak byly.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -26279,10 +26414,12 @@ odtad CZTERNASCIE (4-17).**
 
     /* 4. Community Articles: titles this brief saw for the first time */
     var C = ST.community || {};
-    var byTitle = {}; (C.items || []).forEach(function (a) { if (a && a.title) byTitle[a.title] = a; });
+    /* `newToday` carries either the title or the LINK (26 IX 2026: 12 links, so the strip printed
+       "article" and a URL) — both are looked up, and the title is always the article's own */
+    var byTitle = {}; (C.items || []).forEach(function (a) { if (a && a.title) byTitle[a.title] = a; if (a && a.link) byTitle[a.link] = a; });
     var cRows = (C.newToday || []).map(function (t) {
       var a = byTitle[t] || {};
-      return { kind: "added", id: a.sourceName || a.source || "article", title: t, link: a.link || "" };
+      return { kind: "added", id: a.sourceName || a.source || "article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
     });
     strip(document.getElementById("tab-community"), { title: since, rows: cRows, diff: "community",
       empty: "No new community article in this brief.", more: "all of them are in the list below." });
@@ -27231,6 +27368,374 @@ odtad CZTERNASCIE (4-17).**
   else setTimeout(boot, 2200);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 200); }, true);
 })();
+/* ===========================================================================
+   §5bt — WHO RUNS A GRAPH PERMISSION (27 IX 2026): the PowerShell commands it
+   is least privilege for, and the Microsoft apps that hold it.
+
+   Owner, 27 IX 2026: "myslalem ze mapowanie polecen to juz mielismy" — measured
+   that day, the published page carried no "Get-Mg" at all; and "przy gained
+   reach pokazywac aplikacje w tenancie, ktore maja dane uprawnienie".
+   Reads `gcmd` (collect_graph_cmds.py: Microsoft's MgCommandMetadata.json) and
+   `fpa` (§5bl: pre-consented scopes of 1 736 Microsoft apps from public lists,
+   and the tenant snapshot, whose non-Microsoft clients are a NUMBER only —
+   the redaction decision of 26 IX 2026). Writes one `.gdcmd` and one `.gdapps`
+   section at the end of every permission panel. ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = jb("soc-brief-state") || {}, GC = ST.gcmd || null, FP = ST.fpa || null;
+  var GRAPH = "00000003-0000-0000-c000-000000000000";
+
+  function learnUrl(cmd, mod) {
+    return "https://learn.microsoft.com/powershell/module/microsoft.graph." + String(mod || "").toLowerCase() + "/" + cmd.toLowerCase();
+  }
+  function sec(cls, title, count, open) {
+    var d = el("details", cls + " sec"); d.open = !!open;
+    var s = el("summary"); s.appendChild(el("span", null, title));
+    if (count !== null && count !== undefined) s.appendChild(el("span", "gd-cn", String(count)));
+    d.appendChild(s); return d;
+  }
+  function cmdSection(name) {
+    if (!GC) return null;
+    var ids = (GC.least || {})[name] || [], tot = (GC.total || {})[name] || 0;
+    var v1 = [], beta = [];
+    ids.forEach(function (i) { var c = GC.cmds[i], m = GC.mods[GC.cm[i]] || ""; (/^Beta\./.test(m) || /-MgBeta/.test(c) ? beta : v1).push([c, m]); });
+    var d = sec("gdcmd", "PowerShell commands (Microsoft Graph SDK)", ids.length, ids.length > 0);
+    d.appendChild(el("p", "gd-note", ids.length
+      ? name + " is the least privilege for " + ids.length + " command" + (ids.length === 1 ? "" : "s") + " (" + v1.length + " v1.0, " + beta.length +
+        " beta). " + tot + " commands accept it in all. From Microsoft's MgCommandMetadata.json in msgraph-sdk-powershell" + (GC.commit ? " (" + GC.commit + ")" : "") +
+        " — the data Find-MgGraphCommand reads."
+      : (tot ? tot + " commands accept " + name + ", but Microsoft marks it the least privilege for none of them — a narrower permission exists for each."
+             : "No Microsoft Graph PowerShell command lists " + name + " in Microsoft's command metadata" + (GC.commit ? " (" + GC.commit + ")" : "") + ".")));
+    function list(arr, label) {
+      if (!arr.length) return;
+      d.appendChild(el("p", "gd-lh", label + " (" + arr.length + ")"));
+      var ul = el("ul", "gd-cmds");
+      arr.forEach(function (x) {
+        var li = el("li"), a = el("a", "mono", x[0]); a.href = learnUrl(x[0], x[1]); a.target = "_blank"; a.rel = "noopener";
+        li.appendChild(a); li.appendChild(el("span", "gd-s", x[1])); ul.appendChild(li);
+      });
+      d.appendChild(ul);
+    }
+    list(v1, "v1.0"); list(beta, "beta");
+    return d;
+  }
+  var DIC = null;
+  function appsSection(name) {
+    if (!FP || !FP.apps) return null;
+    if (!DIC) { DIC = {}; (FP.dic || []).forEach(function (n, i) { DIC[n] = i; }); }
+    var ix = DIC[name], hold = [];
+    if (ix !== undefined) FP.apps.forEach(function (a) { var s = (a.sc || {})[GRAPH]; if (s && s.indexOf(ix) >= 0) hold.push(a); });
+    var T = FP.tenant && FP.tenant.clients ? FP.tenant : null, inT = [];
+    if (T) T.clients.forEach(function (c) {
+      var g = (c.grants || {})["Microsoft Graph"] || "";
+      if ((" " + g + " ").indexOf(" " + name + " ") >= 0) inT.push(c);
+    });
+    var d = sec("gdapps", "Apps that hold it", hold.length + inT.length, false);
+    d.appendChild(el("p", "gd-note", hold.length
+      ? hold.length + " Microsoft first-party app" + (hold.length === 1 ? "" : "s") + " carry " + name + " as a pre-consented Microsoft Graph scope in the public lists this brief reads (§5bl). " +
+        "When Microsoft widens the permission, every one of them reaches further without a consent prompt."
+      : "No Microsoft first-party app in the public lists carries " + name + " as a pre-consented Microsoft Graph scope."));
+    if (hold.length) {
+      var ul = el("ul", "gd-apps");
+      hold.slice(0, 40).forEach(function (a) { var li = el("li"); li.appendChild(el("b", null, (a.n || "").trim() || a.id)); li.appendChild(el("span", "gd-s mono", a.id)); ul.appendChild(li); });
+      if (hold.length > 40) ul.appendChild(el("li", "gd-more", "… and " + (hold.length - 40) + " more in the First-party apps tab"));
+      d.appendChild(ul);
+    }
+    if (T) {
+      d.appendChild(el("p", "gd-lh", "In our tenant (snapshot of " + (T.read || "") + ")"));
+      d.appendChild(el("p", "gd-note", inT.length
+        ? inT.length + " Microsoft client" + (inT.length === 1 ? "" : "s") + " hold a delegated grant of " + name + ": " + inT.map(function (c) { return c.n; }).join(", ") + "." +
+          (T.otherClients ? " Grants of the " + T.otherClients + " non-Microsoft clients are not published on this page, by design." : "")
+        : "No Microsoft client in the tenant holds a delegated grant of " + name + "." +
+          (T.otherClients ? " The " + T.otherClients + " non-Microsoft clients are not published on this page, by design." : "")));
+    } else d.appendChild(el("p", "gd-none", "The tenant snapshot is not in this brief, so tenant grants are not shown."));
+    return d;
+  }
+  /* at the END of the panel: Microsoft's own sections (what it is, what it can call, which
+     roles do the same) stay above; these two answer the follow-up question */
+  function add(pane, name) {
+    if (pane.querySelector(".gdcmd,.gdapps")) return;
+    [cmdSection(name), appsSection(name)].forEach(function (s) { if (s) pane.appendChild(s); });
+  }
+  function watch() {
+    [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"] .cat-detail'), function (det) {
+      if (det.getAttribute("data-gdt")) return; det.setAttribute("data-gdt", "1");
+      function run() {
+        var pane = det.querySelector(".v13pane"); if (!pane) return;
+        var h = pane.querySelector("header h2"); var name = h ? (h.textContent || "").trim() : "";
+        if (name && (pane.querySelector(".gdver") || !ST.gdiff)) add(pane, name);
+      }
+      run();
+      if (window.MutationObserver) new MutationObserver(run).observe(det, { childList: true, subtree: true });
+    });
+  }
+  function boot() { try { watch(); } catch (e) { if (window.console) console.error("[5bt]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2300); });
+  else setTimeout(boot, 2300);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 250); }, true);
+})();
+/* ===========================================================================
+   §5bu — GRAPH API AND ROLES: A WAY IN (27 IX 2026). D2 and D4 of the
+   navigation plan (claude/ms-soc-navigation-proposal-large-tabs.md).
+
+   Measured on the 26 IX page: Graph API 20 112 px on a computer and 132 634 px
+   on a phone, where the catalog list alone was 99 871 px (the list is
+   unbounded below 1 000 px) and the 7-day table 11 649 px; Roles 31 840 px on
+   a phone, 29 047 of them the same unbounded list. The one question the tab
+   exists for — "which permission do I need for this call?" — had no field.
+
+   This block adds, at the top of both tabs:
+     - Graph API: "Which permission for this call?" — a path field that reads
+       graphMap and lists every permission reaching the matching endpoints,
+       lowest privilege level first; "Browse by resource" chips with counts
+       that type the resource into the catalog's own search.
+     - Roles: "Browse by role family" chips the same way.
+   and it bounds the catalog list on narrow screens (scroll inside, detail
+   below, the detail scrolled into view on selection), caps the 7-day table at
+   15 rows behind "Show all", and shows §5bs's change list three Microsoft
+   commits at a time. The catalog's search stays the only filter writer: the
+   chips only type into it. ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = jb("soc-brief-state") || {}, GM = ST.graphMap || null;
+  function narrow() { try { return window.matchMedia("(max-width: 999px)").matches; } catch (e) { return false; } }
+
+  /* graphMap.perms[name].eps = "m:i,j-k;m:…" — method index : path indexes */
+  var REV = null;
+  function reverse() {
+    if (REV || !GM || !GM.perms) return REV;
+    REV = {};
+    Object.keys(GM.perms).forEach(function (name) {
+      String(GM.perms[name].eps || "").split(";").forEach(function (part) {
+        var m = part.split(":"); if (m.length < 2) return;
+        var meth = (GM.m || [])[+m[0]];
+        m[1].split(",").forEach(function (r) {
+          var ab = r.split("-"), a = +ab[0], b = ab.length > 1 ? +ab[1] : a;
+          for (var i = a; i <= b; i++) (REV[i] = REV[i] || []).push([name, meth]);
+        });
+      });
+    });
+    return REV;
+  }
+  function lvOf(name) {
+    var s = ((GM.perms[name] || {}).s) || {}, lv = 0;
+    Object.keys(s).forEach(function (k) { if (s[k].l && (!lv || s[k].l < lv)) lv = s[k].l; });
+    return lv;
+  }
+  function norm(p) {
+    return String(p || "").trim().toLowerCase().replace(/^https?:\/\/graph\.microsoft\.com/, "").replace(/^\/(v1\.0|beta)/, "")
+      .replace(/\?.*$/, "").replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g, "{id}");
+  }
+  function catSearch(which, text) {
+    var cat = document.querySelector('.catalog[data-catalog="' + which + '"]');
+    var i = cat && cat.querySelector("input.cat-search"); if (!i) return;
+    i.value = text; i.dispatchEvent(new Event("input", { bubbles: true }));
+    try { cat.scrollIntoView({ block: "start" }); } catch (e) {}
+  }
+  function chipRow(label, pairs, which) {
+    var row = el("div", "gu-row"); row.appendChild(el("span", "gu-lab", label));
+    var box = el("div", "gu-chips");
+    pairs.slice(0, 14).forEach(function (p) {
+      var b = el("button", "gu-chip"); b.type = "button";
+      b.appendChild(el("span", null, p[0])); b.appendChild(el("span", "gd-cn", String(p[1])));
+      b.title = "Type “" + p[2] + "” into the catalog search";
+      b.addEventListener("click", function () { catSearch(which, p[2]); });
+      box.appendChild(b);
+    });
+    if (pairs.length > 14) {
+      var s = el("select", "gu-more"); s.setAttribute("aria-label", "More " + label.toLowerCase());
+      var o0 = el("option", null, "+" + (pairs.length - 14) + " more…"); o0.value = ""; s.appendChild(o0);
+      pairs.slice(14).forEach(function (p) { var o = el("option", null, p[0] + " (" + p[1] + ")"); o.value = p[2]; s.appendChild(o); });
+      s.addEventListener("change", function () { if (s.value) catSearch(which, s.value); s.value = ""; });
+      box.appendChild(s);
+    }
+    row.appendChild(box); return row;
+  }
+
+  function graphBox() {
+    var p = document.getElementById("tab-graph");
+    if (!p || !GM || !GM.perms || document.getElementById("gu-graph")) return;
+    var box = el("section", "gu"); box.id = "gu-graph";
+    box.appendChild(el("h3", "gu-h", "Which permission for this call?"));
+    var f = el("div", "gu-find");
+    var meth = el("select", "gu-m"); meth.setAttribute("aria-label", "HTTP method");
+    ["Any method"].concat(GM.m || []).forEach(function (m, i) { var o = el("option", null, m); o.value = i ? m : ""; meth.appendChild(o); });
+    var q = el("input", "gu-q"); q.type = "search"; q.placeholder = "Paste a Graph call, e.g. GET /groups/{id}/members"; q.setAttribute("aria-label", "Graph endpoint path");
+    f.appendChild(meth); f.appendChild(q); box.appendChild(f);
+    var res = el("div", "gu-res"); box.appendChild(res);
+    function run() {
+      res.textContent = "";
+      var raw = q.value.trim(); if (!raw) return;
+      var mm = /^(GET|POST|PATCH|PUT|DELETE)\s+/i.exec(raw), want = meth.value || (mm ? mm[1].toUpperCase() : "");
+      var path = norm(mm ? raw.slice(mm[0].length) : raw);
+      if (path.length < 2) return;
+      var rev = reverse(), P = GM.p || [], hits = [];
+      P.forEach(function (pp, i) {
+        var n = String(pp).toLowerCase();
+        if (n === path || n.indexOf(path) >= 0) hits.push(i);
+      });
+      hits.sort(function (a, b) { var A = String(P[a]).toLowerCase() === path ? 0 : 1, B = String(P[b]).toLowerCase() === path ? 0 : 1; return A - B || P[a].length - P[b].length; });
+      if (!hits.length) { res.appendChild(el("p", "gd-none", "No endpoint in Microsoft's permissions.json (" + (GM.commit || "") + ") matches “" + path + "”. Write ids as {id}.")); return; }
+      hits.slice(0, 6).forEach(function (i) {
+        var rows = (rev[i] || []).filter(function (x) { return !want || x[1] === want; });
+        var by = {}; rows.forEach(function (x) { (by[x[0]] = by[x[0]] || []).push(x[1]); });
+        var names = Object.keys(by).sort(function (a, b) { return (lvOf(a) || 9) - (lvOf(b) || 9) || a.length - b.length || a.localeCompare(b); });
+        var g = el("div", "gu-hit");
+        g.appendChild(el("p", "gu-path mono", (want ? want + " " : "") + P[i]));
+        if (!names.length) { g.appendChild(el("p", "gd-none", "No permission is published for this method on this path.")); res.appendChild(g); return; }
+        var ul = el("ul", "gu-perms");
+        names.slice(0, 20).forEach(function (n, k) {
+          var li = el("li"); var lv = lvOf(n);
+          var c = el("span", "badge " + (!lv ? "t-grey" : lv <= 2 ? "t-ok" : lv === 3 ? "t-warn" : "t-bad"), lv ? "L" + lv : "L?"); li.appendChild(c);
+          var b = el("button", "gd-name", n); b.type = "button";
+          b.addEventListener("click", function () { var inner = window.__socOpenPerm && window.__socOpenPerm(n); if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" }); });
+          li.appendChild(b);
+          li.appendChild(el("span", "gd-s", by[n].join(" · ") + (k === 0 ? " · lowest level listed" : "")));
+          ul.appendChild(li);
+        });
+        if (names.length > 20) ul.appendChild(el("li", "gd-more", "… and " + (names.length - 20) + " more"));
+        g.appendChild(ul); res.appendChild(g);
+      });
+      if (hits.length > 6) res.appendChild(el("p", "gd-more", hits.length - 6 + " more endpoints match — make the path longer."));
+    }
+    var tm; q.addEventListener("input", function () { clearTimeout(tm); tm = setTimeout(run, 200); });
+    meth.addEventListener("change", run);
+    box.appendChild(el("p", "gu-note", "Reads Microsoft's own permissions.json (" + (GM.commit || "") + "): " + (GM.pairs || 0) + " method-and-path pairs. " +
+      "Level is Microsoft's privilege level 1–4; the lowest one listed is where to start, not a least-privilege verdict — Microsoft marks none in this file."));
+    /* browse by resource = the name before the first dot, counted over graphMap */
+    var fam = {};
+    Object.keys(GM.perms).forEach(function (n) { var k = n.split(/[.-]/)[0]; fam[k] = (fam[k] || 0) + 1; });
+    var pairs = Object.keys(fam).map(function (k) { return [k, fam[k], k]; }).sort(function (a, b) { return b[1] - a[1] || a[0].localeCompare(b[0]); });
+    box.appendChild(chipRow("Browse by resource", pairs, "graph"));
+    place(p, box);
+  }
+  function rolesBox() {
+    var p = document.getElementById("tab-roles");
+    if (!p || document.getElementById("gu-roles")) return;
+    var cat = p.querySelector('.catalog[data-catalog="roles"]'); if (!cat) return;
+    var names = [].map.call(cat.querySelectorAll(".cat-item .ci-name"), function (x) { return (x.textContent || "").trim(); }).filter(Boolean);
+    if (!names.length) return;
+    var fam = {};
+    names.forEach(function (n) {
+      var w = n.replace(/\s+(Administrator|Reader|Operator|Manager|Contributor|Analyst|Engineer|Developer|Writer|Support.*)$/i, "").split(/\s+/)[0];
+      fam[w] = (fam[w] || 0) + 1;
+    });
+    var pairs = Object.keys(fam).filter(function (k) { return fam[k] > 1; }).map(function (k) { return [k, fam[k], k]; })
+      .sort(function (a, b) { return b[1] - a[1] || a[0].localeCompare(b[0]); });
+    var box = el("section", "gu"); box.id = "gu-roles";
+    box.appendChild(el("h3", "gu-h", "Find a role"));
+    var kinds = [["Administrator", names.filter(function (n) { return /Administrator$/i.test(n); }).length, "Administrator"],
+                 ["Reader", names.filter(function (n) { return /Reader$/i.test(n); }).length, "Reader"]];
+    box.appendChild(chipRow("By kind", kinds, "roles"));
+    box.appendChild(chipRow("By area", pairs, "roles"));
+    place(p, box);
+  }
+  function place(p, box) {
+    var after = p.querySelector(":scope > .s5bn") || p.querySelector(":scope > .panelhead");
+    if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+  }
+
+  /* the 7-day table: 15 rows, then "Show all" — rows are hidden by a CLASS on the table,
+     never by row.hidden, which belongs to the shell and SCRIPT 11 (5am) */
+  function capG7() {
+    [].forEach.call(document.querySelectorAll("details.g7"), function (d) {
+      var t = d.querySelector("table"); if (!t || t.getAttribute("data-gu")) return;
+      var n = t.tBodies[0] ? t.tBodies[0].rows.length : 0; if (n <= 20) return;
+      t.setAttribute("data-gu", "1"); t.classList.add("gu-cap");
+      var b = el("button", "gd-all", "Show all " + n + " rows"); b.type = "button";
+      b.addEventListener("click", function () { var on = t.classList.toggle("gu-cap"); b.textContent = on ? "Show all " + n + " rows" : "Show the first 15 rows"; });
+      t.parentNode.parentNode.insertBefore(b, t.parentNode.nextSibling);
+    });
+  }
+  /* §5bs's list: three Microsoft commits, then "Show all" */
+  function capChanges() {
+    var g = document.getElementById("gd-changes"); if (!g || g.getAttribute("data-gu")) return;
+    var list = g.querySelector(".gd-list"); if (!list) return;
+    g.setAttribute("data-gu", "1"); g.classList.add("gu-cap3");
+    var n = list.querySelectorAll(".gd-grp").length; if (n <= 3) return;
+    var b = el("button", "gd-all", "Show all " + n + " Microsoft commits"); b.type = "button";
+    b.addEventListener("click", function () { var on = g.classList.toggle("gu-cap3"); b.textContent = on ? "Show all " + n + " Microsoft commits" : "Show the latest three"; });
+    g.appendChild(b);
+  }
+  /* on a narrow screen the detail sits under the list: bring it into view on selection */
+  function followSelection() {
+    [].forEach.call(document.querySelectorAll(".catalog .cat-list"), function (l) {
+      if (l.getAttribute("data-gu")) return; l.setAttribute("data-gu", "1");
+      l.addEventListener("click", function (ev) {
+        if (!narrow() || !ev.target.closest(".cat-item")) return;
+        var det = l.closest(".catalog").querySelector(".cat-detail");
+        setTimeout(function () { if (det) det.scrollIntoView({ block: "start" }); }, 120);
+      });
+    });
+  }
+  function boot() {
+    try { graphBox(); } catch (e) { if (window.console) console.error("[5bu graph]", e); }
+    try { rolesBox(); } catch (e) { if (window.console) console.error("[5bu roles]", e); }
+    try { capG7(); capChanges(); followSelection(); } catch (e) { if (window.console) console.error("[5bu cap]", e); }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2400); });
+  else setTimeout(boot, 2400);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 260); }, true);
+})();
+/* ===========================================================================
+   §5bv — ARTICLE TABLES ON A PHONE (27 IX 2026). D3 of the navigation plan.
+
+   Owner, 27 IX 2026: the Community Articles and Graph API tables are too
+   narrow on a phone. Measured on the 26 IX page at 390 px: Community Articles
+   9 692 px of tables whose first column wraps two words to a line and whose
+   other columns are pushed off screen; Learn and Blogs the same shape.
+
+   Below 760 px every table in Community Articles, Microsoft Blogs and in the
+   7-day sections of Graph API and Roles becomes a stack of cards: each cell carries its column name (read from the table's
+   own header), empty cells and zero counts are dropped. Nothing is removed
+   from the table and no row is hidden — this block only writes `data-label`
+   and one class, so the shell, SCRIPT 11's filters and every row count stay
+   exactly as they are (5am). ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  /* NOT Learn and New: their rows carry diff hunks and file blocks (§5bh, SCRIPT 12) that are
+     wider than a phone by nature — measured 27 IX 2026, cards made Learn 11 949 -> 59 321 px
+     and New overflow sideways; they keep their own scrolling table */
+  var SEL = "#tab-community table, #tab-blogs table, details.g7 table";
+  function label(t) {
+    if (!t.tHead || !t.tBodies.length) return;
+    var hs = [].map.call(t.tHead.rows[t.tHead.rows.length - 1].cells, function (c) {
+      return (c.textContent || "").replace(/[↕↑↓]/g, "").replace(/\s+/g, " ").trim();
+    });
+    if (hs.length < 2) return;
+    t.classList.add("gv-cards");
+    [].forEach.call(t.tBodies, function (tb) {
+      [].forEach.call(tb.rows, function (r) {
+        if (r.getAttribute("data-gv") === String(r.cells.length)) return;
+        r.setAttribute("data-gv", String(r.cells.length));
+        if (r.cells.length === 1 || r.cells[0].hasAttribute("colspan")) { r.classList.add("gv-wide"); return; }
+        /* the title line of the card: the column the header names as the thing (title, entry,
+           name, permission, role), otherwise the longest cell — never a date or a count */
+        var main = -1, best = -1;
+        hs.forEach(function (h, i) { if (main < 0 && /^(title|entry|name|article|permission|role|what it says|post|id|feed or page)$/i.test(h)) main = i; });
+        if (main < 0) [].forEach.call(r.cells, function (c, i) { var L = (c.textContent || "").trim().length; if (L > best) { best = L; main = i; } });
+        [].forEach.call(r.cells, function (c, i) {
+          c.classList.toggle("gv-main", i === main);
+          c.setAttribute("data-label", hs[i] || "");
+          var tx = (c.textContent || "").replace(/\s+/g, " ").trim();
+          c.classList.toggle("gv-empty", !tx || tx === "—" || tx === "-" || tx === "0");
+        });
+      });
+    });
+  }
+  function run() { [].forEach.call(document.querySelectorAll(SEL), function (t) { try { label(t); } catch (e) {} }); }
+  function boot() { run(); setTimeout(run, 1500); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2500); });
+  else setTimeout(boot, 2500);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(run, 400); }, true);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -27551,7 +28056,60 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
  .gd-frow{grid-template-columns:1fr;gap:4px}
  .gd-ep{grid-template-columns:14px 46px minmax(0,1fr)}.gd-ep .gd-s{grid-column:3}
  .gd-cmp{margin-left:0}
+}/* §5bt–§5bv (27 IX 2026) — PowerShell commands and apps per Graph permission; a way into Graph API and Roles; article tables as cards on a phone (script 17). */
+.gdcmd,.gdapps{margin:10px 0}
+.gdcmd>summary,.gdapps>summary{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:700}
+.gd-cmds,.gd-apps{list-style:none;margin:4px 0 8px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 16px}
+.gd-cmds li,.gd-apps li{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;font-size:13px;min-width:0}
+.gd-cmds a{overflow-wrap:anywhere}
+.gd-apps b{font-weight:600}
+.gu{margin:0 0 14px;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface);display:grid;gap:10px}
+.gu-h{margin:0;font-size:15px}
+.gu-find{display:flex;flex-wrap:wrap;gap:8px}
+.gu-m{font:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 8px}
+.gu-q{flex:1 1 280px;min-width:0;font:13.5px/1.3 var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--ok);border-radius:8px;padding:7px 10px}
+.gu-res{display:grid;gap:8px}
+.gu-hit{border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.gu-path{margin:0 0 6px;font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.gu-perms{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.gu-perms li{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:13px}
+.gu .badge{display:inline-block;font:700 10.5px/1.6 var(--sans);padding:0 6px;border-radius:4px;border:1px solid var(--border);color:var(--muted);background:var(--surface)}
+.gu .badge.t-bad{color:var(--bad);background:var(--bad-soft);border-color:transparent}
+.gu .badge.t-warn{color:var(--warn);background:var(--warn-soft);border-color:transparent}
+.gu .badge.t-ok{color:var(--ok);background:var(--ok-soft);border-color:transparent}
+.gu-note{margin:0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.gu-row{display:grid;grid-template-columns:130px 1fr;gap:8px;align-items:start}
+.gu-lab{font:700 10.5px/2.2 var(--sans);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.gu-chips{display:flex;flex-wrap:wrap;gap:6px}
+.gu-chip{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer}
+.gu-chip:hover{border-color:var(--accent)}
+.gu-more{font:12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:4px 6px;max-width:100%}
+table.gu-cap tbody tr:nth-child(n+16){display:none}
+.gu-cap3 .gd-grp:nth-of-type(n+4){display:none}
+.gu-cap3:has(.gd-banner:not([hidden])) .gd-grp{display:block}
+@media (max-width:999px){
+ .catalog .cat-list{max-height:62vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 }
+@media (max-width:760px){
+ .gu-row{grid-template-columns:1fr;gap:4px}.gu-lab{line-height:1.4}
+ table.gv-cards,table.gv-cards tbody{display:block;width:100%;min-width:0!important;max-width:100%}
+ table.gv-cards thead{display:none}
+ table.gv-cards tr[hidden]{display:none!important}
+ table.gv-cards tr:not([hidden]){display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:9px 12px;border-bottom:1px solid var(--border);max-width:100%}
+ table.gv-cards tr.gv-wide{display:block}
+ table.gv-cards td{display:inline-block;flex:0 1 auto;padding:0!important;border:0!important;min-width:0!important;max-width:100%;width:auto!important;
+  white-space:normal!important;overflow-wrap:anywhere;position:static!important;font-size:12.5px;color:var(--muted)}
+ table.gv-cards td::before{content:attr(data-label);margin-right:6px;font:700 10px/1.6 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+ table.gv-cards td[data-label=""]::before{content:none}
+ table.gv-cards td.gv-main{display:block;flex:1 1 100%;order:-1;font-size:14px;color:var(--ink);font-weight:600}
+ table.gv-cards td.gv-main::before{content:none}
+ table.gv-cards td.gv-empty{display:none}
+ table.gv-cards tr.gv-wide td{display:block}
+ table.gv-cards td *{max-width:100%}
+ .tw:has(> table.gv-cards){overflow-x:visible}
+ .gd-cmds,.gd-apps{grid-template-columns:1fr}
+}
+
 
 
 ```
