@@ -27447,7 +27447,7 @@ odtad CZTERNASCIE (4-17).**
     if (T) {
       d.appendChild(el("p", "gd-lh", "In our tenant (snapshot of " + (T.read || "") + ")"));
       d.appendChild(el("p", "gd-note", inT.length
-        ? inT.length + " Microsoft client" + (inT.length === 1 ? "" : "s") + " hold a delegated grant of " + name + ": " + inT.map(function (c) { return c.n; }).join(", ") + "." +
+        ? inT.length + " Microsoft client" + (inT.length === 1 ? " holds" : "s hold") + " a delegated grant of " + name + ": " + inT.map(function (c) { return c.n; }).join(", ") + "." +
           (T.otherClients ? " Grants of the " + T.otherClients + " non-Microsoft clients are not published on this page, by design." : "")
         : "No Microsoft client in the tenant holds a delegated grant of " + name + "." +
           (T.otherClients ? " The " + T.otherClients + " non-Microsoft clients are not published on this page, by design." : "")));
@@ -27580,6 +27580,10 @@ odtad CZTERNASCIE (4-17).**
         var n = String(pp).toLowerCase();
         if (n === path || n.indexOf(path) >= 0) hits.push(i);
       });
+      /* only endpoints that carry a permission for the chosen method — a path that matches
+         but grants nothing is noise (measured: "/groups/{id}/members" also matched four
+         /external/connections paths with nothing on them) */
+      hits = hits.filter(function (i) { return (rev[i] || []).some(function (x) { return !want || x[1] === want; }); });
       hits.sort(function (a, b) { var A = String(P[a]).toLowerCase() === path ? 0 : 1, B = String(P[b]).toLowerCase() === path ? 0 : 1; return A - B || P[a].length - P[b].length; });
       if (!hits.length) { res.appendChild(el("p", "gd-none", "No endpoint in Microsoft's permissions.json (" + (GM.commit || "") + ") matches “" + path + "”. Write ids as {id}.")); return; }
       hits.slice(0, 6).forEach(function (i) {
