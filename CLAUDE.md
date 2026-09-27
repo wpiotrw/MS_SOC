@@ -23679,6 +23679,45 @@ niz telefon z natury — karty daly Learn 11 949 → 59 321 px): komorka niesie 
 (`data-label`), puste komorki i zera znikaja. Blok pisze tylko `data-label` i klase `gv-cards` —
 zadnego wiersza nie ukrywa i nie usuwa, wiec filtry SKRYPTU 11 i liczniki zostaja jak byly.
 
+## 5bw. PRZEGLADARKI ARTYKULOW (LEARN, BLOGS, COMMUNITY) I ZNACZNIK „PRZECZYTANE" (27 IX 2026)
+
+Wlasciciel, 27 IX 2026: *„widoki i filtry jak w Message Center dla Learn, Blogs i Community oraz
+oznaczanie przeczytanych — zrob je"*. Zmierzone na stronie z 26 IX: Community 8 378 px (jedna otwarta
+tabela 132 wierszy), Learn 8 309 px (otwarta sekcja 71 wpisow what's new), Blogs 1 964 px przy 533
+przeczytanych wpisach — i zadnego sposobu na pytanie „czego nie przeczytalem" ani „tylko Intune".
+
+1. Jeden komponent (ostatni blok SKRYPTU 17), trzy konfiguracje, pod paskiem §5bn kazdej zakladki:
+   Community ← `community.items`, Blogs ← `nt.items`, Learn ← `nt.changes`.
+2. Widoki z licznikami, ktore ida za filtrami: *Unread*, *New since previous brief*
+   (Community: lista `newToday` briefu; Blogs: data ≥ poprzedni brief), *Last 7 days*, *All*;
+   Learn: *Unread*, *Latest month*, *Last 3 months*, *All* — wpis what's new ma MIESIAC, a `msDate`
+   to data calej strony (26 IX: 210 wpisow Intune z kwietnia–wrzesnia mialo 2026-08-26).
+   Domyslnie *New*, gdy cos nowego jest, inaczej *All*.
+3. Fasety z licznikami: Community — zrodlo i strona; Blogs — blog; Learn — obszar, temat i flaga
+   Tier 0. Szukajka po tytule, zrodle i streszczeniu. Czynny filtr ZIELONY (§5av), zero nie jest linkiem.
+4. Jeden wiersz na artykul (grupy tygodniowe, w Learn miesieczne), klikniecie tytulu rozwija
+   streszczenie w miejscu (Blogs: streszczenie kanalu bez HTML; Learn: tekst i „Why it matters"),
+   „Open ↗" otwiera zrodlo i oznacza artykul jako przeczytany.
+5. **„Przeczytane" to wygoda jednego czytelnika**: `localStorage["soc-read"]`, kazdy odczyt i zapis
+   w try/catch, strona dziala bez niego. ○ / ● przy wierszu, „Mark these N as read" dla widoku.
+6. Duza otwarta sekcja zakladki (Community `details.ntsec`, Learn `#nt-changes`, Blogs `#nt-top`)
+   zwija sie RAZ przy budowie — cala zostaje, jedno klikniecie ja otwiera.
+
+## 5bx. PANEL ROLI I UPRAWNIENIA NA TELEFONIE (27 IX 2026)
+
+Zmierzone przy 390 px: panel User Administrator 20 057 px — z tego 14 664 px jedna lista
+definicji („Not published by Microsoft"), ktorej siatka dwoch kolumn zostawiala wartosci 0 px
+szerokosci (litera pod litera), i 4 799 px „Graph permissions this role covers". Ponizej 760 px
+`.cat-meta` uklada etykiete nad wartoscia (to jest naprawa ukladu, nic nie znika), a sekcja panelu
+wyzsza niz 1 400 px dostaje wysokosc 700 px i „Show all of this section" (klasa na sekcji, nigdy
+`hidden` na tresci).
+
+Zmierzone 27 IX 2026 w Playwright (strona z 26 IX, 1500 / 390 px, oba motywy), wysokosc zakladki
+przed → po: Community 8 378 → 1 703 px (telefon 18 193 → 2 809, domyslnie 12 nowych z `newToday`),
+Learn 8 309 → 5 033 (telefon 11 949 → 5 147), Blogs 1 964 → 1 330, Roles przy 390 px 25 915 → 8 585
+(panel User Administrator 20 057 → 2 726). Znacznik „przeczytane" przetrwal przeladowanie strony
+(Unread 533 → 531 po dwoch klikach). 0 bledow konsoli, brak przewijania w bok; bramka bez nowych pozycji.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -27740,6 +27779,293 @@ odtad CZTERNASCIE (4-17).**
   else setTimeout(boot, 2500);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(run, 400); }, true);
 })();
+/* ===========================================================================
+   §5bw — ARTICLE BROWSERS: Microsoft Learn, Microsoft Blogs, Community
+   Articles (27 IX 2026). The Message Center pattern (§5bp) for the three
+   article tabs, plus "read" marks.
+
+   Owner, 27 IX 2026: "widoki i filtry jak w Message Center dla Learn, Blogs
+   i Community oraz oznaczanie przeczytanych — zrob je". Measured on the 26 IX
+   page: Community Articles 8 378 px (one open 132-row table), Learn 8 309 px
+   (one open section of 71 what's-new entries), Blogs 1 964 px over 533 posts
+   read — and no way to ask "what haven't I read" or "only Intune".
+
+   One component, three configurations. Views answer a question (Unread, New
+   since the previous brief, Last 7 days / This month, All), facets carry
+   counts, active filters are GREEN (§5av), one line per article, details in
+   place, "read" is a per-viewer mark kept in localStorage (a convenience: the
+   page works without it). The tab's big open section is folded once so the
+   browser is the way in; nothing in it is removed. ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = jb("soc-brief-state") || {};
+  var DAY = ST.briefDate || "", cw = ST.comparedWith || {}, PREV = typeof cw === "string" ? cw : (cw.date || "");
+  var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : ""; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? dm(d) + " " + m[1] : (d || ""); }
+  function addDays(d, n) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+  function monday(d) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - (t.getUTCDay() + 6) % 7); return t.toISOString().slice(0, 10); }
+  function strip(h) { var d = document.createElement("div"); d.innerHTML = String(h || ""); return (d.textContent || "").replace(/\s+/g, " ").trim(); }
+
+  /* read marks: one set per viewer, never required (5bj: storage can throw or come back empty) */
+  var READ = null;
+  function rd() { if (!READ) { READ = {}; try { READ = JSON.parse(localStorage.getItem("soc-read") || "{}") || {}; } catch (e) { READ = {}; } } return READ; }
+  function rdSave() { try { localStorage.setItem("soc-read", JSON.stringify(READ)); } catch (e) {} }
+
+  var CONF = [
+    { tab: "community", id: "ab-community", fold: ":scope > details.ntsec", group: "week",
+      recs: function () {
+        /* "new" is the brief's own list (`newToday`, titles or links) — on 26 IX every one of 158
+           items carried firstTracked = briefDate, while the brief named 12 as new */
+        var C = ST.community || {}, NT = {};
+        (C.newToday || []).forEach(function (x) { NT[x] = 1; });
+        var hasNT = (C.newToday || []).length > 0;
+        return (C.items || []).map(function (a) {
+          return { key: a.link || a.title, title: a.title || a.link, link: a.link, date: a.date || a.firstTracked || "",
+            isNew: hasNT ? !!(NT[a.link] || NT[a.title]) : (a.firstTracked ? a.firstTracked === DAY : a.date >= PREV),
+            f: { src: a.sourceName || a.source || "", site: a.host || "" }, text: "", meta: [a.sourceName || a.source, a.host].filter(Boolean).join(" · ") };
+        });
+      },
+      facets: [["src", "Source"], ["site", "Site"]],
+      views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
+    { tab: "blogs", id: "ab-blogs", fold: ":scope > details.ntsec#nt-top", group: "week",
+      recs: function () {
+        return ((ST.nt || {}).items || []).map(function (a) {
+          return { key: a.link || a.title, title: a.title, link: a.link, date: a.date || "",
+            isNew: !!(a.date && PREV && a.date >= PREV), f: { src: a.source || "" },
+            text: strip(a.summary).slice(0, 600), meta: [a.source, a.author].filter(Boolean).join(" · ") };
+        });
+      },
+      facets: [["src", "Blog"]],
+      views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
+    { tab: "learn", id: "ab-learn", fold: ":scope > details.ntsec#nt-changes", group: "month",
+      recs: function () {
+        return ((ST.nt || {}).changes || []).map(function (a) {
+          /* the entry's own month; `msDate` is the date of the whole what's-new PAGE (measured
+             26 IX: 210 Intune entries from April to September all carried 2026-08-26) */
+          var d = a.year && a.month ? a.year + "-" + String(a.month).padStart(2, "0") + "-01" : "";
+          return { key: (a.url || "") + "#" + (a.title || ""), title: a.title, link: a.url, date: d, month: a.monthLabel || "",
+            isNew: false, f: { src: a.area || "", tag: (a.tags || [])[0] || "", t0: a.tier0 ? "Tier 0" : "" },
+            text: String(a.text || "").slice(0, 700), why: a.why || "", meta: [a.area, a.monthLabel].filter(Boolean).join(" · ") };
+        });
+      },
+      facets: [["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]],
+      views: [["unread", "Unread"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
+  ];
+
+  function Browser(cfg) {
+    var RECS = cfg.recs().filter(function (r) { return r.title; });
+    RECS.sort(function (a, b) { return String(b.date).localeCompare(String(a.date)) || String(a.title).localeCompare(String(b.title)); });
+    var latestMonth = RECS.length ? String(RECS[0].date).slice(0, 7) : "";
+    var q3from = latestMonth ? addDays(latestMonth + "-15", -62).slice(0, 7) : "";
+    var PAGE = 60; try { if (window.matchMedia("(max-width: 760px)").matches) PAGE = 30; } catch (e) {}
+    var S = { view: "all", q: "", shown: PAGE, open: "" };
+    cfg.facets.forEach(function (f) { S[f[0]] = ""; });
+    if (RECS.some(function (r) { return r.isNew; })) S.view = "new";
+    function inView(r, v) {
+      if (v === "unread") return !rd()[r.key];
+      if (v === "new") return r.isNew;
+      if (v === "week") return r.date >= addDays(DAY, -7);
+      if (v === "month") return String(r.date).slice(0, 7) === latestMonth;
+      if (v === "q3") return String(r.date).slice(0, 7) >= q3from;
+      return true;
+    }
+    function pass(r, skip, view) {
+      if (!inView(r, view || S.view)) return false;
+      for (var i = 0; i < cfg.facets.length; i++) { var k = cfg.facets[i][0]; if (skip !== k && S[k] && r.f[k] !== S[k]) return false; }
+      if (S.q) { var q = S.q.toLowerCase(); if ((r.title + " " + r.meta + " " + r.text).toLowerCase().indexOf(q) < 0) return false; }
+      return true;
+    }
+    var root, viewsEl, bar, banner, info, list, qIn;
+    function chip(label, n, on, click) {
+      var b = el("button", "mcb-chip" + (on ? " on" : "") + (!n && !on ? " zero" : "")); b.type = "button";
+      b.appendChild(el("span", null, label)); b.appendChild(el("span", "mcb-cn", String(n)));
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (!n && !on) b.disabled = true; else b.addEventListener("click", click);
+      return b;
+    }
+    function render() {
+      viewsEl.textContent = "";
+      cfg.views.forEach(function (v) {
+        var n = RECS.filter(function (r) { return pass(r, "", v[0]); }).length;
+        var b = el("button", "mcb-view" + (S.view === v[0] ? " on" : "")); b.type = "button";
+        b.setAttribute("aria-selected", S.view === v[0] ? "true" : "false"); b.setAttribute("role", "tab");
+        b.appendChild(el("span", null, v[1])); b.appendChild(el("span", "mcb-cn", String(n)));
+        if (!n && S.view !== v[0]) b.disabled = true;
+        b.addEventListener("click", function () { S.view = v[0]; S.shown = PAGE; render(); });
+        viewsEl.appendChild(b);
+      });
+      bar.textContent = "";
+      cfg.facets.forEach(function (f) {
+        var k = f[0], cnt = {};
+        RECS.forEach(function (r) { if (pass(r, k) && r.f[k]) cnt[r.f[k]] = (cnt[r.f[k]] || 0) + 1; });
+        var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
+        if (S[k] && keys.indexOf(S[k]) < 0) keys.unshift(S[k]);
+        if (!keys.length) return;
+        var row = el("div", "mcb-frow"); row.appendChild(el("span", "mcb-flab", f[1]));
+        var box = el("div", "mcb-fbox");
+        keys.slice(0, 10).forEach(function (x) { box.appendChild(chip(x, cnt[x] || 0, S[k] === x, function () { S[k] = S[k] === x ? "" : x; S.shown = PAGE; render(); })); });
+        if (keys.length > 10) {
+          var sel = el("select", "mcb-more"); sel.setAttribute("aria-label", "More " + f[1].toLowerCase());
+          var o0 = el("option", null, "+" + (keys.length - 10) + " more…"); o0.value = ""; sel.appendChild(o0);
+          keys.slice(10).forEach(function (x) { var o = el("option", null, x + " (" + cnt[x] + ")"); o.value = x; sel.appendChild(o); });
+          sel.addEventListener("change", function () { if (sel.value) { S[k] = sel.value; S.shown = PAGE; render(); } });
+          box.appendChild(sel);
+        }
+        row.appendChild(box); bar.appendChild(row);
+      });
+      var rows = RECS.filter(function (r) { return pass(r); });
+      var act = cfg.facets.filter(function (f) { return S[f[0]]; }).map(function (f) { return [f[0], f[1].toLowerCase() + ": " + S[f[0]]]; });
+      if (S.q) act.push(["q", "text: “" + S.q + "”"]);
+      banner.textContent = ""; banner.hidden = !act.length;
+      if (act.length) {
+        banner.appendChild(el("b", null, "Filtered · " + rows.length + " shown"));
+        act.forEach(function (a) {
+          var s = el("span", "mcb-af", a[1]); var x = el("button", "mcb-x", "×"); x.type = "button"; x.title = "Remove this filter";
+          x.addEventListener("click", function () { S[a[0]] = ""; if (a[0] === "q") qIn.value = ""; S.shown = PAGE; render(); });
+          s.appendChild(x); banner.appendChild(s);
+        });
+        var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
+        c.addEventListener("click", function () { cfg.facets.forEach(function (f) { S[f[0]] = ""; }); S.q = ""; qIn.value = ""; S.shown = PAGE; render(); });
+        banner.appendChild(c);
+      }
+      info.textContent = "";
+      info.appendChild(document.createTextNode(rows.length + " of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
+      var mk = el("button", "ab-mark", "Mark these " + Math.min(rows.length, S.shown) + " as read"); mk.type = "button";
+      mk.disabled = !rows.length;
+      mk.addEventListener("click", function () { rows.slice(0, S.shown).forEach(function (r) { rd()[r.key] = DAY || 1; }); rdSave(); render(); });
+      info.appendChild(mk);
+      list.textContent = "";
+      if (!rows.length) { list.appendChild(el("li", "mcb-empty", S.view === "unread" ? "Nothing unread here — every article in this view is marked read." : "Nothing matches. Remove a filter above — zero here is a result, not an error.")); return; }
+      var g = null;
+      rows.slice(0, S.shown).forEach(function (r) {
+        var gk = cfg.group === "month" ? String(r.date).slice(0, 7) : (r.date ? monday(r.date) : "");
+        if (gk !== g) {
+          g = gk;
+          var n = rows.filter(function (x) { return (cfg.group === "month" ? String(x.date).slice(0, 7) : (x.date ? monday(x.date) : "")) === gk; }).length;
+          var lab = !gk ? "No date" : cfg.group === "month" ? (r.month || MONS[+gk.slice(5, 7) - 1] + " " + gk.slice(0, 4)) : (gk === monday(DAY) ? "This week" : "Week of " + dmy(gk));
+          var h = el("li", "mcb-g"); h.appendChild(el("span", null, lab)); h.appendChild(el("span", "mcb-cn", String(n))); list.appendChild(h);
+        }
+        list.appendChild(row(r));
+      });
+      if (rows.length > S.shown) {
+        var more = el("li", "mcb-morebox"), b = el("button", "mcb-btn", "Show " + Math.min(PAGE, rows.length - S.shown) + " more (" + (rows.length - S.shown) + " left)");
+        b.type = "button"; b.addEventListener("click", function () { S.shown += PAGE; render(); }); more.appendChild(b); list.appendChild(more);
+      }
+    }
+    function row(r) {
+      var read = !!rd()[r.key];
+      var li = el("li", "mcb-row ab-row" + (read ? " is-read" : "") + (r.isNew ? " is-new" : ""));
+      var head = el("div", "ab-head");
+      var rb = el("button", "ab-rd"); rb.type = "button";
+      rb.textContent = read ? "●" : "○"; rb.title = read ? "Read — click to mark unread" : "Unread — click to mark read";
+      rb.setAttribute("aria-label", (read ? "Mark unread: " : "Mark read: ") + r.title);
+      rb.setAttribute("aria-pressed", read ? "true" : "false");
+      rb.addEventListener("click", function () { if (rd()[r.key]) delete READ[r.key]; else READ[r.key] = DAY || 1; rdSave(); render(); });
+      head.appendChild(rb);
+      head.appendChild(el("span", "mcb-d", cfg.group === "month" ? (r.date && r.date.slice(8) !== "01" ? dm(r.date) : "") : dm(r.date)));
+      var main = el("span", "mcb-main");
+      var t = el("button", "ab-t", r.title); t.type = "button"; t.setAttribute("aria-expanded", "false");
+      main.appendChild(t);
+      var meta = el("span", "mcb-meta");
+      if (r.f.src) meta.appendChild(el("span", "mcb-svc", r.f.src));
+      if (r.f.site && r.f.site !== r.f.src) meta.appendChild(el("span", "mcb-cat", r.f.site));
+      if (r.f.tag) meta.appendChild(el("span", "mcb-cat", r.f.tag));
+      if (r.f.t0) meta.appendChild(el("span", "mcb-p maj", "TIER 0"));
+      if (r.isNew) meta.appendChild(el("span", "mcb-p new", "NEW"));
+      main.appendChild(meta); head.appendChild(main);
+      if (r.link) { var a = el("a", "ab-open", "Open ↗"); a.href = r.link; a.target = "_blank"; a.rel = "noopener";
+        a.addEventListener("click", function () { rd()[r.key] = DAY || 1; rdSave(); setTimeout(render, 50); }); head.appendChild(a); }
+      li.appendChild(head);
+      t.addEventListener("click", function () {
+        var d = li.querySelector(".ab-det"), open = !d;
+        if (open) {
+          d = el("div", "ab-det");
+          if (r.text) d.appendChild(el("p", "mcb-sum", r.text));
+          if (r.why) { var w = el("p", "mcb-sum"); w.appendChild(el("span", "mcb-k", "Why it matters")); w.appendChild(document.createTextNode(r.why)); d.appendChild(w); }
+          if (!r.text && !r.why) d.appendChild(el("p", "mcb-none", "No summary was read for this article — open it at the source."));
+          d.appendChild(el("p", "mcb-none", [r.meta, r.date ? dmy(r.date) : ""].filter(Boolean).join(" · ")));
+          li.appendChild(d);
+        } else d.remove();
+        t.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      return li;
+    }
+    this.build = function () {
+      var p = document.getElementById("tab-" + cfg.tab);
+      if (!p || document.getElementById(cfg.id) || !RECS.length) return;
+      root = el("section", "mcb ab"); root.id = cfg.id; root.setAttribute("aria-label", "Article browser");
+      var top = el("div", "mcb-top");
+      viewsEl = el("div", "mcb-views"); viewsEl.setAttribute("role", "tablist"); top.appendChild(viewsEl);
+      qIn = el("input", "mcb-q"); qIn.type = "search"; qIn.placeholder = "Find in titles, sources and summaries"; qIn.setAttribute("aria-label", "Find an article");
+      var tm; qIn.addEventListener("input", function () { clearTimeout(tm); tm = setTimeout(function () { S.q = qIn.value.trim(); S.shown = PAGE; render(); }, 160); });
+      top.appendChild(qIn); root.appendChild(top);
+      var fd = el("details", "mcb-facets"); fd.appendChild(el("summary", null, "Filter by " + cfg.facets.map(function (f) { return f[1].toLowerCase(); }).join(", ")));
+      bar = el("div", "mcb-bar"); fd.appendChild(bar);
+      try { fd.open = window.matchMedia("(min-width: 760px)").matches; } catch (e) { fd.open = true; }
+      root.appendChild(fd);
+      banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.appendChild(banner);
+      info = el("p", "mcb-info ab-info"); root.appendChild(info);
+      list = el("ul", "mcb-list"); root.appendChild(list);
+      var after = p.querySelector(":scope > .s5bn");
+      if (after) p.insertBefore(root, after.nextSibling); else p.insertBefore(root, p.firstChild);
+      /* the old open section folds ONCE; it stays whole and one click reopens it */
+      var big = p.querySelector(cfg.fold); if (big && big.open) big.open = false;
+      render();
+    };
+  }
+  var B = CONF.map(function (c) { return new Browser(c); });
+  function boot() { B.forEach(function (b) { try { b.build(); } catch (e) { if (window.console) console.error("[5bw]", e); } }); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2350); });
+  else setTimeout(boot, 2350);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(boot, 280); }, true);
+})();
+/* ===========================================================================
+   §5bx — ROLE AND PERMISSION PANELS ON A PHONE (27 IX 2026).
+
+   Measured on the 26 IX page at 390 px: the User Administrator panel was
+   20 057 px. 14 664 px of it was one definition list ("Not published by
+   Microsoft") whose two-column grid left the value column 0 px wide, so every
+   value wrapped one character per line; 4 799 px was "Graph permissions this
+   role covers". The CSS block stacks label over value below 760 px (a layout
+   fix, nothing hidden). This script caps any panel section taller than
+   1 400 px below 760 px at 700 px with "Show all" — a class on the section,
+   never `hidden` on its content. ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function narrow() { try { return window.matchMedia("(max-width: 760px)").matches; } catch (e) { return false; } }
+  function cap(root) {
+    if (!narrow() || !root) return;
+    [].forEach.call(root.querySelectorAll(".v13pane > .sec, .v13pane > details.sec, .cat-detail-inner > section.cat-panel"), function (s) {
+      if (s.getAttribute("data-rpcap") || s.offsetHeight < 1400) return;
+      s.setAttribute("data-rpcap", "1"); s.classList.add("rp-cap");
+      var b = document.createElement("button"); b.type = "button"; b.className = "rp-more";
+      b.textContent = "Show all of this section"; b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () {
+        var on = s.classList.toggle("rp-cap");
+        b.textContent = on ? "Show all of this section" : "Show less"; b.setAttribute("aria-expanded", on ? "false" : "true");
+        if (on) s.scrollIntoView({ block: "start" });
+      });
+      s.parentNode.insertBefore(b, s.nextSibling);
+    });
+  }
+  function watch() {
+    [].forEach.call(document.querySelectorAll(".catalog .cat-detail"), function (det) {
+      if (det.getAttribute("data-rp")) return; det.setAttribute("data-rp", "1");
+      var t = null;
+      function run() { clearTimeout(t); t = setTimeout(function () { cap(det); }, 250); }
+      run();
+      if (window.MutationObserver) new MutationObserver(run).observe(det, { childList: true, subtree: true });
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(watch, 2500); });
+  else setTimeout(watch, 2500);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(watch, 300); }, true);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -28112,7 +28438,33 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  table.gv-cards td *{max-width:100%}
  .tw:has(> table.gv-cards){overflow-x:visible}
  .gd-cmds,.gd-apps{grid-template-columns:1fr}
+}/* §5bw–§5bx (27 IX 2026) — article browsers with read marks; role and permission panels on a phone (script 17). */
+.ab-head{display:grid;grid-template-columns:28px 52px minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;padding:8px 12px}
+.ab-row:hover>.ab-head{background:var(--surface-2)}
+.ab-rd{width:24px;height:24px;border:0;background:none;color:var(--accent);font:700 15px/1 var(--sans);cursor:pointer;padding:0}
+.ab-rd:focus-visible,.ab-t:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ab-t{border:0;background:none;padding:0;text-align:left;font:inherit;font-size:14px;line-height:1.4;color:var(--ink);cursor:pointer;overflow-wrap:anywhere}
+.ab-t:hover{color:var(--accent);text-decoration:underline}
+.ab-row.is-new .ab-t{font-weight:600}
+.ab-row.is-read .ab-t{color:var(--muted);font-weight:400}
+.ab-open{font-size:12.5px;white-space:nowrap}
+.ab-det{padding:2px 12px 12px 102px;display:grid;gap:6px;background:var(--surface-2)}
+.ab-info{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.ab-mark{font:600 12px/1.3 var(--sans);color:var(--accent);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer}
+.ab-mark:disabled{opacity:.5;cursor:default}
+.rp-more{display:block;margin:6px 0 14px;font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:6px 12px;cursor:pointer}
+@media (max-width:760px){
+ .ab-head{grid-template-columns:26px minmax(0,1fr) auto;gap:2px 8px}
+ .ab-head .mcb-d{display:none}
+ .ab-det{padding:2px 12px 12px}
+ .rp-cap{max-height:700px;overflow:hidden;position:relative}
+ .rp-cap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,var(--surface))}
+ /* definition lists in catalog panels: label over value, never a 0-px value column */
+ .catalog .cat-meta{display:block!important}
+ .catalog .cat-meta dt{margin:8px 0 0;width:auto!important}
+ .catalog .cat-meta dd{margin:2px 0 0!important;width:auto!important;min-width:0}
 }
+
 
 
 
