@@ -23177,10 +23177,13 @@ Regula (kod: IIFE §5bk w SKRYPCIE 17, CSS: blok §5bk):
    wpisy Message Center (major i z terminem pierwsze; tytul + pierwsze zdanie streszczenia).
    Najpierw jedna technologia na zdanie, potem dopelnienie. Naglowek mowi, ile zdan jest naprawde
    („Today in ten sentences", przy mniejszej puli mniej) — nie ma zdan-wypelniaczy.
-3. **„One line per technology"** — osobna sekcja: Copilot, Entra Connect, Entra ID, Defender
-   (XDR, MDE, MDI, MDA, MDO, Exposure Management, Threat Intelligence), Sentinel, Intune, Teams,
-   Purview, Exchange & Outlook, SharePoint & OneDrive, Windows, Azure, Graph API, Power Platform,
-   Microsoft 365. Linia TYLKO tam, gdzie cos sie ruszylo (brak linii „nothing new"), z liczba
+3. **„One line per technology"** — osobna sekcja, 17 kubelkow: Copilot (w tym Copilot Studio
+   i Copilot Chat), Entra Connect, Defender (XDR, MDE, MDI, MDA, MDO, Exposure Management, Threat
+   Intelligence), Entra ID, Sentinel, Intune, Teams, Purview, Exchange & Outlook, SharePoint &
+   OneDrive, Windows (w tym Server, Windows 365, Autopatch), Edge, Azure, Graph API, Power Platform
+   (w tym Power BI i Dataverse), Dynamics 365, Microsoft 365 (admin, aplikacje Office, Viva,
+   Planner, Forms, Project). Zmierzone 27 IX: kazdy produkt pozycji i kazdy znacznik uslugi MC
+   z 26 IX trafia do kubelka, poza wierszami strony „This report". Linia TYLKO tam, gdzie cos sie ruszylo (brak linii „nothing new"), z liczba
    pozostalych pozycji tej technologii. Zrodlo: `digest.byTech` albo ta sama pula co w pkt 2.
 4. **Kazde zdanie wskazuje pozycje albo wpis MC, ktory jest na stronie** (`refs`). Klikniecie
    otwiera pozycje (`goItem`) albo wpis w przegladarce Message Center (§5bp). Zdanie przebiegu,
@@ -23205,6 +23208,41 @@ Zmierzone 27 IX 2026 w Playwright na `art26_b.html` (bez `digest`, wiec pula z k
 (Defender, Teams, Microsoft 365, Copilot, Exchange & Outlook, Windows, Purview po trzech policzonych),
 14 linii technologii (Sentinel bez linii — tego dnia nic nowego), klikniecie zdania otwiera zakladke
 z pozycja, 0 bledow konsoli, brak przewijania w bok na 1500 i 400 px.
+
+## 5br. TELEFON: JEDEN PRZYKLEJONY PRZELACZNIK ZAKLADEK ZAMIAST DWOCH PASKOW DO PRZESUWANIA (27 IX 2026)
+
+Wlasciciel, 27 IX 2026: *„glowny pasek zakladek zle sie wyswietla na urzadzeniach mobilnych, ma dwa
+wiersze, ktore trzeba przesuwac palcem w prawo. Moze zrobic to w 2 listach rozwijalnych albo jak to
+inaczej profesjonalnie rozwiazac?"*. Zmierzone tego dnia na opublikowanej stronie przy 390 px:
+naglowek 434 px i przewija sie ze strona, wiersz zakladek pokazuje Overview, Today i pol Deadlines
+i przewija sie w bok, „More tabs" to drugi wiersz, kafelki KPI to trzeci pasek przewijany w bok —
+a 500 px nizej nie ma jak zmienic zakladki bez powrotu na gore.
+
+Decyzja: **jeden przyklejony przelacznik**, wzorzec Microsoft Learn, GitHub i portalu Azure na
+telefonie. Dwie listy rozwijane odrzucone: natywny `select` nie pokaze liczb ani stanu, a podzial
+zakladek na dwie listy kaze zgadywac, w ktorej jest szukana.
+
+Regula (kod: ostatni blok SKRYPTU 17, CSS: blok po §5bp; tylko `max-width:760px`):
+
+1. Pod naglowkiem stoi `#s5br-bar` (`position:sticky; top:0`): przycisk z grupa (TODAY / CHANGES /
+   SOURCES / ACT), nazwa biezacej zakladki i jej liczba, oraz „Search" (dialog §5bi). Pasek jest
+   widoczny na kazdej wysokosci strony.
+2. Przycisk otwiera arkusz od dolu (`role=dialog`, `aria-modal`): cztery grupy, w kazdej przyciski
+   zakladek w dwoch kolumnach z liczbami, biezaca wyrozniona; zakladka, ktorej nie ma w grupach,
+   laduje w „More". Zamyka: ×, Esc, klikniecie tla; fokus wraca na przycisk.
+3. Zakladke zmienia sie WYLACZNIE klikajac przycisk powloki (`tabbtn-tab-*`), wiec wszystko, co
+   slucha klikniec zakladek, dziala bez zmian; etykieta paska idzie za `aria-selected`
+   (MutationObserver), niezaleznie od tego, kto zmienil zakladke.
+4. Na telefonie znika `.navstack` (oba wiersze zakladek i „More tabs" §5bi) i przycisk „Search ·
+   Ctrl K" z naglowka; kafelki KPI ukladaja sie w trzy kolumny zamiast paska przewijanego w bok.
+   Komputer bez zmian.
+5. Licznik zakladki Message Center pisze §5bp PRZED SKRYPTEM 15 (on tylko wypelnia pusty licznik),
+   wiec czytelnik nie widzi, jak 746 zmienia sie w 414 (§5bm).
+
+Zmierzone 27 IX 2026 w Playwright (390 i 360 px, oba motywy, dotyk): naglowek 401 px zamiast 434,
+0 przewijania w bok, pasek na `top:0` po przewinieciu, arkusz: 4 grupy i 15 zakladek, fokus na
+biezacej, wybor „Graph API" przelacza zakladke i etykiete („CHANGES Graph API 1243"), Esc zamyka,
+„Search" otwiera dialog, na 1500 px pasek ma `display:none`, a `.navstack` zostaje; 0 bledow konsoli.
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
@@ -25246,12 +25284,17 @@ odtad CZTERNASCIE (4-17).**
        (the run's own prose, §5bq) or, without it, from the day's heaviest new items and new
        Message Center posts — one technology per sentence first. Every sentence points at an item
        or an MC post that exists on this page; a sentence whose refs resolve to nothing is dropped. */
-    var TECH = [["Copilot", /copilot/i], ["Entra Connect", /entra connect|cloud sync/i], ["Entra ID", /entra|identity/i],
-      ["Defender", /defender|^md[eiao]$|exposure management|threat intel/i], ["Sentinel", /sentinel/i],
-      ["Intune", /intune/i], ["Teams", /teams/i], ["Purview", /purview/i], ["Exchange & Outlook", /exchange|outlook/i],
-      ["SharePoint & OneDrive", /sharepoint|onedrive/i], ["Windows", /^windows/i], ["Azure", /^azure/i],
-      ["Graph API", /graph/i], ["Power Platform", /power (platform|apps|automate|bi)/i],
-      ["Microsoft 365", /m365|microsoft 365|office|viva|planner/i]];
+    /* order matters: Defender before Entra ID ("Defender for Identity"), Copilot before Power Platform
+       ("Copilot Studio"); every product and MC service tag the brief carried on 26 IX 2026 lands in one
+       bucket except the page's own "This report" rows */
+    var TECH = [["Copilot", /copilot/i], ["Entra Connect", /entra connect|cloud sync/i],
+      ["Defender", /defender|^md[eiao]$|exposure management|threat intel/i], ["Entra ID", /entra|identity/i],
+      ["Sentinel", /sentinel/i], ["Intune", /intune/i], ["Teams", /teams/i], ["Purview", /purview/i],
+      ["Exchange & Outlook", /exchange|outlook/i], ["SharePoint & OneDrive", /sharepoint|onedrive/i],
+      ["Windows", /^windows/i], ["Edge", /edge/i], ["Azure", /^azure/i], ["Graph API", /graph/i],
+      ["Power Platform", /power (platform|apps|automate|bi)|dataverse/i],
+      ["Dynamics 365", /dynamics|finance and operations/i],
+      ["Microsoft 365", /m365|microsoft 365|office|viva|planner|forms|clipchamp|project for the web|^(word|excel|powerpoint|onenote|access|mobile)$/i]];
     function techOf(names) {
       for (var t = 0; t < TECH.length; t++)
         for (var k = 0; k < names.length; k++) if (TECH[t][1].test(String(names[k] || ""))) return TECH[t][0];
@@ -26299,7 +26342,14 @@ odtad CZTERNASCIE (4-17).**
     /* the tab's number is the number of POSTS, not of table rows (Sections A-D counted 746
        rows for 414 posts on 26 IX 2026); same precedent as the First-party apps tab */
     var nMC = ALL.filter(function (r) { return !r.rm; }).length;
-    function stamp() { var nc = document.querySelector('nav.anchors .tab[aria-controls="tab-mc"] .navcount'); if (nc) nc.textContent = String(nMC); }
+    /* written BEFORE SCRIPT 15 stamps its row count (800 + 1200 ms): it only fills an empty
+       counter, so the reader never sees 746 turn into 414 (§5bm: no change in front of the reader) */
+    function stamp() {
+      var tb = document.querySelector('nav.anchors .tab[aria-controls="tab-mc"]'); if (!tb) return;
+      var nc = tb.querySelector(".navcount");
+      if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); }
+      nc.textContent = String(nMC);
+    }
     stamp(); setTimeout(stamp, 2500);
     return true;
   }
@@ -26339,6 +26389,148 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 950); setTimeout(fromHash, 2300); });
   else { setTimeout(boot, 950); setTimeout(fromHash, 2300); }
   window.addEventListener("hashchange", fromHash);
+})();
+/* ===========================================================================
+   §5br — PHONE TAB SWITCHER (27 IX 2026). One sticky bar instead of two rows
+   that scroll sideways.
+
+   Owner, 27 IX 2026: "glowny pasek zakladek zle sie wyswietla na urzadzeniach
+   mobilnych, ma dwa wiersze, ktore trzeba przesuwac palcem w prawo". Measured
+   that day on the published page at 390 px: the header is 434 px tall and
+   scrolls away, the tab row shows Overview, Today and half of Deadlines and
+   scrolls sideways, "More tabs" is a second row, the KPI tiles are a third
+   strip that scrolls sideways — and once the reader is 500 px down, there is
+   no way to change tab without scrolling back to the top.
+
+   Pattern (the one Microsoft Learn, GitHub and the Azure portal use on a
+   phone): ONE bar that stays on screen, naming where you are — group, tab,
+   count — and opening a sheet with every tab in its group, each with its
+   number. Two dropdowns were considered and rejected: a native select cannot
+   show counts or what is new, and splitting the tabs across two lists makes
+   the reader guess which list holds the tab.
+
+   Only at max-width 760 px. The desktop bar is untouched. This block owns
+   #s5br-bar and #s5br-sheet; it switches tabs ONLY by clicking the shell's
+   own tab button, so every script listening to tab clicks keeps working.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
+                ["Changes", ["new", "graph", "roles", "fpa", "components"]],
+                ["Sources", ["learn", "blogs", "community", "sources"]],
+                ["Act", ["hunting", "products"]]];
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function tabs() { return [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")); }
+  function idOf(b) { return String(b.getAttribute("aria-controls") || "").replace(/^tab-/, ""); }
+  function nameOf(b) {
+    var t = b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.nodeValue : "";
+    if (!t) { var c = b.cloneNode(true); [].forEach.call(c.querySelectorAll(".navcount"), function (x) { x.remove(); }); t = c.textContent; }
+    return String(t).replace(/\s+/g, " ").trim();
+  }
+  function countOf(b) { var c = b.querySelector(".navcount"); return c ? String(c.textContent || "").trim() : ""; }
+  function groupOf(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i][1].indexOf(id) >= 0) return GROUPS[i][0]; return "More"; }
+  function current() { return tabs().filter(function (b) { return b.getAttribute("aria-selected") === "true"; })[0] || null; }
+
+  var bar, cur, sheet, list, lastFocus = null;
+  function paint() {
+    var b = current(); if (!b || !cur) return;
+    cur.querySelector(".s5br-g").textContent = groupOf(idOf(b));
+    cur.querySelector(".s5br-t").textContent = nameOf(b);
+    var n = countOf(b), c = cur.querySelector(".s5br-n");
+    c.textContent = n; c.hidden = !n;
+    cur.setAttribute("aria-label", "Current tab: " + nameOf(b) + (n ? ", " + n : "") + ". Open the list of all tabs");
+  }
+  function fill() {
+    list.textContent = "";
+    var all = tabs(), byId = {}, placed = {};
+    all.forEach(function (b) { byId[idOf(b)] = b; });
+    var groups = GROUPS.map(function (g) { return [g[0], g[1].filter(function (id) { return byId[id]; })]; });
+    var rest = all.map(idOf).filter(function (id) { return !GROUPS.some(function (g) { return g[1].indexOf(id) >= 0; }); });
+    if (rest.length) groups.push(["More", rest]);   /* a tab the shell adds later is never lost */
+    groups.forEach(function (g) {
+      if (!g[1].length) return;
+      var sec = el("section", "s5br-sec");
+      sec.appendChild(el("h3", "s5br-h", g[0]));
+      var grid = el("div", "s5br-grid");
+      g[1].forEach(function (id) {
+        var t = byId[id]; if (!t || placed[id]) return; placed[id] = 1;
+        var on = t.getAttribute("aria-selected") === "true";
+        var b = el("button", "s5br-item" + (on ? " on" : "")); b.type = "button";
+        b.setAttribute("aria-current", on ? "page" : "false");
+        b.appendChild(el("span", "s5br-in", nameOf(t)));
+        var n = countOf(t); if (n) b.appendChild(el("span", "s5br-ic", n));
+        b.addEventListener("click", function () { close(); t.click(); setTimeout(toPanel, 60); });
+        grid.appendChild(b);
+      });
+      sec.appendChild(grid); list.appendChild(sec);
+    });
+  }
+  function toPanel() {
+    var b = current(); var p = b && document.getElementById(b.getAttribute("aria-controls"));
+    var y = p ? p.getBoundingClientRect().top + window.pageYOffset - (bar ? bar.offsetHeight : 0) - 8 : 0;
+    try { window.scrollTo({ top: Math.max(0, y), behavior: "auto" }); } catch (e) { window.scrollTo(0, Math.max(0, y)); }
+  }
+  function open() {
+    fill(); lastFocus = document.activeElement;
+    sheet.hidden = false; document.documentElement.classList.add("s5br-lock");
+    cur.setAttribute("aria-expanded", "true");
+    var f = sheet.querySelector(".s5br-item.on") || sheet.querySelector(".s5br-item");
+    if (f) f.focus();
+  }
+  function close() {
+    if (sheet.hidden) return;
+    sheet.hidden = true; document.documentElement.classList.remove("s5br-lock");
+    cur.setAttribute("aria-expanded", "false");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function build() {
+    if (document.getElementById("s5br-bar")) { paint(); return; }
+    var head = document.querySelector("header.top");
+    if (!head || !tabs().length) return;
+    bar = el("div", "s5br"); bar.id = "s5br-bar";
+    cur = el("button", "s5br-cur"); cur.type = "button";
+    cur.setAttribute("aria-haspopup", "dialog"); cur.setAttribute("aria-expanded", "false"); cur.setAttribute("aria-controls", "s5br-sheet");
+    cur.appendChild(el("span", "s5br-g"));
+    cur.appendChild(el("span", "s5br-t"));
+    cur.appendChild(el("span", "s5br-n"));
+    cur.appendChild(el("span", "s5br-car", "▾"));
+    cur.addEventListener("click", function () { if (sheet.hidden) open(); else close(); });
+    bar.appendChild(cur);
+    /* §5bi's search dialog; its own button may not exist yet, so the click is resolved late */
+    var sb = el("button", "s5br-sk", "Search"); sb.type = "button"; sb.setAttribute("aria-label", "Search every tab");
+    sb.addEventListener("click", function () {
+      var s = document.querySelector(".s5bi-skbtn");
+      if (s) s.click();
+      else document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
+    });
+    bar.appendChild(sb);
+    head.parentNode.insertBefore(bar, head.nextSibling);
+
+    sheet = el("div", "s5br-sheet"); sheet.id = "s5br-sheet"; sheet.hidden = true;
+    sheet.setAttribute("role", "dialog"); sheet.setAttribute("aria-modal", "true"); sheet.setAttribute("aria-label", "All tabs");
+    var box = el("div", "s5br-box");
+    var top = el("div", "s5br-top");
+    top.appendChild(el("b", null, "All tabs"));
+    var x = el("button", "s5br-x", "×"); x.type = "button"; x.setAttribute("aria-label", "Close the list of tabs");
+    x.addEventListener("click", close); top.appendChild(x);
+    box.appendChild(top);
+    list = el("div", "s5br-list"); box.appendChild(list);
+    sheet.appendChild(box);
+    sheet.addEventListener("click", function (e) { if (e.target === sheet) close(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !sheet.hidden) { e.preventDefault(); close(); } });
+    document.body.appendChild(sheet);
+
+    /* the bar follows the shell: whoever changes the selected tab, the label changes with it */
+    try {
+      new MutationObserver(paint).observe(head,
+        { subtree: true, attributes: true, attributeFilter: ["aria-selected"], childList: true, characterData: true });
+    } catch (e) {}
+    paint();
+  }
+  function boot() { try { build(); } catch (e) { if (window.console) console.error("[5br]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1000); setTimeout(boot, 2600); });
+  else { setTimeout(boot, 1000); setTimeout(boot, 2600); }
 })();
 ```
 
@@ -26556,7 +26748,46 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
  .mcb-row.open .mcb-ti{display:block}
  .mcb-cat{display:none}
  .mcb-head{padding:7px 12px}
+}/* §5br (27 IX 2026) — phone: one sticky tab switcher instead of two rows that scroll sideways (script 17). */
+.s5br,.s5br-sheet{display:none}
+@media (max-width:760px){
+ header.top .navstack{display:none!important}
+ .s5br{display:flex;gap:8px;align-items:stretch;position:sticky;top:0;z-index:70;background:var(--surface);
+  border-bottom:1px solid var(--border);padding:8px 12px calc(8px) 12px;padding-top:calc(8px + env(safe-area-inset-top,0px));box-shadow:0 2px 6px rgba(0,0,0,.06)}
+ .s5br-cur{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"g n c" "t n c";align-items:center;gap:0 8px;min-height:44px;padding:4px 12px;border-radius:10px;
+  border:1px solid var(--accent);background:var(--accent-soft);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+ .s5br-g{grid-area:g;font-size:10.5px;line-height:1.3;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+ .s5br-t{grid-area:t;min-width:0;font-size:15px;line-height:1.25;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .s5br-n{grid-area:n;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:999px;background:var(--accent);color:var(--on-accent)}
+ .s5br-n[hidden]{display:none}
+ .s5br-car{grid-area:c;color:var(--accent);font-size:14px}
+ .s5br-cur:focus-visible,.s5br-sk:focus-visible,.s5br-item:focus-visible,.s5br-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ .s5br-sk{flex:0 0 auto;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--accent);font:inherit;font-weight:600;cursor:pointer}
+ .s5br-sheet{display:block;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45)}
+ .s5br-sheet[hidden]{display:none}
+ .s5br-box{position:absolute;left:0;right:0;bottom:0;max-height:86vh;overflow:auto;background:var(--surface);color:var(--ink);
+  border-radius:16px 16px 0 0;padding:0 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 24px rgba(0,0,0,.25)}
+ .s5br-top{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px;background:var(--surface);border-bottom:1px solid var(--border)}
+ .s5br-top b{font-size:16px}
+ .s5br-x{width:44px;height:44px;border:0;background:none;color:var(--ink);font-size:26px;line-height:1;cursor:pointer}
+ .s5br-list{display:grid;gap:14px;padding-top:12px}
+ .s5br-h{margin:0 0 8px;font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+ .s5br-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .s5br-item{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:8px 12px;border-radius:10px;
+  border:1px solid var(--border);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;font-weight:600;text-align:left;cursor:pointer}
+ .s5br-in{min-width:0;overflow-wrap:anywhere}
+ .s5br-ic{flex:0 0 auto;font-size:12px;font-variant-numeric:tabular-nums;padding:1px 7px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+ .s5br-item.on{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+ .s5br-item.on .s5br-ic{background:rgba(255,255,255,.22);color:var(--on-accent)}
+ html.s5br-lock,html.s5br-lock body{overflow:hidden}
+ /* the KPI tiles wrap into two columns instead of a third strip that scrolls sideways */
+ header.top .kpi5{grid-auto-flow:row!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;grid-auto-columns:auto!important;overflow:visible!important;scroll-snap-type:none!important}
+ header.top .kpi5>.s5bi-side{grid-column:1 / -1}
+ header.top .s5bi-skbtn{display:none!important}   /* the bar carries Search */
+ header.top .kpi5 .k5{padding:6px 8px!important;min-width:0}
+ header.top .kpi5 .k5t{font-size:11.5px!important;line-height:1.25}
 }
+
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
