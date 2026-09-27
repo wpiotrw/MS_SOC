@@ -1266,7 +1266,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
 # jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
-CLASS_INFO = {"57", "79", "98"}
+CLASS_INFO = {"57", "79", "98", "115"}   # 115: §5bs, raportowane od 27 IX 2026
 
 # ---- 0f: rejestr uzgodnien. Bramka sprawdza, czy zbudowano to, co ZAPISANO, i z definicji
 # nigdy nie powie, ze czegos nie zapisano — 13 wrzesnia 2026 dwie uzgodnione zakladki nie
@@ -2801,6 +2801,15 @@ def gate(path, site=None, mirror=False, doc=None):
          all(k in h for k in K114) and '"fpa":{"built":' in _h114,
          "brak: %s" % ", ".join([k for k in K114 if k not in h] + ([] if '"fpa":{"built":' in _h114 else ['klucz fpa w soc-brief-state (collect_fpa.py nie uruchomiony?)'])))
 
+    # ---- 115: wersje uprawnien Graph z kodu (§5bs). INFORMACYJNA: brak klucza nie blokuje
+    # publikacji (kolektor potrzebuje sieci do GitHuba), ale jest wypisany w odpowiedzi.
+    _gd115 = (st["soc-brief-state"] or {}).get("gdiff") or {}
+    need("115", "wersje uprawnien Graph policzone kodem: klucz gdiff z collect_graph_diff.py, readOn = briefDate (§5bs)",
+         bool(_gd115.get("perms")) and _gd115.get("readOn") == _bd4 and bool(_gd115.get("to")),
+         "brak klucza gdiff — collect_graph_diff.py nie uruchomiony" if not _gd115
+         else "readOn %s przy briefDate %s; commit %s; uprawnien %d"
+              % (_gd115.get("readOn"), _bd4, _gd115.get("to"), len(_gd115.get("perms") or {})))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -2976,7 +2985,7 @@ blocks"*) jest nieaktualny w obu liczbach; **gdzie prompt i ten plik sie roznia,
 Skryptow dodawanych jest CZTERNASCIE (4-17; pietnasty to SKRYPT 15 v2 z §5aw, ktory ZASTEPUJE
 SKRYPT 15 z §5au, szesnasty to SKRYPT 16 z §5az, a siedemnasty to SKRYPT 17 z §5bc), a blokow CSS
 **dwadziescia piec** — liczbe
-sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **siedem KOLEKTOROW** (od 26 IX 2026): cztery z §5aw, `collect_components.py` z §5ag, `collect_fpa.py` z §5bl i `collect_mc.py` z §5bo,
+sprawdza `extract_code.py`, a nie to zdanie (§0a). Do tego **osiem KOLEKTOROW** (od 27 IX 2026): cztery z §5aw, `collect_components.py` z §5ag, `collect_fpa.py` z §5bl, `collect_mc.py` z §5bo i `collect_graph_diff.py` z §5bs,
 wycinane tak samo:**
 
 | co | zrodlo | sekcja |
@@ -3001,6 +3010,7 @@ wycinane tak samo:**
 | `collect_components.py` — wersje komponentow | `CLAUDE.md` | 5ag |
 | `collect_fpa.py` — aplikacje Microsoftu i ich uprawnienia (od 26 IX 2026) | `CLAUDE.md` | 5bl |
 | `collect_mc.py` — KAZDY wpis Message Center, bez filtrowania (od 26 IX 2026) | `CLAUDE.md` | 5bo |
+| `collect_graph_diff.py` — kazda aktualizacja `permissions.json` Microsoftu, uprawnienie po uprawnieniu (od 27 IX 2026) | `CLAUDE.md` | 5bs |
 
 **Nie przepisujesz ich recznie i nie kopiujesz z wczorajszego pliku — WYCINASZ je kodem z tego
 pliku w tym przebiegu.** Recznemu przepisaniu 130 kB JavaScriptu nie ufa nikt, lacznie z autorem.
@@ -3058,6 +3068,7 @@ def main(doc, outdir):
             elif "collect_components.py" in head:              got["collect_components.py"] = b
             elif "collect_fpa.py" in head:                     got["collect_fpa.py"] = b
             elif "collect_mc.py" in head:                      got["collect_mc.py"] = b
+            elif "collect_graph_diff.py" in head:              got["collect_graph_diff.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -3065,7 +3076,7 @@ def main(doc, outdir):
     need = ["script%d.js" % n for n in range(4, 18)] + \
            ["gate.py", "make_diff.py", "mirror_artifact.py", "appended.css",
             "probe_learn.py", "learn_changes.py", "collect_blogs.py", "collect_nt.py",
-            "collect_components.py", "collect_fpa.py", "collect_mc.py"]
+            "collect_components.py", "collect_fpa.py", "collect_mc.py", "collect_graph_diff.py"]
     missing = [n for n in need if n not in got]
     if missing:
         raise SystemExit("FAIL: nie wyciete z CLAUDE.md: %s" % ", ".join(missing))
@@ -7518,6 +7529,50 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     emore = ('<p class="more">… and %d more endpoint rows.</p>' % (len(ge_rows) - 250)) if len(ge_rows) > 250 else ""
     pn = len((prev_st.get("graphMap") or {}).get("perms") or {})
     cn2 = len((curr_st.get("graphMap") or {}).get("perms") or {})
+    # §5bs: the same changes, as Microsoft made them — commit by commit, from `gdiff`
+    # (collect_graph_diff.py). The pair-by-pair table below compares two readings; this one
+    # says WHICH Microsoft commit did it and WHEN, and groups a change made to several
+    # permissions at once.
+    gdb = ""
+    _gd = curr_st.get("gdiff") or {}
+    if _gd.get("perms"):
+        _pc = norm((prev_st.get("gdiff") or {}).get("to")) or \
+              norm(((prev_st.get("graphMap") or {}).get("commit") or "").split(" ")[0])
+        _cs = [c.get("sha") for c in (_gd.get("commits") or [])]
+        _after = set(_cs[_cs.index(_pc) + 1:]) if _pc in _cs else \
+                 set(c.get("sha") for c in (_gd.get("commits") or []) if norm(c.get("date")) > norm(prev_st.get("briefDate")))
+        _grp = {}
+        for _nm, _rec in sorted(_gd["perms"].items()):
+            for _e in _rec.get("ev") or []:
+                if _e.get("sha") not in _after: continue
+                _k = (_e.get("date"), _e.get("sha"), _e.get("t"),
+                      json.dumps([[x[0] + " " + x[1] for x in _e.get("ea") or []],
+                                  [x[0] + " " + x[1] for x in _e.get("er") or []], sorted((_e.get("f") or {}).keys())]))
+                _grp.setdefault(_k, []).append((_rec.get("lv") or 0, _nm, _e))
+        _rows = []
+        for _k in sorted(_grp, key=lambda k: (k[0], k[1]), reverse=True):
+            _ps = sorted(_grp[_k], key=lambda x: (-x[0], x[1]))
+            _e = _ps[0][2]
+            _what = []
+            if _e["t"] == "added": _what.append("new permission (%d endpoints)" % len(_e.get("ea") or []))
+            if _e["t"] == "removed": _what.append("removed from Microsoft's file")
+            if _e["t"] == "readded": _what.append("back in Microsoft's file (removed %s)" % esc(_e.get("was")))
+            if _e["t"] == "changed":
+                _what += ["<ins>+ %s %s</ins>" % (esc(x[0]), esc(x[1])) for x in (_e.get("ea") or [])[:6]]
+                _what += ["<del>&minus; %s %s</del>" % (esc(x[0]), esc(x[1])) for x in (_e.get("er") or [])[:6]]
+                _what += ['<span class="field">%s</span>' % esc(k) for k in sorted(_e.get("f") or {})][:6]
+                _more = len(_e.get("ea") or []) + len(_e.get("er") or []) - 12
+                if _more > 0: _what.append("&hellip; and %d more endpoints" % _more)
+            _names = ", ".join('<a href="%s#graph:perm=%s">%s</a>' % (esc(home), esc(n), esc(n)) + (" (L%d)" % l if l else "")
+                               for l, n, _ in _ps[:8]) + (" and %d more" % (len(_ps) - 8) if len(_ps) > 8 else "")
+            _rows.append(("", ['<span class="mono">%s</span><br><a href="%s/commit/%s">%s</a>'
+                                % (esc(_k[0]), esc(_gd.get("repo") or ""), esc(_k[1]), esc(_k[1])),
+                               _names, "<br>".join(_what)]))
+        gdb = table(["Microsoft commit", "Permissions", "What changed"], _rows,
+                    "Microsoft made no commit to permissions.json between the two briefs.",
+                    '<b>By Microsoft commit</b> &middot; %d change%s on %d permission%s'
+                    % (len(_rows), "" if len(_rows) == 1 else "s",
+                       sum(len(v) for v in _grp.values()), "" if sum(len(v) for v in _grp.values()) == 1 else "s"))
     out.append(sect("endpoints", "Graph endpoints",
                ('What each permission can call, compared pair by pair from '
                 '<span class="mono">graphMap</span> in the two state blocks: %d &rarr; %d permissions carrying a '
@@ -7525,7 +7580,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 'consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. '
                 'These are endpoints, not items, which is why they have their own row in the summary above.')
                % (pn, cn2),
-               table(["Permission", "What", "Before &rarr; after"], erows,
+               gdb + table(["Permission", "What", "Before &rarr; after"], erows,
                      "No permission gained or lost an endpoint, and no privilege level moved.",
                      '<b>Graph endpoints</b> &middot; +%d / &minus;%d / %d edited' % (ge_add, ge_rem, ge_chg))
                + emore,
@@ -20083,6 +20138,7 @@ python3 collect_blogs.py <klon>/microsoftblogs_sources.json blogs_raw.json
 python3 collect_nt.py                                              # -> NT.json  == klucz `nt`
 SOC_REPOS=repos python3 collect_fpa.py FPA.json <poprzedni site/data/*.json>   # -> FPA.json == klucz `fpa` (§5bl)
 python3 collect_mc.py MC_INDEX.json <poprzedni site/data/*.json>              # -> MC_INDEX.json, baza `mc.entries` (§5bo)
+python3 collect_graph_diff.py GRAPH_DIFF.json <poprzedni site/data/*.json> --devx <klon devx>  # -> klucz `gdiff` (§5bs)
 ```
 
 **Zadna data i zadna sciezka nie jest w nich zapisana na sztywno** — `SOC_DATE` i `SOC_REPO` ida
@@ -23244,6 +23300,250 @@ Zmierzone 27 IX 2026 w Playwright (390 i 360 px, oba motywy, dotyk): naglowek 40
 biezacej, wybor „Graph API" przelacza zakladke i etykiete („CHANGES Graph API 1243"), Esc zamyka,
 „Search" otwiera dialog, na 1500 px pasek ma `display:none`, a `.navstack` zostaje; 0 bledow konsoli.
 
+## 5bs. WERSJE UPRAWNIEN GRAPH — KAZDA AKTUALIZACJA MICROSOFTU, UPRAWNIENIE PO UPRAWNIENIU (27 IX 2026)
+
+Wlasciciel, 27 IX 2026, pokazujac msgraphpermissions.com („Compare with previous version"):
+*„how do we track down all of the changes … any improvements to our logic and reports, overview,
+today, graph api?"*. Zmierzone tego dnia: msgraphpermissions.com czyta TEN SAM plik co my
+(`permissions/new/permissions.json` w `microsoftgraph/microsoft-graph-devx-content`) i trzyma jego
+migawki. U nas od 24 VIII 2026 Microsoft zrobil 13 commitow pliku: 12 uprawnien dodanych, 2 usuniete,
+2 powroty, 66 zmian istniejacych (+242 / −81 endpointow) — a tylko 7 zwyklych wpisow uprawnien
+w katalogu mialo wersje wyzsza niz 1. `GET /groups/dynamicMembershipProcessingStatus(...)` doszedl
+22 IX (c1d06c5) do szesciu uprawnien; wpis Group.ReadWrite.All nadal mowil „version 1", bo zmiane
+opisano proza w jednym wpisie przypietym do GroupMember.ReadWrite.All. LifecyclePolicies-AgentId.*
+wypadly z pliku 3 IX i wrocily 25 IX — portal nazwal je „New permission".
+
+Regula:
+
+1. **Historie wersji liczy KOD** — `collect_graph_diff.py` (ponizej), nie przebieg. Przechodzi przez
+   KAZDY commit pliku po ostatnim, ktory znal poprzedni stan (za pierwszym razem: od ostatniego
+   commitu z dnia bazowego 24 VIII 2026), porownuje kazda pare, uprawnienie po uprawnieniu:
+   dodane / usuniete / powrot (`readded`, z data usuniecia w `was`) / zmienione — endpointy
+   dodane (`ea`), usuniete (`er`), ze zmienionymi schematami (`ec`) i pola schematow pole po polu
+   (`f`: nazwy, opisy, `requiresAdminConsent`, `privilegeLevel`). **Data zmiany to data commitu
+   Microsoftu**, nie przebiegu. Wynik idzie do `soc-brief-state.gdiff` BEZ ZMIAN; zdarzenia
+   poprzedniego stanu zostaja, nowe sie dopisuja (historia rosnie, nie jest liczona od nowa).
+   Klon briefu jest `--depth 1` (§5ah) — kolektor sam go poglebia (blobless, tylko wersje jednego
+   pliku) albo robi wlasny klon; zmierzone: 1,6 s na istniejacym klonie, 8–12 s bez niego.
+2. **Zakladka Graph API**: sekcja `#gd-changes` pod paskiem §5bn — kazda aktualizacja Microsoftu
+   jako grupa (data, commit z linkiem), wiersz na uprawnienie z poziomem (L1–L4), wersja i skrot
+   („+1 endpoint", „back in Microsoft's file (removed 3 Sep)"); `+` rozwija porownanie
+   (endpointy dodane na zielono, usuniete przekreslone, pola przed → po). Filtry: rodzaj zmiany
+   i poziom, z licznikami; szukajka po nazwie i sciezce endpointu; czynny filtr jest zielony (§5av).
+3. **Panel uprawnienia**: sekcja „Versions in Microsoft's permissions.json" jako TRZECIA (po
+   „At a glance" i 14 dniach, §5al): os wersji v1…vN z commitami i „Compare vX with vY" dla
+   DOWOLNEJ pary — roznica netto liczona z samych zdarzen (endpoint dodany i usuniety sie znosi).
+   Uprawnienie bez zmian dostaje ZDANIE z zakresem commitow, nie pusty box.
+4. **Today**: ramka `#gd-today` — ile uprawnien Microsoft zmienil od poprzedniego briefu,
+   najciezsze (poziom) pierwsze, i przycisk do pelnej listy.
+5. **Overview (§5bq)**: pula zdan dostaje zmiany z ostatnich 7 dni o poziomie 3–4 albo dodane,
+   usuniete i powroty; najciezsza z nich mowi za Graph API. Klikniecie otwiera panel uprawnienia.
+6. **/diff/**: sekcja „Graph endpoints" dostaje na gorze tabele „By Microsoft commit" ze zdarzen
+   `gdiff` miedzy commitem poprzedniego i biezacego stanu.
+7. Katalog (`soc-catalog`) i wpisy „Existing permission gained reach" zostaja — to jest proza
+   o znaczeniu zmiany. `gdiff` jest liczonym zapisem faktu i on rozstrzyga, co sie zmienilo i kiedy.
+
+Zmierzone 27 IX 2026: pelne uzupelnienie wstecz 3f8f987 (14 VIII) → fa788f1 (25 IX) = 13 commitow,
+63 uprawnienia, 82 zdarzenia, 59 KB; przebieg przyrostowy od c1d06c5 daje identyczny wynik jak
+pelny, a przebieg bez nowego commitu nie zmienia niczego.
+
+```python
+#!/usr/bin/env python3
+"""collect_graph_diff.py - every Microsoft update to Graph permissions, per permission, by code (CLAUDE.md 5bs).
+
+  SOC_DATE=<briefDate> python3 collect_graph_diff.py GRAPH_DIFF.json [<poprzedni site/data/*.json>] [--devx <klon>]
+
+Why: 27 IX 2026 the owner compared the portal with msgraphpermissions.com, where every permission
+has "Compare with previous version". Measured that day: Microsoft's permissions.json moved in 13
+commits since 24 VIII 2026 - 14 permissions added, 2 removed, 66 endpoint or scheme changes on
+existing permissions - and only 7 plain permission entries in our catalog had a version above 1.
+The change of 22 IX (GET /groups/dynamicMembershipProcessingStatus(...) added to six permissions,
+commit c1d06c5) sat in one prose entry pinned to GroupMember.ReadWrite.All, while
+Group.ReadWrite.All still said "version 1". LifecyclePolicies-AgentId.* left the file on 3 IX and
+came back on 25 IX; the portal called them "New permission".
+
+What it does: walks EVERY commit of permissions/new/permissions.json in
+microsoftgraph/microsoft-graph-devx-content after the last commit the previous state knew (or,
+the first time, after the last commit on or before BASELINE) and diffs each consecutive pair,
+permission by permission:
+  t="added"    the name appears (all its endpoints in `ea`)
+  t="removed"  the name disappears (all its endpoints in `er`)
+  t="readded"  the name appears again after an earlier "removed" event
+  t="changed"  endpoints added (`ea`), removed (`er`), re-scoped (`ec`: same method and path,
+               other scheme keys) or scheme fields changed (`f`: "<scheme>.<field>": [before, after],
+               scheme added or removed as "<scheme>": [before, after])
+The date of an event is the date of Microsoft's commit, not of this run.
+Output (GRAPH_DIFF.json, carried whole into soc-brief-state.gdiff):
+  {readOn, repo, file, baseline, from, to, commits:[{sha,date,subject,added,removed,changed}],
+   perms:{<name>:{lv, ev:[{v, sha, date, t, ea, er, ec, f, was}]}}, counts:{...}}
+`v` is the permission's version in this history: v1 = what it was at the baseline (or when it
+first appeared), +1 per event. Events already in the previous state are kept as they are."""
+import datetime, json, os, subprocess, sys, tempfile
+
+REPO = "https://github.com/microsoftgraph/microsoft-graph-devx-content"
+FILE = "permissions/new/permissions.json"
+BASELINE = "2026-08-24"   # the catalog baseline: permissions entered it on 25 VIII 2026
+
+
+def git(d, *a):
+    return subprocess.run(["git", "-C", d] + list(a), capture_output=True, text=True, check=True).stdout
+
+
+def ensure_clone(devx):
+    """A clone with the file's HISTORY. The brief's own clone is --depth 1 (5ah), so it is
+    deepened here, blobless: only the versions of one 3 MB file are downloaded."""
+    if devx and os.path.isdir(os.path.join(devx, ".git")):
+        if git(devx, "rev-parse", "--is-shallow-repository").strip() == "true":
+            subprocess.run(["git", "-C", devx, "fetch", "-q", "--filter=blob:none", "--unshallow"],
+                           capture_output=True, text=True)
+        return devx
+    d = os.path.join(tempfile.gettempdir(), "devx-gdiff")
+    if not os.path.isdir(os.path.join(d, ".git")):
+        subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--sparse", REPO, d], check=True)
+        git(d, "sparse-checkout", "set", "permissions/new")
+    else:
+        git(d, "fetch", "-q", "origin")
+        git(d, "reset", "-q", "--hard", "origin/HEAD")
+    return d
+
+
+def load(d, sha):
+    return json.loads(git(d, "show", "%s:%s" % (sha, FILE))).get("permissions") or {}
+
+
+def endpoints(p):
+    out = {}
+    for ps in p.get("pathSets") or []:
+        keys = ",".join(sorted(ps.get("schemeKeys") or []))
+        for path in ps.get("paths") or {}:
+            for m in ps.get("methods") or []:
+                k = (m, path)
+                out[k] = ",".join(sorted(set(filter(None, (out.get(k, "") + "," + keys).split(",")))))
+    return out
+
+
+def level(p):
+    lv = [s.get("privilegeLevel") for s in (p.get("schemes") or {}).values() if isinstance(s.get("privilegeLevel"), int)]
+    return max(lv) if lv else None
+
+
+FIELDS = ("adminDisplayName", "adminDescription", "userDisplayName", "userDescription",
+          "requiresAdminConsent", "privilegeLevel", "isHidden", "isPreview")
+
+
+def diff_perm(a, b):
+    ea, eb = endpoints(a), endpoints(b)
+    add = sorted(k for k in eb if k not in ea)
+    rem = sorted(k for k in ea if k not in eb)
+    chg = sorted(k for k in eb if k in ea and ea[k] != eb[k])
+    f = {}
+    sa, sb = a.get("schemes") or {}, b.get("schemes") or {}
+    for s in sorted(set(sa) | set(sb)):
+        if s not in sa or s not in sb:
+            f[s] = ["present" if s in sa else None, "present" if s in sb else None]
+            continue
+        for k in FIELDS:
+            if sa[s].get(k) != sb[s].get(k):
+                f["%s.%s" % (s, k)] = [sa[s].get(k), sb[s].get(k)]
+    for k in ("authorizationType",):
+        if a.get(k) != b.get(k):
+            f[k] = [a.get(k), b.get(k)]
+    return ([[m, p_, eb[(m, p_)]] for m, p_ in add], [[m, p_, ea[(m, p_)]] for m, p_ in rem],
+            [[m, p_, ea[(m, p_)], eb[(m, p_)]] for m, p_ in chg], f)
+
+
+def main(out_path, prev_path=None, devx=None):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    prev = {}
+    if prev_path and os.path.exists(prev_path):
+        try:
+            p = json.load(open(prev_path, encoding="utf-8"))
+            prev = (p.get("soc-brief-state") or p).get("gdiff") or {}
+        except Exception:
+            prev = {}
+    d = ensure_clone(devx)
+    log = git(d, "log", "--reverse", "--format=%H|%ad|%s", "--date=short", "--", FILE).strip().splitlines()
+    hist = [dict(zip(("sha", "date", "subject"), x.split("|", 2))) for x in log]
+    if not hist:
+        raise SystemExit("FAIL: no history of %s in %s" % (FILE, d))
+    start = None
+    if prev.get("to"):
+        idx = [i for i, h in enumerate(hist) if h["sha"].startswith(prev["to"])]
+        start = idx[0] if idx else None
+    if start is None:            # first run, or the previous head is unknown: back to the baseline
+        base = [i for i, h in enumerate(hist) if h["date"] <= BASELINE]
+        start = base[-1] if base else 0
+        prev = {}
+    perms = {k: {"lv": v.get("lv"), "ev": list(v.get("ev") or [])} for k, v in (prev.get("perms") or {}).items()}
+    commits = list(prev.get("commits") or [])
+    walk = hist[start:]
+    cur = load(d, walk[0]["sha"])
+    for h in walk[1:]:
+        nxt = load(d, h["sha"])
+        n = {"added": 0, "removed": 0, "changed": 0}
+        for name in sorted(set(cur) | set(nxt)):
+            a, b = cur.get(name), nxt.get(name)
+            rec = perms.setdefault(name, {"lv": None, "ev": []})
+            ver = (rec["ev"][-1]["v"] if rec["ev"] else 1)
+            if a is None:
+                gone = any(e["t"] == "removed" for e in rec["ev"])
+                ev = {"t": "readded" if gone else "added", "ea": [[m, p_, s] for (m, p_), s in sorted(endpoints(b).items())],
+                      "er": [], "ec": [], "f": {}}
+                if gone:
+                    ev["was"] = [e["date"] for e in rec["ev"] if e["t"] == "removed"][-1]
+                n["added"] += 1
+                ver = ver + 1 if rec["ev"] else 1
+            elif b is None:
+                ev = {"t": "removed", "ea": [], "ec": [], "f": {},
+                      "er": [[m, p_, s] for (m, p_), s in sorted(endpoints(a).items())]}
+                n["removed"] += 1
+                ver += 1
+            else:
+                ea, er, ec, f = diff_perm(a, b)
+                if not (ea or er or ec or f):
+                    continue
+                ev = {"t": "changed", "ea": ea, "er": er, "ec": ec, "f": f}
+                n["changed"] += 1
+                ver += 1
+            ev.update({"v": ver, "sha": h["sha"][:7], "date": h["date"]})
+            rec["ev"].append(ev)
+        commits.append({"sha": h["sha"][:7], "date": h["date"], "subject": h["subject"], **n})
+        cur = nxt
+    for name, rec in perms.items():
+        if name in cur:
+            rec["lv"] = level(cur[name])
+    perms = {k: v for k, v in perms.items() if v["ev"]}
+    ev_all = [e for v in perms.values() for e in v["ev"]]
+    out = {"readOn": day, "repo": REPO, "file": FILE, "baseline": prev.get("baseline") or hist[start]["date"],
+           "baselineSha": prev.get("baselineSha") or hist[start]["sha"][:7],
+           "from": (prev.get("to") or hist[start]["sha"][:7]), "to": walk[-1]["sha"][:7],
+           "toDate": walk[-1]["date"], "commits": commits, "perms": perms,
+           "counts": {"commits": len(commits), "newCommits": len(walk) - 1, "permissions": len(perms),
+                      "events": len(ev_all),
+                      "added": sum(1 for e in ev_all if e["t"] == "added"),
+                      "removed": sum(1 for e in ev_all if e["t"] == "removed"),
+                      "readded": sum(1 for e in ev_all if e["t"] == "readded"),
+                      "changed": sum(1 for e in ev_all if e["t"] == "changed"),
+                      "endpointsAdded": sum(len(e["ea"]) for e in ev_all if e["t"] == "changed"),
+                      "endpointsRemoved": sum(len(e["er"]) for e in ev_all if e["t"] == "changed")}}
+    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    c = out["counts"]
+    print("OK  %s  %s..%s: %d commits (%d new this run), %d permissions, %d events "
+          "(%d added, %d removed, %d re-added, %d changed: +%d / -%d endpoints)"
+          % (out_path, out["baselineSha"], out["to"], c["commits"], c["newCommits"], c["permissions"],
+             c["events"], c["added"], c["removed"], c["readded"], c["changed"],
+             c["endpointsAdded"], c["endpointsRemoved"]))
+
+
+if __name__ == "__main__":
+    a = sys.argv[1:]
+    dv = None
+    if "--devx" in a:
+        i = a.index("--devx"); dv = a[i + 1]; a = a[:i] + a[i + 2:]
+    a = [x for x in a if not x.startswith("--")]
+    main(a[0] if a else "GRAPH_DIFF.json", a[1] if len(a) > 1 else None, dv)
+```
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -25323,10 +25623,19 @@ odtad CZTERNASCIE (4-17).**
       .sort(function (a, b) { return (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0) || (b.deadline ? 1 : 0) - (a.deadline ? 1 : 0) || String(b.id).localeCompare(String(a.id)); })
       .forEach(function (e) { pool.push({ id: e.id, tech: techOf(e.tech || []), text: e.title || e.id,
         sub: firstSentence(e.summary || e.dpSummary || e.feedSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
+    /* §5bs: Microsoft's own updates to Graph permissions (collect_graph_diff.py), the heavy ones
+       (level 3-4, or added, removed, returned) of the last seven days */
+    if (window.__socGD) window.__socGD.recent(7).forEach(function (g, gi) {
+      var k = "perm:" + g.name; if (BYID[k]) return;
+      BYID[k] = { kind: "perm", name: g.name };
+      var x = { id: k, tech: "Graph API", text: g.text, sub: g.sub, meta: g.meta };
+      if (gi === 0) pool.unshift(x); else pool.push(x);   /* the heaviest one speaks for Graph API */
+    });
     pool = pool.filter(function (x) { return x.tech && BYID[x.id]; });
     function go(id) {
       var r = BYID[id]; if (!r) return;
       if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
+      if (r.kind === "perm" && window.__socGD) { window.__socGD.open(r.name); return; }
       if (!goItem(id) && r.it && r.it.url) window.open(r.it.url, "_blank", "noopener");
     }
     function line(lead, x, host, cls) {
@@ -26532,6 +26841,396 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1000); setTimeout(boot, 2600); });
   else { setTimeout(boot, 1000); setTimeout(boot, 2600); }
 })();
+/* ===========================================================================
+   §5bs — GRAPH PERMISSION VERSIONS (27 IX 2026). Every Microsoft update to
+   permissions.json, permission by permission, from code (collect_graph_diff.py)
+   — and "Compare with previous version" in every permission panel.
+
+   Owner, 27 IX 2026, pointing at msgraphpermissions.com: "how do we track down
+   all of the changes … any improvements to our logic and reports, Overview,
+   Today, Graph API?". Measured that day: 13 Microsoft commits since 24 VIII,
+   66 endpoint or scheme changes on existing permissions, and 7 permission
+   entries in our catalog with a version above 1. Group.ReadWrite.All gained
+   GET /groups/dynamicMembershipProcessingStatus(...) on 22 IX (c1d06c5) and its
+   panel still said version 1.
+
+   Reads `soc-brief-state.gdiff` only. Writes #gd-changes (Graph API tab),
+   #gd-today (Today tab), one `.gdver` section per permission panel, and
+   exposes window.__socGD for the Overview (§5bq). Active filters are GREEN
+   (§5av). ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = jb("soc-brief-state") || {}, GD = ST.gdiff || null;
+  var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? dm(d) + " " + m[1] : (d || ""); }
+  function commitUrl(sha) { return (GD && GD.repo ? GD.repo : "https://github.com/microsoftgraph/microsoft-graph-devx-content") + "/commit/" + sha; }
+  function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
+
+  /* ---------- the data, flattened once ---------- */
+  var ROWS = [];
+  if (GD && GD.perms) Object.keys(GD.perms).forEach(function (name) {
+    var p = GD.perms[name];
+    (p.ev || []).forEach(function (e) { ROWS.push({ name: name, lv: p.lv, e: e }); });
+  });
+  ROWS.sort(function (a, b) { return b.e.date.localeCompare(a.e.date) || b.e.sha.localeCompare(a.e.sha) || (b.lv || 0) - (a.lv || 0) || a.name.localeCompare(b.name); });
+  function kinds(e) {
+    var k = [];
+    if (e.t === "added") k.push("new");
+    if (e.t === "removed") k.push("removed");
+    if (e.t === "readded") k.push("returned");
+    if (e.t === "changed") {
+      if ((e.ea || []).length) k.push("gained");
+      if ((e.er || []).length) k.push("lost");
+      if ((e.ec || []).length) k.push("rescoped");
+      var f = Object.keys(e.f || {});
+      if (f.some(function (x) { return /privilegeLevel|requiresAdminConsent/.test(x) || x.indexOf(".") < 0; })) k.push("consent");
+      if (f.some(function (x) { return /DisplayName|Description/.test(x); })) k.push("wording");
+    }
+    return k;
+  }
+  function summary(e) {
+    var s = [];
+    if (e.t === "added") s.push("new permission · " + (e.ea || []).length + " endpoints");
+    if (e.t === "removed") s.push("removed from Microsoft's file · had " + (e.er || []).length + " endpoints");
+    if (e.t === "readded") s.push("back in Microsoft's file (removed " + dm(e.was) + ") · " + (e.ea || []).length + " endpoints");
+    if (e.t === "changed") {
+      var a = (e.ea || []).length, r = (e.er || []).length, c = (e.ec || []).length, f = Object.keys(e.f || {}).length;
+      if (a) s.push("+" + a + " endpoint" + (a === 1 ? "" : "s"));
+      if (r) s.push("−" + r + " endpoint" + (r === 1 ? "" : "s"));
+      if (c) s.push(c + " endpoint" + (c === 1 ? "" : "s") + " re-scoped");
+      if (f) s.push(f + " field" + (f === 1 ? "" : "s") + " changed");
+    }
+    return s.join(" · ");
+  }
+  function lvChip(lv) {
+    var c = el("span", "badge " + (!lv ? "t-grey" : lv <= 2 ? "t-ok" : lv === 3 ? "t-warn" : "t-bad"), lv ? "L" + lv : "L?");
+    c.title = lv ? "Privilege level " + lv + " of 4 in Microsoft's file" : "Microsoft states no privilege level";
+    return c;
+  }
+  function epLine(ep, sign, cls) {
+    var li = el("li", "gd-ep " + cls);
+    li.appendChild(el("span", "gd-sg", sign));
+    li.appendChild(el("span", "gd-m", ep[0]));
+    li.appendChild(el("span", "gd-p", ep[1]));
+    li.appendChild(el("span", "gd-s", String(ep[ep.length - 1] || "").replace(/,/g, " · ")));
+    return li;
+  }
+  /* the body of a comparison: endpoints in, out, re-scoped, and fields before -> after */
+  function compareBody(net) {
+    var box = el("div", "gd-cmp");
+    function list(title, arr, sign, cls, fn) {
+      if (!arr.length) return;
+      box.appendChild(el("p", "gd-lh", title + " (" + arr.length + ")"));
+      var ul = el("ul", "gd-eps");
+      arr.slice(0, 200).forEach(function (x) { ul.appendChild(fn ? fn(x) : epLine(x, sign, cls)); });
+      if (arr.length > 200) ul.appendChild(el("li", "gd-more", "… and " + (arr.length - 200) + " more"));
+      box.appendChild(ul);
+    }
+    list("Endpoints added", net.ea, "+", "ins");
+    list("Endpoints removed", net.er, "−", "del");
+    list("Endpoints with other schemes", net.ec, "~", "chg", function (x) {
+      var li = epLine([x[0], x[1], ""], "~", "chg");
+      var s = li.querySelector(".gd-s"); s.textContent = "";
+      s.appendChild(el("del", null, String(x[2]).replace(/,/g, " · "))); s.appendChild(document.createTextNode(" → "));
+      s.appendChild(el("ins", null, String(x[3]).replace(/,/g, " · ")));
+      return li;
+    });
+    var fk = Object.keys(net.f || {});
+    if (fk.length) {
+      box.appendChild(el("p", "gd-lh", "Fields (" + fk.length + ")"));
+      var dl = el("dl", "gd-fl");
+      fk.forEach(function (k) {
+        dl.appendChild(el("dt", null, k.replace(".", " · ")));
+        var dd = el("dd"), b = net.f[k][0], a = net.f[k][1];
+        dd.appendChild(b === null || b === undefined ? el("span", "gd-none", "not there") : el("del", null, String(b)));
+        dd.appendChild(document.createTextNode(" → "));
+        dd.appendChild(a === null || a === undefined ? el("span", "gd-none", "gone") : el("ins", null, String(a)));
+        dl.appendChild(dd);
+      });
+      box.appendChild(dl);
+    }
+    if (!box.childNodes.length) box.appendChild(el("p", "gd-none", "No difference between these two versions."));
+    return box;
+  }
+  /* net change between two versions: replay the events after `from` up to `to`.
+     Works without the full baseline set, because an endpoint added and removed
+     again cancels out. */
+  function net(name, from, to) {
+    var ev = (GD.perms[name] || {}).ev || [];
+    var A = {}, R = {}, C = {}, F = {};
+    ev.forEach(function (e) {
+      if (e.v <= from || e.v > to) return;
+      (e.ea || []).forEach(function (x) { var k = x[0] + " " + x[1]; if (R[k]) delete R[k]; else A[k] = x; });
+      (e.er || []).forEach(function (x) { var k = x[0] + " " + x[1]; if (A[k]) delete A[k]; else R[k] = x; });
+      (e.ec || []).forEach(function (x) { var k = x[0] + " " + x[1]; C[k] = C[k] ? [x[0], x[1], C[k][2], x[3]] : x; });
+      Object.keys(e.f || {}).forEach(function (k) { F[k] = F[k] ? [F[k][0], e.f[k][1]] : e.f[k].slice(); });
+    });
+    Object.keys(C).forEach(function (k) { if (C[k][2] === C[k][3]) delete C[k]; });
+    Object.keys(F).forEach(function (k) { if (JSON.stringify(F[k][0]) === JSON.stringify(F[k][1])) delete F[k]; });
+    function vals(o) { return Object.keys(o).sort().map(function (k) { return o[k]; }); }
+    return { ea: vals(A), er: vals(R), ec: vals(C), f: F };
+  }
+
+  function openPerm(name) {
+    var b = tabBtn("graph"); if (b) b.click();
+    setTimeout(function () {
+      var inner = window.__socOpenPerm && window.__socOpenPerm(name);
+      if (inner && inner.scrollIntoView) inner.scrollIntoView({ block: "start" });
+      setTimeout(function () { var g = document.querySelector(".gdver"); if (g) { g.open = true; } }, 300);
+    }, 200);
+  }
+
+  /* ---------- 1. the Graph API tab: every update, grouped by Microsoft's commit ---------- */
+  var F = { t: "", lv: "", q: "" };
+  var TYPES = [["new", "New"], ["returned", "Returned"], ["removed", "Removed"], ["gained", "Gained endpoints"],
+               ["lost", "Lost endpoints"], ["rescoped", "Re-scoped"], ["consent", "Level or consent"], ["wording", "Wording"]];
+  var LVS = [["4", "L4"], ["3", "L3"], ["12", "L1–L2"], ["0", "No level"]];
+  function lvKey(lv) { return !lv ? "0" : lv <= 2 ? "12" : String(lv); }
+  function pass(r, skip) {
+    if (skip !== "t" && F.t && kinds(r.e).indexOf(F.t) < 0) return false;
+    if (skip !== "lv" && F.lv && lvKey(r.lv) !== F.lv) return false;
+    if (F.q && r.name.toLowerCase().indexOf(F.q.toLowerCase()) < 0 &&
+        !(r.e.ea || []).concat(r.e.er || []).some(function (x) { return x[1].toLowerCase().indexOf(F.q.toLowerCase()) >= 0; })) return false;
+    return true;
+  }
+  var host, bar, banner, listEl, qIn;
+  function chips(label, key, defs, countOf) {
+    var row = el("div", "gd-frow"); row.appendChild(el("span", "gd-flab", label));
+    var box = el("div", "gd-fbox");
+    defs.forEach(function (d) {
+      var n = ROWS.filter(function (r) { return pass(r, key) && countOf(r, d[0]); }).length;
+      var on = F[key] === d[0];
+      var b = el("button", "gd-chip" + (on ? " on" : "")); b.type = "button";
+      b.appendChild(el("span", null, d[1])); b.appendChild(el("span", "gd-cn", String(n)));
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (!n && !on) b.disabled = true;
+      else b.addEventListener("click", function () { F[key] = on ? "" : d[0]; render(); });
+      box.appendChild(b);
+    });
+    row.appendChild(box); return row;
+  }
+  function render() {
+    bar.textContent = "";
+    bar.appendChild(chips("Change", "t", TYPES, function (r, k) { return kinds(r.e).indexOf(k) >= 0; }));
+    bar.appendChild(chips("Level", "lv", LVS, function (r, k) { return lvKey(r.lv) === k; }));
+    var rows = ROWS.filter(function (r) { return pass(r); });
+    banner.textContent = ""; banner.hidden = !(F.t || F.lv || F.q);
+    if (!banner.hidden) {
+      banner.appendChild(el("b", null, "Filtered · " + rows.length + " of " + ROWS.length + " changes"));
+      var c = el("button", "gd-clear", "Clear all"); c.type = "button";
+      c.addEventListener("click", function () { F.t = F.lv = F.q = ""; qIn.value = ""; render(); });
+      banner.appendChild(c);
+    }
+    listEl.textContent = "";
+    if (!rows.length) { listEl.appendChild(el("p", "gd-none", "No change matches. Remove a filter above — zero is a result, not an error.")); return; }
+    var bySha = {};
+    rows.forEach(function (r) { (bySha[r.e.sha] = bySha[r.e.sha] || []).push(r); });
+    var order = []; rows.forEach(function (r) { if (order.indexOf(r.e.sha) < 0) order.push(r.e.sha); });
+    order.forEach(function (sha) {
+      var rs = bySha[sha], g = el("section", "gd-grp");
+      var h = el("h4", "gd-gh");
+      h.appendChild(el("span", "gd-gd", dmy(rs[0].e.date)));
+      var a = el("a", "gd-sha", sha); a.href = commitUrl(sha); a.target = "_blank"; a.rel = "noopener"; a.title = "Microsoft's commit in microsoft-graph-devx-content";
+      h.appendChild(a);
+      h.appendChild(el("span", "gd-gn", rs.length + " permission" + (rs.length === 1 ? "" : "s")));
+      g.appendChild(h);
+      var ul = el("ul", "gd-rows");
+      rs.forEach(function (r) {
+        var li = el("li", "gd-row");
+        var hd = el("div", "gd-rh");
+        var x = el("button", "gd-x", "+"); x.type = "button"; x.setAttribute("aria-expanded", "false");
+        x.setAttribute("aria-label", "Show what changed in " + r.name + " v" + r.e.v);
+        hd.appendChild(x);
+        var nm = el("button", "gd-name", r.name); nm.type = "button"; nm.title = "Open the permission panel";
+        nm.addEventListener("click", function () { openPerm(r.name); });
+        hd.appendChild(nm);
+        hd.appendChild(lvChip(r.lv));
+        hd.appendChild(el("span", "gd-v", "v" + r.e.v));
+        var sm = el("span", "gd-sum " + r.e.t, summary(r.e)); hd.appendChild(sm);
+        li.appendChild(hd);
+        var body = null;
+        x.addEventListener("click", function () {
+          var open = x.getAttribute("aria-expanded") !== "true";
+          if (open && !body) { body = compareBody({ ea: r.e.ea || [], er: r.e.er || [], ec: r.e.ec || [], f: r.e.f || {} }); li.appendChild(body); }
+          if (body) body.hidden = !open;
+          x.textContent = open ? "−" : "+"; x.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        ul.appendChild(li);
+      });
+      g.appendChild(ul); listEl.appendChild(g);
+    });
+  }
+  function buildGraph() {
+    var p = document.getElementById("tab-graph");
+    if (!p || !GD || document.getElementById("gd-changes")) return;
+    var c = GD.counts || {};
+    host = el("details", "gd"); host.id = "gd-changes"; host.open = true;
+    var s = el("summary");
+    s.appendChild(el("span", "gd-t", "Microsoft's updates to Graph permissions, permission by permission"));
+    s.appendChild(el("span", "gd-cn", String(ROWS.length)));
+    host.appendChild(s);
+    var note = el("p", "gd-note");
+    note.appendChild(document.createTextNode("Every commit of permissions.json in microsoft-graph-devx-content since " + dmy(GD.baseline) +
+      " (" + (GD.baselineSha || "") + "), compared pair by pair by code: " + (c.commits || 0) + " commits, " +
+      (c.added || 0) + " permissions added, " + (c.removed || 0) + " removed, " + (c.readded || 0) + " returned, " +
+      (c.changed || 0) + " changed (+" + (c.endpointsAdded || 0) + " / −" + (c.endpointsRemoved || 0) +
+      " endpoints). Latest commit read: " + (GD.to || "") + " of " + dmy(GD.toDate) + ". The date is Microsoft's commit, not this brief. " +
+      "An endpoint added to an already-granted permission fires no consent prompt, so nothing in the audit trail marks it. " +
+      "Press + for the comparison; the name opens the permission, where every version can be compared with any other."));
+    host.appendChild(note);
+    var top = el("div", "gd-top");
+    qIn = el("input", "gd-q"); qIn.type = "search"; qIn.placeholder = "Find a permission or an endpoint path"; qIn.setAttribute("aria-label", "Find a permission or an endpoint path");
+    var tm; qIn.addEventListener("input", function () { clearTimeout(tm); tm = setTimeout(function () { F.q = qIn.value.trim(); render(); }, 160); });
+    top.appendChild(qIn); host.appendChild(top);
+    bar = el("div", "gd-bar"); host.appendChild(bar);
+    banner = el("div", "gd-banner"); banner.hidden = true; banner.setAttribute("role", "status"); host.appendChild(banner);
+    listEl = el("div", "gd-list"); host.appendChild(listEl);
+    var after = p.querySelector(":scope > .s5bn") || p.querySelector(":scope > .panelhead");
+    if (after && after.parentNode === p) p.insertBefore(host, after.nextSibling); else p.insertBefore(host, p.firstChild);
+    render();
+  }
+
+  /* ---------- 2. every permission panel: versions and "compare with" ---------- */
+  function panelSection(pane, name) {
+    if (pane.querySelector(".gdver")) return;
+    var rec = GD.perms[name];
+    var d = el("details", "gdver sec"); d.open = !!rec;
+    var s = el("summary");
+    var vmax = rec ? rec.ev[rec.ev.length - 1].v : 1;
+    s.appendChild(el("span", null, "Versions in Microsoft's permissions.json"));
+    s.appendChild(el("span", "gd-cn", "v" + vmax));
+    d.appendChild(s);
+    if (!rec) {
+      d.appendChild(el("p", "gd-none", "No change to " + name + " in Microsoft's permissions.json since " + dmy(GD.baseline) +
+        " (commit " + (GD.baselineSha || "") + ") up to " + (GD.to || "") + " of " + dmy(GD.toDate) + ". Version 1 is the current one."));
+    } else {
+      var tl = el("ol", "gd-tl");
+      var first = rec.ev[0];
+      if (first.v > 1) tl.appendChild(el("li", null, "v1 · as it stood on " + dmy(GD.baseline) + " (" + (GD.baselineSha || "") + ")"));
+      rec.ev.forEach(function (e) {
+        var li = el("li"); li.appendChild(el("b", null, "v" + e.v + " · " + dmy(e.date) + " "));
+        var a = el("a", "gd-sha", e.sha); a.href = commitUrl(e.sha); a.target = "_blank"; a.rel = "noopener"; li.appendChild(a);
+        li.appendChild(document.createTextNode(" · " + summary(e))); tl.appendChild(li);
+      });
+      d.appendChild(tl);
+      var ctl = el("div", "gd-ctl");
+      function sel(lbl, val) {
+        var w = el("label", "gd-sel"); w.appendChild(el("span", null, lbl));
+        var x = el("select");
+        for (var v = 1; v <= vmax; v++) { var o = el("option", null, "v" + v); o.value = String(v); if (v === val) o.selected = true; x.appendChild(o); }
+        w.appendChild(x); ctl.appendChild(w); return x;
+      }
+      var fromS = sel("Compare", Math.max(1, vmax - 1)), toS = sel("with", vmax);
+      d.appendChild(ctl);
+      var out = el("div", "gd-out"); d.appendChild(out);
+      function show() {
+        var a = +fromS.value, b = +toS.value; if (a > b) { var t = a; a = b; b = t; }
+        out.textContent = "";
+        out.appendChild(el("p", "gd-lh", a === b ? "Same version." : "What changed from v" + a + " to v" + b + ":"));
+        if (a !== b) out.appendChild(compareBody(net(name, a, b)));
+      }
+      fromS.addEventListener("change", show); toS.addEventListener("change", show); show();
+    }
+    /* third, after "At a glance" and the 14-day section (§5al asserts those two first) */
+    var kids = [].slice.call(pane.children), at = null;
+    kids.forEach(function (k) { if (!at && /what changed/i.test((k.querySelector("summary,h3,h2") || k).textContent || "")) at = k; });
+    if (at && at.nextSibling) pane.insertBefore(d, at.nextSibling); else pane.appendChild(d);
+  }
+  function watchPanels() {
+    if (!GD) return;
+    [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"] .cat-detail'), function (det) {
+      if (det.getAttribute("data-gd")) return; det.setAttribute("data-gd", "1");
+      function run() {
+        var pane = det.querySelector(".v13pane"); if (!pane) return;
+        var h = pane.querySelector("header h2"); var name = h ? (h.textContent || "").trim() : "";
+        if (name) panelSection(pane, name);
+      }
+      run();
+      if (window.MutationObserver) new MutationObserver(run).observe(det, { childList: true, subtree: true });
+    });
+  }
+
+  /* ---------- 3. Today: what Microsoft changed since the previous brief ---------- */
+  var cw = ST.comparedWith || {}, PREV = typeof cw === "string" ? cw : (cw.date || "");
+  /* "since the previous brief" = commits AFTER the one the previous state had read (`gdiff.from`).
+     On the first run (full backfill) there is no such commit, so the date of the previous brief decides,
+     that day included: a commit made the same day may have come after that brief (fa788f1, 25 IX). */
+  function sincePrev() {
+    var cs = (GD && GD.commits) || [], i = -1;
+    cs.forEach(function (c, k) { if (GD.from && c.sha === GD.from && GD.from !== GD.baselineSha) i = k; });
+    var after = {}; if (i >= 0) cs.slice(i + 1).forEach(function (c) { after[c.sha] = 1; });
+    return ROWS.filter(function (r) { return i >= 0 ? !!after[r.e.sha] : (PREV ? r.e.date >= PREV : true); })
+      .sort(function (a, b) { return (b.lv || 0) - (a.lv || 0) || b.e.date.localeCompare(a.e.date); });
+  }
+  function buildToday() {
+    var p = document.getElementById("tab-today");
+    if (!p || !GD || document.getElementById("gd-today")) return;
+    var rs = sincePrev();
+    var box = el("section", "gd-today"); box.id = "gd-today";
+    var since = GD.from && GD.from !== GD.baselineSha ? "since the previous brief (Microsoft commit " + GD.from + ")" : "since the " + dm(PREV) + " brief";
+    var h = el("h3", "gd-th", rs.length ? "Microsoft changed " + rs.length + " Graph permission" + (rs.length === 1 ? "" : "s") + " " + since
+                                        : "No Microsoft change to Graph permissions " + since);
+    box.appendChild(h);
+    if (rs.length) {
+      var ul = el("ul", "gd-trows");
+      rs.slice(0, 6).forEach(function (r) {
+        var li = el("li");
+        var b = el("button", "gd-name", r.name); b.type = "button"; b.addEventListener("click", function () { openPerm(r.name); });
+        li.appendChild(lvChip(r.lv)); li.appendChild(b); li.appendChild(el("span", "gd-sum " + r.e.t, summary(r.e) + " · " + dm(r.e.date)));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    }
+    var all = el("button", "gd-all", "All changes by Microsoft commit →"); all.type = "button";
+    all.addEventListener("click", function () { var b = tabBtn("graph"); if (b) b.click(); setTimeout(function () { var g = document.getElementById("gd-changes"); if (g) { g.open = true; g.scrollIntoView({ block: "start" }); } }, 250); });
+    box.appendChild(all);
+    var after = p.querySelector(":scope > .s5bn") || p.querySelector(":scope > .panelhead");
+    if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+  }
+
+  /* ---------- 4. for the Overview (§5bq): the heavy ones, newest first ---------- */
+  window.__socGD = {
+    recent: function (days) {
+      if (!GD) return [];
+      var day = ST.briefDate || GD.readOn || "";
+      var t = new Date(day + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - (days || 7));
+      var from = t.toISOString().slice(0, 10);
+      /* one Microsoft change often lands on several permissions at once (22 IX: the same endpoint
+         on six) — those become ONE sentence naming the heaviest and counting the rest */
+      var groups = {}, order = [];
+      ROWS.filter(function (r) { return r.e.date >= from && ((r.lv || 0) >= 3 || /added|removed|readded/.test(r.e.t)); })
+        .sort(function (a, b) { return (b.lv || 0) - (a.lv || 0) || b.e.date.localeCompare(a.e.date); })
+        .forEach(function (r) {
+          var k = r.e.sha + "|" + r.e.t + "|" + JSON.stringify([(r.e.ea || []).map(function (x) { return x[0] + x[1]; }),
+                    (r.e.er || []).map(function (x) { return x[0] + x[1]; }), Object.keys(r.e.f || {})]);
+          if (!groups[k]) { groups[k] = { r: r, n: 0 }; order.push(k); }
+          groups[k].n++;
+        });
+      return order.map(function (k) { return groups[k]; })
+        .map(function (g) {
+          var r = g.r, first = (r.e.ea || [])[0] || (r.e.er || [])[0];
+          return { name: r.name, lv: r.lv, date: r.e.date, t: r.e.t, also: g.n - 1,
+            text: r.name + (g.n > 1 ? " and " + (g.n - 1) + " more" : "") + ": " + summary(r.e),
+            sub: first ? (r.e.t === "removed" || (!(r.e.ea || []).length && (r.e.er || []).length) ? "removed " : "e.g. ") + first[0] + " " + first[1] : "",
+            meta: "L" + (r.lv || "?") + " · Microsoft commit " + r.e.sha + " · " + dm(r.e.date) };
+        });
+    },
+    open: openPerm
+  };
+
+  function boot() {
+    try { buildGraph(); } catch (e) { if (window.console) console.error("[5bs graph]", e); }
+    try { buildToday(); } catch (e) { if (window.console) console.error("[5bs today]", e); }
+    try { watchPanels(); } catch (e) { if (window.console) console.error("[5bs panel]", e); }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2200); });
+  else setTimeout(boot, 2200);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 200); }, true);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -26786,7 +27485,74 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
  header.top .s5bi-skbtn{display:none!important}   /* the bar carries Search */
  header.top .kpi5 .k5{padding:6px 8px!important;min-width:0}
  header.top .kpi5 .k5t{font-size:11.5px!important;line-height:1.25}
+}/* §5bs (27 IX 2026) — Graph permission versions: Microsoft's updates permission by permission, compare in every panel (script 17). */
+.gd{margin:0 0 16px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface);padding:0 14px 12px}
+.gd>summary{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;font-weight:700;color:var(--ink)}
+.gd-cn{font:600 11.5px/1.4 var(--sans);font-variant-numeric:tabular-nums;padding:0 8px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.gd-note{margin:0 0 10px;font-size:13px;line-height:1.5;color:var(--muted);max-width:110ch}
+.gd-top{margin:0 0 8px}
+.gd-q{width:100%;max-width:420px;font:13.5px/1.3 var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--ok);border-radius:8px;padding:7px 10px}
+.gd-bar{display:grid;gap:6px;margin:0 0 8px}
+.gd-frow{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:start}
+.gd-flab{font:700 10.5px/2.2 var(--sans);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.gd-fbox{display:flex;flex-wrap:wrap;gap:6px}
+.gd-chip{display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1.3 var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer}
+.gd-chip:hover{border-color:var(--accent);color:var(--accent)}
+.gd-chip.on{color:var(--ok);background:var(--ok-soft);border-color:var(--ok);font-weight:700}
+.gd-chip:disabled{opacity:.5;cursor:default}
+.gd-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:7px 12px;margin:0 0 8px;border:1px solid var(--ok);border-radius:8px;background:var(--ok-soft);color:var(--ok);font-size:13px}
+.gd-banner[hidden]{display:none}
+.gd-clear{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.gd-list{display:grid;gap:10px}
+.gd-grp{border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.gd-gh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0;padding:6px 12px;background:var(--surface-2);font-size:12.5px;font-weight:700;color:var(--muted)}
+.gd-gd{color:var(--ink)}
+.gd-sha{font-family:var(--mono);font-size:12px}
+.gd-rows{list-style:none;margin:0;padding:0}
+.gd-row{border-top:1px solid var(--border);padding:6px 12px}
+.gd-row:first-child{border-top:0}
+.gd-rh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.gd-x{width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font:700 14px/1 var(--sans);cursor:pointer}
+.gd-name{border:0;background:none;padding:0;font:600 13.5px/1.35 var(--mono);color:var(--accent);cursor:pointer;text-align:left;overflow-wrap:anywhere}
+.gd-name:hover{text-decoration:underline}
+.gd-v{font:600 11.5px/1.4 var(--sans);color:var(--muted)}
+.gd-sum{font-size:13px;color:var(--ink)}
+.gd-sum.added,.gd-sum.readded{color:var(--ok)}.gd-sum.removed{color:var(--bad)}
+.gd-cmp{margin:8px 0 4px 36px;display:grid;gap:4px}
+.gd-lh{margin:6px 0 2px;font:700 11.5px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.gd-eps{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.gd-ep{display:grid;grid-template-columns:14px 58px minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:12.5px;padding:2px 6px;border-radius:4px}
+.gd-ep.ins{background:var(--ins-bg,var(--ok-soft))}.gd-ep.del{background:var(--del-bg,var(--bad-soft))}.gd-ep.del .gd-p{text-decoration:line-through}
+.gd-ep.chg{background:var(--warn-soft)}
+.gd-sg{font-weight:700}.gd-m{font:600 11.5px/1.4 var(--mono)}.gd-p{font-family:var(--mono);overflow-wrap:anywhere}.gd-s{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.gd-ep del,.gd-fl del{color:var(--del-fg,var(--bad));background:var(--del-bg,var(--bad-soft));text-decoration:line-through;padding:0 3px;border-radius:3px}
+.gd-ep ins,.gd-fl ins{color:var(--ins-fg,var(--ok));background:var(--ins-bg,var(--ok-soft));text-decoration:none;padding:0 3px;border-radius:3px}
+.gd-fl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 12px;margin:0;font-size:12.5px}
+.gd-fl dt{color:var(--muted)}.gd-fl dd{margin:0;overflow-wrap:anywhere}
+.gd-none{color:var(--muted);font-size:13px;margin:4px 0}
+.gd-more{color:var(--muted);font-size:12px;padding:2px 6px}
+.gdver{margin:10px 0}
+.gdver>summary{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:700}
+.gd-tl{margin:8px 0;padding-left:20px;display:grid;gap:4px;font-size:13px}
+.gd-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:6px 0}
+.gd-sel{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.gd-sel select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 6px}
+.gdver .gd-cmp{margin-left:0}
+.gd-today{margin:0 0 14px;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface)}
+.gd-th{margin:0 0 6px;font-size:14px}
+.gd-trows{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:4px}
+.gd-trows li{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:13px}
+.gd .badge,.gd-today .badge{display:inline-block;font:700 10.5px/1.6 var(--sans);letter-spacing:.03em;padding:0 6px;border-radius:4px;border:1px solid var(--border);color:var(--muted);background:var(--surface)}
+.gd .badge.t-bad,.gd-today .badge.t-bad{color:var(--bad);background:var(--bad-soft);border-color:transparent}
+.gd .badge.t-warn,.gd-today .badge.t-warn{color:var(--warn);background:var(--warn-soft);border-color:transparent}
+.gd .badge.t-ok,.gd-today .badge.t-ok{color:var(--ok);background:var(--ok-soft);border-color:transparent}
+.gd-all{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:5px 10px;cursor:pointer}
+@media (max-width:760px){
+ .gd-frow{grid-template-columns:1fr;gap:4px}
+ .gd-ep{grid-template-columns:14px 46px minmax(0,1fr)}.gd-ep .gd-s{grid-column:3}
+ .gd-cmp{margin-left:0}
 }
+
 
 ```
 
