@@ -1,7 +1,7 @@
 {
  "read": "2026-09-28",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 726,
+ "count": 713,
  "note": null,
  "messages": [
   {
@@ -108,28 +108,6 @@
    ],
    "summary": "Updated September 1, 2026: We have updated the timeline below. Thank you for your patience. To help you manage metered consumption costs for Microsoft 365 Copilot Chat, we will introduce a new Message consumption usage report in the Microsoft 365 admin center. The new report will give you visibility into billed messages associated with your Microsoft 365 Copilot pay-as-you-go billing policies and …",
    "bodyHash": "fb878144a3fbcc9d"
-  },
-  {
-   "id": "MC1072889",
-   "title": "(Updated) SharePoint Alerts retirement",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-05-13",
-   "end": "2026-09-28",
-   "modified": "2026-06-15",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 15, 2026: We are updating this post as a reminder. SharePoint Alerts will be fully turned off starting in mid-July 2026. Please visit SharePoint Alerts retirement | Microsoft Community Hub for the latest updates and timelines. Microsoft is retiring the SharePoint Alerts feature to streamline and modernize user notifications. With Power Automate, organizations can benefit from an enhan…",
-   "bodyHash": "4fdcd1d733ac0c82"
   },
   {
    "id": "MC1090689",
@@ -2329,28 +2307,6 @@
    "bodyHash": "2fa3f7950cf055c4"
   },
   {
-   "id": "MC1230892",
-   "title": "(Updated) Microsoft 365 Copilot: Updated handling of entity inserts in the Copilot Chat input box",
-   "services": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-02-11",
-   "end": "2026-09-28",
-   "modified": "2026-08-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 4, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re updating how entities inserted from Add Work Content under the + menu behave in Microsoft 365 Copilot and Copilot Chat . With this change, entity names (such as document titles, people names, or other referenced objects) will no longer be inserted as text within the input box , making it easier …",
-   "bodyHash": "0c807219a0caae65"
-  },
-  {
    "id": "MC1231206",
    "title": "Windows Office Hours: February 19, 2026",
    "services": [
@@ -2853,28 +2809,6 @@
    ],
    "summary": "Updated July 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is retiring the -Credential parameter used when connecting to Exchange Online PowerShell. Starting with module versions released in December 2026 and later , the -Credential parameter will be removed from both Connect-ExchangeOnline and Connect-IppsSession cmdlets. Organizations using this pa…",
    "bodyHash": "3f14fb106afb3f2a"
-  },
-  {
-   "id": "MC1248393",
-   "title": "(Updated) Outlook Mobile: Follow a meeting option",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-10",
-   "end": "2026-09-28",
-   "modified": "2026-07-16",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 16, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing a new Follow option for meetings in Outlook Mobile . This feature helps users stay informed when they cannot attend by prompting organizers to record the meeting and by ensuring followers receive key updates and follow‑up items. [When this will happen] General Availability (Worldwide)…",
-   "bodyHash": "863add85e91445d8"
   },
   {
    "id": "MC1249424",
@@ -5903,27 +5837,6 @@
    "bodyHash": "dea0ac1777d5d6eb"
   },
   {
-   "id": "MC1392567",
-   "title": "(Updated) Microsoft Planner: Start date and due date are no longer constrained",
-   "services": [
-    "Planner"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-06-15",
-   "end": "2026-09-28",
-   "modified": "2026-07-28",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are updating how task dates behave in Microsoft Planner to improve flexibility and predictability when managing tasks. Previously, Planner enforced that a task’s due date must be on or after its start date and automatically adjusted one date when the other was changed. With this update, that constra…",
-   "bodyHash": "f20a99731386d47c"
-  },
-  {
    "id": "MC1392568",
    "title": "Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
    "services": [
@@ -6006,49 +5919,6 @@
    ],
    "summary": "The next feature update for Windows 11 will be version 26H2. This version continues our focus on delivering a predictable, low-disruption update experience for organizations and IT professionals. Rollout schedule: June 19, 2026: Windows 11, version 26H2 is available to preview through the Windows Insiders Program. Second half of 2026: Windows 11, version 26H2 will be generally available. Impact on…",
    "bodyHash": "dcf9af490d1c9de2"
-  },
-  {
-   "id": "MC1400824",
-   "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-22",
-   "end": "2026-09-28",
-   "modified": "2026-07-20",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are updating bot protection in Microsoft Entra self-service password reset (SSPR) by replacing the legacy CAPTCHA with modern backend throttling and behavior-based abuse detection. This change improves security, accessibility, and reliability by reducing friction for users while strengthening protec…",
-   "bodyHash": "6d8017c974731050"
-  },
-  {
-   "id": "MC1400830",
-   "title": "(Updated) Microsoft Teams: Room optimization mode relocated to context-dependent option",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-22",
-   "end": "2026-09-28",
-   "modified": "2026-06-24",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Teams is updating the location and naming of the room optimization experience, previously called “ add shared display ,” to a context dependent “ optimize for room ” option. This change improves usability and helps users more easily configure Teams for shared and in-room meeting scenarios. Th…",
-   "bodyHash": "ee2e3d08cd85d537"
   },
   {
    "id": "MC1401297",
@@ -6486,27 +6356,6 @@
    ],
    "summary": "Updated September 23, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Copilot Notebook, a new Copilot-powered workspace in OneNote, helps users organize, reason over, and take action on their content. This feature brings advanced Copilot capabilities directly into OneNote on Mac , enabling users to generate insights, structure ideas, and work more effectively within…",
    "bodyHash": "875d11e3b26cd325"
-  },
-  {
-   "id": "MC1409102",
-   "title": "Enabling group support for M365 Copilot Release preferences experience",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-29",
-   "end": "2026-09-28",
-   "modified": "2026-06-30",
-   "tags": [
-    "Admin impact",
-    "Feature update"
-   ],
-   "summary": "[What and Why:] Microsoft is enhancing Microsoft 365 Copilot release preferences by adding support for Microsoft Entra ID groups. This update enables admins to assign groups—not just individuals—to Standard or Deferred release audiences, providing more flexible, enterprise-ready control over how Copilot updates are deployed. This improvement supports phased rollouts, targeted validation, and stron…",
-   "bodyHash": "c0f55d0d86b637a3"
   },
   {
    "id": "MC1409303",
@@ -7092,29 +6941,6 @@
    "bodyHash": "f7b7612c85b7a8cb"
   },
   {
-   "id": "MC1422074",
-   "title": "(Updated) OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": "2026-07-24",
-   "start": "2026-07-09",
-   "end": "2026-09-28",
-   "modified": "2026-07-14",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 14, 2026: We have updated the content. Thank you for your patience. [What and why:] To enable OpenAI-operated models in Microsoft 365 Copilot, Microsoft has onboarded OpenAI as a subprocessor, creating the foundation for more model flexibility and quicker access to new AI model innovations. This includes OpenAI's new family of models, beginning with GPT-5.6, which is now available in …",
-   "bodyHash": "46a8c22990892ac8"
-  },
-  {
    "id": "MC1423105",
    "title": "Introducing Auto-Attendant Call Flow Visualizer in Teams Admin Center",
    "services": [
@@ -7259,27 +7085,6 @@
    ],
    "summary": "[What and Why:] We are improving PDF navigation in OneDrive and SharePoint on the web by adding a thumbnail view in the PDF viewer. Users will be able to open a thumbnail panel to visually browse pages in a PDF and jump directly to a selected page. This update helps users navigate long PDFs more quickly, especially when they need to find a visual section, page layout, chart, image, or form page wi…",
    "bodyHash": "7eadf675a0a6041c"
-  },
-  {
-   "id": "MC1423118",
-   "title": "(Updated) OneDrive for the web: Document library views now available in OneDrive",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-09-28",
-   "modified": "2026-08-20",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 20, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We’re enhancing the OneDrive experience by enabling users to access and manage SharePoint document library views directly within OneDrive . This update improves team productivity by allowing users to organize, filter, and view shared content without switching between services. By bringing familiar S…",
-   "bodyHash": "e28da3af49b2a27a"
   },
   {
    "id": "MC1426371",
@@ -8318,27 +8123,6 @@
    "bodyHash": "e9867dff0a872605"
   },
   {
-   "id": "MC1443511",
-   "title": "Microsoft Teams: Manage auto attendant shared voicemails in the Queues app",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-31",
-   "end": "2026-09-28",
-   "modified": "2026-07-31",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing the ability to view and manage auto attendant shared voicemails directly in the Microsoft Teams Queues app. Previously, organizations typically managed auto attendant voicemails through shared mailboxes or other workflows. This update provides a centralized experience for teams to review, triage, and respond to customer voicemail messages more efficiently. Administ…",
-   "bodyHash": "5126fddfc8ac7f16"
-  },
-  {
    "id": "MC1443514",
    "title": "(Updated) Microsoft Planner: Planner Agent chat in basic plans",
    "services": [
@@ -8818,26 +8602,6 @@
    ],
    "summary": "What and why: Windows 10 Enterprise LTSC 2021 reaches end of support on January 12, 2027. As you plan to upgrade these devices to a supported version, you can purchase Extended Security Updates (ESU). Rollout schedule: September 1, 2026: Extended Security Updates (ESU) will be available for purchase. January 12, 2027: Windows 10 Enterprise LTSC 2021 will reach end of support. Impact on your organi…",
    "bodyHash": "ada2c236c0833a52"
-  },
-  {
-   "id": "MC1448372",
-   "title": "SharePoint Pages: Command bar menu and page state indicator updates",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-05",
-   "end": "2026-09-28",
-   "modified": "2026-08-05",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We’re updating the command bar experience for SharePoint Pages. This update reorders the +New menu structure, makes changes to labels, and adds more prominent page state indicators for visibility whether a page is live. [Rollout Schedule:] General Availability (Worldwide): Rollout begins in early August 2026 and is expected to complete by late August 2026 . [Impact on your organiza…",
-   "bodyHash": "dba672b1ad8e9e88"
   },
   {
    "id": "MC1448378",
@@ -9565,26 +9329,6 @@
    "bodyHash": "b065d09770dd03a9"
   },
   {
-   "id": "MC1455017",
-   "title": "New Defender for Identity health alert for missing domain controller network traffic",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-14",
-   "end": "2026-09-28",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "New feature"
-   ],
-   "summary": "[What and Why:] Microsoft Defender for Identity is introducing an updated workspace health alert that helps administrators identify when no network traffic activity is being received from domain controllers through Defender for Identity sensors. This alert is designed to surface traffic collection issues that can reduce visibility, including missing or misconfigured port mirroring, packet capture …",
-   "bodyHash": "3b92497c57f03a89"
-  },
-  {
    "id": "MC1456609",
    "title": "Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report",
    "services": [
@@ -9643,25 +9387,6 @@
    ],
    "summary": "Earlier this year , we released the new single device experience that provides a single, consolidated view for device management, making it easier to access device information, monitor activity, use management tools, and perform device actions The new single device page is turned on by default. You can use the \"Preview new device toggle\" to turn it off and return to the original device page. Start…",
    "bodyHash": "b9be61f5a287d1c2"
-  },
-  {
-   "id": "MC1456781",
-   "title": "Public preview: Manage agents across multiple tenants from the Microsoft 365 admin center",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-17",
-   "end": "2026-09-28",
-   "modified": "2026-08-17",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[What and Why:] We’re introducing multi-tenant agent management in public preview. Partners and enterprise administrators can view and manage agents across their managed tenants from the Microsoft 365 admin center. Learn more: Manage agents across multiple tenants in the Microsoft 365 admin center (preview) — Manage agents across multiple tenants in the Microsoft 365 admin center (preview) [Rollou…",
-   "bodyHash": "0a3ab0df55744567"
   },
   {
    "id": "MC1457106",
@@ -14863,5 +14588,97 @@
    "bodyHash": "c2be8b37c55b8743"
   }
  ],
- "changes": []
+ "changes": [
+  {
+   "date": "2026-09-28",
+   "id": "MC1072889",
+   "type": "removed",
+   "title": "(Updated) SharePoint Alerts retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1230892",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: Updated handling of entity inserts in the Copilot Chat input box",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1248393",
+   "type": "removed",
+   "title": "(Updated) Outlook Mobile: Follow a meeting option",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1392567",
+   "type": "removed",
+   "title": "(Updated) Microsoft Planner: Start date and due date are no longer constrained",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1400824",
+   "type": "removed",
+   "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1400830",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Room optimization mode relocated to context-dependent option",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1409102",
+   "type": "removed",
+   "title": "Enabling group support for M365 Copilot Release preferences experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1422074",
+   "type": "removed",
+   "title": "(Updated) OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1423118",
+   "type": "removed",
+   "title": "(Updated) OneDrive for the web: Document library views now available in OneDrive",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1443511",
+   "type": "removed",
+   "title": "Microsoft Teams: Manage auto attendant shared voicemails in the Queues app",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1448372",
+   "type": "removed",
+   "title": "SharePoint Pages: Command bar menu and page state indicator updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1455017",
+   "type": "removed",
+   "title": "New Defender for Identity health alert for missing domain controller network traffic",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1456781",
+   "type": "removed",
+   "title": "Public preview: Manage agents across multiple tenants from the Microsoft 365 admin center",
+   "fields": {}
+  }
+ ]
 }
