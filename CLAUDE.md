@@ -1261,7 +1261,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
            "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114",
-           "116","117","118","120"}   # 116-118: §5by, 120: §5bz, 28 IX 2026
+           "118","120"}   # 118: §5by, 120: §5bz, 28 IX 2026
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -1273,7 +1273,11 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
 # jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
-CLASS_INFO = {"57", "79", "98", "115", "119"}   # 115: §5bs, raportowane od 27 IX 2026; 119: §5by
+CLASS_INFO = {"57", "79", "98", "115", "116", "117", "119"}   # 115: §5bs, raportowane od 27 IX 2026; 116, 117, 119: §5by
+# 116 i 117 INFORMACYJNE od 28 IX 2026 wieczorem: prompty zadan budujacych nie wymieniaja jeszcze
+# collect_mc.py, a nazwy zakladek pisze model — jako klasa B zatrzymalyby jutrzejszy poranny
+# przebieg (sciezka budujaca blokuje na A i B) i strona zostalaby na 28 IX. Wracaja do klasy B,
+# gdy prompt przebiegu wola collect_mc.py wprost (plan „routines samodzielne", §5bz).
 
 # ---- 0f: rejestr uzgodnien. Bramka sprawdza, czy zbudowano to, co ZAPISANO, i z definicji
 # nigdy nie powie, ze czegos nie zapisano — 13 wrzesnia 2026 dwie uzgodnione zakladki nie
@@ -23864,8 +23868,8 @@ zmierzony na opublikowanej stronie przed zmiana:
    („Week of 21–27 Sep 2026"). Wiersz niesie na wierzchu: Date · Change (New / Updated) · ID ·
    Title · Service · Category (+ flagi); „(Updated)" z tytulu przechodzi do kolumny Change.
    **Przyczyna braku uslug:** przebieg 28 IX NIE uruchomil `collect_mc.py` (brak `mc.collector`,
-   812 wpisow bez `tech`/`category`), choc §5bo tego wymaga — pozycja **116** (klasa B) teraz
-   to blokuje. Niezaleznie od przebiegu przegladarka na opublikowanej stronie czyta
+   812 wpisow bez `tech`/`category`), choc §5bo tego wymaga — pozycja **116** to
+   raportuje (od 28 IX wieczorem informacyjna — patrz CLASS_INFO). Niezaleznie od przebiegu przegladarka na opublikowanej stronie czyta
    `/data/mc-tenant.json` (Graph, co 3 h) i uzupelnia uslugi, kategorie, wage, major, tagi,
    streszczenie Microsoftu, daty rewizji i terminy; posty, ktorych brief nie niosl, dochodza
    z `origin: tenant` i NIGDY nie licza sie jako „new since previous brief".
