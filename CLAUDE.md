@@ -1261,7 +1261,8 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
            "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114",
-           "118","120"}   # 118: §5by, 120: §5bz, 28 IX 2026
+           "118","120",
+           "68d","81d","81e"}   # 118: §5by, 120: §5bz, 28 IX 2026; 68d, 81d, 81e: §5cc, 29 IX 2026
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -1968,7 +1969,7 @@ def gate(path, site=None, mirror=False, doc=None):
     # co przy pozycji 48. Pusta tablica NIE moze dac OK: zbior bez elementow spelnia
     # kazdy warunek, a to jest ten sam blad co przy pozycji 23 (§0b).
     SRC_KIND = {"learn-whatsnew","learn-release","mc","roadmap","rss","community","repo","portal","vendor"}
-    SRC_STATE = {"current","stale","unread","failed","duplicate"}
+    SRC_STATE = {"current","stale","unread","failed","duplicate","carried"}   # carried: §5cc
     srcs = (st["soc-brief-state"] or {}).get("sources") or []
     byk = {x.get("key"): x for x in srcs if isinstance(x, dict) and x.get("key")}
     disc = {}
@@ -1992,6 +1993,16 @@ def gate(path, site=None, mirror=False, doc=None):
     dpaths = {p_.get("path") for p_ in (doc.get("pages") or []) if isinstance(p_, dict)}
     noref = [i.get("id") for i in items
              if i.get("sourceTextChanged") and (i.get("docRef") not in dpaths)]
+    # §5cc (29 IX 2026): 16 of 69 sources on the 28 IX page said "Carried without a fresh read in this
+    # run" in their note while `state` said `current` and `readOn` said 28 IX. A source this run did not
+    # read is `carried` (or stale / unread / failed) — `current` means read today, nothing else.
+    _car = [x.get("key") for x in srcs if x.get("state") == "current"
+            and re.search(r"carried without a fresh read|carried from|not re-?read|without a fresh read",
+                          str(x.get("note") or ""), re.I)]
+    need("68d","zrodlo nieczytane w TYM przebiegu nie ma stanu `current` (§5cc)",
+         bool(srcs) and not _car,
+         "brak tablicy sources — nie da sie sprawdzic" if not srcs
+         else "%d zrodel z nota „carried” i stanem current: %s" % (len(_car), ", ".join(map(str, _car[:6]))))
     need("68b","zadne zrodlo nie dalo wiecej, niz przeczytalo; kazda zmiana tekstu wskazuje strone",
          bool(srcs) and not over and not noref,
          "brak tablicy sources — nie da sie sprawdzic" if not srcs
@@ -3144,6 +3155,8 @@ def main(doc, outdir):
             elif "collect_graph_diff.py" in head:              got["collect_graph_diff.py"] = b
             elif "collect_graph_cmds.py" in head:              got["collect_graph_cmds.py"] = b
             elif "collect_community.py" in head:               got["collect_community.py"] = b
+            elif "collect_all.py" in head:                     got["collect_all.py"] = b
+            elif "check_links.py" in head:                     got["check_links.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -18592,7 +18605,7 @@ p.s12lag{background:var(--grey-soft);border:1px solid var(--border);border-left:
       tr.appendChild(c0);
       tr.appendChild(el("td", null, s.kind || "—"));
       var c2 = el("td");
-      var cls = { current: "t-ok", stale: "t-warn", unread: "t-grey", failed: "t-bad", duplicate: "t-grey" }[s.state] || "t-grey";
+      var cls = { current: "t-ok", stale: "t-warn", unread: "t-grey", failed: "t-bad", duplicate: "t-grey", carried: "t-warn" }[s.state] || "t-grey";
       c2.appendChild(el("span", "badge " + cls, s.state || "not stated"));
       tr.appendChild(c2);
       tr.appendChild(el("td", null, read === null ? "—" : String(read)));
@@ -19145,7 +19158,7 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
     var due7 = win.filter(function (i) { var n = days(i.deadline); return n !== null && n >= 0 && n <= 7; });
     var passed = win.filter(function (i) { var n = days(i.deadline); return n !== null && n < 0 && n >= -7; });
     var t0 = win.filter(function (i) { return i.tier0Touch && !cards[i.id]; });
-    var bad = (ST.sources || []).filter(function (s) { return s.state === "failed" || s.state === "stale"; });
+    var bad = (ST.sources || []).filter(function (s) { return s.state === "failed" || s.state === "stale" || s.state === "carried"; });
     var gone = LED.filter(function (e) { return e.seen === TODAY && e.kind === "removed"; });
     var L = [
       { n: due7.length, t: "need action in the next seven days", cls: "bad",
@@ -19161,9 +19174,9 @@ sa to JEDYNE dozwolone dopisane reguly CSS.
         s: "A removal is a finding: either the source dropped it or this brief retracted it.",
         go: function () { go("tab-new", { label: "left the brief since the last run",
               texts: gone.map(function (e) { return e.id; }) }, "docchanges"); } },
-      { n: bad.length, t: "sources are stale or would not read", cls: "bad",
-        s: "A source that stopped reading cannot justify a quiet week.",
-        go: function () { go("tab-sources", { label: "stale or unread sources",
+      { n: bad.length, t: "sources are stale, carried or would not read", cls: "bad",
+        s: "A source that stopped reading, or was not read today, cannot justify a quiet week.",
+        go: function () { go("tab-sources", { label: "stale, carried or unread sources",
               texts: bad.map(function (x) { return x.name; }) }, "provenance"); } }
     ];
     var box = el("div", "shlist");
@@ -20816,6 +20829,11 @@ def learn_md(url):
     if not h or "<main" not in h: return None,None
     m=re.search(r'ms\.date"\s*content="(\d{4}-\d{2}-\d{2})',h)
     msd=m.group(1) if m else None
+    # §5cc (29 IX 2026): relative links resolve against the page's CANONICAL address, not the one
+    # requested — Intune's what's new answers at /intune/intune-service/fundamentals/whats-new but
+    # lives at /intune/whats-new/, and `../cloud-pki/` joined to the first gave 131 dead links (404).
+    cm=re.search(r'<link rel="canonical" href="([^"]+)"',h)
+    if cm: url=html.unescape(cm.group(1))
     a=h.find("<main"); b=h.find("</main>",a); body=h[a:b if b>0 else len(h)]
     body=re.sub(r"(?is)<(script|style|nav|aside)[^>]*>.*?</\1>","",body)
     def txt(x):
@@ -23380,10 +23398,33 @@ def iso(txt):
     return "%s-%02d-%02d" % (m.group(3), MON[m.group(1)], int(m.group(2))) if m and m.group(1) in MON else None
 
 
+INDEX_DAYS = 30   # same reach as the DeltaPulse search below (last_30_days)
 def read_index():
     req = urllib.request.Request(INDEX, headers={"User-Agent": UA})
     h = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
     total = re.search(r"Showing (\d+) of (\d+) results", h)
+    # §5cc (29 IX 2026): the TABLE shows the 200 most recently updated rows, MC and Roadmap mixed
+    # (28 IX: 97 MC posts). The same page carries its data set in the Next.js payload
+    # (`self.__next_f.push`): 712 Message Center records on 29 IX, 279 of them updated in September.
+    # The site has no server-side paging (`?page=2` returns the same 200), so the payload IS the
+    # index. Rows updated in the last INDEX_DAYS are taken; the table is the fallback.
+    try:
+        chunks = re.findall(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)', h)
+        flight = "".join(json.loads(c) for c in chunks)
+        recs = [json.loads(m) for m in re.findall(r'\{"id":"MC\d+"[^{}]*\}', flight)]
+    except Exception:
+        recs = []
+    if recs:
+        since = (datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
+                 - datetime.timedelta(days=INDEX_DAYS)).isoformat()
+        out, seen = [], set()
+        for r in recs:
+            mid, upd = r.get("id"), (r.get("date") or iso(r.get("lastUpdated")) or "")
+            if mid in seen or upd < since: continue
+            seen.add(mid)
+            out.append({"id": mid, "title": (r.get("title") or "").strip(), "tech": r.get("service") or [],
+                        "updated": upd or None, "link": "https://mc.merill.net/message/" + mid})
+        return out, len(recs), int(total.group(2)) if total else None
     rows = re.findall(r'<tr class="border-b[^"]*cursor-pointer"[^>]*>(.*?)</tr>', h, re.S)
     out = []
     for r in rows:
@@ -24913,6 +24954,312 @@ czyta opublikowana strone (`learn_text(url)`, naglowki jako `## `). MDI i MDE by
 4.18.26080.3, engine 1.1.26080.3 → 1.1.26090.3000 (`new-version`). Komponent nieodczytany wczoraj
 porownuje sie z OSTATNIM dniem odczytu (`comparedWith`), a dzien `unread` nie jest wersja w
 `lastChange` (29 IX tabela pokazala „from: not read in this run").
+
+
+
+**Jeden kolektor zbiorczy i audyt linkow kodem (P3-P5, 29 IX).** Zmierzone 29 IX na czterech
+promptach przebiegow: zaden nie wolal `collect_mc.py`, `collect_fpa.py`, `collect_graph_diff.py` ani
+`collect_graph_cmds.py` — kazdy prompt niosl WLASNA kopie listy kolektorow i kopie rozjechaly sie z
+tym plikiem (pozycja 116 czerwona na kazdej porannej stronie). Od 29 IX kolejnosc stoi TUTAJ, w
+`collect_all.py`, a prompt mowi jedno zdanie: uruchom `collect_all.py`. Kolektor dopisany do tego pliku,
+a niewpiety w liste krokow, `collect_all.py` wypisuje jako **NOT WIRED**.
+
+- `collect_mc.py` czyta caly zbior danych strony mc.merill.net (payload Next.js: 712 wpisow MC 29 IX),
+  a nie 200 wierszy tabeli (97 MC) — strona nie ma stronicowania po stronie serwera (`?page=2` daje te
+  same 200); wpisy zaktualizowane w ostatnich 30 dniach (29 IX: 293), tabela zostaje zapasem.
+  DeltaPulse czyta sam `collect_mc.py` przez publiczny serwer MCP (JSON-RPC po HTTPS), wiec zadanie
+  NIE potrzebuje konektora DeltaPulse, zeby lista MC byla pelna.
+- `check_links.py` robi audyt linkow §5r w KAZDYM przebiegu: kazdy adres pod kluczem url/link/href
+  obu blokow stanu (28 IX: 2 686), GET z przegladarkowym User-Agent, jedna powtorka, najwyzej 4 naraz na
+  host, budzet 480 s na calosc (host, ktory trzy razy z rzedu nie odpowiada, nie jest dalej odpytywany);
+  401/403/429 to `unchecked`, 5xx i timeout `transient` — nigdy `dead`; przekierowanie TechCommunity
+  `/t5/…/ba-p/<id>` → `/blog/…/<id>` to ten sam artykul, nie `moved`. Wynik JEST kluczem `linkAudit` (bez
+  `carriedFrom`). Zmierzone 29 IX na stanie 28 IX: 2 686 adresow w 439 s — ok 2 325, moved 116, **dead 175**,
+  unchecked 68, transient 2. Martwe to w wiekszosci nasze wlasne adresy: 131 linkow wewnatrz wpisow
+  what's new Intune (baza wzgledna brana z adresu zadanego zamiast kanonicznego — poprawione w `learn_md`
+  tego dnia) i 78 adresow `nt.pages` / `docText.pages` budowanych ze sciezki w repozytorium, pod ktora
+  Learn strony nie publikuje (azure-ai-docs → `azure/foundry/`, `unified-secops/advanced-hunting-*`) —
+  od 29 IX kazdy przebieg je widzi i wypisuje w `linkAudit.deadList`.
+- Stan zrodla `carried` (pozycja 68d): zrodlo, ktorego ten przebieg nie przeczytal, nie jest `current`.
+  28 IX: 16 z 69 zrodel mialo w nocie „Carried without a fresh read in this run" przy stanie `current`
+  i `readOn` = 28 IX. SCRIPT 12 pokazuje `carried` na zolto, Overview liczy je z nieczytanymi.
+
+Kolejnosc w przebiegu (budujacym i lustrze):
+```
+python3 extract_code.py CLAUDE.md .
+SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> SOC_REPOS=repos python3 collect_all.py .
+#   -> learn_probe.json, learn_changes.json, blogs_raw.json, community_raw.json, NT.json, FPA.json,
+#      MC_INDEX.json, GRAPH_DIFF.json, GRAPH_CMDS.json, components.json, COLLECT_REPORT.json
+# ... stan zbudowany ...
+SOC_DATE=<briefDate> python3 check_links.py <stan.json albo strona.html> LINK_AUDIT.json   # -> klucz linkAudit
+```
+
+```python
+#!/usr/bin/env python3
+"""collect_all.py - EVERY collector of CLAUDE.md in one call, in order, never one forgotten (CLAUDE.md 5cc).
+
+  SOC_DATE=<briefDate> SOC_REPO=<MS_SOC clone> python3 collect_all.py [<dir holding the extracted scripts>]
+
+Why (29 IX 2026): the owner asked that every source in the three JSON lists is read, and that a
+source he adds tomorrow is read too. Measured that day on the four run prompts: none of them called
+collect_mc.py, collect_fpa.py, collect_graph_diff.py or collect_graph_cmds.py - each prompt carried
+its OWN copy of the collector list, and the copies had drifted from CLAUDE.md (gate item 116 failed
+on every morning page: "MC list retyped by hand"). A list of commands copied into four prompts goes
+stale the day a collector is added. So the order lives HERE, in the file every run extracts, and a
+prompt says one line: run collect_all.py.
+
+Each step runs with its own timeout; a failed step is recorded and the next one runs anyway (a
+degraded source is never a stopped run, 5v). The report COLLECT_REPORT.json names every step with
+its state, seconds, output file and the last lines it printed. A collect_*.py that extract_code.py
+cut out but that no step below runs is reported as NOT WIRED - the check that keeps this list whole.
+"""
+import datetime, glob, json, os, subprocess, sys, time, concurrent.futures as cf
+
+HERE = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else ".")
+REPO = os.path.abspath(os.environ.get("SOC_REPO", "../chk"))
+DAY = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+REPOS = os.path.abspath(os.environ.get("SOC_REPOS", "repos"))
+
+
+def prev_file():
+    """The newest site/data/<date>.json(.gz) BEFORE today - the comparison point of every collector."""
+    by = {}
+    for f in glob.glob(os.path.join(REPO, "site", "data", "20??-??-??.json*")):
+        d = os.path.basename(f)[:10]
+        if d < DAY and (d not in by or f.endswith(".json")):
+            by[d] = f
+    return by[max(by)] if by else None
+
+
+def clone_mirrors():
+    """Every documentation repository learn_probe.json declares, cloned blobless without checkout."""
+    probe = json.load(open("learn_probe.json", encoding="utf-8"))
+    want = sorted({(p.get("org") or "MicrosoftDocs", p["repo"]) for p in probe if p.get("repo")})
+    os.makedirs(REPOS, exist_ok=True)
+    def one(orgrepo):
+        org, repo = orgrepo
+        d = os.path.join(REPOS, repo)
+        if os.path.isdir(os.path.join(d, ".git")):
+            subprocess.run(["git", "-C", d, "fetch", "-q", "--filter=blob:none"], capture_output=True, timeout=600)
+            return repo, "fetched"
+        r = subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout",
+                            "https://github.com/%s/%s" % (org, repo), d], capture_output=True, text=True, timeout=900)
+        return repo, "cloned" if r.returncode == 0 else "failed: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120]
+    with cf.ThreadPoolExecutor(4) as ex:
+        res = list(ex.map(one, want))
+    for repo, st in res:
+        print("  %-36s %s" % (repo, st))
+    return sum(1 for _, s in res if not s.startswith("failed")), len(res)
+
+
+def steps(prev):
+    J = lambda n: os.path.join(REPO, n)
+    P = [prev] if prev else []
+    return [
+        ("probe_learn",        ["probe_learn.py", J("microsoftlearn_sources.json"), "learn_probe.json"], "learn_probe.json", 300),
+        ("clone_mirrors",      clone_mirrors, None, 1800),
+        ("learn_changes",      ["learn_changes.py"], "learn_changes.json", 1200),
+        ("collect_blogs",      ["collect_blogs.py", J("microsoftblogs_sources.json"), "blogs_raw.json"], "blogs_raw.json", 900),
+        ("collect_community",  ["collect_community.py", J("community_sources.json"), "community_raw.json"] + P, "community_raw.json", 1200),
+        ("collect_nt",         ["collect_nt.py"], "NT.json", 1200),
+        ("collect_fpa",        ["collect_fpa.py", "FPA.json"] + P, "FPA.json", 900),
+        ("collect_mc",         ["collect_mc.py", "MC_INDEX.json"] + P, "MC_INDEX.json", 900),
+        ("collect_graph_diff", ["collect_graph_diff.py", "GRAPH_DIFF.json"] + P, "GRAPH_DIFF.json", 1200),
+        ("collect_graph_cmds", ["collect_graph_cmds.py", "GRAPH_CMDS.json"], "GRAPH_CMDS.json", 900),
+        ("collect_components", ["collect_components.py", "components.json"] + P, "components.json", 900),
+    ]
+
+
+def run(name, cmd, out, tmo):
+    t0 = time.time()
+    rec = {"step": name, "out": out, "state": "ok", "note": ""}
+    try:
+        if callable(cmd):
+            got, tot = cmd()
+            rec["note"] = "%d of %d repositories available" % (got, tot)
+            if got < tot: rec["state"] = "partial"
+        else:
+            env = dict(os.environ, SOC_DATE=DAY, SOC_REPO=REPO, SOC_REPOS=REPOS)
+            r = subprocess.run([sys.executable, os.path.join(HERE, cmd[0])] + cmd[1:], env=env,
+                               capture_output=True, text=True, timeout=tmo)
+            tail = (r.stdout + r.stderr).strip().splitlines()[-6:]
+            rec["tail"] = tail
+            if r.returncode != 0:
+                rec["state"], rec["note"] = "failed", "exit %d: %s" % (r.returncode, (tail or ["?"])[-1][:200])
+            elif out:
+                try:
+                    json.load(open(out, encoding="utf-8"))
+                except Exception as e:
+                    rec["state"], rec["note"] = "failed", "no readable %s (%s)" % (out, str(e)[:80])
+            print("\n".join("  " + x for x in tail))
+    except subprocess.TimeoutExpired:
+        rec["state"], rec["note"] = "failed", "timed out after %d s" % tmo
+    except Exception as e:
+        rec["state"], rec["note"] = "failed", str(e)[:200]
+    rec["secs"] = round(time.time() - t0)
+    return rec
+
+
+def main():
+    prev = prev_file()
+    print("collect_all: day %s, repo %s, previous state %s" % (DAY, REPO, prev))
+    S = steps(prev)
+    report = {"day": DAY, "previous": prev, "steps": []}
+    for name, cmd, out, tmo in S:
+        print("== %s" % name)
+        report["steps"].append(run(name, cmd, out, tmo))
+    wired = {c[0] for _, c, _, _ in S if isinstance(c, list)}
+    loose = sorted(os.path.basename(f) for f in glob.glob(os.path.join(HERE, "collect_*.py"))
+                   if os.path.basename(f) not in wired and os.path.basename(f) != "collect_all.py")
+    report["notWired"] = loose
+    json.dump(report, open("COLLECT_REPORT.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("\nstep                 state    secs  note")
+    for r in report["steps"]:
+        print("%-20s %-8s %5d  %s" % (r["step"], r["state"], r["secs"], r["note"][:90]))
+    if loose:
+        print("NOT WIRED (extracted, but no step runs them): %s" % ", ".join(loose))
+    bad = [r["step"] for r in report["steps"] if r["state"] == "failed"]
+    print("collect_all: %d steps, %d failed%s" % (len(report["steps"]), len(bad), (": " + ", ".join(bad)) if bad else ""))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+```python
+#!/usr/bin/env python3
+"""check_links.py - the link audit of 5r, measured by code in EVERY run (CLAUDE.md 5cc).
+
+  SOC_DATE=<briefDate> python3 check_links.py <state.json or page.html> LINK_AUDIT.json
+
+Why (29 IX 2026): `linkAudit` was written by the run by hand, and the 28 IX morning page carried the
+27 IX evening sweep with `carriedFrom` - honest, but a day old, and on days without an evening pass
+older still. The page renders its links from the two JSON islands, so the addresses are read from
+THERE: every http(s) string under a key named *url*, *link* or *href* (2,686 addresses on 28 IX).
+
+Each address: GET with a browser User-Agent, redirects followed, one retry for no answer, 5xx, 404 or 410.
+The whole sweep has a budget (LINK_BUDGET, 480 s); what did not answer inside it is `unchecked`. At most PER_HOST requests to one host at a time, so TechCommunity and Learn are not
+hammered. Classes:
+  ok         final answer 2xx, same page
+  moved      final answer 2xx at another path (not a trailing slash, locale or query change) - the
+             page should be repointed; `movedList` gives old -> new
+  dead       404 / 410 on both tries
+  transient  5xx, timeout or connection error on both tries - never called dead
+  unchecked  401 / 403 / 429 / 999 - the host refuses automated reads; never called dead
+Output = the `linkAudit` key: readOn, at, checked, ok, dead, moved, unchecked, transient, method,
+note, plus deadList / movedList / uncheckedHosts."""
+import collections, datetime, json, os, re, sys, threading, time, urllib.parse, concurrent.futures as cf
+import urllib.request, urllib.error, ssl
+
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
+PER_HOST, WORKERS, TMO = 4, 32, 12
+BUDGET = int(os.environ.get("LINK_BUDGET", "480"))   # seconds for the whole sweep
+KEY = re.compile(r"url|link|href", re.I)
+
+
+def urls_from(path):
+    txt = open(path, encoding="utf-8").read()
+    if path.endswith(".html"):
+        blobs = [json.loads(m) for m in re.findall(r'<script type="application/json" id="soc-[^"]+">(.*?)</script>', txt, re.S)]
+    else:
+        blobs = [json.loads(txt)]
+    out = set()
+    def walk(o, k=None):
+        if isinstance(o, dict):
+            for a, b in o.items(): walk(b, a)
+        elif isinstance(o, list):
+            for x in o: walk(x, k)
+        elif isinstance(o, str) and k and KEY.search(k) and re.match(r"https?://", o):
+            out.add(o.split("#")[0].strip())
+    for b in blobs: walk(b)
+    return sorted(out)
+
+
+_sem = collections.defaultdict(lambda: threading.Semaphore(PER_HOST))
+_dead_host = collections.Counter()   # consecutive no-answers per host
+def fetch(u):
+    host = urllib.parse.urlparse(u).netloc
+    if _dead_host[host] >= 3:
+        return None, "host stopped answering"   # three silent answers in a row: do not wait on the rest
+    with _sem[host]:
+        req = urllib.request.Request(u, headers={"User-Agent": UA, "Accept": "text/html,*/*"})
+        try:
+            r = urllib.request.urlopen(req, timeout=TMO, context=ssl.create_default_context())
+            code, final = r.status, r.geturl()
+            r.read(2048); r.close()
+            _dead_host[host] = 0
+            return code, final
+        except urllib.error.HTTPError as e:
+            _dead_host[host] = 0
+            return e.code, u
+        except Exception as e:
+            _dead_host[host] += 1
+            return None, str(e)[:80]
+
+
+def norm(u):
+    # TechCommunity answers its old `/t5/<board>/<slug>/ba-p/<id>` form with a redirect to
+    # `/blog/<board>/<slug>/<id>` - the same article; measured 29 IX 2026 on 289 feed links
+    m = re.match(r"https?://techcommunity\.microsoft\.com/(?:t5/[^/]+/.*?/ba-p|blog/[^/]+/[^/]+)/(\d+)", u)
+    if m: return "techcommunity", m.group(1)
+    p = urllib.parse.urlparse(u)
+    path = re.sub(r"^/[a-z]{2}-[a-z]{2}(?=/)", "", p.path.lower()).rstrip("/")
+    return p.netloc.lower().replace("www.", ""), path
+
+
+def classify(u):
+    code, final = fetch(u)
+    if code is None or code >= 500 or code in (404, 410):
+        time.sleep(1.5)
+        code2, final2 = fetch(u)
+        if code2 is not None: code, final = code2, final2
+    if code is None: return u, "transient", final
+    if 200 <= code < 300:
+        return (u, "ok", None) if norm(u) == norm(final) else (u, "moved", final)
+    if code in (404, 410): return u, "dead", code
+    if code in (401, 403, 429, 999): return u, "unchecked", code
+    if code >= 500: return u, "transient", code
+    return u, "unchecked", code
+
+
+def main(src, out):
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    U = urls_from(src)
+    t0 = time.time()
+    # a hard budget for the whole sweep: a host that accepts the connection and then trickles, or a
+    # DNS lookup that hangs, has no socket timeout of its own - measured 29 IX 2026, the first
+    # version of this script ran past fifteen minutes on 2,686 addresses that answer in 0.2-0.5 s each.
+    ex = cf.ThreadPoolExecutor(WORKERS)
+    futs = {ex.submit(classify, u): u for u in U}
+    done, left = cf.wait(futs, timeout=BUDGET)
+    R = [f.result() for f in done]
+    R += [(futs[f], "unchecked", "budget") for f in left]
+    ex.shutdown(wait=False, cancel_futures=True)
+    c = collections.Counter(s for _, s, _ in R)
+    unh = collections.Counter(urllib.parse.urlparse(u).netloc for u, s, _ in R if s == "unchecked")
+    la = {"readOn": day, "at": datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M UTC"),
+          "checked": len(U), "ok": c["ok"], "dead": c["dead"], "moved": c["moved"],
+          "unchecked": c["unchecked"], "transient": c["transient"],
+          "method": ("check_links.py (CLAUDE.md 5cc): every http(s) address under a url/link/href key of the "
+                     "two state blocks, GET with a browser User-Agent, redirects followed, one retry; at most "
+                     "%d requests per host at a time. 401/403/429 are hosts refusing automated reads and are "
+                     "counted unchecked, 5xx and timeouts transient - neither is ever called dead." % PER_HOST),
+          "note": "%d addresses in %d s%s." % (len(U), round(time.time() - t0),
+                  (", %d not answered inside the %d s budget (counted unchecked)" % (len(left), BUDGET)) if left else ""),
+          "deadList": [{"url": u, "status": x} for u, s, x in R if s == "dead"],
+          "movedList": [{"url": u, "to": x} for u, s, x in R if s == "moved"][:300],
+          "uncheckedHosts": dict(unh.most_common(15))}
+    json.dump(la, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("check_links: %d checked - ok %d, moved %d, dead %d, unchecked %d, transient %d (%ds)"
+          % (len(U), c["ok"], c["moved"], c["dead"], c["unchecked"], c["transient"], time.time() - t0))
+    for d in la["deadList"][:15]: print("  DEAD", d["status"], d["url"])
+    sys.stdout.flush()
+    os._exit(0)   # threads still waiting on a hung host must not keep the run alive
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
+```
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
