@@ -4753,7 +4753,20 @@ def comp_versions(c):
     def _v(x):
         x = norm(x)
         return "" if x.lower() in ("not read in this run", "unread", "not read") else x
-    return {norm(v.get("platform")): _v(v.get("version")) for v in (c.get("versions") or [])}
+    # §5bz (28 IX 2026): the key was the platform alone and the LAST row won — for Apple that is the
+    # oldest "previous branch" (watchOS 27 -> 27.0.1 on 24 IX was diffed as 5.3.10 -> 26.5), for Defender
+    # AV one of four `windows` lines. Now: "previous/older branch" rows are history, not tracked lines,
+    # and several tracked lines on one platform are told apart by their stream name.
+    rows = [v for v in (c.get("versions") or [])
+            if not re.search(r"(previous|older) branch", norm(v.get("stream")) or "", re.I)]
+    n = {}
+    for v in rows: n[norm(v.get("platform"))] = n.get(norm(v.get("platform")), 0) + 1
+    out = {}
+    for i, v in enumerate(rows):
+        pl = norm(v.get("platform"))
+        k = pl if n[pl] == 1 else "%s \u00b7 %s" % (pl, norm(v.get("stream")) or "#%d" % (i + 1))
+        out.setdefault(k, _v(v.get("version")))
+    return out
 
 def diff_components(prev, curr):
     p = {c.get("id"): c for c in (prev.get("components") or []) if c.get("id")}
@@ -8482,6 +8495,20 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind):
     # §5ar: edycja tekstu strony jest zmiana jak kazda inna i wchodzi do rejestru
     # PER STRONA, a nie per linia — 52 linie dodane w trzech plikach dawaly 52 wiersze
     # i rejestr przestawal byc czytelny, dokladnie tak jak przy endpointach wyzej.
+    # §5bz (28 IX 2026): component versions went into the page and /diff/, but NEVER into
+    # this register — so "What changed in the last 14 days" in Component versions said
+    # "0 changes" while Entra Connect Sync moved 2.6.84.0 -> 2.6.91.0 -> 2.6.92.0 in that window.
+    cadd_, crem_, cmod_, _, _ = diff_components(prev_st, curr_st)
+    for c_ in cadd_: put("Component versions", "added", c_.get("id"), None, None, c_.get("name"))
+    for c_ in crem_: put("Component versions", "removed", c_.get("id"), None, c_.get("name"), None)
+    for c_, deltas in cmod_:
+        for lab, a, b in deltas:
+            # `State` is bookkeeping (no-change -> new-version repeats the version row), and a
+            # version that was not read on one side (MDI/MDE 24 IX: 2.255... -> "") is a failed
+            # read, not a release — the tab says "did not answer" for that, the register does not.
+            if lab == "State" or (lab.startswith("Version on ") and not (a and b)):
+                continue
+            put("Component versions", "changed", c_.get("id"), lab, a, b)
     dta, dtr, dtc_, _, _ = diff_doctext(prev_st, curr_st)
     for x in dta:
         put("Source text", "added", x.get("path"), "watched", None, "added to the watch list")
@@ -11750,12 +11777,34 @@ for cid, nm, pat, plat in APPLE:
 # 5ag: `baseline` jest poprawne WYLACZNIE tam, gdzie nie ma z czym porownac. Przebieg
 # z wczorajszym plikiem danych i `baseline` na wszystkich komponentach jest przebiegiem
 # NIEUDANYM - to znaczy, ze porownania nie zrobil.
+# 28 IX 2026 (§5bz): the run passed no usable previous file (26-27 IX had no brief, so
+# "yesterday's" file did not exist), the collector saw nothing to compare with, and Entra Connect
+# Sync 2.6.91.0 -> 2.6.92.0 (23 IX) was printed as "first recorded". The previous file is now
+# found by the collector itself when the argument is missing or wrong: the newest
+# site/data/<date>.json or .json.gz before today, in SOC_DATA_DIR or <SOC_REPO>/site/data.
+def _load_state(f):
+    import gzip as _gz
+    op = _gz.open if f.endswith(".gz") else open
+    with op(f, "rt", encoding="utf-8") as fh:
+        d = json.load(fh)
+    return d.get("soc-brief-state", d)
+def _data_files(ddir):
+    import glob as _g
+    fs = _g.glob(os.path.join(ddir, "20??-??-??.json")) + _g.glob(os.path.join(ddir, "20??-??-??.json.gz"))
+    by = {}
+    for f in fs:
+        d = os.path.basename(f)[:10]
+        if d < TODAY and (d not in by or f.endswith(".json")): by[d] = f
+    return [by[d] for d in sorted(by, reverse=True)]
+_DDIR = os.environ.get("SOC_DATA_DIR") or (os.path.dirname(os.path.abspath(sys.argv[2])) if len(sys.argv) > 2 and os.path.exists(sys.argv[2])
+         else os.path.join(os.environ.get("SOC_REPO", "../chk"), "site", "data"))
 prev = {}
-if len(sys.argv) > 2 and os.path.exists(sys.argv[2]):
+_pf = sys.argv[2] if len(sys.argv) > 2 and os.path.exists(sys.argv[2]) else ((_data_files(_DDIR) or [None])[0])
+if _pf:
     try:
-        d3 = json.load(open(sys.argv[2], encoding="utf-8"))
-        st = d3.get("soc-brief-state", d3)
+        st = _load_state(_pf)
         prev = {c2.get("id"): c2 for c2 in (st.get("components") or []) if c2.get("id")}
+        print("poprzedni stan komponentow: %s (%d)" % (_pf, len(prev)))
     except Exception:
         prev = {}
 def vmap(c2):
@@ -11783,13 +11832,12 @@ for c2 in OUT:
 def last_change(OUT, data_dir, today):
     import glob as _g, os as _o, json as _j, re as _r
     hist = []
-    for f in sorted(_g.glob(_o.path.join(data_dir or ".", "20??-??-??.json")), reverse=True):
+    for f in _data_files(data_dir or "."):   # .json AND .json.gz (§5bz: history is compressed after a few days)
         d = _o.path.basename(f)[:10]
         if d >= today:
             continue
         try:
-            s4 = _j.load(open(f, encoding="utf-8"))
-            s4 = s4.get("soc-brief-state", s4)
+            s4 = _load_state(f)
             hist.append((d, {c4.get("id"): c4 for c4 in (s4.get("components") or []) if c4.get("id")}))
         except Exception:
             pass
@@ -11838,6 +11886,14 @@ def last_change(OUT, data_dir, today):
                 if r4.get("version") == v and iso(r4.get("date")):
                     v0["released"] = r4["date"]
                     break
+        # §5bz: the same version was dated by an earlier run (25 IX: 2.6.92.0 released 2026-09-23);
+        # a run that could not read the date does not erase it
+        if v0.get("released") is None and v is not None:
+            for d, m in hist:
+                pv0 = ((m.get(c2.get("id")) or {}).get("versions") or [{}])[0] or {}
+                if pv0.get("version") == v and iso(pv0.get("released")):
+                    v0["released"] = pv0["released"]; v0["releaseLabel"] = "Released " + pv0["released"]
+                    break
         # `released` = data wydania nowej wersji od wydawcy (ISO albo null). Data na stronie
         # to `released`, a gdy jej nie ma - `seen`, z dopiskiem "seen", zeby nie udawala daty wydawcy.
         if lc is not None:
@@ -11845,8 +11901,7 @@ def last_change(OUT, data_dir, today):
         c2["lastChange"] = lc
     return OUT
 
-_ddir = os.environ.get("SOC_DATA_DIR") or (os.path.dirname(os.path.abspath(sys.argv[2]))
-                                         if len(sys.argv) > 2 else "")
+_ddir = _DDIR
 last_change(OUT, _ddir, TODAY)
 
 json.dump(OUT, open(sys.argv[1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -23959,6 +24014,31 @@ wlasciciela; telefon tak samo) i wraca tam, jesli cos ja przeniesie. **Regula te
 skrypt przenosi: pomiar polozenia w czasie (0-8 s co 0,4 s), nie jeden zrzut.** Zmierzone: 1500 i 390 px,
 jedno pojawienie sie i stala pozycja (y 323 px desktop), takze po filtrze produktu, przelaczeniu
 zakladek i przeladowaniu.
+
+**Poprawka 28 IX 2026 wieczorem — wersje komponentow: falszywe „first recorded" i „0 changes".**
+Wlasciciel (telefon, 28 IX): zakladka Component versions pokazala Entra Connect Sync 2.6.92.0 jako
+`first recorded` i w `What changed in the last 14 days` napisala `0 changes`, choc 24 IX strona sama
+zanotowala przejscie 2.6.91.0 -> 2.6.92.0; umowiony widok „poprzednia -> obecna" (czerwone/zielone)
+sie nie pojawil. Trzy przyczyny, trzy poprawki, kazda zmierzona na plikach `site/data/` z 28 IX:
+1. **Kolektor nie czytal historii `.json.gz`.** `last_change` i szukanie poprzedniego pliku braly tylko
+   `*.json`, a po kilku dniach historia jest kompresowana — zostal jeden plik 25 IX z ta sama
+   wersja, wiec wynik `first recorded`. Teraz `_data_files`/`_load_state` czytaja oba formaty, a brak
+   argumentu z poprzednim plikiem nie konczy porownania. Wynik na danych 28 IX: Entra Connect Sync
+   `2.6.91.0 -> 2.6.92.0 (observed, seen 24 IX)`, cloud sync agent `1.1.2334.0 -> 1.1.2505.0` (23 IX)
+   — ten drugi byl ukryty tak samo, nikt go nie zglosil.
+2. **Rejestr 14-dniowy nie dostawal komponentow.** `ledger()` pisal pozycje, katalogi Graph/Roles,
+   tekst zrodel — nigdy `diff_components`. Teraz pisze; pomija pole `State` (ksiegowosc) i wersje
+   nieodczytana z jednej strony (to „did not answer", nie wydanie). Zakladki bez ramki 14 dni
+   (Community, Learn, Blogs, First-party apps) nic nie twierdza, wiec nie klamaly; jedyna zakladka
+   z ramka i luka byla ta. **Jednorazowe uzupelnienie**: 31 wpisow z par kolejnych plikow `site/data/`
+   w oknie retencji, kazdy z `note` „Backfilled on 2026-09-28 from site/data/A -> B"; to dopisanie,
+   nie edycja (zasada 1 §5aj, pozycja 47 OK), a zwykly przebieg na tych samych plikach dopisuje 0.
+3. **`comp_versions` bral OSTATNI wiersz platformy** — dla Apple najstarsza „previous branch", wiec
+   `/diff/` z 24 IX mowil watchOS `5.3.10 -> 26.5` zamiast `27 -> 27.0.1`. Teraz wiersze
+   „previous/older branch" sa historia, a kilka linii jednej platformy (Defender AV: Platform, Engine,
+   Security intelligence) rozroznia nazwa strumienia.
+Widoczne na stronie od najblizszego przebiegu porannego (karta i ramka licza sie w przebiegu, nie
+w przegladarce).
 
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
