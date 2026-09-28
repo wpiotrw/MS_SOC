@@ -30567,6 +30567,10 @@ a.ab-src:hover{background:var(--accent);color:var(--on-accent);text-decoration:n
 td.src a{display:inline-block;border:1px solid var(--accent);border-radius:999px;padding:0 9px;background:var(--accent-soft);color:var(--accent);
  font-weight:600;font-size:12px;line-height:1.7;text-decoration:none;margin:1px 0}
 td.src a:hover{background:var(--accent);color:var(--on-accent)}
+/* §5ca (29 IX, owner): the categories under a list row (area, topic) are FRAMED pills, like the source chip */
+.ab-row .mcb-meta .mcb-svc,.ab-row .mcb-meta .mcb-cat{display:inline-block;font:600 11.5px/1.6 var(--sans);border-radius:999px;padding:0 9px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
+.ab-row .mcb-meta .mcb-cat{border-color:var(--accent);background:transparent;color:var(--accent)}
 
 
 
