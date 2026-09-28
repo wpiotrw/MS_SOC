@@ -8479,7 +8479,10 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind):
                     "weight": it.get("socWeight"), "tier0": bool(it.get("tier0Touch")),
                     "msDate": norm(it.get("published")) or norm(it.get("changed")) or None,
                     "surface": norm(surface) or None,
-                    "url": norm(it.get("url")) or None})
+                    "url": norm(it.get("url")) or norm(it.get("link")) or None,
+                    # §5bz: rows of MC, Community, Learn and Blogs have no state item to look
+                    # the name up in, so the register carries it
+                    "title": norm(it.get("title")) or None})
     added, removed, changed, _, _ = diff_items(prev_st, curr_st)
     for i in added:   put(tab_of(i), "added", i.get("id"), None, None, None, i)
     for i in removed: put(tab_of(i), "removed", i.get("id"), None, None, None, i)
@@ -8509,6 +8512,71 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind):
             if lab == "State" or (lab.startswith("Version on ") and not (a and b)):
                 continue
             put("Component versions", "changed", c_.get("id"), lab, a, b)
+    # §5bz (28 IX 2026, owner): "Since the previous brief" in Message Center, Community, Learn and
+    # Blogs printed +0 / ~0 / -0 by construction — those families never reached this register, so
+    # 27 -> 28 IX (662 MC posts added to the list, 69 articles in and 78 out, a Learn page removed and
+    # two edited) read as "nothing moved". Same functions as the changes page, same entry shape.
+    dc_ = diff_community(prev_st, curr_st)
+    if not dc_.get("baseline"):
+        for m_ in dc_.get("mcAdd") or []:
+            put("Message Center", "added", m_.get("id"), "published" if m_.get("date") else None,
+                None, m_.get("date"), {"title": m_.get("title"), "link": m_.get("link"),
+                "product": m_.get("product"), "published": m_.get("date")})
+        for m_ in dc_.get("mcRem") or []:
+            put("Message Center", "removed", m_.get("id"), None, None, None,
+                {"title": m_.get("title"), "link": m_.get("link"), "product": m_.get("product")})
+        for m_, deltas in dc_.get("mcChg") or []:
+            for lab, a, b in deltas:
+                put("Message Center", "changed", m_.get("id"), lab, a, b,
+                    {"title": m_.get("title"), "link": m_.get("link"), "product": m_.get("product")})
+        for a_ in dc_.get("artAdd") or []:
+            put("Community Articles", "added", a_.get("link"), "dated" if a_.get("date") else None, None,
+                a_.get("date"), {"title": a_.get("title"), "link": a_.get("link"), "product": a_.get("sourceName") or a_.get("source")})
+        for a_ in dc_.get("artRem") or []:
+            put("Community Articles", "removed", a_.get("link"), "left the list", a_.get("date"), None,
+                {"title": a_.get("title"), "link": a_.get("link"), "product": a_.get("sourceName") or a_.get("source")})
+        for x_ in dc_.get("srcAdd") or []:
+            put("Community Articles", "added", x_.get("name"), "source", None, "added", {"title": x_.get("name"), "link": x_.get("listUrl")})
+        for x_ in dc_.get("srcRem") or []:
+            put("Community Articles", "removed", x_.get("name"), "source", "listed", None, {"title": x_.get("name"), "link": x_.get("listUrl")})
+        for x_, deltas in dc_.get("srcChg") or []:
+            for lab, a, b in deltas:
+                put("Community Articles", "changed", x_.get("name"), lab, a, b, {"title": x_.get("name"), "link": x_.get("listUrl")})
+    dn_ = diff_nt(prev_st, curr_st)
+    if not dn_.get("baseline") and not dn_.get("none"):
+        for w_ in dn_.get("wnAdd") or []:
+            put("Microsoft Learn", "added", "%s | %s" % (w_.get("area"), w_.get("title")), "what's new", None,
+                w_.get("monthLabel"), {"title": w_.get("title"), "url": w_.get("url"), "product": w_.get("area"), "published": w_.get("msDate")})
+        for w_ in dn_.get("wnRem") or []:
+            put("Microsoft Learn", "removed", "%s | %s" % (w_.get("area"), w_.get("title")), "what's new", w_.get("monthLabel"), None,
+                {"title": w_.get("title"), "url": w_.get("url"), "product": w_.get("area")})
+        for g_ in dn_.get("pageAdd") or []:
+            put("Microsoft Learn", "added", g_.get("path"), "page", None, "tracked", {"title": g_.get("name"), "url": g_.get("url"), "product": g_.get("area")})
+        for g_ in dn_.get("pageRem") or []:
+            put("Microsoft Learn", "removed", g_.get("path"), "page", "tracked", None, {"title": g_.get("name"), "url": g_.get("url"), "product": g_.get("area")})
+        for g_ in dn_.get("pageChg") or []:
+            put("Microsoft Learn", "changed", g_.get("path"), "text", None,
+                "+%s / \u2212%s" % (g_.get("added") or 0, g_.get("removed") or 0), {"title": g_.get("name"), "url": g_.get("url"), "product": g_.get("area")})
+        for x_ in dn_.get("areaAdd") or []:
+            put("Microsoft Learn", "added", x_.get("name"), "area", None, "tracked", {"title": x_.get("name")})
+        for x_ in dn_.get("areaRem") or []:
+            put("Microsoft Learn", "removed", x_.get("name"), "area", "tracked", None, {"title": x_.get("name")})
+        for x_, deltas in dn_.get("areaChg") or []:
+            for lab, a, b in deltas:
+                put("Microsoft Learn", "changed", x_.get("name"), lab, a, b, {"title": x_.get("name")})
+        for a_ in dn_.get("artAdd") or []:
+            put("Microsoft Blogs", "added", a_.get("link"), "dated" if a_.get("date") else None, None, a_.get("date"),
+                {"title": a_.get("title"), "link": a_.get("link"), "product": a_.get("source")})
+        for a_ in dn_.get("artRem") or []:
+            put("Microsoft Blogs", "removed", a_.get("link"), "left the list", a_.get("date"), None,
+                {"title": a_.get("title"), "link": a_.get("link"), "product": a_.get("source")})
+        for x_ in dn_.get("blogAdd") or []:
+            put("Microsoft Blogs", "added", x_.get("name"), "blog", None, "tracked", {"title": x_.get("name")})
+        for x_ in dn_.get("blogRem") or []:
+            put("Microsoft Blogs", "removed", x_.get("name"), "blog", "tracked", None, {"title": x_.get("name")})
+        for x_, deltas in dn_.get("blogChg") or []:
+            for lab, a, b in deltas:
+                put("Microsoft Blogs", "changed", x_.get("name"), lab, a, b, {"title": x_.get("name")})
     dta, dtr, dtc_, _, _ = diff_doctext(prev_st, curr_st)
     for x in dta:
         put("Source text", "added", x.get("path"), "watched", None, "added to the watch list")
@@ -24039,6 +24107,24 @@ sie nie pojawil. Trzy przyczyny, trzy poprawki, kazda zmierzona na plikach `site
    Security intelligence) rozroznia nazwa strumienia.
 Widoczne na stronie od najblizszego przebiegu porannego (karta i ramka licza sie w przebiegu, nie
 w przegladarce).
+Tego samego wieczoru poprawiona zostala takze dzisiejsza strona (kafelki, tabela, karty, `ledger14`),
+bo wlasciciel pytal o strone, nie o kod.
+
+**Poprawka 28 IX 2026 poznym wieczorem — „Since the previous brief" w Message Center, Community,
+Learn i Blogs.** Przeglad wszystkich zakladek na stanach 27 -> 28 IX (stan 27 IX wziety z artefaktu
+briefu, bo lustro 26-27 IX nie zapisalo `site/data/`): ramka mowila `+0 / ~0 / -0`, a naprawde
+662 posty MC doszly do listy i 54 sie zmienily, 70 artykulow Community doszlo i 78 wypadlo, strona
+Learn zniknela i dwie sie zmienily. Przyczyna: te rodziny nie trafialy do rejestru, a ramka liczyla
+po swojemu (Learn — zawsze pusto; Community — bez usuniec; MC — tylko posty OPUBLIKOWANE po
+poprzednim briefie). Poprawka: `ledger()` pisze cztery rodziny tymi samymi funkcjami co strona zmian
+(`diff_community`, `diff_nt`), wpis niesie `title`; SKRYPT 17 czyta rejestr dla tych zakladek, gdy
+ma on przebieg z TEGO dnia i rodzina jest w oknie — inaczej zostaje stara regula. Etykiety mowia
+prawde o liscie: `added to the list` / `left the list`, bo 662 posty MC to starsze wpisy dociagniete
+przez czytanie calego indeksu, nie nowosci Microsoftu. Blogs, First-party apps i Component versions
+mialy zero prawdziwe. Dane dnia: `site/data/2026-09-27.json` z artefaktu 27 IX, przebieg rejestru
+27 -> 28 IX (`--kind diff`, +897 wpisow, stare wpisy nietkniete — pozycja 47 OK), `ledger14` strony
+uzupelniony tylko o te cztery rodziny. Gate `--mirror --doc`: bez zmian poza pozycja 79 (teraz
+sprawdzana), 56 OK.
 
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
@@ -26770,7 +26856,7 @@ odtad CZTERNASCIE (4-17).**
     var n = { added: 0, changed: 0, removed: 0 };
     spec.rows.forEach(function (r) { n[r.kind] = (n[r.kind] || 0) + 1; });
     [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) {
-      var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]);
+      var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + ((spec.labels && spec.labels[k[0]]) || k[2]));
       if (!n[k[0]]) b.classList.add("zero");
       head.appendChild(b);
     });
@@ -26846,6 +26932,28 @@ odtad CZTERNASCIE (4-17).**
         more: "the full list is in “What changed in the last 14 days” below." });
     });
 
+    /* §5bz (28 IX 2026, owner): Message Center, Community, Learn and Blogs printed +0 / ~0 / -0 by
+       construction — Learn had no rows at all, Community never counted what left the list, and MC
+       counted only posts PUBLISHED since the previous brief (27 -> 28 IX: 662 posts joined the list,
+       69 articles in and 78 out, a Learn page removed and two edited). Since §5bz the register
+       carries these four families (make_diff.py ledger()); when it holds a run of THIS day and the
+       family is in the window, the strip reads the register like the tabs above. Otherwise the old
+       per-tab rules below stay — never worse than before. */
+    var ranToday = ((ST.ledger14 || {}).runs || []).some(function (r) { return r.date === day; });
+    function fromReg(tab, type, fallback) {
+      if (!ranToday || !L.some(function (e) { return e.tab === tab; })) return null;
+      var order = { added: 0, changed: 1, removed: 2 };
+      return today.filter(function (e) { return e.tab === tab; }).map(function (e) {
+        /* an article's identifier is its URL: the title already links there, so no second copy */
+        return { kind: e.kind, id: /^https?:/i.test(e.id || "") ? "" : (e.id || ""), title: e.title || "", link: e.url || "",
+                 type: e.field === "source" ? "Community source" : type, prod: e.product || "",
+                 field: e.field || "", before: e.before || "", after: e.after || "" };
+      }).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (b.after > a.after ? 1 : b.after < a.after ? -1 : 0); });
+    }
+    var LISTED = { added: "added to the list", changed: "changed", removed: "left the list" };
+    var REGMORE = "rows that left the list are not below any more — every row is on the changes page (link below).";
+    var REGEMPTY = "Nothing moved in this tab in this brief — the register recorded no change here on " + dmy(day) + ".";
+
     /* 2. Message Center: entries this brief saw for the first time, and revisions */
     var MC = (ST.mc || {}).entries || [];
     var mcRows = [];
@@ -26865,9 +26973,10 @@ odtad CZTERNASCIE (4-17).**
         title: m.title || "", link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
     });
     mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
-    strip(document.getElementById("tab-mc"), { title: since, rows: mcRows, diff: "mcenter",
-      empty: "No Message Center post first seen or revised in this brief (" + dmy(day) + ").",
-      more: "every post is in the Message Center list below — open the New view." });
+    var mcReg = fromReg("Message Center", "Message Center");
+    strip(document.getElementById("tab-mc"), { title: since, rows: mcReg || mcRows, diff: "mcenter", labels: mcReg ? LISTED : null,
+      empty: mcReg ? REGEMPTY : "No Message Center post first seen or revised in this brief (" + dmy(day) + ").",
+      more: mcReg ? REGMORE : "every post is in the Message Center list below — open the New view." });
 
     /* 3. First-party apps: the collector's own change list for this build */
     var F = ST.fpa || {};
@@ -26895,8 +27004,9 @@ odtad CZTERNASCIE (4-17).**
       var a = byTitle[t] || {};
       return { kind: "added", id: "", type: a.sourceName || a.source || "Community article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
     });
-    strip(document.getElementById("tab-community"), { title: since, rows: cRows, diff: "community",
-      empty: "No new community article in this brief.", more: "all of them are in the list below." });
+    var cReg = fromReg("Community Articles", "Community article");
+    strip(document.getElementById("tab-community"), { title: since, rows: cReg || cRows, diff: "community", labels: cReg ? LISTED : null,
+      empty: cReg ? REGEMPTY : "No new community article in this brief.", more: cReg ? REGMORE : "all of them are in the list below." });
 
     /* 5. Today: the items this brief added */
     var tRows = (ST.newToday || []).map(function (id) { return itemRow("added", id); });
@@ -26907,11 +27017,13 @@ odtad CZTERNASCIE (4-17).**
     /* Blogs: posts dated after the previous brief (§5by — the strip used to point elsewhere) */
     var bRows = (((ST.nt || {}).items) || []).filter(function (a) { return a && a.date && prev && a.date >= prev && a.date <= day; })
       .map(function (a) { return { kind: "added", id: "", type: a.source || "Blog", title: a.title || a.link, link: a.link || "", prod: dmy(a.date) }; });
-    strip(document.getElementById("tab-blogs"), { title: since, rows: bRows, diff: "blogsdiff",
-      empty: "No blog post dated after the previous brief (" + dmy(prev) + ") in the " + ((((ST.nt || {}).blogs) || []).length || "tracked") + " blogs this brief reads.",
-      more: "all of them are in the list below." });
-    strip(document.getElementById("tab-learn"), { title: since, rows: [], diff: "docsdiff",
-      empty: "Microsoft dates what's-new entries by month, not by day — the Month by month grid below shows what arrived; line-by-line page changes are on the changes page.", more: "" });
+    var bReg = fromReg("Microsoft Blogs", "Blog");
+    strip(document.getElementById("tab-blogs"), { title: since, rows: bReg || bRows, diff: "blogsdiff", labels: bReg ? LISTED : null,
+      empty: bReg ? REGEMPTY : "No blog post dated after the previous brief (" + dmy(prev) + ") in the " + ((((ST.nt || {}).blogs) || []).length || "tracked") + " blogs this brief reads.",
+      more: bReg ? REGMORE : "all of them are in the list below." });
+    var lReg = fromReg("Microsoft Learn", "Microsoft Learn");
+    strip(document.getElementById("tab-learn"), { title: since, rows: lReg || [], diff: "docsdiff",
+      empty: lReg ? REGEMPTY : "Microsoft dates what's-new entries by month, not by day — the Month by month grid below shows what arrived; line-by-line page changes are on the changes page.", more: lReg ? REGMORE : "" });
   }
 
   function boot() {
