@@ -3120,6 +3120,7 @@ def main(doc, outdir):
             elif "collect_mc.py" in head:                      got["collect_mc.py"] = b
             elif "collect_graph_diff.py" in head:              got["collect_graph_diff.py"] = b
             elif "collect_graph_cmds.py" in head:              got["collect_graph_cmds.py"] = b
+            elif "collect_community.py" in head:               got["collect_community.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -24163,6 +24164,487 @@ to nic**; szczegoly SLOWAMI w naglowku otwartej zakladki: jej jednostka policzon
   what's new obszaru; Blogs — blog; Community — adres z `community_sources.json`); kolumna `Source`
   kazdej tabeli ma linki w tej samej ramce; liczby w siatkach „day by day" / „month by month" sa
   wypelnionymi pigulkami.
+
+### §5cb (29 IX 2026) — `collect_community.py`: zrodla Community czyta KOD, nie proza
+
+Wlasciciel: „community_sources.json ma bardzo duzo dodanych przeze mnie zrodel… dlaczego wiele failed
+i nie wylapuje artykulu petervanderwoude.nl/…?". Zmierzone na stanie 28 IX: **18 z 58 zrodel `failed`**,
+w tym Entra.news, Petri i oba BleepingComputer, ktorych feedy odpowiadaja. Odczyt robil przebieg
+poranny „z reki", wedlug opisu w §5an — za kazdym razem troche inaczej. Trzy przyczyny: User-Agent bota
+(BleepingComputer 403), feed zgadywany tylko pod adresem z listy (strona kategorii), nigdy od korzenia
+serwisu, i identyfikatory TechCommunity zgadywane od nowa zamiast wziete z adresu. Artykul van der
+Woude'a to NIE blad: opublikowany 28 IX 17:45 UTC, zrodlo czytane o 06:22 — wchodzi nastepnego dnia.
+
+`collect_community.py` (ponizej, wycinany przez `extract_code.py`) czyta kazde zrodlo po drabinie:
+regula dla hosta (`CUSTOM`, dopasowanie po POCZATKU adresu — po samym hoscie Microsoft 365 Blog
+dostal feed Roadmapy), feed TechCommunity z id z adresu (bez mapy strony calego portalu), feed pod
+adresem z listy i od korzenia, feed zadeklarowany przez strone, sitemap z datami, lista HTML
+(JSON-LD, `<article>`, `<time>`, data drukowana). Artykul bez daty bierze ja z WLASNEJ strony
+(`article:published_time`, `datePublished`, `publishedDate`, `<time>`, pierwsza data wydrukowana
+po `<h1>`) — nigdy zgadniety rok (§5n). Druga, sekwencyjna runda dla nieudanych; strumien (MC -
+Merill: 331 wpisow w 14 dni) pokazuje 40 najnowszych z notatka; ten sam artykul pod dwoma
+wpisami listy liczy sie raz (`duplicate`). Wynik na komputerze wlasciciela, 28 IX: **54 z 58
+przeczytanych, 3 nieudane z nazwana przyczyna, 1 duplikat, 274 artykuly w oknie**:
+- 365CloudCapsule — strona firmowa (about/services/contact), zadnej listy artykulow;
+- Breakwater IT M365 Update — domena nie istnieje (DNS);
+- Microsoft Security Experts Blog — tablica TechCommunity przeniesiona (strona przekierowuje na
+  `redirected-communities`);
+- Microsoft Entra Community Hub — te same wpisy co Microsoft Entra Blog (`duplicate`).
+Te trzy adresy wlasciciel poprawia w swojej liscie; kolektor ich nie „naprawia" po cichu.
+
+Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
+`python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
+i wpisuje do klucza `community` pola `readOn`, `sources`, `items`, `newToday`, `counts`, `rule`,
+zostawiajac `listDiff`, `messageCenter` i reszte. Przebieg wieczorny (21:00) wola go ponownie —
+to lapie artykuly z popoludnia (van der Woude 28 IX) jeszcze tego samego dnia.
+
+```python
+#!/usr/bin/env python3
+"""collect_community.py - Community Articles (§5an, §5cb): every source of the owner's list, read by CODE.
+
+  python3 collect_community.py <repo>/community_sources.json community_raw.json [previous site/data/<date>.json]
+
+Until 29 IX 2026 the sources were read "by hand" by the morning run, following prose: 18 of 58 failed
+on 28 IX, among them Entra.news, Petri and BleepingComputer, whose feeds answer. Three causes measured:
+a bot User-Agent (403), feeds guessed only under the LISTED address (a category page) and never at the
+site root, and TechCommunity board ids guessed anew instead of read from the address. This collector
+tries, per source and in this order, and records every address it tried:
+  1. an explicit rule for that host (CUSTOM below) - a known feed, a listing page, a sitemap;
+  2. TechCommunity: board.id / category.id taken from the address itself (bg-p / ct-p / blog/<id>);
+  3. a feed under the listed address, then under the site root (WordPress, Ghost, Substack, Hugo,
+     Blogger, Squarespace, Wix patterns);
+  4. a feed declared by the page (<link rel=alternate>, or a link whose address says feed/rss/atom);
+  5. a sitemap with <lastmod> (post / blog sitemaps first);
+  6. the HTML listing: JSON-LD (BlogPosting / NewsArticle / ItemList), <article> blocks, links next
+     to a <time datetime> or a printed date - on the listed page, then /blog, /posts, /news, /articles.
+An article without a date gets it from ITS OWN page (article:published_time, JSON-LD datePublished,
+<time datetime>) - never a guessed year (§5n). A source nothing answered for is status "failed" with
+the reason and every address tried: silence is the one error this tab does not forgive.
+Standard library only. SOC_DATE sets the day of the run (default today); the window is 14 days.
+"""
+import sys, os, re, json, html, datetime, gzip, io, concurrent.futures as cf
+import urllib.request, urllib.parse, urllib.error
+from email.utils import parsedate_to_datetime
+
+TODAY = datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
+WINDOW = 14
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+      "Chrome/128.0.0.0 Safari/537.36")
+TC = "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/"
+FEED_SUFFIXES = ["/feed/", "/feed", "/rss/", "/rss", "/rss.xml", "/index.xml", "/atom.xml", "/feed.xml",
+                 "/feed.rss", "/blog-feed.xml", "?format=rss", "/feeds/posts/default?alt=rss", "/blog/feed/",
+                 "/blog/rss.xml", "/blog/rss/"]
+LIST_PATHS = ["", "/blog", "/blog/", "/posts", "/posts/", "/news", "/news/", "/articles", "/articles/", "/my-blog"]
+SITEMAPS = ["/post-sitemap.xml", "/sitemap-posts.xml", "/sitemap.blog.xml", "/blog-posts-sitemap.xml",
+            "/sitemap_index.xml", "/sitemap.xml"]
+
+# Explicit rules, matched by the START of the listed address (29 IX: matching by host gave the
+# Microsoft 365 Blog the Roadmap feed - both live on www.microsoft.com). Each value is a list of
+# (kind, address) tried BEFORE the generic ladder; kind is feed | html | sitemap; {url} = listed address.
+CUSTOM = [
+    ("https://www.bleepingcomputer.com/", [("html", "{url}"), ("feed", "https://www.bleepingcomputer.com/feed/")]),
+    ("https://petri.com/", [("feed", "{url}feed/"), ("feed", "https://petri.com/feed/")]),
+    ("https://entra.news", [("feed", "https://entra.news/feed")]),
+    ("https://ms365news.com", [("sitemap", "https://ms365news.com/sitemap.blog.xml")]),
+    ("https://www.welkasworld.com", [("html", "https://www.welkasworld.com/my-blog"), ("feed", "https://www.welkasworld.com/feed/")]),
+    ("https://www.microsoft.com/en-us/microsoft-365/roadmap", [("feed", "https://www.microsoft.com/releasecommunications/api/v2/m365/rss")]),
+    ("https://michaelsendpoint.com", [("feed", "https://michaelsendpoint.com/feed.rss")]),
+    # a hand-written "Latest" page: plain links to <slug>.html, no dates - dates come from each article
+    ("https://www.mscloudninja.com", [("links", "https://www.mscloudninja.com/pages/latest.html|^[A-Za-z0-9][A-Za-z0-9-]+\\.html$")]),
+    # TechCommunity addresses that name a category or a moved board, not the blog's board id
+    ("https://techcommunity.microsoft.com/category/intune", [("feed", TC + "board?board.id=microsoftintuneblog"),
+                                                             ("feed", TC + "board?board.id=IntuneCustomerSuccess")]),
+    ("https://techcommunity.microsoft.com/t5/microsoft-entra/ct-p/MicrosoftEntra", [("feed", TC + "Category?category.id=Microsoft-Entra")]),
+    ("https://techcommunity.microsoft.com/t5/microsoft-security-experts/", [("feed", TC + "board?board.id=MicrosoftSecurityExperts"),
+                                                                           ("feed", TC + "board?board.id=microsoft-security-experts-blog")]),
+    ("https://techcommunity.microsoft.com/t5/microsoft-security-community/", [("feed", TC + "Category?category.id=microsoft-security"),
+                                                                             ("feed", TC + "board?board.id=microsoft-security-blog")]),
+]
+PER_SOURCE_CAP = 40   # a source that publishes a stream (MC - Merill: 331 in 14 days) shows its 40 newest
+
+# ---------------------------------------------------------------------------------- fetching
+def fetch(url, accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"):
+    """(text, http status or error) - one retry; gzip handled; never raises."""
+    last = None
+    for _ in range(2):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": accept,
+                                                       "Accept-Language": "en-US,en;q=0.8",
+                                                       "Accept-Encoding": "gzip"})
+            with urllib.request.urlopen(req, timeout=25) as r:
+                raw = r.read(6_000_000)
+                if r.headers.get("Content-Encoding", "").lower() == "gzip":
+                    raw = gzip.GzipFile(fileobj=io.BytesIO(raw)).read()
+                cs = r.headers.get_content_charset() or "utf-8"
+                return raw.decode(cs, "replace"), r.status
+        except urllib.error.HTTPError as e:
+            last = e.code
+            if e.code in (401, 403, 404, 410): break
+        except Exception as e:
+            last = type(e).__name__ + (": " + str(e)[:60] if str(e) else "")
+    return "", last
+
+FEED_ACCEPT = "application/rss+xml,application/atom+xml,application/xml;q=0.9,text/xml;q=0.8,*/*;q=0.5"
+
+# ---------------------------------------------------------------------------------- dates
+MONTHS = {m: i + 1 for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+def iso(s):
+    """A date string -> YYYY-MM-DD, or None. A date without a year stays None (§5n)."""
+    if not s: return None
+    s = html.unescape(str(s)).strip()
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", s)
+    if m:
+        try: return datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3))).isoformat()
+        except ValueError: return None
+    try:
+        return parsedate_to_datetime(s).date().isoformat()
+    except Exception:
+        pass
+    m = re.search(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})\b", s)          # 28 September 2026
+    if m and m.group(2)[:3].lower() in MONTHS:
+        try: return datetime.date(int(m.group(3)), MONTHS[m.group(2)[:3].lower()], int(m.group(1))).isoformat()
+        except ValueError: return None
+    m = re.search(r"\b([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b", s)          # September 28, 2026
+    if m and m.group(1)[:3].lower() in MONTHS:
+        try: return datetime.date(int(m.group(3)), MONTHS[m.group(1)[:3].lower()], int(m.group(2))).isoformat()
+        except ValueError: return None
+    m = re.search(r"\b(\d{1,2})[./](\d{1,2})[./](\d{4})\b", s)                                      # 28.09.2026
+    if m:
+        try: return datetime.date(int(m.group(3)), int(m.group(2)), int(m.group(1))).isoformat()
+        except ValueError: return None
+    return None
+
+def clean(t):
+    t = re.sub(r"<!\[CDATA\[|\]\]>", "", t or "")
+    t = re.sub(r"<[^>]+>", " ", t)
+    return re.sub(r"\s+", " ", html.unescape(t)).strip()
+
+# ---------------------------------------------------------------------------------- feeds
+def parse_feed(x):
+    if not x or not re.search(r"<(rss|feed|rdf:RDF)\b", x[:5000]): return []
+    out = []
+    for blk in re.findall(r"<item\b.*?</item>", x, re.S):
+        g = lambda t: (re.search(r"<%s\b[^>]*>(.*?)</%s>" % (t, t), blk, re.S) or [None, ""])[1]
+        link = clean(g("link")) or clean(g("guid"))
+        d = iso(clean(g("pubDate")) or clean(g("dc:date")) or clean(g("published")))
+        if link: out.append({"title": clean(g("title")), "link": link, "date": d})
+    for blk in re.findall(r"<entry\b.*?</entry>", x, re.S):
+        t = re.search(r"<title\b[^>]*>(.*?)</title>", blk, re.S)
+        l = (re.search(r'<link\b[^>]*rel="alternate"[^>]*href="([^"]+)"', blk)
+             or re.search(r'<link\b[^>]*href="([^"]+)"', blk))
+        d = re.search(r"<(published|updated)>(.*?)</\1>", blk, re.S)
+        if l: out.append({"title": clean(t.group(1)) if t else "", "link": html.unescape(l.group(1)),
+                          "date": iso(d.group(2)) if d else None})
+    return out
+
+def tc_candidates(url):
+    """TechCommunity: the id is IN the address (bg-p/<Board>, ct-p/<Category>, blog/<board>);
+    the four spellings that answered on 28 IX (§5aw) are tried, the first that answers is recorded."""
+    u = urllib.parse.urlsplit(url); p = u.path
+    out = []
+    def var(s):
+        parts = re.split(r"[-_]", s)
+        return list(dict.fromkeys([s, s.lower(), "".join(x[:1].upper() + x[1:] for x in parts), s.replace("-", "")]))
+    m = re.search(r"/bg-p/([^/?#]+)", p) or re.search(r"/blog/([^/?#]+)", p)
+    if m: out += [TC + "board?board.id=" + v for v in var(m.group(1))]
+    m = re.search(r"/ct-p/([^/?#]+)", p) or re.search(r"/category/([^/?#]+)", p)
+    if m:
+        cat = m.group(1)
+        out += [TC + "Category?category.id=" + v for v in var(cat)]
+        # a category address names no board; the product blog of that category is <cat>blog
+        out += [TC + "board?board.id=" + v for v in var(cat.replace("-", "") + "blog")]
+    return list(dict.fromkeys(out))
+
+# ---------------------------------------------------------------------------------- html
+def abs_url(base, h):
+    return urllib.parse.urljoin(base, html.unescape(h.strip()))
+
+def jsonld_items(page, base):
+    out = []
+    for blk in re.findall(r'<script[^>]+application/ld\+json[^>]*>(.*?)</script>', page, re.S | re.I):
+        try: data = json.loads(blk.strip())
+        except Exception: continue
+        stack = data if isinstance(data, list) else [data]
+        while stack:
+            o = stack.pop()
+            if isinstance(o, list): stack.extend(o); continue
+            if not isinstance(o, dict): continue
+            for k in ("@graph", "itemListElement", "blogPost", "mainEntity"):
+                if k in o: stack.extend(o[k] if isinstance(o[k], list) else [o[k]])
+            t = o.get("@type"); t = t if isinstance(t, list) else [t]
+            if any(x in ("BlogPosting", "NewsArticle", "Article", "TechArticle", "ListItem") for x in t if x):
+                it = o.get("item")
+                link = o.get("url") or (it.get("url") or it.get("@id") if isinstance(it, dict) else it if isinstance(it, str) else None) or o.get("@id")
+                if link and isinstance(link, str) and link.startswith("http"):
+                    out.append({"title": clean(o.get("headline") or o.get("name") or ""), "link": link,
+                                "date": iso(o.get("datePublished") or o.get("dateCreated"))})
+    return out
+
+DATE_TXT = (r"(\d{4}-\d{2}-\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Z][a-z]{2,8}\.?,?\s+\d{4}|"
+            r"[A-Z][a-z]{2,8}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4}|\d{1,2}[./]\d{1,2}[./]\d{4})")
+
+def html_items(page, base):
+    """Links to articles and their dates from a listing page. Same-site links only, the listing's
+    own navigation filtered out by requiring a path of at least two words or a dated URL."""
+    host = urllib.parse.urlsplit(base).netloc.replace("www.", "")
+    out, seen = [], set()
+    out += jsonld_items(page, base)
+    blocks = re.findall(r"<article\b.*?</article>", page, re.S | re.I)
+    if not blocks:
+        # no <article>: cut the page at every heading that holds a link - the usual card shape
+        blocks = re.split(r"(?=<h[1-4]\b[^>]*>\s*<a\b)", page)[1:]
+    for b in blocks:
+        a = (re.search(r"<h[1-4]\b[^>]*>\s*<a\b[^>]*href=\"([^\"]+)\"[^>]*>(.*?)</a>", b, re.S | re.I)
+             or re.search(r"<a\b[^>]*href=\"([^\"]+)\"[^>]*>\s*<h[1-4]\b[^>]*>(.*?)</h[1-4]>", b, re.S | re.I)
+             or re.search(r"<a\b[^>]*href=\"([^\"]+)\"[^>]*rel=\"bookmark\"[^>]*>(.*?)</a>", b, re.S | re.I))
+        if not a: continue
+        link = abs_url(base, a.group(1)); title = clean(a.group(2))
+        lh = urllib.parse.urlsplit(link).netloc.replace("www.", "")
+        if not title or len(title) < 12 or (lh and lh != host): continue
+        t = re.search(r"<time\b[^>]*datetime=\"([^\"]+)\"", b, re.I)
+        d = iso(t.group(1)) if t else None
+        if not d:
+            m = re.search(DATE_TXT, clean(b[:4000]))
+            d = iso(m.group(1)) if m else None
+        out.append({"title": title, "link": link, "date": d})
+    res = []
+    for x in out:
+        k = x["link"].split("#")[0].rstrip("/")
+        if k in seen or k.rstrip("/") == base.rstrip("/"): continue
+        seen.add(k); res.append(x)
+    return res
+
+def article_date(link):
+    """The date an article prints on ITS OWN page; None when it prints none."""
+    page, code = fetch(link)
+    if not page: return None, None
+    for pat in (r'<meta[^>]+property="article:published_time"[^>]+content="([^"]+)"',
+                r'<meta[^>]+content="([^"]+)"[^>]+property="article:published_time"',
+                r'"datePublished"\s*:\s*"([^"]+)"', r'"publishedDate"\s*:\s*"([^"]+)"', r'<time\b[^>]*datetime="([^"]+)"',
+                r'<meta[^>]+name="(?:date|pubdate|publish-date)"[^>]+content="([^"]+)"'):
+        m = re.search(pat, page, re.I)
+        if m and iso(m.group(1)):
+            t = re.search(r'<meta[^>]+property="og:title"[^>]+content="([^"]+)"', page) or re.search(r"<title>(.*?)</title>", page, re.S)
+            return iso(m.group(1)), clean(t.group(1)) if t else None
+    # last resort: the first date PRINTED after the article's title (<h1>), with its year (§5n) -
+    # a hand-written page states "June 1, 2026" and nothing machine-readable (MS Cloud Ninja, 29 IX)
+    h = re.search(r"<h1\b[^>]*>(.*?)</h1>", page, re.S | re.I)
+    if h:
+        m = re.search(DATE_TXT, clean(page[h.end():h.end() + 20000]))
+        if m and iso(m.group(1)): return iso(m.group(1)), clean(h.group(1))
+    return None, None
+
+def sitemap_items(url, depth=0):
+    x, code = fetch(url, FEED_ACCEPT)
+    if not x or "<loc>" not in x: return [], code
+    if "<sitemapindex" in x and depth == 0:
+        subs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", x)
+        subs = [s for s in subs if re.search(r"post|blog|article|news", s, re.I)][:3] or subs[:1]
+        out = []
+        for s in subs: out += sitemap_items(html.unescape(s), 1)[0]
+        return out, code
+    out = []
+    for blk in re.findall(r"<url>(.*?)</url>", x, re.S):
+        l = re.search(r"<loc>\s*([^<\s]+)\s*</loc>", blk); d = re.search(r"<lastmod>\s*([^<\s]+)\s*</lastmod>", blk)
+        if l:
+            link = html.unescape(l.group(1))
+            path = urllib.parse.urlsplit(link).path.strip("/")
+            if not path or path.count("-") < 2: continue           # home, tags, categories are not articles
+            out.append({"title": "", "link": link, "date": iso(d.group(1)) if d else None, "fromSitemap": True})
+    return out, code
+
+# ---------------------------------------------------------------------------------- one source
+def one(src):
+    name = (src.get("SourceName") or "").strip(); url = (src.get("SourceURL") or "").strip()
+    rec = {"name": name, "listUrl": url, "method": None, "feedId": None, "page": None, "status": "failed",
+           "note": "", "tried": [], "linkStatus": "unchecked", "linkCheckedOn": TODAY.isoformat(),
+           "newestDate": None, "itemsRead": 0, "articles": []}
+    if not url.startswith("http"):
+        rec["note"] = "the list entry has no usable address"; return rec, []
+    sp = urllib.parse.urlsplit(url); root = "%s://%s" % (sp.scheme, sp.netloc)
+    base = url if url.endswith("/") or "?" in url else url + "/"
+    codes = {}
+
+    def ok(items, method, fid=None, page=None):
+        items = [i for i in items if i.get("link")]
+        if not items: return False
+        rec.update(method=method, feedId=fid, page=page, status="ok", itemsRead=len(items))
+        return items
+
+    def try_feed(u, method):
+        rec["tried"].append(u); x, code = fetch(u, FEED_ACCEPT); codes[u] = code
+        return ok(parse_feed(x), method, u)
+
+    def try_html(u, method):
+        rec["tried"].append(u); page, code = fetch(u); codes[u] = code
+        if not page: return False
+        return ok(html_items(page, u), method, None, u)
+
+    def try_links(spec, method):
+        """a listing that is only links: `address|regex on the href`; titles are the link texts"""
+        u, rx = spec.split("|", 1); rec["tried"].append(u); page, code = fetch(u); codes[u] = code
+        if not page: return False
+        nav = {"index.html", "about.html", "contact.html", "latest.html"}
+        its, seen = [], set()
+        for h, t in re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', page, re.S | re.I):
+            hb = h.strip().split("/")[-1]
+            if hb in nav or not re.search(rx, h.strip()): continue
+            link = abs_url(u, h)
+            if link in seen: continue
+            seen.add(link); its.append({"title": clean(t), "link": link, "date": None})
+        return ok(its, method, None, u)
+
+    def try_sitemap(u, method):
+        rec["tried"].append(u); it, code = sitemap_items(u); codes[u] = code
+        return ok(it, method, u)
+
+    items = False
+    rules = [r for pre, r in CUSTOM if url.startswith(pre)]
+    for kind, u in (rules[0] if rules else []):
+        u = u.replace("{url}", base)
+        items = {"feed": try_feed, "html": try_html, "sitemap": try_sitemap, "links": try_links}[kind](u, "custom-" + kind)
+        if items: break
+    if not items and "techcommunity.microsoft.com" in sp.netloc:
+        for u in tc_candidates(url):
+            items = try_feed(u, "techcommunity-rss")
+            if items: break
+        if not items:
+            # the site's root feed, sitemap and listing are the WHOLE portal (29 IX: the sitemap carried
+            # Excel and SharePoint posts as "Entra Community Hub") - a TechCommunity source is its feed or nothing
+            rec["note"] = ("no TechCommunity feed answered with posts for the id in this address (the board may have "
+                           "moved: the page redirects to 'redirected-communities'); tried %d feed addresses" % len(rec["tried"]))
+            return rec, []
+    if not items:
+        for b in dict.fromkeys([url.rstrip("/"), root]):
+            for suf in FEED_SUFFIXES:
+                items = try_feed(b + suf, "rss-guessed" if b != root else "rss-root")
+                if items: break
+            if items: break
+    page = None
+    if not items:
+        rec["tried"].append(url); page, code = fetch(url); codes[url] = code
+        if page:
+            hrefs = re.findall(r'<link[^>]+type="application/(?:rss|atom)\+xml"[^>]*href="([^"]+)"', page, re.I)
+            hrefs += re.findall(r'<link[^>]+href="([^"]+)"[^>]+type="application/(?:rss|atom)\+xml"', page, re.I)
+            hrefs += [h for h in re.findall(r'<a[^>]+href="([^"]+)"', page, re.I)
+                      if re.search(r"(feed|rss|atom)(\.xml|/|$|\?)", h, re.I) and "comments" not in h][:4]
+            for h in dict.fromkeys(abs_url(url, h) for h in hrefs):
+                items = try_feed(h, "feed-discovered")
+                if items: break
+    if not items:
+        for sm in SITEMAPS:
+            items = try_sitemap(root + sm, "sitemap")
+            if items and any(i.get("date") for i in items): break
+            items = False
+    if not items:
+        if page:
+            it = html_items(page, url)
+            if it: items = ok(it, "html", None, url)
+        if not items:
+            for lp in LIST_PATHS[1:]:
+                items = try_html(root + lp, "html-subpage")
+                if items: break
+
+    if not items:
+        seen = sorted(set(str(c) for c in codes.values() if c not in (200,)))
+        if codes and all("getaddrinfo" in str(c) or "Name or service not known" in str(c) or "11001" in str(c) for c in codes.values()):
+            rec["note"] = "the domain does not resolve (DNS) - the site is gone or the address in the list is wrong"
+            rec["tried"] = rec["tried"][:40]; return rec, []
+        rec["note"] = ("nothing answered with articles; tried %d addresses (feeds at the listed address and the "
+                       "site root, the page's own feed link, sitemaps, the listing HTML); answers seen: %s"
+                       % (len(rec["tried"]), ", ".join(seen) or "pages without a recognisable article list"))
+        rec["tried"] = rec["tried"][:40]
+        return rec, []
+
+    # sitemap entries and undated listings: the date and title come from the article's own page
+    items.sort(key=lambda i: i.get("date") or "", reverse=True)
+    # an undated listing is dated from its articles: up to 30 of them (a sitemap or a links-only page
+    # has no order to trust), otherwise the 10 newest that lack a date or a title
+    undated = not any(i.get("date") for i in items)
+    need = [i for i in items if not i.get("date") or not i.get("title")][:30 if undated else 10]
+    for i in need:
+        d, t = article_date(i["link"])
+        if d and not i.get("date"): i["date"] = d
+        if t and not i.get("title"): i["title"] = t
+    for i in items:
+        if not i.get("title"):
+            slug = urllib.parse.urlsplit(i["link"]).path.strip("/").split("/")[-1]
+            i["title"] = re.sub(r"[-_]+", " ", slug).strip().capitalize(); i["titleFrom"] = "address"
+    items.sort(key=lambda i: i.get("date") or "", reverse=True)
+    dated = [i for i in items if i.get("date")]
+    rec["newestDate"] = dated[0]["date"] if dated else None
+    rec["articles"] = [{"title": i["title"], "link": i["link"], "date": i.get("date")} for i in items[:10]]
+    rec["note"] = {"custom-feed": "read through the feed named for this host", "custom-html": "read from the listing page named for this host",
+                   "custom-sitemap": "read from the sitemap named for this host, dates from the articles",
+                   "techcommunity-rss": "read through the TechCommunity feed whose id is in the address",
+                   "rss-guessed": "read through the feed under the listed address", "rss-root": "read through the feed at the site root",
+                   "feed-discovered": "read through the feed the page itself declares", "sitemap": "read from the sitemap, dates from lastmod or the article",
+                   "html": "read from the listing page", "html-subpage": "read from a listing subpage"}.get(rec["method"], "")
+    if not dated: rec["note"] += "; no article carries a machine-readable date (undated)"; rec["undated"] = True
+    rec["tried"] = rec["tried"][:40]
+    return rec, items
+
+# ---------------------------------------------------------------------------------- main
+def main():
+    src = json.load(open(sys.argv[1], encoding="utf-8-sig"))
+    prev = {}
+    if len(sys.argv) > 3 and os.path.exists(sys.argv[3]):
+        try:
+            op = gzip.open if sys.argv[3].endswith(".gz") else open
+            d = json.load(op(sys.argv[3], "rt", encoding="utf-8")); st = d.get("soc-brief-state", d)
+            prev = {i.get("link"): i.get("firstTracked") for i in ((st.get("community") or {}).get("items") or []) if i.get("link")}
+        except Exception: prev = {}
+    with cf.ThreadPoolExecutor(max_workers=10) as ex:
+        res = list(ex.map(one, src))
+    # a second, sequential round for what failed: one slow answer in a parallel run is not a dead source
+    # (29 IX: JanBakker answered in one run and timed out in the next)
+    for k, (rec, its) in enumerate(res):
+        if rec["status"] == "failed" and "does not resolve" not in rec["note"]:
+            r2 = one(src[k])
+            if r2[0]["status"] == "ok": r2[0]["note"] += " (answered on the second attempt)"; res[k] = r2
+    lo = (TODAY - datetime.timedelta(days=WINDOW)).isoformat(); hi = TODAY.isoformat()
+    # the same article under two list entries is counted once; the second entry says so
+    owner, items = {}, []
+    for rec, its in res:
+        mine, inwin = 0, 0
+        for i in its:
+            k = i["link"].split("#")[0].rstrip("/")
+            if k in owner: continue
+            owner[k] = rec["name"]; mine += 1
+            if i.get("date") and lo <= i["date"] <= hi:
+                inwin += 1
+                if inwin > PER_SOURCE_CAP: continue
+                items.append({"source": rec["name"], "title": i["title"], "link": i["link"], "date": i["date"],
+                              "method": rec["method"], "firstTracked": prev.get(i["link"]) or hi})
+        if inwin > PER_SOURCE_CAP:
+            rec["note"] += "; %d articles in the window, the %d newest are listed" % (inwin, PER_SOURCE_CAP)
+        if its and not mine:
+            rec["status"] = "duplicate"; rec["note"] = "every article is already carried under %s" % owner[its[0]["link"].split("#")[0].rstrip("/")]
+    recs = [r for r, _ in res]
+    items.sort(key=lambda i: (i["date"], i["source"]), reverse=True)
+    # "new" = in the window and not carried by the previous brief - the strip and the list read this (§5bn)
+    new_today = [i["link"] for i in items if prev and i["link"] not in prev]
+    out = {"readOn": hi, "sources": recs, "items": items, "newToday": new_today,
+           "counts": {"sources": len(recs), "read": sum(1 for r in recs if r["status"] == "ok"),
+                      "failed": sum(1 for r in recs if r["status"] == "failed"),
+                      "duplicate": sum(1 for r in recs if r["status"] == "duplicate"),
+                      "articlesRead": sum(len(i) for _, i in res), "inWindow": len(items),
+                      "newest": max((r["newestDate"] or "" for r in recs), default="") or None,
+                      "newToday": len(new_today)},
+           "rule": ["Every source in community_sources.json is read by collect_community.py in the run itself.",
+                    "Per source: a rule named for the host, the TechCommunity id in the address, a feed under the listed address and the site root, "
+                    "the page's own feed link, a dated sitemap, the listing HTML; an undated article takes the date its own page prints.",
+                    "A source nothing answered for is status failed with the addresses tried; silence is the one error this tab does not forgive."]}
+    json.dump(out, open(sys.argv[2], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    c = out["counts"]
+    print("zrodel %d, przeczytanych %d, nieudanych %d, duplikatow %d, artykulow %d, w oknie %d"
+          % (c["sources"], c["read"], c["failed"], c["duplicate"], c["articlesRead"], c["inWindow"]))
+    for r in recs:
+        print("  %-8s %-34s %-18s %-10s %s" % (r["status"].upper(), r["name"][:34], r["method"] or "-", r["newestDate"] or "-", "" if r["status"] == "ok" else r["note"][:120]))
+
+if __name__ == "__main__":
+    main()
+```
 
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
