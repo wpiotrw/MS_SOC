@@ -23954,8 +23954,8 @@ potem zastepuje ja sekcja „ten sentences". Zmierzone co 0,4 s: SKRYPT 15 v2 ry
 Overview (~1 s), siatka §5bk/§5bq powstawala nad nia, a §5by o 2,6 s przenosil ja ~5 000 px nizej.
 Test sprawdzal obecnosc w JEDNEJ chwili (4,8 s), nie polozenie w czasie — dlatego „dziala" bylo
 nieprawda. Teraz: ramka jest ukryta, dopoki nie zostanie umieszczona (`.jsonbox:not([data-s5by])`),
-potem stoi w siatce Overview na gorze prawej kolumny obok dziesieciu zdan (obszar `src`; telefon:
-zaraz po zdaniach) i wraca tam, jesli cos ja przeniesie. **Regula testu dla kazdego elementu, ktory
+potem stoi w siatce Overview jako pierwszy rzad, PRZED dziesiecioma zdaniami (obszar `src`, prosba
+wlasciciela; telefon tak samo) i wraca tam, jesli cos ja przeniesie. **Regula testu dla kazdego elementu, ktory
 skrypt przenosi: pomiar polozenia w czasie (0-8 s co 0,4 s), nie jeden zrzut.** Zmierzone: 1500 i 390 px,
 jedno pojawienie sie i stala pozycja (y 323 px desktop), takze po filtrze produktu, przelaczeniu
 zakladek i przeladowaniu.
@@ -28726,7 +28726,7 @@ odtad CZTERNASCIE (4-17).**
        Measured: SCRIPT 15 v2 drew the box at the top of Overview at ~1 s, §5bk/§5bq then built
        the Overview grid above it, and this block moved it ~5 000 px down at 2.6 s — the reader
        saw it and lost it. Now it is hidden until placed (CSS on :not([data-s5by])) and placed ONCE,
-       in the Overview grid at the top of the right column, beside the ten sentences (grid area `src`),
+       in the Overview grid as its first row, above the ten sentences (grid area `src`, owner 28 IX),
        and put back
        there if anything moves it. */
     var jbx = document.querySelector("#tab-overview .jsonbox");
@@ -29513,10 +29513,10 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
 /* the Source lists box, now in Reference */
 #tab-overview .sec-body > .jsonbox{margin-top:14px}
 #tab-overview .jsonbox:not([data-s5by]){display:none}
-.s5bk-top{grid-template-areas:"sum src" "sum ms" "sum tech" "act act" "tl tl"}
+.s5bk-top{grid-template-areas:"src src" "sum ms" "sum tech" "act act" "tl tl"}
 .s5bk-top>section.s5bz-src{grid-area:src;padding:0;border:0;background:none}
 .s5bk-top>section.s5bz-src>.jsonbox{margin:0}
-@media (max-width:980px){.s5bk-top{grid-template-areas:"sum" "src" "tech" "act" "tl" "ms"}}
+@media (max-width:980px){.s5bk-top{grid-template-areas:"src" "sum" "tech" "act" "tl" "ms"}}
 /* jump row in a catalog panel */
 .s5by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px;padding:8px 10px;border:1px solid var(--border);
  border-radius:8px;background:var(--surface-2)}
