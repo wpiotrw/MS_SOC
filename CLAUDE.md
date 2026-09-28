@@ -3157,6 +3157,7 @@ def main(doc, outdir):
             elif "collect_community.py" in head:               got["collect_community.py"] = b
             elif "collect_all.py" in head:                     got["collect_all.py"] = b
             elif "check_links.py" in head:                     got["check_links.py"] = b
+            elif "mcp_call.py" in head:                        got["mcp_call.py"] = b
     got["appended.css"] = "\n".join(css)
     for name, body in got.items():
         io.open(os.path.join(outdir, name), "w", encoding="utf-8").write(body)
@@ -25259,6 +25260,96 @@ def main(src, out):
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])
+```
+
+
+**Serwery MCP bez konektora (`mcp_call.py`, 29 IX).** W dwoch ZADANIACH ZAPLANOWANYCH (Morning,
+Afternoon) konektory Microsoft Learn i KQL Search sa podpiete z PUSTYM adresem, wiec kazdy przebieg
+zglaszal oba jako nieobecne; konektorow zadania nie da sie podpiac ponownie z jego edytora (w routines
+— tak). Oba serwery sa publiczne i nie wymagaja klucza: 29 IX `initialize` odpowiada 200 z
+`mcp-session-id`, `microsoft_docs_search`, `microsoft_docs_fetch`, `search_kql_queries` i DeltaPulse
+`search` zwracaja wyniki. `mcp_call.py` woła te same narzedzia tych samych serwerow po HTTPS — to nie
+jest scraping. Prompt: gdy `mcp__Microsoft_Learn__*` / `mcp__KQL_Search__*` nie ma w sesji, uzyj
+`python3 mcp_call.py learn|kql <narzedzie> '<json>'`, a WebFetch dopiero, gdy i to zawiedzie.
+
+```python
+#!/usr/bin/env python3
+"""mcp_call.py - the public MCP servers this brief uses, called over plain HTTPS (CLAUDE.md 5cc).
+
+  python3 mcp_call.py learn microsoft_docs_search '{"query":"Defender for Identity sensor"}'
+  python3 mcp_call.py learn microsoft_docs_fetch  '{"url":"https://learn.microsoft.com/en-us/defender-xdr/whats-new"}'
+  python3 mcp_call.py kql   search_kql_queries    '{"query":"password spray"}'
+  python3 mcp_call.py kql   get_kql_query         '{"id":"..."}'
+  python3 mcp_call.py <server> --list             # the server's own tool list with argument schemas
+
+Why (29 IX 2026): in the two SCHEDULED TASKS (Morning, Afternoon) the Microsoft Learn and KQL Search
+connectors are attached with an EMPTY url, so every run reported both MCPs absent and fell back to
+WebFetch or skipped hunting examples. A scheduled task's connectors cannot be re-attached from the
+task editor. Both servers are public and need no key - measured that day, `initialize` answers
+200 with an `mcp-session-id` - so the run calls them itself: the same server and the same tools, not
+a scrape. DeltaPulse is called the same way inside collect_mc.py.
+
+Prints the tool result's text content (JSON when the server returns JSON). Exit 1 with the reason on
+any failure - a silent server is a degraded source, never a stopped run (5v)."""
+import json, sys, urllib.request
+
+SERVERS = {"learn": "https://learn.microsoft.com/api/mcp",
+           "kql": "https://www.kqlsearch.com/mcp",
+           "deltapulse": "https://deltapulse.app/mcp"}
+UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+
+
+def post(url, body, sid=None):
+    h = {"Content-Type": "application/json", "Accept": "application/json, text/event-stream", "User-Agent": UA}
+    if sid: h["Mcp-Session-Id"] = sid
+    r = urllib.request.urlopen(urllib.request.Request(url, json.dumps(body).encode(), h), timeout=120)
+    sid = r.headers.get("Mcp-Session-Id") or sid
+    raw = r.read().decode("utf-8", "replace")
+    msgs = []
+    if raw.lstrip().startswith("{"):
+        msgs.append(json.loads(raw))
+    else:                                   # server-sent events: one JSON per `data:` line
+        for line in raw.splitlines():
+            if line.startswith("data:") and line[5:].strip():
+                msgs.append(json.loads(line[5:].strip()))
+    return msgs, sid
+
+
+def call(server, tool, args):
+    url = SERVERS[server]
+    m, sid = post(url, {"jsonrpc": "2.0", "id": 1, "method": "initialize",
+                        "params": {"protocolVersion": "2025-03-26", "capabilities": {},
+                                   "clientInfo": {"name": "ms-soc-brief", "version": "1"}}})
+    try:
+        post(url, {"jsonrpc": "2.0", "method": "notifications/initialized"}, sid)
+    except Exception:
+        pass                                 # some servers answer 202 with no body
+    if tool == "--list":
+        m, _ = post(url, {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}, sid)
+        return [{"name": t["name"], "args": t.get("inputSchema", {}).get("properties", {})}
+                for t in (m[-1].get("result") or {}).get("tools", [])]
+    m, _ = post(url, {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
+                      "params": {"name": tool, "arguments": args}}, sid)
+    res = [x for x in m if "result" in x or "error" in x][-1]
+    if res.get("error"):
+        raise RuntimeError(str(res["error"])[:300])
+    out = []
+    for c in res["result"].get("content", []):
+        if c.get("type") == "text":
+            try: out.append(json.loads(c["text"]))
+            except Exception: out.append(c["text"])
+    return out[0] if len(out) == 1 else out
+
+
+if __name__ == "__main__":
+    try:
+        srv, tool = sys.argv[1], sys.argv[2]
+        args = json.loads(sys.argv[3]) if len(sys.argv) > 3 else {}
+        r = call(srv, tool, args)
+        print(r if isinstance(r, str) else json.dumps(r, ensure_ascii=False, indent=1))
+    except Exception as e:
+        print("mcp_call: %s %s failed: %s" % (sys.argv[1:2], sys.argv[2:3], e), file=sys.stderr)
+        sys.exit(1)
 ```
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
