@@ -1,8 +1,8 @@
 {
- "read": "2026-09-27",
+ "read": "2026-09-28",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
  "count": 726,
- "note": "baseline: first read, 726 messages recorded; changes are reported from the next run",
+ "note": null,
  "messages": [
   {
    "id": "MC1009930",
