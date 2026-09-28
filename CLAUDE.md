@@ -168,7 +168,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 78 | **tylko przebieg ZMIAN**: strona zmian ma **Advanced filtering** — jeden pasek na cala strone, jedno menu na kolumne, ktora grupuje, zakres szukania na kazda pozostala, jeden `Reset`; **obie tabele podsumowania TEZ sie zawezaja**, wymiar scala synonimy naglowka, a wartosc scala aliasy (§3 punkt 16 reguly 3-6); pasek NIE pisze ani `row.hidden`, ani licznika `N of M`, tylko predykat, ktory czytaja pudelka `.s9find` | 3 punkt 16, 5au | `verify()` w `make_diff.py`: `window.__s9adv = function (tr, table)`, `function buildDims(`, `function dimKey(`, `function cellTokens(`, `function colsFor(`, `function canonVal(`, `details.s9adv{`, `window.__s9advDesc = describeAdv`, `window.__socDiffFolds = function (on)`; jak 34 i 62 — `gate.py` tej pozycji nie oglada, a kod wyjscia 1 z `make_diff.py` znaczy NIE PUBLIKUJ |
 | 79 | **rejestr uzgodnien jest wypisany** — kazdy wpis §0f bez stanu `ZBUDOWANE` stoi w odpowiedzi przebiegu z nazwy, stanem i tym, czego brakuje; **pozycja INFORMACYJNA**, nie zatrzymuje zadnego przebiegu, bo blokada zamienilaby „brak uzgodnionej zakladki” na „wczorajsza strone pod wczorajsza data” (§0) | 0f | `gate.py … --doc CLAUDE.md`: blok `UZGODNIONE, JESZCZE NIEZBUDOWANE` wydrukowany; bez `--doc` albo bez sekcji §0f **`BRAK` „nie da sie odczytac rejestru”**, nigdy OK |
 | 80 | **dwunasty i trzynasty panel: `tab-learn` i `tab-blogs`**, zakladki w rzedzie `Reference` zaraz po Community Articles | 5aw, 5ae | `id="tab-learn"` i `id="tab-blogs"` obecne; `splitTabs()` wymienia obie; render: obie stoja w `navrow ref` na samym koncu, zaraz po `Community Articles` — pozycja, nie liczba |
-| 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu | 5aw | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
+| 81 | **klucz `nt` w bloku stanu**: kazdy obszar z `microsoftlearn_sources.json` ma wpis w `nt.learn`, kazdy blog z `microsoftblogs_sources.json` w `nt.blogs`, kazdy wpis o statusie innym niz `ok` ma niepusty `note`, a `nt.briefDate` rowna sie dacie briefu; **81d** (§5cc): kazdy obszar z listy Learn ma wiersz w `nt.wnMeta` (ok / stale / no what's new page, z `note` gdy nie ok); **81e** (§5cc): kazde zrodlo z `community_sources.json` ma wiersz w `community.sources` | 5aw, 5cc | licznik `nt.learn` = liczba pozycji listy Learn, `nt.blogs` = liczba pozycji listy blogow; zero wpisow bez `note` przy statusie innym niz `ok`; zero zmian `what's new` bez `link`; blokow JSON nadal 2 |
 | 82 | **JEDEN ksztalt paska Advanced filtering na caly portal** — SKRYPT 15 v2 zastepuje SKRYPT 15 z §5au, pasek jest rozwijany i zwiniety domyslnie | 5aw, 5au | `SCRIPT 15 v2 — MICROSOFT LEARN I MICROSOFT BLOGS`, `details.ntfbar`, `.ntfon`, `function mountEverywhere(`, `window.__socFilterBus` w pliku; `details.s15bar` nie wystepuje; render (§5h): kazdy pasek to `DETAILS` ze znacznikiem `+` |
 | 83 | **zakladka Component versions ma KSZTALT z §5ag, nie tylko dane** — `.jumpwrap` + `.jumpgrid` nad kafelkami, `.rbpanel`, a kazdy `article.cmp` ma DOKLADNIE dwoje dzieci: `.rail` i `.pane`; kazdy kafelek niesie `span.jt-n`; zadnej klasy spoza bloku CSS §5ag | 5ag | `jumpwrap`, `jumpgrid`, `rbpanel`, `span class="jt-n"` obecne; `article.cmp` = `.rail` = `.pane` co do liczby; `.release` i `.relhead` obecne; `jgrid` i `relbox` = 0; kazdy `pchip p-…` ze slownika osmiu platform (pozycja 37 czyta STAN, wiec chipa wymyslonego nie widzi) |
 | 84 | **przypiety pasek szukania katalogu jest PASKIEM**: `--hdr-h` mierzone przez SKRYPT 14, a w `.cat-controls` zostaje tylko `.cat-searchrow` | 5ay, 5at, 5c | `setProperty("--hdr-h"` w SKRYPCIE 14, `.cat-controls{top:var(--hdr-h,0px)`, `ctl.parentNode.insertBefore(d, ctl)`, `row.closest(".cat-controls")` w pliku; render (§5h): pasek przypiety tuz pod naglowkiem (odstep <= 4 px), wysokosc <= 90 px, zero nachodzenia na `.cat-detail` |
@@ -2113,7 +2113,8 @@ def gate(path, site=None, mirror=False, doc=None):
             if not _root: return None
             p_ = _os.path.join(_os.path.dirname(_os.path.abspath(_root)), fn)
             if not _os.path.exists(p_): p_ = _os.path.join(_root, "..", fn)
-            try: return json.load(open(p_, encoding="utf-8"))
+            try: return [x for x in json.load(open(p_, encoding="utf-8-sig"))
+                         if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()]
             except Exception: return None
         _wantL = _srclist("microsoftlearn_sources.json")
         _wantB = _srclist("microsoftblogs_sources.json")
@@ -2133,6 +2134,28 @@ def gate(path, site=None, mirror=False, doc=None):
              _missB is not None and not _missB,
              "nie znaleziono microsoftblogs_sources.json — nie da sie sprawdzic" if _missB is None
              else "brakuje %d z %d: %s" % (len(_missB), len(_wantB), ", ".join(_missB[:5])))
+        # §5cc (29 IX 2026, owner: "a source I add to the JSON must be read too"). 81a/81b check the
+        # documentation-diff list and the blog list; these two close the remaining gaps: every Learn
+        # area has a what's-new verdict (read, stale, or no page — each with its reason), and every
+        # community source has a row. A name added to a JSON and missing here fails the run.
+        _wm = {str(x.get("area") or "").replace("Microsoft Learn - ", ""): x for x in (_nt.get("wnMeta") or [])}
+        _missW = ([x["SourceName"].replace("Microsoft Learn - ", "") for x in _wantL
+                   if x["SourceName"].replace("Microsoft Learn - ", "") not in _wm] if _wantL else None)
+        _mute = [k for k, v in _wm.items() if v.get("status") != "ok" and not (v.get("note") or "").strip()]
+        need("81d", "kazdy obszar z microsoftlearn_sources.json ma werdykt what's new w nt.wnMeta, z powodem gdy nie ok",
+             _missW is not None and not _missW and not _mute,
+             "nie znaleziono microsoftlearn_sources.json — nie da sie sprawdzic" if _missW is None
+             else "bez wpisu %d: %s; bez powodu %d: %s" % (len(_missW), ", ".join(_missW[:5]), len(_mute), ", ".join(_mute[:5])))
+        _wantC = _srclist("community_sources.json")
+        try: _cs = ((st["soc-brief-state"] or {}).get("community") or {}).get("sources") or []
+        except Exception: _cs = []
+        _gotC = {str(x.get("name") or "").strip() for x in _cs} | {str(x.get("listUrl") or x.get("url") or "").strip() for x in _cs}
+        _missC = ([x["SourceName"] for x in _wantC if x["SourceName"].strip() not in _gotC
+                   and x["SourceURL"].strip() not in _gotC] if _wantC else None)
+        need("81e", "kazde zrodlo z community_sources.json ma wiersz w community.sources",
+             _missC is not None and not _missC,
+             "nie znaleziono community_sources.json — nie da sie sprawdzic" if _missC is None
+             else "brakuje %d z %d: %s" % (len(_missC), len(_wantC), ", ".join(_missC[:5])))
         # cisza zamiast powodu jest tu jedynym bledem, ktorego ta zakladka nie wybacza (§5an poz. 60)
         _silent = [x.get("name") for x in (_nt.get("learn") or []) + (_nt.get("blogs") or [])
                    if (x.get("status") or "ok") != "ok" and not (x.get("note") or "").strip()]
@@ -5105,6 +5128,19 @@ def diff_nt(prev_st, curr_st):
     cw = {wnkey(x): x for x in (cn.get("changes") or [])}
     wnAdd = [cw[k] for k in cw if k not in pw]
     wnRem = [pw[k] for k in pw if k not in cw]
+    # §5cc (29 IX 2026): an area whose what's-new page is read for the FIRST time (19 of 31 from
+    # that day) is a baseline, not 150 new entries — the same rule as the first run above. And an
+    # area that failed today did not lose its entries. Both sides are judged per area by wnMeta.
+    def _okareas(n):
+        return {norm((w.get("area") or "").replace("Microsoft Learn - ", ""))
+                for w in (n.get("wnMeta") or []) if w.get("status") == "ok"}
+    if pn.get("wnMeta") is not None and cn.get("wnMeta") is not None:
+        _pok, _cok = _okareas(pn), _okareas(cn)
+        wnBase = sorted(a for a in _cok if a not in _pok)
+        wnAdd = [x for x in wnAdd if norm(x.get("area")) in _pok]
+        wnRem = [x for x in wnRem if norm(x.get("area")) in _cok]
+    else:
+        wnBase = []
     wnAdd.sort(key=lambda x: (x.get("weight") or 9, norm(x.get("area"))))
 
     pb, cb = by(pn.get("blogs"), "name"), by(cn.get("blogs"), "name")
@@ -5128,7 +5164,7 @@ def diff_nt(prev_st, curr_st):
             "changes": len(cw), "arts": len(ci), "pages": len(cp),
             "areaAdd": areaAdd, "areaRem": areaRem, "areaChg": areaChg,
             "pageAdd": pageAdd, "pageRem": pageRem, "pageChg": pageChg,
-            "wnAdd": wnAdd, "wnRem": wnRem,
+            "wnAdd": wnAdd, "wnRem": wnRem, "wnBaseline": wnBase,
             "blogAdd": blogAdd, "blogRem": blogRem, "blogChg": blogChg,
             "artAdd": artAdd, "artRem": artRem}
 
@@ -20369,7 +20405,9 @@ def one(s):
     pub=repo[:-3] if repo.endswith("-pr") else repo
     return {"name":name,"url":url,"org":org,"repo":pub,"prRepo":repo,"branch":branch,
             "path":path,"dir":path.rsplit("/",1)[0] if "/" in path else "","note":""}
-src=json.load(open(sys.argv[1],encoding="utf-8"))
+# §5cc: utf-8-sig — a list saved from Notepad or PowerShell starts with a BOM, and plain utf-8
+# stops the whole run on it; an entry without a name or an address is skipped, not fatal
+src=[x for x in json.load(open(sys.argv[1],encoding="utf-8-sig")) if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()]
 with cf.ThreadPoolExecutor(max_workers=10) as ex: out=list(ex.map(one,src))
 json.dump(out,open(sys.argv[2],"w",encoding="utf-8"),ensure_ascii=False,indent=1)
 for r in out: print("%-52s %-28s %s"%(r["name"][:52].replace("Microsoft Learn - ",""), r.get("repo") or "—", r.get("dir") or r.get("note","")[:50]))
@@ -20562,7 +20600,9 @@ def one(src):
     return rec
 
 def main():
-    src = json.load(open(sys.argv[1], encoding="utf-8"))
+    # §5cc: BOM-tolerant, and a half-written entry (no name or no address) is skipped, not fatal
+    src = [x for x in json.load(open(sys.argv[1], encoding="utf-8-sig"))
+           if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()]
     with cf.ThreadPoolExecutor(max_workers=8) as ex:
         recs = list(ex.map(one, src))
     json.dump(recs, open(sys.argv[2],"w",encoding="utf-8"), ensure_ascii=False)
@@ -20610,6 +20650,53 @@ WN={
  "Microsoft Learn - Microsoft Intune":("memdocs","intune/whats-new/index.md","https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"),
 }
 AREA_SHORT={k:k.replace("Microsoft Learn - ","") for k in WN}
+
+# §5cc (29 IX 2026, owner: "the last six months are only Intune and Entra?"). Measured that day:
+# the ten pages of WN gave entries for all ten areas from learn.microsoft.com, but WN is a CLOSED
+# list, so 21 of the 31 areas in microsoftlearn_sources.json never had a what's-new list at all,
+# and an area the owner adds to the JSON would never get one either. Two layers fix that:
+#  1. WN_HTML — published pages measured on 29 IX for areas outside WN (HTML only, no git mirror).
+#     An optional regex keeps only the entries of a page that belong to the area (Graph's
+#     what's-new covers all of Graph; the "Microsoft Graph Security" area keeps security/identity).
+#  2. discover_wn() — for EVERY other entry of the JSON, including one added tomorrow: the
+#     area's own landing page is read, every link that names what's new / release notes is tried,
+#     plus <area>/whats-new and <area>/release-notes, and the page that parses into dated entries
+#     with the newest month wins. Nothing about a new area has to be written into this file.
+WN_HTML={
+ "Microsoft Learn - Microsoft Purview":[("https://learn.microsoft.com/en-us/purview/whats-new",None)],
+ "Microsoft Learn - Defender for Cloud":[("https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",None)],
+ "Microsoft Learn - Defender Vulnerability Management":[("https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",r"vulnerab|\bmdvm\b|\bdvm\b|exposure|software inventory|baseline")],
+ "Microsoft Learn - Microsoft Graph Security":[("https://learn.microsoft.com/en-us/graph/whats-new-overview",r"^(security|identity and access|compliance)\b")],
+ "Microsoft Learn - Microsoft 365":[("https://learn.microsoft.com/en-us/microsoft-365/admin/whats-new-in-preview",None)],
+ "Microsoft Learn - Exchange Online":[("https://learn.microsoft.com/en-us/exchange/whats-new",None)],
+ "Microsoft Learn - Azure Arc":[("https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",None)],
+ "Microsoft Learn - Azure AI Foundry":[("https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry",None)],
+ "Microsoft Learn - FSLogix":[("https://learn.microsoft.com/en-us/fslogix/overview-release-notes",None)],
+}
+WN_KEYWORDS=re.compile(r"whats-new|what-s-new|whatsnew|release-notes|releasenotes|agent-release-notes",re.I)
+WN_TEXT=re.compile(r"what'?s new|what’s new|release notes",re.I)
+def _get_html(url):
+    try:
+        return subprocess.run(["curl","-sS","--compressed","-L","--max-time","30","-A",UA_WN,url],
+                              capture_output=True,text=True,timeout=40).stdout or ""
+    except Exception: return ""
+def discover_wn(area_url):
+    """Candidate what's-new pages for an area that no table names (§5cc). Returns URLs, best first
+    is decided by the caller after parsing. Only learn.microsoft.com pages under the same first
+    path segment as the area, so a link to another product's what's new is not taken."""
+    base=area_url.split("?")[0].split("#")[0].rstrip("/")
+    seg=urllib.parse.urlparse(base).path.split("/")
+    first="/".join(seg[:3])        # /en-us/<product>
+    cands=[base+"/whats-new",base+"/release-notes",base+"/whats-new-overview"]
+    h=_get_html(base+"/")
+    for href,inner in re.findall(r'(?is)<a\s[^>]*href="([^"]+)"[^>]*>(.*?)</a>',h):
+        tx=re.sub(r"<[^>]+>","",inner)
+        if not (WN_KEYWORDS.search(href) or WN_TEXT.search(tx)): continue
+        u=urllib.parse.urljoin(base+"/",html.unescape(href)).split("#")[0].split("?")[0]
+        p=urllib.parse.urlparse(u)
+        if p.netloc!="learn.microsoft.com" or not p.path.startswith(first): continue
+        if u not in cands: cands.append(u)
+    return cands[:10]
 
 # ---- slownik kryteriow i zdan `why`: JEDEN slownik, jedno zdanie na kryterium ----
 CRIT=[
@@ -20730,20 +20817,49 @@ def parse_whatsnew(md,area,url,repo_path):
         if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
         m=re.match(r"^##\s+Week of\s+([A-Z][a-z]+)\s+\d{1,2},\s*(20\d\d)",t)
         if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
+        # §5cc: four more shapes measured 29 IX 2026 — the month is not the whole heading:
+        #   `## September 2026: New and generally available`   (Graph what's new)
+        #   `## Version 1.68 - September 2026`                  (Azure Arc agent release notes)
+        #   `## FSLogix 26.08`                                  (FSLogix: YY.MM release)
+        m=re.match(r"^##\s+(?:.*?\b)?([A-Z][a-z]+)\s+(20\d\d)\b",t)
+        if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
+        m=re.match(r"^##\s+[A-Za-z][\w ]*?\s(2\d)\.(0[1-9]|1[0-2])\b",t)
+        if m:
+            mo=int(m.group(2)); return (2000+int(m.group(1)),mo,"%s %d"%(list(MON)[mo-1].capitalize(),2000+int(m.group(1))))
         return None
     def put(title,text):
         if title: out.append({"year":cur[0],"month":cur[1],"monthLabel":cur[2],
-                              "title":re.sub(r"[*_`]","",title).strip()[:170],"lines":[text] if text else []})
+                              "title":re.sub(r"[*_`]","",title).strip(),"lines":[text] if text else []})
+    listmode=False; ctbl=False
     for line in md.split("\n"):
         h=head2(line)
-        if h: cur=h; intbl=False; continue
+        if h: cur=h; intbl=False; ctbl=False; listmode=False; continue
+        if line.startswith("## "):
+            # §5cc: a page of one month's new articles (Foundry) — the month is ms.date's
+            # (only NEW articles: "Updated articles" are edits, and 19 of them would bury the month)
+            if re.match(r"^##\s+New articles\b",line) and msdate and re.match(r"\d{4}-\d{2}",msdate):
+                y,mo=int(msdate[:4]),int(msdate[5:7])
+                cur=(y,mo,"%s %d"%(list(MON)[mo-1].capitalize(),y)); listmode=True; continue
+            # an undated `##` after the months (Feedback, Related content, Notices) ends them:
+            # its lines were read as the last month's entries before 29 IX 2026
+            cur=None; listmode=False; continue
         if not cur: continue
         st=line.strip()
+        if listmode and re.match(r"^[-*]\s+",st):
+            lm=LINK.search(st)
+            put(lm.group(1) if lm else st[2:120], st[2:]); continue
         if st.startswith("|"):
             cells=[c.strip() for c in st.strip("|").split("|")]
             if len(cells)>=4 and not set("".join(cells))<=set("-: "):
                 if re.match(r"^(type|feature|version)",cells[0],re.I) and re.search(r"description|updates",cells[-1],re.I):
                     intbl=True; continue
+                # §5cc: `|Feature|Windows|Linux|Change Type|` (Arc agent): the row's FIRST cell is the change
+                if re.match(r"^feature",cells[0],re.I) and re.search(r"change type",cells[-1],re.I):
+                    ctbl=True; continue
+                if ctbl:
+                    if cells[-1] and not re.match(r"^\*\*.*\*\*$",cells[0]):
+                        put(cells[0][:170],cells[0]+" ("+cells[-1]+")")
+                    continue
                 if intbl:
                     ttl=cells[1] if len(cells)>3 else cells[0]
                     put(ttl,cells[-1]); continue
@@ -20768,7 +20884,7 @@ def parse_whatsnew(md,area,url,repo_path):
         links=[{"text":m.group(1),"url":abs_url(m.group(2),url,repo_path)} for m in LINK.finditer(o["title"]+" "+raw)]
         text=LINK.sub(lambda m:m.group(1),raw)
         text=re.sub(r"<br\s*/?>"," ",text); text=re.sub(r"[*_`|]"," ",text); text=re.sub(r"\s+"," ",text).strip()
-        title=LINK.sub(lambda m:m.group(1),o["title"]); title=re.sub(r"[*_`]","",title).strip()
+        title=LINK.sub(lambda m:m.group(1),o["title"]); title=re.sub(r"[*_`]","",title).strip()[:170]
         if len(text)<25 and len(title)<25: continue
         crit,why,w,t0,tags=classify(title,text,area)
         ent.append({"area":area,"year":o["year"],"month":o["month"],"monthLabel":o["monthLabel"],
@@ -20871,15 +20987,43 @@ def main():
     srcs,items,top,win=build_blogs()
 
     changes=[];wnmeta=[]
-    for a in probe:
-        key=a["name"]
+    def newest(e): return max((x["year"]*100+x["month"] for x in e),default=0)
+    # §5cc: the list of areas is the JSON itself, read in THIS run — an area the owner adds is
+    # read the next morning without any change here. learn_probe.json is built from the same
+    # file; any name it does not carry is added from the JSON so nothing drops out silently.
+    areas=list(probe); _have={a["name"] for a in probe}
+    _jp=os.path.join(REPO,"microsoftlearn_sources.json")
+    if os.path.exists(_jp):
+        for s in json.load(open(_jp,encoding="utf-8-sig")):
+            n=(s.get("SourceName") or "").strip(); u=(s.get("SourceURL") or "").strip()
+            if n and u and n not in _have: areas.append({"name":n,"url":u,"repo":None}); _have.add(n)
+    for a in areas:
+        key=a["name"]; short=key.replace("Microsoft Learn - ","")
         if key not in WN:
-            if a.get("repo") and os.path.isdir(os.path.join("repos",a["repo"])):
-                wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"no what's new page",
-                    "entries":0,"msDate":None,"headDate":None,"url":a["url"]})
-            else:
-                wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"no public mirror",
-                    "entries":0,"msDate":None,"headDate":None,"url":a["url"]})
+            # §5cc: named published page(s) first, then discovery from the area's own page
+            tried=[]; best=([],None,None,None)
+            named=WN_HTML.get(key,[])
+            plan=[(u,rx,"named page") for u,rx in named] or [(u,None,"discovered") for u in discover_wn(a["url"])]
+            for u,rx,how in plan:
+                hmd,hdate=learn_md(u); tried.append(u)
+                if not hmd: continue
+                e=parse_whatsnew(hmd,short,u,"x/y.md")[0]
+                if rx:
+                    e=[x for x in e if re.search(rx,x["title"],re.I) or (not rx.startswith("^") and re.search(rx,x["text"],re.I))]
+                    for x in e: x["shared"]=True   # listed under this area too, not only the page's own
+                if e and (newest(e),len(e))>(newest(best[0]),len(best[0])): best=(e,hdate,u,how)
+            ent,hdate,u,how=best
+            if ent:
+                wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"ok","entries":len(ent),
+                    "msDate":hdate,"headDate":None,"url":u,"via":"learn.microsoft.com ("+how+")",
+                    "note":("entries kept by topic from a page that covers more than this area" if named and named[0][1] else "")})
+                changes.extend(ent); continue
+            wnmeta.append({"area":key,"repo":a.get("repo"),"page":None,"status":"no what's new page",
+                "entries":0,"msDate":None,"headDate":None,"url":a["url"],"via":None,
+                "note":("Microsoft publishes no dated what's-new or release-notes page for this area; "
+                        "%d candidate page(s) were read and none carried dated entries. "
+                        "Edits to its articles still reach the page-change section when its "
+                        "documentation repository is public (nt.learn, method git)." % len(tried))})
             continue
         repo,path,url=WN[key]
         md=git(os.path.join("repos",repo),"show","HEAD:"+path,timeout=90)
@@ -20907,9 +21051,25 @@ def main():
     _seen=set(); _dd=[]
     for c in changes:
         k=(c["title"].lower(),c["year"],c["month"])
-        if k in _seen: continue
+        if k in _seen and not c.pop("shared",False): continue
+        c.pop("shared",None)
         _seen.add(k); _dd.append(c)
     changes=_dd
+    # §5cc: twelve months back and no further — with 19 pages read, Exchange's what's new (last
+    # entry September 2021) would otherwise fill Section B with four-year-old news
+    _cut=(TODAY.year-1)*100+TODAY.month
+    _newest={}
+    for c in _dd:
+        _newest[c["area"]]=max(_newest.get(c["area"],(0,"")),(c["year"]*100+c["month"],c["monthLabel"]))
+    changes=[c for c in changes if c["year"]*100+c["month"]>=_cut]
+    _cnt=collections.Counter(c["area"] for c in changes)
+    for w in wnmeta:
+        if w["status"]!="ok": continue
+        sh=w["area"].replace("Microsoft Learn - ","")
+        w["entries"]=_cnt.get(sh,0)
+        if not w["entries"]:
+            w["status"]="stale"; w["note"]=("the page is read, but its newest entry is %s — nothing in the last twelve months"
+                                            % (_newest.get(sh,(0,"?"))[1]))
 
     # powiazanie z blogami: po TAGU, i wiersz mowi ktora droga (`how`)
     bytag=collections.defaultdict(list)
@@ -21145,7 +21305,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       [all.length,"changes that matter to a SOC","info"],
       [t0.length,"touch a tier 0 surface","bad"],
       [act.length,"need action or name a retirement","warn"],
-      [D.wnMeta.length,"areas read for content","ok"],
+      [D.wnMeta.filter(function(m){return m.status==="ok";}).length+" / "+L.length,"areas read for content","ok"],
       [all.filter(function(e){return e.blogs&&e.blogs.length;}).length,"also covered by a blog",""]
     ]));
 
@@ -21176,11 +21336,11 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       "disagree with the reason without having to re-read the source.",
       table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
         changeRows(rec),
-        "<b>Changes Microsoft published</b> &middot; "+rec.length+" entries since July 2026 &middot; "+
+        "<b>Changes Microsoft published</b> &middot; "+rec.length+" entries since "+(function(){var o=rec.reduce(function(m,e){var k=e.year*100+e.month;return m&&m.k<=k?m:{k:k,l:e.monthLabel};},null);return o?esc(o.l.replace(/\s*\(.*$/,"")):"—";})()+" &middot; "+
         "heaviest first, tier 0 before the rest"),1);
     p.appendChild(s1);
 
-    var s2=sec("nt-older","Section B","Everything else this run read, back to January",all.length-rec.length,false,
+    var s2=sec("nt-older","Section B","Everything else this run read, back to "+(function(){var o=all.reduce(function(m,e){var k=e.year*100+e.month;return m&&m.k<=k?m:{k:k,l:e.monthLabel};},null);return o?esc(o.l.replace(/\s*\(.*$/,"")):"—";})(),all.length-rec.length,false,
       "The same rule, applied to the rest of each what's new page. Kept because a retirement "+
       "announced in March still has its date in front of it.",
       table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
@@ -21188,9 +21348,13 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
         "<b>Earlier entries</b> &middot; heaviest first"),8);
     p.appendChild(s2);
 
+    /* §5cc (29 IX 2026): wnMeta carries EVERY area, read or not, so its length is not the number
+       read — the tile said "31 areas read" while 2 were. Counted by status now, and a row that
+       was not read says why (note) instead of a bare "not read". */
+    var okN=D.wnMeta.filter(function(m){return m.status==="ok";}).length;
     var mrows=D.wnMeta.map(function(m){
       return {cells:[esc(m.area.replace("Microsoft Learn - ","")),
-        m.status==="ok"?'<span class="ntmeth m-rss">what’s new</span>':'<span class="ntmeth m-snap">not read</span>',
+        m.status==="ok"?'<span class="ntmeth m-rss">what’s new</span>'+(m.via&&m.via.indexOf("(")>0?' <small>'+esc(m.via.replace(/^.*\(|\)$/g,""))+'</small>':''):'<span class="ntmeth m-snap" title="'+esc(m.note||m.status)+'">'+esc(m.status)+'</span>',
         String(m.entries),
         esc(m.msDate||"—"),
         m.url?A(m.url,"Page"):"—"]};});
@@ -21199,11 +21363,11 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       return {cells:[esc(x.name.replace("Microsoft Learn - ","")),
         '<span class="ntmeth m-snap">not read for content</span>',"0","—",A(x.url,"Page")]};});
     var s3=sec("nt-coverage","Section C","Which areas were read for content, and which were not",
-      D.wnMeta.length+" of "+L.length,false,
+      okN+" of "+L.length,false,
       "An area is read for content when it publishes a what’s new page this run could parse. "+
       "The rest are watched but contributed nothing here, and that is a gap in coverage, not a quiet month.",
       table(["Area","Read as","Entries","Page last stamped","Source"],mrows.concat(crows),
-        "<b>Content coverage</b> &middot; "+D.wnMeta.length+" areas read, "+cov.length+" not"),3);
+        "<b>Content coverage</b> &middot; "+okN+" areas read, "+(L.length-okN)+" not"),3);
     p.appendChild(s3);
 
     /* 3 i 8: TO jest sekcja, ktora wlasciciel nazwal po imieniu. Poprzednia wersja
@@ -24649,6 +24813,57 @@ if __name__ == "__main__":
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
 (116 i 117 to dane dzisiejszego przebiegu).
+
+
+### §5cc (29 IX 2026) — Microsoft Learn: what's new dla KAZDEGO obszaru z listy, takze dopisanego jutro
+
+Wlasciciel (29 IX): „chcesz mi powiedziec, ze ostatnie 6 miesiecy to tylko Intune i Entra? … najwiekszym
+problemem jest sposob, w jaki Microsoft Learn pobierasz" oraz „upewnij sie, ze czytamy wszystkie zrodla
+z naszych 3 JSON-ow i ze nowe zrodlo, dopisane do JSON-a, tez bedzie czytane". Zmierzone na stanie
+28 IX: `nt.wnMeta` mialo `ok` dla **2 z 31** obszarow (Entra, Intune). Dwie przyczyny:
+1. Poranny przebieg 28 IX (08:14 UTC) wyszedl GODZINE przed §5by (09:09 UTC), ktore dodalo odczyt
+   opublikowanej strony learn.microsoft.com — lustra git `defender-docs`, `memdocs` i `security`
+   odpowiadaja „Repository not found" takze z komputera wlasciciela.
+2. Slownik `WN` jest ZAMKNIETY: 10 obszarow. Pozostalych 21 nigdy nie mialo listy what's new,
+   a obszar dopisany do `microsoftlearn_sources.json` tez by jej nie dostal.
+
+Co robi kolektor od 29 IX (`collect_nt.py`):
+- lista obszarow to `microsoftlearn_sources.json` czytany W TYM przebiegu (plus `learn_probe.json`
+  z tego samego pliku) — nowy wpis wchodzi nastepnego ranka bez zmiany kodu;
+- obszar spoza `WN`: najpierw `WN_HTML` (strony zmierzone 29 IX: Purview, Defender for Cloud,
+  Defender Vulnerability Management — wpisy z tematem podatnosci ze strony MDE, Graph Security —
+  sekcje Security / Identity and access z Graph what's new, Microsoft 365 admin, Exchange, Azure Arc
+  agent, Foundry — nowe artykuly miesiaca, FSLogix), potem `discover_wn()`: strona obszaru, kazdy
+  link „what's new / release notes" pod tym samym produktem oraz `<obszar>/whats-new`,
+  `/release-notes`, `/whats-new-overview`; wygrywa strona z najnowszym datowanym wpisem;
+- `parse_whatsnew` zna cztery nowe ksztalty naglowkow (`## September 2026: …`, `## Version 1.68 -
+  September 2026`, `## FSLogix 26.08`, `## New articles` z miesiacem z `ms.date`) i tabele
+  `|Feature|Windows|Linux|Change Type|`; niedatowane `##` po miesiacach (Feedback, Notices) konczy
+  miesiac — do 28 IX jego tresc trafiala do ostatniego miesiaca;
+- wpisy starsze niz 12 miesiecy wypadaja; obszar, ktorego strona nie ma nic nowszego, dostaje
+  `stale` z miesiacem najnowszego wpisu (Exchange: wrzesien 2021), a obszar bez strony —
+  `no what's new page` z liczba sprawdzonych adresow. Zaden wiersz nie jest cichy.
+
+Wynik 29 IX (lokalnie, te same strony co przebieg): **18 z 31 obszarow z wpisami, 1 stale, 12 bez
+strony** (Microsoft Security, Zero Trust, Security Copilot, KQL, Teams, Windows, Windows Security,
+Azure VMs, Governance, Cost Management, DMS, Security Baselines — Microsoft nie publikuje dla nich
+datowanej listy), 1070 wpisow w 12 miesiacach, 199 w ostatnich dwoch. Strona 28 IX dostala te dane
+od razu (klucz `nt`: `changes`, `recent`, `wnMeta`), zeby jutrzejsze porownanie mialo punkt odniesienia.
+
+`make_diff.py diff_nt`: obszar czytany PIERWSZY raz jest punktem odniesienia (`wnBaseline`), nie
+„+150 nowych"; obszar, ktory dzis nie wyszedl, nie „traci" wpisow. SCRIPT 15: kafelek i sekcja C licza
+obszary `ok`, nie dlugosc `wnMeta` (mowily „31 read" przy 2), wiersz nie-`ok` pokazuje swoj powod,
+a „since July 2026" / „back to January" licza sie z danych.
+
+Trzy listy JSON — kto je czyta i co pilnuje, ze nowy wpis jest czytany:
+| lista | czyta ja | kiedy | straznik w bramce |
+|---|---|---|---|
+| `microsoftlearn_sources.json` | `probe_learn.py`, `learn_changes.py`, `collect_nt.py` | poranny | 81a (`nt.learn`), 81d (`nt.wnMeta`, z powodem) |
+| `microsoftblogs_sources.json` | `collect_blogs.py` | poranny | 81b (`nt.blogs`) |
+| `community_sources.json` | `collect_community.py` (§5cb) | poranny i wieczorny | 81e (`community.sources`) |
+Wszystkie trzy czytaja plik z `utf-8-sig` (lista zapisana z Notatnika/PowerShella zaczyna sie od BOM,
+a czyste `utf-8` konczylo caly odczyt bledem) i pomijaja wpis bez nazwy lub adresu zamiast sie
+wywrocic.
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
