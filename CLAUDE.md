@@ -23949,6 +23949,17 @@ Nie znajduje bloku — konczy sie kodem 2 i niczego nie publikuje (lepiej brak o
 10. Noty metodologiczne dluzsze niz 45 slow: dwie linie i „Show the full note" (26 not).
 Pozycja bramki **120** (klasa B) pilnuje kluczy tego bloku.
 
+**Poprawka 28 IX 2026 wieczorem — ramka `Source lists` „pojawia sie i znika".** Wlasciciel: widac ja,
+potem zastepuje ja sekcja „ten sentences". Zmierzone co 0,4 s: SKRYPT 15 v2 rysowal ramke na gorze
+Overview (~1 s), siatka §5bk/§5bq powstawala nad nia, a §5by o 2,6 s przenosil ja ~5 000 px nizej.
+Test sprawdzal obecnosc w JEDNEJ chwili (4,8 s), nie polozenie w czasie — dlatego „dziala" bylo
+nieprawda. Teraz: ramka jest ukryta, dopoki nie zostanie umieszczona (`.jsonbox:not([data-s5by])`),
+potem stoi w siatce Overview na gorze prawej kolumny obok dziesieciu zdan (obszar `src`; telefon:
+zaraz po zdaniach) i wraca tam, jesli cos ja przeniesie. **Regula testu dla kazdego elementu, ktory
+skrypt przenosi: pomiar polozenia w czasie (0-8 s co 0,4 s), nie jeden zrzut.** Zmierzone: 1500 i 390 px,
+jedno pojawienie sie i stala pozycja (y 323 px desktop), takze po filtrze produktu, przelaczeniu
+zakladek i przeladowaniu.
+
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
 (116 i 117 to dane dzisiejszego przebiegu).
@@ -28710,15 +28721,28 @@ odtad CZTERNASCIE (4-17).**
   }
 
   /* ---- 1. Source lists box: visible, in "Reference — catalogs, versions and sources" ---- */
-  function moveJsonBox() {
+  function moveJsonBox(late) {
+    /* 28 IX 2026 evening, owner: "it appears, then it is replaced by the 10-sentences section".
+       Measured: SCRIPT 15 v2 drew the box at the top of Overview at ~1 s, §5bk/§5bq then built
+       the Overview grid above it, and this block moved it ~5 000 px down at 2.6 s — the reader
+       saw it and lost it. Now it is hidden until placed (CSS on :not([data-s5by])) and placed ONCE,
+       in the Overview grid at the top of the right column, beside the ten sentences (grid area `src`),
+       and put back
+       there if anything moves it. */
     var jbx = document.querySelector("#tab-overview .jsonbox");
-    if (!jbx || jbx.getAttribute("data-s5by")) return;
+    if (!jbx) return;
+    var top = document.querySelector("#tab-overview .s5bk-top");
+    if (top) {
+      var sec = top.querySelector(":scope > section.s5bz-src");
+      if (!sec) { sec = el("section", "s5bz-src"); sec.setAttribute("aria-label", "Source lists"); top.appendChild(sec); }
+      if (jbx.parentNode !== sec) sec.appendChild(jbx);
+      jbx.setAttribute("data-s5by", "1");
+      return;
+    }
+    if (jbx.getAttribute("data-s5by") || !late) return;   /* wait for the grid; fall back only late */
     var h = [].filter.call(document.querySelectorAll("#tab-overview h3, #tab-overview h2"), function (x) { return /^Reference\b/.test((x.textContent || "").trim()); })[0];
-    var host = h ? h.parentNode : null;
-    if (!host) { var hl = document.querySelector("#tab-overview details.s5bk-health"); if (hl && hl.parentNode) { hl.parentNode.insertBefore(jbx, hl); jbx.setAttribute("data-s5by", "1"); } return; }
-    host.appendChild(jbx); jbx.setAttribute("data-s5by", "1");
-    /* its reference fold is open by default when it is the only way to see the box */
-    var d = host.closest ? host.closest("details") : null; if (d && !d.open && d.classList.contains("ntsec")) { /* leave the reader's fold alone */ }
+    if (h && h.parentNode) h.parentNode.appendChild(jbx);
+    jbx.setAttribute("data-s5by", "1");   /* never left hidden: without the grid it shows where it is */
   }
 
   /* ---- 2. desktop tab bar: one row per group line, nothing wraps, overflow goes to More ---- */
@@ -28862,7 +28886,10 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2600); setTimeout(boot, 4200); });
   else { setTimeout(boot, 2600); setTimeout(boot, 4200); }
-  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi")) setTimeout(function () { watchPanels(); nameIds(); unescapeNames(); fitAll(); }, 350); }, true);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi")) setTimeout(function () { watchPanels(); nameIds(); unescapeNames(); fitAll(); moveJsonBox(); }, 350); }, true);
+  /* the box is placed as soon as the Overview grid exists, not at the first boot */
+  (function waitGrid(n) { try { moveJsonBox(n >= 59); } catch (e) {} var j = document.querySelector("#tab-overview .jsonbox");
+    if ((!j || !j.getAttribute("data-s5by")) && n < 60) setTimeout(function () { waitGrid(n + 1); }, 150); })(0);
 })();
 /* ===========================================================================
    §5bz — AUDIT FIXES (28 IX 2026): what five agents tripped over when they
@@ -29485,6 +29512,11 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
 .s5by-mn{color:var(--muted);font-variant-numeric:tabular-nums}
 /* the Source lists box, now in Reference */
 #tab-overview .sec-body > .jsonbox{margin-top:14px}
+#tab-overview .jsonbox:not([data-s5by]){display:none}
+.s5bk-top{grid-template-areas:"sum src" "sum ms" "sum tech" "act act" "tl tl"}
+.s5bk-top>section.s5bz-src{grid-area:src;padding:0;border:0;background:none}
+.s5bk-top>section.s5bz-src>.jsonbox{margin:0}
+@media (max-width:980px){.s5bk-top{grid-template-areas:"sum" "src" "tech" "act" "tl" "ms"}}
 /* jump row in a catalog panel */
 .s5by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px;padding:8px 10px;border:1px solid var(--border);
  border-radius:8px;background:var(--surface-2)}
