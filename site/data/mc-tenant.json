@@ -1,7 +1,7 @@
 {
  "read": "2026-09-28",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 713,
+ "count": 716,
  "note": null,
  "messages": [
   {
@@ -12889,7 +12889,7 @@
   },
   {
    "id": "MC1472592",
-   "title": "Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
+   "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
    "services": [
     "Microsoft Purview"
    ],
@@ -12899,14 +12899,15 @@
    "actionBy": null,
    "start": "2026-09-15",
    "end": "2026-11-22",
-   "modified": "2026-09-15",
+   "modified": "2026-09-28",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview Data Lifecycle Management is increasing the maximum auto-expanding archive capacity for eligible Exchange Online archive mailboxes from 1.5 TB to 3 TB. This enhancement helps organizations retain and manage larger volumes of archived email content without requiring manual archive expansion processes or support requests. Eligible mailboxes with auto-expanding archiv…",
-   "bodyHash": "1e3351b5b84d5c01"
+   "summary": "Updated September 28, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management is increasing the maximum auto-expanding archive capacity for eligible Exchange Online archive mailboxes from 1.5 TB to 3 TB. This enhancement helps organizations retain and manage larger volumes of archived email content without requiring manual archive …",
+   "bodyHash": "7fd46c956e39535e"
   },
   {
    "id": "MC1472598",
@@ -14253,7 +14254,7 @@
   },
   {
    "id": "MC1479512",
-   "title": "Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
+   "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
    "services": [
     "Microsoft Teams"
    ],
@@ -14263,14 +14264,15 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-10-31",
-   "modified": "2026-09-25",
+   "modified": "2026-09-28",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] We are updating how Microsoft Teams Events capabilities are organized by license type. Teams Events capabilities will be grouped into foundational event features and advanced event features. This update clarifies which licenses map to each category, attendee limits, and the relationship between Teams Enterprise and Teams Premium licensing. Foundational event features are available …",
-   "bodyHash": "9ce733388ec5d57d"
+   "summary": "Updated September 28, 2026: We have updated the content. Thank you for your patience. [What and Why:] We are updating how Microsoft Teams Events capabilities are organized by license type. Teams Events capabilities will be grouped into foundational event features and advanced event features. This update clarifies which licenses map to each category, attendee limits, and the relationship between Te…",
+   "bodyHash": "1f12bde7be8bad5b"
   },
   {
    "id": "MC1479513",
@@ -14352,6 +14354,66 @@
    ],
    "summary": "[What and Why:] SharePoint is adding support for HTML pages. Users will be able to create HTML pages with Copilot in SharePoint or upload HTML from another source. After an HTML page is stored in the Site Pages library, users can render it as a page in SharePoint, make additional edits, publish it, and share it with their audience. This gives organizations another way to present content alongside …",
    "bodyHash": "98a5ccbadc68342c"
+  },
+  {
+   "id": "MC1480869",
+   "title": "Microsoft 365 settings enabled by default for newly created Engage communities",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-10-30",
+   "modified": "2026-09-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Viva Engage is updating newly created Engage communities so Microsoft 365 group settings for community member calendar and email subscriptions are enabled by default. This change helps community members receive community emails and calendar invitations by default for newly created communities, supporting awareness and participation in new Engage communities. [Rollout Sche…",
+   "bodyHash": "8d24b127ba8d67be"
+  },
+  {
+   "id": "MC1480870",
+   "title": "New SharePoint Mobile Experience on iOS and Android",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-11-30",
+   "modified": "2026-09-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] The SharePoint mobile app for iOS and Android is redesigned around the personalized SharePoint Discover experience, bringing your most relevant files, sites, people, and news together in one place, with improved site browsing, in-app file previews, refreshed news and search, dark mode, and better performance. [Rollout Schedule:] General Availability (Worldwide, GCC, GCC High, DoD):…",
+   "bodyHash": "b1001a294b8ae966"
+  },
+  {
+   "id": "MC1480873",
+   "title": "Connected Platforms - Agent 365 extends observability to third-party agents",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-11-30",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] With this Frontier launch, Microsoft Agent 365 brings activity from Amazon Bedrock Classic and AgentCore, Google Vertex AI, and Anthropic Claude Managed Agents (preview) into the same observability experience as Microsoft agents. Administrators can see runs, sessions, tool calls, and exceptions on each agent’s Activity tab. The result: a more consistent way to understand agent usag…",
+   "bodyHash": "754256f647485720"
   },
   {
    "id": "MC676299",
@@ -14678,6 +14740,85 @@
    "id": "MC1456781",
    "type": "removed",
    "title": "Public preview: Manage agents across multiple tenants from the Microsoft 365 admin center",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1472592",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
+   "fields": {
+    "title": [
+     "Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
+     "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "1e3351b5b84d5c01",
+     "7fd46c956e39535e"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1479512",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
+     "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "9ce733388ec5d57d",
+     "1f12bde7be8bad5b"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1480869",
+   "type": "new",
+   "title": "Microsoft 365 settings enabled by default for newly created Engage communities",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1480870",
+   "type": "new",
+   "title": "New SharePoint Mobile Experience on iOS and Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-28",
+   "id": "MC1480873",
+   "type": "new",
+   "title": "Connected Platforms - Agent 365 extends observability to third-party agents",
    "fields": {}
   }
  ]
