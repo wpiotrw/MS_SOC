@@ -29,6 +29,12 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 
 ## Jak sie tego uzywa
 
+0. **Od 28 IX 2026 tego pliku NIE CZYTA SIE W CALOSCI.** Ma ok. 1,9 MB, czyli ok. 600 tys. tokenow —
+   wiecej niz okno kontekstu przebiegu; poranny routine 28 IX stanal po 14 s z „Context window was
+   full", bo Claude Code ladowal go automatycznie. Plik jest wylaczony z automatycznego ladowania
+   (`.claude/settings.json`, `claudeMdExcludes`), a `.claude/rules/ms-soc-spec.md` mowi, jak czytac
+   sekcje po zakresie linii. Ponizszy punkt 1 znaczy odtad: przeczytaj CALA liste §0 i KAZDA sekcje,
+   ktora wymienia prompt albo mapa specyfikacji — po zakresie linii, nigdy calego pliku naraz.
 1. **Przeczytaj ten plik w calosci, zanim cokolwiek zbudujesz** — nie tylko sekcje, ktore prompt
    wymienil z numeru.
 2. **Przejdz ponizsza liste pozycja po pozycji i zapisz wynik kazdej.** Pozycja niewykonana ma
