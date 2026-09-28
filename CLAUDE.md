@@ -11649,7 +11649,24 @@ def curl(url, timeout=30):
     except Exception:
         return ""
 
-def doc(repo, path, depth=0):
+def learn_text(url):
+    """§5cc (29 IX 2026): the PUBLISHED page as markdown-shaped text — `## ` / `### ` headings,
+    one line per paragraph, list item and table row — for when neither the clone nor
+    raw.githubusercontent answers. Measured that day: `defender-docs` answers "Repository not
+    found", so MDI and MDE were `unread` from 24 IX to 28 IX while learn.microsoft.com carried
+    both pages (MDI 2.255.19295.47272, MDE platform 4.18.26080.3, engine 1.1.26090.3000)."""
+    h = curl(url, 40)
+    a = h.find("<main"); b = h.find("</main>", a)
+    if a < 0: return ""
+    h = h[a:b if b > 0 else len(h)]
+    h = re.sub(r"(?is)<(script|style|nav|aside)[^>]*>.*?</\1>", "", h)
+    h = re.sub(r"(?is)<h2[^>]*>", "\n## ", h); h = re.sub(r"(?is)<h3[^>]*>", "\n### ", h)
+    h = re.sub(r"(?is)<h4[^>]*>", "\n#### ", h)
+    h = re.sub(r"(?i)<(br|/p|/li|/tr|/h\d|/td|/th|/div)[^>]*>", "\n", h)
+    t = html.unescape(re.sub(r"<[^>]+>", " ", h))
+    return "\n".join(re.sub(r"[ \t]+", " ", l).strip() for l in t.split("\n") if l.strip())
+
+def doc(repo, path, depth=0, url=None):
     """Tresc pliku dokumentacji plus sposob odczytu. PODAZAMY za `[!INCLUDE]`:
     `cloud-sync/reference-version-history.md` ma 426 bajtow i jest samym odnosnikiem,
     a sklejanie sciezki ze zgadnietego sluga jest tym, czego zabrania 5i."""
@@ -11665,6 +11682,11 @@ def doc(repo, path, depth=0):
     if not md:
         how = "raw"
         md = curl("https://raw.githubusercontent.com/MicrosoftDocs/%s/main/%s" % (repo, path))
+        # a closed mirror answers raw with "404: Not Found" — that is not the page
+        if md.strip().startswith("404") or len(md) < 200: md = ""
+    if not md and url:
+        how = "learn.microsoft.com"
+        md = learn_text(url)
     # Podazamy za `[!INCLUDE]` TYLKO wtedy, gdy strona jest samym odnosnikiem.
     # `cloud-sync/reference-version-history.md` ma 426 bajtow i nic wlasnego; strona
     # wydan MDE ma 80 kB TRESCI i takze jeden `[!INCLUDE]` w srodku - podazenie za nim
@@ -11699,7 +11721,7 @@ OUT, WARN = [], []
 # Biezaca wersja to PIERWSZY naglowek `## <n.n.n.n>`, a tabela wycofan daje TERMIN:
 # wiersz z pusta data konca wsparcia jest wersja biezaca, kazdy inny niesie date.
 U = "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history"
-md, how = doc("entra-docs", "docs/identity/hybrid/connect/reference-connect-version-history.md")
+md, how = doc("entra-docs", "docs/identity/hybrid/connect/reference-connect-version-history.md", url=U)
 m = re.search(r"^##\s+(\d+\.\d+\.\d+\.\d+)\s*$", md, re.M)
 eos = {}
 for line in md.split("\n"):
@@ -11731,7 +11753,7 @@ if cur: OUT[-1]["how"] = how
 
 # ---------- Cloud Sync provisioning agent ----------
 U = "https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/reference-version-history"
-md, how = doc("entra-docs", "docs/identity/hybrid/cloud-sync/reference-version-history.md")
+md, how = doc("entra-docs", "docs/identity/hybrid/cloud-sync/reference-version-history.md", url=U)
 m = re.search(r"^##\s+(\d+\.\d+\.\d+\.\d+)\s*$", md, re.M)
 OUT.append(comp("entra-cloud-sync-agent", "Entra cloud sync provisioning agent",
                 "Cloud sync agent on the domain-joined host", "windows-server",
@@ -11741,7 +11763,7 @@ OUT[-1]["how"] = how
 
 # ---------- GSA Windows client ----------
 U = "https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history"
-md, how = doc("entra-docs", "docs/global-secure-access/reference-windows-client-release-history.md")
+md, how = doc("entra-docs", "docs/global-secure-access/reference-windows-client-release-history.md", url=U)
 m = re.search(r"^##\s+(?:Version\s+)?(\d+\.\d+\.\d+)", md, re.M)
 OUT.append(comp("gsa-windows-client", "Global Secure Access Windows client",
                 "Endpoint client for Internet and Private Access", "windows",
@@ -11751,7 +11773,7 @@ OUT[-1]["how"] = how
 
 # ---------- MDI sensor ----------
 U = "https://learn.microsoft.com/en-us/defender-for-identity/whats-new"
-md, how = doc("defender-docs", "defender-for-identity/whats-new.md")
+md, how = doc("defender-docs", "defender-for-identity/whats-new.md", url=U)
 m = re.search(r"\b(2\.\d+\.\d+\.\d+)\b", md)
 OUT.append(comp("mdi-sensor", "Defender for Identity sensor",
                 "Sensor on domain controllers, AD FS, AD CS and Entra Connect hosts",
@@ -11762,7 +11784,7 @@ OUT[-1]["how"] = how
 # ---------- MDE: TRZY strumienie, nigdy zwiniete w jeden ----------
 # 5ag: przy jednej wartosci nie wiadomo, czy to sensor, silnik, czy sygnatury.
 U = "https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases"
-md, how = doc("defender-docs", "defender-endpoint/microsoft-defender-endpoint-releases.md")
+md, how = doc("defender-docs", "defender-endpoint/microsoft-defender-endpoint-releases.md", url=U)
 pf = re.search(r"Platform.{0,40}?(\d+\.\d+\.\d+\.\d+)", md, re.S)
 en = re.search(r"Engine.{0,40}?(1\.1\.\d+\.\d+)", md, re.S)
 si = re.search(r"[Ss]ecurity intelligence.{0,60}?(1\.\d{3}\.\d+\.\d+)", md, re.S)
@@ -11914,12 +11936,29 @@ if _pf:
         prev = {}
 def vmap(c2):
     return {v.get("stream") or v.get("platform"): v.get("version") for v in (c2.get("versions") or [])}
+def _readv(c2):
+    v = ((c2.get("versions") or [{}])[0] or {}).get("version")
+    return v if v and v != "not read in this run" else None
+def _last_read(cid):
+    for f in _data_files(_DDIR):
+        try: st3 = _load_state(f)
+        except Exception: continue
+        for c3 in (st3.get("components") or []):
+            if c3.get("id") == cid and c3.get("state") != "unread" and _readv(c3):
+                c3 = dict(c3); c3["_day"] = os.path.basename(f)[:10]; return c3
+    return None
 for c2 in OUT:
     if c2["versions"][0]["version"] is None:
         c2["state"] = "unread"
         WARN.append((c2["id"], c2["note"]))
         continue
     p2 = prev.get(c2["id"])
+    # §5cc (29 IX 2026): a component that was `unread` yesterday is compared with the LAST DAY
+    # IT WAS READ, not with nothing. MDI and MDE were unread 24-28 IX (closed mirror); read again
+    # on 29 IX, MDI 2.255.19295.47272 is the same sensor as on 23 IX — "new version" would be false.
+    if p2 and (p2.get("state") == "unread" or not _readv(p2)):
+        p2 = _last_read(c2["id"])
+        if p2: c2["comparedWith"] = p2.get("_day")
     if not p2:
         c2["state"] = "baseline" if not prev else "backfilled"
     else:
@@ -11955,7 +11994,9 @@ def last_change(OUT, data_dir, today):
             for d, m in hist:
                 p = m.get(c2.get("id")) or {}
                 pv = ((p.get("versions") or [{}])[0] or {}).get("version")
-                if pv is None:
+                # §5cc: a day the component was NOT read is not a version ("not read in this run"
+                # was printed as the old version of MDI and MDE on 29 IX)
+                if pv is None or pv == "not read in this run" or p.get("state") == "unread":
                     continue
                 if pv == v:
                     newer = d
@@ -24864,6 +24905,14 @@ Trzy listy JSON — kto je czyta i co pilnuje, ze nowy wpis jest czytany:
 Wszystkie trzy czytaja plik z `utf-8-sig` (lista zapisana z Notatnika/PowerShella zaczyna sie od BOM,
 a czyste `utf-8` konczylo caly odczyt bledem) i pomijaja wpis bez nazwy lub adresu zamiast sie
 wywrocic.
+
+**Component versions (P2, 29 IX)**: `collect_components.py doc()` ma trzecia droge — gdy klon i
+raw.githubusercontent milcza (`defender-docs`: „Repository not found", raw: „404: Not Found"),
+czyta opublikowana strone (`learn_text(url)`, naglowki jako `## `). MDI i MDE byly `unread` od 24 do
+28 IX; 29 IX: MDI 2.255.19295.47272 (ten sam sensor co 23 IX — `no-change`), MDE platform
+4.18.26080.3, engine 1.1.26080.3 → 1.1.26090.3000 (`new-version`). Komponent nieodczytany wczoraj
+porownuje sie z OSTATNIM dniem odczytu (`comparedWith`), a dzien `unread` nie jest wersja w
+`lastChange` (29 IX tabela pokazala „from: not read in this run").
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
