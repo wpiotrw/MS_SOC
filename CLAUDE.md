@@ -1260,7 +1260,8 @@ CLASS_A = {"73","15a","15b","15c","16a","16b","16c","19","20","23a","23b","23c",
 CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64","65","66","67",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
-           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114"}
+           "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114",
+           "116","117","118"}   # 116-118: §5by, 28 IX 2026
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -1272,7 +1273,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
 # pozycji 57 nie byla tu wymieniona i bramka odrzucila przebieg w dniu, w ktorym migawki
 # jeszcze nie moglo byc — asercja, ktora sama zabija poprawny przebieg, jest gorsza niz
 # jej brak (§0b). Pozycja przechodzi do CLASS_A dopiero, gdy tryb `assemble` od niej zalezy.
-CLASS_INFO = {"57", "79", "98", "115"}   # 115: §5bs, raportowane od 27 IX 2026
+CLASS_INFO = {"57", "79", "98", "115", "119"}   # 115: §5bs, raportowane od 27 IX 2026; 119: §5by
 
 # ---- 0f: rejestr uzgodnien. Bramka sprawdza, czy zbudowano to, co ZAPISANO, i z definicji
 # nigdy nie powie, ze czegos nie zapisano — 13 wrzesnia 2026 dwie uzgodnione zakladki nie
@@ -2816,6 +2817,38 @@ def gate(path, site=None, mirror=False, doc=None):
          else "readOn %s przy briefDate %s; commit %s; uprawnien %d"
               % (_gd115.get("readOn"), _bd4, _gd115.get("to"), len(_gd115.get("perms") or {})))
 
+    # ---- 116: Message Center z KODU (§5bo pkt 5, §5by). KLASA B. 28 IX 2026 przebieg nie
+    # uruchomil collect_mc.py (brak `mc.collector`): 812 wpisow bez uslug i kategorii, choc
+    # regula istniala od 26 IX — i zadna pozycja tego nie sprawdzala.
+    _mc116 = ((st["soc-brief-state"] or {}).get("mc") or {})
+    _col116 = _mc116.get("collector") or {}
+    need("116", "lista Message Center z collect_mc.py: `mc.collector` z readOn = briefDate (§5bo, §5by)",
+         bool(_col116) and _col116.get("readOn") == _bd4,
+         "brak `mc.collector` — lista MC przepisana recznie, collect_mc.py nie uruchomiony" if not _col116
+         else "collector.readOn %s przy briefDate %s" % (_col116.get("readOn"), _bd4))
+
+    # ---- 117: nazwy zakladek nie sa escapowane dwa razy (§5by). KLASA B.
+    # 28 IX 2026 pasek pokazal "Hunting &amp; actions": data-tab="Hunting &amp;amp; actions".
+    _dbl117 = re.findall(r'data-tab="[^"]*&amp;(?:amp|lt|gt|quot);[^"]*"', h)
+    need("117", "nazwy zakladek (`data-tab`) bez podwojnego escapowania (§5by)",
+         not _dbl117, "podwojnie escapowane: %s" % ", ".join(_dbl117[:3]))
+
+    # ---- 118: przebieg czytelnosci §5by (pasek, ramka list, skoki w panelu, nazwane ID,
+    # MC: swiezosc, siatka dni, kolumny; siatka w przegladarkach artykulow). KLASA B.
+    K118 = ('function moveJsonBox(', 'function nameIds(', 'function renderGrid(', 'function mergeTenant(',
+            'function renderFresh(', '.s5by-jump{', '.mcb-colhead,.mcb-head{', 'function kindOf(', 'var FPSRC =')
+    need("118", "przebieg czytelnosci: pasek w jednej linii, ramka Source lists, skoki w panelu, typy przy ID, MC z tenantem i siatka dni (§5by)",
+         all(k in h for k in K118), "brak: %s" % ", ".join(k for k in K118 if k not in h))
+
+    # ---- 119: strony what's new Learn (§5by). INFORMACYJNA. 28 IX 2026 lustra git daly wpisy
+    # dla 2 z 10 obszarow, a Intune konczyl sie na 26 VIII przy wrzesniowej stronie.
+    _wn119 = ((st["soc-brief-state"] or {}).get("nt") or {}).get("wnMeta") or []
+    _ok119 = [w for w in _wn119 if w.get("entries")]
+    need("119", "strony what's new: co najmniej 6 obszarow z wpisami, czytane takze z learn.microsoft.com (§5by)",
+         len(_ok119) >= 6,
+         "obszary z wpisami: %d z %d (%s)" % (len(_ok119), len(_wn119),
+             ", ".join("%s:%s" % (w.get("area", "").replace("Microsoft Learn - ", ""), w.get("via") or w.get("status")) for w in _wn119[:12])))
+
     # 79: rejestr uzgodnien (0f). INFORMACYJNA i drukowana ZAWSZE — takze gdy reszta jest zielona.
     _reg_ok, _reg_detail = print_register(read_register(_docpath))
     if not _reg_ok:
@@ -3408,6 +3441,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZASPECYFIKOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
 | `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZASPECYFIKOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
 | `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZASPECYFIKOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** |
+| `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZASPECYFIKOWANE` | §5by, pozycje 116-119. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 
 
 
@@ -20487,6 +20521,38 @@ def abs_url(target,area_url,repo_path):
     except ValueError: pass
     return re.sub(r"/whats-new.*$","",area_url.rstrip("/")).rstrip("/")+"/"+"/".join(seg)
 
+import urllib.parse
+UA_WN="Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+def learn_md(url):
+    """The PUBLISHED what's-new page as markdown-shaped text for parse_whatsnew (5by, 28 IX 2026).
+    <h2>/<h3>/<h4>/<p>/<li>/<tr> of <main> become `## `/`### `/`#### `/text/`- `/`|a|b|`, links stay
+    [text](url) and <strong> stays **bold**, so the three page shapes parse_whatsnew knows are kept."""
+    try:
+        h=subprocess.run(["curl","-sS","--compressed","-L","--max-time","40","-A",UA_WN,url],
+                         capture_output=True,text=True,timeout=50).stdout
+    except Exception: return None,None
+    if not h or "<main" not in h: return None,None
+    m=re.search(r'ms\.date"\s*content="(\d{4}-\d{2}-\d{2})',h)
+    msd=m.group(1) if m else None
+    a=h.find("<main"); b=h.find("</main>",a); body=h[a:b if b>0 else len(h)]
+    body=re.sub(r"(?is)<(script|style|nav|aside)[^>]*>.*?</\1>","",body)
+    def txt(x):
+        x=re.sub(r'(?is)<a\s[^>]*href="([^"]+)"[^>]*>(.*?)</a>',
+                 lambda m:"["+re.sub(r"<[^>]+>","",m.group(2)).strip()+"]("+urllib.parse.urljoin(url,html.unescape(m.group(1)))+")",x)
+        x=re.sub(r"(?is)<(strong|b)>(.*?)</\1>",r"**\2**",x)
+        x=re.sub(r"<[^>]+>","",x); return re.sub(r"\s+"," ",html.unescape(x)).strip()
+    out=[]
+    for m in re.finditer(r"(?is)<(h2|h3|h4|p|li|tr)\b[^>]*>(.*?)</\1>",body):
+        tag=m.group(1).lower(); t=m.group(2)
+        if tag=="tr":
+            cells=[txt(c) for c in re.findall(r"(?is)<t[hd]\b[^>]*>(.*?)</t[hd]>",t)]
+            if cells: out.append("|"+"|".join(cells)+"|")
+            continue
+        s=txt(t)
+        if s: out.append({"h2":"## ","h3":"### ","h4":"#### ","p":"","li":"- "}[tag]+s)
+    fm="---\nms.date: %s\n---\n"%("%s/%s/%s"%(msd[5:7],msd[8:10],msd[:4]) if msd else "")
+    return fm+"\n".join(out),msd
+
 def parse_whatsnew(md,area,url,repo_path):
     """Trzy ksztalty stron `what's new` Microsoftu, zmierzone na dziesieciu obszarach:
        1. `## Month Year` -> `### Tytul` -> akapit            (MDI, Sentinel, Entra, Exposure, MDCA, Unified)
@@ -20663,14 +20729,33 @@ def main():
             continue
         repo,path,url=WN[key]
         md=git(os.path.join("repos",repo),"show","HEAD:"+path,timeout=90)
-        if not md:
-            wnmeta.append({"area":key,"repo":repo,"page":path,"status":"page not in mirror",
-                "entries":0,"msDate":None,"headDate":None,"url":url}); continue
-        ent,msdate=parse_whatsnew(md,AREA_SHORT[key],url,path)
-        head=git(os.path.join("repos",repo),"log","-1","--format=%cI","--",path,timeout=60)[:10] or None
+        ent,msdate=parse_whatsnew(md,AREA_SHORT[key],url,path) if md else ([],None)
+        head=(git(os.path.join("repos",repo),"log","-1","--format=%cI","--",path,timeout=60)[:10] or None) if md else None
+        # §5by (28 IX 2026): the PUBLISHED page is read too, and the newer of the two wins.
+        # Measured that day: the git mirrors gave entries for 2 of 10 areas (8 x "page not in
+        # mirror"), and Intune's mirror stopped at 26 Aug while learn.microsoft.com carried four
+        # September weeks (ms.date 24 Sep). The Learn page gave all ten areas, September included.
+        hmd,hdate=learn_md(url)
+        hent=parse_whatsnew(hmd,AREA_SHORT[key],url,path)[0] if hmd else []
+        def newest(e): return max((x["year"]*100+x["month"] for x in e),default=0)
+        via="git mirror"
+        if hent and (newest(hent)>newest(ent) or (newest(hent)==newest(ent) and len(hent)>len(ent))):
+            ent,msdate,via=hent,hdate,"learn.microsoft.com"
+        if not ent:
+            wnmeta.append({"area":key,"repo":repo,"page":path,"status":"page not in mirror" if not md else "no entries parsed",
+                "entries":0,"msDate":None,"headDate":head,"url":url,"via":None,
+                "note":"published page %s" % ("read, nothing parsed" if hmd else "not read")}); continue
         wnmeta.append({"area":key,"repo":repo,"page":path,"status":"ok","entries":len(ent),
-                       "msDate":msdate,"headDate":head,"url":url})
+                       "msDate":msdate,"headDate":head,"url":url,"via":via})
         changes.extend(ent)
+    # one page can sit under two areas (Unified Security Operations redirects to Defender XDR's
+    # what's new): the same entry is listed once, under the first area that carried it
+    _seen=set(); _dd=[]
+    for c in changes:
+        k=(c["title"].lower(),c["year"],c["month"])
+        if k in _seen: continue
+        _seen.add(k); _dd.append(c)
+    changes=_dd
 
     # powiazanie z blogami: po TAGU, i wiersz mowi ktora droga (`how`)
     bytag=collections.defaultdict(list)
@@ -23724,6 +23809,70 @@ Learn 8 309 → 5 033 (telefon 11 949 → 5 147), Blogs 1 964 → 1 330, Roles p
 (panel User Administrator 20 057 → 2 726). Znacznik „przeczytane" przetrwal przeladowanie strony
 (Unread 533 → 531 po dwoch klikach). 0 bledow konsoli, brak przewijania w bok; bramka bez nowych pozycji.
 
+## 5by. PRZEBIEG CZYTELNOSCI I SWIEZOSCI (28 IX 2026)
+
+Wlasciciel, 28 IX 2026, po udanym przebiegu porannym — szesc punktow i dwa dopiski, kazdy
+zmierzony na opublikowanej stronie przed zmiana:
+
+1. **Ramka `Source lists` zniknela z Overview.** Nie zniknela: SKRYPT 15 v2 ja budowal, ale §5bk
+   wstawil ja do zwinietej „Collection health" na samym dole. §5by przenosi ja (tylko przenosi)
+   do sekcji „Reference — catalogs, versions and sources", ktora jest otwarta.
+2. **Pasek zakladek „rozstrzelony".** Przy 1280-1500 px 15 zakladek w pigulkach zawijalo sie
+   w trzy linie, a etykieta brzmiala `Hunting &amp; actions` (w powloce `data-tab` byl escapowany
+   DWA razy). Teraz na ekranie > 760 px: dwa rowne rzedy (grupy TODAY/CHANGES i SOURCES/ACT)
+   z wyrownanymi etykietami grup, zwarte zakladki, ZADEN rzad sie nie zawija — co sie nie
+   miesci, trafia do menu „More · n ▾", ktore KLIKA prawdziwe przyciski (SKRYPT 4 zostaje
+   jedynym wlascicielem przelaczania); aktywna zakladka jest zawsze widoczna. Telefon bez zmian
+   (§5br). Nazwy escapowane dwa razy sa naprawiane na stronie, a pozycja **117** ich pilnuje.
+3. **Gole identyfikatory** („571879 — domyslilem sie, ze to MC"). Pasek §5bn prowadzi teraz
+   TYTULEM (link do zrodla), przed nim RODZAJ (Message Center, Microsoft 365 Roadmap, Security
+   update (CVE), Microsoft Learn, Graph docs, Entra news, blog, Graph permission, Role…),
+   po nim produkt i identyfikator malym drukiem (`kindOf`, wspolne jako `window.__socKind`).
+   Ten sam problem byl w notach sekcji („Continued: `graph-threathunting-…`"): kazdy `code`,
+   ktory jest DOKLADNIE id pozycji briefu, staje sie linkiem z rodzajem i tytulem.
+   Pasek w Microsoft Blogs pokazuje wpisy datowane po poprzednim briefie zamiast odsylacza.
+4. **Message Center: „Week of 21 Sep", a dzis 28.** Zmierzone: najnowszy wpis we WSZYSTKICH
+   zrodlach, lacznie z tenantem przez Graph, to piatek 25 IX — Microsoft nic nie opublikowal
+   w weekend, lista BYLA aktualna, ale strona tego nie mowila. Teraz linia swiezosci: najnowszy
+   wpis, kiedy listy czytal brief, kiedy czytano tenant; naglowki tygodni z zakresem dni
+   („Week of 21–27 Sep 2026"). Wiersz niesie na wierzchu: Date · Change (New / Updated) · ID ·
+   Title · Service · Category (+ flagi); „(Updated)" z tytulu przechodzi do kolumny Change.
+   **Przyczyna braku uslug:** przebieg 28 IX NIE uruchomil `collect_mc.py` (brak `mc.collector`,
+   812 wpisow bez `tech`/`category`), choc §5bo tego wymaga — pozycja **116** (klasa B) teraz
+   to blokuje. Niezaleznie od przebiegu przegladarka na opublikowanej stronie czyta
+   `/data/mc-tenant.json` (Graph, co 3 h) i uzupelnia uslugi, kategorie, wage, major, tagi,
+   streszczenie Microsoftu, daty rewizji i terminy; posty, ktorych brief nie niosl, dochodza
+   z `origin: tenant` i NIGDY nie licza sie jako „new since previous brief".
+5. **Statystyki per dzien.** Message Center: siatka „Day by day" — 7 ostatnich dni x usluga,
+   w komorce „n new" i „n upd"; klik filtruje liste do dokladnie tych postow (zielony baner,
+   §5av), zero nie jest linkiem, weekend widac celowo. Community i Blogs: dzien x zrodlo/blog;
+   Learn: miesiac x obszar (Microsoft datuje wpisy what's new miesiacami).
+6. **Zbieranie danych vs to, co pokazywalem.** Oprocz punktu 4: `collect_nt.py` czytal strony
+   what's new TYLKO z luster git — 28 IX wpisy mialy 2 z 10 obszarow (8 x „page not in mirror"),
+   a lustro Intune konczylo sie 26 VIII, gdy learn.microsoft.com mial cztery tygodnie wrzesnia
+   (ms.date 24 IX). Teraz kolektor czyta takze OPUBLIKOWANA strone (`learn_md`) i bierze
+   nowsze zrodlo (`via` w `wnMeta`); zmierzone: wszystkie 10 obszarow, wrzesien 2026 w 8.
+   Pozycja **119** (informacyjna) raportuje pokrycie.
+7. **Dopisek: „Apps that hold it — gdzie to jest?"** Bylo, zwiniete pod 267 endpointami. Kazdy
+   panel uprawnienia i roli dostaje wiersz skokow „In this panel" (sekcje z licznikami);
+   klik otwiera i przewija.
+8. **Dopisek: First-party apps.** Plus byl domyslnym przyciskiem przegladarki (inny niz w reszcie
+   portalu), a szczegol byl sciana chipow w jednym ciagu (Azure AD PowerShell: 18 zakresow Graph
+   i 259 innych API). Teraz przycisk jak w calym portalu, szczegol to lista definicji
+   (wlasciciel, logowanie, zrodla) i TABELE: uprawnienia Graph pogrupowane poziomem Microsoftu
+   z opisem „What it allows", inne API po jednym wierszu (pierwsze 12, reszta na klik).
+
+Kod: blok §5by na koncu SKRYPTU 17 (pasek, ramka, skoki, nazwane ID), zmiany w blokach §5bn,
+§5bp, §5bw i w rendererze First-party apps; CSS: blok §5by po §5bw–§5bx; `learn_md` w
+`collect_nt.py`; pozycje 116-119 w `gate.py`.
+
+Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX z podmienionym kodem (1500 / 1366 / 1280 /
+1024 / 390 px, oba motywy): pasek — kazdy rzad 32 px, zero zawiniec; 1366 px: 1 zakladka w „More",
+1280 px: 2, 1024 px: 6; `&amp;` nigdzie; ramka Source lists widoczna (nie w zwinietym
+`details`); siatka MC: 55 nowych i 35 zaktualizowanych w 7 dni, klik „8 new 22 Sep" daje 8 wierszy;
+linia swiezosci z tenantem (726 postow); panel Group.ReadWrite.All: 8 skokow, „Apps that hold it 24"
+otwiera sie i przewija; 191 nazwanych identyfikatorow; 0 bledow konsoli, brak przewijania w bok.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -24373,6 +24522,24 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 #tab-fpa .stats button.stat{font:inherit;text-align:left;cursor:pointer}
 #tab-fpa .s9find{margin:10px 0}
 #tab-fpa>section{margin-top:18px}
+/* §5by (28 IX 2026): the + is the portal's expander (22 px, accent square), and the detail is tables */
+#tab-fpa button.mc-x{font:700 15px/1 var(--mono);width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;cursor:pointer;padding:0;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+#tab-fpa button.mc-x:hover{background:var(--accent);color:var(--on-accent)}
+#tab-fpa button.mc-x[aria-expanded="true"]{background:var(--accent);color:var(--on-accent)}
+#tab-fpa .fpa-det{gap:10px;padding:10px 6px 14px;max-width:1100px}
+#tab-fpa .fpa-meta{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 16px;margin:0;font-size:13px}
+#tab-fpa .fpa-meta dt{color:var(--muted)}
+#tab-fpa .fpa-meta dd{margin:0;overflow-wrap:anywhere}
+#tab-fpa .fpa-h{margin:6px 0 0;font-size:13.5px}
+#tab-fpa .fpa-tw{max-width:100%;overflow-x:auto}
+#tab-fpa table.fpa-ptab{width:100%;border-collapse:collapse;font-size:13px}
+#tab-fpa table.fpa-ptab th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:5px 8px;border-bottom:1px solid var(--border)}
+#tab-fpa table.fpa-ptab td{padding:5px 8px;border-bottom:1px solid var(--border-soft,var(--border));vertical-align:top;background:transparent!important}
+#tab-fpa table.fpa-ptab tr.fpa-grp td{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)!important}
+#tab-fpa .fpa-pn{font-size:12.5px;font-weight:600;white-space:nowrap}
+#tab-fpa .fpa-sn{font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+#tab-fpa table.fpa-ptab td.num{text-align:right;font-variant-numeric:tabular-nums;width:60px}
 ```
 
 ### SKRYPT 17 — na koniec `<body>`, jako SIEDEMNASTY blok `<script>`
@@ -26185,36 +26352,74 @@ odtad CZTERNASCIE (4-17).**
       return true;
     }
     function lvlBadge(n) { return n ? el("span", "badge " + (n >= 4 ? "b-dep" : n === 3 ? "b-prev" : "b-upd"), "L" + n) : el("span", "as-muted", "—"); }
+    /* §5by (28 IX 2026), owner: "everything in one line, you can't tell what it means" — the
+       detail was a wall of chips (Azure AD PowerShell: 18 Graph scopes and 259 other APIs as
+       one flow). Now: a definition list for who owns and signs in, a TABLE of Graph permissions
+       grouped by Microsoft's level with what each allows, and other APIs as one row each,
+       the first 12 shown. Tables here belong to this block (data-s11), SCRIPT 11 leaves them. */
+    var FPSRC = { gpc: "Graph Pre-Consent Explorer", roadtools: "ROADtools", tenant: "our tenant", merill: "merill/microsoft-info", entrascopes: "EntraScopes" };
     function detail(a) {
       var d = el("div", "fpa-det");
-      var meta = el("p", "mc-text");
-      meta.textContent = "Owner tenant: " + (a.o ? (TEN[a.o] || "") + " " + a.o : "not stated") + " · sign-in: " + [a.pub ? "public client" : a.sc ? "confidential client" : "", a.ac ? "auth code" : "", a.dc ? "device code" : "", a.foci ? "FOCI" : ""].filter(Boolean).join(", ") + " · listed in: " + a.src.join(", ");
-      d.appendChild(meta);
+      var dl = el("dl", "fpa-meta");
+      function kv(k, v) { if (!v) return; dl.appendChild(el("dt", null, k)); dl.appendChild(el("dd", null, v)); }
+      kv("Owner tenant", a.o ? ((TEN[a.o] || "") + " " + a.o).trim() : "not stated");
+      kv("Sign-in", [a.pub ? "public client" : a.sc ? "confidential client" : "", a.ac ? "authorization code" : "", a.dc ? "device code" : "", a.foci ? "FOCI family (shares refresh tokens)" : ""].filter(Boolean).join(" · "));
+      kv("Listed in", (a.src || []).map(function (x) { return FPSRC[x] || x; }).join(", "));
+      if (a.nru) kv("Redirect URIs", a.nru + (a.ru && a.ru.length ? " · brokers: " + a.ru.join(", ") : ""));
+      d.appendChild(dl);
+      function table(cols) {
+        var w = el("div", "tw fpa-tw"), t = el("table", "fpa-ptab"); t.setAttribute("data-s11", "1");
+        var h = el("thead"), r = el("tr"); cols.forEach(function (c) { r.appendChild(el("th", null, c)); }); h.appendChild(r); t.appendChild(h);
+        var b = el("tbody"); t.appendChild(b); w.appendChild(t); return { w: w, b: b };
+      }
       var gk = Object.keys(a.graph).sort(function (x, y) { return lvl(y) - lvl(x) || (x < y ? -1 : 1); });
       if (gk.length) {
-        d.appendChild(el("p", "fpa-h", "Microsoft Graph · " + gk.length + " permissions"));
-        var c = el("div", "fpa-chips");
+        d.appendChild(el("p", "fpa-h", "Microsoft Graph — " + gk.length + " delegated permission" + (gk.length === 1 ? "" : "s") + " the app obtains for a signed-in user without a consent prompt"));
+        var T = table(["Permission", "Level", "What it allows", "Found by"]), cur = null;
         gk.forEach(function (s) {
-          var L = lvl(s), e = el("span", "fpa-p" + (L >= 4 ? " l4" : L === 3 ? " l3" : ""), s + (L ? " · L" + L : ""));
-          var p = D.priv[s]; e.title = (p && p[2] ? p[2] + " · " : "") + (a.graph[s] === "RP" ? "ROADtools and Graph Pre-Consent Explorer" : a.graph[s] === "R" ? "ROADtools" : "Graph Pre-Consent Explorer");
-          c.appendChild(e);
+          var L = lvl(s), pv = D.priv[s] || [];
+          if (L !== cur) {
+            cur = L; var n = gk.filter(function (x) { return lvl(x) === L; }).length;
+            var gr = el("tr", "fpa-grp"), gc = el("td", null, (L ? "Level " + L + (L === 4 ? " — highest" : "") : "No level (OpenID scopes, or not in Microsoft's reference)") + " · " + n);
+            gc.colSpan = 4; gr.appendChild(gc); T.b.appendChild(gr);
+          }
+          var r = el("tr"), c0 = el("td"); c0.appendChild(el("span", "mono fpa-pn", s)); r.appendChild(c0);
+          var c1 = el("td"); c1.appendChild(lvlBadge(L)); if (pv[1]) c1.title = "Microsoft marks this permission privileged"; r.appendChild(c1);
+          r.appendChild(el("td", null, pv[2] || "—"));
+          r.appendChild(el("td", "as-muted", a.graph[s] === "RP" ? "ROADtools, Pre-Consent Explorer" : a.graph[s] === "R" ? "ROADtools" : "Pre-Consent Explorer"));
+          T.b.appendChild(r);
         });
-        d.appendChild(c);
+        d.appendChild(T.w);
       }
-      Object.keys(a.sc || {}).filter(function (r) { return r !== G; }).sort(function (x, y) { return a.sc[y].length - a.sc[x].length; }).forEach(function (r) {
-        d.appendChild(el("p", "fpa-h", resName(r) + " · " + a.sc[r].length));
-        var c = el("div", "fpa-chips"); a.sc[r].forEach(function (i) { c.appendChild(el("span", "fpa-p", dic[i])); }); d.appendChild(c);
-      });
+      var others = Object.keys(a.sc || {}).filter(function (r) { return r !== G; }).sort(function (x, y) { return a.sc[y].length - a.sc[x].length || (resName(x) < resName(y) ? -1 : 1); });
+      if (others.length) {
+        d.appendChild(el("p", "fpa-h", "Other APIs — " + others.length + " (scopes the app obtains on each)"));
+        var O = table(["API", "Scopes", "Scope names"]), LIM = 12;
+        function fill(n) {
+          O.b.textContent = "";
+          others.slice(0, n).forEach(function (r) {
+            var tr = el("tr"); tr.appendChild(el("td", null, resName(r))); tr.appendChild(el("td", "num", String(a.sc[r].length)));
+            tr.appendChild(el("td", "mono fpa-sn", a.sc[r].map(function (i) { return dic[i]; }).join(", "))); O.b.appendChild(tr);
+          });
+        }
+        fill(LIM); d.appendChild(O.w);
+        if (others.length > LIM) {
+          var mb = el("button", "s5bk-more", "Show all " + others.length + " APIs"); mb.type = "button";
+          mb.addEventListener("click", function () { var all = mb.getAttribute("data-all") !== "1"; fill(all ? others.length : LIM); mb.setAttribute("data-all", all ? "1" : "0"); mb.textContent = all ? "Show the first " + LIM : "Show all " + others.length + " APIs"; });
+          d.appendChild(mb);
+        }
+      }
       if (!gk.length && !a.nsc) d.appendChild(el("p", "mc-empty", "No permission profile: neither ROADtools nor Graph Pre-Consent Explorer could sign in with this app."));
       var t = tenantBy[a.id];
       if (t) {
-        d.appendChild(el("p", "fpa-h", "Consented in the checked tenant (" + D.tenant.read + ")"));
-        Object.keys(t.grants).forEach(function (r) { var p = el("p", "mc-text"); p.appendChild(el("b", null, r + ": ")); p.appendChild(document.createTextNode(t.grants[r])); d.appendChild(p); });
+        d.appendChild(el("p", "fpa-h", "Consented in our tenant (snapshot of " + D.tenant.read + ")"));
+        var tdl = el("dl", "fpa-meta");
+        Object.keys(t.grants).forEach(function (r) { tdl.appendChild(el("dt", null, r)); tdl.appendChild(el("dd", "mono fpa-sn", t.grants[r])); });
         var rl = [].concat(t.roles || []);
-        if (rl.length) { var rp = el("p", "mc-text"); rp.appendChild(el("b", null, "Application permissions: ")); rp.appendChild(document.createTextNode(rl.join(", "))); d.appendChild(rp); }
+        if (rl.length) { tdl.appendChild(el("dt", null, "Application permissions")); tdl.appendChild(el("dd", "mono fpa-sn", rl.join(", "))); }
+        d.appendChild(tdl);
       }
       if (a.byp) a.byp.forEach(function (x) { d.appendChild(el("p", "mc-text", "Conditional Access bypass (" + (x.st || "") + "): " + String(x.d || "").slice(0, 300))); });
-      if (a.nru) d.appendChild(el("p", "mc-text", a.nru + " redirect URIs" + (a.ru && a.ru.length ? " · brokers: " + a.ru.join(", ") : "")));
       return d;
     }
     var shown = 60, L = [];
@@ -26343,6 +26548,27 @@ odtad CZTERNASCIE (4-17).**
   }
   function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
 
+  /* §5by (28 IX 2026), owner: "571879 — I clicked and only guessed it was MC; the reader must
+     know what it is". A bare identifier is not information: every row now says WHAT KIND of
+     thing it is (Message Center, Microsoft 365 Roadmap, security update, Learn, a blog...), leads
+     with the title, and keeps the identifier small at the end. Shared as window.__socKind. */
+  function kindOf(id, it) {
+    it = it || {}; var d = String(it.discoveredBy || ""), s = String(id || "");
+    if (/^MC\d+$/i.test(s)) return "Message Center";
+    if (/^RM\d+$/i.test(s) || /roadmap/i.test(d) || /^\d{5,7}$/.test(s)) return "Microsoft 365 Roadmap";
+    if (/^CVE-\d/i.test(s)) return "Security update (CVE)";
+    if (/^msrc/i.test(d)) return "Security Response Center";
+    if (/^learn-graph/i.test(d)) return "Graph docs";
+    if (/^learn-/i.test(d)) return "Microsoft Learn";
+    if (/entra-news/i.test(d)) return "Entra news";
+    if (/blog/i.test(d)) return "Microsoft blog";
+    if (/^devx|permissions-diff|deployment-map/i.test(d)) return "Graph permissions (GitHub)";
+    if (/^deltapulse-mc|mc-index|revision-sweep/i.test(d)) return "Message Center";
+    if (/component|release/i.test(d)) return "Release notes";
+    return it.title ? "Brief item" : "";
+  }
+  window.__socKind = kindOf;
+
   function strip(panel, spec) {
     if (!panel || panel.querySelector(".s5bn")) return;
     var box = el("div", "s5bn"); box.setAttribute("role", "region");
@@ -26364,10 +26590,14 @@ odtad CZTERNASCIE (4-17).**
       spec.rows.slice(0, MAXROWS).forEach(function (r) {
         var li = el("li", "s5bn-r s5bn-" + r.kind);
         li.appendChild(el("span", "s5bn-k", r.kind === "added" ? "NEW" : r.kind === "removed" ? "REMOVED" : "CHANGED"));
-        var nm = r.link ? el("a", "s5bn-id", r.id) : el("span", "s5bn-id", r.id);
-        if (r.link) { nm.href = r.link; nm.target = "_blank"; nm.rel = "noopener"; }
+        if (r.type) li.appendChild(el("span", "s5bn-ty", r.type));
+        /* the title is the link; the identifier follows, small (§5by) */
+        var hasT = r.title && r.title !== r.id;
+        var nm = r.link ? el("a", hasT ? "s5bn-tl" : "s5bn-id", hasT ? r.title : r.id) : el("span", hasT ? "s5bn-tl" : "s5bn-id", hasT ? r.title : r.id);
+        if (r.link) { nm.href = r.link; nm.target = "_blank"; nm.rel = "noopener"; nm.title = "Open at the source" + (r.id ? " — " + r.id : ""); }
         li.appendChild(nm);
-        if (r.title && r.title !== r.id) li.appendChild(el("span", "s5bn-ti", r.title));
+        if (r.prod) li.appendChild(el("span", "s5bn-pr", r.prod));
+        if (hasT) li.appendChild(el("span", "s5bn-idm", r.id));
         if (r.field || r.before || r.after) {
           var ch = el("span", "s5bn-ch");
           if (r.field) ch.appendChild(el("span", "s5bn-f", r.field + ":"));
@@ -26401,7 +26631,8 @@ odtad CZTERNASCIE (4-17).**
     var items = {}; (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
     function itemRow(kind, id, field, before, after) {
       var it = items[id] || {};
-      return { kind: kind, id: id, title: it.title || "", link: it.url || "", field: field || "", before: before || "", after: after || "" };
+      return { kind: kind, id: id, title: it.title || "", link: it.url || "", field: field || "", before: before || "", after: after || "",
+               type: kindOf(id, it), prod: it.product || "" };
     }
 
     /* 1. tabs fed by the register: entries recorded by THIS brief */
@@ -26414,6 +26645,8 @@ odtad CZTERNASCIE (4-17).**
         /* an endpoint move carries its path in `detail`: that, not "+1", is the news */
         var r = e.detail ? itemRow(e.kind, e.id, "", "", e.detail) : itemRow(e.kind, e.id, e.field, e.before, e.after);
         if (!r.link && e.url) r.link = e.url;
+        if (!items[e.id]) r.type = { "Graph API": "Graph permission", "Graph endpoints": "Graph endpoint", "Roles": "Role", "Component versions": "Component" }[e.tab] || r.type;
+        if (!r.prod && e.product) r.prod = e.product;
         return r;
       });
       strip(document.getElementById(t[0]), { title: since, rows: rows, diff: t[2],
@@ -26434,9 +26667,9 @@ odtad CZTERNASCIE (4-17).**
       var act = m.action && !/^no action/i.test(m.action) ? m.action : "";
       /* `late` (collect_mc.py, 5bo): published days ago, but no earlier brief carried it -
          DeltaPulse caught it (MC1478962, 24 IX 2026) */
-      if (isNew) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "",
+      if (isNew) mcRows.push({ kind: "added", id: m.id, title: m.title || "", link: m.link || "", type: "Message Center", prod: m.product || "",
         field: act ? "action" : m.late ? "caught late, published" : "", after: act || (m.late ? dmy(m.late) : "") });
-      else if (m.revisedOn && (m.revisedOn === day || after(m.revisedOn))) mcRows.push({ kind: "changed", id: m.id,
+      else if (m.revisedOn && (m.revisedOn === day || after(m.revisedOn))) mcRows.push({ kind: "changed", id: m.id, type: "Message Center", prod: m.product || "",
         title: m.title || "", link: m.link || "", field: "revised at source", after: dmy(m.revisedOn) });
     });
     mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
@@ -26448,7 +26681,7 @@ odtad CZTERNASCIE (4-17).**
     var F = ST.fpa || {};
     var fRows = (F.chg || []).filter(function (x) { return x.d === F.built; }).map(function (x) {
       var k = x.t === "added" ? "added" : x.t === "removed" ? "removed" : "changed";
-      return { kind: k, id: x.n || x.id, title: x.t === "added" || x.t === "removed" ? (x.id || "") : "",
+      return { kind: k, id: x.n || x.id, type: "First-party app", title: x.t === "added" || x.t === "removed" ? (x.id || "") : "",
         field: k === "changed" ? x.t : "", before: x.a != null ? String(x.a) : (x.nr ? "−" + x.nr : ""),
         after: x.b != null ? String(x.b) : (x.na ? "+" + x.na : "") };
     });
@@ -26464,7 +26697,7 @@ odtad CZTERNASCIE (4-17).**
     var byTitle = {}; (C.items || []).forEach(function (a) { if (a && a.title) byTitle[a.title] = a; if (a && a.link) byTitle[a.link] = a; });
     var cRows = (C.newToday || []).map(function (t) {
       var a = byTitle[t] || {};
-      return { kind: "added", id: a.sourceName || a.source || "article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
+      return { kind: "added", id: "", type: a.sourceName || a.source || "Community article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
     });
     strip(document.getElementById("tab-community"), { title: since, rows: cRows, diff: "community",
       empty: "No new community article in this brief.", more: "all of them are in the list below." });
@@ -26475,10 +26708,14 @@ odtad CZTERNASCIE (4-17).**
       empty: "No new entry in this brief.", more: "all of them are in New." });
 
     /* 6. Learn and Blogs: no per-day key in the state; the changes page carries it */
-    [["tab-learn", "docsdiff", "Microsoft Learn"], ["tab-blogs", "blogsdiff", "Microsoft Blogs"]].forEach(function (t) {
-      strip(document.getElementById(t[0]), { title: since, rows: [], diff: t[1],
-        empty: "What moved in " + t[2] + " since the previous run is computed on the changes page.", more: "" });
-    });
+    /* Blogs: posts dated after the previous brief (§5by — the strip used to point elsewhere) */
+    var bRows = (((ST.nt || {}).items) || []).filter(function (a) { return a && a.date && prev && a.date >= prev && a.date <= day; })
+      .map(function (a) { return { kind: "added", id: "", type: a.source || "Blog", title: a.title || a.link, link: a.link || "", prod: dmy(a.date) }; });
+    strip(document.getElementById("tab-blogs"), { title: since, rows: bRows, diff: "blogsdiff",
+      empty: "No blog post dated after the previous brief (" + dmy(prev) + ") in the " + ((((ST.nt || {}).blogs) || []).length || "tracked") + " blogs this brief reads.",
+      more: "all of them are in the list below." });
+    strip(document.getElementById("tab-learn"), { title: since, rows: [], diff: "docsdiff",
+      empty: "Microsoft dates what's-new entries by month, not by day — the Month by month grid below shows what arrived; line-by-line page changes are on the changes page.", more: "" });
   }
 
   function boot() {
@@ -26505,6 +26742,19 @@ odtad CZTERNASCIE (4-17).**
    never writes row.hidden or data-s11; Section A-D stay SCRIPT 16's.
    Active-filter information is GREEN (§5av); views and chips are controls.
    ALL UI TEXT IS ENGLISH.
+
+   §5by (28 IX 2026), owner: "Week of 21 Sep — while today is the 28th?", "which area is this MC
+   about, is it new or an update, and the date — on the row, not only after a click", "how many
+   new and updated per technology per day, and a click takes me to them". Measured 28 IX: the
+   newest post in every source (index, feed, OUR TENANT via Graph) was 25 Sep — Microsoft published
+   nothing over the weekend, so the list WAS current; the page never said so. And the run had not
+   used collect_mc.py (no `mc.collector`), so services and categories were missing on 812 posts
+   while site/data/mc-tenant.json (Graph, every 3 h) carried them for 726. Now: the tenant file
+   is read on the published site and fills services, category, severity, major, tags, Microsoft's
+   summary, revision and act-by dates (and adds posts the brief did not carry, origin `tenant`);
+   a freshness line names the newest post and when each list was read; each row carries
+   Date · Change (New / Updated) · ID · Title · Service · Category; and a day-by-service grid
+   of new/updated counts filters the list on click.
    =========================================================================== */
 (function () {
   "use strict";
@@ -26537,7 +26787,7 @@ odtad CZTERNASCIE (4-17).**
     var actText = e.action && !iso(e.action) && !/^no action/i.test(e.action) ? e.action : "";
     var src = String(e.origin || "").split("+").filter(Boolean).map(function (s) { return s === "both" ? "index" : s; });
     if (e.dpLink && src.indexOf("deltapulse") < 0) src.push("deltapulse");
-    var title = e.title && e.title !== e.id ? e.title : "";
+    var title = e.title && e.title !== e.id ? String(e.title).replace(/^\(Updated\)\s*/i, "") : "";   /* the Change column says it (§5by) */
     return { e: e, id: e.id, rm: /^RM/i.test(e.id || "") || e.type === "RM", title: title, tech: tech,
       cat: CAT[String(e.category || "").toLowerCase().replace(/[^a-z]/g, "")] || (e.category || ""),
       major: e.isMajor === true, high: /high/i.test(e.severity || ""), pub: pub, rev: rev, dl: dl, act: actText,
@@ -26547,10 +26797,11 @@ odtad CZTERNASCIE (4-17).**
   }
 
   /* ---------------- state of the browser ---------------- */
-  var S = { view: "all", svc: "", cat: "", flag: "", src: "", type: "MC", q: "", shown: PAGE, open: "" };
+  var S = { view: "all", svc: "", cat: "", flag: "", src: "", type: "MC", q: "", day: "", kind: "", shown: PAGE, open: "" };
+  var TEN = null;   /* site/data/mc-tenant.json once read: {read, count} */
   var VIEWS = [
     ["action", "Needs action", "posts with a date to act by, soonest first"],
-    ["new", "New", "first seen by this brief"],
+    ["new", "New since previous brief", "first seen by this brief"],
     ["revised", "Revised", "changed at source in the last 7 days"],
     ["all", "All", "every post, newest activity first"]];
   function inView(r, v) {
@@ -26567,6 +26818,7 @@ odtad CZTERNASCIE (4-17).**
     if (skip !== "flag" && S.flag && !flagOf(r, S.flag)) return false;
     if (skip !== "src" && S.src && r.src.indexOf(S.src) < 0) return false;
     if (S.q && r.hay.indexOf(S.q.toLowerCase()) < 0) return false;
+    if (skip !== "day" && S.day && !(S.kind === "upd" ? r.rev === S.day : S.kind === "new" ? r.pub === S.day : (r.pub === S.day || r.rev === S.day))) return false;
     return true;
   }
   function flagOf(r, f) { return f === "major" ? r.major : f === "high" ? r.high : f === "late" ? !!r.late : f === "action" ? !!r.dl : false; }
@@ -26583,8 +26835,8 @@ odtad CZTERNASCIE (4-17).**
     }
     var d = S.view === "revised" ? r.rev : lastAct(r);
     if (!d) return ["nodate", "No date read"];
-    var w = monday(d);
-    return [w, w === monday(DAY) ? "This week" : "Week of " + dmy(w)];
+    var w = monday(d), e = addDays(w, 6);
+    return [w, (w === monday(DAY) ? "This week · " : "Week of ") + (+w.slice(8)) + (w.slice(5, 7) === e.slice(5, 7) ? "" : " " + MONS[+w.slice(5, 7) - 1]) + "–" + dmy(e)];
   }
 
   /* ---------------- building ---------------- */
@@ -26666,6 +26918,7 @@ odtad CZTERNASCIE (4-17).**
     if (S.flag) act.push(["flag", { action: "date to act by", major: "major change", high: "high severity", late: "caught late" }[S.flag]]);
     if (S.src) act.push(["src", "source: " + SRC[S.src]]);
     if (S.q) act.push(["q", "text: “" + S.q + "”"]);
+    if (S.day) act.push(["day", (S.kind === "upd" ? "updated on " : S.kind === "new" ? "published on " : "active on ") + dmy(S.day)]);
     banner.textContent = "";
     banner.hidden = !act.length;
     if (!act.length) return;
@@ -26673,34 +26926,39 @@ odtad CZTERNASCIE (4-17).**
     act.forEach(function (a) {
       var s = el("span", "mcb-af", a[1]);
       var x = el("button", "mcb-x", "×"); x.type = "button"; x.title = "Remove this filter";
-      x.addEventListener("click", function () { S[a[0]] = ""; if (a[0] === "q") qIn.value = ""; S.shown = PAGE; render(); });
+      x.addEventListener("click", function () { S[a[0]] = ""; if (a[0] === "day") S.kind = ""; if (a[0] === "q") qIn.value = ""; S.shown = PAGE; render(); });
       s.appendChild(x); banner.appendChild(s);
     });
     var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
-    c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = ""; qIn.value = ""; S.shown = PAGE; render(); });
+    c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; qIn.value = ""; S.shown = PAGE; render(); });
     banner.appendChild(c);
   }
   function pill(cls, t, title) { var s = el("span", "mcb-p " + cls, t); if (title) s.title = title; return s; }
+  /* one row = Date · Change · ID · Title · Service · Category · flags, all on the surface (§5by) */
   function rowOf(r) {
     var li = el("li", "mcb-row" + (r.isNew ? " is-new" : "")); li.id = "mcb-" + r.id; li.setAttribute("data-mcb", r.id);
     var head = el("button", "mcb-head"); head.type = "button"; head.setAttribute("aria-expanded", "false");
-    var d = el("span", "mcb-d");
+    var d = el("span", "mcb-d"), upd = !!(r.rev && (S.view === "revised" || lastAct(r) === r.rev));
     if (S.view === "action") { d.appendChild(el("b", null, dm(r.dl))); d.title = "act by " + dmy(r.dl); }
-    else { d.appendChild(el("b", null, dm(S.view === "revised" ? r.rev : lastAct(r)))); }
+    else { var when = S.view === "revised" ? r.rev : lastAct(r); d.appendChild(el("b", null, dm(when))); d.title = (upd ? "Updated at source " : "Published ") + dmy(when); }
     head.appendChild(d);
+    var k = el("span", "mcb-kind " + (upd ? "k-upd" : "k-new"), upd ? "Updated" : "New");
+    k.title = upd ? "Revised at source " + dmy(r.rev) + (r.pub ? " · first published " + dmy(r.pub) : "") : "Published " + dmy(r.pub);
+    head.appendChild(k);
     head.appendChild(el("span", "mcb-id", r.id));
     var main = el("span", "mcb-main");
     main.appendChild(el("span", "mcb-ti", r.title || "Title not read this run"));
-    var meta = el("span", "mcb-meta");
-    r.tech.slice(0, 3).forEach(function (t) { meta.appendChild(el("span", "mcb-svc", t)); });
-    if (r.tech.length > 3) meta.appendChild(el("span", "mcb-svc", "+" + (r.tech.length - 3)));
-    if (!r.tech.length) meta.appendChild(el("span", "mcb-none", "service not stated"));
-    if (r.cat) meta.appendChild(el("span", "mcb-cat", r.cat));
-    main.appendChild(meta);
     head.appendChild(main);
+    var sv = el("span", "mcb-svcs");
+    sv.setAttribute("data-l", "Service");
+    r.tech.slice(0, 2).forEach(function (t) { sv.appendChild(el("span", "mcb-svc", t)); });
+    if (r.tech.length > 2) { var mo = el("span", "mcb-svc more", "+" + (r.tech.length - 2)); mo.title = r.tech.slice(2).join(", "); sv.appendChild(mo); }
+    if (!r.tech.length) sv.appendChild(el("span", "mcb-none", "not stated"));
+    head.appendChild(sv);
+    var ca = el("span", "mcb-catc", r.cat || "—"); if (!r.cat) ca.classList.add("mcb-none");
+    head.appendChild(ca);
     var pl = el("span", "mcb-pills");
     if (r.isNew) pl.appendChild(pill(r.late ? "late" : "new", r.late ? "NEW · late" : "NEW", r.late ? "Published " + dmy(r.late) + "; no earlier brief carried it" : "First seen by this brief"));
-    if (r.rev && S.view !== "revised") pl.appendChild(pill("rev", "rev " + dm(r.rev), "Revised at source " + dmy(r.rev)));
     if (r.dl && S.view !== "action") pl.appendChild(pill(r.dl < DAY ? "past" : "dl", "act by " + dm(r.dl), "Microsoft: act by " + dmy(r.dl)));
     if (r.major) pl.appendChild(pill("maj", "MAJOR"));
     if (r.high) pl.appendChild(pill("high", "HIGH"));
@@ -26708,6 +26966,11 @@ odtad CZTERNASCIE (4-17).**
     head.addEventListener("click", function () { toggle(li, r); });
     li.appendChild(head);
     return li;
+  }
+  function colHead() {
+    var h = el("li", "mcb-colhead"); h.setAttribute("aria-hidden", "true");
+    [S.view === "action" ? "Act by" : "Date", "Change", "ID", "Title", "Service", "Category", ""].forEach(function (t) { h.appendChild(el("span", null, t)); });
+    return h;
   }
   function a(href, t) { var x = el("a", null, t); x.href = href; x.target = "_blank"; x.rel = "noopener"; return x; }
   function detail(r) {
@@ -26772,6 +27035,127 @@ odtad CZTERNASCIE (4-17).**
     S.open = open ? r.id : (S.open === r.id ? "" : S.open);
     try { history.replaceState(null, "", open ? "#" + r.id : location.pathname + location.search); } catch (x) {}
   }
+
+  /* ---------------- §5by: freshness, day grid, tenant file ---------------- */
+  var MON3 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  function wd(d) { return MON3[new Date(d + "T12:00:00Z").getUTCDay()]; }
+  var freshEl, gridEl, gridAll = false;
+  function renderFresh() {
+    if (!freshEl) return;
+    var mc = ALL.filter(function (r) { return !r.rm; }), top = "";
+    mc.forEach(function (r) { var x = lastAct(r); if (x && x <= DAY && x > top) top = x; });
+    freshEl.textContent = "";
+    var b = el("b", null, top ? "Newest post: " + wd(top) + " " + dmy(top) : "No dated post read");
+    freshEl.appendChild(b);
+    var parts = [];
+    parts.push("lists read " + dmy(D.readOn || DAY) + " by this brief");
+    if (TEN) parts.push("our tenant's Message Center (Microsoft Graph, every 3 hours) read " + dmy(TEN.read) + ", " + TEN.count + " posts");
+    else if (onSite()) parts.push("tenant file not read yet");
+    freshEl.appendChild(document.createTextNode(" · " + parts.join(" · ") + "."));
+    if (top && top < DAY) {
+      var gap = Math.round((new Date(DAY + "T12:00:00Z") - new Date(top + "T12:00:00Z")) / 86400000);
+      freshEl.appendChild(el("span", "mcb-fnote", " Nothing published or revised since " + wd(top) + " " + dm(top) +
+        (gap <= 3 && /Sat|Sun|Mon/.test(wd(DAY)) ? " — Microsoft rarely posts at weekends; Monday's posts appear from the US afternoon." : ".")));
+    }
+  }
+  function renderGrid() {
+    if (!gridEl) return;
+    var body = gridEl.querySelector(".mcb-gbody"); body.textContent = "";
+    var days = []; for (var i = 6; i >= 0; i--) days.push(addDays(DAY, -i));
+    var sv = S.svc, dy = S.day, kd = S.kind; S.svc = ""; S.day = ""; S.kind = "";
+    var pool = ALL.filter(function (r) { return pass(r, "day", "all"); });
+    S.svc = sv; S.day = dy; S.kind = kd;
+    var by = {}, tot = {};
+    function add(key, d, k) { var o = by[key] = by[key] || {}; var c = o[d] = o[d] || { n: 0, u: 0 }; c[k]++; }
+    pool.forEach(function (r) {
+      days.forEach(function (d) {
+        var k = r.pub === d ? "n" : (r.rev === d ? "u" : "");
+        if (!k) return;
+        add("", d, k); (r.tech.length ? r.tech : ["(service not stated)"]).forEach(function (t) { add(t, d, k); tot[t] = (tot[t] || 0) + 1; });
+      });
+    });
+    var keys = Object.keys(tot).sort(function (a, b) { return tot[b] - tot[a] || a.localeCompare(b); });
+    var sum = gridEl.querySelector(".mcb-gsum");
+    var all = 0, allN = 0; days.forEach(function (d) { var c = (by[""] || {})[d]; if (c) { all += c.n + c.u; allN += c.n; } });
+    sum.textContent = "Day by day — new and updated posts per service, last 7 days: " + allN + " new, " + (all - allN) + " updated";
+    var tb = el("table", "mcb-grid"), th = el("thead"), tr = el("tr");
+    tb.setAttribute("data-s11", "1");   /* this block owns the grid: SCRIPT 11 adds no search bar to it (§5by) */
+    tr.appendChild(el("th", null, "Service"));
+    days.forEach(function (d) { var h = el("th", d === DAY ? "today" : ""); h.appendChild(el("span", null, wd(d))); h.appendChild(el("b", null, dm(d))); tr.appendChild(h); });
+    th.appendChild(tr); tb.appendChild(th);
+    var tbd = el("tbody");
+    function cell(key, d) {
+      var c = (by[key] || {})[d] || { n: 0, u: 0 }, td = el("td");
+      if (!c.n && !c.u) { td.appendChild(el("span", "mcb-g0", "·")); return td; }
+      [["n", "new", "new"], ["u", "upd", "updated"]].forEach(function (k) {
+        if (!c[k[0]]) return;
+        var on = S.day === d && S.kind === k[1] && S.svc === key;
+        var b = el("button", "mcb-gc g-" + k[1] + (on ? " on" : ""), c[k[0]] + " " + (k[1] === "new" ? "new" : "upd"));
+        b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
+        b.title = c[k[0]] + " " + k[2] + " on " + dmy(d) + (key ? " · " + key : " · all services") + " — click to list them";
+        b.addEventListener("click", function () {
+          if (on) { S.day = S.kind = ""; S.svc = ""; }
+          else { S.view = "all"; S.day = d; S.kind = k[1]; S.svc = key && key !== "(service not stated)" ? key : ""; S.cat = S.flag = S.src = ""; }
+          S.shown = PAGE; render();
+          var l = root.querySelector(".mcb-info"); if (l && l.scrollIntoView) l.scrollIntoView({ block: "start", behavior: "smooth" });
+        });
+        td.appendChild(b);
+      });
+      return td;
+    }
+    var r0 = el("tr", "mcb-gall"); r0.appendChild(el("th", null, "All services")); days.forEach(function (d) { r0.appendChild(cell("", d)); }); tbd.appendChild(r0);
+    var LIM = 10;
+    keys.slice(0, gridAll ? keys.length : LIM).forEach(function (k) {
+      var r = el("tr"); r.appendChild(el("th", null, k)); days.forEach(function (d) { r.appendChild(cell(k, d)); }); tbd.appendChild(r);
+    });
+    tb.appendChild(tbd);
+    var wrap = el("div", "mcb-gwrap"); wrap.appendChild(tb); body.appendChild(wrap);
+    if (keys.length > LIM) {
+      var mb = el("button", "mcb-btn", gridAll ? "Show the top " + LIM + " services" : "Show all " + keys.length + " services"); mb.type = "button";
+      mb.addEventListener("click", function () { gridAll = !gridAll; renderGrid(); });
+      body.appendChild(mb);
+    }
+    body.appendChild(el("p", "mcb-none", "New = published that day; upd = revised at source that day. A post counts once per service it names. Weekends are shown on purpose: an empty day is a result."));
+  }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  /* the tenant's own Message Center (tools/mc_tenant.py via GitHub Actions, §5bo point 1) —
+     the one source that ALWAYS carries services, category and Microsoft's summary */
+  function mergeTenant(T) {
+    if (!T || !T.messages || TEN) return;
+    TEN = { read: T.read || "", count: T.messages.length };
+    T.messages.forEach(function (m) {
+      if (!m || !m.id) return;
+      var r = BYID[m.id], pub = iso(m.start), mod = iso(m.modified);
+      if (!r) {
+        r = norm({ id: m.id, title: String(m.title || "").replace(/^\(Updated\)\s*/i, ""), published: pub, revisedOn: mod && mod > pub ? mod : null,
+          origin: "tenant", category: m.category, severity: m.severity, isMajor: !!m.major, tags: m.tags || [], summary: m.summary || "",
+          tech: m.services || [], deadline: iso(m.actionBy), type: "MC" });
+        r.isNew = false;   /* not seen by the brief: never counted as new since the previous brief */
+        ALL.push(r); BYID[r.id] = r; return;
+      }
+      /* Microsoft's own service names win: the brief's product label ("Purview") next to the
+         tenant's ("Microsoft Purview") split one service into two rows of the grid */
+      if ((m.services || []).length) r.tech = m.services.slice();
+      if (!r.cat && m.category) r.cat = CAT[String(m.category).toLowerCase().replace(/[^a-z]/g, "")] || m.category;
+      if (m.major) r.major = true;
+      if (/high/i.test(m.severity || "")) r.high = true;
+      if (!r.pub && pub) r.pub = pub;
+      if (mod && mod > (r.pub || "") && mod > (r.rev || "")) r.rev = mod;
+      if (!r.dl && iso(m.actionBy)) r.dl = iso(m.actionBy);
+      if (!r.e.summary && m.summary) r.e.summary = m.summary;
+      if (!r.e.tags && m.tags) r.e.tags = m.tags;
+      if (!r.e.severity && m.severity) r.e.severity = m.severity;
+      if (r.src.indexOf("tenant") < 0) r.src.push("tenant");
+      r.hay = (r.id + " " + r.title + " " + r.tech.join(" ") + " " + (r.e.tags || []).join(" ")).toLowerCase();
+    });
+    render();
+  }
+  function readTenant() {
+    if (window.__socMCT) { mergeTenant(window.__socMCT); return; }
+    if (!onSite() || !window.fetch) return;
+    fetch("/data/mc-tenant.json", { cache: "no-cache" }).then(function (x) { return x.ok ? x.json() : null; })
+      .then(function (j) { try { mergeTenant(j); } catch (e) { if (window.console) console.error("[5by tenant]", e); } }, function () {});
+  }
   var qIn;
   function render() {
     renderViews(); renderBar();
@@ -26780,8 +27164,10 @@ odtad CZTERNASCIE (4-17).**
     var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
     info.textContent = rows.length + " post" + (rows.length === 1 ? "" : "s") + " · " + v[2] +
       (S.view === "action" ? "" : " · grouped by week");
+    renderFresh(); renderGrid();
     list.textContent = "";
     if (!rows.length) { list.appendChild(el("li", "mcb-empty", "No post matches. Remove a filter above — zero here is a result, not an error.")); return; }
+    list.appendChild(colHead());
     var g = null, ul = null;
     rows.slice(0, S.shown).forEach(function (r) {
       var k = groupOf(r);
@@ -26824,12 +27210,17 @@ odtad CZTERNASCIE (4-17).**
     try { fd.open = window.matchMedia("(min-width: 760px)").matches; } catch (x) { fd.open = true; }
     root.appendChild(fd);
     banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.appendChild(banner);
+    freshEl = el("p", "mcb-fresh"); root.insertBefore(freshEl, root.firstChild);
+    gridEl = el("details", "mcb-gridbox"); gridEl.appendChild(el("summary", "mcb-gsum", "Day by day"));
+    gridEl.appendChild(el("div", "mcb-gbody"));
+    try { gridEl.open = window.matchMedia("(min-width: 760px)").matches; } catch (x) { gridEl.open = true; }
+    root.insertBefore(gridEl, fd);
     info = el("p", "mcb-info"); root.appendChild(info);
     list = el("ul", "mcb-list"); root.appendChild(list);
     var strip = p.querySelector(":scope > .s5bn"), head = p.querySelector(":scope > .panelhead");
     var after = strip || head;
     if (after && after.parentNode === p) p.insertBefore(root, after.nextSibling); else p.insertBefore(root, p.firstChild);
-    render();
+    render(); readTenant();
     /* the tab's number is the number of POSTS, not of table rows (Sections A-D counted 746
        rows for 414 posts on 26 IX 2026); same precedent as the First-party apps tab */
     var nMC = ALL.filter(function (r) { return !r.rm; }).length;
@@ -26847,7 +27238,7 @@ odtad CZTERNASCIE (4-17).**
   /* SCRIPT 16 and §5bn call in here: an MC number or a product opens the browser */
   function show(id) {
     var r = BYID[id]; if (!r) return false;
-    S.view = "all"; S.svc = S.cat = S.flag = S.src = S.q = ""; if (qIn) qIn.value = ""; S.type = r.rm ? "RM" : "MC";
+    S.view = "all"; S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; if (qIn) qIn.value = ""; S.type = r.rm ? "RM" : "MC";
     var rows = sorted(ALL.filter(function (x) { return pass(x); }));
     var i = rows.indexOf(r); S.shown = Math.max(PAGE, Math.ceil((i + 1) / PAGE) * PAGE); S.open = id;
     render();
@@ -26863,7 +27254,7 @@ odtad CZTERNASCIE (4-17).**
   window.__socMCB = {
     handle: function (key, product) {
       if (!build() || !ALL.length) return false;
-      if (product) { S.view = "all"; S.svc = product; S.cat = S.flag = S.src = S.q = ""; if (qIn) qIn.value = ""; S.shown = PAGE; render();
+      if (product) { S.view = "all"; S.svc = product; S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; if (qIn) qIn.value = ""; S.shown = PAGE; render();
         root.scrollIntoView({ block: "start" }); return true; }
       if (key && BYID[key]) return show(key);
       return false;
@@ -27835,7 +28226,7 @@ odtad CZTERNASCIE (4-17).**
             f: { src: a.sourceName || a.source || "", site: a.host || "" }, text: "", meta: [a.sourceName || a.source, a.host].filter(Boolean).join(" · ") };
         });
       },
-      facets: [["src", "Source"], ["site", "Site"]],
+      facets: [["src", "Source"], ["site", "Site"]], grid: ["day", "Source"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "blogs", id: "ab-blogs", fold: ":scope > details.ntsec#nt-top", group: "week",
       recs: function () {
@@ -27845,7 +28236,7 @@ odtad CZTERNASCIE (4-17).**
             text: strip(a.summary).slice(0, 600), meta: [a.source, a.author].filter(Boolean).join(" · ") };
         });
       },
-      facets: [["src", "Blog"]],
+      facets: [["src", "Blog"]], grid: ["day", "Blog"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "learn", id: "ab-learn", fold: ":scope > details.ntsec#nt-changes", group: "month",
       recs: function () {
@@ -27858,7 +28249,7 @@ odtad CZTERNASCIE (4-17).**
             text: String(a.text || "").slice(0, 700), why: a.why || "", meta: [a.area, a.monthLabel].filter(Boolean).join(" · ") };
         });
       },
-      facets: [["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]],
+      facets: [["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
       views: [["unread", "Unread"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
   ];
 
@@ -27868,7 +28259,7 @@ odtad CZTERNASCIE (4-17).**
     var latestMonth = RECS.length ? String(RECS[0].date).slice(0, 7) : "";
     var q3from = latestMonth ? addDays(latestMonth + "-15", -62).slice(0, 7) : "";
     var PAGE = 60; try { if (window.matchMedia("(max-width: 760px)").matches) PAGE = 30; } catch (e) {}
-    var S = { view: "all", q: "", shown: PAGE, open: "" };
+    var S = { view: "all", q: "", per: "", shown: PAGE, open: "" }, gridBox = null, gridAll = false;
     cfg.facets.forEach(function (f) { S[f[0]] = ""; });
     if (RECS.some(function (r) { return r.isNew; })) S.view = "new";
     function inView(r, v) {
@@ -27883,6 +28274,7 @@ odtad CZTERNASCIE (4-17).**
       if (!inView(r, view || S.view)) return false;
       for (var i = 0; i < cfg.facets.length; i++) { var k = cfg.facets[i][0]; if (skip !== k && S[k] && r.f[k] !== S[k]) return false; }
       if (S.q) { var q = S.q.toLowerCase(); if ((r.title + " " + r.meta + " " + r.text).toLowerCase().indexOf(q) < 0) return false; }
+      if (skip !== "per" && S.per && String(r.date).indexOf(S.per) !== 0) return false;
       return true;
     }
     var root, viewsEl, bar, banner, info, list, qIn;
@@ -27926,6 +28318,7 @@ odtad CZTERNASCIE (4-17).**
       var rows = RECS.filter(function (r) { return pass(r); });
       var act = cfg.facets.filter(function (f) { return S[f[0]]; }).map(function (f) { return [f[0], f[1].toLowerCase() + ": " + S[f[0]]]; });
       if (S.q) act.push(["q", "text: “" + S.q + "”"]);
+      if (S.per) act.push(["per", (S.per.length === 7 ? "month: " + MONS[+S.per.slice(5, 7) - 1] + " " + S.per.slice(0, 4) : "published on " + dmy(S.per))]);
       banner.textContent = ""; banner.hidden = !act.length;
       if (act.length) {
         banner.appendChild(el("b", null, "Filtered · " + rows.length + " shown"));
@@ -27935,9 +28328,10 @@ odtad CZTERNASCIE (4-17).**
           s.appendChild(x); banner.appendChild(s);
         });
         var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
-        c.addEventListener("click", function () { cfg.facets.forEach(function (f) { S[f[0]] = ""; }); S.q = ""; qIn.value = ""; S.shown = PAGE; render(); });
+        c.addEventListener("click", function () { cfg.facets.forEach(function (f) { S[f[0]] = ""; }); S.q = ""; S.per = ""; qIn.value = ""; S.shown = PAGE; render(); });
         banner.appendChild(c);
       }
+      renderGrid();
       info.textContent = "";
       info.appendChild(document.createTextNode(rows.length + " of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
       var mk = el("button", "ab-mark", "Mark these " + Math.min(rows.length, S.shown) + " as read"); mk.type = "button";
@@ -27961,6 +28355,63 @@ odtad CZTERNASCIE (4-17).**
         var more = el("li", "mcb-morebox"), b = el("button", "mcb-btn", "Show " + Math.min(PAGE, rows.length - S.shown) + " more (" + (rows.length - S.shown) + " left)");
         b.type = "button"; b.addEventListener("click", function () { S.shown += PAGE; render(); }); more.appendChild(b); list.appendChild(more);
       }
+    }
+
+    /* §5by (28 IX 2026): how many articles per source per day (Learn: per area per month);
+       a count is a link that filters the list to exactly those articles, zero is not a link */
+    function renderGrid() {
+      if (!gridBox || !cfg.grid) return;
+      var body = gridBox.querySelector(".mcb-gbody"); body.textContent = "";
+      var unit = cfg.grid[0], cols = [], i;
+      if (unit === "day") for (i = 6; i >= 0; i--) cols.push(addDays(DAY, -i));
+      else { var m0 = new Date(DAY.slice(0, 7) + "-15T12:00:00Z"); for (i = 5; i >= 0; i--) { var t = new Date(m0); t.setUTCMonth(t.getUTCMonth() - i); cols.push(t.toISOString().slice(0, 7)); } }
+      var sv = S.src, pv = S.per; S.src = ""; S.per = "";
+      var pool = RECS.filter(function (r) { return pass(r, "per", "all"); });
+      S.src = sv; S.per = pv;
+      var by = {}, tot = {}, allN = 0;
+      pool.forEach(function (r) {
+        var c = String(r.date).slice(0, unit === "day" ? 10 : 7); if (cols.indexOf(c) < 0) return;
+        var k = r.f.src || "(not stated)"; allN++;
+        by[""] = by[""] || {}; by[""][c] = (by[""][c] || 0) + 1;
+        by[k] = by[k] || {}; by[k][c] = (by[k][c] || 0) + 1; tot[k] = (tot[k] || 0) + 1;
+      });
+      gridBox.querySelector("summary").textContent = (unit === "day" ? "Day by day — articles per " + cfg.grid[1].toLowerCase() + ", last 7 days: " : "Month by month — entries per area, last 6 months: ") + allN;
+      var keys = Object.keys(tot).sort(function (a, b) { return tot[b] - tot[a] || a.localeCompare(b); });
+      var tb = el("table", "mcb-grid"); tb.setAttribute("data-s11", "1");
+      var th = el("thead"), tr = el("tr"); tr.appendChild(el("th", null, cfg.grid[1]));
+      cols.forEach(function (c) {
+        var h = el("th", c === DAY || c === DAY.slice(0, 7) ? "today" : "");
+        if (unit === "day") { h.appendChild(el("span", null, ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date(c + "T12:00:00Z").getUTCDay()])); h.appendChild(el("b", null, dm(c))); }
+        else { h.appendChild(el("span", null, c.slice(0, 4))); h.appendChild(el("b", null, MONS[+c.slice(5, 7) - 1])); }
+        tr.appendChild(h);
+      });
+      th.appendChild(tr); tb.appendChild(th);
+      var tbd = el("tbody");
+      function row(k, lab, cls) {
+        var r = el("tr", cls || ""); r.appendChild(el("th", null, lab));
+        cols.forEach(function (c) {
+          var n = (by[k] || {})[c] || 0, td = el("td");
+          if (!n) { td.appendChild(el("span", "mcb-g0", "·")); r.appendChild(td); return; }
+          var on = S.per === c && S.src === k;
+          var b = el("button", "mcb-gc" + (on ? " on" : ""), String(n)); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
+          b.title = n + (unit === "day" ? " published on " + dmy(c) : " in " + MONS[+c.slice(5, 7) - 1] + " " + c.slice(0, 4)) + (k ? " · " + k : "") + " — click to list them";
+          b.addEventListener("click", function () {
+            if (on) { S.per = ""; S.src = ""; } else { S.view = "all"; S.per = c; S.src = k && k !== "(not stated)" ? k : ""; }
+            S.shown = PAGE; render();
+          });
+          td.appendChild(b); r.appendChild(td);
+        });
+        tbd.appendChild(r);
+      }
+      row("", "All", "mcb-gall");
+      keys.slice(0, gridAll ? keys.length : 10).forEach(function (k) { row(k, k); });
+      tb.appendChild(tbd);
+      var w = el("div", "mcb-gwrap"); w.appendChild(tb); body.appendChild(w);
+      if (keys.length > 10) {
+        var mb = el("button", "mcb-btn", gridAll ? "Show the top 10" : "Show all " + keys.length); mb.type = "button";
+        mb.addEventListener("click", function () { gridAll = !gridAll; renderGrid(); }); body.appendChild(mb);
+      }
+      if (!allN) body.appendChild(el("p", "mcb-none", unit === "day" ? "Nothing was published in the last 7 days by the sources in this list — that is a result, not a failure." : "No entry in the last 6 months."));
     }
     function row(r) {
       var read = !!rd()[r.key];
@@ -28012,6 +28463,11 @@ odtad CZTERNASCIE (4-17).**
       var fd = el("details", "mcb-facets"); fd.appendChild(el("summary", null, "Filter by " + cfg.facets.map(function (f) { return f[1].toLowerCase(); }).join(", ")));
       bar = el("div", "mcb-bar"); fd.appendChild(bar);
       try { fd.open = window.matchMedia("(min-width: 760px)").matches; } catch (e) { fd.open = true; }
+      if (cfg.grid) {
+        gridBox = el("details", "mcb-gridbox"); gridBox.appendChild(el("summary", "mcb-gsum", "")); gridBox.appendChild(el("div", "mcb-gbody"));
+        try { gridBox.open = window.matchMedia("(min-width: 760px)").matches; } catch (e) { gridBox.open = true; }
+        root.appendChild(gridBox);
+      }
       root.appendChild(fd);
       banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.appendChild(banner);
       info = el("p", "mcb-info ab-info"); root.appendChild(info);
@@ -28071,6 +28527,210 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(watch, 2500); });
   else setTimeout(watch, 2500);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(watch, 300); }, true);
+})();
+/* ===========================================================================
+   §5by — READABILITY PASS (28 IX 2026): one-line tab bar on a desktop, the
+   Source lists box back in view, a jump row in every catalog panel, and bare
+   identifiers named for what they are.
+
+   Owner, 28 IX 2026, after the morning run:
+   1. "Where did the box about our JSON lists go?" — measured: it was built, but
+      inside the closed "Collection health" fold at the bottom of Overview (§5bk).
+   2. "The tab bar is spread out, unprofessional" — measured at 1280-1500 px:
+      15 bordered pills in two wrapping rows, "Component versions" alone on a
+      third line, and the label "Hunting &amp; actions" (the shell's data-tab
+      value was escaped twice).
+   3. "571879 — I only guessed it was MC" — bare IDs in the section notes
+      ("Continued: <code>graph-threathunting-…</code>") carried no hint of kind.
+   4. "Apps that hold it — where is it?" — it was there, closed, below 267
+      endpoints: a panel needs a table of contents.
+
+   ONE WRITER PER MECHANISM: this block only (a) moves `.jsonbox` (SCRIPT 15 v2
+   still builds it), (b) sets a class on tab buttons that do not fit and draws
+   its own "More" menu that CLICKS the real buttons (SCRIPT 4 stays the owner of
+   tab switching), (c) inserts `.s5by-jump` into a panel, (d) wraps `code` that
+   is exactly a brief item's id. Never row.hidden, never data-s11 on rows.
+   ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  function narrow() { try { return window.matchMedia("(max-width: 760px)").matches; } catch (e) { return false; } }
+  var ST = jb("soc-brief-state") || {};
+
+  /* ---- 0. names escaped twice ("Hunting &amp; actions") ---- */
+  function unescapeNames() {
+    var bad = [];
+    [].forEach.call(document.querySelectorAll(".tabpanel[data-tab]"), function (p) {
+      var v = p.getAttribute("data-tab"), n = v;
+      while (/&amp;|&lt;|&gt;|&quot;|&#39;/.test(n)) n = n.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+      if (n !== v) { p.setAttribute("data-tab", n); bad.push([v, n]); }
+    });
+    if (!bad.length) return;
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), t;
+    while ((t = w.nextNode())) {
+      if (t.parentNode && /^(SCRIPT|STYLE|CODE|PRE|TEXTAREA)$/.test(t.parentNode.nodeName)) continue;
+      var s = t.nodeValue, o = s;
+      bad.forEach(function (b) { if (s.indexOf(b[0]) >= 0) s = s.split(b[0]).join(b[1]); });
+      if (s !== o) t.nodeValue = s;
+    }
+  }
+
+  /* ---- 1. Source lists box: visible, in "Reference — catalogs, versions and sources" ---- */
+  function moveJsonBox() {
+    var jbx = document.querySelector("#tab-overview .jsonbox");
+    if (!jbx || jbx.getAttribute("data-s5by")) return;
+    var h = [].filter.call(document.querySelectorAll("#tab-overview h3, #tab-overview h2"), function (x) { return /^Reference\b/.test((x.textContent || "").trim()); })[0];
+    var host = h ? h.parentNode : null;
+    if (!host) { var hl = document.querySelector("#tab-overview details.s5bk-health"); if (hl && hl.parentNode) { hl.parentNode.insertBefore(jbx, hl); jbx.setAttribute("data-s5by", "1"); } return; }
+    host.appendChild(jbx); jbx.setAttribute("data-s5by", "1");
+    /* its reference fold is open by default when it is the only way to see the box */
+    var d = host.closest ? host.closest("details") : null; if (d && !d.open && d.classList.contains("ntsec")) { /* leave the reader's fold alone */ }
+  }
+
+  /* ---- 2. desktop tab bar: one row per group line, nothing wraps, overflow goes to More ---- */
+  var menu = null, menuFor = null;
+  function closeMenu() { if (menu) { menu.remove(); menu = null; } if (menuFor) menuFor.setAttribute("aria-expanded", "false"); menuFor = null; }
+  function label(b) { var t = b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.nodeValue : b.textContent; return (t || "").trim(); }
+  function openMenu(btn, nav) {
+    closeMenu();
+    var tabs = [].filter.call(nav.querySelectorAll(":scope > .tab"), function (t) { return t.classList.contains("s5by-ov"); });
+    menu = el("div", "s5by-menu"); menu.setAttribute("role", "menu");
+    var grp = "";
+    tabs.forEach(function (t) {
+      var g = t.getAttribute("data-grp") || "";
+      if (g && g !== grp) { grp = g; menu.appendChild(el("div", "s5by-mg", g)); }
+      var it = el("button", "s5by-mi"); it.type = "button"; it.setAttribute("role", "menuitem");
+      it.appendChild(el("span", null, label(t)));
+      var nc = t.querySelector(".navcount"); if (nc) it.appendChild(el("span", "s5by-mn", nc.textContent));
+      it.addEventListener("click", function () { closeMenu(); t.click(); scrollTo(0, 0); });
+      menu.appendChild(it);
+    });
+    document.body.appendChild(menu);
+    var r = btn.getBoundingClientRect();
+    menu.style.top = (r.bottom + scrollY + 4) + "px";
+    menu.style.left = Math.max(8, Math.min(r.right - menu.offsetWidth, document.documentElement.clientWidth - menu.offsetWidth - 8)) + "px";
+    menuFor = btn; btn.setAttribute("aria-expanded", "true");
+    var f = menu.querySelector("button"); if (f) f.focus();
+  }
+  function fit(nav) {
+    var more = nav.querySelector(":scope > .s5by-more");
+    if (!more) {
+      more = el("button", "s5by-more"); more.type = "button"; more.setAttribute("aria-haspopup", "menu"); more.setAttribute("aria-expanded", "false");
+      more.addEventListener("click", function (ev) { ev.stopPropagation(); if (menuFor === more) closeMenu(); else openMenu(more, nav); });
+      nav.appendChild(more);
+    }
+    var tabs = [].slice.call(nav.querySelectorAll(":scope > .tab")), grps = [].slice.call(nav.querySelectorAll(":scope > .s5bi-grp"));
+    tabs.forEach(function (t) { t.classList.remove("s5by-ov"); });
+    grps.forEach(function (g) { g.classList.remove("s5by-ov"); });
+    more.hidden = true;
+    if (narrow() || nav.scrollWidth <= nav.clientWidth + 1) return;
+    more.hidden = false;
+    for (var i = tabs.length - 1; i >= 0 && nav.scrollWidth > nav.clientWidth + 1; i--) {
+      if (tabs[i].getAttribute("aria-selected") === "true") continue;
+      tabs[i].classList.add("s5by-ov");
+      more.textContent = "More · " + nav.querySelectorAll(":scope > .tab.s5by-ov").length + " ▾";
+    }
+    grps.forEach(function (g) {
+      var n = g.nextElementSibling, any = false;
+      while (n && !n.classList.contains("s5bi-grp")) { if (n.classList.contains("tab") && !n.classList.contains("s5by-ov")) any = true; n = n.nextElementSibling; }
+      if (!any) g.classList.add("s5by-ov");
+    });
+    more.title = "Tabs that do not fit this width: " + [].map.call(nav.querySelectorAll(":scope > .tab.s5by-ov"), label).join(", ");
+  }
+  function fitAll() { [].forEach.call(document.querySelectorAll(".navstack nav.anchors"), function (n) { try { fit(n); } catch (e) {} }); }
+  function watchBar() {
+    var st = document.querySelector(".navstack"); if (!st || st.getAttribute("data-s5by")) return;
+    st.setAttribute("data-s5by", "1"); document.documentElement.classList.add("s5by-bar");
+    fitAll();
+    var tm; window.addEventListener("resize", function () { closeMenu(); clearTimeout(tm); tm = setTimeout(fitAll, 120); });
+    if (window.MutationObserver) new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(fitAll, 60); })
+      .observe(st, { subtree: true, attributes: true, attributeFilter: ["aria-selected"], childList: true, characterData: true });
+    document.addEventListener("click", function (ev) { if (menu && !menu.contains(ev.target)) closeMenu(); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && menu) { var b = menuFor; closeMenu(); if (b) b.focus(); } });
+  }
+
+  /* ---- 3. a jump row at the top of every Graph permission and role panel ---- */
+  var SHORT = { gdver: "Versions", gdcmd: "PowerShell", gdapps: "Apps that hold it" };
+  function secLabel(s) {
+    for (var k in SHORT) if (s.classList.contains(k)) return SHORT[k];
+    var h = s.querySelector(":scope > summary, :scope > h3, :scope > h4, :scope > .sec-h, :scope > header, :scope > p.lbl, :scope > details > summary");
+    var t = h ? h.textContent : "";
+    t = (t || "").replace(/\s+/g, " ").trim().replace(/\d[\d\s]*(endpoints?|actions?|roles?|permissions?)?$/i, "").trim();
+    return t.length > 34 ? t.slice(0, 32) + "…" : t;
+  }
+  function jump(pane) {
+    if (!pane || pane.querySelector(":scope > .s5by-jump")) return;
+    var secs = [].filter.call(pane.children, function (c) { return c.classList && c.classList.contains("sec") && c.offsetParent !== null; });
+    if (secs.length < 3) return;
+    var nav = el("nav", "s5by-jump"); nav.setAttribute("aria-label", "Sections of this panel");
+    nav.appendChild(el("span", "s5by-jl", "In this panel"));
+    secs.forEach(function (s, i) {
+      var lab = secLabel(s); if (!lab) return;
+      var b = el("button", "s5by-jb"); b.type = "button"; b.appendChild(el("span", null, lab));
+      var cn = s.querySelector(".gd-cn, .cat-n, .sec-count");
+      var m = cn ? cn.textContent.trim() : ((s.querySelector(":scope > summary, :scope > h3, :scope > details > summary") || {}).textContent || "").match(/(\d[\d\s]*)\s*(endpoints?|actions?|roles?|permissions?|commands?)\b/);
+      var num = typeof m === "string" ? m : (m ? m[1].replace(/\s/g, "") : "");
+      if (num) b.appendChild(el("span", "s5by-jn", num));
+      b.addEventListener("click", function () {
+        if (s.tagName === "DETAILS") s.open = true;
+        var inner = s.querySelector(":scope > details"); if (inner) inner.open = true;
+        s.classList.add("s5by-hit"); setTimeout(function () { s.classList.remove("s5by-hit"); }, 1600);
+        s.scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+      nav.appendChild(b);
+    });
+    var head = pane.querySelector(":scope > header");
+    if (head && head.nextSibling) pane.insertBefore(nav, head.nextSibling); else pane.insertBefore(nav, pane.firstChild);
+  }
+  function watchPanels() {
+    [].forEach.call(document.querySelectorAll(".catalog .cat-detail"), function (det) {
+      if (det.getAttribute("data-s5by")) return; det.setAttribute("data-s5by", "1");
+      var t = null;
+      function run() { clearTimeout(t); t = setTimeout(function () { var p = det.querySelector(".v13pane"); if (p) jump(p); }, 400); }
+      run();
+      if (window.MutationObserver) new MutationObserver(function (ms) {
+        /* a new panel replaces the old one: rebuild when the jump row is gone */
+        if (!det.querySelector(".v13pane > .s5by-jump")) run();
+      }).observe(det, { childList: true, subtree: true });
+    });
+  }
+
+  /* ---- 4. bare identifiers in prose: the title, the kind, the link ---- */
+  var ITEMS = {}; (ST.items || []).forEach(function (i) { if (i && i.id) ITEMS[i.id] = i; });
+  ((ST.mc || {}).entries || []).forEach(function (m) { if (m && m.id && !ITEMS[m.id]) ITEMS[m.id] = { id: m.id, title: m.title, url: m.link, product: m.product, discoveredBy: "mc-index" }; });
+  function nameIds() {
+    [].forEach.call(document.querySelectorAll(".tabpanel .sec-note code, .tabpanel p code, .tabpanel li code, .tabpanel td code"), function (c) {
+      if (c.getAttribute("data-s5by") || c.closest(".catalog, pre, .s5by-ref, a")) return;
+      var id = (c.textContent || "").trim(), it = ITEMS[id];
+      c.setAttribute("data-s5by", "1");
+      if (!it || !it.title) return;
+      var kind = window.__socKind ? window.__socKind(id, it) : "";
+      var a = el(it.url ? "a" : "span", "s5by-ref");
+      if (it.url) { a.href = it.url; a.target = "_blank"; a.rel = "noopener"; }
+      a.title = id + (it.product ? " · " + it.product : "");
+      if (kind) a.appendChild(el("span", "s5by-rk", kind));
+      var t = String(it.title); a.appendChild(el("span", "s5by-rt", t.length > 90 ? t.slice(0, 88) + "…" : t));
+      c.parentNode.replaceChild(a, c);
+    });
+    /* a note that is now a list of named items reads better as a list */
+    [].forEach.call(document.querySelectorAll(".tabpanel .sec-note"), function (p) {
+      if (p.getAttribute("data-s5byl") || p.querySelectorAll(".s5by-ref").length < 3) return;
+      p.setAttribute("data-s5byl", "1"); p.classList.add("s5by-refs");
+    });
+  }
+
+  function boot() {
+    try { unescapeNames(); } catch (e) { if (window.console) console.error("[5by names]", e); }
+    try { moveJsonBox(); } catch (e) { if (window.console) console.error("[5by json]", e); }
+    try { watchBar(); } catch (e) { if (window.console) console.error("[5by bar]", e); }
+    try { watchPanels(); } catch (e) { if (window.console) console.error("[5by panels]", e); }
+    try { nameIds(); } catch (e) { if (window.console) console.error("[5by ids]", e); }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2600); setTimeout(boot, 4200); });
+  else { setTimeout(boot, 2600); setTimeout(boot, 4200); }
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi")) setTimeout(function () { watchPanels(); nameIds(); unescapeNames(); fitAll(); }, 350); }, true);
 })();
 ```
 
@@ -28470,6 +29130,102 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  .catalog .cat-meta dt{margin:8px 0 0;width:auto!important}
  .catalog .cat-meta dd{margin:2px 0 0!important;width:auto!important;min-width:0}
 }
+/* §5by (28 IX 2026) — Message Center: freshness line, day-by-service grid, row columns on the surface. */
+.mcb-fresh{margin:0 0 10px;padding:8px 12px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;background:var(--surface);font-size:13px;line-height:1.5;color:var(--text)}
+.mcb-fresh .mcb-fnote{color:var(--muted)}
+.mcb-gridbox{margin:0 0 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.mcb-gridbox>summary{padding:9px 12px;font-weight:650;font-size:13.5px;cursor:pointer}
+.mcb-gbody{padding:0 12px 10px;display:grid;gap:8px;justify-items:start}
+.mcb-gwrap{max-width:100%;overflow-x:auto;justify-self:stretch}
+.mcb-grid{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;min-width:100%}
+.mcb-grid th,.mcb-grid td{border-top:1px solid var(--border);padding:5px 8px;text-align:left;vertical-align:top;white-space:nowrap}
+.mcb-grid thead th{border-top:0;font-weight:600;color:var(--muted);font-size:11.5px}
+.mcb-grid thead th span{display:block;text-transform:uppercase;letter-spacing:.05em;font-size:10.5px}
+.mcb-grid thead th b{font-weight:650;color:var(--text)}
+.mcb-grid thead th.today b{color:var(--accent)}
+.mcb-grid tbody th{font-weight:500;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.mcb-grid tr.mcb-gall th,.mcb-grid tr.mcb-gall td{font-weight:650;background:var(--surface-2)}
+.mcb-g0{color:var(--muted)}
+.mcb-gc{display:block;font:600 12px/1.5 var(--sans);border:1px solid var(--border);border-radius:5px;padding:0 6px;margin:1px 0;background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+.mcb-gc.g-upd{color:var(--text)}
+.mcb-gc:hover{border-color:var(--accent)}
+.mcb-gc.on{background:var(--ok);border-color:var(--ok);color:var(--on-accent)}
+.mcb-colhead,.mcb-head{grid-template-columns:52px 74px 92px minmax(0,1fr) 190px 128px 104px}
+.mcb-colhead{display:grid;gap:4px 12px;padding:7px 12px;background:var(--surface-2);font:700 10.5px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.mcb-colhead+.mcb-g{border-top:0}
+.mcb-kind{font:650 11px/1.6 var(--sans);padding:0 7px;border-radius:4px;white-space:nowrap;justify-self:start}
+.mcb-kind.k-new{color:var(--accent);background:var(--accent-soft,var(--surface-2))}
+.mcb-kind.k-upd{color:var(--text);border:1px solid var(--border)}
+.mcb-svcs{display:flex;flex-wrap:wrap;gap:3px 4px;min-width:0}
+.mcb-svcs .mcb-svc{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mcb-catc{font-size:12px;color:var(--muted);line-height:1.5}
+.mcb-det{padding-left:186px}
+@media (max-width:1100px){
+ .mcb-colhead,.mcb-head{grid-template-columns:52px 74px 92px minmax(0,1fr) 150px 104px}
+ .mcb-catc,.mcb-colhead span:nth-child(6){display:none}
+}
+@media (max-width:760px){
+ .mcb-colhead{display:none}
+ .mcb-head{grid-template-columns:auto auto minmax(0,1fr)}
+ .mcb-d{grid-column:1;grid-row:1}
+ .mcb-kind{grid-column:2;grid-row:1}
+ .mcb-id{grid-column:3;grid-row:1}
+ .mcb-main{grid-column:1 / -1;grid-row:2}
+ .mcb-svcs{grid-column:1 / -1;grid-row:3}
+ .mcb-catc{display:none}
+ .mcb-pills{grid-column:1 / -1;grid-row:4}
+ .mcb-det{padding-left:12px}
+ .mcb-fresh{font-size:12.5px}
+}
+.mcb-pills{justify-content:flex-start}
+/* §5by (28 IX 2026) — one-line tab bar, jump row in panels, named identifiers (script 17). */
+@media (min-width:761px){
+ html.s5by-bar .navstack{padding:6px 10px;gap:0}
+ html.s5by-bar .navrow{flex-wrap:nowrap;gap:0;min-width:0}
+ html.s5by-bar .navrow+.navrow{padding-top:6px;margin-top:6px}
+ html.s5by-bar .navstack nav.anchors{flex:1 1 auto;flex-wrap:nowrap;gap:4px;min-width:0;overflow:hidden;align-items:center;padding:1px 0}
+ html.s5by-bar nav.anchors .tab{flex:0 0 auto;padding:5px 10px;font-size:13px;line-height:1.35;border-width:1px;border-radius:7px;white-space:nowrap;box-shadow:none}
+ html.s5by-bar nav.anchors .tab[aria-selected="true"]{box-shadow:0 0 0 2px var(--nav-ring)}
+ html.s5by-bar nav.anchors .tab .navcount{font-size:11px;padding:0 6px;margin-left:6px}
+ html.s5by-bar nav.anchors .s5bi-grp{flex:0 0 auto;font-size:10.5px;letter-spacing:.08em;padding:0 8px 0 12px;margin-left:6px}
+ html.s5by-bar nav.anchors .s5bi-grp:first-child{flex-basis:74px;padding-left:2px;margin-left:0;border-left:0}
+ html.s5by-bar nav.anchors .s5by-ov{display:none!important}
+}
+.s5by-more{flex:0 0 auto;margin-left:auto;font:600 12.5px/1.35 var(--sans);padding:5px 10px;border-radius:7px;cursor:pointer;
+ border:1px dashed var(--nav-tab-line);background:transparent;color:var(--nav-fg);white-space:nowrap}
+.s5by-more:hover,.s5by-more[aria-expanded="true"]{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+.s5by-more[hidden]{display:none}
+@media (max-width:760px){.s5by-more{display:none!important}}
+.s5by-menu{position:absolute;z-index:60;min-width:220px;max-width:calc(100vw - 16px);padding:6px;border-radius:10px;
+ background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.s5by-mg{font:700 10.5px/1.6 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 8px 2px}
+.s5by-mi{display:flex;width:100%;justify-content:space-between;gap:16px;padding:7px 10px;border:0;border-radius:6px;background:none;
+ color:var(--text);font:inherit;font-size:13.5px;text-align:left;cursor:pointer}
+.s5by-mi:hover,.s5by-mi:focus-visible{background:var(--surface-2);outline:none}
+.s5by-mn{color:var(--muted);font-variant-numeric:tabular-nums}
+/* the Source lists box, now in Reference */
+#tab-overview .sec-body > .jsonbox{margin-top:14px}
+/* jump row in a catalog panel */
+.s5by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px;padding:8px 10px;border:1px solid var(--border);
+ border-radius:8px;background:var(--surface-2)}
+.s5by-jl{font:700 10.5px/1.6 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.s5by-jb{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1.4 var(--sans);padding:3px 9px;border-radius:6px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
+.s5by-jb:hover{background:var(--accent);color:var(--on-accent)}
+.s5by-jn{font-weight:700;font-variant-numeric:tabular-nums;opacity:.85}
+.v13pane > .sec{scroll-margin-top:250px}
+.v13pane > .sec.s5by-hit{box-shadow:0 0 0 2px var(--accent)}
+/* named identifiers */
+.s5by-ref{display:inline;font-size:inherit;line-height:1.5}
+.s5by-rk{display:inline-block;font:700 10px/1.5 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+ border:1px solid var(--border);border-radius:4px;padding:0 5px;margin-right:5px;vertical-align:1px}
+.s5by-refs{line-height:1.9}
+/* strip rows: kind, title, identifier (§5bn) */
+.s5bn-ty{flex:0 0 auto;font:700 10px/1.6 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:0 5px}
+.s5bn-tl{color:var(--text);overflow-wrap:anywhere;min-width:0}
+a.s5bn-tl{color:var(--accent)}
+.s5bn-pr{color:var(--muted);font-size:12px}
+.s5bn-idm{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 
 
 
