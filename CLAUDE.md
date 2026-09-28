@@ -1261,7 +1261,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
            "85","86","87","88a","88b","89","90b","90c","91","92",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
            "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114",
-           "116","117","118"}   # 116-118: §5by, 28 IX 2026
+           "116","117","118","120"}   # 116-118: §5by, 120: §5bz, 28 IX 2026
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2840,6 +2840,12 @@ def gate(path, site=None, mirror=False, doc=None):
     need("118", "przebieg czytelnosci: pasek w jednej linii, ramka Source lists, skoki w panelu, typy przy ID, MC z tenantem i siatka dni (§5by)",
          all(k in h for k in K118), "brak: %s" % ", ".join(k for k in K118 if k not in h))
 
+    # ---- 120: poprawki z audytu 28 IX 2026 (§5bz). KLASA B.
+    K120 = ('function openMatches(', 'function commits(', 'function clampNotes(', 'function copyKql(', 'function sheetHint(',
+            'function stampEarly(', 'function canonAll(', 'tbl.setAttribute("data-s11", "1")', 'function diffAge(')
+    need("120", "poprawki z audytu: kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, noty zwiniete, Copy query, jedna definicja 'new', jedne nazwy uslug (§5bz)",
+         all(k in h for k in K120), "brak: %s" % ", ".join(k for k in K120 if k not in h))
+
     # ---- 119: strony what's new Learn (§5by). INFORMACYJNA. 28 IX 2026 lustra git daly wpisy
     # dla 2 z 10 obszarow, a Intune konczyl sie na 26 VIII przy wrzesniowej stronie.
     _wn119 = ((st["soc-brief-state"] or {}).get("nt") or {}).get("wnMeta") or []
@@ -3399,7 +3405,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `blogsdiff` | sekcja strony zmian: artykuly dodane i usuniete NAZWANE z tytulem i linkiem, blogi ze zmienionym statusem | 2026-09-11 | `ZBUDOWANE` | sekcja `blogsdiff` i wiersz `Microsoft Blogs` w `bytab` — jak wyzej, pozycja 34 |
 | `srclists` | ramka `Source lists`: trzy listy JSON z liczba pozycji i data ostatniej aktualizacji, bez sciezek i adresow | 2026-09-11 | `ZBUDOWANE` | klucz `nt.jsons` niesie wszystkie trzy listy z data ostatniej zmiany PLIKU, ramke rysuje SKRYPT 15 v2; pozycja 85 listy §0 zglosila OK 16 wrzesnia 2026 |
 | `unified-secops` | dopisanie obszaru `Microsoft Learn - Unified Security Operations` do listy MS Learn | 2026-09-11 | `ZBUDOWANE` | **wlasciciel dopisal go sam** — pozycja 9 z 31 w `microsoftlearn_sources.json`; §5aw czyta ja jak kazda inna, a jej strona `what's new` (`unified-secops-platform/whats-new.md`) jest w slowniku `WN` kolektora. Pilnuje tego pozycja 81 listy §0 |
-| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZASPECYFIKOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. **16 wrzesnia 2026 wieczorem wlasciciel pokazal, ze populacja NADAL byla niepelna**: sekcja drukowala `+0 / −0`, a podsumowanie tego samego przebiegu nazywalo dwa ruszone wpisy — `MC1426371` zrewidowane 15 wrzesnia i `MC1413308` odwolane. Dwie luki: indeks byl porownywany po samej OBECNOSCI klucza, a petla po pozycjach chodzila po `added` i `removed`, nie po `changed`. Obie zamkniete tego wieczoru (`mcChg`, trzeci rodzaj wiersza, asercja `verify()` „kazdy cytowany MC ma wiersz”), a przy okazji trzecia i czwarta: `MC_FIELDS` nie porownywalo pola rewizji, a strona zmian czytala `community.messageCenter[]` (201 wpisow), podczas gdy brief buduje juz `mc.entries[]` (239) — `MC1426371` jest WYLACZNIE w tym drugim. Zmierzone na prawdziwych stanach 14 → 16 wrzesnia: przed poprawka 20 wierszy i zaden z dwoch zgloszonych, po poprawce 27 wierszy i `MC1426371` obecne jako `changed`. **Piata przyczyna zostaje i ma wlasny wpis `mc-revision-sweep`**: `MC1413308` nie da sie pokazac zadnym algorytmem, bo brief nigdy go nie trzymal. **Brakuje pierwszej strony zmian z ta wersja skryptu** — i tym razem wiadomo, czego szukac |
+| `mc-count-one-view` | **Message Center liczony z JEDNEJ populacji na calej stronie zmian** — pasek skrotow, wiersz `bytab`, kafelek i chip sekcji czytaja `mc_view()`, czyli indeks PLUS kazda pozycja cytujaca `MC…`/`RM…` w `reference` | 2026-09-16 | `ZBUDOWANE` | poprawione w §3 (`make_diff.py`): pasek bral sam `community.messageCenter[]` i mowil `0` nad tabela mowiaca `+3`. **16 wrzesnia 2026 wieczorem wlasciciel pokazal, ze populacja NADAL byla niepelna**: sekcja drukowala `+0 / −0`, a podsumowanie tego samego przebiegu nazywalo dwa ruszone wpisy — `MC1426371` zrewidowane 15 wrzesnia i `MC1413308` odwolane. Dwie luki: indeks byl porownywany po samej OBECNOSCI klucza, a petla po pozycjach chodzila po `added` i `removed`, nie po `changed`. Obie zamkniete tego wieczoru (`mcChg`, trzeci rodzaj wiersza, asercja `verify()` „kazdy cytowany MC ma wiersz”), a przy okazji trzecia i czwarta: `MC_FIELDS` nie porownywalo pola rewizji, a strona zmian czytala `community.messageCenter[]` (201 wpisow), podczas gdy brief buduje juz `mc.entries[]` (239) — `MC1426371` jest WYLACZNIE w tym drugim. Zmierzone na prawdziwych stanach 14 → 16 wrzesnia: przed poprawka 20 wierszy i zaden z dwoch zgloszonych, po poprawce 27 wierszy i `MC1426371` obecne jako `changed`. **Piata przyczyna zostaje i ma wlasny wpis `mc-revision-sweep`**: `MC1413308` nie da sie pokazac zadnym algorytmem, bo brief nigdy go nie trzymal. **Brakuje pierwszej strony zmian z ta wersja skryptu** — i tym razem wiadomo, czego szukac — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `mc-on-brief` | **Message Center jest WYMIAREM, nie zrodlem** — kolumna `Message Center` w Overview, Today i New, plus WLASNA zakladka `tab-mc` z pelnym widokiem, a w kazdej z nich **mapowanie miedzy wpisem MC a strona Learn i artykulem blogowym**, zeby widac bylo, co Microsoft oglosil i gdzie to opisal | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: Overview + Today + New + osobna zakladka, i do tego mapowanie.** §5az niesie kontrakt `mc`, slowniki `origin` i `seenIn`, klucz `storyKey`, markup czterech sekcji, arkusz i SKRYPT 16; artefakt z 16 wrzesnia niesie panel `tab-mc`, a pozycje 90a, 90b, 90c i 91 zglosily OK. Wieczorem tego dnia doszlo `revisedOn`: `mc-today` wybieralo po `firstTracked` i `published`, wiec rewizja wpisu sprzed dwoch miesiecy — `MC1426371` z druga data wycofania SMS — nie miala jak sie pokazac |
 | `diff-uniform-github` | **JEDEN ksztalt pokazywania zmiany w calym portalu** — zielone dodane, czerwone usuniete, ksztalt `.s12file` z §5ar, ten sam w briefie i na stronie zmian; tabele „wiersz na linie" z kolumna `added`/`removed` znikaja | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: jedna funkcja.** `window.__socFileBlock` jest jedynym rendererem, `lineBox()` i rodzina `.ntdiff*` usuniete, `make_diff.py` znaczy kazdy blok `data-ntowner`; pozycje 88a i 88b zglosily OK 16 wrzesnia 2026 |
 | `wariant-a` | **uklad WERSJA A** z zatwierdzonego artefaktu `2HUm8zM8mrs8oBEYN7cZRb` — obowiazuje TAK SAMO w raporcie porannym i na stronie zmian, w scheduled tasku i w routine | 2026-09-16 | `ZBUDOWANE` | artefakt przeczytany 16 wrzesnia i rozlozony na szesc dzialan: 1 i 2 (dowod pod wierszem, `+` przy pozycji) w §3 punkt 15; 3 (sekcje zwiniete) w §3 punkt 14; 4 (Message Center jako widok) w `mc_view()`; 5 (jeden renderer zmiany tekstu) w §5bb; 6 (jedna lista paneli) w `CANON_PANELS`. Wszystkie szesc w przebiegu z 16 wrzesnia 2026, pilnuja ich pozycje 34, 88a, 88b i 3 |
@@ -3410,38 +3416,39 @@ od tej, ktora po cichu wypadla (§0b).
 | `srclists-real-dates` | **ramka `Source lists` podaje date PLIKU i policzone zmiany** — nie date ostatniego pusha do `main`, ktorym jest nasz wlasny przebieg | 2026-09-16 | `ZBUDOWANE` | `collect_nt.py` poglebia historie i liczy commity w oknie 90 dni, `jsonBox()` nie wywraca sie na `null`, a pozycja 85 lapie sygnature plytkiego klonu — OK w przebiegu z 16 wrzesnia 2026 |
 | `components-collector` | **`components` ma KOLEKTOR i pozycje swiezosci** — do 16 wrzesnia 2026 §5ag opisywala zrodla proza i nie niosla ani jednej linii kodu, wiec tablica przezywala przez kopiowanie z wczorajszego artefaktu | 2026-09-16 | `ZBUDOWANE` | `collect_components.py` w §5ag (13 komponentow, 33 wersje, zmierzone na zywych zrodlach); pozycja 86 zglosila OK 16 wrzesnia 2026 |
 | `freshness-audit` | **kazdy klucz stanu ma pozycje mowiaca, ze zostal przeczytany DZISIAJ** — `community` (63), `nt` (81c), `docText` (68c), `ledger14` (45) i odtad `components` (86) ja maja; `graphMap`, `sources` i `serviceRead` katalogu maja pole `readOn`, ale **zadna asercja nie porownuje go z `briefDate`** | 2026-09-16 | `ZBUDOWANE` | **decyzja wlasciciela z 16 wrzesnia: tak, a `graphMap` czyta sie CODZIENNIE jak reszta** (klon devx to 2,0 s, wiec rzadszy odczyt nie oszczedza niczego). Pozycja 87 porownuje `graphMap.readOn`, `sources[].readOn` i `serviceRead.date` z `briefDate` — OK w przebiegu z 16 wrzesnia 2026 |
-| `mc-revision-sweep` | **wpis Message Center ZREWIDOWANY w oknie nalezy do dzisiejszego briefu, takze gdy opublikowano go dawno** — indeks czytany jest na PIERWSZEJ stronie (`Showing 200 of 2458`), wiec wpis z lipca zrewidowany we wrzesniu nie wchodzi w ten wycinek; zbior rewizji czyta sie z DeltaPulse `list_updated_items` plus stronicowanym indeksem, a kazdy nietrzymany identyfikator jest NAZWANY z powodem | 2026-09-16 | `ZASPECYFIKOWANE` | §5az niesie regule, kontrakt `mc.revisionSweep` (`reported`, `missed`, slownik `source`) i pozycje 92 listy §0. **Zmierzone 16 wrzesnia 2026**: DeltaPulse zwrocil 61 rewizji w oknie 2–16 wrzesnia (`hasMore:false`), brief trzymal 36 w `mc.entries`, 34 w indeksie i 25 w zadnym z nich — `MC1413308` jest jednym z tych 25. Brakuje pierwszego przebiegu niosacego klucz `mc.revisionSweep` i wypelnione `revisedOn` (dzis 0 z 239 wpisow) |
-| `tab-counts-everywhere` | **kazda zakladka paska ma licznik pozycji** — `stampCounts()` wymienial `tab-learn` i `tab-blogs` z nazwy, wiec `tab-mc` i `tab-components` zostawaly bez liczby | 2026-09-17 | `ZASPECYFIKOWANE` | §5bc zamienia liste dwoch nazw na petle po tym, co pasek NIESIE, a pozycja 93 listy §0 tego pilnuje. **Zmierzone 17 wrzesnia 2026**: `.navcount` na dwunastu zakladkach, zero na dwoch. Brakuje pierwszego opublikowanego artefaktu |
-| `every-chart-a-control` | **wykres rejestru 14 dni jest KONTROLKA** — klikniecie slupka zawezasa zakladke do wpisow, ktore ten slupek policzyl; zwolnienie zakladek katalogowych z §5ap jest uchylone | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „every graph should be clickable and once item is clicked the autofilter should happen".** §5bc: SKRYPT 8 wiesza `data-ids` i `data-hit`, SKRYPT 11 rozumie geometrie kolumny i przekazuje `texts` obok `ids` (§5at). Argument, ktory trzymal zwolnienie — „filtr po `id` oproznilby rejestr" — przestal obowiazywac w dniu, w ktorym `rowInSpec()` nauczyl sie dopasowywac po tresci. Pilnuje tego pozycja 94. Brakuje pierwszego opublikowanego artefaktu |
-| `catalog-says-its-size` | **katalog mowi, ILE GO JEST, i da sie przeszukac w CALOSCI** — tryb opisany jako „everything Microsoft publishes" pokazywal 1221 z 2238 wpisow, wiec `Group.ReadBasic.All` byl nieznajdowalny z trybu domyslnego | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja: flagi `inInventory` NIE ruszamy** — napedza szesc liczb w powloce, dwie stalyby sie nieprawdziwe, a trzecia lamalaby §5d. §5bc zmienia ETYKIETE trybu i dokłada szukanie po calym katalogu, w ktorym trafienie spoza trybu jest NAZWANE przyciskiem (SKRYPT 17). Pilnuje tego pozycja 95. Brakuje pierwszego opublikowanego artefaktu |
-| `privilege-level-on-the-list` | **poziom uprawnienia na liscie katalogu** — `graphMap` niesie `s[schemat] = {l, c}` dla 925 wpisow, a lista pokazywala `privilegeLevel` na JEDNYM z 2238 | 2026-09-17 | `ZASPECYFIKOWANE` | §5bc dokłada chip `L1`-`L4` z flaga zgody w `decorate()` SKRYPTU 6, czyli u wlasciciela dekoracji listy. **Opisu NIE dorabiamy**: `permissions-descriptions.json` zna 716 z 1933 nazw i `Group.ReadBasic.All` nie jest wsrod nich, wiec `descriptionSource:"none"` zostaje (§5j). Pilnuje tego pozycja 96. Brakuje pierwszego opublikowanego artefaktu |
-| `catalog-7-day-headline` | **ruch katalogu liczony w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview liczyla „dzisiaj", a rejestr ma dla Graph API zero wpisow w czterech z siedmiu ostatnich dni | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia: „adding section at the top saying what exactly changed during last 7 days".** §5bc: `CAT_DAYS = 7` w SKRYPCIE 13 i sekcja `details.g7` nad katalogiem w Graph API i Roles, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz. Pilnuje tego pozycja 97. Brakuje pierwszego opublikowanego artefaktu |
-| `mc-not-in-totals` | **wylaczenie Message Center z sumy kafelkow jest NAZWANE liczbami** — kafelek niesie ruch `+N / &minus;N / N`, chip sekcji te sama wartosc, a `tilenote` i pusta sekcja `Added since` mowia, ile wpisow przyszlo i dlaczego stoja poza suma | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 17 i pozycje 99-100 listy §0 (`verify()` w `make_diff.py`). **Zmierzone 17 wrzesnia 2026** na artefakcie Delta: kafelki `0/0/0` nad wierszem `bytab` mowiacym `+9 / 0 / 7`, a wszystkie dziewiec dodanych wpisow mialo `origin:index`, czyli nie bylo liczone nigdzie indziej. Brakuje pierwszej opublikowanej strony zmian z ta wersja |
-| `mc-dates-column` | **tabela Message Center niesie `Published` i `Revised` zaraz po identyfikatorze**, a brak daty drukuje powod | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkt 18 i pozycja 101. `mc_view()` przenosi `revisedOn` na wiersz. **Luka pomiarowa zostaje i ma wlasny wpis** — `revisedOn` stoi dzis na 0 z 239 wpisow, a zamyka to `mc-revision-sweep`. Brakuje pierwszej opublikowanej strony zmian |
-| `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZASPECYFIKOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian |
-| `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZASPECYFIKOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** |
+| `mc-revision-sweep` | **wpis Message Center ZREWIDOWANY w oknie nalezy do dzisiejszego briefu, takze gdy opublikowano go dawno** — indeks czytany jest na PIERWSZEJ stronie (`Showing 200 of 2458`), wiec wpis z lipca zrewidowany we wrzesniu nie wchodzi w ten wycinek; zbior rewizji czyta sie z DeltaPulse `list_updated_items` plus stronicowanym indeksem, a kazdy nietrzymany identyfikator jest NAZWANY z powodem | 2026-09-16 | `ZBUDOWANE` | §5az niesie regule, kontrakt `mc.revisionSweep` (`reported`, `missed`, slownik `source`) i pozycje 92 listy §0. **Zmierzone 16 wrzesnia 2026**: DeltaPulse zwrocil 61 rewizji w oknie 2–16 wrzesnia (`hasMore:false`), brief trzymal 36 w `mc.entries`, 34 w indeksie i 25 w zadnym z nich — `MC1413308` jest jednym z tych 25. Brakuje pierwszego przebiegu niosacego klucz `mc.revisionSweep` i wypelnione `revisedOn` (dzis 0 z 239 wpisow) — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `tab-counts-everywhere` | **kazda zakladka paska ma licznik pozycji** — `stampCounts()` wymienial `tab-learn` i `tab-blogs` z nazwy, wiec `tab-mc` i `tab-components` zostawaly bez liczby | 2026-09-17 | `ZBUDOWANE` | §5bc zamienia liste dwoch nazw na petle po tym, co pasek NIESIE, a pozycja 93 listy §0 tego pilnuje. **Zmierzone 17 wrzesnia 2026**: `.navcount` na dwunastu zakladkach, zero na dwoch. Brakuje pierwszego opublikowanego artefaktu — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `every-chart-a-control` | **wykres rejestru 14 dni jest KONTROLKA** — klikniecie slupka zawezasa zakladke do wpisow, ktore ten slupek policzyl; zwolnienie zakladek katalogowych z §5ap jest uchylone | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „every graph should be clickable and once item is clicked the autofilter should happen".** §5bc: SKRYPT 8 wiesza `data-ids` i `data-hit`, SKRYPT 11 rozumie geometrie kolumny i przekazuje `texts` obok `ids` (§5at). Argument, ktory trzymal zwolnienie — „filtr po `id` oproznilby rejestr" — przestal obowiazywac w dniu, w ktorym `rowInSpec()` nauczyl sie dopasowywac po tresci. Pilnuje tego pozycja 94. Brakuje pierwszego opublikowanego artefaktu — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `catalog-says-its-size` | **katalog mowi, ILE GO JEST, i da sie przeszukac w CALOSCI** — tryb opisany jako „everything Microsoft publishes" pokazywal 1221 z 2238 wpisow, wiec `Group.ReadBasic.All` byl nieznajdowalny z trybu domyslnego | 2026-09-17 | `ZBUDOWANE` | **decyzja: flagi `inInventory` NIE ruszamy** — napedza szesc liczb w powloce, dwie stalyby sie nieprawdziwe, a trzecia lamalaby §5d. §5bc zmienia ETYKIETE trybu i dokłada szukanie po calym katalogu, w ktorym trafienie spoza trybu jest NAZWANE przyciskiem (SKRYPT 17). Pilnuje tego pozycja 95. Brakuje pierwszego opublikowanego artefaktu — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `privilege-level-on-the-list` | **poziom uprawnienia na liscie katalogu** — `graphMap` niesie `s[schemat] = {l, c}` dla 925 wpisow, a lista pokazywala `privilegeLevel` na JEDNYM z 2238 | 2026-09-17 | `ZBUDOWANE` | §5bc dokłada chip `L1`-`L4` z flaga zgody w `decorate()` SKRYPTU 6, czyli u wlasciciela dekoracji listy. **Opisu NIE dorabiamy**: `permissions-descriptions.json` zna 716 z 1933 nazw i `Group.ReadBasic.All` nie jest wsrod nich, wiec `descriptionSource:"none"` zostaje (§5j). Pilnuje tego pozycja 96. Brakuje pierwszego opublikowanego artefaktu — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `catalog-7-day-headline` | **ruch katalogu liczony w SIEDMIU dniach, a zakladka mowi, co sie ruszylo** — kolumna Overview liczyla „dzisiaj", a rejestr ma dla Graph API zero wpisow w czterech z siedmiu ostatnich dni | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „adding section at the top saying what exactly changed during last 7 days".** §5bc: `CAT_DAYS = 7` w SKRYPCIE 13 i sekcja `details.g7` nad katalogiem w Graph API i Roles, ktora NAZYWA wpisy albo mowi, kiedy cos ruszylo sie ostatni raz. Pilnuje tego pozycja 97. Brakuje pierwszego opublikowanego artefaktu — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `mc-not-in-totals` | **wylaczenie Message Center z sumy kafelkow jest NAZWANE liczbami** — kafelek niesie ruch `+N / &minus;N / N`, chip sekcji te sama wartosc, a `tilenote` i pusta sekcja `Added since` mowia, ile wpisow przyszlo i dlaczego stoja poza suma | 2026-09-17 | `ZBUDOWANE` | §3 punkt 17 i pozycje 99-100 listy §0 (`verify()` w `make_diff.py`). **Zmierzone 17 wrzesnia 2026** na artefakcie Delta: kafelki `0/0/0` nad wierszem `bytab` mowiacym `+9 / 0 / 7`, a wszystkie dziewiec dodanych wpisow mialo `origin:index`, czyli nie bylo liczone nigdzie indziej. Brakuje pierwszej opublikowanej strony zmian z ta wersja — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `mc-dates-column` | **tabela Message Center niesie `Published` i `Revised` zaraz po identyfikatorze**, a brak daty drukuje powod | 2026-09-17 | `ZBUDOWANE` | §3 punkt 18 i pozycja 101. `mc_view()` przenosi `revisedOn` na wiersz. **Luka pomiarowa zostaje i ma wlasny wpis** — `revisedOn` stoi dzis na 0 z 239 wpisow, a zamyka to `mc-revision-sweep`. Brakuje pierwszej opublikowanej strony zmian — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `diff-rail-two-rows` | **pasek skrotow strony zmian ma dwa opisane rzedy i podswietla sekcje po skoku** | 2026-09-17 | `ZBUDOWANE` | §3 punkty 19-20 i pozycja 102. `markOne(sid)` + `window.__socDiffMark`, jeden pisarz `aria-current`; rzedy `What moved` i `Where from` w tym samym `.dstick`. Brakuje pierwszej opublikowanej strony zmian — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `swa-size-gate` | **przebieg liczy rozmiar `site/` PRZED pushem i porownuje z 262 144 000 B** — przekroczenie znaczy, ze przebieg pakuje archiwum i liczy ponownie, a gdy dalej sie nie miesci, pisze to w odpowiedzi zamiast raportowac sukces | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia po dwoch odrzuconych deployach.** §0h niesie regule, a pozycja 103 listy §0 sprawdza ja kodem w `gate.py` — KLASA A, wiec blokuje takze lustro. Zmierzone tego dnia na trzech wejsciach: `site/` 267 674 662 B → `BRAK` i kod 1; kopia spakowana 49 672 857 B → `OK`; bez argumentu `site/` → `BRAK „nie podano site/"`. **Brakuje pierwszego przebiegu, ktory te pozycje wypisze w odpowiedzi** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `site-archive-packing` | **archiwum w `site/` jest spakowane, a `site/data/` ma retencje 30 dni** — `site/history/*.html` i wszystkie `site/data/*.json` poza dwoma najnowszymi i oboma rejestrami ida gzipem, bo nic na stronie do nich nie linkuje, a deploy i tak je wysyla | 2026-09-17 | `ZBUDOWANE` | **decyzja wlasciciela z 17 wrzesnia: „Gzip + retencja na data/".** §0h niesie procedure i pomiary. Zmierzone na kopii: 267 674 662 → **49 672 857 B** (19% limitu) w 4,7 s, 57 plikow `.gz` przechodzi `gzip -t`, liczba plikow 70 → 70, `gunzip -c` bajt w bajt zgodne pod `cmp`. Retencja 30 dni usuwa DZIS zero plikow (najstarszy `2026-08-27`, 21 dni) i zaczyna dzialac 27 wrzesnia. **ZROBIONE miedzy 17 a 20 wrzesnia 2026** — zmierzone na `main` HEAD `658e17d` dnia 23 wrzesnia: **59 plikow `.gz`**, `site/` **98 168 539 B**, czyli **37% limitu 262 144 000 B** zamiast 102%. Niespakowane zostaja wylacznie cztery ostatnie stany (`data/2026-09-17..20.json`) i dwie ostatnie strony poranne — to jest wynik procedury, a nie jej brak, bo dwa najnowsze stany i oba rejestry zostaja jawne z zalozenia. Pakowanie jest odtad **krokiem 7 procedury lustra (§0a)**, wiec nie wymaga osobnego przebiegu |
-| `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku |
-| `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZASPECYFIKOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** |
-| `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — od 25 IX 2026 `width:calc(100% - 40px);max-width:1460px`, czyli krawedzie TRESCI `.wrap` (20→1480 przy 1500 px), a nie jej ramki; ksztalt `.navbanner` z `/diff/` (§5bf) | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `filter-removal-one-writer` | **zdjecie filtru ma JEDNA droge** — `clearTab`, bo tylko ona wola `onclear` ustawiajacego; a baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem | 2026-09-23 | `ZASPECYFIKOWANE` | §5bd i pozycja 105. **Zgloszenie wlasciciela z 23 wrzesnia: `Reset all filters` nic nie robi.** Zmierzone na opublikowanej stronie: wiersze WRACALY (Deadlines 265→311, Today 19→34), ale zostawaly 2-4 banery `filterbanner s11` mowiace `showing 6 of 9`, wiec dla czytelnika filtr wisial dalej. Po poprawce piec zakladek wraca do stanu wyjsciowego z zerem banerow i zerem chipow. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `shell-from-snapshot` | **arkusz bazowy i trzy skrypty powloki ida z `site/shell/shell.html`**, nigdy z recznego ciecia wczorajszej strony po napisie `<style>` | 2026-09-24 | `ZASPECYFIKOWANE` | §0c, §5be i pozycja 107. Zmierzone 24 IX: `font-family` body = `"Times New Roman"`, tlo przezroczyste, `--sans` puste — regula `:root{…}` odrzucona przez parser. Na stronie z 23 IX pozycja daje `OK`, na stronie z 24 IX `BRAK`. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `srclists-from-collector` | **`nt.jsons` pisze wylacznie kolektor z §5aw** — `label`, `what`, `window`, a `updated:null` tylko z jego notatka `shallow clone:` | 2026-09-24 | `ZASPECYFIKOWANE` | pozycja 85 zaostrzona (§5be). 24 IX trzy wpisy mialy `file` zamiast `label` i `null` zamiast daty, wiec ramka nie pokazala ani nazw plikow, ani dat. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `components-summary-table` | **tabela zbiorcza Component versions** — siedem kolumn, wiersz na komponent, nazwa/wersja/stan skopiowane ze stanu | 2026-09-24 | `ZASPECYFIKOWANE` | §5ag i pozycja 83b. 24 IX tabeli nie bylo; 23 IX byla, ale z bledem stanu w wierszu Cloud Sync. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `advanced-bar-like-diff` | **pasek Advanced filtering portalu ma ksztalt paska ze strony zmian** — lewa krawedz 4 px w kolorze akcentu, tlo akcentu przy czynnym filtrze, przyciski-pigulki z kwadratowa kropka w jednym kolorze, licznik w przycisku jako liczba, zielone `N filter on`, `Reset` po prawej | 2026-09-24 | `ZASPECYFIKOWANE` | zmiana wylacznie regul bloku CSS §5aw, liczba blokow bez zmian (§0c); bloki CSS wycina z tego pliku kazdy przebieg budujacy (§0c) — pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz, wiec tej zmiany zadna pozycja nie pilnuje kodem i sprawdza ja render (§5h). **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `component-change-a-to-b` | **kazdy komponent pokazuje poprzednia i obecna wersje jak diff na GitHubie** — `<del>` stara, `→`, `<ins>` nowa, z data wydania albo dniem zaobserwowania; w kafelku, w szynie i w kolumnie `Change` tabeli zbiorczej | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `lastChange` liczy kolektor §5ag, pozycje 83b i 83c. **Brakuje pierwszego przebiegu kolektora z `last_change()`** |
-| `island-no-pr-review` | **wyspy JSON pisze `write_island()`** — `=` jako `\u003d`, zeby CLI nie wzielo strony za przeglad PR i nie odmowilo publikacji | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; pozycja 108 uruchamia ten sam wzorzec co CLI. **Brakuje pierwszego przebiegu budujacego z `write_island()`** |
-| `diff-wears-brief-look` | **strona zmian i artefakt Delta w wygladzie briefu** — paleta, IBM Plex, 1500 px, kafelki `.stat`, plaszczyzna nawigacji §5ae; uklad bez zmian | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, blok na koncu `CSS` w `make_diff.py`. Zmierzone na danych 24→25 IX: tlo, czcionka i kolumna jak w briefie w obu motywach. **Brakuje pierwszego przebiegu zmian z tego pliku** |
-| `diff-every-tile-a-link` | **kazdy kafelek na stronie zmian jest linkiem**, takze zero i rozmiar katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf; `verify()` odrzuca kafelek bez linku. Na danych 24→25 IX: 12 kafelkow, 12 linkow. **Brakuje pierwszego przebiegu zmian z tego pliku** |
-| `nav-follows-theme` | **pasek zakladek zmienia kolor z motywem** — jasna plaszczyzna w jasnym, grafit w ciemnym; brief i `/diff/` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, zmienne `--nav-*` w bloku §5ae i w `make_diff.py`; pozycja 35 i asercja render §5ae przepisane. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `diff-counts-changes-not-bookkeeping` | **strona zmian liczy ZMIANY, nie ksiegowosc, i od stanu KONCOWEGO poprzedniego dnia** — wartosc zapisana po raz pierwszy, okno czasu, sposob i data odczytu nie sa zmianami; plik dnia nadpisuje przebieg wieczorny | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, `moved()` i zapis stanu koncowego w `make_diff.py`. Na 24→25 IX: Graph permissions +0, komponenty 0, Message Center 12 zamiast 184. **Brakuje pierwszego przebiegu zmian z tego pliku** |
-| `ms-changes-first-in-catalog-tabs` | **zakladki Graph API i Roles zaczynaja sie od „What Microsoft changed"** — okno 7/14/30/90/All i od ostatniego briefu, grupy Added/Changed/Removed, `+` przy kazdym wpisie ze szczegolami jak w katalogu | 2026-09-25 | `ZASPECYFIKOWANE` | §5bf, SKRYPT 17 i blok CSS §5bc; pozycja 109. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `review-stage1-fixes` | **etap 1 przegladu portalu: poprawki bez zmiany ukladu** — etykiety pokrycia, Section 0, role tablist/main, NEW przy wierszach, 12 px, wypadniecie z okna to nie usuniecie | 2026-09-25 | `ZASPECYFIKOWANE` | §5bg, pozycja 110; zmierzone na probce 25 IX (axe `/diff/` 0 naruszen). **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
-| `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZASPECYFIKOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
-| `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZASPECYFIKOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** |
-| `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZASPECYFIKOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** |
-| `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZASPECYFIKOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** |
+| `mirror-unreadable-artifact` | **artefakt, ktorego TRESCI nie da sie pobrac, ma wlasny tryb** — nie fallback budujacy i nie cisza: trzy proby w 20 minut, zero wpisu w `runs`, jedno zdanie w `dateline` istniejacej strony w jezyku czytelnika | 2026-09-18 | `ZBUDOWANE` | **zgloszenie z 18 wrzesnia 2026**: artefakt `Microsoft SOC Brief 18 Sep 2026` byl na liscie z dzisiejsza data, a `Artifact action:"read"` zwracalo HTTP 503 przy kazdej z jedenastu prob, na DWOCH roznych artefaktach; diagnostyka proxy bez ani jednej nieudanej przekazki. Lustro zacytowalo §0a poprawnie i nie zbudowalo strony samo — a §0a znala tylko TRZY tryby awarii i tego czwartego nie przewidziala, wiec strona serwowala tresc z 17 wrzesnia nie mowiac o tym ani slowem, **trzeciego dnia tygodnia bez porannej publikacji** (15 wrzesnia bez przebiegu, 16 wrzesnia bez lustra). §0a niesie procedure, a pozycja 104 listy §0 sprawdza ja kodem. **Brakuje pierwszego przebiegu, ktory ten tryb uruchomi** — i, jak przy pozycji 47, pierwszy przebieg po zmianie nie ma czego zglosic, bo strona z dzisiejsza `briefDate` przechodzi bez warunku — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `deploy-branch-bridge` | **push na galaz `claude/**` JEST publikacja** — `publish.yml` przenosi z niej `site/` do `main` automatycznie, wiec zasada 7 dowodzi pushu na ref, KTORY LANCUCH DEPLOYU KONSUMUJE, a nie literalnie `origin/main`; przebieg nie prosi czlowieka o scalenie i pisze jedno zdanie o moscie | 2026-09-18 | `ZBUDOWANE` | **zgloszenie z 18 wrzesnia 2026 wieczorem**: przebieg zmian policzyl strone poprawnie, `verify()` przeszlo, push wyladowal — i zakonczyl sie zdaniem, ze nikt tego nie opublikuje, dopoki czlowiek nie scali galezi. Scalenie wydarzylo sie samo dwie minuty wczesniej (`528da31`, `content: publikacja z claude/epic-euler-b6k036`, 20:22 UTC, z `site/diff/index.html` +240 i nowym plikiem archiwum). Zmierzone tego wieczoru w tym pliku: `claude/**` **zero** wystapien, `publish.yml` **jedno**, `origin/main` **trzy** — specyfikacja opisywala jedna z dwoch sciezek deployu. §0i niesie opis mostu i regule, zasady 6 i 7 sa przepisane. **Pozycji listy §0 ta rzecz NIE dostaje i to jest swiadome**: `gate.py` czyta gotowy HTML, a to, na ktory ref przebieg wypchnal, nie zostawia w nim zadnego sladu — asercja, ktorej nie da sie sprawdzic z pliku, byla by sugestia (§0b). **Brakuje pierwszego przebiegu na galezi `claude/**`, ktory napisze zdanie o moscie zamiast prosic o scalenie** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `filter-bar-in-the-grid` | **pasek `Reset all filters` stoi w siatce tresci** — od 25 IX 2026 `width:calc(100% - 40px);max-width:1460px`, czyli krawedzie TRESCI `.wrap` (20→1480 przy 1500 px), a nie jej ramki; ksztalt `.navbanner` z `/diff/` (§5bf) | 2026-09-23 | `ZBUDOWANE` | §5bd i pozycja 106. Zmierzone przy 1900 px: 1885 px paska przy 1500 px tresci, wystawal o 192 px z kazdej strony. Po poprawce `.gfbar` i `.wrap` obejmuja identyczny prostokat 200→1700 przy 1900 px, 0→1500 przy 1500 px, 0→390 na telefonie; przewijania poziomego zero na czterech szerokosciach. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `filter-removal-one-writer` | **zdjecie filtru ma JEDNA droge** — `clearTab`, bo tylko ona wola `onclear` ustawiajacego; a baner tabeli bez czynnego filtru jest chowany, nie zostawiany z licznikiem | 2026-09-23 | `ZBUDOWANE` | §5bd i pozycja 105. **Zgloszenie wlasciciela z 23 wrzesnia: `Reset all filters` nic nie robi.** Zmierzone na opublikowanej stronie: wiersze WRACALY (Deadlines 265→311, Today 19→34), ale zostawaly 2-4 banery `filterbanner s11` mowiace `showing 6 of 9`, wiec dla czytelnika filtr wisial dalej. Po poprawce piec zakladek wraca do stanu wyjsciowego z zerem banerow i zerem chipow. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `shell-from-snapshot` | **arkusz bazowy i trzy skrypty powloki ida z `site/shell/shell.html`**, nigdy z recznego ciecia wczorajszej strony po napisie `<style>` | 2026-09-24 | `ZBUDOWANE` | §0c, §5be i pozycja 107. Zmierzone 24 IX: `font-family` body = `"Times New Roman"`, tlo przezroczyste, `--sans` puste — regula `:root{…}` odrzucona przez parser. Na stronie z 23 IX pozycja daje `OK`, na stronie z 24 IX `BRAK`. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `srclists-from-collector` | **`nt.jsons` pisze wylacznie kolektor z §5aw** — `label`, `what`, `window`, a `updated:null` tylko z jego notatka `shallow clone:` | 2026-09-24 | `ZBUDOWANE` | pozycja 85 zaostrzona (§5be). 24 IX trzy wpisy mialy `file` zamiast `label` i `null` zamiast daty, wiec ramka nie pokazala ani nazw plikow, ani dat. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `components-summary-table` | **tabela zbiorcza Component versions** — siedem kolumn, wiersz na komponent, nazwa/wersja/stan skopiowane ze stanu | 2026-09-24 | `ZBUDOWANE` | §5ag i pozycja 83b. 24 IX tabeli nie bylo; 23 IX byla, ale z bledem stanu w wierszu Cloud Sync. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `advanced-bar-like-diff` | **pasek Advanced filtering portalu ma ksztalt paska ze strony zmian** — lewa krawedz 4 px w kolorze akcentu, tlo akcentu przy czynnym filtrze, przyciski-pigulki z kwadratowa kropka w jednym kolorze, licznik w przycisku jako liczba, zielone `N filter on`, `Reset` po prawej | 2026-09-24 | `ZBUDOWANE` | zmiana wylacznie regul bloku CSS §5aw, liczba blokow bez zmian (§0c); bloki CSS wycina z tego pliku kazdy przebieg budujacy (§0c) — pozycja 56 porownuje wylacznie SKRYPTY 4-17, nie arkusz, wiec tej zmiany zadna pozycja nie pilnuje kodem i sprawdza ja render (§5h). **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `component-change-a-to-b` | **kazdy komponent pokazuje poprzednia i obecna wersje jak diff na GitHubie** — `<del>` stara, `→`, `<ins>` nowa, z data wydania albo dniem zaobserwowania; w kafelku, w szynie i w kolumnie `Change` tabeli zbiorczej | 2026-09-25 | `ZBUDOWANE` | §5bf; `lastChange` liczy kolektor §5ag, pozycje 83b i 83c. **Brakuje pierwszego przebiegu kolektora z `last_change()`** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `island-no-pr-review` | **wyspy JSON pisze `write_island()`** — `=` jako `\u003d`, zeby CLI nie wzielo strony za przeglad PR i nie odmowilo publikacji | 2026-09-25 | `ZBUDOWANE` | §5bf; pozycja 108 uruchamia ten sam wzorzec co CLI. **Brakuje pierwszego przebiegu budujacego z `write_island()`** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `diff-wears-brief-look` | **strona zmian i artefakt Delta w wygladzie briefu** — paleta, IBM Plex, 1500 px, kafelki `.stat`, plaszczyzna nawigacji §5ae; uklad bez zmian | 2026-09-25 | `ZBUDOWANE` | §5bf, blok na koncu `CSS` w `make_diff.py`. Zmierzone na danych 24→25 IX: tlo, czcionka i kolumna jak w briefie w obu motywach. **Brakuje pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `diff-every-tile-a-link` | **kazdy kafelek na stronie zmian jest linkiem**, takze zero i rozmiar katalogu | 2026-09-25 | `ZBUDOWANE` | §5bf; `verify()` odrzuca kafelek bez linku. Na danych 24→25 IX: 12 kafelkow, 12 linkow. **Brakuje pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `nav-follows-theme` | **pasek zakladek zmienia kolor z motywem** — jasna plaszczyzna w jasnym, grafit w ciemnym; brief i `/diff/` | 2026-09-25 | `ZBUDOWANE` | §5bf, zmienne `--nav-*` w bloku §5ae i w `make_diff.py`; pozycja 35 i asercja render §5ae przepisane. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `diff-counts-changes-not-bookkeeping` | **strona zmian liczy ZMIANY, nie ksiegowosc, i od stanu KONCOWEGO poprzedniego dnia** — wartosc zapisana po raz pierwszy, okno czasu, sposob i data odczytu nie sa zmianami; plik dnia nadpisuje przebieg wieczorny | 2026-09-25 | `ZBUDOWANE` | §5bf, `moved()` i zapis stanu koncowego w `make_diff.py`. Na 24→25 IX: Graph permissions +0, komponenty 0, Message Center 12 zamiast 184. **Brakuje pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `ms-changes-first-in-catalog-tabs` | **zakladki Graph API i Roles zaczynaja sie od „What Microsoft changed"** — okno 7/14/30/90/All i od ostatniego briefu, grupy Added/Changed/Removed, `+` przy kazdym wpisie ze szczegolami jak w katalogu | 2026-09-25 | `ZBUDOWANE` | §5bf, SKRYPT 17 i blok CSS §5bc; pozycja 109. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `review-stage1-fixes` | **etap 1 przegladu portalu: poprawki bez zmiany ukladu** — etykiety pokrycia, Section 0, role tablist/main, NEW przy wierszach, 12 px, wypadniecie z okna to nie usuniecie | 2026-09-25 | `ZBUDOWANE` | §5bg, pozycja 110; zmierzone na probce 25 IX (axe `/diff/` 0 naruszen). **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `review-stage2-header-kpis` | **naglowek to piec KPI** (due today, <7 dni, <30 dni, nowe od briefu, zmiany Microsoftu w Graph i rolach) — klikniecie otwiera zakladke z filtrem; zwijany naglowek, ⓘ zamiast dlugich akapitow, wykresy na zadanie, `#tab=` w adresie, RSS `site/feed.xml` | 2026-09-25 | `ZBUDOWANE` | §5bh, pozycja 111, `write_feed()` w `mirror_artifact.py`. **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZBUDOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZBUDOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
+| `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZBUDOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZASPECYFIKOWANE` | §5by, pozycje 116-119. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
+| `audit-5bz` | **poprawki z audytu 28 IX 2026 i workflow code refresh**: stara `/diff/` nazwana, kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, jedna definicja „new", liczniki = listy, FPA bez „0 of 120", jedne nazwy uslug, Ctrl+K, karty Today/Deadlines na telefonie, Copy query, noty zwiniete | 2026-09-28 | `ZASPECYFIKOWANE` | §5bz, pozycja 120, `.github/workflows/code-refresh.yml`, `tools/code_refresh.py` |
 
 
 
@@ -5888,6 +5895,8 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
 }
 .dnotebtn{display:none}
 @media (max-width:760px){.dnotebtn{display:inline-block}}
+.dstale{margin:10px 0 0;padding:8px 12px;border:1px solid var(--warn);border-left-width:4px;border-radius:8px;
+ background:var(--warn-soft);color:var(--text);font-size:13.5px;line-height:1.5}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -6559,6 +6568,19 @@ FIND_BODY = """<script>
 # §5bk (25 IX 2026): piaty skrypt strony zmian — telefon. Czyta naglowek kazdej tabeli i
 # dopisuje `data-label` do komorek, zeby CSS §5bk ulozyl wiersz jako karte; zwija menu
 # filtrow pod jeden przycisk. Nie pisze `row.hidden` (jedyny pisarz to `apply()`, §5am).
+STALE_BODY = """<script>
+(function(){
+  var p=document.getElementById("dstale"); if(!p) return;
+  var to=p.getAttribute("data-to")||"", fr=p.getAttribute("data-from")||"";
+  var today; try { today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Warsaw"}).format(new Date()); } catch(e){ today=new Date().toISOString().slice(0,10); }
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(to) || to>=today) return;
+  var d=Math.round((new Date(today+"T12:00:00Z")-new Date(to+"T12:00:00Z"))/864e5);
+  p.textContent="This comparison covers "+fr+" \u2192 "+to+" and is "+d+" day"+(d===1?"":"s")+" old (today is "+today+"). "+
+    "The 22:00 run writes the next one; until then, each tab of the brief shows what moved since the previous brief at its top.";
+  p.hidden=false;
+})();
+</script>"""
+
 MOBILE_BODY = """<script>
 (function () {
   "use strict";
@@ -7080,6 +7102,10 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '<div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button>'
                '</div></div>'
                % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
+    # §5bz (28 IX 2026): the page said nothing when it was three days old (the 22:00 routine
+    # failed 26-27 IX) and the brief's "changes since the last brief" landed on 24 -> 25 IX.
+    # STALE_BODY reveals this line when the day it covers is before today in Warsaw.
+    out.append('<p class="dstale" id="dstale" data-from="%s" data-to="%s" hidden></p>' % (esc(prev_d), esc(curr_d)))
     ge_rows, ge_add, ge_rem, ge_chg = diff_graphmap(prev_st, curr_st)
     fp_rows, fp_add, fp_rem, fp_chg, fp_base = diff_fpa(prev_st, curr_st)
     fp_n = {"baseline": "baseline", "absent": "not collected"}.get(fp_base) or "+%d / &minus;%d / %d" % (fp_add, fp_rem, fp_chg)
@@ -8061,7 +8087,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             '&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700'
             '&display=swap" rel="stylesheet">\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY))
+            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY + STALE_BODY))
 
 # ---------- bramka ----------
 
@@ -23873,6 +23899,56 @@ Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX z podmienionym kodem (1500 
 linia swiezosci z tenantem (726 postow); panel Group.ReadWrite.All: 8 skokow, „Apps that hold it 24"
 otwiera sie i przewija; 191 nazwanych identyfikatorow; 0 bledow konsoli, brak przewijania w bok.
 
+## 5bz. AUDYT PORTALU OCZAMI NOWEGO UZYTKOWNIKA I DROGA KODU DO PRODUKCJI (28 IX 2026)
+
+Wlasciciel, 28 IX 2026: „zrob audyt kazdej zakladki, sekcji, wykresu… sprawdz, czy twoi agenci
+potrafia sie w naszym portalu odnalezc". Piec agentow uzylo strony z 28 IX (z kodem §5by) TYLKO
+przez klikanie i widoczny tekst: trzech odpowiadalo na 14 pytan analityka SOC (1500 px jasny,
+1366 px ciemny, telefon 390 px), jeden sprawdzil rejestr §0f wobec produkcji, jeden strone `/diff/`.
+Wynik: 14/14 odpowiedzi, pewnosc czesto 2-3/5 — przez sprzeczne liczby, kafelki prowadzace do
+zwinietej sekcji i stara strone zmian. Raport: artefakt „MS SOC portal audit" i dokument projektu
+`claude/ms-soc-portal-audit-2026-09-28.md`.
+
+**Dlaczego zmiany nie trafialy do produkcji (zmierzone):** routine lustra padl 26 i 27 IX
+(„Context window was full", naprawione 28 IX przez `claudeMdExcludes`); routine „zmiany v2"
+ostatnio FAILED 27 IX, wiec `/diff/` pochodzi z 25 IX; kod wchodzil na strone tylko z porannym
+przebiegiem; plik tenanta w repozytorium (`fpa-tenant.yml`, push tokenem GITHUB_TOKEN) nie
+uruchamia wdrozenia SWA, wiec opublikowana kopia byla z ostatniej publikacji przebiegu.
+
+**Decyzja wlasciciela 28 IX 2026: workflow „code refresh".** `.github/workflows/code-refresh.yml`
++ `tools/code_refresh.py`: po pushu zmieniajacym `CLAUDE.md` (oraz po kazdej migawce tenanta,
+`workflow_run`) podmienia w `site/index.html` WYLACZNIE skrypty 4-17 i `appended.css` (stan, tekst
+i dane bez zmian), uruchamia `gate.py --mirror`, commituje i wdraza SWA z tego samego joba.
+Nie znajduje bloku — konczy sie kodem 2 i niczego nie publikuje (lepiej brak odswiezenia niz pol).
+
+**Rejestr §0f** — 31 z 32 pozycji `ZASPECYFIKOWANE` bylo w produkcji (pozycje bramki OK); oznaczone
+`ZBUDOWANE` z data weryfikacji. Nieaktualny rejestr mylil kolejne przebiegi i sesje.
+
+**Poprawki w kodzie (blok §5bz na koncu SKRYPTU 17 i zmiany w blokach):**
+1. `/diff/`: linia `.dstale` (make_diff.py, `STALE_BODY`) mowi, ze porownanie jest starsze niz dzis;
+   w briefie link „changes since the last brief" czyta date `/diff/` i dopisuje „built <data>,
+   older than this brief".
+2. Kafelek naglowka otwiera sekcje, ktore maja trafienia, i przewija do pierwszej (zamiast
+   pustej „showing 0 of 3" i zwinietej sekcji z 25 wynikami).
+3. Wiersze „What Microsoft changed" w Graph API niosa commit Microsoftu (`gdiff`) jako link.
+4. Jedna definicja „new" dla paska §5bn i widoku Community (lista briefu, inaczej data od
+   poprzedniego briefu) — 28 IX pasek mowil +0, widok 55.
+5. Licznik zakladki Community / Learn / Blogs = liczba artykulow listy (150 / 328 / 533 zamiast
+   178 / 364 / 95), stemplowany przed SKRYPTEM 15.
+6. First-party apps: tabela z `data-s11` (SCRIPT 11 pisal „showing 0 of 120" nad 24 trafieniami);
+   kafelek „listed apps hold consents in our tenant" liczy aplikacje z listy (3), z dopiskiem 5 klientow.
+7. Message Center: jedna nazwa na usluge (Teams → Microsoft Teams, Purview → Microsoft Purview…);
+   po kliknieciu siatki widac zielony baner filtra.
+8. Ctrl+K: dokladna nazwa katalogu pierwsza, bez duplikatow, otwiera TEN wpis katalogu.
+9. Telefon: Today i Deadlines jako karty (przypiete kolumny zostawialy ~15 px), zapytania KQL
+   zawijane i z „Copy query", arkusz zakladek mowi „More tabs below".
+10. Noty metodologiczne dluzsze niz 45 slow: dwie linie i „Show the full note" (26 not).
+Pozycja bramki **120** (klasa B) pilnuje kluczy tego bloku.
+
+Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
+oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
+(116 i 117 to dane dzisiejszego przebiegu).
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -25723,6 +25799,12 @@ odtad CZTERNASCIE (4-17).**
         } else if (h.cat) {
           var box = document.querySelector('#tab-' + h.tab + ' [data-catalog] .cat-q, #tab-' + h.tab + ' [data-catalog] input[type=search]');
           if (box) { box.value = h.cat; box.dispatchEvent(new Event("input", { bubbles: true })); box.scrollIntoView({ block: "center" }); }
+          /* open THAT entry, not whichever the list shows first (§5bz) */
+          setTimeout(function () {
+            var hit = [].filter.call(document.querySelectorAll('#tab-' + h.tab + ' [data-catalog] .cat-item'), function (b) {
+              return ((b.querySelector(".ci-name") || {}).textContent || "").trim() === h.cat; })[0];
+            if (hit) { hit.click(); hit.scrollIntoView({ block: "center" }); }
+          }, 450);
         }
       }, 250);
     }
@@ -25738,7 +25820,19 @@ odtad CZTERNASCIE (4-17).**
     res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Results");
     q.addEventListener("input", function () {
       var words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
-      hits = !words.length ? [] : index().filter(function (x) { return words.every(function (w) { return x.l.indexOf(w) >= 0; }); }).slice(0, 30);
+      /* §5bz (28 IX 2026): an exact catalog name first, then a result starting with the query,
+         then whole-word matches, the rest after; one line per distinct text (agents found
+         "User.ReadBasic.All" above "User.Read.All" and MC1478962 twice) */
+      var qv = q.value.trim().toLowerCase(), seen = {};
+      function rank(x) {
+        if (x.cat && String(x.cat).toLowerCase() === qv) return 0;
+        if (x.l.indexOf(qv) === 0) return 1;
+        var i = x.l.indexOf(qv); if (i > 0 && !/[a-z0-9.]/.test(x.l.charAt(i - 1)) && !/[a-z0-9]/.test(x.l.charAt(i + qv.length) || " ")) return 2;
+        return 3;
+      }
+      hits = !words.length ? [] : index().filter(function (x) { return words.every(function (w) { return x.l.indexOf(w) >= 0; }); })
+        .map(function (x, i) { return { x: x, r: rank(x), i: i }; }).sort(function (a, b) { return a.r - b.r || a.i - b.i; })
+        .map(function (o) { return o.x; }).filter(function (x) { var k = x.tn + "|" + x.l; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 30);
       cur = 0; paint();
     });
     q.addEventListener("keydown", function (e) {
@@ -26243,7 +26337,7 @@ odtad CZTERNASCIE (4-17).**
       ["foci", D.apps.filter(function (a) { return a.foci; }).length, "FOCI family", ""],
       ["dc", D.apps.filter(function (a) { return a.dc; }).length, "allow device code sign-in", ""],
       ["byp", D.apps.filter(function (a) { return a.byp; }).length, "known CA bypass", "crit"],
-      ["ten", Object.keys(tenantBy).length, "hold consents in the checked tenant", ""]
+      ["ten", D.apps.filter(function (a) { return tenantBy[a.id]; }).length, "listed apps hold consents in our tenant" + (Object.keys(tenantBy).length > D.apps.filter(function (a) { return tenantBy[a.id]; }).length ? " (" + Object.keys(tenantBy).length + " Microsoft clients in all)" : ""), ""]
     ];
     TILES.forEach(function (t) {
       var b = el("button", "stat" + (t[3] ? " " + t[3] : "")); b.type = "button";
@@ -26329,6 +26423,9 @@ odtad CZTERNASCIE (4-17).**
     var cntl = el("span", "rowcount"); bar.appendChild(cntl);
 
     var tw = el("div", "tw"), tbl = el("table"); tw.appendChild(tbl); sb.appendChild(tw);
+    /* this block filters and counts its own table: SCRIPT 11 printed "showing 0 of 120 — nothing
+       matches" over 24 matching apps, because it counted rows this block had already redrawn (§5bz) */
+    tbl.setAttribute("data-s11", "1");
     tbl.appendChild(el("caption", "tabcap", "First-party apps · + opens what the app can obtain, per API"));
     var th = el("thead"), hr = el("tr"); ["Open", "App", "App ID", "Client", "Graph permissions", "Highest level", "Other APIs", "Flags"].forEach(function (h) { hr.appendChild(el("th", null, h)); }); th.appendChild(hr); tbl.appendChild(th);
     var tb = el("tbody"); tbl.appendChild(tb);
@@ -26695,7 +26792,11 @@ odtad CZTERNASCIE (4-17).**
     /* `newToday` carries either the title or the LINK (26 IX 2026: 12 links, so the strip printed
        "article" and a URL) — both are looked up, and the title is always the article's own */
     var byTitle = {}; (C.items || []).forEach(function (a) { if (a && a.title) byTitle[a.title] = a; if (a && a.link) byTitle[a.link] = a; });
-    var cRows = (C.newToday || []).map(function (t) {
+    /* §5bz: without the brief's own list, "new" = dated since the previous brief — the same rule as the
+       Community browser's "New since previous brief" view below */
+    var cNew = (C.newToday || []).length ? C.newToday : (C.items || []).filter(function (a) { return a && a.date && prev && a.date >= prev && a.date <= day; })
+      .map(function (a) { return a.link || a.title; });
+    var cRows = cNew.map(function (t) {
       var a = byTitle[t] || {};
       return { kind: "added", id: "", type: a.sourceName || a.source || "Community article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
     });
@@ -26773,6 +26874,15 @@ odtad CZTERNASCIE (4-17).**
   var SRC = { index: "mc.merill.net", feed: "msmessagecenter.com", deltapulse: "DeltaPulse", tenant: "Our tenant (Graph)",
               item: "Cited by an item", prev: "Earlier brief", both: "mc.merill.net" };
 
+  /* §5bz: one name per service. Agents saw "Microsoft Teams 131" next to "Teams (3)", and
+     "Purview" next to "Microsoft Purview": the brief's short product labels meet Microsoft's
+     service names. The short label is mapped to Microsoft's name. */
+  var CANON = { "teams": "Microsoft Teams", "purview": "Microsoft Purview", "defender xdr": "Microsoft Defender XDR",
+    "sharepoint": "SharePoint Online", "onedrive": "OneDrive for Business", "exchange": "Exchange Online", "intune": "Microsoft Intune",
+    "entra": "Microsoft Entra", "copilot": "Microsoft Copilot (Microsoft 365)", "m365 admin": "Microsoft 365 suite", "planner": "Planner",
+    "viva": "Microsoft Viva", "power platform": "Power Platform", "windows": "Windows", "edge": "Microsoft Edge" };
+  function canon(t) { var k = String(t || "").trim(); return CANON[k.toLowerCase()] || k; }
+  function canonAll(a) { var o = []; a.forEach(function (t) { t = canon(t); if (t && o.indexOf(t) < 0) o.push(t); }); return o; }
   /* one normalised record per post; every field says where it came from */
   function norm(e) {
     var items = ST.items || [], byItem = {};
@@ -26780,6 +26890,7 @@ odtad CZTERNASCIE (4-17).**
     var tech = (e.tech || []).slice();
     if (!tech.length) (e.itemIds || []).forEach(function (id) { var it = byItem[id]; if (it && it.product && tech.indexOf(it.product) < 0) tech.push(it.product); });
     if (!tech.length && e.product) tech.push(e.product);
+    tech = canonAll(tech);
     var pub = iso(e.published) || iso(e.firstTracked);
     var rev = iso(e.revisedOn) || iso(e.updated);
     if (rev && pub && rev <= pub) rev = "";
@@ -27097,7 +27208,9 @@ odtad CZTERNASCIE (4-17).**
           if (on) { S.day = S.kind = ""; S.svc = ""; }
           else { S.view = "all"; S.day = d; S.kind = k[1]; S.svc = key && key !== "(service not stated)" ? key : ""; S.cat = S.flag = S.src = ""; }
           S.shown = PAGE; render();
-          var l = root.querySelector(".mcb-info"); if (l && l.scrollIntoView) l.scrollIntoView({ block: "start", behavior: "smooth" });
+          /* the green banner naming the filter must be in view after the jump (§5bz) */
+          var l = root.querySelector(".mcb-banner:not([hidden])") || root.querySelector(".mcb-info");
+          if (l) { var y = l.getBoundingClientRect().top + scrollY - 190; window.scrollTo({ top: Math.max(0, y), behavior: "smooth" }); }
         });
         td.appendChild(b);
       });
@@ -28143,7 +28256,7 @@ odtad CZTERNASCIE (4-17).**
   /* NOT Learn and New: their rows carry diff hunks and file blocks (§5bh, SCRIPT 12) that are
      wider than a phone by nature — measured 27 IX 2026, cards made Learn 11 949 -> 59 321 px
      and New overflow sideways; they keep their own scrolling table */
-  var SEL = "#tab-community table, #tab-blogs table, details.g7 table";
+  var SEL = "#tab-community table, #tab-blogs table, details.g7 table, #tab-today table, #tab-deadlines table";   /* §5bz: Today and Deadlines too — pinned columns left 15 px for the text */
   function label(t) {
     if (!t.tHead || !t.tBodies.length) return;
     var hs = [].map.call(t.tHead.rows[t.tHead.rows.length - 1].cells, function (c) {
@@ -28222,7 +28335,9 @@ odtad CZTERNASCIE (4-17).**
         var hasNT = (C.newToday || []).length > 0;
         return (C.items || []).map(function (a) {
           return { key: a.link || a.title, title: a.title || a.link, link: a.link, date: a.date || a.firstTracked || "",
-            isNew: hasNT ? !!(NT[a.link] || NT[a.title]) : (a.firstTracked ? a.firstTracked === DAY : a.date >= PREV),
+            /* §5bz: ONE definition with the strip above (§5bn) — the brief's own list, else dated since
+               the previous brief. firstTracked is not used: 28 IX it gave 55 "new" under a strip saying 0 */
+            isNew: hasNT ? !!(NT[a.link] || NT[a.title]) : !!(a.date && PREV && a.date >= PREV && a.date <= DAY),
             f: { src: a.sourceName || a.source || "", site: a.host || "" }, text: "", meta: [a.sourceName || a.source, a.host].filter(Boolean).join(" · ") };
         });
       },
@@ -28480,6 +28595,19 @@ odtad CZTERNASCIE (4-17).**
     };
   }
   var B = CONF.map(function (c) { return new Browser(c); });
+  /* §5bz: the tab's number is the number of articles its list shows ("All"), stamped before
+     SCRIPT 15 (800 ms) fills empty counters — 28 IX the badges said 178 / 364 / 95 over lists of
+     150 / 328 / 533 */
+  function stampEarly() {
+    CONF.forEach(function (c) {
+      var n = 0; try { n = c.recs().filter(function (r) { return r.title; }).length; } catch (e) {}
+      var tb = document.getElementById("tabbtn-tab-" + c.tab); if (!tb || !n) return;
+      var nc = tb.querySelector(".navcount"); if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); }
+      nc.textContent = String(n); tb.setAttribute("data-count-of", "articles in the list");
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(stampEarly, 500); });
+  else setTimeout(stampEarly, 500);
   function boot() { B.forEach(function (b) { try { b.build(); } catch (e) { if (window.console) console.error("[5bw]", e); } }); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2350); });
   else setTimeout(boot, 2350);
@@ -28731,6 +28859,154 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2600); setTimeout(boot, 4200); });
   else { setTimeout(boot, 2600); setTimeout(boot, 4200); }
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi")) setTimeout(function () { watchPanels(); nameIds(); unescapeNames(); fitAll(); }, 350); }, true);
+})();
+/* ===========================================================================
+   §5bz — AUDIT FIXES (28 IX 2026): what five agents tripped over when they
+   used the portal as newcomers, desktop and phone, by clicking only.
+
+   1. The header link "changes since the last brief" landed on a /diff/ page
+      three days old (24 -> 25 IX) and nothing said so: on the published site the
+      link now reads the date of /diff/ and says it when it is older than the brief.
+   2. A header tile (e.g. "25 due within 7 days") opened its tab with an EMPTY
+      open section ("showing 0 of 3") while the matches sat in a closed one: after
+      a tile jump, sections that hold matches open, the first is scrolled into view.
+   3. Graph change rows named "25 September 2026 weekly sync" but no commit: each
+      row now carries Microsoft's commit (from `gdiff`) as a link.
+   4. Walls of method text before the data: a note longer than 45 words is shown
+      as two lines with "Show the full note" (a class on the paragraph; the text
+      stays in the page, nothing is removed or moved).
+   5. KQL on a phone: every query block gets "Copy query".
+   6. Phone tab sheet: "Hunting & actions" and "Products" sat below the fold with
+      no hint — the sheet says when there is more below.
+   ALL UI TEXT IS ENGLISH. One writer per mechanism: this block never writes
+   row.hidden or data-s11; it opens <details>, adds classes and buttons.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  var ST = jb("soc-brief-state") || {}, DAY = ST.briefDate || "";
+  var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
+
+  /* ---- 1. how old is /diff/? ---- */
+  function diffAge() {
+    if (!onSite() || !window.fetch) return;
+    var links = [].filter.call(document.querySelectorAll('header a[href]'), function (a) { return /\/diff\/?(#.*)?$/.test(a.getAttribute("href") || ""); });
+    if (!links.length) return;
+    fetch("/diff/", { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (t) {
+      var m = /what changed (\d{4}-\d{2}-\d{2})/.exec(t || ""); if (!m) return;
+      var d = m[1], prev = (ST.comparedWith && ST.comparedWith.date) || "";
+      links.forEach(function (a) {
+        if (a.getAttribute("data-s5bz")) return; a.setAttribute("data-s5bz", "1");
+        if (d >= DAY || (prev && d >= prev)) { a.title = "Changes page: " + dm(d); return; }
+        a.classList.add("s5bz-stale");
+        a.appendChild(el("span", "s5bz-age", " (built " + dm(d) + ", older than this brief)"));
+        a.title = "The changes page covers the brief of " + dm(d) + "; this brief is " + dm(DAY) + ". The top of each tab shows what moved since the previous brief.";
+      });
+    }, function () {});
+  }
+
+  /* ---- 2. a tile jump opens the sections that hold the matches ---- */
+  function visibleRows(sec) {
+    var n = 0;
+    [].forEach.call(sec.querySelectorAll("table > tbody > tr"), function (r) {
+      /* SCRIPT 11 marks a filtered-out row data-s11="0"; the shell uses hidden */
+      if (r.hidden || r.getAttribute("data-s11") === "0" || r.classList.contains("hdet") || r.classList.contains("grp") || r.classList.contains("det")) return;
+      if (r.cells.length === 1 && r.cells[0].colSpan > 1) return;
+      n++;
+    });
+    return n;
+  }
+  function openMatches() {
+    var p = document.querySelector(".tabpanel:not([hidden])"); if (!p) return;
+    var active = [].some.call(p.querySelectorAll(".filterbanner, .s15bar, .ntfbar"), function (b) { return !b.hidden && b.offsetParent !== null && /filter/i.test(b.textContent || "") && !/Nothing is filtered/i.test(b.textContent || ""); });
+    if (!active) return;
+    var secs = [].slice.call(p.querySelectorAll("details.ntsec"));
+    var withHits = secs.filter(function (s) { return visibleRows(s) > 0; });
+    if (!withHits.length) return;
+    var first = null;
+    withHits.forEach(function (s) { if (!s.open) s.open = true; if (!first) first = s; });
+    secs.forEach(function (s) { if (withHits.indexOf(s) < 0 && s.open && visibleRows(s) === 0 && s.querySelector("table")) s.open = false; });
+    if (first) { var y = first.getBoundingClientRect().top + scrollY - 200; window.scrollTo({ top: Math.max(0, y), behavior: "smooth" }); }
+  }
+  document.addEventListener("click", function (ev) {
+    var t = ev.target && ev.target.closest && ev.target.closest("header .k5, header a.count, .s5bh-tile, .stat[data-goto], a.gnum");
+    if (t) setTimeout(openMatches, 900);
+  }, true);
+
+  /* ---- 3. Microsoft's commit on every Graph change row ---- */
+  function commits() {
+    var G = ST.gdiff; if (!G || !G.perms) return;
+    var repo = String(G.repo || "https://github.com/microsoftgraph/microsoft-graph-devx-content").replace(/\/$/, "");
+    [].forEach.call(document.querySelectorAll("#tab-graph .mschg .mc-item, #tab-graph .mc-item"), function (it) {
+      if (it.getAttribute("data-s5bz")) return; it.setAttribute("data-s5bz", "1");
+      var nm = ((it.querySelector(".mc-name") || {}).textContent || "").trim();
+      var p = G.perms[nm]; if (!p || !p.ev || !p.ev.length) return;
+      var ev = p.ev.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); })[0];
+      if (!ev || !ev.sha) return;
+      var row = it.querySelector(".mc-row") || it;
+      var a = el("a", "badge s5bz-sha", "commit " + ev.sha + " · " + dm(ev.date));
+      a.href = repo + "/commit/" + ev.sha; a.target = "_blank"; a.rel = "noopener";
+      a.title = "Microsoft's update of " + (G.file || "permissions.json") + " that made this change (v" + ev.v + ")";
+      var when = row.querySelector(".mc-when"); if (when) row.insertBefore(a, when); else row.appendChild(a);
+    });
+  }
+
+  /* ---- 4. long method notes: two lines and "Show the full note" ---- */
+  function clampNotes() {
+    [].forEach.call(document.querySelectorAll(".tabpanel p.sec-note, .tabpanel p.shsub, .tabpanel p.gd-note, .tabpanel .howto p, .tabpanel p.cc-note, .tabpanel p.ntnote"), function (p) {
+      if (p.getAttribute("data-s5bz") || p.closest("table, .mcb-det, .ab-det, .cat-detail, .fpa-det")) return;
+      p.setAttribute("data-s5bz", "1");
+      var w = (p.textContent || "").trim().split(/\s+/).length;
+      if (w < 45) return;
+      p.classList.add("s5bz-clamp");
+      var b = el("button", "s5bz-more", "Show the full note"); b.type = "button"; b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () {
+        var on = p.classList.toggle("s5bz-clamp");
+        b.textContent = on ? "Show the full note" : "Show less"; b.setAttribute("aria-expanded", on ? "false" : "true");
+      });
+      p.parentNode.insertBefore(b, p.nextSibling);
+    });
+  }
+
+  /* ---- 5. Copy query on every KQL block ---- */
+  function copyKql() {
+    [].forEach.call(document.querySelectorAll("#tab-hunting pre"), function (pre) {
+      if (pre.getAttribute("data-s5bz")) return; pre.setAttribute("data-s5bz", "1");
+      var b = el("button", "s5bz-copy", "Copy query"); b.type = "button";
+      b.addEventListener("click", function () {
+        var t = pre.innerText || pre.textContent || "";
+        function ok() { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy query"; }, 1500); }
+        function sel() { var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected — press Ctrl+C"; }
+        try { navigator.clipboard.writeText(t).then(ok, sel); } catch (e) { sel(); }
+      });
+      pre.parentNode.insertBefore(b, pre);
+    });
+  }
+
+  /* ---- 6. phone sheet: say there is more below ---- */
+  function sheetHint() {
+    var box = document.querySelector(".s5br-box"); if (!box || box.getAttribute("data-s5bz")) return;
+    box.setAttribute("data-s5bz", "1");
+    var hint = el("div", "s5bz-sheethint", "More tabs below ↓"); hint.setAttribute("aria-hidden", "true"); box.appendChild(hint);
+    function upd() { hint.hidden = box.scrollHeight - box.clientHeight - box.scrollTop < 24; }
+    box.addEventListener("scroll", upd, { passive: true });
+    new MutationObserver(upd).observe(document.getElementById("s5br-sheet") || box, { attributes: true, attributeFilter: ["hidden"] });
+    setTimeout(upd, 50);
+  }
+
+  function run() {
+    try { commits(); } catch (e) { if (window.console) console.error("[5bz sha]", e); }
+    try { clampNotes(); } catch (e) { if (window.console) console.error("[5bz notes]", e); }
+    try { copyKql(); } catch (e) { if (window.console) console.error("[5bz kql]", e); }
+    try { sheetHint(); } catch (e) { if (window.console) console.error("[5bz sheet]", e); }
+  }
+  function boot() { run(); diffAge(); setTimeout(run, 2000); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2800); });
+  else setTimeout(boot, 2800);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi, .gd summary, .mschg summary, details > summary")) setTimeout(run, 400); }, true);
 })();
 ```
 
@@ -29226,6 +29502,20 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
 a.s5bn-tl{color:var(--accent)}
 .s5bn-pr{color:var(--muted);font-size:12px}
 .s5bn-idm{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+/* §5bz (28 IX 2026) — audit fixes: stale /diff/ link, commit chips, clamped notes, Copy query, phone sheet hint (script 17). */
+a.s5bz-stale{color:var(--warn)!important;text-decoration-style:dashed}
+.s5bz-age{font-size:.92em}
+a.badge.s5bz-sha{font-family:var(--mono);font-size:11.5px;text-decoration:none;border:1px solid var(--border);background:var(--surface);color:var(--accent)}
+a.badge.s5bz-sha:hover{border-color:var(--accent)}
+p.s5bz-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.s5bz-more{display:inline-block;margin:-2px 0 8px;padding:2px 0;border:0;background:none;color:var(--accent);font:600 12.5px/1.4 var(--sans);cursor:pointer}
+.s5bz-more:hover{text-decoration:underline}
+.s5bz-copy{display:inline-block;margin:4px 0;padding:4px 10px;border-radius:6px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);font:600 12.5px/1.3 var(--sans);cursor:pointer;min-height:32px}
+.s5bz-copy:hover{background:var(--accent);color:var(--on-accent)}
+.s5bz-sheethint{position:sticky;bottom:0;margin:10px -16px 0;padding:10px 16px;text-align:center;font:600 12.5px/1.3 var(--sans);color:var(--accent);
+ background:linear-gradient(to bottom,transparent,var(--surface) 45%)}
+.s5bz-sheethint[hidden]{display:none}
+@media (max-width:760px){#tab-hunting pre{white-space:pre-wrap;overflow-wrap:anywhere}}
 
 
 

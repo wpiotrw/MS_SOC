@@ -1,0 +1,67 @@
+name: Code refresh (CLAUDE.md -> published page)
+
+# Owner's decision, 28 IX 2026: code pushed to CLAUDE.md goes live the same hour, not with the
+# next morning run. tools/code_refresh.py swaps only the scripts 4-17 and appended.css in
+# site/index.html (state, text and data untouched), gate.py checks the result in mirror mode,
+# and the site is deployed from this job (a push made with GITHUB_TOKEN starts no other workflow,
+# which is also why the tenant snapshot's data files are deployed from here after each snapshot).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'CLAUDE.md'
+      - 'tools/code_refresh.py'
+      - '.github/workflows/code-refresh.yml'
+  workflow_run:
+    workflows: ["First-party apps tenant snapshot"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Swap in the code of this CLAUDE.md
+        id: swap
+        run: |
+          set -euo pipefail
+          python3 tools/code_refresh.py CLAUDE.md site/index.html .refresh | tee refresh.log
+          if grep -q '^refreshed:' refresh.log; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Gate (mirror mode - class B reported, not blocking)
+        if: steps.swap.outputs.changed == '1'
+        run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
+
+      - name: Commit the refreshed page
+        if: steps.swap.outputs.changed == '1'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/index.html
+          git commit -m "code: odswiezenie skryptow strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' '))"
+          git pull --rebase -q origin main
+          git push origin main
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/site"
+          api_location: ""
+          output_location: ""
+          skip_app_build: true
