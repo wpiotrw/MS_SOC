@@ -24126,6 +24126,32 @@ mialy zero prawdziwe. Dane dnia: `site/data/2026-09-27.json` z artefaktu 27 IX, 
 uzupelniony tylko o te cztery rodziny. Gate `--mirror --doc`: bez zmian poza pozycja 79 (teraz
 sprawdzana), 56 OK.
 
+### §5ca (28 IX 2026 w nocy) — boczne menu zakladek na desktopie, „wersja 4" wybrana przez wlasciciela
+
+Wlasciciel: pasek zakladek „totalnie nieprofesjonalny, tresci sie zlewaja". Narysowane cztery kierunki
+(artefakt „SOC Brief Tab Bar"); wybrane boczne menu. Wersje z liczba wierszy i trzema kolorowymi
+licznikami w menu wlasciciel odrzucil jako nieczytelne. Zatwierdzona zasada: **menu odpowiada na
+jedno pytanie — gdzie cos sie ruszylo od poprzedniego briefu — jedna liczba na zakladke, a gdy nic,
+to nic**; szczegoly SLOWAMI w naglowku otwartej zakladki: jej jednostka policzona raz
+(„150 articles in the list") i „since 27 Sep: +70 added to the list · ~21 changed · -78 left the list".
+- Kod: ostatni blok SKRYPTU 17 i reguly `s5ca-*` na koncu bloku CSS §5by/§5bz. Tylko od 1100 px;
+  ponizej nic sie nie zmienia (telefon zostaje przy swoim wyborze zakladki).
+- Liczby menu i naglowka CZYTANE z ramki „Since the previous brief" (§5bn) tej zakladki — jedno
+  liczenie, trzy widoki. Przyciski powloki zostaja w DOM i tylko one przelaczaja zakladki; menu je
+  naciska i odbija `aria-selected`. Nie pisze `row.hidden`, `navcount` ani szyny filtrow.
+- Kolejnosc i grupy = lista `GROUPS` z §5bi (U5), bo §5bi grupuje dopiero po 1,7 s.
+- Jednostki: Today/New — pozycje (roznych `data-id`), Deadlines — terminy, MC — posty, Roles — role
+  w katalogu, FPA — aplikacje, Components — komponenty, Learn/Blogs/Community — pozycje listy,
+  Sources — zrodla, Hunting — akcje i lista obserwacyjna, Products — produkty i pozycje; Overview bez
+  liczby. Stary licznik (`panelCount`: wiersze wszystkich tabel) mowil w kazdej zakladce co innego:
+  Overview 3 = wiersze trzech tabelek, Graph API 1243, Today 70 przy 64 pozycjach.
+- Graph API ma dwie linie: „1,243 permissions in the catalog · Microsoft's reference publishes 997 ·
+  931 in the endpoint map" (ta sama definicja co kafelek strony: wpisy z `inInventory`) i
+  „2,285 catalog entries across 17 APIs…", kazda ze swoimi zmianami (28 IX: ~269 i ~295).
+- Zmierzone: 1500 / 1280 px — menu widoczne, zero przewijania w poziomie, liczby = ramki, klik
+  przelacza zakladke; 390 px — menu i naglowki nie powstaja. Znane: `--hdr-h` (SKRYPT 14) mija sie
+  z wysokoscia naglowka o kilkanascie px — tak bylo i przed ta zmiana (-12 px), teraz +14 px.
+
 Zmierzone 28 IX 2026 w Playwright na stronie z 28 IX odswiezonej `code_refresh.py`: 1500/1280/390 px,
 oba motywy, 15 zakladek, 0 bledow konsoli, brak przewijania w bok; bramka `--mirror`: przechodzi
 (116 i 117 to dane dzisiejszego przebiegu).
@@ -29231,6 +29257,215 @@ odtad CZTERNASCIE (4-17).**
   else setTimeout(boot, 2800);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi, .gd summary, .mschg summary, details > summary")) setTimeout(run, 400); }, true);
 })();
+/* ---------------------------------------------------------------------------
+   §5ca (28 IX 2026) — DESKTOP LEFT RAIL, "version 4" chosen by the owner.
+   Owner: the tab bar is "totally unprofessional, contents blend". Four directions were drawn;
+   the owner chose the left rail and then rejected totals + three colour chips in the rail as
+   unreadable. The rule he approved: the rail answers ONE question — where did something move
+   since the previous brief — with one number per tab, and nothing when nothing moved. The
+   details go in WORDS at the top of the open tab, where there is room: its own unit counted once
+   ("150 articles in the list") and "since 27 Sep: +70 added to the list · ~21 changed · -78 left
+   the list". Graph API states both sets: Microsoft Graph permissions and all catalog entries.
+   - From 1100 px only; below that nothing changes (phone keeps its tab picker).
+   - The numbers are READ from each tab's "Since the previous brief" strip (§5bn), so the rail,
+     the header and the strip can never disagree (one count, three views).
+   - The shell tab buttons stay in the DOM and stay the only thing that switches tabs: a rail
+     click presses the shell button, and the rail mirrors aria-selected. It writes no row.hidden,
+     no navcount, no filter bus.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var MQ = "(min-width: 1100px)";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function dmy(d) { var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : ""; }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  var ST = null, CAT = null, rail = null, items = {};
+
+  /* the SAME groups and order as §5bi (U5). §5bi applies them at +1.7 s; the rail is built at
+     DOMContentLoaded, so it takes the order from this list, not from the DOM of that moment */
+  var GROUPS = [
+    ["Today", ["overview", "today", "deadlines", "mc"]],
+    ["Changes", ["new", "graph", "roles", "fpa", "components"]],
+    ["Sources", ["learn", "blogs", "community", "sources"]],
+    ["Act", ["hunting", "products"]]
+  ];
+  function buttons() {
+    var all = [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")), out = [], seen = {};
+    GROUPS.forEach(function (g) { g[1].forEach(function (k) {
+      var b = document.querySelector('nav.anchors .tab[aria-controls="tab-' + k + '"]'); if (b) { b.__s5caGrp = g[0]; out.push(b); seen[b.getAttribute("aria-controls")] = 1; } }); });
+    all.forEach(function (b) { if (!seen[b.getAttribute("aria-controls")]) out.push(b); });   /* a tab added later is never lost */
+    return out;
+  }
+  function nameOf(b) { var c = b.cloneNode(true); [].forEach.call(c.querySelectorAll(".navcount"), function (x) { x.remove(); }); return (c.textContent || "").trim(); }
+  function groupOf(b) {
+    if (b.__s5caGrp) return b.__s5caGrp;
+    if (b.getAttribute("data-grp")) return b.getAttribute("data-grp");
+    var p = b.previousElementSibling; while (p && !p.classList.contains("s5bi-grp")) p = p.previousElementSibling;
+    return p ? (p.textContent || "").trim() : "";
+  }
+
+  /* what moved, read from the tab's own strip (§5bn) */
+  function moved(pid) {
+    var s = document.querySelector("#" + pid + " > .s5bn"); if (!s) return null;
+    var out = { n: 0, parts: [] };
+    [["added", "a"], ["changed", "c"], ["removed", "r"]].forEach(function (k) {
+      var sp = s.querySelector(".s5bn-n.s5bn-" + k[0]); if (!sp) return;
+      var v = parseInt(String(sp.textContent || "").replace(/[^\d]/g, ""), 10) || 0;
+      if (v) { out.n += v; out.parts.push([k[1], (sp.textContent || "").trim()]); }
+    });
+    return out;
+  }
+  function distinctIds(pid) { var s = {}; [].forEach.call(document.querySelectorAll("#" + pid + " tbody tr[data-id]"), function (r) { s[r.getAttribute("data-id")] = 1; }); return Object.keys(s); }
+  function navNum(pid) { var b = document.querySelector('nav.anchors .tab[aria-controls="' + pid + '"] .navcount'); return b ? parseInt((b.textContent || "").replace(/[^\d]/g, ""), 10) || 0 : 0; }
+
+  /* the tab's own unit, counted once */
+  function units(pid) {
+    var n;
+    switch (pid) {
+      case "tab-overview": return "";
+      case "tab-today": n = distinctIds(pid).length; return n ? fmt(n) + " items" : "";
+      case "tab-new": n = distinctIds(pid).length; return n ? fmt(n) + " items" : "";
+      case "tab-deadlines": n = distinctIds(pid).length; return n ? fmt(n) + " deadlines" : "";
+      case "tab-mc": n = navNum(pid); return n ? fmt(n) + " posts" : "";
+      case "tab-roles": n = ((CAT || {}).roles || []).length; return n ? fmt(n) + " roles in the catalog" : "";
+      case "tab-fpa": n = navNum(pid); return n ? fmt(n) + " apps" : "";
+      case "tab-components": n = ((ST || {}).components || []).length; return n ? fmt(n) + " components" : "";
+      case "tab-learn": n = navNum(pid); return n ? fmt(n) + " entries in the list" : "";
+      case "tab-blogs": n = navNum(pid); return n ? fmt(n) + " posts in the list" : "";
+      case "tab-community": n = navNum(pid); return n ? fmt(n) + " articles in the list" : "";
+      case "tab-sources": n = ((ST || {}).sources || []).length; return n ? fmt(n) + " sources" : "";
+      case "tab-hunting": var a = ((ST || {}).actions || []).length, w = ((ST || {}).watchlist || []).length;
+        return [a ? a + " actions" : "", w ? w + " on the watchlist" : ""].filter(Boolean).join(" · ");
+      case "tab-products": var ids = distinctIds(pid), pr = {}; ids.forEach(function (i) { var it = items[i]; if (it && it.product) pr[it.product] = 1; });
+        var np = Object.keys(pr).length; return ids.length ? (np ? np + " products · " : "") + fmt(ids.length) + " items" : "";
+    }
+    return "";
+  }
+
+  /* Graph API: two sets, each with its own changes. "Permissions in the catalog" is the page's
+     own definition (the tile "1243 permissions in the catalog · held · Microsoft publishes 997"):
+     catalog entries in the inventory. The whole catalog also holds permissions deployed in the
+     service but not in this tenant, RSC scopes and catalog notes — the second line. */
+  function graphLines(day) {
+    var g = ((CAT || {}).graph || []), inv = {}, nInv = 0, apis = {};
+    g.forEach(function (e) { if (e.surface) apis[e.surface] = 1; if (e.inInventory === true) { nInv++; if (e.name) inv[e.name] = 1; } });
+    var pub = 0;
+    [].forEach.call(document.querySelectorAll("#tab-graph .panelhead .stat-l"), function (l) {
+      var m = /Microsoft publishes\s+(\d[\d,]*)/i.exec(l.textContent || ""); if (m) pub = +m[1].replace(/,/g, ""); });
+    var gm = (ST || {}).graphMap || {};
+    var L = (((ST || {}).ledger14 || {}).entries || []).filter(function (e) { return e.seen === day && (e.tab === "Graph API" || e.tab === "Graph endpoints"); });
+    function tally(list) { var t = { added: 0, changed: 0, removed: 0 }; list.forEach(function (e) { t[e.kind] = (t[e.kind] || 0) + 1; }); return t; }
+    var tp = tally(L.filter(function (e) { return inv[e.id]; })), ta = tally(L);
+    return [
+      { lead: fmt(nInv) + " permissions in the catalog" + (pub ? " · Microsoft\u2019s reference publishes " + fmt(pub) : "") +
+              (gm.permissions ? " · " + fmt(gm.permissions) + " in the endpoint map" : ""), t: tp },
+      { lead: fmt(g.length) + " catalog entries across " + Object.keys(apis).length + " APIs, with permissions not in this tenant and catalog notes", t: ta } ];
+  }
+  function sinceSpan(prev, parts) {
+    var s = el("span", "s5ca-since");
+    s.appendChild(document.createTextNode("since " + (prev ? dmy(prev) : "the previous brief") + ": "));
+    if (!parts.length) s.appendChild(document.createTextNode("nothing moved"));
+    parts.forEach(function (p, i) { if (i) s.appendChild(document.createTextNode(" · ")); s.appendChild(el("span", "s5ca-w s5ca-" + p[0], p[1])); });
+    return s;
+  }
+
+  function buildRail() {
+    if (rail || !document.body) return;
+    var bs = buttons(); if (!bs.length) return;
+    rail = el("nav", "s5ca-rail"); rail.setAttribute("aria-label", "Tabs");
+    var box = null, last = null;
+    bs.forEach(function (b) {
+      var g = groupOf(b);
+      if (!box || g !== last) { box = el("div", "s5ca-g"); if (g) box.appendChild(el("div", "s5ca-gl", g)); rail.appendChild(box); last = g; }
+      var it = el("button", "s5ca-it"); it.type = "button"; it.setAttribute("data-pid", b.getAttribute("aria-controls"));
+      it.appendChild(el("span", "s5ca-nm", nameOf(b))); var mv = el("span", "s5ca-mv"); mv.hidden = true; it.appendChild(mv);
+      it.addEventListener("click", function () { b.click(); });
+      box.appendChild(it);
+    });
+    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-mv", "n")); foot.appendChild(el("span", "s5ca-ft", "= things that moved since the previous brief"));
+    rail.appendChild(foot);
+    document.body.appendChild(rail);
+    document.body.classList.add("s5ca");
+    /* every panel gets its title line now, filled later, so nothing jumps when numbers arrive */
+    [].forEach.call(document.querySelectorAll(".wrap > .tabpanel[id]"), function (p) {
+      if (p.querySelector(":scope > .s5ca-head")) return;
+      var b = document.querySelector('nav.anchors .tab[aria-controls="' + p.id + '"]');
+      var h = el("div", "s5ca-head"); var gl = b ? groupOf(b) : "";
+      if (gl) h.appendChild(el("span", "s5ca-crumb", gl));
+      h.appendChild(el("h2", "s5ca-title", b ? nameOf(b) : p.id.replace(/^tab-/, "")));
+      h.appendChild(el("div", "s5ca-facts"));
+      p.insertBefore(h, p.firstChild);
+    });
+    syncSel(); place();
+    new MutationObserver(syncSel).observe(document.querySelector("nav.anchors") || document.body, { attributes: true, subtree: true, attributeFilter: ["aria-selected"] });
+  }
+  function syncSel() {
+    if (!rail) return;
+    [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
+      var b = document.querySelector('nav.anchors .tab[aria-controls="' + it.getAttribute("data-pid") + '"]');
+      it.setAttribute("aria-current", b && b.getAttribute("aria-selected") === "true" ? "page" : "false");
+    });
+  }
+  function place() {
+    var hd = document.querySelector("header.top");
+    var top = hd && getComputedStyle(hd).position === "sticky" ? Math.round(hd.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--s5ca-top", top + "px");
+  }
+
+  function fill() {
+    if (!rail) return;
+    ST = ST || json("soc-brief-state") || {}; CAT = CAT || json("soc-catalog") || {};
+    if (!Object.keys(items).length) (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
+    var day = ST.briefDate || "", cw = ST.comparedWith || "", prev = typeof cw === "string" ? cw : (cw.date || "");
+    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "= things that moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief";
+    [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
+      var pid = it.getAttribute("data-pid"), m = moved(pid), mv = it.querySelector(".s5ca-mv");
+      if (m && m.n) { mv.textContent = fmt(m.n); mv.hidden = false;
+        it.title = it.querySelector(".s5ca-nm").textContent + " — since " + dmy(prev) + ": " + m.parts.map(function (p) { return p[1]; }).join(", "); }
+      else { mv.hidden = true; it.title = it.querySelector(".s5ca-nm").textContent + (m ? " — nothing moved since " + dmy(prev) : ""); }
+      var pn = document.getElementById(pid), hd = pn && pn.querySelector(":scope > .s5ca-head");
+      /* other blocks are inserted at the top of a panel later (e.g. "What Microsoft changed"): the title stays first */
+      if (hd && pn.firstChild !== hd) pn.insertBefore(hd, pn.firstChild);
+      var f = hd && hd.querySelector(".s5ca-facts"); if (!f) return;
+      f.innerHTML = "";
+      if (pid === "tab-graph") {
+        graphLines(day).forEach(function (ln) {
+          var row = el("div", "s5ca-line"); row.appendChild(el("b", null, ln.lead));
+          var parts = [];
+          if (ln.t.added) parts.push(["a", "+" + fmt(ln.t.added) + " added"]);
+          if (ln.t.changed) parts.push(["c", "~" + fmt(ln.t.changed) + " changed"]);
+          if (ln.t.removed) parts.push(["r", "−" + fmt(ln.t.removed) + " removed"]);
+          row.appendChild(sinceSpan(prev, parts)); f.appendChild(row);
+        });
+        return;
+      }
+      var row = el("div", "s5ca-line"), u = units(pid);
+      if (u) row.appendChild(el("b", null, u));
+      if (m) row.appendChild(sinceSpan(prev, m.parts));
+      if (row.childNodes.length) f.appendChild(row);
+    });
+  }
+
+  function start() {
+    try {
+      if (!window.matchMedia || !window.matchMedia(MQ).matches) {
+        /* narrow: nothing is built; a later widening builds it */
+        window.matchMedia && window.matchMedia(MQ).addEventListener && window.matchMedia(MQ).addEventListener("change", function (e) { if (e.matches) start(); });
+        return;
+      }
+      buildRail();
+      /* the header lost the tab row: the sticky offsets are measured on resize by SCRIPT 10 and 14 */
+      try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+      /* the header grows once more at ~1.2 s (the "changes since the last brief" link): measure again,
+         and let SCRIPT 10 and 14 re-measure their sticky offsets too */
+      [1600, 3200, 5200].forEach(function (t) { setTimeout(function () { try { place(); fill(); window.dispatchEvent(new Event("resize")); } catch (e) { if (window.console) console.error("[5ca fill]", e); } }, t); });
+    } catch (e) { if (window.console) console.error("[5ca rail]", e); }
+  }
+  window.addEventListener("resize", function () { if (rail) place(); });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -29744,6 +29979,33 @@ p.s5bz-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertica
  background:linear-gradient(to bottom,transparent,var(--surface) 45%)}
 .s5bz-sheethint[hidden]{display:none}
 @media (max-width:760px){#tab-hunting pre{white-space:pre-wrap;overflow-wrap:anywhere}}
+/* §5ca — desktop left rail (version 4): one "moved" number per tab, details in words in the tab */
+.s5ca-rail,.s5ca-head{display:none}
+@media (min-width:1100px){
+body.s5ca .navstack{display:none}
+body.s5ca .s5ca-rail{display:flex;flex-direction:column;gap:12px;position:fixed;left:0;top:var(--s5ca-top,0px);bottom:0;width:250px;
+ overflow-y:auto;z-index:55;padding:14px 10px 12px;background:var(--surface);border-right:1px solid var(--border)}
+body.s5ca .wrap{margin-left:266px;margin-right:0;max-width:none;padding-right:24px}
+body.s5ca footer{margin-left:0}
+.s5ca-gl{font:600 10.5px/1.6 var(--cond,var(--sans));letter-spacing:.09em;text-transform:uppercase;color:var(--faint);padding:0 10px 3px}
+.s5ca-it{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:7px 10px;border:0;border-radius:7px;
+ background:none;color:var(--text);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.s5ca-it:hover{background:var(--surface-2)}
+.s5ca-it:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.s5ca-it[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:650;box-shadow:inset 3px 0 0 var(--accent)}
+.s5ca-nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5ca-mv{flex:0 0 auto;font-size:11.5px;font-weight:650;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:10px;background:var(--accent);color:var(--on-accent)}
+.s5ca-mv[hidden]{display:none}
+.s5ca-foot{margin-top:auto;border-top:1px solid var(--border-soft);padding:10px 10px 2px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+body.s5ca .s5ca-head{display:flex;flex-direction:column;gap:5px;min-height:74px;padding:14px 0 12px;margin:0 0 6px;border-bottom:1px solid var(--border)}
+.s5ca-crumb{font:600 11px/1.4 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.s5ca-title{margin:0;font-size:22px;letter-spacing:-.01em;line-height:1.2}
+.s5ca-facts{display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--muted)}
+.s5ca-line{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline}
+.s5ca-line b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.s5ca-w{font-weight:600;font-variant-numeric:tabular-nums}
+.s5ca-a{color:var(--ok)} .s5ca-c{color:var(--warn)} .s5ca-r{color:var(--bad)}
+}
 
 
 
