@@ -25408,6 +25408,12 @@ lezy poza pokazana lista. Filtry, przyklady, „Find a role" i Advanced filterin
 „Filters & examples" na koncu paska widokow (kazda zakladka). Kafelki liczb i „Show charts" przeszly do
 What changed, nota o liczbie wpisow do Sources & method. Widok Find to teraz: pasek, jedno pole, lista.
 
+**Krok 5 (29 IX, „dzialaj")** — jedna lista zamiast dwoch: Message Center bez „Every entry this run read"
+(te same posty co Posts), Community bez „Articles table", Learn bez sekcji A i B i wykresu obszarow (wiersz
+Latest rozwija sie teraz do wagi, podstaw, technologii i „Where to check"), Blogs bez „Every post published
+in the window" i wykresu dni (Top 10 zostaje — to wazony wybor). Bloki sa oznaczone `none` i nie pokazuja
+sie w zadnym widoku; dane i skrypty zostaja, bramka ich nie traci.
+
 **Krok 3 (29 IX)** — Products: Summary (sekcja J, domyslny) · Deep dive (K) · Authentication watchlist (L) ·
 Charts; sekcje nie maja id, wiec rozpoznaje je naglowek. First-party apps: Apps · What changed · Sources.
 
@@ -29842,6 +29848,7 @@ odtad CZTERNASCIE (4-17).**
           return { key: a.link || a.title, title: a.title, link: a.link, date: a.date || "",
             isNew: !!(a.date && PREV && a.date >= PREV), f: { src: a.source || "" },
             text: strip(a.summary).slice(0, 600), meta: [a.source, a.author].filter(Boolean).join(" · "),
+            weight: a.weight, tags: a.tags || [],
             srcL: a.source || "", srcH: a.sourceUrl || siteOf(a.link) };
         });
       },
@@ -29856,6 +29863,9 @@ odtad CZTERNASCIE (4-17).**
           return { key: (a.url || "") + "#" + (a.title || ""), title: a.title, link: a.url, date: d, month: a.monthLabel || "",
             isNew: false, f: { src: a.area || "", tag: (a.tags || [])[0] || "", t0: a.tier0 ? "Tier 0" : "" },
             text: String(a.text || "").slice(0, 700), why: a.why || "", meta: [a.area, a.monthLabel].filter(Boolean).join(" · "),
+            /* §5cd step 5: what Section A/B carried beyond this row — weight, criteria, every topic,
+               the links "Where to check" — so the list can replace those two tables */
+            weight: a.weight, crit: a.criteria || [], tags: a.tags || [], links: a.links || [],
             /* the source of a Learn entry is the area's what's-new page it was read from */
             srcL: "Learn: " + (a.area || "what's new"), srcH: String(a.url || "").split("#")[0] };
         });
@@ -30059,6 +30069,18 @@ odtad CZTERNASCIE (4-17).**
           if (r.text) d.appendChild(el("p", "mcb-sum", r.text));
           if (r.why) { var w = el("p", "mcb-sum"); w.appendChild(el("span", "mcb-k", "Why it matters")); w.appendChild(document.createTextNode(r.why)); d.appendChild(w); }
           if (!r.text && !r.why) d.appendChild(el("p", "mcb-none", "No summary was read for this article — open it at the source."));
+          if (r.weight || (r.crit && r.crit.length) || (r.tags && r.tags.length > 1)) {
+            var g = el("p", "mcb-sum");
+            if (r.weight) { g.appendChild(el("span", "mcb-k", "Weight")); g.appendChild(document.createTextNode(String(r.weight) + "  ")); }
+            if (r.crit && r.crit.length) { g.appendChild(el("span", "mcb-k", "On what grounds")); g.appendChild(document.createTextNode(r.crit.join(", ") + "  ")); }
+            if (r.tags && r.tags.length) { g.appendChild(el("span", "mcb-k", "Technology")); g.appendChild(document.createTextNode(r.tags.join(", "))); }
+            d.appendChild(g);
+          }
+          if (r.links && r.links.length) {
+            var lk = el("p", "mcb-sum"); lk.appendChild(el("span", "mcb-k", "Where to check"));
+            r.links.forEach(function (x) { if (!x || !x.url) return; var a2 = el("a", "ab-lnk", x.text || x.url); a2.href = x.url; a2.target = "_blank"; a2.rel = "noopener"; lk.appendChild(a2); lk.appendChild(document.createTextNode(" ")); });
+            d.appendChild(lk);
+          }
           d.appendChild(el("p", "mcb-none", [r.meta, r.date ? dmy(r.date) : ""].filter(Boolean).join(" · ")));
           li.appendChild(d);
         } else d.remove();
@@ -30826,24 +30848,30 @@ odtad CZTERNASCIE (4-17).**
     },
     "tab-mc": {
       views: [["find", "Posts"], ["chg", "Today"], ["map", "Same change, every source"], ["src", "Coverage"]],
+      /* §5cd step 5: "Every entry this run read" (#mc-all) listed the same posts as Posts — one list */
       count: allOf("#mc-browse .mcb-top"),
       map: [
         [ALL, "*"],
         ["section#mc-browse", "find"],
         [".s5bn, #mc-today", "chg"],
         ["#mc-map", "map"],
-        [".s5bh-ct, #mc-all, #mc-sources, .aggwrap", "src"],
+        ["#mc-all", "none"],
+        [".s5bh-ct, #mc-sources, .aggwrap", "src"],
         ["details.ntfbar", "chg map src"]
       ],
       drawer: "details.ntfbar"
     },
     "tab-learn": {
-      views: [["find", "Latest"], ["chg", "What changed & why"], ["pages", "Inside the pages"], ["src", "Coverage"]],
+      views: [["find", "Latest"], ["chg", "Summary"], ["pages", "Inside the pages"], ["src", "Coverage"]],
+      /* §5cd step 5: Sections A and B (#nt-changes, #nt-older) were the same what's-new entries as Latest,
+         as tables; each row of Latest now opens to weight, grounds, technology and "Where to check".
+         The per-area bar chart repeated the month-by-area grid of Latest. */
       count: allOf("#ab-learn .mcb-top"),
       map: [
         [ALL, "*"],
         ["section#ab-learn", "find"],
-        [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-changes, #nt-older", "chg"],
+        ["#nt-changes, #nt-older, :scope > figure.chart", "none"],
+        [".s5bn, :scope > .factgrid", "chg"],
         ["#nt-pages, #nt-corr-learn", "pages"],
         ["#nt-coverage", "src"],
         ["details.ntfbar", "chg pages src"],
@@ -30853,11 +30881,14 @@ odtad CZTERNASCIE (4-17).**
     },
     "tab-blogs": {
       views: [["find", "Latest"], ["chg", "Top of the day"], ["src", "Blogs & freshness"]],
+      /* §5cd step 5: "Every post published in the window" (#nt-posts) and the posts-per-day chart repeated
+         Latest and its day grid; Top 10 stays — it is a weighted pick, not the list again */
       count: allOf("#ab-blogs .mcb-top"),
       map: [
         [ALL, "*"],
         ["section#ab-blogs", "find"],
-        [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-top, #nt-posts, #nt-corr-blogs", "chg"],
+        ["#nt-posts, :scope > figure.chart", "none"],
+        [".s5bn, :scope > .factgrid, #nt-top, #nt-corr-blogs", "chg"],
         ["#nt-sources", "src"],
         ["details.ntfbar", "chg src"],
         [".s5bh-ct", "chg"]
@@ -30900,14 +30931,14 @@ odtad CZTERNASCIE (4-17).**
       drawer: "details.ntfbar"
     },
     "tab-community": {
-      views: [["find", "Latest"], ["chg", "What changed"], ["tbl", "Articles table"], ["src", "Sources"]],
+      views: [["find", "Latest"], ["chg", "What changed"], ["src", "Sources"]],
       sec: "#community", flat: "details.ntsec",
       count: allOf("#ab-community .mcb-top"),
       map: [
         [ALL, "*"],
         ["section#ab-community", "find"],
         [".s5bh-ct, .s5bn, .panelhead, .aggwrap", "chg"],
-        ["details.ntfbar", "tbl src"]
+        ["details.ntfbar", "src"]
       ],
       drawer: "details.ntfbar",
       /* the section holds two tables one after the other: the 58 sources first, then every article */
@@ -30916,7 +30947,8 @@ odtad CZTERNASCIE (4-17).**
         var bars = 0;
         [].forEach.call(sb.children, function (e) {
           if (e.classList.contains("tbar")) bars++;
-          if (!e.hasAttribute("data-s5cd-v")) e.setAttribute("data-s5cd-v", bars >= 2 ? "tbl" : "src");
+          /* §5cd step 5: the second table (every article) repeated Latest — one list */
+          if (!e.hasAttribute("data-s5cd-v")) e.setAttribute("data-s5cd-v", bars >= 2 ? "none" : "src");
         });
       }
     }
@@ -31052,8 +31084,8 @@ odtad CZTERNASCIE (4-17).**
     while (t && t !== p) {
       var tv = t.getAttribute && t.getAttribute("data-s5cd-v");
       if (tv && tv !== "*") {
-        var list = tv.split(" ");
-        if (list.indexOf(v) < 0) show(p, list[0], false);
+        var list = tv.split(" ").filter(function (x) { return c.views.some(function (w) { return w[0] === x; }); });
+        if (list.length && list.indexOf(v) < 0) show(p, list[0], false);
         return;
       }
       t = t.parentElement;
@@ -31680,6 +31712,8 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd] .catalog{display:flex;flex-direction:column}
 .tabpanel[data-s5cd] .catalog > .catfind{display:none!important}
 .tabpanel[data-s5cd] .catalog > .s5cd-quiet{display:none!important}
+.tabpanel[data-s5cd] [data-s5cd-v="none"]{display:none!important}
+.ab-det .ab-lnk{display:inline-block;font:600 12px/1.6 var(--sans);border:1px solid var(--accent);border-radius:999px;padding:0 9px;margin:2px 4px 2px 0;color:var(--accent);text-decoration:none}
 .tabpanel[data-s5cd] .catalog > .catwhy{order:1;margin:6px 0 4px}
 .tabpanel[data-s5cd] .catalog > .filterbanner,.tabpanel[data-s5cd] .catalog > .bkbanner{order:2}
 .tabpanel[data-s5cd] .catalog > .cat-split,.tabpanel[data-s5cd] .catalog > .apisurf,.tabpanel[data-s5cd] .catalog > .callout{order:3}
