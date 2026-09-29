@@ -1,7 +1,7 @@
 {
  "read": "2026-09-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 723,
+ "count": 722,
  "note": null,
  "messages": [
   {
@@ -6356,28 +6356,6 @@
    ],
    "summary": "Updated September 23, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Copilot Notebook, a new Copilot-powered workspace in OneNote, helps users organize, reason over, and take action on their content. This feature brings advanced Copilot capabilities directly into OneNote on Mac , enabling users to generate insights, structure ideas, and work more effectively within…",
    "bodyHash": "875d11e3b26cd325"
-  },
-  {
-   "id": "MC1409303",
-   "title": "Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
-   "services": [
-    "Microsoft OneDrive",
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-06-29",
-   "end": "2026-09-29",
-   "modified": "2026-07-15",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 15, 2026: We have updated the content. Thank you for your patience. [What and Why:] We are enhancing protection for sensitive documents by enforcing Do Not Allow Screen Capture in the OneDrive and SharePoint web PDF viewer when accessed through Microsoft Edge. This update closes a known gap where browser-rendered PDFs did not enforce this Microsoft Purview Information Protection (MIP)…",
-   "bodyHash": "3e275b7580bae35b"
   },
   {
    "id": "MC1409304",
@@ -15073,6 +15051,13 @@
    "id": "MC1481325",
    "type": "new",
    "title": "Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1409303",
+   "type": "removed",
+   "title": "Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
    "fields": {}
   }
  ]
