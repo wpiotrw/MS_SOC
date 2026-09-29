@@ -25764,6 +25764,171 @@ nav.s5by-jump.s5ch-stick{position:sticky;z-index:5;background:var(--surface);box
 .s5ch-res[hidden],.s5ch-win[hidden]{display:none}
 ```
 
+### §5ci (30 IX 2026) — rzad „Dzis": Overview, Today, Deadlines i New z zaakceptowanych makiet
+
+Wlasciciel zaakceptowal 29 IX makiety 13 pozostalych zakladek (artefakt Design „SOC Brief — Graph API i
+Roles", rzad „Dzis"). Ta warstwa robi pierwszy rzad. Warstwa JS jest DOPISANA na koncu SKRYPTU 17 (jak
+§5ch), CSS nizej. Zasada: **unowoczesniac, niczego nie psuc** — kazda zakladka dostaje JEDEN widok na
+gorze, zbudowany z wierszy, ktore zakladka JUZ niesie (`tbody tr[data-id]` jej sekcji) i z rekordow
+`soc-brief-state.items`, wiec nie moze pokazac innego zbioru niz sekcje. Stare sekcje zostaja w stronie
+bez zmian, za jednym przyciskiem na dole „Show the full sections".
+
+Zmierzone 29 IX przed zmiana (Playwright, 1440 px): Overview ~6 600 px i ta sama pozycja 3×; Today:
+72 w menu telefonu, 71 w naglowku, 12 w szynie, sekcje B/C/D zwiniete; Deadlines: „inside 60 days" z
+podtabela 61–120, DCA file policies 2× (`mda-file-policies-retirement` i
+`mdca-file-policies-retirement-2027-01-06`, oba 2027-01-06), 2 ze 127 wierszy na pierwszym ekranie;
+New: 178 w menu, 147 w naglowku, 31 slow statusu z synonimami.
+
+| zakladka | widok §5ci |
+|---|---|
+| Overview | 3 karty: Due within 7 days (25 = tafla w naglowku), Deadlines passed · 7 days (2), New since the brief (12 = `newToday`); „The next 14 days" jako slupki klikane do dnia w Deadlines; „Today in ten sentences" zwiniete (przenosi istniejacy `section.s5bk-sum` przy pierwszym otwarciu, ze wszystkimi jego przyciskami); zdrowie zrodel w jednej linii; tabela „By product" (New today / In window = pozycje w New / Due in 30 days / Message Center = posty listy z ta technologia) |
+| Today | „8 top picks · 12 new since the 28 Sep brief: 10 in New, 2 in Deadlines"; widoki Top picks (`topCards`) / One per technology (`picksOrder`) / Everything new → New; pole + chipy All / Has a date / Exploited; wiersz: nr, status, produkt, tytul, „Do this" albo „Why it matters", a gdy brak obu — jawna nota ostrzegawcza, nigdy puste |
+| Deadlines | jedno pole + przelacznik okna Passed · 7 days / Within 30 / 31–60 / 61–120 / Later or no date (liczby na przyciskach), grupy po dniach (TODAY / TOMORROW / data; >60 dni po miesiacach), jeden wiersz na termin: ten sam dzien + ten sam produkt + tytul bedacy poczatkiem drugiego = jeden wiersz z oboma zrodlami; stopka mowi, co scalono. NIE po `reference`: pierwszy test 30 IX scalil 127 w 100, bo 60 pozycji ma tam „no MC/RM post — Learn only”, a MC1471964 oglasza koniec dwoch edycji Windows (dwa terminy) |
+| New | jedno pole, chipy okna (since the brief / today / 7 days / whole window) i 5 produktow + „more", tabela Published / Item / Product / Status / Reference / Source; jeden slownik statusow (Retirement → Retiring, Deprecation → Deprecated, Public preview → Preview, Threat intel → Threat intelligence, New feature → New, Change → Changed, Update → Updated) i produktow (Graph API → Graph, M365 apps → M365 Apps); zrodlo to rodzaj zrodla (`window.__socKind`), nie nazwa skryptu |
+
+Wspolne: klik w wiersz rozwija rekord (why, do this, termin z nota, publikacja i rewizja, referencja,
+obszar, kto znalazl) i przycisk „Show this row in the full sections"; „Copy link" daje
+`#tab=<zakladka>&item=<id>`, ktory otwiera zakladke i wiersz. Filtr produktu z naglowka zaweza widoki
+tak samo jak sekcje (zielony chip z ×).
+
+Jedna definicja liczb: menu telefonu (`navcount`) i naglowek §5ca mowia to samo, co widok — Today = liczba
+top picks, New = pozycje w jej sekcjach (147, nie 178), Deadlines = terminy po scaleniu (126, a stopka
+mowi „127 rows in the sections"). Szyna na desktopie dalej pokazuje „co sie ruszylo" z paska §5bn.
+„New since the brief" = `newToday` (12); rejestr zapisuje 10 z nich pod New i 2 pod Deadlines — widok
+Today i New mowi to wprost, zamiast pokazywac 12 i 10 bez wyjasnienia.
+
+Routing (dlaczego nic nie ginie): `scrollIntoView` i `focus` sa owiniete. Element w ukrytych sekcjach:
+wiersz, ktory widok ma → otwiera sie wiersz widoku; sekcja, ktora widok pokrywa → widok; cokolwiek innego
+(wykresy, Section F, Section D w Today, rejestr 14 dni) → otwieraja sie pelne sekcje. Wiersze widoku NIE
+sa `tbody tr` — czytaja je szyna filtrow, liczniki SKRYPTU 15 i `distinctIds` §5ca.
+
+Zrodlo w wierszu to miejsce, dokad prowadzi jego link (host adresu, potem numer MC/RM), a dopiero
+potem `window.__socKind` — 30 IX `__socKind` nazwal strone historii wersji Entra Connect na Learn
+„Message Center", bo znalazl ja przeglad rewizji.
+
+Test 30 IX (Playwright na stronie zbudowanej przez `code_refresh.py` z danymi 29 IX, 29 sprawdzen,
+29 zaliczonych): szyna bez zmian (Today 12, Deadlines 7, New 10); okna Deadlines 2 + 52 + 17 + 7 + 48 =
+126 = naglowek; stare sekcje ukryte i wracaja przyciskiem; DCA jednym wierszem z oboma id; wiersz
+rozwija rekord i prowadzi do starego wiersza; filtr produktu z naglowka (Entra) zaweza widok, chip ×
+go zdejmuje; New 147 w menu i naglowku, „since the brief" = 10 wierszy NEW, chip Graph lapie tez
+„Graph API", zadnego synonimu statusu; Today 8 / 30 / Exploited 2, zaden pusty wiersz „why/do";
+Overview 25 / 2 / 12 = tafle naglowka, klik pozycji otwiera jej wiersz w Deadlines, slupek dnia
+otwiera ten dzien, „Today in ten sentences" z 10 zdaniami; MC i Graph API nietkniete; link
+`#tab=deadlines&item=…` otwiera zakladke i scalony wiersz; telefon 390 px bez poziomego przewijania
+w czterech zakladkach; zero bledow strony. Tafle naglowka (25 / 12 / 52 / 50) prowadza do zakladek
+bez otwierania starych sekcji. Bramka (`--mirror`, jak w workflow): jedyna nieudana pozycja to 104
+(strona z 29 IX sprawdzana 30 IX przed porannym przebiegiem) — ta sama na stronie bez tej zmiany.
+
+```css
+/* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
+   top, the full sections behind one button */
+.tabpanel.s5ci-on:not(.s5ci-full) > :not(.s5ca-head):not(.s5ci):not(.s5ci-more){display:none !important}
+.s5ci{display:flex;flex-direction:column;gap:12px;margin:4px 0 18px;font-size:13.5px;color:var(--text)}
+.s5ci .s5ci-lead{margin:0;font-size:13px;color:var(--muted)}
+.s5ci-inl{border:0;background:transparent;padding:0;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer}
+.s5ci-inl:focus-visible,.s5ci-chip:focus-visible,.s5ci-view:focus-visible,.s5ci-seg button:focus-visible,.s5ci-copy:focus-visible,.s5ci-mb:focus-visible,.s5ci-tr:focus-visible,.s5ci-pick:focus-visible,.s5ci-day:focus-visible,.s5ci-itb:focus-visible,.s5ci-lk:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s5ci-pill{display:inline-block;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;line-height:1.5}
+.s5ci-pill.s5ci-bad{background:var(--bad-soft);color:var(--bad)}
+.s5ci-pill.s5ci-warn{background:var(--warn-soft);color:var(--warn)}
+.s5ci-pill.s5ci-ok{background:var(--ok-soft);color:var(--ok)}
+.s5ci-pill.s5ci-info{background:var(--info-soft);color:var(--info)}
+.s5ci-pill.s5ci-grey{background:var(--grey-soft);color:var(--grey)}
+.s5ci-views{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--border)}
+.s5ci-view{border:0;border-bottom:3px solid transparent;background:transparent;padding:8px 14px;font:inherit;font-size:13.5px;color:var(--muted);cursor:pointer}
+.s5ci-view[aria-pressed="true"]{border-bottom-color:var(--accent);color:var(--text);font-weight:600}
+.s5ci-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.s5ci-q{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border:2px solid var(--accent);border-radius:6px;background:var(--surface);flex:1 1 320px;min-width:0}
+.s5ci-qi{color:var(--muted);font-size:16px}
+.s5ci-q input{border:0;outline:0;flex-grow:1;min-width:0;font:inherit;font-size:15px;background:transparent;color:var(--text)}
+.s5ci-bar,.s5ci-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.s5ci-lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.s5ci-gap{width:12px}
+.s5ci-chip{height:28px;padding:0 12px;border-radius:14px;border:1px solid var(--border);background:var(--surface);font:inherit;font-size:12.5px;color:var(--text);cursor:pointer}
+.s5ci-chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.s5ci-seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.s5ci-seg button{height:32px;padding:0 12px;border:0;border-right:1px solid var(--border);background:var(--surface);font:inherit;font-size:13px;color:var(--text);cursor:pointer}
+.s5ci-seg button:last-child{border-right:0}
+.s5ci-seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.s5ci-fchip{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 4px 0 10px;border-radius:13px;background:var(--ok-soft);color:var(--ok);font-size:12px;font-weight:600}
+.s5ci-fchip button{border:0;background:transparent;color:inherit;font-size:15px;cursor:pointer;padding:0 4px}
+.s5ci-note{margin:0;font-size:12.5px;color:var(--muted)}
+.s5ci-foot{margin:0;font-size:12.5px;color:var(--muted)}
+.s5ci-sub{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.s5ci-mono{font-family:var(--mono);font-size:12px}
+.s5ci-miss{color:var(--warn)}
+.s5ci-copy{height:24px;padding:0 8px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--accent);font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.s5ci-tt{font-weight:600;color:var(--text)}
+a.s5ci-tt:hover{color:var(--accent)}
+/* table made of divs: the filter bus and the row counters read tbody tr, never these */
+.s5ci-t{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;background:var(--surface);overflow:hidden}
+.s5ci-tr{display:grid;gap:10px;padding:9px 12px;border-top:1px solid var(--border-soft);align-items:start}
+.s5ci-tr:not(.s5ci-th){cursor:pointer}
+.s5ci-tr:not(.s5ci-th):hover{background:var(--surface-2)}
+.s5ci-th{border-top:0;background:var(--surface-2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.s5ci-tdl .s5ci-tr{grid-template-columns:96px minmax(0,2.2fr) minmax(0,.8fr) minmax(0,1fr) minmax(0,1.8fr) minmax(0,1.1fr)}
+.s5ci-tnew .s5ci-tr{grid-template-columns:104px minmax(0,2.6fr) minmax(0,.8fr) minmax(0,.9fr) minmax(0,.8fr) minmax(0,1.1fr)}
+.s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));cursor:default}
+.s5ci-tbp .s5ci-tr:hover{background:transparent}
+.s5ci-grp{padding:6px 12px;background:var(--surface-2);font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.04em;border-top:1px solid var(--border)}
+.s5ci-src{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:12.5px;color:var(--muted)}
+.s5ci-do{font-size:12.5px}
+.s5ci-strong{font-weight:700}
+.s5ci-det{grid-column:1 / -1;padding:8px 10px;border-radius:6px;background:var(--surface-2);display:flex;flex-direction:column;gap:4px;cursor:default}
+.s5ci-dl{margin:0;font-size:13px;line-height:1.45}
+.s5ci-lk{align-self:flex-start;margin-top:4px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font:inherit;font-size:12px;height:26px;padding:0 10px;cursor:pointer}
+.s5ci-flash{box-shadow:inset 0 0 0 2px var(--accent)}
+.s5ci-pg{display:flex;justify-content:center}
+/* Today */
+.s5ci-picks{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+.s5ci-pick{display:grid;grid-template-columns:34px minmax(0,1fr) 230px;gap:14px;padding:12px 14px;border-top:1px solid var(--border-soft);cursor:pointer}
+.s5ci-pick:first-child{border-top:0}
+.s5ci-pick:hover{background:var(--surface-2)}
+.s5ci-no{font-size:20px;font-weight:700;color:var(--accent)}
+.s5ci-pm{display:flex;flex-direction:column;gap:4px;min-width:0}
+.s5ci-l1{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5ci-l1 .s5ci-tt{font-size:15px}
+.s5ci-why{font-size:12.5px;color:var(--muted);line-height:1.45}
+.s5ci-why b{color:var(--text)}
+.s5ci-side{font-size:12.5px;color:var(--muted);text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+/* Overview */
+.s5ci-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.s5ci-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.s5ci-card h3{margin:0;font-size:15px}
+.s5ci-c-bad{border-top:3px solid var(--bad)}.s5ci-c-warn{border-top:3px solid var(--warn)}.s5ci-c-acc{border-top:3px solid var(--accent)}
+.s5ci-ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.s5ci-cn{font-size:22px;font-weight:700}
+.s5ci-c-bad .s5ci-cn{color:var(--bad)}.s5ci-c-warn .s5ci-cn{color:var(--warn)}.s5ci-c-acc .s5ci-cn{color:var(--accent)}
+.s5ci-it{display:flex;flex-direction:column;gap:3px;padding:8px 0 0;border-top:1px solid var(--border-soft)}
+.s5ci-itb{border:0;background:transparent;padding:0;text-align:left;font:inherit;font-size:13.5px;font-weight:600;color:var(--text);cursor:pointer}
+.s5ci-itb:hover{color:var(--accent)}
+.s5ci-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+.s5ci-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:14px}
+.s5ci-days{display:flex;align-items:flex-end;gap:2px;height:130px;padding-top:6px;overflow-x:auto}
+.s5ci-day{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;flex:1 0 28px;min-width:28px;border:0;background:transparent;font:inherit;font-size:11px;color:var(--muted);cursor:pointer;padding:0}
+.s5ci-day b{color:var(--text);font-size:12px}
+.s5ci-day.s5ci-empty{cursor:default}
+.s5ci-day.s5ci-empty b{color:var(--faint)}
+.s5ci-barv{width:18px;background:var(--accent);border-radius:3px 3px 0 0}
+.s5ci-barv.s5ci-hot{background:var(--bad)}
+.s5ci-empty .s5ci-barv{background:var(--border)}
+.s5ci-dd{white-space:nowrap}
+.s5ci-ten{border-top:1px solid var(--border-soft);padding-top:8px}
+.s5ci-ten > summary{font-size:13px;font-weight:600;cursor:pointer}
+.s5ci-health{font-size:13px;padding:8px 10px;border-radius:6px;background:var(--warn-soft);color:var(--warn)}
+.s5ci-health.s5ci-ok{background:var(--ok-soft);color:var(--ok)}
+.s5ci-more{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:18px 0 10px;padding-top:12px;border-top:1px dashed var(--border)}
+.s5ci-mb{height:32px;padding:0 14px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font:inherit;font-size:13px;cursor:pointer}
+.s5ci-mn{font-size:12px;color:var(--muted)}
+@media (max-width:900px){
+  .s5ci-cards,.s5ci-two{grid-template-columns:minmax(0,1fr)}
+  .s5ci-tdl .s5ci-tr,.s5ci-tnew .s5ci-tr{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+  .s5ci-tdl .s5ci-th,.s5ci-tnew .s5ci-th{display:none}
+  .s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));font-size:12px;gap:6px}
+  .s5ci-pick{grid-template-columns:28px minmax(0,1fr)}
+  .s5ci-side{grid-column:2;text-align:left;align-items:flex-start}
+}
+```
+
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
@@ -30987,9 +31152,10 @@ odtad CZTERNASCIE (4-17).**
     var n;
     switch (pid) {
       case "tab-overview": return "";
-      case "tab-today": n = distinctIds(pid).length; return n ? fmt(n) + " items" : "";
+      /* §5ci: Today's unit is its picks, Deadlines' the merged deadlines — the same numbers as the view */
+      case "tab-today": n = ((ST || {}).topCards || []).length; return n ? fmt(n) + " top picks" : (n = distinctIds(pid).length) ? fmt(n) + " items" : "";
       case "tab-new": n = distinctIds(pid).length; return n ? fmt(n) + " items" : "";
-      case "tab-deadlines": n = distinctIds(pid).length; return n ? fmt(n) + " deadlines" : "";
+      case "tab-deadlines": n = window.__s5ciDL ? window.__s5ciDL.n : distinctIds(pid).length; return n ? fmt(n) + " deadlines" : "";
       case "tab-mc": n = navNum(pid); return n ? fmt(n) + " posts" : "";
       case "tab-roles": n = ((CAT || {}).roles || []).length; return n ? fmt(n) + " roles in the catalog" : "";
       case "tab-fpa": n = navNum(pid); return n ? fmt(n) + " apps" : "";
@@ -31767,6 +31933,615 @@ odtad CZTERNASCIE (4-17).**
       }
     }, true);
     window.addEventListener("resize", function () { setTimeout(run, 100); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* ===========================================================================
+   §5ci — THE "TODAY" ROW AS APPROVED (30 IX 2026): Overview, Today, Deadlines and New.
+   The owner approved on 29 IX the mockups "SOC Brief — Graph API i Roles", row "Dzis" (Overview,
+   Today, Deadlines, New). Measured the same night: Overview repeated one item three times and was
+   ~6 600 px tall; Today said 71 / 72 / 12 for one list and hid its picks in folded sections;
+   Deadlines called a table "inside 60 days" and nested 61-120 days in it, listed the Defender for
+   Cloud Apps file-policy retirement twice and showed 2 of 127 rows on the first screen; New said
+   147 / 178 / 145 and used 31 status words with synonyms.
+
+   What this block does, per tab: ONE view at the top, built from the rows the tab ALREADY carries
+   (tbody tr[data-id] of its own sections) and the item records of soc-brief-state — so it can
+   never show a different set than the sections it replaces. The old sections stay in the page,
+   untouched, behind one button at the bottom ("Show the full sections"). Anything that scrolls to
+   or focuses an element there (a header tile, a deep link, another tab's link) is routed:
+     - a row this view has  -> that row opens here;
+     - a section this view covers -> the view;
+     - anything else (charts, Section F, Today's Section D, the 14-day register) -> the full sections open.
+   ONE WRITER PER MECHANISM: this block writes only .s5ci, .s5ci-more, the classes s5ci-on /
+   s5ci-full on four panels and the navcount of Today, New and Deadlines. It never writes
+   row.hidden, data-s11 or the filter bus. Its rows are NOT tbody tr (the filter bus and the row
+   counters of SCRIPT 15 and §5ca read tbody tr). ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  var MS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var ML = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  function ymd(d) { return /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); }
+  function dmy(d) { var m = ymd(d); return m ? (+m[3]) + " " + MS[+m[2] - 1] : ""; }
+  function dmyl(d) { var m = ymd(d); return m ? (+m[3]) + " " + ML[+m[2] - 1] + " " + m[1] : ""; }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  function dnum(d) { var m = ymd(d); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5 : null; }
+  function plus(d, n) { var x = new Date((dnum(d) + n) * 864e5); return x.toISOString().slice(0, 10); }
+
+  var ST = null, I = {}, DAY = "", PREV = "", built = {};
+  /* one product dictionary for these views: the same product under two names counted twice (29 IX) */
+  var PROD = { "Graph API": "Graph", "M365 apps": "M365 Apps" };
+  function prod(p) { return PROD[p] || p || ""; }
+  /* one list of status words: 31 values with synonyms were measured in New on 29 IX */
+  var STATUS = { "Retirement": "Retiring", "Deprecation": "Deprecated", "Public preview": "Preview", "Public Preview": "Preview",
+    "Threat intel": "Threat intelligence", "New feature": "New", "Change": "Changed", "Update": "Updated" };
+  function status(s) { s = String(s || "").trim(); return STATUS[s] || s; }
+  function tone(s) {
+    if (/exploit|security update|breaking|critical|removed/i.test(s)) return "bad";
+    if (/retir|deprecat|plan for change|prevent|known issue|action/i.test(s)) return "warn";
+    if (/^GA$|generally available/i.test(s)) return "ok";
+    if (/preview|^new|updated|revised|changed|development|docs|deployed/i.test(s)) return "info";
+    return "grey";
+  }
+  function pill(txt, t) { var s = el("span", "s5ci-pill s5ci-" + (t || "grey"), txt); return s; }
+  /* the source is where the row's link goes: the shared __socKind guesses from `discoveredBy`, and on
+     30 IX said "Message Center" for the Entra Connect version-history page on Learn (found by the revision sweep) */
+  function srcName(it) {
+    var id = String(it.id || ""), u = String(it.url || ""), h = (/^https?:\/\/([^\/]+)/i.exec(u) || [])[1] || "";
+    if (/^MC\d/i.test(id) || /^MC\d/i.test(it.reference || "") || /mc\.merill\.net\/message|deltapulse\.app\/item\/MC/i.test(u)) return "Message Center";
+    if (/^RM\d|^\d{5,7}$/.test(id) || /deltapulse\.app\/item\/RM|roadmap/i.test(u)) return "Microsoft 365 Roadmap";
+    var H = [[/learn\.microsoft\.com/, "Microsoft Learn"], [/techcommunity\.microsoft\.com/, "Tech Community blog"],
+      [/msrc\.microsoft\.com/, "Security Response Center"], [/azure\.microsoft\.com/, "Azure updates"], [/entra\.news/, "Entra news"],
+      [/admin\.microsoft\.com/, "Microsoft 365 admin center"], [/graphpermissions\.merill\.net/, "Graph Permissions Explorer"],
+      [/support\.microsoft\.com/, "Microsoft Support"], [/support\.apple\.com/, "Apple security releases"], [/deltapulse\.app/, "DeltaPulse"]];
+    for (var i = 0; i < H.length; i++) if (H[i][0].test(h)) return H[i][1];
+    if (/www\.microsoft\.com$/.test(h)) return /\/security\/blog/.test(u) ? "Microsoft Security blog" : "Microsoft";
+    if (/github\.com$/.test(h)) return /microsoftgraph/i.test(u) ? "Graph docs (GitHub)" : "GitHub";
+    var k = ""; try { k = window.__socKind ? window.__socKind(it.id, it) : ""; } catch (e) {} return k || "Brief item";
+  }
+  function daysTo(d) { var a = dnum(d), b = dnum(DAY); return a == null || b == null ? null : a - b; }
+  function dueText(n) {
+    if (n == null) return "";
+    if (n < 0) return (-n) + (n === -1 ? " day ago" : " days ago");
+    if (n === 0) return "today";
+    return n + (n === 1 ? " day" : " days");
+  }
+  function dueTone(n) { return n == null ? "grey" : n < 0 ? "grey" : n <= 7 ? "bad" : n <= 30 ? "warn" : "grey"; }
+  function glob() { var g = document.querySelector("select.globalfilter"); return g && g.selectedIndex > 0 ? g.value : ""; }
+  function passProd(it) {
+    var g = glob(); if (!g) return true;
+    var a = String(g).toLowerCase(), p = String(it.product || "").toLowerCase(), q = prod(it.product).toLowerCase();
+    return a === p || a === q || (p && a.indexOf(p) >= 0) || (q && a.indexOf(q) >= 0);
+  }
+  function idsIn(p, scope) {
+    var seen = {}, out = [];
+    [].forEach.call(p.querySelectorAll((scope ? scope + " " : "") + "tbody tr[data-id]"), function (r) {
+      var id = r.getAttribute("data-id"); if (!id || seen[id]) return; seen[id] = 1; out.push(id); });
+    return out;
+  }
+  function goTab(k) {
+    var b = document.getElementById("tabbtn-tab-" + k); if (b) b.click();
+    var p = document.getElementById("tab-" + k); if (p && p.scrollIntoView) setTimeout(function () { window.scrollTo({ top: 0 }); }, 30);
+  }
+  function linkFor(tab, id) { return location.origin + location.pathname + "#tab=" + tab + "&item=" + encodeURIComponent(id); }
+  function copyBtn(tab, id) {
+    var b = el("button", "s5ci-copy", "Copy link"); b.type = "button"; b.setAttribute("aria-label", "Copy a link to this item");
+    b.addEventListener("click", function (e) {
+      e.stopPropagation(); var u = linkFor(tab, id);
+      function ok() { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy link"; }, 1400); }
+      try { navigator.clipboard.writeText(u).then(ok, function () { window.prompt("Copy this link", u); }); } catch (x) { window.prompt("Copy this link", u); }
+    });
+    return b;
+  }
+  function titleLink(it) {
+    var t = it.title || it.officialTitle || it.id;
+    if (it.url) { var a = el("a", "s5ci-tt", t); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; return a; }
+    return el("span", "s5ci-tt", t);
+  }
+  function revisions(id) {
+    var n = 0; (((ST.ledger14 || {}).entries) || []).forEach(function (e) { if (e.id === id && e.kind === "changed") n++; }); return n;
+  }
+  function norm(t) { return String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+  /* the row's extra lines, shown when the reader opens it — the full record, nothing invented */
+  function details(it, tab) {
+    var d = el("div", "s5ci-det");
+    function line(lab, txt) { if (!txt) return; var p = el("p", "s5ci-dl"); p.appendChild(el("b", null, lab + " ")); p.appendChild(document.createTextNode(txt)); d.appendChild(p); }
+    line("Why it matters:", it.why);
+    line("Do this:", it.action);
+    line("Deadline:", it.deadline ? dmyl(it.deadline) + (it.deadlineNote ? " — " + it.deadlineNote : "") : "");
+    line("Published:", it.published ? dmyl(it.published) + (it.lastChanged && it.lastChanged > it.published ? " · revised " + dmyl(it.lastChanged) : "") : "");
+    line("Reference:", it.reference && it.reference !== it.id ? it.reference : "");
+    line("Area:", it.area);
+    line("Found by:", srcName(it) + (it.firstTracked ? " · first seen by this brief " + dmyl(it.firstTracked) : ""));
+    var f = el("button", "s5ci-lk", "Show this row in the full sections"); f.type = "button";
+    f.addEventListener("click", function () { legacyRow(tab, it.id); });
+    d.appendChild(f);
+    return d;
+  }
+  function toggleRow(row, it, tab) {
+    var open = row.getAttribute("aria-expanded") === "true";
+    var d = row.querySelector(":scope > .s5ci-det");
+    if (open) { if (d) d.remove(); row.setAttribute("aria-expanded", "false"); return; }
+    row.appendChild(details(it, tab)); row.setAttribute("aria-expanded", "true");
+  }
+  function rowClick(row, it, tab) {
+    row.setAttribute("aria-expanded", "false"); row.tabIndex = 0;
+    row.addEventListener("click", function (e) { if (e.target.closest("a, button, .s5ci-det")) return; toggleRow(row, it, tab); });
+    row.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === row) { e.preventDefault(); toggleRow(row, it, tab); } });
+  }
+  function searchBox(ph, onq) {
+    var lab = el("label", "s5ci-q"); lab.appendChild(el("span", "s5ci-qi", "⌕"));
+    var i = el("input"); i.type = "search"; i.placeholder = ph; i.setAttribute("aria-label", ph); lab.appendChild(i);
+    var t; i.addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { onq(i.value.trim().toLowerCase()); }, 140); });
+    return lab;
+  }
+  function hit(it, q) { if (!q) return true; return (String(it.title || "") + " " + (it.officialTitle || "") + " " + it.id + " " + (it.reference || "") + " " + (it.product || "") + " " + (it.area || "") + " " + (it.status || "")).toLowerCase().indexOf(q) >= 0; }
+  function chip(txt, on, fn) { var b = el("button", "s5ci-chip", txt); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false"); b.addEventListener("click", fn); return b; }
+  function prodChip(root, render) {
+    var g = glob(), box = root.querySelector(".s5ci-gf"); if (!box) return;
+    box.innerHTML = ""; if (!g) return;
+    var c = el("span", "s5ci-fchip", "Product: " + g + " "); var x = el("button", null, "×"); x.type = "button"; x.setAttribute("aria-label", "Remove filter Product: " + g);
+    x.addEventListener("click", function () { var s = document.querySelector("select.globalfilter"); if (s) { s.selectedIndex = 0; s.dispatchEvent(new Event("change", { bubbles: true })); } render(); });
+    c.appendChild(x); box.appendChild(c);
+  }
+
+  /* ------------------------------------------------ the full sections (old layout), behind one button */
+  function legacy(p) {
+    if (p.classList.contains("s5ci-on")) { var mm = p.querySelector(":scope > .s5ci-more"); if (mm && p.lastElementChild !== mm && !p.classList.contains("s5ci-full")) {} return; }
+    p.classList.add("s5ci-on");
+    var more = el("div", "s5ci-more");
+    var b = el("button", "s5ci-mb", "Show the full sections (the previous layout of this tab)"); b.type = "button"; b.setAttribute("aria-expanded", "false");
+    b.addEventListener("click", function () { full(p, !p.classList.contains("s5ci-full")); if (p.classList.contains("s5ci-full")) { var n = more.nextElementSibling; if (n && n.scrollIntoView) n.scrollIntoView({ block: "start" }); } });
+    more.appendChild(b);
+    more.appendChild(el("span", "s5ci-mn", "Nothing was removed: every section, chart and filter of the tab is below, as it was."));
+    p.appendChild(more);
+  }
+  function full(p, on) {
+    p.classList.toggle("s5ci-full", !!on);
+    var b = p.querySelector(":scope > .s5ci-more .s5ci-mb");
+    if (b) { b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "Hide the full sections" : "Show the full sections (the previous layout of this tab)"; }
+  }
+  function legacyRow(tab, id) {
+    var p = document.getElementById("tab-" + tab); if (!p) return;
+    full(p, true);
+    var r = p.querySelector(':scope > :not(.s5ci) tbody tr[data-id="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]');
+    if (r) { var d = r.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); } ORIG_SIV.call(r, { block: "center" }); r.classList.add("s5ci-flash"); setTimeout(function () { r.classList.remove("s5ci-flash"); }, 2200); }
+  }
+  /* views register what they can show; the router below uses it */
+  var VIEWS = {};
+  function route(elm) {
+    if (!elm || !elm.closest) return false;
+    var p = elm.closest(".tabpanel.s5ci-on");
+    if (!p || p.classList.contains("s5ci-full") || elm === p) return false;
+    if (elm.closest(".s5ci, .s5ca-head, .s5ci-more")) return false;
+    var v = VIEWS[p.id]; if (!v) { full(p, true); return false; }
+    var tr = elm.closest("tr[data-id]"), id = tr && tr.getAttribute("data-id");
+    if (id && v.open(id)) return true;
+    var sec = elm.closest("details.ntsec") || (elm.matches && elm.matches("details.ntsec") ? elm : null);
+    if (sec && v.covers(sec)) { v.top(); return true; }
+    full(p, true); return false;
+  }
+  var ORIG_SIV = Element.prototype.scrollIntoView, ORIG_FOCUS = HTMLElement.prototype.focus;
+  Element.prototype.scrollIntoView = function () { var handled = false; try { handled = route(this); } catch (e) {} if (handled) return; return ORIG_SIV.apply(this, arguments); };
+  HTMLElement.prototype.focus = function () { try { if (route(this)) return; } catch (e) {} return ORIG_FOCUS.apply(this, arguments); };
+  window.addEventListener("hashchange", function () {
+    var h = location.hash.slice(1); if (!h || /^tab=/.test(h)) return;
+    try { var t = document.getElementById(decodeURIComponent(h)); if (t) route(t); } catch (e) {}
+  });
+  function mount(p, root) {
+    var hd = p.querySelector(":scope > .s5ca-head");
+    if (hd) p.insertBefore(root, hd.nextSibling); else p.insertBefore(root, p.firstChild);
+    legacy(p);
+  }
+  function openIn(root, id) {
+    var r = root.querySelector('[data-ci-id="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]');
+    if (!r) return false;
+    if (r.getAttribute("aria-expanded") !== "true") r.click();
+    ORIG_SIV.call(r, { block: "center" }); r.classList.add("s5ci-flash"); setTimeout(function () { r.classList.remove("s5ci-flash"); }, 2200);
+    return true;
+  }
+  function setNav(pid, n) {
+    var tb = document.querySelector('nav.anchors .tab[aria-controls="' + pid + '"]'); if (!tb || !n) return;
+    var nc = tb.querySelector(".navcount"); if (!nc) { nc = el("span", "navcount"); tb.appendChild(nc); }
+    nc.textContent = String(n);
+  }
+
+  /* ================================================================ DEADLINES */
+  var DL = null;   /* { list: merged deadlines, n } — shared with Overview and §5ca */
+  function deadlines() {
+    if (DL) return DL;
+    var p = document.getElementById("tab-deadlines"); if (!p) return (DL = { list: [], n: 0 });
+    var groups = {}, list = [];
+    idsIn(p).forEach(function (id) {
+      var it = I[id]; if (!it) return;
+      var k = (it.deadline || "none") + "|" + prod(it.product).toLowerCase(), g = groups[k] || (groups[k] = []);
+      var t = norm(it.title), same = null;
+      g.forEach(function (o) {
+        var u = norm(o.it.title);
+        /* one deadline recorded twice = same day, same product, one title the start of the other.
+           NOT the reference: 30 IX it held "no MC/RM post — Learn only" on 60 items, and one MC post can
+           announce two editions' end of servicing (MC1471964) — two deadlines, two rows */
+        if (it.deadline && t && u && (t.indexOf(u) === 0 || u.indexOf(t) === 0)) same = o;
+      });
+      if (same) { same.also.push(it); return; }
+      var o = { it: it, also: [], d: daysTo(it.deadline) }; g.push(o); list.push(o);
+    });
+    list.sort(function (a, b) { var x = a.d == null ? 1e9 : a.d, y = b.d == null ? 1e9 : b.d; return x - y || String(a.it.title).localeCompare(String(b.it.title)); });
+    DL = { list: list, n: list.length, rows: idsIn(p).length };
+    window.__s5ciDL = DL;
+    return DL;
+  }
+  var WIN = [
+    ["passed", "Passed · 7 days", function (d) { return d != null && d < 0 && d >= -7; }],
+    ["30", "Within 30 days", function (d) { return d != null && d >= 0 && d <= 30; }],
+    ["60", "31–60 days", function (d) { return d != null && d > 30 && d <= 60; }],
+    ["120", "61–120 days", function (d) { return d != null && d > 60 && d <= 120; }],
+    ["later", "Later or no date", function (d) { return d == null || d > 120; }]
+  ];
+  function buildDeadlines(p) {
+    var D = deadlines(); if (!D.n) return false;
+    var S = { w: "30", q: "", day: "" };
+    var root = el("section", "s5ci s5ci-dl"); root.setAttribute("aria-label", "Deadlines");
+    var tools = el("div", "s5ci-tools");
+    tools.appendChild(searchBox("Search " + D.n + " deadlines — title, MC number, product", function (q) { S.q = q; render(); }));
+    root.appendChild(tools);
+    var bar = el("div", "s5ci-bar"); bar.appendChild(el("span", "s5ci-lab", "Due"));
+    var seg = el("div", "s5ci-seg"); seg.setAttribute("role", "group"); seg.setAttribute("aria-label", "Due window"); bar.appendChild(seg);
+    var dayChip = el("span", "s5ci-dchip"); bar.appendChild(dayChip);
+    bar.appendChild(el("span", "s5ci-gf"));
+    root.appendChild(bar);
+    var note = el("p", "s5ci-note"); root.appendChild(note);
+    var tbl = el("div", "s5ci-t s5ci-tdl"); tbl.setAttribute("role", "table"); tbl.setAttribute("aria-label", "Deadlines");
+    root.appendChild(tbl);
+    if (D.rows !== D.n) {
+      var dup = D.list.filter(function (o) { return o.also.length; }).map(function (o) { return o.it.title; });
+      root.appendChild(el("p", "s5ci-foot", "One row per deadline across all sources: " + D.rows + " rows in the sections, " + D.n + " deadlines — " +
+        dup.join("; ") + " " + (dup.length === 1 ? "is" : "are") + " recorded by more than one source and shown once, with every source."));
+    }
+    function render() {
+      var base = D.list.filter(function (o) { return passProd(o.it) && hit(o.it, S.q) && (!S.day || o.it.deadline === S.day); });
+      seg.innerHTML = "";
+      WIN.forEach(function (w) {
+        var n = base.filter(function (o) { return w[2](o.d); }).length;
+        var b = el("button", null, w[1] + " · " + n); b.type = "button"; b.setAttribute("aria-pressed", String(!S.day && S.w === w[0]));
+        b.addEventListener("click", function () { S.w = w[0]; S.day = ""; render(); }); seg.appendChild(b);
+      });
+      dayChip.innerHTML = "";
+      if (S.day) { var c = el("span", "s5ci-fchip", "Due on " + dmyl(S.day) + " "); var x = el("button", null, "×"); x.type = "button"; x.setAttribute("aria-label", "Show every day again");
+        x.addEventListener("click", function () { S.day = ""; render(); }); c.appendChild(x); dayChip.appendChild(c); }
+      prodChip(root, render);
+      var rows = S.day ? base : base.filter(function (o) { var w = WIN.filter(function (x) { return x[0] === S.w; })[0]; return w[2](o.d); });
+      note.textContent = rows.length ? "" : (S.q || glob() ? "Nothing matches in this window — the counts on the buttons say where it is." : "No deadline in this window.");
+      tbl.innerHTML = "";
+      var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
+      ["Due", "Item", "Product", "Area", "Do this", "Source"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); });
+      tbl.appendChild(hd);
+      var last = null;
+      rows.forEach(function (o) {
+        var it = o.it, g = grpName(it.deadline, o.d);
+        if (g !== last) { var gr = el("div", "s5ci-grp", g + " · " + rows.filter(function (x) { return grpName(x.it.deadline, x.d) === g; }).length); gr.setAttribute("role", "row"); tbl.appendChild(gr); last = g; }
+        var r = el("div", "s5ci-tr"); r.setAttribute("role", "row"); r.setAttribute("data-ci-id", it.id);
+        o.also.forEach(function (a) { r.setAttribute("data-ci-also", (r.getAttribute("data-ci-also") || "") + " " + a.id); });
+        var c1 = el("div", "s5ci-c1"); c1.setAttribute("role", "cell"); c1.appendChild(pill(dueText(o.d) || "no date", dueTone(o.d)));
+        if (it.deadline) c1.appendChild(el("span", "s5ci-sub", dmy(it.deadline)));
+        var c2 = el("div", "s5ci-c2"); c2.setAttribute("role", "cell"); c2.appendChild(titleLink(it));
+        var rv = revisions(it.id); if (rv) c2.appendChild(el("span", "s5ci-sub", "history · " + rv + (rv === 1 ? " revision" : " revisions")));
+        var c3 = el("div", null, prod(it.product)); c3.setAttribute("role", "cell");
+        var c4 = el("div", null, it.area || ""); c4.setAttribute("role", "cell");
+        var c5 = el("div", "s5ci-do"); c5.setAttribute("role", "cell");
+        if (it.action) c5.textContent = it.action.length > 150 ? it.action.slice(0, 147).replace(/\s+\S*$/, "") + "…" : it.action;
+        else { c5.textContent = "Not written yet"; c5.classList.add("s5ci-miss"); }
+        var c6 = el("div", "s5ci-src"); c6.setAttribute("role", "cell");
+        c6.appendChild(el("span", null, [srcName(it)].concat(o.also.map(srcName)).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(" · ")));
+        if (it.linkStatus === "dead") c6.appendChild(pill("link dead" + (it.linkCheckedOn ? " " + dmy(it.linkCheckedOn) : ""), "bad"));
+        c6.appendChild(copyBtn("deadlines", it.id));
+        [c1, c2, c3, c4, c5, c6].forEach(function (c) { r.appendChild(c); });
+        rowClick(r, it, "deadlines");
+        tbl.appendChild(r);
+      });
+    }
+    function grpName(d, n) {
+      if (!d) return "NO DATE STATED";
+      if (n === 0) return "TODAY · " + dmyl(d).toUpperCase();
+      if (n === 1) return "TOMORROW · " + dmyl(d).toUpperCase();
+      if (n < 0) return "PASSED · " + dmyl(d).toUpperCase();
+      if (n > 60) { var m = ymd(d); return ML[+m[2] - 1].toUpperCase() + " " + m[1]; }
+      return dmyl(d).toUpperCase();
+    }
+    mount(p, root); render();
+    VIEWS[p.id] = {
+      open: function (id) { var o = D.list.filter(function (x) { return x.it.id === id || x.also.some(function (a) { return a.id === id; }); })[0];
+        if (!o) return false; S.q = ""; var qi = root.querySelector("input"); if (qi) qi.value = "";
+        S.day = ""; S.w = (WIN.filter(function (w) { return w[2](o.d); })[0] || WIN[1])[0]; render(); return openIn(root, o.it.id); },
+      covers: function () { return true; },
+      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+    };
+    window.__s5ciDeadlines = function (w, day) { S.w = w || S.w; S.day = day || ""; render(); };
+    setNav(p.id, D.n);
+    return true;
+  }
+
+  /* ================================================================ NEW */
+  function buildNew(p) {
+    var ids = idsIn(p, "details.ntsec"); if (!ids.length) ids = idsIn(p);
+    var all = ids.map(function (id) { return I[id]; }).filter(Boolean);
+    if (!all.length) return false;
+    function when(it) { return it.lastChanged && it.lastChanged > (it.published || "") ? it.lastChanged : (it.published || ""); }
+    all.sort(function (a, b) { return when(b) > when(a) ? 1 : when(b) < when(a) ? -1 : 0; });
+    var S = { w: "all", q: "", pr: "", more: false, shown: 60 };
+    var W = [["since", "Since the " + dmy(PREV) + " brief", function (it) { return it.firstTracked === DAY; }],
+             ["today", "Today", function (it) { return when(it) === DAY; }],
+             ["7", "7 days", function (it) { var d = daysTo(when(it)); return d != null && d >= -6; }],
+             ["all", "Whole window", function () { return true; }]];
+    var root = el("section", "s5ci s5ci-new"); root.setAttribute("aria-label", "New items");
+    var win = ST.window || {};
+    var lead = el("p", "s5ci-lead", "Published or revised " + (win.publishedFrom ? dmy(win.publishedFrom) + " – " + dmyl(win.publishedTo || DAY) : "in the window"));
+    var nNew = all.filter(W[0][2]).length, nAll = (ST.newToday || []).length;
+    if (nAll > nNew) {
+      lead.appendChild(document.createTextNode(" · " + nAll + " new since the " + dmy(PREV) + " brief: " + nNew + " here, " + (nAll - nNew) + " with a deadline in "));
+      var a = el("button", "s5ci-inl", "Deadlines"); a.type = "button"; a.addEventListener("click", function () { goTab("deadlines"); }); lead.appendChild(a);
+    }
+    root.appendChild(lead);
+    var views = el("div", "s5ci-views"); views.setAttribute("role", "group"); views.setAttribute("aria-label", "New views");
+    var v1 = el("button", "s5ci-view", "Items "); v1.type = "button"; v1.setAttribute("aria-pressed", "true"); v1.appendChild(pill(fmt(all.length)));
+    var v2 = el("button", "s5ci-view", "Text changes inside the pages · change log 14 days ›"); v2.type = "button"; v2.setAttribute("aria-pressed", "false");
+    v2.addEventListener("click", function () { full(p, true); var s = [].filter.call(p.querySelectorAll(":scope details.ntsec"), function (d) { return !d.querySelector("tbody tr[data-id]"); })[0] || p.querySelector(":scope > .s8top, :scope details.chg14");
+      if (s) { if (s.tagName === "DETAILS") s.open = true; ORIG_SIV.call(s, { block: "start" }); } });
+    views.appendChild(v1); views.appendChild(v2); root.appendChild(views);
+    var tools = el("div", "s5ci-tools"); tools.appendChild(searchBox("Search " + fmt(all.length) + " items — title, MC number, product", function (q) { S.q = q; S.shown = 60; render(); }));
+    root.appendChild(tools);
+    var bar = el("div", "s5ci-bar"); root.appendChild(bar);
+    var tbl = el("div", "s5ci-t s5ci-tnew"); tbl.setAttribute("role", "table"); tbl.setAttribute("aria-label", "New items"); root.appendChild(tbl);
+    var foot = el("div", "s5ci-pg"); root.appendChild(foot);
+    root.appendChild(el("p", "s5ci-foot", "Status uses one list of words (Retiring, not also Retirement; Threat intelligence, not also Threat intel). Source is the kind of source that reported the item."));
+    function render() {
+      var base = all.filter(function (it) { return passProd(it) && hit(it, S.q); });
+      bar.innerHTML = ""; bar.appendChild(el("span", "s5ci-lab", "Show"));
+      W.forEach(function (w) { var n = base.filter(w[2]).length; bar.appendChild(chip(w[1] + " " + n, S.w === w[0], function () { S.w = w[0]; S.shown = 60; render(); })); });
+      bar.appendChild(el("span", "s5ci-gap"));
+      bar.appendChild(el("span", "s5ci-lab", "Product"));
+      var wf = W.filter(function (w) { return w[0] === S.w; })[0][2], cnt = {};
+      base.filter(wf).forEach(function (it) { var k = prod(it.product) || "Other"; cnt[k] = (cnt[k] || 0) + 1; });
+      var ks = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
+      (S.more ? ks : ks.slice(0, 5)).forEach(function (k) { bar.appendChild(chip(k + " " + cnt[k], S.pr === k, function () { S.pr = S.pr === k ? "" : k; S.shown = 60; render(); })); });
+      if (ks.length > 5) bar.appendChild(chip(S.more ? "Fewer" : "+ " + (ks.length - 5) + " more", false, function () { S.more = !S.more; render(); }));
+      bar.appendChild(el("span", "s5ci-gf")); prodChip(root, render);
+      var rows = base.filter(wf).filter(function (it) { return !S.pr || (prod(it.product) || "Other") === S.pr; });
+      tbl.innerHTML = "";
+      var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
+      ["Published", "Item", "Product", "Status", "Reference", "Source"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); });
+      tbl.appendChild(hd);
+      if (!rows.length) tbl.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
+      rows.slice(0, S.shown).forEach(function (it) {
+        var r = el("div", "s5ci-tr"); r.setAttribute("role", "row"); r.setAttribute("data-ci-id", it.id);
+        var c1 = el("div", "s5ci-c1"); c1.setAttribute("role", "cell"); c1.appendChild(el("span", null, it.published || ""));
+        if (it.lastChanged && it.lastChanged > (it.published || "")) c1.appendChild(el("span", "s5ci-sub", "revised " + it.lastChanged));
+        var c2 = el("div", "s5ci-c2"); c2.setAttribute("role", "cell");
+        if (it.firstTracked === DAY) c2.appendChild(pill("NEW", "info"));
+        c2.appendChild(titleLink(it));
+        var c3 = el("div", null, prod(it.product)); c3.setAttribute("role", "cell");
+        var c4 = el("div"); c4.setAttribute("role", "cell"); var st = status(it.status); if (st) c4.appendChild(pill(st, tone(st)));
+        var c5 = el("div", "s5ci-mono", it.reference && /^(MC|RM)?\d|^CVE-/i.test(it.reference) ? it.reference : "—"); c5.setAttribute("role", "cell");
+        var c6 = el("div", "s5ci-src"); c6.setAttribute("role", "cell"); c6.appendChild(el("span", null, srcName(it))); c6.appendChild(copyBtn("new", it.id));
+        [c1, c2, c3, c4, c5, c6].forEach(function (c) { r.appendChild(c); });
+        rowClick(r, it, "new"); tbl.appendChild(r);
+      });
+      foot.innerHTML = "";
+      if (rows.length > S.shown) { var m = el("button", "s5ci-mb", "Show " + Math.min(60, rows.length - S.shown) + " more of " + rows.length); m.type = "button";
+        m.addEventListener("click", function () { S.shown += 60; render(); }); foot.appendChild(m); }
+    }
+    mount(p, root); render();
+    VIEWS[p.id] = {
+      open: function (id) { var it = I[id]; if (!it || all.indexOf(it) < 0) return false; S.w = "all"; S.pr = ""; S.q = ""; var qi = root.querySelector("input"); if (qi) qi.value = "";
+        S.shown = Math.max(60, Math.ceil((all.indexOf(it) + 1) / 60) * 60); render(); return openIn(root, id); },
+      covers: function (sec) { return !!sec.querySelector("tbody tr[data-id]"); },
+      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+    };
+    setNav(p.id, all.length);
+    return true;
+  }
+
+  /* ================================================================ TODAY */
+  function buildToday(p) {
+    var top = (ST.topCards || []).filter(function (id) { return I[id]; });
+    var per = (ST.picksOrder || []).filter(function (id) { return I[id]; });
+    if (!top.length && !per.length) return false;
+    var S = { v: top.length ? "top" : "per", q: "", c: "all" };
+    var root = el("section", "s5ci s5ci-today"); root.setAttribute("aria-label", "Today");
+    var nAll = (ST.newToday || []).length, newP = document.getElementById("tab-new"), dlP = document.getElementById("tab-deadlines");
+    var inNew = newP ? idsIn(newP) : [], inDl = dlP ? idsIn(dlP) : [];
+    var nNew = (ST.newToday || []).filter(function (id) { return inNew.indexOf(id) >= 0; }).length, nDl = (ST.newToday || []).filter(function (id) { return inNew.indexOf(id) < 0 && inDl.indexOf(id) >= 0; }).length;
+    /* the header above already says "8 top picks · since 28 Sep: +12 new": this line only says where the 12 are */
+    var lead = el("p", "s5ci-lead", nAll + " new since the " + dmy(PREV) + " brief" + (nAll ? ": " : ""));
+    if (nAll) {
+      var a1 = el("button", "s5ci-inl", nNew + " in New"); a1.type = "button"; a1.addEventListener("click", function () { goTab("new"); }); lead.appendChild(a1);
+      if (nDl) { lead.appendChild(document.createTextNode(", ")); var a2 = el("button", "s5ci-inl", nDl + " in Deadlines"); a2.type = "button"; a2.addEventListener("click", function () { goTab("deadlines"); }); lead.appendChild(a2); }
+    }
+    root.appendChild(lead);
+    var views = el("div", "s5ci-views"); views.setAttribute("role", "group"); views.setAttribute("aria-label", "Today views");
+    function vbtn(k, txt, n) { var b = el("button", "s5ci-view", txt + " "); b.type = "button"; b.setAttribute("data-v", k); b.appendChild(pill(String(n)));
+      b.addEventListener("click", function () { S.v = k; render(); }); return b; }
+    if (top.length) views.appendChild(vbtn("top", "Top picks", top.length));
+    if (per.length) views.appendChild(vbtn("per", "One per technology", per.length));
+    var ev = el("button", "s5ci-view", "Everything new → New"); ev.type = "button"; ev.addEventListener("click", function () { goTab("new"); }); views.appendChild(ev);
+    root.appendChild(views);
+    var tools = el("div", "s5ci-tools"); tools.appendChild(searchBox("Search today's picks", function (q) { S.q = q; render(); }));
+    var chips = el("span", "s5ci-chips"); tools.appendChild(chips); tools.appendChild(el("span", "s5ci-gf"));
+    root.appendChild(tools);
+    var list = el("div", "s5ci-picks"); list.setAttribute("role", "list"); root.appendChild(list);
+    function exploited(it) { return /exploit/i.test(String(it.status || "") + " " + (it.title || "")); }
+    function render() {
+      [].forEach.call(views.querySelectorAll("[data-v]"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === S.v)); });
+      var src = (S.v === "top" ? top : per).map(function (id, i) { return { it: I[id], n: i + 1 }; });
+      var base = src.filter(function (o) { return passProd(o.it) && hit(o.it, S.q); });
+      var C = [["all", "All", function () { return true; }], ["date", "Has a date", function (o) { return !!o.it.deadline; }], ["exp", "Exploited", function (o) { return exploited(o.it); }]];
+      chips.innerHTML = ""; chips.appendChild(el("span", "s5ci-lab", "Show"));
+      C.forEach(function (c) { chips.appendChild(chip(c[1] + " " + base.filter(c[2]).length, S.c === c[0], function () { S.c = c[0]; render(); })); });
+      prodChip(root, render);
+      var f = C.filter(function (c) { return c[0] === S.c; })[0][2];
+      var rows = base.filter(f);
+      list.innerHTML = "";
+      if (!rows.length) list.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
+      rows.forEach(function (o) {
+        var it = o.it, r = el("div", "s5ci-pick"); r.setAttribute("role", "listitem"); r.setAttribute("data-ci-id", it.id);
+        r.appendChild(el("span", "s5ci-no", String(o.n)));
+        var m = el("div", "s5ci-pm"), l1 = el("div", "s5ci-l1"), st = status(it.status);
+        if (st) l1.appendChild(pill(st, tone(st)));
+        if (it.product) l1.appendChild(pill(prod(it.product), "grey"));
+        l1.appendChild(titleLink(it)); m.appendChild(l1);
+        var w = el("div", "s5ci-why");
+        if (it.action) { w.appendChild(el("b", null, "Do this: ")); w.appendChild(document.createTextNode(it.action)); }
+        else if (it.why) { w.appendChild(el("b", null, "Why it matters: ")); w.appendChild(document.createTextNode(it.why)); }
+        else { w.textContent = "Why it matters and what to do are not written yet — marked for the next run to fill, never shown empty."; w.classList.add("s5ci-miss"); }
+        m.appendChild(w); r.appendChild(m);
+        var sd = el("div", "s5ci-side"), d = daysTo(it.deadline);
+        var l = el("div"); if (it.deadline) { l.appendChild(document.createTextNode("Due " + dmy(it.deadline) + " ")); l.appendChild(pill(dueText(d), dueTone(d))); } else l.textContent = "no deadline stated";
+        sd.appendChild(l); var l2 = el("div"); l2.appendChild(el("span", null, srcName(it) + " · ")); l2.appendChild(copyBtn("today", it.id)); sd.appendChild(l2);
+        r.appendChild(sd);
+        rowClick(r, it, "today"); list.appendChild(r);
+      });
+    }
+    mount(p, root); render();
+    VIEWS[p.id] = {
+      open: function (id) { if (!I[id]) return false; var v = top.indexOf(id) >= 0 ? "top" : per.indexOf(id) >= 0 ? "per" : ""; if (!v) return false;
+        S.v = v; S.q = ""; S.c = "all"; var qi = root.querySelector("input"); if (qi) qi.value = ""; render(); return openIn(root, id); },
+      covers: function (sec) { var r = sec.querySelector("tbody tr[data-id]"); return !r || top.indexOf(r.getAttribute("data-id")) >= 0 || per.indexOf(r.getAttribute("data-id")) >= 0; },
+      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+    };
+    setNav(p.id, top.length || per.length);
+    return true;
+  }
+
+  /* ================================================================ OVERVIEW */
+  function buildOverview(p) {
+    var D = deadlines(); if (!D.n) return false;
+    var root = el("section", "s5ci s5ci-ov"); root.setAttribute("aria-label", "Overview");
+    var win = ST.window || {};
+    root.appendChild(el("p", "s5ci-lead", "What needs you today · window " + (win.publishedFrom ? dmy(win.publishedFrom) + " – " + dmyl(win.publishedTo || DAY) : dmyl(DAY))));
+    var cards = el("div", "s5ci-cards");
+    function card(tone2, title, list, all, go, goTxt, meta) {
+      var c = el("section", "s5ci-card s5ci-c-" + tone2), h = el("div", "s5ci-ch");
+      h.appendChild(el("h3", null, title)); h.appendChild(el("span", "s5ci-cn", String(all))); c.appendChild(h);
+      if (!list.length) c.appendChild(el("p", "s5ci-note", "Nothing here today."));
+      list.slice(0, 3).forEach(function (it) {
+        var r = el("div", "s5ci-it"), b = el("button", "s5ci-itb", it.title); b.type = "button"; b.addEventListener("click", function () { go(it.id); });
+        r.appendChild(b); var m = el("div", "s5ci-meta"); meta(it, m); r.appendChild(m); c.appendChild(r);
+      });
+      if (all) { var a = el("button", "s5ci-inl", goTxt); a.type = "button"; a.addEventListener("click", function () { go(null); }); c.appendChild(a); }
+      return c;
+    }
+    function dmeta(it, m) {
+      if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference));
+      if (it.product) m.appendChild(pill(prod(it.product), "grey"));
+      var d = daysTo(it.deadline); m.appendChild(el("span", null, dmy(it.deadline))); m.appendChild(pill(dueText(d), dueTone(d)));
+    }
+    var due7 = D.list.filter(function (o) { return o.d != null && o.d >= 0 && o.d <= 7; }).map(function (o) { return o.it; });
+    var pass7 = D.list.filter(function (o) { return o.d != null && o.d < 0 && o.d >= -7; }).map(function (o) { return o.it; });
+    var nw = (ST.newToday || []).map(function (id) { return I[id]; }).filter(Boolean);
+    function toDl(w) { return function (id) { goTab("deadlines"); setTimeout(function () { if (id && VIEWS["tab-deadlines"]) VIEWS["tab-deadlines"].open(id); else if (window.__s5ciDeadlines) window.__s5ciDeadlines(w); }, 60); }; }
+    cards.appendChild(card("bad", "Due within 7 days", due7, due7.length, toDl("30"), "All " + due7.length + " in Deadlines ›", dmeta));
+    cards.appendChild(card("warn", "Deadlines passed · last 7 days", pass7, pass7.length, toDl("passed"), (pass7.length === 2 ? "Both" : "All " + pass7.length) + " in Deadlines ›", dmeta));
+    cards.appendChild(card("acc", "New since the " + dmy(PREV) + " brief", nw, nw.length, function (id) {
+      var inNew = VIEWS["tab-new"] && id ? true : false; goTab(id && I[id] && I[id].deadline && !(document.querySelector('#tab-new tbody tr[data-id="' + id + '"]')) ? "deadlines" : "new");
+      setTimeout(function () { if (!id) return; var v = document.querySelector('#tab-new tbody tr[data-id="' + id + '"]') ? VIEWS["tab-new"] : VIEWS["tab-deadlines"]; if (v) v.open(id); }, 60); },
+      "All in New ›", function (it, m) { if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference)); if (it.product) m.appendChild(pill(prod(it.product), "grey")); var st = status(it.status); if (st) m.appendChild(pill(st, tone(st))); }));
+    root.appendChild(cards);
+    var grid = el("div", "s5ci-two");
+    /* the next 14 days, one bar per day with a deadline */
+    var tl = el("section", "s5ci-card"); tl.appendChild(el("h3", null, "The next 14 days"));
+    var days = el("div", "s5ci-days"), cnt = {}, mx = 1;
+    D.list.forEach(function (o) { if (o.d != null && o.d >= 0 && o.d < 14) { cnt[o.it.deadline] = (cnt[o.it.deadline] || 0) + 1; mx = Math.max(mx, cnt[o.it.deadline]); } });
+    for (var i = 0; i < 14; i++) {
+      var dd = plus(DAY, i), n = cnt[dd] || 0, b = el("button", "s5ci-day" + (n ? "" : " s5ci-empty")); b.type = "button";
+      b.appendChild(el("b", null, String(n))); var bar = el("span", "s5ci-barv"); bar.style.height = (n ? Math.max(6, Math.round(84 * n / mx)) : 2) + "px"; if (i <= 1 && n) bar.classList.add("s5ci-hot"); b.appendChild(bar);
+      b.appendChild(el("span", "s5ci-dd", dmy(dd))); b.setAttribute("aria-label", n + " deadline" + (n === 1 ? "" : "s") + " on " + dmyl(dd));
+      if (n) (function (d2) { b.addEventListener("click", function () { goTab("deadlines"); setTimeout(function () { if (window.__s5ciDeadlines) window.__s5ciDeadlines("30", d2); }, 60); }); })(dd); else b.disabled = true;
+      days.appendChild(b);
+    }
+    tl.appendChild(days); tl.appendChild(el("p", "s5ci-note", "A bar opens that day in Deadlines."));
+    var ten = el("details", "s5ci-ten"); ten.appendChild(el("summary", null, "Today in ten sentences"));
+    ten.addEventListener("toggle", function () { if (!ten.open || ten.__moved) return; var s = document.querySelector("#tab-overview .s5bk-sum"); if (s) { ten.appendChild(s); ten.__moved = true; } });
+    tl.appendChild(ten);
+    var shn = [].filter.call(document.querySelectorAll("#starthere .shrow"), function (b) { return /sources are stale/i.test(b.textContent); })[0];
+    var ns = shn ? +((shn.querySelector(".shn") || {}).textContent || 0) : 0;
+    var hl = el("div", "s5ci-health" + (ns ? "" : " s5ci-ok"));
+    hl.appendChild(document.createTextNode(ns ? "Collection health: " + ns + " source" + (ns === 1 ? "" : "s") + " stale or unread · " : "Collection health: every source read · "));
+    var sb = el("button", "s5ci-inl", "Sources ›"); sb.type = "button"; sb.addEventListener("click", function () { goTab("sources"); }); hl.appendChild(sb);
+    tl.appendChild(hl);
+    grid.appendChild(tl);
+    /* by product: one row per product, a row opens that product */
+    var bp = el("section", "s5ci-card"), bh = el("div", "s5ci-ch"); bh.appendChild(el("h3", null, "By product")); bh.appendChild(el("span", "s5ci-sub", "a row opens the product")); bp.appendChild(bh);
+    var newP = document.getElementById("tab-new"), inWin = newP ? idsIn(newP).map(function (id) { return I[id]; }).filter(Boolean) : [];
+    var P = {};
+    function row(k) { return P[k] || (P[k] = { k: k, nt: 0, win: 0, d30: 0, mc: 0 }); }
+    inWin.forEach(function (it) { var r = row(prod(it.product) || "Other"); r.win++; });
+    (ST.newToday || []).forEach(function (id) { if (I[id]) row(prod(I[id].product) || "Other").nt++; });
+    D.list.forEach(function (o) { if (o.d != null && o.d >= 0 && o.d <= 30) row(prod(o.it.product) || "Other").d30++; });
+    function pn(s) { return String(s || "").replace(/^Microsoft\s+/i, "").replace(/\s*\(.*\)\s*$/, "").replace(/\s+Online$/i, "").toLowerCase(); }
+    var keyOf = {}; Object.keys(P).forEach(function (k) { keyOf[pn(k)] = k; });
+    (((ST.mc || {}).entries) || []).forEach(function (m) { var hitK = {}; (m.tech || []).forEach(function (t) { var k = keyOf[pn(t)]; if (k && !hitK[k]) { hitK[k] = 1; P[k].mc++; } }); });
+    var ks = Object.keys(P).filter(function (k) { return k !== "This report" && k !== "Other"; }).sort(function (a, b) { return (P[b].win + P[b].d30) - (P[a].win + P[a].d30) || a.localeCompare(b); });
+    var t = el("div", "s5ci-t s5ci-tbp"); t.setAttribute("role", "table"); t.setAttribute("aria-label", "By product");
+    var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
+    ["Product", "New today", "In window", "Due in 30 days", "Message Center"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); }); t.appendChild(hd);
+    var shown = 8;
+    function drawBP() {
+      [].slice.call(t.querySelectorAll(".s5ci-tr:not(.s5ci-th)")).forEach(function (x) { x.remove(); });
+      ks.slice(0, shown).forEach(function (k) {
+        var r = el("div", "s5ci-tr"); r.setAttribute("role", "row");
+        var c0 = el("div"); c0.setAttribute("role", "cell"); var b = el("button", "s5ci-inl", k); b.type = "button";
+        b.addEventListener("click", function () { openProduct(k); }); c0.appendChild(b); r.appendChild(c0);
+        [P[k].nt, P[k].win, P[k].d30, P[k].mc].forEach(function (v, i2) { var c = el("div", i2 === 2 && v ? "s5ci-strong" : null, String(v)); c.setAttribute("role", "cell"); r.appendChild(c); });
+        t.appendChild(r);
+      });
+    }
+    drawBP(); bp.appendChild(t);
+    if (ks.length > shown) { var mb = el("button", "s5ci-inl", "All " + ks.length + " products ›"); mb.type = "button"; mb.addEventListener("click", function () { shown = ks.length; drawBP(); mb.remove(); }); bp.appendChild(mb); }
+    bp.appendChild(el("p", "s5ci-note", "New today: first seen by this brief. In window: the items in New. Message Center: posts in the list naming the product."));
+    grid.appendChild(bp);
+    root.appendChild(grid);
+    mount(p, root);
+    VIEWS[p.id] = { open: function () { return false; }, covers: function (sec) { return !sec.querySelector("tbody tr[data-id]") ? false : true; }, top: function () { ORIG_SIV.call(root, { block: "start" }); } };
+    /* Overview's Section A rows are deadlines that passed: they open in Deadlines */
+    VIEWS[p.id].open = function (id) { if (!D.list.some(function (o) { return o.it.id === id; })) return false; goTab("deadlines"); setTimeout(function () { VIEWS["tab-deadlines"] && VIEWS["tab-deadlines"].open(id); }, 60); return true; };
+    return true;
+  }
+  function openProduct(k) {
+    var s = document.querySelector("select.globalfilter");
+    if (s) { var o = [].filter.call(s.options, function (x) { var v = String(x.value || x.textContent).toLowerCase(); return v === k.toLowerCase() || prod(x.value) === k; })[0];
+      if (o) { s.value = o.value; s.dispatchEvent(new Event("change", { bubbles: true })); } }
+    goTab("products");
+  }
+
+  /* ================================================================ deep link #tab=<tab>&item=<id> */
+  function fromHash() {
+    var m = /^#tab=(today|new|deadlines|overview)&item=([^&]+)/.exec(location.hash || ""); if (!m) return;
+    var v = VIEWS["tab-" + m[1]]; if (!v) return;
+    goTab(m[1]); setTimeout(function () { v.open(decodeURIComponent(m[2])); }, 80);
+  }
+
+  function run() {
+    ST = ST || json("soc-brief-state"); if (!ST) return;
+    if (!Object.keys(I).length) (ST.items || []).forEach(function (i) { if (i && i.id) I[i.id] = i; });
+    DAY = ST.briefDate || ""; var cw = ST.comparedWith || ""; PREV = typeof cw === "string" ? cw : (cw.date || "");
+    [["tab-deadlines", buildDeadlines], ["tab-new", buildNew], ["tab-today", buildToday], ["tab-overview", buildOverview]].forEach(function (x) {
+      if (built[x[0]]) return; var p = document.getElementById(x[0]); if (!p) return;
+      try { if (x[1](p)) built[x[0]] = true; } catch (e) { if (window.console) console.error("[5ci " + x[0] + "]", e); }
+    });
+  }
+  function refreshProd() { built = {}; }
+  function start() {
+    setTimeout(function () { run(); fromHash(); }, 1500);
+    [3000, 6000].forEach(function (t2) { setTimeout(function () { run(); ["tab-today", "tab-new", "tab-deadlines"].forEach(function (pid) {
+      if (!built[pid]) return; var n = pid === "tab-deadlines" ? (DL || {}).n : pid === "tab-new" ? idsIn(document.getElementById(pid), "details.ntsec").length : ((ST.topCards || []).filter(function (id) { return I[id]; }).length);
+      setNav(pid, n); }); }, t2); });
+    window.addEventListener("hashchange", fromHash);
+    /* the product picker in the header narrows these views the same way it narrows the sections */
+    document.addEventListener("change", function (e) { if (e.target && e.target.matches && e.target.matches("select.globalfilter")) {
+      [].forEach.call(document.querySelectorAll(".s5ci input[type=search]"), function (i) { i.dispatchEvent(new Event("input")); }); } });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
