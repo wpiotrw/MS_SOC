@@ -17383,10 +17383,41 @@ CloudAppEvents
               (gm.permissions ? " · " + fmt(gm.permissions) + " in the endpoint map" : ""), t: tp },
       { lead: fmt(g.length) + " catalog entries across " + Object.keys(apis).length + " APIs, with permissions not in this tenant and catalog notes", t: ta } ];
   }
-  function sinceSpan(prev, parts) {
+  /* §5ci-b (30 IX 2026, owner: "why do Graph API, Roles and First-party apps show 0 — and their header has no
+     +new / -removed like Deadlines?"). A grey 0 is true (compared, nothing moved) but says nothing about WHEN
+     the tab last moved. The register (ledger14) and the First-party apps change list know it: the header now
+     adds "last change 28 Sep: +8 added · ~304 changed" after "nothing moved". */
+  var LTAB = { "tab-graph": ["Graph API", "Graph endpoints"], "tab-roles": ["Roles"], "tab-components": ["Component versions"],
+    "tab-new": ["New"], "tab-deadlines": ["Deadlines"], "tab-mc": ["Message Center"], "tab-learn": ["Microsoft Learn"],
+    "tab-blogs": ["Microsoft Blogs"], "tab-community": ["Community Articles"] };
+  function lastMove(pid, day, keep) {
+    var t = { added: 0, changed: 0, removed: 0 }, d = "";
+    if (pid === "tab-fpa") {
+      var F = (ST || {}).fpa || {};
+      (F.chg || []).forEach(function (x) { if (x.d && x.d < day && x.d > d) d = x.d; });
+      (F.chg || []).forEach(function (x) { if (x.d !== d) return; var k = x.t === "added" ? "added" : x.t === "removed" ? "removed" : "changed"; t[k]++; });
+    } else {
+      var tabs = LTAB[pid]; if (!tabs) return null;
+      var L = (((ST || {}).ledger14 || {}).entries || []).filter(function (e) { return tabs.indexOf(e.tab) >= 0 && e.seen && e.seen < day && (!keep || keep(e)); });
+      L.forEach(function (e) { if (e.seen > d) d = e.seen; });
+      L.forEach(function (e) { if (e.seen === d) t[e.kind] = (t[e.kind] || 0) + 1; });
+    }
+    if (!d) return null;
+    var parts = [];
+    if (t.added) parts.push(["a", "+" + fmt(t.added) + " added"]);
+    if (t.changed) parts.push(["c", "~" + fmt(t.changed) + " changed"]);
+    if (t.removed) parts.push(["r", "\u2212" + fmt(t.removed) + " removed"]);
+    return parts.length ? { d: d, parts: parts, brief: pid !== "tab-fpa" } : null;
+  }
+  function sinceSpan(prev, parts, last) {
     var s = el("span", "s5ca-since");
     s.appendChild(document.createTextNode("since " + (prev ? dmy(prev) : "the previous brief") + ": "));
     if (!parts.length) s.appendChild(document.createTextNode("nothing moved"));
+    if (!parts.length && last) {
+      var l = el("span", "s5ca-last"); l.appendChild(document.createTextNode(" \u00b7 last moved " + (last.brief ? "in the " + dmy(last.d) + " brief" : "on " + dmy(last.d)) + ": "));
+      last.parts.forEach(function (p, i) { if (i) l.appendChild(document.createTextNode(" \u00b7 ")); l.appendChild(el("span", "s5ca-w s5ca-" + p[0], p[1])); });
+      s.appendChild(l);
+    }
     parts.forEach(function (p, i) { if (i) s.appendChild(document.createTextNode(" · ")); s.appendChild(el("span", "s5ca-w s5ca-" + p[0], p[1])); });
     return s;
   }
@@ -17405,7 +17436,7 @@ CloudAppEvents
       box.appendChild(it);
     });
     /* 29 IX: the key printed a literal "n" in a badge — the legend is words, the badges are real numbers */
-    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Blue number: things that moved since the previous brief. Grey 0: compared, nothing moved."));
+    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Blue number: how many things moved since the previous brief (not how many the tab holds). Grey 0: compared, nothing moved — the tab's header says when it last moved."));
     rail.appendChild(foot);
     document.body.appendChild(rail);
     document.body.classList.add("s5ca");
@@ -17440,12 +17471,14 @@ CloudAppEvents
     ST = ST || json("soc-brief-state") || {}; CAT = CAT || json("soc-catalog") || {};
     if (!Object.keys(items).length) (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
     var day = ST.briefDate || "", cw = ST.comparedWith || "", prev = typeof cw === "string" ? cw : (cw.date || "");
-    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Blue number: things that moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief. Grey 0: compared, nothing moved.";
+    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Blue number: how many things moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief (not how many the tab holds). Grey 0: compared, nothing moved — the tab's header says when it last moved.";
     [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
       var pid = it.getAttribute("data-pid"), m = pid === "tab-products" ? movedProducts(day) : moved(pid), mv = it.querySelector(".s5ca-mv");
       mv.classList.toggle("zero", !!(m && !m.n));
       /* grey 0: the tab WAS compared and nothing moved; no badge: the tab has no comparison (Overview, Sources, Hunting) */
-      if (m && !m.n) { mv.textContent = "0"; mv.hidden = false; it.title = it.querySelector(".s5ca-nm").textContent + " — compared with the " + dmy(prev) + " brief: nothing moved"; }
+      if (m && !m.n) { mv.textContent = "0"; mv.hidden = false; var lm0 = lastMove(pid, day);
+        it.title = it.querySelector(".s5ca-nm").textContent + " — compared with the " + dmy(prev) + " brief: nothing moved" +
+          (lm0 ? "; last moved " + (lm0.brief ? "in the " + dmy(lm0.d) + " brief" : "on " + dmy(lm0.d)) + ": " + lm0.parts.map(function (p) { return p[1]; }).join(", ") : ""); }
       else if (m && m.n) { mv.textContent = fmt(m.n); mv.hidden = false;
         it.title = it.querySelector(".s5ca-nm").textContent + " — since " + dmy(prev) + ": " + m.parts.map(function (p) { return p[1]; }).join(", "); }
       else { mv.hidden = true; it.title = it.querySelector(".s5ca-nm").textContent + " — this tab is not compared between briefs"; }
@@ -17455,21 +17488,25 @@ CloudAppEvents
       var f = hd && hd.querySelector(".s5ca-facts"); if (!f) return;
       f.innerHTML = "";
       if (pid === "tab-graph") {
-        graphLines(day).forEach(function (ln) {
+        graphLines(day).forEach(function (ln, li) {
           var row = el("div", "s5ca-line"); row.appendChild(el("b", null, ln.lead));
           var parts = [];
           if (ln.t.added) parts.push(["a", "+" + fmt(ln.t.added) + " added"]);
           if (ln.t.changed) parts.push(["c", "~" + fmt(ln.t.changed) + " changed"]);
           if (ln.t.removed) parts.push(["r", "−" + fmt(ln.t.removed) + " removed"]);
-          row.appendChild(sinceSpan(prev, parts)); f.appendChild(row);
+          /* line 1 counts permissions in this tenant's inventory, line 2 every catalog entry */
+          var inv1 = {}; (((CAT || {}).graph) || []).forEach(function (g) { if (g.inInventory === true && g.name) inv1[g.name] = 1; });
+          row.appendChild(sinceSpan(prev, parts, parts.length ? null : lastMove(pid, day, li === 0 ? function (e) { return inv1[e.id]; } : null))); f.appendChild(row);
         });
         return;
       }
       if (pid === "tab-products") { try { datePBullets(); } catch (e) {} }
       var row = el("div", "s5ca-line"), u = units(pid);
       if (u) row.appendChild(el("b", null, u));
-      if (m) row.appendChild(sinceSpan(prev, m.parts));
+      if (m) row.appendChild(sinceSpan(prev, m.parts, m.parts.length ? null : lastMove(pid, day)));
       if (row.childNodes.length) f.appendChild(row);
+      /* Roles: the phone menu counted table rows (137), the header the catalog (139) — one number */
+      if (pid === "tab-roles" && ((CAT || {}).roles || []).length) { var rb = document.querySelector('nav.anchors .tab[aria-controls="tab-roles"] .navcount'); if (rb) rb.textContent = String(CAT.roles.length); }
     });
   }
 
@@ -17486,6 +17523,11 @@ CloudAppEvents
       /* the header grows once more at ~1.2 s (the "changes since the last brief" link): measure again,
          and let SCRIPT 10 and 14 re-measure their sticky offsets too */
       [1600, 3200, 5200].forEach(function (t) { setTimeout(function () { try { place(); fill(); window.dispatchEvent(new Event("resize")); } catch (e) { if (window.console) console.error("[5ca fill]", e); } }, t); });
+      /* §5ci-b: on a slower computer a tab's data arrives after 5.2 s and its header stayed without numbers
+         (owner, 30 IX: "Graph API, Roles, First-party apps have no +new / -removed line"). The header is filled
+         again after every tab switch and once more at 9 s; fill() only rewrites text, it builds nothing. */
+      setTimeout(function () { try { fill(); } catch (e) {} }, 9000);
+      document.addEventListener("click", function (e) { if (e.target && e.target.closest && e.target.closest(".s5ca-it, nav.anchors .tab")) setTimeout(function () { try { fill(); } catch (x) {} }, 250); }, true);
     } catch (e) { if (window.console) console.error("[5ca rail]", e); }
   }
   window.addEventListener("resize", function () { if (rail) place(); });
