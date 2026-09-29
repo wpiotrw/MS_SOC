@@ -1,0 +1,54 @@
+name: Learn mirror (own copy of the Learn pages the portal uses)
+
+# §5cf (29 IX 2026). Microsoft retires its public documentation repositories by the end of December
+# 2026; the owner wants the portal autonomous. This keeps our own git copy of every Microsoft Learn
+# page the portal cites (newest site/data state + microsoftlearn_sources.json), fetched as Learn's own
+# Markdown by tools/learn-mirror (vendored, MIT, Merill Fernando). Commits touch mirror/ only, so no
+# site deployment starts; a push made with GITHUB_TOKEN starts no other workflow either.
+on:
+  schedule:
+    - cron: "37 1,7,13,19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: learn-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Mirror Learn pages
+        id: mirror
+        run: |
+          tools/run_learn_mirror.sh 6 "$RUNNER_TEMP/mirror-message.txt" | tee "$RUNNER_TEMP/mirror.log"
+          { echo '```'; cat "$RUNNER_TEMP/mirror.log"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit mirror/
+        run: |
+          if [ -z "$(git status --porcelain -- mirror)" ]; then
+            echo "Nothing changed on Learn."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- mirror
+          git commit -q -F "$RUNNER_TEMP/mirror-message.txt"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "::error::could not push the mirror commit after 3 attempts"
+          exit 1

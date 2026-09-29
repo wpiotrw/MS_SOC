@@ -25521,6 +25521,37 @@ Listy what's new nie zaleza od git (sa czytane ze stron), wiec zamkniecie nie za
 traci sie tylko „co zmienilo sie W SRODKU strony" dla repozytoriow bez mirrora — to otwiera decyzja
 wlasciciela o wlasnym mirrorze (`merill/learn-mirror` w osobnym repozytorium).
 
+### §5cf (29 IX 2026) — wlasna kopia stron Learn w `mirror/` tego repozytorium
+
+Decyzja wlasciciela 29 IX: portal ma byc autonomiczny, wiec kopia lezy w folderze `mirror/` TEGO
+repozytorium (nie w osobnym), obok mirrorow Merilla, a nie zamiast nich. Zakres: tylko strony, ktorych
+portal uzywa — nie cale zestawy dokumentacji (pelne trzy mirrory Merilla: 10 715 stron, 151 MB).
+
+| element | plik |
+|---|---|
+| narzedzie (kopia bez zmian, MIT, commit 4f6c802 z 28 IX) | `tools/learn-mirror/learn-mirror.js`, `VENDORED.md` |
+| zakres = kazdy adres Learn z najnowszego `site/data/RRRR-MM-DD.json` + `microsoftlearn_sources.json` | `tools/mirror_scope.py` |
+| przebieg wszystkich grup + kontrola kolizji | `tools/run_learn_mirror.sh` |
+| harmonogram 4x/dobe, commit tylko `mirror/` (nie uruchamia wdrozenia) | `.github/workflows/learn-mirror.yml` |
+| atrybucja CC BY 4.0 | `mirror/README.md` |
+
+Uklad: `mirror/learn/<pierwszy segment adresu>/<source_path>`. Osobny katalog na segment, bo sciezki
+plikow zrodlowych z roznych repozytoriow koliduja (test 29 IX: Entra zapisala sie jako `docs/...`);
+`mirror_scope.py --check` zglasza kolizje kodem wyjscia 3. Mapa witryny w konfiguracji to
+`contribute_en-us_1` (1 strona spoza zakresu) — `learn-mirror` wymaga jednej, a zakres wyznaczaja
+wylacznie `seed-urls.txt` i strony juz znane. Strona raz zacytowana zostaje w kopii; znika tylko przy
+404 albo przekierowaniu.
+
+Zmierzone 29 IX 2026 (pierwszy przebieg lokalnie): 41 grup, 859 adresow, **676 stron zapisanych**,
+17 MB, 2 min 20 s, 0 bledow, 0 kolizji. Drugi przebieg: 0 zmian w 41 grupach. Pozostale ~183 adresy
+to 404 — w probce 49 z 50; to adresy zle zbudowane w danych portalu (np. `/entra/concept-...` bez
+podkatalogu, znane z audytu 29 IX, §5cc), nie blad kopii.
+
+Kolejnosc odczytu w kolektorach (nastepny krok, jeszcze NIE wpiety): `MicrosoftDocs/*` -> mirror
+Merilla -> `mirror/learn/`. Dla repozytoriow bez mirrora Merilla (Purview, Exchange, Windows,
+security, Security Copilot, FSLogix…) `mirror/learn/` jest zrodlem podstawowym. Historia strony:
+`git log -p -- mirror/learn/<segment>/<sciezka>.md`.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
