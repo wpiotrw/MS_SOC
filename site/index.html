@@ -17552,7 +17552,13 @@ CloudAppEvents
     run();
     /* the other scripts keep adding blocks for a few seconds (§5bi groups at 1.7 s, §5ca fills up
        to 5.2 s): tag again, never rebuild */
-    [800, 1900, 3600, 5600].forEach(function (t) { setTimeout(run, t); });
+    [800, 1900, 3600, 5600, 9000].forEach(function (t) { setTimeout(run, t); });
+    /* measured on the live site 29 IX: on a slower machine the §5ca header of Products and
+       First-party apps was filled after the last timer, so the view count stayed empty — every
+       tab switch tags and counts again */
+    document.addEventListener("click", function (e) {
+      if (e.target && e.target.closest && e.target.closest(".s5ca-it, nav.anchors .tab, .s5br-item")) setTimeout(run, 300);
+    }, true);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
