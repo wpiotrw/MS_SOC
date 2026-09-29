@@ -3023,7 +3023,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd="src"] [data-s5cd-v]:not([data-s5cd-v~="src"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="map"] [data-s5cd-v]:not([data-s5cd-v~="map"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="pages"] [data-s5cd-v]:not([data-s5cd-v~="pages"]):not([data-s5cd-v="*"]),
-.tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]){display:none!important}
+.tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="deep"] [data-s5cd-v]:not([data-s5cd-v~="deep"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]){display:none!important}
 /* a section wrapper the views replace: its own header goes, its content stays */
 .tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
 .tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
@@ -17408,6 +17410,35 @@ CloudAppEvents
         [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-top, #nt-posts, #nt-corr-blogs", "chg"],
         ["#nt-sources", "src"],
         ["details.ntfbar", "chg src"]
+      ]
+    },
+    /* §5cd step 3 (29 IX 2026): Products and First-party apps. Products' three sections carry no
+       id, so they are told apart by their own heading — the words §8 gives them (J, K, L). */
+    "tab-products": {
+      views: [["find", "Summary"], ["deep", "Deep dive"], ["auth", "Authentication watchlist"], ["chg", "Charts"]],
+      count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+products/); return m ? m[1] : ""; },
+      map: [
+        [ALL, "*"],
+        [".panelhead, .aggwrap", "chg"],
+        ["details.ntfbar", "find deep auth"]
+      ],
+      extra: function (p) {
+        [].forEach.call(p.querySelectorAll(":scope > details.ntsec"), function (d) {
+          var t = ((d.querySelector(":scope > summary") || {}).textContent || "").toLowerCase();
+          d.setAttribute("data-s5cd-v", /deep dive/.test(t) ? "deep" : /watchlist/.test(t) ? "auth" : "find");
+          if (!d.open) d.open = true;
+        });
+      }
+    },
+    "tab-fpa": {
+      views: [["find", "Apps"], ["chg", "What changed"], ["src", "Sources"]],
+      count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+apps/); return m ? m[1] : ""; },
+      map: [
+        [ALL, "*"],
+        ["section#fpa", "find"],
+        [".panelhead, .s5bn, details.mschg, .aggwrap", "chg"],
+        ["details.s5bk-health", "src"],
+        ["details.ntfbar", "find chg"]
       ]
     },
     "tab-community": {
