@@ -25399,6 +25399,15 @@ oznacza opakowanie sekcji, ktorego naglowek widoki zastepuja (Graph, Roles, Comp
 sekcje Learn/Blogs/MC zostaja rozwijane jak byly. Zmierzone: kazdy widok domyslny ma 1–2 pola, 0 bledow
 konsoli, blok nieoznaczony — zaden poza `.s8top` (kontener; jego dzieci sa oznaczone).
 
+**Krok 4 (29 IX, wlasciciel ze zrzutem Roles: „dlaczego mamy 2 x search? pogubilem sie")** — w katalogu
+Graph API i Roles staly DWA pola jedno pod drugim: „Search all 139 entries, in every list" (SCRIPT 17,
+caly katalog, trzy listy) i „Search roles" (lista ponizej). Zostaje JEDNO — pole listy, z opisem, czego
+szuka; kazde nacisniecie trafia tez do wyszukiwania po calym katalogu, ktorego pole jest ukryte, a jego
+odpowiedz („3 kolejne sa na innej liscie: otworz") pojawia sie pod polem tylko wtedy, gdy trafienie
+lezy poza pokazana lista. Filtry, przyklady, „Find a role" i Advanced filtering sa za JEDNYM przyciskiem
+„Filters & examples" na koncu paska widokow (kazda zakladka). Kafelki liczb i „Show charts" przeszly do
+What changed, nota o liczbie wpisow do Sources & method. Widok Find to teraz: pasek, jedno pole, lista.
+
 **Krok 3 (29 IX)** — Products: Summary (sekcja J, domyslny) · Deep dive (K) · Authentication watchlist (L) ·
 Charts; sekcje nie maja id, wiec rozpoznaje je naglowek. First-party apps: Apps · What changed · Sources.
 
@@ -30774,7 +30783,7 @@ odtad CZTERNASCIE (4-17).**
    children fall into the default view. */
 (function () {
   "use strict";
-  var ALL = ".s5ca-head, .s5bh-ct, .filterbanner.s11, .cstick";
+  var ALL = ".s5ca-head, .filterbanner.s11, .cstick";
   function allOf(sel) { return function (p) { var e = p.querySelector(sel); var m = e && (e.textContent || "").match(/All\s*([\d\s ,]+)\s*$/); return m ? m[1] : ""; }; }
   var CFG = {
     "tab-graph": {
@@ -30782,23 +30791,26 @@ odtad CZTERNASCIE (4-17).**
       sec: "#graph", flat: "details.ntsec", rest: [".catalog", "#graph > .sec-body"],
       count: function (p) { var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/); return m ? m[0] : ""; },
       map: [
-        [ALL + ", .s8top > .factgrid", "*"],
-        ["details.mschg, .panelhead, .s5bn, #gd-changes, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
+        [ALL, "*"],
+        [".s5bh-ct, .s8top > .factgrid, details.mschg, .panelhead, .s5bn, #gd-changes, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
         ["section.gu", "call"],
         ["details.ntfbar", "find chg"],
-        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, #graph > .sec-body > .sec-note, #graph > .sec-body > .s5bz-more, #graph > .sec-body > ul", "src"]
-      ]
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .catalog > .catmore, #graph > .sec-body > .sec-note, #graph > .sec-body > .s5bz-more, #graph > .sec-body > ul", "src"]
+      ],
+      drawer: "details.ntfbar, .catalog > .s7tips, .catalog > details.morefilters", search: true
     },
     "tab-roles": {
       views: [["find", "Find"], ["chg", "What changed"], ["src", "Sources & method"]],
       sec: "#roles", flat: "details.ntsec", rest: [".catalog", "#roles > .sec-body"],
       count: function (p) { var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/); return m ? m[0] : ""; },
       map: [
-        [ALL + ", .s8top > .factgrid", "*"],
-        ["details.mschg, .panelhead, .s5bn, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
-        ["section.gu, details.ntfbar", "find"],
-        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, #roles > .sec-body > .sec-note, #roles > .sec-body > .s5bz-more, #roles > .sec-body > ul", "src"]
-      ]
+        [ALL, "*"],
+        [".s5bh-ct, .s8top > .factgrid, details.mschg, .panelhead, .s5bn, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
+        ["section.gu", "find"],
+        ["details.ntfbar", "find chg"],
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .catalog > .catmore, #roles > .sec-body > .sec-note, #roles > .sec-body > .s5bz-more, #roles > .sec-body > ul", "src"]
+      ],
+      drawer: "section.gu, details.ntfbar, .catalog > .s7tips, .catalog > details.morefilters", search: true
     },
     "tab-components": {
       views: [["find", "Versions"], ["chg", "What changed"], ["src", "Sources & rule"]],
@@ -30806,10 +30818,11 @@ odtad CZTERNASCIE (4-17).**
       count: function (p) { return String(p.querySelectorAll("article.cmp").length || ""); },
       map: [
         [ALL, "*"],
-        [".s5bn, .panelhead, .s8top > details.chg14, .aggwrap, #components > .sec-body > ul", "chg"],
+        [".s5bh-ct, .s5bn, .panelhead, .s8top > details.chg14, .aggwrap, #components > .sec-body > ul", "chg"],
         ["details.ntfbar", "find chg"],
         ["#components > .sec-body > .sec-note, #components > .sec-body > .s5bz-more, #components > .sec-body > .rulebox", "src"]
-      ]
+      ],
+      drawer: "details.ntfbar"
     },
     "tab-mc": {
       views: [["find", "Posts"], ["chg", "Today"], ["map", "Same change, every source"], ["src", "Coverage"]],
@@ -30819,9 +30832,10 @@ odtad CZTERNASCIE (4-17).**
         ["section#mc-browse", "find"],
         [".s5bn, #mc-today", "chg"],
         ["#mc-map", "map"],
-        ["#mc-all, #mc-sources, .aggwrap", "src"],
+        [".s5bh-ct, #mc-all, #mc-sources, .aggwrap", "src"],
         ["details.ntfbar", "chg map src"]
-      ]
+      ],
+      drawer: "details.ntfbar"
     },
     "tab-learn": {
       views: [["find", "Latest"], ["chg", "What changed & why"], ["pages", "Inside the pages"], ["src", "Coverage"]],
@@ -30832,8 +30846,10 @@ odtad CZTERNASCIE (4-17).**
         [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-changes, #nt-older", "chg"],
         ["#nt-pages, #nt-corr-learn", "pages"],
         ["#nt-coverage", "src"],
-        ["details.ntfbar", "chg pages src"]
-      ]
+        ["details.ntfbar", "chg pages src"],
+        [".s5bh-ct", "chg"]
+      ],
+      drawer: "details.ntfbar"
     },
     "tab-blogs": {
       views: [["find", "Latest"], ["chg", "Top of the day"], ["src", "Blogs & freshness"]],
@@ -30843,8 +30859,10 @@ odtad CZTERNASCIE (4-17).**
         ["section#ab-blogs", "find"],
         [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-top, #nt-posts, #nt-corr-blogs", "chg"],
         ["#nt-sources", "src"],
-        ["details.ntfbar", "chg src"]
-      ]
+        ["details.ntfbar", "chg src"],
+        [".s5bh-ct", "chg"]
+      ],
+      drawer: "details.ntfbar"
     },
     /* §5cd step 3 (29 IX 2026): Products and First-party apps. Products' three sections carry no
        id, so they are told apart by their own heading — the words §8 gives them (J, K, L). */
@@ -30853,9 +30871,10 @@ odtad CZTERNASCIE (4-17).**
       count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+products/); return m ? m[1] : ""; },
       map: [
         [ALL, "*"],
-        [".panelhead, .aggwrap", "chg"],
+        [".s5bh-ct, .panelhead, .aggwrap", "chg"],
         ["details.ntfbar", "find deep auth"]
       ],
+      drawer: "details.ntfbar",
       extra: function (p) {
         [].forEach.call(p.querySelectorAll(":scope > details.ntsec"), function (d) {
           var t = ((d.querySelector(":scope > summary") || {}).textContent || "").toLowerCase();
@@ -30874,10 +30893,11 @@ odtad CZTERNASCIE (4-17).**
       map: [
         [ALL, "*"],
         ["section#fpa", "find"],
-        [".panelhead, .s5bn, details.mschg, .aggwrap", "chg"],
+        [".s5bh-ct, .panelhead, .s5bn, details.mschg, .aggwrap", "chg"],
         ["details.s5bk-health", "src"],
         ["details.ntfbar", "find chg"]
-      ]
+      ],
+      drawer: "details.ntfbar"
     },
     "tab-community": {
       views: [["find", "Latest"], ["chg", "What changed"], ["tbl", "Articles table"], ["src", "Sources"]],
@@ -30886,9 +30906,10 @@ odtad CZTERNASCIE (4-17).**
       map: [
         [ALL, "*"],
         ["section#ab-community", "find"],
-        [".s5bn, .panelhead, .aggwrap", "chg"],
+        [".s5bh-ct, .s5bn, .panelhead, .aggwrap", "chg"],
         ["details.ntfbar", "tbl src"]
       ],
+      drawer: "details.ntfbar",
       /* the section holds two tables one after the other: the 58 sources first, then every article */
       extra: function (p) {
         var sb = p.querySelector("#community > .sec-body"); if (!sb) return;
@@ -30909,6 +30930,10 @@ odtad CZTERNASCIE (4-17).**
       });
     });
     if (c.extra) c.extra(p);
+    if (c.drawer) [].forEach.call(p.querySelectorAll(c.drawer), function (e) {
+      if (e.closest(".tabpanel") === p) e.setAttribute("data-s5cd-drawer", "1");
+    });
+    if (c.search) oneSearch(p);
     (c.rest || []).forEach(function (sel) {
       [].forEach.call(p.querySelectorAll(sel + " > *"), function (e) {
         if (!e.hasAttribute("data-s5cd-v") && !e.classList.contains("catalog")) e.setAttribute("data-s5cd-v", c.views[0][0]);
@@ -30919,12 +30944,52 @@ odtad CZTERNASCIE (4-17).**
     });
   }
 
+  /* §5cd step 4 (29 IX 2026, owner, with a screenshot of Roles: "why do we have two searches? I got
+     lost"). The catalog carried TWO boxes one under the other: "Search all 139 entries, in every list"
+     (SCRIPT 17, the whole catalog across its three lists) and "Search roles" (the shell, the list
+     below). One box stays — the list's own — and every keystroke is handed to the whole-catalog search
+     too, whose box is hidden; its answer ("3 more are in another list: open one") appears under the
+     box only when a hit lies outside the list shown. */
+  function oneSearch(p) {
+    [].forEach.call(p.querySelectorAll(".catalog"), function (cat) {
+      var main = cat.querySelector(".cat-controls input.cat-search"), cross = cat.querySelector(".catfind input");
+      if (!main || !cross || main.getAttribute("data-s5cd-one")) return;
+      main.setAttribute("data-s5cd-one", "1");
+      var noun = cat.getAttribute("data-catalog") === "roles" ? "roles" : "permissions";
+      var total = (cross.placeholder.match(/\d[\d\s,]*/) || [""])[0].trim();
+      main.placeholder = "Search " + (total ? total + " " : "") + noun + (noun === "roles" ? " — name, directory action or template ID" : " — name or endpoint path");
+      main.addEventListener("input", function () {
+        cross.value = main.value;
+        cross.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      /* two lines that say "nothing to see": the whole-catalog answer when every hit is already in
+         the list, and the mode banner when no filter narrows anything ("showing 137 of 137") */
+      function quiet() {
+        var why = cat.querySelector(":scope > .catwhy");
+        if (why) why.classList.toggle("s5cd-quiet", /All of them are in the list below/.test(why.textContent || ""));
+        var fb = cat.querySelector(":scope > .filterbanner"), t = fb ? (fb.textContent || "") : "", m = t.match(/showing (\d+) of (\d+)/);
+        if (fb) fb.classList.toggle("s5cd-quiet", !!m && m[1] === m[2] && !/Text:/.test(t));
+      }
+      if (window.MutationObserver) new MutationObserver(quiet).observe(cat, { subtree: true, childList: true, characterData: true });
+      quiet();
+    });
+  }
+
+  function drawerFor(p, v) {
+    return [].some.call(p.querySelectorAll("[data-s5cd-drawer]"), function (e) {
+      var tv = e.getAttribute("data-s5cd-v");
+      return !tv || tv === "*" || tv.split(" ").indexOf(v) >= 0;
+    });
+  }
+
   function show(p, v, scroll) {
     cur[p.id] = v;
     p.setAttribute("data-s5cd", v);
-    [].forEach.call(p.querySelectorAll(":scope > .s5cd-bar button"), function (b) {
+    [].forEach.call(p.querySelectorAll(":scope > .s5cd-bar button[data-v]"), function (b) {
       b.setAttribute("aria-selected", String(b.getAttribute("data-v") === v));
     });
+    var dz = p.querySelector(":scope > .s5cd-bar .s5cd-drawer");
+    if (dz) dz.hidden = !drawerFor(p, v);
     if (scroll) {
       var bar = p.querySelector(":scope > .s5cd-bar");
       if (bar && bar.getBoundingClientRect().top < 0) origSIV.call(bar, { block: "start" });
@@ -30944,6 +31009,17 @@ odtad CZTERNASCIE (4-17).**
         b.addEventListener("click", function () { show(p, v[0], true); });
         bar.appendChild(b);
       });
+      if (c.drawer) {
+        /* the filters, examples and "find by kind" chips live behind ONE button at the end of the strip */
+        var dz = document.createElement("button"); dz.type = "button"; dz.className = "s5cd-drawer";
+        dz.setAttribute("aria-expanded", "false"); dz.textContent = "Filters & examples";
+        dz.addEventListener("click", function () {
+          var open = !p.classList.contains("s5cd-fopen");
+          p.classList.toggle("s5cd-fopen", open); dz.setAttribute("aria-expanded", String(open));
+          try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+        });
+        bar.appendChild(dz);
+      }
     }
     /* the strip sits right under the tab header (§5ca), or first when there is none */
     var head = p.querySelector(":scope > .s5ca-head");
@@ -30952,6 +31028,7 @@ odtad CZTERNASCIE (4-17).**
     if (n) n.textContent = /^\d+$/.test(k) ? Number(k).toLocaleString("en-US").replace(/,/g, " ") : "";
     tag(p, c);
     if (!p.hasAttribute("data-s5cd")) show(p, cur[p.id] || c.views[0][0], false);
+    else { var dz = bar.querySelector(".s5cd-drawer"); if (dz) dz.hidden = !drawerFor(p, p.getAttribute("data-s5cd")); }
   }
 
   function run() {
@@ -30967,6 +31044,10 @@ odtad CZTERNASCIE (4-17).**
     var p = el.closest(".tabpanel[data-s5cd]");
     if (!p || !CFG[p.id]) return;
     var c = CFG[p.id], v = p.getAttribute("data-s5cd"), t = el;
+    if (el.closest("[data-s5cd-drawer]") && !p.classList.contains("s5cd-fopen")) {
+      p.classList.add("s5cd-fopen");
+      var dz = p.querySelector(":scope > .s5cd-bar .s5cd-drawer"); if (dz) dz.setAttribute("aria-expanded", "true");
+    }
     if (c.sec && el.matches && el.matches(c.sec + ", .catalog")) { if (v !== c.views[0][0]) show(p, c.views[0][0], false); return; }
     while (t && t !== p) {
       var tv = t.getAttribute && t.getAttribute("data-s5cd-v");
@@ -31588,6 +31669,20 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
 .tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
 .tabpanel[data-s5cd] details.s5cd-flat > .ntbody{padding:0}
+/* §5cd step 4: one search box, filters behind one button, the list right under the box */
+.s5cd-bar .s5cd-drawer{margin-left:auto;align-self:center;font:600 13px/1.2 var(--sans);color:var(--text);background:var(--surface-2);
+ border:1px solid var(--border);border-radius:999px;padding:6px 14px;cursor:pointer;white-space:nowrap}
+.s5cd-bar .s5cd-drawer::after{content:" \25BE"}
+.s5cd-bar .s5cd-drawer[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.s5cd-bar .s5cd-drawer[aria-expanded="true"]::after{content:" \25B4"}
+.s5cd-bar .s5cd-drawer:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tabpanel[data-s5cd]:not(.s5cd-fopen) [data-s5cd-drawer]{display:none!important}
+.tabpanel[data-s5cd] .catalog{display:flex;flex-direction:column}
+.tabpanel[data-s5cd] .catalog > .catfind{display:none!important}
+.tabpanel[data-s5cd] .catalog > .s5cd-quiet{display:none!important}
+.tabpanel[data-s5cd] .catalog > .catwhy{order:1;margin:6px 0 4px}
+.tabpanel[data-s5cd] .catalog > .filterbanner,.tabpanel[data-s5cd] .catalog > .bkbanner{order:2}
+.tabpanel[data-s5cd] .catalog > .cat-split,.tabpanel[data-s5cd] .catalog > .apisurf,.tabpanel[data-s5cd] .catalog > .callout{order:3}
 
 
 
