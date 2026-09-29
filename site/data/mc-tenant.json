@@ -1,7 +1,7 @@
 {
  "read": "2026-09-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 722,
+ "count": 723,
  "note": null,
  "messages": [
   {
@@ -4021,16 +4021,16 @@
    "major": true,
    "actionBy": null,
    "start": "2026-04-22",
-   "end": "2026-11-16",
-   "modified": "2026-04-30",
+   "end": "2026-12-14",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated April 30, 2026: We have updated the content. Thank you for your patience. [Introduction] To support deeper analysis of Copilot agent adoption and usage across your organization, Microsoft will introduce a new export capability in the Agent Dashboard . This feature will allow eligible users to download de‑identified Copilot agent usage data for analysis, helping organizations track adoption…",
-   "bodyHash": "b6237bb83fa9dc67"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To support deeper analysis of Copilot agent adoption and usage across your organization, Microsoft will introduce a new export capability in the Agent Dashboard . This feature will allow eligible users to download de‑identified Copilot agent usage data for analysis, helping organizations track ado…",
+   "bodyHash": "efd2663598e07519"
   },
   {
    "id": "MC1289507",
@@ -5679,16 +5679,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-11",
-   "end": "2027-02-22",
-   "modified": "2026-07-27",
+   "end": "2027-03-31",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 27, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Insider Risk Management is introducing a policy recommendation panel to help administrators identify gaps in insider risk coverage and strengthen protections. While policies provide protection against insider risks, organizations may not always have visibility into missing or high-val…",
-   "bodyHash": "1c25bb83e8e7f693"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Insider Risk Management is introducing a policy recommendation panel to help administrators identify gaps in insider risk coverage and strengthen protections. While policies provide protection against insider risks, organizations may not always have visibility into missing or hig…",
+   "bodyHash": "38f776e49fb9b529"
   },
   {
    "id": "MC1387682",
@@ -9166,7 +9166,7 @@
   },
   {
    "id": "MC1454397",
-   "title": "Updates to Tenant External Recipient Rate Limit (TERRL) Quotas for New, Trial, and Education Tenants",
+   "title": "(Updated) Updates to Tenant External Recipient Rate Limit (TERRL) Quotas for New, Trial, and Education Tenants",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -9175,15 +9175,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-14",
-   "end": "2026-11-14",
-   "modified": "2026-08-14",
+   "end": "2026-12-31",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] To strengthen protection against abuse and ensure fair use of Exchange Online resources, we are updating how the Tenant External Recipient Rate Limit (TERRL) quota is calculated for certain tenants. These changes improve how quotas account for tenant age (how long the tenant has existed since creation), trial subscriptions, and educational organizations using free Education (EDU) l…",
-   "bodyHash": "f433913568b0ee2e"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] To strengthen protection against abuse and ensure fair use of Exchange Online resources, we are updating how the Tenant External Recipient Rate Limit (TERRL) quota is calculated for certain tenants. These changes improve how quotas account for tenant age (how long the tenant has existed since cre…",
+   "bodyHash": "496d9d697e4b93f2"
   },
   {
    "id": "MC1454399",
@@ -9517,15 +9518,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-21",
-   "end": "2026-11-02",
-   "modified": "2026-09-15",
+   "end": "2026-11-30",
+   "modified": "2026-09-29",
    "tags": [
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 15, 2026: We have updated the content. Thank you for your patience. [What and Why:] Continuing our efforts to streamline the user experience in the Copilot app as shared in MC1325422 , we are introducing updates to the Copilot experiences in Microsoft Outlook that deliver a similar, chat-centered experience. These updates simplify navigation, improve the chat experience, and prov…",
-   "bodyHash": "189f4a68a25c1483"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Continuing our efforts to streamline the user experience in the Copilot app as shared in MC1325422 , we are introducing updates to the Copilot experiences in Microsoft Outlook that deliver a similar, chat-centered experience. These updates simplify navigation, improve the chat experience, and pro…",
+   "bodyHash": "43fd15949dc19646"
   },
   {
    "id": "MC1458472",
@@ -9538,15 +9539,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-21",
-   "end": "2026-11-02",
-   "modified": "2026-09-15",
+   "end": "2026-11-30",
+   "modified": "2026-09-29",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 15, 2026: We have updated the content. Thank you for your patience. [What and Why:] Continuing our efforts to streamline the user experience in the Copilot app as shared in MC1325422, we are introducing updates to the Copilot experiences in Microsoft Teams that deliver a similar, chat-centered experience. These updates simplify navigation, improve the chat experience, and provide…",
-   "bodyHash": "92b33b77f7f78673"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Continuing our efforts to streamline the user experience in the Copilot app as shared in MC1325422, we are introducing updates to the Copilot experiences in Microsoft Teams that deliver a similar, chat-centered experience. These updates simplify navigation, improve the chat experience, and provid…",
+   "bodyHash": "71cc7ab03cad9e5a"
   },
   {
    "id": "MC1458474",
@@ -12372,7 +12373,7 @@
   },
   {
    "id": "MC1470887",
-   "title": "Microsoft Teams: Personal message reminders for chat and channels",
+   "title": "(Updated) Microsoft Teams: Personal message reminders for chat and channels",
    "services": [
     "Microsoft Teams"
    ],
@@ -12381,14 +12382,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-11",
-   "end": "2026-11-24",
-   "modified": "2026-09-11",
+   "end": "2027-02-05",
+   "modified": "2026-09-29",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why] Microsoft Teams is introducing personal message reminders for chat and channel messages to help users track follow-ups and stay organized. Users can turn messages into actionable reminders, improving productivity and ensuring important conversations are not missed. [Rollout Schedule] Targeted Release: Beginning early October 2026 and expected to complete in early October 2026 Genera…",
-   "bodyHash": "f5a32093e84abaa7"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Teams is introducing personal message reminders for chat and channel messages to help users track follow-ups and stay organized. Users can turn messages into actionable reminders, improving productivity and ensuring important conversations are not missed. [Rollout Schedule] Targeted Rele…",
+   "bodyHash": "5cccc4d9068cd896"
   },
   {
    "id": "MC1470901",
@@ -13618,7 +13620,7 @@
   },
   {
    "id": "MC1477184",
-   "title": "Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
+   "title": "(Updated) Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -13627,14 +13629,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-22",
-   "end": "2026-10-30",
-   "modified": "2026-09-22",
+   "end": "2026-11-23",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're improving the Agent Registry experience in the Microsoft 365 admin center by consolidating duplicate entries for the same agent into a single record. Previously, the same agent could appear multiple times when published across different scopes or when multiple published versions existed. This update simplifies agent governance, provides a clearer inventory of deployed agents, …",
-   "bodyHash": "01754f38fd83277b"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're improving the Agent Registry experience in the Microsoft 365 admin center by consolidating duplicate entries for the same agent into a single record. Previously, the same agent could appear multiple times when published across different scopes or when multiple published versions existed. Thi…",
+   "bodyHash": "bb31039782b53823"
   },
   {
    "id": "MC1477185",
@@ -14542,6 +14545,25 @@
    "bodyHash": "9ba59d52c381d713"
   },
   {
+   "id": "MC1482225",
+   "title": "How to get the Windows 11 2026 Update",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-09-29",
+   "end": "2027-09-29",
+   "modified": "2026-09-29",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Windows 11, version 26H2, also referred to as the Windows 11 2026 Update, is now generally available. This annual feature update for Windows 11 includes features and enhancements delivered to version 25H2 over the past year in the areas of security, management, accessibility, and user experience. Rollout schedule: Windows 11, version 26H2 is available now for eligible devices running…",
+   "bodyHash": "81a36d6ea2db5a3b"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -15058,6 +15080,172 @@
    "id": "MC1409303",
    "type": "removed",
    "title": "Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1288531",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva - Copilot Analytics: Export agent data from the Agent Dashboard",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2026-12-14"
+    ],
+    "bodyHash": [
+     "b6237bb83fa9dc67",
+     "efd2663598e07519"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1387681",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Insider Risk Management: Policy recommendation panel in IRM",
+   "fields": {
+    "end": [
+     "2027-02-22",
+     "2027-03-31"
+    ],
+    "bodyHash": [
+     "1c25bb83e8e7f693",
+     "38f776e49fb9b529"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1454397",
+   "type": "changed",
+   "title": "(Updated) Updates to Tenant External Recipient Rate Limit (TERRL) Quotas for New, Trial, and Education Tenants",
+   "fields": {
+    "title": [
+     "Updates to Tenant External Recipient Rate Limit (TERRL) Quotas for New, Trial, and Education Tenants",
+     "(Updated) Updates to Tenant External Recipient Rate Limit (TERRL) Quotas for New, Trial, and Education Tenants"
+    ],
+    "end": [
+     "2026-11-14",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "f433913568b0ee2e",
+     "496d9d697e4b93f2"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1458470",
+   "type": "changed",
+   "title": "(Updated) Simplified Copilot experience in Microsoft Outlook",
+   "fields": {
+    "end": [
+     "2026-11-02",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "189f4a68a25c1483",
+     "43fd15949dc19646"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1458472",
+   "type": "changed",
+   "title": "(Updated) Simplified Copilot experience in Microsoft Teams",
+   "fields": {
+    "end": [
+     "2026-11-02",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "92b33b77f7f78673",
+     "71cc7ab03cad9e5a"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1470887",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Personal message reminders for chat and channels",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Personal message reminders for chat and channels",
+     "(Updated) Microsoft Teams: Personal message reminders for chat and channels"
+    ],
+    "end": [
+     "2026-11-24",
+     "2027-02-05"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "f5a32093e84abaa7",
+     "5cccc4d9068cd896"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1477184",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
+   "fields": {
+    "title": [
+     "Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
+     "(Updated) Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history"
+    ],
+    "end": [
+     "2026-10-30",
+     "2026-11-23"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "01754f38fd83277b",
+     "bb31039782b53823"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1482225",
+   "type": "new",
+   "title": "How to get the Windows 11 2026 Update",
    "fields": {}
   }
  ]
