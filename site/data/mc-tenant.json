@@ -1,7 +1,7 @@
 {
- "read": "2026-09-28",
+ "read": "2026-09-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 716,
+ "count": 723,
  "note": null,
  "messages": [
   {
@@ -8007,15 +8007,15 @@
    "actionBy": null,
    "start": "2026-07-28",
    "end": "2026-12-21",
-   "modified": "2026-09-09",
+   "modified": "2026-09-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommend…",
-   "bodyHash": "99656b9b213f8876"
+   "summary": "Updated September 28, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommen…",
+   "bodyHash": "a2f058448a9820d1"
   },
   {
    "id": "MC1442510",
@@ -9330,7 +9330,7 @@
   },
   {
    "id": "MC1456609",
-   "title": "Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report",
+   "title": "(Updated) Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report",
    "services": [
     "Microsoft 365 suite",
     "Microsoft Purview"
@@ -9340,15 +9340,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-17",
-   "end": "2026-11-02",
-   "modified": "2026-08-17",
+   "end": "2026-11-30",
+   "modified": "2026-09-28",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing a new coverage report for Microsoft Purview Information Protection auto-labeling policies. After you enable an auto-labeling policy, this report helps you understand how policy enforcement is progressing compared to the results of your most recent simulation. The report provides a centralized view of files that were successfully labeled, files that are still being …",
-   "bodyHash": "193e5c452977e2dc"
+   "summary": "Updated September 28, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a new coverage report for Microsoft Purview Information Protection auto-labeling policies. After you enable an auto-labeling policy, this report helps you understand how policy enforcement is progressing compared to the results of your most recent simulation. The report provides …",
+   "bodyHash": "84abb34b12284300"
   },
   {
    "id": "MC1456735",
@@ -9894,15 +9895,15 @@
    "actionBy": null,
    "start": "2026-08-21",
    "end": "2026-12-11",
-   "modified": "2026-09-02",
+   "modified": "2026-09-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the content and timeline. Thank you for your patience. [What and why:] Microsoft Teams Rooms on Windows will introduce native Pan-Tilt-Zoom (PTZ) camera controls directly from the in-room console for compatible cameras. This enhancement enables room users to manually pan, tilt, and zoom supported cameras during meetings without requiring a separate remote…",
-   "bodyHash": "614f5a9fb88da169"
+   "summary": "Updated September 28, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Microsoft Teams Rooms on Windows will introduce native Pan-Tilt-Zoom (PTZ) camera controls directly from the in-room console for compatible cameras. This enhancement enables room users to manually pan, tilt, and zoom supported cameras during meetings without requiring a separate remote control or…",
+   "bodyHash": "ec8731fa4cdf0e15"
   },
   {
    "id": "MC1459141",
@@ -14416,6 +14417,153 @@
    "bodyHash": "754256f647485720"
   },
   {
+   "id": "MC1481309",
+   "title": "Microsoft Entra ID: Enhance protection of the authentication experience by blocking external script injection",
+   "services": [
+    "Microsoft 365 suite",
+    "Microsoft Entra"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2026-10-19",
+   "start": "2026-09-28",
+   "end": "2026-12-16",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] As part of Microsoft's Secure Future Initiative, we are strengthening the security of the Microsoft Entra ID sign-in experience by introducing additional Content Security Policy (CSP) protections. This change helps protect users from threats such as cross-site scripting (XSS) by allowing only trusted Microsoft-hosted scripts to run during authentication and blocking unauthorized or …",
+   "bodyHash": "8ed39bad5ce7caac"
+  },
+  {
+   "id": "MC1481313",
+   "title": "Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-12-15",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Purview is updating how legacy Microsoft Teams retention policies are applied. Some existing retention policies that are scoped to Teams currently also apply to Microsoft 365 Copilot interactions. Beginning with this rollout, these legacy policies will be treated as Teams-only policies and will no longer implicitly apply to Copilot workloads. [Rollout schedule] Worldwide: …",
+   "bodyHash": "bc2a5b29561e1dac"
+  },
+  {
+   "id": "MC1481315",
+   "title": "Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2027-01-31",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences. Retirement will be completed by December 31, 2026. As part of our continued investment in Microsoft Purview Data Security Posture Management, we have unified DSPM capabilities into a single experience that helps organiz…",
+   "bodyHash": "8fb4074954fbe039"
+  },
+  {
+   "id": "MC1481316",
+   "title": "Microsoft Teams: Enable Teams apps and agents for existing applications in your organization",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-12-16",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Organizations often use third-party applications such as ServiceNow, Workday, Jira, and others, but the corresponding Microsoft Teams apps and agents may not be enabled for users. As a result, users may switch between Teams and other applications even when an integrated Teams experience is available. With this feature, admins can discover Teams apps and agents that correspond to app…",
+   "bodyHash": "3b5c68f218dd36d0"
+  },
+  {
+   "id": "MC1481317",
+   "title": "Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2027-01-08",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We are retiring Data Risk Graph in Microsoft Purview Insider Risk Management (IRM). Data Risk Graph provides a visual investigation experience that helps investigators review connections among impacted data, users, and alert-related activities. As part of ongoing investments in Insider Risk Management investigation experiences, we are retiring this capability and directing customers…",
+   "bodyHash": "9d510f27615662e0"
+  },
+  {
+   "id": "MC1481318",
+   "title": "Microsoft Defender XDR: Detection source support in alert tuning rules",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-28",
+   "end": "2026-12-25",
+   "modified": "2026-09-28",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature"
+   ],
+   "summary": "[What and why] We are introducing detection source selection for alert tuning rules in Microsoft Defender XDR. This update enables alert tuning rules to be scoped to specific detection sources, providing more granular control over how alert tuning rules are applied. As part of this update, alert tuning rules will apply to the detection sources selected for each rule. Existing rules that are not up…",
+   "bodyHash": "df349907f4da0ad2"
+  },
+  {
+   "id": "MC1481325",
+   "title": "Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-29",
+   "end": "2026-12-10",
+   "modified": "2026-09-29",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online. This early access experience enabled users to turn content from Microsoft 365 Copilot conversations into draft SharePoint pages and news posts. As Microsoft continues to invest in AI-powered content creation experiences, page and news authoring capabilities are now available directly within SharePoint …",
+   "bodyHash": "9ba59d52c381d713"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -14819,6 +14967,112 @@
    "id": "MC1480873",
    "type": "new",
    "title": "Connected Platforms - Agent 365 extends observability to third-party agents",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1441784",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot for Outlook: New Copilot entry point in Classic Outlook",
+   "fields": {
+    "bodyHash": [
+     "99656b9b213f8876",
+     "a2f058448a9820d1"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1456609",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report",
+   "fields": {
+    "title": [
+     "Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report",
+     "(Updated) Microsoft Purview | Information Protection: Auto-labeling per-policy coverage report"
+    ],
+    "end": [
+     "2026-11-02",
+     "2026-11-30"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "193e5c452977e2dc",
+     "84abb34b12284300"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1459138",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Local Pan-tilt-zoom (PTZ) controls for Microsoft Teams Rooms on Windows",
+   "fields": {
+    "bodyHash": [
+     "614f5a9fb88da169",
+     "ec8731fa4cdf0e15"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481309",
+   "type": "new",
+   "title": "Microsoft Entra ID: Enhance protection of the authentication experience by blocking external script injection",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481313",
+   "type": "new",
+   "title": "Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481315",
+   "type": "new",
+   "title": "Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481316",
+   "type": "new",
+   "title": "Microsoft Teams: Enable Teams apps and agents for existing applications in your organization",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481317",
+   "type": "new",
+   "title": "Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481318",
+   "type": "new",
+   "title": "Microsoft Defender XDR: Detection source support in alert tuning rules",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1481325",
+   "type": "new",
+   "title": "Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
    "fields": {}
   }
  ]
