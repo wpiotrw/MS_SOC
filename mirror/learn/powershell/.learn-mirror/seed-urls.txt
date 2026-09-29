@@ -1,0 +1,2 @@
+https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2
+https://learn.microsoft.com/en-us/powershell/module/microsoft.entra.applications/new-entraapplication

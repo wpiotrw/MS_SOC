@@ -1,0 +1,7 @@
+https://learn.microsoft.com/en-us/exchange
+https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth
+https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online
+https://learn.microsoft.com/en-us/exchange/permissions-exo/application-access-policies
+https://learn.microsoft.com/en-us/exchange/permissions-exo/application-rbac
+https://learn.microsoft.com/en-us/exchange/reference/admin-api-authentication
+https://learn.microsoft.com/en-us/exchange/whats-new

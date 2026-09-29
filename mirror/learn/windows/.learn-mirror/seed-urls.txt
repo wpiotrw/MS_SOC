@@ -1,0 +1,15 @@
+https://learn.microsoft.com/en-us/windows
+https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-Connectivity
+https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-WindowsAI
+https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-applicationmanagement
+https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
+https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-linux-guide
+https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-overview
+https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-windows-guide
+https://learn.microsoft.com/en-us/windows/deployment/do/waas-delivery-optimization
+https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25h2
+https://learn.microsoft.com/en-us/windows/release-health/windows-message-center
+https://learn.microsoft.com/en-us/windows/release-notes
+https://learn.microsoft.com/en-us/windows/security
+https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-baselines
+https://learn.microsoft.com/en-us/windows/win32/winhttp/netsh-exe-commands

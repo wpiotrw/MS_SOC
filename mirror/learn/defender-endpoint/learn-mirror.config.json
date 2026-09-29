@@ -1,0 +1,12 @@
+{
+  "sitemaps": "/_sitemaps/contribute_en-us_1\\.xml$",
+  "tocs": [],
+  "extraUrls": [],
+  "include": "^https://learn\\.microsoft\\.com/en-us/defender\\-endpoint/",
+  "exclude": [],
+  "trackedPaths": ".",
+  "sourceRepos": [],
+  "priority": "(whats-new|release-notes|what-s-new)",
+  "concurrency": 4,
+  "maxRequestsPerSecond": 8
+}

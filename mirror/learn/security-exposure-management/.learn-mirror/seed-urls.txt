@@ -1,0 +1,15 @@
+https://learn.microsoft.com/en-us/security-exposure-management
+https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview
+https://learn.microsoft.com/en-us/security-exposure-management/create-azure-devops-connector
+https://learn.microsoft.com/en-us/security-exposure-management/defender-cli
+https://learn.microsoft.com/en-us/security-exposure-management/get-started-exposure-management
+https://learn.microsoft.com/en-us/security-exposure-management/mdash-foundry-integration
+https://learn.microsoft.com/en-us/security-exposure-management/mdash-initiative
+https://learn.microsoft.com/en-us/security-exposure-management/ot-data-connectors
+https://learn.microsoft.com/en-us/security-exposure-management/palo-alto-prisma-data-connector
+https://learn.microsoft.com/en-us/security-exposure-management/predefined-classification-rules-and-levels
+https://learn.microsoft.com/en-us/security-exposure-management/servicenow-data-connector
+https://learn.microsoft.com/en-us/security-exposure-management/vulnerability-management-integration
+https://learn.microsoft.com/en-us/security-exposure-management/whats-new
+https://learn.microsoft.com/en-us/security-exposure-management/wiz-data-connector
+https://learn.microsoft.com/en-us/security-exposure-management/work-attack-paths-overview

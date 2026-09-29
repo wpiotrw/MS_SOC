@@ -1,0 +1,324 @@
+---
+layout: Conceptual
+title: Manage Azure Connected Machine agent versions - Azure Arc | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent
+breadcrumb_path: ../../breadcrumb/azure-management/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/146/azure-arc/
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/5c778dec-0625-ec11-b6e6-000d3a4f0858
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure
+ms.suite: office
+author: davidsmatlak
+learn_banner_products:
+- azure
+ms.reviewer: davidsmatlak
+ms.author: davidsmatlak
+ms.service: azure-arc
+ms.subservice: servers-azure-arc
+description: This article describes how to install a specific Azure Connected Machine agent version and manage automatic agent upgrades (preview) for Azure Arc-enabled servers.
+ms.date: 2026-04-27T00:00:00.0000000Z
+ms.topic: how-to
+locale: en-us
+document_id: 7fa48880-0b59-48c1-8f28-ae479e7be559
+document_version_independent_id: 8f513f59-0396-8d02-ee44-ef28a6ae67e3
+original_content_git_url: https://github.com/MicrosoftDocs/azure-management-docs-pr/blob/live/articles/azure-arc/servers/manage-agent.md
+site_name: Docs
+depot_name: Learn.azure-management
+page_type: conceptual
+toc_rel: toc.json
+asset_id: azure-arc/servers/manage-agent
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/azure-arc/servers/manage-agent.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
+platformId: 29bc4183-fa01-f93b-5eb2-4ce821167f08
+---
+
+# Manage Azure Connected Machine agent versions - Azure Arc | Microsoft Learn
+
+After you deploy the Azure Connected Machine agent, you might need to reconfigure, upgrade, remove, or make other changes to the agent. You can perform these routine maintenance tasks manually. You can also enable automatic agent upgrades (preview) or explore other options to automate tasks, which reduces operational error and expenses.
+
+The Azure Connected Machine agent is updated regularly to address bug fixes, stability enhancements, and new functionality. [Azure Advisor](/en-us/azure/advisor/advisor-overview) identifies resources that aren't using the latest version of the machine agent and recommends that you upgrade to the latest version. It notifies you when you select the Azure Arc-enabled server by presenting a banner on the **Overview** page, or when you access Advisor through the Azure portal.
+
+You can upgrade the Azure Connected Machine agent for Windows and Linux to the latest release manually or automatically, depending on your requirements. You don't need to restart your server when you install, upgrade, or uninstall the Azure Connected Machine Agent.
+
+This article describes how to perform various operations related to the Connected Machine agent and your Arc-enabled servers.
+
+Tip
+
+For command line reference information, see the [`azcmagent` CLI documentation](azcmagent).
+
+## Install a specific version of the agent
+
+We recommend that you always use the [most recent version](agent-release-notes) of the Azure Connected Machine agent. However, if you need to run an older version of the agent for some reason, uninstall the current version and then install the target version. If your machine is already connected to Azure Arc, you don't need to disconnect the machine. The product group officially supports only Connected Machine [agent versions released within the last year](agent-release-notes).
+
+Follow these instructions to install a specific version of the Azure Connected Machine agent.
+
+# [Windows](#tab/windows)
+Links to releases of the Windows agents appear under the heading of each [release note](agent-release-notes). To find an agent version that's more than six months old, see the [release notes archive](agent-release-notes-archive).
+
+# [Linux - apt](#tab/linux-apt)
+1. If you didn't already, configure your package manager with the [Linux Software Repository for Microsoft Products](/en-us/linux/packages).
+2. Search for available agent versions by using `apt-cache`:
+
+    ```bash
+    sudo apt-cache madison azcmagent
+    ```
+3. Find the version you want to install. Replace `VERSION` in the following command with the full (four-part) version number, and run the command to install the agent:
+
+    ```bash
+    sudo apt install azcmagent=VERSION
+    ```
+
+    For example, to install version 1.28, the install command is:
+
+    ```bash
+    sudo apt install azcmagent=1.28.02260.736
+    ```
+
+# [Linux - yum](#tab/linux-yum)
+1. If you didn't already, configure your package manager with the [Linux Software Repository for Microsoft Products](/en-us/linux/packages).
+2. Search for available agent versions with `yum list`:
+
+    ```bash
+    sudo yum list azcmagent --showduplicates
+    ```
+3. Find the version you want to install. Replace `VERSION` in the following command with the full (four-part) version number, and run the command to install the agent:
+
+    ```bash
+    sudo yum install azcmagent-VERSION
+    ```
+
+    For example, to install version 1.28, the install command looks like:
+
+    ```bash
+    sudo yum install azcmagent-1.28.02260-755
+    ```
+
+# [Linux - zypper](#tab/linux-zypper)
+1. If you didn't already, configure your package manager with the [Linux Software Repository for Microsoft Products](/en-us/linux/packages).
+2. Search for available agent versions by using `zypper search`.
+
+    ```bash
+    sudo zypper search -s azcmagent
+    ```
+3. Find the version you want to install. Replace `VERSION` in the following command with the full (four-part) version number, and run the command to install the agent:
+
+    ```bash
+    sudo zypper install -f azcmagent-VERSION
+    ```
+
+    For example, to install version 1.28, the install command looks like:
+
+    ```bash
+    sudo zypper install -f azcmagent-1.28.02260-755
+    ```
+
+---
+
+## Enable automatic agent upgrade (preview)
+
+Starting with version 1.57 of the Azure Connected Machine agent, you can configure the agent to automatically upgrade itself to the latest version. This feature is currently in public preview and is only available in the Azure public cloud.
+
+When you enable automatic upgrades, your agent is scheduled to be upgraded within one version of the latest release. To maintain stability across regions and minimize disruptions, upgrades are rolled out across batches, with all upgrades initiated during off-peak hours. If the upgrade doesn't complete successfully, the agent reattempts the automatic upgrade periodically until it succeeds.
+
+Before enabling automatic agent upgrades, ensure that you meet the following requirements:
+
+- **Windows**: Automatic agent upgrades aren't supported when the PowerShell execution policy is set to Restricted. Set the execution policy to RemoteSigned to ensure compatibility with automatic upgrades.
+- **Linux**: The cron service is required to schedule and perform automatic agent upgrades. Ensure that cron is installed and running.
+
+To enable automatic upgrades when connecting your machine to Azure Arc, use the `--enable-automatic-upgrade` flag in the `azcmagent connect` command. For example:
+
+```bash
+azcmagent connect --subscription-id "Production" --resource-group "HybridServers" --location "eastus" --enable-automatic-upgrade
+```
+
+You can also use [Azure Policy](/en-us/azure/governance/policy/overview) to assign the [Configure Azure Arc-enabled Servers to enable automatic upgrades](https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2Ff9dfba6f-7430-4214-a666-342b3d3d0d62) policy. This policy enables automatic agent upgrade to servers at scale across your environment.
+
+To enable automatic upgrades on an existing Arc-enabled server, set the `enableAutomaticUpgrade` property to `true` by using Azure CLI ([Windows](/en-us/cli/azure/install-azure-cli-windows) or [Linux](/en-us/cli/azure/install-azure-cli-linux)) or Azure PowerShell.
+
+The following example shows how to configure automatic agent upgrades with Azure CLI.
+
+```azurecli
+# Set your target subscription
+az account set --subscription "YOUR SUBSCRIPTION"
+
+# Enable automatic upgrades on a single Arc-enabled server
+az rest 
+--method PATCH 
+--url "https://management.azure.com/subscriptions/<SUB_ID>/resourceGroups/<RESOURCE_GROUP>/providers/Microsoft.HybridCompute/machines/<MACHINE_NAME>?api-version=2024-05-20-preview" 
+--headers "Content-Type=application/json" 
+--body '{"properties":{"agentUpgrade":{"enableAutomaticUpgrade":true}}}'
+```
+
+The following example shows how to configure automatic agent upgrades by using PowerShell.
+
+```azurepowershell
+Set-AzContext -Subscription "YOUR SUBSCRIPTION"
+
+$params = @{
+  ResourceGroupName = "YOUR RESOURCE GROUP"
+  ResourceProviderName = "Microsoft.HybridCompute"
+  ResourceType = "Machines"
+  ApiVersion = "2024-05-20-preview"
+  Name = "YOUR MACHINE NAME"
+  Method = "PATCH"
+  Payload = '{"properties":{"agentUpgrade":{ "enableAutomaticUpgrade":true}}}'
+}
+Invoke-AzRestMethod @params
+```
+
+## Additional agent upgrade methods
+
+The following table describes additional methods supported to perform agent upgrades:
+
+| Operating system | Upgrade method |
+| --- | --- |
+| Windows | Manually Microsoft Update Azure Update Manager (AUM) |
+| Linux | [apt](https://help.ubuntu.com/lts/serverguide/apt.html)[yum](https://access.redhat.com/articles/yum-cheat-sheet)[zypper](https://en.opensuse.org/SDB:Zypper_usage_11.3) Azure Update Manager (AUM) |
+
+# [Windows](#tab/windows)
+Get the latest version of the Azure Connected Machine agent for Windows-based machines from:
+
+- Microsoft Update
+- [Microsoft Update Catalog](https://www.catalog.update.microsoft.com/Search.aspx?q=AzureConnectedMachineAgent)
+- [Microsoft Download Center](https://aka.ms/AzureConnectedMachineAgent)
+
+#### Microsoft Update configuration
+
+To keep the Windows agent version up to date, we recommend using Microsoft Update to automatically get the latest version. By using your existing update infrastructure, such as Microsoft Configuration Manager or Windows Server Update Services, you can include Azure Connected Machine agent updates with your regular OS update schedule.
+
+Windows Server doesn't check for updates in Microsoft Update by default. To receive automatic updates for the Azure Connected Machine Agent, you must configure the Windows Update client on the machine to check for other Microsoft products.
+
+For Windows Servers that belong to a workgroup and connect to the Internet to check for updates, run the following commands in PowerShell as an administrator to enable Microsoft Update:
+
+```powershell
+$ServiceManager = (New-Object -com "Microsoft.Update.ServiceManager")
+$ServiceID = "7971f918-a847-4430-9279-4a52d1efe18d"
+$ServiceManager.AddService2($ServiceId,7,"")
+```
+
+For Windows Servers that belong to a domain and connect to the Internet to check for updates, configure this setting at scale by using Group Policy:
+
+1. Sign in to a computer used for server administration with an account that can manage Group Policy Objects (GPO) for your organization.
+2. Open the [**Group Policy Management Console**](/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-management-console).
+3. Expand the forest, domain, and organizational unit to select the appropriate scope for your new GPO. If you already have a GPO you want to modify, skip to step 6.
+4. Right-click the container and select **Create a GPO in this domain, and Link it here...**.
+5. Enter a name for your policy such as "Enable Microsoft Update".
+6. Right-click the policy and select **Edit**.
+7. Go to **Computer Configuration &gt; Administrative Templates &gt; Windows Components &gt; Windows Update**.
+8. Select the **Configure Automatic Updates** setting to edit it.
+9. Select the **Enabled** option to allow the policy to take effect.
+10. At the bottom of the **Options** section, check the box for **Install updates for other Microsoft products**.
+11. Select **OK**.
+
+The next time computers in your selected scope refresh their policy, they start to check for updates in both Windows Update and Microsoft Update.
+
+For organizations that use Microsoft Configuration Manager or Windows Server Update Services (WSUS) to deliver updates to their servers, you need to configure WSUS to synchronize the Azure Connected Machine Agent packages and approve them for installation on your servers. Follow the guidance for [Windows Server Update Services](/en-us/windows-server/administration/windows-server-update-services/manage/setting-up-update-synchronizations#to-specify-update-products-and-classifications-for-synchronization) or [Configuration Manager](/en-us/mem/configmgr/sum/get-started/configure-classifications-and-products#to-configure-classifications-and-products-to-synchronize) to add the following products and classifications to your configuration:
+
+- **Product Name**: Azure Connected Machine Agent (select all suboptions)
+- **Classifications**: Critical Updates, Updates
+
+After the updates are synchronized, you can optionally add the Azure Connected Machine Agent product to your autoapproval rules, so that your servers automatically stay up to date with the latest agent software.
+
+#### Manually upgrade by using the Setup Wizard
+
+1. Sign in to the computer with an account that has administrative rights.
+2. Download the latest agent installer from https://aka.ms/AzureConnectedMachineAgent
+3. Run **AzureConnectedMachineAgent.msi** to start the Setup Wizard.
+
+If the Setup Wizard discovers a previous version of the agent, it upgrades it automatically. When the upgrade completes, the Setup Wizard closes automatically.
+
+#### Upgrade from the command line
+
+If you're unfamiliar with the command-line options for Windows Installer packages, review [Msiexec standard command-line options](/en-us/windows/win32/msi/standard-installer-command-line-options) and [Msiexec command-line options](/en-us/windows/win32/msi/command-line-options).
+
+1. Sign in to the computer with an account that has administrative rights.
+2. Download the latest agent installer from https://aka.ms/AzureConnectedMachineAgent
+3. To upgrade the agent silently and create a setup log file in the `C:\Support\Logs` folder, run the following command:
+
+    ```dos
+    msiexec.exe /i AzureConnectedMachineAgent.msi /qn /l*v "C:\Support\Logs\azcmagentupgradesetup.log"
+    ```
+
+# [Linux - apt](#tab/linux-apt)
+To update the agent on a Linux machine, you run a command that updates the local package index with the list of latest available packages from the repositories, and then a command that upgrades the local package.
+
+You can download the latest agent package from Microsoft's [package repository](https://packages.microsoft.com/).
+
+Note
+
+To upgrade the agent, you must have *root* access permissions or an account that has elevated rights using sudo.
+
+1. To update the local package index with the latest changes in the repositories, run the following command:
+
+    ```bash
+    sudo apt update
+    ```
+2. To upgrade your system, run the following command:
+
+    ```bash
+    sudo apt upgrade azcmagent
+    ```
+
+The `/var/log/dpkg.log` log file records actions of the [apt](https://help.ubuntu.com/lts/serverguide/apt.html) command, such as installation and removal of packages.
+
+# [Linux - yum](#tab/linux-yum)
+To update the agent on a Linux machine, you run a command that updates the local package index with the list of latest available packages from the repositories, and then a command that upgrades the local package.
+
+You can download the latest agent package from Microsoft's [package repository](https://packages.microsoft.com/).
+
+Note
+
+To upgrade the agent, you must have *root* access permissions or an account that has elevated rights using sudo.
+
+1. To update the local package index with the latest changes in the repositories, run the following command:
+
+    ```bash
+    sudo yum check-update
+    ```
+2. To upgrade your system, run the following command:
+
+    ```bash
+    sudo yum update azcmagent
+    ```
+
+Actions of the [yum](https://access.redhat.com/articles/yum-cheat-sheet) command, such as installation and removal of packages, are logged in the `/var/log/yum.log` log file.
+
+# [Linux - zypper](#tab/linux-zypper)
+To update the agent on a Linux machine, you run a command that updates the local package index with the list of latest available packages from the repositories, and then a command that upgrades the local package.
+
+You can download the latest agent package from Microsoft's [package repository](https://packages.microsoft.com/).
+
+Note
+
+To upgrade the agent, you must have *root* access permissions or an account that has elevated rights using sudo.
+
+1. To update the local package index with the latest changes in the repositories, run the following command:
+
+    ```bash
+    sudo zypper refresh
+    ```
+2. To upgrade your system, run the following command:
+
+    ```bash
+    sudo zypper update azcmagent
+    ```
+
+The `/var/log/zypper.log` log file records the actions of the [zypper](https://en.opensuse.org/Portal:Zypper) command, such as installation and removal of packages.
+
+---
