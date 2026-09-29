@@ -1262,7 +1262,7 @@ CLASS_B = {"9","26","48","49","51","52","53","54","55","56","58","59","61","64",
            "68a","68c","69","70","71","72","74","75","76","77","80","82","83","84",
            "93","94","95","96","97","105","106","107","83b","83c","108","109","110","111","112","113","114",
            "118","120",
-           "68d","81d","81e"}   # 118: §5by, 120: §5bz, 28 IX 2026; 68d, 81d, 81e: §5cc, 29 IX 2026
+           "68d","81d","81e","121"}   # 118: §5by, 120: §5bz, 28 IX 2026; 68d, 81d, 81e: §5cc, 29 IX 2026
 # 16 wrzesnia 2026, pozycja 89 (audyt dat): klasy A tu NIE ma i to jest swiadome.
 # Falszywa data przy pozycji jest falszywa trescia, wiec z natury nalezy do klasy A —
 # ale asercja postawiona tak, zeby blokowala, zapalilaby sie PIERWSZEGO dnia, zanim
@@ -2884,6 +2884,13 @@ def gate(path, site=None, mirror=False, doc=None):
     need("120", "poprawki z audytu: kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, noty zwiniete, Copy query, jedna definicja 'new', jedne nazwy uslug (§5bz)",
          all(k in h for k in K120), "brak: %s" % ", ".join(k for k in K120 if k not in h))
 
+    # ---- 121: widoki w Graph API i Roles (§5cd). KLASA B. 29 IX 2026: Graph API mial 13 pol
+    # wyszukiwania, a wyszukiwarka katalogu stala na ~11 000 px za jedenastoma zwinieciami.
+    K121 = ('.s5cd-bar{display:flex', 'data-s5cd-v', '"tab-graph": {', '"tab-roles": {', 'function reveal(el)',
+            '.tabpanel[data-s5cd="find"] [data-s5cd-v]')
+    need("121", "Graph API i Roles maja widoki (Find domyslny, What changed, Sources & method), jedno pytanie na widok (§5cd)",
+         all(k in h for k in K121), "brak: %s" % ", ".join(k for k in K121 if k not in h))
+
     # ---- 119: strony what's new Learn (§5by). INFORMACYJNA. 28 IX 2026 lustra git daly wpisy
     # dla 2 z 10 obszarow, a Intune konczyl sie na 26 VIII przy wrzesniowej stronie.
     _wn119 = ((st["soc-brief-state"] or {}).get("nt") or {}).get("wnMeta") or []
@@ -3491,6 +3498,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZBUDOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZASPECYFIKOWANE` | §5by, pozycje 116-119. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `audit-5bz` | **poprawki z audytu 28 IX 2026 i workflow code refresh**: stara `/diff/` nazwana, kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, jedna definicja „new", liczniki = listy, FPA bez „0 of 120", jedne nazwy uslug, Ctrl+K, karty Today/Deadlines na telefonie, Copy query, noty zwiniete | 2026-09-28 | `ZASPECYFIKOWANE` | §5bz, pozycja 120, `.github/workflows/code-refresh.yml`, `tools/code_refresh.py` |
+| `views-5cd` | **widoki w Graph API i Roles**: Find domyslny z wyszukiwarka katalogu w pierwszym ekranie, What changed, Check a call, Sources & method; jedno pytanie na widok | 2026-09-29 | `ZBUDOWANE` | §5cd, pozycja 121 |
 
 
 
@@ -25352,6 +25360,32 @@ if __name__ == "__main__":
         sys.exit(1)
 ```
 
+
+### §5cd (29 IX 2026) — widoki w duzych zakladkach: Graph API i Roles
+
+Wlasciciel (29 IX): „ciezko sie tam odnalezc, tyle sekcji tyle rozwijalnych +, pole search do Graph API
+jest w polowie wszystkich sekcji, to samo dla rol". Zmierzone tego dnia (Playwright, 1500 px): Graph API
+— **13 pol wyszukiwania**, wyszukiwarka katalogu na ~11 000 px za jedenastoma zwinieciami; Roles — 9 pol,
+wyszukiwarka na ~8 900 px. Propozycja zatwierdzona przez wlasciciela: artefakt „SOC Brief Tab Layout".
+
+Pod naglowkiem zakladki (§5ca) stoi pasek WIDOKOW, jedno pytanie na widok:
+| widok | Graph API | Roles |
+|---|---|---|
+| **Find** (domyslny) | katalog: przyklady, More filters, szukaj we wszystkich, lista + szczegoly; Advanced filtering zwiniete nad nim | „Find a role", Advanced filtering, katalog |
+| **What changed** | What Microsoft changed, Since the previous brief, uprawnienie po uprawnieniu (`gdiff`), 14 dni, 7 dni, kafelki zmian katalogu, wykresy | to samo bez `gdiff` |
+| **Check a call** | „Which permission for this call?" | — |
+| **Sources & method** | skad liczby, punkt odniesienia, held vs published, nota sekcji | to samo |
+
+Nic nie jest przebudowywane ani przenoszone: SCRIPT 17 (IIFE §5cd) TAGUJE bloki zbudowane przez inne
+skrypty atrybutem `data-s5cd-v` i CSS ukrywa bloki innych widokow, wiec zaden selektor innego skryptu
+sie nie zmienia. Blok nieoznaczony jest widoczny w kazdym widoku (nowa sekcja nigdy nie znika — tylko nie
+jest jeszcze przypisana). `Element.scrollIntoView` i `HTMLElement.focus` sa owiniete: cokolwiek przewija do
+elementu w ukrytym widoku (klik w menu, trafienie wyszukiwania, wiersz zmiany), najpierw przelacza widok.
+Wynik 29 IX: wyszukiwarka katalogu Graph API na 772 px (bylo ~11 000), Roles na 917 px (bylo ~8 900),
+wysokosc widoku Find 5 711 px / 3 667 px; 0 bledow konsoli; 390 px bez przewijania w bok (pasek widokow
+przewija sie sam). Pozycja 121 bramki (klasa B). Nastepne zakladki (Component versions, Message Center,
+Learn, Blogs, Community) dostaja ten sam szkielet w kolejnych krokach.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -30708,6 +30742,135 @@ odtad CZTERNASCIE (4-17).**
   window.addEventListener("resize", function () { if (rail) place(); });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
+/* §5cd (29 IX 2026, owner: "hard to find your way in Graph API — so many sections, so many +,
+   the role search is half-way down"). Measured that day: Graph API carried 13 search fields and
+   its catalog search sat at ~11 000 px behind eleven folds; Roles 9 fields, search at ~8 900 px.
+   The big reference tabs get VIEWS: a strip under the tab header, one question per view, the
+   Find view (the catalog and its search) first and open by default. Nothing is rebuilt or moved:
+   every block the other scripts build is TAGGED with the view(s) it belongs to and CSS hides the
+   rest, so no selector another script relies on changes. A block nobody tagged stays visible in
+   every view (a new section is never lost, it just is not sorted yet). Anything that scrolls to or
+   focuses an element in a hidden view (a rail click, a search hit, a change row) switches to that
+   view first — Element.scrollIntoView and HTMLElement.focus are wrapped for that. */
+(function () {
+  "use strict";
+  var CFG = {
+    "tab-graph": {
+      views: [["find", "Find"], ["chg", "What changed"], ["call", "Check a call"], ["src", "Sources & method"]],
+      sec: "#graph",
+      map: [
+        [".s5ca-head, .s5bh-ct, .filterbanner.s11, .s8top > .factgrid, details.ntsec", "*"],
+        ["details.mschg, .panelhead, .s5bn, #gd-changes, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
+        ["section.gu", "call"],
+        ["details.ntfbar", "find chg"],
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .sec-body > .sec-note, .sec-body > .s5bz-more, .sec-body > ul", "src"]
+      ]
+    },
+    "tab-roles": {
+      views: [["find", "Find"], ["chg", "What changed"], ["src", "Sources & method"]],
+      sec: "#roles",
+      map: [
+        [".s5ca-head, .s5bh-ct, .filterbanner.s11, .s8top > .factgrid, details.ntsec", "*"],
+        ["details.mschg, .panelhead, .s5bn, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
+        ["section.gu, details.ntfbar", "find"],
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .sec-body > .sec-note, .sec-body > .s5bz-more, .sec-body > ul", "src"]
+      ]
+    }
+  };
+  var cur = {};
+
+  function tag(p, c) {
+    c.map.forEach(function (m) {
+      [].forEach.call(p.querySelectorAll(m[0]), function (e) { e.setAttribute("data-s5cd-v", m[1]); });
+    });
+    /* the catalog's own controls and list: Find, unless already sorted above */
+    [].forEach.call(p.querySelectorAll(".catalog > *, " + c.sec + " > .sec-body > *"), function (e) {
+      if (!e.hasAttribute("data-s5cd-v") && !e.classList.contains("catalog")) e.setAttribute("data-s5cd-v", "find");
+    });
+    [].forEach.call(p.querySelectorAll("details.ntsec"), function (d) { if (!d.open) d.open = true; });
+  }
+
+  function count(p) {
+    var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/);
+    return m ? m[0].replace(/[\s ,]/g, "") : "";
+  }
+
+  function show(p, v, scroll) {
+    cur[p.id] = v;
+    p.setAttribute("data-s5cd", v);
+    [].forEach.call(p.querySelectorAll(".s5cd-bar button"), function (b) {
+      b.setAttribute("aria-selected", String(b.getAttribute("data-v") === v));
+    });
+    if (scroll) {
+      var bar = p.querySelector(".s5cd-bar");
+      if (bar && bar.getBoundingClientRect().top < 0) origSIV.call(bar, { block: "start" });
+    }
+    try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+  }
+
+  function build(p, c) {
+    var bar = p.querySelector(":scope > .s5cd-bar");
+    if (!bar) {
+      bar = document.createElement("div"); bar.className = "s5cd-bar"; bar.setAttribute("role", "tablist");
+      bar.setAttribute("aria-label", "Views of this tab");
+      c.views.forEach(function (v) {
+        var b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "tab");
+        b.setAttribute("data-v", v[0]); b.textContent = v[1];
+        if (v[0] === "find") { var n = document.createElement("span"); n.className = "s5cd-n"; b.appendChild(n); }
+        b.addEventListener("click", function () { show(p, v[0], true); });
+        bar.appendChild(b);
+      });
+    }
+    /* the strip sits right under the tab header (§5ca), or first when there is none */
+    var head = p.querySelector(":scope > .s5ca-head"), fg = p.querySelector(":scope > .s8top");
+    var anchor = head ? head.nextSibling : p.firstChild;
+    if (bar.previousElementSibling !== head || !bar.parentNode) p.insertBefore(bar, anchor);
+    var n = bar.querySelector(".s5cd-n"), k = count(p);
+    if (n) n.textContent = k ? Number(k).toLocaleString("en-US").replace(/,/g, " ") : "";
+    tag(p, c);
+    if (!p.hasAttribute("data-s5cd")) show(p, cur[p.id] || "find", false);
+  }
+
+  function run() {
+    Object.keys(CFG).forEach(function (id) {
+      var p = document.getElementById(id);
+      if (p) { try { build(p, CFG[id]); } catch (e) { if (window.console) console.error("[5cd " + id + "]", e); } }
+    });
+  }
+
+  /* an element in a hidden view is revealed before anything scrolls to it or focuses it */
+  function reveal(el) {
+    if (!el || !el.closest) return;
+    var p = el.closest(".tabpanel[data-s5cd]");
+    if (!p) return;
+    var v = p.getAttribute("data-s5cd"), t = el;
+    if (el.matches && el.matches(CFG[p.id].sec + ", .catalog")) { if (v !== "find") show(p, "find", false); return; }
+    while (t && t !== p) {
+      var tv = t.getAttribute && t.getAttribute("data-s5cd-v");
+      if (tv && tv !== "*") {
+        var list = tv.split(" ");
+        if (list.indexOf(v) < 0) show(p, list[0], false);
+        return;
+      }
+      t = t.parentElement;
+    }
+  }
+  var origSIV = Element.prototype.scrollIntoView;
+  Element.prototype.scrollIntoView = function () { try { reveal(this); } catch (e) {} return origSIV.apply(this, arguments); };
+  var origFocus = HTMLElement.prototype.focus;
+  HTMLElement.prototype.focus = function () { try { reveal(this); } catch (e) {} return origFocus.apply(this, arguments); };
+  window.addEventListener("hashchange", function () {
+    try { var t = document.getElementById(location.hash.slice(1)); if (t) reveal(t); } catch (e) {}
+  });
+
+  function start() {
+    run();
+    /* the other scripts keep adding blocks for a few seconds (§5bi groups at 1.7 s, §5ca fills up
+       to 5.2 s): tag again, never rebuild */
+    [800, 1900, 3600, 5600].forEach(function (t) { setTimeout(run, t); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -31273,6 +31436,23 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .ab-row .mcb-meta .mcb-svc,.ab-row .mcb-meta .mcb-cat{display:inline-block;font:600 11.5px/1.6 var(--sans);border-radius:999px;padding:0 9px;
  border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
 .ab-row .mcb-meta .mcb-cat{border-color:var(--accent);background:transparent;color:var(--accent)}
+/* §5cd (29 IX 2026, owner): views inside Graph API and Roles — one question per view, Find first */
+.s5cd-bar{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid var(--border);margin:6px 0 14px;padding:0 2px}
+.s5cd-bar button{font:600 14px/1.2 var(--sans);color:var(--muted,#8e9aad);background:none;border:0;border-bottom:2px solid transparent;
+ padding:9px 14px 10px;cursor:pointer;white-space:nowrap}
+.s5cd-bar button:hover{color:var(--text)}
+.s5cd-bar button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.s5cd-bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s5cd-bar .s5cd-n{font:500 11.5px var(--mono,ui-monospace,monospace);background:var(--surface-2);border:1px solid var(--border);border-radius:999px;
+ padding:0 7px;margin-left:7px;color:var(--text);font-variant-numeric:tabular-nums}
+.s5cd-bar .s5cd-n:empty{display:none}
+.tabpanel[data-s5cd="find"] [data-s5cd-v]:not([data-s5cd-v~="find"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="chg"] [data-s5cd-v]:not([data-s5cd-v~="chg"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="call"] [data-s5cd-v]:not([data-s5cd-v~="call"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="src"] [data-s5cd-v]:not([data-s5cd-v~="src"]):not([data-s5cd-v="*"]){display:none!important}
+.tabpanel[data-s5cd] details.ntsec > summary,.tabpanel[data-s5cd] #graph > .sec-head,.tabpanel[data-s5cd] #roles > .sec-head{display:none!important}
+.tabpanel[data-s5cd] details.ntsec{border:0;background:none;padding:0;margin:0}
+.tabpanel[data-s5cd] details.ntsec > .ntbody{padding:0}
 
 
 
