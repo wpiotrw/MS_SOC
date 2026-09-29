@@ -2278,6 +2278,24 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 #tab-fpa .stats button.stat{font:inherit;text-align:left;cursor:pointer}
 #tab-fpa .s9find{margin:10px 0}
 #tab-fpa>section{margin-top:18px}
+/* §5by (28 IX 2026): the + is the portal's expander (22 px, accent square), and the detail is tables */
+#tab-fpa button.mc-x{font:700 15px/1 var(--mono);width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;cursor:pointer;padding:0;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+#tab-fpa button.mc-x:hover{background:var(--accent);color:var(--on-accent)}
+#tab-fpa button.mc-x[aria-expanded="true"]{background:var(--accent);color:var(--on-accent)}
+#tab-fpa .fpa-det{gap:10px;padding:10px 6px 14px;max-width:1100px}
+#tab-fpa .fpa-meta{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 16px;margin:0;font-size:13px}
+#tab-fpa .fpa-meta dt{color:var(--muted)}
+#tab-fpa .fpa-meta dd{margin:0;overflow-wrap:anywhere}
+#tab-fpa .fpa-h{margin:6px 0 0;font-size:13.5px}
+#tab-fpa .fpa-tw{max-width:100%;overflow-x:auto}
+#tab-fpa table.fpa-ptab{width:100%;border-collapse:collapse;font-size:13px}
+#tab-fpa table.fpa-ptab th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:5px 8px;border-bottom:1px solid var(--border)}
+#tab-fpa table.fpa-ptab td{padding:5px 8px;border-bottom:1px solid var(--border-soft,var(--border));vertical-align:top;background:transparent!important}
+#tab-fpa table.fpa-ptab tr.fpa-grp td{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)!important}
+#tab-fpa .fpa-pn{font-size:12.5px;font-weight:600;white-space:nowrap}
+#tab-fpa .fpa-sn{font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+#tab-fpa table.fpa-ptab td.num{text-align:right;font-variant-numeric:tabular-nums;width:60px}
 /* §5av — green is the colour of a filter, on every surface of the portal.
    An OVERRIDING block: each of these rules lives in a block whose fragments are gate
    keys (items 61, 64, 65, 70), so rewriting them in place would break assertions that
@@ -2602,10 +2620,173 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  .catalog .cat-meta dt{margin:8px 0 0;width:auto!important}
  .catalog .cat-meta dd{margin:2px 0 0!important;width:auto!important;min-width:0}
 }
-
-
-
-
+/* §5by (28 IX 2026) — Message Center: freshness line, day-by-service grid, row columns on the surface. */
+.mcb-fresh{margin:0 0 10px;padding:8px 12px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;background:var(--surface);font-size:13px;line-height:1.5;color:var(--text)}
+.mcb-fresh .mcb-fnote{color:var(--muted)}
+.mcb-gridbox{margin:0 0 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.mcb-gridbox>summary{padding:9px 12px;font-weight:650;font-size:13.5px;cursor:pointer}
+.mcb-gbody{padding:0 12px 10px;display:grid;gap:8px;justify-items:start}
+.mcb-gwrap{max-width:100%;overflow-x:auto;justify-self:stretch}
+.mcb-grid{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;min-width:100%}
+.mcb-grid th,.mcb-grid td{border-top:1px solid var(--border);padding:5px 8px;text-align:left;vertical-align:top;white-space:nowrap}
+.mcb-grid thead th{border-top:0;font-weight:600;color:var(--muted);font-size:11.5px}
+.mcb-grid thead th span{display:block;text-transform:uppercase;letter-spacing:.05em;font-size:10.5px}
+.mcb-grid thead th b{font-weight:650;color:var(--text)}
+.mcb-grid thead th.today b{color:var(--accent)}
+.mcb-grid tbody th{font-weight:500;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.mcb-grid tr.mcb-gall th,.mcb-grid tr.mcb-gall td{font-weight:650;background:var(--surface-2)}
+.mcb-g0{color:var(--muted)}
+.mcb-gc{display:block;font:600 12px/1.5 var(--sans);border:1px solid var(--border);border-radius:5px;padding:0 6px;margin:1px 0;background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap}
+.mcb-gc.g-upd{color:var(--text)}
+.mcb-gc:hover{border-color:var(--accent)}
+.mcb-gc.on{background:var(--ok);border-color:var(--ok);color:var(--on-accent)}
+.mcb-colhead,.mcb-head{grid-template-columns:52px 74px 92px minmax(0,1fr) 190px 128px 104px}
+.mcb-colhead{display:grid;gap:4px 12px;padding:7px 12px;background:var(--surface-2);font:700 10.5px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.mcb-colhead+.mcb-g{border-top:0}
+.mcb-kind{font:650 11px/1.6 var(--sans);padding:0 7px;border-radius:4px;white-space:nowrap;justify-self:start}
+.mcb-kind.k-new{color:var(--accent);background:var(--accent-soft,var(--surface-2))}
+.mcb-kind.k-upd{color:var(--text);border:1px solid var(--border)}
+.mcb-svcs{display:flex;flex-wrap:wrap;gap:3px 4px;min-width:0}
+.mcb-svcs .mcb-svc{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mcb-catc{font-size:12px;color:var(--muted);line-height:1.5}
+.mcb-det{padding-left:186px}
+@media (max-width:1100px){
+ .mcb-colhead,.mcb-head{grid-template-columns:52px 74px 92px minmax(0,1fr) 150px 104px}
+ .mcb-catc,.mcb-colhead span:nth-child(6){display:none}
+}
+@media (max-width:760px){
+ .mcb-colhead{display:none}
+ .mcb-head{grid-template-columns:auto auto minmax(0,1fr)}
+ .mcb-d{grid-column:1;grid-row:1}
+ .mcb-kind{grid-column:2;grid-row:1}
+ .mcb-id{grid-column:3;grid-row:1}
+ .mcb-main{grid-column:1 / -1;grid-row:2}
+ .mcb-svcs{grid-column:1 / -1;grid-row:3}
+ .mcb-catc{display:none}
+ .mcb-pills{grid-column:1 / -1;grid-row:4}
+ .mcb-det{padding-left:12px}
+ .mcb-fresh{font-size:12.5px}
+}
+.mcb-pills{justify-content:flex-start}
+/* §5by (28 IX 2026) — one-line tab bar, jump row in panels, named identifiers (script 17). */
+@media (min-width:761px){
+ html.s5by-bar .navstack{padding:6px 10px;gap:0}
+ html.s5by-bar .navrow{flex-wrap:nowrap;gap:0;min-width:0}
+ html.s5by-bar .navrow+.navrow{padding-top:6px;margin-top:6px}
+ html.s5by-bar .navstack nav.anchors{flex:1 1 auto;flex-wrap:nowrap;gap:4px;min-width:0;overflow:hidden;align-items:center;padding:1px 0}
+ html.s5by-bar nav.anchors .tab{flex:0 0 auto;padding:5px 10px;font-size:13px;line-height:1.35;border-width:1px;border-radius:7px;white-space:nowrap;box-shadow:none}
+ html.s5by-bar nav.anchors .tab[aria-selected="true"]{box-shadow:0 0 0 2px var(--nav-ring)}
+ html.s5by-bar nav.anchors .tab .navcount{font-size:11px;padding:0 6px;margin-left:6px}
+ html.s5by-bar nav.anchors .s5bi-grp{flex:0 0 auto;font-size:10.5px;letter-spacing:.08em;padding:0 8px 0 12px;margin-left:6px}
+ html.s5by-bar nav.anchors .s5bi-grp:first-child{flex-basis:74px;padding-left:2px;margin-left:0;border-left:0}
+ html.s5by-bar nav.anchors .s5by-ov{display:none!important}
+}
+.s5by-more{flex:0 0 auto;margin-left:auto;font:600 12.5px/1.35 var(--sans);padding:5px 10px;border-radius:7px;cursor:pointer;
+ border:1px dashed var(--nav-tab-line);background:transparent;color:var(--nav-fg);white-space:nowrap}
+.s5by-more:hover,.s5by-more[aria-expanded="true"]{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+.s5by-more[hidden]{display:none}
+@media (max-width:760px){.s5by-more{display:none!important}}
+.s5by-menu{position:absolute;z-index:60;min-width:220px;max-width:calc(100vw - 16px);padding:6px;border-radius:10px;
+ background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.s5by-mg{font:700 10.5px/1.6 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 8px 2px}
+.s5by-mi{display:flex;width:100%;justify-content:space-between;gap:16px;padding:7px 10px;border:0;border-radius:6px;background:none;
+ color:var(--text);font:inherit;font-size:13.5px;text-align:left;cursor:pointer}
+.s5by-mi:hover,.s5by-mi:focus-visible{background:var(--surface-2);outline:none}
+.s5by-mn{color:var(--muted);font-variant-numeric:tabular-nums}
+/* the Source lists box, now in Reference */
+#tab-overview .sec-body > .jsonbox{margin-top:14px}
+#tab-overview .jsonbox:not([data-s5by]){display:none}
+.s5bk-top{grid-template-areas:"src src" "sum ms" "sum tech" "act act" "tl tl"}
+.s5bk-top>section.s5bz-src{grid-area:src;padding:0;border:0;background:none}
+.s5bk-top>section.s5bz-src>.jsonbox{margin:0}
+@media (max-width:980px){.s5bk-top{grid-template-areas:"src" "sum" "tech" "act" "tl" "ms"}}
+/* jump row in a catalog panel */
+.s5by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px;padding:8px 10px;border:1px solid var(--border);
+ border-radius:8px;background:var(--surface-2)}
+.s5by-jl{font:700 10.5px/1.6 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.s5by-jb{display:inline-flex;align-items:center;gap:6px;font:600 12.5px/1.4 var(--sans);padding:3px 9px;border-radius:6px;cursor:pointer;
+ border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
+.s5by-jb:hover{background:var(--accent);color:var(--on-accent)}
+.s5by-jn{font-weight:700;font-variant-numeric:tabular-nums;opacity:.85}
+.v13pane > .sec{scroll-margin-top:250px}
+.v13pane > .sec.s5by-hit{box-shadow:0 0 0 2px var(--accent)}
+/* named identifiers */
+.s5by-ref{display:inline;font-size:inherit;line-height:1.5}
+.s5by-rk{display:inline-block;font:700 10px/1.5 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+ border:1px solid var(--border);border-radius:4px;padding:0 5px;margin-right:5px;vertical-align:1px}
+.s5by-refs{line-height:1.9}
+/* strip rows: kind, title, identifier (§5bn) */
+.s5bn-ty{flex:0 0 auto;font:700 10px/1.6 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:0 5px}
+.s5bn-tl{color:var(--text);overflow-wrap:anywhere;min-width:0}
+a.s5bn-tl{color:var(--accent)}
+.s5bn-pr{color:var(--muted);font-size:12px}
+.s5bn-idm{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+/* §5bz (28 IX 2026) — audit fixes: stale /diff/ link, commit chips, clamped notes, Copy query, phone sheet hint (script 17). */
+a.s5bz-stale{color:var(--warn)!important;text-decoration-style:dashed}
+.s5bz-age{font-size:.92em}
+a.badge.s5bz-sha{font-family:var(--mono);font-size:11.5px;text-decoration:none;border:1px solid var(--border);background:var(--surface);color:var(--accent)}
+a.badge.s5bz-sha:hover{border-color:var(--accent)}
+p.s5bz-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.s5bz-more{display:inline-block;margin:-2px 0 8px;padding:2px 0;border:0;background:none;color:var(--accent);font:600 12.5px/1.4 var(--sans);cursor:pointer}
+.s5bz-more:hover{text-decoration:underline}
+.s5bz-copy{display:inline-block;margin:4px 0;padding:4px 10px;border-radius:6px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);font:600 12.5px/1.3 var(--sans);cursor:pointer;min-height:32px}
+.s5bz-copy:hover{background:var(--accent);color:var(--on-accent)}
+.s5bz-sheethint{position:sticky;bottom:0;margin:10px -16px 0;padding:10px 16px;text-align:center;font:600 12.5px/1.3 var(--sans);color:var(--accent);
+ background:linear-gradient(to bottom,transparent,var(--surface) 45%)}
+.s5bz-sheethint[hidden]{display:none}
+@media (max-width:760px){#tab-hunting pre{white-space:pre-wrap;overflow-wrap:anywhere}}
+/* §5ca — desktop left rail (version 4): one "moved" number per tab, details in words in the tab */
+.s5ca-rail,.s5ca-head{display:none}
+@media (min-width:1100px){
+body.s5ca .navstack{display:none}
+body.s5ca .s5ca-rail{display:flex;flex-direction:column;gap:12px;position:fixed;left:0;top:var(--s5ca-top,0px);bottom:0;width:250px;
+ overflow-y:auto;z-index:55;padding:14px 10px 12px;background:var(--surface);border-right:1px solid var(--border)}
+body.s5ca .wrap{margin-left:266px;margin-right:0;max-width:none;padding-right:24px}
+body.s5ca footer{margin-left:0}
+.s5ca-gl{font:600 10.5px/1.6 var(--cond,var(--sans));letter-spacing:.09em;text-transform:uppercase;color:var(--faint);padding:0 10px 3px}
+.s5ca-it{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:7px 10px;border:0;border-radius:7px;
+ background:none;color:var(--text);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.s5ca-it:hover{background:var(--surface-2)}
+.s5ca-it:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.s5ca-it[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:650;box-shadow:inset 3px 0 0 var(--accent)}
+.s5ca-nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5ca-mv{flex:0 0 auto;font-size:11.5px;font-weight:650;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:10px;background:var(--accent);color:var(--on-accent)}
+.s5ca-mv[hidden]{display:none}
+.s5ca-foot{margin-top:auto;border-top:1px solid var(--border-soft);padding:10px 10px 2px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+body.s5ca .s5ca-head{display:flex;flex-direction:column;gap:5px;min-height:74px;padding:14px 0 12px;margin:0 0 6px;border-bottom:1px solid var(--border)}
+.s5ca-crumb{font:600 11px/1.4 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.s5ca-title{margin:0;font-size:22px;letter-spacing:-.01em;line-height:1.2}
+.s5ca-facts{display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--muted)}
+.s5ca-line{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline}
+.s5ca-line b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.s5ca-w{font-weight:600;font-variant-numeric:tabular-nums}
+.s5ca-a{color:var(--ok)} .s5ca-c{color:var(--warn)} .s5ca-r{color:var(--bad)}
+}
+/* §5ca (29 IX): grey 0 = compared, nothing moved */
+.s5ca-mv.zero{background:var(--surface-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--border)}
+.s5ca-ft{line-height:1.45}
+/* Products: the date of the item each summary bullet cites */
+.s5ca-bd{display:inline-block;margin-right:8px;font:600 11.5px/1.5 var(--sans);font-variant-numeric:tabular-nums;color:var(--accent);
+ background:var(--accent-soft);border-radius:999px;padding:0 8px;vertical-align:1px}
+/* lists (Learn, Blogs, Community): the source in its own column, framed */
+.ab-head{grid-template-columns:28px 52px minmax(0,1fr) minmax(120px,220px) auto}
+.ab-src{justify-self:start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 12px/1.6 var(--sans);
+ color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;text-decoration:none}
+a.ab-src:hover{background:var(--accent);color:var(--on-accent);text-decoration:none}
+.ab-src.none{border-color:var(--border);background:none;color:var(--faint)}
+@media (max-width:760px){.ab-head{grid-template-columns:26px minmax(0,1fr) auto}.ab-src{grid-column:2/-1;grid-row:2}}
+/* day-by-day / month-by-month counts: a filled pill, readable at a glance */
+.mcb-gc{border-radius:999px;padding:0 9px;background:var(--accent-soft);border-color:transparent;color:var(--accent);font-variant-numeric:tabular-nums}
+.mcb-gc:hover{border-color:var(--accent)}
+.mcb-gc.g-upd{background:var(--surface-2);color:var(--text)}
+/* every table's Source column: the source in a frame, like the lists */
+td.src a{display:inline-block;border:1px solid var(--accent);border-radius:999px;padding:0 9px;background:var(--accent-soft);color:var(--accent);
+ font-weight:600;font-size:12px;line-height:1.7;text-decoration:none;margin:1px 0}
+td.src a:hover{background:var(--accent);color:var(--on-accent)}
+/* §5ca (29 IX, owner): the categories under a list row (area, topic) are FRAMED pills, like the source chip */
+.ab-row .mcb-meta .mcb-svc,.ab-row .mcb-meta .mcb-cat{display:inline-block;font:600 11.5px/1.6 var(--sans);border-radius:999px;padding:0 9px;
+ border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
+.ab-row .mcb-meta .mcb-cat{border-color:var(--accent);background:transparent;color:var(--accent)}
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -5450,7 +5631,7 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 28 September 2026</b> &middot; published 06:22 Warsaw &middot; 14 &ndash; 28 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>71</b> deadlines in 60 days<span>&middot; 51 inside 30, 0 due today</span></a><a class="count" href="#graph"><b>890</b> undocumented at Microsoft<span>&middot; 890 permissions, 0 roles</span></a><a class="count" href="#graph"><b>365</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>31</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 27 Sep<span>&middot; 33 at Microsoft, 10 in this report</span></a><a class="count" href="#chg14"><b>1443</b> changes in 14 days<span>&middot; 9 days with a run, 5 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 29 September 2026</b> &middot; published 06:45 Warsaw &middot; 15 &ndash; 29 September 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>72</b> deadlines in 60 days<span>&middot; 52 inside 30, 0 due today</span></a><a class="count" href="#graph"><b>890</b> undocumented at Microsoft<span>&middot; 890 permissions, 0 roles</span></a><a class="count" href="#graph"><b>367</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>2</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>53</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>42</b> changes since 28 Sep<span>&middot; 12 at Microsoft, 30 in this report</span></a><a class="count" href="#chg14"><b>3116</b> changes in 14 days<span>&middot; 10 days with a run, 4 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -5651,13 +5832,11 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 25 September 2026, morning pass at 06:36 Warsaw: this page carries FOURTEEN `.tabpanel` divs, THREE shell
-behaviour scripts taken from site/shell/shell.html, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus twenty-five
-appended CSS blocks, all cut out of CLAUDE.md by extract_code.py in this run and never copied from yesterday's page
-(CLAUDE.md 0c). The base stylesheet begins at `:root{` and no stylesheet carries contract text (CLAUDE.md 5be, list item 107).
-This is a MORNING build, so there is no `pmdelta` section and the masthead carries SEVEN counter pills, not eight.
-The TWENTY-ONE sections, in reading order, are: elapsed-overview, top5, picks, delta, new, docchanges, elapsed, deadlines,
+CORRECTED 29 September 2026, morning pass at 06:45 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+behaviour scripts taken from site/shell/shell.html, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS
+blocks, all cut out of CLAUDE.md by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c).
+This is a MORNING build, so there is no `pmdelta` section and the masthead carries SEVEN counter pills.
+The TWENTY sections, in reading order, are: elapsed-overview, top5, picks, delta, new, docchanges, elapsed, deadlines,
 horizon, exec, products, watchlist, components, roles, graph, kql, actions, strategic, sources, coverage, community.
-Section letters run A..U in that order. tab-mc, tab-learn and tab-blogs are written EMPTY and are built by SCRIPT 16 and
-SCRIPT 15 v2 from the `mc` and `nt` keys of soc-brief-state.
+tab-mc, tab-fpa, tab-learn and tab-blogs are written EMPTY and are built by SCRIPT 16 and SCRIPT 15 v2 from soc-brief-state.
 -->
