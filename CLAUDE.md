@@ -11707,6 +11707,13 @@ def doc(repo, path, depth=0, url=None):
         md = curl("https://raw.githubusercontent.com/MicrosoftDocs/%s/main/%s" % (repo, path))
         # a closed mirror answers raw with "404: Not Found" — that is not the page
         if md.strip().startswith("404") or len(md) < 200: md = ""
+        # §5ce: a retired repository, read from its community mirror at the same path
+        MIR = {"memdocs": "merill/intune-docs-mirror", "defender-docs": "merill/defender-docs-mirror",
+               "entra-docs": "merill/entra-docs-mirror"}
+        if not md and repo in MIR:
+            md = curl("https://raw.githubusercontent.com/%s/main/%s" % (MIR[repo], path))
+            if md.strip().startswith("404") or len(md) < 200: md = ""
+            else: how = "mirror " + MIR[repo]
     if not md and url:
         how = "learn.microsoft.com"
         md = learn_text(url)
@@ -20467,8 +20474,37 @@ def one(s):
     if not m2: return {"name":name,"url":url,"repo":None,"path":None,"note":"unrecognised git url %s"%g[:80]}
     org,repo,branch,path=m2.groups()
     pub=repo[:-3] if repo.endswith("-pr") else repo
-    return {"name":name,"url":url,"org":org,"repo":pub,"prRepo":repo,"branch":branch,
-            "path":path,"dir":path.rsplit("/",1)[0] if "/" in path else "","note":""}
+    rec={"name":name,"url":url,"org":org,"repo":pub,"prRepo":repo,"branch":branch,
+         "path":path,"dir":path.rsplit("/",1)[0] if "/" in path else "","note":""}
+    # §5ce: Microsoft retires its public documentation repositories (announced 23 IX 2026, "by the
+    # end of December 2026"); a private one answers "Repository not found". Where a community mirror
+    # rebuilds it from the published pages, at the same paths, the clone is taken from the mirror.
+    if not public(org,pub):
+        mir=MIRRORS.get(pub)
+        if mir and public(*mir.split("/")):
+            rec["cloneFrom"]=mir
+            rec["note"]=("%s/%s is no longer public; read from %s, rebuilt from the published Learn pages "
+                         "at the same paths (its history starts when the mirror did)"%(org,pub,mir))
+        else:
+            rec["note"]="%s/%s is no longer public and no mirror of it is known"%(org,pub)
+    return rec
+
+# §5ce (29 IX 2026): public mirrors of retired MicrosoftDocs repositories, built by merill/learn-mirror
+# (Merill Fernando). Add a line when a new mirror appears; learn-mirror can also build one of our own.
+MIRRORS={"memdocs":"merill/intune-docs-mirror","defender-docs":"merill/defender-docs-mirror",
+         "entra-docs":"merill/entra-docs-mirror",
+         # Graph's pages name the private -pr repository; the public contrib one carries the same tree
+         "microsoft-graph-docs":"microsoftgraph/microsoft-graph-docs-contrib"}
+_PUB={}
+def public(org,repo):
+    k=org+"/"+repo
+    if k not in _PUB:
+        try:
+            r=subprocess.run(["git","ls-remote","--heads","https://github.com/"+k],capture_output=True,text=True,timeout=40,
+                             env=dict(__import__("os").environ,GIT_TERMINAL_PROMPT="0"))
+            _PUB[k]=r.returncode==0 and bool(r.stdout.strip())
+        except Exception: _PUB[k]=False
+    return _PUB[k]
 # §5cc: utf-8-sig — a list saved from Notepad or PowerShell starts with a BOM, and plain utf-8
 # stops the whole run on it; an entry without a name or an address is skipped, not fatal
 src=[x for x in json.load(open(sys.argv[1],encoding="utf-8-sig")) if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()]
@@ -20828,10 +20864,35 @@ def abs_url(target,area_url,repo_path):
 
 import urllib.parse
 UA_WN="Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
+def learn_md_source(url):
+    """§5ce (29 IX 2026): Learn serves every page as its own Markdown when asked for `text/markdown`
+    (includes expanded, front matter kept) — the same text the private repositories held, so
+    parse_whatsnew reads it as it read the git files. Measured that day on the MDI what's new:
+    `content-type: text/markdown`, ms.date 2026-09-23, 107 links. Links are resolved against the
+    page's canonical address here, and ms.date is written back in the repository's mm/dd/yyyy form."""
+    try:
+        t=subprocess.run(["curl","-sS","--compressed","-L","--max-time","40","-A",UA_WN,"-H","Accept: text/markdown",url],
+                         capture_output=True,text=True,timeout=50).stdout
+    except Exception: return None,None
+    if not t or not t.startswith("---") or "<html" in t[:500].lower(): return None,None
+    fm=re.match(r"^---\n(.*?)\n---\n",t,re.S)
+    head=fm.group(1) if fm else ""
+    cu=re.search(r"^canonicalUrl:\s*(\S+)",head,re.M); base=cu.group(1) if cu else url
+    md=re.search(r"^ms\.date:\s*(\d{4})-(\d{2})-(\d{2})",head,re.M)
+    msd="%s-%s-%s"%md.groups() if md else None
+    body=t[fm.end():] if fm else t
+    body=re.sub(r"\]\((?!https?:|mailto:|#)([^)\s]+)",lambda m:"]("+urllib.parse.urljoin(base,m.group(1)),body)
+    front="---\nms.date: %s\n---\n"%("%s/%s/%s"%(msd[5:7],msd[8:10],msd[:4]) if msd else "")
+    return front+body,msd
+
 def learn_md(url):
     """The PUBLISHED what's-new page as markdown-shaped text for parse_whatsnew (5by, 28 IX 2026).
+    §5ce: the page's own Markdown first (learn_md_source), the HTML conversion below only when Learn
+    does not answer with Markdown.
     <h2>/<h3>/<h4>/<p>/<li>/<tr> of <main> become `## `/`### `/`#### `/text/`- `/`|a|b|`, links stay
     [text](url) and <strong> stays **bold**, so the three page shapes parse_whatsnew knows are kept."""
+    src,sd=learn_md_source(url)
+    if src: return src,sd
     try:
         h=subprocess.run(["curl","-sS","--compressed","-L","--max-time","40","-A",UA_WN,url],
                          capture_output=True,text=True,timeout=50).stdout
@@ -21117,6 +21178,7 @@ def main():
         changes.extend(ent)
     # one page can sit under two areas (Unified Security Operations redirects to Defender XDR's
     # what's new): the same entry is listed once, under the first area that carried it
+    _pre=list(changes)
     _seen=set(); _dd=[]
     for c in changes:
         k=(c["title"].lower(),c["year"],c["month"])
@@ -21137,6 +21199,13 @@ def main():
         sh=w["area"].replace("Microsoft Learn - ","")
         w["entries"]=_cnt.get(sh,0)
         if not w["entries"]:
+            # §5ce: every entry already listed under another area — one page answering for two areas
+            # (Unified Security Operations redirects to Defender XDR's what's new) is not a stale page
+            _dup=sum(1 for c in _pre if c["area"]==sh and c["year"]*100+c["month"]>=_cut)
+            if _dup:
+                w["status"]="same page"; w["note"]=("%d entries in the last twelve months, every one already listed under "
+                    "another area: this area's what's-new address leads to that area's page" % _dup)
+                continue
             w["status"]="stale"; w["note"]=("the page is read, but its newest entry is %s — nothing in the last twelve months"
                                             % (_newest.get(sh,(0,"?"))[1]))
 
@@ -25044,17 +25113,21 @@ def prev_file():
 def clone_mirrors():
     """Every documentation repository learn_probe.json declares, cloned blobless without checkout."""
     probe = json.load(open("learn_probe.json", encoding="utf-8"))
-    want = sorted({(p.get("org") or "MicrosoftDocs", p["repo"]) for p in probe if p.get("repo")})
+    # §5ce: a retired repository is cloned from its mirror (probe_learn sets `cloneFrom`), into the
+    # directory of the original name, so learn_changes.py finds it where it always did
+    want = sorted({(tuple(p["cloneFrom"].split("/")) if p.get("cloneFrom") else (p.get("org") or "MicrosoftDocs", p["repo"]))
+                   + (p["repo"],) for p in probe if p.get("repo")})
     os.makedirs(REPOS, exist_ok=True)
     def one(orgrepo):
-        org, repo = orgrepo
-        d = os.path.join(REPOS, repo)
+        org, repo, local = orgrepo
+        d = os.path.join(REPOS, local)
         if os.path.isdir(os.path.join(d, ".git")):
             subprocess.run(["git", "-C", d, "fetch", "-q", "--filter=blob:none"], capture_output=True, timeout=600)
             return repo, "fetched"
         r = subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout",
-                            "https://github.com/%s/%s" % (org, repo), d], capture_output=True, text=True, timeout=900)
-        return repo, "cloned" if r.returncode == 0 else "failed: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120]
+                            "https://github.com/%s/%s" % (org, repo), d], capture_output=True, text=True, timeout=900,
+                           env=dict(os.environ, GIT_TERMINAL_PROMPT="0"))
+        return local + ("" if local == repo else " <- %s/%s" % (org, repo)), "cloned" if r.returncode == 0 else "failed: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120]
     with cf.ThreadPoolExecutor(4) as ex:
         res = list(ex.map(one, want))
     for repo, st in res:
@@ -25416,6 +25489,37 @@ sie w zadnym widoku; dane i skrypty zostaja, bramka ich nie traci.
 
 **Krok 3 (29 IX)** — Products: Summary (sekcja J, domyslny) · Deep dive (K) · Authentication watchlist (L) ·
 Charts; sekcje nie maja id, wiec rozpoznaje je naglowek. First-party apps: Apps · What changed · Sources.
+
+
+### §5ce (29 IX 2026) — Microsoft zamyka publiczne repozytoria dokumentacji
+
+Microsoft Learn, blog Skills Hub, 23 IX 2026 (Martin Ekuan, aktualizacja 24 IX): Learn „will retire most
+public repositories associated with product documentation"; repozytorium wycofane „will no longer be publicly
+accessible or visible" — bez historii, PR i issues; zaczeto od mniejszych, koniec „by the end of December 2026";
+otwarte zostaja repozytoria dokumentacji produktow open source. Merill Fernando (29 IX): `MicrosoftDocs/memdocs`
+prywatne, Daily Intune News przestalo dzialac; jego obejscie to `merill/learn-mirror` — crawler, ktory prosi
+Learn o strone jako `text/markdown`, zapisuje ja pod sciezka pliku zrodlowego i commituje tylko zmiany — oraz
+mirrory `merill/intune-docs-mirror`, `merill/defender-docs-mirror`, `merill/entra-docs-mirror`.
+
+Zmierzone 29 IX (`git ls-remote` z komputera wlasciciela): **prywatne** — memdocs, defender-docs, security,
+security-copilot, Purview, OfficeDocs-Exchange, OfficeDocs-SkypeForBusiness, windows-docs, windows-itpro-docs,
+fslogix-docs, azure-databases-docs; **jeszcze publiczne** — entra-docs, azure-docs, azure-ai-docs,
+azure-compute-docs, azure-management-docs, microsoft-365-docs, dataexplorer-docs, windows-dev-docs,
+SupportArticles-docs, microsoft-graph-docs-contrib, microsoft-graph-devx-content.
+
+Co zmienia sie w kodzie:
+1. `learn_md_source()` — strona what's new czytana jako Markdown Learn (`Accept: text/markdown`), ta sama
+   tresc co plik w repozytorium; konwersja HTML tylko gdy Learn nie odda Markdown. 29 IX: 18 z 31 obszarow
+   z wpisami bez zmian (MDI 64, MDE 101, Intune 203, Arc 149…), Unified Security Operations = `same page`
+   (jej adres prowadzi do strony Defender XDR).
+2. `probe_learn.py` — repozytorium, ktore nie odpowiada, jest klonowane z mirrora (`MIRRORS`: memdocs,
+   defender-docs, entra-docs, microsoft-graph-docs) do katalogu o nazwie oryginalu; `learn_changes.py`
+   czyta je jak zawsze. Nota obszaru mowi, skad czytamy i ze historia mirrora zaczyna sie z mirrorem
+   (Intune: 28 IX 2026). Repozytorium bez mirrora: nota „no longer public and no mirror of it is known".
+3. `collect_components.py doc()` — raw z mirrora przed konwersja strony.
+Listy what's new nie zaleza od git (sa czytane ze stron), wiec zamkniecie nie zatrzymuje zakladki Learn;
+traci sie tylko „co zmienilo sie W SRODKU strony" dla repozytoriow bez mirrora — to otwiera decyzja
+wlasciciela o wlasnym mirrorze (`merill/learn-mirror` w osobnym repozytorium).
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
