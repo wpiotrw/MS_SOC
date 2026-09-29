@@ -1,0 +1,14 @@
+https://learn.microsoft.com/en-us/defender-office-365
+https://learn.microsoft.com/en-us/defender-office-365/anti-spam-bulk-complaint-level-bcl-about
+https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
+https://learn.microsoft.com/en-us/defender-office-365/mdo-about
+https://learn.microsoft.com/en-us/defender-office-365/mdo-email-entity-page
+https://learn.microsoft.com/en-us/defender-office-365/quarantine-admin-manage-messages-files
+https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/configure-unified-rbac-defender-office-365
+https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/prompt-injection-protection-defender-for-office-365
+https://learn.microsoft.com/en-us/defender-office-365/submissions-admin-review-user-reported-messages
+https://learn.microsoft.com/en-us/defender-office-365/submissions-teams
+https://learn.microsoft.com/en-us/defender-office-365/submissions-user-reported-messages-custom-mailbox
+https://learn.microsoft.com/en-us/defender-office-365/teams-message-entity-panel
+https://learn.microsoft.com/en-us/defender-office-365/tenant-allow-block-list-teams-domains-configure
+https://learn.microsoft.com/en-us/defender-office-365/zero-hour-auto-purge

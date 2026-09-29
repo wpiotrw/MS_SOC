@@ -1,0 +1,3 @@
+https://learn.microsoft.com/en-us/office/office-365-management-api/get-started-with-office-365-management-apis
+https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference
+https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-service-communications-api-reference

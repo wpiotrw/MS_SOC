@@ -1,0 +1,2 @@
+https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3
+https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-licensing

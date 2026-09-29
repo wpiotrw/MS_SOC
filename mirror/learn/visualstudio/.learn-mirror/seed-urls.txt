@@ -1,0 +1,2 @@
+https://learn.microsoft.com/en-us/visualstudio/ide/visual-studio-github-copilot-admin
+https://learn.microsoft.com/en-us/visualstudio/install/administrative-templates

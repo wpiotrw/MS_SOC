@@ -1,0 +1,10 @@
+https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook
+https://learn.microsoft.com/en-us/fabric/data-factory/kql-activity
+https://learn.microsoft.com/en-us/fabric/data-factory/lookup-activity
+https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-overview
+https://learn.microsoft.com/en-us/fabric/graph/how-graph-works
+https://learn.microsoft.com/en-us/fabric/graph/quickstart
+https://learn.microsoft.com/en-us/fabric/mirroring/catalog-mirroring/azure-monitor-tutorial
+https://learn.microsoft.com/en-us/fabric/mirroring/overview
+https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts
+https://learn.microsoft.com/en-us/fabric/real-time-intelligence/kusto-query-set

@@ -1,0 +1,15 @@
+https://learn.microsoft.com/en-us/rest/api/power-bi/admin/get-power-bi-encryption-keys
+https://learn.microsoft.com/en-us/rest/api/power-bi/admin/groups-get-groups-as-admin
+https://learn.microsoft.com/en-us/rest/api/power-bi/apps/get-apps
+https://learn.microsoft.com/en-us/rest/api/power-bi/capacities/get-capacities
+https://learn.microsoft.com/en-us/rest/api/power-bi/dashboards/get-dashboard
+https://learn.microsoft.com/en-us/rest/api/power-bi/dataflow-storage-accounts/get-dataflow-storage-accounts
+https://learn.microsoft.com/en-us/rest/api/power-bi/dataflows/get-dataflows
+https://learn.microsoft.com/en-us/rest/api/power-bi/datasets/get-datasets
+https://learn.microsoft.com/en-us/rest/api/power-bi/embed-token/generate-token
+https://learn.microsoft.com/en-us/rest/api/power-bi/groups/get-groups
+https://learn.microsoft.com/en-us/rest/api/power-bi/pipelines/get-pipelines
+https://learn.microsoft.com/en-us/rest/api/power-bi/reports/get-reports
+https://learn.microsoft.com/en-us/rest/api/securityinsights/source-control
+https://learn.microsoft.com/en-us/rest/api/securityinsights/source-controls
+https://learn.microsoft.com/en-us/rest/api/storageservices/authorize-with-azure-active-directory
