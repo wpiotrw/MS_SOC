@@ -1,7 +1,7 @@
 {
  "read": "2026-09-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 723,
+ "count": 721,
  "note": null,
  "messages": [
   {
@@ -303,44 +303,6 @@
    ],
    "summary": "Introduction To streamline and improve integration experiences for education customers, we’re retiring several legacy Learning Tools Interoperability (LTI) integrations in Microsoft 365. These tools will be replaced by the unified Microsoft 365 LTI tool, which offers enhanced functionality and ongoing support. When this will happen: The following Education LTI tools will be retired worldwide on Se…",
    "bodyHash": "aa02b745346b5596"
-  },
-  {
-   "id": "MC1162223",
-   "title": "The September 2025 Windows non-security preview update is now available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-09-29",
-   "end": "2026-09-29",
-   "modified": "2025-09-29",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The September 2025 non-security preview update is now available for Windows 11, version 24H2. Information about the contents of this update is available from the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Windows monthly updates explained . Looking to explore upcoming features and improvements…",
-   "bodyHash": "977fa42c11107a65"
-  },
-  {
-   "id": "MC1162224",
-   "title": "Introducing Wi-Fi 7 for enterprise connectivity",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-09-29",
-   "end": "2026-09-29",
-   "modified": "2026-07-29",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Starting with the September 2025 Windows preview non-security update, a significant leap forward in wireless networking reaches Windows 11, version 24H2 and later. Windows 11 has already supported Wi-Fi 7 for consumer access points since 2024. Now, your organization can also benefit from better speed, high throughput, improved reliability, and enhanced security for modern enterprise environments t…",
-   "bodyHash": "022ccb62185c02d2"
   },
   {
    "id": "MC1162857",
@@ -8339,15 +8301,15 @@
    "actionBy": "2026-10-01",
    "start": "2026-08-03",
    "end": "2026-12-28",
-   "modified": "2026-08-25",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 25, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTips, and Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy, which replaces EW…",
-   "bodyHash": "3cf509a3c3e4b616"
+   "summary": "Updated September 29, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by mid-…",
+   "bodyHash": "4c37d92cfaea2942"
   },
   {
    "id": "MC1446797",
@@ -8665,7 +8627,7 @@
   },
   {
    "id": "MC1449180",
-   "title": "Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
+   "title": "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
    "services": [
     "Microsoft Purview"
    ],
@@ -8675,14 +8637,15 @@
    "actionBy": null,
    "start": "2026-08-06",
    "end": "2026-11-30",
-   "modified": "2026-08-06",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These capabilities use Microsoft Defender for Cloud Apps connectors to connect supported non-M…",
-   "bodyHash": "98255baad1ef4318"
+   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These c…",
+   "bodyHash": "665cfb762b3bb411"
   },
   {
    "id": "MC1450128",
@@ -11186,7 +11149,7 @@
    "actionBy": null,
    "start": "2026-09-01",
    "end": "2026-12-21",
-   "modified": "2026-09-01",
+   "modified": "2026-09-29",
    "tags": [
     "New feature",
     "User impact"
@@ -12859,14 +12822,14 @@
    "actionBy": null,
    "start": "2026-09-15",
    "end": "2026-11-23",
-   "modified": "2026-09-23",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 23, 2026: We have updated the content. Thank you for your patience. [What and why:] As part of our overall security initiatives, we’ve created a separate internal application configuration for Outlook attachments, therefore, all standard security and authentication flows will be handled separately. Moreover, Conditional Access policies are now enforced for Outlook attachment oper…",
-   "bodyHash": "5b43f9cc1b6d037e"
+   "summary": "Updated September 29, 2026: We have updated the content. Thank you for your patience. [What and why:] As part of our overall security initiatives, we’ve created a separate internal application configuration for Outlook attachments, therefore, all standard security and authentication flows will be handled separately. Moreover, Conditional Access policies are now enforced for Outlook attachment oper…",
+   "bodyHash": "3f7e89375a85e820"
   },
   {
    "id": "MC1472592",
@@ -14004,7 +13967,7 @@
    "actionBy": null,
    "start": "2026-09-24",
    "end": "2026-10-23",
-   "modified": "2026-09-24",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -14106,14 +14069,14 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-10-30",
-   "modified": "2026-09-25",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
     "New feature",
     "User impact"
    ],
    "summary": "[What and why] Microsoft is introducing support for Microsoft Agent 365 agents that implement the Agent2Agent (A2A) protocol, allowing them to be used as connected agents in declarative agents built with Microsoft 365 Agents Toolkit. This enhancement expands the types of external agent services that declarative agents can connect to. In addition to existing support for OpenAPI and Model Context Pr…",
-   "bodyHash": "b29d08237c2ed637"
+   "bodyHash": "3533a851a1b5317b"
   },
   {
    "id": "MC1479296",
@@ -14278,7 +14241,7 @@
   },
   {
    "id": "MC1479514",
-   "title": "Microsoft Teams: File sharing enabled by default in external (federated) chats",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
    "services": [
     "Microsoft Teams"
    ],
@@ -14288,13 +14251,14 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-12-23",
-   "modified": "2026-09-25",
+   "modified": "2026-09-29",
    "tags": [
     "Admin impact",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are updating Microsoft Teams file sharing in external (federated) chats by changing the default setting from Disabled to Enabled. Today, admins must explicitly enable file sharing in external chats before users can attach files when collaborating with people outside their organization. This update simplifies cross-organization collaboration by allowing users to attach files direc…",
-   "bodyHash": "f3c0d16015498cd4"
+   "summary": "Updated September 29, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. Existing OneDrive, SharePoint, and security controls continue to govern access. This update does not change your OneDri…",
+   "bodyHash": "085db1eb9fc12bcf"
   },
   {
    "id": "MC1479516",
@@ -15246,6 +15210,112 @@
    "id": "MC1482225",
    "type": "new",
    "title": "How to get the Windows 11 2026 Update",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1446796",
+   "type": "changed",
+   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+   "fields": {
+    "bodyHash": [
+     "3cf509a3c3e4b616",
+     "4c37d92cfaea2942"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1449180",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
+   "fields": {
+    "title": [
+     "Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
+     "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "98255baad1ef4318",
+     "665cfb762b3bb411"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1472591",
+   "type": "changed",
+   "title": "(Updated) Enhanced security and access controls for Outlook attachments",
+   "fields": {
+    "bodyHash": [
+     "5b43f9cc1b6d037e",
+     "3f7e89375a85e820"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1478975",
+   "type": "changed",
+   "title": "Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
+   "fields": {
+    "bodyHash": [
+     "b29d08237c2ed637",
+     "3533a851a1b5317b"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1479514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
+   "fields": {
+    "title": [
+     "Microsoft Teams: File sharing enabled by default in external (federated) chats",
+     "(Updated) Microsoft Teams: Improved file sharing experience in external chats"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "f3c0d16015498cd4",
+     "085db1eb9fc12bcf"
+    ]
+   }
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1162223",
+   "type": "removed",
+   "title": "The September 2025 Windows non-security preview update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-29",
+   "id": "MC1162224",
+   "type": "removed",
+   "title": "Introducing Wi-Fi 7 for enterprise connectivity",
    "fields": {}
   }
  ]
