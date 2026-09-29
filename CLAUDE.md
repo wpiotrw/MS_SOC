@@ -12981,6 +12981,9 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
         if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2) return;
         var s = document.createElement("select");
         s.className = "s9f"; s.dataset.col = String(ci);
+        /* §5ch (29 IX 2026): named from THIS table's own column. a11y2 named it later from the first
+           table in the enclosing <details>, so the roles table said "Filter by What / Entry / Field" */
+        s.setAttribute("aria-label", "Filter by " + h);
         var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
         s.appendChild(o0);
         keys.sort().forEach(function (k) {
@@ -14565,7 +14568,9 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     ["Graph permission", "Coverage", "Depth", "Endpoints"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
     th.appendChild(hr); tb.appendChild(th);
     var body = el("tbody");
-    cov.slice(0, 25).forEach(function (c) {
+    /* §5ch (29 IX 2026): EVERY covered permission, strongest first. The table stopped at 25 while the
+       header said 37 (Security Administrator), and its search could not find the other 12 */
+    cov.forEach(function (c) {
       var tr = el("tr");
       var c0 = el("td", "rname mono", c.perm); tr.appendChild(c0);
       var c1 = el("td"); c1.appendChild(el("b", null, c.pct + "%")); tr.appendChild(c1);
@@ -14577,11 +14582,11 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
     });
     tb.appendChild(body); tw.appendChild(tb);
     var sbc = sbox(tb, { noun: "permissions",
-      placeholder: "Search " + Math.min(25, cov.length) + " permissions\u2026" });
+      placeholder: "Search these " + cov.length + " permissions\u2026" });
     if (sbc) sec.appendChild(sbc);
     sec.appendChild(tw);
-    sec.appendChild(el("p", "note", cov.length + " permissions reach 50% or better; the " +
-      Math.min(25, cov.length) + " strongest are shown. Whole resource beats property-limited at equal coverage."));
+    sec.appendChild(el("p", "note", cov.length + " permissions reach 50% or better, strongest first. " +
+      "Whole resource beats property-limited at equal coverage."));
     return sec;
   }
 
@@ -25704,6 +25709,62 @@ wspolny koniec obu sie odrzuca, reszta jest mapowaniem (`repo_to_url`, `canon`).
 tylko `gate.py` i `make_diff.py`) — wypelnia go przebieg. Czy jego adresy tez sie naprawia, pokaze
 pierwszy poranny przebieg po tej zmianie: bramka 68c i `linkAudit.deadList`.
 
+### §5ch (29 IX 2026) — Graph API i Roles: uklad z zaakceptowanej makiety
+
+Wlasciciel zaakceptowal 29 IX makiete „SOC Brief — Graph API i Roles" (artefakt Design, 4 plansze).
+Warstwa jest DOPISANA na koncu SKRYPTU 17 (nowy numer skryptu wymagalby zmian w `extract_code.py`,
+`code_refresh.py` i szkielecie strony); niczego, co buduja skrypty 6, 7, 8, §5cd i §5by, nie usuwa ani
+nie przenosi. **Wyszukiwarki w podtabelach (endpointy, role, akcje, uprawnienia) zostaja — to
+mapowania wlasciciela.**
+
+| element makiety | jak zrobione |
+|---|---|
+| jedno pole + „Look in" | pod zielonym polem przelacznik zakresow. Domyslny = to, co pole robilo zawsze. „Everything" przekazuje tekst polu katalogu z szuflady Filters. Graph API: PowerShell cmdlets (`gcmd.least` odwrocone), Entra roles (`__socRoleIndex.cover`), Apps (`fpa`); Roles: Graph permissions (pokrycie odwrocone). Wynik to lista trafien do otwarcia; w tym czasie filtr listy nie jest karmiony (faza capture). Skrot `/` ustawia kursor w polu |
+| okruszki + Copy link | `Graph API › Permissions › <nazwa>` / `Roles › Entra roles › <nazwa>`; link to istniejacy `#graph:perm=` / `#roles:role=`. Link otwiera teraz najpierw zakladke (29 IX otwieral Overview) |
+| Copy przy identyfikatorach | przycisk przy kazdym GUID w panelu (identyfikatory uprawnien, Template ID, appId) |
+| liczby jako skoki, przyklejone | `nav.s5by-jump` przyklejony pod paskiem wyszukiwania; brakujace liczby (np. „Entra roles that can do this 10") liczone z tabeli sekcji |
+| What changed | przelacznik w miejscu tabeli 14 dni: „14 days · catalog fields" / „7 days · entries". To NIE sa duplikaty (14 dni = pola katalogu, 7 dni = wpisy/endpointy); zadna nie jest przenoszona — SKRYPT 17 buduje `details.g7` na nowo, gdy nie znajdzie go w jego sekcji, a widoki lapia `.s8top > details.chg14` |
+
+Poprawki u zrodla przy okazji: `sbox` (SKRYPT 6) nadaje liscie etykiete z WLASNEJ kolumny — `a11y2` brala
+naglowki z pierwszej tabeli w `<details>` i lista pokrycia mowila „Filter by What / Entry / Field";
+tabela pokrycia roli (SKRYPT 7) pokazuje WSZYSTKIE uprawnienia — ucinala na 25, a naglowek mowil 37
+(Security Administrator) i 12 nie dalo sie znalezc.
+
+Test 29 IX (Playwright na stronie z tym kodem, 20 sprawdzen, 20 zaliczonych): zakresy Look in
+(„Get-MgUserMemberOf" -> 8 polecen, „teams" -> 14 aplikacji, „Global Reader" -> 1 rola), klik trafienia
+otwiera wpis i wraca do zakresu domyslnego, okruszki i Copy link, 42 przyciski Copy w Directory.Read.All,
+pasek przyklejony, „Entra roles that can do this 10", etykiety list „Filter by Coverage / Depth /
+Endpoints covered", przelacznik 14/7 dni widoczny tylko w What changed, Roles: 37 wierszy pokrycia,
+link `#graph:perm=User.Read.All` otwiera zakladke i wpis, telefon 390 px bez poziomego przewijania.
+
+Etap B (po tym): sciezka powiazan miedzy encjami i porownanie dwoch elementow obok siebie.
+
+```css
+/* §5ch (29 IX 2026): catalog Find layout — Look in, path + Copy link, Copy beside GUIDs,
+   "In this panel" kept in view, one switch for the two change tables */
+.s5ch-scope{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 2px}
+.s5ch-lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:4px}
+.s5ch-scope button,.s5ch-win button{height:28px;padding:0 12px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);font:inherit;font-size:12.5px;cursor:pointer}
+.s5ch-scope button[aria-pressed="true"],.s5ch-win button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.s5ch-scope button:focus-visible,.s5ch-win button:focus-visible,.s5ch-hit:focus-visible,.s5ch-cp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s5ch-res{margin:8px 0 12px;padding:10px 12px;border:1px solid var(--accent);border-radius:8px;background:var(--accent-soft);display:flex;flex-direction:column;gap:6px;max-height:420px;overflow:auto}
+.s5ch-sum,.s5ch-hint{margin:0;font-size:13px;font-weight:600;color:var(--text)}
+.s5ch-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 0;border-top:1px solid var(--border-soft)}
+.s5ch-k{font-weight:600;font-size:13px}
+.s5ch-l{font-size:12px;color:var(--muted)}
+.s5ch-hit{height:24px;padding:0 8px;border:1px solid var(--border);border-radius:5px;background:var(--surface);color:var(--accent);font-size:12px;cursor:pointer}
+.s5ch-hit:hover{border-color:var(--accent)}
+.s5ch-path{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:12.5px;color:var(--muted)}
+.s5ch-path b{color:var(--text)}
+.s5ch-crumbs{flex-grow:1;min-width:0;overflow-wrap:anywhere}
+.s5ch-cp{height:26px;padding:0 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.s5ch-cpg{height:20px;padding:0 6px;margin-left:8px;font-size:11px;vertical-align:middle}
+nav.s5by-jump.s5ch-stick{position:sticky;z-index:5;background:var(--surface);box-shadow:0 1px 0 var(--border)}
+.s5ch-win{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 6px}
+.s5ch-res[hidden],.s5ch-win[hidden]{display:none}
+```
+
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -31397,6 +31458,315 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("click", function (e) {
       if (e.target && e.target.closest && e.target.closest(".s5ca-it, nav.anchors .tab, .s5br-item")) setTimeout(run, 300);
     }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+
+/* ===========================================================================
+   §5ch — CATALOG FIND LAYOUT (29 IX 2026): the owner approved the mock
+   "SOC Brief — Graph API i Roles" the same evening. ADDED on top of scripts 6,
+   7, 8 and §5cd/§5by; nothing they build is removed or moved. Graph API and
+   Roles get:
+   1. "Look in" under the ONE green search box. The default scope is what the
+      box always did (name, endpoint path, ID, directory action). "Everything"
+      hands the text to the catalog-wide box of the Filters drawer. The other
+      scopes answer from the state block: `gcmd` (PowerShell commands),
+      `fpa` (apps), `__socRoleIndex.cover` (role <-> permission coverage), and
+      list hits you can open. While such a scope is on, the box's own list filter
+      is not fed (the text is a cmdlet or an app, not a permission name).
+   2. A path line over the open entry, and "Copy link" giving the deep link the
+      catalog already reads (#graph:perm= / #roles:role=). The deep link now
+      switches to the tab first; 29 IX it opened on Overview.
+   3. "Copy" beside every GUID in the entry.
+   4. "In this panel" stays in view while the entry scrolls, and every jump
+      button carries its count (the roles table had none).
+   5. What changed: one switch between the 14-day and the 7-day table. They are
+      NOT duplicates (14 days = catalog fields, 7 days = entries/endpoints), so
+      both stay; the switch shows one at a time, in the 14-day table's place.
+   Sub-table search boxes (endpoints, roles, actions, permissions) are the
+   owner's mapping tools and are not touched. ALL UI TEXT IS ENGLISH.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var ST = jb("soc-brief-state") || {}, GC = ST.gcmd || null, FP = ST.fpa || null;
+  var GRAPH = "00000003-0000-0000-c000-000000000000";
+  var GUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  var CFG = {
+    "tab-graph": { cat: "graph", label: "Graph API", kind: "Permissions", hash: "graph:perm",
+      scopes: [["", "Permissions & endpoints"], ["all", "Everything"], ["cmd", "PowerShell cmdlets"], ["role", "Entra roles"], ["app", "Apps"]] },
+    "tab-roles": { cat: "roles", label: "Roles", kind: "Entra roles", hash: "roles:role",
+      scopes: [["", "Roles & directory actions"], ["all", "Everything"], ["perm", "Graph permissions"]] }
+  };
+  var scope = {};
+
+  /* ---------- opening an entry, in either tab ---------- */
+  function tabBtn(id) { return document.getElementById("tabbtn-" + id) || document.querySelector('nav.anchors .tab[aria-controls="' + id + '"]'); }
+  function openEntry(tabId, name) {
+    var b = tabBtn(tabId); if (b && b.getAttribute("aria-selected") !== "true") b.click();
+    var p = document.getElementById(tabId); if (!p) return;
+    var fv = p.querySelector('.s5cd-bar button[data-v]');
+    if (fv && p.getAttribute("data-s5cd") && p.getAttribute("data-s5cd") !== fv.getAttribute("data-v")) fv.click();
+    setScope(tabId, "");
+    var q = p.querySelector("input.cat-search");
+    if (q) { q.value = name; q.dispatchEvent(new Event("input", { bubbles: true })); }
+    setTimeout(function () {
+      var inner = (tabId === "tab-graph" ? window.__socOpenPerm : window.__socOpenRole);
+      inner = inner && inner(name);
+      var d = inner || p.querySelector(".cat-detail");
+      if (d && d.scrollIntoView) d.scrollIntoView({ block: "start" });
+    }, 220);
+  }
+  function hitBtn(text, tabId, name, title) {
+    var b = el("button", "s5ch-hit mono", text); b.type = "button";
+    if (title) b.title = title;
+    b.addEventListener("click", function () { openEntry(tabId, name); });
+    return b;
+  }
+
+  /* ---------- indexes, built once, from the state block ---------- */
+  var IX = null;
+  function index() {
+    if (IX) return IX;
+    IX = { cmd: [], app: [], role: [], perm: {} };
+    if (GC && GC.least && GC.cmds) {
+      var inv = {};
+      Object.keys(GC.least).forEach(function (perm) {
+        (GC.least[perm] || []).forEach(function (i) { (inv[i] = inv[i] || []).push(perm); });
+      });
+      Object.keys(inv).forEach(function (i) { IX.cmd.push({ n: GC.cmds[i], m: GC.mods ? GC.mods[GC.cm[i]] || "" : "", perms: inv[i].sort() }); });
+    }
+    if (FP && FP.apps) {
+      var dic = FP.dic || [];
+      FP.apps.forEach(function (a) {
+        var s = ((a.sc || {})[GRAPH] || []).map(function (k) { return dic[k]; }).filter(Boolean);
+        if (s.length) IX.app.push({ n: (a.n || "").trim() || a.id, id: a.id, perms: s.sort() });
+      });
+    }
+    var RI = window.__socRoleIndex, cov = (RI && RI.cover) || {};
+    Object.keys(cov).forEach(function (r) {
+      var list = (cov[r] || []).slice().sort(function (a, b) { return (b.pct || 0) - (a.pct || 0); });
+      IX.role.push({ n: r, perms: list });
+      list.forEach(function (c) { (IX.perm[c.perm] = IX.perm[c.perm] || []).push({ role: r, pct: c.pct, broad: c.broad }); });
+    });
+    return IX;
+  }
+
+  /* ---------- the results of a non-default scope ---------- */
+  function results(tabId, sc, v) {
+    var p = document.getElementById(tabId), host = p && p.querySelector(".s5ch-res");
+    if (!host) return;
+    host.textContent = "";
+    v = (v || "").trim().toLowerCase();
+    if (!sc) { host.hidden = true; return; }
+    host.hidden = false;
+    if (v.length < 2) { host.appendChild(el("p", "s5ch-hint", "Type at least two characters.")); return; }
+    var I = index(), rows = [], noun = "", LIM = 40;
+    if (sc === "cmd") {
+      noun = "PowerShell commands";
+      rows = I.cmd.filter(function (c) { return c.n.toLowerCase().indexOf(v) >= 0; });
+      rows.sort(function (a, b) { return a.n.length - b.n.length || (a.n < b.n ? -1 : 1); });
+      rows = rows.map(function (c) {
+        var r = el("div", "s5ch-row"); r.appendChild(el("span", "s5ch-k mono", c.n));
+        r.appendChild(el("span", "s5ch-l", "least privilege:"));
+        c.perms.forEach(function (x) { r.appendChild(hitBtn(x, "tab-graph", x)); });
+        return r;
+      });
+    } else if (sc === "app") {
+      noun = "apps";
+      rows = I.app.filter(function (a) { return a.n.toLowerCase().indexOf(v) >= 0 || a.id.toLowerCase().indexOf(v) >= 0; })
+        .map(function (a) {
+          var r = el("div", "s5ch-row"); r.appendChild(el("span", "s5ch-k", a.n));
+          r.appendChild(el("span", "s5ch-l mono", a.id));
+          a.perms.slice(0, 12).forEach(function (x) { r.appendChild(hitBtn(x, "tab-graph", x)); });
+          if (a.perms.length > 12) r.appendChild(el("span", "s5ch-l", "+" + (a.perms.length - 12) + " more"));
+          return r;
+        });
+    } else if (sc === "role") {
+      noun = "Entra roles";
+      rows = I.role.filter(function (x) { return x.n.toLowerCase().indexOf(v) >= 0; }).map(function (x) {
+        var r = el("div", "s5ch-row"); r.appendChild(hitBtn(x.n + " ›", "tab-roles", x.n, "Open this role in Roles"));
+        r.appendChild(el("span", "s5ch-l", x.perms.length + " Graph permissions at 50% or better:"));
+        x.perms.slice(0, 8).forEach(function (c) { r.appendChild(hitBtn(c.perm + " " + c.pct + "%", "tab-graph", c.perm)); });
+        return r;
+      });
+    } else if (sc === "perm") {
+      noun = "Graph permissions";
+      rows = Object.keys(I.perm).filter(function (k) { return k.toLowerCase().indexOf(v) >= 0; }).sort().map(function (k) {
+        var r = el("div", "s5ch-row"); r.appendChild(hitBtn(k + " ›", "tab-graph", k, "Open this permission in Graph API"));
+        var rs = I.perm[k].slice().sort(function (a, b) { return (b.pct || 0) - (a.pct || 0); });
+        r.appendChild(el("span", "s5ch-l", rs.length + " role" + (rs.length === 1 ? "" : "s") + " cover it:"));
+        rs.slice(0, 8).forEach(function (c) { r.appendChild(hitBtn(c.role + " " + c.pct + "%", "tab-roles", c.role)); });
+        return r;
+      });
+    }
+    var n = rows.length;
+    if (n === 1) noun = { "PowerShell commands": "PowerShell command", "apps": "app", "Entra roles": "Entra role", "Graph permissions": "Graph permission" }[noun] || noun;
+    host.appendChild(el("p", "s5ch-sum", n ? n + " " + noun + (n === 1 ? " matches" : " match") + " “" + v + "”" + (n > LIM ? " — the first " + LIM + " are shown" : "") :
+      "No " + noun + " match “" + v + "”."));
+    rows.slice(0, LIM).forEach(function (r) { host.appendChild(r); });
+  }
+
+  function setScope(tabId, sc) {
+    var p = document.getElementById(tabId); if (!p) return;
+    scope[tabId] = sc;
+    [].forEach.call(p.querySelectorAll(".s5ch-scope button"), function (b) { b.setAttribute("aria-pressed", String((b.getAttribute("data-sc") || "") === sc)); });
+    var q = p.querySelector("input.cat-search"), v = q ? q.value : "";
+    if (sc === "all") {
+      var big = [].filter.call(p.querySelectorAll("input"), function (i) { return /^Search all /.test(i.placeholder || ""); })[0];
+      if (big) { big.value = v; big.dispatchEvent(new Event("input", { bubbles: true })); }
+    }
+    results(tabId, sc === "all" ? "" : sc, v);
+    if (!sc && q) q.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+
+  function lookIn(p, c) {
+    var row = p.querySelector(".catalog .cat-searchrow");
+    if (!row || row.parentNode.querySelector(".s5ch-scope")) return;
+    var bar = el("div", "s5ch-scope"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "Look in");
+    bar.appendChild(el("span", "s5ch-lab", "Look in"));
+    c.scopes.forEach(function (s) {
+      var b = el("button", null, s[1]); b.type = "button"; b.setAttribute("data-sc", s[0]); b.setAttribute("aria-pressed", String(!s[0]));
+      b.addEventListener("click", function () { setScope(p.id, s[0]); var q = p.querySelector("input.cat-search"); if (q) q.focus(); });
+      bar.appendChild(b);
+    });
+    row.parentNode.insertBefore(bar, row.nextSibling);
+    var res = el("div", "s5ch-res"); res.hidden = true; res.setAttribute("aria-live", "polite");
+    bar.parentNode.insertBefore(res, bar.nextSibling);
+    /* capture phase: while a custom scope is on, the box's own list filter is not fed */
+    p.addEventListener("input", function (e) {
+      var t = e.target;
+      if (!t || !t.matches || !t.matches("input.cat-search")) return;
+      var sc = scope[p.id] || "";
+      if (sc && sc !== "all") { e.stopPropagation(); results(p.id, sc, t.value); }
+      else if (sc === "all") {
+        var big = [].filter.call(p.querySelectorAll("input"), function (i) { return /^Search all /.test(i.placeholder || ""); })[0];
+        if (big && big !== t) { big.value = t.value; big.dispatchEvent(new Event("input", { bubbles: true })); }
+      }
+    }, true);
+    /* "/" focuses the box of the open tab, as on the sites the owner compares with */
+    if (!window.__s5chSlash) {
+      window.__s5chSlash = 1;
+      document.addEventListener("keydown", function (e) {
+        if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+        var a = document.activeElement; if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+        var tp = document.querySelector('.tabpanel:not([hidden]) input.cat-search');
+        if (tp && tp.offsetParent) { e.preventDefault(); tp.focus(); }
+      });
+    }
+  }
+
+  /* ---------- the open entry: path, Copy link, Copy beside GUIDs, counts ---------- */
+  function copy(text, btn) {
+    function done(ok) { var o = btn.textContent; btn.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { btn.textContent = o; }, 1400); }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { fallback(); });
+    } catch (e) { fallback(); }
+    function fallback() {
+      var i = el("input"); i.value = text; i.setAttribute("aria-label", "Link"); btn.parentNode.insertBefore(i, btn.nextSibling);
+      i.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      if (ok) i.remove(); done(ok);
+    }
+  }
+  function enhance(p, c) {
+    var pane = p.querySelector(".catalog .cat-detail-inner .v13pane");
+    if (!pane) return;
+    var h = pane.querySelector("header h2"); if (!h) return;
+    var name = h.textContent.trim();
+    if (pane.getAttribute("data-s5ch") !== name) {
+      pane.setAttribute("data-s5ch", name);
+      var old = pane.querySelector(":scope > .s5ch-path"); if (old) old.remove();
+      var path = el("div", "s5ch-path");
+      var crumbs = el("span", "s5ch-crumbs");
+      crumbs.appendChild(el("span", null, c.label + " › " + c.kind + " › "));
+      crumbs.appendChild(el("b", c.cat === "graph" ? "mono" : null, name));
+      path.appendChild(crumbs);
+      var cl = el("button", "s5ch-cp", "Copy link"); cl.type = "button";
+      cl.addEventListener("click", function () {
+        copy(location.origin + location.pathname + "#" + c.hash + "=" + encodeURIComponent(name), cl);
+      });
+      path.appendChild(cl);
+      pane.insertBefore(path, pane.firstChild);
+    }
+    [].forEach.call(pane.querySelectorAll("td, dd, span.mono, code"), function (n) {
+      if (n.getAttribute("data-s5ch-g") || n.querySelector("td, dd, span, code, button")) return;
+      var t = (n.textContent || "").trim(); if (!GUID.test(t)) return;
+      n.setAttribute("data-s5ch-g", "1");
+      var b = el("button", "s5ch-cp s5ch-cpg", "Copy"); b.type = "button"; b.setAttribute("aria-label", "Copy " + t);
+      b.addEventListener("click", function (e) { e.stopPropagation(); copy(t, b); });
+      n.appendChild(b);
+    });
+    var nav = pane.querySelector("nav.s5by-jump");
+    if (nav) {
+      nav.classList.add("s5ch-stick");
+      var ctl = p.querySelector(".catalog .cat-controls");
+      var top = 0;
+      if (ctl) { var cs = getComputedStyle(ctl); if (cs.position === "sticky") top = (parseFloat(cs.top) || 0) + ctl.getBoundingClientRect().height; }
+      nav.style.top = (top || 72) + "px";
+      [].forEach.call(nav.querySelectorAll("button.s5by-jb"), function (b) {
+        if (b.querySelector(".s5by-jn") || /\d/.test(b.textContent || "")) return;   /* a label that already carries its number */
+        var lab = ((b.querySelector("span") || b).textContent || "").replace(/…$/, "").trim().toLowerCase();
+        if (!lab) return;
+        var sec = [].filter.call(pane.querySelectorAll(".sec, details"), function (s) {
+          var t = s.querySelector(":scope > h3, :scope > summary");
+          return t && t.textContent.trim().toLowerCase().indexOf(lab) === 0;
+        })[0];
+        var tb = sec && sec.querySelector("table tbody");
+        var n = tb ? [].filter.call(tb.rows, function (r) { return !r.classList.contains("hdet"); }).length : 0;
+        if (n) b.appendChild(el("span", "s5by-jn", String(n)));
+      });
+    }
+  }
+
+  /* ---------- What changed: one switch, two tables ---------- */
+  function winSwitch(p) {
+    var a = p.querySelector(".s8top > details.chg14"), g = p.querySelector("details.g7");
+    if (!a || !g || p.querySelector(".s5ch-win")) return;
+    function num(d) { var m = /(\d[\d\s,]*)/.exec(((d.querySelector("summary") || {}).textContent || "").replace(/What changed in the last \d+ days/i, "")); return m ? m[1].replace(/[\s,]/g, "") : ""; }
+    var bar = el("div", "s5ch-win"); bar.setAttribute("data-s5cd-v", "chg"); bar.setAttribute("role", "group");
+    bar.setAttribute("aria-label", "Which table of this brief's changes");
+    bar.appendChild(el("span", "s5ch-lab", "This brief's change log"));
+    var opts = [["14", "14 days · catalog fields", a], ["7", "7 days · entries", g]];
+    opts.forEach(function (o) {
+      var n = num(o[2]);
+      var b = el("button", null, o[1] + (n ? " · " + Number(n).toLocaleString("en-US").replace(/,/g, " ") : "")); b.type = "button";
+      b.setAttribute("data-w", o[0]);
+      b.addEventListener("click", function () { pick(o[0]); });
+      bar.appendChild(b);
+    });
+    function pick(w) {
+      opts.forEach(function (o) { o[2].hidden = o[0] !== w; if (o[0] === w) o[2].open = true; });
+      [].forEach.call(bar.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-w") === w)); });
+    }
+    a.parentNode.insertBefore(bar, a);
+    pick("14");
+  }
+
+  /* ---------- deep link: switch to the tab first ---------- */
+  function fromHash() {
+    var m = /^#(graph:perm|roles:role)=(.+)$/.exec(decodeURIComponent(location.hash || ""));
+    if (!m) return;
+    openEntry(m[1] === "graph:perm" ? "tab-graph" : "tab-roles", m[2]);
+  }
+
+  function run() {
+    Object.keys(CFG).forEach(function (id) {
+      var p = document.getElementById(id); if (!p) return;
+      try { lookIn(p, CFG[id]); enhance(p, CFG[id]); winSwitch(p); } catch (e) { if (window.console) console.error("[5ch " + id + "]", e); }
+    });
+  }
+  function start() {
+    run();
+    [900, 2000, 3800, 6000, 9500].forEach(function (t) { setTimeout(run, t); });
+    setTimeout(fromHash, 1200);
+    window.addEventListener("hashchange", fromHash);
+    document.addEventListener("click", function (e) {
+      if (e.target && e.target.closest && e.target.closest(".cat-item, .s5ch-hit, nav.anchors .tab, .s5cd-bar button")) {
+        setTimeout(run, 350); setTimeout(run, 1200);
+      }
+    }, true);
+    window.addEventListener("resize", function () { setTimeout(run, 100); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
