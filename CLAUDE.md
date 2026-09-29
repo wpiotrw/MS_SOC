@@ -11714,6 +11714,16 @@ def doc(repo, path, depth=0, url=None):
             md = curl("https://raw.githubusercontent.com/%s/main/%s" % (MIR[repo], path))
             if md.strip().startswith("404") or len(md) < 200: md = ""
             else: how = "mirror " + MIR[repo]
+    # §5cf: our own copy in this repository, third after the clone/raw and Merill's mirror
+    if not md and url:
+        segs = [s for s in re.sub(r"^https?://[^/]+/", "", url.split("?")[0].split("#")[0]).split("/") if s]
+        if segs and re.match(r"^[a-z]{2}(-[a-z]{2,4})?$", segs[0].lower()): segs = segs[1:]
+        if segs:
+            own = os.path.join(os.environ.get("SOC_REPO") or ".", "mirror", "learn", segs[0].lower(), path)
+            if os.path.isfile(own):
+                md = open(own, encoding="utf-8").read()
+                if len(md) >= 200: how = "own mirror mirror/learn/" + segs[0].lower()
+                else: md = ""
     if not md and url:
         how = "learn.microsoft.com"
         md = learn_text(url)
@@ -20486,7 +20496,13 @@ def one(s):
             rec["note"]=("%s/%s is no longer public; read from %s, rebuilt from the published Learn pages "
                          "at the same paths (its history starts when the mirror did)"%(org,pub,mir))
         else:
-            rec["note"]="%s/%s is no longer public and no mirror of it is known"%(org,pub)
+            own=own_mirror(url,path)
+            if own:
+                rec["ownMirror"]=own
+                rec["note"]=("%s/%s is no longer public; read from our own copy %s, rebuilt from the published "
+                             "Learn pages (§5cf; its history starts on 29 IX 2026)"%(org,pub,own))
+            else:
+                rec["note"]="%s/%s is no longer public and no mirror of it is known"%(org,pub)
     return rec
 
 # §5ce (29 IX 2026): public mirrors of retired MicrosoftDocs repositories, built by merill/learn-mirror
@@ -20496,6 +20512,18 @@ MIRRORS={"memdocs":"merill/intune-docs-mirror","defender-docs":"merill/defender-
          # Graph's pages name the private -pr repository; the public contrib one carries the same tree
          "microsoft-graph-docs":"microsoftgraph/microsoft-graph-docs-contrib"}
 _PUB={}
+def own_mirror(url,path):
+    """§5cf (29 IX 2026): our own copy in the MS_SOC repository, third after MicrosoftDocs and
+    Merill's mirrors. learn-mirror writes each page to mirror/learn/<first URL segment>/<source_path>.
+    The area's own page is usually a hub `index.yml`, which Learn does not serve as Markdown, so the
+    test is the area's DIRECTORY in the copy - learn_changes.py reads that directory, not the hub."""
+    root=__import__("os").environ.get("SOC_REPO") or "."
+    segs=[p for p in re.sub(r"^https?://[^/]+/","",url.split("?")[0].split("#")[0]).split("/") if p]
+    if segs and re.match(r"^[a-z]{2}(-[a-z]{2,4})?$",segs[0].lower()): segs=segs[1:]
+    if not segs or not path: return None
+    rel="mirror/learn/%s"%segs[0].lower()
+    d=path.rsplit("/",1)[0] if "/" in path else ""
+    return rel if __import__("os").path.isdir(__import__("os").path.join(root,rel,d)) else None
 def public(org,repo):
     k=org+"/"+repo
     if k not in _PUB:
@@ -20527,6 +20555,7 @@ JEDNO wywolanie `git log --numstat` na obszar, nie jedno na plik: w klonie blobl
 kazde numstat dociaga bloby, a wywolanie per plik zamienia to w setki rund sieciowych."""
 import json,subprocess,sys,os,datetime,collections
 BULK=60; WIN=14
+SOC_REPO=os.path.abspath(os.environ.get("SOC_REPO") or ".")  # §5cf: holds mirror/learn/
 # data przebiegu, nigdy zapisana na sztywno: `SOC_DATE=RRRR-MM-DD` albo dzis (0a)
 TODAY=datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
 
@@ -20542,15 +20571,26 @@ def area(a):
          "repo":a.get("repo"),"dir":a.get("dir"),"method":None,"note":a.get("note",""),
          "pages":[],"bulk":[],"commits":0,"add":0,"rem":0}
     repo=os.path.join("repos",a.get("repo") or "")
-    if not a.get("repo") or not os.path.isdir(repo):
+    # §5cf: a retired repository without Merill's mirror is read from our own copy in THIS repository
+    # (SOC_REPO), mirror/learn/<segment>/. Only modified and deleted pages count there: the copy's first
+    # commit (29 IX 2026) ADDED every page at once, and a page entering the copy's scope is not a change
+    # on Learn - read as additions, it would be 676 "changes" in one day.
+    own=a.get("ownMirror"); prefix=""; only=[]
+    if own and os.path.isdir(os.path.join(SOC_REPO,own)):
+        repo=SOC_REPO; prefix=own+"/"; only=["--diff-filter=MD"]
+        if os.path.exists(os.path.join(SOC_REPO,".git","shallow")):
+            # a shallow clone keeps only the newest commit; fetch the window before reading it
+            git(repo,"fetch","-q","--shallow-since",(TODAY-datetime.timedelta(days=WIN+1)).isoformat(),"origin",timeout=180)
+        rec["method"]="git"
+    elif not a.get("repo") or not os.path.isdir(repo):
         rec["method"]="snapshot"
         rec["note"]=rec["note"] or ("no public mirror for %s — this area is read by snapshot, not by git"
                                     % (a.get("repo") or "this area"))
         return rec
     rec["method"]="git"
     since=(TODAY-datetime.timedelta(days=WIN)).isoformat()
-    d=a.get("dir") or "."
-    raw=git(repo,"log","--since",since,"--pretty=format:@@%H|%cI|%s","--numstat","--",d)
+    d=(prefix+(a.get("dir") or "")).rstrip("/") or "."
+    raw=git(repo,"log","--since",since,"--pretty=format:@@%H|%cI|%s","--numstat",*only,"--",d)
     cur=None; per=collections.OrderedDict()
     for line in raw.split("\n"):
         if line.startswith("@@"):
@@ -20559,7 +20599,11 @@ def area(a):
         elif line.strip() and cur is not None:
             p=line.split("\t")
             if len(p)==3:
-                f=p[2]
+                f=p[2][len(prefix):] if prefix and p[2].startswith(prefix) else p[2]
+                # §5cg: numstat writes a rename as `dir/{old => new}/file` - keep the NEW path, a
+                # page address built from the brace form is not an address (measured 29 IX, Intune)
+                f=__import__("re").sub(r"\{[^{}]*? => ([^{}]*)\}",r"\1",f).replace("//","/")
+                if " => " in f: f=f.split(" => ",1)[1]   # a whole-path rename carries no braces
                 if f.endswith(".md") or f.endswith(".yml"):
                     cur["files"].append((f,int(p[0]) if p[0].isdigit() else 0,
                                           int(p[1]) if p[1].isdigit() else 0))
@@ -20849,6 +20893,66 @@ MON={m:i for i,m in enumerate(["january","february","march","april","may","june"
      "august","september","october","november","december"],1)}
 LINK=re.compile(r"\[([^\]]+)\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 def abs_url(target,area_url,repo_path):
+    """§5cg (29 IX 2026): a link in a what's-new page, resolved the way Learn resolves it.
+    Before: the target was glued to the page's folder (`entra/fundamentals` + `../identity/x` ->
+    `entra/fundamentals/identity/x`) and a root link got a second `/en-us` - measured that day on
+    Entra's what's new: 60 of 60 relative links 404. Now: resolved in the repository tree and
+    translated with repo_to_url - 52 of 60 answered 200, the other 8 were the `/en-us/...` case."""
+    t=target.strip()
+    if t.startswith("http"): return t
+    if t.startswith("/"):
+        t=t.split("#")[0]
+        return "https://learn.microsoft.com"+(t if re.match(r"^/[a-z]{2}-[a-z]{2,4}/",t) else "/en-us"+t)
+    if t.startswith("~/"):
+        # docfx: `~/` is the docset's root - the prefix repo_to_url finds, not this page's folder
+        return repo_to_url(t[2:],area_url,repo_path,rooted=True) or area_url
+    import posixpath
+    tgt=posixpath.normpath(posixpath.join(posixpath.dirname(repo_path),t.split("#")[0].split("?")[0]))
+    return repo_to_url(tgt,area_url,repo_path) or area_url
+
+_CANON={}
+def canon(url):
+    """The address Learn itself names as the page's own (front matter `canonicalUrl`, or the HTML
+    `<link rel=canonical>`): Intune's what's new answers at an alias, and an alias maps no path."""
+    if url in _CANON: return _CANON[url]
+    c=url
+    try:
+        t=subprocess.run(["curl","-sS","-L","--max-time","30","-A",UA_WN,"-H","Accept: text/markdown",url],
+                         capture_output=True,text=True,timeout=40).stdout
+        m=re.search(r"^canonicalUrl:\s*(\S+)",t[:3000],re.M) if t.startswith("---") else None
+        if not m:
+            h=subprocess.run(["curl","-sS","-L","--max-time","30","-A",UA_WN,url],
+                             capture_output=True,text=True,timeout=40).stdout
+            m=re.search(r'<link rel="canonical" href="([^"]+)"',h)
+        if m: c=html.unescape(m.group(1))
+    except Exception:
+        pass
+    _CANON[url]=c
+    return c
+
+def _stem(p):
+    p=re.sub(r"\.(md|yml)$","",p.strip("/"))
+    return p[:-len("/index")] if p.endswith("/index") else ("" if p=="index" else p)
+
+def repo_to_url(target,anchor_url,anchor_path,rooted=False):
+    """§5cg: a repository path -> its Learn address. Learn publishes a docset's tree 1:1 under one
+    URL prefix, so one known pair (the anchor page's canonical address and its repository path)
+    gives the prefix: the common tail of the two is dropped and the rest is the mapping.
+    Measured 29 IX 2026 on the 140 rows of nt.pages: the old rule (area root + FILE NAME only)
+    gave 49 x 200 and 91 x 404; this one 134 x 200. Not a page -> None: includes, toc, and a
+    target outside the anchor's docset."""
+    if re.search(r"(^|/)includes/|(^|/)toc\.(yml|md)$|/TOC\.(yml|md)$",target,re.I): return None
+    up=[s for s in urllib.parse.urlparse(canon(anchor_url)).path.split("/") if s]
+    rp=[s for s in _stem(anchor_path).split("/") if s]
+    k=0
+    while k<min(len(up),len(rp)) and up[-1-k].lower()==rp[-1-k].lower(): k+=1
+    url_pre,repo_pre=up[:len(up)-k],rp[:len(rp)-k]
+    tp=[s for s in _stem(target).split("/") if s]
+    if rooted: tp=repo_pre+tp
+    if tp[:len(repo_pre)]!=repo_pre: return None
+    return "https://learn.microsoft.com/"+"/".join(url_pre+[s.lower() for s in tp[len(repo_pre):]])
+
+def _abs_url_before_5cg(target,area_url,repo_path):
     t=target.strip()
     if t.startswith("http"): return t
     if t.startswith("/"): return "https://learn.microsoft.com/en-us"+t.split("#")[0]
@@ -21102,7 +21206,8 @@ def page_diffs(probe,areas_changes):
             tags=[t for t,pt in TAGS if re.search(pt,text+" "+nm,re.I)]
             out.append({"area":a["name"].replace("Microsoft Learn - ",""),"tag":tags[0] if tags else "",
                 "repo":repo,"path":pg["path"],"name":nm,
-                "url":re.sub(r"/whats-new.*$","",a["url"].rstrip("/")).rstrip("/")+"/"+
+                "url":(repo_to_url(pg["path"],a["url"],a.get("path") or "") or canon(a["url"])) if a.get("path") else
+                      re.sub(r"/whats-new.*$","",a["url"].rstrip("/")).rstrip("/")+"/"+
                       re.sub(r"\.(md|yml)$","",pg["path"].split("/")[-1]),
                 "commit":commit,"date":date,"added":add,"removed":rem,
                 "metaAdded":ma,"metaRemoved":mr,"promote":promo,
@@ -25116,7 +25221,11 @@ def clone_mirrors():
     # §5ce: a retired repository is cloned from its mirror (probe_learn sets `cloneFrom`), into the
     # directory of the original name, so learn_changes.py finds it where it always did
     want = sorted({(tuple(p["cloneFrom"].split("/")) if p.get("cloneFrom") else (p.get("org") or "MicrosoftDocs", p["repo"]))
-                   + (p["repo"],) for p in probe if p.get("repo")})
+                   + (p["repo"],) for p in probe if p.get("repo") and not p.get("ownMirror")
+                   and not ("no longer public" in (p.get("note") or "") and not p.get("cloneFrom"))})
+    # §5cf: an area read from our own copy (mirror/learn/) has no repository left to clone, and a
+    # private one without any copy is not tried either - 29 IX it failed twice with "could not read
+    # Username" (Exchange, Teams), a failure probe_learn had already named in the area's note
     os.makedirs(REPOS, exist_ok=True)
     def one(orgrepo):
         org, repo, local = orgrepo
@@ -25547,10 +25656,53 @@ Zmierzone 29 IX 2026 (pierwszy przebieg lokalnie): 41 grup, 859 adresow, **676 s
 to 404 — w probce 49 z 50; to adresy zle zbudowane w danych portalu (np. `/entra/concept-...` bez
 podkatalogu, znane z audytu 29 IX, §5cc), nie blad kopii.
 
-Kolejnosc odczytu w kolektorach (nastepny krok, jeszcze NIE wpiety): `MicrosoftDocs/*` -> mirror
-Merilla -> `mirror/learn/`. Dla repozytoriow bez mirrora Merilla (Purview, Exchange, Windows,
-security, Security Copilot, FSLogix…) `mirror/learn/` jest zrodlem podstawowym. Historia strony:
+Kolejnosc odczytu w kolektorach (wpiete 29 IX wieczorem): `MicrosoftDocs/*` -> mirror Merilla ->
+`mirror/learn/`. Dla repozytoriow bez mirrora Merilla (Purview, Exchange, Windows, security,
+Security Copilot, FSLogix…) `mirror/learn/` jest zrodlem podstawowym. Historia strony:
 `git log -p -- mirror/learn/<segment>/<sciezka>.md`.
+
+- `probe_learn.py own_mirror()`: obszar, ktorego repozytorium jest prywatne i nie ma mirrora Merilla,
+  dostaje `ownMirror`, gdy KATALOG obszaru jest w kopii (strona obszaru to zwykle `index.yml`, ktorej
+  Learn nie oddaje jako Markdown). 29 IX: 7 z 9 takich obszarow (Purview, Security, Zero Trust,
+  Security Copilot, Windows Security, FSLogix, Azure DMS); Exchange i Teams zostaja z nota
+  „no mirror of it is known", bo portal nie cytuje zadnej strony z ich katalogu obszaru.
+- `learn_changes.py`: dla `ownMirror` czyta `git log` w SOC_REPO, sciezki bez prefiksu kopii, i **tylko
+  `--diff-filter=MD`** — pierwszy commit kopii DODAL 676 stron naraz, a strona wchodzaca do zakresu nie
+  jest zmiana na Learn. Klon plytki dociaga okno `--shallow-since`. Test 29 IX: historia bez zmian ->
+  0 stron; symulowana zmiana `Purview/whats-new.md` -> 1 strona, ta sama sciezka co w repo Microsoftu.
+- `collect_all.py clone_mirrors`: obszaru z `ownMirror` nie klonuje (nie ma czego).
+- `collect_components.py doc()`: kopia po mirrorze Merilla, przed konwersja strony. Test 29 IX:
+  Purview i FSLogix -> `own mirror`, Defender for Identity -> `mirror merill/defender-docs-mirror`.
+
+### §5cg (29 IX 2026) — adres strony Learn liczony z drzewa, nie sklejany z kawalkow
+
+Zmierzone 29 IX na stanie z 29 IX: z 859 adresow Learn w danych portalu **148 odpowiadalo 404**
+(zwykle zapytanie przegladarki; 32 kolejne zyja, ale nie oddaja Markdown — strony startowe obszarow).
+Najwiecej w `nt.pages` (77), `docText.pages` (78), `nt.changes` (68). Trzy przyczyny, wszystkie w
+kolektorach:
+
+1. `nt.pages[].url` = korzen obszaru + SAMA nazwa pliku (bez podkatalogow):
+   `articles/foundry/agents/how-to/configure-voice-agent.md` -> `/azure/ai-foundry/configure-voice-agent`.
+2. `abs_url()` doklejal link wzgledny do katalogu strony: `entra/fundamentals` + `../identity/x` ->
+   `/entra/fundamentals/identity/x`.
+3. Link od korzenia `/en-us/...` dostawal drugie `/en-us`.
+
+Regula: Learn publikuje drzewo zestawu dokumentacji 1:1 pod jednym prefiksem adresu. Jedna znana para
+(adres KANONICZNY strony-kotwicy — Intune odpowiada pod aliasem — i jej sciezka w repo) daje prefiks:
+wspolny koniec obu sie odrzuca, reszta jest mapowaniem (`repo_to_url`, `canon`). Nie-strona
+(`includes/`, `toc`) -> brak adresu, link prowadzi do strony obszaru. Zapis przemianowania z `git
+--numstat` (`dir/{stare => nowe}/plik`) jest sprowadzany do nowej sciezki.
+
+| pomiar 29 IX (kod HTTP kazdego adresu) | przed | po |
+|---|---|---|
+| `nt.pages`, 140 wierszy (prototyp na stanie z rana) | 49 × 200, 91 × 404 | 134 × 200 (5 to includes/toc, 1 zapis przemianowania, 1 usunieta strona) |
+| linki wzgledne w what's new Entra, 60 | 0 × 200 | 60 × 200 |
+| **pelny `collect_all.py` z tym kodem** (11 krokow, 0 bledow): `nt.pages`, 139 unikalnych | 49 × 200, 90 × 404 | 138 × 200, 1 × 404 (strona usunieta przez Microsoft) |
+| jw.: linki we wpisach `nt.changes`, unikalne | 397 × 200, 246 × 404 (643) | 615 × 200, 1 × 404 (616) — ten jeden to `~/` (korzen zestawu docfx), obsluzony po pomiarze: 200 |
+
+`docText.pages` nie ma wlasnego kolektora (zaden skrypt wyciety z tego pliku go nie buduje; czytaja go
+tylko `gate.py` i `make_diff.py`) — wypelnia go przebieg. Czy jego adresy tez sie naprawia, pokaze
+pierwszy poranny przebieg po tej zmianie: bramka 68c i `linkAudit.deadList`.
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
