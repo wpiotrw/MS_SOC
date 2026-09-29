@@ -2886,9 +2886,10 @@ def gate(path, site=None, mirror=False, doc=None):
 
     # ---- 121: widoki w Graph API i Roles (§5cd). KLASA B. 29 IX 2026: Graph API mial 13 pol
     # wyszukiwania, a wyszukiwarka katalogu stala na ~11 000 px za jedenastoma zwinieciami.
-    K121 = ('.s5cd-bar{display:flex', 'data-s5cd-v', '"tab-graph": {', '"tab-roles": {', 'function reveal(el)',
+    K121 = ('.s5cd-bar{display:flex', 'data-s5cd-v', '"tab-graph": {', '"tab-roles": {', '"tab-components": {', '"tab-mc": {',
+            '"tab-learn": {', '"tab-blogs": {', '"tab-community": {', 'function reveal(el)',
             '.tabpanel[data-s5cd="find"] [data-s5cd-v]')
-    need("121", "Graph API i Roles maja widoki (Find domyslny, What changed, Sources & method), jedno pytanie na widok (§5cd)",
+    need("121", "duze zakladki maja widoki (Graph, Roles, Components, MC, Learn, Blogs, Community), jedno pytanie na widok (§5cd)",
          all(k in h for k in K121), "brak: %s" % ", ".join(k for k in K121 if k not in h))
 
     # ---- 119: strony what's new Learn (§5by). INFORMACYJNA. 28 IX 2026 lustra git daly wpisy
@@ -3498,7 +3499,7 @@ od tej, ktora po cichu wypadla (§0b).
 | `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZBUDOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZASPECYFIKOWANE` | §5by, pozycje 116-119. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
 | `audit-5bz` | **poprawki z audytu 28 IX 2026 i workflow code refresh**: stara `/diff/` nazwana, kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, jedna definicja „new", liczniki = listy, FPA bez „0 of 120", jedne nazwy uslug, Ctrl+K, karty Today/Deadlines na telefonie, Copy query, noty zwiniete | 2026-09-28 | `ZASPECYFIKOWANE` | §5bz, pozycja 120, `.github/workflows/code-refresh.yml`, `tools/code_refresh.py` |
-| `views-5cd` | **widoki w Graph API i Roles**: Find domyslny z wyszukiwarka katalogu w pierwszym ekranie, What changed, Check a call, Sources & method; jedno pytanie na widok | 2026-09-29 | `ZBUDOWANE` | §5cd, pozycja 121 |
+| `views-5cd` | **widoki w duzych zakladkach**: Graph API, Roles, Component versions, Message Center, Microsoft Learn, Microsoft Blogs, Community Articles — widok domyslny z tym, po co czytelnik przychodzi, jedno pytanie na widok | 2026-09-29 | `ZBUDOWANE` | §5cd, pozycja 121 |
 
 
 
@@ -25383,8 +25384,20 @@ jest jeszcze przypisana). `Element.scrollIntoView` i `HTMLElement.focus` sa owin
 elementu w ukrytym widoku (klik w menu, trafienie wyszukiwania, wiersz zmiany), najpierw przelacza widok.
 Wynik 29 IX: wyszukiwarka katalogu Graph API na 772 px (bylo ~11 000), Roles na 917 px (bylo ~8 900),
 wysokosc widoku Find 5 711 px / 3 667 px; 0 bledow konsoli; 390 px bez przewijania w bok (pasek widokow
-przewija sie sam). Pozycja 121 bramki (klasa B). Nastepne zakladki (Component versions, Message Center,
-Learn, Blogs, Community) dostaja ten sam szkielet w kolejnych krokach.
+przewija sie sam). Pozycja 121 bramki (klasa B).
+
+**Krok 2 (29 IX, „rob dalej")** — ten sam pasek w pieciu kolejnych zakladkach:
+| zakladka | widok domyslny | pozostale widoki |
+|---|---|---|
+| Component versions | Versions (kafelki, tabela, karty) | What changed · Sources & rule |
+| Message Center | Posts (lista z wlasnym wyszukiwaniem) | Today · Same change, every source · Coverage |
+| Microsoft Learn | Latest (lista miesiecy) | What changed & why · Inside the pages · Coverage |
+| Microsoft Blogs | Latest | Top of the day · Blogs & freshness |
+| Community Articles | Latest | What changed · Articles table · Sources |
+Advanced filtering stoi tylko w widokach z tabelami sekcji (lista `mcb` ma wlasne filtry). `flat` w CFG
+oznacza opakowanie sekcji, ktorego naglowek widoki zastepuja (Graph, Roles, Components, Community);
+sekcje Learn/Blogs/MC zostaja rozwijane jak byly. Zmierzone: kazdy widok domyslny ma 1–2 pola, 0 bledow
+konsoli, blok nieoznaczony — zaden poza `.s8top` (kontener; jego dzieci sa oznaczone).
 
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
@@ -30745,64 +30758,139 @@ odtad CZTERNASCIE (4-17).**
 /* §5cd (29 IX 2026, owner: "hard to find your way in Graph API — so many sections, so many +,
    the role search is half-way down"). Measured that day: Graph API carried 13 search fields and
    its catalog search sat at ~11 000 px behind eleven folds; Roles 9 fields, search at ~8 900 px.
-   The big reference tabs get VIEWS: a strip under the tab header, one question per view, the
-   Find view (the catalog and its search) first and open by default. Nothing is rebuilt or moved:
-   every block the other scripts build is TAGGED with the view(s) it belongs to and CSS hides the
-   rest, so no selector another script relies on changes. A block nobody tagged stays visible in
-   every view (a new section is never lost, it just is not sorted yet). Anything that scrolls to or
-   focuses an element in a hidden view (a rail click, a search hit, a change row) switches to that
-   view first — Element.scrollIntoView and HTMLElement.focus are wrapped for that. */
+   The big tabs get VIEWS: a strip under the tab header, one question per view, the view a reader
+   comes for first and open by default. Nothing is rebuilt or moved: every block the other scripts
+   build is TAGGED with the view(s) it belongs to (`data-s5cd-v`) and CSS hides the rest, so no
+   selector another script relies on changes. A block nobody tagged stays visible in every view (a
+   new section is never lost, it just is not sorted yet). Anything that scrolls to or focuses an
+   element in a hidden view (a rail click, a search hit, a change row) switches to that view first —
+   Element.scrollIntoView and HTMLElement.focus are wrapped for that.
+   Same day, second step ("rob dalej"): Component versions, Message Center, Microsoft Learn,
+   Microsoft Blogs and Community Articles get the same strip. `flat` names a section wrapper whose
+   own header is hidden because the views replace it; `rest` names containers whose untagged
+   children fall into the default view. */
 (function () {
   "use strict";
+  var ALL = ".s5ca-head, .s5bh-ct, .filterbanner.s11, .cstick";
+  function allOf(sel) { return function (p) { var e = p.querySelector(sel); var m = e && (e.textContent || "").match(/All\s*([\d\s ,]+)\s*$/); return m ? m[1] : ""; }; }
   var CFG = {
     "tab-graph": {
       views: [["find", "Find"], ["chg", "What changed"], ["call", "Check a call"], ["src", "Sources & method"]],
-      sec: "#graph",
+      sec: "#graph", flat: "details.ntsec", rest: [".catalog", "#graph > .sec-body"],
+      count: function (p) { var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/); return m ? m[0] : ""; },
       map: [
-        [".s5ca-head, .s5bh-ct, .filterbanner.s11, .s8top > .factgrid, details.ntsec", "*"],
+        [ALL + ", .s8top > .factgrid", "*"],
         ["details.mschg, .panelhead, .s5bn, #gd-changes, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
         ["section.gu", "call"],
         ["details.ntfbar", "find chg"],
-        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .sec-body > .sec-note, .sec-body > .s5bz-more, .sec-body > ul", "src"]
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, #graph > .sec-body > .sec-note, #graph > .sec-body > .s5bz-more, #graph > .sec-body > ul", "src"]
       ]
     },
     "tab-roles": {
       views: [["find", "Find"], ["chg", "What changed"], ["src", "Sources & method"]],
-      sec: "#roles",
+      sec: "#roles", flat: "details.ntsec", rest: [".catalog", "#roles > .sec-body"],
+      count: function (p) { var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/); return m ? m[0] : ""; },
       map: [
-        [".s5ca-head, .s5bh-ct, .filterbanner.s11, .s8top > .factgrid, details.ntsec", "*"],
+        [ALL + ", .s8top > .factgrid", "*"],
         ["details.mschg, .panelhead, .s5bn, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
         ["section.gu, details.ntfbar", "find"],
-        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .sec-body > .sec-note, .sec-body > .s5bz-more, .sec-body > ul", "src"]
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, #roles > .sec-body > .sec-note, #roles > .sec-body > .s5bz-more, #roles > .sec-body > ul", "src"]
       ]
+    },
+    "tab-components": {
+      views: [["find", "Versions"], ["chg", "What changed"], ["src", "Sources & rule"]],
+      sec: "#components", flat: "details.ntsec", rest: ["#components > .sec-body"],
+      count: function (p) { return String(p.querySelectorAll("article.cmp").length || ""); },
+      map: [
+        [ALL, "*"],
+        [".s5bn, .panelhead, .s8top > details.chg14, .aggwrap, #components > .sec-body > ul", "chg"],
+        ["details.ntfbar", "find chg"],
+        ["#components > .sec-body > .sec-note, #components > .sec-body > .s5bz-more, #components > .sec-body > .rulebox", "src"]
+      ]
+    },
+    "tab-mc": {
+      views: [["find", "Posts"], ["chg", "Today"], ["map", "Same change, every source"], ["src", "Coverage"]],
+      count: allOf("#mc-browse .mcb-top"),
+      map: [
+        [ALL, "*"],
+        ["section#mc-browse", "find"],
+        [".s5bn, #mc-today", "chg"],
+        ["#mc-map", "map"],
+        ["#mc-all, #mc-sources, .aggwrap", "src"],
+        ["details.ntfbar", "chg map src"]
+      ]
+    },
+    "tab-learn": {
+      views: [["find", "Latest"], ["chg", "What changed & why"], ["pages", "Inside the pages"], ["src", "Coverage"]],
+      count: allOf("#ab-learn .mcb-top"),
+      map: [
+        [ALL, "*"],
+        ["section#ab-learn", "find"],
+        [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-changes, #nt-older", "chg"],
+        ["#nt-pages, #nt-corr-learn", "pages"],
+        ["#nt-coverage", "src"],
+        ["details.ntfbar", "chg pages src"]
+      ]
+    },
+    "tab-blogs": {
+      views: [["find", "Latest"], ["chg", "Top of the day"], ["src", "Blogs & freshness"]],
+      count: allOf("#ab-blogs .mcb-top"),
+      map: [
+        [ALL, "*"],
+        ["section#ab-blogs", "find"],
+        [".s5bn, :scope > .factgrid, :scope > figure.chart, #nt-top, #nt-posts, #nt-corr-blogs", "chg"],
+        ["#nt-sources", "src"],
+        ["details.ntfbar", "chg src"]
+      ]
+    },
+    "tab-community": {
+      views: [["find", "Latest"], ["chg", "What changed"], ["tbl", "Articles table"], ["src", "Sources"]],
+      sec: "#community", flat: "details.ntsec",
+      count: allOf("#ab-community .mcb-top"),
+      map: [
+        [ALL, "*"],
+        ["section#ab-community", "find"],
+        [".s5bn, .panelhead, .aggwrap", "chg"],
+        ["details.ntfbar", "tbl src"]
+      ],
+      /* the section holds two tables one after the other: the 58 sources first, then every article */
+      extra: function (p) {
+        var sb = p.querySelector("#community > .sec-body"); if (!sb) return;
+        var bars = 0;
+        [].forEach.call(sb.children, function (e) {
+          if (e.classList.contains("tbar")) bars++;
+          if (!e.hasAttribute("data-s5cd-v")) e.setAttribute("data-s5cd-v", bars >= 2 ? "tbl" : "src");
+        });
+      }
     }
   };
   var cur = {};
 
   function tag(p, c) {
     c.map.forEach(function (m) {
-      [].forEach.call(p.querySelectorAll(m[0]), function (e) { e.setAttribute("data-s5cd-v", m[1]); });
+      [].forEach.call(p.querySelectorAll(m[0].replace(/:scope > /g, "#" + p.id + " > ")), function (e) {
+        if (e.closest(".tabpanel") === p) e.setAttribute("data-s5cd-v", m[1]);
+      });
     });
-    /* the catalog's own controls and list: Find, unless already sorted above */
-    [].forEach.call(p.querySelectorAll(".catalog > *, " + c.sec + " > .sec-body > *"), function (e) {
-      if (!e.hasAttribute("data-s5cd-v") && !e.classList.contains("catalog")) e.setAttribute("data-s5cd-v", "find");
+    if (c.extra) c.extra(p);
+    (c.rest || []).forEach(function (sel) {
+      [].forEach.call(p.querySelectorAll(sel + " > *"), function (e) {
+        if (!e.hasAttribute("data-s5cd-v") && !e.classList.contains("catalog")) e.setAttribute("data-s5cd-v", c.views[0][0]);
+      });
     });
-    [].forEach.call(p.querySelectorAll("details.ntsec"), function (d) { if (!d.open) d.open = true; });
-  }
-
-  function count(p) {
-    var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/);
-    return m ? m[0].replace(/[\s ,]/g, "") : "";
+    if (c.flat) [].forEach.call(p.querySelectorAll(":scope > " + c.flat), function (d) {
+      d.classList.add("s5cd-flat"); d.setAttribute("data-s5cd-v", "*"); if (!d.open) d.open = true;
+    });
   }
 
   function show(p, v, scroll) {
     cur[p.id] = v;
     p.setAttribute("data-s5cd", v);
-    [].forEach.call(p.querySelectorAll(".s5cd-bar button"), function (b) {
+    [].forEach.call(p.querySelectorAll(":scope > .s5cd-bar button"), function (b) {
       b.setAttribute("aria-selected", String(b.getAttribute("data-v") === v));
     });
     if (scroll) {
-      var bar = p.querySelector(".s5cd-bar");
+      var bar = p.querySelector(":scope > .s5cd-bar");
       if (bar && bar.getBoundingClientRect().top < 0) origSIV.call(bar, { block: "start" });
     }
     try { window.dispatchEvent(new Event("resize")); } catch (e) {}
@@ -30813,22 +30901,21 @@ odtad CZTERNASCIE (4-17).**
     if (!bar) {
       bar = document.createElement("div"); bar.className = "s5cd-bar"; bar.setAttribute("role", "tablist");
       bar.setAttribute("aria-label", "Views of this tab");
-      c.views.forEach(function (v) {
+      c.views.forEach(function (v, i) {
         var b = document.createElement("button"); b.type = "button"; b.setAttribute("role", "tab");
         b.setAttribute("data-v", v[0]); b.textContent = v[1];
-        if (v[0] === "find") { var n = document.createElement("span"); n.className = "s5cd-n"; b.appendChild(n); }
+        if (i === 0) { var n = document.createElement("span"); n.className = "s5cd-n"; b.appendChild(n); }
         b.addEventListener("click", function () { show(p, v[0], true); });
         bar.appendChild(b);
       });
     }
     /* the strip sits right under the tab header (§5ca), or first when there is none */
-    var head = p.querySelector(":scope > .s5ca-head"), fg = p.querySelector(":scope > .s8top");
-    var anchor = head ? head.nextSibling : p.firstChild;
-    if (bar.previousElementSibling !== head || !bar.parentNode) p.insertBefore(bar, anchor);
-    var n = bar.querySelector(".s5cd-n"), k = count(p);
-    if (n) n.textContent = k ? Number(k).toLocaleString("en-US").replace(/,/g, " ") : "";
+    var head = p.querySelector(":scope > .s5ca-head");
+    if (!bar.parentNode || bar.previousElementSibling !== head) p.insertBefore(bar, head ? head.nextSibling : p.firstChild);
+    var n = bar.querySelector(".s5cd-n"), k = c.count ? String(c.count(p) || "").replace(/[\s ,]/g, "") : "";
+    if (n) n.textContent = /^\d+$/.test(k) ? Number(k).toLocaleString("en-US").replace(/,/g, " ") : "";
     tag(p, c);
-    if (!p.hasAttribute("data-s5cd")) show(p, cur[p.id] || "find", false);
+    if (!p.hasAttribute("data-s5cd")) show(p, cur[p.id] || c.views[0][0], false);
   }
 
   function run() {
@@ -30842,9 +30929,9 @@ odtad CZTERNASCIE (4-17).**
   function reveal(el) {
     if (!el || !el.closest) return;
     var p = el.closest(".tabpanel[data-s5cd]");
-    if (!p) return;
-    var v = p.getAttribute("data-s5cd"), t = el;
-    if (el.matches && el.matches(CFG[p.id].sec + ", .catalog")) { if (v !== "find") show(p, "find", false); return; }
+    if (!p || !CFG[p.id]) return;
+    var c = CFG[p.id], v = p.getAttribute("data-s5cd"), t = el;
+    if (c.sec && el.matches && el.matches(c.sec + ", .catalog")) { if (v !== c.views[0][0]) show(p, c.views[0][0], false); return; }
     while (t && t !== p) {
       var tv = t.getAttribute && t.getAttribute("data-s5cd-v");
       if (tv && tv !== "*") {
@@ -31449,10 +31536,14 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd="find"] [data-s5cd-v]:not([data-s5cd-v~="find"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="chg"] [data-s5cd-v]:not([data-s5cd-v~="chg"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="call"] [data-s5cd-v]:not([data-s5cd-v~="call"]):not([data-s5cd-v="*"]),
-.tabpanel[data-s5cd="src"] [data-s5cd-v]:not([data-s5cd-v~="src"]):not([data-s5cd-v="*"]){display:none!important}
-.tabpanel[data-s5cd] details.ntsec > summary,.tabpanel[data-s5cd] #graph > .sec-head,.tabpanel[data-s5cd] #roles > .sec-head{display:none!important}
-.tabpanel[data-s5cd] details.ntsec{border:0;background:none;padding:0;margin:0}
-.tabpanel[data-s5cd] details.ntsec > .ntbody{padding:0}
+.tabpanel[data-s5cd="src"] [data-s5cd-v]:not([data-s5cd-v~="src"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="map"] [data-s5cd-v]:not([data-s5cd-v~="map"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="pages"] [data-s5cd-v]:not([data-s5cd-v~="pages"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]){display:none!important}
+/* a section wrapper the views replace: its own header goes, its content stays */
+.tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
+.tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
+.tabpanel[data-s5cd] details.s5cd-flat > .ntbody{padding:0}
 
 
 
