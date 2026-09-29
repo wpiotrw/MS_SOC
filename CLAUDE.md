@@ -30866,7 +30866,11 @@ odtad CZTERNASCIE (4-17).**
     },
     "tab-fpa": {
       views: [["find", "Apps"], ["chg", "What changed"], ["src", "Sources"]],
-      count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+apps/); return m ? m[1] : ""; },
+      count: function (p) {
+        /* the §5ca header names the count only once the tab's data is in; the panel head always does */
+        var t = ((p.querySelector(".s5ca-head") || {}).textContent || "") + " " + ((p.querySelector(".panelhead") || {}).textContent || "");
+        var m = t.match(/([\d,]+)\s+apps\b/) || t.match(/([\d,]+)\s*first-party apps held/); return m ? m[1] : "";
+      },
       map: [
         [ALL, "*"],
         ["section#fpa", "find"],
