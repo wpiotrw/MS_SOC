@@ -2887,9 +2887,9 @@ def gate(path, site=None, mirror=False, doc=None):
     # ---- 121: widoki w Graph API i Roles (§5cd). KLASA B. 29 IX 2026: Graph API mial 13 pol
     # wyszukiwania, a wyszukiwarka katalogu stala na ~11 000 px za jedenastoma zwinieciami.
     K121 = ('.s5cd-bar{display:flex', 'data-s5cd-v', '"tab-graph": {', '"tab-roles": {', '"tab-components": {', '"tab-mc": {',
-            '"tab-learn": {', '"tab-blogs": {', '"tab-community": {', 'function reveal(el)',
+            '"tab-learn": {', '"tab-blogs": {', '"tab-community": {', '"tab-products": {', '"tab-fpa": {', 'function reveal(el)',
             '.tabpanel[data-s5cd="find"] [data-s5cd-v]')
-    need("121", "duze zakladki maja widoki (Graph, Roles, Components, MC, Learn, Blogs, Community), jedno pytanie na widok (§5cd)",
+    need("121", "duze zakladki maja widoki (Graph, Roles, Components, MC, Learn, Blogs, Community, Products, First-party apps), jedno pytanie na widok (§5cd)",
          all(k in h for k in K121), "brak: %s" % ", ".join(k for k in K121 if k not in h))
 
     # ---- 119: strony what's new Learn (§5by). INFORMACYJNA. 28 IX 2026 lustra git daly wpisy
@@ -25399,6 +25399,9 @@ oznacza opakowanie sekcji, ktorego naglowek widoki zastepuja (Graph, Roles, Comp
 sekcje Learn/Blogs/MC zostaja rozwijane jak byly. Zmierzone: kazdy widok domyslny ma 1–2 pola, 0 bledow
 konsoli, blok nieoznaczony — zaden poza `.s8top` (kontener; jego dzieci sa oznaczone).
 
+**Krok 3 (29 IX)** — Products: Summary (sekcja J, domyslny) · Deep dive (K) · Authentication watchlist (L) ·
+Charts; sekcje nie maja id, wiec rozpoznaje je naglowek. First-party apps: Apps · What changed · Sources.
+
 ## 5ba. DATA PRZY POZYCJI JEST DATA ZRODLA — i rozjazd jest POLICZONY, nie poprawiony po cichu
 
 Wlasciciel zglosil 16 wrzesnia 2026 wpis Message Center opisany na stronie jako **1.09**, ktory
@@ -30843,6 +30846,35 @@ odtad CZTERNASCIE (4-17).**
         ["details.ntfbar", "chg src"]
       ]
     },
+    /* §5cd step 3 (29 IX 2026): Products and First-party apps. Products' three sections carry no
+       id, so they are told apart by their own heading — the words §8 gives them (J, K, L). */
+    "tab-products": {
+      views: [["find", "Summary"], ["deep", "Deep dive"], ["auth", "Authentication watchlist"], ["chg", "Charts"]],
+      count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+products/); return m ? m[1] : ""; },
+      map: [
+        [ALL, "*"],
+        [".panelhead, .aggwrap", "chg"],
+        ["details.ntfbar", "find deep auth"]
+      ],
+      extra: function (p) {
+        [].forEach.call(p.querySelectorAll(":scope > details.ntsec"), function (d) {
+          var t = ((d.querySelector(":scope > summary") || {}).textContent || "").toLowerCase();
+          d.setAttribute("data-s5cd-v", /deep dive/.test(t) ? "deep" : /watchlist/.test(t) ? "auth" : "find");
+          if (!d.open) d.open = true;
+        });
+      }
+    },
+    "tab-fpa": {
+      views: [["find", "Apps"], ["chg", "What changed"], ["src", "Sources"]],
+      count: function (p) { var h = p.querySelector(".s5ca-head"), m = h && (h.textContent || "").match(/([\d,]+)\s+apps/); return m ? m[1] : ""; },
+      map: [
+        [ALL, "*"],
+        ["section#fpa", "find"],
+        [".panelhead, .s5bn, details.mschg, .aggwrap", "chg"],
+        ["details.s5bk-health", "src"],
+        ["details.ntfbar", "find chg"]
+      ]
+    },
     "tab-community": {
       views: [["find", "Latest"], ["chg", "What changed"], ["tbl", "Articles table"], ["src", "Sources"]],
       sec: "#community", flat: "details.ntsec",
@@ -31539,7 +31571,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd="src"] [data-s5cd-v]:not([data-s5cd-v~="src"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="map"] [data-s5cd-v]:not([data-s5cd-v~="map"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="pages"] [data-s5cd-v]:not([data-s5cd-v~="pages"]):not([data-s5cd-v="*"]),
-.tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]){display:none!important}
+.tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="deep"] [data-s5cd-v]:not([data-s5cd-v~="deep"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]){display:none!important}
 /* a section wrapper the views replace: its own header goes, its content stays */
 .tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
 .tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
