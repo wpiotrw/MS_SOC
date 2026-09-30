@@ -25829,6 +25829,18 @@ mowi wprost „not how many the tab holds". `fill()` biegnie tez po kazdym przel
 na wolniejszym komputerze naglowek zostawal bez liczb po ostatnim timerze (5,2 s). Roles: menu telefonu
 liczylo wiersze tabeli (137), naglowek katalog (139) — teraz oba 139.
 
+**§5ci-c (30 IX 2026, wlasciciel z telefonu: „wczesniej w Overview liczby byly w niebieskich ramkach i klik
+filtrowal i przenosil do sekcji; teraz tabelka nie jest klikalna").** Tabela „By product" z §5ci liczyla
+sama i miala klikalna tylko nazwe produktu — regresja wobec „What's new, by product" SKRYPTU 13 (Start
+here). Teraz karta „What's new, by product" w widoku Overview jest budowana z TAMTEJ tabeli: te same
+kolumny (New today, In the window, Due in 30 days, Source text edited, Community 7 days, Catalog 7 days),
+te same liczby, a kazda niezerowa liczba to niebieska pigulka, ktora naciska przycisk tamtej tabeli (zero
+zostaje tekstem). Tamten przycisk filtruje zakladke docelowa przez SKRYPT 11 (`__socS11.setTab` z lista
+id); §5ci owija `setTab`/`clearTab`, wiec widoki Today, Deadlines i New stosuja te sama liste (zielony
+chip z etykieta i liczba, × zdejmuje filtr takze w SKRYPCIE 11). Lista, ktorej widok nie ma (Today:
+„tier 0 without a card", New: „source text edited" po sciezkach), otwiera pelne sekcje z filtrem
+SKRYPTU 11 jak dawniej. Na telefonie kazdy produkt to karta: nazwa, pod nia pary etykieta + pigulka.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -25877,7 +25889,13 @@ a.s5ci-tt:hover{color:var(--accent)}
 .s5ci-th{border-top:0;background:var(--surface-2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .s5ci-tdl .s5ci-tr{grid-template-columns:96px minmax(0,2.2fr) minmax(0,.8fr) minmax(0,1fr) minmax(0,1.8fr) minmax(0,1.1fr)}
 .s5ci-tnew .s5ci-tr{grid-template-columns:104px minmax(0,2.6fr) minmax(0,.8fr) minmax(0,.9fr) minmax(0,.8fr) minmax(0,1.1fr)}
-.s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));cursor:default}
+.s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1.3fr) repeat(calc(var(--s5ci-cols,5) - 1),minmax(0,1fr));cursor:default;align-items:center}
+.s5ci-num{min-width:36px;height:28px;padding:0 10px;border:1.5px solid var(--accent);border-radius:14px;background:var(--accent-soft);color:var(--accent);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.s5ci-num:hover{background:var(--accent);color:var(--on-accent)}
+.s5ci-num:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s5ci-zero{color:var(--faint);padding-left:12px}
+.s5ci-bl{display:none}
+.s5ci-idf:empty,.s5ci-gf:empty{display:none}
 .s5ci-tbp .s5ci-tr:hover{background:transparent}
 .s5ci-grp{padding:6px 12px;background:var(--surface-2);font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.04em;border-top:1px solid var(--border)}
 .s5ci-src{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:12.5px;color:var(--muted)}
@@ -25933,7 +25951,11 @@ a.s5ci-tt:hover{color:var(--accent)}
   .s5ci-cards,.s5ci-two{grid-template-columns:minmax(0,1fr)}
   .s5ci-tdl .s5ci-tr,.s5ci-tnew .s5ci-tr{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
   .s5ci-tdl .s5ci-th,.s5ci-tnew .s5ci-th{display:none}
-  .s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));font-size:12px;gap:6px}
+  .s5ci-tbp .s5ci-th{display:none}
+  .s5ci-tbp .s5ci-tr{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;font-size:13px}
+  .s5ci-tbp .s5ci-bn{grid-column:1 / -1;font-weight:700}
+  .s5ci-tbp .s5ci-bc{display:flex;align-items:center;gap:8px}
+  .s5ci-bl{display:inline;color:var(--muted);font-size:12.5px}
   .s5ci-pick{grid-template-columns:28px minmax(0,1fr)}
   .s5ci-side{grid-column:2;text-align:left;align-items:flex-start}
 }
@@ -32132,6 +32154,18 @@ odtad CZTERNASCIE (4-17).**
   }
   function hit(it, q) { if (!q) return true; return (String(it.title || "") + " " + (it.officialTitle || "") + " " + it.id + " " + (it.reference || "") + " " + (it.product || "") + " " + (it.area || "") + " " + (it.status || "")).toLowerCase().indexOf(q) >= 0; }
   function chip(txt, on, fn) { var b = el("button", "s5ci-chip", txt); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false"); b.addEventListener("click", fn); return b; }
+  /* §5ci-c: a number elsewhere on the page (Overview "What's new, by product", "Act on this first")
+     hands a tab a list of ids through SCRIPT 11 (`__socS11.setTab`). Those rows are in the hidden
+     sections; the view applies the same list and says so in a green chip, × clears it at SCRIPT 11 too. */
+  function idsChip(root, S, pid, render) {
+    var box = root.querySelector(".s5ci-idf"); if (!box) return;
+    box.innerHTML = ""; if (!S.ids) return;
+    var c = el("span", "s5ci-fchip", (S.idsLabel || "Filtered") + " \u00b7 " + Object.keys(S.ids).length + " "); var x = el("button", null, "\u00d7"); x.type = "button";
+    x.setAttribute("aria-label", "Remove filter " + (S.idsLabel || ""));
+    x.addEventListener("click", function () { S.ids = null; S.idsLabel = ""; var s11 = window.__socS11; if (s11 && s11.clearTab) s11.clearTab(pid); render(); });
+    c.appendChild(x); box.appendChild(c);
+  }
+  function setIdsOn(S, label, list) { if (!list) { S.ids = null; S.idsLabel = ""; return; } S.ids = {}; list.forEach(function (i) { S.ids[i] = 1; }); S.idsLabel = label || "Filtered"; }
   function prodChip(root, render) {
     var g = glob(), box = root.querySelector(".s5ci-gf"); if (!box) return;
     box.innerHTML = ""; if (!g) return;
@@ -32243,6 +32277,7 @@ odtad CZTERNASCIE (4-17).**
     var bar = el("div", "s5ci-bar"); bar.appendChild(el("span", "s5ci-lab", "Due"));
     var seg = el("div", "s5ci-seg"); seg.setAttribute("role", "group"); seg.setAttribute("aria-label", "Due window"); bar.appendChild(seg);
     var dayChip = el("span", "s5ci-dchip"); bar.appendChild(dayChip);
+    bar.appendChild(el("span", "s5ci-idf"));
     bar.appendChild(el("span", "s5ci-gf"));
     root.appendChild(bar);
     var note = el("p", "s5ci-note"); root.appendChild(note);
@@ -32254,18 +32289,21 @@ odtad CZTERNASCIE (4-17).**
         dup.join("; ") + " " + (dup.length === 1 ? "is" : "are") + " recorded by more than one source and shown once, with every source."));
     }
     function render() {
-      var base = D.list.filter(function (o) { return passProd(o.it) && hit(o.it, S.q) && (!S.day || o.it.deadline === S.day); });
+      var base = D.list.filter(function (o) { return passProd(o.it) && hit(o.it, S.q) && (!S.day || o.it.deadline === S.day) &&
+        (!S.ids || S.ids[o.it.id] || o.also.some(function (a) { return S.ids[a.id]; })); });
       seg.innerHTML = "";
       WIN.forEach(function (w) {
         var n = base.filter(function (o) { return w[2](o.d); }).length;
         var b = el("button", null, w[1] + " · " + n); b.type = "button"; b.setAttribute("aria-pressed", String(!S.day && S.w === w[0]));
-        b.addEventListener("click", function () { S.w = w[0]; S.day = ""; render(); }); seg.appendChild(b);
+        b.addEventListener("click", function () { S.w = w[0]; S.day = ""; S.all = false; render(); }); seg.appendChild(b);
       });
       dayChip.innerHTML = "";
       if (S.day) { var c = el("span", "s5ci-fchip", "Due on " + dmyl(S.day) + " "); var x = el("button", null, "×"); x.type = "button"; x.setAttribute("aria-label", "Show every day again");
         x.addEventListener("click", function () { S.day = ""; render(); }); c.appendChild(x); dayChip.appendChild(c); }
-      prodChip(root, render);
-      var rows = S.day ? base : base.filter(function (o) { var w = WIN.filter(function (x) { return x[0] === S.w; })[0]; return w[2](o.d); });
+      prodChip(root, render); idsChip(root, S, p.id, render);
+      /* a handed-over list shows whole, whatever window it falls in; the buttons still count per window */
+      if (S.all) [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", "false"); });
+      var rows = S.day || S.all ? base : base.filter(function (o) { var w = WIN.filter(function (x) { return x[0] === S.w; })[0]; return w[2](o.d); });
       note.textContent = rows.length ? "" : (S.q || glob() ? "Nothing matches in this window — the counts on the buttons say where it is." : "No deadline in this window.");
       tbl.innerHTML = "";
       var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
@@ -32309,9 +32347,10 @@ odtad CZTERNASCIE (4-17).**
         if (!o) return false; S.q = ""; var qi = root.querySelector("input"); if (qi) qi.value = "";
         S.day = ""; S.w = (WIN.filter(function (w) { return w[2](o.d); })[0] || WIN[1])[0]; render(); return openIn(root, o.it.id); },
       covers: function () { return true; },
-      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+      top: function () { ORIG_SIV.call(root, { block: "start" }); },
+      setIds: function (label, list) { setIdsOn(S, label, list); S.all = !!list; S.day = ""; render(); }
     };
-    window.__s5ciDeadlines = function (w, day) { S.w = w || S.w; S.day = day || ""; render(); };
+    window.__s5ciDeadlines = function (w, day) { S.w = w || S.w; S.day = day || ""; S.all = false; render(); };
     setNav(p.id, D.n);
     return true;
   }
@@ -32350,7 +32389,7 @@ odtad CZTERNASCIE (4-17).**
     var foot = el("div", "s5ci-pg"); root.appendChild(foot);
     root.appendChild(el("p", "s5ci-foot", "Status uses one list of words (Retiring, not also Retirement; Threat intelligence, not also Threat intel). Source is the kind of source that reported the item."));
     function render() {
-      var base = all.filter(function (it) { return passProd(it) && hit(it, S.q); });
+      var base = all.filter(function (it) { return passProd(it) && hit(it, S.q) && (!S.ids || S.ids[it.id]); });
       bar.innerHTML = ""; bar.appendChild(el("span", "s5ci-lab", "Show"));
       W.forEach(function (w) { var n = base.filter(w[2]).length; bar.appendChild(chip(w[1] + " " + n, S.w === w[0], function () { S.w = w[0]; S.shown = 60; render(); })); });
       bar.appendChild(el("span", "s5ci-gap"));
@@ -32360,7 +32399,7 @@ odtad CZTERNASCIE (4-17).**
       var ks = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
       (S.more ? ks : ks.slice(0, 5)).forEach(function (k) { bar.appendChild(chip(k + " " + cnt[k], S.pr === k, function () { S.pr = S.pr === k ? "" : k; S.shown = 60; render(); })); });
       if (ks.length > 5) bar.appendChild(chip(S.more ? "Fewer" : "+ " + (ks.length - 5) + " more", false, function () { S.more = !S.more; render(); }));
-      bar.appendChild(el("span", "s5ci-gf")); prodChip(root, render);
+      bar.appendChild(el("span", "s5ci-idf")); bar.appendChild(el("span", "s5ci-gf")); prodChip(root, render); idsChip(root, S, p.id, render);
       var rows = base.filter(wf).filter(function (it) { return !S.pr || (prod(it.product) || "Other") === S.pr; });
       tbl.innerHTML = "";
       var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
@@ -32390,7 +32429,10 @@ odtad CZTERNASCIE (4-17).**
       open: function (id) { var it = I[id]; if (!it || all.indexOf(it) < 0) return false; S.w = "all"; S.pr = ""; S.q = ""; var qi = root.querySelector("input"); if (qi) qi.value = "";
         S.shown = Math.max(60, Math.ceil((all.indexOf(it) + 1) / 60) * 60); render(); return openIn(root, id); },
       covers: function (sec) { return !!sec.querySelector("tbody tr[data-id]"); },
-      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+      top: function () { ORIG_SIV.call(root, { block: "start" }); },
+      setIds: function (label, list) {
+        if (list && !list.some(function (id) { return I[id] && all.indexOf(I[id]) >= 0; })) { full(p, true); return; }
+        setIdsOn(S, label, list); if (list) { S.w = "all"; S.pr = ""; } S.shown = 60; render(); }
     };
     setNav(p.id, all.length);
     return true;
@@ -32421,18 +32463,18 @@ odtad CZTERNASCIE (4-17).**
     var ev = el("button", "s5ci-view", "Everything new → New"); ev.type = "button"; ev.addEventListener("click", function () { goTab("new"); }); views.appendChild(ev);
     root.appendChild(views);
     var tools = el("div", "s5ci-tools"); tools.appendChild(searchBox("Search today's picks", function (q) { S.q = q; render(); }));
-    var chips = el("span", "s5ci-chips"); tools.appendChild(chips); tools.appendChild(el("span", "s5ci-gf"));
+    var chips = el("span", "s5ci-chips"); tools.appendChild(chips); tools.appendChild(el("span", "s5ci-idf")); tools.appendChild(el("span", "s5ci-gf"));
     root.appendChild(tools);
     var list = el("div", "s5ci-picks"); list.setAttribute("role", "list"); root.appendChild(list);
     function exploited(it) { return /exploit/i.test(String(it.status || "") + " " + (it.title || "")); }
     function render() {
       [].forEach.call(views.querySelectorAll("[data-v]"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === S.v)); });
       var src = (S.v === "top" ? top : per).map(function (id, i) { return { it: I[id], n: i + 1 }; });
-      var base = src.filter(function (o) { return passProd(o.it) && hit(o.it, S.q); });
+      var base = src.filter(function (o) { return passProd(o.it) && hit(o.it, S.q) && (!S.ids || S.ids[o.it.id]); });
       var C = [["all", "All", function () { return true; }], ["date", "Has a date", function (o) { return !!o.it.deadline; }], ["exp", "Exploited", function (o) { return exploited(o.it); }]];
       chips.innerHTML = ""; chips.appendChild(el("span", "s5ci-lab", "Show"));
       C.forEach(function (c) { chips.appendChild(chip(c[1] + " " + base.filter(c[2]).length, S.c === c[0], function () { S.c = c[0]; render(); })); });
-      prodChip(root, render);
+      prodChip(root, render); idsChip(root, S, p.id, render);
       var f = C.filter(function (c) { return c[0] === S.c; })[0][2];
       var rows = base.filter(f);
       list.innerHTML = "";
@@ -32461,7 +32503,12 @@ odtad CZTERNASCIE (4-17).**
       open: function (id) { if (!I[id]) return false; var v = top.indexOf(id) >= 0 ? "top" : per.indexOf(id) >= 0 ? "per" : ""; if (!v) return false;
         S.v = v; S.q = ""; S.c = "all"; var qi = root.querySelector("input"); if (qi) qi.value = ""; render(); return openIn(root, id); },
       covers: function (sec) { var r = sec.querySelector("tbody tr[data-id]"); return !r || top.indexOf(r.getAttribute("data-id")) >= 0 || per.indexOf(r.getAttribute("data-id")) >= 0; },
-      top: function () { ORIG_SIV.call(root, { block: "start" }); }
+      top: function () { ORIG_SIV.call(root, { block: "start" }); },
+      /* a list none of whose ids is a pick (e.g. "tier 0 without a card") is in the full sections */
+      setIds: function (label, list) {
+        if (list) { var inTop = list.some(function (id) { return top.indexOf(id) >= 0; }), inPer = list.some(function (id) { return per.indexOf(id) >= 0; });
+          if (!inTop && !inPer) { full(p, true); return; } S.v = inTop ? "top" : "per"; S.c = "all"; }
+        setIdsOn(S, label, list); render(); }
     };
     setNav(p.id, top.length || per.length);
     return true;
@@ -32509,7 +32556,8 @@ odtad CZTERNASCIE (4-17).**
     for (var i = 0; i < 14; i++) {
       var dd = plus(DAY, i), n = cnt[dd] || 0, b = el("button", "s5ci-day" + (n ? "" : " s5ci-empty")); b.type = "button";
       b.appendChild(el("b", null, String(n))); var bar = el("span", "s5ci-barv"); bar.style.height = (n ? Math.max(6, Math.round(84 * n / mx)) : 2) + "px"; if (i <= 1 && n) bar.classList.add("s5ci-hot"); b.appendChild(bar);
-      b.appendChild(el("span", "s5ci-dd", dmy(dd))); b.setAttribute("aria-label", n + " deadline" + (n === 1 ? "" : "s") + " on " + dmyl(dd));
+      /* the day number only, the month where it starts (29 IX: fourteen "30 Sep" labels overlapped at 700 px) */
+      b.appendChild(el("span", "s5ci-dd", i === 0 || /-01$/.test(dd) ? dmy(dd) : String(+dd.slice(8)))); b.setAttribute("aria-label", n + " deadline" + (n === 1 ? "" : "s") + " on " + dmyl(dd));
       if (n) (function (d2) { b.addEventListener("click", function () { goTab("deadlines"); setTimeout(function () { if (window.__s5ciDeadlines) window.__s5ciDeadlines("30", d2); }, 60); }); })(dd); else b.disabled = true;
       days.appendChild(b);
     }
@@ -32524,35 +32572,51 @@ odtad CZTERNASCIE (4-17).**
     var sb = el("button", "s5ci-inl", "Sources ›"); sb.type = "button"; sb.addEventListener("click", function () { goTab("sources"); }); hl.appendChild(sb);
     tl.appendChild(hl);
     grid.appendChild(tl);
-    /* by product: one row per product, a row opens that product */
-    var bp = el("section", "s5ci-card"), bh = el("div", "s5ci-ch"); bh.appendChild(el("h3", null, "By product")); bh.appendChild(el("span", "s5ci-sub", "a row opens the product")); bp.appendChild(bh);
-    var newP = document.getElementById("tab-new"), inWin = newP ? idsIn(newP).map(function (id) { return I[id]; }).filter(Boolean) : [];
-    var P = {};
-    function row(k) { return P[k] || (P[k] = { k: k, nt: 0, win: 0, d30: 0, mc: 0 }); }
-    inWin.forEach(function (it) { var r = row(prod(it.product) || "Other"); r.win++; });
-    (ST.newToday || []).forEach(function (id) { if (I[id]) row(prod(I[id].product) || "Other").nt++; });
-    D.list.forEach(function (o) { if (o.d != null && o.d >= 0 && o.d <= 30) row(prod(o.it.product) || "Other").d30++; });
-    function pn(s) { return String(s || "").replace(/^Microsoft\s+/i, "").replace(/\s*\(.*\)\s*$/, "").replace(/\s+Online$/i, "").toLowerCase(); }
-    var keyOf = {}; Object.keys(P).forEach(function (k) { keyOf[pn(k)] = k; });
-    (((ST.mc || {}).entries) || []).forEach(function (m) { var hitK = {}; (m.tech || []).forEach(function (t) { var k = keyOf[pn(t)]; if (k && !hitK[k]) { hitK[k] = 1; P[k].mc++; } }); });
-    var ks = Object.keys(P).filter(function (k) { return k !== "This report" && k !== "Other"; }).sort(function (a, b) { return (P[b].win + P[b].d30) - (P[a].win + P[a].d30) || a.localeCompare(b); });
-    var t = el("div", "s5ci-t s5ci-tbp"); t.setAttribute("role", "table"); t.setAttribute("aria-label", "By product");
-    var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
-    ["Product", "New today", "In window", "Due in 30 days", "Message Center"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); }); t.appendChild(hd);
-    var shown = 8;
+    /* by product — §5ci-c (30 IX 2026, owner: "earlier every number in Overview was a blue button that
+       opened the tab already filtered; now the table is not clickable"). The numbers and their clicks
+       are those of SCRIPT 13's "What's new, by product" (Start here, now in the full sections): each
+       non-zero number here presses that table's own button, so the count and the rows it opens can
+       never disagree, and the tabs of this row apply the handed-over list in their views (setIds). */
+    var bp = el("section", "s5ci-card s5ci-bpc"), bh = el("div", "s5ci-ch"); bh.appendChild(el("h3", null, "What's new, by product"));
+    bh.appendChild(el("span", "s5ci-sub", "every number opens its tab already filtered")); bp.appendChild(bh);
+    var bpBody = el("div"); bp.appendChild(bpBody);
+    function legacyBP() {
+      var cap = [].filter.call(document.querySelectorAll("#tab-overview table caption"), function (c) { return /What.s new, by product/i.test(c.textContent); })[0];
+      return cap ? cap.parentNode : null;
+    }
     function drawBP() {
-      [].slice.call(t.querySelectorAll(".s5ci-tr:not(.s5ci-th)")).forEach(function (x) { x.remove(); });
-      ks.slice(0, shown).forEach(function (k) {
+      var lt = legacyBP(); bpBody.innerHTML = "";
+      if (!lt) { bpBody.appendChild(el("p", "s5ci-note", "The by-product table is not in this brief.")); return false; }
+      var heads = [].map.call(lt.querySelectorAll("thead th"), function (th) { return (th.textContent || "").trim(); });
+      var rows = [].slice.call(lt.querySelectorAll("tbody tr"));
+      var t = el("div", "s5ci-t s5ci-tbp"); t.setAttribute("role", "table"); t.setAttribute("aria-label", "What's new, by product");
+      t.style.setProperty("--s5ci-cols", String(heads.length));
+      var hd = el("div", "s5ci-tr s5ci-th"); hd.setAttribute("role", "row");
+      heads.forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); }); t.appendChild(hd);
+      var shown = bp.__all ? rows.length : Math.min(8, rows.length);
+      rows.slice(0, shown).forEach(function (tr) {
         var r = el("div", "s5ci-tr"); r.setAttribute("role", "row");
-        var c0 = el("div"); c0.setAttribute("role", "cell"); var b = el("button", "s5ci-inl", k); b.type = "button";
-        b.addEventListener("click", function () { openProduct(k); }); c0.appendChild(b); r.appendChild(c0);
-        [P[k].nt, P[k].win, P[k].d30, P[k].mc].forEach(function (v, i2) { var c = el("div", i2 === 2 && v ? "s5ci-strong" : null, String(v)); c.setAttribute("role", "cell"); r.appendChild(c); });
+        [].forEach.call(tr.children, function (td, ci) {
+          var c = el("div", ci ? "s5ci-bc" : "s5ci-bn"); c.setAttribute("role", "cell");
+          if (!ci) { var pb = el("button", "s5ci-inl", (td.textContent || "").trim()); pb.type = "button"; pb.title = "Open Products with this product";
+            pb.addEventListener("click", function () { openProduct(pb.textContent); }); c.appendChild(pb); r.appendChild(c); return; }
+          c.appendChild(el("span", "s5ci-bl", heads[ci] || ""));
+          var lb = td.querySelector("button");
+          if (lb) { var nb = el("button", "s5ci-num", (lb.textContent || "").trim()); nb.type = "button"; nb.title = lb.title || heads[ci];
+            nb.setAttribute("aria-label", heads[ci] + ": " + nb.textContent + " — " + (lb.title || "open"));
+            nb.addEventListener("click", function () { lb.click(); }); c.appendChild(nb); }
+          else c.appendChild(el("span", "s5ci-zero", (td.textContent || "0").trim()));
+          r.appendChild(c);
+        });
         t.appendChild(r);
       });
+      bpBody.appendChild(t);
+      if (rows.length > shown) { var mb = el("button", "s5ci-inl", "All " + rows.length + " products ›"); mb.type = "button";
+        mb.addEventListener("click", function () { bp.__all = true; drawBP(); }); bpBody.appendChild(mb); }
+      bpBody.appendChild(el("p", "s5ci-note", "New today: first seen by this brief. In the window: every item of the brief's window. Community and Catalog: the last 7 days. A zero is a result, not a link."));
+      return true;
     }
-    drawBP(); bp.appendChild(t);
-    if (ks.length > shown) { var mb = el("button", "s5ci-inl", "All " + ks.length + " products ›"); mb.type = "button"; mb.addEventListener("click", function () { shown = ks.length; drawBP(); mb.remove(); }); bp.appendChild(mb); }
-    bp.appendChild(el("p", "s5ci-note", "New today: first seen by this brief. In window: the items in New. Message Center: posts in the list naming the product."));
+    if (!drawBP()) setTimeout(drawBP, 2500);
     grid.appendChild(bp);
     root.appendChild(grid);
     mount(p, root);
@@ -32575,7 +32639,23 @@ odtad CZTERNASCIE (4-17).**
     goTab(m[1]); setTimeout(function () { v.open(decodeURIComponent(m[2])); }, 80);
   }
 
+  function hookS11() {
+    var s11 = window.__socS11; if (!s11 || s11.__s5ci) return;
+    var oSet = s11.setTab, oClear = s11.clearTab;
+    s11.setTab = function (pid, spec) {
+      var r = oSet.apply(this, arguments);
+      try { var v = VIEWS[pid]; if (v && v.setIds && spec && spec.ids && spec.ids.length && !spec.quiet) v.setIds(spec.label, spec.ids.slice()); } catch (e) { if (window.console) console.error("[5ci setIds]", e); }
+      return r;
+    };
+    s11.clearTab = function (pid) {
+      var r = oClear.apply(this, arguments);
+      try { var v = VIEWS[pid]; if (v && v.setIds) v.setIds(null, null); } catch (e) {}
+      return r;
+    };
+    s11.__s5ci = true;
+  }
   function run() {
+    hookS11();
     ST = ST || json("soc-brief-state"); if (!ST) return;
     if (!Object.keys(I).length) (ST.items || []).forEach(function (i) { if (i && i.id) I[i.id] = i; });
     DAY = ST.briefDate || ""; var cw = ST.comparedWith || ""; PREV = typeof cw === "string" ? cw : (cw.date || "");
