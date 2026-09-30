@@ -16,7 +16,7 @@ ms.service: microsoft-graph
 ms.topic: whats-new
 description: Find out what's new in Microsoft Graph APIs, SDKs, documentation, and other resources.
 ms.localizationpriority: high
-ms.date: 2026-09-14T00:00:00.0000000Z
+ms.date: 2026-09-18T00:00:00.0000000Z
 locale: en-us
 document_id: 62dfb7e7-bb91-b6de-735b-97e63c2620df
 document_version_independent_id: 7ac1c0c8-1433-e6c6-84a8-cbe00071fdd7
@@ -59,7 +59,8 @@ Features in *preview* status are subject to change without notice, and might not
 
 ### Files
 
-Added the **isPatternToken** property to the [fileStorageContainerCustomPropertyValue](/en-us/graph/api/resources/filestoragecontainercustompropertyvalue) resource to indicate whether a custom property value is a `urlTemplate` pattern that consumers must resolve before use, rather than a literal value.
+- Added the **isPatternToken** property to the [fileStorageContainerCustomPropertyValue](/en-us/graph/api/resources/filestoragecontainercustompropertyvalue) resource to indicate whether a custom property value is a `urlTemplate` pattern that consumers must resolve before use, rather than a literal value.
+- Added the **isOfficeRestricted** property to the [fileStorageContainerTypeSettings](/en-us/graph/api/resources/filestoragecontainertypesettings) and [fileStorageContainerTypeRegistrationSettings](/en-us/graph/api/resources/filestoragecontainertyperegistrationsettings) resources, and the **fileStorageContainerTypeSettingsOverride** enumeration.
 
 ### Groups
 
@@ -78,6 +79,10 @@ Added the **onPremisesExtensionAttributes** property to the [group](/en-us/graph
 ### Identity and access | Identity and sign-in
 
 Added the [anonymousCalendarSharingFreeBusyDetail](/en-us/graph/api/resources/anonymouscalendarsharingfreebusydetail), [anonymousCalendarSharingFreeBusyReviewer](/en-us/graph/api/resources/anonymouscalendarsharingfreebusyreviewer), and [anonymousCalendarSharingFreeBusySimple](/en-us/graph/api/resources/anonymouscalendarsharingfreebusysimple) resource types. Use these cross-tenant access policy capabilities to authorize anonymous external users to view calendar free/busy information at different levels of detail.
+
+### Security | Audit log query
+
+- Added the **isRecordCountLimitExceeded**, **recordCountLimit**, and **approximateReturnedRecordCount** properties to the [auditLogQuery](/en-us/graph/api/resources/security-auditlogquery) resource. Use these properties to determine whether a completed query exceeded the per-search record-count limit and to inspect the applicable limit and approximate returned record count.
 
 ### Teamwork and communications | Messaging
 

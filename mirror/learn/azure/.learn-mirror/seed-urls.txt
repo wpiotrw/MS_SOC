@@ -197,6 +197,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/automation/generate-playbook
 https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
 https://learn.microsoft.com/en-us/azure/sentinel/configure-data-connector
 https://learn.microsoft.com/en-us/azure/sentinel/connect-threat-intelligence-taxii
+https://learn.microsoft.com/en-us/azure/sentinel/data-connectors-reference
 https://learn.microsoft.com/en-us/azure/sentinel/datalake/custom-graphs-overview
 https://learn.microsoft.com/en-us/azure/sentinel/datalake/data-federation-overview
 https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-graph-overview
@@ -222,16 +223,19 @@ https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-security-content
 https://learn.microsoft.com/en-us/azure/sentinel/scoping
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog
+https://learn.microsoft.com/en-us/azure/sentinel/sentinel-tables-connectors-reference
 https://learn.microsoft.com/en-us/azure/sentinel/siem-migration
 https://learn.microsoft.com/en-us/azure/sentinel/transformation-filter-split
 https://learn.microsoft.com/en-us/azure/sentinel/ueba-anomalies-on-behaviors
 https://learn.microsoft.com/en-us/azure/sentinel/ueba-reference
 https://learn.microsoft.com/en-us/azure/sentinel/whats-new
+https://learn.microsoft.com/en-us/azure/sentinel/work-with-threat-indicators
 https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview
 https://learn.microsoft.com/en-us/azure/virtual-desktop/virtual-desktop-fall-2019/classic-retirement
 https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new
 https://learn.microsoft.com/en-us/azure/virtual-machines
 https://learn.microsoft.com/en-us/azure/virtual-machines/TOC
+https://learn.microsoft.com/en-us/azure/virtual-machines/attach-disk-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable

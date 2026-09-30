@@ -60,7 +60,7 @@ platformId: 66c7cfd5-8d9d-b1ea-6dac-1c5bdc17e465
 
 Important
 
-Items marked (preview) in this article are currently in public preview. This preview is provided without a service-level agreement, and we don't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 SpaceXAI's Grok models are available as Foundry Models sold by Azure and support coding, data extraction, summarization, and agentic applications. This article focuses on `grok-4.6` (preview), which provides a 200,000 token context window, multimodal input (text and image), tool calling, and advanced reasoning for coding, agentic workflows, and knowledge-work scenarios.
 

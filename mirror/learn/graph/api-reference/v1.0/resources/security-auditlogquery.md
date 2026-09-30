@@ -22,7 +22,7 @@ ms.topic: reference
 description: Represents a query against the Microsoft 365 unified audit log.
 ms.localizationpriority: medium
 doc_type: resourcePageType
-ms.date: 2026-06-17T00:00:00.0000000Z
+ms.date: 2026-09-18T00:00:00.0000000Z
 toc.title: Audit log query
 locale: en-us
 document_id: adaedd12-d801-a47a-ee35-15e7e0c3dcc3
@@ -42,9 +42,11 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/security-auditlogquery.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
 platformId: dde4ef62-baf9-9882-907c-84e8d226dccb
@@ -70,18 +72,25 @@ Inherits from [microsoft.graph.entity](entity).
 | Property | Type | Description |
 | --- | --- | --- |
 | administrativeUnitIdFilters | String collection | The collection of administrative unit IDs to filter on. |
+| approximateReturnedRecordCount | Int64 | The approximate number of records retrieved by the query. This value can be higher or lower than **recordCountLimit** due to distributed counting. Read-only. |
 | displayName | String | The display name of the audit log query. |
 | filterEndDateTime | DateTimeOffset | The end date and time of the audit log query filter. |
 | filterStartDateTime | DateTimeOffset | The start date and time of the audit log query filter. |
 | id | String | The unique identifier for the audit log query. Inherited from [entity](entity). |
 | ipAddressFilters | String collection | The collection of IP addresses to filter on. |
+| isRecordCountLimitExceeded | Boolean | Indicates whether the query exceeded the per-search record-count limit. The default value is `false`. A value of `true` is authoritative and isn't derived from **approximateReturnedRecordCount**. Read-only. |
 | keywordFilter | String | The keyword to filter on. |
 | objectIdFilters | String collection | The collection of object IDs to filter on. |
 | operationFilters | String collection | The collection of operations to filter on. |
+| recordCountLimit | Int64 | The record-count threshold used to limit query result retrieval. Read-only. |
 | recordTypeFilters | [microsoft.graph.security.auditLogRecordType](security-auditlogrecordtype) collection | The collection of record types to filter on. |
 | serviceFilters | String collection | The collection of services to filter on. |
 | status | microsoft.graph.security.auditLogQueryStatus | The status of the audit log query. Possible values are: `notStarted`, `running`, `succeeded`, `failed`, `cancelled`, `unknownFutureValue`. |
 | userPrincipalNameFilters | String collection | The collection of user principal names to filter on. |
+
+Note
+
+An audit log query can complete successfully after exceeding its record-count limit. Use **isRecordCountLimitExceeded** to determine whether the limit was exceeded. For information about tenant and per-query allocations, see [Microsoft Graph service-specific throttling limits](/en-us/graph/throttling-limits#security-audit-log-query-service-limits).
 
 ## Relationships
 
@@ -108,7 +117,10 @@ The following JSON representation shows the resource type.
   "ipAddressFilters": ["String"],
   "objectIdFilters": ["String"],
   "administrativeUnitIdFilters": ["String"],
-  "status": "String"
+  "status": "String",
+  "approximateReturnedRecordCount": "Int64",
+  "isRecordCountLimitExceeded": "Boolean",
+  "recordCountLimit": "Int64"
 }
 ```
 

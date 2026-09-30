@@ -55,7 +55,7 @@ platformId: fb6afede-ba0d-1bc0-f4dc-43d5c90e1247
 
 Important
 
-Items marked (preview) in this article are currently in public preview. This preview is provided without a service-level agreement, and we don't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 Use Microsoft Entra authentication for trace ingestion when your agents send telemetry to the Application Insights resource connected to your Foundry project. This approach replaces key-based ingestion with identity-based access control.
 
