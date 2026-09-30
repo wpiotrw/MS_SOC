@@ -9523,6 +9523,15 @@ wpisy z nazwy, albo mowi zdaniem, ile przebiegow patrzylo i kiedy cos ruszylo si
 raz; oraz **kolumna Overview nazywa sie `Catalog, 7 days`** i jej niezerowa liczba otwiera
 zakladke, ktora ten ruch zapisala.
 
+**§5ci (30 IX 2026) — Playwright a widoki rzedu „Dzis".** W zakladkach Overview, Today, Deadlines i New
+stare sekcje (tabele z `tbody tr[data-id]`, `details.ntsec`, pasek „Advanced filtering", paski picks) sa
+w DOM, ale ukryte klasa `s5ci-on` na panelu; na gorze stoi widok `.s5ci`. Asercje tej listy, ktore
+KLIKAJA albo MIERZA WIDOCZNOSC w tych czterech zakladkach (np. chip produktu w picks, `.filterbanner`,
+chip 🔥/⚠️), najpierw wlaczaja pelne sekcje: klik `.s5ci-more .s5ci-mb` albo
+`panel.classList.add("s5ci-full")`, a na koniec je wylaczaja. Asercje OBECNOSCI (liczba wierszy,
+`.panelhead`, `.stat`, `figure.chart`) dzialaja bez tego. To NIE jest blad strony i NIE jest powod,
+zeby nie publikowac — widok `.s5ci` pokazuje te same wiersze (§5ci, test 29/29).
+
 ## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
 
 Ta sekcja jest wiazaca dla obu taskow i obu routines; prompty na nia wskazuja zamiast ja powtarzac.
