@@ -21,7 +21,7 @@ learn_banner_products:
 manager: akashdubey
 ms.author: v-mallicka
 ms.service: azure-backup
-ms.reviewer: v-mallicka, jsuri
+ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
 ms.date: 2026-09-15T00:00:00.0000000Z

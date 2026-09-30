@@ -28,7 +28,7 @@ ms.custom:
 - classic-and-new
 - references_regions
 ms.topic: how-to
-ms.date: 2026-08-31T00:00:00.0000000Z
+ms.date: 2026-09-25T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -68,6 +68,7 @@ Use cloud evaluations to test generative AI applications at scale without managi
     Important
 
     The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner**, **Foundry Account Owner**, and **Foundry Project Manager** were previously named Azure AI User, Azure AI Owner, Azure AI Account Owner, and Azure AI Project Manager. You might still see the previous names in some places while the rename rolls out. The role IDs and core permissions are unchanged by the rename.
+- For all evaluation role requirements, see [Set up permissions for evaluation workflows](evaluation-permissions).
 - Optionally, [your own storage account](../../concepts/evaluation-regions-limits-virtual-network#bring-your-own-storage) for evaluation data.
 
 Some evaluation features have regional restrictions. Review the [supported regions](../../concepts/evaluation-evaluators/risk-safety-evaluators#foundry-project-configuration-and-region-support) before you begin.

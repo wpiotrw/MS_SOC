@@ -28,7 +28,7 @@ ms.custom:
 - classic-and-new
 - references_regions
 ms.topic: how-to
-ms.date: 2026-08-04T00:00:00.0000000Z
+ms.date: 2026-09-25T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -73,6 +73,7 @@ Admin-connected model support in cloud evaluation is in preview and might not be
 
 - A [Foundry project](../../how-to/create-projects).
 - **Foundry User** role on the Foundry project.
+- For all evaluation role requirements, see [Set up permissions for evaluation workflows](evaluation-permissions).
 - An administrator has created an Azure API Management or non-Azure AI model gateway connection on your Foundry resource and added the model on the **Manage** &gt; **Resource details** &gt; **Admin-connected models** tab. For setup instructions, see [Bring your own model to Foundry Agent Service](../../agents/how-to/ai-gateway).
 - The connection name and deployment name for a model that supports the OpenAI Chat Completions API.
 
