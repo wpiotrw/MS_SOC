@@ -28,7 +28,7 @@ ms.custom:
 - references_regions
 - doc-kit-assisted
 ms.topic: how-to
-ms.date: 2026-09-15T00:00:00.0000000Z
+ms.date: 2026-09-25T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -583,7 +583,7 @@ Your evaluation job might stay in the **Running** state for a long time. This co
 If you get a `401 Unauthorized` or `403 Forbidden` error, check that:
 
 - You configured your `DefaultAzureCredential` correctly. If you're using Azure CLI, run `az login`.
-- Your account has the **Foundry User** role on the Foundry project.
+- Your account has the **Foundry User** role on the Foundry project. For all evaluation role requirements, see [Set up permissions for evaluation workflows](evaluation-permissions).
 - The project endpoint URL is correct and includes both the account and project names.
 
 ### Data format errors

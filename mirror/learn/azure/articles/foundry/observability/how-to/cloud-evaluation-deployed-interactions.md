@@ -27,7 +27,7 @@ ms.subservice: foundry-observability
 ms.custom:
 - references_regions
 ms.topic: how-to
-ms.date: 2026-08-26T00:00:00.0000000Z
+ms.date: 2026-09-28T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -417,7 +417,7 @@ pip install "azure-ai-agentserver-core[tracing]"
 In addition to the general [prerequisites](cloud-evaluation#prerequisites), trace evaluation requires:
 
 - An [Application Insights resource](/en-us/azure/azure-monitor/app/app-insights-overview) connected to your Foundry project. See [Set up tracing in Microsoft Foundry](trace-agent-setup).
-- The project's managed identity must have the **Log Analytics Reader** role on both the Application Insights resource and its linked Log Analytics workspace. If the tables that store your traces are [protected](/en-us/azure/azure-monitor/logs/protected-tables-configure) (their protection level is set to **Protected**), also assign the [Privileged Monitoring Data Reader](/en-us/azure/azure-monitor/logs/manage-access?tabs=portal#privileged-monitoring-data-reader) role at the same scopes so the service can read the protected trace tables.
+- The project's managed identity must have the [**Reader** role](/en-us/azure/role-based-access-control/built-in-roles/general#reader) on the Application Insights resource. If the tables that store your traces are [protected](/en-us/azure/azure-monitor/logs/protected-tables-configure) (their protection level is set to **Protected**), also assign the [Privileged Monitoring Data Reader](/en-us/azure/azure-monitor/logs/manage-access?tabs=portal#privileged-monitoring-data-reader) role on that resource. If the linked Log Analytics workspace is configured to [**Require workspace permissions**](/en-us/azure/azure-monitor/logs/manage-access#access-control-mode), assign **Log Analytics Reader** on the workspace too. For all trace-evaluation role requirements and other workspace configurations, see [Set up permissions for evaluation workflows](evaluation-permissions#add-permissions-for-trace-based-workflows).
 - The `azure-monitor-query` Python package (only needed if you collect trace IDs manually).
 
 ```bash
