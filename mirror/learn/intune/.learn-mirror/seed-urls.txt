@@ -14,6 +14,8 @@ https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-mana
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
+https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site-and-site-system-prerequisites
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/list-of-prerequisite-checks
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix
 https://learn.microsoft.com/en-us/intune/copilot
 https://learn.microsoft.com/en-us/intune/copilot/agents/change-review-agent
@@ -22,6 +24,7 @@ https://learn.microsoft.com/en-us/intune/developer/data-warehouse/configure-app-
 https://learn.microsoft.com/en-us/intune/developer/data-warehouse/create-reports
 https://learn.microsoft.com/en-us/intune/device-configuration/collect-device-properties
 https://learn.microsoft.com/en-us/intune/device-configuration/endpoint-security/antivirus
+https://learn.microsoft.com/en-us/intune/device-configuration/endpoint-security/monitor-encryption
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/configure-platform-sso-during-enrollment
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/ref-android-settings
@@ -38,6 +41,7 @@ https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated
 https://learn.microsoft.com/en-us/intune/device-enrollment/guide-linux
 https://learn.microsoft.com/en-us/intune/device-enrollment/setup-time-grouping
 https://learn.microsoft.com/en-us/intune/device-management/actions
+https://learn.microsoft.com/en-us/intune/device-management/actions/remove-apps-config
 https://learn.microsoft.com/en-us/intune/device-management/actions/rename
 https://learn.microsoft.com/en-us/intune/device-management/actions/restore-managed-home-screen
 https://learn.microsoft.com/en-us/intune/device-management/actions/rotate-recovery-lock-passcode
@@ -56,6 +60,7 @@ https://learn.microsoft.com/en-us/intune/device-security/compliance/create-polic
 https://learn.microsoft.com/en-us/intune/device-security/compliance/custom-settings
 https://learn.microsoft.com/en-us/intune/device-security/compliance/monitor-policy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/third-party-partners
+https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-devices
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/security-settings-management
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/overview
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/prerequisites

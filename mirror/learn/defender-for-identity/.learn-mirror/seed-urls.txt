@@ -18,4 +18,5 @@ https://learn.microsoft.com/en-us/defender-for-identity/remediation-actions
 https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/accounts
 https://learn.microsoft.com/en-us/defender-for-identity/security-testing-best-practices
 https://learn.microsoft.com/en-us/defender-for-identity/sensor-settings
+https://learn.microsoft.com/en-us/defender-for-identity/troubleshooting-known-issues
 https://learn.microsoft.com/en-us/defender-for-identity/whats-new
