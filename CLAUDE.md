@@ -8863,14 +8863,25 @@ if __name__ == "__main__":
     # §5cj: the morning state of the same day — `--morning <file>`, or the main page itself
     # (site/index.html beside site/diff/), which the morning mirror wrote. No prompt change needed.
     if not ledger_only:
-        _mp = opts[opts.index("--morning") + 1] if "--morning" in opts else \
-              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[2]))), "index.html")
-        if os.path.exists(_mp) and os.path.abspath(_mp) != os.path.abspath(args[1]):
+        # 30 IX 2026: the routine wrote the page elsewhere and moved it into site/diff/, so the path
+        # beside the output did not exist and the split was silently off (data-split="0"). Look in
+        # every place the main page can be, and say so when none has it.
+        _cands = ([opts[opts.index("--morning") + 1]] if "--morning" in opts else []) + [
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[2]))), "index.html"),
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[0]))), "index.html"),
+            os.path.join(os.getcwd(), "site", "index.html"),
+            os.path.join(os.environ.get("SOC_REPO", ""), "site", "index.html") if os.environ.get("SOC_REPO") else ""]
+        _mp = next((c for c in _cands if c and os.path.exists(c) and os.path.abspath(c) != os.path.abspath(args[1])), "")
+        if not _mp:
+            print("UWAGA  §5cj: nie znaleziono strony glownej (site/index.html) - /diff/ bez podzialu rano/popoludnie; podaj --morning <plik>")
+        if _mp:
             try:
                 _ms, _mc = load_state(_mp)
                 if norm(_ms.get("briefDate")) == norm(cs.get("briefDate")):
                     MORNING = (_ms, _mc)
                     print("OK  stan poranny z %s (%d pozycji)" % (_mp, len(_ms.get("items") or [])))
+                else:
+                    print("UWAGA  §5cj: %s ma briefDate %s, a biezacy stan %s - bez podzialu" % (_mp, _ms.get("briefDate"), cs.get("briefDate")))
             except SystemExit as ex_:
                 print("UWAGA  §5cj: stanu porannego nie odczytano (%s)" % ex_)
     if not ledger_only:
