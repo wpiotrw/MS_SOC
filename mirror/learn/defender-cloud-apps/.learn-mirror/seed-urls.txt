@@ -1,5 +1,10 @@
 https://learn.microsoft.com/en-us/defender-cloud-apps
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-app-policies-create
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-secure-apps-app-hygiene-features
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-secure-apps-entra-rbac-roles
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-trial-user-guide
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-overview
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-view-apps
 https://learn.microsoft.com/en-us/defender-cloud-apps/applications-inventory
 https://learn.microsoft.com/en-us/defender-cloud-apps/manage-admins
@@ -8,3 +13,11 @@ https://learn.microsoft.com/en-us/defender-cloud-apps/migrate-file-policies-to-p
 https://learn.microsoft.com/en-us/defender-cloud-apps/protect-salesforce
 https://learn.microsoft.com/en-us/defender-cloud-apps/protect-workday
 https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/app-governance-secure-apps-app-hygiene-features
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/app-governance-visibility-insights-view-apps
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/applications-inventory
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/manage-admins
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/mde-govern
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/migrate-file-policies-to-purview
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/protect-salesforce
+https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes/protect-workday

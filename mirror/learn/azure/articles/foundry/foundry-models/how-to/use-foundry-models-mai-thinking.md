@@ -60,7 +60,7 @@ platformId: 1cb927c0-c29b-6232-86e4-3b5384c2caff
 
 Important
 
-Items marked (preview) in this article are currently in public preview. This preview is provided without a service-level agreement, and we don't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 MAI-Thinking-1 (preview) is a reasoning model from Microsoft for workloads that depend on multi-step reasoning, such as math, coding, and enterprise scenarios. The model uses a chat completions API that's compatible with OpenAI SDK-style chat completions patterns. To use MAI-Thinking-1, deploy it in Microsoft Foundry, set your Foundry endpoint, authenticate your request, and call the chat completions endpoint with your deployment name.
 

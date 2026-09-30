@@ -7,12 +7,15 @@ https://learn.microsoft.com/en-us/defender-for-identity/deploy/activate-sensor
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/configure-windows-event-collection
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/deploy-defender-identity
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/deploy-sensor-v3
+https://learn.microsoft.com/en-us/defender-for-identity/deploy/directory-service-accounts
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/migrate-to-sensor-v3
+https://learn.microsoft.com/en-us/defender-for-identity/directory-service-accounts
 https://learn.microsoft.com/en-us/defender-for-identity/identity-inventory
 https://learn.microsoft.com/en-us/defender-for-identity/investigate-domain
 https://learn.microsoft.com/en-us/defender-for-identity/manage-related-identities-accounts
 https://learn.microsoft.com/en-us/defender-for-identity/password-protection
 https://learn.microsoft.com/en-us/defender-for-identity/remediation-actions
 https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessments/accounts
+https://learn.microsoft.com/en-us/defender-for-identity/security-testing-best-practices
 https://learn.microsoft.com/en-us/defender-for-identity/sensor-settings
 https://learn.microsoft.com/en-us/defender-for-identity/whats-new
