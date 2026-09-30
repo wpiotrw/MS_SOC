@@ -11,6 +11,7 @@ on:
     paths:
       - 'CLAUDE.md'
       - 'tools/code_refresh.py'
+      - 'tools/site_retention.py'
       - '.github/workflows/code-refresh.yml'
   workflow_run:
     workflows: ["First-party apps tenant snapshot"]
@@ -33,6 +34,16 @@ jobs:
           ref: main
           fetch-depth: 1
 
+      # §0h (30 IX 2026): pack site/history and old data states, drop what is older than 30 days by
+      # the DATE IN THE FILE NAME (the old `find -mtime +30` never matched on a fresh clone). The
+      # owner's decision: Standard plan, history 30 days; older files stay in the git history.
+      - name: Site retention (pack, 30 days)
+        id: ret
+        run: |
+          set -euo pipefail
+          python3 tools/site_retention.py site --days 30 | tee retention.log
+          if [ -n "$(git status --porcelain -- site/history site/data)" ]; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
+
       - name: Swap in the code of this CLAUDE.md
         id: swap
         run: |
@@ -45,13 +56,14 @@ jobs:
         run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
 
       - name: Commit the refreshed page
-        if: steps.swap.outputs.changed == '1'
+        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/index.html
-          git commit -m "code: odswiezenie skryptow strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' '))"
+          git add -A -- site/history site/data
+          git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log)"
           git pull --rebase -q origin main
           git push origin main
 

@@ -264,7 +264,9 @@ przyczyna nie jest w regulach.
    jedyny przebieg poranny trzyma repozytorium, wiec jako jedyne moze to zrobic; scheduled task
    buduje artefakt i nie commituje niczego (§0a, podzial rol). Pakowanie idzie PRZED commitem
    z kroku 8, zeby dzisiejszy stan i wczorajsza strona weszly do niego juz spakowane. Zasada 2
-   nie jest naruszona: `site/history/` nie traci ani jednego pliku, traci wylacznie rozmiar.
+   nie jest naruszona: przebieg nie usuwa niczego z `site/history/`. **Retencje 30 dni (usuwanie)
+   robi od 30 IX 2026 WYLACZNIE workflow `code-refresh.yml` (`tools/site_retention.py`, §0h
+   „Retencja w workflow"), nie przebieg.**
 8. `git pull --rebase origin <twoj ref>`, commit, push, i udowodnij `BEFORE != AFTER` (zasada 7).
 
 ### Strona `/diff/` — ten sam skrypt, tryb `--diff`
@@ -3634,6 +3636,34 @@ opublikowanej stronie nie prowadzi.** Czytaja je wylacznie przebiegi — i czyta
    „Czego nie robic"); nic nie wyjezdza poza `site/`, bo `publish.yml` przenosi z galezi przebiegu
    **tylko `site/`** i cokolwiek poza nim zniknelo by po cichu.
 
+### Retencja w workflow (30 IX 2026) — data z nazwy pliku, 30 dni takze dla `history/`
+
+**Pomiar 30 IX 2026:** `site/` 107 MB i ok. 3 MB przyrostu dziennie. Retencja z punktu 4 nie usunela
+ani jednego pliku: `find -mtime +30` czyta czas modyfikacji pliku, a na swiezym klonie to chwila
+klonowania, wiec zaden plik nigdy nie byl „starszy niz 30 dni" (stany z 27–30 VIII lezaly 30 IX).
+Pakowanie tez nie szlo co dzien: cztery surowe stany (50 MB) zamiast dwoch i dwie niespakowane
+strony `/diff/` w `history/`. Tego samego dnia poranny przebieg lustra (commit `f6c0f66`) **usunal
+23 pliki z `history/`** wbrew zasadzie „Nie usuwaj plikow z `history/`" — nieciagly zestaw
+27 VIII–9 IX, bez slowa w commicie. Pliki z 31 VIII i pozniej przywrocono z historii git.
+
+**Decyzja wlasciciela 30 IX 2026:** aplikacja jest w planie **Standard** (500 MB na srodowisko,
+[Quotas](https://learn.microsoft.com/azure/static-web-apps/quotas)); `site/history/` moze trzymac
+**30 dni** — starsze wersje zostaja w historii git (`git log --all -- site/history/`), z repozytorium
+nic nie ginie. Punkt 5 („`history/` nie traci ani jednego pliku") dotyczy odtad PRZEBIEGOW: przebieg
+dalej niczego nie usuwa; usuwa wylacznie `tools/site_retention.py`, uruchamiany w
+`.github/workflows/code-refresh.yml` przed commitem (po kazdym pushu `CLAUDE.md` i po kazdej
+migawce tenanta co 3 h):
+
+1. pakuje `history/*.html` i kazdy `data/<data>.json` poza dwoma najnowszymi stanami, kazdy `.gz`
+   sprawdzony rozpakowaniem (rejestry `changelog*.json` i pliki bez daty — `fpa-tenant.json`,
+   `mc-tenant.json`, `history.json` — zostaja jawne, bo czyta je strona);
+2. usuwa `history/<data>-*` i `data/<data>.json[.gz]` starsze niz 30 dni **wedlug daty z nazwy**,
+   nigdy dwoch najnowszych stanow.
+
+Zmierzone na kopii `site/` z 30 IX: 5 plikow spakowanych, 4 usuniete (27–30 VIII), **119,1 → 86,6 MB**;
+drugie uruchomienie: 0 / 0 (idempotentne). Pozycja 103 (limit 262 144 000 B) zostaje jako wczesne
+ostrzezenie ponizej limitu planu Standard.
+
 ### Procedura — dokladnie ta, ktora zmierzono
 
 ```bash
@@ -3645,8 +3675,9 @@ for f in data/*.json; do
   case "$f" in *changelog*) continue;; esac
   gzip -9 "$f"
 done
-# retencja: stan starszy niz 30 dni nie ma juz czytelnika (punkt 4)
-find data -name '*.json.gz' -mtime +30 -delete
+# retencji (usuwania) przebieg NIE robi — od 30 IX 2026 robi ja workflow code-refresh.yml
+# (tools/site_retention.py, data z NAZWY pliku). Dawne `find data -mtime +30 -delete` nie usunelo
+# nigdy niczego: na swiezym klonie mtime = chwila klonowania.
 git add --sparse history data          # oba katalogi leza poza zestawem sparse (§5ai)
 ```
 
