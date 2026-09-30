@@ -4747,6 +4747,10 @@ def norm(v):
 BOOKKEEPING = {"tier", "method", "checkedOn"}        # jak/gdzie brief to trzyma, nie co zrobil Microsoft
 APPEARS_IS_NEWS = {"deadline", "status", "action"}   # pojawienie sie TYCH pol jest wiadomoscia
 NOISE = {"first recorded": 0, "bookkeeping": 0}
+# §5cj (30 IX 2026): the MORNING state of the same day (site/index.html, which the main page
+# serves), set by __main__ when this is the evening pass. None = not known; the page then says
+# nothing about the split and every number stays exactly as before.
+MORNING = None
 
 def moved(f, a, b):
     """Czy roznica pola `f` z `a` na `b` jest ZMIANA (§5bf)."""
@@ -5974,6 +5978,17 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
 @media (max-width:760px){.dnotebtn{display:inline-block}}
 .dstale{margin:10px 0 0;padding:8px 12px;border:1px solid var(--warn);border-left-width:4px;border-radius:8px;
  background:var(--warn-soft);color:var(--text);font-size:13.5px;line-height:1.5}
+/* §5cj (30 IX 2026): what this page compares, and what the main page does not show yet */
+.dwin{margin:10px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;
+ background:var(--surface);font-size:13.5px;line-height:1.5}
+.dwin p{margin:0 0 6px}.dwin p:last-child{margin-bottom:0}
+.dwin .dwin-aft{margin-top:8px;padding:8px 12px;border:1px solid var(--warn);border-radius:8px;background:var(--warn-soft)}
+.dwin ul{margin:6px 0 0;padding-left:20px}.dwin li{margin:2px 0}
+.dwin .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--surface-2,var(--accent-soft));font-size:11.5px;font-weight:600;margin-right:6px}
+details.dhow{margin:8px 0 0}
+details.dhow>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent)}
+.mcol{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.mcol b{color:var(--text)}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -7137,6 +7152,44 @@ NAV_BODY = """<script>
 })();
 </script>"""
 
+def tab_counts(prev_st, prev_cat, st, cat):
+    """§5cj — the (added, removed, changed) of every `bytab` row for ONE comparison, counted the
+    way build() counts them, so the evening page can say which part of each number the MORNING
+    pass already showed on the main page. Removals that are only a window roll (community,
+    source text, blogs, Learn what's new) are zeroed exactly as build() zeroes them (§5bg)."""
+    saved = dict(NOISE)
+    try:
+        a, r, c, _, _ = diff_items(prev_st, st)
+        out = {}
+        for i_ in a: out.setdefault(tab_of(i_), [0, 0, 0])[0] += 1
+        for i_ in r: out.setdefault(tab_of(i_), [0, 0, 0])[1] += 1
+        for i_, _d in c: out.setdefault(tab_of(i_), [0, 0, 0])[2] += 1
+        for which, tab in (("graph", "Graph API"), ("roles", "Roles")):
+            ga, gr, gm, _, _ = diff_catalog(prev_cat or {}, cat or {}, which)
+            out[tab] = [len(ga), len(gr), len(gm)]
+        ca, cr, cm, _, _ = diff_components(prev_st, st)
+        out["Component versions"] = [len(ca), len(cr), len(cm)]
+        com = diff_community(prev_st, st)
+        out["Community articles"] = [len(com.get("artAdd") or []), 0, len(com.get("srcChg") or [])]
+        da, dr, dc, _, _ = diff_doctext(prev_st, st)
+        out["Source text"] = [len(da), 0, len(dc)]
+        nt = diff_nt(prev_st, st)
+        out["Microsoft Learn"] = [len(nt.get("wnAdd") or []) + len(nt.get("pageAdd") or []) + len(nt.get("areaAdd") or []),
+                                  len(nt.get("pageRem") or []) + len(nt.get("areaRem") or []),
+                                  len(nt.get("pageChg") or []) + len(nt.get("areaChg") or [])]
+        out["Microsoft Blogs"] = [len(nt.get("artAdd") or []) + len(nt.get("blogAdd") or []),
+                                  len(nt.get("blogRem") or []), len(nt.get("blogChg") or [])]
+        _, gea, ger, gec = diff_graphmap(prev_st, st)
+        out["Graph endpoints"] = [gea, ger, gec]
+        if not com.get("baseline"):
+            v = mc_view(com, a, r, c)
+            out["Message Center"] = [len([x for x in v if x["kind"] == "added"]),
+                                     len([x for x in v if x["kind"] == "removed"]),
+                                     len([x for x in v if x["kind"] == "changed"])]
+        return out
+    finally:
+        NOISE.clear(); NOISE.update(saved)
+
 def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     NOISE["first recorded"] = NOISE["bookkeeping"] = 0
     added, removed, changed, np_, nc = diff_items(prev_st, curr_st)
@@ -7183,6 +7236,64 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # failed 26-27 IX) and the brief's "changes since the last brief" landed on 24 -> 25 IX.
     # STALE_BODY reveals this line when the day it covers is before today in Warsaw.
     out.append('<p class="dstale" id="dstale" data-from="%s" data-to="%s" hidden></p>' % (esc(prev_d), esc(curr_d)))
+    # §5cj (30 IX 2026, owner: variant A). Measured 30 IX: the main page compares the previous
+    # evening with THIS MORNING, this page the previous evening with THIS EVENING, and neither said
+    # so — New +10 there, +16 here; Graph API 0 there, +40 here. And six items the afternoon pass
+    # found (MDI sensor v3 by default, passkeys from a federated IdP GA...) were on this page only,
+    # and the next morning's brief compares with this evening's state, so the main page never
+    # marks them new. The page now says what it compares, lists what arrived after the morning
+    # pass, and `bytab` carries what part of each number the main page already shows.
+    MSPLIT = None
+    mst = mcat = None
+    if MORNING and norm((MORNING[0] or {}).get("briefDate")) == curr_d and curr_d != prev_d:
+        mst, mcat = MORNING
+        try: MSPLIT = tab_counts(prev_st, prev_cat, mst, mcat)
+        except Exception as ex_: print("UWAGA  §5cj: podzial rano/wieczor pominiety: %s" % ex_); MSPLIT = None
+    _pas = {}
+    for _p in (curr_st.get("passes") or []):
+        if isinstance(_p, dict) and _p.get("kind"): _pas[_p["kind"]] = norm(_p.get("at"))
+    def _dm(d):
+        m_ = re.match(r"^(\d{4})-(\d{2})-(\d{2})", d or "")
+        return ("%d %s" % (int(m_.group(3)), ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][int(m_.group(2)) - 1])) if m_ else esc(d)
+    win_ = ['<div class="dwin" id="dwin"><p><b>What this page compares:</b> the state at the end of %s &rarr; '
+            'the state at the end of %s' % (_dm(prev_d), _dm(curr_d))]
+    if _pas.get("morning") or _pas.get("afternoon"):
+        win_.append(' &mdash; %s%s%s' % (
+            ("the morning pass (%s Warsaw)" % esc(_pas["morning"])) if _pas.get("morning") else "",
+            " and " if (_pas.get("morning") and _pas.get("afternoon")) else "",
+            ("the afternoon pass (%s Warsaw)" % esc(_pas["afternoon"])) if _pas.get("afternoon") else ""))
+    win_.append('. <b>The main page shows the morning pass only</b>: each of its tabs counts what moved '
+                'between the end of %s and this morning.' % _dm(prev_d))
+    if MSPLIT is not None:
+        win_.append(' In <a href="#bytab">What changed, by tab</a> the last column says how much of each '
+                    'row the main page already shows.')
+    win_.append('</p>')
+    aft = []
+    if mst is not None:
+        mids = set(norm(i.get("id")) for i in (mst.get("items") or []) if isinstance(i, dict))
+        aft = [i for i in added if norm(i.get("id")) not in mids]
+    if aft:
+        win_.append('<div class="dwin-aft"><p><b>Arrived with the afternoon pass: %d item%s the main page does not '
+                    'show</b> &mdash; tomorrow&rsquo;s brief carries them, but compares with this evening, so it will '
+                    'not mark them new. They are in <a href="#added">Added</a> below as well.</p><ul>'
+                    % (len(aft), "" if len(aft) == 1 else "s"))
+        for i_ in sorted(aft, key=wkey):
+            t_ = esc(i_.get("title") or i_.get("id"))
+            u_ = norm(i_.get("url"))
+            link_ = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(u_), t_)) if u_ else t_
+            ref_ = norm(i_.get("reference"))
+            win_.append('<li><span class="dwin-p">%s</span>%s%s%s</li>' % (
+                esc(i_.get("product") or "—"), link_,
+                (" &middot; %s" % esc(ref_)) if re.match(r"^(MC|RM)\d+$", ref_ or "") else "",
+                (" &middot; due %s" % esc(i_.get("deadline"))) if norm(i_.get("deadline")) else ""))
+        win_.append('</ul></div>')
+    win_.append('</div>')
+    out.append("".join(win_))
+    # read by the main page (§5cj): the date this page covers and what the main page does not show
+    out.append('<div id="diff-meta" hidden data-date="%s" data-prev="%s" data-afternoon-at="%s" data-afternoon="%s"'
+               ' data-split="%s"></div>' % (esc(curr_d), esc(prev_d), esc(_pas.get("afternoon") or ""),
+                                            esc(" ".join(norm(i.get("id")) for i in aft)),
+                                            "1" if MSPLIT is not None else "0"))
     ge_rows, ge_add, ge_rem, ge_chg = diff_graphmap(prev_st, curr_st)
     fp_rows, fp_add, fp_rem, fp_chg, fp_base = diff_fpa(prev_st, curr_st)
     fp_n = {"baseline": "baseline", "absent": "not collected"}.get(fp_base) or "+%d / &minus;%d / %d" % (fp_add, fp_rem, fp_chg)
@@ -7274,6 +7385,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
          "warn", "bytab"),
     ]))
     _mc_idx = len([r for r in MCV if r.get("origin") == "index"])
+    # §5cj: the rules behind the tiles stay whole, folded under one line (≈150 words sat in front of the table)
+    out.append('<details class="dhow"><summary>How these numbers are counted</summary>')
     out.append('<p class="tilenote">Added, removed and changed count every row of the table below '
                'them, both catalogs and the tracked components included. Endpoints and Message Center '
                'are counted apart: endpoints are not items, and Message Center is a VIEW over entries '
@@ -7310,6 +7423,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                                                     ROLLED["blogs"], ROLLED["learn"]))
                   if sum(ROLLED.values()) else '')
                + '</p>')
+    out.append('</details>')
     out.append('</div></header><div class="wrap" role="main">@@SUBNAV@@')
 
     # --- podsumowanie zbiorcze: co w ktorej zakladce i w jakich obszarach
@@ -7447,11 +7561,19 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         # Zmierzone 12 wrzesnia 2026 na OPUBLIKOWANEJ stronie. `verify()` tego nie zlapal,
         # bo pytal, czy JAKIS link na stronie prowadzi do "/" — a dateline swoj ma.
         tabsec = TAB_HOME.get(tab)
-        srows.append((' class="quiet"' if not (na or nr or nc) else "",
-                      ["<b>%s</b>" % esc(tab),
-                       goto_num(na, "add", tab, tabsec or "added"),
-                       goto_num(nr, "rem", tab, tabsec or "removed"),
-                       goto_num(nc, "chg", tab, tabsec or "changed"), ar]))
+        cells_ = ["<b>%s</b>" % esc(tab),
+                  goto_num(na, "add", tab, tabsec or "added"),
+                  goto_num(nr, "rem", tab, tabsec or "removed"),
+                  goto_num(nc, "chg", tab, tabsec or "changed"), ar]
+        if MSPLIT is not None:
+            mv_ = MSPLIT.get(tab)
+            if mv_ is None:
+                cells_.append('<span class="mcol">&mdash;</span>')
+            elif (mv_[0], mv_[1], mv_[2]) == (na, nr, nc):
+                cells_.append('<span class="mcol">all of it</span>' if (na or nr or nc) else '<span class="mcol">&mdash;</span>')
+            else:
+                cells_.append('<span class="mcol"><b>+%d / &minus;%d / %d</b> in the morning</span>' % tuple(mv_))
+        srows.append((' class="quiet"' if not (na or nr or nc) else "", cells_))
     out.append(sect("bytab", "What changed, by tab", ('What moved since %s, tab by tab, and which areas it touched. '
                'A row of three zeros means that tab was checked and did not move. Each item is counted '
                'in the ONE tab that is its home &mdash; New for the published window, Deadlines for '
@@ -7462,7 +7584,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                'tile and named in the Community section rather than mixed in here. '
                '<b>Every non-zero number below is a link</b>: it jumps to the section that lists '
                'those rows and narrows it to that tab.') % esc(prev_d),
-               table(["Tab", "Added", "Removed", "Changed", "Areas touched"], srows,
+               table(["Tab", "Added", "Removed", "Changed", "Areas touched"]
+                     + (["On the main page (morning pass)"] if MSPLIT is not None else []), srows,
                      "No tab moved at all."), count="%d tabs" % len(SUMMARY_TABS),
                open_=bool(sum_add or sum_rem or sum_chg or ge_add or ge_rem or ge_chg or MCV)))
 
@@ -8706,6 +8829,19 @@ if __name__ == "__main__":
     ps, pc = load_state(args[0])
     cs, cc = load_state(args[1])
     when = datetime.datetime.now().strftime("%H:%M")
+    # §5cj: the morning state of the same day — `--morning <file>`, or the main page itself
+    # (site/index.html beside site/diff/), which the morning mirror wrote. No prompt change needed.
+    if not ledger_only:
+        _mp = opts[opts.index("--morning") + 1] if "--morning" in opts else \
+              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[2]))), "index.html")
+        if os.path.exists(_mp) and os.path.abspath(_mp) != os.path.abspath(args[1]):
+            try:
+                _ms, _mc = load_state(_mp)
+                if norm(_ms.get("briefDate")) == norm(cs.get("briefDate")):
+                    MORNING = (_ms, _mc)
+                    print("OK  stan poranny z %s (%d pozycji)" % (_mp, len(_ms.get("items") or [])))
+            except SystemExit as ex_:
+                print("UWAGA  §5cj: stanu porannego nie odczytano (%s)" % ex_)
     if not ledger_only:
         page = build(ps, pc, cs, cc, home, label, when)
         errs = verify(page)
@@ -25850,6 +25986,22 @@ chip z etykieta i liczba, × zdejmuje filtr takze w SKRYPCIE 11). Lista, ktorej 
 „tier 0 without a card", New: „source text edited" po sciezkach), otwiera pelne sekcje z filtrem
 SKRYPTU 11 jak dawniej. Na telefonie kazdy produkt to karta: nazwa, pod nia pary etykieta + pigulka.
 
+**§5cj (30 IX 2026, wlasciciel wybral wariant A z `claude/ms-soc-diff-review-2026-09-30.md`).** Strona
+glowna porownuje „poprzedni wieczor → dzisiejszy poranek", `/diff/` „poprzedni wieczor → dzisiejszy
+wieczor", i zadna tego nie mowila (29 IX: New +10 tu, +16 tam; Graph API 0 tu, +40 tam; 6 pozycji z
+przebiegu popoludniowego tylko w `/diff/`, a nastepny poranek porownuje sie ze stanem wieczornym, wiec
+na stronie glownej nigdy nie sa „new"). Po stronie `/diff/` (`make_diff.py`, §3): zdanie „What this page
+compares", lista pozycji z przebiegu popoludniowego, ostatnia kolumna `bytab` „On the main page (morning
+pass)" (liczona `tab_counts()` z porannego stanu = `site/index.html` obok `site/diff/`, albo
+`--morning <plik>`; brak = strona jak dotad), zasady liczenia pod tafelkami zwiniete w „How these numbers
+are counted", `<div id="diff-meta" hidden>` z data i id pozycji popoludniowych. Po stronie strony glownej
+(ta warstwa): gdy `/diff/` obejmuje dzien briefu i nazywa pozycje, ktorych strona nie niesie, jedna linia
+pod naglowkiem z linkiem do `/diff/#dwin`. **Bez zmiany promptow**: routine zmian uruchamia
+`make_diff.py` z `CLAUDE.md` tym samym poleceniem, a `site/index.html` tylko czyta. Test 30 IX: 28 → 29 IX
+z porannym `site/index.html`: kolumna New „+10 / −0 / 2 in the morning" (= szyna 10), Deadlines „all of
+it", Graph API „+0 in the morning" (40 znalazl popoludniowy), lista 6 pozycji, `verify()` czysty,
+652 917 B; strona glowna z tym `/diff/`: pasek „found 6 more items".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -25968,6 +26120,9 @@ a.s5ci-tt:hover{color:var(--accent)}
   .s5ci-pick{grid-template-columns:28px minmax(0,1fr)}
   .s5ci-side{grid-column:2;text-align:left;align-items:flex-start}
 }
+/* §5cj: the evening changes page knows more than this morning page */
+.s5cj-bar{margin:0 0 12px;padding:9px 14px;border:1px solid var(--warn);border-left-width:4px;border-radius:8px;background:var(--warn-soft);color:var(--text);font-size:13.5px;line-height:1.5}
+.s5cj-bar a{font-weight:600}
 ```
 
 
@@ -32684,6 +32839,38 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("change", function (e) { if (e.target && e.target.matches && e.target.matches("select.globalfilter")) {
       [].forEach.call(document.querySelectorAll(".s5ci input[type=search]"), function (i) { i.dispatchEvent(new Event("input")); }); } });
   }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* ===========================================================================
+   §5cj — THE MAIN PAGE SAYS WHEN THE CHANGES PAGE KNOWS MORE (30 IX 2026, owner: variant A).
+   The main page is the MORNING pass; the evening pass (make_diff.py, /diff/) compares the whole
+   day and, since §5cj, writes <div id="diff-meta" data-date data-afternoon="ids"> with the items
+   the afternoon pass found. When /diff/ covers THIS brief's day and names items this page does
+   not carry, one line under the header says so and links there. Nothing else is touched.
+   =========================================================================== */
+(function () {
+  "use strict";
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function attr(html, name) { var m = new RegExp('id="diff-meta"[^>]*\\b' + name + '="([^"]*)"').exec(html); return m ? m[1] : ""; }
+  function run() {
+    if (!/^https?:$/.test(location.protocol) || document.getElementById("s5cj-bar")) return;
+    var ST = json("soc-brief-state") || {}, day = ST.briefDate || ""; if (!day) return;
+    var have = {}; (ST.items || []).forEach(function (i) { if (i && i.id) have[i.id] = 1; });
+    fetch("/diff/", { cache: "no-cache" }).then(function (r) { return r.ok ? r.text() : ""; }).then(function (h) {
+      if (!h || attr(h, "data-date") !== day) return;
+      var ids = attr(h, "data-afternoon").split(/\s+/).filter(function (x) { return x && !have[x]; });
+      if (!ids.length) return;
+      var at = attr(h, "data-afternoon-at");
+      var bar = document.createElement("div"); bar.id = "s5cj-bar"; bar.className = "s5cj-bar"; bar.setAttribute("role", "status");
+      var t = document.createElement("span");
+      t.textContent = "After this page was published, the afternoon pass" + (at ? " (" + at + " Warsaw)" : "") + " found " + ids.length +
+        " more item" + (ids.length === 1 ? "" : "s") + ". This page shows the morning pass; the changes page has the whole day. ";
+      var a = document.createElement("a"); a.href = "/diff/#dwin"; a.textContent = "See the " + ids.length + " on the changes page ›";
+      bar.appendChild(t); bar.appendChild(a);
+      var wrap = document.querySelector(".wrap"); if (wrap) wrap.insertBefore(bar, wrap.firstChild);
+    }).catch(function () {});
+  }
+  function start() { setTimeout(run, 2500); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
 ```
