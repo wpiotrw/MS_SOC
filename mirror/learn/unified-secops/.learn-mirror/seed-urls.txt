@@ -1,3 +1,6 @@
+https://learn.microsoft.com/en-us/unified-secops/adva
+https://learn.microsoft.com/en-us/unified-secops/investigate-alerts
+https://learn.microsoft.com/en-us/unified-secops/investigate-inci
 https://learn.microsoft.com/en-us/unified-secops/microsoft-sentinel-onboard
 https://learn.microsoft.com/en-us/unified-secops/overview-unified-security
 https://learn.microsoft.com/en-us/unified-secops/overview-unified-security/investigate-non-human-identities

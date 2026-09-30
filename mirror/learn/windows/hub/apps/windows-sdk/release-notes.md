@@ -1,0 +1,2006 @@
+---
+layout: Conceptual
+title: What's new in Windows SDK - Windows apps | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows/apps/windows-sdk/release-notes
+ms.service: windows-app-sdk
+recommendations: true
+ROBOTS: INDEX, FOLLOW
+author: GrantMeStrength
+ms.author: jken
+Search.Product: eADQiWindows 10XVcnh
+uhfHeaderId: MSDocsHeader-WinDevCenter
+breadcrumb_path: /windows/breadcrumbs/toc.json
+feedback_product_url: https://www.microsoft.com/en-us/windowsinsider/feedbackhub/fb
+feedback_system: OpenSource
+ms.subservice: apps
+ms.update-cycle: 365-days
+description: Provides information about release notes for the Windows SDK.
+ms.topic: release-notes
+ms.date: 2026-08-27T00:00:00.0000000Z
+keywords: windows win32, windows app development, Windows SDK, Windows Platform SDK, windows 11
+ms.localizationpriority: medium
+locale: en-us
+document_id: 5f340a10-3b13-2f9f-a6d3-c7d7f12bb30f
+document_version_independent_id: 5f340a10-3b13-2f9f-a6d3-c7d7f12bb30f
+original_content_git_url: https://github.com/MicrosoftDocs/windows-dev-docs-pr/blob/live/hub/apps/windows-sdk/release-notes.md
+site_name: Docs
+depot_name: MSDN.windows-uwp-hub
+page_type: conceptual
+toc_rel: ../toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.windows-uwp-hub/{branchName}{pdfName}
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: apps/windows-sdk/release-notes
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: hub/apps/windows-sdk/release-notes.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/caec7b7f-4941-4578-b79f-c63b1c1f5af4
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/754dea88-f800-4835-b6b5-280cb5d81e88
+platformId: b8fe4c56-6940-2d68-4785-9bf76c314645
+---
+
+# What's new in Windows SDK - Windows apps | Microsoft Learn
+
+In a new or existing Windows app, you can get the Windows SDK in several ways: install it from the installer or ISO, in the Visual Studio 2022 Installer, or by downloading the NuGet package. You can update the SDK by manually installing the new build, updating in Visual Studio or update the Nuget package
+
+For the the latest builds, see [Downloads for the Windows SDK](downloads).
+
+## 28000 versions
+
+## Build 10.0.28000.2705
+
+Released: **August, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Management.Update**:  Updated:
+> 
+> - `WindowsSoftwareUpdateIdentity`, `WindowsSoftwareUpdateIdentityType`, `WindowsSoftwareUpdateCategory`: New identity and category types for describing a software update
+> - `WindowsUpdateManagerScanMode` and `WindowsUpdateManager.PerformScan`: Scanning now takes a scan mode instead of a scan options object (`WindowsUpdateManagerScanOptions` was removed)
+> - `WindowsSoftwareUpdate.IsSeeker`, `WindowsSoftwareUpdate.UpdateCategory`, `WindowsSoftwareUpdate.UpdateIdentity`, `WindowsSoftwareUpdate.Properties`, `WindowsSoftwareUpdate.GetPropertyValue`: Additional update metadata and property access
+> 
+> 
+> **Windows.System.Profile**:  New:
+> 
+> - `RetailInfo.IsDemoModeEnabledEx`: Indicates whether retail demo mode is enabled
+> 
+> 
+> **Windows.UI.Notifications**:  New:
+> 
+> - `ToastNotification.IsExpandableContentSupported`: Indicates whether expandable toast content is supported
+> 
+
+Win32 API additions and updates
+
+> 
+> **Cryptography (wincrypt.h)** New:
+> 
+> - Endorsement-key enrollment v2 OIDs: `szOID_ENROLL_V2_CONTAINER_NAME`, `szOID_ENROLL_V2_EK_ALGORITHM`, `szOID_ENROLL_V2_EK_PARAMETER`, `szOID_ENROLL_V2_AIK_INFO`, `szOID_ENROLL_V2_ATTESTATION_STATEMENT`, `szOID_CERTSRV_V2_ATTESTATION_VERIFIED`
+> 
+> 
+> **Media Foundation codecs (codecapi.h)** New:
+> 
+> - `CODECAPI_AVEncAV1EncoderOperatingMode` and `eAV1EncoderOperatingMode`: Configure the AV1 encoder operating mode
+> 
+> 
+> **Direct3D 12 (d3d12.h)** New:
+> 
+> - `ID3D12DeviceStatistics` with `GetStateObjectStatistics`, plus `D3D12_STATE_OBJECT_STATISTICS` and `D3D12_CREATE_STATE_OBJECT_STATISTICS`: Query statistics for a state object
+> 
+> 
+> **Remote Desktop Protocol (wtsprotocol.h / wtsdefs.h)** New:
+> 
+> - `IWRdsProtocolConnection3_Experimental` with `GetSerializedUserCredentialInteractively`: Retrieve a serialized user credential interactively
+> - `WRDS_CREDENTIAL_SCENARIO_INTERACTIVE_UNLOCK`, `WRDS_CREDENTIAL_SCENARIO_INTERACTIVE_LOGON`: Credential scenario identifiers
+> 
+> 
+> **Storage (ntddstor.h / winioctl.h)** New:
+> 
+> - `GUID_STORPORT_PAGING_DEVICE_DUMP`, `STOR_PAGING_DEVICE_DUMP_ENTRY`, `STOR_PAGING_DEVICE_DUMP_DATA`: Paging device dump definitions for storage crash dumps
+> 
+> 
+> **Shell Properties (propkey.h)** New:
+> 
+> - `PKEY_Devices_WiFiAware_IsSupported`: Indicates whether Wi-Fi Aware is supported
+> 
+> 
+> **Status and Error Codes (ntstatus.h / winerror.h)** New:
+> 
+> - `STATUS_FIPS_FAILURE` and `NTE_FIPS_FAILURE`: A cryptographic operation failed FIPS validation
+> - `STATUS_DEVICE_NACKED` and `ERROR_DEVICE_NACKED`: The device returned a negative acknowledgement
+> - `UTC_E_WINRE_COMPLIANCE_CAPTURE_FAILED`, `UTC_E_WINRE_ETM_ENABLED`, and `PPF_E_*` diagnostics error codes
+> 
+
+COM API updates
+
+> 
+> **Direct3D 12 (d3d12.idl)** New:
+> 
+> - `ID3D12DeviceStatistics` with `GetStateObjectStatistics`: Query statistics for a state object
+> 
+> 
+> **Remote Desktop Protocol (wtsprotocol.idl)** New:
+> 
+> - `IWRdsProtocolConnection3_Experimental` with `GetSerializedUserCredentialInteractively`: Retrieve a serialized user credential interactively
+> 
+
+## Build 10.0.28000.2526
+
+Released: **July, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Devices.Printers**, **Windows.Graphics.Printing.PrintSupport**, **Windows.Graphics.Printing.PrintTicket**, **Windows.Graphics.Printing.Workflow**:  Graduated from experimental to stable:
+> 
+> - A number of IPP printing, print support, print ticket, and print workflow interfaces graduated from experimental to stable
+> 
+> 
+> **Windows.System.Power**:  New:
+> 
+> - `EnergySaverStatus2`: Enumeration describing the energy saver state (`Unknown`, `Off`, `Standard`, `HighSavings`)
+> - `PowerManager.EnergySaverStatus2`: Gets the current energy saver status
+> - `PowerManager.IsEnergySaverStatus2Supported`: Indicates whether `EnergySaverStatus2` is supported on the device
+> - `PowerManager.EnergySaverStatus2Changed`: Fires when the energy saver status changes
+> 
+
+WinRT Experimental API additions
+
+> 
+> **Windows.System.RemoteDesktop.Provider**:  New (experimental):
+> 
+> - `RemoteDesktopRegistrar.ConnectionCenterRequested`: Event raised when the connection center is requested
+> 
+> 
+> **Windows.UI.Input**:  New (experimental):
+> 
+> - `GamepadNavigationConfiguration`: Runtime class that configures gamepad-based navigation
+> - `GamepadNavigationConfiguration.NavigationEnabled`: Gets whether gamepad navigation is enabled
+> - `GamepadNavigationConfiguration.TrySetNavigationEnabled`: Attempts to enable or disable gamepad navigation
+> - `GamepadNavigationConfiguration.TryGetForCurrentProcess`: Gets the configuration for the current process
+> - `GamepadNavigationConfiguration.IsSupported`: Indicates whether gamepad navigation configuration is supported
+> 
+
+Win32 API additions and updates
+
+> 
+> **Cryptography (bcrypt.h / ncrypt.h)** New post-quantum cryptography (PQC) support:
+> 
+> - `BCRYPT_COMPOSITE_MLDSA_ALGORITHM` / `BCRYPT_COMPOSITE_MLKEM_ALGORITHM`: Composite ML-DSA and ML-KEM algorithm identifiers, with corresponding algorithm handles, key blob types, magics, and parameter-set names
+> - `BCRYPT_PARAMETER_SET_NAMES` / `BCRYPT_PARAMETER_SET_KEY_BLOB`: Structures for enumerating and importing parameter-set keys
+> - `NCRYPT_COMPOSITE_MLDSA_ALGORITHM` / `NCRYPT_COMPOSITE_MLKEM_ALGORITHM` and algorithm groups: CNG key storage support for composite ML-DSA and ML-KEM
+> - `NCRYPT_PAD_PQDSA_FLAG`, `NCRYPT_MLDSA_EXTERNAL_MU_FLAG`: Padding and signing flags for PQC signatures
+> 
+> 
+> **DirectX Kernel (d3dukmdt.h / d3dkmthk.h)** New:
+> 
+> - `DXGK_FEATURE_*_VERSION` defines and `DXGK_QUERYFEATURESUPPORT2_VERSION`: DXGK feature version identifiers
+> - `D3DDDI_SEGMENTPREFERENCE2`: Segment-preference structure with large-page preference support
+> 
+> 
+> **Status Codes (ntstatus.h)** New:
+> 
+> - `STATUS_FVE_VOLUME_HANDLE_OPEN`: The BitLocker volume handle is open
+> 
+> 
+> **RPC (rpcndr.h)** New:
+> 
+> - `USER_MARSHALUNMARSHAL_DONT_CLEANUP_UNMARSHALLED_OBJECT`: Marshaling flag that skips cleanup of an unmarshalled object
+> 
+> 
+> **Process Creation (WinBase.h)** New:
+> 
+> - `PROC_THREAD_ATTRIBUTE_CONTAINMENT_CONFIGURATION`: Process/thread attribute for containment configuration
+> 
+> 
+> **Windowing and Input (WinUser.h)** New:
+> 
+> - `WM_STOPINERTIA`, `WM_ENDINERTIA`: Window messages for inertia handling
+> - `GetPointerTouchpadInfo`, `GetPointerTouchpadInfoHistory`, `GetPointerFrameTouchpadInfo`, `GetPointerFrameTouchpadInfoHistory`: Retrieve precision-touchpad pointer information
+> - `CreateSyntheticPointerDevice2`: Creates a synthetic pointer device from `SYNTHETIC_DEVICE_CREATION_PARAMS`
+> - `SYNTHETIC_DEVICE_CREATION_OPTIONS`, `SYNTHETIC_DEVICE_CREATION_PARAMS`: Options and parameters for synthetic pointer device creation
+> - `TOUCHPAD_ACTION` and `InjectTouchpadAction`: Enumeration and function for injecting synthetic touchpad actions
+> - `ReportWindowContentInertia`: Reports the start and end of window content inertia
+> - `RegisterTouchpadCapableWindow`, `RegisterTouchpadCapableThread`, `SetMaxTouchpadSensitivity`: Opt in to and configure precision-touchpad input
+> 
+> 
+> **Security (winnt.h)** New:
+> 
+> - `SECURITY_CONTAINMENT_CONFIGURATION`: Structure describing containment configuration
+> 
+> 
+> **ReFS Attestation (wbcl.h / winioctl.h)** New:
+> 
+> - `SIPAEVENT_REFS_ATTESTATION_*` event types, headers, and structures: ReFS volume attestation SIPA event definitions
+> - `FSCTL_REFS_VOLUME_ATTESTATION_BIND_TO_TPM`, `FSCTL_REFS_VOLUME_ATTESTATION_QUERY_STATUS`, `FSCTL_REFS_VOLUME_ATTESTATION_RESET`: File system control codes for ReFS volume attestation
+> 
+> 
+> **WRL Async (wrl/async.h)** Updated:
+> 
+> - Async completion handling reworked for thread safety
+> 
+
+## Build 10.0.28000.2270
+
+Released: **June, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.ApplicationModel.DataTransfer**:  New:
+> 
+> - `DataPackageOperation.NewTarget` — Hint indicating the drag is over a new logical target (for example, individual files and folders on the desktop)
+> - `DataPackageOperation.BackgroundTarget` — Hint indicating the drag is over a logical target that represents the background (for example, the desktop itself)
+> 
+> 
+> **Windows.Devices.Printers**:  Graduated from experimental to stable:
+> 
+> - `ReplaceDevicePropertiesStatus` — Enumeration for the status of a replace-device-properties operation
+> - `IIppPrintDevice5` — IPP print device interface
+> - `IReplaceDevicePropertiesResult` — Result of a replace-device-properties operation
+> 
+> 
+> **Windows.Graphics.Capture**:  Graduated from experimental to stable:
+> 
+> - `IDirect3D11CaptureFrame3` — Direct3D 11 capture frame interface
+> - `IGraphicsCaptureSession7` — Graphics capture session interface
+> 
+> 
+> **Windows.Graphics.Printing.PrintSupport**:  Graduated from experimental to stable:
+> 
+> - `IPrintSupportEnterpriseManagementUIEventArgs` — Event arguments for print support enterprise management UI
+> 
+> 
+> **Windows.UI.Input**:  Updated:
+> 
+> - `TouchpadGlobalAction` — Renamed `ThreeFingerPressDown`/`FourFingerPressDown`/`FiveFingerPressDown` to `ThreeFingerPress`/`FourFingerPress`/`FiveFingerPress`, and `ThreeFingerPressUp`/`FourFingerPressUp`/`FiveFingerPressUp` to `ThreeFingerRelease`/`FourFingerRelease`/`FiveFingerRelease`
+> 
+
+Win32 API additions and updates
+
+> 
+> **App Model (appmodel.h)** New:
+> 
+> - `PackageOrigin2` — Enumeration describing the origin of a staged package (adds `LineOfBusiness` and `SignedSBOM` values)
+> - `GetStagedPackageOrigin2` — Retrieves the `PackageOrigin2` of a staged package
+> - `AppModelPackageFeature` — Enumeration of queryable package features (`SignedSBOM`)
+> - `IsPackageFeatureSupported` — Queries whether a package feature is currently available or enabled
+> 
+> 
+> Updated:
+> 
+> - `PackageOrigin` — Adds `PackageOrigin_LineOfBusiness` and `PackageOrigin_SignedSBOM` values
+> 
+> 
+> **Bug Codes (bugcodes.h)** New:
+> 
+> - `ASSERTBUGCODE_I3CHOST_DRIVER` — Assertion bug code for the I3C host driver
+> 
+> 
+> **Codec API (codecapi.h)** New:
+> 
+> - `eAVDecDDOperationalMode_PORTABLE16` — Dolby Digital portable operational mode with dialogue at -16 dBFS
+> 
+> 
+> **Device Class GUIDs (devguid.h)** New:
+> 
+> - `GUID_DEVCLASS_MIDIENDPOINT`, `GUID_DEVCLASS_PROXIMITY`, `GUID_DEVCLASS_SDHOST`, `GUID_DEVCLASS_SECURITYDEVICES`, `GUID_DEVCLASS_SOFTWAREDEVICE`, `GUID_DEVCLASS_USBDEVICE`, `GUID_DEVCLASS_USBFUNCTIONCONTROLLER` — Device setup class GUIDs
+> 
+> 
+> **DHCP (DhcpCSdk.h / Dhcpv6cSdk.h)** New:
+> 
+> - `OPTION_CAPTIVE_PORTAL` — DHCPv4 captive portal option (114)
+> - `DHCPV6_OPTION_CAPTIVE_PORTAL` — DHCPv6 captive portal option (103)
+> 
+> 
+> **Direct3D 11 (d3d11.h)** New:
+> 
+> - `D3D11_DECODER_PROFILE_APV_VLD_422_10`, `..._422_12`, `..._444_10`, `..._444_12`, `..._4444_10`, `..._4444_12`, `..._400_10` — Advanced Professional Video (APV) decoder profile GUIDs (RFC 9924)
+> 
+> 
+> **DirectX Video Acceleration (dxva.h)** New:
+> 
+> - `DXVA_ModeAPV_VLD_422_10`, `..._422_12`, `..._444_10`, `..._444_12`, `..._4444_10`, `..._4444_12`, `..._400_10` — Advanced Professional Video (APV) DXVA profile GUIDs (RFC 9924)
+> - `DXVA_PicEntry_APV` and related APV DXVA structures — Picture and slice data structures for APV decode
+> 
+> 
+> **EAP Types (eaptypes.h)** New:
+> 
+> - `EAP_FLAG_DISABLE_SESSION_RESUMPTION` — Flag to disable TLS session resumption
+> 
+> 
+> **Media Engine (mfmediaengine.h)** New:
+> 
+> - `IMFMediaEngineVideoRendererEffect` — Interface that allows an app to set a custom video renderer effect
+> 
+> 
+> **TPM / Key Storage (ncrypt.h)** New:
+> 
+> - `NCRYPT_PCP_SDDIDK_KEY` — Platform Crypto Provider SDDI DK key
+> 
+> 
+> **Security Packages (NTSecPKG.h)** New:
+> 
+> - `SecpkgFailureReason_GlobalSPN` — Failure reason indicating the target name resolved to a global SPN
+> 
+> 
+> **OLE (oleidl.h)** New:
+> 
+> - `DROPEFFECT_NEWTARGET` — Drop effect hint that the drag is over a new logical target (0x40000000)
+> - `DROPEFFECT_BACKGROUNDTARGET` — Drop effect hint that the drag is over a background logical target (0x20000000)
+> 
+> 
+> **Windows Definitions (winnt.h)** New:
+> 
+> - `SECURITY_AGENTIC_PLATFORM_BASE_RID` — Base relative identifier (RID) for the agentic platform
+> 
+> 
+> **Windows Hypervisor Platform (WinHvPlatformDefs.h)** New:
+> 
+> - `LowerVtlGuestRequestSupport` — Synthetic processor feature bit for lower-VTL guest request support
+> 
+> 
+> **Windows Update Errors (wuerror.h)** New:
+> 
+> - `WU_E_FEATURE_CONTAINMENT_NOT_ENABLED` — Unexpected code execution when the feature is not enabled
+> - `WU_E_UPDATE_SESSIONDATA_CONFLICT` — The specified session data conflicts with the existing value
+> - `WU_E_DS_UNKNOWNSERVICE_NOTFOUND` — The service was not found in the data store
+> - `WU_E_DS_UNKNOWNSERVICE_DELETEPENDING` — The service is pending deletion from the data store
+> - `WU_E_DS_UNKNOWNSERVICE_REMOVED` — The service has been removed from the data store
+> - `WU_E_UH_TIMEOUT` — The update handler operation timed out
+> - `WU_E_UH_DRV_PREINSTALL_OPERATION_FAILED` — The driver update handler's pre-install operation failed
+> 
+
+COM API updates
+
+> 
+> **Direct3D 11 (d3d11.idl)** New:
+> 
+> - `D3D11_DECODER_PROFILE_APV_VLD_422_10`, `..._422_12`, `..._444_10`, `..._444_12`, `..._4444_10`, `..._4444_12`, `..._400_10` — Advanced Professional Video (APV) decoder profile GUIDs (RFC 9924)
+> 
+> 
+> **Media Engine (mfmediaengine.idl)** New:
+> 
+> - `IMFMediaEngineVideoRendererEffect` — Interface that allows an app to set a custom video renderer effect
+> 
+> 
+> **OLE (oleidl.idl)** New:
+> 
+> - `DROPEFFECT_NEWTARGET` — Drop effect hint that the drag is over a new logical target (0x40000000)
+> - `DROPEFFECT_BACKGROUNDTARGET` — Drop effect hint that the drag is over a background logical target (0x20000000)
+> 
+
+## Build 10.0.28000.2114
+
+Released: **May, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Devices.Printers**:  Graduated from experimental to stable:
+> 
+> - `IppAttributeConverter.ConvertPrintTicketToIppAttributesForPrinter(String, WorkflowPrintTicket, String)` — Print ticket to IPP attribute conversion
+> 
+> 
+> **Windows.Graphics.Printing.Workflow**:  Graduated from experimental to stable:
+> 
+> - `PrintWorkflowPrinterJob.IsPassthroughJobWithAttributes` — Property indicating whether a print job is a passthrough job (renamed from `IsPassthroughJob`)
+> 
+
+Win32 API additions and updates
+
+> 
+> **Direct3D Kernel Mode (d3dkmthk.h)** New:
+> 
+> - `_D3DKMT_QUERYFEATUREINTERFACE` — Query feature interface structure
+> 
+> 
+> **Status Codes (ntstatus.h)** New:
+> 
+> - `STATUS_SMB_ALTERNATIVE_PORT_CONFLICT` — SMB alternative port conflict status code
+> 
+> 
+> **Power (poclass.h)** New:
+> 
+> - `BATTERY_TEST_EXEMPT` — Battery test exemption flag
+> 
+> 
+> **Error Codes (winerror.h)** New:
+> 
+> - `FVE_E_METHOD_MISMATCH` — Full Volume Encryption method mismatch error
+> - `ERROR_SMB_ALTERNATIVE_PORT_CONFLICT` — SMB alternative port conflict error
+> 
+> 
+> **TPM / Key Storage (ncrypt.h)** New:
+> 
+> - `NCRYPT_PCP_SDDIDK_OPERATION` — Platform Crypto Provider SDDI DK operation
+> - `NCRYPT_PCP_AIKSTORE_PROPERTY` — AIK store property
+> - `NCRYPT_PCP_EKSTORE_PROPERTY` — EK store property
+> - `NCRYPT_PCP_SDDIDK_CONTEXT_PROPERTY` — SDDI DK context property
+> 
+> 
+> **Content Index (NTQuery.h)** New:
+> 
+> - `CI_VERSION_QUERY_METADATA` — Content index version query metadata
+> 
+> 
+> **Security Packages (NTSecPKG.h)** New:
+> 
+> - `SECPKG_CALL_AGENT_LOGON` — Security package agent logon call flag
+> 
+> 
+> **Shell (shellapi.h)** New:
+> 
+> - `ABC_OVERLAYDESKTOPICONS` — Overlay desktop icons flag
+> 
+> 
+> **Windows Filtering Platform (fwpmtypes.h / fwpvi.h)** Removed:
+> 
+> - `FWPM_LAYER_STATISTICS0_`, `FWPM_STATISTICS0_` — Filtering platform statistics structures
+> - `FWPM_LAYER_STATISTICS`, `FWPM_STATISTICS` — Filtering platform statistics defines
+> 
+> 
+> **Terminal Services Virtual Channels (tsvirtualchannels.h)** Removed:
+> 
+> - `IWTSRemoteAppWindowInfoService` — Remote app window info service interface and related definitions
+> 
+
+COM API updates
+
+> 
+> **Windows Filtering Platform (fwpmtypes.idl)** Removed:
+> 
+> - `FWPM_LAYER_STATISTICS0_`, `FWPM_STATISTICS0_` — Filtering platform statistics structures
+> 
+> 
+> **Terminal Services Virtual Channels (tsvirtualchannels.idl)** Removed:
+> 
+> - `IWTSRemoteAppWindowInfoService` — Remote app window info service interface
+> - `GetLocalHwnd` — Get local window handle function
+> 
+
+## Build 10.0.28000.1839
+
+Released: **April, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Devices.Haptics** (UniversalApiContract 19.0):  New properties on `KnownSimpleHapticsControllerWaveforms`:
+> 
+> - `Collide` — Waveform ID for collision haptic feedback
+> - `Align` — Waveform ID for alignment haptic feedback
+> - `Step` — Waveform ID for step haptic feedback
+> - `Grow` — Waveform ID for growth haptic feedback
+> 
+> 
+> **Windows.Devices.Printers**:  Graduated from experimental to stable:
+> 
+> - `VirtualPrinterInstallationStatus` enum — Installation status values including `InstallationSucceeded`
+> - `VirtualPrinterPreferredInputFormat` enum — Preferred input format values including `OpenXps`
+> - `IVirtualPrinterInstallationParameters` interface
+> - `IVirtualPrinterInstallationResult` interface
+> - `IVirtualPrinterManagerStatics` interface
+> - `IVirtualPrinterSupportedFormat` interface
+> - `IVirtualPrinterSupportedFormatFactory` interface
+> - `VirtualPrinterInstallationParameters` runtime class
+> - `VirtualPrinterInstallationResult` runtime class
+> - `VirtualPrinterSupportedFormat` runtime class
+> 
+> 
+> **Windows.Media.ClosedCaptioning** (UniversalApiContract 15.0):  New types:
+> 
+> - `ClosedCaptionTheme` runtime class — Represents a closed caption theme with customization support
+> - `IClosedCaptionTheme` interface — Properties: `Id`, `DisplayName`, `FontColor`, `ComputedFontColor`, `FontOpacity`, `FontSize`, `FontStyle`, `FontEffect`, `BackgroundColor`, `ComputedBackgroundColor`, `BackgroundOpacity`, `RegionColor`, `ComputedRegionColor`, `RegionOpacity`
+> - `IClosedCaptionThemeStatics` interface — Methods: `GetAvailableThemes`, `GetSelectedTheme`, `TrySetSelectedTheme`; Events: `ThemesChanged`, `SelectedThemeChanged`
+> 
+
+WinRT Experimental API additions
+
+> 
+> **Windows.Storage.Search** (UniversalApiContract 19.0):  New interface:
+> 
+> - `IQueryOptionsAdditionalSearchSources` — Adds `IncludeCloudProviders` and `IncludeLocalSemanticIndex` properties to `QueryOptions`
+> 
+
+Win32 API additions and updates
+
+> 
+> **Bluetooth Hands-Free Profile (bthdef.h)** Added comprehensive Bluetooth Hands-Free Profile (HFP) feature constants:
+> 
+> - `HFP_AG_SDP_SUPPORTED_FEATURE_*` — Audio Gateway SDP supported feature flags for three-way calling, echo cancellation, voice recognition, in-band ring tone, voice tag, wide-band speech, and more
+> - `HFP_AG_BRSF_SUPPORTED_FEATURE_*` — Audio Gateway BRSF supported feature flags for three-way calling, echo cancellation, voice recognition, codec negotiation, and more
+> - `HFP_HF_SDP_SUPPORTED_FEATURE_*` — Hands-Free SDP supported feature flags for echo cancellation, three-way calling, CLI presentation, voice recognition, and more
+> - `HFP_HF_BRSF_SUPPORTED_FEATURE_*` — Hands-Free BRSF supported feature flags for echo cancellation, three-way calling, voice recognition, codec negotiation, and more
+> - `HFP_NETWORK_NO_ABILITY_TO_REJECT`, `HFP_NETWORK_ABILITY_TO_REJECT` — Network call rejection capability flags
+> 
+> 
+> **HID Usages (hidusage.h)** New haptics usage values:
+> 
+> - `HID_USAGE_HAPTICS_WAVEFORM_COLLIDE`, `HID_USAGE_HAPTICS_WAVEFORM_ALIGN`, `HID_USAGE_HAPTICS_WAVEFORM_STEP`, `HID_USAGE_HAPTICS_WAVEFORM_GROW`
+> 
+> 
+> **NVMe (nvme.h)** Fixed typo:
+> 
+> - `NVME_LOG_PAGE_BOOT_PARTITON` renamed to `NVME_LOG_PAGE_BOOT_PARTITION`
+> 
+> 
+> **Security / SSPI (sspi.h)** New GUID:
+> 
+> - `SEC_WINNT_AUTH_DATA_TYPE_PLACEHOLDER` — Placeholder authentication data type
+> 
+> 
+> **Security / LSA (ntlsa.h)** New agent-based authentication APIs:
+> 
+> - `LsaCreateAgentAccount` — Creates an agent account
+> - `LsaRetrieveAgentLogonCredential` — Retrieves agent logon credentials
+> - `LsaEnumerateAgentAccounts` — Enumerates agent accounts
+> - `LsaDeleteAgentAccount` — Deletes an agent account
+> - `LsaGetAgentOwner` — Gets the agent owner
+> - `LSA_AGENT_LOGON_CREDENTIAL` — Agent logon credential struct
+> - `LSA_AGENT_ACCOUNT_INFO` — Agent account information struct
+> - `LSA_AGENT_ACCOUNT_LIST` — List of agent accounts struct
+> 
+> 
+> **Security / Authentication (NTSecPKG.h)** New definitions:
+> 
+> - `KSecAllocateContextBuffer` — Function for allocating security context buffers
+> - Added `extern "C"` guards for C++ compatibility
+> 
+> 
+> **Content Indexing (NTQuery.h)** New define:
+> 
+> - `CI_VERSION_CORRID` — Content index correlation ID version constant
+> 
+> 
+> **Text Services (TextStor.h)** New defines:
+> 
+> - `TS_SD_DISABLEWRITINGSUGGESTIONS` — Flag to disable writing suggestions
+> - `TS_SS_MULTILINE` — Flag for multiline text store support
+> 
+> 
+> **WRL Async (wrl/async.h)** Updated:
+> 
+> - Async completion handling reworked for thread safety using `_InterlockedCompareExchange` and reference counting (`cCompleteDelegateRefCount_`)
+> 
+
+COM API updates
+
+> 
+> **Edition Upgrade Helper (EditionUpgradeHelper.idl)** Updated method:
+> 
+> - `IClipServiceNotificationHelper::ShowToast` — Parameter list simplified from 5 BSTR parameters to `void`
+> 
+> 
+> **Text Services Framework (TextStor.idl)** New constants:
+> 
+> - `TS_SD_DISABLEWRITINGSUGGESTIONS` — Flag to disable writing suggestions
+> - `TS_SS_MULTILINE` — Flag for multiline text store support
+> 
+
+## Build 10.0.28000.1721
+
+Released: **March, 2026**
+
+This is a major version bump to the **28000** SDK series.
+
+WinRT API additions and updates
+
+> 
+> **Windows.Devices.Haptics** (UniversalApiContract 19.0):  New types:
+> 
+> - `HapticDeviceType` enum — Defines haptic device types: `None`, `Generic`, `Pen`, `Touchpad`, `Mouse`
+> - `HapticsControllerOverrideToken` struct — Token for managing haptics controller overrides
+> - `IInputHapticsManager` interface — Provides per-thread haptics management with methods for sending waveforms, controlling duration/play count, stopping feedback, and overriding haptics controllers
+> - `IInputHapticsManagerStatics` interface — Static methods: `IsSupported`, `IsHapticDevicePresent`, `GetForCurrentThread`, `TryGetForThread`
+> - `InputHapticsManager` runtime class
+> 
+> 
+> **Windows.ApplicationModel.Contacts.Provider** (UniversalApiContract 19.0):  New types:
+> 
+> - `IContactProvider` interface — Provides `GetContactFromRemoteIdAsync` method and `ContactListId` property for contact provider scenarios
+> 
+
+WinRT Experimental API additions (UniversalApiContract 20.0)
+
+> 
+> **Windows.Devices.Printers**:  New types:
+> 
+> - `IppAttributeGroupKind` enum — Defines IPP attribute group kinds: `Printer`, `Job`, `Operation`
+> - `IIppAttributeConverterStatics` interface — Provides `ConvertPrintTicketToIppAttributesForPrinter`, `ConvertBufferToIppAttributes`, `ConvertIppAttributesToBuffer`
+> - `IppAttributeConverter` runtime class
+> - `IPdlPassthroughProvider2` interface — Adds `IsPassthroughWithJobAttributesSupported` property and `StartPrintJobWithIppJobAttributes` method
+> 
+> 
+> **Windows.Graphics.Printing.PrintSupport**:  New types:
+> 
+> - `IPrintSupportPrintDeviceCapabilitiesChangedEventArgs5` interface — Adds `SetPdlPassthroughWithJobAttributesSupported` method
+> 
+> 
+> **Windows.Graphics.Printing.Workflow**:  New types:
+> 
+> - `IPrintWorkflowPrinterJob3` interface — Adds `IsPassthroughJob` property, `GetPassthroughJobAttributes`, and `GetPassthroughJobOperationAttributes` methods
+> 
+> 
+> **Windows.UI.Shell.Tasks**:  New types:
+> 
+> - `IAppTaskInfo2` interface — Adds `Id` and `HiddenByUser` properties and `UpdateDeepLink` method
+> - `AppTaskContract` version bumped from 1.0 to 2.0
+> 
+
+Win32 API additions and updates
+
+> 
+> **Video Encoding — D3D12 Reconstructed Picture Output (codecapi.h / mfapi.h)** New enum and properties for D3D12-based video encoder reconstructed picture output:
+> 
+> - `eAVEncVideoD3D12ReconstructedPictureOutputMode` enum — Values: `None`, `Copy`, `Shared`
+> - `CODECAPI_AVEncVideoD3D12ReconstructedPictureOutputMode` codec API GUID
+> - `MFSampleExtension_VideoEncodeD3D12ReconstructedPicture` Media Foundation sample extension GUID
+> 
+> 
+> **HTTP Server API (http.h)** New server property and struct:
+> 
+> - `HttpServerRequestInfoProperty` (=19) — New server property to enable optional request info fields
+> - `HTTP_REQUEST_INFO_PROPERTY_INFO` struct with `HTTP_REQUEST_INFO_FLAG_INITIAL_TTL` flag
+> - `HttpFeatureTlsHandshakePerformanceCounters` (=17) — New HTTP feature for TLS handshake performance counters
+> 
+> 
+> **Graphics / Display Driver (d3dukmdt.h)** New driver feature:
+> 
+> - `DXGK_DRIVER_FEATURE_PANEL_BUFFER_CONTROL` (=46) and corresponding `DXGK_FEATURE_PANEL_BUFFER_CONTROL` feature ID
+> 
+> 
+> **Event Tracing (evntprov.h / evntcons.h)** New definitions:
+> 
+> - `EVENT_DATA_DESCRIPTOR_TYPE_RESERVED1` (=4) — Reserved event data descriptor type
+> - `EventProviderSetReserved2` — New value in `EVENT_INFO_CLASS` enum
+> - `EVENT_HEADER_FLAG_RESERVED1` (0x0400) — New event header flag
+> 
+> 
+> **Storage Provider Properties (propkey.h)** New property:
+> 
+> - `PKEY_StorageProviderUserAccountKind` — Identifies the account kind (Unknown, Consumer, Business) for the authenticated storage provider user
+> 
+> 
+> **User Input (WinUser.h)** New function:
+> 
+> - `ConvertPrimaryPointerToMouseDrag` — Converts primary pointer input to a mouse drag operation
+> 
+> 
+> Updated struct:
+> 
+> - `TOUCHPAD_PARAMETERS_V2` — Improved C/C++ layout compatibility
+> 
+> 
+> **WebAuthn Plugin API (webauthnplugin.h)** Graduated from experimental to stable:
+> 
+> - `WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2`)
+> - `WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2`)
+> - `WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2`)
+> - `WebAuthNPluginAddAuthenticator2`, `WebAuthNPluginUpdateAuthenticatorDetails2`, `WebAuthNPluginPerformUserVerification2` functions
+> 
+> 
+> **Rust Bindgen Compatibility (ntdef.h / winnt.h)** Updated:
+> 
+> - `DECLSPEC_NOINITALL` macro now excludes Rust bindgen passes via `!defined(RUST_BINDGEN)`
+> 
+
+COM API updates
+
+> 
+> **Shell Object IDL (ShObjIdl\_core.idl)** Updated:
+> 
+> - `IAttachmentExecute2` — Method comments corrected: `Save2()` renamed to `SaveNoVirusCheck()`, `SaveWithUI2()` renamed to `SaveWithUINoVirusCheck()`
+> 
+
+## 26100 versions
+
+## Build 10.0.26100.9169
+
+Released: **August, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Management.Update**:  Updated:
+> 
+> - `WindowsSoftwareUpdateIdentity`, `WindowsSoftwareUpdateIdentityType`, `WindowsSoftwareUpdateCategory`: New identity and category types for describing a software update
+> - `WindowsUpdateManagerScanMode` and `WindowsUpdateManager.PerformScan`: Scanning now takes a scan mode instead of a scan options object
+> - `WindowsSoftwareUpdate.IsSeeker`, `WindowsSoftwareUpdate.UpdateCategory`, `WindowsSoftwareUpdate.UpdateIdentity`, `WindowsSoftwareUpdate.Properties`, `WindowsSoftwareUpdate.GetPropertyValue`: Additional update metadata and property access
+> 
+> 
+> **Windows.System**:  New:
+> 
+> - `User.GetUserAgeRangeAsync`: Gets the age range associated with the user
+> - `User.GetAgeVerificationStatusAsync`: Gets the age verification status of the user
+> - `UserAgeRange`: Enumeration describing the user's age range
+> - `UserAgeVerificationStatus`: Enumeration describing the user's age verification status
+> 
+
+Note
+
+The age signal APIs (`User.GetUserAgeRangeAsync`, `User.GetAgeVerificationStatusAsync`, `UserAgeRange`, and `UserAgeVerificationStatus`) are documented ahead of availability. They aren't enabled at runtime yet, and are planned to be turned on in a future release later this year. Calls made before then return no age data, so design your app to fall back to its default behavior.
+
+**Windows.UI.Notifications**:  New:
+
+- `ToastNotification.IsExpandableContentSupported`: Indicates whether expandable toast content is supported
+
+**Windows.UI.Input**:  New:
+
+- `GamepadKeyRoutingConfiguration`: Runtime class that configures gamepad key routing
+- `GamepadKeyRoutingConfiguration.IsSupported`: Indicates whether gamepad key routing configuration is supported
+- `GamepadKeyRoutingConfiguration.IsKeyRoutingEnabled`: Gets whether gamepad key routing is enabled
+- `GamepadKeyRoutingConfiguration.TrySetKeyRoutingEnabled`: Attempts to enable or disable gamepad key routing
+
+**Windows.Devices.WiFiDirect.Services**:  Deprecated:
+
+- The Wi-Fi Direct Services APIs are now deprecated and might not work on all platforms
+
+Win32 API additions and updates
+
+> 
+> **Cryptography (wincrypt.h)** New post-quantum cryptography (PQC) and CMS support:
+> 
+> - Composite ML-DSA and ML-KEM OIDs (for example `szOID_MLDSA44_ECDSA_P256_SHA256`, `szOID_MLKEM768_ECDH_P256_SHA3_256`) pairing ML-DSA/ML-KEM with classical ECDSA/ECDH
+> - NIST AES-CCM and AES-GCM OIDs (`szOID_NIST_AES128_CCM` through `szOID_NIST_AES256_GCM`)
+> - `szOID_RSA_HKDF_WITH_SHA256`: HKDF key-derivation OID
+> - Authenticated enveloped data: `CMSG_AUTH_ENVELOPED`, `CMSG_AUTH_ENVELOPED_ENCODE_INFO`, and `szOID_RSA_authEnvelopedData`
+> - KEM recipient info: `CMSG_KEM_RECIPIENT`, `CMSG_KEM_RECIPIENT_ENCODE_INFO`, and `szOID_ORI_KEM`
+> - Endorsement-key enrollment v2 OIDs (`szOID_ENROLL_V2_EK_ALGORITHM`, `szOID_ENROLL_V2_ATTESTATION_STATEMENT`, and related)
+> - `szOID_PREHASH`: Prehash OID
+> 
+> 
+> **WebAuthn (webauthn.h)** New:
+> 
+> - `WEBAUTHN_COSE_ALGORITHM_ML_DSA_44`, `WEBAUTHN_COSE_ALGORITHM_ML_DSA_65`, `WEBAUTHN_COSE_ALGORITHM_ML_DSA_87`: ML-DSA COSE algorithm identifiers
+> 
+> 
+> **Media Foundation codecs (codecapi.h)** New:
+> 
+> - `CODECAPI_AVEncAV1EncoderOperatingMode` and `eAV1EncoderOperatingMode`: Configure the AV1 encoder operating mode
+> 
+> 
+> **Direct3D 12 (d3d12.h)** New:
+> 
+> - `ID3D12DeviceStatistics` with `GetStateObjectStatistics`, plus `D3D12_STATE_OBJECT_STATISTICS` and `D3D12_CREATE_STATE_OBJECT_STATISTICS`: Query statistics for a state object
+> 
+> 
+> **Process Creation (WinBase.h)** New:
+> 
+> - `PROC_THREAD_ATTRIBUTE_DESKTOP_APP_IDENTITY_POLICY`, `PROCESS_CREATION_DESKTOP_APP_IDENTITY_ENABLE`, `PROCESS_CREATION_DESKTOP_APP_IDENTITY_DISABLE`: Control desktop app identity for a new process
+> 
+> 
+> **Shell Properties (propkey.h)** New:
+> 
+> - `PKEY_Devices_WiFiAware_IsSupported`: Indicates whether Wi-Fi Aware is supported
+> - `PKEY_ItemFolderPathDisplayNarrowNamespaceRelative`: Namespace-relative folder path for display
+> 
+> 
+> **Status and Error Codes (ntstatus.h / winerror.h)** New:
+> 
+> - `STATUS_FIPS_FAILURE` and `NTE_FIPS_FAILURE`: A cryptographic operation failed FIPS validation
+> 
+> 
+> **Networking (ws2def.h)** New:
+> 
+> - `AI_EXTRA_UNTRUSTED_QUERY`: Reserved addrinfo hint flag
+> 
+
+COM API updates
+
+> 
+> **Direct3D 12 (d3d12.idl)** New:
+> 
+> - `ID3D12DeviceStatistics` with `GetStateObjectStatistics`: Query statistics for a state object
+> 
+
+## Build 10.0.26100.8876
+
+Released: **July, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.ApplicationModel.DataTransfer**:  New:
+> 
+> - `DataPackageOperation.NewTarget`: Hint indicating the drag is over a new logical target (for example, individual files and folders on the desktop)
+> - `DataPackageOperation.BackgroundTarget`: Hint indicating the drag is over a logical target that represents the background (for example, the desktop itself)
+> 
+> 
+> **Windows.Devices.Printers**:  Graduated from experimental to stable:
+> 
+> - `IIppPrintDevice5`: IPP print device interface
+> - `IIppPrintDeviceInstallationResult`: Result of an IPP print device installation
+> - `IReplaceDevicePropertiesResult`: Result of a replace-device-properties operation
+> 
+> 
+> **Windows.Graphics.Printing.PrintSupport**:  Graduated from experimental to stable:
+> 
+> - `IPrintSupportAppInfo`: Provides information about the print support app
+> - `IPrintSupportEnterpriseManagementUIEventArgs`: Event arguments for print support enterprise management UI
+> - `IPrintSupportPrintTicketValidationRequestedEventArgs`: Event arguments for print ticket validation requests
+> 
+> 
+> **Windows.Graphics.Printing.Workflow**:  Graduated from experimental to stable:
+> 
+> - `IPrintWorkflowJobBackgroundSession3`: Print workflow background session interface
+> - `IPrintWorkflowPdlConverter3`: Print workflow PDL converter interface
+> - `IPrintWorkflowPdlModificationRequestedEventArgs`: Event arguments for PDL modification requests
+> - `IPrintWorkflowPrinterJobStatusChangedEventArgs`: Event arguments for printer job status changes
+> - `IPrintWorkflowXpsObjectModelProvider`: Provides access to the XPS object model
+> - `IPrintWorkflowObjectModelProvider`: Provides access to the print workflow object model
+> 
+> 
+> **Windows.System.Power**:  New:
+> 
+> - `EnergySaverStatus2`: Enumeration describing the energy saver state (`Unknown`, `Off`, `Standard`, `HighSavings`)
+> - `PowerManager.EnergySaverStatus2`: Gets the current energy saver status
+> - `PowerManager.IsEnergySaverStatus2Supported`: Indicates whether `EnergySaverStatus2` is supported on the device
+> - `PowerManager.EnergySaverStatus2Changed`: Fires when the energy saver status changes
+> 
+> 
+> **Windows.System.Profile**:  New:
+> 
+> - `RetailInfo.IsDemoModeEnabledEx`: Indicates whether retail demo mode is enabled
+> 
+> 
+> **Windows.UI.Input**:  Updated:
+> 
+> - `TouchpadGlobalAction`: Renamed `ThreeFingerPressDown`/`FourFingerPressDown`/`FiveFingerPressDown` to `ThreeFingerPress`/`FourFingerPress`/`FiveFingerPress`, and `ThreeFingerPressUp`/`FourFingerPressUp`/`FiveFingerPressUp` to `ThreeFingerRelease`/`FourFingerRelease`/`FiveFingerRelease`
+> 
+
+WinRT Experimental API additions
+
+> 
+> **Windows.System.RemoteDesktop.Provider**:  New (experimental):
+> 
+> - `RemoteDesktopRegistrar.ConnectionCenterRequested`: Event raised when the connection center is requested
+> 
+> 
+> **Windows.UI.Input**:  New (experimental):
+> 
+> - `GamepadNavigationConfiguration`: Runtime class that configures gamepad-based navigation
+> - `GamepadNavigationConfiguration.NavigationEnabled`: Gets whether gamepad navigation is enabled
+> - `GamepadNavigationConfiguration.TrySetNavigationEnabled`: Attempts to enable or disable gamepad navigation
+> - `GamepadNavigationConfiguration.TryGetForCurrentProcess`: Gets the configuration for the current process
+> - `GamepadNavigationConfiguration.IsSupported`: Indicates whether gamepad navigation configuration is supported
+> 
+
+Win32 API additions and updates
+
+> 
+> **App Model (appmodel.h)** New:
+> 
+> - `PackageOrigin2`: Enumeration describing the origin of a staged package (adds `LineOfBusiness` and `SignedSBOM` values)
+> - `GetStagedPackageOrigin2`: Retrieves the `PackageOrigin2` of a staged package
+> - `AppModelPackageFeature`: Enumeration of queryable package features (`SignedSBOM`)
+> - `IsPackageFeatureSupported`: Queries whether a package feature is currently available or enabled
+> 
+> 
+> **Cryptography (bcrypt.h / ncrypt.h)** New post-quantum cryptography (PQC) support:
+> 
+> - `BCRYPT_COMPOSITE_MLDSA_ALGORITHM` / `BCRYPT_COMPOSITE_MLKEM_ALGORITHM`: Composite ML-DSA and ML-KEM algorithm identifiers, with corresponding algorithm handles, key blob types, magics, and parameter-set names
+> - `BCRYPT_PARAMETER_SET_NAMES` / `BCRYPT_PARAMETER_SET_KEY_BLOB`: Structures for enumerating and importing parameter-set keys
+> - `NCRYPT_COMPOSITE_MLDSA_ALGORITHM` / `NCRYPT_COMPOSITE_MLKEM_ALGORITHM` and algorithm groups: CNG key storage support for composite ML-DSA and ML-KEM
+> - `NCRYPT_PAD_PQDSA_FLAG`, `NCRYPT_MLDSA_EXTERNAL_MU_FLAG`: Padding and signing flags for PQC signatures
+> - New TPM platform crypto provider (PCP) properties
+> 
+> 
+> **Bug Codes (bugcodes.h)** New:
+> 
+> - `ASSERTBUGCODE_I3CHOST_DRIVER`: Assertion bug code for the I3C host driver
+> 
+> 
+> **Direct3D 11 (d3d11.h)** New:
+> 
+> - `D3D11_DECODER_PROFILE_APV_VLD_422_10`, `..._422_12`, `..._444_10`, `..._444_12`, `..._4444_10`, `..._4444_12`, `..._400_10`: Advanced Professional Video (APV) decoder profile GUIDs (RFC 9924)
+> 
+> 
+> **DirectX Kernel (d3dkmthk.h / d3dukmdt.h)** New:
+> 
+> - `D3DKMT_QUERYFEATUREINTERFACE` and `D3DKMTQueryFeatureInterface`: Query a kernel-mode feature interface
+> - `DXGK_FEATURE_*_VERSION` defines and `DXGK_QUERYFEATURESUPPORT2_VERSION`: DXGK feature version identifiers
+> - `D3DDDI_SEGMENTPREFERENCE2`: Segment-preference structure with large-page preference support
+> 
+> 
+> **Device Class GUIDs (devguid.h)** New:
+> 
+> - Additional device setup class GUIDs
+> 
+> 
+> **DirectX Video Acceleration (dxva.h)** New:
+> 
+> - `DXVA_ModeAPV_VLD_422_10`, `..._422_12`, `..._444_10`, `..._444_12`, `..._4444_10`, `..._4444_12`, `..._400_10`: Advanced Professional Video (APV) DXVA profile GUIDs (RFC 9924)
+> - `DXVA_PicEntry_APV` and related APV DXVA structures: Picture and slice data structures for APV decode
+> 
+> 
+> **EAP Types (eaptypes.h)** New:
+> 
+> - `EAP_FLAG_DISABLE_SESSION_RESUMPTION`: Flag to disable TLS session resumption
+> 
+> 
+> **Media Foundation (mfidl.h)** New:
+> 
+> - `IMFDXGIScheduler`, `IMFDXGISchedulerClient`, `IMFDXGISchedulerRegistration`: Interfaces for DXGI-based media scheduling
+> - `MF_DXGI_SCHEDULING_PRIORITY`: Enumeration of DXGI scheduling priorities
+> 
+> 
+> **Media Engine (mfmediaengine.h)** New:
+> 
+> - `IMFMediaEngineVideoRendererEffect`: Interface that allows an app to set a custom video renderer effect
+> 
+> 
+> **Storage (ntddstor.h / winioctl.h)** New:
+> 
+> - Structures supporting storage paging-device dump collection
+> 
+> 
+> **Status Codes (ntstatus.h)** New:
+> 
+> - `STATUS_DEVICE_NACKED`: The device rejected the request
+> - `STATUS_SMB_ALTERNATIVE_PORT_CONFLICT`: SMB alternative port conflict
+> 
+> 
+> **Power (poclass.h)** New:
+> 
+> - `BATTERY_TEST_EXEMPT`: Battery flag indicating the battery is exempt from testing
+> 
+> 
+> **Process Creation (WinBase.h)** New:
+> 
+> - `PROC_THREAD_ATTRIBUTE_CONTAINMENT_CONFIGURATION`: Process/thread attribute for containment configuration
+> 
+> 
+> **Windowing and Input (WinUser.h)** New:
+> 
+> - `WM_STOPINERTIA`, `WM_ENDINERTIA`: Window messages for inertia handling
+> - `GetPointerTouchpadInfo`, `GetPointerTouchpadInfoHistory`, `GetPointerFrameTouchpadInfo`, `GetPointerFrameTouchpadInfoHistory`: Retrieve precision-touchpad pointer information
+> - `CreateSyntheticPointerDevice2`: Creates a synthetic pointer device from `SYNTHETIC_DEVICE_CREATION_PARAMS`
+> - `SYNTHETIC_DEVICE_CREATION_OPTIONS`, `SYNTHETIC_DEVICE_CREATION_PARAMS`: Options and parameters for synthetic pointer device creation
+> - `TOUCHPAD_ACTION` and `InjectTouchpadAction`: Enumeration and function for injecting synthetic touchpad actions
+> - `ReportWindowContentInertia`: Reports the start and end of window content inertia
+> - `RegisterTouchpadCapableWindow`, `RegisterTouchpadCapableThread`, `SetMaxTouchpadSensitivity`: Opt in to and configure precision-touchpad input
+> 
+> 
+> **Security (winnt.h)** New:
+> 
+> - `SECURITY_SHADOWADMINACCOUNT_RID`, `SECURITY_AGENTIC_PLATFORM_BASE_RID`: Well-known security identifier values
+> - `SECURITY_CONTAINMENT_CONFIGURATION`: Structure describing containment configuration
+> - Heap memory usage structures
+> 
+> 
+> **Error Codes (winerror.h / wuerror.h / deliveryoptimizationerrors.h / slerror.h)** New:
+> 
+> - UTC, per-processor, device-NACKED, and SMB error codes in `winerror.h`
+> - New Windows Update (`WU_E_*`) and Delivery Optimization (`DO_E_*`) error codes
+> - `SL_ACS` licensing error code
+> 
+> 
+> **Terminal Services (wtsdefs.h / wtsprotocol.h)** New:
+> 
+> - WRDS credential scenario GUIDs
+> - `IWRdsProtocolConnection3_Experimental`: Experimental protocol connection interface
+> 
+> 
+> **OLE (oleidl.h)** New:
+> 
+> - `DROPEFFECT_NEWTARGET`, `DROPEFFECT_BACKGROUNDTARGET`: Drop-effect hints matching the new `DataPackageOperation` values
+> 
+
+COM API updates
+
+> 
+> **Media Foundation (Mfidl.h)** New:
+> 
+> - `IMFDXGIScheduler`, `IMFDXGISchedulerClient`, `IMFDXGISchedulerRegistration` and `MF_DXGI_SCHEDULING_PRIORITY`: DXGI media scheduling interfaces and enumeration
+> 
+> 
+> **Media Engine (mfmediaengine.h)** New:
+> 
+> - `IMFMediaEngineVideoRendererEffect`: Interface for setting a custom video renderer effect
+> 
+> 
+> **Audio (mmdeviceapi.h)** New:
+> 
+> - `PKEY_AudioEndpoint_StableId`: Property key for a stable audio endpoint identifier
+> 
+> 
+> **Direct3D 11 (d3d11.h)** New:
+> 
+> - APV decoder profile GUIDs (RFC 9924)
+> 
+> 
+> **OLE (oleidl.h)** New:
+> 
+> - `DROPEFFECT_NEWTARGET`, `DROPEFFECT_BACKGROUNDTARGET`: Drop-effect hints
+> 
+
+## Build 10.0.26100.8249
+
+Released: **April, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Devices.Printers**:  Updated methods:
+> 
+> - `IIppAttributeConverterStatics.ConvertPrintTicketToIppAttributesForPrinter` — Now accepts an additional `targetPdlFormat` parameter
+> 
+> 
+> Graduated from experimental to stable:
+> 
+> - `IppAttributeConverter` runtime class
+> - `IppAttributeGroupKind` enum
+> - `IPdlPassthroughProvider2` interface
+> 
+> 
+> **Windows.Graphics.Printing.PrintSupport**:  Graduated from experimental to stable:
+> 
+> - `IPrintSupportPrintDeviceCapabilitiesChangedEventArgs5` — Interface with `SetPdlPassthroughWithJobAttributesSupported` method
+> 
+> 
+> New types:
+> 
+> - `PrintSupportEnterpriseManagementUIEventArgs` — Implements `IActivatedEventArgs` and `IActivatedEventArgsWithUser` for enterprise management UI activation scenarios
+> 
+> 
+> **Windows.Graphics.Printing.Workflow**:  Graduated from experimental to stable:
+> 
+> - `IPrintWorkflowPrinterJob3` — Interface with passthrough attribute support
+> 
+> 
+> Updated properties:
+> 
+> - `IsPassthroughJob` renamed to `IsPassthroughJobWithAttributes`
+> 
+
+WinRT Experimental API additions
+
+> 
+> **Windows.AI.Agents.Mcp**:  New interface:
+> 
+> - `IMcpMessageFilterExperimental2` — Adds `Initialize` method with client/server process identifiers and IDs, plus `OnMessage` for MCP message filtering
+> 
+> 
+> **Windows.Devices.Haptics**:  New properties on `KnownSimpleHapticsControllerWaveforms`:
+> 
+> - `Collide` — Waveform ID for collision haptic feedback
+> - `Align` — Waveform ID for alignment haptic feedback
+> - `Step` — Waveform ID for step haptic feedback
+> - `Grow` — Waveform ID for growth haptic feedback
+> 
+> 
+> **Windows.Graphics.Capture**:  New interfaces:
+> 
+> - `IDirect3D11CaptureFrame3` — Adds `ConfigurationIteration` property to capture frames
+> - `IGraphicsCaptureSession7` — Adds `ConfigurationIteration` property and window exclusion list management
+> - `IDisplayGraphicsCaptureSession` — Display-specific graphics capture session
+> 
+> 
+> New methods:
+> 
+> - `SetWindowExclusionList` — Sets a list of windows to exclude from capture
+> - `GetWindowExclusionList` — Gets the current window exclusion list
+> 
+> 
+> **Windows.Media.ClosedCaptioning**:  New types:
+> 
+> - `ClosedCaptionTheme` — Represents a closed caption theme with customization support
+> 
+> 
+> New methods:
+> 
+> - `GetAvailableThemes` — Retrieves available closed caption themes
+> - `GetSelectedTheme` — Gets the currently selected theme
+> - `TrySetSelectedTheme` — Attempts to set the selected theme
+> 
+> 
+> New events:
+> 
+> - `SelectedThemeChanged` — Fires when the selected closed caption theme changes
+> 
+
+Win32 API additions and updates
+
+> 
+> **Event Tracing (evntprov.h / evntcons.h)** New definitions:
+> 
+> - `EVENT_DATA_DESCRIPTOR_TYPE_RESERVED1` — Reserved event data descriptor type
+> - `EventProviderSetReserved2` — New value in `EVENT_INFO_CLASS` enum
+> - `EVENT_HEADER_FLAG_RESERVED1` — New event header flag
+> 
+> 
+> **HID Usages (hidusage.h)** New haptics usage values:
+> 
+> - `HID_USAGE_HAPTICS_WAVEFORM_COLLIDE` — Collision haptic waveform
+> - `HID_USAGE_HAPTICS_WAVEFORM_ALIGN` — Alignment haptic waveform
+> - `HID_USAGE_HAPTICS_WAVEFORM_STEP` — Step haptic waveform
+> - `HID_USAGE_HAPTICS_WAVEFORM_GROW` — Growth haptic waveform
+> 
+> 
+> **Error Codes (winerror.h)** New BitLocker error codes:
+> 
+> - `FVE_E_MISSING_PROTECTORS` — BitLocker protectors are missing
+> - `FVE_E_METHOD_MISMATCH` — BitLocker method mismatch
+> 
+> 
+> **Security / Authentication (NTSecPKG.h)** New definitions:
+> 
+> - `SECPKG_CALL_AGENT_LOGON` — Security package call flag for agent-based logon
+> - `KSecAllocateContextBuffer` — Function for allocating security context buffers
+> - Added `extern "C"` guards for C++ compatibility
+> 
+> 
+> **Crypto / TPM (ncrypt.h)** New TPM property defines:
+> 
+> - `NCRYPT_PCP_AIKSTORE_PROPERTY` — TPM AIK store property
+> - `NCRYPT_PCP_EKSTORE_PROPERTY` — TPM EK store property
+> 
+> 
+> **Content Indexing (NTQuery.h)** New define:
+> 
+> - `CI_VERSION_QUERY_METADATA` — Content index version for query metadata / semantic reliability
+> 
+> 
+> **Shell API (shellapi.h)** New define:
+> 
+> - `ABC_OVERLAYDESKTOPICONS` — Overlay desktop icons flag for `ABM_NEW`
+> 
+> 
+> **Rust Bindgen Compatibility (ntdef.h / winnt.h)** Updated:
+> 
+> - `DECLSPEC_NOINITALL` macro now excludes Rust bindgen passes via `!defined(RUST_BINDGEN)`
+> 
+> 
+> **WRL Async (wrl/async.h)** Updated:
+> 
+> - Async completion handling reworked for thread safety using `_InterlockedCompareExchange` and reference counting (`cCompleteDelegateRefCount_`)
+> 
+
+## Build 10.0.26100.8038
+
+Released: **March, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.ApplicationModel.Contacts.Provider**:  New types:
+> 
+> - `IContactProvider` - Interface with `GetContactFromRemoteIdAsync` method
+> 
+> 
+> **Windows.Devices.Printers**:  New types:
+> 
+> - `IppAttributeGroupKind` - Enum for IPP attribute group kinds
+> - `IIppAttributeConverterStatics` - Interface with `ConvertPrintTicketToIppAttributesForPrinter`, `ConvertBufferToIppAttributes`, `ConvertIppAttributesToBuffer`
+> - `IppAttributeConverter` - Runtime class
+> - `IPdlPassthroughProvider2` - Interface with `IsPassthroughWithJobAttributesSupported` property and `StartPrintJobWithIppJobAttributes` method
+> 
+> 
+> **Windows.Graphics.Printing.PrintSupport**:  New types:
+> 
+> - `IPrintSupportPrintDeviceCapabilitiesChangedEventArgs5` - Interface with `SetPdlPassthroughWithJobAttributesSupported` method
+> 
+> 
+> **Windows.Graphics.Printing.Workflow**:  New types:
+> 
+> - `IPrintWorkflowPrinterJob3` - Interface with `IsPassthroughJob` property, `GetPassthroughJobAttributes`, and `GetPassthroughJobOperationAttributes` methods
+> 
+> 
+> **Windows.Storage.Search**:  New types:
+> 
+> - `IQueryOptionsAdditionalSearchSources` - Adds `IncludeCloudProviders` and `IncludeLocalSemanticIndex` properties to `QueryOptions`
+> 
+
+Win32 API additions and updates
+
+> 
+> **Bluetooth Hands-Free Profile (bthdef.h)** Added new defines for HFP Audio Gateway and Hands-Free SDP and BRSF supported features:
+> 
+> - `HFP_AG_SDP_SUPPORTED_FEATURE_*` - Audio Gateway SDP feature flags for three-way calling, echo cancellation, voice recognition, in-band ring tone, voice tag, wide-band speech, and more
+> - `HFP_AG_BRSF_SUPPORTED_FEATURE_*` - Audio Gateway BRSF feature flags for three-way calling, echo cancellation, voice recognition, reject call, enhanced call status/control, codec negotiation, and more
+> - `HFP_HF_SDP_SUPPORTED_FEATURE_*` - Hands-Free SDP feature flags for echo cancellation, three-way calling, CLI presentation, voice recognition, remote volume control, wide-band speech, and more
+> - `HFP_HF_BRSF_SUPPORTED_FEATURE_*` - Hands-Free BRSF feature flags for echo cancellation, three-way calling, CLI presentation, voice recognition, remote volume control, codec negotiation, and more
+> - `HFP_NETWORK_NO_ABILITY_TO_REJECT`, `HFP_NETWORK_ABILITY_TO_REJECT` - Network call rejection capability flags
+> 
+> 
+> **Virtualization-Based Security (ntstatus.h / winerror.h)** New error codes:
+> 
+> - `STATUS_VSM_FW_MEASUREMENTS_SEAL_FAILURE` - VSM firmware measurements seal failure status
+> - `ERROR_VSM_FW_MEASUREMENTS_SEAL_FAILURE` - Corresponding Win32 error code
+> 
+> 
+> **Video Encoding (codecapi.h)** New enum and property for D3D12 reconstructed picture output:
+> 
+> - `eAVEncVideoD3D12ReconstructedPictureOutputMode` enum
+> - `CODECAPI_AVEncVideoD3D12ReconstructedPictureOutputMode` codec API GUID
+> 
+> 
+> **Direct3D 12 (d3d12.h)** Spelling corrections for tight alignment defines:
+> 
+> - `D3D12_TIGHT_ALIGNMENT_MIN_COMMITTED_RESOURCE_ALIGNMENT` (replaces misspelled `ALIGNEMNT` variant)
+> - `D3D12_TIGHT_ALIGNMENT_MIN_PLACED_RESOURCE_ALIGNMENT` (replaces misspelled `ALIGNEMNT` variant)
+> 
+> 
+> **Local Security Authority (ntlsa.h)** Added new structs for agent-based logon:
+> 
+> - `_LSA_AGENT_LOGON_CREDENTIAL` - Agent logon credential data
+> - `_LSA_AGENT_ACCOUNT_INFO` - Agent account information
+> - `_LSA_AGENT_ACCOUNT_LIST` - List of agent accounts
+> 
+> 
+> **Content Indexing (NTQuery.h)** New define:
+> 
+> - `CI_VERSION_CORRID` - Content index version correlation ID
+> 
+> 
+> **Secure Channel (schannel.h)** Added new types for TLS extension copying:
+> 
+> - `SCH_COPY_EXTS_DATA` struct - Data structure for copying TLS extensions
+> - `SchCopyExtsOptions` enum - Options for TLS extension copy operations
+> 
+> 
+> **Text Services Framework (TextStor.h)** New defines:
+> 
+> - `TS_SD_DISABLEWRITINGSUGGESTIONS` - Flag to disable writing suggestions
+> - `TS_SS_MULTILINE` - Flag for multiline text store support
+> 
+> 
+> **Remote Desktop Virtual Channels (tsvirtualchannels.h)** Added new interfaces, structs, and enums for RDP window information:
+> 
+> - `IWTSWindowChangedCallback` - Callback interface for window change notifications
+> - `IWTSWindowInfoService` - Interface for querying window info, client process ID, session type, and subscribing to window changes
+> - `WTSWindowInfo` struct - Window information data
+> - `RdpSessionType` enum - RDP session type values
+> 
+> 
+> **WebAuthn Plugin API (webauthnplugin.h)** Graduated from experimental to stable:
+> 
+> - `WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS_2`)
+> - `WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS_2`)
+> - `WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2` (previously `EXPERIMENTAL_WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST_2`)
+> 
+
+COM API updates
+
+> 
+> **Remote Desktop Virtual Channels (tsvirtualchannels.idl)** Added new interfaces for RDP window information:
+> 
+> - `IWTSWindowChangedCallback` - Callback interface with `WindowChanged` method
+> - `IWTSWindowInfoService` - Interface with `GetWindowInfo`, `GetRdpClientProcessId`, `GetRdpSessionType`, `SubscribeWindowChanged`, `UnsubscribeWindowChanged`
+> - `WTSWindowInfo` struct - Window information data
+> - `RdpSessionType` enum - RDP session type values
+> 
+
+## Build 10.0.26100.7705
+
+Released: **February, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.UI.Shell.Tasks**:  New namespace for managing app tasks:
+> 
+> - `AppTaskContract` - API contract for the task APIs
+> - `AppTaskState` - Enumeration for task states
+> - `IAppTaskContent`, `IAppTaskContentStatics` - Interfaces for task content
+> - `IAppTaskInfo`, `IAppTaskInfo2`, `IAppTaskInfoStatics` - Interfaces for task information
+> - `IAppTaskResultAsset`, `IAppTaskResultAssetFactory` - Interfaces for task result assets
+> - `AppTaskContent` - Runtime class for task content
+> - `AppTaskInfo` - Runtime class for task information
+> - `AppTaskResultAsset` - Runtime class for task result assets
+> 
+> 
+> **Windows.UI.Shell.CompanionWindows**:  New namespace for companion window management:
+> 
+> - `CompanionWindowsContract` - API contract for companion windows
+> - `CompanionWindowRequestResultStatus` - Enumeration for request result status
+> - `ICompanionWindowCoordinator`, `ICompanionWindowCoordinatorStatics` - Coordinator interfaces
+> - `ICompanionWindowRequest`, `ICompanionWindowRequestResult` - Request interfaces
+> - `CompanionWindowCoordinator` - Runtime class for coordinating companion windows
+> - `CompanionWindowRequest`, `CompanionWindowRequestResult` - Runtime classes for requests
+> 
+> 
+> **Windows.Devices.Haptics**:  New types and enhancements for haptic feedback:
+> 
+> - `HapticDeviceType` - New enum for haptic device types (UniversalApiContract 19.0)
+> - `HapticsControllerOverrideToken` - New struct for controller override tokens
+> - `IInputHapticsManager`, `IInputHapticsManagerStatics` - New interfaces for input haptics management
+> - `InputHapticsManager` - New runtime class for managing input haptics
+> 
+
+Win32 API additions and updates
+
+> 
+> **Windows Hypervisor Emulation (WinHvEmulation.h)** Added new emulator management functions for AMD64:
+> 
+> - `WHvEmulatorCreateEmulator` - Creates a new emulator instance with specified callbacks
+> - `WHvEmulatorDestroyEmulator` - Destroys an emulator instance
+> - Additional emulator management APIs for memory access, I/O port handling, and virtual processor register operations
+> 
+> 
+> **WebAuthn Plugin (webauthnplugin.h)** Updated documentation:
+> 
+> - Plugin RPID is now required (previously optional) for nested WebAuthN calls originating from a plugin
+> 
+> 
+> **Windows Error Codes (winerror.h)** Updated error definitions and codes
+> 
+> **Graphics Driver Model (d3dukmdt.h, d3dkmdt.h)** Updates to graphics driver display mode definitions and user mode types
+> 
+> **Windows User Interface (WinUser.h)** Updates to user interface definitions
+> 
+> **Cryptography (wincrypt.h)** Updates to cryptographic function definitions
+> 
+> **Property Keys (propkey.h)** Updated property key definitions
+> 
+> **HTTP API (http.h)** Updates to HTTP server API definitions
+
+> 
+> The following issue is fixed in this SDK version: **BinSkim Warning 4146 Triggered by Windows SDK 10.0.26100.7175 in Visual Studio**
+
+## Build 10.0.26100.7627
+
+Released: **January, 2026**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Security.Credentials**:  New interfaces:
+> 
+> - `IKeyCredentialManagerCreateWithWindowStatics` - Provides methods for creating key credentials with an associated window handle
+> - `IKeyCredentialWithWindow` - Extends key credential functionality with window association support
+> 
+> 
+> New methods:
+> 
+> - `KeyCredentialManager.RequestCreateForWindowAsync` - Creates a key credential associated with a specific window
+> 
+
+Win32 API additions and updates
+
+> 
+> **WinSQLite (winsqlite3.h / winsqlite3ext.h)** SQLite version update:
+> 
+> New error codes:
+> 
+> - `SQLITE_ERROR_RESERVESIZE`
+> - `SQLITE_ERROR_KEY`
+> - `SQLITE_ERROR_UNABLE`
+> 
+> 
+> New IO error codes:
+> 
+> - `SQLITE_IOERR_BADKEY`
+> - `SQLITE_IOERR_CODEC`
+> 
+> 
+> New capabilities:
+> 
+> - `SQLITE_IOCAP_SUBPAGE_READ`
+> 
+> 
+> New file control codes:
+> 
+> - `SQLITE_FCNTL_NULL_IO`
+> - `SQLITE_FCNTL_BLOCK_ON_CONNECT`
+> 
+> 
+> New source control management constants:
+> 
+> - `SQLITE_SCM_BRANCH`
+> - `SQLITE_SCM_TAGS`
+> - `SQLITE_SCM_DATETIME`
+> 
+> 
+> **winnt.h** New definitions:
+> 
+> - `SECURITY_MANDATORY_MEDIUM_PLUS_CREDUI_RID` - New security mandatory integrity level RID for Credential UI contexts
+> 
+
+## Build 10.0.26100.7463
+
+Released: **December, 2025**
+
+WinRT API additions and updates
+
+> 
+> **Windows.Management.Deployment**:
+> 
+> - Added the `PackageOperationPriority` enum and new priority fields exposed via `AddPackageOptions` and `StagePackageOptions`.
+> 
+
+Win32 API additions and updates
+
+> 
+> **Driver runtime reporting** Added new structs:
+> 
+> - `_DRIVER_INFO_ENTRY`
+> - `_DRIVER_RUNTIME_REPORT`
+> - `_RUNTIME_REPORT_DIGEST_HEADER`
+> 
+> 
+> **DNS SVCB/HTTPS record parsing** Added new structs:
+> 
+> - `DNS_SVCB_PARAM`
+> - `DNS_SVCB_PARAM_IPV4`, `DNS_SVCB_PARAM_IPV6`
+> - `DNS_SVCB_PARAM_ALPN`
+> - `DNS_SVCB_PARAM_MANDATORY`
+> - `DNS_SVCB_PARAM_UNKNOWN`
+> 
+> 
+> **Search and Query engine** Updated or added structs:
+> 
+> - `CONTENTRESTRICTION`
+> - `VECTORRESTRICTION`
+> - `NODERESTRICTION`
+> - `NOTRESTRICTION`
+> 
+> 
+> **Audio / Device activation** Added the `IMMDeviceActivator` interface for new device-level activation scenarios within the audio stack.
+> 
+> **Firmware table enumeration** Updated:
+> 
+> - `EnumSystemFirmwareTables`
+> - `GetSystemFirmwareTable`
+> 
+
+## Build 10.0.26100.7175
+
+Released: **November, 2025**
+
+Updated APIs
+
+> 
+> Updates made to the following Win32 API headers (defines, structs, enums, interfaces and other changes):
+> 
+> - AppxPackaging.h, AppxPackaging.idl (interfaces IAppxFactory4, IAppxBundleFactory3, IAppxBundleReader2)
+> 
+
+New APIs
+
+> 
+> WinRT namespaces updated (new or modified APIs/types):
+> 
+> - Windows.ApplicationModel.DataTransfer
+> - Windows.Management.Update
+> - Windows.Security.Credentials
+> - Windows.Storage.Provider
+> - Windows.System.RemoteSystems
+> - AppxManifestTypes.xsd schema updated
+> 
+
+Known issues
+
+> 
+> **BinSkim Warning 4146 Triggered by Windows SDK 10.0.26100.7175 in Visual Studio**
+> 
+> - We are aware of an issue where builds may fail with BinSkim rule BA2007 due to warning C4146 being explicitly disabled in a small number of Windows SDK libraries included in the Windows SDK version 10.0.26100.7175, which shipped with Visual Studio 17.14.22.
+> - Developers may see build breaks or security‑tool validation failures when using this SDK version, depending on project configuration and toolchain settings.
+> - A fix has been identified and is currently being prepared for a Visual Studio update. This will update the affected SDK content to restore expected behavior. Until the fix is available, you may use one of the following mitigations:
+>     - Retarget your project to another supported Windows SDK version, or
+>     - Suppress the specific BinSkim warning in your build configuration (not recommended long‑term)
+> 
+
+## Build 10.0.26100.6901
+
+Released: **October, 2025**
+
+Updated APIs
+
+> 
+> Updates made to the following Win32 API headers, defines, structs, enums, and other changes:
+> 
+> - networksetup.h
+> - windows.system.power.thermal.h
+> - windows.ui.input.preview.text.h
+> 
+
+New APIs
+
+> 
+> Added new APIs to the following WinRT namespaces:
+> 
+> - Windows.AI.Actions
+> - Windows.Management.Update
+> - Windows.Media.Core
+> 
+
+## Build 10.0.26100.6584
+
+Released: **September, 2025**
+
+Release to correspond with the Windows 11, version 25h2 public release. 
+
+Updated APIs
+
+> 
+> Updates made to the following Win32 API headers, defines, structs, enums, and other changes:
+> 
+> - winnt.h
+> - WtsApi32.h
+> - wtsdefs.h
+> - wtsprotocol.h
+> - NetworkSetup.h
+> - FoundationManifestSchema.xsd
+> - AccessControlManifestSchema.xsd
+> - AppDataManifestSchema.xsd
+> 
+> 
+> Added new APIs to the following WinRT headers and idl:
+> 
+> - windows.security.credentials.h
+> - windows.system.power.thermal.h, windows.system.power.thermal.idl
+> 
+
+New Experimental APIs
+
+> 
+> Updated or added experimental APIs to the following:
+> 
+> - windows.ai.actions.h
+> - windows.ai.actions.hosting.h
+> - windows.ai.agents.mcp.h
+> - windows.ai.agents.h
+> - windows.graphics.printing.printsupport.h
+> - windows.graphics.printing.printticket.h, windows.graphics.printing.printticket.idl
+> - windows.devices.printers.h
+> - windows.applicationmodel.contacts.h
+> 
+
+### Build 10.0.26100.4948
+
+Released: **August, 2025**
+
+Updated APIs
+
+> 
+> Updates made to the following Win32 API headers, adding new defines, structs, enums, and other changes:
+> 
+> - ModelContextProtocolHelpers.h
+> - PrintSupportManifestSchema\_v3.xsd
+> 
+
+New APIs
+
+> 
+> Added new APIs to the following WinRT headers and idl:
+> 
+> - windows.graphics.printing.printsupport.h
+> - windows.storage.provider.h
+> - windows.devices.printers.h
+> - windows.applicationmodel.activation.h
+> - windows.ui.input.preview.text.h
+> 
+> 
+> Removed experimental tag from:
+> 
+> - windows.ui.input.preview.text (APIs previously behind ENABLE\_WINRT\_EXPERIMENTAL\_TYPES are now stable)
+> 
+
+## Build 10.0.26100.4654
+
+Released: **July, 2025**
+
+Updated APIs
+
+> 
+> Updates made to the following Win32 API headers, adding new defines, structs, enums and other changes:
+> 
+> - bugcodes.h
+> - d3d12.h
+> - d3d12.idl
+> - DbgEng.h
+> - fwpmu.h
+> - hidusage.h
+> - ksarm64.h
+> - minidumpapiset.h
+> - ModelContextProtocolHelpers.h
+> - ntddstor.h
+> - ntddvdeo.h
+> - ntlsa.h
+> - ntstatus.h
+> - nvme.h
+> - Raseapif.h
+> - sherrors.h
+> - srb.h
+> - WaaSApiTypes.h
+> - WaaSApiTypes.idl
+> - webauthn.h
+> - winbio\_types.h
+> - winerror.h
+> - WinHvPlatformDefs.h
+> - winioctl.h
+> 
+
+New APIs
+
+> 
+> Added new APIs to the following Win32 headers:
+> 
+> - wincodec.h, wincodec.idl
+>     - **IWICBitmapFrameChainReader**
+>     - **IWICBitmapFrameChainWriter**
+>     - **IWICDisplayAdaptationControl2**
+> - wincodecsdk.h, wincodecsdk.idl
+>     - **GUID\_MetadataFormatGainMap**
+>     - **CLSID\_WICGainMapMetadataReader**
+>     - **CLSID\_WICGainMapMetadataWriter**
+> 
+> 
+> Added new WinRT Preview namespaces:
+> 
+> - **windows.ui.input.preview.text**
+> 
+
+## Build 10.0.26100.4188
+
+Released: **May, 2025**
+
+New APIs
+
+> 
+> Added or updated new APIs to the following WinRT namespaces:
+> 
+> - **Windows.AI.Actions**
+> - **Windows.AI.ModelContextProtocol** (experimental)
+> - **Windows.ApplicationModel.Background.Bluetooth**
+> - **Windows.Devices.Bluetooth**
+> - **Windows.UI.ViewManagement**
+> 
+> 
+> Added new APIs to the following Win32 headers:
+> 
+> - http.h
+>     - **HttpQueryRequestProperty**
+> - ntlsa.h
+>     - **LsaSetLocalSystemAccess**
+>     - **LsaQueryLocalSystemAccess**
+>     - **LsaQueryLocalSystemAccessAll**
+> - WinUser.h
+>     - **ConvertToInterceptWindow**
+>     - **IsInterceptWindow**
+>     - **ApplyWindowAction**
+>     - **RegisterCloakedNotification**
+>     - **EnterMoveSizeLoop**
+> 
+
+Updated APIs
+
+> 
+> Updates made to the Win32 CRT headers:
+> 
+> - corecrt\_search.h
+> - wchar.h
+> 
+> 
+> Updates made to the following Win32 API headers, adding new defines, structs and enums:
+> 
+> - CertSrv.h
+> - codecapi.h
+> - dwmapi.h
+> - MDMRegistration.h
+> - mfapi.h
+> - ntddvdeo.h
+> - NTSecAPI.h
+> - NTSecPKG.h
+> - ntstatus.h
+> - overridecapabilities.h
+> - Propkey.h
+> - WindowsSearchErrors.h
+> - Winldap.h
+> - rpcndr.h
+> - winerror.h
+> 
+> 
+> Added new Win32 API header:
+> 
+> - ModelContextProtocolHelpers.h
+> 
+
+New Experimental APIs
+
+> 
+> Added experimental APIs to the following Win32 API headers:
+> 
+> - webauthn.h
+> - WinBio.h
+> - winbio\_types.h
+> 
+
+## Build 10.0.26100.3916
+
+Released: **April, 2025**
+
+New APIs
+
+> 
+> Added new APIs to the **windows.ui.viewmanagement** WinRT namespace to support the user's preferred UserInteractionMode.
+> 
+> Added support for semantic search to the **searchapi.h** Win 32 API header.
+> 
+> Added new **GamingExperience** Win32 API header.
+> 
+> Added new APIs to the following Win32 headers:
+> 
+> - dcomp.h
+> - http.h
+> - ntsecpkg.h
+> - winioctl.h
+> 
+
+## Build 10.0.26100.3624
+
+Released: **March, 2025**
+
+New APIs
+
+> 
+> Added gamepad support to the CoreInputViewKind enumeration in the **windows.ui.viewmanagement.core** WinRT namespace.
+> 
+> Added new APIs to the following Win32 headers:
+> 
+> - fileapi.h
+> - ntlsa.h
+> - shobjidl\_core.h
+> - softintrin.h
+> - webauthn.h
+> - webservices.h
+> - winenclaveapi.h
+> - winnt.h
+> 
+
+## Build 10.0.26100.3323
+
+Released: **February, 2025**
+
+Updated APIs
+
+> 
+> Renamed the PrivacyScreen WinRT APIs added to the **windows.devices.sensors** namespace in the previous build. These are now OnlookerDetection APIs.
+
+## Build 10.0.26100.3037
+
+Released: **January, 2025**
+
+New APIs
+
+> 
+> Added new WinRT APIs in the **windows.devices.sensors** namespace:
+> 
+> - PrivacyScreenOptions class.
+> - HumanPresenceSettings.PrivacyScreenOptions method.
+> - LightSensor.IsChromaticitySupported method.
+> - New properies and structs were also added to support these methods.
+> 
+
+New Experimental APIs
+
+> 
+> Experimental APIs were changed within the following Win32 header (please note that Expertimental APIs should not be used in a production environment):
+> 
+> - webauthn.h
+> 
+
+## Build 10.0.26100.2454
+
+Released: **January, 2025**
+
+Updated APIs
+
+> 
+> Made major additions or changes to the following Win32 headers:
+> 
+> - windows.applicationmodel.background.h: Added many bluetooth-related APIs.
+> - windows.applicationmodel.calls.h: Added many VOIP call configuration APIs.
+> 
+> 
+> Added or modified the following Win32 APIs:
+> 
+> certsrv.h:
+> 
+> - CRL\_BUILD\_PROPID
+> - CRL\_EXTRACT\_KEY\_INDEX
+> - CRL\_EXTRACT\_PARTITION\_INDEX
+> 
+> 
+> clusapi.h:
+> 
+> - NodeSriovInfo
+> 
+> 
+> combaseapi.h:
+> 
+> - STDMETHOD\_CHPE\_PATCHABLE
+> 
+> 
+> d2d11.h:
+> 
+> - d3d11.D3D11\_FEATURE\_DATA\_D3D11\_OPTIONS6
+> 
+> 
+> filter.h:
+> 
+> - IPixelFilter
+> - IPixelFilter.GetImageInfo
+> - IPixelFilter.GetPixelsForImage
+> - IMAGE\_INFO
+> - IPixelFilterVtbl
+> 
+> 
+> http.h:
+> 
+> - \_HTTP\_REQUEST\_TRANSPORT\_IDLE\_CONNECTION\_TIMEOUT\_INFO
+> 
+> 
+> msclus.h:
+> 
+> - NodeSriovInfo
+> 
+> 
+> ntsecapi.h:
+> 
+> - \_KERB\_CHANGEMACHINEPASSWORD\_REQUEST
+> 
+> 
+> winenclaveapi.h:
+> 
+> - EnclaveEncryptDataForTrustlet
+> - EnclaveUsesAttestedKeys
+> 
+> 
+> winnt.h:
+> 
+> - STDAPI\_CHPE\_PATCHABLE\_
+> 
+> 
+> winuser.h:
+> 
+> - GetCurrentMonitorTopologyId
+> 
+> 
+> Please follow best practices to ensure an API is available on a machine before it is called.
+
+New Experimental APIs
+
+> 
+> Many experimental APIs were added to the following Win32 header (Please note that experimental APIs should not be used in a production environment):
+> 
+> - webauthn.h
+> 
+
+## Build 10.0.26100.1742
+
+Released: **September 24, 2024**
+
+Release to correspond with the Windows 11, version 24H2 public release.
+
+## Build 10.0.26100
+
+Released: **May 5, 2024**
+
+Initial release of the 10.0.26100 series, to correspond with the Windows 11, version 24H2 preview.
+
+## 22000 versions and earlier
+
+## Build 10.0.22621.3235
+
+Released: **February 29, 2024**
+
+Servicing update 10.0.22621.3235.
+
+## Build 10.0.22621.2428
+
+Released: **October 24, 2023**
+
+Servicing update 10.0.22621.2428.
+
+## Build 10.0.22621.1778
+
+Released: **May, 2023**
+
+Servicing update 10.0.22621.1778. 
+
+Highlighted features
+
+> 
+> - WindowTabManager APIs allows applications with tabbed interfaces to provide information on open tabs to the Windows shell.
+> - Updates to HumanPresence APIs to improve ease-of-use and add new settings for sensors that support human presence capabilities.
+> - RemoteDesktop APIs allows applications to switch between a remote and local desktop.
+> 
+
+## Windows SDK for Windows 11, version 22H2
+
+Servicing update 10.0.22621.755. Includes ARM64 support for the VS 17.4 release
+
+## Windows 10 SDK, Version 2104
+
+Updated APIs
+
+> 
+> - Removed api-ms-win-net-isolation-l1-1-0.lib. Apps that were linking against api-ms-win-net-isolation-l1-1-0.lib can switch t OneCoreUAP.lib as a replacement.
+> - Removed irprops.lib. Apps that were linking against irprops.lib can switch to bthprops.lib as a drop-in replacement.
+> - Moved ENUM tagServerSelection from wuapicommon.h to wupai.h and removed the header. If you would like to use the ENUM tagServerSelection, you will need to include wuapi.h or wuapi.idl.
+> - The Windows 10 WinRT API Pack lets you add the latest Windows Runtime APIs support to your .NET Framework 4.5+ and .NET Core 3.0+ libraries and apps. To access the Windows 10 WinRT API Pack, see the [Microsoft.Windows.SDK.Contracts nuget package](https://www.nuget.org/packages/Microsoft.Windows.SDK.Contracts).
+> - The printf family of functions now [conforms with the IEEE 754 rounding rules](/en-us/cpp/c-runtime-library/reference/printf-printf-l-wprintf-wprintf-l#requirements) when printing exactly representable floating-point numbers and will honor the rounding mode requested via calls to [fesetround](/en-us/cpp/c-runtime-library/reference/fegetround-fesetround2). Legacy behavior is available when linking with [legacy_stdio_float_rounding.obj](/en-us/cpp/c-runtime-library/link-options).
+> - Windows App Certification Kit. Several new APIs were added to the Supported APIs list in the App Certification Kit and Windows Store. If there are APIs in the supported list that appear greyed out or disabled in Visual Studio, you can make a small change to your source file, to access them. For more details, see this [known issue](https://social.msdn.microsoft.com/Forums/86ae092f-a9df-4d2d-8d09-8bf1e93c029c/known-issue-in-visual-studio-a-windows-api-is-greyed-out-and-i-cannot-access-it-even-though-it-is?forum=Win10SDKToolsIssues). [Find more updates to tests](/en-us/windows/uwp/debug-test-perf/windows-app-certification-kit).
+> 
+
+Tool updates
+
+> 
+> Message Compiler (mc.exe) updates:
+> 
+> - Now detects the Unicode byte order mark (BOM) in .mc files. If the .mc file starts with a UTF-8 BOM, it will be read as a UTF-8 file. Otherwise, if it starts with a UTF-16LE BOM, it will be read as a UTF-16LE file. If the -u parameter was specified, it will be read as a UTF-16LE file. Otherwise, it will be read using the current code page (CP\_ACP).
+> - Now avoids one-definition-rule (ODR) problems in MC-generated C/C++ ETW helpers caused by conflicting configuration macros (e.g. when two .cpp files with conflicting definitions of MCGEN\_EVENTWRITETRANSFER are linked into the same binary, the MC-generated ETW helpers will now respect the definition of MCGEN\_EVENTWRITETRANSFER in each .cpp file instead of arbitrarily picking one or the other).
+> 
+> 
+> Windows Trace Preprocessor (tracewpp.exe) updates:
+> 
+> - Supports Unicode input (.ini, .tpl, and source code) files. Input files starting with a UTF-8 or UTF-16 byte order mark (BOM) will be read as Unicode. Input files that do not start with a BOM will be read using the current code page (CP\_ACP). For backwards-compatibility, if the -UnicodeIgnore command-line parameter is specified, files starting with a UTF-16 BOM will be treated as empty.
+> - Supports Unicode output (.tmh) files. By default, output files will be encoded using the current code page (CP\_ACP). Use command-line parameters -cp:UTF-8 or -cp:UTF-16 to generate Unicode output files.
+> - Behavior change: tracewpp now converts all input text to Unicode, performs processing in Unicode, and converts output text to the specified output encoding. Earlier versions of tracewpp avoided Unicode conversions and performed text processing assuming a single-byte character set. This may lead to behavior changes in cases where the input files do not conform to the current code page. In cases where this is a problem, consider converting the input files to UTF-8 (with BOM) and/or using the -cp:UTF-8 command-line parameter to avoid encoding ambiguity.
+> 
+> 
+> TraceLoggingProvider.h updates:
+> 
+> - Avoids one-definition-rule (ODR) problems caused by conflicting configuration macros (e.g. when two .cpp files with conflicting definitions of TLG\_EVENT\_WRITE\_TRANSFER are linked into the same binary, the TraceLoggingProvider.h helpers will now respect the definition of TLG\_EVENT\_WRITE\_TRANSFER in each .cpp file instead of arbitrarily picking one or the other).
+> - In C++ code, the TraceLoggingWrite macro has been updated to enable better code sharing between similar events using variadic templates.
+> 
+> 
+> Signing your apps. Device Guard signing is a Device Guard feature that is available in Microsoft Store for Business and Education, which allows enterprises to guarantee every app comes from a trusted source. See the [documentation about Device Guard Signing](/en-us/windows/msix/package/signing-package-device-guard-signing).
+
+SDK updates
+
+> 
+> - SDK headers have been updated to address errors when compiling using the standard-conformant C preprocessor in the MSVC compiler cl.exe (/Zc:preprocessor, introduced in VS 2019 v16.6).
+> - Fixed: "GdiplusTypes.h does not compile with NOMINMAX". [See Visual Studio Feedback](https://developercommunity2.visualstudio.com/t/GdiplusTypesh-does-not-compile-with-NOM/727770).
+> - When building with /std:c11 or /std:c17, you now get:
+>     - C99 tgmath.h
+>     - C11 static\_assert in assert.h
+>     - C11 stdalign.h
+>     - C11 stdnoreturn.h
+> 
+
+Known issues
+
+> 
+> - Clang/LLVM for Windows v11 targeting ARM64 is not compatible with the latest winnt.h
+> 
+>     - As a workaround, use the previous version of the Windows 10 SDK (build 19041), or clang/LLVM for Windows v10 when targeting ARM64 platforms
+> - DirectXMath (including version 3.16 in this release) is not compatible with Clang/LLVM for Windows on ARM64.
+> 
+>     - As a workaround, use the latest version of DirectXMath, available from NuGet, vcpkg, or GitHub. These versions include the required hot fixes (version 3.16b).
+>         - [//www.nuget.org/packages/directxmath](https://www.nuget.org/packages/directxmath)
+>         - [//github.com/microsoft/vcpkg/tree/master/ports/directxmath](https://github.com/microsoft/vcpkg/tree/master/ports/directxmath)
+>         - [//github.com/microsoft/DirectXMath](https://github.com/microsoft/DirectXMath)
+> - The case of some header files were changed, to normalize them for case-sensitive file systems:
+> 
+>     - OAIdl.h, ObjIdl.h, ObjIdlbase.h, OCIdl.h, Ole2.h, OleAuto.h, and OleCtl.h were all made lower-case.
+>     - For Clang/LLVM for Windows builds, to support both older version and the latest Windows 10 SDK without warnings, add `-Wno-nonportable-system-include-path` to the CLI, or the following #pragma in source:
+> 
+> 
+>     `#ifdef __clang__`
+> 
+>     `#pragma clang diagnostic ignored "-Wnonportable-system-include-path"`
+> 
+>     `#endif`
+> 
+
+## Windows 10 SDK, Version 2004 servicing update
+
+Released: **December 16, 2020**
+
+Bugfixes
+
+> 
+> - Resolved unpredictable and hard to diagnose crashes when linking both umbrella libraries and native OS libraries (for example, onecoreuap.lib and kernel32.lib)
+> - Resolved issue that prevented AppVerifier from working
+> - Resolved issue that caused WACK to fail with "Task failed to enable HighVersionLie"
+>

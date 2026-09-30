@@ -5,6 +5,7 @@ https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-secure-apps
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-secure-apps-entra-rbac-roles
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-trial-user-guide
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-overview
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-security-posture
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-view-apps
 https://learn.microsoft.com/en-us/defender-cloud-apps/applications-inventory
 https://learn.microsoft.com/en-us/defender-cloud-apps/manage-admins
