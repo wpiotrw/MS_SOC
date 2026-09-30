@@ -1,7 +1,7 @@
 {
  "read": "2026-09-30",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 721,
+ "count": 703,
  "note": null,
  "messages": [
   {
@@ -1948,28 +1948,6 @@
    "bodyHash": "0d0c8ec1269d2703"
   },
   {
-   "id": "MC1223829",
-   "title": "(Updated) Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-01-29",
-   "end": "2026-09-30",
-   "modified": "2026-07-31",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 31, 2026: We have updated the content. Thank you for your patience. You are receiving this message because our telemetry indicates that you have at least one Conditional Access policy targeting All resources with one or more resource exclusions. As described in this Microsoft Entra Blog post , we’re enhancing how Conditional Access policies that target All resources and have resource …",
-   "bodyHash": "77db3671a390b45c"
-  },
-  {
    "id": "MC1224532",
    "title": "The January 2026 Windows non-security preview update is now available",
    "services": [
@@ -2126,27 +2104,6 @@
    ],
    "summary": "Windows is moving toward a more secure authentication model by phasing out New Technology LAN Manager (NTLM) in favor of stronger, Kerberos‑based alternatives. This transition is taking a three-phased approach, leading toward disabling NTLM by default in upcoming Windows releases. With each phase come new capabilities so that your organization has the tools, visibility, and compatibility support n…",
    "bodyHash": "43d82d8581e620a5"
-  },
-  {
-   "id": "MC1227622",
-   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
-   "services": [
-    "Microsoft 365 for the web",
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-02-06",
-   "end": "2026-09-30",
-   "modified": "2026-08-06",
-   "tags": [
-    "Admin impact",
-    "Updated message"
-   ],
-   "summary": "Updated August 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] As part of our ongoing mission to deliver a modern, secure, and scalable one-stop management portal for admins, we are transitioning Teams Android device management from the Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP) . This move consolidates management of all Teams devices…",
-   "bodyHash": "b9dde947dc8b2731"
   },
   {
    "id": "MC1227623",
@@ -3268,26 +3225,6 @@
    "bodyHash": "d428d6bf4b1c74b8"
   },
   {
-   "id": "MC1266025",
-   "title": "(Updated) Update on custom domain guidance for Teams Event emails",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-30",
-   "end": "2026-09-30",
-   "modified": "2026-08-11",
-   "tags": [
-    "Admin impact",
-    "Updated message"
-   ],
-   "summary": "Updated August 11, 2026: We are updating this post as a clarification. The change below was for WW customers only. This change does not apply to Sovereign Cloud environments. Customers in GCC, GCC High, and DoD must continue to configure a custom domain to use custom HTML editing and email template customization for Teams Events emails. We apologize for any confusion. We're clarifying our guidance…",
-   "bodyHash": "11ed3043cea3406c"
-  },
-  {
    "id": "MC1266027",
    "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
    "services": [
@@ -3913,26 +3850,6 @@
    ],
    "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing an automatic upgrade for shared calendars in Outlook and Exchange Online , transitioning from the legacy MAPI-based model to the modern REST-based model . This server-side upgrade will improve calendar sync reliability, performance, and consistency for delegates and users who a…",
    "bodyHash": "6d43a56d7e398f1d"
-  },
-  {
-   "id": "MC1287372",
-   "title": "Microsoft Entra ID Governance Account Discovery",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-21",
-   "end": "2026-09-30",
-   "modified": "2026-04-21",
-   "tags": [
-    "Admin impact",
-    "New feature"
-   ],
-   "summary": "[Introduction] Microsoft Entra ID Governance now includes Account discovery , a new capability that helps administrators identify application accounts that exist outside of Microsoft Entra ID. Account discovery finds local and orphaned accounts in connected applications and identifies accounts that can be matched to Microsoft Entra ID users. This improves visibility into existing access, simplifie…",
-   "bodyHash": "953922511188cfdb"
   },
   {
    "id": "MC1287681",
@@ -4596,27 +4513,6 @@
    "bodyHash": "25e310a8cea44c12"
   },
   {
-   "id": "MC1310683",
-   "title": "(Updated) Microsoft Teams: Standardized preview experience for PowerPoint, Excel, and Word files",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-14",
-   "end": "2026-09-30",
-   "modified": "2026-08-05",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 5, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing a standardized preview experience for Word, Excel, and PowerPoint files in Microsoft Teams across desktop and mobile platforms. This update improves performance, reliability, and consistency when previewing files, resulting in faster load times and fewer preview failures. Availabilit…",
-   "bodyHash": "03bc9657e5a778bb"
-  },
-  {
    "id": "MC1311973",
    "title": "PowerPoint for Mac: Create a presentation with Copilot directly from PowerPoint Home",
    "services": [
@@ -4931,27 +4827,6 @@
    "bodyHash": "db20c64222e7f577"
   },
   {
-   "id": "MC1319214",
-   "title": "(Updated) Interact with your favorite apps on Teams using Slash ( / ) Commands",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-22",
-   "end": "2026-09-30",
-   "modified": "2026-06-25",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 25, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing slash (/) commands for apps in the compose box across chats and channels. This change provides a standardized way for users to invoke app functionality directly from the compose box and receive responses inline. This message is associated with Microsoft 365 Roadmap ID 495…",
-   "bodyHash": "7be56f66d6588c0e"
-  },
-  {
    "id": "MC1319216",
    "title": "(Updated) Microsoft Teams: In‑meeting toggle to turn Meeting AI on or off",
    "services": [
@@ -5118,29 +4993,6 @@
    ],
    "summary": "Updated August 4, 2026: We have updated the timeline. Thank you for your patience. [What and Why] You’re receiving this message because your organization uses Microsoft Entra ID Self-Service Password Reset (SSPR) . Currently, SSPR may allow users to verify their identity using contact information stored in directory attributes such as mobile phone, business phone, and alternate email, even if thos…",
    "bodyHash": "5b4360649362ca72"
-  },
-  {
-   "id": "MC1325422",
-   "title": "(Updated) Microsoft 365 Copilot app: Simplified, chat-centered experience",
-   "services": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-28",
-   "end": "2026-09-30",
-   "modified": "2026-06-22",
-   "tags": [
-    "Admin impact",
-    "Deferred feature",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 22, 2026: We are starting rollout of the updated Microsoft 365 Copilot app experience to worldwide audiences. This updated experience was previously rolled out to Frontier audiences in May. The worldwide rollout will begin standard release on June 22. Users will see a “New Copilot” toggle in the top right of their app that lets them switch between the current experience and the update…",
-   "bodyHash": "ca984089de264c82"
   },
   {
    "id": "MC1325441",
@@ -6384,26 +6236,6 @@
    "bodyHash": "e57b86dc18dc0515"
   },
   {
-   "id": "MC1411434",
-   "title": "Viva Engage: Reducing reply notification volume on mobile",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-01",
-   "end": "2026-09-30",
-   "modified": "2026-07-01",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Viva Engage is updating how reply notifications are delivered in the mobile app to reduce notification overload and improve notification relevance. Users will continue receiving notifications for conversations that directly involve them while unnecessary notifications from high-volume community discussions are reduced. This improves productivity by helping users focus on the notifi…",
-   "bodyHash": "459981c0fe1cd924"
-  },
-  {
    "id": "MC1411499",
    "title": "ESR management completed the transition to Windows Backup for Organizations",
    "services": [
@@ -7006,27 +6838,6 @@
    "bodyHash": "e51ada87c3ce1299"
   },
   {
-   "id": "MC1423117",
-   "title": "Thumbnail view for PDFs is available in OneDrive and SharePoint on the web",
-   "services": [
-    "Microsoft OneDrive",
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-09-30",
-   "modified": "2026-07-10",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We are improving PDF navigation in OneDrive and SharePoint on the web by adding a thumbnail view in the PDF viewer. Users will be able to open a thumbnail panel to visually browse pages in a PDF and jump directly to a selected page. This update helps users navigate long PDFs more quickly, especially when they need to find a visual section, page layout, chart, image, or form page wi…",
-   "bodyHash": "7eadf675a0a6041c"
-  },
-  {
    "id": "MC1426371",
    "title": "(Updated) Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
    "services": [
@@ -7354,27 +7165,6 @@
    "bodyHash": "55a0838d927cb65b"
   },
   {
-   "id": "MC1430530",
-   "title": "Microsoft OneDrive: Exclude specific folders from syncing",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-09-30",
-   "modified": "2026-07-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is introducing a new OneDrive capability that allows organizations to exclude specific folders from syncing to OneDrive. This helps ensure machine-specific or development-related folders—such as PowerShell modules, Visual Studio configuration folders, and node_modules—remain local to the device instead of being uploaded to the cloud. This enhancement improves manageabilit…",
-   "bodyHash": "bddbf993d6c86f83"
-  },
-  {
    "id": "MC1430531",
    "title": "Microsoft Outlook: Meeting Insight is retiring",
    "services": [
@@ -7481,28 +7271,6 @@
    "bodyHash": "da53168cbd0d06e5"
   },
   {
-   "id": "MC1431377",
-   "title": "(Updated) Microsoft Defender for Office 365: AIR Investigation Experience Improvements",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-09-30",
-   "modified": "2026-08-06",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 6, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft is enhancing the Automated Investigation and Response (AIR) experience in Microsoft Defender for Office 365 by introducing a manual refresh capability and simplifying investigation naming conventions. These changes improve portal performance, reduce unnecessary network activity, and support…",
-   "bodyHash": "7a059f7652b85f33"
-  },
-  {
    "id": "MC1432461",
    "title": "Out-of-band update to address Windows update issue affecting some devices with Intel IPF driver",
    "services": [
@@ -7520,27 +7288,6 @@
    ],
    "summary": "Microsoft has released an out-of-band (OOB) update today to address an issue affecting a limited number of Dell devices with an Intel Innovation Platform Framework (Intel IPF) driver that could cause changes in performance, power consumption, or system behavior after installing recent Windows updates. This OOB update is a cumulative update, so you do not need to apply any previous updates before i…",
    "bodyHash": "2788365d40e60d0c"
-  },
-  {
-   "id": "MC1434583",
-   "title": "Microsoft 365 Copilot: Configure organization policy link for blocked Copilot Chat users",
-   "services": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-20",
-   "end": "2026-09-30",
-   "modified": "2026-07-20",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why] We are introducing a new capability for organizations to provide a link to company policy or internal guidance for users who are blocked from accessing Copilot Chat in the Microsoft 365 Copilot app. When restricted users attempt to access Chat, they can be directed to organization-specific information through a policy link. This helps organizations provide clearer guidance, reduce u…",
-   "bodyHash": "ba9cbfe29e508dc0"
   },
   {
    "id": "MC1435782",
@@ -10565,120 +10312,6 @@
    ],
    "summary": "[What and Why:] To help protect Microsoft Teams users from spam, phishing, and other abusive activity, Microsoft is introducing outbound external messaging limits for organizations that use only the default Microsoft Online Email Routing Address (MOERA) domain, such as contoso.onmicrosoft.com. These limits are designed to reduce large-scale abuse while preserving normal collaboration scenarios. Mo…",
    "bodyHash": "23f4424ee5e40417"
-  },
-  {
-   "id": "MC1464686",
-   "title": "Dynamics 365 Sales - Customize default risk criteria for Sales Opportunity Agent",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to customize default risk criteria for Sales Opportunity Agent in Dynamics 365 Sales. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to customize default risk criteria to align with their business processes, sales methodologies, sales stages, and playbooks. Users will also be able to add values and thres…",
-   "bodyHash": "b21d5f4a775da0c4"
-  },
-  {
-   "id": "MC1464712",
-   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to assign task level calendar for precise planning in Dynamics 365 Project Operations. This feature will reach general availability/public preview on September 30, 2026. How does this affect me? This feature provides an experience to change the task calendar on the Customizable task details pane . To enable this feature, from project parameters select Enable Customize…",
-   "bodyHash": "ba6ff70014cf9d4f"
-  },
-  {
-   "id": "MC1464732",
-   "title": "Dynamics 365 Sales - Autonomously generate quotes and drive sales with Sales Development agent",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to autonomously generate quotes and drive self-service transactions for low-complexity deals in Dynamics 365 Sales. This feature will reach general availability on September 30, 2026. How does this affect me? Sales Development Agent (SDA) can take leads from qualified opportunities through to closed deals. Key capabilities include: Generate quotes through D365S as wel…",
-   "bodyHash": "bb9fb43e08d77149"
-  },
-  {
-   "id": "MC1464753",
-   "title": "Dynamics 365 Sales - Create records in Dynamics 365 Sales using Sales agent",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to create records using Sales agent in Dynamics 365 Sales. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to create contacts, accounts, opportunities, and other Dynamics 365 Sales records directly in Microsoft 365 Copilot Chat. An interactive form will appear inline in the chat and use conversation conte…",
-   "bodyHash": "5e5389ca8967e5e3"
-  },
-  {
-   "id": "MC1464762",
-   "title": "Dynamics 365 Project Operations – Copy externally scheduled projects",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to copy externally scheduled projects in Dynamics 365 Project Operations. This feature will reach general availability on September 4, 2026. How does this affect me? This feature enables copy functionality for externally scheduled projects. Users can copy externally scheduled projects and copy the project entity in Microsoft Dataverse to a new project. This feature en…",
-   "bodyHash": "4e9468f2a1b6ab1f"
-  },
-  {
-   "id": "MC1464783",
-   "title": "Dynamics 365 Project Operations - Customize the task details pane",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to customize the task details pane in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to open a customizable task pane from the task grid by selecting the i icon next to a task name. The pane will allow users to customize task fields and trigger business flows directly fro…",
-   "bodyHash": "d362478317ff5282"
   },
   {
    "id": "MC1464795",
@@ -15316,6 +14949,132 @@
    "id": "MC1162224",
    "type": "removed",
    "title": "Introducing Wi-Fi 7 for enterprise connectivity",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1223829",
+   "type": "removed",
+   "title": "(Updated) Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1227622",
+   "type": "removed",
+   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1266025",
+   "type": "removed",
+   "title": "(Updated) Update on custom domain guidance for Teams Event emails",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1287372",
+   "type": "removed",
+   "title": "Microsoft Entra ID Governance Account Discovery",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1310683",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Standardized preview experience for PowerPoint, Excel, and Word files",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1319214",
+   "type": "removed",
+   "title": "(Updated) Interact with your favorite apps on Teams using Slash ( / ) Commands",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1325422",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot app: Simplified, chat-centered experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1411434",
+   "type": "removed",
+   "title": "Viva Engage: Reducing reply notification volume on mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1423117",
+   "type": "removed",
+   "title": "Thumbnail view for PDFs is available in OneDrive and SharePoint on the web",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1430530",
+   "type": "removed",
+   "title": "Microsoft OneDrive: Exclude specific folders from syncing",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1431377",
+   "type": "removed",
+   "title": "(Updated) Microsoft Defender for Office 365: AIR Investigation Experience Improvements",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1434583",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot: Configure organization policy link for blocked Copilot Chat users",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464686",
+   "type": "removed",
+   "title": "Dynamics 365 Sales - Customize default risk criteria for Sales Opportunity Agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464712",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464732",
+   "type": "removed",
+   "title": "Dynamics 365 Sales - Autonomously generate quotes and drive sales with Sales Development agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464753",
+   "type": "removed",
+   "title": "Dynamics 365 Sales - Create records in Dynamics 365 Sales using Sales agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464762",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations – Copy externally scheduled projects",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464783",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Customize the task details pane",
    "fields": {}
   }
  ]
