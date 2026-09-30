@@ -1,7 +1,7 @@
 {
  "read": "2026-09-30",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 703,
+ "count": 702,
  "note": null,
  "messages": [
   {
@@ -303,25 +303,6 @@
    ],
    "summary": "Introduction To streamline and improve integration experiences for education customers, we’re retiring several legacy Learning Tools Interoperability (LTI) integrations in Microsoft 365. These tools will be replaced by the unified Microsoft 365 LTI tool, which offers enhanced functionality and ongoing support. When this will happen: The following Education LTI tools will be retired worldwide on Se…",
    "bodyHash": "aa02b745346b5596"
-  },
-  {
-   "id": "MC1162857",
-   "title": "Windows 11, version 25H2 is now available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-09-30",
-   "end": "2026-09-30",
-   "modified": "2025-09-30",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Windows 11, version 25H2 has reached general availability. This update includes the features released to version 24H2 as part of continuous innovation over the past year. You'll also continue to see new features released to Windows via monthly updates. We recommend that you begin a targeted deployment to validate that your apps, devices, and infrastructure work as expected with the new release. Fo…",
-   "bodyHash": "59d085b9c3494592"
   },
   {
    "id": "MC1163560",
@@ -6607,25 +6588,6 @@
    "bodyHash": "3bad9880622529eb"
   },
   {
-   "id": "MC1421828",
-   "title": "Dynamics 365 Customer Service - WEM in M365 Copilot for CSRs and Supervisors",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-09",
-   "end": "2026-09-30",
-   "modified": "2026-07-09",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing Dynamics 365 Workforce Management (WEM) in M365 Copilot for customer service representatives and supervisors in Dynamics 365 Customer Service. This feature will reach general availability on July 20, 2026. How does this affect me? With this feature, Dynamics 365 Workforce Management now integrates directly with Microsoft 365 Copilot through the Model Context Protocol, bringing sc…",
-   "bodyHash": "53bfb46083581aa6"
-  },
-  {
    "id": "MC1421920",
    "title": "(Updated) Surveys agent retirement and transition to Copilot in Microsoft Forms",
    "services": [
@@ -7994,25 +7956,6 @@
    ],
    "summary": "UPDATED August 3, 2026, 2:56 PM PST: Resolution efforts for this issue were completed during the weekend of August 1, 2026, and search functionality in the Microsoft Update Catalog was returned to normal. July 31, 2026, 6:42 PM PST: We are working to restore search functionality in the Microsoft Update Catalog following an issue affecting Catalog search operations. Users might be unable to success…",
    "bodyHash": "8eef8d4979e33589"
-  },
-  {
-   "id": "MC1446371",
-   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-03",
-   "end": "2026-09-30",
-   "modified": "2026-08-03",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to enable time phasing of quote and contract lines in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? With this feature, correct sales and cost prices in quotes and contracts are automatically updated based on the effective date. This automation reduces the manual work needed to track and up…",
-   "bodyHash": "46b969d7bb41e5f3"
   },
   {
    "id": "MC1446794",
@@ -10095,25 +10038,6 @@
    "bodyHash": "beb1ab24812649fd"
   },
   {
-   "id": "MC1462722",
-   "title": "Dynamics 365 Project Operations - Assign task level schedule mode for precise planning",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-27",
-   "end": "2026-09-30",
-   "modified": "2026-08-27",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to assign task level schedule mode for precise planning in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? This feature provides an experience to change the task schedule mode on the Customizable task details pane . To enable this feature from project parameters, select Enable Customize Task…",
-   "bodyHash": "5509e6564c6253b3"
-  },
-  {
    "id": "MC1462812",
    "title": "The August 2026 Windows non-security preview update is now available",
    "services": [
@@ -10312,63 +10236,6 @@
    ],
    "summary": "[What and Why:] To help protect Microsoft Teams users from spam, phishing, and other abusive activity, Microsoft is introducing outbound external messaging limits for organizations that use only the default Microsoft Online Email Routing Address (MOERA) domain, such as contoso.onmicrosoft.com. These limits are designed to reduce large-scale abuse while preserving normal collaboration scenarios. Mo…",
    "bodyHash": "23f4424ee5e40417"
-  },
-  {
-   "id": "MC1464795",
-   "title": "Dynamics 365 Contact Center - Delight your customers with the enhanced chat widget",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to delight your customers with the enhanced chat widget in Dynamics 365 Contact Center. This feature will reach general availability on September 30, 2026. How does this affect me? The updated chat widget improves customer engagement and brand consistency with: Faster load times through optimized scripting, ensuring quicker display of the chat button even on slower ne…",
-   "bodyHash": "09e945471cbcf838"
-  },
-  {
-   "id": "MC1464797",
-   "title": "Dynamics 365 Contact Center - Control how many conversations are evaluated with a sampling percentage",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to control how many conversations are evaluated with a sampling percentage in Dynamics 365 Contact Center. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to set a sampling percentage when creating an evaluation plan. The percentage will determine how many matching conversations are evaluated for quality …",
-   "bodyHash": "18a6216e17d8ee19"
-  },
-  {
-   "id": "MC1464814",
-   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to enable time phasing of quotes and contract lines in Dynamics 365 Project Operations. This feature will reach general availability/public preview on September 30, 2026. How does this affect me? With this feature, the system automatically updates the correct sales and cost prices in quotes and contracts based on the effective date. The system calculates prices using …",
-   "bodyHash": "5132072e5879db7a"
   },
   {
    "id": "MC1464821",
@@ -14161,6 +14028,120 @@
    "bodyHash": "81a36d6ea2db5a3b"
   },
   {
+   "id": "MC1483413",
+   "title": "Dynamics 365 Contact Center - Assign conversation to expert who engaged with the customer previously",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to assign conversations to experts who engaged with the customer previously in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? This feature will enable users to assign conversations to a previously engaged or preferred expert, leveraging historical interaction context, queue membership alignment, …",
+   "bodyHash": "293ce798788ed792"
+  },
+  {
+   "id": "MC1483419",
+   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to allow representatives to set next presence to indicate their future availability in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? Next presence allows service representatives to queue their next availability status and stop receiving new assignments while the next presence status is pending. …",
+   "bodyHash": "08f5d6c9a0a984d4"
+  },
+  {
+   "id": "MC1483432",
+   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to let customer service representatives set their next presence to handle routing of work items in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? With this feature, customer service representatives can schedule a future presence status, such as Away, Do Not Disturb, or Offline , while they are st…",
+   "bodyHash": "7c637547709c07fe"
+  },
+  {
+   "id": "MC1483528",
+   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-12-31",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Beginning November 9, 2026, we are introducing staged storage validation for supported Dynamics 365 applications. The change gives administrators clearer visibility into storage use, advance notice of potential restrictions, and several ways to remain within capacity, including removing unneeded data, adding capacity, or enabling pay-as-you-go for sandbox environments. When a tenant exceeds its en…",
+   "bodyHash": "ca0bad41aa728cdf"
+  },
+  {
+   "id": "MC1483538",
+   "title": "Windows settings backup is now enabled by default for eligible devices",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2027-09-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why With the release of Windows 11, version 26H2, the Windows settings backup policy is now enabled by default for eligible devices (see the Impact section). The new default applies only if admins haven’t explicitly configured the policy. We honor any existing explicit enable or disable setting. This update makes settings backup a baseline resiliency capability. If user devices ever enter…",
+   "bodyHash": "4b99792d54acda9b"
+  },
+  {
+   "id": "MC1483566",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-14",
+   "modified": "2026-09-30",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting September 30th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delive…",
+   "bodyHash": "1604e0ecd625eccd"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -15075,6 +15056,97 @@
    "id": "MC1464783",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Customize the task details pane",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483413",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Assign conversation to expert who engaged with the customer previously",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483419",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483432",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483528",
+   "type": "new",
+   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483538",
+   "type": "new",
+   "title": "Windows settings backup is now enabled by default for eligible devices",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1483566",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1162857",
+   "type": "removed",
+   "title": "Windows 11, version 25H2 is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1421828",
+   "type": "removed",
+   "title": "Dynamics 365 Customer Service - WEM in M365 Copilot for CSRs and Supervisors",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1446371",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1462722",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Assign task level schedule mode for precise planning",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464795",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Delight your customers with the enhanced chat widget",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464797",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Control how many conversations are evaluated with a sampling percentage",
+   "fields": {}
+  },
+  {
+   "date": "2026-09-30",
+   "id": "MC1464814",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
    "fields": {}
   }
  ]
