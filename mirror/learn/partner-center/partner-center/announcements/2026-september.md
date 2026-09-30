@@ -15,7 +15,7 @@ ms.topic: article
 ms.subservice: partnercenter-announcements
 author: MarioY
 ms.author: dgallander
-ms.date: 2026-09-28T00:00:00.0000000Z
+ms.date: 2026-09-30T00:00:00.0000000Z
 locale: en-us
 document_id: 5fb09a5b-6af5-e70e-bb1e-d4dbc3740ef6
 document_version_independent_id: 5fb09a5b-6af5-e70e-bb1e-d4dbc3740ef6
@@ -32,14 +32,44 @@ item_type: Content
 source_path: partner-center/announcements/2026-september.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0fc65d4-7c73-4029-a261-7f99ff744363
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b2daec57-5914-4967-8ed3-1d444897ba59
 platformId: ba89d0ee-5108-83ca-eb67-faf9ba2b18fb
 ---
 
 # September 2026 announcements - Partner Center announcements | Microsoft Learn
 
 This article provides the announcements for Microsoft Partner Center for September 2026.
+
+## Frontier Partner specialization now live
+
+*The Frontier Partner specialization validates agentic AI delivery capabilities. Start working toward the specialization today.*
+
+- **Date**: September 30, 2026
+- **Workspace**: General
+- **Impacted audience**: All partners
+
+Starting on September 30, 2026, all eligible partners can earn the new Frontier Partner specialization. This specialization recognizes partners who can design, build, deploy, govern, and secure AI agents across the full Microsoft Frontier Transformation stack—which includes Microsoft 365 Copilot, Azure AI Foundry, GitHub Copilot, Microsoft Defender, Microsoft Entra, and Microsoft Purview.
+
+Partners who earn this specialization gain stronger differentiation with customers and access to a rich set of Microsoft AI Cloud Partner Program benefits, including:
+
+- A customer-facing Frontier Partner specialization badge.
+- Eligibility for Frontier-aligned co-sell opportunities.
+- Microsoft Agent pre-purchase plan (P3) credits and Microsoft 365 E7 licensing.
+- Packaged go-to-market resources, including marketing campaigns and case study opportunities.
+- Microsoft AI Cloud Partner Program Concierge support through the qualification and audit process.
+
+Review the requirements now to begin the attainment process.
+
+#### Next steps
+
+Review the [Frontier Partner specialization requirements](https://partner.microsoft.com/partnership/specialization/frontier-partner?wt.mc_id=3jst62y1yo).
+
+#### Questions
+
+Questions about the specialization requirements or benefits? Reach out to your partner development manager or visit the [Frontier Partner specialization page](https://partner.microsoft.com/partnership/specialization/frontier-partner?wt.mc_id=3jst62y1yo) for full details.
 
 ## Frontier Accelerate for Marketplace now available
 

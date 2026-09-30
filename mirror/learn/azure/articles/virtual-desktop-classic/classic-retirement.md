@@ -23,8 +23,8 @@ description: Information about the retirement of Azure Virtual Desktop (classic)
 ms.date: 2023-09-27T00:00:00.0000000Z
 locale: en-us
 author: huypub
-document_id: ccf5dabe-b41f-4a9c-7f52-393c987b8899
-document_version_independent_id: e813fa6e-3ff0-d13f-943c-15213f50846d
+document_id: 30bc1d60-8585-50f8-e512-613acbbefe26
+document_version_independent_id: b956a819-2366-3dc2-9a97-d08dbd64dc28
 original_content_git_url: https://github.com/MicrosoftDocs/azure-docs-archive-pr/blob/live/articles/virtual-desktop-classic/classic-retirement.md
 site_name: Docs
 depot_name: MSDN.Azure-docs-archive
