@@ -26049,6 +26049,18 @@ szerszym niz ekran dodatkowo powieksza czcionke (text autosizing) — stad „in
 `minmax(0,1fr)`, `min-width:0`, rozmiary jak w kartach §5ci, naglowek sekcji w karcie ukryty (karta ma
 wlasny), `text-size-adjust:100%` na `html`.
 
+**§5cl (30 IX 2026, wlasciciel: „nowe wersje komponentow dopisac do tych 10 zdan, zaznaczone jak na
+GitHubie; rozszerzyc do 12 i dorzucic zdanie o technologii albo newsa dnia").** W §5bk po trzech
+zdaniach liczonych kodem dochodza dwa kolejne, tez liczone kodem: (4) „New component versions (N):" —
+kazdy komponent, ktorego `lastChange` ma `basis: "observed"`, `from` i `seen` po dacie poprzedniego
+briefu; nazwa (klik otwiera `#cmp-<id>` w Component versions), `<del>`stara`</del>` → `<ins>`nowa`</ins>`
+monospace jak w diffie GitHuba, data wydania; bez ruchu — jedno zdanie „no component moved since …";
+(5) „News of the day:" — wpis bloga Microsoftu z `nt.top` z ostatnich dwoch dni o najnizszym `weight`
+(tytul + pierwsze zdanie streszczenia, zrodlo, data; klik otwiera wpis). Siedem zdan technologii
+zostaje, wiec naglowek mowi do „Today in twelve sentences"; etykieta zwinietej sekcji w Overview
+(§5ci) czyta ten naglowek. 30 IX: MDI sensor i Authenticator iOS; news: „Sign in to Microsoft apps
+with passkeys from external identity providers" (Microsoft Entra Blog, 29 IX).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -26184,6 +26196,16 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .s5ci-ten .s5bk-itt{font-size:13.5px}
 .s5ci-ten .s5bk-itm{font-size:12px}
 .s5ci-ten *{max-width:100%;overflow-wrap:anywhere}
+/* §5cl: component versions sentence, diff-marked like a GitHub diff */
+.s5cl-cv{display:flex;flex-direction:column;gap:4px;margin-top:2px}
+.s5cl-c{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.s5cl-cn{border:0;background:none;padding:0;font:inherit;font-weight:600;font-size:14px;color:var(--text);cursor:pointer;text-align:left}
+.s5cl-cn:hover{color:var(--accent);text-decoration:underline}
+.s5cl-cn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px;border-radius:4px;font-weight:600}
+.s5cl-ar{color:var(--muted);font-size:12px}
+.s5cl-v{white-space:nowrap}
+.s5ci-ten .s5cl-cn{font-size:13.5px}
 ```
 
 
@@ -28257,6 +28279,43 @@ odtad CZTERNASCIE (4-17).**
       b3.addEventListener("click", function () { goMs(ms14[0].tab); });
       sentence("Microsoft:", b3);
     } else sentence("Microsoft:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
+    /* §5cl (30 IX 2026, owner: "add the new component versions to the sentences — marked like on
+       GitHub — and a sentence on a technology or the news of the day; twelve instead of ten").
+       Sentence 4: every component whose version Microsoft moved since the previous brief (basis
+       "observed", a `from` — a first recording is not a move), old struck red, new green, each name
+       opening that component in Component versions. Sentence 5: the news of the day — the
+       highest-ranked Microsoft blog post (nt.top, lowest `weight`) of the last two days. */
+    function openComp(id) {
+      openTab("components");
+      function go(last) { var a = document.getElementById("cmp-" + id); if (!a) return; if (a.tagName === "DETAILS") a.open = true;
+        a.scrollIntoView({ block: "start" }); if (!last) { a.classList.add("s5bi-flash"); setTimeout(function () { a.classList.remove("s5bi-flash"); }, 2200); } }
+      setTimeout(function () { go(false); }, 200); setTimeout(function () { go(true); }, 750);
+    }
+    var cmv = (st.components || []).filter(function (c) { var l = c.lastChange; return l && l.from && l.to && l.seen && l.basis === "observed" && (since ? l.seen > since : l.seen === today) && l.seen <= today; });
+    if ((st.components || []).length) {
+      var cwrap = el("span", "s5cl-cv");
+      if (cmv.length) cmv.forEach(function (c, ci) {
+        var l = c.lastChange, row = el("span", "s5cl-c");
+        var nb = el("button", "s5cl-cn", c.name); nb.type = "button"; nb.title = "Open " + c.name + " in Component versions";
+        nb.addEventListener("click", function () { openComp(c.id); }); row.appendChild(nb);
+        var vv = el("span", "s5cl-v"); vv.appendChild(el("del", "s5cl-old", l.from)); vv.appendChild(el("span", "s5cl-ar", " \u2192 ")); vv.appendChild(el("ins", "s5cl-new", l.to)); row.appendChild(vv);
+        if (l.released) row.appendChild(el("span", "s5bk-itm", "released " + fmt(l.released)));
+        cwrap.appendChild(row);
+      });
+      else cwrap.appendChild(el("span", null, "no component moved since the " + (since ? fmt(since) + " " : "last ") + "brief; all " + st.components.length + " checked."));
+      sentence(cmv.length ? "New component version" + (cmv.length === 1 ? ":" : "s (" + cmv.length + "):") : "Component versions:", cwrap);
+    }
+    var ntop = ((st.nt || {}).top || []).filter(function (x) { return x && x.title && x.link && x.date && days(x.date, today) <= 1; })
+      .sort(function (a, b) { return (+a.weight || 9) - (+b.weight || 9) || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0); });
+    if (ntop.length) {
+      var nw1 = ntop[0], nb2 = el("button", "s5bk-it"); nb2.type = "button";
+      nb2.appendChild(el("span", "s5bk-itt", nw1.title));
+      var nsum = String(nw1.summary || "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&[a-z#0-9]+;/gi, " ").replace(/\s+/g, " ").trim();
+      var nm = /^(.{30,200}?[.!?])(\s|$)/.exec(nsum); nsum = nm ? nm[1] : nsum.length <= 200 ? nsum : nsum.slice(0, 200).replace(/\s+\S*$/, "") + "\u2026";   /* never cut inside a word */
+      nb2.appendChild(el("span", "s5bk-itm", [nsum, nw1.source + " \u00b7 " + fmt(nw1.date)].filter(Boolean).join(" \u00b7 ")));
+      nb2.addEventListener("click", function () { window.open(nw1.link, "_blank", "noopener"); });
+      sentence("News of the day:", nb2);
+    }
     /* §5bq (27 IX 2026): owner — "rozszerz do 10 zdan … m365, security, copilot, entra, entra connect,
        defender, sentinel, intune, teams, purview … i osobna sekcja: 1 zdanie per technologia".
        The three sentences above stay computed. Up to seven more come from `st.digest.sentences`
@@ -28341,7 +28400,7 @@ odtad CZTERNASCIE (4-17).**
     }
     more = more.slice(0, 7);
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
-    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten"][ol.children.length] || String(ol.children.length);
+    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     sum.appendChild(ol); top.appendChild(sum);
 
@@ -32831,6 +32890,8 @@ odtad CZTERNASCIE (4-17).**
     tl.appendChild(days); tl.appendChild(el("p", "s5ci-note", "A bar opens that day in Deadlines."));
     var ten = el("details", "s5ci-ten"); ten.appendChild(el("summary", null, "Today in ten sentences"));
     ten.addEventListener("toggle", function () { if (!ten.open || ten.__moved) return; var s = document.querySelector("#tab-overview .s5bk-sum"); if (s) { ten.appendChild(s); ten.__moved = true; } });
+    /* §5cl: the label is the section's own heading ("Today in twelve sentences"), read once it exists */
+    (function lab(n) { var h = document.querySelector("#tab-overview .s5bk-sum .s5bk-h"); if (h) ten.firstChild.textContent = h.textContent; else if (n < 12) setTimeout(function () { lab(n + 1); }, 500); })(0);
     tl.appendChild(ten);
     var shn = [].filter.call(document.querySelectorAll("#starthere .shrow"), function (b) { return /sources are stale/i.test(b.textContent); })[0];
     var ns = shn ? +((shn.querySelector(".shn") || {}).textContent || 0) : 0;
