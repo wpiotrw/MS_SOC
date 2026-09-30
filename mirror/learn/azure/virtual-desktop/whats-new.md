@@ -66,6 +66,10 @@ See [What's new in documentation](whats-new-documentation), where we highlight n
 
 Here's what changed in September 2026:
 
+### Regional host pools are now generally available
+
+Regional host pools for Azure Virtual Desktop are now generally available. With regional host pools, host pool metadata is stored in the selected Azure region instead of a geographical database shared across regions. This architecture helps improve resiliency by removing cross-region dependencies and limiting the impact of infrastructure issues to the affected region. For more information, see [Regional Host Pools - Azure Virtual Desktop](/en-us/azure/virtual-desktop/regional-host-pools).
+
 ### Managed identity support is now generally available
 
 Managed identity support for Azure Virtual Desktop host pools is now generally available. You can use managed identities for session host configuration, autoscale, Start VM on Connect, and Azure Virtual Desktop for Azure local.

@@ -24,7 +24,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Create a managed voice-based prompt agent in Foundry Agent Service by using the Microsoft Foundry portal, the Microsoft Foundry SDK, or the Azure Developer CLI.
-ms.date: 2026-09-22T00:00:00.0000000Z
+ms.date: 2026-09-30T00:00:00.0000000Z
 ms.subservice: foundry-agent-service
 ms.topic: quickstart
 ms.custom: preview
@@ -61,6 +61,8 @@ Choose your development tool. The **Foundry portal** path creates and tests the 
 Important
 
 Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+
+If you already use Voice Live with a Foundry text agent, see [Compare and migrate to Microsoft Foundry voice agents](../how-to/migrate-from-voice-live).
 
 If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_learn).
 
