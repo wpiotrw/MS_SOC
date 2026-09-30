@@ -26033,6 +26033,22 @@ z porannym `site/index.html`: kolumna New „+10 / −0 / 2 in the morning" (= s
 it", Graph API „+0 in the morning" (40 znalazl popoludniowy), lista 6 pozycji, `verify()` czysty,
 652 917 B; strona glowna z tym `/diff/`: pasek „found 6 more items".
 
+**§5ck (30 IX 2026, wlasciciel z telefonu: „Overview i Today nie mowia o nowych wersjach
+komponentow, a to wazne, np. Authenticator 6.8.56"; „Today in ten sentences na telefonie za szerokie,
+czcionka inna niz reszta").** (1) `compMoves(since)` bierze z `soc-brief-state.components` wpisy,
+ktorych `lastChange` ma `basis: "observed"`, `from` i `seen` po `since` (pierwsze zapisanie wersji nie
+jest ruchem). Today: pod linia „N new since" blok „N new component versions since the … brief" z
+wierszami nazwa · `<del>`stara`</del>` → `<ins>`nowa`</ins>` · released; Overview: karta „New component
+versions · last 7 days" pod trzema kartami (dzien zobaczenia, `today` dla dzisiejszych, „support
+ends" gdy komponent ma `deadline`). Klik nazwy otwiera zakladke Component versions na artykule
+`#cmp-<id>`. 30 IX: MDI sensor 2.255.19295.47272 → 2.255.19347.63719 i Authenticator iOS 6.8.55 → 6.8.56
+dzis, w 7 dniach takze Entra Connect Sync, cloud sync agent, Authenticator Android, iOS, macOS,
+watchOS, visionOS. (2) Lista `.s5bk-3` byla siatka z niejawna kolumna `auto`, ktora rosla do
+szerokosci najdluzszego tytulu (600 px w karcie 336 px, strona 662 px na 390); iOS przy tekscie
+szerszym niz ekran dodatkowo powieksza czcionke (text autosizing) — stad „inna czcionka". Teraz
+`minmax(0,1fr)`, `min-width:0`, rozmiary jak w kartach §5ci, naglowek sekcji w karcie ukryty (karta ma
+wlasny), `text-size-adjust:100%` na `html`.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -26154,6 +26170,20 @@ a.s5ci-tt:hover{color:var(--accent)}
 /* §5cj: the evening changes page knows more than this morning page */
 .s5cj-bar{margin:0 0 12px;padding:9px 14px;border:1px solid var(--warn);border-left-width:4px;border-radius:8px;background:var(--warn-soft);color:var(--text);font-size:13.5px;line-height:1.5}
 .s5cj-bar a{font-weight:600}
+/* §5ck: component versions in Overview and Today; "Today in ten sentences" fits its card */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.s5ck-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:7px 0 0;border-top:1px solid var(--border-soft)}
+.s5ck-v{font-family:var(--mono);font-size:12px;overflow-wrap:anywhere;min-width:0}
+.s5ck-today{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;background:var(--surface);padding:8px 14px 10px;display:flex;flex-direction:column;gap:4px}
+.s5ck-h{margin:0;font-size:13.5px}
+.s5bk-3{grid-template-columns:minmax(0,1fr)}
+.s5bk-3 li{min-width:0}
+.s5ci-ten .s5bk-sum{margin:6px 0 0;padding:0;border:0;background:transparent}
+.s5ci-ten .s5bk-h{display:none}
+.s5ci-ten .s5bk-3 li{font-size:13px}
+.s5ci-ten .s5bk-itt{font-size:13.5px}
+.s5ci-ten .s5bk-itm{font-size:12px}
+.s5ci-ten *{max-width:100%;overflow-wrap:anywhere}
 ```
 
 
@@ -32256,6 +32286,31 @@ odtad CZTERNASCIE (4-17).**
     return "grey";
   }
   function pill(txt, t) { var s = el("span", "s5ci-pill s5ci-" + (t || "grey"), txt); return s; }
+  /* §5ck (30 IX 2026, owner from a phone: "Overview and Today say nothing about new component
+     versions — that matters, e.g. Authenticator 6.8.56"). A move is `components[].lastChange` with
+     basis "observed" and a `from` (a first recording is not a move), seen after `sinceDay`. */
+  function compMoves(sinceDay) {
+    return (ST.components || []).filter(function (c) { var l = c.lastChange; return l && l.seen && l.from && l.to && l.basis === "observed" && l.seen > sinceDay && l.seen <= DAY; })
+      .sort(function (a, b) { return a.lastChange.seen < b.lastChange.seen ? 1 : a.lastChange.seen > b.lastChange.seen ? -1 : 0; });
+  }
+  function openComp(id) {
+    goTab("components");
+    /* twice: on a phone the tab strip and the panel head settle after the switch and move the article */
+    function go(last) { var a = document.getElementById("cmp-" + id); if (!a) return; if (a.tagName === "DETAILS") a.open = true;
+      ORIG_SIV.call(a, { block: "start" }); if (last) return; a.classList.add("s5ci-flash"); setTimeout(function () { a.classList.remove("s5ci-flash"); }, 1800); }
+    setTimeout(function () { go(false); }, 150); setTimeout(function () { go(true); }, 700);
+  }
+  function compRow(c, showDay) {
+    var l = c.lastChange, r = el("div", "s5ck-row");
+    var b = el("button", "s5ci-itb", c.name); b.type = "button"; b.title = "Open " + c.name + " in Component versions";
+    b.addEventListener("click", function () { openComp(c.id); }); r.appendChild(b);
+    var v = el("span", "s5ck-v"); v.appendChild(el("del", null, l.from)); v.appendChild(document.createTextNode(" \u2192 ")); v.appendChild(el("ins", null, l.to)); r.appendChild(v);
+    var m = el("span", "s5ci-meta");
+    if (showDay) m.appendChild(l.seen === DAY ? pill("today", "info") : el("span", null, "seen " + dmy(l.seen)));
+    if (l.released) m.appendChild(el("span", null, "released " + dmy(l.released)));
+    if (c.deadline) m.appendChild(pill("act by " + dmy(c.deadline), "warn"));
+    r.appendChild(m); return r;
+  }
   /* the source is where the row's link goes: the shared __socKind guesses from `discoveredBy`, and on
      30 IX said "Message Center" for the Entra Connect version-history page on Learn (found by the revision sweep) */
   function srcName(it) {
@@ -32650,6 +32705,13 @@ odtad CZTERNASCIE (4-17).**
       if (nDl) { lead.appendChild(document.createTextNode(", ")); var a2 = el("button", "s5ci-inl", nDl + " in Deadlines"); a2.type = "button"; a2.addEventListener("click", function () { goTab("deadlines"); }); lead.appendChild(a2); }
     }
     root.appendChild(lead);
+    var cm = compMoves(PREV);
+    if (cm.length) {
+      var cb = el("div", "s5ck-today"); cb.setAttribute("role", "note");
+      var ch = el("p", "s5ck-h"); ch.appendChild(el("b", null, cm.length + " new component version" + (cm.length === 1 ? "" : "s") + " since the " + dmy(PREV) + " brief "));
+      var ca = el("button", "s5ci-inl", "Component versions \u203a"); ca.type = "button"; ca.addEventListener("click", function () { goTab("components"); }); ch.appendChild(ca);
+      cb.appendChild(ch); cm.forEach(function (c) { cb.appendChild(compRow(c, false)); }); root.appendChild(cb);
+    }
     var views = el("div", "s5ci-views"); views.setAttribute("role", "group"); views.setAttribute("aria-label", "Today views");
     function vbtn(k, txt, n) { var b = el("button", "s5ci-view", txt + " "); b.type = "button"; b.setAttribute("data-v", k); b.appendChild(pill(String(n)));
       b.addEventListener("click", function () { S.v = k; render(); }); return b; }
@@ -32743,6 +32805,16 @@ odtad CZTERNASCIE (4-17).**
       setTimeout(function () { if (!id) return; var v = document.querySelector('#tab-new tbody tr[data-id="' + id + '"]') ? VIEWS["tab-new"] : VIEWS["tab-deadlines"]; if (v) v.open(id); }, 60); },
       "All in New ›", function (it, m) { if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference)); if (it.product) m.appendChild(pill(prod(it.product), "grey")); var st = status(it.status); if (st) m.appendChild(pill(st, tone(st))); }));
     root.appendChild(cards);
+    var cm7 = compMoves(plus(DAY, -7));
+    var cc = el("section", "s5ci-card s5ci-c-acc s5ck-card"), cch = el("div", "s5ci-ch");
+    cch.appendChild(el("h3", null, "New component versions \u00b7 last 7 days")); cch.appendChild(el("span", "s5ci-cn", String(cm7.length))); cc.appendChild(cch);
+    if (!cm7.length) cc.appendChild(el("p", "s5ci-note", "No component moved in the last 7 days \u2014 all " + (ST.components || []).length + " checked " + dmy((ST.componentStats || {}).checkedOn || DAY) + "."));
+    /* today's moves first (the sort is by day seen); five rows, the rest one click away */
+    cm7.slice(0, 5).forEach(function (c) { cc.appendChild(compRow(c, true)); });
+    if (cm7.length > 5) { var ccm = el("button", "s5ci-inl", "+" + (cm7.length - 5) + " more in the last 7 days"); ccm.type = "button";
+      ccm.addEventListener("click", function () { cm7.slice(5).forEach(function (c) { cc.insertBefore(compRow(c, true), ccm); }); ccm.remove(); }); cc.appendChild(ccm); }
+    var cca = el("button", "s5ci-inl", "All " + (ST.components || []).length + " in Component versions \u203a"); cca.type = "button"; cca.addEventListener("click", function () { goTab("components"); }); cc.appendChild(cca);
+    root.appendChild(cc);
     var grid = el("div", "s5ci-two");
     /* the next 14 days, one bar per day with a deadline */
     var tl = el("section", "s5ci-card"); tl.appendChild(el("h3", null, "The next 14 days"));
