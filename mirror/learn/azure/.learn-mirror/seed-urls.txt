@@ -186,6 +186,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-skill-cata
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/steer-hosted-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/browser-automation
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/shell
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/toolbox-network-isolation
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/use-subagent-voice-first-agent

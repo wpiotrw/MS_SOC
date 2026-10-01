@@ -90,13 +90,13 @@ The setup process for Point-in-Time Restore, Cross-region Disaster Recovery, and
 
 For more information, see [Enable Business Continuity and Disaster Recovery](/en-us/windows-365/enterprise/business-continuity-disaster-recovery-setup)
 
-### Session State Retention for Windows 365 Flex dedicated Cloud PCs (Public Preview)
+### Session State Retention for Windows 365 Flex dedicated Cloud PCs is now generally available
 
-Session State Retention is now available in public preview for eligible Windows 365 Flex dedicated Cloud PCs. Session State Retention complements Intelligent pre-start to improve the reconnect experience for Windows 365 Flex dedicated users. Intelligent pre-start helps ensure the Cloud PC is powered on and ready when the user needs it, while Session State Retention preserves the user’s active session while the Cloud PC is idle. After a user has been disconnected for a set idle period (default: 2 hours), an eligible Cloud PC preserves the session state instead of powering off. On the next connection, users return to their open apps and work exactly where they left off.
+Session State Retention is now generally available for eligible Windows 365 Flex dedicated Cloud PCs. Session State Retention complements Intelligent pre-start to improve the reconnect experience for Windows 365 Flex dedicated users. Intelligent pre-start helps ensure the Cloud PC is powered on and ready when the user needs it, while Session State Retention preserves the user’s active session while the Cloud PC is idle. After a user has been disconnected for a set idle period (default: 2 hours), an eligible Cloud PC preserves the session state instead of powering off. On the next connection, users return to their open apps and work exactly where they left off.
 
 Both capabilities are quality-of-life improvements delivered as part of the Windows 365 service. Together, they enhance the end-user experience by moving reconnect toward a model in which device readiness and session continuity are invisible to users and happen behind the scenes, without requiring users to change how they work or manage either capability.
 
-For more information, see [State retention for Windows 365 Flex dedicated Cloud PCs](introduction-windows-365-flex#session-state-retention-for-windows-365-flex-dedicated-cloud-pcs-preview).
+For more information, see [State retention for Windows 365 Flex dedicated Cloud PCs](introduction-windows-365-flex#session-state-retention-for-windows-365-flex-dedicated-cloud-pcs).
 
 ## Week of September 14, 2026
 
