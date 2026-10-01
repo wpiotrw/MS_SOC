@@ -64,7 +64,7 @@ Starting with version 1.0.0-preview, the Argo CD extension uses the [community H
 
 Important
 
-GitOps with Argo CD is currently in PREVIEW. See the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/) for legal terms that apply to Azure features that are in beta, preview, or otherwise not yet released into general availability.
+GitOps with Argo CD is currently generally available for AKS and in preview for Azure Arc-enabled Kubernetes clusters. See the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/) for legal terms that apply to Azure features that are in beta, preview, or otherwise not yet released into general availability.
 
 ## Prerequisites
 

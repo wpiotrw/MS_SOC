@@ -66,6 +66,13 @@ See [What's new in documentation](whats-new-documentation), where we highlight n
 
 Here's what changed in September 2026:
 
+### Windows 11, version 26H2 images are now available in the Azure Marketplace
+
+The latest Windows Enterprise 26H2 images are now available in the Azure Marketplace. You can update your Azure Virtual Desktop session hosts to use either of the following images:
+
+- [Windows 11 Enterprise 26H2](https://marketplace.microsoft.com/product/microsoftwindowsdesktop.windows-11?tab=PlansAndPrice)
+- [Windows 11 Enterprise + Microsoft Apps 26H2](https://marketplace.microsoft.com/product/microsoftwindowsdesktop.office-365?tab=PlansAndPrice)
+
 ### Regional host pools are now generally available
 
 Regional host pools for Azure Virtual Desktop are now generally available. With regional host pools, host pool metadata is stored in the selected Azure region instead of a geographical database shared across regions. This architecture helps improve resiliency by removing cross-region dependencies and limiting the impact of infrastructure issues to the affected region. For more information, see [Regional Host Pools - Azure Virtual Desktop](/en-us/azure/virtual-desktop/regional-host-pools).
