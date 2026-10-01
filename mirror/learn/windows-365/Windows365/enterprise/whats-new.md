@@ -64,6 +64,14 @@ For more information about public preview items, see [Public preview in Windows 
 
 Bulk deprovisioning for Windows 365 Enterprise and Windows 365 Flex dedicated Cloud PCs in grace period is now generally available. Administrators can deprovision multiple eligible Cloud PCs at once rather than waiting for the seven-day grace period to expire, simplifying management when multiple Cloud PCs need to be removed. The current documentation describes bulk deprovisioning through the provisioning policy view and the Intune Bulk Action Wizard. For more information, see [End grace period for Cloud PCs in Windows 365](/en-us/windows-365/enterprise/end-grace-period).
 
+### Windows 11 26H2 Cloud PC gallery images
+
+The latest Windows Enterprise 26H2 images are available for provisioning new devices. You can update your provisioning policies to use one of the following images:
+
+- Windows 11 Enterprise 26H2
+- Windows 11 Enterprise + Microsoft Apps 26H2
+- Windows 11 Enterprise Developer Configuration + M365 Apps 26H2
+
 ## Week of September 21, 2026
 
 ### Developer Configuration with pre-installed Microsoft 365 Apps is generally available
