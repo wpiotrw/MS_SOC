@@ -1,7 +1,7 @@
 {
  "read": "2026-10-01",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 691,
+ "count": 690,
  "note": null,
  "messages": [
   {
@@ -303,25 +303,6 @@
    ],
    "summary": "Introduction To streamline and improve integration experiences for education customers, we’re retiring several legacy Learning Tools Interoperability (LTI) integrations in Microsoft 365. These tools will be replaced by the unified Microsoft 365 LTI tool, which offers enhanced functionality and ongoing support. When this will happen: The following Education LTI tools will be retired worldwide on Se…",
    "bodyHash": "aa02b745346b5596"
-  },
-  {
-   "id": "MC1163560",
-   "title": "Hotpatch-enrolled tenants upgrading to Windows 11, version 25H2",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-01",
-   "end": "2026-10-01",
-   "modified": "2025-10-01",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Windows 11, version 25H2 is now being offered to eligible devices via feature updates. For customers enrolled in hotpatch quality update policies, when the upgrade is taken can affect whether devices continue to receive hotpatch updates during the current hotpatch cycle. Devices that upgrade during a designated baseline release period (such as October) will remain eligible for hotpatching. Devices…",
-   "bodyHash": "e81d76b58cf78fbc"
   },
   {
    "id": "MC1163714",
@@ -2087,6 +2068,27 @@
    "bodyHash": "43d82d8581e620a5"
   },
   {
+   "id": "MC1227622",
+   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+   "services": [
+    "Microsoft 365 for the web",
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-02-06",
+   "end": "2026-11-30",
+   "modified": "2026-10-01",
+   "tags": [
+    "Admin impact",
+    "Updated message"
+   ],
+   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] As part of our ongoing mission to deliver a modern, secure, and scalable one-stop management portal for admins, we are transitioning Teams Android device management from the Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP) . This move consolidates management of all Teams device…",
+   "bodyHash": "ecf1529b6fbd73cf"
+  },
+  {
    "id": "MC1227623",
    "title": "(Updated) Change meeting organizer via PowerShell cmdlet in Exchange Online",
    "services": [
@@ -3071,14 +3073,14 @@
    "actionBy": null,
    "start": "2026-03-25",
    "end": "2026-12-28",
-   "modified": "2026-08-19",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated August 19, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expos…",
-   "bodyHash": "3f6ea8edf76290c8"
+   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expos…",
+   "bodyHash": "71c68e6444002505"
   },
   {
    "id": "MC1261595",
@@ -10130,82 +10132,6 @@
    "bodyHash": "de99baae7ebe73ca"
   },
   {
-   "id": "MC1465523",
-   "title": "Dynamics 365 Customer Service -Resolve customer emails autonomously with AI",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-01",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use AI to drive autonomous email resolution in Dynamics 365 Customer Service. This feature will reach general availability on September 30, 2026. How does this affect me? Autonomous email resolution delivers end-to-end handling of customer emails without manual intervention or default case creation. When an email arrives, the system analyzes the request, identifies…",
-   "bodyHash": "e047055be64c46ca"
-  },
-  {
-   "id": "MC1465563",
-   "title": "Dynamics 365 Project Operations - Reconcile project accrued revenue",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-01",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to reconcile project accrued revenue in Dynamics 365 Project Operations. This feature will reach general availability on or before September 30, 2026, with the 10.0.49 release. How does this affect me? This feature grants users the ability to: Identify and review accrued revenue imbalances across transactions, projects, and ledger accounts. Use a configurable date fil…",
-   "bodyHash": "7dfec697741e5469"
-  },
-  {
-   "id": "MC1465653",
-   "title": "Microsoft Power Automate - View unattended run video logs in portal",
-   "services": [
-    "Microsoft Power Automate"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-01",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability for users to access video logs for unattended desktop flow runs directly from the portal, improving troubleshooting without needing local machine access in Power Automate. This feature will reach public preview on September 15, 2026. How does this affect me? Video logs captured during unattended desktop flow runs are now stored in Dataverse and surfaced directly in th…",
-   "bodyHash": "8b3d3cab0bd6a905"
-  },
-  {
-   "id": "MC1465655",
-   "title": "Dynamics 365 Project Operations - Update correction journal usability",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-01",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to make different corrections within the same journal, correct a wider range of fields, and easily select transactions that need correction in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? This feature enhances the update correction journal usability process by reducing manual input, repea…",
-   "bodyHash": "8a18c9f1e443d4be"
-  },
-  {
    "id": "MC1465669",
    "title": "Expanding memory integrity protection across Windows devices",
    "services": [
@@ -13911,6 +13837,63 @@
    "bodyHash": "38c12346b59ab5d6"
   },
   {
+   "id": "MC1484511",
+   "title": "Dynamics 365 Contact Center - Certify Contact Center for Windows 365 virtual computers",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2026-11-01",
+   "modified": "2026-10-01",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to certify Contact Center for Windows 365 virtual computers in Dynamics 365 Contact Center. This feature will reach general availability on October 31, 2026. How does this affect me? This feature certifies Dynamics 365 Contact Center for use on Windows 365 virtual PCs, ensuring the solution delivers a reliable and supported experience when accessed from cloud-based Wi…",
+   "bodyHash": "94bc4f3aa773f5dd"
+  },
+  {
+   "id": "MC1484591",
+   "title": "Power Automate - Enable Process Intelligence Studio in object-centric process mining",
+   "services": [
+    "Microsoft Power Automate"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2026-11-01",
+   "modified": "2026-10-01",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the availability of Process Intelligence Studio in object-centric process mining in Power Automate Process Mining. This feature will reach general availability on October 31, 2026. How does this affect me? Process Intelligence Studio makes process analysis easier and more intuitive. It gives teams one place to explore data, compare scenarios, and uncover insights faster—without j…",
+   "bodyHash": "0b05c123b65de9b8"
+  },
+  {
+   "id": "MC1484604",
+   "title": "Dynamics 365 Contact Center - Use after conversation presence status for wrap-up activities",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2026-11-01",
+   "modified": "2026-10-01",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to use after conversation presence status for wrap-up activities in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? This feature disambiguates the Busy/DND presence state of a representative by letting the supervisor clearly distinguish agents performing after-conversation wrap-up work from repres…",
+   "bodyHash": "7acb2b6aa3e13f09"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -14009,14 +13992,14 @@
    "actionBy": null,
    "start": "2024-05-29",
    "end": "2026-10-30",
-   "modified": "2026-09-25",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 25, 2026: We have updated the content. Thank you for your patience. What it is Microsoft is rolling out a new feature to streamline how app and agent availability and installation is managed across Teams, Outlook, and Microsoft 365 Copilot. Until now, IT admins configured availability and installation settings separately in both the Microsoft 365 Admin Center (MAC) and the Teams …",
-   "bodyHash": "39b23c422047487d"
+   "summary": "Updated October 1, 2026: We have updated the content and timeline. Thank you for your patience. What it is Microsoft is rolling out a new feature to streamline how app and agent availability and installation is managed across Teams, Outlook, and Microsoft 365 Copilot. Until now, IT admins configured availability and installation settings separately in both the Microsoft 365 Admin Center (MAC) and …",
+   "bodyHash": "767b316dbc28c5a7"
   },
   {
    "id": "MC920304",
@@ -15167,6 +15150,93 @@
    "id": "MC1465492",
    "type": "removed",
    "title": "Dynamics 365 Customer Service - Create capacity plans for planning groups",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1227622",
+   "type": "new",
+   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1261587",
+   "type": "changed",
+   "title": "Microsoft Purview | Data Lifecycle Management - Hard delete OneDrive and SharePoint files with priority cleanup workflow",
+   "fields": {
+    "bodyHash": [
+     "3f6ea8edf76290c8",
+     "71c68e6444002505"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484511",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Certify Contact Center for Windows 365 virtual computers",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484591",
+   "type": "new",
+   "title": "Power Automate - Enable Process Intelligence Studio in object-centric process mining",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484604",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Use after conversation presence status for wrap-up activities",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC796790",
+   "type": "changed",
+   "title": "(Updated) Unified management of app and agent availability and installation in Teams, Outlook, and the Microsoft 365 app",
+   "fields": {
+    "bodyHash": [
+     "39b23c422047487d",
+     "767b316dbc28c5a7"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1163560",
+   "type": "removed",
+   "title": "Hotpatch-enrolled tenants upgrading to Windows 11, version 25H2",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465523",
+   "type": "removed",
+   "title": "Dynamics 365 Customer Service -Resolve customer emails autonomously with AI",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465563",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Reconcile project accrued revenue",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465653",
+   "type": "removed",
+   "title": "Microsoft Power Automate - View unattended run video logs in portal",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465655",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Update correction journal usability",
    "fields": {}
   }
  ]
