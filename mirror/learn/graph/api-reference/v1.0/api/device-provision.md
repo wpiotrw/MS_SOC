@@ -1,12 +1,12 @@
 ---
 layout: Conceptual
 monikers:
-- graph-rest-beta
-defaultMoniker: graph-rest-beta
+- graph-rest-1.0
+defaultMoniker: graph-rest-1.0
 versioningType: Ranged
-title: 'device: provision - Microsoft Graph beta | Microsoft Learn'
-canonicalUrl: https://learn.microsoft.com/en-us/graph/api/device-provision?view=graph-rest-beta
-config_moniker_range: graph-rest-beta
+title: 'device: provision - Microsoft Graph v1.0 | Microsoft Learn'
+canonicalUrl: https://learn.microsoft.com/en-us/graph/api/device-provision?view=graph-rest-1.0
+config_moniker_range: '>= graph-rest-1.0'
 feedback_system: Standard
 feedback_product_url: https://developer.microsoft.com/graph/support
 author: mjsantani
@@ -22,12 +22,12 @@ ms.topic: reference
 description: Provision a device on behalf of an approved Virtual Desktop Infrastructure (VDI) provider.
 ms.localizationpriority: medium
 doc_type: apiPageType
-ms.date: 2026-06-19T00:00:00.0000000Z
+ms.date: 2026-09-24T00:00:00.0000000Z
 locale: en-us
-document_id: 13bb3799-948a-6ba8-65e5-d30bdcec8e16
+document_id: 7b9768b8-37f5-f74f-1a1d-75b56778f962
 document_version_independent_id: f5493fb5-c5ad-7507-e3df-db72744918e4
-original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/beta/api/device-provision.md
-default_moniker: graph-rest-beta
+original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/v1.0/api/device-provision.md
+default_moniker: graph-rest-1.0
 site_name: Docs
 depot_name: MSDN.microsoft-graph-ref
 page_type: conceptual
@@ -35,29 +35,25 @@ toc_rel: toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
 asset_id: api/device-provision
-moniker_range_name: e91460ef4e2d3d4ee85e2756c1c65925
+moniker_range_name: 107bf06837724705de50667b407c0197
 monikers:
-- graph-rest-beta
+- graph-rest-1.0
 item_type: Content
-source_path: api-reference/beta/api/device-provision.md
+source_path: api-reference/v1.0/api/device-provision.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/4b132a0c-342a-42eb-91ff-8159e1ed413d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f2b71146-ce8e-46a8-9965-8aa8b3aa8235
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 1d41dea7-1f77-1575-5389-2c7c9d08ea93
 ---
 
-# device: provision - Microsoft Graph beta | Microsoft Learn
+# device: provision - Microsoft Graph v1.0 | Microsoft Learn
 
 Namespace: microsoft.graph
-
-Important
-
-APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
 Provision a [device](resources/device) on behalf of an approved Virtual Desktop Infrastructure (VDI) provider.
 
@@ -110,12 +106,12 @@ If successful, this action returns a `201 Created` response code and a [provisio
 
 ## Examples
 
-### Request
+#### Request
 
 The following example shows a request.
 
 ```http
-POST https://graph.microsoft.com/beta/devices/provision
+POST https://graph.microsoft.com/v1.0/devices/provision
 Content-Type: application/json
 
 {
@@ -123,7 +119,7 @@ Content-Type: application/json
 }
 ```
 
-### Response
+#### Response
 
 The following example shows the response.
 
@@ -135,8 +131,14 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-  "@odata.context": "https://graph.microsoft.com/beta/$metadata#microsoft.graph.provisionResponse",
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.provisionResponse",
   "challenge": "Y2hhbGxlbmdlVmFsdWVFeGFtcGxl",
   "deviceId": "2ec25e3b-9243-4f3c-8c83-2e2a9b8a4f1a"
 }
 ```
+
+---
+
+## Other Supported Versions
+
+- [graph-rest-beta](https://learn.microsoft.com/en-us/graph/api/device-provision?view=graph-rest-beta&accept=text/markdown)

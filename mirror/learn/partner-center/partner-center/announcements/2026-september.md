@@ -32,10 +32,10 @@ item_type: Content
 source_path: partner-center/announcements/2026-september.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0fc65d4-7c73-4029-a261-7f99ff744363
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b2daec57-5914-4967-8ed3-1d444897ba59
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: ba89d0ee-5108-83ca-eb67-faf9ba2b18fb
 ---
 
@@ -217,42 +217,6 @@ As [previously announced](2026-june#new-check-inventory-by-resource-type-api-ava
 
 - Review the [Check Inventory by Resource Type](../developer/check-inventory-by-resource-type) API documentation for supported resource types and usage examples.
 - Update your integrations to use the new API before **September 25, 2026**.
-
-## Usage-based billing is default on for new Microsoft 365 Copilot Business licenses starting November 2, 2026
-
-*Usage-based billing is default on for new Microsoft 365 Copilot Business licenses starting November 2, 2026*
-
-- **Date**: September 16, 2026
-- **Workspace**: General
-- **Impacted audience**: CSP partners (distributors, indirect resellers, direct bill, SSPs), systems integrators, and software development companies selling Microsoft 365 Copilot Business
-
-Starting November 2, 2026, new [Microsoft 365 Copilot Business licenses](https://partner.microsoft.com/blog/article/partner-led-smb-m365-copilot?wt.mc_id=bc4u2ix2jv) that you purchase through Cloud Solution Provider (CSP) include usage-based billing by default. Pay-as-you-go is the default billing configuration to help customers access eligible usage-based experiences, including Copilot Cowork, Work IQ APIs, and GitHub Copilot Harness, with less billing setup. This configuration also provides flexibility to expand usage over time, based on business needs.
-
-**Key details**
-
-- **Effective date**: November 2, 2026
-- **Applies to**: New purchases of Microsoft 365 Copilot Business (standalone and bundles) through CSP.
-- **Usage-based billing**: Pay-as-you-go is the default billing configuration.
-
-**What this means for partners**:
-
-- **Less setup friction**: New Copilot Business licenses include the Azure subscription setup needed for usage-based billing.
-- **More focus on adoption**: You can spend more time helping customers activate high-value scenarios and realize business outcomes, with less effort spent on multistep billing configuration.
-- **Greater growth opportunity**: Early usage creates a natural path to expanded consumption, upsell conversations, and the [Copilot Cowork activation incentive](https://partner.microsoft.com/partnership/partner-incentives).
-
-#### Next steps
-
-**Prepare for the change**:
-
-- Familiarize your teams with the upcoming change and the preset monthly limit.
-- Help your customers understand their usage-based billing options as they adopt eligible experiences.
-- Consider usage-based scenarios, including Copilot Cowork, Work IQ APIs, and GitHub Copilot Harness, as part of customer adoption planning.
-
-**Resources**:
-
-- [Understand usage-based billing and cost management for Copilot Credits](/en-us/microsoft-365/copilot/usage-based-billing-overview-copilot-credits?wt.mc_id=stb411ntdn)
-- [Managing AI experiences enabled by usage-based billing](/en-us/microsoft-365/copilot/usage-based-billing-manage-copilot-credits?wt.mc_id=08uxpi9vxb)
-- [Copilot Credits Guide](https://aka.ms/CopilotCredits/LicensingGuide)
 
 ## Unified for Partners: Future of support
 
