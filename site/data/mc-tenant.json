@@ -1,7 +1,7 @@
 {
  "read": "2026-10-01",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 708,
+ "count": 691,
  "note": null,
  "messages": [
   {
@@ -3140,26 +3140,6 @@
    "bodyHash": "2b44403a6280a73a"
   },
   {
-   "id": "MC1262588",
-   "title": "Microsoft Teams: Retirement of CAPTCHA for meeting join",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-03-26",
-   "end": "2026-10-01",
-   "modified": "2026-03-26",
-   "tags": [
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[Introduction] Microsoft Teams is retiring CAPTCHA for meeting join to improve accessibility, reduce join friction, and modernize protections against automated participants. This change follows the release of a new, default‑on capability that detects external meeting assistant bots and provides organizers with increased visibility and control during the meeting join process, as previously announce…",
-   "bodyHash": "e332ba5fcb578350"
-  },
-  {
    "id": "MC1262590",
    "title": "(Updated) Planner tab support for Shared and Private Channels in Microsoft Teams",
    "services": [
@@ -3181,29 +3161,6 @@
    ],
    "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are expanding Microsoft Planner integration in Microsoft Teams by enabling Planner tabs in Shared and Private channels . This change allows teams to plan and track work directly within the channel where collaboration occurs, including scenarios that require restricted membership or cross-organizatio…",
    "bodyHash": "00afe06ea0e346d7"
-  },
-  {
-   "id": "MC1266021",
-   "title": "(Updated) Microsoft 365 Copilot: New chat-first design for the Copilot mobile app",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-30",
-   "end": "2026-10-01",
-   "modified": "2026-05-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated May 7, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a refreshed chat‑first design in the Microsoft 365 Copilot mobile app. This update modernizes the interface and streamlines navigation to make it faster and easier for users to start, continue, and manage chats. The improved experience is based on customer feedback and aligns the mobil…",
-   "bodyHash": "d428d6bf4b1c74b8"
   },
   {
    "id": "MC1266027",
@@ -5172,27 +5129,6 @@
    "bodyHash": "b97276f534b7c1d6"
   },
   {
-   "id": "MC1381119",
-   "title": "Microsoft Defender for Endpoint security updates move to Microsoft Update on Windows",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-05",
-   "end": "2026-10-01",
-   "modified": "2026-06-05",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Instead of being bundled with the monthly Windows security update, Microsoft Defender endpoint detection and response (EDR) updates will now be delivered through Microsoft Update, consistent with how other Microsoft Defender components are serviced. This change allows EDR security improvements to be delivered independently of monthly operating system updates. [Rollout Schedule:] Ro…",
-   "bodyHash": "d6c4f974a18f5001"
-  },
-  {
    "id": "MC1381121",
    "title": "(Updated) Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
    "services": [
@@ -5276,28 +5212,6 @@
    ],
    "summary": "Updated September 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview Endpoint Data Loss Prevention (DLP) is introducing the ability to protect sensitive files even when they reside in commonly excluded Windows folders such as AppData directories and temporary folders. Previously, files stored in these excluded paths were not subjected to Endpoint…",
    "bodyHash": "eb5e7967607b6889"
-  },
-  {
-   "id": "MC1384425",
-   "title": "(Updated) Copilot Notebooks available in Microsoft 365 Copilot Chat for Basic users",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-08",
-   "end": "2026-10-01",
-   "modified": "2026-07-02",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Copilot Notebooks will be available in Microsoft 365 Copilot Cha t for users with Copilot Chat (Basic) and M365 Copilot (Basic) experiences. This update expands Copilot Notebooks beyond users with a Microsoft 365 Copilot add-on license to include additional Copilot Chat users. Copilot Notebooks provides…",
-   "bodyHash": "a64a40fdb1494279"
   },
   {
    "id": "MC1385471",
@@ -5484,28 +5398,6 @@
    ],
    "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Insider Risk Management is introducing a policy recommendation panel to help administrators identify gaps in insider risk coverage and strengthen protections. While policies provide protection against insider risks, organizations may not always have visibility into missing or hig…",
    "bodyHash": "38f776e49fb9b529"
-  },
-  {
-   "id": "MC1387682",
-   "title": "Microsoft Purview Data Loss Prevention default protection controls for Exchange Online when classification fails",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-11",
-   "end": "2026-10-01",
-   "modified": "2026-07-13",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 13, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Data Loss Prevention (DLP) is introducing new capabilities to detect and act on classification failures such as timeout, throttling, and scan errors. This update helps administrators surface previously undetected failures and apply appropriate protection, improving visibility and stre…",
-   "bodyHash": "3a9417497b64b723"
   },
   {
    "id": "MC1387814",
@@ -5714,27 +5606,6 @@
    ],
    "summary": "The next feature update for Windows 11 will be version 26H2. This version continues our focus on delivering a predictable, low-disruption update experience for organizations and IT professionals. Rollout schedule: June 19, 2026: Windows 11, version 26H2 is available to preview through the Windows Insiders Program. Second half of 2026: Windows 11, version 26H2 will be generally available. Impact on…",
    "bodyHash": "dcf9af490d1c9de2"
-  },
-  {
-   "id": "MC1401297",
-   "title": "Calendar widget in Student Hub retiring in July 2026",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-06-22",
-   "end": "2026-10-01",
-   "modified": "2026-06-22",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We are retiring the Calendar widget in Student Hub as part of ongoing work to simplify and modernize the Student Hub experience. After the end-of-support date, the widget can no longer be added, and any existing Calendar widgets will stop working. There is no direct replacement. [Rollout Schedule:] General Availability (Worldwide): Rollout begins late July 2026 and is expected to c…",
-   "bodyHash": "d848c6d464709790"
   },
   {
    "id": "MC1401298",
@@ -6258,28 +6129,6 @@
    "bodyHash": "3caba375f741cd40"
   },
   {
-   "id": "MC1411577",
-   "title": "Microsoft Defender: Automated investigation and response (AIR) integrated into antivirus with manual triggering removed",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-09-01",
-   "start": "2026-07-01",
-   "end": "2026-10-01",
-   "modified": "2026-08-28",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why] As first announced on July 1st, automated investigation and response (AIR) for Defender for Endpoint will no longer run as a separate investigation experience or be available for manual triggering in Microsoft Defender. There is no change to AIR functionality in Microsoft Defender for Office 365. The…",
-   "bodyHash": "cd76c1102b09077f"
-  },
-  {
    "id": "MC1411726",
    "title": "Remote Event Receivers in SharePoint Online will be retired",
    "services": [
@@ -6737,27 +6586,6 @@
    "bodyHash": "4446f652f6058f8e"
   },
   {
-   "id": "MC1423109",
-   "title": "Support for the “Get Diagnostics” feature visibility option within M365 Cloud Policy Service for Outlook Mobile and Mac",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-01",
-   "modified": "2026-07-10",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] To improve manageability and provide a consistent diagnostics experience across Outlook clients, Microsoft is extending support for the Microsoft 365 Cloud Policy Service setting \"Configure Get Diagnostics feature's visibility in the Help Ribbon in Office applications and control the feature's mode of operation\" to Outlook for iOS, Outlook for Android, and Outlook for Mac. This enh…",
-   "bodyHash": "1c8c5eb459246ed9"
-  },
-  {
    "id": "MC1423114",
    "title": "(Updated) Microsoft Teams: Stricter external access controls for federated chats",
    "services": [
@@ -6778,26 +6606,6 @@
    ],
    "summary": "Updated August 4, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We're introducing two new Microsoft Teams PowerShell controls that help organizations enforce external access and federation policies more consistently in federated group chats: External Access Restrictions for Chat Participants (EnableExternalAccessRestrictionsForChatParticipants) Mutual Federation f…",
    "bodyHash": "78ef15e7698fe862"
-  },
-  {
-   "id": "MC1423115",
-   "title": "PDF annotation for sensitivity-label protected PDFs in the OneDrive apps (iOS and Android)",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-01",
-   "modified": "2026-07-10",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We’re enabling PDF annotation for sensitivity-label protected PDFs in the OneDrive apps for iOS and Android. Today, when a PDF carries a sensitivity label that applies encryption, annotation tools are unavailable and users must open the file in a separate desktop application to mark it up. With this update, users who have the appropriate usage rights can annotate these protected PD…",
-   "bodyHash": "e51ada87c3ce1299"
   },
   {
    "id": "MC1426371",
@@ -6862,26 +6670,6 @@
    ],
    "summary": "Updated August 7, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft is introducing a new Viva Insights capability that enables eligible users to create, customize, and save supported Power BI reports, including the Microsoft 365 Copilot Adoption and Copilot Studio Agents reports. Today, eligible users can consume out-of-the-box reports. With this update, th…",
    "bodyHash": "257737a46cf4f927"
-  },
-  {
-   "id": "MC1426716",
-   "title": "Neutral-themed SharePoint UI in page editing and property panes",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-13",
-   "end": "2026-10-01",
-   "modified": "2026-07-13",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We are updating the SharePoint page editing experience with a neutral-themed UI for system controls, including web part toolbars and property panes. With this change, editing tools will use standard, neutral colors instead of inheriting site branding. This creates a clearer distinction between system controls and user-authored content , improving usability, accessibility, and consi…",
-   "bodyHash": "941a97ea86ef4f19"
   },
   {
    "id": "MC1427603",
@@ -7125,26 +6913,6 @@
    ],
    "summary": "On October 13, 2026, Windows Server 2022 will reach end of mainstream support. The October 2026 security update will be the last mainstream support update available for this version. After this date, Windows Server 2022 will transition to extended support, which includes security updates at no additional cost, and will continue to receive monthly security updates through October 14, 2031. For more…",
    "bodyHash": "55a0838d927cb65b"
-  },
-  {
-   "id": "MC1430531",
-   "title": "Microsoft Outlook: Meeting Insight is retiring",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-10-01",
-   "modified": "2026-07-17",
-   "tags": [
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is retiring Meeting Insights, the feature that surfaces relevant emails and files within meeting details. To provide a more intelligent and context-aware meeting preparation experience, users with a Microsoft 365 Copilot license can instead use Copilot meeting preparation experiences that summarize relevant content, tasks, and context available to the user. [Rollout Sched…",
-   "bodyHash": "48682c4ddb395c89"
   },
   {
    "id": "MC1430534",
@@ -7600,27 +7368,6 @@
    ],
    "summary": "The July 2026 non-security preview update is now available for Windows 11, versions 26H1, 25H2, and 24H2. Information about the contents of this update is available in the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Understanding Windows monthly updates . Looking to explore upcoming features an…",
    "bodyHash": "2207d92d87a686cf"
-  },
-  {
-   "id": "MC1441774",
-   "title": "Microsoft Teams: Meeting Participant Detail audit records will be available in all participating (non-organizer) tenants",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-28",
-   "end": "2026-10-01",
-   "modified": "2026-07-28",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Teams audit logging is being enhanced to improve visibility for cross-tenant meetings. Meeting Participant Detail audit records will now be shared with all participating tenants, not just the organizer tenant. This change enables administrators to access participant-level audit information for meetings attended by users in their tenant, even when the meeting is hosted by a…",
-   "bodyHash": "16fecfe4655062ac"
   },
   {
    "id": "MC1441775",
@@ -8087,27 +7834,6 @@
    "bodyHash": "1761a4300b08ef43"
   },
   {
-   "id": "MC1446807",
-   "title": "Microsoft Teams: Interpreter agent support in Teams Rooms on Android",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-03",
-   "end": "2026-10-01",
-   "modified": "2026-08-03",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're bringing Interpreter agent to Microsoft Teams Rooms on Android, enabling real-time spoken language interpretation during meetings. This feature helps multilingual teams collaborate more effectively by allowing participants to speak and listen in their preferred language. Interpreter agent supports up to nine languages and includes options for voice simulation to create a more …",
-   "bodyHash": "5e78add6135e7da7"
-  },
-  {
    "id": "MC1447673",
    "title": "Microsoft Teams: Users can report security concerns in group calls",
    "services": [
@@ -8193,26 +7919,6 @@
    ],
    "summary": "Updated September 22, 2026: We have updated the timeline. thank you for your patience. [What and why] We're improving the live captions experience in Microsoft Teams to give users more flexibility when viewing captions and to simplify caption configuration during meetings. This update introduces a new right-side panel layout for live captions and consolidates caption settings into a single menu. T…",
    "bodyHash": "ced79498039bb915"
-  },
-  {
-   "id": "MC1447683",
-   "title": "Microsoft 365 Copilot: Scheduled Prompts moves to Microsoft 365 Connected Experiences",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-05",
-   "end": "2026-10-01",
-   "modified": "2026-08-05",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and why] Scheduled Prompts in Microsoft 365 Copilot allows users to automate recurring Copilot requests, such as daily summaries, recurring reports, and reminders. To better align with Microsoft 365 platform governance and compliance requirements, Scheduled Prompts will move from the Optional Connected Experiences policy framework to the Microsoft 365 Connected Experiences framework. This ch…",
-   "bodyHash": "9099feb99a03dba0"
   },
   {
    "id": "MC1448328",
@@ -8423,27 +8129,6 @@
    ],
    "summary": "Updated August 18, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Entra will soon recognize Windows Hello for Business (WHfB) and macOS Platform Single Sign-On (PSSO) as standalone multifactor authentication (MFA) factors in supported authentication scenarios. Today, WHfB and macOS PSSO can satisfy MFA requirements during primary sign-in, but users may sti…",
    "bodyHash": "0e1c2dd8a2a4ae48"
-  },
-  {
-   "id": "MC1450135",
-   "title": "Viva Learning: Copilot experience transitions to Learning Agent in Microsoft 365 Copilot",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-07",
-   "end": "2026-10-01",
-   "modified": "2026-08-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is updating the Copilot experience in Viva Learning. Users will now be redirected from the existing Copilot experience in Viva Learning to Learning Agent in Microsoft 365 Copilot. This provides a more unified and personalized learning experience and enables users to access learning assistance across Microsoft 365 experiences. [Rollout Schedule:] General Availability (Worl…",
-   "bodyHash": "ed7252df68b83f0c"
   },
   {
    "id": "MC1452374",
@@ -8693,27 +8378,6 @@
    ],
    "summary": "Updated August 26, 2026: We have updated the content and timeline. Thank you for your patience. [What and why:] We're introducing the third-generation Microsoft 365 sharing experience to make collaboration simpler, smarter, and more secure by default. At the center of this update is a new hero link —a single sharing link that controls access to a file or folder. Users will see one consistent shari…",
    "bodyHash": "b859a9b35df905c1"
-  },
-  {
-   "id": "MC1454381",
-   "title": "Microsoft Viva Learning: AI Skills Navigator content available in Learning Agent",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-13",
-   "end": "2026-10-01",
-   "modified": "2026-08-18",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is bringing content from AI Skills Navigator into Learning Agent. This update enables users to discover curated AI learning resources through natural language conversations without needing to search separate learning catalogs. Users can ask Learning Agent what they want to learn and receive recommendations that may include Microsoft Learn courses, videos, AI-guided skillin…",
-   "bodyHash": "6625c5cb40a84e01"
   },
   {
    "id": "MC1454382",
@@ -10464,25 +10128,6 @@
    ],
    "summary": "We are announcing the ability to use historical deal patterns to get better insights with Sales Opportunity Agent in Dynamics 365 Sales. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to use a stage-impact filter to identify historical deal patterns that affect the current sales stage and receive an explanation and recommended next a…",
    "bodyHash": "de99baae7ebe73ca"
-  },
-  {
-   "id": "MC1465492",
-   "title": "Dynamics 365 Customer Service - Create capacity plans for planning groups",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-01",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use planning groups to treat multiple queues as a single unit to calculate the capacity that is needed for operations more efficiently within Dynamics 365 Customer Service and Dynamics 365 Contact Center. This feature reached general availability on August 31, 2026. How does this affect me? With this feature, instead of building capacity plans for each queue and ma…",
-   "bodyHash": "21fbd9e3356f0d4d"
   },
   {
    "id": "MC1465523",
@@ -14134,14 +13779,14 @@
    "actionBy": null,
    "start": "2026-09-30",
    "end": "2027-01-25",
-   "modified": "2026-09-30",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "New feature",
     "User impact"
    ],
-   "summary": "[What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out today with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol and Claude Sonnet 5.5 will also begin rolling out in phases across Word, Excel,…",
-   "bodyHash": "3606de06f578c07c"
+   "summary": "[What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol and Claude Sonnet 5.5 will also begin rolling out in phases across Word, Excel, Power…",
+   "bodyHash": "384e73e036001287"
   },
   {
    "id": "MC1483886",
@@ -15391,6 +15036,137 @@
    "id": "MC1465233",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Update key project fields using Copy project",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1483844",
+   "type": "changed",
+   "title": "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "fields": {
+    "bodyHash": [
+     "3606de06f578c07c",
+     "384e73e036001287"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1262588",
+   "type": "removed",
+   "title": "Microsoft Teams: Retirement of CAPTCHA for meeting join",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1266021",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: New chat-first design for the Copilot mobile app",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1381119",
+   "type": "removed",
+   "title": "Microsoft Defender for Endpoint security updates move to Microsoft Update on Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1384425",
+   "type": "removed",
+   "title": "(Updated) Copilot Notebooks available in Microsoft 365 Copilot Chat for Basic users",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1387682",
+   "type": "removed",
+   "title": "Microsoft Purview Data Loss Prevention default protection controls for Exchange Online when classification fails",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1401297",
+   "type": "removed",
+   "title": "Calendar widget in Student Hub retiring in July 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1411577",
+   "type": "removed",
+   "title": "Microsoft Defender: Automated investigation and response (AIR) integrated into antivirus with manual triggering removed",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1423109",
+   "type": "removed",
+   "title": "Support for the “Get Diagnostics” feature visibility option within M365 Cloud Policy Service for Outlook Mobile and Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1423115",
+   "type": "removed",
+   "title": "PDF annotation for sensitivity-label protected PDFs in the OneDrive apps (iOS and Android)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1426716",
+   "type": "removed",
+   "title": "Neutral-themed SharePoint UI in page editing and property panes",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1430531",
+   "type": "removed",
+   "title": "Microsoft Outlook: Meeting Insight is retiring",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1441774",
+   "type": "removed",
+   "title": "Microsoft Teams: Meeting Participant Detail audit records will be available in all participating (non-organizer) tenants",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1446807",
+   "type": "removed",
+   "title": "Microsoft Teams: Interpreter agent support in Teams Rooms on Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1447683",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot: Scheduled Prompts moves to Microsoft 365 Connected Experiences",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1450135",
+   "type": "removed",
+   "title": "Viva Learning: Copilot experience transitions to Learning Agent in Microsoft 365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1454381",
+   "type": "removed",
+   "title": "Microsoft Viva Learning: AI Skills Navigator content available in Learning Agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465492",
+   "type": "removed",
+   "title": "Dynamics 365 Customer Service - Create capacity plans for planning groups",
    "fields": {}
   }
  ]
