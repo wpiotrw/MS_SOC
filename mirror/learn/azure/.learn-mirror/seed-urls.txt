@@ -29,6 +29,9 @@ https://learn.microsoft.com/en-us/azure/azure-arc/gitops-flux2-parameters
 https://learn.microsoft.com/en-us/azure/azure-arc/identity-access-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-release
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubleshooting
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/gitops-overview
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/how-to-manage-gitops-argo-cd-extension
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-deploy-gitops-argo-cd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extension-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
@@ -54,8 +57,10 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlog
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
 https://learn.microsoft.com/en-us/azure/cost-management-billing
+https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/caco/manage-conditional-credit-offer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/credits/manage-azure-credits
 https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/credits/mca-check-azure-credits-balance
+https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/macc/manage-consumption-commitment
 https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/promos/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/change-credit-card
@@ -73,6 +78,8 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/onboard-microsof
 https://learn.microsoft.com/en-us/azure/cost-management-billing/pay-bill
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservation-trade-in
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/agent-pre-purchase
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/fabric-capacity
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/manage-reservations-rbac-powershell
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-exchange-policy-changes
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan-overview
 https://learn.microsoft.com/en-us/azure/cost-management-billing/supported-payment-methods
@@ -91,6 +98,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/cloud-scopes-unified-
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/cloud-security-reporting
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/cluster-security-dashboard
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/code-to-runtime-mapping
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-defender-for-cosmos
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-private-links
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/configure-private-endpoints
@@ -167,10 +175,12 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-age
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/configure-voice-agent
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-agent-terraform
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-resilient-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-steerable-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/manage-task-state
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/migrate-from-voice-live
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-registry-connections
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-skill-catalog
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work
@@ -228,6 +238,9 @@ https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-
 https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-linux
 https://learn.microsoft.com/en-us/azure/governance/initiative-definition-structure
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-overview-concepts
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/linux
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/windows
 https://learn.microsoft.com/en-us/azure/governance/oracle-ado
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/assignment-structure
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure-basics

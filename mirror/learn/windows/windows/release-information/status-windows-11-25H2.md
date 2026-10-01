@@ -74,11 +74,11 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
+| **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-30 16:19 PT |
 | **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Mitigated | 2026-09-29 10:12 PT |
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 | **Remote Desktop Services might stop responding after Sept. 2026 security update**Some Windows devices with Remote Desktop enabled might experience Remote Desktop Services (RDS) instability. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-17 19:22 PT |
-| **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-17 19:22 PT |
 | **Host folder shares might be unavailable in Hyper-V-based Linux VMs**Plan9 host folder shares might not appear in the guest environment after installing the September 2026 security update. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-14 13:30 PT |
 | **Microsoft Teams and Outlook might fail to launch on ARM-based devices**This most likely occurs on new PCs after installing the August Windows security update and does not affect other apps. | OS Build 26200.9168[KB5121003](https://support.microsoft.com/help/5121003)2026-08-11 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 11:37 PT |
 | **Mouse customization is reset on non-English Windows devices**Custom cursors and cursor animations may intermittently revert | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
@@ -294,13 +294,13 @@ Back to top
 
 | **Status** | **Originating update** | **History** |
 | --- | --- | --- |
- Resolved | N/A | Resolved: 2026-09-17, 19:22 PTOpened: 2026-08-28, 15:34 PT |
+ Resolved | N/A | Resolved: 2026-09-30, 16:19 PTOpened: 2026-08-28, 15:34 PT |
 
-After installing the [latest updates for Microsoft Defender Antivirus](/en-us/defender-endpoint/microsoft-defender-endpoint-releases#microsoft-defender-antivirus-releases), notifications might appear stating that "Microsoft Defender Antivirus is turned off," even though the antivirus is functioning correctly and all settings show it as active. These notifications can appear when Windows starts and intermittently afterward. They persist even if notification settings are turned off.
+After installing [Microsoft Defender Antivirus update (version 4.18.26070.9)](/en-us/defender-endpoint/microsoft-defender-endpoint-releases#release-details-65), released on August 5, 2026, notifications might appear stating that "Microsoft Defender Antivirus is turned off," even though the antivirus is functioning correctly and all settings show it as active. These notifications can appear when Windows starts and intermittently afterward. They persist even if notification settings are turned off.
 
 This issue can be observed in any version of Windows or Windows Server with Microsoft Defender Antivirus running with the latest Defender updates.
 
-**Resolution: **This issue was resolved in the [Microsoft Defender Antivirus update (version 4.18.26080.4)](https://www.microsoft.com/wdsi/defenderupdates), released on September 17, 2026.
+**Resolution: **This issue was resolved in [Microsoft Defender Antivirus update (version 4.18.26080.4)](https://www.microsoft.com/wdsi/defenderupdates), released on September 17, 2026.
 
 **Affected platforms:**
 

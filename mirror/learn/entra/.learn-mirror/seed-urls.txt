@@ -142,7 +142,9 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-cond
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-session
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/controls
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-target-agent-identities
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-agent-user
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-device-compliance
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-autonomous-agents
 https://learn.microsoft.com/en-us/entra/identity/devices/how-to-hybrid-join-using-microsoft-entra-kerberos
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token

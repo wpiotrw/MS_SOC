@@ -148,7 +148,7 @@ The following models support invisible watermarking for text output.
 
 | Model Provider | Models |
 | --- | --- |
-| Anthropic | Claude Fable 5.1Claude Mythos 5.1Claude Opus 5 |
+| Anthropic | Claude Fable 5.1Claude Mythos 5.1Claude Opus 5Claude Opus 5.5 |
 
 ## What are the limitations?
 

@@ -23,4 +23,5 @@ https://learn.microsoft.com/en-us/defender-office-365/submissions-teams
 https://learn.microsoft.com/en-us/defender-office-365/submissions-user-reported-messages-custom-mailbox
 https://learn.microsoft.com/en-us/defender-office-365/teams-message-entity-panel
 https://learn.microsoft.com/en-us/defender-office-365/tenant-allow-block-list-teams-domains-configure
+https://learn.microsoft.com/en-us/defender-office-365/tenant-allow-block-list-urls-configure
 https://learn.microsoft.com/en-us/defender-office-365/zero-hour-auto-purge
