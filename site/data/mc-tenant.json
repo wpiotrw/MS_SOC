@@ -1,7 +1,7 @@
 {
- "read": "2026-09-30",
+ "read": "2026-10-01",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 702,
+ "count": 708,
  "note": null,
  "messages": [
   {
@@ -4296,16 +4296,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-12",
-   "end": "2026-11-16",
-   "modified": "2026-09-02",
+   "end": "2026-11-30",
+   "modified": "2026-09-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (iPhone) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly …",
-   "bodyHash": "c8b7adfd5f85a75b"
+   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (iPhone) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly…",
+   "bodyHash": "e7ff62b716bff17c"
   },
   {
    "id": "MC1307982",
@@ -4418,16 +4418,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-13",
-   "end": "2026-11-30",
-   "modified": "2026-09-16",
+   "end": "2027-02-01",
+   "modified": "2026-09-30",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 16, 2026: We have updated the content timeline. Thank you for your patience. [Introduction] Viva Engage will stop sending email notifications to users who do not have a valid mailbox or routable email destination. Previously, email notifications could still be attempted for these users, resulting in repeated delivery retries, increased load on email systems, and, in some cases, d…",
-   "bodyHash": "c2a84a3a4ae6e276"
+   "summary": "Updated September 30, 2026: We have updated the content timeline. Thank you for your patience. [Introduction] Viva Engage will stop sending email notifications to users who do not have a valid mailbox or routable email destination. Previously, email notifications could still be attempted for these users, resulting in repeated delivery retries, increased load on email systems, and, in some cases, d…",
+   "bodyHash": "69ba7e8c0dd4dbc7"
   },
   {
    "id": "MC1309746",
@@ -4440,16 +4440,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-13",
-   "end": "2026-11-16",
-   "modified": "2026-09-02",
+   "end": "2026-11-30",
+   "modified": "2026-09-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (Android) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly…",
-   "bodyHash": "a1783e2c4dfda11f"
+   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (Android) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directl…",
+   "bodyHash": "49ac307075e4e926"
   },
   {
    "id": "MC1309747",
@@ -6100,16 +6100,16 @@
    "major": true,
    "actionBy": null,
    "start": "2026-06-26",
-   "end": "2026-11-16",
-   "modified": "2026-09-02",
+   "end": "2026-11-30",
+   "modified": "2026-09-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing multimodal capture in Copilot Notebooks on Windows. This feature enables users to capture audio, images, and notes in a single experience and use Microsoft 365 Copilot to generate structured insights such as summaries, decisions, and action items. This helps users turn meetings, …",
-   "bodyHash": "b8f7c3d0d39a5079"
+   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing multimodal capture in Copilot Notebooks on Windows. This feature enables users to capture audio, images, and notes in a single experience and use Microsoft 365 Copilot to generate structured insights such as summaries, decisions, and action items. This helps users turn meetings,…",
+   "bodyHash": "a7ba119fa1c74b3e"
   },
   {
    "id": "MC1405556",
@@ -10316,25 +10316,6 @@
    "bodyHash": "085d8465394850ea"
   },
   {
-   "id": "MC1465233",
-   "title": "Dynamics 365 Project Operations - Update key project fields using Copy project",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-09-30",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to update key project fields using Copy project in Dynamics 365 Project Operations. This feature will reach general availability on September 4, 2026. How does this affect me? This feature enables you to update key project fields according to their requirements during the copy process. Fields that may be updated during the copy process include: Contracting unit Owning…",
-   "bodyHash": "dfea624e1d19398d"
-  },
-  {
    "id": "MC1465262",
    "title": "Dynamics 365 Contact Center - Secondary device for notifications in Digital Messaging conversations",
    "services": [
@@ -14142,6 +14123,149 @@
    "bodyHash": "1604e0ecd625eccd"
   },
   {
+   "id": "MC1483844",
+   "title": "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2027-01-25",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out today with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol and Claude Sonnet 5.5 will also begin rolling out in phases across Word, Excel,…",
+   "bodyHash": "3606de06f578c07c"
+  },
+  {
+   "id": "MC1483886",
+   "title": "Microsoft PowerPoint: Temporary removal of the Brand pane",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-29",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We have temporarily removed the Brand pane from Microsoft PowerPoint while we make additional improvements to the experience. The Brand pane was introduced to provide users with a dedicated place in PowerPoint to discover and use assets from available Brand Kits, including brand colors, logos, images, icons, and fonts. Based on customer feedback, we are refining the experience befor…",
+   "bodyHash": "161e1db3d806eff0"
+  },
+  {
+   "id": "MC1483974",
+   "title": "Action Required: Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-03-26",
+   "start": "2026-09-30",
+   "end": "2027-06-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "[What and Why:] Microsoft introduced security enhancements to Exchange Online PowerShell authentication in ExchangeOnlineManagement module version 3.10.1. These enhancements strengthen the authentication flow and provide protection against emerging threats. Customers using a version earlier than 3.10.1 should upgrade to version 3.10.1 or later. Customers already using version 3.10.1 or later do no…",
+   "bodyHash": "65960456f84d4c58"
+  },
+  {
+   "id": "MC1484007",
+   "title": "Updated Copilot in Microsoft Edge Experience",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-30",
+   "modified": "2026-09-30",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] As part of our ongoing efforts to simplify the Copilot experience for customers, we are beginning to roll out updates to Copilot in Microsoft Edge in the coming weeks. As part of this update, we will adopt an updated icon across all Copilot entry points within Edge and the Copilot sidepane will adopt a simplified UX. Also, included is upgraded functionality and features, like Copil…",
+   "bodyHash": "5bc76e4237fb8133"
+  },
+  {
+   "id": "MC1484009",
+   "title": "Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-10-31",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft Defender for Office 365 is introducing new email submissions data in Advanced Hunting in Microsoft Defender. The new submissions tables provide security operations teams with greater visibility into email submission activity and results, enabling analysts to query submission activity alongside other Defender data and build hunting and detection workflows tailored to their…",
+   "bodyHash": "3d2e1ee0017864b4"
+  },
+  {
+   "id": "MC1484010",
+   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-11-09",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams Panels will introduce a new administrator setting that allows administrators to choose whether organizer names are shown in Calendar View on Teams Panels. Admins can toggle the Show organizer name setting ON or OFF in the Teams Rooms Pro Management portal or on the panel device. When organizer names are hidden, the organizer name is not shown in Calendar View on the …",
+   "bodyHash": "faa2e1b10503351e"
+  },
+  {
+   "id": "MC1484013",
+   "title": "Microsoft Teams: Multi-line call history tabs in the Calls app",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-09-30",
+   "end": "2026-12-13",
+   "modified": "2026-09-30",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is introducing a redesigned call history experience for Teams Phone users who have multi-line calling enabled. Call activity, including call history, voicemails, and recordings, will be organized by phone line in dedicated tabs within the Calls app. This change simplifies navigation for users who manage multiple phone lines. [Rollout schedule] Targeted Release: Begin…",
+   "bodyHash": "38c12346b59ab5d6"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -15147,6 +15271,126 @@
    "id": "MC1464814",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1307979",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (iPhone)",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "c8b7adfd5f85a75b",
+     "e7ff62b716bff17c"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1309743",
+   "type": "changed",
+   "title": "(Updated) Viva Engage: Email updates for frontline users without an active Exchange mailbox",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "c2a84a3a4ae6e276",
+     "69ba7e8c0dd4dbc7"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1309746",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (Android)",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "a1783e2c4dfda11f",
+     "49ac307075e4e926"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1405506",
+   "type": "changed",
+   "title": "(Updated) Microsoft OneNote: Multimodal recording in Copilot Notebooks on Windows",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "b8f7c3d0d39a5079",
+     "a7ba119fa1c74b3e"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1483844",
+   "type": "new",
+   "title": "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1483886",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Temporary removal of the Brand pane",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1483974",
+   "type": "new",
+   "title": "Action Required: Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484007",
+   "type": "new",
+   "title": "Updated Copilot in Microsoft Edge Experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484009",
+   "type": "new",
+   "title": "Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484010",
+   "type": "new",
+   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1484013",
+   "type": "new",
+   "title": "Microsoft Teams: Multi-line call history tabs in the Calls app",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-01",
+   "id": "MC1465233",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Update key project fields using Copy project",
    "fields": {}
   }
  ]
