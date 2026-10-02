@@ -11,7 +11,7 @@ f1.keywords:
 ms.author: v-reezaali
 author: ReezaAli149
 manager: laurawi
-ms.date: 2026-08-26T00:00:00.0000000Z
+ms.date: 2026-09-21T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -43,11 +43,11 @@ source_path: Purview/whats-new.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7428317a-e6c2-4461-ad3e-8a8ad3608734
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e4f59707-f107-48f2-8d75-0afd91868cd7
 platformId: b45015b9-3765-aad8-9adb-4bb64d9907b7
 ---
 
@@ -67,6 +67,10 @@ Microsoft Purview continues to add new solutions and features to help with data 
 ### Data Loss Prevention
 
 - **General availability**: Integrate Microsoft Entra Global Secure Access with Purview to protect text, files, and AI interactions at the network layer, enforce restrictive actions based on DLP policies, and detect risky user activity through Insider Risk Management. It helps prevent sensitive data from being shared with untrusted cloud applications through browsers, apps, APIs, and add-ins, including generative AI platforms, social media, and collaborative platforms. See [Learn about Microsoft Purview Network Data Security](dlp-network-data-security-learn).
+
+### Information Barriers
+
+- **New**: [Create an Information Barriers policy compliance report](information-barriers-sharepoint-report) to identify SharePoint sites, OneDrive accounts, and user-owned SharePoint Embedded containers that no longer comply after Information Barriers policy changes.
 
 ## August 2026
 
