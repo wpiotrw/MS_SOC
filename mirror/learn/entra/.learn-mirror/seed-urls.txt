@@ -108,8 +108,10 @@ https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-
 https://learn.microsoft.com/en-us/entra/identity-platform/concept-native-authentication
 https://learn.microsoft.com/en-us/entra/identity-platform/configurable-token-lifetimes
 https://learn.microsoft.com/en-us/entra/identity-platform/content-security-policy
+https://learn.microsoft.com/en-us/entra/identity-platform/howto-configure-app-instance-property-locks
 https://learn.microsoft.com/en-us/entra/identity-platform/permissions-consent-overview
 https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest
+https://learn.microsoft.com/en-us/entra/identity-platform/reference-credential-management-api
 https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code
@@ -170,6 +172,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-user
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/what-is-cloud-sync
 https://learn.microsoft.com/en-us/entra/identity/hybrid/common-scenarios
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip
+https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-passwordless-authentication
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
