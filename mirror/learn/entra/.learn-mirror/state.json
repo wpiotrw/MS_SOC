@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/entra/fundamentals/how-to-customize-branding-themes-apps",
+  "cursor": "https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-access",
   "pages": {
     "https://learn.microsoft.com/en-us/entra/agent-id": {"etag":"\"i8z3cMjiXXlgZf/cUmr1HDxSKvQ=\"","gitCommitId":"5caf06acbac27060f18423313c5c2f62caa542e3","path":"docs/agent-id/index.md","redirectedTo":"https://learn.microsoft.com/en-us/entra/agent-id/","sourcePath":"docs/agent-id/index.yml","updatedAt":"2026-06-19T22:42:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id": {"etag":"\"klnDRdngsmWpS34bAe1B5ZrJ5Kg=\"","gitCommitId":"2506cb0e9fd71a43da77c640942654c7a99f8982","path":"docs/agent-id/secure-mcp-server-with-entra-id.md","sourcePath":"docs/agent-id/secure-mcp-server-with-entra-id.md","updatedAt":"2026-09-03T17:46:00.0000000Z"},

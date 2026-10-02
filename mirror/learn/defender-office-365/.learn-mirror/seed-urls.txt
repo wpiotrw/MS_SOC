@@ -15,6 +15,8 @@ https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-wh
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new/zero-hour-auto-purge
 https://learn.microsoft.com/en-us/defender-office-365/mdo-about
 https://learn.microsoft.com/en-us/defender-office-365/mdo-email-entity-page
+https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-quick-configure
+https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-sec-ops-guide
 https://learn.microsoft.com/en-us/defender-office-365/quarantine-admin-manage-messages-files
 https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/configure-unified-rbac-defender-office-365
 https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/prompt-injection-protection-defender-for-office-365

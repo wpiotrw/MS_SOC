@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-09-22T00:00:00.0000000Z
+ms.date: 2026-10-01T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -77,6 +77,8 @@ The following table lists all deprecated policies.
 | [ProxyMode](microsoft-edge-policies/proxymode) | Configure proxy server settings (deprecated) |
 | [ProxyPacUrl](microsoft-edge-policies/proxypacurl) | Set the proxy .pac file URL (deprecated) |
 | [ProxyServer](microsoft-edge-policies/proxyserver) | Configure address or URL of proxy server (deprecated) |
+| [AutofillAddressEnabled](microsoft-edge-policies/autofilladdressenabled) | Enable AutoFill for addresses (deprecated) |
+| [AutofillCreditCardEnabled](microsoft-edge-policies/autofillcreditcardenabled) | Enable AutoFill for payment instruments (deprecated) |
 | [BackgroundTemplateListUpdatesEnabled](microsoft-edge-policies/backgroundtemplatelistupdatesenabled) | Enables background updates to the list of available templates for Collections and other features that use templates (deprecated) |
 | [EdgeWalletEtreeEnabled](microsoft-edge-policies/edgewalletetreeenabled) | Edge Wallet E-Tree Enabled (deprecated) |
 | [InsecureFormsWarningsEnabled](microsoft-edge-policies/insecureformswarningsenabled) | Enable warnings for insecure forms (deprecated) |
@@ -480,7 +482,7 @@ These tables list all of the browser-related group policies available in this re
 | [ImportFavorites](microsoft-edge-policies/importfavorites) | Allow importing of favorites |
 | [ImportHistory](microsoft-edge-policies/importhistory) | Allow importing of browsing history |
 | [ImportHomepage](microsoft-edge-policies/importhomepage) | Allow importing of home page settings |
-| [ImportOnEachLaunch](microsoft-edge-policies/importoneachlaunch) | Allow import of data from other browsers on each Microsoft Edge launch |
+| [ImportOnEachLaunch](microsoft-edge-policies/importoneachlaunch) | Allow import of data from Chrome on each Microsoft Edge launch |
 | [ImportOpenTabs](microsoft-edge-policies/importopentabs) | Allow importing of open tabs |
 | [ImportPasswordsDisabled](microsoft-edge-policies/importpasswordsdisabled) | Prevent importing passwords from Password Manager |
 | [ImportPaymentInfo](microsoft-edge-policies/importpaymentinfo) | Allow importing of payment info |
@@ -848,8 +850,8 @@ These tables list all of the browser-related group policies available in this re
 | [AutoImportAtFirstRun](microsoft-edge-policies/autoimportatfirstrun) | Automatically import another browser's data and settings at first run |
 | [AutoLaunchProtocolsComponentEnabled](microsoft-edge-policies/autolaunchprotocolscomponentenabled) | AutoLaunch Protocols Component Enabled |
 | [AutoLaunchProtocolsFromOrigins](microsoft-edge-policies/autolaunchprotocolsfromorigins) | Define a list of protocols that can launch an external application from listed origins without prompting the user |
-| [AutofillAddressEnabled](microsoft-edge-policies/autofilladdressenabled) | Enable AutoFill for addresses |
-| [AutofillCreditCardEnabled](microsoft-edge-policies/autofillcreditcardenabled) | Enable AutoFill for payment instruments |
+| [AutofillAddressEnabled](microsoft-edge-policies/autofilladdressenabled) | Enable AutoFill for addresses (deprecated) |
+| [AutofillCreditCardEnabled](microsoft-edge-policies/autofillcreditcardenabled) | Enable AutoFill for payment instruments (deprecated) |
 | [AutofillMembershipsEnabled](microsoft-edge-policies/autofillmembershipsenabled) | Save and fill memberships |
 | [AutofillSettings](microsoft-edge-policies/autofillsettings) | Block AutoFill data types for specific sites |
 | [AutomaticHttpsDefault](microsoft-edge-policies/automatichttpsdefault) | Configure Automatic HTTPS (obsolete) |

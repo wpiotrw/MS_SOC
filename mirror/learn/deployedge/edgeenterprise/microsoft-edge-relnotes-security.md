@@ -75,8 +75,6 @@ Microsoft released the latest **Microsoft Edge for Stable (Version 154.0.4258.37
 
 Microsoft released the latest **Microsoft Edge for Android (Version 153.0.4234.49)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
 
-**Note:** CVE's will be added as soon as available
-
 ## September 21st, 2026
 
 Microsoft released the latest **Microsoft Edge for iOS (Version 153.0.4234.46)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
@@ -85,8 +83,6 @@ Microsoft released the latest **Microsoft Edge for iOS (Version 153.0.4234.46)**
 
 Microsoft released the latest **Microsoft Edge for Stable (Version 153.0.4234.48)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
 
-**Note:** CVE's will be added as soon as available
-
 ## September 17, 2026
 
 Microsoft released the latest **Microsoft Edge for Stable (Version 153.0.4234.46)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
@@ -94,8 +90,6 @@ Microsoft released the latest **Microsoft Edge for Stable (Version 153.0.4234.46
 ## September 14, 2026
 
 Microsoft released the latest **Microsoft Edge for Android and iOS (Version 153.0.4234.32)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
-
-**Note:** CVE's will be added as soon as available
 
 ## September 10, 2026
 
