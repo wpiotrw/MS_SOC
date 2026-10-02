@@ -1,7 +1,7 @@
 {
- "read": "2026-10-01",
+ "read": "2026-10-02",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 690,
+ "count": 693,
  "note": null,
  "messages": [
   {
@@ -303,25 +303,6 @@
    ],
    "summary": "Introduction To streamline and improve integration experiences for education customers, we’re retiring several legacy Learning Tools Interoperability (LTI) integrations in Microsoft 365. These tools will be replaced by the unified Microsoft 365 LTI tool, which offers enhanced functionality and ongoing support. When this will happen: The following Education LTI tools will be retired worldwide on Se…",
    "bodyHash": "aa02b745346b5596"
-  },
-  {
-   "id": "MC1163714",
-   "title": "Get started with September 2025 improvements in Windows 11 ",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-01",
-   "end": "2026-10-01",
-   "modified": "2025-10-01",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Start using the newest Windows 11 capabilities with helpful tips and actionable steps summarized in one place. Discover news about Windows 11, version 25H2 general availability, advantages of Microsoft Purview and Microsoft Defender to help reduce data breaches and build resiliency, plus enhancements to Windows 365, update and driver management, productivity features, AI, and much more. Learn how …",
-   "bodyHash": "e9d57b62836f871e"
   },
   {
    "id": "MC1166852",
@@ -1042,16 +1023,16 @@
    "major": false,
    "actionBy": null,
    "start": "2025-11-18",
-   "end": "2026-10-30",
-   "modified": "2026-07-23",
+   "end": "2026-11-30",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 23, 2026: We have updated the timeline. Thank you for your patience. [Introduction:] We’re introducing a simpler way to view conversations in Viva Engage communities , organized by recent posts rather than recent activity. This new view is designed to make it easier for users to follow discussions and will be available as an option, alongside the current system, for those who prefer s…",
-   "bodyHash": "7559440c1c4e370a"
+   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction:] We’re introducing a simpler way to view conversations in Viva Engage communities , organized by recent posts rather than recent activity. This new view is designed to make it easier for users to follow discussions and will be available as an option, alongside the current system, for those who prefer…",
+   "bodyHash": "2b065a6820293aa0"
   },
   {
    "id": "MC1187786",
@@ -2519,16 +2500,16 @@
    "major": true,
    "actionBy": null,
    "start": "2026-03-04",
-   "end": "2026-12-07",
-   "modified": "2026-07-17",
+   "end": "2026-12-31",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 17, 2026: Phase 1, which enables Entra B2B for new external sharing, is now fully rolled out for Production environments. To ensure a smooth transition, Phase 2, the retirement of SharePoint Online OTP, has been rescheduled to begin on October 1 and is expected to complete by October 31 for Production environments. Both Phase 1 and Phase 2 roll outs exclude GCC, GCCH & DoD. New dates …",
-   "bodyHash": "010613217d13be70"
+   "summary": "Updated October 1, 2026: Phase 1, which enables Entra B2B for new external sharing, is now fully rolled out for Production environments. To ensure a smooth transition, Phase 2, the retirement of SharePoint Online OTP, has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments. Both Phase 1 and Phase 2 roll outs exclude GCC, GCC…",
+   "bodyHash": "0892f53885d67f29"
   },
   {
    "id": "MC1244299",
@@ -8371,15 +8352,15 @@
    "actionBy": null,
    "start": "2026-08-13",
    "end": "2026-12-28",
-   "modified": "2026-08-26",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 26, 2026: We have updated the content and timeline. Thank you for your patience. [What and why:] We're introducing the third-generation Microsoft 365 sharing experience to make collaboration simpler, smarter, and more secure by default. At the center of this update is a new hero link —a single sharing link that controls access to a file or folder. Users will see one consistent shari…",
-   "bodyHash": "b859a9b35df905c1"
+   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [What and why:] We're introducing the third-generation Microsoft 365 sharing experience to make collaboration simpler, smarter, and more secure by default. At the center of this update is a new hero link —a single sharing link that controls access to a file or folder. Users will see one consistent sharing experienc…",
+   "bodyHash": "6357493eaae73994"
   },
   {
    "id": "MC1454382",
@@ -13303,14 +13284,14 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-12-23",
-   "modified": "2026-09-29",
+   "modified": "2026-10-01",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 29, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. Existing OneDrive, SharePoint, and security controls continue to govern access. This update does not change your OneDri…",
-   "bodyHash": "085db1eb9fc12bcf"
+   "summary": "Updated October 1, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This change only impacts tenants who have not adjusted the policy that controls file attachment in an external Teams chat.…",
+   "bodyHash": "2a058ac9032699f7"
   },
   {
    "id": "MC1479516",
@@ -13892,6 +13873,89 @@
    ],
    "summary": "We are announcing the ability to use after conversation presence status for wrap-up activities in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? This feature disambiguates the Busy/DND presence state of a representative by letting the supervisor clearly distinguish agents performing after-conversation wrap-up work from repres…",
    "bodyHash": "7acb2b6aa3e13f09"
+  },
+  {
+   "id": "MC1485054",
+   "title": "Microsoft Entra App Gallery: Self-service onboarding for new applications",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2027-01-31",
+   "modified": "2026-10-01",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a self-service onboarding experience for new applications submitted to the Microsoft Entra App Gallery. This experience helps independent software vendors (ISVs) validate supported single sign-on (SSO) and user provisioning integrations before submission, identify and resolve common configuration issues earlier in the process, and track submission status through a…",
+   "bodyHash": "24e72e6ee7758b25"
+  },
+  {
+   "id": "MC1485056",
+   "title": "Upgraded call history in Teams Calls app",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2026-12-30",
+   "modified": "2026-10-01",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Call history in the Teams Calls app is being upgraded to make it easier to find and act on past call activity. Missed calls and associated voicemails will be consolidated into a single call history entry, reducing clutter and simplifying follow-up. Call history will also expand from 100 records to up to 3,000 records or 6 months of history, whichever limit is reached first, giving …",
+   "bodyHash": "fcd1930c12e15572"
+  },
+  {
+   "id": "MC1485116",
+   "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2027-09-01",
+   "modified": "2026-10-01",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] As previously communicated in MC1466860 and MC1447678 , Microsoft is continuing the retirement of Exchange Web Services (EWS) in Exchange Online. Beginning October 10, 2026, setting EWSEnabled=True will no longer be sufficient to allow EWS access for affected Worldwide tenants. Organizations that require EWS must configure EWSAllowedAppIDs to specify which applications are permitted…",
+   "bodyHash": "50cdd0e18fb5530c"
+  },
+  {
+   "id": "MC1485120",
+   "title": "Microsoft Outlook: Right-click to customize the classic ribbon",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-01",
+   "end": "2026-12-25",
+   "modified": "2026-10-01",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the classic ribbon customization experience in Microsoft Outlook. Users can now customize the classic ribbon by right-clicking the ribbon on the Home or View tab and selecting the Customize button. Users can then choose which commands and groups appear on the Home and View tabs and arrange them in their preferred order. [Rollout schedule] General Availability (Worldw…",
+   "bodyHash": "4472184248226a26"
   },
   {
    "id": "MC676299",
@@ -15237,6 +15301,97 @@
    "id": "MC1465655",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Update correction journal usability",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1187781",
+   "type": "changed",
+   "title": "(Updated) Viva Engage: Community feeds improvements",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "7559440c1c4e370a",
+     "2b065a6820293aa0"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1243549",
+   "type": "changed",
+   "title": "(Updated) Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+   "fields": {
+    "end": [
+     "2026-12-07",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "010613217d13be70",
+     "0892f53885d67f29"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1454378",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365: The Next Generation of File & Folder Sharing",
+   "fields": {
+    "bodyHash": [
+     "b859a9b35df905c1",
+     "6357493eaae73994"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1479514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
+   "fields": {
+    "bodyHash": [
+     "085db1eb9fc12bcf",
+     "2a058ac9032699f7"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485054",
+   "type": "new",
+   "title": "Microsoft Entra App Gallery: Self-service onboarding for new applications",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485056",
+   "type": "new",
+   "title": "Upgraded call history in Teams Calls app",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485116",
+   "type": "new",
+   "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485120",
+   "type": "new",
+   "title": "Microsoft Outlook: Right-click to customize the classic ribbon",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1163714",
+   "type": "removed",
+   "title": "Get started with September 2025 improvements in Windows 11 ",
    "fields": {}
   }
  ]
