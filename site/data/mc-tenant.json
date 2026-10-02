@@ -3477,16 +3477,16 @@
    "major": true,
    "actionBy": null,
    "start": "2026-04-13",
-   "end": "2026-10-30",
-   "modified": "2026-08-03",
+   "end": "2026-12-31",
+   "modified": "2026-10-02",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 3, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are enhancing how Microsoft Defender for Office 365 identifies and manages promotional email. Promotional messages will be tagged as “promotions” (previously “Bulk” in preview) and can be moved automatically to a new Promotions folder. The system learns from user actions, such as moving messages in…",
-   "bodyHash": "8c0a48462809f198"
+   "summary": "Updated October 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are enhancing how Microsoft Defender for Office 365 identifies and manages promotional email. Promotional messages will be tagged as “promotions” (previously “Bulk” in preview) and can be moved automatically to a new Promotions folder. The system learns from user actions, such as moving messages i…",
+   "bodyHash": "293b77d968232948"
   },
   {
    "id": "MC1279829",
@@ -10850,7 +10850,7 @@
   },
   {
    "id": "MC1469551",
-   "title": "Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+   "title": "(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
    "services": [
     "Microsoft Teams"
    ],
@@ -10860,13 +10860,14 @@
    "actionBy": null,
    "start": "2026-09-09",
    "end": "2026-11-30",
-   "modified": "2026-09-09",
+   "modified": "2026-10-02",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and why:] As part of the ongoing transition of Teams device management from the Microsoft Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP), we are retiring device health monitoring capabilities in TAC — specifically the Device state rule (Teams admin center > Notifications & alerts > Rules) and the device health alerts it generates. Going forward, device health monitor…",
-   "bodyHash": "c7fe4052d26c6a3c"
+   "summary": "Updated October 2, 2026: We have updated the timeline. Thank you for your patience. [What and why:] As part of the ongoing transition of Teams device management from the Microsoft Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP), we are retiring device health monitoring capabilities in TAC — specifically the Device state rule (Teams admin center > Notifications & alerts > Ru…",
+   "bodyHash": "33b453156c1e5350"
   },
   {
    "id": "MC1469555",
@@ -15430,6 +15431,49 @@
    "type": "removed",
    "title": "Microsoft Agent 365: Simplified Agent 365 CLI setup experience",
    "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1279093",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: Enhancing how we handle promotional mail",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "8c0a48462809f198",
+     "293b77d968232948"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1469551",
+   "type": "changed",
+   "title": "(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+   "fields": {
+    "title": [
+     "Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+     "(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "c7fe4052d26c6a3c",
+     "33b453156c1e5350"
+    ]
+   }
   }
  ]
 }
