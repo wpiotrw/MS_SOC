@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-08-26T00:00:00.0000000Z
+ms.date: 2026-10-01T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -69,7 +69,7 @@ If you disable or do not configure this policy, developer tools availability is 
 
 This policy applies to developer tools opened for websites, extensions, and web applications.
 
-Blanket host wildcards (that is, "*" or "[*]") aren't allowed. To enable developer tools globally, use the [DeveloperToolsAvailability](developertoolsavailability) policy.
+Blanket host wildcards (that is, "\*" or "[\*]") aren't allowed. To enable developer tools globally, use the [DeveloperToolsAvailability](developertoolsavailability) policy.
 
 This policy supports up to 1,000 entries.
 

@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-07-14T00:00:00.0000000Z
+ms.date: 2026-10-01T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
