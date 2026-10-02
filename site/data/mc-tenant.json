@@ -1,7 +1,7 @@
 {
  "read": "2026-10-02",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 693,
+ "count": 694,
  "note": null,
  "messages": [
   {
@@ -12658,28 +12658,6 @@
    "bodyHash": "63705c6726132f4e"
   },
   {
-   "id": "MC1477186",
-   "title": "Microsoft Agent 365: Simplified Agent 365 CLI setup experience",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-09-22",
-   "end": "2026-10-02",
-   "modified": "2026-09-22",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We have simplified the setup experience for Agent 365 by introducing a Microsoft-managed Agent 365 CLI enterprise application for eligible tenants. This change removes the need for administrators to create and maintain a tenant-owned client application when setting up Agent 365 CLI. The update streamlines deployment and lifecycle management while continuing to respect existing secur…",
-   "bodyHash": "8bbde42f5571a376"
-  },
-  {
    "id": "MC1477187",
    "title": "Microsoft OneDrive: OneDrive sync supports up to 1 million items on macOS",
    "services": [
@@ -13956,6 +13934,44 @@
    ],
    "summary": "[What and why] We are updating the classic ribbon customization experience in Microsoft Outlook. Users can now customize the classic ribbon by right-clicking the ribbon on the Home or View tab and selecting the Customize button. Users can then choose which commands and groups appear on the Home and View tabs and arrange them in their preferred order. [Rollout schedule] General Availability (Worldw…",
    "bodyHash": "4472184248226a26"
+  },
+  {
+   "id": "MC1485169",
+   "title": "Dynamics 365 Contact Center - Use role-based enforcement for recording and transcription downloads",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2026-12-01",
+   "modified": "2026-10-02",
+   "tags": [],
+   "summary": "We are announcing the ability to use role-based enforcement for recording and transcription downloads in Dynamics 365 Contact Center. This feature will reach general availability on October 31, 2026. How does this affect me? This feature helps organizations better protect sensitive customer communications by separating permissions to view recordings and transcripts from permissions to download the…",
+   "bodyHash": "14e072a832a7b4d8"
+  },
+  {
+   "id": "MC1485411",
+   "title": "Microsoft Excel: Excel canvas",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2026-12-04",
+   "modified": "2026-10-02",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing Excel canvas, a new Copilot capability for Microsoft Excel. Excel canvas transforms workbook data into a polished report containing visualizations, metrics, and insights. Reports automatically refresh as the underlying workbook data changes, reflecting the latest information. Users can further refine and customize reports by interacting with Copilot using natural …",
+   "bodyHash": "883178cb151114b7"
   },
   {
    "id": "MC676299",
@@ -15392,6 +15408,27 @@
    "id": "MC1163714",
    "type": "removed",
    "title": "Get started with September 2025 improvements in Windows 11 ",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485169",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Use role-based enforcement for recording and transcription downloads",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1485411",
+   "type": "new",
+   "title": "Microsoft Excel: Excel canvas",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-02",
+   "id": "MC1477186",
+   "type": "removed",
+   "title": "Microsoft Agent 365: Simplified Agent 365 CLI setup experience",
    "fields": {}
   }
  ]
