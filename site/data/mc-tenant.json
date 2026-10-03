@@ -1,7 +1,7 @@
 {
- "read": "2026-10-02",
+ "read": "2026-10-03",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 694,
+ "count": 698,
  "note": null,
  "messages": [
   {
@@ -315,15 +315,15 @@
    "major": true,
    "actionBy": null,
    "start": "2025-10-06",
-   "end": "2026-12-07",
-   "modified": "2026-09-03",
+   "end": "2027-03-31",
+   "modified": "2026-10-02",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 3, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing the Agent Dashboard , a new dashboard available as part of Copilot Analytics in Microsoft Viva. This dashboard provides visibility into key agent adoption trends and associated Copilot credit usage. It supports insights into agents used within Microsoft 365 Copilot, which may be: …",
-   "bodyHash": "d556f669a53dc2e2"
+   "summary": "Updated October 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing the Agent Dashboard , a new dashboard available as part of Copilot Analytics in Microsoft Viva. This dashboard provides visibility into key agent adoption trends and associated Copilot credit usage. It supports insights into agents used within Microsoft 365 Copilot, which may be: Bu…",
+   "bodyHash": "155400cb916efa4f"
   },
   {
    "id": "MC1168906",
@@ -12376,25 +12376,6 @@
    "bodyHash": "79b656a58cfe1122"
   },
   {
-   "id": "MC1474415",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-19",
-   "end": "2026-10-03",
-   "modified": "2026-09-19",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting September 18th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delive…",
-   "bodyHash": "6a8450bde7fb41f6"
-  },
-  {
    "id": "MC1474455",
    "title": "In-app browsing in Copilot app",
    "services": [
@@ -13975,6 +13956,105 @@
    "bodyHash": "883178cb151114b7"
   },
   {
+   "id": "MC1486284",
+   "title": "Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2026-12-05",
+   "modified": "2026-10-02",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Units to delegate management of supported Copilot DLP policies while maintaining regional, departmental, or regulatory boundaries. T…",
+   "bodyHash": "9c96a8ed682954ed"
+  },
+  {
+   "id": "MC1486289",
+   "title": "Microsoft Purview |Unified Classification Management Experience",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2026-12-30",
+   "modified": "2026-10-02",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft Purview is introducing a unified Classification Management experience that brings classifier management into one consistent experience, helping admins discover and manage their organization's classifiers. This message is associated with Microsoft 365 Roadmap ID 570844 [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on mid November 2026 and …",
+   "bodyHash": "f5f26bbdc7b4b8d7"
+  },
+  {
+   "id": "MC1486292",
+   "title": "Prompt Column backfill",
+   "services": [
+    "Power Apps in Microsoft 365"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2026-11-02",
+   "modified": "2026-10-02",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "HTML (Needs a final link inserted before shipping): We are introducing bulk generation of prompt column values for existing Dataverse records. Now, you can have AI-generated values across existing data without requiring record updates to trigger execution. This feature will reach general availability on November 16, 2026.<br><br><b>How does this affect me?</b><br>When selected, this capability wil…",
+   "bodyHash": "372a451333a6d197"
+  },
+  {
+   "id": "MC1486295",
+   "title": "Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+   "services": [
+    "Microsoft OneDrive",
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-02",
+   "end": "2027-01-29",
+   "modified": "2026-10-02",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We are introducing Smart Table of Contents (Smart TOC) in the Microsoft OneDrive and SharePoint PDF viewer on the web for users with a Microsoft 365 Copilot license. When a PDF does not already contain a table of contents, users can ask Copilot to generate a hierarchical, clickable structure that makes it easier to navigate long documents and move between sections. This feature is …",
+   "bodyHash": "e2d4b9fec41c1e40"
+  },
+  {
+   "id": "MC1486397",
+   "title": "An updated version of the September 2026 Scan Cab is available",
+   "services": [
+    "Windows"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-03",
+   "end": "2027-10-03",
+   "modified": "2026-10-03",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "IMPORTANT: This notice is only relevant for environments where: Exchange Server Subscription Edition (SE) is used Scan Cab is used to check for update compliance The September 2026 Scan Cab was deployed before 6:30 PM PDT on October 2, 2026. What and why: An updated version of the September 2026 Scan Cab was made available at 6:30 PM PDT on October 2, 2026. This Scan Cab includes new metadata corr…",
+   "bodyHash": "69774300eb57ee45"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -15474,6 +15554,64 @@
      "33b453156c1e5350"
     ]
    }
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1166852",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva Copilot Analytics launches new agent dashboard",
+   "fields": {
+    "end": [
+     "2026-12-07",
+     "2027-03-31"
+    ],
+    "bodyHash": [
+     "d556f669a53dc2e2",
+     "155400cb916efa4f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1486284",
+   "type": "new",
+   "title": "Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1486289",
+   "type": "new",
+   "title": "Microsoft Purview |Unified Classification Management Experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1486292",
+   "type": "new",
+   "title": "Prompt Column backfill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1486295",
+   "type": "new",
+   "title": "Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1486397",
+   "type": "new",
+   "title": "An updated version of the September 2026 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1474415",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
   }
  ]
 }
