@@ -120,6 +120,7 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/configure-work
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/enable-scim-api
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/entra-id-scim-api-reference
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/extend-application-attributes
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/functions-for-customizing-application-data
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/how-to-account-discovery
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/isv-automatic-provisioning-multi-tenant-apps
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/known-issues

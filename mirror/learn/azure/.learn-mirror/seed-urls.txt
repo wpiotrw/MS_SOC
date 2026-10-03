@@ -351,3 +351,4 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set
+https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6
