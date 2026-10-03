@@ -30,6 +30,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/c
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/ref-android-settings
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-oemconfig-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
+https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-wifi-settings-apple
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-managed-google-play
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/ref-corporate-methods
@@ -74,6 +75,7 @@ https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline
 https://learn.microsoft.com/en-us/intune/device-updates/android/setup-samsung-knox
 https://learn.microsoft.com/en-us/intune/epm/manage-support-approvals
+https://learn.microsoft.com/en-us/intune/epm/manage-system-settings
 https://learn.microsoft.com/en-us/intune/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/ref-device-properties
