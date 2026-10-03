@@ -1,7 +1,7 @@
 {
  "read": "2026-10-03",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 698,
+ "count": 697,
  "note": null,
  "messages": [
   {
@@ -10523,25 +10523,6 @@
    "bodyHash": "55d3fba0a3098336"
   },
   {
-   "id": "MC1466584",
-   "title": "Dynamics 365 Contact Center- Use data masking to protect customer data",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-03",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use data masking to protect customer data in Dynamics 365 Contact Center. This feature will reach general availability on September 30, 2026. How does this affect me? With this feature, customer service representatives can select individual messages from the customer and redact them, so the customer's PII isn't stored in your repository. This feature complements th…",
-   "bodyHash": "14eeefcfc98d5ae6"
-  },
-  {
    "id": "MC1466750",
    "title": "Microsoft Secure Score: New AI-readiness recommendations for device security",
    "services": [
@@ -15611,6 +15592,13 @@
    "id": "MC1474415",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-03",
+   "id": "MC1466584",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center- Use data masking to protect customer data",
    "fields": {}
   }
  ]
