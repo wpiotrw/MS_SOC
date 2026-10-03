@@ -116,8 +116,8 @@ Currently, the following external databases are available:
 | [Google BigQuery](google-bigquery) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: Google BigQuery](google-bigquery-tutorial) |
 | [Oracle](oracle) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: Oracle](oracle-tutorial) |
 | [SAP](sap) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: SAP Datasphere](sap-datasphere-tutorial) |
-| [SharePoint List](sharepoint-list) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: SharePoint List](sharepoint-list-tutorial) |
-| [Snowflake](snowflake) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: Snowflake](snowflake-tutorial) |
+| [SharePoint List (preview)](sharepoint-list) | [Database mirroring](overview#how-does-database-mirroring-work), [Metadata mirroring](overview#how-does-metadata-mirroring-work) | [Tutorial: SharePoint List (preview)](sharepoint-list-tutorial) |
+| [Snowflake](snowflake) | [Database mirroring](overview#how-does-database-mirroring-work), [Metadata mirroring](overview#how-does-metadata-mirroring-work) | [Tutorial: Snowflake](snowflake-tutorial) |
 | [SQL Server](sql-server) | [Database mirroring](overview#how-does-database-mirroring-work) | [Tutorial: SQL Server](sql-server-tutorial) |
 | [Open mirrored databases](open-mirroring) | [Open mirroring](overview#how-does-open-mirroring-work) | [Tutorial: Open mirroring](open-mirroring-tutorial) |
 | [Fabric SQL database](../database/sql/overview) | [Database mirroring](overview#how-does-database-mirroring-work) | [Automatically configured](../database/sql/mirroring-overview) |
