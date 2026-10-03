@@ -97,6 +97,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-req
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-servicenow-integration
 https://learn.microsoft.com/en-us/entra/id-governance/guest-lifecycle-policies
 https://learn.microsoft.com/en-us/entra/id-governance/manage-delegate-workflow
+https://learn.microsoft.com/en-us/entra/id-governance/manage-sponsored-guests-my-access
 https://learn.microsoft.com/en-us/entra/id-governance/microsoft-entra-id-governance-licensing-for-guest-users
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/concept-pim-for-groups
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-role-settings

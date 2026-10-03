@@ -83,7 +83,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 | **Microsoft Teams and Outlook might fail to launch on ARM-based devices**This most likely occurs on new PCs after installing the August Windows security update and does not affect other apps. | OS Build 26200.9168[KB5121003](https://support.microsoft.com/help/5121003)2026-08-11 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 11:37 PT |
 | **Mouse customization is reset on non-English Windows devices**Custom cursors and cursor animations may intermittently revert | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
 | **Desktop background settings are lost or reset on some devices**For affected Windows installations, backgrounds might revert to a black solid color | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
-| **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Confirmed | 2026-10-02 15:06 PT |
+| **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Confirmed | 2026-10-02 15:41 PT |
 
 ## Issue details
 
@@ -93,7 +93,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | **Status** | **Originating update** | **History** |
 | --- | --- | --- |
- Confirmed | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Last updated: 2026-10-02, 15:06 PTOpened: 2026-10-02, 15:06 PT |
+ Confirmed | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Last updated: 2026-10-02, 15:41 PTOpened: 2026-10-02, 15:06 PT |
 
 Following installation of Windows updates released September 22, 2026 ([KB5124010](https://support.microsoft.com/help/5124010)), and later, some applications which require the decoding of AC-3 (Dolby Digital) audio might close unexpectedly.
 

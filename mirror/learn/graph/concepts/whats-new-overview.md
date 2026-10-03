@@ -53,6 +53,10 @@ Features in *preview* status are subject to change without notice, and might not
 
 ## September 2026: New and generally available
 
+### Calendars | Work hours and locations
+
+Added app-only support to the [workHoursAndLocationsSetting](/en-us/graph/api/resources/workhoursandlocationssetting), [workPlanOccurrence](/en-us/graph/api/resources/workplanoccurrence), and [workPlanRecurrence](/en-us/graph/api/resources/workplanrecurrence) resources and related methods. Apps can use the `Calendars.Read.All` application permission to read a user's setting, recurrences, and occurrences, and `Calendars.ReadWrite.All` to create, update, and delete them.
+
 ### Change notifications
 
 Promoted the `unknownFutureValue` member of the **changeType** enumeration from beta to v1.0. The enumeration is used by the [changeNotification](/en-us/graph/api/resources/changenotification) and [commsNotification](/en-us/graph/api/resources/commsnotification) resources to identify notification change types.
@@ -112,6 +116,10 @@ Added the **isDisabled** property to the [agentIdentityBlueprint](/en-us/graph/a
 - Added the [stringDictionary](/en-us/graph/api/resources/stringdictionary?view=graph-rest-beta&amp;preserve-view=true) resource type to represent custom string key-value pairs.
 - Added the **customProperties** property to the [place](/en-us/graph/api/resources/place?view=graph-rest-beta&amp;preserve-view=true) resource type to store customer-defined string key-value pairs.
 - Added the read-only **lastUpdatedTime** property to the [place](/en-us/graph/api/resources/place?view=graph-rest-beta&amp;preserve-view=true) resource type to indicate when the place was last updated.
+
+### Calendars | Work hours and locations
+
+Added app-only support to the [workHoursAndLocationsSetting](/en-us/graph/api/resources/workhoursandlocationssetting?view=graph-rest-beta&amp;preserve-view=true), [workPlanOccurrence](/en-us/graph/api/resources/workplanoccurrence?view=graph-rest-beta&amp;preserve-view=true), and [workPlanRecurrence](/en-us/graph/api/resources/workplanrecurrence?view=graph-rest-beta&amp;preserve-view=true) resources and related methods. Apps can use the `Calendars.Read.All` application permission to read a user's setting, recurrences, and occurrences, and `Calendars.ReadWrite.All` to create, update, and delete them.
 
 ### Change notifications
 
