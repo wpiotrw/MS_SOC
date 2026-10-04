@@ -9715,6 +9715,14 @@ chip 🔥/⚠️), najpierw wlaczaja pelne sekcje: klik `.s5ci-more .s5ci-mb` al
 `.panelhead`, `.stat`, `figure.chart`) dzialaja bez tego. To NIE jest blad strony i NIE jest powod,
 zeby nie publikowac — widok `.s5ci` pokazuje te same wiersze (§5ci, test 29/29).
 
+**§5cn (4 X 2026) — Playwright a katalogi Graph API i Roles.** Katalog nie pokazuje panelu wpisu,
+dopoki czytelnik go nie otworzy: `.cat-split` ma klase `s5cn-idle`, `.cat-detail` jest `display:none`,
+a nad nim stoi `.s5cn-ph` („No permission is open."). Asercje tej listy, ktore mierza albo czytaja
+`.cat-detail` / `.cat-detail-inner` (panel roli, panel uprawnienia, `details.epsinject`, prostokat
+panelu), najpierw otwieraja wpis — klik `.cat-item`, `__socOpenPerm(nazwa)` / `__socOpenRole(nazwa)` albo
+kotwica `#graph:perm=…` / `#roles:role=…` (kotwica otwiera panel sama). Pusty panel po samym
+zaladowaniu strony to zamierzony stan, nie regresja i nie powod, zeby nie publikowac.
+
 ## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
 
 Ta sekcja jest wiazaca dla obu taskow i obu routines; prompty na nia wskazuja zamiast ja powtarzac.
@@ -33277,7 +33285,7 @@ odtad CZTERNASCIE (4-17).**
   function catalog(cat) {
     if (cat.__s5cn) return; var split = cat.querySelector(".cat-split"), list = cat.querySelector(".cat-list"), det = cat.querySelector(".cat-detail");
     if (!split || !list || !det) return; cat.__s5cn = true;
-    var what = cat.getAttribute("data-catalog") === "roles" ? "role" : "permission", chosen = null, next = false;
+    var what = cat.getAttribute("data-catalog") === "roles" ? "role" : "permission", chosen = null, next = false, free = 0;
     var ph = el("div", "s5cn-ph"); ph.setAttribute("role", "note");
     ph.appendChild(el("b", null, "No " + what + " is open."));
     ph.appendChild(el("span", null, " Choose one in the list, search by name, or open a row of “What Microsoft changed”. Until then nothing is filtered and this pane stays empty."));
@@ -33285,7 +33293,7 @@ odtad CZTERNASCIE (4-17).**
     function selId() { var b = list.querySelector('.cat-item[aria-selected="true"]'); return b ? (b.getAttribute("data-id") || b.textContent) : null; }
     function sync() {
       var id = selId();
-      if (next && id) { chosen = id; next = false; }
+      if ((next || Date.now() < free) && id) { chosen = id; next = false; }
       var idle = !chosen || id !== chosen;
       split.classList.toggle("s5cn-idle", idle); ph.hidden = !idle;
     }
@@ -33297,8 +33305,10 @@ odtad CZTERNASCIE (4-17).**
       if (e.target.closest && !e.target.closest(".cc-tile") && (e.target.closest(".cat-changed") || e.target.closest(".catfind") || e.target.closest(".mschg") || e.target.closest(".s5ch-res"))) { next = true; setTimeout(sync, 60); setTimeout(function () { next = false; sync(); }, 900); }
     }, true);
     if (window.MutationObserver) new MutationObserver(function () { setTimeout(sync, 0); }).observe(list, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-selected"] });
-    /* a link to one entry (#tab=graph&item=…, or a hash another script reads) is the reader's choice */
-    if (/[#&](item|perm|role|open)=/.test(location.hash)) next = true;
+    /* a link to one entry (#graph:perm=…, #roles:role=…, #tab=graph&item=…) is the reader's choice:
+       for the first seconds the pane follows whatever the anchor handler selects */
+    if (/(item|perm|role)=/.test(location.hash)) free = Date.now() + 7000;
+    window.addEventListener("hashchange", function () { if (/(item|perm|role)=/.test(location.hash)) { free = Date.now() + 3000; setTimeout(sync, 300); setTimeout(sync, 1200); } });
     sync();
   }
   function catalogs() {
