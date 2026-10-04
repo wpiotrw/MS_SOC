@@ -26090,6 +26090,36 @@ Overview, pelna szerokosc, otwarta, dwie kolumny od ~900 px (CSS `columns`, kole
 dol); karta bierze sekcje §5bk z jej przyciskami, gdy §5bk ja zbuduje (do 8 s), naglowek to naglowek
 §5bk.
 
+**§5cn (4 X 2026, przeglad wlasciciela z telefonu z 2 X, dziesiec zgloszen + zdania dnia).**
+(1, 5) **Wersje komponentow.** „New component version … released 17 Sep" na stronie z 2 X czytalo sie jak
+blad: brief zobaczyl wersje tego dnia (`lastChange.seen`), a Microsoft datuje wydanie wczesniej. Oba
+fakty sa teraz nazwane: „detected today" i „Microsoft's release date 17 Sep · 15 days before this brief
+saw it" (zdania, Overview, Today). W zakladce Component versions para czerwone → zielone to znak
+ZMIANY, wiec zostaje tylko na komponencie, ktory ruszyl sie w tym briefie (z etykieta „detected
+today"); pozostale mowia szarym tekstem „last change a → b · detected <data>", a na gorze sekcji stoi
+zdanie „N of 13 components moved in this brief …". `.vchg` z `<ins>` zostaje w HTML (bramka 83c).
+(2) **First-party apps, telefon:** dwie tabele otwartej aplikacji to karty — przyklejona pierwsza
+kolumna lezala na nazwach zakresow. (3) **Roles/Graph, Version history, telefon:** wersja i data
+w jednej linii, opis pod nimi na cala szerokosc. (4) **Owner tenant:** 984 z 1 737 aplikacji pochodzi
+tylko z ROADtools i Graph Pre-Consent Explorer, ktore nie publikuja tenanta wlasciciela; obie listy sa
+listami aplikacji first-party Microsoftu, wiec wiersz mowi „Microsoft first-party · tenant ID not
+published by …" w zaokraglonej ramce, a gdy lista podaje GUID — nazwe tenanta i GUID.
+(6, 7, 8) **Katalogi Graph API i Roles nie otwieraja niczego same.** Powloka zaznacza pierwszy wiersz
+listy i rysuje jego panel; na telefonie caly panel („Apps that hold it 0", „What this permission can
+call", „Versions in permissions.json") wygladal jak filtr, ktorego nikt nie ustawil. Dopoki czytelnik
+nie wybierze wpisu (klik w liste, wiersz „What Microsoft changed", wyszukiwarka, link z innej zakladki),
+panel jest schowany i stoi zdanie „No permission is open …"; po zmianie filtra, ktora podmienia
+zaznaczony wiersz na inny, panel znow sie chowa. „Apps that hold it" liczy poprawnie (User.Read.All:
+113) — zero dotyczylo dwoch domyslnie pokazanych uprawnien. (9) **„What Microsoft changed":** lista
+endpointow wiersza to ramka z etykieta („Now also calls") i jednym endpointem w linii (metoda jako
+znaczek, sciezka monospace). (10) **Kafle naglowka** otwieraja widok swojej zakladki z zielonym chipem
+filtra: due today / within 7 / within 30 days → Deadlines, „new since the brief" → New; „Microsoft
+changes" otwiera blok na 14 dniach z zielona linia „From the header …" (ile w Graph API, ile w Roles).
+(11) **Zdania dnia:** zdanie 3 to „Graph API & roles" (liczba + najciezsza zmiana tygodnia), a technologia
+Graph API nie dostaje juz drugiego zdania; technologie — jedno zdanie na technologie, nigdy dwa, do
+dziesieciu, security najpierw (Defender, Entra ID, Entra Connect, Sentinel, Intune, Purview, Copilot,
+Exchange & Outlook, Teams, Windows, Azure, …); naglowek liczy do „fifteen".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -26234,6 +26264,58 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px;border-radius:4px;font-weight:600}
 .s5cl-ar{color:var(--muted);font-size:12px}
 .s5cl-v{white-space:nowrap}
+/* §5cn (4 X 2026): the owner's phone review of 2 X */
+.s5cn-ph{margin:10px 0;padding:14px 16px;border:1px dashed var(--border);border-radius:10px;background:var(--surface-2);color:var(--muted);font-size:13.5px;line-height:1.5}
+.s5cn-ph b{color:var(--text)}
+.cat-split.s5cn-idle .cat-detail{display:none}
+.cat-split.s5cn-idle .cat-item[aria-selected="true"]{background:transparent;box-shadow:none;border-color:var(--border)}
+#tab-components .vchg.s5cn-old del,#tab-components .vchg.s5cn-old ins,.vchg.s5cn-old del,.vchg.s5cn-old ins,a.jtile .vchg.s5cn-old del,a.jtile .vchg.s5cn-old ins{background:transparent!important;color:var(--muted)!important;text-decoration:none!important;font-weight:400!important}
+.s5cn-lc{font-family:var(--sans);font-size:11px;color:var(--faint)}
+.s5cn-tag{font-family:var(--sans);font-size:11px;font-weight:600;padding:1px 7px;border-radius:9px;background:var(--info-soft);color:var(--info)}
+.s5cn-cmpsum{margin:0 0 14px;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--grey);border-radius:8px;background:var(--surface);font-size:13.5px;line-height:1.55;color:var(--muted)}
+.s5cn-cmpsum.s5cn-has{border-left-color:var(--accent)}
+.s5cn-cmpsum b{color:var(--text)}
+.s5cn-cl{border:0;background:none;padding:0;font:inherit;font-family:var(--mono);font-size:12.5px;color:var(--accent);text-decoration:underline;cursor:pointer}
+.mschg p.mc-text.s5cn-txt,.mschg p.mc-text.s5cn-eps{margin:6px 0 2px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:13px;line-height:1.5;color:var(--text)}
+.mschg p.mc-text.s5cn-eps{display:flex;flex-direction:column;gap:4px}
+.s5cn-epl{font-family:var(--cond);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.s5cn-ep{display:flex;align-items:baseline;gap:8px;min-width:0}
+.s5cn-vb{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--info-soft);color:var(--info)}
+.s5cn-vb.s5cn-delete{background:var(--bad-soft);color:var(--bad)}
+.s5cn-vb.s5cn-post,.s5cn-vb.s5cn-put,.s5cn-vb.s5cn-patch{background:var(--warn-soft);color:var(--warn)}
+.s5cn-path{font-size:12px;overflow-wrap:anywhere;min-width:0}
+.s5cn-epm{font-size:12px;color:var(--muted)}
+.s5cn-from{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0;padding:6px 6px 6px 12px;border-radius:14px;background:var(--ok-soft);color:var(--ok);font-size:12.5px;font-weight:600}
+.s5cn-fl,.s5cn-fx{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.s5cn-fl{text-decoration:underline}
+.s5cn-fx{font-size:16px;margin-left:auto;padding:0 8px}
+.s5cn-own{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.s5cn-ten{display:inline-block;padding:2px 12px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:600}
+.s5cn-tid{font-size:12px;color:var(--muted)}
+.s5cn-tnote{font-size:12px;color:var(--muted)}
+/* First-party apps, the tables of an opened app: the last column was pinned (sticky) and 1 170 px wide,
+   so it lay over the API names on every screen; cells wrap instead and nothing is pinned */
+#tab-fpa table.fpa-ptab{width:100%}
+#tab-fpa table.fpa-ptab th,#tab-fpa table.fpa-ptab td{position:static!important;white-space:normal!important;overflow-wrap:anywhere}
+#tab-fpa table.fpa-ptab td.num{white-space:nowrap!important}
+@media (max-width:760px){
+  /* the opened app sits in a row of a table that scrolls sideways: keep it the width of the screen, in view */
+  #tab-fpa .fpa-det{max-width:calc(100vw - 44px)!important;width:calc(100vw - 44px);position:sticky;left:10px}
+  #tab-fpa .fpa-det > *{max-width:100%;min-width:0}
+  #tab-fpa .fpa-det .fpa-h,#tab-fpa .fpa-meta dd,#tab-fpa .fpa-meta dt{white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+  #tab-fpa .fpa-meta{grid-template-columns:auto minmax(0,1fr)!important}
+  /* Roles and Graph API, Version history: version and date on one line, the note under them at full width */
+  .cat-hist li{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:2px 10px}
+  .cat-hist li .hn{grid-column:1 / -1}
+  /* First-party apps, the two tables of an opened app: a row is a card — the sticky first column lay over the scope names */
+  #tab-fpa .fpa-tw{overflow-x:visible}
+  #tab-fpa table.fpa-ptab,#tab-fpa table.fpa-ptab tbody{display:block;width:100%}
+  #tab-fpa table.fpa-ptab thead{display:none}
+  #tab-fpa table.fpa-ptab tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:8px 10px;border-top:1px solid var(--border-soft)}
+  #tab-fpa table.fpa-ptab td{display:block;position:static!important;left:auto!important;padding:0!important;border:0!important;background:transparent!important;white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+  #tab-fpa table.fpa-ptab td:nth-child(n+3){grid-column:1 / -1;font-size:12px;color:var(--muted)}
+  #tab-fpa table.fpa-ptab tr.fpa-grp td{grid-column:1 / -1}
+}
 .s5ci-ten .s5cl-cn{font-size:13.5px}
 /* §5cm: the sentences card on top of Overview, and the component versions table */
 .s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
@@ -27728,15 +27810,19 @@ odtad CZTERNASCIE (4-17).**
 
     var K = [
       { n: nToday, t: "due today", s: next14, sl: "Deadlines on each of the next 14 days", tone: nToday ? "bad" : "",
-        go: function () { var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="0"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
+        go: function () { if (window.__s5ciKpi && window.__s5ciKpi("today")) return; var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="0"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
       { n: n7, t: "due within 7 days", s: next14.slice(0, 8), sl: "Deadlines on each of the next 8 days", tone: "bad",
-        go: function () { var r = document.querySelector("#starthere .shrow"); tab("tab-overview"); if (r) r.click(); } },
+        go: function () { if (window.__s5ciKpi && window.__s5ciKpi("d7")) return; var r = document.querySelector("#starthere .shrow"); tab("tab-overview"); if (r) r.click(); } },
       { n: n30, t: "due within 30 days", s: next14, sl: "Deadlines on each of the next 14 days", tone: "warn",
-        go: function () { var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="30"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
+        go: function () { if (window.__s5ciKpi && window.__s5ciKpi("d30")) return; var p = tab("tab-deadlines"); var b = p && p.querySelector('.seg.tseg .segbtn[data-d="30"]'); if (b) { b.click(); b.scrollIntoView({ block: "center" }); } } },
       { n: nNew, t: since ? "new since the " + since.slice(8) + "." + since.slice(5, 7) + " brief" : "new since the last brief", s: newDays, sl: "Items first tracked on each of the last 14 days", tone: "acc",
-        go: function () { var a = document.querySelector("header .counts a.count.chg"); if (a) a.click(); else tab("tab-new"); } },
+        go: function () { if (window.__s5ciKpi && window.__s5ciKpi("new")) return; var a = document.querySelector("header .counts a.count.chg"); if (a) a.click(); else tab("tab-new"); } },
       { n: nMs, t: "Microsoft changes in Graph and roles · 14 days", s: msDays, sl: "Microsoft changes in Graph and roles on each of the last 14 days", tone: "acc",
-        go: function () { var p = tab("tab-graph"); var m = p && p.querySelector("details.mschg"); if (m) { m.open = true; m.scrollIntoView({ block: "start" }); } } }
+        go: function () { var p = tab("tab-graph"); var m = p && p.querySelector("details.mschg"); if (m) { m.open = true;
+          /* §5cn: the tile counts 14 days, so the block opens on 14 days and says where the number came from */
+          var b14 = [].filter.call(m.querySelectorAll(".mc-seg button"), function (x) { return /^14 days/.test(x.textContent); })[0]; if (b14) b14.click();
+          if (window.__s5cnFrom) window.__s5cnFrom(m, nMs);
+          m.scrollIntoView({ block: "start" }); } } }
     ];
     var box = el("div", "kpi5"); box.setAttribute("role", "group"); box.setAttribute("aria-label", "Key figures");
     K.forEach(function (k) {
@@ -28319,10 +28405,15 @@ odtad CZTERNASCIE (4-17).**
     if (ms14.length) {
       var b3 = el("button", "s5bk-it"); b3.type = "button";
       b3.appendChild(el("span", "s5bk-itt", nMs + " change" + (nMs === 1 ? "" : "s") + " in Graph API and roles in 14 days"));
-      b3.appendChild(el("span", "s5bk-itm", "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
+      /* §5cn (4 X 2026, owner: "the Microsoft sentence and the Graph API sentence say the same thing;
+         each sentence was to carry one technology"). Graph API and roles are ONE sentence: the count,
+         and under it the heaviest permission change of the week when there is one, else the latest. */
+      var gd0 = window.__socGD ? window.__socGD.recent(7)[0] : null;
+      b3.appendChild(el("span", "s5bk-itm", gd0 ? "heaviest this week: " + gd0.text + (gd0.meta ? " · " + gd0.meta : "")
+        : "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
       b3.addEventListener("click", function () { goMs(ms14[0].tab); });
-      sentence("Microsoft:", b3);
-    } else sentence("Microsoft:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
+      sentence("Graph API & roles:", b3);
+    } else sentence("Graph API & roles:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
     /* §5cl (30 IX 2026, owner: "add the new component versions to the sentences — marked like on
        GitHub — and a sentence on a technology or the news of the day; twelve instead of ten").
        Sentence 4: every component whose version Microsoft moved since the previous brief (basis
@@ -28343,11 +28434,12 @@ odtad CZTERNASCIE (4-17).**
         var nb = el("button", "s5cl-cn", c.name); nb.type = "button"; nb.title = "Open " + c.name + " in Component versions";
         nb.addEventListener("click", function () { openComp(c.id); }); row.appendChild(nb);
         var vv = el("span", "s5cl-v"); vv.appendChild(el("del", "s5cl-old", l.from)); vv.appendChild(el("span", "s5cl-ar", " \u2192 ")); vv.appendChild(el("ins", "s5cl-new", l.to)); row.appendChild(vv);
-        if (l.released) row.appendChild(el("span", "s5bk-itm", "released " + fmt(l.released)));
+        if (l.released) { var gapd = days(l.released, l.seen);
+          row.appendChild(el("span", "s5bk-itm", "Microsoft's release date " + fmt(l.released) + (gapd > 1 ? " · " + gapd + " days before this brief saw it" : ""))); }
         cwrap.appendChild(row);
       });
       else cwrap.appendChild(el("span", null, "no component moved since the " + (since ? fmt(since) + " " : "last ") + "brief; all " + st.components.length + " checked."));
-      sentence(cmv.length ? "New component version" + (cmv.length === 1 ? ":" : "s (" + cmv.length + "):") : "Component versions:", cwrap);
+      sentence(cmv.length ? "Component version" + (cmv.length === 1 ? "" : "s (" + cmv.length + ")") + " first detected" + (since ? " since the " + fmt(since) + " brief:" : " today:") : "Component versions:", cwrap);
     }
     var ntop = ((st.nt || {}).top || []).filter(function (x) { return x && x.title && x.link && x.date && days(x.date, today) <= 1; })
       .sort(function (a, b) { return (+a.weight || 9) - (+b.weight || 9) || (a.date < b.date ? 1 : a.date > b.date ? -1 : 0); });
@@ -28413,7 +28505,8 @@ odtad CZTERNASCIE (4-17).**
       var x = { id: k, tech: "Graph API", text: g.text, sub: g.sub, meta: g.meta };
       if (gi === 0) pool.unshift(x); else pool.push(x);   /* the heaviest one speaks for Graph API */
     });
-    pool = pool.filter(function (x) { return x.tech && BYID[x.id]; });
+    /* §5cn: Graph API already has its sentence above (number 3) */
+    pool = pool.filter(function (x) { return x.tech && BYID[x.id] && x.tech !== "Graph API"; });
     function go(id) {
       var r = BYID[id]; if (!r) return;
       if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
@@ -28438,13 +28531,19 @@ odtad CZTERNASCIE (4-17).**
     });
     var fromRun = more.length > 0;
     if (!fromRun) {
-      var seenT = {};
-      pool.forEach(function (x) { if (more.length < 7 && !used[x.id] && !seenT[x.tech]) { seenT[x.tech] = 1; more.push(x); } });
-      pool.forEach(function (x) { if (more.length < 7 && !used[x.id] && more.indexOf(x) < 0) more.push(x); });
+      /* §5cn: one sentence per technology, never two for the same one, up to ten; security first
+         (the order of ORDER), then the rest by the weight the pool already carries */
+      var seenT = {}, ORDER = ["Defender", "Entra ID", "Entra Connect", "Sentinel", "Intune", "Purview", "Copilot",
+        "Exchange & Outlook", "Teams", "Windows", "Azure", "SharePoint & OneDrive", "Edge", "Microsoft 365", "Power Platform", "Dynamics 365"];
+      ORDER.forEach(function (t) {
+        var x = pool.filter(function (y) { return y.tech === t && !used[y.id]; })[0];
+        if (x && more.length < 10) { seenT[t] = 1; more.push(x); }
+      });
+      pool.forEach(function (x) { if (more.length < 10 && !used[x.id] && !seenT[x.tech]) { seenT[x.tech] = 1; more.push(x); } });
     }
-    more = more.slice(0, 7);
+    more = more.slice(0, 10);
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
-    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"][ol.children.length] || String(ol.children.length);
+    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     sum.appendChild(ol); top.appendChild(sum);
 
@@ -28800,7 +28899,17 @@ odtad CZTERNASCIE (4-17).**
       var d = el("div", "fpa-det");
       var dl = el("dl", "fpa-meta");
       function kv(k, v) { if (!v) return; dl.appendChild(el("dt", null, k)); dl.appendChild(el("dd", null, v)); }
-      kv("Owner tenant", a.o ? ((TEN[a.o] || "") + " " + a.o).trim() : "not stated");
+      /* §5cn (4 X 2026, owner: "Owner tenant: not stated — we should know it, it is surely Microsoft's;
+         and it belongs in a rounded frame"). 984 of 1 737 apps come only from ROADtools and Graph
+         Pre-Consent Explorer, whose lists carry no owner tenant. Both list Microsoft first-party apps
+         only, so that is what the row says; the tenant GUID is printed when a list publishes it. */
+      (function () {
+        dl.appendChild(el("dt", null, "Owner tenant")); var dd = el("dd", "s5cn-own");
+        if (a.o) { dd.appendChild(el("span", "s5cn-ten", TEN[a.o] || "Microsoft tenant")); dd.appendChild(el("span", "mono s5cn-tid", a.o)); }
+        else { dd.appendChild(el("span", "s5cn-ten", "Microsoft first-party"));
+          dd.appendChild(el("span", "s5cn-tnote", "tenant ID not published by " + ((a.src || []).map(function (x) { return FPSRC[x] || x; }).join(" or ") || "the source lists"))); }
+        dl.appendChild(dd);
+      })();
       kv("Sign-in", [a.pub ? "public client" : a.sc ? "confidential client" : "", a.ac ? "authorization code" : "", a.dc ? "device code" : "", a.foci ? "FOCI family (shares refresh tokens)" : ""].filter(Boolean).join(" · "));
       kv("Listed in", (a.src || []).map(function (x) { return FPSRC[x] || x; }).join(", "));
       if (a.nru) kv("Redirect URIs", a.nru + (a.ru && a.ru.length ? " · brokers: " + a.ru.join(", ") : ""));
@@ -32403,14 +32512,21 @@ odtad CZTERNASCIE (4-17).**
       ORIG_SIV.call(a, { block: "start" }); if (last) return; a.classList.add("s5ci-flash"); setTimeout(function () { a.classList.remove("s5ci-flash"); }, 1800); }
     setTimeout(function () { go(false); }, 150); setTimeout(function () { go(true); }, 700);
   }
+  function relText(l) {
+    var gap = l.released && l.seen ? dnum(l.seen) - dnum(l.released) : 0;
+    return "Microsoft's release date " + dmy(l.released) + (gap > 1 ? " \u00b7 " + gap + " days before this brief saw it" : "");
+  }
   function compRow(c, showDay) {
     var l = c.lastChange, r = el("div", "s5ck-row");
     var b = el("button", "s5ci-itb", c.name); b.type = "button"; b.title = "Open " + c.name + " in Component versions";
     b.addEventListener("click", function () { openComp(c.id); }); r.appendChild(b);
     var v = el("span", "s5ck-v"); v.appendChild(el("del", null, l.from)); v.appendChild(document.createTextNode(" \u2192 ")); v.appendChild(el("ins", null, l.to)); r.appendChild(v);
     var m = el("span", "s5ci-meta");
-    if (showDay) m.appendChild(l.seen === DAY ? pill("today", "info") : el("span", null, "seen " + dmy(l.seen)));
-    if (l.released) m.appendChild(el("span", null, "released " + dmy(l.released)));
+    /* §5cn: "released 17 Sep" under "new today" read as a contradiction (owner, 2 X). The day this
+       brief first saw the version and the day Microsoft dates the release are two facts, both said. */
+    if (showDay) m.appendChild(l.seen === DAY ? pill("detected today", "info") : el("span", null, "detected " + dmy(l.seen)));
+    else m.appendChild(pill("detected " + (l.seen === DAY ? "today" : dmy(l.seen)), "info"));
+    if (l.released) m.appendChild(el("span", null, relText(l)));
     if (c.deadline) m.appendChild(pill("act by " + dmy(c.deadline), "warn"));
     r.appendChild(m); return r;
   }
@@ -32784,7 +32900,7 @@ odtad CZTERNASCIE (4-17).**
       covers: function (sec) { return !!sec.querySelector("tbody tr[data-id]"); },
       top: function () { ORIG_SIV.call(root, { block: "start" }); },
       setIds: function (label, list) {
-        if (list && !list.some(function (id) { return I[id] && all.indexOf(I[id]) >= 0; })) { full(p, true); return; }
+        if (list && list.length && !list.some(function (id) { return I[id] && all.indexOf(I[id]) >= 0; })) { full(p, true); return; }
         setIdsOn(S, label, list); if (list) { S.w = "all"; S.pr = ""; } S.shown = 60; render(); }
     };
     setNav(p.id, all.length);
@@ -32811,7 +32927,7 @@ odtad CZTERNASCIE (4-17).**
     var cm = compMoves(PREV);
     if (cm.length) {
       var cb = el("div", "s5ck-today"); cb.setAttribute("role", "note");
-      var ch = el("p", "s5ck-h"); ch.appendChild(el("b", null, cm.length + " new component version" + (cm.length === 1 ? "" : "s") + " since the " + dmy(PREV) + " brief "));
+      var ch = el("p", "s5ck-h"); ch.appendChild(el("b", null, cm.length + " component version" + (cm.length === 1 ? "" : "s") + " first detected since the " + dmy(PREV) + " brief "));
       var ca = el("button", "s5ci-inl", "Component versions \u203a"); ca.type = "button"; ca.addEventListener("click", function () { goTab("components"); }); ch.appendChild(ca);
       cb.appendChild(ch); cm.forEach(function (c) { cb.appendChild(compRow(c, false)); }); root.appendChild(cb);
     }
@@ -32929,12 +33045,12 @@ odtad CZTERNASCIE (4-17).**
     function areaOf(c) { for (var a = 0; a < AREA.length; a++) if (AREA[a][0].test(c.id)) return AREA[a][1]; return c.scope || ""; }
     function platOf(c) { var p0 = ((c.versions || [])[0] || {}).platform || ""; return PLAT[p0] || (p0 === "apple" ? c.name : p0); }
     var cc = el("section", "s5ci-card s5ci-c-acc s5cm-card"), cch = el("div", "s5ci-ch");
-    cch.appendChild(el("h3", null, "New component versions \u00b7 last 7 days")); cch.appendChild(el("span", "s5ci-cn", String(cm7.length))); cc.appendChild(cch);
+    cch.appendChild(el("h3", null, "Component versions detected \u00b7 last 7 days")); cch.appendChild(el("span", "s5ci-cn", String(cm7.length))); cc.appendChild(cch);
     if (!cm7.length) cc.appendChild(el("p", "s5ci-note", "No component moved in the last 7 days \u2014 all " + (ST.components || []).length + " checked " + dmy((ST.componentStats || {}).checkedOn || DAY) + "."));
     else {
-      var ct = el("div", "s5ci-t s5cm-t"); ct.setAttribute("role", "table"); ct.setAttribute("aria-label", "New component versions, last 7 days");
+      var ct = el("div", "s5ci-t s5cm-t"); ct.setAttribute("role", "table"); ct.setAttribute("aria-label", "Component versions detected, last 7 days");
       var cth = el("div", "s5ci-tr s5ci-th"); cth.setAttribute("role", "row");
-      ["Area \u00b7 platform", "Component", "Version", "When"].forEach(function (h) { var x = el("div", null, h); x.setAttribute("role", "columnheader"); cth.appendChild(x); }); ct.appendChild(cth);
+      ["Area \u00b7 platform", "Component", "Version", "Detected \u00b7 released"].forEach(function (h) { var x = el("div", null, h); x.setAttribute("role", "columnheader"); cth.appendChild(x); }); ct.appendChild(cth);
       cm7.forEach(function (c) {
         var l = c.lastChange, r = el("div", "s5ci-tr" + (l.seen === DAY ? " s5cm-today" : "")); r.setAttribute("role", "row");
         var c1 = el("div", "s5cm-area"); c1.setAttribute("role", "cell"); c1.appendChild(el("span", "s5cm-a", areaOf(c))); c1.appendChild(el("span", "s5cm-p", platOf(c))); r.appendChild(c1);
@@ -32943,8 +33059,8 @@ odtad CZTERNASCIE (4-17).**
         var c3 = el("div", "s5cm-ver"); c3.setAttribute("role", "cell");
         c3.appendChild(el("del", "s5cl-old", l.from)); c3.appendChild(el("span", "s5cl-ar", " \u2192 ")); c3.appendChild(el("ins", "s5cl-new", l.to)); r.appendChild(c3);
         var c4 = el("div", "s5cm-when"); c4.setAttribute("role", "cell");
-        c4.appendChild(l.seen === DAY ? pill("new today", "info") : el("span", null, "seen " + dmy(l.seen)));
-        if (l.released) c4.appendChild(el("span", "s5cm-rel", "released " + dmy(l.released)));
+        c4.appendChild(l.seen === DAY ? pill("detected today", "info") : el("span", null, "detected " + dmy(l.seen)));
+        if (l.released) c4.appendChild(el("span", "s5cm-rel", relText(l)));
         if (c.deadline) c4.appendChild(pill("act by " + dmy(c.deadline), "warn"));
         r.appendChild(c4);
         r.addEventListener("click", function () { openComp(c.id); });
@@ -33042,6 +33158,33 @@ odtad CZTERNASCIE (4-17).**
     goTab(m[1]); setTimeout(function () { v.open(decodeURIComponent(m[2])); }, 80);
   }
 
+  /* §5cn (4 X 2026, owner: "I click the tile '7 new since the 01.10 brief' and no filter shows on the
+     green bar — why do this tile and the others not do it?"). The tiles of §5bh pressed controls of the
+     sections §5ci has since folded away. Each tile now opens its tab's view with the same list the
+     number counted, said in the green chip (x clears it). */
+  window.__s5ciKpi = function (k) {
+    try {
+      if (!ST) return false;
+      var D = deadlines();
+      function ids(f) { return D.list.filter(function (o) { return o.d != null && f(o.d); }).map(function (o) { return o.it.id; }); }
+      var v;
+      if (k === "today" || k === "d7" || k === "d30") {
+        v = VIEWS["tab-deadlines"]; if (!v || !v.setIds) return false;
+        goTab("deadlines");
+        v.setIds(k === "today" ? "Due today" : k === "d7" ? "Due within 7 days" : "Due within 30 days",
+          ids(k === "today" ? function (d) { return d === 0; } : k === "d7" ? function (d) { return d >= 0 && d <= 7; } : function (d) { return d >= 0 && d < 30; }));
+        return true;
+      }
+      if (k === "new") {
+        var nt = (ST.newToday || []).filter(function (id) { return I[id]; });
+        var inNew = nt.filter(function (id) { return document.querySelector('#tab-new tbody tr[data-id="' + id + '"]'); });
+        v = VIEWS["tab-new"]; if (!v || !v.setIds) return false;
+        goTab("new"); v.setIds("New since the " + dmy(PREV) + " brief", inNew);
+        return true;
+      }
+    } catch (e) { if (window.console) console.error("[5cn kpi]", e); }
+    return false;
+  };
   function hookS11() {
     var s11 = window.__socS11; if (!s11 || s11.__s5ci) return;
     var oSet = s11.setTab, oClear = s11.clearTab;
@@ -33110,6 +33253,128 @@ odtad CZTERNASCIE (4-17).**
     }).catch(function () {});
   }
   function start() { setTimeout(run, 2500); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* ---------------------------------------------------------------------------
+   §5cn (4 X 2026) — the owner's phone review of 2 X, ten findings. This layer:
+   (a) a catalog (Graph API, Roles) shows no entry until the reader opens one — the shell selects the
+       first row of the list on its own, and on a phone its whole detail pane ("Apps that hold it 0",
+       "What this permission can call", "Versions …") read as a filter nobody had set;
+   (b) Component versions: the red-to-green pair is a CHANGE mark, so it stays only on a component
+       this brief saw moving; the others say "last change … detected <date>" in plain text;
+   (c) "What Microsoft changed": the endpoint lists of a row are a framed list, one endpoint a line;
+   (d) the header tile "Microsoft changes" says on the block where its number came from.
+   Nothing the shell or another script owns is rewritten; the gate's `.vchg` with its <ins> stays.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  var MS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MS[+m[2] - 1] : (d || ""); }
+
+  /* ---- (a) catalogs: nothing is open until the reader opens it ---- */
+  function catalog(cat) {
+    if (cat.__s5cn) return; var split = cat.querySelector(".cat-split"), list = cat.querySelector(".cat-list"), det = cat.querySelector(".cat-detail");
+    if (!split || !list || !det) return; cat.__s5cn = true;
+    var what = cat.getAttribute("data-catalog") === "roles" ? "role" : "permission", chosen = null, next = false;
+    var ph = el("div", "s5cn-ph"); ph.setAttribute("role", "note");
+    ph.appendChild(el("b", null, "No " + what + " is open."));
+    ph.appendChild(el("span", null, " Choose one in the list, search by name, or open a row of “What Microsoft changed”. Until then nothing is filtered and this pane stays empty."));
+    det.parentNode.insertBefore(ph, det);
+    function selId() { var b = list.querySelector('.cat-item[aria-selected="true"]'); return b ? (b.getAttribute("data-id") || b.textContent) : null; }
+    function sync() {
+      var id = selId();
+      if (next && id) { chosen = id; next = false; }
+      var idle = !chosen || id !== chosen;
+      split.classList.toggle("s5cn-idle", idle); ph.hidden = !idle;
+    }
+    /* a click on a row of the list (the reader's, or another script opening an entry for the reader) */
+    list.addEventListener("click", function (e) { var b = e.target.closest && e.target.closest(".cat-item"); if (!b) return;
+      chosen = b.getAttribute("data-id") || b.textContent; setTimeout(sync, 0); }, true);
+    /* rows of the what-changed blocks and of the finder open an entry through the shell, not through a click on the list */
+    cat.addEventListener("click", function (e) {
+      if (e.target.closest && !e.target.closest(".cc-tile") && (e.target.closest(".cat-changed") || e.target.closest(".catfind") || e.target.closest(".mschg") || e.target.closest(".s5ch-res"))) { next = true; setTimeout(sync, 60); setTimeout(function () { next = false; sync(); }, 900); }
+    }, true);
+    if (window.MutationObserver) new MutationObserver(function () { setTimeout(sync, 0); }).observe(list, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-selected"] });
+    /* a link to one entry (#tab=graph&item=…, or a hash another script reads) is the reader's choice */
+    if (/[#&](item|perm|role|open)=/.test(location.hash)) next = true;
+    sync();
+  }
+  function catalogs() {
+    [].forEach.call(document.querySelectorAll('.catalog[data-catalog="graph"], .catalog[data-catalog="roles"]'), catalog);
+  }
+  /* entries opened from another tab arrive as a programmatic click on a .cat-item — covered by the
+     list listener above. `__socOpenPerm` / `__socOpenRole` go through the same click. */
+
+  /* ---- (b) Component versions ---- */
+  function components() {
+    var st = json("soc-brief-state"); if (!st || !st.components) return;
+    var day = st.briefDate || "", prev = (st.comparedWith || {}).date || st.comparedWith || "";
+    var moved = [];
+    st.components.forEach(function (c) {
+      var l = c.lastChange || {}, isNew = !!(l.from && l.to && l.seen && l.basis === "observed" && (prev ? l.seen > prev : l.seen === day) && l.seen <= day);
+      if (isNew) moved.push(c);
+      var q = '#cmp-' + c.id + ' .vchg, tr[data-id="cmp-' + c.id + '"] .vchg, a.jtile[href="#cmp-' + c.id + '"] .vchg';
+      [].forEach.call(document.querySelectorAll(q), function (v) {
+        if (v.__s5cn) return; v.__s5cn = true;
+        if (isNew) { v.classList.add("s5cn-new"); v.appendChild(el("span", "s5cn-tag", "detected " + (l.seen === day ? "today" : dmy(l.seen)))); return; }
+        if (!v.querySelector("del")) return;                      /* "first recorded" has no pair to mute */
+        v.classList.add("s5cn-old");
+        v.insertBefore(el("span", "s5cn-lc", "last change"), v.firstChild);
+        if (l.seen) v.appendChild(el("span", "s5cn-lc", "· detected " + dmy(l.seen)));
+      });
+    });
+    var sec = document.querySelector("#tab-components #components .sec-body") || document.querySelector("#tab-components #components");
+    if (sec && !document.querySelector(".s5cn-cmpsum")) {
+      var b = el("div", "s5cn-cmpsum" + (moved.length ? " s5cn-has" : "")); b.setAttribute("role", "note");
+      var n = st.components.length;
+      b.appendChild(el("b", null, moved.length ? moved.length + " of " + n + " components moved in this brief: " : "No component moved in this brief. "));
+      if (moved.length) moved.forEach(function (c, i) {
+        var a = el("button", "s5cn-cl", c.name + " " + c.lastChange.from + " → " + c.lastChange.to); a.type = "button";
+        a.addEventListener("click", function () { var t = document.getElementById("cmp-" + c.id); if (t) t.scrollIntoView({ block: "start" }); });
+        b.appendChild(a); if (i < moved.length - 1) b.appendChild(document.createTextNode(" · "));
+      });
+      b.appendChild(el("span", "s5cn-cn", (moved.length ? " The other " + (n - moved.length) : "All " + n) + " were checked " + dmy((st.componentStats || {}).checkedOn || day) + " and are unchanged; their cards show the last change in grey, with the day it was detected."));
+      sec.insertBefore(b, sec.firstChild);
+    }
+  }
+
+  /* ---- (c) endpoint lists in "What Microsoft changed" ---- */
+  var VERB = /^(GET|POST|PUT|PATCH|DELETE)\s+(\/\S.*)$/;
+  function endpoints(root) {
+    [].forEach.call((root || document).querySelectorAll(".mschg p.mc-text"), function (p) {
+      if (p.__s5cn) return; p.__s5cn = true;
+      var t = (p.textContent || "").trim(), m = /^(Now also calls|No longer calls|Calls)\s+(.*)$/.exec(t);
+      if (!m) { p.classList.add("s5cn-txt"); return; }
+      var parts = m[2].split(/\s+·\s+/), more = false, eps = [];
+      parts.forEach(function (x) { x = x.trim(); if (x === "…" || x === "...") { more = true; return; } var v = VERB.exec(x); if (v) eps.push(v); else if (x) eps.push([x, "", x]); });
+      if (!eps.length) { p.classList.add("s5cn-txt"); return; }
+      p.textContent = ""; p.classList.add("s5cn-eps");
+      p.appendChild(el("span", "s5cn-epl", m[1]));
+      eps.forEach(function (v) { var r = el("span", "s5cn-ep"); if (v[1]) r.appendChild(el("span", "s5cn-vb s5cn-" + v[1].toLowerCase(), v[1])); r.appendChild(el("span", "mono s5cn-path", v[2])); p.appendChild(r); });
+      if (more) p.appendChild(el("span", "s5cn-epm", "… more in the detail (+)"));
+    });
+  }
+  /* ---- (d) where the header tile's number came from ---- */
+  window.__s5cnFrom = function (m, n) {
+    var old = m.querySelector(".s5cn-from"); if (old) old.remove();
+    var rb = document.querySelector('details.mschg[data-mschg="roles"]'), nr = rb ? +rb.getAttribute("data-n14") || 0 : 0, ng = +m.getAttribute("data-n14") || 0;
+    var c = el("div", "s5cn-from"); c.setAttribute("role", "status");
+    c.appendChild(el("span", null, "From the header: Microsoft changes · 14 days · " + ng + " in Graph API" + (nr ? ", " + nr + " in Roles " : " ")));
+    if (nr) { var a = el("button", "s5cn-fl", "open Roles ›"); a.type = "button"; a.addEventListener("click", function () { var t = document.getElementById("tabbtn-tab-roles"); if (t) t.click();
+      setTimeout(function () { if (rb) { rb.open = true; var b = [].filter.call(rb.querySelectorAll(".mc-seg button"), function (x) { return /^14 days/.test(x.textContent); })[0]; if (b) b.click(); rb.scrollIntoView({ block: "start" }); } }, 120); }); c.appendChild(a); }
+    var x = el("button", "s5cn-fx", "×"); x.type = "button"; x.setAttribute("aria-label", "Dismiss"); x.addEventListener("click", function () { c.remove(); }); c.appendChild(x);
+    var seg = m.querySelector(".mc-seg"); if (seg) seg.parentNode.insertBefore(c, seg); else m.appendChild(c);
+  };
+
+  function run() { try { catalogs(); } catch (e) { if (window.console) console.error("[5cn cat]", e); }
+    try { components(); } catch (e2) { if (window.console) console.error("[5cn cmp]", e2); }
+    try { endpoints(); } catch (e3) { if (window.console) console.error("[5cn ep]", e3); } }
+  function start() {
+    [600, 1500, 3000, 5000, 8000].forEach(function (t) { setTimeout(run, t); });
+    document.addEventListener("click", function () { setTimeout(run, 250); setTimeout(run, 900); }, true);
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
 ```
