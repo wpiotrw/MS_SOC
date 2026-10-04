@@ -1,7 +1,7 @@
 {
  "read": "2026-10-04",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 697,
+ "count": 694,
  "note": null,
  "messages": [
   {
@@ -6527,26 +6527,6 @@
    "bodyHash": "b4121a8e750f2775"
   },
   {
-   "id": "MC1423106",
-   "title": "Introducing cross-tenant message recall in Exchange Online",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-04",
-   "modified": "2026-07-10",
-   "tags": [
-    "Admin impact",
-    "New feature"
-   ],
-   "summary": "[What and Why:] We're introducing Cross-tenant Message Recall in Exchange Online , enabling organizations to allow trusted external Microsoft 365 tenants to recall messages sent to their users. Previously, Message Recall only worked within the same tenant. This enhancement improves organizational collaboration and control, allowing administrators to extend recall capabilities across partner or aff…",
-   "bodyHash": "16240c3096f6af33"
-  },
-  {
    "id": "MC1423108",
    "title": "(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
    "services": [
@@ -7923,27 +7903,6 @@
    "bodyHash": "ada2c236c0833a52"
   },
   {
-   "id": "MC1448378",
-   "title": "(Update)Microsoft Purview | Endpoint DLP: Prepare for the macOS Golden Gate (version 27) accessibility permission change",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-05",
-   "end": "2026-10-04",
-   "modified": "2026-08-11",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 11, 2026: We have updated the timeline. Thank you for your patience. [What and why] Apple is introducing a change in macOS Golden Gate (version 27) , currently expected to reach general availability in September 2026. With this change, users can disable Accessibility permissions even when those permissions are deployed and managed through Mobile Device Management (MDM). Microsoft Pu…",
-   "bodyHash": "7f13b86345f0d322"
-  },
-  {
    "id": "MC1448890",
    "title": "Power Automate - Legacy chatbot retirement",
    "services": [
@@ -8747,26 +8706,6 @@
    ],
    "summary": "What and why: You can use Windows Task Manager for deeper visibility into AI workloads running on a device. Specifically, per-process activity for the neural processing unit (NPU) and graphics processing unit (GPU) neural engine now appear on the Processes and Performance tabs, alongside other familiar data. Rollout schedule: These Task Manager enhancements became available on some newer devices i…",
    "bodyHash": "f55396559a64b48c"
-  },
-  {
-   "id": "MC1457838",
-   "title": "Microsoft OneDrive: New policies to control file exclusions",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-19",
-   "end": "2026-10-04",
-   "modified": "2026-08-19",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is introducing two new OneDrive policies for file-level exclusions on Windows and macOS. Today, commercial users can view file exclusions configured by their organization, but they cannot add or remove exclusions. After this rollout, users will be able to manage their own file-level exclusions by default. This self-service capability applies only to user-managed exclusions…",
-   "bodyHash": "413c136f856429d4"
   },
   {
    "id": "MC1457839",
@@ -15599,6 +15538,27 @@
    "id": "MC1466584",
    "type": "removed",
    "title": "Dynamics 365 Contact Center- Use data masking to protect customer data",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-04",
+   "id": "MC1423106",
+   "type": "removed",
+   "title": "Introducing cross-tenant message recall in Exchange Online",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-04",
+   "id": "MC1448378",
+   "type": "removed",
+   "title": "(Update)Microsoft Purview | Endpoint DLP: Prepare for the macOS Golden Gate (version 27) accessibility permission change",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-04",
+   "id": "MC1457838",
+   "type": "removed",
+   "title": "Microsoft OneDrive: New policies to control file exclusions",
    "fields": {}
   }
  ]
