@@ -8565,9 +8565,14 @@ def verify(page):
         # §3 punkt 18: obie daty sa KOLUMNAMI i stoja zaraz po identyfikatorze
         _mh = re.search(r"<thead><tr>(.*?)</tr>", _mm.group(0), re.S)
         _hh = re.findall(r"<th>(.*?)</th>", _mh.group(1)) if _mh else []
-        if _hh[:4] != ["What", "ID", "Published", "Revised"]:
+        # 4 X 2026: przebieg popoludniowy bez ruchu w Message Center nie opublikowal strony zmian —
+        # `table()` przy zerze wierszy pisze zdanie `.empty` i NIE ma naglowka, a ta asercja zadala
+        # naglowka zawsze. Naglowek sprawdzamy, gdy tabela jest; gdy jej nie ma, ma byc stan pusty.
+        if _mh and _hh[:4] != ["What", "ID", "Published", "Revised"]:
             e.append("naglowek tabeli Message Center zaczyna sie %s, ma byc "
                      "What / ID / Published / Revised (§3 punkt 18)" % _hh[:4])
+        if not _mh and 'class="empty"' not in _mm.group(0):
+            e.append("sekcja Message Center nie ma ani tabeli, ani zdania o braku ruchu")
     # KAZDY IDENTYFIKATOR MC, KTORY RUSZYL SIE NA TEJ STRONIE, MA TU WIERSZ.
     # Zmierzone 16 wrzesnia 2026 na opublikowanej stronie zmian: sekcja mowila
     # `+0 / -0` i „No Message Center or Roadmap identifier moved", a podsumowanie
