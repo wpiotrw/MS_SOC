@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Microsoft Purview DLP for Microsoft 365 Copilot and Copilot Chat | Microsoft Learn
+title: Microsoft Purview DLP for Microsoft 365 Copilot and Cowork | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/purview/dlp-microsoft365-copilot-location-learn-about
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-10T00:00:00.0000000Z
+ms.date: 2026-09-30T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: msecd-doc-authoring-1013
 ms.update-cycle: 180-days
@@ -26,7 +26,7 @@ ms.collection:
 - msec-ai-copilot
 search.appverid:
 - MET150
-description: Learn how Microsoft Purview DLP protects Microsoft 365 Copilot and Copilot Chat by blocking sensitive prompts, restricting web search, and excluding labeled content.
+description: Learn how Microsoft Purview DLP protects Microsoft 365 Copilot, Copilot Chat, and Cowork by blocking sensitive prompts, web search, and labeled content.
 locale: en-us
 document_id: 5cbec236-bc0a-5145-ede6-91c929379ea8
 document_version_independent_id: 5cbec236-bc0a-5145-ede6-91c929379ea8
@@ -52,13 +52,13 @@ spProducts:
 platformId: f01964fa-3fed-e996-89bb-a6c29cdc5ab1
 ---
 
-# Microsoft Purview DLP for Microsoft 365 Copilot and Copilot Chat | Microsoft Learn
+# Microsoft Purview DLP for Microsoft 365 Copilot and Cowork | Microsoft Learn
 
-Microsoft Purview Data Loss Prevention (DLP) can help you protect interactions with Microsoft 365 Copilot and Copilot Chat in the following ways:
+Microsoft Purview Data Loss Prevention (DLP) can help you protect interactions with Microsoft 365 Copilot, Copilot Chat, and Cowork in the following ways:
 
-- **Restrict Microsoft 365 Copilot from using external web search when prompts contain sensitive data.** You can use DLP policies to prevent Microsoft 365 Copilot and Copilot Chat from sending sensitive information to external web services. When a prompt contains sensitive information types (SITs)—such as credit card numbers, passport numbers, Social Security numbers, or custom SITs defined by your organization—Copilot automatically blocks the use of external web search as a grounding source for that prompt. Instead, Copilot continues to generate responses using permitted internal Microsoft 365 data sources. This ensures that sensitive data remains protected and isn't shared with external search providers.
-- **Restrict Microsoft 365 Copilot and Copilot Chat from processing sensitive prompts.** You can create a DLP policy to help protect against the use of sensitive information types (SITs), such as credit card numbers, passport numbers, or Social Security numbers in Microsoft 365 Copilot prompts. This includes Microsoft-provided SITs and custom SITs that you create. This real-time control helps organizations reduce data leakage and oversharing risks. It prevents Microsoft 365 Copilot and Copilot Chat from returning a response when prompts contain sensitive data and from using that sensitive data for both internal and external web searches.
-- **Restrict Microsoft 365 Copilot and Copilot Chat from processing sensitive files and emails.** You can create a DLP policy to prevent Microsoft 365 Copilot and Copilot Chat from using files and emails that have sensitivity labels when generating responses.
+- **Restrict Microsoft 365 Copilot, Copilot Chat, and Cowork from using external web search when prompts contain sensitive data.** You can use DLP policies to prevent these Copilot experiences from sending sensitive information to external web services. When a prompt contains sensitive information types (SITs)—such as credit card numbers, passport numbers, Social Security numbers, or custom SITs defined by your organization—these experiences automatically block the use of external web search as a grounding source for that prompt. Instead, they continue to generate responses using permitted internal Microsoft 365 data sources. This prevents prompt text that matches the configured SITs from being sent to external search providers for that request.
+- **Restrict Microsoft 365 Copilot, Copilot Chat, and Cowork from processing sensitive prompts.** You can create a DLP policy to help protect against the use of sensitive information types (SITs), such as credit card numbers, passport numbers, or Social Security numbers in prompts submitted in these Copilot experiences. This includes Microsoft-provided SITs and custom SITs that you create. This real-time control helps organizations reduce data leakage and oversharing risks. It prevents these experiences from returning a response when prompts contain sensitive data and from using that sensitive data for both internal and external web searches.
+- **Restrict Microsoft 365 Copilot, Copilot Chat, and Cowork from processing sensitive files and emails.** You can create a DLP policy to prevent these Copilot experiences from using files and emails that have sensitivity labels when generating responses.
 - **Restrict Microsoft 365 Copilot and Copilot Chat from processing external email (preview).** You can prevent Microsoft 365 Copilot and Copilot Chat from using emails sent from external domains as grounding data for responses. When this control is enabled, Copilot excludes external emails received by users from being referenced or summarized during prompt processing, while continuing to use internal Microsoft 365 data sources where permitted. This protection helps organizations reduce the risk of prompt injection and untrusted data influence. Copilot responses are grounded only in content from trusted internal sources.
 
 Important
@@ -92,7 +92,7 @@ Microsoft recommends that you use roles with the fewest permissions. Minimizing 
 
 ## Block sensitive information types in web search
 
-To prevent Microsoft 365 Copilot and Copilot Chat from sending sensitive data to external web search providers when grounding responses:
+To prevent Microsoft 365 Copilot, Copilot Chat, and Cowork from sending sensitive data to external web search providers when grounding responses:
 
 1. Sign in to the [Microsoft Purview portal](https://purview.microsoft.com).
 2. Go to **Data Loss Prevention** &gt; **Policies** and select **+ Create policy**.
@@ -102,7 +102,7 @@ To prevent Microsoft 365 Copilot and Copilot Chat from sending sensitive data to
 6. In the same rule, set the action to **Prevent Copilot from processing content** &gt; **Performing Web Searches**.
 7. Save and turn on the policy.
 
-When a user prompt contains the configured SITs, Copilot blocks external web search as a grounding source and continues to generate the response using allowed internal Microsoft 365 data sources.
+When a user prompt contains the configured SITs, Copilot and Cowork block external web search as a grounding source and continue to generate the response using allowed internal Microsoft 365 data sources.
 
 ### Block SITs in web search use case example
 
@@ -118,9 +118,9 @@ When a user submits a prompt containing those SITs, Copilot doesn't send the pro
 
 ## Block sensitive information types in prompts
 
-This feature is in preview and is rolling out to all tenants with access to Microsoft 365 Copilot and Copilot Chat. Check whether rollout has reached your tenant. It's available in Microsoft 365 Copilot, Copilot Chat, and Copilot in Word, Excel, PowerPoint.
+This feature is in preview and is rolling out to all tenants with access to Microsoft 365 Copilot and Copilot Chat. Check whether rollout has reached your tenant. It's available in Microsoft 365 Copilot, Copilot Chat, Cowork, and Copilot in Word, Excel, and PowerPoint.
 
-To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitive information types** condition. This policy prevents Copilot from returning a response when prompts contain sensitive data.
+To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitive information types** condition. This policy prevents Copilot and Cowork from returning a response when prompts contain sensitive data. Only out-of-the-box and custom SITs are currently supported.
 
 Tip
 
@@ -136,9 +136,9 @@ When a user attempts to submit a prompt that contains either of these sensitive 
 
 ## Block files and emails with sensitivity labels from being processed
 
-This feature is available in Microsoft 365 Copilot, Copilot Chat, and Copilot in Word, Excel, PowerPoint.
+This feature is available in Microsoft 365 Copilot, Copilot Chat, Cowork, and Copilot in Word, Excel, and PowerPoint.
 
-To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items from being processed. Identified items still appear in the citations of the response, but the content of the item isn't used in the response or accessed by Copilot.
+To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items from being processed. Identified items still appear in the citations of the response, but Copilot and Cowork don't access or use the content of the item in the response.
 
 ### Block items with sensitivity labels example use case
 
@@ -203,9 +203,9 @@ The **Microsoft 365 Copilot and Copilot Chat** policy location supports the foll
 
 | Conditions | Supported policy actions | Description |
 | --- | --- | --- |
-| **Content contains** &gt; **Sensitivity labels** | **Prevent Copilot from processing content** | Detects when a file or an email in Exchange has a chosen sensitivity label. The content of the item isn't processed by Copilot or used in the response summary, but the item could be available in the citations of the response. |
-| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Processing prompts** | Detects when the text entered directly into a Copilot prompt contains chosen sensitive information types. Copilot doesn't respond to the prompt. Prompt isn't used for internal or web searches. |
-| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Performing Web Searches** | Detects when the text entered directly into a Copilot prompt contains chosen sensitive information types. Copilot blocks the use of external web search as a grounding source for that prompt. |
+| **Content contains** &gt; **Sensitivity labels** | **Prevent Copilot from processing content** | Detects when a file or an email in Exchange has a chosen sensitivity label. Copilot and Cowork don't process the content of the item or use it in the response summary, but the item could be available in the citations of the response. |
+| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Processing prompts** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience doesn't respond to the prompt. The prompt isn't used for internal or web searches. |
+| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Performing Web Searches** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience blocks the use of external web search as a grounding source for that prompt. |
 | **Email is received from** &gt; **External users** | **Prevent Copilot from processing content** | Detects when an email was received from a sender outside your organization's accepted domains. The external email is excluded from being used by Copilot for grounding, summarization, or citation. Email body content isn't inspected; only sender metadata is evaluated. |
 
 Note

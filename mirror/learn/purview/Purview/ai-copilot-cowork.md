@@ -11,7 +11,7 @@ manager: laurawi
 ms.reviewer: minz
 ms.service: purview
 ms.update-cycle: 180-days
-ms.date: 2026-06-22T00:00:00.0000000Z
+ms.date: 2026-09-30T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.collection:
@@ -69,7 +69,7 @@ Use the following table to see at a glance the Microsoft Purview capabilities th
 | Data classification | **✕** |
 | Sensitivity labels | **✓** |
 | Encryption without sensitivity labels | **✓** |
-| Data loss prevention | **✕** |
+| [Data loss prevention](dlp-microsoft365-copilot-location-learn-about) | **✓** |
 | Insider Risk Management | **✓** |
 | Communication compliance | **✓** |
 | eDiscovery | **✓** |

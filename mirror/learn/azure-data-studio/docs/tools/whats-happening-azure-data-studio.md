@@ -5,8 +5,6 @@ monikers:
 - azure-sqldw-latest
 - azuresqldb-current
 - azuresqldb-mi-current
-- aps-pdw-2016
-- aps-pdw-2016-au7
 - sql-server-linux-2017
 - sql-server-linux-ver15
 - sql-server-linux-ver16
@@ -19,7 +17,7 @@ defaultMoniker: sql-server-ver17
 versioningType: Ranged
 title: What's Happening with Azure Data Studio - SQL Server | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/sql/tools/whats-happening-azure-data-studio?view=sql-server-ver17
-config_moniker_range: =azuresqldb-current || =azuresqldb-mi-current || =azure-sqldw-latest || >=aps-pdw-2016 || >=sql-server-2017 || >=sql-server-linux-2017 || =fabric || =fabric-sqldb
+config_moniker_range: =azuresqldb-current || =azuresqldb-mi-current || =azure-sqldw-latest || >=sql-server-2017 || >=sql-server-linux-2017 || =fabric || =fabric-sqldb
 uhfHeaderId: MSDocsHeader-DocsSQL
 toc_preview: true
 feedback_system: Standard
@@ -52,14 +50,12 @@ page_type: conceptual
 toc_rel: ../toc.json
 pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/SQL.sql-content/{branchName}{pdfName}
 asset_id: tools/whats-happening-azure-data-studio
-moniker_range_name: bd2b65f370697851c2e4ddc67964ee6b
+moniker_range_name: a113cbee0bc4eaf354988097828ae950
 monikers:
 - fabric
 - azure-sqldw-latest
 - azuresqldb-current
 - azuresqldb-mi-current
-- aps-pdw-2016
-- aps-pdw-2016-au7
 - sql-server-linux-2017
 - sql-server-linux-ver15
 - sql-server-linux-ver16
