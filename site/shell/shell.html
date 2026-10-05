@@ -2120,6 +2120,58 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px;border-radius:4px;font-weight:600}
 .s5cl-ar{color:var(--muted);font-size:12px}
 .s5cl-v{white-space:nowrap}
+/* §5cn (4 X 2026): the owner's phone review of 2 X */
+.s5cn-ph{margin:10px 0;padding:14px 16px;border:1px dashed var(--border);border-radius:10px;background:var(--surface-2);color:var(--muted);font-size:13.5px;line-height:1.5}
+.s5cn-ph b{color:var(--text)}
+.cat-split.s5cn-idle .cat-detail{display:none}
+.cat-split.s5cn-idle .cat-item[aria-selected="true"]{background:transparent;box-shadow:none;border-color:var(--border)}
+#tab-components .vchg.s5cn-old del,#tab-components .vchg.s5cn-old ins,.vchg.s5cn-old del,.vchg.s5cn-old ins,a.jtile .vchg.s5cn-old del,a.jtile .vchg.s5cn-old ins{background:transparent!important;color:var(--muted)!important;text-decoration:none!important;font-weight:400!important}
+.s5cn-lc{font-family:var(--sans);font-size:11px;color:var(--faint)}
+.s5cn-tag{font-family:var(--sans);font-size:11px;font-weight:600;padding:1px 7px;border-radius:9px;background:var(--info-soft);color:var(--info)}
+.s5cn-cmpsum{margin:0 0 14px;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--grey);border-radius:8px;background:var(--surface);font-size:13.5px;line-height:1.55;color:var(--muted)}
+.s5cn-cmpsum.s5cn-has{border-left-color:var(--accent)}
+.s5cn-cmpsum b{color:var(--text)}
+.s5cn-cl{border:0;background:none;padding:0;font:inherit;font-family:var(--mono);font-size:12.5px;color:var(--accent);text-decoration:underline;cursor:pointer}
+.mschg p.mc-text.s5cn-txt,.mschg p.mc-text.s5cn-eps{margin:6px 0 2px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:13px;line-height:1.5;color:var(--text)}
+.mschg p.mc-text.s5cn-eps{display:flex;flex-direction:column;gap:4px}
+.s5cn-epl{font-family:var(--cond);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.s5cn-ep{display:flex;align-items:baseline;gap:8px;min-width:0}
+.s5cn-vb{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--info-soft);color:var(--info)}
+.s5cn-vb.s5cn-delete{background:var(--bad-soft);color:var(--bad)}
+.s5cn-vb.s5cn-post,.s5cn-vb.s5cn-put,.s5cn-vb.s5cn-patch{background:var(--warn-soft);color:var(--warn)}
+.s5cn-path{font-size:12px;overflow-wrap:anywhere;min-width:0}
+.s5cn-epm{font-size:12px;color:var(--muted)}
+.s5cn-from{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0;padding:6px 6px 6px 12px;border-radius:14px;background:var(--ok-soft);color:var(--ok);font-size:12.5px;font-weight:600}
+.s5cn-fl,.s5cn-fx{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.s5cn-fl{text-decoration:underline}
+.s5cn-fx{font-size:16px;margin-left:auto;padding:0 8px}
+.s5cn-own{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.s5cn-ten{display:inline-block;padding:2px 12px;border-radius:12px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:600}
+.s5cn-tid{font-size:12px;color:var(--muted)}
+.s5cn-tnote{font-size:12px;color:var(--muted)}
+/* First-party apps, the tables of an opened app: the last column was pinned (sticky) and 1 170 px wide,
+   so it lay over the API names on every screen; cells wrap instead and nothing is pinned */
+#tab-fpa table.fpa-ptab{width:100%}
+#tab-fpa table.fpa-ptab th,#tab-fpa table.fpa-ptab td{position:static!important;white-space:normal!important;overflow-wrap:anywhere}
+#tab-fpa table.fpa-ptab td.num{white-space:nowrap!important}
+@media (max-width:760px){
+  /* the opened app sits in a row of a table that scrolls sideways: keep it the width of the screen, in view */
+  #tab-fpa .fpa-det{max-width:calc(100vw - 44px)!important;width:calc(100vw - 44px);position:sticky;left:10px}
+  #tab-fpa .fpa-det > *{max-width:100%;min-width:0}
+  #tab-fpa .fpa-det .fpa-h,#tab-fpa .fpa-meta dd,#tab-fpa .fpa-meta dt{white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+  #tab-fpa .fpa-meta{grid-template-columns:auto minmax(0,1fr)!important}
+  /* Roles and Graph API, Version history: version and date on one line, the note under them at full width */
+  .cat-hist li{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:2px 10px}
+  .cat-hist li .hn{grid-column:1 / -1}
+  /* First-party apps, the two tables of an opened app: a row is a card — the sticky first column lay over the scope names */
+  #tab-fpa .fpa-tw{overflow-x:visible}
+  #tab-fpa table.fpa-ptab,#tab-fpa table.fpa-ptab tbody{display:block;width:100%}
+  #tab-fpa table.fpa-ptab thead{display:none}
+  #tab-fpa table.fpa-ptab tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:8px 10px;border-top:1px solid var(--border-soft)}
+  #tab-fpa table.fpa-ptab td{display:block;position:static!important;left:auto!important;padding:0!important;border:0!important;background:transparent!important;white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+  #tab-fpa table.fpa-ptab td:nth-child(n+3){grid-column:1 / -1;font-size:12px;color:var(--muted)}
+  #tab-fpa table.fpa-ptab tr.fpa-grp td{grid-column:1 / -1}
+}
 .s5ci-ten .s5cl-cn{font-size:13.5px}
 /* §5cm: the sentences card on top of Overview, and the component versions table */
 .s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
@@ -5855,7 +5907,7 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 4 October 2026</b> &middot; published 06:44 Warsaw &middot; 20 September &ndash; 4 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>53</b> deadlines in 60 days<span>&middot; 45 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>818</b> undocumented at Microsoft<span>&middot; 818 permissions, 0 roles</span></a><a class="count" href="#graph"><b>369</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>22</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>95</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>8</b> changes since 3 Oct<span>&middot; 0 at Microsoft, 8 in this report</span></a><a class="count" href="#chg14"><b>4818</b> changes in 14 days<span>&middot; 10 days with a run, 4 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 5 October 2026</b> &middot; published 06:43 Warsaw &middot; 21 September &ndash; 5 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>53</b> deadlines in 60 days<span>&middot; 46 inside 30, 3 due today</span></a><a class="count" href="#graph"><b>818</b> undocumented at Microsoft<span>&middot; 818 permissions, 0 roles</span></a><a class="count" href="#graph"><b>369</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>22</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>96</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>3</b> changes since 4 Oct<span>&middot; 0 at Microsoft, 3 in this report</span></a><a class="count" href="#chg14"><b>4913</b> changes in 14 days<span>&middot; 11 days with a run, 3 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -6056,7 +6108,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 4 October 2026, morning pass at 06:44 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 5 October 2026, morning pass at 06:43 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
