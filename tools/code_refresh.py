@@ -62,6 +62,12 @@ def main():
         if h[a:b].strip() != new:
             h = h[:a] + "\n" + new + "\n" + h[b:]; changed.append("SCRIPT %d" % n)
     css = open(os.path.join(work, "appended.css"), encoding="utf-8").read().strip()
+    # 5co (5 X 2026): a relational selector in this page's stylesheet froze Safari for 11 s at a
+    # time (124 000 nodes, tens of thousands of insertions, every one re-checked against it).
+    # Measured: boot callbacks 21.3 s with four such rules, 4.6 s without. Use a class set by script.
+    if ":has(" in css:
+        print("NOT REFRESHED - appended.css uses a relational selector (:has), forbidden since 5co")
+        sys.exit(2)
     a = h.rfind(CSS_HEAD)
     if a < 0:
         missing.append("appended.css block")
