@@ -15,8 +15,8 @@ manager: orspodek
 ms.service: defender-for-cloud
 description: Learn about new, updated, and deprecated features in Microsoft Defender for Cloud, including preview releases, general availability updates, and upcoming changes.
 ms.topic: overview
-ms.custom: references_regions
-ms.date: 2026-07-05T00:00:00.0000000Z
+ms.custom: references_regions, msecd-doc-authoring-1030
+ms.date: 2026-10-05T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 0cdaa215-1c9d-088d-65a0-67efec1dc3b9
@@ -56,6 +56,31 @@ Tip
 Get notified when this page is updated by copying and pasting the following URL into your feed reader:
 
 `https://aka.ms/mdc/rss`
+
+## October 2026
+
+| Date | Category | Update |
+| --- | --- | --- |
+| October 5, 2026 | GA | KSPM misconfiguration recommendations moving to controller-level scope |
+| October 5, 2026 | GA | On-demand malware scanning now supports scanning specific blobs, files, containers, and file shares |
+
+### KSPM misconfiguration recommendations moving to controller-level scope (GA)
+
+October 5, 2026
+
+Kubernetes security posture management (KSPM) misconfiguration recommendations are being updated to align their resource scope with Kubernetes workload controllers. Previously, recommendations appeared at the individual running container instance level. They will now appear at the container deployment or top-level controller scope, such as Deployment or StatefulSet. As a result, you might see changes to affected recommendations and their Secure Score impact.
+
+Learn more about [container security recommendations](recommendations-reference-container).
+
+### On-demand malware scanning now supports scanning specific blobs, files, containers, and file shares (GA)
+
+October 5, 2026
+
+On-demand malware scanning in Microsoft Defender for Storage now supports targeted scanning of specific items. Instead of scanning an entire storage account, you can scope scans to a single blob or file, a specific container or file share, or all objects matching a path prefix.
+
+You can use filters in the REST API request body to specify which items to scan. When no filters are provided, the scan covers the entire storage account.
+
+Learn more about [on-demand malware scanning](on-demand-malware-scanning).
 
 ## September 2026
 
