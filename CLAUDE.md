@@ -26211,6 +26211,26 @@ porownanie 15 zakladek przed/po na 1440 i 390 px (widoczne wiersze, liczniki, zn
 roznic; roznia sie tylko ukryte paski, ktore licza teraz wiersze zbudowane pozniej), bramka `--mirror`
 bez zmian wzgledem strony sprzed zmiany. Prompty: tylko „Afternoon delta" niesie w tresci dwie stare
 reguly CSS — nowa tresc w dokumentach projektu.
+
+**§5cp (5 X 2026, wlasciciel po §5co: „poprawki nie pomogly" — zrzut z 23:20, tresc urwana po zdaniu 7,
+nizej czarno; ten sam punkt co na zrzucie z 21:34).** §5co skrocilo start i zamrozenia, ale czarne pola
+zostaly — czyli przyczyna nie byl sam czas pracy skryptow. Zadnego silnika dostepnego przebiegowi nie udalo
+sie zmusic do tego obrazu (WebKit z Playwright maluje strone w calosci, takze przy zmianie wysokosci okna
+i przewijaniu: 0 ms blokady). Dwa kroki:
+1. **Lista zdan przestaje byc pudelkiem wielokolumnowym na telefonie** (`columns` dopiero od 900 px). To
+   jedyne takie pudelko na stronie, weszlo 30 IX (§5cm), a oba zrzuty urywaja sie w nim w tym samym
+   miejscu; Safari na iOS jest znane z gubienia malowania tresci wielokolumnowej przy przewijaniu.
+   **To hipoteza, nie pomiar — potwierdza ja albo obala telefon wlasciciela.**
+2. **Tryb diagnostyczny `?diag=1`** (ostatni blok SKRYPTU 17): panel na dole ekranu pokazuje czas blokady
+   glownego watku z ostatnich 10 s, liczbe zdarzen `scroll`/`resize`, rozmiar dokumentu i wersje systemu,
+   oraz cztery przelaczniki, z ktorych kazdy na czas tej wizyty usuwa JEDNEGO podejrzanego (przypiety
+   pasek zakladek, ukryte zakladki — 118 000 z 122 000 wezlow, bloki danych 14,6 MB, ozdoby kart). Bez
+   `diag` w adresie blok nic nie robi.
+
+**Wdrozenie (ten sam dzien):** dwa przebiegi „Azure Static Web Apps CI/CD" po commitach routine zmian
+zawisly na 15 minut kazdy i zostaly anulowane (zwykle 1,3 minuty), wiec `/diff/` trafil na strone godzine
+pozniej. Krok wdrozenia ma teraz limit 6 minut i jedna druga probe (8 minut); dwie porazki pod rzad
+nadal koncza przebieg bledem.
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -26409,7 +26429,13 @@ del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px
 }
 .s5ci-ten .s5cl-cn{font-size:13.5px}
 /* §5cm: the sentences card on top of Overview, and the component versions table */
-.s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
+.s5ci-ten .s5bk-3{display:block;padding-left:22px}
+/* §5cp (5 X 2026): two columns ONLY on a wide screen. On a phone the rule gave one column anyway, but
+   the list was still a multi-column box — and that is the one place where the owner's iPhone stopped
+   painting, twice at the same sentence (screenshots of 21:34 and 23:20: cut after sentence 7, black below).
+   Safari on iOS is known to drop the painting of multi-column content while scrolling. A plain block
+   on a phone, columns from 900 px. */
+@media (min-width:900px){.s5ci-ten .s5bk-3{columns:2 420px;column-gap:32px}}
 .s5ci-ten .s5bk-3 li{break-inside:avoid;margin:0 0 10px}
 /* §5co (5 X 2026): every sentence is built the same way — the label on its own line, the text under
    it. Until now a sentence whose text is plain (New, a quiet Message Center) ran on in the label's
@@ -33559,6 +33585,51 @@ odtad CZTERNASCIE (4-17).**
     t0 = Date.now(); setTimeout(tick, 900);
     [1500, 4000].forEach(function (t) { setTimeout(stripesSafe, t); });
     document.addEventListener("click", function () { setTimeout(stripesSafe, 350); }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* ---------------------------------------------------------------------------
+   §5cp (5 X 2026) — DIAGNOSTICS ON THE READER'S OWN PHONE: add `?diag=1` to the address.
+   The black areas of 5 X could not be reproduced in any engine available to a run (Playwright's
+   WebKit paints the page whole), so the phone has to say what it sees. With `diag` in the address a
+   small panel shows what a screenshot cannot: how long the page was blocked in the last seconds,
+   the size of the document, and four switches that each remove ONE suspect for this visit only.
+   Without `diag` in the address this block does nothing at all.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  if (!/[?&#]diag\b/.test(location.search + location.hash)) return;
+  var gaps = [], lastT = performance.now(), ev = { scroll: 0, resize: 0 }, box, out, t0 = 0, goAt = 0;
+  setInterval(function () { var n = performance.now(); gaps.push([n, n - lastT]); lastT = n; while (gaps.length && n - gaps[0][0] > 10000) gaps.shift(); }, 50);
+  window.addEventListener("scroll", function () { ev.scroll++; }, { passive: true });
+  window.addEventListener("resize", function () { ev.resize++; });
+  function el(t, x) { var e = document.createElement(t); if (x != null) e.textContent = x; return e; }
+  function line() {
+    var n = performance.now(), mx = 0, bl = 0;
+    gaps.forEach(function (g) { if (g[1] > mx) mx = g[1]; if (g[1] > 100) bl += g[1] - 50; });
+    if (!goAt && document.documentElement.classList.contains("s5co-go")) goAt = n;
+    var de = document.documentElement, vv = window.visualViewport;
+    out.textContent =
+      "t " + Math.round((n - t0) / 1000) + " s · shown at " + (goAt ? (goAt / 1000).toFixed(1) + " s" : "—") +
+      "\nblocked last 10 s: " + Math.round(bl) + " ms · longest " + Math.round(mx) + " ms" +
+      "\nscroll ev " + ev.scroll + " · resize ev " + ev.resize +
+      "\ndoc " + de.scrollHeight + " px · y " + Math.round(window.scrollY) + " · win " + window.innerWidth + "x" + window.innerHeight + (vv ? " · vv " + Math.round(vv.height) : "") + " · dpr " + window.devicePixelRatio +
+      "\nnodes " + document.getElementsByTagName("*").length + " · " + (navigator.userAgent.match(/(iPhone OS [\d_]+|Version\/[\d.]+|Chrome\/[\d.]+)/g) || []).join(" ");
+  }
+  function sw(label, fn) { var b = el("button", label); b.type = "button"; b.style.cssText = "font:600 12px/1.2 system-ui;padding:7px 9px;border-radius:8px;border:1px solid #6b7;background:#123;color:#cfe;min-height:36px";
+    b.addEventListener("click", function (e) { e.stopPropagation(); try { fn(); b.style.background = "#264"; b.textContent = label + " ✓"; } catch (x) { b.textContent = label + " !"; } }); return b; }
+  function start() {
+    box = el("div"); box.id = "s5cp-diag";
+    box.style.cssText = "position:fixed;left:6px;right:6px;bottom:6px;z-index:5000;background:rgba(8,14,20,.94);color:#dfe;border:1px solid #6b7;border-radius:10px;padding:8px 10px;font:12px/1.35 ui-monospace,Menlo,monospace";
+    out = el("pre"); out.style.cssText = "margin:0 0 6px;white-space:pre-wrap;font:inherit";
+    var row = el("div"); row.style.cssText = "display:flex;flex-wrap:wrap;gap:6px";
+    row.appendChild(sw("1 bar not pinned", function () { var b = document.getElementById("s5br-bar"); if (b) b.style.position = "static"; }));
+    row.appendChild(sw("2 drop hidden tabs", function () { [].forEach.call(document.querySelectorAll(".tabpanel[hidden]"), function (p) { p.textContent = ""; }); }));
+    row.appendChild(sw("3 drop data blocks", function () { [].forEach.call(document.querySelectorAll('script[type="application/json"]'), function (x) { x.textContent = "{}"; }); }));
+    row.appendChild(sw("4 plain cards", function () { var st = el("style", ".s5ci *{columns:auto!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}"); document.head.appendChild(st); }));
+    row.appendChild(sw("hide", function () { box.style.display = "none"; }));
+    box.appendChild(out); box.appendChild(row); document.body.appendChild(box);
+    line(); setInterval(line, 1000);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();

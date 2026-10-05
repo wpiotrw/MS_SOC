@@ -16,14 +16,33 @@ concurrency:
 jobs:
   build_and_deploy_job:
     runs-on: ubuntu-latest
+    timeout-minutes: 16
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
+      # 5 X 2026: two deployments in a row hung for 15 minutes each and were cancelled (a normal one
+      # takes about 1.3 minutes), so the 22:00 change page reached the site an hour late and only
+      # because another workflow deployed. A deployment now gets 6 minutes; if it does not finish,
+      # ONE second attempt follows. Two failures in a row still fail the run and send the e-mail.
       - name: Build And Deploy
         id: builddeploy
+        timeout-minutes: 6
+        continue-on-error: true
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/site"
+          api_location: ""
+          output_location: ""
+          skip_app_build: true
+      - name: Build And Deploy (second attempt)
+        if: steps.builddeploy.outcome != 'success'
+        timeout-minutes: 8
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
