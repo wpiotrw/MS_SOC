@@ -1,7 +1,7 @@
 {
  "read": "2026-10-05",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 674,
+ "count": 673,
  "note": null,
  "messages": [
   {
@@ -2967,16 +2967,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-03-23",
-   "end": "2026-12-14",
-   "modified": "2026-06-16",
+   "end": "2026-10-09",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated June 16, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are expanding the Data Security Posture Agent in Microsoft Purview with a new credential scanning capability . This update helps your organization discover exposed credentials and related data security risks across scoped locations. The agent analyzes selected data locations to detect sensitive cred…",
-   "bodyHash": "03e026fb0ee06ee3"
+   "summary": "Updated October 5, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [Introduction] We are expanding the Data Security Posture Agent in Microsoft Purview with a new credential scanning capability . This update helps your organization discover exposed credentials and related data security risks across scoped locations. The agent analyzes se…",
+   "bodyHash": "8e5fa991faba8a82"
   },
   {
    "id": "MC1261587",
@@ -7269,15 +7269,15 @@
    "actionBy": "2026-10-01",
    "start": "2026-08-03",
    "end": "2026-12-28",
-   "modified": "2026-09-29",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 29, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by mid-…",
-   "bodyHash": "4c37d92cfaea2942"
+   "summary": "Updated October 5, 2026: Gov rollout of this feature is paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTips…",
+   "bodyHash": "684963dd09461d20"
   },
   {
    "id": "MC1446797",
@@ -13076,8 +13076,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-30",
-   "end": "2026-12-31",
-   "modified": "2026-09-30",
+   "end": "2027-12-31",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact"
    ],
@@ -13386,7 +13386,7 @@
   },
   {
    "id": "MC1485120",
-   "title": "Microsoft Outlook: Right-click to customize the classic ribbon",
+   "title": "(Updated) Outlook (new): Right-click to customize the classic ribbon",
    "services": [
     "Exchange Online"
    ],
@@ -13396,14 +13396,15 @@
    "actionBy": null,
    "start": "2026-10-01",
    "end": "2026-12-25",
-   "modified": "2026-10-01",
+   "modified": "2026-10-05",
    "tags": [
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are updating the classic ribbon customization experience in Microsoft Outlook. Users can now customize the classic ribbon by right-clicking the ribbon on the Home or View tab and selecting the Customize button. Users can then choose which commands and groups appear on the Home and View tabs and arrange them in their preferred order. [Rollout schedule] General Availability (Worldw…",
-   "bodyHash": "4472184248226a26"
+   "summary": "Updated October 5, 2026: We have updated the content. Thank you for your patience. [What and why] We are updating the classic ribbon customization experience in New Outlook for Windows and Outlook on the Web. Users can now customize the classic ribbon by right-clicking the ribbon on the Home or View tab and selecting the Customize button. Users can then choose which commands and groups appear on t…",
+   "bodyHash": "5007881e27e50f53"
   },
   {
    "id": "MC1485169",
@@ -13482,25 +13483,6 @@
    ],
    "summary": "[What and Why:] Microsoft Purview is introducing a unified Classification Management experience that brings classifier management into one consistent experience, helping admins discover and manage their organization's classifiers. This message is associated with Microsoft 365 Roadmap ID 570844 [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on mid November 2026 and …",
    "bodyHash": "f5f26bbdc7b4b8d7"
-  },
-  {
-   "id": "MC1486292",
-   "title": "Prompt Column backfill",
-   "services": [
-    "Power Apps in Microsoft 365"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-02",
-   "end": "2026-11-02",
-   "modified": "2026-10-02",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "HTML (Needs a final link inserted before shipping): We are introducing bulk generation of prompt column values for existing Dataverse records. Now, you can have AI-generated values across existing data without requiring record updates to trigger execution. This feature will reach general availability on November 16, 2026.<br><br><b>How does this affect me?</b><br>When selected, this capability wil…",
-   "bodyHash": "372a451333a6d197"
   },
   {
    "id": "MC1486295",
@@ -15267,6 +15249,82 @@
    "id": "MC1430542",
    "type": "removed",
    "title": "(Updated) Microsoft Outlook: Collaborate with Copilot while drafting email",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1259828",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Credential scanning in Data Security Posture Agent",
+   "fields": {
+    "end": [
+     "2026-12-14",
+     "2026-10-09"
+    ],
+    "bodyHash": [
+     "03e026fb0ee06ee3",
+     "8e5fa991faba8a82"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1446796",
+   "type": "changed",
+   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+   "fields": {
+    "bodyHash": [
+     "4c37d92cfaea2942",
+     "684963dd09461d20"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1483528",
+   "type": "changed",
+   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-12-31"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1485120",
+   "type": "changed",
+   "title": "(Updated) Outlook (new): Right-click to customize the classic ribbon",
+   "fields": {
+    "title": [
+     "Microsoft Outlook: Right-click to customize the classic ribbon",
+     "(Updated) Outlook (new): Right-click to customize the classic ribbon"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "4472184248226a26",
+     "5007881e27e50f53"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1486292",
+   "type": "removed",
+   "title": "Prompt Column backfill",
    "fields": {}
   }
  ]
