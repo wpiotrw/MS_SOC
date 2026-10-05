@@ -19,8 +19,12 @@ jobs:
     timeout-minutes: 16
     name: Build and Deploy Job
     steps:
+      # 5 X 2026: deploy the NEWEST main, not the commit that started this run. A push that touched
+      # both CLAUDE.md and this file started this workflow and "Code refresh" together; the refresh
+      # committed and deployed the new page, and this run then deployed its older checkout over it.
       - uses: actions/checkout@v4
         with:
+          ref: main
           submodules: true
           lfs: false
       # 5 X 2026: two deployments in a row hung for 15 minutes each and were cancelled (a normal one
