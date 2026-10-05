@@ -1013,8 +1013,8 @@ td.nums{font-family:var(--mono);font-size:12px;white-space:nowrap}
 }
 .badge.b-undoc{background:var(--warn-soft);color:var(--warn);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--warn)}
 .badge.b-elsewhere{background:var(--accent-soft);color:var(--accent);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--accent)}
-.cc-row:has(.badge.b-undoc){box-shadow:inset 3px 0 0 var(--warn)}
-.cc-row:has(.badge.b-elsewhere){box-shadow:inset 3px 0 0 var(--accent)}
+.cc-row.cc-undoc{box-shadow:inset 3px 0 0 var(--warn)}
+.cc-row.cc-elsewhere{box-shadow:inset 3px 0 0 var(--accent)}
 .cat-changed{max-height:min(58vh,430px);overflow:auto;overscroll-behavior:contain}
 details.foldnote>summary,details.cb-more>summary,details.cov-more>summary{font-size:14.5px;font-weight:600;color:var(--text)}
 details.foldnote>summary::before,details.cb-more>summary::before,details.cov-more>summary::before{width:22px;height:22px;flex-basis:22px;font-size:15px;background:var(--accent-soft);border-color:var(--accent)}
@@ -2394,6 +2394,22 @@ del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px
 /* §5cm: the sentences card on top of Overview, and the component versions table */
 .s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
 .s5ci-ten .s5bk-3 li{break-inside:avoid;margin:0 0 10px}
+/* §5co (5 X 2026): every sentence is built the same way — the label on its own line, the text under
+   it. Until now a sentence whose text is plain (New, a quiet Message Center) ran on in the label's
+   line while one whose text is a link started below it, so the card read as two indent levels. */
+.s5bk-3 li>b{display:block}
+.s5bk-3 li>b+span:not([class]){display:block}
+/* §5co: the tab content appears once, when the layers are done (SCRIPT 17, last block). ONE element
+   carries the 30 s fallback — `.wrap` — so it covers every tab at once and needs no script at all:
+   a timer on each panel would restart whenever a tab is opened, and a variable animated on the
+   parent does not work in Safari (both measured 5 X 2026). */
+html:not(.s5co-go) .wrap{opacity:0;pointer-events:none;animation:s5coShow 0s linear 30s forwards}
+html:not(.s5co-go) header.top::after{content:"Loading today\2019s brief\2026";display:block;padding:10px 20px 4px;font-size:15px;font-weight:600;color:var(--muted);animation:s5coHide 0s linear 30s forwards,s5coPulse 1.4s ease-in-out infinite alternate}
+@keyframes s5coShow{to{opacity:1;pointer-events:auto}}
+@keyframes s5coHide{to{visibility:hidden}}
+@keyframes s5coPulse{from{opacity:.45}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){html:not(.s5co-go) header.top::after{animation:s5coHide 0s linear 30s forwards}}
+@media (max-width:760px){html:not(.s5co-go) header.top::after{padding:8px 12px 6px}}
 .s5cm-t .s5ci-tr{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) minmax(0,1.6fr) minmax(0,1.1fr);align-items:baseline}
 .s5cm-t .s5ci-tr.s5cm-today{background:var(--accent-soft)}
 .s5cm-area{display:flex;flex-direction:column;gap:1px}
@@ -3023,7 +3039,7 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .gu-more{font:12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:4px 6px;max-width:100%}
 table.gu-cap tbody tr:nth-child(n+16){display:none}
 .gu-cap3 .gd-grp:nth-of-type(n+4){display:none}
-.gu-cap3:has(.gd-banner:not([hidden])) .gd-grp{display:block}
+.gu-cap3.gu-filtered .gd-grp{display:block}
 @media (max-width:999px){
  .catalog .cat-list{max-height:62vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 }
@@ -3043,7 +3059,7 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  table.gv-cards td.gv-empty{display:none}
  table.gv-cards tr.gv-wide td{display:block}
  table.gv-cards td *{max-width:100%}
- .tw:has(> table.gv-cards){overflow-x:visible}
+ .tw.gv-tw{overflow-x:visible}
  .gd-cmds,.gd-apps{grid-template-columns:1fr}
 }/* §5bw–§5bx (27 IX 2026) — article browsers with read marks; role and permission panels on a phone (script 17). */
 .ab-head{display:grid;grid-template-columns:28px 52px minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;padding:8px 12px}
@@ -3277,9 +3293,6 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd] .catalog > .catwhy{order:1;margin:6px 0 4px}
 .tabpanel[data-s5cd] .catalog > .filterbanner,.tabpanel[data-s5cd] .catalog > .bkbanner{order:2}
 .tabpanel[data-s5cd] .catalog > .cat-split,.tabpanel[data-s5cd] .catalog > .apisurf,.tabpanel[data-s5cd] .catalog > .callout{order:3}
-
-
-
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 5 October 2026</b> &middot; published 06:43 Warsaw &middot; 21 September &ndash; 5 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>53</b> deadlines in 60 days<span>&middot; 46 inside 30, 3 due today</span></a><a class="count" href="#graph"><b>818</b> undocumented at Microsoft<span>&middot; 818 permissions, 0 roles</span></a><a class="count" href="#graph"><b>369</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>22</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>96</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>3</b> changes since 4 Oct<span>&middot; 0 at Microsoft, 3 in this report</span></a><a class="count" href="#chg14"><b>4913</b> changes in 14 days<span>&middot; 11 days with a run, 3 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -13273,9 +13286,32 @@ CloudAppEvents
      wszedzie tam, gdzie zakladka ma tabele i gdzie z jej kolumn da sie zlozyc choc
      jeden sensowny wymiar. Zakladka bez tabel (Overview) go nie dostaje — kontrolka
      bez czego filtrowac uczy, ze kontrolki nic nie robia. */
+  /* §5co (5 X 2026): the bar of a HIDDEN tab is built when that tab is first shown, not on load.
+     Building all of them on load cost 1.5-2.0 s of a blocked page on a desktop processor (measured:
+     the heaviest single thing on the page) — on a phone that is the time the reader scrolls over
+     black, unpainted areas. Nothing reads a hidden tab's bar: every reader goes through TAB[pid],
+     which simply has no entry until the tab opens. Without MutationObserver: as before, all at once. */
+  var WATCH=null,NOCLEAR=0;
+  function watchPanels(){
+    if(WATCH||!window.MutationObserver) return;
+    WATCH=new MutationObserver(function(list){
+      list.forEach(function(m){
+        var p=m.target; if(!p||!p.id||p.hidden) return;
+        if(document.getElementById(p.id+"-filter")) return;
+        NOCLEAR=1;
+        try{ mountPanel(p.id); }catch(e){ if(window.console) console.error("[nt bar "+p.id+"]",e); }
+        finally{ NOCLEAR=0; }
+      });
+    });
+    [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
+      WATCH.observe(p,{attributes:true,attributeFilter:["hidden"]});
+    });
+  }
   function mountEverywhere(){
+    watchPanels();
     [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
       if(!p.id) return;
+      if(p.hidden&&WATCH) return;
       try{ mountPanel(p.id); }catch(e){ if(window.console) console.error("[nt bar "+p.id+"]",e); }
     });
   }
@@ -13356,7 +13392,10 @@ CloudAppEvents
       if(!MINE[id]&&window.__socS11){
         if(on&&ids.length){ s11set(id,{label:describe(id).join(" \u00b7 "),ids:ids});
                             DELEG[id]=true; }
-        else if(window.__socS11.clearTab) s11clear(id);
+        /* §5co: a bar built when its tab opens has chosen nothing, so it has nothing of its own
+           to clear — and clearing here would wipe the filter the reader arrived with (a header
+           tile or an Overview number sets it a moment before the tab is shown). */
+        else if(window.__socS11.clearTab&&!NOCLEAR) s11clear(id);
       }
       /* licznik przy KAZDEJ sekcji mowi, ile jej zostalo — to jest ta liczba
          per sekcja, ktorej pasek per zakladka sam z siebie nie daje */
@@ -17178,6 +17217,8 @@ CloudAppEvents
     bar.appendChild(chips("Level", "lv", LVS, function (r, k) { return lvKey(r.lv) === k; }));
     var rows = ROWS.filter(function (r) { return pass(r); });
     banner.textContent = ""; banner.hidden = !(F.t || F.lv || F.q);
+    /* §5co: a class instead of a relational selector — see the last block of this script */
+    var capHost = banner.closest ? banner.closest("#gd-changes") : null; if (capHost) capHost.classList.toggle("gu-filtered", !banner.hidden);
     if (!banner.hidden) {
       banner.appendChild(el("b", null, "Filtered · " + rows.length + " of " + ROWS.length + " changes"));
       var c = el("button", "gd-clear", "Clear all"); c.type = "button";
@@ -17737,6 +17778,7 @@ CloudAppEvents
     });
     if (hs.length < 2) return;
     t.classList.add("gv-cards");
+    if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains("tw")) t.parentNode.classList.add("gv-tw");   /* §5co */
     [].forEach.call(t.tBodies, function (tb) {
       [].forEach.call(tb.rows, function (r) {
         if (r.getAttribute("data-gv") === String(r.cells.length)) return;
@@ -20307,15 +20349,35 @@ CloudAppEvents
      list listener above. `__socOpenPerm` / `__socOpenRole` go through the same click. */
 
   /* ---- (b) Component versions ---- */
+  /* §5co (5 X 2026): this function ran five times on load and twice after every click, and each run
+     parsed the whole state block again (about 8 MB) and made 13 selector passes over 124 000 nodes —
+     measured 0.8 s of the load on a desktop processor, the second heaviest thing on the page. The
+     state is now read ONCE and only the three fields used here are kept; the page is searched once
+     for version marks not yet handled, and a run with nothing to do ends there. */
+  var CMP = null;
+  function cmpState() {
+    if (CMP) return CMP;
+    var st = json("soc-brief-state"); if (!st || !st.components) return null;
+    CMP = { components: st.components, briefDate: st.briefDate, comparedWith: st.comparedWith, componentStats: st.componentStats };
+    return CMP;
+  }
+  function cmpIdOf(v) {
+    var h = v.closest ? v.closest('[id^="cmp-"], tr[data-id^="cmp-"], a.jtile[href^="#cmp-"]') : null; if (!h) return "";
+    var raw = (h.id && h.id.indexOf("cmp-") === 0) ? h.id : (h.getAttribute("data-id") || (h.getAttribute("href") || "").replace(/^#/, ""));
+    return raw.replace(/^cmp-/, "");
+  }
   function components() {
-    var st = json("soc-brief-state"); if (!st || !st.components) return;
+    var todo = [].filter.call(document.querySelectorAll(".vchg"), function (v) { return !v.__s5cn; });
+    var needSum = !document.querySelector(".s5cn-cmpsum") && !!document.querySelector("#tab-components #components");
+    if (!todo.length && !needSum) return;
+    var st = cmpState(); if (!st) return;
     var day = st.briefDate || "", prev = (st.comparedWith || {}).date || st.comparedWith || "";
-    var moved = [];
+    var moved = [], byId = {};
+    todo.forEach(function (v) { var k = cmpIdOf(v); if (k) (byId[k] = byId[k] || []).push(v); });
     st.components.forEach(function (c) {
       var l = c.lastChange || {}, isNew = !!(l.from && l.to && l.seen && l.basis === "observed" && (prev ? l.seen > prev : l.seen === day) && l.seen <= day);
       if (isNew) moved.push(c);
-      var q = '#cmp-' + c.id + ' .vchg, tr[data-id="cmp-' + c.id + '"] .vchg, a.jtile[href="#cmp-' + c.id + '"] .vchg';
-      [].forEach.call(document.querySelectorAll(q), function (v) {
+      (byId[c.id] || []).forEach(function (v) {
         if (v.__s5cn) return; v.__s5cn = true;
         if (isNew) { v.classList.add("s5cn-new"); v.appendChild(el("span", "s5cn-tag", "detected " + (l.seen === day ? "today" : dmy(l.seen)))); return; }
         if (!v.querySelector("del")) return;                      /* "first recorded" has no pair to mute */
@@ -20373,6 +20435,59 @@ CloudAppEvents
   function start() {
     [600, 1500, 3000, 5000, 8000].forEach(function (t) { setTimeout(run, t); });
     document.addEventListener("click", function () { setTimeout(run, 250); setTimeout(run, 900); }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+
+/* ---------------------------------------------------------------------------
+   §5co (5 X 2026) — THE TAB CONTENT IS SHOWN ONCE, WHEN IT IS BUILT.
+   The owner's phone, 5 X: black areas, the tab picker in the middle of the screen, cards cut
+   off. Measured in a Safari engine with a phone profile: between the first paint and the last
+   layer the document changes height five times (10 701 -> 16 840 -> 9 916 -> 10 101 -> 4 694 ->
+   5 778 px) while the main thread is blocked for seconds at a time. A phone scrolls on another
+   thread, so the reader was scrolling through a page that was still being rebuilt under the finger.
+   The stylesheet keeps `.wrap` transparent until `html.s5co-go`; this sets the class
+   when the layers are done: `html.s5ready` is on and the document height has stayed the same for
+   three checks with the sentences card filled. The stylesheet has its own 30 s fallback, so a script error can never leave the
+   page blank. Transparent, not `visibility:hidden` and not `display:none`: every script keeps
+   reading `innerText` and measuring boxes exactly as before.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var de = document.documentElement, t0 = 0, readyAt = 0, last = -1, same = 0, done = false;
+  function go() { if (done) return; done = true; de.classList.add("s5co-go"); }
+  /* the sentences card is the last thing Overview receives (measured: 0.5 s after `s5ready`) */
+  function built() { var c = document.querySelector("#tab-overview.s5ci-on .s5ci-ten"); return !c || !!c.querySelector("li"); }
+  function tick() {
+    if (done) return;
+    var h = de.scrollHeight, now = Date.now();
+    if (de.classList.contains("s5ready")) {
+      if (!readyAt) readyAt = now;
+      if (built()) { same = (h === last) ? same + 1 : 0; if (same >= 3) return go(); } else same = 0;
+      if (now - readyAt > 8000) return go();
+    }
+    last = h;
+    if (now - t0 > 45000) return go();
+    setTimeout(tick, 300);
+  }
+  /* The left stripe of a change-summary row that carries an "undocumented" or a "deployed
+     elsewhere" badge. It used to be a relational selector in the stylesheet. Measured 5 X 2026 in
+     a Safari engine: with the four relational rules in the sheet the boot callbacks took 21.3 s,
+     without them 4.6 s — every one of the tens of thousands of nodes the scripts add made the
+     engine re-check those rules against the whole 124 000-node document. NO RELATIONAL SELECTOR
+     MAY BE ADDED TO THIS PAGE'S STYLESHEET; a class set here costs nothing. */
+  function stripes() {
+    [].forEach.call(document.querySelectorAll(".cc-row"), function (r) {
+      var u = !!r.querySelector(".badge.b-undoc"), e = !u && !!r.querySelector(".badge.b-elsewhere");
+      if (r.classList.contains("cc-undoc") !== u) r.classList.toggle("cc-undoc", u);
+      if (r.classList.contains("cc-elsewhere") !== e) r.classList.toggle("cc-elsewhere", e);
+    });
+  }
+  function stripesSafe() { try { stripes(); } catch (e) { if (window.console) console.error("[5co]", e); } }
+  function start() {
+    t0 = Date.now(); setTimeout(tick, 900);
+    [1500, 4000].forEach(function (t) { setTimeout(stripesSafe, t); });
+    document.addEventListener("click", function () { setTimeout(stripesSafe, 350); }, true);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
