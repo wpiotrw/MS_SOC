@@ -1,7 +1,7 @@
 {
  "read": "2026-10-05",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 694,
+ "count": 674,
  "note": null,
  "messages": [
   {
@@ -108,27 +108,6 @@
    ],
    "summary": "Updated September 1, 2026: We have updated the timeline below. Thank you for your patience. To help you manage metered consumption costs for Microsoft 365 Copilot Chat, we will introduce a new Message consumption usage report in the Microsoft 365 admin center. The new report will give you visibility into billed messages associated with your Microsoft 365 Copilot pay-as-you-go billing policies and …",
    "bodyHash": "fb878144a3fbcc9d"
-  },
-  {
-   "id": "MC1090689",
-   "title": "(Updated) Microsoft Teams: Enhanced peripheral data in Pro Management portal reports for BYOD spaces",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-06-09",
-   "end": "2026-10-05",
-   "modified": "2026-08-11",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated August 11, 2026: We have updated the timeline. Thank you for your patience. We’re adding new peripheral health reporting capabilities to the Pro Management portal, enabling admins to proactively monitor device issues in bring your own device (BYOD) rooms and desks. These reports help identify when peripherals are faulty, missing, moved, or undetectable by a PC—allowing admins to take actio…",
-   "bodyHash": "7dba412062bd9d57"
   },
   {
    "id": "MC1093912",
@@ -1684,27 +1663,6 @@
    "bodyHash": "53ff664d2ff0fe36"
   },
   {
-   "id": "MC1218712",
-   "title": "(Updated) Microsoft Teams: Meeting notes now available for instant meetings",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-01-16",
-   "end": "2026-10-05",
-   "modified": "2026-08-11",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 11, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Teams meeting Notes , powered by Loop, are now available for instant calls and meetings, like those started from Meet now and calls started from chat. Meeting notes are Loop components in Teams meetings and chats that allow users to collaboratively build agendas, capture notes, and create action item…",
-   "bodyHash": "5e977ec900fabca8"
-  },
-  {
    "id": "MC1218713",
    "title": "(Updated) Microsoft Teams: Organization evaluation score for apps and agents",
    "services": [
@@ -2068,28 +2026,6 @@
    ],
    "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] As part of our ongoing mission to deliver a modern, secure, and scalable one-stop management portal for admins, we are transitioning Teams Android device management from the Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP) . This move consolidates management of all Teams device…",
    "bodyHash": "ecf1529b6fbd73cf"
-  },
-  {
-   "id": "MC1227623",
-   "title": "(Updated) Change meeting organizer via PowerShell cmdlet in Exchange Online",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-02-06",
-   "end": "2026-10-05",
-   "modified": "2026-07-06",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 6, 2026: We have updated the content. Thank you for your patience. [Introduction] We’re adding a new PowerShell cmdlet that lets administrators change the organizer of an existing meeting or meeting series in Exchange Online . This feature supports continuity when a meeting owner changes roles, goes on leave, or is offboarded—removing the need to recreate long‑running series. After th…",
-   "bodyHash": "58a67364fee76705"
   },
   {
    "id": "MC1229029",
@@ -3123,50 +3059,6 @@
    "bodyHash": "2b44403a6280a73a"
   },
   {
-   "id": "MC1262590",
-   "title": "(Updated) Planner tab support for Shared and Private Channels in Microsoft Teams",
-   "services": [
-    "Microsoft Teams",
-    "Planner"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-03-26",
-   "end": "2026-10-05",
-   "modified": "2026-07-21",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are expanding Microsoft Planner integration in Microsoft Teams by enabling Planner tabs in Shared and Private channels . This change allows teams to plan and track work directly within the channel where collaboration occurs, including scenarios that require restricted membership or cross-organizatio…",
-   "bodyHash": "00afe06ea0e346d7"
-  },
-  {
-   "id": "MC1266027",
-   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-30",
-   "end": "2026-10-05",
-   "modified": "2026-08-11",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 7, 2026: We have paused release to GA at this time. We will communicate via Message center when we are ready to proceed. Thank you for your patience. [Introduction] We are improving the Microsoft Teams meeting experience when the active meeting window is minimized. This update helps users stay engaged in meetings while multitasking across other apps. With this change, users can perfor…",
-   "bodyHash": "52af23bc6dc17e16"
-  },
-  {
    "id": "MC1266857",
    "title": "Take Action: Out-of-band update to address an issue affecting installation of the March 2026 non-security preview update",
    "services": [
@@ -3730,28 +3622,6 @@
    "bodyHash": "b926dad2815827a5"
   },
   {
-   "id": "MC1287365",
-   "title": "(Updated) Microsoft 365 Copilot: Change in accessing additional agents in Excel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-21",
-   "end": "2026-10-05",
-   "modified": "2026-08-10",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 10, 2026: We have updated the content and timeline. Thank you for your patience. [Introduction] We are updating the Chat-only Copilot experience in Excel to better align with the editing experience. As part of this update, users who want to access additional Copilot agents (such as Researcher or Analyst) can do so by selecting the “…” menu in the header and choosing M365 Copilot. [W…",
-   "bodyHash": "fb73d6d834112398"
-  },
-  {
    "id": "MC1287370",
    "title": "(Updated) Auto upgrade of shared calendars from legacy MAPI model to modern REST model",
    "services": [
@@ -4122,26 +3992,6 @@
    "bodyHash": "c3b0b333793b2434"
   },
   {
-   "id": "MC1303719",
-   "title": "(Updated) Microsoft Entra: Upcoming changes to federatedTokenValidationPolicy default settings",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": "2026-08-11",
-   "start": "2026-05-07",
-   "end": "2026-10-05",
-   "modified": "2026-08-18",
-   "tags": [
-    "Admin impact",
-    "Updated message"
-   ],
-   "summary": "Updated August 18, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To strengthen security for federated authentication, Microsoft Entra will update the default behavior of federatedTokenValidationPolicy . This policy governs how Microsoft Entra validates federated authentication tokens and determines whether sign-ins are allowed when the internalDomainFederation doe…",
-   "bodyHash": "88975fb8fb17491b"
-  },
-  {
    "id": "MC1304291",
    "title": "(Updated) Microsoft Purview: Data loss prevention inline controls for prompts in Microsoft Foundry apps and agents",
    "services": [
@@ -4289,27 +4139,6 @@
    "bodyHash": "dec7f54524749004"
   },
   {
-   "id": "MC1308855",
-   "title": "(Updated) Collect Diagnostics change to Get Diagnostics for Outlook Mobile and Mac",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-12",
-   "end": "2026-10-05",
-   "modified": "2026-08-06",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message"
-   ],
-   "summary": "Updated August 5, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re updating the Collect Diagnostics feature name to Get Diagnostics for Outlook Mobile and Outlook for Mac . Along with this rename, diagnostic logs sent during support interactions will now be routed through the Microsoft 365 diagnostics service instead of the legacy PowerLift service. This change…",
-   "bodyHash": "58f22877719cf6a0"
-  },
-  {
    "id": "MC1309552",
    "title": "Tune in May 18 to ask Microsoft anything about Secure Boot",
    "services": [
@@ -4390,29 +4219,6 @@
    ],
    "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (Android) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directl…",
    "bodyHash": "49ac307075e4e926"
-  },
-  {
-   "id": "MC1309747",
-   "title": "(Updated) Planner is now available in Outlook and Microsoft 365 Copilot",
-   "services": [
-    "Exchange Online",
-    "Planner"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-13",
-   "end": "2026-10-05",
-   "modified": "2026-08-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re making it easier for users to manage tasks where they already work. The Microsoft Planner experience is now available directly in Outlook (web and the new Outlook for Windows) and in the Microsoft 365 Copilot app . This change reduces context switching by allowing users to view and manage tasks…",
-   "bodyHash": "f871a7ef15046beb"
   },
   {
    "id": "MC1310552",
@@ -4515,28 +4321,6 @@
    ],
    "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We're introducing User Initiated Insights in Copilot for classic Outlook for Windows , enabling users to manually select text within an email and prompt Copilot to provide contextual insights. This enhancement gives users greater control over when and how Copilot assists them, improving productivit…",
    "bodyHash": "06bc10a85e33b72c"
-  },
-  {
-   "id": "MC1311979",
-   "title": "(Updated) Microsoft Teams: Digital signage support for Teams panels",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-15",
-   "end": "2026-10-05",
-   "modified": "2026-08-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing support for displaying digital signage on idle Teams panel devices. This capability extends existing digital signage scenarios already available on Teams Rooms front-of-room displays, helping organizations deliver consistent branding and communications across shared spa…",
-   "bodyHash": "43f9d7fa467948d9"
   },
   {
    "id": "MC1314949",
@@ -4853,28 +4637,6 @@
    "bodyHash": "293ad68be0121997"
   },
   {
-   "id": "MC1324286",
-   "title": "(Updated) Microsoft Teams: Profanity filter disabled by default for live captions",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-05-27",
-   "end": "2026-10-05",
-   "modified": "2026-08-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are updating the default setting for the profanity filter in Microsoft Teams live captions from On to Off . This change ensures captions more accurately reflect spoken content, supporting accessibility needs and aligning with regional regulatory requirements (including the EU). Users retain full c…",
-   "bodyHash": "b0aefc9a0d0f8229"
-  },
-  {
    "id": "MC1324289",
    "title": "[EDU] Free upgrade path to Windows 11 Pro Education for K-12",
    "services": [
@@ -4982,28 +4744,6 @@
    "bodyHash": "9ce5547a12b740fa"
   },
   {
-   "id": "MC1330887",
-   "title": "(Updated) Microsoft Teams: Enhanced bookable desk experience with Teams panel based desk devices",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-01",
-   "end": "2026-10-05",
-   "modified": "2026-08-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing an enhanced bookable desk experience for Microsoft Teams panel based desk devices , such as Logi Dock Flex and the upcoming Yealink Linkhub . This update enables users to view at-a-glance desk availability and for visitors to reserve desks directly from the device, improving flexib…",
-   "bodyHash": "7a5659cca64d8230"
-  },
-  {
    "id": "MC1330891",
    "title": "(Updated) Microsoft Teams: Breakout rooms now supported in meetings with up to 1,000 attendees",
    "services": [
@@ -5088,28 +4828,6 @@
    ],
    "summary": "Updated July 16, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why:] New Outlook for Windows will be available for U.S. Government clouds (GCC High and DoD sovereign environments). This milestone helps organizations move forward with adoption planning while maintaining administrative control. [Rollout Schedule:] Public Preview (GCC High and DoD): New Outloo…",
    "bodyHash": "442c4a44c68da76b"
-  },
-  {
-   "id": "MC1358831",
-   "title": "(Updated) Copilot settings in classic Outlook for Windows",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-04",
-   "end": "2026-10-05",
-   "modified": "2026-08-07",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 7, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Copilot settings are being added to classic Outlook for Windows , allowing users to view and manage Copilot directly from the File menu, including the option to turn Copilot on or off. This change brings Copilot settings into the application where Copilot is used and does not change Copilot licensing…",
-   "bodyHash": "b97276f534b7c1d6"
   },
   {
    "id": "MC1381121",
@@ -5275,27 +4993,6 @@
    ],
    "summary": "Updated July 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview Records Management will integrate with Power Automate to allow administrators to run custom workflows when retention-labeled items reach the end of their retention period. This enables automated post-retention handling using Power Automate across Microsoft 365 workloads. This message…",
    "bodyHash": "043743e37f1c3931"
-  },
-  {
-   "id": "MC1387521",
-   "title": "(Updated) Microsoft Teams: Human interpreter listening mode supported in Teams Rooms on Windows",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-11",
-   "end": "2026-10-05",
-   "modified": "2026-08-18",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 18, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams Rooms on Windows will now support human interpreter listening mode , enabling participants in meeting rooms to listen to live, professional language interpretation without interrupting the speaker’s delivery. This enhancement improves meeting accessibility and inclusivity , helping g…",
-   "bodyHash": "42e00e8a1bbf3e07"
   },
   {
    "id": "MC1387526",
@@ -5732,28 +5429,6 @@
    "bodyHash": "3b16588d27c846eb"
   },
   {
-   "id": "MC1402306",
-   "title": "(Updated) Microsoft Teams: Use multiple phone lines on Teams mobile",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-23",
-   "end": "2026-10-05",
-   "modified": "2026-08-18",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 18, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are expanding Microsoft Teams Phone capabilities to mobile devices by enabling users to manage and use multiple assigned phone numbers directly within the Teams mobile app. Users will see and manage their assigned phone lines in the Calls app on Teams mobile, allowing them to choose the appropriat…",
-   "bodyHash": "01cb2c13b3ddee37"
-  },
-  {
    "id": "MC1403212",
    "title": "Best practices for deploying Secure Boot certificate updates",
    "services": [
@@ -5813,27 +5488,6 @@
    ],
    "summary": "Updated July 29, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Purview is introducing a new view-only role management capability that enables administrators with Global Reader and Security Reader roles to view role assignments and scopes within the Microsoft Purview portal and Microsoft Defender portal. This update improves visibility and transparency of…",
    "bodyHash": "9aebbb7fe8c3f169"
-  },
-  {
-   "id": "MC1403407",
-   "title": "(Updated) OneDrive for the web: New libraries browsing experience",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-24",
-   "end": "2026-10-05",
-   "modified": "2026-08-14",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We’re introducing a refreshed Libraries view in OneDrive for the web that replaces the existing More places experience. This update makes it easier for users to discover and access SharePoint document libraries across recent activity, Teams, and favorite sites. The new experience improves navigation…",
-   "bodyHash": "59bacd980b196271"
   },
   {
    "id": "MC1403410",
@@ -5899,49 +5553,6 @@
    ],
    "summary": "Updated July 1, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are bringing desktop-style emoji shortcuts to Microsoft Teams on iOS and Android. Users can insert emojis directly in the compose box by typing a keyword between colons (for example, :smile: → 😊). This update improves consistency across platforms and enhances user productivity by making emoji input f…",
    "bodyHash": "fe298d0279ba0090"
-  },
-  {
-   "id": "MC1404322",
-   "title": "(Updated) Microsoft Teams: Recap app consolidates meeting recaps in one place",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-25",
-   "end": "2026-10-05",
-   "modified": "2026-08-11",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 11, 2026: We have updated the timeline. Thank you for your patience. [What and Why] The Recap app in Microsoft Teams provides a centralized experience for users to find, review, and catch up on meeting recaps. By bringing recordings, transcripts, and AI-powered summaries together, this feature improves personal productivity and helps users quickly stay informed across meetings. Quic…",
-   "bodyHash": "08dc445625393be8"
-  },
-  {
-   "id": "MC1405505",
-   "title": "(Updated) Access your brand assets in PowerPoint",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-26",
-   "end": "2026-10-05",
-   "modified": "2026-07-29",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 29, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft is introducing native access to brand assets (colors, logos, images, icons, and more) directly within PowerPoint through Microsoft 365 Copilot. This improves productivity by helping users quickly create presentations that stay on-brand while enabling admins to standardize branding through of…",
-   "bodyHash": "6f1e117c0b17d7b8"
   },
   {
    "id": "MC1405506",
@@ -6314,27 +5925,6 @@
    ],
    "summary": "Updated September 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We're introducing IntelliFrame people labels in Microsoft Teams Rooms on Windows to improve meeting clarity and inclusivity for remote participants. When enabled, this feature identifies in-room participants by name and displays a contact card, helping remote attendees easily recognize speakers a…",
    "bodyHash": "42901d57fa309706"
-  },
-  {
-   "id": "MC1419800",
-   "title": "SharePoint button web part: Add custom Copilot in SharePoint prompts or start Power Automate flows",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-07",
-   "end": "2026-10-05",
-   "modified": "2026-07-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is expanding the capabilities of the SharePoint Button web part beyond static hyperlinks. Organizations can now create buttons that either launch a predefined prompt in Copilot for SharePoint (for users licensed for Microsoft 365 Copilot) or initiate a Power Automate flow. This enhancement supports Personal and Team Productivity and Business Process Automation by helping …",
-   "bodyHash": "92aaddf43a8a5f46"
   },
   {
    "id": "MC1419802",
@@ -6919,28 +6509,6 @@
    ],
    "summary": "Updated September 10, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft is introducing a unified alert triage experience in Microsoft Purview Insider Risk Management (IRM) that brings agent-driven insights directly into the standard Alerts queue. The most disruptive part of triage often happens before analysts investigate a specific alert—determining which a…",
    "bodyHash": "1f596cc2d815bf33"
-  },
-  {
-   "id": "MC1430542",
-   "title": "(Updated) Microsoft Outlook: Collaborate with Copilot while drafting email",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-10-05",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are enhancing the email drafting experience in Microsoft Outlook by integrating Microsoft 365 Copilot directly into the compose experience. This update allows users to create, refine, and edit email content in real time with Copilot assistance, helping improve productivity while maintaining full c…",
-   "bodyHash": "c818c984d8634123"
   },
   {
    "id": "MC1431365",
@@ -15559,6 +15127,146 @@
    "id": "MC1457838",
    "type": "removed",
    "title": "Microsoft OneDrive: New policies to control file exclusions",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1090689",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Enhanced peripheral data in Pro Management portal reports for BYOD spaces",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1218712",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Meeting notes now available for instant meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1227623",
+   "type": "removed",
+   "title": "(Updated) Change meeting organizer via PowerShell cmdlet in Exchange Online",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1262590",
+   "type": "removed",
+   "title": "(Updated) Planner tab support for Shared and Private Channels in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1266027",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1287365",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: Change in accessing additional agents in Excel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1303719",
+   "type": "removed",
+   "title": "(Updated) Microsoft Entra: Upcoming changes to federatedTokenValidationPolicy default settings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1308855",
+   "type": "removed",
+   "title": "(Updated) Collect Diagnostics change to Get Diagnostics for Outlook Mobile and Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1309747",
+   "type": "removed",
+   "title": "(Updated) Planner is now available in Outlook and Microsoft 365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1311979",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Digital signage support for Teams panels",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1324286",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Profanity filter disabled by default for live captions",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1330887",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Enhanced bookable desk experience with Teams panel based desk devices",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1358831",
+   "type": "removed",
+   "title": "(Updated) Copilot settings in classic Outlook for Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1387521",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Human interpreter listening mode supported in Teams Rooms on Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1402306",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Use multiple phone lines on Teams mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1403407",
+   "type": "removed",
+   "title": "(Updated) OneDrive for the web: New libraries browsing experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1404322",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Recap app consolidates meeting recaps in one place",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1405505",
+   "type": "removed",
+   "title": "(Updated) Access your brand assets in PowerPoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1419800",
+   "type": "removed",
+   "title": "SharePoint button web part: Add custom Copilot in SharePoint prompts or start Power Automate flows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-05",
+   "id": "MC1430542",
+   "type": "removed",
+   "title": "(Updated) Microsoft Outlook: Collaborate with Copilot while drafting email",
    "fields": {}
   }
  ]
