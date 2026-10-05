@@ -9396,13 +9396,15 @@ Kazdy wpis inwentarza — uprawnienie i rola — dostaje:
    ```css
    .badge.b-undoc{background:var(--warn-soft);color:var(--warn);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--warn)}
    .badge.b-elsewhere{background:var(--accent-soft);color:var(--accent);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--accent)}
-   .cc-row:has(.badge.b-undoc){box-shadow:inset 3px 0 0 var(--warn)}
-   .cc-row:has(.badge.b-elsewhere){box-shadow:inset 3px 0 0 var(--accent)}
+   .cc-row.cc-undoc{box-shadow:inset 3px 0 0 var(--warn)}
+   .cc-row.cc-elsewhere{box-shadow:inset 3px 0 0 var(--accent)}
    ```
 
    Szesc istniejacych znacznikow to prostokaty bez obwodki — zaokraglenie i obwodka sa jedynym, co
-   odroznia te dwa na pierwszy rzut oka, i o to prosil wlasciciel. `:has()` daje jeszcze kolorowy
-   pasek na krawedzi wiersza listy; w przegladarce bez `:has()` paska po prostu nie ma, reszta dziala.
+   odroznia te dwa na pierwszy rzut oka, i o to prosil wlasciciel. Kolorowy pasek na krawedzi
+   wiersza listy daja klasy `cc-undoc` / `cc-elsewhere`, ktore stawia ostatni blok SKRYPTU 17 (§5co).
+   **Do 5 X 2026 robil to selektor relacyjny CSS (dwukropek, `has`, nawias) — i to on zamrazal strone
+   na telefonie; §5co mowi, dlaczego nie wolno go uzywac nigdzie w arkuszu tej strony.**
 5. **Rola nieudokumentowana ma `kind:"Undocumented at Microsoft"`.** 30 sierpnia 2026 trzy takie role
    dostaly `New in service, not yet documented` — wartosc Graphowa — i filtr w katalogu rol nie mial
    pozycji, ktorej wlasciciel szukal. Wartosci graphowe zostaja przy Graphie.
@@ -9722,6 +9724,14 @@ a nad nim stoi `.s5cn-ph` („No permission is open."). Asercje tej listy, ktore
 panelu), najpierw otwieraja wpis — klik `.cat-item`, `__socOpenPerm(nazwa)` / `__socOpenRole(nazwa)` albo
 kotwica `#graph:perm=…` / `#roles:role=…` (kotwica otwiera panel sama). Pusty panel po samym
 zaladowaniu strony to zamierzony stan, nie regresja i nie powod, zeby nie publikowac.
+
+**§5co (5 X 2026) — Playwright a pierwsze sekundy strony.** Tresc zakladek (`.wrap`) jest przezroczysta i
+nie przyjmuje klikniec, dopoki `<html>` nie dostanie klasy `s5co-go` (albo przez 30 s, jesli skrypt jej
+nie postawi). Asercje, ktore klikaja lub robia zrzut zaraz po zaladowaniu, czekaja najpierw na
+`document.documentElement.classList.contains("s5co-go")`. Napis „Loading today's brief…" w naglowku przed
+ta chwila to zamierzony stan, nie regresja i nie powod, zeby nie publikowac. Pasek Advanced filtering
+zakladki ukrytej powstaje dopiero przy jej pierwszym otwarciu: `#<panel>-filter` w zakladce, ktorej nikt
+nie otworzyl, nie istnieje — asercja najpierw otwiera zakladke.
 
 ## 5i. Weryfikacja licznika akcji roli — zrodlo i przeliczenie
 
@@ -22524,9 +22534,32 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
      wszedzie tam, gdzie zakladka ma tabele i gdzie z jej kolumn da sie zlozyc choc
      jeden sensowny wymiar. Zakladka bez tabel (Overview) go nie dostaje — kontrolka
      bez czego filtrowac uczy, ze kontrolki nic nie robia. */
+  /* §5co (5 X 2026): the bar of a HIDDEN tab is built when that tab is first shown, not on load.
+     Building all of them on load cost 1.5-2.0 s of a blocked page on a desktop processor (measured:
+     the heaviest single thing on the page) — on a phone that is the time the reader scrolls over
+     black, unpainted areas. Nothing reads a hidden tab's bar: every reader goes through TAB[pid],
+     which simply has no entry until the tab opens. Without MutationObserver: as before, all at once. */
+  var WATCH=null,NOCLEAR=0;
+  function watchPanels(){
+    if(WATCH||!window.MutationObserver) return;
+    WATCH=new MutationObserver(function(list){
+      list.forEach(function(m){
+        var p=m.target; if(!p||!p.id||p.hidden) return;
+        if(document.getElementById(p.id+"-filter")) return;
+        NOCLEAR=1;
+        try{ mountPanel(p.id); }catch(e){ if(window.console) console.error("[nt bar "+p.id+"]",e); }
+        finally{ NOCLEAR=0; }
+      });
+    });
+    [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
+      WATCH.observe(p,{attributes:true,attributeFilter:["hidden"]});
+    });
+  }
   function mountEverywhere(){
+    watchPanels();
     [].forEach.call(document.querySelectorAll(".tabpanel"),function(p){
       if(!p.id) return;
+      if(p.hidden&&WATCH) return;
       try{ mountPanel(p.id); }catch(e){ if(window.console) console.error("[nt bar "+p.id+"]",e); }
     });
   }
@@ -22607,7 +22640,10 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       if(!MINE[id]&&window.__socS11){
         if(on&&ids.length){ s11set(id,{label:describe(id).join(" \u00b7 "),ids:ids});
                             DELEG[id]=true; }
-        else if(window.__socS11.clearTab) s11clear(id);
+        /* §5co: a bar built when its tab opens has chosen nothing, so it has nothing of its own
+           to clear — and clearing here would wipe the filter the reader arrived with (a header
+           tile or an Overview number sets it a moment before the tab is shown). */
+        else if(window.__socS11.clearTab&&!NOCLEAR) s11clear(id);
       }
       /* licznik przy KAZDEJ sekcji mowi, ile jej zostalo — to jest ta liczba
          per sekcja, ktorej pasek per zakladka sam z siebie nie daje */
@@ -26128,6 +26164,53 @@ Graph API nie dostaje juz drugiego zdania; technologie — jedno zdanie na techn
 dziesieciu, security najpierw (Defender, Entra ID, Entra Connect, Sentinel, Intune, Purview, Copilot,
 Exchange & Outlook, Teams, Windows, Azure, …); naglowek liczy do „fifteen".
 
+
+**§5co (5 X 2026, zgloszenie wlasciciela z telefonu: czarne pola, pasek zakladek na srodku ekranu, uciete
+karty; na komputerze nierowne wciecia w zdaniach dnia).** Zmierzone, zanim cokolwiek zmieniono — w silniku
+Safari (Playwright WebKit, profil iPhone 13) i w Chromium z procesorem zwolnionym 4x:
+
+| Co | Przed | Po |
+|---|---|---|
+| silnik Safari: czas wywolan skryptow przy starcie | 21,3 s | 3,9 s |
+| silnik Safari: najdluzsze pojedyncze zamrozenie | 11,1 s | 0,4 s |
+| silnik Safari: od gotowego dokumentu do ustalonego ukladu | 20,6 s | ok. 4-5 s |
+| Chromium 4x: suma dlugich zadan przy starcie | 28,3 s | 16,5 s |
+| Chromium 4x: zamrozenie po KAZDYM dotknieciu strony | 1,6 s | 0,3 s |
+| wysokosc dokumentu, ktora widzi czytelnik w trakcie startu | 6 roznych (10 701 … 5 778 px) | 1 |
+
+Cztery przyczyny, w kolejnosci wagi:
+
+1. **Selektor relacyjny w arkuszu** (dwukropek, `has`, nawias) — cztery reguly: dwie z §5e (pasek na
+   krawedzi `.cc-row`), `.gu-cap3` i `.tw` z kartami. Silnik Safari sprawdzal je od nowa przy kazdym z
+   dziesiatek tysiecy wezlow dopisywanych przez skrypty do dokumentu o 124 000 wezlow: sam `decorate()`
+   SKRYPTU 6 trwal 11,1 s. Zastapione klasami stawianymi przez skrypt (`cc-undoc`, `cc-elsewhere`,
+   `gu-filtered`, `gv-tw`). **Zasada: w arkuszu tej strony nie wolno uzyc selektora relacyjnego —
+   `tools/code_refresh.py` odmawia odswiezenia strony, gdy go znajdzie.**
+2. **§5cn `components()`** — piec razy przy starcie i dwa razy po kazdym kliknieciu parsowal caly stan
+   (ok. 8 MB) i robil 13 przejsc selektorem po calym dokumencie. Teraz stan jest czytany raz, dokument
+   przeszukiwany raz, a przebieg bez pracy konczy sie od razu.
+3. **Pasek Advanced filtering (SKRYPT 15 v2)** budowal sie przy starcie dla wszystkich 15 zakladek
+   (1,5-2,0 s). Zakladka ukryta dostaje go przy pierwszym otwarciu (`MutationObserver` na `hidden`);
+   pasek zbudowany pozniej niczego nie czysci (`NOCLEAR`), bo inaczej zdejmowal filtr, z ktorym
+   czytelnik wlasnie przyszedl z kafla naglowka.
+4. **Uklad zmienial sie na oczach czytelnika.** Warstwy startuja na licznikach rozlozonych na ok. 3 s,
+   wiec strona pokazywala po kolei stare sekcje, sekcje zwiniete i dopiero widok §5ci. Tresc `.wrap` jest
+   teraz przezroczysta do `html.s5co-go`, ktore stawia ostatni blok SKRYPTU 17, gdy `s5ready` jest
+   ustawione, karta zdan wypelniona, a wysokosc dokumentu nie zmienila sie przez trzy pomiary. Arkusz ma
+   wlasny bezpiecznik 30 s na JEDNYM elemencie (`.wrap`), niezalezny od skryptu. Przezroczystosc, nie
+   `visibility:hidden` i nie `display:none` — skrypty dalej czytaja `innerText` i mierza pudelka.
+
+**Zdania dnia:** etykieta kazdego zdania stoi we wlasnej linii, tekst pod nia (`.s5bk-3 li>b{display:block}`);
+dotad zdanie z samym tekstem („New", cichy Message Center) bieglo w linii etykiety, a zdanie z linkiem
+zaczynalo sie pod nia.
+
+**Czego ten etap NIE zmienia:** rozmiar strony (16,7 MB, 124 000 wezlow) i czas jej parsowania — to
+naprawia dopiero nowy portal (dane poza strona). Testy: `t5cn.py` 32/32, `tbp.py` 13/15 (dwie pozycje
+zalezne od danych: 5 X zadna technologia nie ma „New today", wynik identyczny na stronie sprzed zmiany),
+porownanie 15 zakladek przed/po na 1440 i 390 px (widoczne wiersze, liczniki, znaczniki wersji — bez
+roznic; roznia sie tylko ukryte paski, ktore licza teraz wiersze zbudowane pozniej), bramka `--mirror`
+bez zmian wzgledem strony sprzed zmiany. Prompty: tylko „Afternoon delta" niesie w tresci dwie stare
+reguly CSS — nowa tresc w dokumentach projektu.
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -26328,6 +26411,22 @@ del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px
 /* §5cm: the sentences card on top of Overview, and the component versions table */
 .s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
 .s5ci-ten .s5bk-3 li{break-inside:avoid;margin:0 0 10px}
+/* §5co (5 X 2026): every sentence is built the same way — the label on its own line, the text under
+   it. Until now a sentence whose text is plain (New, a quiet Message Center) ran on in the label's
+   line while one whose text is a link started below it, so the card read as two indent levels. */
+.s5bk-3 li>b{display:block}
+.s5bk-3 li>b+span:not([class]){display:block}
+/* §5co: the tab content appears once, when the layers are done (SCRIPT 17, last block). ONE element
+   carries the 30 s fallback — `.wrap` — so it covers every tab at once and needs no script at all:
+   a timer on each panel would restart whenever a tab is opened, and a variable animated on the
+   parent does not work in Safari (both measured 5 X 2026). */
+html:not(.s5co-go) .wrap{opacity:0;pointer-events:none;animation:s5coShow 0s linear 30s forwards}
+html:not(.s5co-go) header.top::after{content:"Loading today\2019s brief\2026";display:block;padding:10px 20px 4px;font-size:15px;font-weight:600;color:var(--muted);animation:s5coHide 0s linear 30s forwards,s5coPulse 1.4s ease-in-out infinite alternate}
+@keyframes s5coShow{to{opacity:1;pointer-events:auto}}
+@keyframes s5coHide{to{visibility:hidden}}
+@keyframes s5coPulse{from{opacity:.45}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){html:not(.s5co-go) header.top::after{animation:s5coHide 0s linear 30s forwards}}
+@media (max-width:760px){html:not(.s5co-go) header.top::after{padding:8px 12px 6px}}
 .s5cm-t .s5ci-tr{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) minmax(0,1.6fr) minmax(0,1.1fr);align-items:baseline}
 .s5cm-t .s5ci-tr.s5cm-today{background:var(--accent-soft)}
 .s5cm-area{display:flex;flex-direction:column;gap:1px}
@@ -30189,6 +30288,8 @@ odtad CZTERNASCIE (4-17).**
     bar.appendChild(chips("Level", "lv", LVS, function (r, k) { return lvKey(r.lv) === k; }));
     var rows = ROWS.filter(function (r) { return pass(r); });
     banner.textContent = ""; banner.hidden = !(F.t || F.lv || F.q);
+    /* §5co: a class instead of a relational selector — see the last block of this script */
+    var capHost = banner.closest ? banner.closest("#gd-changes") : null; if (capHost) capHost.classList.toggle("gu-filtered", !banner.hidden);
     if (!banner.hidden) {
       banner.appendChild(el("b", null, "Filtered · " + rows.length + " of " + ROWS.length + " changes"));
       var c = el("button", "gd-clear", "Clear all"); c.type = "button";
@@ -30748,6 +30849,7 @@ odtad CZTERNASCIE (4-17).**
     });
     if (hs.length < 2) return;
     t.classList.add("gv-cards");
+    if (t.parentNode && t.parentNode.classList && t.parentNode.classList.contains("tw")) t.parentNode.classList.add("gv-tw");   /* §5co */
     [].forEach.call(t.tBodies, function (tb) {
       [].forEach.call(tb.rows, function (r) {
         if (r.getAttribute("data-gv") === String(r.cells.length)) return;
@@ -33318,15 +33420,35 @@ odtad CZTERNASCIE (4-17).**
      list listener above. `__socOpenPerm` / `__socOpenRole` go through the same click. */
 
   /* ---- (b) Component versions ---- */
+  /* §5co (5 X 2026): this function ran five times on load and twice after every click, and each run
+     parsed the whole state block again (about 8 MB) and made 13 selector passes over 124 000 nodes —
+     measured 0.8 s of the load on a desktop processor, the second heaviest thing on the page. The
+     state is now read ONCE and only the three fields used here are kept; the page is searched once
+     for version marks not yet handled, and a run with nothing to do ends there. */
+  var CMP = null;
+  function cmpState() {
+    if (CMP) return CMP;
+    var st = json("soc-brief-state"); if (!st || !st.components) return null;
+    CMP = { components: st.components, briefDate: st.briefDate, comparedWith: st.comparedWith, componentStats: st.componentStats };
+    return CMP;
+  }
+  function cmpIdOf(v) {
+    var h = v.closest ? v.closest('[id^="cmp-"], tr[data-id^="cmp-"], a.jtile[href^="#cmp-"]') : null; if (!h) return "";
+    var raw = (h.id && h.id.indexOf("cmp-") === 0) ? h.id : (h.getAttribute("data-id") || (h.getAttribute("href") || "").replace(/^#/, ""));
+    return raw.replace(/^cmp-/, "");
+  }
   function components() {
-    var st = json("soc-brief-state"); if (!st || !st.components) return;
+    var todo = [].filter.call(document.querySelectorAll(".vchg"), function (v) { return !v.__s5cn; });
+    var needSum = !document.querySelector(".s5cn-cmpsum") && !!document.querySelector("#tab-components #components");
+    if (!todo.length && !needSum) return;
+    var st = cmpState(); if (!st) return;
     var day = st.briefDate || "", prev = (st.comparedWith || {}).date || st.comparedWith || "";
-    var moved = [];
+    var moved = [], byId = {};
+    todo.forEach(function (v) { var k = cmpIdOf(v); if (k) (byId[k] = byId[k] || []).push(v); });
     st.components.forEach(function (c) {
       var l = c.lastChange || {}, isNew = !!(l.from && l.to && l.seen && l.basis === "observed" && (prev ? l.seen > prev : l.seen === day) && l.seen <= day);
       if (isNew) moved.push(c);
-      var q = '#cmp-' + c.id + ' .vchg, tr[data-id="cmp-' + c.id + '"] .vchg, a.jtile[href="#cmp-' + c.id + '"] .vchg';
-      [].forEach.call(document.querySelectorAll(q), function (v) {
+      (byId[c.id] || []).forEach(function (v) {
         if (v.__s5cn) return; v.__s5cn = true;
         if (isNew) { v.classList.add("s5cn-new"); v.appendChild(el("span", "s5cn-tag", "detected " + (l.seen === day ? "today" : dmy(l.seen)))); return; }
         if (!v.querySelector("del")) return;                      /* "first recorded" has no pair to mute */
@@ -33384,6 +33506,59 @@ odtad CZTERNASCIE (4-17).**
   function start() {
     [600, 1500, 3000, 5000, 8000].forEach(function (t) { setTimeout(run, t); });
     document.addEventListener("click", function () { setTimeout(run, 250); setTimeout(run, 900); }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+
+/* ---------------------------------------------------------------------------
+   §5co (5 X 2026) — THE TAB CONTENT IS SHOWN ONCE, WHEN IT IS BUILT.
+   The owner's phone, 5 X: black areas, the tab picker in the middle of the screen, cards cut
+   off. Measured in a Safari engine with a phone profile: between the first paint and the last
+   layer the document changes height five times (10 701 -> 16 840 -> 9 916 -> 10 101 -> 4 694 ->
+   5 778 px) while the main thread is blocked for seconds at a time. A phone scrolls on another
+   thread, so the reader was scrolling through a page that was still being rebuilt under the finger.
+   The stylesheet keeps `.wrap` transparent until `html.s5co-go`; this sets the class
+   when the layers are done: `html.s5ready` is on and the document height has stayed the same for
+   three checks with the sentences card filled. The stylesheet has its own 30 s fallback, so a script error can never leave the
+   page blank. Transparent, not `visibility:hidden` and not `display:none`: every script keeps
+   reading `innerText` and measuring boxes exactly as before.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+  var de = document.documentElement, t0 = 0, readyAt = 0, last = -1, same = 0, done = false;
+  function go() { if (done) return; done = true; de.classList.add("s5co-go"); }
+  /* the sentences card is the last thing Overview receives (measured: 0.5 s after `s5ready`) */
+  function built() { var c = document.querySelector("#tab-overview.s5ci-on .s5ci-ten"); return !c || !!c.querySelector("li"); }
+  function tick() {
+    if (done) return;
+    var h = de.scrollHeight, now = Date.now();
+    if (de.classList.contains("s5ready")) {
+      if (!readyAt) readyAt = now;
+      if (built()) { same = (h === last) ? same + 1 : 0; if (same >= 3) return go(); } else same = 0;
+      if (now - readyAt > 8000) return go();
+    }
+    last = h;
+    if (now - t0 > 45000) return go();
+    setTimeout(tick, 300);
+  }
+  /* The left stripe of a change-summary row that carries an "undocumented" or a "deployed
+     elsewhere" badge. It used to be a relational selector in the stylesheet. Measured 5 X 2026 in
+     a Safari engine: with the four relational rules in the sheet the boot callbacks took 21.3 s,
+     without them 4.6 s — every one of the tens of thousands of nodes the scripts add made the
+     engine re-check those rules against the whole 124 000-node document. NO RELATIONAL SELECTOR
+     MAY BE ADDED TO THIS PAGE'S STYLESHEET; a class set here costs nothing. */
+  function stripes() {
+    [].forEach.call(document.querySelectorAll(".cc-row"), function (r) {
+      var u = !!r.querySelector(".badge.b-undoc"), e = !u && !!r.querySelector(".badge.b-elsewhere");
+      if (r.classList.contains("cc-undoc") !== u) r.classList.toggle("cc-undoc", u);
+      if (r.classList.contains("cc-elsewhere") !== e) r.classList.toggle("cc-elsewhere", e);
+    });
+  }
+  function stripesSafe() { try { stripes(); } catch (e) { if (window.console) console.error("[5co]", e); } }
+  function start() {
+    t0 = Date.now(); setTimeout(tick, 900);
+    [1500, 4000].forEach(function (t) { setTimeout(stripesSafe, t); });
+    document.addEventListener("click", function () { setTimeout(stripesSafe, 350); }, true);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
@@ -33737,7 +33912,7 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .gu-more{font:12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:4px 6px;max-width:100%}
 table.gu-cap tbody tr:nth-child(n+16){display:none}
 .gu-cap3 .gd-grp:nth-of-type(n+4){display:none}
-.gu-cap3:has(.gd-banner:not([hidden])) .gd-grp{display:block}
+.gu-cap3.gu-filtered .gd-grp{display:block}
 @media (max-width:999px){
  .catalog .cat-list{max-height:62vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 }
@@ -33757,7 +33932,7 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  table.gv-cards td.gv-empty{display:none}
  table.gv-cards tr.gv-wide td{display:block}
  table.gv-cards td *{max-width:100%}
- .tw:has(> table.gv-cards){overflow-x:visible}
+ .tw.gv-tw{overflow-x:visible}
  .gd-cmds,.gd-apps{grid-template-columns:1fr}
 }/* §5bw–§5bx (27 IX 2026) — article browsers with read marks; role and permission panels on a phone (script 17). */
 .ab-head{display:grid;grid-template-columns:28px 52px minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;padding:8px 12px}
