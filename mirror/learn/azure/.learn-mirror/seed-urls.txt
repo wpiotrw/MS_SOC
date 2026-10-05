@@ -119,6 +119,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-database
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-configure-malware-scan
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-sensor-change-log
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-helm
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-plans
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-vulnerability-findings-containers
@@ -271,6 +272,7 @@ https://learn.microsoft.com/en-us/azure/sentinel
 https://learn.microsoft.com/en-us/azure/sentinel/anomalies-reference
 https://learn.microsoft.com/en-us/azure/sentinel/automation/generate-playbook
 https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
+https://learn.microsoft.com/en-us/azure/sentinel/compare-analytics-rules-custom-detections
 https://learn.microsoft.com/en-us/azure/sentinel/configure-data-connector
 https://learn.microsoft.com/en-us/azure/sentinel/connect-threat-intelligence-taxii
 https://learn.microsoft.com/en-us/azure/sentinel/data-connectors-reference
