@@ -795,8 +795,8 @@ td.nums{font-family:var(--mono);font-size:12px;white-space:nowrap}
 }
 .badge.b-undoc{background:var(--warn-soft);color:var(--warn);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--warn)}
 .badge.b-elsewhere{background:var(--accent-soft);color:var(--accent);border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--accent)}
-.cc-row:has(.badge.b-undoc){box-shadow:inset 3px 0 0 var(--warn)}
-.cc-row:has(.badge.b-elsewhere){box-shadow:inset 3px 0 0 var(--accent)}
+.cc-row.cc-undoc{box-shadow:inset 3px 0 0 var(--warn)}
+.cc-row.cc-elsewhere{box-shadow:inset 3px 0 0 var(--accent)}
 .cat-changed{max-height:min(58vh,430px);overflow:auto;overscroll-behavior:contain}
 details.foldnote>summary,details.cb-more>summary,details.cov-more>summary{font-size:14.5px;font-weight:600;color:var(--text)}
 details.foldnote>summary::before,details.cb-more>summary::before,details.cov-more>summary::before{width:22px;height:22px;flex-basis:22px;font-size:15px;background:var(--accent-soft);border-color:var(--accent)}
@@ -2174,8 +2174,30 @@ del.s5cl-old,ins.s5cl-new{font-family:var(--mono);font-size:12px;padding:1px 6px
 }
 .s5ci-ten .s5cl-cn{font-size:13.5px}
 /* §5cm: the sentences card on top of Overview, and the component versions table */
-.s5ci-ten .s5bk-3{display:block;columns:2 420px;column-gap:32px;padding-left:22px}
+.s5ci-ten .s5bk-3{display:block;padding-left:22px}
+/* §5cp (5 X 2026): two columns ONLY on a wide screen. On a phone the rule gave one column anyway, but
+   the list was still a multi-column box — and that is the one place where the owner's iPhone stopped
+   painting, twice at the same sentence (screenshots of 21:34 and 23:20: cut after sentence 7, black below).
+   Safari on iOS is known to drop the painting of multi-column content while scrolling. A plain block
+   on a phone, columns from 900 px. */
+@media (min-width:900px){.s5ci-ten .s5bk-3{columns:2 420px;column-gap:32px}}
 .s5ci-ten .s5bk-3 li{break-inside:avoid;margin:0 0 10px}
+/* §5co (5 X 2026): every sentence is built the same way — the label on its own line, the text under
+   it. Until now a sentence whose text is plain (New, a quiet Message Center) ran on in the label's
+   line while one whose text is a link started below it, so the card read as two indent levels. */
+.s5bk-3 li>b{display:block}
+.s5bk-3 li>b+span:not([class]){display:block}
+/* §5co: the tab content appears once, when the layers are done (SCRIPT 17, last block). ONE element
+   carries the 30 s fallback — `.wrap` — so it covers every tab at once and needs no script at all:
+   a timer on each panel would restart whenever a tab is opened, and a variable animated on the
+   parent does not work in Safari (both measured 5 X 2026). */
+html:not(.s5co-go) .wrap{opacity:0;pointer-events:none;animation:s5coShow 0s linear 30s forwards}
+html:not(.s5co-go) header.top::after{content:"Loading today\2019s brief\2026";display:block;padding:10px 20px 4px;font-size:15px;font-weight:600;color:var(--muted);animation:s5coHide 0s linear 30s forwards,s5coPulse 1.4s ease-in-out infinite alternate}
+@keyframes s5coShow{to{opacity:1;pointer-events:auto}}
+@keyframes s5coHide{to{visibility:hidden}}
+@keyframes s5coPulse{from{opacity:.45}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){html:not(.s5co-go) header.top::after{animation:s5coHide 0s linear 30s forwards}}
+@media (max-width:760px){html:not(.s5co-go) header.top::after{padding:8px 12px 6px}}
 .s5cm-t .s5ci-tr{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) minmax(0,1.6fr) minmax(0,1.1fr);align-items:baseline}
 .s5cm-t .s5ci-tr.s5cm-today{background:var(--accent-soft)}
 .s5cm-area{display:flex;flex-direction:column;gap:1px}
@@ -2805,7 +2827,7 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .gu-more{font:12.5px/1.3 var(--sans);color:var(--accent);background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:4px 6px;max-width:100%}
 table.gu-cap tbody tr:nth-child(n+16){display:none}
 .gu-cap3 .gd-grp:nth-of-type(n+4){display:none}
-.gu-cap3:has(.gd-banner:not([hidden])) .gd-grp{display:block}
+.gu-cap3.gu-filtered .gd-grp{display:block}
 @media (max-width:999px){
  .catalog .cat-list{max-height:62vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
 }
@@ -2825,7 +2847,7 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  table.gv-cards td.gv-empty{display:none}
  table.gv-cards tr.gv-wide td{display:block}
  table.gv-cards td *{max-width:100%}
- .tw:has(> table.gv-cards){overflow-x:visible}
+ .tw.gv-tw{overflow-x:visible}
  .gd-cmds,.gd-apps{grid-template-columns:1fr}
 }/* §5bw–§5bx (27 IX 2026) — article browsers with read marks; role and permission panels on a phone (script 17). */
 .ab-head{display:grid;grid-template-columns:28px 52px minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;padding:8px 12px}
@@ -3059,7 +3081,6 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd] .catalog > .catwhy{order:1;margin:6px 0 4px}
 .tabpanel[data-s5cd] .catalog > .filterbanner,.tabpanel[data-s5cd] .catalog > .bkbanner{order:2}
 .tabpanel[data-s5cd] .catalog > .cat-split,.tabpanel[data-s5cd] .catalog > .apisurf,.tabpanel[data-s5cd] .catalog > .callout{order:3}
-
 
 
 
@@ -5907,7 +5928,7 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 5 October 2026</b> &middot; published 06:43 Warsaw &middot; 21 September &ndash; 5 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>53</b> deadlines in 60 days<span>&middot; 46 inside 30, 3 due today</span></a><a class="count" href="#graph"><b>818</b> undocumented at Microsoft<span>&middot; 818 permissions, 0 roles</span></a><a class="count" href="#graph"><b>369</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>22</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>96</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>3</b> changes since 4 Oct<span>&middot; 0 at Microsoft, 3 in this report</span></a><a class="count" href="#chg14"><b>4913</b> changes in 14 days<span>&middot; 11 days with a run, 3 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 6 October 2026</b> &middot; published 06:51 Warsaw &middot; 22 September &ndash; 6 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 47 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>830</b> undocumented at Microsoft<span>&middot; 830 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>25</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>102</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>31</b> changes since 5 Oct<span>&middot; 20 at Microsoft, 11 in this report</span></a><a class="count" href="#chg14"><b>5297</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -6108,7 +6129,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 5 October 2026, morning pass at 06:43 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 6 October 2026, morning pass at 06:51 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
