@@ -25,7 +25,7 @@ ms.service: microsoft-foundry
 description: Learn when to use Flex processing, send Flex requests, implement a Standard fallback, and monitor usage and costs for Azure OpenAI.
 ms.reviewer: seramasu
 reviewer: rsethur
-ms.date: 2026-09-24T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 ms.subservice: foundry-openai
 ms.topic: how-to
 ms.custom: doc-kit-assisted
@@ -44,12 +44,12 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/openai/how-to/flex-processing.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8a6e4dad-7050-4ce7-83f9-eb4123577a54
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8a6e4dad-7050-4ce7-83f9-eb4123577a54
 - https://authoring-docs-microsoft.poolparty.biz/devrel/86a4b315-a9f1-4577-b985-6fb0e0e67420
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/0a5fc323-00ce-4c20-9095-41948f54c83f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/0a5fc323-00ce-4c20-9095-41948f54c83f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/96ac410d-d052-4707-8007-df31dd0fe041
 platformId: 43329130-8311-b5bb-4212-845f49eb0733
 ---
@@ -193,6 +193,9 @@ Flex processing has limited model availability at launch. `gpt-5.6-sol` is the f
 | Model | Version | Deployment type | Region availability |
 | --- | --- | --- | --- |
 | `gpt-5.6-sol` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-5.6-luna` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-5.6-terra` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-6-astra` | `2026-09-03` | Global Standard | All Azure regions where Global Standard is available |
 
 Check this table before you send a Flex request. Don't assume that a model or a new model version supports Flex processing because it supports Standard or Priority processing. An unsupported model returns HTTP 400. To avoid disrupting your application, implement an application-level fallback to Standard processing when Standard pricing and performance are acceptable.
 

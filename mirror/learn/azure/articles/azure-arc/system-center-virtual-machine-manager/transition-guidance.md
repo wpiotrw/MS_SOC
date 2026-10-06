@@ -20,7 +20,7 @@ learn_banner_products:
 ms.author: krkarthik
 ms.service: azure-arc
 description: This article provides transition guidance following the retirement of Azure Arc-enabled System Center Virtual Machine Manager.
-ms.date: 2026-09-24T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 ms.topic: how-to
 ms.services: azure-arc
 ms.subservice: azure-arc-scvmm
@@ -74,7 +74,7 @@ Azure Arc-enabled Servers provides guest operating system management regardless 
 ### High-level transition process
 
 1. Identify the VMs currently onboarded to Azure services for patching, monitoring, security, etc. and enrolled for Azure-based licensing like Extended Security Updates (ESUs), Pay-as-you-go licensing through Azure Arc-enabled SCVMM.
-2. Execute the Azure CLI command by scoping it to the machines individually or at a resource group or a subscription level. **The Azure CLI command will be updated here by October 2026**.
+2. Execute the Azure CLI command by scoping it to the machines individually or at a resource group or a subscription level. **The Azure CLI command will be updated here by November 2026**.
 3. Validate connectivity between the machines and Azure Arc.
 4. Verify policies, monitoring, updates, security, license billing, and compliance functionality.
 5. Establish plans to Arc-onboard additional machines at-scale in the future, if any.

@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/powershell/module/microsoft.entra.applications/new-entraapplication",
   "pages": {
-    "https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2": {"etag":"\"Y+Pwly4Dh3I07eOnUXFhxbt2MTU=\"","gitCommitId":"f8841e036ef87ac87a27d72f136a2844823080f8","path":"exchange/docs-conceptual/app-only-auth-powershell-v2.md","redirectedTo":"https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps","sourcePath":"exchange/docs-conceptual/app-only-auth-powershell-v2.md","updatedAt":"2026-08-27T18:19:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2": {"etag":"\"omrbK7IGbCNKQb8mQnv+wamknj8=\"","gitCommitId":"f8841e036ef87ac87a27d72f136a2844823080f8","path":"exchange/docs-conceptual/app-only-auth-powershell-v2.md","redirectedTo":"https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps","sourcePath":"exchange/docs-conceptual/app-only-auth-powershell-v2.md","updatedAt":"2026-08-27T18:19:00.0000000Z"},
     "https://learn.microsoft.com/en-us/powershell/module/microsoft.entra.applications/new-entraapplication": {"etag":"\"z3gWEQ5FIy/b/6KHOKmMUyaiHMc=\"","gitCommitId":"b8f6bc1b4efb735a14955bc1ae33578ded15b125","path":"docs/reference/v1.0/Microsoft.Entra.Applications/New-EntraApplication.md","redirectedTo":"https://learn.microsoft.com/en-us/powershell/module/microsoft.entra.applications/new-entraapplication?view=entra-powershell","sourcePath":"docs/reference/v1.0/Microsoft.Entra.Applications/New-EntraApplication.md","updatedAt":"2025-10-14T17:34:00.0000000Z"}
   }
 }
