@@ -1,7 +1,7 @@
 {
  "read": "2026-10-06",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 679,
+ "count": 681,
  "note": null,
  "messages": [
   {
@@ -5112,15 +5112,15 @@
    "actionBy": null,
    "start": "2026-06-12",
    "end": "2026-11-16",
-   "modified": "2026-08-24",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft is expanding the availability of the Legal agent in Microsoft 365 Copilot in Word to Frontier users worldwide in Public Preview. The Legal agent was previously released in Frontier preview for users located in the United States only. This update expands access globally, enabling more organi…",
-   "bodyHash": "e2ce101c122d3186"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft is expanding the availability of the Legal agent in Microsoft 365 Copilot in Word to Frontier users worldwide in Public Preview. The Legal agent was previously released in Frontier preview for users located in the United States only. This update expands access globally, enabling more organi…",
+   "bodyHash": "f96af2f769f86844"
   },
   {
    "id": "MC1388718",
@@ -6743,14 +6743,14 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-24",
-   "end": "2026-12-07",
-   "modified": "2026-08-12",
+   "end": "2026-10-09",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Updated message"
    ],
-   "summary": "Updated August 12, 2026: We have decided not to move forward with this change at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and why] We are improving transparency in Microsoft Purview Data Loss Prevention (DLP) for managed apps in Microsoft Edge for Business . The protection that blocks browser developer tools (debug to…",
-   "bodyHash": "7bae866dbe6ba1de"
+   "summary": "Updated October 6, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and why] We are improving transparency in Microsoft Purview Data Loss Prevention (DLP) for managed apps in Microsoft Edge for Business . The protection that blocks browser developer tools (debug tools) is always enforced by default for managed app scenarios. With th…",
+   "bodyHash": "2917b05c7e576e15"
   },
   {
    "id": "MC1438568",
@@ -7345,7 +7345,7 @@
   },
   {
    "id": "MC1446805",
-   "title": "Microsoft Viva: Targeted audience surveys in the Copilot dashboard",
+   "title": "(Updated) Microsoft Viva: Targeted audience surveys in the Copilot dashboard",
    "services": [
     "Microsoft Viva"
    ],
@@ -7354,15 +7354,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-03",
-   "end": "2026-10-30",
-   "modified": "2026-08-03",
+   "end": "2026-12-31",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing targeted audience surveys in the Copilot dashboard . This feature enables authorized users to launch Microsoft Viva Pulse surveys for predefined Copilot user populations without creating or maintaining recipient lists. Survey audiences are dynamically based on Copilot dashboard data and can be scoped using existing dashboard filters. This helps organizations gather…",
-   "bodyHash": "1761a4300b08ef43"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing targeted audience surveys in the Copilot dashboard . This feature enables authorized users to launch Microsoft Viva Pulse surveys for predefined Copilot user populations without creating or maintaining recipient lists. Survey audiences are dynamically based on Copilot dashboard data…",
+   "bodyHash": "0e5f61877b8bcd46"
   },
   {
    "id": "MC1447673",
@@ -7733,8 +7734,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-13",
-   "end": "2026-11-02",
-   "modified": "2026-09-21",
+   "end": "2026-12-31",
+   "modified": "2026-10-06",
    "tags": [
     "Feature update",
     "Updated message",
@@ -9291,7 +9292,7 @@
   },
   {
    "id": "MC1462921",
-   "title": "Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
+   "title": "(Updated) Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
    "services": [
     "Microsoft Teams"
    ],
@@ -9301,13 +9302,14 @@
    "actionBy": null,
    "start": "2026-08-27",
    "end": "2026-11-30",
-   "modified": "2026-08-27",
+   "modified": "2026-10-06",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[ What and Why:] We are introducing a new Call Monitor experience in Microsoft Teams for Web that helps users stay connected to meetings while working in other browser tabs. When users move away from an active meeting tab, Teams can display key meeting controls in a separate Picture-in-Picture (PiP) window, making it easier to manage calls and meetings without returning to the meeting tab. This en…",
-   "bodyHash": "3c353c3643ecd9aa"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [ What and Why:] We are introducing a new Call Monitor experience in Microsoft Teams for Web that helps users stay connected to meetings while working in other browser tabs. When users move away from an active meeting tab, Teams can display key meeting controls in a separate Picture-in-Picture (PiP) window, making …",
+   "bodyHash": "4c466bf3d9dab6d7"
   },
   {
    "id": "MC1462922",
@@ -9782,7 +9784,7 @@
   },
   {
    "id": "MC1465779",
-   "title": "Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments",
+   "title": "(Updated) Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -9792,15 +9794,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-01",
-   "end": "2026-11-30",
-   "modified": "2026-09-01",
+   "end": "2026-12-28",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] We're introducing support in Outlook for Mac that can automatically apply or recommend Microsoft Purview sensitivity labels based on the sensitivity labels assigned to attached files. This enhancement helps organizations apply more consistent information protection by aligning email sensitivity labels with the classification of attached content. By reducing the need for manual labe…",
-   "bodyHash": "8eb9ed4b33ab9a2c"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We're introducing support in Outlook for Mac that can automatically apply or recommend Microsoft Purview sensitivity labels based on the sensitivity labels assigned to attached files. This enhancement helps organizations apply more consistent information protection by aligning email sensitivity labe…",
+   "bodyHash": "7440f1100864f2a1"
   },
   {
    "id": "MC1465780",
@@ -10590,7 +10593,7 @@
   },
   {
    "id": "MC1470410",
-   "title": "Microsoft Teams: QR code protection for messages from external users",
+   "title": "(Updated) Microsoft Teams: QR code protection for messages from external users",
    "services": [
     "Microsoft Teams"
    ],
@@ -10599,15 +10602,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-10",
-   "end": "2026-11-12",
-   "modified": "2026-09-10",
+   "end": "2026-11-30",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is introducing additional protection for QR codes shared by external users in Teams messages. To help reduce the risk of phishing and fraud, images containing QR codes from external senders will be obscured by default. Users can choose to reveal the image before viewing or scanning the QR code. This security enhancement promotes safer interactions with content receiv…",
-   "bodyHash": "50d77ab6ff4f1894"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is introducing additional protection for QR codes shared by external users in Teams messages. To help reduce the risk of phishing and fraud, images containing QR codes from external senders will be obscured by default. Users can choose to reveal the image before viewing or scanning th…",
+   "bodyHash": "5279941f90adce1a"
   },
   {
    "id": "MC1470415",
@@ -10976,7 +10980,7 @@
   },
   {
    "id": "MC1472019",
-   "title": "[Outlook Mac] Purview DLP Wait-on-Send Support",
+   "title": "(Updated) [Outlook Mac] Purview DLP Wait-on-Send Support",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -10987,17 +10991,18 @@
    "actionBy": null,
    "start": "2026-09-14",
    "end": "2026-12-28",
-   "modified": "2026-09-14",
+   "modified": "2026-10-06",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why:] Outlook for Mac will support Microsoft Purview Data Loss Prevention \\(DLP\\) wait\\-on\\-send policies. Organizations can require a DLP evaluation before an email is sent and configure how long users must wait for policy evaluation to complete. This helps ensure sensitive information is inspected against organizational policies before messages leave the organization while providing ad…",
-   "bodyHash": "ac3bcbc2c6e93fec"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Outlook for Mac will support Microsoft Purview Data Loss Prevention \\(DLP\\) wait\\-on\\-send policies. Organizations can require a DLP evaluation before an email is sent and configure how long users must wait for policy evaluation to complete. This helps ensure sensitive information is inspected again…",
+   "bodyHash": "8fd258eeeb8095a2"
   },
   {
    "id": "MC1472021",
-   "title": "[Outlook Mobile] Purview DLP Wait-on-Send Support",
+   "title": "(Updated) [Outlook Mobile] Purview DLP Wait-on-Send Support",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -11008,17 +11013,18 @@
    "actionBy": null,
    "start": "2026-09-14",
    "end": "2026-12-28",
-   "modified": "2026-09-14",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and why:] Outlook for iOS and Android will support Microsoft Purview Data Loss Prevention \\(DLP\\) wait\\-on\\-send policies. Organizations can require a DLP evaluation before an email is sent and configure how long users must wait for policy evaluation to complete. This helps ensure sensitive information is inspected against organizational policies before messages leave the organization while …",
-   "bodyHash": "f9b2035b6fe407f2"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Outlook for iOS and Android will support Microsoft Purview Data Loss Prevention \\(DLP\\) wait\\-on\\-send policies. Organizations can require a DLP evaluation before an email is sent and configure how long users must wait for policy evaluation to complete. This helps ensure sensitive information is ins…",
+   "bodyHash": "3c1e58873145839f"
   },
   {
    "id": "MC1472022",
-   "title": "[Outlook Mac] Purview Data Loss Prevention support for Calendar Events",
+   "title": "(Updated) [Outlook Mac] Purview Data Loss Prevention support for Calendar Events",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -11029,17 +11035,18 @@
    "actionBy": null,
    "start": "2026-09-14",
    "end": "2026-12-28",
-   "modified": "2026-09-14",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and why:] Outlook for Mac will support Microsoft Purview Data Loss Prevention \\(DLP\\) policies for calendar events. Organizations can detect and help prevent the sharing of sensitive information in meeting subjects, descriptions, and invite content through policy tips, user remediation, and policy enforcement. This provides consistent compliance protection across email and calendar experienc…",
-   "bodyHash": "98dad9b59a67a9bc"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Outlook for Mac will support Microsoft Purview Data Loss Prevention \\(DLP\\) policies for calendar events. Organizations can detect and help prevent the sharing of sensitive information in meeting subjects, descriptions, and invite content through policy tips, user remediation, and policy enforcement…",
+   "bodyHash": "61a46732d41070ba"
   },
   {
    "id": "MC1472023",
-   "title": "[Outlook Mobile] Purview Data Loss Prevention support for Calendar Events",
+   "title": "(Updated) [Outlook Mobile] Purview Data Loss Prevention support for Calendar Events",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -11050,13 +11057,14 @@
    "actionBy": null,
    "start": "2026-09-14",
    "end": "2026-12-28",
-   "modified": "2026-09-14",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and why:] Outlook for iOS and Android will support Microsoft Purview Data Loss Prevention \\(DLP\\) policies for calendar events. Organizations can detect and help prevent the sharing of sensitive information in meeting subjects, descriptions, and invite content through policy tips, user remediation, and policy enforcement. This provides consistent compliance protection across email and calend…",
-   "bodyHash": "d74ccf8b583ee16a"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Outlook for iOS and Android will support Microsoft Purview Data Loss Prevention \\(DLP\\) policies for calendar events. Organizations can detect and help prevent the sharing of sensitive information in meeting subjects, descriptions, and invite content through policy tips, user remediation, and policy…",
+   "bodyHash": "9a719e850eff7d6f"
   },
   {
    "id": "MC1472025",
@@ -12107,7 +12115,7 @@
   },
   {
    "id": "MC1477185",
-   "title": "Microsoft OneDrive: New pay-as-you-go storage billing option",
+   "title": "(Updated) Microsoft OneDrive: New pay-as-you-go storage billing option",
    "services": [
     "Microsoft OneDrive"
    ],
@@ -12117,15 +12125,16 @@
    "actionBy": null,
    "start": "2026-09-22",
    "end": "2027-01-01",
-   "modified": "2026-09-22",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are introducing a pay-as-you-go, consumption-based billing option for additional OneDrive storage. This capability gives administrators more flexibility to manage storage growth by allowing selected OneDrive accounts to exceed their licensed storage quotas when needed, while helping organizations control which users can consume additional storage beyond their licensed storage quo…",
-   "bodyHash": "63705c6726132f4e"
+   "summary": "Updated October 6, 2026: We are no longer releasing to gov clouds at this time. We will communicate via a separate Message center post at a later date once we are ready to proceed with gov cloud release. If you are in a gov cloud, you can safely disregard this message. Thank you for your patience. [What and why] We are introducing a pay-as-you-go, consumption-based billing option for additional On…",
+   "bodyHash": "16afdb0d1a1d22a8"
   },
   {
    "id": "MC1477187",
@@ -12732,14 +12741,14 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-12-23",
-   "modified": "2026-10-01",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 1, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This change only impacts tenants who have not adjusted the policy that controls file attachment in an external Teams chat.…",
-   "bodyHash": "2a058ac9032699f7"
+   "summary": "Updated October 6, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This change only impacts tenants who have not adjusted the policy that controls file attachment in an external Teams chat.…",
+   "bodyHash": "5642dfddf7eebec0"
   },
   {
    "id": "MC1479516",
@@ -12824,7 +12833,7 @@
   },
   {
    "id": "MC1480873",
-   "title": "Connected Platforms - Agent 365 extends observability to third-party agents",
+   "title": "(Updated) Connected Platforms - Agent 365 extends observability to third-party agents",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -12833,14 +12842,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2026-11-30",
-   "modified": "2026-09-28",
+   "end": "2026-12-31",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] With this Frontier launch, Microsoft Agent 365 brings activity from Amazon Bedrock Classic and AgentCore, Google Vertex AI, and Anthropic Claude Managed Agents (preview) into the same observability experience as Microsoft agents. Administrators can see runs, sessions, tool calls, and exceptions on each agent’s Activity tab. The result: a more consistent way to understand agent usag…",
-   "bodyHash": "754256f647485720"
+   "summary": "Updated October 6, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why:] Microsoft will roll out third-party agent observability in Microsoft Agent 365 to tenants. This lets you monitor the agents you sync from Amazon Bedrock, Google Vertex AI, and Anthropic Claude through Connected platforms in the same place as your Microsoft agents. Administrators can see …",
+   "bodyHash": "cd203fc17bdb82bb"
   },
   {
    "id": "MC1481309",
@@ -13246,7 +13256,7 @@
   },
   {
    "id": "MC1484013",
-   "title": "Microsoft Teams: Multi-line call history tabs in the Calls app",
+   "title": "(Updated) Microsoft Teams: Multi-line call history tabs in the Calls app",
    "services": [
     "Microsoft Teams"
    ],
@@ -13255,15 +13265,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-30",
-   "end": "2026-12-13",
-   "modified": "2026-09-30",
+   "end": "2026-12-31",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is introducing a redesigned call history experience for Teams Phone users who have multi-line calling enabled. Call activity, including call history, voicemails, and recordings, will be organized by phone line in dedicated tabs within the Calls app. This change simplifies navigation for users who manage multiple phone lines. [Rollout schedule] Targeted Release: Begin…",
-   "bodyHash": "38c12346b59ab5d6"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is introducing a redesigned call history experience for Teams Phone users who have multi-line calling enabled. Call activity, including call history, voicemails, and recordings, will be organized by phone line in dedicated tabs within the Calls app. This change simplifies navigation f…",
+   "bodyHash": "5f208d747e54fd1b"
   },
   {
    "id": "MC1484511",
@@ -13435,7 +13446,7 @@
    "actionBy": null,
    "start": "2026-10-02",
    "end": "2026-12-04",
-   "modified": "2026-10-02",
+   "modified": "2026-10-06",
    "tags": [
     "Feature update",
     "New feature",
@@ -13446,7 +13457,7 @@
   },
   {
    "id": "MC1486284",
-   "title": "Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
    "services": [
     "Microsoft Purview"
    ],
@@ -13455,14 +13466,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-02",
-   "end": "2026-12-05",
-   "modified": "2026-10-02",
+   "end": "2027-01-11",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Units to delegate management of supported Copilot DLP policies while maintaining regional, departmental, or regulatory boundaries. T…",
-   "bodyHash": "9c96a8ed682954ed"
+   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Units to delegate management of supported Copilo…",
+   "bodyHash": "68026beb2624dd26"
   },
   {
    "id": "MC1486289",
@@ -13497,7 +13509,7 @@
    "actionBy": null,
    "start": "2026-10-02",
    "end": "2027-01-29",
-   "modified": "2026-10-02",
+   "modified": "2026-10-06",
    "tags": [
     "New feature",
     "User impact"
@@ -13646,6 +13658,44 @@
    ],
    "summary": "[What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessions and brings Microsoft Teams Rooms on Android closer to feature parity with Microsof…",
    "bodyHash": "9302e796ba258209"
+  },
+  {
+   "id": "MC1489590",
+   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-11-06",
+   "modified": "2026-10-06",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to assign task level calendar for precise planning in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? This feature provides an experience to change the task calendar on the Customizable task details pane . To enable this feature, from project parameters select Enable Customize Task Pane . Wh…",
+   "bodyHash": "47bebb6ea83c5d8f"
+  },
+  {
+   "id": "MC1489691",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-10-20",
+   "modified": "2026-10-06",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 6th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery …",
+   "bodyHash": "3aad7a25dad8740b"
   },
   {
    "id": "MC676299",
@@ -15570,6 +15620,432 @@
    "id": "MC1488847",
    "type": "new",
    "title": "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1388706",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Legal agent available in Frontier worldwide",
+   "fields": {
+    "bodyHash": [
+     "e2ce101c122d3186",
+     "f96af2f769f86844"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1438561",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview Data loss prevention: debug tools activity now visible in managed app rules",
+   "fields": {
+    "end": [
+     "2026-12-07",
+     "2026-10-09"
+    ],
+    "bodyHash": [
+     "7bae866dbe6ba1de",
+     "2917b05c7e576e15"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1446805",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva: Targeted audience surveys in the Copilot dashboard",
+   "fields": {
+    "title": [
+     "Microsoft Viva: Targeted audience surveys in the Copilot dashboard",
+     "(Updated) Microsoft Viva: Targeted audience surveys in the Copilot dashboard"
+    ],
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "1761a4300b08ef43",
+     "0e5f61877b8bcd46"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1454113",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot Word: Document summarization experience moving",
+   "fields": {
+    "end": [
+     "2026-11-02",
+     "2026-12-31"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1462921",
+   "type": "changed",
+   "title": "(Updated) Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
+   "fields": {
+    "title": [
+     "Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
+     "(Updated) Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "3c353c3643ecd9aa",
+     "4c466bf3d9dab6d7"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1465779",
+   "type": "changed",
+   "title": "(Updated) Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments",
+   "fields": {
+    "title": [
+     "Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments",
+     "(Updated) Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-28"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "8eb9ed4b33ab9a2c",
+     "7440f1100864f2a1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1470410",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: QR code protection for messages from external users",
+   "fields": {
+    "title": [
+     "Microsoft Teams: QR code protection for messages from external users",
+     "(Updated) Microsoft Teams: QR code protection for messages from external users"
+    ],
+    "end": [
+     "2026-11-12",
+     "2026-11-30"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "50d77ab6ff4f1894",
+     "5279941f90adce1a"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1472019",
+   "type": "changed",
+   "title": "(Updated) [Outlook Mac] Purview DLP Wait-on-Send Support",
+   "fields": {
+    "title": [
+     "[Outlook Mac] Purview DLP Wait-on-Send Support",
+     "(Updated) [Outlook Mac] Purview DLP Wait-on-Send Support"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "ac3bcbc2c6e93fec",
+     "8fd258eeeb8095a2"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1472021",
+   "type": "changed",
+   "title": "(Updated) [Outlook Mobile] Purview DLP Wait-on-Send Support",
+   "fields": {
+    "title": [
+     "[Outlook Mobile] Purview DLP Wait-on-Send Support",
+     "(Updated) [Outlook Mobile] Purview DLP Wait-on-Send Support"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "f9b2035b6fe407f2",
+     "3c1e58873145839f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1472022",
+   "type": "changed",
+   "title": "(Updated) [Outlook Mac] Purview Data Loss Prevention support for Calendar Events",
+   "fields": {
+    "title": [
+     "[Outlook Mac] Purview Data Loss Prevention support for Calendar Events",
+     "(Updated) [Outlook Mac] Purview Data Loss Prevention support for Calendar Events"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "98dad9b59a67a9bc",
+     "61a46732d41070ba"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1472023",
+   "type": "changed",
+   "title": "(Updated) [Outlook Mobile] Purview Data Loss Prevention support for Calendar Events",
+   "fields": {
+    "title": [
+     "[Outlook Mobile] Purview Data Loss Prevention support for Calendar Events",
+     "(Updated) [Outlook Mobile] Purview Data Loss Prevention support for Calendar Events"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "d74ccf8b583ee16a",
+     "9a719e850eff7d6f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1477185",
+   "type": "changed",
+   "title": "(Updated) Microsoft OneDrive: New pay-as-you-go storage billing option",
+   "fields": {
+    "title": [
+     "Microsoft OneDrive: New pay-as-you-go storage billing option",
+     "(Updated) Microsoft OneDrive: New pay-as-you-go storage billing option"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "63705c6726132f4e",
+     "16afdb0d1a1d22a8"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1479514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
+   "fields": {
+    "bodyHash": [
+     "2a058ac9032699f7",
+     "5642dfddf7eebec0"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1480873",
+   "type": "changed",
+   "title": "(Updated) Connected Platforms - Agent 365 extends observability to third-party agents",
+   "fields": {
+    "title": [
+     "Connected Platforms - Agent 365 extends observability to third-party agents",
+     "(Updated) Connected Platforms - Agent 365 extends observability to third-party agents"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "754256f647485720",
+     "cd203fc17bdb82bb"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1484013",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Multi-line call history tabs in the Calls app",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Multi-line call history tabs in the Calls app",
+     "(Updated) Microsoft Teams: Multi-line call history tabs in the Calls app"
+    ],
+    "end": [
+     "2026-12-13",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "38c12346b59ab5d6",
+     "5f208d747e54fd1b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1486284",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "fields": {
+    "title": [
+     "Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+     "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot"
+    ],
+    "end": [
+     "2026-12-05",
+     "2027-01-11"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "9c96a8ed682954ed",
+     "68026beb2624dd26"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1489590",
+   "type": "new",
+   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1489691",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
    "fields": {}
   }
  ]
