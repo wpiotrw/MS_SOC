@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-09-30T00:00:00.0000000Z
+ms.date: 2026-10-05T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: msecd-doc-authoring-1013
 ms.update-cycle: 180-days
@@ -186,17 +186,6 @@ When a user prompts Copilot to summarize their inbox or reason over recent email
 
 You can upload files when you craft a prompt for Microsoft 365 Copilot to analyze. DLP can't scan the contents of files that you upload directly into prompts, so evaluation of the uploaded file for sensitive data doesn't occur. DLP only checks the text you type into the prompt itself.
 
-## Availability
-
-- The **Microsoft 365 Copilot and Copilot Chat** policy location is only available in the **Custom** policy template.
-- When you select the **Microsoft 365 Copilot and Copilot Chat** policy location, all other locations for that policy are disabled.
-- DLP alerts, DLP notifications, and policy simulation mode are supported.
-- Updates to a DLP policy can take up to four hours to reflect in Microsoft 365 Copilot and Copilot Chat experience.
-
-## Admin units
-
-The **Microsoft 365 Copilot and Copilot Chat** policy location doesn't support **Admin units**.
-
 ## Supported conditions and actions
 
 The **Microsoft 365 Copilot and Copilot Chat** policy location supports the following conditions and actions:
@@ -213,3 +202,34 @@ Note
 All Microsoft 365 Copilot prompts run in the security context of the user who initiates the prompt. This means for a user to see an item in a prompt response, they must first have the necessary permissions to access the content of the item. You can then use the **Microsoft 365 Copilot and Copilot Chat** policy location feature to exclude items from being processed in the response summary.
 
 In Word, Excel, and PowerPoint the **Microsoft 365 Copilot and Copilot Chat** policy to prevent Copilot from processing content is evaluated at file open. If a sensitivity label is applied mid-session, the policy will be enforced starting the next time the file is opened.
+
+## Customize the link in Copilot policy tips
+
+When a DLP rule blocks a Copilot interaction, the standard Copilot message includes a **Learn about access restrictions** link. By default, the link opens Microsoft Learn. You can configure the rule so that the link opens an existing page that explains your organization's policies or tells users where to get help.
+
+Tip
+
+Using a URL that clearly explains why the policy is in place can help users understand the reason for a block.
+
+You don't need to create a new website for this setting. You can use an existing SharePoint page, help desk page, compliance site, or other webpage that the affected users have permission to access. Microsoft Purview doesn't create or host the destination page.
+
+To customize the link:
+
+1. Create or edit a DLP policy for the **Microsoft Copilot and Chat** location.
+2. In the rule's user notification settings, turn on **Policy Tips**.
+3. Select **Provide a compliance URL for the end user to learn more about your organization's policies**.
+4. Enter the full URL of the existing page, including `https://` and the domain name. For example, enter `https://contoso.sharepoint.com/sites/compliance/data-handling`, not `/sites/compliance/data-handling`.
+5. Save the rule.
+
+When the rule blocks an interaction, the **Learn about access restrictions** link opens the page that you specified. Only the link destination changes. The standard Copilot block message, the link text, and the DLP enforcement action remain unchanged. If you don't configure a compliance URL, the link continues to open Microsoft Learn.
+
+## Availability
+
+- The **Microsoft 365 Copilot and Copilot Chat** policy location is only available in the **Custom** policy template.
+- When you select the **Microsoft 365 Copilot and Copilot Chat** policy location, all other locations for that policy are disabled.
+- DLP alerts, DLP notifications, and policy simulation mode are supported.
+- Updates to a DLP policy can take up to four hours to reflect in Microsoft 365 Copilot and Copilot Chat experience.
+
+## Admin units
+
+The **Microsoft 365 Copilot and Copilot Chat** policy location doesn't support **Admin units**.

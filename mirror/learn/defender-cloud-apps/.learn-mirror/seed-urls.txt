@@ -8,6 +8,7 @@ https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-security-posture
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-visibility-insights-view-apps
 https://learn.microsoft.com/en-us/defender-cloud-apps/applications-inventory
+https://learn.microsoft.com/en-us/defender-cloud-apps/general-setup
 https://learn.microsoft.com/en-us/defender-cloud-apps/manage-admins
 https://learn.microsoft.com/en-us/defender-cloud-apps/mde-govern
 https://learn.microsoft.com/en-us/defender-cloud-apps/migrate-file-policies-to-purview
