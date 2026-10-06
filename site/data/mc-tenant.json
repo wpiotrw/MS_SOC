@@ -1,7 +1,7 @@
 {
- "read": "2026-10-05",
+ "read": "2026-10-06",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 673,
+ "count": 679,
  "note": null,
  "messages": [
   {
@@ -4820,14 +4820,14 @@
    "actionBy": null,
    "start": "2026-06-03",
    "end": "2027-01-31",
-   "modified": "2026-07-16",
+   "modified": "2026-10-05",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 16, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why:] New Outlook for Windows will be available for U.S. Government clouds (GCC High and DoD sovereign environments). This milestone helps organizations move forward with adoption planning while maintaining administrative control. [Rollout Schedule:] Public Preview (GCC High and DoD): New Outloo…",
-   "bodyHash": "442c4a44c68da76b"
+   "summary": "Updated October 5, 2026: We are updating this post as a notification that this is now available. Thank you for your patience. [What and Why:] New Outlook for Windows will be available for U.S. Government clouds (GCC High and DoD sovereign environments). This milestone helps organizations move forward with adoption planning while maintaining administrative control. [Rollout Schedule:] Public Previe…",
+   "bodyHash": "bf2ea5fe02ea3d73"
   },
   {
    "id": "MC1381121",
@@ -5544,15 +5544,15 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-25",
-   "end": "2026-10-30",
-   "modified": "2026-07-01",
+   "end": "2026-12-14",
+   "modified": "2026-10-05",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 1, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are bringing desktop-style emoji shortcuts to Microsoft Teams on iOS and Android. Users can insert emojis directly in the compose box by typing a keyword between colons (for example, :smile: → 😊). This update improves consistency across platforms and enhances user productivity by making emoji input f…",
-   "bodyHash": "fe298d0279ba0090"
+   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are bringing desktop-style emoji shortcuts to Microsoft Teams on iOS and Android. Users can insert emojis directly in the compose box by typing a keyword between colons (for example, :smile: → 😊). This update improves consistency across platforms and enhances user productivity by making emoji inpu…",
+   "bodyHash": "6e859549ea4de0cd"
   },
   {
    "id": "MC1405506",
@@ -6085,16 +6085,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-09",
-   "end": "2026-11-30",
-   "modified": "2026-09-18",
+   "end": "2026-12-31",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 18, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are improving the OneDrive sync experience on Windows desktop to provide clearer, more actionable guidance when file and folder paths exceed the supported 520-character limit. The updated experience will show exactly how many characters a path exceeds the limit and will provide a guided flow to…",
-   "bodyHash": "f7b7612c85b7a8cb"
+   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are improving the OneDrive sync experience on Windows desktop to provide clearer, more actionable guidance when file and folder paths exceed the supported 520-character limit. The updated experience will show exactly how many characters a path exceeds the limit and will provide a guided flow to re…",
+   "bodyHash": "187ce40c10669834"
   },
   {
    "id": "MC1423105",
@@ -7290,16 +7290,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-03",
-   "end": "2026-10-26",
-   "modified": "2026-09-09",
+   "end": "2026-11-30",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a modernized Gallery view experience for Microsoft Teams Rooms on Android. This update aligns the experience more closely with Teams Rooms on Windows by improving participant visibility, creating more consistent layouts, and providing additional meeting display controls for users …",
-   "bodyHash": "8f17b32bf9d06d6a"
+   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a modernized Gallery view experience for Microsoft Teams Rooms on Android. This update aligns the experience more closely with Teams Rooms on Windows by improving participant visibility, creating more consistent layouts, and providing additional meeting display controls for users an…",
+   "bodyHash": "7707df0090bb6f8f"
   },
   {
    "id": "MC1446799",
@@ -9171,7 +9171,7 @@
   },
   {
    "id": "MC1462473",
-   "title": "Microsoft Teams: PowerPoint Live introduces light mode for presenters",
+   "title": "(Updated) Microsoft Teams: PowerPoint Live introduces light mode for presenters",
    "services": [
     "Microsoft Teams"
    ],
@@ -9180,16 +9180,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-26",
-   "end": "2026-10-26",
-   "modified": "2026-09-09",
+   "end": "2026-11-30",
+   "modified": "2026-10-05",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're improving the PowerPoint Live presenting experience in Microsoft Teams by introducing a new light mode option. With this update, presenters can choose from light, dark, classic, or high contrast modes while presenting. This enhancement provides greater flexibility, accessibility, and personalization, allowing presenters to use the display mode that best matches their preferenc…",
-   "bodyHash": "beb1ab24812649fd"
+   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're improving the PowerPoint Live presenting experience in Microsoft Teams by introducing a new light mode option. With this update, presenters can choose from light, dark, classic, or high contrast modes while presenting. This enhancement provides greater flexibility, accessibility, and personaliz…",
+   "bodyHash": "20f5ceea16d1252b"
   },
   {
    "id": "MC1462812",
@@ -13525,6 +13525,129 @@
    "bodyHash": "69774300eb57ee45"
   },
   {
+   "id": "MC1488833",
+   "title": "Planned Maintenance: Windows 365 Service",
+   "services": [
+    "Windows 365"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2027-01-25",
+   "modified": "2026-10-05",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why:] We have service maintenance planned for your Windows 365 account to improve the experience and performance in the recovery process during potential outages. Intermittent interruptions will occur for a portion of the maintenance period, starting on Saturday, November 7, 2026. Specific dates and times will follow in subsequent communication 5 days prior to your scheduled maintenance.…",
+   "bodyHash": "b3af875ab079cdfe"
+  },
+  {
+   "id": "MC1488841",
+   "title": "Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2026-12-18",
+   "modified": "2026-10-05",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] To enhance security in Outlook on the web and new Outlook for Windows, we are updating the default list of blocked file types in OwaMailboxPolicy. As part of this update, the .msix and .msixbundle file types will be added to the BlockedFileTypes list in the default OWA Mailbox policy and any custom policies created in your tenant. Most organizations are not expected to be affected b…",
+   "bodyHash": "40b655c09dc7e814"
+  },
+  {
+   "id": "MC1488843",
+   "title": "Microsoft Word for Android: Agent Mode",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2026-10-30",
+   "modified": "2026-10-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Android Agent Mode brings Copilot Agent Mode to Word on Android, enabling mobile users to work with Copilot in a more agentic, task-oriented experience from their Android devices. Users can ask Copilot to help draft, reason over, and refine Word content while staying productive on mobile. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late Septem…",
+   "bodyHash": "54d1f82f13838697"
+  },
+  {
+   "id": "MC1488844",
+   "title": "Updated My Task experience in Planner",
+   "services": [
+    "Planner"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2027-03-01",
+   "modified": "2026-10-05",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft is introducing a redesigned My Tasks experience in Planner to help users more easily identify, prioritize, and manage their work. The updated experience provides clearer navigation, improved task organization, and streamlined task creation workflows, enabling users to create and manage tasks more efficiently without leaving their current context. This supports improved pe…",
+   "bodyHash": "e36614f49ac06515"
+  },
+  {
+   "id": "MC1488845",
+   "title": "Private tasks now stored in your private plan in Planner",
+   "services": [
+    "Planner"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2027-03-01",
+   "modified": "2026-10-05",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft is updating how private tasks are stored in Microsoft Planner. Beginning in November 2026, private tasks created in Planner and Planner-powered experiences will be stored in a user's own private Planner plan instead of the Microsoft To Do task store. This enables richer Planner capabilities, such as labels and task history, while maintaining the same private experience. P…",
+   "bodyHash": "731c9d536b8c25a9"
+  },
+  {
+   "id": "MC1488847",
+   "title": "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-05",
+   "end": "2026-12-31",
+   "modified": "2026-10-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessions and brings Microsoft Teams Rooms on Android closer to feature parity with Microsof…",
+   "bodyHash": "9302e796ba258209"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -15325,6 +15448,128 @@
    "id": "MC1486292",
    "type": "removed",
    "title": "Prompt Column backfill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1338816",
+   "type": "changed",
+   "title": "(Updated) New Outlook for Windows becomes available for GCC High and DoD",
+   "fields": {
+    "bodyHash": [
+     "442c4a44c68da76b",
+     "bf2ea5fe02ea3d73"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1404321",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Emoji shortcuts expand to iOS and Android",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-12-14"
+    ],
+    "bodyHash": [
+     "fe298d0279ba0090",
+     "6e859549ea4de0cd"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1422063",
+   "type": "changed",
+   "title": "(Updated) OneDrive for Business: Improved Windows Desktop sync error messages for max path length",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "f7b7612c85b7a8cb",
+     "187ce40c10669834"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1446797",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Modernized Gallery view in Teams Rooms on Android",
+   "fields": {
+    "end": [
+     "2026-10-26",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "8f17b32bf9d06d6a",
+     "7707df0090bb6f8f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1462473",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: PowerPoint Live introduces light mode for presenters",
+   "fields": {
+    "title": [
+     "Microsoft Teams: PowerPoint Live introduces light mode for presenters",
+     "(Updated) Microsoft Teams: PowerPoint Live introduces light mode for presenters"
+    ],
+    "end": [
+     "2026-10-26",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "beb1ab24812649fd",
+     "20f5ceea16d1252b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488833",
+   "type": "new",
+   "title": "Planned Maintenance: Windows 365 Service",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488841",
+   "type": "new",
+   "title": "Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488843",
+   "type": "new",
+   "title": "Microsoft Word for Android: Agent Mode",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488844",
+   "type": "new",
+   "title": "Updated My Task experience in Planner",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488845",
+   "type": "new",
+   "title": "Private tasks now stored in your private plan in Planner",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-06",
+   "id": "MC1488847",
+   "type": "new",
+   "title": "Microsoft Teams: Breakout room support for Teams Rooms on Android",
    "fields": {}
   }
  ]
