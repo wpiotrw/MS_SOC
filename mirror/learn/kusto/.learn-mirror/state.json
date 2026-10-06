@@ -3,6 +3,6 @@
   "cursor": "https://learn.microsoft.com/en-us/kusto/query/coalesce-function",
   "pages": {
     "https://learn.microsoft.com/en-us/kusto/query": {"etag":"\"suiB6w0hoDbDG4kDF9wKjSwFYM0=\"","gitCommitId":"471e131a4c40c4687efd2650e639f353f3c8ab1d","path":"data-explorer/kusto/query/index.md","redirectedTo":"https://learn.microsoft.com/en-us/kusto/query/?view=microsoft-fabric","sourcePath":"data-explorer/kusto/query/index.md","updatedAt":"2026-07-23T22:03:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/kusto/query/coalesce-function": {"etag":"\"AE9hDprxmhEB1yxhRXrHvCHe//s=\"","gitCommitId":"ce4a5b69d74fb41ed310314170d841cfed536a56","path":"data-explorer/kusto/query/coalesce-function.md","redirectedTo":"https://learn.microsoft.com/en-us/kusto/query/coalesce-function?view=microsoft-fabric","sourcePath":"data-explorer/kusto/query/coalesce-function.md","updatedAt":"2025-05-25T23:11:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/kusto/query/coalesce-function": {"etag":"\"cMOpdSHzQYuXqWeXdZVOgYHR9Q8=\"","gitCommitId":"ce4a5b69d74fb41ed310314170d841cfed536a56","path":"data-explorer/kusto/query/coalesce-function.md","redirectedTo":"https://learn.microsoft.com/en-us/kusto/query/coalesce-function?view=microsoft-fabric","sourcePath":"data-explorer/kusto/query/coalesce-function.md","updatedAt":"2025-05-25T23:11:00.0000000Z"}
   }
 }

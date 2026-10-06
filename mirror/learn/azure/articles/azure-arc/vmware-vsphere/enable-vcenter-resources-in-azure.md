@@ -21,7 +21,7 @@ ms.author: v-gajeronika
 ms.service: azure-arc
 description: Learn how to browse your vCenter inventory and represent a subset of your VMware vCenter resources in Azure to enable self-service.
 ms.topic: how-to
-ms.date: 2026-10-04T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 ms.subservice: vmware-vsphere-azure-arc
 ms.reviewer: v-gajeronika
 locale: en-us
@@ -43,7 +43,7 @@ cmProducts:
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
-platformId: efc6be62-f670-2e67-a0b8-b376b464a76b
+platformId: 281a3fdf-c03a-1036-2821-233227c19999
 ---
 
 # Onboard your VMware vCenter resources in Azure - Azure Arc | Microsoft Learn
@@ -82,10 +82,12 @@ To onboard VM templates, VMware tools must be installed on them. If not installe
 3. Select your Azure subscription and resource group.
 4. Select **Arc agent with virtual hardware management** and then provide the Administrator username and password of the VM. For Linux VMs, there's an option to use SSH key-based authentication.
 
-    The Arc agent is the [Azure Arc connected machine agent](../servers/agent-overview). Alternatively, you can choose not to install this agent by selecting **Virtual hardware management only**. For information about the prerequisites for installing the Arc agent, see [Manage VMware VMs through Arc-enabled VMware vSphere](perform-vm-ops-through-azure).
+    The Arc agent is the [Azure Arc connected machine agent](../servers/agent-overview). For information about the prerequisites for installing the Arc agent, see [Connected Machine agent prerequisites](../servers/prerequisites).
+
+    Alternatively, you can choose not to install this agent by selecting **Virtual hardware management only**.
 5. Select **Onboard** to start the deployment of the VM represented in Azure.
 
-For information about the capabilities enabled by the Arc agent, see [Manage access to VMware resources through Azure RBAC](setup-and-manage-self-service-access).
+For information about the capabilities enabled by the Arc agent, see [supported operations](../servers/cloud-native/overview).
 
 Note
 

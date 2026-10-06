@@ -175,7 +175,7 @@ The activities and actions supported may differ depending on integrated solution
 Review this information when you configure policies that include unmanaged cloud apps, or when you troubleshoot unexpected policy behavior:
 
 - When multiple catalog entries exist for the same app with differences in the entry name (for example, QwenAI and Qwen Chat), include all entries for the app to avoid unintended coverage gaps.
-- Some unmanaged AI apps like Runway and Meta AI might intermittently send content in encoded form to dynamically generated endpoints, which can impact policy enforcement.
+- Some unmanaged AI apps like ChatGPT, Runway and Meta AI might intermittently send content in encoded form or through dynamically generated endpoints, which can impact policy enforcement.
 - Policies that target unmanaged apps can capture interactions from both the consumer and enterprise versions of an app when the app's URL is shared across instances (for example, ChatGPT consumer and ChatGPT enterprise).
 - Inline evaluation size limits: Microsoft Purview evaluates up to 4 MB of content for uploadText and downloadText, and files up to 3 MB for uploadFile and downloadFile.
 
