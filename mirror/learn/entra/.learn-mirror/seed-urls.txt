@@ -11,6 +11,7 @@ https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-entra-id-fe
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-sign-in-alias
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-sign-in-with-passkey
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration-from-b2c-to-external-id
+https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration…
 https://learn.microsoft.com/en-us/entra/external-id/direct-federation
 https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
 https://learn.microsoft.com/en-us/entra/fundamentals/agent-id/what-is-microsoft-entra-agent-id
@@ -80,6 +81,7 @@ https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-customize-bl
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-users-groups-assignment
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-network-content-filtering
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-transport-layer-security-settings-managed-certificate
+https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history
 https://learn.microsoft.com/en-us/entra/how-provisioning-to-active-directory-works
 https://learn.microsoft.com/en-us/entra/how-to-attribute-mapping-entra-to-active-directory

@@ -14,6 +14,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudprocesseven
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-custom-functions
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-filemaliciouscontentinfo-table
@@ -34,6 +35,7 @@ https://learn.microsoft.com/en-us/defender-xdr/compare-rbac-roles
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-manage
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-rules
 https://learn.microsoft.com/en-us/defender-xdr/custom-detections-overview
+https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-hunts
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-onboarding
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-report
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-mdr-reports

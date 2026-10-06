@@ -9,7 +9,7 @@ f1.keywords: CSH
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-26T00:00:00.0000000Z
+ms.date: 2026-10-05T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -1398,11 +1398,14 @@ The following table shows the DLP blocking and notification behavior for policie
 
 #### Learn more URL
 
-Users may want to learn why their activity is being blocked. You can configure a site or a page that explains more about your policies. When you select **Provide a compliance URL for the end user to learn more about your organization's policies (only available for Exchange)**, and the user receives a policy tip notification in Outlook Win32, the *Learn more* link points to the site URL that you provide. This URL has priority over the global compliance URL configured with [Set-PolicyConfig -ComplainceURL](/en-us/powershell/module/exchange/set-policyconfig?view=exchange-ps&amp;preserve-view=true).
+Users may want to learn why their activity is being blocked. You can configure a site or a page that explains more about your policies. In the rule's user notification settings, select **Provide a compliance URL for the end user to learn more about your organization's policies**, and then enter the URL.
+
+- For Outlook Win32, the *Learn more* link in the policy tip points to the site URL that you provide. This URL has priority over the global compliance URL configured with [Set-PolicyConfig -ComplianceURL](/en-us/powershell/module/exchange/set-policyconfig?view=exchange-ps&amp;preserve-view=true).
+- For Microsoft Copilot and Copilot Chat, the **Learn about access restrictions** link in the standard block message points to the URL that you provide. Only the link destination changes; the message text and enforcement action remain unchanged. For more information, see [Customize the link in Copilot policy tips](dlp-microsoft365-copilot-location-learn-about#customize-the-link-in-copilot-policy-tips).
 
 Important
 
-You must configure the site or page that *Learn more* points to from scratch. Microsoft Purview doesn't provide this functionality out of the box.
+You must configure the site or page that the link points to from scratch. Microsoft Purview doesn't provide this functionality out of the box.
 
 ### User overrides
 
