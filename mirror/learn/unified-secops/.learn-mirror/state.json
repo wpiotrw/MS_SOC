@@ -2,8 +2,8 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/unified-secops/overview-unified-security",
   "pages": {
-    "https://learn.microsoft.com/en-us/unified-secops/microsoft-sentinel-onboard": {"etag":"\"c8bMPXHvAURWZFIQ4c5CPHh5Z84=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"sentinel/microsoft-sentinel-onboard.md","redirectedTo":"https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard","sourcePath":"sentinel/microsoft-sentinel-onboard.md","updatedAt":"2026-09-23T09:34:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/unified-secops/microsoft-sentinel-onboard": {"etag":"\"mVVTYjEVKsJ93cJEyci+mhUzZyQ=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"sentinel/microsoft-sentinel-onboard.md","redirectedTo":"https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard","sourcePath":"sentinel/microsoft-sentinel-onboard.md","updatedAt":"2026-09-23T09:34:00.0000000Z"},
     "https://learn.microsoft.com/en-us/unified-secops/overview-unified-security": {"etag":"\"BBWAV8toWL0BiudsC0Zhh6V409M=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"defender-xdr/isoc-overview.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/isoc-overview","sourcePath":"defender-xdr/isoc-overview.md","updatedAt":"2026-09-23T09:34:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/unified-secops/whats-new": {"etag":"\"RkMrN4X1X7Sq+DM8gi5ut4b2HzY=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"defender-xdr/whats-new.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/whats-new","sourcePath":"defender-xdr/whats-new.md","updatedAt":"2026-09-23T09:34:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/unified-secops/whats-new": {"etag":"\"lQR4g3XqbXFNAtceYhE+5SWOeYY=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"defender-xdr/whats-new.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/whats-new","sourcePath":"defender-xdr/whats-new.md","updatedAt":"2026-09-23T09:34:00.0000000Z"}
   }
 }

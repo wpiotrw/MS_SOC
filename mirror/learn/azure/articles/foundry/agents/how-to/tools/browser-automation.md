@@ -117,7 +117,17 @@ This architecture enables agents to perform workflows such as navigating website
 
 ## Regional support
 
-To use the Browser Automation tool with hosted agents, you need a Playwright Workspace in a region that also supports hosted agents. Browser Automation is currently available in the following regions: | Region | Status | |---|---| | `australiaeast` | Available | | `eastasia` | Available | | `eastus` | Available | | `japaneast` | Available | | `switzerlandnorth` | Available | | `westeurope` | Available | | `westus3` | Available |
+To use the Browser Automation tool with hosted agents, you need a Playwright Workspace in a region that also supports hosted agents. Browser Automation is currently available in the following regions:
+
+| Region | Status |
+| --- | --- |
+| `australiaeast` | Available |
+| `eastasia` | Available |
+| `eastus` | Available |
+| `japaneast` | Available |
+| `switzerlandnorth` | Available |
+| `westeurope` | Available |
+| `westus3` | Available |
 
 ## Choose your setup path
 

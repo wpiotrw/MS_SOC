@@ -77,9 +77,9 @@ You can learn more about the new releases by bookmarking this page or by [subscr
     - [Container limit for ADLS backup has been increased from 100 to 1000](/en-us/azure/backup/azure-data-lake-storage-backup-overview)
 - May 2026
 
-    - [Snapshot backup for SQL Instances in Azure VM (preview)](/en-us/azure/backup/whats-new)
-    - [Vaulted backup support for Azure Cosmos DB (preview)](/en-us/azure/backup/whats-new)
-    - [Bulk restore for Azure Virtual Machines using Azure Backup (preview)](/en-us/azure/backup/whats-new)
+    - Snapshot backup for SQL Instances in Azure VM (preview)
+    - Vaulted backup support for Azure Cosmos DB (preview)
+    - Bulk restore for Azure Virtual Machines using Azure Backup (preview)
 - April 2026
 
     - Cross-subscription backup for Azure VMs (preview)

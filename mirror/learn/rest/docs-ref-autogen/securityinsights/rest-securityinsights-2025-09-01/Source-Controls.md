@@ -73,4 +73,3 @@ platformId: c43acd42-564e-6c22-0e32-cfb98eb2f797
 
 - [rest-securityinsights-2025-06-01](https://learn.microsoft.com/en-us/rest/api/securityinsights/source-controls?view=rest-securityinsights-2025-06-01&accept=text/markdown)
 - [rest-securityinsights-2025-07-01-preview](https://learn.microsoft.com/en-us/rest/api/securityinsights/source-controls?view=rest-securityinsights-2025-07-01-preview&accept=text/markdown)
-- [rest-securityinsights-2025-10-01-preview](https://learn.microsoft.com/en-us/rest/api/securityinsights/source-controls?view=rest-securityinsights-2025-10-01-preview&accept=text/markdown)
