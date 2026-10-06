@@ -8,7 +8,7 @@ feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/help/4021566/windows-10-send-feedback-to-microsoft-with-feedback-hub-app
 uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: katherinegan
-author: vmliramichael
+author: Y-Kelly
 manager: archandr
 ms.date: 2026-09-08T00:00:00.0000000Z
 audience: ITPro
@@ -44,17 +44,17 @@ platformId: 8b3e6616-75db-d49d-b42b-be7c1cd26cd6
 
 # Configure the Copilot new tab page | Microsoft Learn
 
+![image1.](media/microsoft-edge-configure-the-copilot-new-tab-page/img11.png)
+
 The Copilot new tab page introduces a refreshed start surface that transforms the browser into a productivity-focused workspace. The experience unifies Microsoft 365 Copilot chat, web search, and work content into a single-entry point. The Copilot side rail provides convenient access to chat, agents and skills, tasks, and Cowork. Through proactive work cards and suggested prompts, the new tab page surfaces important organizational content, such as files and calendar events, to help users prioritize and initiate tasks more efficiently while maintaining enterprise-grade security and compliance standards.
 
 Important
 
-> 
-> Starting Microsoft Edge version 153, Discover feed and feed toggle functionality will be limited. We will continue to update and expand functionality as the Copilot new tab page evolves.
+Starting Microsoft Edge version 153, Discover feed and feed toggle functionality will be limited. We will continue to update and expand functionality as the Copilot new tab page evolves.
 
 Important
 
-> 
-> In Microsoft Edge version 148, some users may not see the Work feed, Discover feed, or feed toggle on the Copilot new tab page if their tenant or user locale is outside supported language markets. Feed experiences depend on supported language and market availability.
+In Microsoft Edge version 148, some users may not see the Work feed, Discover feed, or feed toggle on the Copilot new tab page if their tenant or user locale is outside supported language markets. Feed experiences depend on supported language and market availability.
 
 ## Scope
 
@@ -106,30 +106,11 @@ Upon enabling, users will see the default Copilot new tab page experience with w
 
 Users will also see an updated search box that allows them to quickly navigate to sites, search the web, or send a query directly to Microsoft 365 Copilot.
 
-Important
-
-> 
-> **Known limitation:** Users without a Microsoft 365 Copilot license may observe limitations in Copilot Prompt Card content.
-
-![image1.](media/microsoft-edge-configure-the-copilot-new-tab-page/img1.png)
-
-![image2.](media/microsoft-edge-configure-the-copilot-new-tab-page/img2.png)
+![image2.](media/microsoft-edge-configure-the-copilot-new-tab-page/img22.png)
 
 The Copilot side rail brings chat, agents and skills, tasks, and Cowork directly into the new tab page, giving users a consistent place to access Copilot capabilities as they work. The side rail can be collapsed or expanded based on the user’s preferred workflow, with this preference remembered for future new tabs.
 
-If users manually turn off Work Cards using the gear settings toggle on the Copilot new tab page, they will instead see chat chips, which are suggested chat prompts, along with the other available feature.
-
-![image3.](media/microsoft-edge-configure-the-copilot-new-tab-page/img3.png)
-
-## Discover Feed
-
-The Discover feed, which brings curated news and content to your new tab. Please review your current configuration and plan to validate your setup when the feature is available. 
-
-Users can personalize their Discover feed language and content to better curate the feed.
-
-![image4.](media/microsoft-edge-configure-the-copilot-new-tab-page/img4.png)
-
-![image5.](media/microsoft-edge-configure-the-copilot-new-tab-page/img5.png)
+![image4.](media/microsoft-edge-configure-the-copilot-new-tab-page/img44.png)
 
 ## New tab page policies
 
@@ -143,8 +124,6 @@ Some new tab page policies will be supported automatically when the Copilot new 
 | --- | --- |
 | App Launcher | Edge policy: [`NewTabPageAppLauncherEnabled`](/en-us/deployedge/microsoft-edge-browser-policies/newtabpageapplauncherenabled) |
 | Background Image | Edge policy: [`NewTabPageAllowedBackgroundTypes`](/en-us/deployedge/microsoft-edge-browser-policies/newtabpageallowedbackgroundtypes) |
-| Discover Feed | Edge policy: [`ConfigureNTPFeedTabVisibility`](/en-us/deployedge/microsoft-edge-browser-policies/configurentpfeedtabvisibility) |
-| Discover Feed | Edge policy: [`SetNTPDefaultFeedTab`](/en-us/deployedge/microsoft-edge-browser-policies/setntpdefaultfeedtab) |
 | Organization logo | Microsoft 365 admin center: Org settings &gt; Organization profile &gt; Add theme &gt; Logo |
 | Organization logo | Edge policy: [`NewTabPageCompanyLogoEnabled`](/en-us/deployedge/microsoft-edge-browser-policies/newtabpagecompanylogoenabled) |
 | Organization logo | Edge policy: [`NewTabPageCompanyLogoBackplateColor`](/en-us/deployedge/microsoft-edge-browser-policies/newtabpagecompanylogobackplatecolor) |
@@ -157,8 +136,6 @@ Some new tab page policies will be supported automatically when the Copilot new 
 | **Component** | **Policy / configuration experience** |
 | --- | --- |
 | Copilot Chat Button on other new tab pages | [`NewTabPageBingChatEnabled`](/en-us/deployedge/microsoft-edge-browser-policies/newtabpagebingchatenabled) |
-| Discover Feed | News &gt; Microsoft Edge new tab page &gt; Choose default feed for Microsoft Edge new tab page |
-| Discover Feed | `NewTabPageContentEnabled` |
 
 We will continue to update functionality and expand policy support as the Copilot new tab page evolves.
 
@@ -174,18 +151,7 @@ For more information on Microsoft Edge policies, see [Microsoft Edge Browser Pol
 
 Yes. Users can collapse or expand the Copilot side rail through the top-left navigation icon based on their preferred workflow. The selected preference is remembered when users open future new tabs.
 
-### How do I customize the Discover feed settings?
-
-Users can personalize their Discover feed language and content to better curate their feed.
-
-To customize Discover feed settings:
-
-1. Select the **Discover** feed toggle.
-2. Select the **Settings (gear icon)** in the top-left corner.
-3. Select **Feed settings**.
-4. Choose your preferred language and content options.
-
-![image7.](media/microsoft-edge-configure-the-copilot-new-tab-page/img7.png)
+![image7.](media/microsoft-edge-configure-the-copilot-new-tab-page/img77.png)
 
 ### When I click on my Copilot prompts, I see “This prompt is no longer available".
 
@@ -200,8 +166,7 @@ If Copilot prompts are showing an error, please try refreshing your account sess
 
 ### Can users turn off Work cards?
 
-- Yes. Users can turn off **Cards** the new tab page Settings (sliders icon).
-- Yes. Users can switch between **Work cards** and **Chat chips** from the new tab page Settings (gear icon).
+- Yes. Users can turn off **Cards** in the new tab page Settings (sliders icon).
 
 ### I see errors on Work cards. What should I do?
 
@@ -214,8 +179,8 @@ If Copilot prompts are showing an error, please try refreshing your account sess
 
 ### How do I change the background?
 
-- Open the new tab page Settings (gear icon), then select **Theme settings Change background**. From there, you can choose refresh daily, no image, upload an image, or select a different theme.
+- Open the new tab page Settings (gear icon), then select **Change background**. From there, you can choose refresh daily, no image, upload an image, or select a different theme.
 
 ### How do I turn off this experience?
 
-- Depending on your organization’s settings, you may be able to turn off this experience. Open the new tab page Settings (gear icon), select **Manage Copilot new tab page More settings** (edge://settings/ai), and then turn off the “Copilot new tab page” setting.
+- Depending on your organization’s settings, you may be able to turn off this experience. Open the new tab page Settings (gear icon), select **More settings** (edge://settings/ai), and then turn off the “Copilot new tab page” setting.

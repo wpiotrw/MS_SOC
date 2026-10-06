@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: 'Quickstart: Optimize a prompt agent (preview) - Microsoft Foundry | Microsoft Learn'
+title: 'Quickstart: Optimize a prompt agent - Microsoft Foundry | Microsoft Learn'
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/quickstart-optimize-prompt-agent
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -50,11 +50,7 @@ spProducts:
 platformId: f179e4db-b660-57ac-2b2c-da8984897c83
 ---
 
-# Quickstart: Optimize a prompt agent (preview) - Microsoft Foundry | Microsoft Learn
-
-Important
-
-Agent Optimizer is currently in preview. This preview is provided without a service-level agreement, and we don't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+# Quickstart: Optimize a prompt agent - Microsoft Foundry | Microsoft Learn
 
 In this quickstart, use the optimization wizard in the Foundry portal to improve a prompt agent's instructions, function-calling tool descriptions, and model selection. Select an agent version, dataset, and evaluators, run the optimizer, and compare the generated candidates with the baseline.
 

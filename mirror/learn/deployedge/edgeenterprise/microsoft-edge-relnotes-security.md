@@ -8,7 +8,7 @@ feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/help/4021566/windows-10-send-feedback-to-microsoft-with-feedback-hub-app
 uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: pchiquini
-author: vmliramichael
+author: Y-Kelly
 manager: robfranco
 ms.date: 2026-09-25T00:00:00.0000000Z
 audience: ITPro
@@ -46,6 +46,10 @@ platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 # Release notes for Microsoft Edge Security Updates | Microsoft Learn
 
 These release notes provide information about security fixes that are included in updates to Microsoft Edge Stable channel.
+
+## October 06, 2026
+
+Microsoft is aware of the recent Chromium security fixes. We are actively working on releasing a security fix.
 
 ## October 05, 2026
 

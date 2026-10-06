@@ -3,6 +3,6 @@
   "cursor": "https://learn.microsoft.com/en-us/windows-365/agents/introduction-windows-365-for-agents",
   "pages": {
     "https://learn.microsoft.com/en-us/windows-365/agents/introduction-windows-365-for-agents": {"etag":"\"kwUGedfHswUNpS6Cd24RtZRK+hw=\"","gitCommitId":"67db22d3dd2162ed23e23ce058491c7706471bae","path":"Windows365/agents/introduction-windows-365-for-agents.md","sourcePath":"Windows365/agents/introduction-windows-365-for-agents.md","updatedAt":"2026-08-18T21:53:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new": {"etag":"\"51gNHCFhfLIrwi1qTYo35Bqg9Gg=\"","gitCommitId":"cd4d4cade3b2ec84ad3494f566ea17f246284111","path":"Windows365/enterprise/whats-new.md","sourcePath":"Windows365/enterprise/whats-new.md","updatedAt":"2026-10-01T20:43:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new": {"etag":"\"AT9u/wTJEyw94b/Gnx5KO5v0QU8=\"","gitCommitId":"cd4d4cade3b2ec84ad3494f566ea17f246284111","path":"Windows365/enterprise/whats-new.md","sourcePath":"Windows365/enterprise/whats-new.md","updatedAt":"2026-10-01T20:43:00.0000000Z"}
   }
 }
