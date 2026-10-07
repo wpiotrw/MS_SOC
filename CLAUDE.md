@@ -26231,6 +26231,30 @@ i przewijaniu: 0 ms blokady). Dwa kroki:
 zawisly na 15 minut kazdy i zostaly anulowane (zwykle 1,3 minuty), wiec `/diff/` trafil na strone godzine
 pozniej. Krok wdrozenia ma teraz limit 6 minut i jedna druga probe (8 minut); dwie porazki pod rzad
 nadal koncza przebieg bledem.
+
+**§5cq (7 X 2026, wlasciciel, desktop: „pisze upd, new — slabo widoczne, skroty, brak statystyk; po kliknieciu
+liczby nie ma informacji o filtrze na zielonej belce; w Community sekcja z wynikiem ginie w oczach; menu
+pokazuje 0 dla Graph API, Roles, First-party apps, Component versions — dlaczego zero?").** Zmierzone na
+stronie z 7 X: zielona belka `.mcb-banner` ISTNIALA, ale stala POD tabela „Day by day" i pod filtrami — po
+kliknieciu liczby byla poza ekranem albo pod przypietym naglowkiem (przewijanie `-190` px). Zasady od §5cq:
+(1) **belka filtra stoi NAD tabela liczb i jest przypieta** (`position:sticky`, `top` liczy `pinTop()`: pod
+wierszem widokow `.mcb-top` na desktopie, pod `#s5br-bar` na telefonie) — w Message Center i w trzech listach
+artykulow (Learn, Blogs, Community); ma przycisk „↑ Back to the table". (2) **Po kliknieciu liczby strona
+przewija sie do wiersza wyniku** (`toResults()`), a wiersz mowi, CZEGO jest wynikiem: „2 posts match — service:
+Exchange Online, published on 1 Oct 2026"; lista dostaje zielona ramke (`.mcb-filtered`) i na 2 s obwodke
+(`.mcb-hit`). (3) **Message Center: pelne slowa i statystyki** — „N new" (pelne tlo) i „N updated" (ramka z
+paskiem), nigdy „upd"; nad tabela trzy kafle Today / Yesterday / Last 7 days, w tabeli kolumna „Total 7 days";
+kazda liczba jest przyciskiem (zero jest tekstem), filtr zakresu to `S.day = "7d"`. (4) **Liczba = lista**:
+klikniecie nie kasuje juz filtrow kategorii/flagi/zrodla (licznik liczyl Z nimi, a lista pokazywala BEZ nich);
+„updated" w filtrze znaczy to samo co w tabeli (zrewidowany, nie w dniu publikacji). Listy artykulow maja
+kolumne „Total" (`S.per = "range"`). (5) **Menu boczne**: liczba przy zakladce pozostaje tym, czym byla —
+ile pozycji ruszylo sie od poprzedniego briefu; pod nazwa dochodzi mala linia `.s5ca-sub`: dla niezerowych
+rozbicie „+9 · ~23", dla zerowych „last change 6 Oct" oraz liczba zmian, ktora pokazuje sama zakladka
+(`winCount()`: Graph API i Roles — blok „What Microsoft changed", 14 dni; First-party apps — lista zmian,
+30 dni; Component versions — wersje zaobserwowane, 14 dni). Test: Chromium i WebKit, 1600 i 390 px — 28
+losowych liczb Message Center i po 25 liczb kazdej listy daje liste dokladnie tej dlugosci; belka widoczna i
+na wierzchu po kliknieciu oraz po przewinieciu o 900 px.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -29538,8 +29562,30 @@ odtad CZTERNASCIE (4-17).**
     if (skip !== "flag" && S.flag && !flagOf(r, S.flag)) return false;
     if (skip !== "src" && S.src && r.src.indexOf(S.src) < 0) return false;
     if (S.q && r.hay.indexOf(S.q.toLowerCase()) < 0) return false;
-    if (skip !== "day" && S.day && !(S.kind === "upd" ? r.rev === S.day : S.kind === "new" ? r.pub === S.day : (r.pub === S.day || r.rev === S.day))) return false;
+    /* §5cq: one day or the whole grid ("7d"); "updated" is what the grid counts as updated (revised, not on its publication day) */
+    if (skip !== "day" && S.day) {
+      var lo = S.day === "7d" ? addDays(DAY, -6) : S.day, hi = S.day === "7d" ? DAY : S.day;
+      var isN = !!r.pub && r.pub >= lo && r.pub <= hi, isU = !!r.rev && r.rev >= lo && r.rev <= hi && r.rev !== r.pub;
+      if (!(S.kind === "upd" ? isU : S.kind === "new" ? isN : (isN || isU))) return false;
+    }
     return true;
+  }
+  /* §5cq: the green bar is pinned under the views row (desktop) or under the tab bar (phone) */
+  var ACT = [];
+  function pinTop() {
+    var hd = root && root.querySelector(".mcb-top"), t = 0, sb;
+    try {
+      var cs = getComputedStyle(hd);
+      if (cs.position === "sticky") t = (parseFloat(cs.top) || 0) + hd.offsetHeight;
+      else if ((sb = document.getElementById("s5br-bar")) && /sticky|fixed/.test(getComputedStyle(sb).position)) t = sb.offsetHeight;
+    } catch (x) {}
+    if (banner.style.top !== t + "px") banner.style.top = t + "px";
+    return t + (banner.hidden ? 0 : banner.offsetHeight);
+  }
+  function toResults() {
+    var y = info.getBoundingClientRect().top + scrollY - pinTop() - 10;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    root.classList.remove("mcb-hit"); void root.offsetWidth; root.classList.add("mcb-hit");
   }
   function flagOf(r, f) { return f === "major" ? r.major : f === "high" ? r.high : f === "late" ? !!r.late : f === "action" ? !!r.dl : false; }
   function lastAct(r) { return r.rev && r.rev > r.pub ? r.rev : r.pub; }
@@ -29638,9 +29684,12 @@ odtad CZTERNASCIE (4-17).**
     if (S.flag) act.push(["flag", { action: "date to act by", major: "major change", high: "high severity", late: "caught late" }[S.flag]]);
     if (S.src) act.push(["src", "source: " + SRC[S.src]]);
     if (S.q) act.push(["q", "text: “" + S.q + "”"]);
-    if (S.day) act.push(["day", (S.kind === "upd" ? "updated on " : S.kind === "new" ? "published on " : "active on ") + dmy(S.day)]);
+    if (S.day) act.push(["day", (S.kind === "upd" ? "updated " : S.kind === "new" ? "published " : "active ") +
+      (S.day === "7d" ? "in the last 7 days (" + dm(addDays(DAY, -6)) + " – " + dmy(DAY) + ")" : "on " + dmy(S.day))]);
     banner.textContent = "";
     banner.hidden = !act.length;
+    ACT = act.map(function (a) { return a[1]; });
+    root.classList.toggle("mcb-filtered", !!act.length);
     if (!act.length) return;
     banner.appendChild(el("b", null, "Filtered · " + n + " shown"));
     act.forEach(function (a) {
@@ -29649,9 +29698,15 @@ odtad CZTERNASCIE (4-17).**
       x.addEventListener("click", function () { S[a[0]] = ""; if (a[0] === "day") S.kind = ""; if (a[0] === "q") qIn.value = ""; S.shown = PAGE; render(); });
       s.appendChild(x); banner.appendChild(s);
     });
+    if (S.day && gridEl) {
+      var bk = el("button", "mcb-back", "\u2191 Back to the table"); bk.type = "button"; bk.title = "Scroll back to the day-by-day table";
+      bk.addEventListener("click", function () { gridEl.open = true; window.scrollTo({ top: Math.max(0, gridEl.getBoundingClientRect().top + scrollY - pinTop() - 10), behavior: "smooth" }); });
+      banner.appendChild(bk);
+    }
     var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
     c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; qIn.value = ""; S.shown = PAGE; render(); });
     banner.appendChild(c);
+    pinTop();
   }
   function pill(cls, t, title) { var s = el("span", "mcb-p " + cls, t); if (title) s.title = title; return s; }
   /* one row = Date · Change · ID · Title · Service · Category · flags, all on the surface (§5by) */
@@ -29798,37 +29853,55 @@ odtad CZTERNASCIE (4-17).**
     var sum = gridEl.querySelector(".mcb-gsum");
     var all = 0, allN = 0; days.forEach(function (d) { var c = (by[""] || {})[d]; if (c) { all += c.n + c.u; allN += c.n; } });
     sum.textContent = "Day by day — new and updated posts per service, last 7 days: " + allN + " new, " + (all - allN) + " updated";
+    /* §5cq: one factory for every count in this block — the words are whole ("updated", not "upd"),
+       zero is text and not a link, and a count lists exactly the posts it counts */
+    function gbtn(key, d, kind, n, big) {
+      var word = kind === "new" ? "new" : "updated";
+      if (!n) return el("span", "mcb-gz", "0 " + word);
+      var on = S.day === d && S.kind === kind && S.svc === (key && key !== "(service not stated)" ? key : "");
+      var b = el("button", "mcb-gc g-" + kind + (on ? " on" : ""), n + " " + word);
+      b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.title = n + (kind === "new" ? " published" : " updated by Microsoft") + (d === "7d" ? " in the last 7 days" : " on " + dmy(d)) +
+        (key ? " · " + key : " · all services") + " — click to list them";
+      b.addEventListener("click", function () {
+        if (on) { S.day = S.kind = ""; S.svc = ""; }
+        else { S.view = "all"; S.day = d; S.kind = kind; S.svc = key && key !== "(service not stated)" ? key : ""; }
+        S.shown = PAGE; render();
+        if (!on) toResults();
+      });
+      return b;
+    }
+    function sumOf(key, list) { var o = { n: 0, u: 0 }; list.forEach(function (d) { var c = (by[key] || {})[d]; if (c) { o.n += c.n; o.u += c.u; } }); return o; }
+    var stats = el("div", "mcb-stats");
+    [["Today", wd(DAY) + " " + dm(DAY), [DAY], DAY], ["Yesterday", wd(days[5]) + " " + dm(days[5]), [days[5]], days[5]],
+     ["Last 7 days", dm(days[0]) + " – " + dm(DAY), days, "7d"]].forEach(function (c) {
+      var o = sumOf("", c[2]), card = el("div", "mcb-stat"), hl = el("div", "mcb-stl", c[0] + " "); hl.appendChild(el("span", null, c[1])); card.appendChild(hl);
+      var bx = el("div", "mcb-stn"); bx.appendChild(gbtn("", c[3], "new", o.n)); bx.appendChild(gbtn("", c[3], "upd", o.u)); card.appendChild(bx);
+      stats.appendChild(card);
+    });
+    body.appendChild(stats);
+    var key0 = el("p", "mcb-key");
+    key0.appendChild(el("span", "mcb-kn", "new")); key0.appendChild(document.createTextNode(" published that day  "));
+    key0.appendChild(el("span", "mcb-ku", "updated")); key0.appendChild(document.createTextNode(" revised by Microsoft that day. Click a number: the posts are listed below and the green bar names the filter."));
+    body.appendChild(key0);
     var tb = el("table", "mcb-grid"), th = el("thead"), tr = el("tr");
     tb.setAttribute("data-s11", "1");   /* this block owns the grid: SCRIPT 11 adds no search bar to it (§5by) */
     tr.appendChild(el("th", null, "Service"));
     days.forEach(function (d) { var h = el("th", d === DAY ? "today" : ""); h.appendChild(el("span", null, wd(d))); h.appendChild(el("b", null, dm(d))); tr.appendChild(h); });
+    var ht = el("th", "tot"); ht.appendChild(el("span", null, "Total")); ht.appendChild(el("b", null, "7 days")); tr.appendChild(ht);
     th.appendChild(tr); tb.appendChild(th);
     var tbd = el("tbody");
     function cell(key, d) {
-      var c = (by[key] || {})[d] || { n: 0, u: 0 }, td = el("td");
+      var c = d === "7d" ? sumOf(key, days) : ((by[key] || {})[d] || { n: 0, u: 0 }), td = el("td", d === "7d" ? "tot" : "");
       if (!c.n && !c.u) { td.appendChild(el("span", "mcb-g0", "·")); return td; }
-      [["n", "new", "new"], ["u", "upd", "updated"]].forEach(function (k) {
-        if (!c[k[0]]) return;
-        var on = S.day === d && S.kind === k[1] && S.svc === key;
-        var b = el("button", "mcb-gc g-" + k[1] + (on ? " on" : ""), c[k[0]] + " " + (k[1] === "new" ? "new" : "upd"));
-        b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
-        b.title = c[k[0]] + " " + k[2] + " on " + dmy(d) + (key ? " · " + key : " · all services") + " — click to list them";
-        b.addEventListener("click", function () {
-          if (on) { S.day = S.kind = ""; S.svc = ""; }
-          else { S.view = "all"; S.day = d; S.kind = k[1]; S.svc = key && key !== "(service not stated)" ? key : ""; S.cat = S.flag = S.src = ""; }
-          S.shown = PAGE; render();
-          /* the green banner naming the filter must be in view after the jump (§5bz) */
-          var l = root.querySelector(".mcb-banner:not([hidden])") || root.querySelector(".mcb-info");
-          if (l) { var y = l.getBoundingClientRect().top + scrollY - 190; window.scrollTo({ top: Math.max(0, y), behavior: "smooth" }); }
-        });
-        td.appendChild(b);
-      });
+      if (c.n) td.appendChild(gbtn(key, d, "new", c.n));
+      if (c.u) td.appendChild(gbtn(key, d, "upd", c.u));
       return td;
     }
-    var r0 = el("tr", "mcb-gall"); r0.appendChild(el("th", null, "All services")); days.forEach(function (d) { r0.appendChild(cell("", d)); }); tbd.appendChild(r0);
+    var r0 = el("tr", "mcb-gall"); r0.appendChild(el("th", null, "All services")); days.forEach(function (d) { r0.appendChild(cell("", d)); }); r0.appendChild(cell("", "7d")); tbd.appendChild(r0);
     var LIM = 10;
     keys.slice(0, gridAll ? keys.length : LIM).forEach(function (k) {
-      var r = el("tr"); r.appendChild(el("th", null, k)); days.forEach(function (d) { r.appendChild(cell(k, d)); }); tbd.appendChild(r);
+      var r = el("tr"); r.appendChild(el("th", null, k)); days.forEach(function (d) { r.appendChild(cell(k, d)); }); r.appendChild(cell(k, "7d")); tbd.appendChild(r);
     });
     tb.appendChild(tbd);
     var wrap = el("div", "mcb-gwrap"); wrap.appendChild(tb); body.appendChild(wrap);
@@ -29837,7 +29910,7 @@ odtad CZTERNASCIE (4-17).**
       mb.addEventListener("click", function () { gridAll = !gridAll; renderGrid(); });
       body.appendChild(mb);
     }
-    body.appendChild(el("p", "mcb-none", "New = published that day; upd = revised at source that day. A post counts once per service it names. Weekends are shown on purpose: an empty day is a result."));
+    body.appendChild(el("p", "mcb-none", "A post counts once per service it names, so a row can repeat a post of another row; \u201cAll services\u201d counts each post once. Weekends are shown on purpose: an empty day is a result."));
   }
   function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
   /* the tenant's own Message Center (tools/mc_tenant.py via GitHub Actions, §5bo point 1) —
@@ -29886,6 +29959,11 @@ odtad CZTERNASCIE (4-17).**
     var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
     info.textContent = rows.length + " post" + (rows.length === 1 ? "" : "s") + " · " + v[2] +
       (S.view === "action" ? "" : " · grouped by week");
+    if (ACT.length) {   /* §5cq: the result line says what it is the result OF */
+      info.textContent = "";
+      info.appendChild(el("b", null, rows.length + " post" + (rows.length === 1 ? "" : "s") + " match"));
+      info.appendChild(document.createTextNode(" — " + ACT.join(", ") + (S.view === "action" ? "" : " · grouped by week")));
+    }
     renderFresh(); renderGrid();
     list.textContent = "";
     if (!rows.length) { list.appendChild(el("li", "mcb-empty", "No post matches. Remove a filter above — zero here is a result, not an error.")); return; }
@@ -29937,6 +30015,8 @@ odtad CZTERNASCIE (4-17).**
     gridEl.appendChild(el("div", "mcb-gbody"));
     try { gridEl.open = window.matchMedia("(min-width: 760px)").matches; } catch (x) { gridEl.open = true; }
     root.insertBefore(gridEl, fd);
+    root.insertBefore(banner, gridEl);   /* §5cq: the bar that names the filter stands ABOVE the table, pinned */
+    var pinT = 0; window.addEventListener("scroll", function () { if (banner.hidden || pinT) return; pinT = setTimeout(function () { pinT = 0; if (root.offsetParent) pinTop(); }, 120); }, { passive: true });
     info = el("p", "mcb-info"); root.appendChild(info);
     list = el("ul", "mcb-list"); root.appendChild(list);
     var strip = p.querySelector(":scope > .s5bn"), head = p.querySelector(":scope > .panelhead");
@@ -31013,10 +31093,35 @@ odtad CZTERNASCIE (4-17).**
       if (!inView(r, view || S.view)) return false;
       for (var i = 0; i < cfg.facets.length; i++) { var k = cfg.facets[i][0]; if (skip !== k && S[k] && r.f[k] !== S[k]) return false; }
       if (S.q) { var q = S.q.toLowerCase(); if ((r.title + " " + r.meta + " " + r.text).toLowerCase().indexOf(q) < 0) return false; }
-      if (skip !== "per" && S.per && String(r.date).indexOf(S.per) !== 0) return false;
+      if (skip !== "per" && S.per) {
+        if (S.per === "range") { var gc = gcols(), dd = String(r.date).slice(0, gc[0].length); if (!(dd >= gc[0] && dd <= gc[gc.length - 1])) return false; }
+        else if (String(r.date).indexOf(S.per) !== 0) return false;
+      }
       return true;
     }
     var root, viewsEl, bar, banner, info, list, qIn;
+    /* §5cq: the columns of the count table; "range" = all of them together */
+    function gcols() {
+      var cols = [], i;
+      if (!cfg.grid || cfg.grid[0] === "day") for (i = 6; i >= 0; i--) cols.push(addDays(DAY, -i));
+      else { var m0 = new Date(DAY.slice(0, 7) + "-15T12:00:00Z"); for (i = 5; i >= 0; i--) { var t = new Date(m0); t.setUTCMonth(t.getUTCMonth() - i); cols.push(t.toISOString().slice(0, 7)); } }
+      return cols;
+    }
+    function pinTop() {
+      var hd = root && root.querySelector(".mcb-top"), t = 0, sb;
+      try {
+        var cs = getComputedStyle(hd);
+        if (cs.position === "sticky") t = (parseFloat(cs.top) || 0) + hd.offsetHeight;
+        else if ((sb = document.getElementById("s5br-bar")) && /sticky|fixed/.test(getComputedStyle(sb).position)) t = sb.offsetHeight;
+      } catch (x) {}
+      if (banner.style.top !== t + "px") banner.style.top = t + "px";
+      return t + (banner.hidden ? 0 : banner.offsetHeight);
+    }
+    function toResults() {
+      var y = info.getBoundingClientRect().top + scrollY - pinTop() - 10;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      root.classList.remove("mcb-hit"); void root.offsetWidth; root.classList.add("mcb-hit");
+    }
     function chip(label, n, on, click) {
       var b = el("button", "mcb-chip" + (on ? " on" : "") + (!n && !on ? " zero" : "")); b.type = "button";
       b.appendChild(el("span", null, label)); b.appendChild(el("span", "mcb-cn", String(n)));
@@ -31057,8 +31162,10 @@ odtad CZTERNASCIE (4-17).**
       var rows = RECS.filter(function (r) { return pass(r); });
       var act = cfg.facets.filter(function (f) { return S[f[0]]; }).map(function (f) { return [f[0], f[1].toLowerCase() + ": " + S[f[0]]]; });
       if (S.q) act.push(["q", "text: “" + S.q + "”"]);
-      if (S.per) act.push(["per", (S.per.length === 7 ? "month: " + MONS[+S.per.slice(5, 7) - 1] + " " + S.per.slice(0, 4) : "published on " + dmy(S.per))]);
+      if (S.per) act.push(["per", S.per === "range" ? (cfg.grid && cfg.grid[0] === "day" ? "published in the last 7 days" : "last 6 months") :
+        (S.per.length === 7 ? "month: " + MONS[+S.per.slice(5, 7) - 1] + " " + S.per.slice(0, 4) : "published on " + dmy(S.per))]);
       banner.textContent = ""; banner.hidden = !act.length;
+      root.classList.toggle("mcb-filtered", !!act.length);
       if (act.length) {
         banner.appendChild(el("b", null, "Filtered · " + rows.length + " shown"));
         act.forEach(function (a) {
@@ -31068,10 +31175,20 @@ odtad CZTERNASCIE (4-17).**
         });
         var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
         c.addEventListener("click", function () { cfg.facets.forEach(function (f) { S[f[0]] = ""; }); S.q = ""; S.per = ""; qIn.value = ""; S.shown = PAGE; render(); });
+        if (S.per && gridBox) {
+          var bk = el("button", "mcb-back", "\u2191 Back to the table"); bk.type = "button"; bk.title = "Scroll back to the count table";
+          bk.addEventListener("click", function () { gridBox.open = true; window.scrollTo({ top: Math.max(0, gridBox.getBoundingClientRect().top + scrollY - pinTop() - 10), behavior: "smooth" }); });
+          banner.appendChild(bk);
+        }
         banner.appendChild(c);
       }
+      pinTop();
       renderGrid();
       info.textContent = "";
+      if (act.length) {   /* §5cq: the result line says what it is the result OF */
+        info.appendChild(el("b", null, rows.length + " result" + (rows.length === 1 ? "" : "s")));
+        info.appendChild(document.createTextNode(" — " + act.map(function (a) { return a[1]; }).join(", ") + " · of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
+      } else
       info.appendChild(document.createTextNode(rows.length + " of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
       var mk = el("button", "ab-mark", "Mark these " + Math.min(rows.length, S.shown) + " as read"); mk.type = "button";
       mk.disabled = !rows.length;
@@ -31101,9 +31218,7 @@ odtad CZTERNASCIE (4-17).**
     function renderGrid() {
       if (!gridBox || !cfg.grid) return;
       var body = gridBox.querySelector(".mcb-gbody"); body.textContent = "";
-      var unit = cfg.grid[0], cols = [], i;
-      if (unit === "day") for (i = 6; i >= 0; i--) cols.push(addDays(DAY, -i));
-      else { var m0 = new Date(DAY.slice(0, 7) + "-15T12:00:00Z"); for (i = 5; i >= 0; i--) { var t = new Date(m0); t.setUTCMonth(t.getUTCMonth() - i); cols.push(t.toISOString().slice(0, 7)); } }
+      var unit = cfg.grid[0], cols = gcols(), i;
       var sv = S.src, pv = S.per; S.src = ""; S.per = "";
       var pool = RECS.filter(function (r) { return pass(r, "per", "all"); });
       S.src = sv; S.per = pv;
@@ -31124,19 +31239,21 @@ odtad CZTERNASCIE (4-17).**
         else { h.appendChild(el("span", null, c.slice(0, 4))); h.appendChild(el("b", null, MONS[+c.slice(5, 7) - 1])); }
         tr.appendChild(h);
       });
+      var ht = el("th", "tot"); ht.appendChild(el("span", null, "Total")); ht.appendChild(el("b", null, unit === "day" ? "7 days" : "6 months")); tr.appendChild(ht);
       th.appendChild(tr); tb.appendChild(th);
       var tbd = el("tbody");
       function row(k, lab, cls) {
         var r = el("tr", cls || ""); r.appendChild(el("th", null, lab));
-        cols.forEach(function (c) {
-          var n = (by[k] || {})[c] || 0, td = el("td");
+        cols.concat(["range"]).forEach(function (c) {
+          var n = c === "range" ? (k ? tot[k] || 0 : allN) : ((by[k] || {})[c] || 0), td = el("td", c === "range" ? "tot" : "");
           if (!n) { td.appendChild(el("span", "mcb-g0", "·")); r.appendChild(td); return; }
-          var on = S.per === c && S.src === k;
+          var on = S.per === c && S.src === (k && k !== "(not stated)" ? k : "");
           var b = el("button", "mcb-gc" + (on ? " on" : ""), String(n)); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
-          b.title = n + (unit === "day" ? " published on " + dmy(c) : " in " + MONS[+c.slice(5, 7) - 1] + " " + c.slice(0, 4)) + (k ? " · " + k : "") + " — click to list them";
+          b.title = n + (c === "range" ? (unit === "day" ? " published in the last 7 days" : " in the last 6 months") : unit === "day" ? " published on " + dmy(c) : " in " + MONS[+c.slice(5, 7) - 1] + " " + c.slice(0, 4)) + (k ? " · " + k : "") + " — click to list them";
           b.addEventListener("click", function () {
             if (on) { S.per = ""; S.src = ""; } else { S.view = "all"; S.per = c; S.src = k && k !== "(not stated)" ? k : ""; }
             S.shown = PAGE; render();
+            if (!on) toResults();   /* §5cq: the list the number filtered is brought into view, under the pinned green bar */
           });
           td.appendChild(b); r.appendChild(td);
         });
@@ -31224,7 +31341,8 @@ odtad CZTERNASCIE (4-17).**
         root.appendChild(gridBox);
       }
       root.appendChild(fd);
-      banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.appendChild(banner);
+      banner = el("div", "mcb-banner"); banner.hidden = true; banner.setAttribute("role", "status"); root.insertBefore(banner, gridBox || fd);   /* §5cq: above the table, pinned */
+      var pinT = 0; window.addEventListener("scroll", function () { if (banner.hidden || pinT) return; pinT = setTimeout(function () { pinT = 0; if (root.offsetParent) pinTop(); }, 120); }, { passive: true });
       info = el("p", "mcb-info ab-info"); root.appendChild(info);
       list = el("ul", "mcb-list"); root.appendChild(list);
       var after = p.querySelector(":scope > .s5bn");
@@ -31853,7 +31971,7 @@ odtad CZTERNASCIE (4-17).**
       box.appendChild(it);
     });
     /* 29 IX: the key printed a literal "n" in a badge — the legend is words, the badges are real numbers */
-    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Blue number: how many things moved since the previous brief (not how many the tab holds). Grey 0: compared, nothing moved — the tab's header says when it last moved."));
+    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Number: what moved since the previous brief (+ added \u00b7 ~ changed \u00b7 \u2212 removed), not how many the tab holds. Grey 0: nothing moved \u2014 the small line gives the last change and the changes of the last 14 days (First-party apps: 30)."));
     rail.appendChild(foot);
     document.body.appendChild(rail);
     document.body.classList.add("s5ca");
@@ -31883,12 +32001,40 @@ odtad CZTERNASCIE (4-17).**
     document.documentElement.style.setProperty("--s5ca-top", top + "px");
   }
 
+  /* §5cq (7 X 2026, owner: "why zero — can it not say how many changes there are?"). The badge stays what it
+     was (moved since the previous brief); the small line under the name adds the last change and the number
+     of changes the tab itself shows for its window: Graph API and Roles — the "What Microsoft changed" block,
+     14 days; First-party apps — its change list, 30 days; Component versions — versions seen changing, 14 days. */
+  function back(day, n) { var d = new Date(day + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - n); return d.toISOString().slice(0, 10); }
+  function winCount(pid, day) {
+    if (!day) return null;
+    if (pid === "tab-graph" || pid === "tab-roles") {
+      var b = document.querySelector('details.mschg[data-mschg="' + pid.slice(4) + '"]');
+      return b && b.hasAttribute("data-n14") ? [+b.getAttribute("data-n14") || 0, "in 14 days"] : null;
+    }
+    if (pid === "tab-fpa") { var lo = back(day, 29), F = ((ST || {}).fpa || {}).chg; return F ? [F.filter(function (x) { return x.d && x.d >= lo; }).length, "in 30 days"] : null; }
+    if (pid === "tab-components") { var l2 = back(day, 13), C = (ST || {}).components;
+      return C ? [C.filter(function (c) { var s = (c.lastChange || {}).seen; return s && s >= l2; }).length, "in 14 days"] : null; }
+    return null;
+  }
+  function subLine(it, pid, day, m) {
+    var sub = it.querySelector(".s5ca-sub"); if (!sub) { sub = el("span", "s5ca-sub"); it.appendChild(sub); }
+    sub.textContent = "";
+    if (!m) { sub.hidden = true; return; }
+    var bits = [];
+    if (m.n) m.parts.forEach(function (p) { var w0 = el("span", "s5ca-w s5ca-" + p[0], String(p[1]).split(" ")[0]); w0.title = p[1]; bits.push(w0); });
+    else { var lm = lastMove(pid, day); if (lm) bits.push(document.createTextNode("last change " + dmy(lm.d))); }
+    var w = winCount(pid, day);
+    if (w) { var ws = el("span", "s5ca-win"); ws.appendChild(el("b", null, fmt(w[0]))); ws.appendChild(document.createTextNode(" " + w[1])); bits.push(ws); }
+    bits.forEach(function (x, i) { if (i) sub.appendChild(document.createTextNode(" \u00b7 ")); sub.appendChild(x); });
+    sub.hidden = !bits.length;
+  }
   function fill() {
     if (!rail) return;
     ST = ST || json("soc-brief-state") || {}; CAT = CAT || json("soc-catalog") || {};
     if (!Object.keys(items).length) (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
     var day = ST.briefDate || "", cw = ST.comparedWith || "", prev = typeof cw === "string" ? cw : (cw.date || "");
-    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Blue number: how many things moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief (not how many the tab holds). Grey 0: compared, nothing moved — the tab's header says when it last moved.";
+    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Number: what moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief (+ added \u00b7 ~ changed \u00b7 \u2212 removed), not how many the tab holds. Grey 0: nothing moved \u2014 the small line gives the last change and the changes of the last 14 days (First-party apps: 30).";
     [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
       var pid = it.getAttribute("data-pid"), m = pid === "tab-products" ? movedProducts(day) : moved(pid), mv = it.querySelector(".s5ca-mv");
       mv.classList.toggle("zero", !!(m && !m.n));
@@ -31899,6 +32045,7 @@ odtad CZTERNASCIE (4-17).**
       else if (m && m.n) { mv.textContent = fmt(m.n); mv.hidden = false;
         it.title = it.querySelector(".s5ca-nm").textContent + " — since " + dmy(prev) + ": " + m.parts.map(function (p) { return p[1]; }).join(", "); }
       else { mv.hidden = true; it.title = it.querySelector(".s5ca-nm").textContent + " — this tab is not compared between briefs"; }
+      subLine(it, pid, day, m);
       var pn = document.getElementById(pid), hd = pn && pn.querySelector(":scope > .s5ca-head");
       /* other blocks are inserted at the top of a panel later (e.g. "What Microsoft changed"): the title stays first */
       if (hd && pn.firstChild !== hd) pn.insertBefore(hd, pn.firstChild);
@@ -34241,6 +34388,42 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 
 
+/* §5cq (7 X 2026): Message Center / article lists — the counts are whole words and strong colours, the
+   green bar that names the filter is pinned above the table, the result of a click cannot be missed */
+.mcb-banner{position:sticky;top:var(--hdr-h,0px);z-index:19;border-width:2px;font-size:14px;padding:9px 12px;
+ background:linear-gradient(var(--ok-soft),var(--ok-soft)),var(--bg,var(--surface));box-shadow:0 3px 8px rgba(0,0,0,.14)}
+.mcb-banner[hidden]{display:none}
+.mcb-back{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.mcb-back+.mcb-clear{margin-left:0}
+.mcb-filtered .mcb-info{color:var(--text);font-size:15px;padding:10px 12px;border-left:5px solid var(--ok);background:var(--ok-soft);border-radius:6px}
+.mcb-filtered .mcb-info b{font-size:17px;color:var(--ok)}
+.mcb-filtered .mcb-list{border:2px solid var(--ok)}
+.mcb-hit .mcb-list{animation:mcbhit 2s ease-out 1}
+@keyframes mcbhit{0%,35%{box-shadow:0 0 0 5px var(--ok)}100%{box-shadow:0 0 0 0 transparent}}
+.mcb-gc{font-size:12.5px;line-height:1.65;font-weight:650}
+.mcb-gc.g-new{background:var(--accent);color:var(--on-accent)}
+.mcb-gc.g-upd{background:var(--surface);color:var(--text);border-color:var(--warn);box-shadow:inset 4px 0 0 var(--warn)}
+.mcb-gc.on{background:var(--ok);border-color:var(--ok);color:var(--on-accent);box-shadow:none}
+.mcb-gz{display:block;color:var(--muted);font-size:12.5px;line-height:1.65;padding:0 9px;white-space:nowrap}
+.mcb-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;justify-self:stretch}
+.mcb-stat{display:grid;gap:6px;border:1px solid var(--border);border-radius:8px;padding:9px 12px;background:var(--surface-2)}
+.mcb-stl{font:700 12px/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.mcb-stl span{font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mcb-stn{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.mcb-stn .mcb-gc,.mcb-stn .mcb-gz{font-size:15px;line-height:1.7;padding:1px 14px;margin:0}
+.mcb-key{margin:0;font-size:12.5px;color:var(--muted)}
+.mcb-kn,.mcb-ku{display:inline-block;font-weight:650;font-size:12px;line-height:1.6;border-radius:999px;padding:0 9px;margin-right:2px}
+.mcb-kn{background:var(--accent);color:var(--on-accent)}
+.mcb-ku{background:var(--surface);color:var(--text);border:1px solid var(--warn);box-shadow:inset 4px 0 0 var(--warn);margin-left:12px}
+.mcb-grid th.tot,.mcb-grid td.tot{border-left:2px solid var(--border);background:var(--surface-2)}
+@media (max-width:760px){.mcb-stats{grid-template-columns:1fr}.mcb-banner{font-size:13px}}
+/* the rail: a second line under the name of every compared tab */
+.s5ca-it{flex-wrap:wrap;row-gap:0;padding-top:5px;padding-bottom:5px}
+.s5ca-nm{flex:1 1 0}
+.s5ca-sub{flex:0 0 100%;font-size:11.5px;line-height:1.35;font-weight:400;color:var(--muted);white-space:normal;font-variant-numeric:tabular-nums}
+.s5ca-sub[hidden]{display:none}
+.s5ca-sub .s5ca-w{font-weight:600}
+.s5ca-win b{color:var(--text);font-weight:650}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
