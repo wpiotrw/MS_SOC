@@ -70,6 +70,9 @@ Microsoft Purview supports DLP policies for the following non-Microsoft apps:
 - Dropbox
 - Google Workspace
 - Salesforce
+- AWS
+- Cisco Webex
+- ServiceNow
 
 Note
 
@@ -120,7 +123,7 @@ To create a DLP policy scoped to non-Microsoft connected apps:
     Non-Microsoft connected app policies are only supported with the **Custom** policy template. The predefined Financial, Medical and health, and Privacy templates don't support non-Microsoft app locations.
 5. Enter a name and description for the DLP policy, then select **Next**.
 6. On **Assign admin units**, the scope is set to **Full directory**. Administrative units aren't supported for non-Microsoft app locations.
-7. On **Choose where to apply the policy**, select one or more of the supported non-Microsoft apps (such as **Box**, **Dropbox**, **Google Workspace**, and **Salesforce**.
+7. On **Choose where to apply the policy**, select one or more of the supported non-Microsoft apps (such as **Box**, **Dropbox**, **Google Workspace**, **Salesforce, AWS, Cisco Webex, ServiceNow**.
 
     Important
 
