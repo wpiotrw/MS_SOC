@@ -8,9 +8,9 @@ feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/help/4021566/windows-10-send-feedback-to-microsoft-with-feedback-hub-app
 uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
-author: Y-Kelly
+author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-01T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,9 +58,9 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
-There are no new policies in Microsoft Edge version 156.
+There are no new policies in Microsoft Edge version 157.
 
-There are no new policies in Microsoft Edge version 155.
+There are no new policies in Microsoft Edge version 156.
 
 ## Deprecated policies
 
@@ -73,6 +73,7 @@ The following table lists all deprecated policies.
 | [OneAuthAuthenticationEnforced](microsoft-edge-policies/oneauthauthenticationenforced) | OneAuth Authentication Flow Enforced for signin (deprecated) |
 | [MicrosoftOfficeMenuEnabled](microsoft-edge-policies/microsoftofficemenuenabled) | Allow users to access the Microsoft Office menu (deprecated) |
 | [ShowOfficeShortcutInFavoritesBar](microsoft-edge-policies/showofficeshortcutinfavoritesbar) | Show Microsoft Office shortcut in favorites bar (deprecated) |
+| [NewPDFReaderEnabled](microsoft-edge-policies/newpdfreaderenabled) | Microsoft Edge built-in PDF reader powered by Adobe Acrobat enabled (deprecated) |
 | [ProxyBypassList](microsoft-edge-policies/proxybypasslist) | Configure proxy bypass rules (deprecated) |
 | [ProxyMode](microsoft-edge-policies/proxymode) | Configure proxy server settings (deprecated) |
 | [ProxyPacUrl](microsoft-edge-policies/proxypacurl) | Set the proxy .pac file URL (deprecated) |
@@ -90,9 +91,9 @@ The following table lists all deprecated policies.
 
 ## Obsolete policies
 
-There are no obsoleted policies in Microsoft Edge version 156.
+There are no obsoleted policies in Microsoft Edge version 157.
 
-There are no obsoleted policies in Microsoft Edge version 155.
+There are no obsoleted policies in Microsoft Edge version 156.
 
 ## Available policies
 
@@ -604,7 +605,7 @@ These tables list all of the browser-related group policies available in this re
 | Policy Name | Caption |
 | --- | --- |
 | [AlwaysOpenPdfExternally](microsoft-edge-policies/alwaysopenpdfexternally) | Always open PDF files externally |
-| [NewPDFReaderEnabled](microsoft-edge-policies/newpdfreaderenabled) | Microsoft Edge built-in PDF reader powered by Adobe Acrobat enabled |
+| [NewPDFReaderEnabled](microsoft-edge-policies/newpdfreaderenabled) | Microsoft Edge built-in PDF reader powered by Adobe Acrobat enabled (deprecated) |
 | [PDFSecureMode](microsoft-edge-policies/pdfsecuremode) | Secure mode and Certificate-based Digital Signature validation in native PDF reader |
 | [PDFXFAEnabled](microsoft-edge-policies/pdfxfaenabled) | XFA support in native PDF reader enabled |
 | [PdfViewerOutOfProcessIframeEnabled](microsoft-edge-policies/pdfvieweroutofprocessiframeenabled) | Use out-of-process iframe PDF Viewer |
@@ -916,7 +917,7 @@ These tables list all of the browser-related group policies available in this re
 | [DelayNavigationsForInitialSiteListDownload](microsoft-edge-policies/delaynavigationsforinitialsitelistdownload) | Require that the Enterprise Mode Site List is available before tab navigation |
 | [DeleteDataOnMigration](microsoft-edge-policies/deletedataonmigration) | Delete old browser data on migration |
 | [DeveloperToolsAvailability](microsoft-edge-policies/developertoolsavailability) | Control where developer tools can be used |
-| [DeveloperToolsAvailabilityAllowlist](microsoft-edge-policies/developertoolsavailabilityallowlist) | List of URL patterns for which developer tools are allowed to be opened |
+| [DeveloperToolsAvailabilityAllowlist](microsoft-edge-policies/developertoolsavailabilityallowlist) | List of URL patterns where developer tools are allowed |
 | [DeveloperToolsAvailabilityBlocklist](microsoft-edge-policies/developertoolsavailabilityblocklist) | List of URL patterns for which developer tools are blocked |
 | [DirectInvokeEnabled](microsoft-edge-policies/directinvokeenabled) | Allow users to open files using the DirectInvoke protocol |
 | [Disable3DAPIs](microsoft-edge-policies/disable3dapis) | Disable support for 3D graphics APIs |

@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-01T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -18,7 +18,7 @@ ms.subservice: edge-admin
 ms.localizationpriority: high
 ms.collection: M365-modern-desktop
 ms.custom: 
-description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: List of URL patterns for which developer tools are allowed to be opened'
+description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: List of URL patterns where developer tools are allowed'
 locale: en-us
 document_id: a68fb798-d0c9-2cbf-d053-2e534642e6a6
 document_version_independent_id: a68fb798-d0c9-2cbf-d053-2e534642e6a6
@@ -46,32 +46,34 @@ platformId: 21306358-fc22-acdf-663f-35229fa0eebb
 
 # Microsoft Edge Browser Policy Documentation DeveloperToolsAvailabilityAllowlist | Microsoft Learn
 
-## List of URL patterns for which developer tools are allowed to be opened
+## List of URL patterns where developer tools are allowed
 
 ## Supported versions
 
 - Windows: ≥ 148
 - macOS: ≥ 148
-- Android: Not supported
+- Android: ≥ 156
 - iOS: Not supported
 
 ## Description
 
 This policy controls where developer tools can be used in Microsoft Edge by specifying an allowlist of URL patterns.
 
-URL patterns are matched against the URL of every frame on the page being inspected.
+Developer tools availability is evaluated for each target being inspected. URL patterns are matched against the target's URL, such as a page, a subframe represented by a separate target, an extension, or a web application. Frames that share a target follow that target's policy result.
 
-If you configure this policy and do not configure the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) policy, developer tools are available only when every frame on the page matches a pattern in this allowlist. If any frame does not match, developer tools are blocked for the entire page. For information on the URL format, see https://go.microsoft.com/fwlink/?linkid=2095322 .
+If you configure this policy and don't configure the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) policy, developer tools are available only for targets whose URLs match a pattern in this allowlist. If a target's URL doesn't match, developer tools are blocked for that target. For example, a subframe represented by a separate target can't be inspected if its URL isn't on the allowlist, but an allowlisted main-page target remains inspectable. For information about the URL format, see https://go.microsoft.com/fwlink/?linkid=2095322.
 
-If you configure both this policy and the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) policy, this allowlist takes precedence. URLs that match this allowlist are allowed even if they also match the blocklist. URLs that match the blocklist but not this allowlist are blocked. URLs that match neither are governed by the [DeveloperToolsAvailability](developertoolsavailability) policy.
+If you configure both this policy and the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) policy, this allowlist takes precedence. A target whose URL matches this allowlist is allowed even if it also matches the blocklist. A target whose URL matches the blocklist but not this allowlist is blocked. A target whose URL matches neither list is governed by the [DeveloperToolsAvailability](developertoolsavailability) policy.
 
-If you disable or do not configure this policy, developer tools availability is determined by the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) and [DeveloperToolsAvailability](developertoolsavailability) policies.
+If you disable or don't configure this policy, developer tools availability is determined by the [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) and [DeveloperToolsAvailability](developertoolsavailability) policies.
 
-This policy applies to developer tools opened for websites, extensions, and web applications.
+This policy applies to developer tools, direct Chrome DevTools Protocol (CDP) connections (for example, using --remote-debugging-port or --remote-debugging-pipe), and CDP connections through the chrome.debugger extension API. The [RemoteDebuggingAllowed](remotedebuggingallowed) policy controls whether remote debugging can start. When remote debugging is allowed, this policy still restricts which targets can be inspected.
 
 Blanket host wildcards (that is, "\*" or "[\*]") aren't allowed. To enable developer tools globally, use the [DeveloperToolsAvailability](developertoolsavailability) policy.
 
 This policy supports up to 1,000 entries.
+
+On Android, this policy controls inspection of targets through remote debugging. It does not enable on-device developer tools.
 
 ## Supported features
 
@@ -90,7 +92,7 @@ This policy supports up to 1,000 entries.
 ### Group Policy (ADMX) info
 
 - GP unique name: DeveloperToolsAvailabilityAllowlist
-- GP name: List of URL patterns for which developer tools are allowed to be opened
+- GP name: List of URL patterns where developer tools are allowed
 - GP path (Mandatory): Administrative Templates/Microsoft Edge
 - GP path (Recommended): N/A
 - GP ADMX file name: MSEdge.admx
@@ -180,4 +182,13 @@ file://*
   <string>.exact.hostname.com</string>
   <string>file://*</string>
 </array>
+```
+
+## Android information and settings
+
+- Preference Key name: DeveloperToolsAvailabilityAllowlist
+- Example value:
+
+```
+["contoso.com", "https://ssl.server.com", "contoso.com/good_path", "https://server.contoso.com:8080/path", ".exact.hostname.com", "file://*"]
 ```

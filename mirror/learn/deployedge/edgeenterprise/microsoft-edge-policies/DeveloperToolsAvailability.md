@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-01T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -52,12 +52,14 @@ platformId: da7a8ad2-e4d3-e406-b996-036fd56616fa
 
 - Windows: ≥ 77
 - macOS: ≥ 77
-- Android: Not supported
+- Android: ≥ 156
 - iOS: Not supported
 
 ## Description
 
 Controls whether users can access developer tools in Microsoft Edge.
+
+This policy also applies to direct Chrome DevTools Protocol (CDP) connections (for example, connections that use --remote-debugging-port or --remote-debugging-pipe) and CDP connections through the chrome.debugger extension API. The [RemoteDebuggingAllowed](remotedebuggingallowed) policy controls whether users can use remote debugging. When remote debugging is allowed, this policy still controls which targets can be inspected.
 
 If you set this policy to 'DeveloperToolsDisallowedForForceInstalledExtensions' (default), users can access developer tools and the JavaScript console, except in the context of extensions installed by enterprise policy.
 
@@ -71,18 +73,20 @@ As of version 119, this policy also controls whether developer mode for Isolated
 
 As of version 128, this policy does not control developer mode on the extensions page if the [ExtensionDeveloperModeSettings](extensiondevelopermodesettings) policy is configured.
 
-Developer tools availability is determined in the following order of precedence:
+The [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) and [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist) policies take precedence over this policy. Developer tools availability is determined by the first applicable rule below:
 
 1. If a URL matches a pattern in [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist), developer tools are allowed.
 2. If the allowlist is configured and the blocklist is not, URLs not on the allowlist are blocked.
 3. If a URL matches a pattern in [DeveloperToolsAvailabilityBlocklist](developertoolsavailabilityblocklist), developer tools are blocked.
-4. If a URL is not covered by either list, this policy ([DeveloperToolsAvailability](developertoolsavailability)) applies.
+4. Otherwise, if neither URL-list policy is configured, or if a URL matches neither list, this policy ([DeveloperToolsAvailability](developertoolsavailability)) applies as the fallback.
+
+On Android, this policy controls inspection of targets through remote debugging. It does not enable on-device developer tools.
 
 Policy options mapping:
 
-- DeveloperToolsDisallowedForForceInstalledExtensions (0) = Block the developer tools on extensions installed by enterprise policy, allow in other contexts
-- DeveloperToolsAllowed (1) = Allow using the developer tools
-- DeveloperToolsDisallowed (2) = Don't allow using the developer tools
+- DeveloperToolsDisallowedForForceInstalledExtensions (0) = Block Edge DevTools on extensions installed by enterprise policy, allow in other contexts
+- DeveloperToolsAllowed (1) = Allow using Edge DevTools
+- DeveloperToolsDisallowed (2) = Don't allow using Edge DevTools
 
 Use the preceding information when configuring this policy.
 
@@ -91,9 +95,9 @@ Use the preceding information when configuring this policy.
 > 
 > Use this information when configuring this policy.
 
-- DeveloperToolsDisallowedForForceInstalledExtensions (0) = Block the developer tools on extensions installed by enterprise policy, allow in other contexts
-- DeveloperToolsAllowed (1) = Allow using the developer tools
-- DeveloperToolsDisallowed (2) = Don't allow using the developer tools
+- DeveloperToolsDisallowedForForceInstalledExtensions (0) = Block Edge DevTools on extensions installed by enterprise policy, allow in other contexts
+- DeveloperToolsAllowed (1) = Allow using Edge DevTools
+- DeveloperToolsDisallowed (2) = Don't allow using Edge DevTools
 
 ## Supported features
 
@@ -120,7 +124,7 @@ Use the preceding information when configuring this policy.
 #### Example value
 
 ```
-Don't allow using the developer tools
+Don't allow using Edge DevTools
 ```
 
 ### Registry settings
@@ -143,4 +147,13 @@ Don't allow using the developer tools
 
 ```xml
 <integer>2</integer>
+```
+
+## Android information and settings
+
+- Preference Key name: DeveloperToolsAvailability
+- Example value:
+
+```
+2
 ```

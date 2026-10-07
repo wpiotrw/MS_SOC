@@ -122,7 +122,21 @@ Local (temp) storage information for each size.
 - To learn how to get the best local storage performance for your VMs, see the [NVMe Temp Disk FAQ](/en-us/azure/virtual-machines/enable-nvme-temp-faqs).
 
 # [Remote Storage](#tab/sizestorageremote)
-Remote (uncached) storage information for each size. | Size Name | Max Remote Storage Disks | Uncached Premium SSD IOPS | Uncached Premium SSD Throughput (MBps) | Uncached Premium SSD Burst IOPS | Uncached Premium SSD Burst Throughput (MBps) | Uncached Ultra Disk and Premium SSD v2 IOPS | Uncached Ultra Disk and Premium SSD v2 Throughput (MBps) | Uncached Burst Ultra Disk and Premium SSD v2 IOPS | Uncached Burst Ultra Disk and Premium SSD v2 Throughput (MBps) | | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | | Standard\_L2as\_v5 | 4 | 4,000 | 118 | 44,000 | 1,413 | 4,400 | 137 | 48,400 | 1,653 | | Standard\_L4as\_v5 | 8 | 8,000 | 234 | 47,200 | 1,413 | 8,800 | 274 | 52,083 | 1,653 | | Standard\_L8as\_v5 | 16 | 16,000 | 468 | 47,200 | 1,413 | 17,600 | 548 | 52,083 | 1,653 | | Standard\_L16as\_v5 | 32 | 32,000 | 936 | 72,700 | 1,413 | 35,200 | 1,096 | 80,000 | 1,653 | | Standard\_L32as\_v5 | 32 | 64,000 | 1,872 | 94,400 | 1,916 | 70,400 | 2,191 | 104,167 | 2,242 | | Standard\_L48as\_v5 | 32 | 96,000 | 2,808 | 99,000 | 2,875 | 105,600 | 3,291 | 108,900 | 3,363 | | Standard\_L64as\_v5 | 32 | 128,000 | 3,744 | 132,000 | 3,833 | 140,800 | 4,382 | 145,200 | 4,485 | | Standard\_L80as\_v5 | 32 | 160,000 | 4,704 | 162,500 | 4,791 | 176,000 | 5,478 | 178,475 | 5,577 | | Standard\_L96as\_v5 | 32 | 192,000 | 5,664 | 192,500 | 5,749 | 211,200 | 6,574 | 211,750 | 6,669 | | Standard\_L128as\_v5 | 32 | 204,800 | 7,488 | 225,280 | 7,664 | 281,600 | 8,765 | 310,886 | 8,967 | | Standard\_L160ias\_v5 | 32 | 260,000 | 12,000 | 260,000 | 12,000 | 400,000 | 12,000 | 400,000 | 12,000 |
+Remote (uncached) storage information for each size.
+
+| Size Name | Max Remote Storage Disks | Uncached Premium SSD IOPS | Uncached Premium SSD Throughput (MBps) | Uncached Premium SSD Burst IOPS | Uncached Premium SSD Burst Throughput (MBps) | Uncached Ultra Disk and Premium SSD v2 IOPS | Uncached Ultra Disk and Premium SSD v2 Throughput (MBps) | Uncached Burst Ultra Disk and Premium SSD v2 IOPS | Uncached Burst Ultra Disk and Premium SSD v2 Throughput (MBps) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Standard\_L2as\_v5 | 4 | 4,000 | 118 | 44,000 | 1,413 | 4,400 | 137 | 48,400 | 1,653 |
+| Standard\_L4as\_v5 | 8 | 8,000 | 234 | 47,200 | 1,413 | 8,800 | 274 | 52,083 | 1,653 |
+| Standard\_L8as\_v5 | 16 | 16,000 | 468 | 47,200 | 1,413 | 17,600 | 548 | 52,083 | 1,653 |
+| Standard\_L16as\_v5 | 32 | 32,000 | 936 | 72,700 | 1,413 | 35,200 | 1,096 | 80,000 | 1,653 |
+| Standard\_L32as\_v5 | 32 | 64,000 | 1,872 | 94,400 | 1,916 | 70,400 | 2,191 | 104,167 | 2,242 |
+| Standard\_L48as\_v5 | 32 | 96,000 | 2,808 | 99,000 | 2,875 | 105,600 | 3,291 | 108,900 | 3,363 |
+| Standard\_L64as\_v5 | 32 | 128,000 | 3,744 | 132,000 | 3,833 | 140,800 | 4,382 | 145,200 | 4,485 |
+| Standard\_L80as\_v5 | 32 | 160,000 | 4,704 | 162,500 | 4,791 | 176,000 | 5,478 | 178,475 | 5,577 |
+| Standard\_L96as\_v5 | 32 | 192,000 | 5,664 | 192,500 | 5,749 | 211,200 | 6,574 | 211,750 | 6,669 |
+| Standard\_L128as\_v5 | 32 | 204,800 | 7,488 | 225,280 | 7,664 | 281,600 | 8,765 | 310,886 | 8,967 |
+| Standard\_L160ias\_v5 | 32 | 260,000 | 12,000 | 260,000 | 12,000 | 400,000 | 12,000 | 400,000 | 12,000 |
 
 #### Storage resources
 
