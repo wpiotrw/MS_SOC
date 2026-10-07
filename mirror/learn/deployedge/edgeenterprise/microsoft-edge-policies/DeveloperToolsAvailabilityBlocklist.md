@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-07-14T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -52,22 +52,26 @@ platformId: 0c291f4d-a8a6-b7df-892c-e80489708653
 
 - Windows: ≥ 148
 - macOS: ≥ 148
-- Android: Not supported
+- Android: ≥ 156
 - iOS: Not supported
 
 ## Description
 
-This policy specifies URL patterns where developer tools are blocked. For information on the URL format, see https://go.microsoft.com/fwlink/?linkid=2095322.
+This policy specifies URL patterns where developer tools are blocked. For information about the URL format, see https://go.microsoft.com/fwlink/?linkid=2095322.
 
-URL patterns are evaluated against the URL of every frame on the page being inspected. If any frame matches a pattern in this policy, developer tools are blocked for the entire page.
+Developer tools availability is evaluated for each target being inspected. URL patterns are matched against the target's URL, such as a page, a subframe represented by a separate target, an extension, or a web application. Frames that share a target follow that target's policy result.
 
-If you configure this policy and do not configure the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) policy, developer tools are blocked when any frame matches a pattern in this policy. If no frames match, availability is determined by the [DeveloperToolsAvailability](developertoolsavailability) policy.
+If you configure this policy and don't configure the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) policy, developer tools are blocked for targets whose URLs match a pattern in this blocklist. If a target's URL doesn't match, availability is determined by the [DeveloperToolsAvailability](developertoolsavailability) policy. For example, a subframe represented by a separate target can't be inspected if its URL matches this blocklist, while the main-page target remains inspectable if its URL isn't blocklisted and the fallback policy allows inspection.
 
-If you configure both this policy and the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) policy, the allowlist takes precedence. URLs that match the allowlist are allowed, even if they also match this policy. URLs that match this policy (but not the allowlist) are blocked. If a URL matches neither, the [DeveloperToolsAvailability](developertoolsavailability) policy determines availability.
+If you configure both this policy and the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) policy, the allowlist takes precedence. A target whose URL matches the allowlist is allowed, even if it also matches this policy. A target whose URL matches this policy but not the allowlist is blocked. If a target's URL matches neither list, the [DeveloperToolsAvailability](developertoolsavailability) policy determines availability.
 
-If you disable or do not configure this policy, developer tools availability is determined by the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) and [DeveloperToolsAvailability](developertoolsavailability) policies.
+If you disable or don't configure this policy, developer tools availability is determined by the [DeveloperToolsAvailabilityAllowlist](developertoolsavailabilityallowlist) and [DeveloperToolsAvailability](developertoolsavailability) policies.
+
+This policy applies to developer tools, direct Chrome DevTools Protocol (CDP) connections (for example, using --remote-debugging-port or --remote-debugging-pipe), and CDP connections through the chrome.debugger extension API. The [RemoteDebuggingAllowed](remotedebuggingallowed) policy controls whether remote debugging can start. When remote debugging is allowed, this policy still restricts which targets can be inspected.
 
 This policy supports up to 1,000 entries.
+
+On Android, this policy controls inspection of targets through remote debugging. It does not enable on-device developer tools.
 
 ## Supported features
 
@@ -198,4 +202,13 @@ file://*
   <string>*</string>
   <string>file://*</string>
 </array>
+```
+
+## Android information and settings
+
+- Preference Key name: DeveloperToolsAvailabilityBlocklist
+- Example value:
+
+```
+["https://contoso.com", "contoso.com", "https://ssl.server.com", "contoso.com/bad_path", "https://server.contoso.com:8080/path", ".exact.hostname.com", "*", "file://*"]
 ```
