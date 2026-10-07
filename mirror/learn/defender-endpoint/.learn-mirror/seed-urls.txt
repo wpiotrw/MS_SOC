@@ -10,6 +10,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/defender-deployment-tool-win
 https://learn.microsoft.com/en-us/defender-endpoint/discover-local-ai-agents
 https://learn.microsoft.com/en-us/defender-endpoint/gov
 https://learn.microsoft.com/en-us/defender-endpoint/investigate-machines
+https://learn.microsoft.com/en-us/defender-endpoint/linux-deploy-defender-for-endpoint-using-golden-images
 https://learn.microsoft.com/en-us/defender-endpoint/linux-install-with-defender-deployment-tool
 https://learn.microsoft.com/en-us/defender-endpoint/linux-preferences
 https://learn.microsoft.com/en-us/defender-endpoint/linux-support-offline-security-intelligence-update

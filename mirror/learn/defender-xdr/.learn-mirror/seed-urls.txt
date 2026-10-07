@@ -68,5 +68,6 @@ https://learn.microsoft.com/en-us/defender-xdr/split-incidents-into-tasks
 https://learn.microsoft.com/en-us/defender-xdr/threat-analytics
 https://learn.microsoft.com/en-us/defender-xdr/threat-analytics-indicators
 https://learn.microsoft.com/en-us/defender-xdr/threat-intel-briefing-agent-defender
+https://learn.microsoft.com/en-us/defender-xdr/virus-initiative-criteria
 https://learn.microsoft.com/en-us/defender-xdr/whats-new
 https://learn.microsoft.com/en-us/defender-xdr/whats-new-in-microsoft-defender-urbac

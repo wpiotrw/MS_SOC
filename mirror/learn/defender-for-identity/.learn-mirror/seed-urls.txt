@@ -19,4 +19,5 @@ https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessm
 https://learn.microsoft.com/en-us/defender-for-identity/security-testing-best-practices
 https://learn.microsoft.com/en-us/defender-for-identity/sensor-settings
 https://learn.microsoft.com/en-us/defender-for-identity/troubleshooting-known-issues
+https://learn.microsoft.com/en-us/defender-for-identity/uninstall-sensor
 https://learn.microsoft.com/en-us/defender-for-identity/whats-new

@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
   "pages": {
-    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026": {"etag":"\"YSS/GBa0mcFCQVrQ/cA62vIJPWA=\"","gitCommitId":"fb453a0f2ba1d7797a88ea75efe31f311b05bd7d","path":"lifecycle-data/end-of-support/end-of-support-2026.md","sourcePath":"lifecycle-data/end-of-support/end-of-support-2026.md","updatedAt":"2026-08-19T09:23:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027": {"etag":"\"OMUUkWersJ373UoRXyxaXUor+nc=\"","gitCommitId":"01471be2f7944ba11cf7393ec81cc4631f7c42f9","path":"lifecycle-data/end-of-support/end-of-support-2027.md","sourcePath":"lifecycle-data/end-of-support/end-of-support-2027.md","updatedAt":"2024-11-08T22:03:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026": {"etag":"\"fcFBiDinaq9x6mzmk12to1gKBt8=\"","gitCommitId":"fb453a0f2ba1d7797a88ea75efe31f311b05bd7d","path":"lifecycle-data/end-of-support/end-of-support-2026.md","sourcePath":"lifecycle-data/end-of-support/end-of-support-2026.md","updatedAt":"2026-08-19T09:23:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027": {"etag":"\"LsvG0QwEAf2Z4VxxYsHiJIRwA10=\"","gitCommitId":"01471be2f7944ba11cf7393ec81cc4631f7c42f9","path":"lifecycle-data/end-of-support/end-of-support-2027.md","sourcePath":"lifecycle-data/end-of-support/end-of-support-2027.md","updatedAt":"2024-11-08T22:03:00.0000000Z"}
   }
 }

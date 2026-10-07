@@ -7,11 +7,13 @@ https://learn.microsoft.com/en-us/entra/concept-deployment-options-provision-to-
 https://learn.microsoft.com/en-us/entra/concept-passkey-browser-authentication-federated-identity-provider
 https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-settings-b2b-direct-connect
 https://learn.microsoft.com/en-us/entra/external-id/customers/enable-external-id-high-scale-compatibility-mode
+https://learn.microsoft.com/en-us/entra/external-id/customers/faq-customers
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-entra-id-federation-customers
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-sign-in-alias
 https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-sign-in-with-passkey
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration-from-b2c-to-external-id
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration…
+https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migratio…
 https://learn.microsoft.com/en-us/entra/external-id/direct-federation
 https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
 https://learn.microsoft.com/en-us/entra/fundamentals/agent-id/what-is-microsoft-entra-agent-id
@@ -115,6 +117,7 @@ https://learn.microsoft.com/en-us/entra/identity-platform/howto-configure-app-in
 https://learn.microsoft.com/en-us/entra/identity-platform/permissions-consent-overview
 https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest
 https://learn.microsoft.com/en-us/entra/identity-platform/reference-credential-management-api
+https://learn.microsoft.com/en-us/entra/identity-platform/reference-native-authentication-api
 https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code
