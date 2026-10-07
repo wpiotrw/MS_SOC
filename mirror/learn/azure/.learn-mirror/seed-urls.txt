@@ -27,6 +27,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/extensions-troubleshooting
 https://learn.microsoft.com/en-us/azure/azure-arc/flux-gitops-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/gitops-flux2-parameters
 https://learn.microsoft.com/en-us/azure/azure-arc/identity-access-overview
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-release
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubleshooting
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/gitops-overview
@@ -57,11 +58,14 @@ https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-
 https://learn.microsoft.com/en-us/azure/azure-arc/transition-guidance
 https://learn.microsoft.com/en-us/azure/azure-arc/tutorial-use-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/browse-and-enable-vcenter-resources-in-azure
+https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/deliver-extended-security-updates-for-vmware-vms-through-arc
+https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/enable-guest-management-at-scale
 https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/enable-vcenter-resources-in-azure
 https://learn.microsoft.com/en-us/azure/azure-arc/workload-orchestration/overview
 https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
@@ -186,6 +190,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-age
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/configure-voice-agent
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-agent-production
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-agent-terraform
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-resilient-agent
@@ -205,6 +210,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/voice-agent-teleph
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/voice-agent-twilio-phone
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/vs-code-agents-workflow-pro-code
 https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/prompt-voice-agent
+https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/quickstart-optimize-hosted-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/quickstart-optimize-prompt-agent
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capabilities
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capability-reference
@@ -323,6 +329,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/siem-migration
 https://learn.microsoft.com/en-us/azure/sentinel/transformation-filter-split
 https://learn.microsoft.com/en-us/azure/sentinel/ueba-anomalies-on-behaviors
 https://learn.microsoft.com/en-us/azure/sentinel/ueba-reference
+https://learn.microsoft.com/en-us/azure/sentinel/understand-threat-intelligence
 https://learn.microsoft.com/en-us/azure/sentinel/whats-new
 https://learn.microsoft.com/en-us/azure/sentinel/work-with-threat-indicators
 https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview
@@ -337,9 +344,11 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
 https://learn.microsoft.com/en-us/azure/virtual-machines/how-to-enable-write-accelerator
+https://learn.microsoft.com/en-us/azure/virtual-machines/ibm-spectrum-symphony-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-n-series-amd-gpu-driver-linux-installation-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/mdsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/previous-gen-series-capacity-limitations
@@ -347,13 +356,16 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v6-v7-migration-discover
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v6-v7-migration-migrate
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v6-v7-migration-plan
+https://learn.microsoft.com/en-us/azure/virtual-machines/ncads-h100-v5
 https://learn.microsoft.com/en-us/azure/virtual-machines/previous-gen-series-capacity-limitations
 https://learn.microsoft.com/en-us/azure/virtual-machines/retirements-and-capacity-restrictions
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-assess
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-discover
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-migrate
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-plan
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncadsh100v5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/end-of-life-sizes-list
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/lifecycle-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/previous-gen-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retired-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dedicated-host-retirement
