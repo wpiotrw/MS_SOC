@@ -1,7 +1,7 @@
 {
  "read": "2026-10-07",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 678,
+ "count": 679,
  "note": null,
  "messages": [
   {
@@ -2019,13 +2019,13 @@
    "actionBy": null,
    "start": "2026-02-06",
    "end": "2026-11-30",
-   "modified": "2026-10-01",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "Updated message"
    ],
-   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] As part of our ongoing mission to deliver a modern, secure, and scalable one-stop management portal for admins, we are transitioning Teams Android device management from the Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP) . This move consolidates management of all Teams device…",
-   "bodyHash": "ecf1529b6fbd73cf"
+   "summary": "Updated October 7, 2026: We have updated the timeline. Thank you for your patience. [Introduction] As part of our ongoing mission to deliver a modern, secure, and scalable one-stop management portal for admins, we are transitioning Teams Android device management from the Teams admin center (TAC) to the Teams Rooms Pro Management portal (PMP) . This move consolidates management of all Teams device…",
+   "bodyHash": "42b419c4762917e1"
   },
   {
    "id": "MC1229029",
@@ -5092,15 +5092,15 @@
    "actionBy": null,
    "start": "2026-06-12",
    "end": "2026-11-16",
-   "modified": "2026-10-06",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft is expanding the availability of the Legal agent in Microsoft 365 Copilot in Word to Frontier users worldwide in Public Preview. The Legal agent was previously released in Frontier preview for users located in the United States only. This update expands access globally, enabling more organi…",
-   "bodyHash": "f96af2f769f86844"
+   "summary": "Updated October 7, 2026: We have updated the timeline and content. GA release will now be tracked separately in an upcoming MC post. Thank you for your patience. [What and Why] Microsoft is expanding the availability of Copilot for Legal in Microsoft 365 Copilot in Word to Frontier users worldwide in Public Preview. Copilot for Legal was previously released in Frontier preview for users located in…",
+   "bodyHash": "4d9726c688b092fe"
   },
   {
    "id": "MC1388718",
@@ -6764,16 +6764,16 @@
    "major": true,
    "actionBy": null,
    "start": "2026-07-24",
-   "end": "2026-11-30",
-   "modified": "2026-09-22",
+   "end": "2026-10-09",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] To help people discover and understand organizational information more easily, Microsoft is changing the default visibility of 11 existing profile card properties in Microsoft 365 profile cards. Today, these properties can be populated from Microsoft Entra ID and other supported external data sou…",
-   "bodyHash": "f500e49d2add1557"
+   "summary": "Updated October 7, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and Why:] To help people discover and understand organizational information more easily, Microsoft is changing the default visibility of 11 existing profile card properties in Microsoft 365 profile cards. Today, these properties can be populated from Microsoft Entra…",
+   "bodyHash": "4bd6ab04eb86d343"
   },
   {
    "id": "MC1440701",
@@ -13645,6 +13645,25 @@
    "bodyHash": "32c26a1067699654"
   },
   {
+   "id": "MC1490598",
+   "title": "Interim guidance for Manitoba time zone changes",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2027-10-07",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: A time zone change affects Windows devices in Manitoba, with Windows releasing a fix in October 2026. Manitoba is permanently moving to UTC-5 and will not set its clocks back on November 1, 2026. Microsoft recommends a temporary workaround for devices that can't be updated in time. For the workaround steps and full guidance, visit the Daylight Saving Time & Time Zone Blog . Rollout s…",
+   "bodyHash": "9a91763aa35ab3bd"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -16140,6 +16159,53 @@
    "id": "MC1466328",
    "type": "removed",
    "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Desktop)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1227622",
+   "type": "changed",
+   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+   "fields": {
+    "bodyHash": [
+     "ecf1529b6fbd73cf",
+     "42b419c4762917e1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1388706",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Legal agent available in Frontier worldwide",
+   "fields": {
+    "bodyHash": [
+     "f96af2f769f86844",
+     "4d9726c688b092fe"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1438571",
+   "type": "changed",
+   "title": "(Updated) Default visibility of additional profile card properties in Microsoft 365 profile cards",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-10-09"
+    ],
+    "bodyHash": [
+     "f500e49d2add1557",
+     "4bd6ab04eb86d343"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1490598",
+   "type": "new",
+   "title": "Interim guidance for Manitoba time zone changes",
    "fields": {}
   }
  ]
