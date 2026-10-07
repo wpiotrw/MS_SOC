@@ -1,7 +1,7 @@
 {
- "read": "2026-10-06",
+ "read": "2026-10-07",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 681,
+ "count": 685,
  "note": null,
  "messages": [
   {
@@ -12158,25 +12158,6 @@
    "bodyHash": "ab6916d64ff93aa2"
   },
   {
-   "id": "MC1477282",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-23",
-   "end": "2026-10-07",
-   "modified": "2026-09-23",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting September 22nd, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delive…",
-   "bodyHash": "31af288e8a7eb711"
-  },
-  {
    "id": "MC1477996",
    "title": "Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
    "services": [
@@ -12669,7 +12650,7 @@
   },
   {
    "id": "MC1479509",
-   "title": "Spell check before sending emails in new Outlook",
+   "title": "(Updated) Spell check before sending emails in new Outlook",
    "services": [
     "Exchange Online"
    ],
@@ -12679,13 +12660,14 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-11-30",
-   "modified": "2026-09-25",
+   "modified": "2026-10-06",
    "tags": [
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] If you don’t want to check spelling manually for every message—or you’re worried you might forget!—you can set Outlook to check spelling for you every time before sending emails. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on mid November 2026 and expect to complete by early December 2026. Targeted Release (Worldwide): We will begin rolling out o…",
-   "bodyHash": "ddc6b9856c85a312"
+   "summary": "Updated October 6, 2026: We have updated the content. Thank you for your patience. [What and Why:] If you don’t want to check spelling manually for every message—or you’re worried you might forget!—you can set Outlook to check spelling for you every time before sending emails. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on mid-November 2026 and expect to complet…",
+   "bodyHash": "b0ba89f57694a691"
   },
   {
    "id": "MC1479512",
@@ -12752,7 +12734,7 @@
   },
   {
    "id": "MC1479516",
-   "title": "Microsoft Outlook: Link preview retirement",
+   "title": "(Updated) Microsoft Outlook: Link preview retirement",
    "services": [
     "Exchange Online"
    ],
@@ -12762,14 +12744,15 @@
    "actionBy": null,
    "start": "2026-09-25",
    "end": "2026-10-30",
-   "modified": "2026-09-25",
+   "modified": "2026-10-06",
    "tags": [
     "Admin impact",
     "Retirement",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] The link preview feature has been retired in new Outlook for Windows and Outlook on the web. As a result, Outlook will no longer generate preview cards when users insert or paste web links into email messages. Links will continue to function as standard clickable hyperlinks. [Rollout schedule] General Availability (Worldwide, GCC, GCC High, DoD): This change has already been impleme…",
-   "bodyHash": "b1a6ab8afde12d2b"
+   "summary": "Updated October 6, 2026: We have updated the content. Thank you for your patience. [What and why] The Link Preview feature has been retired in new Outlook for Windows and Outlook on the web because the browser service required to retrieve preview content from the web was deprecated. Without this, Outlook can no longer access the information needed to generate preview cards. Links will continue to …",
+   "bodyHash": "0bbe48f5ee92cbcc"
   },
   {
    "id": "MC1479517",
@@ -13696,6 +13679,110 @@
    ],
    "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 6th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery …",
    "bodyHash": "3aad7a25dad8740b"
+  },
+  {
+   "id": "MC1489926",
+   "title": "Microsoft Create: Improved sharing controls for Brand Kits",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-10-28",
+   "modified": "2026-10-06",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] To help organizations keep Brand Kit access current as collaboration needs change, Microsoft is introducing improved sharing controls for Brand Kits. After sharing a Brand Kit, owners can change a user's access level between view and edit or remove access when it is no longer needed. [Rollout schedule] General Availability (Worldwide): Available now [Impact on your organization] Who…",
+   "bodyHash": "991d3ec906ca8bf3"
+  },
+  {
+   "id": "MC1489928",
+   "title": "Microsoft Brand Kit: Duplicate an existing Brand Kit",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-10-28",
+   "modified": "2026-10-06",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] To help organizations create and manage Brand Kits more efficiently, Microsoft is introducing the ability for Brand Managers and Brand Kit owners to duplicate an existing Brand Kit and use it as the starting point for a new one. This capability makes it easier to reuse an existing brand setup when creating Brand Kits for different brands, regions, or template variations, reducing th…",
+   "bodyHash": "b0636d6d4fc0d447"
+  },
+  {
+   "id": "MC1489931",
+   "title": "Microsoft 365 Backup: Activity Logs",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-11-20",
+   "modified": "2026-10-06",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We're introducing activity logs in Microsoft 365 Backup to help administrators monitor backup policy and restore activities directly within the product. Activity logs provide greater visibility into configuration changes, restore progress, failures, and operational status without requiring administrators to leave the Microsoft 365 Backup experience. [Rollout schedule] General Availa…",
+   "bodyHash": "2013e548c61c5498"
+  },
+  {
+   "id": "MC1489942",
+   "title": "Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-12-25",
+   "modified": "2026-10-06",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are expanding report publishing capabilities in Microsoft Viva Insights to include leaders, such as chief officers, managers, and their delegates. As part of this update, in Viva Feature Access Management, the Analyst report publish setting will be renamed to Report publish . This setting, which is on by default , will continue to be managed by Global Admins and Insights Admins, …",
+   "bodyHash": "ce4d33411a559faa"
+  },
+  {
+   "id": "MC1489971",
+   "title": "Microsoft Purview DLP: Improved setup and Intune multi-admin approval support for unmanaged apps in Edge for Business",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-06",
+   "end": "2026-12-16",
+   "modified": "2026-10-06",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "[What and why] Beginning in early November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Business . This update adds support for organizations that use Microsoft Intune multi-admin approval and provides clearer status in…",
+   "bodyHash": "32c26a1067699654"
   },
   {
    "id": "MC676299",
@@ -16045,6 +16132,104 @@
    "date": "2026-10-06",
    "id": "MC1489691",
    "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1479509",
+   "type": "changed",
+   "title": "(Updated) Spell check before sending emails in new Outlook",
+   "fields": {
+    "title": [
+     "Spell check before sending emails in new Outlook",
+     "(Updated) Spell check before sending emails in new Outlook"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "ddc6b9856c85a312",
+     "b0ba89f57694a691"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1479516",
+   "type": "changed",
+   "title": "(Updated) Microsoft Outlook: Link preview retirement",
+   "fields": {
+    "title": [
+     "Microsoft Outlook: Link preview retirement",
+     "(Updated) Microsoft Outlook: Link preview retirement"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Retirement",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Retirement",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "b1a6ab8afde12d2b",
+     "0bbe48f5ee92cbcc"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1489926",
+   "type": "new",
+   "title": "Microsoft Create: Improved sharing controls for Brand Kits",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1489928",
+   "type": "new",
+   "title": "Microsoft Brand Kit: Duplicate an existing Brand Kit",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1489931",
+   "type": "new",
+   "title": "Microsoft 365 Backup: Activity Logs",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1489942",
+   "type": "new",
+   "title": "Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1489971",
+   "type": "new",
+   "title": "Microsoft Purview DLP: Improved setup and Intune multi-admin approval support for unmanaged apps in Edge for Business",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1477282",
+   "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
    "fields": {}
   }
