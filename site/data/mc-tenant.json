@@ -1,7 +1,7 @@
 {
  "read": "2026-10-07",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 685,
+ "count": 678,
  "note": null,
  "messages": [
   {
@@ -4871,26 +4871,6 @@
    ],
    "summary": "Updated September 18, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview Endpoint Data Loss Prevention (DLP) is improving how file extension conditions are configured to help ensure policies are accurate, reliable, and efficient. By limiting file extension selection to supported, scannable file types, this update reduces misconfiguration risk and imp…",
    "bodyHash": "401034c778b309b4"
-  },
-  {
-   "id": "MC1384419",
-   "title": "Improved PDF preview in Outlook for iOS",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-06-08",
-   "end": "2026-10-07",
-   "modified": "2026-06-08",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We’re updating the PDF preview experience in Outlook for iOS. This change adds support for Microsoft Information Protection (MIP) –labeled PDFs and introduces a built-in controls toolbar to improve navigation and search when viewing PDF attachments. This message is associated with Roadmap ID 564970 . [Rollout Schedule:] General Availability (Worldwide, GCC, GCC High, DoD): Rollout …",
-   "bodyHash": "ff8ecb9c5c0e5cd1"
   },
   {
    "id": "MC1384420",
@@ -9911,126 +9891,6 @@
    ],
    "summary": "[What and why] We are introducing centralized notification settings for channels in Microsoft Teams . Users will have a single location to view and manage notification preferences across their channels instead of configuring settings individually for each channel. This simplifies notification management and reduces the effort required to review and update settings. [Rollout schedule] Targeted Rele…",
    "bodyHash": "e2d6242a7376dde8"
-  },
-  {
-   "id": "MC1466321",
-   "title": "Frontier: [Skills] 'Sharpen slide titles' built in skill in PPT Copilot (Mac)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Rolling out to Frontier, rewrite slide titles as takeaways that state the conclusion, so anyone skimming your headlines gets the argument; helping your slide land with more impact. [Rollout Schedule:] Frontier: Rolling out in early September 2026. [Impact on Your Organization:] Who is affected: Users of PowerPoint for Mac. Platform: PowerPoint for Mac. No admin configuration change…",
-   "bodyHash": "40a0904718871b5e"
-  },
-  {
-   "id": "MC1466322",
-   "title": "Frontier: [Skills] 'Sharpen slide titles' built in skill in PPT Copilot (web)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Rolling out to Frontier, rewrite slide titles as takeaways that state the conclusion, so anyone skimming your headlines gets the argument; helping your slide land with more impact. [Rollout Schedule:] Frontier: Rolling out in early September 2026. [Impact on Your Organization:] Who is affected: Users of PowerPoint for the web. Platform: PowerPoint for the web. No admin configuratio…",
-   "bodyHash": "e0b35ed7c346ffd6"
-  },
-  {
-   "id": "MC1466323",
-   "title": "Frontier: Skills] 'Sharpen slide titles' built in skill in PPT Copilot (Desktop)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Rolling out to Frontier, rewrite slide titles as takeaways that state the conclusion, so anyone skimming your headlines gets the argument; helping your slide land with more impact. ﻿ [Rollout Schedule:] Frontier: Rolling out in early September 2026. [Impact on Your Organization:] Who is affected: Users of PowerPoint for Windows desktop. Platform: PowerPoint for Windows desktop. No …",
-   "bodyHash": "1e9f0f209919842e"
-  },
-  {
-   "id": "MC1466326",
-   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Mac)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] Rolling out in Frontier, this skill reads the whole deck: slides, charts, tables and speaker notes, and hands back an impartial guide: the gist, the ask, the key takeaways, key numbers and open questions. This experience can help users review and understand presentations more efficiently and identify information that may require further attention. [Rollout schedule:] Frontier: Roll…",
-   "bodyHash": "a4a58882845d07ac"
-  },
-  {
-   "id": "MC1466327",
-   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Web)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-03",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] Rolling out in Frontier, this skill reads the whole deck: slides, charts, tables and speaker notes, and hands back an impartial guide: the gist, the ask, the key takeaways, key numbers and open questions. This experience can help users review and understand presentations more efficiently and identify information that may require further attention. [Rollout schedule:] Frontier: Roll…",
-   "bodyHash": "f02ce366b3ed0cc4"
-  },
-  {
-   "id": "MC1466328",
-   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Desktop)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-10-07",
-   "modified": "2026-09-08",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] Rolling out in Frontier, this skill reads the whole deck: slides, charts, tables and speaker notes, and hands back an impartial guide: the gist, the ask, the key takeaways, key numbers and open questions. This experience can help users review and understand presentations more efficiently and identify information that may require further attention. [Rollout schedule:] Frontier: Roll…",
-   "bodyHash": "55d3fba0a3098336"
   },
   {
    "id": "MC1466750",
@@ -16231,6 +16091,55 @@
    "id": "MC1477282",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1384419",
+   "type": "removed",
+   "title": "Improved PDF preview in Outlook for iOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466321",
+   "type": "removed",
+   "title": "Frontier: [Skills] 'Sharpen slide titles' built in skill in PPT Copilot (Mac)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466322",
+   "type": "removed",
+   "title": "Frontier: [Skills] 'Sharpen slide titles' built in skill in PPT Copilot (web)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466323",
+   "type": "removed",
+   "title": "Frontier: Skills] 'Sharpen slide titles' built in skill in PPT Copilot (Desktop)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466326",
+   "type": "removed",
+   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Mac)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466327",
+   "type": "removed",
+   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Web)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-07",
+   "id": "MC1466328",
+   "type": "removed",
+   "title": "Frontier: [Skills] 'Explain this presentation' built in skill in PPT Copilot (Desktop)",
    "fields": {}
   }
  ]
