@@ -12120,29 +12120,40 @@ for r in re.findall(r"<tr[^>]*>(.*?)</tr>", h or "", re.S):
              for x in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", r, re.S)]
     if len(cells) >= 3 and cells[0]:
         rows.append((re.sub(r"This update has no published CVE entries\.?$", "", cells[0]).strip(),
-                     cells[2].strip()))
+                     cells[2].strip(), cells[1].strip()))
 def apple_date(s):
     for f in ("%d %b %Y", "%d %B %Y"):
         try: return datetime.datetime.strptime(s, f).date().isoformat()
         except Exception: pass
     return None
 for cid, nm, pat, plat in APPLE:
-    hit = [(a, b) for a, b in rows if re.match(pat, a)]
+    hit = [(a, b, dv) for a, b, dv in rows if re.match(pat, a)]
     if not hit:
         OUT.append(comp(cid, nm, "Apple platform", plat, None,
                         url="https://support.apple.com/en-us/100100", src="Apple security releases",
                         note="no row for this product in Apple's security releases table this run"))
         OUT[-1]["vendor"] = "Apple"
         continue
-    title, when = hit[0]
+    title, when, dev = hit[0]
     mv = re.search(r"([\d]+(?:\.[\d]+)*)\s*$", title)
+    # §5cr (8 X 2026): Apple can publish ONE version on several days, one row per device group —
+    # watchOS 27.0.1: "Apple Watch Series 12 and Apple Watch Ultra 4" 23 Sep 2026, "Apple Watch
+    # Series 9 and later" 28 Sep 2026. Only the first row was read, so the date jumped from 23 to
+    # 28 Sep and the brief seemed to see the version (24 Sep) before Apple released it. Every row of
+    # the current version is kept; `released` is the EARLIEST date, `releasedRows` lists them all.
+    def _ver(a):
+        m5 = re.search(r"([\d]+(?:\.[\d]+)*)\s*$", a); return m5.group(1) if m5 else a
+    same = [(apple_date(b), dv) for a, b, dv in hit if _ver(a) == _ver(title)]
+    dated = sorted([x for x in same if x[0]])
     OUT.append(comp(cid, nm, "Apple platform", plat, (mv.group(1) if mv else title),
-                    apple_date(when), label=title,
+                    dated[0][0] if dated else apple_date(when), label=title,
                     url="https://support.apple.com/en-us/100100", src="Apple security releases"))
     OUT[-1]["vendor"] = "Apple"
+    if len(same) > 1:
+        OUT[-1]["versions"][0]["releasedRows"] = [{"date": d5, "devices": dv} for d5, dv in dated]
     # 5ag: kazde wydanie glowne, ktore Apple nadal lata, jest osobna wersja -
     # "wersja -1" to nie poprzedni build tej samej galezi, tylko poprzednia galaz.
-    older = [(a, b) for a, b in hit[1:6]]
+    older = [(a, b) for a, b, dv in hit[1:6] if _ver(a) != _ver(title)]
     for a, b in older[:3]:
         mv2 = re.search(r"([\d]+(?:\.[\d]+)*)\s*$", a)
         if mv2 and mv2.group(1) != (mv.group(1) if mv else None):
@@ -12294,6 +12305,7 @@ def last_change(OUT, data_dir, today):
         # to `released`, a gdy jej nie ma - `seen`, z dopiskiem "seen", zeby nie udawala daty wydawcy.
         if lc is not None:
             lc["released"] = iso(v0.get("released")) if lc.get("to") == v else lc.get("released")
+            if lc.get("to") == v and v0.get("releasedRows"): lc["releasedRows"] = v0["releasedRows"]
         c2["lastChange"] = lc
     return OUT
 
@@ -26255,6 +26267,36 @@ rozbicie „+9 · ~23", dla zerowych „last change 6 Oct" oraz liczba zmian, kt
 losowych liczb Message Center i po 25 liczb kazdej listy daje liste dokladnie tej dlugosci; belka widoczna i
 na wierzchu po kliknieciu oraz po przewinieciu o 900 px.
 
+**§5cr (8 X 2026, wlasciciel: „pionowy pasek — zakladki sie zlewaja"; „przy wersjach nie widac, ktora stara,
+ktora nowa, kiedy sprawdzono"; wybral na makiecie menu C, karte Now/Before/os dat, tabele porownawcza jako
+rozwijana sekcje i nowa karte w Overview; „sprawdz watchOS, zebysmy wszystko sledzili dokladnie").**
+(1) **Menu boczne — kolumny.** Kazda zakladka to osobny kafelek; zamiast jednej liczby trzy wyrownane kolumny
+`.s5ca-cols`: **+ dodane** (nowe pozycje od poprzedniego briefu), **~ zmienione** (pozycje juz obecne, ktorych
+tresc sie zmienila), **− usuniete** (pozycje, ktore zniknely z listy); kropka = nic w tej kolumnie. Liczby sa
+TE SAME co w pasku `.s5bn` zakladki (`fillCols()`), naglowek kazdej grupy podpisuje kolumny z dymkiem,
+stopka objasnia znaki; zakladka bez ruchu ma pod nazwa „last change · N in 14 days" (§5cq). Szyna 300 px.
+(2) **Karta komponentu** (warstwa na koncu SKRYPTU 17, z bloku stanu; spany przebiegu zostaja w HTML dla
+bramki i sa tylko ukryte): **Now** duzo, zmieniony ogon numeru w jednym zielonym znaczniku; **Before**
+male, przekreslone; trzy wiersze dat — wydanie u dostawcy (kazda data, gdy Apple wydaje jedna wersje w
+kilku dniach), „Seen by the brief", „Checked · unchanged"; pusta kropka = nie podano / nie zaobserwowano;
+chip „current N days" / „changed <data>" / „first recorded"; bursztynowa ramka = zmiana w 7 dniach.
+Reguly kafelka z §5at (`#tab-components a.jtile *`) przebija sie selektorem z tym samym id.
+(3) **Tabela porownawcza** `details#s5cr-cmp` pod kartami (zwinieta), wskazana przyciskiem w zdaniu
+`.s5cn-cmpsum`: Component, Now, Before, Released by vendor, Seen by the brief, Current for, Today;
+najnowsza zmiana na gorze; nazwa przewija do karty. Strona przekierowuje `scrollIntoView` (§5ci), wiec
+warstwa przewija sama (`goTo()`).
+(4) **Overview, „Component versions · last 7 days"**: trzy liczby-przyciski (nowe w 7 dniach, bez zmian,
+ruszone od poprzedniego briefu), wiersz na kazda nowa wersje z Now/Before i dwiema datami osobno
+(widziane przez brief + ile dni temu; data wydania dostawcy albo „not stated"), „Open card ›", wiersz
+„Earlier" z trzema poprzednimi zmianami.
+(5) **watchOS — kolektor.** Tabela Apple `support.apple.com/en-us/100100` ma DWA wiersze „watchOS 27.0.1":
+„Apple Watch Series 12 and Apple Watch Ultra 4" 23 Sep 2026 i „Apple Watch Series 9 and later" 28 Sep 2026
+(sprawdzone 8 X 2026). Kolektor czytal tylko pierwszy wiersz, wiec data przeskoczyla z 23 na 28 IX, a brief
+„zobaczyl" wersje 24 IX przed data Apple. Od §5cr kolektor zbiera wszystkie wiersze biezacej wersji:
+`released` = NAJWCZESNIEJSZA data, `versions[0].releasedRows` i `lastChange.releasedRows` = lista
+{date, devices}; karta i tabela pokazuja kazda date z grupa urzadzen. Poprawka danych przyjdzie z
+najblizszym porannym przebiegiem.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -31964,14 +32006,16 @@ odtad CZTERNASCIE (4-17).**
     var box = null, last = null;
     bs.forEach(function (b) {
       var g = groupOf(b);
-      if (!box || g !== last) { box = el("div", "s5ca-g"); if (g) box.appendChild(el("div", "s5ca-gl", g)); rail.appendChild(box); last = g; }
+      if (!box || g !== last) { box = el("div", "s5ca-g"); if (g) box.appendChild(groupHead(g)); rail.appendChild(box); last = g; }
       var it = el("button", "s5ca-it"); it.type = "button"; it.setAttribute("data-pid", b.getAttribute("aria-controls"));
       it.appendChild(el("span", "s5ca-nm", nameOf(b))); var mv = el("span", "s5ca-mv"); mv.hidden = true; it.appendChild(mv);
+      /* §5cr: three aligned columns instead of one badge — added, changed, removed */
+      var cols = el("span", "s5ca-cols"); ["a", "c", "r"].forEach(function (k) { cols.appendChild(el("span", "s5ca-k")); }); it.appendChild(cols);
       it.addEventListener("click", function () { b.click(); });
       box.appendChild(it);
     });
     /* 29 IX: the key printed a literal "n" in a badge — the legend is words, the badges are real numbers */
-    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Number: what moved since the previous brief (+ added \u00b7 ~ changed \u00b7 \u2212 removed), not how many the tab holds. Grey 0: nothing moved \u2014 the small line gives the last change and the changes of the last 14 days (First-party apps: 30)."));
+    var foot = el("div", "s5ca-foot"); foot.appendChild(el("span", "s5ca-ft", "Columns: what moved since the previous brief, not how many the tab holds. + added: new items. ~ changed: items already listed whose content changed. \u2212 removed: items that left the list. A dot: nothing in that column."));
     rail.appendChild(foot);
     document.body.appendChild(rail);
     document.body.classList.add("s5ca");
@@ -32017,10 +32061,30 @@ odtad CZTERNASCIE (4-17).**
       return C ? [C.filter(function (c) { var s = (c.lastChange || {}).seen; return s && s >= l2; }).length, "in 14 days"] : null; }
     return null;
   }
+  /* §5cr (8 X 2026, owner chose rail C: "explain what + − and the wave mean"): every group heading
+     names its three columns, each with a tooltip, and the foot of the rail spells them out */
+  var COLS = [["+", "added", "new items since the previous brief"], ["~", "changed", "items already listed whose content changed"],
+    ["\u2212", "removed", "items that left the list"]];
+  function groupHead(g) {
+    var gl = el("div", "s5ca-gl"); gl.appendChild(el("span", "s5ca-gn", g));
+    var cs = el("span", "s5ca-cols s5ca-ch");
+    COLS.forEach(function (c, i) { var x = el("span", "s5ca-k s5ca-" + "acr"[i], c[0]); x.title = c[0] + " " + c[1] + ": " + c[2]; cs.appendChild(x); });
+    gl.appendChild(cs); return gl;
+  }
+  function fillCols(it, m, prev) {
+    var ks = it.querySelectorAll(".s5ca-cols > .s5ca-k"), v = { a: 0, c: 0, r: 0 }, nm = (it.querySelector(".s5ca-nm") || {}).textContent || "";
+    if (m) (m.parts || []).forEach(function (p) { v[p[0]] = parseInt(String(p[1]).replace(/[^\d]/g, ""), 10) || 0; });
+    [].forEach.call(ks, function (k, i) {
+      var key = "acr"[i], n = v[key];
+      if (!m) { k.textContent = ""; k.className = "s5ca-k"; k.removeAttribute("title"); return; }
+      k.textContent = n ? fmt(n) : "\u00b7"; k.className = "s5ca-k " + (n ? "s5ca-" + key : "s5ca-kz");
+      k.title = nm + ": " + (n ? fmt(n) + " " + COLS[i][1] : "nothing " + COLS[i][1]) + " since the " + (prev ? dmy(prev) + " " : "previous ") + "brief";
+    });
+  }
   function subLine(it, pid, day, m) {
     var sub = it.querySelector(".s5ca-sub"); if (!sub) { sub = el("span", "s5ca-sub"); it.appendChild(sub); }
     sub.textContent = "";
-    if (!m) { sub.hidden = true; return; }
+    if (!m || m.n) { sub.hidden = true; return; }   /* §5cr: the columns carry a non-zero tab; the line explains a quiet one */
     var bits = [];
     if (m.n) m.parts.forEach(function (p) { var w0 = el("span", "s5ca-w s5ca-" + p[0], String(p[1]).split(" ")[0]); w0.title = p[1]; bits.push(w0); });
     else { var lm = lastMove(pid, day); if (lm) bits.push(document.createTextNode("last change " + dmy(lm.d))); }
@@ -32034,7 +32098,7 @@ odtad CZTERNASCIE (4-17).**
     ST = ST || json("soc-brief-state") || {}; CAT = CAT || json("soc-catalog") || {};
     if (!Object.keys(items).length) (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
     var day = ST.briefDate || "", cw = ST.comparedWith || "", prev = typeof cw === "string" ? cw : (cw.date || "");
-    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Number: what moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief (+ added \u00b7 ~ changed \u00b7 \u2212 removed), not how many the tab holds. Grey 0: nothing moved \u2014 the small line gives the last change and the changes of the last 14 days (First-party apps: 30).";
+    var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Columns: what moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief, not how many the tab holds. + added: new items. ~ changed: items already listed whose content changed. \u2212 removed: items that left the list. A dot: nothing in that column. Grey line under a quiet tab: its last change and the changes of the last 14 days (First-party apps: 30).";
     [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
       var pid = it.getAttribute("data-pid"), m = pid === "tab-products" ? movedProducts(day) : moved(pid), mv = it.querySelector(".s5ca-mv");
       mv.classList.toggle("zero", !!(m && !m.n));
@@ -32045,7 +32109,7 @@ odtad CZTERNASCIE (4-17).**
       else if (m && m.n) { mv.textContent = fmt(m.n); mv.hidden = false;
         it.title = it.querySelector(".s5ca-nm").textContent + " — since " + dmy(prev) + ": " + m.parts.map(function (p) { return p[1]; }).join(", "); }
       else { mv.hidden = true; it.title = it.querySelector(".s5ca-nm").textContent + " — this tab is not compared between briefs"; }
-      subLine(it, pid, day, m);
+      subLine(it, pid, day, m); fillCols(it, m, prev);
       var pn = document.getElementById(pid), hd = pn && pn.querySelector(":scope > .s5ca-head");
       /* other blocks are inserted at the top of a panel later (e.g. "What Microsoft changed"): the title stays first */
       if (hd && pn.firstChild !== hd) pn.insertBefore(hd, pn.firstChild);
@@ -33327,29 +33391,64 @@ odtad CZTERNASCIE (4-17).**
     var PLAT = { "windows-server": "Windows Server", windows: "Windows", ios: "iOS / iPadOS", android: "Android", macos: "macOS" };
     function areaOf(c) { for (var a = 0; a < AREA.length; a++) if (AREA[a][0].test(c.id)) return AREA[a][1]; return c.scope || ""; }
     function platOf(c) { var p0 = ((c.versions || [])[0] || {}).platform || ""; return PLAT[p0] || (p0 === "apple" ? c.name : p0); }
-    var cc = el("section", "s5ci-card s5ci-c-acc s5cm-card"), cch = el("div", "s5ci-ch");
-    cch.appendChild(el("h3", null, "Component versions detected \u00b7 last 7 days")); cch.appendChild(el("span", "s5ci-cn", String(cm7.length))); cc.appendChild(cch);
-    if (!cm7.length) cc.appendChild(el("p", "s5ci-note", "No component moved in the last 7 days \u2014 all " + (ST.components || []).length + " checked " + dmy((ST.componentStats || {}).checkedOn || DAY) + "."));
-    else {
-      var ct = el("div", "s5ci-t s5cm-t"); ct.setAttribute("role", "table"); ct.setAttribute("aria-label", "Component versions detected, last 7 days");
-      var cth = el("div", "s5ci-tr s5ci-th"); cth.setAttribute("role", "row");
-      ["Area \u00b7 platform", "Component", "Version", "Detected \u00b7 released"].forEach(function (h) { var x = el("div", null, h); x.setAttribute("role", "columnheader"); cth.appendChild(x); }); ct.appendChild(cth);
-      cm7.forEach(function (c) {
-        var l = c.lastChange, r = el("div", "s5ci-tr" + (l.seen === DAY ? " s5cm-today" : "")); r.setAttribute("role", "row");
-        var c1 = el("div", "s5cm-area"); c1.setAttribute("role", "cell"); c1.appendChild(el("span", "s5cm-a", areaOf(c))); c1.appendChild(el("span", "s5cm-p", platOf(c))); r.appendChild(c1);
-        var c2 = el("div"); c2.setAttribute("role", "cell"); var nb = el("button", "s5ci-itb", c.name); nb.type = "button"; nb.title = "Open " + c.name + " in Component versions";
-        nb.addEventListener("click", function (e) { e.stopPropagation(); openComp(c.id); }); c2.appendChild(nb); r.appendChild(c2);
-        var c3 = el("div", "s5cm-ver"); c3.setAttribute("role", "cell");
-        c3.appendChild(el("del", "s5cl-old", l.from)); c3.appendChild(el("span", "s5cl-ar", " \u2192 ")); c3.appendChild(el("ins", "s5cl-new", l.to)); r.appendChild(c3);
-        var c4 = el("div", "s5cm-when"); c4.setAttribute("role", "cell");
-        c4.appendChild(l.seen === DAY ? pill("detected today", "info") : el("span", null, "detected " + dmy(l.seen)));
-        if (l.released) c4.appendChild(el("span", "s5cm-rel", relText(l)));
-        if (c.deadline) c4.appendChild(pill("act by " + dmy(c.deadline), "warn"));
-        r.appendChild(c4);
-        r.addEventListener("click", function () { openComp(c.id); });
-        ct.appendChild(r);
+    /* §5cr (8 X 2026, owner approved the design): three counts that open the tab, then one row per new
+       version — NOW large with the changed part marked, BEFORE small and struck, and the two dates apart:
+       the day the brief saw it and the vendor's own release date ("not stated" when there is none) */
+    function verSeg(a, b, cls) {
+      var A = String(a || "").split("."), B = b ? String(b).split(".") : [], i = 0, sp = el("span", cls);
+      while (i < A.length && A[i] === B[i]) i++;
+      /* one mark over the whole changed tail, not one box per segment */
+      var head = A.slice(0, b ? i : A.length).join("."), tail = b ? A.slice(i).join(".") : "";
+      sp.appendChild(document.createTextNode(head + (head && tail ? "." : ""))); if (tail) sp.appendChild(el("span", "s5cr-hl", tail));
+      return sp;
+    }
+    var NC = (ST.components || []).length, chk = (ST.componentStats || {}).checkedOn || DAY;
+    var prevD = (ST.comparedWith && ST.comparedWith.date) || (typeof ST.comparedWith === "string" ? ST.comparedWith : "");
+    var mvB = prevD ? compMoves(prevD).length : 0;
+    var cc = el("section", "s5ci-card s5ci-c-acc s5cm-card s5cr-ov"), cch = el("div", "s5ci-ch");
+    cch.appendChild(el("h3", null, "Component versions \u00b7 last 7 days")); cch.appendChild(el("span", "s5cr-chk", "checked " + (chk === DAY ? "today, " : "") + dmy(chk))); cc.appendChild(cch);
+    var sts = el("div", "s5cr-stats");
+    [[cm7.length, "new version" + (cm7.length === 1 ? "" : "s") + " in the last 7 days", cm7.length ? "warn" : ""],
+     [NC - cm7.length, "unchanged in 7 days", ""], [mvB, "moved since the " + (prevD ? dmy(prevD) + " " : "previous ") + "brief", ""]].forEach(function (x) {
+      var b0 = el("button", "s5cr-st" + (x[2] ? " s5cr-" + x[2] : "")); b0.type = "button"; b0.title = "Open Component versions";
+      b0.appendChild(el("b", null, String(x[0]))); b0.appendChild(el("span", null, x[1]));
+      b0.addEventListener("click", function () { goTab("components"); }); sts.appendChild(b0);
+    });
+    cc.appendChild(sts);
+    if (!cm7.length) {
+      cc.appendChild(el("p", "s5ci-note", "No new version in the last 7 days \u2014 all " + NC + " checked " + dmy(chk) + "."));
+    }
+    cm7.forEach(function (c) {
+      var l = c.lastChange, r = el("div", "s5cr-row" + (l.seen === DAY ? " s5cm-today" : "")), main = el("div", "s5cr-main");
+      var h = el("div", "s5cr-h"); h.appendChild(el("span", "s5cr-pf", platOf(c)));
+      var nb = el("button", "s5ci-itb", c.name); nb.type = "button"; nb.title = "Open " + c.name + " in Component versions";
+      nb.addEventListener("click", function (e) { e.stopPropagation(); openComp(c.id); }); h.appendChild(nb); main.appendChild(h);
+      var vv = el("div", "s5cr-vv"); vv.appendChild(el("span", "s5cr-lab", "Now")); vv.appendChild(verSeg(l.to, l.from, "s5cr-vn"));
+      vv.appendChild(el("span", "s5cr-lab", "Before")); vv.appendChild(verSeg(l.from, l.to, "s5cr-vo")); main.appendChild(vv);
+      var dd = el("div", "s5cr-dd"), ago = dnum(DAY) - dnum(l.seen);
+      var d1 = el("span", "s5cr-d s5cr-dseen"); d1.appendChild(document.createTextNode("seen by the brief ")); d1.appendChild(el("b", null, dmy(l.seen)));
+      d1.appendChild(document.createTextNode(ago === 0 ? " \u00b7 today" : " \u00b7 " + ago + " day" + (ago === 1 ? "" : "s") + " ago")); dd.appendChild(d1);
+      var d2 = el("span", "s5cr-d s5cr-drel" + (l.released ? "" : " s5cr-dnone")); d2.appendChild(document.createTextNode((c.vendor || "Microsoft") + "\u2019s release date: "));
+      if (l.released) { d2.appendChild(el("b", null, dmy(l.released))); var gp = dnum(l.seen) - dnum(l.released); if (gp > 1) d2.appendChild(document.createTextNode(" \u00b7 " + gp + " days before the brief saw it")); }
+      else d2.appendChild(el("i", null, "not stated"));
+      dd.appendChild(d2);
+      if (c.deadline) dd.appendChild(pill("act by " + dmy(c.deadline), "warn"));
+      main.appendChild(dd); r.appendChild(main);
+      var ob = el("button", "s5cr-open", "Open card \u203a"); ob.type = "button"; ob.addEventListener("click", function (e) { e.stopPropagation(); openComp(c.id); }); r.appendChild(ob);
+      r.addEventListener("click", function () { openComp(c.id); });
+      cc.appendChild(r);
+    });
+    var inW = {}; cm7.forEach(function (c) { inW[c.id] = 1; });
+    var earlier = (ST.components || []).filter(function (c) { var l = c.lastChange; return l && l.seen && l.from && l.basis === "observed" && !inW[c.id] && l.seen <= DAY; })
+      .sort(function (x, y) { return x.lastChange.seen < y.lastChange.seen ? 1 : x.lastChange.seen > y.lastChange.seen ? -1 : 0; }).slice(0, 3);
+    if (earlier.length) {
+      var ea = el("p", "s5cr-earlier"); ea.appendChild(el("span", "s5cr-lab", cm7.length ? "Earlier" : "Last change"));
+      earlier.forEach(function (c, i) {
+        var eb = el("button", "s5cr-el", c.name + " " + dmy(c.lastChange.seen)); eb.type = "button"; eb.title = c.lastChange.from + " \u2192 " + c.lastChange.to + " \u00b7 open the card";
+        eb.addEventListener("click", function () { openComp(c.id); }); ea.appendChild(eb);
+        if (i < earlier.length - 1) ea.appendChild(document.createTextNode(" \u00b7 "));
       });
-      cc.appendChild(ct);
+      cc.appendChild(ea);
     }
     var cca = el("button", "s5ci-inl", "All " + (ST.components || []).length + " in Component versions \u203a"); cca.type = "button"; cca.addEventListener("click", function () { goTab("components"); }); cc.appendChild(cca);
     root.appendChild(cc);
@@ -33779,6 +33878,141 @@ odtad CZTERNASCIE (4-17).**
     line(); setInterval(line, 1000);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* §5cr (8 X 2026, owner: "when a version is given, which one is old, which new, when was it checked —
+   everything merges"; he approved NOW / BEFORE / a line of dates, and a comparison table as a folded
+   section that the page says it has). Each card in Component versions gets, from the state block:
+   NOW in large type with the part of the number that changed marked, BEFORE small and struck, and
+   three dates in their own rows — the vendor's release (every date when Apple publishes one version
+   per device group), the day the brief saw it, today's check. The run's own spans stay in the HTML
+   for the gate and are only hidden. Under the cards: a folded table of every component. */
+(function () {
+  "use strict";
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function iso(d) { return typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : ""; }
+  /* the page routes Element.scrollIntoView through its own handlers (§5ci); a plain scroll here */
+  function goTo(x, mid) { var r = x.getBoundingClientRect(), hd = document.querySelector("header.top"), off = hd && getComputedStyle(hd).position === "sticky" ? hd.offsetHeight : 0;
+    window.scrollTo({ top: Math.max(0, r.top + scrollY - (mid ? (innerHeight - r.height) / 2 : off + 12)), behavior: "smooth" }); }
+  function dm(d) { return iso(d) ? (+d.slice(8)) + " " + MON[+d.slice(5, 7) - 1] : ""; }
+  function dn(d) { return Math.round(Date.parse(d + "T12:00:00Z") / 86400000); }
+  var ST = null;
+  function load() {
+    if (ST) return ST;
+    var n = document.getElementById("soc-brief-state"), s = null;
+    try { s = n ? JSON.parse(n.textContent) : null; } catch (x) { s = null; }
+    if (!s || !s.components) return null;
+    ST = { list: s.components, day: s.briefDate || "", chk: (s.componentStats || {}).checkedOn || s.briefDate || "", by: {} };
+    s.components.forEach(function (c) { if (c && c.id) ST.by[c.id] = c; });
+    return ST;
+  }
+  function verSeg(a, b, cls) {
+    var A = String(a == null ? "" : a).split("."), B = b ? String(b).split(".") : [], i = 0, sp = el("span", cls);
+    while (i < A.length && A[i] === B[i]) i++;
+    var head = A.slice(0, b ? i : A.length).join("."), tail = b ? A.slice(i).join(".") : "";
+    sp.appendChild(document.createTextNode(head + (head && tail ? "." : ""))); if (tail) sp.appendChild(el("span", "s5cr-hl", tail));
+    return sp;
+  }
+  function info(c, day) {
+    var l = c.lastChange || {}, v0 = (c.versions || [])[0] || {}, now = v0.version || l.to || "";
+    if (now === "not read in this run") now = l.to || "";
+    var same = l.to === now, old = same ? l.from : null;
+    var rel = iso(same ? (l.released || v0.released) : v0.released), rows = (same && l.releasedRows) || v0.releasedRows || null;
+    var since = rel || iso(l.seen), days = since ? dn(day) - dn(since) : null;
+    var fresh = !!(same && l.from && iso(l.seen) && l.seen <= day && dn(day) - dn(l.seen) < 7);
+    return { l: l, now: now, old: old, rel: rel, rows: rows && rows.length > 1 ? rows : null, days: days, fresh: fresh, vendor: c.vendor || "Microsoft" };
+  }
+  function seenText(l) {
+    if (iso(l.seen)) return [dm(l.seen), ""];
+    var b = l.basis || "";
+    if (b === "vendor table") return ["vendor's table", "not observed by the brief: the earlier version comes from the vendor's table"];
+    if (b === "vendor release notes") return ["release notes", "not observed by the brief: the earlier version comes from the release notes"];
+    if (b === "first recorded") return ["first recorded", "the brief has no earlier version of this component"];
+    return ["not observed", ""];
+  }
+  function stateText(c) { return c.state === "unread" ? "not read today" : c.state === "new-version" ? "new version today" : "unchanged"; }
+  function ageText(I, day) {
+    if (I.fresh) return ["changed " + (I.l.seen === day ? "today" : dm(I.l.seen)), "is-new"];
+    if (!I.old) return ["first recorded", "is-first"];
+    return I.days != null && I.days >= 0 ? ["current " + I.days + " day" + (I.days === 1 ? "" : "s"), ""] : ["", ""];
+  }
+  function tlRow(dot, what, when, none, title) {
+    var r = el("span", "s5cr-tr"); r.appendChild(el("span", "s5cr-dot " + dot)); r.appendChild(el("span", "s5cr-w", what));
+    r.appendChild(el("span", "s5cr-when" + (none ? " s5cr-m" : ""), when)); if (title) r.title = title; return r;
+  }
+  function timeline(c, I, st) {
+    var tl = el("span", "s5cr-tl");
+    if (I.rows) I.rows.forEach(function (x) { tl.appendChild(tlRow("v", "Released by " + I.vendor + " · " + x.devices, dm(x.date) || "not stated", !iso(x.date))); });
+    else tl.appendChild(tlRow(I.rel ? "v" : "m", "Released by " + I.vendor, I.rel ? dm(I.rel) : "not stated", !I.rel));
+    var sn = seenText(I.l);
+    tl.appendChild(tlRow(iso(I.l.seen) ? "b" : "m", "Seen by the brief", sn[0], !iso(I.l.seen), sn[1]));
+    tl.appendChild(tlRow(c.state === "unread" ? "m" : "b", "Checked · " + stateText(c), dm(c.checkedOn || st.chk), c.state === "unread"));
+    return tl;
+  }
+  function tile(a, st) {
+    if (a.__s5cr) return; var id = (a.getAttribute("href") || "").replace(/^#cmp-/, ""), c = st.by[id]; if (!c) return;
+    a.__s5cr = true; a.classList.add("s5cr");
+    var I = info(c, st.day); if (I.fresh) a.classList.add("s5cr-fresh");
+    var p = a.querySelector(".jt-p"), ag = ageText(I, st.day);
+    if (p && ag[0]) p.appendChild(el("span", "s5cr-age " + ag[1], ag[0]));
+    var bd = el("span", "s5cr-b");
+    var nw = el("span", "s5cr-now"); nw.appendChild(el("span", "s5cr-lab", "Now")); nw.appendChild(verSeg(I.now, I.old, "s5cr-vn")); bd.appendChild(nw);
+    var bf = el("span", "s5cr-bef"); bf.appendChild(el("span", "s5cr-lab", "Before"));
+    bf.appendChild(I.old ? verSeg(I.old, I.now, "s5cr-vo") : el("span", "s5cr-none", "no earlier version on record")); bd.appendChild(bf);
+    bd.appendChild(timeline(c, I, st));
+    if (c.deadline) bd.appendChild(el("span", "s5cr-dl", "Act by " + dm(c.deadline) + (c.deadlineNote ? " — " + c.deadlineNote : "")));
+    a.appendChild(bd);
+  }
+  function table(st, wrap) {
+    if (document.getElementById("s5cr-cmp")) return;
+    var d = el("details", "s5cr-cmp"); d.id = "s5cr-cmp";
+    var sm = el("summary"); sm.appendChild(el("b", null, "Comparison table")); sm.appendChild(document.createTextNode(" · all " + st.list.length + " components side by side: now, before, the vendor's release, the day the brief saw it")); d.appendChild(sm);
+    var box = el("div", "s5cr-tw"), t = el("table", "s5cr-t"), th = el("thead"), tr = el("tr");
+    t.setAttribute("data-s11", "1");
+    ["Component", "Now", "Before", "Released by vendor", "Seen by the brief", "Current for", "Today"].forEach(function (h, i) { var x = el("th", i === 5 ? "num" : null, h); x.scope = "col"; tr.appendChild(x); });
+    th.appendChild(tr); t.appendChild(th);
+    var tb = el("tbody");
+    var rows = st.list.map(function (c) { var I = info(c, st.day); return { c: c, I: I, k: iso(I.l.seen) || I.rel || "" }; })
+      .sort(function (x, y) { return x.k < y.k ? 1 : x.k > y.k ? -1 : 0; });
+    rows.forEach(function (o) {
+      var c = o.c, I = o.I, r = el("tr", I.fresh ? "s5cr-fresh" : "");
+      var td = el("td"), nb = el("button", "s5cr-tn", c.name); nb.type = "button"; nb.title = "Show the card of " + c.name;
+      nb.addEventListener("click", function () { var a = document.querySelector('a.jtile[href="#cmp-' + c.id + '"]') || document.getElementById("cmp-" + c.id); if (a) { goTo(a, true); a.classList.add("s5cr-flash"); setTimeout(function () { a.classList.remove("s5cr-flash"); }, 1800); } });
+      td.appendChild(nb); var pl = ((c.versions || [])[0] || {}).platform; if (pl) td.appendChild(el("span", "s5cr-tp", pl)); r.appendChild(td);
+      td = el("td"); td.appendChild(verSeg(I.now, I.old, "s5cr-vn")); r.appendChild(td);
+      td = el("td"); td.appendChild(I.old ? verSeg(I.old, I.now, "s5cr-vo") : el("span", "s5cr-m", "first recorded")); r.appendChild(td);
+      td = el("td");
+      if (I.rows) I.rows.forEach(function (x, i) { if (i) td.appendChild(el("br")); var s0 = el("span", null, dm(x.date)); s0.title = x.devices; td.appendChild(s0); td.appendChild(el("span", "s5cr-tp", " " + x.devices)); });
+      else td.appendChild(el("span", I.rel ? null : "s5cr-m", I.rel ? dm(I.rel) : "not stated"));
+      r.appendChild(td);
+      var sn = seenText(I.l); td = el("td"); var sx = el("span", iso(I.l.seen) ? null : "s5cr-m", sn[0]); if (sn[1]) sx.title = sn[1]; td.appendChild(sx); r.appendChild(td);
+      td = el("td", "num", I.days != null && I.days >= 0 ? I.days + " day" + (I.days === 1 ? "" : "s") : "—"); r.appendChild(td);
+      td = el("td"); td.appendChild(el("span", c.state === "unread" ? "s5cr-m" : c.state === "new-version" ? "s5cr-new" : "s5cr-ok", stateText(c)));
+      if (c.deadline) td.appendChild(el("span", "s5cr-tdl", " · act by " + dm(c.deadline))); r.appendChild(td);
+      tb.appendChild(r);
+    });
+    t.appendChild(tb); box.appendChild(t); d.appendChild(box);
+    d.appendChild(el("p", "s5cr-tnote", "Released by vendor: the vendor's own date. Seen by the brief: the first daily brief that showed this version. Current for: days since the release date, or since the brief saw it when the vendor states no date."));
+    wrap.parentNode.insertBefore(d, wrap.nextSibling);
+  }
+  function pointer() {
+    var sum = document.querySelector("#tab-components .s5cn-cmpsum"); if (!sum || sum.querySelector(".s5cr-go")) return;
+    var b = el("button", "s5cr-go", "Comparison table of all " + (ST ? ST.list.length : "") + " ▾"); b.type = "button";
+    b.title = "A folded table under the cards lists every component side by side";
+    b.addEventListener("click", function () { var d = document.getElementById("s5cr-cmp"); if (!d) return; d.open = true; goTo(d, false); });
+    sum.appendChild(document.createTextNode(" ")); sum.appendChild(b);
+  }
+  function run() {
+    var st = load(); if (!st) return;
+    var tiles = document.querySelectorAll('#tab-components a.jtile[href^="#cmp-"]');
+    [].forEach.call(tiles, function (a) { tile(a, st); });
+    var wrap = document.querySelector("#tab-components .jumpwrap"); if (wrap) table(st, wrap);
+    pointer();
+  }
+  function safe() { try { run(); } catch (e) { if (window.console) console.error("[5cr]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", safe); else safe();
+  [1500, 4000].forEach(function (t) { setTimeout(safe, t); });
+  document.addEventListener("click", function (e) { if (e.target && e.target.closest && e.target.closest('[aria-controls="tab-components"], [data-pid="tab-components"]')) setTimeout(safe, 300); }, true);
 })();
 ```
 
@@ -34424,6 +34658,101 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5ca-sub[hidden]{display:none}
 .s5ca-sub .s5ca-w{font-weight:600}
 .s5ca-win b{color:var(--text);font-weight:650}
+/* §5cr (8 X 2026): rail C — three aligned columns per tab (+ added, ~ changed, − removed) */
+@media (min-width:1100px){body.s5ca .s5ca-rail{width:300px}body.s5ca .wrap{margin-left:316px}}
+.s5ca-mv{display:none!important}
+.s5ca-it{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:6px;border:1px solid var(--border);background:var(--surface);margin-top:4px;padding:7px 6px 7px 10px}
+.s5ca-it:hover{border-color:var(--accent)}
+.s5ca-it[aria-current="page"]{border-color:var(--accent);box-shadow:none}
+.s5ca-nm{grid-column:1}
+.s5ca-cols{display:grid;grid-template-columns:repeat(3,34px);grid-column:2}
+.s5ca-k{text-align:right;padding-right:4px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.s5ca-k.s5ca-a{color:var(--ok)}.s5ca-k.s5ca-c{color:var(--warn)}.s5ca-k.s5ca-r{color:var(--bad)}
+.s5ca-k.s5ca-kz{color:var(--faint);font-weight:400}
+.s5ca-sub{grid-column:1 / -1}
+.s5ca-gl{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:6px;padding:0 7px 0 10px}
+.s5ca-ch .s5ca-k{font-size:13px;cursor:help;letter-spacing:0}
+.s5ca-foot{display:block}
+/* §5cr: component cards — NOW / BEFORE / dates */
+.jtile.s5cr>.jt-v,.jtile.s5cr>.jt-c,.jtile.s5cr>.jt-s{display:none}
+.jtile.s5cr{display:flex;flex-direction:column;gap:8px}
+.jtile.s5cr .jt-p{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.jtile.s5cr-fresh{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn) inset}
+.s5cr-age{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 8px;background:var(--ok-soft);color:var(--ok);white-space:nowrap}
+.s5cr-age.is-new{background:var(--warn-soft);color:var(--warn)}
+.s5cr-age.is-first{background:var(--accent-soft);color:var(--accent)}
+.s5cr-b{display:flex;flex-direction:column;gap:8px}
+.s5cr-now{display:flex;flex-direction:column;gap:4px;background:var(--bg);border-radius:8px;padding:8px 10px}
+.s5cr-lab{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cr-vn{font:600 19px/1.2 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5cr-hl,.jtile .s5cr-vn .s5cr-hl,.s5cr-t .s5cr-vn .s5cr-hl{background:var(--ok);color:var(--on-accent);border-radius:3px;padding:0 1px}
+.s5cr-bef{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.s5cr-vo{font:500 13px/1.2 var(--mono,ui-monospace,monospace);color:var(--muted);text-decoration:line-through;overflow-wrap:anywhere}
+.s5cr-vo .s5cr-hl,.jtile .s5cr-vo .s5cr-hl,.s5cr-t .s5cr-vo .s5cr-hl{background:none;color:var(--bad);padding:0}
+.s5cr-none,.s5cr-m{color:var(--muted);font-style:italic}
+.s5cr-tl{display:flex;flex-direction:column;gap:5px}
+.s5cr-tr{display:grid;grid-template-columns:10px minmax(0,1fr) auto;column-gap:8px;align-items:baseline;font-size:12.5px;line-height:1.35}
+.s5cr-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);align-self:center}
+.s5cr-dot.b{background:var(--ok)}.s5cr-dot.m{background:none;box-shadow:inset 0 0 0 2px var(--faint)}
+.s5cr-w{color:var(--muted)}
+.s5cr-when{font-weight:650;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums}
+.s5cr-when.s5cr-m{font-weight:400}
+.s5cr-dl{font-size:12.5px;font-weight:650;color:var(--bad)}
+/* the tile reset of §5at (#tab-components a.jtile * — muted 12.5 px sans) outranks plain classes: the
+   card's own parts are named under the same id */
+#tab-components a.jtile.s5cr .s5cr-age{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.07em;text-transform:uppercase;color:var(--ok)}
+#tab-components a.jtile.s5cr .s5cr-age.is-new{color:var(--warn)}
+#tab-components a.jtile.s5cr .s5cr-age.is-first{color:var(--accent)}
+#tab-components a.jtile.s5cr .s5cr-lab{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+#tab-components a.jtile.s5cr .s5cr-vn,#tab-components a.jtile.s5cr .s5cr-vn *{font:600 19px/1.25 var(--mono);color:var(--text)}
+#tab-components a.jtile.s5cr .s5cr-vn .s5cr-hl{color:var(--on-accent)}
+#tab-components a.jtile.s5cr .s5cr-vo,#tab-components a.jtile.s5cr .s5cr-vo *{font:500 13px/1.25 var(--mono);color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-vo .s5cr-hl{color:var(--bad)}
+#tab-components a.jtile.s5cr .s5cr-none{font-style:italic}
+#tab-components a.jtile.s5cr .s5cr-w{color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-when{font-weight:650;color:var(--text)}
+#tab-components a.jtile.s5cr .s5cr-when.s5cr-m{font-weight:400;font-style:italic;color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-dl{font-weight:650;color:var(--bad)}
+.s5cr-go{font:600 12.5px/1.2 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:6px;padding:3px 9px;cursor:pointer}
+.s5cr-cmp{margin:14px 0;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5cr-cmp>summary{padding:10px 14px;cursor:pointer;font-size:14px;color:var(--muted)}
+.s5cr-cmp>summary b{color:var(--text)}
+.s5cr-tw{overflow-x:auto;padding:0 14px}
+.s5cr-t{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.s5cr-t th{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.09em;text-transform:uppercase;color:var(--faint);text-align:left;padding:8px;border-bottom:1px solid var(--border);white-space:nowrap}
+.s5cr-t td{padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+.s5cr-t .num{text-align:right;white-space:nowrap}
+.s5cr-t tr.s5cr-fresh td{background:var(--warn-soft)}
+.s5cr-t .s5cr-vn{font-size:14px;white-space:nowrap}.s5cr-t .s5cr-vo{white-space:nowrap}.s5cr-t .s5cr-vo{font-size:12.5px}
+.s5cr-tn{font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.s5cr-tp{display:block;font-size:11.5px;color:var(--muted)}
+.s5cr-ok{color:var(--ok)}.s5cr-new{color:var(--warn);font-weight:650}.s5cr-tdl{color:var(--bad)}
+.s5cr-tnote{margin:0;padding:8px 14px 12px;font-size:12.5px;color:var(--muted)}
+.s5cr-flash{outline:3px solid var(--accent);outline-offset:2px}
+/* §5cr: Overview — component versions */
+.s5cr-ov .s5ci-ch{justify-content:space-between}
+.s5cr-chk{font-size:12.5px;color:var(--muted)}
+.s5cr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.s5cr-st{display:flex;flex-direction:column;align-items:flex-start;gap:2px;font:inherit;text-align:left;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;cursor:pointer;color:var(--text)}
+.s5cr-st:hover{border-color:var(--accent)}
+.s5cr-st b{font-size:20px;font-variant-numeric:tabular-nums}
+.s5cr-st span{font-size:12px;color:var(--muted)}
+.s5cr-st.s5cr-warn b{color:var(--warn)}
+.s5cr-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--warn-soft);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-top:8px;cursor:pointer}
+.s5cr-main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5cr-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.s5cr-pf{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border-radius:999px;padding:4px 8px}
+.s5cr-vv{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.s5cr-dd{display:flex;gap:6px 16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);align-items:center}
+.s5cr-d::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--accent)}
+.s5cr-dseen::before{background:var(--ok)}
+.s5cr-dnone::before{background:none;box-shadow:inset 0 0 0 2px var(--faint)}
+.s5cr-d b{color:var(--text)}
+.s5cr-open{font:600 13px/1.2 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.s5cr-earlier{margin:8px 0 0;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px;align-items:baseline}
+.s5cr-earlier .s5cr-lab{margin-right:6px}
+.s5cr-el{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer}
+@media (max-width:760px){.s5cr-st{padding:6px 8px}.s5cr-st b{font-size:17px}.s5cr-st span{font-size:11.5px}.s5cr-row{grid-template-columns:1fr}.s5cr-tr{grid-template-columns:10px minmax(0,1fr)}.s5cr-tr .s5cr-when{grid-column:2}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
