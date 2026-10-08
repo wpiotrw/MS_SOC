@@ -1,7 +1,7 @@
 {
  "read": "2026-10-08",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 685,
+ "count": 687,
  "note": null,
  "messages": [
   {
@@ -7590,15 +7590,15 @@
    "actionBy": null,
    "start": "2026-08-07",
    "end": "2027-03-29",
-   "modified": "2026-09-14",
+   "modified": "2026-10-08",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 14, 2026: We have updated the content. Thank you for your patience. [What and why] Users will soon be able to register a passkey as their first multifactor authentication method. Previously, people had to set up an alternate MFA method like SMS or Voice before they could add a passkey (FIDO2), Windows Hello for Business, macOS Platform SSO. That extra step pushed users toward wea…",
-   "bodyHash": "07faa9229486ac40"
+   "summary": "Updated October 8, 2026: We have updated the timeline. Thank you for your patience. [What and why] Users will soon be able to register a passkey as their first multifactor authentication method. Previously, people had to set up an alternate MFA method like SMS or Voice before they could add a passkey (FIDO2), Windows Hello for Business, macOS Platform SSO. That extra step pushed users toward weake…",
+   "bodyHash": "de923a35a11fec8a"
   },
   {
    "id": "MC1450134",
@@ -8621,15 +8621,15 @@
    "actionBy": null,
    "start": "2026-08-21",
    "end": "2027-03-30",
-   "modified": "2026-09-14",
+   "modified": "2026-10-08",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 14, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Entra ID will support passkey registration and sign-in for B2B users, including internal guest users and external users . Eligible B2B users will be able to register and use passkeys issued by the resource tenant to satisfy that tenant's multifactor authentication (MFA) requirements. Pass…",
-   "bodyHash": "7d1d91618e211998"
+   "summary": "Updated October 8, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Entra ID will support passkey registration and sign-in for B2B users, including internal guest users and external users . Eligible B2B users will be able to register and use passkeys issued by the resource tenant to satisfy that tenant's multifactor authentication (MFA) requirements. Passke…",
+   "bodyHash": "e80a484b03fcaef2"
   },
   {
    "id": "MC1459136",
@@ -13794,6 +13794,44 @@
    "bodyHash": "578446bb43e9c904"
   },
   {
+   "id": "MC1491762",
+   "title": "Windows Office Hours: October 15, 2026",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2027-10-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "If you are an IT admin with questions about managing and updating Windows, we want to help. Every third Thursday of the month, we host a live chat-based event on the Tech Community called Windows Office Hours. Members of the Windows, Microsoft Intune, Windows Autopilot, Windows Autopatch, and Windows 365 engineering teams will be standing by to answer your questions. Want to attend the October 15 …",
+   "bodyHash": "ac67a68a8fa11c64"
+  },
+  {
+   "id": "MC1491763",
+   "title": "Prepare for Windows Update certificate rotation in 2027",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2027-10-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why Certificates that help devices establish trusted connections to Windows Update will expire on May 17, 2027, and June 19, 2027. Devices must contain the replacement certificates to continue connecting to Windows Update and receiving updates after the applicable expiration date. Microsoft has delivered the replacement certificates through Windows security updates. Most devices running a…",
+   "bodyHash": "fe3b04a62a20d626"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -16486,6 +16524,44 @@
    "id": "MC1462918",
    "type": "removed",
    "title": "Microsoft Windows Autopatch: September 2026 Windows security update requires a restart for hotpatch-enabled devices",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1450133",
+   "type": "changed",
+   "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+   "fields": {
+    "bodyHash": [
+     "07faa9229486ac40",
+     "de923a35a11fec8a"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1459133",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra ID: Passkey support for B2B users",
+   "fields": {
+    "bodyHash": [
+     "7d1d91618e211998",
+     "e80a484b03fcaef2"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1491762",
+   "type": "new",
+   "title": "Windows Office Hours: October 15, 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1491763",
+   "type": "new",
+   "title": "Prepare for Windows Update certificate rotation in 2027",
    "fields": {}
   }
  ]
