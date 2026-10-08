@@ -1,7 +1,7 @@
 {
  "read": "2026-10-08",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 686,
+ "count": 685,
  "note": null,
  "messages": [
   {
@@ -9253,25 +9253,6 @@
    "bodyHash": "0354210ca7a8357b"
   },
   {
-   "id": "MC1462918",
-   "title": "Microsoft Windows Autopatch: September 2026 Windows security update requires a restart for hotpatch-enabled devices",
-   "services": [
-    "Windows Autopatch"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-27",
-   "end": "2026-10-08",
-   "modified": "2026-08-27",
-   "tags": [
-    "User impact"
-   ],
-   "summary": "[What and why] The September 2026 Windows security update will be released as a standard update rather than a hotpatch update. Some of the security improvements in this update change components that cannot be updated without a restart. As a result, devices enrolled in hotpatching will need to restart to complete installation. [Rollout schedule] September 2026: Standard update with restart required…",
-   "bodyHash": "c076b471c8936f77"
-  },
-  {
    "id": "MC1462921",
    "title": "(Updated) Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
    "services": [
@@ -16498,6 +16479,13 @@
    "id": "MC1490912",
    "type": "new",
    "title": "Microsoft Teams: Call quality feedback surveys for Teams Rooms on Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1462918",
+   "type": "removed",
+   "title": "Microsoft Windows Autopatch: September 2026 Windows security update requires a restart for hotpatch-enabled devices",
    "fields": {}
   }
  ]
