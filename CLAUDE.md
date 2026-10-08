@@ -26338,6 +26338,23 @@ nie jest data publikacji: w oknie 14 dni data przychodzi ze strony artykulu (`ar
 nie podaje daty (Roadmap, mc.merill.net), zostaje data feedu z notatka `dateNote`. Zrodlo dostaje
 `feedDatesBulk` z lista takich czasow.
 
+**§5ct (8 X 2026, wlasciciel po §5cs-b: „za duzo kolorow, jakie kropki, malo profesjonalne; jest hyperlink,
+ale brak opisu, co dany artykul opisuje"; z czterech ukladow makiety wybral A, z prosba: „bardziej uwidocznij
+technologie, ktorej dotyczy zdanie" oraz „w Graph API & roles wypisz zmiany najwazniejsze dla bezpieczenstwa i
+co robia, zamiast 'heaviest this week'").** (1) **Uklad A**: bez numerow, kropek i pigulek; dwa kolory —
+czerwony tylko dla „Most urgent", bursztynowy tylko dla terminu. Technologia jest naglowkiem zdania (14 px,
+pogrubione wersaliki w kolorze tekstu); tytul to link w kolorze tekstu ze strzalka → w kolorze akcentu
+(podkreslenie po najechaniu); opis zawsze w osobnej linii; fakty jedna szara linia rozdzielona kropkami
+srodkowymi. (2) **Opis zawsze**: „Most urgent" i „Biggest new item" pokazuja pierwsze zdanie `why` (bylo w
+danych, nie bylo na stronie); zdanie bez streszczenia w danych mowi „Microsoft gives no summary…".
+(3) **Graph API & roles**: `__socGD.top(7, 3)` (gdy pusto — 14 dni) — stala regula: poziom uprawnienia, potem
+zapis (ReadWrite/Manage albo endpoint inny niz GET), potem nowe uprawnienie, potem liczba endpointow; opis z
+dodanych endpointow: obszar (mapa `AREA` po sciezce) i czasowniki (GET = odczyt, POST/PATCH/PUT = tworzenie i
+zmiana, DELETE = usuwanie), przyklad endpointu; na koncu jedno zdanie: aplikacja, ktora juz ma to uprawnienie,
+dostaje nowe endpointy bez nowej zgody i bez wpisu w audycie. 8 X 2026: CloudPC.ReadWrite.All (+24, tworzenie,
+zmiana i usuwanie w Windows 365 Cloud PCs), CloudPC.Read.All (+17, odczyt), Reports.Read.All (+3, raporty wplywu
+Conditional Access).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -28589,7 +28606,12 @@ odtad CZTERNASCIE (4-17).**
   function itemLink(it, extra) {
     var b = el("button", "s5bk-it"); b.type = "button";
     b.appendChild(el("span", "s5bk-itt", it.title || it.officialTitle || it.id));
-    var meta = [it.product, extra].filter(Boolean).join(" · ");
+    /* §5ct: what the item is about — the first sentence of its `why` (owner, 8 X: "there is a link but no
+       description of what the article covers"); dress() puts it on its own line */
+    var wy = String(it.why || "").replace(/\s+/g, " ").trim(), wm = /^(.{30,220}?[.!?])(\s|$)/.exec(wy);
+    wy = wm ? wm[1] : (wy.length > 220 ? wy.slice(0, 220).replace(/\s+\S*$/, "") + "\u2026" : wy);
+    if (wy.length <= 48) wy = "";
+    var meta = [wy, it.product, extra].filter(Boolean).join(" · ");
     if (meta) b.appendChild(el("span", "s5bk-itm", meta));
     b.addEventListener("click", function () { if (!goItem(it.id) && it.url) window.open(it.url, "_blank", "noopener"); });
     return b;
@@ -28648,11 +28670,27 @@ odtad CZTERNASCIE (4-17).**
       /* §5cn (4 X 2026, owner: "the Microsoft sentence and the Graph API sentence say the same thing;
          each sentence was to carry one technology"). Graph API and roles are ONE sentence: the count,
          and under it the heaviest permission change of the week when there is one, else the latest. */
-      var gd0 = window.__socGD ? window.__socGD.recent(7)[0] : null;
-      b3.appendChild(el("span", "s5bk-itm", gd0 ? "heaviest this week: " + gd0.text + (gd0.meta ? " · " + gd0.meta : "")
-        : "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
+      /* §5ct: under the count, the changes that matter most for security this week and what they let an app do */
+      var gtop = window.__socGD && window.__socGD.top ? window.__socGD.top(7, 3) : [];
+      if (!gtop.length && window.__socGD && window.__socGD.top) gtop = window.__socGD.top(14, 3);
       b3.addEventListener("click", function () { goMs(ms14[0].tab); });
-      sentence("Graph API & roles:", b3);
+      if (gtop.length) {
+        var gw = el("span", "s5bk-gw"); gw.appendChild(b3);
+        var gl = el("span", "s5bk-gl");
+        gl.appendChild(el("span", "s5bk-gh", "Most important for security this week:"));
+        gtop.forEach(function (g) {
+          var gi = el("span", "s5bk-gi"), gn = el("button", "s5bk-gn", g.name); gn.type = "button"; gn.title = "Open " + g.name + " in Graph API";
+          gn.addEventListener("click", function () { window.__socGD.open(g.name); });
+          gi.appendChild(gn); gi.appendChild(el("span", "s5bk-gt", " " + g.tag)); gi.appendChild(el("span", "s5bk-gd", g.text));
+          gl.appendChild(gi);
+        });
+        gl.appendChild(el("span", "s5bk-gf", "An app that already holds one of these permissions gets the new endpoints with no new consent prompt and no audit entry."));
+        gw.appendChild(gl);
+        sentence("Graph API & roles:", gw);
+      } else {
+        b3.appendChild(el("span", "s5bk-itm", "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
+        sentence("Graph API & roles:", b3);
+      }
     } else sentence("Graph API & roles:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
     /* §5cl (30 IX 2026, owner: "add the new component versions to the sentences — marked like on
        GitHub — and a sentence on a technology or the news of the day; twelve instead of ten").
@@ -28757,7 +28795,8 @@ odtad CZTERNASCIE (4-17).**
       var li = el("li", cls || null); li.appendChild(el("b", null, lead + " "));
       var b = el("button", "s5bk-it"); b.type = "button";
       b.appendChild(el("span", "s5bk-itt", x.text));
-      var m = [x.sub, x.meta].filter(Boolean).join(" · ");
+      /* §5ct: every sentence says what it is about; when the data carries no summary, it says so */
+      var m = [x.sub || "Microsoft gives no summary for this item in the data \u2014 open it for the details.", x.meta].filter(Boolean).join(" · ");
       if (m) b.appendChild(el("span", "s5bk-itm", m));
       b.addEventListener("click", function () { go(x.id); });
       li.appendChild(b); host.appendChild(li);
@@ -30710,6 +30749,55 @@ odtad CZTERNASCIE (4-17).**
             sub: first ? (r.e.t === "removed" || (!(r.e.ea || []).length && (r.e.er || []).length) ? "removed " : "e.g. ") + first[0] + " " + first[1] : "",
             meta: "L" + (r.lv || "?") + " · Microsoft commit " + r.e.sha + " · " + dm(r.e.date) };
         });
+    },
+    /* §5ct (8 X 2026, owner: "in the Graph API & roles sentence list the changes that matter most for
+       security and what they do — not 'heaviest this week'"). A fixed rule, so every morning ranks the
+       same way: privilege level, then write access (a ReadWrite/Manage permission or a non-GET endpoint),
+       then a permission that is new, then the number of endpoints. What it does is read from the endpoints
+       Microsoft added: the area (AREA, by path) and the verbs (GET = read; POST/PATCH/PUT = create and
+       change; DELETE = delete). The security point is stated once: an app that already holds the permission
+       gets the new endpoints with no new consent prompt and no audit entry. */
+    top: function (days, n) {
+      if (!GD) return [];
+      var day = ST.briefDate || GD.readOn || "";
+      var t = new Date(day + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - (days || 7));
+      var from = t.toISOString().slice(0, 10);
+      var AREA = [[/^\/networkaccess/i, "Global Secure Access configuration"], [/^\/devicemanagement\/virtualendpoint/i, "Windows 365 Cloud PCs"],
+        [/^\/reports\/conditionalaccess/i, "Conditional Access impact reports"], [/^\/directory\/recovery/i, "Entra backup and recovery"],
+        [/^\/admin\/windows\/updates/i, "Windows Autopatch update deployments"], [/^\/devices\/provision/i, "device provisioning for virtual desktops"],
+        [/agentidentity/i, "AI agent identities"], [/^\/admin\/configurationmanagement/i, "tenant configuration monitoring"],
+        [/^\/copilot\/reports/i, "Microsoft 365 Copilot usage reports"], [/^\/security\//i, "Microsoft Defender security data"],
+        [/^\/identityprotection|riskyusers|riskdetections/i, "Entra ID Protection risk data"], [/^\/auditlogs/i, "Entra audit and sign-in logs"],
+        [/^\/rolemanagement/i, "Entra role assignments"], [/conditionalaccess/i, "Conditional Access policies"],
+        [/^\/applications|^\/serviceprincipals/i, "app registrations and service principals"], [/^\/users/i, "user accounts"], [/^\/groups/i, "groups"],
+        [/^\/devicemanagement/i, "Intune device management"], [/^\/sites|^\/drives/i, "SharePoint and OneDrive content"], [/^\/teams|^\/chats/i, "Teams"],
+        [/^\/reports/i, "usage and activity reports"], [/^\/devices/i, "device objects"], [/^\/directory/i, "directory settings"]];
+      function areaOf(eps) {
+        for (var i = 0; i < eps.length; i++) for (var j = 0; j < AREA.length; j++) if (AREA[j][0].test(eps[i][1] || "")) return AREA[j][1];
+        var seg = String((eps[0] || [])[1] || "").split("/").filter(Boolean)[0]; return seg ? "/" + seg : "Graph";
+      }
+      function act(eps) {
+        var m = {}; eps.forEach(function (x) { m[String(x[0]).toUpperCase()] = 1; });
+        var w = m.POST || m.PATCH || m.PUT;
+        return m.DELETE ? (w ? "create, change and delete" : "delete") : w ? (m.GET ? "read, create and change" : "create and change") : "read";
+      }
+      function short(p) { var q = String(p || "").split("/").filter(Boolean); return q.length > 2 ? "\u2026/" + q.slice(-2).join("/") : "/" + q.join("/"); }
+      var seen = {}, list = [];
+      ROWS.filter(function (r) { return r.e.date >= from && r.e.date <= day && /added|changed|readded/.test(r.e.t) && (r.e.ea || []).length; })
+        .forEach(function (r) {
+          var k = r.name + "|" + r.e.sha; if (seen[k]) return; seen[k] = 1;
+          var eps = r.e.ea || [], verbs = act(eps), write = /ReadWrite|Write|Manage|FullControl|Provision/.test(r.name) || verbs !== "read";
+          list.push({ name: r.name, lv: r.lv || 0, date: r.e.date, sha: r.e.sha, n: eps.length, isNew: r.e.t !== "changed", write: write,
+            area: areaOf(eps), verbs: verbs, ex: eps.filter(function (x) { return String(x[0]).toUpperCase() !== "GET"; })[0] || eps[0],
+            score: (r.lv || 0) * 1000 + (write ? 500 : 0) + (r.e.t !== "changed" ? 250 : 0) + Math.min(eps.length, 200) });
+        });
+      list.sort(function (a, b) { return b.score - a.score || b.date.localeCompare(a.date); });
+      return list.slice(0, n || 3).map(function (x) {
+        x.text = (x.isNew ? "new permission with " + x.n + " endpoint" + (x.n === 1 ? "" : "s") : "now also covers " + x.n + " more endpoint" + (x.n === 1 ? "" : "s")) +
+          " in " + x.area + " \u2014 an app holding it can " + x.verbs + " there" + (x.ex ? " (e.g. " + x.ex[0] + " " + short(x.ex[1]) + ")" : "");
+        x.tag = "L" + (x.lv || "?") + " \u00b7 " + (x.write ? "read-write" : "read") + " \u00b7 " + dm(x.date);
+        return x;
+      });
     },
     open: openPerm
   };
@@ -34831,20 +34919,19 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-3 li{padding:10px 0 11px;border-top:1px solid var(--border-soft);line-height:1.4}
 .s5ci-ten .s5bk-3 li{margin:0}
 .s5bk-3 li::marker{color:var(--faint);font-size:12px;font-weight:600}
-/* §5cs-b (8 X 2026, 23:24, owner: "now the section titles cannot be seen — it looks even worse"): the
-   category is the HEADING of each sentence — 15 px bold in the text colour with a coloured dot; the
-   headline under it is a quieter link (accent colour, arrow, underline only on hover) */
-.s5bk-3 li>b.s5bk-k{display:flex;align-items:center;gap:8px;width:auto;font:700 15px/1.3 var(--sans);letter-spacing:0;text-transform:none;
- padding:0;border-radius:0;margin:0 0 5px;background:none;color:var(--text)}
-.s5bk-3 li>b.s5bk-k::before{content:"";flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--faint)}
-.s5bk-3 li>b.k-urgent::before{background:var(--bad)}
-.s5bk-3 li>b.k-new::before{background:var(--ok)}
-.s5bk-3 li>b.k-graph::before,.s5bk-3 li>b.k-comp::before{background:var(--accent)}
-.s5bk-3 li>b.k-news::before{background:var(--warn)}
+/* §5ct (8 X 2026, owner chose layout A of the mock-up: "too many colours, what dots — not professional; make
+   the technology each sentence is about more visible"). Two colours only: red for "Most urgent", amber for a
+   date to act by. The technology is the heading of each sentence (13 px bold capitals in the text colour);
+   the headline is a link in the text colour with an accent arrow; the description is always its own line;
+   the facts are one grey line, no pills. */
+.s5ci-ten .s5bk-3,.s5bk-3{list-style:none;padding-left:0}
+.s5bk-3 li{padding:14px 0 15px}
+.s5bk-3 li>b.s5bk-k{display:block;width:auto;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;
+ padding:0;border-radius:0;margin:0 0 6px;background:none;color:var(--text)}
 .s5bk-3 li>b.k-urgent{color:var(--bad)}
 .s5bk-link{display:flex;flex-direction:column;gap:0;width:100%;border-radius:6px}
-.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--accent);font-weight:500;font-size:14px;line-height:1.45;text-decoration:none}
-.s5bk-link .s5bk-itt::after{content:"\00a0\203a";font-weight:700}
+.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--text);font-weight:650;font-size:15px;line-height:1.45;text-decoration:none}
+.s5bk-link .s5bk-itt::after{content:"\00a0\2192";color:var(--accent);font-weight:600}
 .s5bk-link:hover .s5bk-itt,.s5bk-link:focus-visible .s5bk-itt{text-decoration:underline;text-underline-offset:3px}
 .s5bk-dressed{display:flex;flex-direction:column;gap:5px;margin-top:4px}
 .s5bk-its,.s5ci-ten .s5bk-its{color:var(--muted);font-size:13px;line-height:1.45;font-weight:400}
@@ -34855,6 +34942,22 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-pill.p-bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
 .s5bk-pill.p-id{font-family:var(--mono);color:var(--text)}
 .s5bk-plain{display:block;color:var(--muted);font-size:13px}
+/* §5ct: the facts as one grey line, separated by middle dots; only a date to act by is amber */
+.s5bk-pills{display:block;font-size:12.5px;color:var(--muted)}
+.s5bk-pill,.s5bk-pill.p-ok,.s5bk-pill.p-bad,.s5bk-pill.p-id{display:inline;padding:0;border:0;border-radius:0;background:none;font-size:12.5px;font-weight:400;color:var(--muted);font-family:inherit}
+.s5bk-pill+.s5bk-pill::before{content:"\00a0\00b7\00a0";color:var(--faint);font-weight:400}
+.s5bk-pill.p-warn{background:none;color:var(--warn);font-weight:600}
+.s5bk-its,.s5ci-ten .s5bk-its{font-size:13.5px;line-height:1.55}
+/* §5ct: the Graph sentence — the most important changes for security, each with what it lets an app do */
+.s5bk-gw{display:flex;flex-direction:column;gap:6px}
+.s5bk-gl{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+.s5bk-gh{font-size:12.5px;color:var(--muted)}
+.s5bk-gi{display:block;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.s5bk-gn{font:600 13px/1.4 var(--mono);color:var(--text);background:none;border:0;padding:0;cursor:pointer}
+.s5bk-gn:hover{text-decoration:underline;text-underline-offset:3px}
+.s5bk-gt{font-size:12px;color:var(--faint)}
+.s5bk-gd{display:block}
+.s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
