@@ -72,6 +72,7 @@ https://learn.microsoft.com/en-us/entra/fundamentals/identity/multi-tenant-organ
 https://learn.microsoft.com/en-us/entra/fundamentals/identity/role-based-access-control/permissions-reference
 https://learn.microsoft.com/en-us/entra/fundamentals/security-copilot/conditional-access-agent-optimization-passkeys
 https://learn.microsoft.com/en-us/entra/fundamentals/security-copilot/conditional-access-agent-optimization-phased-rollout
+https://learn.microsoft.com/en-us/entra/fundamentals/whatis
 https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-bring-your-own-device
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-traffic-forwarding
@@ -110,6 +111,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configur
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/overview
 https://learn.microsoft.com/en-us/entra/id-protection/howto-export-risk-data
 https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-risk-policies
+https://learn.microsoft.com/en-us/entra/identity
 https://learn.microsoft.com/en-us/entra/identity-platform/concept-native-authentication
 https://learn.microsoft.com/en-us/entra/identity-platform/configurable-token-lifetimes
 https://learn.microsoft.com/en-us/entra/identity-platform/content-security-policy
@@ -147,6 +149,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentic
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-server-key-rotation
 https://learn.microsoft.com/en-us/entra/identity/authentication/overview-authentication
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-cloud-apps
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-conditions
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-session

@@ -83,6 +83,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/keep-billing-acc
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage-azure-credits
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/change-credit-card
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/direct-ea-administration
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/supported-payment-methods
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles
 https://learn.microsoft.com/en-us/azure/cost-management-billing/mca-check-azure-credits-balance
@@ -200,6 +201,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/migrate-from-voice
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-registry-connections
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-skill-catalog
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/send-image-input-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/steer-hosted-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/browser-automation
@@ -281,6 +283,7 @@ https://learn.microsoft.com/en-us/azure/governance/suse-ado
 https://learn.microsoft.com/en-us/azure/governance/ubuntu-ado
 https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
 https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/internet-of-things
+https://learn.microsoft.com/en-us/azure/role-based-access-control/deny-assignments
 https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshoot-limits
 https://learn.microsoft.com/en-us/azure/search/search-indexer-sharepoint-access-control-lists
 https://learn.microsoft.com/en-us/azure/sentin
@@ -314,8 +317,13 @@ https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-defender-por
 https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard
 https://learn.microsoft.com/en-us/azure/sentinel/move-to-defender
 https://learn.microsoft.com/en-us/azure/sentinel/normalization
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-parsers
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-schemas
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-workspace-parsers
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-manage-parsers
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-parsers-list
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-email
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-process-event
 https://learn.microsoft.com/en-us/azure/sentinel/quickstart-onboard
 https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/prerequisites-for-deploying-sap-continuous-threat-monitoring

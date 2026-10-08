@@ -2,6 +2,7 @@ https://learn.microsoft.com/en-us/defender-endpoint
 https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-runtime-protection-overview
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
+https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
 https://learn.microsoft.com/en-us/defender-endpoint/configure-ai-agent-runtime-protection
 https://learn.microsoft.com/en-us/defender-endpoint/configure-device-connectivity
 https://learn.microsoft.com/en-us/defender-endpoint/configure-libraries-live-response
@@ -21,10 +22,12 @@ https://learn.microsoft.com/en-us/defender-endpoint/mde-plugin-wsl
 https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases
 https://learn.microsoft.com/en-us/defender-endpoint/msda-updates-previous-versions-technical-upgrade-support
 https://learn.microsoft.com/en-us/defender-endpoint/network-isolation-exclusions
+https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
 https://learn.microsoft.com/en-us/defender-endpoint/schedule-antivirus-scans-linux
 https://learn.microsoft.com/en-us/defender-endpoint/secure-controlled-configuration
 https://learn.microsoft.com/en-us/defender-endpoint/tamper-protection-linux-audit-mode
+https://learn.microsoft.com/en-us/defender-endpoint/troubleshoot-collect-support-log
 https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint
