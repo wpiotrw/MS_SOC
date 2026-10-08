@@ -1,7 +1,7 @@
 {
- "read": "2026-10-07",
+ "read": "2026-10-08",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 679,
+ "count": 686,
  "note": null,
  "messages": [
   {
@@ -6632,7 +6632,7 @@
   },
   {
    "id": "MC1437671",
-   "title": "Microsoft Entra: Passwordless password change in My Sign-Ins",
+   "title": "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
    "services": [
     "Microsoft Entra"
    ],
@@ -6641,15 +6641,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-23",
-   "end": "2026-11-23",
-   "modified": "2026-07-23",
+   "end": "2026-11-30",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why] We're introducing a new Microsoft Entra capability that allows passwordless users to change their password directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their current password and without using self-service password reset (SSPR) or contacting …",
-   "bodyHash": "a4fdefd9783474bd"
+   "summary": "Updated October 7, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why] We're introducing a new Microsoft Entra capability that allows a uthenticated password changes directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their …",
+   "bodyHash": "075072d95f189340"
   },
   {
    "id": "MC1437678",
@@ -7859,16 +7860,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-13",
-   "end": "2026-12-28",
-   "modified": "2026-10-01",
+   "end": "2026-12-31",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [What and why:] We're introducing the third-generation Microsoft 365 sharing experience to make collaboration simpler, smarter, and more secure by default. At the center of this update is a new hero link —a single sharing link that controls access to a file or folder. Users will see one consistent sharing experienc…",
-   "bodyHash": "6357493eaae73994"
+   "summary": "Updated October 7, 2026: We have updated the timeline. Thank you for your patience. [What and why:] We're introducing the third-generation Microsoft 365 sharing experience to make collaboration simpler, smarter, and more secure by default. At the center of this update is a new hero link —a single sharing link that controls access to a file or folder. Users will see one consistent sharing experienc…",
+   "bodyHash": "c0446d3b806bdec5"
   },
   {
    "id": "MC1454382",
@@ -8725,14 +8726,14 @@
    "actionBy": null,
    "start": "2026-08-24",
    "end": "2027-03-22",
-   "modified": "2026-09-25",
+   "modified": "2026-10-07",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 25, 2026: We have updated the content and timeline. Thank you for your patience. [What and why:] We’re introducing Create interactive slides in PowerPoint for Windows, Mac and web. This capability helps users create interactive, full-slide visuals that explain complex concepts, timelines, comparisons, systems, and data. Users can start creating interactive slides from the PowerPo…",
-   "bodyHash": "6809eb430e4ca25e"
+   "summary": "Updated October 7, 2026: We have updated the content and timeline. Thank you for your patience. [What and why:] We’re introducing the Copilot skill \"Create interactive slide\" in PowerPoint for Windows, Mac and web. This capability helps users create interactive, full-slide visuals that explain complex concepts, timelines, comparisons, systems, and data. Users can start creating interactive slides …",
+   "bodyHash": "60244b2a9408edad"
   },
   {
    "id": "MC1461153",
@@ -9787,7 +9788,7 @@
   },
   {
    "id": "MC1465780",
-   "title": "Outlook for iOS and Android: Automatically apply email sensitivity labels from labeled attachments",
+   "title": "(Updated) Outlook for iOS and Android: Automatically apply email sensitivity labels from labeled attachments",
    "services": [
     "Exchange Online",
     "Microsoft Purview"
@@ -9797,15 +9798,16 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-01",
-   "end": "2026-11-30",
-   "modified": "2026-09-01",
+   "end": "2026-12-21",
+   "modified": "2026-10-07",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] We're introducing support for Microsoft Purview sensitivity label inheritance from attachments in Outlook for iOS and Android. When users attach files that have Microsoft Purview sensitivity labels applied, Outlook can automatically apply or recommend an email sensitivity label based on your organization's configured labeling policies. This enhancement helps organizations maintain …",
-   "bodyHash": "717a5e4c6af3f0f4"
+   "summary": "Updated October 7, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We're introducing support for Microsoft Purview sensitivity label inheritance from attachments in Outlook for iOS and Android. When users attach files that have Microsoft Purview sensitivity labels applied, Outlook can automatically apply or recommend an email sensitivity label based on your organiz…",
+   "bodyHash": "c4d2ed7a1b70be58"
   },
   {
    "id": "MC1466296",
@@ -13664,6 +13666,153 @@
    "bodyHash": "9a91763aa35ab3bd"
   },
   {
+   "id": "MC1490899",
+   "title": "Microsoft 365: Targeted Release retirement",
+   "services": [
+    "Exchange Online",
+    "Microsoft 365 suite",
+    "Microsoft OneDrive",
+    "Microsoft Teams",
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-10-31",
+   "start": "2026-10-07",
+   "end": "2027-02-28",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and Why:] Targeted release for Microsoft 365 services will be retiring in January 2027 as Microsoft 365 transitions to three release options: Frontier, Standard release, and Deferred release. To prepare for this change, review users currently enrolled in Targeted release and configure the release preference that best meets your organization's needs. Choose your preferred release preference i…",
+   "bodyHash": "97f18f0d5d0dcf0b"
+  },
+  {
+   "id": "MC1490903",
+   "title": "'Record A Skill' Capability in PowerPoint Copilot",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2026-11-06",
+   "modified": "2026-10-07",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft is introducing a Record a Skill capability in Copilot for PowerPoint. This capability helps users create reusable skills by recording actions in PowerPoint, so they can more easily repeat common PowerPoint tasks with Copilot. Instead of manually recreating the same steps each time, users can record a workflow and use it as a repeatable skill. This can help users save time…",
+   "bodyHash": "e1ee6296349897ab"
+  },
+  {
+   "id": "MC1490905",
+   "title": "Microsoft Defender for Office 365: Post-delivery protection for malicious QR codes in Microsoft Teams",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2026-12-02",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We're extending Microsoft Teams URL protection in Microsoft Defender for Office 365 to detect and respond to malicious URLs embedded in QR codes. As attackers increasingly use QR codes to conceal malicious destinations, this update helps protect users by analyzing URLs extracted from QR codes after message delivery and applying post-delivery protections when malicious content is ide…",
+   "bodyHash": "5f8452bf45df4b14"
+  },
+  {
+   "id": "MC1490906",
+   "title": "Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2027-01-15",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] We’re expanding analytics in the Microsoft Teams Pro Management portal to include utilization insights for bookable desks. IT admins will be able to better understand how desk spaces are being used across their organization, with insights into desk utilization, reservations, occupancy, and peak usage patterns. Desk-specific filters, including location and desk mode, will help admin…",
+   "bodyHash": "c1bfa6cadfa8688e"
+  },
+  {
+   "id": "MC1490909",
+   "title": "Microsoft Defender Vulnerability Management: Private preview for selected developer package vulnerability coverage",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2026-11-30",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft Defender Vulnerability Management is expanding vulnerability coverage to selected Node.js, Python, and Java packages on supported Microsoft Defender for Endpoint-managed Windows devices. During this private preview, participating customers can identify supported vulnerable packages, affected devices, and detected versions through existing vulnerability investigation and r…",
+   "bodyHash": "91cefaf66c732c1b"
+  },
+  {
+   "id": "MC1490911",
+   "title": "Microsoft Edge: Retiring legacy sign-in implementation on Windows",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2027-01-06",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Edge is retiring its legacy direct-WAM sign-in implementation on Windows starting with Microsoft Edge version 157, completing the consolidation onto the OneAuth authentication library. This change standardizes authentication flows across Microsoft 365 client applications, simplifies platform supportability, eliminates dual-stack authentication code paths, and provides imp…",
+   "bodyHash": "2db032c810f4ddd6"
+  },
+  {
+   "id": "MC1490912",
+   "title": "Microsoft Teams: Call quality feedback surveys for Teams Rooms on Android",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-07",
+   "end": "2026-12-30",
+   "modified": "2026-10-07",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] To help improve meeting experiences and provide organizations with insights into call quality, Microsoft Teams is introducing call quality feedback (CQF) surveys for Microsoft Teams Rooms on Android. These surveys allow users to rate the quality of calls and meetings and provide feedback about audio, video, and screen-sharing experiences. Customer feedback collected through these su…",
+   "bodyHash": "578446bb43e9c904"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -16206,6 +16355,149 @@
    "id": "MC1490598",
    "type": "new",
    "title": "Interim guidance for Manitoba time zone changes",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1437671",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+   "fields": {
+    "title": [
+     "Microsoft Entra: Passwordless password change in My Sign-Ins",
+     "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins"
+    ],
+    "end": [
+     "2026-11-23",
+     "2026-11-30"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "a4fdefd9783474bd",
+     "075072d95f189340"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1454378",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365: The Next Generation of File & Folder Sharing",
+   "fields": {
+    "end": [
+     "2026-12-28",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "6357493eaae73994",
+     "c0446d3b806bdec5"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1461152",
+   "type": "changed",
+   "title": "(Updated) Create interactive slides in PowerPoint with Copilot skill (Windows and Mac)",
+   "fields": {
+    "bodyHash": [
+     "6809eb430e4ca25e",
+     "60244b2a9408edad"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1465780",
+   "type": "changed",
+   "title": "(Updated) Outlook for iOS and Android: Automatically apply email sensitivity labels from labeled attachments",
+   "fields": {
+    "title": [
+     "Outlook for iOS and Android: Automatically apply email sensitivity labels from labeled attachments",
+     "(Updated) Outlook for iOS and Android: Automatically apply email sensitivity labels from labeled attachments"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-21"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "717a5e4c6af3f0f4",
+     "c4d2ed7a1b70be58"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490899",
+   "type": "new",
+   "title": "Microsoft 365: Targeted Release retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490903",
+   "type": "new",
+   "title": "'Record A Skill' Capability in PowerPoint Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490905",
+   "type": "new",
+   "title": "Microsoft Defender for Office 365: Post-delivery protection for malicious QR codes in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490906",
+   "type": "new",
+   "title": "Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490909",
+   "type": "new",
+   "title": "Microsoft Defender Vulnerability Management: Private preview for selected developer package vulnerability coverage",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490911",
+   "type": "new",
+   "title": "Microsoft Edge: Retiring legacy sign-in implementation on Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-08",
+   "id": "MC1490912",
+   "type": "new",
+   "title": "Microsoft Teams: Call quality feedback surveys for Teams Rooms on Android",
    "fields": {}
   }
  ]
