@@ -3434,6 +3434,30 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5cr-earlier .s5cr-lab{margin-right:6px}
 .s5cr-el{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer}
 @media (max-width:760px){.s5cr-st{padding:6px 8px}.s5cr-st b{font-size:17px}.s5cr-st span{font-size:11.5px}.s5cr-row{grid-template-columns:1fr}.s5cr-tr{grid-template-columns:10px minmax(0,1fr)}.s5cr-tr .s5cr-when{grid-column:2}}
+/* §5cs (8 X 2026): the sentences card — a coloured category chip, a headline that reads as a link,
+   the explanation on its own line, the facts as pills; one rule between sentences */
+.s5bk-3 li{padding:10px 0 11px;border-top:1px solid var(--border-soft);line-height:1.4}
+.s5ci-ten .s5bk-3 li{margin:0}
+.s5bk-3 li::marker{color:var(--faint);font-size:12px;font-weight:600}
+.s5bk-3 li>b.s5bk-k{display:block;width:max-content;max-width:100%;font:700 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;
+ padding:4px 9px;border-radius:999px;margin:0 0 6px;background:var(--surface-2);color:var(--muted)}
+.s5bk-3 li>b.k-urgent{background:var(--bad-soft);color:var(--bad)}
+.s5bk-3 li>b.k-new{background:var(--ok-soft);color:var(--ok)}
+.s5bk-3 li>b.k-graph,.s5bk-3 li>b.k-comp{background:var(--accent-soft);color:var(--accent)}
+.s5bk-3 li>b.k-news{background:var(--warn-soft);color:var(--warn)}
+.s5bk-link{display:flex;flex-direction:column;gap:0;width:100%;border-radius:6px}
+.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--accent);font-weight:650;font-size:14px;line-height:1.4;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 35%,transparent);text-underline-offset:3px}
+.s5bk-link .s5bk-itt::after{content:"\00a0\203a";font-weight:700}
+.s5bk-link:hover .s5bk-itt{text-decoration-color:var(--accent)}
+.s5bk-dressed{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.s5bk-its,.s5ci-ten .s5bk-its{color:var(--muted);font-size:13px;line-height:1.45;font-weight:400}
+.s5bk-pills{display:flex;flex-wrap:wrap;gap:4px 6px}
+.s5bk-pill{font-size:11.5px;font-weight:600;line-height:1.5;padding:0 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.s5bk-pill.p-warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.s5bk-pill.p-ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.s5bk-pill.p-bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.s5bk-pill.p-id{font-family:var(--mono);color:var(--text)}
+.s5bk-plain{display:block;color:var(--muted);font-size:13px}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 8 October 2026</b> &middot; published 06:43 Warsaw &middot; 24 September &ndash; 8 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 47 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>987</b> undocumented at Microsoft<span>&middot; 987 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>122</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>44</b> changes since 7 Oct<span>&middot; 12 at Microsoft, 32 in this report</span></a><a class="count" href="#chg14"><b>5856</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -15822,6 +15846,37 @@ IdentityDirectoryEvents
       li.appendChild(b); host.appendChild(li);
     }
     function refOk(d) { return (d.refs || []).filter(function (r) { return BYID[r]; }); }
+    /* §5cs (8 X 2026, owner: "the highlighted text is a link and nothing says so; everything merges —
+       mark the category and the information more clearly"). Every sentence is dressed the same way:
+       the category is a coloured chip on its own line (urgent red, new green, Graph and components blue,
+       news amber, a technology grey); the headline is a link in the accent colour with an arrow; the
+       explanation is its own muted line; the facts (product, due date, new, MC number) are small pills. */
+    function dress(list) {
+      var KIND = [[/^most urgent/i, "urgent"], [/^(biggest new|new\b)/i, "new"], [/^graph api/i, "graph"], [/^component/i, "comp"], [/^news/i, "news"]];
+      [].forEach.call(list.children, function (li) {
+        var b = li.querySelector(":scope > b"); if (!b || b.classList.contains("s5bk-k")) return;
+        var lead = (b.textContent || "").trim().replace(/:\s*$/, ""), kind = "tech";
+        KIND.forEach(function (k) { if (kind === "tech" && k[0].test(lead)) kind = k[1]; });
+        b.textContent = lead; b.className = "s5bk-k k-" + kind;
+        [].forEach.call(li.querySelectorAll(".s5bk-it"), function (it) {
+          it.classList.add("s5bk-link"); it.title = it.title || "Open in the brief";
+          var m = it.querySelector(".s5bk-itm"); if (!m || m.__s5cs) return; m.__s5cs = true;
+          var parts = String(m.textContent || "").split(" \u00b7 ").map(function (x) { return x.trim(); }).filter(Boolean);
+          var expl = parts.filter(function (x) { return x.length > 48; }), facts = parts.filter(function (x) { return x.length <= 48; });
+          m.textContent = ""; m.className = "s5bk-itm s5bk-dressed";
+          if (expl.length) m.appendChild(el("span", "s5bk-its", expl.join(" ")));
+          if (facts.length) {
+            var pw = el("span", "s5bk-pills");
+            facts.forEach(function (f) {
+              var k = /^due|days? \(|due today/i.test(f) ? "warn" : /^(new|one of \d+ new)/i.test(f) ? "ok" : /^(MC|RM)\d+/.test(f) ? "id" : /major|caught late/i.test(f) ? "bad" : "";
+              pw.appendChild(el("span", "s5bk-pill" + (k ? " p-" + k : ""), f));
+            });
+            m.appendChild(pw);
+          }
+        });
+        var plain = li.querySelector(":scope > span:not([class])"); if (plain) plain.className = "s5bk-plain";
+      });
+    }
     var dg = st.digest || {}, more = [];
     (dg.sentences || []).forEach(function (d) {
       var ok = refOk(d);
@@ -15844,6 +15899,7 @@ IdentityDirectoryEvents
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
     var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
+    dress(ol);
     sum.appendChild(ol); top.appendChild(sum);
 
     /* one line per technology — only where something moved; no "nothing new" filler lines */
