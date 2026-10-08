@@ -230,5 +230,13 @@
   {
     "SourceName": "Dir Team - EntraID",
     "SourceURL": "https://dirteam.com/feed/"
+  },
+  {
+    "SourceName": "DevSecOpsDadAttack - Detection Engineering & Threat Intel",
+    "SourceURL": "https://devsecopsdadattack.com/"
+  },
+  {
+    "SourceName": "CoreView Blog - Microsoft 365",
+    "SourceURL": "https://www.coreview.com/"
   }
 ]
