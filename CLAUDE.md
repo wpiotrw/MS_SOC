@@ -34831,16 +34831,21 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-3 li{padding:10px 0 11px;border-top:1px solid var(--border-soft);line-height:1.4}
 .s5ci-ten .s5bk-3 li{margin:0}
 .s5bk-3 li::marker{color:var(--faint);font-size:12px;font-weight:600}
-.s5bk-3 li>b.s5bk-k{display:block;width:max-content;max-width:100%;font:700 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;
- padding:4px 9px;border-radius:999px;margin:0 0 6px;background:var(--surface-2);color:var(--muted)}
-.s5bk-3 li>b.k-urgent{background:var(--bad-soft);color:var(--bad)}
-.s5bk-3 li>b.k-new{background:var(--ok-soft);color:var(--ok)}
-.s5bk-3 li>b.k-graph,.s5bk-3 li>b.k-comp{background:var(--accent-soft);color:var(--accent)}
-.s5bk-3 li>b.k-news{background:var(--warn-soft);color:var(--warn)}
+/* §5cs-b (8 X 2026, 23:24, owner: "now the section titles cannot be seen — it looks even worse"): the
+   category is the HEADING of each sentence — 15 px bold in the text colour with a coloured dot; the
+   headline under it is a quieter link (accent colour, arrow, underline only on hover) */
+.s5bk-3 li>b.s5bk-k{display:flex;align-items:center;gap:8px;width:auto;font:700 15px/1.3 var(--sans);letter-spacing:0;text-transform:none;
+ padding:0;border-radius:0;margin:0 0 5px;background:none;color:var(--text)}
+.s5bk-3 li>b.s5bk-k::before{content:"";flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--faint)}
+.s5bk-3 li>b.k-urgent::before{background:var(--bad)}
+.s5bk-3 li>b.k-new::before{background:var(--ok)}
+.s5bk-3 li>b.k-graph::before,.s5bk-3 li>b.k-comp::before{background:var(--accent)}
+.s5bk-3 li>b.k-news::before{background:var(--warn)}
+.s5bk-3 li>b.k-urgent{color:var(--bad)}
 .s5bk-link{display:flex;flex-direction:column;gap:0;width:100%;border-radius:6px}
-.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--accent);font-weight:650;font-size:14px;line-height:1.4;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 35%,transparent);text-underline-offset:3px}
+.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--accent);font-weight:500;font-size:14px;line-height:1.45;text-decoration:none}
 .s5bk-link .s5bk-itt::after{content:"\00a0\203a";font-weight:700}
-.s5bk-link:hover .s5bk-itt{text-decoration-color:var(--accent)}
+.s5bk-link:hover .s5bk-itt,.s5bk-link:focus-visible .s5bk-itt{text-decoration:underline;text-underline-offset:3px}
 .s5bk-dressed{display:flex;flex-direction:column;gap:5px;margin-top:4px}
 .s5bk-its,.s5ci-ten .s5bk-its{color:var(--muted);font-size:13px;line-height:1.45;font-weight:400}
 .s5bk-pills{display:flex;flex-wrap:wrap;gap:4px 6px}
