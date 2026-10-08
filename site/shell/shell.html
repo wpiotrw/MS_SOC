@@ -3084,6 +3084,43 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 
 
+
+/* §5cq (7 X 2026): Message Center / article lists — the counts are whole words and strong colours, the
+   green bar that names the filter is pinned above the table, the result of a click cannot be missed */
+.mcb-banner{position:sticky;top:var(--hdr-h,0px);z-index:19;border-width:2px;font-size:14px;padding:9px 12px;
+ background:linear-gradient(var(--ok-soft),var(--ok-soft)),var(--bg,var(--surface));box-shadow:0 3px 8px rgba(0,0,0,.14)}
+.mcb-banner[hidden]{display:none}
+.mcb-back{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.mcb-back+.mcb-clear{margin-left:0}
+.mcb-filtered .mcb-info{color:var(--text);font-size:15px;padding:10px 12px;border-left:5px solid var(--ok);background:var(--ok-soft);border-radius:6px}
+.mcb-filtered .mcb-info b{font-size:17px;color:var(--ok)}
+.mcb-filtered .mcb-list{border:2px solid var(--ok)}
+.mcb-hit .mcb-list{animation:mcbhit 2s ease-out 1}
+@keyframes mcbhit{0%,35%{box-shadow:0 0 0 5px var(--ok)}100%{box-shadow:0 0 0 0 transparent}}
+.mcb-gc{font-size:12.5px;line-height:1.65;font-weight:650}
+.mcb-gc.g-new{background:var(--accent);color:var(--on-accent)}
+.mcb-gc.g-upd{background:var(--surface);color:var(--text);border-color:var(--warn);box-shadow:inset 4px 0 0 var(--warn)}
+.mcb-gc.on{background:var(--ok);border-color:var(--ok);color:var(--on-accent);box-shadow:none}
+.mcb-gz{display:block;color:var(--muted);font-size:12.5px;line-height:1.65;padding:0 9px;white-space:nowrap}
+.mcb-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;justify-self:stretch}
+.mcb-stat{display:grid;gap:6px;border:1px solid var(--border);border-radius:8px;padding:9px 12px;background:var(--surface-2)}
+.mcb-stl{font:700 12px/1.3 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.mcb-stl span{font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mcb-stn{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.mcb-stn .mcb-gc,.mcb-stn .mcb-gz{font-size:15px;line-height:1.7;padding:1px 14px;margin:0}
+.mcb-key{margin:0;font-size:12.5px;color:var(--muted)}
+.mcb-kn,.mcb-ku{display:inline-block;font-weight:650;font-size:12px;line-height:1.6;border-radius:999px;padding:0 9px;margin-right:2px}
+.mcb-kn{background:var(--accent);color:var(--on-accent)}
+.mcb-ku{background:var(--surface);color:var(--text);border:1px solid var(--warn);box-shadow:inset 4px 0 0 var(--warn);margin-left:12px}
+.mcb-grid th.tot,.mcb-grid td.tot{border-left:2px solid var(--border);background:var(--surface-2)}
+@media (max-width:760px){.mcb-stats{grid-template-columns:1fr}.mcb-banner{font-size:13px}}
+/* the rail: a second line under the name of every compared tab */
+.s5ca-it{flex-wrap:wrap;row-gap:0;padding-top:5px;padding-bottom:5px}
+.s5ca-nm{flex:1 1 0}
+.s5ca-sub{flex:0 0 100%;font-size:11.5px;line-height:1.35;font-weight:400;color:var(--muted);white-space:normal;font-variant-numeric:tabular-nums}
+.s5ca-sub[hidden]{display:none}
+.s5ca-sub .s5ca-w{font-weight:600}
+.s5ca-win b{color:var(--text);font-weight:650}
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -5928,7 +5965,7 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 7 October 2026</b> &middot; published 06:42 Warsaw &middot; 23 September &ndash; 7 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 47 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>830</b> undocumented at Microsoft<span>&middot; 830 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>25</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>105</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>27</b> changes since 6 Oct<span>&middot; 15 at Microsoft, 12 in this report</span></a><a class="count" href="#chg14"><b>5564</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 8 October 2026</b> &middot; published 06:43 Warsaw &middot; 24 September &ndash; 8 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 47 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>987</b> undocumented at Microsoft<span>&middot; 987 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>122</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>44</b> changes since 7 Oct<span>&middot; 12 at Microsoft, 32 in this report</span></a><a class="count" href="#chg14"><b>5856</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -6129,7 +6166,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 7 October 2026, morning pass at 06:42 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 8 October 2026, morning pass at 06:43 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
