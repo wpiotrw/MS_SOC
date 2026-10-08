@@ -27,7 +27,7 @@ ms.subservice: foundry-observability
 ms.custom:
 - references_regions
 ms.topic: how-to
-ms.date: 2026-08-31T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -96,7 +96,7 @@ Choose the conversation workflow that matches your data source:
 | --- | --- | --- |
 | From dataset or inline | You have local conversation traces or test data | `jsonl` with `file_id` or `file_content` |
 | [Deployed conversations](cloud-evaluation-deployed-conversations) | You want to evaluate specific conversations or sampled production traffic from Application Insights | `azure_ai_trace_data_source_preview` with `trace_source` |
-| [Simulated conversations](cloud-evaluation-simulate-conversations) | You want to generate synthetic test conversations | `azure_ai_target_completions` with `conversation_gen_preview` |
+| [Simulated conversations](cloud-evaluation-simulate-conversations) | You want to generate synthetic test conversations | `azure_ai_user_conversation_simulation` |
 
 ## Choose an evaluation level
 
@@ -110,16 +110,27 @@ The `evaluation_level` parameter on the run determines whether evaluators score 
 
 Important
 
-**Evaluator compatibility**: Each evaluator supports specific evaluation levels. Check the evaluator's `supported_evaluation_levels` field in the [evaluator catalog](../../how-to/evaluate-generative-ai-app).
+**Evaluator compatibility**: Each evaluator supports specific evaluation levels. Check the evaluator's `supported_evaluation_levels` field in [Evaluation levels](../../concepts/built-in-evaluators#evaluation-levels).
 
-- **Turn-only evaluators** (for example, `fluency`, `relevance`) can't be used with `evaluation_level="conversation"`.
-- Currently, all conversation-level evaluators support both `"turn"` and `"conversation"` levels.
+- **Turn-only evaluators** (for example, `builtin.fluency`, `builtin.relevance`) don't run with `evaluation_level="conversation"`. If an evaluator doesn't support conversation-level evaluation, the service skips that evaluator instead of failing the evaluation run.
+- **Evaluators that support conversation-level evaluation**: The following built-in evaluators support both turn-level (single-turn) and conversation-level (multi-turn) evaluation:
+
+    - `builtin.output_quality`
+    - `builtin.tool_use_quality`
+    - `builtin.deflection_rate`
+    - `builtin.customer_satisfaction`
+    - `builtin.task_completion`
+    - `builtin.coherence`
+    - `builtin.groundedness`
+
+    `builtin.output_quality` and `builtin.tool_use_quality` are composite evaluators, which assess multiple quality dimensions.
+- For turn-level evaluation, all built-in evaluators except `builtin.document_retrieval` and the deprecated `builtin.quality_grader` support the `messages` input format. The Azure OpenAI graders `label_model`, `python_grader`, `score_model`, `string_check`, and `text_similarity` don't support the `messages` input format.
 
 ### Common errors
 
 | Error | Cause | Solution |
 | --- | --- | --- |
-| Incompatible evaluation level | Using `evaluation_level="conversation"` with a turn-only evaluator | Remove the turn-only evaluator or change to `evaluation_level="turn"` |
+| Evaluator is skipped | Using `evaluation_level="conversation"` with an evaluator that doesn't support conversation-level evaluation | Use a conversation-level evaluator, or change to `evaluation_level="turn"` if you need that evaluator |
 
 ## Prepare conversation data
 
@@ -146,7 +157,7 @@ You can also include tool definitions and tool calls if your agent uses tools:
 
 ## Define the data schema and evaluators
 
-Specify the schema for your conversation data, map the `messages` field to each evaluator, and select evaluators designed for conversation-level evaluation. Conversation-level evaluators assess the entire interaction rather than individual turns.
+Specify the schema for your conversation data and select evaluators designed for conversation-level evaluation. Map `messages` to every evaluator. For evaluators that assess tool behavior, also map `tool_definitions`. Conversation-level evaluators assess the entire interaction rather than individual turns.
 
 # [Python](#tab/python)
 ```bash
@@ -184,7 +195,51 @@ with (
     testing_criteria = [
         TestingCriterionAzureAIEvaluator(
             type="azure_ai_evaluator",
-            name="conversation_coherence",
+            name="output_quality",
+            evaluator_name="builtin.output_quality",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="tool_use_quality",
+            evaluator_name="builtin.tool_use_quality",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="deflection_rate",
+            evaluator_name="builtin.deflection_rate",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="customer_satisfaction",
+            evaluator_name="builtin.customer_satisfaction",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={"messages": "{{item.messages}}"},
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="task_completion",
+            evaluator_name="builtin.task_completion",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={"messages": "{{item.messages}}"},
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="coherence",
             evaluator_name="builtin.coherence",
             initialization_parameters={"model": model_deployment_name},
             data_mapping={"messages": "{{item.messages}}"},
@@ -221,6 +276,42 @@ with (
     new
     {
       type = "azure_ai_evaluator",
+      name = "output_quality",
+      evaluator_name = "builtin.output_quality",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "tool_use_quality",
+      evaluator_name = "builtin.tool_use_quality",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "deflection_rate",
+      evaluator_name = "builtin.deflection_rate",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
       name = "customer_satisfaction",
       evaluator_name = "builtin.customer_satisfaction",
       initialization_parameters = new { model = modelDeploymentName },
@@ -237,7 +328,7 @@ with (
     new
     {
       type = "azure_ai_evaluator",
-      name = "conversation_coherence",
+      name = "coherence",
       evaluator_name = "builtin.coherence",
       initialization_parameters = new { model = modelDeploymentName },
       data_mapping = new { messages = "{{item.messages}}" }
@@ -254,7 +345,57 @@ with (
 ```
 
 # [JavaScript/TypeScript](#tab/javascript)
-The current JavaScript/TypeScript SDK samples don't demonstrate conversation-level evaluation. Use the Python or cURL tab for this flow.
+```typescript
+import { AIProjectClient } from "@azure/ai-projects";
+import { DefaultAzureCredential } from "@azure/identity";
+
+const projectEndpoint =
+  process.env.AZURE_AI_PROJECT_ENDPOINT ?? "<project endpoint>";
+const modelDeploymentName =
+  process.env.AZURE_AI_MODEL_DEPLOYMENT_NAME ?? "<model deployment name>";
+
+const projectClient = new AIProjectClient(
+  projectEndpoint,
+  new DefaultAzureCredential(),
+);
+const openAIClient = projectClient.getOpenAIClient();
+
+const dataSourceConfig = {
+  type: "custom" as const,
+  item_schema: {
+    type: "object",
+    properties: {
+      messages: { type: "array" },
+      tool_definitions: { type: "array" },
+    },
+    required: ["messages"],
+  },
+  include_sample_schema: false,
+};
+
+const evaluator = (name: string, includeToolDefinitions = false) => ({
+  type: "azure_ai_evaluator",
+  name,
+  evaluator_name: `builtin.${name}`,
+  initialization_parameters: { model: modelDeploymentName },
+  data_mapping: includeToolDefinitions
+    ? {
+        messages: "{{item.messages}}",
+        tool_definitions: "{{item.tool_definitions}}",
+      }
+    : { messages: "{{item.messages}}" },
+});
+
+const testingCriteria = [
+  evaluator("output_quality", true),
+  evaluator("tool_use_quality", true),
+  evaluator("deflection_rate", true),
+  evaluator("customer_satisfaction"),
+  evaluator("task_completion"),
+  evaluator("coherence"),
+  evaluator("groundedness"),
+];
+```
 
 # [cURL](#tab/curl)
 ```bash
@@ -279,7 +420,51 @@ curl --request POST \
     "testing_criteria": [
       {
         "type": "azure_ai_evaluator",
-        "name": "conversation_coherence",
+        "name": "output_quality",
+        "evaluator_name": "builtin.output_quality",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "tool_use_quality",
+        "evaluator_name": "builtin.tool_use_quality",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "deflection_rate",
+        "evaluator_name": "builtin.deflection_rate",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "customer_satisfaction",
+        "evaluator_name": "builtin.customer_satisfaction",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {"messages": "{{item.messages}}"}
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "task_completion",
+        "evaluator_name": "builtin.task_completion",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {"messages": "{{item.messages}}"}
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "coherence",
         "evaluator_name": "builtin.coherence",
         "initialization_parameters": {"model": "gpt-5-mini"},
         "data_mapping": {"messages": "{{item.messages}}"}
@@ -377,7 +562,37 @@ Download [sample_data_multiturn_conversations.jsonl](https://github.com/Azure/az
 Reference: [`AIProjectDatasetsOperations.UploadFileAsync`](/en-us/dotnet/api/azure.ai.projects.aiprojectdatasetsoperations.uploadfileasync) and [`EvaluationClient` protocol methods](https://github.com/openai/openai-dotnet/blob/main/OpenAI/src/Custom/Evals/EvaluationClient.Protocol.cs).
 
 # [JavaScript/TypeScript](#tab/javascript)
-The current JavaScript/TypeScript SDK samples don't demonstrate conversation-level evaluation. Use the Python or cURL tab for this flow.
+Download [sample_data_multiturn_conversations.jsonl](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/evaluations/data_folder/sample_data_multiturn_conversations.jsonl?raw=1), and then run this code:
+
+```typescript
+const dataset = await projectClient.datasets.uploadFile(
+  "multiturn-conversation-data",
+  "1",
+  "./sample_data_multiturn_conversations.jsonl",
+);
+
+const evaluation = await openAIClient.evals.create({
+  name: "Multi-turn Conversation Evaluation",
+  data_source_config: dataSourceConfig,
+  testing_criteria: testingCriteria as any,
+});
+
+const evaluationRun = await openAIClient.evals.runs.create(evaluation.id, {
+  name: "multiturn-conversation-run",
+  data_source: {
+    type: "jsonl",
+    source: {
+      type: "file_id",
+      id: dataset.id ?? "",
+    },
+  },
+  evaluation_level: "conversation",
+} as any);
+
+console.log(`Evaluation run created: ${evaluationRun.id}`);
+```
+
+Reference: [Azure SDK for JavaScript evaluation samples](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/samples-dev/evaluations), including `multiturnConversationEvaluation.ts`.
 
 # [cURL](#tab/curl)
 ```bash

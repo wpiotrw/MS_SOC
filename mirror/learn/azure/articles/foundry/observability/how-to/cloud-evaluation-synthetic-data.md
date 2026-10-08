@@ -27,7 +27,7 @@ ms.subservice: foundry-observability
 ms.custom:
 - references_regions
 ms.topic: how-to
-ms.date: 2026-08-31T00:00:00.0000000Z
+ms.date: 2026-10-01T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -55,10 +55,6 @@ platformId: cb379e60-721d-ba93-d22d-7aa6f0a56a19
 ---
 
 # Generate synthetic data with the Microsoft Foundry SDK - Microsoft Foundry | Microsoft Learn
-
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 Generate individual test queries, send them to a model or agent target, and evaluate the target responses.
 
@@ -224,6 +220,8 @@ eval_run = openai_client.evals.runs.create(
 # [C#](#tab/csharp)
 The .NET client uses its protocol methods for this preview data source.
 
+#### Model target
+
 ```csharp
 object[] testingCriteria =
 [
@@ -294,12 +292,191 @@ ClientResult evaluationRun = await evaluationClient.CreateEvaluationRunAsync(
 Console.WriteLine($"Evaluation run created: {GetString(evaluationRun, "id")}");
 ```
 
-To evaluate an agent instead, set `target.type` to `azure_ai_agent` and provide its `name` and `version`.
+You can optionally add a system prompt to shape the target model's behavior. Include only `system` role messages because the service provides the generated queries as user messages automatically.
+
+```csharp
+object modelDataSourceWithSystemPrompt = new
+{
+  type = "azure_ai_synthetic_data_gen_preview",
+  item_generation_params = new
+  {
+    type = "synthetic_data_gen_preview",
+    samples_count = 15,
+    prompt = "Generate customer service questions about returning defective products",
+    model_deployment_name = modelDeploymentName
+  },
+  target = new
+  {
+    type = "azure_ai_model",
+    model = modelDeploymentName
+  },
+  input_messages = new
+  {
+    type = "template",
+    template = new object[]
+    {
+      new
+      {
+        type = "message",
+        role = "system",
+        content = new
+        {
+          type = "input_text",
+          text = "You are a helpful customer service agent. Be empathetic and solution-oriented."
+        }
+      }
+    }
+  }
+};
+```
+
+#### Agent target
+
+Generate synthetic queries and evaluate a Foundry agent:
+
+```csharp
+BinaryData agentRunData = BinaryData.FromObjectAsJson(new
+{
+  name = "synthetic-agent-evaluation",
+  data_source = new
+  {
+    type = "azure_ai_synthetic_data_gen_preview",
+    item_generation_params = new
+    {
+      type = "synthetic_data_gen_preview",
+      samples_count = 15,
+      prompt = "Generate questions about returning defective products",
+      model_deployment_name = modelDeploymentName
+    },
+    target = new
+    {
+      type = "azure_ai_agent",
+      name = agentName,
+      version = agentVersion
+    }
+  }
+});
+using BinaryContent agentRunContent = BinaryContent.Create(agentRunData);
+ClientResult agentEvaluationRun =
+  await evaluationClient.CreateEvaluationRunAsync(
+    evaluationId: evaluationId,
+    content: agentRunContent);
+Console.WriteLine(
+  $"Evaluation run created: {GetString(agentEvaluationRun, "id")}");
+```
 
 Reference: [`EvaluationClient` protocol methods](https://github.com/openai/openai-dotnet/blob/main/OpenAI/src/Custom/Evals/EvaluationClient.Protocol.cs)
 
 # [JavaScript/TypeScript](#tab/javascript)
-The current JavaScript/TypeScript SDK samples don't demonstrate synthetic data evaluation. Use the Python or cURL tab for this flow.
+The TypeScript examples use the OpenAI eval client from `AIProjectClient`. The `as any` casts allow the client to forward Azure-specific evaluation configurations and data sources that aren't currently represented by the OpenAI client types.
+
+#### Model target
+
+Generate synthetic queries and evaluate a model:
+
+```typescript
+const dataSourceConfig = {
+  type: "azure_ai_source",
+  scenario: "synthetic_data_gen_preview",
+};
+
+const testingCriteria = [
+  {
+    type: "azure_ai_evaluator",
+    name: "coherence",
+    evaluator_name: "builtin.coherence",
+    initialization_parameters: { model: modelDeploymentName },
+    data_mapping: {
+      query: "{{item.query}}",
+      response: "{{sample.output_text}}",
+    },
+  },
+  {
+    type: "azure_ai_evaluator",
+    name: "violence",
+    evaluator_name: "builtin.violence",
+    data_mapping: {
+      query: "{{item.query}}",
+      response: "{{sample.output_text}}",
+    },
+  },
+];
+
+const evalObject = await openAIClient.evals.create({
+  name: "Synthetic Data Evaluation",
+  data_source_config: dataSourceConfig as any,
+  testing_criteria: testingCriteria as any,
+});
+
+const modelDataSource = {
+  type: "azure_ai_synthetic_data_gen_preview",
+  item_generation_params: {
+    type: "synthetic_data_gen_preview",
+    samples_count: 15,
+    prompt:
+      "Generate customer service questions about returning defective products",
+    model_deployment_name: modelDeploymentName,
+    output_dataset_name: "my-synthetic-dataset",
+  },
+  target: {
+    type: "azure_ai_model",
+    model: modelDeploymentName,
+  },
+};
+
+const modelEvalRun = await openAIClient.evals.runs.create(evalObject.id, {
+  name: "synthetic-data-evaluation",
+  data_source: modelDataSource as any,
+});
+```
+
+You can optionally add a system prompt to shape the target model's behavior. Include only `system` role messages because the service provides the generated queries as user messages automatically.
+
+```typescript
+const modelDataSourceWithSystemPrompt = {
+  ...modelDataSource,
+  input_messages: {
+    type: "template",
+    template: [
+      {
+        type: "message",
+        role: "system",
+        content: {
+          type: "input_text",
+          text:
+            "You are a helpful customer service agent. Be empathetic and solution-oriented.",
+        },
+      },
+    ],
+  },
+};
+```
+
+#### Agent target
+
+Generate synthetic queries and evaluate a Foundry agent:
+
+```typescript
+const agentDataSource = {
+  type: "azure_ai_synthetic_data_gen_preview",
+  item_generation_params: {
+    type: "synthetic_data_gen_preview",
+    samples_count: 15,
+    prompt: "Generate questions about returning defective products",
+    model_deployment_name: modelDeploymentName,
+  },
+  target: {
+    type: "azure_ai_agent",
+    name: agentName,
+    version: agentVersion,
+  },
+};
+
+const agentEvalRun = await openAIClient.evals.runs.create(evalObject.id, {
+  name: "synthetic-agent-evaluation",
+  data_source: agentDataSource as any,
+});
+```
 
 # [cURL](#tab/curl)
 ```bash
