@@ -55,6 +55,13 @@ Important
 
 Features in *preview* status are subject to change without notice, and might not be promoted to generally available (GA) status. Don't use preview features in production apps.
 
+## October 2026: New in preview only
+
+### Mailbox import and export
+
+- Added the **isHidden** property to the [mailboxFolder](/en-us/graph/api/resources/mailboxfolder?view=graph-rest-beta&amp;preserve-view=true) resource to identify hidden mailbox folders.
+- Use the existing **includeHiddenFolders** query parameter for [listing folders](/en-us/graph/api/mailbox-list-folders?view=graph-rest-beta&amp;preserve-view=true) and [listing child folders](/en-us/graph/api/mailboxfolder-list-childfolders?view=graph-rest-beta&amp;preserve-view=true). Set it to `true` to include both hidden and nonhidden folders.
+
 ## September 2026: New and generally available
 
 ### Calendars | Work hours and locations
@@ -69,6 +76,7 @@ Promoted the `unknownFutureValue` member of the **changeType** enumeration from 
 
 - Added the **isPatternToken** property to the [fileStorageContainerCustomPropertyValue](/en-us/graph/api/resources/filestoragecontainercustompropertyvalue) resource to indicate whether a custom property value is a `urlTemplate` pattern that consumers must resolve before use, rather than a literal value.
 - Added the **isOfficeRestricted** property to the [fileStorageContainerTypeSettings](/en-us/graph/api/resources/filestoragecontainertypesettings) and [fileStorageContainerTypeRegistrationSettings](/en-us/graph/api/resources/filestoragecontainertyperegistrationsettings) resources, and the **fileStorageContainerTypeSettingsOverride** enumeration.
+- Use the [revokeGrants](/en-us/graph/api/permission-revokegrants) method of the [permission](/en-us/graph/api/resources/permission) resource to revoke access to a sharing link for specified recipients.
 
 ### Groups
 
@@ -105,6 +113,10 @@ Updated the [getAllRetainedMessages](/en-us/graph/api/channel-getallretainedmess
 ### Agents
 
 Added the **isDisabled** property to the [agentIdentityBlueprint](/en-us/graph/api/resources/agentidentityblueprint?view=graph-rest-beta&amp;preserve-view=true) resource. Use it to deactivate an agent identity blueprint without deleting it.
+
+### Application
+
+Added the **isDeviceAccessEnabled** property to the [onPremisesPublishing](/en-us/graph/api/resources/onpremisespublishing?view=graph-rest-beta&amp;preserve-view=true) resource to configure device access for Microsoft Entra Private Access.
 
 ### Backup and recovery | Microsoft 365 backup and storage
 
@@ -166,6 +178,10 @@ Added the **requireCertificateSidAlignment** property to the [x509CertificateAut
 ### People and workplace intelligence | Analytics
 
 Added the **sensitivityLabel** property to the [searchHit](/en-us/graph/api/resources/searchhit?view=graph-rest-beta&amp;preserve-view=true) resource type to provide sensitivity-label information for the search result resource.
+
+### Reports | Partner billing reports
+
+Added the [billedAggregatedUsage](/en-us/graph/api/resources/partners-billing-billedaggregatedusage?view=graph-rest-beta&amp;preserve-view=true) resource type and related export method for CSP partners to generate billed aggregated Azure usage reports for a specific invoice.
 
 ### Security | Data security and compliance
 
