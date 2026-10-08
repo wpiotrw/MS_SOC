@@ -23,7 +23,7 @@ ms.reviewer: prsaini
 ms.service: cost-management-billing
 ms.subservice: enterprise-agreement
 ms.topic: concept-article
-ms.date: 2026-09-18T00:00:00.0000000Z
+ms.date: 2026-10-08T00:00:00.0000000Z
 ms.author: prsaini
 locale: en-us
 document_id: 469c01c6-8fe8-f252-3c35-3a719d4bd191
@@ -50,7 +50,7 @@ platformId: 69197784-71ce-c820-ace0-8d9173651045
 
 Note
 
-Starting October 15, 2026, all new Enterprise Agreement billing role assignments must use Work or School accounts (WSA) managed through Microsoft Entra ID. You can't add Personal Microsoft accounts (MSAs) to new role assignments. Users with existing MSA role assignments aren't impacted at this time. However, these users need to transition to a Work or School account (WSA) in a future phase. Microsoft will provide advance notice and guidance before this change takes effect.
+Starting November 16, 2026, all new Enterprise Agreement billing role assignments must use Work or School accounts (WSA) managed through Microsoft Entra ID. You can't add Personal Microsoft accounts (MSAs) to new role assignments. Users with existing MSA role assignments aren't impacted at this time. However, these users need to transition to a Work or School account (WSA) in a future phase. Microsoft will provide advance notice and guidance before this change takes effect.
 
 To help manage your organization's usage and spend, Azure customers with an Enterprise Agreement can assign the following six distinct administrative roles.
 

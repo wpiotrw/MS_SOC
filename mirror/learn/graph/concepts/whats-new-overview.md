@@ -248,6 +248,16 @@ Added support for managing Microsoft 365 cross-tenant capabilities in cross-tena
 
 - Added the [note](/en-us/graph/api/resources/note) resource type and methods to [list](/en-us/graph/api/user-list-notes), [create](/en-us/graph/api/user-post-notes), [get](/en-us/graph/api/note-get), [update](/en-us/graph/api/note-update), and [delete](/en-us/graph/api/note-delete) quick-capture notes in a user's *Notes* folder. Use [delta query](/en-us/graph/api/note-delta) to synchronize notes that were added, updated, or deleted since the previous request. You can also [list](/en-us/graph/api/note-list-attachments), [add](/en-us/graph/api/note-post-attachments), and [delete](/en-us/graph/api/attachment-delete) inline image attachments, and use open or legacy extended properties to store custom data on a note.
 
+### Security | Alerts and incidents
+
+- Added the **tenantId** property to the [userAccount](/en-us/graph/api/resources/security-useraccount) resource to provide the Entra home tenant ID for the compromised user account indicated in a [security alert](/en-us/graph/api/resources/security-alert) where the alert evidence is related to a [processEvidence](/en-us/graph/api/resources/security-processevidence), [userEvidence](/en-us/graph/api/resources/security-userevidence), or [mailboxEvidence](/en-us/graph/api/resources/security-mailboxevidence).
+- Added the [alert: moveAlerts](/en-us/graph/api/security-alert-movealerts) and [incident: mergeIncidents](/en-us/graph/api/security-incident-mergeincidents) actions to support moving alerts and merging incidents in Microsoft Defender.
+- Added the [correlationReason](/en-us/graph/api/resources/security-correlationreason) enumeration and [mergeResponse](/en-us/graph/api/resources/security-mergeresponse) resource type.
+
+### Security | eDiscovery
+
+Added the `cloudNativeHtmlConversion` member to the [additionalDataOptions](/en-us/graph/api/resources/security-ediscoveryaddtoreviewsetoperation#additionaldataoptions-values) enumeration.
+
 ### Mailbox import and export
 
 - Added the **wellKnownName** property to the [mailboxFolder](/en-us/graph/api/resources/mailboxfolder) resource type in v1.0. Use this property to identify folders created by Outlook by using a locale-independent name.

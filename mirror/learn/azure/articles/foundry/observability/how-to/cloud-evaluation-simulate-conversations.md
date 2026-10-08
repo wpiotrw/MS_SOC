@@ -27,7 +27,7 @@ ms.subservice: foundry-observability
 ms.custom:
 - references_regions
 ms.topic: how-to
-ms.date: 2026-09-11T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -45,20 +45,16 @@ item_type: Content
 source_path: articles/foundry/observability/how-to/cloud-evaluation-simulate-conversations.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/954f73a6-f63f-4ee4-82b7-50903bc7735d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a5690ca4-dbe1-40cd-8b54-527e1da6d88c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 9f06d32e-7fa8-800b-8fbf-054bdae37596
 ---
 
 # Simulate conversations with the Microsoft Foundry SDK - Microsoft Foundry | Microsoft Learn
-
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 Generate simulated conversations from scenario descriptions and evaluate them at the conversation level. Use this scenario to test your agent's behavior in controlled situations before deployment. The service generates realistic conversations based on your scenario descriptions and then evaluates them.
 
@@ -88,7 +84,7 @@ Conversation simulation follows these steps:
 4. Conversation-level evaluators assess the generated conversations.
 5. Your project stores the evaluation results. You can optionally persist all generated conversations as a versioned Foundry dataset.
 
-The run uses the `azure_ai_user_conversation_simulation_preview` data source. Put settings that apply to every test case in `default_simulation_configuration`. A test case can override individual conversation settings in its `simulation_configuration`; settings that it doesn't override continue to use the run defaults.
+The run uses the `azure_ai_user_conversation_simulation` data source. Put settings that apply to every test case in `default_simulation_configuration`. A test case can override individual conversation settings in its `simulation_configuration`; settings that it doesn't override continue to use the run defaults.
 
 ## Prepare scenario data
 
@@ -198,6 +194,7 @@ with (
             "type": "object",
             "properties": {
                 "messages": {"type": "array"},
+                "tool_definitions": {"type": "array"},
             },
             "required": ["messages"],
         },
@@ -207,8 +204,59 @@ with (
     testing_criteria = [
         TestingCriterionAzureAIEvaluator(
             type="azure_ai_evaluator",
+            name="output_quality",
+            evaluator_name="builtin.output_quality",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="tool_use_quality",
+            evaluator_name="builtin.tool_use_quality",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="deflection_rate",
+            evaluator_name="builtin.deflection_rate",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={
+                "messages": "{{item.messages}}",
+                "tool_definitions": "{{item.tool_definitions}}",
+            },
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
             name="customer_satisfaction",
             evaluator_name="builtin.customer_satisfaction",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={"messages": "{{item.messages}}"},
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="task_completion",
+            evaluator_name="builtin.task_completion",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={"messages": "{{item.messages}}"},
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="coherence",
+            evaluator_name="builtin.coherence",
+            initialization_parameters={"model": model_deployment_name},
+            data_mapping={"messages": "{{item.messages}}"},
+        ),
+        TestingCriterionAzureAIEvaluator(
+            type="azure_ai_evaluator",
+            name="groundedness",
+            evaluator_name="builtin.groundedness",
             initialization_parameters={"model": model_deployment_name},
             data_mapping={"messages": "{{item.messages}}"},
         ),
@@ -223,7 +271,11 @@ with (
     item_schema = new
     {
       type = "object",
-      properties = new { messages = new { type = "array" } },
+      properties = new
+      {
+        messages = new { type = "array" },
+        tool_definitions = new { type = "array" }
+      },
       required = new[] { "messages" }
     },
     include_sample_schema = false
@@ -233,8 +285,68 @@ with (
     new
     {
       type = "azure_ai_evaluator",
+      name = "output_quality",
+      evaluator_name = "builtin.output_quality",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "tool_use_quality",
+      evaluator_name = "builtin.tool_use_quality",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "deflection_rate",
+      evaluator_name = "builtin.deflection_rate",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new
+      {
+        messages = "{{item.messages}}",
+        tool_definitions = "{{item.tool_definitions}}"
+      }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
       name = "customer_satisfaction",
       evaluator_name = "builtin.customer_satisfaction",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new { messages = "{{item.messages}}" }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "task_completion",
+      evaluator_name = "builtin.task_completion",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new { messages = "{{item.messages}}" }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "coherence",
+      evaluator_name = "builtin.coherence",
+      initialization_parameters = new { model = modelDeploymentName },
+      data_mapping = new { messages = "{{item.messages}}" }
+    },
+    new
+    {
+      type = "azure_ai_evaluator",
+      name = "groundedness",
+      evaluator_name = "builtin.groundedness",
       initialization_parameters = new { model = modelDeploymentName },
       data_mapping = new { messages = "{{item.messages}}" }
     }
@@ -242,7 +354,61 @@ with (
 ```
 
 # [JavaScript/TypeScript](#tab/javascript)
-The current JavaScript/TypeScript SDK samples don't demonstrate conversation simulation. Use the Python or cURL tab for this flow.
+```typescript
+import { AIProjectClient } from "@azure/ai-projects";
+import { DefaultAzureCredential } from "@azure/identity";
+
+const projectEndpoint =
+  process.env.AZURE_AI_PROJECT_ENDPOINT ?? "<project endpoint>";
+const modelDeploymentName =
+  process.env.AZURE_AI_MODEL_DEPLOYMENT_NAME ?? "<model deployment name>";
+const simulatorModel =
+  process.env.AZURE_AI_SIMULATOR_MODEL ?? "<connection>/<model deployment>";
+const agentName = process.env.FOUNDRY_AGENT_NAME ?? "my-agent-simulation";
+const agentVersion = process.env.FOUNDRY_AGENT_VERSION ?? "";
+
+const projectClient = new AIProjectClient(
+  projectEndpoint,
+  new DefaultAzureCredential(),
+);
+const openAIClient = projectClient.getOpenAIClient();
+
+const dataSourceConfig = {
+  type: "custom" as const,
+  item_schema: {
+    type: "object",
+    properties: {
+      messages: { type: "array" },
+      tool_definitions: { type: "array" },
+    },
+    required: ["messages"],
+  },
+  include_sample_schema: false,
+};
+
+const evaluator = (name: string, includeToolDefinitions = false) => ({
+  type: "azure_ai_evaluator",
+  name,
+  evaluator_name: `builtin.${name}`,
+  initialization_parameters: { model: modelDeploymentName },
+  data_mapping: includeToolDefinitions
+    ? {
+        messages: "{{item.messages}}",
+        tool_definitions: "{{item.tool_definitions}}",
+      }
+    : { messages: "{{item.messages}}" },
+});
+
+const testingCriteria = [
+  evaluator("output_quality", true),
+  evaluator("tool_use_quality", true),
+  evaluator("deflection_rate", true),
+  evaluator("customer_satisfaction"),
+  evaluator("task_completion"),
+  evaluator("coherence"),
+  evaluator("groundedness"),
+];
+```
 
 # [cURL](#tab/curl)
 ```bash
@@ -257,7 +423,8 @@ curl --request POST \
       "item_schema": {
         "type": "object",
         "properties": {
-          "messages": {"type": "array"}
+          "messages": {"type": "array"},
+          "tool_definitions": {"type": "array"}
         },
         "required": ["messages"]
       },
@@ -266,8 +433,59 @@ curl --request POST \
     "testing_criteria": [
       {
         "type": "azure_ai_evaluator",
+        "name": "output_quality",
+        "evaluator_name": "builtin.output_quality",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "tool_use_quality",
+        "evaluator_name": "builtin.tool_use_quality",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "deflection_rate",
+        "evaluator_name": "builtin.deflection_rate",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {
+          "messages": "{{item.messages}}",
+          "tool_definitions": "{{item.tool_definitions}}"
+        }
+      },
+      {
+        "type": "azure_ai_evaluator",
         "name": "customer_satisfaction",
         "evaluator_name": "builtin.customer_satisfaction",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {"messages": "{{item.messages}}"}
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "task_completion",
+        "evaluator_name": "builtin.task_completion",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {"messages": "{{item.messages}}"}
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "coherence",
+        "evaluator_name": "builtin.coherence",
+        "initialization_parameters": {"model": "gpt-5-mini"},
+        "data_mapping": {"messages": "{{item.messages}}"}
+      },
+      {
+        "type": "azure_ai_evaluator",
+        "name": "groundedness",
+        "evaluator_name": "builtin.groundedness",
         "initialization_parameters": {"model": "gpt-5-mini"},
         "data_mapping": {"messages": "{{item.messages}}"}
       }
@@ -312,7 +530,7 @@ eval_run = openai_client.evals.runs.create(
     eval_id=eval_object.id,
     name="conversation-simulation-run",
     data_source={
-        "type": "azure_ai_user_conversation_simulation_preview",
+        "type": "azure_ai_user_conversation_simulation",
         "source": {
             "type": "file_id",
             "id": scenarios_id,
@@ -376,7 +594,7 @@ Set `FOUNDRY_AGENT_NAME`, `FOUNDRY_AGENT_VERSION`, and `AZURE_AI_SIMULATOR_MODEL
     evaluation_level = "conversation",
     data_source = new
     {
-      type = "azure_ai_user_conversation_simulation_preview",
+      type = "azure_ai_user_conversation_simulation",
       source = new { type = "file_id", id = scenarios.Id },
       target = new
       {
@@ -414,7 +632,66 @@ Set `FOUNDRY_AGENT_NAME`, `FOUNDRY_AGENT_VERSION`, and `AZURE_AI_SIMULATOR_MODEL
 Reference: [`AIProjectDatasetsOperations.UploadFileAsync`](/en-us/dotnet/api/azure.ai.projects.aiprojectdatasetsoperations.uploadfileasync) and [`EvaluationClient` protocol methods](https://github.com/openai/openai-dotnet/blob/main/OpenAI/src/Custom/Evals/EvaluationClient.Protocol.cs).
 
 # [JavaScript/TypeScript](#tab/javascript)
-The current JavaScript/TypeScript SDK samples don't demonstrate conversation simulation. Use the Python or cURL tab for this flow.
+Save the canonical JSONL rows from Prepare scenario data as `simulation_scenarios.jsonl`, and then run this code:
+
+```typescript
+const agent = agentVersion
+  ? { name: agentName, version: agentVersion }
+  : await projectClient.agents.createVersion(agentName, {
+      kind: "prompt",
+      model: modelDeploymentName,
+      instructions:
+        "You are a helpful customer service agent. Be empathetic and solution-oriented.",
+    });
+
+const scenarios = await projectClient.datasets.uploadFile(
+  "simulation-scenarios",
+  "1",
+  "./simulation_scenarios.jsonl",
+);
+
+const evaluation = await openAIClient.evals.create({
+  name: "Multi-turn Conversation Simulation",
+  data_source_config: dataSourceConfig,
+  testing_criteria: testingCriteria as any,
+});
+
+const evaluationRun = await openAIClient.evals.runs.create(evaluation.id, {
+  name: "conversation-simulation-run",
+  data_source: {
+    type: "azure_ai_user_conversation_simulation",
+    source: {
+      type: "file_id",
+      id: scenarios.id ?? "",
+    },
+    target: {
+      type: "azure_ai_agent",
+      name: agent.name,
+      version: agent.version,
+    },
+    model_configuration: {
+      model: simulatorModel,
+      sampling_params: {
+        temperature: 0.7,
+        top_p: 1.0,
+        max_completion_tokens: 800,
+      },
+    },
+    default_simulation_configuration: {
+      max_num_turns: 8,
+      conversation_repetitions: 2,
+      desired_num_turns: 5,
+      enable_conversation_dataset_generation: true,
+      output_conversation_dataset_name: "support-simulations",
+    },
+  },
+  evaluation_level: "conversation",
+} as any);
+
+console.log(`Evaluation run created: ${evaluationRun.id}`);
+```
+
+Reference: [Azure SDK for JavaScript evaluation samples](https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/ai/ai-projects/samples-dev/evaluations), including `multiturnConversationSimulation.ts`.
 
 # [cURL](#tab/curl)
 ```bash
@@ -426,7 +703,7 @@ curl --request POST \
     "name": "conversation-simulation-run",
     "evaluation_level": "conversation",
     "data_source": {
-      "type": "azure_ai_user_conversation_simulation_preview",
+      "type": "azure_ai_user_conversation_simulation",
       "source": {
         "type": "file_id",
         "id": "YOUR_SCENARIOS_DATASET_ID"
