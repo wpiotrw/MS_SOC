@@ -25009,8 +25009,8 @@ def parse_feed(x):
     for blk in re.findall(r"<item\b.*?</item>", x, re.S):
         g = lambda t: (re.search(r"<%s\b[^>]*>(.*?)</%s>" % (t, t), blk, re.S) or [None, ""])[1]
         link = clean(g("link")) or clean(g("guid"))
-        d = iso(clean(g("pubDate")) or clean(g("dc:date")) or clean(g("published")))
-        if link: out.append({"title": clean(g("title")), "link": link, "date": d})
+        raw = clean(g("pubDate")) or clean(g("dc:date")) or clean(g("published")); d = iso(raw)
+        if link: out.append({"title": clean(g("title")), "link": link, "date": d, "ts": raw})
     for blk in re.findall(r"<entry\b.*?</entry>", x, re.S):
         t = re.search(r"<title\b[^>]*>(.*?)</title>", blk, re.S)
         l = (re.search(r'<link\b[^>]*rel="alternate"[^>]*href="([^"]+)"', blk)
@@ -25239,16 +25239,38 @@ def one(src):
         rec["tried"] = rec["tried"][:40]
         return rec, []
 
+    # §5cs (8 X 2026, CoreView added by the owner): a feed can stamp a whole batch of articles with ONE
+    # publication time when the blog is republished - CoreView's HubSpot feed gave 8 articles
+    # "Wed, 07 Oct 2026 14:24:05 GMT" and 46 "10 Sep 2026", among them "2025 Microsoft 365 Year in Review",
+    # whose own page says datePublished 2025-12-12. A timestamp shared by 3 or more items is not a
+    # publication date: inside the window the date comes from the article's own page; outside it the
+    # article is older still, so it stays out of the window either way.
+    from collections import Counter as _C
+    _ts = _C(i.get("ts") for i in items if i.get("ts") and re.search(r"\d{1,2}:\d{2}", i.get("ts") or ""))
+    _bulk = {t for t, n in _ts.items() if n >= 3}
+    _w0 = (TODAY - datetime.timedelta(days=WINDOW)).isoformat()
+    refetch = []
+    for i in items:
+        if i.get("ts") in _bulk:
+            i["dateNote"] = "the feed gives this article the same publication time as %d others (a bulk republish)" % (_ts[i["ts"]] - 1)
+            if i.get("date") and i["date"] >= _w0:
+                i["feedDate"] = i["date"]; i["date"] = None; refetch.append(i)
+    if _bulk: rec["feedDatesBulk"] = sorted(_bulk)
     # sitemap entries and undated listings: the date and title come from the article's own page
     items.sort(key=lambda i: i.get("date") or "", reverse=True)
     # an undated listing is dated from its articles: up to 30 of them (a sitemap or a links-only page
     # has no order to trust), otherwise the 10 newest that lack a date or a title
     undated = not any(i.get("date") for i in items)
     need = [i for i in items if not i.get("date") or not i.get("title")][:30 if undated else 10]
+    need += [i for i in refetch[:30] if i not in need]
     for i in need:
         d, t = article_date(i["link"])
         if d and not i.get("date"): i["date"] = d
         if t and not i.get("title"): i["title"] = t
+    # §5cs: a bulk-stamped article whose own page prints no date keeps the feed's date (the Roadmap and
+    # mc.merill.net feeds stamp batches too, and their item pages carry no machine-readable date)
+    for i in refetch:
+        if not i.get("date") and i.get("feedDate"): i["date"] = i["feedDate"]; i["dateNote"] += "; its own page prints no date, the feed's date is kept"
     for i in items:
         if not i.get("title"):
             slug = urllib.parse.urlsplit(i["link"]).path.strip("/").split("/")[-1]
@@ -26296,6 +26318,25 @@ ruszone od poprzedniego briefu), wiersz na kazda nowa wersje z Now/Before i dwie
 `released` = NAJWCZESNIEJSZA data, `versions[0].releasedRows` i `lastChange.releasedRows` = lista
 {date, devices}; karta i tabela pokazuja kazda date z grupa urzadzen. Poprawka danych przyjdzie z
 najblizszym porannym przebiegiem.
+
+**§5cs (8 X 2026, wlasciciel o karcie „Today in fifteen sentences": „zaznaczony fragment to hyperlink —
+kompletnie nie wiadomo, ze to hyperlink; caly tekst sie zlewa; wyrazniej oznaczyc kategorie i informacje";
+oraz: dopisac do `community_sources.json` DevSecOpsDadAttack i CoreView).** (1) **Karta zdan** — `dress()`
+w warstwie zdan: kategoria to kolorowy chip w osobnej linii (pilne czerwony, nowe zielony, Graph API i
+komponenty niebieski, wiadomosc dnia bursztynowy, technologia szary), naglowek to link w kolorze akcentu,
+podkreslony, ze strzalka „›"; dluga czesc metadanych (zdanie wyjasnienia) to osobna, wyciszona linia,
+krotkie fakty (produkt, termin, „new", numer MC) to pigulki (termin bursztynowy, nowe zielone, MC mono);
+linia oddziela zdania. Tekst zdan pochodzi z danych przebiegu — zmienia sie wyglad, nie tresc.
+(2) **Dwa nowe zrodla Community**: `https://devsecopsdadattack.com/` (feed WordPress pod `/feed`, 20
+artykulow, 20 w oknie 14 dni) i `https://www.coreview.com/` (feed HubSpot `/blog/rss.xml`, 100 artykulow).
+Oba czyta kolektor bez reguly CUSTOM (drabina `rss-root`); sprawdzone 8 X 2026 przebiegiem
+`collect_community.py` na calej liscie: 60 zrodel, 56 przeczytanych, 3 nieudane — te same co rano.
+(3) **Daty „hurtowe" w feedach**: feed CoreView daje JEDEN czas publikacji calej paczce artykulow po
+ponownej publikacji bloga (8 artykulow „Wed, 07 Oct 2026 14:24:05 GMT", 46 z 10 IX), w tym „2025 Microsoft 365
+Year in Review", ktorego strona mowi `datePublished 2025-12-12`. Od §5cs czas wspolny dla 3 lub wiecej pozycji
+nie jest data publikacji: w oknie 14 dni data przychodzi ze strony artykulu (`article_date()`); gdy strona
+nie podaje daty (Roadmap, mc.merill.net), zostaje data feedu z notatka `dateNote`. Zrodlo dostaje
+`feedDatesBulk` z lista takich czasow.
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
@@ -28722,6 +28763,37 @@ odtad CZTERNASCIE (4-17).**
       li.appendChild(b); host.appendChild(li);
     }
     function refOk(d) { return (d.refs || []).filter(function (r) { return BYID[r]; }); }
+    /* §5cs (8 X 2026, owner: "the highlighted text is a link and nothing says so; everything merges —
+       mark the category and the information more clearly"). Every sentence is dressed the same way:
+       the category is a coloured chip on its own line (urgent red, new green, Graph and components blue,
+       news amber, a technology grey); the headline is a link in the accent colour with an arrow; the
+       explanation is its own muted line; the facts (product, due date, new, MC number) are small pills. */
+    function dress(list) {
+      var KIND = [[/^most urgent/i, "urgent"], [/^(biggest new|new\b)/i, "new"], [/^graph api/i, "graph"], [/^component/i, "comp"], [/^news/i, "news"]];
+      [].forEach.call(list.children, function (li) {
+        var b = li.querySelector(":scope > b"); if (!b || b.classList.contains("s5bk-k")) return;
+        var lead = (b.textContent || "").trim().replace(/:\s*$/, ""), kind = "tech";
+        KIND.forEach(function (k) { if (kind === "tech" && k[0].test(lead)) kind = k[1]; });
+        b.textContent = lead; b.className = "s5bk-k k-" + kind;
+        [].forEach.call(li.querySelectorAll(".s5bk-it"), function (it) {
+          it.classList.add("s5bk-link"); it.title = it.title || "Open in the brief";
+          var m = it.querySelector(".s5bk-itm"); if (!m || m.__s5cs) return; m.__s5cs = true;
+          var parts = String(m.textContent || "").split(" \u00b7 ").map(function (x) { return x.trim(); }).filter(Boolean);
+          var expl = parts.filter(function (x) { return x.length > 48; }), facts = parts.filter(function (x) { return x.length <= 48; });
+          m.textContent = ""; m.className = "s5bk-itm s5bk-dressed";
+          if (expl.length) m.appendChild(el("span", "s5bk-its", expl.join(" ")));
+          if (facts.length) {
+            var pw = el("span", "s5bk-pills");
+            facts.forEach(function (f) {
+              var k = /^due|days? \(|due today/i.test(f) ? "warn" : /^(new|one of \d+ new)/i.test(f) ? "ok" : /^(MC|RM)\d+/.test(f) ? "id" : /major|caught late/i.test(f) ? "bad" : "";
+              pw.appendChild(el("span", "s5bk-pill" + (k ? " p-" + k : ""), f));
+            });
+            m.appendChild(pw);
+          }
+        });
+        var plain = li.querySelector(":scope > span:not([class])"); if (plain) plain.className = "s5bk-plain";
+      });
+    }
     var dg = st.digest || {}, more = [];
     (dg.sentences || []).forEach(function (d) {
       var ok = refOk(d);
@@ -28744,6 +28816,7 @@ odtad CZTERNASCIE (4-17).**
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
     var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
+    dress(ol);
     sum.appendChild(ol); top.appendChild(sum);
 
     /* one line per technology — only where something moved; no "nothing new" filler lines */
@@ -34753,6 +34826,30 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5cr-earlier .s5cr-lab{margin-right:6px}
 .s5cr-el{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer}
 @media (max-width:760px){.s5cr-st{padding:6px 8px}.s5cr-st b{font-size:17px}.s5cr-st span{font-size:11.5px}.s5cr-row{grid-template-columns:1fr}.s5cr-tr{grid-template-columns:10px minmax(0,1fr)}.s5cr-tr .s5cr-when{grid-column:2}}
+/* §5cs (8 X 2026): the sentences card — a coloured category chip, a headline that reads as a link,
+   the explanation on its own line, the facts as pills; one rule between sentences */
+.s5bk-3 li{padding:10px 0 11px;border-top:1px solid var(--border-soft);line-height:1.4}
+.s5ci-ten .s5bk-3 li{margin:0}
+.s5bk-3 li::marker{color:var(--faint);font-size:12px;font-weight:600}
+.s5bk-3 li>b.s5bk-k{display:block;width:max-content;max-width:100%;font:700 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;
+ padding:4px 9px;border-radius:999px;margin:0 0 6px;background:var(--surface-2);color:var(--muted)}
+.s5bk-3 li>b.k-urgent{background:var(--bad-soft);color:var(--bad)}
+.s5bk-3 li>b.k-new{background:var(--ok-soft);color:var(--ok)}
+.s5bk-3 li>b.k-graph,.s5bk-3 li>b.k-comp{background:var(--accent-soft);color:var(--accent)}
+.s5bk-3 li>b.k-news{background:var(--warn-soft);color:var(--warn)}
+.s5bk-link{display:flex;flex-direction:column;gap:0;width:100%;border-radius:6px}
+.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--accent);font-weight:650;font-size:14px;line-height:1.4;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 35%,transparent);text-underline-offset:3px}
+.s5bk-link .s5bk-itt::after{content:"\00a0\203a";font-weight:700}
+.s5bk-link:hover .s5bk-itt{text-decoration-color:var(--accent)}
+.s5bk-dressed{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.s5bk-its,.s5ci-ten .s5bk-its{color:var(--muted);font-size:13px;line-height:1.45;font-weight:400}
+.s5bk-pills{display:flex;flex-wrap:wrap;gap:4px 6px}
+.s5bk-pill{font-size:11.5px;font-weight:600;line-height:1.5;padding:0 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.s5bk-pill.p-warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.s5bk-pill.p-ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.s5bk-pill.p-bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.s5bk-pill.p-id{font-family:var(--mono);color:var(--text)}
+.s5bk-plain{display:block;color:var(--muted);font-size:13px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
