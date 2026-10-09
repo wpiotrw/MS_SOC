@@ -1,7 +1,7 @@
 {
- "read": "2026-10-08",
+ "read": "2026-10-09",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 687,
+ "count": 697,
  "note": null,
  "messages": [
   {
@@ -9244,13 +9244,13 @@
    "actionBy": null,
    "start": "2026-08-27",
    "end": "2026-12-14",
-   "modified": "2026-09-21",
+   "modified": "2026-10-08",
    "tags": [
     "Admin impact",
     "Updated message"
    ],
-   "summary": "Updated September 21, 2026: We have updated the content. thank you for your patience. [What and why:] As communicated in MC1454108, beginning in early September, 2026, Microsoft will start redirecting users from m365.cloud.microsoft to copilot.cloud.microsoft in organizations where access to copilot.cloud.microsoft is available. Organizations who may have blocked connection to copilot.cloud.micros…",
-   "bodyHash": "0354210ca7a8357b"
+   "summary": "Updated October 8, 2026: We have updated the content. thank you for your patience. [What and why:] As communicated in MC1454108, beginning in early September, 2026, Microsoft will start redirecting users from m365.cloud.microsoft to copilot.cloud.microsoft in organizations where access to copilot.cloud.microsoft is available. Organizations who may have blocked connection to copilot.cloud.microsoft…",
+   "bodyHash": "cc5ccb4e293c4f41"
   },
   {
    "id": "MC1462921",
@@ -13832,6 +13832,209 @@
    "bodyHash": "fe3b04a62a20d626"
   },
   {
+   "id": "MC1491832",
+   "title": "Take action to prevent RD Web Access rendering failures",
+   "services": [
+    "Windows"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2027-10-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "The Remote Desktop Web Access (RD Web Access) experience included with Windows Server relies on Extensible Stylesheet Language Transformations (XSLT) to render its web interface. Chromium-based and other browsers are disabling XSLT support in the short term. As browsers disable this feature, the RD Web Access experience included with Windows Server will no longer render as expected. Microsoft has …",
+   "bodyHash": "177c3a13a126354d"
+  },
+  {
+   "id": "MC1492155",
+   "title": "Microsoft PowerPoint for Mac: Smarter Keep Source Formatting slide pasting experience",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-12-04",
+   "modified": "2026-10-08",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We're improving the PowerPoint Keep Source Formatting paste experience. When users paste slides using Keep Source Formatting, PowerPoint will now import only the slide masters and layouts required for the pasted slides instead of importing all slide masters and layouts from the source presentation. This change helps reduce presentation file size, improve performance when opening lar…",
+   "bodyHash": "9ae26258f0c5a020"
+  },
+  {
+   "id": "MC1492156",
+   "title": "Microsoft PowerPoint for Windows: Smarter Keep Source Formatting slide pasting experience",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-12-04",
+   "modified": "2026-10-08",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We're improving the PowerPoint Keep Source Formatting paste experience. When users paste slides using Keep Source Formatting, PowerPoint will now import only the slide masters and layouts required for the pasted slides instead of importing all slide masters and layouts from the source presentation. This change helps reduce presentation file size, improve performance when opening lar…",
+   "bodyHash": "a6d7b28701d78b25"
+  },
+  {
+   "id": "MC1492159",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for Mac",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-11-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on Mac. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This can h…",
+   "bodyHash": "a0dc11db7d88555e"
+  },
+  {
+   "id": "MC1492160",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for web",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-11-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on web. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This can h…",
+   "bodyHash": "1a880b202fd7b93a"
+  },
+  {
+   "id": "MC1492161",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for desktop",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-11-08",
+   "modified": "2026-10-08",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on desktop. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This c…",
+   "bodyHash": "1019a19b007c177f"
+  },
+  {
+   "id": "MC1492163",
+   "title": "Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+   "services": [
+    "Microsoft Power Automate in Microsoft 365",
+    "Power Apps in Microsoft 365"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2027-02-27",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] To align with updated Zendesk security requirements, Microsoft API Hub is changing how OAuth tokens are issued and managed for Zendesk connections. New Zendesk connections and existing connections that are reauthorized after rollout will receive access tokens that expire after 48 hours, refresh tokens that expire after 90 days, and automatic token refresh support. [Rollout schedule]…",
+   "bodyHash": "f7a4afa5e9e3e301"
+  },
+  {
+   "id": "MC1492164",
+   "title": "Microsoft PowerPoint for Mac: Improved slide contextual menu consistency",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-11-20",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the contextual menu for slides in Microsoft PowerPoint for Mac to make it more complete and consistent. Common slide actions will be available directly where users are working and organized in a more predictable order, helping users find frequent tasks faster. This update introduces several changes: Due to low usage, the Zoom... command will be removed from the conte…",
+   "bodyHash": "4963b77faf42357c"
+  },
+  {
+   "id": "MC1492165",
+   "title": "Microsoft PowerPoint for Windows: Improved slide contextual menu consistency",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-11-20",
+   "modified": "2026-10-08",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the contextual menu for slides in Microsoft PowerPoint for Windows to make it more complete and consistent. Common slide actions will be available directly where users are working and organized in a more predictable order, helping users find frequent tasks faster. As part of this update, due to low usage, the Photo Album... command will be removed from the contextual…",
+   "bodyHash": "5680c7e828993241"
+  },
+  {
+   "id": "MC1492166",
+   "title": "Microsoft Outlook: New event duplication capability",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-08",
+   "end": "2026-12-04",
+   "modified": "2026-10-08",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are adding the ability to duplicate an event in Microsoft Outlook. From the event details, users can select Duplicate event to quickly create a new event based on an existing event without re-entering the same details. [Rollout schedule] General Availability (Worldwide, GCC, GCC High): Rollout began in late September 2026 and is expected to complete by late October 2026. [Impact …",
+   "bodyHash": "32012c60dfc362e1"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -16562,6 +16765,88 @@
    "id": "MC1491763",
    "type": "new",
    "title": "Prepare for Windows Update certificate rotation in 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1462915",
+   "type": "changed",
+   "title": "(Updated) Allow connections to copilot.cloud.microsoft before the Copilot URL redirect",
+   "fields": {
+    "bodyHash": [
+     "0354210ca7a8357b",
+     "cc5ccb4e293c4f41"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1491832",
+   "type": "new",
+   "title": "Take action to prevent RD Web Access rendering failures",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492155",
+   "type": "new",
+   "title": "Microsoft PowerPoint for Mac: Smarter Keep Source Formatting slide pasting experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492156",
+   "type": "new",
+   "title": "Microsoft PowerPoint for Windows: Smarter Keep Source Formatting slide pasting experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492159",
+   "type": "new",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492160",
+   "type": "new",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for web",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492161",
+   "type": "new",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for desktop",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492163",
+   "type": "new",
+   "title": "Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492164",
+   "type": "new",
+   "title": "Microsoft PowerPoint for Mac: Improved slide contextual menu consistency",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492165",
+   "type": "new",
+   "title": "Microsoft PowerPoint for Windows: Improved slide contextual menu consistency",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492166",
+   "type": "new",
+   "title": "Microsoft Outlook: New event duplication capability",
    "fields": {}
   }
  ]
