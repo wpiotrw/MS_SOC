@@ -25,7 +25,7 @@
 "MC1492163|beginning in early and expected to complete by late impact o#0":{
 "date":"2026-10-05",
 "label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027 [Impact on your organization] Who is affected Organizations using Zendesk OAuth co"
+"text":"Beginning in early October 2026 and expected to complete by late January 2027"
 },
 "MC1492163|posted":{
 "date":"2026-10-08",
@@ -35,7 +35,7 @@
 "MC1492163|beginning in early and expected to complete by late impact o#1":{
 "date":"2027-01-25",
 "label":"late Jan 2027",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027 [Impact on your organization] Who is affected Organizations using Zendesk OAuth co"
+"text":"Beginning in early October 2026 and expected to complete by late January 2027"
 }
 },
 "moves":[],
@@ -427,11 +427,13 @@
 "c-mc1488834":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Replace MemberOf rule operator configurations by November 3, 2026",
+"name":"MemberOf rule operator retires",
 "status":"Active",
 "members":[
+"MC1448379",
 "item:MC1448379",
 "MC1488834",
+"MC1488839",
 "item:MC1488834",
 "item:MC1488839"
 ],
@@ -456,10 +458,20 @@
 }
 ],
 "milestones":{
+"MC1448379|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: MemberOf rule operator retires"
+},
 "MC1488834|posted":{
 "date":"2026-10-05",
 "label":"5 Oct 2026",
 "text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+},
+"MC1488839|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
 },
 "MC1488834|deadline":{
 "date":"2026-11-03",
@@ -507,7 +519,9 @@
 "type":"Retirement",
 "tech":"Entra",
 "posts":[
-"MC1488834"
+"MC1448379",
+"MC1488834",
+"MC1488839"
 ]
 },
 "c-mc676299":{
@@ -517,10 +531,12 @@
 "status":"Active",
 "members":[
 "MC676299",
+"MC1191578",
 "MC1227454",
 "MC1446796",
 "item:MC1446796",
 "MC1447678",
+"MC1469960",
 "item:MC1469960",
 "item:exchange-crosstenant-freebusy-to-cta",
 "item:exchange-ews-hybrid-coexistence-2026-09-30",
@@ -528,9 +544,19 @@
 "item:MC1485116",
 "MC1486282",
 "MC1486288",
-"item:MC1486288"
+"item:MC1486288",
+"item:573701"
 ],
 "log":[
+{
+"date":"2026-10-07",
+"id":"573701",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
+"title":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
+"link":"https://deltapulse.app/item/573701"
+},
 {
 "date":"2026-10-06",
 "id":"MC1446796",
@@ -649,6 +675,24 @@
 "link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
 },
 {
+"date":"2026-09-28",
+"id":"MC1191578",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+},
+{
+"date":"2026-09-18",
+"id":"MC1469960",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"EWS starts requiring a configured EWSAllowedAppIDs list, and Microsoft will generate one from 60 days of observed usage where none exists",
+"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+},
+{
 "date":"2026-08-24",
 "id":"MC1447678",
 "what":"Microsoft's update note",
@@ -656,6 +700,15 @@
 "after":"We have updated the content.",
 "title":"EWS retirement and EWSAllowedAppIDs enforcement",
 "link":"https://mc.merill.net/message/MC1447678"
+},
+{
+"date":"2026-06-10",
+"id":"MC1191578",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
 },
 {
 "date":"2025-04-18",
@@ -672,6 +725,11 @@
 "date":"2023-09-21",
 "label":"21 Sep 2023",
 "text":"Posted: Retirement of Exchange Web Services in Exchange Online"
+},
+"MC1191578|posted":{
+"date":"2025-12-02",
+"label":"2 Dec 2025",
+"text":"Posted: Update to EWS Access for Kiosk / Frontline Worker Licenses"
 },
 "MC1227454|posted":{
 "date":"2026-02-05",
@@ -697,6 +755,11 @@
 "date":"2026-08-31",
 "label":"end of Aug 2026",
 "text":"Configure an AppID AllowList and set EWSEnabled=True before end of August 2026."
+},
+"MC1469960|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes"
 },
 "MC1446796|we will begin rolling out in and expect to complete by for f#0":{
 "date":"2026-09-15",
@@ -738,10 +801,10 @@
 "label":"3 Oct 2026",
 "text":"Who is affected Exchange Online administrators Organizations that continue to use applications or services that depend on EWS Tenants with EWSEnabled=True Platf"
 },
-"MC1485116|beginning in early and expected to complete by early key mil#0":{
+"MC1469960|beginning in early and expected to complete by late the upda#0":{
 "date":"2026-10-05",
 "label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by early July 2027 Key milestones for Worldwide tenants with EWSEnabled=True and no configured EWSAllow"
+"text":"Beginning in early October 2026 and expected to complete by late April 2027 The updated behavior will apply when the rollout reaches your cloud."
 },
 "MC1469960|deadline":{
 "date":"2026-10-10",
@@ -758,10 +821,10 @@
 "label":"1 Apr 2027",
 "text":"October 1, 2026 Full and permanent EWS retirement: April 1, 2027 EWS App AllowList feature availability: Coming soon (before retirement milestones)"
 },
-"MC1486288|microsoft writes that devices lose calendar functionality st#1":{
+"MC1469960|beginning in early and expected to complete by late the upda#1":{
 "date":"2027-04-25",
 "label":"late Apr 2027",
-"text":"Microsoft writes that devices “may lose calendar functionality starting October 2026” and that rollout runs from early October 2026 to late April 2027"
+"text":"Beginning in early October 2026 and expected to complete by late April 2027 The updated behavior will apply when the rollout reaches your cloud."
 },
 "MC1485116|beginning in early and expected to complete by early key mil#1":{
 "date":"2027-07-05",
@@ -909,6 +972,35 @@
 "date":"2026-08-24",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578",
+"source":"Message Center",
+"id":"MC1191578",
+"date":"2025-12-02",
+"updated":"2026-06-10",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469960":{
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960",
+"source":"Message Center",
+"id":"MC1469960",
+"date":"2026-09-09",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://deltapulse.app/item/573701",
+"source":"Main list source",
+"id":"573701",
+"date":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2027-07-05",
@@ -916,11 +1008,11 @@
 "tech":"Exchange",
 "posts":[
 "MC676299",
+"MC1191578",
 "MC1227454",
 "MC1446796",
 "MC1447678",
-"MC1485116",
-"MC1486282"
+"MC1469960"
 ]
 },
 "c-mc1243549":{
@@ -1180,9 +1272,12 @@
 "c-mc1481315":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"name":"DSPM-Copilot Readiness and Data Explorer",
 "status":"Active",
 "members":[
+"571157",
+"RM571157",
+"item:571157",
 "MC1481315",
 "item:MC1481315"
 ],
@@ -1195,9 +1290,23 @@
 "after":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
 "title":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
 "link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-09-28",
+"id":"571157",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157"
 }
 ],
 "milestones":{
+"571157|posted":{
+"date":"2026-09-15",
+"label":"15 Sep 2026",
+"text":"Posted: Microsoft Purview: DSPM-Copilot Readiness and Data Explorer"
+},
 "MC1481315|posted":{
 "date":"2026-09-28",
 "label":"28 Sep 2026",
@@ -1234,12 +1343,33 @@
 "date":"2026-09-28",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://deltapulse.app/item/571157":{
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157",
+"source":"Message Center",
+"id":"571157",
+"date":"2026-09-15",
+"updated":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/RM571157":{
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://mc.merill.net/message/RM571157",
+"source":"Roadmap",
+"id":"RM571157",
+"date":"2026-09-15",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-12-31",
 "type":"Retirement",
 "tech":"Purview",
 "posts":[
+"571157",
 "MC1481315"
 ]
 },
@@ -1272,7 +1402,7 @@
 "MC1478463|beginning in late and expected to complete by late impact on#0":{
 "date":"2026-10-25",
 "label":"late Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by late October 2026 [Impact on your organization] Who is affected Organizations licensed for Microsoft "
+"text":"Beginning in late October 2026 and expected to complete by late October 2026"
 }
 },
 "moves":[],
@@ -1510,11 +1640,6 @@
 "label":"15 Sep 2026",
 "text":"Posted: Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
 },
-"office-2021-retirement|posted":{
-"date":"2026-09-15",
-"label":"15 Sep 2026",
-"text":"Posted: Office 2021 desktop apps and LTSC 2021 reach end of support"
-},
 "MC1278920|as previously communicated support for office ltsc will end #0":{
 "date":"2026-10-13",
 "label":"13 Oct 2026",
@@ -1568,30 +1693,36 @@
 "tech":"Microsoft 365 apps",
 "posts":[
 "MC1278920",
-"MC1472429",
-"office-2021-retirement"
+"MC1472429"
 ]
 },
 "c-windows-11-24h2-end-of-servicing":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Windows 11 Home and Pro 24H2 end of servicing",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
 "status":"Active",
 "members":[
+"MC1471964",
+"item:MC1471964",
 "item:windows-11-24h2-end-of-servicing",
 "windows-11-24h2-end-of-servicing"
 ],
 "log":[],
 "milestones":{
-"windows-11-24h2-end-of-servicing|posted":{
+"MC1471964|posted":{
 "date":"2026-09-14",
 "label":"14 Sep 2026",
-"text":"Posted: Windows 11 Home and Pro 24H2 end of servicing"
+"text":"Posted: Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
 },
-"windows-11-24h2-end-of-servicing|deadline":{
+"MC1471964|on windows version h home and pro editions and windows enter#0":{
 "date":"2026-10-13",
 "label":"13 Oct 2026",
-"text":"Windows 11 Home and Pro 24H2 end of servicing"
+"text":"On October 13, 2026, Windows 11, version 24H2 Home and Pro editions , and Windows 10 Enterprise LTSB 2016 will reach end of updates."
+},
+"MC1471964|enterprise and education editions remain supported until#0":{
+"date":"2027-10-12",
+"label":"12 Oct 2027",
+"text":"Enterprise and Education editions remain supported until October 12, 2027."
 }
 },
 "moves":[],
@@ -1605,13 +1736,22 @@
 "updated":"2026-09-14",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1471964":{
+"title":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"link":"https://deltapulse.app/item/MC1471964",
+"source":"Main list source",
+"id":"MC1471964",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
-"final":"2026-10-13",
+"final":"2027-10-12",
 "type":"Support end",
 "tech":"Windows",
 "posts":[
-"windows-11-24h2-end-of-servicing"
+"MC1471964"
 ]
 },
 "c-mc1442510":{
@@ -1622,7 +1762,6 @@
 "members":[
 "MC1442510",
 "MC1456735",
-"MC1456735 · MC1471963",
 "item:MC1456735",
 "MC1471963",
 "item:MC1471963"
@@ -1650,11 +1789,6 @@
 "text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
 },
 "MC1456735|posted":{
-"date":"2026-08-17",
-"label":"17 Aug 2026",
-"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
-},
-"MC1456735 · MC1471963|posted":{
 "date":"2026-08-17",
 "label":"17 Aug 2026",
 "text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
@@ -1853,12 +1987,12 @@
 "MC1470871|beginning in mid and expected to complete by late impact on #0":{
 "date":"2026-09-15",
 "label":"mid Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026 [Impact on your organization] Who is affected Organizations are affected if thei"
+"text":"Beginning in mid-September 2026 and expected to complete by late September 2026"
 },
 "MC1470871|beginning in mid and expected to complete by late impact on #1":{
 "date":"2026-09-25",
 "label":"late Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026 [Impact on your organization] Who is affected Organizations are affected if thei"
+"text":"Beginning in mid-September 2026 and expected to complete by late September 2026"
 }
 },
 "moves":[],
@@ -1914,7 +2048,7 @@
 "MC1469565|beginning in late and expected to complete by early importan#2":{
 "date":"2026-10-15",
 "label":"Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026 Important: Exchange Web Services (EWS) in Exchange Online will begin to be disabl"
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to"
 },
 "MC1469565|beginning in late and expected to complete by early importan#0":{
 "date":"2026-10-25",
@@ -2224,12 +2358,12 @@
 "MC1462464|beginning in late enforcement date impact on your organizati#0":{
 "date":"2026-09-25",
 "label":"late Sep 2026",
-"text":"September 26, 2026 [Impact on your organization] Who is affected Organizations that use App Governance in Microsoft Defender for Cloud Apps and have administrat"
+"text":"Beginning in late September 2026 Enforcement date: September 26, 2026"
 },
 "MC1462464|beginning in late enforcement date impact on your organizati#1":{
 "date":"2026-09-26",
 "label":"26 Sep 2026",
-"text":"September 26, 2026 [Impact on your organization] Who is affected Organizations that use App Governance in Microsoft Defender for Cloud Apps and have administrat"
+"text":"Beginning in late September 2026 Enforcement date: September 26, 2026"
 }
 },
 "moves":[],
@@ -2285,7 +2419,7 @@
 "MC1459132|beginning in late and expected to complete in late impact on#0":{
 "date":"2026-09-25",
 "label":"late Sep 2026",
-"text":"Beginning in late September 2026 and expected to complete in late September 2026 [Impact on your organization] Who is affected Organizations that have configure"
+"text":"Beginning in late September 2026 and expected to complete in late September 2026"
 }
 },
 "moves":[],
@@ -2545,12 +2679,12 @@
 "MC1452374|beginning in early and expected to complete in impact on you#0":{
 "date":"2026-09-05",
 "label":"early Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete in February 2027 [Impact on your organization] Who is affected Exchange Online administrators who use"
+"text":"Beginning in early September 2026 and expected to complete in February 2027"
 },
 "MC1452374|beginning in early and expected to complete in impact on you#1":{
 "date":"2027-02-15",
 "label":"Feb 2027",
-"text":"Beginning in early September 2026 and expected to complete in February 2027 [Impact on your organization] Who is affected Exchange Online administrators who use"
+"text":"Beginning in early September 2026 and expected to complete in February 2027"
 }
 },
 "moves":[],
@@ -2761,9 +2895,11 @@
 "c-mc1388721":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
+"name":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
 "status":"No date",
 "members":[
+"MC1254512",
+"MC1279830",
 "MC1388721",
 "MC1427604"
 ],
@@ -2785,9 +2921,46 @@
 "after":"30-Day Reminder: Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
 "title":"Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
 "link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1388721"
+},
+{
+"date":"2026-09-28",
+"id":"MC1279830",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1279830"
+},
+{
+"date":"2026-09-28",
+"id":"MC1254512",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512"
+},
+{
+"date":"2026-03-20",
+"id":"MC1254512",
+"what":"Microsoft's update note",
+"before":"",
+"after":"Added additional guidance for devices using Azure Files SMB with Active Directory–based authentication and Azure Virtual Desktop.",
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512"
 }
 ],
 "milestones":{
+"MC1254512|posted":{
+"date":"2026-03-20",
+"label":"20 Mar 2026",
+"text":"Posted: Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update"
+},
+"MC1279830|posted":{
+"date":"2026-04-14",
+"label":"14 Apr 2026",
+"text":"Posted: Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update"
+},
 "MC1388721|posted":{
 "date":"2026-06-12",
 "label":"12 Jun 2026",
@@ -2828,12 +3001,34 @@
 "date":"2026-03-27",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512":{
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512",
+"source":"Message Center",
+"id":"MC1254512",
+"date":"2026-03-20",
+"updated":"2026-03-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1279830":{
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1279830",
+"source":"Message Center",
+"id":"MC1279830",
+"date":"2026-04-14",
+"updated":"2026-04-14",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":null,
 "type":"Enforcement",
 "tech":"Windows",
 "posts":[
+"MC1254512",
+"MC1279830",
 "MC1388721",
 "MC1427604"
 ]
@@ -3243,10 +3438,10 @@
 "label":"15 Feb 2024",
 "text":"Posted: Microsoft Publisher will no longer be supported after October 2026"
 },
-"MC716267|how this will affect your organization you can continue to u#0":{
+"MC716267|#0":{
 "date":"2026-10-13",
 "label":"13 Oct 2026",
-"text":"October 13, 2026 [How this will affect your organization:] You can continue to use Publisher with its current functionality until October 2026."
+"text":"October 13, 2026"
 },
 "MC716267|in microsoft publisher will reach its end of life#0":{
 "date":"2026-10-15",
@@ -3654,9 +3849,11 @@
 "c-item-mc1325414":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and…",
+"name":"SSPR requires registered authentication methods",
 "status":"Active",
 "members":[
+"MC1325414",
+"MC1325414-enforcement",
 "item:MC1325414",
 "item:MC1325414-enforcement"
 ],
@@ -3678,18 +3875,70 @@
 "after":"2026-11-06",
 "title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
 "link":"https://deltapulse.app/item/MC1325414"
+},
+{
+"date":"2026-08-04",
+"id":"MC1325414",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
+"link":"https://deltapulse.app/item/MC1325414"
+},
+{
+"date":"2026-05-28",
+"id":"MC1325414",
+"what":"Microsoft moved the date",
+"before":"early Sep 2026",
+"after":"early Nov 2026",
+"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
+"link":"https://deltapulse.app/item/MC1325414"
+},
+{
+"date":"2026-05-28",
+"id":"MC1325414",
+"what":"Microsoft moved the date",
+"before":"mid Sep 2026",
+"after":"mid Nov 2026",
+"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
+"link":"https://deltapulse.app/item/MC1325414"
 }
 ],
 "milestones":{
-"MC1325414|deadline":{
+"MC1325414|posted":{
+"date":"2026-05-28",
+"label":"28 May 2026",
+"text":"Posted: SSPR requires registered authentication methods"
+},
+"MC1325414|sspr registration campaign begins prompting users and admini#0":{
 "date":"2026-10-05",
 "label":"5 Oct 2026",
-"text":"5 October 2026 is the start of the registration campaign, not the enforcement date; enforcement is tracked as its own row, MC1325414-enforcement, on 7 November "
+"text":"October 5, 2026: SSPR registration campaign begins prompting users and administrators to register authentication methods if SSPR setting requires registration a"
+},
+"MC1325414|early previously early through mid previously mid impact on #0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)"
+},
+"MC1325414|actionBy":{
+"date":"2026-11-06",
+"label":"6 Nov 2026",
+"text":"Act by this date (Message Center)"
 },
 "MC1325414-enforcement|deadline":{
 "date":"2026-11-07",
 "label":"7 Nov 2026",
 "text":"SSPR registered-methods enforcement begins"
+},
+"MC1325414|action is required before#0":{
+"date":"2026-11-09",
+"label":"9 Nov 2026",
+"text":"Action is required before November 9, 2026."
+},
+"MC1325414|early previously early through mid previously mid impact on #1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)"
 }
 },
 "moves":[],
@@ -3713,10 +3962,12 @@
 "found":"2026-10-09"
 }
 },
-"final":"2026-11-07",
+"final":"2026-11-15",
 "type":"Enforcement",
 "tech":"Entra",
-"posts":[]
+"posts":[
+"MC1325414"
+]
 },
 "c-item-mdc-va-solution-recommendation-deprecation":{
 "firstSeen":"2026-10-09",
@@ -3970,13 +4221,19 @@
 "c-item-mc1472007":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Admins get a control over who can upload advanced agents and plugins; uploads stay open by default from 25 Oct",
+"name":"Manage who can upload advanced agents and plugins",
 "status":"Active",
 "members":[
+"MC1472007",
 "item:MC1472007"
 ],
 "log":[],
 "milestones":{
+"MC1472007|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: Manage who can upload advanced agents and plugins"
+},
 "MC1472007|is when advanced package uploads become enabled by default u#0":{
 "date":"2026-10-25",
 "label":"25 Oct 2026",
@@ -3993,60 +4250,24 @@
 "date":"2026-09-14",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1472007":{
+"title":"Manage who can upload advanced agents and plugins",
+"link":"https://mc.merill.net/message/MC1472007",
+"source":"Message Center",
+"id":"MC1472007",
+"date":"2026-09-14",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-10-25",
 "type":"Rollout",
 "tech":"Copilot",
-"posts":[]
-},
-"c-item-mc1477005":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
-"name":"The September 2026 Windows non-security preview update is now available",
-"status":"Active",
-"members":[
-"item:MC1477005"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"MC1477005",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"(Updated) The September 2026 Windows non-security preview update is now available",
-"title":"(Updated) The September 2026 Windows non-security preview update is now available",
-"link":"https://deltapulse.app/item/MC1477005"
-}
-],
-"milestones":{
-"MC1477005|windows version h home and pro editions reach end of support#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
-},
-"MC1477005|deadline":{
-"date":"2026-10-31",
-"label":"31 Oct 2026",
-"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1477005":{
-"title":"The September 2026 Windows non-security preview update is now available",
-"link":"https://deltapulse.app/item/MC1477005",
-"source":"Main list source",
-"id":"MC1477005",
-"date":"2026-09-22",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-10-31",
-"type":"Support end",
-"tech":"Windows",
-"posts":[]
+"posts":[
+"MC1472007"
+]
 },
 "c-item-azure-blueprints-retirement":{
 "firstSeen":"2026-10-09",
@@ -4160,17 +4381,28 @@
 "c-item-mc1474111":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Microsoft 365 companion apps stop working on 16 December 2026 and stop getting security fixes now",
+"name":"Retirement of Microsoft 365 Companion apps",
 "status":"Active",
 "members":[
+"MC1474111",
 "item:MC1474111"
 ],
 "log":[],
 "milestones":{
-"MC1474111|microsoft states the companion apps reach end of life on#0":{
+"MC1474111|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: Retirement of Microsoft 365 Companion apps"
+},
+"MC1474111|#0":{
+"date":"2026-12-15",
+"label":"Dec 2026",
+"text":"December 2026."
+},
+"MC1474111|microsoft companion apps will reach end of life on#0":{
 "date":"2026-12-16",
 "label":"16 Dec 2026",
-"text":"Microsoft states the companion apps reach end of life on 16 December 2026."
+"text":"Microsoft 365 companion apps will reach end of life on December 16, 2026."
 }
 },
 "moves":[],
@@ -4183,19 +4415,32 @@
 "date":"2026-09-18",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1474111":{
+"title":"Retirement of Microsoft 365 Companion apps",
+"link":"https://mc.merill.net/message/MC1474111",
+"source":"Message Center",
+"id":"MC1474111",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-12-16",
 "type":"Retirement",
-"tech":"Microsoft 365 apps",
-"posts":[]
+"tech":"Microsoft 365",
+"posts":[
+"MC1474111"
+]
 },
 "c-item-mc1387814":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"RTMP-In requires two new ports and a new domain on the egress allow-list",
+"name":"RTMP-In port and domain changes required",
 "status":"Active",
 "members":[
+"MC1387814",
 "item:MC1387814"
 ],
 "log":[
@@ -4207,13 +4452,37 @@
 "after":"2026-09-01",
 "title":"RTMP-In requires two new ports and a new domain on the egress allow-list",
 "link":"https://mc.merill.net/message/MC1387814"
+},
+{
+"date":"2026-09-04",
+"id":"MC1387814",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content; the release of this required change is still paused at this time.",
+"title":"RTMP-In requires two new ports and a new domain on the egress allow-list",
+"link":"https://mc.merill.net/message/MC1387814"
 }
 ],
 "milestones":{
-"MC1387814|deadline":{
+"MC1387814|posted":{
+"date":"2026-06-11",
+"label":"11 Jun 2026",
+"text":"Posted: Microsoft Teams: RTMP-In port and domain changes required"
+},
+"MC1387814|actionBy":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1387814|without these updates organizers be unable to create or stre#0":{
+"date":"2026-12-31",
+"label":"31 Dec 2026",
+"text":"Without these updates, organizers may be unable to create or stream RTMP-In events, and newly created events may fail after December 31, 2026 ."
+},
+"MC1387814|ports and rtmp rtmps domain rtmpingest mcr teams cloud micro#0":{
 "date":"2027-01-31",
 "label":"31 Jan 2027",
-"text":"RTMP-In requires two new ports and a new domain on the egress allow-list"
+"text":"*.rtmpingest.mcr.teams.cloud.microsoft [Action Required/Recommendations] Action required by January 31, 2027."
 }
 },
 "moves":[],
@@ -4231,14 +4500,17 @@
 "final":"2027-01-31",
 "type":"Enforcement",
 "tech":"Teams",
-"posts":[]
+"posts":[
+"MC1387814"
+]
 },
 "c-item-mc1481325":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
+"name":"Retirement of SharePoint Page Agent (Frontier)",
 "status":"Active",
 "members":[
+"MC1481325",
 "item:MC1481325"
 ],
 "log":[
@@ -4253,15 +4525,20 @@
 }
 ],
 "milestones":{
-"MC1481325|microsoft states retirement begins mid and completes mid wit#0":{
+"MC1481325|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)"
+},
+"MC1481325|microsoft will retire the sharepoint page agent frontier for#0":{
 "date":"2026-10-15",
 "label":"mid Oct 2026",
-"text":"Microsoft states retirement begins mid-October 2026 and completes mid-November 2026, with no action date."
+"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
 },
-"MC1481325|microsoft states retirement begins mid and completes mid wit#1":{
+"MC1481325|microsoft will retire the sharepoint page agent frontier for#1":{
 "date":"2026-11-15",
 "label":"mid Nov 2026",
-"text":"Microsoft states retirement begins mid-October 2026 and completes mid-November 2026, with no action date."
+"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
 }
 },
 "moves":[],
@@ -4274,12 +4551,24 @@
 "date":"2026-09-29",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1481325":{
+"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+"link":"https://mc.merill.net/message/MC1481325",
+"source":"Message Center",
+"id":"MC1481325",
+"date":"2026-09-29",
+"updated":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-11-15",
 "type":"Retirement",
 "tech":"SharePoint",
-"posts":[]
+"posts":[
+"MC1481325"
+]
 },
 "c-item-mdi-auto-sensor-v3-windows-auditing-default":{
 "firstSeen":"2026-10-09",
@@ -4321,9 +4610,10 @@
 "c-item-mc1483974":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Exchange Online PowerShell enforces stricter sign-in from 31 March 2027; ExchangeOnlineManagement below…",
+"name":"Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
 "status":"Active",
 "members":[
+"MC1483974",
 "item:MC1483974"
 ],
 "log":[
@@ -4338,20 +4628,30 @@
 }
 ],
 "milestones":{
+"MC1483974|posted":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Posted: Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later"
+},
+"MC1483974|the rollout is scheduled to begin in late and be completed b#0":{
+"date":"2027-03-25",
+"label":"late Mar 2027",
+"text":"The rollout is scheduled to begin in late March 2027 and be completed by late April 2027."
+},
 "MC1483974|microsoft states enforcement of strict logon requirements be#2":{
 "date":"2027-03-26",
 "label":"26 Mar 2027",
 "text":"The post's actionRequiredBy is 26 March 2027."
 },
-"MC1483974|microsoft states enforcement of strict logon requirements be#1":{
+"MC1483974|enforcement of strict logon requirements is scheduled to beg#0":{
 "date":"2027-03-31",
 "label":"31 Mar 2027",
-"text":"Microsoft states enforcement of strict logon requirements begins 31 March 2027 (rollout late March to late April 2027)"
+"text":"Enforcement of strict logon requirements is scheduled to begin on March 31, 2027."
 },
-"MC1483974|microsoft states enforcement of strict logon requirements be#0":{
+"MC1483974|the rollout is scheduled to begin in late and be completed b#1":{
 "date":"2027-04-25",
 "label":"late Apr 2027",
-"text":"Microsoft states enforcement of strict logon requirements begins 31 March 2027 (rollout late March to late April 2027)"
+"text":"The rollout is scheduled to begin in late March 2027 and be completed by late April 2027."
 }
 },
 "moves":[],
@@ -4393,14 +4693,17 @@
 "final":"2027-04-25",
 "type":"Enforcement",
 "tech":"Exchange",
-"posts":[]
+"posts":[
+"MC1483974"
+]
 },
 "c-item-mc1488841":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early…",
+"name":"Update to default blocked file types in OwaMailboxPolicy",
 "status":"Active",
 "members":[
+"MC1488841",
 "item:MC1488841"
 ],
 "log":[
@@ -4415,15 +4718,25 @@
 }
 ],
 "milestones":{
+"MC1488841|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy"
+},
 "MC1488841|deadline":{
 "date":"2026-11-01",
 "label":"1 Nov 2026",
 "text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
 },
-"MC1488841|microsoft states early and no day is this brief s marker for#0":{
+"MC1488841|general availability worldwide gcc gcc high dod rollout begi#0":{
 "date":"2026-11-05",
 "label":"early Nov 2026",
-"text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
+"text":"Rollout begins in early November 2026 and is expected to complete by mid-November 2026."
+},
+"MC1488841|outlook on the web and new outlook for windows will block ms#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Outlook on the web and new Outlook for Windows will block .msix and .msixbundle file types by default in OwaMailboxPolicy starting November 2026 to enhance secu"
 }
 },
 "moves":[],
@@ -4436,12 +4749,24 @@
 "date":"2026-10-05",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1488841":{
+"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+"link":"https://mc.merill.net/message/MC1488841",
+"source":"Message Center",
+"id":"MC1488841",
+"date":"2026-10-05",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
-"final":"2026-11-05",
+"final":"2026-11-15",
 "type":"Rollout",
 "tech":"Exchange",
-"posts":[]
+"posts":[
+"MC1488841"
+]
 },
 "c-item-mdc-kspm-controller-level-scope-2026-10-05":{
 "firstSeen":"2026-10-09",
@@ -4640,11 +4965,6 @@
 "date":"2026-07-13",
 "label":"13 Jul 2026",
 "text":"Posted: Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication"
-},
-"entra-sms-voice-full-retirement|posted":{
-"date":"2026-07-13",
-"label":"13 Jul 2026",
-"text":"Posted: Microsoft-provided SMS and voice MFA fully retire"
 },
 "MC1465763|posted":{
 "date":"2026-09-01",
@@ -4897,7 +5217,6 @@
 "tech":"Entra",
 "posts":[
 "MC1426371",
-"entra-sms-voice-full-retirement",
 "MC1465763",
 "MC1474104"
 ]
@@ -5242,7 +5561,7 @@
 "MC1469555|beginning in early and expected to complete by mid impact on#0":{
 "date":"2026-09-05",
 "label":"early Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete by mid-September 2026 [Impact on your organization] Who is affected Administrators who manage Microso"
+"text":"Beginning in early September 2026 and expected to complete by mid-September 2026"
 },
 "MC1469555|posted":{
 "date":"2026-09-09",
@@ -5254,10 +5573,10 @@
 "label":"14 Sep 2026",
 "text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
 },
-"MC1423108|mid previously impact on your organization who is affected u#0":{
+"MC1469555|beginning in early and expected to complete by mid impact on#1":{
 "date":"2026-09-15",
 "label":"mid Sep 2026",
-"text":"Mid-September 2026 (previously August) [Impact on Your Organization] Who is affected Users with iOS devices who use Microsoft Authenticator with passkeys Users "
+"text":"Beginning in early September 2026 and expected to complete by mid-September 2026"
 },
 "MC1437671|microsoft gives mid for the start of rollout not a calendar #0":{
 "date":"2026-10-15",
@@ -5729,9 +6048,11 @@
 "c-mc1478819":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-09",
-"name":"Windows Deployment Services (WDS) deprecation in the next Windows Server release",
+"name":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
 "status":"Archive",
 "members":[
+"MC1250927",
+"MC1276259",
 "MC1478819",
 "item:MC1478819"
 ],
@@ -5744,9 +6065,37 @@
 "after":"WDS server role is deprecated in the next Windows Server release; hands-free PXE already off since April",
 "title":"WDS server role is deprecated in the next Windows Server release; hands-free PXE already off since April",
 "link":"https://deltapulse.app/item/MC1478819"
+},
+{
+"date":"2026-09-28",
+"id":"MC1276259",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"title":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1276259"
+},
+{
+"date":"2026-09-28",
+"id":"MC1250927",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"title":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1250927"
 }
 ],
 "milestones":{
+"MC1250927|posted":{
+"date":"2026-03-13",
+"label":"13 Mar 2026",
+"text":"Posted: Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)"
+},
+"MC1276259|posted":{
+"date":"2026-04-10",
+"label":"10 Apr 2026",
+"text":"Posted: Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)"
+},
 "MC1478819|wds hands free deployment scenarios were disabled by default#0":{
 "date":"2026-04-14",
 "label":"14 Apr 2026",
@@ -5778,15 +6127,85 @@
 "date":"2026-09-24",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1250927":{
+"title":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1250927",
+"source":"Message Center",
+"id":"MC1250927",
+"date":"2026-03-13",
+"updated":"2026-03-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1276259":{
+"title":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1276259",
+"source":"Message Center",
+"id":"MC1276259",
+"date":"2026-04-10",
+"updated":"2026-04-10",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-04-14",
 "type":"Retirement",
 "tech":"Windows",
 "posts":[
+"MC1250927",
+"MC1276259",
 "MC1478819"
 ],
 "archivedOn":"2026-10-09"
+},
+"c-item-mc1477005":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"The September 2026 Windows non-security preview update is now available",
+"status":"Archive",
+"members":[
+"item:MC1477005"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"MC1477005",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"(Updated) The September 2026 Windows non-security preview update is now available",
+"title":"(Updated) The September 2026 Windows non-security preview update is now available",
+"link":"https://deltapulse.app/item/MC1477005"
+}
+],
+"milestones":{
+"MC1477005|windows version h home and pro editions reach end of support#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
+},
+"MC1477005|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1477005":{
+"title":"The September 2026 Windows non-security preview update is now available",
+"link":"https://deltapulse.app/item/MC1477005",
+"source":"Main list source",
+"id":"MC1477005",
+"date":"2026-09-22",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-10-31",
+"type":"Support end",
+"tech":"Windows",
+"posts":[]
 }
 }
 }

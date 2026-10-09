@@ -26553,6 +26553,22 @@ Post · Posted / updated · Change · [Before] · What Microsoft says · Why it 
 `rows[].published`, `updated`, `next`). Dziennik zmian zapisuje tez „Microsoft moved the date" z „(previously X)"
 w poscie; zdania-szablony („We will update this post…", `BOILER`) nie sa kamieniami ani wierszami.
 
+**§5cu-g (9 X 2026, wlasciciel: „wszystkie wykryte jak i przyszle kampanie powinny podlegac dokladnie tym samym
+zasadom" co passkeys).** Po grupowaniu KAZDA kampania (automatyczna i zdefiniowana) zbiera swoje posty tymi samymi
+regulami, bez wpisu w `campaigns.json`: (1) numer — post lub pozycja, ktorej numer MC, `itemIds`, `reference` albo
+wzmianka w tekscie (najwyzej 4 numery; strona zbiorcza nie jest postem kampanii) wskazuje czlonka kampanii;
+(2) kotwica — skrot lub nazwa w zapisie CamelCase (EWS, DKM, MemberOf, EWSAllowedAppIDs; bez nazw produktow:
+`GENERIC_CAMEL`) wlasna tylko dla jednej kampanii, gdy kampania wycofuje te rzecz albo post dzieli z nia rzadkie slowo
+(liczone po zamianie dlugiej nazwy na skrot — „reset" z „self-service password reset" nie laczy); (3) post w dwoch
+kampaniach dzieli zdania wedlug slow kluczowych wyliczanych z kotwic i rzadkich slow kampanii (kampania
+zdefiniowana — slowa wlasciciela). Wiersz listy MC pod nazwa historii z linkiem do posta (`entra-sms-voice-full-retirement`)
+i krok posta (`MC1325414-enforcement`) to ten sam post; Roadmap `RM571157` = `571157`; post, ktorego indeksy juz
+nie maja, a pozycja briefu nosi jego numer, dostaje link `mc.merill.net`. Post bez tagu uslugi bierze technologie
+z pozycji briefu, ktore wymienia (MC1448379). Zdarzenia: post dolaczony dzis do kampanii nie jest „nowym kamieniem",
+jesli sam nie jest swiezy; material z dniem starszym niz `newCampaignDays` nie jest zdarzeniem. Tekst kamienia konczy
+sie przed kolejna sekcja posta („[Impact on Your Organization]"). Kampanie pokrewne laczy tez jedno slowo-nazwa
+wspolne dla najwyzej trzech kampanii (PowerShell: `-Credential` i ExchangeOnlineManagement 3.10.1).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
