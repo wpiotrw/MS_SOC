@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-enrollment/apple/setup-automated-vision-os",
+  "cursor": "https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/fundamentals/public-preview",
   "pages": {
     "https://learn.microsoft.com/en-us/intune/advanced-analytics": {"etag":"\"yWb7xI4yIG23S7DdTvCmx+O4Gf0=\"","gitCommitId":"d6622b325e51db6c120ce312514a20d1a2bd7ac5","path":"intune/advanced-analytics/index.md","redirectedTo":"https://learn.microsoft.com/en-us/intune/advanced-analytics/","sourcePath":"intune/advanced-analytics/index.md","updatedAt":"2026-06-17T17:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/intune/advanced-analytics/device-query-multiple-devices": {"etag":"\"kfriVUgWKG5YvB2enhMFL0TJDo0=\"","gitCommitId":"fa795e95aa78d7b51b928d272b91f3bc788a0aba","path":"intune/advanced-analytics/device-query-multiple-devices.md","sourcePath":"intune/advanced-analytics/device-query-multiple-devices.md","updatedAt":"2026-09-02T17:33:00.0000000Z"},

@@ -58,6 +58,12 @@ For information about Windows App and its features, see [What's new in Windows A
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
 
+## Week of October 5, 2026
+
+### All users and all devices targeting for Cloud PC Settings (Public Preview)
+
+IT administrators can now assign **Cloud PC Settings** to user groups, device groups, all users, or all devices, depending on the settings object. For more information, see the [Cloud PC configurations](/en-us/windows-365/enterprise/cloud-pc-configurations), [Windows App settings](/en-us/windows-365/enterprise/windows-app-settings), and [Remote Connection Experience](/en-us/windows-365/enterprise/remote-connection-experience) documentation.
+
 ## Week of September 28, 2026
 
 ### Bulk deprovision Cloud PCs in grace period is generally available
