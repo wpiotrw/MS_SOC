@@ -1,6 +1,10 @@
 {
   "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions.",
-  "campaigns": {},
+  "campaigns": {
+    "MC1426371": {
+      "name": "Microsoft-provided SMS and voice MFA retirement · passkeys by default"
+    }
+  },
   "merge": [],
   "components": {
     "entra-connect-sync": {
