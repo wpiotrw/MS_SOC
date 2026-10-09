@@ -1,0 +1,29 @@
+// title: Linux endpoints that cannot reach the Defender configuration URL
+// date: 2026-09-24
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceNetworkEvents
+// purpose: MC1388718, reissued on 23 September as a reminder, names one configuration URL per tenant type. A Linux device that cannot reach its URL looks healthy and silently misses critical-issue mitigations. This looks for the connection attempts rather than for a health flag, because the health flag is what
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 24 September 2026
+// MC1388718: Defender for Endpoint on Linux fetches internal configuration over one URL
+// per tenant type. Commercial is config.edge.skype.com; the three government URLs are in
+// the message. A Linux device with no successful connection in 7 days is the finding.
+// Table and columns: DeviceNetworkEvents -
+// https://learn.microsoft.com/defender-xdr/advanced-hunting-devicenetworkevents-table
+let ConfigHost = "config.edge.skype.com";   // commercial tenants; swap for GCC/GCCH/DoD
+let LinuxDevices =
+    DeviceInfo
+    | where Timestamp > ago(7d)
+    | where OSPlatform startswith "Linux"
+    | summarize arg_max(Timestamp, DeviceName) by DeviceId
+    | project DeviceId, DeviceName;
+let Reached =
+    DeviceNetworkEvents
+    | where Timestamp > ago(7d)
+    | where RemoteUrl has ConfigHost
+    | distinct DeviceId;
+LinuxDevices
+| where DeviceId !in (Reached)
+| project DeviceId, DeviceName
+| order by DeviceName asc

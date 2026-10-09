@@ -1,0 +1,38 @@
+// title: Who was granted an application role that deletes users' authentication methods
+// date: 2026-10-09
+// product: Entra
+// tables: AuditLogs
+// purpose: Lists every successful grant in the last 90 days of one of the thirteen application roles that delete users' authentication methods, with who granted it and to which service principal. The identifiers are the ones Microsoft's permissions reference printed on 8 October. An empty result is the expecte
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 9 Oct 2026 - grants of the authentication-method delete application roles
+// AuditLogs columns verified against the schema page cited beside this query.
+// The thirteen identifiers are the ones Microsoft's permissions reference printed on 8 Oct 2026.
+let DeleteRoles = datatable(AppRoleId:string, Permission:string) [
+  "712f5e0d-bc8d-4ae5-8242-cfb9a4921ed3", "UserAuthenticationMethod.Delete.All",
+  "f0e9adfd-ed6b-45f5-b969-324a75286a39", "UserAuthMethod-Email.Delete.All",
+  "7fa6d39e-1e4e-44be-bf9c-e8260b12e1f5", "UserAuthMethod-External.Delete.All",
+  "9d8eb432-7ea3-491a-9ed7-e6361b308f08", "UserAuthMethod-HardwareOATH.Delete.All",
+  "ae494ca6-9612-417a-972a-ef52efaf2de3", "UserAuthMethod-MicrosoftAuthApp.Delete.All",
+  "9563fbd0-03a7-466e-8042-63d668b7d1a3", "UserAuthMethod-Passkey.Delete.All",
+  "59f17651-8b6c-494e-a269-4ac582fbbca0", "UserAuthMethod-Phone.Delete.All",
+  "bd760918-651f-4e67-b66f-8f614384dec2", "UserAuthMethod-PlatformCred.Delete.All",
+  "e1c34213-26ac-400b-9548-a749f1b1a4e0", "UserAuthMethod-QR.Delete.All",
+  "a71aecaf-82f1-47c5-ad0a-5e63503b928f", "UserAuthMethod-ResourceKey.Delete.All",
+  "e5676e10-1a16-452b-ad10-71f54b755852", "UserAuthMethod-SoftwareOATH.Delete.All",
+  "4f872e9d-d232-4ecd-ab9c-337cbdb184e5", "UserAuthMethod-TAP.Delete.All",
+  "f3197110-aa7f-4acd-a0fd-71981ad68d42", "UserAuthMethod-WindowsHello.Delete.All"
+];
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Add app role assignment to service principal"
+| where Result =~ "success"
+| mv-expand Target = TargetResources
+| mv-expand Prop = Target.modifiedProperties
+| where tostring(Prop.displayName) == "AppRole.Id"
+| extend AppRoleId = trim('"', tostring(Prop.newValue))
+| join kind=inner DeleteRoles on AppRoleId
+| extend Actor = coalesce(tostring(InitiatedBy.user.userPrincipalName), tostring(InitiatedBy.app.displayName)),
+         GrantedTo = tostring(Target.displayName)
+| project TimeGenerated, Permission, GrantedTo, Actor, CorrelationId
+| order by TimeGenerated desc

@@ -1,0 +1,22 @@
+// title: Who approved which email remediation, now that Advanced Hunting carries it
+// date: 2026-09-24
+// product: Defender for Office 365
+// tables: EmailPostDeliveryEvents
+// purpose: MC1478005 adds an ApproverUpn column to EmailPostDeliveryEvents, GA worldwide and enabled by default. Approval was previously a click-through in Action Center, one action at a time. As a column it becomes a pattern you can look at: who approves, how much, and when.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 24 September 2026
+// MC1478005: EmailPostDeliveryEvents gains ApproverUpn, naming who approved a remediation.
+// Table and columns: EmailPostDeliveryEvents -
+// https://learn.microsoft.com/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
+// Run this first to confirm the column has reached this tenant: if ApproverUpn is not yet
+// present the query fails on an unknown column rather than returning a wrong answer.
+EmailPostDeliveryEvents
+| where Timestamp > ago(30d)
+| where isnotempty(ApproverUpn)
+| summarize Approvals = count(),
+            Actions   = make_set(ActionType, 20),
+            FirstSeen = min(Timestamp),
+            LastSeen  = max(Timestamp)
+        by ApproverUpn
+| order by Approvals desc

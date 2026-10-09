@@ -1,0 +1,18 @@
+// title: Who edits email threat policies and the Tenant Allow/Block List today, before Security Operator loses that access in November
+// date: 2026-10-03
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: From early November 2026 the Entra Security Operator role stops mapping to Security settings in Defender for Office 365 Unified RBAC, so it no longer edits threat policies or the Tenant Allow/Block List. This lists who actually made those changes in the last 30 days; anyone on it who holds only Secu
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 3 Oct 2026 - who changes MDO threat policies and Tenant Allow/Block List entries
+// Columns verified against the CloudAppEvents schema page cited beside this query.
+// ActionType values are Exchange Online cmdlet names; confirm them in your own tenant (inferred).
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where ActionType has_any ("TenantAllowBlockListItems", "AntiPhishPolicy", "AntiPhishRule",
+        "HostedContentFilterPolicy", "MalwareFilterPolicy", "SafeLinksPolicy", "SafeAttachmentPolicy")
+| where ActionType startswith "New-" or ActionType startswith "Set-" or ActionType startswith "Remove-"
+| summarize Changes = count(), Cmdlets = make_set(ActionType, 20), LastSeen = max(Timestamp)
+          by AccountDisplayName, AccountObjectId
+| order by Changes desc

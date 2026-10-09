@@ -1,0 +1,24 @@
+// title: Devices still on the September rollup that the 14 September out-of-band update replaces
+// date: 2026-09-20
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: MC1471876 released an out-of-band update on 14 September because the 8 September rollup could stop Remote Desktop Services responding, which blocks local and remote sign-in. A device stuck on the original build is one reboot away from losing its sign-in path.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 20 September 2026
+// MC1471876: out-of-band update of 14 September 2026 supersedes the 8 September rollup,
+// which could leave Remote Desktop Services unresponsive and block sign-in.
+// Table and columns: DeviceInfo -
+// https://learn.microsoft.com/defender-xdr/advanced-hunting-deviceinfo-table
+DeviceInfo
+| where Timestamp > ago(3d)
+| where OnboardingStatus == "Onboarded"
+| summarize arg_max(Timestamp, OSPlatform, OSVersion, OSBuild, DeviceName) by DeviceId
+| where OSPlatform has "Windows"
+| summarize Devices = dcount(DeviceId),
+            Sample = make_set(DeviceName, 10),
+            NewestSeen = max(Timestamp)
+        by OSPlatform, OSBuild
+| sort by OSPlatform asc, OSBuild asc
+// Read the build list bottom-up: the lowest build per platform is the population that
+// never took the out-of-band package. Confirm the expected build from the KB in MC1471876.

@@ -1,0 +1,15 @@
+// title: Applications still reading licence and app-role data through User.ReadBasic.All
+// date: 2026-09-14
+// product: Entra
+// tables: EntraIdSpnSignInEvents
+// purpose: Why now. MC1470871 narrows User.ReadBasic.All this month. This finds the service principals whose recent Graph sign-ins carry that scope, so the ones that will start returning less can be identified before they quietly do.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+EntraIdSpnSignInEvents
+| where Timestamp > ago(30d)
+| where ResourceDisplayName has "Microsoft Graph"
+| extend Scopes = tostring(parse_json(tostring(AdditionalFields)).Scope)
+| where Scopes has "User.ReadBasic.All"
+| summarize SignIns = count(), Latest = max(Timestamp), Scopes = make_set(Scopes, 5)
+        by ApplicationId, Application = ServicePrincipalName
+| order by SignIns desc

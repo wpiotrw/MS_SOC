@@ -1,0 +1,17 @@
+// title: Passkey registration events around the optimised campaign rollout
+// date: 2026-09-14
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: Why now. Microsoft Security Blog documented passkey-themed social engineering on 9 September, in the same fortnight the optimised registration campaign starts prompting users automatically. Legitimate enrolment and attacker-driven enrolment look alike, so this separates them by where the registratio
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+IdentityDirectoryEvents
+| where Timestamp > ago(14d)
+| where ActionType has_any ("Device registration", "Authentication method")
+| extend Method = tostring(parse_json(tostring(AdditionalFields)).AuthenticationMethod)
+| where Method has_any ("Passkey", "FIDO2", "Authenticator")
+| summarize Registrations = count(), Methods = make_set(Method, 5),
+            FirstSeen = min(Timestamp), LastSeen = max(Timestamp)
+        by AccountUpn, DestinationDeviceName
+| where Registrations > 1
+| order by LastSeen desc

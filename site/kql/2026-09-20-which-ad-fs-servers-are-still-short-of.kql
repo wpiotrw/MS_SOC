@@ -1,0 +1,22 @@
+// title: Which AD FS servers are still short of the July update before DKM ACL enforcement lands in October
+// date: 2026-09-20
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: MC1471963 turns on Enforcement mode for AD FS DKM container ACL hardening with the October 2026 Windows security update, and the prerequisite is the 14 July 2026 update or later. A server behind that build gets remediated without the audit evidence.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 20 September 2026
+// MC1471963: AD FS DKM container ACL hardening moves to Enforcement mode with the
+// October 2026 Windows security update. Servers need the 14 July 2026 update or later.
+// Table and columns: DeviceInfo -
+// https://learn.microsoft.com/defender-xdr/advanced-hunting-deviceinfo-table
+let AdfsHosts = DeviceInfo
+    | where OnboardingStatus == "Onboarded"
+    | where OSPlatform startswith "WindowsServer"
+    | summarize arg_max(Timestamp, OSVersion, OSBuild, OSPlatform, DeviceName) by DeviceId;
+AdfsHosts
+| extend Branch = strcat(OSPlatform, " build ", tostring(OSBuild))
+| project DeviceId, DeviceName, OSPlatform, OSVersion, OSBuild, Branch, Timestamp
+| sort by OSBuild asc, DeviceName asc
+// Cross-check each host against the AD FS Admin event log before October:
+// Event | where EventLog == "AD FS/Admin" | where EventID in (276, 277)

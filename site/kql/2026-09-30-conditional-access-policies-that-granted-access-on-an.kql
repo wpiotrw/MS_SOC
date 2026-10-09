@@ -1,0 +1,23 @@
+// title: Conditional Access policies that granted access on an unmanaged device claiming a mobile or macOS platform
+// date: 2026-09-30
+// product: Entra
+// tables: SigninLogs
+// purpose: Microsoft's Conditional Access conditions page now warns that the device platform is read from the user agent, which can be modified and is not verified. A policy that lets a sign-in through because it says "iOS" is only as strong as that string. This lists, per policy, successful sign-ins where the
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 30 Sep 2026 - platform-only Conditional Access grants on unmanaged devices
+// Columns verified against the SigninLogs schema page cited beside this query.
+SigninLogs
+| where TimeGenerated > ago(14d)
+| where ResultType == "0"
+| extend OS = tostring(DeviceDetail.operatingSystem),
+         Managed = tostring(DeviceDetail.isManaged),
+         Compliant = tostring(DeviceDetail.isCompliant)
+| where OS has_any ("iOS", "Android", "MacOs", "Linux")
+| where Managed != "true" and Compliant != "true"
+| mv-expand CAP = ConditionalAccessPolicies
+| where tostring(CAP.result) == "success"
+| summarize SignIns = count(), Users = dcount(UserPrincipalName),
+            Agents = make_set(UserAgent, 5), Apps = make_set(AppDisplayName, 5)
+            by Policy = tostring(CAP.displayName), OS
+| order by SignIns desc

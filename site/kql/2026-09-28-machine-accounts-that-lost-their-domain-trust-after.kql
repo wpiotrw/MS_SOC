@@ -1,0 +1,23 @@
+// title: Machine accounts that lost their domain trust after the 14 September out-of-band update
+// date: 2026-09-28
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceInfo
+// purpose: The out-of-band update KB5129195 and KB5129194 carry a documented known issue: a domain-joined machine protected by Credential Guard can lose its Active Directory trust relationship because Machine Identity Isolation is now enforced. A host in that state stops satisfying device-based Conditional Acc
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 28 Sep 2026 - KB5129195/KB5129194 trust-relationship fallout
+// Tables and columns verified against the DeviceEvents and DeviceInfo schema pages cited beside this query.
+let win = ago(14d);
+let patched =
+    DeviceEvents
+    | where Timestamp > win
+    | where ActionType == "OsVersionChanged" or AdditionalFields has_any ("5129195", "5129194")
+    | summarize PatchedAt = min(Timestamp) by DeviceId, DeviceName;
+DeviceInfo
+| where Timestamp > win
+| where isnotempty(DeviceId)
+| summarize arg_max(Timestamp, JoinType, OnboardingStatus, OSPlatform, OSVersion) by DeviceId, DeviceName
+| where JoinType !in ("Hybrid Azure AD joined", "Azure AD joined")
+| join kind=inner patched on DeviceId
+| project DeviceName, DeviceId, OSPlatform, OSVersion, JoinType, PatchedAt, SeenAt = Timestamp
+| order by PatchedAt asc

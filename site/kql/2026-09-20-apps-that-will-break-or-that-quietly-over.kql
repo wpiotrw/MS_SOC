@@ -1,0 +1,28 @@
+// title: Apps that will break — or that quietly over-read — when User.ReadBasic.All stops returning app role assignments
+// date: 2026-09-20
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: MC1470871 removes app role assignments and licence details from User.ReadBasic.All, completing late September 2026. Both questions matter: which apps break, and which have been reading assignment data they were never meant to see.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 20 September 2026
+// MC1470871: User.ReadBasic.All stops returning appRoleAssignments and licenseDetails.
+// Find callers that hit those paths while holding only the basic scope.
+// Table and columns: MicrosoftGraphActivityLogs -
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+MicrosoftGraphActivityLogs
+| where TimeGenerated > ago(30d)
+| where RequestUri has_any ("appRoleAssignments", "licenseDetails")
+| extend Scope = tostring(Scopes), Role = tostring(Roles)
+| extend BasicOnly = (Scope has "User.ReadBasic.All" or Role has "User.ReadBasic.All")
+                     and not (Scope has "User.Read.All" or Role has "User.Read.All")
+                     and not (Scope has "LicenseAssignment.Read.All"
+                              or Role has "LicenseAssignment.Read.All")
+| summarize Calls = count(),
+            Breaking = countif(BasicOnly),
+            LastSeen = max(TimeGenerated),
+            Paths = make_set(RequestUri, 12),
+            Statuses = make_set(ResponseStatusCode, 8)
+        by AppId, ServicePrincipalId, Scope, Role
+| where Breaking > 0
+| sort by Breaking desc, Calls desc

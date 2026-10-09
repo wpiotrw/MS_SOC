@@ -1,0 +1,29 @@
+// title: Device code sign-ins in the last 30 days, which is what EvilTokens industrialised
+// date: 2026-09-25
+// product: Entra
+// tables: SigninLogs
+// purpose: Microsoft's Digital Crimes Unit disrupted EvilTokens on 22 September; the platform's whole product was device code phishing. Device code flow is still enabled by default in many tenants and produces a refresh token with no phishing-resistant factor anywhere in the path, so the population that uses i
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 25 September 2026
+// Who is actually using device code flow, after the EvilTokens disruption of 22 September 2026.
+// Table and columns verified against the SigninLogs reference on 25 September 2026:
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/signinlogs
+// AuthenticationProtocol, ResultType, UserPrincipalName, AppDisplayName, IPAddress,
+// Location and ClientAppUsed are all columns of that table.
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where AuthenticationProtocol == "deviceCode"
+| extend Outcome = iff(ResultType == "0", "success", "failure")
+| summarize Signins = count(),
+            Successes = countif(Outcome == "success"),
+            Apps = make_set(AppDisplayName, 12),
+            Countries = make_set(Location, 12),
+            Addresses = dcount(IPAddress),
+            FirstSeen = min(TimeGenerated),
+            LastSeen  = max(TimeGenerated)
+        by UserPrincipalName
+| where Successes > 0
+| sort by Signins desc
+// Read the country and address spread first: device code flow used from one office is a tool,
+// the same account succeeding from several countries in a month is the EvilTokens pattern.

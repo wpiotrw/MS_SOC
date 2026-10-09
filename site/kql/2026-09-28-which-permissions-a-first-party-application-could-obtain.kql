@@ -1,0 +1,17 @@
+// title: Which permissions a first-party application could obtain, ranked by privilege level
+// date: 2026-09-28
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: The first-party application inventory in this brief holds 1,736 Microsoft applications and 524 of them with permissions read from public sources. The tenant-side question is narrower and answerable: which of those applications actually hold a grant here, and at what privilege level. This query answe
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 28 Sep 2026 - consent and app-role grants in the window
+// Table and columns verified against the CloudAppEvents schema page cited beside this query.
+CloudAppEvents
+| where Timestamp > ago(14d)
+| where ActionType in ("Consent to application.", "Add app role assignment to service principal.",
+                      "Add delegated permission grant.", "Add OAuth2PermissionGrant.")
+| extend Props = parse_json(RawEventData)
+| extend AppName = tostring(Props.Target[3].ID), Actor = tostring(Props.UserId)
+| project Timestamp, ActionType, AppName, Actor, IPAddress, RawEventData
+| order by Timestamp desc

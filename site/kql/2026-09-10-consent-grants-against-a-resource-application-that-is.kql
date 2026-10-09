@@ -1,0 +1,13 @@
+// title: Consent grants against a resource application that is not Microsoft Graph
+// date: 2026-09-10
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: A grant on Azure Data Explorer, Office 365 Management APIs or Exchange Online is invisible in a Graph permission report. This finds them in the audit log.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+CloudAppEvents
+| where ActionType in ("Add delegated permission grant.","Add app role assignment to service principal.")
+| extend Target = tostring(RawEventData.Target)
+| where Target !has "Microsoft Graph"
+| project Timestamp, AccountDisplayName, ActionType, Target, RawEventData
+| sort by Timestamp desc

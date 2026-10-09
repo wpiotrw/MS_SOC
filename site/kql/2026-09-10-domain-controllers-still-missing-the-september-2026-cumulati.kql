@@ -1,0 +1,12 @@
+// title: Domain controllers still missing the September 2026 cumulative update
+// date: 2026-09-10
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmSoftwareVulnerabilities
+// purpose: Answers the only question that matters this morning: which Tier 0 hosts are still exposed to CVE-2026-85880. Table and columns verified on the Defender XDR advanced hunting schema reference.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+DeviceTvmSoftwareVulnerabilities
+| where CveId in ("CVE-2026-81963","CVE-2026-85880")
+| join kind=inner (DeviceInfo | where OSPlatform startswith "Windows Server" | summarize arg_max(Timestamp, DeviceName, OSPlatform, DeviceId) by DeviceId) on DeviceId
+| project DeviceName, OSPlatform, CveId, VulnerabilitySeverityLevel, RecommendedSecurityUpdate
+| sort by DeviceName asc

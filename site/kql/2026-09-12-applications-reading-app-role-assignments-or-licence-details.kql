@@ -1,0 +1,16 @@
+// title: Applications reading app role assignments or licence details on User.ReadBasic.All
+// date: 2026-09-12
+// product: Entra
+// tables: AuditLogs
+// purpose: MC1470871 narrows that scope from mid-September. This finds the service principals that hold it, so you can check which of them call /users/{id}/appRoleAssignments or /licenseDetails before the call starts failing. AuditLogs columns checked on the Azure Monitor reference this morning.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+AuditLogs
+| where TimeGenerated > ago(180d)
+| where OperationName in ("Add delegated permission grant","Consent to application")
+| extend Target = tostring(TargetResources[0].displayName)
+| mv-expand mp = TargetResources[0].modifiedProperties
+| extend NewVal = tostring(mp.newValue)
+| where NewVal has "User.ReadBasic.All"
+| project TimeGenerated, OperationName, Target, InitiatedBy, NewVal
+| sort by TimeGenerated desc

@@ -1,0 +1,41 @@
+// title: Consent watch for the ten Graph permissions that entered the service principal on 17 September 2026
+// date: 2026-09-18
+// product: Entra
+// tables: AuditLogs
+// purpose: Table AuditLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-new-graph-scopes-consent-watch.kql and indexed.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief — 18 September 2026
+// Ten Graph permissions entered the service principal between 13 and 17 September 2026.
+// Alert on any grant of them, application or delegated, before Microsoft documents them.
+// Table and columns: AuditLogs — https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+let NewScopes = dynamic([
+    "CaseManagement.ConfigManage.All",
+    "Group-PreferredDataLocation.ReadWrite.All",
+    "Group.ReadBasic.All",
+    "GroupMember.ReadBasic.All",
+    "InfoProtectABACPolicy.Read.All",
+    "InfoProtectABACPolicy.ReadWrite.All",
+    "InfoProtectAttributeAssignment.Read.All",
+    "InfoProtectAttributeAssignment.ReadWrite.All",
+    "InfoProtectAttributeDefinition.Read.All",
+    "InfoProtectAttributeDefinition.ReadWrite.All"]);
+let NewAppRoleIds = dynamic([
+    "010650d3-1605-49e9-b242-230afecb9dc5","603ce4e3-fb05-4b63-91ba-729bb1dca667",
+    "07d67222-3a10-4d3b-9ddc-b8aa43198a00","8222c640-cae5-4860-8d11-b32cfad95e03",
+    "66905074-ba83-4bb3-b5a1-1bb769025947","4bfc1735-3a0c-4602-a159-9cfa07213339",
+    "64e5621c-1c93-43aa-ac76-c58f9fd136c7","bc81c4f9-5b1f-4107-b330-4665a9cebecf",
+    "1a8b595b-d654-4a0c-9b37-caf656a24853","7ec4dbde-910f-4bbb-9717-d1cde4470763"]);
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where OperationName in ("Add app role assignment to service principal",
+                          "Add delegated permission grant",
+                          "Consent to application")
+| extend Target = tostring(TargetResources)
+| where NewAppRoleIds has_any (Target) or NewScopes has_any (Target)
+| extend Actor = tostring(InitiatedBy.user.userPrincipalName),
+         ActorApp = tostring(InitiatedBy.app.displayName),
+         SpName = tostring(TargetResources[0].displayName)
+| project TimeGenerated, OperationName, Result, SpName,
+          Actor = coalesce(Actor, ActorApp), Target
+| sort by TimeGenerated desc

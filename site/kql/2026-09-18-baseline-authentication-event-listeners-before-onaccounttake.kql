@@ -1,0 +1,24 @@
+// title: Baseline authentication event listeners before onAccountTakeoverProtectionStart is used
+// date: 2026-09-18
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: Table MicrosoftGraphActivityLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-account-takeover-event-listener.kql and indexed.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief — 18 September 2026
+// onAccountTakeoverProtectionStart is a new Entra authentication event type. A custom extension
+// bound to it runs tenant-nominated code inside the sign-in path. Baseline who touches it.
+// Table and columns: MicrosoftGraphActivityLogs —
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+MicrosoftGraphActivityLogs
+| where TimeGenerated > ago(30d)
+| where RequestUri has_any ("/identity/authenticationEventListeners",
+                            "/identity/customAuthenticationExtensions")
+| extend Writing = RequestMethod in ("POST", "PATCH", "PUT", "DELETE")
+| summarize Calls = count(),
+            Writes = countif(Writing),
+            LastSeen = max(TimeGenerated),
+            Paths = make_set(RequestUri, 15)
+        by AppId, ServicePrincipalId, UserId, tostring(Scopes), tostring(Roles)
+| where Writes > 0 or Calls > 0
+| sort by Writes desc, Calls desc
