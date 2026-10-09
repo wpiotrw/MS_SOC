@@ -830,6 +830,7 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
                    % (E(d), n7, n7, max(3, round(85 * n7 / maxv)), E(d[5:])) for d, _, n7, _, _ in rows_days)
     page = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Microsoft SOC · week %(f)s → %(t)s</title>
+<link rel="icon" type="image/png" href="../assets/favicon-64.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
 :root{--bg:#f6f7f9;--surface:#fff;--ink:#17202a;--muted:#4e5867;--border:#dde2e8;--accent:#0b6bcb;--bad:#b42318;--ok:#067647}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1419;--surface:#172029;--ink:#e6edf3;--muted:#9fa9b6;--border:#2a3642;--accent:#58a6ff;--bad:#ff7b72;--ok:#3fb950}}
@@ -848,8 +849,11 @@ th{font-size:12px;color:var(--muted);font-weight:600}
 td:first-child{white-space:nowrap}.chart b{font-size:12px;font-weight:600}
 .tw{overflow-x:auto;margin:0 0 4px}.tw:focus-visible{outline:2px solid var(--accent)}
 @media print{.bar{display:none}body{background:#fff;color:#000}main{max-width:none;padding:0}table,.chart{break-inside:avoid}}
+h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-flex;flex:0 0 auto}.s5cx-mark img{height:84px;width:auto;display:block}@media (max-width:720px){.s5cx-mark img{height:52px}}
+.s5cx-mark .s5cx-dark{display:none}@media (prefers-color-scheme:dark){.s5cx-mark .s5cx-dark{display:block}.s5cx-mark .s5cx-light{display:none}}
+@media print{.s5cx-mark .s5cx-dark{display:none}.s5cx-mark .s5cx-light{display:block}}
 </style></head><body><main role="main">
-<h1>The week in Microsoft security changes</h1>
+<h1 class="s5cx-h1"><a class="s5cx-mark" href="%(u)s" aria-label="GuardZilla — today's brief"><img class="s5cx-light" src="../assets/mark-light.webp" alt="GuardZilla" width="110" height="96" onerror="this.style.display='none'"><img class="s5cx-dark" src="../assets/mark-dark.webp" alt="GuardZilla" width="110" height="96" onerror="this.style.display='none'"></a>The week in Microsoft security changes</h1>
 <p class="sub">%(f)s → %(t)s · built from %(n)d daily files · <a href="%(u)s">today's brief</a> · <a href="%(u)sdiff/">what changed since yesterday</a></p>
 <div class="bar"><button type="button" onclick="print()">Save as PDF</button><a href="%(u)sfeed.xml">RSS</a></div>
 <h2>Day by day</h2>
@@ -6091,6 +6095,20 @@ a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:ho
  .dnavstack:hover,.dstale:hover,.tw tbody tr:hover,.wrap li:hover{outline:none}}
 .tchip{display:inline-block;padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);
  color:var(--accent);font-weight:700;font-size:12px;line-height:1.45;white-space:nowrap}
+/* §5cx (10 X 2026): the GuardZilla mark before the title; the theme picks the light or the dark picture */
+h1.s5cx-h1{display:flex;align-items:center;gap:12px}
+.s5cx-mark{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
+.s5cx-mark img{height:96px;width:auto;display:block}
+.s5cx-dark{display:none!important}
+:root[data-theme=dark] .s5cx-dark{display:block!important}
+:root[data-theme=dark] .s5cx-light{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .s5cx-dark{display:block!important}
+ :root:not([data-theme=light]) .s5cx-light{display:none!important}}
+/* from 721 px the mascot stands left of the title and the dateline together, so it is big without a taller header */
+@media (min-width:721px){header.top .title-row>div:first-child{position:relative;padding-left:128px;min-height:96px}
+ header.top h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}}
+@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:72px}header.top .title-row>div:first-child{padding-left:98px;min-height:72px}}
+@media (max-width:720px){.s5cx-mark img{height:52px}h1.s5cx-h1{gap:10px}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -7328,7 +7346,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
 
     out = []
     out.append('<header class="top"><div class="in"><div class="title-row"><div>'
-               '<h1>Microsoft SOC &mdash; what changed</h1>')
+               # §5cx (10 X 2026, owner: "the logo, also in diff"): the GuardZilla mark before the title, light and
+               # dark picture switched by the theme (CSS .s5cx-*), a link back to the brief; a missing picture hides itself
+               '<h1 class="s5cx-h1"><a class="s5cx-mark" href="%s" aria-label="GuardZilla &mdash; back to the brief">'
+               '<img class="s5cx-light" src="../assets/mark-light.webp" alt="GuardZilla" width="110" height="96" onerror="this.style.display=\'none\'">'
+               '<img class="s5cx-dark" src="../assets/mark-dark.webp" alt="GuardZilla" width="110" height="96" onerror="this.style.display=\'none\'">'
+               '</a>Microsoft SOC &mdash; what changed</h1>' % esc(home))
     out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
                'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p></div>'
                '<div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button>'
@@ -8400,7 +8423,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
             '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700'
             '&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700'
-            '&display=swap" rel="stylesheet">\n<style>%s</style>\n%s\n</head>\n'
+            '&display=swap" rel="stylesheet">\n'
+            '<link rel="icon" type="image/png" href="../assets/favicon-64.png">'
+            '<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
             % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY + STALE_BODY))
 
@@ -27368,6 +27393,20 @@ liczba wierszy Merilla to nie liczba aplikacji (9 X: 1 737 + 614 = 2 351 aplikac
 to jego tenant demo, nie nasz — etykieta poprawiona. Aplikacje widziane tylko w naszym tenancie (28) nie sa publikowane
 bez zgody wlasciciela.
 
+**§5cx (10 X 2026, wlasciciel: „czas na logo — w lewym gornym rogu; moze tez w diff, w wersji mobilnej
+i w calym portalu", 01:09: „za male na desktop, minimum 2x wieksze").** Logo GUARDZILLA (wlasny obraz
+wlasciciela, wersja jasna i ciemna) lezy w `site/assets/`: `logo-light.webp` / `logo-dark.webp` (pelne logo z
+napisem, 510x440, tlo wyciete do przezroczystosci), `mark-light.webp` / `mark-dark.webp` (sama postac, bez
+napisu, 240 px wysokosci), `favicon-64.png`, `apple-touch-icon.png`. Motyw strony (przycisk Theme i
+`prefers-color-scheme`) wybiera wersje (`.s5cx-light` / `.s5cx-dark`). Strona glowna (warstwa §5cx w bloku
+kampanii JS/CSS): postac jest linkiem do Overview i stoi na lewo od calego bloku tytulu (tytul, dateline, filtr,
+Theme) — 96 px na desktopie, 72 px od 721 do 1099 px, 52 px na telefonie (w tytule); naglowek nie rosnie
+(blok tytulu przesuwa sie o szerokosc postaci, `.title-row.s5cx-row`). Od 2160 px pelne logo z napisem
+(260 px szerokosci, 224 px wysokosci — miesci sie w naglowku) stoi w lewym marginesie naglowka zamiast postaci.
+`/diff/` (make_diff) i `/week/` (`write_week`) maja postac przed tytulem (`../assets/`, link do briefu) i
+favicon; brakujacy obraz chowa sie sam (`onerror`), wiec podglad briefu bez plikow strony nie pokazuje pustej
+ramki. Pliki obrazow sa czescia strony, nie danych: nie zmienia ich zaden przebieg.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -35993,6 +36032,38 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
+
+/* §5cx (10 X 2026, owner: "time for the logo - top left, where I marked it; also in /diff/ and on the phone, the
+   brief and the whole portal"). GuardZilla: the full logo stands in the empty left margin of the header when the
+   margin has room for it (wide screens, the box the owner marked); otherwise a compact mark stands before the
+   title, the same on the phone. A light and a dark variant follow the Theme button. The images are files of the
+   site (assets/); where they are not served (the brief's preview on claude.ai) the logo hides itself. */
+(function () {
+  function go() {
+    var top = document.querySelector("header.top"), row = top && top.querySelector(".title-row"), h1 = row && row.querySelector("h1");
+    if (!h1 || document.querySelector(".s5cx-mark")) return;
+    function pic(cls, base, alt) {
+      var a = document.createElement("a"); a.className = cls; a.href = "#tab=overview"; a.title = "GuardZilla · Microsoft SOC Brief";
+      a.setAttribute("aria-label", alt);
+      ["light", "dark"].forEach(function (v) {
+        var i = document.createElement("img"); i.className = "s5cx-" + v; i.alt = ""; i.decoding = "async";
+        i.src = "assets/" + base + "-" + v + ".webp";
+        i.onerror = function () { a.style.display = "none"; };
+        a.appendChild(i);
+      });
+      return a;
+    }
+    var mark = pic("s5cx-mark", "mark", "GuardZilla — home");
+    h1.classList.add("s5cx-h1"); row.classList.add("s5cx-row"); h1.insertBefore(mark, h1.firstChild);   /* inside the title: aligned with it on every width */
+    var big = pic("s5cx-logo", "logo", "GuardZilla — Microsoft SOC Brief, home");
+    top.insertBefore(big, top.firstChild);
+    if (!document.querySelector('link[rel="icon"]')) {
+      var l = document.createElement("link"); l.rel = "icon"; l.type = "image/png"; l.href = "assets/favicon-64.png"; document.head.appendChild(l);
+      var l2 = document.createElement("link"); l2.rel = "apple-touch-icon"; l2.href = "assets/apple-touch-icon.png"; document.head.appendChild(l2);
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -37123,6 +37194,34 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
  font-weight:700;font-size:12px;line-height:1.45;letter-spacing:.01em;white-space:nowrap}
 .s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){justify-self:start;align-self:start;width:max-content;max-width:100%;white-space:normal}
 .s5cv-kqa{margin:6px 0 12px;padding:9px 12px;border:1px solid var(--accent);border-left-width:4px;border-radius:8px;background:var(--accent-soft);font-size:13.5px;line-height:1.5}
+/* §5cx (10 X 2026): GuardZilla logo - the mascot before the title; the full logo (with the name) in the header's
+   left margin when the margin holds it (header content is 1500 px wide and centred: from 2160 px), 260 px wide so it
+   stays inside the header (224 px tall; the rail below the header starts at the left edge).
+   Owner, 10 X 01:09: "too small on desktop, at least twice as big" - 96 px on a desktop (was 46), 72 on a tablet,
+   52 on a phone; the full logo 260 px wide (was up to 226 at 2000 px, now shown only where it fits at 260). */
+h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
+.s5cx-mark{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
+.s5cx-mark img{height:96px;width:auto;display:block}
+.s5cx-logo{display:none;text-decoration:none}
+.s5cx-logo img{display:block;width:100%;height:auto}
+.s5cx-dark{display:none!important}
+:root[data-theme="dark"] .s5cx-dark{display:block!important}
+:root[data-theme="dark"] .s5cx-light{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5cx-dark{display:block!important}
+ :root:not([data-theme="light"]) .s5cx-light{display:none!important}}
+@media (min-width:2160px){
+ .s5cx-logo{display:block;position:absolute;left:calc((100vw - 1500px) / 4 - 130px);top:10px;width:260px}   /* 224 px tall: inside the header */
+ header.top .s5cx-mark{display:none}
+}
+/* from 721 px the mascot stands at the left of the whole title block (title, dateline, filter and Theme), so it is
+   big without making the sticky header taller: the block keeps its rows and moves right by the mascot's width */
+@media (min-width:721px) and (max-width:2159px){
+ header.top .title-row.s5cx-row{position:relative;padding-left:128px;min-height:96px}
+ header.top .s5cx-row h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}
+}
+@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:72px}
+ header.top .title-row.s5cx-row{padding-left:98px;min-height:72px}}
+@media (max-width:720px){.s5cx-mark img{height:52px}h1.s5cx-h1{gap:10px}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
