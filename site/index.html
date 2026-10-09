@@ -3769,6 +3769,10 @@ td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
 .s5cu .s5cu-pl a.s5cu-src{color:var(--accent)}
 .s5cu-facts .s5cu-pl{flex-basis:100%;margin-top:2px}
 .s5cu-tls{display:block;font-size:12px;color:var(--faint);margin-top:3px}
+/* §5cu-e: archive */
+.s5cu-arch{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:0 14px 12px}
+.s5cu-arch>summary{cursor:pointer;padding:12px 0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.s5cu-archs{display:block;font:400 12.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--muted);margin-top:3px}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -21616,7 +21620,7 @@ IdentityDirectoryEvents
     if (c.status === "Recently closed") return "closed";
     return "nodate";
   }
-  var GROUPS = [["soon", "Next 30 days"], ["later", "Later"], ["nodate", "No fixed date from Microsoft"], ["released", "Security baselines released — review and adopt"], ["closed", "Final milestone passed — last 30 days"]];
+  var GROUPS = [["soon", "Next 30 days"], ["later", "Later"], ["nodate", "No fixed date from Microsoft"], ["released", "Security baselines released — review and adopt"], ["closed", "Final milestone passed — last @@ days"]];
 
   function pass(c) {
     if (F.tech && c.tech !== F.tech) return false;
@@ -21925,12 +21929,38 @@ IdentityDirectoryEvents
       var rows = shown.filter(function (c) { return group(c) === g[0]; });
       if (!rows.length) return;
       if (g[0] === "soon" || g[0] === "later") rows.sort(function (a, b) { return a.next.date < b.next.date ? -1 : a.next.date > b.next.date ? 1 : 0; });
-      var gh = el("div", "s5cu-grp"); gh.appendChild(document.createTextNode(g[1])); gh.appendChild(el("span", null, String(rows.length))); list.appendChild(gh);
+      var gh = el("div", "s5cu-grp"); gh.appendChild(document.createTextNode(g[1].replace("@@", String((D.settings || {}).closedDays || 30)))); gh.appendChild(el("span", null, String(rows.length))); list.appendChild(gh);
       rows.forEach(function (c) { list.appendChild(row(c)); });
     });
     if (!shown.length) list.appendChild(el("p", "s5cu-note", "No campaign matches these filters."));
     body.appendChild(list);
+    archiveBlock();
     body.appendChild(el("p", "s5cu-legend", "Materials: MC = Message Center posts · Microsoft = Microsoft blogs, Learn and the brief’s own sources · Community = articles from the watched community sources · Video = the watched YouTube channels (" + (k.channels || 0) + "). Every number opens the campaign at that list. Red: a milestone within 7 days · amber: within 30 days. Dates written as “mid Oct” are Microsoft’s own approximate dates, sorted as the 15th."));
+  }
+  /* §5cu-e: campaigns that ended more than closedDays ago, folded; how long both lists keep them is set in
+     campaigns.json "settings" (closedDays, archiveShowDays) */
+  function archiveBlock() {
+    var A = (D.archive || []).filter(function (a) { return (!F.tech || a.tech === F.tech) && (!F.type || a.type === F.type); });
+    var S = D.settings || {};
+    var d = el("details", "s5cu-arch"), sm = el("summary");
+    sm.appendChild(document.createTextNode("Archive · " + A.length));
+    sm.appendChild(el("span", "s5cu-archs", "campaigns whose last date passed more than " + (S.closedDays || 30) + " days ago, kept here for " + (S.archiveShowDays || 365) + " days; the history file keeps them all"));
+    d.appendChild(sm);
+    if (!A.length) d.appendChild(el("p", "s5cu-note", "No campaign has reached the archive yet: the history starts on 9 October 2026, and a campaign moves here " + (S.closedDays || 30) + " days after its last date."));
+    else {
+      var tw = el("div", "s5cu-tw"), t = own(el("table", "s5cu-tab")), tr = el("tr");
+      ["Campaign", "Technology · type", "Last date", "Message Center"].forEach(function (x) { tr.appendChild(el("th", null, x)); });
+      var th = el("thead"); th.appendChild(tr); t.appendChild(th); var tb = el("tbody");
+      A.forEach(function (a) {
+        var r = el("tr"); r.appendChild(el("td", "s5cu-chg", a.name || a.id)); r.appendChild(el("td", "s5cu-tt", (a.tech || "") + (a.type ? " · " + a.type : "")));
+        r.appendChild(el("td", "s5cu-dt", a.final ? dmy(a.final) : "—"));
+        var td = el("td", "s5cu-srcc"); (a.posts || []).filter(function (x) { return /^MC\d+$/.test(x); }).slice(0, 4).forEach(function (x, i) {
+          if (i) td.appendChild(document.createTextNode(" · ")); var l = el("a", "s5cu-src", x); l.href = "https://mc.merill.net/message/" + x; l.target = "_blank"; l.rel = "noopener"; td.appendChild(l); });
+        r.appendChild(td); tb.appendChild(r);
+      });
+      t.appendChild(tb); tw.appendChild(labels(t)); d.appendChild(tw);
+    }
+    body.appendChild(d);
   }
   function row(c) {
     var r = el("div", "s5cu-row s5cu-p-" + ((c.prio || {}).level || "normal")); r.setAttribute("role", "row"); r.setAttribute("data-cid", c.id);
