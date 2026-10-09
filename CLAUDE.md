@@ -4782,6 +4782,51 @@ NOISE = {"first recorded": 0, "bookkeeping": 0}
 # serves), set by __main__ when this is the evening pass. None = not known; the page then says
 # nothing about the split and every number stays exactly as before.
 MORNING = None
+# §5cu: site/data/campaigns.json (tools/campaigns.py, GitHub Actions) - set in main from the output path
+CAMPAIGNS_FILE = None
+
+
+def campaign_rows(prev_d, curr_d, home):
+    """§5cu: 'Campaigns that moved today' - the campaign events recorded after the previous brief,
+    up to and including this one: date moved, new milestone, new material, new campaign, closed."""
+    cands = [CAMPAIGNS_FILE, os.path.join(os.getcwd(), "site", "data", "campaigns.json"),
+             os.path.join(os.environ.get("SOC_REPO", ""), "site", "data", "campaigns.json") if os.environ.get("SOC_REPO") else ""]
+    path = next((c for c in cands if c and os.path.exists(c)), "")
+    if not path:
+        return None, "campaigns.json not found next to the site"
+    try:
+        doc = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError) as ex_:
+        return None, "campaigns.json unreadable: %s" % ex_
+    lo, hi = norm(prev_d), norm(curr_d)
+    evs = [e for e in (doc.get("events") or []) if (not lo or e.get("day", "") > lo) and e.get("day", "") <= (hi or "9999")]
+    order = {"moved": 0, "milestone": 1, "new": 2, "reopened": 3, "material": 4, "closed": 5}
+    label = {"moved": "Date moved", "milestone": "New milestone", "new": "New campaign detected", "reopened": "Reopened",
+             "material": "New material", "closed": "Closed"}
+    rows, mats = [], {}
+    for e in sorted(evs, key=lambda e: (order.get(e.get("type"), 9), e.get("name") or "")):
+        t = e.get("type")
+        link = '<a href="%s#tab=campaigns&amp;c=%s">%s</a>' % (esc(home), esc(e.get("cid") or ""), esc(e.get("name") or ""))
+        if t == "material":
+            mats.setdefault(e.get("cid"), [link, []])[1].append(e)
+            continue
+        if t == "moved":
+            what = '<del>%s</del><span class="arrow">&rarr;</span><ins>%s</ins> &middot; %s' % (esc(e.get("was")), esc(e.get("now")), esc(e.get("text") or ""))
+        elif t == "milestone":
+            what = "<b>%s</b>: %s" % (esc(e.get("now")), esc(e.get("text") or ""))
+        elif t == "new":
+            what = "%s &middot; %s%s" % (esc(e.get("ctype") or ""), esc(e.get("tech") or ""), (" &middot; next milestone <b>%s</b>" % esc(e["next"])) if e.get("next") else "")
+            if e.get("text"): what += "<br>" + esc(e["text"])
+        elif t == "reopened":
+            what = "Microsoft posted a new date: next milestone <b>%s</b>" % esc(e.get("next") or "")
+        else:
+            what = "Final milestone passed%s; the campaign stays under \u201cRecently closed\u201d for 30 days" % ((" (" + esc(e["final"]) + ")") if e.get("final") else "")
+        rows.append(("", [label.get(t, t), link, what, '<span class="mono">%s</span>' % esc(e.get("src") or e.get("day") or "")]))
+    for cid, (link, lst) in mats.items():
+        items = "<br>".join('<a href="%s">%s</a> &middot; %s' % (esc(m.get("link") or ""), esc(m.get("title") or ""), esc(m.get("source") or "")) for m in lst[:6])
+        more = (" &hellip; and %d more" % (len(lst) - 6)) if len(lst) > 6 else ""
+        rows.append(("", ["New material", link, items + more, '<span class="mono">%s</span>' % esc(lst[0].get("day") or "")]))
+    return rows, "%d campaigns, run %s" % (len(doc.get("campaigns") or []), esc(doc.get("day") or ""))
 
 def moved(f, a, b):
     """Czy roznica pola `f` z `a` na `b` jest ZMIANA (§5bf)."""
@@ -7818,6 +7863,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                + ("".join(relblocks) if relblocks else ""),
                count=len(cadd) + len(crem) + len(cmod)))
 
+    # --- §5cu: campaigns that moved between the two briefs (site/data/campaigns.json)
+    _crow, _cnote = campaign_rows(prev_st.get("briefDate"), curr_st.get("briefDate"), home)
+    if _crow is not None:
+        out.append(sect("campaigns", "Campaigns that moved today",
+                   ('Campaigns are followed by <span class="mono">tools/campaigns.py</span> (GitHub Actions) across Message Center, '
+                    'Microsoft blogs and Learn, the community sources and the watched YouTube channels; this section lists what it '
+                    'recorded after the %s brief: a date Microsoft moved, a new milestone, new material, a new campaign, one closed '
+                    '(%s). Every name opens the campaign card in the brief.') % (esc(prev_st.get("briefDate") or "previous"), _cnote),
+                   table(["What", "Campaign", "Details", "Source"], _crow,
+                         "No campaign moved: no date moved, no new milestone, material or campaign, none closed."),
+                   count=len(_crow)))   # closed like every content section (verify(): only bytab and bytech open)
+
     # --- Graph endpoints (§5ah): co uprawnienie potrafi wywolac, pole po polu
     erows = []
     for nm, what, before, after in ge_rows[:250]:
@@ -8271,7 +8328,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("added", "Added", len(added)),
            ("removed", "Removed", len(removed)),
            ("changed", "Changed", len(changed)),
-           ("components", "Components", len(cadd) + len(crem) + len(cmod)),
+           ("components", "Components", len(cadd) + len(crem) + len(cmod))] + \
+          ([("campaigns", "Campaigns", len(_crow))] if _crow is not None else []) + [   # §5cu
            ("endpoints", "Endpoints", ge_add + ge_rem + ge_chg),
            ("fpa", "First-party apps", fp_add + fp_rem + fp_chg),
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
@@ -8862,6 +8920,8 @@ if __name__ == "__main__":
         raise SystemExit("FAIL: --ledger-only bez --ledger nie robi nic")
     if len(args) < (2 if ledger_only else 3):
         raise SystemExit(USAGE)
+    if len(args) > 2:  # §5cu: site/diff/index.html -> site/data/campaigns.json
+        CAMPAIGNS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(args[2]))), "data", "campaigns.json")
     ps, pc = load_state(args[0])
     cs, cc = load_state(args[1])
     when = datetime.datetime.now().strftime("%H:%M")
@@ -10146,6 +10206,14 @@ Tylko dla adresow, ktorych kroki 1–2 nie rozstrzygnely. Learn przez
 przebieg**, w kolejnosci: Today, Top N, Deadlines, deep dive, reszta. Czego nie zmiescisz, zostaje
 `unchecked` — i mowisz ile. `mc.merill.net` sprawdzasz obecnoscia numeru MC w kanale, nie
 pobieraniem 93 stron.
+
+**Przekierowanie TechCommunity to nie przeniesienie (§5cu, 9 X 2026).** Stary adres
+`techcommunity.microsoft.com/t5/<blog>/<slug>/ba-p/<n>` bywa przekierowywany po samym numerze `<n>` do
+INNEGO watku: 9 X 2026 pozycja `exchange-crosstenant-freebusy-to-cta` (wpis Exchange Team Blog) dostala
+`linkStatus: moved` i adres dyskusji Windows 11 „File Explorer opens to Quick Access" — prawdziwy wpis to
+`/blog/exchange/…/4545169` (MC1446796). Zasada: przekierowanie, po ktorym zmienia sie **tablica** (`/blog/<x>`
+→ `/discussions/<y>`) albo tytul strony nie zawiera slow tytulu pozycji, NIE jest `moved` — URL zostaje,
+pozycja dostaje `unchecked` z notatka, a prawdziwy adres szukasz po tytule (WebSearch, MC z tej samej daty).
 
 ### Pola i render
 
@@ -26355,6 +26423,56 @@ dostaje nowe endpointy bez nowej zgody i bez wpisu w audycie. 8 X 2026: CloudPC.
 zmiana i usuwanie w Windows 365 Cloud PCs), CloudPC.Read.All (+17, odczyt), Reports.Read.All (+3, raporty wplywu
 Conditional Access).
 
+**§5cu (9 X 2026, wlasciciel: „sledzmy kampanie — rollouty, wycofania, wymuszenia, preview, koniec wsparcia
+komponentow i ich wersji — w ramach technologii portalu; tabele z datami i wyjasnieniami, jak najwiecej
+materialow Microsoft i community, filmy z YouTube; nie opierajmy sie na cudzej pracy, tylko miejmy wlasne
+wykrywanie; ladnie w diff i w portalu"; makieta zatwierdzona 9 X: „no dobrze, to wdrazaj").** Zakladka
+**Campaigns** w grupie Changes, za Component versions. **Dane nie pochodza z porannego przebiegu**: pisze je
+`tools/campaigns.py` w GitHub Actions (workflow „Campaign tracking", `.github/workflows/campaigns.yml`:
+05:40 i 20:40 UTC, po „Publish routine output", po „First-party apps tenant snapshot" i recznie) do
+`site/data/campaigns.json` (dzisiejsze kampanie) i `site/data/campaigns-history.json` (pierwsze wykrycie,
+kazda zmiana daty byla → jest, kazdy material z dniem znalezienia, zdarzenia 60 dni, archiwum). Prompty
+rutyn i zadan sie NIE zmieniaja. Wejscia: stan najnowszego briefu (`items`, `mc.entries`, `nt.items` = blogi
+Microsoft, `nt.changes` = Learn „what's new", `community.items`, `components`), `site/data/mc-tenant.json` (od
+§5cu `tools/mc_tenant.py` zapisuje tez `when` = „When this will happen", `prepare` = „What you need to do to
+prepare", po 450 znakow, i `dates` = do 6 zdan z data — krotkie wyjatki, nigdy cala tresc), `campaigns.json`
+(TYLKO poprawki wlasciciela: nazwa, scalenie, ukrycie, slowa kluczowe, wiersze before/after, tabela wersji
+komponentu; wykrywanie dziala bez niego), `youtube_sources.json` (8 kanalow, publiczny feed
+`feeds/videos.xml?channel_id=`, bez klucza API) i tabela „Retiring Microsoft Entra Connect 2.x versions" z
+markdownu Learn (`MicrosoftDocs/entra-docs`).
+
+**Wykrywanie (wlasny kod).** Slowa-sygnaly w TYTULE (retire, deprecat, end of support, minimum version, enforce,
+mandatory, by default, opt out, security baseline) albo tag „Retirement" Message Center; zakres = technologie
+portalu, bez Dynamics, Power Platform, Viva i funkcji Word/Excel/PowerPoint; rollout tylko, gdy dotyczy
+bezpieczenstwa; szum (comiesieczne aktualizacje Windows, „Planned Maintenance") odpada. **Grupowanie**: numer MC
+w `reference`/`itemIds`, wzmianka numeru MC w tekscie posta, ten sam `storyKey` (chyba ze to wspolna strona
+„what's new"), skrot-kotwica w tytule (EWS, DKM, SSPR, OTP; ogolne jak DLP, MFA, API — nie), podobienstwo
+tytulow (Jaccard ≥ 0,34 i ≥ 2 rzadkie slowa, ta sama technologia, najwyzej 12 postow na kampanie); pozycja listy
+glownej bez wlasnego sygnalu dolacza przez numer MC, `storyKey` albo kotwice plus dwa rzadkie slowa. Id kampanii
+jest stale: kampania zachowuje id, dopoki ma choc jednego czlonka z poprzedniego przebiegu.
+
+**Kamienie milowe**: zdania z data (dokladna; „early/mid/late <miesiac>" = 5/15/25; sam miesiac = 15.; kwartal)
+z podsumowan Microsoftu i sekcji „When this will happen", `deadline` pozycji, `actionBy` Message Center, dzien
+publikacji kazdego posta („posted"). „Updated <data>: We have updated the timeline" to fakt „Microsoft
+zaktualizowal post", nie kamien. Ten sam dzien z kilku zrodel = jeden wiersz z kilkoma zrodlami, slowa
+Microsoftu przed nasza notatka. **Status**: Active (kamien przed nami) → Recently closed (ostatni minal ≤ 30 dni)
+→ Archive; bez daty — „No fixed date" (do 90 dni od ostatniego posta); baseline — „Released" przez 60 dni;
+kampania z archiwum wraca („reopened"), gdy Microsoft poda nowa date. **Komponent**: „Entra Connect Sync —
+version support" z tabela wersji (Learn), data obowiazkowa Microsoftu i wchlonietymi pozycjami listy glownej o
+Entra Connect (regula `absorb` w `campaigns.json`).
+
+**Strona**: lista (liczby-filtry: aktywne, w 7 dniach, w 30 dniach, przesuniete daty, zamkniete; chipy
+technologii i typu, szukajka, zielony pasek filtra z „Clear"; grupy Next 30 days, Later, No fixed date from
+Microsoft, Security baselines released, Final milestone passed); karta `#tab=campaigns&c=<id>`: fakty, „What
+changes" (zmiana · przed · co mowi Microsoft · dlaczego wazne — nasza lektura · zrodlo), Timeline (data ·
+kamien · kto · zrodlo · status, przesuniecie daty „was → now"), What to do, materialy Microsoft · Community ·
+Video (pusty stan mowi, ze ich jeszcze nie ma). Overview: karta „Campaigns · next 30 days" za karta
+komponentow i zdanie „Campaigns" w „Today in brief" (za zdaniem o komponentach). Pasek „Since the previous run"
+w ksztalcie §5bn (+ nowe kampanie, ~ przesuniete daty / nowe kamienie / nowe materialy, − zamkniete) — z
+niego czyta menu boczne. `/diff/`: sekcja „Campaigns that moved today" (§5cu w `make_diff.py`). Czerwony =
+kamien w 7 dni, bursztynowy = w 30 dni. Panel wstawia SKRYPT 17 synchronicznie (przed DOMContentLoaded), wiec
+powloka i menu boczne widza go jak kazda inna zakladke; trzy listy GROUPS maja „campaigns".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -28275,7 +28393,7 @@ odtad CZTERNASCIE (4-17).**
   /* ---- U5: four groups ---- */
   var GROUPS = [
     ["Today", ["overview", "today", "deadlines", "mc"]],
-    ["Changes", ["new", "graph", "roles", "fpa", "components"]],
+    ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "products"]]
   ];
@@ -30255,7 +30373,7 @@ odtad CZTERNASCIE (4-17).**
 (function () {
   "use strict";
   var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
-                ["Changes", ["new", "graph", "roles", "fpa", "components"]],
+                ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
                 ["Sources", ["learn", "blogs", "community", "sources"]],
                 ["Act", ["hunting", "products"]]];
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
@@ -32015,7 +32133,7 @@ odtad CZTERNASCIE (4-17).**
      DOMContentLoaded, so it takes the order from this list, not from the DOM of that moment */
   var GROUPS = [
     ["Today", ["overview", "today", "deadlines", "mc"]],
-    ["Changes", ["new", "graph", "roles", "fpa", "components"]],
+    ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "products"]]
   ];
@@ -32086,6 +32204,8 @@ odtad CZTERNASCIE (4-17).**
       case "tab-roles": n = ((CAT || {}).roles || []).length; return n ? fmt(n) + " roles in the catalog" : "";
       case "tab-fpa": n = navNum(pid); return n ? fmt(n) + " apps" : "";
       case "tab-components": n = ((ST || {}).components || []).length; return n ? fmt(n) + " components" : "";
+      /* §5cu: the Campaigns layer writes its own unit line once /data/campaigns.json is read */
+      case "tab-campaigns": var cpn = document.getElementById("tab-campaigns"); return cpn ? cpn.getAttribute("data-units") || "" : "";
       case "tab-learn": n = navNum(pid); return n ? fmt(n) + " entries in the list" : "";
       case "tab-blogs": n = navNum(pid); return n ? fmt(n) + " posts in the list" : "";
       case "tab-community": n = navNum(pid); return n ? fmt(n) + " articles in the list" : "";
@@ -34175,6 +34295,408 @@ odtad CZTERNASCIE (4-17).**
   [1500, 4000].forEach(function (t) { setTimeout(safe, t); });
   document.addEventListener("click", function (e) { if (e.target && e.target.closest && e.target.closest('[aria-controls="tab-components"], [data-pid="tab-components"]')) setTimeout(safe, 300); }, true);
 })();
+/* §5cu (9 X 2026, owner: "track the campaigns — rollouts, retirements, enforcements, previews, end of
+   support of components and their versions — across every technology of the portal, with dates, before
+   and after, materials from Microsoft and the community, and videos; our own detection, not someone
+   else's work; show it properly in the portal and in /diff/"). The Campaigns tab, after Component
+   versions in the Changes group. Data: /data/campaigns.json, written by tools/campaigns.py in GitHub
+   Actions (workflow "Campaign tracking") from the brief's own state, the tenant's Message Center, the
+   Learn version table of Entra Connect and the public feeds of the watched YouTube channels.
+   The panel is inserted NOW, synchronously, so the shell's tab bar (built at DOMContentLoaded) and the
+   rail see it as a native tab. A list (filters by technology and type, groups by the next milestone)
+   and one card per campaign (#tab=campaigns&c=<id>): what changes, timeline with every moved date,
+   what to do, materials Microsoft / Community / Video. Overview gets "Campaigns · next 30 days" and the
+   day's sentences one more: Campaigns. Red = a milestone within 7 days, amber = within 30. */
+(function () {
+  "use strict";
+  var M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] + " " + m[1] : (d || ""); }
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || ""); }
+  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function today() { var n = new Date(); return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2); }
+  function daysTo(d) { return Math.round((Date.parse(String(d).slice(0, 10) + "T12:00:00Z") - Date.parse(today() + "T12:00:00Z")) / 864e5); }
+  function inDays(n) { return n === 0 ? "today" : n === 1 ? "tomorrow" : n > 0 ? "in " + n + " days" : Math.abs(n) + " day" + (n === -1 ? "" : "s") + " ago"; }
+  function tone(n) { return n == null ? "" : n >= 0 && n <= 7 ? "r" : n >= 0 && n <= 30 ? "a" : ""; }
+  /* Microsoft's approximate dates ("mid October", "October 2026", "Q1 2027") are sorted as a day but never
+     counted in days: amber within 30 days at most, never red */
+  function approx(x) { return !!(x && x.prec && x.prec !== "day"); }
+  function when(x) { var n = daysTo(x.date); return approx(x) ? x.label + " · approximate" : x.label + " · " + inDays(n); }
+  function toneOf(x) { var n = daysTo(x.date); return approx(x) ? (n >= -15 && n <= 30 ? "a" : "") : tone(n); }
+  function plural(n, w) { return n + " " + w + (n === 1 ? "" : "s"); }
+
+  /* ---- the panel, synchronously ---- */
+  var wrap = document.querySelector(".wrap"), after = document.getElementById("tab-components");
+  if (!wrap || document.getElementById("tab-campaigns")) return;
+  var panel = el("div", "tabpanel"); panel.id = "tab-campaigns"; panel.setAttribute("data-tab", "Campaigns"); panel.hidden = true;
+  var sec = el("section"); sec.id = "campaigns"; sec.setAttribute("data-nav", "Campaigns");
+  var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Campaigns"));
+  sh.appendChild(el("p", "sec-title", "Retirements, enforcements, end of support and changes by default, followed from first post to last date"));
+  sec.appendChild(sh);
+  var body = el("div", "sec-body s5cu"); body.appendChild(el("p", "s5cu-note", "Loading the campaigns…")); sec.appendChild(body);
+  panel.appendChild(sec);
+  if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
+  else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
+
+  var D = null, F = { tech: "", type: "", q: "", only: "" }, open = "";
+  var TYPES = ["Retirement", "Enforcement", "Support end", "Required change", "Rollout", "Baseline"];
+
+  function goTab() { var b = document.querySelector('nav.anchors .tab[aria-controls="tab-campaigns"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
+  function setHash(h) { try { history.replaceState(null, "", h); } catch (e) {} }
+  function top0() { var r = panel.getBoundingClientRect(); window.scrollTo(0, Math.max(0, window.scrollY + r.top - 120)); }
+  function goCard(id, where) { goTab(); open = id; setHash("#tab=campaigns&c=" + encodeURIComponent(id)); render();
+    setTimeout(function () { var t = where && document.getElementById("s5cu-" + where); if (t) window.scrollTo(0, Math.max(0, window.scrollY + t.getBoundingClientRect().top - 120)); else top0(); }, 60); }
+  function goList() { open = ""; setHash("#tab=campaigns"); render(); setTimeout(top0, 40); }
+  window.__socCampaign = function (id) { if (id) goCard(id); else { goTab(); goList(); } };
+
+  function srcLink(c, id) {
+    var all = [].concat(c.materials.microsoft || []);
+    var m = all.filter(function (x) { return x.id === id; })[0];
+    var label = /^MC\d/.test(id) ? id : /^\d{5,7}$/.test(id) ? "Roadmap " + id : id === "Learn" ? "Microsoft Learn" : id === "Component versions" ? "Component versions" : "Brief item";
+    if (m && m.link) { var a = el("a", "s5cu-src", label); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; a.title = m.title || id; return a; }
+    if (label === "Brief item") { var b = el("a", "s5cu-src", label); b.href = "#tab=deadlines&item=" + encodeURIComponent(id); b.title = "Open this item in the brief"; return b; }
+    return el("span", "s5cu-src", label);
+  }
+  function weekText(c) {
+    var ev = c.week || [], out = [];
+    var mv = ev.filter(function (e) { return e.type === "moved"; }), ms = ev.filter(function (e) { return e.type === "milestone"; }),
+      mt = ev.filter(function (e) { return e.type === "material"; }), nw = ev.filter(function (e) { return e.type === "new"; });
+    if (nw.length) out.push("new campaign");
+    if (mv.length) out.push(mv.length === 1 ? "date moved: " + mv[0].was + " → " + mv[0].now : mv.length + " dates moved");
+    if (ms.length) out.push(ms.length === 1 ? "new milestone " + ms[0].now : ms.length + " new milestones");
+    if (mt.length) out.push("+" + plural(mt.length, "new material"));
+    if (ev.some(function (e) { return e.type === "closed"; })) out.push("closed");
+    if (!out.length && (c.stamps || []).length) { var s = c.stamps[c.stamps.length - 1]; if (daysTo(s.date) >= -7) out.push("Microsoft updated the post " + dm(s.date)); }
+    return out.join(" · ");
+  }
+  function group(c) {
+    if (c.status === "Active" && c.next) { var n = daysTo(c.next.date); return n <= 30 ? "soon" : "later"; }
+    if (c.status === "Released") return "released";
+    if (c.status === "Recently closed") return "closed";
+    return "nodate";
+  }
+  var GROUPS = [["soon", "Next 30 days"], ["later", "Later"], ["nodate", "No fixed date from Microsoft"], ["released", "Security baselines released — review and adopt"], ["closed", "Final milestone passed — last 30 days"]];
+
+  function pass(c) {
+    if (F.tech && c.tech !== F.tech) return false;
+    if (F.type && c.type !== F.type) return false;
+    if (F.only === "in7" && !(c.next && !approx(c.next) && daysTo(c.next.date) <= 7)) return false;
+    if (F.only === "in30" && !(c.next && daysTo(c.next.date) <= 30)) return false;
+    if (F.only === "moved" && !(c.week || []).some(function (e) { return e.type === "moved"; })) return false;
+    if (F.only === "closed" && c.status !== "Recently closed") return false;
+    if (F.only === "active" && c.status !== "Active") return false;
+    if (F.q) { var t = (c.name + " " + (c.summary || "") + " " + (c.members || []).join(" ")).toLowerCase(); if (t.indexOf(F.q.toLowerCase()) < 0) return false; }
+    return true;
+  }
+
+  /* ---- strip "since the previous run" (§5bn shape: the rail reads its three numbers) ---- */
+  function strip() {
+    var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
+    var day = D.day, ev = (D.events || []).filter(function (e) { return e.day === day; });
+    var n = { added: 0, changed: 0, removed: 0 }, rows = [];
+    ev.forEach(function (e) {
+      var k = e.type === "new" || e.type === "reopened" ? "added" : e.type === "closed" ? "removed" : "changed";
+      if (e.type === "material") { if (rows.some(function (r) { return r.cid === e.cid && r.t === "material"; })) return; }
+      n[k]++; rows.push({ k: k, cid: e.cid, t: e.type, e: e });
+    });
+    var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns since the previous run");
+    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Since the previous run · " + dm(day)));
+    [["added", "+", "new campaigns"], ["changed", "~", "moved or new material"], ["removed", "−", "closed"]].forEach(function (k) {
+      var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]); if (!n[k[0]]) b.classList.add("zero"); h.appendChild(b); });
+    box.appendChild(h);
+    if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved in the latest run: no new campaign, no date moved, no new milestone or material, none closed."));
+    else {
+      var ul = el("ul", "s5bn-l");
+      rows.slice(0, 8).forEach(function (r) {
+        var li = el("li", "s5bn-r s5bn-" + r.k), e = r.e;
+        li.appendChild(el("span", "s5bn-k", r.k === "added" ? "NEW" : r.k === "removed" ? "CLOSED" : "CHANGED"));
+        var a = el("a", "s5bn-tl", e.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(e.cid);
+        a.addEventListener("click", function (x) { x.preventDefault(); goCard(e.cid); }); li.appendChild(a);
+        var t = e.type === "moved" ? "date moved " + e.was + " → " + e.now : e.type === "milestone" ? "new milestone " + e.now : e.type === "material" ? "new material: " + e.title : e.type === "closed" ? "final milestone passed" : e.type === "reopened" ? "reopened: next " + e.next : (e.next ? "next milestone " + e.next : "");
+        if (t) li.appendChild(el("span", "s5bn-pr", t));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    }
+    panel.insertBefore(box, panel.firstChild);
+  }
+
+  /* ---- the list ---- */
+  function chip(label, n, on, fn) {
+    var b = el("button", "s5cu-f" + (on ? " on" : "")); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.appendChild(document.createTextNode(label)); if (n != null) b.appendChild(el("b", null, String(n)));
+    b.addEventListener("click", fn); return b;
+  }
+  function renderList() {
+    body.innerHTML = "";
+    var C = D.campaigns || [];
+    var intro = el("p", "s5cu-intro");
+    intro.textContent = "A campaign is one change Microsoft runs over weeks or months — a retirement, an enforcement, the end of support for a version, a setting that switches on by default — followed from its first post to its last date across Message Center, Microsoft blogs and Learn, the community sources and the watched YouTube channels. Found and grouped by this portal’s own code (tools/campaigns.py) on every run; last run " + dmy(D.day) + ".";
+    body.appendChild(intro);
+    var k = D.counts || {};
+    var kp = el("div", "s5cu-kpi");
+    function kpi(n, txt, cls, only) {
+      var b = el("button", "s5cu-k" + (cls ? " " + cls : "") + (F.only === only ? " on" : "")); b.type = "button";
+      b.appendChild(el("b", null, String(n))); b.appendChild(document.createTextNode(" " + txt)); b.title = "Show only these";
+      b.addEventListener("click", function () { F.only = F.only === only ? "" : only; render(); }); kp.appendChild(b);
+    }
+    kpi(k.active || 0, "active", "", "active"); kpi(k.in7 || 0, "milestones in 7 days", "r", "in7"); kpi(k.in30 || 0, "in 30 days", "a", "in30");
+    kpi(k.moved7 || 0, "dates moved this week", "", "moved"); kpi(k.closed30 || 0, "closed in the last 30 days", "", "closed");
+    body.appendChild(kp);
+    /* filters */
+    var fb = el("div", "s5cu-fb"), tc = {}, ty = {};
+    C.forEach(function (c) { tc[c.tech] = (tc[c.tech] || 0) + 1; ty[c.type] = (ty[c.type] || 0) + 1; });
+    var r1 = el("div", "s5cu-fr"); r1.appendChild(el("span", "s5cu-fl", "Technology"));
+    r1.appendChild(chip("All", C.length, !F.tech, function () { F.tech = ""; render(); }));
+    Object.keys(tc).sort(function (a, b) { return tc[b] - tc[a] || a.localeCompare(b); }).forEach(function (t) {
+      r1.appendChild(chip(t, tc[t], F.tech === t, function () { F.tech = F.tech === t ? "" : t; render(); })); });
+    fb.appendChild(r1);
+    var r2 = el("div", "s5cu-fr"); r2.appendChild(el("span", "s5cu-fl", "Type"));
+    TYPES.filter(function (t) { return ty[t]; }).forEach(function (t) { r2.appendChild(chip(t, ty[t], F.type === t, function () { F.type = F.type === t ? "" : t; render(); })); });
+    var q = el("input", "s5cu-q"); q.type = "search"; q.placeholder = "Search a campaign or MC number…"; q.value = F.q; q.setAttribute("aria-label", "Search campaigns");
+    q.addEventListener("input", function () { F.q = q.value.trim(); var p = q.selectionStart; render(); var nq = body.querySelector(".s5cu-q"); if (nq) { nq.focus(); try { nq.setSelectionRange(p, p); } catch (e) {} } });
+    r2.appendChild(q); fb.appendChild(r2);
+    body.appendChild(fb);
+    var shown = C.filter(pass);
+    if (F.tech || F.type || F.q || F.only) {
+      var gb = el("div", "s5cu-green"); var parts = [];
+      if (F.tech) parts.push(F.tech); if (F.type) parts.push(F.type); if (F.q) parts.push("“" + F.q + "”");
+      if (F.only) parts.push({ active: "active", in7: "milestone within 7 days", in30: "milestone within 30 days", moved: "date moved this week", closed: "closed in the last 30 days" }[F.only]);
+      gb.appendChild(el("span", null, "Filtered: " + parts.join(" · ") + " — " + plural(shown.length, "campaign") + " of " + C.length));
+      var cl = el("button", "s5cu-clear", "Clear"); cl.type = "button"; cl.addEventListener("click", function () { F = { tech: "", type: "", q: "", only: "" }; render(); });
+      gb.appendChild(cl); body.appendChild(gb);
+    }
+    var list = el("div", "s5cu-list"); list.setAttribute("role", "table"); list.setAttribute("aria-label", "Campaigns");
+    var hd = el("div", "s5cu-row s5cu-hd"); hd.setAttribute("role", "row");
+    ["Campaign", "Technology", "Type", "Next milestone", "Materials", "This week"].forEach(function (t) { var x = el("span", null, t); x.setAttribute("role", "columnheader"); hd.appendChild(x); });
+    list.appendChild(hd);
+    GROUPS.forEach(function (g) {
+      var rows = shown.filter(function (c) { return group(c) === g[0]; });
+      if (!rows.length) return;
+      if (g[0] === "soon" || g[0] === "later") rows.sort(function (a, b) { return a.next.date < b.next.date ? -1 : a.next.date > b.next.date ? 1 : 0; });
+      var gh = el("div", "s5cu-grp"); gh.appendChild(document.createTextNode(g[1])); gh.appendChild(el("span", null, String(rows.length))); list.appendChild(gh);
+      rows.forEach(function (c) { list.appendChild(row(c)); });
+    });
+    if (!shown.length) list.appendChild(el("p", "s5cu-note", "No campaign matches these filters."));
+    body.appendChild(list);
+    body.appendChild(el("p", "s5cu-legend", "Materials: MC = Message Center posts · Microsoft = Microsoft blogs, Learn and the brief’s own sources · Community = articles from the watched community sources · Video = the watched YouTube channels (" + (k.channels || 0) + "). Every number opens the campaign at that list. Red: a milestone within 7 days · amber: within 30 days. Dates written as “mid Oct” are Microsoft’s own approximate dates, sorted as the 15th."));
+  }
+  function row(c) {
+    var r = el("div", "s5cu-row"); r.setAttribute("role", "row"); r.setAttribute("data-cid", c.id);
+    var c1 = el("span", "s5cu-c1"); var nm = el("a", "s5cu-nm", c.name); nm.href = "#tab=campaigns&c=" + encodeURIComponent(c.id);
+    nm.addEventListener("click", function (e) { e.preventDefault(); goCard(c.id); }); c1.appendChild(nm);
+    if (c.summary && c.summary !== c.name) c1.appendChild(el("span", "s5cu-sm", c.summary));
+    r.appendChild(c1);
+    r.appendChild(el("span", "s5cu-tech", c.tech)); r.appendChild(el("span", "s5cu-ty", c.type));
+    var c4 = el("span", "s5cu-nx");
+    if (c.next) { c4.appendChild(el("span", "s5cu-d " + toneOf(c.next), when(c.next))); if (c.next.text && c.next.text.indexOf(c.name) < 0) c4.appendChild(el("span", "s5cu-dd", c.next.text)); }
+    else if (c.final) { c4.appendChild(el("span", "s5cu-d", (c.status === "Released" ? "released " : "last date ") + c.final.label)); }
+    else c4.appendChild(el("span", "s5cu-d s5cu-none", "Microsoft prints no date"));
+    r.appendChild(c4);
+    var c5 = el("span", "s5cu-mat"), k = c.counts || {};
+    [["mc", "MC", "microsoft"], ["microsoft", "Microsoft", "microsoft"], ["community", "Community", "community"], ["video", "Video", "video"]].forEach(function (x) {
+      var n2 = k[x[0]] || 0; if (!n2) return;
+      var b = el("button", "s5cu-mb", x[1] + " "); b.type = "button"; b.appendChild(el("b", null, String(n2))); b.title = "Open the " + x[1] + " materials of this campaign";
+      b.addEventListener("click", function () { goCard(c.id, "m-" + x[2]); }); c5.appendChild(b);
+    });
+    if (!c5.childNodes.length) c5.appendChild(el("span", "s5cu-none", "—"));
+    r.appendChild(c5);
+    r.appendChild(el("span", "s5cu-wk", weekText(c)));
+    return r;
+  }
+
+  /* ---- the card ---- */
+  /* every cell carries its column name, so a phone can show the table as stacked rows */
+  function labels(t) { var hs = [].map.call(t.querySelectorAll("thead th"), function (x) { return x.textContent; });
+    [].forEach.call(t.querySelectorAll("tbody tr"), function (r) { [].forEach.call(r.children, function (td, i) { if (hs[i] && td.colSpan < 2) td.setAttribute("data-l", hs[i]); }); }); return t; }
+  function h2(t) { return el("h3", "s5cu-h", t); }
+  function renderCard(c) {
+    body.innerHTML = "";
+    var back = el("button", "s5cu-back", "← All campaigns"); back.type = "button"; back.addEventListener("click", goList); body.appendChild(back);
+    var hd = el("div", "s5cu-ch");
+    hd.appendChild(el("span", "s5cu-crumb", "Campaigns · " + c.tech + " · " + c.type));
+    hd.appendChild(el("h2", "s5cu-t", c.name));
+    if (c.summary && c.summary !== c.name) hd.appendChild(el("p", "s5cu-sum", c.summary));
+    var f = el("div", "s5cu-facts");
+    function fact(l, v, cls) { var s = el("span"); s.appendChild(document.createTextNode(l + " ")); var b = el("b", cls || null, v); s.appendChild(b); f.appendChild(s); }
+    fact("Type", c.type); fact("Status", c.status === "Released" ? "Released" : c.status);
+    if (c.next) fact("Next", when(c.next), "s5cu-" + (toneOf(c.next) || "n"));
+    if (c.final && (!c.next || c.final.date !== c.next.date)) fact("Final", c.final.label);
+    var fpost = (c.milestones || []).filter(function (x) { return x.post; })[0];
+    if (fpost) fact("First post", dmy(fpost.date));
+    if (c.firstSeen) fact("Tracked here since", dmy(c.firstSeen));
+    var st = (c.stamps || []).slice(-1)[0]; if (st) fact("Microsoft updated the post", dmy(st.date) + (st.text ? " — “" + st.text.replace(/\.$/, "") + "”" : ""));
+    if ((c.related || []).length) { var rs = el("span"); rs.appendChild(document.createTextNode("Related ")); c.related.forEach(function (x, i) { if (i) rs.appendChild(document.createTextNode(" · "));
+      var a = el("a", "s5cu-rel", x.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(x.id); a.addEventListener("click", function (e) { e.preventDefault(); goCard(x.id); }); rs.appendChild(a); }); f.appendChild(rs); }
+    hd.appendChild(f); body.appendChild(hd);
+    if (c.component) compBlock(c);
+    /* what changes */
+    var rows = c.changes || [];
+    if (rows.length) {
+      var s1 = el("section", "s5cu-s"); s1.id = "s5cu-changes"; s1.appendChild(h2("What changes"));
+      var hasB = rows.some(function (r) { return r.before; }), hasW = rows.some(function (r) { return r.why; }), hasS = rows.some(function (r) { return r.says || r.after; });
+      var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab"), th = el("tr");
+      ["Change"].concat(hasB ? ["Before"] : [], hasS ? [hasB ? "After — Microsoft" : "What Microsoft says"] : [], hasW ? ["Why it matters — our reading"] : [], ["Source"]).forEach(function (x) { th.appendChild(el("th", null, x)); });
+      var thd = el("thead"); thd.appendChild(th); t.appendChild(thd); var tb = el("tbody");
+      rows.forEach(function (r) {
+        var tr = el("tr"); tr.appendChild(el("td", "s5cu-chg", r.change));
+        if (hasB) tr.appendChild(el("td", "s5cu-mut", r.before || "—"));
+        if (hasS) tr.appendChild(el("td", null, r.says || r.after || "—"));
+        if (hasW) tr.appendChild(el("td", "s5cu-why", r.why || "—"));
+        var td = el("td", "s5cu-srcc"); td.appendChild(srcLink(c, r.src)); tr.appendChild(td); tb.appendChild(tr);
+      });
+      t.appendChild(tb); tw.appendChild(labels(t)); s1.appendChild(tw); body.appendChild(s1);
+    }
+    timeline(c);
+    if ((c.todo || []).length) {
+      var s3 = el("section", "s5cu-s"); s3.id = "s5cu-todo"; s3.appendChild(h2("What to do"));
+      var ol = el("ol", "s5cu-todo");
+      c.todo.forEach(function (x) { var li = el("li"); li.appendChild(el("span", null, x.text)); if (x.src) { li.appendChild(document.createTextNode(" ")); li.appendChild(srcLink(c, x.src)); } ol.appendChild(li); });
+      s3.appendChild(ol); body.appendChild(s3);
+    }
+    if ((c.items || []).length) {
+      var s4 = el("p", "s5cu-inbrief"); s4.appendChild(document.createTextNode("In the brief’s main list: "));
+      c.items.forEach(function (id, i) { if (i) s4.appendChild(document.createTextNode(" · ")); var a = el("a", null, id); a.href = "#tab=deadlines&item=" + encodeURIComponent(id); s4.appendChild(a); });
+      body.appendChild(s4);
+    }
+    materials(c);
+  }
+  function timeline(c) {
+    var ms = c.milestones || []; if (!ms.length) return;
+    var s2 = el("section", "s5cu-s"); s2.id = "s5cu-timeline"; s2.appendChild(h2("Timeline"));
+    var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab s5cu-tl"), th = el("tr");
+    ["Date", "Milestone", "Who", "Source", "Status"].forEach(function (x) { th.appendChild(el("th", null, x)); });
+    var thd = el("thead"); thd.appendChild(th); t.appendChild(thd); var tb = el("tbody");
+    var nextDate = c.next ? c.next.date : "";
+    ms.forEach(function (x) {
+      var n = daysTo(x.date), past = n < 0, tr = el("tr", past ? "past" : x.date === nextDate ? "next" : "");
+      tr.appendChild(el("td", "s5cu-dt" + (x.date === nextDate ? " s5cu-" + (toneOf(x) || "n") : ""), x.label));
+      var td = el("td"); td.appendChild(el("span", null, x.text));
+      if (x.moved) td.appendChild(el("span", "s5cu-moved", "Date moved: " + x.moved.was + " → " + x.moved.now + (x.moved.seen ? " (seen " + dm(x.moved.seen) + ")" : "")));
+      tr.appendChild(td);
+      tr.appendChild(el("td", "s5cu-who", x.who || ""));
+      var sc = el("td", "s5cu-srcc"); (x.srcs || [x.src]).forEach(function (s, i) { if (i) sc.appendChild(document.createTextNode(" · ")); sc.appendChild(srcLink(c, s)); }); tr.appendChild(sc);
+      tr.appendChild(el("td", "s5cu-stt" + (x.date === nextDate ? " nx" : ""), x.post ? "posted" : past ? "done" : (x.date === nextDate ? "next · " : "") + (approx(x) ? "approximate" : inDays(n))));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); tw.appendChild(labels(t)); s2.appendChild(tw);
+    s2.appendChild(el("p", "s5cu-legend", "“posted” rows are Message Center posts of this campaign. Approximate dates (early, mid, late, a month or a quarter) are Microsoft’s own wording."));
+    body.appendChild(s2);
+  }
+  function compBlock(c) {
+    var k = c.component;
+    var meta = el("div", "s5cu-facts s5cu-cf");
+    var cur = el("span"); cur.appendChild(document.createTextNode("Current ")); cur.appendChild(el("b", "s5cu-mono", k.current || "?")); if (k.released) cur.appendChild(document.createTextNode(" · released " + dmy(k.released))); meta.appendChild(cur);
+    if (k.checkedOn) meta.appendChild(el("span", null, "Checked " + dmy(k.checkedOn) + " in Component versions"));
+    body.appendChild(meta);
+    if (k.mandatory) { var al = el("div", "s5cu-alert"); al.appendChild(el("b", null, "Microsoft: ")); al.appendChild(document.createTextNode(k.mandatory)); body.appendChild(al); }
+    var V = (k.versions || []).slice().reverse();
+    if (!V.length) return;
+    var s = el("section", "s5cu-s"); s.id = "s5cu-versions"; s.appendChild(h2("Versions and their end of support"));
+    var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab"), th = el("tr");
+    ["Version", "Released", "End of support", "Status"].forEach(function (x) { th.appendChild(el("th", null, x)); });
+    var thd = el("thead"); thd.appendChild(th); t.appendChild(thd); var tb = el("tbody");
+    var old = V.filter(function (v) { return v.status === "retired"; }), shown = V.filter(function (v) { return v.status !== "retired"; }).concat(old.slice(0, 2));
+    shown.forEach(function (v) {
+      var n = v.eos ? daysTo(v.eos) : null, tr = el("tr", v.status === "retired" ? "past" : "");
+      tr.appendChild(el("td", "s5cu-v", v.version)); tr.appendChild(el("td", null, v.released ? dmy(v.released) : "—"));
+      var e = el("td", v.eos && n >= 0 && n <= 30 ? "s5cu-a" : null, v.eos ? dmy(v.eos) : "set when the next version ships"); if (v.eosNote) e.title = v.eosNote; tr.appendChild(e);
+      tr.appendChild(el("td", "s5cu-vs s5cu-vs-" + String(v.status).replace(/\s+/g, "-"), v.status === "current" ? "current" : v.status === "retired" ? "retired" : v.status === "ends soon" ? "ends " + inDays(n) : "supported · " + n + " days left"));
+      tb.appendChild(tr);
+    });
+    if (old.length > 2) { var tr2 = el("tr", "past"); var td2 = el("td", "s5cu-mut", (old.length - 2) + " older versions (" + old[old.length - 1].version + " – " + old[2].version + ") retired between " + dmy(old[old.length - 1].eos) + " and " + dmy(old[2].eos) + "."); td2.colSpan = 4; tr2.appendChild(td2); tb.appendChild(tr2); }
+    t.appendChild(tb); tw.appendChild(labels(t)); s.appendChild(tw); body.appendChild(s);
+  }
+  function materials(c) {
+    var g = el("div", "s5cu-mats");
+    [["microsoft", "Microsoft"], ["community", "Community"], ["video", "Video"]].forEach(function (x) {
+      var L = (c.materials || {})[x[0]] || [];
+      var s = el("section", "s5cu-s s5cu-mcol"); s.id = "s5cu-m-" + x[0]; s.appendChild(h2(x[1] + " · " + L.length));
+      var box = el("div", "s5cu-box");
+      if (!L.length) box.appendChild(el("p", "s5cu-empty", x[0] === "video" ? "No video on this campaign yet from the watched channels. A video appears here with its title, channel and date when one of them publishes." : x[0] === "community" ? "No community article on this campaign yet from the watched sources. Articles join on the day they are found and stay after they leave the 14-day window." : "No Microsoft material besides the posts above."));
+      L.forEach(function (m) {
+        var li = el("div", "s5cu-li"); var a = el("a", "s5cu-mt", m.title || m.link); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; li.appendChild(a);
+        var meta = [m.source, m.id && m.source === "Message Center" ? m.id : "", m.date ? dmy(m.date) : "", m.updated && m.updated !== m.date ? "updated " + dm(m.updated) : "", m.found && m.found !== D.day && m.found > (c.firstSeen || "") ? "added " + dm(m.found) : ""].filter(Boolean);
+        li.appendChild(el("span", "s5cu-mm", meta.join(" · "))); box.appendChild(li);
+      });
+      s.appendChild(box); g.appendChild(s);
+    });
+    body.appendChild(g);
+  }
+
+  function render() {
+    if (!D) return;
+    try {
+      var c = open && (D.campaigns || []).filter(function (x) { return x.id === open; })[0];
+      if (c) renderCard(c); else { open = ""; renderList(); }
+    } catch (e) { if (window.console) console.error("[5cu render]", e); }
+  }
+  function fromHash() {
+    var m = /^#tab=campaigns(?:&c=([^&]+))?/.exec(location.hash || ""); if (!m) return;
+    open = m[1] ? decodeURIComponent(m[1]) : ""; goTab(); render();
+  }
+
+  /* ---- Overview: "Campaigns · next 30 days" and one more sentence ---- */
+  function overview(n) {
+    var host = document.querySelector("#tab-overview .s5ci-ov");
+    if (!host) { if (n < 25) setTimeout(function () { overview(n + 1); }, 400); return; }
+    if (host.querySelector(".s5cu-ov")) return;
+    var C = (D.campaigns || []).filter(function (c) { return c.next && daysTo(c.next.date) <= 30; }).sort(function (a, b) { return a.next.date < b.next.date ? -1 : 1; });
+    var card = el("section", "s5ci-card s5ci-c-acc s5cu-ov"), h = el("div", "s5ci-ch");
+    h.appendChild(el("h3", null, "Campaigns · next 30 days"));
+    var al = el("span", "s5cu-ovh"); al.appendChild(document.createTextNode((D.counts || {}).active + " active · "));
+    var ab = el("button", "s5ci-inl", "All campaigns ›"); ab.type = "button"; ab.addEventListener("click", function () { goTab(); goList(); }); al.appendChild(ab);
+    h.appendChild(al); card.appendChild(h);
+    if (!C.length) card.appendChild(el("p", "s5ci-note", "No campaign milestone in the next 30 days."));
+    C.slice(0, 8).forEach(function (c) {
+      var n = daysTo(c.next.date), r = el("div", "s5cu-ovr");
+      r.appendChild(el("span", "s5cu-d " + toneOf(c.next), approx(c.next) ? c.next.label.replace(/ \d{4}$/, "") : dm(c.next.date)));
+      var mid = el("span"); var b = el("button", "s5cu-ovn", c.name); b.type = "button"; b.addEventListener("click", function () { goCard(c.id); }); mid.appendChild(b);
+      mid.appendChild(el("span", "s5cu-ovw", c.tech + (c.next.text && c.next.text.indexOf(c.name) < 0 ? " · " + c.next.text : ""))); r.appendChild(mid);
+      r.appendChild(el("span", "s5cu-ovd", approx(c.next) ? "approx." : inDays(n))); card.appendChild(r);
+    });
+    if (C.length > 8) { var more = el("button", "s5ci-inl", "All " + C.length + " in the next 30 days ›"); more.type = "button"; more.addEventListener("click", function () { F = { tech: "", type: "", q: "", only: "in30" }; goTab(); goList(); }); card.appendChild(more); }
+    var cr = host.querySelector(".s5cr-ov");
+    if (cr && cr.parentNode === host) host.insertBefore(card, cr.nextSibling); else host.appendChild(card);
+  }
+  function sentence(n) {
+    var ol = document.querySelector("#tab-overview .s5bk-3");
+    if (!ol) { if (n < 25) setTimeout(function () { sentence(n + 1); }, 400); return; }
+    if (ol.querySelector(".s5cu-sen")) return;
+    var C = (D.campaigns || []).filter(function (c) { return c.next && !approx(c.next) && daysTo(c.next.date) >= 0 && daysTo(c.next.date) <= 7; }).sort(function (a, b) { return a.next.date < b.next.date ? -1 : 1; });
+    var nx = C.length ? null : (D.campaigns || []).filter(function (c) { return c.next; }).sort(function (a, b) { return a.next.date < b.next.date ? -1 : 1; })[0];
+    if (!C.length && !nx) return;
+    var li = el("li", "s5cu-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Campaigns"));
+    var b = el("button", "s5bk-it s5bk-link"); b.type = "button"; b.title = "Open Campaigns";
+    b.appendChild(el("span", "s5bk-itt", C.length ? plural(C.length, "campaign milestone") + " in the next 7 days" : "Next campaign milestone: " + nx.name));
+    var m = el("span", "s5bk-itm s5bk-dressed");
+    var txt = C.length ? C.slice(0, 3).map(function (c) { return c.name + " — " + dm(c.next.date) + ": " + c.next.text; }).join("; ") : nx.next.text;
+    if (txt.length > 330) txt = txt.slice(0, 330).replace(/\s+\S*$/, "") + "…";
+    m.appendChild(el("span", "s5bk-its", txt));
+    var pw = el("span", "s5bk-pills"); pw.appendChild(el("span", "s5bk-pill p-warn", C.length ? "first " + dm(C[0].next.date) : "due " + dm(nx.next.date)));
+    pw.appendChild(el("span", "s5bk-pill", (D.counts || {}).active + " active campaigns")); m.appendChild(pw); b.appendChild(m);
+    b.addEventListener("click", function () { if (C.length) { F = { tech: "", type: "", q: "", only: "in7" }; goTab(); goList(); } else goCard(nx.id); });
+    li.appendChild(b);
+    /* after the component sentence when there is one, else at the end */
+    var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { var k = x.querySelector(":scope > b"); return k && /^component/i.test(k.textContent || ""); })[0];
+    if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
+  }
+
+  function units() {
+    var k = D.counts || {};
+    panel.setAttribute("data-units", (k.active || 0) + " active campaigns · " + (k.noDate || 0) + " without a date · " + (k.archive || 0) + " in the archive · run " + dm(D.day));
+  }
+  function start() {
+    if (!onSite() || !window.fetch) { body.innerHTML = ""; body.appendChild(el("p", "s5cu-note", "Campaigns are read from /data/campaigns.json on the published site.")); return; }
+    fetch("/data/campaigns.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.campaigns) { body.innerHTML = ""; body.appendChild(el("p", "s5cu-note", "No campaign data yet: the first run of tools/campaigns.py has not been published.")); return; }
+      D = d; units(); strip(); render(); fromHash(); overview(0); sentence(0);
+      var nb = document.querySelector('nav.anchors .tab[aria-controls="tab-campaigns"] .navcount'); if (nb) nb.textContent = String((d.counts || {}).active || 0);
+    }).catch(function (e) { body.innerHTML = ""; body.appendChild(el("p", "s5cu-note", "Campaigns could not be read: " + e)); });
+  }
+  window.addEventListener("hashchange", fromHash);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -34958,6 +35480,149 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-gt{font-size:12px;color:var(--faint)}
 .s5bk-gd{display:block}
 .s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}
+/* §5cu: Campaigns — list, card, Overview card (layout A: text colour for names, accent arrow for links,
+   red only within 7 days, amber only within 30) */
+.s5cu{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
+.s5cu-note{color:var(--muted);margin:6px 0}
+.s5cu-intro{margin:0;color:var(--muted);line-height:1.55;max-width:1100px}
+.s5cu-kpi{display:flex;flex-wrap:wrap;gap:6px 8px}
+.s5cu-k{font:inherit;font-size:13.5px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 11px;cursor:pointer}
+.s5cu-k b{color:var(--text);font-weight:700}
+.s5cu-k.r b{color:var(--bad)}
+.s5cu-k.a b{color:var(--warn)}
+.s5cu-k:hover{border-color:var(--accent)}
+.s5cu-k.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5cu-fb{display:flex;flex-direction:column;gap:8px}
+.s5cu-fr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5cu-fl{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px;min-width:84px}
+.s5cu-f{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;cursor:pointer}
+.s5cu-f b{color:var(--faint);font-weight:600;margin-left:5px}
+.s5cu-f:hover{border-color:var(--accent)}
+.s5cu-f.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5cu-f.on b{color:var(--ok)}
+.s5cu-q{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;min-width:240px;margin-left:auto}
+.s5cu-green{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:var(--ok-soft);border:1px solid var(--ok);color:var(--ok);border-radius:8px;padding:8px 12px;font-weight:600}
+.s5cu-clear{font:inherit;font-weight:600;color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:3px 10px;cursor:pointer}
+.s5cu-list{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+.s5cu-row{display:grid;grid-template-columns:minmax(0,3.2fr) minmax(0,.9fr) minmax(0,1fr) minmax(0,2fr) minmax(0,1.4fr) minmax(0,1.3fr);column-gap:14px;padding:11px 14px;border-top:1px solid var(--border-soft);align-items:start}
+.s5cu-hd{border-top:0;font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding-top:10px;padding-bottom:10px;background:var(--surface-2)}
+.s5cu-grp{display:flex;gap:8px;align-items:baseline;padding:14px 14px 7px;border-top:1px solid var(--border);font:700 12.5px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:var(--bg)}
+.s5cu-grp span{color:var(--faint);font-weight:600}
+.s5cu-nm{display:inline;font-size:14.5px;font-weight:650;line-height:1.4;color:var(--text);text-decoration:none}
+.s5cu-nm::after{content:"\00a0\2192";color:var(--accent);font-weight:600}
+.s5cu-nm:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-sm{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:3px}
+.s5cu-tech{font-weight:600;color:var(--text)}
+.s5cu-ty{color:var(--muted)}
+.s5cu-d{display:block;font-weight:650;color:var(--text);white-space:nowrap}
+.s5cu-d.r{color:var(--bad)}
+.s5cu-d.a{color:var(--warn)}
+.s5cu-dd{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.s5cu-none{color:var(--faint);font-weight:400}
+.s5cu-mat{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px}
+.s5cu-mb{font:inherit;font-size:12.5px;color:var(--muted);background:none;border:0;padding:0;cursor:pointer;white-space:nowrap}
+.s5cu-mb b{color:var(--accent);font-weight:700}
+.s5cu-mb:hover b{text-decoration:underline}
+.s5cu-wk{font-size:12.5px;color:var(--warn);line-height:1.45}
+.s5cu-legend{margin:0;font-size:12.5px;color:var(--faint);line-height:1.5}
+/* card */
+.s5cu-back{align-self:flex-start;font:inherit;font-weight:600;color:var(--accent);background:none;border:1px solid var(--border);border-radius:6px;padding:5px 11px;cursor:pointer}
+.s5cu-ch{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.s5cu-crumb{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cu-t{margin:0;font-size:23px;font-weight:650;line-height:1.3;color:var(--text)}
+.s5cu-sum{margin:0;font-size:14.5px;line-height:1.55;color:var(--muted);max-width:1000px}
+.s5cu-facts{display:flex;flex-wrap:wrap;gap:6px 26px;font-size:13.5px;color:var(--muted);margin-top:4px}
+.s5cu-facts b{color:var(--text)}
+.s5cu-facts b.s5cu-r{color:var(--bad)}
+.s5cu-facts b.s5cu-a{color:var(--warn)}
+.s5cu-rel{color:var(--accent)}
+.s5cu-mono,.s5cu-v{font-family:var(--mono);font-weight:600}
+.s5cu-alert{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 16px;line-height:1.55}
+.s5cu-s{display:flex;flex-direction:column;gap:8px}
+.s5cu-h{margin:0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.s5cu-tw{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow-x:auto}
+table.s5cu-tab{border-collapse:collapse;width:100%;font-size:13.5px}
+table.s5cu-tab th{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);position:static!important;white-space:nowrap}
+table.s5cu-tab td{padding:11px 14px;border-bottom:1px solid var(--border-soft);vertical-align:top;line-height:1.5;position:static!important;white-space:normal}
+table.s5cu-tab tr:last-child td{border-bottom:0}
+table.s5cu-tab tr.past td{color:var(--faint)}
+table.s5cu-tab tr.past td.s5cu-v{text-decoration:line-through}
+td.s5cu-chg{font-weight:650;color:var(--text);min-width:180px}
+td.s5cu-mut,.s5cu-mut{color:var(--muted)}
+td.s5cu-why{color:var(--muted);font-size:13px}
+td.s5cu-dt{white-space:nowrap;font-weight:650}
+td.s5cu-dt.s5cu-r{color:var(--bad)}
+td.s5cu-dt.s5cu-a{color:var(--warn)}
+td.s5cu-a{color:var(--warn);font-weight:650}
+td.s5cu-who{color:var(--muted);font-size:13px}
+td.s5cu-srcc{white-space:nowrap;font-size:12.5px}
+td.s5cu-stt{white-space:nowrap;font-size:12.5px;color:var(--faint);font-weight:600}
+td.s5cu-stt.nx{color:var(--warn)}
+.s5cu-src{font-family:var(--mono);font-size:12.5px;color:var(--accent);text-decoration:none}
+a.s5cu-src:hover{text-decoration:underline}
+.s5cu-moved{display:block;font-size:12.5px;color:var(--warn);margin-top:3px;font-weight:600}
+.s5cu-vs{white-space:nowrap;font-weight:600}
+.s5cu-vs-current{color:var(--ok)}
+.s5cu-vs-ends-soon{color:var(--warn)}
+.s5cu-vs-retired{color:var(--faint)}
+ol.s5cu-todo{margin:0;padding:12px 18px 12px 38px;border:1px solid var(--border);border-radius:10px;background:var(--surface);line-height:1.6;color:var(--text)}
+ol.s5cu-todo li+li{margin-top:6px}
+.s5cu-inbrief{margin:0;font-size:13px;color:var(--muted)}
+.s5cu-inbrief a{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.s5cu-mats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.s5cu-box{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+.s5cu-li{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-top:1px solid var(--border-soft)}
+.s5cu-li:first-child{border-top:0}
+.s5cu-mt{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;line-height:1.4;overflow-wrap:anywhere}
+.s5cu-mt::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-mt:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-mm{font-size:12.5px;color:var(--muted)}
+.s5cu-empty{margin:0;padding:12px 14px;color:var(--muted);line-height:1.55}
+/* Overview */
+.s5cu-ov .s5ci-ch{justify-content:space-between;align-items:baseline}
+.s5cu-ovh{font-size:12.5px;color:var(--muted)}
+.s5cu-ovr{display:grid;grid-template-columns:64px minmax(0,1fr) auto;column-gap:12px;padding:9px 0;border-top:1px solid var(--border-soft);align-items:baseline}
+.s5cu-ovr .s5cu-d{font-size:13.5px}
+.s5cu-ovn{font:inherit;font-size:14px;font-weight:600;color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer;line-height:1.4}
+.s5cu-ovn::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-ovn:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-ovw{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+.s5cu-ovd{font-size:12.5px;color:var(--muted);white-space:nowrap}
+@media (max-width:900px){
+  .s5cu-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
+  .s5cu-hd{display:none}
+  .s5cu-row>.s5cu-c1{grid-column:1/-1}
+  .s5cu-row>.s5cu-tech::after{content:" \00b7"}
+  .s5cu-row>.s5cu-tech{grid-column:1;display:inline}
+  .s5cu-row>.s5cu-ty{grid-column:2;text-align:right}
+  .s5cu-row>.s5cu-nx,.s5cu-row>.s5cu-mat,.s5cu-row>.s5cu-wk{grid-column:1/-1}
+  .s5cu-wk:empty{display:none}
+  .s5cu-q{margin-left:0;min-width:0;width:100%}
+  .s5cu-fl{min-width:0;width:100%}
+  .s5cu-mats{grid-template-columns:minmax(0,1fr)}
+  .s5cu-t{font-size:20px}
+  .s5cu-facts{gap:4px 16px}
+}
+/* §5cu: the section's own links are not the pill links of .sec-body, and the card title is not a section label */
+.s5cu.sec-body a[href^="http"]{display:inline;padding:0;border-radius:0;background:none;border:0;color:var(--text);font-weight:inherit;line-height:inherit;white-space:normal}
+.s5cu.sec-body a.s5cu-mt{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
+.s5cu.sec-body a.s5cu-src{font-family:var(--mono);font-size:12.5px;color:var(--accent);font-weight:400;white-space:nowrap}
+.s5cu.sec-body h2.s5cu-t{font-family:var(--sans);font-size:23px;font-weight:650;letter-spacing:normal;text-transform:none;color:var(--text);line-height:1.3}
+@media (max-width:900px){.s5cu.sec-body h2.s5cu-t{font-size:20px}}
+@media (max-width:640px){
+  .s5cu-tw{overflow:visible}
+  table.s5cu-tab thead{display:none}
+  table.s5cu-tab,table.s5cu-tab tbody,table.s5cu-tab tr,table.s5cu-tab td{display:block;width:auto}
+  table.s5cu-tab tr{padding:10px 14px;border-bottom:1px solid var(--border-soft)}
+  table.s5cu-tab tr:last-child{border-bottom:0}
+  table.s5cu-tab td{padding:2px 0;border:0;white-space:normal}
+  table.s5cu-tab td[data-l]::before{content:attr(data-l);display:block;font:600 10.5px/1.4 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+  table.s5cu-tab td.s5cu-dt[data-l]::before,table.s5cu-tab td.s5cu-chg[data-l]::before,table.s5cu-tab td.s5cu-v[data-l]::before{display:none}
+  table.s5cu-tab td:empty{display:none}
+}
+/* §5cu: the shell builds charts and a product-filter banner for every panel from its table rows; Campaigns has
+   no such rows (its list is its own and the global product filter does not apply to it) */
+#tab-campaigns > .aggwrap,#tab-campaigns > .s5bh-ct,#tab-campaigns > .filterbanner{display:none!important}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`

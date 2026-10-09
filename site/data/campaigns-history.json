@@ -1,0 +1,3793 @@
+{
+"updated":"2026-10-09",
+"campaigns":{
+"c-mc1492163":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Zendesk OAuth tokens will require expiration and automatic refresh",
+"status":"No date",
+"members":[
+"MC1492163",
+"item:MC1492163"
+],
+"milestones":{
+"MC1492163|posted":{
+"date":"2026-10-08",
+"label":"8 Oct 2026",
+"text":"Posted: Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1492163":{
+"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+"link":"https://mc.merill.net/message/MC1492163",
+"source":"Message Center",
+"id":"MC1492163",
+"date":"2026-10-08",
+"updated":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1492163":{
+"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+"link":"https://deltapulse.app/item/MC1492163",
+"source":"Main list source",
+"id":"MC1492163",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1490911":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retiring legacy sign-in implementation on Windows",
+"status":"Active",
+"members":[
+"MC1490911",
+"item:MC1490911"
+],
+"milestones":{
+"MC1490911|posted":{
+"date":"2026-10-07",
+"label":"7 Oct 2026",
+"text":"Posted: Microsoft Edge: Retiring legacy sign-in implementation on Windows"
+},
+"MC1490911|microsoft gives early and edge version not a calendar date#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Microsoft gives early November 2026 and Edge version 157, not a calendar date"
+},
+"MC1490911|rollout starts and completes in#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Rollout starts and completes in November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1490911":{
+"title":"Microsoft Edge: Retiring legacy sign-in implementation on Windows",
+"link":"https://mc.merill.net/message/MC1490911",
+"source":"Message Center",
+"id":"MC1490911",
+"date":"2026-10-07",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1490899":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Targeted Release retirement",
+"status":"Active",
+"members":[
+"MC1490899",
+"item:MC1490899"
+],
+"milestones":{
+"MC1490899|posted":{
+"date":"2026-10-07",
+"label":"7 Oct 2026",
+"text":"Posted: Microsoft 365: Targeted Release retirement"
+},
+"MC1490899|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Message Center's act-by date; Targeted release enrolment changes are disabled in November 2026 and Targeted release retires in January 2027"
+},
+"MC1490899|administrators must update user enrollments and release pref#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Administrators must update user enrollments and release preferences by November 2026, when Targeted Release management ends and a unified release preferences ex"
+},
+"MC1490899|microsoft targeted release will retire in replaced by fronti#0":{
+"date":"2027-01-15",
+"label":"Jan 2027",
+"text":"Microsoft 365 Targeted Release will retire in January 2027, replaced by Frontier, Standard, and Deferred release options."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1490899":{
+"title":"Microsoft 365: Targeted Release retirement",
+"link":"https://mc.merill.net/message/MC1490899",
+"source":"Message Center",
+"id":"MC1490899",
+"date":"2026-10-07",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1448373":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"status":"Active",
+"members":[
+"MC1448373",
+"MC1469551",
+"item:MC1469551"
+],
+"milestones":{
+"MC1448373|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal"
+},
+"MC1469551|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
+},
+"MC1448373|teams device management will transition from teams admin cen#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Teams device management will transition from Teams Admin Center to Teams Rooms Pro Management Portal starting October 2026, with phased rollout by device type."
+},
+"MC1469551|microsoft states the rollout begins late and completes by la#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"Microsoft states the rollout begins late October 2026 and completes by late October 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://deltapulse.app/item/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551",
+"source":"Message Center",
+"id":"MC1469551",
+"date":"2026-09-09",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://deltapulse.app/item/MC1469551",
+"source":"Main list source",
+"id":"MC1469551",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1479516":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Link preview retirement",
+"status":"No date",
+"members":[
+"MC1479516",
+"item:MC1479516"
+],
+"milestones":{
+"MC1479516|posted":{
+"date":"2026-09-25",
+"label":"25 Sep 2026",
+"text":"Posted: Microsoft Outlook: Link preview retirement"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1479516":{
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516",
+"source":"Message Center",
+"id":"MC1479516",
+"date":"2026-09-25",
+"updated":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1479516":{
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://deltapulse.app/item/MC1479516",
+"source":"Main list source",
+"id":"MC1479516",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1488834":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Replace MemberOf rule operator configurations by November 3, 2026",
+"status":"Active",
+"members":[
+"item:MC1448379",
+"MC1488834",
+"item:MC1488834",
+"item:MC1488839"
+],
+"milestones":{
+"MC1488834|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+},
+"MC1488834|deadline":{
+"date":"2026-11-03",
+"label":"3 Nov 2026",
+"text":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state"
+},
+"MC1488839|action required by read on the message page it applies to or#0":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1488834":{
+"title":"Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026",
+"link":"https://mc.merill.net/message/MC1488834",
+"source":"Message Center",
+"id":"MC1488834",
+"date":"2026-10-05",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1448379":{
+"title":"MemberOf rule operator retires",
+"link":"https://mc.merill.net/message/MC1448379",
+"source":"Main list source",
+"id":"MC1448379",
+"date":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msmessagecenter.com/MC1488839":{
+"title":"Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027",
+"link":"https://msmessagecenter.com/MC1488839",
+"source":"Main list source",
+"id":"MC1488839",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1227454":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Exchange Web Services (EWS) retirement update",
+"status":"Active",
+"members":[
+"MC1227454",
+"MC1446796",
+"item:MC1446796",
+"MC1447678",
+"item:MC1469960",
+"item:exchange-ews-hybrid-coexistence-2026-09-30",
+"MC1485116",
+"item:MC1485116",
+"MC1486282",
+"MC1486288",
+"item:MC1486288"
+],
+"milestones":{
+"MC1227454|posted":{
+"date":"2026-02-05",
+"label":"5 Feb 2026",
+"text":"Posted: Exchange Web Services (EWS) retirement update"
+},
+"MC1446796|posted":{
+"date":"2026-08-03",
+"label":"3 Aug 2026",
+"text":"Posted: Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation"
+},
+"MC1447678|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: EWS retirement and EWSAllowedAppIDs enforcement"
+},
+"MC1447678|actionBy":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1485116|posted":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Posted: Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+},
+"MC1447678|exchange web services ews in exchange online will begin reti#0":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Exchange Web Services (EWS) in Exchange Online will begin retirement on October 1, 2026"
+},
+"MC1486282|posted":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+},
+"MC1486288|posted":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+},
+"MC1485116|microsoft states three dates for worldwide tenants with ewse#0":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"2 October 2026 the affected tenants are identified, 8-9 October Microsoft populates EWSAllowedAppIDs from 60 days of observed EWS activity, 10 October the list "
+},
+"MC1486288|microsoft writes that devices lose calendar functionality st#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"Microsoft writes that devices “may lose calendar functionality starting October 2026” and that rollout runs from early October 2026 to late April 2027"
+},
+"MC1469960|deadline":{
+"date":"2026-10-10",
+"label":"10 Oct 2026",
+"text":"EWSAllowedAppIDs becomes required on 10 October 2026. Until today this brief carried its own reading, 1 October."
+},
+"MC1486282|update microsoft teams rooms on android phones and panels to#1":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"And panels to the minimum app version released in February 2026 before October 2026 to avoid losing calendar functionality due to the retirement of Exchange Web"
+},
+"MC1227454|a phased disablement begins with permanent shutdown starting#1":{
+"date":"2027-04-01",
+"label":"1 Apr 2027",
+"text":"With permanent shutdown starting April 1, 2027 ."
+},
+"MC1486288|microsoft writes that devices lose calendar functionality st#1":{
+"date":"2027-04-25",
+"label":"late Apr 2027",
+"text":"Microsoft writes that devices “may lose calendar functionality starting October 2026” and that rollout runs from early October 2026 to late April 2027"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454":{
+"title":"Exchange Web Services (EWS) retirement update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454",
+"source":"Message Center",
+"id":"MC1227454",
+"date":"2026-02-05",
+"updated":"2026-02-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1446796":{
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796",
+"source":"Message Center",
+"id":"MC1446796",
+"date":"2026-08-03",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1447678":{
+"title":"EWS retirement and EWSAllowedAppIDs enforcement",
+"link":"https://mc.merill.net/message/MC1447678",
+"source":"Message Center",
+"id":"MC1447678",
+"date":"2026-08-05",
+"updated":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1485116":{
+"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+"link":"https://mc.merill.net/message/MC1485116",
+"source":"Message Center",
+"id":"MC1485116",
+"date":"2026-10-01",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1486282":{
+"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"link":"https://mc.merill.net/message/MC1486282",
+"source":"Message Center",
+"id":"MC1486282",
+"date":"2026-10-02",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1486288":{
+"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"link":"https://deltapulse.app/item/MC1486288",
+"source":"Message Center",
+"id":"MC1486288",
+"date":"2026-10-02",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1446796":{
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://deltapulse.app/item/MC1446796",
+"source":"Main list source",
+"id":"MC1446796",
+"date":"2026-08-03",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
+"source":"Main list source",
+"id":"MC1469960",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161":{
+"title":"Impact of Exchange Online EWS Deprecation on Hybrid Rich Coexistence and Cross-org Sharing",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161",
+"source":"Main list source",
+"id":"exchange-ews-hybrid-coexistence-2026-09-30",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1485116":{
+"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+"link":"https://deltapulse.app/item/MC1485116",
+"source":"Main list source",
+"id":"MC1485116",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access Policy",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169",
+"source":"Exchange Team Blog",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534":{
+"title":"Take control of your EWSAllowedAppIDs list before EWS access changes",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534",
+"source":"Exchange Team Blog",
+"date":"2026-09-04",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691":{
+"title":"Help us shape Exchange Server on-premises to different online org Free/Busy after EWS retirement",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691",
+"source":"Exchange Team Blog",
+"date":"2026-08-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1243549":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"status":"Active",
+"members":[
+"MC1243549",
+"item:MC1243549",
+"item:569432"
+],
+"milestones":{
+"MC1243549|posted":{
+"date":"2026-03-04",
+"label":"4 Mar 2026",
+"text":"Posted: Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B"
+},
+"MC1243549|inferred microsoft s update says phase begins in mid and com#2":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"(inferred) Microsoft's 1 October 2026 update says Phase 2 begins in mid-October 2026 and completes by end of November 2026 for Production environments"
+},
+"MC1243549|to ensure a smooth transition phase the retirement of sharep#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
+},
+"MC1243549|to ensure a smooth transition phase the retirement of sharep#1":{
+"date":"2026-11-30",
+"label":"end of Nov 2026",
+"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1243549":{
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549",
+"source":"Message Center",
+"id":"MC1243549",
+"date":"2026-03-04",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1243549":{
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://deltapulse.app/item/MC1243549",
+"source":"Main list source",
+"id":"MC1243549",
+"date":"2026-03-04",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/569432":{
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://deltapulse.app/item/569432",
+"source":"Main list source",
+"id":"569432",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1459133":{
+"title":"MC1459133: Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133",
+"source":"MC - Merill",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1483538":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows settings backup is now enabled by default for eligible devices",
+"status":"No date",
+"members":[
+"MC1483538",
+"item:MC1483538"
+],
+"milestones":{
+"MC1483538|posted":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Posted: Windows settings backup is now enabled by default for eligible devices"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1483538":{
+"title":"Windows settings backup is now enabled by default for eligible devices",
+"link":"https://mc.merill.net/message/MC1483538",
+"source":"Message Center",
+"id":"MC1483538",
+"date":"2026-09-30",
+"updated":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1483538":{
+"title":"Windows settings backup is now enabled by default for eligible devices",
+"link":"https://deltapulse.app/item/MC1483538",
+"source":"Main list source",
+"id":"MC1483538",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1481317":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"status":"No date",
+"members":[
+"MC1481317",
+"item:MC1481317"
+],
+"milestones":{
+"MC1481317|posted":{
+"date":"2026-09-28",
+"label":"28 Sep 2026",
+"text":"Posted: Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1481317":{
+"title":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"link":"https://mc.merill.net/message/MC1481317",
+"source":"Message Center",
+"id":"MC1481317",
+"date":"2026-09-28",
+"updated":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1481317":{
+"title":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1481317",
+"source":"Main list source",
+"id":"MC1481317",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-security-community/introducing-a-unified-alert-experience-for-microsoft-purview/ba-p/4530714":{
+"title":"Introducing a unified alert experience for Microsoft Purview Insider Risk Management",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/introducing-a-unified-alert-experience-for-microsoft-purview/ba-p/4530714",
+"source":"Microsoft Security Product Blog",
+"date":"2026-06-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/shorts/YoLlI2qHYsM":{
+"title":"Insider Risk Is a Business Decision - Bring HR In Early",
+"link":"https://www.youtube.com/shorts/YoLlI2qHYsM",
+"source":"Merill Fernando",
+"date":"2026-07-29",
+"group":"video",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1481315":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"status":"Active",
+"members":[
+"MC1481315",
+"item:MC1481315"
+],
+"milestones":{
+"MC1481315|posted":{
+"date":"2026-09-28",
+"label":"28 Sep 2026",
+"text":"Posted: Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences"
+},
+"MC1481315|beginning microsoft will start retiring the microsoft purvie#0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experie"
+},
+"MC1481315|microsoft will retire the microsoft purview dspm classic and#0":{
+"date":"2026-12-31",
+"label":"31 Dec 2026",
+"text":"Microsoft will retire the Microsoft Purview DSPM classic and DSPM for AI classic experiences by December 31, 2026, unifying capabilities into a single current D"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1481315":{
+"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"link":"https://mc.merill.net/message/MC1481315",
+"source":"Message Center",
+"id":"MC1481315",
+"date":"2026-09-28",
+"updated":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1481315":{
+"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"link":"https://deltapulse.app/item/MC1481315",
+"source":"Main list source",
+"id":"MC1481315",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1478463":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Teams user reporting enabled by default",
+"status":"Active",
+"members":[
+"MC1478463",
+"item:MC1478463"
+],
+"milestones":{
+"MC1478463|posted":{
+"date":"2026-09-24",
+"label":"24 Sep 2026",
+"text":"Posted: Microsoft Defender for Office 365: Teams user reporting enabled by default"
+},
+"MC1478463|deadline":{
+"date":"2026-10-25",
+"label":"25 Oct 2026",
+"text":"Opt out before this date if user-reported Teams content should not be enabled or should go somewhere other than Microsoft."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1478463":{
+"title":"Microsoft Defender for Office 365: Teams user reporting enabled by default",
+"link":"https://mc.merill.net/message/MC1478463",
+"source":"Message Center",
+"id":"MC1478463",
+"date":"2026-09-24",
+"updated":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1478463":{
+"title":"Microsoft Defender for Office 365: Teams user reporting enabled by default",
+"link":"https://deltapulse.app/item/MC1478463",
+"source":"Main list source",
+"id":"MC1478463",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1478819":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows Deployment Services (WDS) deprecation in the next Windows Server release",
+"status":"No date",
+"members":[
+"MC1478819",
+"item:MC1478819"
+],
+"milestones":{
+"MC1478819|posted":{
+"date":"2026-09-24",
+"label":"24 Sep 2026",
+"text":"Posted: Windows Deployment Services (WDS) deprecation in the next Windows Server release"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1478819":{
+"title":"Windows Deployment Services (WDS) deprecation in the next Windows Server release",
+"link":"https://mc.merill.net/message/MC1478819",
+"source":"Message Center",
+"id":"MC1478819",
+"date":"2026-09-24",
+"updated":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1478819":{
+"title":"Windows Deployment Services (WDS) deprecation in the next Windows Server release",
+"link":"https://deltapulse.app/item/MC1478819",
+"source":"Main list source",
+"id":"MC1478819",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1477996":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"status":"Active",
+"members":[
+"MC1477996",
+"item:MC1477996"
+],
+"milestones":{
+"MC1477996|posted":{
+"date":"2026-09-23",
+"label":"23 Sep 2026",
+"text":"Posted: Retirement of Viva Insights (personal insights) and Viva Learning usage reports"
+},
+"MC1477996|we will begin rolling out on early and expect to complete by#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"We will begin rolling out on early October 2026 and expect to complete by mid-Novemb…"
+},
+"MC1477996|we will begin rolling out on early and expect to complete by#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"We will begin rolling out on early October 2026 and expect to complete by mid-November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1477996":{
+"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"link":"https://mc.merill.net/message/MC1477996",
+"source":"Message Center",
+"id":"MC1477996",
+"date":"2026-09-23",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1477996":{
+"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"link":"https://deltapulse.app/item/MC1477996",
+"source":"Main list source",
+"id":"MC1477996",
+"date":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1392568":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
+"status":"Active",
+"members":[
+"MC1392568",
+"item:MC1392568"
+],
+"milestones":{
+"MC1392568|posted":{
+"date":"2026-06-15",
+"label":"15 Jun 2026",
+"text":"Posted: Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026"
+},
+"MC1392568|we are retiring support for microsoft defender for endpoint #0":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"We are retiring support for Microsoft Defender for Endpoint (MDE) on Amazon Linux 2 (AL2) running on ARM64 architecture, effective October 31, 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1392568":{
+"title":"Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
+"link":"https://mc.merill.net/message/MC1392568",
+"source":"Message Center",
+"id":"MC1392568",
+"date":"2026-06-15",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Added support for ARM64 Oracle 8, x86\\64 Oracle 10, and x86\\64 Debian 13.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1474124":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"status":"No date",
+"members":[
+"MC1474124",
+"item:MC1474124"
+],
+"milestones":{
+"MC1474124|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1474124":{
+"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"link":"https://deltapulse.app/item/MC1474124",
+"source":"Message Center",
+"id":"MC1474124",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1426371":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"status":"Active",
+"members":[
+"MC1426371",
+"entra-sms-voice-full-retirement",
+"item:MC1426371",
+"item:entra-sms-voice-full-retirement",
+"item:MC1459133",
+"MC1474104",
+"item:MC1474104",
+"item:entra-telephony-provider-configuration-2026-10-30"
+],
+"milestones":{
+"MC1426371|posted":{
+"date":"2026-07-13",
+"label":"13 Jul 2026",
+"text":"Posted: Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication"
+},
+"entra-sms-voice-full-retirement|posted":{
+"date":"2026-07-13",
+"label":"13 Jul 2026",
+"text":"Posted: Microsoft-provided SMS and voice MFA fully retire"
+},
+"MC1426371|passkeys became the default authentication experience in mic#0":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Passkeys became the default authentication experience in Microsoft Entra on September 1, 2026."
+},
+"MC1474104|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+},
+"entra-telephony-provider-configuration-2026-10-30|deadline":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first"
+},
+"MC1426371|deadline":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"1 Feb 2027 for most users; 1 Jul 2027 for Global Administrators and external users. Internal guest users are not in the July group and keep the February date."
+},
+"MC1426371|for most users for global administrators and external users#1":{
+"date":"2027-07-01",
+"label":"1 Jul 2027",
+"text":"1 Jul 2027 for Global Administrators and external users."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1426371",
+"source":"Message Center",
+"id":"MC1426371",
+"date":"2026-07-13",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1474104":{
+"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
+"link":"https://mc.merill.net/message/MC1474104",
+"source":"Message Center",
+"id":"MC1474104",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1426371",
+"source":"Main list source",
+"id":"MC1426371",
+"date":"2026-07-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1459133":{
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133",
+"source":"Main list source",
+"id":"MC1459133",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1474104":{
+"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
+"link":"https://deltapulse.app/item/MC1474104",
+"source":"Main list source",
+"id":"MC1474104",
+"date":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider":{
+"title":"Choose a telephony provider for SMS and voice authentication",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider",
+"source":"Main list source",
+"id":"entra-telephony-provider-configuration-2026-10-30",
+"date":"2026-09-21",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html":{
+"title":"SMS and Voice Retirement, Part 2",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html":{
+"title":"SMS and Voice Retirement, Part 1",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/":{
+"title":"Entra ID telephony providers for SMS and voice MFA: first look",
+"link":"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-09-25",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=MCFzSnMc34k":{
+"title":"SMS MFA Ends in 2027: Your Microsoft Entra Passkey Migration Plan",
+"link":"https://www.youtube.com/watch?v=MCFzSnMc34k",
+"source":"Merill Fernando",
+"date":"2026-08-10",
+"group":"video",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1473153":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"New centralized experience for organizing important resources in chats and channels",
+"status":"No date",
+"members":[
+"MC1473153"
+],
+"milestones":{
+"MC1473153|posted":{
+"date":"2026-09-16",
+"label":"16 Sep 2026",
+"text":"Posted: Microsoft Teams: New centralized experience for organizing important resources in chats and channels"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1473153":{
+"title":"Microsoft Teams: New centralized experience for organizing important resources in chats and channels",
+"link":"https://mc.merill.net/message/MC1473153",
+"source":"Message Center",
+"id":"MC1473153",
+"date":"2026-09-16",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-office-2021-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Office 2021 desktop apps and LTSC 2021 reach end of support",
+"status":"No date",
+"members":[
+"office-2021-retirement"
+],
+"milestones":{
+"office-2021-retirement|posted":{
+"date":"2026-09-15",
+"label":"15 Sep 2026",
+"text":"Posted: Office 2021 desktop apps and LTSC 2021 reach end of support"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1472429":{
+"title":"Office 2021 desktop apps and LTSC 2021 reach end of support",
+"link":"https://mc.merill.net/message/MC1472429",
+"source":"Message Center",
+"id":"office-2021-retirement",
+"date":"2026-09-15",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1278920":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
+"status":"Active",
+"members":[
+"MC1278920",
+"MC1472429",
+"item:MC1472429",
+"item:office-2021-retirement"
+],
+"milestones":{
+"MC1278920|posted":{
+"date":"2026-04-13",
+"label":"13 Apr 2026",
+"text":"Posted: Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
+},
+"MC1472429|posted":{
+"date":"2026-09-15",
+"label":"15 Sep 2026",
+"text":"Posted: Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
+},
+"MC1278920|as previously communicated support for office ltsc will end #0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"As previously communicated , support for Office LTSC 2021 will end on October 13, 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1278920":{
+"title":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1278920",
+"source":"Message Center",
+"id":"MC1278920",
+"date":"2026-04-13",
+"updated":"2026-04-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1472429":{
+"title":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
+"link":"https://mc.merill.net/message/MC1472429",
+"source":"Message Center",
+"id":"MC1472429",
+"date":"2026-09-15",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1472429":{
+"title":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
+"link":"https://deltapulse.app/item/MC1472429",
+"source":"Main list source",
+"id":"MC1472429",
+"date":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-windows-11-24h2-end-of-servicing":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows 11 Home and Pro 24H2 end of servicing",
+"status":"Active",
+"members":[
+"item:windows-11-24h2-end-of-servicing",
+"windows-11-24h2-end-of-servicing"
+],
+"milestones":{
+"windows-11-24h2-end-of-servicing|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: Windows 11 Home and Pro 24H2 end of servicing"
+},
+"windows-11-24h2-end-of-servicing|deadline":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Windows 11 Home and Pro 24H2 end of servicing"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1471964":{
+"title":"Windows 11 Home and Pro 24H2 end of servicing",
+"link":"https://mc.merill.net/message/MC1471964",
+"source":"Message Center",
+"id":"windows-11-24h2-end-of-servicing",
+"date":"2026-09-14",
+"updated":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1442510":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"status":"Active",
+"members":[
+"MC1442510",
+"MC1456735",
+"MC1456735 · MC1471963",
+"item:MC1456735",
+"MC1471963",
+"item:MC1471963"
+],
+"milestones":{
+"MC1442510|posted":{
+"date":"2026-07-29",
+"label":"29 Jul 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1456735|posted":{
+"date":"2026-08-17",
+"label":"17 Aug 2026",
+"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
+},
+"MC1456735 · MC1471963|posted":{
+"date":"2026-08-17",
+"label":"17 Aug 2026",
+"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
+},
+"MC1471963|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1456735|inferred microsoft s day reminder mc says enforcement begins#0":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update"
+},
+"MC1456735|deadline":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update; the second Tuesday of Octo"
+},
+"MC1442510|what and why windows updates released in will begin enforcem#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"What and why Windows updates released in October 2026 will begin Enforcement mode for AD FS Distributed Key Manager (DKM) container ACL hardening."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510",
+"source":"Message Center",
+"id":"MC1442510",
+"date":"2026-07-29",
+"updated":"2026-07-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735",
+"source":"Message Center",
+"id":"MC1456735",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735 · MC1471963":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735 · MC1471963",
+"source":"Message Center",
+"id":"MC1456735 · MC1471963",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://mc.merill.net/message/MC1471963",
+"source":"Message Center",
+"id":"MC1471963",
+"date":"2026-09-14",
+"updated":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://deltapulse.app/item/MC1471963",
+"source":"Main list source",
+"id":"MC1471963",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/":{
+"title":"Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+"link":"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+"source":"Microsoft Security Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439":{
+"title":"Supporting CVSS V4 score for CVE for Enhanced Vulnerability Assessment",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439",
+"source":"Defender Vulnerability Management Blog",
+"date":"2025-03-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896":{
+"title":"Guidance for CVE-2024-0012, CVE-2024-9474 affecting PAN-OS using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-11-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940":{
+"title":"Guidance for handling “regreSSHion” (CVE-2024-6387) using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-07-25",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Strengthened TLS certificate validation to address CVE-2026-47632.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
+"title":"CVE exceptions",
+"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
+"source":"Microsoft Learn · What's new · Defender Vulnerability Management",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1470881":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections",
+"status":"Active",
+"members":[
+"MC1470881"
+],
+"milestones":{
+"MC1470881|posted":{
+"date":"2026-09-11",
+"label":"11 Sep 2026",
+"text":"Posted: Microsoft Purview: Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections"
+},
+"MC1470881|starting in mid microsoft purview will remove the pay as you#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Starting in mid-October 2026, Microsoft Purview will remove the pay-as-you-go (PAYG) billing requirement for inline collection and Data Loss Prevention (DLP) po"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1470881":{
+"title":"Microsoft Purview: Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections",
+"link":"https://mc.merill.net/message/MC1470881",
+"source":"Message Center",
+"id":"MC1470881",
+"date":"2026-09-11",
+"updated":"2026-09-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1470871":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"User.ReadBasic.All will no longer allow reading user app role assignments and license details",
+"status":"No date",
+"members":[
+"MC1470871"
+],
+"milestones":{
+"MC1470871|posted":{
+"date":"2026-09-11",
+"label":"11 Sep 2026",
+"text":"Posted: Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1470871":{
+"title":"Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details",
+"link":"https://mc.merill.net/message/MC1470871",
+"source":"Message Center",
+"id":"MC1470871",
+"date":"2026-09-11",
+"updated":"2026-09-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1469565":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"status":"Recently closed",
+"members":[
+"MC1469565",
+"item:573701"
+],
+"milestones":{
+"MC1469565|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes"
+},
+"MC1469565|actionBy":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1469565":{
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565",
+"source":"Message Center",
+"id":"MC1469565",
+"date":"2026-09-09",
+"updated":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://deltapulse.app/item/573701",
+"source":"Main list source",
+"id":"573701",
+"date":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573701",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-06",
+"group":"community",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1465771":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"DLP alerts will be set as behaviors by default",
+"status":"Active",
+"members":[
+"MC1465771",
+"item:MC1465771"
+],
+"milestones":{
+"MC1465771|posted":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Posted: Microsoft Defender XDR: DLP alerts will be set as behaviors by default"
+},
+"MC1465771|deadline":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"DLP alerts leave the incident queue and become behaviours"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1465771":{
+"title":"Microsoft Defender XDR: DLP alerts will be set as behaviors by default",
+"link":"https://mc.merill.net/message/MC1465771",
+"source":"Message Center",
+"id":"MC1465771",
+"date":"2026-09-01",
+"updated":"2026-09-01",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1230889":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Outlook for Windows report retirement in the Exchange admin center",
+"status":"Active",
+"members":[
+"MC1230889"
+],
+"milestones":{
+"MC1230889|posted":{
+"date":"2026-02-11",
+"label":"11 Feb 2026",
+"text":"Posted: Outlook for Windows report retirement in the Exchange admin center"
+},
+"MC1230889|actionBy":{
+"date":"2026-11-02",
+"label":"2 Nov 2026",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889":{
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889",
+"source":"Message Center",
+"id":"MC1230889",
+"date":"2026-02-11",
+"updated":"2026-08-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1462922":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Admin app retiring in Teams, Outlook and Microsoft365.com",
+"status":"Active",
+"members":[
+"MC1462922"
+],
+"milestones":{
+"MC1462922|we will begin rolling out mid and expect to complete by mid#0":{
+"date":"2026-08-15",
+"label":"mid Aug 2026",
+"text":"We will begin rolling out mid-August 2026 and expect to complete by mid-October 2026."
+},
+"MC1462922|posted":{
+"date":"2026-08-27",
+"label":"27 Aug 2026",
+"text":"Posted: Admin app retiring in Teams, Outlook and Microsoft365.com"
+},
+"MC1462922|starting in the admin app will no longer be supported or ava#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Starting in October 2026, the Admin app will no longer be supported or available."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1462922":{
+"title":"Admin app retiring in Teams, Outlook and Microsoft365.com",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1462922",
+"source":"Message Center",
+"id":"MC1462922",
+"date":"2026-08-27",
+"updated":"2026-08-27",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1462813":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Prepare for the removal of WMIC from Windows 11",
+"status":"No date",
+"members":[
+"MC1462813"
+],
+"milestones":{
+"MC1462813|posted":{
+"date":"2026-08-27",
+"label":"27 Aug 2026",
+"text":"Posted: Prepare for the removal of WMIC from Windows 11"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1462813":{
+"title":"Prepare for the removal of WMIC from Windows 11",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1462813",
+"source":"Message Center",
+"id":"MC1462813",
+"date":"2026-08-27",
+"updated":"2026-08-27",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1462464":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"App Governance drops Cloud Application Administrator role support",
+"status":"Recently closed",
+"members":[
+"MC1462464"
+],
+"milestones":{
+"MC1462464|posted":{
+"date":"2026-08-26",
+"label":"26 Aug 2026",
+"text":"Posted: App Governance drops Cloud Application Administrator role support"
+},
+"MC1462464|actionBy":{
+"date":"2026-09-25",
+"label":"25 Sep 2026",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1462464":{
+"title":"App Governance drops Cloud Application Administrator role support",
+"link":"https://mc.merill.net/message/MC1462464",
+"source":"Message Center",
+"id":"MC1462464",
+"date":"2026-08-26",
+"updated":"2026-08-26",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1459132":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows Information Protection and Application Guard retire in Microsoft Edge",
+"status":"Recently closed",
+"members":[
+"MC1459132"
+],
+"milestones":{
+"MC1459132|posted":{
+"date":"2026-08-21",
+"label":"21 Aug 2026",
+"text":"Posted: Windows Information Protection and Application Guard retire in Microsoft Edge"
+},
+"MC1459132|actionBy":{
+"date":"2026-09-24",
+"label":"24 Sep 2026",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1459132":{
+"title":"Windows Information Protection and Application Guard retire in Microsoft Edge",
+"link":"https://mc.merill.net/message/MC1459132",
+"source":"Message Center",
+"id":"MC1459132",
+"date":"2026-08-21",
+"updated":"2026-08-21",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1435782":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of custom CSS positioning properties in custom branding",
+"status":"Active",
+"members":[
+"MC1435782",
+"MC1458474",
+"item:MC1458474"
+],
+"milestones":{
+"MC1435782|posted":{
+"date":"2026-07-21",
+"label":"21 Jul 2026",
+"text":"Posted: Microsoft Entra ID: Retirement of custom CSS positioning properties in custom branding"
+},
+"MC1458474|organizations that were not using custom css as of are not a#0":{
+"date":"2026-07-21",
+"label":"21 Jul 2026",
+"text":"Organizations that were not using Custom CSS as of July 21, 2026, are not affected and cannot begin using it going forward."
+},
+"MC1458474|posted":{
+"date":"2026-08-21",
+"label":"21 Aug 2026",
+"text":"Posted: Custom CSS layout properties in company branding retiring"
+},
+"MC1435782|beginning in microsoft entra id will retire support for cust#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Beginning in October 2026 , Microsoft Entra ID will retire support for custom CSS positioning properties used in custom branding."
+},
+"MC1458474|actionBy":{
+"date":"2026-10-26",
+"label":"26 Oct 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1458474|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Custom CSS layout properties in company branding retiring"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1435782":{
+"title":"Microsoft Entra ID: Retirement of custom CSS positioning properties in custom branding",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1435782",
+"source":"Message Center",
+"id":"MC1435782",
+"date":"2026-07-21",
+"updated":"2026-07-31",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1458474":{
+"title":"Custom CSS layout properties in company branding retiring",
+"link":"https://mc.merill.net/message/MC1458474",
+"source":"Message Center",
+"id":"MC1458474",
+"date":"2026-08-21",
+"updated":"2026-08-21",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1403402":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Intune moving to support macOS 15 and higher later this year",
+"status":"No date",
+"members":[
+"MC1403402",
+"MC1454370",
+"MC1454371"
+],
+"milestones":{
+"MC1403402|posted":{
+"date":"2026-06-24",
+"label":"24 Jun 2026",
+"text":"Posted: Intune moving to support macOS 15 and higher later this year"
+},
+"MC1454370|posted":{
+"date":"2026-08-13",
+"label":"13 Aug 2026",
+"text":"Posted: Intune moving to support macOS 15 and higher later this year"
+},
+"MC1454371|posted":{
+"date":"2026-08-13",
+"label":"13 Aug 2026",
+"text":"Posted: Intune moving to support iOS/iPadOS 18 and higher later this year"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402":{
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402",
+"source":"Message Center",
+"id":"MC1403402",
+"date":"2026-06-24",
+"updated":"2026-06-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370":{
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370",
+"source":"Message Center",
+"id":"MC1454370",
+"date":"2026-08-13",
+"updated":"2026-08-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371":{
+"title":"Intune moving to support iOS/iPadOS 18 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371",
+"source":"Message Center",
+"id":"MC1454371",
+"date":"2026-08-13",
+"updated":"2026-08-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-05T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1454114":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Configure mandatory participant consent before joining meetings",
+"status":"No date",
+"members":[
+"MC1454114"
+],
+"milestones":{
+"MC1454114|posted":{
+"date":"2026-08-13",
+"label":"13 Aug 2026",
+"text":"Posted: Microsoft Teams: Configure mandatory participant consent before joining meetings"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454114":{
+"title":"Microsoft Teams: Configure mandatory participant consent before joining meetings",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454114",
+"source":"Message Center",
+"id":"MC1454114",
+"date":"2026-08-13",
+"updated":"2026-08-13",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1452374":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of the Other features page in Exchange admin center",
+"status":"No date",
+"members":[
+"MC1452374"
+],
+"milestones":{
+"MC1452374|posted":{
+"date":"2026-08-11",
+"label":"11 Aug 2026",
+"text":"Posted: Microsoft Exchange Online: Retirement of the Other features page in Exchange admin center"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1452374":{
+"title":"Microsoft Exchange Online: Retirement of the Other features page in Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1452374",
+"source":"Message Center",
+"id":"MC1452374",
+"date":"2026-08-11",
+"updated":"2026-08-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1448328":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
+"status":"Active",
+"members":[
+"MC1448328"
+],
+"milestones":{
+"MC1448328|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: Plan for Windows 10 Enterprise LTSC 2021 end of support"
+},
+"MC1448328|extended security updates esu will be available for purchase#0":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"September 1, 2026: Extended Security Updates (ESU) will be available for purchase."
+},
+"MC1448328|windows enterprise ltsc reaches end of support on#0":{
+"date":"2027-01-12",
+"label":"12 Jan 2027",
+"text":"Windows 10 Enterprise LTSC 2021 reaches end of support on January 12, 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1448328":{
+"title":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1448328",
+"source":"Message Center",
+"id":"MC1448328",
+"date":"2026-08-05",
+"updated":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/plan-for-windows-10-enterprise-ltsc-2021-end-of-support/ba-p/4539866":{
+"title":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
+"link":"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/plan-for-windows-10-enterprise-ltsc-2021-end-of-support/ba-p/4539866",
+"source":"Windows IT Pro Blog",
+"date":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1429010":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"status":"Active",
+"members":[
+"MC1429010"
+],
+"milestones":{
+"MC1429010|posted":{
+"date":"2026-07-15",
+"label":"15 Jul 2026",
+"text":"Posted: Retirement notice: Instances policy location in Microsoft Purview Data Loss Prevention"
+},
+"MC1429010|microsoft is retiring the instances policy location in micro#0":{
+"date":"2027-01-06",
+"label":"6 Jan 2027",
+"text":"Microsoft is retiring the Instances policy location in Microsoft Purview Data Loss Prevention (DLP) on January 6, 2027 ."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1429010":{
+"title":"Retirement notice: Instances policy location in Microsoft Purview Data Loss Prevention",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1429010",
+"source":"Message Center",
+"id":"MC1429010",
+"date":"2026-07-15",
+"updated":"2026-07-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1248389":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of -Credential parameter when connecting to Exchange Online PowerShell",
+"status":"Active",
+"members":[
+"MC1248389"
+],
+"milestones":{
+"MC1248389|posted":{
+"date":"2026-03-10",
+"label":"10 Mar 2026",
+"text":"Posted: Retirement of -Credential parameter when connecting to Exchange Online PowerShell"
+},
+"MC1248389|starting with module versions released in and later the cred#0":{
+"date":"2026-12-15",
+"label":"Dec 2026",
+"text":"Starting with module versions released in December 2026 and later , the -Credential parameter will be removed from both Connect-ExchangeOnline and Connect-IppsS"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1248389":{
+"title":"Retirement of -Credential parameter when connecting to Exchange Online PowerShell",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1248389",
+"source":"Message Center",
+"id":"MC1248389",
+"date":"2026-03-10",
+"updated":"2026-07-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1388721":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
+"status":"No date",
+"members":[
+"MC1388721",
+"MC1427604"
+],
+"milestones":{
+"MC1388721|posted":{
+"date":"2026-06-12",
+"label":"12 Jun 2026",
+"text":"Posted: Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update"
+},
+"MC1427604|posted":{
+"date":"2026-07-14",
+"label":"14 Jul 2026",
+"text":"Posted: Enforcement phase for Kerberos RC4 protections begins with the July 2026 Windows security update"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1388721":{
+"title":"Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1388721",
+"source":"Message Center",
+"id":"MC1388721",
+"date":"2026-06-12",
+"updated":"2026-06-12",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1427604":{
+"title":"Enforcement phase for Kerberos RC4 protections begins with the July 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1427604",
+"source":"Message Center",
+"id":"MC1427604",
+"date":"2026-07-14",
+"updated":"2026-07-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378":{
+"title":"Action required: Windows Kerberos hardening (RC4) may affect FSLogix profiles on SMB storage",
+"link":"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378",
+"source":"FSLogix Blog",
+"date":"2026-03-27",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1422061":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Conditional Access custom controls become read-only",
+"status":"Active",
+"members":[
+"MC1422061"
+],
+"milestones":{
+"MC1422061|posted":{
+"date":"2026-07-09",
+"label":"9 Jul 2026",
+"text":"Posted: Conditional Access custom controls become read-only"
+},
+"MC1422061|actionBy":{
+"date":"2027-04-30",
+"label":"30 Apr 2027",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1422061":{
+"title":"Conditional Access custom controls become read-only",
+"link":"https://mc.merill.net/message/MC1422061",
+"source":"Message Center",
+"id":"MC1422061",
+"date":"2026-07-09",
+"updated":"2026-07-09",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1220762":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"MDE and XDR APIs retire; migrate to Graph security API",
+"status":"Active",
+"members":[
+"MC1220762",
+"item:MC1220762"
+],
+"milestones":{
+"MC1220762|posted":{
+"date":"2026-01-22",
+"label":"22 Jan 2026",
+"text":"Posted: MDE and XDR APIs retire; migrate to Graph security API"
+},
+"MC1220762|actionBy":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"Act by this date (Message Center)"
+},
+"MC1220762|deadline":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"MDE and XDR APIs retire; migrate to Graph security API"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1220762":{
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762",
+"source":"Message Center",
+"id":"MC1220762",
+"date":"2026-01-22",
+"updated":"2026-01-22",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1188230":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
+"status":"Active",
+"members":[
+"MC1188230"
+],
+"milestones":{
+"MC1188230|posted":{
+"date":"2025-11-19",
+"label":"19 Nov 2025",
+"text":"Posted: Microsoft Entra ID: Retirement of duplicative properties in passkey (FIDO2) authentication methods policy"
+},
+"MC1188230|actionBy":{
+"date":"2027-10-14",
+"label":"14 Oct 2027",
+"text":"Act by this date (Message Center)"
+},
+"MC1188230|introduction starting and ending we will retire the isattest#0":{
+"date":"2027-10-15",
+"label":"Oct 2027",
+"text":"Introduction Starting October 2027 and ending November 2027, we will retire the isAttestationEnforced and keyRestrictions properties from the existing fido2Auth"
+},
+"MC1188230|introduction starting and ending we will retire the isattest#1":{
+"date":"2027-11-15",
+"label":"Nov 2027",
+"text":"Introduction Starting October 2027 and ending November 2027, we will retire the isAttestationEnforced and keyRestrictions properties from the existing fido2Auth"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1188230":{
+"title":"Microsoft Entra ID: Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1188230",
+"source":"Message Center",
+"id":"MC1188230",
+"date":"2025-11-19",
+"updated":"2025-11-19",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"Expanded policy storage for passkeys (FIDO2) in Microsoft Entra ID",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc716267":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft Publisher will no longer be supported after October 2026",
+"status":"Active",
+"members":[
+"MC716267"
+],
+"milestones":{
+"MC716267|posted":{
+"date":"2024-02-15",
+"label":"15 Feb 2024",
+"text":"Posted: Microsoft Publisher will no longer be supported after October 2026"
+},
+"MC716267|in microsoft publisher will reach its end of life#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"In October 2026, Microsoft Publisher will reach its end of life."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC716267":{
+"title":"Microsoft Publisher will no longer be supported after October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC716267",
+"source":"Message Center",
+"id":"MC716267",
+"date":"2024-02-15",
+"updated":"2025-11-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1430531":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Meeting Insight is retiring",
+"status":"No date",
+"members":[
+"MC1430531"
+],
+"milestones":{
+"MC1430531|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Outlook: Meeting Insight is retiring"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1430531":{
+"title":"Microsoft Outlook: Meeting Insight is retiring",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1430531",
+"source":"Message Center",
+"id":"MC1430531",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1409303":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
+"status":"No date",
+"members":[
+"MC1409303"
+],
+"milestones":{
+"MC1409303|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1409303":{
+"title":"Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1409303",
+"source":"Message Center",
+"id":"MC1409303",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1303719":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Upcoming changes to federatedTokenValidationPolicy default settings",
+"status":"No date",
+"members":[
+"MC1303719"
+],
+"milestones":{
+"MC1303719|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Entra: Upcoming changes to federatedTokenValidationPolicy default settings"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1303719":{
+"title":"Microsoft Entra: Upcoming changes to federatedTokenValidationPolicy default settings",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1303719",
+"source":"Message Center",
+"id":"MC1303719",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-mc1223829":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
+"status":"No date",
+"members":[
+"MC1223829",
+"item:entra-ca-baseline-scopes-doc-revised-2026-10-08"
+],
+"milestones":{
+"MC1223829|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1223829":{
+"title":"Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1223829",
+"source":"Message Center",
+"id":"MC1223829",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-enforcement-resource-exclusions":{
+"title":"Conditional Access enforcement for resource exclusions (baseline scopes)",
+"link":"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-enforcement-resource-exclusions",
+"source":"Main list source",
+"id":"entra-ca-baseline-scopes-doc-revised-2026-10-08",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a…",
+"status":"Active",
+"members":[
+"item:azure-ea-billing-roles-work-school-accounts-2026-11-16"
+],
+"milestones":{
+"azure-ea-billing-roles-work-school-accounts-2026-11-16|deadline":{
+"date":"2026-11-16",
+"label":"16 Nov 2026",
+"text":"Microsoft's own date for new role assignments; no date is stated for existing assignments held by personal Microsoft accounts."
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles":{
+"title":"Manage Azure Enterprise Agreement roles",
+"link":"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles",
+"source":"Main list source",
+"id":"azure-ea-billing-roles-work-school-accounts-2026-11-16",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mdc-new-defender-server-security-experience-2026-10-06":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Cloud: the new server security experience joins Defender for Endpoint and Defender for Servers…",
+"status":"No date",
+"members":[
+"item:mdc-new-defender-server-security-experience-2026-10-06"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"New Defender server security experience",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Main list source",
+"id":"mdc-new-defender-server-security-experience-2026-10-06",
+"date":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mdi-auto-sensor-v3-windows-auditing-default":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Identity will switch on sensor v3.x and Windows auditing on identity-role servers by default…",
+"status":"No date",
+"members":[
+"item:mdi-auto-sensor-v3-windows-auditing-default",
+"item:mdi-sensor-v3-without-mde-ga-2026-10"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/defender-for-identity/whats-new":{
+"title":"Automatic sensor v3.x activation and Windows auditing by default",
+"link":"https://learn.microsoft.com/en-us/defender-for-identity/whats-new",
+"source":"Main list source",
+"id":"mdi-auto-sensor-v3-windows-auditing-default",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-entra-connect-health-owner-default-global-admin-2026-10":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Connect Health: Microsoft corrects who holds Owner by default — Global Administrators, not Hybrid Identity…",
+"status":"No date",
+"members":[
+"item:entra-connect-health-owner-default-global-admin-2026-10-02"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations":{
+"title":"Microsoft Entra Connect Health operations",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations",
+"source":"Main list source",
+"id":"entra-connect-health-owner-default-global-admin-2026-10-02",
+"date":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1325414":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and…",
+"status":"Active",
+"members":[
+"item:MC1325414",
+"item:MC1325414-enforcement"
+],
+"milestones":{
+"MC1325414|deadline":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"5 October 2026 is the start of the registration campaign, not the enforcement date; enforcement is tracked as its own row, MC1325414-enforcement, on 7 November "
+},
+"MC1325414-enforcement|deadline":{
+"date":"2026-11-07",
+"label":"7 Nov 2026",
+"text":"SSPR registered-methods enforcement begins"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1325414":{
+"title":"Microsoft Entra ID SSPR will require registered authentication methods starting November 9, 2026",
+"link":"https://deltapulse.app/item/MC1325414",
+"source":"Main list source",
+"id":"MC1325414",
+"date":"2026-05-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1325414":{
+"title":"SSPR registered-methods enforcement begins",
+"link":"https://mc.merill.net/message/MC1325414",
+"source":"Main list source",
+"id":"MC1325414-enforcement",
+"date":"2026-05-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-cloudsync-provision-to-ad-docset":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"The Entra Cloud Sync provisioning-into-Active-Directory documentation set goes to general documentation",
+"status":"No date",
+"members":[
+"item:cloudsync-provision-to-ad-docset",
+"item:docmoved-cloudsync-tutorial-group-provisioning"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-provisioning-to-active-directory-works":{
+"title":"Provision users and groups from Microsoft Entra ID to Active Directory Domain Services",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-provisioning-to-active-directory-works",
+"source":"Main list source",
+"id":"cloudsync-provision-to-ad-docset",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-users-groups-provisioning-walkthrough":{
+"title":"Tutorial: Provision users and groups from Microsoft Entra ID to Active Directory Domain Services",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-users-groups-provisioning-walkthrough",
+"source":"Main list source",
+"id":"docmoved-cloudsync-tutorial-group-provisioning",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=C7nc-itxl28":{
+"title":"Microsoft Security Architect: Active Directory Is 10x Harder to Defend Than Entra",
+"link":"https://www.youtube.com/watch?v=C7nc-itxl28",
+"source":"Merill Fernando",
+"date":"2026-09-06",
+"group":"video",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-intune-managed-home-screen-auth-required":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Managed Home Screen can now require authentication before a protected app activity, closing a shared-device…",
+"status":"No date",
+"members":[
+"item:intune-managed-home-screen-auth-required"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/intune/whats-new/":{
+"title":"Require Managed Home Screen authentication for protected app activities",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
+"source":"Main list source",
+"id":"intune-managed-home-screen-auth-required",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-restore-the-managed-home-screen-exit-pin/ba-p/4549102":{
+"title":"Support tip: Restore the Managed Home Screen Exit PIN",
+"link":"https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-restore-the-managed-home-screen-exit-pin/ba-p/4549102",
+"source":"Intune Customer Success Blog",
+"date":"2026-08-21",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Require Managed Home Screen authentication for protected app activities",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-05T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mdc-va-solution-recommendation-deprecation":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026",
+"status":"Active",
+"members":[
+"item:mdc-va-solution-recommendation-deprecation"
+],
+"milestones":{
+"mdc-va-solution-recommendation-deprecation|deadline":{
+"date":"2026-10-11",
+"label":"11 Oct 2026",
+"text":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation":{
+"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation",
+"source":"Main list source",
+"id":"mdc-va-solution-recommendation-deprecation",
+"date":"2026-09-10",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Microsoft Learn · What's new · Defender for Cloud",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mda-file-policies-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Cloud Apps file policies retire",
+"status":"Active",
+"members":[
+"item:mda-file-policies-retirement",
+"item:mdca-file-policies-retirement-2027-01-06"
+],
+"milestones":{
+"mdca-file-policies-retirement-2027-01-06|deadline":{
+"date":"2027-01-06",
+"label":"6 Jan 2027",
+"text":"Defender for Cloud Apps file policies retire on 6 January 2027"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes":{
+"title":"Defender for Cloud Apps file policies retire",
+"link":"https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes",
+"source":"Main list source",
+"id":"mda-file-policies-retirement",
+"date":"2026-06-01",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-sentinel-automatic-onboarding-managed-customers":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft starts onboarding Sentinel tenants to the Defender portal automatically and picks the primary…",
+"status":"Active",
+"members":[
+"item:sentinel-automatic-onboarding-managed-customers"
+],
+"milestones":{
+"sentinel-automatic-onboarding-managed-customers|is the stated retirement of the microsoft sentinel experienc#0":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"31 Mar 2027 is the stated retirement of the Microsoft Sentinel experience in the Azure portal."
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/partner-center/announcements/2026-september":{
+"title":"Automatic onboarding for Microsoft Sentinel",
+"link":"https://learn.microsoft.com/en-us/partner-center/announcements/2026-september",
+"source":"Main list source",
+"id":"sentinel-automatic-onboarding-managed-customers",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-sentinel-azure-portal-retirement-2027":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft Sentinel in the Azure portal retires",
+"status":"Active",
+"members":[
+"item:sentinel-azure-portal-retirement-2027"
+],
+"milestones":{
+"sentinel-azure-portal-retirement-2027|deadline":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"Microsoft Sentinel in the Azure portal retires"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog":{
+"title":"Microsoft Sentinel in the Azure portal retires",
+"link":"https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog",
+"source":"Main list source",
+"id":"sentinel-azure-portal-retirement-2027",
+"date":"2026-01-01",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-entra-adfs-risky-ip-deprecated":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"The AD FS Risky IP report is deprecated in favour of the Risky IP workbook",
+"status":"No date",
+"members":[
+"item:entra-adfs-risky-ip-deprecated",
+"item:entra-risky-ip-report-retirement-2026-09-18"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip":{
+"title":"Risky IP report (AD FS)",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip",
+"source":"Main list source",
+"id":"entra-adfs-risky-ip-deprecated",
+"date":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-09-18/":{
+"title":"The Risky IP report",
+"link":"https://daily.entra.news/day/2026-09-18/",
+"source":"Main list source",
+"id":"entra-risky-ip-report-retirement-2026-09-18",
+"date":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-for-identity/whats-new":{
+"title":"Sensor v3.x support for additional identity server roles: AD CS, AD FS, and Entra Connect (Preview)",
+"link":"https://learn.microsoft.com/en-us/defender-for-identity/whats-new",
+"source":"Microsoft Learn · What's new · Defender for Identity",
+"date":"2026-10-06T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-intune-ios-18-minimum-2609":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
+"status":"No date",
+"members":[
+"item:intune-ios-18-minimum-2609"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/intune/whats-new/":{
+"title":"Minimum supported version for iOS and iPadOS",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
+"source":"Main list source",
+"id":"intune-ios-18-minimum-2609",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-05T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-intune-google-play-strong-integrity":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Google Play Strong Integrity enforcement for Android 13+",
+"status":"Active",
+"members":[
+"item:intune-google-play-strong-integrity",
+"item:android-play-integrity-strong-2026-10-31"
+],
+"milestones":{
+"android-play-integrity-strong-2026-10-31|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/intune/whats-new/":{
+"title":"Google Play Strong Integrity enforcement for Android 13+",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
+"source":"Main list source",
+"id":"intune-google-play-strong-integrity",
+"date":"2026-07-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/whats-new/in-development":{
+"title":"Play Integrity API strong integrity enforcement",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/in-development",
+"source":"Main list source",
+"id":"android-play-integrity-strong-2026-10-31",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-avd-managed-identity-ga":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Managed identity for host pools reaches GA, and a future update will require it",
+"status":"No date",
+"members":[
+"item:avd-managed-identity-ga"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new":{
+"title":"Managed identity support",
+"link":"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new",
+"source":"Main list source",
+"id":"avd-managed-identity-ga",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1472007":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Admins get a control over who can upload advanced agents and plugins; uploads stay open by default from 25 Oct",
+"status":"Active",
+"members":[
+"item:MC1472007"
+],
+"milestones":{
+"MC1472007|is when advanced package uploads become enabled by default u#0":{
+"date":"2026-10-25",
+"label":"25 Oct 2026",
+"text":"25 October 2026 is when advanced-package uploads become enabled by default unless an admin has chosen no users or specific users or groups."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1472007":{
+"title":"Manage who can upload advanced agents and plugins",
+"link":"https://deltapulse.app/item/MC1472007",
+"source":"Main list source",
+"id":"MC1472007",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1477005":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"The September 2026 Windows non-security preview update is now available",
+"status":"Active",
+"members":[
+"item:MC1477005"
+],
+"milestones":{
+"MC1477005|windows version h home and pro editions reach end of support#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
+},
+"MC1477005|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1477005":{
+"title":"The September 2026 Windows non-security preview update is now available",
+"link":"https://deltapulse.app/item/MC1477005",
+"source":"Main list source",
+"id":"MC1477005",
+"date":"2026-09-22",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-azure-blueprints-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Azure Blueprints stops accepting new assignments on 31 October, and its resource locks stop working at full…",
+"status":"Active",
+"members":[
+"item:azure-blueprints-retirement"
+],
+"milestones":{
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#0":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"31 Oct 2026 ends modification of blueprint definitions and creation of new assignments"
+},
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#1":{
+"date":"2026-12-31",
+"label":"31 Dec 2026",
+"text":"31 Dec 2026 ends modification of existing assignments"
+},
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#2":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"31 Jan 2027 is full retirement"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement":{
+"title":"Azure Blueprints retirement",
+"link":"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement",
+"source":"Main list source",
+"id":"azure-blueprints-retirement",
+"date":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-azure-functions-inprocess-eos":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Azure Functions in-process model loses support on 10 November 2026",
+"status":"Active",
+"members":[
+"item:azure-functions-inprocess-eos"
+],
+"milestones":{
+"azure-functions-inprocess-eos|deadline":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Azure Functions in-process model loses support on 10 November 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026":{
+"title":"Azure Functions In-process model end of support",
+"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026",
+"source":"Main list source",
+"id":"azure-functions-inprocess-eos",
+"date":"2026-09-12",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-azure-linux-osguard-aks-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Azure Linux with OS Guard support in AKS ends",
+"status":"Active",
+"members":[
+"item:azure-linux-osguard-aks-retirement"
+],
+"milestones":{
+"azure-linux-osguard-aks-retirement|deadline":{
+"date":"2026-12-10",
+"label":"10 Dec 2026",
+"text":"Azure Linux with OS Guard support in AKS ends"
+}
+},
+"moves":[],
+"materials":{
+"https://azure.microsoft.com/updates?id=571257":{
+"title":"Retirement: Azure Linux with OS Guard in Azure Kubernetes Service",
+"link":"https://azure.microsoft.com/updates?id=571257",
+"source":"Main list source",
+"id":"azure-linux-osguard-aks-retirement",
+"date":"2026-09-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1474111":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft 365 companion apps stop working on 16 December 2026 and stop getting security fixes now",
+"status":"Active",
+"members":[
+"item:MC1474111"
+],
+"milestones":{
+"MC1474111|microsoft states the companion apps reach end of life on#0":{
+"date":"2026-12-16",
+"label":"16 Dec 2026",
+"text":"Microsoft states the companion apps reach end of life on 16 December 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1474111":{
+"title":"Retirement of Microsoft 365 Companion apps",
+"link":"https://deltapulse.app/item/MC1474111",
+"source":"Main list source",
+"id":"MC1474111",
+"date":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1387814":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"RTMP-In requires two new ports and a new domain on the egress allow-list",
+"status":"Active",
+"members":[
+"item:MC1387814"
+],
+"milestones":{
+"MC1387814|deadline":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"RTMP-In requires two new ports and a new domain on the egress allow-list"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1387814":{
+"title":"Microsoft Teams: RTMP-In port and domain changes required",
+"link":"https://mc.merill.net/message/MC1387814",
+"source":"Main list source",
+"id":"MC1387814",
+"date":"2026-06-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-windows-server-2016-eos":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows Server 2016 end of support",
+"status":"Active",
+"members":[
+"item:windows-server-2016-eos"
+],
+"milestones":{
+"windows-server-2016-eos|deadline":{
+"date":"2027-01-12",
+"label":"12 Jan 2027",
+"text":"Windows Server 2016 end of support"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027":{
+"title":"Windows Server 2016 end of support",
+"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
+"source":"Main list source",
+"id":"windows-server-2016-eos",
+"date":"2026-01-01",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1481318":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Alert tuning rules can be scoped to specific detection sources; existing rules keep applying to every source,…",
+"status":"Active",
+"members":[
+"item:MC1481318"
+],
+"milestones":{
+"MC1481318|microsoft states public preview mid selections take effect e#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Microsoft states public preview mid-October 2026 (selections take effect early November) and GA mid-November 2026 (selections take effect early December)"
+},
+"MC1481318|microsoft states public preview mid selections take effect e#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Microsoft states public preview mid-October 2026 (selections take effect early November) and GA mid-November 2026 (selections take effect early December)"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1481318":{
+"title":"Microsoft Defender XDR: Detection source support in alert tuning rules",
+"link":"https://deltapulse.app/item/MC1481318",
+"source":"Main list source",
+"id":"MC1481318",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-xdr/whats-new":{
+"title":"Built-in alert tuning rules are now generally available. Built-in aler",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"date":"2026-09-08T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/unified-secops/whats-new":{
+"title":"[Built-in alert tuning rules](https://learn.microsoft.com/en-us/defender-xdr/investigate-alerts#built-in-alert-tuning-ru",
+"link":"https://learn.microsoft.com/en-us/unified-secops/whats-new",
+"source":"Microsoft Learn · What's new · Unified Security Operations",
+"date":"2026-09-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1481316":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Teams admin center will recommend Teams apps and agents for third-party applications your users already sign…",
+"status":"Active",
+"members":[
+"item:MC1481316"
+],
+"milestones":{
+"MC1481316|microsoft states targeted release and ga worldwide gcc early#0":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Microsoft states Targeted Release and GA (Worldwide, GCC) early to mid-November 2026; the feature is off until an administrator enables it."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1481316":{
+"title":"Microsoft Teams: Enable Teams apps and agents for existing applications in your organization",
+"link":"https://deltapulse.app/item/MC1481316",
+"source":"Main list source",
+"id":"MC1481316",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1481325":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
+"status":"Active",
+"members":[
+"item:MC1481325"
+],
+"milestones":{
+"MC1481325|microsoft states retirement begins mid and completes mid wit#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Microsoft states retirement begins mid-October 2026 and completes mid-November 2026, with no action date."
+},
+"MC1481325|microsoft states retirement begins mid and completes mid wit#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Microsoft states retirement begins mid-October 2026 and completes mid-November 2026, with no action date."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1481325":{
+"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+"link":"https://deltapulse.app/item/MC1481325",
+"source":"Main list source",
+"id":"MC1481325",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1481310":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Admins can pin the Copilot app to the Windows taskbar for selected user groups on Intune-managed devices",
+"status":"Recently closed",
+"members":[
+"item:MC1481310"
+],
+"milestones":{
+"MC1481310|microsoft states ga worldwide rolling out in late#0":{
+"date":"2026-09-25",
+"label":"late Sep 2026",
+"text":"Microsoft states GA worldwide rolling out in late September 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1481310":{
+"title":"Pin Copilot app to Windows taskbar for selected user groups",
+"link":"https://deltapulse.app/item/MC1481310",
+"source":"Main list source",
+"id":"MC1481310",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1459140":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Self-serve sync Copilot connectors for Jira Cloud and Confluence Cloud are deferred and disappear from the…",
+"status":"Recently closed",
+"members":[
+"item:MC1459140"
+],
+"milestones":{
+"MC1459140|microsoft states on that it has decided not to move forward #0":{
+"date":"2026-09-28",
+"label":"28 Sep 2026",
+"text":"Microsoft states on 28 September 2026 that it has decided not to move forward with public preview or GA at this time."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1459140":{
+"title":"New in Microsoft 365 Copilot: Self-serve Copilot Connectors",
+"link":"https://deltapulse.app/item/MC1459140",
+"source":"Main list source",
+"id":"MC1459140",
+"date":"2026-08-21",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-571309":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Purview auto-labeling scale increase for SharePoint and OneDrive enters the roadmap",
+"status":"No date",
+"members":[
+"item:571309"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/571309":{
+"title":"Microsoft Purview: Information Protection-Auto-labeling scale increase for SharePoint and OneDrive",
+"link":"https://deltapulse.app/item/571309",
+"source":"Main list source",
+"id":"571309",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1482225":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows 11, version 26H2 is generally available as an enablement package, with some features now on by default",
+"status":"No date",
+"members":[
+"item:MC1482225"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1482225":{
+"title":"How to get the Windows 11 2026 Update",
+"link":"https://deltapulse.app/item/MC1482225",
+"source":"Main list source",
+"id":"MC1482225",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-entra-external-idp-passkeys-system-browser-ga":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Passkeys from a federated external IdP now work in brokered Microsoft apps on Android, iOS and managed macOS…",
+"status":"No date",
+"members":[
+"item:entra-external-idp-passkeys-system-browser-ga"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider":{
+"title":"Sign in to Microsoft apps with passkeys from external identity providers",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider",
+"source":"Main list source",
+"id":"entra-external-idp-passkeys-system-browser-ga",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/sign-in-to-microsoft-apps-with-passkeys-from-external-identity/ba-p/4556448":{
+"title":"Sign in to Microsoft apps with passkeys from external identity providers",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/sign-in-to-microsoft-apps-with-passkeys-from-external-identity/ba-p/4556448",
+"source":"Microsoft Entra Blog",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1483974":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Exchange Online PowerShell enforces stricter sign-in from 31 March 2027; ExchangeOnlineManagement below…",
+"status":"Active",
+"members":[
+"item:MC1483974"
+],
+"milestones":{
+"MC1483974|microsoft states enforcement of strict logon requirements be#2":{
+"date":"2027-03-26",
+"label":"26 Mar 2027",
+"text":"The post's actionRequiredBy is 26 March 2027."
+},
+"MC1483974|microsoft states enforcement of strict logon requirements be#1":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"Microsoft states enforcement of strict logon requirements begins 31 March 2027 (rollout late March to late April 2027)"
+},
+"MC1483974|microsoft states enforcement of strict logon requirements be#0":{
+"date":"2027-04-25",
+"label":"late Apr 2027",
+"text":"Microsoft states enforcement of strict logon requirements begins 31 March 2027 (rollout late March to late April 2027)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1483974":{
+"title":"Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
+"link":"https://mc.merill.net/message/MC1483974",
+"source":"Main list source",
+"id":"MC1483974",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/action-required-upgrade-exchangeonlinemanagement-powershell/ba-p/4561418":{
+"title":"Action Required: Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Newer",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/action-required-upgrade-exchangeonlinemanagement-powershell/ba-p/4561418",
+"source":"Exchange Team Blog",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Improved baseline customization pre-installation support for PowerShell script and module files.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://petri.com/exchange-online-admins-upgrade-powershell-module/":{
+"title":"Microsoft Urges Exchange Online Admins to Upgrade PowerShell Module",
+"link":"https://petri.com/exchange-online-admins-upgrade-powershell-module/",
+"source":"Petri IT Knowledgebase",
+"date":"2026-10-05",
+"group":"community",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1485055":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"AI Builder capacity add-ons retire on 1 November; existing credits last to the end of the subscription term",
+"status":"Active",
+"members":[
+"item:MC1485055"
+],
+"milestones":{
+"MC1485055|microsoft states the add ons retire beginning the post s act#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"Microsoft states the add-ons retire beginning 1 November 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1485055":{
+"title":"Microsoft AI Builder: Retirement of AI Builder capacity add-ons",
+"link":"https://deltapulse.app/item/MC1485055",
+"source":"Main list source",
+"id":"MC1485055",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-gsa-private-access-sensor-2-2-79":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Private Access Sensor 2.2.79 for domain controllers: updates now install themselves, the local registry…",
+"status":"No date",
+"members":[
+"item:gsa-private-access-sensor-2-2-79"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history":{
+"title":"Microsoft Entra Private Access Sensor release history — Version 2.2.79",
+"link":"https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history",
+"source":"Main list source",
+"id":"gsa-private-access-sensor-2-2-79",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mc1488841":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early…",
+"status":"Active",
+"members":[
+"item:MC1488841"
+],
+"milestones":{
+"MC1488841|deadline":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
+},
+"MC1488841|microsoft states early and no day is this brief s marker for#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1488841":{
+"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+"link":"https://deltapulse.app/item/MC1488841",
+"source":"Main list source",
+"id":"MC1488841",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mdc-kspm-controller-level-scope-2026-10-05":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the…",
+"status":"No date",
+"members":[
+"item:mdc-kspm-controller-level-scope-2026-10-05"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"KSPM misconfiguration recommendations moving to controller-level scope (GA)",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Main list source",
+"id":"mdc-kspm-controller-level-scope-2026-10-05",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-mdc-storage-on-demand-malware-scan-targeted-2026-10-05":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
+"status":"No date",
+"members":[
+"item:mdc-storage-on-demand-malware-scan-targeted-2026-10-05"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"On-demand malware scanning now supports scanning specific blobs, files, containers, and file shares (GA)",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Main list source",
+"id":"mdc-storage-on-demand-malware-scan-targeted-2026-10-05",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-azure-arc-scvmm-new-deployments-closed-2026-10":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
+"status":"No date",
+"members":[
+"item:azure-arc-scvmm-new-deployments-closed-2026-10"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview":{
+"title":"Azure Arc resource bridge overview — retirement notice for Azure Arc-enabled SCVMM",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview",
+"source":"Main list source",
+"id":"azure-arc-scvmm-new-deployments-closed-2026-10",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-item-win11-26h2-security-baseline-v2-2026-10-08":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
+"status":"Released",
+"members":[
+"item:win11-26h2-security-baseline-v2-2026-10-08"
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
+"title":"Windows 11, version 26H2 security baseline",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
+"source":"Main list source",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-comp-entra-connect-sync":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Entra Connect Sync — version support",
+"status":"Active",
+"members":[
+"item:entra-connect-2-5-79-0-end-of-support",
+"item:entra-connect-2-6-91-0-security-release"
+],
+"milestones":{
+"Learn|eos 2.5.76.0":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"2.5.76.0 left support"
+},
+"Learn|rel 2.6.91.0":{
+"date":"2026-09-16",
+"label":"16 Sep 2026",
+"text":"2.6.91.0 released"
+},
+"Learn|rel 2.6.92.0":{
+"date":"2026-09-23",
+"label":"23 Sep 2026",
+"text":"2.6.92.0 released"
+},
+"Learn|eos 2.5.79.0":{
+"date":"2026-10-23",
+"label":"23 Oct 2026",
+"text":"2.5.79.0 leaves support"
+},
+"Learn|eos 2.5.190.0":{
+"date":"2027-02-02",
+"label":"2 Feb 2027",
+"text":"2.5.190.0 leaves support"
+},
+"Learn|eos 2.6.1.0":{
+"date":"2027-03-10",
+"label":"10 Mar 2027",
+"text":"2.6.1.0 leaves support"
+},
+"Learn|mandatory":{
+"date":"2027-04-07",
+"label":"7 Apr 2027",
+"text":"Upgrade Microsoft Entra Connect Sync to version 2.6.84.0 or later and configure application-based authentication by April 7, 2027. Legacy authentication is bein"
+},
+"Learn|eos 2.6.3.0":{
+"date":"2027-07-07",
+"label":"7 Jul 2027",
+"text":"2.6.3.0 leaves support"
+},
+"Learn|eos 2.6.84.0":{
+"date":"2027-09-16",
+"label":"16 Sep 2027",
+"text":"2.6.84.0 leaves support"
+},
+"Learn|eos 2.6.91.0":{
+"date":"2027-09-23",
+"label":"23 Sep 2027",
+"text":"2.6.91.0 leaves support"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history":{
+"title":"Entra Connect version history",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history",
+"source":"Microsoft Learn",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history#26910":{
+"title":"2.6.91.0",
+"link":"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history#26910",
+"source":"Main list source",
+"id":"entra-connect-2-6-91-0-security-release",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"versions":[
+{
+"version":"2.3.2.0",
+"eos":"2025-04-30",
+"eosNote":"To align with the security change released in version 2.4.18.0",
+"released":"2023-12-12",
+"status":"retired"
+},
+{
+"version":"2.3.6.0",
+"eos":"2025-04-30",
+"eosNote":"To align with the security change released in version 2.4.18.0",
+"released":"2024-02-21",
+"status":"retired"
+},
+{
+"version":"2.3.8.0",
+"eos":"2025-04-30",
+"eosNote":"To align with the security change released in version 2.4.18.0",
+"released":"2024-04-01",
+"status":"retired"
+},
+{
+"version":"2.3.20.0",
+"eos":"2025-04-30",
+"eosNote":"To align with the security change released in version 2.4.18.0",
+"released":"2024-07-15",
+"status":"retired"
+},
+{
+"version":"2.4.18.0",
+"eos":"2025-10-09",
+"eosNote":"12 months after release of 2.4.21.0",
+"released":"2024-10-07",
+"status":"retired"
+},
+{
+"version":"2.4.21.0",
+"eos":"2025-11-15",
+"eosNote":"12 months after release of 2.4.27.0",
+"released":"2024-10-09",
+"status":"retired"
+},
+{
+"version":"2.4.27.0",
+"eos":"2026-01-15",
+"eosNote":"12 months after release of 2.4.129.0",
+"released":"2024-11-14",
+"status":"retired"
+},
+{
+"version":"2.4.129.0",
+"eos":"2026-03-27",
+"eosNote":"12 months after release of 2.4.131.0",
+"released":"2025-01-15",
+"status":"retired"
+},
+{
+"version":"2.4.131.0",
+"eos":"2026-05-26",
+"eosNote":"12 months after release of 2.5.3.0",
+"released":"2025-03-27",
+"status":"retired"
+},
+{
+"version":"2.5.3.0",
+"eos":"2026-07-31",
+"eosNote":"12 months after release of 2.5.76.0",
+"released":"2025-05-27",
+"status":"retired"
+},
+{
+"version":"2.5.76.0",
+"eos":"2026-09-01",
+"eosNote":"12 months after release of 2.5.79.0",
+"released":"2025-07-31",
+"status":"retired"
+},
+{
+"version":"2.5.79.0",
+"eos":"2026-10-23",
+"eosNote":"12 months after release of 2.5.190.0",
+"released":"2025-09-01",
+"status":"ends soon"
+},
+{
+"version":"2.5.190.0",
+"eos":"2027-02-02",
+"eosNote":"12 months after release of 2.6.1.0",
+"released":"2025-11-19",
+"status":"supported"
+},
+{
+"version":"2.6.1.0",
+"eos":"2027-03-10",
+"eosNote":"12 months after release of 2.6.3.0",
+"released":"2026-02-02",
+"status":"supported"
+},
+{
+"version":"2.6.3.0",
+"eos":"2027-07-07",
+"eosNote":"12 months after release of 2.6.84.0",
+"released":"2026-03-10",
+"status":"supported"
+},
+{
+"version":"2.6.84.0",
+"eos":"2027-09-16",
+"eosNote":"12 months after release of 2.6.91.0",
+"released":"2026-07-07",
+"status":"supported"
+},
+{
+"version":"2.6.91.0",
+"eos":"2027-09-23",
+"eosNote":"12 months after release of 2.6.92.0",
+"released":"2026-09-16",
+"status":"supported"
+},
+{
+"version":"2.6.92.0",
+"eos":null,
+"eosNote":null,
+"released":"2026-09-23",
+"status":"current"
+}
+],
+"mandatory":"Upgrade Microsoft Entra Connect Sync to version 2.6.84.0 or later and configure application-based authentication by April 7, 2027. Legacy authentication is being retired, and synchronization services will stop working after this date if these requirements aren't met."
+}
+},
+"events":[],
+"archive":{
+"c-mc1293480":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"status":"Archive",
+"members":[
+"MC1293480"
+],
+"milestones":{
+"MC1293480|posted":{
+"date":"2026-04-27",
+"label":"27 Apr 2026",
+"text":"Posted: Exchange Online: Retirement of legacy TLS versions for POP and IMAP connections"
+},
+"MC1293480|actionBy":{
+"date":"2026-07-31",
+"label":"31 Jul 2026",
+"text":"Act by this date (Message Center)"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1293480":{
+"title":"Exchange Online: Retirement of legacy TLS versions for POP and IMAP connections",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1293480",
+"source":"Message Center",
+"id":"MC1293480",
+"date":"2026-04-27",
+"updated":"2026-07-07",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Replaced deferred Arc Proxy HIMDS certificate checks with TLS handshake verification.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/post-quantum-crypto-tech-blog/remote-desktop-protocol-and-pqc-tls-1-3-hybrid/ba-p/4562178":{
+"title":"Remote Desktop Protocol and PQC TLS 1.3 Hybrid",
+"link":"https://techcommunity.microsoft.com/t5/post-quantum-crypto-tech-blog/remote-desktop-protocol-and-pqc-tls-1-3-hybrid/ba-p/4562178",
+"source":"Microsoft Security Community",
+"date":"2026-10-05",
+"group":"community",
+"found":"2026-10-09"
+}
+}
+}
+}
+}

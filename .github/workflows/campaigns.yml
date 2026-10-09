@@ -1,0 +1,53 @@
+name: Campaign tracking
+
+# CLAUDE.md 5cu (9 X 2026): retirements, enforcements, end of support, changes by default and security
+# baselines, followed across every source of the brief by tools/campaigns.py (our own detection, no
+# external service). Reads the newest state in site/data, the tenant's Message Center file, the owner's
+# corrections (campaigns.json), the watched YouTube channels (youtube_sources.json, public feeds) and the
+# Entra Connect version table on Microsoft Learn (public markdown). Writes site/data/campaigns.json and
+# site/data/campaigns-history.json; commits only when something changed. A push made with GITHUB_TOKEN
+# starts no other workflow, so "Code refresh" deploys the site after this one (workflow_run there).
+on:
+  schedule:
+    - cron: "40 5 * * *"     # after the morning routine (06:00 Warsaw = 04:00 UTC) has been published
+    - cron: "40 20 * * *"    # after the afternoon pass
+  workflow_run:
+    workflows: ["Publish routine output", "First-party apps tenant snapshot"]
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'tools/campaigns.py'
+      - 'campaigns.json'
+      - 'youtube_sources.json'
+      - '.github/workflows/campaigns.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+jobs:
+  campaigns:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Detect and update campaigns
+        run: python3 tools/campaigns.py
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/campaigns.json site/data/campaigns-history.json
+          if git diff --cached --quiet; then echo "No change."; else
+            git commit -m "data: campaigns $(date -u +%F' '%H:%M) UTC"
+            git pull --rebase -q origin main
+            git push origin main
+          fi

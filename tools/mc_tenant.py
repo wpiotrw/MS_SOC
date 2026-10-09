@@ -16,11 +16,13 @@ coverage gap of the tenant, not a message that does not exist.
 
 Writes site/data/mc-tenant.json:
   {read, source, count, note, messages:[{id,title,services,category,severity,major,actionBy,
-    start,end,modified,tags,summary,bodyHash}],
+    start,end,modified,tags,summary,when,prepare,dates,bodyHash}],
    changes:[{date,id,type:new|changed|removed,title,fields:{field:[before,after]}}]}   (last 30 days)
 
-`summary` is the first ~400 characters of the message text; the full text stays in Microsoft's
-admin center (link per message). `bodyHash` lets a body edit be reported as a change without
+`summary` is the first ~400 characters of the message text; `when` and `prepare` are the
+"When this will happen" and "What you need to do to prepare" sections (up to 450 characters each)
+and `dates` the sentences that carry a date (up to 6) - read by campaign tracking
+(tools/campaigns.py, CLAUDE.md 5cu). The full text stays in Microsoft's admin center (link per message). `bodyHash` lets a body edit be reported as a change without
 publishing the body.
 Env: AZURE_TENANT_ID, AZURE_CLIENT_ID, ACTIONS_ID_TOKEN_REQUEST_URL/_TOKEN (set by GitHub)."""
 import datetime, hashlib, html, json, os, re, sys, urllib.error
@@ -37,6 +39,42 @@ def text(body):
     return re.sub(r"\s+", " ", html.unescape(t)).strip()
 
 
+HEADS = ["When this will happen", "How this will affect your organization", "How this affects your organization",
+         "What you need to do to prepare", "What you can do to prepare", "Compliance considerations",
+         "Learn more", "Additional information", "What is happening", "What's happening"]
+MONTHS = r"(?:January|February|March|April|May|June|July|August|September|October|November|December)"
+DATE_RE = re.compile(r"(?:\b(?:early|mid|late|end of|beginning of)[- ]+)?" + MONTHS + r"(?: \d{1,2})?,? \d{4}|\b\d{1,2} " + MONTHS + r" \d{4}", re.I)
+
+
+def section(plain, head, size=450):
+    """Text of one Message Center section (e.g. 'When this will happen'), up to the next heading.
+    Campaign tracking (tools/campaigns.py, CLAUDE.md 5cu) reads the dates from it; only short
+    excerpts are kept, never the whole body."""
+    i = plain.lower().find(head.lower())
+    if i < 0:
+        return None
+    rest = plain[i + len(head):].lstrip(" :]")
+    cut = len(rest)
+    for h in HEADS:
+        j = rest.lower().find(h.lower())
+        if 0 < j < cut:
+            cut = j
+    t = rest[:cut].strip().rstrip("[").strip()
+    return (t[:size] + ("…" if len(t) > size else "")) or None
+
+
+def dated(plain, limit=6):
+    """Sentences of the body that carry a date (rollout phases, retirement days)."""
+    out = []
+    for sen in re.split(r"(?<=[.!?])\s+", plain):
+        sen = re.sub(r"^\[[^\]]{0,60}:\]\s*", "", sen.strip())
+        if DATE_RE.search(sen) and sen not in out:
+            out.append(sen[:260])
+        if len(out) >= limit:
+            break
+    return out
+
+
 def shape(m):
     body = ((m.get("body") or {}).get("content")) or ""
     plain = text(body)
@@ -49,6 +87,9 @@ def shape(m):
             "modified": (m.get("lastModifiedDateTime") or "")[:10] or None,
             "tags": sorted(m.get("tags") or []),
             "summary": plain[:400] + ("…" if len(plain) > 400 else ""),
+            "when": section(plain, "When this will happen"),
+            "prepare": section(plain, "What you need to do to prepare") or section(plain, "What you can do to prepare"),
+            "dates": dated(plain),
             "bodyHash": hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]}
 
 
