@@ -3801,18 +3801,35 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
    others do not have it - can we have it everywhere, also in /diff/?"): the same blue frame on every card, tile,
    panel and list row of every tab. An outline drawn inside the box: it follows the rounded corners, moves nothing,
    keeps the coloured stripe of a card, is not cut by a scrolling parent, and is painted over the children. */
-section.s5ci-card,button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
+button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
 div.s5cn-cmpsum,a.jtile,div.rbpanel,details.s5cr-cmp,article.cmp,div.stat,div.kq,div.s5bn,details.s5cu-dash,section.s5cu-vc,
-details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
-section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
+details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-ovr,.s5ci-card tbody tr,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
+button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
 div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,article.cmp:hover,
 div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,div.callout:hover,
-.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
+.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
  outline:2px solid var(--accent);outline-offset:-2px}
-@media (hover:none){section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
+@media (hover:none){button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
  details.mcb-gridbox:hover,div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,
  article.cmp:hover,div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,
- div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
+ div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
+
+/* §5cv-b (9 X 2026, owner on the Overview: "you drew one big frame instead of one per piece of information / per
+   section; and the sentences run into each other - the titles do not stand out, hard to see where a section starts
+   and ends"): the frame belongs to each piece, not to the whole card - the cards of the Overview no longer frame,
+   their rows and sentences do. Every sentence of "Today in N sentences" is a tile of its own, its label a coloured
+   chip (red = most urgent, green = new, blue = Graph & roles and news, amber = components, grey = a technology). */
+.s5ci-ten .s5bk-3 li{border:1px solid var(--border);border-top:1px solid var(--border);border-radius:10px;background:var(--bg);
+ padding:12px 14px 13px;margin:0 0 12px;break-inside:avoid;transition:outline-color .12s ease}
+.s5ci-ten .s5bk-3 li:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.s5ci-ten .s5bk-3 li>b.s5bk-k{display:inline-block;margin:0 0 9px;padding:3px 10px;border-radius:999px;font-size:11.5px;line-height:1.35;
+ letter-spacing:.06em;border:1px solid var(--border);background:var(--surface);color:var(--text)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-urgent{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-new{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-graph,.s5ci-ten .s5bk-3 li>b.s5bk-k.k-news{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-comp{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.s5ci-ten .s5bk-3 li .s5bk-itt{font-size:15px}
+@media (hover:none){.s5ci-ten .s5bk-3 li:hover{outline:none}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
