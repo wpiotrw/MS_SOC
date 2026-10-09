@@ -76,9 +76,12 @@ OUT_OF_SCOPE = re.compile(r"dynamics|finance and operations|viva|power platform|
                           r"supply chain|business central|customer service|sales|marketing|powerpoint|\bexcel\b|\bword\b|onenote|"
                           r"whiteboard|zendesk|brand kit|learning coach|surveys agent|similarity checker|glint|engage|"
                           r"slide|canvas|python in excel|ai builder", re.I)
+GENERIC_CAMEL = set("powershell sharepoint onedrive github linkedin youtube devops microsoft windows teams outlook azure office "
+                    "fasttrack techcommunity javascript typescript macos ios ipados iphone ipad visio onenote copilot intune "
+                    "entra defender purview exchange graph bitlocker autopilot".split())
 GENERIC_ACR = set("api apis ga ai pc ca it ui id os sdk url mfa dlp xdr mde mdi mdo mda mdca rbac kb esu ltsc ltsb gcc dod "
                   "us eu uk faq iot vm vms aks pim sso saml mcp new ms m365 o365 spo odb otp pwa ios macos cli".split())
-TITLE_PREFIX = re.compile(r"^(?:\d+[- ]day reminder|\d+ (?:weeks?|days?|months?) until(?= )|final reminder(?: to)?|reminder|follow[- ]up(?: on)?|update(?:d)?|"
+TITLE_PREFIX = re.compile(r"^(?:\d+[- ]day reminder|\d+ (?:weeks?|days?|months?) until(?= )|final reminder(?: to)?|reminder|follow[- ]up(?: on)?|update(?:d)?(?=\s*[:-])|"
                           r"plan for change|action required|heads up)[:\s-]+", re.I)
 EXPAND = [(re.compile(r"exchange web services", re.I), " EWS "), (re.compile(r"self[- ]service password reset", re.I), " SSPR "),
           (re.compile(r"distributed key manager", re.I), " DKM "), (re.compile(r"one[- ]time passcode", re.I), " OTP ")]
@@ -148,6 +151,14 @@ def toks(text):
             continue
         out.add(s)
     return out
+
+
+def shrink(t):
+    """The long name replaced by its abbreviation: "self-service password reset" is SSPR, so "reset" alone is not
+    a word the SSPR campaign shares with an unrelated password-reset post."""
+    for rx, ab in EXPAND:
+        t = rx.sub(ab, t or "")
+    return t or ""
 
 
 def expand(t):
@@ -234,6 +245,11 @@ def tidy(text, iso):
     """'Microsoft's post X of 1 October states the date this post left as "early October": Y becomes required
     on 10 October' -> 'Y becomes required on 10 October' (the part after the last colon that carries the date)."""
     text = text or ""
+    # a flattened post runs on into its next section: "... mid-November 2026 [Impact on Your Organization] Who is
+    # affected ..." - the milestone ends where the next "[Section]" begins, when the date is before it
+    sec = re.search(r"\s\[[A-Z][^\]]{2,50}\]\s", text)
+    if sec and any(d == iso for d, *_ in find_dates(text[:sec.start()])):
+        text = text[:sec.start()].rstrip(" ,;")
     if ": " in text:
         tail = text.rsplit(": ", 1)[1]
         if any(d == iso for d, *_ in find_dates(tail)) and len(tail.split()) >= 4:
@@ -468,6 +484,8 @@ def main(argv):
     # ---- records: everything that can seed a campaign ----
     recs = {}
     for e in (st.get("mc") or {}).get("entries", []):
+        if not re.match(r"^[\w-]+$", e.get("id") or ""):
+            continue  # "MC1456735 · MC1471963" is a joined row of two posts that are listed on their own too
         tm = tenant.get(e["id"], {})
         title = clean_title(e.get("title") or tm.get("title"))
         texts = [e.get("dpSummary") or "", tm.get("summary") or "", tm.get("when") or "", " ".join(tm.get("dates") or [])]
@@ -500,6 +518,17 @@ def main(argv):
                                    "deadline": i.get("deadline"), "deadlineNote": i.get("deadlineNote"), "refs": refs,
                                    "major": True, "tags": [], "itemIds": [i["id"]], "storyKey": i.get("storyKey"),
                                    "socWeight": i.get("socWeight"), "tier0": bool(i.get("tier0Touch"))}
+    # an MC-list row under a story name ("entra-sms-voice-full-retirement") whose link is a Message Center post is that post
+    alias = {}
+    for r in recs.values():
+        mm_ = re.search(r"/message/(MC\d{5,8})\b", r.get("link") or "")
+        if mm_ and r["src"] == "MC" and not re.match(r"^MC\d", r["id"]):
+            alias[r["id"]] = mm_.group(1)
+    for r in recs.values():  # a post without a service tag takes the technology of the brief items it names (MC1448379 MemberOf)
+        if not r["tech"] and r["src"] != "item":
+            tt = [recs["item:" + x]["tech"] for x in r.get("itemIds") or [] if recs.get("item:" + x, {}).get("tech")]
+            if tt:
+                r["tech"] = Counter(tt).most_common(1)[0][0]
 
     # ---- which records are signals ----
     horizon_old = ago(SET["signalLookbackDays"])
@@ -525,7 +554,7 @@ def main(argv):
             future.append(r["actionBy"])
         r["kind"] = k
         if r["src"] == "item":
-            if not k or OUT_OF_SCOPE.search(r["title"] + " " + (r.get("ourTitle") or "")):
+            if not k or OUT_OF_SCOPE.search(r["title"] + " " + (r.get("ourTitle") or "")) or NOISE.search(r["title"]):
                 continue
             if k == "Rollout" and not SEC.search(r["title"] + " " + (r.get("ourTitle") or "")):
                 continue
@@ -668,17 +697,6 @@ def main(argv):
     shared = {rid for rid, lst in claimed.items() if len(lst) > 1}
     KW = {dfn["id"]: re.compile("|".join(re.escape(k) for k in dfn.get("keywords") or ["."]), re.I) for dfn in defs}
 
-    def belongs(c, rid, text):
-        """A shared post's sentence goes to the definition whose keywords it names; a sentence that names none
-        goes to the first definition that lists the post (its primary campaign)."""
-        if rid not in shared or not c.get("defined"):
-            return True
-        own_ = c["defined"]["id"]
-        if KW[own_].search(text or ""):
-            return True
-        if any(KW[o].search(text or "") for o in claimed[rid] if o != own_):
-            return False
-        return claimed[rid][0] == own_
     for root in list(clusters):
         clusters[root] = [r for r in clusters[root] if r["id"] not in claimed]
         if not clusters[root]:
@@ -741,6 +759,99 @@ def main(argv):
         camps.append({"id": dfn["id"], "members": mem, "defined": dfn,
                       "kw": re.compile("|".join(re.escape(k) for k in dfn.get("keywords") or ["."]), re.I)})
 
+    # ---- EVERY campaign gathers all its posts by the same rules (owner, 9 X 2026: "all detected and future
+    # campaigns follow exactly the same rules" as the hand-defined passkeys campaign; CLAUDE.md 5cu-g).
+    # 1) a post or item linked by number joins: its own MC number, the brief items it names, the MC numbers its
+    #    text names (at most 4 - a round-up page is not a campaign post); 2) a post naming the campaign's anchor
+    #    (EWS, DKM, MemberOf, EWSAllowedAppIDs) joins when the campaign retires that thing or the post shares a rare
+    #    word with it; 3) a post that joins two campaigns is shared and its sentences are split by keywords the
+    #    collector derives per campaign (anchors and rare title words) - the owner's keywords for a defined one.
+    def base_of(rid):
+        if rid in alias:
+            return alias[rid]
+        mm_ = re.match(r"^(?:item:)?(MC\d{5,8})", rid) or re.match(r"^(?:item:)?RM(\d{5,7})$", rid)
+        return mm_.group(1) if mm_ else rid.replace("item:", "")
+
+    def keys_of(r):
+        ks = {base_of(x) for x in (r.get("refs") or []) + (r.get("itemIds") or [])}
+        named = set(re.findall(r"\b(MC\d{5,8})\b", " ".join(t or "" for t in r["texts"])))
+        if len(named) <= 4:
+            ks |= named
+        ks.discard(base_of(r["id"]))
+        return ks if len(ks) <= 4 else set()
+
+    def anc_of(r):
+        t = expand((r.get("title") or "") + " " + (r.get("ourTitle") or ""))
+        camel = {w.lower() for w in re.findall(r"\b[A-Z][a-z]+(?:[A-Z][a-z0-9]*)+\b|\b[A-Z]{2,}[a-z]+[A-Z]\w*\b", t)}
+        return anchors(t) | (camel - GENERIC_CAMEL)
+    tdf = Counter(t for r in recs.values() for t in toks(expand(r["title"])))
+    in_camp = {m["id"] for c in camps for m in c["members"]}
+
+    def alive(r):
+        if NOISE.search(r["title"]) or (r["src"] != "item" and OUT_OF_SCOPE.search(r["techRaw"] + " " + r["title"])):
+            return False
+        if max(r.get("published") or "", r.get("updated") or "") >= horizon_old:
+            return True
+        return (r.get("deadline") or "") >= day or any(d >= day for t in r["texts"] for d, *_ in find_dates(t))
+    prof = {}
+    for c in camps:
+        mem = c["members"]
+        an = Counter(a for m in mem for a in anc_of(m))
+        prof[c["id"]] = {"keys": {base_of(m["id"]) for m in mem} | {k for m in mem for k in keys_of(m)},
+                         "core": {a for a, n in an.items() if n * 2 >= len(mem) or n >= 2},
+                         "anc": set(an),
+                         "sig": {t for m in mem for t in toks(shrink(m["title"] + " " + (m.get("ourTitle") or ""))) if tdf[t] <= 8} - set(an),
+                         # the thing the campaign retires: an anchor named by its retirement / end-of-support posts
+                         "retired": {a for m in mem if m.get("kind") in ("Retirement", "Support end") for a in anc_of(m)}}
+    aown = Counter(a for p in prof.values() for a in p["core"])
+    joins = defaultdict(list)
+    cands = [r for rid, r in recs.items() if rid not in in_camp and rid not in claimed and alive(r)]
+    for strong in (True, False):
+        for c in camps:
+            p = prof[c["id"]]
+            for r in cands:
+                if c["id"] in joins[r["id"]]:
+                    continue
+                if strong:
+                    ok = base_of(r["id"]) in p["keys"] or bool(keys_of(r) & p["keys"])
+                else:
+                    sh = {a for a in anc_of(r) & p["core"] if aown[a] <= 1}
+                    ok = bool(sh) and (bool(sh & p["retired"])
+                                       or bool(toks(shrink(r["title"] + " " + (r.get("ourTitle") or ""))) & p["sig"]))
+                if ok:
+                    joins[r["id"]].append(c["id"])
+    cby = {c["id"]: c for c in camps}
+    for rid, cids in joins.items():
+        for cid in cids:
+            cby[cid]["members"].append(recs[rid])
+    for c in camps:
+        c["members"].sort(key=lambda r: (r.get("published") or "9999", r["id"]))
+    owners = defaultdict(list)
+    for c in camps:
+        for m in c["members"]:
+            if c["id"] not in owners[m["id"]]:
+                owners[m["id"]].append(c["id"])
+    for rid, lst in claimed.items():  # the owner's order decides the primary campaign of a post listed twice
+        owners[rid] = list(dict.fromkeys(lst + owners[rid]))
+
+    def hit(c, text):
+        if c.get("kw"):
+            return bool(c["kw"].search(text or ""))
+        p = prof[c["id"]]
+        return bool(anc_of({"title": text or ""}) & p["anc"]) or bool(toks(shrink(text or "")) & p["sig"])
+
+    def belongs(c, rid, text):
+        """A shared post's sentence goes to the campaign whose keywords it names; a sentence that names none
+        goes to the post's primary campaign."""
+        own_ = owners.get(rid) or []
+        if len(own_) < 2:
+            return True
+        if hit(c, text):
+            return True
+        if any(hit(cby[o], text) for o in own_ if o != c["id"] and o in cby):
+            return False
+        return own_[0] == c["id"]
+
     # ---- corrections keyed by any member id ----
     ccorr = corr.get("campaigns") or {}
 
@@ -801,7 +912,7 @@ def main(argv):
             if m.get("actionBy"):
                 ms.append({"date": m["actionBy"], "label": label_of(m["actionBy"]), "prec": "day", "text": "Act by this date (Message Center)",
                            "who": None, "src": m["id"], "link": m["link"], "key": "actionBy"})
-            if m["src"] in ("MC", "Roadmap") and m.get("published"):
+            if m["src"] in ("MC", "Roadmap") and m.get("published") and base_of(m["id"]) == m["id"]:  # one "posted" per post, not per step row
                 ms.append({"date": m["published"], "label": label_of(m["published"]), "prec": "day", "post": True,
                            "text": "Posted: " + m["title"], "who": None, "src": m["id"], "link": m["link"], "key": "posted"})
         # one row per date (posts apart): Microsoft's own sentence first, our note when there is none
@@ -1032,9 +1143,8 @@ def main(argv):
         touched = {}
         for m in c["members"]:
             if isinstance(m, dict):
+                # the post's own dates only: an old post a campaign gathers today (a new rule, a new keyword) is not news
                 touched[m["id"].replace("item:", "")] = max(m.get("updated") or "", m.get("published") or "")
-                if m["id"] not in old_members:
-                    touched[m["id"].replace("item:", "")] = day
         recent3 = ago(SET["newMilestoneDays"])
 
         def fresh_src(x):
@@ -1075,7 +1185,8 @@ def main(argv):
                     continue
                 if mt["link"] not in allmat:
                     allmat[mt["link"]] = dict(mt, group=grp, found=day)
-                    if not seed and h and grp != "microsoft" or (not seed and h and grp == "microsoft" and mt.get("source") != "Message Center"):
+                    news = (str(mt.get("date") or day))[:10] >= ago(SET["newCampaignDays"])  # an old article matched today is not news
+                    if news and (not seed and h and grp != "microsoft" or (not seed and h and grp == "microsoft" and mt.get("source") != "Message Center")):
                         events.append({"day": day, "cid": c["id"], "type": "material", "name": c["name"], "group": grp,
                                        "title": mt["title"], "source": mt.get("source"), "link": mt["link"]})
         mats = {"microsoft": [], "community": [], "video": []}
@@ -1156,12 +1267,20 @@ def main(argv):
                                                                "Microsoft edited the post text", "Date moved", "Deadline", "Act-by date"))
         c["lastMsUpdate"] = max([e["date"] for e in merged if e["what"].startswith("Microsoft")] +
                                 [m.get("updated") or "" for m in c["members"] if isinstance(m, dict) and m.get("src") in ("MC", "Roadmap")] + [""]) or None
+        # every Message Center post of the campaign, once, under its own number: "MC1325414-enforcement" is a step
+        # of MC1325414, and a brief item named after a post the indexes no longer carry still links to the post
         _pp = {}
-        for m in c["members"]:
-            if m["src"] in ("MC", "Roadmap") and m["id"] not in _pp and re.match(r"^[\w-]+$", m["id"]):
-                _pp[m["id"]] = {"id": m["id"], "title": m["title"], "link": m.get("link"), "published": m.get("published"),
-                                "updated": m.get("updated"), "kind": m["src"]}
-        c["posts"] = list(_pp.values())
+        for m in sorted(c["members"], key=lambda m: (m["src"] == "item", m["id"] != base_of(m["id"]))):
+            b0 = base_of(m["id"])
+            if b0 in _pp or not re.match(r"^[\w-]+$", b0):
+                continue
+            if m["src"] in ("MC", "Roadmap"):
+                _pp[b0] = {"id": b0, "title": m["title"], "link": m.get("link"), "published": m.get("published"),
+                           "updated": m.get("updated"), "kind": m["src"]}
+            elif re.match(r"^MC\d{5,8}$", b0):
+                _pp[b0] = {"id": b0, "title": m["title"], "link": "https://mc.merill.net/message/" + b0, "published": m.get("published"),
+                           "updated": None, "kind": "MC", "via": "brief item"}
+        c["posts"] = sorted(_pp.values(), key=lambda p: (p.get("published") or "9999", p["id"]))
         rec = {"firstSeen": first, "lastSeen": day, "name": c["name"], "status": status, "members": [m["id"] for m in c["members"]], "log": c["log"],
                "milestones": newms, "moves": moves[-20:], "materials": allmat}
         if c.get("component"):
@@ -1197,13 +1316,19 @@ def main(argv):
         if c.pop("defined", None):
             c["definedBy"] = "owner"
     # related: campaigns sharing a technology and rare title words
+    # (or one word only two or three campaign names share: "PowerShell" links the -Credential retirement and the
+    # ExchangeOnlineManagement 3.10.1 requirement - two Microsoft campaigns about one tool)
+    def tech_words(n):  # PowerShell, MemberOf, EWS, FIDO2: words written as names of things
+        return {w.lower() for w in re.findall(r"\b[A-Z][a-z]+(?:[A-Z][a-z0-9]*)+\b|\b[A-Z][A-Z0-9]{2,}\b", n or "")} - GENERIC_ACR
+    ndf = Counter(t for c in out for t in tech_words(c["name"]))
     for c in out:
-        tc = toks(c["name"])
+        tc, tw = toks(c["name"]), tech_words(c["name"])
         rel = []
         for o in out:
             if o is c or o["tech"] != c["tech"]:
                 continue
-            if len(tc & toks(o["name"]) - {"authentication", "method"}) >= 2:
+            sh = tc & toks(o["name"]) - {"authentication", "method"}
+            if len(sh) >= 2 or any(ndf[t] <= 3 for t in tw & tech_words(o["name"])):
                 rel.append({"id": o["id"], "name": o["name"]})
         c["related"] = rel[:3]
     rank = {"Active": 0, "Released": 1, "No date": 2, "Recently closed": 3}
