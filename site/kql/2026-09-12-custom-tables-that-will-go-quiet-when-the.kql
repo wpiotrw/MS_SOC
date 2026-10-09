@@ -1,0 +1,13 @@
+// title: Custom tables that will go quiet when the HTTP Data Collector API stops on 14 September
+// date: 2026-09-12
+// product: Microsoft 365
+// tables: 
+// purpose: A pipeline that stops ingesting raises no alert of its own, so measure the baseline now and compare on 15 September. Uses the union of custom tables in the workspace; run it in Log Analytics, not in advanced hunting.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+union withsource = TableName *
+| where TimeGenerated > ago(14d)
+| where TableName endswith "_CL"
+| summarize Rows = count(), Last = max(TimeGenerated) by TableName
+| extend HoursSinceLastRow = datetime_diff('hour', now(), Last)
+| sort by HoursSinceLastRow desc

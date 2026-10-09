@@ -1,0 +1,26 @@
+// title: Service principal sign-ins with no interactive user, grouped the way Storm-3168 works
+// date: 2026-09-28
+// product: Entra
+// tables: AADServicePrincipalSignInLogs
+// purpose: The Storm-3168 write-up describes agentic tooling driving compromised service principals for cloud reconnaissance and credential access. A workload identity has no MFA and no sign-in risk, so the only signal is shape: a principal that suddenly reads far more than it used to, from an address range it
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 28 Sep 2026 - workload-identity shape change
+// Column names verified against the AADServicePrincipalSignInLogs table reference cited beside this query.
+let lookback = 30d;
+let recent = 2d;
+let base =
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated between (ago(lookback) .. ago(recent))
+    | summarize BaseIPs = make_set(IPAddress, 200), BaseCalls = count() by ServicePrincipalId, ServicePrincipalName;
+AADServicePrincipalSignInLogs
+| where TimeGenerated > ago(recent)
+| summarize NowCalls = count(), NowIPs = make_set(IPAddress, 200), Resources = make_set(ResourceDisplayName, 50)
+          by ServicePrincipalId, ServicePrincipalName
+| join kind=leftouter base on ServicePrincipalId
+| extend NewIPs = set_difference(NowIPs, coalesce(BaseIPs, dynamic([])))
+| extend DailyBase = todouble(coalesce(BaseCalls, 0)) / 28.0
+| where array_length(NewIPs) > 0 or NowCalls > 5 * DailyBase
+| project ServicePrincipalName, ServicePrincipalId, NowCalls, DailyBase = round(DailyBase, 1),
+          NewIPs, Resources
+| order by NowCalls desc

@@ -1,0 +1,22 @@
+// title: Remediations approved outside working hours
+// date: 2026-09-24
+// product: Defender for Office 365
+// tables: EmailPostDeliveryEvents
+// purpose: The same column, asked the other way. An approval at 03:00 is not wrong, but it is worth knowing about, and until now the only way to see it was to open Action Center entries one by one.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 24 September 2026
+// Approvals outside 07:00-19:00 UTC on a weekday. Adjust the window to the shift pattern;
+// the point is the shape, not these hours.
+// Table and columns: EmailPostDeliveryEvents -
+// https://learn.microsoft.com/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
+let ShiftStart = 7;
+let ShiftEnd   = 19;
+EmailPostDeliveryEvents
+| where Timestamp > ago(30d)
+| where isnotempty(ApproverUpn)
+| extend Hour = datetime_part("hour", Timestamp),
+         Day  = dayofweek(Timestamp)
+| where Hour < ShiftStart or Hour >= ShiftEnd or Day == 0d or Day == 6d
+| project Timestamp, ApproverUpn, ActionType, NetworkMessageId, RecipientEmailAddress
+| order by Timestamp desc

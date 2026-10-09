@@ -1,0 +1,21 @@
+// title: Local SYSTEM escalation attempts on domain controllers after the September update
+// date: 2026-09-14
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceProcessEvents
+// purpose: Why now. CVE-2026-85880 gives SYSTEM from any authorised local session on Windows Server 2012 through 2022, domain controllers included. This looks for process creation running as SYSTEM whose parent is not a service host, on machines carrying the DC role.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+DeviceInfo
+| where DeviceType == "Server"
+| distinct DeviceId, DeviceName
+| join kind=inner (
+    DeviceProcessEvents
+    | where Timestamp > ago(14d)
+    | where AccountName =~ "system"
+    | where InitiatingProcessAccountName !in~ ("system", "local service", "network service")
+    | project Timestamp, DeviceId, FileName, FolderPath, ProcessCommandLine,
+              InitiatingProcessFileName, InitiatingProcessAccountName
+) on DeviceId
+| summarize Runs = count(), Latest = max(Timestamp), arg_max(Timestamp, ProcessCommandLine)
+        by DeviceName, FileName, InitiatingProcessFileName, InitiatingProcessAccountName
+| order by Latest desc

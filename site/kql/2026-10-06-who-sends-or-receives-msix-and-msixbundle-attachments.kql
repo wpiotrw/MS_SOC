@@ -1,0 +1,15 @@
+// title: Who sends or receives .msix and .msixbundle attachments, before Outlook starts blocking them in November
+// date: 2026-10-06
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo
+// purpose: From early November 2026 Outlook on the web and new Outlook block .msix and .msixbundle attachments in every OWA mailbox policy. This lists who exchanged such attachments in the last 30 days, with file names and hashes, so that a business process that depends on them is found before the block and an
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 6 Oct 2026 - who sends or receives .msix and .msixbundle attachments before Outlook blocks them (MC1488841)
+// Table and columns verified against the EmailAttachmentInfo schema page cited beside this query.
+EmailAttachmentInfo
+| where Timestamp > ago(30d)
+| where FileName endswith ".msix" or FileName endswith ".msixbundle"
+| summarize Messages = dcount(NetworkMessageId), Files = make_set(FileName, 20), Hashes = make_set(SHA256, 20), LastSeen = max(Timestamp)
+          by SenderFromAddress, RecipientEmailAddress
+| order by Messages desc

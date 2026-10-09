@@ -1,0 +1,13 @@
+// title: Applications still calling Exchange Web Services, by application id
+// date: 2026-09-10
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Builds the EWSAllowedAppIDs list from your own telemetry instead of accepting the one Microsoft will generate. Run it over the full 60 days Microsoft says it will observe.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+CloudAppEvents
+| where Timestamp > ago(60d)
+| where Application == "Microsoft Exchange Online"
+| where RawEventData has "EWS" or UserAgent has "ExchangeWebServices"
+| summarize Calls = count(), LastSeen = max(Timestamp) by AccountObjectId, UserAgent, tostring(RawEventData.AppId)
+| sort by Calls desc

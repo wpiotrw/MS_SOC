@@ -1,0 +1,44 @@
+// title: Groups that grant an Entra role, and the password resets against their members
+// date: 2026-09-23
+// product: Entra
+// tables: AuditLogs
+// purpose: Microsoft corrected the Privileged Identity Management for Groups article on 22 September: credential protection covers eligible members and owners, and it exists only on groups created role-assignable. A group that grants a role without that flag leaves its eligible members resettable by a Helpdesk
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 23 September 2026
+// Microsoft corrected the PIM for Groups article on 22 September 2026: credential protection
+// covers eligible members and owners, and it only exists on groups created role-assignable.
+// A group that grants an Entra role but is NOT role-assignable leaves its eligible members
+// resettable by Helpdesk, Authentication and User Administrators - a documented escalation path.
+// This query finds the audit trail; the authoritative check is isAssignableToRole on the group.
+// Table and columns: AuditLogs -
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+let roleGrantsToGroups =
+    AuditLogs
+    | where TimeGenerated > ago(180d)
+    | where OperationName in ("Add member to role", "Add eligible member to role",
+                              "Add eligible member to role in PIM completed (permanent)",
+                              "Add eligible member to role in PIM completed (timebound)")
+    | mv-expand TargetResources
+    | where tostring(TargetResources.type) == "Group"
+    | project GroupId = tostring(TargetResources.id),
+              GroupName = tostring(TargetResources.displayName),
+              GrantedAt = TimeGenerated,
+              Operation = OperationName;
+let passwordResets =
+    AuditLogs
+    | where TimeGenerated > ago(30d)
+    | where OperationName in ("Reset user password", "Reset password (by admin)",
+                              "Change user password", "Update user")
+    | mv-expand TargetResources
+    | where tostring(TargetResources.type) == "User"
+    | project ResetAt = TimeGenerated,
+              TargetUser = tostring(TargetResources.userPrincipalName),
+              ResetBy = tostring(InitiatedBy.user.userPrincipalName),
+              ResetResult = Result;
+roleGrantsToGroups
+| summarize GrantedAt = max(GrantedAt), Operations = make_set(Operation) by GroupId, GroupName
+| join kind=leftouter (passwordResets | summarize Resets = count(), LastReset = max(ResetAt) by ResetBy)
+    on $left.GroupName == $right.ResetBy
+| project GroupName, GroupId, GrantedAt, Operations, Resets, LastReset
+| order by GrantedAt desc

@@ -1,5 +1,497 @@
 [
  {
+  "file": "2026-10-09-who-was-granted-an-application-role-that-deletes.kql",
+  "title": "Who was granted an application role that deletes users' authentication methods",
+  "date": "2026-10-09",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Lists every successful grant in the last 90 days of one of the thirteen application roles that delete users' authentication methods, with who granted it and to which service principal. The identifiers are the ones Microsoft's permissions reference printed on 8 October. An empty result is the expecte",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
+  "file": "2026-10-08-malicious-urls-in-teams-messages-with-the-qr.kql",
+  "title": "Malicious URLs in Teams messages, with the QR-code-borne ones separated out",
+  "date": "2026-10-08",
+  "product": "Defender XDR",
+  "tables": [
+   "MessageEvents",
+   "MessageUrlInfo"
+  ],
+  "purpose": "Defender for Office 365 now analyses URLs inside QR codes in Teams messages after delivery and, per Message Center, marks them with QRCode in a UrlLocation column of MessageUrlInfo. That column is not on the published schema page yet, so the query reads it through column_ifexists: before the rollout",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageurlinfo-table",
+  "reused": [
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-10-07-which-applications-still-call-the-legacy-graph-security.kql",
+  "title": "Which applications still call the legacy Graph security alerts API, eight days before it stops answering",
+  "date": "2026-10-07",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "The legacy /security/alerts endpoint stops returning data after 15 October 2026, and a caller that is not migrated gets an empty answer rather than an error. This lists every application, service principal and user that called it in the last 14 days, with the call count and the last call; an empty r",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
+  "reused": [
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-10-06-who-sends-or-receives-msix-and-msixbundle-attachments.kql",
+  "title": "Who sends or receives .msix and .msixbundle attachments, before Outlook starts blocking them in November",
+  "date": "2026-10-06",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailAttachmentInfo"
+  ],
+  "purpose": "From early November 2026 Outlook on the web and new Outlook block .msix and .msixbundle attachments in every OWA mailbox policy. This lists who exchanged such attachments in the last 30 days, with file names and hashes, so that a business process that depends on them is found before the block and an",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table",
+  "reused": [
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-10-06-has-any-of-the-twelve-newly-grantable-graph.kql",
+  "title": "Has any of the twelve newly grantable Graph application roles been assigned to a service principal",
+  "date": "2026-10-06",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Twelve application roles became grantable in the Microsoft Graph service principal between 29 September and 5 October, among them SynchronizationMetadata.ReadWrite.All and ContentHub-Installed.ReadWrite.All. This lists every app role assignment of one of the twelve role IDs in the last 14 days; an e",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
+  "reused": [
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-10-03-who-edits-email-threat-policies-and-the-tenant.kql",
+  "title": "Who edits email threat policies and the Tenant Allow/Block List today, before Security Operator loses that access in November",
+  "date": "2026-10-03",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From early November 2026 the Entra Security Operator role stops mapping to Security settings in Defender for Office 365 Unified RBAC, so it no longer edits threat policies or the Tenant Allow/Block List. This lists who actually made those changes in the last 30 days; anyone on it who holds only Secu",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "reused": [
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-09-30-conditional-access-policies-that-granted-access-on-an.kql",
+  "title": "Conditional Access policies that granted access on an unmanaged device claiming a mobile or macOS platform",
+  "date": "2026-09-30",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Microsoft's Conditional Access conditions page now warns that the device platform is read from the user agent, which can be modified and is not verified. A policy that lets a sign-in through because it says \"iOS\" is only as strong as that string. This lists, per policy, successful sign-ins where the",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "reused": [
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-09-28-which-permissions-a-first-party-application-could-obtain.kql",
+  "title": "Which permissions a first-party application could obtain, ranked by privilege level",
+  "date": "2026-09-28",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "The first-party application inventory in this brief holds 1,736 Microsoft applications and 524 of them with permissions read from public sources. The tenant-side question is narrower and answerable: which of those applications actually hold a grant here, and at what privilege level. This query answe",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "reused": [
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06"
+  ]
+ },
+ {
+  "file": "2026-09-28-service-principal-sign-ins-with-no-interactive-user.kql",
+  "title": "Service principal sign-ins with no interactive user, grouped the way Storm-3168 works",
+  "date": "2026-09-28",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs"
+  ],
+  "purpose": "The Storm-3168 write-up describes agentic tooling driving compromised service principals for cloud reconnaissance and credential access. A workload identity has no MFA and no sign-in risk, so the only signal is shape: a principal that suddenly reads far more than it used to, from an address range it",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs",
+  "reused": [
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-09-28-machine-accounts-that-lost-their-domain-trust-after.kql",
+  "title": "Machine accounts that lost their domain trust after the 14 September out-of-band update",
+  "date": "2026-09-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceInfo"
+  ],
+  "purpose": "The out-of-band update KB5129195 and KB5129194 carry a documented known issue: a domain-joined machine protected by Credential Guard can lose its Active Directory trust relationship because Machine Identity Isolation is now enforced. A host in that state stops satisfying device-based Conditional Acc",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table",
+  "reused": [
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-09-28-active-directory-objects-created-by-the-cloud-sync.kql",
+  "title": "Active Directory objects created by the Cloud Sync provisioning agent",
+  "date": "2026-09-28",
+  "product": "Defender for Identity",
+  "tables": [
+   "IdentityDirectoryEvents"
+  ],
+  "purpose": "The 24 September preview lets Cloud Sync create users and groups inside on-premises AD DS. Until a rule knows which account does that, every one of those creations looks like an on-premises actor making directory objects. This query names the creator so the expected source can be excluded and everyt",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitydirectoryevents-table",
+  "reused": [
+   "2026-09-29",
+   "2026-09-30",
+   "2026-10-01",
+   "2026-10-02",
+   "2026-10-03",
+   "2026-10-04",
+   "2026-10-05",
+   "2026-10-06",
+   "2026-10-07",
+   "2026-10-08",
+   "2026-10-09"
+  ]
+ },
+ {
+  "file": "2026-09-25-device-code-sign-ins-in-the-last-30.kql",
+  "title": "Device code sign-ins in the last 30 days, which is what EvilTokens industrialised",
+  "date": "2026-09-25",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Microsoft's Digital Crimes Unit disrupted EvilTokens on 22 September; the platform's whole product was device code phishing. Device code flow is still enabled by default in many tenants and produces a refresh token with no phishing-resistant factor anywhere in the path, so the population that uses i",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs"
+ },
+ {
+  "file": "2026-09-24-who-approved-which-email-remediation-now-that-advanced.kql",
+  "title": "Who approved which email remediation, now that Advanced Hunting carries it",
+  "date": "2026-09-24",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailPostDeliveryEvents"
+  ],
+  "purpose": "MC1478005 adds an ApproverUpn column to EmailPostDeliveryEvents, GA worldwide and enabled by default. Approval was previously a click-through in Action Center, one action at a time. As a column it becomes a pattern you can look at: who approves, how much, and when.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table",
+  "reused": [
+   "2026-09-25"
+  ]
+ },
+ {
+  "file": "2026-09-24-remediations-approved-outside-working-hours.kql",
+  "title": "Remediations approved outside working hours",
+  "date": "2026-09-24",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailPostDeliveryEvents"
+  ],
+  "purpose": "The same column, asked the other way. An approval at 03:00 is not wrong, but it is worth knowing about, and until now the only way to see it was to open Action Center entries one by one.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table",
+  "reused": [
+   "2026-09-25"
+  ]
+ },
+ {
+  "file": "2026-09-24-linux-endpoints-that-cannot-reach-the-defender-configuration.kql",
+  "title": "Linux endpoints that cannot reach the Defender configuration URL",
+  "date": "2026-09-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "MC1388718, reissued on 23 September as a reminder, names one configuration URL per tenant type. A Linux device that cannot reach its URL looks healthy and silently misses critical-issue mitigations. This looks for the connection attempts rather than for a health flag, because the health flag is what",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table",
+  "reused": [
+   "2026-09-25"
+  ]
+ },
+ {
+  "file": "2026-09-23-groups-that-grant-an-entra-role-and-the.kql",
+  "title": "Groups that grant an Entra role, and the password resets against their members",
+  "date": "2026-09-23",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Microsoft corrected the Privileged Identity Management for Groups article on 22 September: credential protection covers eligible members and owners, and it exists only on groups created role-assignable. A group that grants a role without that flag leaves its eligible members resettable by a Helpdesk",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
+  "file": "2026-09-23-first-grant-of-any-of-the-eight-graph.kql",
+  "title": "First grant of any of the eight Graph permissions that became grantable on 22 September",
+  "date": "2026-09-23",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Six permission families entered the Microsoft Graph service principal between the 17 and the 22 September dumps and nothing holds any of them yet. That makes this a tripwire rather than a hunt: the first row it returns is the first grant.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
+  "file": "2026-09-20-which-ad-fs-servers-are-still-short-of.kql",
+  "title": "Which AD FS servers are still short of the July update before DKM ACL enforcement lands in October",
+  "date": "2026-09-20",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "MC1471963 turns on Enforcement mode for AD FS DKM container ACL hardening with the October 2026 Windows security update, and the prerequisite is the 14 July 2026 update or later. A server behind that build gets remediated without the audit evidence.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table"
+ },
+ {
+  "file": "2026-09-20-devices-still-on-the-september-rollup-that-the.kql",
+  "title": "Devices still on the September rollup that the 14 September out-of-band update replaces",
+  "date": "2026-09-20",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "MC1471876 released an out-of-band update on 14 September because the 8 September rollup could stop Remote Desktop Services responding, which blocks local and remote sign-in. A device stuck on the original build is one reboot away from losing its sign-in path.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table"
+ },
+ {
+  "file": "2026-09-20-apps-that-will-break-or-that-quietly-over.kql",
+  "title": "Apps that will break — or that quietly over-read — when User.ReadBasic.All stops returning app role assignments",
+  "date": "2026-09-20",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "MC1470871 removes app role assignments and licence details from User.ReadBasic.All, completing late September 2026. Both questions matter: which apps break, and which have been reading assignment data they were never meant to see.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs"
+ },
+ {
+  "file": "2026-09-18-who-now-reads-the-saved-hunting-query-library.kql",
+  "title": "Who now reads the saved hunting query library after ThreatHunting.Read.All widened",
+  "date": "2026-09-18",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "Table MicrosoftGraphActivityLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-threathunting-saved-queries-reach.kql and indexed.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
+  "reused": [
+   "2026-09-19"
+  ]
+ },
+ {
+  "file": "2026-09-18-consent-watch-for-the-ten-graph-permissions-that.kql",
+  "title": "Consent watch for the ten Graph permissions that entered the service principal on 17 September 2026",
+  "date": "2026-09-18",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Table AuditLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-new-graph-scopes-consent-watch.kql and indexed.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs",
+  "reused": [
+   "2026-09-19"
+  ]
+ },
+ {
+  "file": "2026-09-18-baseline-authentication-event-listeners-before-onaccounttake.kql",
+  "title": "Baseline authentication event listeners before onAccountTakeoverProtectionStart is used",
+  "date": "2026-09-18",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "Table MicrosoftGraphActivityLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-account-takeover-event-listener.kql and indexed.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
+  "reused": [
+   "2026-09-19"
+  ]
+ },
+ {
+  "file": "2026-09-14-passkey-registration-events-around-the-optimised-campaign-ro.kql",
+  "title": "Passkey registration events around the optimised campaign rollout",
+  "date": "2026-09-14",
+  "product": "Defender for Identity",
+  "tables": [
+   "IdentityDirectoryEvents"
+  ],
+  "purpose": "Why now. Microsoft Security Blog documented passkey-themed social engineering on 9 September, in the same fortnight the optimised registration campaign starts prompting users automatically. Legitimate enrolment and attacker-driven enrolment look alike, so this separates them by where the registratio",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes",
+  "reused": [
+   "2026-09-17"
+  ]
+ },
+ {
+  "file": "2026-09-14-local-system-escalation-attempts-on-domain-controllers-after.kql",
+  "title": "Local SYSTEM escalation attempts on domain controllers after the September update",
+  "date": "2026-09-14",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Why now. CVE-2026-85880 gives SYSTEM from any authorised local session on Windows Server 2012 through 2022, domain controllers included. This looks for process creation running as SYSTEM whose parent is not a service host, on machines carrying the DC role.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables",
+  "reused": [
+   "2026-09-17"
+  ]
+ },
+ {
+  "file": "2026-09-14-applications-still-reading-licence-and-app-role-data.kql",
+  "title": "Applications still reading licence and app-role data through User.ReadBasic.All",
+  "date": "2026-09-14",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "Why now. MC1470871 narrows User.ReadBasic.All this month. This finds the service principals whose recent Graph sign-ins carry that scope, so the ones that will start returning less can be identified before they quietly do.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables",
+  "reused": [
+   "2026-09-17"
+  ]
+ },
+ {
+  "file": "2026-09-12-servers-still-exposed-to-the-two-exploited-september.kql",
+  "title": "Servers still exposed to the two exploited September elevation-of-privilege flaws",
+  "date": "2026-09-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "The only patch question that matters this weekend: which hosts still lack the September cumulative for CVE-2026-81963 and CVE-2026-85880. Table and columns verified against the Defender XDR advanced hunting schema reference.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table",
+  "reused": [
+   "2026-09-13"
+  ]
+ },
+ {
+  "file": "2026-09-12-device-code-and-aitm-sign-ins-followed-by.kql",
+  "title": "Device-code and AiTM sign-ins followed by a new security-info registration",
+  "date": "2026-09-12",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "The pivot Microsoft describes for the Storm-3121 and Storm-3032 passkey-themed helpdesk campaign of 9 September: a device-code sign-in, then the operator registering their own method within two hours. Tables and columns checked on the Azure Monitor SigninLogs and AuditLogs references this morning; c",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/signinlogs",
+  "reused": [
+   "2026-09-13"
+  ]
+ },
+ {
+  "file": "2026-09-12-custom-tables-that-will-go-quiet-when-the.kql",
+  "title": "Custom tables that will go quiet when the HTTP Data Collector API stops on 14 September",
+  "date": "2026-09-12",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "A pipeline that stops ingesting raises no alert of its own, so measure the baseline now and compare on 15 September. Uses the union of custom tables in the workspace; run it in Log Analytics, not in advanced hunting.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs",
+  "reused": [
+   "2026-09-13"
+  ]
+ },
+ {
+  "file": "2026-09-12-applications-reading-app-role-assignments-or-licence-details.kql",
+  "title": "Applications reading app role assignments or licence details on User.ReadBasic.All",
+  "date": "2026-09-12",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "MC1470871 narrows that scope from mid-September. This finds the service principals that hold it, so you can check which of them call /users/{id}/appRoleAssignments or /licenseDetails before the call starts failing. AuditLogs columns checked on the Azure Monitor reference this morning.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs",
+  "reused": [
+   "2026-09-13"
+  ]
+ },
+ {
+  "file": "2026-09-10-domain-controllers-still-missing-the-september-2026-cumulati.kql",
+  "title": "Domain controllers still missing the September 2026 cumulative update",
+  "date": "2026-09-10",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "Answers the only question that matters this morning: which Tier 0 hosts are still exposed to CVE-2026-85880. Table and columns verified on the Defender XDR advanced hunting schema reference.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table"
+ },
+ {
+  "file": "2026-09-10-consent-grants-against-a-resource-application-that-is.kql",
+  "title": "Consent grants against a resource application that is not Microsoft Graph",
+  "date": "2026-09-10",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "A grant on Azure Data Explorer, Office 365 Management APIs or Exchange Online is invisible in a Graph permission report. This finds them in the audit log.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table"
+ },
+ {
+  "file": "2026-09-10-applications-still-calling-exchange-web-services-by-applicat.kql",
+  "title": "Applications still calling Exchange Web Services, by application id",
+  "date": "2026-09-10",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Builds the EWSAllowedAppIDs list from your own telemetry instead of accepting the one Microsoft will generate. Run it over the full 60 days Microsoft says it will observe.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table"
+ },
+ {
   "file": "2026-08-31-who-has-been-granted-a-permission-that-can.kql",
   "title": "Who has been granted a permission that can delete someone else’s authentication methods",
   "date": "2026-08-31",
@@ -8,17 +500,6 @@
    "AuditLogs"
   ],
   "purpose": "App-role grants against Microsoft Graph, filtered to the delete-credential family.",
-  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
- },
- {
-  "file": "2026-08-31-credential-deletions-that-are-not-followed-by-a.kql",
-  "title": "Credential deletions that are not followed by a re-registration",
-  "date": "2026-08-31",
-  "product": "Entra",
-  "tables": [
-   "AuditLogs"
-  ],
-  "purpose": "Authentication-method deletions with no re-registration by the same user afterwards.",
   "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
  },
  {
@@ -31,5 +512,16 @@
   ],
   "purpose": "Custom-table ingestion still arriving, and SAP tables still arriving, ahead of 14 September 2026.",
   "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/usage"
+ },
+ {
+  "file": "2026-08-31-credential-deletions-that-are-not-followed-by-a.kql",
+  "title": "Credential deletions that are not followed by a re-registration",
+  "date": "2026-08-31",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Authentication-method deletions with no re-registration by the same user afterwards.",
+  "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs"
  }
 ]

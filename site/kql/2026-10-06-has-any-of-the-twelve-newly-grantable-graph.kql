@@ -1,0 +1,34 @@
+// title: Has any of the twelve newly grantable Graph application roles been assigned to a service principal
+// date: 2026-10-06
+// product: Entra
+// tables: AuditLogs
+// purpose: Twelve application roles became grantable in the Microsoft Graph service principal between 29 September and 5 October, among them SynchronizationMetadata.ReadWrite.All and ContentHub-Installed.ReadWrite.All. This lists every app role assignment of one of the twelve role IDs in the last 14 days; an e
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 6 Oct 2026 - has any of the twelve newly grantable Graph application roles been assigned?
+// Table and columns verified against the AuditLogs schema page cited beside this query.
+// The role IDs are read from the Graph service principal dump of 5 October 2026, not typed.
+// The property name AppRole.Id inside modifiedProperties is as Entra audit logs write it; confirm in your own tenant (inferred).
+let NewRoleIds = dynamic([
+    "71a8afcf-c9ac-4704-a49c-a2520ddfc6d8",
+    "dc64b9ee-d7b6-4de6-97d3-189051d1c773",
+    "9c668bfa-7e4d-4ea4-9f0b-ba2d67cac55c",
+    "7090aa1b-99c0-444b-b40b-528bd2f35087",
+    "0c6404f6-8e7a-413b-adc0-e9b750d959c8",
+    "cc44d51e-040e-4631-a93a-1982ea54b428",
+    "73fac914-e726-4af5-9a46-62f65f7b0a8b",
+    "2ebdaf81-319a-4058-9cb1-7c2c20cda877",
+    "7eb97e53-a7bc-4492-9113-1cd84a1ef8d8",
+    "19f10513-d519-42cf-b01a-b3b662f46b8f",
+    "3bb529ad-d59a-499c-abe2-736f636068a5",
+    "4d482dd7-21ae-4e2d-97f9-58cd926f5c5e"]);
+AuditLogs
+| where TimeGenerated > ago(14d)
+| where OperationName == "Add app role assignment to service principal"
+| mv-expand Target = TargetResources
+| mv-expand Prop = Target.modifiedProperties
+| where tostring(Prop.displayName) == "AppRole.Id"
+| extend RoleId = trim('"', tostring(Prop.newValue))
+| where RoleId in (NewRoleIds)
+| project TimeGenerated, RoleId, GrantedTo = tostring(Target.displayName), InitiatedBy, Result, CorrelationId
+| order by TimeGenerated desc

@@ -1,0 +1,21 @@
+// title: Which applications still call the legacy Graph security alerts API, eight days before it stops answering
+// date: 2026-10-07
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: The legacy /security/alerts endpoint stops returning data after 15 October 2026, and a caller that is not migrated gets an empty answer rather than an error. This lists every application, service principal and user that called it in the last 14 days, with the call count and the last call; an empty r
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 7 Oct 2026 - which applications still call the legacy Graph security alerts API?
+// Table and columns verified against the MicrosoftGraphActivityLogs schema page cited beside this query.
+// The legacy endpoint is /security/alerts; /security/alerts_v2 is its replacement and is excluded.
+// Needs Microsoft Graph activity logs exported to a Log Analytics workspace (Entra diagnostic settings).
+MicrosoftGraphActivityLogs
+| where TimeGenerated > ago(14d)
+| where RequestUri has "/security/alerts" and RequestUri !has "/security/alerts_v2"
+| summarize Calls = count(),
+            LastCall = max(TimeGenerated),
+            Methods = make_set(RequestMethod, 5),
+            StatusCodes = make_set(ResponseStatusCode, 10),
+            SampleUri = take_any(RequestUri)
+          by AppId, ServicePrincipalId, UserId, ApiVersion
+| order by Calls desc

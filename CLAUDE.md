@@ -5530,8 +5530,16 @@ def table(head, rows, empty, caption=None):
     # wierszem, zwiniety. Chowa go atrybut `hidden`, a nie klasa — pole szukania musi
     # umiec go schowac razem z rodzicem (§5am, ten sam wzorzec co `hdet` w briefie).
     _tb = []
+    # §5cv-c (9 X 2026, owner: "the technology an entry concerns is poorly visible - fix it on the whole portal and
+    # /diff/"): a Product / Technology / Area cell carries its name as a blue chip
+    _chip = {i for i, h in enumerate(head) if h in ("Product", "Technology", "Area")}
+    def _cell(i, c):
+        c = "" if c is None else str(c)
+        if i in _chip and c.strip() and c.strip() not in ("&mdash;", "—", "-") and "tchip" not in c:
+            return '<td><span class="tchip">%s</span></td>' % c
+        return "<td>%s</td>" % c
     for r in rows:
-        _tb.append("<tr%s>%s</tr>" % (r[0], "".join("<td>%s</td>" % c for c in r[1])))
+        _tb.append("<tr%s>%s</tr>" % (r[0], "".join(_cell(i, c) for i, c in enumerate(r[1]))))
         det = r[2] if len(r) > 2 else ""
         if det:
             _tb.append('<tr class="det" hidden><td colspan="%d"><div class="det-in">%s</div></td></tr>'
@@ -6065,13 +6073,16 @@ details.dhow{margin:8px 0 0}
 details.dhow>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent)}
 .mcol{font-size:12.5px;color:var(--muted);white-space:nowrap}
 .mcol b{color:var(--text)}
-/* §5cv (9 X 2026, owner: "the blue frame on hover everywhere, also in /diff/"): the frame the brief's campaign
-   cards draw on hover, on every tile, box and table row of this page - an outline inside the box, so nothing moves */
-a.fact,.dwin,.dwin .dwin-aft,details.s9adv,.dnavstack,.dstale,.tw tbody tr{transition:outline-color .12s ease}
-a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,.tw tbody tr:hover{
- outline:2px solid var(--accent);outline-offset:-2px}
-@media (hover:none){a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,
- .tw tbody tr:hover{outline:none}}
+/* §5cv (9 X 2026, owner: "the blue frame on hover everywhere, also in /diff/"); §5cv-c: the entry under the pointer
+   (a table row, a list entry, a tile) gets a 2 px frame and its section a 1 px frame, as on the brief - an outline
+   inside the box, so nothing moves. The product / technology of a row is a blue chip (.tchip). */
+details.dsec:hover,.tabblock:hover{outline:1px solid var(--accent);outline-offset:-1px}
+a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,.tw tbody tr:hover,
+.wrap li:hover{outline:2px solid var(--accent);outline-offset:-2px}
+@media (hover:none){details.dsec:hover,.tabblock:hover,a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,
+ .dnavstack:hover,.dstale:hover,.tw tbody tr:hover,.wrap li:hover{outline:none}}
+.tchip{display:inline-block;padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);
+ color:var(--accent);font-weight:700;font-size:12px;line-height:1.45;white-space:nowrap}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -26598,6 +26609,28 @@ kafel (ramka, zaokraglenie, tlo `--bg`, odstep 12 px) z wlasna niebieska ramka p
 kolorowy chip (czerwony Most urgent, zielony Biggest new item, niebieski Graph API & roles i News, bursztynowy
 komponenty, szary technologia), tytul 15 px.
 
+**§5cv-c (9 X 2026, wlasciciel: „nie posluchales — sa sekcje, i nie tylko w Overview, gdzie nie ma niebieskiej ramki,
+jak najade na sekcje czy link; prosilem w calym portalu i diff"; „te kafelki maja slabo widoczne technologie /
+funkcjonalnosc, ktorej dotycza — w calym portalu i diff"; „Hunting — czy codziennie odswiezasz? czy zapisuje
+poprzednio znalezione query w folderze na GitHub?").** (1) **Ramka nie jest juz lista klas.** SKRYPT 17 (warstwa
+§5cv-c) na `mouseover` szuka pod kursorem najblizszego wpisu (`ITEM`: wiersz, pozycja listy, kafel, wpis karty,
+`tbody tr`, `li`, …) i daje mu `.s5cv-on` (2 px), a sekcji/karcie wokol (`CARD`: `section`, `details`, `.tw`, …)
+`.s5cv-in` (1 px, odsuniety o 2 px); link lub przycisk poza wpisem dostaje ramke sam. Dziala w kazdej zakladce i dla
+kazdego przyszlego elementu; pomija pasek zakladek (`nav.anchors`) i ekrany dotykowe. Arkusz §5cv (lista `:hover`)
+usuniety. `/diff/` (bez skryptow): `details.dsec`/`.tabblock` 1 px, wiersze, `li`, kafle i ramki 2 px. (2)
+**Technologia jako niebieski chip** wszedzie, gdzie jest drukowana: `.s5ci-pill.s5ci-tech` (karty Overview, Today —
+pigulka produktu ma teraz ton `tech`, szare zostaja dla statusow „4 days ago"), kolumna Product w Deadlines i New,
+`.mcb-svc` (Message Center, Learn, Blogs, Community), `.s5cu-tech` (Campaigns); w `/diff/` `table()` owija komorki
+kolumn Product / Technology / Area w `span.tchip`. (3) **Archiwum KQL (§5l) dziala samo.** Przebieg poranny mial
+zapisywac kazde zapytanie do `site/kql/`, ale artefakt nie ma repozytorium — katalog stal na 3 plikach z 31 VIII,
+choc sekcja Hunting pisala, ze plik jest. `tools/kql_archive.py` czyta zapytania z opublikowanej strony (`<pre>` w
+`#tab-hunting`; tytul z `h4` wpisu, cel z jego pierwszego akapitu, tabele z kodu, strona schematu z linku tego
+wpisu), zapisuje `site/kql/<data>-<slug>.kql` z naglowkiem `//` i `index.json`; zapytanie identyczne (kod bez
+komentarzy) nie dostaje nowego pliku, tylko date w `reused`; nic nie jest usuwane. `--backfill` czyta tez strony
+poranne z `site/history/` (odzyskane 33 zapytania od 10 IX; razem 36). Uruchamia go workflow „Campaign tracking"
+(05:40 i 20:40 UTC i po publikacji). Sekcja Hunting dostaje linie „Archive: N queries … folder site/kql on GitHub ·
+index.json".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -33713,7 +33746,7 @@ odtad CZTERNASCIE (4-17).**
         r.appendChild(el("span", "s5ci-no", String(o.n)));
         var m = el("div", "s5ci-pm"), l1 = el("div", "s5ci-l1"), st = status(it.status);
         if (st) l1.appendChild(pill(st, tone(st)));
-        if (it.product) l1.appendChild(pill(prod(it.product), "grey"));
+        if (it.product) l1.appendChild(pill(prod(it.product), "tech"));
         l1.appendChild(titleLink(it)); m.appendChild(l1);
         var w = el("div", "s5ci-why");
         if (it.action) { w.appendChild(el("b", null, "Do this: ")); w.appendChild(document.createTextNode(it.action)); }
@@ -33774,7 +33807,7 @@ odtad CZTERNASCIE (4-17).**
     }
     function dmeta(it, m) {
       if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference));
-      if (it.product) m.appendChild(pill(prod(it.product), "grey"));
+      if (it.product) m.appendChild(pill(prod(it.product), "tech"));
       var d = daysTo(it.deadline); m.appendChild(el("span", null, dmy(it.deadline))); m.appendChild(pill(dueText(d), dueTone(d)));
     }
     var due7 = D.list.filter(function (o) { return o.d != null && o.d >= 0 && o.d <= 7; }).map(function (o) { return o.it; });
@@ -33786,7 +33819,7 @@ odtad CZTERNASCIE (4-17).**
     cards.appendChild(card("acc", "New since the " + dmy(PREV) + " brief", nw, nw.length, function (id) {
       var inNew = VIEWS["tab-new"] && id ? true : false; goTab(id && I[id] && I[id].deadline && !(document.querySelector('#tab-new tbody tr[data-id="' + id + '"]')) ? "deadlines" : "new");
       setTimeout(function () { if (!id) return; var v = document.querySelector('#tab-new tbody tr[data-id="' + id + '"]') ? VIEWS["tab-new"] : VIEWS["tab-deadlines"]; if (v) v.open(id); }, 60); },
-      "All in New ›", function (it, m) { if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference)); if (it.product) m.appendChild(pill(prod(it.product), "grey")); var st = status(it.status); if (st) m.appendChild(pill(st, tone(st))); }));
+      "All in New ›", function (it, m) { if (it.reference && /^MC\d/.test(it.reference)) m.appendChild(el("span", "s5ci-mono", it.reference)); if (it.product) m.appendChild(pill(prod(it.product), "tech")); var st = status(it.status); if (st) m.appendChild(pill(st, tone(st))); }));
     root.appendChild(cards);
     /* §5cm (30 IX 2026, owner: "the components in Overview as a proper table — area and platform
        first, then the component, then the version GitHub-style"). One row per component that moved in
@@ -35142,6 +35175,65 @@ odtad CZTERNASCIE (4-17).**
   window.addEventListener("hashchange", fromHash);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
 })();
+
+/* §5cv-c (9 X 2026, owner: "a blue frame when I hover a section or a link - in the whole portal and /diff/, not only
+   where you listed it"). One rule for every tab: the piece of information under the pointer (a row, a list entry, a
+   tile, a card entry, a table row) gets .s5cv-on - a 2 px blue frame - and the section or card around it .s5cv-in, a
+   1 px frame, so the reader sees the entry and where its section begins and ends. Nothing moves (outline). The side
+   menu and the tab bar are left alone; touch screens (no hover) get nothing. */
+(function () {
+  if (!window.matchMedia || !window.matchMedia("(hover: hover)").matches) return;
+  var ITEM = ".s5ci-it, .s5ci-pick, .s5ci-tr:not(.s5ci-th), .s5cu-ovr, .s5cu-row:not(.s5cu-hd), .s5cu-tc, .s5cu-k, .s5cu-f, " +
+             "button.s5cu-ktt, .s5cu-vc, tbody tr, li, a.jtile, article, .kq, .stat, button.k5, .mcb-stat, button.s5cr-st, .release";
+  var CARD = "section, details, .tw, .s5cu-tw, .callout, .cat-list, .apisurf, .rbpanel, .s5cn-cmpsum, .s5bn, .s5ci-picks, .s5ci-t, .mcb-list, .tabblock";
+  var on = null, inn = null;
+  function clear() {
+    if (on) { on.classList.remove("s5cv-on"); on = null; }
+    if (inn) { inn.classList.remove("s5cv-in"); inn = null; }
+  }
+  function within(el, scope) { return el && scope && scope !== el && scope.contains(el) ? el : null; }
+  document.addEventListener("mouseover", function (ev) {
+    var t = ev.target;
+    if (!t || !t.closest || t.closest("nav.anchors, select, option")) { clear(); return; }
+    var scope = t.closest(".tabpanel") || (t.closest("button.k5") ? document.body : null);
+    if (!scope) { clear(); return; }
+    var it = within(t.closest(ITEM), scope);
+    if (it && it.getBoundingClientRect().height > window.innerHeight * 0.85) it = null;   /* a list item that is a whole section is a section */
+    var cd = within((it ? it.parentElement : t).closest(CARD), scope);
+    var ln = within(t.closest("a[href], button"), scope);
+    if (!it && !cd && ln) it = ln;   /* a link or button outside any listed entry still gets its frame */
+    var main = it || cd, sec = it ? cd : null;
+    if (main === on && sec === inn) return;
+    clear();
+    if (main) { main.classList.add("s5cv-on"); on = main; }
+    if (sec && sec !== main) { sec.classList.add("s5cv-in"); inn = sec; }
+  }, { passive: true });
+  document.documentElement.addEventListener("mouseleave", clear);
+  window.addEventListener("blur", clear);
+})();
+
+/* §5cv-c (9 X 2026, owner: "is Hunting refreshed daily? does it keep the queries found before in a folder on GitHub?"):
+   the tab shows the newest queries; tools/kql_archive.py (workflow "Campaign tracking") files every query the brief
+   has ever published in site/kql/. This line says how many there are and links the folder and its index. */
+(function () {
+  function go() {
+    var body = document.querySelector("#tab-hunting #kql .sec-body");
+    if (!body || body.querySelector(".s5cv-kqa") || !window.fetch) return;
+    fetch("kql/index.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (ix) {
+      if (!ix || !ix.length || body.querySelector(".s5cv-kqa")) return;
+      var dates = ix.map(function (e) { return e.date || ""; }).filter(Boolean).sort();
+      var p = document.createElement("p"); p.className = "s5cv-kqa";
+      var b = document.createElement("b"); b.textContent = "Archive: " + ix.length + " queries";
+      p.appendChild(b);
+      p.appendChild(document.createTextNode(" — every query this brief has published since " + dates[0] + ", one file each, kept in the repository (newest " + dates[dates.length - 1] + "): "));
+      var a1 = document.createElement("a"); a1.href = "https://github.com/wpiotrw/MS_SOC/tree/main/site/kql"; a1.target = "_blank"; a1.rel = "noopener"; a1.textContent = "folder site/kql on GitHub";
+      var a2 = document.createElement("a"); a2.href = "kql/index.json"; a2.target = "_blank"; a2.rel = "noopener"; a2.textContent = "index.json (title, date, product, tables, purpose, source)";
+      p.appendChild(a1); p.appendChild(document.createTextNode(" · ")); p.appendChild(a2);
+      var first = body.querySelector(".kq"); body.insertBefore(p, first || null);
+    }).catch(function () {});
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -36244,31 +36336,13 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
 .s5cu-ch>.s5cu-pl{font-size:13.5px;margin-top:8px}
 .s5cu-ch>.s5cu-pl a.s5cu-src{font-size:13.5px}
 @media (max-width:640px){.s5cu-kt{grid-template-columns:repeat(2,minmax(0,1fr))}.s5cu-ktv{font-size:18px}}
-/* §5cv (9 X 2026, owner: "in Campaigns, hovering a section draws a blue frame - super; Overview, Today and the
-   others do not have it - can we have it everywhere, also in /diff/?"): the same blue frame on every card, tile,
-   panel and list row of every tab. An outline drawn inside the box: it follows the rounded corners, moves nothing,
-   keeps the coloured stripe of a card, is not cut by a scrolling parent, and is painted over the children. */
-button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
-div.s5cn-cmpsum,a.jtile,div.rbpanel,details.s5cr-cmp,article.cmp,div.stat,div.kq,div.s5bn,details.s5cu-dash,section.s5cu-vc,
-details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-ovr,.s5ci-card tbody tr,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
-button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
-div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,article.cmp:hover,
-div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,div.callout:hover,
-.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
- outline:2px solid var(--accent);outline-offset:-2px}
-@media (hover:none){button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
- details.mcb-gridbox:hover,div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,
- article.cmp:hover,div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,
- div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
-
 /* §5cv-b (9 X 2026, owner on the Overview: "you drew one big frame instead of one per piece of information / per
    section; and the sentences run into each other - the titles do not stand out, hard to see where a section starts
    and ends"): the frame belongs to each piece, not to the whole card - the cards of the Overview no longer frame,
    their rows and sentences do. Every sentence of "Today in N sentences" is a tile of its own, its label a coloured
    chip (red = most urgent, green = new, blue = Graph & roles and news, amber = components, grey = a technology). */
 .s5ci-ten .s5bk-3 li{border:1px solid var(--border);border-top:1px solid var(--border);border-radius:10px;background:var(--bg);
- padding:12px 14px 13px;margin:0 0 12px;break-inside:avoid;transition:outline-color .12s ease}
-.s5ci-ten .s5bk-3 li:hover{outline:2px solid var(--accent);outline-offset:-2px}
+ padding:12px 14px 13px;margin:0 0 12px;break-inside:avoid}
 .s5ci-ten .s5bk-3 li>b.s5bk-k{display:inline-block;margin:0 0 9px;padding:3px 10px;border-radius:999px;font-size:11.5px;line-height:1.35;
  letter-spacing:.06em;border:1px solid var(--border);background:var(--surface);color:var(--text)}
 .s5ci-ten .s5bk-3 li>b.s5bk-k.k-urgent{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
@@ -36276,7 +36350,20 @@ div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-
 .s5ci-ten .s5bk-3 li>b.s5bk-k.k-graph,.s5ci-ten .s5bk-3 li>b.s5bk-k.k-news{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .s5ci-ten .s5bk-3 li>b.s5bk-k.k-comp{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
 .s5ci-ten .s5bk-3 li .s5bk-itt{font-size:15px}
-@media (hover:none){.s5ci-ten .s5bk-3 li:hover{outline:none}}
+
+/* §5cv-c (9 X 2026, owner: "you did not listen - there are sections, and not only in the Overview, with no blue
+   frame when I hover a section or a link; I asked for it in the WHOLE portal and /diff/" and "these three tiles show
+   the technology they concern poorly - fix and show it in the whole portal and /diff/"). The frame is no longer a
+   list of classes: SCRIPT 17 finds, under the pointer, the piece of information (a row, a list item, a tile, a card
+   entry) and gives it .s5cv-on, and the section around it .s5cv-in - in every tab, for every element there is or
+   will be. The technology or product of an entry is a blue chip wherever it is printed. */
+.s5cv-on{outline:2px solid var(--accent)!important;outline-offset:-2px!important}
+.s5cv-in{outline:1px solid var(--accent)!important;outline-offset:2px!important}
+.s5ci-pill.s5ci-tech,.mcb-svc,span.s5cu-tech,.s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){display:inline-block;
+ padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+ font-weight:700;font-size:12px;line-height:1.45;letter-spacing:.01em;white-space:nowrap}
+.s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){justify-self:start;align-self:start;width:max-content;max-width:100%;white-space:normal}
+.s5cv-kqa{margin:6px 0 12px;padding:9px 12px;border:1px solid var(--accent);border-left-width:4px;border-radius:8px;background:var(--accent-soft);font-size:13.5px;line-height:1.5}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`

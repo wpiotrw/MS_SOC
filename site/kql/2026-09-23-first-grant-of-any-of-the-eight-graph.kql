@@ -1,0 +1,44 @@
+// title: First grant of any of the eight Graph permissions that became grantable on 22 September
+// date: 2026-09-23
+// product: Entra
+// tables: AuditLogs
+// purpose: Six permission families entered the Microsoft Graph service principal between the 17 and the 22 September dumps and nothing holds any of them yet. That makes this a tripwire rather than a hunt: the first row it returns is the first grant.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief - 23 September 2026
+// Eight Graph permissions became grantable in the Microsoft Graph service principal
+// between the 17 and the 22 September 2026 dumps. Nothing is granted yet, so this query
+// is a tripwire rather than a hunt: it fires on the first grant.
+// Table and columns: AuditLogs -
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs
+let watched = dynamic([
+    "AppCertTrustConfiguration.Read.All",
+    "AppCertTrustConfiguration.ReadWrite.All",
+    "CrossTenantContentMigration.Read.All",
+    "CrossTenantContentMigration.ReadWrite.All",
+    "Workbooks.Read.All",
+    "Workbooks.ReadWrite.All"
+]);
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where LoggedByService == "Core Directory"
+| where OperationName in ("Add app role assignment to service principal",
+                          "Consent to application",
+                          "Add delegated permission grant")
+| mv-expand TargetResources
+| extend props = TargetResources.modifiedProperties
+| mv-expand props
+| extend prop = tostring(props.displayName), newVal = tostring(props.newValue)
+| where prop in ("AppRole.Value", "ConsentContext.IsAdminConsent", "DelegatedPermissionGrant.Scope",
+                 "AppRole.DisplayName", "ConsentAction.Permissions")
+| where newVal has_any (watched)
+| project TimeGenerated,
+          OperationName,
+          Result,
+          Actor      = tostring(InitiatedBy.user.userPrincipalName),
+          ActorApp   = tostring(InitiatedBy.app.displayName),
+          TargetApp  = tostring(TargetResources.displayName),
+          TargetId   = tostring(TargetResources.id),
+          Granted    = newVal,
+          CorrelationId
+| order by TimeGenerated desc

@@ -1,0 +1,17 @@
+// title: Active Directory objects created by the Cloud Sync provisioning agent
+// date: 2026-09-28
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: The 24 September preview lets Cloud Sync create users and groups inside on-premises AD DS. Until a rule knows which account does that, every one of those creations looks like an on-premises actor making directory objects. This query names the creator so the expected source can be excluded and everyt
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitydirectoryevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 28 Sep 2026 - who creates objects in AD now that Cloud Sync can
+// Table and columns verified against the IdentityDirectoryEvents schema page cited beside this query.
+IdentityDirectoryEvents
+| where Timestamp > ago(14d)
+| where ActionType in ("User created", "Group created", "Computer created")
+| extend Target = tostring(TargetAccountUpn), Actor = tostring(AccountUpn)
+| summarize Created = count(), Objects = make_set(Target, 100), Kinds = make_set(ActionType, 5),
+            FirstSeen = min(Timestamp), LastSeen = max(Timestamp)
+          by Actor, DestinationDeviceName
+| order by Created desc

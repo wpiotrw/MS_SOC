@@ -1,0 +1,26 @@
+// title: Malicious URLs in Teams messages, with the QR-code-borne ones separated out
+// date: 2026-10-08
+// product: Defender XDR
+// tables: MessageEvents, MessageUrlInfo
+// purpose: Defender for Office 365 now analyses URLs inside QR codes in Teams messages after delivery and, per Message Center, marks them with QRCode in a UrlLocation column of MessageUrlInfo. That column is not on the published schema page yet, so the query reads it through column_ifexists: before the rollout
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageurlinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 8 Oct 2026 - malicious URLs in Teams messages, QR-code-borne ones first
+// MessageUrlInfo and MessageEvents columns verified against the schema pages cited beside this query.
+// MC1490905 says QR code detections carry "QRCode" in a UrlLocation column of MessageUrlInfo. The schema
+// page read on 8 Oct 2026 does not list that column yet, so column_ifexists keeps the query valid
+// before and after the rollout reaches the tenant.
+MessageUrlInfo
+| where Timestamp > ago(14d)
+| extend UrlLocation = column_ifexists("UrlLocation", "")
+| where isnotempty(ThreatTypes) or UrlLocation =~ "QRCode"
+| join kind=leftouter (
+    MessageEvents
+    | where Timestamp > ago(14d)
+    | project TeamsMessageId, SenderEmailAddress, IsExternalThread, ThreadSubtype, DeliveryAction
+  ) on TeamsMessageId
+| summarize Messages = dcount(TeamsMessageId),
+            Senders = make_set(SenderEmailAddress, 20),
+            FirstSeen = min(Timestamp), LastSeen = max(Timestamp)
+          by UrlDomain, UrlLocation, ThreatTypes, IsExternalThread
+| order by UrlLocation desc, Messages desc

@@ -1,0 +1,23 @@
+// title: Who now reads the saved hunting query library after ThreatHunting.Read.All widened
+// date: 2026-09-18
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: Table MicrosoftGraphActivityLogs, schema read from Microsoft Learn. Stored as site/kql/2026-09-18-threathunting-saved-queries-reach.kql and indexed.
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief — 18 September 2026
+// ThreatHunting.Read.All gained GET /security/threathunting/queries on 17 September 2026 with no
+// new consent prompt. Find every app that now reads the saved hunting query library.
+// Table and columns: MicrosoftGraphActivityLogs —
+// https://learn.microsoft.com/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+MicrosoftGraphActivityLogs
+| where TimeGenerated > ago(14d)
+| where RequestUri has "/security/threathunting/queries"
+| extend Scope = tostring(Scopes), Role = tostring(Roles)
+| summarize Calls = count(),
+            FirstSeen = min(TimeGenerated),
+            LastSeen = max(TimeGenerated),
+            Statuses = make_set(ResponseStatusCode, 10),
+            Paths = make_set(RequestUri, 10)
+        by AppId, ServicePrincipalId, RequestMethod, Scope, Role
+| sort by Calls desc

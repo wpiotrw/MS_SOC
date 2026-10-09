@@ -1,0 +1,19 @@
+// title: Device-code and AiTM sign-ins followed by a new security-info registration
+// date: 2026-09-12
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: The pivot Microsoft describes for the Storm-3121 and Storm-3032 passkey-themed helpdesk campaign of 9 September: a device-code sign-in, then the operator registering their own method within two hours. Tables and columns checked on the Azure Monitor SigninLogs and AuditLogs references this morning; c
+// source: https://learn.microsoft.com/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+let dc = SigninLogs
+| where TimeGenerated > ago(30d)
+| where AuthenticationProtocol == "deviceCode"
+| project SignInTime = TimeGenerated, UserPrincipalName, IPAddress;
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where OperationName == "User registered security info"
+| extend UserPrincipalName = tostring(TargetResources[0].userPrincipalName)
+| join kind=inner dc on UserPrincipalName
+| where TimeGenerated between (SignInTime .. SignInTime + 2h)
+| project SignInTime, RegistrationTime = TimeGenerated, UserPrincipalName, IPAddress, OperationName
+| sort by RegistrationTime desc
