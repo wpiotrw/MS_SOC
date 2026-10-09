@@ -996,6 +996,23 @@
 "date":"2026-10-06",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
+"link":"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000",
+"source":"Main list source",
+"id":"exchange-crosstenant-freebusy-to-cta",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/":{
+"title":"Cross-Tenant Free/Busy After EWS : Migrating to Microsoft 365 Cross-Tenant Access Policy",
+"link":"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/",
+"source":"Cloud Secop - M365",
+"date":"2026-10-09",
+"group":"community",
+"found":"2026-10-09"
 }
 },
 "final":"2027-07-05",
@@ -1104,6 +1121,14 @@
 "title":"MC1459133: Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133",
 "source":"MC - Merill",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-10-08/":{
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"link":"https://daily.entra.news/day/2026-10-08/",
+"source":"Daily Entra News",
 "date":"2026-10-08",
 "group":"community",
 "found":"2026-10-09"
@@ -1912,6 +1937,166 @@
 "date":"2026-09-16",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744":{
+"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875":{
+"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878":{
+"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281":{
+"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337":{
+"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451":{
+"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582":{
+"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693":{
+"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732":{
+"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979":{
+"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982":{
+"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880":{
+"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277":{
+"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301":{
+"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322":{
+"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324":{
+"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340":{
+"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385":{
+"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433":{
+"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571":{
+"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
 }
 },
 "final":"2026-10-15",
@@ -2381,6 +2566,14 @@
 "date":"2026-08-26",
 "updated":"2026-08-26",
 "group":"microsoft",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-09-25/":{
+"title":"Defender App Governance permissions change for three Entra roles in mid-October — 25 September 2026",
+"link":"https://daily.entra.news/day/2026-09-25/",
+"source":"Daily Entra News",
+"date":"2026-09-25",
+"group":"community",
 "found":"2026-10-09"
 }
 },
@@ -3165,6 +3358,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-09",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-09",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -3557,6 +3758,22 @@
 "now":"Feb 2027",
 "seen":"2026-10-09",
 "text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-09",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-09",
+"text":"February 2027."
 }
 ],
 "materials":{
@@ -3715,6 +3932,14 @@
 "id":"MC1409303",
 "date":"2026-09-29",
 "updated":null,
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new":{
+"title":"Screen Capture Protection for web connections is now available",
+"link":"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new",
+"source":"Microsoft Learn · What's new · Azure Virtual Desktop",
+"date":"2026-09-24",
 "group":"microsoft",
 "found":"2026-10-09"
 }
@@ -5253,6 +5478,14 @@
 "date":"2026-08-10",
 "group":"video",
 "found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-10-08/":{
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"link":"https://daily.entra.news/day/2026-10-08/",
+"source":"Daily Entra News",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
 }
 },
 "final":"2027-07-01",
@@ -5290,10 +5523,19 @@
 {
 "date":"2026-10-09",
 "id":"MC1437671",
+"what":"Microsoft revised the post",
+"before":"2026-10-07",
+"after":"2026-10-09",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-09",
+"id":"MC1437671",
 "what":"Message Center end date",
 "before":"2026-11-30",
 "after":"2026-12-31",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5302,7 +5544,7 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the content.",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5428,7 +5670,7 @@
 "what":"Title",
 "before":"Microsoft Entra: Passwordless password change in My Sign-Ins",
 "after":"(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5437,7 +5679,7 @@
 "what":"Message Center end date",
 "before":"2026-11-23",
 "after":"2026-11-30",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5446,7 +5688,7 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5509,7 +5751,7 @@
 "what":"Entered the brief (Message Center)",
 "before":"",
 "after":"Microsoft Entra: Passwordless password change in My Sign-Ins",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
@@ -5685,6 +5927,11 @@
 "label":"late Oct 2026",
 "text":"We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November)."
 },
+"MC1437671|microsoft gives the end of for the start of rollout not a ca#0":{
+"date":"2026-10-31",
+"label":"end of Oct 2026",
+"text":"Microsoft gives the end of October 2026 for the start of rollout, not a calendar date"
+},
 "MC1450133|we will begin rolling out in late previously early and expec#1":{
 "date":"2026-11-25",
 "label":"late Nov 2026",
@@ -5712,6 +5959,22 @@
 "now":"late Jun 2026",
 "seen":"2026-10-09",
 "text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
 "src":"MC1221452",
@@ -5942,6 +6205,30 @@
 "source":"Merill Fernando",
 "date":"2026-08-10",
 "group":"video",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new":{
+"title":"iOS preview support for in-session passwordless authentication",
+"link":"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new",
+"source":"Microsoft Learn · What's new · Azure Virtual Desktop",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-10-08/":{
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"link":"https://daily.entra.news/day/2026-10-08/",
+"source":"Daily Entra News",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-10-02/":{
+"title":"App instance property-lock guidance broadens as External ID documents passkey API setup — 2 October 2026",
+"link":"https://daily.entra.news/day/2026-10-02/",
+"source":"Daily Entra News",
+"date":"2026-10-02",
+"group":"community",
 "found":"2026-10-09"
 }
 },
@@ -6270,6 +6557,275 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Retirement of Exchange Web Services in Exchange Online",
+"group":"community",
+"title":"Cross-Tenant Free/Busy After EWS : Migrating to Microsoft 365 Cross-Tenant Access Policy",
+"source":"Cloud Secop - M365",
+"link":"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-08/"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571"
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1462464",
+"type":"material",
+"name":"App Governance drops Cloud Application Administrator role support",
+"group":"community",
+"title":"Defender App Governance permissions change for three Entra roles in mid-October — 25 September 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-09-25/"
+},
+{
+"day":"2026-10-09",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-08/"
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"milestone",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1437671",
+"now":"end of Oct 2026",
+"text":"Microsoft gives the end of October 2026 for the start of rollout, not a calendar date"
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-08/"
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"App instance property-lock guidance broadens as External ID documents passkey API setup — 2 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-02/"
 }
 ],
 "archive":{
