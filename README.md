@@ -39,6 +39,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [8. Dokumentacja i źródła](#8-dokumentacja-i-źródła)
 - [9. Stan prac i plan](#9-stan-prac-i-plan)
 - [10. Dane wrażliwe — co nie trafia do tego pliku ani do repozytorium](#10-dane-wrażliwe--co-nie-trafia-do-tego-pliku-ani-do-repozytorium)
+- [11. Postawienie od zera (nowe repozytorium, inny tenant)](#11-postawienie-od-zera-nowe-repozytorium-inny-tenant)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -69,7 +70,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 
 ## 0. Architektura w pigułce
 
-Całość to **cztery zadania Claude**, **jedno repozytorium GitHub**, **trzy workflow GitHub Actions**, **jedna aplikacja Entra** i **jedna Azure Static Web App**. Zadania Claude zbierają i piszą treść, repozytorium przechowuje reguły, kod i dane, GitHub Actions publikuje, a SWA serwuje stronę.
+Całość to **cztery zadania Claude**, **jedno repozytorium GitHub**, **osiem workflow GitHub Actions** (sześć automatycznych, dwa ręczne do kontroli — pkt 4b), **jedna aplikacja Entra** i **jedna Azure Static Web App**. Odtworzenie wszystkiego od zera, także w innym tenancie: pkt 11. Zadania Claude zbierają i piszą treść, repozytorium przechowuje reguły, kod i dane, GitHub Actions publikuje, a SWA serwuje stronę.
 
 ```mermaid
 flowchart LR
@@ -192,7 +193,14 @@ Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
 | `mirror/` | własna kopia stron Microsoft Learn używanych przez portal (pkt 5.5, opis w `mirror/README.md`) |
 | `tools/learn-mirror/`, `tools/mirror_scope.py`, `tools/run_learn_mirror.sh` | narzędzie kopii (kopia `merill/learn-mirror`, licencja MIT), liczenie zakresu i przebieg kopii |
 | `.claude/rules/ms-soc-spec.md` | zasada dla sesji Claude: `CLAUDE.md` (~2,2 MB) czytać tylko sekcjami, kod wycinać `extract_code.py` |
-| `.github/workflows/` | wdrożenie SWA, publikacja z gałęzi rutyn, migawka tenanta (`fpa-tenant.yml`), odświeżenie kodu (`code-refresh.yml`), kopia Learn (`learn-mirror.yml`) |
+| `campaigns.json`, `youtube_sources.json` | poprawki właściciela do kampanii (nazwy, scalenia, definicje, `settings` — czasy wyświetlania i progi) i kanały YouTube dla materiałów kampanii |
+| `tools/campaigns.py` | wykrywanie kampanii (wycofania, wymuszenia, koniec wsparcia, „by default”, baseline'y) → `site/data/campaigns.json`, `site/data/campaigns-history.json`; uruchamia go `campaigns.yml` |
+| `tools/kql_archive.py` | archiwum zapytań KQL z zakładki Hunting → `site/kql/<data>-<slug>.kql` + `index.json` (każde zapytanie raz, powtórki jako `reused`); uruchamia go `campaigns.yml` |
+| `tools/fpa_sources.py` | kopia ostatniej dobrej wersji źródeł First-party apps w `cache/fpa/` i lista aplikacji z pliku Microsoftu `known-guids.json` → `site/data/fpa-docs.json`; uruchamia go `fpa-tenant.yml` |
+| `tools/fpa_compare.py` | porównanie aplikacji Microsoftu w tenancie z listą Merilla — same liczby (workflow ręczny `fpa-compare.yml`) |
+| `tools/New-FpaReaderApp.ps1` | zakłada aplikację Entra dla migawki tenanta (pkt 5.3, pkt 11) |
+| `cache/fpa/` | kopie źródeł First-party apps z licencją pozwalającą na kopię (merill, ROADtools, GPC — MIT; `known-guids.json` Microsoftu); poza `site/`, więc nie jest wdrażane |
+| `.github/workflows/` | osiem workflow — tabela w pkt 4b |
 
 ## 3. Azure Static Web App (hosting)
 
@@ -305,9 +313,12 @@ sequenceDiagram
 | GitHub w routines (konektor MCP `github` + push z sesji) | routine wypycha `site/` na `main` albo na gałąź `claude/**` | integracja GitHub konta Claude właściciela |
 | `publish.yml` | push routine na `claude/**` → kopiuje `site/` na `main` i wdraża | `GITHUB_TOKEN` (`contents: write`) + sekret SWA |
 | Workflow SWA | push na `main` w `site/**` → wdrożenie | sekret `AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603` |
-| `fpa-tenant.yml` | migawka tenanta | `GITHUB_TOKEN` (`contents: write`, `id-token: write`), **bez sekretu Entra** |
+| `fpa-tenant.yml` („First-party apps tenant snapshot”) | co 3 godziny (minuta 15 UTC) i ręcznie: migawka aplikacji tenanta (`fpa-tenant.json`), Message Center tenanta (`mc-tenant.json`), kopie źródeł First-party apps (`cache/fpa/`, `fpa-docs.json`) | `GITHUB_TOKEN` (`contents: write`, `id-token: write`) + zmienne repozytorium `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`; **bez sekretu Entra** |
 | `code-refresh.yml` | push zmieniający `CLAUDE.md` (i po migawce tenanta) → `code_refresh.py`, bramka w trybie `--mirror`, commit `site/index.html`, wdrożenie | `GITHUB_TOKEN` (`contents: write`) + sekret SWA |
 | `learn-mirror.yml` | 4 razy na dobę (01:37, 07:37, 13:37, 19:37 UTC) odświeża `mirror/learn/`; commituje tylko `mirror/`, więc nie wdraża strony | `GITHUB_TOKEN` (`contents: write`) |
+| `campaigns.yml` („Campaign tracking”) | 05:40 i 20:40 UTC, po „Publish routine output” i po migawce tenanta, po zmianie `tools/campaigns.py`, `campaigns.json`, `youtube_sources.json`, `tools/kql_archive.py`; liczy kampanie (`tools/campaigns.py`) i archiwum KQL (`tools/kql_archive.py`), commituje tylko gdy coś się zmieniło; wdraża je `code-refresh.yml` (uruchamiany po nim) | `GITHUB_TOKEN` (`contents: write`) |
+| `collector-check.yml` („Collector check”, ręczny) | wycina kolektory z `CLAUDE.md` i uruchamia te, które czytają nowe lub zmienione źródła (blogi, społeczność, strony z kopii Learn, mapa Graph, what's new); wynik w adnotacjach przebiegu i jako artefakt na 7 dni; niczego nie zapisuje w repozytorium | `GITHUB_TOKEN` (`contents: read`) |
+| `fpa-compare.yml` („First-party apps — tenant vs Merill”, ręczny) | porównanie aplikacji Microsoftu w tenancie z listą Merilla i plikiem Microsoftu `known-guids.json`; w logu i adnotacjach **tylko liczby** (log publicznego repozytorium jest publiczny) | `id-token: write` + zmienne `AZURE_TENANT_ID`, `AZURE_CLIENT_ID` (ten sam login co migawka) |
 | Wspólna kolejka | workflow wdrażające mają [`concurrency`](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs) `group: swa-deploy` — nigdy nie wdrażają równolegle | — |
 | Sesje Claude (rozmowy w projekcie „SchedTasks & Routines”) | od 29 IX 2026 sesja w chmurze podłącza repozytorium przez aplikację Claude GitHub (jedno zatwierdzenie na starcie) i wypycha zwykłym `git push`; tak weszły wszystkie zmiany od `a0765ed`. Druga droga: klon na komputerze właściciela (Git Credential Manager, `gh` z zakresem `workflow`). Workflow uruchamiane ręcznie właściciel potwierdza sam | aplikacja Claude GitHub na repozytorium; konto GitHub właściciela |
 
@@ -341,20 +352,20 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
 | Application (client) ID | `87ab5007-…` (pełne: zmienna repozytorium `AZURE_CLIENT_ID`) |
 | Object ID aplikacji | `161afcd6-…` |
 | Object ID service principala | `66acc967-…` |
-| Uprawnienia (Application, tylko odczyt) | Microsoft Graph → [**Application.Read.All**](https://learn.microsoft.com/graph/permissions-reference#applicationreadall) (service principale i ich role aplikacyjne) + [**DelegatedPermissionGrant.Read.All**](https://learn.microsoft.com/graph/permissions-reference#delegatedpermissiongrantreadall) (tylko zgody delegowane) |
+| Uprawnienia (Application, tylko odczyt) | Microsoft Graph → [**Application.Read.All**](https://learn.microsoft.com/graph/permissions-reference#applicationreadall) (service principale i ich role aplikacyjne) + [**DelegatedPermissionGrant.Read.All**](https://learn.microsoft.com/graph/permissions-reference#delegatedpermissiongrantreadall) (tylko zgody delegowane) + [**ServiceMessage.Read.All**](https://learn.microsoft.com/graph/permissions-reference#servicemessagereadall) (Message Center tenanta, `tools/mc_tenant.py`, od 26 IX 2026; od 9 X 2026 nadawane też przez `tools/New-FpaReaderApp.ps1`) |
 | Dlaczego nie Directory.Read.All | Directory.Read.All czyta cały katalog: użytkowników, grupy, urządzenia. Dokumentacja Microsoftu podaje go jako „least privileged” dla `GET /oauth2PermissionGrants`, ale Graph ma węższą rolę **DelegatedPermissionGrant.Read.All** („Read all delegated permission grants”). Jeśli Graph jej nie przyjmie (403), skrypt zapisze migawkę bez zgód delegowanych, z polem `grantsNote`, i nie przerwie działania — wtedy decydujemy, czy dodać Directory.Read.All |
 | [Zgoda administratora](https://learn.microsoft.com/entra/identity/enterprise-apps/grant-admin-consent) | **nadana** 25 IX 2026 przez skrypt (obie role przypisane do service principala); potwierdzona pierwszym przebiegiem (`grantsNote` puste); sprawdzenie — pkt 5.3, krok 1 |
 | Poświadczenie federacyjne (działające) | nazwa `github-ms-soc-main-immutable`, issuer `https://token.actions.githubusercontent.com`, subject `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`, audience `api://AzureADTokenExchange` — dodane 25 IX 2026 (skrypt z `-Subject`), bo GitHub wystawia dla tego repozytorium subject niezmienny (opis niżej) |
 | Poświadczenie federacyjne (stare, do usunięcia) | nazwa `github-ms-soc-main`, subject `repo:wpiotrw/MS_SOC:ref:refs/heads/main` — format nazwowy; GitHub go dla tego repozytorium nie wystawia, więc logowanie nim kończyło się AADSTS700213. Usuń po pierwszym zielonym przebiegu (Microsoft zaleca nie zostawiać poświadczenia opartego na nazwach) |
 | Sekrety | **brak** |
-| Workflow | `.github/workflows/fpa-tenant.yml` (codziennie 03:30 UTC i ręcznie); przeniesiony z `tools/` przez właściciela 25 IX 2026 (commit `e2d3f64`) |
-| Wynik | `site/data/fpa-tenant.json` |
+| Workflow | `.github/workflows/fpa-tenant.yml` (od 9 X 2026 co 3 godziny, minuta 15 UTC, i ręcznie; wcześniej raz dziennie 03:30 UTC); przeniesiony z `tools/` przez właściciela 25 IX 2026 (commit `e2d3f64`) |
+| Wynik | `site/data/fpa-tenant.json` (aplikacje, zgody, role), `site/data/mc-tenant.json` (Message Center tenanta), `cache/fpa/` i `site/data/fpa-docs.json` (kopie źródeł First-party apps, `tools/fpa_sources.py` — nie czyta tenanta) |
 | Utworzono | 25 IX 2026 skryptem `tools/New-FpaReaderApp.ps1` (logowanie kodem urządzenia kontem administratora tenanta). Pierwsza udana migawka: 25 IX 2026 (commit `c75f0ce`) |
 | Poprzednia wersja | Tego samego dnia aplikacja powstała omyłkowo w demo tenancie Contoso (`ea0d500a-…`, appId `373c2197-…`), bo do niego było podłączone narzędzie Lokka. Migawka z Contoso została usunięta ze strony; aplikację w Contoso można usunąć (pkt 5.3, „Usunięcie”) |
 
 #### Co dokładnie robi migawka i kiedy
 
-Workflow działa **automatycznie codziennie o 03:30 UTC** (05:30 latem, 04:30 zimą czasu warszawskiego) i można go uruchomić ręcznie (Actions → „First-party apps tenant snapshot” → Run workflow). Pierwszy udany przebieg: 25 IX 2026, commit `c75f0ce`.
+Workflow działa **automatycznie co 3 godziny, w minucie 15 UTC** (00:15, 03:15, … — Message Center tenanta zmienia się w ciągu dnia, a przebieg poranny i kampanie biorą najnowszą migawkę) i można go uruchomić ręcznie (Actions → „First-party apps tenant snapshot” → Run workflow). Pierwszy udany przebieg: 25 IX 2026, commit `c75f0ce`.
 
 | Krok | Wywołanie (tylko odczyt) | Wynik |
 |---|---|---|
@@ -363,7 +374,9 @@ Workflow działa **automatycznie codziennie o 03:30 UTC** (05:30 latem, 04:30 zi
 | 3. Zgody delegowane | [`GET /oauth2PermissionGrants`](https://learn.microsoft.com/graph/api/oauth2permissiongrant-list) | per klient: API → zakresy (np. `Microsoft Graph: openid profile`); przy 403 pole `grantsNote` zamiast przerwania |
 | 4. Role aplikacyjne | dla każdego SP spoza naszego tenanta: [`GET /servicePrincipals/{id}/appRoleAssignments`](https://learn.microsoft.com/graph/api/serviceprincipal-list-approleassignments) + nazwy ról zasobu | per klient: `API: rola` |
 | 5. Zapis | `site/data/fpa-tenant.json` | pola `read`, `tenant`, `spTotal`, `spMicrosoft`, `grantsNote`, `clients[]` |
-| 6. Commit | tylko gdy plik się zmienił: `data: first-party apps tenant snapshot <data>` | historia zmian zgód w gicie |
+| 6. Message Center tenanta | [`GET /admin/serviceAnnouncement/messages`](https://learn.microsoft.com/graph/api/serviceannouncement-list-messages) (`ServiceMessage.Read.All`) — `tools/mc_tenant.py` | `site/data/mc-tenant.json` (pkt 5.4); krok może się nie udać bez przerwania workflow |
+| 7. Kopie źródeł First-party apps | `tools/fpa_sources.py` — pobiera pliki publiczne (merill, ROADtools, GPC, `known-guids.json` Microsoftu), **nie czyta tenanta** | `cache/fpa/`, `site/data/fpa-docs.json` |
+| 8. Commit | tylko gdy któryś plik się zmienił: `data: tenant snapshot (first-party apps, Message Center) <data>` | historia zmian zgód w gicie |
 
 „Klient” to service principal **nienależący do naszego tenanta**, który ma u nas zgodę delegowaną albo rolę aplikacyjną — czyli aplikacja z zewnątrz (Microsoftu albo firmy trzeciej), której ktoś coś nadał.
 
@@ -380,7 +393,7 @@ Workflow działa **automatycznie codziennie o 03:30 UTC** (05:30 latem, 04:30 zi
 
 ```mermaid
 flowchart LR
-    A["03:30 UTC = 05:30 PL<br/>fpa-tenant.yml"] --> B["fpa_tenant.py<br/>Graph: SP, zgody, role"]
+    A["co 3 h (minuta 15 UTC)<br/>fpa-tenant.yml"] --> B["fpa_tenant.py<br/>Graph: SP, zgody, role"]
     B --> C["site/data/fpa-tenant.json<br/>commit na main"]
     C --> D["06:00 PL Morning:<br/>collect_fpa.py czyta plik<br/>z klonu repozytorium"]
     D --> E["artefakt: zakładka First-party apps,<br/>kolumna consented here"]
@@ -804,10 +817,38 @@ Publiczne identyfikatory, które mogą zostać: ID repozytorium i właściciela 
 > [!WARNING]
 > Przed każdym commitem tego pliku sesja Claude sprawdza go pod kątem pełnych identyfikatorów GUID, adresów e-mail i nazw tenanta (np. `grep` wzorca GUID i `@`), a każdy znaleziony pełny GUID uzasadnia jako publiczny albo skraca.
 
+## 11. Postawienie od zera (nowe repozytorium, inny tenant)
+
+Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darmowym) tenancie Microsoft 365, w innej subskrypcji Azure albo w innym repozytorium. Kolejność ma znaczenie. Nic z tego nie wymaga sekretu Entra.
+
+| # | Krok | Gdzie | Szczegóły |
+|---|---|---|---|
+| 1 | Repozytorium | GitHub | fork albo kopia `wpiotrw/MS_SOC` (z historią `site/data`, bo `/diff/` i kampanie liczą zmiany względem poprzednich dni). Repozytorium publiczne pozwala zadaniom Claude klonować je bez logowania |
+| 2 | Azure Static Web App | Azure Portal | pkt 3, „Odtworzenie w nowej subskrypcji / nowym tenancie Azure”: zasób, token wdrożeniowy, sekret `AZURE_STATIC_WEB_APPS_API_TOKEN_<NAZWA>` w repozytorium, zmiana adresu strony w `CLAUDE.md` |
+| 3 | Aplikacja Entra dla migawki tenanta | docelowy tenant | `pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta> [-Subject <subject OIDC>]` kontem administratora (logowanie kodem urządzenia, pkt 5.3). Skrypt zakłada aplikację **MS-SOC First-party apps reader**, nadaje i zatwierdza **Application.Read.All**, **DelegatedPermissionGrant.Read.All**, **ServiceMessage.Read.All** (tylko odczyt) i dodaje poświadczenie federacyjne GitHub OIDC. Role konta: Cloud Application Administrator + Privileged Role Administrator (albo Global Administrator). Subject: nowe repozytorium wystawia format niezmienny `repo:<właściciel>@<id>/<repo>@<id>:ref:refs/heads/main` — dokładną wartość workflow wypisuje w linii „OIDC claims” (pkt 5.2) |
+| 4 | Zmienne repozytorium | GitHub → Settings → Secrets and variables → Actions → **Variables** | `AZURE_TENANT_ID` i `AZURE_CLIENT_ID` z wyniku skryptu (to nie są sekrety, ale pełnych wartości nie wpisujemy do plików repozytorium — pkt 10) |
+| 5 | Workflow | GitHub → Actions | włącz workflow (fork ma je wyłączone); uruchom ręcznie kolejno: „First-party apps tenant snapshot”, „Learn mirror”, „Campaign tracking”, „Code refresh”; sprawdź „Collector check” (adnotacje przebiegu) |
+| 6 | Zadania Claude | claude.ai (scheduled tasks) i Claude Code (routines) | cztery zadania z pkt 4 — prompty są w projekcie Claude „SchedTasks & Routines” (`claude/prompts/`, kopie w `claude/backup/`), **nie w repozytorium**, bo zawierają e-mail właściciela i identyfikatory; w promptach zmień adres repozytorium i strony. Routines potrzebują integracji GitHub konta Claude z prawem zapisu do repozytorium |
+| 7 | Sprawdzenie | strona | `/`, `/diff/`, `/week/`, `/feed.xml`, `/kql/index.json`, `/data/campaigns.json`; bramka: `python3 gate.py site/index.html site --mirror --doc CLAUDE.md` (pkt 4a) |
+
+**Co zmienia inny tenant (np. darmowy):**
+
+| Obszar | Skutek |
+|---|---|
+| Lista First-party apps | **żaden** — bazą są pliki publiczne i lista Microsoftu `known-guids.json`; tenant dokłada tylko obserwacje (9 X 2026: 28 aplikacji Microsoftu widzianych tylko u nas, niepublikowanych bez zgody właściciela) |
+| Kolumna „consented here” w First-party apps | zgody i role z nowego tenanta (zwykle mniej) |
+| Message Center tenanta (`mc-tenant.json`) | wpisy tylko dla usług, które nowy tenant subskrybuje; reszta Message Center i tak przychodzi z indeksu mc.merill.net i DeltaPulse (pkt 5.4) |
+| Kampanie | daty i treści z Message Center tenanta mogą być uboższe; wykrywanie działa dalej na pozostałych źródłach |
+| Pozostałe zakładki | bez zmian — nie korzystają z tenanta |
+
+> [!WARNING]
+> Darmowy tenant może nie mieć części usług (np. bez licencji Defender czy Intune część wpisów Message Center się nie pojawi). To nie psuje strony, ale `mc-tenant.json` będzie krótszy — porównaj liczbę wpisów przed i po zmianie.
+
 ## Historia zmian
 
 | Data | Zmiana |
 |---|---|
+| 2026-10-09 | README: pkt 11 „Postawienie od zera (nowe repozytorium, inny tenant)” — kroki i skutki zmiany tenanta; pkt 0, 2 i 4b obejmują wszystkie osiem workflow (`campaigns.yml`, `collector-check.yml`, `fpa-compare.yml` doszły); pkt 5.2: harmonogram migawki co 3 h, uprawnienie ServiceMessage.Read.All, kroki Message Center i kopii źródeł; `tools/New-FpaReaderApp.ps1` nadaje też ServiceMessage.Read.All. |
 | 2026-10-09 | §5cw-b — First-party apps samodzielne (wariant B): kopia ostatniej dobrej wersji każdego źródła w `cache/fpa/` (`tools/fpa_sources.py` co 3 h), `collect_fpa.py` czyta kopię, gdy źródło nie odpowiada; aplikacje z listy Microsoftu `known-guids.json` (po odfiltrowaniu uprawnień, licencji, ról, FIDO2, Purview) dopisane jako „named only in Microsoft docs” — 2 351 aplikacji zamiast 1 737; porównanie z Merillem opisane w zakładce; poprawiona etykieta „our tenant” → tenant demo Merilla. |
 | 2026-10-09 | §5cw — przegląd „stojących” sekcji: zakładka Sources kończona kodem (`state_finish.py`, wołany przez `check_links.py` na pliku stanu: 22 klucze legacy złożone w klucze czytane codziennie, wpisy nieczytane = `carried` z wiekiem, `linkCheckedOn` źródeł z audytu linków); `collect_pages.py` czyta z naszej kopii Learn strony bez listy what's new (Intune in development, Windows message center, release health, end of support, Graph known issues, AVD, Windows 365); kanały Azure updates, Graph changelog, MSRC Update Guide i daily.entra.news; `collect_graph_map.py` buduje `graphMap` kodem z pokryciem ról (929 z 932 zgodnych; naprawione CloudPC.* i Device.ProvisionForVDI); nowe wpisy list źródeł mają `RequiredFrom`; workflow ręczny „Collector check”. |
 | 2026-10-09 | §5cv-c — ramka po najechaniu wykrywana automatycznie dla każdego wpisu w każdej zakładce (wpis 2 px, sekcja wokół 1 px; link poza wpisem sam), także w `/diff/`; technologia/produkt jako niebieski chip w całym portalu i w `/diff/`; archiwum KQL `site/kql/` zapisywane automatycznie przez `tools/kql_archive.py` w workflow „Campaign tracking” (odzyskane 33 zapytania od 10 IX, razem 36), linia „Archive” w zakładce Hunting. |
