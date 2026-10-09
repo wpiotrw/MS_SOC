@@ -38,12 +38,16 @@ jobs:
         # ServiceMessage.Read.All; a 403 is recorded in the file, never fails the snapshot above
         continue-on-error: true
         run: python3 tools/mc_tenant.py site/data/mc-tenant.json
+      - name: Our copy of the first-party app sources and Microsoft's docs list (CLAUDE.md 5cw-b)
+        continue-on-error: true
+        run: python3 tools/fpa_sources.py
       - name: Commit when it changed
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/fpa-tenant.json site/data/mc-tenant.json 2>/dev/null || git add site/data/fpa-tenant.json
+          git add cache/fpa site/data/fpa-docs.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             git commit -m "data: tenant snapshot (first-party apps, Message Center) $(date -u +%F)"
             git pull --rebase -q origin main
