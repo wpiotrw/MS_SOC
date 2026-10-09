@@ -347,6 +347,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/understand-threat-intelligence
 https://learn.microsoft.com/en-us/azure/sentinel/whats-new
 https://learn.microsoft.com/en-us/azure/sentinel/work-with-threat-indicators
 https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-overview
+https://learn.microsoft.com/en-us/azure/virtual-desktop
 https://learn.microsoft.com/en-us/azure/virtual-desktop/virtual-desktop-fall-2019/classic-retirement
 https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new
 https://learn.microsoft.com/en-us/azure/virtual-machines
