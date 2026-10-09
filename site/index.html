@@ -3747,6 +3747,21 @@ table.s5cu-tab td.s5cu-was,table.s5cu-tab td.s5cu-now{min-width:120px}
 table.s5cu-tab td.s5cu-plain{color:var(--text)}
 .s5cu.sec-body table.s5cu-tab td:not(.s5cu-dt):not(.s5cu-srcc){white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:none!important}
 @media (max-width:640px){.s5cu-dash{padding:0 8px 8px}.s5cu-vc{padding:10px}.s5cu-vgrid{gap:10px}}
+/* §5cu-c: "since the previous run" as a table, one row per campaign */
+.s5cu-bntw{margin-top:8px}
+table.s5cu-bntab td{font-size:13.5px}
+.s5cu-bnk{display:inline-block;white-space:nowrap}
+.s5cu-bnk-added{background:var(--ok-soft);color:var(--ok)}
+.s5cu-bnk-changed{background:var(--warn-soft);color:var(--warn)}
+.s5cu-bnk-removed{background:var(--bad-soft);color:var(--bad)}
+ul.s5cu-bnl{margin:0;padding-left:18px}
+ul.s5cu-bnl li+li{margin-top:3px}
+.s5cu-bnx{color:var(--muted)}
+ul.s5cu-bnl del{background:var(--del-bg);color:var(--del-fg);border-radius:4px;padding:0 5px}
+ul.s5cu-bnl ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;border-radius:4px;padding:0 5px;font-weight:600}
+td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
+.s5cu-tcx{font-size:13px;color:var(--text);opacity:.85;line-height:1.45}
+@media (max-width:640px){.s5cu.sec-body a.s5cu-src{white-space:normal;overflow-wrap:anywhere}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -21618,29 +21633,59 @@ IdentityDirectoryEvents
     var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
     var day = D.day, ev = (D.events || []).filter(function (e) { return e.day === day; });
     var n = { added: 0, changed: 0, removed: 0 }, rows = [];
+    /* the three numbers count CAMPAIGNS (the rows of the table below), not events; the rail reads them */
+    var kc = {};
     ev.forEach(function (e) {
       var k = e.type === "new" || e.type === "reopened" ? "added" : e.type === "closed" ? "removed" : "changed";
-      if (e.type === "material") { if (rows.some(function (r) { return r.cid === e.cid && r.t === "material"; })) return; }
-      n[k]++; rows.push({ k: k, cid: e.cid, t: e.type, e: e });
+      rows.push({ k: k, cid: e.cid, t: e.type, e: e });
+      var w = { added: 3, removed: 2, changed: 1 }; if (!kc[e.cid] || w[k] > w[kc[e.cid]]) kc[e.cid] = k;
     });
+    Object.keys(kc).forEach(function (cid) { n[kc[cid]]++; });
     var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns since the previous run");
     var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Since the previous run · " + dm(day)));
-    [["added", "+", "new campaigns"], ["changed", "~", "moved or new material"], ["removed", "−", "closed"]].forEach(function (k) {
+    [["added", "+", "new campaigns"], ["changed", "~", "campaigns changed"], ["removed", "−", "closed"]].forEach(function (k) {
       var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]); if (!n[k[0]]) b.classList.add("zero"); h.appendChild(b); });
     box.appendChild(h);
     if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved in the latest run: no new campaign, no date moved, no new milestone or material, none closed."));
     else {
-      var ul = el("ul", "s5bn-l");
-      rows.slice(0, 8).forEach(function (r) {
-        var li = el("li", "s5bn-r s5bn-" + r.k), e = r.e;
-        li.appendChild(el("span", "s5bn-k", r.k === "added" ? "NEW" : r.k === "removed" ? "CLOSED" : "CHANGED"));
-        var a = el("a", "s5bn-tl", e.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(e.cid);
-        a.addEventListener("click", function (x) { x.preventDefault(); goCard(e.cid); }); li.appendChild(a);
-        var t = e.type === "moved" ? "date moved " + e.was + " → " + e.now : e.type === "milestone" ? "new milestone " + e.now : e.type === "material" ? "new material: " + e.title : e.type === "closed" ? "final milestone passed" : e.type === "reopened" ? "reopened: next " + e.next : (e.next ? "next milestone " + e.next : "");
-        if (t) li.appendChild(el("span", "s5bn-pr", t));
-        ul.appendChild(li);
+      /* §5cu-c (owner, 9 X: "a table with technology, description and date, not one run-on line; one campaign once"):
+         one row per campaign, every change of that campaign in its own line */
+      var byC = {}, order = [];
+      rows.forEach(function (r) { if (!byC[r.cid]) { byC[r.cid] = []; order.push(r.cid); } byC[r.cid].push(r); });
+      var CM = {}; (D.campaigns || []).forEach(function (c) { CM[c.id] = c; });
+      var rank = { added: 0, changed: 1, removed: 2 }, pr = { critical: 0, high: 1, normal: 2 };
+      order.sort(function (a, b) { var ca = CM[a] || {}, cb = CM[b] || {};
+        return (pr[(ca.prio || {}).level] || 2) - (pr[(cb.prio || {}).level] || 2) || rank[byC[a][0].k] - rank[byC[b][0].k]; });
+      var tw = el("div", "s5cu-tw s5cu-bntw"), t = own(el("table", "s5cu-tab s5cu-bntab")), trh = el("tr");
+      ["Change", "Campaign", "Technology · type", "What changed", "Next date"].forEach(function (x) { trh.appendChild(el("th", null, x)); });
+      var th = el("thead"); th.appendChild(trh); t.appendChild(th); var tb = el("tbody");
+      order.slice(0, 15).forEach(function (cid) {
+        var L = byC[cid], c = CM[cid] || {}, e0 = L[0].e, tr = el("tr");
+        var k0 = L.some(function (r) { return r.k === "added"; }) ? "added" : L.some(function (r) { return r.k === "removed"; }) ? "removed" : "changed";
+        var td1 = el("td"); td1.appendChild(el("span", "s5bn-k s5cu-bnk s5cu-bnk-" + k0, k0 === "added" ? "NEW" : k0 === "removed" ? "CLOSED" : "CHANGED")); tr.appendChild(td1);
+        var td2 = el("td", "s5cu-chg"); var pt = prioTag(c); if (pt) td2.appendChild(pt);
+        var a = el("a", "s5cu-nm", c.name || e0.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(cid);
+        a.addEventListener("click", function (x) { x.preventDefault(); goCard(cid); }); td2.appendChild(a); tr.appendChild(td2);
+        tr.appendChild(el("td", "s5cu-tt", (c.tech || "") + (c.type ? " · " + c.type : "")));
+        var td4 = el("td"), ul = el("ul", "s5cu-bnl");
+        var mats = L.filter(function (r) { return r.t === "material"; });
+        L.forEach(function (r) {
+          var e = r.e; if (r.t === "material") return;
+          var li = el("li");
+          if (e.type === "moved") { li.appendChild(document.createTextNode("Date moved: ")); li.appendChild(el("del", null, e.was)); li.appendChild(document.createTextNode(" \u2192 ")); li.appendChild(el("ins", null, e.now)); if (e.text) li.appendChild(el("span", "s5cu-bnx", " \u2014 " + e.text)); }
+          else if (e.type === "milestone") { li.appendChild(el("b", null, "New milestone " + e.now)); if (e.text) li.appendChild(el("span", "s5cu-bnx", " \u2014 " + e.text)); }
+          else if (e.type === "new") li.appendChild(document.createTextNode("New campaign" + (e.text ? " \u2014 " + e.text : "")));
+          else if (e.type === "closed") li.appendChild(document.createTextNode("Final milestone passed" + (e.final ? " (" + e.final + ")" : "")));
+          else if (e.type === "reopened") li.appendChild(document.createTextNode("Reopened: Microsoft posted a new date"));
+          ul.appendChild(li);
+        });
+        if (mats.length) { var lm = el("li"); lm.appendChild(el("b", null, "New material: ")); lm.appendChild(document.createTextNode(mats.map(function (r) { return r.e.title + (r.e.source ? " (" + r.e.source + ")" : ""); }).join("; "))); ul.appendChild(lm); }
+        td4.appendChild(ul); tr.appendChild(td4);
+        var td5 = el("td", "s5cu-dt"); if (c.next) td5.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), c.next.label)); else td5.textContent = "\u2014"; tr.appendChild(td5);
+        tb.appendChild(tr);
       });
-      box.appendChild(ul);
+      t.appendChild(tb); tw.appendChild(labels(t)); box.appendChild(tw);
+      if (order.length > 15) box.appendChild(el("p", "s5bn-more", "\u2026 and " + (order.length - 15) + " more campaigns: filter \u201cThis week\u201d in Reporting."));
     }
     panel.insertBefore(box, panel.firstChild);
   }
@@ -21663,8 +21708,9 @@ IdentityDirectoryEvents
       var b = el("button", "s5cu-tc s5cu-tc-" + c.prio.level); b.type = "button"; b.title = "Open the campaign";
       var t = el("span", "s5cu-tch"); t.appendChild(prioTag(c)); t.appendChild(el("span", "s5cu-tct", c.tech + " · " + c.type)); b.appendChild(t);
       b.appendChild(el("span", "s5cu-tcn", c.name));
-      if (c.next) b.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), when(c.next)));
-      b.appendChild(el("span", "s5cu-tcw", (c.prio.why || []).slice(0, 3).join(" · ")));
+      if (c.next) { b.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), when(c.next)));
+        if (c.next.text && c.next.text.indexOf(c.name) < 0) b.appendChild(el("span", "s5cu-tcx", c.next.text.length > 170 ? c.next.text.slice(0, 170).replace(/\s+\S*$/, "") + "\u2026" : c.next.text)); }
+      b.appendChild(el("span", "s5cu-tcw", "Why: " + (c.prio.why || []).slice(0, 3).join(" · ")));
       b.addEventListener("click", function () { goCard(c.id); }); g.appendChild(b);
     });
     s.appendChild(g); body.appendChild(s);
@@ -21732,7 +21778,7 @@ IdentityDirectoryEvents
     for (var g = 0; g <= mx; g += step) { svg.appendChild(sv("line", { x1: L, x2: W, y1: Y(g), y2: Y(g), class: "s5cu-grid" })); var tl = sv("text", { x: L - 6, y: Y(g) + 4, class: "s5cu-ax", "text-anchor": "end" }); tl.textContent = g; svg.appendChild(tl); }
     keys.forEach(function (k, i) { if (i % 2 && keys.length > 12) return; var t = sv("text", { x: X(i), y: H - 8, class: "s5cu-ax", "text-anchor": "middle" }); t.textContent = labels[i]; svg.appendChild(t); });
     svg.appendChild(sv("line", { x1: X(nowIdx), x2: X(nowIdx), y1: T - 10, y2: H - B, class: "s5cu-now" }));
-    var nt = sv("text", { x: X(nowIdx) + 4, y: T - 2, class: "s5cu-ax" }); nt.textContent = "this month"; svg.appendChild(nt);
+    var nt = sv("text", { x: X(nowIdx) - 4, y: H - B - 4, class: "s5cu-ax", "text-anchor": "end" }); nt.textContent = "this month"; svg.appendChild(nt);
     [[A, "s5cu-l1", nameA], [Bv, "s5cu-l2", nameB]].forEach(function (s) {
       svg.appendChild(sv("path", { d: s[0].map(function (v, i) { return (i ? "L" : "M") + X(i) + "," + Y(v); }).join(""), class: "s5cu-line " + s[1] }));
       var pk = s[0].indexOf(Math.max.apply(null, s[0])), lab = sv("text", { x: X(pk) + 8, y: Y(s[0][pk]) + 4, class: "s5cu-dl" }); lab.textContent = s[2] + " " + s[0][pk]; svg.appendChild(lab);
@@ -21960,7 +22006,8 @@ IdentityDirectoryEvents
   /* Message Center posts of the campaign and how each one changed — the shape of Jan Bakker's tracking tables
      (owner, 9 X): MC number, title, published, last updated; then a change log with before and after */
   function srcA(c, id, link) {
-    if (link) { var a = el("a", "s5cu-src", id); a.href = link; a.target = "_blank"; a.rel = "noopener"; return a; }
+    if (link) { var lab = /^(MC|RM)\d/.test(id) ? id : /^\d{5,7}$/.test(id) ? "Roadmap " + id : "Brief item";
+      var a = el("a", "s5cu-src", lab); a.href = link; a.target = "_blank"; a.rel = "noopener"; a.title = id; return a; }
     return srcLink(c, id);
   }
   function posts(c) {
