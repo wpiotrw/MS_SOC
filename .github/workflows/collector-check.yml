@@ -31,26 +31,27 @@ jobs:
           python3 ../.cc/collect_blogs.py ../microsoftblogs_sources.json blogs_raw.json 2>&1 | tail -12
           python3 ../.cc/collect_community.py ../community_sources.json community_raw.json ../$PREV 2>&1 | tail -6
           python3 ../.cc/collect_pages.py PAGES.json 2>&1 | tail -12
-          python3 ../.cc/collect_graph_map.py GRAPH_MAP.json ../$PREV --compare ../$PREV 2>&1 | tail -10
+          python3 -c "import json;[print('::notice title=page::'+p['key']+' '+p['status']+' page '+str(p.get('msDate'))+' newest '+str(p.get('newestDate'))+' via '+str(p.get('via'))) for p in json.load(open('PAGES.json'))['pages']]"
+          python3 ../.cc/collect_graph_map.py GRAPH_MAP.json ../$PREV --compare ../$PREV 2>&1 | tail -10 | sed 's/^/::notice title=graphmap::/' 
           python3 ../.cc/probe_learn.py ../microsoftlearn_sources.json learn_probe.json 2>&1 | tail -4
           timeout 1500 python3 ../.cc/collect_nt.py 2>&1 | tail -12
           cp ../$PREV state.json
-          python3 ../.cc/state_finish.py state.json . 2>&1 | tail -4
+          python3 ../.cc/state_finish.py state.json . 2>&1 | tail -4 | sed 's/^/::notice title=state_finish::/' 
           python3 - <<'EOF'
           import json
           b = {r["name"]: r for r in json.load(open("blogs_raw.json"))}
           for n in ("Azure Updates", "Microsoft Graph changelog", "MSRC Security Update Guide"):
               r = b.get(n) or {}
-              print("BLOG %-28s %-7s %s items, newest %s, via %s %s" % (n, r.get("status"), len(r.get("items") or []),
+              print("::notice title=blog::" + "%-28s %-7s %s items, newest %s, via %s %s" % (n, r.get("status"), len(r.get("items") or []),
                     max([i.get("date") or "" for i in r.get("items") or []] + [""]), r.get("method"), (r.get("note") or "")[:80]))
           c = {r["name"]: r for r in json.load(open("community_raw.json"))["sources"]}
           r = c.get("Daily Entra News") or {}
-          print("COMMUNITY Daily Entra News %s newest %s %s" % (r.get("status"), r.get("newestDate"), (r.get("note") or "")[:80]))
+          print("::notice title=community::Daily Entra News %s newest %s %s" % (r.get("status"), r.get("newestDate"), (r.get("note") or "")[:80]))
           try:
               nt = json.load(open("NT.json"))
               for m in nt.get("wnMeta") or []:
                   if any(k in str(m.get("area")) for k in ("Virtual Desktop", "Windows 365")):
-                      print("NT", m)
+                      print("::notice title=nt::" + json.dumps(m)[:900])
           except Exception as e:
               print("NT not readable", e)
           EOF

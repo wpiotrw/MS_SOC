@@ -42,6 +42,7 @@ def main():
            "merillNotInTenant": len(only_m),
            "shareOfMerillCoveredByTenant": round(100.0 * len(both) / max(1, len(mer)), 1)}
     print(json.dumps(out, indent=1))
+    print("::notice title=fpa-compare::" + json.dumps(out))   # readable through the check-run annotations API
 
 
 if __name__ == "__main__":
