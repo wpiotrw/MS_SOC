@@ -1,0 +1,61 @@
+name: Collector check (manual)
+
+# CLAUDE.md 5cw (9 X 2026): runs the collectors that read new or changed sources, on a GitHub runner, so a
+# change to a collector is proven against the real sources before the morning run depends on it. Manual only;
+# writes nothing to the repository - the outputs are kept as a run artifact for 7 days.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Cut the code out of CLAUDE.md
+        run: |
+          mkdir -p .cc
+          python3 -c "s=open('CLAUDE.md',encoding='utf-8').read();i=s.index('\"\"\"extract_code.py');a=s.rindex('\`\`\`python\n',0,i)+10;b=s.index('\n\`\`\`',i);open('.cc/extract_code.py','w').write(s[a:b])"
+          python3 .cc/extract_code.py CLAUDE.md .cc
+      - name: Run the collectors of the new sources
+        run: |
+          set +e
+          export SOC_DATE=$(date -u +%F) SOC_REPO=$GITHUB_WORKSPACE SOC_REPOS=$RUNNER_TEMP/repos
+          PREV=$(ls site/data/20??-??-??.json | sort | tail -1)
+          mkdir -p out && cd out
+          python3 ../.cc/collect_blogs.py ../microsoftblogs_sources.json blogs_raw.json 2>&1 | tail -12
+          python3 ../.cc/collect_community.py ../community_sources.json community_raw.json ../$PREV 2>&1 | tail -6
+          python3 ../.cc/collect_pages.py PAGES.json 2>&1 | tail -12
+          python3 ../.cc/collect_graph_map.py GRAPH_MAP.json ../$PREV --compare ../$PREV 2>&1 | tail -10
+          python3 ../.cc/probe_learn.py ../microsoftlearn_sources.json learn_probe.json 2>&1 | tail -4
+          timeout 1500 python3 ../.cc/collect_nt.py 2>&1 | tail -12
+          cp ../$PREV state.json
+          python3 ../.cc/state_finish.py state.json . 2>&1 | tail -4
+          python3 - <<'EOF'
+          import json
+          b = {r["name"]: r for r in json.load(open("blogs_raw.json"))}
+          for n in ("Azure Updates", "Microsoft Graph changelog", "MSRC Security Update Guide"):
+              r = b.get(n) or {}
+              print("BLOG %-28s %-7s %s items, newest %s, via %s %s" % (n, r.get("status"), len(r.get("items") or []),
+                    max([i.get("date") or "" for i in r.get("items") or []] + [""]), r.get("method"), (r.get("note") or "")[:80]))
+          c = {r["name"]: r for r in json.load(open("community_raw.json"))["sources"]}
+          r = c.get("Daily Entra News") or {}
+          print("COMMUNITY Daily Entra News %s newest %s %s" % (r.get("status"), r.get("newestDate"), (r.get("note") or "")[:80]))
+          try:
+              nt = json.load(open("NT.json"))
+              for m in nt.get("wnMeta") or []:
+                  if any(k in str(m.get("area")) for k in ("Virtual Desktop", "Windows 365")):
+                      print("NT", m)
+          except Exception as e:
+              print("NT not readable", e)
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: collector-check
+          path: out/
+          retention-days: 7

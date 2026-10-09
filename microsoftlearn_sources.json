@@ -31,7 +31,7 @@
     "SourceName": "Microsoft Learn - Microsoft Sentinel",
     "SourceURL": "https://learn.microsoft.com/en-us/azure/sentinel/"
   },
-    {
+  {
     "SourceName": "Microsoft Learn - Unified Security Operations",
     "SourceURL": "https://learn.microsoft.com/en-us/unified-secops/overview-unified-security"
   },
@@ -122,5 +122,15 @@
   {
     "SourceName": "Microsoft Learn - Windows Security Baselines",
     "SourceURL": "https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-baselines"
+  },
+  {
+    "SourceName": "Microsoft Learn - Azure Virtual Desktop",
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/virtual-desktop/",
+    "RequiredFrom": "2026-10-10"
+  },
+  {
+    "SourceName": "Microsoft Learn - Windows 365",
+    "SourceURL": "https://learn.microsoft.com/en-us/windows-365/",
+    "RequiredFrom": "2026-10-10"
   }
 ]

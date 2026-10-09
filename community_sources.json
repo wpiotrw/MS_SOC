@@ -238,5 +238,10 @@
   {
     "SourceName": "CoreView Blog - Microsoft 365",
     "SourceURL": "https://www.coreview.com/"
+  },
+  {
+    "SourceName": "Daily Entra News",
+    "SourceURL": "https://daily.entra.news/",
+    "RequiredFrom": "2026-10-10"
   }
 ]
