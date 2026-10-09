@@ -3121,7 +3121,145 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5ca-sub[hidden]{display:none}
 .s5ca-sub .s5ca-w{font-weight:600}
 .s5ca-win b{color:var(--text);font-weight:650}
-</style>
+/* §5cr (8 X 2026): rail C — three aligned columns per tab (+ added, ~ changed, − removed) */
+@media (min-width:1100px){body.s5ca .s5ca-rail{width:300px}body.s5ca .wrap{margin-left:316px}}
+.s5ca-mv{display:none!important}
+.s5ca-it{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:6px;border:1px solid var(--border);background:var(--surface);margin-top:4px;padding:7px 6px 7px 10px}
+.s5ca-it:hover{border-color:var(--accent)}
+.s5ca-it[aria-current="page"]{border-color:var(--accent);box-shadow:none}
+.s5ca-nm{grid-column:1}
+.s5ca-cols{display:grid;grid-template-columns:repeat(3,34px);grid-column:2}
+.s5ca-k{text-align:right;padding-right:4px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.s5ca-k.s5ca-a{color:var(--ok)}.s5ca-k.s5ca-c{color:var(--warn)}.s5ca-k.s5ca-r{color:var(--bad)}
+.s5ca-k.s5ca-kz{color:var(--faint);font-weight:400}
+.s5ca-sub{grid-column:1 / -1}
+.s5ca-gl{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:6px;padding:0 7px 0 10px}
+.s5ca-ch .s5ca-k{font-size:13px;cursor:help;letter-spacing:0}
+.s5ca-foot{display:block}
+/* §5cr: component cards — NOW / BEFORE / dates */
+.jtile.s5cr>.jt-v,.jtile.s5cr>.jt-c,.jtile.s5cr>.jt-s{display:none}
+.jtile.s5cr{display:flex;flex-direction:column;gap:8px}
+.jtile.s5cr .jt-p{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.jtile.s5cr-fresh{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn) inset}
+.s5cr-age{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 8px;background:var(--ok-soft);color:var(--ok);white-space:nowrap}
+.s5cr-age.is-new{background:var(--warn-soft);color:var(--warn)}
+.s5cr-age.is-first{background:var(--accent-soft);color:var(--accent)}
+.s5cr-b{display:flex;flex-direction:column;gap:8px}
+.s5cr-now{display:flex;flex-direction:column;gap:4px;background:var(--bg);border-radius:8px;padding:8px 10px}
+.s5cr-lab{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cr-vn{font:600 19px/1.2 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5cr-hl,.jtile .s5cr-vn .s5cr-hl,.s5cr-t .s5cr-vn .s5cr-hl{background:var(--ok);color:var(--on-accent);border-radius:3px;padding:0 1px}
+.s5cr-bef{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.s5cr-vo{font:500 13px/1.2 var(--mono,ui-monospace,monospace);color:var(--muted);text-decoration:line-through;overflow-wrap:anywhere}
+.s5cr-vo .s5cr-hl,.jtile .s5cr-vo .s5cr-hl,.s5cr-t .s5cr-vo .s5cr-hl{background:none;color:var(--bad);padding:0}
+.s5cr-none,.s5cr-m{color:var(--muted);font-style:italic}
+.s5cr-tl{display:flex;flex-direction:column;gap:5px}
+.s5cr-tr{display:grid;grid-template-columns:10px minmax(0,1fr) auto;column-gap:8px;align-items:baseline;font-size:12.5px;line-height:1.35}
+.s5cr-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);align-self:center}
+.s5cr-dot.b{background:var(--ok)}.s5cr-dot.m{background:none;box-shadow:inset 0 0 0 2px var(--faint)}
+.s5cr-w{color:var(--muted)}
+.s5cr-when{font-weight:650;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums}
+.s5cr-when.s5cr-m{font-weight:400}
+.s5cr-dl{font-size:12.5px;font-weight:650;color:var(--bad)}
+/* the tile reset of §5at (#tab-components a.jtile * — muted 12.5 px sans) outranks plain classes: the
+   card's own parts are named under the same id */
+#tab-components a.jtile.s5cr .s5cr-age{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.07em;text-transform:uppercase;color:var(--ok)}
+#tab-components a.jtile.s5cr .s5cr-age.is-new{color:var(--warn)}
+#tab-components a.jtile.s5cr .s5cr-age.is-first{color:var(--accent)}
+#tab-components a.jtile.s5cr .s5cr-lab{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+#tab-components a.jtile.s5cr .s5cr-vn,#tab-components a.jtile.s5cr .s5cr-vn *{font:600 19px/1.25 var(--mono);color:var(--text)}
+#tab-components a.jtile.s5cr .s5cr-vn .s5cr-hl{color:var(--on-accent)}
+#tab-components a.jtile.s5cr .s5cr-vo,#tab-components a.jtile.s5cr .s5cr-vo *{font:500 13px/1.25 var(--mono);color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-vo .s5cr-hl{color:var(--bad)}
+#tab-components a.jtile.s5cr .s5cr-none{font-style:italic}
+#tab-components a.jtile.s5cr .s5cr-w{color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-when{font-weight:650;color:var(--text)}
+#tab-components a.jtile.s5cr .s5cr-when.s5cr-m{font-weight:400;font-style:italic;color:var(--muted)}
+#tab-components a.jtile.s5cr .s5cr-dl{font-weight:650;color:var(--bad)}
+.s5cr-go{font:600 12.5px/1.2 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:6px;padding:3px 9px;cursor:pointer}
+.s5cr-cmp{margin:14px 0;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5cr-cmp>summary{padding:10px 14px;cursor:pointer;font-size:14px;color:var(--muted)}
+.s5cr-cmp>summary b{color:var(--text)}
+.s5cr-tw{overflow-x:auto;padding:0 14px}
+.s5cr-t{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.s5cr-t th{font:600 10.5px/1.2 var(--cond,var(--sans));letter-spacing:.09em;text-transform:uppercase;color:var(--faint);text-align:left;padding:8px;border-bottom:1px solid var(--border);white-space:nowrap}
+.s5cr-t td{padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+.s5cr-t .num{text-align:right;white-space:nowrap}
+.s5cr-t tr.s5cr-fresh td{background:var(--warn-soft)}
+.s5cr-t .s5cr-vn{font-size:14px;white-space:nowrap}.s5cr-t .s5cr-vo{white-space:nowrap}.s5cr-t .s5cr-vo{font-size:12.5px}
+.s5cr-tn{font:inherit;font-weight:600;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.s5cr-tp{display:block;font-size:11.5px;color:var(--muted)}
+.s5cr-ok{color:var(--ok)}.s5cr-new{color:var(--warn);font-weight:650}.s5cr-tdl{color:var(--bad)}
+.s5cr-tnote{margin:0;padding:8px 14px 12px;font-size:12.5px;color:var(--muted)}
+.s5cr-flash{outline:3px solid var(--accent);outline-offset:2px}
+/* §5cr: Overview — component versions */
+.s5cr-ov .s5ci-ch{justify-content:space-between}
+.s5cr-chk{font-size:12.5px;color:var(--muted)}
+.s5cr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.s5cr-st{display:flex;flex-direction:column;align-items:flex-start;gap:2px;font:inherit;text-align:left;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;cursor:pointer;color:var(--text)}
+.s5cr-st:hover{border-color:var(--accent)}
+.s5cr-st b{font-size:20px;font-variant-numeric:tabular-nums}
+.s5cr-st span{font-size:12px;color:var(--muted)}
+.s5cr-st.s5cr-warn b{color:var(--warn)}
+.s5cr-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--warn-soft);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-top:8px;cursor:pointer}
+.s5cr-main{display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5cr-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.s5cr-pf{font:600 10.5px/1 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border-radius:999px;padding:4px 8px}
+.s5cr-vv{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.s5cr-dd{display:flex;gap:6px 16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);align-items:center}
+.s5cr-d::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--accent)}
+.s5cr-dseen::before{background:var(--ok)}
+.s5cr-dnone::before{background:none;box-shadow:inset 0 0 0 2px var(--faint)}
+.s5cr-d b{color:var(--text)}
+.s5cr-open{font:600 13px/1.2 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.s5cr-earlier{margin:8px 0 0;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px;align-items:baseline}
+.s5cr-earlier .s5cr-lab{margin-right:6px}
+.s5cr-el{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer}
+@media (max-width:760px){.s5cr-st{padding:6px 8px}.s5cr-st b{font-size:17px}.s5cr-st span{font-size:11.5px}.s5cr-row{grid-template-columns:1fr}.s5cr-tr{grid-template-columns:10px minmax(0,1fr)}.s5cr-tr .s5cr-when{grid-column:2}}
+/* §5cs (8 X 2026): the sentences card — a coloured category chip, a headline that reads as a link,
+   the explanation on its own line, the facts as pills; one rule between sentences */
+.s5bk-3 li{padding:10px 0 11px;border-top:1px solid var(--border-soft);line-height:1.4}
+.s5ci-ten .s5bk-3 li{margin:0}
+.s5bk-3 li::marker{color:var(--faint);font-size:12px;font-weight:600}
+/* §5ct (8 X 2026, owner chose layout A of the mock-up: "too many colours, what dots — not professional; make
+   the technology each sentence is about more visible"). Two colours only: red for "Most urgent", amber for a
+   date to act by. The technology is the heading of each sentence (13 px bold capitals in the text colour);
+   the headline is a link in the text colour with an accent arrow; the description is always its own line;
+   the facts are one grey line, no pills. */
+.s5ci-ten .s5bk-3,.s5bk-3{list-style:none;padding-left:0}
+.s5bk-3 li{padding:14px 0 15px}
+.s5bk-3 li>b.s5bk-k{display:block;width:auto;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;
+ padding:0;border-radius:0;margin:0 0 6px;background:none;color:var(--text)}
+.s5bk-3 li>b.k-urgent{color:var(--bad)}
+.s5bk-link{display:flex;flex-direction:column;gap:0;width:100%;border-radius:6px}
+.s5bk-link .s5bk-itt,.s5ci-ten .s5bk-link .s5bk-itt{color:var(--text);font-weight:650;font-size:15px;line-height:1.45;text-decoration:none}
+.s5bk-link .s5bk-itt::after{content:"\00a0\2192";color:var(--accent);font-weight:600}
+.s5bk-link:hover .s5bk-itt,.s5bk-link:focus-visible .s5bk-itt{text-decoration:underline;text-underline-offset:3px}
+.s5bk-dressed{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.s5bk-its,.s5ci-ten .s5bk-its{color:var(--muted);font-size:13px;line-height:1.45;font-weight:400}
+.s5bk-pills{display:flex;flex-wrap:wrap;gap:4px 6px}
+.s5bk-pill{font-size:11.5px;font-weight:600;line-height:1.5;padding:0 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.s5bk-pill.p-warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.s5bk-pill.p-ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.s5bk-pill.p-bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.s5bk-pill.p-id{font-family:var(--mono);color:var(--text)}
+.s5bk-plain{display:block;color:var(--muted);font-size:13px}
+/* §5ct: the facts as one grey line, separated by middle dots; only a date to act by is amber */
+.s5bk-pills{display:block;font-size:12.5px;color:var(--muted)}
+.s5bk-pill,.s5bk-pill.p-ok,.s5bk-pill.p-bad,.s5bk-pill.p-id{display:inline;padding:0;border:0;border-radius:0;background:none;font-size:12.5px;font-weight:400;color:var(--muted);font-family:inherit}
+.s5bk-pill+.s5bk-pill::before{content:"\00a0\00b7\00a0";color:var(--faint);font-weight:400}
+.s5bk-pill.p-warn{background:none;color:var(--warn);font-weight:600}
+.s5bk-its,.s5ci-ten .s5bk-its{font-size:13.5px;line-height:1.55}
+/* §5ct: the Graph sentence — the most important changes for security, each with what it lets an app do */
+.s5bk-gw{display:flex;flex-direction:column;gap:6px}
+.s5bk-gl{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+.s5bk-gh{font-size:12.5px;color:var(--muted)}
+.s5bk-gi{display:block;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.s5bk-gn{font:600 13px/1.4 var(--mono);color:var(--text);background:none;border:0;padding:0;cursor:pointer}
+.s5bk-gn:hover{text-decoration:underline;text-underline-offset:3px}
+.s5bk-gt{font-size:12px;color:var(--faint)}
+.s5bk-gd{display:block}
+.s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}</style>
 <!--SOC-SHELL part=script1-->
 <script>
 (function () {
@@ -5965,7 +6103,7 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 8 October 2026</b> &middot; published 06:43 Warsaw &middot; 24 September &ndash; 8 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>54</b> deadlines in 60 days<span>&middot; 47 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>987</b> undocumented at Microsoft<span>&middot; 987 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>122</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>44</b> changes since 7 Oct<span>&middot; 12 at Microsoft, 32 in this report</span></a><a class="count" href="#chg14"><b>5856</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -6166,7 +6304,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 8 October 2026, morning pass at 06:43 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 9 October 2026, morning pass at 07:25 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
