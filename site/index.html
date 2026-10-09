@@ -3615,12 +3615,138 @@ ol.s5cu-todo li+li{margin-top:6px}
   table.s5cu-tab tr:last-child{border-bottom:0}
   table.s5cu-tab td{padding:2px 0;border:0;white-space:normal}
   table.s5cu-tab td[data-l]::before{content:attr(data-l);display:block;font:600 10.5px/1.4 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
-  table.s5cu-tab td.s5cu-dt[data-l]::before,table.s5cu-tab td.s5cu-chg[data-l]::before,table.s5cu-tab td.s5cu-v[data-l]::before{display:none}
+  table.s5cu-tl td.s5cu-dt[data-l]::before,table.s5cu-tab td.s5cu-chg[data-l]::before,table.s5cu-tab td.s5cu-v[data-l]::before{display:none}
   table.s5cu-tab td:empty{display:none}
 }
 /* §5cu: the shell builds charts and a product-filter banner for every panel from its table rows; Campaigns has
    no such rows (its list is its own and the global product filter does not apply to it) */
-#tab-campaigns > .aggwrap,#tab-campaigns > .s5bh-ct,#tab-campaigns > .filterbanner{display:none!important}
+#tab-campaigns > .aggwrap,#tab-campaigns > .s5bh-ct,#tab-campaigns > .filterbanner,#tab-campaigns > .ntfbar{display:none!important}
+/* §5cu-b (9 X 2026, owner after the first deployment: "hard to get back to the list; dates, sections and groups
+   hard to see; no reporting; which campaigns matter most now; tables like Jan Bakker's") */
+.s5cu-viz,.s5cu{--s1:#2a78d6;--s2:#eb6834}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5cu{--s1:#3987e5;--s2:#d95926}}
+:root[data-theme="dark"] .s5cu{--s1:#3987e5;--s2:#d95926}
+/* back to the list: a green rounded frame, always on screen */
+.s5cu-backbar{position:sticky;top:calc(var(--s5ca-top,0px) + 6px);z-index:6;display:flex;align-items:center;gap:14px;padding:8px 10px;margin:-4px -10px 0;background:var(--bg);border-radius:12px}
+.s5cu.sec-body .s5cu-back{font:600 15px/1.2 var(--sans);color:var(--ok);background:var(--ok-soft);border:2px solid var(--ok);border-radius:999px;padding:9px 18px;cursor:pointer;white-space:nowrap}
+.s5cu.sec-body .s5cu-back:hover,.s5cu.sec-body .s5cu-back:focus-visible{background:var(--ok);color:var(--surface)}
+.s5cu-bbn{font-size:13.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.s5cu-back2{align-self:flex-start;margin-top:8px}
+.s5cu-crumb a{color:var(--accent);text-decoration:none}
+.s5cu-crumb a:hover{text-decoration:underline}
+/* section headings: a bar, a rule, more air */
+.s5cu-h{font-size:16px!important;padding:2px 0 2px 12px;border-left:4px solid var(--accent);margin-top:10px!important}
+.s5cu-s{gap:10px;margin-top:6px}
+/* list groups: a band you cannot miss */
+.s5cu-grp{font-size:14px;padding:12px 14px;background:var(--accent-soft);border-top:2px solid var(--accent);color:var(--text);letter-spacing:.07em}
+.s5cu-grp span{background:var(--accent);color:var(--surface);border-radius:999px;padding:1px 9px;font-size:12px;letter-spacing:0}
+/* rows: priority on the left edge, readable sizes, hover */
+.s5cu-row{border-left:4px solid transparent}
+.s5cu-row.s5cu-p-critical{border-left-color:var(--bad);background:color-mix(in srgb,var(--bad-soft) 45%,transparent)}
+.s5cu-row.s5cu-p-high{border-left-color:var(--warn)}
+.s5cu-row:not(.s5cu-hd):hover{background:var(--surface-2)}
+.s5cu-nm{font-size:15px}
+.s5cu-sm{font-size:13.5px}
+.s5cu-tech{font-size:14px}
+.s5cu-d{font-size:15px;font-weight:700}
+.s5cu-d.r,.s5cu-d.a,.s5cu-chip{display:inline-block;border-radius:6px;padding:2px 8px}
+.s5cu-d.r{background:var(--bad-soft)}
+.s5cu-d.a{background:var(--warn-soft)}
+.s5cu-chip{font-weight:700;font-size:14px;background:var(--surface-2);color:var(--text)}
+.s5cu-chip.r{background:var(--bad-soft);color:var(--bad)}
+.s5cu-chip.a{background:var(--warn-soft);color:var(--warn)}
+.s5cu-dd{font-size:13px;color:var(--text);opacity:.82}
+.s5cu-pt{display:inline-block;font:700 11px/1.5 var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:0 6px;margin-right:8px;vertical-align:2px}
+.s5cu-pt-critical{background:var(--bad);color:var(--surface)}
+.s5cu-pt-high{background:var(--warn);color:var(--surface)}
+.s5cu-k.s5cu-k-critical b{color:var(--bad)}
+.s5cu-k.s5cu-k-high b{color:var(--warn)}
+/* most important now */
+.s5cu-top{display:flex;flex-direction:column;gap:10px}
+.s5cu-toph{display:flex;flex-direction:column;gap:3px}
+.s5cu-tsub{font-size:13px;color:var(--muted)}
+.s5cu-topg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.s5cu-tc{display:flex;flex-direction:column;gap:7px;text-align:left;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--warn);border-radius:10px;padding:12px 14px;cursor:pointer}
+.s5cu-tc-critical{border-top-color:var(--bad)}
+.s5cu-tc:hover{border-color:var(--accent)}
+.s5cu-tch{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.s5cu-tct{font-size:12.5px;color:var(--muted)}
+.s5cu-tcn{font-size:15px;font-weight:650;line-height:1.35}
+.s5cu-tcn::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-tc .s5cu-chip{align-self:flex-start}
+.s5cu-tcw{font-size:12.5px;color:var(--muted);line-height:1.45}
+.s5cu-pb{border-radius:10px;padding:11px 16px;line-height:1.55;border:1px solid var(--warn);background:var(--warn-soft)}
+.s5cu-pb-critical{border-color:var(--bad);background:var(--bad-soft)}
+/* reporting */
+.s5cu-dash{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:0 14px 14px}
+.s5cu-dash>summary{cursor:pointer;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:13px 0;color:var(--text)}
+.s5cu-vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.s5cu-vc{border:1px solid var(--border-soft);border-radius:10px;padding:12px 14px;background:var(--bg);display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5cu-vch{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.s5cu-vch h4{margin:0;font-size:14.5px;font-weight:650;color:var(--text)}
+.s5cu-vtb{font:inherit;font-size:12px;color:var(--accent);background:none;border:1px solid var(--border);border-radius:6px;padding:2px 9px;cursor:pointer}
+.s5cu-vsub{margin:0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.s5cu-svg{width:100%;height:auto;display:block;overflow:visible}
+.s5cu-grid{stroke:var(--border-soft);stroke-width:1}
+.s5cu-base{stroke:var(--border);stroke-width:1}
+.s5cu-ax{font:11px var(--sans);fill:var(--muted)}
+.s5cu-val{font:600 11px var(--sans);fill:var(--text)}
+.s5cu-dl{font:600 12px var(--sans);fill:var(--text)}
+.s5cu-hit{fill:transparent;cursor:pointer}
+.s5cu-bfill{fill:var(--s1)}
+.s5cu-bar:hover .s5cu-bfill,.s5cu-bar:focus .s5cu-bfill{opacity:.8}
+.s5cu-bar.on .s5cu-bfill{fill:var(--ok)}
+.s5cu-bar:focus{outline:none}
+.s5cu-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.s5cu-line.s5cu-l1{stroke:var(--s1)}
+.s5cu-line.s5cu-l2{stroke:var(--s2)}
+.s5cu-dot{stroke:var(--bg);stroke-width:2}
+.s5cu-dot.s5cu-l1{fill:var(--s1)}
+.s5cu-dot.s5cu-l2{fill:var(--s2)}
+.s5cu-now{stroke:var(--faint);stroke-dasharray:3 3}
+.s5cu-cross{stroke:var(--muted);stroke-width:1}
+.s5cu-lg{display:flex;gap:16px;font-size:12.5px;color:var(--muted)}
+.s5cu-lg span{display:inline-flex;align-items:center;gap:6px}
+.s5cu-lg i{display:inline-block;width:14px;height:3px;border-radius:2px}
+.s5cu-lg i.s5cu-l1{background:var(--s1)}
+.s5cu-lg i.s5cu-l2{background:var(--s2)}
+.s5cu-hb{display:flex;flex-direction:column;gap:4px}
+.s5cu-hbr{display:grid;grid-template-columns:120px minmax(0,1fr) auto;align-items:center;gap:10px;font:inherit;font-size:13px;color:var(--text);background:none;border:0;border-radius:6px;padding:3px 4px;cursor:pointer;text-align:left}
+.s5cu-hbr:hover{background:var(--surface-2)}
+.s5cu-hbr.on{background:var(--ok-soft)}
+.s5cu-hbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5cu-hbt{height:12px;border-radius:0 4px 4px 0}
+.s5cu-hbf{display:block;height:100%;background:var(--s1);border-radius:0 4px 4px 0}
+.s5cu-hbr.on .s5cu-hbf{background:var(--ok)}
+.s5cu-hbv{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.s5cu-hbv b{color:var(--text)}
+.s5cu-wkt{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:8px}
+.s5cu-wkb{display:flex;flex-direction:column;gap:2px;align-items:flex-start;font:inherit;font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 8px;cursor:pointer}
+.s5cu-wkb b{font-size:18px;color:var(--text)}
+.s5cu-wkb.on{background:var(--ok-soft);border-color:var(--ok)}
+table.s5cu-vtab{border-collapse:collapse;font-size:13px;width:100%}
+table.s5cu-vtab th,table.s5cu-vtab td{padding:4px 8px;border-bottom:1px solid var(--border-soft);text-align:left;position:static!important}
+.s5cu-tip{position:fixed;z-index:1000;pointer-events:none;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font:12.5px/1.45 var(--sans);box-shadow:0 4px 14px rgba(0,0,0,.18);max-width:250px}
+.s5cu-tipt{font-weight:650}
+/* card tables: dates and the next row stand out; before / after like a diff */
+td.s5cu-dt{font-size:14.5px}
+table.s5cu-tab tr.next td{background:var(--warn-soft)}
+table.s5cu-tab tr.next td.s5cu-dt{color:var(--warn)}
+td.s5cu-was del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;border-radius:4px;padding:1px 6px}
+td.s5cu-now ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;border-radius:4px;padding:1px 6px;font-weight:600}
+@media (max-width:900px){
+  .s5cu-topg,.s5cu-vgrid{grid-template-columns:minmax(0,1fr)}
+  .s5cu-wkt{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .s5cu-hbr{grid-template-columns:96px minmax(0,1fr) auto}
+  .s5cu-backbar{top:calc(var(--s5ca-top,0px) + 70px)}
+  .s5cu-bbn{display:none}
+}
+table.s5cu-tab td.s5cu-dt{white-space:nowrap}
+table.s5cu-tab td.s5cu-was,table.s5cu-tab td.s5cu-now{min-width:120px}
+.s5cu.sec-body td.s5cu-was del,.s5cu.sec-body td.s5cu-now ins{white-space:normal;display:inline;overflow-wrap:anywhere;line-height:1.7;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+table.s5cu-tab td.s5cu-plain{color:var(--text)}
+.s5cu.sec-body table.s5cu-tab td:not(.s5cu-dt):not(.s5cu-srcc){white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:none!important}
+@media (max-width:640px){.s5cu-dash{padding:0 8px 8px}.s5cu-vc{padding:10px}.s5cu-vgrid{gap:10px}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -21430,7 +21556,8 @@ IdentityDirectoryEvents
   if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
   else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
 
-  var D = null, F = { tech: "", type: "", q: "", only: "" }, open = "";
+  function noF() { return { tech: "", type: "", q: "", only: "", prio: "", month: "" }; }
+  var D = null, F = noF(), open = "";
   var TYPES = ["Retirement", "Enforcement", "Support end", "Required change", "Rollout", "Baseline"];
 
   function goTab() { var b = document.querySelector('nav.anchors .tab[aria-controls="tab-campaigns"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
@@ -21477,6 +21604,11 @@ IdentityDirectoryEvents
     if (F.only === "moved" && !(c.week || []).some(function (e) { return e.type === "moved"; })) return false;
     if (F.only === "closed" && c.status !== "Recently closed") return false;
     if (F.only === "active" && c.status !== "Active") return false;
+    if (F.only === "new7" && !(c.week || []).some(function (e) { return e.type === "new"; })) return false;
+    if (F.only === "mat7" && !(c.week || []).some(function (e) { return e.type === "material"; })) return false;
+    if (F.only === "ms7" && !(c.week || []).some(function (e) { return e.type === "milestone"; })) return false;
+    if (F.prio && (c.prio || {}).level !== F.prio) return false;
+    if (F.month && !msMonths(c)[F.month]) return false;
     if (F.q) { var t = (c.name + " " + (c.summary || "") + " " + (c.members || []).join(" ")).toLowerCase(); if (t.indexOf(F.q.toLowerCase()) < 0) return false; }
     return true;
   }
@@ -21513,6 +21645,153 @@ IdentityDirectoryEvents
     panel.insertBefore(box, panel.firstChild);
   }
 
+  /* ---- priority (owner, 9 X: "which campaigns matter most now — mark them in another colour") ---- */
+  var PL = { critical: "Critical", high: "High" };
+  function prioTag(c) { var p = c.prio || {}; if (!PL[p.level]) return null; var t = el("span", "s5cu-pt s5cu-pt-" + p.level, PL[p.level]); t.title = "Why: " + (p.why || []).join("; "); return t; }
+  function msMonths(c) { var o = {}; (c.milestones || []).forEach(function (x) { if (!x.post && daysTo(x.date) >= 0) o[x.date.slice(0, 7)] = 1; }); return o; }
+  function mlabel(m, full) { var i = +m.slice(5, 7) - 1; return M[i] + (full || i === 0 ? " " + m.slice(0, 4) : ""); }
+  function topBlock(C) {
+    var T = C.filter(function (c) { return c.prio && c.prio.level !== "normal" && c.status === "Active"; })
+      .sort(function (a, b) { return b.prio.score - a.prio.score || (a.next && b.next ? (a.next.date < b.next.date ? -1 : 1) : 0); }).slice(0, 6);
+    if (!T.length) return;
+    var s = el("section", "s5cu-top"), h = el("div", "s5cu-toph");
+    h.appendChild(el("h3", "s5cu-h", "Most important now"));
+    h.appendChild(el("span", "s5cu-tsub", "Ranked by a near date, an enforcement or end of support, security weight (identity, sign-in, Tier 0, the main list's weight) and user impact. Each card says why."));
+    s.appendChild(h);
+    var g = el("div", "s5cu-topg");
+    T.forEach(function (c) {
+      var b = el("button", "s5cu-tc s5cu-tc-" + c.prio.level); b.type = "button"; b.title = "Open the campaign";
+      var t = el("span", "s5cu-tch"); t.appendChild(prioTag(c)); t.appendChild(el("span", "s5cu-tct", c.tech + " · " + c.type)); b.appendChild(t);
+      b.appendChild(el("span", "s5cu-tcn", c.name));
+      if (c.next) b.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), when(c.next)));
+      b.appendChild(el("span", "s5cu-tcw", (c.prio.why || []).slice(0, 3).join(" · ")));
+      b.addEventListener("click", function () { goCard(c.id); }); g.appendChild(b);
+    });
+    s.appendChild(g); body.appendChild(s);
+  }
+
+  /* ---- reporting: four charts, every bar a filter (owner, 9 X: "no reporting or charts — how many start, how many
+     end, how many changed, per technology, a trend line") ---- */
+  var NS = "http://www.w3.org/2000/svg";
+  function sv(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function monthsFrom(m0, n) { var out = [], d = new Date(m0 + "-01T12:00:00Z"); for (var i = 0; i < n; i++) { out.push(d.toISOString().slice(0, 7)); d.setUTCMonth(d.getUTCMonth() + 1); } return out; }
+  var tip = null;
+  function showTip(e, lines) {
+    if (!tip) { tip = el("div", "s5cu-tip"); document.body.appendChild(tip); }
+    tip.textContent = ""; lines.forEach(function (l, i) { var d = el("div", i ? null : "s5cu-tipt"); d.textContent = l; tip.appendChild(d); });
+    tip.hidden = false; var x = e.clientX + 14, y = e.clientY + 14; tip.style.left = Math.min(x, window.innerWidth - 260) + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { if (tip) tip.hidden = true; }
+  function vcard(host, title, sub, head, rows) {
+    var c = el("section", "s5cu-vc"), h = el("div", "s5cu-vch"); h.appendChild(el("h4", null, title));
+    var tb = el("button", "s5cu-vtb", "Table"); tb.type = "button"; tb.setAttribute("aria-pressed", "false"); h.appendChild(tb); c.appendChild(h);
+    if (sub) c.appendChild(el("p", "s5cu-vsub", sub));
+    var plot = el("div", "s5cu-plot"); c.appendChild(plot);
+    var t = own(el("table", "s5cu-vtab")); t.hidden = true; var tr = el("tr"); head.forEach(function (x) { tr.appendChild(el("th", null, x)); }); var th = el("thead"); th.appendChild(tr); t.appendChild(th);
+    var bd = el("tbody"); rows.forEach(function (r) { var r2 = el("tr"); r.forEach(function (x) { r2.appendChild(el("td", null, String(x))); }); bd.appendChild(r2); }); t.appendChild(bd); c.appendChild(t);
+    tb.addEventListener("click", function () { var on = t.hidden; t.hidden = !on; plot.hidden = on; tb.textContent = on ? "Chart" : "Table"; tb.setAttribute("aria-pressed", on ? "true" : "false"); });
+    host.appendChild(c); return plot;
+  }
+  /* vertical bars, one series; click = filter */
+  function vbars(plot, keys, labels, vals, onClick, isOn, tipf) {
+    var W = 560, H = 190, L = 28, B = 26, T = 18, mx = Math.max.apply(null, vals.concat([1])), step = Math.max(1, Math.ceil(mx / 4));
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img", class: "s5cu-svg" });
+    for (var g = 0; g <= mx; g += step) { var y = H - B - (H - B - T) * g / mx; svg.appendChild(sv("line", { x1: L, x2: W, y1: y, y2: y, class: "s5cu-grid" })); var tl = sv("text", { x: L - 6, y: y + 4, class: "s5cu-ax", "text-anchor": "end" }); tl.textContent = g; svg.appendChild(tl); }
+    var bw = (W - L) / keys.length;
+    keys.forEach(function (k, i) {
+      var v = vals[i], h = (H - B - T) * v / mx, x = L + i * bw + 3, w = bw - 6, y = H - B - h;
+      var grp = sv("g", { class: "s5cu-bar" + (isOn(k) ? " on" : ""), tabindex: v ? "0" : "-1" });
+      grp.appendChild(sv("rect", { x: L + i * bw, y: T - 6, width: bw, height: H - B - T + 6, class: "s5cu-hit" }));
+      if (v) { var r = Math.min(4, w / 2, h); grp.appendChild(sv("path", { d: "M" + x + "," + (H - B) + "V" + (y + r) + "Q" + x + "," + y + " " + (x + r) + "," + y + "H" + (x + w - r) + "Q" + (x + w) + "," + y + " " + (x + w) + "," + (y + r) + "V" + (H - B) + "Z", class: "s5cu-bfill" }));
+        var vt = sv("text", { x: x + w / 2, y: y - 4, class: "s5cu-val", "text-anchor": "middle" }); vt.textContent = v; grp.appendChild(vt); }
+      var lt = sv("text", { x: x + w / 2, y: H - 8, class: "s5cu-ax", "text-anchor": "middle" }); lt.textContent = labels[i]; grp.appendChild(lt);
+      grp.addEventListener("pointermove", function (e) { showTip(e, tipf(i)); }); grp.addEventListener("pointerleave", hideTip);
+      if (v) { grp.addEventListener("click", function () { hideTip(); onClick(k); }); grp.addEventListener("keydown", function (e) { if (e.key === "Enter") onClick(k); }); }
+      svg.appendChild(grp);
+    });
+    svg.appendChild(sv("line", { x1: L, x2: W, y1: H - B, y2: H - B, class: "s5cu-base" }));
+    plot.appendChild(svg);
+  }
+  /* horizontal bars, one series; click = filter */
+  function hbars(plot, keys, vals, extra, onClick, isOn) {
+    var mx = Math.max.apply(null, vals.concat([1])), box = el("div", "s5cu-hb");
+    keys.forEach(function (k, i) {
+      var b = el("button", "s5cu-hbr" + (isOn(k) ? " on" : "")); b.type = "button"; b.title = "Show only " + k;
+      b.appendChild(el("span", "s5cu-hbl", k));
+      var tr = el("span", "s5cu-hbt"), f = el("span", "s5cu-hbf"); f.style.width = Math.max(2, Math.round(100 * vals[i] / mx)) + "%"; tr.appendChild(f); b.appendChild(tr);
+      var v = el("span", "s5cu-hbv"); v.appendChild(el("b", null, String(vals[i]))); if (extra[i]) v.appendChild(document.createTextNode(" " + extra[i])); b.appendChild(v);
+      b.addEventListener("click", function () { onClick(k); }); box.appendChild(b);
+    });
+    plot.appendChild(box);
+  }
+  /* two lines on one axis (counts of campaigns), crosshair tooltip, a "today" rule */
+  function lines2(plot, keys, labels, A, Bv, nameA, nameB, nowIdx) {
+    var W = 560, H = 200, L = 28, B = 26, T = 22, mx = Math.max.apply(null, A.concat(Bv, [1])), step = Math.max(1, Math.ceil(mx / 4));
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img", class: "s5cu-svg" });
+    function X(i) { return L + 8 + (W - L - 16) * i / (keys.length - 1); } function Y(v) { return H - B - (H - B - T) * v / mx; }
+    for (var g = 0; g <= mx; g += step) { svg.appendChild(sv("line", { x1: L, x2: W, y1: Y(g), y2: Y(g), class: "s5cu-grid" })); var tl = sv("text", { x: L - 6, y: Y(g) + 4, class: "s5cu-ax", "text-anchor": "end" }); tl.textContent = g; svg.appendChild(tl); }
+    keys.forEach(function (k, i) { if (i % 2 && keys.length > 12) return; var t = sv("text", { x: X(i), y: H - 8, class: "s5cu-ax", "text-anchor": "middle" }); t.textContent = labels[i]; svg.appendChild(t); });
+    svg.appendChild(sv("line", { x1: X(nowIdx), x2: X(nowIdx), y1: T - 10, y2: H - B, class: "s5cu-now" }));
+    var nt = sv("text", { x: X(nowIdx) + 4, y: T - 2, class: "s5cu-ax" }); nt.textContent = "this month"; svg.appendChild(nt);
+    [[A, "s5cu-l1", nameA], [Bv, "s5cu-l2", nameB]].forEach(function (s) {
+      svg.appendChild(sv("path", { d: s[0].map(function (v, i) { return (i ? "L" : "M") + X(i) + "," + Y(v); }).join(""), class: "s5cu-line " + s[1] }));
+      var pk = s[0].indexOf(Math.max.apply(null, s[0])), lab = sv("text", { x: X(pk) + 8, y: Y(s[0][pk]) + 4, class: "s5cu-dl" }); lab.textContent = s[2] + " " + s[0][pk]; svg.appendChild(lab);
+    });
+    var cross = sv("line", { x1: 0, x2: 0, y1: T, y2: H - B, class: "s5cu-cross" }); cross.style.display = "none"; svg.appendChild(cross);
+    var dots = [sv("circle", { r: 4.5, class: "s5cu-dot s5cu-l1" }), sv("circle", { r: 4.5, class: "s5cu-dot s5cu-l2" })]; dots.forEach(function (d) { d.style.display = "none"; svg.appendChild(d); });
+    var hit = sv("rect", { x: L, y: 0, width: W - L, height: H, class: "s5cu-hit" }); svg.appendChild(hit);
+    hit.addEventListener("pointermove", function (e) {
+      var r = svg.getBoundingClientRect(), px = (e.clientX - r.left) * W / r.width, i = Math.max(0, Math.min(keys.length - 1, Math.round((px - L - 8) / ((W - L - 16) / (keys.length - 1)))));
+      cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.style.display = "";
+      [A, Bv].forEach(function (s, j) { dots[j].setAttribute("cx", X(i)); dots[j].setAttribute("cy", Y(s[i])); dots[j].style.display = ""; });
+      showTip(e, [mlabel(keys[i], true), nameA + ": " + A[i], nameB + ": " + Bv[i]]);
+    });
+    hit.addEventListener("pointerleave", function () { cross.style.display = "none"; dots.forEach(function (d) { d.style.display = "none"; }); hideTip(); });
+    plot.appendChild(svg);
+    var lg = el("div", "s5cu-lg"); [["s5cu-l1", nameA], ["s5cu-l2", nameB]].forEach(function (x) { var s = el("span"); s.appendChild(el("i", x[0])); s.appendChild(document.createTextNode(x[1])); lg.appendChild(s); }); plot.appendChild(lg);
+  }
+  function dashboard(C) {
+    var wrap = el("details", "s5cu-dash"); wrap.open = true;
+    var sm = el("summary", null, "Reporting · " + C.length + " campaigns"); wrap.appendChild(sm);
+    var grid = el("div", "s5cu-vgrid"); wrap.appendChild(grid);
+    var now = today().slice(0, 7);
+    /* 1. milestones ahead */
+    var ahead = monthsFrom(now, 12), cnt = ahead.map(function (m) { return C.filter(function (c) { return msMonths(c)[m]; }).length; });
+    var p1 = vcard(grid, "Milestones ahead, by month", "Campaigns with a date in each of the next 12 months (a campaign counts once per month). A bar filters the list.",
+      ["Month", "Campaigns with a milestone"], ahead.map(function (m, i) { return [mlabel(m, true), cnt[i]]; }));
+    vbars(p1, ahead, ahead.map(function (m) { return mlabel(m); }), cnt, function (m) { F.month = F.month === m ? "" : m; render(); }, function (m) { return F.month === m; },
+      function (i) { return [mlabel(ahead[i], true), cnt[i] + " campaign" + (cnt[i] === 1 ? "" : "s") + " with a milestone", cnt[i] ? "click to filter the list" : ""].filter(Boolean); });
+    /* 2. started vs ending — trend */
+    var m0 = monthsFrom(now, 1)[0], back = new Date(now + "-01T12:00:00Z"); back.setUTCMonth(back.getUTCMonth() - 9);
+    var span = monthsFrom(back.toISOString().slice(0, 7), 22), nowIdx = span.indexOf(m0);
+    function firstPost(c) { var p0 = (c.milestones || []).filter(function (x) { return x.post; })[0]; return (p0 ? p0.date : c.firstSeen || "").slice(0, 7); }
+    var st = span.map(function (m) { return C.filter(function (c) { return firstPost(c) === m; }).length; });
+    var en = span.map(function (m) { return C.filter(function (c) { return c.final && c.final.date.slice(0, 7) === m; }).length; });
+    var p2 = vcard(grid, "Started and ending, by month", "Started = the month of a campaign's first Message Center post; ending = the month of its last milestone. Months after this one show what is already scheduled.",
+      ["Month", "Started", "Ending"], span.map(function (m, i) { return [mlabel(m, true), st[i], en[i]]; }));
+    lines2(p2, span, span.map(function (m) { return mlabel(m); }), st, en, "Started", "Ending", nowIdx);
+    /* 3. by technology */
+    var tc = {}, crit = {}; C.forEach(function (c) { tc[c.tech] = (tc[c.tech] || 0) + 1; if ((c.prio || {}).level === "critical" || (c.prio || {}).level === "high") crit[c.tech] = (crit[c.tech] || 0) + 1; });
+    var tk = Object.keys(tc).sort(function (a, b) { return tc[b] - tc[a] || a.localeCompare(b); });
+    var p3 = vcard(grid, "Campaigns per technology", "All campaigns in the list; the note counts critical and high priority. A bar filters the list.",
+      ["Technology", "Campaigns", "Critical or high"], tk.map(function (t) { return [t, tc[t], crit[t] || 0]; }));
+    hbars(p3, tk, tk.map(function (t) { return tc[t]; }), tk.map(function (t) { return crit[t] ? "· " + crit[t] + " critical or high" : ""; }), function (t) { F.tech = F.tech === t ? "" : t; render(); }, function (t) { return F.tech === t; });
+    /* 4. by type + this week */
+    var ty = {}; C.forEach(function (c) { ty[c.type] = (ty[c.type] || 0) + 1; });
+    var tyk = TYPES.filter(function (t) { return ty[t]; });
+    var ev = (D.events || []).filter(function (e) { return daysTo(e.day) >= -6; }), evc = function (t) { return ev.filter(function (e) { return e.type === t; }).length; };
+    var p4 = vcard(grid, "By type · changes in the last 7 days", "Type of change, then what the collector recorded this week. Every number filters the list.",
+      ["Type or change", "Count"], tyk.map(function (t) { return [t, ty[t]]; }).concat([["new campaigns (7 days)", evc("new")], ["dates moved (7 days)", evc("moved")], ["new milestones (7 days)", evc("milestone")], ["new material (7 days)", evc("material")], ["closed (7 days)", evc("closed")]]));
+    hbars(p4, tyk, tyk.map(function (t) { return ty[t]; }), tyk.map(function () { return ""; }), function (t) { F.type = F.type === t ? "" : t; render(); }, function (t) { return F.type === t; });
+    var wk = el("div", "s5cu-wkt");
+    [["new", "new campaigns", "new7"], ["moved", "dates moved", "moved"], ["milestone", "new milestones", "ms7"], ["material", "new material", "mat7"], ["closed", "closed", "closed"]].forEach(function (x) {
+      var b = el("button", "s5cu-wkb" + (F.only === x[2] ? " on" : "")); b.type = "button"; b.appendChild(el("b", null, String(evc(x[0])))); b.appendChild(el("span", null, x[1]));
+      b.title = "Show the campaigns with " + x[1] + " in the last 7 days"; b.addEventListener("click", function () { F.only = F.only === x[2] ? "" : x[2]; render(); }); wk.appendChild(b);
+    });
+    p4.appendChild(wk);
+    body.appendChild(wrap);
+  }
+
   /* ---- the list ---- */
   function chip(label, n, on, fn) {
     var b = el("button", "s5cu-f" + (on ? " on" : "")); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false");
@@ -21532,9 +21811,17 @@ IdentityDirectoryEvents
       b.appendChild(el("b", null, String(n))); b.appendChild(document.createTextNode(" " + txt)); b.title = "Show only these";
       b.addEventListener("click", function () { F.only = F.only === only ? "" : only; render(); }); kp.appendChild(b);
     }
+    function kpiP(n, txt, lvl) {
+      var b = el("button", "s5cu-k s5cu-k-" + lvl + (F.prio === lvl ? " on" : "")); b.type = "button";
+      b.appendChild(el("b", null, String(n))); b.appendChild(document.createTextNode(" " + txt)); b.title = "Show only " + txt + " campaigns";
+      b.addEventListener("click", function () { F.prio = F.prio === lvl ? "" : lvl; render(); }); kp.appendChild(b);
+    }
+    kpiP(k.critical || 0, "critical", "critical"); kpiP(k.high || 0, "high priority", "high");
     kpi(k.active || 0, "active", "", "active"); kpi(k.in7 || 0, "milestones in 7 days", "r", "in7"); kpi(k.in30 || 0, "in 30 days", "a", "in30");
     kpi(k.moved7 || 0, "dates moved this week", "", "moved"); kpi(k.closed30 || 0, "closed in the last 30 days", "", "closed");
+    topBlock(C);
     body.appendChild(kp);
+    dashboard(C);
     /* filters */
     var fb = el("div", "s5cu-fb"), tc = {}, ty = {};
     C.forEach(function (c) { tc[c.tech] = (tc[c.tech] || 0) + 1; ty[c.type] = (ty[c.type] || 0) + 1; });
@@ -21550,12 +21837,15 @@ IdentityDirectoryEvents
     r2.appendChild(q); fb.appendChild(r2);
     body.appendChild(fb);
     var shown = C.filter(pass);
-    if (F.tech || F.type || F.q || F.only) {
+    if (F.tech || F.type || F.q || F.only || F.prio || F.month) {
       var gb = el("div", "s5cu-green"); var parts = [];
       if (F.tech) parts.push(F.tech); if (F.type) parts.push(F.type); if (F.q) parts.push("“" + F.q + "”");
-      if (F.only) parts.push({ active: "active", in7: "milestone within 7 days", in30: "milestone within 30 days", moved: "date moved this week", closed: "closed in the last 30 days" }[F.only]);
+      if (F.only) parts.push({ active: "active", in7: "milestone within 7 days", in30: "milestone within 30 days", moved: "date moved this week", closed: "closed in the last 30 days",
+        new7: "new this week", mat7: "new material this week", ms7: "new milestone this week" }[F.only]);
+      if (F.prio) parts.push(PL[F.prio] + " priority");
+      if (F.month) parts.push("a milestone in " + mlabel(F.month, true));
       gb.appendChild(el("span", null, "Filtered: " + parts.join(" · ") + " — " + plural(shown.length, "campaign") + " of " + C.length));
-      var cl = el("button", "s5cu-clear", "Clear"); cl.type = "button"; cl.addEventListener("click", function () { F = { tech: "", type: "", q: "", only: "" }; render(); });
+      var cl = el("button", "s5cu-clear", "Clear"); cl.type = "button"; cl.addEventListener("click", function () { F = noF(); render(); });
       gb.appendChild(cl); body.appendChild(gb);
     }
     var list = el("div", "s5cu-list"); list.setAttribute("role", "table"); list.setAttribute("aria-label", "Campaigns");
@@ -21574,8 +21864,8 @@ IdentityDirectoryEvents
     body.appendChild(el("p", "s5cu-legend", "Materials: MC = Message Center posts · Microsoft = Microsoft blogs, Learn and the brief’s own sources · Community = articles from the watched community sources · Video = the watched YouTube channels (" + (k.channels || 0) + "). Every number opens the campaign at that list. Red: a milestone within 7 days · amber: within 30 days. Dates written as “mid Oct” are Microsoft’s own approximate dates, sorted as the 15th."));
   }
   function row(c) {
-    var r = el("div", "s5cu-row"); r.setAttribute("role", "row"); r.setAttribute("data-cid", c.id);
-    var c1 = el("span", "s5cu-c1"); var nm = el("a", "s5cu-nm", c.name); nm.href = "#tab=campaigns&c=" + encodeURIComponent(c.id);
+    var r = el("div", "s5cu-row s5cu-p-" + ((c.prio || {}).level || "normal")); r.setAttribute("role", "row"); r.setAttribute("data-cid", c.id);
+    var c1 = el("span", "s5cu-c1"); var pt = prioTag(c); if (pt) c1.appendChild(pt); var nm = el("a", "s5cu-nm", c.name); nm.href = "#tab=campaigns&c=" + encodeURIComponent(c.id);
     nm.addEventListener("click", function (e) { e.preventDefault(); goCard(c.id); }); c1.appendChild(nm);
     if (c.summary && c.summary !== c.name) c1.appendChild(el("span", "s5cu-sm", c.summary));
     r.appendChild(c1);
@@ -21599,14 +21889,20 @@ IdentityDirectoryEvents
 
   /* ---- the card ---- */
   /* every cell carries its column name, so a phone can show the table as stacked rows */
-  function labels(t) { var hs = [].map.call(t.querySelectorAll("thead th"), function (x) { return x.textContent; });
+  /* the shell's table tools (search bar, CSV, Found in, groups) are for item tables; these are the layer's own */
+  function own(t) { t.dataset.s11 = "1"; t.dataset.s12 = "1"; t.dataset.mc = "1"; t.setAttribute("data-s5cu", "1"); t.setAttribute("data-s5bi-csv", "1"); return t; }
+  function labels(t) { own(t); var hs = [].map.call(t.querySelectorAll("thead th"), function (x) { return x.textContent; });
     [].forEach.call(t.querySelectorAll("tbody tr"), function (r) { [].forEach.call(r.children, function (td, i) { if (hs[i] && td.colSpan < 2) td.setAttribute("data-l", hs[i]); }); }); return t; }
   function h2(t) { return el("h3", "s5cu-h", t); }
   function renderCard(c) {
     body.innerHTML = "";
-    var back = el("button", "s5cu-back", "← All campaigns"); back.type = "button"; back.addEventListener("click", goList); body.appendChild(back);
+    var bar = el("div", "s5cu-backbar");
+    var back = el("button", "s5cu-back", "← All campaigns"); back.type = "button"; back.title = "Back to the list of all campaigns"; back.addEventListener("click", goList); bar.appendChild(back);
+    bar.appendChild(el("span", "s5cu-bbn", c.name));
+    body.appendChild(bar);
     var hd = el("div", "s5cu-ch");
-    hd.appendChild(el("span", "s5cu-crumb", "Campaigns · " + c.tech + " · " + c.type));
+    var cr = el("span", "s5cu-crumb"), crl = el("a", null, "Campaigns"); crl.href = "#tab=campaigns"; crl.addEventListener("click", function (e) { e.preventDefault(); goList(); });
+    cr.appendChild(crl); cr.appendChild(document.createTextNode(" · " + c.tech + " · " + c.type)); hd.appendChild(cr);
     hd.appendChild(el("h2", "s5cu-t", c.name));
     if (c.summary && c.summary !== c.name) hd.appendChild(el("p", "s5cu-sum", c.summary));
     var f = el("div", "s5cu-facts");
@@ -21621,6 +21917,11 @@ IdentityDirectoryEvents
     if ((c.related || []).length) { var rs = el("span"); rs.appendChild(document.createTextNode("Related ")); c.related.forEach(function (x, i) { if (i) rs.appendChild(document.createTextNode(" · "));
       var a = el("a", "s5cu-rel", x.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(x.id); a.addEventListener("click", function (e) { e.preventDefault(); goCard(x.id); }); rs.appendChild(a); }); f.appendChild(rs); }
     hd.appendChild(f); body.appendChild(hd);
+    var pr = c.prio || {};
+    if (PL[pr.level]) {
+      var pb = el("div", "s5cu-pb s5cu-pb-" + pr.level); pb.appendChild(el("b", null, PL[pr.level] + " priority — why: "));
+      pb.appendChild(document.createTextNode((pr.why || []).join(" · ") + ".")); body.appendChild(pb);
+    }
     if (c.component) compBlock(c);
     /* what changes */
     var rows = c.changes || [];
@@ -21639,7 +21940,9 @@ IdentityDirectoryEvents
       });
       t.appendChild(tb); tw.appendChild(labels(t)); s1.appendChild(tw); body.appendChild(s1);
     }
+    posts(c);
     timeline(c);
+    changeLog(c);
     if ((c.todo || []).length) {
       var s3 = el("section", "s5cu-s"); s3.id = "s5cu-todo"; s3.appendChild(h2("What to do"));
       var ol = el("ol", "s5cu-todo");
@@ -21652,6 +21955,49 @@ IdentityDirectoryEvents
       body.appendChild(s4);
     }
     materials(c);
+    var back2 = el("button", "s5cu-back s5cu-back2", "← All campaigns"); back2.type = "button"; back2.addEventListener("click", goList); body.appendChild(back2);
+  }
+  /* Message Center posts of the campaign and how each one changed — the shape of Jan Bakker's tracking tables
+     (owner, 9 X): MC number, title, published, last updated; then a change log with before and after */
+  function srcA(c, id, link) {
+    if (link) { var a = el("a", "s5cu-src", id); a.href = link; a.target = "_blank"; a.rel = "noopener"; return a; }
+    return srcLink(c, id);
+  }
+  function posts(c) {
+    var P = c.posts || []; if (!P.length) return;
+    var s = el("section", "s5cu-s"); s.id = "s5cu-posts"; s.appendChild(h2("Message Center posts · " + P.length));
+    var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab"), tr = el("tr");
+    ["Post", "Title", "Published", "Last updated", "Changes recorded"].forEach(function (x) { tr.appendChild(el("th", null, x)); });
+    var th = el("thead"); th.appendChild(tr); t.appendChild(th); var tb = el("tbody");
+    P.slice().sort(function (a, b) { return (b.published || "") < (a.published || "") ? -1 : 1; }).forEach(function (p) {
+      var r = el("tr"), td = el("td", "s5cu-srcc"); td.appendChild(srcA(c, p.id, p.link)); r.appendChild(td);
+      r.appendChild(el("td", "s5cu-chg", p.title));
+      r.appendChild(el("td", "s5cu-dt", p.published ? dmy(p.published) : "—"));
+      var up = p.updated && p.updated !== p.published; r.appendChild(el("td", "s5cu-dt" + (up && daysTo(p.updated) >= -7 ? " s5cu-a" : ""), up ? dmy(p.updated) : "—"));
+      var n = (c.log || []).filter(function (e) { return e.id === p.id; }).length; r.appendChild(el("td", null, n ? String(n) : "—"));
+      tb.appendChild(r);
+    });
+    t.appendChild(tb); tw.appendChild(labels(t)); s.appendChild(tw); body.appendChild(s);
+  }
+  function changeLog(c) {
+    var Lg = c.log || []; if (!Lg.length) return;
+    var s = el("section", "s5cu-s"); s.id = "s5cu-log"; s.appendChild(h2("Change log · before and after"));
+    var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab"), tr = el("tr");
+    ["Seen", "Post", "What changed", "Before", "After"].forEach(function (x) { tr.appendChild(el("th", null, x)); });
+    var th = el("thead"); th.appendChild(tr); t.appendChild(th); var tb = el("tbody");
+    function fmtv(v) { return /^\d{4}-\d\d-\d\d$/.test(v || "") ? dmy(v) : (v || ""); }
+    Lg.forEach(function (e) {
+      var r = el("tr"); r.appendChild(el("td", "s5cu-dt", dmy(e.date)));
+      var td = el("td", "s5cu-srcc"); td.appendChild(srcA(c, e.id, e.link)); r.appendChild(td);
+      r.appendChild(el("td", "s5cu-chg", e.what));
+      var b = el("td", "s5cu-was"); if (e.before) b.appendChild(el("del", null, fmtv(e.before))); else b.textContent = "—"; r.appendChild(b);
+      var plain = /^(Entered the brief|Microsoft's update note|Microsoft edited)/.test(e.what || "");
+      var a = el("td", plain ? "s5cu-plain" : "s5cu-now"); if (e.after && !plain) a.appendChild(el("ins", null, fmtv(e.after))); else a.textContent = e.after || "—"; r.appendChild(a);
+      tb.appendChild(r);
+    });
+    t.appendChild(tb); tw.appendChild(labels(t)); s.appendChild(tw);
+    s.appendChild(el("p", "s5cu-legend", "From the brief's register (14 days, then kept here), the tenant's Message Center (titles, dates, and that Microsoft edited the text — the text itself is not copied), Microsoft's own \u201cUpdated\u201d notes and the dates this collector saw move."));
+    body.appendChild(s);
   }
   function timeline(c) {
     var ms = c.milestones || []; if (!ms.length) return;
@@ -21747,7 +22093,7 @@ IdentityDirectoryEvents
       mid.appendChild(el("span", "s5cu-ovw", c.tech + (c.next.text && c.next.text.indexOf(c.name) < 0 ? " · " + c.next.text : ""))); r.appendChild(mid);
       r.appendChild(el("span", "s5cu-ovd", approx(c.next) ? "approx." : inDays(n))); card.appendChild(r);
     });
-    if (C.length > 8) { var more = el("button", "s5ci-inl", "All " + C.length + " in the next 30 days ›"); more.type = "button"; more.addEventListener("click", function () { F = { tech: "", type: "", q: "", only: "in30" }; goTab(); goList(); }); card.appendChild(more); }
+    if (C.length > 8) { var more = el("button", "s5ci-inl", "All " + C.length + " in the next 30 days ›"); more.type = "button"; more.addEventListener("click", function () { F = noF(); F.only = "in30"; goTab(); goList(); }); card.appendChild(more); }
     var cr = host.querySelector(".s5cr-ov");
     if (cr && cr.parentNode === host) host.insertBefore(card, cr.nextSibling); else host.appendChild(card);
   }
@@ -21767,7 +22113,7 @@ IdentityDirectoryEvents
     m.appendChild(el("span", "s5bk-its", txt));
     var pw = el("span", "s5bk-pills"); pw.appendChild(el("span", "s5bk-pill p-warn", C.length ? "first " + dm(C[0].next.date) : "due " + dm(nx.next.date)));
     pw.appendChild(el("span", "s5bk-pill", (D.counts || {}).active + " active campaigns")); m.appendChild(pw); b.appendChild(m);
-    b.addEventListener("click", function () { if (C.length) { F = { tech: "", type: "", q: "", only: "in7" }; goTab(); goList(); } else goCard(nx.id); });
+    b.addEventListener("click", function () { if (C.length) { F = noF(); F.only = "in7"; goTab(); goList(); } else goCard(nx.id); });
     li.appendChild(b);
     /* after the component sentence when there is one, else at the end */
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { var k = x.querySelector(":scope > b"); return k && /^component/i.test(k.textContent || ""); })[0];
