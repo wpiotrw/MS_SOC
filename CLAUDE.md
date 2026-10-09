@@ -26590,6 +26590,14 @@ zdarzenia wczesniejszych uruchomien (zostawalo tylko to, co ruszylo sie od poprz
 zmiany, w poludnie zera). Teraz dzisiejsze zdarzenia zostaja, a te same zdarzenia z dwoch uruchomien sa jednym
 (klucz: dzien, kampania, typ, zrodlo, bylo, jest, link). Pasek nazywa sie „Today, all runs · <dzien>".
 
+**§5cv-b (9 X 2026, wlasciciel o Overview: „zrobiles jedna duza ramke zamiast per informacja / per sekcja; do tego
+zobacz, jak zlewaja sie te informacje — nie widac tytulow, trudno znalezc, gdzie jest poczatek i koniec sekcji").**
+Karty Overview (`section.s5ci-card`) nie dostaja juz ramki po najechaniu — dostaja ja ich wiersze (`.s5ci-tr`,
+`.s5cu-ovr`, `.s5ci-card tbody tr`) i zdania. Kazde zdanie „Today in N sentences" (`.s5ci-ten .s5bk-3 li`) to osobny
+kafel (ramka, zaokraglenie, tlo `--bg`, odstep 12 px) z wlasna niebieska ramka po najechaniu; etykieta zdania to
+kolorowy chip (czerwony Most urgent, zielony Biggest new item, niebieski Graph API & roles i News, bursztynowy
+komponenty, szary technologia), tytul 15 px.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -36240,18 +36248,35 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
    others do not have it - can we have it everywhere, also in /diff/?"): the same blue frame on every card, tile,
    panel and list row of every tab. An outline drawn inside the box: it follows the rounded corners, moves nothing,
    keeps the coloured stripe of a card, is not cut by a scrolling parent, and is painted over the children. */
-section.s5ci-card,button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
+button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
 div.s5cn-cmpsum,a.jtile,div.rbpanel,details.s5cr-cmp,article.cmp,div.stat,div.kq,div.s5bn,details.s5cu-dash,section.s5cu-vc,
-details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
-section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
+details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-ovr,.s5ci-card tbody tr,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
+button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
 div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,article.cmp:hover,
 div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,div.callout:hover,
-.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
+.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
  outline:2px solid var(--accent);outline-offset:-2px}
-@media (hover:none){section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
+@media (hover:none){button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
  details.mcb-gridbox:hover,div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,
  article.cmp:hover,div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,
- div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
+ div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-ovr:hover,.s5ci-card tbody tr:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
+
+/* §5cv-b (9 X 2026, owner on the Overview: "you drew one big frame instead of one per piece of information / per
+   section; and the sentences run into each other - the titles do not stand out, hard to see where a section starts
+   and ends"): the frame belongs to each piece, not to the whole card - the cards of the Overview no longer frame,
+   their rows and sentences do. Every sentence of "Today in N sentences" is a tile of its own, its label a coloured
+   chip (red = most urgent, green = new, blue = Graph & roles and news, amber = components, grey = a technology). */
+.s5ci-ten .s5bk-3 li{border:1px solid var(--border);border-top:1px solid var(--border);border-radius:10px;background:var(--bg);
+ padding:12px 14px 13px;margin:0 0 12px;break-inside:avoid;transition:outline-color .12s ease}
+.s5ci-ten .s5bk-3 li:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.s5ci-ten .s5bk-3 li>b.s5bk-k{display:inline-block;margin:0 0 9px;padding:3px 10px;border-radius:999px;font-size:11.5px;line-height:1.35;
+ letter-spacing:.06em;border:1px solid var(--border);background:var(--surface);color:var(--text)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-urgent{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-new{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-graph,.s5ci-ten .s5bk-3 li>b.s5bk-k.k-news{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-comp{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.s5ci-ten .s5bk-3 li .s5bk-itt{font-size:15px}
+@media (hover:none){.s5ci-ten .s5bk-3 li:hover{outline:none}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
