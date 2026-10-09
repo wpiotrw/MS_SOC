@@ -3797,6 +3797,22 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
 .s5cu-ch>.s5cu-pl{font-size:13.5px;margin-top:8px}
 .s5cu-ch>.s5cu-pl a.s5cu-src{font-size:13.5px}
 @media (max-width:640px){.s5cu-kt{grid-template-columns:repeat(2,minmax(0,1fr))}.s5cu-ktv{font-size:18px}}
+/* §5cv (9 X 2026, owner: "in Campaigns, hovering a section draws a blue frame - super; Overview, Today and the
+   others do not have it - can we have it everywhere, also in /diff/?"): the same blue frame on every card, tile,
+   panel and list row of every tab. An outline drawn inside the box: it follows the rounded corners, moves nothing,
+   keeps the coloured stripe of a card, is not cut by a scrolling parent, and is painted over the children. */
+section.s5ci-card,button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
+div.s5cn-cmpsum,a.jtile,div.rbpanel,details.s5cr-cmp,article.cmp,div.stat,div.kq,div.s5bn,details.s5cu-dash,section.s5cu-vc,
+details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
+section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
+div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,article.cmp:hover,
+div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,div.callout:hover,
+.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
+ outline:2px solid var(--accent);outline-offset:-2px}
+@media (hover:none){section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
+ details.mcb-gridbox:hover,div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,
+ article.cmp:hover,div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,
+ div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -21676,12 +21692,12 @@ IdentityDirectoryEvents
       var w = { added: 3, removed: 2, changed: 1 }; if (!kc[e.cid] || w[k] > w[kc[e.cid]]) kc[e.cid] = k;
     });
     Object.keys(kc).forEach(function (cid) { n[kc[cid]]++; });
-    var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns since the previous run");
-    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Since the previous run · " + dm(day)));
+    var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns today, all runs");
+    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Today, all runs · " + dm(day)));
     [["added", "+", "new campaigns"], ["changed", "~", "campaigns changed"], ["removed", "−", "closed"]].forEach(function (k) {
       var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]); if (!n[k[0]]) b.classList.add("zero"); h.appendChild(b); });
     box.appendChild(h);
-    if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved in the latest run: no new campaign, no date moved, no new milestone or material, none closed."));
+    if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved today: no new campaign, no date moved, no new milestone or material, none closed."));
     else {
       /* §5cu-c (owner, 9 X: "a table with technology, description and date, not one run-on line; one campaign once"):
          one row per campaign, every change of that campaign in its own line */
