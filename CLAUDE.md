@@ -6065,6 +6065,13 @@ details.dhow{margin:8px 0 0}
 details.dhow>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent)}
 .mcol{font-size:12.5px;color:var(--muted);white-space:nowrap}
 .mcol b{color:var(--text)}
+/* §5cv (9 X 2026, owner: "the blue frame on hover everywhere, also in /diff/"): the frame the brief's campaign
+   cards draw on hover, on every tile, box and table row of this page - an outline inside the box, so nothing moves */
+a.fact,.dwin,.dwin .dwin-aft,details.s9adv,.dnavstack,.dstale,.tw tbody tr{transition:outline-color .12s ease}
+a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,.tw tbody tr:hover{
+ outline:2px solid var(--accent);outline-offset:-2px}
+@media (hover:none){a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,
+ .tw tbody tr:hover{outline:none}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -26569,6 +26576,20 @@ jesli sam nie jest swiezy; material z dniem starszym niz `newCampaignDays` nie j
 sie przed kolejna sekcja posta („[Impact on Your Organization]"). Kampanie pokrewne laczy tez jedno slowo-nazwa
 wspolne dla najwyzej trzech kampanii (PowerShell: `-Credential` i ExchangeOnlineManagement 3.10.1).
 
+**§5cv (9 X 2026, wlasciciel: „w Campaigns, jak najade na sekcje, robi sie niebieska ramka — super; w Overview, Today
+tego nie ma — wdrozmy wszedzie, tez w diff"; „czemu w menu pionowym przy Campaigns nie ma zadnych liczb?").**
+(1) **Niebieska ramka po najechaniu wszedzie**: `outline:2px solid var(--accent);outline-offset:-2px` (wewnatrz
+pudelka: idzie za zaokragleniem, niczego nie przesuwa, zostawia kolorowy pasek karty, nie przycina go przewijany
+rodzic) na kartach Overview (`section.s5ci-card`), kaflach naglowka (`button.k5`), wierszach Today/Deadlines/New
+(`.s5ci-pick`, `.s5ci-tr`), wierszach list Message Center/Learn/Blogs/Community (`li.mcb-row`), kaflach i kartach
+komponentow, statystykach, panelach katalogow, kartach Hunting, wierszach kazdej tabeli (`.tw tbody tr`) i w
+Campaigns; w `/diff/` (`make_diff.py` CSS): kafle `a.fact`, `.dwin`, `details.s9adv`, `.dnavstack`, `.dstale`,
+wiersze tabel. Na ekranach dotykowych (`hover:none`) ramki nie ma. (2) **Liczby Campaigns w menu bocznym**: menu
+czyta trzy liczby z paska zmian kampanii, a kazde uruchomienie kolektora w ciagu dnia wyrzucalo dzisiejsze
+zdarzenia wczesniejszych uruchomien (zostawalo tylko to, co ruszylo sie od poprzedniego uruchomienia — rano
+zmiany, w poludnie zera). Teraz dzisiejsze zdarzenia zostaja, a te same zdarzenia z dwoch uruchomien sa jednym
+(klucz: dzien, kampania, typ, zrodlo, bylo, jest, link). Pasek nazywa sie „Today, all runs · <dzien>".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -34504,12 +34525,12 @@ odtad CZTERNASCIE (4-17).**
       var w = { added: 3, removed: 2, changed: 1 }; if (!kc[e.cid] || w[k] > w[kc[e.cid]]) kc[e.cid] = k;
     });
     Object.keys(kc).forEach(function (cid) { n[kc[cid]]++; });
-    var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns since the previous run");
-    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Since the previous run · " + dm(day)));
+    var box = el("div", "s5bn s5cu-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in campaigns today, all runs");
+    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Today, all runs · " + dm(day)));
     [["added", "+", "new campaigns"], ["changed", "~", "campaigns changed"], ["removed", "−", "closed"]].forEach(function (k) {
       var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + n[k[0]] + " " + k[2]); if (!n[k[0]]) b.classList.add("zero"); h.appendChild(b); });
     box.appendChild(h);
-    if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved in the latest run: no new campaign, no date moved, no new milestone or material, none closed."));
+    if (!rows.length) box.appendChild(el("p", "s5bn-empty", "No campaign moved today: no new campaign, no date moved, no new milestone or material, none closed."));
     else {
       /* §5cu-c (owner, 9 X: "a table with technology, description and date, not one run-on line; one campaign once"):
          one row per campaign, every change of that campaign in its own line */
@@ -36215,6 +36236,22 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
 .s5cu-ch>.s5cu-pl{font-size:13.5px;margin-top:8px}
 .s5cu-ch>.s5cu-pl a.s5cu-src{font-size:13.5px}
 @media (max-width:640px){.s5cu-kt{grid-template-columns:repeat(2,minmax(0,1fr))}.s5cu-ktv{font-size:18px}}
+/* §5cv (9 X 2026, owner: "in Campaigns, hovering a section draws a blue frame - super; Overview, Today and the
+   others do not have it - can we have it everywhere, also in /diff/?"): the same blue frame on every card, tile,
+   panel and list row of every tab. An outline drawn inside the box: it follows the rounded corners, moves nothing,
+   keeps the coloured stripe of a card, is not cut by a scrolling parent, and is painted over the children. */
+section.s5ci-card,button.k5,button.s5cr-st,div.mcb-stat,details.mcb-facets,details.mcb-gridbox,div.cat-list,div.apisurf,
+div.s5cn-cmpsum,a.jtile,div.rbpanel,details.s5cr-cmp,article.cmp,div.stat,div.kq,div.s5bn,details.s5cu-dash,section.s5cu-vc,
+details.s5cu-arch,div.callout,.s5ci-pick,.s5ci-tr,li.mcb-row,.s5cu-row,.tw tbody tr,.s5cu-tw tbody tr{transition:outline-color .12s ease}
+section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,details.mcb-gridbox:hover,
+div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,article.cmp:hover,
+div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,div.callout:hover,
+.s5ci-pick:hover,.s5ci-tr:not(.s5ci-th):hover,li.mcb-row:hover,.s5cu-row:not(.s5cu-hd):hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{
+ outline:2px solid var(--accent);outline-offset:-2px}
+@media (hover:none){section.s5ci-card:hover,button.k5:hover,button.s5cr-st:hover,div.mcb-stat:hover,details.mcb-facets:hover,
+ details.mcb-gridbox:hover,div.cat-list:hover,div.apisurf:hover,div.s5cn-cmpsum:hover,a.jtile:hover,div.rbpanel:hover,details.s5cr-cmp:hover,
+ article.cmp:hover,div.stat:hover,div.kq:hover,div.s5bn:hover,details.s5cu-dash:hover,section.s5cu-vc:hover,details.s5cu-arch:hover,
+ div.callout:hover,.s5ci-pick:hover,.s5ci-tr:hover,li.mcb-row:hover,.s5cu-row:hover,.tw tbody tr:hover,.s5cu-tw tbody tr:hover{outline:none}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
