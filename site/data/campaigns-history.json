@@ -632,10 +632,10 @@
 "label":"5 Feb 2026",
 "text":"Posted: Exchange Web Services (EWS) retirement update"
 },
-"MC1447678|available as of late general availability gcc available as o#0":{
+"MC1447678|available as of late#0":{
 "date":"2026-07-25",
 "label":"late Jul 2026",
-"text":"Available as of late July 2026 General Availability (GCC): Available as of late July 2026 Retirement milestones: October 1, 2026: Retirement enforcement begins "
+"text":"Available as of late July 2026."
 },
 "MC1446796|posted":{
 "date":"2026-08-03",
@@ -1128,20 +1128,10 @@
 "label":"28 Sep 2026",
 "text":"Posted: Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences"
 },
-"MC1481315|beginning in late and expected to complete in late impact on#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Beginning in late November 2026 and expected to complete in late December 2026 [Impact on your organization] Who is affected Organizations currently using DSPM "
-},
 "MC1481315|beginning microsoft will start retiring the microsoft purvie#0":{
 "date":"2026-11-30",
 "label":"30 Nov 2026",
 "text":"Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experie"
-},
-"MC1481315|beginning in late and expected to complete in late impact on#1":{
-"date":"2026-12-25",
-"label":"late Dec 2026",
-"text":"Beginning in late November 2026 and expected to complete in late December 2026 [Impact on your organization] Who is affected Organizations currently using DSPM "
 },
 "MC1481315|microsoft will retire the microsoft purview dspm classic and#0":{
 "date":"2026-12-31",
@@ -1377,196 +1367,6 @@
 "date":"2026-09-18",
 "updated":"2026-09-18",
 "group":"microsoft",
-"found":"2026-10-09"
-}
-}
-},
-"c-mc1426371":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
-"name":"Microsoft-provided SMS and voice MFA retirement · passkeys by default",
-"status":"Active",
-"members":[
-"MC1426371",
-"entra-sms-voice-full-retirement",
-"item:MC1426371",
-"item:entra-sms-voice-full-retirement",
-"item:MC1459133",
-"MC1474104",
-"item:MC1474104",
-"item:entra-telephony-provider-configuration-2026-10-30"
-],
-"log":[
-{
-"date":"2026-10-08",
-"id":"MC1459133",
-"what":"Microsoft revised the post",
-"before":"2026-09-14",
-"after":"2026-10-08",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
-"link":"https://mc.merill.net/message/MC1459133"
-},
-{
-"date":"2026-10-08",
-"id":"MC1459133",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
-"link":"https://mc.merill.net/message/MC1459133"
-},
-{
-"date":"2026-09-28",
-"id":"entra-telephony-provider-configuration-2026-10-30",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first",
-"title":"Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first",
-"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider"
-},
-{
-"date":"2026-09-15",
-"id":"MC1426371",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content and timeline.",
-"title":"Microsoft-provided SMS and voice retirement splits into two waves: Global Administrators and external users move to 1 July 2027",
-"link":"https://deltapulse.app/item/MC1426371"
-}
-],
-"milestones":{
-"MC1426371|posted":{
-"date":"2026-07-13",
-"label":"13 Jul 2026",
-"text":"Posted: Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication"
-},
-"entra-sms-voice-full-retirement|posted":{
-"date":"2026-07-13",
-"label":"13 Jul 2026",
-"text":"Posted: Microsoft-provided SMS and voice MFA fully retire"
-},
-"MC1426371|passkeys became the default authentication experience in mic#0":{
-"date":"2026-09-01",
-"label":"1 Sep 2026",
-"text":"Passkeys became the default authentication experience in Microsoft Entra on September 1, 2026."
-},
-"MC1474104|posted":{
-"date":"2026-09-18",
-"label":"18 Sep 2026",
-"text":"Posted: Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
-},
-"MC1426371|customers who need to continue to use sms or voice will be a#0":{
-"date":"2026-10-30",
-"label":"30 Oct 2026",
-"text":"October 30, 2026: Customers who need to continue to use SMS or voice will be able to choose from a list of telecom providers available through the Microsoft Sec"
-},
-"MC1426371|as part of this transition sms and voice will no longer be a#0":{
-"date":"2027-02-01",
-"label":"1 Feb 2027",
-"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
-},
-"MC1426371|for most users for global administrators and external users#1":{
-"date":"2027-07-01",
-"label":"1 Jul 2027",
-"text":"1 Jul 2027 for Global Administrators and external users."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1426371":{
-"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
-"link":"https://mc.merill.net/message/MC1426371",
-"source":"Message Center",
-"id":"MC1426371",
-"date":"2026-07-13",
-"updated":"2026-09-15",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1474104":{
-"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
-"link":"https://mc.merill.net/message/MC1474104",
-"source":"Message Center",
-"id":"MC1474104",
-"date":"2026-09-18",
-"updated":"2026-09-18",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1426371":{
-"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
-"link":"https://deltapulse.app/item/MC1426371",
-"source":"Main list source",
-"id":"MC1426371",
-"date":"2026-07-13",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1459133":{
-"title":"Microsoft Entra ID: Passkey support for B2B users",
-"link":"https://mc.merill.net/message/MC1459133",
-"source":"Main list source",
-"id":"MC1459133",
-"date":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1474104":{
-"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
-"link":"https://deltapulse.app/item/MC1474104",
-"source":"Main list source",
-"id":"MC1474104",
-"date":"2026-09-18",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider":{
-"title":"Choose a telephony provider for SMS and voice authentication",
-"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider",
-"source":"Main list source",
-"id":"entra-telephony-provider-configuration-2026-10-30",
-"date":"2026-09-21",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
-"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
-"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Entra",
-"date":"2026-06-26",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html":{
-"title":"SMS and Voice Retirement, Part 2",
-"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html",
-"source":"Conditionalaccess Tech",
-"date":"2026-09-26",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html":{
-"title":"SMS and Voice Retirement, Part 1",
-"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html",
-"source":"Conditionalaccess Tech",
-"date":"2026-09-26",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/":{
-"title":"Entra ID telephony providers for SMS and voice MFA: first look",
-"link":"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/",
-"source":"JanBakker Tech - EntraID",
-"date":"2026-09-25",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://www.youtube.com/watch?v=MCFzSnMc34k":{
-"title":"SMS MFA Ends in 2027: Your Microsoft Entra Passkey Migration Plan",
-"link":"https://www.youtube.com/watch?v=MCFzSnMc34k",
-"source":"Merill Fernando",
-"date":"2026-08-10",
-"group":"video",
 "found":"2026-10-09"
 }
 }
@@ -2370,20 +2170,15 @@
 "label":"late Oct 2026",
 "text":"To support Microsoft's Secure Future Initiative (SFI) and strengthen protection against phishing attacks, Microsoft Entra ID will retire support for custom CSS "
 },
-"MC1435782|beginning in and expected to complete by late impact on your#1":{
+"MC1435782|review your microsoft entra id company branding configuratio#0":{
 "date":"2026-10-26",
 "label":"26 Oct 2026",
-"text":"Beginning in October 2026 and expected to complete by late November 2026 [Impact on Your Organization] Who is affected Administrators managing Microsoft Entra I"
+"text":"Review your Microsoft Entra ID company branding configurations before October 26, 2026."
 },
 "MC1458474|deadline":{
 "date":"2026-10-31",
 "label":"31 Oct 2026",
 "text":"Custom CSS layout properties in company branding retiring"
-},
-"MC1435782|beginning in and expected to complete by late impact on your#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Beginning in October 2026 and expected to complete by late November 2026 [Impact on Your Organization] Who is affected Administrators managing Microsoft Entra I"
 }
 },
 "moves":[],
@@ -4383,6 +4178,876 @@
 "id":"win11-26h2-security-baseline-v2-2026-10-08",
 "date":"2026-10-08",
 "group":"microsoft",
+"found":"2026-10-09"
+}
+}
+},
+"c-sms-voice-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"status":"Active",
+"members":[
+"MC1426371",
+"entra-sms-voice-full-retirement",
+"item:MC1426371",
+"item:entra-sms-voice-full-retirement",
+"MC1465763",
+"MC1474104",
+"item:MC1474104",
+"item:entra-telephony-provider-configuration-2026-10-30"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"entra-telephony-provider-configuration-2026-10-30",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first",
+"title":"Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider"
+},
+{
+"date":"2026-09-28",
+"id":"MC1465763",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in",
+"title":"Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in",
+"link":"https://deltapulse.app/item/MC1465763"
+},
+{
+"date":"2026-09-15",
+"id":"MC1426371",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content and timeline.",
+"title":"Microsoft-provided SMS and voice retirement splits into two waves: Global Administrators and external users move to 1 July 2027",
+"link":"https://deltapulse.app/item/MC1426371"
+}
+],
+"milestones":{
+"MC1426371|posted":{
+"date":"2026-07-13",
+"label":"13 Jul 2026",
+"text":"Posted: Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication"
+},
+"entra-sms-voice-full-retirement|posted":{
+"date":"2026-07-13",
+"label":"13 Jul 2026",
+"text":"Posted: Microsoft-provided SMS and voice MFA fully retire"
+},
+"MC1465763|posted":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Posted: Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in"
+},
+"MC1474104|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+},
+"MC1426371|customers who need to continue to use sms or voice will be a#0":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"October 30, 2026: Customers who need to continue to use SMS or voice will be able to choose from a list of telecom providers available through the Microsoft Sec"
+},
+"MC1426371|as part of this transition sms and voice will no longer be a#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
+},
+"MC1426371|for most users for global administrators and external users#1":{
+"date":"2027-07-01",
+"label":"1 Jul 2027",
+"text":"1 Jul 2027 for Global Administrators and external users."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1426371",
+"source":"Message Center",
+"id":"MC1426371",
+"date":"2026-07-13",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1465763":{
+"title":"Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in",
+"link":"https://deltapulse.app/item/MC1465763",
+"source":"Message Center",
+"id":"MC1465763",
+"date":"2026-09-01",
+"updated":"2026-09-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1474104":{
+"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
+"link":"https://mc.merill.net/message/MC1474104",
+"source":"Message Center",
+"id":"MC1474104",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1426371",
+"source":"Main list source",
+"id":"MC1426371",
+"date":"2026-07-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1474104":{
+"title":"Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes",
+"link":"https://deltapulse.app/item/MC1474104",
+"source":"Main list source",
+"id":"MC1474104",
+"date":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider":{
+"title":"Choose a telephony provider for SMS and voice authentication",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider",
+"source":"Main list source",
+"id":"entra-telephony-provider-configuration-2026-10-30",
+"date":"2026-09-21",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/evaluating-voice-agents-how-reliable-are-foundry-s-multi-turn/ba-p/4559697":{
+"title":"Evaluating Voice Agents: How Reliable Are Foundry's Multi-turn Evaluators?",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/evaluating-voice-agents-how-reliable-are-foundry-s-multi-turn/ba-p/4559697",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/voice-agents-in-foundry-agent-service-architecture-trust/ba-p/4560813":{
+"title":"Voice agents in Foundry Agent Service: architecture, trust boundaries, and real-audio latency",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/voice-agents-in-foundry-agent-service-architecture-trust/ba-p/4560813",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/help-your-customers-get-answers-and-support-with-teams-phone/ba-p/4560840":{
+"title":"Help your customers get answers and support with Teams Phone Agent",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/help-your-customers-get-answers-and-support-with-teams-phone/ba-p/4560840",
+"source":"Microsoft Teams Blog",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/build-expressive-voice-experiences-with-new-mai-models-in/ba-p/4524637":{
+"title":"Build expressive voice experiences with new MAI models in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/build-expressive-voice-experiences-with-new-mai-models-in/ba-p/4524637",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/know-before-you-migrate-bringing-readiness-sizing-and-pricing/ba-p/4561189":{
+"title":"Know Before You Migrate: Bringing Readiness, Sizing, and Pricing Together in SSMS",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/know-before-you-migrate-bringing-readiness-sizing-and-pricing/ba-p/4561189",
+"source":"Microsoft Data Migration Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/giving-you-more-control-over-camera-microphone-and-location/ba-p/4559374":{
+"title":"Giving you more control over camera, microphone, and location",
+"link":"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/giving-you-more-control-over-camera-microphone-and-location/ba-p/4559374",
+"source":"Windows IT Pro Blog",
+"date":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/focus-on-the-teams-phone-calls-that-matter-most-with-intelligent/ba-p/4512533":{
+"title":"Focus on the Teams Phone calls that matter most with intelligent call delegation",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/focus-on-the-teams-phone-calls-that-matter-most-with-intelligent/ba-p/4512533",
+"source":"Microsoft Teams Blog",
+"date":"2026-08-10",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/engage-customers-with-teams-phone-agent-and-custom-voice-agents/ba-p/4526829":{
+"title":"Engage customers with Teams Phone Agent and custom voice agents built in Copilot Studio",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/engage-customers-with-teams-phone-agent-and-custom-voice-agents/ba-p/4526829",
+"source":"Microsoft Teams Blog",
+"date":"2026-06-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/use-multiple-phone-numbers-in-a-unified-experience-with-teams/ba-p/4512534":{
+"title":"Use multiple phone numbers in a unified experience with Teams Phone user multi-line",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-teams-blog/use-multiple-phone-numbers-in-a-unified-experience-with-teams/ba-p/4512534",
+"source":"Microsoft Teams Blog",
+"date":"2026-05-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/azure-sql-migration-starts-in-ssms-all-in-one-flow/ba-p/4511586":{
+"title":"Azure SQL Migration Starts in SSMS—All in One Flow",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/azure-sql-migration-starts-in-ssms-all-in-one-flow/ba-p/4511586",
+"source":"Microsoft Data Migration Blog",
+"date":"2026-04-15",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/assess-and-upgrade-to-sql-server-2025-with-ssms-migration/ba-p/4470652":{
+"title":"Assess and upgrade to SQL Server 2025 with SSMS Migration Component",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-data-migration-blog/assess-and-upgrade-to-sql-server-2025-with-ssms-migration/ba-p/4470652",
+"source":"Microsoft Data Migration Blog",
+"date":"2025-11-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - System-preferred authentication expanded to first-factor in Microsoft Entra ID",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1450133":{
+"title":"MC1450133: Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+"link":"https://mc.merill.net/message/MC1450133",
+"source":"MC - Merill",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://www.bleepingcomputer.com/news/security/low-cost-android-phones-ship-with-residential-proxy-malware/":{
+"title":"Low-cost Android phones ship with residential proxy malware",
+"link":"https://www.bleepingcomputer.com/news/security/low-cost-android-phones-ship-with-residential-proxy-malware/",
+"source":"BleepingComputer",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://thehackernews.com/2026/10/the-sixth-voice-of-ciso-data-shows.html":{
+"title":"The Sixth Voice of the CISO Data Shows Cyber Risk Has Moved Inside the Workflow",
+"link":"https://thehackernews.com/2026/10/the-sixth-voice-of-ciso-data-shows.html",
+"source":"Hacker News",
+"date":"2026-10-07",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html":{
+"title":"SMS and Voice Retirement, Part 2",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html":{
+"title":"SMS and Voice Retirement, Part 1",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/":{
+"title":"Entra ID telephony providers for SMS and voice MFA: first look",
+"link":"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-09-25",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/shorts/lMCUJz-NzpQ":{
+"title":"Microsoft 365 Is Deprecating SMS Auth: Are Your Guest Users Ready?",
+"link":"https://www.youtube.com/shorts/lMCUJz-NzpQ",
+"source":"Merill Fernando",
+"date":"2026-09-04",
+"group":"video",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=MCFzSnMc34k":{
+"title":"SMS MFA Ends in 2027: Your Microsoft Entra Passkey Migration Plan",
+"link":"https://www.youtube.com/watch?v=MCFzSnMc34k",
+"source":"Merill Fernando",
+"date":"2026-08-10",
+"group":"video",
+"found":"2026-10-09"
+}
+}
+},
+"c-passkeys-by-default":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-09",
+"name":"Passkeys by default in Microsoft Entra ID",
+"status":"Active",
+"members":[
+"MC1221452",
+"MC1282568",
+"MC1423108",
+"MC1426371",
+"item:MC1426371",
+"MC1437671",
+"item:MC1437671",
+"MC1440968",
+"MC1450133",
+"item:MC1450133",
+"MC1469555",
+"MC1459133",
+"item:MC1459133",
+"item:entra-external-idp-passkeys-system-browser-ga",
+"item:569432"
+],
+"log":[
+{
+"date":"2026-10-08",
+"id":"MC1459133",
+"what":"Microsoft revised the post",
+"before":"2026-09-14",
+"after":"2026-10-08",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"link":"https://mc.merill.net/message/MC1459133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1459133",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"link":"https://mc.merill.net/message/MC1459133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1459133",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"link":"https://mc.merill.net/message/MC1459133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Status",
+"before":"Plan for change",
+"after":"Updated",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft revised the post",
+"before":"2026-09-14",
+"after":"2026-10-08",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1437671",
+"what":"Title",
+"before":"Microsoft Entra: Passwordless password change in My Sign-Ins",
+"after":"(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-08",
+"id":"MC1437671",
+"what":"Message Center end date",
+"before":"2026-11-23",
+"after":"2026-11-30",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-08",
+"id":"MC1437671",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-07",
+"id":"MC1437671",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline and content.",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-02",
+"id":"569432",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Passkeys for B2B guests: a resource tenant will issue its own passkeys to guest users, on by default",
+"title":"Passkeys for B2B guests: a resource tenant will issue its own passkeys to guest users, on by default",
+"link":"https://deltapulse.app/item/569432"
+},
+{
+"date":"2026-09-29",
+"id":"entra-external-idp-passkeys-system-browser-ga",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Passkeys from a federated external IdP now work in brokered Microsoft apps on Android, iOS and managed macOS (GA, off by default)",
+"title":"Passkeys from a federated external IdP now work in brokered Microsoft apps on Android, iOS and managed macOS (GA, off by default)",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider"
+},
+{
+"date":"2026-09-28",
+"id":"MC1469555",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Entra: Optimized passkey registration campaign experience",
+"title":"Microsoft Entra: Optimized passkey registration campaign experience",
+"link":"https://mc.merill.net/message/MC1469555"
+},
+{
+"date":"2026-09-28",
+"id":"MC1450133",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Users are offered a passkey or another passwordless method as their first MFA registration, phased from October",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-09-28",
+"id":"MC1440968",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Microsoft Entra ID: Optimizations for passkey registration experience",
+"title":"Microsoft Entra ID: Optimizations for passkey registration experience",
+"link":"https://mc.merill.net/message/MC1440968"
+},
+{
+"date":"2026-09-28",
+"id":"MC1437671",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Entra: Passwordless password change in My Sign-Ins",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-09-28",
+"id":"MC1423108",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108"
+},
+{
+"date":"2026-09-28",
+"id":"MC1282568",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) General Availability: Microsoft Entra passkeys on Windows",
+"title":"General Availability: Microsoft Entra passkeys on Windows",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1282568"
+},
+{
+"date":"2026-09-28",
+"id":"MC1221452",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
+"date":"2026-09-15",
+"id":"MC1426371",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content and timeline.",
+"title":"Microsoft-provided SMS and voice retirement splits into two waves: Global Administrators and external users move to 1 July 2027",
+"link":"https://deltapulse.app/item/MC1426371"
+},
+{
+"date":"2026-09-04",
+"id":"MC1440968",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Microsoft Entra ID: Optimizations for passkey registration experience",
+"link":"https://mc.merill.net/message/MC1440968"
+},
+{
+"date":"2026-09-01",
+"id":"MC1423108",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108"
+},
+{
+"date":"2026-07-20",
+"id":"MC1282568",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"General Availability: Microsoft Entra passkeys on Windows",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1282568"
+},
+{
+"date":"2026-07-20",
+"id":"MC1221452",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+}
+],
+"milestones":{
+"MC1450133|we will begin rolling out in early and expect to complete by#0":{
+"date":"2026-01-05",
+"label":"early Jan 2026",
+"text":"We will begin rolling out in early January 2026 and expect to complete by late February 2027."
+},
+"MC1221452|posted":{
+"date":"2026-01-23",
+"label":"23 Jan 2026",
+"text":"Posted: (Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants"
+},
+"MC1221452|rollout begins in early and is expected to complete by late#0":{
+"date":"2026-03-05",
+"label":"early Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+"MC1221452|rollout begins in early and is expected to complete by late#1":{
+"date":"2026-03-25",
+"label":"late Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+"MC1282568|posted":{
+"date":"2026-04-16",
+"label":"16 Apr 2026",
+"text":"Posted: General Availability: Microsoft Entra passkeys on Windows"
+},
+"MC1282568|we will begin rolling out in late and expect to complete by #0":{
+"date":"2026-04-25",
+"label":"late Apr 2026",
+"text":"We will begin rolling out in late April 2026 and expect to complete by mid‑June 2026 ."
+},
+"MC1423108|posted":{
+"date":"2026-07-10",
+"label":"10 Jul 2026",
+"text":"Posted: Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS"
+},
+"MC1426371|posted":{
+"date":"2026-07-13",
+"label":"13 Jul 2026",
+"text":"Posted: Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication"
+},
+"MC1437671|posted":{
+"date":"2026-07-23",
+"label":"23 Jul 2026",
+"text":"Posted: Microsoft Entra: Authenticated password change in My Sign-Ins"
+},
+"MC1440968|posted":{
+"date":"2026-07-27",
+"label":"27 Jul 2026",
+"text":"Posted: Microsoft Entra ID: Optimizations for passkey registration experience"
+},
+"MC1450133|posted":{
+"date":"2026-08-07",
+"label":"7 Aug 2026",
+"text":"Posted: Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+},
+"MC1426371|passkeys became the default authentication experience in mic#0":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Passkeys became the default authentication experience in Microsoft Entra on September 1, 2026."
+},
+"MC1469555|beginning in early and expected to complete by mid impact on#0":{
+"date":"2026-09-05",
+"label":"early Sep 2026",
+"text":"Beginning in early September 2026 and expected to complete by mid-September 2026 [Impact on your organization] Who is affected Administrators who manage Microso"
+},
+"MC1469555|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Entra: Optimized passkey registration campaign experience"
+},
+"MC1459133|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
+},
+"MC1423108|mid previously impact on your organization who is affected u#0":{
+"date":"2026-09-15",
+"label":"mid Sep 2026",
+"text":"Mid-September 2026 (previously August) [Impact on Your Organization] Who is affected Users with iOS devices who use Microsoft Authenticator with passkeys Users "
+},
+"MC1437671|microsoft gives mid for the start of rollout not a calendar #0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Microsoft gives mid-October 2026 for the start of rollout, not a calendar date"
+},
+"MC1450133|we will begin rolling out in late previously early and expec#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November)."
+},
+"MC1450133|we will begin rolling out in late previously early and expec#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November)."
+},
+"MC1450133|we will begin rolling out in early and expect to complete by#1":{
+"date":"2027-02-25",
+"label":"late Feb 2027",
+"text":"We will begin rolling out in early January 2026 and expect to complete by late February 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452":{
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452",
+"source":"Message Center",
+"id":"MC1221452",
+"date":"2026-01-23",
+"updated":"2026-07-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1282568":{
+"title":"General Availability: Microsoft Entra passkeys on Windows",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1282568",
+"source":"Message Center",
+"id":"MC1282568",
+"date":"2026-04-16",
+"updated":"2026-07-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1423108":{
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108",
+"source":"Message Center",
+"id":"MC1423108",
+"date":"2026-07-10",
+"updated":"2026-09-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1426371",
+"source":"Message Center",
+"id":"MC1426371",
+"date":"2026-07-13",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1437671":{
+"title":"Microsoft Entra: Authenticated password change in My Sign-Ins",
+"link":"https://mc.merill.net/message/MC1437671",
+"source":"Message Center",
+"id":"MC1437671",
+"date":"2026-07-23",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1440968":{
+"title":"Microsoft Entra ID: Optimizations for passkey registration experience",
+"link":"https://mc.merill.net/message/MC1440968",
+"source":"Message Center",
+"id":"MC1440968",
+"date":"2026-07-27",
+"updated":"2026-09-04",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1450133":{
+"title":"Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+"link":"https://mc.merill.net/message/MC1450133",
+"source":"Message Center",
+"id":"MC1450133",
+"date":"2026-08-07",
+"updated":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469555":{
+"title":"Microsoft Entra: Optimized passkey registration campaign experience",
+"link":"https://mc.merill.net/message/MC1469555",
+"source":"Message Center",
+"id":"MC1469555",
+"date":"2026-09-09",
+"updated":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1459133":{
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133",
+"source":"Message Center",
+"id":"MC1459133",
+"date":"2026-09-14",
+"updated":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1426371":{
+"title":"Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1426371",
+"source":"Main list source",
+"id":"MC1426371",
+"date":"2026-07-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider":{
+"title":"Sign in to Microsoft apps with passkeys from external identity providers",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider",
+"source":"Main list source",
+"id":"entra-external-idp-passkeys-system-browser-ga",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/569432":{
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://deltapulse.app/item/569432",
+"source":"Main list source",
+"id":"569432",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/sign-in-to-microsoft-apps-with-passkeys-from-external-identity/ba-p/4556448":{
+"title":"Sign in to Microsoft apps with passkeys from external identity providers",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/sign-in-to-microsoft-apps-with-passkeys-from-external-identity/ba-p/4556448",
+"source":"Microsoft Entra Blog",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"Upcoming change - Improved restore experience for device-bound Authenticator app passkeys on iOS",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/synced-icloud-keychain-passkey-registration-succeeds-despite/m-p/4562995#M10476":{
+"title":"Synced iCloud Keychain passkey registration succeeds despite Device-Bound-only passkey profile",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/synced-icloud-keychain-passkey-registration-succeeds-despite/m-p/4562995#M10476",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://ms365news.com/blogs/f/phishing-resistant-identity-the-roadmap-to-passkeys":{
+"title":"Phishing-Resistant Identity: The Roadmap to Passkeys",
+"link":"https://ms365news.com/blogs/f/phishing-resistant-identity-the-roadmap-to-passkeys",
+"source":"MS365 News",
+"date":"2026-10-05",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html":{
+"title":"SMS and Voice Retirement, Part 2",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part2.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html":{
+"title":"SMS and Voice Retirement, Part 1",
+"link":"https://conditionalaccess.tech/articles/entra/sms-voice-retirement-part1.html",
+"source":"Conditionalaccess Tech",
+"date":"2026-09-26",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://janbakker.tech/where-to-store-your-microsoft-365-passkey/":{
+"title":"Where to store your Microsoft 365 passkey?",
+"link":"https://janbakker.tech/where-to-store-your-microsoft-365-passkey/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-09-25",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/":{
+"title":"Entra ID telephony providers for SMS and voice MFA: first look",
+"link":"https://janbakker.tech/entra-id-telephony-providers-for-sms-and-voice-mfa-first-look/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-09-25",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/shorts/oCKlwKZ2cCI":{
+"title":"World's largest passkey rollout #cybersecurity",
+"link":"https://www.youtube.com/shorts/oCKlwKZ2cCI",
+"source":"Merill Fernando",
+"date":"2026-09-26",
+"group":"video",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=xwvjtpfyr9M":{
+"title":"The Enterprise Passkey Playbook: 200,000 People at General Motors",
+"link":"https://www.youtube.com/watch?v=xwvjtpfyr9M",
+"source":"Merill Fernando",
+"date":"2026-08-31",
+"group":"video",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=WsAatpsUNLU":{
+"title":"Passkeys Are Phishing-Resistant. Until Malware Skips the Browser",
+"link":"https://www.youtube.com/watch?v=WsAatpsUNLU",
+"source":"Merill Fernando",
+"date":"2026-08-17",
+"group":"video",
+"found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=MCFzSnMc34k":{
+"title":"SMS MFA Ends in 2027: Your Microsoft Entra Passkey Migration Plan",
+"link":"https://www.youtube.com/watch?v=MCFzSnMc34k",
+"source":"Merill Fernando",
+"date":"2026-08-10",
+"group":"video",
 "found":"2026-10-09"
 }
 }
