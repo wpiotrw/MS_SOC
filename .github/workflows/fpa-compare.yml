@@ -1,0 +1,22 @@
+name: First-party apps - tenant vs Merill (manual)
+
+# CLAUDE.md 5cw (9 X 2026): decision aid - how many Microsoft applications our tenant shows against Merill's
+# list. Same read-only sign-in as "First-party apps tenant snapshot"; prints counts only (public log).
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare (counts only)
+        run: python3 tools/fpa_compare.py
