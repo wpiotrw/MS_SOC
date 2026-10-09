@@ -59,7 +59,7 @@ TYPES = [
                     r"out of support|version support"),
     ("Retirement", r"\bretir|deprecat|sunset|discontinu|no longer (?:be )?available|will be removed|removal of|phas(?:e|ing) out|"
                    r"shut ?down|turn(?:ing)? off|end of life"),
-    ("Enforcement", r"\benforce|mandatory|\brequired?\b(?! for)|will require|must (?:use|be|have|migrate|move|register|upgrade|configure)|block(?:ed|ing|s)? by default|"
+    ("Enforcement", r"\benforce|mandatory (?:upgrade|migration|update|requirement|change)|\brequired\b(?! for)|will require|must (?:use|be|have|migrate|move|register|upgrade|configure)|block(?:ed|ing|s)? by default|"
                     r"hardening|no longer allow"),
     ("Rollout", r"(?:on|enabled|turned on|switch(?:ed)? on|available) by default|by default|default (?:setting|configuration|value)|automatically (?:enabled|turned on)|"
                 r"opt[- ]out|generally available|\bGA\b"),
@@ -69,12 +69,13 @@ SEC = re.compile(r"auth|sign-?in|mfa|passkey|fido|password|conditional access|ad
                  r"protocol|legacy|basic|\bews\b|smtp|pop|imap|oauth|app registration|service principal|role|privilege|access|"
                  r"device|compliance|baseline|firewall|bitlocker|credential|kerberos|ntlm|ldap|smb|\bacl\b|branding|report", re.I)
 NOISE = re.compile(r"planned maintenance|\bKB\d{6,}|patch tuesday|monthly (?:security )?update|optional non-security|"
-                   r"hotpatch calendar|release notes for|what's new in (?:copilot|teams) for|weekly roundup", re.I)
+                   r"hotpatch calendar|release notes for|what's new in (?:copilot|teams) for|weekly roundup|non-security preview update|"
+                   r"documentation set|enters the roadmap", re.I)
 OUT_OF_SCOPE = re.compile(r"dynamics|finance and operations|viva|power platform|power apps|power automate|power bi|dataverse|"
                           r"planner|project for the web|microsoft forms|bookings|clipchamp|stream|sway|loop\b|minecraft|"
                           r"supply chain|business central|customer service|sales|marketing|powerpoint|\bexcel\b|\bword\b|onenote|"
                           r"whiteboard|zendesk|brand kit|learning coach|surveys agent|similarity checker|glint|engage|"
-                          r"slide|canvas|python in excel", re.I)
+                          r"slide|canvas|python in excel|ai builder", re.I)
 GENERIC_ACR = set("api apis ga ai pc ca it ui id os sdk url mfa dlp xdr mde mdi mdo mda mdca rbac kb esu ltsc ltsb gcc dod "
                   "us eu uk faq iot vm vms aks pim sso saml mcp new ms m365 o365 spo odb otp pwa ios macos cli".split())
 TITLE_PREFIX = re.compile(r"^(?:\d+[- ]day reminder|\d+ (?:weeks?|days?|months?) until(?= )|final reminder(?: to)?|reminder|follow[- ]up(?: on)?|update(?:d)?|"
@@ -82,19 +83,20 @@ TITLE_PREFIX = re.compile(r"^(?:\d+[- ]day reminder|\d+ (?:weeks?|days?|months?)
 EXPAND = [(re.compile(r"exchange web services", re.I), " EWS "), (re.compile(r"self[- ]service password reset", re.I), " SSPR "),
           (re.compile(r"distributed key manager", re.I), " DKM "), (re.compile(r"one[- ]time passcode", re.I), " OTP ")]
 TECHMAP = [
-    (r"entra|azure ad|authenticator|conditional access|passkey|\bmfa\b|identity", "Entra"),
-    (r"intune|endpoint manager|autopilot", "Intune"),
-    (r"defender|sentinel|\bxdr\b|security copilot|threat intel|\bmde\b|\bmdi\b|\bmdo\b|\bmda\b|cloud apps", "Defender"),
-    (r"purview|compliance|\bdlp\b|sensitivity|information protection|insider risk|ediscovery|retention", "Purview"),
-    (r"exchange|outlook|\bews\b", "Exchange"),
-    (r"teams", "Teams"),
-    (r"sharepoint|onedrive", "SharePoint"),
+    # word boundaries everywhere: "centralized" is not Entra, "paragraph" is not Graph (9 X 2026)
+    (r"\bdefender\b|\bsentinel\b|\bxdr\b|security copilot|threat intel|\bmde\b|\bmdi\b|\bmdo\b|\bmda\b|cloud apps", "Defender"),
+    (r"\bentra\b|azure ad|authenticator|conditional access|passkey|\bmfa\b|\bsspr\b", "Entra"),
+    (r"\bintune\b|endpoint manager|autopilot", "Intune"),
+    (r"\bpurview\b|\bcompliance\b|\bdlp\b|sensitivity label|information protection|insider risk|ediscovery|\bretention\b", "Purview"),
+    (r"\bexchange\b|\boutlook\b|\bews\b", "Exchange"),
+    (r"\bteams\b", "Teams"),
+    (r"\bsharepoint\b|\bonedrive\b", "SharePoint"),
     (r"windows 365|cloud pc", "Windows 365"),
-    (r"windows|ad fs|active directory|\bdkm\b", "Windows"),
-    (r"copilot", "Copilot"),
+    (r"\bwindows\b|\bad fs\b|active directory|\bdkm\b", "Windows"),
+    (r"\bcopilot\b", "Copilot"),
     (r"microsoft 365 apps|m365 apps|\boffice\b|ltsc", "Microsoft 365 apps"),
-    (r"graph", "Graph"),
-    (r"azure", "Azure"),
+    (r"\bgraph\b", "Graph"),
+    (r"\bazure\b", "Azure"),
     (r"microsoft 365|m365|admin center", "Microsoft 365"),
 ]
 STOP = set("""the a an and or of to for in on with by from as is are be will at new now its it this that your into via more than
@@ -466,7 +468,9 @@ def main(argv):
     seeds = {}
     for r in recs.values():
         k = kind_of(r["title"])
-        if not k and r["src"] == "item":
+        if not k and r["src"] == "item" and r.get("deadline"):
+            # our own item title counts only when the item carries a date: "Managed Home Screen can now require
+            # authentication" is a feature, not a campaign (9 X 2026)
             k = kind_of(" ".join(str(x or "") for x in (r.get("ourTitle"), r.get("deadlineNote"))))
         if "Retirement" in r["tags"] and k in (None, "Rollout"):
             k = "Retirement"
@@ -508,6 +512,8 @@ def main(argv):
     for sid in seeds:
         uf.find(sid)
     for sid, r in seeds.items():
+        if not sid.startswith("item:") and "item:" + sid in seeds:
+            uf.union(sid, "item:" + sid)   # an MC-list entry and a main-list item with the same id are one story
         for iid in r.get("itemIds") or []:
             if "item:" + iid in seeds and sid != "item:" + iid:
                 uf.union(sid, "item:" + iid)
@@ -538,11 +544,13 @@ def main(argv):
     adf = Counter(a for v in anc.values() for a in v)
     for a_i, a in enumerate(ids):
         for b in ids[a_i + 1:]:
-            sh = {x for x in anc[a] & anc[b] if adf[x] <= 12}
-            if not sh or seeds[a]["tech"] != seeds[b]["tech"]:
+            # an acronym that names ONE thing (EWS, DKM, SSPR) groups across technologies: "Teams devices ... ahead of
+            # the retirement of EWS" belongs to the EWS campaign (9 X 2026: EWS had split into five campaigns)
+            sh = {x for x in anc[a] & anc[b] if adf[x] <= 30}
+            if not sh:
                 continue
             ra, rb = uf.find(a), uf.find(b)
-            if ra == rb or size[ra] + size[rb] > 14:
+            if ra == rb or size[ra] + size[rb] > 40:   # one named thing (EWS) may run to many posts
                 continue
             uf.union(a, b)
             size[uf.find(a)] = size[ra] + size[rb]
@@ -922,6 +930,20 @@ def main(argv):
         c["status"] = status
         h = prev.get(c["id"]) or archive.get(c["id"]) or {}
         first = h.get("firstSeen") or day
+        # a milestone is NEWS only when its post is new to the campaign or Microsoft touched it in the last 3 days;
+        # a date that appears because the collector reads more of an old post is recorded quietly (9 X 2026: the
+        # tenant snapshot started carrying "When this will happen" and 38 old dates came out as "new milestone")
+        old_members = set(h.get("members") or [])
+        touched = {}
+        for m in c["members"]:
+            if isinstance(m, dict):
+                touched[m["id"].replace("item:", "")] = max(m.get("updated") or "", m.get("published") or "")
+                if m["id"] not in old_members:
+                    touched[m["id"].replace("item:", "")] = day
+        recent3 = (today - datetime.timedelta(days=3)).isoformat()
+
+        def fresh_src(x):
+            return any(touched.get(s0, "") >= recent3 for s0 in (x.get("srcs") or [x["src"]]))
         # milestone memory: key -> date
         oldms = h.get("milestones") or {}
         newms = {}
@@ -934,7 +956,7 @@ def main(argv):
                 if not seed:
                     events.append({"day": day, "cid": c["id"], "type": "moved", "name": c["name"], "src": x["src"],
                                    "was": o["label"], "now": x["label"], "text": x["text"][:200]})
-            elif not o and not seed and h and not x.get("post") and not x["past"]:
+            elif not o and not seed and h and not x.get("post") and not x["past"] and fresh_src(x):
                 events.append({"day": day, "cid": c["id"], "type": "milestone", "name": c["name"], "src": x["src"],
                                "now": x["label"], "text": x["text"][:200]})
         # remember moves seen on earlier days so the card keeps them
@@ -971,7 +993,8 @@ def main(argv):
         for g in mats:
             mats[g].sort(key=lambda m: m.get("date") or "", reverse=True)
         c["materials"] = mats
-        if not seed and not h and status in ("Active", "No date", "Released"):
+        newest = max([v for v in touched.values() if v] + [""])
+        if not seed and not h and status in ("Active", "No date", "Released") and newest >= (today - datetime.timedelta(days=14)).isoformat():
             events.append({"day": day, "cid": c["id"], "type": "new", "name": c["name"], "ctype": c["type"], "tech": c["tech"],
                            "next": c["next"]["label"] if c["next"] else None, "text": (c["summary"] or "")[:200]})
         if not seed and h.get("status") in ("Active", "No date") and status in ("Recently closed",):
