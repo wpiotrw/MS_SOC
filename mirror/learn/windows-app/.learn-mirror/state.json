@@ -2,6 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/windows-app/configure-updates-windows",
   "pages": {
+    "https://learn.microsoft.com/en-us/windows-app/compare-platforms-features": {"etag":"\"NMla/hSs7nVWYZoujko52zF9ghU=\"","gitCommitId":"1282d8e566a2a5789e9d9d157930eebb185b6b44","path":"windows-app/compare-platforms-features.md","sourcePath":"windows-app/compare-platforms-features.md","updatedAt":"2026-09-18T02:41:00.0000000Z"},
     "https://learn.microsoft.com/en-us/windows-app/configure-updates-windows": {"etag":"\"z/qghQFx7iub/yCDT3wNlMCgNBI=\"","gitCommitId":"f614758038a65c1fb416ea813d3093218457785a","path":"windows-app/configure-updates-windows.md","sourcePath":"windows-app/configure-updates-windows.md","updatedAt":"2025-12-05T18:40:00.0000000Z"}
   }
 }

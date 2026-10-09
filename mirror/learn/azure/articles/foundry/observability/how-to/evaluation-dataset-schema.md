@@ -270,7 +270,7 @@ The following seed continues the account sign-in example:
 
 Foundry uses a simulator to play the user's role and interact with the target agent. Conversation-level evaluators then score the simulated conversation, not the seed row.
 
-For the simulation procedure, see [Simulate conversations](cloud-evaluation-simulate-conversations). To generate seed rows instead of authoring them, see [Generate a simulation seed dataset](evaluation-dataset-synthetic#generate-a-simulation-seed-dataset-sdk).
+For the simulation procedure, see [Simulate conversations](cloud-evaluation-simulate-conversations). To generate seed rows instead of authoring them, see [Generate a simulation seed dataset](evaluation-dataset-synthetic#generate-a-simulation-seed-dataset).
 
 ## Separate query and response format
 

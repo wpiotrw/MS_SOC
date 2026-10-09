@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "cursor": "https://learn.microsoft.com/en-us/connectors/windows365",
+  "pages": {
+    "https://learn.microsoft.com/en-us/connectors/windows365": {"etag":"\"iHijDjj/+uU05XKW6TXyXvPCrAI=\"","gitCommitId":"91358b0ae111e8a9a0c0bc248f75f99f6ef0ed1b","path":"docs/windows365/index.md","redirectedTo":"https://learn.microsoft.com/en-us/connectors/windows365/","sourcePath":"docs/windows365/index.yml","updatedAt":"2026-10-02T19:08:00.0000000Z"}
+  }
+}

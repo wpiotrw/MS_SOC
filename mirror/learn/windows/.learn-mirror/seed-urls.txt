@@ -4,12 +4,14 @@ https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-Conne
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-WindowsAI
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-applicationmanagement
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
+https://learn.microsoft.com/en-us/windows/configuration/windows-backup
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-linux-guide
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-overview
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-windows-guide
 https://learn.microsoft.com/en-us/windows/deployment/do/waas-delivery-optimization
 https://learn.microsoft.com/en-us/windows/deployment…
 https://learn.microsoft.com/en-us/windows/deploymen…
+https://learn.microsoft.com/en-us/windows/release-health
 https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25h2
 https://learn.microsoft.com/en-us/windows/release-health/windows-message-center
 https://learn.microsoft.com/en-us/windows/release-notes

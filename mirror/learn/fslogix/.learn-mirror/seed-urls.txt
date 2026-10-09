@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/fslogix
 https://learn.microsoft.com/en-us/fslogix/concepts-container-types
 https://learn.microsoft.com/en-us/fslogix/concepts-fslogix-apps-rule-editor-rule-sets
+https://learn.microsoft.com/en-us/fslogix/how-to-configure-profile-container-azure-ad
 https://learn.microsoft.com/en-us/fslogix/how-to-install-fslogix
 https://learn.microsoft.com/en-us/fslogix/overview
 https://learn.microsoft.com/en-us/fslogix/overview-release-notes
