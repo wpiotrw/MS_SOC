@@ -1,0 +1,359 @@
+---
+layout: Conceptual
+title: Overview of Microsoft Graph permissions - Microsoft Graph | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/graph/permissions-overview
+feedback_system: Standard
+feedback_product_url: https://developer.microsoft.com/graph/support
+breadcrumb_path: /graph/concepts/breadcrumb/toc.json
+author: FaithOmbongi
+ms.author: ombongifaith
+uhfHeaderId: MSDocsHeader-MSGraph
+ms.suite: microsoft-graph
+ms.subservice: entra-applications
+toc_preview: true
+recommendations: false
+ms.service: microsoft-graph
+ms.topic: concept-article
+description: Learn more about working with Microsoft Graph permissions to allow your app to access your data securely.
+ms.reviewer: jackson.woods
+ms.localizationpriority: high
+ms.date: 2025-12-26T00:00:00.0000000Z
+ms.custom: graphiamtop20, scenarios:getting-started, sfi-ga-nochange
+locale: en-us
+document_id: ecd7d89f-60fd-d454-0137-22395689e060
+document_version_independent_id: ecd7d89f-60fd-d454-0137-22395689e060
+original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/concepts/permissions-overview.md
+site_name: Docs
+depot_name: MSDN.microsoft-graph-docs
+page_type: conceptual
+interactive_type: msgraph
+toc_rel: toc.json
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: permissions-overview
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: concepts/permissions-overview.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+platformId: 944e2e17-8460-c222-d168-61ba1ab9f0fc
+---
+
+# Overview of Microsoft Graph permissions - Microsoft Graph | Microsoft Learn
+
+Before the Microsoft identity platform can authorize your app to access data in the Microsoft cloud, you must grant the app the privileges it needs. Similarly, before the Microsoft identity platform can authorize your app to access data through Microsoft Graph, you must grant the app the privileges it needs.
+
+One way to grant an app the privileges it needs to access and work with your data through Microsoft Graph is by assigning it *Microsoft Graph permissions*. Another way is through role-based access control (RBAC) systems, like [Microsoft Entra RBAC](/en-us/azure/active-directory/roles/custom-overview). In some cases, access to data through Microsoft Graph APIs might require both Microsoft Graph permissions and RBAC permissions.
+
+This article introduces Microsoft Graph permissions and provides guidance for using them. To see the full list of permissions that Microsoft Graph exposes, see the [Microsoft Graph permissions reference](permissions-reference).
+
+To learn more about how permissions work, watch the following video.
+
+## Permission types
+
+Microsoft Graph supports [two access scenarios](/en-us/graph/auth/auth-concepts), *delegated access* and *app-only access*. In delegated access, the app calls Microsoft Graph on behalf of a signed-in user. In app-only access, the app calls Microsoft Graph with its own identity, without a signed-in user.
+
+To support these access scenarios, Microsoft Graph exposes *delegated permissions* and *application permissions*.
+
+### Delegated permissions
+
+*Delegated permissions*, also called *scopes*, work in the delegated access scenario. These permissions let the application act on behalf of a signed-in user. However, the application can't access anything the signed-in user couldn't access.
+
+For example, an application gets the *Files.Read.All* delegated permission on behalf of Tom, a user. The application can only read all files in the organization that Tom can already access. Tom might be able to access the files because he has permissions through one of the following ways:
+
+- Tom created or owns the files.
+- The files were shared directly with Tom, or indirectly shared through a team or group membership.
+- Tom has been granted permissions through a supported RBAC system.
+
+**Therefore, in a delegated scenario, the privileges that an app has to act on behalf of a user is determined by the Microsoft Graph permissions that the app has been granted *and* the user's own permissions.**
+
+In a delegated access scenario, an app might allow users to sign in with their personal Microsoft accounts, like Outlook.com, work or school accounts, or both account types. All delegated permissions are valid for work or school accounts, but not all are valid for personal Microsoft accounts. Use the [Microsoft Graph permissions reference](permissions-reference) to identify delegated permissions that are valid for personal Microsoft accounts.
+
+When a user signs in to an app, they, or, in some cases, an administrator, get a chance to consent to the delegated permissions. If they grant consent, the app can access resources and APIs within the boundaries of the user's permissions.
+
+Note
+
+Permissions granted through [Microsoft Entra built-in roles](/en-us/entra/identity/role-based-access-control/permissions-reference?toc=/graph/toc.json) don't limit the app to calling Microsoft Graph APIs only.
+
+### Application permissions
+
+*Application permissions*, also called *app roles*, work in the app-only access scenario, without a signed-in user present. The application can access *any* data that the permission is associated with. For example, an application granted the *Files.Read.All* application permission can read any file in the organization.
+
+With the *User.ReadWrite.All* application permission, an application can update many of the writable user properties supported by Microsoft Graph, including for users assigned privileged admin roles.
+
+Application permissions are highly privileged because they allow applications to access and modify resources without requiring a signed-in user. From a least-privilege perspective, the delegated permission model is the recommended approach whenever it meets the application's requirements.
+
+For apps that access resources and APIs without a signed-in user, an administrator consents to the application permissions when the app is installed in the tenant or through the Microsoft Entra admin center. Only Privileged Role Administrator and Global Administrator can consent to application permissions.
+
+Apart from being assigned Microsoft Graph application permissions, an app might also be granted the privileges it needs through one of the following conditions:
+
+- When the app is assigned ownership of the resource that it intends to manage.
+- When the app is assigned permissions through an RBAC system or custom administrative roles.
+
+Note
+
+Permissions granted through [Microsoft Entra built-in roles](/en-us/entra/identity/role-based-access-control/permissions-reference?toc=/graph/toc.json) don't limit the app to calling Microsoft Graph APIs only.
+
+### Comparison of delegated and application permissions
+
+| Category | Delegated permissions | Application permissions |
+| --- | --- | --- |
+| Types of apps | Web app / Mobile / Single-page app (SPA) | Web / Daemon |
+| Access context | [Get access on behalf of a user](auth-v2-user) | [Get access without a user](auth-v2-service) |
+| Who can consent | - Users can consent for their data<br>- Admins can consent for all users<br><br>User consent availability also depends on your tenant's [app consent policies](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies). Even when admin consent isn't required for a permission by default, your organization's policies may still restrict user consent | Only admin can consent |
+| Other names | - Scopes<br>- OAuth2 permissions | - App roles<br>- App-only permissions<br>- Direct access permissions |
+| Result of consent | [oAuth2PermissionGrant](/en-us/graph/api/resources/oauth2permissiongrant) object | [appRoleAssignment](/en-us/graph/api/resources/approleassignment) object |
+| Supported **signInAudience** types | AzureADMyOrg  AzureADMultipleOrgs  AzureADandPersonalMicrosoftAccount  PersonalMicrosoftAccount | AzureADMyOrg  AzureADMultipleOrgs  AzureADandPersonalMicrosoftAccount |
+
+The following image illustrates an app's privileges in delegated vs app-only access scenarios.
+
+![Illustration of application privileges in delegated vs app-only access scenarios.](images/auth-v2/app-privileges-illustration.png)
+
+### Best practices for selecting permission types for connector agent registration
+
+Microsoft Graph connector agents run as background services and require Microsoft Graph application permissions.
+
+*Delegated permissions aren't supported* for connector agent registration and cause registration failures, even when the permissions appear correctly configured.
+
+Request the *least‑privileged application permissions* needed for your connector scenario and ensure *tenant‑wide admin consent* is granted.
+
+## Permissions naming pattern
+
+Microsoft Graph exposes granular permissions that help you control the access that apps have to Microsoft Graph resources, like users, groups, and mail. These permissions follow the naming pattern:
+
+*{resource}*.*{operation}*.*{constraint}*
+
+| Value | Description | Examples |
+| --- | --- | --- |
+| `{resource}` | Refers to a Microsoft Graph resource to which the permission grants access. For example, the `user` resource. | `User`, `Application`, or `Group` |
+| `{operation}` | Refers to the Microsoft Graph API operations that are allowed on the data exposed by the resource. For example, `Read` for read operations only, or `ReadWrite` for read, create, update, and delete operations. | `Read`, `ReadBasic`, `ReadWrite`, `Create`, `Manage`, or `Migrate` |
+| `{constraint}` | Determines the potential extent of access an app has within the directory. This value might not be explicitly declared. When undeclared, the default constraint is limited to data that's owned by the signed-in user. | `All`, `AppFolder`, `OwnedBy`, `Selected`, `Shared`, `Hidden` |
+
+Examples:
+
+- *User.Read* - Allows the app to read information about the signed-in user.
+- *Application.ReadWrite.All* - Allows the app to manage all applications in the tenant.
+- *Application.ReadWrite.OwnedBy* - Allows the app to manage only the applications that it creates or owns.
+- *Group.Create* - Allows the application to create new groups, but not modify or delete them.
+- *Member.Read.Hidden* - Allows the app to read hidden memberships.
+
+For the full list of permissions exposed by Microsoft Graph, see the [Microsoft Graph permissions reference](permissions-reference).
+
+## Resource-specific consent (RSC) permissions
+
+RSC is an authorization framework that grants scoped access to the data exposed by a resource. Through RSC, an authorized user can give an app access to the data of a specific instance of a resource type. They don't need to give app access to every instance of the resource type in the entire tenant.
+
+RSC permissions are also available for consent and are supported by only a subset of features available through Microsoft Graph such as Teams, chats, and messages. For more information, see [RSC permissions](/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent) and the [full list of available RSC permissions](permissions-reference#resource-specific-consent-rsc-permissions).
+
+## Limited information returned for inaccessible member objects
+
+Container objects such as groups support members of various types, for example users and devices. When an application with the right privileges queries the membership of a container object, it receives a `200 OK` response and a collection of objects. However, if the app doesn't have the permissions to read a certain object type in the container, the app receives objects of that type but with limited information. For example, only the object type and ID might be returned and other properties are indicated as `null`. The app receives complete information for the object types that it has permissions to read.
+
+This principle applies to all relationships that are of [directoryObject](/en-us/graph/api/resources/directoryobject) type. Examples include `/groups/{id}/members`, `/users/{id}/memberOf`, and `me/ownedObjects`.
+
+For example, a group can have users, groups, applications, service principals, devices, and contacts as members. An app is granted the *GroupMember.Read.All* least privileged permission to [List group members](/en-us/graph/api/group-list-members). In the response object, only the **id** and **@odata.type** properties are populated for all the members that are returned. The other properties are indicated as `null`. For this API, and to return more information for the group's members, the app needs the following additional permissions:
+
+- To read the basic properties of a group's members that are users, *User.ReadBasic.All* is the least privileged permission.
+- To read the basic properties of a group's members that are groups, *GroupMember.Read.All* is the least privileged permission.
+- To read the basic properties of a group's members that are devices, *Device.Read.All* is the least privileged permission.
+- To read the basic properties of a group's members that are service principals, *Application.Read.All* is the least privileged permission.
+- As per the principle of least privilege, use the preceding permissions as appropriate for your application; however, as an alternative to the individual resource-level permissions, assign the app the *Directory.Read.All* permission to read *all properties for all member types*.
+
+### Example
+
+#### Request
+
+# [HTTP](#tab/http)
+```msgraph
+GET https://graph.microsoft.com/v1.0/groups/{id}/members
+```
+
+# [C#](#tab/csharp)
+```csharp
+
+// Code snippets are only available for the latest version. Current version is 5.x
+
+// To initialize your graphClient, see https://learn.microsoft.com/en-us/graph/sdks/create-client?from=snippets&tabs=csharp
+var result = await graphClient.Groups["{group-id}"].Members.GetAsync();
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [Go](#tab/go)
+```go
+
+// Code snippets are only available for the latest major version. Current major version is $v1.*
+
+// Dependencies
+import (  "context"  msgraphsdk "github.com/microsoftgraph/msgraph-sdk-go"  //other-imports
+)
+
+// To initialize your graphClient, see https://learn.microsoft.com/en-us/graph/sdks/create-client?from=snippets&tabs=go
+members, err := graphClient.Groups().ByGroupId("group-id").Members().Get(context.Background(), nil)
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [Java](#tab/java)
+```java
+
+// Code snippets are only available for the latest version. Current version is 6.x
+
+GraphServiceClient graphClient = new GraphServiceClient(requestAdapter);
+
+DirectoryObjectCollectionResponse result = graphClient.groups().byGroupId("{group-id}").members().get();
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [JavaScript](#tab/javascript)
+```javascript
+
+const options = {authProvider,
+};
+
+const client = Client.init(options);
+
+let members = await client.api('/groups/{id}/members').get();
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [PHP](#tab/php)
+```php
+
+<?php
+use Microsoft\Graph\GraphServiceClient;
+
+$graphServiceClient = new GraphServiceClient($tokenRequestContext, $scopes);
+
+$result = $graphServiceClient->groups()->byGroupId('group-id')->members()->get()->wait();
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [PowerShell](#tab/powershell)
+```powershell
+
+Import-Module Microsoft.Graph.Groups
+
+Get-MgGroupMember -GroupId $groupId
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+# [Python](#tab/python)
+```python
+
+# Code snippets are only available for the latest version. Current version is 1.x
+from msgraph import GraphServiceClient
+# To initialize your graph_client, see https://learn.microsoft.com/en-us/graph/sdks/create-client?from=snippets&tabs=python
+
+result = await graph_client.groups.by_group_id('group-id').members.get()
+
+```
+
+> 
+> Read the [SDK documentation](/en-us/graph/sdks/sdks-overview) for details on how to [add the SDK](/en-us/graph/sdks/sdk-installation) to your project and [create an authProvider](/en-us/graph/sdks/choose-authentication-providers) instance.
+
+---
+
+#### Response
+
+The following object is an example of the response:
+
+```json
+{
+"@odata.context":"https://graph.microsoft.com/v1.0/$metadata#directoryObjects",
+    "value":[
+        {
+            "@odata.type":"#microsoft.graph.user",
+            "id":"69d035a3-29c9-469f-809d-d21a4ae69e65",
+            "displayName":"Adele Vance",
+            "createdDateTime":"2019-09-18T09:06:51Z",
+        },
+        {
+            "@odata.type":"#microsoft.graph.group",
+            "id":"c43a7cc9-2d95-44b6-bf6a-6392e41949b4",
+            "displayName":"All Company",
+            "description":null,
+            "createdDateTime":"2019-10-24T01:34:35Z"
+        },
+        {
+            "@odata.type":"#microsoft.graph.device",
+            "id": "d282309e-f91d-43b6-badb-9e68aa4b4fc8",
+            "accountEnabled":null,
+            "deviceId":null,
+            "displayName":null,
+            "operatingSystem":null,
+            "operatingSystemVersion":null
+        }
+    ]
+}
+```
+
+## Best practices for using Microsoft Graph permissions
+
+Microsoft Graph exposes granular permissions that allow an app to request only the permissions it needs to function. Granular permissions let you apply the *principle of least privilege* when assigning and granting permissions to an app. Grant the app the minimum permission it needs for the operation.
+
+Consider the following examples:
+
+- An app needs to read the profile information of the signed-in user. The app requires only the *User.Read* permission, which is the least privileged permission to access the signed-in user's information. Granting the app the *User.ReadWrite* permission makes it over-privileged because the app doesn't need to update the user's profile.
+- An app needs to read the groups in the tenant without a signed-in user. The app requires only the *GroupMember.Read.All* application permission, which is the least privileged permission to read groups in the tenant without a signed-in user.
+- An app needs to read or write to a calendar of the signed-in user. The app manages dynamic jobs, and syncs from the user's Outlook calendar to keep the app up-to-date so to schedule jobs for the user. Even though [getting](/en-us/graph/api/event-delta) the user's calendar data requires *Calendars.Read*, [updating](/en-us/graph/api/user-post-events) the calendar with scheduled jobs requires a higher privileged permission, *Calendars.ReadWrite*. In this case, the app should request *Calendars.ReadWrite*.
+
+Granting an application more privileges than it needs is a poor security practice. It increases the app's exposure to unauthorized and unintended access to data or operations. Also, requesting more permissions than necessary might cause users to refrain from consenting to an app, affecting an app's adoption and usage.
+
+Apply the principle of least privilege when assigning and granting Microsoft Graph permissions to an app. For more information, see [Enhance security with the principle of least privilege](/en-us/azure/active-directory/develop/secure-least-privileged-access) and [Building apps that secure identity through permissions and consent](/en-us/security/zero-trust/develop/identity).
+
+### Permissions to use with caution
+
+Some Microsoft Graph permissions grant access to a wider range of data or operations than others. Use these permissions with caution. For example, the *Directory.AccessAsUser.All* permission is the highest privileged delegated permission that grants access to nearly all API operations across Microsoft Entra ID. *Directory.ReadWrite.All* permission is second in privilege ranking. *Directory.Read.All* is the highest privileged read-only permission for Microsoft Entra ID resources. Use these permissions with caution and only when necessary. Always use lesser-privileged options permissions instead.
+
+In API reference documentation relating to Microsoft Entra ID resources, some of these higher privileged permissions might be intentionally excluded from the table of permissions supported to access the API.
+
+In addition, the Global Administrator role is the highest privileged built-in role in Microsoft Entra ID. In the API reference documentation, this role is intentionally excluded from the list of roles that support access to the API in favor of lesser-privileged roles.
+
+## Limits on requested permissions per app
+
+Microsoft Entra ID limits the number of permissions that can be requested and consented by a client app. These limits depend on the `signInAudience` value for an app, shown in the [app's manifest](/en-us/graph/api/resources/application).
+
+| signInAudience | Allowed users | Maximum permissions the app can request | Maximum Microsoft Graph permissions the app can request | Maximum permissions that can be consented in a single request |
+| --- | --- | --- | --- | --- |
+| AzureADMyOrg | Users from the organization where the app is registered | 400 | 400 | About 155 delegated permissions and about 300 application permissions |
+| AzureADMultipleOrgs | Users from any Microsoft Entra organization | 400 | 400 | About 155 delegated permissions and about 300 application permissions |
+| PersonalMicrosoftAccount | Consumer users (such as Outlook.com or Live.com accounts) | 30 | 30 | 30 |
+| AzureADandPersonalMicrosoftAccount | Consumer users and users from any Microsoft Entra organization | 30 | 30 | 30 |
+
+Note
+
+For Microsoft Entra Agent ID, some high-risk Microsoft Graph permissions are globally blocked for agents and can't be granted to agent identities.
+
+If you include a blocked Microsoft Graph delegated permission scope or app role in the `resourceAccess` collection of a `requiredResourceAccess` entry, the request is rejected with an HTTP `400 Bad Request` response and an error indicating that the permission is blocked and can't be granted to agent identities.
+
+For the list of blocked Microsoft Graph permissions for agents, see [Microsoft Graph permissions blocked for agents](/en-us/graph/api/resources/agentid-platform-overview?view=graph-rest-beta#microsoft-graph-permissions-blocked-for-agents).
+
+## Retrieve permission IDs through Microsoft Graph
+
+To set permissions by using the Azure CLI, PowerShell, or infrastructure as code frameworks, you might need the identifier for the permission that you want to use instead of the name. The [permissions reference](permissions-reference) lists IDs for all Microsoft Graph permissions. Alternatively, you can read information about all Microsoft Graph permissions programmatically through the [Get servicePrincipal](/en-us/graph/api/serviceprincipal-get) API in Microsoft Graph. The following example shows a request.
+
+```msgraph
+GET https://graph.microsoft.com/v1.0/servicePrincipals(appId='00000003-0000-0000-c000-000000000000')?$select=id,appId,displayName,appRoles,oauth2PermissionScopes,resourceSpecificApplicationPermissions
+```
+
+The **appRoles**, **oauth2PermissionScopes**, and **resourceSpecificApplicationPermissions** objects store the application, delegated, and resource-specific consent permissions respectively.

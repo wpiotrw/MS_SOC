@@ -1,4 +1,5 @@
 https://learn.microsoft.com/en-us/microsoft-365
 https://learn.microsoft.com/en-us/microsoft-365/admin/whats-new-in-preview
+https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/copilot-extension
 https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-engagements
 https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-overview-enhanced-engagements

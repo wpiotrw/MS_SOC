@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: mumian
+author: kgremban
 learn_banner_products:
 - azure
-ms.author: jgao
+ms.author: kgremban
 ms.service: azure-blueprints
 description: Learn when Azure Blueprints is retired, the phased retirement timeline, what changes in each phase, and how to migrate to Azure Deployment Stacks and template specs.
 ms.topic: concept-article

@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: rmcmurray
+author: kgremban
 learn_banner_products:
 - azure
-ms.author: robmcm
+ms.author: kgremban
 ms.service: azure-policy
 description: Describes the policy assignment definition used by Azure Policy to relate policy definitions and parameters to resources for evaluation.
 ms.date: 2026-07-30T00:00:00.0000000Z
