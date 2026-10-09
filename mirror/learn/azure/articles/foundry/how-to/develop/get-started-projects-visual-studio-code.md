@@ -46,6 +46,14 @@ moniker_range_name:
 monikers: []
 item_type: Content
 source_path: articles/foundry/how-to/develop/get-started-projects-visual-studio-code.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/911a44a7-2f6c-477c-810f-dc8b7d425cce
+- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/14f2b9d5-6f06-45a8-ac5f-313eaa351153
+- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 platformId: 1805e140-e522-0cfb-0a9e-acfa5d5fd354
 ---
 
@@ -97,6 +105,10 @@ Foundry Toolkit supports prompt agents and code-based hosted agents. Start with 
 | Configure a model, instructions, and tools without a hosted-agent code project. | [Create a prompt agent](create-prompt-agent-visual-studio-code). |
 | Develop, inspect, and deploy code-based orchestration with Microsoft Agent Framework. | [Create hosted agents](vs-code-agents-workflow-pro-code). |
 | Maintain an existing declarative workflow and prepare its migration. | [Use and migrate declarative agent workflows](vs-code-agents-workflow-low-code). |
+| Send local requests, inspect tool calls, and debug agent code. | [Debug agents with Agent Inspector](vs-code-agent-inspector). |
+| Collect local OpenTelemetry spans or view hosted-agent telemetry in Application Insights. | [Collect and inspect traces](vs-code-tracing). |
+
+Live Inspector events and stored traces are separate data sources. Use Inspector for interactive local debugging and tracing for recorded telemetry.
 
 Agent Builder also supports locally stored prompts. Their tools, structured output, and dataset evaluation options differ from those of Foundry prompt agents. Local storage doesn't mean that model inference runs on your machine. See [Work with local prompts](create-prompt-agent-visual-studio-code#work-with-local-prompts).
 

@@ -13,9 +13,9 @@ feedback_help_link_url: https://developercommunity.microsoft.com/VisualStudio
 feedback_help_link_type: ask-the-community
 feedback_product_url: https://developercommunity.visualstudio.com/VisualStudio/suggest
 breadcrumb_path: /visualstudio/_breadcrumb/toc.json
-ms.manager: wiwagn
-author: RoseHJM
-ms.author: rosemalcolm
+ms.manager: nitinme
+author: madskristensen
+ms.author: madsk
 audience: developer
 ms.service: visual-studio-windows
 uhfHeaderId: MSDocsHeader-VisualStudio

@@ -46,12 +46,20 @@ moniker_range_name:
 monikers: []
 item_type: Content
 source_path: articles/foundry/how-to/develop/vs-code-agents-workflow-pro-code.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/911a44a7-2f6c-477c-810f-dc8b7d425cce
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/14f2b9d5-6f06-45a8-ac5f-313eaa351153
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 32e42078-98d8-7252-cd6f-5f4a8189437f
 ---
 
 # Create hosted agents with Microsoft Foundry Toolkit for Visual Studio Code - Microsoft Foundry | Microsoft Learn
 
-Use Microsoft Foundry Toolkit for Visual Studio Code to create a code-based workflow from a Microsoft Agent Framework sample. Run it locally with Agent Inspector, then deploy its source code to Foundry Agent Service as a hosted agent. You maintain the code and its dependencies. Foundry manages the hosting infrastructure and scaling.
+Use Microsoft Foundry Toolkit for Visual Studio Code to create a code-based workflow from a Microsoft Agent Framework sample. Run it locally with [Agent Inspector](vs-code-agent-inspector), then deploy its source code to Foundry Agent Service as a hosted agent. You maintain the code and its dependencies. Foundry manages the hosting infrastructure and scaling.
 
 Hosted workflows coordinate agents in code. They differ from the retiring Foundry declarative workflow service. For other creation routes, see [Create an agent](create-agent-visual-studio-code).
 
@@ -197,6 +205,8 @@ Toolkit sign-in selects the project for extension operations. The local agent pr
 ## Run your hosted workflow locally
 
 Use the generated debug configuration to start the HTTP server and open **Agent Inspector**. Opening Agent Inspector alone doesn't start the server.
+
+For connection settings, tool approvals, workflow diagnostics, and event exports, see [Debug agents with Agent Inspector](vs-code-agent-inspector#connect-and-debug). Live Inspector events don't require an OTLP collector. To save OpenTelemetry spans for later analysis, configure [local tracing](vs-code-tracing#set-up-instrumentation).
 
 ::: zone pivot="python"
 
@@ -351,6 +361,8 @@ Review [container requirements](../../agents/how-to/deploy-hosted-agent#containe
 ## Test the deployed workflow
 
 A successful create request doesn't prove that the runtime is ready or that its model and tools are reachable. Test the exact deployed version.
+
+To investigate a deployed request, [view hosted-agent traces](vs-code-tracing#view-hosted-agent-traces). Cloud traces use the project's connected Application Insights resource, not your local trace database.
 
 1. Under **My Resources** &gt; **Agents** &gt; **Hosted Agent**, select the agent name.
 2. Select the numbered version you just deployed.
