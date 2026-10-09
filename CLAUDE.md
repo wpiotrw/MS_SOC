@@ -26541,6 +26541,18 @@ milestone passed"), `archiveShowDays` 365 (zwinieta grupa „Archive" na stronie
 `settings` (strona pisze z nich etykiety) i `archive` (nazwa, technologia, typ, ostatnia data, posty MC).
 Kampania z archiwum wraca do aktywnych („reopened"), gdy Microsoft poda nowa date.
 
+**§5cu-f (9 X 2026, wlasciciel: „jak juz klikniemy kampanie, to daty, ilosc MC, jakie MC powinny byc duzo
+lepiej widoczne — moze daty w zaokraglonych ramkach? czemu tabela nie zawiera dat? kampanie to powazna praca,
+musimy miec pelne info; passkeys — Microsoft wielokrotnie zmienial zalozenia, implementacje, MC").** Karta
+kampanii zaczyna sie od kafli faktow (`.s5cu-kt`, przyciski przewijajace do sekcji): Next date, Last date,
+Message Center posts (liczba i pierwszy post), Microsoft's last change (`lastMsUpdate` = najnowszy dzien
+„updated" posta) i Changes recorded (`revisions` = liczba wpisow dziennika). Pod naglowkiem linki do 12 postow
+MC. Kazda data na karcie (posty, „What changes", os czasu, dziennik zmian) stoi w zaokraglonej ramce
+(`.s5cu-dch`: r = do 7 dni, a = do 30 dni albo aktualizacja posta w ostatnich 7 dniach, n = najblizsza data dalej niz 30 dni, p = data, ktora minela). Tabela „What changes" ma kolumny
+Post · Posted / updated · Change · [Before] · What Microsoft says · Why it matters · Next date (kolektor daje
+`rows[].published`, `updated`, `next`). Dziennik zmian zapisuje tez „Microsoft moved the date" z „(previously X)"
+w poscie; zdania-szablony („We will update this post…", `BOILER`) nie sa kamieniami ani wierszami.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -34817,6 +34829,9 @@ odtad CZTERNASCIE (4-17).**
   function own(t) { t.dataset.s11 = "1"; t.dataset.s12 = "1"; t.dataset.mc = "1"; t.setAttribute("data-s5cu", "1"); t.setAttribute("data-s5bi-csv", "1"); return t; }
   function labels(t) { own(t); var hs = [].map.call(t.querySelectorAll("thead th"), function (x) { return x.textContent; });
     [].forEach.call(t.querySelectorAll("tbody tr"), function (r) { [].forEach.call(r.children, function (td, i) { if (hs[i] && td.colSpan < 2) td.setAttribute("data-l", hs[i]); }); }); return t; }
+  /* a date in a rounded frame (owner, 9 X: "dates are the basic information — rounded frames?") */
+  function dchip(label, tone) { return el("span", "s5cu-dch" + (tone ? " " + tone : ""), label); }
+  function dcell(cls, label, tone) { var td = el("td", cls); if (label && label !== "—") td.appendChild(dchip(label, tone)); else td.textContent = "—"; return td; }
   function h2(t) { return el("h3", "s5cu-h", t); }
   function renderCard(c) {
     body.innerHTML = "";
@@ -34832,16 +34847,28 @@ odtad CZTERNASCIE (4-17).**
     var f = el("div", "s5cu-facts");
     function fact(l, v, cls) { var s = el("span"); s.appendChild(document.createTextNode(l + " ")); var b = el("b", cls || null, v); s.appendChild(b); f.appendChild(s); }
     fact("Type", c.type); fact("Status", c.status === "Released" ? "Released" : c.status);
-    if (c.next) fact("Next", when(c.next), "s5cu-" + (toneOf(c.next) || "n"));
-    if (c.final && (!c.next || c.final.date !== c.next.date)) fact("Final", c.final.label);
+
     var fpost = (c.milestones || []).filter(function (x) { return x.post; })[0];
-    if (fpost) fact("First post", dmy(fpost.date));
     if (c.firstSeen) fact("Tracked here since", dmy(c.firstSeen));
     var st = (c.stamps || []).slice(-1)[0]; if (st) fact("Microsoft updated the post", dmy(st.date) + (st.text ? " — “" + st.text.replace(/\.$/, "") + "”" : ""));
     if ((c.related || []).length) { var rs = el("span"); rs.appendChild(document.createTextNode("Related ")); c.related.forEach(function (x, i) { if (i) rs.appendChild(document.createTextNode(" · "));
       var a = el("a", "s5cu-rel", x.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(x.id); a.addEventListener("click", function (e) { e.preventDefault(); goCard(x.id); }); rs.appendChild(a); }); f.appendChild(rs); }
-    var hpl = postLinks(c, 10); if (hpl) f.appendChild(hpl);
-    hd.appendChild(f); body.appendChild(hd);
+    hd.appendChild(f);
+    /* the basic facts as tiles: next and last date, the posts, Microsoft's last change and how often it changed */
+    var kt = el("div", "s5cu-kt");
+    function tile(lab, val, sub, tone, go) {
+      var t = el(go ? "button" : "div", "s5cu-ktt" + (tone ? " " + tone : "")); if (go) { t.type = "button"; t.addEventListener("click", function () { var x = document.getElementById("s5cu-" + go); if (x) window.scrollTo({ top: x.getBoundingClientRect().top + window.scrollY - 140, behavior: "instant" }); }); }
+      t.appendChild(el("span", "s5cu-ktl", lab)); t.appendChild(el("span", "s5cu-ktv", val)); if (sub) t.appendChild(el("span", "s5cu-kts", sub)); kt.appendChild(t);
+    }
+    var mcN = (c.posts || []).filter(function (p) { return /^(MC|RM)?\d{5,}$/.test(p.id); }).length;
+    if (c.next) tile("Next date", c.next.label, approx(c.next) ? "approximate — Microsoft's wording" : inDays(daysTo(c.next.date)), toneOf(c.next) || "n", "timeline");
+    if (c.final && (!c.next || c.final.date !== c.next.date)) tile("Last date", c.final.label, daysTo(c.final.date) >= 0 ? inDays(daysTo(c.final.date)) : "passed", "", "timeline");
+    tile("Message Center posts", String(mcN), fpost ? "first " + dmy(fpost.date) : "", "", "posts");
+    if (c.lastMsUpdate) tile("Microsoft's last change", dmy(c.lastMsUpdate), inDays(daysTo(c.lastMsUpdate)), daysTo(c.lastMsUpdate) >= -7 ? "a" : "", "log");
+    tile("Changes recorded", String(c.revisions || 0), "dates moved, posts revised, update notes", (c.revisions || 0) >= 5 ? "a" : "", "log");
+    hd.appendChild(kt);
+    var hpl = postLinks(c, 12); if (hpl) hd.appendChild(hpl);
+    body.appendChild(hd);
     var pr = c.prio || {};
     if (PL[pr.level]) {
       var pb = el("div", "s5cu-pb s5cu-pb-" + pr.level); pb.appendChild(el("b", null, PL[pr.level] + " priority — why: "));
@@ -34854,14 +34881,20 @@ odtad CZTERNASCIE (4-17).**
       var s1 = el("section", "s5cu-s"); s1.id = "s5cu-changes"; s1.appendChild(h2("What changes"));
       var hasB = rows.some(function (r) { return r.before; }), hasW = rows.some(function (r) { return r.why; }), hasS = rows.some(function (r) { return r.says || r.after; });
       var tw = el("div", "s5cu-tw"), t = el("table", "s5cu-tab"), th = el("tr");
-      ["Change"].concat(hasB ? ["Before"] : [], hasS ? [hasB ? "After — Microsoft" : "What Microsoft says"] : [], hasW ? ["Why it matters — our reading"] : [], ["Source"]).forEach(function (x) { th.appendChild(el("th", null, x)); });
+      ["Post", "Posted · updated", "Change"].concat(hasB ? ["Before"] : [], hasS ? [hasB ? "After — Microsoft" : "What Microsoft says"] : [], hasW ? ["Why it matters — our reading"] : [], ["Next date"]).forEach(function (x) { th.appendChild(el("th", null, x)); });
       var thd = el("thead"); thd.appendChild(th); t.appendChild(thd); var tb = el("tbody");
       rows.forEach(function (r) {
-        var tr = el("tr"); tr.appendChild(el("td", "s5cu-chg", r.change));
+        var tr = el("tr"), tds = el("td", "s5cu-srcc"); tds.appendChild(srcLink(c, r.src)); tr.appendChild(tds);
+        var tdd = el("td", "s5cu-dt");
+        if (r.published) tdd.appendChild(dchip(dmy(r.published)));
+        if (r.updated) { tdd.appendChild(el("span", "s5cu-dlab", "updated")); tdd.appendChild(dchip(dmy(r.updated), daysTo(r.updated) >= -7 ? "a" : "")); }
+        if (!r.published && !r.updated) tdd.textContent = "—";
+        tr.appendChild(tdd);
+        tr.appendChild(el("td", "s5cu-chg", r.change));
         if (hasB) tr.appendChild(el("td", "s5cu-mut", r.before || "—"));
         if (hasS) tr.appendChild(el("td", null, r.says || r.after || "—"));
         if (hasW) tr.appendChild(el("td", "s5cu-why", r.why || "—"));
-        var td = el("td", "s5cu-srcc"); td.appendChild(srcLink(c, r.src)); tr.appendChild(td); tb.appendChild(tr);
+        tr.appendChild(r.next ? dcell("s5cu-dt", r.next.label, toneOf(r.next)) : dcell("s5cu-dt", "—")); tb.appendChild(tr);
       });
       t.appendChild(tb); tw.appendChild(labels(t)); s1.appendChild(tw); body.appendChild(s1);
     }
@@ -34898,8 +34931,8 @@ odtad CZTERNASCIE (4-17).**
     P.slice().sort(function (a, b) { return (b.published || "") < (a.published || "") ? -1 : 1; }).forEach(function (p) {
       var r = el("tr"), td = el("td", "s5cu-srcc"); td.appendChild(srcA(c, p.id, p.link)); r.appendChild(td);
       r.appendChild(el("td", "s5cu-chg", p.title));
-      r.appendChild(el("td", "s5cu-dt", p.published ? dmy(p.published) : "—"));
-      var up = p.updated && p.updated !== p.published; r.appendChild(el("td", "s5cu-dt" + (up && daysTo(p.updated) >= -7 ? " s5cu-a" : ""), up ? dmy(p.updated) : "—"));
+      r.appendChild(dcell("s5cu-dt", p.published ? dmy(p.published) : "—"));
+      var up = p.updated && p.updated !== p.published; r.appendChild(dcell("s5cu-dt", up ? dmy(p.updated) : "—", up && daysTo(p.updated) >= -7 ? "a" : ""));
       var n = (c.log || []).filter(function (e) { return e.id === p.id; }).length; r.appendChild(el("td", null, n ? String(n) : "—"));
       tb.appendChild(r);
     });
@@ -34913,7 +34946,7 @@ odtad CZTERNASCIE (4-17).**
     var th = el("thead"); th.appendChild(tr); t.appendChild(th); var tb = el("tbody");
     function fmtv(v) { return /^\d{4}-\d\d-\d\d$/.test(v || "") ? dmy(v) : (v || ""); }
     Lg.forEach(function (e) {
-      var r = el("tr"); r.appendChild(el("td", "s5cu-dt", dmy(e.date)));
+      var r = el("tr"); r.appendChild(dcell("s5cu-dt", dmy(e.date)));
       var td = el("td", "s5cu-srcc"); td.appendChild(srcA(c, e.id, e.link)); r.appendChild(td);
       r.appendChild(el("td", "s5cu-chg", e.what));
       var b = el("td", "s5cu-was"); if (e.before) b.appendChild(el("del", null, fmtv(e.before))); else b.textContent = "—"; r.appendChild(b);
@@ -34934,7 +34967,7 @@ odtad CZTERNASCIE (4-17).**
     var nextDate = c.next ? c.next.date : "";
     ms.forEach(function (x) {
       var n = daysTo(x.date), past = n < 0, tr = el("tr", past ? "past" : x.date === nextDate ? "next" : "");
-      tr.appendChild(el("td", "s5cu-dt" + (x.date === nextDate ? " s5cu-" + (toneOf(x) || "n") : ""), x.label));
+      tr.appendChild(dcell("s5cu-dt", x.label, x.date === nextDate ? (toneOf(x) || "n") : (past ? "p" : "")));
       var td = el("td"); td.appendChild(el("span", null, x.text));
       /* in a campaign of several posts, each dated line says which post it comes from */
       if ((c.posts || []).length > 1 && !x.post) { var po = (c.posts || []).filter(function (p) { return p.id === x.src; })[0];
@@ -36142,6 +36175,30 @@ td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
 .s5cu-arch{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:0 14px 12px}
 .s5cu-arch>summary{cursor:pointer;padding:12px 0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
 .s5cu-archs{display:block;font:400 12.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--muted);margin-top:3px}
+/* §5cu-f: dates in rounded frames, key-fact tiles, dated "What changes" */
+.s5cu-dch{display:inline-block;white-space:nowrap;font-weight:700;font-size:13.5px;line-height:1.35;padding:3px 10px;border:1.5px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text)}
+.s5cu-dch.r{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.s5cu-dch.a{border-color:var(--warn);background:var(--warn-soft);color:var(--warn)}
+.s5cu-dch.n{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.s5cu-dch.p{color:var(--faint);border-color:var(--border-soft)}
+.s5cu-dlab{display:block;font-size:11px;color:var(--faint);margin:5px 0 2px;text-transform:uppercase;letter-spacing:.06em}
+td.s5cu-dt .s5cu-dch+.s5cu-dch{margin-top:4px}
+.s5cu-kt{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.s5cu-ktt{display:flex;flex-direction:column;gap:3px;text-align:left;font:inherit;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:11px 14px}
+button.s5cu-ktt{cursor:pointer}
+button.s5cu-ktt:hover{border-color:var(--accent)}
+.s5cu-ktl{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cu-ktv{font-size:21px;font-weight:700;line-height:1.2}
+.s5cu-kts{font-size:12.5px;color:var(--muted)}
+.s5cu-ktt.r{border-color:var(--bad);background:var(--bad-soft)}
+.s5cu-ktt.r .s5cu-ktv{color:var(--bad)}
+.s5cu-ktt.a{border-color:var(--warn);background:var(--warn-soft)}
+.s5cu-ktt.a .s5cu-ktv{color:var(--warn)}
+.s5cu-ktt.n{border-color:var(--accent);background:var(--accent-soft)}
+.s5cu-ktt.n .s5cu-ktv{color:var(--accent)}
+.s5cu-ch>.s5cu-pl{font-size:13.5px;margin-top:8px}
+.s5cu-ch>.s5cu-pl a.s5cu-src{font-size:13.5px}
+@media (max-width:640px){.s5cu-kt{grid-template-columns:repeat(2,minmax(0,1fr))}.s5cu-ktv{font-size:18px}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
