@@ -1,0 +1,699 @@
+---
+layout: Conceptual
+title: Generate a synthetic evaluation dataset - Microsoft Foundry | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/evaluation-dataset-synthetic
+breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/79b1327d-d925-ec11-b6e6-000d3a4f06a4
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure-ai-foundry
+ms.suite: office
+author: lgayhardt
+learn_banner_products:
+- azure
+manager: mcleans
+ms.author: lagayhar
+ms.collection: ce-skilling-ai-copilot
+ms.update-cycle: 90-days
+ms.service: microsoft-foundry
+description: Generate Simple Q&A and simulation seed datasets in Microsoft Foundry from an agent or prompt, with optional reference-file grounding.
+ms.subservice: foundry-observability
+ms.reviewer: fishah
+ms.topic: how-to
+ms.date: 2026-10-08T00:00:00.0000000Z
+ms.custom: doc-kit-assisted
+ai-usage: ai-assisted
+locale: en-us
+document_id: 3c1a57d9-4566-9adf-127c-b902ba0cc771
+document_version_independent_id: 2213ba47-2089-817c-8a10-c161237dc511
+original_content_git_url: https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/foundry/observability/how-to/evaluation-dataset-synthetic.md
+site_name: Docs
+depot_name: Learn.azure-ai
+page_type: conceptual
+toc_rel: ../../toc.json
+asset_id: foundry/observability/how-to/evaluation-dataset-synthetic
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/foundry/observability/how-to/evaluation-dataset-synthetic.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
+platformId: 72451585-66ac-fca0-e3a3-e5b5fbff2684
+---
+
+# Generate a synthetic evaluation dataset - Microsoft Foundry | Microsoft Learn
+
+This article covers synthetic data generation. For all dataset preparation options and the standard field names, see [Evaluation datasets in Microsoft Foundry](evaluation-datasets) and [Evaluation dataset schema](evaluation-dataset-schema).
+
+When your agent doesn't have production traffic yet, you can still build a meaningful evaluation dataset. The Microsoft Foundry data generation service synthesizes evaluation data from material you already have: an agent's instructions, an inline prompt, or a reference document you upload. Two task types are available:
+
+- **Simple QnA (single-turn)** produces question-and-answer pairs for turn-level evaluation.
+- **Simulation seed (multi-turn)** produces scenario descriptions that feed the [Simulate conversations](cloud-evaluation-simulate-conversations) flow for multi-turn evaluation.
+
+You can evaluate simple Q&A datasets directly. Simulation seed datasets first drive a simulator that plays the user's role against the target agent. Conversation-level evaluators then score the generated conversations.
+
+Three input source types are available. Start with an agent definition or prompt, and optionally add a reference file for grounding:
+
+- **Agent definition**—seed generation from a deployed agent's instructions or prompt.
+- **Prompt**—pass an inline text prompt that describes the domain or steers difficulty.
+- **Reference file**—upload a document (for example, a policy, spec, or knowledge-base export) to ground generation from an agent or prompt.
+
+Synthetic generation and trace-based generation are complementary: synthetic datasets cover edge cases and prelaunch scenarios, while trace-based datasets reflect real production behavior. Using both gives the strongest evaluation signal. See [Convert agent traces into evaluation datasets](traces-to-dataset).
+
+## When to use synthetic generation
+
+Use synthetic generation when:
+
+- You're prelaunch and have no production traces yet.
+- Your agent has low traffic and a trace window doesn't yield enough distinct samples.
+- You need a stable regression baseline that doesn't drift with changing production behavior.
+- You want to expand coverage of edge cases the agent hasn't encountered in production.
+- You're iterating on an agent's instructions and want a quick smoke-test dataset.
+
+## Choose a source type
+
+| Source | Use when |
+| --- | --- |
+| **Agent definition** (`AgentDataGenerationJobSource`) | You have a deployed agent and want a dataset that reflects its actual instructions and persona. |
+| **Prompt** (`PromptDataGenerationJobSource`) | You want to generate from inline text such as a policy snippet, or steer generation with an instruction like "expert-level questions only." |
+| **Reference file** (`FileDataGenerationJobSource`) | You have a longer document (spec, policy, knowledge base) that should ground generation from an agent or prompt in real domain content. |
+
+You can combine sources in a single job. Simple Q&A evaluation requires an agent or prompt source and supports one optional reference file. A common pattern is to pair a reference file with a prompt that steers tone or difficulty.
+
+## Prerequisites
+
+- Python SDK version `2.8.0` or later: `pip install "azure-ai-projects>=2.8.0" azure-identity`.
+- JavaScript SDK version `2.8.0` or later: `npm install "@azure/ai-projects@^2.8.0" @azure/identity`.
+- A Microsoft Foundry project endpoint URL in the format `https://<your-resource>.services.ai.azure.com/api/projects/<your-project>`.
+- Foundry User role or higher on the project.
+- For all evaluation role requirements, see [Set up permissions for evaluation workflows](evaluation-permissions).
+- An Azure OpenAI model deployment that supports the Responses API. Both the `simple_qna` and `simulation_seed` recipes use this model to synthesize output rows. For the supported-model list, see [Azure OpenAI Responses API model support](/en-us/azure/foundry/openai/how-to/responses?tabs=python-key#model-support).
+- A supported region. For the list, see [Supported regions for data generation](../../concepts/evaluation-regions-limits-virtual-network#supported-regions-for-data-generation).
+
+## Generate a dataset from the portal
+
+1. In the portal, open the **Data Generation** tab. Select **Create dataset**, and then select **Generate synthetic**.
+2. In **Generate synthetic data**, set **Dataset usage** to **Evaluation**.
+3. Set **Task type**. Select **Simple QnA (single-turn)** for question-and-answer pairs, or **Simulation seed (multi-turn)** for scenario descriptions used in conversation simulation.
+4. Select a **Generator model**.
+5. Provide an **Agent** or **Prompt** source. Optionally, add a **Reference file** to ground the generated data.
+6. Set **Maximum number of samples** to a value from 1 through 1,000, and enter the dataset output name.
+7. Select **Generate**.
+8. Track the dataset generation job status in the **Data Generation** tab.
+9. When the job finishes, preview the generated rows on the **Data** tab.
+
+## Generate a dataset from an agent definition (SDK)
+
+This flow seeds generation from a deployed agent's instructions. The service fetches the agent's prompt and uses your configured model to synthesize question-and-answer pairs from it.
+
+First, create an `AIProjectClient` by using your project endpoint and `DefaultAzureCredential`. You can find all data generation operations under `project_client.datasets`.
+
+# [Python](#tab/python)
+```python
+from azure.identity import DefaultAzureCredential
+from azure.ai.projects import AIProjectClient
+
+credential = DefaultAzureCredential()
+project_client = AIProjectClient(
+    endpoint="https://<your-resource>.services.ai.azure.com/api/projects/<your-project>",
+    credential=credential,
+)
+```
+
+# [JavaScript/TypeScript](#tab/javascript)
+```bash
+npm install "@azure/ai-projects@^2.8.0" @azure/identity
+```
+
+```javascript
+import { DefaultAzureCredential } from "@azure/identity";
+import { AIProjectClient } from "@azure/ai-projects";
+
+const projectEndpoint =
+  "https://<your-resource>.services.ai.azure.com/api/projects/<your-project>";
+const projectClient = new AIProjectClient(
+  projectEndpoint,
+  new DefaultAzureCredential(),
+);
+```
+
+Use `@azure/ai-projects` 2.8.0 or later. You can find all data generation operations under `projectClient.datasets`. The agent, prompt, and reference-file sections include JavaScript/TypeScript examples.
+
+Reference: [AIProjectClient class](/en-us/javascript/api/@azure/ai-projects/aiprojectclient)
+
+---
+
+Then submit a `SimpleQnA` job whose source is an agent reference. If you already have a deployed agent, skip the `create_version` call and pass its existing `name` and `version` to `AgentDataGenerationJobSource`.
+
+# [Python](#tab/python)
+```python
+import time
+from azure.ai.projects.models import (
+    AgentDataGenerationJobSource,
+    DataGenerationModelOptions,
+    DatasetDataGenerationJobOutput,
+    EvaluationDataGenerationJobInputs,
+    EvaluationDataGenerationJobOutputConfiguration,
+    PromptAgentDefinition,
+    SimpleQnADataGenerationJobConfiguration,
+)
+
+MODEL_NAME = "gpt-4.1-mini"
+poll_interval_seconds = 10
+
+# 1. Reference (or create) a prompt agent whose instructions seed generation.
+agent = project_client.agents.create_version(
+    agent_name="retail-agent",
+    definition=PromptAgentDefinition(
+        model=MODEL_NAME,
+        instructions=(
+            "You are a customer support assistant for Contoso Retail. "
+            "Answer questions about the product catalog, loyalty program, store hours, "
+            "and the return policy. If a question falls outside this scope, say you "
+            "don't have that information."
+        ),
+    ),
+)
+
+# 2. Define a SimpleQnA evaluation job sourced from the agent definition.
+job = EvaluationDataGenerationJobInputs(
+    name="retail-agent-eval-set",
+    sources=[
+        AgentDataGenerationJobSource(
+            description="Agent definition used to seed QnA generation.",
+            agent_name=agent.name,
+            agent_version=agent.version,
+        ),
+    ],
+    generation_configuration=SimpleQnADataGenerationJobConfiguration(
+        # Evaluation jobs support max_samples from 1 through 1,000.
+        max_samples=15,
+        model_options=DataGenerationModelOptions(model=MODEL_NAME),
+    ),
+    output_configuration=EvaluationDataGenerationJobOutputConfiguration(
+        name="retail-agent-eval-set"
+    ),
+)
+
+# 3. Submit and wait for completion.
+poller = project_client.datasets.begin_create_generation_job(job=job)
+while not poller.done():
+    print(f"\tstatus=`{poller.status()}`")
+    time.sleep(poll_interval_seconds)
+result = poller.result()
+
+# 4. Resolve the generated dataset.
+output_name = ""
+output_version = ""
+for output in (result.outputs if result is not None else None) or []:
+    if isinstance(output, DatasetDataGenerationJobOutput):
+        output_name = output.name or ""
+        output_version = output.version or ""
+        break
+
+if not output_name or not output_version:
+    raise RuntimeError("The data generation job didn't return a dataset output.")
+
+dataset = project_client.datasets.get(name=output_name, version=output_version)
+print(f"Generated dataset: {dataset.name} v{dataset.version} (id: {dataset.id})")
+```
+
+# [JavaScript/TypeScript](#tab/javascript)
+```javascript
+const modelName = "gpt-4.1-mini";
+const jobName = "retail-agent-eval-set";
+
+// 1. Reference (or create) a prompt agent whose instructions seed generation.
+const agent = await projectClient.agents.createVersion("retail-agent", {
+  kind: "prompt",
+  model: modelName,
+  instructions:
+    "You are a customer support assistant for Contoso Retail. " +
+    "Answer questions about the product catalog, loyalty program, store hours, " +
+    "and the return policy. If a question falls outside this scope, say you " +
+    "don't have that information.",
+});
+
+// 2. Define and submit a SimpleQnA evaluation job.
+const generationPoller = projectClient.datasets.createGenerationJob({
+  name: jobName,
+  scenario: "evaluation",
+  sources: [
+    {
+      type: "agent",
+      description: "Agent definition used to seed QnA generation.",
+      agent_name: agent.name,
+      agent_version: agent.version,
+    },
+  ],
+  generation_configuration: {
+    type: "simple_qna",
+    max_samples: 15,
+    model_options: { model: modelName },
+  },
+  output_configuration: {
+    name: jobName,
+    write_mode: "overwrite",
+  },
+});
+
+await generationPoller.submitted();
+const result = await generationPoller.pollUntilDone();
+
+// 3. Resolve the generated dataset.
+const datasetOutput = result.outputs?.find((output) => output.type === "dataset");
+if (
+  !datasetOutput ||
+  !("name" in datasetOutput) ||
+  !("version" in datasetOutput) ||
+  !datasetOutput.name ||
+  !datasetOutput.version
+) {
+  throw new Error("The data generation job didn't return a dataset output.");
+}
+
+const dataset = await projectClient.datasets.get(
+  datasetOutput.name,
+  datasetOutput.version,
+);
+console.log(
+  `Generated dataset: ${dataset.name} v${dataset.version} (id: ${dataset.id})`,
+);
+```
+
+---
+
+The job produces a versioned dataset with single-turn `query` and `ground_truth` fields. Preview it on the **Data** tab in the portal to spot-check the generated rows before evaluating.
+
+## Generate a dataset from a prompt (SDK)
+
+If you don't have a deployed agent yet, or if you want to generate data from a self-contained snippet of source material, pass the text as a `PromptDataGenerationJobSource`. This approach is useful for policy documents, FAQ content, or short specs.
+
+# [Python](#tab/python)
+```python
+import time
+from azure.ai.projects.models import (
+    DataGenerationModelOptions,
+    DatasetDataGenerationJobOutput,
+    EvaluationDataGenerationJobInputs,
+    EvaluationDataGenerationJobOutputConfiguration,
+    PromptDataGenerationJobSource,
+    SimpleQnADataGenerationJobConfiguration,
+)
+
+MODEL_NAME = "gpt-4.1-mini"
+poll_interval_seconds = 10
+
+job = EvaluationDataGenerationJobInputs(
+    name="contoso-refund-eval-set",
+    sources=[
+        PromptDataGenerationJobSource(
+            description="Contoso refund policy",
+            prompt=(
+                "Contoso offers a full refund within 30 days of purchase for any "
+                "product returned in its original condition. After 30 days, store "
+                "credit may be issued at the discretion of customer support. "
+                "Digital goods are non-refundable once downloaded."
+            ),
+        ),
+    ],
+    generation_configuration=SimpleQnADataGenerationJobConfiguration(
+        max_samples=15,
+        model_options=DataGenerationModelOptions(model=MODEL_NAME),
+    ),
+    output_configuration=EvaluationDataGenerationJobOutputConfiguration(
+        name="contoso-refund-eval-set"
+    ),
+)
+
+poller = project_client.datasets.begin_create_generation_job(job=job)
+# Submit and wait for completion.
+print("Periodically check job status:")
+while not poller.done():
+    print(f"\tstatus=`{poller.status()}`")
+    time.sleep(poll_interval_seconds)
+result = poller.result()
+
+output_name = ""
+output_version = ""
+for output in (result.outputs if result is not None else None) or []:
+    if isinstance(output, DatasetDataGenerationJobOutput):
+        output_name = output.name or ""
+        output_version = output.version or ""
+        break
+
+if not output_name or not output_version:
+    raise RuntimeError("The data generation job didn't return a dataset output.")
+
+dataset = project_client.datasets.get(name=output_name, version=output_version)
+print(f"Generated dataset: {dataset.name} v{dataset.version} (id: {dataset.id})")
+```
+
+# [JavaScript/TypeScript](#tab/javascript)
+```javascript
+const modelName = "gpt-4.1-mini";
+const jobName = "contoso-refund-eval-set";
+
+const generationPoller = projectClient.datasets.createGenerationJob({
+  name: jobName,
+  scenario: "evaluation",
+  sources: [
+    {
+      type: "prompt",
+      description: "Contoso refund policy",
+      prompt:
+        "Contoso offers a full refund within 30 days of purchase for " +
+        "any product returned in its original condition. After 30 " +
+        "days, store credit may be issued at the discretion of " +
+        "customer support. Digital goods are non-refundable once " +
+        "downloaded.",
+    },
+  ],
+  generation_configuration: {
+    type: "simple_qna",
+    max_samples: 15,
+    model_options: { model: modelName },
+  },
+  output_configuration: {
+    name: jobName,
+    write_mode: "overwrite",
+  },
+});
+
+// Creating a data generation job is a long-running operation. Once
+// `submitted()` resolves, the job is queued and its id is available on
+// the poller state.
+await generationPoller.submitted();
+console.log(`Created data generation job (id: ${generationPoller.operationState?.jobId})`);
+
+const result = await generationPoller.pollUntilDone();
+if (result.generated_samples !== undefined) {
+  console.log(`Generated samples: ${result.generated_samples}`);
+}
+
+const datasetOutput = result.outputs?.find((output) => output.type === "dataset");
+if (
+  !datasetOutput ||
+  !("name" in datasetOutput) ||
+  !("version" in datasetOutput) ||
+  !datasetOutput.name ||
+  !datasetOutput.version
+) {
+  throw new Error("The data generation job didn't return a dataset output.");
+}
+
+const dataset = await projectClient.datasets.get(
+  datasetOutput.name,
+  datasetOutput.version,
+);
+console.log(
+  `Generated dataset: ${dataset.name} v${dataset.version} (id: ${dataset.id})`,
+);
+```
+
+Reference: [datasets.createGenerationJob](/en-us/javascript/api/@azure/ai-projects/aiprojectclient)
+
+---
+
+## Generate a dataset from reference files (SDK)
+
+For longer source material, upload a document as an Azure OpenAI file and reference it by ID alongside a prompt or agent source. This option works best when the agent's domain knowledge lives in a spec, knowledge-base export, or policy document, because the generated questions stay grounded in that content.
+
+The file must be in the `processed` state before the data generation service can use it, and it needs to contain at least 1 KB of content.
+
+Supported reference file extensions are: `.txt`, `.md`, `.csv`, `.json`, `.xml`, `.html`, `.pdf`, `.png`, `.jpg`, `.jpeg`, `.gif`, `.tiff`, `.tif`, `.svg`.
+
+The JavaScript/TypeScript example uses Node.js to read the local file.
+
+# [Python](#tab/python)
+```python
+import io
+import time
+from azure.ai.projects.models import (
+    DataGenerationModelOptions,
+    DatasetDataGenerationJobOutput,
+    EvaluationDataGenerationJobInputs,
+    EvaluationDataGenerationJobOutputConfiguration,
+    FileDataGenerationJobSource,
+    PromptDataGenerationJobSource,
+    SimpleQnADataGenerationJobConfiguration,
+)
+
+MODEL_NAME = "gpt-4.1-mini"
+REFERENCE_DOCUMENT = open("retail-agent-reference.md", "rb").read()
+poll_interval_seconds = 10
+
+# 1. Upload the reference document via the Azure OpenAI Files API.
+openai_client = project_client.get_openai_client()
+seed_file = openai_client.files.create(
+    file=("retail-agent-reference.md", io.BytesIO(REFERENCE_DOCUMENT)),
+    purpose="user_data",
+)
+
+# 2. Wait for the file to finish processing.
+while seed_file.status not in ("processed", "error"):
+    time.sleep(2)
+    seed_file = openai_client.files.retrieve(file_id=seed_file.id)
+if seed_file.status != "processed":
+    raise RuntimeError(f"File failed to process: {seed_file.status}")
+
+# 3. Submit a SimpleQnA job with prompt context and file grounding.
+job = EvaluationDataGenerationJobInputs(
+    name="retail-agent-file-eval-set",
+    sources=[
+        PromptDataGenerationJobSource(
+            description="Instructions for the generated evaluation data.",
+            prompt=(
+                "Generate questions that test a support agent's knowledge of "
+                "the Contoso Retail catalog and return policy."
+            ),
+        ),
+        FileDataGenerationJobSource(
+            description="Contoso Retail product catalog and policy reference.",
+            id=seed_file.id,
+        ),
+    ],
+    generation_configuration=SimpleQnADataGenerationJobConfiguration(
+        max_samples=15,
+        model_options=DataGenerationModelOptions(model=MODEL_NAME),
+    ),
+    output_configuration=EvaluationDataGenerationJobOutputConfiguration(
+        name="retail-agent-file-eval-set"
+    ),
+)
+
+poller = project_client.datasets.begin_create_generation_job(job=job)
+# Submit and wait for completion.
+print("Periodically check job status:")
+while not poller.done():
+    print(f"\tstatus=`{poller.status()}`")
+    time.sleep(poll_interval_seconds)
+result = poller.result()
+
+output_name = ""
+output_version = ""
+for output in (result.outputs if result is not None else None) or []:
+    if isinstance(output, DatasetDataGenerationJobOutput):
+        output_name = output.name or ""
+        output_version = output.version or ""
+        break
+
+if not output_name or not output_version:
+    raise RuntimeError("The data generation job didn't return a dataset output.")
+
+dataset = project_client.datasets.get(name=output_name, version=output_version)
+print(f"Generated dataset: {dataset.name} v{dataset.version} (id: {dataset.id})")
+```
+
+# [JavaScript/TypeScript](#tab/javascript)
+```javascript
+import fs from "node:fs";
+
+const modelName = "gpt-4.1-mini";
+const jobName = "retail-agent-file-eval-set";
+
+// 1. Upload the reference document via the Azure OpenAI Files API.
+const openAIClient = projectClient.getOpenAIClient();
+let seedFile = await openAIClient.files.create({
+  file: fs.createReadStream("retail-agent-reference.md"),
+  purpose: "user_data",
+});
+
+// 2. Wait for the file to finish processing.
+seedFile = await openAIClient.files.waitForProcessing(seedFile.id);
+if (seedFile.status !== "processed") {
+  throw new Error(`File failed to process: ${seedFile.status}`);
+}
+
+// 3. Submit a SimpleQnA job with prompt context and file grounding.
+const generationPoller = projectClient.datasets.createGenerationJob({
+  name: jobName,
+  scenario: "evaluation",
+  sources: [
+    {
+      type: "prompt",
+      description: "Instructions for the generated evaluation data.",
+      prompt:
+        "Generate questions that test a support agent's knowledge of " +
+        "the Contoso Retail catalog and return policy.",
+    },
+    {
+      type: "file",
+      description: "Contoso Retail product catalog and policy reference.",
+      id: seedFile.id,
+    },
+  ],
+  generation_configuration: {
+    type: "simple_qna",
+    max_samples: 15,
+    model_options: { model: modelName },
+  },
+  output_configuration: {
+    name: jobName,
+    write_mode: "overwrite",
+  },
+});
+
+await generationPoller.submitted();
+const result = await generationPoller.pollUntilDone();
+
+const datasetOutput = result.outputs?.find((output) => output.type === "dataset");
+if (
+  !datasetOutput ||
+  !("name" in datasetOutput) ||
+  !("version" in datasetOutput) ||
+  !datasetOutput.name ||
+  !datasetOutput.version
+) {
+  throw new Error("The data generation job didn't return a dataset output.");
+}
+
+const dataset = await projectClient.datasets.get(
+  datasetOutput.name,
+  datasetOutput.version,
+);
+console.log(
+  `Generated dataset: ${dataset.name} v${dataset.version} (id: ${dataset.id})`,
+);
+```
+
+---
+
+## Generate a simulation seed dataset
+
+Simulation seed jobs produce a dataset of scenario descriptions that feed the [Simulate conversations](cloud-evaluation-simulate-conversations) flow. Generated rows can contain `id`, `category`, `test_case_description`, and `desired_num_turns`. Only `test_case_description` is required.
+
+Note
+
+In SDK version 2.8.0, the generated Python and JavaScript simulation-seed configuration models don't expose the service-required `max_samples` field. Use the portal to create simulation seed datasets until the SDK and service contract are aligned.
+
+Use an agent or prompt source in the portal, and optionally add reference files for grounding.
+
+### Generated dataset schema
+
+The simulation seed schema supports the following fields. Only `test_case_description` is required; the other fields are optional.
+
+| Field | Required | Description |
+| --- | --- | --- |
+| **`test_case_description`** | Yes | Free-form description of the scenario that the simulator uses to play the user's role. |
+| **`id`** | No | Identifier for the scenario row. |
+| **`category`** | No | Category label for organizing related scenarios. |
+| **`desired_num_turns`** | No | Recommended conversation length. When provided, the simulator uses it as guidance during the interaction. |
+
+Example row (`test_case_description` shortened for readability):
+
+```json
+{
+  "id": "1",
+  "category": "Basic support & empathy",
+  "test_case_description": "A mildly frustrated customer says they've been charged different amounts across recent months and asks for an explanation and refund. The agent must acknowledge the confusion without blame, note it can't see the actual account, and offer concrete generic next steps (what to check, how to contact billing support). Multi-turn behavior to evaluate: whether the agent stays consistent about its limitations across turns, and whether it keeps offering practical options rather than vague sympathy...",
+  "desired_num_turns": 4
+}
+```
+
+Preview the generated rows on the **Data** tab before running conversation simulation. Rows with unclear `test_case_description` values tend to produce lower-quality simulated conversations.
+
+## Run an evaluation against the generated dataset
+
+The evaluation path depends on the task type:
+
+- **Simple Q&A datasets** use the standard `query` and `ground_truth` schema and work directly with the evaluation APIs. For the full flow, see [Evaluate models and agents in the cloud](cloud-evaluation-targets). For complete runnable end-to-end examples, see [sample_synthetic_data_agent_evaluation.py](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/evaluations/sample_synthetic_data_agent_evaluation.py) and [sample_synthetic_data_model_evaluation.py](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/evaluations/sample_synthetic_data_model_evaluation.py) on GitHub.
+- **Simulation seed datasets** feed the [Simulate conversations](cloud-evaluation-simulate-conversations) flow. Pass the generated dataset ID as the simulation run's source. The simulator uses each row's `test_case_description` to play the user's role and, when provided, uses `desired_num_turns` as guidance. Conversation-level evaluators score the resulting conversation rather than the seed row.
+
+## Manage data generation jobs
+
+Use `project_client.datasets` job-management APIs to list, inspect, cancel, and delete synthetic generation jobs.
+
+# [Python](#tab/python)
+```python
+# List recent evaluation jobs.
+for job in project_client.datasets.list_generation_jobs(
+    limit=20,
+    order="desc",
+):
+    if job.scenario == "evaluation":
+        print(f"{job.id}  {job.status:<12}  {job.name}")
+
+# Inspect a specific job's status.
+job = project_client.datasets.get_generation_job(job_id="job_...")
+print(f"{job.id}  {job.status}")
+
+# Cancel a running job.
+project_client.datasets.cancel_generation_job(job_id="job_...")
+
+# Delete a job record.
+project_client.datasets.delete_generation_job(job_id="job_...")
+```
+
+# [JavaScript/TypeScript](#tab/javascript)
+```javascript
+// List recent evaluation jobs.
+for await (const job of projectClient.datasets.listGenerationJobs({
+  limit: 20,
+})) {
+  if (job.scenario === "evaluation") {
+    console.log(`${job.id}  ${job.status}  ${job.name}`);
+  }
+}
+
+// Inspect a specific job's status.
+const job = await projectClient.datasets.getGenerationJob("job_...");
+console.log(`${job.id}  ${job.status}`);
+
+// Cancel a running job.
+await projectClient.datasets.cancelGenerationJob("job_...");
+
+// Delete a job record.
+await projectClient.datasets.deleteGenerationJob("job_...");
+```
+
+Reference: [datasets.listGenerationJobs](/en-us/javascript/api/@azure/ai-projects/aiprojectclient)
+
+---
+
+For more context, see [Manage data generation jobs](traces-to-dataset#manage-data-generation-jobs).
+
+## Limitations
+
+- If your Foundry project is connected to your own storage account, public network access must be enabled on that storage account for successful dataset creation.
+
+## Best practices
+
+- **Mirror your production system prompt.** When you generate from an agent definition or a prompt, use instructions that match what your production agent actually runs. Drift here weakens the evaluation signal.
+- **Combine a reference file with a prompt for grounded coverage.** The file anchors generated questions in real domain content; the prompt steers tone, difficulty, or topic emphasis.
+- **Generate a small batch first.** Evaluation jobs support `max_samples` values from 1 through 1,000. Start with a small value, review the rows manually on the **Data** tab, then scale up once the output quality looks right.
+- **Regenerate when the agent's instructions change.** A dataset generated from one version of an agent's prompt becomes stale when the prompt changes significantly. Rerun the job and version the new output.
+- **Combine synthetic and trace-based generation for the strongest coverage.** Synthetic data fills gaps before launch and for edge cases; production traces reflect how your agent actually behaves. Use both sources together rather than treating them as alternatives. See [Convert agent traces into evaluation datasets](traces-to-dataset).
+- **Write scenario-focused `test_case_description` values for simulation seeds.** The simulator plays the user side of the conversation based on this text. Descriptions that spell out the user's goal, constraints, and any edge cases you want to cover produce higher-quality simulated conversations.

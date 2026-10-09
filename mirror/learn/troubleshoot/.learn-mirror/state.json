@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "cursor": "https://learn.microsoft.com/en-us/troubleshoot/windows-365/health-checks",
+  "pages": {
+    "https://learn.microsoft.com/en-us/troubleshoot/windows-365/health-checks": {"etag":"\"Rt6VHNZh0OlxMfskGx4x/c1PPig=\"","gitCommitId":"50f72005985be6a9ec4a0d72ad5bebfdc6f6f118","path":"support/windows-365/health-checks.md","sourcePath":"support/windows-365/health-checks.md","updatedAt":"2026-07-21T02:05:00.0000000Z"}
+  }
+}

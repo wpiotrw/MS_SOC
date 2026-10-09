@@ -198,6 +198,8 @@ https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-investi
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-investigate-internet-access-signals
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-use-health-scenario-alerts
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities
+https://learn.microsoft.com/en-us/entra/identity/monitoring-health/scenario-health-agent-id-autonomous-sign-ins
+https://learn.microsoft.com/en-us/entra/identity/monitoring-health/scenario-health-agent-id-interactive-sign-ins
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/understand-service-principal-creation-with-new-audit-log-properties
 https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/cross-tenant-synchronization-overview
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/my-staff-configure

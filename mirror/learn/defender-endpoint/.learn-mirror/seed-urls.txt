@@ -1,5 +1,6 @@
 https://learn.microsoft.com/en-us/defender-endpoint
 https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-runtime-protection-overview
+https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-support-matrix
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
