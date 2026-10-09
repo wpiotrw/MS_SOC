@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: rmcmurray
+author: kgremban
 learn_banner_products:
 - azure
-ms.author: robmcm
+ms.author: kgremban
 ms.service: azure-policy
 description: Describes how policy initiative definitions are used to group policy definitions for deployment to Azure resources in your organization.
 ms.date: 2025-03-04T00:00:00.0000000Z

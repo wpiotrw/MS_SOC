@@ -61,6 +61,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/browse-and-enab
 https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/deliver-extended-security-updates-for-vmware-vms-through-arc
 https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/enable-guest-management-at-scale
 https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/enable-vcenter-resources-in-azure
+https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/support-matrix-for-arc-enabled-vmware-vsphere
 https://learn.microsoft.com/en-us/azure/azure-arc/workload-orchestration/overview
 https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
@@ -82,6 +83,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/direct-ea-admini
 https://learn.microsoft.com/en-us/azure/cost-management-billing/keep-billing-accounts-active
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage-azure-credits
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/change-credit-card
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-enterprise-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/direct-ea-administration
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/supported-payment-methods
@@ -217,16 +219,19 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/quickstart-op
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capabilities
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capability-reference
 https://learn.microsoft.com/en-us/azure/foundry/concepts/customer-managed-keys
+https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/model-migration
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-chat-reasoning
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-grok
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-mai-thinking
+https://learn.microsoft.com/en-us/azure/foundry/how-to/configure-capability-settings
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/create-prompt-agent-visual-studio-code
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/foundry-skills-scenarios-example-prompts
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/get-started-projects-visual-studio-code
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/install-foundry-toolkit-visual-studio-code
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/set-up-foundry-project-visual-studio-code
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/vs-code-agents-workflow-pro-code
+https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/vs-code-tracing
 https://learn.microsoft.com/en-us/azure/foundry/how-to/voice-first-with-hosted-agent
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/agent-insights
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation
@@ -235,6 +240,7 @@ https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evalu
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-deployed-interactions
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-results
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-simulate-conversations
+https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-synthetic-conversations
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-synthetic-data
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/cloud-evaluation-targets
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/evaluate-admin-connected-models
@@ -376,7 +382,9 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/end-of-
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/lifecycle-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/previous-gen-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retired-sizes-list
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dcsv2-series-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dedicated-host-retirement
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/retired-sizes-modernization-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirements-and-capacity-restrictions
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v5-modernization-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v6-v7-modernization-assess

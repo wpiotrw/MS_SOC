@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: daphnemamsft
+author: kgremban
 learn_banner_products:
 - azure
-ms.author: daphnema
+ms.author: kgremban
 ms.service: azure-resource-graph
 description: Learn to group, stagger, paginate, and query in parallel to avoid requests being throttled in Azure Resource Graph.
 ms.date: 2024-01-04T00:00:00.0000000Z

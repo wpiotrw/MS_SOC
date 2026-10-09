@@ -1,0 +1,166 @@
+---
+layout: Conceptual
+title: Create, update, and delete connections in Microsoft Graph - Microsoft Graph | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/graph/connecting-external-content-manage-connections
+feedback_system: Standard
+feedback_product_url: https://developer.microsoft.com/graph/support
+breadcrumb_path: /graph/concepts/breadcrumb/toc.json
+author: mecampos
+ms.author: MSGraphDocsVteam
+uhfHeaderId: MSDocsHeader-MSGraph
+ms.suite: microsoft-graph
+ms.subservice: search
+toc_preview: true
+recommendations: false
+ms.service: microsoft-graph
+ms.topic: article
+description: Learn how to use Microsoft Graph to create and manage connections. Includes a table of connection states and the operations available in each state.
+ms.localizationpriority: high
+doc_type: conceptualPageType
+ms.date: 2025-07-22T00:00:00.0000000Z
+locale: en-us
+document_id: 01beabfa-89c6-5caf-ada9-e427b8ab5e98
+document_version_independent_id: ec6e3690-8276-6f87-f320-f438b6b48170
+original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/concepts/connecting-external-content-manage-connections.md
+site_name: Docs
+depot_name: MSDN.microsoft-graph-docs
+page_type: conceptual
+toc_rel: toc.json
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: connecting-external-content-manage-connections
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: concepts/connecting-external-content-manage-connections.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+platformId: 071a979a-d9a8-292b-575a-edfac22fe8a9
+---
+
+# Create, update, and delete connections in Microsoft Graph - Microsoft Graph | Microsoft Learn
+
+Microsoft 365 Copilot connectors offer an intuitive way to add your external data into Microsoft Graph. A connection is a logical container for your external data that an administrator can manage as a single unit.
+
+After a connection is created, you can add your content from any external data source such as an on-premises content source or an external software as a service (SaaS) service. You can only view and manage the connections that you [created](/en-us/graph/api/externalconnectors-external-post-connections) or were explicitly authorized to manage. A search admin can view and manage all the connections in the tenant via the **Copilot** &gt; **Agents and connectors** section of the Microsoft 365 admin center.
+
+![Sample custom helpdesk system Tickets connector structure.](images/connectors-images/connecting-external-content-manage-connections-connector-structure.png)
+
+You can model a connection any way you want, but creating one connection for every instance of your connector is the most common model. For example, each time that you [set up the Microsoft Windows file share connector](/en-us/microsoftsearch/configure-connector), a new connection is created. You can also create a single connection to add all items from your data source. For example, you can create a single connection to add all the tickets and incidents across multiple teams from your helpdesk system.
+
+## States and operations
+
+Your connection can exist in one of the following states.
+
+| State | Description |
+| --- | --- |
+| **Draft** | An empty connection is provisioned. None of the data source, schema, or settings are configured. |
+| **Ready** | The connection is provisioned with registered schema and is ready for ingestion. |
+| **Obsolete** | This occurs when a dependent feature, such as an API, has been deprecated. Deleting the connection is the only valid operation. |
+| **LimitExceeded** | If you reach the maximum limit of a single connection or the tenant level quota across all connections, you can't add more items until you exit the state. |
+
+The following table specifies which operations are available in each state.
+
+| Operation | Draft | Ready | Obsolete | LimitExceeded |
+| --- | --- | --- | --- | --- |
+| Create connection | ❌ | ✔️ | ❌ | ✔️ |
+| Read connection | ✔️ | ✔️ | ✔️ | ✔️ |
+| Update connection | ✔️ | ✔️ | ❌ | ✔️ |
+| Delete connection | ✔️ | ✔️ | ✔️ | ✔️ |
+| Create schema | ✔️ | ❌ | ❌ | ❌ |
+| Read schema | ❌ | ✔️ | ✔️ | ✔️ |
+| Update schema | ❌ | ✔️ | ❌ | ❌ |
+| Delete schema | ❌ | ❌ | ❌ | ❌ |
+| Create item | ❌ | ✔️ | ❌ | ❌ |
+| Read item | ❌ | ✔️ | ✔️ | ✔️ |
+| Update item | ❌ | ✔️ | ❌ | ✔️ |
+| Delete item | ❌ | ✔️ | ❌ | ✔️ |
+
+A connection allows your application to [define a schema](/en-us/graph/api/externalconnectors-externalconnection-patch-schema) for items that will be indexed, and it provides an endpoint for your service to add, update, or delete items from the index.
+
+The first step for an application to add items to the search index is to create a connection.
+
+## Create a connection
+
+Before an application can add items to the search index, it must create and configure a connection:
+
+1. [Create a connection](/en-us/graph/api/externalconnectors-external-post-connections) with a unique ID, display name, and description.
+2. [Register a schema](/en-us/graph/api/externalconnectors-externalconnection-patch-schema) to define the fields that will be included in the index. 
+
+> 
+> **Note:** For more information about updating the schema for an existing connection, see [Schema update capabilities](/en-us/graph/connecting-external-content-manage-schema#schema-update-capabilities).
+
+## Connection settings
+
+You can configure the default connection settings for each enabled content experience. When enabled, these settings affect the content experiences in Microsoft Search and Microsoft 365 Copilot.
+
+### Activity settings
+
+Activity settings](/graph/api/resources/externalconnectors-activitysettings)rovide the URL-to-ExternalItem mapping metadata that allows Microsoft 365 to recognise that a URL corresponds to a specific indexed item in a Copilot connector connection.
+
+- **URL Resolution in Microsoft 365 Experiences**
+
+    - When a user searches for, pastes, or shares a URL in Microsoft 365 experiences such as Microsoft Search or Microsoft 365 Copilot, Microsoft 365 can use the configured `urlToItemResolvers` to resolve the URL to the corresponding `externalItem`. This enables Microsoft 365 to identify the indexed item represented by the URL and associate detected interactions with the correct external item.
+- **Activity Signal Capture through the Microsoft 365 Copilot Extension**
+
+    - Activity signals can be captured using the [Microsoft 365 Copilot extension](/en-us/microsoft-365/copilot/connectors/copilot-extension), a browser-based extension for Microsoft 365 Copilot. When activity settings are configured and the extension is enabled, the extension can automatically capture activity signals and associate them with indexed connector items. These signals help improve personalization and relevance across Microsoft 365 Copilot by prioritizing content users engage with in connected systems.
+
+Activity settings provide the URL-to-item mapping required for these signals to be associated with the correct indexed item. To do this, add a [urlToItemResolver](/en-us/graph/api/resources/externalconnectors-urltoitemresolverbase). This allows a URL from the connection detected within Microsoft 365 apps to be resolved to its respective item ID on the [externalItem](/en-us/graph/api/resources/externalconnectors-externalitem). The following image shows how your item might appear within recommendation experiences across Microsoft 365.
+
+![Screenshot of a recommended item with share activity](images/connectors-images/share-activity-recommendation-example.png)
+
+The following example shows the **activitySettings** payload with a complete **urlToItemResolvers** section. For example, when someone shares the link `https://contoso.com/items/39483948/`, it represents an **externalItem** that was ingested through a Microsoft Graph connection. In this example, the shared link represents an **externalItem** with an **itemId** of `id_39483948`. This connection specifies how to map from the URL to the **itemId** of that **externalItem**. In this example, this connection has an **id** of `contosohr`.
+
+Update the activity settings by sending a patch request on the connection.
+
+```http
+PATCH https://graph.microsoft.com/v1.0/external/connections/contosohr
+```
+
+The following **activitySettings** payload is sent with the patch request.
+
+```json
+{
+  "@odata.type": "#microsoft.graph.externalConnectors.activitySettings",
+  "urlToItemResolvers": [
+    {
+        "@odata.type": "#microsoft.graph.externalConnectors.itemIdResolver",
+          "itemId": "id_{myItemId}",  
+          "priority": 1,
+          "urlMatchInfo": {
+            "@odata.type": "microsoft.graph.externalConnectors.urlMatchInfo",
+            "baseUrls": [
+              "https://contoso.com"
+            ],
+            "urlPattern": "/items/(?<myItemId>[0-9]+)"
+          }
+    }
+  ]
+}
+```
+
+In this example, the **itemId** field specified how to form the ID of the external item that the URL represents. The **itemId** is referenced in **urlPattern** (which is within **urlMatchInfo**) to extract `39483948` as the ID of the **externalItem**.
+
+You can supply a list of up to eight **itemIdResolver** resources in the **urlToItemResolvers** resource for your activity settings payload. For each of these **urlMatchInfo** resources, specify a value of `#microsoft.graph.externalConnectors.itemIdResolver` for the `@odata.type`, an integer from one to eight for the **priority** property, and a **urlMatchInfo** object that contains a list of base URLs and a regular expression.
+
+When a link is shared, the **urlMatchInfo** objects that belong to the resolvers are applied in the order that the **priority** values specify. In ascending **priority** order, the URL is first compared to the URLs in the **baseUrls** list in the **urlMatchInfo** property. Then, if the base of the link URL is in the **baseUrls** list, the **urlPattern** regular expression is applied to the URL. If this pattern matches, no further resolvers are applied. If either the base of the link URL isn't in the **baseUrls** list, or the **urlPattern** fails to match, the next **urlToItemResolver** is evaluated until a match is found or there are no more **urltoItemResolver** resources to apply.
+
+To learn more about **urlMatchInfo** resources, see [urlMatchInfo type](/en-us/graph/api/resources/externalconnectors-urlmatchinfo).
+
+### Search settings
+
+You can define how search results are displayed in the Microsoft Search results page by supplying the default search display templates for your content in [searchSettings](/en-us/graph/api/resources/externalconnectors-searchsettings). A set of search display templates can be used to display distinct kinds of search results differently. A search display template has a result layout built using Adaptive Cards and rules that specify one or more conditions. When these conditions are met, the layout is applied to the search result and displayed on the results page.
+
+## Update a connection
+
+To change the display name, description, or enabled content experiences for an existing connection, you can [update the connection](/en-us/graph/api/externalconnectors-externalconnection-update).
+
+## Delete a connection
+
+To remove all items that were indexed via a connection, you can [delete a connection](/en-us/graph/api/externalconnectors-externalconnection-delete).

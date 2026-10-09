@@ -121,6 +121,7 @@ https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest
 https://learn.microsoft.com/en-us/entra/identity-platform/reference-credential-management-api
 https://learn.microsoft.com/en-us/entra/identity-platform/reference-native-authentication-api
 https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc
+https://learn.microsoft.com/en-us/entra/identity-platform/tutorial-native-authentication-single-page-app-react-sdk-sign-in
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/configure-workday-termination-lookahead
@@ -136,12 +137,14 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authenti
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-certificate-based-authentication-mobile-ios
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-certificate-based-authentication-technical-deep-dive
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-fido2-hardware-vendor
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mandatory-multifactor-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-password-ban-bad
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication
+https://learn.microsoft.com/en-us/entra/identity/authentication/configure-microsoft-entra-kerberos-trust
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-entra-passkeys-on-windows
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-external-method-manage
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-passkeys-fido2
@@ -153,6 +156,7 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-cloud-apps
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-conditions
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-session
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-enforcement-resource-exclusions
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/controls
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-target-agent-identities
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-agent-user
@@ -161,6 +165,7 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-auton
 https://learn.microsoft.com/en-us/entra/identity/devices/how-to-hybrid-join-using-microsoft-entra-kerberos
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
+https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/validate-oidc-multitenant-app-gallery
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-deployment-options-provision-to-active-directory
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-how-it-works
@@ -200,6 +205,8 @@ https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permi
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats-new
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-zidentity-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels
 https://learn.microsoft.com/en-us/entra/migrate-connect-sync-cloud-sync-tool
 https://learn.microsoft.com/en-us/entra/overview-provision-entra-id-to-active-directory
