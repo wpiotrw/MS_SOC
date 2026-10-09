@@ -410,8 +410,25 @@ def priority(c):
         score += 1; why.append("component you run on your servers")
     if c["status"] in ("Recently closed",):
         score, why = min(score, 2), why
-    level = "critical" if score >= 9 else "high" if score >= 5 else "normal"
+    S_ = globals().get("SET") or SETTINGS
+    level = "critical" if score >= S_["criticalScore"] else "high" if score >= S_["highScore"] else "normal"
     return {"level": level, "score": score, "why": why}
+
+
+SETTINGS = {  # defaults; campaigns.json "settings" overrides any of them (CLAUDE.md 5cu-e)
+    "closedDays": 30,          # a campaign whose last date passed stays under "Final milestone passed" this long
+    "archiveShowDays": 365,    # the Archive group on the page lists campaigns that ended within this many days
+    "noDateDays": 90,          # a campaign without any date stays while its newest post is younger than this
+    "baselineDays": 60,        # a released security baseline stays under "Released" this long
+    "signalLookbackDays": 240, # a post older than this starts no campaign unless it carries a future date
+    "freshPostDays": 120,      # ... and a post without a future date must have moved within this many days
+    "newCampaignDays": 14,     # "new campaign" event only when the newest post is younger than this
+    "newMilestoneDays": 3,     # "new milestone" event only when its post moved within this many days
+    "eventsKeepDays": 60,      # events kept in the history file
+    "videoDays": 200,          # videos older than this are not matched
+    "criticalScore": 9,        # priority: score at or above = critical
+    "highScore": 5,            # priority: score at or above = high
+}
 
 
 def main(argv):
@@ -432,6 +449,14 @@ def main(argv):
     today = datetime.date.fromisoformat(day)
     notes = []
     corr = jload(os.path.join(ROOT, "campaigns.json"), {})
+    SET = dict(SETTINGS)
+    for k, v in (corr.get("settings") or {}).items():
+        if k in SET and isinstance(v, (int, float)) and v >= 0:
+            SET[k] = v
+    globals()["SET"] = SET
+
+    def ago(n):
+        return (today - datetime.timedelta(days=int(n))).isoformat()
     ytsrc = (jload(os.path.join(ROOT, "youtube_sources.json"), {}) or {}).get("channels", [])
     hist = jload(HIST, {"campaigns": {}, "events": [], "archive": {}})
     _tdoc = jload(os.path.join(DATA, "mc-tenant.json"), {}) or {}
@@ -475,8 +500,8 @@ def main(argv):
                                    "socWeight": i.get("socWeight"), "tier0": bool(i.get("tier0Touch"))}
 
     # ---- which records are signals ----
-    horizon_old = (today - datetime.timedelta(days=240)).isoformat()
-    fresh = (today - datetime.timedelta(days=120)).isoformat()
+    horizon_old = ago(SET["signalLookbackDays"])
+    fresh = ago(SET["freshPostDays"])
     seeds = {}
     for r in recs.values():
         k = kind_of(r["title"])
@@ -672,7 +697,7 @@ def main(argv):
     videos = []
     if not offline and ytsrc:
         videos = youtube(ytsrc, notes)
-    vid_from = (today - datetime.timedelta(days=200)).isoformat()
+    vid_from = ago(SET["videoDays"])
     videos = [v for v in videos if v["date"] >= vid_from]
     corpus = [toks(x.get("title")) for x in blogs + community + videos] + [toks(x.get("title")) for x in learn] + list(ttok.values())
     cdf = Counter(t for ts in corpus for t in ts)
@@ -966,12 +991,12 @@ def main(argv):
         comp_c["next"] = fut[0] if fut else None
 
     # ---- status, history, events ----
-    events = [e for e in hist.get("events", []) if e.get("day", "") >= (today - datetime.timedelta(days=60)).isoformat() and e.get("day") != day]
+    events = [e for e in hist.get("events", []) if e.get("day", "") >= ago(SET["eventsKeepDays"]) and e.get("day") != day]
     newhist = {}
     out = []
     archive = hist.get("archive", {})
-    cut30 = (today - datetime.timedelta(days=30)).isoformat()
-    cut60 = (today - datetime.timedelta(days=60)).isoformat()
+    cut30 = ago(SET["closedDays"])
+    cut60 = ago(SET["baselineDays"])
     for c in results:
         ms = c["milestones"]
         dated_ms = [x for x in ms if not x.get("post")]
@@ -983,7 +1008,7 @@ def main(argv):
         elif dated_ms:
             status = "Recently closed" if c["final"]["date"] >= cut30 else "Archive"
         else:
-            status = "No date" if last_act >= (today - datetime.timedelta(days=90)).isoformat() else "Archive"
+            status = "No date" if last_act >= ago(SET["noDateDays"]) else "Archive"
         if status == "Archive" and c.get("pin") and c["id"].startswith("c-comp-"):
             status = "Active"
         c["status"] = status
@@ -999,7 +1024,7 @@ def main(argv):
                 touched[m["id"].replace("item:", "")] = max(m.get("updated") or "", m.get("published") or "")
                 if m["id"] not in old_members:
                     touched[m["id"].replace("item:", "")] = day
-        recent3 = (today - datetime.timedelta(days=3)).isoformat()
+        recent3 = ago(SET["newMilestoneDays"])
 
         def fresh_src(x):
             return any(touched.get(s0, "") >= recent3 for s0 in (x.get("srcs") or [x["src"]]))
@@ -1056,7 +1081,7 @@ def main(argv):
             mats[g].sort(key=lambda m: m.get("date") or "", reverse=True)
         c["materials"] = mats
         newest = max([v for v in touched.values() if v] + [""])
-        if not seed and not h and status in ("Active", "No date", "Released") and newest >= (today - datetime.timedelta(days=14)).isoformat():
+        if not seed and not h and status in ("Active", "No date", "Released") and newest >= ago(SET["newCampaignDays"]):
             events.append({"day": day, "cid": c["id"], "type": "new", "name": c["name"], "ctype": c["type"], "tech": c["tech"],
                            "next": c["next"]["label"] if c["next"] else None, "text": (c["summary"] or "")[:200]})
         if not seed and h.get("status") in ("Active", "No date") and status in ("Recently closed",):
@@ -1122,8 +1147,10 @@ def main(argv):
         if c.get("component"):
             rec["versions"] = c["component"]["versions"]
             rec["mandatory"] = c["component"]["mandatory"]
+        rec.update({"final": c["final"]["date"] if c.get("final") else None, "type": c["type"], "tech": c["tech"],
+                    "posts": [p["id"] for p in c.get("posts") or []][:6]})
         if status == "Archive":
-            archive[c["id"]] = rec
+            archive[c["id"]] = dict(rec, archivedOn=(archive.get(c["id"]) or {}).get("archivedOn") or day)
             continue
         archive.pop(c["id"], None)
         newhist[c["id"]] = rec
@@ -1170,7 +1197,12 @@ def main(argv):
                       "high": sum(1 for c in out if c["prio"]["level"] == "high"),
                       "moved7": sum(1 for e in events if e["type"] == "moved" and e["day"] >= wk),
                       "archive": len(archive), "videos": len(videos), "channels": len(ytsrc)},
-           "notes": notes, "events": [e for e in events if e["day"] >= (today - datetime.timedelta(days=14)).isoformat()],
+           "notes": notes, "events": [e for e in events if e["day"] >= ago(14)],
+           "settings": SET,
+           "archive": sorted([{"id": k, "name": v.get("name"), "tech": v.get("tech"), "type": v.get("type"), "final": v.get("final"),
+                               "firstSeen": v.get("firstSeen"), "lastSeen": v.get("lastSeen"), "posts": v.get("posts") or []}
+                              for k, v in archive.items() if (v.get("final") or v.get("lastSeen") or "") >= ago(SET["archiveShowDays"])],
+                             key=lambda a: a.get("final") or a.get("lastSeen") or "", reverse=True),
            "campaigns": out}
     old = jload(OUT, {})
     same = {k: v for k, v in old.items() if k != "generated"} == json.loads(json.dumps({k: v for k, v in doc.items() if k != "generated"}))

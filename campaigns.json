@@ -1,5 +1,19 @@
 {
-  "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions. 'define' lists campaigns the owner defines by their posts and items (id, name, tech, type, summary, keywords, members); a post listed by two definitions is shared and its dates, rows and actions are split by each definition's keywords.",
+  "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions. 'define' lists campaigns the owner defines by their posts and items (id, name, tech, type, summary, keywords, members); a post listed by two definitions is shared and its dates, rows and actions are split by each definition's keywords. 'settings' holds how long campaigns stay on the page and the priority thresholds (days and scores; any key left out keeps the default in tools/campaigns.py).",
+  "settings": {
+    "closedDays": 30,
+    "archiveShowDays": 365,
+    "noDateDays": 90,
+    "baselineDays": 60,
+    "signalLookbackDays": 240,
+    "freshPostDays": 120,
+    "newCampaignDays": 14,
+    "newMilestoneDays": 3,
+    "eventsKeepDays": 60,
+    "videoDays": 200,
+    "criticalScore": 9,
+    "highScore": 5
+  },
   "campaigns": {},
   "merge": [],
   "components": {

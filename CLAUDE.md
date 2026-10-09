@@ -26532,6 +26532,15 @@ USNat, USSec) nie sa datami kampanii swiatowej; `tools/mc_tenant.py` rozdziela p
 (`bodyHash` liczony po staremu — bez falszywych „edited"). (4) **„(previously X)"** po dacie to przesuniecie
 podane przez Microsoft — pokazywane w osi czasu jako „Date moved: X → Y (Microsoft's own note in the post)".
 
+**§5cu-e (9 X 2026, wlasciciel: „jak bedzie z przyszlymi kampaniami; co z zakonczonymi, ile je wyswietlac;
+mozna to skonfigurowac w jsonie?").** Progi czasu i priorytetu nie sa juz zaszyte w kodzie: `campaigns.json` →
+`settings` (domyslne w `SETTINGS` kolektora; brakujacy klucz = domyslny): `closedDays` 30 (grupa „Final
+milestone passed"), `archiveShowDays` 365 (zwinieta grupa „Archive" na stronie; plik historii trzyma wszystko),
+`noDateDays` 90, `baselineDays` 60, `signalLookbackDays` 240, `freshPostDays` 120, `newCampaignDays` 14,
+`newMilestoneDays` 3, `eventsKeepDays` 60, `videoDays` 200, `criticalScore` 9, `highScore` 5. Wyjscie niesie
+`settings` (strona pisze z nich etykiety) i `archive` (nazwa, technologia, typ, ostatnia data, posty MC).
+Kampania z archiwum wraca do aktywnych („reopened"), gdy Microsoft poda nowa date.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -34435,7 +34444,7 @@ odtad CZTERNASCIE (4-17).**
     if (c.status === "Recently closed") return "closed";
     return "nodate";
   }
-  var GROUPS = [["soon", "Next 30 days"], ["later", "Later"], ["nodate", "No fixed date from Microsoft"], ["released", "Security baselines released — review and adopt"], ["closed", "Final milestone passed — last 30 days"]];
+  var GROUPS = [["soon", "Next 30 days"], ["later", "Later"], ["nodate", "No fixed date from Microsoft"], ["released", "Security baselines released — review and adopt"], ["closed", "Final milestone passed — last @@ days"]];
 
   function pass(c) {
     if (F.tech && c.tech !== F.tech) return false;
@@ -34744,12 +34753,38 @@ odtad CZTERNASCIE (4-17).**
       var rows = shown.filter(function (c) { return group(c) === g[0]; });
       if (!rows.length) return;
       if (g[0] === "soon" || g[0] === "later") rows.sort(function (a, b) { return a.next.date < b.next.date ? -1 : a.next.date > b.next.date ? 1 : 0; });
-      var gh = el("div", "s5cu-grp"); gh.appendChild(document.createTextNode(g[1])); gh.appendChild(el("span", null, String(rows.length))); list.appendChild(gh);
+      var gh = el("div", "s5cu-grp"); gh.appendChild(document.createTextNode(g[1].replace("@@", String((D.settings || {}).closedDays || 30)))); gh.appendChild(el("span", null, String(rows.length))); list.appendChild(gh);
       rows.forEach(function (c) { list.appendChild(row(c)); });
     });
     if (!shown.length) list.appendChild(el("p", "s5cu-note", "No campaign matches these filters."));
     body.appendChild(list);
+    archiveBlock();
     body.appendChild(el("p", "s5cu-legend", "Materials: MC = Message Center posts · Microsoft = Microsoft blogs, Learn and the brief’s own sources · Community = articles from the watched community sources · Video = the watched YouTube channels (" + (k.channels || 0) + "). Every number opens the campaign at that list. Red: a milestone within 7 days · amber: within 30 days. Dates written as “mid Oct” are Microsoft’s own approximate dates, sorted as the 15th."));
+  }
+  /* §5cu-e: campaigns that ended more than closedDays ago, folded; how long both lists keep them is set in
+     campaigns.json "settings" (closedDays, archiveShowDays) */
+  function archiveBlock() {
+    var A = (D.archive || []).filter(function (a) { return (!F.tech || a.tech === F.tech) && (!F.type || a.type === F.type); });
+    var S = D.settings || {};
+    var d = el("details", "s5cu-arch"), sm = el("summary");
+    sm.appendChild(document.createTextNode("Archive · " + A.length));
+    sm.appendChild(el("span", "s5cu-archs", "campaigns whose last date passed more than " + (S.closedDays || 30) + " days ago, kept here for " + (S.archiveShowDays || 365) + " days; the history file keeps them all"));
+    d.appendChild(sm);
+    if (!A.length) d.appendChild(el("p", "s5cu-note", "No campaign has reached the archive yet: the history starts on 9 October 2026, and a campaign moves here " + (S.closedDays || 30) + " days after its last date."));
+    else {
+      var tw = el("div", "s5cu-tw"), t = own(el("table", "s5cu-tab")), tr = el("tr");
+      ["Campaign", "Technology · type", "Last date", "Message Center"].forEach(function (x) { tr.appendChild(el("th", null, x)); });
+      var th = el("thead"); th.appendChild(tr); t.appendChild(th); var tb = el("tbody");
+      A.forEach(function (a) {
+        var r = el("tr"); r.appendChild(el("td", "s5cu-chg", a.name || a.id)); r.appendChild(el("td", "s5cu-tt", (a.tech || "") + (a.type ? " · " + a.type : "")));
+        r.appendChild(el("td", "s5cu-dt", a.final ? dmy(a.final) : "—"));
+        var td = el("td", "s5cu-srcc"); (a.posts || []).filter(function (x) { return /^MC\d+$/.test(x); }).slice(0, 4).forEach(function (x, i) {
+          if (i) td.appendChild(document.createTextNode(" · ")); var l = el("a", "s5cu-src", x); l.href = "https://mc.merill.net/message/" + x; l.target = "_blank"; l.rel = "noopener"; td.appendChild(l); });
+        r.appendChild(td); tb.appendChild(r);
+      });
+      t.appendChild(tb); tw.appendChild(labels(t)); d.appendChild(tw);
+    }
+    body.appendChild(d);
   }
   function row(c) {
     var r = el("div", "s5cu-row s5cu-p-" + ((c.prio || {}).level || "normal")); r.setAttribute("role", "row"); r.setAttribute("data-cid", c.id);
@@ -36103,6 +36138,10 @@ td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
 .s5cu .s5cu-pl a.s5cu-src{color:var(--accent)}
 .s5cu-facts .s5cu-pl{flex-basis:100%;margin-top:2px}
 .s5cu-tls{display:block;font-size:12px;color:var(--faint);margin-top:3px}
+/* §5cu-e: archive */
+.s5cu-arch{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:0 14px 12px}
+.s5cu-arch>summary{cursor:pointer;padding:12px 0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.s5cu-archs{display:block;font:400 12.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--muted);margin-top:3px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
