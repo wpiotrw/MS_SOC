@@ -16835,7 +16835,7 @@ IdentityDirectoryEvents
     if (/entra-news/i.test(d)) return "Entra news";
     if (/blog/i.test(d)) return "Microsoft blog";
     if (/^devx|permissions-diff|deployment-map/i.test(d)) return "Graph permissions (GitHub)";
-    if (/^deltapulse-mc|mc-index|revision-sweep/i.test(d)) return "Message Center";
+    if (/^deltapulse|mc-index|revision-sweep/i.test(d)) return "Message Center";   /* §5cw: deltapulse-mc folded into deltapulse */
     if (/component|release/i.test(d)) return "Release notes";
     return it.title ? "Brief item" : "";
   }
