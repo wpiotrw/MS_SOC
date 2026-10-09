@@ -241,6 +241,8 @@ def tidy(text, iso):
     return text
 
 
+BOILER = re.compile(r"^(?:thank you for your patience|we apologi[sz]e|we have updated (?:the|this)|this message is associated|"
+                    r"we will communicate|learn more|for more information)", re.I)
 STAMP = re.compile(r"^\s*(?:\[)?updated (" + MON_RE + r" \d{1,2},? \d{4})\]?:?", re.I)
 
 
@@ -844,14 +846,23 @@ def main(argv):
                     row["why"] = " ".join(sentences(m.get("why") or "")[:2])[:420]
                     continue
                 row["change"] = row["change"] or m["title"]
-                ss = [re.sub(r"^\[[^\]]{0,40}\]\s*", "", x) for x in sentences(" ".join(t for t in m["texts"][:2] if t)) if not STAMP.match(x)]
+                ss = [re.sub(r"^\[[^\]]{0,40}\]\s*", "", x) for x in sentences(" ".join(t for t in m["texts"][:2] if t))
+                      if not STAMP.match(x) and not BOILER.search(re.sub(r"^\[[^\]]{0,40}\]\s*", "", x))]
                 before = next((x for x in ss if re.search(r"\b(?:currently|today,|previously|until now|at present|right now)\b", x, re.I)), "")
                 says = next((x for x in ss if x != before and re.search(r"\b(?:will|now|starting|after|no longer|instead|retir|deprecat|enforce)", x, re.I)), "") or \
                     (ss[0] if ss and ss[0] != before else "")
                 row["before"], row["says"] = before[:320], says[:420]
             rows = [r for r in byid.values() if r["says"] or r["why"] or r["before"]]
             rows = [r for r in rows if all(belongs(c, rid, " ".join([r["change"], r["says"], r["why"]])) for rid in (r["src"], "item:" + r["src"]))]
-            rows = rows[:8]
+            rows = rows[:10]
+        # every row says when: the post's own dates and the next date it gives (owner, 9 X: "why has the table no dates?")
+        recd = {m["id"].replace("item:", ""): m for m in mem}
+        for r in rows:
+            m0 = recd.get(r["src"]) or {}
+            r["published"] = m0.get("published")
+            r["updated"] = m0.get("updated") if m0.get("updated") != m0.get("published") else None
+            fx = [x for x in ms if r["src"] in (x.get("srcs") or [x["src"]]) and not x.get("post") and x["date"] >= day]
+            r["next"] = {"date": fx[0]["date"], "label": fx[0]["label"], "prec": fx[0].get("prec")} if fx else None
         # ---- what to do ----
         todo = cc.get("todo") or []
         if not todo:
@@ -1120,6 +1131,11 @@ def main(argv):
         for stp in c.get("stamps") or []:
             sid = str(stp.get("src", "")).replace("item:", "")
             log.append({"date": stp["date"], "id": sid, "what": "Microsoft's update note", "before": "", "after": stp.get("text") or "updated"})
+        for x in ms:
+            if x.get("moved") and x["moved"].get("by") == "Microsoft":
+                m0 = next((m for m in c["members"] if isinstance(m, dict) and m["id"].replace("item:", "") == x["src"]), {})
+                log.append({"date": m0.get("updated") or m0.get("published") or day, "id": x["src"], "what": "Microsoft moved the date",
+                            "before": x["moved"]["was"], "after": x["moved"]["now"]})
         for mv in moves:
             log.append({"date": mv.get("seen"), "id": mv.get("src"), "what": "Date moved", "before": mv.get("was"), "after": mv.get("now")})
         seen_l, merged = set(), []
@@ -1136,6 +1152,10 @@ def main(argv):
             merged.append(e)
         merged.sort(key=lambda e: (e["date"], e.get("id") or ""), reverse=True)
         c["log"] = merged[:120]
+        c["revisions"] = sum(1 for e in merged if e["what"] in ("Microsoft's update note", "Microsoft moved the date", "Microsoft revised the post",
+                                                               "Microsoft edited the post text", "Date moved", "Deadline", "Act-by date"))
+        c["lastMsUpdate"] = max([e["date"] for e in merged if e["what"].startswith("Microsoft")] +
+                                [m.get("updated") or "" for m in c["members"] if isinstance(m, dict) and m.get("src") in ("MC", "Roadmap")] + [""]) or None
         _pp = {}
         for m in c["members"]:
             if m["src"] in ("MC", "Roadmap") and m["id"] not in _pp and re.match(r"^[\w-]+$", m["id"]):

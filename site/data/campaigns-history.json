@@ -243,6 +243,15 @@
 "link":"https://deltapulse.app/item/MC1469551"
 },
 {
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"late Oct 2026",
+"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
+"link":"https://deltapulse.app/item/MC1469551"
+},
+{
 "date":"2026-10-01",
 "id":"MC1448373",
 "what":"Entered the brief (Message Center)",
@@ -2021,6 +2030,24 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Aug 2026",
+"after":"early Nov 2026",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Sep 2026",
+"after":"late Nov 2026",
 "title":"Outlook for Windows report retirement in the Exchange admin center",
 "link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
 }
@@ -4963,6 +4990,24 @@
 },
 {
 "date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"early Oct 2026",
+"after":"late Oct 2026",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"mid Nov 2026",
+"after":"late Nov 2026",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
 "id":"MC1437671",
 "what":"Title",
 "before":"Microsoft Entra: Passwordless password change in My Sign-Ins",
@@ -5102,6 +5147,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108"
+},
+{
+"date":"2026-09-01",
+"id":"MC1423108",
+"what":"Microsoft moved the date",
+"before":"Aug 2026",
+"after":"mid Sep 2026",
 "title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
 "link":"https://mc.merill.net/message/MC1423108"
 },
