@@ -24,9 +24,10 @@ def main():
         if a:
             mer.setdefault(a, set()).add(str(x.get("Source") or "?"))
     # Microsoft's own list, the one Merill takes 82 % of his file from: entra-docs .docutune known-guids.json
-    kg = json.loads(urllib.request.urlopen(urllib.request.Request(
+    raw = urllib.request.urlopen(urllib.request.Request(
         "https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/.docutune/dictionaries/known-guids.json",
-        headers={"User-Agent": "MS_SOC"}), timeout=60).read())
+        headers={"User-Agent": "MS_SOC"}), timeout=60).read().decode("utf-8-sig")
+    kg = json.loads("\n".join(l for l in raw.splitlines() if not l.lstrip().startswith("//")))
     kgi = set()
     def walk(o):
         if isinstance(o, dict):
