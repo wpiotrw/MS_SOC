@@ -35,8 +35,14 @@ jobs:
           python3 ../.cc/collect_graph_map.py GRAPH_MAP.json ../$PREV --compare ../$PREV 2>&1 | tail -10 | sed 's/^/::notice title=graphmap::/' 
           python3 ../.cc/probe_learn.py ../microsoftlearn_sources.json learn_probe.json 2>&1 | tail -4
           timeout 1500 python3 ../.cc/collect_nt.py 2>&1 | tail -12
+      - name: Report (a second step - GitHub keeps at most 10 annotations per step)
+        run: |
+          set +e
+          export SOC_DATE=$(date -u +%F)
+          PREV=$(ls site/data/20??-??-??.json | sort | tail -1)
+          cd out
           cp ../$PREV state.json
-          python3 ../.cc/state_finish.py state.json . 2>&1 | tail -4 | sed 's/^/::notice title=state_finish::/' 
+          python3 ../.cc/state_finish.py state.json . 2>&1 | tail -3 | cut -c1-900 | sed 's/^/::notice title=state_finish::/'
           python3 - <<'EOF'
           import json
           b = {r["name"]: r for r in json.load(open("blogs_raw.json"))}
