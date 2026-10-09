@@ -110,5 +110,20 @@
   {
     "SourceName": "Microsoft Security Baselines Blog",
     "SourceURL": "https://techcommunity.microsoft.com/category/security-baselines/blog/Microsoft-Security-Baselines"
+  },
+  {
+    "SourceName": "Azure Updates",
+    "SourceURL": "https://www.microsoft.com/releasecommunications/api/v2/azure/rss",
+    "RequiredFrom": "2026-10-10"
+  },
+  {
+    "SourceName": "Microsoft Graph changelog",
+    "SourceURL": "https://developer.microsoft.com/en-us/graph/changelog/rss",
+    "RequiredFrom": "2026-10-10"
+  },
+  {
+    "SourceName": "MSRC Security Update Guide",
+    "SourceURL": "https://api.msrc.microsoft.com/update-guide/rss",
+    "RequiredFrom": "2026-10-10"
   }
 ]

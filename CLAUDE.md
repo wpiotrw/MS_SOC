@@ -2126,8 +2126,13 @@ def gate(path, site=None, mirror=False, doc=None):
             if not _root: return None
             p_ = _os.path.join(_os.path.dirname(_os.path.abspath(_root)), fn)
             if not _os.path.exists(p_): p_ = _os.path.join(_root, "..", fn)
+            # §5cw (9 X 2026): an entry added to a list after this brief ran cannot be in it - "RequiredFrom" names the
+            # first brief day that must carry it, so adding a source in the afternoon does not fail the refresh of the
+            # morning page (the code-refresh workflow runs this gate in mirror mode)
+            _bd = str((st["soc-brief-state"] or {}).get("briefDate") or "9999")
             try: return [x for x in json.load(open(p_, encoding="utf-8-sig"))
-                         if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()]
+                         if (x.get("SourceName") or "").strip() and (x.get("SourceURL") or "").strip()
+                         and str(x.get("RequiredFrom") or "") <= _bd]
             except Exception: return None
         _wantL = _srclist("microsoftlearn_sources.json")
         _wantB = _srclist("microsoftblogs_sources.json")
@@ -3162,9 +3167,12 @@ def main(doc, outdir):
             elif "collect_components.py" in head:              got["collect_components.py"] = b
             elif "collect_fpa.py" in head:                     got["collect_fpa.py"] = b
             elif "collect_mc.py" in head:                      got["collect_mc.py"] = b
+            elif '"""collect_graph_map.py' in head:          got["collect_graph_map.py"] = b
             elif "collect_graph_diff.py" in head:              got["collect_graph_diff.py"] = b
             elif "collect_graph_cmds.py" in head:              got["collect_graph_cmds.py"] = b
             elif "collect_community.py" in head:               got["collect_community.py"] = b
+            elif '"""collect_pages.py' in head:              got["collect_pages.py"] = b
+            elif '"""state_finish.py' in head:               got["state_finish.py"] = b
             elif "collect_all.py" in head:                     got["collect_all.py"] = b
             elif "check_links.py" in head:                     got["check_links.py"] = b
             elif "mcp_call.py" in head:                        got["mcp_call.py"] = b
@@ -21039,8 +21047,11 @@ def one(src):
                        % (", ".join(variants(board)), ", ".join(variants(cat))))
         return rec
     base = url.rstrip("/")
-    for suf in ["/feed/", "/feed", "/rss", "/rss.xml", "/index.xml", "/feed.rss"]:
-        xml, code = fetch(base + suf)
+    # §5cw (9 X 2026): a list entry may be the feed itself (Azure updates, the Graph changelog, the MSRC update
+    # guide publish RSS at an address that is not <site>/feed) - the address is tried as it stands first
+    for suf in (["", "/feed/", "/feed", "/rss", "/rss.xml", "/index.xml", "/feed.rss"]
+                if re.search(r"rss|atom|feed|\.xml", url, re.I) else ["/feed/", "/feed", "/rss", "/rss.xml", "/index.xml", "/feed.rss"]):
+        xml, code = fetch(base + suf if suf else url)
         it = items(xml)
         if it:
             rec.update(method="rss-own", feedId=base+suf, status="ok", items=it); return rec
@@ -25534,9 +25545,11 @@ Kolejnosc w przebiegu (budujacym i lustrze):
 python3 extract_code.py CLAUDE.md .
 SOC_DATE=<briefDate> SOC_REPO=<klon MS_SOC> SOC_REPOS=repos python3 collect_all.py .
 #   -> learn_probe.json, learn_changes.json, blogs_raw.json, community_raw.json, NT.json, FPA.json,
-#      MC_INDEX.json, GRAPH_DIFF.json, GRAPH_CMDS.json, components.json, COLLECT_REPORT.json
+#      MC_INDEX.json, GRAPH_DIFF.json, GRAPH_CMDS.json, components.json, COLLECT_REPORT.json,
+#      PAGES.json (§5cw, czyta state_finish.py), GRAPH_MAP.json (§5cw: -> klucz graphMap W CALOSCI, nie przepisywany recznie)
 # ... stan zbudowany ...
-SOC_DATE=<briefDate> python3 check_links.py <stan.json albo strona.html> LINK_AUDIT.json   # -> klucz linkAudit
+SOC_DATE=<briefDate> python3 check_links.py <stan.json> LINK_AUDIT.json   # -> klucz linkAudit; stan.json: sources dokonczone (state_finish.py, §5cw)
+#   podana strona.html zamiast stanu: SOC_DATE=<briefDate> python3 state_finish.py <stan.json>   (w katalogu z wynikami collect_all.py)
 ```
 
 ```python
@@ -25618,8 +25631,10 @@ def steps(prev):
         ("collect_fpa",        ["collect_fpa.py", "FPA.json"] + P, "FPA.json", 900),
         ("collect_mc",         ["collect_mc.py", "MC_INDEX.json"] + P, "MC_INDEX.json", 900),
         ("collect_graph_diff", ["collect_graph_diff.py", "GRAPH_DIFF.json"] + P, "GRAPH_DIFF.json", 1200),
+        ("collect_graph_map",  ["collect_graph_map.py", "GRAPH_MAP.json"] + P, "GRAPH_MAP.json", 900),     # §5cw
         ("collect_graph_cmds", ["collect_graph_cmds.py", "GRAPH_CMDS.json"], "GRAPH_CMDS.json", 900),
         ("collect_components", ["collect_components.py", "components.json"] + P, "components.json", 900),
+        ("collect_pages",      ["collect_pages.py", "PAGES.json"], "PAGES.json", 300),   # §5cw
     ]
 
 
@@ -25806,6 +25821,18 @@ def main(src, out):
     print("check_links: %d checked - ok %d, moved %d, dead %d, unchecked %d, transient %d (%ds)"
           % (len(U), c["ok"], c["moved"], c["dead"], c["unchecked"], c["transient"], time.time() - t0))
     for d in la["deadList"][:15]: print("  DEAD", d["status"], d["url"])
+    # §5cw (9 X 2026): given the STATE file, the sources are finished in it - legacy keys folded, entries the
+    # collectors read today refreshed, the rest marked carried, and every source's link status written
+    if src.endswith(".json"):
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import state_finish
+            state_finish.DAY = day
+            state_finish.apply_file(src, ".", {u: (s_, x) for u, s_, x in R})
+        except Exception as e:
+            print("check_links: state_finish not applied (%s)" % str(e)[:160])
+    else:
+        print("check_links: a page was given, not the state file - run state_finish.py on the state file (CLAUDE.md 5cw)")
     sys.stdout.flush()
     os._exit(0)   # threads still waiting on a hung host must not keep the run alive
 
@@ -25814,6 +25841,700 @@ if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])
 ```
 
+
+**Zrodla czytane kodem do konca (§5cw, 9 X 2026, wlasciciel: „przesledz caly portal, czy nie mamy gdzies sekcji w
+podobnym stanie — trzeba to poprawic i aktualizowac zgodnie ze schedtaskami i routines").** Przeglad 9 X: 31 z 71 wpisow
+zakladki Sources mialo stan `carried`, czesc od 28 IX — przebieg kopiowal wczorajsze `sources` i odswiezal tylko te klucze,
+ktorych akurat dotknal; klucze wymyslone recznie 28 IX (bez konektora Learn MCP, czytane WebFetch) zyly dalej obok kluczy
+czytanych codziennie przez kolektory, bo pozycja 68a wymaga wpisu dla kazdego `discoveredBy`; `linkCheckedOn` zrodla nie
+pisal nikt (wszystkie 25-29 IX). Od 9 X: (1) `collect_pages.py` czyta z naszej kopii Learn strony, ktore nie sa lista
+what's new (Intune in development, Windows message center, release health 25H2, end of support 2026 i 2027, Graph known
+issues, AVD i Windows 365 what's new) — wpiety w `collect_all.py`, wynik `PAGES.json`; (2) kanaly Azure updates, Graph
+changelog i MSRC Update Guide stoja w `microsoftblogs_sources.json` (`collect_blogs.py` czyta adres, ktory jest kanalem,
+wprost), daily.entra.news w `community_sources.json`, AVD i Windows 365 w `microsoftlearn_sources.json`; nowy wpis listy
+niesie `RequiredFrom` (pierwszy dzien briefu, ktory musi go miec — pozycje 81a-e nie wymagaja go od strony zbudowanej
+wczesniej); (3) `state_finish.py` konczy `sources` w pliku stanu: klucze legacy skladane w klucz czytany dzis (`ALIASES`,
+razem z `items[].discoveredBy`), wpisy odswiezane z `PAGES.json`, `blogs_raw.json`, `community_raw.json`, wpis nieczytany
+dzis = `carried` z `carriedDays`, `read` nigdy ponizej liczby pozycji, ktore zrodlo znalazlo; (4) `check_links.py` podany
+plik STANU (`.json`) wola `state_finish.py` sam i wpisuje kazdemu zrodlu `linkStatus`, `linkCheckedOn` (dzis) i `linkTo`
+przy przeniesieniu — przebieg nie potrzebuje nowego polecenia. Strona HTML zamiast stanu: `state_finish.py` trzeba
+uruchomic osobno na pliku stanu (`python3 state_finish.py <stan.json>`).
+
+```python
+#!/usr/bin/env python3
+"""collect_pages.py - Microsoft Learn pages the brief watches that are not a what's-new list (CLAUDE.md 5cw).
+
+  SOC_DATE=<briefDate> SOC_REPO=<MS_SOC clone> python3 collect_pages.py PAGES.json
+
+Why (9 X 2026, owner: "trace the whole portal for sections that stand still and fix them"): seven sources of
+the Sources tab - Intune in development, the Windows message center, Windows release health, the end-of-support
+lists, Graph known issues, the Azure Virtual Desktop and Windows 365 what's-new pages - were read by hand with
+WebFetch on 28 IX and carried forward every day after, because no script read them. Every one of them is in our
+own Learn mirror (mirror/learn, refreshed four times a day by .github/workflows/learn-mirror.yml), so a run
+reads them there; when the clone has no mirror (a sparse checkout) the same file is read from GitHub raw.
+Per page: the public url, the page date Microsoft stamps (ms.date), the newest date written in the page, the
+day the mirror last changed the file, the title and the size. No page is ever carried: a page that cannot be
+read is status failed with the reason."""
+import datetime, json, os, re, subprocess, sys, urllib.request
+
+DAY = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+REPO = os.environ.get("SOC_REPO") or "."
+RAW = "https://raw.githubusercontent.com/wpiotrw/MS_SOC/main/mirror/learn/"
+# key (as in the Sources tab) -> name, file in mirror/learn, public page, product, kind
+PAGES = [
+    ("intune-in-development", "Microsoft Intune - in development", "intune/intune/whats-new/in-development.md",
+     "https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/in-development", "Intune", "learn-release"),
+    ("windows-message-center", "Windows message center (release health)", "windows/windows/release-information/windows-message-center.md",
+     "https://learn.microsoft.com/en-us/windows/release-health/windows-message-center", "Windows", "learn-release"),
+    ("windows-release-health", "Windows 11 25H2 known issues and notifications (release health)", "windows/windows/release-information/status-windows-11-25H2.md",
+     "https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25h2", "Windows", "learn-release"),
+    ("lifecycle-eos", "Microsoft lifecycle - products reaching end of support in 2026", "lifecycle/lifecycle-data/end-of-support/end-of-support-2026.md",
+     "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026", "Lifecycle", "learn-release"),
+    ("lifecycle-eos-2027", "Microsoft lifecycle - products reaching end of support in 2027", "lifecycle/lifecycle-data/end-of-support/end-of-support-2027.md",
+     "https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027", "Lifecycle", "learn-release"),
+    ("graph-known-issues", "Microsoft Graph known issues", "graph/concepts/known-issues.md",
+     "https://learn.microsoft.com/en-us/graph/known-issues", "Graph", "learn-release"),
+    ("learn-avd", "Azure Virtual Desktop what's new", "azure/virtual-desktop/whats-new.md",
+     "https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new", "Azure Virtual Desktop", "learn-whatsnew"),
+    ("w365-whats-new", "Windows 365 what's new", "windows-365/Windows365/enterprise/whats-new.md",
+     "https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new", "Windows 365", "learn-whatsnew"),
+]
+MON = {m: i for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august",
+                                   "september", "october", "november", "december"], 1)}
+MON.update({k[:3]: v for k, v in list(MON.items())})
+MON["sept"] = 9
+
+
+def dates_in(text):
+    out = []
+    for y, m, d in re.findall(r"\b(20\d\d)-(\d\d)-(\d\d)\b", text):
+        out.append("%s-%s-%s" % (y, m, d))
+    for mo, d, y in re.findall(r"\b([A-Z][a-z]{2,8})\.? (\d{1,2}),? (20\d\d)\b", text):
+        if mo.lower() in MON:
+            out.append("%s-%02d-%02d" % (y, MON[mo.lower()], int(d)))
+    for d, mo, y in re.findall(r"\b(\d{1,2}) ([A-Z][a-z]{2,8}) (20\d\d)\b", text):
+        if mo.lower() in MON:
+            out.append("%s-%02d-%02d" % (y, MON[mo.lower()], int(d)))
+    ok = []
+    for x in out:
+        try:
+            datetime.date.fromisoformat(x)
+            ok.append(x)
+        except ValueError:
+            pass
+    return ok
+
+
+def read(rel):
+    p = os.path.join(REPO, "mirror", "learn", rel)
+    if os.path.exists(p):
+        try:
+            mirrored = subprocess.run(["git", "-C", REPO, "log", "-1", "--format=%cs", "--", os.path.join("mirror", "learn", rel)],
+                                      capture_output=True, text=True, timeout=60).stdout.strip() or None
+        except Exception:
+            mirrored = None
+        return open(p, encoding="utf-8", errors="replace").read(), "mirror/learn/" + rel, mirrored
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(RAW + rel, headers={"User-Agent": "MS_SOC collect_pages"}), timeout=30)
+        return r.read().decode("utf-8", "replace"), RAW + rel, None
+    except Exception as e:
+        raise RuntimeError("not in the clone and GitHub raw answered %s" % str(e)[:80])
+
+
+def main(out):
+    res = []
+    for key, name, rel, url, product, kind in PAGES:
+        rec = {"key": key, "name": name, "url": url, "product": product, "kind": kind, "file": rel, "readOn": DAY}
+        try:
+            md, via, mirrored = read(rel)
+        except Exception as e:
+            rec.update(status="failed", note=str(e))
+            res.append(rec)
+            continue
+        msd = re.search(r"(?im)^ms\.date:\s*['\"]?(\d{4}-\d\d-\d\d)", md)
+        body = md.split("\n---", 2)[-1] if md.startswith("---") else md
+        ds = sorted(d for d in dates_in(body) if d <= DAY)
+        title = re.search(r"(?m)^#\s+(.+)$", body) or re.search(r"(?im)^title:\s*(.+)$", md)
+        rec.update(status="ok", via=via, mirroredOn=mirrored, msDate=msd.group(1) if msd else None,
+                   newestDate=ds[-1] if ds else None, title=(title.group(1).strip() if title else name)[:160],
+                   bytes=len(md.encode()), datesFound=len(ds))
+        rec["note"] = ("Read from our Learn mirror (%s%s): page date %s, newest date written in the page %s."
+                       % (via, ", mirrored %s" % mirrored if mirrored else "", rec["msDate"] or "not stamped", rec["newestDate"] or "none"))
+        res.append(rec)
+    json.dump({"readOn": DAY, "pages": res}, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("collect_pages: %d pages, %d read, %d failed" % (len(res), sum(r["status"] == "ok" for r in res),
+                                                           sum(r["status"] != "ok" for r in res)))
+    for r in res:
+        print("  %-24s %-6s page %s, newest %s" % (r["key"], r["status"], r.get("msDate"), r.get("newestDate")))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1] if len(sys.argv) > 1 else "PAGES.json")
+```
+
+```python
+#!/usr/bin/env python3
+"""state_finish.py - the Sources tab is finished by code, not by hand (CLAUDE.md 5cw).
+
+  SOC_DATE=<briefDate> python3 state_finish.py <state.json> [<dir with the collector outputs>]
+
+check_links.py calls it on the state file it was given (with every link result), so a run needs no extra
+command. Why (9 X 2026, owner: "trace the whole portal for sections that stand still"): the run copied the
+previous `sources` forward and refreshed only the entries it happened to touch - 31 of 71 entries said
+"carried", some since 28 IX, under keys made up by hand when a connector was missing; nothing wrote
+`linkCheckedOn` on a source (all 25-29 IX). What this does, in place, on every state block of the file:
+  1. a legacy key is folded into the key that is read today (ALIASES) - the entry goes, every
+     items[].discoveredBy that named it names the current key;
+  2. entries a collector read today are refreshed from its output: PAGES.json (collect_pages.py),
+     blogs_raw.json (collect_blogs.py: Azure updates, the Graph changelog, the MSRC update guide) and
+     community_raw.json (collect_community.py: daily.entra.news) - url, readOn, newestEntry, read, note;
+  3. an entry not read today is `carried` with `carriedDays`, never `current`;
+  4. with link results: linkStatus and linkCheckedOn (today) on every source, `linkTo` for a moved one.
+"""
+import datetime, json, os, re, sys
+
+DAY = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+ALIASES = {
+    "deltapulse-mc": "deltapulse", "deltapulse-roadmap": "deltapulse", "mc-merill": "mc-index",
+    "learn-mcp": "ms-learn-mcp", "entra-docs-diff": "entra-docs-git", "learn-mirrors-private": "learn-mirrors",
+    "graph-devx-provisioning": "devx-deployment-map", "devx-permission-history": "devx-permissions-diff",
+    "blog": "ms-blogs", "microsoft-blogs": "ms-blogs", "measured": "repository", "bleepingcomputer": "community",
+    "mssecurity-blog": "ms-security-blog", "learn-intune": "learn-whatsnew", "learn-purview": "learn-whatsnew",
+    "defender-whatsnew-web": "learn-whatsnew", "entra-learn-stale": "learn-whatsnew",
+    "daily-entra-news-archive": "daily-entra-news", "lifecycle-eos-2026": "lifecycle-eos", "msrc-cvrf": "msrc",
+    "azure-data-explorer-release-notes": "learn-whatsnew", "msrc-kb": "windows-release-health",
+}
+FEEDS = {  # source key -> (collector output, list entry name, url, name, kind, product)
+    "azure-updates-rss": ("blogs_raw.json", "Azure Updates", "https://www.microsoft.com/releasecommunications/api/v2/azure/rss",
+                          "Azure updates (RSS)", "rss", "Azure"),
+    "graph-changelog": ("blogs_raw.json", "Microsoft Graph changelog", "https://developer.microsoft.com/en-us/graph/changelog/rss",
+                        "Microsoft Graph changelog (RSS)", "rss", "Graph"),
+    "msrc": ("blogs_raw.json", "MSRC Security Update Guide", "https://api.msrc.microsoft.com/update-guide/rss",
+             "MSRC Security Update Guide (RSS)", "rss", "Security"),
+    "daily-entra-news": ("community_raw.json", "Daily Entra News", "https://daily.entra.news/",
+                         "daily.entra.news (RSS)", "rss", "Entra"),
+}
+NOT_READ = re.compile(r"carried without a fresh read|carried from|not re-?read|without a fresh read|not read in this run", re.I)
+
+
+def load(path):
+    try:
+        return json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def blocks(doc):
+    """Every state block in the file: the file itself, or its soc-* keys."""
+    if isinstance(doc, dict) and isinstance(doc.get("sources"), list):
+        yield doc
+    if isinstance(doc, dict):
+        for k, v in doc.items():
+            if k.startswith("soc-") and isinstance(v, dict) and isinstance(v.get("sources"), list):
+                yield v
+
+
+def fold(o):
+    """items[].discoveredBy (anywhere in the block) names current keys only."""
+    n = 0
+    if isinstance(o, dict):
+        if "discoveredBy" in o:
+            v = o["discoveredBy"]
+            vs = v if isinstance(v, list) else [v]
+            nv = []
+            for k in vs:
+                k2 = ALIASES.get(k, k)
+                n += k2 != k
+                if k2 not in nv:
+                    nv.append(k2)
+            o["discoveredBy"] = nv if isinstance(v, list) else nv[0]
+        for v in o.values():
+            n += fold(v)
+    elif isinstance(o, list):
+        for v in o:
+            n += fold(v)
+    return n
+
+
+def finish(st, outdir=".", links=None):
+    src = st["sources"]
+    byk = {s.get("key"): s for s in src if isinstance(s, dict)}
+    rep = {"folded": [], "refreshed": [], "carried": [], "linked": 0, "rewritten": 0}
+    # 1. legacy keys fold into the key read today
+    keep = []
+    for s in src:
+        k = s.get("key")
+        tgt = ALIASES.get(k)
+        if tgt and (tgt in byk or tgt in FEEDS or tgt in [p[0] for p in PAGE_KEYS(outdir)]):
+            rep["folded"].append(k)
+            continue
+        keep.append(s)
+    src[:] = keep
+    byk = {s.get("key"): s for s in src}
+    rep["rewritten"] = fold({k: v for k, v in st.items() if k != "sources"})
+
+    def entry(key, name, url, kind, product):
+        e = byk.get(key)
+        if not e:
+            e = {"key": key, "name": name, "url": url, "kind": kind, "product": product, "state": "current",
+                 "readOn": DAY, "read": 0, "carried": 0, "dropped": 0, "note": "", "newestEntry": None,
+                 "linkStatus": None, "linkCheckedOn": None}
+            src.append(e)
+            byk[key] = e
+        e.update(name=name, url=url, kind=kind, product=product)
+        return e
+    # 2. refreshed from what the collectors read today
+    pages = load(os.path.join(outdir, "PAGES.json")) or {}
+    for p in pages.get("pages") or []:
+        e = entry(p["key"], p["name"], p["url"], p.get("kind") or "learn-release", p.get("product") or "")
+        if p.get("status") == "ok":
+            e.update(state="current", readOn=DAY, read=max(1, p.get("datesFound") or 0), newestEntry=p.get("newestDate") or p.get("msDate"), note=p.get("note") or "")
+            e.pop("carriedDays", None)
+        else:
+            e.update(state="failed", readOn=DAY, note="collect_pages.py could not read the page: %s" % p.get("note"))
+        rep["refreshed"].append(p["key"])
+    raw = {}
+    for f in ("blogs_raw.json", "community_raw.json"):
+        d = load(os.path.join(outdir, f))
+        recs = d if isinstance(d, list) else ((d or {}).get("sources") or [])
+        raw[f] = {r.get("name"): r for r in recs if isinstance(r, dict)}
+    for key, (f, lname, url, name, kind, product) in FEEDS.items():
+        r = raw.get(f, {}).get(lname)
+        if not r:
+            continue
+        e = entry(key, name, url, kind, product)
+        its = r.get("items") or []
+        newest = max([i.get("date") or "" for i in its] + [r.get("newestDate") or ""]) or None
+        if r.get("status") == "ok":
+            e.update(state="current" if (newest or "") >= (datetime.date.fromisoformat(DAY) - datetime.timedelta(days=45)).isoformat() else "stale",
+                     readOn=DAY, read=len(its) or e.get("read") or 0, newestEntry=newest,
+                     note="Read by %s from %s in this run: %s, newest %s."
+                          % ("collect_blogs.py" if f.startswith("blogs") else "collect_community.py", r.get("feedId") or url,
+                             ("%d entries" % len(its)) if its else "feed read", newest or "undated"))
+        else:
+            e.update(state="failed", readOn=DAY, note="%s answered nothing in this run: %s" % (url, (r.get("note") or "")[:200]))
+        e.pop("carriedDays", None)
+        rep["refreshed"].append(key)
+    # an entry that absorbed a legacy key also found that key's items: `read` is never below what it found (gate 68b)
+    disc = {}
+    def count(o):
+        if isinstance(o, dict):
+            if "discoveredBy" in o and "id" in o:
+                for k in (o["discoveredBy"] if isinstance(o["discoveredBy"], list) else [o["discoveredBy"]]):
+                    disc[k] = disc.get(k, 0) + 1
+            for v in o.values():
+                count(v)
+        elif isinstance(o, list):
+            for v in o:
+                count(v)
+    count(st.get("items") or [])
+    for s in src:
+        if isinstance(s.get("read"), int) and s["read"] < disc.get(s.get("key"), 0):
+            s["read"] = disc[s["key"]]
+    # 3. not read today = carried, with its age
+    for s in src:
+        if s.get("readOn") != DAY:
+            if s.get("state") == "current":
+                s["state"] = "carried"
+            try:
+                s["carriedDays"] = (datetime.date.fromisoformat(DAY) - datetime.date.fromisoformat(str(s.get("readOn"))[:10])).days
+            except ValueError:
+                s["carriedDays"] = None
+            if not NOT_READ.search(str(s.get("note") or "")):
+                s["note"] = "Not read in this run; carried from the read of %s. %s" % (s.get("readOn"), s.get("note") or "")
+            rep["carried"].append(s.get("key"))
+        else:
+            s.pop("carriedDays", None)
+    # 4. the link audit, written onto each source
+    if links:
+        for s in src:
+            u = (s.get("url") or "").split("#")[0].strip()
+            if u in links:
+                stt, x = links[u]
+                s["linkStatus"], s["linkCheckedOn"] = stt, DAY
+                if stt == "moved" and x:
+                    s["linkTo"] = x
+                else:
+                    s.pop("linkTo", None)
+                rep["linked"] += 1
+    return rep
+
+
+_pk = {}
+def PAGE_KEYS(outdir):
+    if outdir not in _pk:
+        _pk[outdir] = [(p.get("key"),) for p in ((load(os.path.join(outdir, "PAGES.json")) or {}).get("pages") or [])]
+    return _pk[outdir]
+
+
+def apply_file(path, outdir=".", links=None):
+    doc = load(path)
+    if doc is None:
+        print("state_finish: %s is not a JSON state file - nothing done" % path)
+        return None
+    reps = [finish(b, outdir, links) for b in blocks(doc)]
+    if not reps:
+        print("state_finish: no sources array in %s - nothing done" % path)
+        return None
+    json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False)
+    for r in reps:
+        print("state_finish: folded %d legacy keys (%s), %d discoveredBy rewritten, refreshed %d (%s), carried %d, link status on %d"
+              % (len(r["folded"]), ", ".join(r["folded"][:8]), r["rewritten"], len(r["refreshed"]), ", ".join(r["refreshed"]),
+                 len(r["carried"]), r["linked"]))
+        if r["carried"]:
+            print("  still carried: %s" % ", ".join(map(str, r["carried"])))
+    return reps
+
+
+if __name__ == "__main__":
+    apply_file(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else ".")
+```
+
+**`graphMap` budowany kodem (§5cw, 9 X 2026).** Przeglad 9 X: zaden skrypt nie budowal `graphMap` — przebieg
+przepisywal go recznie, a 1 X przeliczyl endpointy z `b9a67f1`, ale skopiowal role z poprzedniego stanu; od tego dnia
+pokrycie rol dla CloudPC.Read.All i CloudPC.ReadWrite.All bylo bledne (9 % zamiast 12 %), a Device.ProvisionForVDI mial
+liczbe endpointow w miejscu procentu. `collect_graph_map.py` (wpiety w `collect_all.py` za `collect_graph_diff`, wynik
+`GRAPH_MAP.json` → `graphMap` w calosci) robi rzadkie klony devx (`permissions/new`) i entra-docs
+(`role-based-access-control`) i wylicza mape wedlug opublikowanej reguly; zmierzone 9 X: 929 z 932 list rol identycznych
+ze stanem, trzy roznice to znane bledy stanu; endpointy, slownik sciezek, poziomy i daty `new` identyczne dla 932. Mapa
+niesie `rolesFrom` = `{perms: <sha devx>, roles: <sha entra-docs>, on: <dzien>}`; zdanie `note` o nieprzeliczonych rolach
+znika. Doprecyzowanie reguly, ktore odtwarza stan: flaga calego zasobu = akcje allProperties/allTasks siegaja co
+najmniej polowy endpointow pokrytych przez role; licza sie tylko akcje 3- i 4-czlonowe; role to sekcje `## ` z jednym
+INCLUDE. `leastPairs` to odtad prawdziwa liczba par oznaczonych `least=` w pliku (9 X: 14 785, wczesniej wpisywane 0).
+
+```python
+#!/usr/bin/env python3
+"""collect_graph_map.py - rebuild soc-brief-state.graphMap deterministically, roles included (CLAUDE.md 5ah).
+
+  SOC_DATE=<briefDate> python3 collect_graph_map.py GRAPH_MAP.json --devx <devx clone> --entra <entra-docs clone> \
+      [<previous state json or json.gz>] [--compare <state json>]
+
+Inputs
+  --devx   clone of microsoftgraph/microsoft-graph-devx-content (needs permissions/new/permissions.json)
+             git clone -q --depth 1 --filter=blob:none --sparse https://github.com/microsoftgraph/microsoft-graph-devx-content devx
+             git -C devx sparse-checkout set permissions/new
+  --entra  clone of MicrosoftDocs/entra-docs (needs docs/identity/role-based-access-control/)
+             git clone -q --depth 1 --filter=blob:none --sparse https://github.com/MicrosoftDocs/entra-docs entra
+             git -C entra sparse-checkout set docs/identity/role-based-access-control
+  previous state (optional): site/data/<day>.json[.gz] (top level or "soc-brief-state"). Its path dictionary
+           `p` is kept index-for-index (new paths are appended), so `eps` stays comparable day to day, and its
+           `new` dates are carried. Without it the dictionary starts from permissions.json order.
+  --compare <state>: after building, compare perms[*].roles with that state and print the statistics.
+
+Output: GRAPH_MAP.json = the graphMap object (to be put whole into soc-brief-state.graphMap).
+
+The published rule (graphMap.rule), implemented literally:
+  resource = first path segment that is not a parameter; /me/... counts as users.
+  Directory action microsoft.directory/<resource>[/<property>]/<operation>; a .unified or .security suffix
+  on the resource falls back to its base. GET->read, POST->create, PATCH/PUT->update, DELETE->delete.
+  A role covers an endpoint when it holds an action on the same resource with the same operation, or
+  allTasks on that resource. Coverage = share of the permission's ENDPOINTS (method-path pairs of `eps`).
+  Depth is whole resource when a matching action carries allProperties or allTasks.
+Details measured against the 27 IX - 9 X 2026 states (929 of 932 identical on 9 X; the three others are
+known state defects) and needed to reproduce them:
+  - only actions of 3 or 4 segments count (<ns>/<res>/<op>, <ns>/<res>/<prop>/<op>); deeper ones such as
+    users/authenticationMethods/standard/read or accessReviews/definitions/allProperties/read are ignored;
+  - a path segment's key part is dropped: /serviceprincipals(appid={value}) -> serviceprincipals;
+  - roles are the "## <name>" sections of permissions-reference.md with exactly one INCLUDE
+    (so "Roles not shown in the portal" and its ### sub-roles are out);
+  - depth flag = 1 when allProperties/allTasks actions reach at least HALF of the endpoints the role covers;
+  - path dictionary `p` is append-only; a permission's unseen paths are appended sorted.
+Role row: [name, coverage % (rounded), 1 if whole resource else 0, first 4 matched actions (sorted),
+           number of matched actions]; at most 10 rows, ranked coverage desc, whole resource first, name;
+rolesTotal = number of roles with any coverage."""
+import argparse, datetime, gzip, json, os, re, subprocess, sys, time
+
+M = ["GET", "POST", "PATCH", "DELETE", "PUT"]
+VERB = {"GET": "read", "POST": "create", "PATCH": "update", "PUT": "update", "DELETE": "delete"}
+TOP = 10
+RULE = ("resource = first path segment that is not a parameter; /me/... counts as users. Directory action "
+        "microsoft.directory/<resource>[/<property>]/<operation>; a .unified or .security suffix on the resource "
+        "falls back to its base. GET maps to read, POST to create, PATCH and PUT to update, DELETE to delete. "
+        "A role covers an endpoint when it holds an action on the same resource with the same operation, or "
+        "allTasks on that resource. Coverage is the share of the permission's ENDPOINTS, never the count of the "
+        "role's actions. Depth is whole resource when the matching action carries allProperties or allTasks, "
+        "selected properties otherwise.")
+RBAC = "docs/identity/role-based-access-control"
+
+
+def git(d, *a):
+    try:
+        return subprocess.run(["git", "-C", d] + list(a), capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:
+        return ""
+
+
+def load_state(path):
+    if not path:
+        return {}
+    op = gzip.open if path.endswith(".gz") else open
+    with op(path, "rt", encoding="utf-8") as f:
+        d = json.load(f)
+    return d.get("soc-brief-state", d) if isinstance(d, dict) else {}
+
+
+# ---------------------------------------------------------------- encoding
+def enc_ranges(idx):
+    idx = sorted(set(idx)); out = []; i = 0
+    while i < len(idx):
+        j = i
+        while j + 1 < len(idx) and idx[j + 1] == idx[j] + 1:
+            j += 1
+        out.append(str(idx[i]) if i == j else "%d-%d" % (idx[i], idx[j])); i = j + 1
+    return ",".join(out)
+
+
+def enc_eps(pairs):
+    """pairs: set of (method index, path index) -> '0:1-3,7;1:2'."""
+    by = {}
+    for mi, pi in pairs:
+        by.setdefault(mi, []).append(pi)
+    return ";".join("%d:%s" % (mi, enc_ranges(by[mi])) for mi in sorted(by))
+
+
+def dec_eps(txt):
+    out = []
+    for grp in (txt or "").split(";"):
+        if ":" not in grp:
+            continue
+        mi, body = grp.split(":", 1)
+        for part in body.split(","):
+            if not part:
+                continue
+            if "-" in part:
+                a, b = part.split("-", 1); out += [(int(mi), i) for i in range(int(a), int(b) + 1)]
+            else:
+                out.append((int(mi), int(part)))
+    return out
+
+
+# ---------------------------------------------------------------- roles (entra-docs)
+ACT = re.compile(r"^>?\s*\|\s*(microsoft\.directory/[^\s|]+)\s*\|")
+
+
+def read_roles(entra):
+    base = os.path.join(entra, RBAC)
+    ref = open(os.path.join(base, "permissions-reference.md"), encoding="utf-8").read()
+    roles = {}
+    # role sections: "## <Role name>" ... up to next "## "; includes expanded in place
+    parts = re.split(r"(?m)^## ", ref)
+    for sec in parts[1:]:
+        name, _, body = sec.partition("\n")
+        name = name.strip()
+        incs = re.findall(r"\[!INCLUDE\s*\[[^\]]*\]\(([^)]+)\)\]", body)
+        if len(incs) != 1:
+            continue
+        text = body
+        for inc in incs:
+            p = os.path.normpath(os.path.join(base, inc))
+            if os.path.exists(p):
+                text += "\n" + open(p, encoding="utf-8").read()
+        acts = []
+        for line in text.splitlines():
+            m = ACT.match(line.strip())
+            if m and m.group(1) not in acts:
+                acts.append(m.group(1))
+        roles[name] = acts
+    return roles
+
+
+def parse_action(a):
+    """microsoft.directory/<resource>[/<property>...]/<operation> -> (resource, operation, whole)."""
+    seg = a.split("/")
+    if len(seg) not in (3, 4):   # <ns>/<resource>/<operation> or <ns>/<resource>/<property>/<operation>
+        return None
+    res = seg[1]
+    for suf in (".unified", ".security"):
+        if res.endswith(suf):
+            res = res[: -len(suf)]
+    op = seg[-1]
+    whole = op == "allTasks" or "allProperties" in seg[2:-1]
+    return res.lower(), op, whole
+
+
+def path_resource(path):
+    for s in path.split("/"):
+        if not s or s.startswith("{"):
+            continue
+        s = s.split("(", 1)[0].lower()   # /serviceprincipals(appid={value}) -> serviceprincipals
+        if not s:
+            continue
+        return "users" if s == "me" else s
+    return ""
+
+
+def derive(endpoints, role_idx):
+    """endpoints: list of (method, path). role_idx: {role: {(res, op): [(action, whole)]}}."""
+    total = len(endpoints)
+    rows = []
+    if not total:
+        return rows, 0
+    keys = [(path_resource(p), VERB[m]) for m, p in endpoints]
+    for role, idx in role_idx.items():
+        cov = 0; wcov = 0; matched = {}
+        for res, op in keys:
+            hit = idx.get((res, op), []) + idx.get((res, "allTasks"), [])
+            if hit:
+                cov += 1
+                if any(w for _, w in hit):
+                    wcov += 1
+                for a, w in hit:
+                    matched[a] = w
+        if cov:
+            # whole resource when allProperties/allTasks actions reach at least half of the covered endpoints
+            whole = 1 if 2 * wcov >= cov else 0
+            acts = sorted(matched)
+            rows.append([role, int(round(100.0 * cov / total)), whole, acts[:4], len(acts), cov])
+    rows.sort(key=lambda r: (-r[1], -r[2], r[0]))
+    n = len(rows)
+    return [r[:5] for r in rows[:TOP]], n
+
+
+def sparse(d, url, path):
+    if os.path.isdir(os.path.join(d, ".git")):
+        subprocess.run(["git", "-C", d, "fetch", "-q", "--depth", "1", "--filter=blob:none", "origin"], capture_output=True, text=True, timeout=300)
+        subprocess.run(["git", "-C", d, "reset", "-q", "--hard", "FETCH_HEAD"], capture_output=True, text=True, timeout=120)
+    else:
+        os.makedirs(os.path.dirname(d) or ".", exist_ok=True)
+        subprocess.run(["git", "clone", "-q", "--depth", "1", "--filter=blob:none", "--sparse", url, d], check=True, timeout=600)
+        subprocess.run(["git", "-C", d, "sparse-checkout", "set", path], check=True, timeout=300)
+    return d
+
+
+# ---------------------------------------------------------------- main
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("out"); ap.add_argument("prev", nargs="?")
+    ap.add_argument("--devx"); ap.add_argument("--entra")
+    ap.add_argument("--compare")
+    a = ap.parse_intermixed_args()
+    t0 = time.time()
+    day = os.environ.get("SOC_DATE") or datetime.date.today().isoformat()
+    prev = (load_state(a.prev).get("graphMap") or {}) if a.prev else {}
+    # in a run (collect_all.py, CLAUDE.md 5cw) no clone is passed: both are made sparse here, fresh every run
+    base = os.environ.get("SOC_REPOS") or "repos"
+    if not a.devx:
+        a.devx = sparse(os.path.join(base, "gm-devx"), "https://github.com/microsoftgraph/microsoft-graph-devx-content", "permissions/new")
+    if not a.entra:
+        a.entra = sparse(os.path.join(base, "gm-entra"), "https://github.com/MicrosoftDocs/entra-docs", "docs/identity/role-based-access-control")
+
+    src = json.load(open(os.path.join(a.devx, "permissions/new/permissions.json"), encoding="utf-8"))["permissions"]
+    sha = git(a.devx, "log", "-1", "--format=%h"); sdate = git(a.devx, "log", "-1", "--format=%cs")
+    adate = git(a.devx, "log", "-1", "--format=%as")
+    esha = git(a.entra, "log", "-1", "--format=%h"); edate = git(a.entra, "log", "-1", "--format=%cs")
+
+    P = list(prev.get("p") or []); PI = {p: i for i, p in enumerate(P)}
+    pm = prev.get("perms") or {}
+    perms = {}; pairs_total = 0; least = 0; s_total = 0; s_nolevel = 0; withep = 0
+    eps_by_perm = {}
+    for name, d in src.items():
+        e = {}
+        pairs = set(); lp = set()
+        # unseen paths get the next indices, in sorted order per permission (permissions in file order)
+        for path in sorted({p for ps in d.get("pathSets") or [] for p in (ps.get("paths") or {})} - set(PI)):
+            PI[path] = len(P); P.append(path)
+        for ps in d.get("pathSets") or []:
+            for meth in ps.get("methods") or []:
+                mu = meth.upper()
+                if mu not in M:
+                    continue
+                for path, flag in (ps.get("paths") or {}).items():
+                    pairs.add((M.index(mu), PI[path]))
+                    if "least=" in str(flag or ""):
+                        lp.add((M.index(mu), PI[path]))
+        if pairs:
+            e["eps"] = enc_eps(pairs); withep += 1
+        pairs_total += len(pairs); least += len(lp)
+        s = {}
+        for sk, sv in (d.get("schemes") or {}).items():
+            lv = sv.get("privilegeLevel")
+            s[sk] = {"l": lv, "c": 1 if sv.get("requiresAdminConsent") else 0}
+            s_total += 1; s_nolevel += lv is None
+        e["s"] = s
+        e["auth"] = d.get("authorizationType")
+        # `new`: index of path -> date it entered Microsoft's file. Carried from the previous state;
+        # a path this permission gains today gets the date of the devx head commit (exact when one
+        # Microsoft commit separates the two reads; otherwise run collect_graph_diff.py for the commit).
+        old = pm.get(name) or {}
+        new = {k: v for k, v in (old.get("new") or {}).items() if any(pi == int(k) for _, pi in pairs)}
+        if pm:   # no previous map = baseline: nothing is "new"
+            had = set(dec_eps(old.get("eps")))   # a permission new today: all of its paths are new
+            for mi, pi in sorted(pairs - had):
+                new.setdefault(str(pi), adate or sdate or day)
+        if new:
+            e["new"] = new
+        perms[name] = e
+        eps_by_perm[name] = [(M[mi], P[pi]) for mi, pi in sorted(pairs)]
+
+    roles = read_roles(a.entra)
+    role_idx = {}
+    for r, acts in roles.items():
+        idx = {}
+        for act in acts:
+            pa = parse_action(act)
+            if pa:
+                idx.setdefault((pa[0], pa[1]), []).append((act, pa[2]))
+        if idx:
+            role_idx[r] = idx
+    for name, e in perms.items():
+        if "eps" in e:
+            e["roles"], e["rolesTotal"] = derive(eps_by_perm[name], role_idx)
+
+    # key order of every perm entry as in the state: eps, s, auth, new, roles, rolesTotal.
+    # Permission order: the previous state's order, then today's new names sorted; sorted() without one.
+    order = ["eps", "s", "auth", "new", "roles", "rolesTotal"]
+    names = [k for k in pm if k in perms] + sorted(k for k in perms if k not in pm)
+    perms = {k: {f: perms[k][f] for f in order if f in perms[k]} for k in names}
+    gm = {
+        "commit": "%s (%s)" % (sha, sdate), "readOn": day, "m": M, "p": P,
+        "pairs": pairs_total, "paths": len(P), "permissions": len(perms), "withEndpoints": withep,
+        "leastPairs": least, "schemesWithoutLevel": s_nolevel, "schemesTotal": s_total,
+        "perms": perms,
+        "rule": prev.get("rule") or RULE,
+        "ruleNote": prev.get("ruleNote") or (
+            "Derived by this brief, not published by Microsoft. Microsoft publishes no role-to-permission "
+            "mapping: permissions.json carries authorizationType, ownerInfo, pathSets and schemes and no role "
+            "field at all, and the role source files in MicrosoftDocs/entra-docs name no Graph permission."),
+        "readNote": "Read on %s: permissions.json at %s (%s); %d permissions and %d method-and-path pairs. "
+                    "Role coverage re-derived the same day from MicrosoftDocs/entra-docs at %s (%s), %d roles with "
+                    "directory actions." % (day, sha, sdate, len(perms), pairs_total, esha, edate, len(role_idx)),
+        "rolesFrom": {"perms": sha, "roles": esha, "on": day},
+    }
+    with open(a.out, "w", encoding="utf-8") as f:
+        json.dump(gm, f, ensure_ascii=False, separators=(",", ":"))
+    print("graphMap: %d permissions, %d pairs, %d paths, %d roles parsed (%d with directory actions), %.2f s"
+          % (len(perms), pairs_total, len(P), len(roles), len(role_idx), time.time() - t0), file=sys.stderr)
+
+    if a.compare:
+        ref = load_state(a.compare).get("graphMap") or {}
+        compare(gm, ref)
+
+
+def compare(gm, ref):
+    rp = ref.get("perms") or {}; gp = gm["perms"]
+    same = diff = 0; bad = []
+    for k in sorted(set(rp) | set(gp)):
+        a_, b_ = (gp.get(k) or {}), (rp.get(k) or {})
+        if a_.get("roles") == b_.get("roles") and a_.get("rolesTotal") == b_.get("rolesTotal"):
+            same += 1
+        else:
+            diff += 1; bad.append(k)
+    print("roles identical for %d of %d permissions; differ: %d" % (same, same + diff, diff))
+    for k in bad:
+        print("  DIFF", k, "rolesTotal %s -> %s" % ((rp.get(k) or {}).get("rolesTotal"), (gp.get(k) or {}).get("rolesTotal")))
+    for f in ("pairs", "paths", "permissions", "withEndpoints", "leastPairs", "schemesWithoutLevel", "schemesTotal"):
+        if gm.get(f) != ref.get(f):
+            print("  field %s: built %s, state %s" % (f, gm.get(f), ref.get(f)))
+    print("  p identical:", gm["p"] == ref.get("p"),
+          "| eps identical:", sum(1 for k in rp if (gp.get(k) or {}).get("eps") == rp[k].get("eps")), "of", len(rp),
+          "| s identical:", sum(1 for k in rp if (gp.get(k) or {}).get("s") == rp[k].get("s")),
+          "| new identical:", sum(1 for k in rp if (gp.get(k) or {}).get("new") == rp[k].get("new")),
+          "| perm order identical:", list(gp) == list(rp))
+
+
+if __name__ == "__main__":
+    main()
+```
 
 **Serwery MCP bez konektora (`mcp_call.py`, 29 IX).** W dwoch ZADANIACH ZAPLANOWANYCH (Morning,
 Afternoon) konektory Microsoft Learn i KQL Search sa podpiete z PUSTYM adresem, wiec kazdy przebieg
@@ -29697,7 +30418,7 @@ odtad CZTERNASCIE (4-17).**
     if (/entra-news/i.test(d)) return "Entra news";
     if (/blog/i.test(d)) return "Microsoft blog";
     if (/^devx|permissions-diff|deployment-map/i.test(d)) return "Graph permissions (GitHub)";
-    if (/^deltapulse-mc|mc-index|revision-sweep/i.test(d)) return "Message Center";
+    if (/^deltapulse|mc-index|revision-sweep/i.test(d)) return "Message Center";   /* §5cw: deltapulse-mc folded into deltapulse */
     if (/component|release/i.test(d)) return "Release notes";
     return it.title ? "Brief item" : "";
   }
