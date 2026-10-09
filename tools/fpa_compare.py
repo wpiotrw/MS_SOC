@@ -23,6 +23,28 @@ def main():
         a = str(x.get("AppId") or "").lower()
         if a:
             mer.setdefault(a, set()).add(str(x.get("Source") or "?"))
+    # Microsoft's own list, the one Merill takes 82 % of his file from: entra-docs .docutune known-guids.json
+    kg = json.loads(urllib.request.urlopen(urllib.request.Request(
+        "https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/.docutune/dictionaries/known-guids.json",
+        headers={"User-Agent": "MS_SOC"}), timeout=60).read())
+    kgi = set()
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                for x in (k, v):
+                    if isinstance(x, str) and len(x) == 36 and x.count("-") == 4:
+                        kgi.add(x.lower())
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+    walk(kg)
+    own = set(ms) | kgi
+    merill_only = set(mer) - own
+    mo_src = {}
+    for a in merill_only:
+        for s_ in mer[a]:
+            mo_src[s_] = mo_src.get(s_, 0) + 1
     both = set(ms) & set(mer)
     only_t = set(ms) - set(mer)
     only_m = set(mer) - set(ms)
@@ -40,7 +62,11 @@ def main():
            "tenantMicrosoftNotInMerill": len(only_t),
            "tenantMicrosoftNotInMerillWithName": sum(1 for a in only_t if (ms[a].get("displayName") or "").strip()),
            "merillNotInTenant": len(only_m),
-           "shareOfMerillCoveredByTenant": round(100.0 * len(both) / max(1, len(mer)), 1)}
+           "shareOfMerillCoveredByTenant": round(100.0 * len(both) / max(1, len(mer)), 1),
+           "knownGuidsMicrosoft": len(kgi), "ownBaselineTenantPlusKnownGuids": len(own),
+           "merillOnlyNotInOwnBaseline": len(merill_only), "merillOnlyBySource": mo_src,
+           "ownBaselineNotInMerill": len(own - set(mer)),
+           "shareOfMerillCoveredByOwnBaseline": round(100.0 * len(set(mer) & own) / max(1, len(mer)), 1)}
     print(json.dumps(out, indent=1))
     print("::notice title=fpa-compare::" + json.dumps(out))   # readable through the check-run annotations API
 
