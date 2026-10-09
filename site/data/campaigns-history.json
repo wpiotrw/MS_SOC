@@ -300,6 +300,7 @@
 "item:MC1446796",
 "MC1447678",
 "item:MC1469960",
+"item:exchange-crosstenant-freebusy-to-cta",
 "item:exchange-ews-hybrid-coexistence-2026-09-30",
 "MC1485116",
 "item:MC1485116",
@@ -498,6 +499,15 @@
 "link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691",
 "source":"Exchange Team Blog",
 "date":"2026-08-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
+"link":"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169",
+"source":"Main list source",
+"id":"exchange-crosstenant-freebusy-to-cta",
+"date":"2026-09-16",
 "group":"microsoft",
 "found":"2026-10-09"
 }
@@ -3737,7 +3747,18 @@
 "mandatory":"Upgrade Microsoft Entra Connect Sync to version 2.6.84.0 or later and configure application-based authentication by April 7, 2027. Legacy authentication is being retired, and synchronization services will stop working after this date if these requirements aren't met."
 }
 },
-"events":[],
+"events":[
+{
+"day":"2026-10-09",
+"cid":"c-mc1227454",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
+"source":"Main list source",
+"link":"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169"
+}
+],
 "archive":{
 "c-mc1293480":{
 "firstSeen":"2026-10-09",
