@@ -27352,6 +27352,22 @@ poranne z `site/history/` (odzyskane 33 zapytania od 10 IX; razem 36). Uruchamia
 (05:40 i 20:40 UTC i po publikacji). Sekcja Hunting dostaje linie „Archive: N queries … folder site/kql on GitHub ·
 index.json".
 
+**§5cw-b (9 X 2026, wlasciciel: „portal mial byc samodzielny, a Merill jako backup — co, jesli zewnetrzne zrodla
+padna?"; po porownaniu: „rob B").** Porownanie (workflow reczny `fpa-compare.yml`, same liczby — log repozytorium jest
+publiczny): nasz tenant 415 aplikacji Microsoftu, 387 z nich u Merilla, 28 tylko u nas; lista Merilla 4 444 wiersze, z
+czego 3 659 to caly plik Microsoftu `entra-docs/.docutune/dictionaries/known-guids.json` — slownik KAZDEGO GUID-u w
+tresciach Learn (9 X: 4 120 pozycji, w tym 1 103 identyfikatory uprawnien Graph, 1 161 SKU licencji, 410 rol, 129
+kluczy FIDO2, 210 typow Purview i ok. 1 071 aplikacji). Wariant B: (1) `tools/fpa_sources.py` (w `fpa-tenant.yml`, co 3 h)
+trzyma ostatnia dobra kopie zrodel z licencja pozwalajaca na kopie (merill, ROADtools, GPC — MIT; `known-guids.json` Microsoftu) w `cache/fpa/` (poza `site/`, nie jest wdrazana; entrascopes.com nie ma licencji i nie jest kopiowany) i pisze
+`site/data/fpa-docs.json` — aplikacje z `known-guids.json` po odfiltrowaniu uprawnien, licencji, rol, FIDO2, Purview
+i identyfikatorow-wzorcow (`classify()`); (2) `collect_fpa.py`, gdy zrodlo nie odpowiada, czyta kopie z
+`cache/fpa/` i oznacza je `state:"cached"` z data kopii — lista ani nie zamarza, ani nie traci aplikacji; (3) zakladka
+First-party apps dopisuje aplikacje z `fpa-docs.json`, ktorych nie niesie zadne inne zrodlo, jako „named only in
+Microsoft docs" (kafel i filtr `docs`), a w „Where this tab's data comes from" pisze, czym jest plik Microsoftu i ze
+liczba wierszy Merilla to nie liczba aplikacji (9 X: 1 737 + 614 = 2 351 aplikacji). Zrodlo „tenant" w liscie Merilla
+to jego tenant demo, nie nasz — etykieta poprawiona. Aplikacje widziane tylko w naszym tenancie (28) nie sa publikowane
+bez zgody wlasciciela.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30051,12 +30067,24 @@ odtad CZTERNASCIE (4-17).**
   function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
   function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
   var G = "00000003-0000-0000-c000-000000000000";
+  /* §5cw-b (9 X 2026, owner: "do B" - our own base list, Merill as a supplement and a backup): the applications
+     Microsoft names in its entra-docs known-guids.json and no other source carries are read from
+     data/fpa-docs.json (tools/fpa_sources.py, every three hours) and listed as "named only in Microsoft docs".
+     The file is fetched once; the tab waits for it at most 4 s, then builds without it. */
+  var DOCS = null, docsP = (onSite() && window.fetch) ? Promise.race([
+      fetch("data/fpa-docs.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+      new Promise(function (res) { setTimeout(function () { res(null); }, 4000); })]).then(function (d) { DOCS = d || { apps: [] }; })
+    : Promise.resolve().then(function () { DOCS = { apps: [] }; });
 
   function build() {
     var panel = document.getElementById("tab-fpa"), st = json("soc-brief-state") || {}, D = st.fpa || json("soc-fpa");
     if (!panel || panel.getAttribute("data-built")) return;
+    if (DOCS === null) { docsP.then(build); return; }
     if (!D || !D.apps) { panel.setAttribute("data-built", "1"); panel.appendChild(el("p", "sec-note", "No first-party app data in this brief: the collector (collect_fpa.py, CLAUDE.md §5bl) did not run or wrote nothing.")); return; }
     panel.setAttribute("data-built", "1");
+    var HAVE = {}; D.apps.forEach(function (a) { HAVE[a.id] = 1; });
+    var NDOCS = 0;
+    (DOCS.apps || []).forEach(function (x) { if (!HAVE[x[0]]) { HAVE[x[0]] = 1; NDOCS++; D.apps.push({ id: x[0], n: x[1], o: "", src: ["docs"], docsOnly: 1 }); } });
     var TODAY = D.built || (D.meta || {}).built, dic = D.dic;
     var TEN = { "f8cdef31-a31e-4b4a-93e4-5f571e91255a": "Microsoft Services", "72f988bf-86f1-41af-91ab-2d7cd011db47": "Microsoft (corp)", "cdc5aeea-15c5-4db6-b079-fcadd2505dc2": "Microsoft (developer tools)" };
     function resName(r) { return r === G ? "Microsoft Graph" : (D.res[r] || r); }
@@ -30085,6 +30113,7 @@ odtad CZTERNASCIE (4-17).**
       ["foci", D.apps.filter(function (a) { return a.foci; }).length, "FOCI family", ""],
       ["dc", D.apps.filter(function (a) { return a.dc; }).length, "allow device code sign-in", ""],
       ["byp", D.apps.filter(function (a) { return a.byp; }).length, "known CA bypass", "crit"],
+      ["docs", NDOCS, "named only in Microsoft's docs list (no permission data)", ""],
       ["ten", D.apps.filter(function (a) { return tenantBy[a.id]; }).length, "listed apps hold consents in our tenant" + (Object.keys(tenantBy).length > D.apps.filter(function (a) { return tenantBy[a.id]; }).length ? " (" + Object.keys(tenantBy).length + " Microsoft clients in all)" : ""), ""]
     ];
     TILES.forEach(function (t) {
@@ -30159,7 +30188,7 @@ odtad CZTERNASCIE (4-17).**
     var bar = el("div", "s9find"); bar.setAttribute("data-fpa", "1"); sb.appendChild(bar);
     var q = el("input", "s9q"); q.type = "search"; q.placeholder = "Search name, app ID or permission…"; q.setAttribute("aria-label", "Search first-party apps"); bar.appendChild(q);
     var kind = el("select", "s9f"); kind.setAttribute("aria-label", "Filter by trait");
-    [["", "Any trait"], ["perm", "With API permissions known"], ["l4", "Level 4 Graph permission"], ["new", "Added in 30 days"], ["foci", "FOCI family"], ["dc", "Device code sign-in"], ["byp", "Known CA bypass"], ["ten", "Consents in the checked tenant"]].forEach(function (o) { var e = el("option", null, o[1]); e.value = o[0]; kind.appendChild(e); });
+    [["", "Any trait"], ["perm", "With API permissions known"], ["l4", "Level 4 Graph permission"], ["new", "Added in 30 days"], ["foci", "FOCI family"], ["dc", "Device code sign-in"], ["byp", "Known CA bypass"], ["ten", "Consents in the checked tenant"], ["docs", "Named only in Microsoft docs"]].forEach(function (o) { var e = el("option", null, o[1]); e.value = o[0]; kind.appendChild(e); });
     bar.appendChild(kind);
     var fres = el("select", "s9f"); fres.setAttribute("aria-label", "Filter by API");
     var rc = {}; D.apps.forEach(function (a) { for (var r in (a.sc || {})) rc[r] = (rc[r] || 0) + 1; if (a.gp && !(a.sc || {})[G]) rc[G] = (rc[G] || 0) + 1; });
@@ -30189,6 +30218,7 @@ odtad CZTERNASCIE (4-17).**
       if (k === "dc" && !a.dc) return false;
       if (k === "byp" && !a.byp) return false;
       if (k === "ten" && !tenantBy[a.id]) return false;
+      if (k === "docs" && !a.docsOnly) return false;
       if (S.res && !((a.sc || {})[S.res] || (S.res === G && a.ng))) return false;
       if (S.q) {
         var t = S.q.toLowerCase();
@@ -30202,7 +30232,7 @@ odtad CZTERNASCIE (4-17).**
        one flow). Now: a definition list for who owns and signs in, a TABLE of Graph permissions
        grouped by Microsoft's level with what each allows, and other APIs as one row each,
        the first 12 shown. Tables here belong to this block (data-s11), SCRIPT 11 leaves them. */
-    var FPSRC = { gpc: "Graph Pre-Consent Explorer", roadtools: "ROADtools", tenant: "our tenant", merill: "merill/microsoft-info", entrascopes: "EntraScopes" };
+    var FPSRC = { gpc: "Graph Pre-Consent Explorer", roadtools: "ROADtools", tenant: "a tenant sweep (merill/microsoft-info)", merill: "merill/microsoft-info", entrascopes: "EntraScopes", docs: "Microsoft's docs list (entra-docs known-guids.json)", community: "community list (merill/microsoft-info)", learn: "Microsoft Learn" };
     function detail(a) {
       var d = el("div", "fpa-det");
       var dl = el("dl", "fpa-meta");
@@ -30340,7 +30370,7 @@ odtad CZTERNASCIE (4-17).**
 
     /* ---- sources ---- */
     var src = el("details", "s5bk-health"); var ss = el("summary");
-    ss.appendChild(el("span", "s5bk-hh", "Where this tab's data comes from")); ss.appendChild(el("span", "s5bk-hs", "5 public sources · tenant check · read " + TODAY)); src.appendChild(ss);
+    ss.appendChild(el("span", "s5bk-hh", "Where this tab's data comes from")); ss.appendChild(el("span", "s5bk-hs", "6 public sources, Microsoft's docs list first · tenant check · read " + TODAY)); src.appendChild(ss);
     var sbd = el("div", "s5bk-hb"); src.appendChild(sbd);
     var SRCN = { merill: ["merill/microsoft-info", "app ID, name and owner tenant; a Graph sweep of Microsoft-owned service principals, twice a day · MIT"],
       roadtools: ["ROADtools firstpartyscopes", "permissions per API, client type, FOCI, redirect URIs; updated by hand · MIT"],
@@ -30349,9 +30379,17 @@ odtad CZTERNASCIE (4-17).**
       res: ["entrascopes.com — resources.json", "API display names · credited, no licence file"],
       byp: ["entrascopes.com — bypasses.json", "known Conditional Access bypasses · credited, no licence file"] };
     var SRCS = D.sources || {};
+    if (DOCS && DOCS.knownGuids) {
+      /* §5cw-b: what Microsoft's docs list is, and why Merill's row count is not an app count */
+      var bc = DOCS.byClass || {}, mc = (DOCS.merill || {}).byClass || {}, mrows = (DOCS.merill || {}).rows || 0;
+      var pd = el("p", "mc-text"), ad = el("a", null, "Microsoft entra-docs — known-guids.json"); ad.href = "https://github.com/MicrosoftDocs/entra-docs/blob/main/.docutune/dictionaries/known-guids.json"; ad.target = "_blank"; ad.rel = "noopener";
+      pd.appendChild(ad);
+      pd.appendChild(document.createTextNode(" — Microsoft's dictionary of every GUID in Learn content (" + DOCS.knownGuids + "): " + (bc.app || 0) + " applications, " + (bc["graph permission"] || 0) + " Graph permission ids, " + (bc.licence || 0) + " licence SKUs, " + (bc.role || 0) + " roles, " + (bc["fido2 key"] || 0) + " FIDO2 keys, " + (bc["purview type"] || 0) + " Purview types. Only the applications are used; " + NDOCS + " of them are carried by no other source and are listed as named only in Microsoft docs. Merill's list counts " + mrows + " rows because it takes the whole dictionary — about " + (mc.app || 0) + " of them are applications. Our copy is refreshed every three hours (tools/fpa_sources.py), and every source below is kept as a last good copy in cache/fpa/ for the day it does not answer."));
+      sbd.appendChild(pd);
+    }
     Object.keys(SRCN).map(function (k) {
       var x = SRCS[k] || {}, url = x.repo ? "https://github.com/" + x.repo : "";
-      return [SRCN[k][0], url, (x.state === "unread" ? "NOT READ (" + (x.note || "") + ") · " : "") + SRCN[k][1] + (x.commit ? " · last change " + x.commit : "")];
+      return [SRCN[k][0], url, (x.state === "unread" ? "NOT READ (" + (x.note || "") + ") · " : x.state === "cached" ? "OUR COPY (" + (x.note || "") + ") · " : "") + SRCN[k][1] + (x.commit ? " · last change " + x.commit : "")];
     }).concat(D.tenant && D.tenant.clients ? [["Tenant check (Graph, read-only)", "", "service principals owned by Microsoft (" + D.tenant.spMicrosoft + " of " + D.tenant.spTotal + ") and the consents and app roles they hold in tenant " + String(D.tenant.tenant).slice(0, 8) + "… on " + D.tenant.read + " · .github/workflows/fpa-tenant.yml" + (D.tenant.grantsNote ? " · " + D.tenant.grantsNote : "")]]
       : [["Tenant check", "", "no snapshot yet — site/data/fpa-tenant.json is written by .github/workflows/fpa-tenant.yml once its app is admin-consented (README.md)"]])
     .forEach(function (s) {
@@ -37718,12 +37756,29 @@ TEN = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011
 KEEP_DAYS = 120
 
 
+CACHED = {}
+
+
 def fetch(key):
     repo, br, path = SRC[key]
     url = RAW + "%s/%s/%s" % (repo, br, path)
     req = urllib.request.Request(url, headers={"User-Agent": "MS_SOC collect_fpa"})
-    with urllib.request.urlopen(req, timeout=90) as r:
-        return json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except Exception as ex:
+        # §5cw-b (9 X 2026, owner: "what if external sources go down?"): our own last good copy, kept every three
+        # hours by tools/fpa_sources.py in cache/fpa/ - the list neither freezes nor loses anything, and says which day
+        cdir = os.path.join(os.environ.get("SOC_REPO") or "../chk", "cache", "fpa")
+        cp = os.path.join(cdir, key + ".json")
+        if not os.path.exists(cp):
+            raise
+        try:
+            ix = json.load(open(os.path.join(cdir, "index.json"), encoding="utf-8")).get(key) or {}
+        except Exception:
+            ix = {}
+        CACHED[key] = "%s; our copy of %s" % (str(ex)[:120], ix.get("changed") or ix.get("fetched") or "an earlier day")
+        return json.loads(open(cp, encoding="utf-8-sig").read())
 
 
 def last_commit(key, repos):
@@ -37872,6 +37927,8 @@ def main(out_path, prev_path=None):
             data[k] = fetch(k)
             commit, _ = last_commit(k, repos) if k in ("merill", "roadtools", "gpc") else (None, None)
             state[k] = {"state": "read", "repo": SRC[k][0], "file": SRC[k][2], "commit": commit}
+            if k in CACHED:
+                state[k].update(state="cached", note="source did not answer (%s)" % CACHED[k])
         except Exception as ex:
             data[k] = None
             state[k] = {"state": "unread", "repo": SRC[k][0], "file": SRC[k][2], "note": str(ex)[:200]}
