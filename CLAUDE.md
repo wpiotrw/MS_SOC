@@ -26514,6 +26514,24 @@ milestone"). (4) SMS i voice byly w „Most important now" (CRITICAL, 30 X), ale
 poprawka wlasciciela w `campaigns.json`: „Microsoft-provided SMS and voice MFA retirement · passkeys by default".
 Karty „Most important now" pokazuja tez, CO sie dzieje w nastepnej dacie, a nie tylko dlaczego.
 
+**§5cu-d (9 X 2026, wlasciciel: „kampania passkeys i SMS/voice powinny byc oddzielone — maja oddzielne daty i
+posty MC; czy w kampaniach i w Most important now pokazujesz artykuly i linki MC? Do kazdej kampanii trzeba
+podejsc bardzo profesjonalnie").** (1) **Kampanie definiowane przez wlasciciela** (`campaigns.json` → `define`:
+id, nazwa, technologia, typ, opis, slowa kluczowe, lista postow i pozycji). Definicja zabiera swoje posty z
+automatycznego grupowania; post wymieniony w dwoch definicjach jest WSPOLNY (MC1426371 oglasza i passkeys by
+default, i wycofanie SMS/voice), a jego daty, wiersze „What changes" i „What to do" ida do definicji, ktorej slowa
+kluczowe zdanie wymienia (bez trafienia — do pierwszej definicji z tym postem). 9 X: „Microsoft-provided SMS and
+voice MFA retirement" (MC1426371, MC1474104, MC1465763 + pozycje listy glownej; 30 X dostawcy telefonii,
+1 II 2027, 1 VII 2027 dla GA i uzytkownikow zewnetrznych) i „Passkeys by default in Microsoft Entra ID"
+(MC1426371, MC1450133, MC1459133, RM569432, MC1440968, MC1469555, MC1221452, MC1282568, MC1423108, MC1437671 +
+pozycja o federacyjnych passkeys). (2) **Linki Message Center wszedzie**: w wierszu listy (do 3), na karcie „Most
+important now" (do 4 + „N more"), w naglowku karty (do 10), w tabeli „Message Center posts"; w osi czasu kazda
+data ma pod spodem numer i tytul posta, z ktorego pochodzi. (3) **Daty chmur suwerennych** (GCC, GCC High, DoD,
+USNat, USSec) nie sa datami kampanii swiatowej; `tools/mc_tenant.py` rozdziela punkty list („Worldwide, GCC:
+…" / „GCC High, DoD: …") kropka, a kolektor dzieli tez stare, zlepione wyjatki po etykietach chmur i pierscieni
+(`bodyHash` liczony po staremu — bez falszywych „edited"). (4) **„(previously X)"** po dacie to przesuniecie
+podane przez Microsoft — pokazywane w osi czasu jako „Date moved: X → Y (Microsoft's own note in the post)".
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -34503,6 +34521,20 @@ odtad CZTERNASCIE (4-17).**
   function prioTag(c) { var p = c.prio || {}; if (!PL[p.level]) return null; var t = el("span", "s5cu-pt s5cu-pt-" + p.level, PL[p.level]); t.title = "Why: " + (p.why || []).join("; "); return t; }
   function msMonths(c) { var o = {}; (c.milestones || []).forEach(function (x) { if (!x.post && daysTo(x.date) >= 0) o[x.date.slice(0, 7)] = 1; }); return o; }
   function mlabel(m, full) { var i = +m.slice(5, 7) - 1; return M[i] + (full || i === 0 ? " " + m.slice(0, 4) : ""); }
+  /* the Message Center posts of a campaign as links, newest first (owner, 9 X: "do you show the MC links?") */
+  function postLinks(c, n) {
+    var P = (c.posts || []).filter(function (p) { return p.link && /^(MC|RM)?\d{5,}/.test(p.id); }).sort(function (a, b) { return (b.updated || b.published || "") < (a.updated || a.published || "") ? -1 : 1; });
+    if (!P.length) return null;
+    var w = el("span", "s5cu-pl"); w.appendChild(el("span", "s5cu-pll", "Message Center: "));
+    P.slice(0, n).forEach(function (p, i) {
+      if (i) w.appendChild(document.createTextNode(" · "));
+      var a = el("a", "s5cu-src", p.id); a.href = p.link; a.target = "_blank"; a.rel = "noopener"; a.title = p.title + (p.published ? " · " + dmy(p.published) : "");
+      a.addEventListener("click", function (e) { e.stopPropagation(); }); w.appendChild(a);
+    });
+    if (P.length > n) { var m = el("a", "s5cu-plm", " +" + (P.length - n) + " more"); m.href = "#tab=campaigns&c=" + encodeURIComponent(c.id);
+      m.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); goCard(c.id, "posts"); }); w.appendChild(m); }
+    return w;
+  }
   function topBlock(C) {
     var T = C.filter(function (c) { return c.prio && c.prio.level !== "normal" && c.status === "Active"; })
       .sort(function (a, b) { return b.prio.score - a.prio.score || (a.next && b.next ? (a.next.date < b.next.date ? -1 : 1) : 0); }).slice(0, 6);
@@ -34513,13 +34545,15 @@ odtad CZTERNASCIE (4-17).**
     s.appendChild(h);
     var g = el("div", "s5cu-topg");
     T.forEach(function (c) {
-      var b = el("button", "s5cu-tc s5cu-tc-" + c.prio.level); b.type = "button"; b.title = "Open the campaign";
+      var b = el("div", "s5cu-tc s5cu-tc-" + c.prio.level); b.setAttribute("role", "link"); b.tabIndex = 0; b.title = "Open the campaign";
+      b.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target === b) goCard(c.id); });
       var t = el("span", "s5cu-tch"); t.appendChild(prioTag(c)); t.appendChild(el("span", "s5cu-tct", c.tech + " · " + c.type)); b.appendChild(t);
       b.appendChild(el("span", "s5cu-tcn", c.name));
       if (c.next) { b.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), when(c.next)));
         if (c.next.text && c.next.text.indexOf(c.name) < 0) b.appendChild(el("span", "s5cu-tcx", c.next.text.length > 170 ? c.next.text.slice(0, 170).replace(/\s+\S*$/, "") + "\u2026" : c.next.text)); }
       b.appendChild(el("span", "s5cu-tcw", "Why: " + (c.prio.why || []).slice(0, 3).join(" · ")));
-      b.addEventListener("click", function () { goCard(c.id); }); g.appendChild(b);
+      var pl = postLinks(c, 4); if (pl) b.appendChild(pl);
+      b.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("a")) return; goCard(c.id); }); g.appendChild(b);
     });
     s.appendChild(g); body.appendChild(s);
   }
@@ -34722,6 +34756,7 @@ odtad CZTERNASCIE (4-17).**
     var c1 = el("span", "s5cu-c1"); var pt = prioTag(c); if (pt) c1.appendChild(pt); var nm = el("a", "s5cu-nm", c.name); nm.href = "#tab=campaigns&c=" + encodeURIComponent(c.id);
     nm.addEventListener("click", function (e) { e.preventDefault(); goCard(c.id); }); c1.appendChild(nm);
     if (c.summary && c.summary !== c.name) c1.appendChild(el("span", "s5cu-sm", c.summary));
+    var pl = postLinks(c, 3); if (pl) c1.appendChild(pl);
     r.appendChild(c1);
     r.appendChild(el("span", "s5cu-tech", c.tech)); r.appendChild(el("span", "s5cu-ty", c.type));
     var c4 = el("span", "s5cu-nx");
@@ -34770,6 +34805,7 @@ odtad CZTERNASCIE (4-17).**
     var st = (c.stamps || []).slice(-1)[0]; if (st) fact("Microsoft updated the post", dmy(st.date) + (st.text ? " — “" + st.text.replace(/\.$/, "") + "”" : ""));
     if ((c.related || []).length) { var rs = el("span"); rs.appendChild(document.createTextNode("Related ")); c.related.forEach(function (x, i) { if (i) rs.appendChild(document.createTextNode(" · "));
       var a = el("a", "s5cu-rel", x.name); a.href = "#tab=campaigns&c=" + encodeURIComponent(x.id); a.addEventListener("click", function (e) { e.preventDefault(); goCard(x.id); }); rs.appendChild(a); }); f.appendChild(rs); }
+    var hpl = postLinks(c, 10); if (hpl) f.appendChild(hpl);
     hd.appendChild(f); body.appendChild(hd);
     var pr = c.prio || {};
     if (PL[pr.level]) {
@@ -34865,7 +34901,10 @@ odtad CZTERNASCIE (4-17).**
       var n = daysTo(x.date), past = n < 0, tr = el("tr", past ? "past" : x.date === nextDate ? "next" : "");
       tr.appendChild(el("td", "s5cu-dt" + (x.date === nextDate ? " s5cu-" + (toneOf(x) || "n") : ""), x.label));
       var td = el("td"); td.appendChild(el("span", null, x.text));
-      if (x.moved) td.appendChild(el("span", "s5cu-moved", "Date moved: " + x.moved.was + " → " + x.moved.now + (x.moved.seen ? " (seen " + dm(x.moved.seen) + ")" : "")));
+      /* in a campaign of several posts, each dated line says which post it comes from */
+      if ((c.posts || []).length > 1 && !x.post) { var po = (c.posts || []).filter(function (p) { return p.id === x.src; })[0];
+        if (po) td.appendChild(el("span", "s5cu-tls", po.id + " · " + po.title)); }
+      if (x.moved) td.appendChild(el("span", "s5cu-moved", "Date moved: " + x.moved.was + " → " + x.moved.now + (x.moved.seen ? " (seen here " + dm(x.moved.seen) + ")" : x.moved.by ? " (Microsoft\u2019s own note in the post)" : "")));
       tr.appendChild(td);
       tr.appendChild(el("td", "s5cu-who", x.who || ""));
       var sc = el("td", "s5cu-srcc"); (x.srcs || [x.src]).forEach(function (s, i) { if (i) sc.appendChild(document.createTextNode(" · ")); sc.appendChild(srcLink(c, s)); }); tr.appendChild(sc);
@@ -36057,6 +36096,13 @@ ul.s5cu-bnl ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:non
 td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
 .s5cu-tcx{font-size:13px;color:var(--text);opacity:.85;line-height:1.45}
 @media (max-width:640px){.s5cu.sec-body a.s5cu-src{white-space:normal;overflow-wrap:anywhere}}
+/* §5cu-d: Message Center links on every campaign row and top card */
+.s5cu-pl{display:block;margin-top:5px;font-size:12.5px;color:var(--muted)}
+.s5cu-pll{color:var(--faint)}
+.s5cu-plm{color:var(--accent);font-size:12.5px;text-decoration:none}
+.s5cu .s5cu-pl a.s5cu-src{color:var(--accent)}
+.s5cu-facts .s5cu-pl{flex-basis:100%;margin-top:2px}
+.s5cu-tls{display:block;font-size:12px;color:var(--faint);margin-top:3px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`

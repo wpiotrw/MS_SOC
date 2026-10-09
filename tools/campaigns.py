@@ -248,6 +248,10 @@ def milestones_from(text, src, link, base):
     """Dated sentences of one source -> milestones. `Updated <date>:` stamps are not milestones;
     they are returned separately (Microsoft says it changed the timeline that day)."""
     ms, stamps = [], []
+    # list items flattened without a full stop ("... late March 2026 GCC High, DoD clouds: Rollout ...") are split
+    # again at the cloud / ring labels, so a date for a sovereign cloud is not read as a worldwide date
+    text = re.sub(r"(?<=[\w)])\s+(?=(?:Public cloud\s+)?(?:Worldwide|GCC High|GCC|DoD|USNat|USSec|Targeted Release|Standard Release|"
+                  r"General Availability|Public Preview)\b[^:.]{0,40}:\s)", ". ", text or "")
     for sen in sentences(text):
         sen = re.sub(r"^\[[^\]]{0,60}\]:?\s*", "", sen)
         st = STAMP.match(sen)
@@ -264,8 +268,16 @@ def milestones_from(text, src, link, base):
         if m and not find_dates(m.group(1)):
             who, whole = m.group(1).strip(), m.group(2)
         clauses = [c.strip(" ,;") for c in re.split(r"(?<!\d),\s+(?!\d{4})|;\s+|\s+—\s+", whole) if c.strip(" ,;")]
-        for pos, (iso, label, prec, _) in enumerate(find_dates(whole)):
+        if re.search(r"\b(?:GCC|GCCH|DoD|USNat|USSec|Gallatin|21Vianet|air-?gapped|government clouds?)\b", sen) and not re.search(r"worldwide|\bWW\b|commercial", sen, re.I):
+            continue   # a date for a sovereign cloud only
+        for pos, (iso, label, prec, span) in enumerate(find_dates(whole)):
             body = whole
+            # Microsoft's own "(previously early October)" after a date is a date move it states itself
+            pv = re.match(r"\s*\(previously ([^)]{3,40})\)", whole[span[1]:])
+            was_ms = None
+            if pv:
+                pd = find_dates(pv.group(1) + (" " + iso[:4] if not re.search(r"\d{4}", pv.group(1)) else ""))
+                was_ms = pd[0][1] if pd else pv.group(1)
             if len(find_dates(whole)) > 1:
                 own = [c for c in clauses if any(d == iso for d, *_ in find_dates(c)) and len(c.split()) >= 3]
                 if own:
@@ -275,7 +287,7 @@ def milestones_from(text, src, link, base):
             if re.search(r"\b(?:published|posted|blog|announced on|last updated|this message)\b", body, re.I) and prec == "day" and iso <= base:
                 continue
             body = tidy(body, iso)
-            ms.append({"date": iso, "label": label, "prec": prec, "text": body[:240], "who": who, "pos": pos, "whole": whole[:240],
+            ms.append({"date": iso, "label": label, "prec": prec, "text": body[:240], "who": who, "pos": pos, "whole": whole[:240], "msWas": was_ms,
                        "src": src, "link": link})
     return ms, stamps
 
@@ -615,6 +627,36 @@ def main(argv):
     for sid in seeds:
         clusters[uf.find(sid)].append(seeds[sid])
 
+    # ---- campaigns the owner DEFINES (campaigns.json "define"): one Message Center post can announce two campaigns
+    # (MC1426371: passkeys by default AND the SMS/voice retirement - owner, 9 X 2026: "they have separate dates,
+    # separate posts"). A defined campaign takes its listed posts and items out of the automatic grouping; a post
+    # listed by two definitions is shared, and its dates, rows and actions are split by the definition's keywords.
+    defs = corr.get("define") or []
+    claimed = defaultdict(list)
+    for dfn in defs:
+        for mid in dfn.get("members") or []:
+            for rid in (mid, "item:" + mid):
+                if rid in recs:
+                    claimed[rid].append(dfn["id"])
+    shared = {rid for rid, lst in claimed.items() if len(lst) > 1}
+    KW = {dfn["id"]: re.compile("|".join(re.escape(k) for k in dfn.get("keywords") or ["."]), re.I) for dfn in defs}
+
+    def belongs(c, rid, text):
+        """A shared post's sentence goes to the definition whose keywords it names; a sentence that names none
+        goes to the first definition that lists the post (its primary campaign)."""
+        if rid not in shared or not c.get("defined"):
+            return True
+        own_ = c["defined"]["id"]
+        if KW[own_].search(text or ""):
+            return True
+        if any(KW[o].search(text or "") for o in claimed[rid] if o != own_):
+            return False
+        return claimed[rid][0] == own_
+    for root in list(clusters):
+        clusters[root] = [r for r in clusters[root] if r["id"] not in claimed]
+        if not clusters[root]:
+            del clusters[root]
+
     # ---- previous ids: a campaign keeps its id when its members move ----
     prev = hist.get("campaigns", {})
     member_of = {}
@@ -660,15 +702,28 @@ def main(argv):
                 n += 1
         used_ids.add(cid)
         camps.append({"id": cid, "members": members})
+    for dfn in defs:
+        mem = [recs[rid] for rid in claimed if dfn["id"] in claimed[rid]]
+        if not mem:
+            continue
+        for m in mem:
+            if not m.get("kind"):
+                m["kind"] = dfn.get("type") or "Change"
+        mem.sort(key=lambda r: (r.get("published") or "9999", r["id"]))
+        used_ids.add(dfn["id"])
+        camps.append({"id": dfn["id"], "members": mem, "defined": dfn,
+                      "kw": re.compile("|".join(re.escape(k) for k in dfn.get("keywords") or ["."]), re.I)})
 
     # ---- corrections keyed by any member id ----
     ccorr = corr.get("campaigns") or {}
 
     def corr_for(c):
         out = {}
-        for key in [c["id"]] + [m["id"] for m in c["members"]] + [m["id"].replace("item:", "") for m in c["members"]]:
-            if key in ccorr:
+        for key in [m["id"] for m in c["members"]] + [m["id"].replace("item:", "") for m in c["members"]] + [c["id"]]:
+            if key in ccorr and not c.get("defined"):
                 out.update(ccorr[key])
+        if c.get("defined"):
+            out.update({k: v for k, v in c["defined"].items() if k not in ("id", "members")})
         return out
 
     results = []
@@ -710,9 +765,10 @@ def main(argv):
         for m in mem:
             for t in m["texts"]:
                 a, b = milestones_from(t, m["id"].replace("item:", ""), m["link"], day)
+                a = [x for x in a if belongs(c, m["id"], x["text"])]
                 ms += a
                 stamps += [dict(s, src=m["id"]) for s in b]
-            if m.get("deadline"):
+            if m.get("deadline") and belongs(c, m["id"], (m.get("deadlineNote") or "") + " " + (m.get("ourTitle") or "")):
                 ms.append({"date": m["deadline"], "label": label_of(m["deadline"]), "prec": "day",
                            "text": tidy(m.get("deadlineNote") or m.get("ourTitle") or "Deadline", m["deadline"]), "who": None, "src": m["id"].replace("item:", ""), "link": m["link"], "key": "deadline"})
             if m.get("actionBy"):
@@ -768,7 +824,9 @@ def main(argv):
                 says = next((x for x in ss if x != before and re.search(r"\b(?:will|now|starting|after|no longer|instead|retir|deprecat|enforce)", x, re.I)), "") or \
                     (ss[0] if ss and ss[0] != before else "")
                 row["before"], row["says"] = before[:320], says[:420]
-            rows = [r for r in byid.values() if r["says"] or r["why"] or r["before"]][:8]
+            rows = [r for r in byid.values() if r["says"] or r["why"] or r["before"]]
+            rows = [r for r in rows if all(belongs(c, rid, " ".join([r["change"], r["says"], r["why"]])) for rid in (r["src"], "item:" + r["src"]))]
+            rows = rows[:8]
         # ---- what to do ----
         todo = cc.get("todo") or []
         if not todo:
@@ -778,6 +836,7 @@ def main(argv):
             for m in mc_members:
                 if m.get("prepare"):
                     todo.append({"text": m["prepare"][:450], "src": m["id"]})
+            todo = [t for t in todo if all(belongs(c, rid, t["text"]) for rid in (t.get("src") or "", "item:" + (t.get("src") or "")))]
             todo = todo[:4]
         # ---- materials ----
         key_t = Counter()
@@ -965,6 +1024,9 @@ def main(argv):
             if x.get("moved"):
                 moves.append({"src": x["src"], "key": x["key"], "was": x["moved"]["was"], "now": x["moved"]["now"], "seen": day, "text": x["text"][:160]})
         for x in ms:
+            if x.get("msWas") and not x.get("moved"):
+                x["moved"] = {"was": x["msWas"], "now": x["label"], "seen": None, "by": "Microsoft"}
+        for x in ms:
             for mv in moves:
                 if mv["src"] == x["src"] and mv["key"] == x["key"] and mv["now"] == x["label"]:
                     x["moved"] = {"was": mv["was"], "now": mv["now"], "seen": mv["seen"]}
@@ -1049,8 +1111,12 @@ def main(argv):
             merged.append(e)
         merged.sort(key=lambda e: (e["date"], e.get("id") or ""), reverse=True)
         c["log"] = merged[:120]
-        c["posts"] = [{"id": m["id"], "title": m["title"], "link": m.get("link"), "published": m.get("published"), "updated": m.get("updated"),
-                       "kind": m["src"]} for m in c["members"] if m["src"] in ("MC", "Roadmap")]
+        _pp = {}
+        for m in c["members"]:
+            if m["src"] in ("MC", "Roadmap") and m["id"] not in _pp and re.match(r"^[\w-]+$", m["id"]):
+                _pp[m["id"]] = {"id": m["id"], "title": m["title"], "link": m.get("link"), "published": m.get("published"),
+                                "updated": m.get("updated"), "kind": m["src"]}
+        c["posts"] = list(_pp.values())
         rec = {"firstSeen": first, "lastSeen": day, "name": c["name"], "status": status, "members": [m["id"] for m in c["members"]], "log": c["log"],
                "milestones": newms, "moves": moves[-20:], "materials": allmat}
         if c.get("component"):
@@ -1080,6 +1146,9 @@ def main(argv):
             c["next"]["days"] = (datetime.date.fromisoformat(c["next"]["date"]) - today).days
         c["prio"] = priority(c)
         c["members"] = [m["id"] for m in c["members"]]
+        c.pop("kw", None)
+        if c.pop("defined", None):
+            c["definedBy"] = "owner"
     # related: campaigns sharing a technology and rare title words
     for c in out:
         tc = toks(c["name"])

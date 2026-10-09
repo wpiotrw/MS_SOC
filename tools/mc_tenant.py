@@ -53,7 +53,7 @@ def section(plain, head, size=450):
     i = plain.lower().find(head.lower())
     if i < 0:
         return None
-    rest = plain[i + len(head):].lstrip(" :]")
+    rest = plain[i + len(head):].lstrip(" :].")
     cut = len(rest)
     for h in HEADS:
         j = rest.lower().find(h.lower())
@@ -75,9 +75,18 @@ def dated(plain, limit=6):
     return out
 
 
+def blocks(body):
+    """Text with list items and paragraphs kept apart (". " between them), so "Worldwide: ... late March 2026" and
+    "GCC High, DoD: ..." stay two sentences. Used only for the excerpts; bodyHash keeps the old flattening."""
+    t = text(re.sub(r"(?i)</(?:li|p|h[1-6]|div|tr|td)>|<br\s*/?>", " QQBLOCKQQ ", body or ""))
+    t = re.sub(r"([^.!?:\s])\s*QQBLOCKQQ", r"\1.", t)
+    return re.sub(r"\s*QQBLOCKQQ\s*", " ", t).strip()
+
+
 def shape(m):
     body = ((m.get("body") or {}).get("content")) or ""
     plain = text(body)
+    seg = blocks(body)
     return {"id": m.get("id"), "title": m.get("title"),
             "services": sorted(m.get("services") or []), "category": m.get("category"),
             "severity": m.get("severity"), "major": bool(m.get("isMajorChange")),
@@ -87,9 +96,9 @@ def shape(m):
             "modified": (m.get("lastModifiedDateTime") or "")[:10] or None,
             "tags": sorted(m.get("tags") or []),
             "summary": plain[:400] + ("…" if len(plain) > 400 else ""),
-            "when": section(plain, "When this will happen"),
-            "prepare": section(plain, "What you need to do to prepare") or section(plain, "What you can do to prepare"),
-            "dates": dated(plain),
+            "when": section(seg, "When this will happen"),
+            "prepare": section(seg, "What you need to do to prepare") or section(seg, "What you can do to prepare"),
+            "dates": dated(seg),
             "bodyHash": hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]}
 
 

@@ -1,10 +1,6 @@
 {
-  "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions.",
-  "campaigns": {
-    "MC1426371": {
-      "name": "Microsoft-provided SMS and voice MFA retirement · passkeys by default"
-    }
-  },
+  "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions. 'define' lists campaigns the owner defines by their posts and items (id, name, tech, type, summary, keywords, members); a post listed by two definitions is shared and its dates, rows and actions are split by each definition's keywords.",
+  "campaigns": {},
   "merge": [],
   "components": {
     "entra-connect-sync": {
@@ -19,5 +15,61 @@
       ],
       "absorb": "\\bentra connect(?: sync)?\\b(?! health| cloud)"
     }
-  }
+  },
+  "define": [
+    {
+      "id": "c-sms-voice-retirement",
+      "name": "Microsoft-provided SMS and voice MFA retirement",
+      "tech": "Entra",
+      "type": "Retirement",
+      "summary": "Microsoft stops delivering one-time codes by text message and phone call for MFA and password reset. A tenant moves its users to other methods (passkeys, Microsoft Authenticator, FIDO2 security keys) or configures a third-party telephony provider; SMS as a first factor (sign-in with a phone number instead of a password) retires for workforce tenants as well.",
+      "keywords": [
+        "sms",
+        "voice",
+        "telephony",
+        "phone",
+        "first-factor",
+        "first factor",
+        "soprano",
+        "telesign",
+        "text message",
+        "global administrators and external users",
+        "for most users"
+      ],
+      "members": [
+        "MC1426371",
+        "MC1474104",
+        "MC1465763",
+        "entra-sms-voice-full-retirement",
+        "entra-telephony-provider-configuration-2026-10-30"
+      ]
+    },
+    {
+      "id": "c-passkeys-by-default",
+      "name": "Passkeys by default in Microsoft Entra ID",
+      "tech": "Entra",
+      "type": "Rollout",
+      "summary": "Microsoft makes passkeys the default registration and sign-in experience in Entra ID: passkey or passwordless sign-in as the first MFA method, passkeys for B2B guests issued by the resource tenant, an optimised registration campaign and passkey profiles.",
+      "keywords": [
+        "passkey",
+        "fido",
+        "passwordless",
+        "rollout began",
+        "default authentication experience"
+      ],
+      "members": [
+        "MC1426371",
+        "MC1450133",
+        "MC1459133",
+        "569432",
+        "MC1440968",
+        "MC1469555",
+        "MC1221452",
+        "MC1282568",
+        "MC1423108",
+        "MC1437671",
+        "entra-external-idp-passkeys-system-browser-ga"
+      ]
+    }
+  ]
 }
