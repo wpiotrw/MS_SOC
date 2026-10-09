@@ -406,28 +406,6 @@
    "bodyHash": "155400cb916efa4f"
   },
   {
-   "id": "MC1168906",
-   "title": "Windows Office Hours: October 16, 2025",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-09",
-   "end": "2026-10-09",
-   "modified": "2025-10-09",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "If you are an IT admin with questions about managing and updating Windows, we want to help. Every third Thursday of the month, we host a live chat-based event on the Tech Community called Windows Office Hours. Members of the Windows, Microsoft Intune, Windows Autopilot, Windows Autopatch, and Windows 365 engineering teams will be standing by to answer your questions. We also have experts from Fast…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "d35d62d77a60067d"
-  },
-  {
    "id": "MC1169587",
    "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
    "services": [
@@ -8749,23 +8727,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-23",
-   "end": "2026-11-30",
-   "modified": "2026-10-07",
+   "end": "2026-12-31",
+   "modified": "2026-10-09",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 7, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why] We're introducing a new Microsoft Entra capability that allows a uthenticated password changes directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their …",
+   "summary": "Updated October 9, 2026: We have updated the content. Thank you for your patience. [What and Why] We're introducing a new Microsoft Entra capability that Allow password change after secure sign-in directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their current p…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 7, 2026: We have updated the timeline and content.",
-    "General Availability (Worldwide and GCC): Beginning in mid-October 2026 and expected to complete by late October 2026.",
-    "If your organization chooses to offer a uthenticated password changes , enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
+    "Updated October 9, 2026: We have updated the content.",
+    "General Availability (Worldwide and GCC): Beginning end of October 2026 (previously mid-October) and expected to complete by end of November 2026 (previously late October).",
+    "If your organization chooses to offer allowed password changes after secure sign-in, enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
    ],
-   "bodyHash": "075072d95f189340"
+   "bodyHash": "d31a2c63ebaa6b23"
   },
   {
    "id": "MC1437678",
@@ -16976,7 +16954,7 @@
   },
   {
    "id": "MC1484009",
-   "title": "Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+   "title": "(Updated) Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
    "services": [
     "Microsoft Defender XDR"
    ],
@@ -16985,20 +16963,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-30",
-   "end": "2026-10-31",
-   "modified": "2026-09-30",
+   "end": "2026-12-28",
+   "modified": "2026-10-09",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Microsoft Defender for Office 365 is introducing new email submissions data in Advanced Hunting in Microsoft Defender. The new submissions tables provide security operations teams with greater visibility into email submission activity and results, enabling analysts to query submission activity alongside other Defender data and build hunting and detection workflows tailored to their…",
+   "summary": "Updated October 9, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Defender for Office 365 is introducing new email submissions data in Advanced Hunting in Microsoft Defender. The new submissions tables provide security operations teams with greater visibility into email submission activity and results, enabling analysts to query submission activity along…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 9, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): We will begin rolling out in early October 2026 and expect to complete by early October 2026.",
-    "General Availability (Worldwide): We will begin rolling out in early October 2026 and expect to complete by early October 2026."
+    "General Availability (Worldwide): We will begin rolling out late October 2026 (previously early October) and expect to complete by mid-November 2026 (previously early October)."
    ],
-   "bodyHash": "3d2e1ee0017864b4"
+   "bodyHash": "ef36da3e924c590a"
   },
   {
    "id": "MC1484010",
@@ -17297,22 +17277,20 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-02",
-   "end": "2027-01-11",
-   "modified": "2026-10-06",
+   "end": "2026-10-16",
+   "modified": "2026-10-09",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Units to delegate management of supported Copilo…",
+   "summary": "Updated October 9, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Unit…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 6, 2026: We have updated the timeline.",
-    "Public Preview: Begins late October, 2026.",
-    "Worldwide, GCC, GCC High, DoD: Beginning in late November 2026 (previously late October) and expected to complete by early December 2026 (previously early November)."
+    "Updated October 9, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "68026beb2624dd26"
+   "bodyHash": "3413b6c77795f9e1"
   },
   {
    "id": "MC1486289",
@@ -18271,6 +18249,31 @@
     "This feature will reach public preview on October 23, 2026."
    ],
    "bodyHash": "bb5c691a3994a0f0"
+  },
+  {
+   "id": "MC1492825",
+   "title": "30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-09",
+   "end": "2027-10-09",
+   "modified": "2026-10-09",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "On November 10, 2026, Windows 11, version 23H2 Enterprise and Education editions will reach end of updates. The November 2026 Windows security update will be the last update available for these editions. After this date, devices running these editions will no longer receive monthly security updates containing protections from the latest security threats. We recommend updating eligible devices runn…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On November 10, 2026, Windows 11, version 23H2 Enterprise and Education editions will reach end of updates.",
+    "The November 2026 Windows security update will be the last update available for these editions."
+   ],
+   "bodyHash": "7a9ff07d867ebfd5"
   },
   {
    "id": "MC676299",
@@ -21237,6 +21240,83 @@
    "id": "MC1438571",
    "type": "removed",
    "title": "(Updated) Default visibility of additional profile card properties in Microsoft 365 profile cards",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1437671",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "075072d95f189340",
+     "d31a2c63ebaa6b23"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1484009",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+   "fields": {
+    "title": [
+     "Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+     "(Updated) Microsoft Defender for Office 365: New email submissions data in Advanced Hunting"
+    ],
+    "end": [
+     "2026-10-31",
+     "2026-12-28"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "3d2e1ee0017864b4",
+     "ef36da3e924c590a"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1486284",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "fields": {
+    "end": [
+     "2027-01-11",
+     "2026-10-16"
+    ],
+    "bodyHash": [
+     "68026beb2624dd26",
+     "3413b6c77795f9e1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1492825",
+   "type": "new",
+   "title": "30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-09",
+   "id": "MC1168906",
+   "type": "removed",
+   "title": "Windows Office Hours: October 16, 2025",
    "fields": {}
   }
  ]
