@@ -1113,7 +1113,10 @@ def main(argv):
         comp_c["next"] = fut[0] if fut else None
 
     # ---- status, history, events ----
-    events = [e for e in hist.get("events", []) if e.get("day", "") >= ago(SET["eventsKeepDays"]) and e.get("day") != day]
+    # today's events of the earlier runs stay: a run used to drop them and keep only what moved since the run before
+    # it, so the rail and "Since the previous run" lost the morning's changes by noon (owner, 9 X 2026: "why does
+    # Campaigns show no numbers in the side menu?")
+    events = [e for e in hist.get("events", []) if e.get("day", "") >= ago(SET["eventsKeepDays"])]
     newhist = {}
     out = []
     archive = hist.get("archive", {})
@@ -1300,6 +1303,13 @@ def main(argv):
         if cid not in newhist and cid not in archive:
             archive[cid] = dict(h, status="Archive", lastSeen=h.get("lastSeen"))
 
+    _ek, _ev = set(), []
+    for e in events:  # the same change seen by two runs of one day is one event
+        k = (e.get("day"), e.get("cid"), e.get("type"), e.get("src"), e.get("was"), e.get("now"), e.get("link") or e.get("title"))
+        if k not in _ek:
+            _ek.add(k)
+            _ev.append(e)
+    events = _ev
     # week column: events of the last 7 days per campaign
     wk = (today - datetime.timedelta(days=6)).isoformat()
     for c in out:
