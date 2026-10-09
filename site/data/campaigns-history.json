@@ -3104,6 +3104,15 @@
 ],
 "log":[
 {
+"date":"2026-10-09",
+"id":"MC1293480",
+"what":"Date moved",
+"before":"31 Dec 2026",
+"after":"1 Aug 2026",
+"title":"Exchange Online: Retirement of legacy TLS versions for POP and IMAP connections",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1293480"
+},
+{
 "date":"2026-09-29",
 "id":"MC1293480",
 "what":"Act-by date",
@@ -3148,7 +3157,16 @@
 "text":"December 31, 2026."
 }
 },
-"moves":[],
+"moves":[
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-09",
+"text":"August 1, 2026."
+}
+],
 "materials":{
 "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1293480":{
 "title":"Exchange Online: Retirement of legacy TLS versions for POP and IMAP connections",
@@ -3479,6 +3497,24 @@
 ],
 "log":[
 {
+"date":"2026-10-09",
+"id":"MC1182696",
+"what":"Date moved",
+"before":"early Dec 2026",
+"after":"early Feb 2026",
+"title":"Microsoft Defender: Application Guard for Office is being removed",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1182696"
+},
+{
+"date":"2026-10-09",
+"id":"MC1182696",
+"what":"Date moved",
+"before":"Jul 2027",
+"after":"Feb 2027",
+"title":"Microsoft Defender: Application Guard for Office is being removed",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1182696"
+},
+{
 "date":"2026-09-28",
 "id":"MC1182696",
 "what":"Entered the brief (Message Center)",
@@ -3505,7 +3541,24 @@
 "text":"July 2027."
 }
 },
-"moves":[],
+"moves":[
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-09",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-09",
+"text":"February 2027."
+}
+],
 "materials":{
 "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1182696":{
 "title":"Microsoft Defender: Application Guard for Office is being removed",
@@ -5236,6 +5289,24 @@
 "log":[
 {
 "date":"2026-10-09",
+"id":"MC1437671",
+"what":"Message Center end date",
+"before":"2026-11-30",
+"after":"2026-12-31",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-09",
+"id":"MC1437671",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout moves up to mid-October and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-09",
 "id":"MC1221452",
 "what":"Date moved",
 "before":"early Mar 2026",
@@ -5249,6 +5320,24 @@
 "what":"Date moved",
 "before":"late Mar 2026",
 "after":"late Jun 2026",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
+"date":"2026-10-09",
+"id":"MC1221452",
+"what":"Date moved",
+"before":"early May 2026",
+"after":"early Mar 2026",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
+"date":"2026-10-09",
+"id":"MC1221452",
+"what":"Date moved",
+"before":"late Jun 2026",
+"after":"late Mar 2026",
 "title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
 "link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
 },
@@ -5586,10 +5675,10 @@
 "label":"mid Sep 2026",
 "text":"Beginning in early September 2026 and expected to complete by mid-September 2026."
 },
-"MC1437671|if your organization chooses to offer a uthenticated passwor#0":{
+"MC1437671|if your organization chooses to offer allowed password chang#0":{
 "date":"2026-10-15",
 "label":"Oct 2026",
-"text":"If your organization chooses to offer a uthenticated password changes , enable the feature through the Microsoft Entra admin experience or supported APIs when i"
+"text":"If your organization chooses to offer allowed password changes after secure sign-in, enable the feature through the Microsoft Entra admin experience or supporte"
 },
 "MC1450133|we will begin rolling out in late previously early and expec#0":{
 "date":"2026-10-25",
@@ -5623,6 +5712,22 @@
 "now":"late Jun 2026",
 "seen":"2026-10-09",
 "text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "materials":{
@@ -6115,6 +6220,56 @@
 "src":"MC1437671",
 "now":"Oct 2026",
 "text":"If your organization chooses to offer a uthenticated password changes , enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1293480",
+"type":"moved",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"src":"MC1293480",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"text":"August 1, 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"text":"early February 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"text":"February 2027."
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "archive":{
