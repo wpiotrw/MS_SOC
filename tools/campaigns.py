@@ -355,6 +355,51 @@ class UF:
             self.p[max(ra, rb)] = min(ra, rb)
 
 
+LOG_FIELDS = {"Deadline": "Deadline", "Action required by": "Act-by date", "Revised at source": "Microsoft revised the post",
+              "Status": "Status", "Published": "Published"}
+IDENTITY = re.compile(r"auth|sign-?in|mfa|passkey|fido|password|sspr|conditional access|token|credential|kerberos|ntlm|"
+                      r"\bad fs\b|\bdkm\b|certificate|privilege|admin role|global admin|consent|\bews\b|legacy|tls|"
+                      r"entra connect|federat|encrypt|security baseline|exploit|cve|b2b|guest|external user", re.I)
+USER_FACING = re.compile(r"sign-?in|mfa|sms|voice|passkey|password|outlook|teams|calendar|users? (?:can|will|lose)|"
+                         r"end of support|stop working|lose|blocked|no longer", re.I)
+
+
+def priority(c):
+    """Which campaigns matter most now (owner, 9 X 2026): a near date, an enforcement or end of support,
+    security weight (identity, sign-in, privileged paths, the main list's own weight and Tier 0 flag) and
+    user impact. Score -> critical (>= 9) / high (>= 5) / normal; the reasons are shown on the page."""
+    score, why = 0, []
+    nx = c.get("next")
+    if nx:
+        d, exact = nx.get("days", 999), nx.get("prec", "day") == "day"
+        if exact and d <= 7:
+            score += 4; why.append("date within 7 days")
+        elif d <= 30:
+            score += 2; why.append("date within 30 days")
+    if c["type"] in ("Enforcement", "Support end", "Retirement") and nx:
+        score += 1; why.append({"Enforcement": "enforcement — breaks what is not ready",
+                                "Support end": "end of support — no fixes after the date",
+                                "Retirement": "retirement — the feature stops"}[c["type"]])
+    text = c["name"] + " " + " ".join(m.get("title") or "" for m in c["members"] if isinstance(m, dict))
+    if IDENTITY.search(text):
+        score += 2; why.append("security: identity, sign-in or a privileged path")
+    mems = [m for m in c["members"] if isinstance(m, dict)]
+    if any(m.get("tier0") for m in mems):
+        score += 2; why.append("touches Tier 0")
+    if any(m.get("src") == "item" and (m.get("socWeight") or 9) <= 1 for m in mems):
+        score += 1; why.append("in the brief's main list, weight 1")
+    if any("User impact" in (m.get("tags") or []) for m in mems) or USER_FACING.search(text):
+        score += 1; why.append("users notice it")
+    if any(m.get("major") and m.get("src") != "item" for m in mems):
+        score += 1; why.append("Microsoft marks it a major change")
+    if c.get("component"):
+        score += 1; why.append("component you run on your servers")
+    if c["status"] in ("Recently closed",):
+        score, why = min(score, 2), why
+    level = "critical" if score >= 9 else "high" if score >= 5 else "normal"
+    return {"level": level, "score": score, "why": why}
+
+
 def main(argv):
     global OUT, HIST
     if "--out-dir" in argv:  # tests: write campaigns.json and the history elsewhere
@@ -375,7 +420,9 @@ def main(argv):
     corr = jload(os.path.join(ROOT, "campaigns.json"), {})
     ytsrc = (jload(os.path.join(ROOT, "youtube_sources.json"), {}) or {}).get("channels", [])
     hist = jload(HIST, {"campaigns": {}, "events": [], "archive": {}})
-    tenant = {m["id"]: m for m in (jload(os.path.join(DATA, "mc-tenant.json"), {}) or {}).get("messages", [])}
+    _tdoc = jload(os.path.join(DATA, "mc-tenant.json"), {}) or {}
+    tenant = {m["id"]: m for m in _tdoc.get("messages", [])}
+    tchanges = _tdoc.get("changes") or []
 
     # ---- records: everything that can seed a campaign ----
     recs = {}
@@ -410,7 +457,8 @@ def main(argv):
                                    "texts": [i.get("deadlineNote") or ""],
                                    "summary": i.get("fingerprint") or "", "why": i.get("why"), "action": i.get("action"),
                                    "deadline": i.get("deadline"), "deadlineNote": i.get("deadlineNote"), "refs": refs,
-                                   "major": True, "tags": [], "itemIds": [i["id"]], "storyKey": i.get("storyKey")}
+                                   "major": True, "tags": [], "itemIds": [i["id"]], "storyKey": i.get("storyKey"),
+                                   "socWeight": i.get("socWeight"), "tier0": bool(i.get("tier0Touch"))}
 
     # ---- which records are signals ----
     horizon_old = (today - datetime.timedelta(days=240)).isoformat()
@@ -930,7 +978,57 @@ def main(argv):
             events.append({"day": day, "cid": c["id"], "type": "closed", "name": c["name"], "final": c["final"]["label"] if c["final"] else None})
         if not seed and h.get("status") in ("Recently closed", "Archive") and status == "Active":
             events.append({"day": day, "cid": c["id"], "type": "reopened", "name": c["name"], "next": c["next"]["label"]})
-        rec = {"firstSeen": first, "lastSeen": day, "name": c["name"], "status": status, "members": [m["id"] for m in c["members"]],
+        # change log, Message Center post by post (owner, 9 X: "a table like Jan Bakker's - MC numbers, what it was
+        # before and what changed"): the register's field changes (ledger14), the tenant's Message Center changes,
+        # Microsoft's "Updated <date>" notes and our own date moves; kept in the history beyond the 14-day window
+        mids = {m["id"].replace("item:", "") for m in c["members"]}
+        titles = {m["id"].replace("item:", ""): m.get("ourTitle") or m["title"] for m in c["members"]}
+        links = {m["id"].replace("item:", ""): m.get("link") for m in c["members"]}
+        log = []
+        for e in ((st.get("ledger14") or {}).get("entries") or []):
+            if e.get("id") not in mids:
+                continue
+            if e.get("kind") == "added":
+                log.append({"date": e.get("seen"), "id": e["id"], "what": "Entered the brief (" + str(e.get("tab") or "") + ")", "before": "", "after": e.get("title") or titles.get(e["id"], "")})
+            elif e.get("field") and (e["field"] in LOG_FIELDS or re.search(r"date|deadline|phase|rollout", e["field"], re.I)) and \
+                    (e["field"] == "Status" or all(not v or re.match(r"^\d{4}-\d\d-\d\d", str(v)) for v in (e.get("before"), e.get("after")))):
+                if not e.get("after") and e["field"] != "Status":
+                    continue
+                log.append({"date": e.get("seen"), "id": e["id"], "what": LOG_FIELDS.get(e["field"], e["field"]),
+                            "before": str(e.get("before") or ""), "after": str(e.get("after") or "")})
+        FN = {"end": "Message Center end date", "actionBy": "Act-by date", "start": "Start date", "title": "Title", "severity": "Severity", "major": "Major change"}
+        for ch in tchanges:
+            if ch.get("id") not in mids or ch.get("type") != "changed":
+                continue
+            for f, ba in (ch.get("fields") or {}).items():
+                if f == "tags":
+                    continue
+                if f == "bodyHash":
+                    log.append({"date": ch.get("date"), "id": ch["id"], "what": "Microsoft edited the post text", "before": "", "after": "see the post"})
+                else:
+                    log.append({"date": ch.get("date"), "id": ch["id"], "what": FN.get(f, f), "before": str(ba[0] or ""), "after": str(ba[1] or "")})
+        for stp in c.get("stamps") or []:
+            sid = str(stp.get("src", "")).replace("item:", "")
+            log.append({"date": stp["date"], "id": sid, "what": "Microsoft's update note", "before": "", "after": stp.get("text") or "updated"})
+        for mv in moves:
+            log.append({"date": mv.get("seen"), "id": mv.get("src"), "what": "Date moved", "before": mv.get("was"), "after": mv.get("now")})
+        seen_l, merged = set(), []
+        # the same change seen by the morning and the afternoon run, or in two tabs, is one row: the earliest day wins
+        for e in sorted(log + (h.get("log") or []), key=lambda e: e.get("date") or "9"):
+            k = (e.get("id"), e.get("what"), e.get("before"), e.get("after"))
+            if str(e.get("what", "")).startswith("Entered the brief"):
+                k = (e.get("id"), "entered")
+            if k in seen_l or not e.get("date"):
+                continue
+            seen_l.add(k)
+            e.setdefault("title", titles.get(e.get("id"), ""))
+            e.setdefault("link", links.get(e.get("id")))
+            merged.append(e)
+        merged.sort(key=lambda e: (e["date"], e.get("id") or ""), reverse=True)
+        c["log"] = merged[:120]
+        c["posts"] = [{"id": m["id"], "title": m["title"], "link": m.get("link"), "published": m.get("published"), "updated": m.get("updated"),
+                       "kind": m["src"]} for m in c["members"] if m["src"] in ("MC", "Roadmap")]
+        rec = {"firstSeen": first, "lastSeen": day, "name": c["name"], "status": status, "members": [m["id"] for m in c["members"]], "log": c["log"],
                "milestones": newms, "moves": moves[-20:], "materials": allmat}
         if c.get("component"):
             rec["versions"] = c["component"]["versions"]
@@ -955,9 +1053,10 @@ def main(argv):
         c["counts"] = {"mc": sum(1 for m in c["materials"]["microsoft"] if m.get("source") in ("Message Center", "Roadmap")),
                        "microsoft": sum(1 for m in c["materials"]["microsoft"] if m.get("source") not in ("Message Center", "Roadmap")),
                        "community": len(c["materials"]["community"]), "video": len(c["materials"]["video"])}
-        c["members"] = [m["id"] for m in c["members"]]
         if c["next"]:
             c["next"]["days"] = (datetime.date.fromisoformat(c["next"]["date"]) - today).days
+        c["prio"] = priority(c)
+        c["members"] = [m["id"] for m in c["members"]]
     # related: campaigns sharing a technology and rare title words
     for c in out:
         tc = toks(c["name"])
@@ -975,6 +1074,8 @@ def main(argv):
            "counts": {"active": stats["Active"], "noDate": stats["No date"], "released": stats["Released"], "closed30": stats["Recently closed"],
                       "in7": sum(1 for c in out if c["next"] and c["next"]["days"] <= 7 and c["next"].get("prec", "day") == "day"),
                       "in30": sum(1 for c in out if c["next"] and c["next"]["days"] <= 30),
+                      "critical": sum(1 for c in out if c["prio"]["level"] == "critical"),
+                      "high": sum(1 for c in out if c["prio"]["level"] == "high"),
                       "moved7": sum(1 for e in events if e["type"] == "moved" and e["day"] >= wk),
                       "archive": len(archive), "videos": len(videos), "channels": len(ytsrc)},
            "notes": notes, "events": [e for e in events if e["day"] >= (today - datetime.timedelta(days=14)).isoformat()],
