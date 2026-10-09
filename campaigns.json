@@ -1,0 +1,19 @@
+{
+  "note": "Owner's corrections for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Detection works without this file. Keys of 'campaigns' are any member id of a campaign (an MC number such as MC1426371, a main-list item id, or the campaign id c-...): name, summary, type, tech, keywords (extra phrases that pull articles and videos in), changes (What changes rows: change, before, after, src), todo (rows: text, src), pin, hide. 'merge' lists groups of member ids that belong to one campaign. 'components' adds a Learn version table to a component of Component versions.",
+  "campaigns": {},
+  "merge": [],
+  "components": {
+    "entra-connect-sync": {
+      "name": "Entra Connect Sync — version support",
+      "tech": "Entra",
+      "supportTable": "https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/docs/identity/hybrid/connect/reference-connect-version-history.md",
+      "summary": "Every Entra Connect Sync 2.x version retires 12 months after a newer version ships; below the supported version synchronization can stop. Read from Microsoft's version-history table and joined with the version the brief tracks in Component versions.",
+      "todo": [
+        "Check the installed version on every sync server, staging servers included.",
+        "Upgrade every server whose version leaves support next before that date; plan the current version for the rest.",
+        "Configure application-based authentication before the mandatory date Microsoft names."
+      ],
+      "absorb": "\\bentra connect(?: sync)?\\b(?! health| cloud)"
+    }
+  }
+}

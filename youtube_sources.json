@@ -1,0 +1,13 @@
+{
+  "note": "Watched YouTube channels for campaign tracking (tools/campaigns.py, CLAUDE.md 5cu). Each channel is read through its public feed https://www.youtube.com/feeds/videos.xml?channel_id=<channelId> - no API key. To add a channel: open https://www.youtube.com/@<handle>, find \"externalId\":\"UC...\" in the page source and add {name, handle, channelId}.",
+  "channels": [
+    {"name": "Microsoft Mechanics", "handle": "@MSFTMechanics", "channelId": "UCJ9905MRHxwLZ2jeNQGIWxA"},
+    {"name": "Microsoft Security", "handle": "@MicrosoftSecurity", "channelId": "UC4s3tv0Qq_OSUBfR735Jc6A"},
+    {"name": "Microsoft Defender", "handle": "@MicrosoftDefender", "channelId": "UC36riwY88LAdzxknm2msHCg"},
+    {"name": "Microsoft Purview", "handle": "@MicrosoftPurview", "channelId": "UC8j0rT3QYE76PdrwgygMb2g"},
+    {"name": "John Savill's Technical Training", "handle": "@NTFAQGuy", "channelId": "UCpIn7ox7j7bH_OFj7tYouOQ"},
+    {"name": "Andy Malone MVP", "handle": "@AndyMaloneMVP", "channelId": "UCGsIaIdB3eLErFObXcQRUqA"},
+    {"name": "Merill Fernando", "handle": "@merillx", "channelId": "UCb9SI6Qyx82z9ZAkIk5c8UQ"},
+    {"name": "Intune Training", "handle": "@IntuneTraining", "channelId": "UCfmMlhX5TW8cicxHw6ExYVA"}
+  ]
+}
