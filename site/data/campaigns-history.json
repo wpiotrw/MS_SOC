@@ -22,20 +22,20 @@
 }
 ],
 "milestones":{
-"MC1492163|beginning in early and expected to complete by late impact o#0":{
+"MC1492163|beginning in early and expected to complete by late#0":{
 "date":"2026-10-05",
 "label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027"
+"text":"Beginning in early October 2026 and expected to complete by late January 2027."
 },
 "MC1492163|posted":{
 "date":"2026-10-08",
 "label":"8 Oct 2026",
 "text":"Posted: Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh"
 },
-"MC1492163|beginning in early and expected to complete by late impact o#1":{
+"MC1492163|beginning in early and expected to complete by late#1":{
 "date":"2027-01-25",
 "label":"late Jan 2027",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027"
+"text":"Beginning in early October 2026 and expected to complete by late January 2027."
 }
 },
 "moves":[],
@@ -751,11 +751,6 @@
 "label":"5 Aug 2026",
 "text":"Posted: EWS retirement and EWSAllowedAppIDs enforcement"
 },
-"MC1227454|if ews is required after configure an appid allowlist and se#0":{
-"date":"2026-08-31",
-"label":"end of Aug 2026",
-"text":"Configure an AppID AllowList and set EWSEnabled=True before end of August 2026."
-},
 "MC1469960|posted":{
 "date":"2026-09-09",
 "label":"9 Sep 2026",
@@ -791,20 +786,20 @@
 "label":"2 Oct 2026",
 "text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
 },
-"MC1485116|beginning in early and expected to complete by early key mil#2":{
+"MC1485116|microsoft states three dates for worldwide tenants with ewse#0":{
 "date":"2026-10-02",
 "label":"2 Oct 2026",
-"text":"Date Milestone October 2, 2026 Micr October 10, 2026 EWSAllowedAPPIDs becomes required when EWSEnabled=True."
+"text":"2 October 2026 the affected tenants are identified, 8-9 October Microsoft populates EWSAllowedAppIDs from 60 days of observed EWS activity, 10 October the list "
 },
-"MC1485116|who is affected exchange online administrators organizations#0":{
+"MC1485116|for identified worldwide tenants with ewsenabled true and no#0":{
 "date":"2026-10-03",
 "label":"3 Oct 2026",
-"text":"Who is affected Exchange Online administrators Organizations that continue to use applications or services that depend on EWS Tenants with EWSEnabled=True Platf"
+"text":"For identified Worldwide tenants with EWSEnabled=True and no configured EWSAllowedAppIDs list on October 3 2026, Microsoft creates and populates an allow list u"
 },
-"MC1469960|beginning in early and expected to complete by late the upda#0":{
+"MC1469960|beginning in early and expected to complete by late#0":{
 "date":"2026-10-05",
 "label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by late April 2027 The updated behavior will apply when the rollout reaches your cloud."
+"text":"Beginning in early October 2026 and expected to complete by late April 2027."
 },
 "MC1469960|deadline":{
 "date":"2026-10-10",
@@ -816,20 +811,20 @@
 "label":"Oct 2026",
 "text":"We have expanded our effort and are now also removing EWS dependencies from Microsoft apps and services, and we’re going to complete that work well before Octob"
 },
-"MC1227454|full and permanent ews retirement ews app allowlist feature #1":{
+"MC1227454|after ews access will be permanently removed with no re enab#0":{
 "date":"2027-04-01",
 "label":"1 Apr 2027",
-"text":"October 1, 2026 Full and permanent EWS retirement: April 1, 2027 EWS App AllowList feature availability: Coming soon (before retirement milestones)"
+"text":"After April 1, 2027 , EWS access will be permanently removed with no re-enablement."
 },
-"MC1469960|beginning in early and expected to complete by late the upda#1":{
+"MC1469960|beginning in early and expected to complete by late#1":{
 "date":"2027-04-25",
 "label":"late Apr 2027",
-"text":"Beginning in early October 2026 and expected to complete by late April 2027 The updated behavior will apply when the rollout reaches your cloud."
+"text":"Beginning in early October 2026 and expected to complete by late April 2027."
 },
-"MC1485116|beginning in early and expected to complete by early key mil#1":{
+"MC1485116|beginning in early and expected to complete by early#1":{
 "date":"2027-07-05",
 "label":"early Jul 2027",
-"text":"Beginning in early October 2026 and expected to complete by early July 2027 Key milestones for Worldwide tenants with EWSEnabled=True and no configured EWSAllow"
+"text":"Beginning in early October 2026 and expected to complete by early July 2027."
 }
 },
 "moves":[],
@@ -1142,10 +1137,10 @@
 }
 ],
 "milestones":{
-"MC1483538|rollout schedule windows settings backup default on is gener#0":{
+"MC1483538|windows settings backup default on is generally available as#0":{
 "date":"2026-09-29",
 "label":"29 Sep 2026",
-"text":"Rollout schedule Windows settings backup default-on is generally available as of September 29, 2026, with the release of Windows 11, version 26H2."
+"text":"Windows settings backup default-on is generally available as of September 29, 2026, with the release of Windows 11, version 26H2."
 },
 "MC1483538|posted":{
 "date":"2026-09-30",
@@ -1206,22 +1201,27 @@
 "MC1481317|the ability to configure data risk graph was removed in earl#0":{
 "date":"2026-09-05",
 "label":"early Sep 2026",
-"text":"The ability to configure Data Risk Graph was removed in early September 2026 New onboarding for Data Risk Graph ends September 24, 2026 Data Risk Graph retireme"
+"text":"The ability to configure Data Risk Graph was removed in early September 2026."
 },
-"MC1481317|the ability to configure data risk graph was removed in earl#2":{
+"MC1481317|new onboarding for data risk graph ends#0":{
 "date":"2026-09-24",
 "label":"24 Sep 2026",
-"text":"The ability to configure Data Risk Graph was removed in early September 2026 New onboarding for Data Risk Graph ends September 24, 2026 Data Risk Graph retireme"
+"text":"New onboarding for Data Risk Graph ends September 24, 2026."
 },
 "MC1481317|posted":{
 "date":"2026-09-28",
 "label":"28 Sep 2026",
 "text":"Posted: Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph"
 },
-"MC1481317|the ability to configure data risk graph was removed in earl#1":{
+"MC1481317|data risk graph retirement begins in early and is expected t#0":{
 "date":"2026-12-05",
 "label":"early Dec 2026",
-"text":"The ability to configure Data Risk Graph was removed in early September 2026 New onboarding for Data Risk Graph ends September 24, 2026 Data Risk Graph retireme"
+"text":"Data Risk Graph retirement begins in early December 2026 and is expected to be fully retired by December 8, 2026."
+},
+"MC1481317|data risk graph retirement begins in early and is expected t#1":{
+"date":"2026-12-08",
+"label":"8 Dec 2026",
+"text":"Data Risk Graph retirement begins in early December 2026 and is expected to be fully retired by December 8, 2026."
 }
 },
 "moves":[],
@@ -1262,7 +1262,7 @@
 "found":"2026-10-09"
 }
 },
-"final":"2026-12-05",
+"final":"2026-12-08",
 "type":"Retirement",
 "tech":"Purview",
 "posts":[
@@ -1389,20 +1389,20 @@
 "label":"24 Sep 2026",
 "text":"Posted: Microsoft Defender for Office 365: Teams user reporting enabled by default"
 },
-"MC1478463|beginning in late and expected to complete by late impact on#2":{
+"MC1478463|beginning teams user reported settings will be managed on a #0":{
 "date":"2026-10-07",
 "label":"7 Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by late October 2026 [Impact on your organization] Who is affected Organizations licensed for Microsoft "
+"text":"Beginning October 7, 2026 , Teams user-reported settings will be managed on a dedicated page in the Microsoft Defender portal."
 },
 "MC1478463|changes made after migration not be reflected until the week#0":{
 "date":"2026-10-15",
 "label":"15 Oct 2026",
 "text":"Changes made after migration may not be reflected until the week of October 15, 2026."
 },
-"MC1478463|beginning in late and expected to complete by late impact on#0":{
+"MC1478463|beginning in late and expected to complete by late#0":{
 "date":"2026-10-25",
 "label":"late Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by late October 2026"
+"text":"Beginning in late October 2026 and expected to complete by late October 2026."
 }
 },
 "moves":[],
@@ -1778,7 +1778,7 @@
 }
 ],
 "milestones":{
-"MC1471963|action required recommendations organizations using ad fs sh#0":{
+"MC1471963|install the windows security update or a later windows updat#0":{
 "date":"2026-07-14",
 "label":"14 Jul 2026",
 "text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
@@ -1943,10 +1943,10 @@
 "label":"mid Oct 2026",
 "text":"Starting in mid-October 2026, Microsoft Purview will remove the pay-as-you-go (PAYG) billing requirement for inline collection and Data Loss Prevention (DLP) po"
 },
-"MC1470881|starting in mid microsoft purview will remove the pay as you#2":{
+"MC1470881|beginning in mid and expected to complete in late#1":{
 "date":"2026-10-25",
 "label":"late Oct 2026",
-"text":"Beginning in mid-October 2026 and expected to complete in late October 2026 [Impact on your organization] Who is affected Organizations using Microsoft Purview "
+"text":"Beginning in mid-October 2026 and expected to complete in late October 2026."
 }
 },
 "moves":[],
@@ -1984,15 +1984,15 @@
 "label":"11 Sep 2026",
 "text":"Posted: Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details"
 },
-"MC1470871|beginning in mid and expected to complete by late impact on #0":{
+"MC1470871|beginning in mid and expected to complete by late#0":{
 "date":"2026-09-15",
 "label":"mid Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026"
+"text":"Beginning in mid-September 2026 and expected to complete by late September 2026."
 },
-"MC1470871|beginning in mid and expected to complete by late impact on #1":{
+"MC1470871|beginning in mid and expected to complete by late#1":{
 "date":"2026-09-25",
 "label":"late Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026"
+"text":"Beginning in mid-September 2026 and expected to complete by late September 2026."
 }
 },
 "moves":[],
@@ -2045,20 +2045,25 @@
 "label":"1 Oct 2026",
 "text":"Act by this date (Message Center)"
 },
-"MC1469565|beginning in late and expected to complete by early importan#2":{
+"MC1469565|exchange web services ews in exchange online will begin to b#0":{
 "date":"2026-10-15",
 "label":"Oct 2026",
-"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to"
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
 },
-"MC1469565|beginning in late and expected to complete by early importan#0":{
+"MC1469565|beginning in late and expected to complete by early#0":{
 "date":"2026-10-25",
 "label":"late Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026 Important: Exchange Web Services (EWS) in Exchange Online will begin to be disabl"
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
 },
-"MC1469565|beginning in late and expected to complete by early importan#1":{
+"MC1469565|beginning in late and expected to complete by early#1":{
 "date":"2026-11-05",
 "label":"early Nov 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026 Important: Exchange Web Services (EWS) in Exchange Online will begin to be disabl"
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
+},
+"MC1469565|exchange web services ews in exchange online will begin to b#1":{
+"date":"2027-04-15",
+"label":"Apr 2027",
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
 }
 },
 "moves":[],
@@ -2082,7 +2087,7 @@
 "found":"2026-10-09"
 }
 },
-"final":"2026-11-05",
+"final":"2027-04-15",
 "type":"Retirement",
 "tech":"Purview",
 "posts":[
@@ -2355,15 +2360,15 @@
 "label":"26 Aug 2026",
 "text":"Posted: App Governance drops Cloud Application Administrator role support"
 },
-"MC1462464|beginning in late enforcement date impact on your organizati#0":{
+"MC1462464|review administrator assignments by#0":{
 "date":"2026-09-25",
-"label":"late Sep 2026",
-"text":"Beginning in late September 2026 Enforcement date: September 26, 2026"
+"label":"25 Sep 2026",
+"text":"Review administrator assignments by September 25, 2026 ."
 },
-"MC1462464|beginning in late enforcement date impact on your organizati#1":{
+"MC1462464|after administrators assigned only the cloud application adm#0":{
 "date":"2026-09-26",
 "label":"26 Sep 2026",
-"text":"Beginning in late September 2026 Enforcement date: September 26, 2026"
+"text":"After September 26, 2026: Administrators assigned only the Cloud Application Administrator role will no longer be able to access App Governance when URBAC is en"
 }
 },
 "moves":[],
@@ -2416,10 +2421,10 @@
 "label":"24 Sep 2026",
 "text":"Act by this date (Message Center)"
 },
-"MC1459132|beginning in late and expected to complete in late impact on#0":{
+"MC1459132|beginning in late and expected to complete in late#0":{
 "date":"2026-09-25",
 "label":"late Sep 2026",
-"text":"Beginning in late September 2026 and expected to complete in late September 2026"
+"text":"Beginning in late September 2026 and expected to complete in late September 2026."
 }
 },
 "moves":[],
@@ -2483,10 +2488,10 @@
 "label":"21 Jul 2026",
 "text":"Posted: Microsoft Entra ID: Retirement of custom CSS positioning properties in custom branding"
 },
-"MC1458474|organizations that were not using custom css as of are not a#0":{
+"MC1435782|organizations that do not use custom css positioning propert#0":{
 "date":"2026-07-21",
 "label":"21 Jul 2026",
-"text":"Organizations that were not using Custom CSS as of July 21, 2026, are not affected and cannot begin using it going forward."
+"text":"Organizations that do not use custom CSS positioning properties as of July 21, 2026, are not affected and will not be able to use these properties going forward"
 },
 "MC1458474|posted":{
 "date":"2026-08-21",
@@ -2503,10 +2508,10 @@
 "label":"late Oct 2026",
 "text":"To support Microsoft's Secure Future Initiative (SFI) and strengthen protection against phishing attacks, Microsoft Entra ID will retire support for custom CSS "
 },
-"MC1435782|review your microsoft entra id company branding configuratio#0":{
+"MC1435782|beginning on the affected positioning properties will no lon#0":{
 "date":"2026-10-26",
 "label":"26 Oct 2026",
-"text":"Review your Microsoft Entra ID company branding configurations before October 26, 2026."
+"text":"Beginning on October 26, 2026, the affected positioning properties will no longer be honored and will stop functioning."
 },
 "MC1458474|deadline":{
 "date":"2026-10-31",
@@ -2676,15 +2681,15 @@
 "label":"11 Aug 2026",
 "text":"Posted: Microsoft Exchange Online: Retirement of the Other features page in Exchange admin center"
 },
-"MC1452374|beginning in early and expected to complete in impact on you#0":{
+"MC1452374|beginning in early and expected to complete in#0":{
 "date":"2026-09-05",
 "label":"early Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete in February 2027"
+"text":"Beginning in early September 2026 and expected to complete in February 2027."
 },
-"MC1452374|beginning in early and expected to complete in impact on you#1":{
+"MC1452374|beginning in early and expected to complete in#1":{
 "date":"2027-02-15",
 "label":"Feb 2027",
-"text":"Beginning in early September 2026 and expected to complete in February 2027"
+"text":"Beginning in early September 2026 and expected to complete in February 2027."
 }
 },
 "moves":[],
@@ -3137,15 +3142,10 @@
 "label":"31 Jul 2026",
 "text":"Act by this date (Message Center)"
 },
-"MC1293480|rollout end the rollout will occur gradually worldwide#0":{
-"date":"2026-08-01",
-"label":"1 Aug 2026",
-"text":"August 1, 2026 Rollout end: December 31, 2026 The rollout will occur gradually worldwide."
-},
-"MC1293480|rollout end the rollout will occur gradually worldwide#1":{
+"MC1293480|#0":{
 "date":"2026-12-31",
 "label":"31 Dec 2026",
-"text":"December 31, 2026 The rollout will occur gradually worldwide."
+"text":"December 31, 2026."
 }
 },
 "moves":[],
@@ -3213,12 +3213,12 @@
 "MC1235720|here are the upcoming end of support dates to note windows e#0":{
 "date":"2026-10-13",
 "label":"13 Oct 2026",
-"text":"Here are the upcoming end-of-support dates to note: Windows 10 Enterprise LTSB 2016 : October 13, 2026 Windows 10 IoT Enterprise 2016 LTSB : October 13, 2026 Wi"
+"text":"Here are the upcoming end-of-support dates to note: Windows 10 Enterprise LTSB 2016 : October 13, 2026."
 },
-"MC1235720|here are the upcoming end of support dates to note windows e#2":{
+"MC1235720|#0":{
 "date":"2027-01-12",
 "label":"12 Jan 2027",
-"text":"January 12, 2027 On these dates"
+"text":"January 12, 2027."
 }
 },
 "moves":[],
@@ -3285,20 +3285,20 @@
 "label":"22 Jan 2026",
 "text":"Posted: MDE and XDR APIs retire; migrate to Graph security API"
 },
-"MC1220762|full retirement after the mde and xdr apis will no longer fu#0":{
+"MC1220762|#0":{
 "date":"2026-02-06",
 "label":"6 Feb 2026",
-"text":"February 6, 2026 Full retirement: February 1, 2027 After February 1, 2027, the MDE and XDR APIs will no longer function."
+"text":"February 6, 2026."
 },
 "MC1220762|migrate all existing api workflows to the microsoft graph se#0":{
 "date":"2027-01-31",
 "label":"31 Jan 2027",
 "text":"Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
 },
-"MC1220762|full retirement after the mde and xdr apis will no longer fu#1":{
+"MC1220762|after the mde and xdr apis will no longer function#0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
-"text":"February 1, 2027 After February 1, 2027, the MDE and XDR APIs will no longer function."
+"text":"After February 1, 2027, the MDE and XDR APIs will no longer function."
 }
 },
 "moves":[],
@@ -3441,7 +3441,7 @@
 "MC716267|#0":{
 "date":"2026-10-13",
 "label":"13 Oct 2026",
-"text":"October 13, 2026"
+"text":"October 13, 2026."
 },
 "MC716267|in microsoft publisher will reach its end of life#0":{
 "date":"2026-10-15",
@@ -3494,25 +3494,15 @@
 "label":"4 Nov 2025",
 "text":"Posted: Microsoft Defender: Application Guard for Office is being removed"
 },
-"MC1182696|removal begins with office version current channel early mon#0":{
-"date":"2026-02-05",
-"label":"early Feb 2026",
-"text":"Removal begins with Office version 2602 Current Channel: early February 2026 Monthly Enterprise Channel: April 2026 Semi-Annual Enterprise Channel: July 2026 Ph"
-},
-"MC1182696|removal begins with office version current channel early mon#1":{
+"MC1182696|early#0":{
 "date":"2026-12-05",
 "label":"early Dec 2026",
-"text":"Removal begins with Office version 2602 Current Channel: early February 2026 Monthly Enterprise Channel: April 2026 Semi-Annual Enterprise Channel: July 2026 Ph"
+"text":"early December 2026."
 },
-"MC1182696|removal begins with office version current channel early mon#4":{
-"date":"2027-02-15",
-"label":"Feb 2027",
-"text":"Removal begins with Office version 2602 Current Channel: early February 2026 Monthly Enterprise Channel: April 2026 Semi-Annual Enterprise Channel: July 2026 Ph"
-},
-"MC1182696|removal begins with office version current channel early mon#5":{
+"MC1182696|#0":{
 "date":"2027-07-15",
 "label":"Jul 2027",
-"text":"Removal begins with Office version 2602 Current Channel: early February 2026 Monthly Enterprise Channel: April 2026 Semi-Annual Enterprise Channel: July 2026 Ph"
+"text":"July 2027."
 }
 },
 "moves":[],
@@ -3565,10 +3555,10 @@
 "label":"24 Feb 2025",
 "text":"Effective February 24, 2025, the default value of the isPasscodeRequired property will change from false to true ."
 },
-"MC985483|looking ahead in we will remove the option to specify the ne#0":{
+"MC985483|in we will remove the option to specify the need for passcod#0":{
 "date":"2027-10-15",
 "label":"Oct 2027",
-"text":"Looking ahead In October 2027, we will remove the option to specify the need for passcodes."
+"text":"In October 2027, we will remove the option to specify the need for passcodes."
 }
 },
 "moves":[],
@@ -3915,10 +3905,10 @@
 "label":"5 Oct 2026",
 "text":"October 5, 2026: SSPR registration campaign begins prompting users and administrators to register authentication methods if SSPR setting requires registration a"
 },
-"MC1325414|early previously early through mid previously mid impact on #0":{
+"MC1325414|early previously early through mid previously mid#0":{
 "date":"2026-11-05",
 "label":"early Nov 2026",
-"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)"
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
 },
 "MC1325414|actionBy":{
 "date":"2026-11-06",
@@ -3935,10 +3925,10 @@
 "label":"9 Nov 2026",
 "text":"Action is required before November 9, 2026."
 },
-"MC1325414|early previously early through mid previously mid impact on #1":{
+"MC1325414|early previously early through mid previously mid#1":{
 "date":"2026-11-15",
 "label":"mid Nov 2026",
-"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)"
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
 }
 },
 "moves":[],
@@ -4479,10 +4469,10 @@
 "label":"31 Dec 2026",
 "text":"Without these updates, organizers may be unable to create or stream RTMP-In events, and newly created events may fail after December 31, 2026 ."
 },
-"MC1387814|ports and rtmp rtmps domain rtmpingest mcr teams cloud micro#0":{
+"MC1387814|deadline":{
 "date":"2027-01-31",
 "label":"31 Jan 2027",
-"text":"*.rtmpingest.mcr.teams.cloud.microsoft [Action Required/Recommendations] Action required by January 31, 2027."
+"text":"RTMP-In requires two new ports and a new domain on the egress allow-list"
 }
 },
 "moves":[],
@@ -5245,6 +5235,24 @@
 ],
 "log":[
 {
+"date":"2026-10-09",
+"id":"MC1221452",
+"what":"Date moved",
+"before":"early Mar 2026",
+"after":"early May 2026",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
+"date":"2026-10-09",
+"id":"MC1221452",
+"what":"Date moved",
+"before":"late Mar 2026",
+"after":"late Jun 2026",
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
 "date":"2026-10-08",
 "id":"MC1459133",
 "what":"Microsoft revised the post",
@@ -5509,14 +5517,14 @@
 "text":"Posted: (Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants"
 },
 "MC1221452|rollout begins in early and is expected to complete by late#0":{
-"date":"2026-03-05",
-"label":"early Mar 2026",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+"date":"2026-05-05",
+"label":"early May 2026",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
 },
 "MC1221452|rollout begins in early and is expected to complete by late#1":{
-"date":"2026-03-25",
-"label":"late Mar 2026",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+"date":"2026-06-25",
+"label":"late Jun 2026",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
 },
 "MC1282568|posted":{
 "date":"2026-04-16",
@@ -5558,10 +5566,10 @@
 "label":"1 Sep 2026",
 "text":"Passkeys became the default authentication experience in Microsoft Entra on September 1, 2026."
 },
-"MC1469555|beginning in early and expected to complete by mid impact on#0":{
+"MC1469555|beginning in early and expected to complete by mid#0":{
 "date":"2026-09-05",
 "label":"early Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete by mid-September 2026"
+"text":"Beginning in early September 2026 and expected to complete by mid-September 2026."
 },
 "MC1469555|posted":{
 "date":"2026-09-09",
@@ -5573,15 +5581,15 @@
 "label":"14 Sep 2026",
 "text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
 },
-"MC1469555|beginning in early and expected to complete by mid impact on#1":{
+"MC1469555|beginning in early and expected to complete by mid#1":{
 "date":"2026-09-15",
 "label":"mid Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete by mid-September 2026"
+"text":"Beginning in early September 2026 and expected to complete by mid-September 2026."
 },
-"MC1437671|microsoft gives mid for the start of rollout not a calendar #0":{
+"MC1437671|if your organization chooses to offer a uthenticated passwor#0":{
 "date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"Microsoft gives mid-October 2026 for the start of rollout, not a calendar date"
+"label":"Oct 2026",
+"text":"If your organization chooses to offer a uthenticated password changes , enable the feature through the Microsoft Entra admin experience or supported APIs when i"
 },
 "MC1450133|we will begin rolling out in late previously early and expec#0":{
 "date":"2026-10-25",
@@ -5599,7 +5607,24 @@
 "text":"We will begin rolling out in early January 2026 and expect to complete by late February 2027."
 }
 },
-"moves":[],
+"moves":[
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early Mar 2026",
+"now":"early May 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Mar 2026",
+"now":"late Jun 2026",
+"seen":"2026-10-09",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+}
+],
 "materials":{
 "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452":{
 "title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
@@ -6043,7 +6068,55 @@
 "posts":[]
 }
 },
-"events":[],
+"events":[
+{
+"day":"2026-10-09",
+"cid":"c-mc1492163",
+"type":"milestone",
+"name":"Zendesk OAuth tokens will require expiration and automatic refresh",
+"src":"MC1492163",
+"now":"late Jan 2027",
+"text":"Beginning in early October 2026 and expected to complete by late January 2027."
+},
+{
+"day":"2026-10-09",
+"cid":"c-mc676299",
+"type":"milestone",
+"name":"Retirement of Exchange Web Services in Exchange Online",
+"src":"MC1227454",
+"now":"1 Apr 2027",
+"text":"After April 1, 2027 , EWS access will be permanently removed with no re-enablement."
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"early Mar 2026",
+"now":"early May 2026",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"late Mar 2026",
+"now":"late Jun 2026",
+"text":"Rollout begins in early May 2026 and is expected to complete by late June 2026."
+},
+{
+"day":"2026-10-09",
+"cid":"c-passkeys-by-default",
+"type":"milestone",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1437671",
+"now":"Oct 2026",
+"text":"If your organization chooses to offer a uthenticated password changes , enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
+}
+],
 "archive":{
 "c-mc1478819":{
 "firstSeen":"2026-10-09",
