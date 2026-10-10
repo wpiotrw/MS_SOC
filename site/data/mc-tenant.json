@@ -1,7 +1,7 @@
 {
- "read": "2026-10-09",
+ "read": "2026-10-10",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 695,
+ "count": 700,
  "note": null,
  "messages": [
   {
@@ -11977,23 +11977,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-26",
-   "end": "2026-11-30",
-   "modified": "2026-10-05",
+   "end": "2026-12-31",
+   "modified": "2026-10-09",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're improving the PowerPoint Live presenting experience in Microsoft Teams by introducing a new light mode option. With this update, presenters can choose from light, dark, classic, or high contrast modes while presenting. This enhancement provides greater flexibility, accessibility, and personaliz…",
+   "summary": "Updated October 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're improving the PowerPoint Live presenting experience in Microsoft Teams by introducing a new light mode option. With this update, presenters can choose from light, dark, classic, or high contrast modes while presenting. This enhancement provides greater flexibility, accessibility, and personaliz…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 5, 2026: We have updated the timeline.",
+    "Updated October 9, 2026: We have updated the timeline.",
     "Targeted release: Beginning in early September 2026 and expected to complete by late October 2026 (previously early September).",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early September 2026 and expected to complete by late October 2026 (previously late-September)."
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early September 2026 and expected to complete by late November 2026 (previously late October)."
    ],
-   "bodyHash": "20f5ceea16d1252b"
+   "bodyHash": "e78e760c9a7bd855"
   },
   {
    "id": "MC1462812",
@@ -18276,6 +18276,139 @@
    "bodyHash": "7a9ff07d867ebfd5"
   },
   {
+   "id": "MC1492954",
+   "title": "Microsoft Outlook: Themes by Copilot retirement",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-09",
+   "end": "2026-11-27",
+   "modified": "2026-10-09",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We are retiring Themes by Copilot in Microsoft Outlook. Themes by Copilot currently allows users with a Copilot license to create and apply a Copilot-generated theme in Settings. As part of this change, Themes by Copilot will be removed from Settings, and users will no longer be able to select or return to a Theme by Copilot after changing to a different theme. [Rollout schedule] Ge…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
+   ],
+   "bodyHash": "6ec6a49f89e6174f"
+  },
+  {
+   "id": "MC1492955",
+   "title": "Microsoft Planner: Introducing Local Custom Fields",
+   "services": [
+    "Planner"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-09",
+   "end": "2026-12-11",
+   "modified": "2026-10-09",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing Custom Fields in Microsoft Planner, enabling users to tailor plans to match the way their teams work. Users can add Text, Number, Date, Yes/No, and Choice fields to capture information that matters to their workflows and manage that information across Board, Grid, and Task details. [Rollout schedule] General Availability (Worldwide): Rollout begins in late October…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout begins in late October 2026 and is expected to complete by early November 2026."
+   ],
+   "bodyHash": "564cedacdec63c01"
+  },
+  {
+   "id": "MC1492958",
+   "title": "Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-04-01",
+   "start": "2026-10-09",
+   "end": "2027-05-30",
+   "modified": "2026-10-09",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is retiring pre-authenticated URLs, also known as tempauth URLs, from SharePoint Online and OneDrive. Beginning April 1, 2027, selected Microsoft Graph file APIs will no longer return URLs that contain embedded authentication information and will no longer issue HTTP 302 redirects to those URLs. To help organizations prepare, new SharePoint Online tenant controls are comin…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning April 1, 2027, selected Microsoft Graph file APIs will no longer return URLs that contain embedded authentication information and will no longer issue HTTP 302 redirects to those URLs.",
+    "Service change (Worldwide, GCC, GCC High, DoD): Beginning in early April 2027 and expected to complete in late April 2027.",
+    "Applications that store, inspect, or redeem URLs containing embedded authentication tokens may stop functioning if not updated before April 1, 2027.",
+    "Administrators should begin validation before April 1, 2027.",
+    "Pre-authenticated (tempauth) URLs are retiring: move to Microsoft Entra ID tokens before April 1, 2027 - Microsoft 365 Developer Blog."
+   ],
+   "bodyHash": "5a74888b02b91567"
+  },
+  {
+   "id": "MC1492959",
+   "title": "Audio Overview Updates",
+   "services": [
+    "Microsoft 365 apps",
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-09",
+   "end": "2026-12-30",
+   "modified": "2026-10-09",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft is rolling out new capabilities in Audio Overview to make it easier to navigate longer content, support enterprise information protection, and create audio overviews from more types of content. Episodes For longer and more content-rich notebooks, Audio Overview can organize the discussion into topic-based episodes. This makes it easier for users to navigate the audio and …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late October 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "7db4526e55e9e56b"
+  },
+  {
+   "id": "MC1493186",
+   "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-09",
+   "end": "2026-10-30",
+   "modified": "2026-10-09",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We have restored the Send Availability feature to the Microsoft Outlook mobile app experience. When composing a reply to an email, users can tap the calendar icon and select Send Availability , which allows them to see their availability and easily list time slots for their recipients. iOS users also have access to this feature through the on-screen keyboard and VoiceOver. This chan…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "ddb5a07718ea5fa0"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -21317,6 +21450,57 @@
    "id": "MC1168906",
    "type": "removed",
    "title": "Windows Office Hours: October 16, 2025",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1462473",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: PowerPoint Live introduces light mode for presenters",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "20f5ceea16d1252b",
+     "e78e760c9a7bd855"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1492954",
+   "type": "new",
+   "title": "Microsoft Outlook: Themes by Copilot retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1492955",
+   "type": "new",
+   "title": "Microsoft Planner: Introducing Local Custom Fields",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1492958",
+   "type": "new",
+   "title": "Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1492959",
+   "type": "new",
+   "title": "Audio Overview Updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1493186",
+   "type": "new",
+   "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
    "fields": {}
   }
  ]
