@@ -34,11 +34,11 @@ item_type: Content
 source_path: concepts/whats-new-overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
+- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
-- https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: 6e6097c9-5516-d241-0299-2adc10e56ea2
 ---
@@ -55,7 +55,17 @@ Important
 
 Features in *preview* status are subject to change without notice, and might not be promoted to generally available (GA) status. Don't use preview features in production apps.
 
+## October 2026: New and generally available
+
+### Mail | Message trace
+
+- Added support for identifying recalled messages in message trace. Use the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace) resource's **status** property, which can now return `recalled`.
+
 ## October 2026: New in preview only
+
+### Backup and recovery | Microsoft 365 backup and storage
+
+- Track admin activities on backup and restore resources, including policy changes, dynamic rule executions, offboarding, and restore task completions, by using the [activityLogBase](/en-us/graph/api/resources/activitylogbase?view=graph-rest-beta&amp;preserve-view=true) resource and its derived types.
 
 ### Mailbox import and export
 

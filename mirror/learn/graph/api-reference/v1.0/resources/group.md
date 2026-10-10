@@ -43,10 +43,10 @@ item_type: Content
 source_path: api-reference/v1.0/resources/group.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: c60f15de-72ee-f6a1-5490-b6f97d6428f8
 ---
 
@@ -177,7 +177,7 @@ Specific usage of `$filter` and the `$search` query parameter is supported only 
 | --- | --- | --- |
 | accessType | [groupAccessType](groupaccesstype) | Indicates the type of access to the group. The possible values are: `none`, `private`, `secret`, `public`, `unknownFutureValue`. Requires `$select` to retrieve. Supported only on the Get group API (`GET /groups/{ID}`). |
 | allowExternalSenders | Boolean | Indicates if people external to the organization can send messages to the group. The default value is `false`. Requires `$select` to retrieve. Supported only on the Get group API (`GET /groups/{ID}`). |
-| assignedLabels | [assignedLabel](assignedlabel) collection | The list of sensitivity label pairs (label ID, label name) associated with a Microsoft 365 group or a cloud security group. Requires a Microsoft Entra ID P1 license. Requires `$select` to retrieve. This property can be specified during group creation or update. However, for cloud security groups, it's immutable once set. This property can be updated only in delegated scenarios where the caller requires both the Microsoft Graph permission and [a supported administrator role](/en-us/purview/get-started-with-sensitivity-labels#permissions-required-to-create-and-manage-sensitivity-labels). See [Key differences from Microsoft 365 group labeling](/en-us/entra/identity/users/groups-sensitivity-labels#key-differences-from-microsoft-365-group-labeling) to learn more about managing this property for Microsoft 365 vs. cloud security groups. |
+| assignedLabels | [assignedLabel](assignedlabel) collection | The list of sensitivity label pairs (label ID, label name) associated with a Microsoft 365 group or a cloud security group. Requires a Microsoft Entra ID P1 license. Requires `$select` to retrieve. This property can be specified during group creation or update. However, for cloud security groups, it's immutable once set. This property can be updated only in delegated scenarios where the caller requires both the Microsoft Graph permission and [a supported administrator role](/en-us/purview/get-started-with-sensitivity-labels#permissions-required-to-create-and-manage-sensitivity-labels). To learn more about managing this property for Microsoft 365 vs. cloud security groups, see [Key differences from Microsoft 365 group labeling](/en-us/entra/identity/users/groups-sensitivity-labels#key-differences-from-microsoft-365-group-labeling). |
 | assignedLicenses | [assignedLicense](assignedlicense) collection | The licenses that are assigned to the group. Requires `$select` to retrieve. Supports `$filter` (`eq`). Read-only. |
 | autoSubscribeNewMembers | Boolean | Indicates if new members added to the group are autosubscribed to receive email notifications. You can set this property in a PATCH request for the group; don't set it in the initial POST request that creates the group. Default value is `false`. Requires `$select` to retrieve. Supported only on the Get group API (`GET /groups/{ID}`). |
 | classification | String | Describes a classification for the group (such as low, medium, or high business impact). Valid values for this property are defined by creating a ClassificationList [setting](groupsetting) value, based on the [template definition](groupsettingtemplate).Returned by default. Supports `$filter` (`eq`, `ne`, `not`, `ge`, `le`, `startsWith`). |
