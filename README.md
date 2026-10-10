@@ -592,23 +592,58 @@ Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main` 
 ### 5.3 Do zrobienia raz (właściciel)
 
 > [!IMPORTANT]
-> **Od 10 X 2026 (§5cy): zgoda na RoleManagement.Read.Directory.** Bez niej `tools/graph_sp.py` czyta same uprawnienia Graph, a role Entra zostają z dokumentacji (na stronie: notka „Roles from our tenant: not read”). Nadanie — ten sam skrypt, idempotentny, kontem Privileged Role Administrator albo Global Administrator:
->
-> ```powershell
-> Set-Location "$env:LOCALAPPDATA\Temp\mssoc-repo"; git pull origin main
-> $tid = gh variable get AZURE_TENANT_ID --repo wpiotrw/MS_SOC
-> pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId $tid -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
-> ```
->
-> albo w portalu: Entra admin center → App registrations → **MS-SOC First-party apps reader** → API permissions → Add a permission → Microsoft Graph → Application permissions → `RoleManagement.Read.Directory` → **Grant admin consent**. Potem Actions → „First-party apps tenant snapshot” → Run workflow; w logu kroku „Microsoft's Graph permissions and Entra roles…” ma być `roles <liczba>`, a nie `roles not read`.
+> **Od 10 X 2026 (§5cy): zgoda na RoleManagement.Read.Directory.** Bez niej `tools/graph_sp.py` czyta same uprawnienia Graph, a role Entra zostają z dokumentacji (na stronie: notka „Roles from our tenant: not read”). Nadanie ręcznie w portalu (najprościej) albo skryptem — obie drogi niżej.
+
+**Ręcznie w portalu (konto Privileged Role Administrator albo Global Administrator):**
+
+1. [Microsoft Entra admin center](https://entra.microsoft.com) → **Identity → Applications → App registrations → All applications → MS-SOC First-party apps reader → API permissions**.
+2. **+ Add a permission → Microsoft Graph → Application permissions** → wyszukaj `RoleManagement.Read.Directory` → zaznacz → **Add permissions**.
+3. **Grant admin consent for <nazwa tenanta> → Yes**. Status przy nowej pozycji: zielone „Granted for …”.
+4. GitHub → Actions → „First-party apps tenant snapshot” → **Run workflow**. W logu kroku „Microsoft's Graph permissions and Entra roles…” ma być `roles <liczba>`, a nie `roles not read`; w karcie Overview „Identity surface” znika notka „Roles from our tenant: not read”.
+
+**Skryptem `tools/New-FpaReaderApp.ps1`** (w repozytorium; PowerShell 7, `git` i `gh` zalogowany jako właściciel repozytorium; logowanie kodem urządzenia):
+
+```powershell
+$p = Join-Path $env:LOCALAPPDATA 'Temp\mssoc-repo'
+if (-not (Test-Path (Join-Path $p '.git'))) { git clone https://github.com/wpiotrw/MS_SOC.git $p }
+Set-Location $p; git pull origin main
+$tid = gh variable get AZURE_TENANT_ID --repo wpiotrw/MS_SOC   # ID tenanta ze zmiennej repozytorium, nie z pliku
+pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId $tid -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
+```
+
+Co robi skrypt (idempotentny — przy ponownym uruchomieniu niczego nie dubluje):
+
+| Krok | Wywołanie Graph | Wynik |
+|---|---|---|
+| Logowanie | kod urządzenia przez publicznego klienta Microsoft Graph Command Line Tools; zakresy delegowane `Application.ReadWrite.All`, `AppRoleAssignment.ReadWrite.All` | jeden token na cały przebieg; sprawdza, czy zalogowano do właściwego tenanta |
+| 1. Aplikacja | `GET/POST/PATCH /applications` | aplikacja „MS-SOC First-party apps reader” (single tenant) z `requiredResourceAccess`: Application.Read.All, DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All, RoleManagement.Read.Directory |
+| 2. Service principal | `POST /servicePrincipals` | tworzy, gdy brak (ponawia przy opóźnionej replikacji) |
+| 3. Poświadczenie federacyjne | `POST /applications/{id}/federatedIdentityCredentials` | issuer GitHuba, podany subject, audience `api://AzureADTokenExchange` — tylko gdy nie ma takiego subjectu |
+| 4. Zgoda administratora | `POST /servicePrincipals/{Graph}/appRoleAssignedTo` | przypisanie czterech ról aplikacyjnych; wypisuje `nadane` / `juz nadane` / `BLAD` |
+| Wynik | — | na ekranie i w `%TEMP%\ms-soc-fpa-app.json` (zawiera pełne ID — nie commitować) |
+
+Role konta: Cloud Application Administrator (kroki 1–3) i Privileged Role Administrator albo Global Administrator (krok 4 — [najmniej uprzywilejowana rola dla ról aplikacyjnych Microsoft Graph](https://learn.microsoft.com/graph/api/serviceprincipal-post-approleassignedto), sprawdzone 10 X 2026).
+
+#### Nadawanie uprawnień przez Claude (Lokka) — co jest potrzebne
+
+Sesja Claude w chmurze nie ma dostępu do tenanta; może go mieć przez **Lokka** (serwer MCP na komputerze właściciela, tryb `interactive` = token delegowany zalogowanego użytkownika). Stan 10 X 2026: Lokka gotowa, ale **niezalogowana** (lista połączeń pusta). Aby Claude sam nadał uprawnienie aplikacji (krok 4 skryptu), potrzebne są:
+
+| Co | Wartość | Po co |
+|---|---|---|
+| Logowanie w Lokka | konto administratora w tenancie (okno „Lokka connections”) | token delegowany |
+| Rola konta w Entra | **Privileged Role Administrator** (najlepiej aktywowana w PIM na czas zadania) | Graph wymaga jej przy nadawaniu ról aplikacyjnych Microsoft Graph |
+| Zakresy delegowane Lokka | **AppRoleAssignment.ReadWrite.All** + **Application.Read.All** (minimum do `POST /servicePrincipals/{id}/appRoleAssignedTo`); dodatkowo **Application.ReadWrite.All**, jeśli Claude ma też dopisywać uprawnienie do listy „API permissions” aplikacji (`requiredResourceAccess`) | nadanie zgody; wpis widoczny w portalu |
+
+> [!WARNING]
+> **AppRoleAssignment.ReadWrite.All to uprawnienie o sile administratora globalnego**: kto je ma, może nadać dowolnej aplikacji dowolne uprawnienie aplikacyjne (np. RoleManagement.ReadWrite.Directory) i przejąć tenant. Dla Lokka: tylko delegowane (nigdy aplikacyjne), zgoda na sesję, rola Privileged Role Administrator aktywowana w PIM na czas zadania i wylogowanie po nim. Nadanie ręczne w portalu (wyżej) nie wymaga dawania tych zakresów żadnemu narzędziu.
 
 **Krok 1 — zgoda administratora (sprawdzenie)**
 
-Zgodę nadał skrypt `tools/New-FpaReaderApp.ps1` (przypisanie obu ról aplikacyjnych). Aby to sprawdzić albo nadać ją ręcznie:
+Zgodę nadał skrypt `tools/New-FpaReaderApp.ps1` (przypisanie ról aplikacyjnych). Aby to sprawdzić albo nadać ją ręcznie:
 
 1. Otwórz stronę uprawnień aplikacji w Entra admin center (konto z rolą Privileged Role Administrator albo Global Administrator):
    [Microsoft Entra admin center](https://entra.microsoft.com) → **Identity → Applications → App registrations → All applications → MS-SOC First-party apps reader → API permissions**.
-2. Lista zawiera dokładnie dwie pozycje Microsoft Graph typu **Application**: `Application.Read.All` i `DelegatedPermissionGrant.Read.All`.
+2. Lista zawiera cztery pozycje Microsoft Graph typu **Application**: `Application.Read.All`, `DelegatedPermissionGrant.Read.All`, `ServiceMessage.Read.All` (od 26 IX 2026) i `RoleManagement.Read.Directory` (od 10 X 2026).
 3. Kolumna Status pokazuje zielone „Granted for <nazwa tenanta>”. Jeśli nie — kliknij **Grant admin consent for <nazwa tenanta>** → **Yes**.
 
 **Krok 2 — przeniesienie workflow do `.github/workflows` (PowerShell + git + gh)**
@@ -934,6 +969,7 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 | Data | Zmiana |
 |---|---|
 
+| 2026-10-10 | pkt 5.3: nadanie RoleManagement.Read.Directory krok po kroku w portalu; odporny fragment PowerShell (klonuje repozytorium, gdy go nie ma); tabela „co robi skrypt `New-FpaReaderApp.ps1`”; część „Nadawanie uprawnień przez Claude (Lokka)” — rola, zakresy i ostrzeżenie o AppRoleAssignment.ReadWrite.All; krok 1 z czterema uprawnieniami. |
 | 2026-10-10 | §5cy — powierzchnia tożsamości: `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta uprawnienia Microsoft Graph i role Entra z naszego tenanta (nowe uprawnienie aplikacji: **RoleManagement.Read.Directory**, tylko odczyt; skrypt `New-FpaReaderApp.ps1` je nadaje), pliki `graph-sp.json` i `graph-sp-history.json`, wdrożenie przy zmianie (sekret SWA w tym workflow); strona: zdanie „Identity surface”, karta Overview, zmiany uprawnień w zdaniach technologii; `/diff/`: blok „Identity surface — who can do what”; pkt 5.2 (kroki 7 i 9), pkt 11 krok 3. |
 | 2026-10-10 | pkt 5.2: czy adres `api.github.com/repos/...` jest publiczny (repozytoria publiczne, w tym cudze — bez logowania; prywatne — 404; limit 60/h), ID konta z `/users/<login>`, co po przejściu na repozytorium prywatne; funkcja PowerShell `Get-GitHubOidcSubject` dla dowolnego repozytorium i gałęzi. |
 | 2026-10-10 | pkt 5.2: nowa część „Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć” (tabela sekretów i scenariuszy, historia commitów, stare poświadczenie); ręczne złożenie subject w przeglądarce; brakujące ServiceMessage.Read.All w opisie tokenu Graph. || 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
