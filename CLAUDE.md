@@ -6302,7 +6302,8 @@ FIND_BODY = """<script>
        above it. Counting it would make "Search 8 rows" wrong and filtering would leave
        an orphan block behind — the same trap SCRIPT 6 handles with `hdet` in the brief. */
     var rows = [].slice.call(tb.rows).filter(function (r) { return !r.classList.contains("det"); });
-    if (rows.length < 3) return null;
+    /* §5dd (10 X 2026): every table with two rows or more gets the box - "every table can be filtered by every column" */
+    if (rows.length < 2) return null;
     var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
     var wrap = document.createElement("div"); wrap.className = "s9find";
     var q = document.createElement("input");
@@ -27984,6 +27985,28 @@ komentarzem naglowka, a lokalizator patrzyl na pierwsze 1500 znakow. Regula: kaz
 naglowka "SCRIPT n —"; kod dodawany do bloku idzie POD naglowek. `tools/code_refresh.py` szuka "SCRIPT n —" w pierwszych
 8000 znakach (zapas), potem dawnej formy w 1500.
 
+**§5dd (10 X 2026, wlasciciel 19:40: „w tabeli Since the previous brief, ktora mozna przelaczyc na kafelki, nie dajemy
+filtrowania; upewnij sie, ze kazda tabela w narzedziu glownym i w diff ma filtrowanie po kazdej kolumnie; nie wiem,
+jakie to ma implikacje dla globalnego filtra w zielonej ramce").** Zmierzone tego dnia: 105 tabel na stronie, SKRYPT 11
+(§5ap) wpina 84 (wiersze z `data-s11`, takze tabele grupy dzielace jeden pasek: sekcje E, H, K); bez filtra bylo 19
+tabel ponizej 8 wierszy albo z blokow, ktore same sa wlascicielami tabeli (`data-s11` na tabeli: siatki dzien po dniu,
+pulpity kampanii, porownanie Component versions, male tabele Overview, Just passed, About, Roles, Graph). (D1) Kazda
+z nich dostaje przycisk „Filter columns" tuz przed tabela, WEWNATRZ jej opakowania (`.tw`), zeby rodzenstwo opakowania
+(naglowek, CSV, pasek SKRYPTU 11) zostalo w kolejnosci, na ktorej opieraja sie inne bloki i testy (t5cn: naglowek
+„Other APIs" → jego tabela). Panel: jedno pole na kolumne — menu, gdy kolumna grupuje (2-25 wartosci do 60 znakow),
+inaczej „contains"; pola dzialaja razem (AND). (D2) Jeden pisarz na mechanizm (§5am): pisze tylko `data-s5dd="0"` na
+wierszach, wiersz szczegolow (hdet/det) idzie za swoim wierszem; `row.hidden` zostaje powloki, `data-s11` SKRYPTU 11.
+Bezstanowo: kontrolki SA stanem, czytane z DOM przy kazdym przebiegu. Gdy SKRYPT 11 wepnie tabele pozniej, panel znika
+(jeden pasek na tabele). (D3) Zielona ramka (SKRYPT 14) niczego nie sklada sama: kazda tabela z wlaczonym filtrem
+kolumn rejestruje w `window.__socFilterBus` jeden chip „<zakladka · sekcja> · Kolumna = wartosc" (∋ dla „contains"),
+a „Reset all filters" czysci go razem z reszta; filtr zakladki (klik w wykres) i filtr kolumn zawezaja razem. (D4)
+„Since the previous brief" (§5dc): jeden pasek nad Tiles | Table (szukaj po nazwie, tytule, opisie + Change, Type,
+Grantable here, Consent; w Roles Change, Privileged), filtr przetrwa przelaczenie widoku, chip w zielonej ramce;
+tabela §5dc ma `data-s5dd="own"`. Komorka Grantable here skrocona do „Yes — new" (wyjasnienie w title naglowka), nazwa
+lamie sie tylko po „." i „-" (`<wbr>`). (D5) `/diff/`: pole i fasety dostaje kazda tabela od 2 wierszy (bylo od 3).
+Poza zakresem: dwie tabele bez naglowkow w katalogach Graph i Roles (pasek liczb „932 permissions…", uklad, nie dane)
+i tabele w kopii panelu (`.embed`; kopia §5dc usuwa skopiowany pasek).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -37727,15 +37750,18 @@ odtad CZTERNASCIE (4-17).**
       if (!inner) { box.appendChild(el("p", "s5dc-lead", o.name + " has no entry in today's catalog, so there is no panel to open.")); return; }
       box.appendChild(el("p", "s5dc-lead", "The full panel for " + o.name + " — the same one the catalog shows"));
       var c = inner.cloneNode(true); c.classList.add("embed"); var h = c.querySelector("[data-hist]"); if (h && h.parentNode) h.parentNode.removeChild(h);
+      [].forEach.call(c.querySelectorAll(".s5dd-bar,.s5dd-panel"), function (x) { x.parentNode.removeChild(x); });   /* §5dd: the copy carries no second set of column filters */
       box.appendChild(c);
     }, 120);
   }
   function hereText(o, which) {
     if (which !== "graph") return "";
-    if (o.move === "added") return "Yes — new: assignable from this brief";
+    if (o.move === "added") return "Yes — new";   /* §5dd: short, so the description keeps its width; the header explains */
     if (o.move === "removed") return "No — withdrawn here";
     return o.here === true ? "Yes" : o.here === false ? "Not yet (deployed elsewhere)" : "—";
   }
+  /* §5dd: a permission name breaks only after "." or "-", never inside a word (AppFederatedCredentialIssuers.R|ead.All) */
+  function nameEl(cls, t) { var e = el("span", cls); String(t).split(/(?<=[.\-])/).forEach(function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
   function kindLabel(k) { return k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"; }
   function tiles(view, list, which) {
     var grid = el("div", "s5dc-grid");
@@ -37744,7 +37770,7 @@ odtad CZTERNASCIE (4-17).**
       var top = el("div", "s5dc-top"); top.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
       o.types.forEach(function (x) { top.appendChild(el("span", "s5dc-ty", x)); });
       top.appendChild(el("span", "s5dc-day", fmtDay(o.day))); t.appendChild(top);
-      t.appendChild(el("div", "s5dc-name", o.name));
+      var nmE = nameEl("s5dc-name", o.name); nmE.style.display = "block"; t.appendChild(nmE);
       if (o.move === "added") t.appendChild(el("div", "s5dc-grant", "✓ Assignable in this tenant now — an admin can select it in Entra admin center → App registrations → API permissions"));
       if (o.move === "removed") t.appendChild(el("div", "s5dc-grant s5dc-grant-no", "No longer assignable in this tenant"));
       if (o.title) t.appendChild(el("div", "s5dc-title", o.title));
@@ -37768,13 +37794,14 @@ odtad CZTERNASCIE (4-17).**
   }
   function table(view, list, which) {
     var tw = el("div", "tw"), tb = el("table", "s5dc-table"), th = el("thead"), hr = el("tr");
+    tb.setAttribute("data-s11", "1"); tb.setAttribute("data-s5dd", "own");   /* §5dd: filtered by the bar above both views */
     var H = which === "graph" ? ["Date", "Name", "Change", "Grantable here", "Type", "Consent", "Description"] : ["Date", "Name", "Change", "Privileged", "Description"];
-    H.forEach(function (h) { hr.appendChild(el("th", null, h)); }); th.appendChild(hr); tb.appendChild(th);
+    H.forEach(function (h) { var c = el("th", null, h); if (h === "Grantable here") c.title = "Can an admin assign it in this tenant today? \"Yes — new\": assignable from this brief on - Entra admin center → App registrations → API permissions"; hr.appendChild(c); }); th.appendChild(hr); tb.appendChild(th);
     var body = el("tbody");
     list.forEach(function (o) {
       var tr = el("tr", "s5dc-row s5dc-" + o.kind); tr.tabIndex = 0; tr.setAttribute("aria-expanded", "false");
       tr.appendChild(el("td", "s5dc-dcell", fmtDay(o.day)));
-      var n = el("td", "rname"); n.appendChild(el("span", "s5dc-name", o.name)); if (o.title) n.appendChild(el("span", "s5dc-sub", o.title)); tr.appendChild(n);
+      var n = el("td", "rname"); n.appendChild(nameEl("s5dc-name", o.name)); if (o.title) n.appendChild(el("span", "s5dc-sub", o.title)); tr.appendChild(n);
       var k = el("td"); k.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
       if (o.kind === "changed" && o.fields.length) k.appendChild(el("span", "s5dc-sub", o.fields.join(", "))); tr.appendChild(k);
       if (which === "graph") {
@@ -37807,12 +37834,58 @@ odtad CZTERNASCIE (4-17).**
     head.appendChild(sw);
     var view = el("div", "s5dc-view"); head.parentNode.insertBefore(view, head.nextSibling);
     box.classList.add("s5dc-box");
-    function show(m) {
-      view.innerHTML = ""; [].forEach.call(sw.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
-      if (m === "table") table(view, list, which); else tiles(view, list, which);
+    /* §5dd (10 X 2026, owner: "in the table you can switch to tiles we give no way to filter"). One bar above both
+       views, so a filter survives the switch: a search over name, Microsoft's title and description, plus one menu
+       per column that groups (Change, Type, Grantable here, Consent; in Roles Change and Privileged). */
+    var FB = el("div", "s5dc-fbar s9find"); FB.setAttribute("role", "search");
+    var q = el("input", "s9q"); q.type = "search"; q.placeholder = "Search " + list.length + " " + (which === "graph" ? "permissions" : "roles") + " — name, title, description"; q.setAttribute("aria-label", "Search this list");
+    FB.appendChild(q);
+    var COLS = which === "graph"
+      ? [["Change", function (o) { return [kindLabel(o.kind)]; }], ["Type", function (o) { return o.types.length ? o.types : ["—"]; }],
+         ["Grantable here", function (o) { return [hereText(o, which)]; }], ["Consent", function (o) { return [o.consent || "—"]; }]]
+      : [["Change", function (o) { return [kindLabel(o.kind)]; }], ["Privileged", function (o) { return [o.types.length ? "Yes" : "No"]; }]];
+    var sels = [];
+    COLS.forEach(function (c) {
+      var cnt = {}; list.forEach(function (o) { c[1](o).forEach(function (v) { cnt[v] = (cnt[v] || 0) + 1; }); });
+      var keys = Object.keys(cnt).sort(); if (keys.length < 2) return;
+      var s = el("select", "s9f"); s.setAttribute("aria-label", "Filter by " + c[0]); s.__f = c[1]; s.__h = c[0];
+      var o0 = el("option", null, "All · " + c[0]); o0.value = ""; s.appendChild(o0);
+      keys.forEach(function (k) { var o = el("option", null, k + " (" + cnt[k] + ")"); o.value = k; s.appendChild(o); });
+      FB.appendChild(s); sels.push(s);
+    });
+    var rb = el("button", "s9reset", "Reset"); rb.type = "button"; FB.appendChild(rb);
+    var cnN = el("span", "s9count"); FB.appendChild(cnN);
+    head.parentNode.insertBefore(FB, view);
+    function active() { var a = []; if (q.value.trim()) a.push("“" + q.value.trim() + "”"); sels.forEach(function (s) { if (s.value) a.push(s.__h + " = " + s.value); }); return a; }
+    function pick() {
+      var n = q.value.trim().toLowerCase();
+      return list.filter(function (o) {
+        if (n && (o.name + " " + (o.title || "") + " " + (o.desc || "")).toLowerCase().indexOf(n) < 0) return false;
+        return sels.every(function (s) { return !s.value || s.__f(o).indexOf(s.value) >= 0; });
+      });
     }
+    var mode = getMode();
+    function show(m) {
+      mode = m; view.innerHTML = ""; [].forEach.call(sw.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
+      var L2 = pick();
+      cnN.textContent = L2.length === list.length ? list.length + " shown" : L2.length + " of " + list.length;
+      FB.classList.toggle("s5dd-on", L2.length !== list.length);
+      if (!L2.length) { view.appendChild(el("p", "s5dc-lead", "Nothing matches these filters. Reset shows all " + list.length + ".")); }
+      else if (m === "table") table(view, L2, which); else tiles(view, L2, which);
+      if (window.__socFilterBarSync) window.__socFilterBarSync();
+    }
+    function reset() { q.value = ""; sels.forEach(function (s) { s.value = ""; }); show(mode); }
+    var tq = null;
+    q.addEventListener("input", function () { clearTimeout(tq); tq = setTimeout(function () { show(mode); }, 160); });
+    sels.forEach(function (s) { s.addEventListener("change", function () { show(mode); }); });
+    rb.addEventListener("click", reset);
+    window.__socFilterBus = window.__socFilterBus || [];
+    window.__socFilterBus.push(function () {
+      var a = active(); if (!a.length) return [];
+      return [{ scope: (which === "graph" ? "Graph API" : "Roles") + " · since the previous brief", label: a.join(" · "), clear: reset }];
+    });
     sw.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("button"); if (!b) return; var m = b.getAttribute("data-m"); setMode(m); show(m); });
-    show(getMode());
+    show(mode);
     return true;
   }
   var tries = 0;
@@ -37856,6 +37929,166 @@ odtad CZTERNASCIE (4-17).**
     var a = wrap("__socOpenPerm", '.catalog[data-catalog="graph"]'), b = wrap("__socOpenRole", '.catalog[data-catalog="roles"]');
     if ((a && b) || ++n > 40) clearInterval(iv);
   }, 500);
+})();
+/* §5dd (10 X 2026, owner: "make sure every table in the main tool and in /diff/ can be filtered by every column; I do
+   not know what that does to the global filter in the green frame").
+   Measured that day: 105 tables on the page, 76 with SCRIPT 11's bar (a search scoped to any one column plus a menu
+   for every column that groups, §5ap). The rest had none: SCRIPT 11 leaves tables under 8 rows alone, and blocks that
+   own their table opt out (data-s11 - the day-by-day grids, the campaign dashboards, Component versions' comparison,
+   the small tables of Overview, Just passed, About, Roles and Graph panels).
+   This block gives each of those a quiet "Filter columns" button: it opens one field per column - a menu when the
+   column groups (2-25 short values), a "contains" box otherwise - and all fields apply together. Rules:
+   - ONE WRITER PER MECHANISM (§5am): it writes only data-s5dd="0" on rows; row.hidden stays the shell's and
+     data-s11 SCRIPT 11's. A row shows when every mechanism lets it. A detail row (hdet/det) follows its row.
+   - STATELESS: the controls ARE the state, read from the DOM on every pass, so a panel copied with a catalog
+     panel or a table rebuilt by its owner cannot drift from what it shows.
+   - THE GREEN FRAME (SCRIPT 14) composes nothing itself: each table with a filter on registers one chip in
+     window.__socFilterBus ("<section> · Column = value"); "Reset all filters" clears it with the rest. So the global
+     frame keeps meaning "every filter that is on, anywhere", and a tab filter (a chart click) and a column filter
+     narrow together (AND).
+   - Not added: a table with fewer than 2 rows, without header cells, inside a copied panel (.embed), or marked
+     data-s5dd (its owner filters it - §5dc). */
+(function () {
+  if (window.__s5dd) return; window.__s5dd = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function T(n) { return (n && n.textContent || "").replace(/\s+/g, " ").trim(); }
+  function H(n) { return T(n).replace(/[↕↑↓?]\s*$/, "").trim(); }
+  function isDet(r) { return /(^|\s)(hdet|det|s5dc-drow)(\s|$)/.test(r.className || ""); }
+  function isGrp(r) { return /(^|\s)grp(\s|$)/.test(r.className || ""); }
+  function dataRows(t) { return t.tBodies[0] ? [].filter.call(t.tBodies[0].rows, function (r) { return !isDet(r) && !isGrp(r); }) : []; }
+  function heads(t) {
+    var rs = t.tHead ? [].slice.call(t.tHead.rows) : [], best = null;
+    rs.forEach(function (r) { if (!best || r.cells.length >= best.cells.length) best = r; });
+    return best ? [].map.call(best.cells, H) : [];
+  }
+  function hasBar(t) {   /* SCRIPT 11 or the shell already put a bar in front of this table */
+    /* SCRIPT 11 marks every row of a table it wired (data-s11 "1"/"0") - also the tables of a group that share ONE
+       bar above the first of them (Section E, H, K), which no sibling test can see */
+    if (dataRows(t).some(function (r) { return r.hasAttribute("data-s11"); })) return true;
+    var w = t.closest(".tw") || t.parentNode, n = w && w.previousElementSibling;
+    for (var k = 0; n && k < 4; k++, n = n.previousElementSibling) {
+      if (n.classList.contains("tbar") || n.classList.contains("s9find")) return true;
+      if (!n.classList.contains("filterbanner") && !n.classList.contains("s5dd-panel")) break;
+    }
+    return false;
+  }
+  /* bar and panel go right in front of the table, INSIDE its wrapper (.tw), so the wrapper's own siblings - the
+     heading, the CSV button, SCRIPT 11's bar - keep the order other blocks and the tests rely on (t5cn: "Other APIs"
+     heading, then its table wrapper) */
+  function anchorOf(t) { return t; }
+  function tableOf(panel) { var a = panel.nextElementSibling; return a && a.tagName === "TABLE" ? a : null; }
+  function scopeOf(t) {
+    var s = t.closest("details,section,.sec");
+    var h = s && (s.querySelector(":scope > summary h2, :scope > summary h3, :scope > summary, :scope > h2, :scope > h3, :scope > header h2, :scope > header h3"));
+    var tx = h ? T(h).replace(/\d[\d\s]*$/, "").trim() : "";
+    var p = t.closest(".tabpanel"), tab = p ? (T(document.getElementById("tabbtn-" + p.id)) || p.id).replace(/[\d·+~−\-\s]+$/, "") : "";
+    return ((tab ? tab + " · " : "") + (tx || "table")).slice(0, 70);
+  }
+  function plan(t) {
+    var hs = heads(t), rows = dataRows(t), out = [];
+    hs.forEach(function (h, i) {
+      if (!h) return;
+      var vals = {}, n = 0, longest = 0;
+      rows.forEach(function (r) { var c = r.cells[i]; var v = c ? T(c) : ""; if (!v) return; longest = Math.max(longest, v.length); if (!vals[v]) { vals[v] = 0; n++; } vals[v]++; });
+      var grp = n >= 2 && n <= 25 && longest <= 60 && n < rows.length;
+      out.push({ i: i, h: h, vals: grp ? vals : null });
+    });
+    return out;
+  }
+  function build(t) {
+    var a = anchorOf(t), rows = dataRows(t);
+    var bar = el("div", "s5dd-bar"), b = el("button", "s5dd-btn", "Filter columns ▾"); b.type = "button"; b.setAttribute("aria-expanded", "false");
+    var cn = el("span", "s5dd-n"); bar.appendChild(b); bar.appendChild(cn);
+    var panel = el("div", "s5dd-panel"); panel.hidden = true; panel.setAttribute("role", "search");
+    fill(panel, t);
+    a.parentNode.insertBefore(bar, a); a.parentNode.insertBefore(panel, a);
+    t.setAttribute("data-s5dd", "1");
+  }
+  function fill(panel, t) {
+    var keep = {}; [].forEach.call(panel.querySelectorAll("[data-col]"), function (c) { if (c.value) keep[c.getAttribute("data-h")] = c.value; });
+    panel.innerHTML = "";
+    var rows = dataRows(t);
+    plan(t).forEach(function (c) {
+      var f = el("label", "s5dd-f"); f.appendChild(el("span", "s5dd-l", c.h));
+      var ctl;
+      if (c.vals) {
+        ctl = el("select"); var o0 = el("option", null, "All"); o0.value = ""; ctl.appendChild(o0);
+        Object.keys(c.vals).sort().forEach(function (v) { var o = el("option", null, v.length > 48 ? v.slice(0, 47) + "…" : v); o.value = v; o.textContent += " (" + c.vals[v] + ")"; ctl.appendChild(o); });
+      } else { ctl = el("input"); ctl.type = "search"; ctl.placeholder = "contains…"; }
+      ctl.setAttribute("data-col", String(c.i)); ctl.setAttribute("data-h", c.h); ctl.setAttribute("aria-label", "Filter " + c.h);
+      if (keep[c.h] != null) ctl.value = keep[c.h];
+      f.appendChild(ctl); panel.appendChild(f);
+    });
+    var r = el("button", "s5dd-clear", "Clear"); r.type = "button"; panel.appendChild(r);
+    panel.setAttribute("data-sig", rows.length + "|" + heads(t).join("|"));
+  }
+  function active(panel) {
+    return [].filter.call(panel.querySelectorAll("[data-col]"), function (c) { return c.value && c.value.trim(); });
+  }
+  function apply(panel) {
+    var t = tableOf(panel); if (!t || !t.tBodies[0]) return;
+    var on = active(panel).map(function (c) { return { i: +c.getAttribute("data-col"), v: c.value.trim(), eq: c.tagName === "SELECT" }; });
+    var shown = 0, total = 0, last = true;
+    [].forEach.call(t.tBodies[0].rows, function (r) {
+      if (isDet(r)) { if (last) r.removeAttribute("data-s5dd"); else r.setAttribute("data-s5dd", "0"); return; }
+      if (isGrp(r)) return;
+      total++;
+      var ok = on.every(function (f) { var c = r.cells[f.i], v = c ? T(c) : ""; return f.eq ? v === f.v : v.toLowerCase().indexOf(f.v.toLowerCase()) >= 0; });
+      last = ok; if (ok) { shown++; r.removeAttribute("data-s5dd"); } else r.setAttribute("data-s5dd", "0");
+    });
+    var bar = panel.previousElementSibling, cn = bar && bar.querySelector(".s5dd-n"), btn = bar && bar.querySelector(".s5dd-btn");
+    if (cn) cn.textContent = on.length ? shown + " of " + total + " rows" : "";
+    if (btn) btn.classList.toggle("s5dd-hot", !!on.length);
+    if (window.__socFilterBarSync) window.__socFilterBarSync();
+  }
+  function clearPanel(panel) { active(panel).forEach(function (c) { c.value = ""; }); apply(panel); }
+  var tq = null;
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest(".s5dd-btn");
+    if (b) { var p = b.parentNode.nextElementSibling; if (p && p.classList.contains("s5dd-panel")) { p.hidden = !p.hidden; b.setAttribute("aria-expanded", String(!p.hidden)); b.textContent = p.hidden ? "Filter columns ▾" : "Filter columns ▴"; } return; }
+    var c = ev.target.closest && ev.target.closest(".s5dd-clear"); if (c) { clearPanel(c.parentNode); return; }
+  });
+  document.addEventListener("input", function (ev) { var p = ev.target.closest && ev.target.closest(".s5dd-panel"); if (!p) return; clearTimeout(tq); tq = setTimeout(function () { apply(p); }, 150); });
+  document.addEventListener("change", function (ev) { var p = ev.target.closest && ev.target.closest(".s5dd-panel"); if (p && ev.target.tagName === "SELECT") apply(p); });
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var out = [];
+    [].forEach.call(document.querySelectorAll(".s5dd-panel"), function (p) {
+      var a = active(p); if (!a.length || p.closest(".embed")) return; var t = tableOf(p); if (!t) return;
+      out.push({ scope: scopeOf(t), label: a.map(function (c) { return c.getAttribute("data-h") + (c.tagName === "SELECT" ? " = " : " ∋ ") + c.value.trim(); }).join(" · "), clear: function () { clearPanel(p); } });
+    });
+    return out;
+  });
+  function scan(root) {
+    [].forEach.call((root || document).querySelectorAll(".tabpanel table"), function (t) {
+      try {
+        if (t.closest(".embed") || t.closest(".s5dd-panel")) return;
+        var st = t.getAttribute("data-s5dd");
+        if (st === "own" || st === "s11") return;
+        if (st === "1") {   /* rebuilt rows: refresh the menus, keep what the reader picked */
+          var a = anchorOf(t), p = a.previousElementSibling;
+          if (p && p.classList.contains("s5dd-panel") && dataRows(t).some(function (r) { return r.hasAttribute("data-s11"); })) {
+            clearPanel(p); var bb = p.previousElementSibling; if (bb && bb.classList.contains("s5dd-bar")) bb.parentNode.removeChild(bb); p.parentNode.removeChild(p); t.setAttribute("data-s5dd", "s11"); return;   /* SCRIPT 11 wired it after us: one bar per table */
+          }
+          if (p && p.classList.contains("s5dd-panel")) { if (p.getAttribute("data-sig") !== dataRows(t).length + "|" + heads(t).join("|")) { fill(p, t); apply(p); } }
+          else t.removeAttribute("data-s5dd");
+          return;
+        }
+        if (dataRows(t).length < 2 || !heads(t).filter(Boolean).length || hasBar(t)) return;
+        build(t);
+      } catch (e) { if (window.console) console.error("[5dd]", e); }
+    });
+  }
+  window.__s5ddScan = scan;
+  var sq = null;
+  function later(root, ms) { clearTimeout(sq); sq = setTimeout(function () { scan(root); }, ms || 400); }
+  document.addEventListener("click", function (ev) {
+    if (!ev.target.closest || ev.target.closest(".s5dd-panel,.s5dd-bar")) return;
+    if (ev.target.closest("nav.anchors .tab,[id^=tabbtn-],.s5cd-bar")) { later(null, 500); return; }
+    var p = ev.target.closest(".tabpanel"); if (p) later(p, 600);
+  });
+  function boot() { scan(); setTimeout(scan, 3000); setTimeout(scan, 6500); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 4200); }); else setTimeout(boot, 4200);
 })();
 ```
 
@@ -39240,6 +39473,25 @@ body .tabpanel .badge.b-undoc,body .tabpanel .badge.b-elsewhere{background:var(-
    1440 (also on the live site before this stage) - its box scrolls by itself, the page does not */
 @media (min-width:721px){.tabpanel .tw{max-width:100%;min-width:0;overflow-x:auto}}
 .s5cz-d{position:relative}   /* §5dc: the hidden original (.s5cz-o, absolute) stays inside its own date, not 2 000 px out of a scrolled table */
+/* §5dd: "Filter columns" for every table SCRIPT 11 gives no bar; rows it filters out carry data-s5dd="0" */
+.tabpanel tr[data-s5dd="0"]{display:none!important}
+.s5dd-bar{display:flex;align-items:center;gap:10px;margin:6px 0 4px}
+.s5dd-btn{font:inherit;font-size:12px;padding:2px 10px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+.s5dd-btn:hover,.s5dd-btn[aria-expanded="true"]{color:var(--text);border-color:var(--accent)}
+.s5dd-btn.s5dd-hot{color:var(--text);border-color:var(--ok);font-weight:700}
+.s5dd-n{font-size:12px;color:var(--muted)}
+.s5dd-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px 12px;align-items:end;margin:0 0 8px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5dd-panel[hidden]{display:none}
+.s5dd-f{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:12px}
+.s5dd-l{color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5dd-f select,.s5dd-f input{font:inherit;font-size:12.5px;width:100%;min-width:0;padding:4px 6px;border:1px solid var(--border);border-radius:6px;background:var(--bg,transparent);color:var(--text)}
+.s5dd-clear{justify-self:start;font:inherit;font-size:12px;padding:4px 12px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer}
+@media (max-width:720px){.s5dd-panel{grid-template-columns:1fr 1fr}}
+/* §5dd: the §5dc bar above Tiles | Table */
+.s5dc-fbar{margin-top:10px}
+.s5dc-fbar.s5dd-on{outline:1px solid var(--ok);outline-offset:2px;border-radius:10px}
+.s5dc-name{overflow-wrap:normal;word-break:normal}
+@media (min-width:721px){table.s5dc-table td.rname{min-width:0;width:30%}table.s5dc-table td.s5dc-dtext{min-width:260px;width:32%}table.s5dc-table td:nth-child(4),table.s5dc-table td:nth-child(6){min-width:96px}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
