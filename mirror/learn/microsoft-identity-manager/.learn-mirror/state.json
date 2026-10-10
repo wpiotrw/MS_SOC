@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-licensing",
   "pages": {
-    "https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3": {"etag":"\"JIN+mD/xSXUX6/KhiD+dS1Pm8vY=\"","gitCommitId":"5970c4a2abb4725d70b968d682881be42cc42ab9","path":"MIMDocs/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3.md","sourcePath":"MIMDocs/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3.md","updatedAt":"2026-10-08T17:32:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-licensing": {"etag":"\"lS/J5fo60j57skDWPuDLv/vMDDc=\"","gitCommitId":"5970c4a2abb4725d70b968d682881be42cc42ab9","path":"MIMDocs/microsoft-identity-manager-licensing.md","sourcePath":"MIMDocs/microsoft-identity-manager-licensing.md","updatedAt":"2026-10-08T17:32:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3": {"etag":"\"6Bxfe3ZDxXueVyFQ61wNH63erdI=\"","gitCommitId":"5970c4a2abb4725d70b968d682881be42cc42ab9","path":"MIMDocs/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3.md","sourcePath":"MIMDocs/microsoft-identity-manager-2016-upgrade-from-service-pack-2-to-service-pack-3.md","updatedAt":"2026-10-08T17:32:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/microsoft-identity-manager/microsoft-identity-manager-licensing": {"etag":"\"dZfBcNnhq55OEM8IL/FdGtO3IrI=\"","gitCommitId":"5970c4a2abb4725d70b968d682881be42cc42ab9","path":"MIMDocs/microsoft-identity-manager-licensing.md","sourcePath":"MIMDocs/microsoft-identity-manager-licensing.md","updatedAt":"2026-10-08T17:32:00.0000000Z"}
   }
 }
