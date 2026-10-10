@@ -27771,6 +27771,15 @@ page ›", w About karta „How to read this page" (`#s5cz-howto`). `span[title]
 (do 260 znakow), dol karty: Published, Message Center/Roadmap (link mc.merill.net), Due, Found by. Strona glowna nadal
 liczy pozycje popoludniowe z `#diff-meta` (bez zmian).
 
+**§5cz-c (10 X 2026, wlasciciel 14:37: „logo mialo byc w miejscu zaznaczonym na zrzucie — nad menu po lewej — na
+desktopie i wieksze; na telefonie jest ok").** Od 1360 px `.s5cx-logo` wypelnia lewa kolumne naglowka (300 px, ta sama
+szerokosc co menu boczne pod nia, z ta sama linia podzialu), wysrodkowane, `max-height:100%` — w przyklejonym,
+zwinietym naglowku zmniejsza sie razem z nim; `.top-inner` zaczyna sie od 300 px (linia tresci strony), maly znak przy
+tytule (`.s5cx-mark`) ukryty, wiersz tytulu trzyma `min-height:150px`, zeby ramka „Data freshness" (absolutna, 133 px)
+nie siegala kafli KPI, gdy tytul i linia daty mieszcza sie w jednym wierszu (zmierzone 1920 px). 1100–1359 px: dawny
+uklad (znak przy tytule) — przy kolumnie logo kafle KPI byly za waskie (1100–1280 px ucinaly „since the 09/10/2026
+brief"). Ponizej 1100 px bez zmian. Regula z §5cx dla ≥2160 px (logo w marginesie) zastapiona ta.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -38538,6 +38547,21 @@ a.s5czb-dlink:hover{background:var(--accent);color:#fff}
 #tab-about[hidden] .s5cz-back-float{display:none}
 @media (max-width:720px){#tab-about .s5cz-back-float{right:12px;bottom:76px}}
 .s5ca-head>.s5cz-back{align-self:flex-start;width:auto;justify-self:start}
+/* §5cz-c (10 X 2026, owner 14:37: "the logo was meant to stand in the box I marked - above the menu on the left -
+   on the desktop, and bigger; the phone is fine"). From 1100 px (where the menu on the left is shown) the logo fills
+   the header's left column, the same 300 px as the menu under it, centred and as tall as the header allows; the
+   title block moves right to the line of the page content and the small mark before the title hides. From 1360 px:
+   below it the counters of the header would get too narrow (measured 10 X: 1100-1280 px cut "since the 09/10/2026
+   brief"), so 1100-1359 px keeps the mark before the title. */
+@media (min-width:1360px){
+ header.top{position:sticky}
+ header.top .s5cx-logo{display:flex!important;align-items:center;justify-content:center;position:absolute;left:0;top:0;bottom:0;
+  width:300px;padding:10px 18px;box-sizing:border-box;border-right:1px solid var(--border);z-index:2}
+ header.top .s5cx-logo img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
+ header.top .s5cx-mark{display:none!important}
+ header.top .title-row.s5cx-row{padding-left:0!important;min-height:150px!important}   /* the freshness frame (133 px from 10 px) must not reach the counters */
+ header.top .top-inner{margin-left:300px!important;margin-right:0!important;max-width:min(1516px,calc(100vw - 300px))!important;box-sizing:border-box}
+}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
