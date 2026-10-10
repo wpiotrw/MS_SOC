@@ -26,6 +26,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
   - [5.2 Migawka tenanta (GitHub Actions, bez sekretu)](#52-migawka-tenanta-github-actions-bez-sekretu)
     - [Co dokładnie robi migawka i kiedy](#co-dokładnie-robi-migawka-i-kiedy)
     - [Jak działa logowanie bez sekretu (Workload Identity Federation)](#jak-działa-logowanie-bez-sekretu-workload-identity-federation)
+    - [Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć](#bezpieczeństwo-co-jest-publiczne-co-tajne-i-kto-może-się-podłączyć)
     - [Subject tokenu GitHub: skąd repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main](#subject-tokenu-github-skąd-repowpiotrw37083541ms_soc1348453327refrefsheadsmain)
     - [Dodanie poświadczenia federacyjnego: skryptem albo w portalu](#dodanie-poświadczenia-federacyjnego-skryptem-albo-w-portalu)
     - [Dlaczego GitHub Actions i co nam to daje](#dlaczego-github-actions-i-co-nam-to-daje)
@@ -439,11 +440,34 @@ sequenceDiagram
 3. Skrypt wysyła JWT do `https://login.microsoftonline.com/<tenant>/oauth2/v2.0/token` jako `client_assertion` (`client_assertion_type = urn:ietf:params:oauth:client-assertion-type:jwt-bearer`, `grant_type = client_credentials`, `scope = https://graph.microsoft.com/.default`). JWT występuje tu w miejscu, w którym zwykle byłby sekret aplikacji.
 4. Entra sprawdza podpis kluczami publicznymi GitHuba i ważność tokenu.
 5. Entra szuka w aplikacji `client_id` poświadczenia federacyjnego z **dokładnie** tym samym issuer, subject i audience. Brak zgodności = błąd `AADSTS700213` ([kody błędów Entra](https://learn.microsoft.com/entra/identity-platform/reference-error-codes)) (tak było 25 IX 2026 — opis niżej).
-6. Zgodność = token dostępu Graph z rolami aplikacyjnymi, na które administrator dał zgodę (Application.Read.All, DelegatedPermissionGrant.Read.All). Żyje około godziny, istnieje tylko w pamięci przebiegu, nie jest nigdzie zapisywany.
+6. Zgodność = token dostępu Graph z rolami aplikacyjnymi, na które administrator dał zgodę (Application.Read.All, DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All). Żyje około godziny, istnieje tylko w pamięci przebiegu, nie jest nigdzie zapisywany.
 
 Nie ma czego ukraść ani odnawiać. Token OIDC z innego repozytorium, innej gałęzi albo forka ma inny `sub` i zostanie odrzucony; token przechwycony z logu nie istnieje, bo nie jest wypisywany.
 
 Poświadczenie tworzy skrypt `tools/New-FpaReaderApp.ps1` wywołaniem Graph `POST /applications/{id}/federatedIdentityCredentials`, albo administrator w portalu (niżej). Skrypt `fpa_tenant.py` go **nie tworzy**, tylko z niego korzysta.
+
+#### Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć
+
+Repozytorium jest publiczne, więc każdy widzi kod, workflow i README. Do tenanta to nikogo nie wpuszcza, bo w tym łańcuchu nie ma żadnego sekretu, który dałoby się skopiować (sprawdzone 10 X 2026).
+
+| Element | Gdzie jest | Czy to sekret |
+|---|---|---|
+| ID tenanta i ID aplikacji | zmienne repozytorium `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`; w plikach repozytorium tylko pierwsze 8 znaków | nie — to identyfikatory, nie hasła; ID tenanta można odczytać publicznie z każdej jego zweryfikowanej domeny. Pełnych wartości i tak nie wpisujemy do plików (pkt 10) |
+| Reguła zaufania (issuer, subject, audience) | aplikacja Entra → Certificates & secrets → Federated credentials | nie — sama do niczego nie wpuszcza |
+| Klucz, którym GitHub podpisuje token OIDC | wyłącznie po stronie GitHuba; Entra sprawdza podpis kluczami publicznymi GitHuba | nie istnieje w repozytorium ani w tenancie |
+| Token dostępu do Graph | pamięć jednego przebiegu workflow, ok. 1 h, nie jest wypisywany ani zapisywany | tak, ale krótkotrwały i nigdzie nie leży |
+| Token wdrożeniowy Static Web App | GitHub → Settings → Secrets and variables → Actions → **Secrets** (zaszyfrowany) | **tak — jedyny prawdziwy sekret rozwiązania**; nie ma go w plikach repozytorium |
+
+| Kto próbuje | Wynik |
+|---|---|
+| Ktoś kopiuje kod albo robi fork | odrzucony — jego token ma inny subject (inne ID repozytorium) |
+| Ktoś zna ID tenanta i aplikacji | odrzucony — bez tokenu podpisanego przez GitHub dla tego repozytorium nic nie zrobi |
+| Pull request albo push na inną gałąź | odrzucony — workflow migawki startuje tylko z harmonogramu i ręcznie (Run workflow wymaga prawa zapisu do repozytorium, które ma tylko właściciel), a inna gałąź dałaby inny subject |
+| Ktoś przejmie konto GitHub właściciela | **jedyna realna droga** — dlatego uwierzytelnianie wieloskładnikowe na koncie GitHub. Nawet wtedy aplikacja ma tylko uprawnienia do odczytu (Application.Read.All, DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All) i niczego w tenancie nie zmieni |
+
+> ⚠️ **Historia commitów:** pełne ID tenanta i aplikacji oraz nazwa domeny tenanta były w kilku commitach z 25 IX 2026 (później zredagowane). Historia publicznego repozytorium jest widoczna. Dostępu to nie daje (tabela wyżej); usunięcie z historii jest w planie razem z przejściem na repozytorium prywatne (pkt 9).
+
+> ⚠️ **Stare poświadczenie `github-ms-soc-main`** (subject z samych nazw, `repo:wpiotrw/MS_SOC:ref:refs/heads/main`) trzeba usunąć z aplikacji: nie jest używane, a gdyby nazwę konta lub repozytorium przejął kiedyś ktoś inny, mógłby dostać pasujący token („subject recycling”, opis w następnej części).
 
 #### Subject tokenu GitHub: skąd `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`
 
@@ -461,7 +485,7 @@ Pole `sub` tokenu OIDC mówi, **kto** się loguje. GitHub składa je z części 
 **Skąd wziąć ID (sprawdzone 25 IX 2026, oba sposoby dają te same liczby):**
 
 - z logu workflow — linia `OIDC claims (federated credential must match): {"sub": "…"}` wypisywana przez `fpa_tenant.py`; to najpewniejsze źródło, bo to dokładnie ten `sub`, który zobaczy Entra;
-- z API GitHub: `GET https://api.github.com/repos/wpiotrw/MS_SOC` → pole `id` (ID repozytorium) i `owner.id` (ID właściciela). W PowerShell:
+- z API GitHub: `GET https://api.github.com/repos/wpiotrw/MS_SOC` → pole `id` (ID repozytorium) i `owner.id` (ID właściciela). Adres działa też w zwykłej przeglądarce, bez logowania — wystarczy odczytać te dwa pola i złożyć ciąg według wzoru `repo:<login>@<owner.id>/<nazwa>@<id>:ref:refs/heads/main`. W PowerShell (sprawdzone w PowerShell 7.4, 10 X 2026):
 
 ```powershell
 $r = Invoke-RestMethod https://api.github.com/repos/wpiotrw/MS_SOC
@@ -848,7 +872,8 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 
 | Data | Zmiana |
 |---|---|
-| 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
+
+| 2026-10-10 | pkt 5.2: nowa część „Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć” (tabela sekretów i scenariuszy, historia commitów, stare poświadczenie); ręczne złożenie subject w przeglądarce; brakujące ServiceMessage.Read.All w opisie tokenu Graph. || 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
 | 2026-10-10 | §5cx — logo GUARDZILLA (`site/assets/`, wersja jasna i ciemna wg motywu): na stronie głównej postać po lewej stronie bloku tytułu (96 px desktop, 72 px tablet, 52 px telefon), od 2160 px pełne logo z napisem w lewym marginesie nagłówka; postać i favicon także w `/diff/` i `/week/`. |
 | 2026-10-09 | README: pkt 11 „Postawienie od zera (nowe repozytorium, inny tenant)” — kroki i skutki zmiany tenanta; pkt 0, 2 i 4b obejmują wszystkie osiem workflow (`campaigns.yml`, `collector-check.yml`, `fpa-compare.yml` doszły); pkt 5.2: harmonogram migawki co 3 h, uprawnienie ServiceMessage.Read.All, kroki Message Center i kopii źródeł; `tools/New-FpaReaderApp.ps1` nadaje też ServiceMessage.Read.All. |
 | 2026-10-09 | §5cw-b — First-party apps samodzielne (wariant B): kopia ostatniej dobrej wersji każdego źródła w `cache/fpa/` (`tools/fpa_sources.py` co 3 h), `collect_fpa.py` czyta kopię, gdy źródło nie odpowiada; aplikacje z listy Microsoftu `known-guids.json` (po odfiltrowaniu uprawnień, licencji, ról, FIDO2, Purview) dopisane jako „named only in Microsoft docs” — 2 351 aplikacji zamiast 1 737; porównanie z Merillem opisane w zakładce; poprawiona etykieta „our tenant” → tenant demo Merilla. |
