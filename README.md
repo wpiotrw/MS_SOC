@@ -1073,7 +1073,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 
 | Klucz (plik) | Workflow | Kiedy |
 |---|---|---|
-| `code` | `code-refresh.yml` | każde odświeżenie kodu strony (dodatkowo pole `spec` = najnowszy etap §) |
+| `code` | `code-refresh.yml` | każde odświeżenie kodu strony (nie sam commit retencji) (dodatkowo pole `spec` = najnowszy etap §) |
 | `tenant` | `fpa-tenant.yml` | migawka tenanta, która coś zmieniła |
 | `campaigns` | `campaigns.yml` | kampanie / archiwum KQL się zmieniły |
 | `learn` | `learn-mirror.yml` | kopia Learn się zmieniła (commit tokenem `GITHUB_TOKEN` nie wdraża — strona pokaże znacznik przy najbliższym wdrożeniu) |
