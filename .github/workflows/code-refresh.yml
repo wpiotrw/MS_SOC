@@ -61,7 +61,8 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python3 tools/stamp.py code || true   # CLAUDE.md 5cz: when the page code changed (header frame, About)
+          # CLAUDE.md 5cz: when the page code changed (header frame, About) - not for a retention-only commit
+          if [ "${{ steps.swap.outputs.changed }}" = "1" ]; then python3 tools/stamp.py code || true; fi
           git add site/index.html
           git add -A -- site/history site/data
           git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log)"
