@@ -10968,6 +10968,20 @@ A na koniec `<body>`, jako CZWARTY blok `<script>`, ten kod — kopiowany dalej 
 jak trzy skrypty powloki:
 
 ```js
+/* ===========================================================================
+   SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
+   ADDED, never a replacement. The three shell scripts stay untouched; this one
+   reads the finished DOM plus the soc-brief-state block and adds:
+     1. "Per service" — Entra ID apart from Entra Connect, which `product` cannot express.
+     2. A month / week / day time axis, the way daily.entra.news aggregates.
+     3. A share ring, so "too much Azure" is a number instead of an impression.
+     4. "Just passed" — deadlines that elapsed in the last 7 days, which every
+        other view drops the moment the day count goes negative.
+   Everything is drawn with the shell's own classes (.chart/.cl/.ctrack/.cbar/.cv),
+   so it looks identical and works in both themes without one new colour variable.
+   ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
+   in the chart titles was reported by the owner on 2 Sep 2026.
+   =========================================================================== */
 /* §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X - why does our page say CHANGED?").
    The register (ledger14) written before §5db recorded a catalog entry that moved from "not in this tenant" (known
    only from Microsoft's deployment map) into the tenant as four CHANGED fields (kind, docStatus, version, changed).
@@ -11008,20 +11022,6 @@ jak trzy skrypty powloki:
   st.ledger14.grantMoves = n;
   try { el.textContent = JSON.stringify(st); } catch (e) {}
 })();
-/* ===========================================================================
-   SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
-   ADDED, never a replacement. The three shell scripts stay untouched; this one
-   reads the finished DOM plus the soc-brief-state block and adds:
-     1. "Per service" — Entra ID apart from Entra Connect, which `product` cannot express.
-     2. A month / week / day time axis, the way daily.entra.news aggregates.
-     3. A share ring, so "too much Azure" is a number instead of an impression.
-     4. "Just passed" — deadlines that elapsed in the last 7 days, which every
-        other view drops the moment the day count goes negative.
-   Everything is drawn with the shell's own classes (.chart/.cl/.ctrack/.cbar/.cv),
-   so it looks identical and works in both themes without one new colour variable.
-   ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
-   in the chart titles was reported by the owner on 2 Sep 2026.
-   =========================================================================== */
 (function () {
   "use strict";
 
@@ -27978,6 +27978,11 @@ nie otwieraly panelu; wrapper szuka po nazwie, w razie potrzeby na chwile wpisuj
 poprzedni tekst. (C4) Naprawy: plakietki `b-undoc`/`b-elsewhere` z tlem (wymog testu §5h, §5da je wyzerowal);
 `.s5cz-d{position:relative}` na stronie i w `/diff/` — ukryty oryginal daty (absolutny) wychodzil z przewijanej tabeli
 i rozpychal strone (Component versions 1800 px, Sources 1538 px przy 1440, takze na zywej stronie przed tym etapem).
+
+**§5dc-b (10 X 2026, CI): code refresh odrzucil 855f3b0 - "not found: SCRIPT 4 block".** Normalizator §5db stal przed
+komentarzem naglowka, a lokalizator patrzyl na pierwsze 1500 znakow. Regula: kazdy blok SCRIPT n zaczyna sie od komentarza
+naglowka "SCRIPT n —"; kod dodawany do bloku idzie POD naglowek. `tools/code_refresh.py` szuka "SCRIPT n —" w pierwszych
+8000 znakach (zapas), potem dawnej formy w 1500.
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
