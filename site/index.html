@@ -4119,6 +4119,61 @@ body .tabpanel .badge.b-undoc,body .tabpanel .badge.b-elsewhere{background:var(-
 .s5dc-list>.s5dc-detail{grid-column:auto}
 .s5dc-li-a{min-width:0}
 @media (max-width:720px){.s5dc-li{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}.s5dc-li .s5dc-name,.s5dc-tile .s5dc-name{overflow-wrap:anywhere}.s5dc-li-a{grid-column:1}.s5dc-li-c{grid-column:2;grid-row:1}.s5dc-li-b{grid-column:1/-1}}
+/* §5df: "At a glance" in the empty header space on wide screens (activity / deadlines / campaigns) */
+.s5df{position:absolute;top:16px;bottom:16px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px 16px 8px;box-sizing:border-box;font-size:12px;color:var(--text);overflow:hidden;z-index:1}
+.s5df[hidden]{display:none}
+.s5df-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.s5df-t{font-size:13.5px}
+.s5df-sw{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.s5df-sw button{font:inherit;font-size:11.5px;padding:2px 11px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.s5df-sw button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:700}
+.s5df-body{position:relative;flex:1;min-height:0}
+.s5df-sub{color:var(--muted);margin:0 0 4px}
+.s5df-lg{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted);margin:0 0 4px}
+.s5df-lg b{color:var(--text)}
+.s5df-lg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+.s5df svg{display:block;overflow:visible}
+.s5df-tx{fill:var(--text);font-size:11.5px}
+.s5df-m{fill:var(--muted);color:var(--muted)}
+.s5df-b{font-weight:700}
+.s5df-num{font-variant-numeric:tabular-nums}
+.s5df-cell{fill:var(--accent)}
+.s5df-cell0{fill:var(--surface-2)}
+.s5df-cell:hover,.s5df-cell0:hover{stroke:var(--text);stroke-width:1.2}
+.s5df-today{fill:none;stroke:var(--text);stroke-width:1.2}
+.s5df-grid{stroke:var(--border);stroke-dasharray:3 4}
+.s5df-axis{stroke:var(--muted)}
+.s5df-zone{fill:var(--bad);fill-opacity:.08}
+circle.s5df-d7,i.s5df-d7{fill:var(--bad);background:var(--bad)}
+circle.s5df-d30,i.s5df-d30{fill:var(--warn);background:var(--warn)}
+circle.s5df-d90,i.s5df-d90{fill:var(--accent);background:var(--accent)}
+.s5df circle{stroke:var(--surface);stroke-width:2}
+.s5df circle:hover{stroke:var(--text)}
+circle.s5df-pc,i.s5df-pc{fill:var(--bad);background:var(--bad)}
+circle.s5df-ph,i.s5df-ph{fill:var(--warn);background:var(--warn)}
+circle.s5df-pn,i.s5df-pn{fill:var(--accent);background:var(--accent)}
+circle.s5df-past{fill:var(--muted)}
+circle.s5df-next{stroke:var(--text);stroke-width:1.5}
+.s5df-span{stroke-width:2;stroke-linecap:round;stroke-opacity:.45}
+.s5df-span.s5df-pc{stroke:var(--bad)}.s5df-span.s5df-ph{stroke:var(--warn)}.s5df-span.s5df-pn{stroke:var(--accent)}
+.s5df-rowbg{fill:transparent}
+.s5df-crow{cursor:pointer}
+.s5df-crow:hover .s5df-rowbg{fill:var(--surface-2)}
+.s5df-tip{position:absolute;z-index:3;max-width:340px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg,var(--surface));color:var(--text);font-size:12px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.35);pointer-events:none}
+.s5df-tip[hidden]{display:none}
+tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--accent);outline-offset:-2px}
+@media print{.s5df{display:none}}
+/* §5dg: "What this view is for" cards (Check a call, Sources & method) */
+.s5dg-help{margin:0 0 12px;padding:12px 16px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;background:var(--surface);font-size:13px;line-height:1.5}
+.s5dg-help h4{margin:0 0 6px;font-size:13.5px}
+.s5dg-help p{margin:0 0 6px;color:var(--text)}
+.s5dg-help ul{margin:4px 0 0;padding-left:18px}.s5dg-help li{margin:2px 0;color:var(--muted)}.s5dg-help li b{color:var(--text)}
+.s5dg-ex{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.s5dg-exl{color:var(--muted);font-size:12px}
+.s5dg-exb{font-family:var(--mono);font-size:12px;padding:2px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--accent);cursor:pointer}
+.s5dg-exb:hover{border-color:var(--accent)}
+.s5cd-flat.s5dg-hide{display:none!important}
+.s5dc-empty{margin-top:6px}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -23958,7 +24013,10 @@ IdentityDirectoryEvents
     var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {}, day = ST.briefDate || "";
     var L = ((ST.ledger14 || {}).entries || []).filter(function (e) { return e.seen === day && ledgerTabs.indexOf(e.tab) >= 0 && nm(e); });
     box.setAttribute("data-s5dc", "1");
-    if (!L.length) return true;
+    if (!L.length) {   /* §5dg: say what will appear here, so an empty day does not look like a missing feature */
+      box.appendChild(el("p", "s5dc-lead s5dc-empty", "When " + (which === "graph" ? "a permission" : "a role") + " is added, changed or removed, it appears here as a tile — name first, what changed, a Tiles | List switch and filters; a click opens its full panel."));
+      return true;
+    }
     var CI = {}; (CAT[which] || []).forEach(function (c) { if (c && c.name) CI[c.name] = c; });
     var order = { added: 0, changed: 1, removed: 2 };
     var list = groups(L).map(function (g) { return info(g, which, CI); }).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (a.name < b.name ? -1 : 1); });
@@ -23972,7 +24030,7 @@ IdentityDirectoryEvents
        views, so a filter survives the switch: a search over name, Microsoft's title and description, plus one menu
        per column that groups (Change, Type, Grantable here, Consent; in Roles Change and Privileged). */
     var FB = el("div", "s5dc-fbar s9find"); FB.setAttribute("role", "search");
-    var q = el("input", "s9q"); q.type = "search"; q.placeholder = "Search " + list.length + " " + (which === "graph" ? "permissions" : "roles") + " — name, title, description"; q.setAttribute("aria-label", "Search this list");
+    var q = el("input", "s9q"); q.type = "search"; q.placeholder = "Search " + list.length + " " + (which === "graph" ? (list.length === 1 ? "permission" : "permissions") : (list.length === 1 ? "role" : "roles")) + " — name, title, description"; q.setAttribute("aria-label", "Search this list");
     FB.appendChild(q);
     var COLS = which === "graph"
       ? [["Change", function (o) { return [kindLabel(o.kind)]; }], ["Type", function (o) { return o.types.length ? o.types : ["—"]; }],
@@ -24223,6 +24281,266 @@ IdentityDirectoryEvents
   });
   function boot() { scan(); setTimeout(scan, 3000); setTimeout(scan, 6500); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 4200); }); else setTimeout(boot, 4200);
+})();
+/* §5df (10 X 2026, owner on a 27" screen: "the header has empty space - something professional, with a wow effect";
+   from three mock-ups he chose a switch with three views: activity heat map, deadline runway, campaigns).
+   Shown only where the header has room beside the page column (about 2 200 px and wider); it never moves the page.
+   - Activity: what the register (ledger14) recorded per day and per tab, 13-14 days; darker = more (log scale);
+     a row opens its tab.
+   - Deadlines: every dated item of the brief within 90 days, one dot each; colour = how close (7 / 30 / 90 days,
+     the same buckets as the KPI tiles), size = SOC weight; a dot opens the item in Deadlines.
+   - Campaigns: the active campaigns with the nearest next date (data/campaigns.json), their milestones from 14 days
+     back to 120 ahead, colour = the campaign's priority; a row opens the campaign card.
+   One tooltip, the switch remembered per browser, colours from the page tokens (dark and light themes alike). */
+(function () {
+  if (window.__s5df) return; window.__s5df = 1;
+  var NS = "http://www.w3.org/2000/svg", LSK = "socHdrView", MIN = 380, CAMP = null, campAsked = false;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function sv(t, a, p) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function jb(id) { var n = document.getElementById(id); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
+  function fd(d) { return window.__socDate ? window.__socDate.fmt(d, false) : d.slice(8, 10) + "/" + d.slice(5, 7) + "/" + d.slice(0, 4); }
+  function dm(d) { return d.slice(8, 10) + "/" + d.slice(5, 7); }
+  function getV() { try { var v = localStorage.getItem(LSK); return v === "deadlines" || v === "campaigns" ? v : "activity"; } catch (e) { return "activity"; } }
+  function setV(v) { try { localStorage.setItem(LSK, v); } catch (e) {} }
+  function go(tab) { var b = document.getElementById("tabbtn-" + tab); if (b) b.click(); try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {} }
+  function daysTo(d, base) { return Math.round((Date.parse(d + "T00:00:00Z") - Date.parse(base + "T00:00:00Z")) / 864e5); }
+  var ST = null, box = null, body = null, tip = null, view = getV();
+  var TABS = [["Message Center", "Message Center", "tab-mc"], ["Microsoft Learn", "Microsoft Learn", "tab-learn"], ["Graph API", "Graph API", "tab-graph"], ["Roles", "Roles", "tab-roles"],
+              ["Community Articles", "Community", "tab-community"], ["Microsoft Blogs", "Microsoft Blogs", "tab-blogs"], ["Deadlines", "Deadlines", "tab-deadlines"], ["Component versions", "Components", "tab-components"]];
+  function showTip(ev, html) {
+    tip.innerHTML = html; tip.hidden = false;
+    var r = box.getBoundingClientRect(), x = ev.clientX - r.left + 14, y = ev.clientY - r.top + 12;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    if (x + w > r.width - 6) x = ev.clientX - r.left - w - 14; if (y + h > r.height - 6) y = Math.max(4, ev.clientY - r.top - h - 12);
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { if (tip) tip.hidden = true; }
+  function hit(node, html, onClick) {
+    node.addEventListener("mousemove", function (ev) { showTip(ev, html); });
+    node.addEventListener("mouseleave", hideTip);
+    if (onClick) { node.style.cursor = "pointer"; node.addEventListener("click", function () { hideTip(); onClick(); }); }
+  }
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function sub(t) { body.appendChild(el("div", "s5df-sub", t)); }
+  function activity(W, H) {
+    var L = ((ST.ledger14 || {}).entries || []), days = [], seen = {};
+    L.forEach(function (e) { if (!seen[e.seen]) { seen[e.seen] = 1; days.push(e.seen); } }); days.sort();
+    if (!days.length) { sub("The register holds no days yet."); return; }
+    var M = {}; L.forEach(function (e) { var k = e.tab + "|" + e.seen; M[k] = (M[k] || 0) + 1; });
+    sub("What moved per day and per tab · darker = more · a row opens its tab");
+    var lw = 112, tw = 44, top = 16, rh = Math.max(14, Math.min(24, (H - top - 30) / TABS.length)), cw = (W - lw - tw) / days.length;
+    var s = sv("svg", { width: W, height: top + rh * TABS.length + 4, role: "img", "aria-label": "Activity per tab, last " + days.length + " days" }, body);
+    var mx = 1; TABS.forEach(function (r) { days.forEach(function (d) { mx = Math.max(mx, M[r[0] + "|" + d] || 0); }); });
+    days.forEach(function (d, j) {
+      var last = j === days.length - 1, show = last || (days.length - 1 - j) % 2 === 0;
+      if (!show) return; var t = sv("text", { x: lw + j * cw + cw / 2, y: 11, "text-anchor": "middle", "class": last ? "s5df-tx s5df-b" : "s5df-tx s5df-m" }, s); t.textContent = last ? "today" : dm(d);
+    });
+    TABS.forEach(function (r, i) {
+      var y = top + i * rh, g = sv("g", {}, s), tot = 0;
+      var t = sv("text", { x: 0, y: y + rh / 2 + 4, "class": "s5df-tx" }, g); t.textContent = r[1];
+      days.forEach(function (d, j) {
+        var v = M[r[0] + "|" + d] || 0; tot += v;
+        var a = v ? 0.2 + 0.8 * Math.log(1 + v) / Math.log(1 + mx) : 0;
+        var c = sv("rect", { x: lw + j * cw + 1, y: y + 1, width: Math.max(1, cw - 2), height: rh - 2, rx: 3, "class": v ? "s5df-cell" : "s5df-cell0", "fill-opacity": v ? a.toFixed(2) : 1 }, g);
+        hit(c, "<b>" + esc(r[1]) + "</b><br>" + fd(d) + " · <b>" + v + "</b> " + (v === 1 ? "change" : "changes"), function () { go(r[2]); });
+      });
+      var tt = sv("text", { x: W, y: y + rh / 2 + 4, "text-anchor": "end", "class": "s5df-tx s5df-m s5df-num" }, g); tt.textContent = tot;
+      var lab = sv("rect", { x: 0, y: y, width: lw - 4, height: rh, fill: "transparent" }, g);
+      hit(lab, "<b>" + esc(r[1]) + "</b> · " + tot + " changes in " + days.length + " days<br>Click to open the tab", function () { go(r[2]); });
+    });
+    sv("rect", { x: lw + (days.length - 1) * cw, y: top - 2, width: cw, height: rh * TABS.length + 4, rx: 4, "class": "s5df-today" }, s);
+  }
+  function deadlines(W, H) {
+    var base = ST.briefDate || "", dl = (ST.items || []).filter(function (i) { return i.deadline && i.days != null && i.days >= 0; });
+    var c7 = 0, c30 = 0, c90 = 0, cl = 0; dl.forEach(function (i) { if (i.days <= 7) c7++; else if (i.days <= 30) c30++; else if (i.days <= 90) c90++; else cl++; });
+    var lg = el("div", "s5df-lg");
+    [["s5df-d7", "within 7 days", c7], ["s5df-d30", "within 30", c30], ["s5df-d90", "within 90", c90], ["", "later", cl]].forEach(function (x) {
+      var s = el("span"); if (x[0]) s.appendChild(el("i", x[0])); s.appendChild(document.createTextNode(x[1] + " · ")); s.appendChild(el("b", null, String(x[2]))); lg.appendChild(s); });
+    body.appendChild(lg);
+    var h = Math.max(60, H - 34), pad = 14, X = function (d) { return pad + (W - 2 * pad) * Math.min(d, 90) / 90; };
+    var s = sv("svg", { width: W, height: h, role: "img", "aria-label": "Deadlines in the next 90 days" }, body);
+    sv("rect", { x: X(0), y: 4, width: X(7) - X(0), height: h - 22, "class": "s5df-zone" }, s);
+    [[0, "today"], [7, "+7"], [30, "+30"], [60, "+60"], [90, "+90"]].forEach(function (g) {
+      sv("line", { x1: X(g[0]), x2: X(g[0]), y1: 4, y2: h - 18, "class": g[0] ? "s5df-grid" : "s5df-axis" }, s);
+      var t = sv("text", { x: X(g[0]), y: h - 4, "text-anchor": "middle", "class": g[0] ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = g[1];
+    });
+    var stack = {}, step = Math.max(7, Math.min(11, (h - 30) / 12));
+    dl.filter(function (i) { return i.days <= 90; }).sort(function (a, b) { return (b.socWeight || 0) - (a.socWeight || 0); }).forEach(function (i) {
+      var k = i.days; stack[k] = (stack[k] || 0) + 1; var y = h - 26 - (stack[k] - 1) * step; if (y < 8) return;
+      var r = 2.6 + Math.min(i.socWeight || 1, 6) * 0.5;
+      var c = sv("circle", { cx: X(i.days), cy: y, r: r, "class": i.days <= 7 ? "s5df-d7" : i.days <= 30 ? "s5df-d30" : "s5df-d90" }, s);
+      hit(c, "<b>" + fd(i.deadline) + "</b> · " + (i.days === 0 ? "today" : "in " + i.days + (i.days === 1 ? " day" : " days")) + " · " + esc(i.product || "") + "<br>" + esc(String(i.title || i.id).slice(0, 160)) + "<br><span class='s5df-m'>Click to open it in Deadlines</span>", function () {
+        go("tab-deadlines");
+        setTimeout(function () {
+          var row = document.querySelector('#tab-deadlines tr[data-id="' + String(i.id).replace(/"/g, "") + '"]'); if (!row) return;
+          var e = row; while (e) { if (e.tagName === "DETAILS") e.open = true; e = e.parentElement; }
+          try { row.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (x) {}
+          row.classList.add("s5df-flash"); setTimeout(function () { row.classList.remove("s5df-flash"); }, 2400);
+        }, 500);
+      });
+    });
+  }
+  function campaigns(W, H) {
+    if (!CAMP) {
+      sub(campAsked ? "Campaigns are read from data/campaigns.json on the published site." : "Reading the campaigns …");
+      if (!campAsked && window.fetch) { campAsked = true; fetch("data/campaigns.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.campaigns) { CAMP = d; render(); } else render(); }).catch(function () { render(); }); }
+      return;
+    }
+    var base = CAMP.day || ST.briefDate, act = (CAMP.campaigns || []).filter(function (c) { return c.next && c.next.date && daysTo(c.next.date, base) >= 0; });
+    var lev = { critical: 0, high: 0, normal: 0 }; act.forEach(function (c) { var l = (c.prio || {}).level || "normal"; lev[l] = (lev[l] || 0) + 1; });
+    var lg = el("div", "s5df-lg");
+    [["s5df-pc", "critical", lev.critical], ["s5df-ph", "high", lev.high], ["s5df-pn", "normal", lev.normal]].forEach(function (x) {
+      var s = el("span"); s.appendChild(el("i", x[0])); s.appendChild(document.createTextNode(x[1] + " · ")); s.appendChild(el("b", null, String(x[2] || 0))); lg.appendChild(s); });
+    var sp = el("span", "s5df-m", act.length + " with a next date · critical first, then high, nearest date first · a row opens the campaign"); lg.appendChild(sp);
+    body.appendChild(lg);
+    var RK = { critical: 0, high: 1, normal: 2 };   /* the most important first, then the nearest date */
+    act.sort(function (a, b) { var ra = RK[(a.prio || {}).level] != null ? RK[(a.prio || {}).level] : 2, rb = RK[(b.prio || {}).level] != null ? RK[(b.prio || {}).level] : 2;
+      return (ra - rb) || (a.next.date < b.next.date ? -1 : a.next.date > b.next.date ? 1 : 0); });
+    var h = Math.max(60, H - 34), rh = 22, n = Math.max(1, Math.min(act.length, Math.floor((h - 18) / rh))), lw = Math.min(260, W * 0.38), D0 = -14, D1 = 120;
+    var X = function (d) { return lw + 8 + (W - lw - 16) * (Math.max(D0, Math.min(D1, d)) - D0) / (D1 - D0); };
+    var s = sv("svg", { width: W, height: n * rh + 18, role: "img", "aria-label": "Campaigns and their next dates" }, body);
+    [[0, "today"], [30, "+30"], [60, "+60"], [90, "+90"], [120, "+120"]].forEach(function (g) {
+      sv("line", { x1: X(g[0]), x2: X(g[0]), y1: 0, y2: n * rh, "class": g[0] ? "s5df-grid" : "s5df-axis" }, s);
+      var t = sv("text", { x: X(g[0]), y: n * rh + 13, "text-anchor": "middle", "class": g[0] ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = g[1];
+    });
+    act.slice(0, n).forEach(function (c, i) {
+      var y = i * rh, cy = y + rh / 2, lvl = (c.prio || {}).level || "normal", cls = lvl === "critical" ? "s5df-pc" : lvl === "high" ? "s5df-ph" : "s5df-pn";
+      var g = sv("g", { "class": "s5df-crow" }, s);
+      sv("rect", { x: 0, y: y + 1, width: W, height: rh - 2, rx: 4, "class": "s5df-rowbg" }, g);
+      var nm = c.name.length > 40 ? c.name.slice(0, 39) + "…" : c.name;
+      var t = sv("text", { x: 4, y: cy + 4, "class": "s5df-tx" }, g); t.textContent = nm;
+      var ms = (c.milestones || []).filter(function (m) { return m.date; }).map(function (m) { return { d: daysTo(m.date, base), m: m }; });
+      var vis = ms.filter(function (x) { return x.d >= D0 && x.d <= D1; });
+      var dmin = Math.min.apply(null, ms.map(function (x) { return x.d; }).concat([0])), dmax = Math.max.apply(null, ms.map(function (x) { return x.d; }).concat([0]));
+      sv("line", { x1: X(dmin), x2: X(dmax), y1: cy, y2: cy, "class": "s5df-span " + cls }, g);
+      vis.forEach(function (x) { sv("circle", { cx: X(x.d), cy: cy, r: x.m.date === c.next.date ? 5.5 : 3, "class": (x.d < 0 ? "s5df-past" : cls) + (x.m.date === c.next.date ? " s5df-next" : "") }, g); });
+      var nd = daysTo(c.next.date, base);
+      hit(g, "<b>" + esc(c.name) + "</b><br>" + esc(c.tech || "") + " · " + esc(c.type || "") + " · priority " + esc(lvl) + "<br>Next: <b>" + fd(c.next.date) + "</b> (" + (nd === 0 ? "today" : "in " + nd + " days") + ")" + (c.next.text ? "<br>" + esc(String(c.next.text).slice(0, 160)) : "") + "<br><span class='s5df-m'>Click to open the campaign card</span>", function () {
+        location.hash = "#tab=campaigns&c=" + encodeURIComponent(c.id);
+      });
+    });
+  }
+  function render() {
+    if (!box) return;
+    hideTip(); body.innerHTML = "";
+    [].forEach.call(box.querySelectorAll(".s5df-sw button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === view)); });
+    var W = Math.floor(body.clientWidth), H = Math.floor(body.clientHeight);
+    if (W < 200 || H < 80) return;
+    try { if (view === "deadlines") deadlines(W, H); else if (view === "campaigns") campaigns(W, H); else activity(W, H); }
+    catch (e) { if (window.console) console.error("[5df]", e); }
+  }
+  var lastW = 0, lastH = 0;
+  function place() {
+    var hd = document.querySelector("header.top"), ti = hd && hd.querySelector(".top-inner");
+    if (!hd || !ti) return;
+    var hr = hd.getBoundingClientRect(), x0 = Math.round(ti.getBoundingClientRect().right - hr.left + 24), W = Math.round(hr.width - x0 - 24);
+    var on = W >= MIN && hr.height >= 200 && innerWidth > 1360;
+    if (!box) {
+      if (!on) return;
+      box = el("section", "s5df"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "Brief at a glance");
+      var head = el("div", "s5df-h"), sw = el("span", "s5df-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
+      [["activity", "Activity"], ["deadlines", "Deadlines"], ["campaigns", "Campaigns"]].forEach(function (v) { var b = el("button", null, v[1]); b.type = "button"; b.setAttribute("data-v", v[0]); sw.appendChild(b); });
+      var ttl = el("b", "s5df-t", "At a glance"); head.appendChild(ttl); head.appendChild(sw); box.appendChild(head);
+      body = el("div", "s5df-body"); box.appendChild(body);
+      tip = el("div", "s5df-tip"); tip.hidden = true; tip.setAttribute("role", "tooltip"); box.appendChild(tip);
+      sw.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("button"); if (!b) return; view = b.getAttribute("data-v"); setV(view); render(); });
+      box.addEventListener("mouseleave", hideTip);
+      hd.appendChild(box);
+    }
+    box.hidden = !on; if (!on) return;
+    box.style.left = x0 + "px"; box.style.width = W + "px";
+    if (W !== lastW || Math.round(hr.height) !== lastH) { lastW = W; lastH = Math.round(hr.height); render(); }
+  }
+  var rq = null;
+  function later() { clearTimeout(rq); rq = setTimeout(place, 150); }
+  function boot() {
+    ST = jb("soc-brief-state"); if (!ST) return;
+    place(); window.addEventListener("resize", later);
+    var hd = document.querySelector("header.top");
+    if (hd && window.ResizeObserver) { try { new ResizeObserver(later).observe(hd); } catch (e) {} }   /* the box is absolute: our writes never resize the header, so no loop */
+    setTimeout(place, 2500);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1500); }); else setTimeout(boot, 1500);
+})();
+/* §5dg (10 X 2026, owner: "explain better what Check a call in Graph API is for - I do not understand it; the same with
+   Sources & method, in Graph API and in Roles"). Each of those views opens with a short "What this view is for" card;
+   Check a call also gets four example calls that fill the box. The view buttons carry a one-line title (the page's
+   tooltip shows it). A Section wrapper left with nothing visible in a view (an empty rounded frame under Check a
+   call) is hidden in that view. */
+(function () {
+  if (window.__s5dg) return; window.__s5dg = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  var TIPS = {
+    "tab-graph": { find: "Search the catalog: every permission, its description, types and the endpoints it opens", chg: "What Microsoft changed since the previous brief, and the last 14 days, permission by permission",
+                   call: "Paste a Graph request and see which permissions allow it, lowest privilege first", src: "Where the numbers on this tab come from and what today's comparison is based on" },
+    "tab-roles": { find: "Search the role catalog: every Entra role, what it can do and the Graph permissions it covers", chg: "Roles Microsoft added, changed or removed since the previous brief, and the last 14 days",
+                   src: "Where the role count comes from and what today's comparison is based on" }
+  };
+  function card(title, paras, bullets) {
+    var c = el("aside", "s5dg-help"); c.appendChild(el("h4", null, title));
+    paras.forEach(function (t) { c.appendChild(el("p", null, t)); });
+    if (bullets) { var ul = el("ul"); bullets.forEach(function (b) { var li = el("li"); li.appendChild(el("b", null, b[0])); li.appendChild(document.createTextNode(" — " + b[1])); ul.appendChild(li); }); c.appendChild(ul); }
+    return c;
+  }
+  function callCard(p) {
+    var gu = p.querySelector("section.gu"); if (!gu || p.querySelector(".s5dg-help[data-k=call]")) return;
+    var c = card("What this view is for",
+      ["You have a Microsoft Graph request — from a script, an app vendor's documentation, an audit or sign-in log — and need to know which permission the app registration must be given for it. Paste the request below: method and path, IDs as they are or written {id}.",
+       "The answer lists every permission Microsoft names for that endpoint, from the lowest privilege level (L1) to the highest (L4). Start with the lowest one that covers what the app really does; whether it exists as Application or Delegated, and what an admin must consent to, is in the permission's panel under Find. No path at hand? Browse by resource lists the endpoint groups."]);
+    var ex = el("div", "s5dg-ex"); ex.appendChild(el("span", "s5dg-exl", "Try:"));
+    ["GET /users/{id}/authentication/methods", "GET /groups/{id}/members", "GET /auditLogs/signIns", "GET /security/alerts_v2"]   /* each checked against permissions.json b9a67f1 on 10 X 2026: all four resolve */.forEach(function (q) {
+      var b = el("button", "s5dg-exb", q); b.type = "button";
+      b.addEventListener("click", function () {
+        var inp = gu.querySelector("input.gu-q"), m = gu.querySelector("select.gu-m"); if (!inp) return;
+        var mm = q.split(" "); if (m) { m.value = ""; m.dispatchEvent(new Event("change", { bubbles: true })); }
+        inp.value = q; inp.dispatchEvent(new Event("input", { bubbles: true })); inp.focus();
+      });
+      ex.appendChild(b);
+    });
+    c.appendChild(ex);
+    c.setAttribute("data-k", "call"); c.setAttribute("data-s5cd-v", "call");
+    gu.parentNode.insertBefore(c, gu);
+  }
+  function srcCard(p, which) {
+    if (p.querySelector(".s5dg-help[data-k=src]")) return;
+    var first = p.querySelector('[data-s5cd-v="src"]'); if (!first) return;
+    var c = which === "graph"
+      ? card("What this view is for", ["Nothing here is news: this is how the Graph API tab is built. Open it when a number looks wrong, when you need to say where a fact came from, or to see what today's comparison is measured against."],
+          [["Where the numbers come from", "how many permissions the catalog holds and why that differs from Microsoft's reference (permissions deployed in the service but not grantable in this tenant, entries found outside the reference)"],
+           ["What was read today, source by source", "Microsoft Learn, Microsoft's permissions.json repository, the service principal export of this tenant — each with the commit or date it was read at"],
+           ["Compared against", "the earlier catalog today's “new / changed / removed” is computed from"],
+           ["What is in and what is out", "the coverage rules: what the catalog includes and what it leaves out on purpose"]])
+      : card("What this view is for", ["Nothing here is news: this is how the Roles tab is built. Open it when a number looks wrong, when you need to say where a fact came from, or to see what today's comparison is measured against."],
+          [["Where the count comes from", "roles on Microsoft's published reference, roles this brief carries in addition, and records held"],
+           ["What was read today", "the role folder of MicrosoftDocs/entra-docs, cloned again, with its newest commit"],
+           ["Compared against", "the earlier catalog today's “new / changed / removed” is computed from"],
+           ["What is in and what is out", "the coverage rules for the role catalog"]]);
+    c.setAttribute("data-k", "src"); c.setAttribute("data-s5cd-v", "src");
+    first.parentNode.insertBefore(c, first);
+  }
+  function titles(p) {
+    var T = TIPS[p.id]; if (!T) return;
+    [].forEach.call(p.querySelectorAll(".s5cd-bar button[data-v]"), function (b) { var t = T[b.getAttribute("data-v")]; if (t && !b.title) b.title = t; });
+  }
+  function emptyFlat(p) {
+    [].forEach.call(p.querySelectorAll(".s5cd-flat"), function (d) {
+      d.classList.remove("s5dg-hide");   /* measure with the wrapper shown, or a hidden one would never come back */
+      var any = [].some.call(d.children, function (k) { return k.tagName !== "SUMMARY" && k.getClientRects().length && k.getBoundingClientRect().height > 2; });
+      d.classList.toggle("s5dg-hide", !any);
+    });
+  }
+  function run() {
+    ["tab-graph", "tab-roles"].forEach(function (id) {
+      var p = document.getElementById(id); if (!p || !p.querySelector(".s5cd-bar")) return;
+      try { if (id === "tab-graph") callCard(p); srcCard(p, id === "tab-graph" ? "graph" : "roles"); titles(p); } catch (e) { if (window.console) console.error("[5dg]", e); }
+    });
+  }
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest(".s5cd-bar button, nav.anchors .tab, [id^=tabbtn-]");
+    if (!b) return;
+    setTimeout(function () { run(); ["tab-graph", "tab-roles"].forEach(function (id) { var p = document.getElementById(id); if (p) emptyFlat(p); }); }, 150);
+  });
+  [2500, 5000, 9000].forEach(function (t) { setTimeout(run, t); });
 })();
 </script>
 </body>
