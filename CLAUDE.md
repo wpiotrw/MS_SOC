@@ -4865,18 +4865,44 @@ def diff_items(prev, curr):
         if deltas: changed.append((c[k], deltas))
     return added, removed, changed, len(p), len(c)
 
+# §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X, so it should be ADDED - why do we
+# say CHANGED?"). The catalog knew CopilotCostManagement-Policy.ReadWrite.All from 3 IX: Microsoft's deployment map
+# (provisioningInfo.json) listed it as "Deployed in the service, not in this tenant". On 9 X it entered the Graph
+# service principal - grantable here from that day. The catalog entry existed, so the diff printed four field
+# changes (kind, docStatus, version, changed). For a reader that is a NEW permission in this tenant: an entry
+# moving from "not in this tenant" to the tenant is ADDED, the opposite move is REMOVED, and its bookkeeping
+# fields are not repeated as changes. GRANT_MOVES keeps (before kind, after kind) for the register.
+GRANT_MOVES = {}
+
+def in_tenant(e):
+    """False for an entry Microsoft deploys elsewhere but this tenant cannot grant (yet). `inInventory` (the
+    tenant's Graph service principal holds the name) decides when the entry carries it; measured 10 X 2026 over
+    17 days it moves exactly with the brief's own "became grantable" items (7 on 10 X, 12 on 6 X, 1 on 2 X)."""
+    if isinstance(e.get("inInventory"), bool):
+        return e["inInventory"]
+    return not (norm(e.get("docStatus")) == "not-in-tenant"
+                or (norm(e.get("kind")) or "").lower().startswith("deployed in the service, not in this tenant"))
+
 def diff_catalog(prev, curr, which):
     pe = {e.get("name"): e for e in (prev.get(which) or []) if e.get("name")}
     ce = {e.get("name"): e for e in (curr.get(which) or []) if e.get("name")}
-    add = sorted(set(ce) - set(pe))
-    rem = sorted(set(pe) - set(ce))
+    add = set(ce) - set(pe)
+    rem = set(pe) - set(ce)
     mod = []
     for n in sorted(set(pe) & set(ce)):
+        hp, hc = in_tenant(pe[n]), in_tenant(ce[n])
+        # both sides must carry the same signal: a day without `inInventory` against a day with it is no move
+        if isinstance(pe[n].get("inInventory"), bool) != isinstance(ce[n].get("inInventory"), bool):
+            hp = hc
+        if hp != hc:
+            (add if hc else rem).add(n)
+            GRANT_MOVES[(which, n)] = ("added" if hc else "removed", norm(pe[n].get("kind")), norm(ce[n].get("kind")))
+            continue
         for f in ("kind", "docStatus", "version", "changed", "serviceStatus"):
             a, b = norm(pe[n].get(f)), norm(ce[n].get(f))
             if a != b:
                 mod.append((n, f, a, b))
-    return add, rem, mod, len(pe), len(ce)
+    return sorted(add), sorted(rem), mod, len(pe), len(ce)
 
 # Pola komponentu, ktorych ruch jest ZMIANA. §5ag: wersja, stan wydania i termin.
 # §5bf: `checkedOn` zmienia sie przy kazdym przebiegu (to data ODCZYTU), a `lastChange` jest
@@ -8289,8 +8315,13 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     # --- catalog
     def catrows(add, rem, mod, name, tab=None, home_="/"):
         r = []
-        for n in add[:60]: r.append(("", ['<ins>added</ins>', "<code>%s</code>%s" % (esc(n), deep_link(tab, n, home_)), ""]))
-        for n in rem[:60]: r.append(("", ['<del>removed</del>', "<code>%s</code>" % esc(n), ""]))
+        wh_ = "graph" if name == "Graph" else "roles"
+        def gnote(n):   # §5db: known before from Microsoft's deployment map, grantable here from this run (or no longer)
+            gm = GRANT_MOVES.get((wh_, n))
+            return ('<span class="field">grantable here</span> <del>%s</del><span class="arrow">&rarr;</span><ins>%s</ins>'
+                    % (esc(gm[1]) or "not set", esc(gm[2]) or "cleared")) if gm else ""
+        for n in add[:60]: r.append(("", ['<ins>added</ins>', "<code>%s</code>%s" % (esc(n), deep_link(tab, n, home_)), gnote(n)]))
+        for n in rem[:60]: r.append(("", ['<del>removed</del>', "<code>%s</code>" % esc(n), gnote(n)]))
         for n, f, a, b in mod[:60]:
             r.append(("", ["changed", "<code>%s</code>%s" % (esc(n), deep_link(tab, n, home_)),
                            '<span class="field">%s</span> <del>%s</del><span class="arrow">&rarr;</span><ins>%s</ins>'
@@ -9094,8 +9125,12 @@ def ledger(path, prev_st, prev_cat, curr_st, curr_cat, when, kind):
     for which, tab in (("graph", "Graph API"), ("roles", "Roles")):
         a, r, m, _, _ = diff_catalog(pc, cc, which)
         sf = lambda n_: SURF.get((which, n_))
-        for n in a: put(tab, "added", n, None, None, None, None, sf(n))
-        for n in r: put(tab, "removed", n, None, None, None, None, sf(n))
+        for n in a:
+            gm = GRANT_MOVES.get((which, n))   # §5db: grantable here from now on, known before from the deployment map
+            put(tab, "added", n, "grantable here" if gm else None, gm[1] if gm else None, gm[2] if gm else None, None, sf(n))
+        for n in r:
+            gm = GRANT_MOVES.get((which, n))
+            put(tab, "removed", n, "grantable here" if gm else None, gm[1] if gm else None, gm[2] if gm else None, None, sf(n))
         for n, f, o, v in m: put(tab, "changed", n, f, o, v, None, sf(n))
     # §5ar: edycja tekstu strony jest zmiana jak kazda inna i wchodzi do rejestru
     # PER STRONA, a nie per linia — 52 linie dodane w trzech plikach dawaly 52 wiersze
@@ -10933,6 +10968,46 @@ A na koniec `<body>`, jako CZWARTY blok `<script>`, ten kod — kopiowany dalej 
 jak trzy skrypty powloki:
 
 ```js
+/* §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X - why does our page say CHANGED?").
+   The register (ledger14) written before §5db recorded a catalog entry that moved from "not in this tenant" (known
+   only from Microsoft's deployment map) into the tenant as four CHANGED fields (kind, docStatus, version, changed).
+   For the reader it is a permission NEW in this tenant. This runs before every other script of the page and
+   rewrites such a group in the state block once: one ADDED entry "grantable here" (before -> after kind); the
+   opposite move is REMOVED. The file site/data/changelog.json is not touched (§5aj); make_diff.py writes the new
+   shape itself from §5db on (diff_catalog / GRANT_MOVES). */
+(function () {
+  var el = document.getElementById("soc-brief-state"); if (!el) return;
+  var txt = el.textContent || "";
+  if (txt.indexOf("not-in-tenant") < 0 && txt.indexOf("deployed elsewhere") < 0 && txt.indexOf("not in this tenant") < 0) return;
+  var st; try { st = JSON.parse(txt); } catch (e) { return; }
+  var L = st && st.ledger14 && st.ledger14.entries; if (!L || !L.length) return;
+  var OUT = /^deployed in the service, not in this tenant/i;
+  function away(f, v) { v = String(v || ""); return f === "docStatus" ? v === "not-in-tenant" : f === "kind" ? OUT.test(v) : f === "serviceStatus" ? /deployed elsewhere/i.test(v) : null; }
+  var groups = {}, order = [];
+  L.forEach(function (e, i) {
+    if (!e || e.kind !== "changed" || (e.tab !== "Graph API" && e.tab !== "Roles") || !e.id) return;
+    var k = e.seen + "\u0001" + e.tab + "\u0001" + e.id; if (!groups[k]) { groups[k] = []; order.push(k); } groups[k].push(i);
+  });
+  var drop = {}, put = {}, n = 0;
+  order.forEach(function (k) {
+    var idx = groups[k], dir = null, kb = null, ka = null;
+    idx.forEach(function (i) {
+      var e = L[i], b = away(e.field, e.before), a = away(e.field, e.after);
+      if (b === null) return;
+      if (b && !a) dir = dir || "added"; else if (!b && a) dir = dir || "removed";
+      if (e.field === "kind") { kb = e.before; ka = e.after; }
+    });
+    if (!dir) return;
+    var f = L[idx[0]], m = {}; for (var x in f) m[x] = f[x];
+    m.kind = dir; m.field = "grantable here"; m.before = kb || (dir === "added" ? "not in this tenant" : "in this tenant");
+    m.after = ka || (dir === "added" ? "in this tenant" : "not in this tenant"); m.detail = null;
+    put[idx[0]] = m; idx.slice(1).forEach(function (i) { drop[i] = 1; }); n++;
+  });
+  if (!n) return;
+  st.ledger14.entries = L.map(function (e, i) { return put[i] || e; }).filter(function (e, i) { return !drop[i]; });
+  st.ledger14.grantMoves = n;
+  try { el.textContent = JSON.stringify(st); } catch (e) {}
+})();
 /* ===========================================================================
    SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
    ADDED, never a replacement. The three shell scripts stay untouched; this one
@@ -27819,6 +27894,26 @@ zaslanial tytul artykulu w Learn/Blogs/Community na telefonie), kolumna daty lis
 nie publikuje w nim od 03/08/2026 (sprawdzone WebFetch), strona to juz oznacza; dane workflow z 10 X; kopia Learn —
 przebieg 07:42 UTC przekroczyl 40 min i stracil prace → `learn-mirror.yml` limit 60 min, przebieg uruchomiony recznie.
 
+**§5db (10 X 2026, wlasciciel 17:04: „piszesz, ze uprawnienie Graph jest CHANGED, a wedlug Bradleya pojawilo sie 9 X,
+wiec powinno byc ADDED — co robimy zle? z rolami podobnie; kiedy piszemy changed, a kiedy new albo updated, jak w innych
+zakladkach?").** Zmierzone: katalog znal `CopilotCostManagement-Policy.ReadWrite.All` od 03/09/2026 z mapy wdrozen
+Microsoftu (`provisioningInfo.json`: „Deployed in the service, not in this tenant", `docStatus` not-in-tenant,
+`inInventory` false); 9 X weszlo do service principala Microsoft Graph (`inInventory` true). `diff_catalog()` liczyl
+„added" tylko dla nazw nowych w katalogu, wiec rejestr zapisal 4 zmiany pol jako CHANGED. Ta sama pomylka w 14 dniach:
+6 X (12 uprawnien CustomObject/ContentHub), 2 X (ThreatHunting.ReadWrite.All), 28 IX (3). (R1) `diff_catalog()`:
+wpis, ktory przechodzi z „nie w tym tenancie" do tenanta, jest ADDED, odwrotnie REMOVED; o przynaleznosci decyduje
+`inInventory` (gdy oba dni je niosa), inaczej `docStatus` not-in-tenant / kind „Deployed in the service, not in this
+tenant"; pola ksiegowe takiego wpisu nie ida jako zmiany; `GRANT_MOVES` niesie stan przed/po. (R2) `ledger()` pisze
+taki wpis jako added/removed z polem `grantable here` (przed → po: kind). (R3) `/diff/` (`catrows`) dopisuje
+„grantable here" przy takim wierszu. (R4) Strona (poczatek SKRYPTU 4, przed kazdym innym skryptem): wpisy rejestru
+zapisane przed §5db (grupa CHANGED tego samego dnia/zakladki/nazwy z przejsciem docStatus not-in-tenant / kind
+Deployed... / serviceStatus deployed elsewhere) zamienia RAZ w bloku stanu na jeden ADDED/REMOVED „grantable here" —
+licznik menu, naglowek zakladki, „Since the previous brief", dziennik i wykres licza to samo; `changelog.json` nietkniety
+(§5aj). (R5) „Since the previous brief" pisze „became grantable in this tenant (was: …)". (R6) About → „How to read this
+page": slownik NEW / CHANGED / REMOVED dla kazdej rodziny zakladek; README pkt 13.7. Wynik 10 X: Graph +7 new, ~7
+changed (3 uprawnienia: CrossTenantContentMigration.Read.All i .ReadWrite.All — nowy zakres delegowany, EntraBackup.Read.All
+— nowy tekst); bylo ~35 changed.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30967,6 +31062,12 @@ odtad CZTERNASCIE (4-17).**
           var chs = el("span", "s5bn-chs" + (fl.length > 1 ? " s5bn-multi" : ""));
           fl.forEach(function (x) {
             var ch = el("span", "s5bn-ch");
+            /* §5db: a move into / out of this tenant, said in words; the previous catalog state in brackets */
+            if (x.field === "grantable here") {
+              ch.appendChild(el("b", null, x.kind === "removed" ? "no longer grantable in this tenant" : "became grantable in this tenant"));
+              if (x.before) ch.appendChild(document.createTextNode(" (was: " + x.before + ")"));
+              chs.appendChild(ch); return;
+            }
             if (x.field) ch.appendChild(el("span", "s5bn-f", x.field + ":"));
             if (x.before) ch.appendChild(el("del", null, x.before));
             if (x.before && x.after) ch.appendChild(document.createTextNode(" → "));
@@ -37182,6 +37283,15 @@ odtad CZTERNASCIE (4-17).**
       "The green frame top right says when the brief, the page code and the latest data were refreshed; every tab repeats its own time under its heading. 24h / AM/PM switches the time format everywhere.",
       "“What changed since the last brief” (in the frame and under the title) opens the /diff/ page: the whole day by tab and technology, with what the afternoon pass added.",
       "Back from this tab: the “← Back” button at the top, or any tab in the menu."]));
+    /* §5db (owner 10 X 17:04: "when do we write CHANGED, and when NEW or UPDATED - in every tab?") */
+    ch.appendChild(el("h4", "s5cz-h4", "New, changed, removed — what each word means"));
+    ch.appendChild(ul([
+      "Graph API and Roles — NEW: a permission or role that was not in the previous brief's catalog, or one that became grantable in this tenant (Microsoft's deployment map listed it as deployed elsewhere; now it is in this tenant's Microsoft Graph service principal). CHANGED: an entry already listed got a different value — documentation status, version, consent, endpoints, description. REMOVED: it left the catalog or is no longer grantable here.",
+      "New, Today, Deadlines, Products — NEW: an item first tracked by this brief. CHANGED: an item already listed whose status, date, title or text moved. REMOVED: it left the 14-day window.",
+      "Message Center — NEW (the pill): a post first seen by this brief. Microsoft's own words in the list and the day grid: “new” = published that day, “updated” = revised by Microsoft that day. CHANGED: a field of a post already listed moved (for example the revision date). REMOVED: the post left the list.",
+      "Microsoft Learn, Blogs, Community — added to the list: an entry first seen; changed: its date or text moved; left the list: it fell out of the source's feed or the window — nothing was deleted at the source.",
+      "Component versions — CHANGED: a new version, release state or end-of-support date; NEW: a component tracked for the first time. First-party apps — added / removed: a Microsoft app appeared in or left the inventory; changed: its permissions or properties moved. Campaigns — new campaign, changed (a date moved, new material), closed.",
+      "Counters (menu on the left, tab heading, “Since the previous brief”) count changes; one item with three changed fields counts as three changes and is shown once with its three fields."]));
     g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
     c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
@@ -38820,6 +38930,7 @@ tr.s5da-cap{display:none!important}
  .tabpanel summary>.ntlab~span:not(.ntn){flex:1 1 100%;order:5;min-width:0}
  .tabpanel details.ntsec>summary,.tabpanel details.dsec>summary{flex-wrap:wrap}
 }
+#tab-about .s5cz-h4{margin:12px 0 6px;font-size:13.5px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
