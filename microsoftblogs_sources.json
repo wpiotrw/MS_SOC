@@ -88,6 +88,10 @@
     "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-cloud/blog/MicrosoftDefenderCloudBlog"
   },
   {
+    "SourceName": "Microsoft Defender for Cloud Apps Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-cloud-apps/blog/MicrosoftDefenderCloudAppsBlog"
+  },
+  {
     "SourceName": "Microsoft Defender for Office 365 Blog",
     "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-defender-for-office-365/blog/MicrosoftDefenderforOffice365Blog"
   },
