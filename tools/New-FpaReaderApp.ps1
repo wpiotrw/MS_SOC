@@ -12,11 +12,12 @@
 
   Skrypt jest idempotentny - mozna go uruchomic ponownie:
     1. aplikacja (single tenant) z uprawnieniami aplikacyjnymi Graph: Application.Read.All,
-       DelegatedPermissionGrant.Read.All i ServiceMessage.Read.All (Message Center tenanta, tools/mc_tenant.py,
-       od 9 X 2026 w skrypcie) - tworzy albo poprawia requiredResourceAccess,
+       DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All (Message Center tenanta, tools/mc_tenant.py,
+       od 9 X 2026 w skrypcie) i RoleManagement.Read.Directory (definicje rol Entra, tools/graph_sp.py,
+       od 10 X 2026) - tworzy albo poprawia requiredResourceAccess,
     2. service principal,
     3. poswiadczenie federacyjne GitHub OIDC (repo:<Repo>:ref:refs/heads/<Branch> albo -Subject) - bez sekretu,
-    4. zgoda administratora = przypisanie trzech rol aplikacyjnych do service principala.
+    4. zgoda administratora = przypisanie czterech rol aplikacyjnych do service principala.
   Wynik trafia na ekran i do pliku JSON ($OutFile). Wartosci tenantId i appId wpisz w env:
   pliku .github/workflows/fpa-tenant.yml (README.md, rozdz. 5.3).
 
@@ -73,7 +74,7 @@ $me = Gr GET '/me?$select=userPrincipalName'
 
 # --- 1. aplikacja z uprawnieniami ---
 $graph = (Gr GET "/servicePrincipals?`$filter=appId eq '00000003-0000-0000-c000-000000000000'&`$select=id,appId,appRoles").value[0]
-$want  = @('Application.Read.All', 'DelegatedPermissionGrant.Read.All', 'ServiceMessage.Read.All')
+$want  = @('Application.Read.All', 'DelegatedPermissionGrant.Read.All', 'ServiceMessage.Read.All', 'RoleManagement.Read.Directory')
 $roles = @($graph.appRoles | Where-Object { $_.value -in $want })
 if ($roles.Count -ne $want.Count) { throw "Nie znaleziono wszystkich rol Graph: $($want -join ', ') (znaleziono $($roles.Count))" }
 $rra = @(@{ resourceAppId = $graph.appId; resourceAccess = @($roles | ForEach-Object { @{ id = $_.id; type = 'Role' } }) })

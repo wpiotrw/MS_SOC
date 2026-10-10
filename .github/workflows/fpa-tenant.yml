@@ -2,7 +2,8 @@ name: First-party apps tenant snapshot
 
 # Daily, before the 06:00 Warsaw morning task (04:00 UTC), so the brief reads a fresh file.
 # Signs in with a federated credential (no secret): Entra app "MS-SOC First-party apps reader",
-# Application.Read.All + DelegatedPermissionGrant.Read.All (application, read-only), admin-consented. To move to another tenant, change the two
+# Application.Read.All + DelegatedPermissionGrant.Read.All + ServiceMessage.Read.All (+ RoleManagement.Read.Directory for the
+# role definitions, optional) - application, read-only, admin-consented. To move to another tenant, change the two
 # values below and follow README.md, "First-party apps: tenant snapshot".
 on:
   schedule:
@@ -38,18 +39,40 @@ jobs:
         # ServiceMessage.Read.All; a 403 is recorded in the file, never fails the snapshot above
         continue-on-error: true
         run: python3 tools/mc_tenant.py site/data/mc-tenant.json
+      - name: Microsoft's Graph permissions and Entra roles as our tenant sees them (CLAUDE.md 5cy)
+        # Application.Read.All for the permissions; the roles need RoleManagement.Read.Directory - a 403 there is
+        # recorded in the file (rolesNote) and the permissions part is still written
+        id: graphsp
+        continue-on-error: true
+        run: python3 tools/graph_sp.py site/data/graph-sp.json site/data/graph-sp-history.json
       - name: Our copy of the first-party app sources and Microsoft's docs list (CLAUDE.md 5cw-b)
         continue-on-error: true
         run: python3 tools/fpa_sources.py
       - name: Commit when it changed
+        id: commit
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/fpa-tenant.json site/data/mc-tenant.json 2>/dev/null || git add site/data/fpa-tenant.json
           git add cache/fpa site/data/fpa-docs.json 2>/dev/null || true
+          git add site/data/graph-sp.json site/data/graph-sp-history.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
-            git commit -m "data: tenant snapshot (first-party apps, Message Center) $(date -u +%F)"
+            # a new Graph permission or role change goes live now, not with the next morning run (5cy)
+            if [ "${{ steps.graphsp.outputs.events || '0' }}" != "0" ] || git diff --cached --name-status | grep -q '^A.*graph-sp-history.json'; then
+              echo "deploy=yes" >> "$GITHUB_OUTPUT"; fi
+            git commit -m "data: tenant snapshot (first-party apps, Message Center, Graph permissions) $(date -u +%F)"
             git pull --rebase -q origin main
             git push origin main
           fi
+      - name: Deploy when Microsoft's Graph permissions or roles changed
+        if: steps.commit.outputs.deploy == 'yes'
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/site"
+          api_location: ""
+          output_location: ""
+          skip_app_build: true
