@@ -6530,6 +6530,7 @@ FIND_BODY = """<script>
     ["MDE",          /^(mde|defender for endpoint)$/i],
     ["MDI",          /^(mdi|defender for identity)$/i],
     ["MDA",          /^(mda|mdca|defender for cloud apps)$/i],
+    ["MDO",          /^(mdo|defender for office 365|defender for office)$/i],   /* §5dh */
     ["Defender XDR", /^(defender xdr|xdr)$/i],
     ["Exchange",     /^(exchange|exchange online)$/i]
   ];
@@ -11049,7 +11050,7 @@ jak trzy skrypty powloki:
   ];
   var PRODUCT_SERVICE = {
     "Graph": "Graph API", "Defender XDR": "Defender XDR", "MDE": "Defender for Endpoint",
-    "MDI": "Defender for Identity", "MDA": "Defender for Cloud Apps",
+    "MDI": "Defender for Identity", "MDA": "Defender for Cloud Apps", "MDCA": "Defender for Cloud Apps", "MDO": "Defender for Office 365",   /* §5dh */
     "MDVM": "Exposure Management", "Exposure Management": "Exposure Management",
     "Sentinel": "Sentinel", "Intune": "Intune", "Purview": "Purview",
     "Exchange Online": "Exchange Online", "Teams": "Teams", "SharePoint": "SharePoint",
@@ -11060,7 +11061,7 @@ jak trzy skrypty powloki:
   var ORDER = ["Entra ID", "Entra Connect / Cloud Sync", "Conditional Access",
     "Authentication methods", "Identity Governance / PIM", "Entra roles", "Identity Protection",
     "Graph API", "Defender XDR", "Defender for Endpoint", "Defender for Identity",
-    "Defender for Cloud Apps", "Exposure Management", "Sentinel", "Threat Intel",
+    "Defender for Cloud Apps", "Defender for Office 365", "Exposure Management", "Sentinel", "Threat Intel",
     "Purview", "Intune", "M365 admin", "Exchange Online", "SharePoint", "Teams",
     "Copilot Studio", "Windows", "Windows Server", "Azure"];
 
@@ -28038,6 +28039,20 @@ bez widocznej tresci w danym widoku jest ukryte (pusta ramka pod Check a call); 
 (G4) Roles: kafelki/lista §5dc juz obejmowaly role; w dzien bez zmian pudelko mowi, co sie pojawi. Sprawdzone na
 kopii strony z dniem 08/10/2026: kafelek Tenant Governance Administrator (CHANGED, Privileged), Tiles | List, filtr.
 
+**§5dh (10 X 2026, wlasciciel 21:53: „upewnijmy sie, ze nie pomijamy Defender for Cloud Apps i Defender for Office —
+czy mamy zrodla w JSON-ach i Learn, what's new …; to wazne tematy: kampanie, duzo zmian w artykulach, nowosci").**
+Sprawdzone tego dnia: oba obszary sa w `microsoftlearn_sources.json`; oba what's new czyta collect_nt.py (MDCA
+release-notes, nowsza pozycja 04/10/2026; MDO defender-for-office-365-whats-new) — w Microsoft Learn 40 pozycji z obu,
+4 w ostatnich dniach; zmiany artykulow obu folderow czyta merill/defender-docs-mirror (MDO 9 stron, MDCA 11 stron
+w oknie, pokrycie „covered"); nasza kopia Learn ma grupy defender-office-365 (18 stron) i defender-cloud-apps (16);
+blog MDO jest w `microsoftblogs_sources.json`, kampania MDCA (file policies) jest sledzona. Luki i poprawki:
+(H1) brakowalo bloga Defender for Cloud Apps — dopisany (TechCommunity, kategoria microsoft-defender-for-cloud-apps;
+collect_blogs probuje board.id, potem category.id); (H2) skrypty strony nie znaly MDO: alias kanoniczny ["MDO"],
+PRODUCT_SERVICE „MDO"/„MDCA" i kolejnosc uslug z „Defender for Office 365" — inaczej pozycje MDO wpadaly do innej
+uslugi w „Per service"; (H3) lista Deadlines („Cover …") i tabele zakladki Products wymieniaja MDA i MDO;
+(H4) lista §7 ma dla obu dokumentacje i blog. Workflow „Collector check" wypisuje teraz oba blogi Defender i werdykt
+what's new obu obszarow. Bramka 81b (kazdy blog ma wpis w nt.blogs) czeka na pierwszy przebieg z nowym blogiem.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -40862,9 +40877,12 @@ If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSe
 
 ### Defender for Cloud Apps
 - https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes
+- Documentation: https://learn.microsoft.com/en-us/defender-cloud-apps/ (article changes: merill/defender-docs-mirror, folder defender-for-cloud-apps)
+- Blog: https://techcommunity.microsoft.com/category/microsoft-defender-for-cloud-apps/blog/MicrosoftDefenderCloudAppsBlog
 
 ### Defender for Office 365
 - https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
+- Documentation: https://learn.microsoft.com/en-us/defender-office-365/ (article changes: merill/defender-docs-mirror, folder defender-office-365)
 - Blog: https://techcommunity.microsoft.com/category/microsoft-security/blog/microsoftdefenderforoffice365blog
 
 ### Microsoft Intune
@@ -41058,10 +41076,10 @@ The ONE section reporting current state regardless of window — a quiet week is
 
 ### G. DEADLINES INSIDE 60 DAYS
 Table: | Service | Change | Deadline | Days | Impact | Required Action | Source |
-Nearest first. 🔥 under 30 days, ⚠️ 30–60. Cover Sentinel, Defender, MDE, MDI, MDA, Entra, Intune, Purview, Exchange, Graph/API, Windows lifecycle and portals. **`<section id="elapsed">` comes FIRST** (§5z). **Beyond 60 days is a TABLE, never a paragraph** (§5ab): `<section id="horizon" data-nav="Beyond 60 days">` with the same columns, one row per item — prose is not a row and cannot be searched or filtered. An item past 60 days but inside 120 with `socWeight <= 2` or `tier0Touch:true` is promoted back into the MAIN table in a `61–120 days` band.
+Nearest first. 🔥 under 30 days, ⚠️ 30–60. Cover Sentinel, Defender, MDE, MDI, MDA (Defender for Cloud Apps), MDO (Defender for Office 365), Entra, Intune, Purview, Exchange, Graph/API, Windows lifecycle and portals. **`<section id="elapsed">` comes FIRST** (§5z). **Beyond 60 days is a TABLE, never a paragraph** (§5ab): `<section id="horizon" data-nav="Beyond 60 days">` with the same columns, one row per item — prose is not a row and cannot be searched or filtered. An item past 60 days but inside 120 with `socWeight <= 2` or `tier0Touch:true` is promoted back into the MAIN table in a `61–120 days` band.
 
 ### H. PER-PRODUCT DEEP DIVE
-One table per product with in-window material — Entra, Sentinel, Defender XDR, MDE, MDI, Intune, Purview. Columns vary, last is always `Source`:
+One table per product with in-window material — Entra, Sentinel, Defender XDR, MDE, MDI, MDA (Defender for Cloud Apps), MDO (Defender for Office 365), Intune, Purview (§5dh, 10 X 2026: the owner — "important topics: campaigns, many article changes, many new features" — so neither product may fall into Defender XDR silently). Columns vary, last is always `Source`:
 - Entra — | Area | Change | Security Impact | Action | Source |
 - Sentinel — | Area | Change | SOC Impact | Action | Source |
 - Defender XDR — | Capability | Change | SOC Impact | Action | Source |
