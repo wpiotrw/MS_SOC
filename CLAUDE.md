@@ -5350,6 +5350,77 @@ def diff_fpa(prev_st, curr_st):
     return rows, a, r, c, ""
 
 
+IDENT_KIND = {"New in service, not yet documented": "became grantable", "No longer in the service": "removed from the service",
+              "New permission": "new permission", "Changed permission": "changed in the service"}
+IDENT_RKIND = {"Actions added": "gained actions", "Actions removed": "lost actions", "New role": "new built-in role",
+               "Condition changed": "condition changed"}
+
+def _cut(t, n):
+    """never inside a word"""
+    t = t or ""
+    return t if len(t) <= n else re.sub(r"\s+\S*$", "", t[:n]) + "…"
+
+def identity_rows(prev_st, prev_cat, curr_st, curr_cat, prev_d, curr_d):
+    """§5cy (10 X 2026, owner: "monitor not only campaigns but roles, Graph API, first-party apps and all of those
+    changes"): the identity surface at the top of the page - what changed in WHO CAN DO WHAT between the two states.
+    A Graph permission that became grantable, was removed or changed (catalog `kind`), a role that gained or lost
+    actions or is new, a new first-party app (`fpa.chg`), and what our own tenant read every three hours
+    (site/data/graph-sp-history.json, tools/graph_sp.py) between the two days. Returns a list of
+    (surface, name, what, detail) - the endpoint changes stay in their own section below."""
+    rows, seen = [], set()
+    def add(surface, name, what, detail=""):
+        k = (surface, name, what)
+        if k in seen: return
+        seen.add(k); rows.append(k + (detail,))
+    if prev_cat and curr_cat:
+        pg = {e.get("name"): e for e in (prev_cat.get("graph") or []) if e.get("name")}
+        for e in curr_cat.get("graph") or []:
+            n = e.get("name"); k = norm(e.get("kind"))
+            if not n or k not in IDENT_KIND: continue
+            was = pg.get(n)
+            if was is None or norm(was.get("kind")) != k:
+                d = e.get("descriptionByType") or {}
+                add("Graph permission", n, IDENT_KIND[k], (" + ".join(e.get("permTypes") or []) + " · " if e.get("permTypes") else "")
+                    + _cut(norm(d.get("Application") or d.get("Delegated") or e.get("description")), 180))
+        pr = {e.get("name"): e for e in (prev_cat.get("roles") or []) if e.get("name")}
+        for e in curr_cat.get("roles") or []:
+            n = e.get("name"); k = norm(e.get("kind"))
+            if not n: continue
+            was = pr.get(n)
+            if was is None and pr:
+                add("Entra role", n, "new built-in role", "privileged" if e.get("privileged") else "")
+            elif was is not None and k in IDENT_RKIND and norm(was.get("kind")) != k:
+                add("Entra role", n, IDENT_RKIND[k], "privileged" if e.get("privileged") else "")
+            elif was is not None and bool(e.get("privileged")) and not bool(was.get("privileged")):
+                add("Entra role", n, "now marked privileged", "")
+    lo, hi = norm(prev_d), norm(curr_d) or "9999"
+    pf = (prev_st or {}).get("fpa") or {}
+    if pf.get("apps"):
+        for x in ((curr_st or {}).get("fpa") or {}).get("chg") or []:
+            if x.get("t") == "added" and lo < str(x.get("d") or "") <= hi:
+                add("First-party app", norm(x.get("n") or x.get("id")).strip(), "new Microsoft application", "")
+    cands = [os.path.join(os.path.dirname(CAMPAIGNS_FILE), "graph-sp-history.json") if CAMPAIGNS_FILE else "",
+             os.path.join(os.getcwd(), "site", "data", "graph-sp-history.json"),
+             os.path.join(os.environ.get("SOC_REPO", ""), "site", "data", "graph-sp-history.json") if os.environ.get("SOC_REPO") else ""]
+    hp = next((c for c in cands if c and os.path.exists(c)), "")
+    if hp:
+        try:
+            TM = {"added": "became grantable", "removed": "removed from the service", "type-added": "gained a type",
+                  "type-removed": "lost a type", "consent": "consent changed", "enabled": "enabled or disabled",
+                  "actions-added": "gained actions", "actions-removed": "lost actions", "privileged": "now marked privileged"}
+            for x in json.load(open(hp, encoding="utf-8")).get("events") or []:
+                if not (lo < str(x.get("day") or "") <= hi) or x.get("change") not in TM: continue
+                surf = "Graph permission" if x.get("surface") == "permission" else "Entra role"
+                add(surf, norm(x.get("name")), TM[x["change"]], ("seen in our tenant %s UTC · " % str(x.get("seen") or "")[:16].replace("T", " "))
+                    + norm(x.get("type") or "") + (" · " + _cut(norm(x.get("text")), 160) if x.get("text") else ""))
+        except (OSError, ValueError) as ex_:
+            print("UWAGA  §5cy: graph-sp-history.json unreadable: %s" % ex_)
+    order = {"Graph permission": 0, "Entra role": 1, "First-party app": 2}
+    rank = {"became grantable": 0, "removed from the service": 1, "consent changed": 2, "new built-in role": 3, "now marked privileged": 4}
+    rows.sort(key=lambda r: (order.get(r[0], 9), rank.get(r[2], 5), r[1]))
+    return rows
+
+
 def diff_graphmap(prev_st, curr_st):
     """Zwraca (wiersze, liczniki). Wiersz = (uprawnienie, rodzaj, tekst przed, tekst po).
 
@@ -6081,6 +6152,11 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
 .dwin .dwin-aft{margin-top:8px;padding:8px 12px;border:1px solid var(--warn);border-radius:8px;background:var(--warn-soft)}
 .dwin ul{margin:6px 0 0;padding-left:20px}.dwin li{margin:2px 0}
 .dwin .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--surface-2,var(--accent-soft));font-size:11.5px;font-weight:600;margin-right:6px}
+.didn{margin:10px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--bad,#cf222e);border-radius:8px;background:var(--surface)}
+.didn p{margin:0 0 6px}.didn ul{margin:6px 0 0;padding-left:20px}.didn li{margin:3px 0;overflow-wrap:anywhere}
+.didn .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-size:11.5px;font-weight:600;margin-right:6px}
+.didn .didn-d{display:block;color:var(--muted);font-size:12.5px;margin-left:2px}
+.didn li:hover,.didn:hover{outline:1px solid var(--accent);outline-offset:-1px}
 details.dhow{margin:8px 0 0}
 details.dhow>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent)}
 .mcol{font-size:12.5px;color:var(--muted);white-space:nowrap}
@@ -7414,6 +7490,22 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         win_.append('</ul></div>')
     win_.append('</div>')
     out.append("".join(win_))
+    # §5cy: the identity surface first - a new grantable permission or a role change is not lost among the
+    # ~35 Graph changes of a day
+    try: idr = identity_rows(prev_st, prev_cat, curr_st, curr_cat, prev_d, curr_d)
+    except Exception as ex_: print("UWAGA  §5cy: identity rows skipped: %s" % ex_); idr = []
+    if idr:
+        cnt = {}
+        for r_ in idr: cnt[r_[2]] = cnt.get(r_[2], 0) + 1
+        out.append('<div class="didn" id="identity"><p><b>Identity surface &mdash; who can do what, %d change%s:</b> %s.</p><ul>'
+                   % (len(idr), "" if len(idr) == 1 else "s", " &middot; ".join("%d %s" % (v, esc(k)) for k, v in
+                      sorted(cnt.items(), key=lambda kv: -kv[1]))))
+        for surf_, n_, w_, d_ in idr[:40]:
+            lk = deep_link("Graph API" if surf_ == "Graph permission" else "Roles", n_, home) if surf_ != "First-party app" else ""
+            out.append('<li><span class="dwin-p">%s</span><b>%s</b> &mdash; %s%s%s</li>'
+                       % (esc(surf_), esc(n_), esc(w_), lk, (' <span class="didn-d">%s</span>' % esc(d_)) if d_ else ""))
+        if len(idr) > 40: out.append('<li>&hellip; and %d more in the sections below</li>' % (len(idr) - 40))
+        out.append('</ul></div>')
     # read by the main page (§5cj): the date this page covers and what the main page does not show
     out.append('<div id="diff-meta" hidden data-date="%s" data-prev="%s" data-afternoon-at="%s" data-afternoon="%s"'
                ' data-split="%s"></div>' % (esc(curr_d), esc(prev_d), esc(_pas.get("afternoon") or ""),
@@ -9184,6 +9276,14 @@ opisac go na Learn.
 
 ### Jak przebieg czyta stan uslugi
 
+a0. **Nasz odczyt z tenanta co 3 godziny (od 10 X 2026, §5cy)** — `site/data/graph-sp.json` (stan: kazda nazwa
+   uprawnienia z rola aplikacyjna, zakresem delegowanym i RSC — id, `isEnabled`, typ zgody Admin/User, tekst zgody
+   Microsoftu; definicje rol wbudowanych, gdy aplikacja ma RoleManagement.Read.Directory) i
+   `site/data/graph-sp-history.json` (zdarzenia: `added`, `removed`, `type-added`, `type-removed`, `consent`,
+   `enabled`, `text`, dla rol `actions-added`, `actions-removed`, `privileged`; pole `seen` = minuta odczytu UTC).
+   Pisze je `tools/graph_sp.py` w workflow `fpa-tenant.yml`. Gdy plik ma `read` z ostatnich 26 godzin, to jest
+   zrodlo pierwsze: nowe uprawnienie bierzesz z `events` (`change: added`) z data `seen` jako `serviceSeen`,
+   GUID z pliku stanu (odczyt u zrodla). Gdy pliku nie ma albo jest starszy — punkty a i b jak dotad.
 a. **Lokka**, gdy pulpit wlasciciela jest podlaczony
    (`mcp__remote-devices__Lokka-Microsoft__Lokka-Microsoft`, apiType `graph`, method `get`) —
    odpytaj SP wprost, po jednej kolekcji na wywolanie, i **zapisz surowa odpowiedz do pliku**
@@ -27414,6 +27514,38 @@ od 721 px po lewej od bloku tytulu (`padding-left` 168 / 144 px), na telefonie w
 `/week/` 120 px (telefon 96 px). Od 2160 px bez zmian (260 px w marginesie). `mark-*.webp` zostaja w `site/assets/`,
 ale strona ich nie uzywa.
 
+**§5cy (10 X 2026, wlasciciel: „czy nasze kontrole wykryly nowe uprawnienia Graph dla Copilota (Daniel Bradley,
+ourcloudnetwork.com, 9 X)? Nie widzialem tego w zdaniach, Overview, news ani Graph API — trzeba monitorowac nie tylko
+kampanie, ale role, Graph API, first-party apps i wszystkie ich zmiany"; 10:01 „rob zgodnie z planem").** Sprawdzone:
+brief 10 X mial te piec uprawnien (pozycja „Seven Graph permissions became grantable", zdanie 2, New, Graph API,
+zapytanie KQL), ale zdanie „Graph API & roles" rankowalo tylko uprawnienia, ktore dostaly endpointy, zdanie Copilot
+nie widzialo pozycji Graph, a zrodlem byl zrzut Merilla raz dziennie. Zmiany (plan w Projekcie,
+`claude/ms-soc-identity-surface-proposal-2026-10-10.md`):
+(P1) jeden ranking „powierzchni tozsamosci" (`window.__socIdent.rank`, warstwa §5cy w bloku kampanii JS): uprawnienie,
+ktore stalo sie nadawalne, zostalo usuniete, zmienilo zgode albo typ; rola nowa, z nowymi akcjami, oznaczona
+privileged; nowa aplikacja first-party — obok zmian endpointow z `__socGD.top` (owiniete). Punkty: poziom L z pliku
+DevX albo szacunek z nazwy (czlon po kropce: ReadWrite/Write/Manage… = zapis; rola aplikacyjna = bez uzytkownika),
++500 zapis, +250 rola aplikacyjna, premia za rodzaj zmiany (nadawalne 1000, usuniete 800, nowe 700, zgoda 600);
+rodzina (`CopilotCostManagement-…`) to jeden wiersz „i N wiecej". Zdanie nazywa sie teraz „Identity surface", liczy
+tez nowe aplikacje first-party z 14 dni i konczy zdaniem pasujacym do tego, co wymienia.
+(P2) rodzina uprawnienia i nazwa roli wskazuja technologie (mapa `FAM`: CopilotCostManagement → Copilot,
+AppFederatedCredentialIssuers → Entra ID, CloudPC → Intune, NetworkAccess → Entra ID…); zdania technologii i linie
+„One line per technology" dostaja wpis `ident:` — swiezy (od poprzedniego briefu albo z tenanta z ostatniej doby)
+prowadzi swoja technologie, starszy tylko wypelnia pusta. Wpis juz pokazany w „Identity surface" nie powtarza sie.
+(P3) karta Overview „Identity surface · last 7 days" pod karta wersji komponentow: cztery liczniki (uprawnienia
++/~/−, role, aplikacje first-party, endpointy +/−), kazdy otwiera swoja zakladke; piec najbardziej ryzykownych zmian
+(klik otwiera panel uprawnienia — takze nieudokumentowanego `dep-…`, roli albo aplikacji) i „Also this week" —
+chip na kazda pozostala rodzine.
+(P4) `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta service principal Microsoft Graph naszego tenanta
+(Application.Read.All) i definicje rol wbudowanych (RoleManagement.Read.Directory — bez niej 403, `rolesNote`, reszta
+dziala); pliki zapisuje tylko przy zmianie; workflow wdraza strone sam, gdy przybylo zdarzenie. Strona czyta
+`data/graph-sp-history.json` przy otwarciu, wiec zmiana z tenanta jest widoczna przed porannym briefem; przebieg
+poranny bierze ten plik jako zrodlo pierwsze (punkt a0 w „Jak przebieg czyta stan uslugi"), Merill zostaje kopia.
+(P5) `tools/New-FpaReaderApp.ps1` nadaje tez RoleManagement.Read.Directory — uruchamia wlasciciel.
+(P6) `/diff/`: blok „Identity surface — who can do what" zaraz pod „What this page compares" (`identity_rows()` w
+make_diff: katalog Graph i rol miedzy dwoma stanami, nowe aplikacje first-party, zdarzenia z tenanta miedzy dwoma
+dniami). P7 (msgraphpermissions.com jako zrodlo) — odlozone decyzja wlasciciela: uzywa tego samego pliku DevX co my.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -29731,6 +29863,8 @@ odtad CZTERNASCIE (4-17).**
          and under it the heaviest permission change of the week when there is one, else the latest. */
       /* §5ct: under the count, the changes that matter most for security this week and what they let an app do */
       var gtop = window.__socGD && window.__socGD.top ? window.__socGD.top(7, 3) : [];
+      var fpaNew = ((st.fpa || {}).chg || []).filter(function (x) { return x && x.t === "added" && x.d && days(x.d, today) >= 0 && days(x.d, today) < 14; }).length;
+      if (fpaNew) b3.firstChild.textContent += " · " + fpaNew + " new first-party app" + (fpaNew === 1 ? "" : "s");
       if (!gtop.length && window.__socGD && window.__socGD.top) gtop = window.__socGD.top(14, 3);
       b3.addEventListener("click", function () { goMs(ms14[0].tab); });
       if (gtop.length) {
@@ -29739,18 +29873,22 @@ odtad CZTERNASCIE (4-17).**
         gl.appendChild(el("span", "s5bk-gh", "Most important for security this week:"));
         gtop.forEach(function (g) {
           var gi = el("span", "s5bk-gi"), gn = el("button", "s5bk-gn", g.name); gn.type = "button"; gn.title = "Open " + g.name + " in Graph API";
-          gn.addEventListener("click", function () { window.__socGD.open(g.name); });
+          gn.addEventListener("click", function () { if (g.go) g.go(); else window.__socGD.open(g.name); });
           gi.appendChild(gn); gi.appendChild(el("span", "s5bk-gt", " " + g.tag)); gi.appendChild(el("span", "s5bk-gd", g.text));
           gl.appendChild(gi);
         });
-        gl.appendChild(el("span", "s5bk-gf", "An app that already holds one of these permissions gets the new endpoints with no new consent prompt and no audit entry."));
+        /* §5cy: the ranking now holds permissions that became grantable or changed consent, roles and first-party apps
+           beside the endpoint changes - the closing line names what applies to what is listed */
+        var gEp = gtop.some(function (g) { return !g.surface; }), gNew = gtop.some(function (g) { return g.surface === "permission"; });
+        gl.appendChild(el("span", "s5bk-gf", [gEp ? "An app that already holds a permission with new endpoints gets them with no new consent prompt and no audit entry." : "",
+          gNew ? "A permission that became grantable needs admin consent — Hunting & actions has the query for who grants it." : ""].filter(Boolean).join(" ")));
         gw.appendChild(gl);
-        sentence("Graph API & roles:", gw);
+        sentence("Identity surface:", gw);
       } else {
         b3.appendChild(el("span", "s5bk-itm", "latest: " + ms14[0].name + (ms14[0].kind ? " · " + ms14[0].kind : "") + " · " + fmt(ms14[0].d)));
-        sentence("Graph API & roles:", b3);
+        sentence("Identity surface:", b3);
       }
-    } else sentence("Graph API & roles:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
+    } else sentence("Identity surface:", el("span", null, "no dated change in Graph API or roles in the last 14 days."));
     /* §5cl (30 IX 2026, owner: "add the new component versions to the sentences — marked like on
        GitHub — and a sentence on a technology or the news of the day; twelve instead of ten").
        Sentence 4: every component whose version Microsoft moved since the previous brief (basis
@@ -29842,12 +29980,17 @@ odtad CZTERNASCIE (4-17).**
       var x = { id: k, tech: "Graph API", text: g.text, sub: g.sub, meta: g.meta };
       if (gi === 0) pool.unshift(x); else pool.push(x);   /* the heaviest one speaks for Graph API */
     });
+    /* §5cy (10 X 2026): a Graph permission or an Entra role change speaks for its technology too
+       (CopilotCostManagement -> Copilot), ahead of the other entries of that technology */
+    if (window.__socIdent && window.__socIdent.pool) try { window.__socIdent.pool(7, typeof gtop !== "undefined" ? gtop : []).forEach(function (x) {
+      if (BYID[x.id]) return; BYID[x.id] = { kind: "ident", go: x.go }; if (x.fresh) pool.unshift(x); else pool.push(x); }); } catch (e) { if (window.console) console.error("[5cy pool]", e); }
     /* §5cn: Graph API already has its sentence above (number 3) */
     pool = pool.filter(function (x) { return x.tech && BYID[x.id] && x.tech !== "Graph API"; });
     function go(id) {
       var r = BYID[id]; if (!r) return;
       if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
       if (r.kind === "perm" && window.__socGD) { window.__socGD.open(r.name); return; }
+      if (r.kind === "ident" && r.go) { r.go(); return; }
       if (!goItem(id) && r.it && r.it.url) window.open(r.it.url, "_blank", "noopener");
     }
     function line(lead, x, host, cls) {
@@ -29867,7 +30010,7 @@ odtad CZTERNASCIE (4-17).**
        news amber, a technology grey); the headline is a link in the accent colour with an arrow; the
        explanation is its own muted line; the facts (product, due date, new, MC number) are small pills. */
     function dress(list) {
-      var KIND = [[/^most urgent/i, "urgent"], [/^(biggest new|new\b)/i, "new"], [/^graph api/i, "graph"], [/^component/i, "comp"], [/^news/i, "news"]];
+      var KIND = [[/^most urgent/i, "urgent"], [/^(biggest new|new\b)/i, "new"], [/^(graph api|identity surface)/i, "graph"], [/^component/i, "comp"], [/^news/i, "news"]];
       [].forEach.call(list.children, function (li) {
         var b = li.querySelector(":scope > b"); if (!b || b.classList.contains("s5bk-k")) return;
         var lead = (b.textContent || "").trim().replace(/:\s*$/, ""), kind = "tech";
@@ -36071,6 +36214,349 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
+/* §5cy (10 X 2026, owner: "have our guardians detected the new Copilot Graph permissions? I did not see it in
+   the sentences, Overview, news or Graph API - it is crucial to monitor not only campaigns but roles, Graph API,
+   first-party apps and all of those changes"). The brief HAD it (item "Seven Graph permissions became grantable",
+   sentence 2, New, Graph API), but the Graph sentence ranked only permissions that gained endpoints, the Copilot
+   sentence never saw a Graph item, and nothing showed the identity surface in one place. This layer:
+     P1  one ranking for every change of the identity surface - a permission that became grantable, was removed,
+         gained or lost a type, changed consent; a role that was added, gained actions or became privileged; a new
+         first-party app - beside the endpoint changes __socGD.top already ranked. The Graph sentence uses it.
+     P2  a permission family names its technology (CopilotCostManagement -> Copilot, AppFederatedCredentialIssuers
+         -> Entra ID ...), so the technology sentences and lines carry the change too.
+     P3  the Overview card "Identity surface": Graph permissions, Roles, First-party apps, Endpoints - new / changed /
+         removed in 7 days, every number opens its tab - and the three riskiest changes.
+   Sources, all already on the page or the site: soc-brief-state.ledger14 (14 days of catalog changes, each brief),
+   soc-catalog.changeSummary (since the previous brief), soc-catalog.graph (types, consent, Microsoft's text),
+   soc-brief-state.gdiff (endpoints), soc-brief-state.fpa.chg (new apps), and data/graph-sp-history.json - our own
+   read of the Graph service principal and the role definitions every three hours (tools/graph_sp.py, P4), which
+   shows a change before the next morning brief. */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var MONS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
+  function dnum(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5 : null; }
+  function plus(d, n) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+  function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
+  function firstSentence(t, max) {
+    t = String(t || "").replace(/\s+/g, " ").trim(); max = max || 170;
+    var m = /^(.{25,}?[.!?])(\s|$)/.exec(t); if (m && m[1].length <= max) return m[1];
+    return t.length <= max ? t : t.slice(0, max).replace(/\s+\S*$/, "") + "…";
+  }
+
+  /* ---------- the data, read once, lazily (the state is ~9 MB) ---------- */
+  var D = null, TEN = null, TENT = 0;
+  try {
+    fetch("data/graph-sp-history.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { TEN = j || { events: [] }; TENT = 1; D = null; refresh(); }).catch(function () { TENT = 1; });
+  } catch (e) { TENT = 1; }
+  function data() {
+    if (D) return D;
+    var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {};
+    var G = {}; (CAT.graph || []).forEach(function (g) { if (g && g.name && (!G[g.name] || /^perm-/.test(g.id || ""))) G[g.name] = g; });
+    var R = {}; (CAT.roles || []).forEach(function (r) { if (r && r.name) R[r.name] = r; });
+    var LV = {}; var GP = (ST.gdiff || {}).perms || {}; Object.keys(GP).forEach(function (n) { if (GP[n] && GP[n].lv) LV[n] = GP[n].lv; });
+    D = { ST: ST, CAT: CAT, G: G, R: R, LV: LV, GP: GP, day: ST.briefDate || CAT.briefDate || new Date().toISOString().slice(0, 10) };
+    D.ev = events(D);
+    return D;
+  }
+
+  /* ---------- P2: a permission family or a role names its technology ---------- */
+  var FAM = [[/^(Copilot|AiEnterpriseInteraction|AIModel)/i, "Copilot"],
+    [/^CrossTenantContentMigration|^(Sites|Files|FileStorage|SharePoint|OneDrive|Lists)/i, "SharePoint & OneDrive"],
+    [/^(Mail|Calendars|Contacts|Exchange|MailboxSettings|MailboxFolder|MailboxItem|EWS|SMTP|IMAP|POP|Place)/i, "Exchange & Outlook"],
+    [/^(Team|Channel|Chat|OnlineMeeting|Call|VirtualEvent|TeamsApp|TeamsTab|TeamsActivity|TeamMember)/i, "Teams"],
+    [/^(Security|ThreatHunting|ThreatIntelligence|ThreatAssessment|ThreatSubmission|Incident|Alert|Defender|SecurityEvents|AttackSimulation)/i, "Defender"],
+    [/^(InformationProtection|RecordsManagement|eDiscovery|SensitivityLabel|DataLossPrevention|Compliance|ProtectionScopes|ContentActivity|Purview|SubjectRightsRequest)/i, "Purview"],
+    [/^(DeviceManagement|DeviceLocalCredential|CloudPC)/i, "Intune"],
+    [/^(WindowsUpdates|Windows)/i, "Windows"],
+    [/^(PowerPlatform|Dataverse|Dynamics)/i, "Power Platform"],
+    [/^Sentinel/i, "Sentinel"],
+    [/^(NetworkAccess|GlobalSecureAccess|PrivilegedAccess|RoleManagement|RoleAssignmentSchedule|RoleEligibilitySchedule|Policy|Application|AppFederatedCredential|AgentIdentity|Agent|User|Group|Directory|IdentityRisk|IdentityProvider|IdentityUserFlow|AuditLog|AccessReview|EntitlementManagement|LifecycleWorkflows|UserAuthenticationMethod|Synchronization|OnPremDirectorySynchronization|CustomSecAttribute|Domain|Organization|ConsentRequest|DelegatedPermissionGrant|AppRoleAssignment|Tenant|CrossTenant|Device|BitlockerKey|ExternalUserProfile|PendingExternalUserProfile|MultiTenantOrganization)/i, "Entra ID"],
+    [/^(Reports|ServiceHealth|ServiceMessage|Tasks|Notes|Bookings|Presence|People|Viva|Learning|Engagement|Forms|Planner|Printer|Print|ReportSettings)/i, "Microsoft 365"]];
+  function techOfPerm(n) { for (var i = 0; i < FAM.length; i++) if (FAM[i][0].test(n)) return FAM[i][1]; return ""; }
+  function techOfRole(n) {
+    var T = [[/copilot|\bAI\b/i, "Copilot"], [/intune|cloud device|windows 365/i, "Intune"], [/exchange/i, "Exchange & Outlook"],
+      [/sharepoint|onedrive/i, "SharePoint & OneDrive"], [/teams/i, "Teams"], [/security|defender|attack/i, "Defender"],
+      [/compliance|purview|insider|ediscovery|information protection/i, "Purview"], [/power platform|dynamics/i, "Power Platform"],
+      [/windows/i, "Windows"]];
+    for (var i = 0; i < T.length; i++) if (T[i][0].test(n)) return T[i][1];
+    return "Entra ID";
+  }
+  function family(n) { return String(n).split(/[-.]/)[0]; }
+
+  /* ---------- the events ---------- */
+  var KIND = { "New in service, not yet documented": "grantable", "No longer in the service": "removed", "New permission": "new",
+    "Documented at Microsoft": "documented", "Changed permission": "changed" };
+  var RKIND = { "Actions added": "actions-added", "Actions removed": "actions-removed", "New role": "added", "Condition changed": "condition" };
+  function events(d) {
+    var out = {}, list = [];
+    function add(e) {
+      var k = e.surface + "|" + e.name + "|" + e.change;
+      var o = out[k];
+      if (!o) { out[k] = e; list.push(e); return; }
+      if (e.day && (!o.day || e.day < o.day)) o.day = e.day;
+      if (e.src === "tenant") { o.tenant = e.seen || o.tenant; }
+      if (!o.text && e.text) o.text = e.text;
+    }
+    var L = ((d.ST.ledger14 || {}).entries || []);
+    L.forEach(function (x) {
+      if (!x || !x.id) return;
+      if (x.tab === "Graph API") {
+        if (x.field === "kind" && KIND[x.after] && !(x.after === "Documented at Microsoft" && /^New permission$/.test(x.before || ""))) {
+          if (x.after === "Documented at Microsoft" && x.before === "Permission") return;   /* a catalog relabel, not a Microsoft change */
+          add({ surface: "permission", name: x.id, change: KIND[x.after], day: x.seen, src: "brief", before: x.before });
+        } else if (/^(privilege level|admin consent)/.test(x.field || "")) {
+          add({ surface: "permission", name: x.id, change: "consent", day: x.seen, src: "brief", before: x.before, after: x.after, field: x.field });
+        }
+      } else if (x.tab === "Roles" && x.field === "kind") {
+        var rk = RKIND[x.after] || (x.before === "Privileged status" ? "privileged" : "");
+        if (rk) add({ surface: "role", name: x.id, change: rk, day: x.seen, src: "brief" });
+      }
+    });
+    var CS = (d.CAT.changeSummary || {}), cg = CS.graph || {};
+    (cg.added || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: KIND[x.kind] || "new", day: d.day, src: "brief" }); });
+    (cg.removed || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "removed", day: d.day, src: "brief" }); });
+    (cg.modified || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "changed", day: d.day, src: "brief" }); });
+    var cr = CS.roles || {};
+    (Array.isArray(cr.added) ? cr.added : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "added", day: d.day, src: "brief" }); });
+    (Array.isArray(cr.modified) ? cr.modified : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "actions-added", day: d.day, src: "brief" }); });
+    ((d.ST.fpa || {}).chg || []).forEach(function (x) { if (x && x.t === "added" && x.d) add({ surface: "app", name: x.n || x.id, id: x.id, change: "new", day: x.d, src: "brief" }); });
+    var TM = { added: "grantable", removed: "removed", "type-added": "changed", "type-removed": "changed", consent: "consent", enabled: "changed" };
+    var RM = { added: "added", removed: "removed", "actions-added": "actions-added", "actions-removed": "actions-removed", privileged: "privileged" };
+    ((TEN || {}).events || []).forEach(function (x) {
+      if (!x || !x.name) return;
+      if (x.surface === "permission" && TM[x.change]) add({ surface: "permission", name: x.name, change: TM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.text, detail: x.change === "type-added" ? "gained its " + x.type + " type" : x.change === "type-removed" ? "lost its " + x.type + " type" : "" });
+      if (x.surface === "role" && RM[x.change]) add({ surface: "role", name: x.name, change: RM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.after || x.text });
+    });
+    list.forEach(function (e) { enrich(d, e); });
+    return list;
+  }
+  var BONUS = { permission: { grantable: 1000, removed: 800, "new": 700, consent: 600, changed: 400, documented: 100 },
+    role: { added: 900, privileged: 800, "actions-added": 500, "actions-removed": 300, condition: 300, removed: 700 }, app: { "new": 300 } };
+  function enrich(d, e) {
+    if (e.surface === "permission") {
+      var g = d.G[e.name] || {}, types = g.permTypes || [], desc = "";
+      var db = g.descriptionByType || {}; desc = db.Application || db.Delegated || g.description || e.text || "";
+      e.types = types; e.desc = desc; e.undoc = g.docStatus === "undocumented" || /not yet documented/i.test(g.kind || "");
+      /* the name decides when it says Read or ReadWrite; Microsoft's text only when the name says neither */
+      var verb = String(e.name).split(".").slice(1).join(".");   /* "Read.All" of CopilotCostManagement-Assignment.Read.All */
+      e.write = /ReadWrite|Write|Manage|FullControl|Delete|Send|Provision|Create|Invoke/.test(verb) ? true
+        : /^Read/.test(verb) ? false : /(create|update|delete|write|manage)/i.test(desc);
+      e.app = types.indexOf("Application") >= 0;
+      e.lv = d.LV[e.name] || 0;
+      e.lvGuess = e.lv ? 0 : (e.write && e.app ? 4 : e.write || e.app ? 3 : 2);
+      e.tech = techOfPerm(e.name);
+      e.score = (e.lv || e.lvGuess) * 1000 + (e.write ? 500 : 0) + (e.app ? 250 : 0) + (BONUS.permission[e.change] || 0);
+    } else if (e.surface === "role") {
+      var r = d.R[e.name] || {};
+      e.priv = !!r.privileged; e.tech = techOfRole(e.name); e.desc = r.description || e.text || "";
+      e.score = (e.priv ? 4000 : 2500) + (BONUS.role[e.change] || 0) + (e.priv && e.change === "actions-added" ? 300 : 0);
+    } else {
+      e.tech = ""; e.score = 2000 + BONUS.app["new"];
+    }
+  }
+
+  /* ---------- P1: one ranking ---------- */
+  var VERB = { grantable: "became grantable", removed: "was removed from the service", "new": "is a new permission", consent: "changed its consent or privilege level",
+    changed: "changed in the service", documented: "is now documented by Microsoft" };
+  var RVERB = { added: "is a new built-in role", privileged: "is now marked privileged", "actions-added": "gained actions", "actions-removed": "lost actions",
+    condition: "changed a condition", removed: "was removed" };
+  function typesShort(t) { return (t || []).map(function (x) { return x === "Application" ? "app-only" : x === "Delegated" ? "delegated" : x; }).join(" + "); }
+  function groups(days) {
+    var d = data(), from = plus(d.day, -(days || 7)), G = {}, order = [];
+    d.ev.filter(function (e) { return e.day && e.day >= from && e.day <= plus(d.day, 1); }).forEach(function (e) {
+      var k = e.surface === "permission" ? "p|" + family(e.name) + "|" + e.change : e.surface === "app" ? "a|new" : "r|" + e.name;
+      var g = G[k]; if (!g) { g = G[k] = { key: k, head: e, all: [] }; order.push(k); }
+      g.all.push(e); if (e.score > g.head.score) g.head = e;
+    });
+    return order.map(function (k) { return G[k]; });
+  }
+  function describe(g) {
+    var e = g.head, n = g.all.length, x = { name: e.name, score: e.score, day: e.day, tenant: e.tenant || "", surface: e.surface, tech: e.tech, change: e.change };
+    if (e.surface === "permission") {
+      var day = g.all.reduce(function (a, b) { return b.day < a ? b.day : a; }, e.day);
+      x.text = (n > 1 ? "and " + (n - 1) + " more " + family(e.name) + " permission" + (n === 2 ? "" : "s") + " " : "") + (VERB[e.change] || e.change) +
+        (e.detail ? " (" + e.detail + ")" : "") + (e.undoc ? ", not yet documented" : "") +
+        (e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(day) + " brief") +
+        (e.desc ? " — Microsoft: “" + firstSentence(e.desc, 150) + "”" : "");
+      x.tag = (e.lv ? "L" + e.lv : "no level") + " · " + (e.write ? "read-write" : "read") + (e.types.length ? " · " + typesShort(e.types) : "") + " · " + dm(day);
+      x.go = function () { openPerm(e.name); };
+    } else if (e.surface === "role") {
+      x.text = (RVERB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(e.day) + " brief") + (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text, 140) : e.desc ? " — " + firstSentence(e.desc, 140) : "");
+      x.tag = "role" + (e.priv ? " · PRIVILEGED" : "") + " · " + dm(e.day);
+      x.go = function () { openRole(e.name); };
+    } else {
+      var names = g.all.map(function (a) { return String(a.name).trim(); });
+      x.name = n === 1 ? names[0] : n + " new first-party apps";
+      x.text = (n === 1 ? "new Microsoft application" : names.slice(0, 3).join(", ") + (n > 3 ? " and " + (n - 3) + " more" : "")) + " — first seen " + dm(e.day) + "; open it to see what it can obtain without consent";
+      x.tag = "first-party app · " + dm(e.day);
+      x.go = function () { openApp(n === 1 ? names[0] : ""); };
+    }
+    if (x.tenant) x.tag += " · seen in our tenant " + x.tenant.slice(11, 16) + " UTC";
+    return x;
+  }
+  function rank(days, n, withEndpoints) {
+    var list = groups(days).map(describe);
+    if (withEndpoints && window.__socGD && window.__socGD.__top0) {
+      var seenNames = {}; list.forEach(function (x) { seenNames[x.name] = 1; });
+      (window.__socGD.__top0(days, 6) || []).forEach(function (x) { if (!seenNames[x.name]) { x.go = null; list.push(x); } });
+    }
+    list.sort(function (a, b) { return b.score - a.score || String(b.day || b.date).localeCompare(String(a.day || a.date)); });
+    return list.slice(0, n || 3);
+  }
+
+  /* ---------- opening what a row names ---------- */
+  /* twice more after the tab settles: the tab switch and the rail scroll the page back to the top (10 X test) */
+  /* below the sticky header and the catalog's own sticky search bar, so the panel title is seen */
+  function scrollTo(n) {
+    if (!n) return;
+    function go() {
+      try {
+        var hb = 0; [].forEach.call(document.querySelectorAll("header.top, .catalog .cat-search, .catalog .cat-bar, .s5ch-bar"), function (h) {
+          var cs = getComputedStyle(h); if (cs.position === "sticky" || cs.position === "fixed") { var r = h.getBoundingClientRect(); if (r.bottom > hb && r.top < 400) hb = r.bottom; } });
+        window.scrollTo(0, Math.max(0, n.getBoundingClientRect().top + window.scrollY - hb - 12));
+      } catch (e) {}
+    }
+    go(); setTimeout(go, 600); setTimeout(go, 1300);
+  }
+  function openPerm(name) {
+    var b = tabBtn("graph"); if (b) b.click();
+    function tryOpen(left) {
+      var inner = window.__socOpenPerm && window.__socOpenPerm(name);
+      if (inner) { scrollTo(inner); return; }
+      var cat = document.querySelector('.catalog[data-catalog="graph"]');
+      var hit = cat ? [].filter.call(cat.querySelectorAll(".cat-item"), function (x) { return ((x.querySelector(".ci-name") || {}).textContent || "").trim() === name; })[0] : null;
+      if (hit) { hit.click(); scrollTo(cat.querySelector(".cat-detail .cat-detail-inner") || hit); return; }
+      if (left > 0) setTimeout(function () { tryOpen(left - 1); }, 300);
+    }
+    setTimeout(function () { tryOpen(6); }, 250);
+  }
+  function openRole(name) {
+    var b = tabBtn("roles"); if (b) b.click();
+    setTimeout(function () { var inner = window.__socOpenRole && window.__socOpenRole(name); scrollTo(inner); }, 300);
+  }
+  function openApp(name) {
+    var b = tabBtn("fpa"); if (b) b.click();
+    if (!name) return;
+    setTimeout(function () {
+      var q = document.querySelector("#tab-fpa input[type=search], #tab-fpa input[type=text]");
+      if (q) { q.value = name; q.dispatchEvent(new Event("input", { bubbles: true })); scrollTo(q); }
+    }, 600);
+  }
+
+  /* P1: the Graph sentence asks __socGD.top; it now gets the identity ranking with the endpoint changes in it */
+  function hookTop() {
+    var gd = window.__socGD;
+    if (!gd || gd.__s5cy) return !!gd;
+    gd.__top0 = gd.top; gd.__s5cy = true;
+    gd.top = function (days, n) { try { return rank(days, n, true); } catch (e) { if (window.console) console.error("[5cy top]", e); return gd.__top0(days, n); } };
+    return true;
+  }
+  if (!hookTop()) { var hk = 0, ht = setInterval(function () { if (hookTop() || ++hk > 40) clearInterval(ht); }, 50); }
+
+  /* P2: one entry per technology for the technology sentences and lines (§5bk asks window.__socIdent.pool) */
+  function pool(days, shown) {
+    var by = {}, skip = {}; (shown || []).forEach(function (g) { if (g && g.name) skip[g.name] = 1; });
+    groups(days || 7).forEach(function (g) {
+      var x = describe(g); if (!x.tech || x.surface === "app" || skip[x.name]) return;
+      if (x.surface === "permission" && !/grantable|removed|new|consent/.test(x.change)) return;
+      if (!by[x.tech] || x.score > by[x.tech].score) by[x.tech] = x;
+    });
+    return Object.keys(by).map(function (t) {
+      var x = by[t], e = x.surface === "permission" ? "Graph permission" : "Entra role";
+      /* fresh = since the previous brief (or read in our tenant in the last day): it then leads its technology;
+         an older change only fills a technology that has nothing else */
+      var prevB = String(((data().ST.comparedWith || {}).date) || "") || plus(data().day, -1);
+      var fresh = (x.day && x.day > prevB) || (x.tenant && x.tenant.slice(0, 10) >= plus(data().day, -1));
+      return { id: "ident:" + x.name + ":" + x.change, tech: t, score: x.score, go: x.go, fresh: !!fresh,
+        text: e + " " + x.name + " " + x.text.split(" — ")[0],
+        sub: (x.text.split(" — ")[1] || "").replace(/^Microsoft: /, ""), meta: x.tag };
+    }).sort(function (a, b) { return b.score - a.score; });
+  }
+
+  /* ---------- P3: the Overview card ---------- */
+  function counts(days) {
+    var d = data(), from = plus(d.day, -(days || 7)), c = { p: [0, 0, 0], r: [0, 0, 0], a: 0, ea: 0, er: 0 };
+    d.ev.forEach(function (e) {
+      if (!e.day || e.day < from) return;
+      if (e.surface === "permission") { if (/grantable|new/.test(e.change)) c.p[0]++; else if (e.change === "removed") c.p[2]++; else if (e.change !== "documented") c.p[1]++; }
+      else if (e.surface === "role") { if (e.change === "added") c.r[0]++; else if (e.change === "removed") c.r[2]++; else c.r[1]++; }
+      else c.a++;
+    });
+    Object.keys(d.GP).forEach(function (n) { (d.GP[n].ev || []).forEach(function (v) { if (v.date >= from && v.date <= d.day) { c.ea += (v.ea || []).length; c.er += (v.er || []).length; } }); });
+    return c;
+  }
+  var CARD = null;
+  function renderCard() {
+    var ov = document.querySelector("#tab-overview .s5ci-ov"); if (!ov) return false;
+    var d = data(), c = counts(7), top = rank(7, 5, true); if (!top.length) top = rank(14, 5, true);
+    var card = el("section", "s5ci-card s5ci-c-acc s5cy-card"); card.id = "s5cy-ident";
+    var h = el("div", "s5ci-ch"); h.appendChild(el("h3", null, "Identity surface · last 7 days"));
+    var lr = (TEN && TEN.lastRead) ? "our tenant read " + dm(TEN.lastRead) + " " + String(TEN.lastRead).slice(11, 16) + " UTC" : "from the briefs";
+    h.appendChild(el("span", "s5cr-chk", lr)); card.appendChild(h);
+    card.appendChild(el("p", "s5cy-lead", "What Microsoft changed in who can do what: Graph permissions, Entra roles, its own applications and the endpoints a permission reaches."));
+    var sts = el("div", "s5cr-stats s5cy-stats");
+    function stat(label, parts, tab, sub, hot) {
+      var b = el("button", "s5cr-st s5cy-st" + (hot ? " s5cr-warn" : "")); b.type = "button"; b.title = "Open " + label;
+      var nn = el("span", "s5cy-nums");
+      parts.forEach(function (p) { if (p[1] || p[2]) { var s = el("b", "s5cy-n " + p[2], p[0] + p[1]); nn.appendChild(s); } });
+      if (!nn.children.length) nn.appendChild(el("b", "s5cy-n s5cy-zero", "0"));
+      b.appendChild(nn); b.appendChild(el("span", null, label)); if (sub) b.appendChild(el("span", "s5cy-sub", sub));
+      b.addEventListener("click", function () { var t = tabBtn(tab); if (t) t.click();
+        if (tab === "graph" && /Endpoint/.test(label)) setTimeout(function () { var g = document.getElementById("gd-changes"); if (g) { g.open = true; scrollTo(g); } }, 300); });
+      sts.appendChild(b);
+    }
+    stat("Graph permissions", [["+", c.p[0], "s5cy-add"], ["~", c.p[1], "s5cy-chg"], ["−", c.p[2], "s5cy-rem"]], "graph", "new or grantable · changed · removed", c.p[0] + c.p[2] > 0);
+    stat("Entra roles", [["+", c.r[0], "s5cy-add"], ["~", c.r[1], "s5cy-chg"], ["−", c.r[2], "s5cy-rem"]], "roles", "new · changed actions · removed", c.r[0] > 0);
+    stat("First-party apps", [["+", c.a, "s5cy-add"]], "fpa", "new Microsoft applications", false);
+    stat("Endpoints", [["+", c.ea, "s5cy-add"], ["−", c.er, "s5cy-rem"]], "graph", "reached by existing permissions", false);
+    card.appendChild(sts);
+    if (top.length) {
+      card.appendChild(el("p", "s5cy-h", "Riskiest changes"));
+      top.forEach(function (x) {
+        var r = el("div", "s5cy-row"), nb = el("button", "s5ci-itb", x.name); nb.type = "button";
+        var go = x.go || function () { if (window.__socGD && window.__socGD.open) window.__socGD.open(x.name); };
+        nb.addEventListener("click", function (ev) { ev.stopPropagation(); go(); });
+        var hd = el("div", "s5cy-rh"); hd.appendChild(nb); hd.appendChild(el("span", "s5ci-pill s5ci-tech", x.tag)); r.appendChild(hd);
+        r.appendChild(el("div", "s5cy-rt", x.text)); r.addEventListener("click", go); card.appendChild(r);
+      });
+      /* the rest of the week, one chip per permission family or role, so nothing is hidden behind the top five */
+      var shown = {}; top.forEach(function (x) { shown[x.name] = 1; });
+      var rest = groups(7).map(describe).filter(function (x) { return !shown[x.name] && x.change !== "documented"; })
+        .sort(function (p1, p2) { return p2.score - p1.score; });
+      if (rest.length) {
+        var al = el("p", "s5cy-also"); al.appendChild(el("span", "s5cr-lab", "Also this week"));
+        rest.slice(0, 14).forEach(function (x) {
+          var fam = x.surface === "permission" ? family(x.name) : x.name, nn = /and (\d+) more/.exec(x.text);
+          var ab = el("button", "s5cy-chip", fam + (nn ? " · " + (+nn[1] + 1) : "")); ab.type = "button"; ab.title = x.name + " " + x.text;
+          ab.addEventListener("click", function () { (x.go || function () {})(); }); al.appendChild(ab);
+        });
+        if (rest.length > 14) al.appendChild(el("span", "s5cy-sub", "and " + (rest.length - 14) + " more in Graph API"));
+        card.appendChild(al);
+      }
+    } else card.appendChild(el("p", "s5ci-note", "No change to Graph permissions, roles or first-party apps in the last 14 days."));
+    if (TEN && TEN.rolesNote) card.appendChild(el("p", "s5cy-note", "Roles from our tenant: not read — " + TEN.rolesNote + ". Role changes come from Microsoft's documentation until then."));
+    var a = el("button", "s5ci-inl", "All changes in Graph API ›"); a.type = "button";
+    a.addEventListener("click", function () { var t = tabBtn("graph"); if (t) t.click(); }); card.appendChild(a);
+    var old = document.getElementById("s5cy-ident");
+    if (old) old.parentNode.replaceChild(card, old);
+    else { var after = ov.querySelector(".s5cr-ov") || ov.querySelector(".s5ci-cards"); if (after && after.parentNode === ov) ov.insertBefore(card, after.nextSibling); else ov.appendChild(card); }
+    CARD = card; return true;
+  }
+  function refresh() { if (CARD) { try { renderCard(); } catch (e) { if (window.console) console.error("[5cy card]", e); } } }
+  function boot(n) {
+    var ok = false; try { ok = renderCard(); } catch (e) { if (window.console) console.error("[5cy card]", e); ok = true; }
+    if (!ok && n < 40) setTimeout(function () { boot(n + 1); }, 500);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(function () { boot(0); }, 2600); });
+  else setTimeout(function () { boot(0); }, 2600);
+
+  window.__socIdent = { events: function () { return data().ev; }, rank: rank, pool: pool, counts: counts, openPerm: openPerm, openRole: openRole,
+    techOfPerm: techOfPerm, tenant: function () { return TEN; } };
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -37228,6 +37714,24 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 @media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:108px}
  header.top .title-row.s5cx-row{padding-left:144px;min-height:108px}}
 @media (max-width:720px){.s5cx-mark img{height:96px}h1.s5cx-h1{gap:12px}}
+/* §5cy (10 X 2026): Overview card "Identity surface" - four counts (permissions, roles, first-party apps, endpoints),
+   each opens its tab, then the three riskiest changes; the numbers are green (new), amber (changed), red (removed) */
+.s5cy-card .s5cy-lead{margin:2px 0 10px;color:var(--muted);font-size:13px}
+.s5cy-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.s5cy-st{align-items:flex-start;text-align:left}
+.s5cy-nums{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.s5cy-n{font-size:20px;font-weight:700;line-height:1.1}
+.s5cy-add{color:var(--ok,#1a7f37)}.s5cy-chg{color:var(--warn,#9a6700)}.s5cy-rem{color:var(--bad,#cf222e)}.s5cy-zero{color:var(--muted)}
+.s5cy-sub{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.s5cy-h{margin:12px 0 4px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s5cy-row{padding:8px 10px;border:1px solid var(--border);border-radius:10px;margin:6px 0;cursor:pointer;background:var(--bg)}
+.s5cy-rh{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.s5cy-rh .s5ci-itb{font-weight:650;overflow-wrap:anywhere}
+.s5cy-rt{font-size:13px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.s5cy-note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+@media (max-width:720px){.s5cy-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.s5cy-also{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 4px}
+.s5cy-chip{font:inherit;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);cursor:pointer}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
