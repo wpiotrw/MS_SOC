@@ -28046,12 +28046,14 @@ release-notes, nowsza pozycja 04/10/2026; MDO defender-for-office-365-whats-new)
 4 w ostatnich dniach; zmiany artykulow obu folderow czyta merill/defender-docs-mirror (MDO 9 stron, MDCA 11 stron
 w oknie, pokrycie „covered"); nasza kopia Learn ma grupy defender-office-365 (18 stron) i defender-cloud-apps (16);
 blog MDO jest w `microsoftblogs_sources.json`, kampania MDCA (file policies) jest sledzona. Luki i poprawki:
-(H1) brakowalo bloga Defender for Cloud Apps — dopisany (TechCommunity, kategoria microsoft-defender-for-cloud-apps;
-collect_blogs probuje board.id, potem category.id); (H2) skrypty strony nie znaly MDO: alias kanoniczny ["MDO"],
+(H1) bloga Defender for Cloud Apps nie ma na liscie, bo Microsoft go juz nie prowadzi: dopisany na probe i sprawdzony
+workflow „Collector check" (28b5399) — „no board.id and no category.id answered" (MicrosoftDefenderCloudAppsBlog i
+kategoria microsoft-defender-for-cloud-apps); nowosci MDCA ida do bloga Defender XDR („Monthly news") i Microsoft
+Security Blog — oba czytane; wpis cofniety, zeby nie bylo stale martwego zrodla; (H2) skrypty strony nie znaly MDO: alias kanoniczny ["MDO"],
 PRODUCT_SERVICE „MDO"/„MDCA" i kolejnosc uslug z „Defender for Office 365" — inaczej pozycje MDO wpadaly do innej
 uslugi w „Per service"; (H3) lista Deadlines („Cover …") i tabele zakladki Products wymieniaja MDA i MDO;
-(H4) lista §7 ma dla obu dokumentacje i blog. Workflow „Collector check" wypisuje teraz oba blogi Defender i werdykt
-what's new obu obszarow. Bramka 81b (kazdy blog ma wpis w nt.blogs) czeka na pierwszy przebieg z nowym blogiem.
+(H4) lista §7 ma dla obu dokumentacje i blog. Workflow „Collector check" wypisuje teraz blogi Defender XDR, Defender for Office 365 i Microsoft Security
+Blog oraz werdykt what's new obu obszarow.
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
@@ -40878,7 +40880,7 @@ If `mcp__remote-devices__entra-news-mcp__*` tools are available (load via ToolSe
 ### Defender for Cloud Apps
 - https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes
 - Documentation: https://learn.microsoft.com/en-us/defender-cloud-apps/ (article changes: merill/defender-docs-mirror, folder defender-for-cloud-apps)
-- Blog: https://techcommunity.microsoft.com/category/microsoft-defender-for-cloud-apps/blog/MicrosoftDefenderCloudAppsBlog
+- Blog: no Tech Community board of its own any more (checked 10 X 2026: board.id and category.id did not answer); its news is in the Defender XDR blog ("Monthly news") and the Microsoft Security Blog, both read
 
 ### Defender for Office 365
 - https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
