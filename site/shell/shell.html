@@ -3259,7 +3259,383 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-gn:hover{text-decoration:underline;text-underline-offset:3px}
 .s5bk-gt{font-size:12px;color:var(--faint)}
 .s5bk-gd{display:block}
-.s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}</style>
+.s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}
+/* §5cu: Campaigns — list, card, Overview card (layout A: text colour for names, accent arrow for links,
+   red only within 7 days, amber only within 30) */
+.s5cu{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
+.s5cu-note{color:var(--muted);margin:6px 0}
+.s5cu-intro{margin:0;color:var(--muted);line-height:1.55;max-width:1100px}
+.s5cu-kpi{display:flex;flex-wrap:wrap;gap:6px 8px}
+.s5cu-k{font:inherit;font-size:13.5px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 11px;cursor:pointer}
+.s5cu-k b{color:var(--text);font-weight:700}
+.s5cu-k.r b{color:var(--bad)}
+.s5cu-k.a b{color:var(--warn)}
+.s5cu-k:hover{border-color:var(--accent)}
+.s5cu-k.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5cu-fb{display:flex;flex-direction:column;gap:8px}
+.s5cu-fr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5cu-fl{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px;min-width:84px}
+.s5cu-f{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;cursor:pointer}
+.s5cu-f b{color:var(--faint);font-weight:600;margin-left:5px}
+.s5cu-f:hover{border-color:var(--accent)}
+.s5cu-f.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5cu-f.on b{color:var(--ok)}
+.s5cu-q{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;min-width:240px;margin-left:auto}
+.s5cu-green{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;background:var(--ok-soft);border:1px solid var(--ok);color:var(--ok);border-radius:8px;padding:8px 12px;font-weight:600}
+.s5cu-clear{font:inherit;font-weight:600;color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:3px 10px;cursor:pointer}
+.s5cu-list{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+.s5cu-row{display:grid;grid-template-columns:minmax(0,3.2fr) minmax(0,.9fr) minmax(0,1fr) minmax(0,2fr) minmax(0,1.4fr) minmax(0,1.3fr);column-gap:14px;padding:11px 14px;border-top:1px solid var(--border-soft);align-items:start}
+.s5cu-hd{border-top:0;font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding-top:10px;padding-bottom:10px;background:var(--surface-2)}
+.s5cu-grp{display:flex;gap:8px;align-items:baseline;padding:14px 14px 7px;border-top:1px solid var(--border);font:700 12.5px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:var(--bg)}
+.s5cu-grp span{color:var(--faint);font-weight:600}
+.s5cu-nm{display:inline;font-size:14.5px;font-weight:650;line-height:1.4;color:var(--text);text-decoration:none}
+.s5cu-nm::after{content:"\00a0\2192";color:var(--accent);font-weight:600}
+.s5cu-nm:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-sm{display:block;color:var(--muted);font-size:13px;line-height:1.45;margin-top:3px}
+.s5cu-tech{font-weight:600;color:var(--text)}
+.s5cu-ty{color:var(--muted)}
+.s5cu-d{display:block;font-weight:650;color:var(--text);white-space:nowrap}
+.s5cu-d.r{color:var(--bad)}
+.s5cu-d.a{color:var(--warn)}
+.s5cu-dd{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.s5cu-none{color:var(--faint);font-weight:400}
+.s5cu-mat{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px}
+.s5cu-mb{font:inherit;font-size:12.5px;color:var(--muted);background:none;border:0;padding:0;cursor:pointer;white-space:nowrap}
+.s5cu-mb b{color:var(--accent);font-weight:700}
+.s5cu-mb:hover b{text-decoration:underline}
+.s5cu-wk{font-size:12.5px;color:var(--warn);line-height:1.45}
+.s5cu-legend{margin:0;font-size:12.5px;color:var(--faint);line-height:1.5}
+/* card */
+.s5cu-back{align-self:flex-start;font:inherit;font-weight:600;color:var(--accent);background:none;border:1px solid var(--border);border-radius:6px;padding:5px 11px;cursor:pointer}
+.s5cu-ch{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.s5cu-crumb{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cu-t{margin:0;font-size:23px;font-weight:650;line-height:1.3;color:var(--text)}
+.s5cu-sum{margin:0;font-size:14.5px;line-height:1.55;color:var(--muted);max-width:1000px}
+.s5cu-facts{display:flex;flex-wrap:wrap;gap:6px 26px;font-size:13.5px;color:var(--muted);margin-top:4px}
+.s5cu-facts b{color:var(--text)}
+.s5cu-facts b.s5cu-r{color:var(--bad)}
+.s5cu-facts b.s5cu-a{color:var(--warn)}
+.s5cu-rel{color:var(--accent)}
+.s5cu-mono,.s5cu-v{font-family:var(--mono);font-weight:600}
+.s5cu-alert{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:12px 16px;line-height:1.55}
+.s5cu-s{display:flex;flex-direction:column;gap:8px}
+.s5cu-h{margin:0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.s5cu-tw{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow-x:auto}
+table.s5cu-tab{border-collapse:collapse;width:100%;font-size:13.5px}
+table.s5cu-tab th{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);position:static!important;white-space:nowrap}
+table.s5cu-tab td{padding:11px 14px;border-bottom:1px solid var(--border-soft);vertical-align:top;line-height:1.5;position:static!important;white-space:normal}
+table.s5cu-tab tr:last-child td{border-bottom:0}
+table.s5cu-tab tr.past td{color:var(--faint)}
+table.s5cu-tab tr.past td.s5cu-v{text-decoration:line-through}
+td.s5cu-chg{font-weight:650;color:var(--text);min-width:180px}
+td.s5cu-mut,.s5cu-mut{color:var(--muted)}
+td.s5cu-why{color:var(--muted);font-size:13px}
+td.s5cu-dt{white-space:nowrap;font-weight:650}
+td.s5cu-dt.s5cu-r{color:var(--bad)}
+td.s5cu-dt.s5cu-a{color:var(--warn)}
+td.s5cu-a{color:var(--warn);font-weight:650}
+td.s5cu-who{color:var(--muted);font-size:13px}
+td.s5cu-srcc{white-space:nowrap;font-size:12.5px}
+td.s5cu-stt{white-space:nowrap;font-size:12.5px;color:var(--faint);font-weight:600}
+td.s5cu-stt.nx{color:var(--warn)}
+.s5cu-src{font-family:var(--mono);font-size:12.5px;color:var(--accent);text-decoration:none}
+a.s5cu-src:hover{text-decoration:underline}
+.s5cu-moved{display:block;font-size:12.5px;color:var(--warn);margin-top:3px;font-weight:600}
+.s5cu-vs{white-space:nowrap;font-weight:600}
+.s5cu-vs-current{color:var(--ok)}
+.s5cu-vs-ends-soon{color:var(--warn)}
+.s5cu-vs-retired{color:var(--faint)}
+ol.s5cu-todo{margin:0;padding:12px 18px 12px 38px;border:1px solid var(--border);border-radius:10px;background:var(--surface);line-height:1.6;color:var(--text)}
+ol.s5cu-todo li+li{margin-top:6px}
+.s5cu-inbrief{margin:0;font-size:13px;color:var(--muted)}
+.s5cu-inbrief a{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.s5cu-mats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.s5cu-box{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden}
+.s5cu-li{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-top:1px solid var(--border-soft)}
+.s5cu-li:first-child{border-top:0}
+.s5cu-mt{font-size:14px;font-weight:600;color:var(--text);text-decoration:none;line-height:1.4;overflow-wrap:anywhere}
+.s5cu-mt::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-mt:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-mm{font-size:12.5px;color:var(--muted)}
+.s5cu-empty{margin:0;padding:12px 14px;color:var(--muted);line-height:1.55}
+/* Overview */
+.s5cu-ov .s5ci-ch{justify-content:space-between;align-items:baseline}
+.s5cu-ovh{font-size:12.5px;color:var(--muted)}
+.s5cu-ovr{display:grid;grid-template-columns:64px minmax(0,1fr) auto;column-gap:12px;padding:9px 0;border-top:1px solid var(--border-soft);align-items:baseline}
+.s5cu-ovr .s5cu-d{font-size:13.5px}
+.s5cu-ovn{font:inherit;font-size:14px;font-weight:600;color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer;line-height:1.4}
+.s5cu-ovn::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-ovn:hover{text-decoration:underline;text-underline-offset:3px}
+.s5cu-ovw{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+.s5cu-ovd{font-size:12.5px;color:var(--muted);white-space:nowrap}
+@media (max-width:900px){
+  .s5cu-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
+  .s5cu-hd{display:none}
+  .s5cu-row>.s5cu-c1{grid-column:1/-1}
+  .s5cu-row>.s5cu-tech::after{content:" \00b7"}
+  .s5cu-row>.s5cu-tech{grid-column:1;display:inline}
+  .s5cu-row>.s5cu-ty{grid-column:2;text-align:right}
+  .s5cu-row>.s5cu-nx,.s5cu-row>.s5cu-mat,.s5cu-row>.s5cu-wk{grid-column:1/-1}
+  .s5cu-wk:empty{display:none}
+  .s5cu-q{margin-left:0;min-width:0;width:100%}
+  .s5cu-fl{min-width:0;width:100%}
+  .s5cu-mats{grid-template-columns:minmax(0,1fr)}
+  .s5cu-t{font-size:20px}
+  .s5cu-facts{gap:4px 16px}
+}
+/* §5cu: the section's own links are not the pill links of .sec-body, and the card title is not a section label */
+.s5cu.sec-body a[href^="http"]{display:inline;padding:0;border-radius:0;background:none;border:0;color:var(--text);font-weight:inherit;line-height:inherit;white-space:normal}
+.s5cu.sec-body a.s5cu-mt{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
+.s5cu.sec-body a.s5cu-src{font-family:var(--mono);font-size:12.5px;color:var(--accent);font-weight:400;white-space:nowrap}
+.s5cu.sec-body h2.s5cu-t{font-family:var(--sans);font-size:23px;font-weight:650;letter-spacing:normal;text-transform:none;color:var(--text);line-height:1.3}
+@media (max-width:900px){.s5cu.sec-body h2.s5cu-t{font-size:20px}}
+@media (max-width:640px){
+  .s5cu-tw{overflow:visible}
+  table.s5cu-tab thead{display:none}
+  table.s5cu-tab,table.s5cu-tab tbody,table.s5cu-tab tr,table.s5cu-tab td{display:block;width:auto}
+  table.s5cu-tab tr{padding:10px 14px;border-bottom:1px solid var(--border-soft)}
+  table.s5cu-tab tr:last-child{border-bottom:0}
+  table.s5cu-tab td{padding:2px 0;border:0;white-space:normal}
+  table.s5cu-tab td[data-l]::before{content:attr(data-l);display:block;font:600 10.5px/1.4 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+  table.s5cu-tl td.s5cu-dt[data-l]::before,table.s5cu-tab td.s5cu-chg[data-l]::before,table.s5cu-tab td.s5cu-v[data-l]::before{display:none}
+  table.s5cu-tab td:empty{display:none}
+}
+/* §5cu: the shell builds charts and a product-filter banner for every panel from its table rows; Campaigns has
+   no such rows (its list is its own and the global product filter does not apply to it) */
+#tab-campaigns > .aggwrap,#tab-campaigns > .s5bh-ct,#tab-campaigns > .filterbanner,#tab-campaigns > .ntfbar{display:none!important}
+/* §5cu-b (9 X 2026, owner after the first deployment: "hard to get back to the list; dates, sections and groups
+   hard to see; no reporting; which campaigns matter most now; tables like Jan Bakker's") */
+.s5cu-viz,.s5cu{--s1:#2a78d6;--s2:#eb6834}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5cu{--s1:#3987e5;--s2:#d95926}}
+:root[data-theme="dark"] .s5cu{--s1:#3987e5;--s2:#d95926}
+/* back to the list: a green rounded frame, always on screen */
+.s5cu-backbar{position:sticky;top:calc(var(--s5ca-top,0px) + 6px);z-index:6;display:flex;align-items:center;gap:14px;padding:8px 10px;margin:-4px -10px 0;background:var(--bg);border-radius:12px}
+.s5cu.sec-body .s5cu-back{font:600 15px/1.2 var(--sans);color:var(--ok);background:var(--ok-soft);border:2px solid var(--ok);border-radius:999px;padding:9px 18px;cursor:pointer;white-space:nowrap}
+.s5cu.sec-body .s5cu-back:hover,.s5cu.sec-body .s5cu-back:focus-visible{background:var(--ok);color:var(--surface)}
+.s5cu-bbn{font-size:13.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.s5cu-back2{align-self:flex-start;margin-top:8px}
+.s5cu-crumb a{color:var(--accent);text-decoration:none}
+.s5cu-crumb a:hover{text-decoration:underline}
+/* section headings: a bar, a rule, more air */
+.s5cu-h{font-size:16px!important;padding:2px 0 2px 12px;border-left:4px solid var(--accent);margin-top:10px!important}
+.s5cu-s{gap:10px;margin-top:6px}
+/* list groups: a band you cannot miss */
+.s5cu-grp{font-size:14px;padding:12px 14px;background:var(--accent-soft);border-top:2px solid var(--accent);color:var(--text);letter-spacing:.07em}
+.s5cu-grp span{background:var(--accent);color:var(--surface);border-radius:999px;padding:1px 9px;font-size:12px;letter-spacing:0}
+/* rows: priority on the left edge, readable sizes, hover */
+.s5cu-row{border-left:4px solid transparent}
+.s5cu-row.s5cu-p-critical{border-left-color:var(--bad);background:color-mix(in srgb,var(--bad-soft) 45%,transparent)}
+.s5cu-row.s5cu-p-high{border-left-color:var(--warn)}
+.s5cu-row:not(.s5cu-hd):hover{background:var(--surface-2)}
+.s5cu-nm{font-size:15px}
+.s5cu-sm{font-size:13.5px}
+.s5cu-tech{font-size:14px}
+.s5cu-d{font-size:15px;font-weight:700}
+.s5cu-d.r,.s5cu-d.a,.s5cu-chip{display:inline-block;border-radius:6px;padding:2px 8px}
+.s5cu-d.r{background:var(--bad-soft)}
+.s5cu-d.a{background:var(--warn-soft)}
+.s5cu-chip{font-weight:700;font-size:14px;background:var(--surface-2);color:var(--text)}
+.s5cu-chip.r{background:var(--bad-soft);color:var(--bad)}
+.s5cu-chip.a{background:var(--warn-soft);color:var(--warn)}
+.s5cu-dd{font-size:13px;color:var(--text);opacity:.82}
+.s5cu-pt{display:inline-block;font:700 11px/1.5 var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:0 6px;margin-right:8px;vertical-align:2px}
+.s5cu-pt-critical{background:var(--bad);color:var(--surface)}
+.s5cu-pt-high{background:var(--warn);color:var(--surface)}
+.s5cu-k.s5cu-k-critical b{color:var(--bad)}
+.s5cu-k.s5cu-k-high b{color:var(--warn)}
+/* most important now */
+.s5cu-top{display:flex;flex-direction:column;gap:10px}
+.s5cu-toph{display:flex;flex-direction:column;gap:3px}
+.s5cu-tsub{font-size:13px;color:var(--muted)}
+.s5cu-topg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.s5cu-tc{display:flex;flex-direction:column;gap:7px;text-align:left;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--warn);border-radius:10px;padding:12px 14px;cursor:pointer}
+.s5cu-tc-critical{border-top-color:var(--bad)}
+.s5cu-tc:hover{border-color:var(--accent)}
+.s5cu-tch{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.s5cu-tct{font-size:12.5px;color:var(--muted)}
+.s5cu-tcn{font-size:15px;font-weight:650;line-height:1.35}
+.s5cu-tcn::after{content:"\00a0\2192";color:var(--accent)}
+.s5cu-tc .s5cu-chip{align-self:flex-start}
+.s5cu-tcw{font-size:12.5px;color:var(--muted);line-height:1.45}
+.s5cu-pb{border-radius:10px;padding:11px 16px;line-height:1.55;border:1px solid var(--warn);background:var(--warn-soft)}
+.s5cu-pb-critical{border-color:var(--bad);background:var(--bad-soft)}
+/* reporting */
+.s5cu-dash{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:0 14px 14px}
+.s5cu-dash>summary{cursor:pointer;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:13px 0;color:var(--text)}
+.s5cu-vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.s5cu-vc{border:1px solid var(--border-soft);border-radius:10px;padding:12px 14px;background:var(--bg);display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5cu-vch{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.s5cu-vch h4{margin:0;font-size:14.5px;font-weight:650;color:var(--text)}
+.s5cu-vtb{font:inherit;font-size:12px;color:var(--accent);background:none;border:1px solid var(--border);border-radius:6px;padding:2px 9px;cursor:pointer}
+.s5cu-vsub{margin:0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.s5cu-svg{width:100%;height:auto;display:block;overflow:visible}
+.s5cu-grid{stroke:var(--border-soft);stroke-width:1}
+.s5cu-base{stroke:var(--border);stroke-width:1}
+.s5cu-ax{font:11px var(--sans);fill:var(--muted)}
+.s5cu-val{font:600 11px var(--sans);fill:var(--text)}
+.s5cu-dl{font:600 12px var(--sans);fill:var(--text)}
+.s5cu-hit{fill:transparent;cursor:pointer}
+.s5cu-bfill{fill:var(--s1)}
+.s5cu-bar:hover .s5cu-bfill,.s5cu-bar:focus .s5cu-bfill{opacity:.8}
+.s5cu-bar.on .s5cu-bfill{fill:var(--ok)}
+.s5cu-bar:focus{outline:none}
+.s5cu-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.s5cu-line.s5cu-l1{stroke:var(--s1)}
+.s5cu-line.s5cu-l2{stroke:var(--s2)}
+.s5cu-dot{stroke:var(--bg);stroke-width:2}
+.s5cu-dot.s5cu-l1{fill:var(--s1)}
+.s5cu-dot.s5cu-l2{fill:var(--s2)}
+.s5cu-now{stroke:var(--faint);stroke-dasharray:3 3}
+.s5cu-cross{stroke:var(--muted);stroke-width:1}
+.s5cu-lg{display:flex;gap:16px;font-size:12.5px;color:var(--muted)}
+.s5cu-lg span{display:inline-flex;align-items:center;gap:6px}
+.s5cu-lg i{display:inline-block;width:14px;height:3px;border-radius:2px}
+.s5cu-lg i.s5cu-l1{background:var(--s1)}
+.s5cu-lg i.s5cu-l2{background:var(--s2)}
+.s5cu-hb{display:flex;flex-direction:column;gap:4px}
+.s5cu-hbr{display:grid;grid-template-columns:120px minmax(0,1fr) auto;align-items:center;gap:10px;font:inherit;font-size:13px;color:var(--text);background:none;border:0;border-radius:6px;padding:3px 4px;cursor:pointer;text-align:left}
+.s5cu-hbr:hover{background:var(--surface-2)}
+.s5cu-hbr.on{background:var(--ok-soft)}
+.s5cu-hbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s5cu-hbt{height:12px;border-radius:0 4px 4px 0}
+.s5cu-hbf{display:block;height:100%;background:var(--s1);border-radius:0 4px 4px 0}
+.s5cu-hbr.on .s5cu-hbf{background:var(--ok)}
+.s5cu-hbv{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.s5cu-hbv b{color:var(--text)}
+.s5cu-wkt{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:8px}
+.s5cu-wkb{display:flex;flex-direction:column;gap:2px;align-items:flex-start;font:inherit;font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 8px;cursor:pointer}
+.s5cu-wkb b{font-size:18px;color:var(--text)}
+.s5cu-wkb.on{background:var(--ok-soft);border-color:var(--ok)}
+table.s5cu-vtab{border-collapse:collapse;font-size:13px;width:100%}
+table.s5cu-vtab th,table.s5cu-vtab td{padding:4px 8px;border-bottom:1px solid var(--border-soft);text-align:left;position:static!important}
+.s5cu-tip{position:fixed;z-index:1000;pointer-events:none;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font:12.5px/1.45 var(--sans);box-shadow:0 4px 14px rgba(0,0,0,.18);max-width:250px}
+.s5cu-tipt{font-weight:650}
+/* card tables: dates and the next row stand out; before / after like a diff */
+td.s5cu-dt{font-size:14.5px}
+table.s5cu-tab tr.next td{background:var(--warn-soft)}
+table.s5cu-tab tr.next td.s5cu-dt{color:var(--warn)}
+td.s5cu-was del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;border-radius:4px;padding:1px 6px}
+td.s5cu-now ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;border-radius:4px;padding:1px 6px;font-weight:600}
+@media (max-width:900px){
+  .s5cu-topg,.s5cu-vgrid{grid-template-columns:minmax(0,1fr)}
+  .s5cu-wkt{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .s5cu-hbr{grid-template-columns:96px minmax(0,1fr) auto}
+  .s5cu-backbar{top:calc(var(--s5ca-top,0px) + 70px)}
+  .s5cu-bbn{display:none}
+}
+table.s5cu-tab td.s5cu-dt{white-space:nowrap}
+table.s5cu-tab td.s5cu-was,table.s5cu-tab td.s5cu-now{min-width:120px}
+.s5cu.sec-body td.s5cu-was del,.s5cu.sec-body td.s5cu-now ins{white-space:normal;display:inline;overflow-wrap:anywhere;line-height:1.7;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+table.s5cu-tab td.s5cu-plain{color:var(--text)}
+.s5cu.sec-body table.s5cu-tab td:not(.s5cu-dt):not(.s5cu-srcc){white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:none!important}
+@media (max-width:640px){.s5cu-dash{padding:0 8px 8px}.s5cu-vc{padding:10px}.s5cu-vgrid{gap:10px}}
+/* §5cu-c: "since the previous run" as a table, one row per campaign */
+.s5cu-bntw{margin-top:8px}
+table.s5cu-bntab td{font-size:13.5px}
+.s5cu-bnk{display:inline-block;white-space:nowrap}
+.s5cu-bnk-added{background:var(--ok-soft);color:var(--ok)}
+.s5cu-bnk-changed{background:var(--warn-soft);color:var(--warn)}
+.s5cu-bnk-removed{background:var(--bad-soft);color:var(--bad)}
+ul.s5cu-bnl{margin:0;padding-left:18px}
+ul.s5cu-bnl li+li{margin-top:3px}
+.s5cu-bnx{color:var(--muted)}
+ul.s5cu-bnl del{background:var(--del-bg);color:var(--del-fg);border-radius:4px;padding:0 5px}
+ul.s5cu-bnl ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;border-radius:4px;padding:0 5px;font-weight:600}
+td.s5cu-tt{white-space:nowrap;font-weight:600;color:var(--text)}
+.s5cu-tcx{font-size:13px;color:var(--text);opacity:.85;line-height:1.45}
+@media (max-width:640px){.s5cu.sec-body a.s5cu-src{white-space:normal;overflow-wrap:anywhere}}
+/* §5cu-d: Message Center links on every campaign row and top card */
+.s5cu-pl{display:block;margin-top:5px;font-size:12.5px;color:var(--muted)}
+.s5cu-pll{color:var(--faint)}
+.s5cu-plm{color:var(--accent);font-size:12.5px;text-decoration:none}
+.s5cu .s5cu-pl a.s5cu-src{color:var(--accent)}
+.s5cu-facts .s5cu-pl{flex-basis:100%;margin-top:2px}
+.s5cu-tls{display:block;font-size:12px;color:var(--faint);margin-top:3px}
+/* §5cu-e: archive */
+.s5cu-arch{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:0 14px 12px}
+.s5cu-arch>summary{cursor:pointer;padding:12px 0;font:700 14px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.s5cu-archs{display:block;font:400 12.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--muted);margin-top:3px}
+/* §5cu-f: dates in rounded frames, key-fact tiles, dated "What changes" */
+.s5cu-dch{display:inline-block;white-space:nowrap;font-weight:700;font-size:13.5px;line-height:1.35;padding:3px 10px;border:1.5px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text)}
+.s5cu-dch.r{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.s5cu-dch.a{border-color:var(--warn);background:var(--warn-soft);color:var(--warn)}
+.s5cu-dch.n{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.s5cu-dch.p{color:var(--faint);border-color:var(--border-soft)}
+.s5cu-dlab{display:block;font-size:11px;color:var(--faint);margin:5px 0 2px;text-transform:uppercase;letter-spacing:.06em}
+td.s5cu-dt .s5cu-dch+.s5cu-dch{margin-top:4px}
+.s5cu-kt{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.s5cu-ktt{display:flex;flex-direction:column;gap:3px;text-align:left;font:inherit;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:11px 14px}
+button.s5cu-ktt{cursor:pointer}
+button.s5cu-ktt:hover{border-color:var(--accent)}
+.s5cu-ktl{font:600 11px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.s5cu-ktv{font-size:21px;font-weight:700;line-height:1.2}
+.s5cu-kts{font-size:12.5px;color:var(--muted)}
+.s5cu-ktt.r{border-color:var(--bad);background:var(--bad-soft)}
+.s5cu-ktt.r .s5cu-ktv{color:var(--bad)}
+.s5cu-ktt.a{border-color:var(--warn);background:var(--warn-soft)}
+.s5cu-ktt.a .s5cu-ktv{color:var(--warn)}
+.s5cu-ktt.n{border-color:var(--accent);background:var(--accent-soft)}
+.s5cu-ktt.n .s5cu-ktv{color:var(--accent)}
+.s5cu-ch>.s5cu-pl{font-size:13.5px;margin-top:8px}
+.s5cu-ch>.s5cu-pl a.s5cu-src{font-size:13.5px}
+@media (max-width:640px){.s5cu-kt{grid-template-columns:repeat(2,minmax(0,1fr))}.s5cu-ktv{font-size:18px}}
+/* §5cv-b (9 X 2026, owner on the Overview: "you drew one big frame instead of one per piece of information / per
+   section; and the sentences run into each other - the titles do not stand out, hard to see where a section starts
+   and ends"): the frame belongs to each piece, not to the whole card - the cards of the Overview no longer frame,
+   their rows and sentences do. Every sentence of "Today in N sentences" is a tile of its own, its label a coloured
+   chip (red = most urgent, green = new, blue = Graph & roles and news, amber = components, grey = a technology). */
+.s5ci-ten .s5bk-3 li{border:1px solid var(--border);border-top:1px solid var(--border);border-radius:10px;background:var(--bg);
+ padding:12px 14px 13px;margin:0 0 12px;break-inside:avoid}
+.s5ci-ten .s5bk-3 li>b.s5bk-k{display:inline-block;margin:0 0 9px;padding:3px 10px;border-radius:999px;font-size:11.5px;line-height:1.35;
+ letter-spacing:.06em;border:1px solid var(--border);background:var(--surface);color:var(--text)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-urgent{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-new{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-graph,.s5ci-ten .s5bk-3 li>b.s5bk-k.k-news{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.s5ci-ten .s5bk-3 li>b.s5bk-k.k-comp{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.s5ci-ten .s5bk-3 li .s5bk-itt{font-size:15px}
+
+/* §5cv-c (9 X 2026, owner: "you did not listen - there are sections, and not only in the Overview, with no blue
+   frame when I hover a section or a link; I asked for it in the WHOLE portal and /diff/" and "these three tiles show
+   the technology they concern poorly - fix and show it in the whole portal and /diff/"). The frame is no longer a
+   list of classes: SCRIPT 17 finds, under the pointer, the piece of information (a row, a list item, a tile, a card
+   entry) and gives it .s5cv-on, and the section around it .s5cv-in - in every tab, for every element there is or
+   will be. The technology or product of an entry is a blue chip wherever it is printed. */
+.s5cv-on{outline:2px solid var(--accent)!important;outline-offset:-2px!important}
+.s5cv-in{outline:1px solid var(--accent)!important;outline-offset:2px!important}
+.s5ci-pill.s5ci-tech,.mcb-svc,span.s5cu-tech,.s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){display:inline-block;
+ padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);
+ font-weight:700;font-size:12px;line-height:1.45;letter-spacing:.01em;white-space:nowrap}
+.s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){justify-self:start;align-self:start;width:max-content;max-width:100%;white-space:normal}
+.s5cv-kqa{margin:6px 0 12px;padding:9px 12px;border:1px solid var(--accent);border-left-width:4px;border-radius:8px;background:var(--accent-soft);font-size:13.5px;line-height:1.5}
+/* §5cx (10 X 2026): GuardZilla logo - the mascot before the title; the full logo (with the name) in the header's
+   left margin when the margin holds it (header content is 1500 px wide and centred: from 2160 px), 260 px wide so it
+   stays inside the header (224 px tall; the rail below the header starts at the left edge).
+   Owner, 10 X 01:09: "too small on desktop, at least twice as big" - 96 px on a desktop (was 46), 72 on a tablet,
+   52 on a phone; the full logo 260 px wide (was up to 226 at 2000 px, now shown only where it fits at 260). */
+h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
+.s5cx-mark{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
+.s5cx-mark img{height:96px;width:auto;display:block}
+.s5cx-logo{display:none;text-decoration:none}
+.s5cx-logo img{display:block;width:100%;height:auto}
+.s5cx-dark{display:none!important}
+:root[data-theme="dark"] .s5cx-dark{display:block!important}
+:root[data-theme="dark"] .s5cx-light{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5cx-dark{display:block!important}
+ :root:not([data-theme="light"]) .s5cx-light{display:none!important}}
+@media (min-width:2160px){
+ .s5cx-logo{display:block;position:absolute;left:calc((100vw - 1500px) / 4 - 130px);top:10px;width:260px}   /* 224 px tall: inside the header */
+ header.top .s5cx-mark{display:none}
+}
+/* from 721 px the mascot stands at the left of the whole title block (title, dateline, filter and Theme), so it is
+   big without making the sticky header taller: the block keeps its rows and moves right by the mascot's width */
+@media (min-width:721px) and (max-width:2159px){
+ header.top .title-row.s5cx-row{position:relative;padding-left:128px;min-height:96px}
+ header.top .s5cx-row h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}
+}
+@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:72px}
+ header.top .title-row.s5cx-row{padding-left:98px;min-height:72px}}
+@media (max-width:720px){.s5cx-mark img{height:52px}h1.s5cx-h1{gap:10px}}
+</style>
 <!--SOC-SHELL part=script1-->
 <script>
 (function () {
@@ -6103,7 +6479,7 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 9 October 2026</b> &middot; published 07:25 Warsaw &middot; 25 September &ndash; 9 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 48 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>952</b> undocumented at Microsoft<span>&middot; 952 permissions, 0 roles</span></a><a class="count" href="#graph"><b>357</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>80</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>43</b> changes since 8 Oct<span>&middot; 17 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>6281</b> changes in 14 days<span>&middot; 12 days with a run, 2 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -6304,7 +6680,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 9 October 2026, morning pass at 07:25 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 10 October 2026, morning pass at 06:47 Warsaw: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
