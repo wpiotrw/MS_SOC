@@ -4034,6 +4034,7 @@ tr.s5da-cap{display:none!important}
  .tabpanel summary>.ntlab~span:not(.ntn){flex:1 1 100%;order:5;min-width:0}
  .tabpanel details.ntsec>summary,.tabpanel details.dsec>summary{flex-wrap:wrap}
 }
+#tab-about .s5cz-h4{margin:12px 0 6px;font-size:13.5px}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -8132,6 +8133,46 @@ IdentityDirectoryEvents
 
 </script>
 <script>
+/* §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X - why does our page say CHANGED?").
+   The register (ledger14) written before §5db recorded a catalog entry that moved from "not in this tenant" (known
+   only from Microsoft's deployment map) into the tenant as four CHANGED fields (kind, docStatus, version, changed).
+   For the reader it is a permission NEW in this tenant. This runs before every other script of the page and
+   rewrites such a group in the state block once: one ADDED entry "grantable here" (before -> after kind); the
+   opposite move is REMOVED. The file site/data/changelog.json is not touched (§5aj); make_diff.py writes the new
+   shape itself from §5db on (diff_catalog / GRANT_MOVES). */
+(function () {
+  var el = document.getElementById("soc-brief-state"); if (!el) return;
+  var txt = el.textContent || "";
+  if (txt.indexOf("not-in-tenant") < 0 && txt.indexOf("deployed elsewhere") < 0 && txt.indexOf("not in this tenant") < 0) return;
+  var st; try { st = JSON.parse(txt); } catch (e) { return; }
+  var L = st && st.ledger14 && st.ledger14.entries; if (!L || !L.length) return;
+  var OUT = /^deployed in the service, not in this tenant/i;
+  function away(f, v) { v = String(v || ""); return f === "docStatus" ? v === "not-in-tenant" : f === "kind" ? OUT.test(v) : f === "serviceStatus" ? /deployed elsewhere/i.test(v) : null; }
+  var groups = {}, order = [];
+  L.forEach(function (e, i) {
+    if (!e || e.kind !== "changed" || (e.tab !== "Graph API" && e.tab !== "Roles") || !e.id) return;
+    var k = e.seen + "\u0001" + e.tab + "\u0001" + e.id; if (!groups[k]) { groups[k] = []; order.push(k); } groups[k].push(i);
+  });
+  var drop = {}, put = {}, n = 0;
+  order.forEach(function (k) {
+    var idx = groups[k], dir = null, kb = null, ka = null;
+    idx.forEach(function (i) {
+      var e = L[i], b = away(e.field, e.before), a = away(e.field, e.after);
+      if (b === null) return;
+      if (b && !a) dir = dir || "added"; else if (!b && a) dir = dir || "removed";
+      if (e.field === "kind") { kb = e.before; ka = e.after; }
+    });
+    if (!dir) return;
+    var f = L[idx[0]], m = {}; for (var x in f) m[x] = f[x];
+    m.kind = dir; m.field = "grantable here"; m.before = kb || (dir === "added" ? "not in this tenant" : "in this tenant");
+    m.after = ka || (dir === "added" ? "in this tenant" : "not in this tenant"); m.detail = null;
+    put[idx[0]] = m; idx.slice(1).forEach(function (i) { drop[i] = 1; }); n++;
+  });
+  if (!n) return;
+  st.ledger14.entries = L.map(function (e, i) { return put[i] || e; }).filter(function (e, i) { return !drop[i]; });
+  st.ledger14.grantMoves = n;
+  try { el.textContent = JSON.stringify(st); } catch (e) {}
+})();
 /* ===========================================================================
    SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
    ADDED, never a replacement. The three shell scripts stay untouched; this one
@@ -17122,6 +17163,12 @@ IdentityDirectoryEvents
           var chs = el("span", "s5bn-chs" + (fl.length > 1 ? " s5bn-multi" : ""));
           fl.forEach(function (x) {
             var ch = el("span", "s5bn-ch");
+            /* §5db: a move into / out of this tenant, said in words; the previous catalog state in brackets */
+            if (x.field === "grantable here") {
+              ch.appendChild(el("b", null, x.kind === "removed" ? "no longer grantable in this tenant" : "became grantable in this tenant"));
+              if (x.before) ch.appendChild(document.createTextNode(" (was: " + x.before + ")"));
+              chs.appendChild(ch); return;
+            }
             if (x.field) ch.appendChild(el("span", "s5bn-f", x.field + ":"));
             if (x.before) ch.appendChild(el("del", null, x.before));
             if (x.before && x.after) ch.appendChild(document.createTextNode(" → "));
@@ -23337,6 +23384,15 @@ IdentityDirectoryEvents
       "The green frame top right says when the brief, the page code and the latest data were refreshed; every tab repeats its own time under its heading. 24h / AM/PM switches the time format everywhere.",
       "“What changed since the last brief” (in the frame and under the title) opens the /diff/ page: the whole day by tab and technology, with what the afternoon pass added.",
       "Back from this tab: the “← Back” button at the top, or any tab in the menu."]));
+    /* §5db (owner 10 X 17:04: "when do we write CHANGED, and when NEW or UPDATED - in every tab?") */
+    ch.appendChild(el("h4", "s5cz-h4", "New, changed, removed — what each word means"));
+    ch.appendChild(ul([
+      "Graph API and Roles — NEW: a permission or role that was not in the previous brief's catalog, or one that became grantable in this tenant (Microsoft's deployment map listed it as deployed elsewhere; now it is in this tenant's Microsoft Graph service principal). CHANGED: an entry already listed got a different value — documentation status, version, consent, endpoints, description. REMOVED: it left the catalog or is no longer grantable here.",
+      "New, Today, Deadlines, Products — NEW: an item first tracked by this brief. CHANGED: an item already listed whose status, date, title or text moved. REMOVED: it left the 14-day window.",
+      "Message Center — NEW (the pill): a post first seen by this brief. Microsoft's own words in the list and the day grid: “new” = published that day, “updated” = revised by Microsoft that day. CHANGED: a field of a post already listed moved (for example the revision date). REMOVED: the post left the list.",
+      "Microsoft Learn, Blogs, Community — added to the list: an entry first seen; changed: its date or text moved; left the list: it fell out of the source's feed or the window — nothing was deleted at the source.",
+      "Component versions — CHANGED: a new version, release state or end-of-support date; NEW: a component tracked for the first time. First-party apps — added / removed: a Microsoft app appeared in or left the inventory; changed: its permissions or properties moved. Campaigns — new campaign, changed (a date moved, new material), closed.",
+      "Counters (menu on the left, tab heading, “Since the previous brief”) count changes; one item with three changed fields counts as three changes and is shown once with its three fields."]));
     g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
     c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
