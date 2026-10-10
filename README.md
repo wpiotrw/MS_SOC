@@ -41,6 +41,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [9. Stan prac i plan](#9-stan-prac-i-plan)
 - [10. Dane wrażliwe — co nie trafia do tego pliku ani do repozytorium](#10-dane-wrażliwe--co-nie-trafia-do-tego-pliku-ani-do-repozytorium)
 - [11. Postawienie od zera (nowe repozytorium, inny tenant)](#11-postawienie-od-zera-nowe-repozytorium-inny-tenant)
+- [12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego](#12-tożsamości-uprawnienia-i-poświadczenia--pełny-wykaz-i-powód-każdego)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -377,10 +378,10 @@ Workflow działa **automatycznie co 3 godziny, w minucie 15 UTC** (00:15, 03:15,
 | 4. Role aplikacyjne | dla każdego SP spoza naszego tenanta: [`GET /servicePrincipals/{id}/appRoleAssignments`](https://learn.microsoft.com/graph/api/serviceprincipal-list-approleassignments) + nazwy ról zasobu | per klient: `API: rola` |
 | 5. Zapis | `site/data/fpa-tenant.json` | pola `read`, `tenant`, `spTotal`, `spMicrosoft`, `grantsNote`, `clients[]` |
 | 6. Message Center tenanta | [`GET /admin/serviceAnnouncement/messages`](https://learn.microsoft.com/graph/api/serviceannouncement-list-messages) (`ServiceMessage.Read.All`) — `tools/mc_tenant.py` | `site/data/mc-tenant.json` (pkt 5.4); krok może się nie udać bez przerwania workflow |
-| 7. Uprawnienia Graph i role Entra w tenancie (§5cy) | [`GET /servicePrincipals(appId='00000003-0000-0000-c000-000000000000')`](https://learn.microsoft.com/graph/permissions-reference)`?$select=appRoles,oauth2PermissionScopes,resourceSpecificApplicationPermissions` (Application.Read.All) i [`GET /roleManagement/directory/roleDefinitions?$filter=isBuiltIn eq true`](https://learn.microsoft.com/graph/api/rbacapplication-list-roledefinitions) (RoleManagement.Read.Directory) — `tools/graph_sp.py` | `site/data/graph-sp.json` (stan) i `site/data/graph-sp-history.json` (zdarzenia z minutą odczytu, 90 dni); pliki zapisywane tylko przy zmianie; pierwszy odczyt = punkt odniesienia bez zdarzeń; odczyt wyglądający na uszkodzony (< 500 ról aplikacyjnych, < 80 ról Entra) nie jest zapisywany. Krok może się nie udać — reszta migawki zostaje |
+| 7. Uprawnienia Graph i role Entra w tenancie (§5cy) | [`GET /servicePrincipals(appId='00000003-0000-0000-c000-000000000000')`](https://learn.microsoft.com/graph/permissions-reference)`?$select=appRoles,oauth2PermissionScopes,resourceSpecificApplicationPermissions` (Application.Read.All) i [`GET /roleManagement/directory/roleDefinitions?$filter=isBuiltIn eq true`](https://learn.microsoft.com/graph/api/rbacapplication-list-roledefinitions) w wersji **beta** (RoleManagement.Read.Directory; v1.0 nie zwraca `isPrivileged`, sprawdzone 10 X 2026) — `tools/graph_sp.py` | `site/data/graph-sp.json` (stan) i `site/data/graph-sp-history.json` (zdarzenia z minutą odczytu, 90 dni); pliki zapisywane tylko przy zmianie; pierwszy odczyt = punkt odniesienia bez zdarzeń; odczyt wyglądający na uszkodzony (< 500 ról aplikacyjnych, < 80 ról Entra) nie jest zapisywany. Krok może się nie udać — reszta migawki zostaje |
 | 7a. Kopie źródeł First-party apps | `tools/fpa_sources.py` — pobiera pliki publiczne (merill, ROADtools, GPC, `known-guids.json` Microsoftu), **nie czyta tenanta** | `cache/fpa/`, `site/data/fpa-docs.json` |
 | 8. Commit | tylko gdy któryś plik się zmienił: `data: tenant snapshot (first-party apps, Message Center, Graph permissions) <data>` | historia zmian zgód w gicie |
-| 9. Wdrożenie (§5cy) | `Azure/static-web-apps-deploy` — tylko gdy krok 7 zapisał nowe zdarzenia albo powstał plik historii | strona pokazuje zmianę uprawnień lub ról przed porannym briefem (karta Overview „Identity surface”, zdanie „Identity surface”) |
+| 9. Wdrożenie (§5cy) | `Azure/static-web-apps-deploy` — tylko gdy zmienił się plik historii (nowe zdarzenia, raz na dobę data odczytu, zmiana stanu odczytu ról) | strona pokazuje zmianę uprawnień lub ról przed porannym briefem (karta Overview „Identity surface”, zdanie „Identity surface”) |
 
 „Klient” to service principal **nienależący do naszego tenanta**, który ma u nas zgodę delegowaną albo rolę aplikacyjną — czyli aplikacja z zewnątrz (Microsoftu albo firmy trzeciej), której ktoś coś nadał.
 
@@ -945,7 +946,7 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 |---|---|---|---|
 | 1 | Repozytorium | GitHub | fork albo kopia `wpiotrw/MS_SOC` (z historią `site/data`, bo `/diff/` i kampanie liczą zmiany względem poprzednich dni). Repozytorium publiczne pozwala zadaniom Claude klonować je bez logowania |
 | 2 | Azure Static Web App | Azure Portal | pkt 3, „Odtworzenie w nowej subskrypcji / nowym tenancie Azure”: zasób, token wdrożeniowy, sekret `AZURE_STATIC_WEB_APPS_API_TOKEN_<NAZWA>` w repozytorium, zmiana adresu strony w `CLAUDE.md` |
-| 3 | Aplikacja Entra dla migawki tenanta | docelowy tenant | `pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta> [-Subject <subject OIDC>]` kontem administratora (logowanie kodem urządzenia, pkt 5.3). Skrypt zakłada aplikację **MS-SOC First-party apps reader**, nadaje i zatwierdza **Application.Read.All**, **DelegatedPermissionGrant.Read.All**, **ServiceMessage.Read.All**, **RoleManagement.Read.Directory** (wszystkie tylko odczyt) i dodaje poświadczenie federacyjne GitHub OIDC. Role konta: Cloud Application Administrator + Privileged Role Administrator (albo Global Administrator). Subject: nowe repozytorium wystawia format niezmienny `repo:<właściciel>@<id>/<repo>@<id>:ref:refs/heads/main` — dokładną wartość workflow wypisuje w linii „OIDC claims” (pkt 5.2) |
+| 3 | Aplikacja Entra dla migawki tenanta | docelowy tenant | `pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta> [-Subject <subject OIDC>]` kontem administratora (logowanie kodem urządzenia, pkt 5.3). Skrypt zakłada aplikację **MS-SOC First-party apps reader**, nadaje i zatwierdza **Application.Read.All**, **DelegatedPermissionGrant.Read.All**, **ServiceMessage.Read.All**, **RoleManagement.Read.Directory** (wszystkie tylko odczyt) i dodaje poświadczenie federacyjne GitHub OIDC. Role konta: Cloud Application Administrator + Privileged Role Administrator (albo Global Administrator). Subject: nowe repozytorium wystawia format niezmienny `repo:<właściciel>@<id>/<repo>@<id>:ref:refs/heads/main` — dokładną wartość workflow wypisuje w linii „OIDC claims” (pkt 5.2). Pełny wykaz uprawnień z powodami: pkt 12 |
 | 4 | Zmienne repozytorium | GitHub → Settings → Secrets and variables → Actions → **Variables** | `AZURE_TENANT_ID` i `AZURE_CLIENT_ID` z wyniku skryptu (to nie są sekrety, ale pełnych wartości nie wpisujemy do plików repozytorium — pkt 10) |
 | 5 | Workflow | GitHub → Actions | włącz workflow (fork ma je wyłączone); uruchom ręcznie kolejno: „First-party apps tenant snapshot”, „Learn mirror”, „Campaign tracking”, „Code refresh”; sprawdź „Collector check” (adnotacje przebiegu) |
 | 6 | Zadania Claude | claude.ai (scheduled tasks) i Claude Code (routines) | cztery zadania z pkt 4 — prompty są w projekcie Claude „SchedTasks & Routines” (`claude/prompts/`, kopie w `claude/backup/`), **nie w repozytorium**, bo zawierają e-mail właściciela i identyfikatory; w promptach zmień adres repozytorium i strony. Routines potrzebują integracji GitHub konta Claude z prawem zapisu do repozytorium |
@@ -964,11 +965,55 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 > [!WARNING]
 > Darmowy tenant może nie mieć części usług (np. bez licencji Defender czy Intune część wpisów Message Center się nie pojawi). To nie psuje strony, ale `mc-tenant.json` będzie krótszy — porównaj liczbę wpisów przed i po zmianie.
 
+## 12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego
+
+Jedno miejsce na pytanie „czego potrzebuje to rozwiązanie, żeby działać, i dlaczego”. Stan na 10 X 2026. **Zasada właściciela (10 X 2026): każde nowe uprawnienie, poświadczenie albo zmiana sposobu działania trafia do tej tabeli i do pamięci Projektu**, żeby narzędzie dało się odtworzyć w innym tenancie (pkt 11).
+
+### 12.1 Aplikacja Entra „MS-SOC First-party apps reader” (tenant właściciela)
+
+Jedyna aplikacja Entra rozwiązania. Typ: single tenant. Używa jej wyłącznie GitHub Actions (`fpa-tenant.yml`, `fpa-compare.yml`). **Wszystkie uprawnienia są aplikacyjne (Application), tylko do odczytu, z zgodą administratora** — skrypty działają bez zalogowanego użytkownika, co trzy godziny.
+
+| Uprawnienie Microsoft Graph | Od | Wywołanie | Skrypt | Do czego jest potrzebne | Co się dzieje bez niego |
+|---|---|---|---|---|---|
+| **Application.Read.All** | 25 IX 2026 | `GET /servicePrincipals` (z `appOwnerOrganizationId`), `GET /servicePrincipals/{id}/appRoleAssignments`, `GET /servicePrincipals(appId='00000003-0000-0000-c000-000000000000')` (role aplikacyjne, zakresy delegowane, RSC) | `tools/fpa_tenant.py`, `tools/graph_sp.py`, `tools/fpa_compare.py` | lista aplikacji Microsoftu w tenancie i uprawnień aplikacyjnych, które im nadano (zakładka First-party apps, kolumna „consented here”); lista wszystkich uprawnień Microsoft Graph, które da się nadać w tenancie — z niej karta i zdanie „Identity surface” wykrywają nowe uprawnienia w ciągu 3 h | migawka nie działa (krok 1 workflow kończy się błędem); brak wykrywania nowych uprawnień z tenanta |
+| **DelegatedPermissionGrant.Read.All** | 25 IX 2026 | `GET /oauth2PermissionGrants` | `tools/fpa_tenant.py` | zgody delegowane nadane aplikacjom Microsoftu w tenancie (np. `Microsoft Graph: openid profile`) | pole `grantsNote` w `fpa-tenant.json`; role aplikacyjne nadal są czytane |
+| **ServiceMessage.Read.All** | 26 IX 2026 | `GET /admin/serviceAnnouncement/messages` | `tools/mc_tenant.py` | Message Center tenanta z pełnymi metadanymi (kategoria, waga, „major”, termin działania) — porównywany z mc.merill i DeltaPulse (pkt 5.4) | 403 zapisane w `mc-tenant.json`; zakładka Message Center tylko ze źródeł publicznych |
+| **RoleManagement.Read.Directory** | 10 X 2026 | `GET /roleManagement/directory/roleDefinitions?$filter=isBuiltIn eq true` | `tools/graph_sp.py` | definicje ról wbudowanych Entra (akcje, oznaczenie „privileged”) co 3 h — nowa rola, nowe akcje roli albo zmiana „privileged” są widoczne z tenanta, zanim Microsoft opisze je w dokumentacji | `rolesNote` w `graph-sp.json`; role tylko z dokumentacji Microsoftu (na stronie notka „Roles from our tenant: not read”) |
+
+**Poświadczenie aplikacji: poświadczenie federacyjne (Federated Identity Credential), bez sekretu i bez certyfikatu.** Trzy pola: issuer `https://token.actions.githubusercontent.com`, subject `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main` (repozytorium i gałąź `main`; jak go złożyć — pkt 5.2), audience `api://AzureADTokenExchange`. Dlaczego tak: sekret albo certyfikat trzeba by trzymać w GitHub i odnawiać, a wyciek dawałby dostęp z dowolnego miejsca; token OIDC GitHuba wydawany jest tylko przebiegowi z tego repozytorium i tej gałęzi, żyje kilka minut i nie ma czego ukraść (pkt 5.2, „Bezpieczeństwo”).
+
+**Skąd w tenancie:** skrypt `tools/New-FpaReaderApp.ps1` (pkt 5.3) albo ręcznie w portalu (pkt 5.3, „Ręcznie w portalu”). Wartości `AZURE_TENANT_ID` i `AZURE_CLIENT_ID` idą do zmiennych repozytorium (12.2).
+
+### 12.2 GitHub — sekrety, zmienne i token przebiegu
+
+| Element | Rodzaj | Gdzie | Kto używa | Do czego | Sekret? |
+|---|---|---|---|---|---|
+| `AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603` | sekret repozytorium | Settings → Secrets and variables → Actions → **Secrets** | `azure-static-web-apps-…yml`, `publish.yml`, `code-refresh.yml`, `fpa-tenant.yml` | token wdrożeniowy Azure Static Web App — jedyny sposób wgrania `site/` na stronę ([zarządzanie tokenem](https://learn.microsoft.com/azure/static-web-apps/deployment-token-management)) | **tak — jedyny sekret rozwiązania**; przy nowej Static Web App: nowy token (pkt 3) |
+| `AZURE_TENANT_ID` | zmienna repozytorium | Settings → … → **Variables** | `fpa-tenant.yml`, `fpa-compare.yml` | do którego tenanta logować się tokenem OIDC | nie (identyfikator), ale pełnej wartości nie wpisujemy do plików (pkt 10) |
+| `AZURE_CLIENT_ID` | zmienna repozytorium | jw. | jw. | która aplikacja Entra (12.1) | nie, jw. |
+| `GITHUB_TOKEN` · `contents: write` | token przebiegu, nadawany przez GitHub na czas przebiegu | `permissions:` w pliku workflow | `campaigns.yml`, `code-refresh.yml`, `fpa-tenant.yml`, `learn-mirror.yml`, `publish.yml` | commit danych i strony na `main` | nie przechowywany |
+| `GITHUB_TOKEN` · `contents: read` | jw. | jw. | `collector-check.yml`, `fpa-compare.yml` | tylko odczyt repozytorium | jw. |
+| `GITHUB_TOKEN` · `id-token: write` | jw. | jw. | `fpa-tenant.yml`, `fpa-compare.yml` | prawo poproszenia GitHuba o token OIDC dla logowania do Entra (12.1); bez niego logowanie federacyjne jest niemożliwe | jw. |
+
+### 12.3 Logowania ludzi i narzędzi (delegowane, tylko przy konfiguracji)
+
+| Kto / co | Kiedy | Zakresy delegowane i role konta | Dlaczego |
+|---|---|---|---|
+| `tools/New-FpaReaderApp.ps1` (kod urządzenia przez publicznego klienta Microsoft Graph Command Line Tools) | raz przy postawieniu i przy dodaniu uprawnienia | `Application.ReadWrite.All` (utworzenie i zmiana aplikacji, poświadczenie federacyjne), `AppRoleAssignment.ReadWrite.All` (nadanie uprawnień aplikacyjnych); konto: Cloud Application Administrator + Privileged Role Administrator (albo Global Administrator) | jedyny moment, w którym potrzebne są uprawnienia do zapisu; token żyje tylko w czasie przebiegu skryptu, nic nie jest zapisywane |
+| Lokka (serwer MCP na komputerze właściciela, tryb `interactive`) | opcjonalnie — gdy Claude ma sam czytać albo zmieniać tenant | do odczytu: według zadania; do nadawania uprawnień aplikacji: `AppRoleAssignment.ReadWrite.All` + `Application.Read.All` (+ `Application.ReadWrite.All` dla listy „API permissions”), konto z rolą Privileged Role Administrator aktywowaną w PIM | szczegóły i ostrzeżenie: pkt 5.3, „Nadawanie uprawnień przez Claude (Lokka)” |
+| Aplikacja Claude GitHub | sesje Claude (rozmowy w Projekcie) | dostęp do repozytorium `wpiotrw/MS_SOC` zatwierdzony na starcie sesji | `git push` zmian kodu i dokumentacji (pkt 4b) |
+| Konektor GitHub w routines | przebiegi routines | integracja GitHub konta Claude właściciela | push `site/` (pkt 4, 4b) |
+
+### 12.4 Czego rozwiązanie NIE używa
+
+Sekretów aplikacji Entra (client secret), certyfikatów, osobistych tokenów GitHub (PAT), ról Azure RBAC, kont usługowych z hasłem ani uprawnień do zapisu w tenancie przy normalnej pracy. Zadania Claude (scheduled tasks, routines) nie logują się do tenanta wcale — czytają tylko pliki, które zapisał workflow.
+
 ## Historia zmian
 
 | Data | Zmiana |
 |---|---|
 
+| 2026-10-10 | pkt 12 „Tożsamości, uprawnienia i poświadczenia”: jedna tabela wszystkich uprawnień aplikacji Entra z powodem, wywołaniem, skryptem i skutkiem braku; poświadczenie federacyjne zamiast sekretu i dlaczego; sekrety, zmienne i `GITHUB_TOKEN` każdego workflow; logowania delegowane (skrypt, Lokka, Claude GitHub); czego rozwiązanie nie używa. |
 | 2026-10-10 | pkt 5.3: nadanie RoleManagement.Read.Directory krok po kroku w portalu; odporny fragment PowerShell (klonuje repozytorium, gdy go nie ma); tabela „co robi skrypt `New-FpaReaderApp.ps1`”; część „Nadawanie uprawnień przez Claude (Lokka)” — rola, zakresy i ostrzeżenie o AppRoleAssignment.ReadWrite.All; krok 1 z czterema uprawnieniami. |
 | 2026-10-10 | §5cy — powierzchnia tożsamości: `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta uprawnienia Microsoft Graph i role Entra z naszego tenanta (nowe uprawnienie aplikacji: **RoleManagement.Read.Directory**, tylko odczyt; skrypt `New-FpaReaderApp.ps1` je nadaje), pliki `graph-sp.json` i `graph-sp-history.json`, wdrożenie przy zmianie (sekret SWA w tym workflow); strona: zdanie „Identity surface”, karta Overview, zmiany uprawnień w zdaniach technologii; `/diff/`: blok „Identity surface — who can do what”; pkt 5.2 (kroki 7 i 9), pkt 11 krok 3. |
 | 2026-10-10 | pkt 5.2: czy adres `api.github.com/repos/...` jest publiczny (repozytoria publiczne, w tym cudze — bez logowania; prywatne — 404; limit 60/h), ID konta z `/users/<login>`, co po przejściu na repozytorium prywatne; funkcja PowerShell `Get-GitHubOidcSubject` dla dowolnego repozytorium i gałęzi. |
