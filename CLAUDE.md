@@ -6152,6 +6152,34 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
 .dwin .dwin-aft{margin-top:8px;padding:8px 12px;border:1px solid var(--warn);border-radius:8px;background:var(--warn-soft)}
 .dwin ul{margin:6px 0 0;padding-left:20px}.dwin li{margin:2px 0}
 .dwin .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--surface-2,var(--accent-soft));font-size:11.5px;font-weight:600;margin-right:6px}
+/* §5cz-b: the same hint bubble and round ? as the brief */
+#s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
+#s5czb-tip{position:fixed;z-index:10000;left:0;top:0;max-width:340px;padding:8px 11px;border-radius:10px;background:var(--surface,#fff);color:var(--text);border:1px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.22);font-size:12.5px;line-height:1.5;font-weight:400;text-align:left;white-space:normal;letter-spacing:0;text-transform:none;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+#s5czb-tip.on{opacity:1;visibility:visible;transform:none}
+#s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
+#s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
+.s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+span[title],abbr[title]{cursor:help}
+/* §5cz-b (10 X 2026): the afternoon items as cards - technology, area, status, title, why, then dates and MC */
+.daft{margin:10px 0 0;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--warn,#9a6700);border-radius:10px;background:var(--surface)}
+.daft-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.daft-n{flex:0 0 auto;min-width:40px;height:40px;padding:0 8px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+ background:var(--warn-soft);color:var(--warn,#9a6700);font-weight:800;font-size:20px}
+.daft-head h2{margin:0;font-size:16px}.daft-head p{margin:2px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.daft-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.daft-c{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg,var(--surface));min-width:0}
+.daft-c:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.daft-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.daft-a{font-size:12px;color:var(--muted)}
+.daft-st{margin-left:auto;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.daft-t{font-weight:700;font-size:14px;line-height:1.4;color:var(--text);overflow-wrap:anywhere;text-decoration:none}
+a.daft-t:hover{color:var(--accent)}
+.daft-w{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.daft-m{margin:auto 0 0;padding-top:6px;border-top:1px dashed var(--border);display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px}
+.daft-m div{display:flex;gap:5px;align-items:baseline}.daft-m dt{color:var(--muted)}.daft-m dd{margin:0;font-variant-numeric:tabular-nums}
+@media (hover:none){.daft-c:hover{outline:none}}
+@media (max-width:720px){.daft-g{grid-template-columns:1fr}.daft{padding:10px}}
 .didn{margin:10px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--bad,#cf222e);border-radius:8px;background:var(--surface)}
 .didn p{margin:0 0 6px}.didn ul{margin:6px 0 0;padding-left:20px}.didn li{margin:3px 0;overflow-wrap:anywhere}
 .didn .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-size:11.5px;font-weight:600;margin-right:6px}
@@ -6940,13 +6968,61 @@ DATES_BODY = r"""<script>
       b.addEventListener("click",function(){ MODE=m[0]; try{ localStorage.setItem("socTime",MODE); }catch(e){} [].forEach.call(document.querySelectorAll(".s5cz-d"),function(d){ var o=d.firstChild?d.firstChild.textContent:"", q=d.getAttribute("data-t")&&/^(\d{1,2}):(\d{2})$/.exec(o); d.setAttribute("data-v",q?hm(q[1],q[2]):conv(o)); });
         [].forEach.call(tg.querySelectorAll("button"),function(x){ x.setAttribute("aria-pressed",String(x===b)); }); }); tg.appendChild(b); });
     h.appendChild(tg); box.appendChild(h);
-    function line(k,v,x){ var l=el("div","s5cz-fl"); l.appendChild(el("span","s5cz-fk",k)); var b=el("b","s5cz-at",v); l.appendChild(b); if(x) l.appendChild(el("span","s5cz-fx",x)); box.appendChild(l); }
-    line("Compared", (prev?dmy(prev.slice(0,4),prev.slice(5,7),prev.slice(8,10))+" → ":"")+dmy(DAY.slice(0,4),DAY.slice(5,7),DAY.slice(8,10)), age<=0?"today":age===1?"yesterday":age+" days old");
-    if(pub&&pub.at){ var d=new Date(pub.at.length===17?pub.at.replace("Z",":00Z"):pub.at); if(!isNaN(d)) line("Page built", wfmt(d), "published to this site"); }
+    function q(t){ var e=el("span","s5czb-q","?"); e.setAttribute("data-tip",t); e.setAttribute("tabindex","0"); e.setAttribute("role","button"); e.setAttribute("aria-label","Explanation: "+t); return e; }
+    function line(k,v,x,t){ var l=el("div","s5cz-fl"), kk=el("span","s5cz-fk",k); if(t) kk.appendChild(q(t)); l.appendChild(kk); var b=el("b","s5cz-at",v); l.appendChild(b); if(x) l.appendChild(el("span","s5cz-fx",x)); box.appendChild(l); }
+    line("Compared", (prev?dmy(prev.slice(0,4),prev.slice(5,7),prev.slice(8,10))+" → ":"")+dmy(DAY.slice(0,4),DAY.slice(5,7),DAY.slice(8,10)), age<=0?"today":age===1?"yesterday":age+" days old", "The two days this page compares: the state at the end of the first day against the state at the end of the second (the morning pass and the afternoon pass of that day). The routine “zmiany v2” builds it at about 22:00 Warsaw; the frame is green when the newer day is today.");
+    if(pub&&pub.at){ var d=new Date(pub.at.length===17?pub.at.replace("Z",":00Z"):pub.at); if(!isNaN(d)) line("Page built", wfmt(d), "published to this site", "When the newest pages of the brief were copied to this site by the workflow “Publish routine output” (the evening routine publishes this page that way)."); }
     var tools=row.querySelector(".hdr-tools"); if(tools) row.insertBefore(box,tools); else row.appendChild(box);
   }
   function go(pub){ try{ frame(pub); }catch(e){} try{ rewrite(document.body); }catch(e){ if(window.console) console.error("[5cz diff dates]",e); } }
   try{ fetch("../data/fresh/publish.json",{cache:"no-store"}).then(function(r){ return r.ok?r.json():null; }).then(go).catch(function(){ go(null); }); }catch(e){ go(null); }
+})();
+/* §5cz-b (10 X 2026, owner 12:25: "the hints should look nicer in the whole portal; a round ? shows there is a hint").
+   One styled bubble for every native title tooltip and every data-tip: the title is lifted off the element only while
+   the pointer is on it (so nothing that reads .title later sees a difference) and put back when the pointer leaves.
+   A round ? (.s5czb-q) opens its hint on hover, on keyboard focus and on a tap (phones have no hover). */
+(function () {
+  if (window.__s5czbTip) return; window.__s5czbTip = 1;
+  var tip = null, cur = null, timer = null, pinned = false;
+  function box() { if (!tip) { tip = document.createElement("div"); tip.id = "s5czb-tip"; tip.setAttribute("role", "tooltip"); document.body.appendChild(tip); } return tip; }
+  function text(e) { return e.getAttribute("data-tip") || e.getAttribute("data-s5czb-t") || ""; }
+  function place(e) {
+    var r = e.getBoundingClientRect(), b = box(), vw = document.documentElement.clientWidth;
+    b.style.left = "0px"; b.style.top = "0px";
+    var w = b.offsetWidth, h = b.offsetHeight, x = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2)), y = r.top - h - 10, below = false;
+    if (y < 8) { y = r.bottom + 10; below = true; }
+    b.style.left = Math.round(x) + "px"; b.style.top = Math.round(y) + "px"; b.classList.toggle("below", below);
+    b.style.setProperty("--ax", Math.round(Math.max(12, Math.min(w - 12, r.left + r.width / 2 - x))) + "px");
+  }
+  function show(e) { var t = text(e); if (!t) return; var b = box(); b.textContent = t; b.classList.add("on"); place(e); }
+  function lift(e) { var t = e.getAttribute("title"); if (t) { e.setAttribute("data-s5czb-t", t); e.removeAttribute("title"); } }
+  function hide() {
+    clearTimeout(timer); if (tip) tip.classList.remove("on", "below");
+    if (cur && cur.hasAttribute("data-s5czb-t")) { cur.setAttribute("title", cur.getAttribute("data-s5czb-t")); cur.removeAttribute("data-s5czb-t"); }
+    cur = null; pinned = false;
+  }
+  function target(n) { return n && n.closest ? n.closest(".s5czb-q,[data-tip],[title]") : null; }
+  document.addEventListener("mouseover", function (ev) {
+    if (pinned) return;
+    var t = target(ev.target); if (t === cur) return;
+    hide(); if (!t || t.closest("svg")) return;
+    cur = t; lift(t);
+    timer = setTimeout(function () { if (cur === t) show(t); }, t.classList.contains("s5czb-q") ? 60 : 380);
+  }, true);
+  document.addEventListener("mouseout", function (ev) { if (pinned || !cur) return; var to = ev.relatedTarget; if (to && cur.contains(to)) return; hide(); }, true);
+  document.addEventListener("click", function (ev) {
+    var q = ev.target && ev.target.closest ? ev.target.closest(".s5czb-q") : null;
+    if (q) { ev.preventDefault(); ev.stopPropagation(); if (pinned && cur === q) { hide(); return; } hide(); cur = q; show(q); pinned = true; return; }
+    hide();
+  }, true);
+  document.addEventListener("focusin", function (ev) { var q = ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q") ? ev.target : null; if (q) { hide(); cur = q; show(q); } });
+  document.addEventListener("focusout", function (ev) { if (cur && ev.target === cur && !pinned) hide(); });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") hide();
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q")) { ev.preventDefault(); ev.target.click(); }
+  });
+  window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
+  window.addEventListener("resize", hide);
 })();
 </script>"""
 
@@ -7554,23 +7630,42 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     if mst is not None:
         mids = set(norm(i.get("id")) for i in (mst.get("items") or []) if isinstance(i, dict))
         aft = [i for i in added if norm(i.get("id")) not in mids]
+    win_.append('</div>')
+    out.append("".join(win_))
+    # §5cz-b (10 X 2026, owner: "the yellow list written in one run is unreadable and does not fit our design - a
+    # professional view split by technology, date, MC, description; tiles as on the main page"): one card per item
     if aft:
-        win_.append('<div class="dwin-aft"><p><b>Arrived with the afternoon pass: %d item%s the main page does not '
-                    'show</b> &mdash; tomorrow&rsquo;s brief carries them, but compares with this evening, so it will '
-                    'not mark them new. They are in <a href="#added">Added</a> below as well.</p><ul>'
-                    % (len(aft), "" if len(aft) == 1 else "s"))
+        def _mcl(r_):
+            return ('<a href="https://mc.merill.net/message/%s" target="_blank" rel="noopener">%s</a>' % (esc(r_), esc(r_))
+                    if re.match(r"^MC\d+$", r_ or "") else esc(r_))
+        a_ = ['<section class="daft" id="afternoon" aria-labelledby="daft-h"><div class="daft-head">'
+              '<span class="daft-n">%d</span><div><h2 id="daft-h">Arrived with the afternoon pass</h2>'
+              '<p>Item%s the main page does not show yet. Tomorrow&rsquo;s brief carries %s but compares with this '
+              'evening, so it will not mark %s new. Also listed in <a href="#added">Added</a>.</p></div></div>'
+              '<div class="daft-g">' % (len(aft), "" if len(aft) == 1 else "s", "it" if len(aft) == 1 else "them",
+                                         "it" if len(aft) == 1 else "them")]
         for i_ in sorted(aft, key=wkey):
             t_ = esc(i_.get("title") or i_.get("id"))
             u_ = norm(i_.get("url"))
-            link_ = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(u_), t_)) if u_ else t_
+            link_ = ('<a class="daft-t" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(u_), t_)) if u_ \
+                else '<span class="daft-t">%s</span>' % t_
             ref_ = norm(i_.get("reference"))
-            win_.append('<li><span class="dwin-p">%s</span>%s%s%s</li>' % (
-                esc(i_.get("product") or "—"), link_,
-                (" &middot; %s" % esc(ref_)) if re.match(r"^(MC|RM)\d+$", ref_ or "") else "",
-                (" &middot; due %s" % esc(i_.get("deadline"))) if norm(i_.get("deadline")) else ""))
-        win_.append('</ul></div>')
-    win_.append('</div>')
-    out.append("".join(win_))
+            why_ = norm(i_.get("why") or i_.get("action") or "")
+            if len(why_) > 260: why_ = why_[:257].rsplit(" ", 1)[0] + "\u2026"
+            meta_ = []
+            if norm(i_.get("published")): meta_.append(("Published", esc(i_.get("published"))))
+            if re.match(r"^(MC|RM)\d+$", ref_ or ""): meta_.append(("Message Center" if ref_.startswith("MC") else "Roadmap", _mcl(ref_)))
+            if norm(i_.get("deadline")): meta_.append(("Due", '<b>%s</b>' % esc(i_.get("deadline"))))
+            src_ = ", ".join(norm(x) for x in (i_.get("discoveredBy") or [])[:2] if norm(x))
+            if src_: meta_.append(("Found by", esc(src_)))
+            a_.append('<article class="daft-c"><div class="daft-top"><span class="tchip">%s</span>%s%s</div>%s%s<dl class="daft-m">%s</dl></article>' % (
+                esc(i_.get("product") or "\u2014"),
+                ('<span class="daft-a">%s</span>' % esc(i_.get("area"))) if norm(i_.get("area")) else "",
+                ('<span class="daft-st">%s</span>' % esc(i_.get("status"))) if norm(i_.get("status")) else "",
+                link_, ('<p class="daft-w">%s</p>' % esc(why_)) if why_ else "",
+                "".join('<div><dt>%s</dt><dd>%s</dd></div>' % (k_, v_) for k_, v_ in meta_)))
+        a_.append('</div></section>')
+        out.append("".join(a_))
     # §5cy: the identity surface first - a new grantable permission or a role change is not lost among the
     # ~35 Graph changes of a day
     try: idr = identity_rows(prev_st, prev_cat, curr_st, curr_cat, prev_d, curr_d)
@@ -27655,6 +27750,27 @@ Pomijane: nazwy plikow i sciezki (`2026-10-10.json`), kod, pola formularzy. Prze
 klikniecie zakladki. (Z6) `/diff/` (`DATES_BODY` w make_diff): te same daty i ramka „Data freshness" (Compared = dwa
 porownywane dni, Page built = `publish.json`), wspolny przelacznik. `/week/` (wydruk do PDF) — bez zmian.
 
+**§5cz-b (10 X 2026, wlasciciel 12:25: „1. wyrazniejszy hiperlink do /diff/, moze w ramce; 2. po About nie ma powrotu do
+glownego okna; 3. z portalu i /diff/ usun APN Promise — tylko Piotr Wisniewski; 4. nie rozumiem «Page code 10/10/2026
+12:07 §5cz» — wyjasnienia w dymkach, ladniejsze dymki w calym portalu, kolko ze znakiem zapytania pokazuje, ze jest
+podpowiedz, info w Overview/About; 5. zolta lista w /diff/ pisana ciurkiem — profesjonalny widok z technologia, data, MC,
+opisem, kafelki jak na stronie glownej").** (B1) Ramka: niebieski przycisk „⇄ What changed since the last brief" (`diff/`),
+a link pod tytulem (`header.top a[href$="diff/"]`) dostaje wyglad pigulki (`.s5czb-dlink`). (B2) About: przycisk
+„← Back to <zakladka>" na gorze, na dole i plywajacy w prawym dolnym rogu (`.s5cz-back-float`, tylko gdy About otwarte);
+wraca do zakladki, z ktorej otwarto About (PREV), domyslnie Overview; „About ›" w ramce otwiera About od gory. (B3) Autor
+na stronie: „Piotr Wiśniewski" (bez firmy); dokumenty i README zostaja z pelnym podpisem. (B4) Jeden dymek dla calego
+portalu i `/diff/` (`#s5czb-tip`): zastepuje natywne dymki atrybutu `title` (ok. 6300 na stronie) — title zdejmowany
+TYLKO na czas najechania (`data-s5czb-t`) i oddawany po zjechaniu, wiec kod i testy czytajace `.title` nie widza roznicy;
+opoznienie 380 ms (kolko ? 60 ms), pozycja nad elementem (pod, gdy brak miejsca), strzalka, Esc zamyka, przewijanie
+przesuwa. Kolko `.s5czb-q` z `data-tip`: hover, fokus klawiatury, dotkniecie na telefonie (drugie dotkniecie albo dotkniecie
+obok zamyka). Kolka: wiersze ramki (Brief, Page code, Latest data; w `/diff/` Compared, Page built), naglowek pierwszej
+grupy menu bocznego (kolumny + ~ −), koniec chipa kazdej zakladki; w Overview linia „Point at a ? … · How to read this
+page ›", w About karta „How to read this page" (`#s5cz-howto`). `span[title]` ma kursor pomocy. (B5) `/diff/`: blok
+„Arrived with the afternoon pass" jako osobna sekcja `section.daft#afternoon` z licznikiem i siatka kart
+(`repeat(auto-fill,minmax(300px,1fr))`, telefon 1 kolumna): chip technologii, obszar, status, tytul-link, „why"
+(do 260 znakow), dol karty: Published, Message Center/Roadmap (link mc.merill.net), Due, Found by. Strona glowna nadal
+liczy pozycje popoludniowe z `#diff-meta` (bez zmian).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -36874,18 +36990,25 @@ odtad CZTERNASCIE (4-17).**
     [["24", "24h"], ["12", "AM/PM"]].forEach(function (m) { var x = el("button", null, m[1]); x.type = "button"; x.setAttribute("data-m", m[0]); x.setAttribute("aria-pressed", String(MODE === m[0]));
       x.addEventListener("click", function () { setMode(m[0]); }); tg.appendChild(x); });
     h.appendChild(tg); box.appendChild(h);
-    function line(label, at, extra, withTime) {
-      var l = el("div", "s5cz-fl"); l.appendChild(el("span", "s5cz-fk", label));
+    function line(label, at, extra, withTime, tip) {
+      var l = el("div", "s5cz-fl"), k = el("span", "s5cz-fk", label); if (tip) k.appendChild(qmark(tip)); l.appendChild(k);
       if (at) l.appendChild(stamp(at, withTime)); else l.appendChild(el("i", null, "not recorded yet"));
       if (extra) l.appendChild(el("span", "s5cz-fx", extra)); box.appendChild(l);
     }
-    line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning);
-    if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "");
+    line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning,
+      "When today's brief was built. The morning pass reads every source at about 06:00 Warsaw and is published here soon after; the afternoon pass (21:00) re-reads them for the “what changed” page. The frame is green when the brief is from today, amber when it is from yesterday, red when older.");
+    if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "", undefined,
+      "When the code of this page (layout, tabs, scripts) was last rebuilt from CLAUDE.md by the workflow “Code refresh”. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
     var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn"]);
     var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy" };
-    if (nk) line("Latest data", F[nk].at, NAMES[nk]);
+    if (nk) line("Latest data", F[nk].at, NAMES[nk], undefined,
+      "The newest data a GitHub Actions workflow wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
+    /* §5cz-b (owner 10 X 12:25: "a more visible link to /diff/, maybe in a frame") */
+    var dl = el("a", "s5cz-diffbtn"); dl.href = "diff/"; dl.title = "The “what changed” page: everything that moved between the end of the previous day and this evening, by tab and by technology, with the afternoon pass";
+    dl.appendChild(el("span", "s5cz-diffic", "\u21c4")); dl.appendChild(el("span", null, "What changed since the last brief")); dl.appendChild(el("span", "s5cz-diffar", "\u203a"));
+    box.appendChild(dl);
     var a = el("button", "s5cz-about", "About ›"); a.type = "button"; a.title = "About this portal: what it is, every tab, data freshness, version";
-    a.addEventListener("click", function () { openAbout("fresh"); });
+    a.addEventListener("click", function () { openAbout(); });
     h.appendChild(a);
     /* top right of the header block (absolute from 1100 px; the title block keeps the room free), below the title on a phone */
     var inner = top.querySelector(".top-inner") || top;
@@ -36911,9 +37034,19 @@ odtad CZTERNASCIE (4-17).**
         if (b.afternoon) { c.appendChild(el("span", "s5cz-by", " · afternoon pass ")); c.appendChild(stamp(b.afternoon)); }
         if (t) c.appendChild(el("span", "s5cz-by", " · " + t.by));
       }
+      c.appendChild(qmark(t && k ? "When this tab's data was last refreshed and by what: " + t.by + (t.every ? ". The next refresh is expected about " + t.every + " h later (GitHub Actions queues can delay it)." : ".") + " Times are Warsaw time."
+        : "This tab is built by the morning brief (about 06:00 Warsaw) and does not change until the next brief" + (b.afternoon ? "; the afternoon pass re-read the sources for the “what changed” page" : "") + ". Times are Warsaw time."));
       var head = p.querySelector(":scope > .s5ca-head");
       if (head) p.insertBefore(c, head.nextSibling); else p.insertBefore(c, p.firstChild);
+      if (id === "overview") {
+        var oh = p.querySelector(":scope > .s5czb-hint"); if (oh) oh.parentNode.removeChild(oh);
+        var hn = el("div", "s5czb-hint"); hn.appendChild(qmark("Example: points like this one open an explanation."));
+        hn.appendChild(document.createTextNode(" Point at a ? (tap it on a phone) or hold the pointer over a label for an explanation · every coloured number opens the rows behind it · "));
+        var hl = el("button", "s5cz-about", "How to read this page \u203a"); hl.type = "button"; hl.addEventListener("click", function () { openAbout("howto"); }); hn.appendChild(hl);
+        p.insertBefore(hn, c.nextSibling);
+      }
     });
+    railQ();
   }
 
   /* ---------- 4. the About tab ---------- */
@@ -36941,7 +37074,8 @@ odtad CZTERNASCIE (4-17).**
   function buildAbout(p) {
     p.innerHTML = "";
     var head = el("div", "s5ca-head"); head.appendChild(el("span", "s5ca-crumb", "About")); head.appendChild(el("h2", "s5ca-title", "About this portal"));
-    var f = el("div", "s5ca-facts"); f.appendChild(el("div", "s5ca-line", "GuardZilla · Microsoft SOC Brief — what changed in the Microsoft security world, every day")); head.appendChild(f); p.appendChild(head);
+    var f = el("div", "s5ca-facts"); f.appendChild(el("div", "s5ca-line", "GuardZilla · Microsoft SOC Brief — what changed in the Microsoft security world, every day")); head.appendChild(f);
+    head.insertBefore(backBtn(), head.firstChild); p.appendChild(head);
     var g = el("div", "s5cz-grid");
     var c1 = card("What it is", "s5cz-wide");
     c1.appendChild(ul(["A daily brief for a security operations team working with Microsoft 365, Entra, Intune, Defender, Purview and Azure.",
@@ -36956,7 +37090,7 @@ odtad CZTERNASCIE (4-17).**
     verLi.appendChild(vb);
     var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
     var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
-    c2.appendChild(ul(["Author: Piotr Wiśniewski — APN Promise S.A.", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
+    c2.appendChild(ul(["Author: Piotr Wiśniewski", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
       (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: ")); x.appendChild(link("github.com/wpiotrw/MS_SOC (README)", "https://github.com/wpiotrw/MS_SOC#readme")); return x; })()]));
     g.appendChild(c2);
     var c3 = card("Data freshness");
@@ -36974,6 +37108,15 @@ odtad CZTERNASCIE (4-17).**
     tb.appendChild(tbody); c3.appendChild(tb);
     c3.appendChild(el("p", "s5cz-note", "Times are Warsaw time. The switch in the frame at the top changes 24 h / AM/PM everywhere on the page."));
     g.appendChild(c3);
+    var ch = card("How to read this page", "s5cz-wide"); ch.id = "s5cz-howto";
+    var q1 = el("span"); q1.appendChild(document.createTextNode("A round ")); q1.appendChild(qmark("Like this one: point at it (or tap it on a phone) and the explanation opens; press Esc or tap elsewhere to close it.")); q1.appendChild(document.createTextNode(" means there is an explanation: point at it with the mouse, or tap it on a phone."));
+    ch.appendChild(ul([q1,
+      "Labels, chips, badges and buttons explain themselves too: hold the pointer over them for a moment and a hint opens (the + ~ − columns of the menu on the left, dates, sources, status badges).",
+      "Every coloured number is a link: it opens the rows behind it, already filtered; the green bar above a table says which filter is on, × clears it.",
+      "The green frame top right says when the brief, the page code and the latest data were refreshed; every tab repeats its own time under its heading. 24h / AM/PM switches the time format everywhere.",
+      "“What changed since the last brief” (in the frame and under the title) opens the /diff/ page: the whole day by tab and technology, with what the afternoon pass added.",
+      "Back from this tab: the “← Back” button at the top, or any tab in the menu."]));
+    g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
     c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
       "07:00 Warsaw — routine “raport poranny v2” copies the brief to this site (GitHub → Azure Static Web Apps).",
@@ -37004,8 +37147,24 @@ odtad CZTERNASCIE (4-17).**
       link("Repository and README", "https://github.com/wpiotrw/MS_SOC")]));
     g.appendChild(c7);
     p.appendChild(g);
+    var bb = backBtn(); bb.classList.add("s5cz-back-end"); p.appendChild(bb);
+    var fl = backBtn(); fl.classList.add("s5cz-back-float"); p.appendChild(fl);
     soon(300);
   }
+  /* §5cz-b (owner 10 X 12:25: "after About there is no way back to the main window") */
+  var PREV = "overview";
+  function backBtn() {
+    var nm = (document.getElementById("tabbtn-tab-" + PREV) || {}).textContent || "Overview";
+    var b = el("button", "s5cz-back", "\u2190 Back to " + String(nm).replace(/\s*\d[\d\s·~+−-]*$/, "").trim()); b.type = "button";
+    b.addEventListener("click", function () { var t = document.getElementById("tabbtn-tab-" + PREV) || document.getElementById("tabbtn-tab-overview"); if (t) t.click(); try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} window.scrollTo(0, 0); });
+    return b;
+  }
+  /* one ? on the + ~ − legend of the menu on the left (the owner marked it in his screenshot) */
+  function railQ() {
+    var c = document.querySelector("nav.s5ca-rail .s5ca-gn"); if (!c || c.querySelector(".s5czb-q")) return;
+    c.appendChild(qmark("The three columns of this menu count what moved in each tab since the previous brief: + added (new items), ~ changed (items already listed whose content changed), − removed (items that left the list). A dot means checked, nothing moved; no number means the tab is not compared. Click a tab to see the rows."));
+  }
+  function qmark(tip) { var q = el("span", "s5czb-q", "?"); q.setAttribute("data-tip", tip); q.setAttribute("tabindex", "0"); q.setAttribute("role", "button"); q.setAttribute("aria-label", "Explanation: " + tip); return q; }
   function aboutTab() {
     if (document.getElementById("tab-about")) return;
     var navs = document.querySelectorAll(".navrow nav.anchors"), nav = navs[navs.length - 1];
@@ -37047,12 +37206,13 @@ odtad CZTERNASCIE (4-17).**
   }
   function openAbout(focus) {
     var p = document.getElementById("tab-about"), bt = document.getElementById("tabbtn-tab-about"); if (!p) return;
+    if (p.hidden) { var vis = [].filter.call(document.querySelectorAll(".tabpanel"), function (x) { return !x.hidden && x !== p; })[0]; if (vis && vis.id) PREV = vis.id.replace(/^tab-/, ""); }
     buildAbout(p);
     [].forEach.call(document.querySelectorAll(".tabpanel"), function (x) { if (x !== p) x.hidden = true; });
     [].forEach.call(document.querySelectorAll("button.tab[role=tab]"), function (x) { x.setAttribute("aria-selected", String(x === bt)); });
     p.hidden = false; railMark(true);
     try { history.replaceState(null, "", "#tab=about"); } catch (e) {}
-    var tgt = focus === "fresh" ? p.querySelector(".s5cz-ft") : p;
+    var tgt = focus === "fresh" ? p.querySelector(".s5cz-ft") : focus === "howto" ? (p.querySelector("#s5cz-howto") || p) : p;
     try { window.scrollTo(0, Math.max(0, (tgt.getBoundingClientRect().top + window.scrollY) - ((document.querySelector("header.top") || { offsetHeight: 0 }).offsetHeight) - 12)); } catch (e) {}
   }
 
@@ -37075,6 +37235,59 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2800); });
   else setTimeout(boot, 2800);
+})();
+
+/* §5cz-b (10 X 2026, owner 12:25: "the hints should look nicer in the whole portal; a round ? shows there is a hint").
+   One styled bubble for every native title tooltip and every data-tip: the title is lifted off the element only while
+   the pointer is on it (so nothing that reads .title later sees a difference) and put back when the pointer leaves.
+   A round ? (.s5czb-q) opens its hint on hover, on keyboard focus and on a tap (phones have no hover). */
+(function () {
+  if (window.__s5czbTip) return; window.__s5czbTip = 1;
+  var tip = null, cur = null, timer = null, pinned = false;
+  function box() { if (!tip) { tip = document.createElement("div"); tip.id = "s5czb-tip"; tip.setAttribute("role", "tooltip"); document.body.appendChild(tip); } return tip; }
+  function text(e) { return e.getAttribute("data-tip") || e.getAttribute("data-s5czb-t") || ""; }
+  function place(e) {
+    var r = e.getBoundingClientRect(), b = box(), vw = document.documentElement.clientWidth;
+    b.style.left = "0px"; b.style.top = "0px";
+    var w = b.offsetWidth, h = b.offsetHeight, x = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2)), y = r.top - h - 10, below = false;
+    if (y < 8) { y = r.bottom + 10; below = true; }
+    b.style.left = Math.round(x) + "px"; b.style.top = Math.round(y) + "px"; b.classList.toggle("below", below);
+    b.style.setProperty("--ax", Math.round(Math.max(12, Math.min(w - 12, r.left + r.width / 2 - x))) + "px");
+  }
+  function show(e) { var t = text(e); if (!t) return; var b = box(); b.textContent = t; b.classList.add("on"); place(e); }
+  function lift(e) { var t = e.getAttribute("title"); if (t) { e.setAttribute("data-s5czb-t", t); e.removeAttribute("title"); } }
+  function hide() {
+    clearTimeout(timer); if (tip) tip.classList.remove("on", "below");
+    if (cur && cur.hasAttribute("data-s5czb-t")) { cur.setAttribute("title", cur.getAttribute("data-s5czb-t")); cur.removeAttribute("data-s5czb-t"); }
+    cur = null; pinned = false;
+  }
+  function target(n) { return n && n.closest ? n.closest(".s5czb-q,[data-tip],[title]") : null; }
+  document.addEventListener("mouseover", function (ev) {
+    if (pinned) return;
+    var t = target(ev.target); if (t === cur) return;
+    hide(); if (!t || t.closest("svg")) return;
+    cur = t; lift(t);
+    timer = setTimeout(function () { if (cur === t) show(t); }, t.classList.contains("s5czb-q") ? 60 : 380);
+  }, true);
+  document.addEventListener("mouseout", function (ev) { if (pinned || !cur) return; var to = ev.relatedTarget; if (to && cur.contains(to)) return; hide(); }, true);
+  document.addEventListener("click", function (ev) {
+    var q = ev.target && ev.target.closest ? ev.target.closest(".s5czb-q") : null;
+    if (q) { ev.preventDefault(); ev.stopPropagation(); if (pinned && cur === q) { hide(); return; } hide(); cur = q; show(q); pinned = true; return; }
+    hide();
+  }, true);
+  document.addEventListener("focusin", function (ev) { var q = ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q") ? ev.target : null; if (q) { hide(); cur = q; show(q); } });
+  document.addEventListener("focusout", function (ev) { if (cur && ev.target === cur && !pinned) hide(); });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") hide();
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q")) { ev.preventDefault(); ev.target.click(); }
+  });
+  window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
+  window.addEventListener("resize", hide);
+  /* the header link to /diff/ as a visible button (owner: "a more visible hyperlink to DIFF") */
+  var n = 0, iv = setInterval(function () {
+    [].forEach.call(document.querySelectorAll('header.top a[href$="diff/"]:not(.s5cz-diffbtn):not(.s5czb-dlink)'), function (a) { a.classList.add("s5czb-dlink"); });
+    if (++n > 40) clearInterval(iv);
+  }, 500);
 })();
 ```
 
@@ -38300,6 +38513,31 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 .s5cu-ovr{grid-template-columns:84px minmax(0,1fr) auto}
 .s5ci-sub{white-space:normal}
 .s5ci-sub .s5cz-d{display:inline-block}
+/* §5cz-b (10 X 2026): one hint bubble for the whole portal, the round ?, the /diff/ button, Back from About */
+#s5czb-tip{position:fixed;z-index:10000;left:0;top:0;max-width:340px;padding:8px 11px;border-radius:10px;background:var(--surface,#fff);color:var(--text);border:1px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.22);font-size:12.5px;line-height:1.5;font-weight:400;text-align:left;white-space:normal;letter-spacing:0;text-transform:none;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+#s5czb-tip.on{opacity:1;visibility:visible;transform:none}
+#s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
+#s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
+.s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+span[title],abbr[title]{cursor:help}
+.s5cz-diffbtn{display:flex;align-items:center;gap:8px;margin-top:7px;padding:5px 10px;border-radius:8px;background:var(--accent);color:#fff!important;font-weight:700;font-size:12.5px;text-decoration:none!important;white-space:nowrap}
+.s5cz-diffbtn:hover{filter:brightness(1.12)}
+.s5cz-diffic{font-size:14px;line-height:1}.s5cz-diffar{margin-left:auto;font-size:17px;line-height:1}
+a.s5czb-dlink{display:inline-flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;text-decoration:none!important;white-space:nowrap}
+a.s5czb-dlink::before{content:"\21c4"}
+a.s5czb-dlink:hover{background:var(--accent);color:#fff}
+.s5cz-back{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);cursor:pointer;margin:0 0 8px;display:inline-block}
+.s5cz-back:hover{background:var(--accent);color:#fff}
+.s5cz-back-end{margin-top:16px}
+.s5czb-hint{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;margin:-4px 0 10px;font-size:12.5px;color:var(--muted)}
+.s5czb-hint .s5czb-q{margin:0 2px 0 0}
+#s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
+.s5ca-gn .s5czb-q{text-transform:none;letter-spacing:0}
+#tab-about .s5cz-back-float{position:fixed;right:18px;bottom:18px;z-index:900;margin:0;box-shadow:0 6px 18px rgba(0,0,0,.25);background:var(--accent);color:#fff}
+#tab-about[hidden] .s5cz-back-float{display:none}
+@media (max-width:720px){#tab-about .s5cz-back-float{right:12px;bottom:76px}}
+.s5ca-head>.s5cz-back{align-self:flex-start;width:auto;justify-self:start}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`

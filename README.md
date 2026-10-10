@@ -1081,7 +1081,18 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 
   Pola: `key`, `at` (UTC, minuty), `workflow`, `run` (ID przebiegu GitHub), `sha` (7 znaków), `note`, `spec`. Nic tajnego — nazwy workflow, numery przebiegów i commity są publiczne w publicznym repozytorium. Jeden plik na workflow = brak konfliktów przy `git pull --rebase`.
 
-### 13.6 Format dat i przełącznik 24h / AM/PM
+### 13.6 Podpowiedzi, powrót z About i link do `/diff/` (od 10 X 2026, §5cz-b)
+
+- **Podpowiedzi:** jeden wygląd dymka w całym portalu i w `/diff/` zamiast szarych dymków przeglądarki. Pojawia się po chwili przytrzymania kursora nad etykietą, chipem, plakietką lub przyciskiem (np. kolumny + ~ − w menu bocznym, daty, źródła, statusy).
+- **Kółko „?”** oznacza ważną podpowiedź: w ramce „Data freshness” (Brief, Page code, Latest data; w `/diff/` Compared, Page built), przy nagłówku menu bocznego (znaczenie kolumn + ~ −), na końcu chipa każdej zakładki. Działa po najechaniu, z klawiatury (Tab, Enter) i po dotknięciu na telefonie; Esc albo dotknięcie obok zamyka.
+- W Overview pod nagłówkiem jest linia o podpowiedziach i link „How to read this page ›” do karty w About.
+- **Znaczenie wierszy ramki:** *Brief* — kiedy zbudowano dzisiejszy brief (przebieg poranny ok. 06:00, popołudniowy 21:00); *Page code* — kiedy workflow „Code refresh” przebudował kod strony z `CLAUDE.md` (wygląd i działanie, nie dane); `§5cz` to najnowszy etap specyfikacji zawarty w stronie; *Latest data* — najnowsze dane zapisane przez workflow po briefie.
+- **Powrót z About:** przycisk „← Back to <zakładka>” na górze i na dole zakładki oraz pływający w prawym dolnym rogu; wraca do zakładki, z której otwarto About.
+- **Link do `/diff/`:** niebieski przycisk „What changed since the last brief” w ramce i wyróżniona pigułka pod tytułem.
+- **`/diff/`:** pozycje z przebiegu popołudniowego jako karty (technologia, obszar, status, tytuł, opis, data publikacji, Message Center, termin, źródło) zamiast listy.
+- Na stronie autor jest podpisany samym imieniem i nazwiskiem (Piotr Wiśniewski); dokumentacja zachowuje pełny podpis.
+
+### 13.7 Format dat i przełącznik 24h / AM/PM
 
 - Każda data na stronie głównej i w `/diff/` jest pokazywana jako **dd/MM/yyyy HH:mm**, np. `30/01/1984 10:20`; po przełączeniu na AM/PM — `30/01/1984 10:20 AM`. Godziny są czasem warszawskim (czasy UTC z danych są przeliczane).
 - Przełącznik jest w ramce „Data freshness”; wybór zapamiętuje przeglądarka (`localStorage`, klucz `socTime`) i jest wspólny dla strony głównej i `/diff/`. Bez dostępu do `localStorage` (tryb prywatny) — 24h.
@@ -1092,6 +1103,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 
 | Data | Zmiana |
 |---|---|
+| 2026-10-10 | §5cz-b — jeden wygląd podpowiedzi w portalu i `/diff/` (zamiast dymków przeglądarki), kółka „?” z wyjaśnieniami (ramka, kolumny + ~ − menu, chipy zakładek), linia o podpowiedziach w Overview i karta „How to read this page” w About; przycisk powrotu z About (góra, dół, pływający); wyraźny przycisk i pigułka do `/diff/`; na stronie autor bez nazwy firmy; w `/diff/` pozycje popołudniowe jako karty; pkt 13.6 (nowy), dawny 13.6 → 13.7. |
 | 2026-10-10 | §5cz — świeżość i About: zielona ramka „Data freshness” w prawym górnym rogu (brief, kod strony, najnowsze dane, przełącznik 24h / AM/PM, link About), chip z dokładną datą i godziną odświeżenia na każdej zakładce, zakładka **About** (czym jest narzędzie, autor, wersja, tabela świeżości, jak działa, 16 zakładek, bezpieczeństwo, linki); wszystkie daty na stronie i w `/diff/` jako dd/MM/yyyy HH:mm (albo AM/PM); `tools/stamp.py` i `site/data/fresh/*.json` w pięciu workflow; nowy pkt 13, tabele narzędzi i plików danych. Poprawiony sklejony wiersz historii §5cx-b. |
 | 2026-10-10 | Stare poświadczenie federacyjne `github-ms-soc-main` (subject nazwowy) usunięte przez właściciela; w aplikacji zostało tylko `github-ms-soc-main-immutable` — pkt 5.2 (tabela, „Bezpieczeństwo”, sposób B). |
 | 2026-10-10 | pkt 12 „Tożsamości, uprawnienia i poświadczenia”: jedna tabela wszystkich uprawnień aplikacji Entra z powodem, wywołaniem, skryptem i skutkiem braku; poświadczenie federacyjne zamiast sekretu i dlaczego; sekrety, zmienne i `GITHUB_TOKEN` każdego workflow; logowania delegowane (skrypt, Lokka, Claude GitHub); czego rozwiązanie nie używa. |
