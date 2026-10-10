@@ -492,6 +492,53 @@ $r = Invoke-RestMethod https://api.github.com/repos/wpiotrw/MS_SOC
 "repo:$($r.owner.login)@$($r.owner.id)/$($r.name)@$($r.id):ref:refs/heads/main"
 ```
 
+**Czy adres `api.github.com/repos/...` jest zawsze publiczny i czy można sprawdzić cudze repozytorium** (dokumentacja GitHub sprawdzona 10 X 2026):
+
+| Sytuacja | Co zwraca `https://api.github.com/repos/<właściciel>/<repozytorium>` |
+|---|---|
+| repozytorium publiczne — nasze albo **dowolnego innego użytkownika czy organizacji** | dane repozytorium, w tym `id` i `owner.id`, **bez logowania** — GitHub: „This endpoint can be used without authentication … if only public resources are requested” ([Get a repository](https://docs.github.com/en/rest/repos/repos#get-a-repository)) |
+| repozytorium prywatne, zapytanie bez logowania albo bez dostępu | **404 Not Found** — GitHub celowo nie potwierdza, że prywatne repozytorium istnieje ([Troubleshooting the REST API](https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api)) |
+| repozytorium prywatne, zapytanie z tokenem osoby z dostępem | dane repozytorium, jak dla publicznego |
+| za dużo zapytań bez logowania | **403** — limit 60 zapytań na godzinę z jednego adresu IP; z tokenem 5 000 na godzinę ([Rate limits for the REST API](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)) |
+
+Numer samego konta (bez repozytorium) zwraca `https://api.github.com/users/<login>` → pole `id`. To nie jest wyciek: ID konta i repozytorium są publicznymi identyfikatorami, a każde repozytorium publiczne i tak pokazuje je każdemu. Do subject potrzebne są oba, a numer z ciągu nic nie daje bez tokenu podpisanego przez GitHub dla tego repozytorium (część „Bezpieczeństwo” wyżej).
+
+> ⚠️ **Po przejściu na repozytorium prywatne (plan, pkt 9)** adres bez logowania zwróci 404. Subject wtedy bierzemy z linii „OIDC claims” w logu workflow albo z API z tokenem (`gh api repos/wpiotrw/MS_SOC` po `gh auth login`, albo funkcja niżej z `-Token`). Sam subject się nie zmienia — numery repozytorium są stałe przy zmianie widoczności.
+
+Funkcja dla dowolnego repozytorium i gałęzi (składnia sprawdzona w PowerShell 7.4; wynik sprawdzony na danych `wpiotrw/MS_SOC`, 10 X 2026):
+
+```powershell
+function Get-GitHubOidcSubject {
+    param(
+        [Parameter(Mandatory)][string]$Owner,
+        [Parameter(Mandatory)][string]$Repo,
+        [string]$Branch = 'main',
+        [string]$Token            # tylko dla repozytorium prywatnego: token z prawem odczytu
+    )
+    $h = @{ 'User-Agent' = 'oidc-subject'; 'Accept' = 'application/vnd.github+json' }
+    if ($Token) { $h['Authorization'] = "Bearer $Token" }
+    try {
+        $r = Invoke-RestMethod -Uri "https://api.github.com/repos/$Owner/$Repo" -Headers $h -ErrorAction Stop
+    } catch {
+        $code = $_.Exception.Response.StatusCode.value__
+        if ($code -eq 404) { throw "Brak repozytorium $Owner/$Repo albo jest prywatne (bez tokenu GitHub odpowiada 404)." }
+        if ($code -eq 403) { throw "GitHub odmowil (403) - zwykle limit 60 zapytan na godzine bez logowania; podaj -Token albo sprobuj pozniej." }
+        throw
+    }
+    [pscustomobject]@{
+        Repozytorium = $r.full_name
+        Prywatne     = $r.private
+        IdWlasciciela = $r.owner.id
+        IdRepozytorium = $r.id
+        Subject      = "repo:$($r.owner.login)@$($r.owner.id)/$($r.name)@$($r.id):ref:refs/heads/$Branch"
+    }
+}
+
+# przyklady
+Get-GitHubOidcSubject -Owner wpiotrw -Repo MS_SOC
+Get-GitHubOidcSubject -Owner wpiotrw -Repo MS_SOC -Branch dev
+```
+
 Token zawiera też osobne pola `repository_id` i `repository_owner_id` z tymi samymi liczbami. Podgląd i zmiana szablonu subject: REST `GET/PUT /repos/{owner}/{repo}/actions/oidc/customization/sub` ([GitHub OIDC reference](https://docs.github.com/en/actions/reference/security/oidc), [GitHub Changelog: immutable subject claims](https://github.blog/changelog/2026-04-23-immutable-subject-claims-for-github-actions-oidc-tokens/), sprawdzone 25 IX 2026).
 
 #### Dodanie poświadczenia federacyjnego: skryptem albo w portalu
@@ -873,6 +920,7 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 | Data | Zmiana |
 |---|---|
 
+| 2026-10-10 | pkt 5.2: czy adres `api.github.com/repos/...` jest publiczny (repozytoria publiczne, w tym cudze — bez logowania; prywatne — 404; limit 60/h), ID konta z `/users/<login>`, co po przejściu na repozytorium prywatne; funkcja PowerShell `Get-GitHubOidcSubject` dla dowolnego repozytorium i gałęzi. |
 | 2026-10-10 | pkt 5.2: nowa część „Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć” (tabela sekretów i scenariuszy, historia commitów, stare poświadczenie); ręczne złożenie subject w przeglądarce; brakujące ServiceMessage.Read.All w opisie tokenu Graph. || 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
 | 2026-10-10 | §5cx — logo GUARDZILLA (`site/assets/`, wersja jasna i ciemna wg motywu): na stronie głównej postać po lewej stronie bloku tytułu (96 px desktop, 72 px tablet, 52 px telefon), od 2160 px pełne logo z napisem w lewym marginesie nagłówka; postać i favicon także w `/diff/` i `/week/`. |
 | 2026-10-09 | README: pkt 11 „Postawienie od zera (nowe repozytorium, inny tenant)” — kroki i skutki zmiany tenanta; pkt 0, 2 i 4b obejmują wszystkie osiem workflow (`campaigns.yml`, `collector-check.yml`, `fpa-compare.yml` doszły); pkt 5.2: harmonogram migawki co 3 h, uprawnienie ServiceMessage.Read.All, kroki Message Center i kopii źródeł; `tools/New-FpaReaderApp.ps1` nadaje też ServiceMessage.Read.All. |
