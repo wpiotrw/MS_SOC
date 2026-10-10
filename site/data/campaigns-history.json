@@ -3374,6 +3374,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-10",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-10",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -3798,6 +3806,22 @@
 "now":"Feb 2027",
 "seen":"2026-10-10",
 "text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-10",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-10",
+"text":"February 2027."
 }
 ],
 "materials":{
@@ -4093,6 +4117,103 @@
 "tech":"Entra",
 "posts":[
 "MC1223829"
+]
+},
+"c-mc1492954":{
+"firstSeen":"2026-10-10",
+"lastSeen":"2026-10-10",
+"name":"Themes by Copilot retirement",
+"status":"Active",
+"members":[
+"MC1492954"
+],
+"log":[],
+"milestones":{
+"MC1492954|posted":{
+"date":"2026-10-09",
+"label":"9 Oct 2026",
+"text":"Posted: Microsoft Outlook: Themes by Copilot retirement"
+},
+"MC1492954|retirement begins in mid and is expected to complete by late#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
+},
+"MC1492954|retirement begins in mid and is expected to complete by late#1":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954":{
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954",
+"source":"Message Center",
+"id":"MC1492954",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+}
+},
+"final":"2026-10-25",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1492954"
+]
+},
+"c-mc1492958":{
+"firstSeen":"2026-10-10",
+"lastSeen":"2026-10-10",
+"name":"New tenant controls for retirement of non-standard file API tokens",
+"status":"Active",
+"members":[
+"MC1492958"
+],
+"log":[],
+"milestones":{
+"MC1492958|posted":{
+"date":"2026-10-09",
+"label":"9 Oct 2026",
+"text":"Posted: Microsoft Graph: New tenant controls for retirement of non-standard file API tokens"
+},
+"MC1492958|beginning selected microsoft graph file apis will no longer #0":{
+"date":"2027-04-01",
+"label":"1 Apr 2027",
+"text":"Beginning April 1, 2027, selected Microsoft Graph file APIs will no longer return URLs that contain embedded authentication information and will no longer issue"
+},
+"MC1492958|beginning in early and expected to complete in late#0":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Beginning in early April 2027 and expected to complete in late April 2027."
+},
+"MC1492958|beginning in early and expected to complete in late#1":{
+"date":"2027-04-25",
+"label":"late Apr 2027",
+"text":"Beginning in early April 2027 and expected to complete in late April 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958":{
+"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958",
+"source":"Message Center",
+"id":"MC1492958",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+}
+},
+"final":"2027-04-25",
+"type":"Retirement",
+"tech":"SharePoint",
+"posts":[
+"MC1492958"
 ]
 },
 "c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
@@ -6031,6 +6152,22 @@
 "now":"late Mar 2026",
 "seen":"2026-10-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "materials":{
@@ -6916,6 +7053,26 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1492954",
+"type":"new",
+"name":"Themes by Copilot retirement",
+"ctype":"Retirement",
+"tech":"Exchange",
+"next":"mid Oct 2026",
+"text":"We are retiring Themes by Copilot in Microsoft Outlook."
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1492958",
+"type":"new",
+"name":"New tenant controls for retirement of non-standard file API tokens",
+"ctype":"Retirement",
+"tech":"SharePoint",
+"next":"1 Apr 2027",
+"text":"Microsoft is retiring pre-authenticated URLs, also known as tempauth URLs, from SharePoint Online and OneDrive."
 }
 ],
 "archive":{
