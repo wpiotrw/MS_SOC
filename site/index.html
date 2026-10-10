@@ -3919,6 +3919,31 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 .s5cu-ovr{grid-template-columns:84px minmax(0,1fr) auto}
 .s5ci-sub{white-space:normal}
 .s5ci-sub .s5cz-d{display:inline-block}
+/* §5cz-b (10 X 2026): one hint bubble for the whole portal, the round ?, the /diff/ button, Back from About */
+#s5czb-tip{position:fixed;z-index:10000;left:0;top:0;max-width:340px;padding:8px 11px;border-radius:10px;background:var(--surface,#fff);color:var(--text);border:1px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.22);font-size:12.5px;line-height:1.5;font-weight:400;text-align:left;white-space:normal;letter-spacing:0;text-transform:none;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+#s5czb-tip.on{opacity:1;visibility:visible;transform:none}
+#s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
+#s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
+.s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+span[title],abbr[title]{cursor:help}
+.s5cz-diffbtn{display:flex;align-items:center;gap:8px;margin-top:7px;padding:5px 10px;border-radius:8px;background:var(--accent);color:#fff!important;font-weight:700;font-size:12.5px;text-decoration:none!important;white-space:nowrap}
+.s5cz-diffbtn:hover{filter:brightness(1.12)}
+.s5cz-diffic{font-size:14px;line-height:1}.s5cz-diffar{margin-left:auto;font-size:17px;line-height:1}
+a.s5czb-dlink{display:inline-flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;text-decoration:none!important;white-space:nowrap}
+a.s5czb-dlink::before{content:"\21c4"}
+a.s5czb-dlink:hover{background:var(--accent);color:#fff}
+.s5cz-back{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);cursor:pointer;margin:0 0 8px;display:inline-block}
+.s5cz-back:hover{background:var(--accent);color:#fff}
+.s5cz-back-end{margin-top:16px}
+.s5czb-hint{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;margin:-4px 0 10px;font-size:12.5px;color:var(--muted)}
+.s5czb-hint .s5czb-q{margin:0 2px 0 0}
+#s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
+.s5ca-gn .s5czb-q{text-transform:none;letter-spacing:0}
+#tab-about .s5cz-back-float{position:fixed;right:18px;bottom:18px;z-index:900;margin:0;box-shadow:0 6px 18px rgba(0,0,0,.25);background:var(--accent);color:#fff}
+#tab-about[hidden] .s5cz-back-float{display:none}
+@media (max-width:720px){#tab-about .s5cz-back-float{right:12px;bottom:76px}}
+.s5ca-head>.s5cz-back{align-self:flex-start;width:auto;justify-self:start}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -23073,18 +23098,25 @@ IdentityDirectoryEvents
     [["24", "24h"], ["12", "AM/PM"]].forEach(function (m) { var x = el("button", null, m[1]); x.type = "button"; x.setAttribute("data-m", m[0]); x.setAttribute("aria-pressed", String(MODE === m[0]));
       x.addEventListener("click", function () { setMode(m[0]); }); tg.appendChild(x); });
     h.appendChild(tg); box.appendChild(h);
-    function line(label, at, extra, withTime) {
-      var l = el("div", "s5cz-fl"); l.appendChild(el("span", "s5cz-fk", label));
+    function line(label, at, extra, withTime, tip) {
+      var l = el("div", "s5cz-fl"), k = el("span", "s5cz-fk", label); if (tip) k.appendChild(qmark(tip)); l.appendChild(k);
       if (at) l.appendChild(stamp(at, withTime)); else l.appendChild(el("i", null, "not recorded yet"));
       if (extra) l.appendChild(el("span", "s5cz-fx", extra)); box.appendChild(l);
     }
-    line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning);
-    if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "");
+    line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning,
+      "When today's brief was built. The morning pass reads every source at about 06:00 Warsaw and is published here soon after; the afternoon pass (21:00) re-reads them for the “what changed” page. The frame is green when the brief is from today, amber when it is from yesterday, red when older.");
+    if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "", undefined,
+      "When the code of this page (layout, tabs, scripts) was last rebuilt from CLAUDE.md by the workflow “Code refresh”. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
     var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn"]);
     var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy" };
-    if (nk) line("Latest data", F[nk].at, NAMES[nk]);
+    if (nk) line("Latest data", F[nk].at, NAMES[nk], undefined,
+      "The newest data a GitHub Actions workflow wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
+    /* §5cz-b (owner 10 X 12:25: "a more visible link to /diff/, maybe in a frame") */
+    var dl = el("a", "s5cz-diffbtn"); dl.href = "diff/"; dl.title = "The “what changed” page: everything that moved between the end of the previous day and this evening, by tab and by technology, with the afternoon pass";
+    dl.appendChild(el("span", "s5cz-diffic", "\u21c4")); dl.appendChild(el("span", null, "What changed since the last brief")); dl.appendChild(el("span", "s5cz-diffar", "\u203a"));
+    box.appendChild(dl);
     var a = el("button", "s5cz-about", "About ›"); a.type = "button"; a.title = "About this portal: what it is, every tab, data freshness, version";
-    a.addEventListener("click", function () { openAbout("fresh"); });
+    a.addEventListener("click", function () { openAbout(); });
     h.appendChild(a);
     /* top right of the header block (absolute from 1100 px; the title block keeps the room free), below the title on a phone */
     var inner = top.querySelector(".top-inner") || top;
@@ -23110,9 +23142,19 @@ IdentityDirectoryEvents
         if (b.afternoon) { c.appendChild(el("span", "s5cz-by", " · afternoon pass ")); c.appendChild(stamp(b.afternoon)); }
         if (t) c.appendChild(el("span", "s5cz-by", " · " + t.by));
       }
+      c.appendChild(qmark(t && k ? "When this tab's data was last refreshed and by what: " + t.by + (t.every ? ". The next refresh is expected about " + t.every + " h later (GitHub Actions queues can delay it)." : ".") + " Times are Warsaw time."
+        : "This tab is built by the morning brief (about 06:00 Warsaw) and does not change until the next brief" + (b.afternoon ? "; the afternoon pass re-read the sources for the “what changed” page" : "") + ". Times are Warsaw time."));
       var head = p.querySelector(":scope > .s5ca-head");
       if (head) p.insertBefore(c, head.nextSibling); else p.insertBefore(c, p.firstChild);
+      if (id === "overview") {
+        var oh = p.querySelector(":scope > .s5czb-hint"); if (oh) oh.parentNode.removeChild(oh);
+        var hn = el("div", "s5czb-hint"); hn.appendChild(qmark("Example: points like this one open an explanation."));
+        hn.appendChild(document.createTextNode(" Point at a ? (tap it on a phone) or hold the pointer over a label for an explanation · every coloured number opens the rows behind it · "));
+        var hl = el("button", "s5cz-about", "How to read this page \u203a"); hl.type = "button"; hl.addEventListener("click", function () { openAbout("howto"); }); hn.appendChild(hl);
+        p.insertBefore(hn, c.nextSibling);
+      }
     });
+    railQ();
   }
 
   /* ---------- 4. the About tab ---------- */
@@ -23140,7 +23182,8 @@ IdentityDirectoryEvents
   function buildAbout(p) {
     p.innerHTML = "";
     var head = el("div", "s5ca-head"); head.appendChild(el("span", "s5ca-crumb", "About")); head.appendChild(el("h2", "s5ca-title", "About this portal"));
-    var f = el("div", "s5ca-facts"); f.appendChild(el("div", "s5ca-line", "GuardZilla · Microsoft SOC Brief — what changed in the Microsoft security world, every day")); head.appendChild(f); p.appendChild(head);
+    var f = el("div", "s5ca-facts"); f.appendChild(el("div", "s5ca-line", "GuardZilla · Microsoft SOC Brief — what changed in the Microsoft security world, every day")); head.appendChild(f);
+    head.insertBefore(backBtn(), head.firstChild); p.appendChild(head);
     var g = el("div", "s5cz-grid");
     var c1 = card("What it is", "s5cz-wide");
     c1.appendChild(ul(["A daily brief for a security operations team working with Microsoft 365, Entra, Intune, Defender, Purview and Azure.",
@@ -23155,7 +23198,7 @@ IdentityDirectoryEvents
     verLi.appendChild(vb);
     var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
     var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
-    c2.appendChild(ul(["Author: Piotr Wiśniewski — APN Promise S.A.", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
+    c2.appendChild(ul(["Author: Piotr Wiśniewski", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
       (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: ")); x.appendChild(link("github.com/wpiotrw/MS_SOC (README)", "https://github.com/wpiotrw/MS_SOC#readme")); return x; })()]));
     g.appendChild(c2);
     var c3 = card("Data freshness");
@@ -23173,6 +23216,15 @@ IdentityDirectoryEvents
     tb.appendChild(tbody); c3.appendChild(tb);
     c3.appendChild(el("p", "s5cz-note", "Times are Warsaw time. The switch in the frame at the top changes 24 h / AM/PM everywhere on the page."));
     g.appendChild(c3);
+    var ch = card("How to read this page", "s5cz-wide"); ch.id = "s5cz-howto";
+    var q1 = el("span"); q1.appendChild(document.createTextNode("A round ")); q1.appendChild(qmark("Like this one: point at it (or tap it on a phone) and the explanation opens; press Esc or tap elsewhere to close it.")); q1.appendChild(document.createTextNode(" means there is an explanation: point at it with the mouse, or tap it on a phone."));
+    ch.appendChild(ul([q1,
+      "Labels, chips, badges and buttons explain themselves too: hold the pointer over them for a moment and a hint opens (the + ~ − columns of the menu on the left, dates, sources, status badges).",
+      "Every coloured number is a link: it opens the rows behind it, already filtered; the green bar above a table says which filter is on, × clears it.",
+      "The green frame top right says when the brief, the page code and the latest data were refreshed; every tab repeats its own time under its heading. 24h / AM/PM switches the time format everywhere.",
+      "“What changed since the last brief” (in the frame and under the title) opens the /diff/ page: the whole day by tab and technology, with what the afternoon pass added.",
+      "Back from this tab: the “← Back” button at the top, or any tab in the menu."]));
+    g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
     c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
       "07:00 Warsaw — routine “raport poranny v2” copies the brief to this site (GitHub → Azure Static Web Apps).",
@@ -23203,8 +23255,24 @@ IdentityDirectoryEvents
       link("Repository and README", "https://github.com/wpiotrw/MS_SOC")]));
     g.appendChild(c7);
     p.appendChild(g);
+    var bb = backBtn(); bb.classList.add("s5cz-back-end"); p.appendChild(bb);
+    var fl = backBtn(); fl.classList.add("s5cz-back-float"); p.appendChild(fl);
     soon(300);
   }
+  /* §5cz-b (owner 10 X 12:25: "after About there is no way back to the main window") */
+  var PREV = "overview";
+  function backBtn() {
+    var nm = (document.getElementById("tabbtn-tab-" + PREV) || {}).textContent || "Overview";
+    var b = el("button", "s5cz-back", "\u2190 Back to " + String(nm).replace(/\s*\d[\d\s·~+−-]*$/, "").trim()); b.type = "button";
+    b.addEventListener("click", function () { var t = document.getElementById("tabbtn-tab-" + PREV) || document.getElementById("tabbtn-tab-overview"); if (t) t.click(); try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} window.scrollTo(0, 0); });
+    return b;
+  }
+  /* one ? on the + ~ − legend of the menu on the left (the owner marked it in his screenshot) */
+  function railQ() {
+    var c = document.querySelector("nav.s5ca-rail .s5ca-gn"); if (!c || c.querySelector(".s5czb-q")) return;
+    c.appendChild(qmark("The three columns of this menu count what moved in each tab since the previous brief: + added (new items), ~ changed (items already listed whose content changed), − removed (items that left the list). A dot means checked, nothing moved; no number means the tab is not compared. Click a tab to see the rows."));
+  }
+  function qmark(tip) { var q = el("span", "s5czb-q", "?"); q.setAttribute("data-tip", tip); q.setAttribute("tabindex", "0"); q.setAttribute("role", "button"); q.setAttribute("aria-label", "Explanation: " + tip); return q; }
   function aboutTab() {
     if (document.getElementById("tab-about")) return;
     var navs = document.querySelectorAll(".navrow nav.anchors"), nav = navs[navs.length - 1];
@@ -23246,12 +23314,13 @@ IdentityDirectoryEvents
   }
   function openAbout(focus) {
     var p = document.getElementById("tab-about"), bt = document.getElementById("tabbtn-tab-about"); if (!p) return;
+    if (p.hidden) { var vis = [].filter.call(document.querySelectorAll(".tabpanel"), function (x) { return !x.hidden && x !== p; })[0]; if (vis && vis.id) PREV = vis.id.replace(/^tab-/, ""); }
     buildAbout(p);
     [].forEach.call(document.querySelectorAll(".tabpanel"), function (x) { if (x !== p) x.hidden = true; });
     [].forEach.call(document.querySelectorAll("button.tab[role=tab]"), function (x) { x.setAttribute("aria-selected", String(x === bt)); });
     p.hidden = false; railMark(true);
     try { history.replaceState(null, "", "#tab=about"); } catch (e) {}
-    var tgt = focus === "fresh" ? p.querySelector(".s5cz-ft") : p;
+    var tgt = focus === "fresh" ? p.querySelector(".s5cz-ft") : focus === "howto" ? (p.querySelector("#s5cz-howto") || p) : p;
     try { window.scrollTo(0, Math.max(0, (tgt.getBoundingClientRect().top + window.scrollY) - ((document.querySelector("header.top") || { offsetHeight: 0 }).offsetHeight) - 12)); } catch (e) {}
   }
 
@@ -23274,6 +23343,59 @@ IdentityDirectoryEvents
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2800); });
   else setTimeout(boot, 2800);
+})();
+
+/* §5cz-b (10 X 2026, owner 12:25: "the hints should look nicer in the whole portal; a round ? shows there is a hint").
+   One styled bubble for every native title tooltip and every data-tip: the title is lifted off the element only while
+   the pointer is on it (so nothing that reads .title later sees a difference) and put back when the pointer leaves.
+   A round ? (.s5czb-q) opens its hint on hover, on keyboard focus and on a tap (phones have no hover). */
+(function () {
+  if (window.__s5czbTip) return; window.__s5czbTip = 1;
+  var tip = null, cur = null, timer = null, pinned = false;
+  function box() { if (!tip) { tip = document.createElement("div"); tip.id = "s5czb-tip"; tip.setAttribute("role", "tooltip"); document.body.appendChild(tip); } return tip; }
+  function text(e) { return e.getAttribute("data-tip") || e.getAttribute("data-s5czb-t") || ""; }
+  function place(e) {
+    var r = e.getBoundingClientRect(), b = box(), vw = document.documentElement.clientWidth;
+    b.style.left = "0px"; b.style.top = "0px";
+    var w = b.offsetWidth, h = b.offsetHeight, x = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2)), y = r.top - h - 10, below = false;
+    if (y < 8) { y = r.bottom + 10; below = true; }
+    b.style.left = Math.round(x) + "px"; b.style.top = Math.round(y) + "px"; b.classList.toggle("below", below);
+    b.style.setProperty("--ax", Math.round(Math.max(12, Math.min(w - 12, r.left + r.width / 2 - x))) + "px");
+  }
+  function show(e) { var t = text(e); if (!t) return; var b = box(); b.textContent = t; b.classList.add("on"); place(e); }
+  function lift(e) { var t = e.getAttribute("title"); if (t) { e.setAttribute("data-s5czb-t", t); e.removeAttribute("title"); } }
+  function hide() {
+    clearTimeout(timer); if (tip) tip.classList.remove("on", "below");
+    if (cur && cur.hasAttribute("data-s5czb-t")) { cur.setAttribute("title", cur.getAttribute("data-s5czb-t")); cur.removeAttribute("data-s5czb-t"); }
+    cur = null; pinned = false;
+  }
+  function target(n) { return n && n.closest ? n.closest(".s5czb-q,[data-tip],[title]") : null; }
+  document.addEventListener("mouseover", function (ev) {
+    if (pinned) return;
+    var t = target(ev.target); if (t === cur) return;
+    hide(); if (!t || t.closest("svg")) return;
+    cur = t; lift(t);
+    timer = setTimeout(function () { if (cur === t) show(t); }, t.classList.contains("s5czb-q") ? 60 : 380);
+  }, true);
+  document.addEventListener("mouseout", function (ev) { if (pinned || !cur) return; var to = ev.relatedTarget; if (to && cur.contains(to)) return; hide(); }, true);
+  document.addEventListener("click", function (ev) {
+    var q = ev.target && ev.target.closest ? ev.target.closest(".s5czb-q") : null;
+    if (q) { ev.preventDefault(); ev.stopPropagation(); if (pinned && cur === q) { hide(); return; } hide(); cur = q; show(q); pinned = true; return; }
+    hide();
+  }, true);
+  document.addEventListener("focusin", function (ev) { var q = ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q") ? ev.target : null; if (q) { hide(); cur = q; show(q); } });
+  document.addEventListener("focusout", function (ev) { if (cur && ev.target === cur && !pinned) hide(); });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") hide();
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q")) { ev.preventDefault(); ev.target.click(); }
+  });
+  window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
+  window.addEventListener("resize", hide);
+  /* the header link to /diff/ as a visible button (owner: "a more visible hyperlink to DIFF") */
+  var n = 0, iv = setInterval(function () {
+    [].forEach.call(document.querySelectorAll('header.top a[href$="diff/"]:not(.s5cz-diffbtn):not(.s5czb-dlink)'), function (a) { a.classList.add("s5czb-dlink"); });
+    if (++n > 40) clearInterval(iv);
+  }, 500);
 })();
 </script>
 </body>
