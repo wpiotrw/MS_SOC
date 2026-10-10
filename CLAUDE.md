@@ -28007,6 +28007,15 @@ lamie sie tylko po „." i „-" (`<wbr>`). (D5) `/diff/`: pole i fasety dostaje
 Poza zakresem: dwie tabele bez naglowkow w katalogach Graph i Roles (pasek liczb „932 permissions…", uklad, nie dane)
 i tabele w kopii panelu (`.embed`; kopia §5dc usuwa skopiowany pasek).
 
+**§5de (10 X 2026, wlasciciel 20:43: „kafelki wybieram vA, a do zwyklej listy po przelaczeniu vB").** Z trzech makiet
+(§5dd) wlasciciel wybral: kafelki „A" — nazwa jako pierwsza linia (16,5 px, lamana po „." i „-"), tytul Microsoftu pod
+nia, kolorowy pasek z lewej (zielony new, zolty changed, czerwony removed), plakietki, opis do 3 linii; widok drugi „B"
+— szeroka lista, jedno uprawnienie w wierszu: nazwa i tytul z lewej, plakietki (Change, typy, „Changed: pola") i opis
+do 2 linii w srodku, data i „Open ›" z prawej. Przelacznik: Tiles | List (klucz `socChgView` bez zmian, wartosc
+„table" = lista). Duza zielona ramka „Assignable…" zamieniona na plakietke „✓ Assignable here" (pelna sciezka do Entra
+admin center w podpowiedzi); „✗ No longer assignable here" dla wycofanych. Kolumna „Grantable here" zostaje jako menu
+filtra (§5dd D4). Na telefonie nazwa moze lamac sie w dowolnym miejscu, zeby wiersz nie wychodzil poza ekran.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -37763,60 +37772,61 @@ odtad CZTERNASCIE (4-17).**
   /* §5dd: a permission name breaks only after "." or "-", never inside a word (AppFederatedCredentialIssuers.R|ead.All) */
   function nameEl(cls, t) { var e = el("span", cls); String(t).split(/(?<=[.\-])/).forEach(function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
   function kindLabel(k) { return k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"; }
+  /* §5de (10 X 2026, owner chose from three mock-ups: tiles "A" - the name first, large, Microsoft's title under it, a
+     coloured strip on the left - and for the other view "B" - a wide list, one permission per row, date and Open on the
+     right). The green "Assignable..." box became a pill; the full path to the admin center is its tooltip. */
+  var GRANT_TIP = "Assignable in this tenant now — an admin can select it in Entra admin center → App registrations → API permissions";
+  function pills(o, which, withChanged) {
+    var top = el("div", "s5dc-top"); top.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
+    o.types.forEach(function (x) { top.appendChild(el("span", "s5dc-ty", x)); });
+    if (o.move === "added") { var g = el("span", "s5dc-gp", "✓ Assignable here"); g.title = GRANT_TIP; top.appendChild(g); }
+    if (o.move === "removed") { var g2 = el("span", "s5dc-gp s5dc-gp-no", "✗ No longer assignable here"); g2.title = "No longer assignable in this tenant"; top.appendChild(g2); }
+    if (withChanged && o.kind === "changed" && o.fields.length) top.appendChild(el("span", "s5dc-ty s5dc-cf", "Changed: " + o.fields.join(", ")));
+    return top;
+  }
+  function wire(t, det, which, o) {
+    function toggle() {
+      var open = det.hidden; det.hidden = !open; t.setAttribute("aria-expanded", String(open)); t.classList.toggle("s5dc-on", open);
+      if (open && !det.__b) { det.__b = 1; openPanel(det, which, o); }
+      if (open) setTimeout(function () { try { det.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) {} }, 60);
+    }
+    t.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("a")) return; toggle(); });
+    t.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+  }
   function tiles(view, list, which) {
     var grid = el("div", "s5dc-grid");
     list.forEach(function (o) {
       var t = el("article", "s5dc-tile s5dc-" + o.kind); t.tabIndex = 0; t.setAttribute("role", "button"); t.setAttribute("aria-expanded", "false");
-      var top = el("div", "s5dc-top"); top.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
-      o.types.forEach(function (x) { top.appendChild(el("span", "s5dc-ty", x)); });
-      top.appendChild(el("span", "s5dc-day", fmtDay(o.day))); t.appendChild(top);
-      var nmE = nameEl("s5dc-name", o.name); nmE.style.display = "block"; t.appendChild(nmE);
-      if (o.move === "added") t.appendChild(el("div", "s5dc-grant", "✓ Assignable in this tenant now — an admin can select it in Entra admin center → App registrations → API permissions"));
-      if (o.move === "removed") t.appendChild(el("div", "s5dc-grant s5dc-grant-no", "No longer assignable in this tenant"));
+      t.appendChild(nameEl("s5dc-name", o.name));
       if (o.title) t.appendChild(el("div", "s5dc-title", o.title));
-      if (o.desc) t.appendChild(el("p", "s5dc-desc", cut(o.desc, 200)));
+      var top = pills(o, which, false); top.appendChild(el("span", "s5dc-day", fmtDay(o.day))); t.appendChild(top);
+      if (o.desc) t.appendChild(el("p", "s5dc-desc", cut(o.desc, 260)));
       var foot = el("div", "s5dc-foot");
       if (o.kind === "changed" && o.fields.length) foot.appendChild(el("span", null, "Changed: " + o.fields.join(", ")));
       if (o.consent) foot.appendChild(el("span", null, o.consent));
       foot.appendChild(el("span", "s5dc-open", "Open ›"));
       t.appendChild(foot);
       var det = el("div", "s5dc-detail"); det.hidden = true;
-      function toggle() {
-        var open = det.hidden; det.hidden = !open; t.setAttribute("aria-expanded", String(open)); t.classList.toggle("s5dc-on", open);
-        if (open && !det.__b) { det.__b = 1; openPanel(det, which, o); }
-        if (open) setTimeout(function () { try { det.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) {} }, 60);
-      }
-      t.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("a")) return; toggle(); });
-      t.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+      wire(t, det, which, o);
       grid.appendChild(t); grid.appendChild(det);
     });
     view.appendChild(grid);
   }
-  function table(view, list, which) {
-    var tw = el("div", "tw"), tb = el("table", "s5dc-table"), th = el("thead"), hr = el("tr");
-    tb.setAttribute("data-s11", "1"); tb.setAttribute("data-s5dd", "own");   /* §5dd: filtered by the bar above both views */
-    var H = which === "graph" ? ["Date", "Name", "Change", "Grantable here", "Type", "Consent", "Description"] : ["Date", "Name", "Change", "Privileged", "Description"];
-    H.forEach(function (h) { var c = el("th", null, h); if (h === "Grantable here") c.title = "Can an admin assign it in this tenant today? \"Yes — new\": assignable from this brief on - Entra admin center → App registrations → API permissions"; hr.appendChild(c); }); th.appendChild(hr); tb.appendChild(th);
-    var body = el("tbody");
+  function rows(view, list, which) {
+    var box = el("div", "s5dc-list"); box.setAttribute("role", "list");
     list.forEach(function (o) {
-      var tr = el("tr", "s5dc-row s5dc-" + o.kind); tr.tabIndex = 0; tr.setAttribute("aria-expanded", "false");
-      tr.appendChild(el("td", "s5dc-dcell", fmtDay(o.day)));
-      var n = el("td", "rname"); n.appendChild(nameEl("s5dc-name", o.name)); if (o.title) n.appendChild(el("span", "s5dc-sub", o.title)); tr.appendChild(n);
-      var k = el("td"); k.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
-      if (o.kind === "changed" && o.fields.length) k.appendChild(el("span", "s5dc-sub", o.fields.join(", "))); tr.appendChild(k);
-      if (which === "graph") {
-        var hcell = el("td", o.move === "added" ? "s5dc-yes" : ""); hcell.textContent = hereText(o, which); tr.appendChild(hcell);
-        tr.appendChild(el("td", null, o.types.join(", ") || "—"));
-        tr.appendChild(el("td", null, o.consent || "—"));
-      } else tr.appendChild(el("td", null, o.types.length ? "Yes" : "No"));
-      tr.appendChild(el("td", "s5dc-dtext", cut(o.desc, 160) || "—"));
-      var det = el("tr", "hdet s5dc-drow"); det.hidden = true; var dc = el("td"); dc.setAttribute("colspan", String(H.length)); det.appendChild(dc);
-      function toggle() { var open = det.hidden; det.hidden = !open; tr.setAttribute("aria-expanded", String(open)); tr.classList.toggle("s5dc-on", open); if (open && !det.__b) { det.__b = 1; openPanel(dc, which, o); } }
-      tr.addEventListener("click", toggle);
-      tr.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
-      body.appendChild(tr); body.appendChild(det);
+      var t = el("article", "s5dc-li s5dc-" + o.kind); t.tabIndex = 0; t.setAttribute("role", "button"); t.setAttribute("aria-expanded", "false");
+      var a = el("div", "s5dc-li-a"); a.appendChild(nameEl("s5dc-name", o.name)); if (o.title) a.appendChild(el("div", "s5dc-title", o.title)); t.appendChild(a);
+      var b = el("div", "s5dc-li-b"); b.appendChild(pills(o, which, true));
+      if (o.desc) b.appendChild(el("p", "s5dc-desc", cut(o.desc, 240)));
+      if (o.consent && which === "graph") b.appendChild(el("div", "s5dc-cons", o.consent));
+      t.appendChild(b);
+      var c = el("div", "s5dc-li-c"); c.appendChild(el("span", "s5dc-day", fmtDay(o.day))); c.appendChild(el("span", "s5dc-open", "Open ›")); t.appendChild(c);
+      var det = el("div", "s5dc-detail"); det.hidden = true;
+      wire(t, det, which, o);
+      box.appendChild(t); box.appendChild(det);
     });
-    tb.appendChild(body); tw.appendChild(tb); view.appendChild(tw);
+    view.appendChild(box);
   }
   function build(tabId, which, ledgerTabs) {
     var panel = document.getElementById(tabId), box = panel && panel.querySelector(".s5bn");
@@ -37830,7 +37840,7 @@ odtad CZTERNASCIE (4-17).**
     var list = groups(L).map(function (g) { return info(g, which, CI); }).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (a.name < b.name ? -1 : 1); });
     var head = box.querySelector(".s5bn-h");
     var sw = el("span", "s5dc-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
-    [["tiles", "Tiles"], ["table", "Table"]].forEach(function (m) { var b = el("button", null, m[1]); b.type = "button"; b.setAttribute("data-m", m[0]); sw.appendChild(b); });
+    [["tiles", "Tiles"], ["table", "List"]].forEach(function (m) { var b = el("button", null, m[1]); b.type = "button"; b.setAttribute("data-m", m[0]); sw.appendChild(b); });
     head.appendChild(sw);
     var view = el("div", "s5dc-view"); head.parentNode.insertBefore(view, head.nextSibling);
     box.classList.add("s5dc-box");
@@ -37871,7 +37881,7 @@ odtad CZTERNASCIE (4-17).**
       cnN.textContent = L2.length === list.length ? list.length + " shown" : L2.length + " of " + list.length;
       FB.classList.toggle("s5dd-on", L2.length !== list.length);
       if (!L2.length) { view.appendChild(el("p", "s5dc-lead", "Nothing matches these filters. Reset shows all " + list.length + ".")); }
-      else if (m === "table") table(view, L2, which); else tiles(view, L2, which);
+      else if (m === "table") rows(view, L2, which); else tiles(view, L2, which);
       if (window.__socFilterBarSync) window.__socFilterBarSync();
     }
     function reset() { q.value = ""; sels.forEach(function (s) { s.value = ""; }); show(mode); }
@@ -39492,6 +39502,28 @@ body .tabpanel .badge.b-undoc,body .tabpanel .badge.b-elsewhere{background:var(-
 .s5dc-fbar.s5dd-on{outline:1px solid var(--ok);outline-offset:2px;border-radius:10px}
 .s5dc-name{overflow-wrap:normal;word-break:normal}
 @media (min-width:721px){table.s5dc-table td.rname{min-width:0;width:30%}table.s5dc-table td.s5dc-dtext{min-width:260px;width:32%}table.s5dc-table td:nth-child(4),table.s5dc-table td:nth-child(6){min-width:96px}}
+/* §5de: tiles "A" (name first) and list "B" (one permission per row), chosen by the owner from mock-ups, 10 X 2026 */
+.s5dc-tile{border-left:4px solid var(--border);padding:12px 14px 11px;gap:6px}
+.s5dc-added{--s5dc-c:var(--ok)}.s5dc-changed{--s5dc-c:var(--warn)}.s5dc-removed{--s5dc-c:var(--bad)}
+.s5dc-tile.s5dc-added,.s5dc-tile.s5dc-changed,.s5dc-tile.s5dc-removed,.s5dc-li.s5dc-added,.s5dc-li.s5dc-changed,.s5dc-li.s5dc-removed{border-left-color:var(--s5dc-c)}
+.s5dc-tile .s5dc-name{display:block;font-size:16.5px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+.s5dc-tile .s5dc-title,.s5dc-li .s5dc-title{font-size:13px;font-weight:500;color:var(--muted)}
+.s5dc-top{font-size:11.5px}
+.s5dc-gp{font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid var(--ok);color:var(--ok);cursor:help}
+.s5dc-gp-no{border-color:var(--bad);color:var(--bad)}
+.s5dc-tile .s5dc-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.s5dc-list{display:flex;flex-direction:column;gap:6px}
+.s5dc-li{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1.6fr) auto;column-gap:18px;align-items:start;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer}
+.s5dc-li:hover,.s5dc-li:focus-visible,.s5dc-li.s5dc-on{outline:2px solid var(--accent);outline-offset:-2px}
+.s5dc-li .s5dc-name{display:block;font-size:16px;font-weight:800;line-height:1.3}
+.s5dc-li-b{display:flex;flex-direction:column;gap:4px;min-width:0}
+.s5dc-li-b .s5dc-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.s5dc-cons{font-size:11.5px;color:var(--muted)}
+.s5dc-li-c{display:flex;flex-direction:column;align-items:flex-end;gap:6px;white-space:nowrap}
+.s5dc-li-c .s5dc-day{margin:0}
+.s5dc-list>.s5dc-detail{grid-column:auto}
+.s5dc-li-a{min-width:0}
+@media (max-width:720px){.s5dc-li{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}.s5dc-li .s5dc-name,.s5dc-tile .s5dc-name{overflow-wrap:anywhere}.s5dc-li-a{grid-column:1}.s5dc-li-c{grid-column:2;grid-row:1}.s5dc-li-b{grid-column:1/-1}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
