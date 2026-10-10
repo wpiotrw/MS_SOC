@@ -4035,6 +4035,49 @@ tr.s5da-cap{display:none!important}
  .tabpanel details.ntsec>summary,.tabpanel details.dsec>summary{flex-wrap:wrap}
 }
 #tab-about .s5cz-h4{margin:12px 0 6px;font-size:13.5px}
+/* §5dc: "Since the previous brief" in Graph API and Roles - Tiles | Table; the list it replaces is hidden */
+.s5dc-box>.s5bn-l,.s5dc-box>.s5bn-more{display:none!important}
+.s5dc-sw{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.s5dc-sw button{font:inherit;font-size:12px;padding:3px 12px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.s5dc-sw button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:700}
+.s5bn-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5dc-view{margin-top:10px}
+.s5dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.s5dc-tile{display:flex;flex-direction:column;gap:5px;padding:11px 13px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;min-width:0}
+.s5dc-tile:hover,.s5dc-tile:focus-visible,.s5dc-tile.s5dc-on{outline:2px solid var(--accent);outline-offset:-2px}
+.s5dc-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5dc-ty{font-size:11px;padding:0 7px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
+.s5dc-day{margin-left:auto;font-size:12px;color:var(--muted)}
+.s5dc-name{font-family:var(--mono);font-weight:700;font-size:13.5px;color:var(--text);overflow-wrap:anywhere}
+.s5dc-title{font-size:13px;font-weight:600}
+.s5dc-desc{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.s5dc-grant{font-size:12.5px;font-weight:600;padding:5px 9px;border-radius:8px;border:1px solid var(--ok,#1a7f37);color:var(--text);background:transparent}
+.s5dc-grant-no{border-color:var(--bad,#cf222e)}
+.s5dc-foot{margin-top:auto;padding-top:5px;border-top:1px dashed var(--border);display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.s5dc-open{margin-left:auto;color:var(--accent);font-weight:700}
+.s5dc-detail{grid-column:1/-1;padding:10px 12px;border:1px solid var(--accent);border-radius:10px;background:var(--surface)}
+.s5dc-lead{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.s5dc-fields ul{margin:0 0 10px;padding-left:18px;font-size:13px}.s5dc-fields li{margin:2px 0}
+.s5dc-f{color:var(--muted)}.s5dc-none{color:var(--muted);font-style:italic}
+table.s5dc-table tr.s5dc-row{cursor:pointer}
+table.s5dc-table tr.s5dc-row:hover>td,table.s5dc-table tr.s5dc-on>td{background:var(--surface-2)}
+.s5dc-sub{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px}
+table.s5dc-table td.rname .s5dc-name{display:block}
+td.s5dc-yes{font-weight:700}
+td.s5dc-dtext{font-size:12.5px;color:var(--muted);min-width:220px}
+td.s5dc-dcell{white-space:nowrap}
+.s5dc-sum{color:var(--muted);font-style:italic}
+.s5dc-ft td{padding:2px 10px 2px 0;border:0}
+/* the morning run's render check wants these two badges with a background (§5h); quiet, not transparent */
+body .tabpanel .badge.b-undoc,body .tabpanel .badge.b-elsewhere{background:var(--surface-2)!important}
+@media (max-width:720px){.s5dc-grid{grid-template-columns:1fr}.s5dc-sw{margin-left:0}}
+.s5dc-added .s5bn-k::before{background:var(--ok)}.s5dc-changed .s5bn-k::before{background:var(--warn)}.s5dc-removed .s5bn-k::before{background:var(--bad)}
+@media (min-width:721px){table.s5dc-table td.rname{min-width:250px}table.s5dc-table td.rname .s5dc-name{overflow-wrap:normal;word-break:normal}}
+#tab-graph details.chg14 td code,#tab-roles details.chg14 td code{white-space:nowrap;display:inline-block;margin:0 3px 3px 0}
+/* §5dc: the Component versions comparison table (table.stickyfirst, 2 112 px) widened the whole page to 1 800 px at
+   1440 (also on the live site before this stage) - its box scrolls by itself, the page does not */
+@media (min-width:721px){.tabpanel .tw{max-width:100%;min-width:0;overflow-x:auto}}
+.s5cz-d{position:relative}   /* §5dc: the hidden original (.s5cz-o, absolute) stays inside its own date, not 2 000 px out of a scrolled table */
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -8133,6 +8176,20 @@ IdentityDirectoryEvents
 
 </script>
 <script>
+/* ===========================================================================
+   SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
+   ADDED, never a replacement. The three shell scripts stay untouched; this one
+   reads the finished DOM plus the soc-brief-state block and adds:
+     1. "Per service" — Entra ID apart from Entra Connect, which `product` cannot express.
+     2. A month / week / day time axis, the way daily.entra.news aggregates.
+     3. A share ring, so "too much Azure" is a number instead of an impression.
+     4. "Just passed" — deadlines that elapsed in the last 7 days, which every
+        other view drops the moment the day count goes negative.
+   Everything is drawn with the shell's own classes (.chart/.cl/.ctrack/.cbar/.cv),
+   so it looks identical and works in both themes without one new colour variable.
+   ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
+   in the chart titles was reported by the owner on 2 Sep 2026.
+   =========================================================================== */
 /* §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X - why does our page say CHANGED?").
    The register (ledger14) written before §5db recorded a catalog entry that moved from "not in this tenant" (known
    only from Microsoft's deployment map) into the tenant as four CHANGED fields (kind, docStatus, version, changed).
@@ -8173,20 +8230,6 @@ IdentityDirectoryEvents
   st.ledger14.grantMoves = n;
   try { el.textContent = JSON.stringify(st); } catch (e) {}
 })();
-/* ===========================================================================
-   SCRIPT 4 — AGGREGATES AND RECENTLY PASSED DEADLINES (CLAUDE.md 5y, 5z).
-   ADDED, never a replacement. The three shell scripts stay untouched; this one
-   reads the finished DOM plus the soc-brief-state block and adds:
-     1. "Per service" — Entra ID apart from Entra Connect, which `product` cannot express.
-     2. A month / week / day time axis, the way daily.entra.news aggregates.
-     3. A share ring, so "too much Azure" is a number instead of an impression.
-     4. "Just passed" — deadlines that elapsed in the last 7 days, which every
-        other view drops the moment the day count goes negative.
-   Everything is drawn with the shell's own classes (.chart/.cl/.ctrack/.cbar/.cv),
-   so it looks identical and works in both themes without one new colour variable.
-   ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
-   in the chart titles was reported by the owner on 2 Sep 2026.
-   =========================================================================== */
 (function () {
   "use strict";
 
@@ -10347,16 +10390,39 @@ IdentityDirectoryEvents
     return td;
   }
 
+  /* §5dc (10 X 2026, owner: "group such rows into ONE permission name and only after + show the separate fields,
+     the description, the properties, what the permission allows - it saves space and looks professional"):
+     in Graph API and Roles one row = one permission / role on one day; its field changes are listed under + above
+     the full catalog panel. Other tabs keep one row per change. */
+  function groupRows(rows) {
+    var out = [], ix = {};
+    rows.forEach(function (e2) {
+      var k = (e2.seen || "") + "\u0001" + (e2.tab || "") + "\u0001" + nameOf(e2) + "\u0001" + (e2.kind || "");
+      if (!nameOf(e2) || ix[k] === undefined) { ix[k] = out.length; out.push({ head: e2, all: [e2] }); }
+      else out[ix[k]].all.push(e2);
+    });
+    return out;
+  }
+  window.__s5dcGroups = groupRows;
   function table(rows, kind, ledgerTabs, surf) {
     /* No `Tab` column: inside the Graph API tab every row said "Graph API".
        A second ledger tab under the same panel — Graph endpoints — is marked on
        the row instead, because there the distinction carries something. */
     var multi = (ledgerTabs || []).length > 1;
+    var GROUP = kind === "perm" || kind === "role";
     var tw = el("div", "tw"), tb = el("table"), th = el("thead"), hr = el("tr");
     ["", "Day", "What", "Item", "Field", "Before → after"].forEach(function (h) { hr.appendChild(el("th", null, h)); });
     th.appendChild(hr); tb.appendChild(th);
     var body = el("tbody");
-    rows.forEach(function (e2) {
+    var groups = GROUP ? groupRows(rows) : rows.map(function (e2) { return { head: e2, all: [e2] }; });
+    if (GROUP && surf) {   /* the surface chips count rows as they are shown: one per permission and day */
+      surf = { count: {}, order: surf.order.slice() };
+      groups.forEach(function (g) { var k = surfaceOf(g.head); surf.count[k] = (surf.count[k] || 0) + 1; });
+      surf.order.forEach(function (k) { if (surf.count[k] === undefined) surf.count[k] = 0; });
+    }
+    var nShown = groups.length;
+    groups.forEach(function (g) {
+      var e2 = g.head;
       var key = nameOf(e2);
       var tr = el("tr", "hrow");
       var c0 = el("td", "xc");
@@ -10388,8 +10454,16 @@ IdentityDirectoryEvents
       tr.appendChild(kc);
       if (surf) tr.dataset.surf = surfaceOf(e2);
       tr.appendChild(el("td", "rname", key || "—"));
-      var fc = el("td"); if (e2.field) fc.appendChild(el("code", null, e2.field)); tr.appendChild(fc);
-      tr.appendChild(valueCell(e2));
+      var fc = el("td");
+      if (g.all.length > 1) {
+        g.all.forEach(function (x, i) { if (!x.field) return; if (i) fc.appendChild(document.createTextNode(" ")); fc.appendChild(el("code", null, x.field)); });
+      } else if (e2.field) fc.appendChild(el("code", null, e2.field));
+      tr.appendChild(fc);
+      if (g.all.length > 1) {
+        var vs = el("td", "s5dc-sum"); vs.textContent = g.all.length + " fields changed — press + for each, with the full panel";
+        tr.appendChild(vs);
+      } else tr.appendChild(valueCell(e2));
+      tr.__s5dc = g.all;
       body.appendChild(tr);
       var det = el("tr", "hdet"); det.hidden = true;
       var dc = el("td"); dc.setAttribute("colspan", "6");
@@ -10410,7 +10484,7 @@ IdentityDirectoryEvents
       var note = el("p", "note");
       note.appendChild(el("b", null, "This tab is Microsoft Graph. "));
       note.appendChild(document.createTextNode(
-        surf.count[GRAPHSURF] + " of these " + rows.length + " changes are Graph permissions and are shown; " +
+        surf.count[GRAPHSURF] + " of these " + nShown + (GROUP ? " rows are Graph permissions and are shown; " : " changes are Graph permissions and are shown; ") +
         held + " belong to the other API surfaces this catalog also inventories (" +
         surf.order.filter(function (k) { return k !== GRAPHSURF; })
           .map(function (k) { return k + " " + surf.count[k]; }).join(", ") +
@@ -10423,12 +10497,12 @@ IdentityDirectoryEvents
       }
       schip(GRAPHSURF + " " + surf.count[GRAPHSURF], GRAPHSURF);
       surf.order.forEach(function (k) { if (k !== GRAPHSURF) schip(k + " " + surf.count[k], k); });
-      schip("All " + rows.length, "");
+      schip("All " + nShown, "");
       frag.appendChild(sf);
     }
 
     var sb = sbox(tb, {
-      noun: "changes", placeholder: "Search " + rows.length + " changes\u2026",
+      noun: GROUP ? "rows" : "changes", placeholder: "Search " + nShown + (GROUP ? " rows\u2026" : " changes\u2026"),
       extra: function (tr) { return !curS || tr.dataset.surf === curS; },
       onreset: function () {
         if (!surf || surf.order.length < 2) return;
@@ -10479,6 +10553,13 @@ IdentityDirectoryEvents
     var box = det.querySelector(".hd-in");
     if (box && box.dataset.built !== "1") {
       box.dataset.built = "1";
+      var all = tr.__s5dc || [];
+      if (all.length > 1 || (all[0] && all[0].field)) {   /* §5dc: what moved, field by field, above the panel */
+        var fl = el("div", "s5dc-fields"); fl.appendChild(el("p", "hd-lead", "What moved on " + (all[0] ? all[0].seen : "") + ", field by field"));
+        var ft = el("table", "s5dc-ft"), fb = el("tbody");
+        all.forEach(function (x) { var r = el("tr"); var f0 = el("td"); f0.appendChild(el("code", null, x.field || "—")); r.appendChild(f0); r.appendChild(valueCell(x)); fb.appendChild(r); });
+        ft.appendChild(fb); fl.appendChild(ft); det.querySelector("td").insertBefore(fl, box);
+      }
       box.appendChild(el("p", "note", "Opening …"));
       embed(box, b.dataset.kind, b.dataset.key);
     }
@@ -10682,7 +10763,10 @@ IdentityDirectoryEvents
         var det = el("details", "chg14");
         var sum = el("summary");
         sum.appendChild(el("span", "sm-t", "What changed in the last " + WINDOW_DAYS + " days"));
-        sum.appendChild(el("span", "badge t-acc", rows.length + (rows.length === 1 ? " change" : " changes")));
+        var shown = (T.kind === "perm" || T.kind === "role") ? groupRows(rows).length : rows.length;
+        /* §5dc: the counter is the number of ROWS (one per permission / role and day); the changes follow it */
+        sum.appendChild(el("span", "badge t-acc", shown === rows.length ? rows.length + (rows.length === 1 ? " change" : " changes")
+          : shown + (T.kind === "role" ? (shown === 1 ? " role" : " roles") : (shown === 1 ? " permission" : " permissions")) + " · " + rows.length + " changes"));
         sum.appendChild(el("span", "sm-r", "· " + Object.keys(RUNS).length + " days with a run"));
         det.appendChild(sum);
         if (rows.length) {
@@ -23691,6 +23775,202 @@ IdentityDirectoryEvents
     if (PHONE.addEventListener) PHONE.addEventListener("change", function () { soon(100); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 3200); }); else setTimeout(boot, 3200);
+})();
+
+/* §5dc (10 X 2026, owner 18:18-18:20: "show the list of new and changed permissions also as tiles, with a switch, like
+   campaigns or components; in the other form a table with date, API name, description...; both clickable, opening the
+   permission at once with its full description and properties as + does; the same in Roles"; "became grantable in
+   this tenant - a column in the table, and on the tile say the permission can now be assigned in tenants, so the
+   admin knows he can pick it in the GUI").
+   "Since the previous brief" in Graph API and Roles gets a Tiles | Table switch (remembered per browser). Data: the
+   register rows of this brief (ledger14, normalised by §5db), one item per permission / role, described from the
+   catalog (Microsoft's display text and description, permission types, admin consent; for a role its description and
+   the privileged flag). A click opens the field changes and the same catalog panel + opens (window.__socOpenPerm /
+   __socOpenRole). */
+(function () {
+  if (window.__s5dc) return; window.__s5dc = 1;
+  var LSK = "socChgView";
+  function getMode() { try { return localStorage.getItem(LSK) === "table" ? "table" : "tiles"; } catch (e) { return "tiles"; } }
+  function setMode(m) { try { localStorage.setItem(LSK, m); } catch (e) {} }
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function jb(id) { var n = document.getElementById(id); if (!n) return null; try { return JSON.parse(n.textContent); } catch (e) { return null; } }
+  function fmtDay(d) { return window.__socDate ? window.__socDate.fmt(d, false) : d; }
+  function nm(e) { return String(e.id || "").split("→")[0].trim(); }
+  function groups(rows) {
+    var out = [], ix = {};
+    rows.forEach(function (e) { var k = e.tab + "\u0001" + nm(e) + "\u0001" + e.kind; if (ix[k] === undefined) { ix[k] = out.length; out.push({ head: e, all: [e] }); } else out[ix[k]].all.push(e); });
+    return out;
+  }
+  function first(o) { if (!o || typeof o !== "object") return o || ""; var k = Object.keys(o)[0]; return k ? o[k] : ""; }
+  function cut(t, n) { t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, "") + "…" : t; }
+  function valueBits(x) {
+    var s = el("span", "s5dc-v");
+    if (x.field === "grantable here") { s.appendChild(el("b", null, x.kind === "removed" ? "no longer grantable in this tenant" : "became grantable in this tenant")); if (x.before) s.appendChild(document.createTextNode(" (was: " + x.before + ")")); return s; }
+    if (x.field) s.appendChild(el("span", "s5dc-f", x.field + ": "));
+    if (x.before) s.appendChild(el("del", null, x.before)); else if (x.after) s.appendChild(el("span", "s5dc-none", "not set"));
+    if (x.before || x.after) s.appendChild(document.createTextNode(" → "));
+    if (x.after) s.appendChild(el("ins", null, x.after)); else if (x.before) s.appendChild(el("span", "s5dc-none", "cleared"));
+    return s;
+  }
+  function info(g, which, CI) {
+    var e = g.head, n = nm(e), c = CI[n] || {}, all = g.all;
+    var mv = all.filter(function (x) { return x.field === "grantable here"; })[0];
+    var o = { name: n, kind: e.kind, day: e.seen, all: all, move: mv ? mv.kind : null };
+    if (which === "graph") {
+      o.types = (c.types || []).map(function (t) { return t.type; }).filter(Boolean);
+      if (!o.types.length && c.permTypes) o.types = [].concat(c.permTypes);
+      o.title = first(c.displayText); o.desc = first(c.descriptionByType) || c.impact || "";
+      o.consent = c.consent || ""; o.here = mv ? (mv.kind === "added") : (c.inInventory === true ? true : c.inInventory === false ? false : null);
+    } else {
+      o.types = c.privileged === true || c.privileged === "True" ? ["Privileged"] : []; o.title = ""; o.desc = c.description || c.intro || "";
+      o.consent = ""; o.here = null;
+    }
+    o.fields = all.map(function (x) { return x.field; }).filter(function (f) { return f && f !== "grantable here"; });
+    return o;
+  }
+  function openPanel(host, which, o) {
+    host.innerHTML = "";
+    var fl = el("div", "s5dc-fields");
+    fl.appendChild(el("p", "s5dc-lead", "What moved on " + fmtDay(o.day) + (o.all.length > 1 ? ", field by field" : "")));
+    var ul = el("ul"); o.all.forEach(function (x) { var li = el("li"); li.appendChild(valueBits(x)); ul.appendChild(li); }); fl.appendChild(ul);
+    host.appendChild(fl);
+    var box = el("div", "s5dc-panel"); box.appendChild(el("p", "s5dc-lead", "Opening the full panel …")); host.appendChild(box);
+    var inner = null;
+    try { inner = which === "graph" ? (window.__socOpenPerm && window.__socOpenPerm(o.name)) : (window.__socOpenRole && window.__socOpenRole(o.name)); } catch (e) {}
+    setTimeout(function () {
+      box.innerHTML = "";
+      if (!inner) { box.appendChild(el("p", "s5dc-lead", o.name + " has no entry in today's catalog, so there is no panel to open.")); return; }
+      box.appendChild(el("p", "s5dc-lead", "The full panel for " + o.name + " — the same one the catalog shows"));
+      var c = inner.cloneNode(true); c.classList.add("embed"); var h = c.querySelector("[data-hist]"); if (h && h.parentNode) h.parentNode.removeChild(h);
+      box.appendChild(c);
+    }, 120);
+  }
+  function hereText(o, which) {
+    if (which !== "graph") return "";
+    if (o.move === "added") return "Yes — new: assignable from this brief";
+    if (o.move === "removed") return "No — withdrawn here";
+    return o.here === true ? "Yes" : o.here === false ? "Not yet (deployed elsewhere)" : "—";
+  }
+  function kindLabel(k) { return k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"; }
+  function tiles(view, list, which) {
+    var grid = el("div", "s5dc-grid");
+    list.forEach(function (o) {
+      var t = el("article", "s5dc-tile s5dc-" + o.kind); t.tabIndex = 0; t.setAttribute("role", "button"); t.setAttribute("aria-expanded", "false");
+      var top = el("div", "s5dc-top"); top.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
+      o.types.forEach(function (x) { top.appendChild(el("span", "s5dc-ty", x)); });
+      top.appendChild(el("span", "s5dc-day", fmtDay(o.day))); t.appendChild(top);
+      t.appendChild(el("div", "s5dc-name", o.name));
+      if (o.move === "added") t.appendChild(el("div", "s5dc-grant", "✓ Assignable in this tenant now — an admin can select it in Entra admin center → App registrations → API permissions"));
+      if (o.move === "removed") t.appendChild(el("div", "s5dc-grant s5dc-grant-no", "No longer assignable in this tenant"));
+      if (o.title) t.appendChild(el("div", "s5dc-title", o.title));
+      if (o.desc) t.appendChild(el("p", "s5dc-desc", cut(o.desc, 200)));
+      var foot = el("div", "s5dc-foot");
+      if (o.kind === "changed" && o.fields.length) foot.appendChild(el("span", null, "Changed: " + o.fields.join(", ")));
+      if (o.consent) foot.appendChild(el("span", null, o.consent));
+      foot.appendChild(el("span", "s5dc-open", "Open ›"));
+      t.appendChild(foot);
+      var det = el("div", "s5dc-detail"); det.hidden = true;
+      function toggle() {
+        var open = det.hidden; det.hidden = !open; t.setAttribute("aria-expanded", String(open)); t.classList.toggle("s5dc-on", open);
+        if (open && !det.__b) { det.__b = 1; openPanel(det, which, o); }
+        if (open) setTimeout(function () { try { det.scrollIntoView({ block: "nearest", behavior: "smooth" }); } catch (e) {} }, 60);
+      }
+      t.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("a")) return; toggle(); });
+      t.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+      grid.appendChild(t); grid.appendChild(det);
+    });
+    view.appendChild(grid);
+  }
+  function table(view, list, which) {
+    var tw = el("div", "tw"), tb = el("table", "s5dc-table"), th = el("thead"), hr = el("tr");
+    var H = which === "graph" ? ["Date", "Name", "Change", "Grantable here", "Type", "Consent", "Description"] : ["Date", "Name", "Change", "Privileged", "Description"];
+    H.forEach(function (h) { hr.appendChild(el("th", null, h)); }); th.appendChild(hr); tb.appendChild(th);
+    var body = el("tbody");
+    list.forEach(function (o) {
+      var tr = el("tr", "s5dc-row s5dc-" + o.kind); tr.tabIndex = 0; tr.setAttribute("aria-expanded", "false");
+      tr.appendChild(el("td", "s5dc-dcell", fmtDay(o.day)));
+      var n = el("td", "rname"); n.appendChild(el("span", "s5dc-name", o.name)); if (o.title) n.appendChild(el("span", "s5dc-sub", o.title)); tr.appendChild(n);
+      var k = el("td"); k.appendChild(el("span", "s5dc-k s5bn-k", kindLabel(o.kind)));
+      if (o.kind === "changed" && o.fields.length) k.appendChild(el("span", "s5dc-sub", o.fields.join(", "))); tr.appendChild(k);
+      if (which === "graph") {
+        var hcell = el("td", o.move === "added" ? "s5dc-yes" : ""); hcell.textContent = hereText(o, which); tr.appendChild(hcell);
+        tr.appendChild(el("td", null, o.types.join(", ") || "—"));
+        tr.appendChild(el("td", null, o.consent || "—"));
+      } else tr.appendChild(el("td", null, o.types.length ? "Yes" : "No"));
+      tr.appendChild(el("td", "s5dc-dtext", cut(o.desc, 160) || "—"));
+      var det = el("tr", "hdet s5dc-drow"); det.hidden = true; var dc = el("td"); dc.setAttribute("colspan", String(H.length)); det.appendChild(dc);
+      function toggle() { var open = det.hidden; det.hidden = !open; tr.setAttribute("aria-expanded", String(open)); tr.classList.toggle("s5dc-on", open); if (open && !det.__b) { det.__b = 1; openPanel(dc, which, o); } }
+      tr.addEventListener("click", toggle);
+      tr.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); toggle(); } });
+      body.appendChild(tr); body.appendChild(det);
+    });
+    tb.appendChild(body); tw.appendChild(tb); view.appendChild(tw);
+  }
+  function build(tabId, which, ledgerTabs) {
+    var panel = document.getElementById(tabId), box = panel && panel.querySelector(".s5bn");
+    if (!box || box.getAttribute("data-s5dc")) return !!box;
+    var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {}, day = ST.briefDate || "";
+    var L = ((ST.ledger14 || {}).entries || []).filter(function (e) { return e.seen === day && ledgerTabs.indexOf(e.tab) >= 0 && nm(e); });
+    box.setAttribute("data-s5dc", "1");
+    if (!L.length) return true;
+    var CI = {}; (CAT[which] || []).forEach(function (c) { if (c && c.name) CI[c.name] = c; });
+    var order = { added: 0, changed: 1, removed: 2 };
+    var list = groups(L).map(function (g) { return info(g, which, CI); }).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (a.name < b.name ? -1 : 1); });
+    var head = box.querySelector(".s5bn-h");
+    var sw = el("span", "s5dc-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
+    [["tiles", "Tiles"], ["table", "Table"]].forEach(function (m) { var b = el("button", null, m[1]); b.type = "button"; b.setAttribute("data-m", m[0]); sw.appendChild(b); });
+    head.appendChild(sw);
+    var view = el("div", "s5dc-view"); head.parentNode.insertBefore(view, head.nextSibling);
+    box.classList.add("s5dc-box");
+    function show(m) {
+      view.innerHTML = ""; [].forEach.call(sw.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
+      if (m === "table") table(view, list, which); else tiles(view, list, which);
+    }
+    sw.addEventListener("click", function (ev) { var b = ev.target.closest && ev.target.closest("button"); if (!b) return; var m = b.getAttribute("data-m"); setMode(m); show(m); });
+    show(getMode());
+    return true;
+  }
+  var tries = 0;
+  function boot() {
+    var a = false, b = false;
+    try { a = build("tab-graph", "graph", ["Graph API", "Graph endpoints"]); } catch (e) { if (window.console) console.error("[5dc graph]", e); a = true; }
+    try { b = build("tab-roles", "roles", ["Roles"]); } catch (e) { if (window.console) console.error("[5dc roles]", e); b = true; }
+    if ((!a || !b) && ++tries < 30) setTimeout(boot, 600);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 3400); }); else setTimeout(boot, 3400);
+})();
+
+/* §5dc: window.__socOpenPerm / __socOpenRole found an entry only among the catalog rows on screen - the list shows a
+   filtered, paged part of 2 375 permissions, so + in the 14-day register and the new tiles opened nothing for most
+   names (measured 10 X: CopilotCostManagement-Assignment.Read.All). When the name is not on screen the wrapper puts
+   it into the catalog's own search for a moment, opens the entry, and gives the search back its previous text. */
+(function () {
+  function wrap(fnName, catSel) {
+    var orig = window[fnName]; if (!orig || orig.__s5dc) return !!orig;
+    /* by name, whatever the id: entries first found in Microsoft's deployment map carry "dep-..." ids (the seven
+       permissions that became grantable on 9 X among them), and the original accepted "perm-..." only */
+    function byName(cat, name) {
+      var hit = null;
+      [].forEach.call(cat.querySelectorAll(".cat-item"), function (b) { if (!hit && ((b.querySelector(".ci-name") || {}).textContent || "").trim() === name) hit = b; });
+      if (!hit) return null; hit.click(); return cat.querySelector(".cat-detail .cat-detail-inner");
+    }
+    var w = function (name) {
+      var r = orig(name); if (r) return r;
+      var cat = document.querySelector(catSel); if (!cat) return null;
+      r = byName(cat, name); if (r) return r;
+      var inp = cat.querySelector("input.cat-search"); if (!inp) return null;
+      var prev = inp.value;
+      inp.value = name; inp.dispatchEvent(new Event("input", { bubbles: true }));
+      r = byName(cat, name);
+      setTimeout(function () { if (inp.value === name) { inp.value = prev; inp.dispatchEvent(new Event("input", { bubbles: true })); } }, 600);
+      return r;
+    };
+    w.__s5dc = 1; window[fnName] = w; return true;
+  }
+  var n = 0, iv = setInterval(function () {
+    var a = wrap("__socOpenPerm", '.catalog[data-catalog="graph"]'), b = wrap("__socOpenRole", '.catalog[data-catalog="roles"]');
+    if ((a && b) || ++n > 40) clearInterval(iv);
+  }, 500);
 })();
 </script>
 </body>
