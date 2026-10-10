@@ -591,7 +591,8 @@ if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v)
        above it. Counting it would make "Search 8 rows" wrong and filtering would leave
        an orphan block behind — the same trap SCRIPT 6 handles with `hdet` in the brief. */
     var rows = [].slice.call(tb.rows).filter(function (r) { return !r.classList.contains("det"); });
-    if (rows.length < 3) return null;
+    /* §5dd (10 X 2026): every table with two rows or more gets the box - "every table can be filtered by every column" */
+    if (rows.length < 2) return null;
     var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
     var wrap = document.createElement("div"); wrap.className = "s9find";
     var q = document.createElement("input");
