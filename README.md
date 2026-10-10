@@ -359,7 +359,7 @@ Microsoft nie publikuje listy swoich aplikacji ani uprawnień, które nadaje im 
 | Dlaczego nie Directory.Read.All | Directory.Read.All czyta cały katalog: użytkowników, grupy, urządzenia. Dokumentacja Microsoftu podaje go jako „least privileged” dla `GET /oauth2PermissionGrants`, ale Graph ma węższą rolę **DelegatedPermissionGrant.Read.All** („Read all delegated permission grants”). Jeśli Graph jej nie przyjmie (403), skrypt zapisze migawkę bez zgód delegowanych, z polem `grantsNote`, i nie przerwie działania — wtedy decydujemy, czy dodać Directory.Read.All |
 | [Zgoda administratora](https://learn.microsoft.com/entra/identity/enterprise-apps/grant-admin-consent) | **nadana** 25 IX 2026 przez skrypt (obie role przypisane do service principala); potwierdzona pierwszym przebiegiem (`grantsNote` puste); sprawdzenie — pkt 5.3, krok 1 |
 | Poświadczenie federacyjne (działające) | nazwa `github-ms-soc-main-immutable`, issuer `https://token.actions.githubusercontent.com`, subject `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`, audience `api://AzureADTokenExchange` — dodane 25 IX 2026 (skrypt z `-Subject`), bo GitHub wystawia dla tego repozytorium subject niezmienny (opis niżej) |
-| Poświadczenie federacyjne (stare, do usunięcia) | nazwa `github-ms-soc-main`, subject `repo:wpiotrw/MS_SOC:ref:refs/heads/main` — format nazwowy; GitHub go dla tego repozytorium nie wystawia, więc logowanie nim kończyło się AADSTS700213. Usuń po pierwszym zielonym przebiegu (Microsoft zaleca nie zostawiać poświadczenia opartego na nazwach) |
+| Poświadczenie federacyjne (stare) — **usunięte 10 X 2026** | nazwa `github-ms-soc-main`, subject `repo:wpiotrw/MS_SOC:ref:refs/heads/main` — format nazwowy; GitHub go dla tego repozytorium nie wystawia, więc logowanie nim kończyło się AADSTS700213. Właściciel usunął je 10 X 2026 (Microsoft zaleca nie zostawiać poświadczenia opartego na nazwach); w aplikacji zostało tylko `github-ms-soc-main-immutable` |
 | Sekrety | **brak** |
 | Workflow | `.github/workflows/fpa-tenant.yml` (od 9 X 2026 co 3 godziny, minuta 15 UTC, i ręcznie; wcześniej raz dziennie 03:30 UTC); przeniesiony z `tools/` przez właściciela 25 IX 2026 (commit `e2d3f64`) |
 | Wynik | `site/data/fpa-tenant.json` (aplikacje, zgody, role), `site/data/mc-tenant.json` (Message Center tenanta), `cache/fpa/` i `site/data/fpa-docs.json` (kopie źródeł First-party apps, `tools/fpa_sources.py` — nie czyta tenanta) |
@@ -471,7 +471,7 @@ Repozytorium jest publiczne, więc każdy widzi kod, workflow i README. Do tenan
 
 > ⚠️ **Historia commitów:** pełne ID tenanta i aplikacji oraz nazwa domeny tenanta były w kilku commitach z 25 IX 2026 (później zredagowane). Historia publicznego repozytorium jest widoczna. Dostępu to nie daje (tabela wyżej); usunięcie z historii jest w planie razem z przejściem na repozytorium prywatne (pkt 9).
 
-> ⚠️ **Stare poświadczenie `github-ms-soc-main`** (subject z samych nazw, `repo:wpiotrw/MS_SOC:ref:refs/heads/main`) trzeba usunąć z aplikacji: nie jest używane, a gdyby nazwę konta lub repozytorium przejął kiedyś ktoś inny, mógłby dostać pasujący token („subject recycling”, opis w następnej części).
+> ✅ **Stare poświadczenie `github-ms-soc-main`** (subject z samych nazw, `repo:wpiotrw/MS_SOC:ref:refs/heads/main`) **usunięte 10 X 2026**. Nie było używane, a gdyby nazwę konta lub repozytorium przejął kiedyś ktoś inny, mógłby dostać pasujący token („subject recycling”, opis w następnej części). W aplikacji zostało jedno poświadczenie: `github-ms-soc-main-immutable` (subject z ID). Przy nowym tenancie lub repozytorium zakładamy od razu tylko poświadczenie z ID.
 
 #### Subject tokenu GitHub: skąd `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`
 
@@ -567,7 +567,7 @@ pwsh -NoProfile -File .\tools\New-FpaReaderApp.ps1 -TenantId $tid `
   -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
 ```
 
-Skrypt jest idempotentny: aplikacji, service principala i zgód nie tworzy drugi raz (wypisze `juz nadane`), a poświadczenie dodaje tylko wtedy, gdy nie ma już takiego z tym subjectem. Z `-Subject` nadaje mu nazwę z końcówką `-immutable` (`github-ms-soc-main-immutable`), bo nazwy poświadczeń w aplikacji muszą być unikalne, a stare `github-ms-soc-main` nadal istnieje. Bez `-Subject` używa starego formatu `repo:<Repo>:ref:refs/heads/<Branch>`.
+Skrypt jest idempotentny: aplikacji, service principala i zgód nie tworzy drugi raz (wypisze `juz nadane`), a poświadczenie dodaje tylko wtedy, gdy nie ma już takiego z tym subjectem. Z `-Subject` nadaje mu nazwę z końcówką `-immutable` (`github-ms-soc-main-immutable`), bo nazwy poświadczeń w aplikacji muszą być unikalne, a w chwili jego dodania (25 IX 2026) istniało jeszcze stare `github-ms-soc-main` (usunięte 10 X 2026). Bez `-Subject` używa starego formatu `repo:<Repo>:ref:refs/heads/<Branch>`.
 
 **Sposób B — portal Entra admin center:**
 
@@ -579,7 +579,7 @@ Skrypt jest idempotentny: aplikacji, service principala i zgód nie tworzy drugi
 6. **Name:** `github-ms-soc-main-immutable`; **Audience:** `api://AzureADTokenExchange` (wartość domyślna — zostaw).
 7. **Add.** Potem uruchom workflow ręcznie (Actions → „First-party apps tenant snapshot” → Run workflow).
 
-Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main` (ta sama zakładka → ikona kosza przy nazwie). Źródła: [Migrate GitHub Actions federated credentials to immutable subjects](https://learn.microsoft.com/entra/workload-id/workload-identities-github-immutable-subjects), [Configure an app to trust an external identity provider](https://learn.microsoft.com/entra/workload-id/workload-identity-federation-create-trust#configure-a-federated-identity-credential-on-an-app), [Graph: create federatedIdentityCredential](https://learn.microsoft.com/graph/api/federatedidentitycredential-post) (sprawdzone 25 IX 2026).
+Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main`, jeśli istnieje (ta sama zakładka → ikona kosza przy nazwie) — w tenancie właściciela zrobione 10 X 2026. Źródła: [Migrate GitHub Actions federated credentials to immutable subjects](https://learn.microsoft.com/entra/workload-id/workload-identities-github-immutable-subjects), [Configure an app to trust an external identity provider](https://learn.microsoft.com/entra/workload-id/workload-identity-federation-create-trust#configure-a-federated-identity-credential-on-an-app), [Graph: create federatedIdentityCredential](https://learn.microsoft.com/graph/api/federatedidentitycredential-post) (sprawdzone 25 IX 2026).
 
 #### Dlaczego GitHub Actions i co nam to daje
 
@@ -1013,6 +1013,7 @@ Sekretów aplikacji Entra (client secret), certyfikatów, osobistych tokenów Gi
 | Data | Zmiana |
 |---|---|
 
+| 2026-10-10 | Stare poświadczenie federacyjne `github-ms-soc-main` (subject nazwowy) usunięte przez właściciela; w aplikacji zostało tylko `github-ms-soc-main-immutable` — pkt 5.2 (tabela, „Bezpieczeństwo”, sposób B). |
 | 2026-10-10 | pkt 12 „Tożsamości, uprawnienia i poświadczenia”: jedna tabela wszystkich uprawnień aplikacji Entra z powodem, wywołaniem, skryptem i skutkiem braku; poświadczenie federacyjne zamiast sekretu i dlaczego; sekrety, zmienne i `GITHUB_TOKEN` każdego workflow; logowania delegowane (skrypt, Lokka, Claude GitHub); czego rozwiązanie nie używa. |
 | 2026-10-10 | pkt 5.3: nadanie RoleManagement.Read.Directory krok po kroku w portalu; odporny fragment PowerShell (klonuje repozytorium, gdy go nie ma); tabela „co robi skrypt `New-FpaReaderApp.ps1`”; część „Nadawanie uprawnień przez Claude (Lokka)” — rola, zakresy i ostrzeżenie o AppRoleAssignment.ReadWrite.All; krok 1 z czterema uprawnieniami. |
 | 2026-10-10 | §5cy — powierzchnia tożsamości: `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta uprawnienia Microsoft Graph i role Entra z naszego tenanta (nowe uprawnienie aplikacji: **RoleManagement.Read.Directory**, tylko odczyt; skrypt `New-FpaReaderApp.ps1` je nadaje), pliki `graph-sp.json` i `graph-sp-history.json`, wdrożenie przy zmianie (sekret SWA w tym workflow); strona: zdanie „Identity surface”, karta Overview, zmiany uprawnień w zdaniach technologii; `/diff/`: blok „Identity surface — who can do what”; pkt 5.2 (kroki 7 i 9), pkt 11 krok 3. |
