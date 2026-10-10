@@ -1875,14 +1875,30 @@
 "MC1471964",
 "item:MC1471964",
 "item:windows-11-24h2-end-of-servicing",
-"windows-11-24h2-end-of-servicing"
+"windows-11-24h2-end-of-servicing",
+"MC1169587"
 ],
-"log":[],
+"log":[
+{
+"date":"2026-09-28",
+"id":"MC1169587",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
+"title":"Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1169587"
+}
+],
 "milestones":{
 "MC1471964|posted":{
 "date":"2026-09-14",
 "label":"14 Sep 2026",
 "text":"Posted: Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
+},
+"MC1169587|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025"
 },
 "MC1471964|on windows version h home and pro editions and windows enter#0":{
 "date":"2026-10-13",
@@ -1915,13 +1931,32 @@
 "date":"2026-09-14",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1169587":{
+"title":"Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1169587",
+"source":"Message Center",
+"id":"MC1169587",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-10"
+},
+"https://mc.merill.net/message/MC1492825":{
+"title":"MC1492825: 30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026",
+"link":"https://mc.merill.net/message/MC1492825",
+"source":"MC - Merill",
+"date":"2026-10-09",
+"group":"community",
+"found":"2026-10-10"
 }
 },
 "final":"2027-10-12",
 "type":"Support end",
 "tech":"Windows",
 "posts":[
-"MC1471964"
+"MC1471964",
+"MC1169587"
 ]
 },
 "c-mc1442510":{
@@ -3518,6 +3553,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-09",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-10",
 "text":"August 1, 2026."
 },
 {
@@ -7407,6 +7450,16 @@
 "title":"Beyond the Script: Evaluating Voice Agents with Voice User Simulator",
 "source":"Azure AI Foundry Blog",
 "link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/beyond-the-script-evaluating-voice-agents-with-voice-user/ba-p/4559696"
+},
+{
+"day":"2026-10-10",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"MC1492825: 30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1492825"
 }
 ],
 "archive":{
