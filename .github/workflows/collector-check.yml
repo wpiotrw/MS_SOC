@@ -46,7 +46,7 @@ jobs:
           python3 - <<'EOF'
           import json
           b = {r["name"]: r for r in json.load(open("blogs_raw.json"))}
-          for n in ("Azure Updates", "Microsoft Graph changelog", "MSRC Security Update Guide", "Microsoft Defender for Cloud Apps Blog", "Microsoft Defender for Office 365 Blog"):   # 5dh
+          for n in ("Azure Updates", "Microsoft Graph changelog", "MSRC Security Update Guide", "Microsoft Defender XDR Blog", "Microsoft Defender for Office 365 Blog", "Microsoft Security Blog"):   # 5dh
               r = b.get(n) or {}
               print("::notice title=blog::" + "%-28s %-7s %s items, newest %s, via %s %s" % (n, r.get("status"), len(r.get("items") or []),
                     max([i.get("date") or "" for i in r.get("items") or []] + [""]), r.get("method"), (r.get("note") or "")[:80]))
