@@ -1,6 +1,153 @@
 {
 "updated":"2026-10-10",
 "campaigns":{
+"c-mc1492958":{
+"firstSeen":"2026-10-10",
+"lastSeen":"2026-10-10",
+"name":"New tenant controls for retirement of non-standard file API tokens",
+"status":"Active",
+"members":[
+"MC1492958",
+"item:MC1492958"
+],
+"log":[
+{
+"date":"2026-10-10",
+"id":"MC1492958",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Pre-authenticated (tempauth) file URLs retire on 1 April 2027: Graph file APIs stop returning URLs with an embedded token, and a tenant control lets you test per application first",
+"title":"Pre-authenticated (tempauth) file URLs retire on 1 April 2027: Graph file APIs stop returning URLs with an embedded token, and a tenant control lets you test per application first",
+"link":"https://deltapulse.app/item/MC1492958"
+}
+],
+"milestones":{
+"MC1492958|posted":{
+"date":"2026-10-09",
+"label":"9 Oct 2026",
+"text":"Posted: Microsoft Graph: New tenant controls for retirement of non-standard file API tokens"
+},
+"MC1492958|beginning selected microsoft graph file apis will no longer #0":{
+"date":"2027-04-01",
+"label":"1 Apr 2027",
+"text":"Beginning April 1, 2027, selected Microsoft Graph file APIs will no longer return URLs that contain embedded authentication information and will no longer issue"
+},
+"MC1492958|beginning in early and expected to complete in late#0":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Beginning in early April 2027 and expected to complete in late April 2027."
+},
+"MC1492958|beginning in early and expected to complete in late#1":{
+"date":"2027-04-25",
+"label":"late Apr 2027",
+"text":"Beginning in early April 2027 and expected to complete in late April 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958":{
+"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958",
+"source":"Message Center",
+"id":"MC1492958",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+},
+"https://mc.merill.net/message/MC1492958":{
+"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+"link":"https://mc.merill.net/message/MC1492958",
+"source":"Message Center",
+"id":"MC1492958",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+},
+"https://deltapulse.app/item/MC1492958":{
+"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+"link":"https://deltapulse.app/item/MC1492958",
+"source":"Main list source",
+"id":"MC1492958",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+}
+},
+"final":"2027-04-25",
+"type":"Retirement",
+"tech":"SharePoint",
+"posts":[
+"MC1492958"
+]
+},
+"c-mc1492954":{
+"firstSeen":"2026-10-10",
+"lastSeen":"2026-10-10",
+"name":"Themes by Copilot retirement",
+"status":"Active",
+"members":[
+"MC1492954"
+],
+"log":[
+{
+"date":"2026-10-10",
+"id":"MC1492954",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Outlook: Themes by Copilot retirement",
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://mc.merill.net/message/MC1492954"
+}
+],
+"milestones":{
+"MC1492954|posted":{
+"date":"2026-10-09",
+"label":"9 Oct 2026",
+"text":"Posted: Microsoft Outlook: Themes by Copilot retirement"
+},
+"MC1492954|retirement begins in mid and is expected to complete by late#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
+},
+"MC1492954|retirement begins in mid and is expected to complete by late#1":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954":{
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954",
+"source":"Message Center",
+"id":"MC1492954",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+},
+"https://mc.merill.net/message/MC1492954":{
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://mc.merill.net/message/MC1492954",
+"source":"Message Center",
+"id":"MC1492954",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+}
+},
+"final":"2026-10-25",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1492954"
+]
+},
 "c-mc1492163":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-10",
@@ -1302,7 +1449,6 @@
 "members":[
 "571157",
 "RM571157",
-"item:571157",
 "MC1481315",
 "item:MC1481315"
 ],
@@ -1600,8 +1746,7 @@
 "name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
 "status":"No date",
 "members":[
-"MC1474124",
-"item:MC1474124"
+"MC1474124"
 ],
 "log":[],
 "milestones":{
@@ -3021,6 +3166,14 @@
 "updated":"2026-07-15",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1486284":{
+"title":"MC1486284: Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+"link":"https://mc.merill.net/message/MC1486284",
+"source":"MC - Merill",
+"date":"2026-10-09",
+"group":"community",
+"found":"2026-10-10"
 }
 },
 "final":"2027-01-15",
@@ -3365,6 +3518,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-09",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-10",
 "text":"August 1, 2026."
 },
 {
@@ -3822,6 +3983,22 @@
 "now":"Feb 2027",
 "seen":"2026-10-10",
 "text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-10",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-10",
+"text":"February 2027."
 }
 ],
 "materials":{
@@ -4117,103 +4294,6 @@
 "tech":"Entra",
 "posts":[
 "MC1223829"
-]
-},
-"c-mc1492954":{
-"firstSeen":"2026-10-10",
-"lastSeen":"2026-10-10",
-"name":"Themes by Copilot retirement",
-"status":"Active",
-"members":[
-"MC1492954"
-],
-"log":[],
-"milestones":{
-"MC1492954|posted":{
-"date":"2026-10-09",
-"label":"9 Oct 2026",
-"text":"Posted: Microsoft Outlook: Themes by Copilot retirement"
-},
-"MC1492954|retirement begins in mid and is expected to complete by late#0":{
-"date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
-},
-"MC1492954|retirement begins in mid and is expected to complete by late#1":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954":{
-"title":"Microsoft Outlook: Themes by Copilot retirement",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954",
-"source":"Message Center",
-"id":"MC1492954",
-"date":"2026-10-09",
-"updated":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-10"
-}
-},
-"final":"2026-10-25",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1492954"
-]
-},
-"c-mc1492958":{
-"firstSeen":"2026-10-10",
-"lastSeen":"2026-10-10",
-"name":"New tenant controls for retirement of non-standard file API tokens",
-"status":"Active",
-"members":[
-"MC1492958"
-],
-"log":[],
-"milestones":{
-"MC1492958|posted":{
-"date":"2026-10-09",
-"label":"9 Oct 2026",
-"text":"Posted: Microsoft Graph: New tenant controls for retirement of non-standard file API tokens"
-},
-"MC1492958|beginning selected microsoft graph file apis will no longer #0":{
-"date":"2027-04-01",
-"label":"1 Apr 2027",
-"text":"Beginning April 1, 2027, selected Microsoft Graph file APIs will no longer return URLs that contain embedded authentication information and will no longer issue"
-},
-"MC1492958|beginning in early and expected to complete in late#0":{
-"date":"2027-04-05",
-"label":"early Apr 2027",
-"text":"Beginning in early April 2027 and expected to complete in late April 2027."
-},
-"MC1492958|beginning in early and expected to complete in late#1":{
-"date":"2027-04-25",
-"label":"late Apr 2027",
-"text":"Beginning in early April 2027 and expected to complete in late April 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958":{
-"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492958",
-"source":"Message Center",
-"id":"MC1492958",
-"date":"2026-10-09",
-"updated":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-10"
-}
-},
-"final":"2027-04-25",
-"type":"Retirement",
-"tech":"SharePoint",
-"posts":[
-"MC1492958"
 ]
 },
 "c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
@@ -5631,6 +5711,14 @@
 "date":"2026-10-08",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/beyond-the-script-evaluating-voice-agents-with-voice-user/ba-p/4559696":{
+"title":"Beyond the Script: Evaluating Voice Agents with Voice User Simulator",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/beyond-the-script-evaluating-voice-agents-with-voice-user/ba-p/4559696",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
 }
 },
 "final":"2027-07-01",
@@ -6135,6 +6223,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7073,6 +7177,36 @@
 "tech":"SharePoint",
 "next":"1 Apr 2027",
 "text":"Microsoft is retiring pre-authenticated URLs, also known as tempauth URLs, from SharePoint Online and OneDrive."
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1492958",
+"type":"material",
+"name":"New tenant controls for retirement of non-standard file API tokens",
+"group":"microsoft",
+"title":"Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1492958"
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"MC1486284: Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1486284"
+},
+{
+"day":"2026-10-10",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Beyond the Script: Evaluating Voice Agents with Voice User Simulator",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/beyond-the-script-evaluating-voice-agents-with-voice-user/ba-p/4559696"
 }
 ],
 "archive":{

@@ -1,0 +1,51 @@
+// title: Who was granted one of the Graph permissions that became grantable on 9 October
+// date: 2026-10-10
+// product: Entra
+// tables: AuditLogs
+// purpose: Lists every successful grant in the last 14 days of the two AppFederatedCredentialIssuers application roles and of the nine delegated scopes that arrived with them, with who granted it and to which service principal. An empty result is the expected one; a row for AppFederatedCredentialIssuers.ReadWr
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 10 Oct 2026 - grants of the Graph permissions that became grantable on 9 Oct 2026
+// AuditLogs columns verified against the schema page cited beside this query.
+// Role identifiers and scope names are read from the Microsoft Graph service principal dump of 9 Oct 2026.
+let NewAppRoles = datatable(AppRoleId:string, Permission:string) [
+  "231187a1-75b7-4554-a255-682d4d4971e8", "AppFederatedCredentialIssuers.Read.All",
+  "aa595073-8ce6-409a-8b9e-258e9faab0f3", "AppFederatedCredentialIssuers.ReadWrite.All"
+];
+let NewScopes = dynamic([
+  "AppFederatedCredentialIssuers.Read.All",
+  "AppFederatedCredentialIssuers.ReadWrite.All",
+  "CopilotCostManagement-Assignment.Read.All",
+  "CopilotCostManagement-Assignment.ReadWrite.All",
+  "CopilotCostManagement-Policy.Read.All",
+  "CopilotCostManagement-Policy.ReadWrite.All",
+  "CopilotCostManagement-UserData.Read.All",
+  "CrossTenantContentMigration.Read.All",
+  "CrossTenantContentMigration.ReadWrite.All"
+]);
+let AppGrants = AuditLogs
+| where TimeGenerated > ago(14d)
+| where OperationName == "Add app role assignment to service principal"
+| where Result =~ "success"
+| mv-expand Target = TargetResources
+| mv-expand Prop = Target.modifiedProperties
+| where tostring(Prop.displayName) == "AppRole.Id"
+| extend AppRoleId = trim('"', tostring(Prop.newValue))
+| join kind=inner NewAppRoles on AppRoleId
+| extend GrantType = "Application";
+let DelegatedGrants = AuditLogs
+| where TimeGenerated > ago(14d)
+| where OperationName == "Add delegated permission grant"
+| where Result =~ "success"
+| mv-expand Target = TargetResources
+| mv-expand Prop = Target.modifiedProperties
+| where tostring(Prop.displayName) == "DelegatedPermissionGrant.Scope"
+| extend Scopes = split(trim(@'[" ]+', tostring(Prop.newValue)), " ")
+| mv-expand Scope = Scopes to typeof(string)
+| where Scope in (NewScopes)
+| extend Permission = Scope, GrantType = "Delegated";
+union AppGrants, DelegatedGrants
+| extend Actor = coalesce(tostring(InitiatedBy.user.userPrincipalName), tostring(InitiatedBy.app.displayName)),
+         GrantedTo = tostring(Target.displayName)
+| project TimeGenerated, GrantType, Permission, GrantedTo, Actor, CorrelationId
+| order by TimeGenerated desc
