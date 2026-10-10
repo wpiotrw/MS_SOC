@@ -3825,14 +3825,13 @@ button.s5cu-ktt:hover{border-color:var(--accent)}
  font-weight:700;font-size:12px;line-height:1.45;letter-spacing:.01em;white-space:nowrap}
 .s5ci-tr:not(.s5ci-th)>div[role="cell"]:nth-child(3):not(:empty){justify-self:start;align-self:start;width:max-content;max-width:100%;white-space:normal}
 .s5cv-kqa{margin:6px 0 12px;padding:9px 12px;border:1px solid var(--accent);border-left-width:4px;border-radius:8px;background:var(--accent-soft);font-size:13.5px;line-height:1.5}
-/* §5cx (10 X 2026): GuardZilla logo - the mascot before the title; the full logo (with the name) in the header's
-   left margin when the margin holds it (header content is 1500 px wide and centred: from 2160 px), 260 px wide so it
-   stays inside the header (224 px tall; the rail below the header starts at the left edge).
-   Owner, 10 X 01:09: "too small on desktop, at least twice as big" - 96 px on a desktop (was 46), 72 on a tablet,
-   52 on a phone; the full logo 260 px wide (was up to 226 at 2000 px, now shown only where it fits at 260). */
+/* §5cx (10 X 2026): GuardZilla logo. Owner, 10 X 08:05: "I gave you the logo with the GUARDZILLA name - I do not see
+   the name under the picture on the phone; check the desktop too" - so the full logo (picture AND name) everywhere:
+   128 px tall on a desktop (the name about 17 px), 108 px on a tablet, 96 px on a phone (the name about 13 px), at the
+   left of the whole title block from 721 px; from 2160 px 260 px wide in the header's left margin. */
 h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 .s5cx-mark{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
-.s5cx-mark img{height:96px;width:auto;display:block}
+.s5cx-mark img{height:128px;width:auto;display:block}
 .s5cx-logo{display:none;text-decoration:none}
 .s5cx-logo img{display:block;width:100%;height:auto}
 .s5cx-dark{display:none!important}
@@ -3847,12 +3846,13 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 /* from 721 px the mascot stands at the left of the whole title block (title, dateline, filter and Theme), so it is
    big without making the sticky header taller: the block keeps its rows and moves right by the mascot's width */
 @media (min-width:721px) and (max-width:2159px){
- header.top .title-row.s5cx-row{position:relative;padding-left:128px;min-height:96px}
+ header.top .title-row.s5cx-row{position:relative;padding-left:168px;min-height:128px}
  header.top .s5cx-row h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}
 }
-@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:72px}
- header.top .title-row.s5cx-row{padding-left:98px;min-height:72px}}
-@media (max-width:720px){.s5cx-mark img{height:52px}h1.s5cx-h1{gap:10px}}
+@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:108px}
+ header.top .title-row.s5cx-row{padding-left:144px;min-height:108px}}
+@media (max-width:720px){.s5cx-mark img{height:96px}h1.s5cx-h1{gap:12px}}
+
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <div class="wrap"><div class="tabpanel" id="tab-overview" data-tab="Overview" hidden><section id="elapsed-overview" data-nav="Just passed"><div class="sec-head"><h2>Section A</h2><p class="sec-title">Deadlines that passed in the last 7 days</p> <span class="sec-count">3</span></div><div class="sec-body"><p class="sec-note"><b>3</b> rows. A deadline stays here for seven days after it falls, then leaves the page for the state&#x27;s dropped list with a written reason rather than vanishing. They fell: <b>3</b> on 5 October.</p><div class="tw"><table><thead><tr><th>Item</th><th>Product</th><th>Deadline</th><th>Days</th><th>What it means</th><th>Status</th><th>Source</th></tr></thead><tbody>
@@ -22433,7 +22433,7 @@ IdentityDirectoryEvents
       });
       return a;
     }
-    var mark = pic("s5cx-mark", "mark", "GuardZilla — home");
+    var mark = pic("s5cx-mark", "logo", "GuardZilla — home");   /* 10 X 08:05, owner: the logo WITH its name, also on the phone */
     h1.classList.add("s5cx-h1"); row.classList.add("s5cx-row"); h1.insertBefore(mark, h1.firstChild);   /* inside the title: aligned with it on every width */
     var big = pic("s5cx-logo", "logo", "GuardZilla — Microsoft SOC Brief, home");
     top.insertBefore(big, top.firstChild);
