@@ -34,6 +34,10 @@ jobs:
           git fetch origin "+${GITHUB_REF}:refs/remotes/origin/routine"
           rm -rf site
           git checkout refs/remotes/origin/routine -- site
+          # CLAUDE.md 5cz: the stamps belong to the workflows that write them - a routine clone may be older,
+          # so keep main's copies (rm -rf above would drop or roll them back), then stamp this publication
+          git checkout HEAD -- site/data/fresh 2>/dev/null || true
+          if ! git diff --quiet HEAD -- site; then python3 tools/stamp.py publish "${GITHUB_REF_NAME}" || true; fi
           git add -A site
           if git diff --cached --quiet; then
             echo "Brak zmian w site/ - nie commituje."

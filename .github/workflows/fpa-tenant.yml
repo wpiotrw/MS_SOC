@@ -58,6 +58,7 @@ jobs:
           git add cache/fpa site/data/fpa-docs.json 2>/dev/null || true
           git add site/data/graph-sp.json site/data/graph-sp-history.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
+            python3 tools/stamp.py tenant || true; git add site/data/fresh   # CLAUDE.md 5cz
             # a new Graph permission or role change goes live now, not with the next morning run (5cy)
             # the history file changes only with new events, once a day (lastRead) or when the roles read changes
             if git diff --cached --name-only | grep -q 'graph-sp-history.json'; then echo "deploy=yes" >> "$GITHUB_OUTPUT"; fi

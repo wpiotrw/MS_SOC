@@ -44,7 +44,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- mirror
+          python3 tools/stamp.py learn || true   # CLAUDE.md 5cz: when our Learn copy last changed
+          git add -A -- mirror site/data/fresh
           git commit -q -F "$RUNNER_TEMP/mirror-message.txt"
           for i in 1 2 3; do
             git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
