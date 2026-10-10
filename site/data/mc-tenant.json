@@ -1,7 +1,7 @@
 {
  "read": "2026-10-10",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 700,
+ "count": 699,
  "note": null,
  "messages": [
   {
@@ -404,31 +404,6 @@
     "General Availability (Worldwide): Begins rolling out in February 2026 (previously late October), expected to complete February 2026 (previously early November)."
    ],
    "bodyHash": "155400cb916efa4f"
-  },
-  {
-   "id": "MC1169587",
-   "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-10",
-   "end": "2026-10-10",
-   "modified": "2025-10-10",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "On November 11, 2025, Windows 11, version 23H2 ( Home and Pro editions) will reach end of servicing . The November 2025 monthly security update will be the last update available for these editions. After this date, devices running these editions will no longer receive monthly security and preview updates containing protections from the latest security threats. As always, we recommend that you upda…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "On November 11, 2025, Windows 11, version 23H2 ( Home and Pro editions) will reach end of servicing .",
-    "The November 2025 monthly security update will be the last update available for these editions."
-   ],
-   "bodyHash": "b564a82520725b2e"
   },
   {
    "id": "MC1169914",
@@ -21501,6 +21476,13 @@
    "id": "MC1493186",
    "type": "new",
    "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-10",
+   "id": "MC1169587",
+   "type": "removed",
+   "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
    "fields": {}
   }
  ]
