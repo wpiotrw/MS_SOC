@@ -46,7 +46,7 @@ def main():
         if not os.path.exists(f):
             missing.append("script%d.js not extracted" % n); continue
         new = open(f, encoding="utf-8").read().strip()
-        # the LAST executable <script> whose first 1 500 characters name "SCRIPT n" and that is
+        # the LAST executable <script> whose header names "SCRIPT n" (see below) and that is
         # under 1 MB (the data scripts at the top of the page mention script numbers in prose)
         best = None
         for m in re.finditer(r"<script(?![^>]*application/json)[^>]*>", h):
@@ -54,7 +54,11 @@ def main():
             if end < 0: continue
             body = h[m.end():end]
             if len(body) > 1_000_000: continue
-            mm = re.search(r"SCRIPT (\d+)\b", body[:1500])
+            # 5dc (10 X 2026): a block may open with a small IIFE before its header comment (the 5db
+            # register normalizer did, and the refresh failed with "not found: SCRIPT 4 block"), so look
+            # for the header form "SCRIPT n —" in the first 8 000 characters, then the bare form.
+            head = body[:8000]
+            mm = re.search(r"SCRIPT (\d+) —", head) or re.search(r"SCRIPT (\d+)\b", body[:1500])
             if mm and int(mm.group(1)) == n: best = (m.end(), end)
         if not best:
             missing.append("SCRIPT %d block" % n); continue
