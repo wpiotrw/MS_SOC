@@ -1,9 +1,9 @@
 {
-"updated":"2026-10-09",
+"updated":"2026-10-10",
 "campaigns":{
 "c-mc1492163":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Zendesk OAuth tokens will require expiration and automatic refresh",
 "status":"Active",
 "members":[
@@ -69,7 +69,7 @@
 },
 "c-mc1490911":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retiring legacy sign-in implementation on Windows",
 "status":"Active",
 "members":[
@@ -126,7 +126,7 @@
 },
 "c-mc1490899":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Targeted Release retirement",
 "status":"Active",
 "members":[
@@ -188,7 +188,7 @@
 },
 "c-mc1448373":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
 "status":"Active",
 "members":[
@@ -334,7 +334,7 @@
 },
 "c-mc1479516":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Link preview retirement",
 "status":"No date",
 "members":[
@@ -426,7 +426,7 @@
 },
 "c-mc1488834":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"MemberOf rule operator retires",
 "status":"Active",
 "members":[
@@ -526,7 +526,7 @@
 },
 "c-mc676299":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of Exchange Web Services in Exchange Online",
 "status":"Active",
 "members":[
@@ -1029,7 +1029,7 @@
 },
 "c-mc1243549":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
 "status":"Active",
 "members":[
@@ -1143,7 +1143,7 @@
 },
 "c-mc1483538":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Windows settings backup is now enabled by default for eligible devices",
 "status":"Recently closed",
 "members":[
@@ -1204,7 +1204,7 @@
 },
 "c-mc1481317":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
 "status":"Active",
 "members":[
@@ -1296,7 +1296,7 @@
 },
 "c-mc1481315":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"DSPM-Copilot Readiness and Data Explorer",
 "status":"Active",
 "members":[
@@ -1400,7 +1400,7 @@
 },
 "c-mc1478463":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Teams user reporting enabled by default",
 "status":"Active",
 "members":[
@@ -1461,7 +1461,7 @@
 },
 "c-mc1477996":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
 "status":"Active",
 "members":[
@@ -1527,7 +1527,7 @@
 },
 "c-mc1392568":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
 "status":"Active",
 "members":[
@@ -1596,7 +1596,7 @@
 },
 "c-mc1474124":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
 "status":"No date",
 "members":[
@@ -1633,7 +1633,7 @@
 },
 "c-mc1278920":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
 "status":"Active",
 "members":[
@@ -1723,7 +1723,7 @@
 },
 "c-windows-11-24h2-end-of-servicing":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
 "status":"Active",
 "members":[
@@ -1781,7 +1781,7 @@
 },
 "c-mc1442510":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"AD FS DKM container ACL hardening begins in October 2026",
 "status":"Active",
 "members":[
@@ -2110,7 +2110,7 @@
 },
 "c-mc1470881":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections",
 "status":"Active",
 "members":[
@@ -2156,7 +2156,7 @@
 },
 "c-mc1470871":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"User.ReadBasic.All will no longer allow reading user app role assignments and license details",
 "status":"Recently closed",
 "members":[
@@ -2202,7 +2202,7 @@
 },
 "c-mc1469565":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
 "status":"Active",
 "members":[
@@ -2281,7 +2281,7 @@
 },
 "c-mc1465771":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"DLP alerts will be set as behaviors by default",
 "status":"Active",
 "members":[
@@ -2323,7 +2323,7 @@
 },
 "c-mc1230889":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Outlook for Windows report retirement in the Exchange admin center",
 "status":"Active",
 "members":[
@@ -2420,7 +2420,7 @@
 },
 "c-mc1462922":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Admin app retiring in Teams, Outlook and Microsoft365.com",
 "status":"Active",
 "members":[
@@ -2476,7 +2476,7 @@
 },
 "c-mc1462813":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Prepare for the removal of WMIC from Windows 11",
 "status":"No date",
 "members":[
@@ -2522,7 +2522,7 @@
 },
 "c-mc1462464":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"App Governance drops Cloud Application Administrator role support",
 "status":"Recently closed",
 "members":[
@@ -2586,7 +2586,7 @@
 },
 "c-mc1459132":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Windows Information Protection and Application Guard retire in Microsoft Edge",
 "status":"Recently closed",
 "members":[
@@ -2642,7 +2642,7 @@
 },
 "c-mc1435782":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of custom CSS positioning properties in custom branding",
 "status":"Active",
 "members":[
@@ -2745,7 +2745,7 @@
 },
 "c-mc1403402":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Intune moving to support macOS 15 and higher later this year",
 "status":"No date",
 "members":[
@@ -2851,7 +2851,7 @@
 },
 "c-mc1452374":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of the Other features page in Exchange admin center",
 "status":"Active",
 "members":[
@@ -2907,7 +2907,7 @@
 },
 "c-mc1448328":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
 "status":"Active",
 "members":[
@@ -2971,7 +2971,7 @@
 },
 "c-mc1429010":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Instances policy location in Microsoft Purview Data Loss Prevention",
 "status":"Active",
 "members":[
@@ -3032,7 +3032,7 @@
 },
 "c-mc1248389":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of -Credential parameter when connecting to Exchange Online PowerShell",
 "status":"Active",
 "members":[
@@ -3092,7 +3092,7 @@
 },
 "c-mc1388721":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
 "status":"No date",
 "members":[
@@ -3233,7 +3233,7 @@
 },
 "c-mc1422061":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Conditional Access custom controls become read-only",
 "status":"Active",
 "members":[
@@ -3289,7 +3289,7 @@
 },
 "c-mc1293480":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of legacy TLS versions for POP and IMAP connections",
 "status":"Active",
 "members":[
@@ -3366,6 +3366,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-09",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-10",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -3405,7 +3413,7 @@
 },
 "c-mc1235720":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
 "status":"Active",
 "members":[
@@ -3471,7 +3479,7 @@
 },
 "c-mc1220762":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"MDE and XDR APIs retire; migrate to Graph security API",
 "status":"Active",
 "members":[
@@ -3542,7 +3550,7 @@
 },
 "c-mc1188230":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
 "status":"Active",
 "members":[
@@ -3625,7 +3633,7 @@
 },
 "c-mc716267":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft Publisher will no longer be supported after October 2026",
 "status":"Active",
 "members":[
@@ -3690,7 +3698,7 @@
 },
 "c-mc1182696":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Application Guard for Office is being removed",
 "status":"Active",
 "members":[
@@ -3774,6 +3782,22 @@
 "now":"Feb 2027",
 "seen":"2026-10-09",
 "text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-10",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-10",
+"text":"February 2027."
 }
 ],
 "materials":{
@@ -3797,7 +3821,7 @@
 },
 "c-mc985483":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"New default passcode in the Create Meeting API",
 "status":"Active",
 "members":[
@@ -3853,7 +3877,7 @@
 },
 "c-mc1430531":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Meeting Insight is retiring",
 "status":"No date",
 "members":[
@@ -3899,7 +3923,7 @@
 },
 "c-mc1409303":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
 "status":"No date",
 "members":[
@@ -3953,7 +3977,7 @@
 },
 "c-mc1303719":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Upcoming changes to federatedTokenValidationPolicy default settings",
 "status":"No date",
 "members":[
@@ -4008,7 +4032,7 @@
 },
 "c-mc1223829":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
 "status":"No date",
 "members":[
@@ -4073,7 +4097,7 @@
 },
 "c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a…",
 "status":"Active",
 "members":[
@@ -4116,7 +4140,7 @@
 },
 "c-item-mc1325414":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"SSPR requires registered authentication methods",
 "status":"Active",
 "members":[
@@ -4239,7 +4263,7 @@
 },
 "c-item-mdc-va-solution-recommendation-deprecation":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026",
 "status":"Active",
 "members":[
@@ -4280,7 +4304,7 @@
 },
 "c-item-mda-file-policies-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Defender for Cloud Apps file policies retire",
 "status":"Active",
 "members":[
@@ -4324,7 +4348,7 @@
 },
 "c-item-sentinel-automatic-onboarding-managed-customers":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft starts onboarding Sentinel tenants to the Defender portal automatically and picks the primary…",
 "status":"Active",
 "members":[
@@ -4357,7 +4381,7 @@
 },
 "c-item-sentinel-azure-portal-retirement-2027":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft Sentinel in the Azure portal retires",
 "status":"Active",
 "members":[
@@ -4390,7 +4414,7 @@
 },
 "c-item-intune-ios-18-minimum-2609":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
 "status":"No date",
 "members":[
@@ -4435,7 +4459,7 @@
 },
 "c-item-intune-google-play-strong-integrity":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Google Play Strong Integrity enforcement for Android 13+",
 "status":"Active",
 "members":[
@@ -4488,7 +4512,7 @@
 },
 "c-item-mc1472007":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Manage who can upload advanced agents and plugins",
 "status":"Active",
 "members":[
@@ -4539,7 +4563,7 @@
 },
 "c-item-azure-blueprints-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Azure Blueprints stops accepting new assignments on 31 October, and its resource locks stop working at full…",
 "status":"Active",
 "members":[
@@ -4582,7 +4606,7 @@
 },
 "c-item-azure-functions-inprocess-eos":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Azure Functions in-process model loses support on 10 November 2026",
 "status":"Active",
 "members":[
@@ -4615,7 +4639,7 @@
 },
 "c-item-azure-linux-osguard-aks-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Azure Linux with OS Guard support in AKS ends",
 "status":"Active",
 "members":[
@@ -4648,7 +4672,7 @@
 },
 "c-item-mc1474111":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of Microsoft 365 Companion apps",
 "status":"Active",
 "members":[
@@ -4704,7 +4728,7 @@
 },
 "c-item-mc1387814":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"RTMP-In port and domain changes required",
 "status":"Active",
 "members":[
@@ -4774,7 +4798,7 @@
 },
 "c-item-mc1481325":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Retirement of SharePoint Page Agent (Frontier)",
 "status":"Active",
 "members":[
@@ -4840,7 +4864,7 @@
 },
 "c-item-mdi-auto-sensor-v3-windows-auditing-default":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Defender for Identity will switch on sensor v3.x and Windows auditing on identity-role servers by default…",
 "status":"No date",
 "members":[
@@ -4877,7 +4901,7 @@
 },
 "c-item-mc1483974":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
 "status":"Active",
 "members":[
@@ -4967,7 +4991,7 @@
 },
 "c-item-mc1488841":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Update to default blocked file types in OwaMailboxPolicy",
 "status":"Active",
 "members":[
@@ -5038,7 +5062,7 @@
 },
 "c-item-mdc-kspm-controller-level-scope-2026-10-05":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the…",
 "status":"No date",
 "members":[
@@ -5075,7 +5099,7 @@
 },
 "c-item-mdc-storage-on-demand-malware-scan-targeted-2026-10-05":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
 "status":"No date",
 "members":[
@@ -5112,7 +5136,7 @@
 },
 "c-item-azure-arc-scvmm-new-deployments-closed-2026-10":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
 "status":"No date",
 "members":[
@@ -5149,7 +5173,7 @@
 },
 "c-item-win11-26h2-security-baseline-v2-2026-10-08":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
 "status":"Released",
 "members":[
@@ -5186,7 +5210,7 @@
 },
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Microsoft-provided SMS and voice MFA retirement",
 "status":"Active",
 "members":[
@@ -5499,7 +5523,7 @@
 },
 "c-passkeys-by-default":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Passkeys by default in Microsoft Entra ID",
 "status":"Active",
 "members":[
@@ -5991,6 +6015,22 @@
 "now":"late Mar 2026",
 "seen":"2026-10-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "materials":{
@@ -6246,7 +6286,7 @@
 },
 "c-comp-entra-connect-sync":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Entra Connect Sync — version support",
 "status":"Active",
 "members":[
@@ -6826,12 +6866,62 @@
 "title":"App instance property-lock guidance broadens as External ID documents passkey API setup — 2 October 2026",
 "source":"Daily Entra News",
 "link":"https://daily.entra.news/day/2026-10-02/"
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1293480",
+"type":"moved",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"src":"MC1293480",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"text":"August 1, 2026."
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"text":"early February 2026."
+},
+{
+"day":"2026-10-10",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"text":"February 2027."
+},
+{
+"day":"2026-10-10",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-10",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "archive":{
 "c-mc1478819":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-10-09",
+"lastSeen":"2026-10-10",
 "name":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
 "status":"Archive",
 "members":[
