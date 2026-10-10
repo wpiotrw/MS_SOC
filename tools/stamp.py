@@ -10,7 +10,7 @@ it describes. One small file per workflow - site/data/fresh/<key>.json - so two 
 (no rebase conflicts):
 
   {"key", "at" (UTC, minutes), "workflow", "run" (GitHub run id), "sha" (commit the run started from, 7 chars),
-   "note", "spec" (code only: the newest stage letter of CLAUDE.md, e.g. "5cz")}
+   "note", "spec" (code only: the newest stage of CLAUDE.md, e.g. "5da")}
 
 Keys in use: code (code-refresh.yml), tenant (fpa-tenant.yml), campaigns (campaigns.yml), publish (publish.yml),
 learn (learn-mirror.yml). The page reads them (data/fresh/*.json) for the header frame, the chips on the tabs and
@@ -21,13 +21,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def newest_stage(path):
-    """the highest **§5c..** stage written in CLAUDE.md (5cz > 5cy > 5cx ...; a longer suffix is newer)"""
+    """the highest **§5..** stage written in CLAUDE.md (5da > 5cz > 5cy ...; a longer suffix is newer)"""
     try:
         txt = open(path, encoding="utf-8").read()
     except OSError:
         return None
     best = None
-    for m in re.finditer(r"\*\*§(5c[a-z]{1,3})\b", txt):
+    for m in re.finditer(r"\*\*§(5[a-z]{2,3})\b", txt):
         k = m.group(1)
         if best is None or (len(k), k) > (len(best), best):
             best = k

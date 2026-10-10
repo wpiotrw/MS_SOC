@@ -6152,6 +6152,12 @@ caption.tabcap .capverb,.relnew .grp{font-size:12px}
 .dwin .dwin-aft{margin-top:8px;padding:8px 12px;border:1px solid var(--warn);border-radius:8px;background:var(--warn-soft)}
 .dwin ul{margin:6px 0 0;padding-left:20px}.dwin li{margin:2px 0}
 .dwin .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--surface-2,var(--accent-soft));font-size:11.5px;font-weight:600;margin-right:6px}
+/* §5da (10 X 2026, owner: "not a Christmas tree"): the same colour rules as the brief - before grey and struck
+   through, after in the text colour, no red or green blocks; technology chips are quiet outlines */
+body{--del-bg:transparent;--ins-bg:transparent;--del-fg:var(--muted);--ins-fg:var(--text)}
+del{color:var(--muted)!important;background:transparent!important;text-decoration:line-through;padding:0!important}
+ins{color:var(--text)!important;background:transparent!important;text-decoration:none;font-weight:600;padding:0!important}
+.tchip{border-color:var(--border)!important;background:transparent!important;color:var(--text)!important}
 /* §5cz-b: the same hint bubble and round ? as the brief */
 #s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
 #s5czb-tip{position:fixed;z-index:10000;left:0;top:0;max-width:340px;padding:8px 11px;border-radius:10px;background:var(--surface,#fff);color:var(--text);border:1px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.22);font-size:12.5px;line-height:1.5;font-weight:400;text-align:left;white-space:normal;letter-spacing:0;text-transform:none;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
@@ -16116,7 +16122,12 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
             if (cnt[GRAPHSURF] === undefined) { cnt[GRAPHSURF] = 0; order.unshift(GRAPHSURF); }
             surf = { count: cnt, order: order };
           }
-          det.appendChild(table(rows, T.kind, T.ledger, surf));
+          /* §5da (10 X 2026, owner: "there is a table with dates from September" - the register was printed oldest
+             first, so 14 days ago was on top): newest day first, the order inside a day as recorded */
+          var rowsNew = rows.map(function (e2, i) { return [e2, i]; }).sort(function (x, y) {
+            var a2 = String(x[0].seen || ""), b2 = String(y[0].seen || ""); return a2 < b2 ? 1 : a2 > b2 ? -1 : x[1] - y[1]; })
+            .map(function (x) { return x[0]; });
+          det.appendChild(table(rowsNew, T.kind, T.ledger, surf));
           det.appendChild(el("p", "note", "Read from site/data/changelog.json, which is appended to and never " +
             "rewritten; it keeps " + ((L && L.retentionDays) || 90) + " days and this page renders " + WINDOW_DAYS + "."));
         } else {
@@ -27780,6 +27791,34 @@ nie siegala kafli KPI, gdy tytul i linia daty mieszcza sie w jednym wierszu (zmi
 uklad (znak przy tytule) — przy kolumnie logo kafle KPI byly za waskie (1100–1280 px ucinaly „since the 09/10/2026
 brief"). Ponizej 1100 px bez zmian. Regula z §5cx dla ≥2160 px (logo w marginesie) zastapiona ta.
 
+**§5da (10 X 2026, wlasciciel 16:03, trzy zrzuty Graph API z telefonu: „poucinany tekst; nazwy uprawnien Graph ginie w
+kolorach innych informacji — to samo na desktopie; jest tabelka z datami z wrzesnia — sprawdz, czy kazda zakladka i
+sekcja ma aktualne dane i czy umiemy je odswiezac; przeorganizuj Graph API, za kolorowa; dostosuj caly portal do
+telefonu; nie rob z portalu choinki — tytul, nazwa roli, uprawnienie, temat artykulu na pierwszym planie").**
+Pomiar przed zmiana (Playwright, 16 zakladek, 390 i 1440 px): 13 tabel 610–1990 px przewijanych w bok w 312 px
+ekranu; komorki 70–92 px z tekstem 300–700 px wysokosci; w Graph API ta sama nazwa uprawnienia w 4 wierszach (po
+jednym na pole), dziennik 14 dni posortowany od najstarszego (28/09 na gorze), plakietki poziomu „DelegatedWork · L3 ·
+consent" zolte przy kazdej nazwie, tabela API z zielonym tlem i tym samym akapitem w 16 wierszach, kazdy link
+zewnetrzny w sekcji jako niebieska pigulka (`.sec-body a[href^="http"]`). (D1) Kolor = znaczenie: przed→po bez
+czerwonych/zielonych tel (przed szare przekreslone, po kolorem tekstu, pogrubione), plakietki obrysem bez koloru (poza
+`t-bad`), NEW/CHANGED/REMOVED jako mala kolorowa kropka, nazwy (uprawnienie, rola, pozycja katalogu, `td.rname`) kolorem
+tekstu i pogrubione, linki zewnetrzne bez pigulek (pierwsza komorka wiersza = nazwa, kolor tekstu), `tchip` obrysem,
+bez tla wierszy stanu (`tr.api-done` — tlo powierzchni, bo ostatnia kolumna jest przyklejona i zaslania „Checked"),
+„Not written yet" szare kursywa; to samo w `/diff/`. (D2) `strip()` (§5bn): zmiany jednej pozycji w jednym wierszu —
+nazwa raz, pola pod nia (`.s5bn-chs`); liczniki w naglowku bez zmian. (D3) Dziennik zmian (`table()` §5aj): od
+najnowszego dnia, kolejnosc w dniu jak zapisana. (D4) Graph API → Find zaczyna sie od wyszukiwarki uprawnien: tabela
+„What was read for this tab today" i jej pasek w widoku Sources & method (mapa §5cd). (D5) Tabela API: tekst powtorzony
+w ≥3 wierszach raz nad tabela (`.s5da-note`), kolumna o tej samej wartosci w kazdym wierszu („Checked") ukryta i
+podana raz. (D6) Telefon ≤720 px: kazda tabela danych jako karty (`table.s5da-cards`, skrypt dopisuje `data-label`
+z naglowka; komorka nazwy = tytul karty; dwie kolumny etykieta-nad-wartoscia, dlugie tresci na cala szerokosc;
+`thead` ukryty), dluga lista pokazuje 40 widocznych wierszy i przycisk „Show all N" (limit liczony PO filtrach —
+wyszukiwarka siega wszystkich), tytul sekcji w podsumowaniu w osobnej linii, pole wyszukiwania katalogu na cala
+szerokosc, pasek widokow zawija sie. (D7) Naprawy po drodze: `.ab-head` z §5cz tylko ≥761 px (bez tego chip zrodla
+zaslanial tytul artykulu w Learn/Blogs/Community na telefonie), kolumna daty listy Message Center 80 px (bylo 52,
+„09/10/2026" ucinane). Swiezosc: 50/50 zrodel przeczytanych 10 X; „stale" tylko RSS dziennika zmian Graph — Microsoft
+nie publikuje w nim od 03/08/2026 (sprawdzone WebFetch), strona to juz oznacza; dane workflow z 10 X; kopia Learn —
+przebieg 07:42 UTC przekroczyl 40 min i stracil prace → `learn-mirror.yml` limit 60 min, przebieg uruchomiony recznie.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30903,7 +30942,16 @@ odtad CZTERNASCIE (4-17).**
       box.appendChild(el("p", "s5bn-empty", spec.empty));
     } else {
       var ul = el("ul", "s5bn-l");
-      spec.rows.slice(0, MAXROWS).forEach(function (r) {
+      /* §5da (10 X 2026, owner: "the permission name is lost among colours"): the field changes of ONE item are one
+         row - its name once, the fields under it - instead of the same name repeated for every field */
+      var grp = [], gx = {};
+      spec.rows.forEach(function (r) {
+        var gk = r.kind + "\u0001" + (r.id || r.title || "");
+        if (r.kind === "changed" && (r.id || r.title) && gx[gk]) { gx[gk].more.push(r); return; }
+        var g = { r: r, more: [] }; grp.push(g); if (r.id || r.title) gx[gk] = g;
+      });
+      grp.slice(0, MAXROWS).forEach(function (g) {
+        var r = g.r;
         var li = el("li", "s5bn-r s5bn-" + r.kind);
         li.appendChild(el("span", "s5bn-k", r.kind === "added" ? "NEW" : r.kind === "removed" ? "REMOVED" : "CHANGED"));
         if (r.type) li.appendChild(el("span", "s5bn-ty", r.type));
@@ -30914,19 +30962,24 @@ odtad CZTERNASCIE (4-17).**
         li.appendChild(nm);
         if (r.prod) li.appendChild(el("span", "s5bn-pr", r.prod));
         if (hasT) li.appendChild(el("span", "s5bn-idm", r.id));
-        if (r.field || r.before || r.after) {
-          var ch = el("span", "s5bn-ch");
-          if (r.field) ch.appendChild(el("span", "s5bn-f", r.field + ":"));
-          if (r.before) ch.appendChild(el("del", null, r.before));
-          if (r.before && r.after) ch.appendChild(document.createTextNode(" → "));
-          if (r.after) ch.appendChild(el("ins", null, r.after));
-          li.appendChild(ch);
+        var fl = [r].concat(g.more).filter(function (x) { return x.field || x.before || x.after; });
+        if (fl.length) {
+          var chs = el("span", "s5bn-chs" + (fl.length > 1 ? " s5bn-multi" : ""));
+          fl.forEach(function (x) {
+            var ch = el("span", "s5bn-ch");
+            if (x.field) ch.appendChild(el("span", "s5bn-f", x.field + ":"));
+            if (x.before) ch.appendChild(el("del", null, x.before));
+            if (x.before && x.after) ch.appendChild(document.createTextNode(" → "));
+            if (x.after) ch.appendChild(el("ins", null, x.after));
+            chs.appendChild(ch);
+          });
+          li.appendChild(chs);
         }
         ul.appendChild(li);
       });
       box.appendChild(ul);
-      if (spec.rows.length > MAXROWS) box.appendChild(el("p", "s5bn-more",
-        (spec.rows.length - MAXROWS) + " more — " + spec.more));
+      if (grp.length > MAXROWS) box.appendChild(el("p", "s5bn-more",
+        (grp.length - MAXROWS) + " more — " + spec.more));
     }
     if (spec.diff) {
       var a = el("a", "s5bn-diff", "Everything that moved here, field by field, on the changes page →");
@@ -33810,7 +33863,11 @@ odtad CZTERNASCIE (4-17).**
         [".s5bh-ct, .s8top > .factgrid, details.mschg, .panelhead, .s5bn, #gd-changes, .s8top > details.chg14, .aggwrap, details.g7, .catalog > .cat-changed", "chg"],
         ["section.gu", "call"],
         ["details.ntfbar", "find chg"],
-        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .catalog > .catmore, #graph > .sec-body > .sec-note, #graph > .sec-body > .s5bz-more, #graph > .sec-body > ul", "src"]
+        [".s8top > details.sumfold, .catalog > .cat-basis, .catalog > .cat-coverage, .catalog > .catmore, #graph > .sec-body > .sec-note, #graph > .sec-body > .s5bz-more, #graph > .sec-body > ul", "src"],
+        /* §5da (10 X 2026, owner: "reorganise Graph API - the permission is lost"): the table "What was read for this
+           tab today, source by source" and its search bar opened the Find view above the permission search; they
+           are the method, so they live in Sources & method and Find starts with the permission search */
+        ["#graph > .sec-body > .tbar, #graph > .sec-body > .filterbanner, #graph > .sec-body > .s5bi-csv, #graph > .sec-body > .tw", "src"]
       ],
       drawer: "details.ntfbar, .catalog > .s7tips, .catalog > details.morefilters", search: true
     },
@@ -37298,6 +37355,132 @@ odtad CZTERNASCIE (4-17).**
     if (++n > 40) clearInterval(iv);
   }, 500);
 })();
+
+/* §5da (10 X 2026, owner 16:03 with three phone screenshots of Graph API: "cut text; the Graph permission names are
+   lost in the colours of other information - the same on the desktop; a table still shows September dates; the
+   portal must not be a Christmas tree - the title, role name, permission, article subject come first; fit every
+   tab, section and frame to the phone").
+   1. On a phone (<= 720 px) every data table becomes a list of cards: the header row hides, every cell carries its
+      column name (data-label) and the name / item column is the card's title. No table scrolls sideways any more
+      (measured 10 X: 13 tables 610-1990 px wide in a 312 px viewport, the right columns looked cut off).
+   2. A note repeated word for word in every row of a table (the API surfaces table: 16 times "The queue is empty
+      ...") is shown once above the table.
+   The colour rules are CSS (css5cu.css, §5da). */
+(function () {
+  if (window.__s5da) return; window.__s5da = 1;
+  var PHONE = window.matchMedia ? window.matchMedia("(max-width:720px)") : { matches: false };
+  var TITLE = /^(item|name|title|permission|role|api|subject|source|article|post|component|campaign|application|app|change|what it says|query|action|product|feed|blog|area|page)$/i;
+  function labels(tb) {
+    var hr = tb.tHead && tb.tHead.rows[tb.tHead.rows.length - 1]; if (!hr) return null;
+    var out = [];
+    [].forEach.call(hr.cells, function (c) { var n = c.colSpan || 1, t = (c.textContent || "").replace(/[↑↓↕▲▼⇅]/g, "").replace(/\s+/g, " ").trim(); for (var i = 0; i < n; i++) out.push(t); });
+    return out;
+  }
+  function cardify(tb) {
+    if (tb.classList.contains("s5da-keep")) return;
+    var L = labels(tb); if (!L || L.length < 2) return;
+    if (!tb.classList.contains("s5da-cards")) {
+      tb.classList.add("s5da-cards");
+      var ti = -1; L.forEach(function (t, i) { if (ti < 0 && TITLE.test(t)) ti = i; });
+      if (ti < 0) { for (var i = 0; i < L.length; i++) if (L[i]) { ti = i; break; } }
+      tb.setAttribute("data-s5da-ti", String(ti));
+    }
+    var ti2 = +tb.getAttribute("data-s5da-ti");
+    [].forEach.call(tb.tBodies, function (b) {
+      [].forEach.call(b.rows, function (r) {
+        if (r.getAttribute("data-s5da")) return; r.setAttribute("data-s5da", "1");
+        if (r.cells.length === 1 && (r.cells[0].colSpan || 1) > 1) { r.classList.add("s5da-wide"); return; }
+        var col = 0;
+        [].forEach.call(r.cells, function (c) {
+          var lab = L[col] || ""; col += c.colSpan || 1;
+          if (c.hasAttribute("data-label")) return;
+          c.setAttribute("data-label", lab);
+          if (col - 1 === ti2) c.classList.add("s5da-title");
+          else if (!lab) c.classList.add("s5da-nolab");
+          else if ((c.textContent || "").trim().length > 34 || c.querySelector("ul,ol,table,p,pre")) c.classList.add("s5da-long");
+          if (!(c.textContent || "").trim() && !c.querySelector("button,a,input,img,svg")) c.classList.add("s5da-empty");
+        });
+      });
+    });
+  }
+  /* the same note in every row, once above the table */
+  function dedupe(tb) {
+    if (tb.getAttribute("data-s5da-dd")) return;
+    var spans = tb.querySelectorAll("tbody .as-soc-inline"); if (spans.length < 3) return;
+    var by = {};
+    [].forEach.call(spans, function (s) { var t = (s.textContent || "").replace(/\s+/g, " ").trim(); if (t) (by[t] = by[t] || []).push(s); });
+    var host = tb.closest(".tw") || tb, any = false;
+    Object.keys(by).forEach(function (t) {
+      if (by[t].length < 3) return;   /* a note in 3 rows or more is the table's note, not the row's */
+      any = true;
+      var p = document.createElement("p"); p.className = "s5da-note"; p.textContent = t + " (" + by[t].length + " rows)";
+      host.parentNode.insertBefore(p, host);
+      by[t].forEach(function (s) { s.classList.add("s5da-dup"); });
+    });
+    if (any) tb.setAttribute("data-s5da-dd", "1");
+  }
+  /* a column whose every cell says the same (the API table's "Checked": the same date in 16 rows, under a sticky
+     column that covered it) - hidden, and said once in the note above the table */
+  function sameCol(tb) {
+    if (tb.getAttribute("data-s5da-sc") || !tb.classList.contains("apistats") || !tb.tHead) return;
+    tb.setAttribute("data-s5da-sc", "1");
+    var hs = tb.tHead.rows[0].cells, rows = tb.tBodies[0] ? tb.tBodies[0].rows : [];
+    for (var i = 0; i < hs.length; i++) {
+      if (!/^checked$/i.test((hs[i].textContent || "").trim())) continue;
+      var v = null, same = rows.length > 2;
+      for (var j = 0; j < rows.length && same; j++) { var c = rows[j].cells[i]; var t = c ? (c.textContent || "").trim() : ""; if (v === null) v = t; else if (t !== v) same = false; }
+      if (!same) return;
+      hs[i].classList.add("s5da-hidecol"); for (var k = 0; k < rows.length; k++) if (rows[k].cells[i]) rows[k].cells[i].classList.add("s5da-hidecol");
+      var host = tb.closest(".tw") || tb, p = document.createElement("p"); p.className = "s5da-note";
+      p.appendChild(document.createTextNode("Every row checked " + (window.__socDate ? window.__socDate.fmt(v, false) : v) + "."));
+      host.parentNode.insertBefore(p, host);
+    }
+  }
+  /* phone: a long list shows its first 40 visible rows and a button for the rest - the filters still reach every
+     row, the cap is counted after them (10 X: the 14-day register was 640 cards, 93 000 px) */
+  var CAP = 40;
+  function cap(tb) {
+    if (!tb.tBodies[0]) return;
+    var rows = [].filter.call(tb.tBodies[0].rows, function (r) { return !r.classList.contains("hdet") && !r.classList.contains("s5da-wide"); });
+    var btn = tb.parentNode && tb.parentNode.querySelector(":scope > .s5da-more");
+    if (rows.length <= CAP + 10 || tb.getAttribute("data-s5da-all") === "1" || !PHONE.matches) {
+      [].forEach.call(tb.querySelectorAll("tr.s5da-cap"), function (r) { r.classList.remove("s5da-cap"); });
+      if (btn) btn.remove(); return;
+    }
+    var vis = 0, hid = 0;
+    rows.forEach(function (r) {
+      if (r.hidden) { r.classList.remove("s5da-cap"); return; }
+      vis++; var over = vis > CAP; r.classList.toggle("s5da-cap", over); if (over) hid++;
+      var d = r.nextElementSibling; if (d && d.classList.contains("hdet") && over) d.classList.add("s5da-cap"); else if (d && d.classList.contains("hdet")) d.classList.remove("s5da-cap");
+    });
+    if (!hid) { if (btn) btn.remove(); return; }
+    if (!btn) { btn = document.createElement("button"); btn.type = "button"; btn.className = "s5da-more";
+      btn.addEventListener("click", function () { tb.setAttribute("data-s5da-all", "1"); cap(tb); }); tb.parentNode.appendChild(btn); }
+    btn.textContent = "Show all " + vis + " (" + hid + " more)";
+  }
+  var busy = false, timer = null;
+  function pass() {
+    if (busy) return; busy = true;
+    try {
+      [].forEach.call(document.querySelectorAll(".tabpanel:not([hidden]) table"), function (tb) {
+        try { dedupe(tb); } catch (e) {}
+        try { sameCol(tb); } catch (e) {}
+        if (PHONE.matches) try { if (tb.closest(".tw,.mcb-gwrap,.s5cr-tw,.sec-body,.tabpanel")) cardify(tb); } catch (e) {}
+        try { cap(tb); } catch (e) {}
+      });
+    } finally { busy = false; }
+  }
+  function soon(ms) { clearTimeout(timer); timer = setTimeout(pass, ms || 500); }
+  function boot() {
+    pass();
+    if (window.MutationObserver) new MutationObserver(function (ms) { for (var i = 0; i < ms.length; i++) if (ms[i].addedNodes && ms[i].addedNodes.length) { soon(600); return; } }).observe(document.body, { childList: true, subtree: true });
+    document.addEventListener("click", function () { soon(800); }, true);
+    document.addEventListener("input", function () { soon(700); }, true);
+    document.addEventListener("change", function () { soon(500); }, true);
+    if (PHONE.addEventListener) PHONE.addEventListener("change", function () { soon(100); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 3200); }); else setTimeout(boot, 3200);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -38518,7 +38701,7 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 .s5cz-d{white-space:nowrap}.s5cz-d::before{content:attr(data-v)}
 .s5cz-o{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;margin:-1px!important;padding:0!important;border:0!important}
 /* §5cz: dd/MM/yyyy is wider than "10 Oct" - the fixed date columns grow to hold it */
-.ab-head{grid-template-columns:28px 80px minmax(0,1fr) minmax(120px,220px) auto}
+@media (min-width:761px){.ab-head{grid-template-columns:28px 80px minmax(0,1fr) minmax(120px,220px) auto}}   /* §5da: desktop only - unscoped it overrode the phone grid (26px 1fr auto) and the source chip covered the title */
 .s5cu-ovr{grid-template-columns:84px minmax(0,1fr) auto}
 .s5ci-sub{white-space:normal}
 .s5ci-sub .s5cz-d{display:inline-block}
@@ -38561,6 +38744,81 @@ a.s5czb-dlink:hover{background:var(--accent);color:#fff}
  header.top .s5cx-mark{display:none!important}
  header.top .title-row.s5cx-row{padding-left:0!important;min-height:150px!important}   /* the freshness frame (133 px from 10 px) must not reach the counters */
  header.top .top-inner{margin-left:300px!important;margin-right:0!important;max-width:min(1516px,calc(100vw - 300px))!important;box-sizing:border-box}
+}
+/* §5da (10 X 2026, owner: "not a Christmas tree - the name, the title, the permission come first"): colour carries
+   meaning only. Before -> after: the old value grey and struck through, the new one in the text colour, no red or
+   green blocks. Badges (level, type, source, status words) are quiet outlines; only a danger badge keeps its red.
+   A change row says NEW / CHANGED / REMOVED with a small coloured dot, not a coloured block. Names (permission,
+   role, item, catalog entry) are in the text colour and bold. Table rows carry no status background. */
+body{--del-bg:transparent;--ins-bg:transparent;--del-fg:var(--muted);--ins-fg:var(--text)}
+body .tabpanel del,body .tabpanel ins,body .s5bn del,body .s5bn ins{background:transparent!important;padding:0!important}
+body .tabpanel del{color:var(--muted)!important;text-decoration:line-through}
+body .tabpanel ins{color:var(--text)!important;text-decoration:none;font-weight:600}
+body .tabpanel .badge:not(.t-bad),body .tabpanel .badge.t-acc{background:transparent!important;color:var(--muted)!important;box-shadow:inset 0 0 0 1px var(--border)!important;border-color:var(--border)!important}
+body .tabpanel .badge.t-bad{background:transparent!important;color:var(--bad)!important;box-shadow:inset 0 0 0 1px var(--bad)!important}
+body .tabpanel .tchip{border-color:var(--border)!important;background:transparent!important;color:var(--text)!important}
+.s5bn-n{background:transparent!important;border:1px solid var(--border)!important;color:var(--muted)!important}
+.s5bn-n:not(.zero){color:var(--text)!important}
+.s5bn-k{background:transparent!important;color:var(--muted)!important;padding:0!important;font-size:10.5px!important;font-weight:700;letter-spacing:.05em;display:inline-flex;align-items:center;gap:5px}
+.s5bn-k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted);flex:0 0 auto}
+.s5bn-added .s5bn-k::before{background:var(--ok)}.s5bn-changed .s5bn-k::before{background:var(--warn)}.s5bn-removed .s5bn-k::before{background:var(--bad)}
+.s5bn-ty{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--muted)!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;font-size:12px!important}
+.s5bn-id,.s5bn-tl{color:var(--text)!important;font-weight:700}
+a.s5bn-id:hover,a.s5bn-tl:hover{color:var(--accent)!important;text-decoration:underline}
+.s5bn-chs{flex-basis:100%;display:flex;flex-direction:column;gap:1px;margin:1px 0 2px 12px;padding-left:10px;border-left:2px solid var(--border);font-size:12.5px}
+.s5bn-chs .s5bn-ch{color:var(--muted)}
+.s5bn-f{color:var(--muted)}
+.s5bn-r{padding:5px 0;border-bottom:1px solid var(--border)}.s5bn-r:last-child{border-bottom:0}
+.tabpanel .ci-name,.tabpanel .mc-name,.tabpanel .gd-name,.tabpanel td.rname{color:var(--text)!important;font-weight:700}
+.tabpanel tr.api-done,.tabpanel tr.api-done>td{background:var(--surface)!important}   /* not transparent: the last column is sticky and covers "Checked" */
+/* every external link in a section was a blue outlined pill (.sec-body a[href^="http"]): a link is a link - names
+   (the first cell of a row) in the text colour and bold, other links in the accent colour, no frame */
+body .sec-body a[href^="http"]{display:inline;padding:0;border:0;border-radius:0;background:none;color:var(--accent);font-weight:600;text-decoration:none}
+body .sec-body a[href^="http"]:hover{text-decoration:underline}
+body .sec-body td:first-child>a[href^="http"],body .sec-body td.s5da-title>a[href^="http"]{color:var(--text);font-weight:700}
+body .sec-body td:first-child>a[href^="http"]:hover{color:var(--accent)}
+.s5da-dup{display:none!important}
+.s5da-note{margin:6px 0 8px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:8px;font-size:12.5px;color:var(--muted);line-height:1.5}
+/* phone: tables as cards (the script labels every cell with its column) */
+@media (max-width:720px){
+ .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:visible!important;max-width:100%}
+ table.s5da-cards,table.s5da-cards>tbody{display:block;width:100%!important;min-width:0!important;border:0!important}
+ table.s5da-cards>thead{display:none}
+ table.s5da-cards>caption{display:block;text-align:left;padding:0 0 6px}
+ table.s5da-cards>tbody>tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px;position:relative;margin:0 0 10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+ table.s5da-cards>tbody>tr[hidden]{display:none}
+ table.s5da-cards>tbody>tr>:is(td,th){display:block;padding:0!important;border:0!important;width:auto!important;max-width:none!important;min-width:0!important;text-align:left!important;white-space:normal!important;overflow-wrap:anywhere;background:transparent!important;position:static!important;font-size:13px}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-long{grid-column:1/-1}
+ table.s5da-cards>tbody>tr>:is(td,th)::before{display:block;content:attr(data-label);color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;line-height:1.5}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-title{grid-column:1/-1;display:block;font-size:14.5px;font-weight:700;color:var(--text);padding:0 34px 2px 0!important;order:-1}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-title>:is(span,small,p,div):not(:first-child):not(.s5cz-d){font-weight:400;font-size:12.5px;color:var(--muted);display:block;margin-top:3px}
+ table.s5da-cards>tbody>tr>:is(td,th) .badge{width:auto!important;display:inline-block}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-title::before,table.s5da-cards>tbody>tr>:is(td,th).s5da-nolab::before{content:none}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-nolab{display:block;grid-column:1/-1}
+ table.s5da-cards>tbody>tr.s5da-wide>td{grid-column:1/-1}
+ .tabpanel .catalog .cat-searchrow{flex-wrap:wrap}
+ .tabpanel .catalog .cat-searchrow input.cat-search,.tabpanel .catalog .cat-searchrow .cat-sbox{flex:1 1 100%!important;width:100%!important;min-width:0!important}
+ table.s5da-cards>tbody>tr>:is(td,th).s5da-empty{display:none}
+ table.s5da-cards>tbody>tr>:is(td,th).xc{position:absolute!important;top:7px;right:8px;display:block;padding:0!important;width:auto!important}
+ table.s5da-cards>tbody>tr.s5da-wide>td{display:block}
+ table.s5da-cards>tbody>tr.s5da-wide>td::before{content:none}
+ table.s5da-cards>tbody>tr.hdet{border-style:dashed}
+ .s5cd-bar{flex-wrap:wrap!important;overflow-x:visible!important}
+}
+.s5da-hidecol{display:none!important}
+.tabpanel .as-up{background:transparent!important;color:var(--ok)!important;padding:0 6px 0 0!important;font-weight:600}
+.tabpanel .as-down{background:transparent!important;color:var(--bad)!important;padding:0 6px 0 0!important;font-weight:600}
+tr.s5da-cap{display:none!important}
+.s5da-more{display:block;width:100%;margin:4px 0 12px;padding:9px 12px;font:inherit;font-size:13px;font-weight:700;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);color:var(--accent);cursor:pointer}
+/* §5da: the Message Center list's date column was 52 px - "09/10/2026" was cut and ran under the New badge */
+@media (min-width:1101px){#tab-mc .mcb-head{grid-template-columns:80px 74px 92px minmax(0,1fr) 190px 128px 104px}}
+@media (min-width:761px) and (max-width:1100px){#tab-mc .mcb-head{grid-template-columns:80px 74px 92px minmax(0,1fr) 150px 104px}}
+/* "Not written yet" is a missing text, not an alarm */
+.tabpanel .s5ci-miss{color:var(--muted)!important;font-style:italic}
+@media (max-width:720px){
+ /* a section's summary (label, title, count) wraps: the title takes its own line instead of a 120 px column */
+ .tabpanel summary>.ntlab~span:not(.ntn){flex:1 1 100%;order:5;min-width:0}
+ .tabpanel details.ntsec>summary,.tabpanel details.dsec>summary{flex-wrap:wrap}
 }
 ```
 
