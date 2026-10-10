@@ -42,6 +42,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [10. Dane wrażliwe — co nie trafia do tego pliku ani do repozytorium](#10-dane-wrażliwe--co-nie-trafia-do-tego-pliku-ani-do-repozytorium)
 - [11. Postawienie od zera (nowe repozytorium, inny tenant)](#11-postawienie-od-zera-nowe-repozytorium-inny-tenant)
 - [12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego](#12-tożsamości-uprawnienia-i-poświadczenia--pełny-wykaz-i-powód-każdego)
+- [13. O narzędziu i świeżość danych (zakładka About, ramka „Data freshness”, format dat)](#13-o-narzędziu-i-świeżość-danych-zakładka-about-ramka-data-freshness-format-dat)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -200,6 +201,7 @@ Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
 | `tools/kql_archive.py` | archiwum zapytań KQL z zakładki Hunting → `site/kql/<data>-<slug>.kql` + `index.json` (każde zapytanie raz, powtórki jako `reused`); uruchamia go `campaigns.yml` |
 | `tools/fpa_sources.py` | kopia ostatniej dobrej wersji źródeł First-party apps w `cache/fpa/` i lista aplikacji z pliku Microsoftu `known-guids.json` → `site/data/fpa-docs.json`; uruchamia go `fpa-tenant.yml` |
 | `tools/graph_sp.py` | uprawnienia Microsoft Graph (role aplikacyjne, zakresy delegowane, RSC) i definicje ról wbudowanych Entra odczytane z naszego tenanta co 3 h; historia zmian → `site/data/graph-sp.json`, `site/data/graph-sp-history.json` (§5cy, pkt 5.2) |
+| `tools/stamp.py` | znacznik świeżości `site/data/fresh/<klucz>.json` (kiedy, który workflow, przebieg, commit); wołają go `code-refresh.yml`, `fpa-tenant.yml`, `campaigns.yml`, `learn-mirror.yml`, `publish.yml` przed commitem (§5cz, pkt 13.5) |
 | `tools/fpa_compare.py` | porównanie aplikacji Microsoftu w tenancie z listą Merilla — same liczby (workflow ręczny `fpa-compare.yml`) |
 | `tools/New-FpaReaderApp.ps1` | zakłada aplikację Entra dla migawki tenanta (pkt 5.3, pkt 11) |
 | `cache/fpa/` | kopie źródeł First-party apps z licencją pozwalającą na kopię (merill, ROADtools, GPC — MIT; `known-guids.json` Microsoftu); poza `site/`, więc nie jest wdrażane |
@@ -797,6 +799,7 @@ Właściciel zaakceptował 29 IX 2026 makiety wszystkich zakładek (artefakt Des
 | `site/data/mc-tenant.json` | workflow `fpa-tenant.yml` (`tools/mc_tenant.py`) | Message Center tenanta z Graph i dziennik zmian 30 dni |
 | `site/feed.xml` | lustro poranne (`write_feed`) | RSS: terminy ≤ 7 dni, nowe, zmiany Graph i ról |
 | `site/week/index.html` | lustro poranne (`write_week`) | przegląd tygodnia, druk do PDF |
+| `site/data/fresh/<klucz>.json` | `tools/stamp.py` w workflow (`code`, `tenant`, `campaigns`, `learn`, `publish`) | kiedy ostatnio dany workflow zmienił to, co pokazuje strona — ramka „Data freshness”, chipy zakładek, About (pkt 13.5) |
 
 ## 7. Gdy coś przestanie działać
 
@@ -1008,17 +1011,95 @@ Jedyna aplikacja Entra rozwiązania. Typ: single tenant. Używa jej wyłącznie 
 
 Sekretów aplikacji Entra (client secret), certyfikatów, osobistych tokenów GitHub (PAT), ról Azure RBAC, kont usługowych z hasłem ani uprawnień do zapisu w tenancie przy normalnej pracy. Zadania Claude (scheduled tasks, routines) nie logują się do tenanta wcale — czytają tylko pliki, które zapisał workflow.
 
+## 13. O narzędziu i świeżość danych (zakładka About, ramka „Data freshness”, format dat)
+
+Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, CLAUDE.md §5cz). Zakładkę otwiera link „About ›” w zielonej ramce w prawym górnym rogu albo adres `…/#tab=about`.
+
+### 13.1 Czym jest narzędzie
+
+- **GuardZilla · Microsoft SOC Brief** to codzienny raport dla zespołu SOC pracującego z Microsoft 365, Entra, Intune, Defender, Purview i Azure.
+- Pokazuje w jednym miejscu, co Microsoft zmienił, dodał albo usunął: wpisy Message Center, roadmapę, strony Learn, blogi, artykuły społeczności, uprawnienia Graph, role Entra, własne aplikacje Microsoftu (first-party), wersje komponentów i kampanie (wycofania, wymuszenia, koniec wsparcia).
+- Każda zakładka zaczyna od tego, co się ruszyło od poprzedniego briefu; każda liczba otwiera wiersze, z których powstała.
+- Niezależność: własne kopie źródeł (strony Learn, listy aplikacji first-party) i odczyt naszego tenanta co 3 godziny — awaria zewnętrznego źródła niczego nie gubi.
+
+### 13.2 Autor i wersja
+
+| Pole | Wartość |
+|---|---|
+| Autor | Piotr Wiśniewski — APN Promise S.A. |
+| Wykonanie | Claude (Anthropic): scheduled tasks, routines i sesje kodu |
+| Wersja | `rrrr.mm.dd · §etap · sha`, np. `2026.10.10 · §5cz · abc1234` — data i commit ostatniego odświeżenia kodu strony (`site/data/fresh/code.json`), etap = najnowszy akapit **§5c..** w `CLAUDE.md` |
+| Kod i dokumentacja | to repozytorium (`CLAUDE.md` = specyfikacja i jedyne źródło kodu strony, `README.md` = instrukcja) |
+
+### 13.3 Jak działa (dzień)
+
+| Godzina (Warszawa) | Co | Kto |
+|---|---|---|
+| 06:00 | czyta wszystkie źródła (CLAUDE.md §7), buduje brief, publikuje na claude.ai | scheduled task „Morning” |
+| 07:00 | kopiuje brief na stronę (GitHub → Azure Static Web Apps) | routine „raport poranny v2” |
+| 21:00 | ponownie czyta źródła | scheduled task „Afternoon delta” |
+| 22:00 | liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” |
+| co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra | workflow `fpa-tenant.yml` |
+| 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie i archiwum KQL | workflow `campaigns.yml` |
+| 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
+| po każdej zmianie `CLAUDE.md` | kod strony | workflow `code-refresh.yml` |
+
+### 13.4 Zakładki — co robią i skąd świeżość
+
+| Zakładka | Co pokazuje | Odświeżanie (chip pod nagłówkiem zakładki) |
+|---|---|---|
+| Overview | dzień w zdaniach, terminy, nowe pozycje, wersje komponentów, powierzchnia tożsamości (uprawnienia Graph, role, aplikacje first-party), kampanie | poranny brief |
+| Today | najważniejsze pozycje dnia i pozycje według produktów, które ruszyły się od poprzedniego briefu | poranny brief |
+| Deadlines | każda pozycja z datą: w ciągu 7 i 30 dni, minione w ostatnich 7 dniach, z datami Microsoftu | poranny brief |
+| Message Center | każdy wpis Message Center (bez filtrowania), nowe i zmienione, z tenanta przez Graph i z publicznych kopii | GitHub Actions co 3 h + poranny brief |
+| New | pozycje, które weszły do briefu od poprzedniego | poranny brief |
+| Graph API | każde uprawnienie Microsoft Graph: co wywołuje, kto je ma, co Microsoft zmienił | GitHub Actions co 3 h (uprawnienia z tenanta) + poranny brief |
+| Roles | role wbudowane Entra: akcje, flaga „privileged”, zmiany Microsoftu | GitHub Actions co 3 h (definicje ról z tenanta) + poranny brief |
+| First-party apps | aplikacje Microsoftu w Entra i uprawnienia, które dostają bez zgody | GitHub Actions co 3 h (migawka tenanta) + poranny brief (listy publiczne) |
+| Component versions | 13 komponentów (Entra Connect, Cloud Sync, klient GSA, MDE, MDI, Authenticator, platformy Apple …) z historią wersji | poranny brief |
+| Campaigns | wycofania, wymuszenia, koniec wsparcia i zmiany domyślne — daty, wpisy MC, co zrobić | GitHub Actions 2× dziennie i po każdym briefie |
+| Microsoft Learn | co się zmieniło na obserwowanych stronach Learn i listach „what's new” | poranny brief; kopia stron Learn — GitHub Actions 4× dziennie |
+| Microsoft Blogs | blogi i kanały Microsoftu (Security, Tech Community, Azure updates, Graph changelog, MSRC) | poranny brief |
+| Community Articles | źródła społeczności z `community_sources.json` | poranny brief |
+| Sources | każde źródło briefu, kiedy przeczytane i czy link działa | poranny brief |
+| Hunting & actions | zapytania KQL i działania dla pozycji dnia; każde zapytanie archiwizowane w repozytorium | poranny brief; archiwum — GitHub Actions 2× dziennie |
+| Products | te same pozycje pogrupowane według produktów | poranny brief |
+| About | ten rozdział na stronie: czym jest narzędzie, autor, wersja, tabela świeżości, jak działa, zakładki, bezpieczeństwo, linki | budowana przy otwarciu strony |
+
+### 13.5 Ramka „Data freshness” i znaczniki świeżości
+
+- **Ramka w prawym górnym rogu** (od 1100 px szerokości; węziej — pod tytułem): *Brief* (data briefu i pora przebiegu), *Page code* (ostatnie odświeżenie kodu i etap §), *Latest data* (najnowszy z: migawka tenanta, odczyt uprawnień/ról, kampanie). Kolor: zielona = brief z dziś, bursztynowa = z wczoraj, czerwona = starszy.
+- **Znaczniki** pisze `tools/stamp.py <klucz>` do `site/data/fresh/<klucz>.json` — każdy workflow tuż przed swoim commitem, więc znacznik trafia na stronę w tym samym wdrożeniu co dane:
+
+| Klucz (plik) | Workflow | Kiedy |
+|---|---|---|
+| `code` | `code-refresh.yml` | każde odświeżenie kodu strony (dodatkowo pole `spec` = najnowszy etap §) |
+| `tenant` | `fpa-tenant.yml` | migawka tenanta, która coś zmieniła |
+| `campaigns` | `campaigns.yml` | kampanie / archiwum KQL się zmieniły |
+| `learn` | `learn-mirror.yml` | kopia Learn się zmieniła (commit tokenem `GITHUB_TOKEN` nie wdraża — strona pokaże znacznik przy najbliższym wdrożeniu) |
+| `publish` | `publish.yml` | brief routine skopiowany na `main`; workflow najpierw przywraca `site/data/fresh` z `main`, bo klon routine bywa starszy i cofnąłby znaczniki innych workflow |
+
+  Pola: `key`, `at` (UTC, minuty), `workflow`, `run` (ID przebiegu GitHub), `sha` (7 znaków), `note`, `spec`. Nic tajnego — nazwy workflow, numery przebiegów i commity są publiczne w publicznym repozytorium. Jeden plik na workflow = brak konfliktów przy `git pull --rebase`.
+
+### 13.6 Format dat i przełącznik 24h / AM/PM
+
+- Każda data na stronie głównej i w `/diff/` jest pokazywana jako **dd/MM/yyyy HH:mm**, np. `30/01/1984 10:20`; po przełączeniu na AM/PM — `30/01/1984 10:20 AM`. Godziny są czasem warszawskim (czasy UTC z danych są przeliczane).
+- Przełącznik jest w ramce „Data freshness”; wybór zapamiętuje przeglądarka (`localStorage`, klucz `socTime`) i jest wspólny dla strony głównej i `/diff/`. Bez dostępu do `localStorage` (tryb prywatny) — 24h.
+- Tekst strony nie jest przepisywany: oryginał zostaje w stronie (ukryty wizualnie), a sformatowaną datę rysuje CSS z atrybutu `data-v`. Dzięki temu sortowanie, wyszukiwarki, filtry i testy widzą to samo co wcześniej.
+- Nie są konwertowane: nazwy plików i ścieżki (`2026-10-10.json`), kod, pola formularzy oraz `/week/` (wydruk do PDF).
+
 ## Historia zmian
 
 | Data | Zmiana |
 |---|---|
-
+| 2026-10-10 | §5cz — świeżość i About: zielona ramka „Data freshness” w prawym górnym rogu (brief, kod strony, najnowsze dane, przełącznik 24h / AM/PM, link About), chip z dokładną datą i godziną odświeżenia na każdej zakładce, zakładka **About** (czym jest narzędzie, autor, wersja, tabela świeżości, jak działa, 16 zakładek, bezpieczeństwo, linki); wszystkie daty na stronie i w `/diff/` jako dd/MM/yyyy HH:mm (albo AM/PM); `tools/stamp.py` i `site/data/fresh/*.json` w pięciu workflow; nowy pkt 13, tabele narzędzi i plików danych. Poprawiony sklejony wiersz historii §5cx-b. |
 | 2026-10-10 | Stare poświadczenie federacyjne `github-ms-soc-main` (subject nazwowy) usunięte przez właściciela; w aplikacji zostało tylko `github-ms-soc-main-immutable` — pkt 5.2 (tabela, „Bezpieczeństwo”, sposób B). |
 | 2026-10-10 | pkt 12 „Tożsamości, uprawnienia i poświadczenia”: jedna tabela wszystkich uprawnień aplikacji Entra z powodem, wywołaniem, skryptem i skutkiem braku; poświadczenie federacyjne zamiast sekretu i dlaczego; sekrety, zmienne i `GITHUB_TOKEN` każdego workflow; logowania delegowane (skrypt, Lokka, Claude GitHub); czego rozwiązanie nie używa. |
 | 2026-10-10 | pkt 5.3: nadanie RoleManagement.Read.Directory krok po kroku w portalu; odporny fragment PowerShell (klonuje repozytorium, gdy go nie ma); tabela „co robi skrypt `New-FpaReaderApp.ps1`”; część „Nadawanie uprawnień przez Claude (Lokka)” — rola, zakresy i ostrzeżenie o AppRoleAssignment.ReadWrite.All; krok 1 z czterema uprawnieniami. |
 | 2026-10-10 | §5cy — powierzchnia tożsamości: `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta uprawnienia Microsoft Graph i role Entra z naszego tenanta (nowe uprawnienie aplikacji: **RoleManagement.Read.Directory**, tylko odczyt; skrypt `New-FpaReaderApp.ps1` je nadaje), pliki `graph-sp.json` i `graph-sp-history.json`, wdrożenie przy zmianie (sekret SWA w tym workflow); strona: zdanie „Identity surface”, karta Overview, zmiany uprawnień w zdaniach technologii; `/diff/`: blok „Identity surface — who can do what”; pkt 5.2 (kroki 7 i 9), pkt 11 krok 3. |
 | 2026-10-10 | pkt 5.2: czy adres `api.github.com/repos/...` jest publiczny (repozytoria publiczne, w tym cudze — bez logowania; prywatne — 404; limit 60/h), ID konta z `/users/<login>`, co po przejściu na repozytorium prywatne; funkcja PowerShell `Get-GitHubOidcSubject` dla dowolnego repozytorium i gałęzi. |
-| 2026-10-10 | pkt 5.2: nowa część „Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć” (tabela sekretów i scenariuszy, historia commitów, stare poświadczenie); ręczne złożenie subject w przeglądarce; brakujące ServiceMessage.Read.All w opisie tokenu Graph. || 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
+| 2026-10-10 | pkt 5.2: nowa część „Bezpieczeństwo: co jest publiczne, co tajne i kto może się podłączyć” (tabela sekretów i scenariuszy, historia commitów, stare poświadczenie); ręczne złożenie subject w przeglądarce; brakujące ServiceMessage.Read.All w opisie tokenu Graph. |
+| 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
 | 2026-10-10 | §5cx — logo GUARDZILLA (`site/assets/`, wersja jasna i ciemna wg motywu): na stronie głównej postać po lewej stronie bloku tytułu (96 px desktop, 72 px tablet, 52 px telefon), od 2160 px pełne logo z napisem w lewym marginesie nagłówka; postać i favicon także w `/diff/` i `/week/`. |
 | 2026-10-09 | README: pkt 11 „Postawienie od zera (nowe repozytorium, inny tenant)” — kroki i skutki zmiany tenanta; pkt 0, 2 i 4b obejmują wszystkie osiem workflow (`campaigns.yml`, `collector-check.yml`, `fpa-compare.yml` doszły); pkt 5.2: harmonogram migawki co 3 h, uprawnienie ServiceMessage.Read.All, kroki Message Center i kopii źródeł; `tools/New-FpaReaderApp.ps1` nadaje też ServiceMessage.Read.All. |
 | 2026-10-09 | §5cw-b — First-party apps samodzielne (wariant B): kopia ostatniej dobrej wersji każdego źródła w `cache/fpa/` (`tools/fpa_sources.py` co 3 h), `collect_fpa.py` czyta kopię, gdy źródło nie odpowiada; aplikacje z listy Microsoftu `known-guids.json` (po odfiltrowaniu uprawnień, licencji, ról, FIDO2, Purview) dopisane jako „named only in Microsoft docs” — 2 351 aplikacji zamiast 1 737; porównanie z Merillem opisane w zakładce; poprawiona etykieta „our tenant” → tenant demo Merilla. |
