@@ -3870,6 +3870,55 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 @media (max-width:720px){.s5cy-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .s5cy-also{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 4px}
 .s5cy-chip{font:inherit;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);cursor:pointer}
+/* §5cz (10 X 2026): data freshness frame (top right), "Updated" chip on every tab, About tab, 24 h / AM/PM switch */
+.s5cz-host{position:relative}
+.s5cz-fresh{border:1.5px solid var(--ok,#1a7f37);border-radius:12px;background:color-mix(in srgb,var(--ok,#1a7f37) 9%,var(--surface,#fff));
+ padding:8px 12px 9px;font-size:12.5px;line-height:1.45;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.s5cz-fresh.s5cz-warn{border-color:var(--warn,#9a6700);background:color-mix(in srgb,var(--warn,#9a6700) 10%,var(--surface,#fff))}
+.s5cz-fresh.s5cz-bad{border-color:var(--bad,#cf222e);background:color-mix(in srgb,var(--bad,#cf222e) 9%,var(--surface,#fff))}
+.s5cz-fh{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.s5cz-fh>b{font-size:12.5px;letter-spacing:.02em}
+.s5cz-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok,#1a7f37);flex:0 0 auto}
+.s5cz-warn .s5cz-dot{background:var(--warn,#9a6700)}.s5cz-bad .s5cz-dot{background:var(--bad,#cf222e)}
+.s5cz-tg{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.s5cz-tg button{font:inherit;font-size:11px;padding:1px 8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.s5cz-tg button[aria-pressed="true"]{background:var(--ok,#1a7f37);color:#fff;font-weight:700}
+.s5cz-fl{display:flex;gap:6px;flex-wrap:nowrap;align-items:baseline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5cz-fk{color:var(--muted);min-width:76px}
+.s5cz-at{font-variant-numeric:tabular-nums;font-weight:700}
+.s5cz-fx{color:var(--muted);font-size:11.5px}
+.s5cz-about{font:inherit;font-size:12px;font-weight:600;padding:0;border:0;background:none;color:var(--accent);cursor:pointer;text-decoration:underline;white-space:nowrap}
+@media (min-width:1100px){
+ .s5cz-fresh{position:absolute;top:10px;right:20px;width:340px;z-index:2}
+ header.top .title-row.s5cz-room{padding-right:370px}
+}
+@media (max-width:1099px){.s5cz-fresh{margin:8px 0 0}}
+@media (max-width:720px){.s5cz-fresh{padding:6px 10px;font-size:12px}.s5cz-fresh .s5cz-fl:nth-of-type(3){display:none}.s5cz-fk{min-width:64px}}
+.s5cz-chip{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 10px;padding:6px 11px;border:1px solid var(--ok,#1a7f37);
+ border-radius:999px;background:color-mix(in srgb,var(--ok,#1a7f37) 8%,var(--surface,#fff));font-size:12.5px;width:max-content;max-width:100%}
+.s5cz-chip .s5cz-dot{margin-right:3px}
+.s5cz-by{color:var(--muted)}
+@media (max-width:720px){.s5cz-chip{border-radius:10px;width:auto}}
+#tab-about .s5cz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:10px}
+#tab-about .s5cz-card{border:1px solid var(--border);border-radius:12px;padding:12px 16px;background:var(--surface);min-width:0}
+#tab-about .s5cz-card.s5cz-wide{grid-column:1/-1}
+#tab-about .s5cz-card h3{margin:0 0 8px;font-size:15px}
+#tab-about .s5cz-card ul{margin:0;padding-left:20px}#tab-about .s5cz-card li{margin:4px 0}#tab-about .s5cz-wide li{text-align:justify}
+#tab-about .s5cz-tabs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#tab-about .s5cz-tab{border:1px solid var(--border);border-radius:10px;padding:9px 12px;background:var(--bg)}
+#tab-about .s5cz-tab p{margin:4px 0 0;font-size:13px}#tab-about .s5cz-tab p.s5cz-by{font-size:12px}
+#tab-about .s5cz-ft{width:100%;border-collapse:collapse;font-size:12.5px}
+#tab-about .s5cz-ft th,#tab-about .s5cz-ft td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--border);vertical-align:top}
+#tab-about .s5cz-note{font-size:12px;color:var(--muted);margin:8px 0 0}
+#tab-about .s5cz-card:hover,#tab-about .s5cz-tab:hover{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:1099px){#tab-about .s5cz-grid{grid-template-columns:minmax(0,1fr)}}
+.s5cz-d{white-space:nowrap}.s5cz-d::before{content:attr(data-v)}
+.s5cz-o{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;margin:-1px!important;padding:0!important;border:0!important}
+/* §5cz: dd/MM/yyyy is wider than "10 Oct" - the fixed date columns grow to hold it */
+.ab-head{grid-template-columns:28px 80px minmax(0,1fr) minmax(120px,220px) auto}
+.s5cu-ovr{grid-template-columns:84px minmax(0,1fr) auto}
+.s5ci-sub{white-space:normal}
+.s5ci-sub .s5cz-d{display:inline-block}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 10 October 2026</b> &middot; published 06:47 Warsaw &middot; 26 September &ndash; 10 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>56</b> deadlines in 60 days<span>&middot; 48 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>3</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>86</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>22</b> changes since 9 Oct<span>&middot; 6 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>6777</b> changes in 14 days<span>&middot; 13 days with a run, 1 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -22603,7 +22652,7 @@ IdentityDirectoryEvents
       /* the name decides when it says Read or ReadWrite; Microsoft's text only when the name says neither */
       var verb = String(e.name).split(".").slice(1).join(".");   /* "Read.All" of CopilotCostManagement-Assignment.Read.All */
       e.write = /ReadWrite|Write|Manage|FullControl|Delete|Send|Provision|Create|Invoke/.test(verb) ? true
-        : /^Read/.test(verb) ? false : /(create|update|delete|write|manage)/i.test(desc);
+        : /^Read/.test(verb) ? false : /\b(create|update|delete|write|manage)\b/i.test(desc);
       e.app = types.indexOf("Application") >= 0;
       e.lv = d.LV[e.name] || 0;
       e.lvGuess = e.lv ? 0 : (e.write && e.app ? 4 : e.write || e.app ? 3 : 2);
@@ -22815,6 +22864,416 @@ IdentityDirectoryEvents
 
   window.__socIdent = { events: function () { return data().ev; }, rank: rank, pool: pool, counts: counts, openPerm: openPerm, openRole: openRole,
     techOfPerm: techOfPerm, tenant: function () { return TEN; } };
+})();
+/* §5cz (10 X 2026, owner: "mark exactly - in a bigger frame top right - when our portal was updated; a tab that
+   refreshes more often through GitHub Actions says its exact date and time; an About tab with what the tool is,
+   what each tab does, who the author is, version, refresh and run dates"; 11:20: "dates everywhere in the portal as
+   dd/MM/yyyy HH:mm, e.g. 30/01/1984 10:20, with a switch between 24 h and am/pm").
+     1. window.__socDate: one date format for the whole page. Every date the page prints ("10 Oct 2026", "9 Oct",
+        "2026-10-09", "October 9, 2026", "06:47 Warsaw") is rewritten to dd/MM/yyyy [HH:mm] in the header, the rail
+        and the open tab, after each tab switch and after the page changes. The original text is kept (WeakMap) so
+        the 24 h / 12 h switch re-renders it; a table cell keeps its original text as data-k, so sorting is unchanged.
+        Not touched: inputs, code, KQL blocks, links' addresses, file names (site/data/2026-10-10.json).
+     2. The green frame "Data freshness" top right: when the brief was published, when the page code changed, the
+        newest data update and from where; amber when the brief is older than today, red after two days.
+     3. A green chip under the head of every tab: the exact time its data was produced and by what (GitHub Actions
+        every 3 h, twice a day, the morning brief ...).
+     4. The About tab (group "About" at the end of the rail, the phone menu, #tab=about).
+   Times come from data/fresh/<key>.json (tools/stamp.py in each workflow, in the same commit as the data), the
+   brief's own passes, data/graph-sp-history.json and data/campaigns.json. */
+(function () {
+  "use strict";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  var LS = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  var MODE = LS.get("socTime") === "12" ? "12" : "24";
+  var MON = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12,
+    january: 1, february: 2, march: 3, april: 4, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12 };
+  function p2(n) { return (n < 10 ? "0" : "") + n; }
+  var BRIEF = null;
+  function briefDay() {
+    if (BRIEF) return BRIEF;
+    var m = null;
+    try { var dm0 = document.getElementById("soc-brief-state"); var t = dm0 ? dm0.textContent.slice(0, 400) : ""; m = /"briefDate"\s*:\s*"(\d{4}-\d{2}-\d{2})"/.exec(t); } catch (e) {}
+    BRIEF = m ? m[1] : new Date().toISOString().slice(0, 10);
+    return BRIEF;
+  }
+  function yearFor(mo) {   /* "9 Oct" without a year: the year that puts it nearest the brief day */
+    var b = briefDay(), by = +b.slice(0, 4), bm = +b.slice(5, 7);
+    if (mo - bm > 6) return by - 1; if (bm - mo > 6) return by + 1; return by;
+  }
+  function hm(h, m) {
+    h = +h; m = +m;
+    if (MODE === "12") { var ap = h >= 12 ? "PM" : "AM", h12 = h % 12 || 12; return p2(h12) + ":" + p2(m) + " " + ap; }
+    return p2(h) + ":" + p2(m);
+  }
+  function dmy(y, mo, d) { return p2(+d) + "/" + p2(+mo) + "/" + y; }
+  /* a Date or an ISO string -> dd/MM/yyyy HH:mm in Warsaw time */
+  function fmt(x, withTime) {
+    var d = x instanceof Date ? x : null;
+    if (!d) {
+      var s = String(x || "");
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return dmy(s.slice(0, 4), s.slice(5, 7), s.slice(8, 10));
+      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(s)) d = new Date(/Z|[+-]\d{2}:?\d{2}$/.test(s) ? s : s + "Z"); else return s;
+    }
+    if (isNaN(d)) return String(x || "");
+    var parts = {};
+    try { new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Warsaw", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(d).forEach(function (q) { parts[q.type] = q.value; }); } catch (e) {
+      parts = { year: d.getFullYear(), month: p2(d.getMonth() + 1), day: p2(d.getDate()), hour: p2(d.getHours()), minute: p2(d.getMinutes()) }; }
+    var out = parts.day + "/" + parts.month + "/" + parts.year;
+    return withTime === false ? out : out + " " + hm(parts.hour, parts.minute);
+  }
+
+  /* ---------- 1. rewrite the dates the page prints ---------- */
+  var MONRX = "(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)";
+  var RX = [
+    /* ISO date-time with minutes: 2026-10-10T08:35Z / 2026-10-10 08:35 (UTC when it says so) */
+    [new RegExp("(^|[^\\w/.-])(20\\d\\d)-(\\d\\d)-(\\d\\d)[T ](\\d\\d):(\\d\\d)(?::\\d\\d(?:\\.\\d+)?)?(Z| UTC)?(?![\\w/-])", "g"),
+      function (m, a, y, mo, d, h, mi, z) { return a + (z ? fmt(new Date(Date.UTC(+y, +mo - 1, +d, +h, +mi))) : dmy(y, mo, d) + " " + hm(h, mi)); }],
+    /* ISO date, not part of a file name or a path */
+    [new RegExp("(^|[^\\w/.-])(20\\d\\d)-(\\d\\d)-(\\d\\d)(?![\\w/-]|\\.(?:json|html|kql|md|gz)\\b)", "g"),
+      function (m, a, y, mo, d) { return +mo >= 1 && +mo <= 12 && +d >= 1 && +d <= 31 ? a + dmy(y, mo, d) : m; }],
+    /* 10 Oct 2026 / 10 October 2026 */
+    [new RegExp("\\b(\\d{1,2}) " + MONRX + "\\.? (\\d{4})\\b", "g"), function (m, d, mo, y) { return dmy(y, MON[mo.toLowerCase()], d); }],
+    /* October 9, 2026 / Oct 9 2026 */
+    [new RegExp("\\b" + MONRX + "\\.? (\\d{1,2}),? (\\d{4})\\b", "g"), function (m, mo, d, y) { return dmy(y, MON[mo.toLowerCase()], d); }],
+    /* 10 Oct 06:47 (no year, with a time) */
+    [new RegExp("\\b(\\d{1,2}) " + MONRX + "\\.? ([01]?\\d|2[0-3]):([0-5]\\d)\\b", "g"), function (m, d, mo, h, mi) { var n = MON[mo.toLowerCase()]; return dmy(yearFor(n), n, d) + " " + hm(h, mi); }],
+    /* "the 09.10 brief" - the day.month the page uses for a brief */
+    [/\b(the |since the )(\d{2})\.(\d{2})( brief)/g, function (m, a, d, mo, b) { return +mo >= 1 && +mo <= 12 ? a + dmy(yearFor(+mo), mo, d) + b : m; }],
+    /* 9 Oct (no year) - the year nearest the brief day */
+    [new RegExp("\\b(\\d{1,2}) " + MONRX + "\\b(?!\\.? \\d)", "g"), function (m, d, mo) { var n = MON[mo.toLowerCase()]; return +d >= 1 && +d <= 31 ? dmy(yearFor(n), n, d) : m; }]
+  ];
+  /* times printed with a zone (06:47 Warsaw, 08:55 UTC): the 12 h mode shows them as 06:47 AM */
+  var TRX = /(^|[^\d:])([01]?\d|2[0-3]):([0-5]\d)(?=\s*(?:Warsaw|UTC|CET|CEST)\b)/g;
+  var SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|KBD|SAMP|NOSCRIPT|svg|SVG|TITLE)$/;
+  function skip(n) {
+    for (var p = n.parentNode, i = 0; p && p.nodeType === 1 && i < 14; p = p.parentNode, i++) {
+      if (SKIP.test(p.tagName) || p.isContentEditable) return true;
+      var c = p.classList; if (!c) continue;
+      if (c.contains("s5cz-d") || c.contains("s5cz-o") || c.contains("s5cz-nodate") || c.contains("s5cz-at")) return true;
+      if (c.contains("mono") && /\.json|\.kql|\//.test(n.nodeValue)) return true;
+    }
+    return false;
+  }
+  /* the text cut into plain parts and dates: [string | {o: original, f: formatted}] - null when nothing to do */
+  function tokens(s) {
+    if (!s || !/\d/.test(s)) return null;
+    var T = [], o = s;
+    function put(m, res, t) { T.push({ o: m, f: res, t: t }); return "\u0001" + (T.length - 1) + "\u0002"; }
+    RX.forEach(function (r) { o = o.replace(r[0], function () { var m = arguments[0], res = r[1].apply(null, arguments); return res === m ? m : put(m, res); }); });
+    o = o.replace(TRX, function (m, a, h, mi) { return a + put(h + ":" + mi, hm(h, mi), 1); });
+    if (!T.length) return null;
+    function back(x, k) { return x.replace(/\u0001(\d+)\u0002/g, function (mm, i) { return T[+i][k]; }); }
+    T.forEach(function (t) { t.o = back(t.o, "o"); t.f = back(t.f, "f"); });
+    var parts = [], re = /\u0001(\d+)\u0002/g, last = 0, x;
+    while ((x = re.exec(o))) { if (x.index > last) parts.push(o.slice(last, x.index)); parts.push(T[+x[1]]); last = re.lastIndex; }
+    if (last < o.length) parts.push(o.slice(last));
+    return parts;
+  }
+  function convert(s) { var p = tokens(s); return p ? p.map(function (x) { return typeof x === "string" ? x : x.f; }).join("") : s; }
+  /* A date is shown, not rewritten: the original text stays in the page (visually hidden), the formatted one is drawn
+     by CSS from data-v. Every script that reads textContent - sorting, search, filters, the tests - sees what it saw
+     before (10 X 2026: rewriting the text itself broke the date sort of the Community table). */
+  function rewrite(root) {
+    if (!root || !document.createTreeWalker) return 0;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, k = 0, list = [];
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.length < 4000 && /\d/.test(n.nodeValue)) list.push(n);
+    list.forEach(function (t) {
+      if (!t.parentNode || skip(t)) return;
+      var parts = tokens(t.nodeValue); if (!parts) return;
+      var fr = document.createDocumentFragment();
+      parts.forEach(function (x) {
+        if (typeof x === "string") { fr.appendChild(document.createTextNode(x)); return; }
+        var d = el("span", "s5cz-d"); d.setAttribute("data-v", x.f); if (x.t) d.setAttribute("data-t", "1"); d.appendChild(el("span", "s5cz-o", x.o)); fr.appendChild(d); k++;
+      });
+      t.parentNode.replaceChild(fr, t);
+    });
+    return k;
+  }
+  function roots() {
+    var r = [document.querySelector("header.top"), document.querySelector(".s5ca-rail"), document.getElementById("s5br-bar")];
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) { if (!p.hidden) r.push(p); });
+    var dlg = document.querySelector("dialog[open], .s5br-sheet:not([hidden])"); if (dlg) r.push(dlg);
+    return r.filter(Boolean);
+  }
+  var busy = false, again = false, timer = null;
+  function pass() {
+    if (busy) { again = true; return; }
+    busy = true;
+    try { roots().forEach(rewrite); } catch (e) { if (window.console) console.error("[5cz dates]", e); }
+    busy = false;
+    if (again) { again = false; soon(600); }
+  }
+  function soon(ms) { clearTimeout(timer); timer = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(pass); }, ms || 700); }
+  function setMode(m) {
+    MODE = m === "12" ? "12" : "24"; LS.set("socTime", MODE);
+    [].forEach.call(document.querySelectorAll(".s5cz-d"), function (d) { var o = d.firstChild ? d.firstChild.textContent : "", q = d.getAttribute("data-t") && /^(\d{1,2}):(\d{2})$/.exec(o); d.setAttribute("data-v", q ? hm(q[1], q[2]) : convert(o)); });
+    [].forEach.call(document.querySelectorAll("[data-s5cz-at]"), function (e) { e.textContent = fmt(e.getAttribute("data-s5cz-at"), e.getAttribute("data-s5cz-t") !== "0"); });
+    [].forEach.call(document.querySelectorAll(".s5cz-tg button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === MODE)); });
+    pass();
+  }
+  window.__socDate = { fmt: fmt, convert: convert, rewrite: rewrite, mode: function () { return MODE; }, setMode: setMode };
+
+  /* ---------- the times we know ---------- */
+  var F = {}, FT = 0;
+  var KEYS = ["code", "tenant", "campaigns", "publish", "learn"];
+  function loadFresh(cb) {
+    var left = KEYS.length + 2;
+    function done() { if (--left === 0) { FT = 1; cb(); } }
+    KEYS.forEach(function (k) {
+      try { fetch("data/fresh/" + k + ".json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (j && j.at) F[k] = j; done(); }).catch(done); } catch (e) { done(); }
+    });
+    try { fetch("data/graph-sp-history.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { if (j && j.lastRead) F.graphsp = { at: j.lastRead, rolesNote: j.rolesNote }; done(); }).catch(done); } catch (e) { done(); }
+    try { fetch("data/campaigns.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { if (j && j.generated) F.campgen = { at: j.generated }; done(); }).catch(done); } catch (e) { done(); }
+  }
+  var ST0 = null;
+  function st() { if (!ST0) ST0 = jb("soc-brief-state") || {}; return ST0; }
+  function briefAt() {
+    var s = st(), day = s.briefDate || briefDay(), p = (s.passes || []).filter(function (x) { return x && x.kind === "morning" && x.at; })[0];
+    var a = (s.passes || []).filter(function (x) { return x && x.kind === "afternoon" && x.at; })[0];
+    function local(t) { var m = /^(\d{1,2}):(\d{2})/.exec(t || ""); if (!m) return null; return day + "T" + p2(+m[1]) + ":" + m[2] + ":00" + warsawOffset(day); }
+    return { day: day, morning: p ? local(p.at) : null, afternoon: a ? local(a.at) : null };
+  }
+  function warsawOffset(day) {   /* +02:00 in summer time, +01:00 in winter */
+    try { var d = new Date(day + "T12:00:00Z"), s = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Warsaw", hour: "2-digit", hourCycle: "h23" }).format(d);
+      var off = +s - 12; return (off >= 0 ? "+" : "-") + p2(Math.abs(off)) + ":00"; } catch (e) { return "+01:00"; }
+  }
+  function ts(x) { var d = new Date(String(x).length === 16 && /Z$/.test(x) ? x.replace("Z", ":00Z") : x); return isNaN(d) ? 0 : d.getTime(); }
+  function tsAt(k) { return F[k] && F[k].at ? ts(F[k].at) : 0; }
+  function stamp(at, withTime) { var s = el("b", "s5cz-at", fmt(at, withTime)); s.setAttribute("data-s5cz-at", at); if (withTime === false) s.setAttribute("data-s5cz-t", "0"); return s; }
+
+  /* which tab is refreshed by what */
+  var TABS = {
+    graph: { by: "GitHub Actions every 3 h (our tenant's Graph permissions) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
+    roles: { by: "GitHub Actions every 3 h (role definitions read from our tenant) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
+    fpa: { by: "GitHub Actions every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
+    mc: { by: "GitHub Actions every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
+    campaigns: { by: "GitHub Actions twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
+    hunting: { by: "the morning brief; queries archived by GitHub Actions twice a day", keys: ["campaigns"], every: 0 },
+    learn: { by: "the morning brief; our copy of the Learn pages refreshed by GitHub Actions 4 times a day", keys: ["learn"], every: 6 }
+  };
+  function newest(keys) { var best = null; (keys || []).forEach(function (k) { if (tsAt(k) && (!best || tsAt(k) > tsAt(best))) best = k; }); return best; }
+
+  /* ---------- 2. the frame top right ---------- */
+  function frame() {
+    var top = document.querySelector("header.top"), row = top && top.querySelector(".title-row");
+    if (!row) return;
+    var old = document.getElementById("s5cz-fresh"); if (old) old.parentNode.removeChild(old);
+    var b = briefAt(), today = new Date().toISOString().slice(0, 10);
+    var age = b.day ? Math.round((Date.parse(today) - Date.parse(b.day)) / 864e5) : 9;
+    var box = el("div", "s5cz-fresh " + (age <= 0 ? "s5cz-ok" : age === 1 ? "s5cz-warn" : "s5cz-bad")); box.id = "s5cz-fresh";
+    box.setAttribute("role", "status");
+    var h = el("div", "s5cz-fh"); h.appendChild(el("span", "s5cz-dot")); h.appendChild(el("b", null, "Data freshness"));
+    var tg = el("span", "s5cz-tg"); tg.setAttribute("role", "group"); tg.setAttribute("aria-label", "Time format");
+    [["24", "24h"], ["12", "AM/PM"]].forEach(function (m) { var x = el("button", null, m[1]); x.type = "button"; x.setAttribute("data-m", m[0]); x.setAttribute("aria-pressed", String(MODE === m[0]));
+      x.addEventListener("click", function () { setMode(m[0]); }); tg.appendChild(x); });
+    h.appendChild(tg); box.appendChild(h);
+    function line(label, at, extra, withTime) {
+      var l = el("div", "s5cz-fl"); l.appendChild(el("span", "s5cz-fk", label));
+      if (at) l.appendChild(stamp(at, withTime)); else l.appendChild(el("i", null, "not recorded yet"));
+      if (extra) l.appendChild(el("span", "s5cz-fx", extra)); box.appendChild(l);
+    }
+    line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning);
+    if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "");
+    var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn"]);
+    var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy" };
+    if (nk) line("Latest data", F[nk].at, NAMES[nk]);
+    var a = el("button", "s5cz-about", "About ›"); a.type = "button"; a.title = "About this portal: what it is, every tab, data freshness, version";
+    a.addEventListener("click", function () { openAbout("fresh"); });
+    h.appendChild(a);
+    /* top right of the header block (absolute from 1100 px; the title block keeps the room free), below the title on a phone */
+    var inner = top.querySelector(".top-inner") || top;
+    inner.classList.add("s5cz-host"); inner.appendChild(box); row.classList.add("s5cz-room");
+  }
+
+  /* ---------- 3. a chip on every tab ---------- */
+  function chips() {
+    var b = briefAt();
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
+      var id = (p.id || "").replace(/^tab-/, ""); if (!id || id === "about") return;
+      var old = p.querySelector(":scope > .s5cz-chip"); if (old) old.parentNode.removeChild(old);
+      var t = TABS[id], c = el("div", "s5cz-chip");
+      c.appendChild(el("span", "s5cz-dot"));
+      var k = t ? newest(t.keys) : null;
+      if (t && k) {
+        c.appendChild(document.createTextNode("Updated ")); c.appendChild(stamp(F[k].at));
+        c.appendChild(el("span", "s5cz-by", " · " + t.by));
+        if (t.every) { var nx = new Date(ts(F[k].at) + t.every * 3600e3); c.appendChild(el("span", "s5cz-by", " · next about ")); var ns = stamp(nx.toISOString().slice(0, 16) + "Z"); c.appendChild(ns); }
+      } else {
+        c.appendChild(document.createTextNode("From the morning brief · "));
+        c.appendChild(stamp(b.morning || b.day, !!b.morning));
+        if (b.afternoon) { c.appendChild(el("span", "s5cz-by", " · afternoon pass ")); c.appendChild(stamp(b.afternoon)); }
+        if (t) c.appendChild(el("span", "s5cz-by", " · " + t.by));
+      }
+      var head = p.querySelector(":scope > .s5ca-head");
+      if (head) p.insertBefore(c, head.nextSibling); else p.insertBefore(c, p.firstChild);
+    });
+  }
+
+  /* ---------- 4. the About tab ---------- */
+  var ABOUT_TABS = [
+    ["Overview", "overview", "What needs you today: the day in sentences, deadlines due and passed, new items, component versions, the identity surface (Graph permissions, roles, first-party apps), campaigns."],
+    ["Today", "today", "The day's top picks and the items per product that moved since the previous brief."],
+    ["Deadlines", "deadlines", "Every dated item: due within 7 and 30 days, passed in the last 7 days, with Microsoft's own dates."],
+    ["Message Center", "mc", "Every Microsoft 365 Message Center post (none filtered out), new and revised, from our tenant through Graph and public mirrors."],
+    ["New", "new", "Items that entered the brief since the previous one."],
+    ["Graph API", "graph", "Every Microsoft Graph permission: what it can call, who holds it, what Microsoft changed (endpoints, consent, new and removed), read from Microsoft's files and our tenant every 3 hours."],
+    ["Roles", "roles", "Entra built-in roles: actions, privileged flag and what Microsoft changed; definitions read from our tenant every 3 hours."],
+    ["First-party apps", "fpa", "Microsoft's own Entra applications and the permissions they obtain without consent; our own base list with public sources as backup."],
+    ["Component versions", "components", "13 components (Entra Connect, Cloud Sync, GSA client, MDE, MDI, Authenticator, Apple platforms ...) with the version history the brief observed."],
+    ["Campaigns", "campaigns", "Microsoft's retirements, enforcements, end of support and default changes, each with its dates, Message Center posts and what to do."],
+    ["Microsoft Learn", "learn", "What changed on the Learn pages and what's-new lists the brief watches (our own copy of the pages)."],
+    ["Microsoft Blogs", "blogs", "Microsoft blogs and feeds (Security, Tech Community, Azure updates, Graph changelog, MSRC)."],
+    ["Community Articles", "community", "The community sources the owner keeps in community_sources.json, read every morning."],
+    ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
+    ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
+    ["Products", "products", "The same items grouped by product."]
+  ];
+  function card(title, cls) { var c = el("section", "s5cz-card" + (cls ? " " + cls : "")); c.appendChild(el("h3", null, title)); return c; }
+  function ul(items) { var u = el("ul"); items.forEach(function (x) { var li = el("li"); if (typeof x === "string") li.textContent = x; else li.appendChild(x); u.appendChild(li); }); return u; }
+  function link(txt, href) { var a = el("a", null, txt); a.href = href; if (/^https?:/.test(href)) { a.target = "_blank"; a.rel = "noopener"; } return a; }
+  function buildAbout(p) {
+    p.innerHTML = "";
+    var head = el("div", "s5ca-head"); head.appendChild(el("span", "s5ca-crumb", "About")); head.appendChild(el("h2", "s5ca-title", "About this portal"));
+    var f = el("div", "s5ca-facts"); f.appendChild(el("div", "s5ca-line", "GuardZilla · Microsoft SOC Brief — what changed in the Microsoft security world, every day")); head.appendChild(f); p.appendChild(head);
+    var g = el("div", "s5cz-grid");
+    var c1 = card("What it is", "s5cz-wide");
+    c1.appendChild(ul(["A daily brief for a security operations team working with Microsoft 365, Entra, Intune, Defender, Purview and Azure.",
+      "It shows at once what changed, was added or removed: Message Center posts, roadmap, Learn pages, blogs, community articles, Graph permissions, Entra roles, Microsoft's own applications, component versions and campaigns (retirements, enforcements, end of support).",
+      "Every tab starts with what moved since the previous brief; every number opens the rows behind it.",
+      "Built to be independent: own copies of the sources (Learn pages, first-party app lists) and our tenant read every 3 hours, so an outage of an external source loses nothing."]));
+    g.appendChild(c1);
+    var c2 = card("Author and version");
+    var s = st(), code = F.code || {};
+    var verLi = el("span"); verLi.appendChild(document.createTextNode("Version: "));
+    var vb = el("b", "s5cz-nodate", (code.at ? code.at.slice(0, 10).replace(/-/g, ".") : (s.briefDate || "").replace(/-/g, ".")) + (code.spec ? " · §" + code.spec : "") + (code.sha ? " · " + code.sha : (s.specCommit ? " · " + s.specCommit : "")));
+    verLi.appendChild(vb);
+    var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
+    var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
+    c2.appendChild(ul(["Author: Piotr Wiśniewski — APN Promise S.A.", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
+      (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: ")); x.appendChild(link("github.com/wpiotrw/MS_SOC (README)", "https://github.com/wpiotrw/MS_SOC#readme")); return x; })()]));
+    g.appendChild(c2);
+    var c3 = card("Data freshness");
+    var tb = el("table", "s5cz-ft"), th = el("thead"), tr0 = el("tr"); ["What", "Last update", "Refreshed by"].forEach(function (x) { tr0.appendChild(el("th", null, x)); }); th.appendChild(tr0); tb.appendChild(th);
+    var tbody = el("tbody");
+    function row(what, at, by, withTime) { var tr = el("tr"); tr.appendChild(el("td", null, what)); var td = el("td"); if (at) td.appendChild(stamp(at, withTime)); else td.appendChild(el("i", null, "not recorded yet")); tr.appendChild(td); tr.appendChild(el("td", null, by)); tbody.appendChild(tr); }
+    row("Morning brief", bA.morning || bA.day, "scheduled task Morning (06:00 Warsaw) and routine “raport poranny v2”", !!bA.morning);
+    if (bA.afternoon) row("Afternoon pass", bA.afternoon, "scheduled task Afternoon delta (21:00 Warsaw)");
+    row("Brief published to this site", F.publish && F.publish.at, "workflow “Publish routine output”");
+    row("Page code", F.code && F.code.at, "workflow “Code refresh” (after every change of CLAUDE.md)");
+    row("Tenant snapshot (apps, Message Center, Graph permissions, roles)", F.tenant && F.tenant.at, "workflow “First-party apps tenant snapshot”, every 3 h");
+    row("Graph permissions and roles last read", F.graphsp && F.graphsp.at, "tools/graph_sp.py in the same workflow (written once a day or on a change)");
+    row("Campaigns and KQL archive", (F.campgen || F.campaigns || {}).at, "workflow “Campaign tracking”, twice a day and after each brief");
+    row("Our copy of the Learn pages", F.learn && F.learn.at, "workflow “Learn mirror”, 4 times a day (last change)");
+    tb.appendChild(tbody); c3.appendChild(tb);
+    c3.appendChild(el("p", "s5cz-note", "Times are Warsaw time. The switch in the frame at the top changes 24 h / AM/PM everywhere on the page."));
+    g.appendChild(c3);
+    var c4 = card("How it works", "s5cz-wide");
+    c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
+      "07:00 Warsaw — routine “raport poranny v2” copies the brief to this site (GitHub → Azure Static Web Apps).",
+      "21:00 Warsaw — “Afternoon delta” re-reads the sources; 22:00 Warsaw — routine “zmiany v2” computes the “what changed” page (/diff/).",
+      "Every 3 h — GitHub Actions read our tenant (read-only, no secret: GitHub OIDC federated credential): Microsoft's apps and their consents, Message Center, Graph permissions and Entra role definitions.",
+      "Twice a day — campaigns and the KQL archive; 4 times a day — our copy of the Learn pages; after every change of CLAUDE.md — the page code.",
+      "All page code and collectors live in CLAUDE.md in the repository; each run cuts the scripts out of it, so a change of behaviour is a change of that one file."]));
+    g.appendChild(c4);
+    var c5 = card("Tabs", "s5cz-wide"), tl = el("div", "s5cz-tabs");
+    ABOUT_TABS.forEach(function (t) {
+      var x = el("div", "s5cz-tab"), nb = el("button", "s5ci-itb", t[0]); nb.type = "button";
+      nb.addEventListener("click", function () { var bt = document.getElementById("tabbtn-tab-" + t[1]); if (bt) bt.click(); });
+      x.appendChild(nb); x.appendChild(el("p", null, t[2]));
+      var tt = TABS[t[1]], k = tt ? newest(tt.keys) : null, m = el("p", "s5cz-by");
+      if (k) { m.appendChild(document.createTextNode("Updated ")); m.appendChild(stamp(F[k].at)); m.appendChild(document.createTextNode(" · " + tt.by)); }
+      else { m.appendChild(document.createTextNode("From the morning brief · ")); m.appendChild(stamp(bA.morning || bA.day, !!bA.morning)); }
+      x.appendChild(m); tl.appendChild(x);
+    });
+    c5.appendChild(tl); g.appendChild(c5);
+    var c6 = card("Security and permissions");
+    c6.appendChild(ul(["One Entra application, “MS-SOC First-party apps reader”: read-only application permissions Application.Read.All, DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All, RoleManagement.Read.Directory.",
+      "No client secret and no certificate: GitHub Actions sign in with a federated credential bound to this repository and its main branch.",
+      "The only secret is the Azure Static Web Apps deployment token, kept encrypted in GitHub.",
+      (function () { var x = el("span"); x.appendChild(document.createTextNode("Every permission with its reason: ")); x.appendChild(link("README, section 12", "https://github.com/wpiotrw/MS_SOC#12-to%C5%BCsamo%C5%9Bci-uprawnienia-i-po%C5%9Bwiadczenia--pe%C5%82ny-wykaz-i-pow%C3%B3d-ka%C5%BCdego")); return x; })()]));
+    g.appendChild(c6);
+    var c7 = card("Links");
+    c7.appendChild(ul([link("What changed since yesterday (/diff/)", "diff/"), link("The week (/week/)", "week/"), link("RSS feed", "feed.xml"),
+      link("Repository and README", "https://github.com/wpiotrw/MS_SOC")]));
+    g.appendChild(c7);
+    p.appendChild(g);
+    soon(300);
+  }
+  function aboutTab() {
+    if (document.getElementById("tab-about")) return;
+    var navs = document.querySelectorAll(".navrow nav.anchors"), nav = navs[navs.length - 1];
+    var ref = document.getElementById("tab-products") || [].slice.call(document.querySelectorAll(".tabpanel")).pop();
+    if (!nav || !ref) return;
+    var lab = el("span", "s5bi-grp", "About"); lab.setAttribute("aria-hidden", "true"); nav.appendChild(lab);
+    var bt = el("button", "tab", "About"); bt.type = "button"; bt.id = "tabbtn-tab-about"; bt.setAttribute("role", "tab"); bt.setAttribute("aria-controls", "tab-about");
+    bt.setAttribute("aria-selected", "false"); bt.setAttribute("tabindex", "-1"); bt.setAttribute("data-grp", "About"); nav.appendChild(bt);
+    var p = el("div", "tabpanel"); p.id = "tab-about"; p.setAttribute("data-tab", "About"); p.hidden = true; p.setAttribute("role", "tabpanel"); p.setAttribute("aria-labelledby", "tabbtn-tab-about");
+    ref.parentNode.insertBefore(p, ref.nextSibling);
+    bt.addEventListener("click", function () { openAbout(); });
+    /* any other tab hides About (the shell knows only its own panels) */
+    document.addEventListener("click", function (ev) {
+      var t = ev.target && ev.target.closest ? ev.target.closest("button.tab, .s5ca-it, .s5br-sheet button") : null;
+      if (!t || t === bt || t.getAttribute("data-pid") === "tab-about" || t.getAttribute("data-about") === "1") return;
+      if (!p.hidden) { p.hidden = true; bt.setAttribute("aria-selected", "false"); railMark(false); }
+    }, true);
+    rail(); phone();
+    if (/(^|[#&])tab=about\b/.test(location.hash)) setTimeout(function () { openAbout(); }, 300);
+    window.addEventListener("hashchange", function () { if (/(^|[#&])tab=about\b/.test(location.hash)) openAbout(); });
+  }
+  function railMark(on) {
+    [].forEach.call(document.querySelectorAll(".s5ca-it"), function (x) { var me = x.getAttribute("data-pid") === "tab-about"; if (on) x.setAttribute("aria-current", String(me)); else if (me) x.setAttribute("aria-current", "false"); });
+  }
+  function rail() {
+    var r = document.querySelector("nav.s5ca-rail"); if (!r || r.querySelector('[data-pid="tab-about"]')) return !!r;
+    var box = el("div", "s5ca-g"), gl = el("div", "s5ca-gl"); gl.appendChild(el("span", "s5ca-gn", "About")); box.appendChild(gl);
+    var it = el("button", "s5ca-it"); it.type = "button"; it.setAttribute("data-pid", "tab-about"); it.setAttribute("aria-current", "false");
+    it.title = "About this portal — what it is, every tab, data freshness, version, author";
+    it.appendChild(el("span", "s5ca-nm", "About")); it.addEventListener("click", function () { openAbout(); }); box.appendChild(it);
+    r.appendChild(box); return true;
+  }
+  function phone() {
+    var sel = document.querySelector("select.s5bi-more");
+    if (sel && !sel.querySelector('option[value="about"]')) {
+      var og = document.createElement("optgroup"); og.label = "About"; var o = el("option", null, "About"); o.value = "about"; og.appendChild(o); sel.appendChild(og);
+      sel.addEventListener("change", function () { if (sel.value === "about") { openAbout(); sel.value = ""; } });
+    }
+  }
+  function openAbout(focus) {
+    var p = document.getElementById("tab-about"), bt = document.getElementById("tabbtn-tab-about"); if (!p) return;
+    buildAbout(p);
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (x) { if (x !== p) x.hidden = true; });
+    [].forEach.call(document.querySelectorAll("button.tab[role=tab]"), function (x) { x.setAttribute("aria-selected", String(x === bt)); });
+    p.hidden = false; railMark(true);
+    try { history.replaceState(null, "", "#tab=about"); } catch (e) {}
+    var tgt = focus === "fresh" ? p.querySelector(".s5cz-ft") : p;
+    try { window.scrollTo(0, Math.max(0, (tgt.getBoundingClientRect().top + window.scrollY) - ((document.querySelector("header.top") || { offsetHeight: 0 }).offsetHeight) - 12)); } catch (e) {}
+  }
+
+  /* ---------- boot ---------- */
+  function boot() {
+    try { aboutTab(); } catch (e) { if (window.console) console.error("[5cz about]", e); }
+    loadFresh(function () {
+      try { frame(); chips(); } catch (e) { if (window.console) console.error("[5cz fresh]", e); }
+      soon(200);
+    });
+    var tries = 0, rt = setInterval(function () { if (rail() || ++tries > 30) clearInterval(rt); phone(); }, 500);
+    document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("button.tab, .s5ca-it, .s5br-sheet button, select")) soon(1200); }, true);
+    if (window.MutationObserver) {
+      var mo = new MutationObserver(function (ms) {
+        for (var i = 0; i < ms.length; i++) { var t = ms[i].target; if (t && t.nodeType === 1 && t.closest && t.closest("#s5cz-fresh")) continue; soon(900); return; }
+      });
+      mo.observe(document.body, { childList: true, subtree: true });
+    }
+    setTimeout(function () { try { chips(); } catch (e) {} soon(100); }, 5000);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2800); });
+  else setTimeout(boot, 2800);
 })();
 </script>
 </body>
