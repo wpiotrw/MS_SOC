@@ -93,6 +93,7 @@ https://learn.microsoft.com/en-us/entra/how-to-connect-passwordless-authenticati
 https://learn.microsoft.com/en-us/entra/how-to-manage-users-groups-assignment
 https://learn.microsoft.com/en-us/entra/how-to-preserve-group-organizational-unit-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/how-to-test-and-enable-provisioning-entra-to-active-directory
+https://learn.microsoft.com/en-us/entra/id-governance/agent-lifecycle-policies
 https://learn.microsoft.com/en-us/entra/id-governance/agent-sponsor-tasks
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-drift
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-package-resources

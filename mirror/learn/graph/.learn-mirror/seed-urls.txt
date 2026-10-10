@@ -2,6 +2,7 @@ https://learn.microsoft.com/en-us/graph
 https://learn.microsoft.com/en-us/graph/alertsv1-alertsv2-migration
 https://learn.microsoft.com/en-us/graph/api/accesspackageresourceenvironment-get
 https://learn.microsoft.com/en-us/graph/api/agentidentity-update-communicationconfiguration
+https://learn.microsoft.com/en-us/graph/api/backuprestoreroot-list-activitylogs
 https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-list-m365capabilities
 https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-post-m365capabilities
 https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-update-m365capabilities
@@ -17,11 +18,13 @@ https://learn.microsoft.com/en-us/graph/api/recommendation-addtag
 https://learn.microsoft.com/en-us/graph/api/recommendation-removetag
 https://learn.microsoft.com/en-us/graph/api/remotetena
 https://learn.microsoft.com/en-us/graph/api/remotetenant
+https://learn.microsoft.com/en-us/graph/api/res
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitem
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitemcustomdataprovidedresource
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitempermission
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitemresource
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewreviewerscope
+https://learn.microsoft.com/en-us/graph/api/resources/activitylogbase
 https://learn.microsoft.com/en-us/graph/api/resources/agentcommunicationconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentity
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentityblueprintprincipal
@@ -41,6 +44,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/embeddinginput
 https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-backup-recovery-overview
 https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-recovery
 https://learn.microsoft.com/en-us/graph/api/resources/enums-security
+https://learn.microsoft.com/en-us/graph/api/resources/exchangemessagetrace
 https://learn.microsoft.com/en-us/graph/api/resources/externaloriginresourceconnector
 https://learn.microsoft.com/en-us/graph/api/resources/externalsapacconnectioninfo
 https://learn.microsoft.com/en-us/graph/api/resources/fido2authenticationmethod
@@ -57,8 +61,10 @@ https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-ca
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionaction
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryaddtoreviewsetoperation
 https://learn.microsoft.com/en-us/graph/api/resources/security-incidentconfiguration
+https://learn.microsoft.com/en-us/graph/api/resources/security-processevidence
 https://learn.microsoft.com/en-us/graph/api/resources/security-sensorcandidate
 https://learn.microsoft.com/en-us/graph/api/resources/security-useraccount
+https://learn.microsoft.com/en-us/graph/api/resources/security-userevidence
 https://learn.microsoft.com/en-us/graph/api/resources/sensitivetype
 https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmethodconfiguration
 https://learn.microsoft.com/en-us/graph/api/re…
@@ -73,6 +79,7 @@ https://learn.microsoft.com/en-us/graph/api/tenantprotectionscopecontainer-compu
 https://learn.microsoft.com/en-us/graph/api/user-attest
 https://learn.microsoft.com/en-us/graph/api/userprotectionscopecontainer-compute
 https://learn.microsoft.com/en-us/graph/applications-authenticationbehaviors
+https://learn.microsoft.com/en-us/graph/best-practices-concept
 https://learn.microsoft.com/en-us/graph/changenotifications-for-presence
 https://learn.microsoft.com/en-us/graph/connecting-external-content-manage-connections
 https://learn.microsoft.com/en-us/graph/control-enhanced-personalization-privacy
@@ -82,9 +89,11 @@ https://learn.microsoft.com/en-us/graph/permissions-overview
 https://learn.microsoft.com/en-us/graph/permissions-reference
 https://learn.microsoft.com/en-us/graph/query-parameters
 https://learn.microsoft.com/en-us/graph/security-concept-overview
+https://learn.microsoft.com/en-us/graph/teams-change-notification-in-microsoft-teams-overview
 https://learn.microsoft.com/en-us/graph/teams-embed-within-own-app
 https://learn.microsoft.com/en-us/graph/teams-licenses
 https://learn.microsoft.com/en-us/graph/throttling-limits
+https://learn.microsoft.com/en-us/graph/toolkit/components/chat
 https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview
 https://learn.microsoft.com/en-us/graph/whats-new-earlier
 https://learn.microsoft.com/en-us/graph/whats-new-overview

@@ -5425,7 +5425,7 @@ The Microsoft Authentication Library (MSAL) currently specifies *offline\_access
 | Description | - | Allows the application to create print jobs on behalf of the signed-in user and upload document content to print jobs that the signed-in user created. |
 | AdminConsentRequired | - | No |
 
-In this to *PrintJob.Create*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.Create*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.Manage.All
 
@@ -5445,7 +5445,7 @@ In this to *PrintJob.Create*, the app requires at least the *Printer.Read.All* (
 | Description | - | Allows the application to read the metadata and document content of print jobs that the signed-in user created. |
 | AdminConsentRequired | - | No |
 
-In this to *PrintJob.Read*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.Read*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.Read.All
 
@@ -5456,7 +5456,7 @@ In this to *PrintJob.Read*, the app requires at least the *Printer.Read.All* (or
 | Description | Allows the application to read the metadata and document content of print jobs without a signed-in user. | Allows the application to read the metadata and document content of print jobs on behalf of the signed-in user. |
 | AdminConsentRequired | Yes | Yes |
 
-In this to *PrintJob.Read.All*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.Read.All*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadBasic
 
@@ -5467,7 +5467,7 @@ In this to *PrintJob.Read.All*, the app requires at least the *Printer.Read.All*
 | Description | - | Allows the application to read the metadata of print jobs that the signed-in user created. Does not allow access to print job document content. |
 | AdminConsentRequired | - | No |
 
-In this to *PrintJob.ReadBasic*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadBasic*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadBasic.All
 
@@ -5478,7 +5478,7 @@ In this to *PrintJob.ReadBasic*, the app requires at least the *Printer.Read.All
 | Description | Allows the application to read the metadata of print jobs without a signed-in user. Does not allow access to print job document content. | Allows the application to read the metadata of print jobs on behalf of the signed-in user. Does not allow access to print job document content. |
 | AdminConsentRequired | Yes | Yes |
 
-In this to *PrintJob.ReadBasic.All*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadBasic.All*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadWrite
 
@@ -5489,7 +5489,7 @@ In this to *PrintJob.ReadBasic.All*, the app requires at least the *Printer.Read
 | Description | - | Allows the application to read and update the metadata and document content of print jobs that the signed-in user created. |
 | AdminConsentRequired | - | No |
 
-In this to *PrintJob.ReadWrite*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadWrite*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadWrite.All
 
@@ -5500,7 +5500,7 @@ In this to *PrintJob.ReadWrite*, the app requires at least the *Printer.Read.All
 | Description | Allows the application to read and update the metadata and document content of print jobs without a signed-in user. | Allows the application to read and update the metadata and document content of print jobs on behalf of the signed-in user. |
 | AdminConsentRequired | Yes | Yes |
 
-In this to *PrintJob.ReadWrite.All*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadWrite.All*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadWriteBasic
 
@@ -5511,7 +5511,7 @@ In this to *PrintJob.ReadWrite.All*, the app requires at least the *Printer.Read
 | Description | - | Allows the application to read and update the metadata of print jobs that the signed-in user created. Does not allow access to print job document content. |
 | AdminConsentRequired | - | No |
 
-In this to *PrintJob.ReadWriteBasic*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadWriteBasic*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintJob.ReadWriteBasic.All
 
@@ -5522,7 +5522,7 @@ In this to *PrintJob.ReadWriteBasic*, the app requires at least the *Printer.Rea
 | Description | Allows the application to read and update the metadata of print jobs without a signed-in user. Does not allow access to print job document content. | Allows the application to read and update the metadata of print jobs on behalf of the signed-in user. Does not allow access to print job document content. |
 | AdminConsentRequired | Yes | Yes |
 
-In this to *PrintJob.ReadWriteBasic.All*, the app requires at least the *Printer.Read.All* (or a more prviliged permission) because print jobs are stored within printers.
+In addition to *PrintJob.ReadWriteBasic.All*, the app requires at least the *Printer.Read.All* (or a more privileged permission) because print jobs are stored within printers.
 
 ### PrintSettings.Read.All
 

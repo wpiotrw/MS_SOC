@@ -44,6 +44,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/secret-store-extension-release
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes-archive
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/api-extended-security-updates
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/billing-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/cloud-native/licensing-cost-management
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/deliver-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/license-extended-security-updates
@@ -224,6 +225,7 @@ https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/model-mi
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-chat-reasoning
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-grok
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-mai-thinking
+https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-microsoft-decision
 https://learn.microsoft.com/en-us/azure/foundry/how-to/configure-capability-settings
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/create-prompt-agent-visual-studio-code
 https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/foundry-skills-scenarios-example-prompts
@@ -382,6 +384,11 @@ https://learn.microsoft.com/en-us/azure/virtual-machines
 https://learn.microsoft.com/en-us/azure/virtual-machines/TOC
 https://learn.microsoft.com/en-us/azure/virtual-machines/attach-disk-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
+https://learn.microsoft.com/en-us/azure/virtual-machines/create-portal-availability-zone
+https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/general-purpose-skus
+https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/how-to
+https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/memory-optimized-skus
+https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/modernization-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/sku-lifecycle
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
@@ -402,11 +409,14 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/ncads-h100-v5
 https://learn.microsoft.com/en-us/azure/virtual-machines/previous-gen-series-capacity-limitations
 https://learn.microsoft.com/en-us/azure/virtual-machines/retirements-and-capacity-restrictions
+https://learn.microsoft.com/en-us/azure/virtual-machines/secure-key-release-pattern-trusted-launch
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-assess
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-discover
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-migrate
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-plan
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncadsh100v5-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/high-performance-compute/configure
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/high-performance-compute/set-up-hpc-vms
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/end-of-life-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/lifecycle-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/previous-gen-sizes-list
