@@ -28055,6 +28055,14 @@ uslugi w „Per service"; (H3) lista Deadlines („Cover …") i tabele zakladki
 (H4) lista §7 ma dla obu dokumentacje i blog. Workflow „Collector check" wypisuje teraz blogi Defender XDR, Defender for Office 365 i Microsoft Security
 Blog oraz werdykt what's new obu obszarow.
 
+**§5df-b / §5dg-b (10 X 2026, wlasciciel 22:56: „na pierwszej tabelce pokazujesz daty, a w Deadlines i Campaigns
+today, +30, +60 — malo intuicyjne"; „w Roles: Nothing moved … — powieksz i zaznacz na zielono, gdy nie ma zmian").**
+(1) Osie Deadlines i Campaigns nazywaja prawdziwe dni dd/MM jak Activity; pierwszy znacznik to „today"; znacznik 7 dni
+bez etykiety (pas zaznaczony na czerwono, etykieta nachodzila na „today"). (2) `.s5bn-empty` — zdanie powloki „Nothing
+moved in this tab…" — jest zielonym polem „all clear" (✓, 14,5 px, ramka i tlo w kolorze ok) we WSZYSTKICH zakladkach;
+w Graph API i Roles pod nim jedna linia, co sie pojawi. Klik kafelka roli otwiera ten sam pelny panel co Find
+(sprawdzone na kopii z 08/10/2026: zmiany pole po polu, potem panel Tenant Governance Administrator).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -37874,7 +37882,10 @@ odtad CZTERNASCIE (4-17).**
     var L = ((ST.ledger14 || {}).entries || []).filter(function (e) { return e.seen === day && ledgerTabs.indexOf(e.tab) >= 0 && nm(e); });
     box.setAttribute("data-s5dc", "1");
     if (!L.length) {   /* §5dg: say what will appear here, so an empty day does not look like a missing feature */
-      box.appendChild(el("p", "s5dc-lead s5dc-empty", "When " + (which === "graph" ? "a permission" : "a role") + " is added, changed or removed, it appears here as a tile — name first, what changed, a Tiles | List switch and filters; a click opens its full panel."));
+      /* §5dg-b (owner: "make it bigger and green when nothing changed - now it is hardly visible"): one green "all
+         clear" box - the shell's sentence as its title, what will appear here under it */
+      var em = box.querySelector(".s5bn-empty"), sub2 = el("span", "s5dc-empty", "When " + (which === "graph" ? "a permission" : "a role") + " is added, changed or removed, it appears here as a tile — name first, what changed, a Tiles | List switch and filters; a click opens the same full panel as Find.");
+      if (em) { em.classList.add("s5dc-clear"); em.appendChild(sub2); } else { var pp = el("p", "s5bn-empty s5dc-clear"); pp.appendChild(sub2); box.appendChild(pp); }
       return true;
     }
     var CI = {}; (CAT[which] || []).forEach(function (c) { if (c && c.name) CI[c.name] = c; });
@@ -38164,6 +38175,10 @@ odtad CZTERNASCIE (4-17).**
   function setV(v) { try { localStorage.setItem(LSK, v); } catch (e) {} }
   function go(tab) { var b = document.getElementById("tabbtn-" + tab); if (b) b.click(); try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {} }
   function daysTo(d, base) { return Math.round((Date.parse(d + "T00:00:00Z") - Date.parse(base + "T00:00:00Z")) / 864e5); }
+  /* §5df-b (owner: "Activity shows dates, Deadlines and Campaigns say today, +30, +60 - not intuitive"): every axis
+     names real days, dd/MM, like Activity; only the first tick says "today" */
+  function addDays(base, n) { var t = new Date(Date.parse(base + "T00:00:00Z") + n * 864e5); return t.toISOString().slice(0, 10); }
+  function tick(base, n) { return n === 0 ? "today" : dm(addDays(base, n)); }
   var ST = null, box = null, body = null, tip = null, view = getV();
   var TABS = [["Message Center", "Message Center", "tab-mc"], ["Microsoft Learn", "Microsoft Learn", "tab-learn"], ["Graph API", "Graph API", "tab-graph"], ["Roles", "Roles", "tab-roles"],
               ["Community Articles", "Community", "tab-community"], ["Microsoft Blogs", "Microsoft Blogs", "tab-blogs"], ["Deadlines", "Deadlines", "tab-deadlines"], ["Component versions", "Components", "tab-components"]];
@@ -38220,9 +38235,10 @@ odtad CZTERNASCIE (4-17).**
     var h = Math.max(60, H - 34), pad = 14, X = function (d) { return pad + (W - 2 * pad) * Math.min(d, 90) / 90; };
     var s = sv("svg", { width: W, height: h, role: "img", "aria-label": "Deadlines in the next 90 days" }, body);
     sv("rect", { x: X(0), y: 4, width: X(7) - X(0), height: h - 22, "class": "s5df-zone" }, s);
-    [[0, "today"], [7, "+7"], [30, "+30"], [60, "+60"], [90, "+90"]].forEach(function (g) {
-      sv("line", { x1: X(g[0]), x2: X(g[0]), y1: 4, y2: h - 18, "class": g[0] ? "s5df-grid" : "s5df-axis" }, s);
-      var t = sv("text", { x: X(g[0]), y: h - 4, "text-anchor": "middle", "class": g[0] ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = g[1];
+    [0, 7, 30, 60, 90].forEach(function (n) {
+      sv("line", { x1: X(n), x2: X(n), y1: 4, y2: h - 18, "class": n ? "s5df-grid" : "s5df-axis" }, s);
+      if (n === 7) return;   /* the shaded band is the 7 days; a label there sat on top of "today" */
+      var t = sv("text", { x: X(n), y: h - 4, "text-anchor": n === 90 ? "end" : n ? "middle" : "start", "class": n ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = tick(base, n);
     });
     var stack = {}, step = Math.max(7, Math.min(11, (h - 30) / 12));
     dl.filter(function (i) { return i.days <= 90; }).sort(function (a, b) { return (b.socWeight || 0) - (a.socWeight || 0); }).forEach(function (i) {
@@ -38259,9 +38275,9 @@ odtad CZTERNASCIE (4-17).**
     var h = Math.max(60, H - 34), rh = 22, n = Math.max(1, Math.min(act.length, Math.floor((h - 18) / rh))), lw = Math.min(260, W * 0.38), D0 = -14, D1 = 120;
     var X = function (d) { return lw + 8 + (W - lw - 16) * (Math.max(D0, Math.min(D1, d)) - D0) / (D1 - D0); };
     var s = sv("svg", { width: W, height: n * rh + 18, role: "img", "aria-label": "Campaigns and their next dates" }, body);
-    [[0, "today"], [30, "+30"], [60, "+60"], [90, "+90"], [120, "+120"]].forEach(function (g) {
-      sv("line", { x1: X(g[0]), x2: X(g[0]), y1: 0, y2: n * rh, "class": g[0] ? "s5df-grid" : "s5df-axis" }, s);
-      var t = sv("text", { x: X(g[0]), y: n * rh + 13, "text-anchor": "middle", "class": g[0] ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = g[1];
+    [0, 30, 60, 90, 120].forEach(function (k) {
+      sv("line", { x1: X(k), x2: X(k), y1: 0, y2: n * rh, "class": k ? "s5df-grid" : "s5df-axis" }, s);
+      var t = sv("text", { x: X(k), y: n * rh + 13, "text-anchor": k === 120 ? "end" : "middle", "class": k ? "s5df-tx s5df-m" : "s5df-tx s5df-b" }, s); t.textContent = tick(base, k);
     });
     act.slice(0, n).forEach(function (c, i) {
       var y = i * rh, cy = y + rh / 2, lvl = (c.prio || {}).level || "normal", cls = lvl === "critical" ? "s5df-pc" : lvl === "high" ? "s5df-ph" : "s5df-pn";
@@ -39880,7 +39896,10 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .s5dg-exb{font-family:var(--mono);font-size:12px;padding:2px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--accent);cursor:pointer}
 .s5dg-exb:hover{border-color:var(--accent)}
 .s5cd-flat.s5dg-hide{display:none!important}
-.s5dc-empty{margin-top:6px}
+/* §5dg-b: "nothing moved" is an all-clear, shown as one - green, larger, with what will appear here */
+.s5bn-empty{display:block;margin:10px 0 6px;padding:11px 14px 11px 40px;position:relative;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text);border:1px solid var(--ok);border-left:5px solid var(--ok);border-radius:10px;background:color-mix(in srgb,var(--ok) 9%,transparent)}
+.s5bn-empty::before{content:"✓";position:absolute;left:13px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;line-height:18px;text-align:center;font-weight:900}
+.s5bn-empty .s5dc-empty{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:var(--muted)}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
