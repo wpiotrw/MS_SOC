@@ -142,7 +142,8 @@ def diff_roles(old, new, seen):
             e(n, "actions-added", None, ", ".join(plus[:40]) + (" (+%d more)" % (len(plus) - 40) if len(plus) > 40 else ""))
         if minus:
             e(n, "actions-removed", ", ".join(minus[:40]) + (" (+%d more)" % (len(minus) - 40) if len(minus) > 40 else ""), None)
-        if a.get("privileged") != b.get("privileged") and b.get("privileged") is not None:
+        # None = not read (v1.0 before 10 X 2026): the first read with the flag is not a change
+        if a.get("privileged") is not None and b.get("privileged") is not None and a.get("privileged") != b.get("privileged"):
             e(n, "privileged", a.get("privileged"), b.get("privileged"))
     return ev
 
@@ -164,7 +165,8 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
         return 1
     roles, roles_note = None, None
     try:
-        defs = T.pages(tok, G + "/roleManagement/directory/roleDefinitions?$filter=isBuiltIn%20eq%20true")
+        # beta: v1.0 does not return isPrivileged (measured 10 X 2026 - all 145 roles came back without it)
+        defs = T.pages(tok, "https://graph.microsoft.com/beta/roleManagement/directory/roleDefinitions?$filter=isBuiltIn%20eq%20true")
         roles = role_state(defs)
         if len(roles) < 80:
             roles_note = "only %d built-in roles read - looks broken, the previous role list is kept" % len(roles)

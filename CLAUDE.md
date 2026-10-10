@@ -27537,8 +27537,8 @@ prowadzi swoja technologie, starszy tylko wypelnia pusta. Wpis juz pokazany w �
 (klik otwiera panel uprawnienia — takze nieudokumentowanego `dep-…`, roli albo aplikacji) i „Also this week" —
 chip na kazda pozostala rodzine.
 (P4) `tools/graph_sp.py` w `fpa-tenant.yml` co 3 h czyta service principal Microsoft Graph naszego tenanta
-(Application.Read.All) i definicje rol wbudowanych (RoleManagement.Read.Directory — bez niej 403, `rolesNote`, reszta
-dziala); pliki zapisuje tylko przy zmianie; workflow wdraza strone sam, gdy przybylo zdarzenie. Strona czyta
+(Application.Read.All) i definicje rol wbudowanych (RoleManagement.Read.Directory, endpoint beta, bo v1.0 nie zwraca
+`isPrivileged` — bez zgody 403, `rolesNote`, reszta dziala; zgoda nadana przez wlasciciela 10 X 2026, 145 rol); pliki zapisuje tylko przy zmianie; workflow wdraza strone sam, gdy przybylo zdarzenie. Strona czyta
 `data/graph-sp-history.json` przy otwarciu, wiec zmiana z tenanta jest widoczna przed porannym briefem; przebieg
 poranny bierze ten plik jako zrodlo pierwsze (punkt a0 w „Jak przebieg czyta stan uslugi"), Merill zostaje kopia.
 (P5) `tools/New-FpaReaderApp.ps1` nadaje tez RoleManagement.Read.Directory — uruchamia wlasciciel.
