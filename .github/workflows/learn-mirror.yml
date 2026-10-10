@@ -20,7 +20,7 @@ concurrency:
 jobs:
   mirror:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60   # 10 X 2026: 07:42 UTC run hit 40 min (46 groups; runs took 10-24 min) and lost its work
     steps:
       - uses: actions/checkout@v4
         with:
