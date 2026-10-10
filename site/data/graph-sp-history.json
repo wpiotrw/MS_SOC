@@ -1,0 +1,15 @@
+{
+ "updated": "2026-10-10T08:35Z",
+ "baseline": "2026-10-10T08:35Z",
+ "lastRead": "2026-10-10T08:35Z",
+ "rolesNote": "GET /roleManagement/directory/roleDefinitions refused (403) - the app needs RoleManagement.Read.Directory (read-only, admin consent; README 5.2)",
+ "keepDays": 90,
+ "counts": {
+  "names": 1066,
+  "application": 762,
+  "delegated": 847,
+  "rsc": 60,
+  "roles": null
+ },
+ "events": []
+}
