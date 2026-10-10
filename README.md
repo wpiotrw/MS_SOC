@@ -848,6 +848,7 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 
 | Data | Zmiana |
 |---|---|
+| 2026-10-10 | §5cx-b — logo z napisem GUARDZILLA wszędzie (wcześniej sama postać bez napisu): 128 px desktop, 108 px tablet, 96 px telefon; tak samo w `/diff/`, `/week/` 120 px. |
 | 2026-10-10 | §5cx — logo GUARDZILLA (`site/assets/`, wersja jasna i ciemna wg motywu): na stronie głównej postać po lewej stronie bloku tytułu (96 px desktop, 72 px tablet, 52 px telefon), od 2160 px pełne logo z napisem w lewym marginesie nagłówka; postać i favicon także w `/diff/` i `/week/`. |
 | 2026-10-09 | README: pkt 11 „Postawienie od zera (nowe repozytorium, inny tenant)” — kroki i skutki zmiany tenanta; pkt 0, 2 i 4b obejmują wszystkie osiem workflow (`campaigns.yml`, `collector-check.yml`, `fpa-compare.yml` doszły); pkt 5.2: harmonogram migawki co 3 h, uprawnienie ServiceMessage.Read.All, kroki Message Center i kopii źródeł; `tools/New-FpaReaderApp.ps1` nadaje też ServiceMessage.Read.All. |
 | 2026-10-09 | §5cw-b — First-party apps samodzielne (wariant B): kopia ostatniej dobrej wersji każdego źródła w `cache/fpa/` (`tools/fpa_sources.py` co 3 h), `collect_fpa.py` czyta kopię, gdy źródło nie odpowiada; aplikacje z listy Microsoftu `known-guids.json` (po odfiltrowaniu uprawnień, licencji, ról, FIDO2, Purview) dopisane jako „named only in Microsoft docs” — 2 351 aplikacji zamiast 1 737; porównanie z Merillem opisane w zakładce; poprawiona etykieta „our tenant” → tenant demo Merilla. |
