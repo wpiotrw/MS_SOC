@@ -1,5 +1,16 @@
 [
  {
+  "file": "2026-10-10-who-was-granted-one-of-the-graph-permissions.kql",
+  "title": "Who was granted one of the Graph permissions that became grantable on 9 October",
+  "date": "2026-10-10",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Lists every successful grant in the last 14 days of the two AppFederatedCredentialIssuers application roles and of the nine delegated scopes that arrived with them, with who granted it and to which service principal. An empty result is the expected one; a row for AppFederatedCredentialIssuers.ReadWr",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
   "file": "2026-10-09-who-was-granted-an-application-role-that-deletes.kql",
   "title": "Who was granted an application role that deletes users' authentication methods",
   "date": "2026-10-09",
@@ -8,7 +19,10 @@
    "AuditLogs"
   ],
   "purpose": "Lists every successful grant in the last 90 days of one of the thirteen application roles that delete users' authentication methods, with who granted it and to which service principal. The identifiers are the ones Microsoft's permissions reference printed on 8 October. An empty result is the expecte",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs"
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
+  "reused": [
+   "2026-10-10"
+  ]
  },
  {
   "file": "2026-10-08-malicious-urls-in-teams-messages-with-the-qr.kql",
@@ -22,7 +36,8 @@
   "purpose": "Defender for Office 365 now analyses URLs inside QR codes in Teams messages after delivery and, per Message Center, marks them with QRCode in a UrlLocation column of MessageUrlInfo. That column is not on the published schema page yet, so the query reads it through column_ifexists: before the rollout",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageurlinfo-table",
   "reused": [
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -37,7 +52,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
   "reused": [
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -53,7 +69,8 @@
   "reused": [
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -69,7 +86,8 @@
   "reused": [
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -88,7 +106,8 @@
    "2026-10-06",
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -110,7 +129,8 @@
    "2026-10-06",
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -155,7 +175,8 @@
    "2026-10-06",
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -180,7 +201,8 @@
    "2026-10-06",
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
@@ -204,7 +226,8 @@
    "2026-10-06",
    "2026-10-07",
    "2026-10-08",
-   "2026-10-09"
+   "2026-10-09",
+   "2026-10-10"
   ]
  },
  {
