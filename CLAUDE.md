@@ -25403,8 +25403,10 @@ przeczytanych, 3 nieudane z nazwana przyczyna, 1 duplikat, 274 artykuly w oknie*
 Te trzy adresy wlasciciel poprawia w swojej liscie; kolektor ich nie „naprawia" po cichu.
 **11 X 2026 (§5dj) wlasciciel zdecydowal:** 365CloudCapsule usuniety z listy; Breakwater IT M365 Update →
 `https://breakwaterit.co.uk/guides/m365-update/` (domena .co.uk; stara .ca nie odpowiadala od 20 IX); Microsoft
-Security Experts Blog → `https://securitycommunity.microsoft.com/Blogs` (spolecznosc Microsoft Security wyszla z
-TechCommunity). Workflow „Collector check" wypisuje stan obu.
+Security Experts Blog → najpierw `https://securitycommunity.microsoft.com/Blogs` — Collector check (1365967): 46 adresow,
+zaden nie dal artykulow (portal bez kanalu RSS); blog jest na TechCommunity w nowej kategorii:
+`https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoftsecurityexperts`.
+Breakwater (Collector check 1365967): ok, 12 wpisow, kanal od korzenia witryny. Workflow „Collector check" wypisuje stan obu.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
