@@ -33,6 +33,8 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubles
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/gitops-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/how-to-manage-gitops-argo-cd-extension
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-deploy-gitops-argo-cd
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extension-migration
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extension-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
