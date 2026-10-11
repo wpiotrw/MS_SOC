@@ -1,7 +1,7 @@
 {
  "read": "2026-10-11",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 698,
+ "count": 696,
  "note": null,
  "messages": [
   {
@@ -10661,33 +10661,6 @@
    "bodyHash": "59e45fe71617b28d"
   },
   {
-   "id": "MC1457226",
-   "title": "Microsoft OneDrive: Refreshed file browsing and filtering experience in OneDrive Web",
-   "services": [
-    "Microsoft OneDrive"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-18",
-   "end": "2026-10-11",
-   "modified": "2026-08-18",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We're updating OneDrive for the web to align its file browsing experience with the modern SharePoint document library experience. This update introduces improved navigation and expanded filtering capabilities to help users find, organize, and manage files more efficiently across Microsoft 365. The changes also provide a more consistent experience between OneDrive and SharePoint. Thi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Targeted Release: Beginning in mid-August 2026 and expected to complete by late August 2026.",
-    "General Availability (Worldwide): Beginning in late August 2026 and expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "41dfe949d032c93f"
-  },
-  {
    "id": "MC1457230",
    "title": "Microsoft Outlook: Drag and drop calendar events to reschedule meetings",
    "services": [
@@ -12770,33 +12743,6 @@
     "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete by late October 2026."
    ],
    "bodyHash": "f9aa0a5dc24d7ccb"
-  },
-  {
-   "id": "MC1466299",
-   "title": "Microsoft Planner: New Planner usage report in the Microsoft 365 admin center",
-   "services": [
-    "Microsoft 365 suite",
-    "Planner"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-02",
-   "end": "2026-10-11",
-   "modified": "2026-09-02",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing a new Planner usage report in the Microsoft 365 admin center . This report provides administrators with visibility into how Planner is being used across their organization, including tenant-level active user metrics and user-level activity details. The new report helps administrators better understand Planner adoption and engagement, support reporting needs, and id…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early September 2026 and expected to complete in early September 2026."
-   ],
-   "bodyHash": "1ad0953f1584de26"
   },
   {
    "id": "MC1466302",
@@ -21468,6 +21414,20 @@
    "id": "MC1169914",
    "type": "removed",
    "title": "Activation keys for Windows 10 Extended Security Update might be incorrect",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-11",
+   "id": "MC1457226",
+   "type": "removed",
+   "title": "Microsoft OneDrive: Refreshed file browsing and filtering experience in OneDrive Web",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-11",
+   "id": "MC1466299",
+   "type": "removed",
+   "title": "Microsoft Planner: New Planner usage report in the Microsoft 365 admin center",
    "fields": {}
   }
  ]
