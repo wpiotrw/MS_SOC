@@ -69,13 +69,16 @@ jobs:
           git pull --rebase -q origin main
           git push origin main
 
+      - name: Prepare the deploy copy - data blocks as files (CLAUDE.md 5dl)
+        run: python3 tools/deploy_prep.py site _deploy
+
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/site"
+          app_location: "/_deploy"
           api_location: ""
           output_location: ""
           skip_app_build: true

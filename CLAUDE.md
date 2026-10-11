@@ -22218,6 +22218,14 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
     try { return (JSON.parse(s.textContent) || {}).nt || null; } catch (e) { return null; }
   })();
   if (!D) return;
+  /* §5dk-b (11 X 2026): to stay under 16 MiB the morning run now omits empty lists in what's-new entries and blog
+     posts ("a missing field reads the same") - this script read e.tags / e.criteria directly and the Learn, Blogs and
+     correlation sections stopped with "[nt learn] TypeError" (507 of 1 190 entries had no tags). A missing list IS
+     an empty list here. */
+  ["changes", "recent", "items", "top", "corr"].forEach(function (k) {
+    (D[k] || []).forEach(function (e) { if (!e || typeof e !== "object") return;
+      ["tags", "criteria", "links", "blogs", "sources"].forEach(function (f) { if (e[f] == null) e[f] = []; }); });
+  });
   var HUE = {};
   function hue(k){ if(!(k in HUE)){var h=0;for(var i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))%360;HUE[k]=h;} return HUE[k]; }
   function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n;}
@@ -28126,6 +28134,24 @@ swiezosci bez nazw workflow, plikow i CLAUDE.md. (K5) Repozytorium moze stac sie
 (dane cytuja je jako zrodlo: „Source repository", „CLAUDE.md collector", lista zrodel spolecznosci) strona pokazuje
 jako tekst „internal repository" (31 miejsc 11 X); archiwum KQL linkuje juz tylko `kql/index.json` na stronie;
 make_diff zamienia takie linki na tekst w `/diff/`. Dane i bramka bez zmian.
+
+**§5dl (11 X 2026, wlasciciel 20:04 z iPhone'a po §5dk: „dalej problemy — pasek zle sie umiejscawia, puste sekcje";
+zrzuty: pusty ekran z paskiem zakladek na srodku, „Loading today's brief…").** Zmierzone w silniku WebKit (ten sam,
+ktorego uzywa kazda przegladarka na iPhonie), ta sama strona, ta sama maszyna: dwa bloki JSON w HTML (8,9 MB stanu i
+5,3 MB katalogu) tokenizowane 4,7 s (Chromium 0,36 s) ZANIM ruszy pierwszy skrypt; DOMContentLoaded 6,9 s (Chromium
+1,2 s). Na telefonie kilka razy dluzej — Safari konczy czas albo pamiec. (L1) `tools/deploy_prep.py` robi z `site/`
+kopie do wdrozenia (`_deploy/`): w `index.html` (i nieskompresowanych stronach `history/`) kazdy blok JSON ponad
+200 000 znakow idzie do `data/page/<strona>-<id>.<hash>.json`, a w jego miejscu krotki skrypt czyta plik
+SYNCHRONICZNIE i wstawia TEN SAM element (to samo id, typ, tekst) w to samo miejsce — skrypty napisane dla bloku w HTML
+znajduja go tam, gdzie zawsze. Hash w nazwie: kopia z pamieci podrecznej nigdy nie sparuje nowej strony ze starymi
+danymi. Gdy plik sie nie wczyta, strona mowi to wprost zamiast „Loading…" bez konca. (L2) Repozytorium zostaje z
+pelna strona: bramka, `code_refresh.py`, `make_diff --morning` i przebiegi czytaja `site/index.html` jak dotad;
+wszystkie cztery workflow wdrazajace (Azure Static Web Apps CI/CD, Code refresh, Publish routine output, tenant
+snapshot) wolaja `deploy_prep.py site _deploy` i wdrazaja `/_deploy`. Wynik na kopii: HTML 16,7 → 2,5 MB, WebKit
+DOMContentLoaded 6,9 → 1,5 s, te same 127 249 elementow, t5cn 32/32, tbp 15/15. (L3) Przy okazji: od 11 X przebieg
+pomija w danych what's new puste listy („a missing field reads the same") — SKRYPT 15 czytal `e.tags` / `e.criteria`
+wprost i sekcje Microsoft Learn, Blogs i korelacji konczyly sie bledem (507 z 1 190 wpisow bez `tags`); brak listy
+= pusta lista (§5dk-b).
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
