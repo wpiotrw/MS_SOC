@@ -25401,6 +25401,10 @@ przeczytanych, 3 nieudane z nazwana przyczyna, 1 duplikat, 274 artykuly w oknie*
   `redirected-communities`);
 - Microsoft Entra Community Hub — te same wpisy co Microsoft Entra Blog (`duplicate`).
 Te trzy adresy wlasciciel poprawia w swojej liscie; kolektor ich nie „naprawia" po cichu.
+**11 X 2026 (§5dj) wlasciciel zdecydowal:** 365CloudCapsule usuniety z listy; Breakwater IT M365 Update →
+`https://breakwaterit.co.uk/guides/m365-update/` (domena .co.uk; stara .ca nie odpowiadala od 20 IX); Microsoft
+Security Experts Blog → `https://securitycommunity.microsoft.com/Blogs` (spolecznosc Microsoft Security wyszla z
+TechCommunity). Workflow „Collector check" wypisuje stan obu.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
