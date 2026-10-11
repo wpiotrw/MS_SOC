@@ -13528,6 +13528,14 @@ IdentityDirectoryEvents
     try { return (JSON.parse(s.textContent) || {}).nt || null; } catch (e) { return null; }
   })();
   if (!D) return;
+  /* §5dk-b (11 X 2026): to stay under 16 MiB the morning run now omits empty lists in what's-new entries and blog
+     posts ("a missing field reads the same") - this script read e.tags / e.criteria directly and the Learn, Blogs and
+     correlation sections stopped with "[nt learn] TypeError" (507 of 1 190 entries had no tags). A missing list IS
+     an empty list here. */
+  ["changes", "recent", "items", "top", "corr"].forEach(function (k) {
+    (D[k] || []).forEach(function (e) { if (!e || typeof e !== "object") return;
+      ["tags", "criteria", "links", "blogs", "sources"].forEach(function (f) { if (e[f] == null) e[f] = []; }); });
+  });
   var HUE = {};
   function hue(k){ if(!(k in HUE)){var h=0;for(var i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))%360;HUE[k]=h;} return HUE[k]; }
   function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n;}
