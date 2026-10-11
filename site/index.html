@@ -3995,7 +3995,8 @@ body .sec-body td:first-child>a[href^="http"]:hover{color:var(--accent)}
 .s5da-note{margin:6px 0 8px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:8px;font-size:12.5px;color:var(--muted);line-height:1.5}
 /* phone: tables as cards (the script labels every cell with its column) */
 @media (max-width:720px){
- .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:visible!important;max-width:100%}
+ .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:auto;max-width:100%;min-width:0}   /* §5di: scroll until the table is cards */
+ .tabpanel .s5da-cw{overflow-x:visible!important}
  table.s5da-cards,table.s5da-cards>tbody{display:block;width:100%!important;min-width:0!important;border:0!important}
  table.s5da-cards>thead{display:none}
  table.s5da-cards>caption{display:block;text-align:left;padding:0 0 6px}
@@ -4177,6 +4178,10 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .s5bn-empty{display:block;margin:10px 0 6px;padding:11px 14px 11px 40px;position:relative;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text);border:1px solid var(--ok);border-left:5px solid var(--ok);border-radius:10px;background:color-mix(in srgb,var(--ok) 9%,transparent)}
 .s5bn-empty::before{content:"✓";position:absolute;left:13px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;line-height:18px;text-align:center;font-weight:900}
 .s5bn-empty .s5dc-empty{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:var(--muted)}
+/* §5di: when /diff/ is older than the brief the header link carries an age label ("stale"); on a phone the dateline
+   must wrap, measured 11 X 2026: 477 px at 390 */
+@media (max-width:720px){header.top p.dateline{white-space:normal;flex-wrap:wrap;max-width:100%;min-width:0;overflow-wrap:anywhere}header.top p.dateline .s5czb-dlink{white-space:normal;max-width:100%}}
+
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 11 October 2026</b> &middot; published 06:46 Warsaw &middot; 27 September &ndash; 11 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 46 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>5</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>84</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>5</b> changes since 10 Oct<span>&middot; 1 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>6857</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <div class="wrap"><div class="tabpanel" id="tab-overview" data-tab="Overview" hidden><section id="elapsed-overview" data-nav="Just passed"><div class="sec-head"><h2>Section A</h2><p class="sec-title">Deadlines that passed in the last 7 days</p> <span class="sec-count">5</span></div><div class="sec-body"><p class="sec-note"><b>5</b> rows. A deadline stays here for seven days after it falls, then leaves the page for the state&#x27;s dropped list with a written reason rather than vanishing. They fell: <b>2</b> on 10 October, <b>3</b> on 5 October.</p><div class="tw"><table><thead><tr><th>Item</th><th>Product</th><th>Deadline</th><th>Days</th><th>What it means</th><th>Status</th><th>Source</th></tr></thead><tbody>
@@ -16138,7 +16143,7 @@ IdentityDirectoryEvents
     try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
     return null;
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
   function openTab(id) { var b = tabBtn(id); if (b) b.click(); }
 
@@ -16379,12 +16384,13 @@ IdentityDirectoryEvents
   /* ---- R6: CSV ---- */
   function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
   function csv() {
-    if (!onSite()) return;   // the claude.ai artifact viewer grants pages no download permission
+    /* §5di: the claude.ai artifact viewer grants pages no download permission - there the button copies the CSV */
+    var site = onSite();
     [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
       if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
       t.setAttribute("data-s5bi-csv", "1");
-      var b = el("button", "s5bi-csv", "CSV"); b.type = "button"; b.title = "Download this table as filtered on screen (CSV for Excel)";
-      b.setAttribute("aria-label", "Download this table as CSV");
+      var b = el("button", "s5bi-csv", site ? "CSV" : "Copy CSV"); b.type = "button"; b.title = site ? "Download this table as filtered on screen (CSV for Excel)" : "Copy this table, as filtered on screen, as CSV (the viewer allows no downloads)";
+      b.setAttribute("aria-label", site ? "Download this table as CSV" : "Copy this table as CSV");
       b.addEventListener("click", function () {
         var out = [];
         var hr = t.tHead.rows[t.tHead.rows.length - 1];
@@ -16399,6 +16405,15 @@ IdentityDirectoryEvents
         });
         var p = t.closest(".tabpanel"), sec = t.closest("section, details");
         var name = ((p ? p.id.replace(/^tab-/, "") : "table") + "-" + (sec && sec.id ? sec.id : "t") + "-" + (json("soc-brief-state") || {}).briefDate).replace(/[^\w.-]+/g, "-");
+        /* §5di (11 X 2026, morning task: "the CSV button does nothing in the artifact viewer"): the viewer's sandbox drops
+           downloads, so there - as the First-party apps button already did - the CSV goes to the clipboard and the
+           button says so; on the published site it downloads as before */
+        if (!onSite()) {
+          var cp = navigator.clipboard && navigator.clipboard.writeText(out.join("\r\n")), lab0 = b.textContent;
+          var fin = function (ok) { b.textContent = ok ? "Copied " + (out.length - 1) + " rows" : "Copy failed"; setTimeout(function () { b.textContent = lab0; }, 2500); };
+          if (cp && cp.then) cp.then(function () { fin(true); }, function () { fin(false); }); else fin(false);
+          return;
+        }
         var blob = new Blob(["﻿" + out.join("\r\n")], { type: "text/csv;charset=utf-8" });
         var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name + ".csv"; a.textContent = "CSV"; a.hidden = true;
         document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
@@ -16933,7 +16948,7 @@ IdentityDirectoryEvents
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
   function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   var G = "00000003-0000-0000-c000-000000000000";
   /* §5cw-b (9 X 2026, owner: "do B" - our own base list, Merill as a supplement and a backup): the applications
      Microsoft names in its entra-docs known-guids.json and no other source carries are read from
@@ -17307,7 +17322,7 @@ IdentityDirectoryEvents
     var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || "");
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
 
   /* §5by (28 IX 2026), owner: "571879 — I clicked and only guessed it was MC; the reader must
      know what it is". A bare identifier is not information: every row now says WHAT KIND of
@@ -17989,7 +18004,7 @@ IdentityDirectoryEvents
     }
     body.appendChild(el("p", "mcb-none", "A post counts once per service it names, so a row can repeat a post of another row; \u201cAll services\u201d counts each post once. Weekends are shown on purpose: an empty day is a result."));
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   /* the tenant's own Message Center (tools/mc_tenant.py via GitHub Actions, §5bo point 1) —
      the one source that ALWAYS carries services, category and Microsoft's summary */
   function mergeTenant(T) {
@@ -19785,7 +19800,7 @@ IdentityDirectoryEvents
   "use strict";
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
   function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   var ST = jb("soc-brief-state") || {}, DAY = ST.briefDate || "";
   var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
@@ -22122,7 +22137,7 @@ IdentityDirectoryEvents
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] + " " + m[1] : (d || ""); }
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || ""); }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   function today() { var n = new Date(); return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2); }
   function daysTo(d) { return Math.round((Date.parse(String(d).slice(0, 10) + "T12:00:00Z") - Date.parse(today() + "T12:00:00Z")) / 864e5); }
   function inDays(n) { return n === 0 ? "today" : n === 1 ? "tomorrow" : n > 0 ? "in " + n + " days" : Math.abs(n) + " day" + (n === -1 ? "" : "s") + " ago"; }
@@ -23802,6 +23817,10 @@ IdentityDirectoryEvents
     var L = labels(tb); if (!L || L.length < 2) return;
     if (!tb.classList.contains("s5da-cards")) {
       tb.classList.add("s5da-cards");
+      /* §5di (11 X 2026, morning task, item 26: "Graph API, First-party apps, Component versions and Sources widen the
+         document at 390 px"): the wrapper may stop scrolling only once its table IS cards - until this script has run
+         (2-4 s on a phone) the wide table scrolls inside its wrapper instead of pushing the page sideways */
+      var pw = tb.parentElement; if (pw && /(^|\s)(tw|mcb-gwrap|s5cr-tw)(\s|$)/.test(pw.className || "")) pw.classList.add("s5da-cw");
       var ti = -1; L.forEach(function (t, i) { if (ti < 0 && TITLE.test(t)) ti = i; });
       if (ti < 0) { for (var i = 0; i < L.length; i++) if (L[i]) { ti = i; break; } }
       tb.setAttribute("data-s5da-ti", String(ti));
