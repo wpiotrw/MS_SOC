@@ -1,7 +1,7 @@
 {
- "read": "2026-10-10",
+ "read": "2026-10-11",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 699,
+ "count": 698,
  "note": null,
  "messages": [
   {
@@ -404,28 +404,6 @@
     "General Availability (Worldwide): Begins rolling out in February 2026 (previously late October), expected to complete February 2026 (previously early November)."
    ],
    "bodyHash": "155400cb916efa4f"
-  },
-  {
-   "id": "MC1169914",
-   "title": "Activation keys for Windows 10 Extended Security Update might be incorrect",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-11",
-   "end": "2026-10-11",
-   "modified": "2025-10-11",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Some organizations might have received incorrect Multiple Activation Keys (MAK) for Windows 10 Extended Security Update (ESU) activation. These keys are visible in the Billing section, under Your products page, and then the Volume licensing tab. Incorrect MAKs will be prefixed with the sequence ***DO NOT USE*** followed by a number. ESU keys without this sequence are not affected by this issue. Yo…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "2ae47dfd96547680"
   },
   {
    "id": "MC1171745",
@@ -21483,6 +21461,13 @@
    "id": "MC1169587",
    "type": "removed",
    "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-11",
+   "id": "MC1169914",
+   "type": "removed",
+   "title": "Activation keys for Windows 10 Extended Security Update might be incorrect",
    "fields": {}
   }
  ]
