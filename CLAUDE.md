@@ -3511,8 +3511,8 @@ od tej, ktora po cichu wypadla (§0b).
 | `review-stage3-work-tools` | **etap 3 przegladu: narzedzia pracy** — zakladki w czterech grupach, telefon z trzema zakladkami i menu, kolejka „do przejrzenia" (stan w przegladarce czytelnika), historia wartosci wpisu z `site/data/history.json`, Ctrl+K po wszystkich zakladkach i katalogu, CSV kazdej tabeli, strona tygodnia `site/week/` drukowana do PDF | 2026-09-25 | `ZBUDOWANE` | §5bi, pozycja 112, `write_history()` i `write_week()` w `mirror_artifact.py`. R10 (leniwe budowanie zakladek) NIE wdrozone — wymaga zmiany zamrozonej powloki (§5w). **Brakuje pierwszego artefaktu i pierwszego lustra z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `review-stage4-overview-mobile` | **Overview mowi najpierw, co wazne; strona glowna i `/diff/` dzialaja na telefonie** — trzy zdania dnia, karty „Act on this first" z pozycjami, os 14 dni, 5 ostatnich zmian Microsoftu w Graph i rolach, tabela produktow bez 45 tagow spolecznosci (jeden przycisk je pokazuje), jeden wykres, „Collection health" zwiniete na dole; na telefonie filtry pod „Filters", tabela produktow i tabele `/diff/` jako karty, 12 px dla etykiet | 2026-09-25 | `ZBUDOWANE` | §5bk, pozycja 113, `MOBILE_BODY` w `make_diff.py`. **Brakuje pierwszego artefaktu i pierwszego przebiegu zmian z tego pliku** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
 | `first-party-apps-tab` | **zakladka First-party apps i sekcja na `/diff/`** — aplikacje Microsoftu (merill/microsoft-info, ROADtools, Graph Pre-Consent Explorer, Graph permissions reference, entrascopes), uprawnienia do API z poziomem L1–L4, zmiany dzien do dnia, zgody w tenancie (workflow `fpa-tenant.yml`), CSV | 2026-09-25 | `ZBUDOWANE` | §5bl, `collect_fpa.py`, pozycja 114, `diff_fpa()` w `make_diff.py`, `tools/fpa_tenant.py`. **Brakuje pierwszego przebiegu porannego z `collect_fpa.py` i zgody administratora dla aplikacji „MS-SOC First-party apps reader"** — **ZBUDOWANE: zweryfikowane 28 IX 2026 na opublikowanej stronie (pozycje bramki OK, audyt §5bz)** |
-| `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZASPECYFIKOWANE` | §5by, pozycje 116-119. **Brakuje pierwszego artefaktu zbudowanego z tego pliku** |
-| `audit-5bz` | **poprawki z audytu 28 IX 2026 i workflow code refresh**: stara `/diff/` nazwana, kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, jedna definicja „new", liczniki = listy, FPA bez „0 of 120", jedne nazwy uslug, Ctrl+K, karty Today/Deadlines na telefonie, Copy query, noty zwiniete | 2026-09-28 | `ZASPECYFIKOWANE` | §5bz, pozycja 120, `.github/workflows/code-refresh.yml`, `tools/code_refresh.py` |
+| `readability-5by` | **przebieg czytelnosci i swiezosci**: pasek zakladek w jednej linii z „More", ramka Source lists w Reference, typy przy identyfikatorach, MC z tenantem (swiezosc, kolumny, siatka dni), siatki w przegladarkach artykulow, skoki w panelach, czytelny First-party apps, what's new z learn.microsoft.com | 2026-09-28 | `ZBUDOWANE` | §5by; pozycje 116, 117, 118, 119 — OK w bramce kazdego przebiegu, potwierdzone 11 X 2026 (poranne zadanie wciaz wypisywalo stan sprzed publikacji) |
+| `audit-5bz` | **poprawki z audytu 28 IX 2026 i workflow code refresh**: stara `/diff/` nazwana, kafelek otwiera sekcje z wynikami, commit przy zmianie Graph, jedna definicja „new", liczniki = listy, FPA bez „0 of 120", jedne nazwy uslug, Ctrl+K, karty Today/Deadlines na telefonie, Copy query, noty zwiniete | 2026-09-28 | `ZBUDOWANE` | §5bz; pozycja 120 OK w bramce kazdego przebiegu, workflow code refresh dziala od 28 IX — potwierdzone 11 X 2026 |
 | `views-5cd` | **widoki w duzych zakladkach**: Graph API, Roles, Component versions, Message Center, Microsoft Learn, Microsoft Blogs, Community Articles — widok domyslny z tym, po co czytelnik przychodzi, jedno pytanie na widok | 2026-09-29 | `ZBUDOWANE` | §5cd, pozycja 121 |
 
 
@@ -26164,7 +26164,11 @@ def urls_from(path):
     out = set()
     def walk(o, k=None):
         if isinstance(o, dict):
-            for a, b in o.items(): walk(b, a)
+            for a, b in o.items():
+                # 5di (11 X 2026): the 14-day register repeats links its own day already checked; left out, so the
+                # sweep is the same whether it runs before or after ledger14 is attached, and the budget goes to today
+                if a == "ledger14": continue
+                walk(b, a)
         elif isinstance(o, list):
             for x in o: walk(x, k)
         elif isinstance(o, str) and k and KEY.search(k) and re.match(r"https?://", o):
@@ -28062,6 +28066,25 @@ bez etykiety (pas zaznaczony na czerwono, etykieta nachodzila na „today"). (2)
 moved in this tab…" — jest zielonym polem „all clear" (✓, 14,5 px, ramka i tlo w kolorze ok) we WSZYSTKICH zakladkach;
 w Graph API i Roles pod nim jedna linia, co sie pojawi. Klik kafelka roli otwiera ten sam pelny panel co Find
 (sprawdzone na kopii z 08/10/2026: zmiany pole po polu, potem panel Tenant Governance Administrator).
+
+**§5di (11 X 2026, raport porannego zadania 11 X: „Item 26 BRAK: at 390 px Graph API, First-party apps, Component
+versions and Sources widen the document sideways"; „the page offers a file download that does nothing in the
+artifact viewer"; „link sweep ran before the 14-day ledger was attached, 307 addresses ran out of budget";
+„Agreed but not yet built (§0f): readability-5by and audit-5bz").** Zmierzone: na opublikowanej stronie po 9 s
+zadna zakladka nie rozpycha dokumentu; po 0,8-2,5 s (tak mierzy zadanie, zanim skrypty skoncza) rozpychaly
+cztery: apistats 835 px, tabela FPA 1 201, Component versions 1 788, Sources 2 029. (I1) Przyczyna: regula §5da na
+telefonie `overflow-x:visible` dla KAZDEGO `.tw` — szeroka tabela, zanim skrypt zamieni ja w karty, pchala strone.
+Teraz `.tw` / `.mcb-gwrap` / `.s5cr-tw` przewijaja sie same, a `visible` dostaje dopiero opakowanie z klasa
+`s5da-cw`, ktora cardify() nadaje razem z kartami. Po zmianie 0 rozpychajacych zakladek przy 0,8 s, 2,5 s i 9 s.
+(I2) Przy nieaktualnej `/diff/` link w naglowku niesie etykiete wieku i dateline mial 477 px przy 390 — na telefonie
+zawija sie. (I3) `onSite()` (szesc kopii w SKRYPCIE 17) zwraca falsz takze dla strony w ramce (`window.top !==
+window.self`) — przegladarka artefaktow, jakakolwiek ma domene; tam przyciski tabel brzmia „Copy CSV" i kopiuja CSV do
+schowka (jak juz robil First-party apps), na stronie pobieraja plik jak dotad. (I4) `check_links.py` pomija klucz
+`ledger14`: rejestr powtarza linki sprawdzone w ich dniu, a wynik nie zalezy juz od kolejnosci (przed czy po
+doklejeniu rejestru); budzet 480 s bez zmian — nieodpowiedziane adresy sa `unchecked` z definicji. (I5) Rejestr §0f:
+`readability-5by` i `audit-5bz` = `ZBUDOWANE` (pozycje 116-120 OK w kazdym przebiegu). Bez zmian w promptach:
+rejestr i zapytanie KQL trafiaja do repozytorium z przebiegu lustra 07:00 i workflow „Campaign tracking" — 11 X oba
+sa (changelog.json: 47 wpisow z 11 X, `site/kql/2026-10-11-…kql`).
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
@@ -29976,7 +29999,7 @@ odtad CZTERNASCIE (4-17).**
     try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
     return null;
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   function tabBtn(id) { return document.getElementById("tabbtn-tab-" + id); }
   function openTab(id) { var b = tabBtn(id); if (b) b.click(); }
 
@@ -30217,12 +30240,13 @@ odtad CZTERNASCIE (4-17).**
   /* ---- R6: CSV ---- */
   function csvCell(s) { s = String(s || "").replace(/\s+/g, " ").trim(); return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
   function csv() {
-    if (!onSite()) return;   // the claude.ai artifact viewer grants pages no download permission
+    /* §5di: the claude.ai artifact viewer grants pages no download permission - there the button copies the CSV */
+    var site = onSite();
     [].forEach.call(document.querySelectorAll(".tabpanel table"), function (t) {
       if (t.getAttribute("data-s5bi-csv") || !t.tHead || t.tBodies[0] == null || t.tBodies[0].rows.length < 3) return;
       t.setAttribute("data-s5bi-csv", "1");
-      var b = el("button", "s5bi-csv", "CSV"); b.type = "button"; b.title = "Download this table as filtered on screen (CSV for Excel)";
-      b.setAttribute("aria-label", "Download this table as CSV");
+      var b = el("button", "s5bi-csv", site ? "CSV" : "Copy CSV"); b.type = "button"; b.title = site ? "Download this table as filtered on screen (CSV for Excel)" : "Copy this table, as filtered on screen, as CSV (the viewer allows no downloads)";
+      b.setAttribute("aria-label", site ? "Download this table as CSV" : "Copy this table as CSV");
       b.addEventListener("click", function () {
         var out = [];
         var hr = t.tHead.rows[t.tHead.rows.length - 1];
@@ -30237,6 +30261,15 @@ odtad CZTERNASCIE (4-17).**
         });
         var p = t.closest(".tabpanel"), sec = t.closest("section, details");
         var name = ((p ? p.id.replace(/^tab-/, "") : "table") + "-" + (sec && sec.id ? sec.id : "t") + "-" + (json("soc-brief-state") || {}).briefDate).replace(/[^\w.-]+/g, "-");
+        /* §5di (11 X 2026, morning task: "the CSV button does nothing in the artifact viewer"): the viewer's sandbox drops
+           downloads, so there - as the First-party apps button already did - the CSV goes to the clipboard and the
+           button says so; on the published site it downloads as before */
+        if (!onSite()) {
+          var cp = navigator.clipboard && navigator.clipboard.writeText(out.join("\r\n")), lab0 = b.textContent;
+          var fin = function (ok) { b.textContent = ok ? "Copied " + (out.length - 1) + " rows" : "Copy failed"; setTimeout(function () { b.textContent = lab0; }, 2500); };
+          if (cp && cp.then) cp.then(function () { fin(true); }, function () { fin(false); }); else fin(false);
+          return;
+        }
         var blob = new Blob(["﻿" + out.join("\r\n")], { type: "text/csv;charset=utf-8" });
         var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name + ".csv"; a.textContent = "CSV"; a.hidden = true;
         document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
@@ -30771,7 +30804,7 @@ odtad CZTERNASCIE (4-17).**
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function json(idv) { var n = document.getElementById(idv); try { return n ? JSON.parse(n.textContent) : null; } catch (e) { return null; } }
   function days(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 864e5); }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   var G = "00000003-0000-0000-c000-000000000000";
   /* §5cw-b (9 X 2026, owner: "do B" - our own base list, Merill as a supplement and a backup): the applications
      Microsoft names in its entra-docs known-guids.json and no other source carries are read from
@@ -31145,7 +31178,7 @@ odtad CZTERNASCIE (4-17).**
     var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || "");
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
 
   /* §5by (28 IX 2026), owner: "571879 — I clicked and only guessed it was MC; the reader must
      know what it is". A bare identifier is not information: every row now says WHAT KIND of
@@ -31827,7 +31860,7 @@ odtad CZTERNASCIE (4-17).**
     }
     body.appendChild(el("p", "mcb-none", "A post counts once per service it names, so a row can repeat a post of another row; \u201cAll services\u201d counts each post once. Weekends are shown on purpose: an empty day is a result."));
   }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   /* the tenant's own Message Center (tools/mc_tenant.py via GitHub Actions, §5bo point 1) —
      the one source that ALWAYS carries services, category and Microsoft's summary */
   function mergeTenant(T) {
@@ -33623,7 +33656,7 @@ odtad CZTERNASCIE (4-17).**
   "use strict";
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
   function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   var ST = jb("soc-brief-state") || {}, DAY = ST.briefDate || "";
   var MONS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + MONS[+m[2] - 1] : (d || ""); }
@@ -35960,7 +35993,7 @@ odtad CZTERNASCIE (4-17).**
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] + " " + m[1] : (d || ""); }
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? (+m[3]) + " " + M[+m[2] - 1] : (d || ""); }
-  function onSite() { return /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }   /* §5di: a framed page (the artifact viewer, whatever its host) is not the site */
   function today() { var n = new Date(); return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2); }
   function daysTo(d) { return Math.round((Date.parse(String(d).slice(0, 10) + "T12:00:00Z") - Date.parse(today() + "T12:00:00Z")) / 864e5); }
   function inDays(n) { return n === 0 ? "today" : n === 1 ? "tomorrow" : n > 0 ? "in " + n + " days" : Math.abs(n) + " day" + (n === -1 ? "" : "s") + " ago"; }
@@ -37640,6 +37673,10 @@ odtad CZTERNASCIE (4-17).**
     var L = labels(tb); if (!L || L.length < 2) return;
     if (!tb.classList.contains("s5da-cards")) {
       tb.classList.add("s5da-cards");
+      /* §5di (11 X 2026, morning task, item 26: "Graph API, First-party apps, Component versions and Sources widen the
+         document at 390 px"): the wrapper may stop scrolling only once its table IS cards - until this script has run
+         (2-4 s on a phone) the wide table scrolls inside its wrapper instead of pushing the page sideways */
+      var pw = tb.parentElement; if (pw && /(^|\s)(tw|mcb-gwrap|s5cr-tw)(\s|$)/.test(pw.className || "")) pw.classList.add("s5da-cw");
       var ti = -1; L.forEach(function (t, i) { if (ti < 0 && TITLE.test(t)) ti = i; });
       if (ti < 0) { for (var i = 0; i < L.length; i++) if (L[i]) { ti = i; break; } }
       tb.setAttribute("data-s5da-ti", String(ti));
@@ -39718,7 +39755,8 @@ body .sec-body td:first-child>a[href^="http"]:hover{color:var(--accent)}
 .s5da-note{margin:6px 0 8px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:8px;font-size:12.5px;color:var(--muted);line-height:1.5}
 /* phone: tables as cards (the script labels every cell with its column) */
 @media (max-width:720px){
- .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:visible!important;max-width:100%}
+ .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:auto;max-width:100%;min-width:0}   /* §5di: scroll until the table is cards */
+ .tabpanel .s5da-cw{overflow-x:visible!important}
  table.s5da-cards,table.s5da-cards>tbody{display:block;width:100%!important;min-width:0!important;border:0!important}
  table.s5da-cards>thead{display:none}
  table.s5da-cards>caption{display:block;text-align:left;padding:0 0 6px}
@@ -39900,6 +39938,9 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .s5bn-empty{display:block;margin:10px 0 6px;padding:11px 14px 11px 40px;position:relative;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text);border:1px solid var(--ok);border-left:5px solid var(--ok);border-radius:10px;background:color-mix(in srgb,var(--ok) 9%,transparent)}
 .s5bn-empty::before{content:"✓";position:absolute;left:13px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;line-height:18px;text-align:center;font-weight:900}
 .s5bn-empty .s5dc-empty{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:var(--muted)}
+/* §5di: when /diff/ is older than the brief the header link carries an age label ("stale"); on a phone the dateline
+   must wrap, measured 11 X 2026: 477 px at 390 */
+@media (max-width:720px){header.top p.dateline{white-space:normal;flex-wrap:wrap;max-width:100%;min-width:0;overflow-wrap:anywhere}header.top p.dateline .s5czb-dlink{white-space:normal;max-width:100%}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
