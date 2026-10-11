@@ -3893,7 +3893,7 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
  header.top .title-row.s5cz-room{padding-right:370px}
 }
 @media (max-width:1099px){.s5cz-fresh{margin:8px 0 0}}
-@media (max-width:720px){.s5cz-fresh{padding:6px 10px;font-size:12px}.s5cz-fresh .s5cz-fl:nth-of-type(3){display:none}.s5cz-fk{min-width:64px}}
+@media (max-width:720px){.s5cz-fresh{padding:6px 10px;font-size:12px}.s5cz-fk{min-width:64px}}
 .s5cz-chip{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 10px;padding:6px 11px;border:1px solid var(--ok,#1a7f37);
  border-radius:999px;background:color-mix(in srgb,var(--ok,#1a7f37) 8%,var(--surface,#fff));font-size:12.5px;width:max-content;max-width:100%}
 .s5cz-chip .s5cz-dot{margin-right:3px}
@@ -4181,6 +4181,10 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 /* §5di: when /diff/ is older than the brief the header link carries an age label ("stale"); on a phone the dateline
    must wrap, measured 11 X 2026: 477 px at 390 */
 @media (max-width:720px){header.top p.dateline{white-space:normal;flex-wrap:wrap;max-width:100%;min-width:0;overflow-wrap:anywhere}header.top p.dateline .s5czb-dlink{white-space:normal;max-width:100%}}
+/* §5dk: an internal-repository reference shown as text (the repository may become private) */
+.s5dk-int{color:var(--muted);font-style:italic}
+/* §5dk: a section reached from the sticky tab bar starts below it on a phone */
+@media (max-width:720px){.tabpanel section[id],.tabpanel details[id],.tabpanel [data-s5cd-v]{scroll-margin-top:96px}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 11 October 2026</b> &middot; published 06:46 Warsaw &middot; 27 September &ndash; 11 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 46 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>5</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>84</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>5</b> changes since 10 Oct<span>&middot; 1 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>6857</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -8321,6 +8325,21 @@ IdentityDirectoryEvents
    ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
    in the chart titles was reported by the owner on 2 Sep 2026.
    =========================================================================== */
+/* §5dk (11 X 2026, owner on an iPhone: "the page loads very slowly; after a refresh in Safari it loads or it does not;
+   some sections stay empty"). Measured that day with the CPU slowed 4x (a phone): 57 calls of JSON.parse on the two
+   state blocks (10.2 MB and 5.3 MB), 6.5 s of parsing, load event at 21 s - every script parses the same text again,
+   and each copy is ~10 MB of memory Safari has to collect. One parse per text: the first call keeps the object, every
+   later call with the same text gets it back. A block rewritten by a script (§5db) is a new text and is parsed once
+   more; at most three texts are kept. Only strings over 500 000 characters and calls without a reviver. */
+(function () {
+  if (window.__socJP) return; window.__socJP = 1;
+  var P = JSON.parse, C = [];
+  JSON.parse = function (t, rv) {
+    if (typeof t !== "string" || t.length < 500000 || rv) return P.apply(JSON, arguments);
+    for (var i = 0; i < C.length; i++) if (C[i][0].length === t.length && C[i][0] === t) return C[i][1];
+    var v = P.call(JSON, t); C.push([t, v]); if (C.length > 3) C.shift(); return v;
+  };
+})();
 /* §5db (10 X 2026, owner: "Bradley says this Graph permission appeared on 9 X - why does our page say CHANGED?").
    The register (ledger14) written before §5db recorded a catalog entry that moved from "not in this tenant" (known
    only from Microsoft's deployment map) into the tenant as four CHANGED fields (kind, docStatus, version, changed).
@@ -22455,7 +22474,7 @@ IdentityDirectoryEvents
     body.innerHTML = "";
     var C = D.campaigns || [];
     var intro = el("p", "s5cu-intro");
-    intro.textContent = "A campaign is one change Microsoft runs over weeks or months — a retirement, an enforcement, the end of support for a version, a setting that switches on by default — followed from its first post to its last date across Message Center, Microsoft blogs and Learn, the community sources and the watched YouTube channels. Found and grouped by this portal’s own code (tools/campaigns.py) on every run; last run " + dmy(D.day) + ".";
+    intro.textContent = "A campaign is one change Microsoft runs over weeks or months — a retirement, an enforcement, the end of support for a version, a setting that switches on by default — followed from its first post to its last date across Message Center, Microsoft blogs and Learn, the community sources and the watched YouTube channels. Found and grouped by this portal’s own code on every run; last run " + dmy(D.day) + ".";
     body.appendChild(intro);
     var k = D.counts || {};
     var kp = el("div", "s5cu-kpi");
@@ -22891,10 +22910,10 @@ IdentityDirectoryEvents
       var p = document.createElement("p"); p.className = "s5cv-kqa";
       var b = document.createElement("b"); b.textContent = "Archive: " + ix.length + " queries";
       p.appendChild(b);
-      p.appendChild(document.createTextNode(" — every query this brief has published since " + dates[0] + ", one file each, kept in the repository (newest " + dates[dates.length - 1] + "): "));
-      var a1 = document.createElement("a"); a1.href = "https://github.com/wpiotrw/MS_SOC/tree/main/site/kql"; a1.target = "_blank"; a1.rel = "noopener"; a1.textContent = "folder site/kql on GitHub";
+      p.appendChild(document.createTextNode(" — every query this brief has published since " + dates[0] + ", one file each, kept on this site (newest " + dates[dates.length - 1] + "): "));
+      /* §5dk: no link to the repository (it may become private); the site keeps the index and every file */
       var a2 = document.createElement("a"); a2.href = "kql/index.json"; a2.target = "_blank"; a2.rel = "noopener"; a2.textContent = "index.json (title, date, product, tables, purpose, source)";
-      p.appendChild(a1); p.appendChild(document.createTextNode(" · ")); p.appendChild(a2);
+      p.appendChild(a2);
       var first = body.querySelector(".kq"); body.insertBefore(p, first || null);
     }).catch(function () {});
   }
@@ -23459,13 +23478,13 @@ IdentityDirectoryEvents
 
   /* which tab is refreshed by what */
   var TABS = {
-    graph: { by: "GitHub Actions every 3 h (our tenant's Graph permissions) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
-    roles: { by: "GitHub Actions every 3 h (role definitions read from our tenant) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
-    fpa: { by: "GitHub Actions every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
-    mc: { by: "GitHub Actions every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
-    campaigns: { by: "GitHub Actions twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
-    hunting: { by: "the morning brief; queries archived by GitHub Actions twice a day", keys: ["campaigns"], every: 0 },
-    learn: { by: "the morning brief; our copy of the Learn pages refreshed by GitHub Actions 4 times a day", keys: ["learn"], every: 6 }
+    graph: { by: "an automated job every 3 h (our tenant's Graph permissions) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
+    roles: { by: "an automated job every 3 h (role definitions read from our tenant) + the morning brief", keys: ["graphsp", "tenant"], every: 3 },
+    fpa: { by: "an automated job every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
+    mc: { by: "an automated job every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
+    campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
+    hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
+    learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
   };
   function newest(keys) { var best = null; (keys || []).forEach(function (k) { if (tsAt(k) && (!best || tsAt(k) > tsAt(best))) best = k; }); return best; }
 
@@ -23491,11 +23510,11 @@ IdentityDirectoryEvents
     line("Brief", b.morning || b.day, b.afternoon ? "afternoon pass " + hm(+b.afternoon.slice(11, 13), +b.afternoon.slice(14, 16)) : (age > 0 ? (age === 1 ? "yesterday's brief" : age + " days old") : "morning pass"), !!b.morning,
       "When today's brief was built. The morning pass reads every source at about 06:00 Warsaw and is published here soon after; the afternoon pass (21:00) re-reads them for the “what changed” page. The frame is green when the brief is from today, amber when it is from yesterday, red when older.");
     if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "", undefined,
-      "When the code of this page (layout, tabs, scripts) was last rebuilt from CLAUDE.md by the workflow “Code refresh”. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
+      "When the code of this page (layout, tabs, scripts) was last rebuilt from the specification. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
     var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn"]);
     var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy" };
     if (nk) line("Latest data", F[nk].at, NAMES[nk], undefined,
-      "The newest data a GitHub Actions workflow wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
+      "The newest data an automated job wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
     /* §5cz-b (owner 10 X 12:25: "a more visible link to /diff/, maybe in a frame") */
     var dl = el("a", "s5cz-diffbtn"); dl.href = "diff/"; dl.title = "The “what changed” page: everything that moved between the end of the previous day and this evening, by tab and by technology, with the afternoon pass";
     dl.appendChild(el("span", "s5cz-diffic", "\u21c4")); dl.appendChild(el("span", null, "What changed since the last brief")); dl.appendChild(el("span", "s5cz-diffar", "\u203a"));
@@ -23527,7 +23546,7 @@ IdentityDirectoryEvents
         if (b.afternoon) { c.appendChild(el("span", "s5cz-by", " · afternoon pass ")); c.appendChild(stamp(b.afternoon)); }
         if (t) c.appendChild(el("span", "s5cz-by", " · " + t.by));
       }
-      c.appendChild(qmark(t && k ? "When this tab's data was last refreshed and by what: " + t.by + (t.every ? ". The next refresh is expected about " + t.every + " h later (GitHub Actions queues can delay it)." : ".") + " Times are Warsaw time."
+      c.appendChild(qmark(t && k ? "When this tab's data was last refreshed and by what: " + t.by + (t.every ? ". The next refresh is expected about " + t.every + " h later (a queue can delay it)." : ".") + " Times are Warsaw time."
         : "This tab is built by the morning brief (about 06:00 Warsaw) and does not change until the next brief" + (b.afternoon ? "; the afternoon pass re-read the sources for the “what changed” page" : "") + ". Times are Warsaw time."));
       var head = p.querySelector(":scope > .s5ca-head");
       if (head) p.insertBefore(c, head.nextSibling); else p.insertBefore(c, p.firstChild);
@@ -23584,7 +23603,7 @@ IdentityDirectoryEvents
     var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
     var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
     c2.appendChild(ul(["Author: Piotr Wiśniewski", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
-      (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: ")); x.appendChild(link("github.com/wpiotrw/MS_SOC (README)", "https://github.com/wpiotrw/MS_SOC#readme")); return x; })()]));
+      (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in a private repository (§5dk)")); return x; })()]));
     g.appendChild(c2);
     var c3 = card("Data freshness");
     var tb = el("table", "s5cz-ft"), th = el("thead"), tr0 = el("tr"); ["What", "Last update", "Refreshed by"].forEach(function (x) { tr0.appendChild(el("th", null, x)); }); th.appendChild(tr0); tb.appendChild(th);
@@ -23592,12 +23611,12 @@ IdentityDirectoryEvents
     function row(what, at, by, withTime) { var tr = el("tr"); tr.appendChild(el("td", null, what)); var td = el("td"); if (at) td.appendChild(stamp(at, withTime)); else td.appendChild(el("i", null, "not recorded yet")); tr.appendChild(td); tr.appendChild(el("td", null, by)); tbody.appendChild(tr); }
     row("Morning brief", bA.morning || bA.day, "scheduled task Morning (06:00 Warsaw) and routine “raport poranny v2”", !!bA.morning);
     if (bA.afternoon) row("Afternoon pass", bA.afternoon, "scheduled task Afternoon delta (21:00 Warsaw)");
-    row("Brief published to this site", F.publish && F.publish.at, "workflow “Publish routine output”");
-    row("Page code", F.code && F.code.at, "workflow “Code refresh” (after every change of CLAUDE.md)");
-    row("Tenant snapshot (apps, Message Center, Graph permissions, roles)", F.tenant && F.tenant.at, "workflow “First-party apps tenant snapshot”, every 3 h");
-    row("Graph permissions and roles last read", F.graphsp && F.graphsp.at, "tools/graph_sp.py in the same workflow (written once a day or on a change)");
-    row("Campaigns and KQL archive", (F.campgen || F.campaigns || {}).at, "workflow “Campaign tracking”, twice a day and after each brief");
-    row("Our copy of the Learn pages", F.learn && F.learn.at, "workflow “Learn mirror”, 4 times a day (last change)");
+    row("Brief published to this site", F.publish && F.publish.at, "the publishing job");
+    row("Page code", F.code && F.code.at, "after every change of the specification");
+    row("Tenant snapshot (apps, Message Center, Graph permissions, roles)", F.tenant && F.tenant.at, "automated tenant read, every 3 h");
+    row("Graph permissions and roles last read", F.graphsp && F.graphsp.at, "the same tenant read (written once a day or on a change)");
+    row("Campaigns and KQL archive", (F.campgen || F.campaigns || {}).at, "twice a day and after each brief");
+    row("Our copy of the Learn pages", F.learn && F.learn.at, "4 times a day (last change)");
     tb.appendChild(tbody); c3.appendChild(tb);
     c3.appendChild(el("p", "s5cz-note", "Times are Warsaw time. The switch in the frame at the top changes 24 h / AM/PM everywhere on the page."));
     g.appendChild(c3);
@@ -23620,12 +23639,11 @@ IdentityDirectoryEvents
       "Counters (menu on the left, tab heading, “Since the previous brief”) count changes; one item with three changed fields counts as three changes and is shown once with its three fields."]));
     g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
-    c4.appendChild(ul(["06:00 Warsaw — scheduled task “Morning” reads every source (CLAUDE.md §7), builds the brief and publishes it on claude.ai.",
-      "07:00 Warsaw — routine “raport poranny v2” copies the brief to this site (GitHub → Azure Static Web Apps).",
-      "21:00 Warsaw — “Afternoon delta” re-reads the sources; 22:00 Warsaw — routine “zmiany v2” computes the “what changed” page (/diff/).",
-      "Every 3 h — GitHub Actions read our tenant (read-only, no secret: GitHub OIDC federated credential): Microsoft's apps and their consents, Message Center, Graph permissions and Entra role definitions.",
-      "Twice a day — campaigns and the KQL archive; 4 times a day — our copy of the Learn pages; after every change of CLAUDE.md — the page code.",
-      "All page code and collectors live in CLAUDE.md in the repository; each run cuts the scripts out of it, so a change of behaviour is a change of that one file."]));
+    c4.appendChild(ul(["06:00 Warsaw — the morning pass reads every source and builds the brief.",
+      "07:00 Warsaw — the brief is published on this site.",
+      "21:00 Warsaw — the afternoon pass re-reads the sources; 22:00 Warsaw — the “what changed” page (/diff/) is computed.",
+      "Every 3 h — an automated job reads our tenant, read-only: Microsoft's apps and their consents, Message Center, Graph permissions and Entra role definitions.",
+      "Twice a day — campaigns and the KQL archive; 4 times a day — our copy of the Learn pages; after every change of the specification — the page code."]));
     g.appendChild(c4);
     var c5 = card("Tabs", "s5cz-wide"), tl = el("div", "s5cz-tabs");
     ABOUT_TABS.forEach(function (t) {
@@ -23638,15 +23656,15 @@ IdentityDirectoryEvents
       x.appendChild(m); tl.appendChild(x);
     });
     c5.appendChild(tl); g.appendChild(c5);
-    var c6 = card("Security and permissions");
-    c6.appendChild(ul(["One Entra application, “MS-SOC First-party apps reader”: read-only application permissions Application.Read.All, DelegatedPermissionGrant.Read.All, ServiceMessage.Read.All, RoleManagement.Read.Directory.",
-      "No client secret and no certificate: GitHub Actions sign in with a federated credential bound to this repository and its main branch.",
-      "The only secret is the Azure Static Web Apps deployment token, kept encrypted in GitHub.",
-      (function () { var x = el("span"); x.appendChild(document.createTextNode("Every permission with its reason: ")); x.appendChild(link("README, section 12", "https://github.com/wpiotrw/MS_SOC#12-to%C5%BCsamo%C5%9Bci-uprawnienia-i-po%C5%9Bwiadczenia--pe%C5%82ny-wykaz-i-pow%C3%B3d-ka%C5%BCdego")); return x; })()]));
+    /* §5dk (11 X 2026, owner: "should About really name the GitHub repository? we will make it private; what else
+       do you show too much of?"): no repository link, no app name, no permission list, no sign-in mechanism, no
+       secret inventory - the README keeps them for the owner; a reader of the brief does not need them */
+    var c6 = card("Security");
+    c6.appendChild(ul(["Our tenant is read with read-only access and the least privilege the data needs; nothing on this page can change the tenant.",
+      "No password, key or tenant identifier is published here."]));
     g.appendChild(c6);
     var c7 = card("Links");
-    c7.appendChild(ul([link("What changed since yesterday (/diff/)", "diff/"), link("The week (/week/)", "week/"), link("RSS feed", "feed.xml"),
-      link("Repository and README", "https://github.com/wpiotrw/MS_SOC")]));
+    c7.appendChild(ul([link("What changed since yesterday (/diff/)", "diff/"), link("The week (/week/)", "week/"), link("RSS feed", "feed.xml")]));
     g.appendChild(c7);
     p.appendChild(g);
     var bb = backBtn(); bb.classList.add("s5cz-back-end"); p.appendChild(bb);
@@ -24598,6 +24616,28 @@ IdentityDirectoryEvents
     setTimeout(function () { run(); ["tab-graph", "tab-roles"].forEach(function (id) { var p = document.getElementById(id); if (p) emptyFlat(p); }); }, 150);
   });
   [2500, 5000, 9000].forEach(function (t) { setTimeout(run, t); });
+})();
+/* §5dk (11 X 2026, owner: "we will make the GitHub repository private one day"): the brief's own data still cites
+   the repository as a source ("Source repository", "CLAUDE.md collector", the community source list). A link a reader
+   cannot open is worse than none, and the address names the account: every link into the repository is shown as
+   plain text "internal repository" with what it pointed at in its tooltip. Data and gate are unchanged. */
+(function () {
+  if (window.__s5dk) return; window.__s5dk = 1;
+  var RX = /^https?:\/\/(?:www\.)?github\.com\/wpiotrw\/MS_SOC\b|^https?:\/\/raw\.githubusercontent\.com\/wpiotrw\/MS_SOC\b/i;
+  function scan(root) {
+    [].forEach.call((root || document).querySelectorAll('a[href*="wpiotrw/MS_SOC"]'), function (a) {
+      if (!RX.test(a.href)) return;
+      var s = document.createElement("span"); s.className = "s5dk-int";
+      var t = (a.textContent || "").trim();
+      s.textContent = /^(source repository|repository|specification|claude\.md collector)$/i.test(t) || !t ? "internal repository" : t + " (internal repository)";
+      s.title = "Kept in the internal repository of this portal; not public";
+      a.parentNode.replaceChild(s, a);
+    });
+  }
+  var q = null;
+  function later(ms) { clearTimeout(q); q = setTimeout(function () { scan(); }, ms || 400); }
+  document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("nav.anchors .tab,[id^=tabbtn-],.s5cd-bar,summary,button")) later(500); });
+  [1500, 4000, 8000].forEach(function (t) { setTimeout(scan, t); });
 })();
 </script>
 </body>
