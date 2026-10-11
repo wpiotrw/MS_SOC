@@ -51,8 +51,9 @@ jobs:
               print("::notice title=blog::" + "%-28s %-7s %s items, newest %s, via %s %s" % (n, r.get("status"), len(r.get("items") or []),
                     max([i.get("date") or "" for i in r.get("items") or []] + [""]), r.get("method"), (r.get("note") or "")[:80]))
           c = {r["name"]: r for r in json.load(open("community_raw.json"))["sources"]}
-          r = c.get("Daily Entra News") or {}
-          print("::notice title=community::Daily Entra News %s newest %s %s" % (r.get("status"), r.get("newestDate"), (r.get("note") or "")[:80]))
+          for n in ("Daily Entra News", "Breakwater IT M365 Update", "Microsoft Security Experts Blog"):   # 5dj
+              r = c.get(n) or {}
+              print("::notice title=community::%s %s newest %s via %s items %s %s" % (n, r.get("status"), r.get("newestDate"), r.get("method"), r.get("itemsRead"), (r.get("note") or "")[:120]))
           try:
               nt = json.load(open("NT.json"))
               for m in nt.get("wnMeta") or []:

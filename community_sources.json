@@ -132,12 +132,8 @@
     "SourceURL": "https://joannecklein.com"
   },
   {
-    "SourceName": "365CloudCapsule",
-    "SourceURL": "https://cloudcapsule.co.uk"
-  },
-  {
     "SourceName": "Breakwater IT M365 Update",
-    "SourceURL": "https://breakwaterit.ca/category/microsoft-365/"
+    "SourceURL": "https://breakwaterit.co.uk/guides/m365-update/"
   },
   {
     "SourceName": "Microsoft 365 Roadmap",
@@ -165,7 +161,7 @@
   },
   {
     "SourceName": "Microsoft Security Experts Blog",
-    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-security-experts/bg-p/MicrosoftSecurityExperts"
+    "SourceURL": "https://securitycommunity.microsoft.com/Blogs"
   },
   {
     "SourceName": "Microsoft Intune Blog",
