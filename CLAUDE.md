@@ -28151,7 +28151,9 @@ snapshot) wolaja `deploy_prep.py site _deploy` i wdrazaja `/_deploy`. Wynik na k
 DOMContentLoaded 6,9 → 1,5 s, te same 127 249 elementow, t5cn 32/32, tbp 15/15. (L3) Przy okazji: od 11 X przebieg
 pomija w danych what's new puste listy („a missing field reads the same") — SKRYPT 15 czytal `e.tags` / `e.criteria`
 wprost i sekcje Microsoft Learn, Blogs i korelacji konczyly sie bledem (507 z 1 190 wpisow bez `tags`); brak listy
-= pusta lista (§5dk-b).
+= pusta lista (§5dk-b). (L4) Widziane w WebKit przy szerokosci iPhone'a: etykieta kafelka KPI z dluga data („new since the 10/10/2026
+brief") wchodzila na sasiedni kafelek — zawija sie; menu „All products" mialo prawie niewidoczny tekst (natywny
+wyglad) — ma wlasny wyglad w kolorach strony.
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
@@ -40033,6 +40035,11 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .s5dk-int{color:var(--muted);font-style:italic}
 /* §5dk: a section reached from the sticky tab bar starts below it on a phone */
 @media (max-width:720px){.tabpanel section[id],.tabpanel details[id],.tabpanel [data-s5cd-v]{scroll-margin-top:96px}}
+/* §5dl: seen in WebKit at iPhone width - a KPI label with a long date ("new since the 10/10/2026 brief") ran into the
+   next tile (the date span does not wrap), and the "All products" menu text was nearly invisible */
+.kpi5 .k5t{overflow-wrap:anywhere;min-width:0}
+.kpi5 .k5t .s5cz-d{white-space:normal}
+header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var(--text);-webkit-text-fill-color:var(--text);opacity:1;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--border);border-radius:8px;padding:6px 28px 6px 10px}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
