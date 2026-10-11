@@ -1,0 +1,16 @@
+// title: Which Arc-enabled Kubernetes clusters still carry the retiring Key Vault Secrets Provider extension
+// date: 2026-10-11
+// product: Microsoft 365
+// tables: 
+// purpose: An Azure Resource Graph query, run in Resource Graph Explorer or with az graph query, that lists every Arc-enabled Kubernetes cluster with the extension type Microsoft's migration guide names, microsoft.azurekeyvaultsecretsprovider. Each row is a cluster that holds a service principal credential for
+// source: https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 11 Oct 2026 - Arc-enabled Kubernetes clusters with the retiring Key Vault Secrets Provider extension
+// Azure Resource Graph. Table, resource type and properties.ExtensionType follow the Microsoft sample cited beside this query.
+// The extension type string is the one Microsoft's migration guide filters on. Not run against a tenant in this pass.
+KubernetesConfigurationResources
+| where type =~ 'microsoft.kubernetesconfiguration/extensions'
+| where tolower(tostring(properties.ExtensionType)) == 'microsoft.azurekeyvaultsecretsprovider'
+| parse id with connectedClusterId '/providers/Microsoft.KubernetesConfiguration/Extensions' *
+| project connectedClusterId, extensionName = name, subscriptionId, resourceGroup, location
+| order by connectedClusterId asc

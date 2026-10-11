@@ -3666,6 +3666,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-11",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-11",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -4176,7 +4184,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-10",
+"seen":"2026-10-11",
 "text":"early February 2026."
 },
 {
@@ -4184,7 +4192,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-10",
+"seen":"2026-10-11",
 "text":"February 2027."
 },
 {
@@ -4498,6 +4506,57 @@
 "posts":[
 "MC1223829"
 ]
+},
+"c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
+"firstSeen":"2026-10-11",
+"lastSeen":"2026-10-11",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"status":"Active",
+"members":[
+"item:azure-arc-akv-secrets-provider-extension-retirement-2027-10-09"
+],
+"log":[
+{
+"date":"2026-10-11",
+"id":"azure-arc-akv-secrets-provider-extension-retirement-2027-10-09",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it",
+"title":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it",
+"link":"https://azure.microsoft.com/updates?id=570313"
+}
+],
+"milestones":{
+"azure-arc-akv-secrets-provider-extension-retirement-2027-10-09|deadline":{
+"date":"2027-10-09",
+"label":"9 Oct 2027",
+"text":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it"
+}
+},
+"moves":[],
+"materials":{
+"https://azure.microsoft.com/updates?id=570313":{
+"title":"Retirement: Azure Key Vault Secrets Provider Extension for Azure Arc enabled Kubernetes clusters",
+"link":"https://azure.microsoft.com/updates?id=570313",
+"source":"Main list source",
+"id":"azure-arc-akv-secrets-provider-extension-retirement-2027-10-09",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-11"
+},
+"https://techcommunity.microsoft.com/t5/azure-arc-blog/public-preview-onboard-kubernetes-clusters-to-azure-arc-with-the/ba-p/4556330":{
+"title":"Public Preview: Onboard Kubernetes Clusters to Azure Arc with the Multicloud Connector",
+"link":"https://techcommunity.microsoft.com/t5/azure-arc-blog/public-preview-onboard-kubernetes-clusters-to-azure-arc-with-the/ba-p/4556330",
+"source":"Azure Arc Blog",
+"date":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-11"
+}
+},
+"final":"2027-10-09",
+"type":"Retirement",
+"tech":"Azure",
+"posts":[]
 },
 "c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
 "firstSeen":"2026-10-09",
@@ -5922,6 +5981,14 @@
 "date":"2026-10-09",
 "group":"microsoft",
 "found":"2026-10-10"
+},
+"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd":{
+"title":"Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks",
+"link":"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd",
+"source":"NeonTiger12",
+"date":"2026-10-11",
+"group":"community",
+"found":"2026-10-11"
 }
 },
 "final":"2027-07-01",
@@ -6513,7 +6580,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-10",
+"seen":"2026-10-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -6521,7 +6588,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-10",
+"seen":"2026-10-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -6778,6 +6845,14 @@
 "date":"2026-10-02",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd":{
+"title":"Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks",
+"link":"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd",
+"source":"NeonTiger12",
+"date":"2026-10-11",
+"group":"community",
+"found":"2026-10-11"
 }
 },
 "final":"2027-02-25",
@@ -7534,6 +7609,36 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-11",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"new",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"ctype":"Retirement",
+"tech":"Azure",
+"next":"9 Oct 2027",
+"text":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it"
+},
+{
+"day":"2026-10-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks",
+"source":"NeonTiger12",
+"link":"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd"
+},
+{
+"day":"2026-10-11",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks",
+"source":"NeonTiger12",
+"link":"https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd"
 }
 ],
 "archive":{
