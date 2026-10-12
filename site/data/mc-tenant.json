@@ -1,7 +1,7 @@
 {
  "read": "2026-10-12",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 696,
+ "count": 690,
  "note": null,
  "messages": [
   {
@@ -5563,34 +5563,6 @@
    "bodyHash": "6c95f1a6fa3bd55d"
   },
   {
-   "id": "MC1311977",
-   "title": "(Updated) Security Detection Report in Teams Admin Center",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-05-15",
-   "end": "2026-10-12",
-   "modified": "2026-06-29",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 29, 2026: We have updated the timeline. Thank you for your patience. [Introduction] A new Security Detection Report in the Teams admin center provides a unified view of messaging security detections across signals such as impersonation, malicious URLs, and weaponizable file types. This centralized reporting experience improves visibility into threats in Teams and helps admins investig…",
-   "when": "General Availability (Worldwide): Rollout will begin in late August 2026 (previously mid-July) and is expected to complete by early September 2026 (previously late July).",
-   "prepare": "Review current Messaging safety settings to confirm malicious link and file scanning configurations. Familiarize security and helpdesk teams with the new report and export capabilities. Update investigation and response workflows to incorporate Teams detection signals. Use Teams admin center navigation path to locate the report: Analytics & reports > Protection reports > Security detections report. Update internal documentation or runbooks if you…",
-   "dates": [
-    "Updated June 29, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout will begin in late August 2026 (previously mid-July) and is expected to complete by early September 2026 (previously late July)."
-   ],
-   "bodyHash": "2f65533ba22b1b74"
-  },
-  {
    "id": "MC1311978",
    "title": "(Updated) Classic Outlook for Windows: User-initiated insights with Copilot",
    "services": [
@@ -5617,35 +5589,6 @@
     "General Availability (Worldwide): We will begin rolling out in early October 2026 (previously early September) and expect to complete by end of October 2026 (previously end of September)."
    ],
    "bodyHash": "06bc10a85e33b72c"
-  },
-  {
-   "id": "MC1314949",
-   "title": "(Updated) Microsoft Viva Copilot Analytics: Daily Copilot usage snapshot with fresh data",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-18",
-   "end": "2026-10-12",
-   "modified": "2026-09-15",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 15, 2026: This feature completed rollout early September and the timeline has been updated. Thank you for your patience. [Introduction] To help organizations access more up-to-date Microsoft 365 Copilot insights, we are introducing a new Power BI report and query named Microsoft 365 Copilot latest usage snapshot for analyst users in Viva Insights Advanced Insights . This report p…",
-   "when": "Public Preview: We will begin rolling out in early July 2026 and expect to complete by late July 2026 . General Availability (Worldwide): We began rolling out in early September 2026 (previously early November) and completed early September 2026 (previously late November).",
-   "prepare": "No admin action is required if your organization already meets the prerequisites. You can prepare by taking the following steps: Confirm that appropriate users are assigned the Insights Analyst role in Viva Insights . Ensure users have the latest version of Power BI Desktop installed. If users have an older version installed, they should uninstall it and install the latest version before using the report. Getting started with Power BI. Verify tha…",
-   "dates": [
-    "Updated September 15, 2026: This feature completed rollout early September and the timeline has been updated.",
-    "Public Preview: We will begin rolling out in early July 2026 and expect to complete by late July 2026 .",
-    "General Availability (Worldwide): We began rolling out in early September 2026 (previously early November) and completed early September 2026 (previously late November)."
-   ],
-   "bodyHash": "2aab29ae904164ef"
   },
   {
    "id": "MC1315905",
@@ -5952,36 +5895,6 @@
     "The May 2026 non-security preview update is now available for Windows 11, versions 26H1, 25H2, and 24H2."
    ],
    "bodyHash": "15df1d590791b929"
-  },
-  {
-   "id": "MC1323266",
-   "title": "(Updated) Power BI integration with Microsoft 365 Copilot",
-   "services": [
-    "Power BI"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-26",
-   "end": "2026-10-12",
-   "modified": "2026-08-19",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 19, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Beginning in mid-June 2026, Microsoft 365 Copilot will be able to answer user questions using Power BI reports and semantic models for customers enrolled in Frontier. Copilot will ground responses in Power BI data, including scenarios where users share a specific report and scenarios where Copilot f…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 19, 2026: We have updated the timeline.",
-    "Beginning in mid-June 2026, Microsoft 365 Copilot will be able to answer user questions using Power BI reports and semantic models for customers enrolled in Frontier.",
-    "Frontier Private: June 17, 2026 (applied to TAP, TAP Subset, and AIX00).",
-    "Frontier Public (Entra): June 22, 2026.",
-    "Worldwide: Starting late August 2026 (previously mid-August), expected to complete by early September 2026 (previously late August)."
-   ],
-   "bodyHash": "67440a4ebdfeb44a"
   },
   {
    "id": "MC1323270",
@@ -7738,34 +7651,6 @@
    "bodyHash": "91c4a11e97785ca8"
   },
   {
-   "id": "MC1420897",
-   "title": "(Updated) Viva Glint: Copilot-enhanced topic assignment for employee feedback comments",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-08",
-   "end": "2026-10-12",
-   "modified": "2026-08-19",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 18, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft is introducing Copilot-enhanced topic assignment in Viva Glint to improve the accuracy, consistency, and reliability of employee feedback categorization. Copilot will help identify relevant topics in survey comments, enabling organizations to gain richer insights from employee feedback. Mic…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 18, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning late August 2026 (previously late July); expected to complete by early September 2026 (previously late July)."
-   ],
-   "bodyHash": "7f3e6860cab8e786"
-  },
-  {
    "id": "MC1420901",
    "title": "(Updated) Notebooks in the M365 Copilot App",
    "services": [
@@ -9505,31 +9390,6 @@
     "General Availability (Worldwide, GCC, GCC High): Beginning in mid-August 2026 and expected to complete by early October 2026 (previously early September)."
    ],
    "bodyHash": "ae192491fff06de5"
-  },
-  {
-   "id": "MC1446804",
-   "title": "SharePoint Pages: Flexible Section Authoring Improvements",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-03",
-   "end": "2026-10-12",
-   "modified": "2026-08-03",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "What and Why: We are making Flexible Sections in SharePoint Pages easier to use, more predictable, and faster to author. Flexible Sections allow authors to build pages without a strict column structure by resizing and moving web parts within a section. This update provides additional guidance and controls to help authors create flexible layouts while maintaining consistent page design. New authori…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Rollout Schedule: General Availability (Worldwide): Rollout will begin in mid-August 2026 and is expected to complete by late August 2026."
-   ],
-   "bodyHash": "09717ac4f67a0e2a"
   },
   {
    "id": "MC1446805",
@@ -15552,35 +15412,6 @@
    "bodyHash": "629ff484e1b3faf6"
   },
   {
-   "id": "MC1477999",
-   "title": "(Updated) Microsoft Teams: Removing Copilot from the chat list",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-23",
-   "end": "2026-10-12",
-   "modified": "2026-10-09",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated October 8, 2026: After additional consideration we have decided not to proceed with this change. You can safely disregard this message. We apologize for any inconvenience this may have caused. [What and why] To provide a more consistent and streamlined Microsoft 365 Copilot experience in Microsoft Teams, we are simplifying how users access Copilot in Teams . Today, users can access Copilot…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated October 8, 2026: After additional consideration we have decided not to proceed with this change.",
-    "Beginning in October 2026, we will remove the Copilot entry point from the Teams chat list and direct users to access Copilot through the Copilot app."
-   ],
-   "bodyHash": "26987f4299eda99c"
-  },
-  {
    "id": "MC1478003",
    "title": "Microsoft Teams: Admins can control profanity filtering in meeting transcripts",
    "services": [
@@ -21428,6 +21259,48 @@
    "id": "MC1466299",
    "type": "removed",
    "title": "Microsoft Planner: New Planner usage report in the Microsoft 365 admin center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1311977",
+   "type": "removed",
+   "title": "(Updated) Security Detection Report in Teams Admin Center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1314949",
+   "type": "removed",
+   "title": "(Updated) Microsoft Viva Copilot Analytics: Daily Copilot usage snapshot with fresh data",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1323266",
+   "type": "removed",
+   "title": "(Updated) Power BI integration with Microsoft 365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1420897",
+   "type": "removed",
+   "title": "(Updated) Viva Glint: Copilot-enhanced topic assignment for employee feedback comments",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1446804",
+   "type": "removed",
+   "title": "SharePoint Pages: Flexible Section Authoring Improvements",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1477999",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Removing Copilot from the chat list",
    "fields": {}
   }
  ]
