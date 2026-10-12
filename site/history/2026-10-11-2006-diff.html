@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft SOC &mdash; what changed 2026-10-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../assets/favicon-64.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+:root{color-scheme:light;--bg:#f7f7f4;--surface:#fff;--surface2:#f0f0ec;--text:#141413;--muted:#6b6a66;
+ --border:#ddddd6;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#a3131f;--bad-soft:#fbe3e4;--warn:#8a5a00;
+ --warn-soft:#fdf0d5;--accent:#2f5fd0;--accent-soft:#e2eafb;--del-bg:#fbe3e4;--del-fg:#8a1220;
+ --ins-bg:#dbf0e3;--ins-fg:#0b5730}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#16171a;--surface:#1e2024;
+ --surface2:#25272c;--text:#ecebe6;--muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f28b8b;--bad-soft:#3a1618;--warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;
+ --del-bg:#3a1618;--del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#16171a;--surface:#1e2024;--surface2:#25272c;--text:#ecebe6;
+ --muted:#a3a29c;--border:#33363c;--ok:#63d495;--ok-soft:#0f3323;--bad:#f28b8b;--bad-soft:#3a1618;
+ --warn:#e8bd6b;--warn-soft:#3a2c10;--accent:#8fb0ff;--accent-soft:#1c2740;--del-bg:#3a1618;
+ --del-fg:#f0a0a0;--ins-bg:#0f3323;--ins-fg:#8fe0b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font:15px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 64px}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px}
+header .in{max-width:1120px;margin:0 auto}
+.title-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.title-row>div:first-child{flex:1 1 320px;min-width:0}
+.hdr-tools{flex:0 0 auto;margin-left:auto}
+.themebtn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;
+ padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.themebtn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1{font-size:22px;margin:0 0 6px}
+.dateline{margin:0;color:var(--muted);font-size:13.5px}
+.dateline a{color:var(--accent)}
+.counts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.counts li{background:var(--surface2);border:1px solid var(--border);border-radius:999px;
+ padding:6px 12px;font-size:13.5px;white-space:nowrap}
+.counts li b{font-size:16px}
+.counts li.add{background:var(--ins-bg);border-color:var(--ok);color:var(--ins-fg)}
+.counts li.rem{background:var(--del-bg);border-color:var(--bad);color:var(--del-fg)}
+.counts li.chg{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+section{margin:26px 0 0}
+h2{font-size:16px;margin:0 0 2px}
+.note{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{position:sticky;top:0;background:var(--surface2);text-align:left;font-size:12px;
+ text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:9px 10px;
+ border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tr.t0 td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.sub{color:var(--muted);font-size:12.5px}
+.ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--accent)}
+.none{color:var(--muted)}
+span.t0{background:var(--bad-soft);color:var(--bad);border-radius:999px;padding:1px 7px;
+ font-size:11.5px;font-weight:600;white-space:nowrap}
+del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;
+ padding:1px 5px;border-radius:4px}
+ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;padding:1px 5px;border-radius:4px}
+.arrow{color:var(--muted);padding:0 4px}
+.field{font-weight:600;white-space:nowrap}
+.empty{background:var(--surface);border:1px dashed var(--border);border-radius:10px;
+ padding:12px 14px;color:var(--muted);margin:0}
+.relnew{border:1px solid var(--border);border-radius:10px;background:var(--surface);
+ padding:11px 13px;margin:10px 0 0}
+.relnew h3{font-size:13.5px;margin:0 0 2px}
+.relnew h3 .rv{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ins-fg);
+ background:var(--ins-bg);border-radius:6px;padding:1px 7px;margin-left:7px;font-size:12.5px}
+.relnew .grp{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+ font-weight:700;margin:9px 0 4px}
+.relnew ul{margin:0;padding-left:19px;font-size:13px}
+.relnew li{margin:0 0 5px}
+.relnew li:last-child{margin-bottom:0}
+caption.tabcap{caption-side:top;text-align:left;padding:9px 10px;background:var(--surface2);
+ border-bottom:1px solid var(--border);font-size:13px;color:var(--text)}
+caption.tabcap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.emptycap{margin:0 0 4px;font-size:13px;color:var(--text)}
+.emptycap .capareas{color:var(--muted);font-size:12.5px;margin-left:6px}
+.tw+.tw{margin-top:12px}
+b.nadd{color:var(--ins-fg)}b.nrem{color:var(--del-fg)}b.nchg{color:var(--warn)}
+tr.quiet td{color:var(--muted)}
+.more{color:var(--muted);font-size:13px;margin:8px 0 0}
+a{color:var(--accent)}
+a.deep{text-decoration:none;font-weight:700;padding:0 5px;border-radius:6px;
+ background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);font-size:11.5px}
+a.deep:hover{background:var(--accent);color:var(--surface)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+ background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+footer{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+@media (max-width:760px){.counts li{white-space:normal}h1{font-size:19px}}
+
+/* --- kafelki jak na stronie porannej (§5al) --- */
+.factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;margin:14px 0 0}
+.fact{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 12px}
+.fact b{display:block;font-size:21px;line-height:1.15;font-variant-numeric:tabular-nums}
+.fact span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
+ color:var(--muted);font-weight:700;margin-top:2px}
+.fact.ok b{color:var(--ins-fg)}.fact.bad b{color:var(--del-fg)}.fact.warn b{color:var(--warn)}
+.fact.acc b{color:var(--accent)}.fact.info b{color:var(--accent)}
+.tilenote{margin:9px 0 0;color:var(--muted);font-size:12.5px}
+/* --- sekcje zwijane z licznikiem --- */
+details.dsec{margin:26px 0 0}
+details.dsec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+ padding:9px 0;border-bottom:1px solid var(--border)}
+details.dsec>summary::-webkit-details-marker{display:none}
+details.dsec>summary::before{content:"+";font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent)}
+details.dsec[open]>summary::before{content:"−"}
+details.dsec>summary .dsum-t{font-size:16px;font-weight:700}
+details.dsec>summary .dsum-n{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--accent);
+ background:var(--accent-soft);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;
+ font-variant-numeric:tabular-nums;white-space:nowrap}
+details.dsec>.note{margin-top:10px}
+/* --- zielone pole szukania, to samo co w briefie (§5am) --- */
+.s9find{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.s9find .s9q{flex:1 1 220px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9find .s9q::placeholder{color:var(--muted);font-weight:400}
+.s9find .s9q:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
+.s9find .s9f{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);max-width:230px}
+/* the column scope: every column this table shows is filterable, the ones that group
+   through a facet and the rest through this (5ap) */
+.s9find .s11col{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.s9find .s9reset{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
+.s9find .s9count{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr[hidden]{display:none!important}
+section[hidden]{display:none!important}
+/* Najechanie podswietla CALY wiersz. Ta strona nie pasuje wierszy inline, wiec
+   `!important` nie jest tu potrzebne — ale zachowanie ma byc to samo co w briefie
+   (§5au pozycja 75), bo czytelnik przechodzi miedzy nimi jednym linkiem. */
+tbody tr:hover td{background:var(--accent-soft)}
+@media (max-width:760px){.s9find .s9count{margin-left:0}.s9find .s9f{max-width:100%}}
+
+/* --- kazda liczba jest kontrolka (10 wrzesnia 2026) --- */
+a.fact{text-decoration:none;color:inherit;display:block;position:relative}
+a.fact:hover{border-color:var(--accent);background:var(--accent-soft)}
+a.fact::after{content:"\2193";position:absolute;top:7px;right:10px;font-size:11px;color:var(--muted);opacity:.55}
+a.fact:hover::after{color:var(--accent);opacity:1}
+a.fact:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a.gnum,a.gtech{text-decoration:none;border-bottom:1px dashed var(--accent)}
+a.gnum:hover,a.gtech:hover{border-bottom-style:solid;background:var(--accent-soft);border-radius:5px}
+a.gtech b{color:var(--accent)}
+.tabblock[hidden]{display:none!important}
+caption.tabcap .capverb{font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+ font-weight:700;color:var(--muted);margin-right:6px}
+/* Rail and banner are ONE sticky block, and that is the fix from 11 September 2026.
+   The rail was sticky and the banner was an ordinary sibling below it, so after the
+   reader pressed a technology and the page scrolled him to `Added`, the only place
+   naming the active filter — and the only Clear that clears all of them at once —
+   was three screens above him. He reported it as having to press Reset in every table
+   by hand, which is exactly what a page does when its one global control scrolls away. */
+.dstick{position:sticky;top:0;z-index:41;background:var(--bg);border-bottom:1px solid var(--border);
+ margin:0 0 4px}
+nav.dsubnav{display:flex;gap:6px;overflow-x:auto;padding:9px 0 8px;
+ margin:0;background:var(--bg);-webkit-overflow-scrolling:touch}
+nav.dsubnav a{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);white-space:nowrap;flex:0 0 auto;text-decoration:none}
+nav.dsubnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+nav.dsubnav a .n{color:var(--muted);font-weight:600;margin-left:6px;font-variant-numeric:tabular-nums}
+nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
+/* §3 punkt 20: dwa opisane rzedy skrotow, ten sam ksztalt co pasek zakladek briefu
+   (§5ae wariant B). Czternascie nazw w jednym rzedzie przewijalo sie w poziomie
+   i polowa byla poza ekranem. */
+.dnavstack{display:block;padding:8px 0 7px}
+.dnavrow{display:flex;align-items:center;gap:9px;min-width:0}
+.dnavrow+.dnavrow{margin-top:6px;padding-top:6px;border-top:1px solid var(--border)}
+.dnavrow .drowlab{flex:0 0 auto;font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+ font-weight:700;color:var(--muted);min-width:74px}
+.dnavstack nav.dsubnav{padding:0;flex:1 1 auto;min-width:0}
+/* §3 punkt 19: podswietlony skrot ma byc WIDOCZNY, nie tylko pokolorowany */
+nav.dsubnav a[aria-current="true"]{box-shadow:inset 0 0 0 1px var(--accent)}
+@media (max-width:760px){.dnavrow .drowlab{display:none}.dnavrow{gap:6px}}
+/* the jump target clears the sticky block, whose height the script measures and
+   publishes as `--dstick-h` — a hard number here would be wrong the moment the
+   banner appears and taller again when its text wraps on a phone (§0a) */
+section{scroll-margin-top:var(--dstick-h,56px)}
+.navbanner{display:flex;align-items:center;gap:12px;margin:0 0 8px;padding:8px 12px;border-radius:10px;
+ background:var(--ok-soft);border:1px solid var(--ok);color:var(--text);font-size:13px}
+.navbanner .nb-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--ok);flex:0 0 auto}
+.navbanner .nb-msg b{color:var(--ok)}
+.navbanner[hidden]{display:none!important}
+.navbanner .nb-msg{flex:1 1 auto}
+.navbanner .nb-clear{font:inherit;font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;
+ border:1px solid var(--ok);background:var(--ok);color:var(--surface);cursor:pointer;white-space:nowrap}
+.navbanner .nb-clear:hover{background:var(--surface);color:var(--ok)}
+/* One line names EVERY filter that is on, not only the global one (5ao). Until
+   12 September 2026 this banner spoke only for the technology and tile filters, so
+   a reader who typed into a table's own green box got a count that dropped with
+   nothing on screen saying why — the same defect the portal fixed with its masthead
+   line (5at), on the one page that had been exempted from it. */
+.navbanner{flex-wrap:wrap}
+.navbanner .nb-msg[hidden]{display:none!important}
+.navbanner .nb-chips{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1 1 100%;min-width:0}
+.navbanner .nb-chips:empty{display:none}
+.navbanner .nb-chip{display:inline-flex;align-items:center;gap:6px;max-width:100%;
+ padding:2px 4px 2px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--ok);
+ color:var(--text);font-size:12.5px;line-height:1.6;overflow-wrap:anywhere}
+.navbanner .nb-chip b{font-weight:700;color:var(--ok);white-space:nowrap}
+.navbanner .nb-x{font:inherit;font-size:13px;line-height:1;width:19px;height:19px;flex:0 0 19px;
+ display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;padding:0}
+.navbanner .nb-x:hover{background:var(--del-bg);border-color:var(--bad);color:var(--bad)}
+.navbanner .nb-x:focus-visible,.navbanner .nb-clear:focus-visible{outline:2px solid var(--ok);outline-offset:2px}
+@media (max-width:760px){a.fact::after{display:none}.navbanner .nb-clear{width:100%;text-align:center}}
+
+/* --- Advanced filtering, the same control the portal carries on every tab (5au).
+   Until 12 September 2026 this page had only the per-table green box: one column
+   at a time, one value at a time, and no way to ask for "Entra OR Intune". The
+   owner asked for the portal's bar here, and the bar is the same shape — one menu
+   per groupable column, checkboxes inside, a live count on every value, a search
+   scoped to any single column, one Reset.
+
+   It writes NOTHING itself. ONE WRITER PER MECHANISM (5am, 5ap): every `.s9find`
+   box stays the only writer of `row.hidden` for its own table, and this bar sets a
+   PREDICATE those boxes consult — the same `opt.extra` shape SCRIPT 6 uses for its
+   method chips in the brief. --- */
+details.s9adv{border:1px solid var(--border);border-left:4px solid var(--accent);
+ border-radius:12px;background:var(--surface);margin:0 0 14px}
+details.s9adv.on{border-color:var(--accent);background:var(--accent-soft)}
+details.s9adv>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+ flex-wrap:wrap;padding:10px 14px}
+details.s9adv>summary::-webkit-details-marker{display:none}
+details.s9adv>summary::before{content:"+";font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:15px;font-weight:700;width:22px;height:22px;flex:0 0 22px;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:6px;background:var(--accent-soft);
+ color:var(--accent);border:1px solid var(--accent)}
+details.s9adv[open]>summary::before{content:"−"}
+.s9advt{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;
+ color:var(--accent);background:var(--surface);border:1px solid var(--accent);
+ border-radius:999px;padding:3px 11px;white-space:nowrap}
+.s9advs{flex:1 1 260px;min-width:0;font-size:12.5px;color:var(--muted)}
+.s9advon{font-size:11.5px;font-weight:700;color:var(--ok);background:var(--surface);
+ border:1px solid var(--ok);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.s9advon[hidden]{display:none!important}
+.s9advq{display:flex;gap:8px;align-items:center;margin:0 14px 9px;flex-wrap:wrap}
+.s9advqin{flex:1 1 280px;min-width:0;font:inherit;font-size:13px;padding:7px 11px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);font-weight:500}
+.s9advqin::placeholder{color:var(--muted);font-weight:400}
+.s9advqin:focus{background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--ins-bg)}
+.s9advqc{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--accent);
+ background:var(--accent-soft);color:var(--accent);font-weight:600;max-width:260px}
+.s9advrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 14px 8px}
+.s9advdim{position:relative}
+.s9advbtn{font:inherit;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+ padding:6px 12px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);
+ color:var(--text);cursor:pointer;white-space:nowrap}
+.s9advbtn:hover{border-color:var(--accent)}
+.s9advbtn.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.s9advbtn i{width:8px;height:8px;border-radius:2px;flex:0 0 8px;background:var(--accent);display:inline-block}
+.s9advbtn b{font-variant-numeric:tabular-nums;color:var(--accent)}
+.s9advcar{color:var(--muted);font-size:10px}
+.s9advbtn:focus-visible,.s9advreset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s9advpop{display:none;position:fixed;z-index:70;min-width:270px;max-width:340px;
+ background:var(--surface);border:1px solid var(--border);border-radius:12px;
+ box-shadow:0 10px 30px rgba(0,0,0,.28);padding:9px}
+.s9advdim.open .s9advpop{display:block}
+.s9advfind{width:100%;font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;
+ background:var(--ins-bg);border:1.5px solid var(--ok);color:var(--text);margin:0 0 7px}
+.s9advfind[hidden]{display:none}
+.s9advlist{overflow:auto;display:flex;flex-direction:column;gap:1px}
+.s9advopt{font:inherit;font-size:12.5px;display:flex;align-items:center;gap:9px;width:100%;
+ text-align:left;padding:6px 8px;border:0;border-radius:7px;background:none;color:var(--text);cursor:pointer}
+.s9advopt:hover{background:var(--surface2)}
+.s9advopt i{width:14px;height:14px;flex:0 0 14px;border-radius:4px;border:1.5px solid var(--border);
+ background:var(--surface);display:inline-block}
+.s9advopt.on i{background:var(--accent);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--surface)}
+.s9advopt span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s9advopt b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.s9advempty{margin:6px 8px;font-size:12.5px;color:var(--muted)}
+.s9advfoot{display:flex;align-items:center;gap:8px;margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--border)}
+.s9advclr{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;
+ border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer}
+.s9advpn{margin-left:auto;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.s9advreset{font:inherit;font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;
+ border:1px solid var(--accent);background:var(--accent);color:var(--surface);cursor:pointer;margin-left:auto}
+.s9advsum{margin:0 14px 12px;font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){
+  .s9advqc{max-width:100%;width:100%}
+  .s9advreset{margin-left:0;width:100%;text-align:center}
+  .s9advpop{max-width:calc(100vw - 24px)}
+}
+
+/* --- the evidence under a row: the change Microsoft made inside the source page.
+   Same shape as SCRIPT 12 draws in the brief (5ar) and deliberately so: two renderers
+   of one thing drift apart (0a), and these two already had. --- */
+td.xc{width:34px;padding-left:10px;padding-right:0}
+.xb{font:inherit;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;font-weight:700;
+ width:24px;height:24px;line-height:1;display:inline-flex;align-items:center;justify-content:center;
+ border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);
+ cursor:pointer;padding:0}
+.xb:hover{background:var(--accent);color:var(--surface)}
+.xn{color:var(--muted)}
+tr.hasdet[aria-expanded="true"]>td{background:var(--accent-soft)}
+tr.det>td{padding:0;background:var(--surface2);box-shadow:inset 3px 0 0 var(--accent)}
+tr.det[hidden]{display:none!important}
+.det-in{padding:13px 14px}
+.hd-lead{margin:0 0 9px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+ font-weight:700;color:var(--muted)}
+.s12file{border:1px solid var(--border);border-radius:11px;background:var(--surface);overflow:hidden}
+.s12file+.s12file{margin-top:10px}
+.s12fhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 13px;
+ background:var(--surface2);border-bottom:1px solid var(--border)}
+.s12name{flex:1 1 240px;min-width:0;font-size:13.5px;font-weight:700}
+.s12path{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+ color:var(--muted);font-weight:400;margin-top:2px;overflow-wrap:anywhere}
+.s12cnt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:700;
+ white-space:nowrap;flex:0 0 auto}
+.s12cnt .p{color:var(--ins-fg);background:var(--ins-bg);border-radius:5px;padding:1px 6px}
+.s12cnt .m{color:var(--del-fg);background:var(--del-bg);border-radius:5px;padding:1px 6px;margin-left:4px}
+.s12hunk{border-top:1px solid var(--border)}
+.s12at{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted);
+ padding:6px 13px 2px}
+.s12line{display:flex;gap:8px;padding:3px 13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+ font-size:12.5px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.s12sign{flex:0 0 14px;font-weight:700;text-align:center}
+.s12add{background:var(--ins-bg);color:var(--ins-fg)}
+.s12rem{background:var(--del-bg);color:var(--del-fg)}
+.s12meta,.s12more{padding:8px 13px;font-size:12.5px;color:var(--muted);background:var(--surface2);
+ border-top:1px solid var(--border);margin:0}
+.s12why{padding:9px 13px;font-size:12.5px;background:var(--warn-soft);color:var(--text);
+ border-top:1px solid var(--border);margin:0}
+.s12why b{color:var(--warn)}
+@media (max-width:760px){.s12line{font-size:11.5px}.det-in{padding:10px 11px}}
+
+/* ===== §5bf (25 IX 2026) — the change page wears the BRIEF's look. The owner put the two
+   side by side: different background, font, column, tiles and navigation, because this
+   page kept its own sheet from early September while the brief was redesigned four times.
+   Layout and content stay; only the look moves, by overriding at the END of this sheet:
+   the brief's palette in both themes, IBM Plex, the 1500 px column, `.stat`-shaped tiles
+   (4 px corners, 3 px coloured left edge, 26 px number, condensed caps label) and the
+   graphite navigation plane of §5ae with tab-shaped links. No backslash in this block:
+   CSS is an ordinary Python string (the minus-sign lesson of §5be). ===== */
+:root{--bg:#f2f4f7;--surface:#fff;--surface2:#e9edf3;--text:#111721;--muted:#4e5867;
+ --border:#ccd4de;--ok:#0d6236;--ok-soft:#dbf0e3;--bad:#9c1f1b;--bad-soft:#fbdedc;--warn:#7d4d00;
+ --warn-soft:#fceece;--accent:#14479e;--accent-soft:#e2eafb;--del-bg:#fbdcda;--del-fg:#96201c;
+ --ins-bg:#d7f0de;--ins-fg:#0d5c31;--grey:#465061;
+ --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+ --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+ --cond:"IBM Plex Sans Condensed","IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+ --nav-bg:#dfe5ee;--nav-line:#c4cdd9;--nav-tab:#ffffff;--nav-tab-line:#b3bfce;--nav-fg:#26303f;
+ --nav-hover:#eef2f8;--nav-hover-line:#14479e;--nav-hover-fg:#111721;--nav-on:#ffffff;
+ --nav-on-bg:#14479e;--nav-on-line:#14479e;--nav-rowlab:#5b6677;--nav-count-bg:#e3e8f0;
+ --nav-count-fg:#3a4556;--nav-on-count-bg:#ffffff;--nav-on-count-fg:#14479e;--nav-ref-line:#c4cdd9;
+ --nav-ref-fg:#3a4556;--nav-ring:rgba(20,71,158,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16);
+ --bg:#0d1116;--surface:#161b22;
+ --surface2:#1e242d;--text:#e8ecf1;--muted:#9fa9b6;--border:#2f3846;--ok:#63d495;--ok-soft:#0f3323;
+ --bad:#f4867f;--bad-soft:#401718;--warn:#efba60;--warn-soft:#382a0d;--accent:#7fabf7;
+ --accent-soft:#182a48;--del-bg:#3f1618;--del-fg:#f79b95;--ins-bg:#123a24;--ins-fg:#79e0a5;--grey:#aeb8c4}}
+:root[data-theme=dark]{--nav-bg:#2b3140;--nav-line:#3d4557;--nav-tab:#323949;--nav-tab-line:#6d7891;--nav-fg:#cfd5e2;
+ --nav-hover:#3e4759;--nav-hover-line:#8b95ab;--nav-hover-fg:#ffffff;--nav-on:#1b2030;
+ --nav-on-bg:#ffffff;--nav-on-line:#ffffff;--nav-rowlab:#98a2b8;--nav-count-bg:rgba(255,255,255,.18);
+ --nav-count-fg:#e6eaf2;--nav-on-count-bg:#2b3140;--nav-on-count-fg:#ffffff;--nav-ref-line:#4b5568;
+ --nav-ref-fg:#aab3c6;--nav-ring:rgba(255,255,255,.16);
+ --bg:#0d1116;--surface:#161b22;--surface2:#1e242d;--text:#e8ecf1;--muted:#9fa9b6;
+ --border:#2f3846;--ok:#63d495;--ok-soft:#0f3323;--bad:#f4867f;--bad-soft:#401718;--warn:#efba60;
+ --warn-soft:#382a0d;--accent:#7fabf7;--accent-soft:#182a48;--del-bg:#3f1618;--del-fg:#f79b95;
+ --ins-bg:#123a24;--ins-fg:#79e0a5;--grey:#aeb8c4}
+body{font-family:var(--sans);font-size:14.5px;-webkit-font-smoothing:antialiased}
+code,.ref,.s12line,.s12cnt,.s12path,.s12at,.xb,.relnew h3 .rv{font-family:var(--mono)}
+.wrap{max-width:1500px;padding:20px 20px 72px}
+header.top{padding:16px 20px 14px}
+header .in{max-width:1460px}
+h1{font-size:27px;font-weight:650;letter-spacing:-.02em;line-height:1.15}
+.dateline{font-size:14px}
+/* tiles: the brief's `.stat` */
+.factgrid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.fact{border:1px solid var(--border);border-left:3px solid var(--grey);border-radius:4px;
+ background:var(--surface);padding:11px 13px}
+.fact b{font-size:26px;font-weight:600;line-height:1.05;letter-spacing:-.02em;color:var(--text)}
+.fact span{font-family:var(--cond);font-size:11.5px;font-weight:400;letter-spacing:.05em;color:var(--muted);margin-top:3px}
+.fact.ok{border-left-color:var(--ok)}.fact.bad{border-left-color:var(--bad)}
+.fact.warn{border-left-color:var(--warn)}.fact.acc,.fact.info{border-left-color:var(--accent)}
+a.fact:hover{background:var(--surface2);border-color:var(--border);border-left-color:var(--accent)}
+a.fact::after{display:none}
+/* navigation: the graphite plane of §5ae, links shaped like its tabs */
+.dstick{background:var(--bg);border-bottom:0;padding:8px 0 6px}
+.dnavstack{background:var(--nav-bg);border:1px solid var(--nav-line);border-radius:12px;padding:8px 10px}
+.dnavrow+.dnavrow{border-top-color:var(--nav-line);margin-top:8px;padding-top:8px}
+.dnavrow .drowlab{font-size:10.5px;color:var(--nav-rowlab)}
+nav.dsubnav{background:none;padding:0;gap:10px;flex-wrap:wrap;overflow-x:visible}
+nav.dsubnav a{font-size:13.5px;font-weight:600;padding:8px 13px;border-radius:9px;
+ background:var(--nav-tab);border:1.5px solid var(--nav-tab-line);color:var(--nav-fg)}
+nav.dsubnav a:hover{background:var(--nav-hover);border-color:var(--nav-hover-line);color:var(--nav-hover-fg)}
+nav.dsubnav a .n{background:var(--nav-count-bg);color:var(--nav-count-fg);padding:1px 6px;border-radius:9px;font-size:11px}
+nav.dsubnav a[aria-current="true"]{background:var(--nav-on-bg);border-color:var(--nav-on-line);color:var(--nav-on);
+ font-weight:700;box-shadow:0 0 0 3px var(--nav-ring)}
+nav.dsubnav a[aria-current="true"] .n{background:var(--nav-on-count-bg);color:var(--nav-on-count-fg)}
+.tw{border-radius:4px}
+th{font-family:var(--cond);font-size:12px;letter-spacing:.06em}
+/* §5bg: 12 px floor on the change page too (429 texts measured below it on 25 IX) */
+span.t0,.s12at,.s12path,nav.dsubnav a .n,.s9advcar,.capverb,.dnavrow .drowlab,.s9advt,
+caption.tabcap .capverb,.relnew .grp{font-size:12px}
+@media (max-width:760px){
+  .wrap{padding:14px 12px 56px}header.top{padding:14px 12px}h1{font-size:21px}
+  nav.dsubnav{flex-wrap:nowrap;overflow-x:auto}nav.dsubnav a{flex:0 0 auto;padding:7px 11px}
+}
+/* §5bk (25 IX 2026): the change page on a phone. Measured at 390 px: twelve tiles took
+   1 250 px before the first table, every table was wider than the screen (up to 1 944 px)
+   and its last column ("Areas touched") sat off to the right; 902 texts at 11.5 px.
+   Tiles go compact, each table row becomes a card (labels from the header, written by
+   MOBILE_BODY), filter menus fold behind one "Filters" button. */
+.dfbtn{display:none}
+@media (max-width:760px){
+  .factgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .factgrid .fact{padding:8px 10px!important}
+  .factgrid .fact b{font-size:22px!important;line-height:1.1}
+  .factgrid .fact span{font-size:12px!important;letter-spacing:.02em}
+  .s12sign,.s12line span,.fact span{font-size:12px!important}
+  .tw table.dcard{min-width:0!important;width:100%!important}
+  .tw table.dcard thead{display:none}
+  .tw table.dcard,.tw table.dcard tbody{display:block}
+  .tw table.dcard tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;padding:10px 8px;border-bottom:1px solid var(--border)}
+  .tw table.dcard td{display:block;border:0!important;padding:0!important;min-width:0;overflow-wrap:anywhere}
+  .tw table.dcard td:first-child,.tw table.dcard td[colspan],.tw table.dcard td.dwide{grid-column:1/-1}
+  .tw table.dcard td:first-child{font-weight:650}
+  .tw table.dcard td[data-label]:not(:first-child)::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted);font-weight:400;margin-bottom:1px}
+  .tw table.dcard td.dzero{display:none}
+  .s9find .dfbtn{display:inline-flex;align-items:center;font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;
+    border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:36px}
+  .s9find:not(.dfopen)>select,.s9find:not(.dfopen)>button:not(.dfbtn){display:none!important}
+  .dnotebtn{display:inline-block;font:inherit;font-size:13px;font-weight:600;color:var(--accent,#0b6bcb);background:none;border:0;padding:6px 0;cursor:pointer}
+  .dnote:not(.dnote-open){display:none}
+}
+.dnotebtn{display:none}
+@media (max-width:760px){.dnotebtn{display:inline-block}}
+.dstale{margin:10px 0 0;padding:8px 12px;border:1px solid var(--warn);border-left-width:4px;border-radius:8px;
+ background:var(--warn-soft);color:var(--text);font-size:13.5px;line-height:1.5}
+/* §5cj (30 IX 2026): what this page compares, and what the main page does not show yet */
+.dwin{margin:10px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;
+ background:var(--surface);font-size:13.5px;line-height:1.5}
+.dwin p{margin:0 0 6px}.dwin p:last-child{margin-bottom:0}
+.dwin .dwin-aft{margin-top:8px;padding:8px 12px;border:1px solid var(--warn);border-radius:8px;background:var(--warn-soft)}
+.dwin ul{margin:6px 0 0;padding-left:20px}.dwin li{margin:2px 0}
+.dwin .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--surface-2,var(--accent-soft));font-size:11.5px;font-weight:600;margin-right:6px}
+/* §5da (10 X 2026, owner: "not a Christmas tree"): the same colour rules as the brief - before grey and struck
+   through, after in the text colour, no red or green blocks; technology chips are quiet outlines */
+body{--del-bg:transparent;--ins-bg:transparent;--del-fg:var(--muted);--ins-fg:var(--text)}
+del{color:var(--muted)!important;background:transparent!important;text-decoration:line-through;padding:0!important}
+ins{color:var(--text)!important;background:transparent!important;text-decoration:none;font-weight:600;padding:0!important}
+.tchip{border-color:var(--border)!important;background:transparent!important;color:var(--text)!important}
+/* §5cz-b: the same hint bubble and round ? as the brief */
+#s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
+#s5czb-tip{position:fixed;z-index:10000;left:0;top:0;max-width:340px;padding:8px 11px;border-radius:10px;background:var(--surface,#fff);color:var(--text);border:1px solid var(--accent);box-shadow:0 10px 28px rgba(0,0,0,.22);font-size:12.5px;line-height:1.5;font-weight:400;text-align:left;white-space:normal;letter-spacing:0;text-transform:none;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+#s5czb-tip.on{opacity:1;visibility:visible;transform:none}
+#s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
+#s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
+.s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+span[title],abbr[title]{cursor:help}
+/* §5cz-b (10 X 2026): the afternoon items as cards - technology, area, status, title, why, then dates and MC */
+.daft{margin:10px 0 0;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--warn,#9a6700);border-radius:10px;background:var(--surface)}
+.daft-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.daft-n{flex:0 0 auto;min-width:40px;height:40px;padding:0 8px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+ background:var(--warn-soft);color:var(--warn,#9a6700);font-weight:800;font-size:20px}
+.daft-head h2{margin:0;font-size:16px}.daft-head p{margin:2px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.daft-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.daft-c{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg,var(--surface));min-width:0}
+.daft-c:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.daft-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.daft-a{font-size:12px;color:var(--muted)}
+.daft-st{margin-left:auto;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.daft-t{font-weight:700;font-size:14px;line-height:1.4;color:var(--text);overflow-wrap:anywhere;text-decoration:none}
+a.daft-t:hover{color:var(--accent)}
+.daft-w{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.daft-m{margin:auto 0 0;padding-top:6px;border-top:1px dashed var(--border);display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12px}
+.daft-m div{display:flex;gap:5px;align-items:baseline}.daft-m dt{color:var(--muted)}.daft-m dd{margin:0;font-variant-numeric:tabular-nums}
+@media (hover:none){.daft-c:hover{outline:none}}
+@media (max-width:720px){.daft-g{grid-template-columns:1fr}.daft{padding:10px}}
+.didn{margin:10px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:4px solid var(--bad,#cf222e);border-radius:8px;background:var(--surface)}
+.didn p{margin:0 0 6px}.didn ul{margin:6px 0 0;padding-left:20px}.didn li{margin:3px 0;overflow-wrap:anywhere}
+.didn .dwin-p{display:inline-block;padding:0 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-size:11.5px;font-weight:600;margin-right:6px}
+.didn .didn-d{display:block;color:var(--muted);font-size:12.5px;margin-left:2px}
+/* §5cz (10 X 2026): data freshness frame and dd/MM/yyyy dates - the same look as the brief */
+.s5cz-fresh{margin-left:auto;border:1.5px solid var(--ok,#1a7f37);border-radius:12px;background:var(--surface);padding:8px 12px 9px;font-size:12.5px;line-height:1.45;min-width:260px}
+.s5cz-fresh.s5cz-warn{border-color:var(--warn,#9a6700)}.s5cz-fresh.s5cz-bad{border-color:var(--bad,#cf222e)}
+.s5cz-fh{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.s5cz-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok,#1a7f37)}.s5cz-warn .s5cz-dot{background:var(--warn,#9a6700)}.s5cz-bad .s5cz-dot{background:var(--bad,#cf222e)}
+.s5cz-tg{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.s5cz-tg button{font:inherit;font-size:11px;padding:1px 8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.s5cz-tg button[aria-pressed="true"]{background:var(--ok,#1a7f37);color:#fff;font-weight:700}
+.s5cz-fl{display:flex;gap:6px;align-items:baseline;white-space:nowrap}.s5cz-fk{color:var(--muted);min-width:76px}.s5cz-at{font-variant-numeric:tabular-nums}.s5cz-fx{color:var(--muted);font-size:11.5px}
+.s5cz-d{white-space:nowrap;position:relative}.s5cz-d::before{content:attr(data-v)}
+.s5cz-o{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;margin:-1px!important;padding:0!important;border:0!important}
+@media (max-width:720px){.s5cz-fresh{margin:8px 0 0;min-width:0;width:100%}}
+.didn li:hover,.didn:hover{outline:1px solid var(--accent);outline-offset:-1px}
+details.dhow{margin:8px 0 0}
+details.dhow>summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent)}
+.mcol{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.mcol b{color:var(--text)}
+/* §5cv (9 X 2026, owner: "the blue frame on hover everywhere, also in /diff/"); §5cv-c: the entry under the pointer
+   (a table row, a list entry, a tile) gets a 2 px frame and its section a 1 px frame, as on the brief - an outline
+   inside the box, so nothing moves. The product / technology of a row is a blue chip (.tchip). */
+details.dsec:hover,.tabblock:hover{outline:1px solid var(--accent);outline-offset:-1px}
+a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,.dnavstack:hover,.dstale:hover,.tw tbody tr:hover,
+.wrap li:hover{outline:2px solid var(--accent);outline-offset:-2px}
+@media (hover:none){details.dsec:hover,.tabblock:hover,a.fact:hover,.dwin:hover,.dwin .dwin-aft:hover,details.s9adv:hover,
+ .dnavstack:hover,.dstale:hover,.tw tbody tr:hover,.wrap li:hover{outline:none}}
+.tchip{display:inline-block;padding:2px 9px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);
+ color:var(--accent);font-weight:700;font-size:12px;line-height:1.45;white-space:nowrap}
+/* §5cx (10 X 2026): the GuardZilla logo (picture and name, owner 10 X 08:05) before the title; the theme picks the light or the dark picture */
+h1.s5cx-h1{display:flex;align-items:center;gap:12px}
+.s5cx-mark{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
+.s5cx-mark img{height:128px;width:auto;display:block}
+.s5cx-dark{display:none!important}
+:root[data-theme=dark] .s5cx-dark{display:block!important}
+:root[data-theme=dark] .s5cx-light{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .s5cx-dark{display:block!important}
+ :root:not([data-theme=light]) .s5cx-light{display:none!important}}
+/* from 721 px the mascot stands left of the title and the dateline together, so it is big without a taller header */
+@media (min-width:721px){header.top .title-row>div:first-child{position:relative;padding-left:168px;min-height:128px}
+ header.top h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}}
+@media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:108px}header.top .title-row>div:first-child{padding-left:144px;min-height:108px}}
+@media (max-width:720px){.s5cx-mark img{height:96px}h1.s5cx-h1{gap:12px}}
+</style>
+<script>
+/* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
+(function(){try{var v=localStorage.getItem('soc-diff-theme');
+if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v);}catch(e){}})();
+</script>
+</head>
+<body>
+<header class="top"><div class="in"><div class="title-row"><div><h1 class="s5cx-h1"><a class="s5cx-mark" href="/" aria-label="GuardZilla &mdash; back to the brief"><img class="s5cx-light" src="../assets/logo-light.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display='none'"><img class="s5cx-dark" src="../assets/logo-dark.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display='none'"></a>Microsoft SOC &mdash; what changed</h1>
+<p class="dateline">2026-10-10 &rarr; 2026-10-11 &middot; brief 10 Oct → brief 11 Oct (evening) &middot; compared 20:06 Warsaw &middot; Piotr Wisniewski &middot; <a href="/">Back to the full brief</a></p></div><div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button></div></div>
+<p class="dstale" id="dstale" data-from="2026-10-10" data-to="2026-10-11" hidden></p>
+<div class="dwin" id="dwin"><p><b>What this page compares:</b> the state at the end of 10 Oct &rarr; the state at the end of 11 Oct &mdash; the morning pass (06:46 Warsaw) and the afternoon pass (21:48 Warsaw). <b>The main page shows the morning pass only</b>: each of its tabs counts what moved between the end of 10 Oct and this morning. In <a href="#bytab">What changed, by tab</a> the last column says how much of each row the main page already shows.</p></div>
+<div id="diff-meta" hidden data-date="2026-10-11" data-prev="2026-10-10" data-afternoon-at="21:48" data-afternoon="" data-split="1"></div>
+<div class="factgrid"><a class="fact ok" href="#bytab" data-goto="bytab"><b>21</b><span>added &middot; across 2 sections</span></a><a class="fact bad" href="#bytab" data-goto="bytab"><b>1</b><span>removed</span></a><a class="fact warn" href="#bytab" data-goto="bytab"><b>9</b><span>changed &middot; across 3 sections</span></a><a class="fact info" href="#endpoints" data-goto="endpoints"><b>+0 / &minus;0</b><span>Graph endpoints</span></a><a class="fact info" href="#fpa" data-goto="fpa"><b>+0 / &minus;0 / 0</b><span>first-party apps</span></a><a class="fact acc" href="#deadlines" data-goto="deadlines"><b>1</b><span>deadline rows</span></a><a class="fact warn" href="#components" data-goto="components"><b>0</b><span>component versions</span></a><a class="fact" href="#catalog" data-goto="catalog"><b>+0</b><span>Graph permissions &middot; 2299 &rarr; 2299</span></a><a class="fact" href="#catalog" data-goto="catalog"><b>+0</b><span>role entries &middot; 139 &rarr; 139</span></a><a class="fact" href="#bytab" data-goto="bytab"><b>290</b><span>items in state &middot; was 290</span></a><a class="fact info" href="#community" data-goto="community"><b>25</b><span>community changes &middot; 17 new articles, &minus;1 source</span></a><a class="fact acc" href="#mcenter" data-goto="mcenter"><b>+0 / &minus;1 / 0</b><span>Message Center &middot; 1 rows in view</span></a><a class="fact warn" href="#bytab" data-goto="bytab"><b>1</b><span>source pages moved &middot; 1 edited &middot; shown under their own rows</span></a></div>
+<details class="dhow"><summary>How these numbers are counted</summary>
+<p class="tilenote">Added, removed and changed count every row of the table below them, both catalogs and the tracked components included. Endpoints and Message Center are counted apart: endpoints are not items, and Message Center is a VIEW over entries that are already counted in their own tab. <b>A tile that is a link leads to where its own number is visible as the same number</b> &mdash; the three totals to the table that decomposes them, every other tile to the section whose count it carries. <b>Every tile is a link</b>: a zero opens its section, which says what was compared and that nothing moved, and a tile stating a catalog size opens the section where that catalog is compared. <b>Pressing one opens that section and closes the rest</b>: every section starts collapsed, with its count in the chip beside its name. <b>Message Center moved on its own this run: +0 / &minus;1 / 0 revised.</b> None of that is in the three totals above, and that is deliberate: every one of these entries is cited by an item on this page, so it is already counted in that item&rsquo;s own tab (&sect;3a, one home per item). <b>Not counted as changes (&sect;5bf): 2 values recorded for the first time on an entry that already existed</b> &mdash; the brief read more, Microsoft moved nothing &mdash; <b>and 6 bookkeeping differences</b>: window placement, how a source was read, the date it was checked, a component&rsquo;s state ageing by one day at the same version. <b>Left the window, not removed (&sect;5bg):</b> 26 community articles, 0 source pages, 3 blog articles and 0 Learn &ldquo;what&rsquo;s new&rdquo; entries are no longer in the 14-day window or in their source&rsquo;s feed. Nobody deleted them, so they are not in the totals.</p>
+</details>
+</div></header><div class="wrap" role="main"><div class="dstick"><div class="dnavstack"><div class="dnavrow"><span class="drowlab">What moved</span><nav class="dsubnav" aria-label="What moved"><a href="#bytab" data-goto="bytab">By tab<span class="n">11</span></a><a href="#bytech" data-goto="bytech">By technology<span class="n">2</span></a><a href="#deadlines" data-goto="deadlines">Deadlines<span class="n">1</span></a><a href="#added" data-goto="added">Added<span class="n">1</span></a><a href="#removed" data-goto="removed">Removed<span class="n">1</span></a><a href="#changed" data-goto="changed">Changed<span class="n">1</span></a></nav></div><div class="dnavrow"><span class="drowlab">Where from</span><nav class="dsubnav" aria-label="Where from"><a href="#components" data-goto="components">Components<span class="n">0</span></a><a href="#campaigns" data-goto="campaigns">Campaigns<span class="n">8</span></a><a href="#endpoints" data-goto="endpoints">Endpoints<span class="n">0</span></a><a href="#fpa" data-goto="fpa">First-party apps<span class="n">0</span></a><a href="#catalog" data-goto="catalog">Catalog<span class="n">0</span></a><a href="#community" data-goto="community">Community<span class="n">25</span></a><a href="#mcenter" data-goto="mcenter">Message Center<span class="n">1</span></a><a href="#srctext" data-goto="srctext">Source text<span class="n">0</span></a><a href="#docsdiff" data-goto="docsdiff">Microsoft Learn<span class="n">0</span></a><a href="#blogsdiff" data-goto="blogsdiff">Microsoft Blogs<span class="n">3</span></a></nav></div></div></div>
+<section id="bytab"><details class="dsec" open><summary><span class="dsum-t">What changed, by tab</span><span class="dsum-n">11 tabs</span></summary><p class="note">What moved since 2026-10-10, tab by tab, and which areas it touched. A row of three zeros means that tab was checked and did not move. Each item is counted in the ONE tab that is its home &mdash; New for the published window, Deadlines for anything dated, Graph API and Roles for the two catalogs &mdash; so nothing is counted twice. Today is a selection from New and Deadlines and Products is a second view of the same items, so their changes are already in these rows. A source added to or dropped from the community list is a change to the LIST, not to an article, so it is counted in its own tile and named in the Community section rather than mixed in here. <b>Every non-zero number below is a link</b>: it jumps to the section that lists those rows and narrows it to that tab.</p><div class="tw"><table><thead><tr><th>Tab</th><th>Added</th><th>Removed</th><th>Changed</th><th>Areas touched</th><th>On the main page (morning pass)</th></tr></thead><tbody><tr><td><b>New</b></td><td><a class="gnum" href="#added" data-goto="added" data-tab="New"><b class="nadd">+1</b></a></td><td><span class="none">0</span></td><td><a class="gnum" href="#changed" data-goto="changed" data-tab="New"><b class="nchg">1</b></a></td><td>Azure</td><td><span class="mcol"><b>+1 / &minus;0 / 0</b> in the morning</span></td></tr><tr><td><b>Deadlines</b></td><td><span class="none">0</span></td><td><a class="gnum" href="#removed" data-goto="removed" data-tab="Deadlines"><b class="nrem">&minus;1</b></a></td><td><span class="none">0</span></td><td>Copilot</td><td><span class="mcol">all of it</span></td></tr><tr class="quiet"><td><b>Graph API</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Graph permissions</td><td><span class="mcol">&mdash;</span></td></tr><tr class="quiet"><td><b>Graph endpoints</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>what already-consented permissions can call</td><td><span class="mcol">&mdash;</span></td></tr><tr class="quiet"><td><b>Roles</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Entra directory roles</td><td><span class="mcol">&mdash;</span></td></tr><tr class="quiet"><td><b>Component versions</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>&mdash;</td><td><span class="mcol">&mdash;</span></td></tr><tr><td><b>Community articles</b></td><td><a class="gnum" href="#community" data-goto="community" data-tab="Community articles"><b class="nadd">+17</b></a></td><td><span class="none">0</span></td><td><a class="gnum" href="#community" data-goto="community" data-tab="Community articles"><b class="nchg">7</b></a></td><td>&mdash;</td><td><span class="mcol"><b>+12 / &minus;0 / 2</b> in the morning</span></td></tr><tr><td><b>Message Center</b></td><td><span class="none">0</span></td><td><a class="gnum" href="#mcenter" data-goto="mcenter" data-tab="Message Center"><b class="nrem">&minus;1</b></a></td><td><span class="none">0</span></td><td>Copilot</td><td><span class="mcol">all of it</span></td></tr><tr><td><b>Source text</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><a class="gnum" href="#srctext" data-goto="srctext" data-tab="Source text"><b class="nchg">1</b></a></td><td>&mdash;</td><td><span class="mcol"><b>+0 / &minus;0 / 0</b> in the morning</span></td></tr><tr class="quiet"><td><b>Microsoft Learn</b></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>&mdash;</td><td><span class="mcol">&mdash;</span></td></tr><tr><td><b>Microsoft Blogs</b></td><td><a class="gnum" href="#blogsdiff" data-goto="blogsdiff" data-tab="Microsoft Blogs"><b class="nadd">+3</b></a></td><td><span class="none">0</span></td><td><span class="none">0</span></td><td>Microsoft Security Blog</td><td><span class="mcol">all of it</span></td></tr></tbody></table></div></details></section>
+<section id="bytech"><details class="dsec" open><summary><span class="dsum-t">What changed, by technology</span><span class="dsum-n">2 technologies</span></summary><p class="note">The same movement counted by the technology it touches rather than by the tab it lives in &mdash; MDE, MDI, Sentinel, Purview and the rest, so a question that starts with a product name has one place to be answered. An item counts under its <code>product</code>; a tracked component under its own name; a community article and a Message Center entry under every technology tagged on it, so an article carrying two tags is counted under both and the total here can exceed the item count above. <b>Every technology name is a link</b>: it filters every table on this page to that technology at once.</p><div class="tw"><table><thead><tr><th>Technology</th><th>Added</th><th>Removed</th><th>Changed</th><th>Where it shows up</th></tr></thead><tbody><tr><td><span class="tchip"><a class="gtech" href="#added" data-tech="Azure"><b>Azure</b></a></span></td><td><b class="nadd">+1</b></td><td><span class="none">0</span></td><td><b class="nchg">1</b></td><td>New</td></tr><tr><td><span class="tchip"><a class="gtech" href="#added" data-tech="Copilot"><b>Copilot</b></a></span></td><td><span class="none">0</span></td><td><b class="nrem">&minus;1</b></td><td><span class="none">0</span></td><td>Deadlines</td></tr></tbody></table></div></details></section>
+<section id="deadlines"><details class="dsec"><summary><span class="dsum-t">Deadlines &mdash; everything dated, in one place</span><span class="dsum-n">1</span></summary><p class="note">Every deadline this comparison touched: dates that moved, dated items that arrived and dated items that went away. A date that moved is the row to read first &mdash; it is the one that changes a plan. <code>days</code> is the shift in days, positive when Microsoft pushed the date out and negative when it pulled the date in.</p><div class="tw"><table><thead><tr><th>What</th><th>Product</th><th>Item</th><th>Deadline</th><th>Days</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td><ins>arrived</ins></td><td><span class="tchip">Azure</span></td><td><b>Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it</b><br><span class="sub">Retirement: Azure Key Vault Secrets Provider Extension for Azure Arc enabled Kubernetes clusters</span><br><span class="ref">no MC/RM post — Azure updates</span></td><td><ins>2027-10-09</ins></td><td><span class="none">&mdash;</span></td><td>w5</td><td><a href="https://azure.microsoft.com/updates?id=570313" target="_blank" rel="noopener">Azure updates</a></td></tr></tbody></table></div></details></section>
+<section id="added"><details class="dsec"><summary><span class="dsum-t">Added since 2026-10-10</span><span class="dsum-n">1</span></summary><p class="note">In the current state and not in the previous one, one table per tab of the brief. Heaviest first: tier 0, then SOC weight, then deadline. <b>A row with a + carries the change Microsoft made inside the page it came from</b> &mdash; the same story, so it is in one place rather than repeated in a section of its own. A row with a dash has no watched page behind it.</p><div class="tabblock" data-tab="New"><div class="tw"><table><caption class="tabcap"><span class="capverb">Added in</span> <b>New</b> &middot; 1 item <span class="capareas">Azure</span></caption><thead><tr><th></th><th>Product</th><th>Item</th><th>Status</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td><span class="xn">&mdash;</span></td><td><span class="tchip">Azure</span></td><td><b>Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it</b><br><span class="sub">Retirement: Azure Key Vault Secrets Provider Extension for Azure Arc enabled Kubernetes clusters</span><br><span class="ref">no MC/RM post — Azure updates</span></td><td>Retiring</td><td>2026-10-09</td><td>2027-10-09</td><td>w5</td><td><a href="https://azure.microsoft.com/updates?id=570313" target="_blank" rel="noopener">Azure updates</a></td></tr></tbody></table></div></div></details></section>
+<section id="removed"><details class="dsec"><summary><span class="dsum-t">Removed</span><span class="dsum-n">1</span></summary><p class="note">Carried in the previous state and gone from the current one. A removal is a finding: either the source dropped it or this brief retracted it. <b>The name in each caption is the tab the removed item used to live in</b>, not what happened to it &mdash; &bdquo;Removed from New&rdquo; means it was in the New tab yesterday and is gone today.</p><div class="tabblock" data-tab="Deadlines"><div class="tw"><table><caption class="tabcap"><span class="capverb">Removed from</span> <b>Deadlines</b> &middot; 1 item <span class="capareas">Copilot</span></caption><thead><tr><th></th><th>Product</th><th>Item</th><th>Published</th><th>Deadline</th><th>Weight</th><th>Source</th></tr></thead><tbody><tr><td><span class="xn">&mdash;</span></td><td><span class="tchip">Copilot</span></td><td><b>Browser Use Admin Control for Copilot Cowork</b><br><span class="ref">MC1474461</span></td><td>2026-09-19</td><td><span class="none">none stated</span></td><td>w3</td><td><a href="https://deltapulse.app/item/MC1474461" target="_blank" rel="noopener">DeltaPulse</a></td></tr></tbody></table></div></div></details></section>
+<section id="changed"><details class="dsec"><summary><span class="dsum-t">Changed, field by field</span><span class="dsum-n">1</span></summary><p class="note">Same <code>id</code> in both states, different value, by tab. Old struck through, new highlighted &mdash; the difference is shown, not described.</p><div class="tabblock" data-tab="New"><div class="tw"><table><caption class="tabcap"><span class="capverb">Changed in</span> <b>New</b> &middot; 1 item <span class="capareas">Azure</span></caption><thead><tr><th></th><th>Product</th><th>Item</th><th>Field</th><th>Before &rarr; after</th><th>Source</th></tr></thead><tbody><tr><td><button class="xb" type="button" data-diff="1" aria-expanded="false" title="Show what changed inside the source page">+</button></td><td><span class="tchip">Azure</span></td><td><b>Defender for Cloud: the new server security experience joins Defender for Endpoint and Defender for Servers data, and turning off Defender for Servers can offboard servers from Defender for Endpoint</b><br><span class="sub">New Defender server security experience</span><br><span class="ref">no MC/RM post — Learn only</span></td><td><span class="field">Substance</span></td><td><del>Defender for Cloud release notes, 6 October 2026, Public preview: &#x27;The new Defender server security experience brings together cloud and endpoint data from Microsoft Defender for Endpoint and Defender for Servers.&#x27; In the Microsoft Defender portal: review unified server inventory, investigate servers across alerts, incidents and the attack graph, use Go hunt, and &#x27;Manage access with role-based access control (RBAC), server device groups, and cloud scopes.&#x27; In the Azure portal: &#x27;Automatically offboard eligible servers from Defender for Endpoint by turning off Defender for Servers for the subscription.&#x27; The entry was not on the page at the 06:42 read. On 7 October the Defender for Endpoint offboarding page gained an &#x27;Automatic Azure offboarding&#x27; section: turning the plan off &#x27;automatically offboards eligible servers from Microsoft Defender for Endpoint&#x27;, changing from Plan 2 to Plan 1 or moving a machine between subscriptions does not trigger it, offboarding &#x27;can take up to one hour for large subscriptions&#x27;, and it &#x27;doesn&#x27;t uninstall the endpoint software or remove historical device records&#x27;.</del><span class="arrow">&rarr;</span><ins>Defender for Cloud release notes, 6 October 2026, Public preview: &#x27;The new Defender server security experience brings together cloud and endpoint data from Microsoft Defender for Endpoint and Defender for Servers.&#x27; In the Microsoft Defender portal: &#x27;Review the new server asset page with combined cloud and endpoint details&#x27;, investigate servers across alerts, incidents and the attack graph, use Go hunt, and &#x27;Manage access with role-based access control (RBAC), server device groups, and cloud scopes.&#x27; In the Azure portal: &#x27;Automatically offboard servers from Defender for Endpoint by turning off Defender for Servers plan for the subscription.&#x27; The entry was not on the page at the 06:42 read. On 7 October the Defender for Endpoint offboarding page gained an &#x27;Automatic Azure offboarding&#x27; section: turning the plan off &#x27;automatically offboards eligible servers from Microsoft Defender for Endpoint&#x27;, changing from Plan 2 to Plan 1 or moving a machine between subscriptions does not trigger it, offboarding &#x27;can take up to one hour for large subscriptions&#x27;, and it &#x27;doesn&#x27;t uninstall the endpoint software or remove historical device records&#x27;. On 11 October 2026 Microsoft edited this entry on the published page: the first bullet read &#x27;Review unified server inventory and combined cloud and endpoint details&#x27;, the offboarding line read &#x27;Automatically offboard eligible servers from Defender for Endpoint by turning off Defender for Servers for the subscription&#x27;, and the entry gained the line &#x27;Learn more about the new Defender server security experience&#x27;, which links the Defender for Endpoint page azure-server-integration. Microsoft did not date the edit; the entry is still dated 6 October.</ins></td><td><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes" target="_blank" rel="noopener">Microsoft Learn</a></td></tr><tr class="det" hidden><td colspan="6"><div class="det-in"><p class="hd-lead">What Microsoft changed inside the 2 pages this item came from &mdash; 15 changed lines</p><div class="s12file" data-ntowner="mdc-new-defender-server-security-experience-2026-10-06"><div class="s12fhead"><div class="s12name"><a href="https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines" target="_blank" rel="noopener">Offboard machines</a><span class="s12path">defender-endpoint/offboard-machines.md &middot; 2a68b13 &middot; 2026-10-07</span></div><div class="s12cnt"><span class="p">+10</span><span class="m">&minus;0</span></div></div><div class="s12hunk"><div class="s12at">line 87</div><div class="s12line s12add"><span class="s12sign">+</span><span>### Automatic Azure offboarding</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>Turning off Defender for Servers for a subscription in the Azure portal automatically offboards eligible servers from Microsoft Defender for Endpoint. Changing from Plan 2 to Plan 1 or moving a machine between subscriptions doesn&#x27;t trigger automatic offboarding.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>To start offboarding and verify the result:</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>1. In **Microsoft Defender for Cloud** in the Azure portal, identify the subscription where you want to turn off Defender for Servers.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>2. Turn off the plan using the [plan-change procedure](/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan#disable-defender-for-servers-on-a-subscription). This is the only action required to initiate offboarding. The software automatically handles intent validation, MDE extension removal, and endpoint offboarding.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>3. Allow processing to complete, and then verify the result. Offboarding can take up to one hour for large subscriptions. If machines are powered off, the software retries later.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>Use the subscription&#x27;s plan control to initiate offboarding, not deletion of the Azure environment connection.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>Automatic offboarding disconnects the endpoint from its current Defender for Endpoint organization and stops EDR reporting to that organization. It doesn&#x27;t uninstall the endpoint software or remove historical device records. Software or record presence alone doesn&#x27;t indicate a failure, and the plan setting alone doesn&#x27;t confirm that offboarding is complete. Manual endpoint offboarding or uninstall</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>Note</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>If you turn the plan back on before offboarding completes, the offboarding and onboarding actions run asynchronously. Defender for Endpoint is onboarded again after a few hours. Turning the plan back on doesn&#x27;t immediately cancel offboarding.</span></div></div></div><div class="s12file" data-ntowner="mdc-new-defender-server-security-experience-2026-10-06"><div class="s12fhead"><div class="s12name"><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes" target="_blank" rel="noopener">Release notes</a><span class="s12path">defender-for-cloud/release-notes.md &middot; a573bce &middot; 2026-10-11</span></div><div class="s12cnt"><span class="p">+3</span><span class="m">&minus;2</span></div></div><div class="s12hunk"><div class="s12at">line 76</div><div class="s12line s12rem"><span class="s12sign">&minus;</span><span>- Review unified server inventory and combined cloud and endpoint details.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>- Review the new server asset page with combined cloud and endpoint details.</span></div></div><div class="s12hunk"><div class="s12at">line 83</div><div class="s12line s12rem"><span class="s12sign">&minus;</span><span>- Automatically offboard eligible servers from Defender for Endpoint by turning off Defender for Servers for the subscription.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>- [Automatically offboard servers](/en-us/defender-endpoint/offboard-machines) from Defender for Endpoint by turning off Defender for Servers plan for the subscription.</span></div><div class="s12line s12add"><span class="s12sign">+</span><span>Learn more about [the new Defender server security experience](/en-us/defender-endpoint/azure-server-integration).</span></div></div></div></div></td></tr></tbody></table></div></div></details></section>
+<section id="components"><details class="dsec"><summary><span class="dsum-t">Component versions</span><span class="dsum-n">0</span></summary><p class="note">Versions 13 &rarr; 13 tracked components. A component moves when a version changes on any platform, when its release state changes, or when a deadline moves. <b>Where a version moved, what the new release contains is printed below the table</b> &mdash; that release did not exist in the previous state, so it is a difference and not a repeat of the brief.</p><p class="empty">No tracked component moved.</p></details></section>
+<section id="campaigns"><details class="dsec"><summary><span class="dsum-t">Campaigns that moved today</span><span class="dsum-n">8</span></summary><p class="note">Campaigns are followed by <span class="mono">tools/campaigns.py</span> (GitHub Actions) across Message Center, Microsoft blogs and Learn, the community sources and the watched YouTube channels; this section lists what it recorded after the 2026-10-10 brief: a date Microsoft moved, a new milestone, new material, a new campaign, one closed (74 campaigns, run 2026-10-11). Every name opens the campaign card in the brief.</p><div class="tw"><table><thead><tr><th>What</th><th>Campaign</th><th>Details</th><th>Source</th></tr></thead><tbody><tr><td>Date moved</td><td><a href="/#tab=campaigns&amp;c=c-mc1182696">Application Guard for Office is being removed</a></td><td><del>early Dec 2026</del><span class="arrow">&rarr;</span><ins>early Feb 2026</ins> &middot; early February 2026.</td><td><span class="mono">MC1182696</span></td></tr><tr><td>Date moved</td><td><a href="/#tab=campaigns&amp;c=c-mc1182696">Application Guard for Office is being removed</a></td><td><del>Jul 2027</del><span class="arrow">&rarr;</span><ins>Feb 2027</ins> &middot; February 2027.</td><td><span class="mono">MC1182696</span></td></tr><tr><td>Date moved</td><td><a href="/#tab=campaigns&amp;c=c-passkeys-by-default">Passkeys by default in Microsoft Entra ID</a></td><td><del>early May 2026</del><span class="arrow">&rarr;</span><ins>early Mar 2026</ins> &middot; Rollout begins in early March 2026 and is expected to complete by late March 2026.</td><td><span class="mono">MC1221452</span></td></tr><tr><td>Date moved</td><td><a href="/#tab=campaigns&amp;c=c-passkeys-by-default">Passkeys by default in Microsoft Entra ID</a></td><td><del>late Jun 2026</del><span class="arrow">&rarr;</span><ins>late Mar 2026</ins> &middot; Rollout begins in early March 2026 and is expected to complete by late March 2026.</td><td><span class="mono">MC1221452</span></td></tr><tr><td>Date moved</td><td><a href="/#tab=campaigns&amp;c=c-mc1293480">Retirement of legacy TLS versions for POP and IMAP connections</a></td><td><del>31 Dec 2026</del><span class="arrow">&rarr;</span><ins>1 Aug 2026</ins> &middot; August 1, 2026.</td><td><span class="mono">MC1293480</span></td></tr><tr><td>New campaign detected</td><td><a href="/#tab=campaigns&amp;c=c-item-azure-arc-akv-secrets-provider-extension-retirement-202">Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…</a></td><td>Retirement &middot; Azure &middot; next milestone <b>9 Oct 2027</b><br>Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret Store extension replaces it</td><td><span class="mono">2026-10-11</span></td></tr><tr><td>New material</td><td><a href="/#tab=campaigns&amp;c=c-sms-voice-retirement">Microsoft-provided SMS and voice MFA retirement</a></td><td><a href="https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd">Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks</a> &middot; NeonTiger12</td><td><span class="mono">2026-10-11</span></td></tr><tr><td>New material</td><td><a href="/#tab=campaigns&amp;c=c-passkeys-by-default">Passkeys by default in Microsoft Entra ID</a></td><td><a href="https://dev.to/eliasfischer8351/auditable-fintech-access-by-polling-sms-otp-delivery-status-without-webhooks-46pd">Auditable Fintech Access by Polling SMS OTP Delivery Status Without Webhooks</a> &middot; NeonTiger12</td><td><span class="mono">2026-10-11</span></td></tr></tbody></table></div></details></section>
+<section id="endpoints"><details class="dsec"><summary><span class="dsum-t">Graph endpoints</span><span class="dsum-n">+0 / &minus;0</span></summary><p class="note">What each permission can call, compared pair by pair from <span class="mono">graphMap</span> in the two state blocks: 932 &rarr; 932 permissions carrying a path set. An endpoint appearing here means Microsoft widened or narrowed what an already-granted consent reaches &mdash; no consent prompt fires for that, so nothing in the audit trail marks it. These are endpoints, not items, which is why they have their own row in the summary above.</p><p class="emptycap"><b>By Microsoft commit</b> &middot; 0 changes on 0 permissions</p><p class="empty">Microsoft made no commit to permissions.json between the two briefs.</p><p class="emptycap"><b>Graph endpoints</b> &middot; +0 / &minus;0 / 0 edited</p><p class="empty">No permission gained or lost an endpoint, and no privilege level moved.</p></details></section>
+<section id="fpa"><details class="dsec"><summary><span class="dsum-t">First-party apps</span><span class="dsum-n">+0 / &minus;0 / 0</span></summary><p class="note">Microsoft's own Entra applications, snapshot to snapshot: 1738 &rarr; 1738 apps. An app ID that appears or leaves the list (after three runs without it), a new name or owner tenant, and permissions an app can newly obtain or no longer obtains &mdash; found by ROADtools and Graph Pre-Consent Explorer, not published by Microsoft. The changes are counted by <span class="mono">collect_fpa.py</span> (&sect;5bl).</p><p class="emptycap"><b>First-party apps</b> &middot; +0 / &minus;0 / 0</p><p class="empty">No first-party app appeared, left, or changed what it can obtain.</p></details></section>
+<section id="catalog"><details class="dsec"><summary><span class="dsum-t">Catalog &mdash; Graph API and Roles tabs</span><span class="dsum-n">0</span></summary><p class="note">Graph permissions 2299 &rarr; 2299 (+0 / &minus;0, 0 entries edited); roles 139 &rarr; 139 (+0 / &minus;0, 0 edited). These two tables are the whole of what moved in those two tabs.</p><p class="emptycap"><b>Graph API</b> &middot; +0 / &minus;0 / 0 edited</p><p class="empty">No Graph permission changed.</p><p class="emptycap"><b>Roles</b> &middot; +0 / &minus;0 / 0 edited</p><p class="empty">No role changed.</p></details></section>
+<section id="community"><details class="dsec"><summary><span class="dsum-t">Community articles</span><span class="dsum-n">25</span></summary><p class="note">Every new article is named with its title and its link, not counted. A source that stopped reading is the first row of the third table: that is the change worth acting on.</p><div class="tw"><table><caption class="tabcap"><b>The source list</b> &middot; +0 / &minus;1 / 0 renamed</caption><thead><tr><th>What</th><th>Source</th><th>Status</th><th>Reason</th></tr></thead><tbody><tr><td><del>removed</del></td><td>365CloudCapsule</td><td>failed</td><td>nothing answered with articles; tried 31 addresses (feeds at the listed address and the site root, the page&#x27;s own feed link, sitemaps, the listing HTML); answers seen: 404</td></tr></tbody></table></div><div class="tw"><table><caption class="tabcap"><b>Added</b> &middot; 17 articles</caption><thead><tr><th>Source</th><th>Article</th><th>Technology</th><th>Date</th></tr></thead><tbody><tr><td></td><td><a href="https://dev.to/serifcolakel/ai-application-engineering-from-llm-apis-to-agents-harnesses-and-production-systems-4noe" target="_blank" rel="noopener">AI Application Engineering: From LLM APIs to Agents, Harnesses, and Production Systems</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/kavin553/greenbuddy-ai-an-ai-nature-companion-that-encourages-people-to-touch-grass-1fj4" target="_blank" rel="noopener">🌱 GreenBuddy AI: An AI Nature Companion That Encourages People to Touch Grass</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/shijosylan/first-commit-41m7" target="_blank" rel="noopener">first commit.</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/shahzaib11/i-deleted-my-server-and-traffic-went-up-12ji" target="_blank" rel="noopener">I Deleted My Server and Traffic Went Up</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/novaknox_67fc9fcd89d6be48/5-things-i-learned-while-starting-my-journey-in-web-development-2bdd" target="_blank" rel="noopener">5 Things I Learned While Starting My Journey in Web Development</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/bianliang/recovery-testing-restore-order-and-verification-not-just-restore-success-kad" target="_blank" rel="noopener">Recovery testing: restore order and verification, not just restore success</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/tsmhashdigital/building-a-bitcoin-hashrate-rental-platform-as-a-solo-developer-what-the-money-logic-taught-me-17ak" target="_blank" rel="noopener">Building a Bitcoin hashrate rental platform as a solo developer: what the money logic taught me</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/neticslabs/microsoft-decision-1-scores-the-choices-an-agent-has-to-make-2h1j" target="_blank" rel="noopener">Microsoft-Decision-1 Scores the Choices an Agent Has to Make</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/ayraix/netbird-and-zero-trust-access-to-your-homelab-ai-stack-4kgo" target="_blank" rel="noopener">NetBird and Zero-Trust Access to Your Homelab AI Stack</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/leandrocannizzaro/keep-claude-code-remote-control-alive-across-reboot-with-an-os-supervisor-57ne" target="_blank" rel="noopener">Keep Claude Code Remote Control alive across reboot with an OS supervisor</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/devh0us3/harden-ci-protect-your-cicd-9lm" target="_blank" rel="noopener">Harden-CI: Protect your CI/CD</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://dev.to/malay998/touch-grass-planner-a-local-ai-that-sent-me-out-to-find-caterpillars-on-my-flower-pots-2n5j" target="_blank" rel="noopener">Touch Grass Planner: a local AI that sent me out to find caterpillars on my flower pots</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://entra.news/p/entra-news-170-this-week-in-microsoft" target="_blank" rel="noopener">Entra 🆔 News #170 → This week in Microsoft Entra</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://www.bleepingcomputer.com/news/security/nippon-columbia-malware-incident-exposes-86-million-karaoke-fan-records/" target="_blank" rel="noopener">Nippon Columbia malware incident exposes 8.6 million karaoke fan records</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-11</td></tr><tr><td></td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-security-events/ask-microsoft-anything-integrated-security-operations-center-in/ec-p/4559945#M2685" target="_blank" rel="noopener">Ask Microsoft Anything: Integrated Security Operations Center in Microsoft Defender</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-06</td></tr><tr><td></td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-security-experts/cdoc-contact-information-responses-failing-to-reach-cdoc-team/m-p/4560884#M56" target="_blank" rel="noopener">CDOC Contact Information - Responses Failing to Reach CDOC Team</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-09-29</td></tr><tr><td></td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-security-experts/microsoft-confirmed-my-account-was-hacked-but-says-it-cannot-be/m-p/4560113#M55" target="_blank" rel="noopener">Microsoft confirmed my account was hacked, but says it cannot be recovered</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-09-27</td></tr></tbody></table></div><p class="emptycap"><b>Removed</b> &middot; 0</p><p class="empty">No article dropped out of a feed.</p><div class="tw"><table><caption class="tabcap"><b>Sources that moved</b> &middot; 7</caption><thead><tr><th>Source</th><th>Field</th><th>Before &rarr; after</th></tr></thead><tbody><tr class="t0"><td><a href="https://ms365news.com" target="_blank" rel="noopener">MS365 News</a></td><td><span class="field">Status</span></td><td><del>ok</del><span class="arrow">&rarr;</span><ins>failed</ins></td></tr><tr><td><span class="none">&#8942;</span></td><td><span class="field">Newest article</span></td><td><del>2026-10-07</del><span class="arrow">&rarr;</span><span class="none">cleared</span></td></tr><tr><td><a href="https://dev.to/neontiger12" target="_blank" rel="noopener">NeonTiger12</a></td><td><span class="field">Newest article</span></td><td><del>2026-10-10</del><span class="arrow">&rarr;</span><ins>2026-10-11</ins></td></tr><tr><td><a href="https://entra.news" target="_blank" rel="noopener">Entra.news</a></td><td><span class="field">Newest article</span></td><td><del>2026-10-09</del><span class="arrow">&rarr;</span><ins>2026-10-11</ins></td></tr><tr><td><a href="https://thehackernews.com/" target="_blank" rel="noopener">Hacker News</a></td><td><span class="field">Newest article</span></td><td><del>2026-10-10</del><span class="arrow">&rarr;</span><ins>2026-10-11</ins></td></tr><tr><td><a href="https://breakwaterit.co.uk/guides/m365-update/" target="_blank" rel="noopener">Breakwater IT M365 Update</a></td><td><span class="field">Status</span></td><td><del>failed</del><span class="arrow">&rarr;</span><ins>ok</ins></td></tr><tr><td><a href="https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoftsecurityexperts" target="_blank" rel="noopener">Microsoft Security Experts Blog</a></td><td><span class="field">Status</span></td><td><del>failed</del><span class="arrow">&rarr;</span><ins>ok</ins></td></tr><tr><td><a href="https://www.bleepingcomputer.com/news/" target="_blank" rel="noopener">BleepingComputer</a></td><td><span class="field">Newest article</span></td><td><del>2026-10-10</del><span class="arrow">&rarr;</span><ins>2026-10-11</ins></td></tr></tbody></table></div></details></section>
+<section id="mcenter"><details class="dsec"><summary><span class="dsum-t">Message Center &mdash; what is new</span><span class="dsum-n">+0 / &minus;1 / 0</span></summary><p class="note">Every Message Center and Roadmap identifier that moved between these two states, from <b>both</b> places it can move: the index this brief reads, and an item on this page that cites one. Until 12 September 2026 this section counted the index alone, so a row above could say &bdquo;Message Center, published today&rdquo; while this section said zero &mdash; both true, and together nonsense. <b>This is a view, not a second population</b>: an item that cites MC is still counted once, in its own tab, which is why the totals at the top of the page leave this section out. An entry carrying a deadline is listed first, because that is the one that needs a plan. <b>An entry Microsoft REVISED moves too</b>: until 16 September 2026 the index was compared by presence alone and the item lists only by what was added or removed, so a second retirement date written into an entry from July, and an item whose reference was corrected from &bdquo;Learn only&rdquo; to an MC number, were both counted as zero &mdash; the same two-true-sentences defect as above, fixed in one of its three places and left standing in the other two. Message Center content varies by tenant &mdash; confirm anything here in your own tenant.</p><div class="tw"><table><caption class="tabcap"><b>Message Center</b> &middot; +0 / &minus;1 / 0 revised</caption><thead><tr><th>What</th><th>ID</th><th>Published</th><th>Revised</th><th>Title</th><th>Technology</th><th>Action required by</th><th>What moved</th><th>Where it came from</th></tr></thead><tbody><tr><td><del>removed</del></td><td><a href="https://deltapulse.app/item/MC1474461" target="_blank" rel="noopener">MC1474461</a></td><td>2026-09-19</td><td><span class="none">not revised</span></td><td><a href="https://deltapulse.app/item/MC1474461" target="_blank" rel="noopener">Browser Use Admin Control for Copilot Cowork</a></td><td><span class="tchip"><span class="t0">Copilot</span></span></td><td><span class="none">none stated</span></td><td><span class="none">&mdash;</span></td><td><span class="field">index and an item on this page</span></td></tr></tbody></table></div></details></section>
+<section id="srctext"><details class="dsec"><summary><span class="dsum-t">Source text &mdash; pages no item carries</span><span class="dsum-n">0</span></summary><p class="note">1 of 96 watched pages changed their text between these two states, and 1 of them is shown above. <b>A page an item carries is shown under that item&rsquo;s own row above</b>, behind its +, because it is the same story; what is left here is a page that moved with no item to its name, which is itself a finding. A page is compared by the commit it was read at, not by how many lines moved, so the same &bdquo;+21 / &minus;15&rdquo; on a different edit is still a difference.</p><p class="empty">Every page that moved is carried by an item above.</p></details></section>
+<section id="docsdiff"><details class="dsec"><summary><span class="dsum-t">Microsoft Learn</span><span class="dsum-n">0</span></summary><p class="note">0 published changes arrived and 0 went away across 33 documentation areas; 0 watched pages changed their text and 0 came onto the watch list. <b>A page is compared by the commit it was read at</b>, not by how many lines moved, so the same &bdquo;+21 / &minus;15&rdquo; on a different edit is still a difference. A published change is matched by its area and its title, because Microsoft gives it no identifier.</p><p class="emptycap"><b>What&rsquo;s new</b> &middot; +0 / &minus;0</p><p class="empty">No published change arrived or went away in any area.</p><p class="emptycap"><b>Areas that moved</b> &middot; 0</p><p class="empty">No area changed how it is read.</p><p class="empty">No watched documentation page changed its text.</p></details></section>
+<section id="blogsdiff"><details class="dsec"><summary><span class="dsum-t">Microsoft Blogs</span><span class="dsum-n">3</span></summary><p class="note">3 articles arrived and 0 went away across 31 product blogs. <b>Every article is named with its title and its link</b>, not counted: a number answers how many, never what. A blog that stopped reading is the first row of the second table &mdash; that is the change worth acting on.</p><div class="tw"><table><caption class="tabcap"><b>Articles</b> &middot; +3 / &minus;0</caption><thead><tr><th>What</th><th>Blog</th><th>Article</th><th>Technology</th><th>Date</th></tr></thead><tbody><tr><td><ins>added</ins></td><td>Microsoft Security Blog</td><td><a href="https://www.microsoft.com/en-us/security/blog/2026/10/08/post-quantum-authentication-why-organizations-should-start-testing-certificate-ecosystems-now/" target="_blank" rel="noopener">Post-quantum authentication: Why organizations should start testing certificate ecosystems now</a></td><td><span class="tchip"><span class="none">untagged</span></span></td><td>2026-10-08</td></tr><tr><td><ins>added</ins></td><td>Microsoft Security Blog</td><td><a href="https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/" target="_blank" rel="noopener">3 lessons from frontier AI vulnerability research</a></td><td><span class="tchip"><span class="t0">Windows</span> &middot; <span class="t0">Copilot &amp; AI</span></span></td><td>2026-10-07</td></tr><tr><td><ins>added</ins></td><td>Microsoft Security Blog</td><td><a href="https://www.microsoft.com/en-us/security/blog/2026/10/06/ciso-perspectives-on-managing-vulnerability-risks-in-the-age-of-ai/" target="_blank" rel="noopener">CISO perspectives on managing vulnerability risks in the age of AI</a></td><td><span class="tchip"><span class="t0">Exposure Mgmt</span> &middot; <span class="t0">Copilot &amp; AI</span></span></td><td>2026-10-06</td></tr></tbody></table></div><p class="emptycap"><b>Blogs that moved</b> &middot; 0</p><p class="empty">No blog changed how it is read.</p></details></section>
+<footer role="none">31 differences in total. &middot; Piotr Wisniewski &middot; 20:06 Warsaw &middot; computed from the two state blocks, not copied from the brief. <a href="/">Back to the full brief</a></footer></div>
+<script>
+(function(){
+  "use strict";
+  var r=document.documentElement, b=document.getElementById('themebtn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    try{
+      var explicit=r.getAttribute('data-theme');
+      var dark = explicit==='dark' ||
+                 (!explicit && window.matchMedia('(prefers-color-scheme:dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      r.setAttribute('data-theme', next);
+      try{ localStorage.setItem('soc-diff-theme', next); }catch(e){}
+    }catch(e){}
+  });
+})();
+</script><script>
+(function () {
+  "use strict";
+  function box(table) {
+    var tb = table.tBodies[0]; if (!tb) return null;
+    /* A detail row is not a row of this table: it is the evidence belonging to the row
+       above it. Counting it would make "Search 8 rows" wrong and filtering would leave
+       an orphan block behind — the same trap SCRIPT 6 handles with `hdet` in the brief. */
+    var rows = [].slice.call(tb.rows).filter(function (r) { return !r.classList.contains("det"); });
+    /* §5dd (10 X 2026): every table with two rows or more gets the box - "every table can be filtered by every column" */
+    if (rows.length < 2) return null;
+    var heads = [].map.call(table.querySelectorAll("thead th"), function (t) { return (t.textContent || "").trim(); });
+    var wrap = document.createElement("div"); wrap.className = "s9find";
+    var q = document.createElement("input");
+    q.type = "search"; q.className = "s9q";
+    q.placeholder = "Search " + rows.length + " rows…";
+    wrap.appendChild(q);
+    /* EVERY column this table shows is filterable, and the two halves of that are
+       deliberate (5ap): a column that GROUPS gets a facet, and a column whose every
+       value is unique gets the search box scoped to it instead — a dropdown holding
+       one entry per row is not a filter, it is a second copy of the table (5s). */
+    var colSel = document.createElement("select");
+    colSel.className = "s9f s11col";
+    colSel.setAttribute("aria-label", "Search in one column");
+    var c0 = document.createElement("option"); c0.value = "-1"; c0.textContent = "Search: all columns";
+    colSel.appendChild(c0);
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var o = document.createElement("option"); o.value = String(ci); o.textContent = "Search: " + h;
+      colSel.appendChild(o);
+    });
+    if (colSel.options.length > 2) wrap.appendChild(colSel); else colSel = null;
+
+    var sels = [];
+    heads.forEach(function (h, ci) {
+      if (!h) return;
+      var vals = {}, n = 0, missing = false;
+      rows.forEach(function (r) {
+        var c = r.cells[ci]; if (!c) { missing = true; return; }
+        /* textContent, never innerText: a row inside a closed <details> is not
+           rendered, and innerText of an unrendered row is the empty string */
+        var t = (c.textContent || "").replace(/\s+/g, " ").trim();
+        if (!t || t.length > 60) return;
+        if (!vals[t]) { vals[t] = 0; n++; }
+        vals[t]++;
+      });
+      var keys = Object.keys(vals);
+      /* 40, not 20: a page of differences groups by tab, by product and by field, and
+         capping at twenty silently dropped the column the reader came for. */
+      if (missing || n < 2 || n > 40) return;
+      if (Math.max.apply(null, keys.map(function (k) { return vals[k]; })) < 2 && n >= rows.length) return;
+      var s = document.createElement("select");
+      s.className = "s9f"; s.dataset.col = String(ci);
+      s.setAttribute("aria-label", "Filter by " + h);   /* §5bg: axe select-name, 8 on 25 IX */
+      var o0 = document.createElement("option"); o0.value = ""; o0.textContent = "All " + h.toLowerCase();
+      s.appendChild(o0);
+      keys.sort().forEach(function (k) {
+        var o = document.createElement("option"); o.value = k; o.textContent = k + " (" + vals[k] + ")";
+        s.appendChild(o);
+      });
+      wrap.appendChild(s); sels.push(s);
+    });
+    var rb = document.createElement("button");
+    rb.type = "button"; rb.className = "s9reset"; rb.textContent = "Reset";
+    wrap.appendChild(rb);
+    var cnt = document.createElement("span"); cnt.className = "s9count";
+    wrap.appendChild(cnt);
+    /* what this box is filtering, named the way the reader sees it on the page:
+       the section it sits in, and the caption of its own table when the section
+       holds more than one. Without a name the banner would say "a filter is on"
+       and leave the reader to find which table it means. */
+    var sec0 = table.closest ? table.closest("section") : null;
+    var st0 = sec0 && sec0.querySelector("summary .dsum-t");
+    var cap0 = table.querySelector("caption");
+    function clip(t, n) {
+      t = (t || "").replace(/\s+/g, " ").trim();
+      if (t.length <= n) return t;
+      var c = t.slice(0, n), sp = c.lastIndexOf(" ");
+      return (sp > n * 0.6 ? c.slice(0, sp) : c) + "…";
+    }
+    var label = clip(st0 ? st0.textContent : (sec0 ? sec0.id : "This page"), 34);
+    if (cap0) label += " · " + clip((cap0.textContent || "").split("·")[0], 30);
+    function describeBox() {
+      var out = [], v = (q.value || "").trim();
+      var sc = colSel ? +colSel.value : -1;
+      if (v) out.push(sc >= 0 ? ((heads[sc] || "a column") + ' contains "' + v + '"') : ('text "' + v + '"'));
+      sels.forEach(function (s) {
+        if (s.value) out.push((s.options[0].textContent || "").replace(/^All\s+/i, "") + " = " + s.value);
+      });
+      return out.join(" · ");
+    }
+    function apply() {
+      var v = (q.value || "").trim().toLowerCase(), shown = 0;
+      var scope = colSel ? +colSel.value : -1;
+      rows.forEach(function (r) {
+        var keep = true;
+        /* the Advanced filtering bar sets a PREDICATE and this box stays the only
+           writer of `row.hidden` for its table — the same `opt.extra` shape SCRIPT 6
+           uses for its method chips in the brief. Two independent writers of this
+           field fight and the loser is whichever ran first (5am). */
+        if (window.__s9adv && !window.__s9adv(r, table)) keep = false;
+        if (keep && v) {
+          var hay = scope >= 0
+            ? ((r.cells[scope] ? r.cells[scope].textContent : "") || "")
+            : (r.textContent || "");
+          if (hay.toLowerCase().indexOf(v) < 0) keep = false;
+        }
+        if (keep) sels.forEach(function (s) {
+          if (!s.value) return;
+          var c = r.cells[+s.dataset.col];
+          if (!c || (c.textContent || "").replace(/\s+/g, " ").trim() !== s.value) keep = false;
+        });
+        r.hidden = !keep;
+        var d = r.nextElementSibling;
+        if (d && d.classList && d.classList.contains("det") && !keep) {
+          /* hide the evidence with its row AND put its + back: a button reading
+             minus over a block nobody can see is the control and the page saying
+             two different things, which is the whole disease this page fixes */
+          d.hidden = true;
+          var x = r.querySelector("button.xb[data-diff]");
+          if (x) { x.textContent = "+"; x.setAttribute("aria-expanded", "false"); }
+          r.removeAttribute("aria-expanded");
+        }
+        if (keep) shown++;
+      });
+      cnt.textContent = shown + " of " + rows.length;
+      /* the one line that names every filter is rendered by the navigation script,
+         from what each box reports here — one renderer, many owners (5at). The
+         Advanced bar re-applies every box at once, so it silences the per-box call
+         and syncs the line once at the end rather than thirteen times. */
+      if (window.__socDiffBar && !window.__s9advBusy) window.__socDiffBar();
+    }
+    /* A box the page filled IN on the reader's behalf is not a filter he set: while
+       the technology filter is on, the banner already says in one sentence that it
+       narrowed eleven tables, and repeating that as eleven chips is the same
+       two-copies-of-one-sentence defect this banner exists to remove. The mark is
+       dropped the moment he touches the box himself, and then it IS his filter and
+       gets its own chip. */
+    function byHand() { wrap.__byGlobal = false; apply(); }
+    q.addEventListener("input", byHand);
+    if (colSel) colSel.addEventListener("change", byHand);
+    sels.forEach(function (s) { s.addEventListener("change", byHand); });
+    function resetBox() {
+      wrap.__byGlobal = false;
+      q.value = ""; if (colSel) colSel.value = "-1";
+      sels.forEach(function (s) { s.value = ""; }); apply();
+    }
+    rb.addEventListener("click", resetBox);
+    apply();
+    /* Rejestr, zeby skrypt nawigacji mogl ustawic te same filtry, ktore ustawilby
+       czytelnik. Dwa niezalezne pisarze `row.hidden` walcza ze soba (§5am), wiec
+       nawigacja NIE chowa wierszy sama — prosi `apply()` tego pudelka. */
+    wrap.__apply = apply;
+    wrap.__q = q;
+    wrap.__sels = sels;
+    wrap.__col = colSel;
+    wrap.__table = table;
+    wrap.__rows = rows;
+    wrap.__label = label;
+    wrap.__describe = describeBox;
+    wrap.__reset = resetBox;
+    (window.__s9diff = window.__s9diff || []).push(wrap);
+    return wrap;
+  }
+  [].forEach.call(document.querySelectorAll("details.dsec .tw > table"), function (t) {
+    var b = box(t);
+    if (b && t.parentNode && t.parentNode.parentNode) t.parentNode.parentNode.insertBefore(b, t.parentNode);
+  });
+
+  /* ====================================================================
+     ADVANCED FILTERING — the same control the portal carries on every tab
+     (5au), on this page too. The owner, 12 September 2026: "nie ma w diff
+     advance filtering takiego jaki mamy w glownym portalu".
+
+     Shape: one menu per groupable column, checkboxes inside (several values
+     in one menu mean ANY of them, two menus at once mean BOTH), a live count
+     on every value, a search box scoped to any single column, one Reset.
+
+     THREE RULES, and each is a measurement, not a taste:
+     1. ONE WRITER PER MECHANISM (5am, 5ap). This bar never writes `row.hidden`
+        and never writes an `N of M` counter. It sets `window.__s9adv`, which
+        every `.s9find` box consults inside its own `apply()`, and those boxes
+        stay the only writers of both.
+     2. A FACET MUST GROUP (5s). A column whose values are nearly all unique is
+        an identifier, not a filter: a menu holding one entry per row is a second
+        copy of the table. Such a column is offered to the SEARCH SCOPE instead,
+        so every column this page shows is reachable one way or the other.
+     3. A TABLE THIS FILTER CANNOT NAME IS LEFT WHOLE (5at). A column the table
+        does not carry is skipped for that table rather than emptying it, and the
+        two summary tables — the controls, 3 punkt 13 — are exempt entirely.
+     ==================================================================== */
+  var ADV = {}, ADVQ = { q: "", raw: "", col: "" }, DIMS = [], MENUS = [];
+  var ADVBAR = null, ADVQIN = null, ADVQSEL = null, ADVCHIP = null, ADVSUM = null;
+  var MAX_VALUES = 40;
+  var MEASURE = /^(\d+([.,]\d+)?%?|[+−-]\d+|\d+\s*of\s*\d+|—|–|-|n\/a)$/i;
+  var NEVER = /^(item|article|page|title|detail|note|entry|comment|endpoint|graph permission|directory action|before → after|before &rarr; after|what|what it means|what it says|why|why not|days|lines)$/i;
+
+  function txt(n) { return ((n && n.textContent) || "").replace(/\s+/g, " ").trim(); }
+  function cellText(tr, ci) { var c = tr.cells[ci]; return c ? txt(c) : ""; }
+  function isSummary(table) {
+    var sec = table && table.closest ? table.closest("section") : null;
+    return !!(sec && (sec.id === "bytab" || sec.id === "bytech"));
+  }
+  /* A DIMENSION IS A QUESTION, NOT A HEADER STRING. Measured 12 September 2026 on
+     the published page with `product = Azure, Entra` switched on: Added narrowed
+     32 -> 8 and Deadlines 8 -> 4, and SIX sections did not move at all — Changed,
+     Components, Endpoints, Catalog, Community articles and Message Center. Two of
+     them spell the same question `Technology`, and this bar was comparing header
+     TEXT, so a table that asks "which technology" under another name was treated as
+     a table that does not ask it. 5at's rule 3 — leave such a table whole — then
+     covered a defect instead of a deliberate exemption, which is the worst shape a
+     rule can take: it reads as considered. Synonyms are declared once, here. */
+  var SYN = [
+    ["Product", /^(product|technology|areas touched)$/i],
+    ["Tab",     /^(tab|where it shows up)$/i]
+  ];
+  function dimKey(h) {
+    for (var i = 0; i < SYN.length; i++) if (SYN[i][1].test(h)) return SYN[i][0];
+    return h;
+  }
+  /* AND NEITHER IS A VALUE. The item tables spell a product the way the state block
+     spells it, and the community feed spells it the way its own tag rules do (5an), so
+     the menu offered `Entra` and `Entra ID`, `Graph` and `Graph API` as separate
+     choices for one thing — and picking `Entra` narrowed the article table to nothing
+     while the technology summary still counted those articles under Entra. Measured
+     12 September 2026: 21 values where 16 things exist. This is the same disease as
+     `Exposure Management` against `Exposure Mgmt` (5ag) and the urgency emoji splitting
+     one technology in two (5au), so it gets the same treatment: an alias list, declared
+     here, short, and only for pairs that are genuinely one thing. `Windows` and
+     `Windows Server` are NOT aliases, and neither are `Copilot & AI` and
+     `Copilot Studio` — a wrong merge hides rows, which is worse than a duplicate. */
+  var ALIAS = [
+    ["Entra",        /^(entra|entra id|azure ad|aad)$/i],
+    ["Graph",        /^(graph|graph api|microsoft graph)$/i],
+    ["MDE",          /^(mde|defender for endpoint)$/i],
+    ["MDI",          /^(mdi|defender for identity)$/i],
+    ["MDA",          /^(mda|mdca|defender for cloud apps)$/i],
+    ["MDO",          /^(mdo|defender for office 365|defender for office)$/i],   /* §5dh */
+    ["Defender XDR", /^(defender xdr|xdr)$/i],
+    ["Exchange",     /^(exchange|exchange online)$/i]
+  ];
+  function canonVal(v) {
+    for (var i = 0; i < ALIAS.length; i++) if (ALIAS[i][1].test(v)) return ALIAS[i][0];
+    return v;
+  }
+  /* A cell can hold SEVERAL values: a Message Center entry tagged for three
+     technologies, a tab touching eight products. Equality against the whole cell
+     matches none of them, so a cell is read as a TOKEN LIST, split on the middot
+     this page already prints between chips. Nothing is split on spaces, because
+     "Windows Server" is one value and "Defender for Endpoint" is one value. */
+  function cellTokens(tr, ci) {
+    var t = cellText(tr, ci);
+    if (!t) return [];
+    if (t.indexOf("·") < 0) return [canonVal(t)];
+    var out = [];
+    t.split("·").forEach(function (x) {
+      x = x.replace(/\s+/g, " ").trim();
+      if (x && x !== "…") out.push(canonVal(x));
+    });
+    return out.length ? out : [canonVal(t)];
+  }
+  /* keyed by DIMENSION and holding every column that asks it — a table may ask one
+     question in two columns, and both have to answer */
+  function headMap(table) {
+    if (table.__s9h) return table.__s9h;
+    var m = {};
+    [].forEach.call(table.querySelectorAll("thead th"), function (t, i) {
+      var h = txt(t);
+      if (!h) return;
+      var k = dimKey(h);
+      (m[k] = m[k] || []).push(i);
+    });
+    return (table.__s9h = m);
+  }
+  function colsFor(table, label) { return headMap(table)[label] || null; }
+  /* TWO different populations, and confusing them is what made the correction of
+     12 September 2026 incomplete on its first pass. `advBoxes` is where the DIMENSIONS
+     and the per-value counts come from — the content of the page — and the two summary
+     tables are excluded from it, or the menu would offer a technology whose only row is
+     the summary row naming it. `allBoxes` is what gets RE-APPLIED, and it is everything,
+     summaries included: leaving them out meant `window.__s9adv` narrowed them correctly
+     and nobody ever asked it to. */
+  function advBoxes() {
+    return (window.__s9diff || []).filter(function (w) {
+      return w.__table && !isSummary(w.__table);
+    });
+  }
+  function allBoxes() {
+    return (window.__s9diff || []).filter(function (w) { return !!w.__table; });
+  }
+  function advMatch(tr, table, skip) {
+    var lab, i, j;
+    for (lab in ADV) {
+      if (!Object.prototype.hasOwnProperty.call(ADV, lab)) continue;
+      if (lab === skip) continue;
+      var chosen = ADV[lab];
+      if (!chosen || !chosen.length) continue;
+      var cols = colsFor(table, lab);
+      if (!cols) continue;                     /* this table does not ask it: left whole */
+      var toks = [];
+      for (i = 0; i < cols.length; i++) toks = toks.concat(cellTokens(tr, cols[i]));
+      var hit = false;
+      for (i = 0; i < chosen.length && !hit; i++)
+        for (j = 0; j < toks.length; j++) if (toks[j] === chosen[i]) { hit = true; break; }
+      if (!hit) return false;
+    }
+    if (skip !== "__q" && ADVQ.q) {
+      var hay;
+      if (ADVQ.col) {
+        var cj = colsFor(table, ADVQ.col);
+        if (!cj) return true;
+        hay = cellText(tr, cj[0]);
+      } else hay = (tr.textContent || "");
+      if (hay.toLowerCase().indexOf(ADVQ.q) < 0) return false;
+    }
+    return true;
+  }
+  window.__s9adv = function (tr, table) {
+    /* THE TWO SUMMARY TABLES ARE NARROWED BY THIS BAR, and that is the correction of
+       12 September 2026. They stay exempt from the TECHNOLOGY LINK, where the
+       exemption earns its keep — a reader who presses `Entra` in that table must not
+       have the table vanish under his cursor — but exempting them HERE made the page
+       contradict itself: `22 technologies`, listing Intune and Windows, directly
+       under a bar reading `product Azure, Entra`. A summary that does not summarise
+       the page it stands on is the two-numbers-for-one-thing defect this page was
+       rebuilt to remove (3 punkt 2), and no control is lost: every value is still one
+       press away in the menu above, and Reset puts the table back whole. */
+    return advMatch(tr, table, null);
+  };
+
+  function buildDims() {
+    var acc = {};
+    advBoxes().forEach(function (w) {
+      var m = headMap(w.__table);
+      Object.keys(m).forEach(function (h) {
+        var d = acc[h] || (acc[h] = { label: h, tables: 0, vals: {}, filled: 0, num: 0, longest: 0 });
+        d.tables++;
+        w.__rows.forEach(function (tr) {
+          m[h].forEach(function (ci) {
+            cellTokens(tr, ci).forEach(function (v) {
+              if (!v) return;
+              d.filled++;
+              if (MEASURE.test(v)) d.num++;
+              if (v.length > d.longest) d.longest = v.length;
+              d.vals[v] = (d.vals[v] || 0) + 1;
+            });
+          });
+        });
+      });
+    });
+    var out = [];
+    Object.keys(acc).forEach(function (h) {
+      if (NEVER.test(h)) return;
+      var d = acc[h], keys = Object.keys(d.vals), n = keys.length;
+      if (n < 2 || n > MAX_VALUES || d.longest > 60 || !d.filled) return;
+      var rep = 0, idlike = 0;
+      keys.forEach(function (k) {
+        if (d.vals[k] > rep) rep = d.vals[k];
+        if (d.vals[k] === 1 && k.length >= 8 && k.indexOf(" ") < 0 && /\d/.test(k)) idlike++;
+      });
+      if (rep < 2) return;                     /* every value unique = a second copy of the table */
+      if (n >= d.filled) return;
+      if (d.num / d.filled > 0.6) return;      /* a column of numbers is a MEASURE, not a facet */
+      if (idlike / n > 0.34) return;           /* a column of identifiers is not a facet either */
+      d.n = n;
+      d.score = d.tables * 18 + Math.max(0, 24 - Math.abs(n - 8) * 2);
+      out.push(d);
+    });
+    out.sort(function (a, b) { return b.score - a.score || a.n - b.n || a.label.localeCompare(b.label); });
+    return out.slice(0, 6);
+  }
+
+  function valueCount(dim, v) {
+    var n = 0;
+    advBoxes().forEach(function (w) {
+      var cols = colsFor(w.__table, dim.label);
+      if (!cols) return;
+      w.__rows.forEach(function (tr) {
+        var hit = false;
+        cols.forEach(function (ci) { if (cellTokens(tr, ci).indexOf(v) >= 0) hit = true; });
+        if (hit && advMatch(tr, w.__table, dim.label)) n++;
+      });
+    });
+    return n;
+  }
+  function anyOn() {
+    if (ADVQ.q) return true;
+    for (var k in ADV) if (Object.prototype.hasOwnProperty.call(ADV, k) && ADV[k] && ADV[k].length) return true;
+    return false;
+  }
+  function describeAdv() {
+    var out = [];
+    DIMS.forEach(function (d) {
+      var vs = ADV[d.label] || [];
+      if (!vs.length) return;
+      out.push({
+        label: d.label.toLowerCase() + " " + vs.slice(0, 4).join(", ") +
+               (vs.length > 4 ? (" … +" + (vs.length - 4)) : ""),
+        clear: function () { ADV[d.label] = []; advApply(); }
+      });
+    });
+    if (ADVQ.q) out.push({
+      label: (ADVQ.col ? (ADVQ.col + " contains ") : "text ") + '"' + ADVQ.raw + '"',
+      clear: function () { ADVQ.q = ""; ADVQ.raw = ""; if (ADVQIN) ADVQIN.value = ""; advApply(); }
+    });
+    return out;
+  }
+  window.__s9advDesc = describeAdv;
+  window.__s9advClear = function (quiet) {
+    DIMS.forEach(function (d) { ADV[d.label] = []; });
+    ADVQ.q = ""; ADVQ.raw = ""; ADVQ.col = "";
+    if (ADVQIN) ADVQIN.value = "";
+    if (ADVQSEL) ADVQSEL.selectedIndex = 0;
+    if (quiet) { paint(); return; }
+    advApply();
+  };
+
+  function advApply() {
+    window.__s9advBusy = 1;
+    try { allBoxes().forEach(function (w) { if (w.__apply) w.__apply(); }); }
+    finally { window.__s9advBusy = 0; }
+    paint();
+    if (window.__socDiffFolds) window.__socDiffFolds(anyOn());
+    if (window.__socDiffBar) window.__socDiffBar();
+  }
+
+  /* ---- the menus ---- */
+  var OPENM = null;
+  function closeMenu() { if (OPENM) { OPENM.classList.remove("open"); OPENM = null; } }
+  document.addEventListener("click", function (e) { if (OPENM && !OPENM.contains(e.target)) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  function el(t, c, x) {
+    var n = document.createElement(t);
+    if (c) n.className = c;
+    if (x !== undefined) n.textContent = x;
+    return n;
+  }
+  function menuFor(dim) {
+    var wrap = el("div", "s9advdim");
+    var btn = el("button", "s9advbtn"); btn.type = "button";
+    btn.appendChild(el("i"));
+    var lab = el("span", null, dim.label); btn.appendChild(lab);
+    var cnt = el("b", null, ""); btn.appendChild(cnt);
+    btn.appendChild(el("span", "s9advcar", "▾"));
+    wrap.appendChild(btn);
+
+    var pop = el("div", "s9advpop");
+    var find = el("input", "s9advfind"); find.type = "search";
+    find.placeholder = "Search " + dim.label.toLowerCase() + "…";
+    var list = el("div", "s9advlist");
+    var foot = el("div", "s9advfoot");
+    var clr = el("button", "s9advclr", "Clear this one"); clr.type = "button";
+    var pn = el("span", "s9advpn", "");
+    foot.appendChild(clr); foot.appendChild(pn);
+    pop.appendChild(find); pop.appendChild(list); pop.appendChild(foot);
+    wrap.appendChild(pop);
+
+    function repaint() {
+      var chosen = ADV[dim.label] || (ADV[dim.label] = []);
+      var vs = Object.keys(dim.vals).sort();
+      var f = (find.value || "").trim().toLowerCase(), shown = 0;
+      list.textContent = "";
+      vs.forEach(function (v) {
+        var n = valueCount(dim, v), on = chosen.indexOf(v) >= 0;
+        if (!n && !on) return;               /* a choice that yields nothing is not a choice (5s) */
+        if (f && v.toLowerCase().indexOf(f) < 0) return;
+        shown++;
+        var r = el("button", "s9advopt" + (on ? " on" : "")); r.type = "button";
+        r.setAttribute("aria-checked", on ? "true" : "false");
+        r.appendChild(el("i"));
+        r.appendChild(el("span", null, v));
+        r.appendChild(el("b", null, String(n)));
+        r.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          var a = ADV[dim.label], i = a.indexOf(v);
+          if (i < 0) a.push(v); else a.splice(i, 1);
+          advApply(); place();
+        });
+        list.appendChild(r);
+      });
+      if (!shown) list.appendChild(el("p", "s9advempty", "Nothing matches that here."));
+      pn.textContent = chosen.length ? (chosen.length + " selected") : "";
+      cnt.textContent = chosen.length ? String(chosen.length) : "";
+      btn.classList.toggle("on", !!chosen.length);
+      lab.textContent = chosen.length === 1 ? (dim.label + ": " + chosen[0]) : dim.label;
+      find.hidden = vs.length <= 8;
+    }
+    /* the menu is positioned against the WINDOW and flips up when there is no room
+       below, and its list height comes from the real chrome rather than a guessed
+       constant; the sticky rail is the upper bound, because a button hidden behind
+       it has nothing to open (5au) */
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var st = document.querySelector(".dstick");
+      var top0 = st ? st.getBoundingClientRect().bottom : 0;
+      var gap = 6, margin = 12;
+      var below = window.innerHeight - r.bottom - gap - margin;
+      var above = r.top - Math.max(top0, 0) - gap - margin;
+      if (r.bottom < top0 + 4 || r.top > window.innerHeight - 24) { closeMenu(); return; }
+      var up = below < 240 && above > below;
+      var space = Math.max(160, Math.min(360, up ? above : below));
+      pop.style.left = Math.round(Math.max(margin,
+        Math.min(r.left, window.innerWidth - pop.offsetWidth - margin))) + "px";
+      if (up) { pop.style.top = ""; pop.style.bottom = Math.round(window.innerHeight - r.top + gap) + "px"; }
+      else { pop.style.bottom = ""; pop.style.top = Math.round(r.bottom + gap) + "px"; }
+      list.style.maxHeight = "none";
+      var chrome = pop.offsetHeight - list.offsetHeight;
+      list.style.maxHeight = Math.max(120, Math.round(space - chrome)) + "px";
+    }
+    wrap.__repaint = repaint; wrap.__place = place;
+    find.addEventListener("input", repaint);
+    find.addEventListener("click", function (e) { e.stopPropagation(); });
+    clr.addEventListener("click", function (e) { e.stopPropagation(); ADV[dim.label] = []; advApply(); });
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var was = wrap.classList.contains("open");
+      closeMenu();
+      if (!was) {
+        wrap.classList.add("open"); OPENM = wrap; repaint(); place();
+        setTimeout(function () { if (!find.hidden) find.focus(); place(); }, 30);
+      }
+    });
+    return wrap;
+  }
+  window.addEventListener("scroll", function () { if (OPENM && OPENM.__place) OPENM.__place(); }, { passive: true });
+  window.addEventListener("resize", function () { if (OPENM && OPENM.__place) OPENM.__place(); });
+
+  function paint() {
+    if (!ADVBAR) return;
+    MENUS.forEach(function (m) { m.__repaint(); });
+    var parts = describeAdv().map(function (x) { return x.label; });
+    ADVBAR.classList.toggle("on", !!parts.length);
+    ADVCHIP.textContent = parts.length ? (parts.length === 1 ? "1 filter on" : parts.length + " filters on") : "";
+    ADVCHIP.hidden = !parts.length;
+    if (parts.length && !ADVBAR.open) ADVBAR.open = true;
+    /* THE BAR GIVES NO ROW COUNT OF ITS OWN. `N of M` belongs to each table's box and
+       stands over that table; a second total here would be a second number about the
+       same thing, which is the defect this page was rebuilt to remove (3 punkt 13a). */
+    /* WHICH tables were left whole, by name — not "a table that does not carry one
+       of these columns", which is a rule and not an answer. The reader who filters to
+       Azure and sees Endpoints still showing 36 rows deserves to be told that the
+       endpoint table names no product, rather than left to decide whether the filter
+       is broken (12 September 2026). */
+    var whole = [];
+    if (parts.length) allBoxes().forEach(function (w) {
+      var named = false;
+      Object.keys(ADV).forEach(function (k) {
+        if (ADV[k] && ADV[k].length && colsFor(w.__table, k)) named = true;
+      });
+      if (!named) whole.push(w.__label || "a table");
+    });
+    ADVSUM.textContent = parts.length
+      ? (parts.join("  ·  ") + "  —  every section on this page is narrowed to it, the two summary " +
+         "tables included; the counter above each table says how many of its rows match. " +
+         (whole.length ? (whole.length + (whole.length === 1 ? " table names" : " tables name") +
+            " none of these columns and " + (whole.length === 1 ? "is" : "are") + " left whole: " +
+            whole.slice(0, 4).join("; ") + (whole.length > 4 ? (" and " + (whole.length - 4) + " more") : "") +
+            ". ") : "") +
+         "Several values inside one menu mean any of them; two menus at once mean both.")
+      : "Nothing is filtered. Pick values in one menu to widen, in two menus to narrow.";
+  }
+
+  function buildBar() {
+    DIMS = buildDims();
+    if (!DIMS.length) return;
+    DIMS.forEach(function (d) { ADV[d.label] = []; });
+
+    var box = el("details", "s9adv");
+    var sum = el("summary");
+    sum.appendChild(el("span", "s9advt", "Advanced filtering"));
+    sum.appendChild(el("span", "s9advs",
+      "Applies to every section on this page at once — each menu narrows all of them together."));
+    ADVCHIP = el("span", "s9advon", ""); ADVCHIP.hidden = true;
+    sum.appendChild(ADVCHIP);
+    box.appendChild(sum);
+
+    var qrow = el("div", "s9advq");
+    ADVQIN = el("input", "s9advqin"); ADVQIN.type = "search";
+    ADVQIN.placeholder = "Search every section on this page…";
+    qrow.appendChild(ADVQIN);
+    ADVQSEL = el("select", "s9advqc");
+    ADVQSEL.setAttribute("aria-label", "Search in one column");
+    var o0 = el("option", null, "in: all columns"); o0.value = ""; ADVQSEL.appendChild(o0);
+    /* EVERY column this page shows reaches the reader here: the ones that group get a
+       menu above, the rest get the search scoped to them (5ap) */
+    var cols = {};
+    advBoxes().forEach(function (w) { Object.keys(headMap(w.__table)).forEach(function (h) { cols[h] = 1; }); });
+    Object.keys(cols).sort().forEach(function (h) {
+      var o = el("option", null, "in: " + h); o.value = h; ADVQSEL.appendChild(o);
+    });
+    if (ADVQSEL.options.length > 1) qrow.appendChild(ADVQSEL);
+    box.appendChild(qrow);
+
+    function readq() {
+      ADVQ.raw = (ADVQIN.value || "").trim();
+      ADVQ.q = ADVQ.raw.toLowerCase();
+      ADVQ.col = ADVQSEL ? ADVQSEL.value : "";
+      advApply();
+    }
+    ADVQIN.addEventListener("input", readq);
+    ADVQSEL.addEventListener("change", readq);
+
+    var row = el("div", "s9advrow");
+    MENUS = [];
+    DIMS.forEach(function (d) { var m = menuFor(d); row.appendChild(m); MENUS.push(m); });
+    var rb = el("button", "s9advreset", "Reset"); rb.type = "button";
+    rb.addEventListener("click", function () { window.__s9advClear(); });
+    row.appendChild(rb);
+    box.appendChild(row);
+
+    ADVSUM = el("p", "s9advsum");
+    box.appendChild(ADVSUM);
+
+    ADVBAR = box;
+    var stick = document.querySelector(".dstick");
+    if (stick && stick.parentNode) stick.parentNode.insertBefore(box, stick.nextSibling);
+    else {
+      var wrapEl = document.querySelector(".wrap");
+      if (wrapEl) wrapEl.insertBefore(box, wrapEl.firstChild);
+    }
+    paint();
+  }
+  try { buildBar(); } catch (e) { if (window.console) console.error("[s9adv]", e); }
+})();
+</script><script>
+(function () {
+  "use strict";
+  var banner = null;
+
+  function ensureBanner() {
+    if (banner) return banner;
+    banner = document.createElement("div");
+    banner.className = "navbanner"; banner.hidden = true;
+    var lab = document.createElement("span"); lab.className = "nb-lab"; lab.textContent = "Filter";
+    var msg = document.createElement("span"); msg.className = "nb-msg";
+    var chips = document.createElement("div"); chips.className = "nb-chips";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "nb-clear"; btn.textContent = "Clear filter";
+    btn.addEventListener("click", clearAll);
+    banner.appendChild(lab); banner.appendChild(msg); banner.appendChild(btn);
+    banner.appendChild(chips);
+    /* INSIDE the sticky block, never after it. The banner names the one filter that is
+       on and carries the one Clear that clears every table at once; a reader who has to
+       scroll back to the top to find it will clear the tables one Reset at a time
+       instead, which is what happened. */
+    var stick = document.querySelector(".dstick");
+    if (stick) stick.appendChild(banner);
+    else {
+      var nav = document.querySelector("nav.dsubnav");
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(banner, nav.nextSibling);
+    }
+    return banner;
+  }
+  /* the sticky block gets taller when the banner opens, so republish its height for
+     `scroll-margin-top` rather than leaving a jump target under it */
+  function measure() {
+    var stick = document.querySelector(".dstick");
+    var h = stick ? Math.round(stick.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--dstick-h", (h ? h + 10 : 56) + "px");
+  }
+  /* ONE LINE NAMES EVERY FILTER THAT IS ON (5ao, and the portal's own rule in 5at).
+     The owner, 12 September 2026: "ustalilismy ze w calym portalu robimy info
+     o filtrowaniu na zielonym pasku - tego kompletnie brakuje w diff". He is right
+     and the reason is structural: this banner spoke only for the technology and
+     tile filters, which are the ones IT sets. A reader who typed into a table's own
+     green box saw its count drop with nothing anywhere saying why, and had to
+     remember which of twelve sections he had touched. So the banner is rendered
+     from a BUS: the global filter reports through `say()`, every search box reports
+     through its own `__describe()`, and this one function draws all of them. One
+     renderer, many owners — two renderers of one sentence drift apart (0a). */
+  var GLOBAL = null;
+  function say(text, strong) { GLOBAL = text ? { text: text, strong: strong || "" } : null; sync(); }
+  function sync() {
+    var b = ensureBanner();
+    var lab = b.querySelector(".nb-lab");
+    var msg = b.querySelector(".nb-msg");
+    var chips = b.querySelector(".nb-chips");
+    var n = 0;
+    msg.textContent = "";
+    msg.hidden = !GLOBAL;
+    if (GLOBAL) {
+      n++;
+      if (GLOBAL.strong) { msg.appendChild(document.createElement("b")).textContent = GLOBAL.strong;
+                           msg.appendChild(document.createTextNode(" — " + GLOBAL.text)); }
+      else msg.textContent = GLOBAL.text;
+    }
+    chips.textContent = "";
+    boxes().forEach(function (w) {
+      if (w.__byGlobal) return;          /* the global sentence above already names it */
+      var on = w.__describe ? w.__describe() : "";
+      if (!on) return;
+      n++;
+      var c = document.createElement("span"); c.className = "nb-chip";
+      c.appendChild(document.createElement("b")).textContent = w.__label || "a table";
+      c.appendChild(document.createTextNode(" — " + on));
+      var x = document.createElement("button");
+      x.type = "button"; x.className = "nb-x"; x.textContent = "×";
+      x.title = "Clear this one";
+      x.setAttribute("aria-label", "Clear the filter on " + (w.__label || "this table"));
+      /* cleared through the box's OWN reset, never by writing into its fields: the
+         box knows what else has to be put back, and it is the only writer of
+         `row.hidden` for its table (5am) */
+      x.addEventListener("click", function () { if (w.__reset) w.__reset(); });
+      c.appendChild(x);
+      chips.appendChild(c);
+    });
+    /* the Advanced filtering bar is an owner like any other: it reports what it is
+       filtering by and how to clear it, and this one function draws it (5au) */
+    (window.__s9advDesc ? window.__s9advDesc() : []).forEach(function (x) {
+      n++;
+      var c = document.createElement("span"); c.className = "nb-chip";
+      c.appendChild(document.createElement("b")).textContent = "Advanced filtering";
+      c.appendChild(document.createTextNode(" — " + x.label));
+      var k = document.createElement("button");
+      k.type = "button"; k.className = "nb-x"; k.textContent = "×";
+      k.title = "Clear this one";
+      k.setAttribute("aria-label", "Clear " + x.label);
+      k.addEventListener("click", function () { if (x.clear) x.clear(); });
+      c.appendChild(k);
+      chips.appendChild(c);
+    });
+    b.hidden = !n;
+    lab.textContent = n === 1 ? "1 filter is on" : (n + " filters are on");
+    b.querySelector(".nb-clear").textContent = n > 1 ? "Clear all filters" : "Clear filter";
+    measure();
+  }
+  window.__socDiffBar = sync;
+  /* the Advanced bar changes what each section holds, so the folds follow it exactly
+     as they follow the technology filter — one owner of the fold rule (3 punkt 14) */
+  window.__socDiffFolds = function (on) { if (on) openWithHits(); else collapseAll(); };
+  window.addEventListener("resize", measure);
+
+  function boxes() { return window.__s9diff || []; }
+  /* the two summary tables are the CONTROLS, not the content: filtering them by a
+     technology empties the very table the reader just pressed. */
+  function content(w) {
+    var t = w.parentNode && w.parentNode.querySelector(".tw table");
+    var sec = w.closest ? w.closest("section") : null;
+    return !(sec && (sec.id === "bytab" || sec.id === "bytech")) && !!t;
+  }
+
+  function clearAll() {
+    if (window.__s9advClear) window.__s9advClear(true);
+    boxes().forEach(function (w) {
+      w.__byGlobal = false;
+      if (w.__q) w.__q.value = "";
+      if (w.__col) w.__col.value = "-1";
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    collapseAll();
+    say("");
+    if (window.__socPanelBack) window.__socPanelBack();
+  }
+
+  /* ---------- folds: a section is open when it holds what you asked for ----------
+     The owner, 11 September 2026: "All the sections in the diff that has '+' sign
+     should be collapsed = not expanded by default", and "once the top tile with
+     number is clicked only this section it navigates to should be expanded and all
+     other if not associated should be collapsed". Both are one rule, and the rule
+     also settles what a FILTER should do to the folds: pressing a technology asks
+     about every section at once, so every section that still holds a row opens and
+     every section that holds none closes. Clearing puts them all back.
+
+     The count stays readable without opening anything, because it is in the chip —
+     the same reason `details.chg14` on the brief is collapsed with its count in the
+     summary (§5al). */
+  function sections() { return [].slice.call(document.querySelectorAll("section > details.dsec")); }
+  function visibleRows(det) {
+    var n = 0;
+    [].forEach.call(det.querySelectorAll("tbody tr"), function (r) {
+      if (!r.hidden && r.querySelector("td")) n++;
+    });
+    return n;
+  }
+  /* The chip must never keep saying 18 over a section a filter has cut to 3: that is
+     the same two-numbers-for-one-thing this page was rebuilt to stop (§5am). The first
+     pass records what the section holds whole, so the narrowed figure can be exact.
+
+     It says "rows" and it says it on purpose. The resting chip counts what the section
+     is ABOUT — 13 changed items, 10 moved components — while a filter can only count
+     what is on screen, and `Changed, field by field` renders 24 rows for those 13 items.
+     Measured 11 September 2026: the first version of this printed a bare "7 of 24" over
+     a chip that had been reading 13, which is the same two-units-one-number the tiles
+     had. Naming the unit costs one word and removes the question. */
+  function syncChips() {
+    sections().forEach(function (det) {
+      var chip = det.querySelector("summary .dsum-n");
+      if (!chip) return;
+      if (chip.dataset.full === undefined) {
+        chip.dataset.full = chip.textContent;
+        chip.dataset.rows = String(visibleRows(det));
+      }
+      var all = +chip.dataset.rows, now = visibleRows(det);
+      /* where the resting chip IS the row count — Added, Removed, Deadlines — the
+         narrowed figure matches it exactly and needs no noun; only where they differ
+         does the noun have to be there, and then it has to be there. */
+      var same = String(all) === String(chip.dataset.full).trim();
+      chip.textContent = (now === all) ? chip.dataset.full
+                         : same ? (now + " of " + all)
+                                : (now + " of " + all + (all === 1 ? " row" : " rows"));
+    });
+  }
+  function focusSection(sid) {
+    sections().forEach(function (det) {
+      var sec = det.parentNode;
+      det.open = !!(sec && sec.id === sid) || (isSummary(det) && det.dataset.hadopen === "1");
+    });
+    syncChips(); measure();
+  }
+  function openWithHits() {
+    /* filtr po technologii albo pasek Advanced pyta o WSZYSTKIE sekcje naraz, wiec
+       pokazuje wszystkie, w ktorych cos zostalo (§3 punkt 21) */
+    if (window.__socPanelAll) window.__socPanelAll();
+    sections().forEach(function (det) { det.open = visibleRows(det) > 0; });
+    syncChips(); measure();
+  }
+  /* The two summary tables are CONTROLS, not content (§3 punkt 13), which is why the
+     technology filter already leaves them whole. A control the reader has to open first
+     is not a control, so they stay open here; everything else folds. */
+  function isSummary(det) {
+    var sec = det.parentNode;
+    return !!(sec && (sec.id === "bytab" || sec.id === "bytech"));
+  }
+  function collapseAll() {
+    sections().forEach(function (det) { det.open = isSummary(det) && det.dataset.hadopen === "1"; });
+    syncChips(); measure();
+  }
+
+  function openSection(sid) {
+    var sec = document.getElementById(sid);
+    if (!sec) return null;
+    focusSection(sid);          /* this one, and only this one */
+    return sec;
+  }
+
+  /* a number in the by-tab table: go to the section AND show only that tab's block.
+     Jumping without narrowing lands the reader on the first table of the section,
+     which is not the number they pressed. */
+  function goto_(sid, tab) {
+    /* §3 punkt 21: skrot i liczba w tabeli podsumowania OTWIERAJA PANEL tej sekcji —
+       pozostale sekcje znikaja, zamiast przewijac do niej jedna dluga strone */
+    if (window.__socPanel) window.__socPanel(sid);
+    var sec = openSection(sid);
+    if (!sec) return;
+    var blocks = [].slice.call(document.querySelectorAll(".tabblock"));
+    var hit = 0;
+    blocks.forEach(function (b) {
+      var mine = sec.contains(b);
+      if (!tab) { b.hidden = false; return; }
+      if (!mine) { b.hidden = false; return; }
+      var keep = b.dataset.tab === tab;
+      b.hidden = !keep;
+      if (keep) hit++;
+    });
+    if (tab && sec.querySelector(".tabblock")) {
+      say(hit ? ('Showing the ' + tab + ' rows of this section only.')
+              : ('No ' + tab + ' rows in this section \u2014 that number belongs to another one.'));
+    } else say("");
+    syncChips();
+    sec.scrollIntoView({ block: "start" });
+    /* zwijanie i rozwijanie sekcji zmienia kazdy `offsetTop`, wiec pasek dostaje cel
+       WPROST, zamiast zgadywac go z pozycji przewijania (§3 punkt 19) */
+    if (window.__socDiffMark) window.__socDiffMark(sid);
+  }
+
+  /* a technology name: narrow EVERY table on the page at once. Where a table has a
+     matching facet we set the facet, which is exact; where it has none we put the name
+     in its search box, which is a text match — and the banner says which was done, so
+     a row that matched on prose rather than on its product column is not a surprise. */
+  function tech(name) {
+    var exact = 0, text = 0;
+    boxes().forEach(function (w) {
+      /* a column scope left over from a hand search would silently narrow this to
+         one column, so every writer of these boxes clears it (5ap) */
+      if (w.__col) w.__col.value = "-1";
+      if (!content(w)) {
+        if (w.__q) w.__q.value = "";
+        (w.__sels || []).forEach(function (s) { s.value = ""; });
+        w.__byGlobal = false;
+        if (w.__apply) w.__apply();
+        return;
+      }
+      var sel = null;
+      (w.__sels || []).forEach(function (s) {
+        if (sel) return;
+        for (var i = 0; i < s.options.length; i++) if (s.options[i].value === name) { sel = s; return; }
+      });
+      (w.__sels || []).forEach(function (s) { s.value = ""; });
+      if (sel) { sel.value = name; if (w.__q) w.__q.value = ""; exact++; }
+      else { if (w.__q) w.__q.value = name; text++; }
+      w.__byGlobal = true;
+      if (w.__apply) w.__apply();
+    });
+    [].forEach.call(document.querySelectorAll(".tabblock"), function (b) { b.hidden = false; });
+    /* a technology asks about every section, so every section that still holds a row
+       opens and every section that holds none closes — the fold follows the answer */
+    openWithHits();
+    var open = sections().filter(function (d) { return d.open; }).length;
+    var how = [];
+    if (exact) how.push(exact + " by " + (exact === 1 ? "its" : "their") + " product column");
+    if (text) how.push(text + " by searching " + (text === 1 ? "its" : "their") + " text");
+    say("filtered across every section \u2014 " + how.join(", ") +
+        ". " + open + (open === 1 ? " section still holds a row and is open" :
+                       " sections still hold a row and are open") +
+        "; the rest are closed. The two summary tables at the top are left whole, because " +
+        "they are the controls. Clear filter puts every table back at once.", name);
+    var first = sections().filter(function (d) { return d.open; })[0];
+    var host = first ? first.parentNode : document.getElementById("added");
+    if (host) host.scrollIntoView({ block: "start" });
+    if (window.__socDiffMark) window.__socDiffMark(host && host.id);
+  }
+
+  /* the + that opens the evidence under a row. It lives in THIS script rather than in a
+     fourth one, because §3 keeps this page down to three: theme, find, navigation. */
+  document.addEventListener("click", function (ev) {
+    var x = ev.target.closest ? ev.target.closest("button.xb[data-diff]") : null;
+    if (!x) return;
+    ev.preventDefault();
+    var tr = x.closest("tr"), det = tr && tr.nextElementSibling;
+    if (!det || !det.classList.contains("det")) return;
+    var open = det.hidden;
+    det.hidden = !open;
+    x.textContent = open ? "−" : "+";
+    x.setAttribute("aria-expanded", String(open));
+    tr.classList.add("hasdet");
+    tr.setAttribute("aria-expanded", String(open));
+  });
+
+  document.addEventListener("click", function (ev) {
+    if (!ev.target.closest) return;
+    var t = ev.target.closest("[data-tech]");
+    if (t) { ev.preventDefault(); tech(t.dataset.tech); return; }
+    var g = ev.target.closest("[data-goto]");
+    if (g) {
+      ev.preventDefault();
+      goto_(g.dataset.goto, g.dataset.tab || null);
+    }
+  });
+
+  /* Remember which sections the page was published open — the two summaries, and only
+     when something actually moved — so folding never takes a control away for good. */
+  sections().forEach(function (det) { if (det.open) det.dataset.hadopen = "1"; });
+  /* Every content section starts collapsed, and the census of what each one holds is
+     taken BEFORE anything is filtered, so "N of M" always compares against the whole. */
+  collapseAll();
+  /* a table's own Reset or search changes what a section holds, so the chip follows */
+  ["input", "change", "click"].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (e.target && e.target.closest && e.target.closest("details.dsec .s9find"))
+        setTimeout(syncChips, 0);
+    }, true);
+  });
+
+  /* the rail marks where the reader is, by POSITION — a ratio-based observer reports
+     the wrong section after a jump when the sections are taller than the band (§5an) */
+  (function () {
+    var links = [].slice.call(document.querySelectorAll("nav.dsubnav a"));
+    if (!links.length) return;
+    var secs = links.map(function (a) {
+      return { a: a, el: document.getElementById(a.getAttribute("href").slice(1)) };
+    }).filter(function (x) { return x.el; });
+    var queued = false;
+    function mark() {
+      queued = false;
+      /* §3 punkt 21: w trybie paneli widoczna jest jedna sekcja, wiec pasek podswietla
+         JA, a nie to, co wynika z pozycji przewijania. To usuwa blad z 26 IX 2026:
+         klik w „First-party apps" podswietlal „Endpoints", bo po skoku zdarzenie
+         `scroll` liczylo podswietlenie od nowa z pozycji, ktorej strona nie mogla
+         osiagnac. */
+      if (window.__socPanelCur) { markOne(window.__socPanelCur); return; }
+      var y = window.scrollY + 90, cur = secs[0];
+      secs.forEach(function (s) { if (s.el.offsetTop <= y) cur = s; });
+      secs.forEach(function (s) {
+        if (s === cur) s.a.setAttribute("aria-current", "true");
+        else s.a.removeAttribute("aria-current");
+      });
+    }
+    /* §3 punkt 19: po SKOKU pasek nie podswietlal celu. `mark()` czyta pozycje
+       przewijania, a skok ZMIENIA zwiniecia sekcji po tym, jak handler przewijania
+       juz sie wykonal, i zadne kolejne zdarzenie `scroll` nie nadchodzi — czytelnik
+       ladowal w sekcji, ktorej pasek nie nazywal. Jeden pisarz stanu paska zostaje
+       (5am), a skok go WOLA i podaje swoj cel: pozycja bywa nieosiagalna, gdy celem
+       jest ostatnia sekcja, a strona nie ma juz o ile sie przewinac. */
+    function markOne(sid) {
+      var cur = null;
+      secs.forEach(function (s) { if (s.el.id === sid) cur = s; });
+      if (!cur) { mark(); return; }
+      secs.forEach(function (s) {
+        if (s === cur) s.a.setAttribute("aria-current", "true");
+        else s.a.removeAttribute("aria-current");
+      });
+      /* kazdy rzad paska przewija sie sam w poziomie, wiec podswietlony skrot musi byc
+         W NIM widoczny: podswietlenie poza widokiem jest podswietleniem, ktorego nie ma */
+      var nv = cur.a.parentNode;
+      if (nv && nv.scrollWidth > nv.clientWidth) {
+        var r = cur.a.getBoundingClientRect(), nr = nv.getBoundingClientRect();
+        if (r.left < nr.left || r.right > nr.right) nv.scrollLeft += (r.left - nr.left) - 12;
+      }
+    }
+    window.__socDiffMark = function (sid) { if (sid) markOne(sid); else mark(); };
+
+    /* ---- §3 punkt 21 (26 IX 2026): KAZDA ZAKLADKA TO OSOBNY PANEL ----
+       Wlasciciel: „all tab has it own separate section instead of one to scroll down".
+       Widac zawsze JEDNA sekcje paska; reszta ma `hidden`. Adres niesie `#sekcja`, wiec
+       odswiezenie i link prowadza do tego samego panelu. Filtr po technologii i pasek
+       Advanced pytaja o cala strone, wiec na czas filtra widac wszystkie sekcje
+       z trafieniami; wyczyszczenie filtra wraca do ostatniego panelu. */
+    var PANELS = secs.map(function (s) { return s.el; });
+    var LAST = null;
+    function panel(sid) {
+      if (!secs.some(function (s) { return s.el.id === sid; })) sid = secs[0].el.id;
+      LAST = sid; window.__socPanelCur = sid;
+      document.body.classList.add("dpanels");
+      PANELS.forEach(function (el) { el.hidden = el.id !== sid; });
+      /* widoczny panel jest zawsze ROZWINIETY — zwiniety panel to pusta zakladka */
+      var det = document.querySelector("#" + sid + " > details.dsec");
+      if (det) det.open = true;
+      markOne(sid);
+      try { history.replaceState(null, "", "#" + sid); } catch (e) {}
+      var st = document.querySelector(".dstick");
+      var top = st ? st.getBoundingClientRect().top + window.scrollY : 0;
+      if (window.scrollY > top) window.scrollTo(0, top);
+    }
+    function panelAll() {
+      window.__socPanelCur = null;
+      document.body.classList.remove("dpanels");
+      PANELS.forEach(function (el) { el.hidden = false; });
+    }
+    window.__socPanel = panel;
+    window.__socPanelAll = panelAll;
+    window.__socPanelBack = function () { panel(LAST || secs[0].el.id); };
+    window.addEventListener("hashchange", function () {
+      var h = location.hash.slice(1);
+      if (h && h !== window.__socPanelCur) panel(h);
+    });
+    window.addEventListener("scroll", function () {
+      if (queued) return;
+      queued = true; window.requestAnimationFrame(mark);
+    }, { passive: true });
+    mark();
+  })();
+
+  measure();
+  sync();
+  /* §3 punkt 21: strona otwiera sie na panelu z adresu albo na pierwszym („By tab") */
+  if (window.__socPanel) {
+    var h0 = location.hash.slice(1);
+    window.__socPanel(h0 || "bytab");
+  }
+})();
+</script><script>
+(function () {
+  "use strict";
+  function labels() {
+    [].forEach.call(document.querySelectorAll(".tw table"), function (t) {
+      if (t.getAttribute("data-dcard") || !t.tHead || !t.tBodies.length) return;
+      var hr = t.tHead.rows[t.tHead.rows.length - 1]; if (!hr) return;
+      var heads = [].map.call(hr.cells, function (c) { return (c.textContent || "").replace(/\s+/g, " ").trim(); });
+      t.setAttribute("data-dcard", "1"); t.classList.add("dcard");
+      [].forEach.call(t.tBodies, function (tb) {
+        [].forEach.call(tb.rows, function (r) {
+          var k = 0;
+          [].forEach.call(r.cells, function (c) {
+            var span = +c.getAttribute("colspan") || 1;
+            if (span === 1 && heads[k]) c.setAttribute("data-label", heads[k]);
+            var tx = (c.textContent || "").trim();
+            if (k > 0 && (tx === "0" || tx === "" || tx === "—")) c.classList.add("dzero");
+            if (tx.length > 38) c.classList.add("dwide");
+            k += span;
+          });
+        });
+      });
+    });
+  }
+  function filters() {
+    [].forEach.call(document.querySelectorAll(".s9find"), function (f) {
+      if (f.querySelector(".dfbtn") || !f.querySelector("select")) return;
+      var b = document.createElement("button"); b.type = "button"; b.className = "dfbtn"; b.textContent = "Filters ▾";
+      b.setAttribute("aria-expanded", "false");
+      b.addEventListener("click", function () { var on = f.classList.toggle("dfopen"); b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "Filters ▴" : "Filters ▾"; });
+      var q = f.querySelector("input"); if (q && q.nextSibling) f.insertBefore(b, q.nextSibling); else f.appendChild(b);
+    });
+  }
+  function note() {
+    var g = document.querySelector(".factgrid"), n = g && g.nextElementSibling;
+    if (!n || n.getAttribute("data-dnote") || (n.textContent || "").length < 300 || n.querySelector("table,select,input")) return;
+    n.setAttribute("data-dnote", "1"); n.classList.add("dnote");
+    var b = document.createElement("button"); b.type = "button"; b.className = "dnotebtn"; b.textContent = "ⓘ how these tiles are counted";
+    b.setAttribute("aria-expanded", "false");
+    b.addEventListener("click", function () { var on = n.classList.toggle("dnote-open"); b.setAttribute("aria-expanded", on ? "true" : "false"); b.textContent = on ? "ⓘ hide" : "ⓘ how these tiles are counted"; });
+    n.parentNode.insertBefore(b, n);
+  }
+  function run() { try { labels(); filters(); note(); } catch (e) { if (window.console) console.error("[5bk]", e); } }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(run, 50); });
+  else setTimeout(run, 50);
+  setTimeout(run, 800);
+})();
+</script><script>
+(function(){
+  var p=document.getElementById("dstale"); if(!p) return;
+  var to=p.getAttribute("data-to")||"", fr=p.getAttribute("data-from")||"";
+  var today; try { today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Warsaw"}).format(new Date()); } catch(e){ today=new Date().toISOString().slice(0,10); }
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(to) || to>=today) return;
+  var d=Math.round((new Date(today+"T12:00:00Z")-new Date(to+"T12:00:00Z"))/864e5);
+  p.textContent="This comparison covers "+fr+" → "+to+" and is "+d+" day"+(d===1?"":"s")+" old (today is "+today+"). "+
+    "The 22:00 run writes the next one; until then, each tab of the brief shows what moved since the previous brief at its top.";
+  p.hidden=false;
+})();
+</script><script>
+/* §5cz (10 X 2026, owner: "dates everywhere as dd/MM/yyyy HH:mm, with a 24 h / AM/PM switch"; "the same frame in /diff/").
+   The same rule as the brief (window.__socDate there): a date is shown, not rewritten - the original text stays in the
+   page, visually hidden, and CSS draws dd/MM/yyyy from data-v, so the filters and the search of this page see what
+   they saw before. The frame names the two days compared and when this page was built (data/fresh/publish.json). */
+(function(){
+  "use strict";
+  var MODE="24"; try{ if(localStorage.getItem("socTime")==="12") MODE="12"; }catch(e){}
+  var MON={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,sept:9,oct:10,nov:11,dec:12,january:1,february:2,march:3,april:4,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+  function p2(n){ n=+n; return (n<10?"0":"")+n; }
+  var meta=document.getElementById("diff-meta"), DAY=(meta&&meta.getAttribute("data-date"))||new Date().toISOString().slice(0,10);
+  function yearFor(mo){ var by=+DAY.slice(0,4), bm=+DAY.slice(5,7); if(mo-bm>6) return by-1; if(bm-mo>6) return by+1; return by; }
+  function hm(h,m){ h=+h; if(MODE==="12"){ var ap=h>=12?"PM":"AM"; return p2(h%12||12)+":"+p2(m)+" "+ap; } return p2(h)+":"+p2(m); }
+  function dmy(y,mo,d){ return p2(d)+"/"+p2(mo)+"/"+y; }
+  function wfmt(d){ var o={}; try{ new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Warsaw",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d).forEach(function(q){o[q.type]=q.value;}); }catch(e){ return d.toISOString().slice(0,16); }
+    return o.day+"/"+o.month+"/"+o.year+" "+hm(o.hour,o.minute); }
+  var M="(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)";
+  var RX=[
+    [new RegExp("(^|[^\\w/.-])(20\\d\\d)-(\\d\\d)-(\\d\\d)[T ](\\d\\d):(\\d\\d)(?::\\d\\d(?:\\.\\d+)?)?(Z| UTC)?(?![\\w/-])","g"), function(m,a,y,mo,d,h,mi,z){ return a+(z?wfmt(new Date(Date.UTC(+y,+mo-1,+d,+h,+mi))):dmy(y,mo,d)+" "+hm(h,mi)); }],
+    [new RegExp("(^|[^\\w/.-])(20\\d\\d)-(\\d\\d)-(\\d\\d)(?![\\w/-]|\\.(?:json|html|kql|md|gz)\\b)","g"), function(m,a,y,mo,d){ return +mo>=1&&+mo<=12&&+d>=1&&+d<=31?a+dmy(y,mo,d):m; }],
+    [new RegExp("\\b(\\d{1,2}) "+M+"\\.? (\\d{4})\\b","g"), function(m,d,mo,y){ return dmy(y,MON[mo.toLowerCase()],d); }],
+    [new RegExp("\\b"+M+"\\.? (\\d{1,2}),? (\\d{4})\\b","g"), function(m,mo,d,y){ return dmy(y,MON[mo.toLowerCase()],d); }],
+    [new RegExp("\\b(\\d{1,2}) "+M+"\\.? ([01]?\\d|2[0-3]):([0-5]\\d)\\b","g"), function(m,d,mo,h,mi){ var n=MON[mo.toLowerCase()]; return dmy(yearFor(n),n,d)+" "+hm(h,mi); }],
+    [new RegExp("\\b(\\d{1,2}) "+M+"\\b(?!\\.? \\d)","g"), function(m,d,mo){ var n=MON[mo.toLowerCase()]; return +d>=1&&+d<=31?dmy(yearFor(n),n,d):m; }]
+  ];
+  var TRX=/(^|[^\d:])([01]?\d|2[0-3]):([0-5]\d)(?=\s*(?:Warsaw|UTC|CET|CEST)\b)/g;
+  var SKIP=/^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|KBD|SAMP|svg|SVG|TITLE)$/;
+  function skip(n){ for(var p=n.parentNode,i=0;p&&p.nodeType===1&&i<14;p=p.parentNode,i++){ if(SKIP.test(p.tagName)) return true; var c=p.classList; if(c&&(c.contains("s5cz-d")||c.contains("s5cz-o")||c.contains("s5cz-at"))) return true; } return false; }
+  function tokens(s){
+    if(!s||!/\d/.test(s)) return null; var T=[], o=s;
+    function put(m,res,t){ T.push({o:m,f:res,t:t}); return "\u0001"+(T.length-1)+"\u0002"; }
+    RX.forEach(function(r){ o=o.replace(r[0],function(){ var m=arguments[0], res=r[1].apply(null,arguments); return res===m?m:put(m,res); }); });
+    o=o.replace(TRX,function(m,a,h,mi){ return a+put(h+":"+mi,hm(h,mi),1); });
+    if(!T.length) return null;
+    function back(x,k){ return x.replace(/\u0001(\d+)\u0002/g,function(mm,i){ return T[+i][k]; }); }
+    T.forEach(function(t){ t.o=back(t.o,"o"); t.f=back(t.f,"f"); });
+    var parts=[], re=/\u0001(\d+)\u0002/g, last=0, x; while((x=re.exec(o))){ if(x.index>last) parts.push(o.slice(last,x.index)); parts.push(T[+x[1]]); last=re.lastIndex; }
+    if(last<o.length) parts.push(o.slice(last)); return parts;
+  }
+  function conv(s){ var p=tokens(s); return p?p.map(function(x){ return typeof x==="string"?x:x.f; }).join(""):s; }
+  function rewrite(root){
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null), n, list=[];
+    while((n=w.nextNode())) if(n.nodeValue&&n.nodeValue.length<4000&&/\d/.test(n.nodeValue)) list.push(n);
+    list.forEach(function(t){ if(!t.parentNode||skip(t)) return; var parts=tokens(t.nodeValue); if(!parts) return; var fr=document.createDocumentFragment();
+      parts.forEach(function(x){ if(typeof x==="string"){ fr.appendChild(document.createTextNode(x)); return; } var d=document.createElement("span"); d.className="s5cz-d"; d.setAttribute("data-v",x.f); if(x.t) d.setAttribute("data-t","1");
+        var o=document.createElement("span"); o.className="s5cz-o"; o.textContent=x.o; d.appendChild(o); fr.appendChild(d); });
+      t.parentNode.replaceChild(fr,t); });
+  }
+  function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
+  function frame(pub){
+    var row=document.querySelector("header.top .title-row"); if(!row||document.getElementById("s5cz-fresh")) return;
+    var prev=(meta&&meta.getAttribute("data-prev"))||"", today; try{ today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Warsaw"}).format(new Date()); }catch(e){ today=new Date().toISOString().slice(0,10); }
+    var age=Math.round((Date.parse(today)-Date.parse(DAY))/864e5);
+    var box=el("div","s5cz-fresh "+(age<=0?"s5cz-ok":age===1?"s5cz-warn":"s5cz-bad")); box.id="s5cz-fresh"; box.setAttribute("role","status");
+    var h=el("div","s5cz-fh"); h.appendChild(el("span","s5cz-dot")); h.appendChild(el("b",null,"Data freshness"));
+    var tg=el("span","s5cz-tg"); [["24","24h"],["12","AM/PM"]].forEach(function(m){ var b=el("button",null,m[1]); b.type="button"; b.setAttribute("aria-pressed",String(MODE===m[0]));
+      b.addEventListener("click",function(){ MODE=m[0]; try{ localStorage.setItem("socTime",MODE); }catch(e){} [].forEach.call(document.querySelectorAll(".s5cz-d"),function(d){ var o=d.firstChild?d.firstChild.textContent:"", q=d.getAttribute("data-t")&&/^(\d{1,2}):(\d{2})$/.exec(o); d.setAttribute("data-v",q?hm(q[1],q[2]):conv(o)); });
+        [].forEach.call(tg.querySelectorAll("button"),function(x){ x.setAttribute("aria-pressed",String(x===b)); }); }); tg.appendChild(b); });
+    h.appendChild(tg); box.appendChild(h);
+    function q(t){ var e=el("span","s5czb-q","?"); e.setAttribute("data-tip",t); e.setAttribute("tabindex","0"); e.setAttribute("role","button"); e.setAttribute("aria-label","Explanation: "+t); return e; }
+    function line(k,v,x,t){ var l=el("div","s5cz-fl"), kk=el("span","s5cz-fk",k); if(t) kk.appendChild(q(t)); l.appendChild(kk); var b=el("b","s5cz-at",v); l.appendChild(b); if(x) l.appendChild(el("span","s5cz-fx",x)); box.appendChild(l); }
+    line("Compared", (prev?dmy(prev.slice(0,4),prev.slice(5,7),prev.slice(8,10))+" → ":"")+dmy(DAY.slice(0,4),DAY.slice(5,7),DAY.slice(8,10)), age<=0?"today":age===1?"yesterday":age+" days old", "The two days this page compares: the state at the end of the first day against the state at the end of the second (the morning pass and the afternoon pass of that day). The routine “zmiany v2” builds it at about 22:00 Warsaw; the frame is green when the newer day is today.");
+    if(pub&&pub.at){ var d=new Date(pub.at.length===17?pub.at.replace("Z",":00Z"):pub.at); if(!isNaN(d)) line("Page built", wfmt(d), "published to this site", "When the newest pages of the brief were copied to this site by the workflow “Publish routine output” (the evening routine publishes this page that way)."); }
+    var tools=row.querySelector(".hdr-tools"); if(tools) row.insertBefore(box,tools); else row.appendChild(box);
+  }
+  function go(pub){ try{ frame(pub); }catch(e){} try{ rewrite(document.body); }catch(e){ if(window.console) console.error("[5cz diff dates]",e); } }
+  try{ fetch("../data/fresh/publish.json",{cache:"no-store"}).then(function(r){ return r.ok?r.json():null; }).then(go).catch(function(){ go(null); }); }catch(e){ go(null); }
+})();
+/* §5cz-b (10 X 2026, owner 12:25: "the hints should look nicer in the whole portal; a round ? shows there is a hint").
+   One styled bubble for every native title tooltip and every data-tip: the title is lifted off the element only while
+   the pointer is on it (so nothing that reads .title later sees a difference) and put back when the pointer leaves.
+   A round ? (.s5czb-q) opens its hint on hover, on keyboard focus and on a tap (phones have no hover). */
+(function () {
+  if (window.__s5czbTip) return; window.__s5czbTip = 1;
+  var tip = null, cur = null, timer = null, pinned = false;
+  function box() { if (!tip) { tip = document.createElement("div"); tip.id = "s5czb-tip"; tip.setAttribute("role", "tooltip"); document.body.appendChild(tip); } return tip; }
+  function text(e) { return e.getAttribute("data-tip") || e.getAttribute("data-s5czb-t") || ""; }
+  function place(e) {
+    var r = e.getBoundingClientRect(), b = box(), vw = document.documentElement.clientWidth;
+    b.style.left = "0px"; b.style.top = "0px";
+    var w = b.offsetWidth, h = b.offsetHeight, x = Math.max(8, Math.min(vw - w - 8, r.left + r.width / 2 - w / 2)), y = r.top - h - 10, below = false;
+    if (y < 8) { y = r.bottom + 10; below = true; }
+    b.style.left = Math.round(x) + "px"; b.style.top = Math.round(y) + "px"; b.classList.toggle("below", below);
+    b.style.setProperty("--ax", Math.round(Math.max(12, Math.min(w - 12, r.left + r.width / 2 - x))) + "px");
+  }
+  function show(e) { var t = text(e); if (!t) return; var b = box(); b.textContent = t; b.classList.add("on"); place(e); }
+  function lift(e) { var t = e.getAttribute("title"); if (t) { e.setAttribute("data-s5czb-t", t); e.removeAttribute("title"); } }
+  function hide() {
+    clearTimeout(timer); if (tip) tip.classList.remove("on", "below");
+    if (cur && cur.hasAttribute("data-s5czb-t")) { cur.setAttribute("title", cur.getAttribute("data-s5czb-t")); cur.removeAttribute("data-s5czb-t"); }
+    cur = null; pinned = false;
+  }
+  function target(n) { return n && n.closest ? n.closest(".s5czb-q,[data-tip],[title]") : null; }
+  document.addEventListener("mouseover", function (ev) {
+    if (pinned) return;
+    var t = target(ev.target); if (t === cur) return;
+    hide(); if (!t || t.closest("svg")) return;
+    cur = t; lift(t);
+    timer = setTimeout(function () { if (cur === t) show(t); }, t.classList.contains("s5czb-q") ? 60 : 380);
+  }, true);
+  document.addEventListener("mouseout", function (ev) { if (pinned || !cur) return; var to = ev.relatedTarget; if (to && cur.contains(to)) return; hide(); }, true);
+  document.addEventListener("click", function (ev) {
+    var q = ev.target && ev.target.closest ? ev.target.closest(".s5czb-q") : null;
+    if (q) { ev.preventDefault(); ev.stopPropagation(); if (pinned && cur === q) { hide(); return; } hide(); cur = q; show(q); pinned = true; return; }
+    hide();
+  }, true);
+  document.addEventListener("focusin", function (ev) { var q = ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q") ? ev.target : null; if (q) { hide(); cur = q; show(q); } });
+  document.addEventListener("focusout", function (ev) { if (cur && ev.target === cur && !pinned) hide(); });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") hide();
+    if ((ev.key === "Enter" || ev.key === " ") && ev.target && ev.target.classList && ev.target.classList.contains("s5czb-q")) { ev.preventDefault(); ev.target.click(); }
+  });
+  window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
+  window.addEventListener("resize", hide);
+})();
+</script>
+</body>
+</html>
