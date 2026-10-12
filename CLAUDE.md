@@ -25463,8 +25463,16 @@ An article without a date gets it from ITS OWN page (article:published_time, JSO
 <time datetime>) - never a guessed year (§5n). A source nothing answered for is status "failed" with
 the reason and every address tried: silence is the one error this tab does not forgive.
 Standard library only. SOC_DATE sets the day of the run (default today); the window is 14 days.
+
+Time budget (§5dm, 12 X 2026): one source may spend at most SOURCE_BUDGET seconds and the whole run
+RUN_BUDGET seconds (env SOC_COMMUNITY_BUDGET overrides the run budget). Measured on 12 X: the evening pass
+lost the WHOLE community re-read because collect_all.py killed this step at its 1200 s limit - a source
+whose server does not answer walks up to 40 addresses x 2 tries x 25 s (~33 min) and then gets a second
+sequential round. Now the ladder of a slow source stops when its budget is spent (status failed, the note
+says so), the run writes community_raw.json before collect_all's limit in every case, and a source not
+finished in time is reported by name instead of the step disappearing.
 """
-import sys, os, re, json, html, datetime, gzip, io, concurrent.futures as cf
+import sys, os, re, json, html, datetime, gzip, io, time, threading, concurrent.futures as cf
 import urllib.request, urllib.parse, urllib.error
 from email.utils import parsedate_to_datetime
 
@@ -25503,17 +25511,24 @@ CUSTOM = [
                                                                              ("feed", TC + "board?board.id=microsoft-security-blog")]),
 ]
 PER_SOURCE_CAP = 40   # a source that publishes a stream (MC - Merill: 331 in 14 days) shows its 40 newest
+SOURCE_BUDGET = 150   # seconds one source may spend on its whole ladder (§5dm)
+RUN_BUDGET = int(os.environ.get("SOC_COMMUNITY_BUDGET") or 720)   # seconds for the run, under collect_all's 1200 (§5dm)
+_T0 = time.time()
+_TL = threading.local()   # per thread: the deadline of the source it reads, and whether it was hit
 
 # ---------------------------------------------------------------------------------- fetching
 def fetch(url, accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"):
     """(text, http status or error) - one retry; gzip handled; never raises."""
     last = None
     for _ in range(2):
+        left = getattr(_TL, "deadline", time.time() + 60) - time.time()
+        if left < 2:
+            _TL.hit = True; return "", last or "time budget spent"
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": accept,
                                                        "Accept-Language": "en-US,en;q=0.8",
                                                        "Accept-Encoding": "gzip"})
-            with urllib.request.urlopen(req, timeout=25) as r:
+            with urllib.request.urlopen(req, timeout=min(25, left)) as r:
                 raw = r.read(6_000_000)
                 if r.headers.get("Content-Encoding", "").lower() == "gzip":
                     raw = gzip.GzipFile(fileobj=io.BytesIO(raw)).read()
@@ -25696,7 +25711,16 @@ def sitemap_items(url, depth=0):
     return out, code
 
 # ---------------------------------------------------------------------------------- one source
-def one(src):
+def one(src, budget=SOURCE_BUDGET):
+    """one source within its time budget (§5dm): the ladder stops when the budget is spent"""
+    _TL.deadline = min(time.time() + budget, _T0 + RUN_BUDGET); _TL.hit = False; t = time.time()
+    rec, items = _one(src)
+    if _TL.hit and rec["status"] == "failed":
+        rec["note"] = (rec["note"] + "; " if rec["note"] else "") + "stopped after %d s: the time budget of a source was spent" % (time.time() - t)
+        rec["timedOut"] = True
+    return rec, items
+
+def _one(src):
     name = (src.get("SourceName") or "").strip(); url = (src.get("SourceURL") or "").strip()
     rec = {"name": name, "listUrl": url, "method": None, "feedId": None, "page": None, "status": "failed",
            "note": "", "tried": [], "linkStatus": "unchecked", "linkCheckedOn": TODAY.isoformat(),
@@ -25858,13 +25882,26 @@ def main():
             d = json.load(op(sys.argv[3], "rt", encoding="utf-8")); st = d.get("soc-brief-state", d)
             prev = {i.get("link"): i.get("firstTracked") for i in ((st.get("community") or {}).get("items") or []) if i.get("link")}
         except Exception: prev = {}
-    with cf.ThreadPoolExecutor(max_workers=10) as ex:
-        res = list(ex.map(one, src))
+    ex = cf.ThreadPoolExecutor(max_workers=10)
+    futs = [ex.submit(one, x) for x in src]
+    cf.wait(futs, timeout=max(1, _T0 + RUN_BUDGET + 30 - time.time()))
+    res = []
+    for x, f in zip(src, futs):
+        if f.done() and not f.exception():
+            res.append(f.result()); continue
+        name = (x.get("SourceName") or "").strip()
+        why = ("raised %s" % type(f.exception()).__name__) if f.done() else "not finished within the run budget of %d s" % RUN_BUDGET
+        res.append(({"name": name, "listUrl": (x.get("SourceURL") or "").strip(), "method": None, "feedId": None, "page": None,
+                     "status": "failed", "note": "no answer recorded: " + why, "tried": [], "linkStatus": "unchecked",
+                     "linkCheckedOn": TODAY.isoformat(), "newestDate": None, "itemsRead": 0, "articles": [], "timedOut": True}, []))
+    ex.shutdown(wait=False, cancel_futures=True)
     # a second, sequential round for what failed: one slow answer in a parallel run is not a dead source
     # (29 IX: JanBakker answered in one run and timed out in the next)
     for k, (rec, its) in enumerate(res):
+        left = _T0 + RUN_BUDGET - time.time()
+        if left < 20: break                                  # §5dm: the run budget decides, the output is written anyway
         if rec["status"] == "failed" and "does not resolve" not in rec["note"]:
-            r2 = one(src[k])
+            r2 = one(src[k], min(60, left))
             if r2[0]["status"] == "ok": r2[0]["note"] += " (answered on the second attempt)"; res[k] = r2
     lo = (TODAY - datetime.timedelta(days=WINDOW)).isoformat(); hi = TODAY.isoformat()
     # the same article under two list entries is counted once; the second entry says so
