@@ -30433,8 +30433,10 @@ odtad CZTERNASCIE (4-17).**
     var id = r.getAttribute("data-id"); if (id) return id;
     var ref = r.querySelector(".ref, .rname"); return ref ? ref.textContent.trim() : "";
   }
-  function goItem(id) {
+  function goItem(id, pref) {
     var order = ["deadlines", "today", "new", "products", "mc"];
+    /* §5do: a tile in a tab opens the entry in THAT tab first */
+    if (pref && order.indexOf(pref) >= 0) order = [pref].concat(order.filter(function (x) { return x !== pref; }));
     for (var i = 0; i < order.length; i++) {
       var p = document.getElementById("tab-" + order[i]); if (!p) continue;
       var rows = p.querySelectorAll("tbody tr"), hit = null;
@@ -30523,16 +30525,30 @@ odtad CZTERNASCIE (4-17).**
       var fAdd = ((st.fpa || {}).chg || []).filter(function (x) { return x && x.t === "added" && x.d; });
       var f7 = fAdd.filter(function (x) { var a = days(x.d, today); return a >= 0 && a < 7; }).length;
       var f30 = fAdd.filter(function (x) { var a = days(x.d, today); return a >= 0 && a < 30; }).length;
-      var idT = el("span", "s5bk-itt");
-      var idPart = function (txt, tab, w, tip) {
-        var p = el("button", "s5bk-idb", txt); p.type = "button"; p.title = tip;
-        p.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(tab, w); }); idT.appendChild(p);
-      };
-      if (ng14 || !nr14) idPart(ng14 + " Graph API change" + (ng14 === 1 ? "" : "s"), "graph", "14", "Open What Microsoft changed in Graph API, 14 days");
-      if (nr14) { if (idT.firstChild) idT.appendChild(document.createTextNode(" · ")); idPart(nr14 + " role change" + (nr14 === 1 ? "" : "s"), "roles", "14", "Open What Microsoft changed in Entra and Azure roles, 14 days"); }
-      idT.appendChild(document.createTextNode(" in 14 days"));
-      if (f7 || f30) { idT.appendChild(document.createTextNode(" · ")); idPart((f7 || f30) + " new first-party app" + ((f7 || f30) === 1 ? "" : "s") + " in " + (f7 ? 7 : 30) + " days", "fpa", f7 ? "7" : "30", "Open What Microsoft changed in first-party apps, " + (f7 ? 7 : 30) + " days"); }
+      /* §5do (13 X 2026, owner: "the section says TODAY and you show several days; show new and changed as TILES,
+         not in one sentence"). The headline is what moved SINCE THE PREVIOUS BRIEF; three tiles - Graph API,
+         roles, first-party apps - carry that number first and the longer window under it, each opening its own
+         "What Microsoft changed" block. */
+      var sinceN = function (box) { var sb = box && box.querySelector('.mc-seg button[data-w="since"]'); var m = sb && /(\d+)\s*$/.exec(sb.textContent || ""); return m ? +m[1] : 0; };
+      var Fb = st.fpa || {}, fSince = (Fb.chg || []).filter(function (x) { return x && x.d && Fb.built && x.d === Fb.built; }).length;
+      var gS = sinceN(gb), rS = sinceN(rb), allS = gS + rS + fSince, sinceTxt = since ? "the " + fmt(since) + " brief" : "the previous brief";
+      var idT = el("span", "s5bk-itt", allS ? allS + " change" + (allS === 1 ? "" : "s") + " in Graph API, roles and first-party apps since " + sinceTxt
+        : "Nothing moved in Graph API, roles or first-party apps since " + sinceTxt);
       b3.appendChild(idT);
+      var idG = el("span", "s5bk-idg");
+      var idTile = function (lab, nS, nW, wLab, tab, w) {
+        var t = el("button", "s5bk-idtile" + (nS ? " s5bk-idhot" : "")); t.type = "button";
+        t.title = "Open What Microsoft changed in " + lab + (nS ? ", since the previous brief" : ", " + wLab);
+        t.appendChild(el("span", "s5bk-idl1", lab)); t.appendChild(el("span", "s5bk-idn", String(nS)));
+        t.appendChild(el("span", "s5bk-idl2", "since " + (since ? fmt(since) : "the previous brief")));
+        t.appendChild(el("span", "s5bk-idl3", nW + " in " + wLab));
+        t.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(tab, nS && tab !== "fpa" ? "since" : w); });
+        idG.appendChild(t);
+      };
+      idTile("Graph API", gS, ng14, "14 days", "graph", "14");
+      idTile("Roles", rS, nr14, "14 days", "roles", "14");
+      idTile("First-party apps", fSince, f7 || f30, (f7 || !f30) ? "7 days" : "30 days", "fpa", (f7 || !f30) ? "7" : "30");
+      b3.appendChild(idG);
       /* §5cn (4 X 2026, owner: "the Microsoft sentence and the Graph API sentence say the same thing;
          each sentence was to carry one technology"). Graph API and roles are ONE sentence: the count,
          and under it the heaviest permission change of the week when there is one, else the latest. */
@@ -30851,6 +30867,7 @@ odtad CZTERNASCIE (4-17).**
     })();
   }
   window.__socGoWin = goWin;
+  window.__socGoItem = function (id, pref) { return goItem(id, pref); };
   function goMs(tab) {
     openTab(tab);
     setTimeout(function () { var m = document.querySelector('#tab-' + tab + ' details.mschg'); if (m) { m.open = true; m.scrollIntoView({ block: "start" }); } }, 250);
@@ -31368,6 +31385,8 @@ odtad CZTERNASCIE (4-17).**
       grp.slice(0, MAXROWS).forEach(function (g) {
         var r = g.r;
         var li = el("li", "s5bn-r s5bn-" + r.kind);
+        /* §5do: the tile view of every tab reads these */
+        if (r.id) li.setAttribute("data-id", r.id); li.setAttribute("data-kind", r.kind); if (r.type) li.setAttribute("data-type", r.type);
         li.appendChild(el("span", "s5bn-k", r.kind === "added" ? "NEW" : r.kind === "removed" ? "REMOVED" : "CHANGED"));
         if (r.type) li.appendChild(el("span", "s5bn-ty", r.type));
         /* the title is the link; the identifier follows, small (§5by) */
@@ -36824,6 +36843,14 @@ odtad CZTERNASCIE (4-17).**
     /* after the component sentence when there is one, else at the end */
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { var k = x.querySelector(":scope > b"); return k && /^component/i.test(k.textContent || ""); })[0];
     if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
+    /* §5do (13 X 2026, owner: "you wrote fifteen sentences, the page says fourteen"): this sentence arrives after
+       the heading was counted - count again */
+    var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
+    if (sh) {
+      var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"];
+      sh.textContent = "Today in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+      if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent);
+    }
   }
 
   function units() {
@@ -38625,6 +38652,75 @@ odtad CZTERNASCIE (4-17).**
   document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("nav.anchors .tab,[id^=tabbtn-],.s5cd-bar,summary,button")) later(500); });
   [1500, 4000, 8000].forEach(function (t) { setTimeout(scan, t); });
 })();
+
+/* §5do (13 X 2026, owner: "in every tab that has a What changed section you agreed to show TILES that can be clicked,
+   like Graph API and Roles"). Every "Since the previous brief" strip outside Graph API and Roles (those have the
+   §5dc view) gets the same Tiles | List switch: a tile per new, changed or removed entry - name first, the kind,
+   the type and product, what moved (before -> after) - and a click opens the entry where this portal shows it
+   (a Message Center post in Message Center, a first-party app in its catalog, a brief item in its tab, an
+   article at its source). Built from the strip's own rows, so the numbers are the strip's numbers. */
+(function () {
+  if (window.__s5do) return; window.__s5do = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  var KEY = "socStripView";
+  function pref() { try { return localStorage.getItem(KEY) || "tiles"; } catch (e) { return "tiles"; } }
+  function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function tabOf(box) { var p = box.closest('[id^="tab-"]'); return p ? p.id.slice(4) : ""; }
+  function go(tab, li) {
+    var id = li.getAttribute("data-id") || "", a = li.querySelector("a[href]");
+    if (tab === "mc" && /^MC\d+/.test(id)) { location.hash = "#" + id; return; }
+    if (tab === "fpa") {
+      var q = document.querySelector("#tab-fpa .s9find input[type=search]");
+      if (q) { q.value = id; q.dispatchEvent(new Event("input", { bubbles: true })); q.scrollIntoView({ block: "start" }); return; }
+    }
+    if (id && window.__socGoItem && window.__socGoItem(id, tab)) return;
+    if (a) window.open(a.href, "_blank", "noopener");
+  }
+  function tile(tab, li) {
+    var kind = li.getAttribute("data-kind") || "changed";
+    var t = el("article", "s5do-tile s5do-" + kind); t.tabIndex = 0; t.setAttribute("role", "button");
+    var nm = li.querySelector(".s5bn-tl, .s5bn-id"), name = nm ? nm.textContent : (li.getAttribute("data-id") || "");
+    t.appendChild(el("div", "s5do-name", name));
+    var idm = li.querySelector(".s5bn-idm"); if (idm && idm.textContent !== name) t.appendChild(el("div", "s5do-id", idm.textContent));
+    var top = el("div", "s5do-pills");
+    top.appendChild(el("span", "s5do-k s5bn-k", (li.querySelector(".s5bn-k") || {}).textContent || ""));
+    var ty = li.querySelector(".s5bn-ty"); if (ty) top.appendChild(el("span", "s5do-ty", ty.textContent));
+    var pr = li.querySelector(".s5bn-pr"); if (pr) top.appendChild(el("span", "s5do-ty", pr.textContent));
+    t.appendChild(top);
+    var chs = li.querySelector(".s5bn-chs"); if (chs) { var c = chs.cloneNode(true); c.className = "s5do-chs"; t.appendChild(c); }
+    var a = li.querySelector("a[href]");
+    var foot = el("div", "s5do-foot"); foot.appendChild(el("span", "s5do-open", tab === "mc" || tab === "fpa" || (li.getAttribute("data-id") && !a) ? "Open ›" : a ? "Open at the source ↗" : "Open ›"));
+    t.appendChild(foot);
+    function act(ev) { if (ev.target.closest("a")) return; go(tab, li); }
+    t.addEventListener("click", act);
+    t.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(tab, li); } });
+    return t;
+  }
+  function wire(box) {
+    if (box.getAttribute("data-s5do") || box.getAttribute("data-s5dc")) return;
+    var tab = tabOf(box); if (!tab || tab === "graph" || tab === "roles") return;
+    box.setAttribute("data-s5do", "1");
+    var ul = box.querySelector(".s5bn-l");
+    if (!ul) {   /* nothing moved: say what will appear here */
+      var em = box.querySelector(".s5bn-empty");
+      if (em && !em.querySelector(".s5do-empty")) em.appendChild(el("span", "s5do-empty", "When something is added, changed or removed here, it appears as a tile you can click — Tiles | List switch."));
+      return;
+    }
+    var lis = [].slice.call(ul.children);
+    var grid = el("div", "s5do-grid"); lis.forEach(function (li) { grid.appendChild(tile(tab, li)); });
+    ul.parentNode.insertBefore(grid, ul);
+    var head = box.querySelector(".s5bn-h"), sw = el("span", "s5do-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
+    var bT = el("button", null, "Tiles"), bL = el("button", null, "List"); bT.type = bL.type = "button";
+    sw.appendChild(bT); sw.appendChild(bL); if (head) head.appendChild(sw);
+    function set(v) { grid.hidden = v !== "tiles"; ul.hidden = v === "tiles"; bT.setAttribute("aria-pressed", String(v === "tiles")); bL.setAttribute("aria-pressed", String(v !== "tiles")); }
+    bT.addEventListener("click", function () { save("tiles"); set("tiles"); });
+    bL.addEventListener("click", function () { save("list"); set("list"); });
+    set(pref());
+  }
+  function scan() { [].forEach.call(document.querySelectorAll(".s5bn"), wire); }
+  var n = 0; (function loop() { scan(); if (++n < 40) setTimeout(loop, 500); })();
+  document.addEventListener("click", function () { setTimeout(scan, 300); }, true);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -40127,6 +40223,32 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .kpi5 .k5t{overflow-wrap:anywhere;min-width:0}
 .kpi5 .k5t .s5cz-d{white-space:normal}
 header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var(--text);-webkit-text-fill-color:var(--text);opacity:1;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--border);border-radius:8px;padding:6px 28px 6px 10px}
+
+/* §5do: Overview "Identity surface" tiles and the Tiles | List view of every "Since the previous brief" strip */
+.s5bk-idg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0 4px}
+.s5bk-idtile{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;padding:9px 11px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font:inherit;cursor:pointer;min-width:0}
+.s5bk-idtile:hover,.s5bk-idtile:focus-visible{border-color:var(--accent);outline:none}
+.s5bk-idl1{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s5bk-idn{font-size:26px;font-weight:700;line-height:1.1;color:var(--muted)}
+.s5bk-idhot .s5bk-idn{color:var(--accent)}
+.s5bk-idl2{font-size:12px;color:var(--muted)}
+.s5bk-idl3{font-size:12.5px;color:var(--text);margin-top:3px}
+.s5do-sw{display:inline-flex;margin-left:auto;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.s5do-sw button{background:none;border:0;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
+.s5do-sw button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.s5do-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0}
+.s5do-grid[hidden],.s5bn-l[hidden]{display:none!important}
+.s5do-tile{display:flex;flex-direction:column;gap:5px;padding:11px 13px;border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;background:var(--bg);cursor:pointer;min-width:0}
+.s5do-tile.s5do-added{border-left-color:#3fb950}.s5do-tile.s5do-changed{border-left-color:#d29922}.s5do-tile.s5do-removed{border-left-color:#f85149}
+.s5do-tile:hover,.s5do-tile:focus-visible{border-color:var(--accent);outline:none}
+.s5do-name{font-weight:700;font-size:15px;line-height:1.3;overflow-wrap:anywhere}
+.s5do-id{font-size:12px;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.s5do-pills{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.s5do-ty{font-size:11.5px;padding:1px 7px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
+.s5do-chs{display:flex;flex-direction:column;gap:2px;font-size:13px;overflow-wrap:anywhere}
+.s5do-foot{margin-top:auto;font-size:12.5px;color:var(--accent);font-weight:600}
+.s5do-empty{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:4px}
+@media (max-width:760px){.s5bk-idg{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.s5bk-idtile{padding:7px 8px}.s5bk-idn{font-size:22px}.s5bk-idl1{font-size:10.5px}.s5do-grid{grid-template-columns:minmax(0,1fr)}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
