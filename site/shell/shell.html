@@ -3675,7 +3675,7 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
  header.top .title-row.s5cz-room{padding-right:370px}
 }
 @media (max-width:1099px){.s5cz-fresh{margin:8px 0 0}}
-@media (max-width:720px){.s5cz-fresh{padding:6px 10px;font-size:12px}.s5cz-fresh .s5cz-fl:nth-of-type(3){display:none}.s5cz-fk{min-width:64px}}
+@media (max-width:720px){.s5cz-fresh{padding:6px 10px;font-size:12px}.s5cz-fk{min-width:64px}}
 .s5cz-chip{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 10px;padding:6px 11px;border:1px solid var(--ok,#1a7f37);
  border-radius:999px;background:color-mix(in srgb,var(--ok,#1a7f37) 8%,var(--surface,#fff));font-size:12.5px;width:max-content;max-width:100%}
 .s5cz-chip .s5cz-dot{margin-right:3px}
@@ -3777,7 +3777,8 @@ body .sec-body td:first-child>a[href^="http"]:hover{color:var(--accent)}
 .s5da-note{margin:6px 0 8px;padding:8px 12px;border:1px solid var(--border);border-left:3px solid var(--border);border-radius:8px;font-size:12.5px;color:var(--muted);line-height:1.5}
 /* phone: tables as cards (the script labels every cell with its column) */
 @media (max-width:720px){
- .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:visible!important;max-width:100%}
+ .tabpanel .tw,.tabpanel .mcb-gwrap,.tabpanel .s5cr-tw{overflow-x:auto;max-width:100%;min-width:0}   /* §5di: scroll until the table is cards */
+ .tabpanel .s5da-cw{overflow-x:visible!important}
  table.s5da-cards,table.s5da-cards>tbody{display:block;width:100%!important;min-width:0!important;border:0!important}
  table.s5da-cards>thead{display:none}
  table.s5da-cards>caption{display:block;text-align:left;padding:0 0 6px}
@@ -3959,6 +3960,18 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 .s5bn-empty{display:block;margin:10px 0 6px;padding:11px 14px 11px 40px;position:relative;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text);border:1px solid var(--ok);border-left:5px solid var(--ok);border-radius:10px;background:color-mix(in srgb,var(--ok) 9%,transparent)}
 .s5bn-empty::before{content:"✓";position:absolute;left:13px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;line-height:18px;text-align:center;font-weight:900}
 .s5bn-empty .s5dc-empty{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:var(--muted)}
+/* §5di: when /diff/ is older than the brief the header link carries an age label ("stale"); on a phone the dateline
+   must wrap, measured 11 X 2026: 477 px at 390 */
+@media (max-width:720px){header.top p.dateline{white-space:normal;flex-wrap:wrap;max-width:100%;min-width:0;overflow-wrap:anywhere}header.top p.dateline .s5czb-dlink{white-space:normal;max-width:100%}}
+/* §5dk: an internal-repository reference shown as text (the repository may become private) */
+.s5dk-int{color:var(--muted);font-style:italic}
+/* §5dk: a section reached from the sticky tab bar starts below it on a phone */
+@media (max-width:720px){.tabpanel section[id],.tabpanel details[id],.tabpanel [data-s5cd-v]{scroll-margin-top:96px}}
+/* §5dl: seen in WebKit at iPhone width - a KPI label with a long date ("new since the 10/10/2026 brief") ran into the
+   next tile (the date span does not wrap), and the "All products" menu text was nearly invisible */
+.kpi5 .k5t{overflow-wrap:anywhere;min-width:0}
+.kpi5 .k5t .s5cz-d{white-space:normal}
+header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var(--text);-webkit-text-fill-color:var(--text);opacity:1;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--border);border-radius:8px;padding:6px 28px 6px 10px}
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -6803,7 +6816,7 @@ tr.s5df-flash>td{background:var(--surface-2)!important;outline:2px solid var(--a
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 11 October 2026</b> &middot; published 06:46 Warsaw &middot; 27 September &ndash; 11 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 46 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>5</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>84</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>5</b> changes since 10 Oct<span>&middot; 1 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>6857</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 12 October 2026</b> &middot; published 07:55 Warsaw &middot; 28 September &ndash; 12 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>55</b> deadlines in 60 days<span>&middot; 51 inside 30, 12 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>6</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>84</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>4</b> changes since 11 Oct<span>&middot; 2 at Microsoft, 2 in this report</span></a><a class="count" href="#chg14"><b>5431</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7004,7 +7017,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 11 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 12 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
