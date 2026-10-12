@@ -30512,17 +30512,33 @@ odtad CZTERNASCIE (4-17).**
     var ms14 = ms.filter(function (x) { return x.age >= 0 && x.age < 14; });
     var nMs = gb || rb ? (gb && +gb.getAttribute("data-n14") || 0) + (rb && +rb.getAttribute("data-n14") || 0) : ms14.length;
     if (ms14.length) {
-      var b3 = el("button", "s5bk-it"); b3.type = "button";
-      b3.appendChild(el("span", "s5bk-itt", nMs + " change" + (nMs === 1 ? "" : "s") + " in Graph API and roles in 14 days"));
+      /* §5dn (12 X 2026, owner: "the sentence says first-party apps changed, I click and land in Graph API; the
+         First-party apps tab says nothing changed"). The sentence stays one (Identity surface, §5cy) but every
+         part is its OWN link, and every number is the one the place it opens shows: Graph API and roles open
+         their "What Microsoft changed" block at 14 days, first-party apps open theirs at 7 days (30 when the
+         week is empty) - that block has no 14-day window. */
+      var b3 = el("span", "s5bk-it s5bk-idl");
+      var ng14 = gb ? +gb.getAttribute("data-n14") || 0 : ms14.filter(function (x) { return x.tab === "graph"; }).length;
+      var nr14 = rb ? +rb.getAttribute("data-n14") || 0 : ms14.filter(function (x) { return x.tab === "roles"; }).length;
+      var fAdd = ((st.fpa || {}).chg || []).filter(function (x) { return x && x.t === "added" && x.d; });
+      var f7 = fAdd.filter(function (x) { var a = days(x.d, today); return a >= 0 && a < 7; }).length;
+      var f30 = fAdd.filter(function (x) { var a = days(x.d, today); return a >= 0 && a < 30; }).length;
+      var idT = el("span", "s5bk-itt");
+      var idPart = function (txt, tab, w, tip) {
+        var p = el("button", "s5bk-idb", txt); p.type = "button"; p.title = tip;
+        p.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(tab, w); }); idT.appendChild(p);
+      };
+      if (ng14 || !nr14) idPart(ng14 + " Graph API change" + (ng14 === 1 ? "" : "s"), "graph", "14", "Open What Microsoft changed in Graph API, 14 days");
+      if (nr14) { if (idT.firstChild) idT.appendChild(document.createTextNode(" · ")); idPart(nr14 + " role change" + (nr14 === 1 ? "" : "s"), "roles", "14", "Open What Microsoft changed in Entra and Azure roles, 14 days"); }
+      idT.appendChild(document.createTextNode(" in 14 days"));
+      if (f7 || f30) { idT.appendChild(document.createTextNode(" · ")); idPart((f7 || f30) + " new first-party app" + ((f7 || f30) === 1 ? "" : "s") + " in " + (f7 ? 7 : 30) + " days", "fpa", f7 ? "7" : "30", "Open What Microsoft changed in first-party apps, " + (f7 ? 7 : 30) + " days"); }
+      b3.appendChild(idT);
       /* §5cn (4 X 2026, owner: "the Microsoft sentence and the Graph API sentence say the same thing;
          each sentence was to carry one technology"). Graph API and roles are ONE sentence: the count,
          and under it the heaviest permission change of the week when there is one, else the latest. */
       /* §5ct: under the count, the changes that matter most for security this week and what they let an app do */
       var gtop = window.__socGD && window.__socGD.top ? window.__socGD.top(7, 3) : [];
-      var fpaNew = ((st.fpa || {}).chg || []).filter(function (x) { return x && x.t === "added" && x.d && days(x.d, today) >= 0 && days(x.d, today) < 14; }).length;
-      if (fpaNew) b3.firstChild.textContent += " · " + fpaNew + " new first-party app" + (fpaNew === 1 ? "" : "s");
       if (!gtop.length && window.__socGD && window.__socGD.top) gtop = window.__socGD.top(14, 3);
-      b3.addEventListener("click", function () { goMs(ms14[0].tab); });
       if (gtop.length) {
         var gw = el("span", "s5bk-gw"); gw.appendChild(b3);
         var gl = el("span", "s5bk-gl");
@@ -30819,6 +30835,22 @@ odtad CZTERNASCIE (4-17).**
     oneChart(panel);
     health(panel, st);
   }
+  /* §5dn: open a tab's "What Microsoft changed" block at one window (the number the link carried) */
+  function goWin(tab, w) {
+    openTab(tab);
+    var n = 0;
+    (function tryIt() {
+      var m = document.querySelector('#tab-' + tab + ' details.mschg');
+      if (!m) { if (++n < 20) setTimeout(tryIt, 150); return; }
+      m.open = true;
+      var sb = m.querySelector('.mc-seg button[data-w="' + w + '"]'); if (sb && sb.getAttribute("aria-pressed") !== "true") sb.click();
+      m.scrollIntoView({ block: "start" });
+      /* the tab may still be laying itself out (First-party apps builds on first open): land again once it settled */
+      setTimeout(function () { m.scrollIntoView({ block: "start" }); }, 600);
+      setTimeout(function () { m.scrollIntoView({ block: "start" }); }, 1400);
+    })();
+  }
+  window.__socGoWin = goWin;
   function goMs(tab) {
     openTab(tab);
     setTimeout(function () { var m = document.querySelector('#tab-' + tab + ' details.mschg'); if (m) { m.open = true; m.scrollIntoView({ block: "start" }); } }, 250);
@@ -31466,8 +31498,14 @@ odtad CZTERNASCIE (4-17).**
         field: k === "changed" ? x.t : "", before: x.a != null ? String(x.a) : (x.nr ? "−" + x.nr : ""),
         after: x.b != null ? String(x.b) : (x.na ? "+" + x.na : "") };
     });
+    /* §5dn: "nothing in this build" next to an Overview sentence saying "2 new first-party apps" read as a
+       contradiction - the empty line now names the recent additions and where they are */
+    var fCut = (function () { var d = new Date(String(F.built || "") + "T00:00:00Z"); if (isNaN(d)) return "9999"; d.setUTCDate(d.getUTCDate() - 7); return d.toISOString().slice(0, 10); })();
+    var fRec = (F.chg || []).filter(function (x) { return x && x.t === "added" && x.d && x.d < F.built && x.d >= fCut; });
+    var fRecTxt = fRec.length ? " Added in the last 7 days: " + fRec.slice(0, 3).map(function (x) { return (x.n || x.id) + " (" + dmy(x.d) + ")"; }).join(", ") +
+      (fRec.length > 3 ? " and " + (fRec.length - 3) + " more" : "") + " — in What Microsoft changed below." : "";
     strip(document.getElementById("tab-fpa"), { title: since, rows: fRows, diff: "fpa",
-      empty: F.apps ? "No first-party app added, removed or changed in this build (" + dmy(F.built) + ")." :
+      empty: F.apps ? "No first-party app added, removed or changed in this build (" + dmy(F.built) + ")." + fRecTxt :
                       "No first-party app data in this brief.",
       more: "the change list is in the tab below." });
 
@@ -37042,6 +37080,8 @@ odtad CZTERNASCIE (4-17).**
   /* ---------- P1: one ranking ---------- */
   var VERB = { grantable: "became grantable", removed: "was removed from the service", "new": "is a new permission", consent: "changed its consent or privilege level",
     changed: "changed in the service", documented: "is now documented by Microsoft" };
+  var VERBS = { grantable: "became grantable", removed: "were removed from the service", "new": "are new permissions", consent: "changed their consent or privilege level",
+    changed: "changed in the service", documented: "are now documented by Microsoft" };
   var RVERB = { added: "is a new built-in role", privileged: "is now marked privileged", "actions-added": "gained actions", "actions-removed": "lost actions",
     condition: "changed a condition", removed: "was removed" };
   function typesShort(t) { return (t || []).map(function (x) { return x === "Application" ? "app-only" : x === "Delegated" ? "delegated" : x; }).join(" + "); }
@@ -37058,7 +37098,8 @@ odtad CZTERNASCIE (4-17).**
     var e = g.head, n = g.all.length, x = { name: e.name, score: e.score, day: e.day, tenant: e.tenant || "", surface: e.surface, tech: e.tech, change: e.change };
     if (e.surface === "permission") {
       var day = g.all.reduce(function (a, b) { return b.day < a ? b.day : a; }, e.day);
-      x.text = (n > 1 ? "and " + (n - 1) + " more " + family(e.name) + " permission" + (n === 2 ? "" : "s") + " " : "") + (VERB[e.change] || e.change) +
+      /* §5dn: "X and 11 more permissions ARE now documented" - the verb agrees with the group, not the head */
+      x.text = (n > 1 ? "and " + (n - 1) + " more " + family(e.name) + " permission" + (n === 2 ? "" : "s") + " " : "") + ((n > 1 ? VERBS[e.change] : VERB[e.change]) || VERB[e.change] || e.change) +
         (e.detail ? " (" + e.detail + ")" : "") + (e.undoc ? ", not yet documented" : "") +
         (e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(day) + " brief") +
         (e.desc ? " — Microsoft: “" + firstSentence(e.desc, 150) + "”" : "");
@@ -37162,7 +37203,7 @@ odtad CZTERNASCIE (4-17).**
     var d = data(), from = plus(d.day, -(days || 7)), c = { p: [0, 0, 0], r: [0, 0, 0], a: 0, ea: 0, er: 0 };
     d.ev.forEach(function (e) {
       if (!e.day || e.day < from) return;
-      if (e.surface === "permission") { if (/grantable|new/.test(e.change)) c.p[0]++; else if (e.change === "removed") c.p[2]++; else if (e.change !== "documented") c.p[1]++; }
+      if (e.surface === "permission") { if (/grantable|new/.test(e.change)) c.p[0]++; else if (e.change === "removed") c.p[2]++; else if (e.change !== "documented") c.p[1]++; else c.doc = (c.doc || 0) + 1; }
       else if (e.surface === "role") { if (e.change === "added") c.r[0]++; else if (e.change === "removed") c.r[2]++; else c.r[1]++; }
       else c.a++;
     });
@@ -37185,11 +37226,13 @@ odtad CZTERNASCIE (4-17).**
       parts.forEach(function (p) { if (p[1] || p[2]) { var s = el("b", "s5cy-n " + p[2], p[0] + p[1]); nn.appendChild(s); } });
       if (!nn.children.length) nn.appendChild(el("b", "s5cy-n s5cy-zero", "0"));
       b.appendChild(nn); b.appendChild(el("span", null, label)); if (sub) b.appendChild(el("span", "s5cy-sub", sub));
-      b.addEventListener("click", function () { var t = tabBtn(tab); if (t) t.click();
-        if (tab === "graph" && /Endpoint/.test(label)) setTimeout(function () { var g = document.getElementById("gd-changes"); if (g) { g.open = true; scrollTo(g); } }, 300); });
+      /* §5dn: the card counts 7 days, so the click opens the tab's "What Microsoft changed" block at 7 days */
+      b.addEventListener("click", function () {
+        if (tab === "graph" && /Endpoint/.test(label)) { var t = tabBtn(tab); if (t) t.click(); setTimeout(function () { var g = document.getElementById("gd-changes"); if (g) { g.open = true; scrollTo(g); } }, 300); return; }
+        if (window.__socGoWin) window.__socGoWin(tab, "7"); else { var t2 = tabBtn(tab); if (t2) t2.click(); } });
       sts.appendChild(b);
     }
-    stat("Graph permissions", [["+", c.p[0], "s5cy-add"], ["~", c.p[1], "s5cy-chg"], ["−", c.p[2], "s5cy-rem"]], "graph", "new or grantable · changed · removed", c.p[0] + c.p[2] > 0);
+    stat("Graph permissions", [["+", c.p[0], "s5cy-add"], ["~", c.p[1], "s5cy-chg"], ["−", c.p[2], "s5cy-rem"]], "graph", "new or grantable · changed · removed" + (c.doc ? " · " + c.doc + " only newly documented, not counted" : ""), c.p[0] + c.p[2] > 0);
     stat("Entra roles", [["+", c.r[0], "s5cy-add"], ["~", c.r[1], "s5cy-chg"], ["−", c.r[2], "s5cy-rem"]], "roles", "new · changed actions · removed", c.r[0] > 0);
     stat("First-party apps", [["+", c.a, "s5cy-add"]], "fpa", "new Microsoft applications", false);
     stat("Endpoints", [["+", c.ea, "s5cy-add"], ["−", c.er, "s5cy-rem"]], "graph", "reached by existing permissions", false);
@@ -39357,6 +39400,13 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-its,.s5ci-ten .s5bk-its{font-size:13.5px;line-height:1.55}
 /* §5ct: the Graph sentence — the most important changes for security, each with what it lets an app do */
 .s5bk-gw{display:flex;flex-direction:column;gap:6px}
+/* §5dn: the Identity surface sentence - each part its own link */
+.s5bk-idl{cursor:default}
+.s5bk-link.s5bk-idl .s5bk-itt::after{content:none}
+.s5bk-link.s5bk-idl:hover .s5bk-itt{text-decoration:none}
+.s5bk-idb{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
+.s5bk-idb:hover,.s5bk-idb:focus-visible{color:var(--accent)}
+.s5bk-idb::after{content:"\00a0\2192";color:var(--accent);font-weight:600}
 .s5bk-gl{display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .s5bk-gh{font-size:12.5px;color:var(--muted)}
 .s5bk-gi{display:block;font-size:13.5px;line-height:1.5;color:var(--muted)}
