@@ -351,7 +351,7 @@
 "before":"2026-10-01",
 "after":"2026-10-07",
 "title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://deltapulse.app/item/MC1448373"
+"link":"https://mc.merill.net/message/MC1448373"
 },
 {
 "date":"2026-10-02",
@@ -405,7 +405,7 @@
 "before":"",
 "after":"2 weeks until Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
 "title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://deltapulse.app/item/MC1448373"
+"link":"https://mc.merill.net/message/MC1448373"
 },
 {
 "date":"2026-09-28",
@@ -469,6 +469,16 @@
 "date":"2026-09-09",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-12"
 }
 },
 "final":"2026-10-25",
@@ -692,9 +702,19 @@
 "MC1486282",
 "MC1486288",
 "item:MC1486288",
-"item:573701"
+"item:573701",
+"MC1477180"
 ],
 "log":[
+{
+"date":"2026-10-12",
+"id":"MC1477180",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180"
+},
 {
 "date":"2026-10-07",
 "id":"573701",
@@ -953,6 +973,11 @@
 "label":"10 Oct 2026",
 "text":"EWSAllowedAppIDs becomes required on 10 October 2026. Until today this brief carried its own reading, 1 October."
 },
+"MC1477180|posted":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"Posted: Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance"
+},
 "MC676299|we have expanded our effort and are now also removing ews de#0":{
 "date":"2026-10-15",
 "label":"Oct 2026",
@@ -1160,6 +1185,16 @@
 "date":"2026-10-09",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1477180":{
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180",
+"source":"Message Center",
+"id":"MC1477180",
+"date":"2026-10-12",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-12"
 }
 },
 "final":"2027-07-05",
@@ -3640,14 +3675,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-10",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-11",
 "text":"August 1, 2026."
 },
@@ -3689,6 +3716,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-11",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-12",
 "text":"August 1, 2026."
 },
 {
@@ -4112,22 +4147,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-10",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-10",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-11",
 "text":"early February 2026."
 },
@@ -4217,6 +4236,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-11",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-12",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-12",
 "text":"February 2027."
 },
 {
@@ -4529,6 +4564,58 @@
 "tech":"Entra",
 "posts":[
 "MC1223829"
+]
+},
+"c-item-mc1476122":{
+"firstSeen":"2026-10-12",
+"lastSeen":"2026-10-12",
+"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"status":"Active",
+"members":[
+"item:MC1476122",
+"MC1476122"
+],
+"log":[
+{
+"date":"2026-10-12",
+"id":"MC1476122",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"A Microsoft-managed Conditional Access policy, Require risk remediation for high-risk users, starts in report-only mode and switches On the week of 28 October",
+"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"link":"https://mc.merill.net/message/MC1476122"
+}
+],
+"milestones":{
+"MC1476122|posted":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"Posted: Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
+},
+"MC1476122|microsoft states week of end of evaluation period policy wil#0":{
+"date":"2026-10-28",
+"label":"28 Oct 2026",
+"text":"Microsoft states 'Week of October 28, 2026: End of evaluation period - policy will be enforced'; the date is the start of that week as stated."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1476122":{
+"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"link":"https://mc.merill.net/message/MC1476122",
+"source":"Message Center",
+"id":"MC1476122",
+"date":"2026-10-12",
+"updated":"2026-09-21",
+"group":"microsoft",
+"found":"2026-10-12"
+}
+},
+"final":"2026-10-28",
+"type":"Enforcement",
+"tech":"Entra",
+"posts":[
+"MC1476122"
 ]
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
@@ -5352,12 +5439,22 @@
 "c-item-mdi-auto-sensor-v3-windows-auditing-default":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-12",
-"name":"Defender for Identity will switch on sensor v3.x and Windows auditing on identity-role servers by default…",
+"name":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
 "status":"No date",
 "members":[
-"item:mdi-auto-sensor-v3-windows-auditing-default"
+"item:mdi-auto-sensor-v3-windows-auditing-default",
+"MC1484018"
 ],
 "log":[
+{
+"date":"2026-10-12",
+"id":"MC1484018",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
+"title":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
+"link":"https://mc.merill.net/message/MC1484018"
+},
 {
 "date":"2026-09-29",
 "id":"mdi-auto-sensor-v3-windows-auditing-default",
@@ -5368,7 +5465,13 @@
 "link":"https://learn.microsoft.com/en-us/defender-for-identity/whats-new"
 }
 ],
-"milestones":{},
+"milestones":{
+"MC1484018|posted":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"Posted: Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement"
+}
+},
 "moves":[],
 "materials":{
 "https://learn.microsoft.com/en-us/defender-for-identity/whats-new":{
@@ -5379,12 +5482,24 @@
 "date":"2026-09-29",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1484018":{
+"title":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
+"link":"https://mc.merill.net/message/MC1484018",
+"source":"Message Center",
+"id":"MC1484018",
+"date":"2026-10-12",
+"updated":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-12"
 }
 },
 "final":null,
 "type":"Rollout",
 "tech":"Defender",
-"posts":[]
+"posts":[
+"MC1484018"
+]
 },
 "c-item-mc1483974":{
 "firstSeen":"2026-10-09",
@@ -6508,22 +6623,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-10",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-10",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -6613,6 +6712,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-11",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-12",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-12",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7720,6 +7835,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-12",
+"cid":"c-item-mc1476122",
+"type":"new",
+"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"ctype":"Enforcement",
+"tech":"Entra",
+"next":"28 Oct 2026",
+"text":"A Microsoft-managed Conditional Access policy, Require risk remediation for high-risk users, starts in report-only mode and switches On the week of 28 October"
 }
 ],
 "archive":{

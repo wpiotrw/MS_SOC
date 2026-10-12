@@ -6,7 +6,10 @@
   "product": "Microsoft 365",
   "tables": [],
   "purpose": "An Azure Resource Graph query, run in Resource Graph Explorer or with az graph query, that lists every Arc-enabled Kubernetes cluster with the extension type Microsoft's migration guide names, microsoft.azurekeyvaultsecretsprovider. Each row is a cluster that holds a service principal credential for",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples"
+  "source": "https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples",
+  "reused": [
+   "2026-10-12"
+  ]
  },
  {
   "file": "2026-10-10-who-was-granted-one-of-the-graph-permissions.kql",
@@ -19,7 +22,8 @@
   "purpose": "Lists every successful grant in the last 14 days of the two AppFederatedCredentialIssuers application roles and of the nine delegated scopes that arrived with them, with who granted it and to which service principal. An empty result is the expected one; a row for AppFederatedCredentialIssuers.ReadWr",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "reused": [
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -34,7 +38,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "reused": [
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -51,7 +56,8 @@
   "reused": [
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -68,7 +74,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -86,7 +93,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -104,7 +112,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -125,7 +134,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -149,7 +159,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -196,7 +207,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -223,7 +235,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
@@ -249,7 +262,8 @@
    "2026-10-08",
    "2026-10-09",
    "2026-10-10",
-   "2026-10-11"
+   "2026-10-11",
+   "2026-10-12"
   ]
  },
  {
