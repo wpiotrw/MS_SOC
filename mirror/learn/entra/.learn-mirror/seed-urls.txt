@@ -2,6 +2,7 @@ https://learn.microsoft.com/en-us/entra
 https://learn.microsoft.com/en-us/entra/agent-id
 https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id
 https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id
+https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-employee-access
 https://learn.microsoft.com/en-us/entra/backup/overview
 https://learn.microsoft.com/en-us/entra/concept-deployment-options-provision-to-active-directory
 https://learn.microsoft.com/en-us/entra/concept-passkey-browser-authentication-federated-identity-provider

@@ -385,6 +385,7 @@ https://learn.microsoft.com/en-us/azure/virtual-desktop/windows-update-managemen
 https://learn.microsoft.com/en-us/azure/virtual-machines
 https://learn.microsoft.com/en-us/azure/virtual-machines/TOC
 https://learn.microsoft.com/en-us/azure/virtual-machines/attach-disk-portal
+https://learn.microsoft.com/en-us/azure/virtual-machines/automatic-vm-guest-patching
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
 https://learn.microsoft.com/en-us/azure/virtual-machines/create-portal-availability-zone
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/general-purpose-skus
@@ -393,6 +394,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/memory-
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/modernization-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/sku-lifecycle
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
+https://learn.microsoft.com/en-us/azure/virtual-machines/disks-instant-access-snapshots
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
 https://learn.microsoft.com/en-us/azure/virtual-machines/how-to-enable-write-accelerator
@@ -401,6 +403,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-n-series-amd-gpu-driver-linux-installation-guide
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/mdsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/previous-gen-series-capacity-limitations
@@ -417,7 +420,10 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-d
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-migrate
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-plan
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncadsh100v5-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nd-gb200-v6-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nd-gb300-v6-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/high-performance-compute/configure
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/high-performance-compute/hb-hc-known-issues
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/high-performance-compute/set-up-hpc-vms
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/end-of-life-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/lifecycle-overview
@@ -425,6 +431,8 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/previou
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retired-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dcsv2-series-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dedicated-host-retirement
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/nvv3-series-retirement
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/nvv4-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/retired-sizes-modernization-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirements-and-capacity-restrictions
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v5-modernization-overview
@@ -435,4 +443,6 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6
