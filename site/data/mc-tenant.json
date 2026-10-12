@@ -1,7 +1,7 @@
 {
  "read": "2026-10-12",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 690,
+ "count": 691,
  "note": null,
  "messages": [
   {
@@ -3620,7 +3620,7 @@
   },
   {
    "id": "MC1253753",
-   "title": "Whiteboards created in Teams channels will now be stored in SharePoint",
+   "title": "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint",
    "services": [
     "Microsoft Teams"
    ],
@@ -3629,19 +3629,19 @@
    "major": true,
    "actionBy": null,
    "start": "2026-03-16",
-   "end": "2027-04-30",
-   "modified": "2026-03-16",
+   "end": "2026-10-16",
+   "modified": "2026-10-12",
    "tags": [
     "Updated message",
     "User impact"
    ],
-   "summary": "Introduction To improve reliability, compliance, and collaboration, we’re updating where Microsoft Whiteboard files created from a Teams Channel tab are stored. Previously, these whiteboards were saved in the OneDrive of the user who created them, which could lead to access issues due to sharing settings, Information Barriers, or Conditional Access policies. With this update, whiteboards created f…",
-   "when": "We will begin rolling out this change in late September 2026.",
+   "summary": "Updated October 12, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. Introduction To improve reliability, compliance, and collaboration, we’re updating where Microsoft Whiteboard files created from a Teams Channel tab are stored. Previously, these whiteboards were saved in the OneDrive of the user who created them, which could lead to acc…",
+   "when": "We have decided not to move forward with this change at this time.",
    "prepare": "No action is required from administrators. Recommended optional steps: Review internal documentation or helpdesk guidance that references Whiteboard storage locations. Inform support teams that Whiteboards created in Teams Channels are now SharePoint-based for troubleshooting and access requests.",
    "dates": [
-    "When this will happen: We will begin rolling out this change in late September 2026."
+    "Updated October 12, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "cff350e85fed50c3"
+   "bodyHash": "53c53f5424b688b1"
   },
   {
    "id": "MC1254512",
@@ -6018,23 +6018,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-28",
-   "end": "2026-12-14",
-   "modified": "2026-09-08",
+   "end": "2027-01-11",
+   "modified": "2026-10-12",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 25, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Data Lifecycle Management is introducing the ability to archive SharePoint files based on retention policies. This feature helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. By excluding arch…",
+   "summary": "Updated October 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Data Lifecycle Management is introducing the ability to archive SharePoint files based on retention policies. This feature helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. By excluding arc…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 25, 2026: We have updated the timeline.",
+    "Updated October 12, 2026: We have updated the timeline.",
     "Public Preview: We will begin rolling out early September 2026 (previously mid-August) and expect to complete by early October 2026 (previously early September).",
-    "General Availability (Worldwide): Rollout will begin in early October 2026 (previously mid-September) and is expected to complete by early November 2026 (previously late September)."
+    "General Availability (Worldwide): Rollout will begin in early November 2026 (previously early October) and is expected to complete by early December 2026 (previously early November)."
    ],
-   "bodyHash": "224b486021d71e6c"
+   "bodyHash": "b42ab09c49723e92"
   },
   {
    "id": "MC1326509",
@@ -6410,8 +6410,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-11",
-   "end": "2026-11-16",
-   "modified": "2026-06-11",
+   "end": "2027-04-30",
+   "modified": "2026-10-12",
    "tags": [
     "Admin impact",
     "New feature"
@@ -6718,22 +6718,21 @@
    "major": true,
    "actionBy": null,
    "start": "2026-06-15",
-   "end": "2026-11-30",
-   "modified": "2026-08-10",
+   "end": "2027-03-01",
+   "modified": "2026-10-12",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 10, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new capability that allows users to connect Microsoft Teams meetings to existing Microsoft Planner plans. Currently, Teams meetings automatically create separate Planner plans for meeting-related tasks, which can result in tasks for the same initiative being spread across multipl…",
-   "when": "Targeted Release (Worldwide): We will begin rolling out in late September 2026 (previously late August) and expect to complete by end of September 2026 (previously mid-September). General Availability (Worldwide): We will begin rolling out early October 2026 (previously early September) and expect to complete by end of October 2026 (previously late September).",
+   "summary": "Updated October 12, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new capability that allows users to connect Microsoft Teams meetings to existing Microsoft Planner plans. Currently, Teams meetings automatically create separate Planner plans for meeting-related tasks, which can result in tasks for the same initiative being spread across multip…",
+   "when": "Targeted Release (Worldwide): We will begin rolling out in late December 2026 (previously late September) and expect to complete by end of January 2027 (previously end of September 2026). General Availability (Worldwide): We will announce via Message center when we are ready to proceed.",
    "prepare": "No action is required. You may want to: Ensure that Teams, Planner, and Loop are enabled in your tenant. Review whether Facilitator should be enabled for automated task creation scenarios. Update internal documentation or task management guidance if applicable. Inform helpdesk staff and users about this new option for organizing meeting tasks. .",
    "dates": [
-    "Updated August 10, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): We will begin rolling out in late September 2026 (previously late August) and expect to complete by end of September 2026 (previously mid-September).",
-    "General Availability (Worldwide): We will begin rolling out early October 2026 (previously early September) and expect to complete by end of October 2026 (previously late September)."
+    "Updated October 12, 2026: We have updated the timeline.",
+    "Targeted Release (Worldwide): We will begin rolling out in late December 2026 (previously late September) and expect to complete by end of January 2027 (previously end of September 2026)."
    ],
-   "bodyHash": "a508bc42b73cf3e8"
+   "bodyHash": "3325f24086e350b3"
   },
   {
    "id": "MC1395311",
@@ -14442,22 +14441,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-15",
-   "end": "2026-12-14",
-   "modified": "2026-09-17",
+   "end": "2027-02-15",
+   "modified": "2026-10-12",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 17, 2026: We have updated the content and timeline. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management now allows admins to archive SharePoint files based on retention policies. This helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. Archived content is…",
+   "summary": "Updated October 12, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management now allows admins to archive SharePoint files based on retention policies. This helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. Archived content is excluded from…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 17, 2026: We have updated the content and timeline.",
-    "General Availability (GCC, GCC High, DoD): Beginning in early October 2026 (previously mid-September) and expected to complete by early November 2026 (previously late September)."
+    "Updated October 12, 2026: We have updated the timeline.",
+    "General Availability (GCC, GCC High, DoD): Beginning in early December 2026 (previously early October) and expected to complete by early January 2027 (previously early November 2026)."
    ],
-   "bodyHash": "cb4356bbd9e425e8"
+   "bodyHash": "88eeb3c998717e56"
   },
   {
    "id": "MC1472751",
@@ -16521,20 +16520,21 @@
    "actionBy": null,
    "start": "2026-09-30",
    "end": "2027-12-31",
-   "modified": "2026-10-05",
+   "modified": "2026-10-12",
    "tags": [
-    "Admin impact"
+    "Admin impact",
+    "Updated message"
    ],
-   "summary": "Beginning November 9, 2026, we are introducing staged storage validation for supported Dynamics 365 applications. The change gives administrators clearer visibility into storage use, advance notice of potential restrictions, and several ways to remain within capacity, including removing unneeded data, adding capacity, or enabling pay-as-you-go for sandbox environments. When a tenant exceeds its en…",
+   "summary": "Beginning November 9, 2026, we are introducing staged storage validation for supported Dynamics 365 applications. The change gives administrators clearer visibility into storage use, advance notice of potential restrictions, and several ways to remain within capacity, including removing unneeded data, adding capacity, or enabling pay-as-you-go for sandbox environments. If no corrective action is i…",
    "when": null,
    "prepare": null,
    "dates": [
     "Beginning November 9, 2026, we are introducing staged storage validation for supported Dynamics 365 applications.",
     "Deployment Timeline: Rollout begins : November 9, 2026.",
-    "Rollout completion : December 4, 2026.",
+    "Rollout completion : December 14, 2026.",
     "Review your environment(s) and perform the following actions before November 9, 2026 : Review Database, File, and Log capacity in the Power Platform admin center ."
    ],
-   "bodyHash": "ca0bad41aa728cdf"
+   "bodyHash": "c9f6439016e6fd72"
   },
   {
    "id": "MC1483538",
@@ -18139,6 +18139,31 @@
    "bodyHash": "ddb5a07718ea5fa0"
   },
   {
+   "id": "MC1502773",
+   "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-12",
+   "end": "2026-11-12",
+   "modified": "2026-10-12",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "Starting November 1, 2026, Dynamics 365 Sales Insights as a standalone add-on will have reached end of support. Sales Insights is a legacy offering whose capabilities are already included in Sales Premium. Sales Premium delivers the Sales Insights capabilities at the same price as the Sales Enterprise + Sales Insights combination. It also includes Copilot Credits, additional Dataverse storage capa…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting November 1, 2026, Dynamics 365 Sales Insights as a standalone add-on will have reached end of support."
+   ],
+   "bodyHash": "7d91afb1cc16f92a"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -18269,8 +18294,8 @@
    "major": true,
    "actionBy": null,
    "start": "2024-05-29",
-   "end": "2026-10-30",
-   "modified": "2026-10-01",
+   "end": "2026-12-31",
+   "modified": "2026-10-12",
    "tags": [
     "Admin impact",
     "New feature",
@@ -21302,6 +21327,126 @@
    "type": "removed",
    "title": "(Updated) Microsoft Teams: Removing Copilot from the chat list",
    "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1253753",
+   "type": "changed",
+   "title": "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint",
+   "fields": {
+    "title": [
+     "Whiteboards created in Teams channels will now be stored in SharePoint",
+     "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint"
+    ],
+    "end": [
+     "2027-04-30",
+     "2026-10-16"
+    ],
+    "bodyHash": [
+     "cff350e85fed50c3",
+     "53c53f5424b688b1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1325441",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
+   "fields": {
+    "end": [
+     "2026-12-14",
+     "2027-01-11"
+    ],
+    "bodyHash": [
+     "224b486021d71e6c",
+     "b42ab09c49723e92"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1387526",
+   "type": "changed",
+   "title": "Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2027-04-30"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1392571",
+   "type": "changed",
+   "title": "(Updated) Connect Teams meeting to existing Planner Plans",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "a508bc42b73cf3e8",
+     "3325f24086e350b3"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1472601",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Archive SharePoint files under retention policies",
+   "fields": {
+    "end": [
+     "2026-12-14",
+     "2027-02-15"
+    ],
+    "bodyHash": [
+     "cb4356bbd9e425e8",
+     "88eeb3c998717e56"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1483528",
+   "type": "changed",
+   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
+   "fields": {
+    "tags": [
+     [
+      "Admin impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "ca0bad41aa728cdf",
+     "c9f6439016e6fd72"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC1502773",
+   "type": "new",
+   "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-12",
+   "id": "MC796790",
+   "type": "changed",
+   "title": "(Updated) Unified management of app and agent availability and installation in Teams, Outlook, and the Microsoft 365 app",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ]
+   }
   }
  ]
 }
