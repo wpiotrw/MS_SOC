@@ -7,7 +7,7 @@ uhfHeaderId: MSDocsHeader-SharePoint
 feedback_system: Standard
 feedback_product_url: https://feedbackportal.microsoft.com/feedback/forum/06735c62-321c-ec11-b6e7-0022481f8472
 recommendations: true
-ms.date: 2026-09-01T00:00:00.0000000Z
+ms.date: 2026-09-29T00:00:00.0000000Z
 ms.reviewer: prbalasu
 ms.author: cagreen
 author: cartergreen
@@ -34,6 +34,7 @@ search.appverid:
 - MET150
 ms.assetid: 0ecb2cf5-8882-42b3-a6e9-be6bda30899c
 description: Learn how admins can use OneDrive policies to configure the OneDrive sync app settings by using Group Policy.
+ai-usage: ai-assisted
 locale: en-us
 document_id: 34f99f40-4400-1726-ad6b-a285d8cb8b9f
 document_version_independent_id: 49f1c421-03b0-480d-1d82-d8ccdf664bd3
@@ -104,7 +105,9 @@ For information about storage, see [OneDrive Files On-Demand and Storage Sense f
 - (DefaultRootDir) [Set the default location for the OneDrive folder](use-group-policy#set-the-default-location-for-the-onedrive-folder)
 - (DehydrateSyncedTeamSites) [Convert synced team site files to online-only files](use-group-policy#convert-synced-team-site-files-to-online-only-files)
 - (DisableAutoConfig) [Prevent the sync app from automatically signing in users with existing credentials](use-group-policy#prevent-the-sync-app-from-automatically-signing-in-users-with-existing-credentials)
+- (DisableChangesToODIgnoreList) [Prevent users at your organization from changing the default ignored extension and folder lists](use-group-policy#prevent-users-at-your-organization-from-changing-the-default-ignored-extension-and-folder-lists)
 - (DisableCustomRoot) [Prevent users from changing the location of their OneDrive folder](use-group-policy#prevent-users-from-changing-the-location-of-their-onedrive-folder)
+- (DisableDefaultODIgnoreList) [Disable the default ignored extension and folder lists](use-group-policy#disable-the-default-ignored-extension-and-folder-lists)
 - (DisableFirstDeleteDialog) [Hide the "Deleted files are removed everywhere" reminder](use-group-policy#hide-the-deleted-files-are-removed-everywhere-reminder)
 - (DisableFREAnimation) [Disable animation that appears during OneDrive Setup](use-group-policy#disable-animation-that-appears-during-onedrive-setup)
 - (DisableFRETutorial) [Disable the tutorial that appears at the end of OneDrive Setup](use-group-policy#disable-the-tutorial-that-appears-at-the-end-of-onedrive-setup)
@@ -283,6 +286,33 @@ Enabling this policy sets the following registry key value to 1:
 
 For information about querying and setting file and folder states, see [Query and set Files On-Demand states](files-on-demand-mac).
 
+### Disable the default ignored extension and folder lists
+
+*Applies to: Group Policy*
+
+Microsoft maintains a default list of file extensions and folder names that the OneDrive sync app doesn't upload to OneDrive or SharePoint. The list currently includes shortcut (.lnk) files. Microsoft might update the list through service updates.
+
+This setting lets you turn off the default list.
+
+If you enable this setting, the sync app doesn't apply the default list. The OneDrive sync app must be restarted after this setting is enabled for the setting to take effect. After the restart, files and folders that were skipped only because of the default list start uploading.
+
+Note
+
+Files and folders that already sync aren't excluded when the default list changes.
+
+The following exclusions still apply when this setting is enabled:
+
+- Exclusions that you configure with [Exclude specific kinds of files from being uploaded](use-group-policy#exclude-specific-kinds-of-files-from-being-uploaded) and [Exclude specific kinds of folders from being uploaded](use-group-policy#exclude-specific-kinds-of-folders-from-being-uploaded).
+- Exclusions that users add in OneDrive settings, unless you also enable [Prevent users at your organization from changing the default ignored extension and folder lists](use-group-policy#prevent-users-at-your-organization-from-changing-the-default-ignored-extension-and-folder-lists).
+
+If you disable or don't configure this setting, the sync app applies the default list.
+
+This setting applies only to work or school accounts.
+
+Enabling this policy sets the following registry key value to 1:
+
+`[HKLM\SOFTWARE\Policies\Microsoft\OneDrive]"DisableDefaultODIgnoreList"=dword:00000001`
+
 ### Enable automatic upload bandwidth management for OneDrive
 
 *Applies to: Group Policy, Intune*
@@ -367,6 +397,10 @@ Enabling this policy creates a list of strings under the following path:
 Note
 
 This setting gives you more flexibility than the [Block syncing of specific file types setting](block-file-types) in the admin center. Also, with this setting, users don't see errors for the excluded files. This setting doesn't support upload of Office files that are being excluded. All other file types are supported.
+
+Note
+
+The sync app combines the exclusions from this setting with Microsoft's default list and with exclusions that users add in OneDrive settings. Users can't remove exclusions that you set with this setting. To turn off the default list, see [Disable the default ignored extension and folder lists](use-group-policy#disable-the-default-ignored-extension-and-folder-lists). To prevent users from changing exclusions, see [Prevent users at your organization from changing the default ignored extension and folder lists](use-group-policy#prevent-users-at-your-organization-from-changing-the-default-ignored-extension-and-folder-lists).
 
 ### Exclude specific kinds of folders from being uploaded
 
@@ -505,6 +539,28 @@ If you enable or disable this setting, and then change it back to **Not Configur
 Enabling this policy sets the following registry key value to 1:
 
 `[HKLM\SOFTWARE\Policies\Microsoft\OneDrive]"PreventNetworkTrafficPreUserSignIn"=dword:00000001`
+
+### Prevent users at your organization from changing the default ignored extension and folder lists
+
+*Applies to: Group Policy*
+
+By default, users can add file extensions to exclude from upload in OneDrive settings, and remove entries from Microsoft's default list. This setting keeps exclusions under administrator control.
+
+If you enable this setting:
+
+- Users can't add or remove exclusions in OneDrive settings. The default list and the exclusions that you configure by policy are shown, but users can't change them.
+- Exclusions that users added earlier aren't applied.
+- Default entries that users removed earlier are applied again.
+
+The OneDrive sync app must be restarted after this setting is enabled for the setting to take effect.
+
+If you disable or don't configure this setting, users can add and remove exclusions in OneDrive settings. Users can't change exclusions that you configure with [Exclude specific kinds of files from being uploaded](use-group-policy#exclude-specific-kinds-of-files-from-being-uploaded) or [Exclude specific kinds of folders from being uploaded](use-group-policy#exclude-specific-kinds-of-folders-from-being-uploaded).
+
+This setting applies only to work or school accounts.
+
+Enabling this policy sets the following registry key value to 1:
+
+`[HKLM\SOFTWARE\Policies\Microsoft\OneDrive]"DisableChangesToODIgnoreList"=dword:00000001`
 
 ### Prevent users at your organization from enabling offline mode in OneDrive on the web
 

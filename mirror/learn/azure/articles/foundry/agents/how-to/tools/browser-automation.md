@@ -57,15 +57,13 @@ platformId: 56e49b87-e066-9ae8-6684-8c2261a9b726
 
 # Automate browser tasks with Foundry agents - Microsoft Foundry | Microsoft Learn
 
-Important
+The Browser Automation Tool (BAT) is **generally available in Microsoft Foundry**. It enables scalable, reliable browser-based automation within Foundry agents. It's available as an MCP tool powered by Playwright Workspaces as its headless browser infrastructure layer. It integrates seamlessly with modern agentic workflows while providing enterprise-grade security, observability, and extensibility.
 
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+By using the Browser Automation Tool, agents can interact with websites to navigate pages, extract and validate information, interact with page elements, complete forms, and perform multistep browser workflows.
 
 Tip
 
 Consider adding this tool using a [toolbox](/en-us/azure/foundry/agents/how-to/tools/toolbox). By using a toolbox, you are able to reuse the tool across agents and runtimes, as well as centralizing credential management, versioning, and policy enforcement through a managed MCP endpoint. See the [toolbox quickstart](/en-us/azure/foundry/agents/quickstarts/quickstart-toolbox-agent).
-
-Browser Automation Tool (BAT) enables scalable, reliable browser-based automation within Foundry agents. BAT is available as an MCP tool powered by Playwright workspaces as its headless browser infrastructure layer. It integrates seamlessly with modern agentic workflows while providing enterprise-grade security, observability, and extensibility.
 
 Browser Automation Tool (BAT) provides a comprehensive platform for browser automation through:
 
@@ -76,9 +74,9 @@ Browser Automation Tool (BAT) provides a comprehensive platform for browser auto
 - Built-in observability for reliability and optimization
 - Flexible orchestration layers
 
-Warning
+Important
 
-Browser Automation Tool controls web browsers on your behalf and can take unintended actions. Testing and monitoring are recommended. See the [Foundry Agent Service transparency note](/en-us/azure/foundry/responsible-ai/agents/transparency-note) to learn more.
+The Browser Automation Tool controls web browsers on your behalf and can take unintended actions. Testing and monitoring are recommended. To learn more, see [Transparency Note for Foundry Agent Service - Microsoft Foundry](/en-us/azure/foundry/responsible-ai/agents/transparency-note).
 
 ## Use cases
 
@@ -115,6 +113,14 @@ Because the browser runs remotely in Playwright Workspaces, the agent doesn't ne
 
 This architecture enables agents to perform workflows such as navigating websites, retrieving and validating information, completing forms, interacting with authenticated applications, and carrying out multi-step browser processes.
 
+## List of tools
+
+The Browser Automation Tool provides browser automation tools for managing browser sessions, navigating and inspecting webpages, interacting with elements, handling tabs and files, and capturing browser state.
+
+In Microsoft Foundry, Browser Automation integrates through toolboxes and uses the Playwright Workspaces remote Model Context Protocol (MCP) server for managed browser execution. Enable only the tools required for your scenario.
+
+For the complete list of tools, parameters, and usage guidance, see [Automate browsers with the Playwright Workspaces remote MCP server](/en-us/azure/app-testing/playwright-cloud-browsers/how-to-playwright-workspaces-remote-mcp#tool-reference).
+
 ## Regional support
 
 To use the Browser Automation tool with hosted agents, you need a Playwright Workspace in a region that also supports hosted agents. Browser Automation is currently available in the following regions:
@@ -136,6 +142,7 @@ Choose the agent type and development approach before you configure **Browser Au
 | Choose | Use this option when | Next step |
 | --- | --- | --- |
 | **Prompt agent** | You want the fastest path to a browser-enabled agent. Define instructions, a model, and tools in Foundry, and let Foundry run the agent. | Follow the Prompt agent sample. |
+| **Prompt agent with GitHub Copilot harness** | You want a Prompt Agent with a Foundry-managed harness and isolated execution environment, without deploying or operating the harness code yourself. | See Use Browser Automation with the GitHub Copilot harness. |
 | **Hosted agent with Microsoft Agent Framework** | You need custom agent code but want a recommended starting framework and Foundry-managed hosting, scaling, identity, and observability. | Follow the Hosted agent quickstart. Select **Agent Framework** when you create the sample. |
 | **Hosted agent with your own framework** | You already use a framework such as LangGraph, OpenAI Agents SDK, Semantic Kernel, or custom code, and need to retain your existing orchestration logic. | Create a Hosted agent, then connect to the Browser Automation toolbox by using your framework's MCP client. |
 
@@ -190,7 +197,23 @@ When you create the Browser Automation connection, select the authentication met
 | **Project managed identity** | Multiple agents in the same Foundry project need to access the same Playwright workspace. | Use the Foundry project's Microsoft Entra identity and grant it only the required permissions on the workspace. This identity is the recommended default for enterprise workloads when supported by the connection. |
 | **Agent identity** | A deployed Hosted agent needs its own access boundary for browser automation or downstream resources. | A Hosted agent receives a dedicated Microsoft Entra identity when it is deployed. Assign permissions to that identity when the agent requires access that shouldn't be shared with other agents in the project. |
 
-## Grant Playwright workspace access
+## Set up Browser Automation
+
+### Create a Playwright workspace
+
+1. In the [Azure portal](https://portal.azure.com), create a [Playwright Workspace](https://aka.ms/pww/docs/manage-workspaces) resource.
+2. After the workspace is created, go to **Settings** &gt; **Access Management**.
+
+If you selected **API token** as the authentication type:
+
+1. Confirm the **Playwright Service Access Token** authentication method is enabled.
+2. Select **Generate Token**, enter a name (for example, `foundry-connection`), and choose an expiry period.
+3. **Copy the token immediately**. You can't view it again after closing the page.
+4. Store the token only in the Foundry project connection. Don't put it in source code, prompts, or application logs. Rotate it before it expires, and revoke it immediately if it is exposed.
+
+On the workspace **Overview** page, copy the **Browser endpoint** (it starts with `wss://`). Next, grant the Foundry project managed identity access to the Playwright workspace.
+
+### Grant Playwright workspace access
 
 Browser Automation Tool uses the **Foundry project managed identity** to access the Playwright workspace. This identity is different from a hosted agent's dedicated agent identity:
 
@@ -204,19 +227,6 @@ Grant the project managed identity the minimum permissions required to use the P
 3. Select a custom role that contains only the Playwright permissions required by the Foundry project identity. If a custom role isn't available, assign **Playwright Workspace Contributor** at the **Playwright workspace resource scope**.
 4. On the **Members** tab, select the Foundry project managed identity.
 5. Select **Review + assign**.
-
-## Set up Browser Automation
-
-### Create a Playwright workspace
-
-1. In the [Azure portal](https://portal.azure.com), create a [Playwright Workspace](https://aka.ms/pww/docs/manage-workspaces) resource.
-2. After the workspace is created, go to **Settings** &gt; **Access Management**.
-3. Confirm the **Playwright Service Access Token** authentication method is enabled.
-4. Select **Generate Token**, enter a name (for example, `foundry-connection`), and choose an expiry period.
-5. **Copy the token immediately**. You can't view it again after closing the page.
-6. Store the token only in the Foundry project connection. Don't put it in source code, prompts, or application logs. Rotate it before it expires, and revoke it immediately if it is exposed.
-7. On the workspace **Overview** page, copy the **Browser endpoint** (it starts with `wss://`).
-8. [Configure a custom role](https://aka.ms/pww/docs/manage-workspace-access) with only the Playwright permissions that the Foundry project identity requires. If a custom role isn't available, assign **Contributor** only at the Playwright workspace resource scope. The service access token is stored in the project connection; the role assignment separately authorizes the project identity to access the workspace resource.
 
 ### Connect the Browser Automation tool in Foundry
 
@@ -234,6 +244,16 @@ Grant the project managed identity the minimum permissions required to use the P
 9. Click on **Publish** to save the toolbox
 
 After the toolbox is created, you can view the **Project connection ID** on the tool's details page. Use this value as the browser automation connection ID in your code.
+
+### Use Browser Automation with the GitHub Copilot harness
+
+ The GitHub Copilot harness is a harness option for Prompt Agents. You create a Prompt Agent and invoke it through the Responses API, while Microsoft Foundry operates the harness and its isolated execution environment. Use this option when you want Foundry to manage the harness infrastructure for your Prompt Agent while giving the agent access to Browser Automation Tool. To use Browser Automation Tool with the GitHub Copilot harness: 
+
+1. Create a Prompt Agent and select the GitHub Copilot harness.
+2. Create or use an existing Playwright workspace and configure the Browser Automation connection.
+3. Add Browser Automation Tool to the agent through a toolbox.
+4. Save the agent configuration and start a new chat session.
+5. Give the agent a browser-based task and verify that it uses Browser Automation Tool to complete the task. For example, you can ask the agent to navigate to a website, find specific information, interact with page elements, or complete a multistep browser workflow.
 
 ### Add browser automation to a toolbox with the Azure Developer CLI
 
@@ -990,6 +1010,4 @@ This tool uses a Playwright workspace resource to run browser sessions. Review t
 
 ## Transparency note
 
-Review the [transparency note](../../../responsible-ai/agents/transparency-note) when using this tool. The Browser Automation tool is a tool that can perform real-world browser tasks through natural language prompts, enabling automated browsing activities without human intervention.
-
-Review the [responsible AI considerations](../../../responsible-ai/agents/transparency-note) when using this tool.
+Browser Automation Tool carries security risks. Both errors in judgement by the AI and the presence of malicious or confusing instructions on web pages encountered by agents may cause them to execute commands you or others do not intend, which could compromise the security of your or others' browsers, computers, and any accounts to which the browser or AI has access, including personal, financial, or enterprise systems. Testing and monitoring of agents' actions is recommended to reduce risk. [Learn More](../../../responsible-ai/agents/transparency-note)
