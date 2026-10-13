@@ -276,7 +276,7 @@ azd ai connection create my-browser-conn \
 ```yaml
 description: Browser Automation toolbox
 tools:
-  - type: browser_automation_preview
+  - type: browser_automation
     project_connection_id: my-browser-conn
 ```
 
@@ -295,7 +295,7 @@ Note
 - The .NET SDK is currently in preview. For more information, see the [quickstart](../../../quickstarts/get-started-code).
 
 ```csharp
-ProjectsAgentTool tool = new BrowserAutomationPreviewTool(
+ProjectsAgentTool tool = new BrowserAutomationTool(
     new BrowserAutomationToolOptions(
         new BrowserAutomationToolConnectionParameters("<BROWSER_AUTOMATION_PROJECT_CONNECTION_ID>")
     )
@@ -305,10 +305,10 @@ ProjectsAgentTool tool = new BrowserAutomationPreviewTool(
 ```javascript
 const tools = [
   {
-    type: "browser_automation_preview",
+    type: "browser_automation",
     name: "<OPTIONAL_TOOL_NAME>",
     description: "<Optional description for the model>",
-    browser_automation_preview: {
+    browser_automation: {
       connection: {
           project_connection_id: "<BROWSER_AUTOMATION_PROJECT_CONNECTION_ID>"
       }
@@ -319,7 +319,7 @@ const tools = [
 
 ::: zone pivot="python"
 
-## Use BrowserAutomationPreviewTool with agents example
+## Use BrowserAutomationTool with agents example
 
 The following Python example demonstrates how to create an AI agent with browser automation capabilities. Select **Prompt Agents** to use the Azure AI Projects SDK to create a server-side prompt agent, or **Hosted Agents** to use the Agent Framework [`FoundryChatClient`](../../quickstarts/responses-api) to build an ephemeral, in-process agent.
 
@@ -331,7 +331,7 @@ from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import (
     PromptAgentDefinition,
-  BrowserAutomationPreviewTool,
+  BrowserAutomationTool,
     BrowserAutomationToolParameters,
     BrowserAutomationToolConnectionParameters,
 )
@@ -347,8 +347,8 @@ project = AIProjectClient(
 )
 openai = project.get_openai_client()
 
-tool = BrowserAutomationPreviewTool(
-    browser_automation_preview=BrowserAutomationToolParameters(
+tool = BrowserAutomationTool(
+    browser_automation=BrowserAutomationToolParameters(
         connection=BrowserAutomationToolConnectionParameters(
             project_connection_id=BROWSER_CONNECTION_ID,
         )
@@ -436,7 +436,7 @@ from agent_framework import Agent
 from agent_framework.foundry import FoundryChatClient, FoundryToolbox
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import (
-  BrowserAutomationPreviewToolboxTool,
+  BrowserAutomationToolboxTool,
     BrowserAutomationToolParameters,
     BrowserAutomationToolConnectionParameters,
 )
@@ -452,8 +452,8 @@ async def main() -> None:
     #    to give agents tools: you curate tools once and reuse the toolbox across agents.
     #    See /azure/foundry/agents/concepts/toolbox-overview
     project = AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=credential)
-    tool = BrowserAutomationPreviewToolboxTool(
-        browser_automation_preview=BrowserAutomationToolParameters(
+    tool = BrowserAutomationToolboxTool(
+        browser_automation=BrowserAutomationToolParameters(
             connection=BrowserAutomationToolConnectionParameters(
                 project_connection_id=BROWSER_CONNECTION_ID,
             )
@@ -508,7 +508,7 @@ For the complete hosted-agent toolbox pattern, see the [full sample](https://aka
 
 ::: zone pivot="csharp"
 
-## Use BrowserAutomationPreviewTool with agents example
+## Use BrowserAutomationTool with agents example
 
 Before running this sample, complete the setup steps in Set up Browser Automation.
 
@@ -516,7 +516,7 @@ The following C# example demonstrates how to create an AI agent with Browser Aut
 
 ### Prompt agents
 
-This example uses synchronous methods of the Azure AI Projects client library. For an example that uses asynchronous methods, see the [Sample for use of BrowserAutomationPreviewTool and Agents](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Extensions.OpenAI/samples/Sample23_BrowserAutomationTool.md) sample in the Azure SDK for .NET repository on GitHub.
+This example uses synchronous methods of the Azure AI Projects client library. For an example that uses asynchronous methods, see the [Sample for use of BrowserAutomationTool and Agents](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Extensions.OpenAI/samples/Sample23_BrowserAutomationTool.md) sample in the Azure SDK for .NET repository on GitHub.
 
 ```csharp
 using System;
@@ -537,7 +537,7 @@ AIProjectClientOptions options = new()
 AIProjectClient projectClient = new(endpoint: new Uri(projectEndpoint), tokenProvider: new DefaultAzureCredential(), options: options);
 
 // Create the Browser Automation tool using the Playwright connection.
-BrowserAutomationPreviewTool playwrightTool = new(
+BrowserAutomationTool playwrightTool = new(
     new BrowserAutomationToolParameters(
         new BrowserAutomationToolConnectionParameters(browserConnectionId)
     ));
@@ -638,7 +638,7 @@ DefaultAzureCredential credential = new();
 // 1. Create the Browser Automation tool and add it to a toolbox. Using a toolbox is the
 //    recommended way to give agents tools. See /azure/foundry/agents/concepts/toolbox-overview
 AIProjectClient projectClient = new(endpoint: new Uri(projectEndpoint), tokenProvider: credential);
-ProjectsAgentTool browserTool = new BrowserAutomationPreviewTool(
+ProjectsAgentTool browserTool = new BrowserAutomationTool(
     new BrowserAutomationToolParameters(
         new BrowserAutomationToolConnectionParameters(browserConnectionId)
     ));
@@ -698,8 +698,8 @@ curl --request POST \
     "description": "Toolbox with the Browser Automation tool",
     "tools": [
       {
-        "type": "browser_automation_preview",
-        "browser_automation_preview": {
+        "type": "browser_automation",
+        "browser_automation": {
           "connection": {
             "project_connection_id": "'"$BROWSER_AUTOMATION_PROJECT_CONNECTION_ID"'"
           }
@@ -768,7 +768,7 @@ JSON
 
 The following TypeScript sample demonstrates how to create an agent with the Browser Automation tool, perform web browsing tasks, and process streaming responses with browser automation events. For a JavaScript version of this sample, see the [JavaScript sample for Browser Automation tool](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/ai/ai-projects/samples/v2/javascript/agents/tools/agentBrowserAutomation.js) in the Azure SDK for JavaScript repository on GitHub.
 
-In `@azure/ai-projects` 2.8.0, `BrowserAutomationTool` and `BrowserAutomationToolboxTool` use the `browser_automation` discriminator and nested property. The preview contracts remain available, and the following example uses `browser_automation_preview`. For the GA agent contract, see the [released Browser Automation agent sample](https://github.com/Azure/azure-sdk-for-js/blob/%40azure%2Fai-projects_2.8.0/sdk/ai/ai-projects/samples-dev/agents/tools/agentBrowserAutomationGA.ts).
+In `@azure/ai-projects` 2.8.0, `BrowserAutomationTool` and `BrowserAutomationToolboxTool` use the `browser_automation` discriminator and nested property. For implementation details, see the [released Browser Automation agent sample](https://github.com/Azure/azure-sdk-for-js/blob/%40azure%2Fai-projects_2.8.0/sdk/ai/ai-projects/samples-dev/agents/tools/agentBrowserAutomationGA.ts).
 
 ```typescript
 import { DefaultAzureCredential } from "@azure/identity";
@@ -811,8 +811,8 @@ export async function main(): Promise<void> {
     "browser-automation-toolbox",
     [
       {
-        type: "browser_automation_preview",
-        browser_automation_preview: {
+        type: "browser_automation",
+        browser_automation: {
           connection: {
             project_connection_id: BROWSER_CONNECTION_ID,
           },
