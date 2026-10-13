@@ -2092,7 +2092,8 @@
 "MC1456735",
 "item:MC1456735",
 "MC1471963",
-"item:MC1471963"
+"item:MC1471963",
+"MC1506287"
 ],
 "log":[
 {
@@ -2106,7 +2107,7 @@
 }
 ],
 "milestones":{
-"MC1471963|install the windows security update or a later windows updat#0":{
+"MC1506287|install the windows security update or a later windows updat#0":{
 "date":"2026-07-14",
 "label":"14 Jul 2026",
 "text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
@@ -2130,6 +2131,11 @@
 "date":"2026-09-14",
 "label":"14 Sep 2026",
 "text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update"
+},
+"MC1506287|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
 },
 "MC1456735|deadline":{
 "date":"2026-10-13",
@@ -2448,6 +2454,16 @@
 "date":"2026-10-12",
 "group":"microsoft",
 "found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287":{
+"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287",
+"source":"Message Center",
+"id":"MC1506287",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":"2026-10-15",
@@ -2456,7 +2472,8 @@
 "posts":[
 "MC1442510",
 "MC1456735",
-"MC1471963"
+"MC1471963",
+"MC1506287"
 ]
 },
 "c-mc1470881":{
@@ -3608,14 +3625,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-10",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-11",
 "text":"August 1, 2026."
 },
@@ -3705,6 +3714,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-13",
 "text":"August 1, 2026."
 },
 {
@@ -4201,7 +4218,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"early February 2026."
 },
 {
@@ -4209,7 +4226,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"February 2027."
 },
 {
@@ -4586,6 +4603,230 @@
 "tech":"Entra",
 "posts":[
 "MC1223829"
+]
+},
+"c-mc1506290":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-13",
+"name":"Hardening changes for ReFS volumes on removable media",
+"status":"Active",
+"members":[
+"MC1506290"
+],
+"log":[],
+"milestones":{
+"MC1506290|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Hardening changes for ReFS volumes on removable media"
+},
+"MC1506290|update install the applicable windows security update releas#0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Install the applicable Windows security update released on or after October 13, 2026 on supported devices."
+},
+"MC1506290|windows security update audit phase#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"October 2026 Windows security update (Audit phase)."
+},
+"MC1506290|if you configure no override blocking becomes the default wi#0":{
+"date":"2027-01-15",
+"label":"Jan 2027",
+"text":"If you configure no override, blocking becomes the default with the January 2027 security update."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290":{
+"title":"Hardening changes for ReFS volumes on removable media",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290",
+"source":"Message Center",
+"id":"MC1506290",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":"2027-01-15",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1506290"
+]
+},
+"c-item-win11-26h2-security-baseline-v2-2026-10-08":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-13",
+"name":"Manage Administrator protection within Windows 11 security baseline",
+"status":"Active",
+"members":[
+"item:win11-26h2-security-baseline-v2-2026-10-08",
+"MC1506291"
+],
+"log":[
+{
+"date":"2026-10-09",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
+"title":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382"
+}
+],
+"milestones":{
+"MC1506291|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Manage Administrator protection within Windows 11 security baseline"
+},
+"MC1506291|if your organization uses windows security baselines adminis#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update."
+}
+},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
+"title":"Windows 11, version 26H2 security baseline",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
+"source":"Main list source",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291":{
+"title":"Manage Administrator protection within Windows 11 security baseline",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291",
+"source":"Message Center",
+"id":"MC1506291",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":"2026-10-15",
+"type":"Baseline",
+"tech":"Windows",
+"posts":[
+"MC1506291"
+]
+},
+"c-mc1506728":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-13",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"status":"Active",
+"members":[
+"item:graph-agentidentity-rw-patch-any-sp",
+"item:graph-ep-agentidentity-readwrite-all-2026-09-25",
+"MC1506728"
+],
+"log":[],
+"milestones":{
+"MC1506728|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities"
+},
+"MC1506728|beginning in early and expected to complete by late#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+},
+"MC1506728|beginning in early and expected to complete by late#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728":{
+"title":"Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728",
+"source":"Message Center",
+"id":"MC1506728",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://learn.microsoft.com/en-us/graph/permissions-reference":{
+"title":"Read and write all agent identities",
+"link":"https://learn.microsoft.com/en-us/graph/permissions-reference",
+"source":"Main list source",
+"id":"graph-agentidentity-rw-patch-any-sp",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json":{
+"title":"AgentIdentity.ReadWrite.All",
+"link":"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json",
+"source":"Main list source",
+"id":"graph-ep-agentidentity-readwrite-all-2026-09-25",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":"2026-11-25",
+"type":"Retirement",
+"tech":"Graph",
+"posts":[
+"MC1506728"
+]
+},
+"c-mc1506733":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-13",
+"name":"Review who can create agents in Microsoft Entra",
+"status":"Active",
+"members":[
+"MC1506733"
+],
+"log":[],
+"milestones":{
+"MC1506733|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Action may be required: Review who can create agents in Microsoft Entra"
+},
+"MC1506733|beginning in early and expected to complete by late#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+},
+"MC1506733|beginning in early and expected to complete by late#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733":{
+"title":"Action may be required: Review who can create agents in Microsoft Entra",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733",
+"source":"Message Center",
+"id":"MC1506733",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":"2026-11-25",
+"type":"Enforcement",
+"tech":"Entra",
+"posts":[
+"MC1506733"
 ]
 },
 "c-item-mc1476122":{
@@ -5810,43 +6051,6 @@
 "tech":"Azure",
 "posts":[]
 },
-"c-item-win11-26h2-security-baseline-v2-2026-10-08":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-13",
-"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
-"status":"Released",
-"members":[
-"item:win11-26h2-security-baseline-v2-2026-10-08"
-],
-"log":[
-{
-"date":"2026-10-09",
-"id":"win11-26h2-security-baseline-v2-2026-10-08",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
-"title":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382"
-}
-],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
-"title":"Windows 11, version 26H2 security baseline",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
-"source":"Main list source",
-"id":"win11-26h2-security-baseline-v2-2026-10-08",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":null,
-"type":"Baseline",
-"tech":"Windows",
-"posts":[]
-},
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-13",
@@ -6221,6 +6425,15 @@
 "what":"Microsoft revised the post",
 "before":"2026-10-09",
 "after":"2026-10-13",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-13",
+"id":"MC1437671",
+"what":"Title",
+"before":"(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+"after":"(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
 "title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
@@ -6717,7 +6930,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -6725,7 +6938,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8102,6 +8315,45 @@
 "title":"Low-Cost Android Phones Ship With Preinstalled Malware That Turns Them Into Residential Proxies",
 "source":"Hacker News",
 "link":"https://thehackernews.com/2026/10/low-cost-android-phones-ship-with.html"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1506290",
+"type":"new",
+"name":"Hardening changes for ReFS volumes on removable media",
+"ctype":"Enforcement",
+"tech":"Windows",
+"next":"13 Oct 2026",
+"text":"What and why: Microsoft is making hardening changes to the Resilient File System (ReFS) ."
+},
+{
+"day":"2026-10-13",
+"cid":"c-item-win11-26h2-security-baseline-v2-2026-10-08",
+"type":"milestone",
+"name":"Manage Administrator protection within Windows 11 security baseline",
+"src":"MC1506291",
+"now":"Oct 2026",
+"text":"If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update."
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1506728",
+"type":"new",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"ctype":"Retirement",
+"tech":"Graph",
+"next":"early Nov 2026",
+"text":"Microsoft Entra Agent ID is enforcing tighter restrictions for autonomous creation of an agent’s own identities."
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1506733",
+"type":"new",
+"name":"Review who can create agents in Microsoft Entra",
+"ctype":"Enforcement",
+"tech":"Entra",
+"next":"early Nov 2026",
+"text":"Microsoft Entra is changing who can create agent blueprints by default."
 }
 ],
 "archive":{
