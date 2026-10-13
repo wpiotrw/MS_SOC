@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-09T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
-- [30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026](/en-us/lifecycle/products/windows-11-enterprise-and-education)
-- [Take action to prevent RD Web Access rendering failures](https://support.microsoft.com/help/5130994)
-- [Prepare for Windows Update certificate rotation in 2027](https://techcommunity.microsoft.com/blog/windows-itpro-blog/prepare-for-windows-update-certificate-rotation-in-2027/4562463)
+- [The October 2026 Windows security update is now available](https://support.microsoft.com/help/5127648)
+- [Hardening changes for ReFS volumes on removable media](https://support.microsoft.com/servicing/os/windows/docs/2026/10/hardening-changes-for-refs-volumes-on-removable-media)
+- [Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates](/en-us/windows/release-information/windows-message-center#5020)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

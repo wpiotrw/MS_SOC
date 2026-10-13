@@ -44,6 +44,12 @@ moniker_range_name:
 monikers: []
 item_type: Content
 source_path: articles/foundry/how-to/develop/foundry-skills-scenarios-example-prompts.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 0dec23d1-52c0-ad52-398e-a05b3dfc970a
 ---
 

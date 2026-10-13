@@ -47,12 +47,12 @@ item_type: Content
 source_path: articles/foundry/agents/environment-setup.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fbc448d8-f51b-49e6-a28d-b0ed67a9b6ee
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a2d547e1-b5e2-4f22-ada5-397b95fd90be
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: ae120f0c-d094-4676-97b3-cbf0232d0a0f
 ---
 

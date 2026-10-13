@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-09T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -74,26 +74,86 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
+| **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
+| **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Mitigated | 2026-10-13 10:13 PT |
+| **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5124010](https://support.microsoft.com/help/5124010) | 2026-10-08 17:44 PT |
 | **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-30 16:42 PT |
-| **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Mitigated | 2026-09-29 10:12 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 | **Remote Desktop Services might stop responding after Sept. 2026 security update**Some Windows devices with Remote Desktop enabled might experience Remote Desktop Services (RDS) instability. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-17 19:22 PT |
 | **Host folder shares might be unavailable in Hyper-V-based Linux VMs**Plan9 host folder shares might not appear in the guest environment after installing the September 2026 security update. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-14 13:30 PT |
 | **Microsoft Teams and Outlook might fail to launch on ARM-based devices**This most likely occurs on new PCs after installing the August Windows security update and does not affect other apps. | OS Build 26200.9168[KB5121003](https://support.microsoft.com/help/5121003)2026-08-11 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 11:37 PT |
 | **Mouse customization is reset on non-English Windows devices**Custom cursors and cursor animations may intermittently revert | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
 | **Desktop background settings are lost or reset on some devices**For affected Windows installations, backgrounds might revert to a black solid color | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
-| **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Confirmed | 2026-10-02 15:41 PT |
 
 ## Issue details
 
 ### October 2026
 
+#### Devices might experience a black screen or desktop loading issues after sign-in
+
+| **Status** | **Originating update** | **History** |
+| --- | --- | --- |
+ Resolved [KB5127648](https://support.microsoft.com/help/5127648) | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved: 2026-10-13, 10:00 PTOpened: 2026-10-13, 09:49 PT |
+
+After installing the August 2026 Windows non-security preview update ([KB5120998](https://support.microsoft.com/help/5120998)) and subsequent updates, some devices might experience desktop loading issues. This issue has been primarily observed on Azure Virtual Desktop (AVD) hosts, using [FSLogix](/en-us/fslogix/overview-what-is-fslogix). This issue appears to occur more frequently with some existing user profiles.
+
+Symptoms might include:
+
+- ​A black screen appears after sign-in and the desktop session does not load automatically.
+- ​Users might be unable to access their desktop until the desktop session is started manually.
+- ​Application event logs might show Windows Explorer crashes.
+
+**Resolution:** This issue was resolved by Windows updates released October 13, 2026 ([KB5127648](https://support.microsoft.com/help/5127648)), and updates released after that date. We recommend you install the latest update for your device as it contains important improvements and issue resolutions, including this one. 
+
+If you install an update released October 13, 2026 ([KB5127648](https://support.microsoft.com/help/5127648)), or later, you do not need to use a workaround for this issue. If you are using an update released before October 13, and have this issue, you have the option to apply the following workaround. 
+
+**Workaround**: Affected customers can apply one of the following workarounds to mitigate the issue:
+
+1. ​**Manually launch explorer.exe: **Users can temporarily mitigate this issue by opening Task Manager (Ctrl+Shift+Esc), selecting **Run new task**, entering **explorer.exe**, and selecting **OK**.
+2. ​**Mitigate through Known Issue Rollback (KIR): **This issue is mitigated using [Known Issue Rollback (KIR)](https://techcommunity.microsoft.com/blog/windows-itpro-blog/known-issue-rollback-helping-you-keep-windows-devices-protected-and-productive/2176831).
+
+ For enterprise-managed devices where Windows updates are managed by IT departments, IT administrators can apply the KIR by installing and configuring the Group policy listed below. The special Group Policy can be found in **Computer Configuration &gt; Administrative Templates &gt; &lt;Group Policy name listed below&gt;**
+ 
+ ***Group Policy downloads with Group Policy name:***
+- ​*Download for Windows 11, version 26H1: *[*KB5124006 260924\_20071 Known Issue Rollback*](https://download.microsoft.com/download/09efb4c6-54f4-4e63-83c7-4314187230bf/Windows%2011%2026H1%20KB5124006%20260924_20071%20Known%20Issue%20Rollback.msi)
+- ​*Download for Windows 11, version 26H2, Windows 11, version 25H2 and Windows 11, version 24H2: *[*KB5124010 260924\_20021 Known Issue Rollback*](https://download.microsoft.com/download/8c71622d-e0eb-4838-b25c-ddb99a7bf971/Windows%2011%2024H2,%20Windows%2011%2025H2%20and%20Windows%20Server%202025%20KB5124010%20260924_20021%20Known%20Issue%20Rollback.msi)
+
+ **Important**: You will need to **install **and **configure** the Group Policy for your version of Windows to resolve this issue. You will also need to restart your device(s) to apply the group policy setting. Note that this Group Policy will disable the change causing this issue until a resolution is released in a future Windows update. 
+ For information on deploying and configuring this special Group Policy, please see [How to use Group Policy to deploy a Known Issue Rollback](/en-us/troubleshoot/windows-client/group-policy/use-group-policy-to-deploy-known-issue-rollback)
+**Affected platforms:**
+
+- ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
+- ​Server: None
+
+Back to top
+
+#### Remote Desktop connections might fail for non-admin users with error 0xC000000D
+
+| **Status** | **Originating update** | **History** |
+| --- | --- | --- |
+ Mitigated | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Last updated: 2026-10-13, 10:13 PTOpened: 2026-10-13, 09:43 PT |
+
+After installing the September 2026 non-security preview update ([KB5124010](https://support.microsoft.com/help/5124010)), or later updates, non-admin users might be unable to establish Remote Desktop connections to remote devices that have [Administrator protection](/en-us/windows/security/application-security/application-control/administrator-protection/?tabs=intune) enabled. Attempts to connect might fail with error 0xC000000D and display the message, “The token that was passed to the function is invalid.” This issue primarily affects enterprise-managed remote devices used as Remote Desktop hosts with Administrator protection enabled, regardless of [how the feature was enabled](/en-us/windows/security/application-security/application-control/administrator-protection/?tabs=intune#configuration).
+
+**Note**: If your organization uses [Windows security baselines](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-11-version-26h2-security-baseline/4560382), published through the [Microsoft Security Compliance Toolkit,](https://www.microsoft.com/download/details.aspx?id=55319) Administrator protection is enabled by default in Windows 11, version 24H2, 25H2, and 26H2 security baselines, unless your organization has configured the policy differently. 
+
+**Workaround:** IT administrators can mitigate this issue on devices affected by the Remote Desktop connection failure by using their existing policy management method to temporarily turn off Administrator protection. Reset the *User Account Control Type Of Admin Approval Mode* policy in Microsoft Intune or Group Policy. For more information, see [Administrator protection on Windows 11](https://techcommunity.microsoft.com/blog/windows-itpro-blog/administrator-protection-on-windows-11/4303482).
+
+**Next steps:** We are working to address this issue in a future Windows update and will provide more information when it is available.
+
+**Affected platforms:**
+
+- ​**Client:** Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
+- ​**Server:** None
+
+Back to top
+
 #### Applications which require AC-3 audio decoding might close unexpectedly
 
 | **Status** | **Originating update** | **History** |
 | --- | --- | --- |
- Confirmed | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Last updated: 2026-10-02, 15:41 PTOpened: 2026-10-02, 15:06 PT |
+ Resolved [KB5127648](https://support.microsoft.com/help/5127648) | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved: 2026-10-13, 10:00 PTOpened: 2026-10-08, 16:29 PT |
 
 Following installation of Windows updates released September 22, 2026 ([KB5124010](https://support.microsoft.com/help/5124010)), and later, some applications which require the decoding of AC-3 (Dolby Digital) audio might close unexpectedly.
 
@@ -101,7 +161,7 @@ Incidence of this issue depends on the activity that these applications perform.
 
 Please note that many modern applications do not use Windows for this type of encoding and therefore will not encounter this issue. The code component involved in this issue is most commonly used in legacy applications that still rely on Windows built-in audio decoding. Many modern applications using this legacy codec frequently include their own audio decoding components.
 
-**Next steps: **We are working on releasing a resolution for this issue in a future Windows update. We will provide an update when more information is available.
+**Resolution**: This issue was resolved by Windows updates released October 13, 2026 ([KB5127648](https://support.microsoft.com/help/5127648)), and later. We recommend you install the latest security update for your device as it contains important improvements and issue resolutions, including this one. 
 
 **Affected platforms:**
 
@@ -160,43 +220,6 @@ Then reset the secure channel using the following command:
 ```
 
 **Affected platforms:**
-
-- ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
-- ​Server: None
-
-Back to top
-
-#### Devices might experience a black screen or desktop loading issues after sign-in
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Mitigated | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Last updated: 2026-09-29, 10:12 PTOpened: 2026-09-25, 19:38 PT |
-
-After installing the August 2026 Windows non-security preview update ([KB5120998](https://support.microsoft.com/help/5120998)) and subsequent updates, some devices might experience desktop loading issues. This issue has been primarily observed on Azure Virtual Desktop (AVD) hosts, using [FSLogix](/en-us/fslogix/overview-what-is-fslogix). This issue appears to occur more frequently with some existing user profiles.
-
-Symptoms might include:
-
-- ​A black screen appears after sign-in and the desktop session does not load automatically.
-- ​Users might be unable to access their desktop until the desktop session is started manually.
-- ​Application event logs might show Windows Explorer crashes.
-
-**Workaround**: Affected customers can apply one of the following workarounds to mitigate the issue:
-
-1. ​**Manually launch explorer.exe: **Users can temporarily mitigate this issue by opening Task Manager (Ctrl+Shift+Esc), selecting **Run new task**, entering **explorer.exe**, and selecting **OK**.
-2. ​**Mitigate through Known Issue Rollback (KIR): **This issue is mitigated using [Known Issue Rollback (KIR)](https://techcommunity.microsoft.com/blog/windows-itpro-blog/known-issue-rollback-helping-you-keep-windows-devices-protected-and-productive/2176831).
-
- For enterprise-managed devices where Windows updates are managed by IT departments, IT administrators can apply the KIR by installing and configuring the Group policy listed below. The special Group Policy can be found in **Computer Configuration &gt; Administrative Templates &gt; &lt;Group Policy name listed below&gt;**
- 
-***Group Policy downloads with Group Policy name:***
-
-- ​*Download for Windows 11, version 26H1: *[*KB5124006 260924\_20071 Known Issue Rollback*](https://download.microsoft.com/download/09efb4c6-54f4-4e63-83c7-4314187230bf/Windows%2011%2026H1%20KB5124006%20260924_20071%20Known%20Issue%20Rollback.msi)
-- ​*Download for Windows 11, version 26H2, Windows 11, version 25H2, and Windows 11, version 24H2: *[*KB5124010 260924\_20021 Known Issue Rollback*](https://download.microsoft.com/download/8c71622d-e0eb-4838-b25c-ddb99a7bf971/Windows%2011%2024H2,%20Windows%2011%2025H2%20and%20Windows%20Server%202025%20KB5124010%20260924_20021%20Known%20Issue%20Rollback.msi)
-
- **Important**: You will need to **install **and **configure** the Group Policy for your version of Windows to resolve this issue. You will also need to restart your device(s) to apply the group policy setting. Note that this Group Policy will disable the change causing this issue until a resolution is released in a future Windows update. 
- For information on deploying and configuring this special Group Policy, please see [How to use Group Policy to deploy a Known Issue Rollback](/en-us/troubleshoot/windows-client/group-policy/use-group-policy-to-deploy-known-issue-rollback)
-**Next Steps: **We are working on a resolution for this issue, and it will be released in a future Windows update.
-
-Affected platforms:
 
 - ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
 - ​Server: None
