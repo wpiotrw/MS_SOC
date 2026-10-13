@@ -2,7 +2,7 @@
  "read": "2026-10-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
  "count": 695,
- "note": null,
+ "note": "GET /admin/serviceAnnouncement/messages refused (401) - ServiceMessage.Read.All not granted or not consented; previous messages kept",
  "messages": [
   {
    "id": "MC1009930",
