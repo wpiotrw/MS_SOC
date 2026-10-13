@@ -1,6 +1,87 @@
 {
 "updated":"2026-10-13",
 "campaigns":{
+"c-mc1505599":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-13",
+"name":"AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
+"status":"Active",
+"members":[
+"item:graph-auditlogquery-keywordfilter-2026-10-09",
+"MC1505599",
+"item:MC1505599"
+],
+"log":[
+{
+"date":"2026-10-13",
+"id":"MC1505599",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Search-UnifiedAuditLog retires on 15 October 2027; the Graph AuditLogQuery API is generally available now and replaces it",
+"title":"Search-UnifiedAuditLog retires on 15 October 2027; the Graph AuditLogQuery API is generally available now and replaces it",
+"link":"https://mc.merill.net/message/MC1505599"
+},
+{
+"date":"2026-10-09",
+"id":"graph-auditlogquery-keywordfilter-2026-10-09",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Audit log query API: Microsoft now states that keywordFilter matches only the non-indexed auditData content, not the operation name or other indexed properties",
+"title":"Audit log query API: Microsoft now states that keywordFilter matches only the non-indexed auditData content, not the operation name or other indexed properties",
+"link":"https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogquery?view=graph-rest-1.0"
+}
+],
+"milestones":{
+"MC1505599|microsoft graph auditlogquery api general availability world#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"Beginning in early October 2026."
+},
+"MC1505599|posted":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"Posted: Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring"
+},
+"MC1505599|the microsoft graph auditlogquery api will be generally avai#1":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"The Microsoft Graph AuditLogQuery API will be generally available in October 2026, replacing the Search-UnifiedAuditLog PowerShell cmdlet"
+},
+"MC1505599|we are also announcing the planned retirement of the search #0":{
+"date":"2027-10-15",
+"label":"15 Oct 2027",
+"text":"We are also announcing the planned retirement of the Search-UnifiedAuditLog PowerShell cmdlet on October 15, 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1505599":{
+"title":"Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
+"link":"https://mc.merill.net/message/MC1505599",
+"source":"Message Center",
+"id":"MC1505599",
+"date":"2026-10-12",
+"updated":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogquery?view=graph-rest-1.0":{
+"title":"AuditLogQuery resource type",
+"link":"https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogquery?view=graph-rest-1.0",
+"source":"Main list source",
+"id":"graph-auditlogquery-keywordfilter-2026-10-09",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":"2027-10-15",
+"type":"Retirement",
+"tech":"Purview",
+"posts":[
+"MC1505599"
+]
+},
 "c-mc1492958":{
 "firstSeen":"2026-10-10",
 "lastSeen":"2026-10-13",
@@ -799,18 +880,18 @@
 {
 "date":"2026-09-29",
 "id":"MC1446796",
-"what":"Act-by date",
+"what":"Microsoft edited the post text",
 "before":"",
-"after":"2026-10-01",
+"after":"see the post",
 "title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
 "link":"https://deltapulse.app/item/MC1446796"
 },
 {
 "date":"2026-09-29",
 "id":"MC1446796",
-"what":"Microsoft edited the post text",
+"what":"Act-by date",
 "before":"",
-"after":"see the post",
+"after":"2026-10-01",
 "title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
 "link":"https://deltapulse.app/item/MC1446796"
 },
@@ -1390,8 +1471,7 @@
 "name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
 "status":"Active",
 "members":[
-"MC1481317",
-"item:MC1481317"
+"MC1481317"
 ],
 "log":[
 {
@@ -2312,6 +2392,54 @@
 "date":"2026-10-09",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727":{
+"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441":{
+"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433":{
+"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432":{
+"title":"Chromium: CVE-2025-12432 Race in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429":{
+"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428":{
+"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":"2026-10-15",
@@ -3053,6 +3181,14 @@
 "date":"2026-10-05T00:00:00.0000000Z",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":null,
@@ -3375,9 +3511,19 @@
 "name":"Retirement of legacy TLS versions for POP and IMAP connections",
 "status":"Active",
 "members":[
-"MC1293480"
+"MC1293480",
+"item:entra-gsa-tls-inspection-managed-certificates-2026-10"
 ],
 "log":[
+{
+"date":"2026-10-13",
+"id":"entra-gsa-tls-inspection-managed-certificates-2026-10",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"TLS inspection in Global Secure Access can use Microsoft-managed certificates instead of a customer certificate authority",
+"title":"TLS inspection in Global Secure Access can use Microsoft-managed certificates instead of a customer certificate authority",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/what-s-new-in-microsoft-entra-october-2026/ba-p/4556460"
+},
 {
 "date":"2026-10-09",
 "id":"MC1293480",
@@ -3433,14 +3579,6 @@
 }
 },
 "moves":[
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
-"seen":"2026-10-10",
-"text":"August 1, 2026."
-},
 {
 "src":"MC1293480",
 "key":"#0",
@@ -3592,6 +3730,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-13",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-13",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -3620,6 +3766,15 @@
 "date":"2026-10-05",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/what-s-new-in-microsoft-entra-october-2026/ba-p/4556460":{
+"title":"What's new in Microsoft Entra: October 2026",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/what-s-new-in-microsoft-entra-october-2026/ba-p/4556460",
+"source":"Main list source",
+"id":"entra-gsa-tls-inspection-managed-certificates-2026-10",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":"2026-12-31",
@@ -4006,22 +4161,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-11",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-11",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-12",
 "text":"early February 2026."
 },
@@ -4111,6 +4250,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-12",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-13",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-13",
 "text":"February 2027."
 },
 {
@@ -4521,6 +4676,14 @@
 "date":"2026-10-07",
 "group":"microsoft",
 "found":"2026-10-11"
+},
+"https://mc.merill.net/message/AZ570313":{
+"title":"AZ570313: Retirement: Azure Key Vault Secrets Provider Extension for Azure Arc enabled Kubernetes clusters",
+"link":"https://mc.merill.net/message/AZ570313",
+"source":"MC - Merill",
+"date":"2026-10-09",
+"group":"community",
+"found":"2026-10-13"
 }
 },
 "final":"2027-10-09",
@@ -4579,7 +4742,6 @@
 "members":[
 "MC1325414",
 "MC1325414-enforcement",
-"item:MC1325414",
 "item:MC1325414-enforcement"
 ],
 "log":[
@@ -4589,8 +4751,8 @@
 "what":"Status",
 "before":"Updated",
 "after":"Plan for change",
-"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
-"link":"https://deltapulse.app/item/MC1325414"
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
 },
 {
 "date":"2026-09-29",
@@ -4607,8 +4769,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
-"link":"https://deltapulse.app/item/MC1325414"
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
 },
 {
 "date":"2026-05-28",
@@ -4616,8 +4778,8 @@
 "what":"Microsoft moved the date",
 "before":"early Sep 2026",
 "after":"early Nov 2026",
-"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
-"link":"https://deltapulse.app/item/MC1325414"
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
 },
 {
 "date":"2026-05-28",
@@ -4625,8 +4787,8 @@
 "what":"Microsoft moved the date",
 "before":"mid Sep 2026",
 "after":"mid Nov 2026",
-"title":"SSPR registration campaign starts 5 October: users without enough registered methods are prompted, and directory-sourced phone and email stop working for reset on 7 November",
-"link":"https://deltapulse.app/item/MC1325414"
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
 }
 ],
 "milestones":{
@@ -4650,10 +4812,10 @@
 "label":"6 Nov 2026",
 "text":"Act by this date (Message Center)"
 },
-"MC1325414-enforcement|deadline":{
+"MC1325414|enforcement begins#0":{
 "date":"2026-11-07",
 "label":"7 Nov 2026",
-"text":"SSPR registered-methods enforcement begins"
+"text":"November 7, 2026: Enforcement begins."
 },
 "MC1325414|action is required before#0":{
 "date":"2026-11-09",
@@ -4883,6 +5045,14 @@
 "date":"2026-10-05T00:00:00.0000000Z",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":null,
@@ -5987,6 +6157,14 @@
 "date":"2026-10-11",
 "group":"community",
 "found":"2026-10-11"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/sole-global-administrator-locked-out-no-working-mfa-method-need/m-p/4563776#M10481":{
+"title":"Sole Global Administrator locked out — no working MFA method — need account recovery",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/sole-global-administrator-locked-out-no-working-mfa-method-need/m-p/4563776#M10481",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-12",
+"group":"community",
+"found":"2026-10-13"
 }
 },
 "final":"2027-07-01",
@@ -6482,22 +6660,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-11",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-11",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-12",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -6587,6 +6749,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-12",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-13",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -6851,6 +7029,14 @@
 "date":"2026-10-11",
 "group":"community",
 "found":"2026-10-11"
+},
+"https://daily.entra.news/day/2026-10-12/":{
+"title":"Passkey campaign guidance separates platform nudges, attestation paths, and silent SSO — 12 October 2026",
+"link":"https://daily.entra.news/day/2026-10-12/",
+"source":"Daily Entra News",
+"date":"2026-10-12",
+"group":"community",
+"found":"2026-10-13"
 }
 },
 "final":"2027-02-25",
@@ -7761,6 +7947,116 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1505599",
+"type":"new",
+"name":"AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
+"ctype":"Retirement",
+"tech":"Purview",
+"next":"Oct 2026",
+"text":"The Microsoft Graph AuditLogQuery API will be generally available in October 2026, replacing the Search-UnifiedAuditLog PowerShell cmdlet, which will retire on October 15, 2027."
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12432 Race in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428"
+},
+{
+"day":"2026-10-13",
+"cid":"c-mc1293480",
+"type":"material",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"group":"microsoft",
+"title":"What's new in Microsoft Entra: October 2026",
+"source":"Main list source",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra-blog/what-s-new-in-microsoft-entra-october-2026/ba-p/4556460"
+},
+{
+"day":"2026-10-13",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"community",
+"title":"AZ570313: Retirement: Azure Key Vault Secrets Provider Extension for Azure Arc enabled Kubernetes clusters",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/AZ570313"
+},
+{
+"day":"2026-10-13",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Sole Global Administrator locked out — no working MFA method — need account recovery",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/sole-global-administrator-locked-out-no-working-mfa-method-need/m-p/4563776#M10481"
+},
+{
+"day":"2026-10-13",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Passkey campaign guidance separates platform nudges, attestation paths, and silent SSO — 12 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-12/"
 }
 ],
 "archive":{
@@ -8055,6 +8351,112 @@
 "updated":"2026-04-14",
 "group":"microsoft",
 "found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1254512",
+"MC1279830",
+"MC1388721",
+"MC1427604"
+],
+"archivedOn":"2026-10-13"
+},
+"c-mc1427604":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-13",
+"name":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"status":"Archive",
+"members":[
+"MC1254512",
+"MC1279830",
+"MC1388721",
+"MC1427604"
+],
+"log":[
+{
+"date":"2026-03-20",
+"id":"MC1254512",
+"what":"Microsoft's update note",
+"before":"",
+"after":"Added additional guidance for devices using Azure Files SMB with Active Directory–based authentication and Azure Virtual Desktop.",
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512"
+}
+],
+"milestones":{
+"MC1254512|posted":{
+"date":"2026-03-20",
+"label":"20 Mar 2026",
+"text":"Posted: Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update"
+},
+"MC1279830|posted":{
+"date":"2026-04-14",
+"label":"14 Apr 2026",
+"text":"Posted: Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update"
+},
+"MC1388721|posted":{
+"date":"2026-06-12",
+"label":"12 Jun 2026",
+"text":"Posted: Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update"
+},
+"MC1427604|posted":{
+"date":"2026-07-14",
+"label":"14 Jul 2026",
+"text":"Posted: Enforcement phase for Kerberos RC4 protections begins with the July 2026 Windows security update"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512":{
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1254512",
+"source":"Message Center",
+"id":"MC1254512",
+"date":"2026-03-20",
+"updated":"2026-03-20",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1279830":{
+"title":"Second deployment phase for Kerberos RC4 hardening begins with the April 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1279830",
+"source":"Message Center",
+"id":"MC1279830",
+"date":"2026-04-14",
+"updated":"2026-04-14",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1388721":{
+"title":"Final deployment phase for Kerberos RC4 hardening begins with the July 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1388721",
+"source":"Message Center",
+"id":"MC1388721",
+"date":"2026-06-12",
+"updated":"2026-06-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1427604":{
+"title":"Enforcement phase for Kerberos RC4 protections begins with the July 2026 Windows security update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1427604",
+"source":"Message Center",
+"id":"MC1427604",
+"date":"2026-07-14",
+"updated":"2026-07-14",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378":{
+"title":"Action required: Windows Kerberos hardening (RC4) may affect FSLogix profiles on SMB storage",
+"link":"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378",
+"source":"FSLogix Blog",
+"date":"2026-03-27",
+"group":"microsoft",
+"found":"2026-10-13"
 }
 },
 "final":null,
