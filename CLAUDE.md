@@ -34966,6 +34966,31 @@ odtad CZTERNASCIE (4-17).**
   /* one product dictionary for these views: the same product under two names counted twice (29 IX) */
   var PROD = { "Graph API": "Graph", "M365 apps": "M365 Apps" };
   function prod(p) { return PROD[p] || p || ""; }
+  /* §5dq (13 X 2026, owner: "where you list many items per technology, split them into sections - Entra, Intune -
+     it makes navigation much easier"). One technology family per product name, a fixed security-first order,
+     a heading per family and a "Jump to" row; the rows themselves are unchanged. */
+  var FAM = [[/entra|identity|azure ad|authenticator|global secure access|\bgsa\b/i, "Entra"], [/intune|autopilot/i, "Intune"],
+    [/defender|sentinel|\bmd[eioa]\b|mdca|security copilot|threat/i, "Defender & Sentinel"], [/purview|compliance|\bdlp\b/i, "Purview"],
+    [/copilot/i, "Copilot"], [/exchange|outlook/i, "Exchange & Outlook"], [/teams/i, "Teams"], [/sharepoint|onedrive/i, "SharePoint & OneDrive"],
+    [/windows/i, "Windows"], [/azure/i, "Azure"], [/graph/i, "Graph"], [/power |power platform|power apps|power automate|power bi|dynamics|dataverse/i, "Power Platform & Dynamics"],
+    [/m365|microsoft 365|office|edge|viva|planner|loop|forms|bookings|to do/i, "Microsoft 365"]];
+  var FAMORDER = FAM.map(function (f) { return f[1]; });
+  function fam(p) { p = prod(p); for (var i = 0; i < FAM.length; i++) if (FAM[i][0].test(p)) return FAM[i][1]; return p || "Other"; }
+  function famGroups(rows, get) {
+    var G = {}, order = [];
+    rows.forEach(function (r) { var k = fam(get(r)); if (!G[k]) { G[k] = []; order.push(k); } G[k].push(r); });
+    order.sort(function (a, b) { var ia = FAMORDER.indexOf(a), ib = FAMORDER.indexOf(b); if (ia < 0) ia = 99; if (ib < 0) ib = 99; return ia - ib || G[b].length - G[a].length || a.localeCompare(b); });
+    return order.map(function (k) { return { k: k, rows: G[k] }; });
+  }
+  function famId(idp, k) { return idp + "-" + k.replace(/[^a-z0-9]+/gi, "-").toLowerCase(); }
+  function famHead(k, n, idp) { var h = el("div", "s5dq-h"); h.id = famId(idp, k); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "3");
+    h.appendChild(el("span", "s5dq-t", k)); h.appendChild(el("span", "s5dq-n", n + " item" + (n === 1 ? "" : "s"))); return h; }
+  function famJump(groups, idp) {
+    var j = el("div", "s5dq-jump"); j.appendChild(el("span", "s5ci-lab", "Jump to"));
+    groups.forEach(function (g) { var b = el("button", "s5dq-j", g.k + " · " + g.rows.length); b.type = "button";
+      b.addEventListener("click", function () { var t = document.getElementById(famId(idp, g.k)); if (t) ORIG_SIV.call(t, { block: "start", behavior: "smooth" }); }); j.appendChild(b); });
+    return j;
+  }
   /* one list of status words: 31 values with synonyms were measured in New on 29 IX */
   var STATUS = { "Retirement": "Retiring", "Deprecation": "Deprecated", "Public preview": "Preview", "Public Preview": "Preview",
     "Threat intel": "Threat intelligence", "New feature": "New", "Change": "Changed", "Update": "Updated" };
@@ -35355,7 +35380,12 @@ odtad CZTERNASCIE (4-17).**
       ["Published", "Item", "Product", "Status", "Reference", "Source"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); });
       tbl.appendChild(hd);
       if (!rows.length) tbl.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
+      /* §5dq: without a product picked, the rows are grouped by technology, each group in date order */
+      [].forEach.call(tbl.parentNode.querySelectorAll(".s5dq-jump"), function (x) { if (x.parentNode === tbl.parentNode) x.remove(); });
+      var nGroups = !S.pr && rows.length > 6 ? famGroups(rows, function (it) { return it.product; }) : null, heads = {};
+      if (nGroups && nGroups.length > 1) { tbl.parentNode.insertBefore(famJump(nGroups, "s5dq-new"), tbl); rows = []; nGroups.forEach(function (g) { heads[g.rows[0].id] = g; rows = rows.concat(g.rows); }); }
       rows.slice(0, S.shown).forEach(function (it) {
+        if (heads[it.id]) tbl.appendChild(famHead(heads[it.id].k, heads[it.id].rows.length, "s5dq-new"));
         var r = el("div", "s5ci-tr"); r.setAttribute("role", "row"); r.setAttribute("data-ci-id", it.id);
         var c1 = el("div", "s5ci-c1"); c1.setAttribute("role", "cell"); c1.appendChild(el("span", null, it.published || ""));
         if (it.lastChanged && it.lastChanged > (it.published || "")) c1.appendChild(el("span", "s5ci-sub", "revised " + it.lastChanged));
@@ -35435,9 +35465,14 @@ odtad CZTERNASCIE (4-17).**
       var rows = base.filter(f);
       list.innerHTML = "";
       if (!rows.length) list.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
+      var tGroups = S.v === "per" && rows.length > 3 ? famGroups(rows, function (o) { return o.it.product; }) : null;
+      /* grouped, the numbers follow the reading order (a rank of 19 above a 3 read as a mistake) */
+      if (tGroups && tGroups.length > 1) { list.appendChild(famJump(tGroups, "s5dq-today")); rows = []; tGroups.forEach(function (g) { g.rows.forEach(function (o, i) { o.__h = i === 0 ? g : null; rows.push(o); }); }); rows.forEach(function (o, i) { o.__no = i + 1; }); }
+      else rows.forEach(function (o) { o.__h = null; o.__no = o.n; });
       rows.forEach(function (o) {
+        if (o.__h) list.appendChild(famHead(o.__h.k, o.__h.rows.length, "s5dq-today"));
         var it = o.it, r = el("div", "s5ci-pick"); r.setAttribute("role", "listitem"); r.setAttribute("data-ci-id", it.id);
-        r.appendChild(el("span", "s5ci-no", String(o.n)));
+        r.appendChild(el("span", "s5ci-no", String(o.__no || o.n)));
         var m = el("div", "s5ci-pm"), l1 = el("div", "s5ci-l1"), st = status(it.status);
         if (st) l1.appendChild(pill(st, tone(st)));
         if (it.product) l1.appendChild(pill(prod(it.product), "tech"));
@@ -40289,6 +40324,16 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 @media (max-width:760px){.s5bk-idg{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.s5bk-idtile{padding:7px 8px}.s5bk-idn{font-size:22px}.s5bk-idl1{font-size:10.5px}.s5do-grid{grid-template-columns:minmax(0,1fr)}}
 .s5do-rh{margin:12px 0 2px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 .mc-segnote{margin:2px 14px 8px;font-size:12.5px;color:var(--muted);line-height:1.45}
+
+/* §5dq: technology sections in Today (one per technology) and New */
+.s5dq-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 10px}
+.s5dq-j{background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:3px 11px;font:inherit;font-size:12.5px;color:var(--text);cursor:pointer}
+.s5dq-j:hover,.s5dq-j:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.s5dq-h{display:flex;align-items:baseline;gap:10px;padding:14px 12px 7px;border-top:2px solid var(--accent);background:var(--surface);scroll-margin-top:120px}
+.s5ci-picks > .s5dq-h:first-child,.s5ci-picks > .s5dq-jump + .s5dq-h{border-top:0}
+.s5dq-t{font-size:16px;font-weight:700;color:var(--text)}
+.s5dq-n{font-size:12.5px;color:var(--muted)}
+.s5ci-picks > .s5dq-jump{margin:0;padding:10px 12px;border-bottom:1px solid var(--border)}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
