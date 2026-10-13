@@ -21339,7 +21339,9 @@ def area(a):
     rec={"name":a["name"].replace("Microsoft Learn - ",""),"url":a["url"],
          "repo":a.get("repo"),"dir":a.get("dir"),"method":None,"note":a.get("note",""),
          "pages":[],"bulk":[],"commits":0,"add":0,"rem":0}
-    repo=os.path.join("repos",a.get("repo") or "")
+    # §5dp (13 X 2026, morning run: "learn_changes ignores SOC_REPOS, re-run by hand"): the clone directory is SOC_REPOS,
+    # as in collect_all.py, collect_fpa.py and collect_components.py - "repos" only when it is not set
+    repo=os.path.join(os.environ.get("SOC_REPOS") or "repos",a.get("repo") or "")
     # §5cf: a retired repository without Merill's mirror is read from our own copy in THIS repository
     # (SOC_REPO), mirror/learn/<segment>/. Only modified and deleted pages count there: the copy's first
     # commit (29 IX 2026) ADDED every page at once, and a page entering the copy's scope is not a change
