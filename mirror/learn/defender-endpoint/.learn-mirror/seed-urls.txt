@@ -18,10 +18,13 @@ https://learn.microsoft.com/en-us/defender-endpoint/linux-preferences
 https://learn.microsoft.com/en-us/defender-endpoint/linux-support-offline-security-intelligence-update
 https://learn.microsoft.com/en-us/defender-endpoint/local-agent-discovery-overview
 https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update
+https://learn.microsoft.com/en-us/defender-endpoint/machine-tags
 https://learn.microsoft.com/en-us/defender-endpoint/mde-linux-prerequisites
 https://learn.microsoft.com/en-us/defender-endpoint/mde-plugin-wsl
 https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases
+https://learn.microsoft.com/en-us/defender-endpoint/mobile-resources-defender-endpoint
 https://learn.microsoft.com/en-us/defender-endpoint/msda-updates-previous-versions-technical-upgrade-support
+https://learn.microsoft.com/en-us/defender-endpoint/mtd
 https://learn.microsoft.com/en-us/defender-endpoint/network-isolation-exclusions
 https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
