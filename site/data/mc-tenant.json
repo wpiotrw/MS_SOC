@@ -1,7 +1,7 @@
 {
- "read": "2026-10-12",
+ "read": "2026-10-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 691,
+ "count": 695,
  "note": null,
  "messages": [
   {
@@ -8261,7 +8261,7 @@
   },
   {
    "id": "MC1429018",
-   "title": "(Updated) Microsoft Teams: AI meeting archive file generation",
+   "title": "(Updated) Microsoft Teams: Meeting memory file generation",
    "services": [
     "Microsoft Teams"
    ],
@@ -8271,22 +8271,22 @@
    "actionBy": null,
    "start": "2026-07-15",
    "end": "2027-02-12",
-   "modified": "2026-09-21",
+   "modified": "2026-10-12",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 21, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Teams is introducing AI generated meeting archive files that capture key insights from meetings. These archives help Microsoft 365 Copilot and Facilitator deliver more accurate context aware responses while maintaining strong privacy controls by not storing raw meeting content. This capa…",
+   "summary": "Updated October 12, 2026: We have updated the content. Thank you for your patience. [What and Why] Microsoft Teams is introducing AI generated meeting memory files that capture key insights from meetings (formerly archive files). These files help Microsoft 365 Copilot and Facilitator deliver more accurate context aware responses while maintaining strong privacy controls by not storing raw meeting …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 21, 2026: We have updated the timeline.",
+    "Updated October 12, 2026: We have updated the content.",
     "Targeted Release: Beginning early November 2026 (previously early October) and expected to complete mid-November 2026 (previously mid-October).",
     "General Availability (Worldwide): Beginning early December 2026 (previously mid-October) and expected to complete early January 2027 (previously late October 2026)."
    ],
-   "bodyHash": "26b39d47da42befb"
+   "bodyHash": "4f9b5c170e706861"
   },
   {
    "id": "MC1429856",
@@ -18164,6 +18164,121 @@
    "bodyHash": "7d91afb1cc16f92a"
   },
   {
+   "id": "MC1505599",
+   "title": "Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-12",
+   "end": "2027-01-25",
+   "modified": "2026-10-12",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] The Microsoft Graph AuditLogQuery API is generally available for programmatic access to Microsoft Purview Audit activity logs. We are also announcing the planned retirement of the Search-UnifiedAuditLog PowerShell cmdlet on October 15, 2027. The AuditLogQuery API provides improved scalability and reliability, more granular workload-level permissions, and support for exporting up to …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "We are also announcing the planned retirement of the Search-UnifiedAuditLog PowerShell cmdlet on October 15, 2027.",
+    "Microsoft Graph AuditLogQuery API general availability (Worldwide): Beginning in early October 2026.",
+    "Search-UnifiedAuditLog retirement: Search-UnifiedAuditLog will continue to function unchanged until October 15, 2027.",
+    "On October 15, 2027, Search-UnifiedAuditLog will be retired and will no longer provide access to the audit log.",
+    "Organizations using Search-UnifiedAuditLog should migrate to the Microsoft Graph AuditLogQuery API before October 15, 2027.",
+    "Search-UnifiedAuditLog will continue to function unchanged until October 15, 2027."
+   ],
+   "bodyHash": "48b5fc1a4df5c561"
+  },
+  {
+   "id": "MC1505607",
+   "title": "Outlook: Reply With a Template in Rules",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-12",
+   "end": "2027-02-23",
+   "modified": "2026-10-12",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Users of new Outlook for Windows and Outlook on the web will be able to create inbox rules that automatically reply to incoming messages using a saved template. This helps users reduce repetitive work while providing faster, more consistent responses. This change supports personal and team productivity by automating routine email responses. This message is associated with Microsoft…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by early November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by late December 2026."
+   ],
+   "bodyHash": "e966bb634308c9f2"
+  },
+  {
+   "id": "MC1505609",
+   "title": "Microsoft 365 Copilot and Power Apps: Retirement of App Builder agent and vibe.powerapps.com",
+   "services": [
+    "Power Apps in Microsoft 365"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2026-11-30",
+   "start": "2026-10-12",
+   "end": "2026-12-30",
+   "modified": "2026-10-12",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Apps in Copilot Cowork are now available through the Frontier program, and Apps in Microsoft Copilot Studio are rolling out in public preview.To provide a unified experience for building apps with natural language, Microsoft is retiring the App Builder agent in Microsoft 365 Copilot and vibe.powerapps.com. Copilot Cowork and Microsoft Copilot Studio will become the primary experienc…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "September 8, 2026.",
+    "Early October 2026.",
+    "Mid-October 2026.",
+    "November 30, 2026.",
+    "Starting in mid-October 2026, makers will no longer be able to create new apps using the App Builder agent.",
+    "Starting in mid-October 2026, makers will no longer be able to create new apps using vibe.powerapps.com."
+   ],
+   "bodyHash": "c28b6e59270ace84"
+  },
+  {
+   "id": "MC1505610",
+   "title": "Public CDN is becoming optional during Brand Center setup",
+   "services": [
+    "Microsoft 365 suite",
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-12",
+   "end": "2026-12-31",
+   "modified": "2026-10-12",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] We are updating the Brand Center setup experience so that administrators can set up Brand Center without enabling Public CDN. Today, Public CDN is enabled as part of Brand Center setup, even when an organization only wants to use branding governance capabilities that do not require it. With this update, organizations can begin using Brand Center while deferring Public CDN until the…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by late October 2026."
+   ],
+   "bodyHash": "ac6c991dac06ecba"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -21447,6 +21562,50 @@
      "2026-12-31"
     ]
    }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1429018",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Meeting memory file generation",
+   "fields": {
+    "title": [
+     "(Updated) Microsoft Teams: AI meeting archive file generation",
+     "(Updated) Microsoft Teams: Meeting memory file generation"
+    ],
+    "bodyHash": [
+     "26b39d47da42befb",
+     "4f9b5c170e706861"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1505599",
+   "type": "new",
+   "title": "Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1505607",
+   "type": "new",
+   "title": "Outlook: Reply With a Template in Rules",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1505609",
+   "type": "new",
+   "title": "Microsoft 365 Copilot and Power Apps: Retirement of App Builder agent and vibe.powerapps.com",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1505610",
+   "type": "new",
+   "title": "Public CDN is becoming optional during Brand Center setup",
+   "fields": {}
   }
  ]
 }
