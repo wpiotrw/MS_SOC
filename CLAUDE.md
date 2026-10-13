@@ -31024,7 +31024,11 @@ odtad CZTERNASCIE (4-17).**
     var sm = el("summary"); sm.appendChild(el("span", "mc-title", "What Microsoft changed in first-party apps"));
     var cnt = el("span", "mc-cnt"); sm.appendChild(cnt); box.appendChild(sm);
     var seg = el("div", "mc-seg"), body = el("div", "mc-body"); box.appendChild(seg); box.appendChild(body);
-    var cur = "30", WINS = [["7", "7 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
+    /* §5dp (13 X 2026, owner: "2,352 apps, but All shows 205?"): these are CHANGES Microsoft made, not apps -
+       the labels and a line under the switch say so, with the day recording began */
+    var cur = "30", WINS = [["7", "7 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All recorded"]];
+    var chgFrom = D.chg.reduce(function (a, c) { return c.d && (!a || c.d < a) ? c.d : a; }, "");
+    chgFrom = chgFrom ? chgFrom.slice(0, 10).split("-").reverse().join("/") : "";
     function inWin(c, w) { return w === "all" || days(c.d, TODAY) < +w; }
     function tone(t) { return t === "removed" ? "rem" : t === "added" ? "add" : "chg"; }
     function scopeLine(list, tag) {
@@ -31036,7 +31040,7 @@ odtad CZTERNASCIE (4-17).**
       [].forEach.call(seg.children, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-w") === cur ? "true" : "false"); });
       body.textContent = "";
       var L = D.chg.filter(function (c) { return inWin(c, cur); });
-      cnt.textContent = L.length + " change" + (L.length === 1 ? "" : "s") + " · " + (cur === "all" ? "all held" : "last " + cur + " days");
+      cnt.textContent = L.length + " change" + (L.length === 1 ? "" : "s") + " · " + (cur === "all" ? "all recorded" + (chgFrom ? " since " + chgFrom : "") : "last " + cur + " days");
       if (!L.length) { body.appendChild(el("p", "mc-empty", "Microsoft changed nothing here in this window — widen it above.")); return; }
       ["added", "scopes", "renamed", "owner", "redirects", "foci", "removed"].forEach(function (t) {
         var R = L.filter(function (c) { return c.t === t; }); if (!R.length) return;
@@ -31071,6 +31075,9 @@ odtad CZTERNASCIE (4-17).**
       var b = el("button", null, w[1] + " · " + D.chg.filter(function (c) { return inWin(c, w[0]); }).length); b.type = "button"; b.setAttribute("data-w", w[0]);
       b.addEventListener("click", function () { cur = w[0]; drawMs(); }); seg.appendChild(b);
     });
+    var segNote = el("p", "mc-segnote", "Counted: changes Microsoft made to its applications — an app added, renamed, its permissions or redirect URIs changed, or no longer listed — not applications. The catalog below holds " +
+      D.apps.length.toLocaleString("en-US") + " apps; changes are recorded" + (chgFrom ? " since " + chgFrom : "") + ".");
+    box.insertBefore(segNote, body);
     box.open = D.chg.some(function (c) { return inWin(c, "7"); });
     drawMs(); panel.appendChild(box);
 
@@ -38704,6 +38711,7 @@ odtad CZTERNASCIE (4-17).**
     if (!ul) {   /* nothing moved: say what will appear here */
       var em = box.querySelector(".s5bn-empty");
       if (em && !em.querySelector(".s5do-empty")) em.appendChild(el("span", "s5do-empty", "When something is added, changed or removed here, it appears as a tile you can click — Tiles | List switch."));
+      if (tab === "fpa") recentFpa(box);
       return;
     }
     var lis = [].slice.call(ul.children);
@@ -38716,6 +38724,34 @@ odtad CZTERNASCIE (4-17).**
     bT.addEventListener("click", function () { save("tiles"); set("tiles"); });
     bL.addEventListener("click", function () { save("list"); set("list"); });
     set(pref());
+  }
+  /* §5dp (13 X 2026, owner: "SQL ADX Proxy should be a tile"): a quiet day in First-party apps still shows the week -
+     the changes of the last 7 days as tiles, under their own heading, each opening the app in the catalog */
+  function recentFpa(box) {
+    if (box.querySelector(".s5do-recent")) return;
+    var st = null; try { var sx = document.getElementById("soc-brief-state"); st = sx ? JSON.parse(sx.textContent) : null; } catch (e) { st = null; }
+    var F = (st && st.fpa) || {}, built = String(F.built || ""); if (!built) return;
+    var c0 = new Date(built + "T00:00:00Z"); c0.setUTCDate(c0.getUTCDate() - 7); var cut = c0.toISOString().slice(0, 10);
+    var R = (F.chg || []).filter(function (c) { return c && c.d && c.d < built && c.d >= cut; }).sort(function (x, y) { return x.d < y.d ? 1 : -1; });
+    if (!R.length) return;
+    var LAB = { added: "Added", renamed: "Renamed", owner: "Owner tenant changed", scopes: "Permissions changed", redirects: "Redirect URIs changed", foci: "FOCI flag changed", removed: "No longer listed" };
+    var wrap = el("div", "s5do-recent"); wrap.appendChild(el("p", "s5do-rh", "Earlier this week · " + R.length + " change" + (R.length === 1 ? "" : "s") + " in the last 7 days"));
+    var grid = el("div", "s5do-grid");
+    R.slice(0, 12).forEach(function (c) {
+      var k = c.t === "added" ? "added" : c.t === "removed" ? "removed" : "changed";
+      var t = el("article", "s5do-tile s5do-" + k); t.tabIndex = 0; t.setAttribute("role", "button");
+      t.appendChild(el("div", "s5do-name", c.n || c.id)); if (c.id && c.id !== c.n) t.appendChild(el("div", "s5do-id", c.id));
+      var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5do-k s5bn-k", k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"));
+      pl.appendChild(el("span", "s5do-ty", LAB[c.t] || c.t)); pl.appendChild(el("span", "s5do-ty", c.d.slice(0, 10).split("-").reverse().join("/"))); t.appendChild(pl);
+      if (c.a != null || c.b != null) { var ch = el("div", "s5do-chs"); if (c.a != null) ch.appendChild(el("del", null, String(c.a))); if (c.b != null) ch.appendChild(el("ins", null, String(c.b))); t.appendChild(ch); }
+      var f = el("div", "s5do-foot"); f.appendChild(el("span", "s5do-open", "Open in the catalog ›")); t.appendChild(f);
+      var li = document.createElement("li"); li.setAttribute("data-id", c.id || c.n || "");
+      t.addEventListener("click", function () { go("fpa", li); });
+      t.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go("fpa", li); } });
+      grid.appendChild(t);
+    });
+    wrap.appendChild(grid);
+    var em = box.querySelector(".s5bn-empty"); if (em && em.nextSibling) box.insertBefore(wrap, em.nextSibling); else box.appendChild(wrap);
   }
   function scan() { [].forEach.call(document.querySelectorAll(".s5bn"), wire); }
   var n = 0; (function loop() { scan(); if (++n < 40) setTimeout(loop, 500); })();
@@ -40249,6 +40285,8 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 .s5do-foot{margin-top:auto;font-size:12.5px;color:var(--accent);font-weight:600}
 .s5do-empty{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:4px}
 @media (max-width:760px){.s5bk-idg{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.s5bk-idtile{padding:7px 8px}.s5bk-idn{font-size:22px}.s5bk-idl1{font-size:10.5px}.s5do-grid{grid-template-columns:minmax(0,1fr)}}
+.s5do-rh{margin:12px 0 2px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.mc-segnote{margin:2px 14px 8px;font-size:12.5px;color:var(--muted);line-height:1.45}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
