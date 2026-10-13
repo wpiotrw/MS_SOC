@@ -31580,6 +31580,61 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2100); });
   else setTimeout(boot, 2100);
 })();
+/* §5dq-b (13 X 2026, owner: "I asked you to go through EVERY tab and section - Top picks and many other places are
+   not split by technology"). One technology dictionary for the whole portal: Today (both views), New, Deadlines,
+   Message Center, Microsoft Learn, Microsoft Blogs, Community Articles and Campaigns group their rows with it, under a
+   heading per technology, a "Jump to" row and a Technology | Date switch where the list has a date order of its own. */
+(function () {
+  if (window.__socFam) return;
+  var FAM = [[/defender for identity|\bmdi\b|defender for cloud apps|defender for office|graph security|security operations/i, "Defender & Sentinel"],
+    [/entra|identity|azure ad|authenticator|global secure access|\bgsa\b|passkey|conditional access|\bmfa\b|\bsspr\b|ad fs|adfs/i, "Entra"],
+    [/intune|autopilot|endpoint manager/i, "Intune"],
+    [/defender|sentinel|\bmd[eioa]\b|mdca|security copilot|threat intel|xdr|soc\b|exposure management|mdash|attack path|vulnerability management/i, "Defender & Sentinel"],
+    [/purview|compliance|\bdlp\b|ediscovery|insider risk|sensitivity label/i, "Purview"],
+    [/copilot|\bagent\b|\bagents\b|ai foundry|\bai\b/i, "Copilot & AI"], [/exchange|outlook|\bmail\b|mailbox/i, "Exchange & Outlook"], [/teams/i, "Teams"],
+    [/sharepoint|onedrive|\bsync file/i, "SharePoint & OneDrive"], [/windows|cloud pc|windows 365|\bavd\b|virtual desktop|fslogix|wi-fi/i, "Windows"], [/azure|\barc\b|kubernetes|\baks\b/i, "Azure"], [/graph/i, "Graph"],
+    [/power |power platform|power apps|power automate|power bi|power pages|dynamics|dataverse|finance and operations|supply chain/i, "Power Platform & Dynamics"],
+    [/m365|microsoft 365|office|edge|viva|planner|loop|forms|bookings|to do|education|minecraft|admin center|powerpoint|\bword\b|excel|clipchamp|project online|project for|brand|student|stream|visio|whiteboard|work iq/i, "Microsoft 365"],
+    /* a product rule wins; what names no product but is a vulnerability or an attack is its own section */
+    [/cve-|exploit|vulnerab|cyberattack|ransomware|zero-day|msrc|chromium|malware|breach/i, "Vulnerabilities & threats"]];
+  var ORDER = ["Entra", "Intune", "Defender & Sentinel", "Vulnerabilities & threats", "Purview", "Copilot & AI", "Exchange & Outlook", "Teams",
+    "SharePoint & OneDrive", "Windows", "Azure", "Graph", "Power Platform & Dynamics", "Microsoft 365"];
+  function fam(text) { text = String(text || ""); for (var i = 0; i < FAM.length; i++) if (FAM[i][0].test(text)) return FAM[i][1]; return "Other"; }
+  /* the source's own label first (Microsoft's service name, the Learn area, the product); the title only when that names nothing */
+  function fam2(primary, rest) { var a = fam(primary); return a !== "Other" ? a : fam(rest); }
+  function groups(rows, get) {
+    var G = {}, order = [];
+    rows.forEach(function (r) { var v = get(r), k = v && typeof v === "object" ? fam2(v.p, v.r) : fam(v); if (!G[k]) { G[k] = []; order.push(k); } G[k].push(r); });
+    order.sort(function (a, b) { var ia = ORDER.indexOf(a), ib = ORDER.indexOf(b); if (ia < 0) ia = 99; if (ib < 0) ib = 99; return ia - ib || G[b].length - G[a].length; });
+    return order.map(function (k) { return { k: k, rows: G[k] }; });
+  }
+  function mk(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function gid(idp, k) { return idp + "-" + k.replace(/[^a-z0-9]+/gi, "-").toLowerCase(); }
+  function head(k, n, idp, tag) { var h = mk(tag || "div", "s5dq-h"); h.id = gid(idp, k); h.setAttribute("role", tag === "li" ? "listitem" : "heading");
+    h.appendChild(mk("span", "s5dq-t", k)); h.appendChild(mk("span", "s5dq-n", n + " item" + (n === 1 ? "" : "s"))); return h; }
+  var SIV = Element.prototype.scrollIntoView;
+  function jump(gs, idp, tag, before) {
+    var j = mk(tag || "div", "s5dq-jump"); j.appendChild(mk("span", "s5ci-lab", "Jump to"));
+    gs.forEach(function (g) { var b = mk("button", "s5dq-j", g.k + " · " + g.rows.length); b.type = "button";
+      b.addEventListener("click", function () { if (before) before(g); setTimeout(function () { var t = document.getElementById(gid(idp, g.k)); if (t) SIV.call(t, { block: "start", behavior: "smooth" }); }, before ? 60 : 0); });
+      j.appendChild(b); });
+    return j;
+  }
+  /* Technology | Date: one choice for every list, remembered per viewer */
+  var KEY = "socGroupBy";
+  function mode() { try { return localStorage.getItem(KEY) || "tech"; } catch (e) { return "tech"; } }
+  function toggle(dateLabel, onChange) {
+    var w = mk("span", "s5dq-sw"); w.setAttribute("role", "group"); w.setAttribute("aria-label", "Group by");
+    w.appendChild(mk("span", "s5ci-lab", "Group by"));
+    [["tech", "Technology"], ["date", dateLabel || "Date"]].forEach(function (o) {
+      var b = mk("button", null, o[1]); b.type = "button"; b.setAttribute("aria-pressed", String(mode() === o[0]));
+      b.addEventListener("click", function () { try { localStorage.setItem(KEY, o[0]); } catch (e) {} onChange(o[0]); }); w.appendChild(b);
+    });
+    return w;
+  }
+  window.__socFam = { fam: fam, fam2: fam2, groups: groups, head: head, jump: jump, mode: mode, toggle: toggle, order: ORDER };
+})();
+
 /* ===========================================================================
    §5bp — MESSAGE CENTER BROWSER (26 IX 2026). Views, facets with counts,
    a compact list grouped by week, details in place, deep link #MC<number>.
@@ -32078,16 +32133,31 @@ odtad CZTERNASCIE (4-17).**
     renderBanner(rows.length);
     var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
     info.textContent = rows.length + " post" + (rows.length === 1 ? "" : "s") + " · " + v[2] +
-      (S.view === "action" ? "" : " · grouped by week");
+      (S.view === "action" ? "" : window.__socFam && window.__socFam.mode() === "tech" ? " · grouped by technology" : " · grouped by week");
     if (ACT.length) {   /* §5cq: the result line says what it is the result OF */
       info.textContent = "";
       info.appendChild(el("b", null, rows.length + " post" + (rows.length === 1 ? "" : "s") + " match"));
-      info.appendChild(document.createTextNode(" — " + ACT.join(", ") + (S.view === "action" ? "" : " · grouped by week")));
+      info.appendChild(document.createTextNode(" — " + ACT.join(", ") + (S.view === "action" ? "" : window.__socFam && window.__socFam.mode() === "tech" ? " · grouped by technology" : " · grouped by week")));
     }
     renderFresh(); renderGrid();
     list.textContent = "";
     if (!rows.length) { list.appendChild(el("li", "mcb-empty", "No post matches. Remove a filter above — zero here is a result, not an error.")); return; }
     list.appendChild(colHead());
+    /* §5dq-b: Technology | Week - by technology one section per technology (Microsoft's own service names), 8 rows each, "Show all" per section */
+    var F = window.__socFam, gbl = el("li", "s5dq-bar"); if (F) gbl.appendChild(F.toggle("Week", function () { render(); }));
+    list.appendChild(gbl);
+    if (F && F.mode() === "tech" && rows.length > 6) {
+      var tg = F.groups(rows, function (r) { return { p: (r.tech || []).join(" "), r: r.title }; });
+      S.gx = S.gx || {};
+      gbl.appendChild(F.jump(tg, "s5dq-mc", "span", function (gg) { if (!S.gx[gg.k] && gg.rows.length > 8) { S.gx[gg.k] = 1; render(); } }));
+      tg.forEach(function (gg) {
+        list.appendChild(F.head(gg.k, gg.rows.length, "s5dq-mc", "li"));
+        gg.rows.slice(0, S.gx[gg.k] ? gg.rows.length : 8).forEach(function (r) { var li = rowOf(r); list.appendChild(li); if (S.open === r.id) toggle(li, r, true); });
+        if (gg.rows.length > 8) { var mb = el("li", "mcb-morebox"), bb = el("button", "mcb-btn", S.gx[gg.k] ? "Show fewer in " + gg.k : "Show all " + gg.rows.length + " in " + gg.k); bb.type = "button";
+          bb.addEventListener("click", function () { S.gx[gg.k] = !S.gx[gg.k]; render(); }); mb.appendChild(bb); list.appendChild(mb); }
+      });
+      return;
+    }
     var g = null, ul = null;
     rows.slice(0, S.shown).forEach(function (r) {
       var k = groupOf(r);
@@ -33356,15 +33426,30 @@ odtad CZTERNASCIE (4-17).**
       info.textContent = "";
       if (act.length) {   /* §5cq: the result line says what it is the result OF */
         info.appendChild(el("b", null, rows.length + " result" + (rows.length === 1 ? "" : "s")));
-        info.appendChild(document.createTextNode(" — " + act.map(function (a) { return a[1]; }).join(", ") + " · of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
+        info.appendChild(document.createTextNode(" — " + act.map(function (a) { return a[1]; }).join(", ") + " · of " + RECS.length + " · " + (window.__socFam && window.__socFam.mode() === "tech" ? "grouped by technology" : cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
       } else
-      info.appendChild(document.createTextNode(rows.length + " of " + RECS.length + " · " + (cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
+      info.appendChild(document.createTextNode(rows.length + " of " + RECS.length + " · " + (window.__socFam && window.__socFam.mode() === "tech" ? "grouped by technology" : cfg.group === "month" ? "grouped by month" : "grouped by week") + " · "));
       var mk = el("button", "ab-mark", "Mark these " + Math.min(rows.length, S.shown) + " as read"); mk.type = "button";
       mk.disabled = !rows.length;
       mk.addEventListener("click", function () { rows.slice(0, S.shown).forEach(function (r) { rd()[r.key] = DAY || 1; }); rdSave(); render(); });
       info.appendChild(mk);
       list.textContent = "";
       if (!rows.length) { list.appendChild(el("li", "mcb-empty", S.view === "unread" ? "Nothing unread here — every article in this view is marked read." : "Nothing matches. Remove a filter above — zero here is a result, not an error.")); return; }
+      /* §5dq-b: Technology | Month/Week */
+      var F = window.__socFam, gbl = el("li", "s5dq-bar"); if (F) gbl.appendChild(F.toggle(cfg.group === "month" ? "Month" : "Week", function () { render(); }));
+      list.appendChild(gbl);
+      if (F && F.mode() === "tech" && rows.length > 6) {
+        var tg = F.groups(rows, function (r) { return { p: cfg.tab === "community" ? "" : r.f.src, r: [r.title, (r.tags || []).join(" "), r.f.src].join(" ") }; }), idp = "s5dq-" + cfg.tab;
+        S.gx = S.gx || {};
+        gbl.appendChild(F.jump(tg, idp, "span", function (gg) { if (!S.gx[gg.k] && gg.rows.length > 8) { S.gx[gg.k] = 1; render(); } }));
+        tg.forEach(function (gg) {
+          list.appendChild(F.head(gg.k, gg.rows.length, idp, "li"));
+          gg.rows.slice(0, S.gx[gg.k] ? gg.rows.length : 8).forEach(function (r) { list.appendChild(row(r)); });
+          if (gg.rows.length > 8) { var mb = el("li", "mcb-morebox"), bb = el("button", "mcb-btn", S.gx[gg.k] ? "Show fewer in " + gg.k : "Show all " + gg.rows.length + " in " + gg.k); bb.type = "button";
+            bb.addEventListener("click", function () { S.gx[gg.k] = !S.gx[gg.k]; render(); }); mb.appendChild(bb); list.appendChild(mb); }
+        });
+        return;
+      }
       var g = null;
       rows.slice(0, S.shown).forEach(function (r) {
         var gk = cfg.group === "month" ? String(r.date).slice(0, 7) : (r.date ? monday(r.date) : "");
@@ -34974,11 +35059,14 @@ odtad CZTERNASCIE (4-17).**
     [/copilot/i, "Copilot"], [/exchange|outlook/i, "Exchange & Outlook"], [/teams/i, "Teams"], [/sharepoint|onedrive/i, "SharePoint & OneDrive"],
     [/windows/i, "Windows"], [/azure/i, "Azure"], [/graph/i, "Graph"], [/power |power platform|power apps|power automate|power bi|dynamics|dataverse/i, "Power Platform & Dynamics"],
     [/m365|microsoft 365|office|edge|viva|planner|loop|forms|bookings|to do/i, "Microsoft 365"]];
-  var FAMORDER = FAM.map(function (f) { return f[1]; });
-  function fam(p) { p = prod(p); for (var i = 0; i < FAM.length; i++) if (FAM[i][0].test(p)) return FAM[i][1]; return p || "Other"; }
+  var FAMORDER = window.__socFam ? window.__socFam.order : FAM.map(function (f) { return f[1]; });
+  function fam(p) { if (window.__socFam) return window.__socFam.fam(prod(p)); p = prod(p); for (var i = 0; i < FAM.length; i++) if (FAM[i][0].test(p)) return FAM[i][1]; return p || "Other"; }
+  function gmode() { return window.__socFam ? window.__socFam.mode() : "tech"; }
+  function gtoggle(lab, fn) { return window.__socFam ? window.__socFam.toggle(lab, fn) : el("span"); }
   function famGroups(rows, get) {
+    if (window.__socFam) return window.__socFam.groups(rows, get);
     var G = {}, order = [];
-    rows.forEach(function (r) { var k = fam(get(r)); if (!G[k]) { G[k] = []; order.push(k); } G[k].push(r); });
+    rows.forEach(function (r) { var v = get(r), k = fam(v && typeof v === "object" ? v.p : v); if (!G[k]) { G[k] = []; order.push(k); } G[k].push(r); });
     order.sort(function (a, b) { var ia = FAMORDER.indexOf(a), ib = FAMORDER.indexOf(b); if (ia < 0) ia = 99; if (ib < 0) ib = 99; return ia - ib || G[b].length - G[a].length || a.localeCompare(b); });
     return order.map(function (k) { return { k: k, rows: G[k] }; });
   }
@@ -35284,8 +35372,14 @@ odtad CZTERNASCIE (4-17).**
       ["Due", "Item", "Product", "Area", "Do this", "Source"].forEach(function (h) { var c = el("div", null, h); c.setAttribute("role", "columnheader"); hd.appendChild(c); });
       tbl.appendChild(hd);
       var last = null;
+      /* §5dq-b: Technology | Due date - by technology the rows of the window are grouped per technology, due order inside */
+      [].forEach.call(root.querySelectorAll(".s5dq-bar"), function (x) { x.remove(); });
+      var dbar = el("div", "s5dq-bar"); dbar.appendChild(gtoggle("Due date", render)); tbl.parentNode.insertBefore(dbar, tbl);
+      var dTech = gmode() === "tech" && rows.length > 4, dG = dTech ? famGroups(rows, function (o) { return { p: prod(o.it.product), r: (o.it.area || "") + " " + (o.it.title || "") }; }) : null;
+      if (dG && dG.length > 1) { dbar.appendChild(famJump(dG, "s5dq-dl")); rows = []; dG.forEach(function (g) { g.rows.forEach(function (o) { o.__g = g.k; rows.push(o); }); }); } else dTech = false;
       rows.forEach(function (o) {
-        var it = o.it, g = grpName(it.deadline, o.d);
+        var it = o.it, g = dTech ? o.__g : grpName(it.deadline, o.d);
+        if (dTech && g !== last) { last = g; tbl.appendChild(famHead(g, rows.filter(function (x) { return x.__g === g; }).length, "s5dq-dl")); }
         if (g !== last) { var gr = el("div", "s5ci-grp", g + " · " + rows.filter(function (x) { return grpName(x.it.deadline, x.d) === g; }).length); gr.setAttribute("role", "row"); tbl.appendChild(gr); last = g; }
         var r = el("div", "s5ci-tr"); r.setAttribute("role", "row"); r.setAttribute("data-ci-id", it.id);
         o.also.forEach(function (a) { r.setAttribute("data-ci-also", (r.getAttribute("data-ci-also") || "") + " " + a.id); });
@@ -35381,9 +35475,10 @@ odtad CZTERNASCIE (4-17).**
       tbl.appendChild(hd);
       if (!rows.length) tbl.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
       /* §5dq: without a product picked, the rows are grouped by technology, each group in date order */
-      [].forEach.call(tbl.parentNode.querySelectorAll(".s5dq-jump"), function (x) { if (x.parentNode === tbl.parentNode) x.remove(); });
-      var nGroups = !S.pr && rows.length > 6 ? famGroups(rows, function (it) { return it.product; }) : null, heads = {};
-      if (nGroups && nGroups.length > 1) { tbl.parentNode.insertBefore(famJump(nGroups, "s5dq-new"), tbl); rows = []; nGroups.forEach(function (g) { heads[g.rows[0].id] = g; rows = rows.concat(g.rows); }); }
+      [].forEach.call(tbl.parentNode.querySelectorAll(".s5dq-bar"), function (x) { if (x.parentNode === tbl.parentNode) x.remove(); });
+      var nGroups = gmode() === "tech" && !S.pr && rows.length > 6 ? famGroups(rows, function (it) { return { p: prod(it.product), r: (it.area || "") + " " + (it.title || "") }; }) : null, heads = {};
+      var nbar = el("div", "s5dq-bar"); nbar.appendChild(gtoggle("Date", render)); tbl.parentNode.insertBefore(nbar, tbl);
+      if (nGroups && nGroups.length > 1) { nbar.appendChild(famJump(nGroups, "s5dq-new")); rows = []; nGroups.forEach(function (g) { heads[g.rows[0].id] = g; rows = rows.concat(g.rows); }); }
       rows.slice(0, S.shown).forEach(function (it) {
         if (heads[it.id]) tbl.appendChild(famHead(heads[it.id].k, heads[it.id].rows.length, "s5dq-new"));
         var r = el("div", "s5ci-tr"); r.setAttribute("role", "row"); r.setAttribute("data-ci-id", it.id);
@@ -35465,9 +35560,10 @@ odtad CZTERNASCIE (4-17).**
       var rows = base.filter(f);
       list.innerHTML = "";
       if (!rows.length) list.appendChild(el("p", "s5ci-note", "Nothing matches — the counts on the buttons say where it is."));
-      var tGroups = S.v === "per" && rows.length > 3 ? famGroups(rows, function (o) { return o.it.product; }) : null;
+      var tGroups = gmode() === "tech" && rows.length > 3 ? famGroups(rows, function (o) { return { p: prod(o.it.product), r: (o.it.area || "") + " " + (o.it.title || "") }; }) : null;
+      var tgw = el("div", "s5dq-bar"); tgw.appendChild(gtoggle(S.v === "top" ? "Rank" : "Pick order", render)); list.appendChild(tgw);
       /* grouped, the numbers follow the reading order (a rank of 19 above a 3 read as a mistake) */
-      if (tGroups && tGroups.length > 1) { list.appendChild(famJump(tGroups, "s5dq-today")); rows = []; tGroups.forEach(function (g) { g.rows.forEach(function (o, i) { o.__h = i === 0 ? g : null; rows.push(o); }); }); rows.forEach(function (o, i) { o.__no = i + 1; }); }
+      if (tGroups && tGroups.length > 1) { tgw.appendChild(famJump(tGroups, "s5dq-today")); rows = []; tGroups.forEach(function (g) { g.rows.forEach(function (o, i) { o.__h = i === 0 ? g : null; rows.push(o); }); }); rows.forEach(function (o, i) { o.__no = i + 1; }); }
       else rows.forEach(function (o) { o.__h = null; o.__no = o.n; });
       rows.forEach(function (o) {
         if (o.__h) list.appendChild(famHead(o.__h.k, o.__h.rows.length, "s5dq-today"));
@@ -36568,6 +36664,21 @@ odtad CZTERNASCIE (4-17).**
     var hd = el("div", "s5cu-row s5cu-hd"); hd.setAttribute("role", "row");
     ["Campaign", "Technology", "Type", "Next milestone", "Materials", "This week"].forEach(function (t) { var x = el("span", null, t); x.setAttribute("role", "columnheader"); hd.appendChild(x); });
     list.appendChild(hd);
+    /* §5dq-b: Technology | Status - by technology one section per technology, the most important first inside */
+    var FX = window.__socFam;
+    if (FX) { var gbar = el("div", "s5dq-bar"); gbar.appendChild(FX.toggle("Status", function () { render(); })); body.appendChild(gbar);
+      if (FX.mode() === "tech" && shown.length > 4) {
+        var RANK = {}; GROUPS.forEach(function (g, i) { RANK[g[0]] = i; });
+        var tgs = FX.groups(shown.slice().sort(function (a, b) { var da = (a.next || {}).date || "9", db = (b.next || {}).date || "9"; return (RANK[group(a)] - RANK[group(b)]) || (da < db ? -1 : da > db ? 1 : 0); }),
+          function (c) { return { p: c.tech || "", r: c.name || "" }; });
+        gbar.appendChild(FX.jump(tgs, "s5dq-cmp"));
+        tgs.forEach(function (gg) { list.appendChild(FX.head(gg.k, gg.rows.length, "s5dq-cmp")); gg.rows.forEach(function (c) { list.appendChild(row(c)); }); });
+        if (!shown.length) list.appendChild(el("p", "s5cu-note", "No campaign matches these filters."));
+        body.appendChild(list); archiveBlock();
+        body.appendChild(el("p", "s5cu-legend", "Materials: MC = Message Center posts · Microsoft = Microsoft blogs, Learn and the brief’s own sources · Community = articles from the watched community sources · Video = the watched YouTube channels (" + (k.channels || 0) + "). Every number opens the campaign at that list. Red: a milestone within 7 days · amber: within 30 days. Dates written as “mid Oct” are Microsoft’s own approximate dates, sorted as the 15th."));
+        return;
+      }
+    }
     GROUPS.forEach(function (g) {
       var rows = shown.filter(function (c) { return group(c) === g[0]; });
       if (!rows.length) return;
@@ -40334,6 +40445,14 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 .s5dq-t{font-size:16px;font-weight:700;color:var(--text)}
 .s5dq-n{font-size:12.5px;color:var(--muted)}
 .s5ci-picks > .s5dq-jump{margin:0;padding:10px 12px;border-bottom:1px solid var(--border)}
+.s5dq-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:8px 0;list-style:none}
+.s5ci-picks > .s5dq-bar{margin:0;padding:10px 12px;border-bottom:1px solid var(--border)}
+.s5dq-bar .s5dq-jump{margin:0}
+.s5dq-sw{display:inline-flex;align-items:center;gap:6px}
+.s5dq-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
+.s5dq-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+li.s5dq-h{list-style:none}
+.s5cu-list > .s5dq-h{border-top:2px solid var(--accent)}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
