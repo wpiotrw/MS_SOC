@@ -1,8 +1,8 @@
 {
  "read": "2026-10-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 695,
- "note": "GET /admin/serviceAnnouncement/messages refused (401) - ServiceMessage.Read.All not granted or not consented; previous messages kept",
+ "count": 707,
+ "note": null,
  "messages": [
   {
    "id": "MC1009930",
@@ -404,28 +404,6 @@
     "General Availability (Worldwide): Begins rolling out in February 2026 (previously late October), expected to complete February 2026 (previously early November)."
    ],
    "bodyHash": "155400cb916efa4f"
-  },
-  {
-   "id": "MC1171745",
-   "title": "Hotpatch efficiency unlocked: Smaller update size ",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-13",
-   "end": "2026-10-13",
-   "modified": "2025-10-13",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Hotpatch updates, which are smaller than standard Windows updates, bring faster security and improved productivity to your organization. Their smaller size translates to optimized network performance, sustainability benefits, faster installation, and quicker compliance. When will this happen: Hotpatching is generally available. How this will affect your organization: Hotpatch updates save time by …",
-   "when": null,
-   "prepare": "Check if your organization is ready for hotpatch updates . Confirm devices at your organization meet prerequisites for hotpatching. Ensure devices are on the latest baseline release version to qualify for hotpatch updates. Learn about release cycles , including baseline updates released quarterly as standard cumulative updates. Learn how to enroll devices to receive hotpatch updates. .",
-   "dates": [],
-   "bodyHash": "bd4f60dc230a9ca7"
   },
   {
    "id": "MC1172445",
@@ -6047,23 +6025,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-29",
-   "end": "2026-12-31",
-   "modified": "2026-09-02",
+   "end": "2027-12-31",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Information Protection is introducing File Labeler and File Viewer applications for macOS . These clients will bring sensitivity labeling and protected file viewing capabilities to Mac users, aligning with the experience already available on Windows. This update will help organiza…",
+   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Information Protection is introducing File Labeler and File Viewer applications for macOS . These clients will bring sensitivity labeling and protected file viewing capabilities to Mac users, aligning with the experience already available on Windows. This update will help organizat…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
+    "Updated October 13, 2026: We have updated the timeline.",
     "Public Preview: The macOS client will be made available for download on or around May 29, 2026.",
-    "General Availability (Worldwide) : The macOS client will be made available for download on or around November 30, 2026 ."
+    "General Availability (Worldwide) : We will begin rolling out late January 2027 and expect to complete by mid-November 2027."
    ],
-   "bodyHash": "d7f02f8e1f19996e"
+   "bodyHash": "a9a68a752376aa78"
   },
   {
    "id": "MC1330886",
@@ -6222,23 +6200,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-05",
-   "end": "2026-11-30",
-   "modified": "2026-08-12",
+   "end": "2026-12-31",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing Policy Sync and Device Health AI skills for Microsoft Purview Endpoint Data Loss Prevention . These AI-powered capabilities provide real-time visibility into policy deployment across devices and help admins quickly identify and resolve sync issues. By using AI to surface root cause…",
+   "summary": "Updated October 13, 2026: We have decided not to move forward with this change at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why] We are introducing Policy Sync and Device Health AI skills for Microsoft Purview Endpoint Data Loss Prevention . These AI-powered capabilities provide real-time visibility into policy dep…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 12, 2026: We have updated the timeline.",
-    "Public Preview: Rollout will begin in late September 2026 (previously late July) and is expected to complete in late September 2026 (previously late July).",
-    "General Availability (Worldwide): Rollout will begin in mid-October 2026 (previously late August) and is expected to complete in late October 2026 (previously late August)."
+    "Updated October 13, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "202309558c2dac08"
+   "bodyHash": "cd10d004792a2f4f"
   },
   {
    "id": "MC1384415",
@@ -8555,7 +8531,7 @@
   },
   {
    "id": "MC1437671",
-   "title": "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+   "title": "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
    "services": [
     "Microsoft Entra"
    ],
@@ -8565,14 +8541,14 @@
    "actionBy": null,
    "start": "2026-07-23",
    "end": "2026-12-31",
-   "modified": "2026-10-09",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 9, 2026: We have updated the content. Thank you for your patience. [What and Why] We're introducing a new Microsoft Entra capability that Allow password change after secure sign-in directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their current p…",
+   "summary": "Updated October 9, 2026: We have updated the content. Thank you for your patience. [What and Why] We're introducing a new Microsoft Entra capability that allows password change after secure sign-in directly from My Sign-Ins using an existing strong credential, such as a passkey, FIDO2 security key, or Windows Hello for Business. Users can complete this action even if they don't know their current …",
    "when": null,
    "prepare": null,
    "dates": [
@@ -8580,7 +8556,7 @@
     "General Availability (Worldwide and GCC): Beginning end of October 2026 (previously mid-October) and expected to complete by end of November 2026 (previously late October).",
     "If your organization chooses to offer allowed password changes after secure sign-in, enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
    ],
-   "bodyHash": "d31a2c63ebaa6b23"
+   "bodyHash": "ccff28253537e460"
   },
   {
    "id": "MC1437678",
@@ -8752,23 +8728,23 @@
    "actionBy": null,
    "start": "2026-07-27",
    "end": "2026-12-14",
-   "modified": "2026-09-14",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 14, 2026: We have updated the timeline and content. Thank you for your patience. [What and why] Microsoft Edge is introducing an upgraded Copilot new tab page that brings Microsoft 365 Copilot chat, web search, and work content into a single experience. Users can search the web, navigate to websites, interact with Microsoft 365 Copilot, and access relevant work content from a sin…",
+   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Edge is introducing an upgraded Copilot new tab page that brings Microsoft 365 Copilot chat, web search, and work content into a single experience. Users can search the web, navigate to websites, interact with Microsoft 365 Copilot, and access relevant work content from a single experience…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 14, 2026: We have updated the timeline and content.",
+    "Updated October 13, 2026: We have updated the timeline.",
     "Public Preview: Beginning in late September 2026 (previously early September) and expected to complete by mid-October 2026 (previously mid-September).",
-    "General Availability (Worldwide): Beginning in mid-October 2026 (previously mid-September) and expect to complete by early November 2026 (previously mid-September).",
+    "General Availability (Worldwide): Beginning in early November 2026 (previously mid-October).",
     "Starting in September 2026, Discover feed and feed toggle functionality will be limited."
    ],
-   "bodyHash": "e7f0d2bf0640e489"
+   "bodyHash": "9ca342977f1972aa"
   },
   {
    "id": "MC1440980",
@@ -8868,24 +8844,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-28",
-   "end": "2026-12-21",
-   "modified": "2026-09-28",
+   "end": "2027-01-11",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 28, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommen…",
+   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommenda…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 28, 2026: We have updated the timeline.",
-    "Worldwide: Beginning mid-October 2026 (previously late September) and expected to complete by early November 2026 (previously late October).",
-    "GCC and GCC High: Beginning early November 2026 (previously late October) and expected to complete by late November 2026 (previously early October).",
-    "DoD: Beginning early November 2026 (previously late October) and expected to complete by late November 2026 (previously mid-October)."
+    "Updated October 13, 2026: We have updated the timeline.",
+    "Worldwide: Beginning late October 2026 (previously mid-October) and expected to complete by mid-November 2026 (previously early November).",
+    "GCC and GCC High: Beginning mid-November 2026 (previously early November) and expected to complete by early December 2026 (previously late November).",
+    "DoD: Beginning mid-November 2026 (previously early November) and expected to complete by early December 2026 (previously late November)."
    ],
-   "bodyHash": "a2f058448a9820d1"
+   "bodyHash": "e8fec5285e81f2cd"
   },
   {
    "id": "MC1442510",
@@ -13017,18 +12993,19 @@
    "actionBy": null,
    "start": "2026-09-08",
    "end": "2027-01-25",
-   "modified": "2026-09-08",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "User impact"
    ],
-   "summary": "[What and why:] We are announcing a preview of the new app-building experience in Microsoft Copilot Cowork. A corresponding experience in Microsoft Copilot Studio will follow within the next couple of weeks. These experiences make it easier for people to turn ideas into apps using natural-language guidance and generative AI. Makers can create a working first draft through natural-language conversa…",
+   "summary": "Updated October 13, 2026: Following our earlier announcement, Apps in Copilot Studio has started its public preview rollout. Availability will expand gradually by region. Makers building apps in Copilot Studio will use the Copilot Credits available in the environment they're building in. Copilot Credits for app building are allocated, monitored, and billed through the same Power Platform admin cen…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 13, 2026: Following our earlier announcement, Apps in Copilot Studio has started its public preview rollout.",
     "Rollout for Copilot Cowork will begin on September 8, 2026, and is expected to complete by September 14, 2026."
    ],
-   "bodyHash": "088bb54113f25cab"
+   "bodyHash": "83558180d797f447"
   },
   {
    "id": "MC1469525",
@@ -14668,8 +14645,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-16",
-   "end": "2026-11-13",
-   "modified": "2026-09-18",
+   "end": "2026-11-23",
+   "modified": "2026-10-13",
    "tags": [
     "Feature update",
     "New feature",
@@ -14689,7 +14666,7 @@
   },
   {
    "id": "MC1473155",
-   "title": "Microsoft Purview: permissions audit log improvements",
+   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
    "services": [
     "Microsoft Purview"
    ],
@@ -14699,19 +14676,21 @@
    "actionBy": null,
    "start": "2026-09-16",
    "end": "2026-11-27",
-   "modified": "2026-09-16",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role authorization decisions, helping them investigate access issues and better understand h…",
+   "summary": "Updated October 13, 2026: We have updated the content. Thank you for your patience. [What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role aut…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 13, 2026: We have updated the content.",
     "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late October 2026."
    ],
-   "bodyHash": "a9c2764073c42921"
+   "bodyHash": "51d35ff96ab33385"
   },
   {
    "id": "MC1473156",
@@ -16721,8 +16700,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-30",
-   "end": "2026-11-09",
-   "modified": "2026-09-30",
+   "end": "2026-11-23",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
@@ -18279,6 +18258,343 @@
    "bodyHash": "ac6c991dac06ecba"
   },
   {
+   "id": "MC1506229",
+   "title": "Dynamics 365 Apps - Add users without licenses to activity recipient fields (preview)",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-01-12",
+   "modified": "2026-10-13",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to enable active Microsoft Entra users without Dataverse or Power Apps licenses as activity recipients. Created user records remain disabled and do not grant Dynamics 365 app access. This feature will reach public preview on October 15, 2026. How does this affect me? With this feature enabled, active Entra ID users who do not have a valid Dynamics 365 or Power Apps li…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will reach public preview on October 15, 2026."
+   ],
+   "bodyHash": "9b2c0aa17209ec93"
+  },
+  {
+   "id": "MC1506286",
+   "title": "Notice: The October 2026 Scan Cab for Microsoft updates is delayed",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Note: This notice only affects environments where Scan Cab is used to check for Microsoft update compliance. What and why: The Scan Cab for the October 2026 Microsoft security updates is currently delayed and has not yet been released. Rollout schedule: The Scan Cab for the October 2026 Microsoft security updates is currently delayed and has not yet been released. We will communicate an update on …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: The Scan Cab for the October 2026 Microsoft security updates is currently delayed and has not yet been released.",
+    "Rollout schedule: The Scan Cab for the October 2026 Microsoft security updates is currently delayed and has not yet been released."
+   ],
+   "bodyHash": "f9fb81fc67734297"
+  },
+  {
+   "id": "MC1506287",
+   "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why Beginning with the October 2026 Windows security update, AD FS Distributed Key Manager (DKM) container access control list (ACL) hardening enters Enforcement mode. These protections address the elevation of privilege vulnerability described in CVE-2026-56155 by automatically remediating insecure DKM container ACL configurations on supported versions of Windows Server. Rollout schedule…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning with the October 2026 Windows security update, AD FS Distributed Key Manager (DKM) container access control list (ACL) hardening enters Enforcement mode.",
+    "Enforcement mode starts with the October 2026 Windows security update.",
+    "After you install the October 2026 Windows security update, supported Windows Server versions apply remediation by default unless administrators explicitly opt out.",
+    "Organizations using AD FS should: Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
+   ],
+   "bodyHash": "a3ca527c5c6ba655"
+  },
+  {
+   "id": "MC1506288",
+   "title": "The October 2026 Windows security update is now available",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "The October 2026 Windows security update is now available for all supported versions of Windows. We recommend that you install these updates promptly. For more information about the contents of this update, see the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Understanding Windows monthly update…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The October 2026 Windows security update is now available for all supported versions of Windows.",
+    "Highlights for the Windows 11, version 26H2 update: This security update includes improvements that were part of update KB5124008 (released September 8, 2026)."
+   ],
+   "bodyHash": "7c9f8770365c58da"
+  },
+  {
+   "id": "MC1506289",
+   "title": "Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Today, October 13, 2026, Windows 11, version 24H2 Home and Pro , and Windows 10 Enterprise LTSB 2016 have reached end of updates. The October 2026 monthly security update is the last update available for these editions. Devices running these editions will no longer receive monthly security and non-security preview updates containing protections from the latest security threats. We recommend updati…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Today, October 13, 2026, Windows 11, version 24H2 Home and Pro , and Windows 10 Enterprise LTSB 2016 have reached end of updates.",
+    "The October 2026 monthly security update is the last update available for these editions.",
+    "Windows 11, version 24H2 Enterprise and Education remain supported until October 12, 2027."
+   ],
+   "bodyHash": "942b4ffbeaca0c4c"
+  },
+  {
+   "id": "MC1506290",
+   "title": "Hardening changes for ReFS volumes on removable media",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft is making hardening changes to the Resilient File System (ReFS) . The changes improve the security posture of Windows by adding visibility into unsupported external ReFS configurations and by providing controls to block affected volumes. The changes apply to all supported Windows platforms in phases to allow your organization to review audit data and address dependencies. R…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout schedule: October 2026 Windows security update (Audit phase).",
+    "January 2027 Windows security update (Enforcement phase).",
+    "Action required/recommendations: UPDATE: Install the applicable Windows security update released on or after October 13, 2026 on supported devices.",
+    "If you configure no override, blocking becomes the default with the January 2027 security update."
+   ],
+   "bodyHash": "d5e847156ca295ca"
+  },
+  {
+   "id": "MC1506291",
+   "title": "Manage Administrator protection within Windows 11 security baseline",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-10-13",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update. The security baselines for Windows 11 that enable Administrator protection by default apply to versions 26H2, 25H2, and 24H2. Use Microsoft Intune or Group Policy to manage Administrator protection enablement as part of the security …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update.",
+    "Starting with the October 2026 Windows security update, it’s enabled by default within the Windows 11 security baselines."
+   ],
+   "bodyHash": "ade0a37c01444440"
+  },
+  {
+   "id": "MC1506727",
+   "title": "Microsoft Agent 365: Expanded access to Microsoft agent usage and activity insights in Microsoft 365 admin center",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2026-12-30",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re removing the Agent 365 license requirement for observability data for supported agents built by Microsoft or on Microsoft platforms. This change expands access to usage and activity insights in the Microsoft 365 admin center , helping administrators monitor how agents are used. This change is limited to observability metrics. It does not remove licensing requirements for other…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in late November 2026 and expected to complete by late November 2026."
+   ],
+   "bodyHash": "8b5a98081eeba0bb"
+  },
+  {
+   "id": "MC1506728",
+   "title": "Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2026-12-30",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Entra Agent ID is enforcing tighter restrictions for autonomous creation of an agent’s own identities. Currently, all agents are granted AgentIdentity.CreateAsManager upon creation without administrator approval. Starting November 4 , Microsoft Entra will no longer automatically grant AgentIdentity.CreateAsManager to agent blueprint principals, and creation of identities w…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by late November 2026."
+   ],
+   "bodyHash": "5a113d8082147f47"
+  },
+  {
+   "id": "MC1506730",
+   "title": "Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2026-12-30",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re making updates across Microsoft Outlook experiences to improve clarity and consistency across endpoints. The first updates focus on visual details such as icons, spacing, and alignment, while maintaining familiar ways of working. These updates are part of an ongoing series of improvements across Outlook experiences and are not a replacement for the classic Outlook experience. …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by late November 2026."
+   ],
+   "bodyHash": "e220ef78712aafcb"
+  },
+  {
+   "id": "MC1506733",
+   "title": "Action may be required: Review who can create agents in Microsoft Entra",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2026-12-30",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Entra is changing who can create agent blueprints by default. Starting November 4 , default users will be able to create new agent blueprints unless an administrator turns off Users can create agent blueprints . This means that users without built-in or custom Entra roles will be able to create new agent blueprints in their organization. From now until rollout begins, you …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Worldwide: Beginning in early November 2026 and expected to complete by late November 2026."
+   ],
+   "bodyHash": "8fc33ad16ace2176"
+  },
+  {
+   "id": "MC1506734",
+   "title": "Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2027-01-01",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and present them on stage without screen sharing a local media player or embedding videos in PowerPoint. This improvement provides smoother, higher-quality video playback for attendees and simplifies event …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): Rollout will begin in early November 2026 and end in early December 2026.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout will begin in early December 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "e97af94b90e2f9b3"
+  },
+  {
+   "id": "MC1506735",
+   "title": "Microsoft Planner: AI-generated status reports in Planner Agent",
+   "services": [
+    "Planner"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-13",
+   "end": "2026-12-15",
+   "modified": "2026-10-13",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing AI-generated status reports in Planner Agent. This feature uses Planner plan data to generate a status report that summarizes overall status, progress, risks, and next steps. Users can customize reports by specifying items such as audience, tone, length, reporting period, and report sections before reviewing and refining the generated content. [Rollout schedule] P…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout begins in late October 2026 and is expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "7d200eba943a059e"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -18578,22 +18894,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-02-07",
-   "end": "2027-03-15",
-   "modified": "2026-09-23",
+   "end": "2027-05-03",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 23, 2026: We have updated the content. Thank you for your patience. Enable admins to apply retention policy or retention label in OneDrive and SharePoint for files that have not been accessed by anyone in the organization after a period of time. In this release, users will be able to set up delete policies based on Last Accessed Date of Office file types. Non-office file types ar…",
-   "when": "Preview: We will begin rolling out late November 2026 (previously end of October) and expect to complete by end of December 2026 (previously end of November). General Availability (Worldwide): We will begin rolling out early January 2027 (previously end of December 2026) and expect to complete by early February 2027 (previously end of January).",
+   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. Enable admins to apply retention policy or retention label in OneDrive and SharePoint for files that have not been accessed by anyone in the organization after a period of time. In this release, users will be able to set up delete policies based on Last Accessed Date of Office file types. Non-office file types are…",
+   "when": "Preview: We will begin rolling out mid-January 2027 (previously late November 2026) and expect to complete by late February 2027 (previously end of December 2026). General Availability (Worldwide): We will begin rolling out late February 2027 (previously early January) and expect to complete by late March 2027 (previously early February).",
    "prepare": "This rollout will happen automatically by the specified date with no admin action required before the rollout. Review your current configuration to determine the impact for your organization. You may want to notify your users about this change and update any relevant documentation. Before rollout, we will update this post with new documentation.",
    "dates": [
-    "Updated September 23, 2026: We have updated the content.",
-    "Preview: We will begin rolling out late November 2026 (previously end of October) and expect to complete by end of December 2026 (previously end of November).",
-    "General Availability (Worldwide): We will begin rolling out early January 2027 (previously end of December 2026) and expect to complete by early February 2027 (previously end of January)."
+    "Updated October 13, 2026: We have updated the timeline.",
+    "Preview: We will begin rolling out mid-January 2027 (previously late November 2026) and expect to complete by late February 2027 (previously end of December 2026).",
+    "General Availability (Worldwide): We will begin rolling out late February 2027 (previously early January) and expect to complete by late March 2027 (previously early February)."
    ],
-   "bodyHash": "c2be8b37c55b8743"
+   "bodyHash": "607aa04fed6a0caa"
   }
  ],
  "changes": [
@@ -21605,6 +21921,261 @@
    "id": "MC1505610",
    "type": "new",
    "title": "Public CDN is becoming optional during Brand Center setup",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1326509",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Information Protection- File Labeler and File Viewer for MacOS",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-12-31"
+    ],
+    "bodyHash": [
+     "d7f02f8e1f19996e",
+     "a9a68a752376aa78"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1381121",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "202309558c2dac08",
+     "cd10d004792a2f4f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1437671",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
+   "fields": {
+    "title": [
+     "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+     "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins"
+    ],
+    "bodyHash": [
+     "d31a2c63ebaa6b23",
+     "ccff28253537e460"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1440972",
+   "type": "changed",
+   "title": "(Updated) Microsoft Edge: Upgraded Copilot new tab page",
+   "fields": {
+    "bodyHash": [
+     "e7f0d2bf0640e489",
+     "9ca342977f1972aa"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1441784",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot for Outlook: New Copilot entry point in Classic Outlook",
+   "fields": {
+    "end": [
+     "2026-12-21",
+     "2027-01-11"
+    ],
+    "bodyHash": [
+     "a2f058448a9820d1",
+     "e8fec5285e81f2cd"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1469329",
+   "type": "changed",
+   "title": "Build apps in Microsoft Copilot Studio and Copilot Cowork",
+   "fields": {
+    "bodyHash": [
+     "088bb54113f25cab",
+     "83558180d797f447"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1473153",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: New centralized experience for organizing important resources in chats and channels",
+   "fields": {
+    "end": [
+     "2026-11-13",
+     "2026-11-23"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1473155",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
+   "fields": {
+    "title": [
+     "Microsoft Purview: permissions audit log improvements",
+     "(Updated) Microsoft Purview: permissions audit log improvements"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "a9c2764073c42921",
+     "51d35ff96ab33385"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1484010",
+   "type": "changed",
+   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
+   "fields": {
+    "end": [
+     "2026-11-09",
+     "2026-11-23"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506229",
+   "type": "new",
+   "title": "Dynamics 365 Apps - Add users without licenses to activity recipient fields (preview)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506286",
+   "type": "new",
+   "title": "Notice: The October 2026 Scan Cab for Microsoft updates is delayed",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506287",
+   "type": "new",
+   "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506288",
+   "type": "new",
+   "title": "The October 2026 Windows security update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506289",
+   "type": "new",
+   "title": "Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506290",
+   "type": "new",
+   "title": "Hardening changes for ReFS volumes on removable media",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506291",
+   "type": "new",
+   "title": "Manage Administrator protection within Windows 11 security baseline",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506727",
+   "type": "new",
+   "title": "Microsoft Agent 365: Expanded access to Microsoft agent usage and activity insights in Microsoft 365 admin center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506728",
+   "type": "new",
+   "title": "Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506730",
+   "type": "new",
+   "title": "Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506733",
+   "type": "new",
+   "title": "Action may be required: Review who can create agents in Microsoft Entra",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506734",
+   "type": "new",
+   "title": "Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1506735",
+   "type": "new",
+   "title": "Microsoft Planner: AI-generated status reports in Planner Agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC999442",
+   "type": "changed",
+   "title": "Microsoft Purview | Data Lifecycle Management: Retention based on “last accessed” for OneDrive and SharePoint files",
+   "fields": {
+    "end": [
+     "2027-03-15",
+     "2027-05-03"
+    ],
+    "bodyHash": [
+     "c2be8b37c55b8743",
+     "607aa04fed6a0caa"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-13",
+   "id": "MC1171745",
+   "type": "removed",
+   "title": "Hotpatch efficiency unlocked: Smaller update size ",
    "fields": {}
   }
  ]
