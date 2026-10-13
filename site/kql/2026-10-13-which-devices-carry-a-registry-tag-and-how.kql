@@ -1,0 +1,15 @@
+// title: Which devices carry a registry tag, and how it compares with their portal and dynamic tags
+// date: 2026-10-13
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: Lists, for every device seen in seven days, the tag written through the registry next to the tags set in the portal or API and by dynamic rules. A device whose registry tag differs from its manual tags is one where a registry-reading script gives the wrong answer; MachineGroup shows which RBAC devic
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 13 Oct 2026 - device tags: registry tag against portal and dynamic tags
+// Defender XDR advanced hunting. Columns as on the DeviceInfo schema page cited beside this query. Not run against a tenant in this pass.
+DeviceInfo
+| where Timestamp > ago(7d)
+| summarize arg_max(Timestamp, DeviceName, MachineGroup, RegistryDeviceTag, DeviceManualTags, DeviceDynamicTags) by DeviceId
+| where isnotempty(RegistryDeviceTag) or isnotempty(DeviceManualTags) or isnotempty(DeviceDynamicTags)
+| project DeviceName, MachineGroup, RegistryDeviceTag, DeviceManualTags, DeviceDynamicTags
+| order by MachineGroup asc, DeviceName asc

@@ -1,5 +1,16 @@
 [
  {
+  "file": "2026-10-13-which-devices-carry-a-registry-tag-and-how.kql",
+  "title": "Which devices carry a registry tag, and how it compares with their portal and dynamic tags",
+  "date": "2026-10-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "Lists, for every device seen in seven days, the tag written through the registry next to the tags set in the portal or API and by dynamic rules. A device whose registry tag differs from its manual tags is one where a registry-reading script gives the wrong answer; MachineGroup shows which RBAC devic",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table"
+ },
+ {
   "file": "2026-10-11-which-arc-enabled-kubernetes-clusters-still-carry-the.kql",
   "title": "Which Arc-enabled Kubernetes clusters still carry the retiring Key Vault Secrets Provider extension",
   "date": "2026-10-11",
@@ -8,7 +19,8 @@
   "purpose": "An Azure Resource Graph query, run in Resource Graph Explorer or with az graph query, that lists every Arc-enabled Kubernetes cluster with the extension type Microsoft's migration guide names, microsoft.azurekeyvaultsecretsprovider. Each row is a cluster that holds a service principal credential for",
   "source": "https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples",
   "reused": [
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -23,7 +35,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "reused": [
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -39,7 +52,8 @@
   "reused": [
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -57,7 +71,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -75,7 +90,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -94,7 +110,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -113,7 +130,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -135,7 +153,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -160,7 +179,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -208,7 +228,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -236,7 +257,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
@@ -263,7 +285,8 @@
    "2026-10-09",
    "2026-10-10",
    "2026-10-11",
-   "2026-10-12"
+   "2026-10-12",
+   "2026-10-13"
   ]
  },
  {
