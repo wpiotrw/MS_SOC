@@ -5,6 +5,7 @@ https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-home-screen
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-ios
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-lob-android
+https://learn.microsoft.com/en-us/intune/app-management/deployment/add-managed-google-play
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-microsoft-store
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-unmanaged-pkg-macos
 https://learn.microsoft.com/en-us/intune/app-management/deployment/enterprise-app-manag
@@ -79,6 +80,7 @@ https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig
 https://learn.microsoft.com/en-us/intune/device-updates/android/setup-samsung-knox
 https://learn.microsoft.com/en-us/intune/epm/manage-support-approvals
 https://learn.microsoft.com/en-us/intune/epm/manage-system-settings
+https://learn.microsoft.com/en-us/intune/epm/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/ref-device-properties
@@ -176,5 +178,6 @@ https://learn.microsoft.com/en-us/intune/intune-service/rename-device
 https://learn.microsoft.com/en-us/intune/intune-service/site-and-site-system-prerequisites
 https://learn.microsoft.com/en-us/intune/remote-help/plan
 https://learn.microsoft.com/en-us/intune/remote-help/start-session
+https://learn.microsoft.com/en-us/intune/solutions/tutorials/protect-email-unmanaged-devices
 https://learn.microsoft.com/en-us/intune/whats-new
 https://learn.microsoft.com/en-us/intune/whats-new/in-development

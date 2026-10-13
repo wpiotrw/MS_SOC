@@ -25,7 +25,7 @@ ms.service: microsoft-foundry
 description: Learn when to use Flex processing, send Flex requests, implement a Standard fallback, and monitor usage and costs for Azure OpenAI.
 ms.reviewer: seramasu
 reviewer: rsethur
-ms.date: 2026-10-06T00:00:00.0000000Z
+ms.date: 2026-10-12T00:00:00.0000000Z
 ms.subservice: foundry-openai
 ms.topic: how-to
 ms.custom: doc-kit-assisted
@@ -192,10 +192,13 @@ Flex processing has limited model availability at launch. `gpt-5.6-sol` is the f
 
 | Model | Version | Deployment type | Region availability |
 | --- | --- | --- | --- |
+| `gpt-6.1-sol` | `2026-09-29` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-6-sol` | `2026-09-22` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-6-luna` | `2026-09-22` | Global Standard | All Azure regions where Global Standard is available |
+| `gpt-6-astra` | `2026-09-03` | Global Standard | All Azure regions where Global Standard is available |
 | `gpt-5.6-sol` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
 | `gpt-5.6-luna` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
 | `gpt-5.6-terra` | `2026-07-09` | Global Standard | All Azure regions where Global Standard is available |
-| `gpt-6-astra` | `2026-09-03` | Global Standard | All Azure regions where Global Standard is available |
 
 Check this table before you send a Flex request. Don't assume that a model or a new model version supports Flex processing because it supports Standard or Priority processing. An unsupported model returns HTTP 400. To avoid disrupting your application, implement an application-level fallback to Standard processing when Standard pricing and performance are acceptable.
 

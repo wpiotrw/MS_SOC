@@ -13,6 +13,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudpolicyenfor
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudprocessevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-custom-functions
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table

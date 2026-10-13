@@ -222,6 +222,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/quickstarts/quickstart-op
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capabilities
 https://learn.microsoft.com/en-us/azure/foundry/concepts/capability-reference
 https://learn.microsoft.com/en-us/azure/foundry/concepts/customer-managed-keys
+https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/fine-tune-cli
 https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/model-migration
 https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-chat-reasoning
@@ -252,7 +253,9 @@ https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/evaluation-
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/evaluation-dataset-synthetic
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/evaluation-datasets
 https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/trace-ingestion-entra-authentication
+https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/traces-to-dataset
 https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/evaluate-model-router
+https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning
 https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/flex-processing
 https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/responses-multi-agent
 https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/content-safety/provenance-disclosure
@@ -297,6 +300,7 @@ https://learn.microsoft.com/en-us/azure/governance/resource-graph
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resource-graph-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/guidance-for-throttled-requests
+https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanced
 https://learn.microsoft.com/en-us/azure/governance/rhel-ado
 https://learn.microsoft.com/en-us/azure/governance/rocky-ado
 https://learn.microsoft.com/en-us/azure/governance/suse-ado
@@ -386,6 +390,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines
 https://learn.microsoft.com/en-us/azure/virtual-machines/TOC
 https://learn.microsoft.com/en-us/azure/virtual-machines/attach-disk-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/automatic-vm-guest-patching
+https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
 https://learn.microsoft.com/en-us/azure/virtual-machines/create-portal-availability-zone
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/general-purpose-skus
@@ -442,6 +447,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/sizes-v6-v7-modernization-plan
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/soft-delete-gallery
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
