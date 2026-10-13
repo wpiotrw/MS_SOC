@@ -2064,6 +2064,14 @@
 "date":"2026-10-09",
 "group":"community",
 "found":"2026-10-10"
+},
+"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-11-24h2-home-and-pro-reached-end-of-support/":{
+"title":"Microsoft: Windows 11 24H2 Home and Pro reached end of support",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-11-24h2-home-and-pro-reached-end-of-support/",
+"source":"BleepingComputer",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-13"
 }
 },
 "final":"2027-10-12",
@@ -3608,14 +3616,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-10",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-11",
 "text":"August 1, 2026."
 },
@@ -3705,6 +3705,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-13",
 "text":"August 1, 2026."
 },
 {
@@ -4209,7 +4217,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"early February 2026."
 },
 {
@@ -4217,7 +4225,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"February 2027."
 },
 {
@@ -6165,6 +6173,14 @@
 "date":"2026-10-12",
 "group":"community",
 "found":"2026-10-13"
+},
+"https://thehackernews.com/2026/10/low-cost-android-phones-ship-with.html":{
+"title":"Low-Cost Android Phones Ship With Preinstalled Malware That Turns Them Into Residential Proxies",
+"link":"https://thehackernews.com/2026/10/low-cost-android-phones-ship-with.html",
+"source":"Hacker News",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-13"
 }
 },
 "final":"2027-07-01",
@@ -6199,6 +6215,15 @@
 "item:569432"
 ],
 "log":[
+{
+"date":"2026-10-13",
+"id":"MC1437671",
+"what":"Microsoft revised the post",
+"before":"2026-10-09",
+"after":"2026-10-13",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
 {
 "date":"2026-10-09",
 "id":"MC1437671",
@@ -6559,7 +6584,7 @@
 "MC1437671|posted":{
 "date":"2026-07-23",
 "label":"23 Jul 2026",
-"text":"Posted: Microsoft Entra: Authenticated password change in My Sign-Ins"
+"text":"Posted: Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins"
 },
 "MC1440968|posted":{
 "date":"2026-07-27",
@@ -6708,7 +6733,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -6716,7 +6741,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-12",
+"seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8057,6 +8082,26 @@
 "title":"Passkey campaign guidance separates platform nudges, attestation paths, and silent SSO — 12 October 2026",
 "source":"Daily Entra News",
 "link":"https://daily.entra.news/day/2026-10-12/"
+},
+{
+"day":"2026-10-13",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"Microsoft: Windows 11 24H2 Home and Pro reached end of support",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-11-24h2-home-and-pro-reached-end-of-support/"
+},
+{
+"day":"2026-10-13",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Low-Cost Android Phones Ship With Preinstalled Malware That Turns Them Into Residential Proxies",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/low-cost-android-phones-ship-with.html"
 }
 ],
 "archive":{
