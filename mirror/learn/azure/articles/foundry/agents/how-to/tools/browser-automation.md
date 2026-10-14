@@ -168,7 +168,7 @@ Before you begin, make sure you have:
 For Python examples, install the required packages:
 
 ```bash
-pip install "azure-ai-projects>=2.0.0"
+pip install "azure-ai-projects>=2.8.0" python-dotenv
 ```
 
 The .NET SDK is currently in preview. For more information, see the [quickstart](../../../quickstarts/get-started-code).
@@ -288,7 +288,7 @@ azd ai toolbox create my-toolbox --from-file my-toolbox.yaml
 
 ## Browser Automation tool definitions
 
-After you run a sample, verify the tool was called by using tracing in Microsoft Foundry. For guidance on validating tool invocation, see [Best practices for using tools in Microsoft Foundry Agent Service](../../concepts/tool-best-practice). If you use streaming, you can also look for `browser_automation_preview_call` events.
+After you run a sample, verify the tool was called by using tracing in Microsoft Foundry. For guidance on validating tool invocation, see [Best practices for using tools in Microsoft Foundry Agent Service](../../concepts/tool-best-practice).
 
 Note
 
@@ -319,111 +319,108 @@ const tools = [
 
 ::: zone pivot="python"
 
-## Use BrowserAutomationTool with agents example
+## Use Browser Automation Tool with agents example
 
 The following Python example demonstrates how to create an AI agent with browser automation capabilities. Select **Prompt Agents** to use the Azure AI Projects SDK to create a server-side prompt agent, or **Hosted Agents** to use the Agent Framework [`FoundryChatClient`](../../quickstarts/responses-api) to build an ephemeral, in-process agent.
 
 ### Prompt agents
 
 ```python
+import os
 import json
+from dotenv import load_dotenv
+from util import create_version_with_endpoint
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
 from azure.ai.projects.models import (
     PromptAgentDefinition,
-  BrowserAutomationTool,
+    BrowserAutomationTool,
     BrowserAutomationToolParameters,
     BrowserAutomationToolConnectionParameters,
 )
 
-# Format: "https://resource_name.ai.azure.com/api/projects/project_name"
-PROJECT_ENDPOINT = "your_project_endpoint"
-BROWSER_CONNECTION_ID = "your-browser-automation-connection-id"
+load_dotenv()
 
-# Create clients to call Foundry API
-project = AIProjectClient(
-    endpoint=PROJECT_ENDPOINT,
-    credential=DefaultAzureCredential(),
-)
-openai = project.get_openai_client()
+endpoint = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
+agent_name = os.environ.get("FOUNDRY_AGENT_NAME") or "MyAgent"
 
 tool = BrowserAutomationTool(
     browser_automation=BrowserAutomationToolParameters(
         connection=BrowserAutomationToolConnectionParameters(
-            project_connection_id=BROWSER_CONNECTION_ID,
+            project_connection_id=os.environ["BROWSER_AUTOMATION_PROJECT_CONNECTION_ID"],
         )
     )
 )
 
-agent = project.agents.create_version(
-    agent_name="MyAgent",
-    definition=PromptAgentDefinition(
-        model="gpt-4.1-mini",
-        instructions="""You are an Agent helping with browser automation tasks. 
-        You can answer questions, provide information, and assist with various tasks 
+with (
+    DefaultAzureCredential() as credential,
+    AIProjectClient(endpoint=endpoint, credential=credential) as project_client,
+    create_version_with_endpoint(
+        project_client=project_client,
+        agent_name=agent_name,
+        definition=PromptAgentDefinition(
+            model=os.environ["FOUNDRY_MODEL_NAME"],
+            instructions="""You are an Agent helping with browser automation tasks.
+        You can answer questions, provide information, and assist with various tasks
         related to web browsing using the Browser Automation tool available to you.""",
-        tools=[tool],
+            tools=[tool],
+        ),
     ),
-)
-print(f"Agent created (id: {agent.id}, name: {agent.name}, version: {agent.version})")
+    project_client.get_openai_client(agent_name=agent_name) as openai_client,
+):
+    stream_response = openai_client.responses.create(
+        stream=True,
+        input="""
+        Use the Browser Automation tool to visit https://example.com.
+        Read the page and report its title and the visible description paragraph.
+        Base your answer on the browser results, not on prior knowledge.""",
+    )
 
-stream_response = openai.responses.create(
-    stream=True,
-    tool_choice="required",
-    input="""
-        Your goal is to report the percent of Microsoft year-to-date stock price change.
-        To do that, go to the website finance.yahoo.com.
-        At the top of the page, you will find a search bar.
-        Enter the value 'MSFT', to get information about the Microsoft stock price.
-        At the top of the resulting page you will see a default chart of Microsoft stock price.
-        Click on 'YTD' at the top of that chart, and report the percent value that shows up just below it.""",
-    extra_body={"agent_reference": {"name": agent.name, "type": "agent_reference"}},
-)
-
-for event in stream_response:
-    if event.type == "response.created":
-        print(f"Follow-up response created with ID: {event.response.id}")
-    elif event.type == "response.output_text.delta":
-        print(f"Delta: {event.delta}")
-    elif event.type == "response.output_text.done":
-        print(f"\nFollow-up response done!")
-    elif event.type == "response.output_item.done":
-        item = event.item
-        if item.type == "browser_automation_preview_call":
-            arguments_str = getattr(item, "arguments", "{}")
-
-            # Parse the arguments string into a dictionary
-            arguments = json.loads(arguments_str)
-            query = arguments.get("query")
-
-            print(f"Call ID: {getattr(item, 'call_id')}")
-            print(f"Query arguments: {query}")
-    elif event.type == "response.completed":
-        print(f"\nFollow-up completed!")
-        print(f"Full response: {event.response.output_text}")
-
-print("\nCleaning up...")
-project.agents.delete_version(agent_name=agent.name, agent_version=agent.version)
-print("Agent deleted")
+    for event in stream_response:
+        if event.type == "response.created":
+            print(f"Response created with ID: {event.response.id}")
+        elif event.type == "response.output_item.done":
+            item = event.item
+            # Each browser action (navigate, click, type, ...) is surfaced as a "remote_function_call" item.
+            if item.type == "remote_function_call":
+                arguments = json.loads(getattr(item, "arguments", None) or "{}")
+                arguments.pop("browserSessionId", None)
+                print(f"Browser action: {item.name} (call ID: {item.call_id}), arguments: {arguments}")
+        elif event.type == "response.output_text.done":
+            # Includes the live view URL message as well as the final answer.
+            print(f"\nAgent message: {event.text}")
+        elif event.type == "response.completed":
+            print("\nResponse completed!")
 ```
 
 ### What this code does
 
-This example creates an agent version with the Browser Automation tool enabled, then sends a prompt that requires the agent to use the tool. It also processes streaming events so you can observe progress and tool calls.
+This example creates an agent version with the Browser Automation tool enabled and sends a request that requires the agent to interact with a webpage. The example streams the response and reports browser actions as they occur.
+
+At the start of the run, the agent provides a Live View URL that you can use to observe the browser session. Treat this URL as sensitive and don't share it.
 
 ### Required inputs
 
-- A Foundry project endpoint and a browser automation connection ID. See Configuration for details.
+Set the following environment variables before running the sample:
+
+- `FOUNDRY_PROJECT_ENDPOINT`: Your Microsoft Foundry project endpoint.
+- `FOUNDRY_MODEL_NAME`: The deployment name of the AI model in your Foundry project.
+- `BROWSER_AUTOMATION_PROJECT_CONNECTION_ID`: The Browser Automation project connection ID.
+- `FOUNDRY_AGENT_NAME`: Optional. The name of the agent. If you don't specify a value, the sample uses `MyAgent`.
+
+See Configuration for details.
 
 ### Expected output
 
-When you create the agent, you see output similar to:
+When you run the sample, you see streaming updates as the agent completes the browser task. The output can include:
 
-```console
-Agent created (id: ..., name: ..., version: ...)
-```
+- The response ID.
+- A Live View URL for observing the browser session.
+- Browser actions performed by the agent.
+- The agent's final response.
+- A message indicating that the response completed.
 
-During streaming, you might also see deltas and tool-call details. Output varies based on the website content and model behavior.
+The exact output varies based on the website content and model behavior.
 
 ### Hosted agents
 

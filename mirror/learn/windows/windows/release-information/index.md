@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-13T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -35,9 +35,11 @@ source_path: windows/release-information/index.yml
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ec6774-09b8-473e-a17e-b17b518bbad7
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ade36b61-c646-4bd8-87ee-f3a843461962
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
 2PlusCloud:
 - Azure
 - M365
@@ -81,9 +83,9 @@ Overview
 
 ### Message center
 
-- [The October 2026 Windows security update is now available](https://support.microsoft.com/help/5127648)
-- [Hardening changes for ReFS volumes on removable media](https://support.microsoft.com/servicing/os/windows/docs/2026/10/hardening-changes-for-refs-volumes-on-removable-media)
-- [Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates](/en-us/windows/release-information/windows-message-center#5020)
+- [Windows Server 2022 has reached end of mainstream support](/en-us/lifecycle/products/windows-server-2022)
+- [90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027](/en-us/lifecycle/products/windows-server-2016)
+- [90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027](/en-us/lifecycle/products/windows-10-enterprise-ltsc-2021)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2
