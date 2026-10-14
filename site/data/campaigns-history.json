@@ -1,6 +1,886 @@
 {
 "updated":"2026-10-14",
 "campaigns":{
+"c-mc1506733":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-14",
+"name":"Review who can create agents in Microsoft Entra",
+"status":"Active",
+"members":[
+"MC1506733",
+"item:MC1506733"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506733",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"From 4 November every default user can create agent blueprints unless 'Users can create agent blueprints' is set to No",
+"title":"From 4 November every default user can create agent blueprints unless 'Users can create agent blueprints' is set to No",
+"link":"https://mc.merill.net/message/MC1506733"
+}
+],
+"milestones":{
+"MC1506733|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Action may be required: Review who can create agents in Microsoft Entra"
+},
+"MC1506733|starting default users in microsoft entra can create agent b#0":{
+"date":"2026-11-04",
+"label":"4 Nov 2026",
+"text":"Starting November 4, 2026, default users in Microsoft Entra can create agent blueprints unless administrators disable this via the \"Users can create agent bluep"
+},
+"MC1506733|beginning in early and expected to complete by late#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+},
+"MC1506733|beginning in early and expected to complete by late#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733":{
+"title":"Action may be required: Review who can create agents in Microsoft Entra",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733",
+"source":"Message Center",
+"id":"MC1506733",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506733":{
+"title":"Action may be required: Review who can create agents in Microsoft Entra",
+"link":"https://mc.merill.net/message/MC1506733",
+"source":"Message Center",
+"id":"MC1506733",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2026-11-25",
+"type":"Enforcement",
+"tech":"Entra",
+"posts":[
+"MC1506733"
+]
+},
+"c-mc1506728":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-14",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"status":"Active",
+"members":[
+"item:graph-agentidentity-rw-patch-any-sp",
+"item:graph-ep-agentidentity-readwrite-all-2026-09-25",
+"MC1506728",
+"item:MC1506728"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506728",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Entra stops auto-granting AgentIdentity.CreateAsManager to agent blueprints from 4 November; app-only agents that create their own identities need explicit admin consent or get 403",
+"title":"Entra stops auto-granting AgentIdentity.CreateAsManager to agent blueprints from 4 November; app-only agents that create their own identities need explicit admin consent or get 403",
+"link":"https://mc.merill.net/message/MC1506728"
+}
+],
+"milestones":{
+"MC1506728|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities"
+},
+"MC1506728|deadline":{
+"date":"2026-11-04",
+"label":"4 Nov 2026",
+"text":"Microsoft names 4 November as the start; rollout runs early to late November 2026"
+},
+"MC1506728|beginning in early and expected to complete by late#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+},
+"MC1506728|this change rolling out worldwide in enhances control and au#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"This change, rolling out worldwide in November 2026, enhances control and auditability of agent identity creation."
+},
+"MC1506728|beginning in early and expected to complete by late#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Beginning in early November 2026 and expected to complete by late November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728":{
+"title":"Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728",
+"source":"Message Center",
+"id":"MC1506728",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://learn.microsoft.com/en-us/graph/permissions-reference":{
+"title":"Read and write all agent identities",
+"link":"https://learn.microsoft.com/en-us/graph/permissions-reference",
+"source":"Main list source",
+"id":"graph-agentidentity-rw-patch-any-sp",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json":{
+"title":"AgentIdentity.ReadWrite.All",
+"link":"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json",
+"source":"Main list source",
+"id":"graph-ep-agentidentity-readwrite-all-2026-09-25",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506728":{
+"title":"Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"link":"https://mc.merill.net/message/MC1506728",
+"source":"Message Center",
+"id":"MC1506728",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2026-11-25",
+"type":"Retirement",
+"tech":"Graph",
+"posts":[
+"MC1506728"
+]
+},
+"c-item-win11-26h2-security-baseline-v2-2026-10-08":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-14",
+"name":"Manage Administrator protection within Windows 11 security baseline",
+"status":"Active",
+"members":[
+"item:win11-26h2-security-baseline-v2-2026-10-08",
+"MC1506291",
+"item:MC1506291"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506291",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Windows 11 security baselines turn Administrator protection on by default from the October update",
+"title":"Windows 11 security baselines turn Administrator protection on by default from the October update",
+"link":"https://mc.merill.net/message/MC1506291"
+},
+{
+"date":"2026-10-09",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
+"title":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382"
+}
+],
+"milestones":{
+"MC1506291|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Manage Administrator protection within Windows 11 security baseline"
+},
+"MC1506291|if your organization uses windows security baselines adminis#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update."
+}
+},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
+"title":"Windows 11, version 26H2 security baseline",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
+"source":"Main list source",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291":{
+"title":"Manage Administrator protection within Windows 11 security baseline",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291",
+"source":"Message Center",
+"id":"MC1506291",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506291":{
+"title":"Manage Administrator protection within Windows 11 security baseline",
+"link":"https://mc.merill.net/message/MC1506291",
+"source":"Message Center",
+"id":"MC1506291",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2026-10-15",
+"type":"Baseline",
+"tech":"Windows",
+"posts":[
+"MC1506291"
+]
+},
+"c-mc1506290":{
+"firstSeen":"2026-10-13",
+"lastSeen":"2026-10-14",
+"name":"Hardening changes for ReFS volumes on removable media",
+"status":"Active",
+"members":[
+"MC1506290",
+"item:MC1506290"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506290",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"ReFS on removable media: audit from the October update, blocking by default from the January 2027 update",
+"title":"ReFS on removable media: audit from the October update, blocking by default from the January 2027 update",
+"link":"https://mc.merill.net/message/MC1506290"
+}
+],
+"milestones":{
+"MC1506290|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: Hardening changes for ReFS volumes on removable media"
+},
+"MC1506290|update install the applicable windows security update releas#0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Install the applicable Windows security update released on or after October 13, 2026 on supported devices."
+},
+"MC1506290|windows security update audit phase#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"October 2026 Windows security update (Audit phase)."
+},
+"MC1506290|if you configure no override blocking becomes the default wi#0":{
+"date":"2027-01-15",
+"label":"Jan 2027",
+"text":"If you configure no override, blocking becomes the default with the January 2027 security update."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290":{
+"title":"Hardening changes for ReFS volumes on removable media",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290",
+"source":"Message Center",
+"id":"MC1506290",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506290":{
+"title":"Hardening changes for ReFS volumes on removable media",
+"link":"https://mc.merill.net/message/MC1506290",
+"source":"Message Center",
+"id":"MC1506290",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/ADV260001":{
+"title":"ADV260001 ADV260001 Hardening changes for ReFS volumes on removable media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/ADV260001",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2027-01-15",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1506290"
+]
+},
+"c-mc1442510":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-14",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"status":"Active",
+"members":[
+"MC1442510",
+"MC1456735",
+"item:MC1456735",
+"MC1471963",
+"item:MC1471963",
+"MC1506287",
+"item:MC1506287"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506287",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
+"title":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
+"link":"https://mc.merill.net/message/MC1506287"
+},
+{
+"date":"2026-09-28",
+"id":"MC1442510",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"90-Day Reminder: AD FS DKM container ACL hardening begins in October 2026",
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510"
+}
+],
+"milestones":{
+"MC1471963|install the windows security update or a later windows updat#0":{
+"date":"2026-07-14",
+"label":"14 Jul 2026",
+"text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
+},
+"MC1442510|posted":{
+"date":"2026-07-29",
+"label":"29 Jul 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1456735|posted":{
+"date":"2026-08-17",
+"label":"17 Aug 2026",
+"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
+},
+"MC1471963|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1456735|inferred microsoft s day reminder mc says enforcement begins#0":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update"
+},
+"MC1506287|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
+},
+"MC1456735|deadline":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update; the second Tuesday of Octo"
+},
+"MC1442510|what and why windows updates released in will begin enforcem#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"What and why Windows updates released in October 2026 will begin Enforcement mode for AD FS Distributed Key Manager (DKM) container ACL hardening."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510",
+"source":"Message Center",
+"id":"MC1442510",
+"date":"2026-07-29",
+"updated":"2026-07-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735",
+"source":"Message Center",
+"id":"MC1456735",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735 · MC1471963":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735 · MC1471963",
+"source":"Message Center",
+"id":"MC1456735 · MC1471963",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://mc.merill.net/message/MC1471963",
+"source":"Message Center",
+"id":"MC1471963",
+"date":"2026-09-14",
+"updated":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://deltapulse.app/item/MC1471963",
+"source":"Main list source",
+"id":"MC1471963",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/":{
+"title":"Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+"link":"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+"source":"Microsoft Security Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439":{
+"title":"Supporting CVSS V4 score for CVE for Enhanced Vulnerability Assessment",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439",
+"source":"Defender Vulnerability Management Blog",
+"date":"2025-03-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896":{
+"title":"Guidance for CVE-2024-0012, CVE-2024-9474 affecting PAN-OS using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-11-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940":{
+"title":"Guidance for handling “regreSSHion” (CVE-2024-6387) using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-07-25",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Strengthened TLS certificate validation to address CVE-2026-47632.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
+"title":"CVE exceptions",
+"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
+"source":"Microsoft Learn · What's new · Defender Vulnerability Management",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744":{
+"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875":{
+"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878":{
+"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281":{
+"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337":{
+"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451":{
+"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582":{
+"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693":{
+"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732":{
+"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979":{
+"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982":{
+"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880":{
+"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277":{
+"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301":{
+"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322":{
+"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324":{
+"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340":{
+"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385":{
+"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433":{
+"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571":{
+"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727":{
+"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441":{
+"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433":{
+"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432":{
+"title":"Chromium: CVE-2025-12432 Race in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429":{
+"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428":{
+"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287":{
+"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287",
+"source":"Message Center",
+"id":"MC1506287",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506287":{
+"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+"link":"https://mc.merill.net/message/MC1506287",
+"source":"Message Center",
+"id":"MC1506287",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572":{
+"title":"CVE-2026-103572 Visual Studio Tools for Applications and SQL Server Management Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725":{
+"title":"CVE-2026-105725 Windows Security App Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727":{
+"title":"CVE-2026-105727 Microsoft Dynamics 365 Business Central Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728":{
+"title":"CVE-2026-105728 Dynamics Business Central Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400":{
+"title":"CVE-2026-108400 HEVC Video Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457":{
+"title":"CVE-2026-108457 Microsoft Windows PDF Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468":{
+"title":"CVE-2026-108468 Windows Installer Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227":{
+"title":"CVE-2026-102227 Windows Resilient File System (ReFS) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229":{
+"title":"CVE-2026-102229 Visual Studio Code Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231":{
+"title":"CVE-2026-102231 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232":{
+"title":"CVE-2026-102232 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233":{
+"title":"CVE-2026-102233 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234":{
+"title":"CVE-2026-102234 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235":{
+"title":"CVE-2026-102235 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238":{
+"title":"CVE-2026-102238 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098":{
+"title":"CVE-2026-70098 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956":{
+"title":"CVE-2026-96956 SQL Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2026-10-15",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1442510",
+"MC1456735",
+"MC1471963",
+"MC1506287"
+]
+},
 "c-mc1505599":{
 "firstSeen":"2026-10-13",
 "lastSeen":"2026-10-14",
@@ -227,72 +1107,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1492954"
-]
-},
-"c-mc1492163":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-14",
-"name":"Zendesk OAuth tokens will require expiration and automatic refresh",
-"status":"Active",
-"members":[
-"MC1492163",
-"item:MC1492163"
-],
-"log":[
-{
-"date":"2026-10-09",
-"id":"MC1492163",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Zendesk connections in Microsoft API Hub move to expiring tokens: 48-hour access tokens, 90-day refresh tokens, and existing connections must be reauthorised",
-"title":"Zendesk connections in Microsoft API Hub move to expiring tokens: 48-hour access tokens, 90-day refresh tokens, and existing connections must be reauthorised",
-"link":"https://deltapulse.app/item/MC1492163"
-}
-],
-"milestones":{
-"MC1492163|beginning in early and expected to complete by late#0":{
-"date":"2026-10-05",
-"label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027."
-},
-"MC1492163|posted":{
-"date":"2026-10-08",
-"label":"8 Oct 2026",
-"text":"Posted: Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh"
-},
-"MC1492163|beginning in early and expected to complete by late#1":{
-"date":"2027-01-25",
-"label":"late Jan 2027",
-"text":"Beginning in early October 2026 and expected to complete by late January 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1492163":{
-"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
-"link":"https://mc.merill.net/message/MC1492163",
-"source":"Message Center",
-"id":"MC1492163",
-"date":"2026-10-08",
-"updated":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1492163":{
-"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
-"link":"https://deltapulse.app/item/MC1492163",
-"source":"Main list source",
-"id":"MC1492163",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2027-01-25",
-"type":"Enforcement",
-"tech":"Microsoft 365",
-"posts":[
-"MC1492163"
 ]
 },
 "c-mc1490911":{
@@ -772,11 +1586,9 @@
 "MC1191578",
 "MC1227454",
 "MC1446796",
-"item:MC1446796",
 "MC1447678",
 "MC1469960",
 "item:MC1469960",
-"item:exchange-crosstenant-freebusy-to-cta",
 "item:exchange-ews-hybrid-coexistence-2026-09-30",
 "MC1485116",
 "item:MC1485116",
@@ -811,8 +1623,8 @@
 "what":"Microsoft revised the post",
 "before":"2026-09-29",
 "after":"2026-10-05",
-"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-10-05",
@@ -820,8 +1632,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"Gov rollout of this feature is paused at this time.",
-"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-10-03",
@@ -883,8 +1695,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-09-29",
@@ -1720,72 +2532,6 @@
 "MC1478463"
 ]
 },
-"c-mc1477996":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-14",
-"name":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
-"status":"Active",
-"members":[
-"MC1477996",
-"item:MC1477996"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"MC1477996",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
-"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
-"link":"https://deltapulse.app/item/MC1477996"
-}
-],
-"milestones":{
-"MC1477996|posted":{
-"date":"2026-09-23",
-"label":"23 Sep 2026",
-"text":"Posted: Retirement of Viva Insights (personal insights) and Viva Learning usage reports"
-},
-"MC1477996|we will begin rolling out on early and expect to complete by#0":{
-"date":"2026-10-05",
-"label":"early Oct 2026",
-"text":"We will begin rolling out on early October 2026 and expect to complete by mid-Novemb…"
-},
-"MC1477996|we will begin rolling out on early and expect to complete by#1":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"We will begin rolling out on early October 2026 and expect to complete by mid-November 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1477996":{
-"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
-"link":"https://mc.merill.net/message/MC1477996",
-"source":"Message Center",
-"id":"MC1477996",
-"date":"2026-09-23",
-"updated":"2026-09-23",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1477996":{
-"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
-"link":"https://deltapulse.app/item/MC1477996",
-"source":"Main list source",
-"id":"MC1477996",
-"date":"2026-09-23",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-11-15",
-"type":"Retirement",
-"tech":"Microsoft 365",
-"posts":[
-"MC1477996"
-]
-},
 "c-mc1392568":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-14",
@@ -2072,6 +2818,14 @@
 "date":"2026-10-13",
 "group":"community",
 "found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506289":{
+"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+"link":"https://mc.merill.net/message/MC1506289",
+"source":"MC - Merill",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-14"
 }
 },
 "final":"2027-10-12",
@@ -2080,400 +2834,6 @@
 "posts":[
 "MC1471964",
 "MC1169587"
-]
-},
-"c-mc1442510":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-14",
-"name":"AD FS DKM container ACL hardening begins in October 2026",
-"status":"Active",
-"members":[
-"MC1442510",
-"MC1456735",
-"item:MC1456735",
-"MC1471963",
-"item:MC1471963",
-"MC1506287"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"MC1442510",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"90-Day Reminder: AD FS DKM container ACL hardening begins in October 2026",
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510"
-}
-],
-"milestones":{
-"MC1506287|install the windows security update or a later windows updat#0":{
-"date":"2026-07-14",
-"label":"14 Jul 2026",
-"text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
-},
-"MC1442510|posted":{
-"date":"2026-07-29",
-"label":"29 Jul 2026",
-"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
-},
-"MC1456735|posted":{
-"date":"2026-08-17",
-"label":"17 Aug 2026",
-"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
-},
-"MC1471963|posted":{
-"date":"2026-09-14",
-"label":"14 Sep 2026",
-"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
-},
-"MC1456735|inferred microsoft s day reminder mc says enforcement begins#0":{
-"date":"2026-09-14",
-"label":"14 Sep 2026",
-"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update"
-},
-"MC1506287|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
-},
-"MC1456735|deadline":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"(inferred) Microsoft's 30-day reminder MC1471963 (14 Sep 2026) says enforcement begins with the October 2026 Windows security update; the second Tuesday of Octo"
-},
-"MC1442510|what and why windows updates released in will begin enforcem#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"What and why Windows updates released in October 2026 will begin Enforcement mode for AD FS Distributed Key Manager (DKM) container ACL hardening."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510",
-"source":"Message Center",
-"id":"MC1442510",
-"date":"2026-07-29",
-"updated":"2026-07-29",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1456735":{
-"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
-"link":"https://mc.merill.net/message/MC1456735",
-"source":"Message Center",
-"id":"MC1456735",
-"date":"2026-08-17",
-"updated":"2026-08-17",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1456735 · MC1471963":{
-"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
-"link":"https://mc.merill.net/message/MC1456735 · MC1471963",
-"source":"Message Center",
-"id":"MC1456735 · MC1471963",
-"date":"2026-08-17",
-"updated":"2026-08-17",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1471963":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://mc.merill.net/message/MC1471963",
-"source":"Message Center",
-"id":"MC1471963",
-"date":"2026-09-14",
-"updated":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1471963":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://deltapulse.app/item/MC1471963",
-"source":"Main list source",
-"id":"MC1471963",
-"date":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/":{
-"title":"Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
-"link":"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
-"source":"Microsoft Security Blog",
-"date":"2026-09-30",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439":{
-"title":"Supporting CVSS V4 score for CVE for Enhanced Vulnerability Assessment",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439",
-"source":"Defender Vulnerability Management Blog",
-"date":"2025-03-20",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896":{
-"title":"Guidance for CVE-2024-0012, CVE-2024-9474 affecting PAN-OS using Microsoft Security capabilities",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896",
-"source":"Defender Vulnerability Management Blog",
-"date":"2024-11-26",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940":{
-"title":"Guidance for handling “regreSSHion” (CVE-2024-6387) using Microsoft Security capabilities",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940",
-"source":"Defender Vulnerability Management Blog",
-"date":"2024-07-25",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
-"title":"Strengthened TLS certificate validation to address CVE-2026-47632.",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
-"source":"Microsoft Learn · What's new · Azure Arc",
-"date":"2026-03-24",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
-"title":"CVE exceptions",
-"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
-"source":"Microsoft Learn · What's new · Defender Vulnerability Management",
-"date":"2026-09-16",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744":{
-"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875":{
-"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878":{
-"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281":{
-"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337":{
-"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451":{
-"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582":{
-"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693":{
-"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732":{
-"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979":{
-"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982":{
-"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880":{
-"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277":{
-"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301":{
-"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322":{
-"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324":{
-"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340":{
-"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385":{
-"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433":{
-"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571":{
-"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727":{
-"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441":{
-"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433":{
-"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432":{
-"title":"Chromium: CVE-2025-12432 Race in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429":{
-"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428":{
-"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287":{
-"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287",
-"source":"Message Center",
-"id":"MC1506287",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":"2026-10-15",
-"type":"Enforcement",
-"tech":"Windows",
-"posts":[
-"MC1442510",
-"MC1456735",
-"MC1471963",
-"MC1506287"
 ]
 },
 "c-mc1470881":{
@@ -3405,6 +3765,14 @@
 "date":"2026-10-09",
 "group":"community",
 "found":"2026-10-10"
+},
+"https://mc.merill.net/message/MC1381121":{
+"title":"MC1381121: Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
+"link":"https://mc.merill.net/message/MC1381121",
+"source":"MC - Merill",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-14"
 }
 },
 "final":"2027-01-15",
@@ -3649,14 +4017,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-11",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-12",
 "text":"August 1, 2026."
 },
@@ -3754,6 +4114,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-13",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-14",
 "text":"August 1, 2026."
 },
 {
@@ -3866,6 +4234,14 @@
 "date":"2026-01-01",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1506289":{
+"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+"link":"https://mc.merill.net/message/MC1506289",
+"source":"MC - Merill",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-14"
 }
 },
 "final":"2027-01-12",
@@ -4170,22 +4546,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-12",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-12",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-13",
 "text":"early February 2026."
 },
@@ -4291,6 +4651,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-13",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-14",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-14",
 "text":"February 2027."
 },
 {
@@ -4603,230 +4979,6 @@
 "tech":"Entra",
 "posts":[
 "MC1223829"
-]
-},
-"c-mc1506290":{
-"firstSeen":"2026-10-13",
-"lastSeen":"2026-10-14",
-"name":"Hardening changes for ReFS volumes on removable media",
-"status":"Active",
-"members":[
-"MC1506290"
-],
-"log":[],
-"milestones":{
-"MC1506290|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: Hardening changes for ReFS volumes on removable media"
-},
-"MC1506290|update install the applicable windows security update releas#0":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Install the applicable Windows security update released on or after October 13, 2026 on supported devices."
-},
-"MC1506290|windows security update audit phase#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"October 2026 Windows security update (Audit phase)."
-},
-"MC1506290|if you configure no override blocking becomes the default wi#0":{
-"date":"2027-01-15",
-"label":"Jan 2027",
-"text":"If you configure no override, blocking becomes the default with the January 2027 security update."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290":{
-"title":"Hardening changes for ReFS volumes on removable media",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506290",
-"source":"Message Center",
-"id":"MC1506290",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":"2027-01-15",
-"type":"Enforcement",
-"tech":"Windows",
-"posts":[
-"MC1506290"
-]
-},
-"c-item-win11-26h2-security-baseline-v2-2026-10-08":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-14",
-"name":"Manage Administrator protection within Windows 11 security baseline",
-"status":"Active",
-"members":[
-"item:win11-26h2-security-baseline-v2-2026-10-08",
-"MC1506291"
-],
-"log":[
-{
-"date":"2026-10-09",
-"id":"win11-26h2-security-baseline-v2-2026-10-08",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
-"title":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382"
-}
-],
-"milestones":{
-"MC1506291|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: Manage Administrator protection within Windows 11 security baseline"
-},
-"MC1506291|if your organization uses windows security baselines adminis#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"If your organization uses Windows security baselines, Administrator protection becomes enabled by default with the October 2026 Windows security update."
-}
-},
-"moves":[],
-"materials":{
-"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
-"title":"Windows 11, version 26H2 security baseline",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
-"source":"Main list source",
-"id":"win11-26h2-security-baseline-v2-2026-10-08",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291":{
-"title":"Manage Administrator protection within Windows 11 security baseline",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506291",
-"source":"Message Center",
-"id":"MC1506291",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":"2026-10-15",
-"type":"Baseline",
-"tech":"Windows",
-"posts":[
-"MC1506291"
-]
-},
-"c-mc1506728":{
-"firstSeen":"2026-10-13",
-"lastSeen":"2026-10-14",
-"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
-"status":"Active",
-"members":[
-"item:graph-agentidentity-rw-patch-any-sp",
-"item:graph-ep-agentidentity-readwrite-all-2026-09-25",
-"MC1506728"
-],
-"log":[],
-"milestones":{
-"MC1506728|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities"
-},
-"MC1506728|beginning in early and expected to complete by late#0":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Beginning in early November 2026 and expected to complete by late November 2026."
-},
-"MC1506728|beginning in early and expected to complete by late#1":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Beginning in early November 2026 and expected to complete by late November 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728":{
-"title":"Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506728",
-"source":"Message Center",
-"id":"MC1506728",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://learn.microsoft.com/en-us/graph/permissions-reference":{
-"title":"Read and write all agent identities",
-"link":"https://learn.microsoft.com/en-us/graph/permissions-reference",
-"source":"Main list source",
-"id":"graph-agentidentity-rw-patch-any-sp",
-"date":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json":{
-"title":"AgentIdentity.ReadWrite.All",
-"link":"https://github.com/microsoftgraph/microsoft-graph-devx-content/blob/main/permissions/new/permissions.json",
-"source":"Main list source",
-"id":"graph-ep-agentidentity-readwrite-all-2026-09-25",
-"date":"2026-09-25",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":"2026-11-25",
-"type":"Retirement",
-"tech":"Graph",
-"posts":[
-"MC1506728"
-]
-},
-"c-mc1506733":{
-"firstSeen":"2026-10-13",
-"lastSeen":"2026-10-14",
-"name":"Review who can create agents in Microsoft Entra",
-"status":"Active",
-"members":[
-"MC1506733"
-],
-"log":[],
-"milestones":{
-"MC1506733|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: Action may be required: Review who can create agents in Microsoft Entra"
-},
-"MC1506733|beginning in early and expected to complete by late#0":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Beginning in early November 2026 and expected to complete by late November 2026."
-},
-"MC1506733|beginning in early and expected to complete by late#1":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Beginning in early November 2026 and expected to complete by late November 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733":{
-"title":"Action may be required: Review who can create agents in Microsoft Entra",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506733",
-"source":"Message Center",
-"id":"MC1506733",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":"2026-11-25",
-"type":"Enforcement",
-"tech":"Entra",
-"posts":[
-"MC1506733"
 ]
 },
 "c-item-mc1476122":{
@@ -5648,72 +5800,6 @@
 "MC1387814"
 ]
 },
-"c-item-mc1481325":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-14",
-"name":"Retirement of SharePoint Page Agent (Frontier)",
-"status":"Active",
-"members":[
-"MC1481325",
-"item:MC1481325"
-],
-"log":[
-{
-"date":"2026-09-29",
-"id":"MC1481325",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
-"title":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
-"link":"https://deltapulse.app/item/MC1481325"
-}
-],
-"milestones":{
-"MC1481325|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)"
-},
-"MC1481325|microsoft will retire the sharepoint page agent frontier for#0":{
-"date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
-},
-"MC1481325|microsoft will retire the sharepoint page agent frontier for#1":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1481325":{
-"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
-"link":"https://deltapulse.app/item/MC1481325",
-"source":"Main list source",
-"id":"MC1481325",
-"date":"2026-09-29",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1481325":{
-"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
-"link":"https://mc.merill.net/message/MC1481325",
-"source":"Message Center",
-"id":"MC1481325",
-"date":"2026-09-29",
-"updated":"2026-09-29",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-11-15",
-"type":"Retirement",
-"tech":"SharePoint",
-"posts":[
-"MC1481325"
-]
-},
 "c-item-mdi-auto-sensor-v3-windows-auditing-default":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-14",
@@ -6051,6 +6137,123 @@
 "tech":"Azure",
 "posts":[]
 },
+"c-item-mc1506318":{
+"firstSeen":"2026-10-14",
+"lastSeen":"2026-10-14",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"status":"Active",
+"members":[
+"MC1483844",
+"item:MC1506318"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506318",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-01",
+"id":"MC1483844",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-10-01",
+"id":"MC1483844",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+}
+],
+"milestones":{
+"MC1483844|posted":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Posted: Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today"
+},
+"MC1483844|cowork and copilot studio rollout begins today#0":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Rollout begins today, September 30, 2026."
+},
+"MC1506318|deadline":{
+"date":"2026-11-12",
+"label":"12 Nov 2026",
+"text":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1483844":{
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844",
+"source":"Message Center",
+"id":"MC1483844",
+"date":"2026-09-30",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1506318":{
+"title":"Copilot Studio - Information regarding the end of support for selected AI models",
+"link":"https://mc.merill.net/message/MC1506318",
+"source":"Main list source",
+"id":"MC1506318",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801":{
+"title":"Available today: OpenAI's GPT-6.1 Sol and Claude Sonnet 5.5 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808":{
+"title":"Available today: OpenAI GPT-6 Astra in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-04",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974":{
+"title":"Available today: Anthropic Claude Fable 5.1 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-02",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408":{
+"title":"Claude Haiku 5.5 is now available in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":"2026-11-12",
+"type":"Support end",
+"tech":"Copilot",
+"posts":[
+"MC1483844",
+"MC1506318"
+]
+},
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-14",
@@ -6385,6 +6588,14 @@
 "date":"2026-10-13",
 "group":"community",
 "found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1450134":{
+"title":"MC1450134: Microsoft Entra: Windows Hello for Business and macOS Platform SSO as standalone MFA factors",
+"link":"https://mc.merill.net/message/MC1450134",
+"source":"MC - Merill",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-14"
 }
 },
 "final":"2027-07-01",
@@ -6882,22 +7093,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-12",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-12",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -7003,6 +7198,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-13",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-14",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-14",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8404,6 +8615,263 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1506733",
+"type":"milestone",
+"name":"Review who can create agents in Microsoft Entra",
+"src":"MC1506733",
+"now":"4 Nov 2026",
+"text":"Starting November 4, 2026, default users in Microsoft Entra can create agent blueprints unless administrators disable this via the \"Users can create agent blueprints\" setting."
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1506728",
+"type":"milestone",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"src":"MC1506728",
+"now":"4 Nov 2026",
+"text":"Microsoft names 4 November as the start; rollout runs early to late November 2026"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1506728",
+"type":"milestone",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"src":"MC1506728",
+"now":"Nov 2026",
+"text":"This change, rolling out worldwide in November 2026, enhances control and auditability of agent identity creation."
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1506290",
+"type":"material",
+"name":"Hardening changes for ReFS volumes on removable media",
+"group":"microsoft",
+"title":"ADV260001 ADV260001 Hardening changes for ReFS volumes on removable media",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/ADV260001"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-103572 Visual Studio Tools for Applications and SQL Server Management Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105725 Windows Security App Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105727 Microsoft Dynamics 365 Business Central Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105728 Dynamics Business Central Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108400 HEVC Video Extensions Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108457 Microsoft Windows PDF Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108468 Windows Installer Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102227 Windows Resilient File System (ReFS) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102229 Visual Studio Code Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102231 Visual Studio Code Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102232 Visual Studio Code Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102233 Visual Studio Code Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102234 Visual Studio Code Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102235 Visual Studio Code Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102238 Visual Studio Code Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70098 Visual Studio Code Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96956 SQL Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956"
+},
+{
+"day":"2026-10-14",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1506289"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"MC1381121: Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1381121"
+},
+{
+"day":"2026-10-14",
+"cid":"c-mc1235720",
+"type":"material",
+"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"group":"community",
+"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1506289"
+},
+{
+"day":"2026-10-14",
+"cid":"c-item-mc1506318",
+"type":"new",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"ctype":"Support end",
+"tech":"Copilot",
+"next":"12 Nov 2026",
+"text":"To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot."
+},
+{
+"day":"2026-10-14",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1450134: Microsoft Entra: Windows Hello for Business and macOS Platform SSO as standalone MFA factors",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1450134"
 }
 ],
 "archive":{
@@ -8816,6 +9284,204 @@
 "MC1427604"
 ],
 "archivedOn":"2026-10-13"
+},
+"c-mc1492163":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-14",
+"name":"Zendesk OAuth tokens will require expiration and automatic refresh",
+"status":"Archive",
+"members":[
+"MC1492163",
+"item:MC1492163"
+],
+"log":[
+{
+"date":"2026-10-09",
+"id":"MC1492163",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Zendesk connections in Microsoft API Hub move to expiring tokens: 48-hour access tokens, 90-day refresh tokens, and existing connections must be reauthorised",
+"title":"Zendesk connections in Microsoft API Hub move to expiring tokens: 48-hour access tokens, 90-day refresh tokens, and existing connections must be reauthorised",
+"link":"https://deltapulse.app/item/MC1492163"
+}
+],
+"milestones":{
+"MC1492163|beginning in early and expected to complete by late#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"Beginning in early October 2026 and expected to complete by late January 2027."
+},
+"MC1492163|posted":{
+"date":"2026-10-08",
+"label":"8 Oct 2026",
+"text":"Posted: Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh"
+},
+"MC1492163|beginning in early and expected to complete by late#1":{
+"date":"2027-01-25",
+"label":"late Jan 2027",
+"text":"Beginning in early October 2026 and expected to complete by late January 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1492163":{
+"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+"link":"https://mc.merill.net/message/MC1492163",
+"source":"Message Center",
+"id":"MC1492163",
+"date":"2026-10-08",
+"updated":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1492163":{
+"title":"Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
+"link":"https://deltapulse.app/item/MC1492163",
+"source":"Main list source",
+"id":"MC1492163",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2027-01-25",
+"type":"Enforcement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1492163"
+]
+},
+"c-mc1477996":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-14",
+"name":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"status":"Archive",
+"members":[
+"MC1477996",
+"item:MC1477996"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"MC1477996",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"link":"https://deltapulse.app/item/MC1477996"
+}
+],
+"milestones":{
+"MC1477996|posted":{
+"date":"2026-09-23",
+"label":"23 Sep 2026",
+"text":"Posted: Retirement of Viva Insights (personal insights) and Viva Learning usage reports"
+},
+"MC1477996|we will begin rolling out on early and expect to complete by#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"We will begin rolling out on early October 2026 and expect to complete by mid-Novemb…"
+},
+"MC1477996|we will begin rolling out on early and expect to complete by#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"We will begin rolling out on early October 2026 and expect to complete by mid-November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1477996":{
+"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"link":"https://mc.merill.net/message/MC1477996",
+"source":"Message Center",
+"id":"MC1477996",
+"date":"2026-09-23",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1477996":{
+"title":"Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+"link":"https://deltapulse.app/item/MC1477996",
+"source":"Main list source",
+"id":"MC1477996",
+"date":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-11-15",
+"type":"Retirement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1477996"
+]
+},
+"c-item-mc1481325":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-14",
+"name":"Retirement of SharePoint Page Agent (Frontier)",
+"status":"Archive",
+"members":[
+"MC1481325",
+"item:MC1481325"
+],
+"log":[
+{
+"date":"2026-09-29",
+"id":"MC1481325",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
+"title":"SharePoint Page Agent (Frontier) retires from mid-October to mid-November 2026; existing pages stay",
+"link":"https://deltapulse.app/item/MC1481325"
+}
+],
+"milestones":{
+"MC1481325|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)"
+},
+"MC1481325|microsoft will retire the sharepoint page agent frontier for#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
+},
+"MC1481325|microsoft will retire the sharepoint page agent frontier for#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Microsoft will retire the SharePoint Page Agent (Frontier) for SharePoint Online starting mid-October 2026, completing by mid-November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1481325":{
+"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+"link":"https://deltapulse.app/item/MC1481325",
+"source":"Main list source",
+"id":"MC1481325",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1481325":{
+"title":"Microsoft SharePoint: Retirement of SharePoint Page Agent (Frontier)",
+"link":"https://mc.merill.net/message/MC1481325",
+"source":"Message Center",
+"id":"MC1481325",
+"date":"2026-09-29",
+"updated":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-11-15",
+"type":"Retirement",
+"tech":"SharePoint",
+"posts":[
+"MC1481325"
+]
 }
 }
 }
