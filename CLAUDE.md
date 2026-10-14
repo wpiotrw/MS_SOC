@@ -28209,6 +28209,33 @@ wprost i sekcje Microsoft Learn, Blogs i korelacji konczyly sie bledem (507 z 1 
 brief") wchodzila na sasiedni kafelek — zawija sie; menu „All products" mialo prawie niewidoczny tekst (natywny
 wyglad) — ma wlasny wyglad w kolorach strony.
 
+**§5ds (14 X 2026, wlasciciel z iPhone'a: „ciagle problemy na przegladarkach mobilnych — strona laduje sie bardzo
+wolno albo nic nie da sie kliknac, przeladowanie nic nie daje, puste czarne pola; to juz kolejna proba").** Zmierzone
+w WebKit (iPhone 14 Pro) z laczem ~300 KB/s i opoznieniem 150 ms: synchroniczny odczyt danych z §5dl (L1) trzymal
+jedyny watek strony ~9 s — Safari przewija, ale nie maluje nowych fragmentow (czarne/puste pasy pod tym, co juz
+namalowane), dotkniecie czeka do 5,06 s, „Loading today's brief…" wisi do konca pobierania i skryptow. (L1) Odczyt
+asynchroniczny: `tools/deploy_prep.py` wstawia w `<head>` (zaraz po `<meta charset>`) skrypt, ktory od razu startuje
+pobieranie WSZYSTKICH plikow `data/page/*.json` (fetch; jedna ponowna proba po 1,5 s), w miejscu bloku zostaje
+`<script type="text/x-s5ds-data" data-id="…">`, a kazdy klasyczny skrypt po pierwszym bloku dostaje
+`type="text/x-s5ds"` (tresc bez zmian). Na koncu `<body>` biegacz czeka na dane, wstawia te same elementy JSON w te same
+miejsca i wykonuje wstrzymane skrypty w oryginalnej kolejnosci, po jednym na zadanie (miedzy nimi telefon maluje i
+obsluguje dotkniecia). Na czas tej sekwencji `document.readyState` czyta „loading", a sluchacze `DOMContentLoaded`
+(52 skrypty uzywaja wzorca `readyState === "loading"` → `DOMContentLoaded`) sa zbierane i wolane potem po jednym na
+zadanie w kolejnosci dodania — ta sama kolejnosc co w przegladarce; zaden skrypt nie widzi wczesniejszego ani
+pozniejszego stanu niz ten, dla ktorego go napisano. Blad pobierania: komunikat z przyciskiem „Reload the page".
+`window.__s5dsT` trzyma czasy skryptow i sluchaczy (diagnostyka). (L2) Arkusz Google Fonts nie blokuje pierwszego
+malowania (`media="print"` → `all` po wczytaniu; czcionki maja `display=swap`). (L3) Wdrazana kopia
+`staticwebapp.config.json` dostaje trase `/data/page/*` z `cache-control: public, max-age=31536000, immutable` — nazwy
+plikow niosa hash tresci, wiec druga wizyta z niezmienionymi danymi czyta je z telefonu; plik w repozytorium bez zmian
+(„Czego nie robic" wiaze przebiegi), naglowek trasy nadpisuje globalny (Microsoft Learn, „Configure Azure Static Web
+Apps", Routes → headers). (L4) Warstwa 5cu: trzy petle 40 × 500 ms (przycisk /diff/ w naglowku, kafelki §5do,
+sortowanie katalogu §5dr-b) zastapione kilkoma przebiegami (0–16 s) i przebiegiem po kliknieciu; `nameEl` (§5dr) bez
+look-behind w regexie — Safari przed iOS 16.4 odrzuca przez niego CALY skrypt warstwy. Wynik (WebKit iPhone, lacze
+~300 KB/s): najdluzsze czekanie dotkniecia 5,06 → 0,13 s, DOMContentLoaded 9,2 → 2,4 s, tresc 9,4 → 7,2 s; lokalnie
+DCL 1,8 → 0,19 s; te same 104 353 elementy; t5cn 32/32, tbp 15/15, t5do i t5dr bez bledow. Nadal do zrobienia
+(osobny etap): mniej elementow (104 tys.; MC 24,5 tys., Graph 19 tys.) przez budowe ukrytych zakladek dopiero przy
+pierwszym otwarciu — to w wiekszosci kod powloki (L1), ktorej ta warstwa nie zmienia.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -37987,10 +38014,10 @@ odtad CZTERNASCIE (4-17).**
   window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
   window.addEventListener("resize", hide);
   /* the header link to /diff/ as a visible button (owner: "a more visible hyperlink to DIFF") */
-  var n = 0, iv = setInterval(function () {
+  /* §5ds: a few passes instead of 40 (every pass walked the whole page; on a phone that is time the page cannot answer a tap) */
+  [0, 1500, 4000, 9000].forEach(function (t) { setTimeout(function () {
     [].forEach.call(document.querySelectorAll('header.top a[href$="diff/"]:not(.s5cz-diffbtn):not(.s5czb-dlink)'), function (a) { a.classList.add("s5czb-dlink"); });
-    if (++n > 40) clearInterval(iv);
-  }, 500);
+  }, t); });
 })();
 
 /* §5da (10 X 2026, owner 16:03 with three phone screenshots of Graph API: "cut text; the Graph permission names are
@@ -38199,7 +38226,7 @@ odtad CZTERNASCIE (4-17).**
     return o.here === true ? "Yes" : o.here === false ? "Not yet (deployed elsewhere)" : "—";
   }
   /* §5dd: a permission name breaks only after "." or "-", never inside a word (AppFederatedCredentialIssuers.R|ead.All) */
-  function nameEl(cls, t) { var e = el("span", cls); String(t).split(/(?<=[.\-])/).forEach(function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
+  function nameEl(cls, t) { var e = el("span", cls); String(t).replace(/([.\-])/g, "$1\u0001").split("\u0001").forEach(  /* §5ds: no look-behind - Safari before iOS 16.4 rejects the whole script on it */ function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
   function kindLabel(k) { return k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"; }
   /* §5de (10 X 2026, owner chose from three mock-ups: tiles "A" - the name first, large, Microsoft's title under it, a
      coloured strip on the left - and for the other view "B" - a wide list, one permission per row, date and Open on the
@@ -38917,7 +38944,8 @@ odtad CZTERNASCIE (4-17).**
     var em = box.querySelector(".s5bn-empty"); if (em && em.nextSibling) box.insertBefore(wrap, em.nextSibling); else box.appendChild(wrap);
   }
   function scan() { [].forEach.call(document.querySelectorAll(".s5bn"), wire); }
-  var n = 0; (function loop() { scan(); if (++n < 40) setTimeout(loop, 500); })();
+  /* §5ds: the sections are built within seconds of the data; later ones appear on a click, which rescans */
+  [0, 800, 2000, 4500, 9000, 16000].forEach(function (t) { setTimeout(scan, t); });
   document.addEventListener("click", function () { setTimeout(scan, 300); }, true);
 })();
 
@@ -39045,7 +39073,10 @@ odtad CZTERNASCIE (4-17).**
       .observe(list, { childList: true });
     sortList(list);
   }
-  var k = 0; (function loop() { [].forEach.call(document.querySelectorAll(".catalog"), wire); if (++k < 40) setTimeout(loop, 500); })();
+  /* §5ds: a few passes plus a pass after each click (a catalog view opened later is wired then) */
+  function pass() { [].forEach.call(document.querySelectorAll(".catalog"), wire); }
+  [0, 800, 2000, 4500, 9000, 16000].forEach(function (t) { setTimeout(pass, t); });
+  document.addEventListener("click", function () { setTimeout(pass, 300); }, true);
 })();
 ```
 
