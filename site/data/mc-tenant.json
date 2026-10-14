@@ -1,7 +1,7 @@
 {
  "read": "2026-10-14",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 708,
+ "count": 705,
  "note": null,
  "messages": [
   {
@@ -9456,32 +9456,6 @@
    "bodyHash": "a818209b7d2aa5a4"
   },
   {
-   "id": "MC1447681",
-   "title": "Microsoft Viva Engage: Custom branding for tenant-wide visual identity",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-05",
-   "end": "2026-10-14",
-   "modified": "2026-08-05",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing Custom Branding in Microsoft Viva Engage , a new admin-managed capability that enables organizations to apply a consistent visual identity across the Viva Engage web experience and iOS and Android mobile apps. With Custom Branding, Viva Engage administrators can configure a tenant-wide brand name, logos, and theme color from a new Brand center in the Viva Engage ad…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning mid-August 2026 and expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "b0bc000a3b2c3655"
-  },
-  {
    "id": "MC1447682",
    "title": "(Updated) Microsoft Teams: Enhanced live captions settings and right-side panel view",
    "services": [
@@ -11699,33 +11673,6 @@
     "General Availability (Worldwide, GCC, GCC High, DoD): Rollout will begin in mid-September 2026 (previously late August) and is expected to complete by end of September 2026 (previously early September)."
    ],
    "bodyHash": "ecd220d283aa162c"
-  },
-  {
-   "id": "MC1462472",
-   "title": "Microsoft 365 Copilot: Draft Outlook emails directly in Copilot Chat on mobile",
-   "services": [
-    "Exchange Online",
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-26",
-   "end": "2026-10-14",
-   "modified": "2026-08-26",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We're improving the Microsoft 365 Copilot Chat experience by making it easier for users to draft emails directly from Copilot. When Copilot detects an email-writing intent, it will display an embedded Outlook draft within Copilot Chat. Users can review drafted content and open the draft directly in Outlook Mobile to edit and send. This update streamlines a common workflow within the…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in mid-August 2026 and expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "cdfc71bd82e2fdb5"
   },
   {
    "id": "MC1462473",
@@ -14027,30 +13974,6 @@
     "DoD: Early November through late November 2026."
    ],
    "bodyHash": "2eec73d6fa8f45fa"
-  },
-  {
-   "id": "MC1472032",
-   "title": "Microsoft 365 Copilot: Insights Copilot Analytics cowork adoption impact",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-14",
-   "end": "2026-10-14",
-   "modified": "2026-09-14",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is introducing Cowork adoption and impact insights in the Consumption dashboard in Copilot Analytics to help organizations understand how Microsoft 365 Copilot Cowork capabilities are adopted and how they influence work outcomes across the organization. These insights provide leaders, managers, and analysts with actionable visibility into usage patterns, what tasks users a…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "cd0ec2974aa4661e"
   },
   {
    "id": "MC1472159",
@@ -22221,6 +22144,27 @@
    "id": "MC1506982",
    "type": "new",
    "title": "Updates available for Microsoft 365 Apps for all channels",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1447681",
+   "type": "removed",
+   "title": "Microsoft Viva Engage: Custom branding for tenant-wide visual identity",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1462472",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot: Draft Outlook emails directly in Copilot Chat on mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1472032",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot: Insights Copilot Analytics cowork adoption impact",
    "fields": {}
   }
  ]
