@@ -13841,6 +13841,21 @@ A na koniec `<body>`, jako **SZOSTY** blok `<script>`, ten kod — kopiowany co 
         cw.appendChild(consentChip(sch[k].c, k));
       });
       kv(dl, "Admin consent", cw);
+    } else {
+      /* §5dr (14 X 2026, owner: "why do these two panels look different - one has the red consent marks, the other not?"):
+         a permission the service already has but Microsoft's reference does not document yet has no level. Its consent
+         is still known - from the table Microsoft publishes on the service principal - so it gets the same chips. */
+      var pb = shellPublished(inner), cr = pb && pb.rows.filter(function (r) { return /admin consent required/i.test(r[0]); })[0];
+      if (pb && pb.cols.length) {
+        kv(dl, "Privilege level", el("span", "badge t-grey", "not published by Microsoft yet"));
+        var cw2 = el("span");
+        pb.cols.forEach(function (k, i) {
+          if (i) cw2.appendChild(document.createTextNode(" "));
+          var v = cr ? String(cr[1][i] || "") : "";
+          cw2.appendChild(v ? consentChip(/^y/i.test(v), k) : el("span", "badge t-grey", k + ": not stated"));
+        });
+        kv(dl, "Admin consent", cw2);
+      }
     }
     if (d && d.eps) {
       var eps = decode(d.eps), least = keyset(decode(d.least)), byM = {};
@@ -38905,6 +38920,133 @@ odtad CZTERNASCIE (4-17).**
   var n = 0; (function loop() { scan(); if (++n < 40) setTimeout(loop, 500); })();
   document.addEventListener("click", function () { setTimeout(scan, 300); }, true);
 })();
+
+
+/* §5dr (14 X 2026, owner: "where is the section that shows all permissions per API - Microsoft Graph has xyz
+   application and abc delegated - and are we sure we show every resource?"). "Permissions per API" in Graph API:
+   every Microsoft API that offers permissions, counted from the service principals of our tenant by
+   tools/api_surfaces.py every three hours (data/api-surfaces.json). One row per API: application, delegated (of
+   them admin consent), offered as both, RSC, distinct names; a click lists the names. The older list under it
+   ("APIs an app registration can be granted permissions on") is the morning brief's own inventory - it gets a line
+   saying what it is and where the exact counts are. */
+(function () {
+  if (window.__s5dr) return; window.__s5dr = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function n(x) { return String(x || 0).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function when(s) { var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}:\d{2})/.exec(s || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] + " " + m[4] + " UTC" : (s || ""); }
+  var D = null, tried = false;
+  function names(box, a) {
+    box.textContent = "";
+    if (/^00000003-0000-0000-c000-000000000000$/i.test(a.appId)) {
+      box.appendChild(el("p", "s5dr-note", "Microsoft Graph: every permission, its endpoints, roles and history are in Find above — search a name there."));
+    }
+    [["application", "Application permissions"], ["delegated", "Delegated permissions"], ["rsc", "Resource-specific (RSC)"]].forEach(function (t) {
+      var L = (a.names || {})[t[0]] || []; if (!L.length) return;
+      var adm = {}; ((a.names || {}).admin || []).forEach(function (x) { adm[x] = 1; });
+      box.appendChild(el("p", "s5dr-sub", t[1] + " · " + L.length));
+      var w = el("div", "s5dr-chips");
+      L.forEach(function (x) { var c = el("span", "s5dr-chip" + (t[0] === "delegated" && adm[x] ? " s5dr-adm" : ""), x); if (t[0] === "delegated" && adm[x]) c.title = "Admin consent required"; w.appendChild(c); });
+      box.appendChild(w);
+    });
+  }
+  /* at the top of the API block under the catalog, above the brief's own API list - never between the search and the list
+     (the tab lays its blocks out with CSS order, so the place is taken inside that block, not next to it) */
+  function place(sec, host) { host.insertBefore(sec, host.firstChild); }
+  function render(host) {
+    var sec = el("section", "s5dr"); sec.id = "s5dr-apis";
+    var hd = el("div", "cat-block-head"); hd.appendChild(el("h4", null, "Permissions per API — read from our tenant")); sec.appendChild(hd);
+    if (!D || !D.apis) {
+      sec.appendChild(el("p", "s5dr-note", "Not read yet: the tenant snapshot (every three hours) writes this table on its next run."));
+      place(sec, host); return;
+    }
+    hd.appendChild(el("span", "cat-n", String(D.apis.length)));
+    var t = D.totals || {};
+    sec.appendChild(el("p", "s5dr-lead", D.apis.length + " Microsoft APIs in this tenant offer permissions an app registration can request: " +
+      n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Read " + when(D.read) + "; a click on a row lists the permissions."));
+    var ch = (D.changes || []).filter(function (x) { return x.day && x.day >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10); });
+    if (ch.length) {
+      var cw = el("p", "s5dr-chg"); cw.appendChild(el("b", null, ch.length + " change" + (ch.length === 1 ? "" : "s") + " in 14 days: "));
+      cw.appendChild(document.createTextNode(ch.slice(0, 8).map(function (x) {
+        return x.change === "api-added" ? x.api + " appeared" : x.change === "api-removed" ? x.api + " disappeared" : (x.change === "added" ? "+" : "−") + x.permission + " (" + x.api + ", " + x.type + ")";
+      }).join(" · ") + (ch.length > 8 ? " · …" : ""))); sec.appendChild(cw);
+    }
+    var tw = el("div", "s5dr-tw"), tb = el("table", "s5dr-t"), th = el("thead"), tr = el("tr");
+    ["API", "Application", "Delegated", "of them admin consent", "Offered as both", "RSC", "Distinct names", "App ID"].forEach(function (h) { tr.appendChild(el("th", null, h)); });
+    th.appendChild(tr); tb.appendChild(th);
+    var body = el("tbody");
+    D.apis.forEach(function (a) {
+      var r = el("tr", "s5dr-r"); r.tabIndex = 0; r.title = "Show the permissions of " + a.name;
+      r.appendChild(el("td", "s5dr-name", a.name));
+      [a.application, a.delegated, a.adminDelegated, a.both, a.rsc, a.total].forEach(function (v) { r.appendChild(el("td", "s5dr-num" + (v ? "" : " s5dr-zero"), n(v))); });
+      r.appendChild(el("td", "s5dr-id", a.appId || ""));
+      var dr = el("tr", "s5dr-det"); dr.hidden = true; var dc = el("td"); dc.colSpan = 8; dr.appendChild(dc);
+      function tog() { var o = dr.hidden; if (o && !dc.firstChild) names(dc, a); dr.hidden = !o; r.classList.toggle("s5dr-on", o); }
+      r.addEventListener("click", tog); r.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); tog(); } });
+      body.appendChild(r); body.appendChild(dr);
+    });
+    tb.appendChild(body); tw.appendChild(tb); sec.appendChild(tw);
+    place(sec, host);
+    /* the older list: what it is */
+    if (!host.querySelector(".s5dr-what")) {
+      var w = el("p", "s5dr-what");
+      w.appendChild(el("b", null, "What this list is: "));
+      w.appendChild(document.createTextNode("the morning brief's own inventory of the APIs besides Microsoft Graph — whether each one's permissions are already in the catalog above (Done) and when they were last re-counted from Microsoft's documentation. The exact number of permissions per API is in “Permissions per API — read from our tenant” above."));
+      var h4 = host.querySelector(".cat-block-head"); if (h4 && h4.nextSibling) host.insertBefore(w, h4.nextSibling); else host.appendChild(w);
+    }
+  }
+  function boot(k) {
+    var host = document.querySelector("#tab-graph .apisurf");
+    if (!host) { if (k < 40) setTimeout(function () { boot(k + 1); }, 500); return; }
+    if (document.getElementById("s5dr-apis")) return;
+    if (!tried && window.fetch) {
+      tried = true;
+      fetch("/data/api-surfaces.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { D = j; render(host); }, function () { render(host); });
+      return;
+    }
+    render(host);
+  }
+  boot(0);
+})();
+
+/* §5dr-b (14 X 2026, owner: "the permissions in the Graph API list are not sorted alphabetically"). The catalog
+   list (Graph API and Roles) keeps the order the data came in - Microsoft's latest changes first. A "Sort: A–Z |
+   Latest change" switch above the list, A–Z by default and remembered; the rows are only re-ordered, never rebuilt. */
+(function () {
+  if (window.__s5drb) return; window.__s5drb = 1;
+  var KEY = "socCatSort";
+  function mode() { try { return localStorage.getItem(KEY) || "az"; } catch (e) { return "az"; } }
+  function nameOf(b) { var t = b.querySelector(".ci-name, .cat-name"); return ((t ? t.textContent : b.getAttribute("data-id")) || "").trim().toLowerCase(); }
+  function sortList(list) {
+    if (list.__s5drbBusy) return;
+    var kids = [].slice.call(list.children).filter(function (x) { return x.classList && x.classList.contains("cat-item"); });
+    if (kids.length < 2) return;
+    kids.forEach(function (k, i) { if (k.__ord == null || list.__gen !== k.__gen) { k.__ord = i; k.__gen = list.__gen; } });
+    var want = mode() === "az" ? kids.slice().sort(function (a, b) { var x = nameOf(a), y = nameOf(b); return x < y ? -1 : x > y ? 1 : 0; })
+      : kids.slice().sort(function (a, b) { return a.__ord - b.__ord; });
+    var same = want.every(function (k, i) { return k === kids[i]; }); if (same) return;
+    list.__s5drbBusy = true;
+    var frag = document.createDocumentFragment(); want.forEach(function (k) { frag.appendChild(k); }); list.appendChild(frag);
+    list.__s5drbBusy = false;
+  }
+  function wire(cat) {
+    var list = cat.querySelector(".cat-list"); if (!list || list.__s5drb) return; list.__s5drb = 1; list.__gen = 1;
+    var sw = document.createElement("div"); sw.className = "s5drb-sw"; sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "Sort the list");
+    var lab = document.createElement("span"); lab.className = "s5ci-lab"; lab.textContent = "Sort"; sw.appendChild(lab);
+    [["az", "A–Z"], ["latest", "Latest change"]].forEach(function (o) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = o[1]; b.setAttribute("data-s", o[0]);
+      b.addEventListener("click", function () { try { localStorage.setItem(KEY, o[0]); } catch (e) {} [].forEach.call(document.querySelectorAll(".s5drb-sw button"), function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-s") === o[0])); }); [].forEach.call(document.querySelectorAll(".catalog .cat-list"), sortList); });
+      sw.appendChild(b);
+    });
+    [].forEach.call(sw.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-s") === mode())); });
+    var split = list.closest(".cat-split"); if (split && split.parentNode) split.parentNode.insertBefore(sw, split);
+    /* a render empties the list and fills it in data order: that order is "latest change", then sort */
+    new MutationObserver(function () { if (list.__s5drbBusy) return; if (list.children.length && !list.children[0].__seen) { list.__gen++; [].forEach.call(list.children, function (k) { k.__seen = 1; }); } sortList(list); })
+      .observe(list, { childList: true });
+    sortList(list);
+  }
+  var k = 0; (function loop() { [].forEach.call(document.querySelectorAll(".catalog"), wire); if (++k < 40) setTimeout(loop, 500); })();
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -40453,6 +40595,30 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 .s5dq-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 li.s5dq-h{list-style:none}
 .s5cu-list > .s5dq-h{border-top:2px solid var(--accent)}
+
+/* §5dr: Permissions per API */
+.s5dr{margin:18px 0 22px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.s5dr-lead,.s5dr-note,.s5dr-what{font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 10px}
+.s5dr-what{color:var(--text);padding:8px 12px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px}
+.s5dr-chg{font-size:13px;margin:4px 0 10px}
+.s5dr-tw{overflow-x:auto}
+.s5dr-t{width:100%;border-collapse:collapse;font-size:13.5px}
+.s5dr-t th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:7px 8px;border-bottom:1px solid var(--border)}
+.s5dr-t td{padding:7px 8px;border-bottom:1px solid var(--border-soft,var(--border));vertical-align:top}
+.s5dr-r{cursor:pointer}
+.s5dr-r:hover,.s5dr-r.s5dr-on{background:var(--bg)}
+.s5dr-name{font-weight:650}
+.s5dr-num{text-align:right;font-variant-numeric:tabular-nums}
+.s5dr-zero{color:var(--muted)}
+.s5dr-id{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--muted)}
+.s5dr-sub{margin:8px 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.s5dr-chips{display:flex;flex-wrap:wrap;gap:4px}
+.s5dr-chip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;padding:1px 7px;border:1px solid var(--border);border-radius:6px}
+.s5dr-chip.s5dr-adm{border-color:#d29922}
+@media (max-width:760px){.s5dr{padding:10px}.s5dr-id{display:none}.s5dr-t th:last-child{display:none}}
+.s5drb-sw{display:flex;align-items:center;gap:6px;margin:6px 0}
+.s5drb-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
+.s5drb-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
