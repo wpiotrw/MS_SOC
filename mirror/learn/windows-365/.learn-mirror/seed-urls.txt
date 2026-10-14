@@ -3,6 +3,7 @@ https://learn.microsoft.com/en-us/windows-365/agents/introduction-windows-365-fo
 https://learn.microsoft.com/en-us/windows-365/enterprise/add-device-images
 https://learn.microsoft.com/en-us/windows-365/enterprise/admin-insights
 https://learn.microsoft.com/en-us/windows-365/enterprise/ai-enabled-cloud-pcs
+https://learn.microsoft.com/en-us/windows-365/enterprise/alerts
 https://learn.microsoft.com/en-us/windows-365/enterprise/automated-provisioning-steps
 https://learn.microsoft.com/en-us/windows-365/enterprise/autopilot-device-preparation
 https://learn.microsoft.com/en-us/windows-365/enterprise/business-continuity-disaster-recovery-setup
@@ -18,6 +19,8 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/gpu-cloud-pc
 https://learn.microsoft.com/en-us/windows-365/enterprise/identity-authentication
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-flex
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-reserve
+https://learn.microsoft.com/en-us/windows-365/enterprise/known-issues-enterprise
+https://learn.microsoft.com/en-us/windows-365/enterprise/provide-cloud-pc-external-identities
 https://learn.microsoft.com/en-us/windows-365/enterprise/purview-customer-key
 https://learn.microsoft.com/en-us/windows-365/enterprise/rdp-multipath
 https://learn.microsoft.com/en-us/windows-365/enterprise/remote-connection-experience
@@ -27,6 +30,8 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/resize-windows-365-flex
 https://learn.microsoft.com/en-us/windows-365/enterprise/restore-overview
 https://learn.microsoft.com/en-us/windows-365/enterprise/settings-overview
 https://learn.microsoft.com/en-us/windows-365/enterprise/teams-on-cloud-pc
+https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-network-connectivity-flows-cloud-side
+https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic
 https://learn.microsoft.com/en-us/windows-365/enterprise/view-provisioning-policy
 https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-flex-snapshot-based-reset
@@ -35,4 +40,6 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-reserve-man
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-app-settings
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-cloud-display-protection
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-cloud-input-protection
+https://learn.microsoft.com/en-us/windows-365/enterprise/windows365-power-platform-connector
+https://learn.microsoft.com/en-us/windows-365/overview
 https://learn.microsoft.com/en-us/windows-365/whats-new

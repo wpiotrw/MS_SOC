@@ -47,6 +47,10 @@ platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 
 These release notes provide information about security fixes that are included in updates to Microsoft Edge Stable channel.
 
+## October 13, 2026
+
+Microsoft is aware of the recent Chromium security fixes. We are actively working on releasing a security fix.
+
 ## October 12, 2026
 
 Microsoft released the latest **Microsoft Edge for Android (Version 155.0.4283.48)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).

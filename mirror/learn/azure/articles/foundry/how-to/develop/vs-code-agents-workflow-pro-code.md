@@ -399,6 +399,17 @@ Use **Traces** and **Evaluation**, when available, for investigation and quality
 
 Deployment gives the agent an endpoint for programmatic use. A separate publication step isn't required for API access. Publishing to Teams or Microsoft 365 is a separate task. See the [current agent endpoint and publishing model](../../agents/how-to/migrate-agent-applications).
 
+### Pass an end-user identity
+
+The VS Code Hosted Agent Playground supports `user-identity` to send a request on behalf of an end user. For remote requests, VS Code sends the value in the `x-ms-user-identity` header. It works with the Responses, Invocations, and A2A protocols.
+
+1. Select the gear icon above the chat box in the hosted agent playground.
+2. Enter your desired `x-ms-user-identity` in the **User identity** box.
+
+[![Screenshot of how to configure user identity in the VS Code hosted agent playground.](../../media/how-to/create-hosted-agents-vs-code/user-identity.png)](../../media/how-to/create-hosted-agents-vs-code/user-identity.png#lightbox)
+
+Your request now includes the value as part of the `x-ms-user-identity` header in the HTTP request to the agent.
+
 ## Troubleshooting
 
 Use the reported error and the sample configuration to identify the failing step.

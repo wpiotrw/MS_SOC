@@ -194,6 +194,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/autopilot-lifecy
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/autopilot-overview
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-reference
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience
+https://learn.microsoft.com/en-us/azure/foundry/agents/conce…
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/configure-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-agent-production
@@ -375,7 +376,9 @@ https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy/session-hosts/eph
 https://learn.microsoft.com/en-us/azure/virtual-desktop/fast-reconnect
 https://learn.microsoft.com/en-us/azure/virtual-desktop/host-pool-management-approaches
 https://learn.microsoft.com/en-us/azure/virtual-desktop/hybrid-overview
+https://learn.microsoft.com/en-us/azure/virtual-desktop/licensing
 https://learn.microsoft.com/en-us/azure/virtual-desktop/private-link-overview
+https://learn.microsoft.com/en-us/azure/virtual-desktop/provide-access-external-identities
 https://learn.microsoft.com/en-us/azure/virtual-desktop/publish-applications-stream-remoteapp
 https://learn.microsoft.com/en-us/azure/virtual-desktop/rdp-multipath
 https://learn.microsoft.com/en-us/azure/virtual-desktop/redirection-configure-printers
@@ -383,6 +386,7 @@ https://learn.microsoft.com/en-us/azure/virtual-desktop/redirection-configure-sc
 https://learn.microsoft.com/en-us/azure/virtual-desktop/regional-host-pools
 https://learn.microsoft.com/en-us/azure/virtual-desktop/remoteapp-enhancements
 https://learn.microsoft.com/en-us/azure/virtual-desktop/screen-capture-protection
+https://learn.microsoft.com/en-us/azure/virtual-desktop/session-host-update
 https://learn.microsoft.com/en-us/azure/virtual-desktop/virtual-desktop-fall-2019/classic-retirement
 https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new
 https://learn.microsoft.com/en-us/azure/virtual-desktop/windows-update-management-methodologies-session-hosts

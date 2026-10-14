@@ -24,7 +24,7 @@ ms.update-cycle: 1825-days
 ms.service: azure-ai-content-safety
 description: Content provenance
 ms.topic: concept-article
-ms.date: 2026-09-17T00:00:00.0000000Z
+ms.date: 2026-10-09T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: bc523717-88a8-9d85-180e-e45d0e9f9443
@@ -127,7 +127,7 @@ The following table lists the current availability of provenance capabilities.
 
 | Modality | Model family | Models |
 | --- | --- | --- |
-| Image | Azure OpenAI GPT Image | gpt-image-1-minigpt-image-1.5gpt-image-2 |
+| Image | Azure OpenAI GPT Image | gpt-image-1-minigpt-image-1.5gpt-image-2gpt-image-2.5-flaregpt-image-2.5-sunburst |
 | Image | Microsoft AI Image | MAI-Image-2.5MAI-Image-2.5-FlashMAI-Image-2eMAI-Image-2.5-Pro |
 | Image | Black Forest Labs Flux | Flux-1.1-ProFlux.1-Kontext-proFlux.2-flexFlux.2-Pro |
 | Audio¹ | Azure OpenAI GPT Audio | gpt-audiogpt-audio-minigpt-audio-1.5 |
