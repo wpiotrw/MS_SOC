@@ -1,7 +1,7 @@
 {
- "read": "2026-10-13",
+ "read": "2026-10-14",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 707,
+ "count": 708,
  "note": null,
  "messages": [
   {
@@ -9744,22 +9744,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-07",
-   "end": "2026-12-20",
-   "modified": "2026-08-18",
+   "end": "2027-01-29",
+   "modified": "2026-10-13",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 18, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Entra will soon recognize Windows Hello for Business (WHfB) and macOS Platform Single Sign-On (PSSO) as standalone multifactor authentication (MFA) factors in supported authentication scenarios. Today, WHfB and macOS PSSO can satisfy MFA requirements during primary sign-in, but users may sti…",
+   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Entra will soon recognize Windows Hello for Business (WHfB) and macOS Platform Single Sign-On (PSSO) as standalone multifactor authentication (MFA) factors in supported authentication scenarios. Today, WHfB and macOS PSSO can satisfy MFA requirements during primary sign-in, but users may s…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 18, 2026: We have updated the content.",
-    "General Availability (Worldwide, GCC): Beginning in early October 2026 and expected to complete in late November 2026."
+    "Updated October 13, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC): Beginning in early October 2026 and expected to complete in mid-December 2026 (previously late November)."
    ],
-   "bodyHash": "0e1c2dd8a2a4ae48"
+   "bodyHash": "09fd88cca3dc5101"
   },
   {
    "id": "MC1452374",
@@ -18595,6 +18595,28 @@
    "bodyHash": "7d200eba943a059e"
   },
   {
+   "id": "MC1506982",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2026-10-28",
+   "modified": "2026-10-14",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channels for Microsoft 365 Apps: Current Channel Monthly Enterprise Channel Semi-Annual Enterprise Channel [When this will happen:] We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting October 13th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are conf…",
+   "when": "We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting October 13th, 2026 (PST).",
+   "prepare": "To get more details about these updates view the following release notes: Current Channel. Monthly Enterprise Channel. Semi-Annual Enterprise Channel.",
+   "dates": [],
+   "bodyHash": "f3e6e03e99ea27bc"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22176,6 +22198,29 @@
    "id": "MC1171745",
    "type": "removed",
    "title": "Hotpatch efficiency unlocked: Smaller update size ",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1450134",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Windows Hello for Business and macOS Platform SSO as standalone MFA factors",
+   "fields": {
+    "end": [
+     "2026-12-20",
+     "2027-01-29"
+    ],
+    "bodyHash": [
+     "0e1c2dd8a2a4ae48",
+     "09fd88cca3dc5101"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1506982",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
    "fields": {}
   }
  ]
