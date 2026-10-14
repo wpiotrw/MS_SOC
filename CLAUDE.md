@@ -38962,7 +38962,7 @@ odtad CZTERNASCIE (4-17).**
     hd.appendChild(el("span", "cat-n", String(D.apis.length)));
     var t = D.totals || {};
     sec.appendChild(el("p", "s5dr-lead", D.apis.length + " Microsoft APIs in this tenant offer permissions an app registration can request: " +
-      n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Read " + when(D.read) + "; a click on a row lists the permissions."));
+      n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Read " + when(D.read) + "; a click on a row lists the permissions. An API is listed once its service principal exists in this tenant — Microsoft creates it the first time an app asks for it — so an API nobody here has used yet (e.g. Dynamics CRM, Power Platform API) is in the brief's list below but not in this table."));
     var ch = (D.changes || []).filter(function (x) { return x.day && x.day >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10); });
     if (ch.length) {
       var cw = el("p", "s5dr-chg"); cw.appendChild(el("b", null, ch.length + " change" + (ch.length === 1 ? "" : "s") + " in 14 days: "));
@@ -38991,7 +38991,7 @@ odtad CZTERNASCIE (4-17).**
       var w = el("p", "s5dr-what");
       w.appendChild(el("b", null, "What this list is: "));
       w.appendChild(document.createTextNode("the morning brief's own inventory of the APIs besides Microsoft Graph — whether each one's permissions are already in the catalog above (Done) and when they were last re-counted from Microsoft's documentation. The exact number of permissions per API is in “Permissions per API — read from our tenant” above."));
-      var h4 = host.querySelector(".cat-block-head"); if (h4 && h4.nextSibling) host.insertBefore(w, h4.nextSibling); else host.appendChild(w);
+      var h4 = host.querySelector(":scope > .cat-block-head"); if (h4 && h4.parentNode === host) host.insertBefore(w, h4.nextSibling); else host.appendChild(w);
     }
   }
   function boot(k) {
