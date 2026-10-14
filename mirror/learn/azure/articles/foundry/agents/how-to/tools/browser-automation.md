@@ -49,9 +49,11 @@ source_path: articles/foundry/agents/how-to/tools/browser-automation.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43093068-2dda-408b-b3fe-dfd705c84f78
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a80a9b9c-867f-4f31-849c-3d5a10bc38c7
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e453d60d-ba7e-43bc-8028-ec38e6b62512
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/089a3a3a-945d-428f-bc0c-2d4cef5ba934
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 56e49b87-e066-9ae8-6684-8c2261a9b726
 ---
 
@@ -957,6 +959,12 @@ Browser Automation Tool provides observability features to help you validate, tr
 - **Screenshot recording:** Captures screenshots during an active browser session, helping you verify page state and browser interactions as the agent runs.
 - **Take control:** Supports human-in-the-loop workflows. Use it when a person needs to intervene in a browser session before the agent continues.
 - For production workflows, review run summaries, traces, and diagnostic logs to investigate outcomes without continuously monitoring active sessions.
+
+## Governance
+
+Browser Automation Tool can interact with real systems, so design browser workflows with appropriate governance controls. Limit agents to the tools and destinations required for the task, use isolated browser sessions, apply least-privilege access with managed identities and Azure RBAC, and use Live View and tracing to review browser activity. Treat web content as untrusted input, keep system policies separate from page content, validate sensitive destinations, and require human approval for consequential or state-changing actions.
+
+Foundry traces can contain sensitive information, including prompts, model responses, system instructions, and tool-call data. For guidance, see [Restrict access to sensitive content in Microsoft Foundry traces](../../../observability/how-to/traces-sensitive-content).
 
 ## Troubleshooting
 
