@@ -23448,10 +23448,10 @@ IdentityDirectoryEvents
   window.addEventListener("scroll", function () { if (cur && tip && tip.classList.contains("on")) place(cur); }, true);
   window.addEventListener("resize", hide);
   /* the header link to /diff/ as a visible button (owner: "a more visible hyperlink to DIFF") */
-  var n = 0, iv = setInterval(function () {
+  /* §5ds: a few passes instead of 40 (every pass walked the whole page; on a phone that is time the page cannot answer a tap) */
+  [0, 1500, 4000, 9000].forEach(function (t) { setTimeout(function () {
     [].forEach.call(document.querySelectorAll('header.top a[href$="diff/"]:not(.s5cz-diffbtn):not(.s5czb-dlink)'), function (a) { a.classList.add("s5czb-dlink"); });
-    if (++n > 40) clearInterval(iv);
-  }, 500);
+  }, t); });
 })();
 
 /* §5da (10 X 2026, owner 16:03 with three phone screenshots of Graph API: "cut text; the Graph permission names are
@@ -23660,7 +23660,7 @@ IdentityDirectoryEvents
     return o.here === true ? "Yes" : o.here === false ? "Not yet (deployed elsewhere)" : "—";
   }
   /* §5dd: a permission name breaks only after "." or "-", never inside a word (AppFederatedCredentialIssuers.R|ead.All) */
-  function nameEl(cls, t) { var e = el("span", cls); String(t).split(/(?<=[.\-])/).forEach(function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
+  function nameEl(cls, t) { var e = el("span", cls); String(t).replace(/([.\-])/g, "$1\u0001").split("\u0001").forEach(  /* §5ds: no look-behind - Safari before iOS 16.4 rejects the whole script on it */ function (p, i) { if (i) e.appendChild(document.createElement("wbr")); e.appendChild(document.createTextNode(p)); }); return e; }
   function kindLabel(k) { return k === "added" ? "NEW" : k === "removed" ? "REMOVED" : "CHANGED"; }
   /* §5de (10 X 2026, owner chose from three mock-ups: tiles "A" - the name first, large, Microsoft's title under it, a
      coloured strip on the left - and for the other view "B" - a wide list, one permission per row, date and Open on the
@@ -24378,7 +24378,8 @@ IdentityDirectoryEvents
     var em = box.querySelector(".s5bn-empty"); if (em && em.nextSibling) box.insertBefore(wrap, em.nextSibling); else box.appendChild(wrap);
   }
   function scan() { [].forEach.call(document.querySelectorAll(".s5bn"), wire); }
-  var n = 0; (function loop() { scan(); if (++n < 40) setTimeout(loop, 500); })();
+  /* §5ds: the sections are built within seconds of the data; later ones appear on a click, which rescans */
+  [0, 800, 2000, 4500, 9000, 16000].forEach(function (t) { setTimeout(scan, t); });
   document.addEventListener("click", function () { setTimeout(scan, 300); }, true);
 })();
 
@@ -24506,7 +24507,10 @@ IdentityDirectoryEvents
       .observe(list, { childList: true });
     sortList(list);
   }
-  var k = 0; (function loop() { [].forEach.call(document.querySelectorAll(".catalog"), wire); if (++k < 40) setTimeout(loop, 500); })();
+  /* §5ds: a few passes plus a pass after each click (a catalog view opened later is wired then) */
+  function pass() { [].forEach.call(document.querySelectorAll(".catalog"), wire); }
+  [0, 800, 2000, 4500, 9000, 16000].forEach(function (t) { setTimeout(pass, t); });
+  document.addEventListener("click", function () { setTimeout(pass, 300); }, true);
 })();
 </script>
 </body>
