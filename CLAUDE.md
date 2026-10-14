@@ -28266,6 +28266,22 @@ glownej stronie; tytul dalej do zrodla zewnetrznego; `<span class="ref">` zostaj
 czyta go jak dotad. (L5) `[5ca fill] TypeError … classList` przy kazdym ladowaniu (wpis menu bez plakietki) — wypelnia
 reszte zamiast przerywac.
 
+**§5dt-b (14 X 2026, 23:07, wlasciciel z iPhone'a: „w Overview w sekcji 15 zdan nie raz podajesz Message Center, a dla
+wiadomosci w Entra o agentach juz nie, a po kliknieciu widac, ze jest powiazana z Message Center; info o MC w tej
+sekcji powinno byc w niebieskiej zaokraglonej ramce, tak jak gdzie indziej. Caly portal mial byc spojny").** Przyczyna:
+karta zdania nie ma linku ani `data-id`, a numer MC trafial do faktow karty tylko dla wpisow MC bez pozycji briefu
+(„MC1506734 · major", szara pigulka); pozycja briefu z `reference` MC (np. MC1506733) miala tylko „new" / „due …".
+(L1) SKRYPT 17: `mcRef(it)` — numer wpisu MC/RM pozycji (`reference` albo id bedace numerem) jest kolejnym faktem
+kazdego zdania („Most urgent", „Biggest new item", zdania technologii, zdania z przebiegu — tu zamiast identyfikatorow
+pozycji — i „One line per technology"); podpowiedz kropki w „At a glance → Deadlines" pokazuje numer w wygladzie chipu.
+(L2) Warstwa §5dt: pigulka faktu, ktora jest numerem MC/RM, staje sie tym samym niebieskim chipem co w innych
+zakladkach (klik w karcie zatrzymuje sie na chipie i otwiera wpis w Message Center); wiersz niosacy tylko id pozycji
+(slug albo goly numer roadmapy, np. 571879) dostaje chip numeru tej pozycji (mapa z `soc-brief-state.items`, parsowanie
+z pamieci §5dk). RM spoza kopii otwiera roadmape Microsoft 365. Pomiar po zmianie: kazdy wiersz zwiazany z pozycja,
+ktora ma wpis MC/RM, ma chip — Overview 12/12, Today 39/39, Deadlines 72/72, Message Center 137/137 (przed: 134),
+New 84/84, Hunting 8/8, Products 84/84; zdania z wpisem 11 z 11 (Entra Connect i Exchange — pozycje bez wpisu MC).
+Powtorny skan zakladki 5–8 ms (WebKit).
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30534,11 +30550,16 @@ odtad CZTERNASCIE (4-17).**
     var wy = String(it.why || "").replace(/\s+/g, " ").trim(), wm = /^(.{30,220}?[.!?])(\s|$)/.exec(wy);
     wy = wm ? wm[1] : (wy.length > 220 ? wy.slice(0, 220).replace(/\s+\S*$/, "") + "\u2026" : wy);
     if (wy.length <= 48) wy = "";
-    var meta = [wy, it.product, extra].filter(Boolean).join(" · ");
+    var meta = [wy, it.product, extra, mcRef(it)].filter(Boolean).join(" · ");
     if (meta) b.appendChild(el("span", "s5bk-itm", meta));
     b.addEventListener("click", function () { if (!goItem(it.id) && it.url) window.open(it.url, "_blank", "noopener"); });
     return b;
   }
+  /* §5dt-b (14 X 2026, owner: "in the 15 sentences you sometimes give the Message Center number and for the Entra
+     agent-blueprint message you do not - yet clicked, it is a Message Center post; the whole portal was to be
+     consistent"). An item's own MC/RM post (its `reference`, or an id that is a post number) is one more fact of
+     every sentence; the §5dt layer turns that fact into the same blue chip the other tabs show. */
+  function mcRef(it) { var m = /\b(?:MC|RM)\d{5,8}\b/.exec(String((it && it.reference) || "") + " " + String((it && it.id) || "")); return m ? m[0] : ""; }
   function msChanges(cat, today) {
     function lastHist(e) { var h = Array.isArray(e.history) ? e.history : []; return h.length ? String(h[h.length - 1].date || "") : ""; }
     function when(e) { return String(e.changed || e.lastChanged || lastHist(e) || e.firstTracked || "").slice(0, 10); }
@@ -30725,11 +30746,11 @@ odtad CZTERNASCIE (4-17).**
        (major or dated first) — the same ground the cards and the MC browser stand on */
     var pool = [];
     fresh.forEach(function (i) { pool.push({ id: i.id, tech: techOf([i.product, i.area]), text: i.title || i.officialTitle || i.id,
-      sub: firstSentence(i.why), meta: "new" }); });
+      sub: firstSentence(i.why), meta: ["new", mcRef(i)].filter(Boolean).join(" · ") }); });
     dated.filter(function (x) { return x.n >= 0 && x.n <= 14 && !newIds[x.it.id]; })
       .sort(function (a, b) { return a.n - b.n || w(a.it) - w(b.it); })
       .forEach(function (x) { pool.push({ id: x.it.id, tech: techOf([x.it.product, x.it.area]), text: x.it.title || x.it.id,
-        sub: firstSentence(x.it.why), meta: "due " + fmt(String(x.it.deadline).slice(0, 10)) }); });
+        sub: firstSentence(x.it.why), meta: ["due " + fmt(String(x.it.deadline).slice(0, 10)), mcRef(x.it)].filter(Boolean).join(" · ") }); });
     MCE.filter(function (e) { return e.firstTracked === today && !BYID[e.id].it; })
       .sort(function (a, b) { return (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0) || (b.deadline ? 1 : 0) - (a.deadline ? 1 : 0) || String(b.id).localeCompare(String(a.id)); })
       .forEach(function (e) { pool.push({ id: e.id, tech: techOf(e.tech || []), text: e.title || e.id,
@@ -30766,6 +30787,7 @@ odtad CZTERNASCIE (4-17).**
       li.appendChild(b); host.appendChild(li);
     }
     function refOk(d) { return (d.refs || []).filter(function (r) { return BYID[r]; }); }
+    function refOf(id) { var r = BYID[id]; return !r ? "" : r.kind === "item" ? mcRef(r.it) : r.kind === "mc" ? id : ""; }
     /* §5cs (8 X 2026, owner: "the highlighted text is a link and nothing says so; everything merges —
        mark the category and the information more clearly"). Every sentence is dressed the same way:
        the category is a coloured chip on its own line (urgent red, new green, Graph and components blue,
@@ -30801,7 +30823,8 @@ odtad CZTERNASCIE (4-17).**
     (dg.sentences || []).forEach(function (d) {
       var ok = refOk(d);
       if (!d.text || !ok.length) { if (window.console) console.warn("[5bq] sentence dropped, no ref on this page:", d.text); return; }
-      more.push({ id: ok[0], tech: d.tech || techOf([d.tech]), text: d.text, sub: "", meta: ok.join(", ") });
+      /* §5dt-b: the facts are the post numbers behind the sentence, not the item ids */
+      more.push({ id: ok[0], tech: d.tech || techOf([d.tech]), text: d.text, sub: "", meta: ok.map(refOf).filter(Boolean).join(" · ") });
     });
     var fromRun = more.length > 0;
     if (!fromRun) {
@@ -30827,12 +30850,12 @@ odtad CZTERNASCIE (4-17).**
     tech.appendChild(el("h2", "s5bk-h", "One line per technology"));
     var tl2 = el("ul", "s5bk-techl"), byT = {};
     (dg.byTech || []).forEach(function (d) { var ok = refOk(d); if (d.tech && d.text && ok.length && !byT[d.tech])
-      byT[d.tech] = { id: ok[0], tech: d.tech, text: d.text, sub: "", meta: "" }; });
+      byT[d.tech] = { id: ok[0], tech: d.tech, text: d.text, sub: "", meta: refOf(ok[0]) }; });
     if (!Object.keys(byT).length) {
       TECH.forEach(function (t) {
         var c = pool.filter(function (x) { return x.tech === t[0]; });
         var pick = c.filter(function (x) { return !used[x.id]; })[0] || c[0];
-        if (pick) byT[t[0]] = { id: pick.id, tech: t[0], text: pick.text, sub: "", meta: c.length > 1 ? (c.length - 1) + " more" : "" };
+        if (pick) byT[t[0]] = { id: pick.id, tech: t[0], text: pick.text, sub: "", meta: [refOf(pick.id), c.length > 1 ? (c.length - 1) + " more" : ""].filter(Boolean).join(" · ") };
       });
     }
     TECH.forEach(function (t) { if (byT[t[0]]) line(t[0], byT[t[0]], tl2, "s5bk-tl1"); });
@@ -38686,6 +38709,8 @@ odtad CZTERNASCIE (4-17).**
     });
     sv("rect", { x: lw + (days.length - 1) * cw, y: top - 2, width: cw, height: rh * TABS.length + 4, rx: 4, "class": "s5df-today" }, s);
   }
+  /* §5dt-b: the item's Message Center / Roadmap number in the hint, in the same chip look as everywhere else */
+  function glRef(i) { var m = /\b(?:MC|RM)\d{5,8}\b/.exec(String(i.reference || "") + " " + String(i.id || "")); return m ? m[0] : ""; }
   function deadlines(W, H) {
     var base = ST.briefDate || "", dl = (ST.items || []).filter(function (i) { return i.deadline && i.days != null && i.days >= 0; });
     var c7 = 0, c30 = 0, c90 = 0, cl = 0; dl.forEach(function (i) { if (i.days <= 7) c7++; else if (i.days <= 30) c30++; else if (i.days <= 90) c90++; else cl++; });
@@ -38706,7 +38731,7 @@ odtad CZTERNASCIE (4-17).**
       var k = i.days; stack[k] = (stack[k] || 0) + 1; var y = h - 26 - (stack[k] - 1) * step; if (y < 8) return;
       var r = 2.6 + Math.min(i.socWeight || 1, 6) * 0.5;
       var c = sv("circle", { cx: X(i.days), cy: y, r: r, "class": i.days <= 7 ? "s5df-d7" : i.days <= 30 ? "s5df-d30" : "s5df-d90" }, s);
-      hit(c, "<b>" + fd(i.deadline) + "</b> · " + (i.days === 0 ? "today" : "in " + i.days + (i.days === 1 ? " day" : " days")) + " · " + esc(i.product || "") + "<br>" + esc(String(i.title || i.id).slice(0, 160)) + "<br><span class='s5df-m'>Click to open it in Deadlines</span>", function () {
+      hit(c, "<b>" + fd(i.deadline) + "</b> · " + (i.days === 0 ? "today" : "in " + i.days + (i.days === 1 ? " day" : " days")) + " · " + esc(i.product || "") + (glRef(i) ? " · <span class='mcchip s5dt-mc'>" + glRef(i) + "</span>" : "") + "<br>" + esc(String(i.title || i.id).slice(0, 160)) + "<br><span class='s5df-m'>Click to open it in Deadlines</span>", function () {
         go("tab-deadlines");
         setTimeout(function () {
           var row = document.querySelector('#tab-deadlines tr[data-id="' + String(i.id).replace(/"/g, "") + '"]'); if (!row) return;
@@ -39148,13 +39173,14 @@ odtad CZTERNASCIE (4-17).**
    (a pass after every click, filter input and hash change). */
 (function () {
   "use strict";
-  var RX = /\bMC\d{6,8}\b/, RXG = /\bMC\d{6,8}\b/g;
+  var RX = /\b(?:MC\d{6,8}|RM\d{5,7})\b/, RXG = /\b(?:MC\d{6,8}|RM\d{5,7})\b/g;
   var SIG = 'a[href*="/message/MC"],a[href*="deltapulse.app/item/MC"],a[href*="msmessagecenter.com/MC"],a[href*="/messages/MC"],[data-id^="MC"],[data-key^="MC"],[data-story^="MC"]';
   var ROW = 'tr,li,article,p,.s5ci-c2,.s5ci-l1,.jtile,.s5do-tile,.s5bk-it';
   var SKIP = 'a,button,[role="button"],.mcchip,script,style,textarea,select,option,pre,code,input,svg,#mc-browse,[contenteditable],.s5czb-tip,.s5cu-tip';
   function has(id) { var b = window.__socMCB; return !(b && b.has && !b.has(id)); }
+  function ext(id) { return /^RM/.test(id) ? "https://www.microsoft.com/microsoft-365/roadmap?id=" + id.slice(2) : "https://mc.merill.net/message/" + id; }
   function open(id) {
-    if (!has(id)) { window.open("https://mc.merill.net/message/" + id, "_blank", "noopener"); return; }
+    if (!has(id)) { window.open(ext(id), "_blank", "noopener"); return; }
     if (window.__socOpenMC) window.__socOpenMC(id); else location.hash = "#" + id;
   }
   function chip(id) {
@@ -39162,7 +39188,7 @@ odtad CZTERNASCIE (4-17).**
     c.className = "mcchip s5dt-mc"; c.textContent = id; c.setAttribute("data-s5dt", id);
     c.setAttribute("role", "button"); c.tabIndex = 0;
     var ours = has(id);
-    c.title = ours ? "Open " + id + " in this portal's Message Center tab" : id + " is not in this portal's Message Center copy - opens the post on mc.merill.net";
+    c.title = ours ? "Open " + id + " in this portal's Message Center tab" : id + " is not in this portal's Message Center copy - opens it at " + (/^RM/.test(id) ? "the Microsoft 365 roadmap" : "mc.merill.net");
     if (!ours) c.classList.add("s5dt-ext");
     function go(ev) { ev.preventDefault(); ev.stopPropagation(); open(id); }
     c.addEventListener("click", go);
@@ -39180,18 +39206,31 @@ odtad CZTERNASCIE (4-17).**
   }
   function texts(root) {
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, hit = [];
-    while ((n = w.nextNode())) { if (RX.test(n.nodeValue) && n.parentElement && !n.parentElement.closest(SKIP)) hit.push(n); }
+    /* §5dt-b: the facts line of a sentence card (.s5bk-itm) sits inside the card's button - its numbers are chips too */
+    while ((n = w.nextNode())) { var pe = n.parentElement; if (RX.test(n.nodeValue) && pe && !pe.closest(".mcchip,a,script,style,textarea,select,option,pre,code,#mc-browse") && (!pe.closest(SKIP) || pe.closest(".s5bk-itm"))) hit.push(n); }
     hit.forEach(function (t) {
+      var pp = t.parentNode, whole = (t.nodeValue || "").trim();
+      if (pp && pp.classList && pp.classList.contains("s5bk-pill") && RX.test(whole) && whole.match(RX)[0] === whole && pp.childNodes.length === 1) { pp.parentNode.replaceChild(chip(whole), pp); return; }
       var s = t.nodeValue, f = document.createDocumentFragment(), last = 0, m; RXG.lastIndex = 0;
       while ((m = RXG.exec(s))) { if (m.index > last) f.appendChild(document.createTextNode(s.slice(last, m.index))); f.appendChild(chip(m[0])); last = m.index + m[0].length; }
       if (last < s.length) f.appendChild(document.createTextNode(s.slice(last)));
       t.parentNode.replaceChild(f, t);
     });
   }
+  /* §5dt-b: a row that carries only an item id (a slug, or a bare roadmap number) still belongs to that item's post */
+  var REF = null;
+  function refs() {
+    if (REF) return REF; REF = {};
+    try { var n = document.getElementById("soc-brief-state"), st = n ? JSON.parse(n.textContent) : {};
+      (st.items || []).forEach(function (i) { if (!i || !i.id) return; var m = RX.exec(String(i.reference || "") + " " + String(i.id)); if (m) REF[i.id] = m[0]; });
+    } catch (e) { REF = {}; }
+    return REF;
+  }
   function signals(root) {
-    [].forEach.call(root.querySelectorAll(SIG), function (e) {
+    var R = refs();
+    [].forEach.call(root.querySelectorAll(SIG + ",[data-id]"), function (e) {
       if (e.__s5dt || e.closest("#mc-browse,.s5dt-mc")) return; e.__s5dt = 1;
-      var id = idOf(e); if (!id) return;
+      var id = idOf(e) || R[e.getAttribute("data-id")]; if (!id) return;
       var row = e.closest(ROW) || e.parentElement; if (!row || hasChip(row, id)) return;
       var c = chip(id);
       if (e.tagName === "A" && row !== e && !e.contains(row)) { e.parentNode.insertBefore(c, e.nextSibling); return; }
@@ -40806,6 +40845,8 @@ li.s5dq-h{list-style:none}
 .s5dt-mc{display:inline-block;margin:0 0 0 6px;vertical-align:baseline;font-size:11px;padding:0 7px;line-height:1.55;text-decoration:none}
 .s5dt-mc.s5dt-ext{border-style:dashed}
 .s5dt-mc:first-child{margin-left:0}
+.s5bk-pills .s5dt-mc{margin:0 8px 0 6px}
+.s5bk-pills .s5dt-mc:first-child{margin-left:0}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
