@@ -5614,13 +5614,18 @@ def deep_link(tab, key, home="/"):
     return (' <a class="deep" href="%s#%s" title="Open the full panel in the brief">\u2197</a>'
             % (esc(home), esc(_q(frag, safe="=:/."))))
 
-def name_cell(it):
+def name_cell(it, home="/"):
     out = "<b>%s</b>" % esc(it.get("title") or it.get("id"))
     ot = norm(it.get("officialTitle"))
     if ot and ot != norm(it.get("title")):
         out += '<br><span class="sub">%s</span>' % esc(ot)
     ref = norm(it.get("reference"))
-    if ref: out += '<br><span class="ref">%s</span>' % esc(ref)
+    # §5dt (14 X 2026): a Message Center / Roadmap number opens that post in the brief's Message Center tab (#MC... deep
+    # link, §5bj) - the same as the number chips on the brief. The span stays first inside, so verify_diff still reads it.
+    if ref and re.match(r"^(?:MC|RM)\d+$", ref):
+        out += ('<br><a class="mcref" href="%s#%s" title="Open %s in the brief\'s Message Center tab"><span class="ref">%s</span></a>'
+                % (esc(home), esc(ref), esc(ref), esc(ref)))
+    elif ref: out += '<br><span class="ref">%s</span>' % esc(ref)
     return out
 
 def weight_cell(it):
@@ -7907,7 +7912,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         for lab, a_, b_ in deltas:
             if lab != "Deadline": continue
             dlrows.append((' class="t0"' if i_.get("tier0Touch") else "",
-                ['<span class="field">moved</span>', esc(i_.get("product")), name_cell(i_),
+                ['<span class="field">moved</span>', esc(i_.get("product")), name_cell(i_, home),
                  ('<del>%s</del>' % esc(a_) if a_ else '<span class="none">not set</span>')
                  + '<span class="arrow">&rarr;</span>'
                  + ('<ins>%s</ins>' % esc(b_) if b_ else '<span class="none">cleared</span>'),
@@ -7916,12 +7921,12 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
     for i_ in added:
         if not norm(i_.get("deadline")): continue
         dlrows.append((' class="t0"' if i_.get("tier0Touch") else "",
-            ['<ins>arrived</ins>', esc(i_.get("product")), name_cell(i_),
+            ['<ins>arrived</ins>', esc(i_.get("product")), name_cell(i_, home),
              "<ins>%s</ins>" % esc(i_.get("deadline")), '<span class="none">&mdash;</span>',
              weight_cell(i_), a_src(i_)]))
     for i_ in removed:
         if not norm(i_.get("deadline")): continue
-        dlrows.append(("", ['<del>gone</del>', esc(i_.get("product")), name_cell(i_),
+        dlrows.append(("", ['<del>gone</del>', esc(i_.get("product")), name_cell(i_, home),
              "<del>%s</del>" % esc(i_.get("deadline")), '<span class="none">&mdash;</span>',
              weight_cell(i_), a_src(i_)]))
 
@@ -8046,7 +8051,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         for i_ in items_:
             xc, det = evidence(i_, DOCMAP)
             rows.append((' class="t0"' if i_.get("tier0Touch") else "",
-                         [xc, esc(i_.get("product")), name_cell(i_), esc(i_.get("status")),
+                         [xc, esc(i_.get("product")), name_cell(i_, home), esc(i_.get("status")),
                           esc(i_.get("published")),
                           esc(i_.get("deadline")) or '<span class="none">none stated</span>',
                           weight_cell(i_), a_src(i_)], det))
@@ -8078,7 +8083,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
         rows = []
         for i_ in items_:
             xc, det = evidence(i_, DOCMAP)
-            rows.append(("", [xc, esc(i_.get("product")), name_cell(i_), esc(i_.get("published")),
+            rows.append(("", [xc, esc(i_.get("product")), name_cell(i_, home), esc(i_.get("published")),
                               esc(i_.get("deadline")) or '<span class="none">none stated</span>',
                               weight_cell(i_), a_src(i_)], det))
         rows, more = cap(rows, 120, "removed items")
@@ -8111,7 +8116,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                               # the item's first line and drop the rest of it.
                               (esc(i_.get("product")) if first
                                else '<span class="sub">%s</span>' % esc(i_.get("product"))),
-                              name_cell(i_) if first else '<span class="none">&#8942;</span>',
+                              name_cell(i_, home) if first else '<span class="none">&#8942;</span>',
                               '<span class="field">%s</span>' % esc(lab),
                               ('<del>%s</del>' % esc(a) if a else '<span class="none">not set</span>')
                               + '<span class="arrow">&rarr;</span>'
@@ -8424,8 +8429,10 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             body_c, count=len(com["artAdd"]) + len(com["artRem"]) + len(com["srcChg"])
                           + len(com["srcAdd"]) + len(com["srcRem"]) + len(com["srcRen"])))
         def mcrow(r):
-            idc = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(r["link"]), esc(r["id"]))) \
-                  if r["link"] else ("<code>%s</code>" % esc(r["id"]))
+            # §5dt: the number opens the post in the brief's Message Center tab; the title keeps the outside link
+            idc = ('<a class="mcref" href="%s#%s" title="Open %s in the brief\'s Message Center tab">%s</a>' % (esc(home), esc(r["id"]), esc(r["id"]), esc(r["id"]))) \
+                  if re.match(r"^(?:MC|RM)\d+$", r.get("id") or "") else \
+                  (('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(r["link"]), esc(r["id"]))) if r["link"] else ("<code>%s</code>" % esc(r["id"])))
             ttl = ('<a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(r["link"]), esc(r["title"]))) \
                   if r["link"] else esc(r["title"])
             ORIG = {"index": "Message Center index",
@@ -28236,6 +28243,29 @@ DCL 1,8 → 0,19 s; te same 104 353 elementy; t5cn 32/32, tbp 15/15, t5do i t5dr
 (osobny etap): mniej elementow (104 tys.; MC 24,5 tys., Graph 19 tys.) przez budowe ukrytych zakladek dopiero przy
 pierwszym otwarciu — to w wiekszosci kod powloki (L1), ktorej ta warstwa nie zmienia.
 
+**§5dt (14 X 2026, wlasciciel: „jak podajesz info w Deadlines i jest link do Message Center, to nie podajesz numeru tego
+wpisu, ktory by nas od razu przeniosl do odpowiedniej sekcji Message Center w naszym portalu; gdziekolwiek — zdania,
+Today, Overview, dowolna zakladka — podajesz info, ktore ma wpis Message Center, podawaj jego numer, np. MCxxx, po
+kliknieciu przenies do zakladki Message Center do tego wpisu").** Zmierzone przed zmiana (1440 px, kazda zakladka
+otwarta, kazde `<details>` rozwiniete): wiersze powiazane z wpisem bez klikalnego numeru — Overview 22 z 27, Today 71
+z 73, Deadlines 115 z 115, New 91 z 93, Campaigns 72 z 78, Community 52, Products 108, Hunting 11, Learn 2; 338 z 340
+wpisow cytowanych przez brief jest w naszej kopii Message Center. (L1) Warstwa 5cu: numer „MC1234567" napisany tekstem
+(poza linkiem, przyciskiem, kodem i przegladarka MC) staje sie chipem; kazdy wiersz powiazany z wpisem (link do
+mc.merill.net / DeltaPulse / msmessagecenter.com / centrum administracyjnego albo `data-id` MC…) bez chipu tego numeru
+dostaje chip zaraz za linkiem. Chip otwiera zakladke Message Center na wpisie (`__socOpenMC`, jak chipy Today/New);
+wpis spoza naszej kopii otwiera sie na mc.merill.net w nowej karcie i mowi to w podpowiedzi (ramka przerywana).
+Skanowana jest tylko widoczna zakladka i pole „At a glance" w naglowku — ukryta dostaje chipy przy otwarciu
+(MutationObserver na `hidden` paneli, klik, `input`, `toggle`, `hashchange`). Wynik: 100% wierszy z chipem we
+wszystkich 10 zakladkach, ktore cytuja wpisy. (L2) Przegladarka MC (§5bp) w trybie technologii (§5dq-b) pokazywala
+8 wierszy na sekcje — wpis otwierany numerem (chip, deep link `#MC…`, Today/New) spoza tych 8 nie trafial na strone
+(zmierzone: MC1479503). Teraz jego sekcja rozwija sie sama; `__socMCB.has(id)` mowi, czy wpis jest w kopii. (L3) Wpis
+wyzszy niz 60% ekranu przewija sie poczatkiem pod przypiety pasek (badany `elementFromPoint`, nie zakladany),
+powtorzone po 250 i 700 ms, bo na telefonie zakladka pokazuje sie chwile pozniej (390 px: tytul z −66 px na 86 px).
+(L4) `/diff/`: numer MC/RM w komorce nazwy (`name_cell`) i w tabeli Message Center (`mcrow`) prowadzi do `/#MC…` na
+glownej stronie; tytul dalej do zrodla zewnetrznego; `<span class="ref">` zostaje pierwszy w linku, wiec `verify_diff`
+czyta go jak dotad. (L5) `[5ca fill] TypeError … classList` przy kazdym ladowaniu (wpis menu bez plakietki) — wypelnia
+reszte zamiast przerywac.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -32194,6 +32224,9 @@ odtad CZTERNASCIE (4-17).**
       gbl.appendChild(F.jump(tg, "s5dq-mc", "span", function (gg) { if (!S.gx[gg.k] && gg.rows.length > 8) { S.gx[gg.k] = 1; render(); } }));
       tg.forEach(function (gg) {
         list.appendChild(F.head(gg.k, gg.rows.length, "s5dq-mc", "li"));
+        /* §5dt: a post opened by number (chip, #MC deep link, Today/New) that sits past the first 8 of its section opens the section -
+           without this the browser rendered the section's first 8 and the post was not on the page (measured 14 X: MC1479503) */
+        if (S.open && !S.gx[gg.k] && gg.rows.slice(8).some(function (r) { return r.id === S.open; })) S.gx[gg.k] = 1;
         gg.rows.slice(0, S.gx[gg.k] ? gg.rows.length : 8).forEach(function (r) { var li = rowOf(r); list.appendChild(li); if (S.open === r.id) toggle(li, r, true); });
         if (gg.rows.length > 8) { var mb = el("li", "mcb-morebox"), bb = el("button", "mcb-btn", S.gx[gg.k] ? "Show fewer in " + gg.k : "Show all " + gg.rows.length + " in " + gg.k); bb.type = "button";
           bb.addEventListener("click", function () { S.gx[gg.k] = !S.gx[gg.k]; render(); }); mb.appendChild(bb); list.appendChild(mb); }
@@ -32277,7 +32310,22 @@ odtad CZTERNASCIE (4-17).**
     var i = rows.indexOf(r); S.shown = Math.max(PAGE, Math.ceil((i + 1) / PAGE) * PAGE); S.open = id;
     render();
     var li = document.getElementById("mcb-" + id);
-    if (li) { li.scrollIntoView({ block: "center" }); li.classList.add("mcb-flash"); setTimeout(function () { li.classList.remove("mcb-flash"); }, 2200); }
+    /* §5dt: an opened post is often taller than a phone screen - centred, its title was above the screen (measured 14 X,
+       390 px: top at -66 px); then it starts at the top, just below whatever bar is pinned there (probed, not assumed).
+       On a phone the tab is still being shown when this runs (the switcher shows it a moment later), so the reveal is
+       repeated at 250 and 700 ms on the row found again by its id (a later render may have replaced it). */
+    function reveal() {
+      var L = document.getElementById("mcb-" + id); if (!L || !L.getClientRects().length) return;
+      var tall = L.offsetHeight > window.innerHeight * 0.6;
+      L.scrollIntoView({ block: tall ? "start" : "center" });
+      if (tall && document.elementFromPoint) {
+        var bx = L.getBoundingClientRect(), x = Math.round(bx.left + Math.min(40, bx.width / 2)), y = Math.max(0, Math.round(bx.top));
+        while (y < 320) { var hit = document.elementFromPoint(x, y + 1); if (hit && L.contains(hit)) break; y += 6; }
+        if (y > bx.top && y < 320) window.scrollBy(0, -(y - bx.top + 10));
+      }
+    }
+    if (li) { li.classList.add("mcb-flash"); setTimeout(function () { li.classList.remove("mcb-flash"); }, 2200); }
+    reveal(); setTimeout(reveal, 250); setTimeout(reveal, 700);
     return true;
   }
   function openTab() {
@@ -32286,6 +32334,8 @@ odtad CZTERNASCIE (4-17).**
     if (t && t.getAttribute("aria-selected") !== "true") t.click();
   }
   window.__socMCB = {
+    /* §5dt: does our Message Center copy hold this post? (the MC-number chips in every tab ask before opening) */
+    has: function (key) { try { return !!(build() && key && BYID[String(key).toUpperCase()]); } catch (e) { return false; } },
     handle: function (key, product) {
       if (!build() || !ALL.length) return false;
       if (product) { S.view = "all"; S.svc = product; S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; if (qIn) qIn.value = ""; S.shown = PAGE; render();
@@ -34357,6 +34407,8 @@ odtad CZTERNASCIE (4-17).**
     var ft = rail.querySelector(".s5ca-ft"); if (ft) ft.textContent = "Columns: what moved since the " + (prev ? dmy(prev) + " " : "previous ") + "brief, not how many the tab holds. + added: new items. ~ changed: items already listed whose content changed. \u2212 removed: items that left the list. A dot: nothing in that column. Grey line under a quiet tab: its last change and the changes of the last 14 days (First-party apps: 30).";
     [].forEach.call(rail.querySelectorAll(".s5ca-it"), function (it) {
       var pid = it.getAttribute("data-pid"), m = pid === "tab-products" ? movedProducts(day) : moved(pid), mv = it.querySelector(".s5ca-mv");
+      /* §5dt: a rail entry without the badge (seen 14 X 2026: "[5ca fill] TypeError ... classList" on every load) fills the rest */
+      if (!mv) mv = document.createElement("span");
       mv.classList.toggle("zero", !!(m && !m.n));
       /* grey 0: the tab WAS compared and nothing moved; no badge: the tab has no comparison (Overview, Sources, Hunting) */
       if (m && !m.n) { mv.textContent = "0"; mv.hidden = false; var lm0 = lastMove(pid, day);
@@ -39078,6 +39130,106 @@ odtad CZTERNASCIE (4-17).**
   [0, 800, 2000, 4500, 9000, 16000].forEach(function (t) { setTimeout(pass, t); });
   document.addEventListener("click", function () { setTimeout(pass, 300); }, true);
 })();
+/* §5dt (14 X 2026, owner: "when you give information in Deadlines and there is a link to Message Center, you do not give
+   the number of that Message Center post, which would take us straight to the right place of Message Center in our
+   portal. Wherever - sentences, Today, Overview, any tab - you give information that has a Message Center post, give its
+   number, e.g. MCxxx, and clicking it takes us to the Message Center tab, to that post").
+   Measured before the change (1440 px, every tab opened, every <details> open): rows tied to a post (a link to the post
+   on mc.merill.net / DeltaPulse / msmessagecenter.com / the admin center, or the row's own data-id MC...) without a
+   clickable number - Overview 22 of 27, Today 71 of 73, Deadlines 115 of 115, New 91 of 93, Campaigns 72 of 78,
+   Community 52, Products 108, Hunting 11, Learn 2. 338 of the 340 posts the brief cites are in our Message Center copy.
+   What it does:
+   1. a plain-text "MC1234567" in a row (not inside a link, button, code or the Message Center browser) becomes the chip;
+   2. every row tied to a post that still has no chip for that number gets one, right after the link (or at the end of
+      a link that is the whole row - the chip stops the click there, the link is not followed);
+   3. the chip opens the Message Center tab at that post (window.__socOpenMC -> the browser, as the Today/New chips
+      do); a post our copy does not hold (2 of 340 today) opens on mc.merill.net in a new tab and says so in its hint.
+   Only the visible tab and the header's "At a glance" box are scanned - a hidden tab gets its chips when it is opened
+   (a pass after every click, filter input and hash change). */
+(function () {
+  "use strict";
+  var RX = /\bMC\d{6,8}\b/, RXG = /\bMC\d{6,8}\b/g;
+  var SIG = 'a[href*="/message/MC"],a[href*="deltapulse.app/item/MC"],a[href*="msmessagecenter.com/MC"],a[href*="/messages/MC"],[data-id^="MC"],[data-key^="MC"],[data-story^="MC"]';
+  var ROW = 'tr,li,article,p,.s5ci-c2,.s5ci-l1,.jtile,.s5do-tile,.s5bk-it';
+  var SKIP = 'a,button,[role="button"],.mcchip,script,style,textarea,select,option,pre,code,input,svg,#mc-browse,[contenteditable],.s5czb-tip,.s5cu-tip';
+  function has(id) { var b = window.__socMCB; return !(b && b.has && !b.has(id)); }
+  function open(id) {
+    if (!has(id)) { window.open("https://mc.merill.net/message/" + id, "_blank", "noopener"); return; }
+    if (window.__socOpenMC) window.__socOpenMC(id); else location.hash = "#" + id;
+  }
+  function chip(id) {
+    var c = document.createElement("span");
+    c.className = "mcchip s5dt-mc"; c.textContent = id; c.setAttribute("data-s5dt", id);
+    c.setAttribute("role", "button"); c.tabIndex = 0;
+    var ours = has(id);
+    c.title = ours ? "Open " + id + " in this portal's Message Center tab" : id + " is not in this portal's Message Center copy - opens the post on mc.merill.net";
+    if (!ours) c.classList.add("s5dt-ext");
+    function go(ev) { ev.preventDefault(); ev.stopPropagation(); open(id); }
+    c.addEventListener("click", go);
+    c.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") go(ev); });
+    return c;
+  }
+  function idOf(e) {
+    var v = (e.getAttribute("href") || "") + " " + (e.getAttribute("data-id") || "") + " " + (e.getAttribute("data-key") || "") + " " + (e.getAttribute("data-story") || "");
+    var m = RX.exec(v); return m ? m[0] : null;
+  }
+  function hasChip(row, id) {
+    var k = row.querySelectorAll(".mcchip,[data-mc]");
+    for (var i = 0; i < k.length; i++) { var x = k[i]; if (x.getAttribute("data-s5dt") === id || x.getAttribute("data-mc") === id || (x.textContent || "").trim() === id) return true; }
+    return false;
+  }
+  function texts(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, hit = [];
+    while ((n = w.nextNode())) { if (RX.test(n.nodeValue) && n.parentElement && !n.parentElement.closest(SKIP)) hit.push(n); }
+    hit.forEach(function (t) {
+      var s = t.nodeValue, f = document.createDocumentFragment(), last = 0, m; RXG.lastIndex = 0;
+      while ((m = RXG.exec(s))) { if (m.index > last) f.appendChild(document.createTextNode(s.slice(last, m.index))); f.appendChild(chip(m[0])); last = m.index + m[0].length; }
+      if (last < s.length) f.appendChild(document.createTextNode(s.slice(last)));
+      t.parentNode.replaceChild(f, t);
+    });
+  }
+  function signals(root) {
+    [].forEach.call(root.querySelectorAll(SIG), function (e) {
+      if (e.__s5dt || e.closest("#mc-browse,.s5dt-mc")) return; e.__s5dt = 1;
+      var id = idOf(e); if (!id) return;
+      var row = e.closest(ROW) || e.parentElement; if (!row || hasChip(row, id)) return;
+      var c = chip(id);
+      if (e.tagName === "A" && row !== e && !e.contains(row)) { e.parentNode.insertBefore(c, e.nextSibling); return; }
+      if (e.tagName === "A") { e.appendChild(c); return; }
+      var a = row.querySelector("a[href]:not(.s5dt-mc)");
+      if (a && a.parentNode) { a.parentNode.insertBefore(c, a.nextSibling); return; }
+      if (row.tagName === "TR") { var td = row.cells[1] || row.cells[0]; if (td) td.appendChild(c); return; }
+      row.appendChild(c);
+    });
+  }
+  function roots() {
+    var r = [].filter.call(document.querySelectorAll(".tabpanel"), function (p) { return !p.hidden; });
+    var g = document.querySelector(".s5df-body"); if (g) r.push(g);
+    return r;
+  }
+  var busy = false;
+  function scan() {
+    if (busy) return; busy = true;
+    try { roots().forEach(function (r) { texts(r); signals(r); }); } catch (e) { if (window.console) console.error("[5dt mc chips]", e); }
+    busy = false;
+  }
+  var tq = null, tq2 = null;
+  function later(ms) { clearTimeout(tq); clearTimeout(tq2); tq = setTimeout(scan, ms || 350); tq2 = setTimeout(scan, 1600); }
+  [1200, 3000, 6000, 11000].forEach(function (t) { setTimeout(scan, t); });
+  document.addEventListener("click", function () { later(350); }, true);
+  document.addEventListener("input", function () { later(500); }, true);
+  document.addEventListener("change", function () { later(500); }, true);
+  document.addEventListener("toggle", function () { later(200); }, true);
+  window.addEventListener("hashchange", function () { later(400); });
+  /* a tab opened by a script (a tile, a deep link, the phone menu) is shown by removing its hidden attribute */
+  function watch() {
+    if (!window.MutationObserver) return;
+    var mo = new MutationObserver(function (ms) { for (var i = 0; i < ms.length; i++) if (!ms[i].target.hidden) { later(300); return; } });
+    [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) { mo.observe(p, { attributes: true, attributeFilter: ["hidden"] }); });
+  }
+  setTimeout(watch, 1000);
+  window.__s5dtScan = scan;
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -40650,6 +40802,10 @@ li.s5dq-h{list-style:none}
 .s5drb-sw{display:flex;align-items:center;gap:6px;margin:6px 0}
 .s5drb-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
 .s5drb-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+/* §5dt: Message Center number chips in every tab (same look as the Today/New chips) */
+.s5dt-mc{display:inline-block;margin:0 0 0 6px;vertical-align:baseline;font-size:11px;padding:0 7px;line-height:1.55;text-decoration:none}
+.s5dt-mc.s5dt-ext{border-style:dashed}
+.s5dt-mc:first-child{margin-left:0}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
