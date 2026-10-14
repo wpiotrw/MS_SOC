@@ -8,7 +8,10 @@
    "DeviceInfo"
   ],
   "purpose": "Lists, for every device seen in seven days, the tag written through the registry next to the tags set in the portal or API and by dynamic rules. A device whose registry tag differs from its manual tags is one where a registry-reading script gives the wrong answer; MachineGroup shows which RBAC devic",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table"
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table",
+  "reused": [
+   "2026-10-14"
+  ]
  },
  {
   "file": "2026-10-11-which-arc-enabled-kubernetes-clusters-still-carry-the.kql",
@@ -20,7 +23,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples",
   "reused": [
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -36,7 +40,8 @@
   "reused": [
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -53,7 +58,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -72,7 +78,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -91,7 +98,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -111,7 +119,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -131,7 +140,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -154,7 +164,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -180,7 +191,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -229,7 +241,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -258,7 +271,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
@@ -286,7 +300,8 @@
    "2026-10-10",
    "2026-10-11",
    "2026-10-12",
-   "2026-10-13"
+   "2026-10-13",
+   "2026-10-14"
   ]
  },
  {
