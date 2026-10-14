@@ -3993,14 +3993,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-11",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-12",
 "text":"August 1, 2026."
 },
@@ -4098,6 +4090,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-13",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-14",
 "text":"August 1, 2026."
 },
 {
@@ -4610,7 +4610,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-13",
+"seen":"2026-10-14",
 "text":"early February 2026."
 },
 {
@@ -4618,7 +4618,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-13",
+"seen":"2026-10-14",
 "text":"February 2027."
 },
 {
@@ -4703,6 +4703,78 @@
 "tech":"Defender",
 "posts":[
 "MC1182696"
+]
+},
+"c-mc1172447":{
+"firstSeen":"2026-10-14",
+"lastSeen":"2026-10-14",
+"name":"Windows 10 has reached end of support",
+"status":"No date",
+"members":[
+"MC1172447"
+],
+"log":[],
+"milestones":{
+"MC1172447|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Windows 10 has reached end of support"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447":{
+"title":"Windows 10 has reached end of support",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447",
+"source":"Message Center",
+"id":"MC1172447",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":null,
+"type":"Support end",
+"tech":"Windows",
+"posts":[
+"MC1172447"
+]
+},
+"c-mc1172446":{
+"firstSeen":"2026-10-14",
+"lastSeen":"2026-10-14",
+"name":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"status":"No date",
+"members":[
+"MC1172446"
+],
+"log":[],
+"milestones":{
+"MC1172446|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446":{
+"title":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446",
+"source":"Message Center",
+"id":"MC1172446",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-14"
+}
+},
+"final":null,
+"type":"Support end",
+"tech":"Windows",
+"posts":[
+"MC1172446"
 ]
 },
 "c-mc985483":{
@@ -7157,7 +7229,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-13",
+"seen":"2026-10-14",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7165,7 +7237,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-13",
+"seen":"2026-10-14",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
