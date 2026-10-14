@@ -1,1 +1,2 @@
+https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/ad-dmn-services/enable-support-tls-environment
 https://learn.microsoft.com/en-us/troubleshoot/windows-365/health-checks

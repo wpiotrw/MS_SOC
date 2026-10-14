@@ -86,6 +86,7 @@ https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/ref-device-properties
 https://learn.microsoft.com/en-us/intune/fundamentals/government-service
 https://learn.microsoft.com/en-us/intune/fundamentals/it-pro-support/get-support-admin-center
+https://learn.microsoft.com/en-us/intune/fundamentals/licensing
 https://learn.microsoft.com/en-us/intune/fundamentals/public-preview
 https://learn.microsoft.com/en-us/intune/fundamentals/role-based-access-control/multi-admin-approval
 https://learn.microsoft.com/en-us/intune/fundamentals/role-based-access-control/scope-tags
@@ -178,6 +179,7 @@ https://learn.microsoft.com/en-us/intune/intune-service/rename-device
 https://learn.microsoft.com/en-us/intune/intune-service/site-and-site-system-prerequisites
 https://learn.microsoft.com/en-us/intune/remote-help/plan
 https://learn.microsoft.com/en-us/intune/remote-help/start-session
+https://learn.microsoft.com/en-us/intune/solutions/azure-virtual-desktop-multi-session
 https://learn.microsoft.com/en-us/intune/solutions/tutorials/protect-email-unmanaged-devices
 https://learn.microsoft.com/en-us/intune/whats-new
 https://learn.microsoft.com/en-us/intune/whats-new/in-development

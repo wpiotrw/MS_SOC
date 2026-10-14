@@ -6,6 +6,7 @@ https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-emplo
 https://learn.microsoft.com/en-us/entra/backup/overview
 https://learn.microsoft.com/en-us/entra/concept-deployment-options-provision-to-active-directory
 https://learn.microsoft.com/en-us/entra/concept-passkey-browser-authentication-federated-identity-provider
+https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-overview
 https://learn.microsoft.com/en-us/entra/external-id/cross-tenant-access-settings-b2b-direct-connect
 https://learn.microsoft.com/en-us/entra/external-id/customers/enable-external-id-high-scale-compatibility-mode
 https://learn.microsoft.com/en-us/entra/external-id/customers/faq-customers
@@ -111,6 +112,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-manage
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-how-to-use-audit-log
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-management
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/overview
+https://learn.microsoft.com/en-us/entra/id-governance/workflow-custom-triggers
 https://learn.microsoft.com/en-us/entra/id-protection/howto-export-risk-data
 https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-risk-policies
 https://learn.microsoft.com/en-us/entra/identity
@@ -193,6 +195,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/common-scenarios
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-passwordless-authentication
+https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/plan-connect-design-concepts
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
 https://learn.microsoft.com/en-us/entra/identity/hybrid/user-source-of-authority-overview
@@ -211,6 +214,8 @@ https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permi
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats-new
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-cloud-only-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-zidentity-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels
