@@ -406,83 +406,6 @@
    "bodyHash": "155400cb916efa4f"
   },
   {
-   "id": "MC1172445",
-   "title": "The October 2025 Windows security update is now available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-10-14",
-   "end": "2026-10-14",
-   "modified": "2025-10-14",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The October 2025 security update is now available for all supported versions of Windows. We recommend that you install these updates promptly. For more information about the contents of this update, see the release notes, which are easily accessible from the Windows 11 and Windows 10 update history pages. To learn more about the different types of monthly quality updates, see Windows monthly updat…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "The October 2025 security update is now available for all supported versions of Windows.",
-    "Highlights for the Windows 11, version 25H2 update: This security update includes improvements that were a part of update KB5065789 (released September 29, 2025)."
-   ],
-   "bodyHash": "c77fec15a5e721a8"
-  },
-  {
-   "id": "MC1172446",
-   "title": "Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-14",
-   "end": "2026-10-14",
-   "modified": "2025-10-14",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Today, October 14, 2025, Windows 11, version 22H2 ( Enterprise , Education , and IoT Enterprise editions) has reached end of servicing . The October 2025 monthly security update is the final update available for this version. Devices running this version will no longer receive monthly security and preview updates containing protections from the latest security threats. As always, we recommend that…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Today, October 14, 2025, Windows 11, version 22H2 ( Enterprise , Education , and IoT Enterprise editions) has reached end of servicing .",
-    "The October 2025 monthly security update is the final update available for this version."
-   ],
-   "bodyHash": "6af17202971bd79e"
-  },
-  {
-   "id": "MC1172447",
-   "title": "Windows 10 has reached end of support",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-10-14",
-   "end": "2026-10-14",
-   "modified": "2025-10-14",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Today, October 14, 2025, Windows 10 has reached end of support *. The October 2025 monthly security update is the final update available for the last supported versions: Windows 10, version 22H2 ( Home , Pro , Enterprise , Education , and IoT Enterprise editions), Windows 10 2015 LTSB , and Windows 10 IoT Enterprise LTSB 2015 . Devices running these versions will no longer receive monthly security…",
-   "when": "Today, October 14, 2025, Windows 10 has reached end of support. .",
-   "prepare": "Inventory your devices to identify those still running Windows 10, version 22H2, Windows 10 2015 LTSB, and Windows 10 IoT Enterprise LTSB 2015. Upgrade eligible devices to Windows 11 using solutions like Microsoft Intune, Windows Autopatch, or Windows Autopilot. Enroll eligible devices in the Windows 10 ESU program, if they cannot be upgraded, to continue receiving critical security updates. .",
-   "dates": [
-    "Today, October 14, 2025, Windows 10 has reached end of support *.",
-    "The October 2025 monthly security update is the final update available for the last supported versions: Windows 10, version 22H2 ( Home , Pro , Enterprise , Education , and IoT Enterprise editions), Windows 10 2015 LTSB , and Windows 10 IoT Enterprise LTSB 201",
-    "Today, October 14, 2025, Windows 10 has reached end of support.",
-    "The October 2025 monthly security update is the final update available for these versions."
-   ],
-   "bodyHash": "29673b108660ac06"
-  },
-  {
    "id": "MC1173103",
    "title": "Secure Boot certificate deployment guide and tools",
    "services": [
@@ -18541,7 +18464,7 @@
   },
   {
    "id": "MC1507520",
-   "title": "The October 2026 Scan Cab is available",
+   "title": "(Updated) The October 2026 Scan Cab is available",
    "services": [
     "Windows"
    ],
@@ -18555,15 +18478,94 @@
    "tags": [
     "Admin impact"
    ],
-   "summary": "IMPORTANT : This notice only affects environments where Scan Cab is used to check for update compliance. What and why: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026. The Scan Cab can help determine whether a Windows device needs to install necessary security updates released by Microsoft without first connecting to the Windows Update service. Rollout schedule…",
+   "summary": "(Updated October 14, 2026: The availability time in this message was updated.) IMPORTANT : This notice only affects environments where Scan Cab is used to check for update compliance. What and why: The October 2026 Scan Cab was made available at 3:30 AM PT today, October 14, 2026. The Scan Cab can help determine whether a Windows device needs to install necessary security updates released by Micro…",
    "when": null,
    "prepare": null,
    "dates": [
-    "What and why: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026.",
-    "Rollout schedule: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026.",
+    "(Updated October 14, 2026: The availability time in this message was updated.).",
+    "What and why: The October 2026 Scan Cab was made available at 3:30 AM PT today, October 14, 2026.",
+    "Rollout schedule: The October 2026 Scan Cab was made available at 3:30 AM PT today, October 14, 2026.",
     "What will happen: You can download and deploy the October 2026 Scan Cab via the usual processes."
    ],
-   "bodyHash": "cc2872ceffba4d73"
+   "bodyHash": "eeeedb3a9069c47a"
+  },
+  {
+   "id": "MC1507704",
+   "title": "Windows Server 2022 has reached end of mainstream support",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-10-14",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "As of October 13, 2026, Windows Server 2022 has reached end of mainstream support and transitioned to extended support. The October 2026 security update is the last mainstream support update available for this version. Extended support includes security updates at no additional cost, and Windows Server 2022 will continue to receive monthly security updates through October 14, 2031. For more inform…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "As of October 13, 2026, Windows Server 2022 has reached end of mainstream support and transitioned to extended support.",
+    "The October 2026 security update is the last mainstream support update available for this version.",
+    "Extended support includes security updates at no additional cost, and Windows Server 2022 will continue to receive monthly security updates through October 14, 2031.",
+    "Hotpatch update support for Windows Server 2022 Datacenter: Azure Edition has been extended through October 2027."
+   ],
+   "bodyHash": "831f270c1ec05be4"
+  },
+  {
+   "id": "MC1507705",
+   "title": "90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-10-14",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "On January 12, 2027, Windows Server 2016 will reach end of updates. The January 2027 Windows security update will be the last update available for this version. After this date, devices running Windows Server 2016 will no longer receive monthly security updates containing protections from the latest security threats. This end of updates in 2027 applies to all editions of Windows Server 2016: Datac…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On January 12, 2027, Windows Server 2016 will reach end of updates.",
+    "The January 2027 Windows security update will be the last update available for this version."
+   ],
+   "bodyHash": "8f46d89fd5732640"
+  },
+  {
+   "id": "MC1507706",
+   "title": "90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-10-14",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "On January 12, 2027, Windows 10 Enterprise LTSC 2021 will reach end of updates. The January 2027 Windows security update will be the last update available for this version. After this date, devices running Windows 10 Enterprise LTSC 2021 will no longer receive monthly security updates containing protections from the latest security threats. To help keep your devices protected and supported, we rec…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On January 12, 2027, Windows 10 Enterprise LTSC 2021 will reach end of updates.",
+    "The January 2027 Windows security update will be the last update available for this version.",
+    "If your organization cannot complete its transition before January 12, 2027, Extended Security Updates (ESU) options are available to help keep eligible devices protected while you complete your transition."
+   ],
+   "bodyHash": "738ccb94c3ff1cfc"
   },
   {
    "id": "MC676299",
@@ -22198,6 +22200,64 @@
    "id": "MC1507520",
    "type": "new",
    "title": "The October 2026 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1507520",
+   "type": "changed",
+   "title": "(Updated) The October 2026 Scan Cab is available",
+   "fields": {
+    "title": [
+     "The October 2026 Scan Cab is available",
+     "(Updated) The October 2026 Scan Cab is available"
+    ],
+    "bodyHash": [
+     "cc2872ceffba4d73",
+     "eeeedb3a9069c47a"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1507704",
+   "type": "new",
+   "title": "Windows Server 2022 has reached end of mainstream support",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1507705",
+   "type": "new",
+   "title": "90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1507706",
+   "type": "new",
+   "title": "90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1172445",
+   "type": "removed",
+   "title": "The October 2025 Windows security update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1172446",
+   "type": "removed",
+   "title": "Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1172447",
+   "type": "removed",
+   "title": "Windows 10 has reached end of support",
    "fields": {}
   }
  ]
