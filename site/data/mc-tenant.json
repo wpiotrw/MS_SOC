@@ -1,7 +1,7 @@
 {
  "read": "2026-10-14",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 705,
+ "count": 706,
  "note": null,
  "messages": [
   {
@@ -18540,6 +18540,32 @@
    "bodyHash": "f3e6e03e99ea27bc"
   },
   {
+   "id": "MC1507520",
+   "title": "The October 2026 Scan Cab is available",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-10-14",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "IMPORTANT : This notice only affects environments where Scan Cab is used to check for update compliance. What and why: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026. The Scan Cab can help determine whether a Windows device needs to install necessary security updates released by Microsoft without first connecting to the Windows Update service. Rollout schedule…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026.",
+    "Rollout schedule: The October 2026 Scan Cab was made available at 16:00 PM PDT today, October 13, 2026.",
+    "What will happen: You can download and deploy the October 2026 Scan Cab via the usual processes."
+   ],
+   "bodyHash": "cc2872ceffba4d73"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22165,6 +22191,13 @@
    "id": "MC1472032",
    "type": "removed",
    "title": "Microsoft 365 Copilot: Insights Copilot Analytics cowork adoption impact",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-14",
+   "id": "MC1507520",
+   "type": "new",
+   "title": "The October 2026 Scan Cab is available",
    "fields": {}
   }
  ]
