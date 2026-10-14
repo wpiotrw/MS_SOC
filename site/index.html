@@ -4273,6 +4273,22 @@ li.s5dq-h{list-style:none}
 .s5dt-mc:first-child{margin-left:0}
 .s5bk-pills .s5dt-mc{margin:0 8px 0 6px}
 .s5bk-pills .s5dt-mc:first-child{margin-left:0}
+/* §5du: the place a jump lands on stays framed in green until cleared (the green bar at the top names it) */
+.s5du-on{outline:2px solid var(--ok)!important;outline-offset:2px;border-radius:8px;background-color:var(--ok-soft)!important}
+tr.s5du-tr>td,tr.s5du-tr2>td{background:var(--ok-soft)!important}
+tr.s5du-tr>td{box-shadow:inset 0 2px 0 var(--ok)}
+tr.s5du-tr>td:first-child,tr.s5du-tr2>td:first-child{box-shadow:inset 2px 0 0 var(--ok),inset 0 2px 0 var(--ok)}
+tr.s5du-tr2>td:first-child{box-shadow:inset 2px 0 0 var(--ok)}
+tr.s5du-tr>td:last-child{box-shadow:inset -2px 0 0 var(--ok),inset 0 2px 0 var(--ok)}
+tr.s5du-tr2>td:last-child{box-shadow:inset -2px 0 0 var(--ok)}
+tr.s5du-solo>td{border-bottom:2px solid var(--ok)}
+tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
+.s5du-host{position:relative}
+.s5du-lab{position:absolute;z-index:5;top:-11px;left:10px;display:inline-flex;align-items:center;gap:6px;margin:0;padding:1px 4px 1px 9px;line-height:1.5;box-shadow:0 1px 3px rgba(0,0,0,.25);border-radius:999px;background:var(--ok);color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;vertical-align:middle;white-space:nowrap}
+.s5du-x{font:inherit;font-size:13px;line-height:1;width:17px;height:17px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;cursor:pointer}
+.s5du-x:hover{background:rgba(255,255,255,.45)}
+/* §5du: a chip whose text wraps (phone) keeps a card shape, not a stretched pill */
+.gfbar .gf-chip{border-radius:12px}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 14 October 2026</b> &middot; published 06:28 Warsaw &middot; 30 September &ndash; 14 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>47</b> deadlines in 60 days<span>&middot; 42 inside 30, 7 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>15</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>96</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>37</b> changes since 13 Oct<span>&middot; 13 at Microsoft, 24 in this report</span></a><a class="count" href="#chg14"><b>4757</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -15918,7 +15934,7 @@ IdentityDirectoryEvents
     var ref = r.querySelector(".ref, .rname"); return ref ? ref.textContent.trim() : "";
   }
   function goItem(id, pref) {
-    var order = ["deadlines", "today", "new", "products", "mc"];
+    var order = ["deadlines", "today", "new", "products", "mc"], fallback = null;
     /* §5do: a tile in a tab opens the entry in THAT tab first */
     if (pref && order.indexOf(pref) >= 0) order = [pref].concat(order.filter(function (x) { return x !== pref; }));
     for (var i = 0; i < order.length; i++) {
@@ -15926,11 +15942,32 @@ IdentityDirectoryEvents
       var rows = p.querySelectorAll("tbody tr"), hit = null;
       for (var j = 0; j < rows.length && !hit; j++) if (!rows[j].classList.contains("hrow") && rowIdOf(rows[j]) === id) hit = rows[j];
       if (!hit) continue;
+      /* §5du (14 X 2026): a tab with the §5ci view shows only the rows of that view; an entry the view does not hold
+         sits in the hidden previous layout, so the reader landed on the top of Today and saw nothing (measured: Purview
+         RBAC audit, Exchange October updates, Agent usage metrics). Such a tab is passed over while a later one shows
+         the entry (New lists every new item), and used only when no tab does. */
+      if (p.classList.contains("s5ci-on") && !p.classList.contains("s5ci-full") && !p.querySelector('[data-ci-id="' + String(id).replace(/"/g, "") + '"]')) {
+        if (!fallback) fallback = [order[i], hit];
+        continue;
+      }
       openTab(order[i]);
       setTimeout(function () {
         var d = hit.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
         hit.scrollIntoView({ block: "center" }); hit.classList.add("s5bi-flash");
         setTimeout(function () { hit.classList.remove("s5bi-flash"); }, 2200);
+        /* §5du: on a phone the tab switcher scrolls back to the top after this (WebKit, 14 X: Products row left at 19 874 px) */
+        setTimeout(function () { var r = hit.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) hit.scrollIntoView({ block: "center" }); }, 700);
+      }, 220);
+      return true;
+    }
+    if (fallback) {
+      var ft = fallback[0], fh = fallback[1];
+      openTab(ft);
+      setTimeout(function () {
+        var d = fh.closest("details"); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+        fh.scrollIntoView({ block: "center" }); fh.classList.add("s5bi-flash");
+        setTimeout(function () { fh.classList.remove("s5bi-flash"); }, 2200);
+        setTimeout(function () { var r = fh.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) fh.scrollIntoView({ block: "center" }); }, 700);
       }, 220);
       return true;
     }
@@ -21325,10 +21362,19 @@ IdentityDirectoryEvents
       var D = deadlines();
       function ids(f) { return D.list.filter(function (o) { return o.d != null && f(o.d); }).map(function (o) { return o.it.id; }); }
       var v;
+      /* §5du (14 X 2026, owner: "no filter shows in the green frame"): the header tile's selection is also handed to
+         SCRIPT 11 (quiet - the view lands the reader itself), so the masthead's green bar names it and its x / Reset
+         clears it in the view too (hookS11 -> setIds(null)) */
+      function put(pid, label, list) {
+        var s11 = window.__socS11;
+        /* onclear: the x in the green bar reaches SCRIPT 11's own clearTab, not the hooked one - the view is told here */
+        if (s11 && s11.setTab) try { s11.setTab(pid, { label: label, ids: list.slice(), quiet: true, onclear: function () { try { v.setIds(null, null); } catch (e) {} } }); } catch (e) {}
+        v.setIds(label, list);
+      }
       if (k === "today" || k === "d7" || k === "d30") {
         v = VIEWS["tab-deadlines"]; if (!v || !v.setIds) return false;
         goTab("deadlines");
-        v.setIds(k === "today" ? "Due today" : k === "d7" ? "Due within 7 days" : "Due within 30 days",
+        put("tab-deadlines", k === "today" ? "Due today" : k === "d7" ? "Due within 7 days" : "Due within 30 days",
           ids(k === "today" ? function (d) { return d === 0; } : k === "d7" ? function (d) { return d >= 0 && d <= 7; } : function (d) { return d >= 0 && d < 30; }));
         return true;
       }
@@ -21336,7 +21382,7 @@ IdentityDirectoryEvents
         var nt = (ST.newToday || []).filter(function (id) { return I[id]; });
         var inNew = nt.filter(function (id) { return document.querySelector('#tab-new tbody tr[data-id="' + id + '"]'); });
         v = VIEWS["tab-new"]; if (!v || !v.setIds) return false;
-        goTab("new"); v.setIds("New since the " + dmy(PREV) + " brief", inNew);
+        goTab("new"); put("tab-new", "New since the " + dmy(PREV) + " brief", inNew);
         return true;
       }
     } catch (e) { if (window.console) console.error("[5cn kpi]", e); }
@@ -21840,7 +21886,12 @@ IdentityDirectoryEvents
   function setHash(h) { try { history.replaceState(null, "", h); } catch (e) {} }
   function top0() { var r = panel.getBoundingClientRect(); window.scrollTo(0, Math.max(0, window.scrollY + r.top - 120)); }
   function goCard(id, where) { goTab(); open = id; setHash("#tab=campaigns&c=" + encodeURIComponent(id)); render();
-    setTimeout(function () { var t = where && document.getElementById("s5cu-" + where); if (t) window.scrollTo(0, Math.max(0, window.scrollY + t.getBoundingClientRect().top - 120)); else top0(); }, 60); }
+    /* §5du: a campaign opened from another tab keeps the green frame on its head */
+    setTimeout(function () { var h = document.querySelector("#tab-campaigns .s5cu-ch"); if (h && window.__socMark) window.__socMark(h); }, 150);
+    /* §5du: the card is drawn below the tab's other blocks - the top of the tab left it 2 600 px down (measured 14 X),
+       so the reader lands on the card itself */
+    setTimeout(function () { var t = where && document.getElementById("s5cu-" + where); if (t) window.scrollTo(0, Math.max(0, window.scrollY + t.getBoundingClientRect().top - 120));
+      else { var h = document.querySelector("#tab-campaigns .s5cu-ch"); if (h) window.scrollTo(0, Math.max(0, window.scrollY + h.getBoundingClientRect().top - 170)); else top0(); } }, 60); }
   function goList() { open = ""; setHash("#tab=campaigns"); render(); setTimeout(top0, 40); }
   window.__socCampaign = function (id) { if (id) goCard(id); else { goTab(); goList(); } };
 
@@ -22453,8 +22504,22 @@ IdentityDirectoryEvents
     body.appendChild(g);
   }
 
+  /* §5du (14 X 2026, owner: "no filter shows in the green frame"): a campaign filter - set here or by the Overview
+     sentence / Today card - is named in the masthead's green bar like every other filter, and "Reset all filters"
+     clears it */
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var parts = [];
+    if (F.tech) parts.push(F.tech); if (F.type) parts.push(F.type); if (F.q) parts.push("\u201c" + F.q + "\u201d");
+    if (F.only) parts.push({ active: "active", in7: "milestone within 7 days", in30: "milestone within 30 days", moved: "date moved this week", closed: "closed in the last 30 days",
+      new7: "new this week", mat7: "new material this week", ms7: "new milestone this week" }[F.only] || F.only);
+    if (F.prio) parts.push(PL[F.prio] + " priority");
+    if (F.month) parts.push("a milestone in " + mlabel(F.month, true));
+    return parts.length ? [{ scope: "Campaigns", label: parts.join(" \u00b7 "), clear: function () { F = noF(); render(); } }] : [];
+  });
   function render() {
     if (!D) return;
+    setTimeout(function () { if (window.__socFilterBarSync) try { window.__socFilterBarSync(); } catch (e) {} }, 0);
     try {
       var c = open && (D.campaigns || []).filter(function (x) { return x.id === open; })[0];
       if (c) renderCard(c); else { open = ""; renderList(); }
@@ -22827,6 +22892,10 @@ IdentityDirectoryEvents
   /* below the sticky header and the catalog's own sticky search bar, so the panel title is seen */
   function scrollTo(n) {
     if (!n) return;
+    /* §5du: through scrollIntoView first - the Graph API tab may be showing another of its views (e.g. "What Microsoft
+       changed" after a tile), and only scrollIntoView switches it back to the catalog; window.scrollTo alone left the
+       panel hidden (measured 14 X: tile, then a permission name -> an empty Graph API tab). It also marks the target. */
+    try { n.scrollIntoView({ block: "start" }); } catch (e) {}
     function go() {
       try {
         var hb = 0; [].forEach.call(document.querySelectorAll("header.top, .catalog .cat-search, .catalog .cat-bar, .s5ch-bar"), function (h) {
@@ -24103,8 +24172,6 @@ IdentityDirectoryEvents
     });
     sv("rect", { x: lw + (days.length - 1) * cw, y: top - 2, width: cw, height: rh * TABS.length + 4, rx: 4, "class": "s5df-today" }, s);
   }
-  /* §5dt-b: the item's Message Center / Roadmap number in the hint, in the same chip look as everywhere else */
-  function glRef(i) { var m = /\b(?:MC|RM)\d{5,8}\b/.exec(String(i.reference || "") + " " + String(i.id || "")); return m ? m[0] : ""; }
   function deadlines(W, H) {
     var base = ST.briefDate || "", dl = (ST.items || []).filter(function (i) { return i.deadline && i.days != null && i.days >= 0; });
     var c7 = 0, c30 = 0, c90 = 0, cl = 0; dl.forEach(function (i) { if (i.days <= 7) c7++; else if (i.days <= 30) c30++; else if (i.days <= 90) c90++; else cl++; });
@@ -24125,7 +24192,7 @@ IdentityDirectoryEvents
       var k = i.days; stack[k] = (stack[k] || 0) + 1; var y = h - 26 - (stack[k] - 1) * step; if (y < 8) return;
       var r = 2.6 + Math.min(i.socWeight || 1, 6) * 0.5;
       var c = sv("circle", { cx: X(i.days), cy: y, r: r, "class": i.days <= 7 ? "s5df-d7" : i.days <= 30 ? "s5df-d30" : "s5df-d90" }, s);
-      hit(c, "<b>" + fd(i.deadline) + "</b> · " + (i.days === 0 ? "today" : "in " + i.days + (i.days === 1 ? " day" : " days")) + " · " + esc(i.product || "") + (glRef(i) ? " · <span class='mcchip s5dt-mc'>" + glRef(i) + "</span>" : "") + "<br>" + esc(String(i.title || i.id).slice(0, 160)) + "<br><span class='s5df-m'>Click to open it in Deadlines</span>", function () {
+      hit(c, "<b>" + fd(i.deadline) + "</b> · " + (i.days === 0 ? "today" : "in " + i.days + (i.days === 1 ? " day" : " days")) + " · " + esc(i.product || "") + "<br>" + esc(String(i.title || i.id).slice(0, 160)) + "<br><span class='s5df-m'>Click to open it in Deadlines</span>", function () {
         go("tab-deadlines");
         setTimeout(function () {
           var row = document.querySelector('#tab-deadlines tr[data-id="' + String(i.id).replace(/"/g, "") + '"]'); if (!row) return;
@@ -24612,11 +24679,11 @@ IdentityDirectoryEvents
     });
   }
   /* §5dt-b: a row that carries only an item id (a slug, or a bare roadmap number) still belongs to that item's post */
-  var REF = null;
+  var REF = null, TT = {};
   function refs() {
     if (REF) return REF; REF = {};
     try { var n = document.getElementById("soc-brief-state"), st = n ? JSON.parse(n.textContent) : {};
-      (st.items || []).forEach(function (i) { if (!i || !i.id) return; var m = RX.exec(String(i.reference || "") + " " + String(i.id)); if (m) REF[i.id] = m[0]; });
+      (st.items || []).forEach(function (i) { if (!i || !i.id) return; TT[i.id] = i.title || i.officialTitle || ""; var m = RX.exec(String(i.reference || "") + " " + String(i.id)); if (m) REF[i.id] = m[0]; });
     } catch (e) { REF = {}; }
     return REF;
   }
@@ -24627,6 +24694,9 @@ IdentityDirectoryEvents
       var id = idOf(e) || R[e.getAttribute("data-id")]; if (!id) return;
       var row = e.closest(ROW) || e.parentElement; if (!row || hasChip(row, id)) return;
       var c = chip(id);
+      /* §5du: a link whose whole text IS the number becomes the chip (no "MC1506287 [MC1506287]" twice); the post's
+         outside links are one click away in the Message Center tab */
+      if (e.tagName === "A" && (e.textContent || "").trim() === id && row !== e) { e.parentNode.replaceChild(c, e); return; }
       if (e.tagName === "A" && row !== e && !e.contains(row)) { e.parentNode.insertBefore(c, e.nextSibling); return; }
       if (e.tagName === "A") { e.appendChild(c); return; }
       var a = row.querySelector("a[href]:not(.s5dt-mc)");
@@ -24662,6 +24732,153 @@ IdentityDirectoryEvents
   }
   setTimeout(watch, 1000);
   window.__s5dtScan = scan;
+  /* §5du: the brief's own title and post number of an item id, for the green bar */
+  window.__s5dtItem = function (id) { refs(); return TT[id] ? { title: TT[id], ref: REF[id] || "" } : null; };
+})();
+/* §5du (14 X 2026, owner with two screenshots: "I pick a section - here one of the 15 sentences - and I am taken to
+   another tab, and nothing shows that THIS is the information; maybe mark it in a green frame, now everything merges.
+   And no filter shows in the green frame. This is not only the 15 sentences - EVERY clickable section that takes us
+   somewhere: after the jump the section with that information is not visibly marked and no filter is shown").
+   Measured before the change: every jump of the portal marks its target only with a "flash" class for 1.6-2.2 s, and
+   the strongest of them (.s5ci-flash, the item router of Overview -> Today/Deadlines/New) is an inset box-shadow on a
+   <tr>, which browsers do not paint on table rows - the Deadlines row in the screenshot was opened, never marked.
+   What it does, for every jump at once (nine flash classes, every script that moves the reader):
+   1. the element a jump lands on keeps a green frame and a label "Opened from <tab>" until another jump, the x in the
+      green bar, "Reset all filters", or a click on the frame's own x;
+   2. the green bar at the top names it - "<tab>: opened from <source> - <what>" - like every filter (window.__socFilterBus);
+   3. a table row is framed on its cells (an outline on <tr> is not painted everywhere); its open detail row too.
+   Jumps that do not flash anything (a block opened by a tile, a catalog panel) call window.__socMark(el) directly. */
+(function () {
+  "use strict";
+  var FLASH = ["s5ci-flash", "mcb-flash", "mcflash", "ntflash", "s12flash", "s5bi-flash", "s5cr-flash", "s5df-flash", "s8flash", "s5bk-flash", "s5du-hit"];
+  var cur = null, from = "", lastSrc = "", lastAt = 0, lab = null, lastInput = 0;
+  ["wheel", "touchstart", "keydown"].forEach(function (k) { window.addEventListener(k, function (ev) { if (ev.isTrusted) lastInput = Date.now(); }, { passive: true, capture: true }); });
+  function tabOf(e) { var p = e && e.closest && e.closest(".tabpanel"); return p ? (p.getAttribute("data-tab") || p.id.replace(/^tab-/, "")) : (e && e.closest && e.closest("header") ? "the header" : ""); }
+  /* where the reader clicked: the source of the next jump */
+  /* only the reader's own clicks: the portal's jumps click tabs and rows themselves (untrusted) */
+  document.addEventListener("click", function (ev) { var t = ev.target; if (!ev.isTrusted || (t && t.closest && t.closest(".s5du-x,.gfbar"))) return; lastSrc = tabOf(t); lastAt = Date.now(); }, true);
+  function what(e) {
+    var iid = e.getAttribute && (e.getAttribute("data-id") || e.getAttribute("data-ci-id"));
+    var it = iid && window.__s5dtItem ? window.__s5dtItem(iid) : null;
+    if (it && it.title) { var tt = it.title.length > 60 ? it.title.slice(0, 60).replace(/\s+\S*$/, "") + "…" : it.title; return (it.ref ? it.ref + " · " : "") + tt; }
+    /* the element's title: a known title class, else the first text of 25+ characters that is not a field label */
+    var t = e.querySelector && e.querySelector(".s5ci-tt,.mcb-ti,.ci-name,.mc-title,.s5do-name,.s5bn-t,.cu-title,.s5cu-t");
+    if (!t && e.querySelectorAll) [].some.call(e.querySelectorAll("a,span,div,td,summary,p,h3,h4"), function (x) {
+      if (x.querySelector("div,p,td,table")) return false;
+      var v = (x.textContent || "").replace(/\s+/g, " ").trim();
+      if (v.length >= 25 && !/^(why it matters|do this|deadline|published|area|found by)\b/i.test(v)) { t = x; return true; } return false; });
+    var s = String((t && t.textContent) || e.textContent || "").replace(/\s+/g, " ").trim();
+    var m = /\b(?:MC\d{6,8}|RM\d{5,7})\b/.exec(e.textContent || "");
+    s = s.length > 60 ? s.slice(0, 60).replace(/\s+\S*$/, "") + "…" : s;
+    return (m && s.indexOf(m[0]) < 0 ? m[0] + " · " : "") + s;
+  }
+  function rowsOf(e) {
+    var out = [e];
+    if (e.tagName === "TR") { var n = e.nextElementSibling; if (n && n.tagName === "TR" && !n.hasAttribute("data-id") && (n.classList.contains("s5ci-dr") || n.querySelector("td[colspan]"))) out.push(n); }
+    return out;
+  }
+  function unmark() {
+    if (!cur) return;
+    rowsOf(cur.el).forEach(function (x) { x.classList.remove("s5du-on", "s5du-tr", "s5du-tr2", "s5du-solo"); });
+    if (lab && lab.parentNode) lab.parentNode.removeChild(lab);
+    if (cur.host) cur.host.classList.remove("s5du-host");
+    cur = null; lab = null;
+  }
+  function sync() { if (window.__socFilterBarSync) try { window.__socFilterBarSync(); } catch (e) {} }
+  function clear() { unmark(); sync(); }
+  function mark(e, src) {
+    if (!e || !e.closest || e.closest(".s5du-lab")) return;
+    /* a row the jump flashed inside a section that stays hidden (the previous layout of a tab) is not where the reader is */
+    if (!e.getClientRects().length) return;
+    var to = tabOf(e);
+    if (!src) src = (Date.now() - lastAt < 4000) ? lastSrc : "";
+    if (cur && cur.el === e) return;
+    unmark();
+    cur = { el: e, to: to, id: e.getAttribute("data-id") || e.getAttribute("data-ci-id") || e.id || "", text: what(e) };
+    from = src && src !== to ? src : "";
+    var rs = rowsOf(e);
+    if (e.tagName === "TR") { e.classList.add("s5du-tr"); if (rs[1]) rs[1].classList.add("s5du-tr2"); else e.classList.add("s5du-solo"); }
+    else e.classList.add("s5du-on");
+    /* the label sits in the first cell of a row, else at the top of the element */
+    lab = document.createElement("span"); lab.className = "s5du-lab";
+    lab.appendChild(document.createTextNode(from ? "Opened from " + from : src ? "Opened here" : "Opened by a link"));
+    var x = document.createElement("button"); x.type = "button"; x.className = "s5du-x"; x.textContent = "×"; x.title = "Remove the mark";
+    x.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); clear(); });
+    lab.appendChild(x);
+    /* the label floats on the frame's top edge, so it never takes a cell of a grid row or shifts the content */
+    var host = e.tagName === "TR" ? e.cells[0] : e.tagName === "DETAILS" ? (e.querySelector(":scope > summary") || e) : e;
+    if (host) { host.classList.add("s5du-host"); host.appendChild(lab); cur.host = host; }
+    sync();
+    /* the green bar now names the target and sits pinned at the top: a target scrolled to "start" would hide under it;
+       the jumps scroll again at 0.6-1.4 s, so look three times */
+    /* and a tab that keeps building after the jump (Products on a phone grew 79 000 -> 105 000 px at 1-2 s) pushes the
+       target off the screen: brought back while the reader has not scrolled or touched anything since */
+    var me = cur, t0 = Date.now();
+    [80, 750, 1600, 2600, 4000].forEach(function (t) { setTimeout(function () {
+      if (cur !== me || lastInput > t0) return;
+      var r = e.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) { SIV.call(e, { block: "center" }); r = e.getBoundingClientRect(); }
+      var gb = document.querySelector(".gfbar"); if (!gb || gb.hidden) return;
+      var bb = gb.getBoundingClientRect().bottom;
+      if (r.top < bb + 8 && r.bottom > bb) window.scrollBy(0, r.top - bb - 16);
+    }, t); });
+  }
+  /* for jumps that flash nothing; a move inside the tab the reader is in is not a jump */
+  window.__socMark = function (e, src) {
+    try {
+      var s2 = src || ((Date.now() - lastAt < 4000) ? lastSrc : ""); if (!e || (s2 && s2 === tabOf(e))) return;
+      /* the target may still be hidden while its tab is being shown: try again a few times */
+      var n = 0; (function tryIt() { if (e.getClientRects().length) { mark(e, s2); return; } if (++n < 6) setTimeout(tryIt, 250); })();
+    } catch (x) { if (window.console) console.error("[5du]", x); }
+  };
+  /* the catalog panels (Graph API permission, role) opened from another tab */
+  function wrapOpen(fn) {
+    var f = window[fn]; if (typeof f !== "function" || f.__s5du) return;
+    var w = function () { var r = f.apply(this, arguments); var t = r && r.closest ? (r.closest(".cat-detail") || r) : null;
+      if (t) setTimeout(function () { window.__socMark(t); }, 120); return r; };
+    w.__s5du = 1; window[fn] = w;
+  }
+  [600, 2000, 5000, 10000].forEach(function (t) { setTimeout(function () { wrapOpen("__socOpenPerm"); wrapOpen("__socOpenRole"); }, t); });
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    if (!cur) return [];
+    return [{ scope: cur.to || "this page", label: (from ? "opened from " + from + " — " : "opened — ") + cur.text, clear: clear }];
+  });
+  /* every flash class the portal's jumps use, seen as it is added */
+  if (window.MutationObserver) {
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target; if (!t.classList) continue;
+        for (var k = 0; k < FLASH.length; k++) if (t.classList.contains(FLASH[k]) && (" " + (ms[i].oldValue || "") + " ").indexOf(" " + FLASH[k] + " ") < 0) {
+          /* a section opened inside the tab the reader is in (Learn/Blogs details) is not a jump */
+          var src = (Date.now() - lastAt < 4000) ? lastSrc : "";
+          if (FLASH[k] === "ntflash" && src && src === tabOf(t)) return;
+          flashAt = Date.now(); mark(t); return;
+        }
+      }
+    }).observe(document.body, { attributes: true, attributeFilter: ["class"], attributeOldValue: true, subtree: true });
+  }
+  /* a jump that flashes nothing still scrolls its target into view: within 3.5 s of the reader's click in another
+     tab, the element scrolled to is the target (a flash mark of the same jump wins) */
+  var SIV = Element.prototype.scrollIntoView, flashAt = 0;
+  Element.prototype.scrollIntoView = function () {
+    var e = this;
+    try {
+      if (Date.now() - lastAt < 3500 && e.closest && !e.classList.contains("tabpanel") && !(e.querySelector && e.querySelector(".tabpanel")) && !e.closest(".s5du-lab,header,.s11bar,.s9find,.tbar,.filterbanner,.gfbar,.cat-controls,.s5dq-bar")) {
+        var to = tabOf(e);
+        if (to && to !== lastSrc) setTimeout(function () { if (Date.now() - flashAt < 1500 && cur && cur.el !== e) return; mark(e); }, 80);
+      }
+    } catch (x) {}
+    return SIV.apply(this, arguments);
+  };
+  /* a list that re-renders drops the marked element: find it again by its id in the same tab */
+  function again() {
+    if (!cur || document.body.contains(cur.el) || !cur.id) return;
+    var p = document.querySelector('.tabpanel[data-tab="' + cur.to + '"]') || document;
+    var q = '[data-id="' + cur.id.replace(/"/g, "") + '"],[data-ci-id="' + cur.id.replace(/"/g, "") + '"]';
+    var n = p.querySelector(q); if (n) { var s = from; cur = null; mark(n, s); } else { cur = null; sync(); }
+  }
+  document.addEventListener("click", function () { setTimeout(again, 400); }, true);
 })();
 </script>
 </body>
