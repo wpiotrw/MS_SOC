@@ -1,7 +1,7 @@
 {
  "read": "2026-10-15",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 702,
+ "count": 701,
  "note": null,
  "messages": [
   {
@@ -276,22 +276,20 @@
    "major": false,
    "actionBy": null,
    "start": "2025-09-18",
-   "end": "2026-10-30",
-   "modified": "2026-07-09",
+   "end": "2027-02-01",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated July 9, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Agent in Viva Engage communities are now available in Public Preview. Community admins can add agents to communities to help draft answers to questions without best or verified answers based on community content and add context to posts by answering follow up questions using the community's conversation…",
-   "when": "Agents in communities Public Preview: available now. SharePoint Grounding on Community site and library Public Preview (Worldwide): available now. Grounding on SharePoint sites and libraries outside the community and tagging by community members Public Preview (worldwide): SharePoint grounding has been completed, while tagging by community members remains in Private preview with expected release to Public Preview still end of July 2026. General A…",
+   "summary": "Updated October 15, 2026: We have refreshed the public preview details, knowledge-source configuration, and analytics information. The general availability date will be announced in a future update. We apologize for any inconvenience. [Introduction] Agent in Viva Engage communities are now available in Public Preview. Community admins can add agents to communities to help draft answers to question…",
+   "when": "Community Agent remains available in public preview. The general availability date will be announced in a future update. At general availability, a new network-wide Community Agent setting will replace the public preview toggle. We’ll provide at least 30 days’ notice and make the new setting available at the start of that notice period, so admins can set their network’s preference before general availability. Before general availability, review t…",
    "prepare": "If participating in preview: Opt your network into the preview via the Engage admin center. Communicate this change to helpdesk staff. Update internal documentation that references Viva Engage Community Agent behavior or setup. No action is required at GA; the feature will be on by default .",
    "dates": [
-    "Updated July 9, 2026: We have updated the timeline.",
-    "Grounding on SharePoint sites and libraries outside the community and tagging by community members Public Preview (worldwide): SharePoint grounding has been completed, while tagging by community members remains in Private preview with expected release to Publi",
-    "General Availability (Worldwide): We expect to start rolling in September 2026 and complete rollout by end of September 2026."
+    "Updated October 15, 2026: We have refreshed the public preview details, knowledge-source configuration, and analytics information."
    ],
-   "bodyHash": "0ffbe57f73d134b4"
+   "bodyHash": "b7cf64bbbbf2e3a0"
   },
   {
    "id": "MC1155312",
@@ -404,32 +402,6 @@
     "General Availability (Worldwide): Begins rolling out in February 2026 (previously late October), expected to complete February 2026 (previously early November)."
    ],
    "bodyHash": "155400cb916efa4f"
-  },
-  {
-   "id": "MC1173103",
-   "title": "Secure Boot certificate deployment guide and tools",
-   "services": [
-    "Windows"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-15",
-   "end": "2026-10-15",
-   "modified": "2025-10-15",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Use the newly published guide and tools to start updating your organization’s expiring Secure Boot certificates. As the 2011 certificate authorities (CAs) start expiring in June 2026, 2023 CAs are required. Updated CAs allow Secure Boot to continue preventing malware early in the startup sequence. New resources are available for you to start monitoring, deploying, and troubleshooting Secure Boot C…",
-   "when": null,
-   "prepare": "If your organization sends diagnostic data and lets Microsoft manage your updates, your devices will automatically get updated CAs with the monthly Windows updates. You can also opt in to let Microsoft determine high-confidence devices that will get these CAs first. . If you prefer to deploy these CAs yourself, follow the deployment playbook to monitor, deploy, and troubleshoot Secure Boot updates. You can use new registry keys, Windows Event Log…",
-   "dates": [
-    "As the 2011 certificate authorities (CAs) start expiring in June 2026, 2023 CAs are required.",
-    "The 2023 Secure Boot CAs are rolling out gradually as part of Windows monthly updates starting with the October 2025 security update.",
-    "The 2011 CAs start expiring beginning in June 2026."
-   ],
-   "bodyHash": "6104a60ee0c52675"
   },
   {
    "id": "MC1173208",
@@ -6362,23 +6334,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-11",
-   "end": "2026-10-30",
-   "modified": "2026-08-21",
+   "end": "2026-11-30",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 21, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Defender for Office 365 is introducing localization support for the default “Mark and notify” email template used in admin review and automated notification flows for user-reported messages. This update ensures that users receive notification emails in their preferred language based on thei…",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Defender for Office 365 is introducing localization support for the default “Mark and notify” email template used in admin review and automated notification flows for user-reported messages. This update ensures that users receive notification emails in their preferred language based on the…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 21, 2026: We have updated the timeline.",
+    "Updated October 15, 2026: We have updated the timeline.",
     "Worldwide: Rollout begins in June 2026 and is expected to complete by end of September 2026 (previously late July).",
-    "GCC, GCC High, DoD: Rollout begins in mid-July 2026 and is expected to complete by end of September 2026 (previously late July)."
+    "GCC, GCC High, DoD: Rollout begins in mid-July 2026 and is expected to complete by end of October 2026 (previously end of September)."
    ],
-   "bodyHash": "3c59a637a48dc829"
+   "bodyHash": "2f7f773a8fcf97ec"
   },
   {
    "id": "MC1387681",
@@ -7122,23 +7094,23 @@
    "major": true,
    "actionBy": null,
    "start": "2026-06-29",
-   "end": "2027-01-11",
-   "modified": "2026-08-26",
+   "end": "2027-02-22",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 26, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing a new Microsoft Teams Facilitator capability that proactively detects and resolves knowledge gaps during meetings. Facilitator can identify when participants ask questions or express uncertainty and retrieve and share relevant answers using web search in the meeting chat. This enha…",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing a new Microsoft Teams Facilitator capability that proactively detects and resolves knowledge gaps during meetings. Facilitator can identify when participants ask questions or express uncertainty and retrieve and share relevant answers using web search in the meeting chat. This enh…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 26, 2026: We have updated the timeline.",
-    "Targeted Release: Beginning early November 2026 (previously early September) and expected to complete mid-November 2026 (previously mid-September).",
-    "General Availability (Worldwide): Beginning mid-November 2026 (previously late September) and expected to complete mid-December 2026 (previously mid-October)."
+    "Updated October 15, 2026: We have updated the timeline.",
+    "Targeted Release: Beginning early December 2026 (previously early November) and expected to complete mid-December 2026 (previously mid-November).",
+    "General Availability (Worldwide): Beginning mid-December 2026 (previously mid-November) and expected to complete mid-January 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "f55855a61012b1a6"
+   "bodyHash": "f6b09006efc5f87b"
   },
   {
    "id": "MC1411431",
@@ -8917,23 +8889,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-31",
-   "end": "2026-10-30",
-   "modified": "2026-09-01",
+   "end": "2026-11-30",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [What and why] Planner Agent chat is coming to Microsoft Planner basic plans. This feature brings Planner Agent directly into the Planner experience, allowing users to ask questions about their plans, understand priorities, and take action without leaving Planner. Planner Agent chat helps users stay organized by …",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and why] Planner Agent chat is coming to Microsoft Planner basic plans. This feature brings Planner Agent directly into the Planner experience, allowing users to ask questions about their plans, understand priorities, and take action without leaving Planner. Planner Agent chat helps users stay organized by p…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
+    "Updated October 15, 2026: We have updated the timeline.",
     "Targeted Release: Beginning in early September 2026 (previously late August) and expected to complete by mid-September 2026 (previously early September).",
-    "General Availability (Worldwide): Beginning in mid-September 2026 (previously late August) and expected to complete by late September 2026."
+    "General Availability (Worldwide): Beginning in mid-September 2026 (previously late August) and expected to complete by end of October 2026 (previously late September)."
    ],
-   "bodyHash": "2f5c64de11e4cdac"
+   "bodyHash": "35b25df2385cec04"
   },
   {
    "id": "MC1443517",
@@ -11715,21 +11687,21 @@
    "actionBy": null,
    "start": "2026-08-27",
    "end": "2026-11-30",
-   "modified": "2026-10-06",
+   "modified": "2026-10-15",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [ What and Why:] We are introducing a new Call Monitor experience in Microsoft Teams for Web that helps users stay connected to meetings while working in other browser tabs. When users move away from an active meeting tab, Teams can display key meeting controls in a separate Picture-in-Picture (PiP) window, making …",
+   "summary": "Updated October 15, 2026: We have updated the content. Thank you for your patience. [ What and Why:] We are introducing a new Call Monitor experience in Microsoft Teams for Web that helps users stay connected to meetings while working in other browser tabs. When users move away from an active meeting tab, Teams can display key meeting controls in a separate Picture-in-Picture (PiP) window, making …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 6, 2026: We have updated the timeline.",
+    "Updated October 15, 2026: We have updated the content.",
     "Targeted Release (Worldwide): Rollout will begin in mid-October 2026 (previously early October) and is expected to complete by mid-October 2026 (previously early October).",
     "General Availability (Worldwide): Rollout will begin in mid-October 2026 (previously early October) and is expected to complete by late October 2026."
    ],
-   "bodyHash": "4c466bf3d9dab6d7"
+   "bodyHash": "ce2451b216cdda98"
   },
   {
    "id": "MC1462922",
@@ -14554,7 +14526,7 @@
   },
   {
    "id": "MC1474110",
-   "title": "Microsoft Planner: Capacity view",
+   "title": "(Updated) Microsoft Planner: Capacity view",
    "services": [
     "Planner"
    ],
@@ -14563,22 +14535,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-18",
-   "end": "2026-11-30",
-   "modified": "2026-09-18",
+   "end": "2026-12-14",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Capacity view is a new view in Planner that presents a live staffing matrix built from existing Planner task data. It shows a timeline of who is working on what, so team leads can see how work is distributed across the team and spot overallocation or open capacity at a glance, without exporting data or building a separate report. This keeps resource decisions in the same tool where …",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and why] Capacity view is a new view in Planner that presents a live staffing matrix built from existing Planner task data. It shows a timeline of who is working on what, so team leads can see how work is distributed across the team and spot overallocation or open capacity at a glance, without exporting data…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Targeted Release: Beginning in early October 2026 and expected to complete by mid-October 2026.",
-    "General availability (Worldwide): Beginning in mid-October 2026 and expected to complete by late October 2026.",
+    "Updated October 15, 2026: We have updated the timeline.",
+    "Targeted Release: Beginning in late October 2026 (previously early October) and expected to complete late October 2026 (previously mid-October).",
+    "General availability (Worldwide): Beginning in late October 2026 (previously mid-October) and expected to complete by early November 2026 (previously late October).",
     "To get value from the view, consider the following: Notify Planner users that a new Capacity view will appear on their plans in early October 2026."
    ],
-   "bodyHash": "6ffc449265eec286"
+   "bodyHash": "289fb5215bfdbb6c"
   },
   {
    "id": "MC1474111",
@@ -15664,13 +15638,13 @@
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 15, 2026: We have decided not to move forward with this change at this time. We will announce via Message center when we are ready to proceed. We apologize for the inconvenience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This chang…",
+   "summary": "Updated October 15, 2026: We are still finalizing rollout dates. Please update your settings by the first week of November to avoid any interruption. We will announce via Message center when we are ready to proceed. We apologize for the inconvenience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and d…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 15, 2026: We have decided not to move forward with this change at this time."
+    "Updated October 15, 2026: We are still finalizing rollout dates."
    ],
-   "bodyHash": "a7f9b1ccde1cd431"
+   "bodyHash": "cb27ba04d1c72ed8"
   },
   {
    "id": "MC1479516",
@@ -18120,7 +18094,7 @@
   },
   {
    "id": "MC1506734",
-   "title": "Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "title": "(Updated) Microsoft Teams: Video sharing from OneDrive in Teams events",
    "services": [
     "Microsoft Teams"
    ],
@@ -18130,21 +18104,23 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2027-01-01",
-   "modified": "2026-10-13",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and present them on stage without screen sharing a local media player or embedding videos in PowerPoint. This improvement provides smoother, higher-quality video playback for attendees and simplifies event …",
+   "summary": "Updated October 15, 2026: We have updated the timeline. If you are a tenant in a GCCH or DoD environment, you can safely ignore this message as you are not impacted. Thank you for your patience. [What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and present…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 15, 2026: We have updated the timeline.",
     "Targeted Release (Worldwide): Rollout will begin in early November 2026 and end in early December 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout will begin in early December 2026 and is expected to complete by early December 2026."
+    "General Availability (Worldwide, GCC): Rollout will begin in early December 2026 and is expected to complete by early December 2026."
    ],
-   "bodyHash": "e97af94b90e2f9b3"
+   "bodyHash": "04f4237301089806"
   },
   {
    "id": "MC1506735",
@@ -22360,6 +22336,165 @@
    "id": "MC1472438",
    "type": "removed",
    "title": "Dynamics 365 Project Operations – View budget details from the project's left navigation (Preview)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1155311",
+   "type": "changed",
+   "title": "(Updated) Viva Engage: Agents in Viva Engage communities Public Preview",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "0ffbe57f73d134b4",
+     "b7cf64bbbbf2e3a0"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1387578",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: Localized default mark and notify email template",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "3c59a637a48dc829",
+     "2f7f773a8fcf97ec"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1409304",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Facilitator proactively detects and resolves knowledge gaps in meetings",
+   "fields": {
+    "end": [
+     "2027-01-11",
+     "2027-02-22"
+    ],
+    "bodyHash": [
+     "f55855a61012b1a6",
+     "f6b09006efc5f87b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1443514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Planner: Planner Agent chat in basic plans",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "2f5c64de11e4cdac",
+     "35b25df2385cec04"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1462921",
+   "type": "changed",
+   "title": "(Updated) Calls popout into a new window on the browser to support multi-tasking and collaboration during a meeting",
+   "fields": {
+    "bodyHash": [
+     "4c466bf3d9dab6d7",
+     "ce2451b216cdda98"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1474110",
+   "type": "changed",
+   "title": "(Updated) Microsoft Planner: Capacity view",
+   "fields": {
+    "title": [
+     "Microsoft Planner: Capacity view",
+     "(Updated) Microsoft Planner: Capacity view"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-14"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "6ffc449265eec286",
+     "289fb5215bfdbb6c"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1479514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
+   "fields": {
+    "bodyHash": [
+     "a7f9b1ccde1cd431",
+     "cb27ba04d1c72ed8"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1506734",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Video sharing from OneDrive in Teams events",
+     "(Updated) Microsoft Teams: Video sharing from OneDrive in Teams events"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "e97af94b90e2f9b3",
+     "04f4237301089806"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1173103",
+   "type": "removed",
+   "title": "Secure Boot certificate deployment guide and tools",
    "fields": {}
   }
  ]
