@@ -1156,7 +1156,7 @@ Zdarzenia: test nowy / zmieniony (tytuł, waga, treść) / usunięty, nowe wydan
 
 ### 14.4 Stan pierwszego przebiegu (15 X 2026)
 
-425 testów Maestera w zakresie (MT 191, CISA 79, ORCA 67, CIS 44, EIDSCA 44; High 139; AI i agenci 22), 81 plików Tenable w zakresie z 1 785 na liście (43 najnowsze, 3 172 elementy), 122 testy sparowane z Tenable. CIS M365: obie strony v7.0.0, wspólne 44 rekomendacje, 116 tylko w Tenable. SCuBA: Tenable v1.5.0 (22/03/2025), ScubaGear 1.8.0, Maester — gałąź główna ScubaGear; wspólne 78, 1 tylko w Maesterze, 51 tylko w Tenable. Plik „MSCT M365 Apps for enterprise 2512” Tenable wystawia bez listy elementów — strona to mówi.
+425 testów Maestera w zakresie (MT 191, CISA 79, ORCA 67, CIS 44, EIDSCA 44; High 139; AI i agenci 22), 81 plików Tenable w zakresie z 1 785 na liście (43 najnowsze, 2 835 elementów), 122 testy sparowane z Tenable. CIS M365: obie strony v7.0.0, wspólne 44 rekomendacje, 116 tylko w Tenable. SCuBA: Tenable v1.5.0 (22/03/2025), ScubaGear 1.8.0, Maester — gałąź główna ScubaGear; wspólne 78, 1 tylko w Maesterze, 51 tylko w Tenable. Plik „MSCT M365 Apps for enterprise 2512” Tenable wystawia bez listy elementów — strona to mówi.
 
 ## Historia zmian
 
