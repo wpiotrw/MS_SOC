@@ -189,6 +189,7 @@ https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authenticat
 https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth
 https://learn.microsoft.com/en-us/azure/dms
 https://learn.microsoft.com/en-us/azure/foundry
+https://learn.microsoft.com/en-us/azure/foundry/agents/conce
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/agent-optimizer-costs
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/autopilot-lifecycle
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/autopilot-overview

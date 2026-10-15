@@ -5,6 +5,7 @@ https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-Windo
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-applicationmanagement
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience
 https://learn.microsoft.com/en-us/windows/configuration/windows-backup
+https://learn.microsoft.com/en-us/windows/deploymen
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-linux-guide
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-overview
 https://learn.microsoft.com/en-us/windows/deployment/do/mcc-ent-https-windows-guide

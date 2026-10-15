@@ -29,6 +29,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageurlinfo-t
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-microsoft-defender
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-overview
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-security-copilot-threat-hunting-assistant
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-take-action
 https://learn.microsoft.com/en-us/defender-xdr/autoad-results

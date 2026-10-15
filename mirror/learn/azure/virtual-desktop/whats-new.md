@@ -62,6 +62,16 @@ Tip
 
 See [What's new in documentation](whats-new-documentation), where we highlight new and updated articles for Azure Virtual Desktop.
 
+## October 2026
+
+Here's what changed in October 2026:
+
+### iOS support for external identities is now generally available
+
+External identity support is now generally available for the Windows App on iOS. For more information on client versions and capabilities, see [Compare Windows App features across platforms and devices](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity).
+
+For latest information on external identity support, see [External identity](authentication#external-identity).
+
 ## September 2026
 
 Here's what changed in September 2026:
