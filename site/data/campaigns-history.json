@@ -1,6 +1,93 @@
 {
 "updated":"2026-10-15",
 "campaigns":{
+"c-item-mc1476122":{
+"firstSeen":"2026-10-12",
+"lastSeen":"2026-10-15",
+"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"status":"Active",
+"members":[
+"item:MC1476122",
+"MC1476122",
+"item:MC1507808",
+"MC1507808"
+],
+"log":[
+{
+"date":"2026-10-15",
+"id":"MC1507808",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Reminder: the Microsoft-managed 'Require risk remediation for high-risk users' policy switches itself On the week of 28 October",
+"title":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
+"link":"https://mc.merill.net/message/MC1507808"
+},
+{
+"date":"2026-10-12",
+"id":"MC1476122",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"A Microsoft-managed Conditional Access policy, Require risk remediation for high-risk users, starts in report-only mode and switches On the week of 28 October",
+"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"link":"https://mc.merill.net/message/MC1476122"
+}
+],
+"milestones":{
+"MC1476122|posted":{
+"date":"2026-10-12",
+"label":"12 Oct 2026",
+"text":"Posted: Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
+},
+"MC1507808|posted":{
+"date":"2026-10-15",
+"label":"15 Oct 2026",
+"text":"Posted: Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users"
+},
+"MC1476122|microsoft states week of end of evaluation period policy wil#0":{
+"date":"2026-10-28",
+"label":"28 Oct 2026",
+"text":"Microsoft states 'Week of October 28, 2026: End of evaluation period - policy will be enforced'; the date is the start of that week as stated."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1476122":{
+"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"link":"https://mc.merill.net/message/MC1476122",
+"source":"Message Center",
+"id":"MC1476122",
+"date":"2026-10-12",
+"updated":"2026-09-21",
+"group":"microsoft",
+"found":"2026-10-12"
+},
+"https://mc.merill.net/message/MC1507808":{
+"title":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
+"link":"https://mc.merill.net/message/MC1507808",
+"source":"Message Center",
+"id":"MC1507808",
+"date":"2026-10-15",
+"updated":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://daily.entra.news/day/2026-10-14/":{
+"title":"High-risk remediation policy nears enforcement as Security Defaults details four protections — 14 October 2026",
+"link":"https://daily.entra.news/day/2026-10-14/",
+"source":"Daily Entra News",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
+}
+},
+"final":"2026-10-28",
+"type":"Enforcement",
+"tech":"Entra",
+"posts":[
+"MC1476122",
+"MC1507808"
+]
+},
 "c-mc1506733":{
 "firstSeen":"2026-10-13",
 "lastSeen":"2026-10-15",
@@ -869,6 +956,158 @@
 "date":"2026-10-13",
 "group":"microsoft",
 "found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366":{
+"title":"CVE-2026-69366 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676":{
+"title":"CVE-2026-69676 Windows Kerberos Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584":{
+"title":"CVE-2026-70584 Windows Core Messaging Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825":{
+"title":"CVE-2026-68825 Windows Bind Filter Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499":{
+"title":"CVE-2026-77499 Windows DHCP Server Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937":{
+"title":"CVE-2026-72937 Windows Storage Port Driver Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697":{
+"title":"CVE-2026-62697 Windows Push Notifications Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351":{
+"title":"CVE-2026-69351 Windows Universal Plug and Play (UPnP) Device Host Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620":{
+"title":"CVE-2026-69620 Windows DHCP Server Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334":{
+"title":"CVE-2026-69334 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352":{
+"title":"CVE-2026-81352 Web Media Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176":{
+"title":"CVE-2026-32176 SQL Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723":{
+"title":"CVE-2026-105723 Windows Distributed File System (DFS) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095":{
+"title":"CVE-2026-70095 Windows iSCSI Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245":{
+"title":"CVE-2026-70245 Windows Ancillary Function Driver for WinSock Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019":{
+"title":"CVE-2026-84019 Windows Advanced Rasterization Platform Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868":{
+"title":"CVE-2026-85868 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870":{
+"title":"CVE-2026-85870 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188":{
+"title":"CVE-2026-102188 Windows Storage Port Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
 }
 },
 "final":"2026-10-15",
@@ -2222,8 +2461,7 @@
 "name":"Windows settings backup is now enabled by default for eligible devices",
 "status":"Recently closed",
 "members":[
-"MC1483538",
-"item:MC1483538"
+"MC1483538"
 ],
 "log":[
 {
@@ -2380,6 +2618,15 @@
 "item:MC1481315"
 ],
 "log":[
+{
+"date":"2026-10-15",
+"id":"571157",
+"what":"Microsoft revised the post",
+"before":"2026-09-24",
+"after":"2026-09-15",
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157"
+},
 {
 "date":"2026-09-29",
 "id":"MC1481315",
@@ -2826,6 +3073,14 @@
 "date":"2026-10-13",
 "group":"community",
 "found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1507705":{
+"title":"MC1507705: 90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027",
+"link":"https://mc.merill.net/message/MC1507705",
+"source":"MC - Merill",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-10-12",
@@ -3696,6 +3951,14 @@
 "date":"2026-08-05",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1507706":{
+"title":"MC1507706: 90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027",
+"link":"https://mc.merill.net/message/MC1507706",
+"source":"MC - Merill",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-01-12",
@@ -3773,6 +4036,14 @@
 "date":"2026-10-13",
 "group":"community",
 "found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1508235":{
+"title":"MC1508235: Microsoft Purview | Data Loss Prevention: Count of labeled documents condition for Exchange Online",
+"link":"https://mc.merill.net/message/MC1508235",
+"source":"MC - Merill",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-01-15",
@@ -3993,14 +4264,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-12",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-13",
 "text":"August 1, 2026."
 },
@@ -4114,6 +4377,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-14",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-15",
 "text":"August 1, 2026."
 },
 {
@@ -4396,6 +4667,14 @@
 "date":"2026-06-26",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482":{
+"title":"Passkey/FIDO2 for users in mainland China – recommended approach?",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-11-15",
@@ -4642,7 +4921,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"early February 2026."
 },
 {
@@ -4650,7 +4929,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"February 2027."
 },
 {
@@ -4703,78 +4982,6 @@
 "tech":"Defender",
 "posts":[
 "MC1182696"
-]
-},
-"c-mc1172447":{
-"firstSeen":"2026-10-14",
-"lastSeen":"2026-10-15",
-"name":"Windows 10 has reached end of support",
-"status":"No date",
-"members":[
-"MC1172447"
-],
-"log":[],
-"milestones":{
-"MC1172447|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Windows 10 has reached end of support"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447":{
-"title":"Windows 10 has reached end of support",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447",
-"source":"Message Center",
-"id":"MC1172447",
-"date":"2026-09-29",
-"updated":null,
-"group":"microsoft",
-"found":"2026-10-14"
-}
-},
-"final":null,
-"type":"Support end",
-"tech":"Windows",
-"posts":[
-"MC1172447"
-]
-},
-"c-mc1172446":{
-"firstSeen":"2026-10-14",
-"lastSeen":"2026-10-15",
-"name":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
-"status":"No date",
-"members":[
-"MC1172446"
-],
-"log":[],
-"milestones":{
-"MC1172446|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446":{
-"title":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446",
-"source":"Message Center",
-"id":"MC1172446",
-"date":"2026-09-29",
-"updated":null,
-"group":"microsoft",
-"found":"2026-10-14"
-}
-},
-"final":null,
-"type":"Support end",
-"tech":"Windows",
-"posts":[
-"MC1172446"
 ]
 },
 "c-mc985483":{
@@ -5053,56 +5260,92 @@
 "MC1223829"
 ]
 },
-"c-item-mc1476122":{
-"firstSeen":"2026-10-12",
+"c-mc1172447":{
+"firstSeen":"2026-10-14",
 "lastSeen":"2026-10-15",
-"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
-"status":"Active",
+"name":"Windows 10 has reached end of support",
+"status":"No date",
 "members":[
-"item:MC1476122",
-"MC1476122"
+"MC1172447"
 ],
-"log":[
-{
-"date":"2026-10-12",
-"id":"MC1476122",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"A Microsoft-managed Conditional Access policy, Require risk remediation for high-risk users, starts in report-only mode and switches On the week of 28 October",
-"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
-"link":"https://mc.merill.net/message/MC1476122"
-}
-],
+"log":[],
 "milestones":{
-"MC1476122|posted":{
-"date":"2026-10-12",
-"label":"12 Oct 2026",
-"text":"Posted: Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
-},
-"MC1476122|microsoft states week of end of evaluation period policy wil#0":{
-"date":"2026-10-28",
-"label":"28 Oct 2026",
-"text":"Microsoft states 'Week of October 28, 2026: End of evaluation period - policy will be enforced'; the date is the start of that week as stated."
+"MC1172447|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Windows 10 has reached end of support"
 }
 },
 "moves":[],
 "materials":{
-"https://mc.merill.net/message/MC1476122":{
-"title":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
-"link":"https://mc.merill.net/message/MC1476122",
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447":{
+"title":"Windows 10 has reached end of support",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172447",
 "source":"Message Center",
-"id":"MC1476122",
-"date":"2026-10-12",
-"updated":"2026-09-21",
+"id":"MC1172447",
+"date":"2026-09-29",
+"updated":null,
 "group":"microsoft",
-"found":"2026-10-12"
+"found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1507704":{
+"title":"MC1507704: Windows Server 2022 has reached end of mainstream support",
+"link":"https://mc.merill.net/message/MC1507704",
+"source":"MC - Merill",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
-"final":"2026-10-28",
-"type":"Enforcement",
-"tech":"Entra",
+"final":null,
+"type":"Support end",
+"tech":"Windows",
 "posts":[
-"MC1476122"
+"MC1172447"
+]
+},
+"c-mc1172446":{
+"firstSeen":"2026-10-14",
+"lastSeen":"2026-10-15",
+"name":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"status":"No date",
+"members":[
+"MC1172446"
+],
+"log":[],
+"milestones":{
+"MC1172446|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446":{
+"title":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1172446",
+"source":"Message Center",
+"id":"MC1172446",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1507704":{
+"title":"MC1507704: Windows Server 2022 has reached end of mainstream support",
+"link":"https://mc.merill.net/message/MC1507704",
+"source":"MC - Merill",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
+}
+},
+"final":null,
+"type":"Support end",
+"tech":"Windows",
+"posts":[
+"MC1172446"
 ]
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
@@ -5813,6 +6056,15 @@
 ],
 "log":[
 {
+"date":"2026-10-15",
+"id":"MC1387814",
+"what":"Microsoft revised the post",
+"before":"2026-09-04",
+"after":"2026-06-11",
+"title":"RTMP-In requires two new ports and a new domain on the egress allow-list",
+"link":"https://mc.merill.net/message/MC1387814"
+},
+{
 "date":"2026-09-29",
 "id":"MC1387814",
 "what":"Act-by date",
@@ -6220,6 +6472,24 @@
 ],
 "log":[
 {
+"date":"2026-10-15",
+"id":"MC1506318",
+"what":"Status",
+"before":"Stay informed",
+"after":"Revised at source",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-15",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-13",
+"after":"2026-10-14",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
 "date":"2026-10-14",
 "id":"MC1506318",
 "what":"Entered the brief (Deadlines)",
@@ -6231,18 +6501,18 @@
 {
 "date":"2026-10-01",
 "id":"MC1483844",
-"what":"Entered the brief (Message Center)",
+"what":"Microsoft edited the post text",
 "before":"",
-"after":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"after":"see the post",
 "title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
 "link":"https://mc.merill.net/message/MC1483844"
 },
 {
 "date":"2026-10-01",
 "id":"MC1483844",
-"what":"Microsoft edited the post text",
+"what":"Entered the brief (Message Center)",
 "before":"",
-"after":"see the post",
+"after":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
 "title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
 "link":"https://mc.merill.net/message/MC1483844"
 }
@@ -6316,6 +6586,14 @@
 "date":"2026-10-08",
 "group":"microsoft",
 "found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574":{
+"title":"GPT-chat-latest gets more intelligent, interactive, and personal in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
 }
 },
 "final":"2026-11-12",
@@ -6342,6 +6620,15 @@
 "item:entra-telephony-provider-configuration-2026-10-30"
 ],
 "log":[
+{
+"date":"2026-10-15",
+"id":"entra-sms-voice-full-retirement",
+"what":"Microsoft revised the post",
+"before":"2026-09-15",
+"after":"2026-07-13",
+"title":"Microsoft-provided SMS and voice MFA fully retire",
+"link":"https://mc.merill.net/message/MC1426371"
+},
 {
 "date":"2026-09-28",
 "id":"entra-telephony-provider-configuration-2026-10-30",
@@ -6668,6 +6955,31 @@
 "date":"2026-10-13",
 "group":"community",
 "found":"2026-10-14"
+},
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers":{
+"title":"Choose a telephony provider for SMS and voice authentication",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers",
+"source":"Main list source",
+"id":"entra-telephony-provider-configuration-2026-10-30",
+"date":"2026-09-21",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://thehackernews.com/2026/10/how-to-run-deepfake-readiness-drill.html":{
+"title":"How to Run a Deepfake Readiness Drill Before a Cloned Voice Calls Your Team",
+"link":"https://thehackernews.com/2026/10/how-to-run-deepfake-readiness-drill.html",
+"source":"Hacker News",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
+},
+"https://www.bleepingcomputer.com/news/security/global-takedown-hits-network-behind-1-billion-phishing-messages/":{
+"title":"Global takedown hits network behind 1 billion phishing messages",
+"link":"https://www.bleepingcomputer.com/news/security/global-takedown-hits-network-behind-1-billion-phishing-messages/",
+"source":"BleepingComputer",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-07-01",
@@ -6702,6 +7014,24 @@
 "item:569432"
 ],
 "log":[
+{
+"date":"2026-10-15",
+"id":"MC1440968",
+"what":"Microsoft revised the post",
+"before":"2026-09-04",
+"after":"2026-07-27",
+"title":"Microsoft Entra ID: Optimizations for passkey registration experience",
+"link":"https://mc.merill.net/message/MC1440968"
+},
+{
+"date":"2026-10-15",
+"id":"MC1423108",
+"what":"Microsoft revised the post",
+"before":"2026-09-01",
+"after":"2026-07-10",
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108"
+},
 {
 "date":"2026-10-13",
 "id":"MC1437671",
@@ -7261,7 +7591,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7269,7 +7599,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7558,6 +7888,14 @@
 "date":"2026-10-12",
 "group":"community",
 "found":"2026-10-13"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482":{
+"title":"Passkey/FIDO2 for users in mainland China – recommended approach?",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-14",
+"group":"community",
+"found":"2026-10-15"
 }
 },
 "final":"2027-02-25",
@@ -8994,6 +9332,306 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-15",
+"cid":"c-item-mc1476122",
+"type":"material",
+"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
+"group":"community",
+"title":"High-risk remediation policy nears enforcement as Security Defaults details four protections — 14 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-14/"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69366 Windows Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69676 Windows Kerberos Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70584 Windows Core Messaging Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-68825 Windows Bind Filter Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-77499 Windows DHCP Server Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-72937 Windows Storage Port Driver Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62697 Windows Push Notifications Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69351 Windows Universal Plug and Play (UPnP) Device Host Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69620 Windows DHCP Server Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69334 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-81352 Web Media Extensions Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-32176 SQL Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105723 Windows Distributed File System (DFS) Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70095 Windows iSCSI Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70245 Windows Ancillary Function Driver for WinSock Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-84019 Windows Advanced Rasterization Platform Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-85868 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-85870 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102188 Windows Storage Port Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188"
+},
+{
+"day":"2026-10-15",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"MC1507705: 90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1507705"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1448328",
+"type":"material",
+"name":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
+"group":"community",
+"title":"MC1507706: 90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1507706"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"MC1508235: Microsoft Purview | Data Loss Prevention: Count of labeled documents condition for Exchange Online",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1508235"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1188230",
+"type":"material",
+"name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
+"group":"community",
+"title":"Passkey/FIDO2 for users in mainland China – recommended approach?",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1172447",
+"type":"material",
+"name":"Windows 10 has reached end of support",
+"group":"community",
+"title":"MC1507704: Windows Server 2022 has reached end of mainstream support",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1507704"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1172446",
+"type":"material",
+"name":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"group":"community",
+"title":"MC1507704: Windows Server 2022 has reached end of mainstream support",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1507704"
+},
+{
+"day":"2026-10-15",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"microsoft",
+"title":"GPT-chat-latest gets more intelligent, interactive, and personal in Microsoft Foundry",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574"
+},
+{
+"day":"2026-10-15",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"How to Run a Deepfake Readiness Drill Before a Cloned Voice Calls Your Team",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/how-to-run-deepfake-readiness-drill.html"
+},
+{
+"day":"2026-10-15",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Global takedown hits network behind 1 billion phishing messages",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/global-takedown-hits-network-behind-1-billion-phishing-messages/"
+},
+{
+"day":"2026-10-15",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Passkey/FIDO2 for users in mainland China – recommended approach?",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482"
 }
 ],
 "archive":{
