@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-14T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -81,10 +81,6 @@ See open issues, content updated in the last 30 days, and information on [safegu
 | **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-30 16:42 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 | **Remote Desktop Services might stop responding after Sept. 2026 security update**Some Windows devices with Remote Desktop enabled might experience Remote Desktop Services (RDS) instability. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-17 19:22 PT |
-| **Host folder shares might be unavailable in Hyper-V-based Linux VMs**Plan9 host folder shares might not appear in the guest environment after installing the September 2026 security update. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-14 13:30 PT |
-| **Microsoft Teams and Outlook might fail to launch on ARM-based devices**This most likely occurs on new PCs after installing the August Windows security update and does not affect other apps. | OS Build 26200.9168[KB5121003](https://support.microsoft.com/help/5121003)2026-08-11 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 11:37 PT |
-| **Mouse customization is reset on non-English Windows devices**Custom cursors and cursor animations may intermittently revert | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
-| **Desktop background settings are lost or reset on some devices**For affected Windows installations, backgrounds might revert to a black solid color | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5124008](https://support.microsoft.com/help/5124008) | 2026-09-08 10:41 PT |
 
 ## Issue details
 
@@ -278,77 +274,6 @@ This OOB update is cumulative and includes all improvements and security protect
 
 Back to top
 
-#### Host folder shares might be unavailable in Hyper-V-based Linux VMs
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved [KB5129195](https://support.microsoft.com/help/5129195) | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved: 2026-09-14, 10:00 PTOpened: 2026-09-11, 02:22 PT |
-
-**Updated (9/14):***The resolution section was updated. IT administrators that deployed a temporary mitigation through Group Policy must re-enable the Group Policy and install the out-of-band update to resolve the issue.*
-
-After installing the September 2026 security update [KB5124008](https://support.microsoft.com/help/5124008), applications that use [HCS-managed](/en-us/virtualization/api/hcs/overview) virtual machines might experience issues when sharing host folder with Linux VMs using Plan9. Affected virtual machines start normally, but folders shared from the Windows host using Plan9 do not appear or cannot be accessed in the guest environment.
-
-Applications or sandbox environments that depend on these shared folders might display an error indicating that no Plan9 drive shares were mounted. Claude Cowork and the Windows Subsystem for Linux (WSL) are two of the applications affected by this issue. Standard Hyper-V virtual machines that do not use the Plan9 feature are not affected by this issue.
-
-**Resolution: **This issue is resolved by the out-of-band (OOB) update released on September 14, 2026 ([KB5129195](https://support.microsoft.com/help/5129195)), and in updates released after this date.
-
-IT administrators who deployed a temporary mitigation through Group Policy must re-enable the Group Policy, install this OOB update, and restart to resolve this issue.
-
-This OOB update is cumulative and includes all improvements and security protections contained in previous Windows updates. As a best practice, we recommend installing the latest update available for your devices, as it contains important improvements and issue resolutions, including this one.
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2
-- ​Server: None
-
-[Click here](https://admin.microsoft.com/Adminportal/Home?#/windowsreleasehealth/:/wrhpreferences) to manage email notifications for Windows known issues. 
-
-Back to top
-
-#### Microsoft Teams and Outlook might fail to launch on ARM-based devices
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved [KB5124008](https://support.microsoft.com/help/5124008) | OS Build 26200.9168[KB5121003](https://support.microsoft.com/help/5121003)2026-08-11 | Resolved: 2026-09-08, 10:00 PTOpened: 2026-09-01, 18:46 PT |
-
-After installing Windows security updates released on or after August 11, 2026, ([KB5121003](https://support.microsoft.com/help/5121003)), Microsoft Teams and the new Outlook for Windows might fail to launch or might close unexpectedly on ARM-based devices, such as Surface Pro 11 and Surface Laptop 7. Classic Outlook, Word, Excel, and other applications are not known to be affected. This issue is most likely to occur on new or freshly imaged PCs that have not yet installed any Microsoft Store updates.
-
-**Resolution**: This issue was resolved by Windows updates released September 8, 2026 ([KB5124008](https://support.microsoft.com/help/5124008)), and updates released after that date. We recommend you install the latest update for your device as it contains important improvements and issue resolutions, including this one. 
-
-If you install an update released September 8, 2026 ([KB5124008](https://support.microsoft.com/help/5124008)), or later, you do not need to use a workaround for this issue. If you are using an update released before September 8 and have this issue, you have the option to apply the following workaround. 
-
-**Workaround: **To work around this issue:
-
-1. ​Open **Microsoft Store**.
-2. ​Select **Downloads** &gt; **Check for updates.**
-3. ​Install the latest update for the [Auto Super Resolution Package](https://apps.microsoft.com/detail/9pgwvx8tm6xz) (version 1.0.19.0 or later).
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
-- ​Server: None
-
-Back to top
-
-#### Desktop background settings are lost or reset on some devices
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved [KB5124008](https://support.microsoft.com/help/5124008) | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved: 2026-09-08, 10:00 PTOpened: 2026-09-02, 18:29 PT |
-
-Following installation of Windows updates released August 27 2026 ([KB5120998](https://support.microsoft.com/help/5120998)), some Windows Desktop settings fail to load, resulting in desktop backgrounds displaying as a solid black color. It is possible other desktop settings may be affected, such as slideshow settings or contrast themes.
-
-On affected devices, attempting to manually restore customized settings does not work. This is because the issue prevents the correct loading of settings, regardless of their value. In this case, a default black background is used instead.
-
-**Resolution**: This issue was resolved by Windows updates released September 8, 2026 ([KB5124008](https://support.microsoft.com/help/5124008)), and later. We recommend you install the latest security update for your device as it contains important improvements and issue resolutions, including this one. 
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 25H2; Windows 11, version 24H2
-- ​Server: None
-
-Back to top
-
 ### August 2026
 
 #### Incorrect notifications that "Microsoft Defender Antivirus is turned off"
@@ -367,25 +292,6 @@ This issue can be observed in any version of Windows or Windows Server with Micr
 
 - ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
 - ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
-
-Back to top
-
-#### Mouse customization is reset on non-English Windows devices
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved [KB5124008](https://support.microsoft.com/help/5124008) | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved: 2026-09-08, 10:00 PTOpened: 2026-08-28, 15:36 PT |
-
-Following installation of Windows updates released August 27 2026 ([KB5120998](https://support.microsoft.com/help/5120998)), mouse personalization settings are being reverted to certain standard settings. This includes cursor and cursor animations that are selected in the Mouse Properties options under Windows.
-
-Our investigation indicates that this issue is caused by code components used in non-English Windows installations. In impacted locales, these settings will fail to load, causing a default to be used instead. Attempting to manually restore the settings values is not successful, as the issue prevents loading these settings regardless of their value. 
-
-**Resolution**: This issue was resolved by Windows updates released September 8, 2026 ([KB5124008](https://support.microsoft.com/help/5124008)), and later. We recommend you install the latest security update for your device as it contains important improvements and issue resolutions, including this one. 
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 25H2; Windows 11, version 24H2
-- ​Server: None
 
 Back to top
 
