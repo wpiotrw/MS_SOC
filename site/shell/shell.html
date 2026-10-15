@@ -4026,6 +4026,52 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 li.s5dq-h{list-style:none}
 .s5cu-list > .s5dq-h{border-top:2px solid var(--accent)}
 
+/* §5dr: Permissions per API */
+.s5dr{margin:18px 0 22px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.s5dr-lead,.s5dr-note,.s5dr-what{font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 10px}
+.s5dr-what{color:var(--text);padding:8px 12px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px}
+.s5dr-chg{font-size:13px;margin:4px 0 10px}
+.s5dr-tw{overflow-x:auto}
+.s5dr-t{width:100%;border-collapse:collapse;font-size:13.5px}
+.s5dr-t th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:7px 8px;border-bottom:1px solid var(--border)}
+.s5dr-t td{padding:7px 8px;border-bottom:1px solid var(--border-soft,var(--border));vertical-align:top}
+.s5dr-r{cursor:pointer}
+.s5dr-r:hover,.s5dr-r.s5dr-on{background:var(--bg)}
+.s5dr-name{font-weight:650}
+.s5dr-num{text-align:right;font-variant-numeric:tabular-nums}
+.s5dr-zero{color:var(--muted)}
+.s5dr-id{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--muted)}
+.s5dr-sub{margin:8px 0 4px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.s5dr-chips{display:flex;flex-wrap:wrap;gap:4px}
+.s5dr-chip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;padding:1px 7px;border:1px solid var(--border);border-radius:6px}
+.s5dr-chip.s5dr-adm{border-color:#d29922}
+@media (max-width:760px){.s5dr{padding:10px}.s5dr-id{display:none}.s5dr-t th:last-child{display:none}}
+.s5drb-sw{display:flex;align-items:center;gap:6px;margin:6px 0}
+.s5drb-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
+.s5drb-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+/* §5dt: Message Center number chips in every tab (same look as the Today/New chips) */
+.s5dt-mc{display:inline-block;margin:0 0 0 6px;vertical-align:baseline;font-size:11px;padding:0 7px;line-height:1.55;text-decoration:none}
+.s5dt-mc.s5dt-ext{border-style:dashed}
+.s5dt-mc:first-child{margin-left:0}
+.s5bk-pills .s5dt-mc{margin:0 8px 0 6px}
+.s5bk-pills .s5dt-mc:first-child{margin-left:0}
+/* §5du: the place a jump lands on stays framed in green until cleared (the green bar at the top names it) */
+.s5du-on{outline:2px solid var(--ok)!important;outline-offset:2px;border-radius:8px;background-color:var(--ok-soft)!important}
+tr.s5du-tr>td,tr.s5du-tr2>td{background:var(--ok-soft)!important}
+tr.s5du-tr>td{box-shadow:inset 0 2px 0 var(--ok)}
+tr.s5du-tr>td:first-child,tr.s5du-tr2>td:first-child{box-shadow:inset 2px 0 0 var(--ok),inset 0 2px 0 var(--ok)}
+tr.s5du-tr2>td:first-child{box-shadow:inset 2px 0 0 var(--ok)}
+tr.s5du-tr>td:last-child{box-shadow:inset -2px 0 0 var(--ok),inset 0 2px 0 var(--ok)}
+tr.s5du-tr2>td:last-child{box-shadow:inset -2px 0 0 var(--ok)}
+tr.s5du-solo>td{border-bottom:2px solid var(--ok)}
+tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
+.s5du-host{position:relative}
+.s5du-lab{position:absolute;z-index:5;top:-11px;left:10px;display:inline-flex;align-items:center;gap:6px;margin:0;padding:1px 4px 1px 9px;line-height:1.5;box-shadow:0 1px 3px rgba(0,0,0,.25);border-radius:999px;background:var(--ok);color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;vertical-align:middle;white-space:nowrap}
+.s5du-x{font:inherit;font-size:13px;line-height:1;width:17px;height:17px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;cursor:pointer}
+.s5du-x:hover{background:rgba(255,255,255,.45)}
+/* §5du: a chip whose text wraps (phone) keeps a card shape, not a stretched pill */
+.gfbar .gf-chip{border-radius:12px}
+
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -6870,7 +6916,7 @@ li.s5dq-h{list-style:none}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 14 October 2026</b> &middot; published 06:28 Warsaw &middot; 30 September &ndash; 14 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>47</b> deadlines in 60 days<span>&middot; 42 inside 30, 7 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>15</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>96</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>37</b> changes since 13 Oct<span>&middot; 13 at Microsoft, 24 in this report</span></a><a class="count" href="#chg14"><b>4757</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 15 October 2026</b> &middot; published 07:00 Warsaw &middot; 1 &ndash; 15 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>49</b> deadlines in 60 days<span>&middot; 44 inside 30, 9 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>16</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>94</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>36</b> changes since 14 Oct<span>&middot; 20 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>4509</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7071,7 +7117,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 14 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 15 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
