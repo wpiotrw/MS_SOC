@@ -42,8 +42,10 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/how-to/voice-first-with-hosted-agent.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: eddbf1ea-d82c-85f0-88e6-671df88141cd
 ---
@@ -119,7 +121,7 @@ Set-Location hosted-voice-quickstart
 $sample = "https://github.com/microsoft-foundry/foundry-samples/" +
     "blob/main/samples/python/hosted-agents/bring-your-own/" +
     "voice-agent-target-agent/basic/azure.yaml"
-azd ai agent init -m $sample
+azd ai agent init -t $sample
 ```
 
 Reference: [Initialize a hosted agent](../agents/how-to/deploy-hosted-agent).

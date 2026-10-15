@@ -162,7 +162,7 @@ Initialize a new project from the optimization sample template:
 
 ```bash
 mkdir my-agent && cd my-agent
-azd ai agent init -m https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/optimization-customer-support/azure.yaml .
+azd ai agent init -t https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/optimization-customer-support/azure.yaml .
 ```
 
 This template imports the [Optimization Customer Support sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/python/hosted-agents/bring-your-own/responses/optimization-customer-support), an optimization-ready Python hosted agent that uses the bring-your-own approach and the Responses protocol. It represents a consumer electronics support agent that handles order inquiries, returns, warranty claims, troubleshooting, complaints, recommendations, and escalation. The deliberately minimal baseline instruction makes the improvements from instruction optimization and skill discovery easy to compare.
