@@ -60,6 +60,12 @@ For more information about public preview items, see [Public preview in Windows 
 
 ## Week of October 12, 2026
 
+### Default display settings for Cloud PCs now generally available
+
+IT administrators can set a default display experience for Windows 365 Cloud PCs by choosing either a single display or all displays. Users can still override the default with their own display preferences in Windows App.
+
+For more information, see [Remote Connection Experience](/en-us/windows-365/enterprise/remote-connection-experience).
+
 ### iOS support for external identities is now generally available
 
 External identity support is now generally available for the Windows App on iOS. For more information on client versions and capabilities, see [Compare Windows App features across platforms and devices](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity).

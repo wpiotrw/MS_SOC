@@ -79,6 +79,7 @@ https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults
 https://learn.microsoft.com/en-us/entra/fundamentals/whatis
 https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-bring-your-own-device
+https://learn.microsoft.com/en-us/entra/global-secure-access/concept-connector-groups
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-traffic-forwarding
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-compliant-network
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-cloud-firewall
@@ -153,6 +154,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voic
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha
 https://learn.microsoft.com/en-us/entra/identity/authentication/configure-microsoft-entra-kerberos-trust
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-entra-passkeys-on-windows
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-external-method-manage
@@ -175,6 +177,7 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-auton
 https://learn.microsoft.com/en-us/entra/identity/devices/how-to-hybrid-join-using-microsoft-entra-kerberos
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
+https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-properties
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/validate-oidc-multitenant-app-gallery
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-deployment-options-provision-to-active-directory

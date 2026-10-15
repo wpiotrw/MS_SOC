@@ -11,7 +11,7 @@ keywords:
 author: ericorman
 ms.author: ericor
 manager: tscott
-ms.date: 2026-03-06T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -51,10 +51,6 @@ platformId: 7ee10758-1c5e-77dd-7cbd-60fee23751bf
 ---
 
 # Windows 365 requirements | Microsoft Learn
-
-Important
-
-Windows 365 Frontline is now **Windows 365 Flex**. The product name in the Microsoft Intune admin center is being updated and may still appear as **Frontline** in some places. This article reflects those existing references where updates are still in progress. For more information about the rebrand, see [Expanding access to Windows 365](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-365-and-azure-virtual-desktop-expanding-access/4515931).
 
 To use Cloud PCs, you must meet the following requirements:
 

@@ -37,9 +37,11 @@ source_path: edgeenterprise/microsoft-edge-relnotes-security.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 ---
 
@@ -47,9 +49,11 @@ platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 
 These release notes provide information about security fixes that are included in updates to Microsoft Edge Stable channel.
 
-## October 13, 2026
+## October 15, 2026
 
-Microsoft is aware of the recent Chromium security fixes. We are actively working on releasing a security fix.
+Microsoft released the latest **Microsoft Edge for Stable (Version 155.0.4283.60)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
+
+**Note:** CVE's will be added as soon as available.
 
 ## October 12, 2026
 
