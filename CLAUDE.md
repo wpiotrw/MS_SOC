@@ -859,6 +859,10 @@ h1{font-size:24px;margin:0 0 2px}h2{font-size:17px;margin:26px 0 8px}
 table{width:100%%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border)}
 th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--border);vertical-align:top;font-size:13px}
 th{font-size:12px;color:var(--muted);font-weight:600}
+th,td{border-right:1px solid color-mix(in srgb,var(--ink) 12%%,var(--surface))}th:last-child,td:last-child{border-right:0}
+table{border:1.5px solid color-mix(in srgb,var(--ink) 35%%,var(--surface))}
+th{background:color-mix(in srgb,var(--accent) 16%%,var(--surface));color:var(--ink);border-bottom:2px solid color-mix(in srgb,var(--accent) 60%%,var(--surface))}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--ink) 5%%,var(--surface))}
 .chart{display:flex;gap:8px;align-items:flex-end;height:120px;background:var(--surface);border:1px solid var(--border);padding:10px}
 .chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%%}
 .chart i{display:block;width:70%%;background:var(--accent);border-radius:3px 3px 0 0}.chart span{font-size:12px;color:var(--muted)}
@@ -5865,6 +5869,16 @@ th{position:sticky;top:0;background:var(--surface2);text-align:left;font-size:12
 td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
 tbody tr:last-child td{border-bottom:0}
 tr.t0 td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+/* §5dx: the same table look as the portal (variant B) - frame, accent header, lines between rows and columns, stripes */
+@media (min-width:761px){
+.tw{border:1.5px solid color-mix(in srgb,var(--text) 35%,var(--surface));border-radius:12px}
+.tw th{background:color-mix(in srgb,var(--accent) 16%,var(--surface));color:var(--text);
+ border-bottom:2px solid color-mix(in srgb,var(--accent) 60%,var(--surface));border-right:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))}
+.tw td{border-bottom-color:color-mix(in srgb,var(--text) 18%,var(--surface));border-right:1px solid color-mix(in srgb,var(--text) 12%,var(--surface))}
+.tw tr>:last-child{border-right:0}
+.tw tbody tr:nth-child(even)>td{background-color:color-mix(in srgb,var(--text) 5%,var(--surface))}
+.tw tbody tr:hover>td{background-color:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+}
 .sub{color:var(--muted);font-size:12.5px}
 .ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--accent)}
 .none{color:var(--muted)}
@@ -28489,6 +28503,16 @@ become a campaign" z tabela regul i punktami przy kazdym kandydacie. Security De
 baseline +3, kontrolka +1, dzierzawy Free +1, tier 0 +1, spolecznosc +1, private preview −2) — „Watching";
 kampania, gdy Microsoft poda date albo post MC. Wlasciciel zmienia werdykt w `campaigns.json`. Zadne nowe uprawnienie.
 
+**§5dx (15 X 2026, wlasciciel: „ramki tabel przeprojektowac, zeby byly bardzo czytelne"; z trzech wersji pokazanych na
+zywych tabelach — dzis / A delikatny / B wyrazny — wybral „Robimy B").** Kazda tabela danych portalu na desktopie
+(od 761 px; telefon zostaje przy kartach §5bv): wyrazna ramka z zaokraglonymi rogami, naglowek na pasie w odcieniu
+akcentu z kolorowa linia pod spodem, linie miedzy wierszami I kolumnami, co drugi wiersz zabarwiony, wiersz pod
+kursorem podswietlony. Padding i szerokosci bez zmian (w podgladzie dodatkowy padding ucinal ostatnia kolumne), bez
+`overflow:hidden` na tabeli (rogi rysowane na komorkach narożnych), kolory nieprzezroczyste (przypiete pierwsze
+kolumny czytelne). Wyjatki: `.s5dv-tab` (Baselines ma ten wyglad), `.mcb-grid`. To samo w `/diff/` (`.tw`) i `/week/`.
+Pomiar: 17 zakladek z otwartymi pelnymi sekcjami, 1440 i 1920 px, ciemny i jasny — zadna tabela nie wychodzi poza
+kontener, strona bez przewijania w bok.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -42287,6 +42311,34 @@ button.s5dv-hr:hover{background:var(--surface-2)}
 .s5bk-it.s5dw-also{margin-top:6px}
 .s5dw-t0{color:var(--warn)}
 @media (max-width:760px){.s5dw-g{grid-template-columns:minmax(0,1fr)}}
+/* §5dx (15 X 2026, owner chose variant B of three shown on live tables: "Robimy B"). Every data table of the portal on
+   a desktop: a clear outer frame with rounded corners, a header on an accent-tinted band with a coloured rule under it,
+   a line between rows AND between columns, alternate rows tinted, the row under the pointer highlighted. Padding and
+   widths are NOT changed - the table keeps the width it had, so no column is pushed out (measured on the variant
+   preview: extra padding cut the last column). No overflow:hidden on the table: the rounded corners are drawn on the
+   corner cells. Colours are opaque (mixed into the surface) so sticky first columns stay readable. The phone keeps its
+   card layout (§5bv) - this is desktop only. The Baselines tab has the same look already (§5dv). */
+@media (min-width:761px){
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid){border-collapse:separate!important;border-spacing:0!important;
+    border:1.5px solid color-mix(in srgb,var(--text) 35%,var(--surface))!important;border-radius:12px!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr > th{
+    background:color-mix(in srgb,var(--accent) 16%,var(--surface))!important;color:var(--text)!important;
+    border-bottom:2px solid color-mix(in srgb,var(--accent) 60%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > td,
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > th{
+    border-bottom:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > * > tr > :last-child{border-right:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > *{border-bottom:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:nth-child(even) > td{background-color:color-mix(in srgb,var(--text) 5%,var(--surface))}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:hover > td{background-color:color-mix(in srgb,var(--accent) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :first-child{border-top-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :last-child{border-top-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :first-child{border-bottom-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :last-child{border-bottom-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > caption{padding:6px 10px}
+}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
