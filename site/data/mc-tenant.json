@@ -1,7 +1,7 @@
 {
- "read": "2026-10-14",
+ "read": "2026-10-15",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 705,
+ "count": 709,
  "note": null,
  "messages": [
   {
@@ -18546,6 +18546,112 @@
    "bodyHash": "738ccb94c3ff1cfc"
   },
   {
+   "id": "MC1508229",
+   "title": "Microsoft Excel: Changes to Get Data from Web (Legacy) experience",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-06-05",
+   "modified": "2026-10-14",
+   "tags": [
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] To import data from the web with Power Query, use the newer Get Data from Web experience. The existing Get Data from Web (Legacy) functionality will be reduced. The newer experience provides modern authentication, table detection, data transformation, and refresh capabilities. Existing queries that use the legacy experience will continue to refresh. [Rollout Schedule:] General Avai…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in mid-January 2027 and expect to complete by early April 2027."
+   ],
+   "bodyHash": "b6eda2fe142b553e"
+  },
+  {
+   "id": "MC1508234",
+   "title": "Microsoft Teams: Automatic recording and transcription options align with admin policies",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-01-15",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is updating the Record and transcribe automatically setting in Meeting options, so meeting organizers see only the automatic recording and transcription options permitted by their assigned Teams meeting policies. This change reduces confusion, improves policy compliance, and helps ensure organizers cannot select options that are unavailable based on organizational se…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release: Beginning in early November 2026 and expected to complete by mid-November 2026.",
+    "General Availability (Worldwide): Beginning in early December 2026 and expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "34e1ad82901c5ef5"
+  },
+  {
+   "id": "MC1508235",
+   "title": "Microsoft Purview | Data Loss Prevention: Count of labeled documents condition for Exchange Online",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2027-01-30",
+   "modified": "2026-10-14",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Purview Data Loss Prevention (DLP) is introducing a new Exchange Online condition: Count of labeled documents is greater than. This condition enables administrators to detect messages that contain a high volume of sensitivity-labeled attachments and trigger DLP actions when a configured threshold is exceeded. The condition is available for Exchange Online DLP policies and …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: Beginning in early November 2026 and expected to complete by early December 2026.",
+    "General Availability (Worldwide): Beginning in mid-December 2026 and expected to complete by late December 2026."
+   ],
+   "bodyHash": "4aaba57f0535d35b"
+  },
+  {
+   "id": "MC1508238",
+   "title": "Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
+   "services": [
+    "Microsoft 365 suite",
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-14",
+   "end": "2026-12-30",
+   "modified": "2026-10-14",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Purview is introducing sensitivity labels for Microsoft Entra cloud security groups. This capability extends label-based protection currently available for Microsoft 365 groups and SharePoint sites to cloud security groups. With this change, organizations can apply published Microsoft Purview sensitivity labels directly to security groups and automatically enforce membersh…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to complete in late November 2026."
+   ],
+   "bodyHash": "944c78c06b3661cf"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22243,6 +22349,34 @@
    "id": "MC1483566",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1508229",
+   "type": "new",
+   "title": "Microsoft Excel: Changes to Get Data from Web (Legacy) experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1508234",
+   "type": "new",
+   "title": "Microsoft Teams: Automatic recording and transcription options align with admin policies",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1508235",
+   "type": "new",
+   "title": "Microsoft Purview | Data Loss Prevention: Count of labeled documents condition for Exchange Online",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1508238",
+   "type": "new",
+   "title": "Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
    "fields": {}
   }
  ]
