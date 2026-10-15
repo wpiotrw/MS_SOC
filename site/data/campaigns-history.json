@@ -4256,14 +4256,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-12",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-13",
 "text":"August 1, 2026."
 },
@@ -4377,6 +4369,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-14",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-15",
 "text":"August 1, 2026."
 },
 {
@@ -4905,7 +4905,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"early February 2026."
 },
 {
@@ -4913,7 +4913,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"February 2027."
 },
 {
@@ -5346,6 +5346,60 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-mc1508562":{
+"firstSeen":"2026-10-15",
+"lastSeen":"2026-10-15",
+"name":"NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"status":"Active",
+"members":[
+"MC1508562"
+],
+"log":[],
+"milestones":{
+"MC1508562|microsoft enabled auditing of ntlmv derived credential use o#0":{
+"date":"2025-08-25",
+"label":"late Aug 2025",
+"text":"Microsoft enabled auditing of NTLMv1-derived credential use on Windows 11, version 24H2 and later versions, starting in late August 2025."
+},
+"MC1508562|posted":{
+"date":"2026-10-15",
+"label":"15 Oct 2026",
+"text":"Posted: Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard"
+},
+"MC1508562|beginning with the security update windows versions h h and #0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Beginning with the October 2026 security update, Windows 11, versions 26H2, 25H2, and 24H2, along with Windows Server 2025 enforce restrictions on generating NT"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562":{
+"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562",
+"source":"Message Center",
+"id":"MC1508562",
+"date":"2026-10-15",
+"updated":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378":{
+"title":"Action required: Windows Kerberos hardening (RC4) may affect FSLogix profiles on SMB storage",
+"link":"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378",
+"source":"FSLogix Blog",
+"date":"2026-03-27",
+"group":"microsoft",
+"found":"2026-10-15"
+}
+},
+"final":"2026-10-15",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1508562"
 ]
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
@@ -7575,7 +7629,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7583,7 +7637,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-14",
+"seen":"2026-10-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9632,6 +9686,16 @@
 "title":"Passkey/FIDO2 for users in mainland China – recommended approach?",
 "source":"Microsoft Entra Blog",
 "link":"https://techcommunity.microsoft.com/t5/microsoft-entra/passkey-fido2-for-users-in-mainland-china-recommended-approach/m-p/4564512#M10482"
+},
+{
+"day":"2026-10-15",
+"cid":"c-mc1508562",
+"type":"new",
+"name":"NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"ctype":"Enforcement",
+"tech":"Windows",
+"next":"Oct 2026",
+"text":"Beginning with the October 2026 security update, Windows 11, versions 26H2, 25H2, and 24H2, along with Windows Server 2025 enforce restrictions on generating NTLMv1-derived credentials for Single Sign"
 }
 ],
 "archive":{
