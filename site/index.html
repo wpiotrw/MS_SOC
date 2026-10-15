@@ -4485,6 +4485,34 @@ button.s5dv-hr:hover{background:var(--surface-2)}
 .s5bk-it.s5dw-also{margin-top:6px}
 .s5dw-t0{color:var(--warn)}
 @media (max-width:760px){.s5dw-g{grid-template-columns:minmax(0,1fr)}}
+/* §5dx (15 X 2026, owner chose variant B of three shown on live tables: "Robimy B"). Every data table of the portal on
+   a desktop: a clear outer frame with rounded corners, a header on an accent-tinted band with a coloured rule under it,
+   a line between rows AND between columns, alternate rows tinted, the row under the pointer highlighted. Padding and
+   widths are NOT changed - the table keeps the width it had, so no column is pushed out (measured on the variant
+   preview: extra padding cut the last column). No overflow:hidden on the table: the rounded corners are drawn on the
+   corner cells. Colours are opaque (mixed into the surface) so sticky first columns stay readable. The phone keeps its
+   card layout (§5bv) - this is desktop only. The Baselines tab has the same look already (§5dv). */
+@media (min-width:761px){
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid){border-collapse:separate!important;border-spacing:0!important;
+    border:1.5px solid color-mix(in srgb,var(--text) 35%,var(--surface))!important;border-radius:12px!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr > th{
+    background:color-mix(in srgb,var(--accent) 16%,var(--surface))!important;color:var(--text)!important;
+    border-bottom:2px solid color-mix(in srgb,var(--accent) 60%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > td,
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > th{
+    border-bottom:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > * > tr > :last-child{border-right:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > *{border-bottom:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:nth-child(even) > td{background-color:color-mix(in srgb,var(--text) 5%,var(--surface))}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:hover > td{background-color:color-mix(in srgb,var(--accent) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :first-child{border-top-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :last-child{border-top-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :first-child{border-bottom-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :last-child{border-bottom-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > caption{padding:6px 10px}
+}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 15 October 2026</b> &middot; published 07:00 Warsaw &middot; 1 &ndash; 15 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>49</b> deadlines in 60 days<span>&middot; 44 inside 30, 9 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>16</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>94</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>36</b> changes since 14 Oct<span>&middot; 20 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>4509</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
