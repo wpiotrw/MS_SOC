@@ -507,7 +507,7 @@ For the complete hosted-agent toolbox pattern, see the [full sample](https://aka
 
 ::: zone pivot="csharp"
 
-## Use BrowserAutomationTool with agents example
+## Use Browser Automation Tool with agents example
 
 Before running this sample, complete the setup steps in Set up Browser Automation.
 
@@ -519,88 +519,195 @@ This example uses synchronous methods of the Azure AI Projects client library. F
 
 ```csharp
 using System;
+using System.Threading.Tasks;
 using Azure.AI.Projects;
-using Azure.AI.Extensions.OpenAI;
+using Azure.AI.Projects.Agents;
 using Azure.Identity;
+using Microsoft.ClientModel.TestFramework;
+using NUnit.Framework;
+using OpenAI.Responses;
 
-// Format: "https://resource_name.ai.azure.com/api/projects/project_name"
-var projectEndpoint = "your_project_endpoint";
-var browserConnectionId = "your-browser-automation-connection-id";
+namespace Azure.AI.Extensions.OpenAI.Tests.Samples;
 
-// Note that Browser automation operations can take longer than usual
-// and require the request timeout to be at least 5 minutes.
-AIProjectClientOptions options = new()
+public class Sample_BrowserAutomotion : ProjectsOpenAITestBase
 {
-    NetworkTimeout = TimeSpan.FromMinutes(5)
-};
-AIProjectClient projectClient = new(endpoint: new Uri(projectEndpoint), tokenProvider: new DefaultAzureCredential(), options: options);
+    private AIProjectClient _projectClient;
+    private ProjectsAgentVersion _agentVersion;
 
-// Create the Browser Automation tool using the Playwright connection.
-BrowserAutomationTool playwrightTool = new(
-    new BrowserAutomationToolParameters(
-        new BrowserAutomationToolConnectionParameters(browserConnectionId)
-    ));
+    #region Snippet:Sample_ParseResponse_BrowserAutomotion
+    private static void ParseResponse(StreamingResponseUpdate streamResponse)
+    {
+        if (streamResponse is StreamingResponseCreatedUpdate createUpdate)
+        {
+            Console.WriteLine($"Stream response created with ID: {createUpdate.Response.Id}");
+        }
+        else if (streamResponse is StreamingResponseOutputTextDoneUpdate textDoneUpdate)
+        {
+            Console.WriteLine($"Response done with full message: {textDoneUpdate.Text}");
+        }
+        else if (streamResponse is StreamingResponseErrorUpdate errorUpdate)
+        {
+            throw new InvalidOperationException($"The stream has failed: {errorUpdate.Message}, error code: {errorUpdate.Code}");
+        }
+        else if (streamResponse is StreamingResponseFailedUpdate failedUpdate)
+        {
+            throw new InvalidOperationException($"The response has failed: {failedUpdate.Response.Error?.Message}, error code: {failedUpdate.Response.Error?.Code}");
+        }
+        else if (streamResponse is StreamingResponseIncompleteUpdate incompleteUpdate)
+        {
+            throw new InvalidOperationException($"The response is incomplete: {incompleteUpdate.Response.Id}");
+        }
+    }
+    #endregion
 
-// Create the Agent version with the Browser Automation tool.
-DeclarativeAgentDefinition agentDefinition = new(model: "gpt-4.1-mini")
-{
-    Instructions = "You are an Agent helping with browser automation tasks.\n" +
-    "You can answer questions, provide information, and assist with various tasks\n" +
-    "related to web browsing using the Browser Automation tool available to you.",
-    Tools = { playwrightTool }
-};
-AgentVersion agentVersion = projectClient.AgentAdministrationClient.CreateAgentVersion(
-    agentName: "myAgent",
-    options: new(agentDefinition));
+    [Test]
+    [AsyncOnly]
+    public async Task BrowserAutomotionAsync()
+    {
+        IgnoreSampleMayBe();
+        #region Snippet:Sample_CreateProjectClient_BrowserAutomotion
+#if SNIPPET
+        var projectEndpoint = System.Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_ENDPOINT");
+        var modelDeploymentName = System.Environment.GetEnvironmentVariable("FOUNDRY_MODEL_NAME");
+        var playwrightConnectionId = System.Environment.GetEnvironmentVariable("BROWSER_AUTOMATION_PROJECT_CONNECTION_ID");
+#else
+        var projectEndpoint = TestEnvironment.FOUNDRY_PROJECT_ENDPOINT;
+        var modelDeploymentName = TestEnvironment.FOUNDRY_MODEL_NAME;
+        var playwrightConnectionId = TestEnvironment.BROWSER_AUTOMATION_PROJECT_CONNECTION_ID;
+#endif
+        AIProjectClientOptions options = new()
+        {
+            NetworkTimeout = TimeSpan.FromMinutes(5)
+        };
+        AIProjectClient projectClient = new(endpoint: new Uri(projectEndpoint), tokenProvider: new DefaultAzureCredential(), options: options);
 
-// Create the response stream. Also set ToolChoice = ResponseToolChoice.CreateRequiredChoice()
-// on the ResponseCreationOptions to ensure the agent uses the Browser Automation tool.
-ProjectResponsesClient responseClient = projectClient.ProjectOpenAIClient.GetProjectResponsesClientForAgent(agentVersion.Name);
-CreateResponseOptions responseOptions = new()
-{
-    ToolChoice = ResponseToolChoice.CreateRequiredChoice(),
-    StreamingEnabled = true,
-    InputItems =
-    {
-        ResponseItem.CreateUserMessageItem("Your goal is to report the percent of Microsoft year-to-date stock price change.\n" +
-            "To do that, go to the website finance.yahoo.com.\n" +
-            "At the top of the page, you will find a search bar.\n" +
-            "Enter the value 'MSFT', to get information about the Microsoft stock price.\n" +
-            "At the top of the resulting page you will see a default chart of Microsoft stock price.\n" +
-            "Click on 'YTD' at the top of that chart, and report the percent value that shows up just below it.")
+        #endregion
+        #region Snippet:Sample_CreateAgent_BrowserAutomotion_Async
+        BrowserAutomationTool playwrightTool = new(
+            new BrowserAutomationToolOptions(
+                new BrowserAutomationToolConnectionOptions(playwrightConnectionId)
+            ));
+
+        DeclarativeAgentDefinition agentDefinition = new(model: modelDeploymentName)
+        {
+            Instructions = "You are an Agent helping with browser automation tasks.\n" +
+            "You can answer questions, provide information, and assist with various tasks\n" +
+            "related to web browsing using the Browser Automation tool available to you.",
+            Tools = { playwrightTool }
+        };
+        ProjectsAgentVersion agentVersion = await projectClient.AgentAdministrationClient.CreateAgentVersionAsync(
+            agentName: "myAgent",
+            options: new(agentDefinition));
+        #endregion
+        _projectClient = projectClient;
+        _agentVersion = agentVersion;
+        #region Snippet:Sample_CreateResponse_BrowserAutomotion_Async
+        ProjectResponsesClient responseClient = projectClient.ProjectOpenAIClient.GetProjectResponsesClientForAgent(
+            new AgentReference(agentVersion.Name, agentVersion.Version));
+        CreateResponseOptions responseOptions = new()
+        {
+            ToolChoice = ResponseToolChoice.CreateRequiredChoice(),
+            StreamingEnabled = true,
+            InputItems =
+            {
+                ResponseItem.CreateUserMessageItem("Use the Browser Automation tool to visit https://finance.yahoo.com/quote/MSFT/performance/. " +
+                    "Read the YTD return shown on the page for Microsoft (MSFT) and report the percentage with its label. " +
+                    "Use the visible page content, not prior knowledge. Do not use the search bar or interact with charts. " +
+                    "If the value is unavailable or access is blocked, say so rather than guessing.")
+            }
+        };
+        await foreach (StreamingResponseUpdate update in responseClient.CreateResponseStreamingAsync(responseOptions))
+        {
+            ParseResponse(update);
+        }
+        #endregion
     }
-};
-foreach (StreamingResponseUpdate update in responseClient.CreateResponseStreaming(options: responseOptions))
-{
-    if (update is StreamingResponseCreatedUpdate createUpdate)
+
+    [Test]
+    [SyncOnly]
+    public void BrowserAutomotion()
     {
-        Console.WriteLine($"Stream response created with ID: {createUpdate.Response.Id}");
+        IgnoreSampleMayBe();
+#if SNIPPET
+        var projectEndpoint = System.Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_ENDPOINT");
+        var modelDeploymentName = System.Environment.GetEnvironmentVariable("FOUNDRY_MODEL_NAME");
+        var playwrightConnectionId = System.Environment.GetEnvironmentVariable("BROWSER_AUTOMATION_PROJECT_CONNECTION_ID");
+#else
+        var projectEndpoint = TestEnvironment.FOUNDRY_PROJECT_ENDPOINT;
+        var modelDeploymentName = TestEnvironment.FOUNDRY_MODEL_NAME;
+        var playwrightConnectionId = TestEnvironment.BROWSER_AUTOMATION_PROJECT_CONNECTION_ID;
+#endif
+        AIProjectClientOptions options = new()
+        {
+            NetworkTimeout = TimeSpan.FromMinutes(5)
+        };
+        AIProjectClient projectClient = new(endpoint: new Uri(projectEndpoint), tokenProvider: new DefaultAzureCredential(), options: options);
+        #region Snippet:Sample_CreateAgent_BrowserAutomotion_Sync
+        BrowserAutomationTool playwrightTool = new(
+            new BrowserAutomationToolOptions(
+                new BrowserAutomationToolConnectionOptions(playwrightConnectionId)
+            ));
+
+        DeclarativeAgentDefinition agentDefinition = new(model: modelDeploymentName)
+        {
+            Instructions = "You are an Agent helping with browser automation tasks.\n" +
+            "You can answer questions, provide information, and assist with various tasks\n" +
+            "related to web browsing using the Browser Automation tool available to you.",
+            Tools = { playwrightTool }
+        };
+        ProjectsAgentVersion agentVersion = projectClient.AgentAdministrationClient.CreateAgentVersion(
+            agentName: "myAgent",
+            options: new(agentDefinition));
+        #endregion
+        _projectClient = projectClient;
+        _agentVersion = agentVersion;
+        #region Snippet:Sample_CreateResponse_BrowserAutomotion_Sync
+        ProjectResponsesClient responseClient = projectClient.ProjectOpenAIClient.GetProjectResponsesClientForAgent(
+            new AgentReference(agentVersion.Name, agentVersion.Version));
+        CreateResponseOptions responseOptions = new()
+        {
+            ToolChoice = ResponseToolChoice.CreateRequiredChoice(),
+            StreamingEnabled = true,
+            InputItems =
+            {
+                ResponseItem.CreateUserMessageItem("Use the Browser Automation tool to visit https://finance.yahoo.com/quote/MSFT/performance/. " +
+                    "Read the YTD return shown on the page for Microsoft (MSFT) and report the percentage with its label. " +
+                    "Use the visible page content, not prior knowledge. Do not use the search bar or interact with charts. " +
+                    "If the value is unavailable or access is blocked, say so rather than guessing.")
+            }
+        };
+        foreach (StreamingResponseUpdate update in responseClient.CreateResponseStreaming(responseOptions))
+        {
+            ParseResponse(update);
+        }
+        #endregion
     }
-    else if (update is StreamingResponseOutputTextDeltaUpdate textDelta)
+
+    [TearDown]
+    public override void Cleanup()
     {
-        Console.WriteLine($"Delta: {textDelta.Delta}");
+        if (_agentVersion is not null)
+        {
+            _projectClient.AgentAdministrationClient.DeleteAgentVersion(
+                agentName: _agentVersion.Name, agentVersion: _agentVersion.Version);
+            _agentVersion = null;
+        }
+        base.Cleanup();
     }
-    else if (update is StreamingResponseOutputTextDoneUpdate textDoneUpdate)
-    {
-        Console.WriteLine($"Response done with full message: {textDoneUpdate.Text}");
-    }
-    else if (update is StreamingResponseErrorUpdate errorUpdate)
-    {
-        throw new InvalidOperationException($"The stream has failed with the error: {errorUpdate.Message}");
-    }
+
+    public Sample_BrowserAutomotion(bool isAsync) : base(isAsync)
+    { }
 }
-
-// Delete the Agent version to clean up resources.
-projectClient.AgentAdministrationClient.DeleteAgentVersion(agentName: agentVersion.Name, agentVersion: agentVersion.Version);
 ```
 
 ### What this code does
 
-This example creates an agent version with the Browser Automation tool enabled, sends a prompt that requires tool usage, and prints streaming updates as the agent works through the browser steps.
+This example creates a Foundry agent with the Browser Automation tool, sends it a browser-based task, and streams the response. The agent uses the configured Browser Automation project connection to interact with the target website and return the requested information.
 
 ### Required inputs
 
-- A Foundry project endpoint and a browser automation connection ID. See Configuration for details.
+- A Foundry project endpoint and model deployment name. See Configuration for details.
+- A Browser Automation project connection ID (`BROWSER_AUTOMATION_PROJECT_CONNECTION_ID`).
 - A Playwright connection created in your Foundry project.
 
 ### Expected output
