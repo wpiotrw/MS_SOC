@@ -379,7 +379,7 @@ The following table details the identity support available on each platform and 
 | External identity | ✅¹ | ✅¹ | ✅¹ | ✅¹ | ✅¹ | ❌ |
 
 1. Requires the following versions of Windows App. For more information, see [External identity](/en-us/windows-365/enterprise/identity-authentication#external-identity-preview).
-    1. Windows: To successfully sign in to Microsoft Azure for US Government as an external identity, you can do so in one of two ways:
+    1. Windows: Generally available. To successfully sign in to Microsoft Azure for US Government as an external identity, you can do so in one of two ways:
         - Sign in using the steps from [Add a work or school account](user-account-settings-add-remove-manage?tabs=windows#add-a-work-or-school-account) with your user account.
         - Configure the following registry key on the Windows device running the Windows App to **Sign in with another account for US government** when using the [Add a work or school account](user-account-settings-add-remove-manage?tabs=windows#add-a-work-or-school-account)flow:
             - Registry Hive: HKEY\_CURRENT\_USER

@@ -11,7 +11,7 @@ author: maddiecarr22
 ms.author: madelinecarr
 ms.service: windows-365
 ms.topic: how-to
-ms.date: 2026-07-16T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 ms.subservice: windows-365-enterprise
 ai-usage: ai-assisted
 locale: en-us
@@ -44,7 +44,7 @@ The **Remote Connection Experience** page lets IT administrators manage the foll
 
 - **Context-based redirections (preview):** By using authentication context, admins can define when specific client capabilities should be allowed or restricted based on factors such as user role, device compliance, or network location. [Learn more about context-based redirections](/en-us/windows-365/enterprise/context-based-redirections)
 - **Input protection (preview):** Blocks input from local admin like keyboard, pen from entering the remote session. Only input generated within the remote session is accepted, improving isolation and reducing risk of interference.
-- **Display settings (preview):** IT admins can configure default display settings (single display or all displays) for Windows 365 Cloud PCs. Users can override admin defaults with their own display preferences via the Windows App client (for Windows and MacOS only).
+- **Default display settings:** IT admins can configure default display settings (single display or all displays) for Windows 365 Cloud PCs. Users can override admin defaults with their own display preferences via the Windows App client (for Windows and MacOS only).
 
 ## Add a new setting
 

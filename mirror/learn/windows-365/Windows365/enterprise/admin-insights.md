@@ -10,7 +10,7 @@ description: Learn how to view and use Admin Insights for Windows 365 on the Clo
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
-ms.date: 2026-09-11T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 author: maddiecarr22
 ms.author: madelinecarr
 manager: ericor
@@ -46,10 +46,6 @@ platformId: 51811151-51b3-e2f8-3690-17f5e1c64be6
 ---
 
 # Admin Insights for Windows 365 | Microsoft Learn
-
-Important
-
-Windows 365 Frontline is now **Windows 365 Flex**. The product name in the Microsoft Intune admin center is being updated and may still appear as **Frontline** in some places. This article reflects those existing references where updates are still in progress. For more information about the rebrand, see [Expanding access to Windows 365](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-365-and-azure-virtual-desktop-expanding-access/4515931).
 
 Admin Insights for Windows 365 gives IT administrators a prioritized set of items to review—such as issues that need attention and opportunities to optimize your Cloud PC environment—directly in the Windows 365 experience in the Microsoft Intune admin center.
 

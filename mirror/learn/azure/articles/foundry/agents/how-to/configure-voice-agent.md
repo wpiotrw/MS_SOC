@@ -44,11 +44,11 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/configure-voice-agent.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
 platformId: 050cd1c3-7715-30d9-bfe0-9d24cc8ae971
 ---
 
@@ -206,7 +206,7 @@ Both managed and self-deployed models support custom guardrails that you can con
 
 For latency-sensitive voice applications, use asynchronous output content filtering where your model supports it and your safety policy permits delayed moderation. This approach is especially important for cascaded models: buffering text for synchronous checks can delay speech even when model inference is fast.
 
-For Azure OpenAI text models, use a content-filtering configuration with **Asynchronous Filter** selected in the **Streaming** settings. Review the guardrail assigned to the voice agent, not only the model deployment's default. For configuration and behavior, see [Asynchronous filtering](../../openai/concepts/content-streaming#asynchronous-filtering).
+For Azure OpenAI text models, use a content-filtering configuration with **Asynchronous Filter** selected in the **Streaming** settings. Review the guardrail assigned to the voice agent, not only the model deployment's default. For configuration and behavior, see [Asynchronous filtering](../../openai/concepts/content-streaming#asynchronous-filtering-for-chat-completions).
 
 For Anthropic, Fireworks, and other providers, check the filtering options supported by that model and deployment. Don't assume that the Azure OpenAI setting applies to every provider. Managed compute has separate [content-filtering limitations](../../concepts/managed-compute-overview#limitations); configure the safety controls your application requires rather than assuming built-in filtering is present.
 

@@ -11,7 +11,7 @@ author: serenaz
 ms.author: sezhen
 ms.service: windows-365
 ms.topic: concept-article
-ms.date: 2026-07-12T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 locale: en-us
 document_id: 78025fdd-95e0-e8ca-3e98-ec4d961ebe11
 document_version_independent_id: 78025fdd-95e0-e8ca-3e98-ec4d961ebe11
@@ -36,10 +36,6 @@ platformId: 516d66ee-7808-8fb2-e7e8-99d27c7b2451
 
 # Windows 365 Cloud Apps | Microsoft Learn
 
-Important
-
-Windows 365 Frontline is now **Windows 365 Flex**. The product name in the Microsoft Intune admin center is being updated and may still appear as **Frontline** in some places. This article reflects those existing references where updates are still in progress. For more information about the rebrand, see [Expanding access to Windows 365](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-365-and-azure-virtual-desktop-expanding-access/4515931).
-
 Windows 365 Cloud Apps allow administrators to give users secure access to individual apps hosted on a Cloud PC, without requiring a dedicated Cloud PC for every user. Windows 365 Cloud Apps run on Windows 365 Flex Cloud PCs in Shared mode, so [Windows 365 Flex licenses](/en-us/windows-365/enterprise/windows-365-flex-license) are required to use Cloud Apps.
 
 ## Prerequisites
@@ -59,7 +55,7 @@ If you'd like to create Cloud Apps from custom applications (that is, applicatio
 
 1. First, [create a new](/en-us/windows-365/enterprise/create-provisioning-policy) Windows 365 provisioning policy, and complete the following steps:
 
-    1. On the **General** tab, for **Experience**, select "Access only apps." This selection defaults the License type to Frontline and Shared mode.
+    1. On the **General** tab, for **Experience**, select "Access only apps." This selection defaults the License type to Windows 365 Flex and Shared mode.
     2. In the **Image** tab, you can view the apps available on the image that you can publish after provisioning.
     3. In the **Configuration** tab, if you select an [Autopilot Device Preparation Policy](/en-us/windows-365/enterprise/autopilot-device-preparation), then make sure to check the box to "Prevent users from connection to Cloud PC upon installation failure or timeout." You can also enable User Experience Sync so that app settings and data are saved and applied between user sessions.
 2. Once the policy is created, the Windows 365 Flex Cloud PCs in Shared mode with experience type "Cloud App" begin provisioning in **All Cloud PCs**, and a row with status "Preparing" appears in **All Cloud Apps**. After the first Cloud PC is provisioned, the apps discovered on the Cloud PC's Start Menu will show as "Ready to publish" in **All Cloud Apps.**

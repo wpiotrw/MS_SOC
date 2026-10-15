@@ -11,7 +11,7 @@ keywords:
 author: ErikjeMS
 ms.author: scottduf
 manager: scottduf
-ms.date: 2026-03-20T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -48,10 +48,6 @@ platformId: 90c2b7e6-518a-5814-ab1b-ad92cd04dba3
 ---
 
 # Create provisioning policies for Windows 365 | Microsoft Learn
-
-Important
-
-Windows 365 Frontline is now **Windows 365 Flex**. The product name in the Microsoft Intune admin center is being updated and may still appear as **Frontline** in some places. This article reflects those existing references where updates are still in progress. For more information about the rebrand, see [Expanding access to Windows 365](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-365-and-azure-virtual-desktop-expanding-access/4515931).
 
 Cloud PCs are created and assigned to users based on provisioning policies. These policies hold key provisioning rules and settings that let the Windows 365 service set up and configure the right Cloud PCs for your users. After provisioning policies are created and assigned to the Microsoft Entra user security groups or Microsoft 365 Groups, the Windows 365 service:
 
@@ -95,13 +91,13 @@ A few things to keep in mind:
 4. Choose a **License type**:
 
     - **Enterprise**: Provision Cloud PCs for Windows 365 Enterprise.
-    - **Windows 365 Frontline**: Provision Cloud PCs for [Windows 365 Flex](introduction-windows-365-flex). You must have Windows 365 Flex licenses to create a provisioning policy for Windows 365 Flex Cloud PCs. A warning is shown if you lack such licenses when you choose this option.
+    - **Windows 365 Flex**: Provision Cloud PCs for [Windows 365 Flex](introduction-windows-365-flex). You must have Windows 365 Flex licenses to create a provisioning policy for Windows 365 Flex Cloud PCs. A warning is shown if you lack such licenses when you choose this option.
     - **Reserve**: Provision Cloud PCs for [Windows 365 Reserve](introduction-windows-365-reserve).
-5. If you choose **Windows 365 Frontline**, you must also select a **Windows 365 Frontline type**:
+5. If you choose **Windows 365 Flex**, you must also select a **Windows 365 Flex type**:
 
     - **Dedicated**: Provision Cloud PCs in [dedicated mode](introduction-windows-365-flex#windows-365-flex-in-dedicated-mode).
     - **Shared**: Provision Cloud PCs in [shared mode](introduction-windows-365-flex#windows-365-flex-in-shared-mode).
-6. If you choose **Windows 365 Enterprise** or **Windows 365 Frontline**, then you need to select a **Join type**.
+6. If you choose **Windows 365 Enterprise** or **Windows 365 Flex**, then you need to select a **Join type**.
 
     - **Microsoft Entra Join**: You have three options for **Network**:
         - **Microsoft hosted network**: Select a **Geography** where you want your Cloud PCs provisioned. Then, for **[Region](requirements#supported-azure-regions-for-cloud-pc-provisioning)**, you can select:
