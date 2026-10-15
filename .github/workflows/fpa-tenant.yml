@@ -29,11 +29,16 @@ env:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
+    # 15 X 2026: the 04:35 UTC run hung in the tenant read for 47 min ("The hosted runner lost communication with the
+    # server") and held the swa-deploy group, so Code refresh and Campaign tracking waited behind it. A good run takes
+    # 2-7 min (tenant read 4-6 min): the job gives up after 25 min and the tenant read after 15, the next run 3 h later.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
       - name: Read the tenant (Graph, read-only)
+        timeout-minutes: 15
         run: python3 tools/fpa_tenant.py site/data/fpa-tenant.json
       - name: Read Message Center of the tenant (Graph, read-only)
         # ServiceMessage.Read.All; a 403 is recorded in the file, never fails the snapshot above
