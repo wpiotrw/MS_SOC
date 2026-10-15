@@ -449,6 +449,90 @@ SETTINGS = {  # defaults; campaigns.json "settings" overrides any of them (CLAUD
 }
 
 
+# ---- §5dw (15 X 2026): campaign CANDIDATES -------------------------------------------------------
+# Owner: "campaigns were to be detected and described by us; I am not sure Security Defaults is a campaign like the
+# passkey rollout - make an algorithm by which it and you decide whether a new campaign starts or not". A candidate is
+# a Message Center post or a brief item of the last 30 days that is NOT already in a campaign. Each criterion is named,
+# so the reader can disagree with one point without reading code. Score >= CAND_PROMOTE: "would start a campaign" (the
+# detector above makes it one as soon as Microsoft gives a date or a Message Center post, which is how the score gets
+# there); CAND_WATCH..CAND_PROMOTE-1: "watching"; below: not a campaign.
+CAND_WATCH, CAND_PROMOTE = 3, 6
+CAND_RULES = [
+    ("default", 3, "Microsoft changes how existing tenants behave: a default, a Microsoft-managed baseline or policy, an enforcement or a retirement",
+     r"\bby default\b|phased rollout|rolling out to all|will be (?:turned on|enabled|enforced|required|blocked)|"
+     r"automatically (?:enabled|turned on|applied)|planned .{0,40}enablement|switch(?:es)? itself on|opt[- ]out|"
+     r"rollout communications|no longer (?:be )?(?:available|supported|allowed)|\bretir|deprecat|end of support|\benforce|"
+     r"security defaults|microsoft[- ]managed (?:policy|policies|baseline|rule)"),
+    ("date", 2, "Microsoft gives a date for it (a milestone ahead of us)", None),
+    ("post", 1, "announced in a Message Center post or on the Roadmap", None),
+    ("control", 1, "touches a security control (MFA, legacy auth, device code, Conditional Access, consent, admin roles, tokens)",
+     r"\bmfa\b|multifactor|legacy authentication|device code|conditional access|security defaults|passkey|fido|"
+     r"password|consent|admin(?:istrator)? roles?\b|privileged|\btokens?\b|certificate|\btls\b|basic auth"),
+    ("broad", 1, "applies to all tenants, all users or a whole licence tier",
+     r"all (?:users|tenants|organizations|customers)|every tenant|tenant-wide|\bfree tenants?\b|entra id free|all accounts"),
+    ("tier0", 1, "touches a tier-0 path (the brief's tier0Touch)", None),
+    ("sources", 1, "also written about outside Microsoft (a community article on the same subject)", None),
+    ("preview", -2, "private preview or invitation only - it may never reach every tenant",
+     r"private preview|invitation[- ]only|selected (?:entra id free )?(?:tenants|customers)|by invitation|early access"),
+    ("docs", -1, "a documentation clarification, nothing changes in the service",
+     r"\bnow documented\b|documentation (?:update|clarif)|clarif(?:y|ies|ied)\b|typo|reworded"),
+    ("feature", -1, "a new feature to switch on, not a change Microsoft makes to tenants",
+     r"\bnow available\b|generally available|\bnew (?:feature|capability|option)\b|\bintroduc"),
+]
+
+
+# a feature switched on "by default" is a rollout, not a campaign, unless it touches a control (the detector's rule for
+# the Rollout type): only these words make a default-change proposal without a security control
+STRONG = re.compile(r"\bretir|deprecat|end of support|\benforce|will be required|no longer (?:be )?(?:available|supported|allowed)", re.I)
+
+
+def candidates(recs, out, day, community):
+    claimed = set()
+    for c in out:
+        claimed.update(c.get("members") or [])
+        claimed.update("item:" + x for x in (c.get("items") or []))
+        claimed.update(p.get("id") for p in (c.get("posts") or []) if p.get("id"))
+    since = (datetime.date.fromisoformat(day) - datetime.timedelta(days=30)).isoformat()
+    res = []
+    for rid, r in recs.items():
+        if rid in claimed or rid.replace("item:", "") in claimed:
+            continue
+        recent = max(r.get("published") or "", r.get("updated") or "")
+        if recent < since:
+            continue
+        text = " ".join(str(x or "") for x in [r.get("title"), r.get("ourTitle"), r.get("summary"), r.get("why"), r.get("action")] + list(r.get("texts") or []))
+        if NOISE.search(r.get("title") or "") or OUT_OF_SCOPE.search((r.get("techRaw") or "") + " " + (r.get("title") or "")) or not r.get("tech"):
+            continue   # the same scope as the detector: no Dynamics, Viva, Office features, monthly updates
+        hits = []
+        for key, pts, label, rx in CAND_RULES:
+            ok = False
+            if rx:
+                ok = bool(re.search(rx, text, re.I))
+            elif key == "date":
+                ok = bool(r.get("deadline")) or any(d >= day for t in (r.get("texts") or []) for d, *_ in find_dates(t))
+            elif key == "post":
+                ok = r.get("src") in ("MC", "Roadmap") or bool(r.get("refs"))
+            elif key == "tier0":
+                ok = bool(r.get("tier0"))
+            elif key == "sources":
+                words = {w for w in toks((r.get("ourTitle") or "") + " " + (r.get("title") or "")) if len(w) > 4}
+                ok = bool(words) and any(len(words & toks(a.get("title") or "")) >= 3 for a in community)
+            if ok:
+                hits.append({"k": key, "p": pts, "why": label})
+        score = sum(h["p"] for h in hits)
+        keys = {h["k"] for h in hits}
+        if score < CAND_WATCH or not any(h["k"] == "default" for h in hits):
+            continue   # without a change Microsoft makes to tenants there is no campaign to follow
+        res.append({"id": rid.replace("item:", ""), "title": r.get("ourTitle") or r.get("title"), "tech": r.get("tech"),
+                    "src": r.get("src"), "link": r.get("link"), "published": r.get("published"), "score": score,
+                    "verdict": "proposed campaign" if score >= CAND_PROMOTE and (keys & {"control", "tier0"} or STRONG.search((r.get("title") or "") + " " + (r.get("ourTitle") or ""))) else "watching",
+                    "criteria": hits})
+    res.sort(key=lambda x: x.get("published") or "", reverse=True)   # newest first inside one score
+    res.sort(key=lambda x: (0 if x["verdict"] == "proposed campaign" else 1,
+                            0 if any(h["k"] in ("control", "tier0") for h in x["criteria"]) else 1, -x["score"]))   # security first
+    return res[:40]
+
+
 def main(argv):
     global OUT, HIST
     if "--out-dir" in argv:  # tests: write campaigns.json and the history elsewhere
@@ -1359,6 +1443,12 @@ def main(argv):
                               for k, v in archive.items() if (v.get("final") or v.get("lastSeen") or "") >= ago(SET["archiveShowDays"])],
                              key=lambda a: a.get("final") or a.get("lastSeen") or "", reverse=True),
            "campaigns": out}
+    # §5dw: candidates - what is not a campaign yet, with the named criteria that decided it
+    comm = []
+    for blk in ((st.get("community") or {}).get("sources") or []):
+        comm.extend(blk.get("articles") or [])
+    doc["candidates"] = candidates(recs, out, day, comm)
+    doc["candidateRules"] = [{"k": k, "p": p, "why": w} for k, p, w, _ in CAND_RULES] + [{"k": "threshold", "p": CAND_PROMOTE, "why": "score that would start a campaign"}, {"k": "watch", "p": CAND_WATCH, "why": "score from which we watch"}]
     old = jload(OUT, {})
     same = {k: v for k, v in old.items() if k != "generated"} == json.loads(json.dumps({k: v for k, v in doc.items() if k != "generated"}))
     if not same:  # a run that changed nothing leaves the file alone, so the workflow commits nothing
