@@ -1,7 +1,7 @@
 {
  "read": "2026-10-15",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 709,
+ "count": 703,
  "note": null,
  "messages": [
   {
@@ -7715,32 +7715,6 @@
    "bodyHash": "187ce40c10669834"
   },
   {
-   "id": "MC1423105",
-   "title": "Introducing Auto-Attendant Call Flow Visualizer in Teams Admin Center",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-15",
-   "modified": "2026-07-10",
-   "tags": [
-    "Admin impact",
-    "New feature"
-   ],
-   "summary": "[What and Why:] We are introducing the Call Flow Visualizer in Teams Admin Center, a new interactive experience that provides a visual representation of Auto Attendant and Teams Phone agent call routing. This enhancement simplifies management of complex call flows, reduces configuration errors, and accelerates troubleshooting while improving admin productivity. [Rollout Schedule:] General Availabi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC): Began early June 2026 ; completed by late June 2026.",
-    "General Availability (GCC High, DoD): Will begin mid-August 2026 ; expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "b4121a8e750f2775"
-  },
-  {
    "id": "MC1423108",
    "title": "(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
    "services": [
@@ -13899,151 +13873,6 @@
    "bodyHash": "2eec73d6fa8f45fa"
   },
   {
-   "id": "MC1472159",
-   "title": "Dynamics 365 Contact Center - Manage overnight shifts as a single continuous schedule",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to manage overnight shifts as a single continuous schedule in Dynamics 365 Contact Center. This feature will reach general availability on October 2, 2026. How does this affect me? With this feature, supervisors can now create and manage overnight shifts that span across midnight while maintaining a single continuous shift experience. Activities, breaks, meals, and ad…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 2, 2026."
-   ],
-   "bodyHash": "05741be1a69d5fec"
-  },
-  {
-   "id": "MC1472191",
-   "title": "Power Automate - Create and manage custom dashboard tiles",
-   "services": [
-    "Microsoft Power Automate"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-22",
-   "tags": [
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Update: Release of this feature has been postponed; we will announce a new date in the future. We are announcing the ability to create and manage custom dashboard tiles in Power Automate. This feature will reach public preview on September 30, 2026. How does this affect me? This feature enables users to monitor the metrics that matter most to their role or team without relying on external tools. B…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "7ede64552de2b101"
-  },
-  {
-   "id": "MC1472205",
-   "title": "Dynamics 365 Project Operations - Define the accounting date at invoice level",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to define the accounting date at the invoice level in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? With this feature, users can set the accounting date on an invoice separately from the transaction and document dates, so the billed revenue posts to the right financial period. This keeps Project…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "7a9128ff78fa343b"
-  },
-  {
-   "id": "MC1472214",
-   "title": "Dynamics 365 Project Operations - Enable Change Order Management",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to enable structured creation, review, and approval of contract updates in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This feature introduces a structured, auditable process for creating, evaluating, and approving change orders on active project contracts. It allows users to capture updates t…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "a647f7ff072d1be7"
-  },
-  {
-   "id": "MC1472247",
-   "title": "Dynamics 365 Project Operations - Enable multiple baselines for a project",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to enable multiple baselines for a project in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? Multiple baselines provide a clear historical view of how a user's project plan evolves over time without losing earlier snapshots. This allows users to track changes in scope, schedule, cost, and effort …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "dbf85c1ea61d2075"
-  },
-  {
-   "id": "MC1472252",
-   "title": "Dynamics 365 Project Operations - Enable on-account category in Dataverse",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-22",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to sync transaction categories for retainers and milestones between Microsoft Dataverse and Dynamics 365 in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This feature enables categorization of retainers, milestones, and advances for accurate revenue posting in Dynamics 365 Finance. This feature …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "9a3cc92f6e3dcfbd"
-  },
-  {
    "id": "MC1472428",
    "title": "Dynamics 365 Project Operations- Improve contract management usability",
    "services": [
@@ -18652,6 +18481,35 @@
    "bodyHash": "944c78c06b3661cf"
   },
   {
+   "id": "MC1508562",
+   "title": "Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+   "services": [
+    "Windows"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2027-10-15",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Beginning with the October 2026 security update, Windows 11, versions 26H2, 25H2, and 24H2, along with Windows Server 2025 enforce restrictions on generating NTLMv1-derived credentials for Single Sign-On by default. This planned security-hardening change is part of the boarder Microsoft effort to phase out NTLM. Microsoft originally documented the change in August 2025 . This change applies only o…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning with the October 2026 security update, Windows 11, versions 26H2, 25H2, and 24H2, along with Windows Server 2025 enforce restrictions on generating NTLMv1-derived credentials for Single Sign-On by default.",
+    "Microsoft originally documented the change in August 2025 .",
+    "Beginning with the October 2026 security update, Windows uses Enforce mode as the internal default behavior instead of Audit mode, if the registry key BlockNtlmv1SSO has not been previously configured.",
+    "It is not a known issue with the October 2026 security update.",
+    "Microsoft enabled auditing of NTLMv1-derived credential use on Windows 11, version 24H2 and later versions, starting in late August 2025.",
+    "The rollout to Windows Server 2025 began in November 2025."
+   ],
+   "bodyHash": "fe0c9b8ef207681c"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22377,6 +22235,62 @@
    "id": "MC1508238",
    "type": "new",
    "title": "Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1508562",
+   "type": "new",
+   "title": "Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1423105",
+   "type": "removed",
+   "title": "Introducing Auto-Attendant Call Flow Visualizer in Teams Admin Center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472159",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Manage overnight shifts as a single continuous schedule",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472191",
+   "type": "removed",
+   "title": "Power Automate - Create and manage custom dashboard tiles",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472205",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Define the accounting date at invoice level",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472214",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Enable Change Order Management",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472247",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Enable multiple baselines for a project",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472252",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Enable on-account category in Dataverse",
    "fields": {}
   }
  ]
