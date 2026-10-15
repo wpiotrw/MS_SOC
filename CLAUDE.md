@@ -22050,12 +22050,31 @@ PROMOTE=[("requirement",r"\bmust\b|\brequired\b|\bisn't supported\b|\baren't sup
  ("security object",r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg")]
 META=re.compile(r"^[+-]\s*(ms\.date|ms\.custom|ms\.reviewer|ai-usage|title|description|ms\.topic|author|manager):",re.I)
 
+# §5dw (15 X 2026, owner: "Security Defaults changed on Learn and I do not see it in the Learn tab"). Measured: Section D
+# (nt.pages) held 196-216 pages up to 13 X and ZERO on 14 and 15 X - learn_changes.py moved to the clone directory
+# SOC_REPOS on 13 X (§5dp-b), this function kept looking in "repos" and found nothing. Same directory rule now.
+REPOS_DIR=os.environ.get("SOC_REPOS") or "repos"
+# Which edited pages get a line-by-line diff: only 14 per area are read, and Entra edits 40 in two weeks. Taken by
+# size alone (the old order) a 100-line new section on Security Defaults was 17th, behind spelling fixes and TOC files
+# (588 added / 588 removed). Order now: identity and tier-0 subjects first, then the newest days, then size; pure churn
+# (same count added and removed, a spelling/format/link subject, TOC and includes) last.
+PAGE_FIRST=re.compile(r"security[-_ ]defaults|conditional[-_ ]access|authentication|\bmfa\b|passkey|fido|password|"
+    r"privileged|\bpim\b|permissions[-_ ]reference|roles?[-_]|consent|token|certificate|federation|"
+    r"connect|cloud[-_ ]sync|device[-_ ]code|legacy|identity[-_ ]protection|risk|agent[-_ ]id|defender|purview|dlp|audit",re.I)
+CHURN=re.compile(r"spelling|typo|format|broken link|link fix|acrolinx|freshness|metadata|toc\b|ms\.date",re.I)
+def page_rank(pg):
+    """learn_changes.json page: path, date (newest commit), add, rem, commits [{h, date, subj}]"""
+    path=pg.get("path",""); subj=" ".join(c.get("subj","") for c in (pg.get("commits") or [])[:3])
+    ad,rm=pg.get("add",0) or 0,pg.get("rem",0) or 0
+    churn=(ad==rm and CHURN.search(subj)) or re.search(r"(^|/)(TOC\.yml|includes/)",path,re.I)
+    return (1 if churn else 0, 0 if PAGE_FIRST.search(path+" "+subj) else 1,
+            -int(str(pg.get("date") or "0").replace("-","")[:8] or 0), -(ad+rm))
 def page_diffs(probe,areas_changes):
     out=[];byarea=[]
     since=(TODAY-datetime.timedelta(days=WIN)).isoformat()
     for a in probe:
         repo=a.get("repo"); d=(a.get("dir") or "").strip("/")
-        p=os.path.join("repos",repo or "")
+        p=os.path.join(REPOS_DIR,repo or "")
         if not repo or not os.path.isdir(p): continue
         short=a["name"].replace("Microsoft Learn - ","")
         rec=next((x for x in areas_changes if x["name"]==short),None)
@@ -22064,7 +22083,7 @@ def page_diffs(probe,areas_changes):
             "head":max(x["date"] for x in rec["pages"]),"files":len(rec["pages"]),
             "tag":(rec.get("tag") or a["name"].replace("Microsoft Learn - ","")),
             "add":rec["add"],"rem":rec["rem"]})
-        for pg in rec["pages"][:14]:
+        for pg in sorted(rec["pages"],key=page_rank)[:14]:
             diff=git(p,"log","--since",since,"-p","--unified=2","--pretty=format:@@%H|%cI|%s","--",pg["path"],timeout=90)
             hunks=[];add=rem=ma=mr=0;commit="";date=pg["date"]
             for blk in diff.split("\n"):
@@ -22097,7 +22116,8 @@ def page_diffs(probe,areas_changes):
                 "metaAdded":ma,"metaRemoved":mr,"promote":promo,
                 "socWeight":blog_weight(tags),"tier0":bool(TIER0.search(text)),
                 "hunks":[h for h in hunks if h["add"] or h["rem"]][:4]})
-    out.sort(key=lambda x:(0 if x["promote"] else 1,-(x["added"]+x["removed"])))
+    # §5dw: a tier-0 page first, then the newest edit, then size - the Learn tab's table and its first fourteen cards
+    out.sort(key=lambda x:(0 if x["promote"] else 1,0 if x["tier0"] else 1,-int((x["date"] or "0").replace("-","")[:8] or 0),-(x["added"]+x["removed"])))
     return out,byarea
 
 def main():
@@ -22145,9 +22165,9 @@ def main():
                         "documentation repository is public (nt.learn, method git)." % len(tried))})
             continue
         repo,path,url=WN[key]
-        md=git(os.path.join("repos",repo),"show","HEAD:"+path,timeout=90)
+        md=git(os.path.join(REPOS_DIR,repo),"show","HEAD:"+path,timeout=90)   # §5dw: SOC_REPOS, as learn_changes.py
         ent,msdate=parse_whatsnew(md,AREA_SHORT[key],url,path) if md else ([],None)
-        head=(git(os.path.join("repos",repo),"log","-1","--format=%cI","--",path,timeout=60)[:10] or None) if md else None
+        head=(git(os.path.join(REPOS_DIR,repo),"log","-1","--format=%cI","--",path,timeout=60)[:10] or None) if md else None
         # §5by (28 IX 2026): the PUBLISHED page is read too, and the newer of the two wins.
         # Measured that day: the git mirrors gave entries for 2 of 10 areas (8 x "page not in
         # mirror"), and Intune's mirror stopped at 26 Aug while learn.microsoft.com carried four
@@ -28442,6 +28462,33 @@ Maester and Tenable" i zdanie „Baselines" z trzema kafelkami (dzis Maester, dz
 `baselines` (`tools/stamp.py`). Tabele zakladki: ramka na kazdej komorce, naglowek w swoim kolorze, wiersze w paski; na
 telefonie karty z nazwami pol. Zadne nowe uprawnienie aplikacji — tylko publiczne zrodla.
 
+**§5dw (15 X 2026, wlasciciel: „bardzo wazna zmiana — Security Defaults zarzadzane regula po regule (preview) — nie
+widze jej w zdaniach, Overview, Today ani w Learn"; potem: „kampanie mielismy wykrywac sami; nie wiem, czy to kampania
+jak rollout passkey — potrzebny algorytm, na podstawie ktorego on i ty ocenicie, czy powstaje nowa kampania").**
+Zmierzone: pozycja `entra-security-defaults-individual-protections-preview` byla w stanie 15 X (commit `c8aff6d012`
+w `entra-docs`, `tier0Touch: true`, waga 3), widoczna tylko w New i Community. Przyczyny i poprawki:
+(1) **`collect_nt.py`**: `page_diffs` i odczyt stron „what's new" szukaly klonow w `repos`, a od §5dp-b (13 X)
+klony sa w `SOC_REPOS` — Sekcja D zakladki Learn (`nt.pages`) miala 0 stron 14 i 15 X (wczesniej 196–216). Teraz
+`REPOS_DIR = SOC_REPOS or "repos"`. Z 40 edytowanych stron obszaru diff dostaje 14 — dotad wedlug liczby linii
+(Security Defaults 17., za poprawkami pisowni i TOC); teraz `page_rank`: najpierw tematy tozsamosci i tier 0, potem
+najnowszy dzien, potem rozmiar; czysty „churn" (tyle samo dodanych i usunietych przy temacie spelling/format/link,
+TOC, includes) na koncu. Sortowanie wyniku: promowane, tier 0, najnowsze, rozmiar. Test na klonie `entra-docs`:
+`security-defaults.md` 2. w Sekcji D. (2) **Zdania dnia**: `fresh` sortowane kluczem §5p (tier 0 malejaco, waga
+rosnaco); w zdaniu technologii pierwsza jest nowa pozycja tier 0, a druga pozycja tier 0 tej technologii (albo zmiana
+Graph/roli §5cy, ktora byla pierwsza) jest DRUGIM linkiem tego samego zdania (`.s5dw-also`) — jedno zdanie na
+technologie, nic nie wypada. (3) **Today**: nowe od poprzedniego briefu pozycje `tier0Touch` dochodza do Top picks
+za dziesiecioma kartami przebiegu, z jednym zdaniem, ktore to mowi (`.s5dw-t0`). (4) **Kandydaci na kampanie**
+(`tools/campaigns.py`, `candidates()`, w `site/data/campaigns.json`: `candidates`, `candidateRules`): kazdy post
+Message Center i pozycja briefu z 30 dni, ktora nie jest w kampanii, w zakresie detektora (bez NOISE / OUT_OF_SCOPE),
+dostaje punkty za nazwane kryteria: zmiana zachowania dzierzaw (domyslna, baseline/polityka zarzadzana przez
+Microsoft, wymuszenie, wycofanie) +3, data Microsoftu +2, post MC/Roadmap +1, kontrolka bezpieczenstwa +1, wszystkie
+dzierzawy/poziom licencji +1, tier 0 +1, artykul spolecznosci o tym samym +1; private preview −2, sama dokumentacja
+−1, nowa funkcja do wlaczenia −1. Bez kryterium „zmiana zachowania" nie ma kandydata. „Proposed campaign": ≥ 6 i
+kontrolka, tier 0 albo wycofanie/wymuszenie w tytule; „Watching": ≥ 3. Zakladka Campaigns pokazuje sekcje „What may
+become a campaign" z tabela regul i punktami przy kazdym kandydacie. Security Defaults 15 X: 5 punktow (zmiana
+baseline +3, kontrolka +1, dzierzawy Free +1, tier 0 +1, spolecznosc +1, private preview −2) — „Watching";
+kampania, gdy Microsoft poda date albo post MC. Wlasciciel zmienia werdykt w `campaigns.json`. Zadne nowe uprawnienie.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30769,7 +30816,8 @@ odtad CZTERNASCIE (4-17).**
     var due7 = dated.filter(function (x) { return x.n >= 0 && x.n <= 7; }).sort(function (a, b) { return a.n - b.n || w(a.it) - w(b.it); });
     var passed = dated.filter(function (x) { return x.n < 0 && x.n >= -7; }).sort(function (a, b) { return b.n - a.n || w(a.it) - w(b.it); });
     var newIds = {}; (st.newToday || []).forEach(function (id) { newIds[id] = 1; });
-    var fresh = items.filter(function (i) { return newIds[i.id]; }).sort(function (a, b) { return w(a) - w(b); });
+    /* §5dw: the §5p key - tier 0 first, then the weight (Security Defaults per rule, 15 X, lost to a lighter item) */
+    var fresh = items.filter(function (i) { return newIds[i.id]; }).sort(function (a, b) { return (b.tier0Touch ? 1 : 0) - (a.tier0Touch ? 1 : 0) || w(a) - w(b); });
     var ms = msChanges(cat, today);
     var since = String((st.comparedWith || {}).date || "");
 
@@ -30926,7 +30974,7 @@ odtad CZTERNASCIE (4-17).**
     /* the pool: new items (heaviest first), items due within 14 days, then new MC posts
        (major or dated first) — the same ground the cards and the MC browser stand on */
     var pool = [];
-    fresh.forEach(function (i) { pool.push({ id: i.id, tech: techOf([i.product, i.area]), text: i.title || i.officialTitle || i.id,
+    fresh.forEach(function (i) { pool.push({ id: i.id, t0: !!i.tier0Touch, tech: techOf([i.product, i.area]), text: i.title || i.officialTitle || i.id,
       sub: firstSentence(i.why), meta: ["new", mcRef(i)].filter(Boolean).join(" · ") }); });
     dated.filter(function (x) { return x.n >= 0 && x.n <= 14 && !newIds[x.it.id]; })
       .sort(function (a, b) { return a.n - b.n || w(a.it) - w(b.it); })
@@ -30965,7 +31013,14 @@ odtad CZTERNASCIE (4-17).**
       var m = [x.sub || "Microsoft gives no summary for this item in the data \u2014 open it for the details.", x.meta].filter(Boolean).join(" · ");
       if (m) b.appendChild(el("span", "s5bk-itm", m));
       b.addEventListener("click", function () { go(x.id); });
-      li.appendChild(b); host.appendChild(li);
+      li.appendChild(b);
+      if (x.also) {   /* §5dw: the second link of the same technology */
+        var b2 = el("button", "s5bk-it s5dw-also"); b2.type = "button";
+        b2.appendChild(el("span", "s5bk-itt", x.also.text));
+        var m2 = [x.also.sub, x.also.meta].filter(Boolean).join(" · "); if (m2) b2.appendChild(el("span", "s5bk-itm", m2));
+        b2.addEventListener("click", function () { go(x.also.id); }); li.appendChild(b2);
+      }
+      host.appendChild(li);
     }
     function refOk(d) { return (d.refs || []).filter(function (r) { return BYID[r]; }); }
     function refOf(id) { var r = BYID[id]; return !r ? "" : r.kind === "item" ? mcRef(r.it) : r.kind === "mc" ? id : ""; }
@@ -31014,8 +31069,18 @@ odtad CZTERNASCIE (4-17).**
       var seenT = {}, ORDER = ["Defender", "Entra ID", "Entra Connect", "Sentinel", "Intune", "Purview", "Copilot",
         "Exchange & Outlook", "Teams", "Windows", "Azure", "SharePoint & OneDrive", "Edge", "Microsoft 365", "Power Platform", "Dynamics 365"];
       ORDER.forEach(function (t) {
-        var x = pool.filter(function (y) { return y.tech === t && !used[y.id]; })[0];
-        if (x && more.length < 10) { seenT[t] = 1; more.push(x); }
+        /* §5dw (15 X 2026, owner: "Security Defaults changed and the Entra sentence talks about a role"): a new item
+           that touches tier 0 speaks for its technology first; a second tier-0 item of the same technology, else the
+           Graph or role change (§5cy) that was first in line, is the second link of the same sentence - one sentence
+           per technology, nothing pushed out */
+        var c = pool.filter(function (y) { return y.tech === t && !used[y.id]; });
+        var x = c.filter(function (y) { return y.t0; })[0] || c[0];
+        if (x && more.length < 10) {
+          seenT[t] = 1; var o = c.filter(function (y) { return y !== x && y.t0; })[0] ||
+            c.filter(function (y) { return y !== x && (BYID[y.id] || {}).kind !== "item" && (BYID[y.id] || {}).kind !== "mc"; })[0];
+          if (x.t0 && o) { x.also = o; used[o.id] = 1; }
+          more.push(x);
+        }
       });
       pool.forEach(function (x) { if (more.length < 10 && !used[x.id] && !seenT[x.tech]) { seenT[x.tech] = 1; more.push(x); } });
     }
@@ -35813,6 +35878,10 @@ odtad CZTERNASCIE (4-17).**
   /* ================================================================ TODAY */
   function buildToday(p) {
     var top = (ST.topCards || []).filter(function (id) { return I[id]; });
+    /* §5dw (15 X 2026, owner: "I did not see Security Defaults in Today"): an item new since the previous brief that
+       touches tier 0 is a top pick even when the run's ten cards left it out (§5p: tier 0 first, gate item 23) */
+    var t0Add = (ST.newToday || []).filter(function (id) { return I[id] && I[id].tier0Touch && top.indexOf(id) < 0; });
+    top = top.concat(t0Add);
     var per = (ST.picksOrder || []).filter(function (id) { return I[id]; });
     if (!top.length && !per.length) return false;
     var S = { v: top.length ? "top" : "per", q: "", c: "all" };
@@ -35827,6 +35896,8 @@ odtad CZTERNASCIE (4-17).**
       if (nDl) { lead.appendChild(document.createTextNode(", ")); var a2 = el("button", "s5ci-inl", nDl + " in Deadlines"); a2.type = "button"; a2.addEventListener("click", function () { goTab("deadlines"); }); lead.appendChild(a2); }
     }
     root.appendChild(lead);
+    if (t0Add.length) root.appendChild(el("p", "s5ci-lead s5dw-t0", "Top picks include " + t0Add.length + " new item" + (t0Add.length === 1 ? "" : "s") +
+      " that touch" + (t0Add.length === 1 ? "es" : "") + " tier 0 (" + t0Add.map(function (id) { return (I[id].title || id).slice(0, 60); }).join("; ") + ") — added after the run's ten picks."));
     var cm = compMoves(PREV);
     if (cm.length) {
       var cb = el("div", "s5ck-today"); cb.setAttribute("role", "note");
@@ -40354,6 +40425,78 @@ odtad CZTERNASCIE (4-17).**
   window.addEventListener("hashchange", fromHash);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 300); }); else setTimeout(start, 300);
 })();
+
+
+/* §5dw (15 X 2026, owner: "campaigns were to be detected by us; I am not sure Security Defaults is a campaign like the
+   passkey rollout - there should be an algorithm by which it and you decide whether a new campaign starts or not").
+   Campaigns tab, after the list: "What may become a campaign" - tools/campaigns.py scores every Message Center post
+   and brief item of the last 30 days that is not in a campaign yet, criterion by criterion (data/campaigns.json
+   candidates, candidateRules). Proposed (score >= threshold and a security control, tier 0 or a retirement /
+   enforcement in the title) and Watching; the rules table says what each point means, so a verdict can be argued
+   with. The owner turns a proposal into a campaign (or hides it) in campaigns.json. */
+(function () {
+  "use strict";
+  if (window.__s5dw) return; window.__s5dw = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  var D = null;
+  function open(c) {
+    if (/^MC\d+$/.test(c.id) && window.__socOpenMC) { window.__socOpenMC(c.id); return; }
+    if (window.__socGoItem && window.__socGoItem(c.id)) return;
+    if (c.link) window.open(c.link, "_blank", "noopener");
+  }
+  function row(c) {
+    var r = el("div", "s5dw-c s5dw-" + (c.verdict === "proposed campaign" ? "p" : "w")); r.setAttribute("data-id", c.id);
+    var top = el("div", "s5dw-ct");
+    var sc = el("span", "s5dw-sc", String(c.score)); sc.title = "Score: the sum of the points below"; top.appendChild(sc);
+    var b = el("button", "s5dw-n", c.title || c.id); b.type = "button"; b.title = "Open " + c.id; b.addEventListener("click", function () { open(c); }); top.appendChild(b);
+    r.appendChild(top);
+    r.appendChild(el("div", "s5dw-m", [c.tech, /^MC\d/.test(c.id) ? c.id : c.src === "item" ? "brief item" : c.src, c.published ? dmy(c.published) : ""].filter(Boolean).join(" · ")));
+    var ul = el("ul", "s5dw-cr");
+    (c.criteria || []).forEach(function (h) { var li = el("li", h.p < 0 ? "neg" : "pos"); li.appendChild(el("b", null, (h.p > 0 ? "+" : "") + h.p)); li.appendChild(document.createTextNode(" " + h.why)); ul.appendChild(li); });
+    r.appendChild(ul);
+    return r;
+  }
+  function render() {
+    var p = document.getElementById("tab-campaigns"); if (!p || !D) return;
+    if (p.querySelector(":scope > .s5dw")) return;
+    var C = D.candidates || [], R = D.candidateRules || [];
+    var sec = el("section", "s5dw"); sec.id = "campaign-candidates"; sec.setAttribute("aria-label", "What may become a campaign");
+    var thr = (R.filter(function (x) { return x.k === "threshold"; })[0] || {}).p || 6, wat = (R.filter(function (x) { return x.k === "watch"; })[0] || {}).p || 3;
+    var P = C.filter(function (c) { return c.verdict === "proposed campaign"; }), W = C.filter(function (c) { return c.verdict !== "proposed campaign"; });
+    sec.appendChild(el("h3", null, "What may become a campaign · " + P.length + " proposed · " + W.length + " watching"));
+    sec.appendChild(el("p", "s5dw-lead", "Every Message Center post and brief item of the last 30 days that is not in a campaign yet, scored by the rules below. " +
+      "A campaign is a change Microsoft makes to tenants over time - a default, a Microsoft-managed baseline, an enforcement or a retirement - that admins have to follow to a date. " +
+      "Proposed: " + thr + " points or more with a security control, tier 0 or a retirement or enforcement in the title. Watching: " + wat + " points or more. " +
+      "A proposal becomes a campaign when Microsoft gives a date or a Message Center post (the detector then picks it up), or when the owner defines it in campaigns.json."));
+    var rt = el("details", "s5dw-rules"); rt.appendChild(el("summary", null, "The rules — what each point means"));
+    var tw = el("div", "s5dv-tw"), t = el("table", "s5dv-tab"), th = el("thead"), tr = el("tr");
+    ["Points", "Criterion"].forEach(function (x) { tr.appendChild(el("th", null, x)); }); th.appendChild(tr); t.appendChild(th);
+    var tb = el("tbody"); R.filter(function (x) { return x.k !== "threshold" && x.k !== "watch"; }).forEach(function (x) {
+      var r = el("tr"); r.appendChild(el("td", null, (x.p > 0 ? "+" : "") + x.p)); r.appendChild(el("td", null, x.why)); tb.appendChild(r); });
+    t.appendChild(tb); tw.appendChild(t); rt.appendChild(tw); sec.appendChild(rt);
+    function block(title, L, n) {
+      if (!L.length) { sec.appendChild(el("p", "s5dw-none", title + ": none today.")); return; }
+      sec.appendChild(el("h4", null, title));
+      var g = el("div", "s5dw-g"); L.slice(0, n).forEach(function (c) { g.appendChild(row(c)); }); sec.appendChild(g);
+      if (L.length > n) { var more = el("button", "s5ci-inl", "Show all " + L.length); more.type = "button";
+        more.addEventListener("click", function () { L.slice(n).forEach(function (c) { g.appendChild(row(c)); }); more.remove(); }); sec.appendChild(more); }
+    }
+    block("Proposed campaigns", P, 12);
+    block("Watching", W, 8);
+    p.appendChild(sec);
+  }
+  function start() {
+    if (!onSite() || !window.fetch) return;
+    fetch("/data/campaigns.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.candidates) return; D = d; render();
+      /* the campaigns layer redraws its panel; put the block back after it */
+      document.addEventListener("click", function () { setTimeout(render, 400); }, true);
+    }).catch(function () {});
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 600); }); else setTimeout(start, 600);
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -42122,6 +42265,28 @@ button.s5dv-hr:hover{background:var(--surface-2)}
   .s5dv-tab tbody tr:nth-child(even) td{background:transparent}
   .s5dv-tn{max-width:none}
 }
+/* §5dw: Campaigns - what may become a campaign; Overview - the second link of a technology sentence */
+.s5dw{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px 16px;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+.s5dw h3{margin:0;font-size:16px}
+.s5dw h4{margin:6px 0 0;font-size:13.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s5dw-lead{margin:0;color:var(--muted);font-size:13px;line-height:1.55;max-width:1100px}
+.s5dw-rules summary{cursor:pointer;color:var(--accent);font-size:13px}
+.s5dw-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.s5dw-c{border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:var(--bg);min-width:0}
+.s5dw-p{border-color:var(--ok)}
+.s5dw-ct{display:flex;gap:10px;align-items:flex-start}
+.s5dw-sc{flex:none;min-width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid var(--border);color:var(--text)}
+.s5dw-p .s5dw-sc{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.s5dw-n{font:inherit;font-weight:650;font-size:14px;text-align:left;background:transparent;border:0;padding:0;color:var(--text);cursor:pointer;overflow-wrap:anywhere}
+.s5dw-n::after{content:"\00a0\2192";color:var(--accent)}
+.s5dw-m{color:var(--muted);font-size:12.5px}
+.s5dw-cr{margin:0;padding-left:16px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.s5dw-cr .pos b{color:var(--ok)}
+.s5dw-cr .neg b{color:var(--bad)}
+.s5dw-none{margin:0;color:var(--muted);font-size:13px}
+.s5bk-it.s5dw-also{margin-top:6px}
+.s5dw-t0{color:var(--warn)}
+@media (max-width:760px){.s5dw-g{grid-template-columns:minmax(0,1fr)}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
