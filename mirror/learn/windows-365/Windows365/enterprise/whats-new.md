@@ -58,6 +58,14 @@ For information about Windows App and its features, see [What's new in Windows A
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
 
+## Week of October 12, 2026
+
+### iOS support for external identities is now generally available
+
+External identity support is now generally available for the Windows App on iOS. For more information on client versions and capabilities, see [Compare Windows App features across platforms and devices](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity).
+
+For latest information on external identity support, see [External identity](identity-authentication#external-identity).
+
 ## Week of October 5, 2026
 
 ### All users and all devices targeting for Cloud PC Settings (Public Preview)

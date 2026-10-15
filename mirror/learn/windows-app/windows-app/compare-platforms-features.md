@@ -390,7 +390,7 @@ The following table details the identity support available on each platform and 
             - Disabled Value: 0 (default)
     2. Web browser: Generally available, using latest version of the browser.
     3. macOS: Generally available, using version 11.4.2 or higher.
-    4. iOS: In preview, using version 11.3.7 or higher. Account type limitations:
+    4. iOS: Generally available, using version 11.3.9 or higher. Account type limitations:
         - You can only sign in as an external identity that is a work or school account, or that is a Microsoft account that is signed into Authenticator as a 'Connected account'.
     5. Android/Chrome OS: Generally available, using version 11.0.0.119 or higher of Windows App. Account type limitations:
         - You can only sign in as an external identity that is a work or school account, or that is a Microsoft account that is signed into Authenticator as a 'Connected account'.

@@ -33,13 +33,13 @@ monikers: []
 item_type: Content
 source_path: concepts/whats-new-overview.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: 6e6097c9-5516-d241-0299-2adc10e56ea2
 ---
 
@@ -56,6 +56,11 @@ Important
 Features in *preview* status are subject to change without notice, and might not be promoted to generally available (GA) status. Don't use preview features in production apps.
 
 ## October 2026: New and generally available
+
+### Calendars
+
+- Promoted the **isSharedWithMe** property of [calendar](/en-us/graph/api/resources/calendar) resource from beta to v1.0. The property is used to identify the shared calendars.
+- Added the [delta](/en-us/graph/api/calendar-delta) method to the [calendar](/en-us/graph/api/resources/calendar) resource type. Use it to track calendars added, deleted, or updated in a user's mailbox.
 
 ### Mail | Message trace
 
@@ -75,6 +80,10 @@ Added support to identify recalled messages in message trace. Use `recalled` as 
 
 - Added the **isHidden** property to the [mailboxFolder](/en-us/graph/api/resources/mailboxfolder?view=graph-rest-beta&amp;preserve-view=true) resource to identify hidden mailbox folders.
 - Use the existing **includeHiddenFolders** query parameter for [listing folders](/en-us/graph/api/mailbox-list-folders?view=graph-rest-beta&amp;preserve-view=true) and [listing child folders](/en-us/graph/api/mailboxfolder-list-childfolders?view=graph-rest-beta&amp;preserve-view=true). Set it to `true` to include both hidden and nonhidden folders.
+
+### Security | Workbooks
+
+- Added the [workbook](/en-us/graph/api/resources/security-workbook?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to manage tenant-scoped Microsoft Security workbook documents. Use stable IDs for repeatable deployments and replace a workbook's JSON content as a complete document.
 
 ## September 2026: New and generally available
 
@@ -208,6 +217,10 @@ Updated the [contentActivity](/en-us/graph/api/resources/contentactivity?view=gr
 ### Security | Audit log query
 
 - Added the **isRecordCountLimitExceeded**, **recordCountLimit**, and **approximateReturnedRecordCount** properties to the [auditLogQuery](/en-us/graph/api/resources/security-auditlogquery?view=graph-rest-beta&amp;preserve-view=true) resource. Use these properties to determine whether a completed query exceeded the per-search record-count limit and to inspect the applicable limit and approximate returned record count.
+
+### Tasks and plans
+
+Added the [plan](/en-us/graph/api/resources/plan?view=graph-rest-beta&amp;preserve-view=true) resource type for Planner Graph V4. Use these APIs to create and manage plans and tasks with richer scheduling, dependency, custom field, and chat capabilities than the existing Planner API surface.
 
 ### Teamwork and communications | Messaging
 

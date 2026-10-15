@@ -85,8 +85,8 @@ External identity support allows you to invite users to your Entra ID tenant and
     - **Cloud PC operating system**: The Cloud PC must be running Windows 11 Enterprise, versions 24H2 or later with the [2025-09 Cumulative Updates for Windows 11 (KB5065789)](https://support.microsoft.com/kb/KB5065789) or later installed.
     - **Cloud PC join type**: The Cloud PC must be Entra joined.
     - **Single sign-on**: Single sign-on must be configured for the Cloud PC.
-    - **Windows App client**: External identity support is generally available on the Windows App on macOS, Windows, Android, or a web browser. See the [Identity](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity)section of Windows App documentation for additional details.
-        - **Licensing**: Ensure that external identities have the proper entitlements for software and services on the Cloud PC. See [Windows 365 licensing guidance](/en-us/windows-365/overview#licensing-and-how-to-buy) for more details.
+    - **Windows App client**: External identity support is generally available on the Windows App on Windows, macOS, iOS, Android, or a web browser. See the [Identity](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity) section of Windows App documentation for additional details.
+    - **Licensing**: Ensure that external identities have the proper entitlements for software and services on the Cloud PC. See [Windows 365 licensing guidance](/en-us/windows-365/overview#licensing-and-how-to-buy) for more details.
 - Limitations
     - **Intune device configuration policies**: Device configuration policies assigned to the external identity won't be applied to the user's Cloud PC. Instead, assign device configuration policies to the device.
     - **Windows 365 Government availability**: Windows 365 Government is supported, and users can connect with the Windows App on Windows and the Windows App on Android.
@@ -101,7 +101,7 @@ External identity support allows you to invite users to your Entra ID tenant and
         Regardless of the invited account, you can access Microsoft 365 files shared with you by using the appropriate Microsoft 365 app in the web browser of the Cloud PC.
     - **Identity providers**: You can sign-in as an external identity with any of the listed [identity providers](/en-us/entra/external-id/identity-providers), except for one-time passcode sign-in. The following Windows App clients have additional limitations:
 
-        - Android: The only supported social identity provider you can sign in with is a Microsoft account that is configured as a **Connected account** in the Microsoft Authenticator app running on the same device as the client. You can't sign in with Facebook or Google.
+        - iOS, Android: The only supported social identity provider you can sign in with is a Microsoft account that is configured as a **Connected account** in the Microsoft Authenticator app running on the same device as the client. You can't sign in with Facebook or Google.
     - **Domainless federation**: Windows 365 supports external identities through [Domainless SAML IdP Federation](/en-us/entra/external-id/direct-federation#domainless-saml-idp-federation), however these users must redeem their invitation (including the `domain_hint` parameter) before launching the Windows App. If the user connects to the Windows App but hasn't yet redeemed their invite to the Domainless SAML IdP, the user won't be able to authenticate or accept the invite.
 
 See [Microsoft Entra B2B best practices](/en-us/entra/external-id/b2b-fundamentals) for recommendations on configuring your environment for external identities and [Windows 365 licensing guidance](/en-us/windows-365/overview#licensing-and-how-to-buy).
