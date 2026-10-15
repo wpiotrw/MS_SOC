@@ -28314,6 +28314,10 @@ z briefu (`window.__s5dtItem(id)` — numer MC i tytul), nie tekst pierwszej kom
 numerem MC (karta kampanii: „MC1506287 [MC1506287]"), zamienia sie w chip zamiast stac obok niego.
 Zakladka, ktora po skoku jeszcze sie dobudowuje (Products na telefonie: 79 000 → 105 000 px w 1–2 s), wypychala cel
 z ekranu — do 4 s po skoku cel jest przywracany na ekran, o ile czytelnik niczego nie przewinal ani nie dotknal.
+**§5du-b (15 X 2026, raport porannego przebiegu: „the Overview tab is 6px too wide at phone width").** Zmierzone: pigulka
+uprawnienia Graph w karcie Identity surface (`.s5cy-rh .s5ci-pill`, `white-space:nowrap`, 352 px) — przy 360 px strona
+miala 380 px (poziome przewijanie), przy 390 px karta wystawala o 12 px. Pigulki w Overview sie zawijaja (`min-width:0`,
+`overflow-wrap:anywhere`); 360/375/390 px bez przewijania w bok.
 
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
@@ -41097,6 +41101,9 @@ tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
 .s5du-x:hover{background:rgba(255,255,255,.45)}
 /* §5du: a chip whose text wraps (phone) keeps a card shape, not a stretched pill */
 .gfbar .gf-chip{border-radius:12px}
+/* 15 X 2026 (morning run: "the Overview tab is 6px too wide at phone width"): a long Graph permission pill
+   ("no level · read-write · app-only + delegated …", 352 px, nowrap) pushed the Overview past 336-366 px - it wraps */
+.s5ci-pill,#tab-overview .s5cy-rh .s5ci-pill,#tab-overview .s5ci-card .s5ci-pill{max-width:100%;white-space:normal;overflow-wrap:anywhere;min-width:0}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
