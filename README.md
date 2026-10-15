@@ -43,6 +43,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [11. Postawienie od zera (nowe repozytorium, inny tenant)](#11-postawienie-od-zera-nowe-repozytorium-inny-tenant)
 - [12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego](#12-tożsamości-uprawnienia-i-poświadczenia--pełny-wykaz-i-powód-każdego)
 - [13. O narzędziu i świeżość danych (zakładka About, ramka „Data freshness”, format dat)](#13-o-narzędziu-i-świeżość-danych-zakładka-about-ramka-data-freshness-format-dat)
+- [14. Zakładka Baselines — Maester i Tenable (od 15 X 2026, §5dv)](#14-zakładka-baselines--maester-i-tenable-od-15-x-2026-5dv)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -1066,6 +1067,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | Sources | każde źródło briefu, kiedy przeczytane i czy link działa | poranny brief |
 | Hunting & actions | zapytania KQL i działania dla pozycji dnia; każde zapytanie archiwizowane w repozytorium | poranny brief; archiwum — GitHub Actions 2× dziennie |
 | Products | te same pozycje pogrupowane według produktów | poranny brief |
+| Baselines | co testują Maester i Tenable w Microsoft 365, Entra, M365 Apps i AI (CIS, CISA SCuBA, baseline'y Microsoftu): każdy test z krokami sprawdzenia i naprawy, wersje, trendy, Maester vs Tenable — rozdział 14 | GitHub Actions raz dziennie (05:15 UTC) |
 | About | ten rozdział na stronie: czym jest narzędzie, autor, wersja, tabela świeżości, jak działa, zakładki, bezpieczeństwo, linki | budowana przy otwarciu strony |
 
 ### 13.5 Ramka „Data freshness” i znaczniki świeżości
@@ -1116,6 +1118,46 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 - Tekst strony nie jest przepisywany: oryginał zostaje w stronie (ukryty wizualnie), a sformatowaną datę rysuje CSS z atrybutu `data-v`. Dzięki temu sortowanie, wyszukiwarki, filtry i testy widzą to samo co wcześniej.
 - Nie są konwertowane: nazwy plików i ścieżki (`2026-10-10.json`), kod, pola formularzy oraz `/week/` (wydruk do PDF).
 
+## 14. Zakładka Baselines — Maester i Tenable (od 15 X 2026, §5dv)
+
+> ℹ️ **Portal pokazuje statystykę, niczego nie uruchamia.** Zakładka czyta publiczne katalogi dwóch narzędzi i mówi, co one sprawdzają, w jakiej wersji, co się zmieniło i jak samemu sprawdzić oraz naprawić każdą pozycję. Żaden test nie jest wykonywany na tenancie, nie ma nowych uprawnień aplikacji ani sekretów.
+
+### 14.1 Źródła i zakres
+
+| Źródło | Skąd | Co bierzemy | Zakres |
+|---|---|---|---|
+| Maester (framework testów PowerShell) | `git clone` publicznego repozytorium `maester365/maester`; wydania z API GitHub (zapas: `git ls-remote --tags`) | atrybut `[MaesterTest(...)]` każdego `tests/**/Test.<ID>.ps1` (ID, tytuł, produkt, funkcja, obszar, waga, wpływ na użytkownika, koszt, MITRE, kontrolki frameworków, usługa, licencja), plik `Test.<ID>.md` obok (co sprawdza, *Remediation action*, odnośniki), `tests/<zestaw>/suite.json` (wersja CIS i ScubaGear) | zestawy MT (własne Maestera), CIS, CISA SCuBA, EIDSCA, ORCA; poza zakresem produkty `ad`, `azure-devops`, `github` |
+| Tenable (katalog plików audytu) | publiczne listy `https://www.tenable.com/audits/updated` i `/newest` (wszystkie strony) oraz strona każdego pliku audytu w zakresie | nazwa, typ (CIS, DISA STIG, MSCT, TNS), rewizja, data; dla najnowszej wersji każdej rodziny — elementy: numer, tytuł, kategorie, NIST 800-53, uzasadnienie, rozwiązanie | `baselines_sources.json` → `tenable.include` (regex nazwy → technologia portalu): CIS Microsoft 365 Foundations, CISA SCuBA M365 (Entra ID, Exchange Online, Defender, SharePoint/OneDrive, Teams, Power Platform), CIS Azure Foundations, Intune (CIS i Tenable Best Practices), M365 Apps / Office (MSCT, CIS, DISA), OneDrive, Edge, Defender Antivirus |
+| ScubaGear (CISA) | API GitHub `cisagov/ScubaGear` (zapas: tagi git) | najnowsze wydanie — do porównania, którą wersję SCuBA ma Tenable | — |
+
+**NIS2:** ani Maester, ani Tenable nie publikuje zestawu testów ani pliku audytu NIS2 dla Microsoft 365. Kolektor sprawdza to w każdym przebiegu na pełnej liście Tenable i strona mówi to wprost; testy niosą kontrolki NIST SP 800-53, które są wspólnym mianownikiem.
+
+### 14.2 Kolektor i workflow
+
+| Element | Gdzie | Co robi |
+|---|---|---|
+| `tools/baselines.py` | repozytorium | czyta oba źródła, porównuje z poprzednim przebiegiem, zapisuje pliki danych; `--backfill <klon> <plik>` liczy stany miesięczne z historii git Maestera, `--seed <plik>` — pierwszy przebieg bez zdarzeń |
+| `baselines_sources.json` | katalog główny repozytorium | zakres: wykluczone produkty Maestera, reguły rodzin Tenable; dopisany wiersz działa od następnego przebiegu |
+| `.github/workflows/baselines.yml` | repozytorium | workflow „Baselines tracking”: codziennie 05:15 UTC, po zmianie kolektora lub zakresu, ręcznie; commit tylko przy zmianie; potem „Code refresh” wdraża stronę (`workflow_run`) |
+| `site/data/baselines.json` | strona | podsumowanie (~55 kB): liczby, pliki i rodziny Tenable, frameworki, porównanie, trendy, zdarzenia 14 dni, wersje — czytają je Overview, `/diff/` i `/week/` |
+| `site/data/baselines-tests.json` | strona | katalog Maestera (~720 kB, ~125 kB gzip) — pobierany dopiero przy otwarciu zakładki |
+| `site/data/baselines-tenable.json` | strona | elementy Tenable (~3 MB, ~530 kB gzip) — pobierane przy otwarciu rodziny albo odpowiednika testu |
+| `site/data/baselines-history.json` | strona | pamięć kolektora: stany miesięczne od 02/2024, migawki dzienne, pierwszy dzień każdego testu i pliku, odciski, zdarzenia 60 dni |
+| `site/data/fresh/baselines.json` | strona | znacznik świeżości (`tools/stamp.py baselines`) |
+
+Zdarzenia: test nowy / zmieniony (tytuł, waga, treść) / usunięty, nowe wydanie Maestera, zmiana wersji CIS lub ScubaGear, plik audytu nowy / zaktualizowany (data, rewizja, liczba elementów) / wycofany (zniknął z listy Tenable), elementy dodane lub usunięte w najnowszym pliku. Parowanie Maester ↔ Tenable: CIS po numerze rekomendacji (`CIS.M365.1.1.1` ↔ `1.1.1`), SCuBA po numerze polityki (`CISA.MS.AAD.1.1` ↔ `MS.AAD.1.1v1`).
+
+### 14.3 Strona
+
+- Zakładka **Baselines** w grupie Act (menu boczne, menu telefonu, pasek zakładek). Pasek „Today, all runs” (kafelki/lista) — z niego menu boczne bierze liczby.
+- Widoki: **Overview** (liczby-filtry, ramki wersji od najnowszej, wykres testów miesiąc po miesiącu z liniami trendu, nowe w miesiącu Maester vs Tenable, technologie, waga, tabela frameworków), **Tests** (technologia → funkcja jak Graph API i Roles; panel testu: co sprawdza, „Check it yourself” — `Install-Module Maester`, `Connect-Maester`, `Invoke-Maester -TestId '<ID>'` (Maester 3.0 preview; w 2.3 `-Tag` dla MT i CISA), „How to fix”, metadane, odpowiednik Tenable z jego rozwiązaniem, linki do maester.dev, kodu i Learn), **Frameworks**, **Maester vs Tenable** (pokrycie tej samej linii bazowej, wersje, dzień po dniu, technologie), **Tenable audits** (rodziny, wersje w ramkach, elementy z rozwiązaniem i linkiem do testu Maestera), **Versions & history**.
+- Filtry pokazuje zielony pasek; skok z innej zakładki zaznacza cel (§5du). Tabele mają ramkę na każdej komórce i paski wierszy; na telefonie są kartami.
+- Overview: karta „Baselines · Maester and Tenable” i zdanie „Baselines” z trzema kafelkami. `/diff/`: sekcja „Baselines: Maester and Tenable” i chip w pasku. `/week/`: tabela tygodnia. About: wiersz zakładki i świeżość.
+
+### 14.4 Stan pierwszego przebiegu (15 X 2026)
+
+425 testów Maestera w zakresie (MT 191, CISA 79, ORCA 67, CIS 44, EIDSCA 44; High 139; AI i agenci 22), 81 plików Tenable w zakresie z 1 785 na liście (43 najnowsze, 3 172 elementy), 122 testy sparowane z Tenable. CIS M365: obie strony v7.0.0, wspólne 44 rekomendacje, 116 tylko w Tenable. SCuBA: Tenable v1.5.0 (22/03/2025), ScubaGear 1.8.0, Maester — gałąź główna ScubaGear; wspólne 78, 1 tylko w Maesterze, 51 tylko w Tenable. Plik „MSCT M365 Apps for enterprise 2512” Tenable wystawia bez listy elementów — strona to mówi.
+
 ## Historia zmian
 
 | Data | Zmiana |
@@ -1144,6 +1186,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | 2026-10-14 | §5dt-b — spójność numerów MC (uwaga właściciela 23:07): w „Today in N sentences” numer wpisu Message Center był tylko przy wpisach MC bez pozycji briefu i jako szara pigułka; pozycje z wpisem MC (np. agent blueprints, MC1506733) nie miały go wcale. Teraz każde zdanie, „One line per technology” i podpowiedź „At a glance → Deadlines” niosą numer MC/RM pozycji, a numer w karcie zdania to ten sam niebieski chip co w innych zakładkach (klik → wpis w Message Center). Wiersze z samym id pozycji (np. roadmapa 571879) też dostają chip. Pomiar: 100% wierszy i zdań powiązanych z wpisem ma chip (Message Center 137/137, było 134). Testy: t5dt 16/16, t5cn 32/32, tbp 15/15, t5do, t5dr bez błędów, bramka OK. Bez nowych uprawnień aplikacji. |
 | 2026-10-15 | §5du — po każdym skoku widać, dokąd: element, na którym ląduje kliknięcie z innej zakładki (zdanie Overview, kafelek, chip MC, KPI, kampania, uprawnienie), dostaje zieloną ramkę z etykietą „Opened from <zakładka>” ×, a zielony pasek w nagłówku nazywa go jak filtr (× i „Reset all filters” zdejmują). Wcześniej cel tylko mignął przez 2 s, a na wierszu tabeli wcale. Kafelki KPI w nagłówku i filtry kampanii pokazują się teraz w zielonym pasku (× czyści też widok). Naprawione skoki w pustkę: pozycje Today spoza Top picks (lądowanie na górze Today), uprawnienie z Overview przy Graph API na innym widoku, kampania otwierana 2 600 px pod ekranem. Przy okazji: link, którego cały tekst to numer MC, zamienia się w chip (bez „MC… [MC…]”); cel nie chowa się pod zielonym paskiem i wraca na ekran, gdy zakładka dobudowuje się po skoku (telefon). Testy: każdy skok z Overview do innej zakładki oznaczony (Chromium 1440 i WebKit iPhone; zdanie o kampaniach ustawia filtr widoczny w pasku, „News of the day” otwiera stronę zewnętrzną), KPI 5/5 w pasku, chipy MC z 7 zakładek, zdejmowanie oznaczeń i filtrów 6/6, t5cn 32/32, tbp 15/15, t5dt 16/16, t5do i t5dr bez błędów; bramka OK poza pozycją 104 (data po północy, nie kod). Bez nowych uprawnień aplikacji. |
 | 2026-10-15 | §5du-b — (1) `fpa-tenant.yml`: limit czasu zadania 25 min i odczytu tenanta 15 min. Przebieg 04:35 UTC zawisł na odczycie tenanta na 47 min („The hosted runner lost communication with the server” — awaria runnera GitHub, nie kodu) i blokował grupę `swa-deploy`, więc Code refresh i Campaign tracking czekały; ponowne uruchomienie 05:29 UTC zakończone sukcesem. (2) Overview na telefonie: długa pigułka uprawnienia Graph („no level · read-write · app-only + delegated …”, 352 px, bez zawijania) poszerzała stronę (360 px: 380 px szerokości, poziome przewijanie; 390 px: 12 px poza kartą) — teraz się zawija; 360/375/390 bez przewijania w bok. tbp 15/15, t5cn 32/32. Bez nowych uprawnień aplikacji. |
+| 2026-10-15 | §5dv — nowa zakładka **Baselines** (Maester i Tenable, rozdział 14): kolektor `tools/baselines.py`, zakres `baselines_sources.json`, workflow `baselines.yml` (05:15 UTC, potem Code refresh), dane `site/data/baselines*.json` (osobne pliki: podsumowanie, katalog Maestera, elementy Tenable, historia), stany miesięczne z historii git Maestera od 02/2024; widoki Overview / Tests / Frameworks / Maester vs Tenable / Tenable audits / Versions & history, panel testu z krokami sprawdzenia i naprawy, linie trendu, ramki wersji; Overview (karta i zdanie), `/diff/` (sekcja i chip), `/week/` (tabela), About i świeżość (klucz `baselines`). Tylko źródła publiczne — bez nowych uprawnień aplikacji i sekretów; GITHUB_TOKEN workflow podnosi tylko limit API GitHub. Testy: bramka OK, t5dv 18/18 (Chromium 1600), 17/18 WebKit 390 (menu telefonu sprawdzone osobno — OK), t5du 25/28 (3 jak dotąd: zdanie kampanii, News, „All counters”), tbp 15/15, t5cn 30/32 (2 jak na żywej stronie przed zmianą), 360/375/390 bez przewijania w bok. |
 | 2026-10-10 | §5db — „added” zamiast „changed” dla uprawnień, które stały się nadawalne w tenancie (np. CopilotCostManagement z 9 X, znane wcześniej tylko z mapy wdrożeń Microsoftu): `diff_catalog()` i rejestr w make_diff, normalizacja starszych wpisów rejestru na stronie (SKRYPT 4), opis „became grantable in this tenant”; 10 X: Graph +7 new / ~7 changed zamiast ~35 changed; słownik new/changed/removed w About i w pkt 13.7. |
 | 2026-10-10 | §5da — portal bez „choinki” i dopasowany do telefonu: kolory tylko dla znaczenia (przed/po bez czerwono-zielonych tła, neutralne plakietki, linki zewnętrzne bez niebieskich pigułek, nazwy uprawnień/ról/pozycji w kolorze tekstu), Graph API przeorganizowany (Find zaczyna się od wyszukiwarki; zmiany jednego uprawnienia w jednym wierszu; dziennik 14 dni od najnowszego; tabela API bez powtórzeń), na telefonie tabele jako karty i limit 40 pozycji z „Show all”; naprawione: chip źródła zasłaniający tytuł artykułu na telefonie, ucięta data w liście Message Center; `learn-mirror.yml` limit 60 min (przebieg 10 X przekroczył 40 min); pkt 13.7 (nowy), format dat → 13.8. |
 | 2026-10-10 | §5cz-c — logo GUARDZILLA na desktopie (od 1360 px) w lewej kolumnie nagłówka nad menu bocznym, duże (do ok. 260 × 230 px), zmniejsza się razem z przyklejonym nagłówkiem; treść nagłówka zaczyna się na linii treści strony; 1100–1359 px i telefon bez zmian. |

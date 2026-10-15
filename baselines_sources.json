@@ -1,0 +1,33 @@
+{
+  "_comment": "CLAUDE.md 5dv (15 X 2026). What the Baselines tab reads. tools/baselines.py uses it on every run; a family added here is picked up on the next run. Owner may edit: add a 'tenable.include' row (regex on the Tenable audit name + the portal technology it belongs to) or a Maester product to 'maester.excludeProducts'.",
+  "maester": {
+    "repo": "https://github.com/maester365/maester.git",
+    "releasesApi": "repos/maester365/maester/releases?per_page=30",
+    "docs": "https://maester.dev/docs/tests/{id}",
+    "excludeProducts": ["ad", "azure-devops", "github"]
+  },
+  "tenable": {
+    "listings": ["https://www.tenable.com/audits/updated?page={n}", "https://www.tenable.com/audits/newest?page={n}"],
+    "audit": "https://www.tenable.com/audits/{id}",
+    "item": "https://www.tenable.com/audits/items/{id}",
+    "include": [
+      {"re": "^CIS Microsoft 365 Foundations", "tech": "Microsoft 365"},
+      {"re": "^CISA SCuBA Microsoft 365 Entra", "tech": "Entra ID"},
+      {"re": "^CISA SCuBA Microsoft 365 Exchange", "tech": "Exchange Online"},
+      {"re": "^CISA SCuBA Microsoft 365 Defender", "tech": "Defender"},
+      {"re": "^CISA SCuBA Microsoft 365 SharePoint", "tech": "SharePoint Online"},
+      {"re": "^CISA SCuBA Microsoft 365 Teams", "tech": "Teams"},
+      {"re": "^CISA SCuBA Microsoft 365 Power Platform", "tech": "Power Platform"},
+      {"re": "^CIS Microsoft Azure Foundations", "tech": "Azure"},
+      {"re": "Intune", "tech": "Intune"},
+      {"re": "M365 Apps|Microsoft 365 Apps|Office 365 ProPlus|Office Enterprise", "tech": "Microsoft 365 Apps"},
+      {"re": "OneDrive", "tech": "SharePoint Online"},
+      {"re": "^(?!.*Exchange).*\\bEdge\\b", "tech": "Edge"},
+      {"re": "Defender Antivirus", "tech": "Defender"}
+    ],
+    "frameworkWords": {"nis2": "\\bNIS ?2\\b|NIS2", "dora": "\\bDORA\\b"}
+  },
+  "upstream": {
+    "scubagear": "repos/cisagov/ScubaGear/releases/latest"
+  }
+}

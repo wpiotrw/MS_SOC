@@ -822,6 +822,23 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             if ch >= wk_from:
                 ms.append((ch, "Graph API" if kind == "graph" else "Roles", e.get("name") or e.get("id"), e.get("kind") or ""))
     ms.sort(reverse=True)
+    # §5dv: Maester and Tenable baselines that moved this week (site/data/baselines.json, tools/baselines.py)
+    bl = []
+    try:
+        _bd = json.load(open(os.path.join(outdir, "data", "baselines.json"), encoding="utf-8"))
+        _lab = {"test-new": "New test", "test-changed": "Test changed", "test-removed": "Test removed", "release": "New Maester version",
+                "version": "Baseline version", "audit-new": "New Tenable audit file", "audit-updated": "Tenable audit file updated",
+                "audit-gone": "Tenable audit file withdrawn", "items": "Tenable items changed"}
+        for e in sorted(_bd.get("events") or [], key=lambda e: e.get("day", ""), reverse=True):
+            if str(e.get("day", "")) < wk_from:
+                continue
+            t = e.get("type", "")
+            nm = E(e.get("title") or e.get("id"))
+            if t.startswith("test-") and t != "test-removed":
+                nm = '<a href="%s#tab=baselines&amp;t=%s">%s</a> <small>%s</small>' % (E(site_url), E(e.get("id")), nm, E(e.get("id")))
+            bl.append([E(e.get("day")), E(e.get("src")), E(_lab.get(t, t)), nm])
+    except (OSError, ValueError):
+        bl = []
     maxv = max([r[2] for r in rows_days] + [1])
 
     def tr(cells):
@@ -866,6 +883,9 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-fl
 <div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>First seen</th><th>Product</th><th>Item</th><th>Reference</th></tr></thead><tbody>%(new)s</tbody></table></div>
 <h2>Microsoft changes in Graph API and roles · %(nm)d</h2>
 <div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>Changed</th><th>Where</th><th>Entry</th><th>Change</th></tr></thead><tbody>%(ms)s</tbody></table></div>
+<h2>Baselines: Maester and Tenable · %(nb)d</h2>
+<p class="sub">Tests added, changed or removed in Maester, new versions, Tenable audit files published, updated or withdrawn - recorded once a day (<a href="%(u)s#tab=baselines">Baselines tab</a>).</p>
+<div class="tw" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table><thead><tr><th>Recorded</th><th>Source</th><th>What</th><th>Test or audit file</th></tr></thead><tbody>%(bl)s</tbody></table></div>
 </main></body></html>
 """ % {
         "f": E(wk_from), "t": E(date), "n": len(snaps), "u": E(site_url), "bars": bars,
@@ -879,8 +899,9 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-fl
                            E(i.get("reference") or i.get("id"))]) for i in newwk) or tr(["—", "", "nothing new", ""]),
         "nm": len(ms),
         "ms": "".join(tr([E(a), E(b), E(c), E(d)]) for a, b, c, d in ms) or tr(["—", "", "no dated Microsoft change", ""]),
+        "nb": len(bl), "bl": "".join(tr(r) for r in bl) or tr(["—", "", "nothing moved in Maester or Tenable this week", ""]),
     }
-    for lab in ("Day by day", "Due soonest", "New this week", "Microsoft changes"):
+    for lab in ("Day by day", "Due soonest", "New this week", "Microsoft changes", "Baselines"):
         page = page.replace('aria-label="Table, scrolls sideways"', 'aria-label="%s, table"' % lab, 1)
     os.makedirs(os.path.join(outdir, "week"), exist_ok=True)
     open(os.path.join(outdir, "week", "index.html"), "w", encoding="utf-8").write(page)
@@ -4840,6 +4861,60 @@ def campaign_rows(prev_d, curr_d, home):
         rows.append(("", ["New material", link, items + more, '<span class="mono">%s</span>' % esc(lst[0].get("day") or "")]))
     return rows, "%d campaigns, run %s" % (len(doc.get("campaigns") or []), esc(doc.get("day") or ""))
 
+def baseline_rows(prev_d, curr_d, home):
+    """§5dv: 'Baselines: Maester and Tenable' - what tools/baselines.py recorded after the previous brief, up to and
+    including this one: a new, changed or removed Maester test, a new Maester version, the benchmark version Maester
+    follows, a new, updated or withdrawn Tenable audit file, items added to or removed from one. Reads
+    site/data/baselines.json (its events of the last 14 days); without the file the section is simply not there."""
+    path = os.path.join(os.path.dirname(CAMPAIGNS_FILE), "baselines.json") if CAMPAIGNS_FILE else ""
+    for c in (path, os.path.join(os.getcwd(), "site", "data", "baselines.json")):
+        if c and os.path.exists(c):
+            path = c
+            break
+    else:
+        return None, "baselines.json not found next to the site"
+    try:
+        doc = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError) as ex_:
+        return None, "baselines.json unreadable: %s" % ex_
+    lo, hi = norm(prev_d), norm(curr_d)
+    evs = [e for e in (doc.get("events") or []) if (not lo or e.get("day", "") > lo) and e.get("day", "") <= (hi or "9999")]
+    label = {"test-new": "New test", "test-changed": "Test changed", "test-removed": "Test removed", "release": "New Maester version",
+             "version": "Baseline version", "audit-new": "New Tenable audit file", "audit-updated": "Tenable audit file updated",
+             "audit-gone": "Tenable audit file withdrawn", "items": "Tenable items changed"}
+    order = list(label)
+    rows = []
+    for e in sorted(evs, key=lambda e: (order.index(e.get("type")) if e.get("type") in order else 99, e.get("id") or "")):
+        t = e.get("type")
+        if t.startswith("test-") and t != "test-removed":
+            name = '<a href="%s#tab=baselines&amp;t=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
+        elif t.startswith("audit-") or t == "items":
+            name = '<a href="https://www.tenable.com/audits/%s">%s</a>' % (esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
+        elif t == "release" and e.get("url"):
+            name = '<a href="%s">%s</a>' % (esc(e["url"]), esc(e.get("title") or ""))
+        else:
+            name = esc(e.get("title") or e.get("id") or "")
+        if t == "test-changed" and e.get("was") is not None:
+            what = "severity <del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins>" % (esc(e.get("was")), esc(e.get("now")))
+        elif t == "test-changed" and e.get("wasTitle"):
+            what = "title was: <del>%s</del>" % esc(e["wasTitle"])
+        elif t == "test-changed":
+            what = "what it checks or how to fix it was rewritten"
+        elif t == "version" or (t == "audit-updated" and e.get("was") is not None):
+            what = "<del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins>" % (esc(e.get("was")), esc(e.get("now")))
+        elif t == "items":
+            what = ("+%d: %s" % (len(e.get("added") or []), esc(", ".join((e.get("added") or [])[:8]))) if e.get("added") else "") + \
+                   (" &minus;%d: %s" % (len(e.get("removed") or []), esc(", ".join((e.get("removed") or [])[:8]))) if e.get("removed") else "")
+        else:
+            what = esc(" · ".join(x for x in (e.get("sev") and "severity " + e["sev"], e.get("date") and "dated " + e["date"]) if x))
+        if e.get("itemsWas") is not None:
+            what += " &middot; items %s &rarr; %s" % (esc(e["itemsWas"]), esc(e["itemsNow"]))
+        rows.append(("", [label.get(t, t), '<span class="mono">%s</span> %s' % (esc(e.get("id") or ""), name) if t.startswith("test-") else name,
+                          esc((e.get("src") or "") + (" · " + e["tech"] if e.get("tech") else "")), what or "&mdash;",
+                          '<span class="mono">%s</span>' % esc(e.get("day") or "")]))
+    k = doc.get("counts") or {}
+    return rows, "%s Maester tests, %s Tenable audit files, run %s" % (k.get("tests", "?"), k.get("tenableCurrent", "?"), esc(doc.get("day") or ""))
+
 def moved(f, a, b):
     """Czy roznica pola `f` z `a` na `b` jest ZMIANA (§5bf)."""
     if a == b:
@@ -8231,6 +8306,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                          "No campaign moved: no date moved, no new milestone, material or campaign, none closed."),
                    count=len(_crow)))   # closed like every content section (verify(): only bytab and bytech open)
 
+    # --- §5dv: Maester and Tenable baselines that moved between the two briefs (site/data/baselines.json)
+    _brow, _bnote = baseline_rows(prev_st.get("briefDate"), curr_st.get("briefDate"), home)
+    if _brow is not None:
+        out.append(sect("baselines", "Baselines: Maester and Tenable",
+                   ('Maester\'s test catalogue and Tenable\'s audit files for Microsoft 365, Entra, M365 Apps and AI are read once a day by '
+                    '<span class="mono">tools/baselines.py</span> (GitHub Actions); this section lists what moved after the %s brief: a test '
+                    'added, changed or removed, a new version, an audit file published, updated or withdrawn (%s). A test opens its panel in '
+                    'the brief\'s Baselines tab, an audit file opens at Tenable.') % (esc(prev_st.get("briefDate") or "previous"), _bnote),
+                   table(["What", "Test or audit file", "Source", "Details", "Recorded"], _brow,
+                         "Nothing moved in Maester or Tenable: no test added, changed or removed, no new version, no audit file published or withdrawn."),
+                   count=len(_brow)))
+
     # --- Graph endpoints (§5ah): co uprawnienie potrafi wywolac, pole po polu
     erows = []
     for nm, what, before, after in ge_rows[:250]:
@@ -8692,7 +8779,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("removed", "Removed", len(removed)),
            ("changed", "Changed", len(changed)),
            ("components", "Components", len(cadd) + len(crem) + len(cmod))] + \
-          ([("campaigns", "Campaigns", len(_crow))] if _crow is not None else []) + [   # §5cu
+          ([("campaigns", "Campaigns", len(_crow))] if _crow is not None else []) + \
+          ([("baselines", "Baselines", len(_brow))] if _brow is not None else []) + [   # §5cu, §5dv
            ("endpoints", "Endpoints", ge_add + ge_rem + ge_chg),
            ("fpa", "First-party apps", fp_add + fp_rem + fp_chg),
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
@@ -28319,6 +28407,41 @@ uprawnienia Graph w karcie Identity surface (`.s5cy-rh .s5ci-pill`, `white-space
 miala 380 px (poziome przewijanie), przy 390 px karta wystawala o 12 px. Pigulki w Overview sie zawijaja (`min-width:0`,
 `overflow-wrap:anywhere`); 360/375/390 px bez przewijania w bok.
 
+**§5dv (15 X 2026, wlasciciel: „dodajmy Tenable i Maester: z Tenable wszystko o M365, Entra, M365 Apps, Entra apps i AI,
+z Maester cale M365, Entra i AI, z obu CIS / CISA SCuBA / NIS2; jedna zakladka z widokami; analizy, trendy, nazwy testow i
+rozwiazania jak przy rolach i Graph API; wersje i daty w zaokraglonych ramkach; linie trendu, wykresy; porownanie Maester vs
+Tenable; portal to tylko statystyka — nie uruchamiamy testow, ale podajemy kroki sprawdzenia (PowerShell albo GUI); osobny
+JSON; telefon, /diff/, week, Overview, About").** Zakladka **Baselines** w grupie Act (menu boczne, menu telefonu, pasek
+zakladek — trzy listy `GROUPS`). Kolektor `tools/baselines.py` (workflow „Baselines tracking", 05:15 UTC, potem „Code
+refresh" wdraza): Maester z `git clone` repozytorium `maester365/maester` — atrybut `[MaesterTest(...)]` kazdego
+`tests/**/Test.<ID>.ps1` (Id, Title, Product, Feature, Area, Severity, UserImpact, ImplementationCost, Mitre, Control,
+Service, License) i `Test.<ID>.md` obok (co sprawdza, „Remediation action", odnosniki), `tests/<suite>/suite.json`
+(wersje CIS i ScubaGear), wydania z API GitHub (zapas: `git ls-remote --tags`); poza zakresem produkty `ad`,
+`azure-devops`, `github` (`baselines_sources.json`). Tenable z publicznych list `www.tenable.com/audits/{updated,newest}`
+(dane strony Next.js) i stron plikow audytu w zakresie (`baselines_sources.json` → `tenable.include`: regex nazwy →
+technologia portalu); elementy tylko najnowszej wersji kazdej rodziny. Pliki: `site/data/baselines.json` (podsumowanie
+~55 kB — czyta je Overview, `/diff/`, `/week/`), `baselines-tests.json` (katalog Maester, czytany przy otwarciu
+zakladki), `baselines-tenable.json` (elementy Tenable, czytane przy otwarciu rodziny albo odpowiednika testu),
+`baselines-history.json` (pamiec kolektora: stany miesieczne od 02/2024 z historii git Maestera — `--backfill`/`--seed`,
+migawki dzienne, pierwszy dzien kazdego testu i audytu, odciski, zdarzenia 60 dni). Pierwszy przebieg `--seed` nie
+generuje zdarzen. Zdarzenia: test nowy / zmieniony (tytul, waga, tresc) / usuniety, wydanie Maester, wersja CIS lub
+ScubaGear, audyt nowy / zaktualizowany (data, rewizja, liczba elementow) / wycofany (zniknal z listy), elementy dodane /
+usuniete w najnowszym pliku. Parowanie Maester ↔ Tenable: CIS po numerze rekomendacji (`CIS.M365.1.1.1` ↔ `1.1.1`),
+SCuBA po numerze polityki (`CISA.MS.AAD.1.1` ↔ `MS.AAD.1.1v1`). NIS2: zadne z narzedzi nie ma zestawu ani pliku audytu
+dla M365 — sprawdzane w kazdym przebiegu na pelnej liscie Tenable, mowione wprost; testy niosa kontrolki NIST SP 800-53.
+Widoki: Overview (kafelki-liczby filtrujace Tests, ramki wersji od najnowszej, wykres testow miesiac po miesiacu z liniami
+trendu, nowe w miesiacu Maester vs Tenable z linia trendu, technologie, waga, tabela frameworkow), Tests (jak Graph API i
+Roles: technologia → funkcja, fasety, szukajka, panel testu: co sprawdza, „Check it yourself" — `Invoke-Maester -TestId`
+(Maester 3.0 preview) / `-Tag` (2.3, tylko MT i CISA), „How to fix", metadane, odpowiednik Tenable z jego rozwiazaniem,
+odnosniki), Frameworks, Maester vs Tenable (pokrycie tej samej linii bazowej, wersje, dzien po dniu, technologie), Tenable
+audits (rodziny, wersje w ramkach, elementy z rozwiazaniem i linkiem do testu Maester), Versions & history. Pasek
+„Today, all runs" w ksztalcie §5bn (szyna czyta liczby) z wlasnymi kafelkami Tiles | List; filtry w zielonym pasku
+(`__socFilterBus`); `window.__socBaseline(id)` otwiera test albo rodzine (oznaczenie §5du). Overview: karta „Baselines ·
+Maester and Tenable" i zdanie „Baselines" z trzema kafelkami (dzis Maester, dzis Tenable, 14 dni). `/diff/`: sekcja
+„Baselines: Maester and Tenable" i chip w pasku; `/week/`: tabela tygodnia. About: wiersz zakladki; swiezosc: klucz
+`baselines` (`tools/stamp.py`). Tabele zakladki: ramka na kazdej komorce, naglowek w swoim kolorze, wiersze w paski; na
+telefonie karty z nazwami pol. Zadne nowe uprawnienie aplikacji — tylko publiczne zrodla.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -30241,7 +30364,7 @@ odtad CZTERNASCIE (4-17).**
     ["Today", ["overview", "today", "deadlines", "mc"]],
     ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
-    ["Act", ["hunting", "products"]]
+    ["Act", ["hunting", "products", "baselines"]]
   ];
   function tabGroups() {
     var navs = document.querySelectorAll(".navrow nav.anchors");
@@ -32466,7 +32589,7 @@ odtad CZTERNASCIE (4-17).**
   var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
                 ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
                 ["Sources", ["learn", "blogs", "community", "sources"]],
-                ["Act", ["hunting", "products"]]];
+                ["Act", ["hunting", "products", "baselines"]]];
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
   function tabs() { return [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")); }
   function idOf(b) { return String(b.getAttribute("aria-controls") || "").replace(/^tab-/, ""); }
@@ -34241,7 +34364,7 @@ odtad CZTERNASCIE (4-17).**
     ["Today", ["overview", "today", "deadlines", "mc"]],
     ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
-    ["Act", ["hunting", "products"]]
+    ["Act", ["hunting", "products", "baselines"]]
   ];
   function buttons() {
     var all = [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")), out = [], seen = {};
@@ -37822,7 +37945,7 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---------- the times we know ---------- */
   var F = {}, FT = 0;
-  var KEYS = ["code", "tenant", "campaigns", "publish", "learn"];
+  var KEYS = ["code", "tenant", "campaigns", "publish", "learn", "baselines"];
   function loadFresh(cb) {
     var left = KEYS.length + 2;
     function done() { if (--left === 0) { FT = 1; cb(); } }
@@ -37858,6 +37981,7 @@ odtad CZTERNASCIE (4-17).**
     fpa: { by: "an automated job every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
     mc: { by: "an automated job every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
     campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
+    baselines: { by: "an automated job once a day (05:15 UTC): Maester's catalogue from GitHub and Tenable's audit files", keys: ["baselines"], every: 24 },   /* §5dv */
     hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
     learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
   };
@@ -37886,8 +38010,8 @@ odtad CZTERNASCIE (4-17).**
       "When today's brief was built. The morning pass reads every source at about 06:00 Warsaw and is published here soon after; the afternoon pass (21:00) re-reads them for the “what changed” page. The frame is green when the brief is from today, amber when it is from yesterday, red when older.");
     if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "", undefined,
       "When the code of this page (layout, tabs, scripts) was last rebuilt from the specification. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
-    var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn"]);
-    var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy" };
+    var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn", "baselines"]);
+    var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy", baselines: "Maester and Tenable baselines" };
     if (nk) line("Latest data", F[nk].at, NAMES[nk], undefined,
       "The newest data an automated job wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
     /* §5cz-b (owner 10 X 12:25: "a more visible link to /diff/, maybe in a frame") */
@@ -37953,7 +38077,8 @@ odtad CZTERNASCIE (4-17).**
     ["Community Articles", "community", "The community sources the owner keeps in community_sources.json, read every morning."],
     ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
     ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
-    ["Products", "products", "The same items grouped by product."]
+    ["Products", "products", "The same items grouped by product."],
+    ["Baselines", "baselines", "What Maester and Tenable test in Microsoft 365, Entra, M365 Apps and AI (CIS, CISA SCuBA, Microsoft baselines): every test with how to check and fix it, versions, trends and Maester vs Tenable — read from both catalogues once a day; no test is run."]
   ];
   function card(title, cls) { var c = el("section", "s5cz-card" + (cls ? " " + cls : "")); c.appendChild(el("h3", null, title)); return c; }
   function ul(items) { var u = el("ul"); items.forEach(function (x) { var li = el("li"); if (typeof x === "string") li.textContent = x; else li.appendChild(x); u.appendChild(li); }); return u; }
@@ -39506,6 +39631,728 @@ odtad CZTERNASCIE (4-17).**
     var n = p.querySelector(q); if (n) { var s = from; cur = null; mark(n, s); } else { cur = null; sync(); }
   }
   document.addEventListener("click", function () { setTimeout(again, 400); }, true);
+})();
+
+
+/* §5dv (15 X 2026, owner: "add Tenable and Maester to our portal: from Tenable everything about M365, Entra, M365 Apps,
+   Entra apps and AI, from Maester all of M365, Entra and AI, from both CIS, CISA SCuBA, NIS2; one tab with views
+   inside; analyses, trends, test names and their fixes laid out like roles and Graph API; versions and dates in
+   rounded frames, sorted; trend lines and charts; compare Maester with Tenable; the portal is statistics only - we
+   run no test, but give the steps to check and to fix, PowerShell or the admin centre"). The Baselines tab, group Act.
+   Data (GitHub Actions, workflow "Baselines tracking", tools/baselines.py): /data/baselines.json (summary, ~55 kB -
+   the Overview card and sentence read only this one), /data/baselines-tests.json (the Maester catalogue, read when the
+   tab opens), /data/baselines-tenable.json (Tenable's items, read when a Tenable family or a test's counterpart is
+   opened). The panel is inserted NOW, synchronously, like Campaigns, so the shell's tab bar and the rail see it. */
+(function () {
+  "use strict";
+  if (window.__s5dv) return; window.__s5dv = 1;
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function sv(t, a) { var e = document.createElementNS(SVGNS, t); for (var k in a) if (a.hasOwnProperty(k)) e.setAttribute(k, a[k]); return e; }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  /* §5cz: every date on the portal is dd/MM/yyyy */
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function my(m) { var x = /^(\d{4})-(\d{2})/.exec(m || ""); return x ? x[2] + "/" + x[1].slice(2) : m; }
+  function n(x) { return String(x == null ? 0 : x).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function plural(k, w) { return n(k) + " " + w + (k === 1 ? "" : "s"); }
+  function today() { var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  function dayDiff(a, b) { return Math.round((Date.parse(String(b).slice(0, 10) + "T12:00:00Z") - Date.parse(String(a).slice(0, 10) + "T12:00:00Z")) / 864e5); }
+  function sync() { setTimeout(function () { if (window.__socFilterBarSync) try { window.__socFilterBarSync(); } catch (e) {} }, 0); }
+
+  /* ---- the panel, synchronously ---- */
+  var wrap = document.querySelector(".wrap");
+  if (!wrap || document.getElementById("tab-baselines")) return;
+  var panel = el("div", "tabpanel"); panel.id = "tab-baselines"; panel.setAttribute("data-tab", "Baselines"); panel.hidden = true;
+  var sec = el("section"); sec.id = "baselines"; sec.setAttribute("data-nav", "Baselines");
+  var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Baselines"));
+  sh.appendChild(el("p", "sec-title", "What Maester and Tenable test in Microsoft 365, Entra, M365 Apps and AI — every test, its baseline, how to check it and how to fix it"));
+  sec.appendChild(sh);
+  var body = el("div", "sec-body s5dv"); body.appendChild(el("p", "s5dv-note", "Loading the baselines…")); sec.appendChild(body);
+  panel.appendChild(sec);
+  var after = document.getElementById("tab-products") || document.getElementById("tab-hunting");
+  if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
+  else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
+
+  var D = null, TS = null, TI = null, tsAsked = false, tiAsked = false, tiWait = [];
+  var VIEWS = [["overview", "Overview"], ["tests", "Tests"], ["frameworks", "Frameworks"], ["compare", "Maester vs Tenable"], ["tenable", "Tenable audits"], ["history", "Versions & history"]];
+  function noF() { return { suite: "", sev: "", tech: "", ai: false, q: "", mapped: false, tten: "", tq: "" }; }
+  var S = { view: "overview", open: "", fam: "", item: "" }, F = noF();
+
+  function goTab() { var b = document.getElementById("tabbtn-tab-baselines"); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
+  function setHash() {
+    var h = "#tab=baselines" + (S.view !== "overview" ? "&v=" + S.view : "") + (S.open ? "&t=" + encodeURIComponent(S.open) : "") + (S.fam ? "&f=" + encodeURIComponent(S.fam) : "");
+    try { history.replaceState(null, "", h); } catch (e) {}
+  }
+  function topOf(x) { var r = (x || panel).getBoundingClientRect(); window.scrollTo(0, Math.max(0, window.scrollY + r.top - 130)); }
+  function go(view, opt) {
+    goTab(); opt = opt || {};
+    S.view = view; S.open = opt.open || ""; S.fam = opt.fam || ""; S.item = opt.item || "";
+    if (opt.F) { F = noF(); for (var k in opt.F) F[k] = opt.F[k]; }
+    setHash(); render();
+    setTimeout(function () {
+      var t = opt.open ? panel.querySelector(".s5dv-pane") : opt.fam ? panel.querySelector('.s5dv-fam[data-f="' + cssq(opt.fam) + '"]') : panel.querySelector(".s5dv-view");
+      topOf(opt.open || opt.fam ? t : panel.querySelector(".s5dv-vnav"));
+      /* §5du: whatever a jump from another tab opens is framed and named in the green bar (a move inside this tab is not a jump) */
+      if (t && window.__socMark) window.__socMark(t);
+    }, 80);
+  }
+  function cssq(s) { return String(s).replace(/["\\]/g, "\\$&"); }
+  /* other layers (Overview, /diff/ links, the MC chips) open a test with this */
+  window.__socBaseline = function (id) { if (!id) go("overview"); else if (/^t:|^[A-Z][\w ]+ v?\d/.test(id) && !/^(MT|CIS|CISA|EIDSCA|ORCA)\./.test(id)) go("tenable", { fam: id.replace(/^t:/, "") }); else go("tests", { open: id }); };
+
+  /* ---- data ---- */
+  function getTests(cb) {
+    if (TS) return cb(TS);
+    if (!tsAsked) { tsAsked = true; fetch("/data/baselines-tests.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      TS = (d && d.tests) || []; TS.forEach(function (t) { TS[t.id] = t; }); render(true); }).catch(function () { TS = []; render(true); }); }
+    return cb(null);
+  }
+  function getItems(cb) {
+    if (TI) { cb(TI); return; }
+    tiWait.push(cb);
+    if (tiAsked) return; tiAsked = true;
+    fetch("/data/baselines-tenable.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      TI = (d && d.audits) || {}; var w = tiWait; tiWait = []; w.forEach(function (f) { try { f(TI); } catch (e) {} });
+    }).catch(function () { TI = {}; var w = tiWait; tiWait = []; w.forEach(function (f) { try { f(TI); } catch (e) {} }); });
+  }
+  function auditById(id) { return ((D.tenable || {}).audits || []).filter(function (a) { return a.id === id; })[0]; }
+
+  /* ---- little helpers for the page ---- */
+  function chip(txt, cls, title) { var c = el("span", "s5dv-chip" + (cls ? " " + cls : ""), txt); if (title) c.title = title; return c; }
+  function sevCls(s) { return s === "Critical" || s === "High" ? "s5dv-sev-h" : s === "Medium" ? "s5dv-sev-m" : s === "Low" ? "s5dv-sev-l" : "s5dv-sev-i"; }
+  function btn(txt, cls, fn, title) { var b = el("button", cls, txt); b.type = "button"; if (title) b.title = title; b.addEventListener("click", function (ev) { ev.preventDefault(); fn(ev); }); return b; }
+  function link(txt, href, cls) { var a = el("a", cls || "s5dv-ext", txt); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  function table(heads, rows, cls) {
+    var tw = el("div", "s5dv-tw"), t = el("table", "s5dv-tab" + (cls ? " " + cls : "")), th = el("thead"), tr = el("tr");
+    heads.forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); t.appendChild(th);
+    var tb = el("tbody"); rows.forEach(function (r) { tb.appendChild(r); }); t.appendChild(tb); tw.appendChild(t);
+    /* the phone shows each row as a card: the cell names come from the head (§5bv) */
+    [].forEach.call(tb.rows, function (r) { [].forEach.call(r.cells, function (c, i) { if (heads[i] && c.colSpan < 2) c.setAttribute("data-l", heads[i]); }); });
+    return tw;
+  }
+  function td(x, cls) { var c = el("td", cls); if (x == null) return c; if (typeof x === "string" || typeof x === "number") c.textContent = String(x); else c.appendChild(x); return c; }
+  function frag(list) { var f = el("span", "s5dv-frag"); list.forEach(function (x) { if (x) f.appendChild(typeof x === "string" ? document.createTextNode(x) : x); }); return f; }
+
+  /* a small Markdown reader for Maester's "Remediation action" and Tenable's solutions: paragraphs, lists, code,
+     links. Built with DOM nodes only - no text from a source ever becomes HTML. */
+  function inline(host, s) {
+    var re = /(`[^`]+`)|\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s)<>\]]+)|\*\*([^*]+)\*\*/g, last = 0, m;
+    while ((m = re.exec(s))) {
+      if (m.index > last) host.appendChild(document.createTextNode(s.slice(last, m.index)));
+      if (m[1]) host.appendChild(el("code", null, m[1].slice(1, -1)));
+      else if (m[2]) host.appendChild(link(m[2], m[3], "s5dv-ext"));
+      else if (m[4]) host.appendChild(link(m[4].replace(/^https?:\/\/(www\.)?/, "").slice(0, 70), m[4].replace(/[.,]$/, ""), "s5dv-ext"));
+      else if (m[5]) host.appendChild(el("b", null, m[5]));
+      last = re.lastIndex;
+    }
+    if (last < s.length) host.appendChild(document.createTextNode(s.slice(last)));
+  }
+  function md(text) {
+    var box = el("div", "s5dv-md"), lines = String(text || "").replace(/\r/g, "").split("\n"), list = null, para = [], code = null;
+    function flush() { if (para.length) { var p = el("p"); inline(p, para.join(" ")); box.appendChild(p); para = []; } }
+    lines.forEach(function (raw) {
+      var l = raw.replace(/\s+$/, "");
+      if (/^\s*```/.test(l)) { if (code) { box.appendChild(code); code = null; } else { flush(); list = null; code = el("pre", "s5dv-pre"); } return; }
+      if (code) { code.textContent += (code.textContent ? "\n" : "") + raw; return; }
+      var li = /^\s*(?:[-*•]|\d+[.)])\s+(.*)$/.exec(l);
+      if (li) { flush(); if (!list) { list = el(/^\s*\d/.test(l) ? "ol" : "ul"); box.appendChild(list); } var x = el("li"); inline(x, li[1]); list.appendChild(x); return; }
+      if (!l.trim()) { flush(); list = null; return; }
+      if (/^\s*(PS>|Connect-|Get-|Set-|New-|Update-|Remove-|Enable-|Disable-|Install-|Invoke-|\$)/.test(l)) { flush(); list = null; box.appendChild(el("pre", "s5dv-pre", l.trim())); return; }
+      if (/^#{1,6}\s/.test(l)) { flush(); list = null; box.appendChild(el("p", "s5dv-mdh", l.replace(/^#+\s*/, ""))); return; }
+      if (list && /^\s{2,}/.test(raw) && list.lastChild) { list.lastChild.appendChild(document.createTextNode(" ")); inline(list.lastChild, l.trim()); return; }
+      list = null; para.push(l.trim());
+    });
+    flush(); if (code) box.appendChild(code);
+    return box;
+  }
+
+  /* ---- charts: inline SVG, every bar and point says its number; a dashed line is the least-squares trend ---- */
+  var COL = { MT: "var(--accent)", CIS: "#e3a33b", CISA: "#3fb37f", EIDSCA: "#b48cff", ORCA: "#ff8a7a", total: "var(--text)", tenable: "#e3a33b", maester: "var(--accent)" };
+  function trend(pts) {
+    var k = pts.length; if (k < 3) return null;
+    var sx = 0, sy = 0, sxx = 0, sxy = 0; pts.forEach(function (p) { sx += p[0]; sy += p[1]; sxx += p[0] * p[0]; sxy += p[0] * p[1]; });
+    var d = k * sxx - sx * sx; if (!d) return null; var a = (k * sxy - sx * sy) / d, b = (sy - a * sx) / k; return [a, b];
+  }
+  function lineChart(title, labels, series, opt) {
+    opt = opt || {};
+    var fig = el("figure", "s5dv-fig"); fig.appendChild(el("figcaption", null, title));
+    var W = 720, H = opt.h || 230, L = 42, R = 14, T = 12, B = 30, w = W - L - R, h = H - T - B;
+    var max = 0; series.forEach(function (s) { s.v.forEach(function (v) { if (v != null && v > max) max = v; }); });
+    max = Math.max(5, Math.ceil(max * 1.12 / 10) * 10);
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": title, class: "s5dv-svg" });
+    for (var g = 0; g <= 4; g++) { var y = T + h - h * g / 4; svg.appendChild(sv("line", { x1: L, x2: W - R, y1: y, y2: y, class: "s5dv-grid" }));
+      var tx = sv("text", { x: L - 6, y: y + 4, class: "s5dv-ax", "text-anchor": "end" }); tx.textContent = n(Math.round(max * g / 4)); svg.appendChild(tx); }
+    var X = function (i) { return L + (labels.length < 2 ? w / 2 : w * i / (labels.length - 1)); }, Y = function (v) { return T + h - h * v / max; };
+    var step = Math.max(1, Math.ceil(labels.length / 12));
+    labels.forEach(function (lb, i) { if (i % step && i !== labels.length - 1) return; var t = sv("text", { x: X(i), y: H - 10, class: "s5dv-ax", "text-anchor": "middle" }); t.textContent = lb; svg.appendChild(t); });
+    var leg = el("div", "s5dv-leg");
+    series.forEach(function (s) {
+      var pts = []; s.v.forEach(function (v, i) { if (v != null) pts.push([i, v]); });
+      if (!pts.length) return;
+      var d = pts.map(function (p, j) { return (j ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1); }).join(" ");
+      svg.appendChild(sv("path", { d: d, fill: "none", stroke: s.c, "stroke-width": s.w || 2, class: "s5dv-ln" }));
+      pts.forEach(function (p) { var c = sv("circle", { cx: X(p[0]), cy: Y(p[1]), r: pts.length > 40 ? 1.6 : 3, fill: s.c }); var tt = sv("title", {}); tt.textContent = s.name + " · " + labels[p[0]] + ": " + n(p[1]); c.appendChild(tt); svg.appendChild(c); });
+      if (s.trend !== false) { var tr = trend(pts); if (tr) { var x0 = pts[0][0], x1 = pts[pts.length - 1][0];
+        svg.appendChild(sv("line", { x1: X(x0), y1: Y(Math.max(0, tr[0] * x0 + tr[1])), x2: X(x1), y2: Y(Math.max(0, tr[0] * x1 + tr[1])), stroke: s.c, "stroke-dasharray": "5 4", "stroke-width": 1.4, opacity: .75 })); } }
+      var lg = el("span", "s5dv-lg"); var sw = el("i"); sw.style.background = s.c; lg.appendChild(sw); lg.appendChild(document.createTextNode(s.name + " · " + n(pts[pts.length - 1][1]))); leg.appendChild(lg);
+    });
+    fig.appendChild(svg); fig.appendChild(leg);
+    if (opt.note) fig.appendChild(el("p", "s5dv-fn", opt.note));
+    return fig;
+  }
+  function barsChart(title, labels, series, opt) {
+    opt = opt || {};
+    var fig = el("figure", "s5dv-fig"); fig.appendChild(el("figcaption", null, title));
+    var W = 720, H = opt.h || 220, L = 42, R = 14, T = 12, B = 30, w = W - L - R, h = H - T - B;
+    var max = 0; series.forEach(function (s) { s.v.forEach(function (v) { if (v > max) max = v; }); }); max = Math.max(4, Math.ceil(max * 1.12));
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": title, class: "s5dv-svg" });
+    for (var g = 0; g <= 4; g++) { var y = T + h - h * g / 4; svg.appendChild(sv("line", { x1: L, x2: W - R, y1: y, y2: y, class: "s5dv-grid" }));
+      var tx = sv("text", { x: L - 6, y: y + 4, class: "s5dv-ax", "text-anchor": "end" }); tx.textContent = n(Math.round(max * g / 4)); svg.appendChild(tx); }
+    var slot = w / Math.max(1, labels.length), bw = Math.max(2, Math.min(18, slot * .8 / series.length));
+    var step = Math.max(1, Math.ceil(labels.length / 12));
+    labels.forEach(function (lb, i) {
+      series.forEach(function (s, j) { var v = s.v[i] || 0; if (!v) return;
+        var x = L + slot * i + (slot - bw * series.length) / 2 + bw * j, y = T + h - h * v / max;
+        var r = sv("rect", { x: x, y: y, width: bw, height: T + h - y, fill: s.c, rx: 1.5 }); var tt = sv("title", {}); tt.textContent = s.name + " · " + lb + ": " + n(v) + (opt.mark && opt.mark[s.key] && opt.mark[s.key][i] ? " — " + opt.mark[s.key][i] : ""); r.appendChild(tt); svg.appendChild(r);
+        if (opt.mark && opt.mark[s.key] && opt.mark[s.key][i]) { var st = sv("text", { x: x + bw / 2, y: y - 3, class: "s5dv-ax s5dv-star", "text-anchor": "middle" }); st.textContent = "*"; svg.appendChild(st); } });
+      if (i % step === 0 || i === labels.length - 1) { var t = sv("text", { x: L + slot * i + slot / 2, y: H - 10, class: "s5dv-ax", "text-anchor": "middle" }); t.textContent = lb; svg.appendChild(t); }
+    });
+    var leg = el("div", "s5dv-leg");
+    series.forEach(function (s) {
+      var pts = []; s.v.forEach(function (v, i) { pts.push([i, v || 0]); });
+      var tr = trend(pts);
+      if (tr && s.trend !== false) { var x0 = 0, x1 = labels.length - 1, cx = function (i) { return L + slot * i + slot / 2; }, cy = function (v) { return T + h - h * Math.max(0, v) / max; };
+        svg.appendChild(sv("line", { x1: cx(x0), y1: cy(tr[0] * x0 + tr[1]), x2: cx(x1), y2: cy(tr[0] * x1 + tr[1]), stroke: s.c, "stroke-dasharray": "5 4", "stroke-width": 1.4, opacity: .8 })); }
+      var tot = s.v.reduce(function (a, b) { return a + (b || 0); }, 0);
+      var lg = el("span", "s5dv-lg"); var sw = el("i"); sw.style.background = s.c; lg.appendChild(sw); lg.appendChild(document.createTextNode(s.name + " · " + n(tot) + " in " + labels.length + " months")); leg.appendChild(lg);
+    });
+    fig.appendChild(svg); fig.appendChild(leg);
+    if (opt.note) fig.appendChild(el("p", "s5dv-fn", opt.note));
+    return fig;
+  }
+  /* horizontal bars that are controls: a click filters the Tests view (§5ap: every chart is a control) */
+  function hbars(title, rows, opt) {
+    var fig = el("figure", "s5dv-fig s5dv-hb"); fig.appendChild(el("figcaption", null, title));
+    var max = 1; rows.forEach(function (r) { r.v.forEach(function (v) { if (v > max) max = v; }); });
+    rows.forEach(function (r) {
+      var row = el(r.click ? "button" : "div", "s5dv-hr"); if (r.click) { row.type = "button"; row.title = r.title || ("Show " + r.name); row.addEventListener("click", r.click); }
+      row.appendChild(el("span", "s5dv-hn", r.name));
+      var bars = el("span", "s5dv-hbs");
+      r.v.forEach(function (v, j) { var b = el("span", "s5dv-hbar"); var i = el("i"); i.style.width = Math.max(v ? 1.5 : 0, 100 * v / max) + "%"; i.style.background = opt.c[j]; b.appendChild(i); b.appendChild(el("b", null, n(v))); bars.appendChild(b); });
+      row.appendChild(bars); fig.appendChild(row);
+    });
+    if (opt.legend) { var leg = el("div", "s5dv-leg"); opt.legend.forEach(function (x, j) { var lg = el("span", "s5dv-lg"), sw = el("i"); sw.style.background = opt.c[j]; lg.appendChild(sw); lg.appendChild(document.createTextNode(x)); leg.appendChild(lg); }); fig.appendChild(leg); }
+    if (opt.note) fig.appendChild(el("p", "s5dv-fn", opt.note));
+    return fig;
+  }
+
+  /* ---- the strip "Today, all runs" (§5bn shape: the rail reads its three numbers; §5do: Tiles | List) ---- */
+  var EVL = { "test-new": ["added", "New test"], "test-removed": ["removed", "Test removed"], "test-changed": ["changed", "Test changed"], "release": ["added", "New Maester version"],
+    "version": ["changed", "Baseline version"], "audit-new": ["added", "New Tenable audit"], "audit-updated": ["changed", "Tenable audit updated"], "audit-gone": ["removed", "Tenable audit withdrawn"], "items": ["changed", "Tenable items changed"] };
+  function evText(e) {
+    if (e.type === "test-changed") return (e.what || []).indexOf("severity") >= 0 ? "Severity " + (e.was || "") + " → " + (e.now || "") : (e.what || []).indexOf("title") >= 0 ? "Title was: " + (e.wasTitle || "") : "What it checks or how to fix it was rewritten";
+    if (e.type === "version") return (e.was || "") + " → " + (e.now || "");
+    if (e.type === "audit-updated") return [e.was || e.now ? "Revision " + (e.was || "") + " → " + (e.now || "") : "", e.itemsWas != null ? "Items " + e.itemsWas + " → " + e.itemsNow : "", e.date ? "Tenable date " + dmy(e.date) : ""].filter(Boolean).join(" · ");
+    if (e.type === "items") return ((e.added || []).length ? "+" + e.added.length + " (" + e.added.slice(0, 6).join(", ") + (e.added.length > 6 ? ", …" : "") + ")" : "") + ((e.removed || []).length ? " −" + e.removed.length + " (" + e.removed.slice(0, 6).join(", ") + (e.removed.length > 6 ? ", …" : "") + ")" : "");
+    if (e.type === "release") return "Released " + dmy(e.date);
+    if (e.type === "audit-new") return "Tenable date " + dmy(e.date);
+    return e.sev ? "Severity " + e.sev : "";
+  }
+  function openEv(e) {
+    if (/^test-/.test(e.type) && e.type !== "test-removed") go("tests", { open: e.id });
+    else if (/^audit-|^items$/.test(e.type)) { var a = auditById(e.id); go("tenable", { fam: a ? a.family : "" }); }
+    else if (e.type === "release" && e.url) window.open(e.url, "_blank", "noopener");
+    else go("history");
+  }
+  function strip() {
+    var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
+    var day = D.day, ev = (D.events || []).filter(function (e) { return e.day === day; });
+    var c = { added: 0, changed: 0, removed: 0 }; ev.forEach(function (e) { c[(EVL[e.type] || ["changed"])[0]]++; });
+    var box = el("div", "s5bn s5dv-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in Baselines today");
+    box.setAttribute("data-s5do", "1");   /* our own tiles: the generic §5do layer would open them at the source */
+    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Today, all runs · " + dmy(day)));
+    [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) {
+      var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + c[k[0]] + " " + k[2]); if (!c[k[0]]) b.classList.add("zero"); h.appendChild(b); });
+    box.appendChild(h);
+    if (!ev.length) {
+      var e14 = (D.events || []).length;
+      box.appendChild(el("p", "s5bn-empty", "Nothing moved in Maester or Tenable today: no new, changed or removed test, no new audit file, no new version." +
+        (e14 ? " " + plural(e14, "change") + " in the last 14 days — Versions & history." : "")));
+    } else {
+      var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
+      ev.slice(0, 24).forEach(function (e) {
+        var k = (EVL[e.type] || ["changed", e.type]);
+        var t = el("article", "s5do-tile s5do-" + k[0]); t.tabIndex = 0; t.setAttribute("role", "button");
+        t.appendChild(el("div", "s5do-name", e.title || e.id)); if (e.id && e.id !== e.title) t.appendChild(el("div", "s5do-id", e.id));
+        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5do-k s5bn-k", k[0] === "added" ? "NEW" : k[0] === "removed" ? "REMOVED" : "CHANGED"));
+        pl.appendChild(el("span", "s5do-ty", k[1])); pl.appendChild(el("span", "s5do-ty", e.src + (e.tech ? " · " + e.tech : ""))); t.appendChild(pl);
+        var tx = evText(e); if (tx) t.appendChild(el("div", "s5do-chs", tx));
+        var f = el("div", "s5do-foot"); f.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(f);
+        t.addEventListener("click", function () { openEv(e); });
+        t.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); openEv(e); } });
+        grid.appendChild(t);
+        var li = el("li", "s5bn-r s5bn-" + k[0]); li.setAttribute("data-id", e.id || ""); li.setAttribute("data-kind", k[0]);
+        li.appendChild(el("span", "s5bn-k", k[0] === "added" ? "NEW" : k[0] === "removed" ? "REMOVED" : "CHANGED")); li.appendChild(el("span", "s5bn-ty", k[1]));
+        var a = el("a", "s5bn-tl", e.title || e.id); a.href = "#tab=baselines"; a.addEventListener("click", function (x) { x.preventDefault(); openEv(e); }); li.appendChild(a);
+        li.appendChild(el("span", "s5bn-pr", e.src + (e.tech ? " · " + e.tech : ""))); if (tx) li.appendChild(el("span", "s5bn-chs", tx));
+        ul.appendChild(li);
+      });
+      box.appendChild(grid); box.appendChild(ul);
+      var sw = el("span", "s5do-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
+      var bT = btn("Tiles", null, function () { set("tiles"); }), bL = btn("List", null, function () { set("list"); }); sw.appendChild(bT); sw.appendChild(bL); h.appendChild(sw);
+      var set = function (v) { try { localStorage.setItem("socStripView", v); } catch (x) {} grid.hidden = v !== "tiles"; ul.hidden = v === "tiles"; bT.setAttribute("aria-pressed", String(v === "tiles")); bL.setAttribute("aria-pressed", String(v !== "tiles")); };
+      var pv = "tiles"; try { pv = localStorage.getItem("socStripView") || "tiles"; } catch (x) {} set(pv);
+    }
+    panel.insertBefore(box, panel.firstChild);
+  }
+
+  /* ---- the filter bus (§5at): what is on shows in the green bar and clears from there ---- */
+  window.__socFilterBus = window.__socFilterBus || [];
+  window.__socFilterBus.push(function () {
+    var p = [];
+    if (F.suite) p.push(F.suite === "MT" ? "Maester's own tests" : F.suite); if (F.sev) p.push(F.sev + " severity"); if (F.tech) p.push(F.tech);
+    if (F.ai) p.push("AI and agents"); if (F.mapped) p.push("with a Tenable counterpart"); if (F.q) p.push("\u201c" + F.q + "\u201d");
+    var out = [];
+    if (p.length && S.view === "tests") out.push({ scope: "Baselines · Tests", label: p.join(" · "), clear: function () { F.suite = F.sev = F.tech = F.q = ""; F.ai = F.mapped = false; render(); } });
+    if ((F.tten || F.tq) && S.view === "tenable") out.push({ scope: "Baselines · Tenable", label: [F.tten, F.tq ? "\u201c" + F.tq + "\u201d" : ""].filter(Boolean).join(" · "), clear: function () { F.tten = F.tq = ""; render(); } });
+    return out;
+  });
+
+  /* ---- render ---- */
+  function vnav() {
+    var nv = el("nav", "s5dv-vnav"); nv.setAttribute("aria-label", "Views of the Baselines tab");
+    VIEWS.forEach(function (v) {
+      var lab = v[1] + (v[0] === "tests" ? " · " + n((D.counts || {}).tests) : v[0] === "tenable" ? " · " + n((D.counts || {}).tenableCurrent) : "");
+      var b = btn(lab, "s5dv-vb" + (S.view === v[0] ? " on" : ""), function () { S.open = ""; S.fam = ""; S.view = v[0]; setHash(); render(); });
+      b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b);
+    });
+    return nv;
+  }
+  function fresh() {
+    var s = D.sources || {}, f = el("div", "s5dv-fresh");
+    var m = s.maester || {}, t = s.tenable || {};
+    f.appendChild(frag([el("b", null, "Maester"), " catalogue at commit " + (m.commit || "—") + (m.committed ? " (" + dmy(m.committed) + ")" : "") + (m.ok ? "" : " · not read on the last run")]));
+    f.appendChild(frag([el("b", null, "Tenable"), " " + n(t.listed) + " audit files listed, " + n((D.counts || {}).tenableFiles) + " in scope" + (t.ok ? "" : " · not read on the last run")]));
+    f.appendChild(frag(["Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions · we run no test: this tab shows what the tools check"]));
+    return f;
+  }
+  function render(keep) {
+    if (!D) return;
+    sync();
+    /* §5du: a mark set on a row of the previous drawing would stay in the green bar after the row is gone; when the
+       drawing is only refreshed by data that arrived (keep), the mark moves to the same place in the new drawing */
+    var oldLab = panel.querySelector(".s5du-lab"), from = "";
+    if (oldLab) { var fm = /Opened from (.+?)×?$/.exec(oldLab.textContent || ""); from = fm ? fm[1].replace(/×$/, "") : ""; var ox = oldLab.querySelector(".s5du-x"); if (ox) try { ox.click(); } catch (e) {} }
+    if (keep && oldLab) setTimeout(function () { var t = S.open ? panel.querySelector(".s5dv-pane") : S.fam ? panel.querySelector('.s5dv-fam[data-f="' + cssq(S.fam) + '"]') : panel.querySelector(".s5dv-view");
+      if (t && window.__socMark) window.__socMark(t, from || "another tab"); }, 60);
+    try {
+      body.textContent = "";
+      body.appendChild(fresh()); body.appendChild(vnav());
+      var v = S.view, host = el("div", "s5dv-view s5dv-v-" + v); body.appendChild(host);
+      /* the view names itself: the jump mark (§5du) and the green bar read this line */
+      var vh = el("p", "s5dv-vh"); vh.appendChild(el("span", "s5bn-t", "Baselines · " + VIEWS.filter(function (x) { return x[0] === v; })[0][1])); host.appendChild(vh);
+      if (v === "overview") vOverview(host);
+      else if (v === "tests") vTests(host);
+      else if (v === "frameworks") vFrameworks(host);
+      else if (v === "compare") vCompare(host);
+      else if (v === "tenable") vTenable(host);
+      else vHistory(host);
+    } catch (e) { if (window.console) console.error("[5dv render]", e); body.appendChild(el("p", "s5dv-note", "This view could not be drawn: " + e)); }
+  }
+
+  /* ---- Overview ---- */
+  function kpi(host) {
+    var k = D.counts || {}, row = el("div", "s5dv-kpis");
+    [[n(k.tests), "Maester tests in scope", "M365, Entra, Defender, Exchange, Intune, Purview, Teams, SharePoint, Copilot", function () { go("tests", { F: {} }); }],
+     [n(k.high), "High severity", "Maester's own rating", function () { go("tests", { F: { sev: "High" } }); }],
+     [n(k.ai), "AI and agents", "Agent ID, Copilot Studio, Copilot data", function () { go("tests", { F: { ai: true } }); }],
+     [n(k.tenableItems), "Tenable items", n(k.tenableCurrent) + " newest audit files", function () { go("tenable"); }],
+     [n(k.mapped), "With a Tenable counterpart", "CIS and SCuBA tests mapped by number", function () { go("tests", { F: { mapped: true } }); }],
+     [n(k.events14), "Changes in 14 days", "new, changed, removed, versions", function () { go("history"); }]
+    ].forEach(function (x) {
+      var b = btn("", "s5dv-kpi", x[3], "Open: " + x[1]); b.appendChild(el("b", null, x[0])); b.appendChild(el("span", "s5dv-kl", x[1])); b.appendChild(el("span", "s5dv-ks", x[2])); row.appendChild(b);
+    });
+    host.appendChild(row);
+  }
+  function versionFrames(all) {
+    var V = [], rel = D.releases || [], v = D.versions || {};
+    var st = rel.filter(function (r) { return !r.pre; })[0], pre = rel.filter(function (r) { return r.pre; })[0];
+    if (pre && (!st || pre.date >= st.date)) V.push({ t: "Maester " + pre.tag, d: pre.date, k: "preview", u: pre.url });
+    if (st) V.push({ t: "Maester " + st.tag, d: st.date, k: "release", u: st.url });
+    if (v["cis-m365"]) V.push({ t: "Maester follows CIS M365 v" + v["cis-m365"], d: "", k: "Maester" });
+    if (v["cisa-scuba"]) V.push({ t: "Maester follows " + v["cisa-scuba"], d: (/(\d{4}-\d{2}-\d{2})/.exec(v["cisa-scuba"]) || [])[1] || "", k: "Maester" });
+    if (v.scubagear) V.push({ t: "ScubaGear " + v.scubagear, d: ((D.frameworks || []).filter(function (f) { return f.key === "cisa-scuba"; })[0] || {}).upstream ? (((D.frameworks || []).filter(function (f) { return f.key === "cisa-scuba"; })[0].upstream || {}).date || "") : "", k: "CISA" });
+    ((D.tenable || {}).families || []).forEach(function (f) { V.push({ t: f.family + " " + (/^\d/.test(f.newest) ? "v" : "") + f.newest, d: f.newestDate, k: "Tenable", fam: f.family }); });
+    V.sort(function (a, b) { return (b.d || "") < (a.d || "") ? -1 : (b.d || "") > (a.d || "") ? 1 : 0; });
+    var box = el("div", "s5dv-vers"), tn = 0, tAll = V.filter(function (x) { return x.k === "Tenable"; }).length;
+    V.forEach(function (x, i) {
+      if (x.k === "Tenable" && !all && ++tn > 10) return;
+      var c = el(x.fam || x.u ? "button" : "span", "s5dv-ver s5dv-ver-" + (x.k === "Tenable" ? "t" : x.k === "CISA" ? "c" : "m") + (x.d && dayDiff(x.d, D.day) <= 14 ? " s5dv-ver-new" : ""));
+      if (c.tagName === "BUTTON") { c.type = "button"; c.addEventListener("click", function () { if (x.fam) go("tenable", { fam: x.fam }); else window.open(x.u, "_blank", "noopener"); }); }
+      c.appendChild(el("b", null, x.t)); c.appendChild(el("span", null, (x.k === "preview" ? "preview · " : "") + (x.d ? dmy(x.d) : "no date"))); box.appendChild(c);
+    });
+    if (!all && tAll > 10) box.appendChild(btn("+" + (tAll - 10) + " older Tenable families ›", "s5dv-ver s5dv-more", function () { go("history"); }, "Every version on Versions & history"));
+    return box;
+  }
+  function monthLabels(rows, key) { return rows.map(function (r) { return my(r[key]); }); }
+  function vOverview(host) {
+    kpi(host);
+    var s1 = el("section", "s5dv-blk"); s1.appendChild(el("h3", null, "Versions — newest first")); s1.appendChild(el("p", "s5dv-sub", "Maester's releases, the benchmark versions its tests follow, and the newest version of every Tenable audit family in scope. A click opens the family or the release."));
+    s1.appendChild(versionFrames()); host.appendChild(s1);
+    var T = D.trends || {}, mo = (T.monthly || []).slice(-24);
+    var s2 = el("section", "s5dv-blk s5dv-two");
+    s2.appendChild(lineChart("Maester — tests in the catalogue, month by month", monthLabels(mo, "date"), [
+      { name: "Maester (MT)", c: COL.MT, v: mo.map(function (r) { return r.MT; }) },
+      { name: "CISA SCuBA", c: COL.CISA, v: mo.map(function (r) { return r.CISA; }) },
+      { name: "ORCA", c: COL.ORCA, v: mo.map(function (r) { return r.ORCA; }) },
+      { name: "CIS", c: COL.CIS, v: mo.map(function (r) { return r.CIS; }) },
+      { name: "EIDSCA", c: COL.EIDSCA, v: mo.map(function (r) { return r.EIDSCA; }) }],
+      { note: "Distinct test IDs in Maester's tests folder at each month end (git history since 02/2024), the last point is today. Dashed: the trend line of each suite." }));
+    var ad = (T.added || []).filter(function (r) { return r.m >= "2024-03"; }), tm = {}; (T.tenableMonths || []).forEach(function (r) { tm[r.m] = r; });
+    var months = []; (function () { var a = ad.length ? ad[0].m : "2024-03", e = (D.day || today()).slice(0, 7); var y = +a.slice(0, 4), m = +a.slice(5, 7);
+      while ((y + "-" + ("0" + m).slice(-2)) <= e) { months.push(y + "-" + ("0" + m).slice(-2)); m++; if (m > 12) { m = 1; y++; } } })();
+    var am = {}, bulk = {}; ad.forEach(function (r) { am[r.m] = r; }); ((D.tenable || {}).bulkDates || []).forEach(function (d) { bulk[d.slice(0, 7)] = 1; });
+    s2.appendChild(barsChart("New per month — Maester tests vs Tenable audit files", months.map(my), [
+      { key: "m", name: "Maester tests first seen", c: COL.maester, v: months.map(function (m) { var r = am[m]; return r ? r.MT + r.CIS + r.CISA + r.EIDSCA + r.ORCA : 0; }) },
+      { key: "t", name: "Tenable audit files dated", c: COL.tenable, v: months.map(function (m) { return (tm[m] || {}).files || 0; }) }],
+      { mark: { t: months.map(function (m) { return bulk[m] ? "Tenable re-dated many files that day" : ""; }) },
+        note: "Maester: the month a test ID first appeared in its tests folder. Tenable: the date on the audit file (Tenable's last update, not first publication; * = a day Tenable re-dated 25 or more files at once). Dashed: trend lines." }));
+    host.appendChild(s2);
+    var s3 = el("section", "s5dv-blk s5dv-two");
+    var techs = (D.techs || []).slice(0, 12);
+    s3.appendChild(hbars("By technology — Maester tests and Tenable items", techs.map(function (t) {
+      return { name: t.tech, v: [t.maester, t.tenable], click: function () { if (t.maester) go("tests", { F: { tech: t.tech } }); else go("tenable", { F: { tten: t.tech } }); }, title: "Show " + t.tech };
+    }), { c: [COL.maester, COL.tenable], legend: ["Maester tests", "Tenable items (newest files)"], note: "A click shows the tests of that technology (Tenable only: its audit families)." }));
+    var sev = (D.counts || {}).sev || {};
+    s3.appendChild(hbars("Maester tests by severity", ["High", "Medium", "Low", "Info"].filter(function (s) { return sev[s]; }).map(function (s) {
+      return { name: s, v: [sev[s]], click: function () { go("tests", { F: { sev: s } }); } }; }), { c: [COL.maester], note: "Severity as Maester rates it. Tenable files carry no severity per item." }));
+    host.appendChild(s3);
+    var s4 = el("section", "s5dv-blk"); s4.appendChild(el("h3", null, "Frameworks — who tests what")); s4.appendChild(fwTable(true)); host.appendChild(s4);
+  }
+
+  /* ---- Frameworks ---- */
+  function fwTable(short) {
+    var rows = [];
+    (D.frameworks || []).filter(function (f) { return !short || f.key.indexOf("t:") !== 0; }).forEach(function (f) {
+      var tr = el("tr"); tr.setAttribute("data-id", f.key);
+      var nm = el("span"); nm.appendChild(el("b", null, f.name)); nm.appendChild(el("span", "s5dv-sm", f.kind || "")); tr.appendChild(td(nm));
+      var m = f.maester || {}, t = f.tenable || {};
+      var mc = el("span"); if (m.n) { mc.appendChild(btn(plural(m.n, "test"), "s5dv-num", function () { go("tests", { F: { suite: f.key === "cis-m365" ? "CIS" : f.key === "cisa-scuba" ? "CISA" : f.key === "eidsca" ? "EIDSCA" : f.key === "orca" ? "ORCA" : "MT" } }); }, "Show these tests"));
+        if (m.ids) mc.appendChild(el("span", "s5dv-sm", m.ids)); } else mc.appendChild(el("span", "s5dv-none", "no suite")); tr.appendChild(td(mc));
+      var tc = el("span"); if (t.n) { tc.appendChild(btn(plural(t.n, "item"), "s5dv-num", function () { if (f.key.indexOf("t:") === 0) go("tenable", { fam: f.name }); else go("tenable", { F: { tq: f.key === "cis-m365" ? "CIS Microsoft 365" : f.key === "cisa-scuba" ? "SCuBA" : "" } }); }, "Show the audit files"));
+        if ((t.files || []).length) tc.appendChild(el("span", "s5dv-sm", plural(t.files.length, "audit file"))); } else tc.appendChild(el("span", "s5dv-none", f.key === "nis2" ? "no audit file" : "—")); tr.appendChild(td(tc));
+      var vc = el("span", "s5dv-chips"); if (m.ver) vc.appendChild(chip("Maester: " + m.ver, "s5dv-chip-m")); if (t.ver) vc.appendChild(chip("Tenable: " + (/^\d/.test(t.ver) ? "v" : "") + t.ver + (t.date ? " · " + dmy(t.date) : ""), "s5dv-chip-t"));
+      if (f.upstream && f.upstream.tag) vc.appendChild(chip("ScubaGear " + f.upstream.tag + (f.upstream.date ? " · " + dmy(f.upstream.date) : ""), "s5dv-chip-c"));
+      if (!vc.childNodes.length) vc.appendChild(el("span", "s5dv-none", "—")); tr.appendChild(td(vc));
+      var ov = el("span"); if (f.both != null) { ov.appendChild(el("b", null, n(f.both) + " in both")); ov.appendChild(el("span", "s5dv-sm", n(f.onlyM) + " only Maester · " + n(f.onlyT) + " only Tenable")); } else ov.appendChild(el("span", "s5dv-none", "—")); tr.appendChild(td(ov));
+      var note = f.key === "nis2" ? f.note + " Checked " + dmy(f.checked) + " in " + n(f.listed) + " Tenable audit files." : f.note || (f.key === "cisa-scuba" && f.upstream && t.ver && f.upstream.tag && f.upstream.tag !== t.ver ? "Tenable's SCuBA files follow v" + t.ver + "; ScubaGear's newest release is " + f.upstream.tag + "; Maester follows ScubaGear's main branch." : f.tech ? "Tenable only · " + f.tech : "");
+      tr.appendChild(td(note || "—", "s5dv-tn"));
+      rows.push(tr);
+    });
+    return table(["Framework", "Maester", "Tenable", "Version", "Overlap", "Note"], rows, "s5dv-fw");
+  }
+  function vFrameworks(host) {
+    host.appendChild(el("p", "s5dv-sub", "Every framework and audit family in scope: how many tests Maester has, how many items Tenable's newest files hold, which version each follows and how much of it both cover. A number opens the tests or the audit files."));
+    host.appendChild(fwTable(false));
+    host.appendChild(el("p", "s5dv-fn", "NIS2 is an EU directive, not a technical baseline: it names no Microsoft 365 setting. Neither Maester nor Tenable publishes a NIS2 suite for Microsoft 365 (checked on every run); the tests carry NIST SP 800-53 controls, which the panel of each test lists."));
+  }
+
+  /* ---- Maester vs Tenable ---- */
+  function vCompare(host) {
+    host.appendChild(el("p", "s5dv-sub", "Where the two catalogues overlap and where one runs ahead of the other. CIS tests are paired by the benchmark number (CIS.M365.1.1.1 ↔ 1.1.1), SCuBA tests by the policy number (CISA.MS.AAD.1.1 ↔ MS.AAD.1.1v1)."));
+    var two = el("section", "s5dv-blk s5dv-two");
+    var fw = (D.frameworks || []).filter(function (f) { return f.both != null; });
+    two.appendChild(hbars("Coverage of the same baseline", fw.map(function (f) { return { name: f.name, v: [f.both, f.onlyM, f.onlyT] }; }),
+      { c: ["#3fb37f", COL.maester, COL.tenable], legend: ["in both", "only Maester", "only Tenable"], note: "Tenable's CIS files hold every recommendation of the benchmark (L1 and L2, E3 and E5); Maester automates those it can read from the tenant." }));
+    var lag = el("div", "s5dv-lag"); lag.appendChild(el("h3", null, "Which version each follows"));
+    fw.forEach(function (f) {
+      var r = el("div", "s5dv-lagr"); r.appendChild(el("b", null, f.name));
+      var cs = el("span", "s5dv-chips");
+      if ((f.maester || {}).ver) cs.appendChild(chip("Maester: " + f.maester.ver, "s5dv-chip-m"));
+      if ((f.tenable || {}).ver) cs.appendChild(chip("Tenable: v" + f.tenable.ver + (f.tenable.date ? " · " + dmy(f.tenable.date) : ""), "s5dv-chip-t"));
+      if (f.upstream && f.upstream.tag) cs.appendChild(chip("ScubaGear release " + f.upstream.tag, "s5dv-chip-c"));
+      r.appendChild(cs);
+      var same = f.maester && f.tenable && f.maester.ver && f.tenable.ver && f.maester.ver === f.tenable.ver;
+      var msg = same ? "Same version in both." : f.key === "cisa-scuba" && f.upstream && f.upstream.tag ? "Tenable follows ScubaGear " + f.tenable.ver + ", released before " + f.upstream.tag + "; Maester follows ScubaGear's main branch — newer policies are in Maester only." : "Different versions.";
+      r.appendChild(el("span", "s5dv-sm" + (same ? "" : " s5dv-warnt"), msg)); lag.appendChild(r);
+    });
+    two.appendChild(lag); host.appendChild(two);
+    var T = D.trends || {}, dl = (T.daily || []);
+    var s2 = el("section", "s5dv-blk s5dv-two");
+    s2.appendChild(lineChart("Day by day — Maester tests and Tenable items", dl.map(function (r) { return dmy(r.day).slice(0, 5); }), [
+      { name: "Maester tests", c: COL.maester, v: dl.map(function (r) { return (r.maester || {}).total; }) },
+      { name: "Tenable items ÷ 10", c: COL.tenable, v: dl.map(function (r) { return Math.round(((r.tenable || {}).items || 0) / 10); }) }],
+      { note: dl.length < 3 ? "One point per run since " + dmy((dl[0] || {}).day) + " — the trend line appears from the third day. Tenable items are divided by ten to share the axis." : "One point per day; Tenable items divided by ten to share the axis; dashed: trend lines." }));
+    s2.appendChild(lineChart("CIS and SCuBA — Maester tests month by month", monthLabels((T.monthly || []).slice(-24), "date"), [
+      { name: "Maester CIS", c: COL.CIS, v: (T.monthly || []).slice(-24).map(function (r) { return r.CIS; }) },
+      { name: "Maester CISA SCuBA", c: COL.CISA, v: (T.monthly || []).slice(-24).map(function (r) { return r.CISA; }) }],
+      { note: "Tenable's figures for the same baselines: CIS " + n(((fw.filter(function (f) { return f.key === "cis-m365"; })[0] || {}).tenable || {}).n) + " items, SCuBA " + n(((fw.filter(function (f) { return f.key === "cisa-scuba"; })[0] || {}).tenable || {}).n) + " items (newest files). Tenable publishes no history, so its line starts with our first run." }));
+    host.appendChild(s2);
+    var techs = (D.techs || []);
+    host.appendChild(hbars("By technology — who checks more", techs.map(function (t) { return { name: t.tech, v: [t.maester, t.tenable], click: function () { if (t.maester) go("tests", { F: { tech: t.tech } }); else go("tenable", { F: { tten: t.tech } }); } }; }),
+      { c: [COL.maester, COL.tenable], legend: ["Maester tests", "Tenable items"], note: "Tenable covers the M365 Apps, Edge and Intune device baselines that Maester does not read; Maester covers Entra, Exchange and AI agents in more depth." }));
+  }
+
+  /* ---- Tests: grouped like Graph API and Roles, a panel per test ---- */
+  function pass(t) {
+    if (F.suite && t.suite !== F.suite) return false;
+    if (F.sev && t.sev !== F.sev) return false;
+    if (F.tech && t.prod !== F.tech) return false;
+    if (F.ai && !t.ai) return false;
+    if (F.mapped && !(t.tenable || []).length) return false;
+    if (F.q) { var q = F.q.toLowerCase(), s = (t.id + " " + t.title + " " + t.fn + " " + t.feat + " " + t.prod + " " + (t.ctl || []).join(" ") + " " + (t.mitre || []).join(" ")).toLowerCase(); if (s.indexOf(q) < 0) return false; }
+    return true;
+  }
+  function facet(lab, opts, key) {
+    var r = el("div", "s5dv-fr"); r.appendChild(el("span", "s5dv-fl", lab));
+    opts.forEach(function (o) {
+      var on = key === "ai" || key === "mapped" ? !!F[key] : F[key] === o[0];
+      var b = btn("", "s5dv-f" + (on ? " on" : ""), function () { if (key === "ai" || key === "mapped") F[key] = !F[key]; else F[key] = on ? "" : o[0]; S.open = ""; setHash(); render(); });
+      b.appendChild(document.createTextNode(o[1])); b.appendChild(el("b", null, n(o[2]))); b.setAttribute("aria-pressed", String(on)); r.appendChild(b);
+    });
+    return r;
+  }
+  function vTests(host) {
+    if (!TS) { getTests(function () {}); host.appendChild(el("p", "s5dv-note", "Reading the Maester catalogue…")); return; }
+    var all = TS, cnt = function (f) { return all.filter(f).length; };
+    var fb = el("div", "s5dv-fb");
+    fb.appendChild(facet("Suite", [["MT", "Maester", cnt(function (t) { return t.suite === "MT"; })], ["CIS", "CIS", cnt(function (t) { return t.suite === "CIS"; })], ["CISA", "CISA SCuBA", cnt(function (t) { return t.suite === "CISA"; })], ["EIDSCA", "EIDSCA", cnt(function (t) { return t.suite === "EIDSCA"; })], ["ORCA", "ORCA", cnt(function (t) { return t.suite === "ORCA"; })]], "suite"));
+    fb.appendChild(facet("Severity", ["High", "Medium", "Low", "Info"].map(function (s) { return [s, s, cnt(function (t) { return t.sev === s; })]; }).filter(function (x) { return x[2]; }), "sev"));
+    var techs = {}; all.forEach(function (t) { techs[t.prod] = (techs[t.prod] || 0) + 1; });
+    fb.appendChild(facet("Technology", Object.keys(techs).sort(function (a, b) { return techs[b] - techs[a]; }).map(function (k) { return [k, k, techs[k]]; }), "tech"));
+    var r4 = el("div", "s5dv-fr"); r4.appendChild(el("span", "s5dv-fl", "Only"));
+    r4.appendChild(facet("", [["ai", "AI and agents", cnt(function (t) { return t.ai; })]], "ai").lastChild);
+    r4.appendChild(facet("", [["mapped", "With a Tenable counterpart", cnt(function (t) { return (t.tenable || []).length; })]], "mapped").lastChild);
+    var q = el("input", "s5dv-q"); q.type = "search"; q.placeholder = "Search: test name, ID, cmdlet, CIS or SCuBA number, MITRE…"; q.value = F.q; q.setAttribute("aria-label", "Search the tests");
+    var qt = null; q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { F.q = q.value.trim(); var p = q.selectionStart; S.open = ""; render(); var nq = panel.querySelector(".s5dv-q"); if (nq) { nq.focus(); try { nq.setSelectionRange(p, p); } catch (e) {} } }, 250); });
+    r4.appendChild(q); fb.appendChild(r4); host.appendChild(fb);
+    var L = all.filter(pass);
+    host.appendChild(el("p", "s5dv-cnt", n(L.length) + " of " + n(all.length) + " tests · grouped by technology, then feature · sorted by severity, then ID"));
+    var grid = el("div", "s5dv-tg"), list = el("div", "s5dv-list"); grid.appendChild(list);
+    var by = {}; L.forEach(function (t) { (by[t.prod] = by[t.prod] || []).push(t); });
+    var SO = { Critical: 0, High: 1, Medium: 2, Low: 3, Info: 4 };
+    Object.keys(by).sort(function (a, b) { return by[b].length - by[a].length; }).forEach(function (tech) {
+      var g = el("details", "s5dv-g"); g.open = Object.keys(by).length <= 3 || !!F.tech || !!F.q || by[tech].some(function (t) { return t.id === S.open; });
+      var sm = el("summary", "s5dv-gh"); sm.appendChild(el("b", null, tech)); sm.appendChild(el("span", "s5dv-gn", n(by[tech].length))); g.appendChild(sm);
+      var fe = {}; by[tech].forEach(function (t) { (fe[t.feat || "Other"] = fe[t.feat || "Other"] || []).push(t); });
+      Object.keys(fe).sort(function (a, b) { return fe[b].length - fe[a].length || (a < b ? -1 : 1); }).forEach(function (f) {
+        g.appendChild(el("div", "s5dv-fh", f + " · " + fe[f].length));
+        fe[f].sort(function (a, b) { return (SO[a.sev] == null ? 9 : SO[a.sev]) - (SO[b.sev] == null ? 9 : SO[b.sev]) || (a.id < b.id ? -1 : 1); }).forEach(function (t) {
+          var r = btn("", "s5dv-tr" + (t.id === S.open ? " on" : ""), function () { S.open = t.id; setHash(); render(); setTimeout(function () { var p = panel.querySelector(".s5dv-pane"); if (p && window.innerWidth < 900) topOf(p); }, 50); }, "Open " + t.id);
+          r.setAttribute("data-id", t.id);
+          r.appendChild(el("span", "s5dv-id", t.id));
+          var tt = el("span", "s5dv-tt", t.title); if ((D.events || []).some(function (e) { return e.id === t.id && e.type === "test-new"; })) tt.appendChild(chip("NEW", "s5dv-chip-new"));
+          if (t.ai) tt.appendChild(chip("AI", "s5dv-chip-ai")); r.appendChild(tt);
+          r.appendChild(chip(t.sev || "—", "s5dv-sev " + sevCls(t.sev)));
+          g.appendChild(r);
+        });
+      });
+      list.appendChild(g);
+    });
+    if (!L.length) list.appendChild(el("p", "s5dv-note", "No test matches. Clear a filter in the green bar."));
+    var pane = el("aside", "s5dv-pane"); grid.appendChild(pane);
+    var cur = S.open && TS[S.open];
+    if (cur) testPanel(pane, cur); else { pane.classList.add("s5dv-pane-e"); pane.appendChild(el("p", "s5dv-note", "Click a test to see what it checks, how to check it yourself, how to fix it, its baselines and its Tenable counterpart.")); }
+    host.appendChild(grid);
+  }
+  function kv(g, k, v) { if (v == null || v === "" || (v.length === 0)) return; g.appendChild(el("span", "s5dv-k", k)); var c = el("span", "s5dv-v"); if (typeof v === "string") c.textContent = v; else c.appendChild(v); g.appendChild(c); }
+  function testPanel(pane, t) {
+    var hd = el("div", "s5dv-ph"); var l = el("div"); l.appendChild(el("span", "s5dv-pid", t.id + " · " + (t.suite === "MT" ? "Maester" : t.suite === "CISA" ? "CISA SCuBA" : t.suite))); l.appendChild(el("h3", null, t.title)); hd.appendChild(l);
+    hd.appendChild(btn("×", "s5dv-x", function () { S.open = ""; setHash(); render(); }, "Close")); pane.appendChild(hd);
+    var cs = el("div", "s5dv-chips"); cs.appendChild(chip("Severity " + (t.sev || "—"), "s5dv-sev " + sevCls(t.sev))); cs.appendChild(chip(t.prod + (t.feat ? " · " + t.feat : "")));
+    if (t.area) cs.appendChild(chip(t.area)); if (t.impact || t.cost) cs.appendChild(chip("User impact " + (t.impact || "—") + " · cost " + (t.cost || "—"))); if (t.lic) cs.appendChild(chip("Licence " + t.lic)); pane.appendChild(cs);
+    if (t.sum) { var w = el("div", "s5dv-ps"); w.appendChild(el("p", "s5dv-pk", "What it checks")); w.appendChild(md(t.sum)); pane.appendChild(w); }
+    /* how to check it yourself - the portal runs nothing; these are the reader's own steps */
+    var ck = el("div", "s5dv-ps s5dv-box"); ck.appendChild(el("p", "s5dv-pk", "Check it yourself — PowerShell"));
+    ck.appendChild(el("pre", "s5dv-pre", "Install-Module Maester -Scope CurrentUser\nConnect-Maester\nInvoke-Maester -TestId '" + t.id + "'"));
+    ck.appendChild(el("p", "s5dv-sm", (t.suite === "MT" || t.suite === "CISA" ? "-TestId is a Maester 3.0 (preview) parameter; in Maester 2.3 the same test runs with Invoke-Maester -Tag '" + t.id + "'. " : "-TestId is a Maester 3.0 (preview) parameter. ") +
+      "The test reads the tenant with the permissions Connect-Maester asks for; nothing is changed." + (t.reads && t.reads.length ? " It reads: " + t.reads.join(", ") + "." : "")));
+    pane.appendChild(ck);
+    if (t.fix) { var fx = el("div", "s5dv-ps s5dv-box"); fx.appendChild(el("p", "s5dv-pk", "How to fix — admin centre or PowerShell")); fx.appendChild(md(t.fix)); pane.appendChild(fx); }
+    var g = el("div", "s5dv-kv");
+    kv(g, "Test function", t.fn ? el("code", null, t.fn) : "");
+    kv(g, "Service", t.svc);
+    kv(g, "MITRE ATT&CK", (t.mitre || []).join(", "));
+    var ctl = (t.ctl || []).map(function (c) { return c.replace(/^nist-800-53-r5:/, "NIST 800-53 ").replace(/^cis-m365:/, "CIS M365 ").replace(/^cisa-scuba:/, "SCuBA "); });
+    if (ctl.length) { var cc = el("span", "s5dv-chips"); ctl.forEach(function (c) { cc.appendChild(chip(c)); }); kv(g, "Frameworks", cc); }
+    kv(g, "First seen", t.first ? (t.first <= "2024-01-31" ? "before 02/2024" : my(t.first) === my(D.day) && t.first.length > 7 ? dmy(t.first) : "month " + my(t.first)) : "");
+    pane.appendChild(g);
+    /* Tenable counterpart (CIS by number, SCuBA by policy) - its own solution text, read on demand */
+    var tb = el("div", "s5dv-ps"); tb.appendChild(el("p", "s5dv-pk", "Tenable counterpart")); pane.appendChild(tb);
+    if (!(t.tenable || []).length) tb.appendChild(el("p", "s5dv-sm", t.suite === "CIS" || t.suite === "CISA" ? "No item with this number in Tenable's newest " + (t.suite === "CIS" ? "CIS" : "SCuBA") + " files." : "Tenable has no audit file for this suite; the NIST 800-53 controls above are the common ground."));
+    else {
+      var ul = el("ul", "s5dv-tcl"); tb.appendChild(ul);
+      getItems(function (TI) {
+        (t.tenable || []).forEach(function (r) {
+          var a = auditById(r.a) || { name: r.a }, it = ((TI[r.a] || {}).items || []).filter(function (x) { return x.k === r.k; })[0];
+          var li = el("li"); li.appendChild(link(a.name, "https://www.tenable.com/audits/items/" + (TI[r.a] || {}).file + ":" + r.k)); if (it) { li.appendChild(el("span", "s5dv-sm", (it.n ? it.n + " " : "") + it.t)); }
+          ul.appendChild(li);
+        });
+        var first = ((TI[(t.tenable[0] || {}).a] || {}).items || []).filter(function (x) { return x.k === t.tenable[0].k; })[0];
+        if (first && first.sol) { var d = el("details", "s5dv-sol"); d.appendChild(el("summary", null, "Tenable's solution text")); d.appendChild(md(first.sol)); tb.appendChild(d); }
+      });
+    }
+    var lk = el("div", "s5dv-links");
+    lk.appendChild(link("maester.dev/docs/tests/" + t.id, "https://maester.dev/docs/tests/" + t.id));
+    if (t.src) lk.appendChild(link("Source on GitHub", "https://github.com/maester365/maester/blob/main/" + t.src));
+    (t.links || []).slice(0, 4).forEach(function (x) { lk.appendChild(link(x.t || x.u.replace(/^https?:\/\/(www\.)?/, "").slice(0, 60), x.u)); });
+    pane.appendChild(lk);
+    var ev = (D.events || []).filter(function (e) { return e.id === t.id; });
+    if (ev.length) { var h = el("div", "s5dv-ps"); h.appendChild(el("p", "s5dv-pk", "Changes in 14 days")); ev.forEach(function (e) { h.appendChild(el("p", "s5dv-sm", dmy(e.day) + " · " + (EVL[e.type] || ["", e.type])[1] + (evText(e) ? " · " + evText(e) : ""))); }); pane.appendChild(h); }
+  }
+
+  /* ---- Tenable audits ---- */
+  function vTenable(host) {
+    var fams = ((D.tenable || {}).families || []);
+    var fb = el("div", "s5dv-fb"), r = el("div", "s5dv-fr"); r.appendChild(el("span", "s5dv-fl", "Technology"));
+    var tc = {}; fams.forEach(function (f) { tc[f.tech] = (tc[f.tech] || 0) + 1; });
+    Object.keys(tc).sort().forEach(function (k) { var on = F.tten === k; var b = btn("", "s5dv-f" + (on ? " on" : ""), function () { F.tten = on ? "" : k; S.fam = ""; render(); }); b.appendChild(document.createTextNode(k)); b.appendChild(el("b", null, String(tc[k]))); r.appendChild(b); });
+    var q = el("input", "s5dv-q"); q.type = "search"; q.placeholder = "Search an audit family…"; q.value = F.tq; q.setAttribute("aria-label", "Search the audit families");
+    var qt = null; q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { F.tq = q.value.trim(); render(); var nq = panel.querySelectorAll(".s5dv-q")[0]; if (nq) nq.focus(); }, 250); });
+    r.appendChild(q); fb.appendChild(r); host.appendChild(fb);
+    host.appendChild(el("p", "s5dv-sub", "Tenable's audit files for Microsoft 365, Entra, M365 Apps, Intune, Edge and Defender, one row per family: the newest version, older versions still listed, its items. Scope: baselines_sources.json. A click lists the items with Tenable's solution."));
+    var L = fams.filter(function (f) { return (!F.tten || f.tech === F.tten) && (!F.tq || (f.family + " " + f.tech + " " + f.type).toLowerCase().indexOf(F.tq.toLowerCase()) >= 0); });
+    var rows = [];
+    L.forEach(function (f) {
+      var tr = el("tr", "s5dv-fam" + (S.fam === f.family ? " on" : "")); tr.setAttribute("data-f", f.family); tr.setAttribute("data-id", f.family);
+      var nm = el("span"); nm.appendChild(btn(f.family, "s5dv-lk", function () { S.fam = S.fam === f.family ? "" : f.family; setHash(); render(); }, "List the items")); tr.appendChild(td(nm));
+      tr.appendChild(td(chip(f.type || "—", "s5dv-chip-ty")));
+      tr.appendChild(td(f.tech));
+      var vc = el("span", "s5dv-chips"); f.versions.slice().reverse().slice(0, 6).forEach(function (v, i) { vc.appendChild(chip((/^\d/.test(v.ver) ? "v" : "") + v.ver + (v.date ? " · " + dmy(v.date) : ""), i === 0 ? "s5dv-chip-t" : "s5dv-chip-old")); });
+      if (f.versions.length > 6) vc.appendChild(el("span", "s5dv-sm", "+" + (f.versions.length - 6) + " older")); tr.appendChild(td(vc));
+      var pr = el("span"); f.profiles.forEach(function (p) { pr.appendChild(el("span", "s5dv-sm", (p.p || "file") + " · " + (p.items == null ? "—" : n(p.items)) + " items")); }); tr.appendChild(td(pr));
+      tr.appendChild(td(f.profiles.some(function (p) { return p.items === 0; }) ? "Tenable's page lists no items yet" : n(f.items), "s5dv-num0"));
+      rows.push(tr);
+      if (S.fam === f.family) { var dr = el("tr", "s5dv-dr"); var c = el("td"); c.colSpan = 6; dr.appendChild(c); rows.push(dr); famItems(c, f); }
+    });
+    host.appendChild(table(["Audit family", "Type", "Technology", "Versions (newest first)", "Profiles", "Items"], rows, "s5dv-tt2"));
+    if (!L.length) host.appendChild(el("p", "s5dv-note", "No family matches. Clear the filter in the green bar."));
+  }
+  function famItems(c, f) {
+    c.appendChild(el("p", "s5dv-note", "Reading Tenable's items…"));
+    getItems(function (TI) {
+      c.textContent = "";
+      f.profiles.forEach(function (p) {
+        var d = TI[p.id]; if (!d) return;
+        var bx = el("div", "s5dv-ib"); bx.appendChild(el("p", "s5dv-pk", (p.p || f.family) + " · " + n(d.count) + " items · file " + d.file + " · Tenable " + dmy(d.date) + " · revision " + d.rev));
+        if (d.pending) bx.appendChild(el("p", "s5dv-sm", "Tenable's page lists the file but not its items yet; they appear here on the first run after Tenable publishes them."));
+        var q = el("input", "s5dv-q s5dv-iq"); q.type = "search"; q.placeholder = "Search these items…"; q.setAttribute("aria-label", "Search the items"); bx.appendChild(q);
+        var ul = el("div", "s5dv-items"); bx.appendChild(ul);
+        var draw = function () {
+          ul.textContent = ""; var s = q.value.trim().toLowerCase(), k = 0;
+          d.items.forEach(function (it) {
+            if (s && (it.n + " " + it.t + " " + (it.cat || []).join(" ")).toLowerCase().indexOf(s) < 0) return; if (++k > 400) return;
+            var row = el("details", "s5dv-it"); var sm = el("summary"); sm.appendChild(el("span", "s5dv-id", it.n || "—")); sm.appendChild(el("span", "s5dv-tt", it.t)); row.appendChild(sm);
+            var b = el("div", "s5dv-itb");
+            if (it.info) { b.appendChild(el("p", "s5dv-pk", "Why")); b.appendChild(md(it.info)); }
+            if (it.sol) { b.appendChild(el("p", "s5dv-pk", "Solution")); b.appendChild(md(it.sol)); }
+            var cs = el("div", "s5dv-chips"); (it.cat || []).forEach(function (x) { cs.appendChild(chip(x.toLowerCase())); }); (it.nist || []).forEach(function (x) { cs.appendChild(chip("NIST " + x)); }); b.appendChild(cs);
+            var mm = TS ? TS.filter(function (t) { return (t.tenable || []).some(function (r) { return r.a === p.id && r.k === it.k; }); }) : [];
+            var lk = el("div", "s5dv-links"); lk.appendChild(link("Tenable item ↗", "https://www.tenable.com/audits/items/" + d.file + ":" + it.k));
+            mm.forEach(function (t) { lk.appendChild(btn("Maester " + t.id + " ›", "s5dv-lk", function () { go("tests", { open: t.id }); })); });
+            b.appendChild(lk); row.appendChild(b); ul.appendChild(row);
+          });
+          if (k > 400) ul.appendChild(el("p", "s5dv-sm", (k - 400) + " more — search to narrow."));
+        };
+        q.addEventListener("input", draw); draw(); c.appendChild(bx);
+      });
+      getTests(function () {});
+    });
+  }
+
+  /* ---- Versions & history ---- */
+  function vHistory(host) {
+    var s1 = el("section", "s5dv-blk"); s1.appendChild(el("h3", null, "Versions — newest first")); s1.appendChild(versionFrames(true)); host.appendChild(s1);
+    var rel = D.releases || [];
+    if (rel.length) { var s2 = el("section", "s5dv-blk"); s2.appendChild(el("h3", null, "Maester releases")); var vs = el("div", "s5dv-vers");
+      rel.forEach(function (r) { var b = el("a", "s5dv-ver s5dv-ver-m"); b.href = r.url; b.target = "_blank"; b.rel = "noopener"; b.appendChild(el("b", null, r.tag)); b.appendChild(el("span", null, (r.pre ? "preview · " : "") + (r.date ? dmy(r.date) : "no date"))); vs.appendChild(b); });
+      s2.appendChild(vs); host.appendChild(s2); }
+    var cisv = []; (D.trends.monthly || []).forEach(function (r) { (r.cis || []).forEach(function (v) { if (!cisv.length || cisv[cisv.length - 1].v !== v) cisv.push({ v: v, d: r.date }); }); });
+    if (cisv.length) { var s3 = el("section", "s5dv-blk"); s3.appendChild(el("h3", null, "CIS benchmark version Maester followed")); var vs3 = el("div", "s5dv-vers");
+      cisv.slice().reverse().forEach(function (x) { var c = el("span", "s5dv-ver s5dv-ver-m"); c.appendChild(el("b", null, "CIS M365 v" + x.v)); c.appendChild(el("span", null, "seen from " + my(x.d))); vs3.appendChild(c); });
+      s3.appendChild(vs3); s3.appendChild(el("p", "s5dv-fn", "Read from the test tags in Maester's git history at each month end.")); host.appendChild(s3); }
+    var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : -1; });
+    var rows = ev.map(function (e) { var tr = el("tr"); tr.setAttribute("data-id", e.id || "");
+      tr.appendChild(td(dmy(e.day))); tr.appendChild(td(e.src)); tr.appendChild(td((EVL[e.type] || ["", e.type])[1]));
+      tr.appendChild(td(btn(e.title || e.id, "s5dv-lk", function () { openEv(e); }))); tr.appendChild(td(evText(e) || "—")); return tr; });
+    var s4 = el("section", "s5dv-blk"); s4.appendChild(el("h3", null, "Changes in the last 14 days · " + ev.length));
+    if (rows.length) s4.appendChild(table(["Day", "Source", "What", "Test or audit", "Details"], rows));
+    else s4.appendChild(el("p", "s5dv-note", "No change recorded yet — the first run on " + dmy(D.day) + " recorded the catalogues as they are (no flood of “new” on day one); from the next run every new, changed or removed test, audit file and version appears here."));
+    host.appendChild(s4);
+  }
+
+  /* ---- Overview of the portal: a card and one sentence (§5do: today's changes as tiles) ---- */
+  function ovCard(k) {
+    var host = document.querySelector("#tab-overview .s5ci-ov");
+    if (!host) { if (k < 25) setTimeout(function () { ovCard(k + 1); }, 400); return; }
+    if (host.querySelector(".s5dv-ov")) return;
+    var c = D.counts || {}, card = el("section", "s5ci-card s5ci-c-acc s5dv-ov"), h = el("div", "s5ci-ch");
+    h.appendChild(el("h3", null, "Baselines · Maester and Tenable"));
+    var al = el("span", "s5cu-ovh"); al.appendChild(btn("Open Baselines ›", "s5ci-inl", function () { go("overview"); })); h.appendChild(al); card.appendChild(h);
+    var g = el("div", "s5dv-ovk");
+    [[c.tests, "tests", function () { go("tests", { F: {} }); }], [c.high, "High", function () { go("tests", { F: { sev: "High" } }); }], [c.ai, "AI and agents", function () { go("tests", { F: { ai: true } }); }], [c.tenableItems, "Tenable items", function () { go("tenable"); }]].forEach(function (x) {
+      var b = btn("", "s5dv-ovb", x[2], "Open " + x[1]); b.appendChild(el("b", null, n(x[0]))); b.appendChild(el("span", null, x[1])); g.appendChild(b); });
+    card.appendChild(g);
+    var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : -1; }).slice(0, 5);
+    if (ev.length) ev.forEach(function (e) {
+      var r = el("div", "s5cu-ovr"); r.appendChild(el("span", "s5cu-d", dmy(e.day).slice(0, 5)));
+      var mid = el("span"); mid.appendChild(btn(e.title || e.id, "s5cu-ovn", function () { openEv(e); })); mid.appendChild(el("span", "s5cu-ovw", e.src + " · " + (EVL[e.type] || ["", e.type])[1] + (evText(e) ? " · " + evText(e) : ""))); r.appendChild(mid);
+      card.appendChild(r);
+    });
+    else card.appendChild(el("p", "s5ci-note", "No change in 14 days. Newest: " + versionText() + "."));
+    var cr = host.querySelector(".s5cu-ov");
+    if (cr && cr.parentNode === host) host.insertBefore(card, cr.nextSibling); else host.appendChild(card);
+  }
+  function versionText() {
+    var rel = D.releases || [], st = rel.filter(function (r) { return !r.pre; })[0], pre = rel.filter(function (r) { return r.pre; })[0];
+    return [pre ? "Maester " + pre.tag + " (" + dmy(pre.date) + ")" : "", st ? "Maester " + st.tag + " (" + dmy(st.date) + ")" : ""].filter(Boolean).join(", ");
+  }
+  function ovSentence(k) {
+    var ol = document.querySelector("#tab-overview .s5bk-3");
+    if (!ol) { if (k < 25) setTimeout(function () { ovSentence(k + 1); }, 400); return; }
+    if (ol.querySelector(".s5dv-sen")) return;
+    var day = D.day, evT = (D.events || []).filter(function (e) { return e.day === day; }), e14 = (D.events || []).length;
+    var mT = evT.filter(function (e) { return e.src === "Maester"; }), tT = evT.filter(function (e) { return e.src === "Tenable"; });
+    var li = el("li", "s5dv-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Baselines"));
+    var b = el("span", "s5bk-it s5bk-idl");
+    b.appendChild(el("span", "s5bk-itt", evT.length ? plural(evT.length, "change") + " in Maester and Tenable today" : "Nothing moved in Maester or Tenable today"));
+    var g = el("span", "s5bk-idg");
+    function tile(lab, nS, nW, fn) { var t = el("button", "s5bk-idtile" + (nS ? " s5bk-idhot" : "")); t.type = "button"; t.title = "Open " + lab;
+      t.appendChild(el("span", "s5bk-idl1", lab)); t.appendChild(el("span", "s5bk-idn", String(nS))); t.appendChild(el("span", "s5bk-idl2", "today · " + dmy(day).slice(0, 5)));
+      t.appendChild(el("span", "s5bk-idl3", nW)); t.addEventListener("click", function (ev) { ev.stopPropagation(); fn(); }); g.appendChild(t); }
+    tile("Maester tests", mT.length, n((D.counts || {}).tests) + " tests · " + versionText().split(",")[0], function () { if (mT.length === 1) openEv(mT[0]); else go(mT.length ? "history" : "tests"); });
+    tile("Tenable audits", tT.length, n((D.counts || {}).tenableCurrent) + " newest files", function () { if (tT.length === 1) openEv(tT[0]); else go(tT.length ? "history" : "tenable"); });
+    tile("Last 14 days", e14, "new, changed, removed", function () { go("history"); });
+    b.appendChild(g); li.appendChild(b);
+    var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { return x.classList.contains("s5cu-sen"); })[0];
+    if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
+    var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
+    if (sh) {
+      var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"];
+      sh.textContent = "Today in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+      if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent);
+    }
+  }
+
+  function fromHash() {
+    var m = /^#tab=baselines(?:&(.*))?$/.exec(location.hash || ""); if (!m) return;
+    var p = {}; String(m[1] || "").split("&").forEach(function (kv) { var i = kv.indexOf("="); if (i > 0) p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
+    S.view = p.v || (p.t ? "tests" : p.f ? "tenable" : "overview"); S.open = p.t || ""; S.fam = p.f || ""; goTab(); render();
+  }
+  function start() {
+    if (!onSite() || !window.fetch) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "Baselines are read from /data/baselines.json on the published site.")); return; }
+    fetch("/data/baselines.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.counts) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "No baselines yet: the first run of tools/baselines.py has not been published.")); return; }
+      D = d; panel.setAttribute("data-units", n(d.counts.tests) + " Maester tests · " + n(d.counts.tenableCurrent) + " Tenable audit files · run " + dmy(d.day));
+      strip(); render(); fromHash(); ovCard(0); ovSentence(0);
+      var nb = document.querySelector('nav.anchors .tab[aria-controls="tab-baselines"] .navcount'); if (nb) nb.textContent = n(d.counts.tests);
+      /* the catalogue is needed by the Tests view only; a phone that never opens the tab never downloads it */
+      document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-baselines"); if (t) getTests(function () {}); }, true);
+      if (/^#tab=baselines/.test(location.hash || "")) getTests(function () {});
+    }).catch(function (e) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "Baselines could not be read: " + e)); });
+  }
+  window.addEventListener("hashchange", fromHash);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 300); }); else setTimeout(start, 300);
 })();
 ```
 
@@ -41104,6 +41951,177 @@ tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
 /* 15 X 2026 (morning run: "the Overview tab is 6px too wide at phone width"): a long Graph permission pill
    ("no level · read-write · app-only + delegated …", 352 px, nowrap) pushed the Overview past 336-366 px - it wraps */
 .s5ci-pill,#tab-overview .s5cy-rh .s5ci-pill,#tab-overview .s5ci-card .s5ci-pill{max-width:100%;white-space:normal;overflow-wrap:anywhere;min-width:0}
+/* §5dv: Baselines (Maester and Tenable) - views, charts, test panel; tables with a frame on every cell (owner,
+   15 X: "the Frameworks table has no clear frames, everything blends - review every table") */
+.s5dv{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
+.s5dv-note{color:var(--muted);margin:6px 0}
+.s5dv-sub{margin:0 0 4px;color:var(--muted);line-height:1.55;max-width:1100px}
+.s5dv-fn{margin:6px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.s5dv-sm{display:block;color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.s5dv-none{color:var(--faint)}
+.s5dv-warnt{color:var(--warn)}
+.s5dv-fresh{display:flex;flex-wrap:wrap;gap:6px 18px;border:1px solid var(--ok);background:var(--ok-soft);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--text)}
+.s5dv-fresh b{color:var(--ok);margin-right:4px}
+.s5dv-vnav{display:flex;flex-wrap:wrap;gap:6px}
+.s5dv-vb{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s5dv-vb:hover{border-color:var(--accent)}
+.s5dv-vb.on{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.s5dv-vh{margin:0;font-size:15px;font-weight:650}
+.s5dv-view{display:flex;flex-direction:column;gap:16px;min-width:0}
+.s5dv-blk{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.s5dv-blk h3,.s5dv-lag h3{margin:0;font-size:15px}
+.s5dv-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;background:transparent;border:0;padding:0}
+.s5dv-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.s5dv-kpi{font:inherit;text-align:left;display:flex;flex-direction:column;gap:2px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 12px;cursor:pointer;color:var(--text);min-width:0}
+.s5dv-kpi:hover{border-color:var(--accent)}
+.s5dv-kpi b{font-size:24px;line-height:1.1;color:var(--accent)}
+.s5dv-kl{font-weight:600;font-size:13px}
+.s5dv-ks{color:var(--muted);font-size:12px;line-height:1.35}
+.s5dv-vers{display:flex;flex-wrap:wrap;gap:8px}
+.s5dv-ver{font:inherit;display:inline-flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:999px;padding:5px 14px;background:var(--surface);color:var(--text);text-decoration:none;cursor:default;max-width:100%}
+button.s5dv-ver,a.s5dv-ver{cursor:pointer}
+button.s5dv-ver:hover,a.s5dv-ver:hover{border-color:var(--accent)}
+.s5dv-ver b{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.s5dv-ver span{font-size:11.5px;color:var(--muted)}
+.s5dv-ver-m{border-color:var(--accent)}
+.s5dv-ver-t{border-color:#e3a33b}
+.s5dv-ver-c{border-color:#3fb37f}
+.s5dv-ver-new{box-shadow:0 0 0 2px var(--ok-soft);border-color:var(--ok)}
+.s5dv-fig{margin:0;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;min-width:0}
+.s5dv-fig figcaption{font-weight:650;font-size:14px;margin:0 0 6px}
+.s5dv-svg{width:100%;height:auto;display:block}
+.s5dv-grid{stroke:var(--border);stroke-width:1}
+.s5dv-ax{fill:var(--muted);font-size:11px;font-family:var(--sans)}
+.s5dv-star{fill:var(--warn);font-size:14px;font-weight:700}
+.s5dv-leg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:12.5px;color:var(--muted)}
+.s5dv-lg{display:inline-flex;align-items:center;gap:6px}
+.s5dv-lg i{display:inline-block;width:12px;height:12px;border-radius:3px}
+.s5dv-hb{display:flex;flex-direction:column;gap:4px}
+.s5dv-hr{font:inherit;display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(0,2fr);gap:10px;align-items:center;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--border-soft);padding:5px 2px;color:var(--text)}
+button.s5dv-hr{cursor:pointer}
+button.s5dv-hr:hover{background:var(--surface-2)}
+.s5dv-hn{font-weight:600;overflow-wrap:anywhere}
+.s5dv-hbs{display:flex;flex-direction:column;gap:3px;min-width:0}
+.s5dv-hbar{display:flex;align-items:center;gap:6px;min-width:0}
+.s5dv-hbar i{display:block;height:10px;border-radius:3px}
+.s5dv-hbar b{font-size:12px;font-weight:600;color:var(--muted)}
+.s5dv-lag{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.s5dv-lagr{display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--border-soft);padding-top:8px}
+.s5dv-chips{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.s5dv-chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:1px 9px;font-size:12px;line-height:1.5;color:var(--text);background:var(--surface);max-width:100%;overflow-wrap:anywhere}
+.s5dv-chip-m{border-color:var(--accent)}
+.s5dv-chip-t{border-color:#e3a33b}
+.s5dv-chip-c{border-color:#3fb37f}
+.s5dv-chip-old{color:var(--muted)}
+.s5dv-chip-ty{font-size:11.5px;color:var(--muted)}
+.s5dv-chip-new{border-color:var(--ok);color:var(--ok);margin-left:6px;font-size:11px}
+.s5dv-chip-ai{border-color:#b48cff;color:#b48cff;margin-left:6px;font-size:11px}
+.s5dv-sev-h{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+.s5dv-sev-m{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.s5dv-sev-l{color:var(--muted)}
+.s5dv-sev-i{color:var(--faint)}
+/* tables: every cell framed, the head on its own colour, rows striped - nothing blends */
+.s5dv-tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5dv-tab{width:100%;border-collapse:collapse;font-size:13px}
+.s5dv-tab th{text-align:left;padding:9px 12px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font:600 11.5px/1.3 var(--cond,var(--sans));letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.s5dv-tab td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.45}
+.s5dv-tab tr:first-child th{border-top:0}
+.s5dv-tab th:first-child,.s5dv-tab td:first-child{border-left:0}
+.s5dv-tab th:last-child,.s5dv-tab td:last-child{border-right:0}
+.s5dv-tab tbody tr:last-child td{border-bottom:0}
+.s5dv-tab tbody tr:nth-child(even) td{background:var(--surface-2)}
+.s5dv-tab tbody tr:hover td{background:var(--accent-soft)}
+.s5dv-tab td:first-child{font-weight:600}
+.s5dv-tn{color:var(--muted);font-size:12.5px;max-width:420px}
+.s5dv-fw td:first-child{min-width:200px}
+.s5dv-fw .s5dv-sm{overflow-wrap:normal;white-space:nowrap}
+.s5dv-fw td:nth-child(4){min-width:190px}
+.s5dv-more{color:var(--accent);font-weight:600;justify-content:center}
+.s5dv-num{font:inherit;font-weight:700;color:var(--accent);background:transparent;border:0;padding:0;cursor:pointer;text-align:left}
+.s5dv-num:hover,.s5dv-lk:hover{text-decoration:underline;text-underline-offset:3px}
+.s5dv-lk{font:inherit;font-weight:600;color:var(--text);background:transparent;border:0;padding:0;cursor:pointer;text-align:left}
+.s5dv-lk::after{content:"\00a0\203a";color:var(--accent)}
+.s5dv-ext{color:var(--accent);overflow-wrap:anywhere}
+.s5dv-fb{display:flex;flex-direction:column;gap:8px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 12px}
+.s5dv-fr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5dv-fl{font:600 11px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint);min-width:84px}
+.s5dv-f{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 11px;cursor:pointer}
+.s5dv-f b{color:var(--faint);font-weight:600;margin-left:6px}
+.s5dv-f:hover{border-color:var(--accent)}
+.s5dv-f.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5dv-f.on b{color:var(--ok)}
+.s5dv-q{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;min-width:260px;flex:1 1 260px}
+.s5dv-cnt{margin:0;color:var(--muted);font-size:12.5px}
+.s5dv-tg{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.s5dv-list{border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.s5dv-g{border-top:1px solid var(--border)}
+.s5dv-g:first-child{border-top:0}
+.s5dv-gh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 14px;background:var(--surface-2);cursor:pointer;font-size:14.5px}
+.s5dv-gn{color:var(--muted);font-weight:600}
+.s5dv-fh{padding:9px 14px 4px;font:600 11.5px/1.2 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.s5dv-tr{font:inherit;width:100%;display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:8px 14px;border:0;border-top:1px solid var(--border-soft);background:transparent;color:var(--text);cursor:pointer}
+.s5dv-tr:hover{background:var(--surface-2)}
+.s5dv-tr.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.s5dv-id{font-family:var(--mono);font-size:12px;color:var(--accent);overflow-wrap:anywhere}
+.s5dv-tt{line-height:1.4;overflow-wrap:anywhere}
+.s5dv-pane{border:1px solid var(--accent);border-radius:12px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:12px;position:sticky;top:calc(var(--s5ca-top,0px) + 70px);max-height:calc(100vh - 90px);overflow:auto;min-width:0}
+.s5dv-pane-e{border-color:var(--border);border-style:dashed}
+.s5dv-ph{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.s5dv-ph h3{margin:2px 0 0;font-size:17px;line-height:1.35}
+.s5dv-pid{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.s5dv-x{font:inherit;font-size:20px;line-height:1;background:transparent;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
+.s5dv-ps{display:flex;flex-direction:column;gap:4px}
+.s5dv-box{border:1px solid var(--border);border-radius:10px;background:var(--bg);padding:10px 12px}
+.s5dv-pk{margin:0;font-weight:650;font-size:13px}
+.s5dv-md{font-size:13.5px;line-height:1.55;color:var(--text);overflow-wrap:anywhere}
+.s5dv-md p{margin:4px 0}
+.s5dv-md ul,.s5dv-md ol{margin:4px 0;padding-left:20px}
+.s5dv-md code{font-family:var(--mono);font-size:12px;background:var(--surface-2);border-radius:4px;padding:0 4px}
+.s5dv-mdh{font-weight:650}
+.s5dv-pre{font-family:var(--mono);font-size:12px;line-height:1.5;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.s5dv-kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:6px 12px;font-size:13px}
+.s5dv-k{color:var(--muted)}
+.s5dv-v{min-width:0;overflow-wrap:anywhere}
+.s5dv-tcl{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.s5dv-sol summary{cursor:pointer;color:var(--accent);font-size:13px}
+.s5dv-links{display:flex;flex-wrap:wrap;gap:6px 16px;border-top:1px solid var(--border);padding-top:10px;font-size:13px}
+.s5dv-fam.on td{background:var(--accent-soft)!important}
+.s5dv-dr td{background:var(--bg)!important;font-weight:400!important}
+.s5dv-ib{display:flex;flex-direction:column;gap:6px;margin:4px 0 12px}
+.s5dv-iq{max-width:420px}
+.s5dv-items{border:1px solid var(--border);border-radius:10px;background:var(--surface);max-height:560px;overflow:auto}
+.s5dv-it{border-top:1px solid var(--border-soft)}
+.s5dv-it:first-child{border-top:0}
+.s5dv-it summary{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:7px 12px;cursor:pointer}
+.s5dv-itb{padding:4px 12px 12px;display:flex;flex-direction:column;gap:6px}
+.s5dv-num0{white-space:nowrap}
+.s5dv-ovk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:2px 0 6px}
+.s5dv-ovb{font:inherit;display:flex;flex-direction:column;align-items:flex-start;gap:1px;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:6px 9px;color:var(--muted);cursor:pointer;font-size:12px;min-width:0}
+.s5dv-ovb:hover{border-color:var(--accent)}
+.s5dv-ovb b{font-size:18px;color:var(--accent)}
+.s5dv-bn .s5do-chs{color:var(--muted);font-size:12.5px}
+@media (max-width:1100px){.s5dv-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.s5dv-two{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s5dv-tg{grid-template-columns:minmax(0,1fr)}.s5dv-pane{position:static;max-height:none}}
+@media (max-width:760px){
+  .s5dv-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s5dv-q{min-width:0}
+  .s5dv-tr{grid-template-columns:minmax(0,1fr) auto}
+  .s5dv-tr .s5dv-id{grid-column:1 / -1}
+  .s5dv-kv{grid-template-columns:minmax(0,1fr)}
+  .s5dv-hr{grid-template-columns:minmax(0,1fr)}
+  .s5dv-ovk{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s5dv-it summary{grid-template-columns:minmax(0,1fr)}
+  /* a table on the phone is a stack of cards: one row, its cells under each other with their names (§5bv) */
+  .s5dv-tw{border:0;background:transparent;overflow:visible}
+  .s5dv-tab,.s5dv-tab tbody,.s5dv-tab tr,.s5dv-tab td{display:block;width:100%;box-sizing:border-box}
+  .s5dv-tab thead{display:none}
+  .s5dv-tab tr{border:1px solid var(--border);border-radius:10px;background:var(--surface);margin:0 0 8px;overflow:hidden}
+  .s5dv-tab td{border:0;border-top:1px solid var(--border-soft);padding:7px 12px}
+  .s5dv-tab td:first-child{border-top:0}
+  .s5dv-tab td[data-l]::before{content:attr(data-l);display:block;font:600 10.5px/1.3 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+  .s5dv-tab tbody tr:nth-child(even) td{background:transparent}
+  .s5dv-tn{max-width:none}
+}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`

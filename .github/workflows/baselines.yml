@@ -1,0 +1,54 @@
+name: Baselines tracking
+
+# CLAUDE.md 5dv (15 X 2026): what Maester and Tenable test in Microsoft 365, Entra, M365 Apps and AI.
+# tools/baselines.py reads Maester's public repository (git clone, test attributes and docs, releases API) and
+# Tenable's public audit catalogue (www.tenable.com/audits listings and the audit files in scope of
+# baselines_sources.json), compares with the previous run and writes site/data/baselines.json (summary),
+# baselines-tests.json (Maester catalogue), baselines-tenable.json (Tenable items) and baselines-history.json.
+# Nothing is run against a tenant and no secret is used: GITHUB_TOKEN only raises the GitHub API rate limit.
+# Commits only when something changed. A push made with GITHUB_TOKEN starts no other workflow, so
+# "Code refresh" deploys the site after this one (workflow_run there).
+on:
+  schedule:
+    - cron: "15 5 * * *"     # once a day, before the morning brief is read
+  push:
+    branches: [main]
+    paths:
+      - 'tools/baselines.py'
+      - 'baselines_sources.json'
+      - '.github/workflows/baselines.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+jobs:
+  baselines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Read Maester and Tenable
+        timeout-minutes: 20
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/baselines.py
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/baselines.json site/data/baselines-tests.json site/data/baselines-tenable.json site/data/baselines-history.json
+          if git diff --cached --quiet; then echo "No change."; else
+            python3 tools/stamp.py baselines || true; git add site/data/fresh   # CLAUDE.md 5cz
+            git commit -m "data: Maester and Tenable baselines $(date -u +%F' '%H:%M) UTC"
+            git pull --rebase -q origin main
+            git push origin main
+          fi
