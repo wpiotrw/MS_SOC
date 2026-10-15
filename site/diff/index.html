@@ -537,11 +537,11 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}
 @media (max-width:720px){.s5cx-mark img{height:96px}h1.s5cx-h1{gap:12px}}
 /* §5dy (16 X 2026): the logo is the last frame of the GUARDZILLA film (16:9, black): rounded, a shadow only in the
    light theme; 108 px tall from 721 px (192 px wide), 96 px on the phone - the same picture as the portal */
-.s5cx-mark img.s5dy-pic{height:108px;width:auto;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.s5cx-mark .s5dy-pic{height:108px;width:auto;display:block;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 :root[data-theme=dark] .s5dy-pic{box-shadow:none!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .s5dy-pic{box-shadow:none!important}}
 @media (min-width:721px){header.top .title-row>div:first-child{padding-left:208px;min-height:108px}}
-@media (max-width:720px){.s5cx-mark img.s5dy-pic{height:96px;border-radius:10px}}
+@media (max-width:720px){.s5cx-mark .s5dy-pic{height:96px;border-radius:10px}}
 </style>
 <script>
 /* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
@@ -550,7 +550,7 @@ if(v==='light'||v==='dark')document.documentElement.setAttribute('data-theme',v)
 </script>
 </head>
 <body>
-<header class="top"><div class="in"><div class="title-row"><div><h1 class="s5cx-h1"><a class="s5cx-mark" href="/" aria-label="GuardZilla &mdash; back to the brief"><img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display='none'"></a>Microsoft SOC &mdash; what changed</h1>
+<header class="top"><div class="in"><div class="title-row"><div><h1 class="s5cx-h1"><a class="s5cx-mark" href="/" aria-label="GuardZilla &mdash; back to the brief"><img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display='none'"></a>Microsoft SOC &mdash; what changed</h1><script>/* §5dy (16 X 2026, owner 01:19: "on diff and week, where you put the static logo, put our film too"): the logo picture is the film's last frame; a muted film replaces it, plays once and stops on that frame, plays again on hover. No film with prefers-reduced-motion or when the browser refuses to play; the phone loads it after the page. */(function(){var a=document.querySelector(".s5cx-mark"),i=a&&a.querySelector("img.s5dy-pic");if(!i||!window.matchMedia||matchMedia("(prefers-reduced-motion: reduce)").matches)return;function go(){var v=document.createElement("video");v.className="s5dy-pic";v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");v.playsInline=true;v.setAttribute("playsinline","");v.poster=i.src;v.width=640;v.height=360;v.setAttribute("aria-hidden","true");[["logo-anim.webm","video/webm"],["logo-anim.mp4","video/mp4"]].forEach(function(x){var s=document.createElement("source");s.src="../assets/"+x[0];s.type=x[1];v.appendChild(s)});function drop(){if(v.parentNode)v.parentNode.removeChild(v);i.style.display=""}function play(){try{v.currentTime=0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(drop)}v.addEventListener("error",drop,true);a.addEventListener("mouseenter",function(){if(v.ended)play()});i.style.display="none";a.insertBefore(v,i);play()}if(matchMedia("(max-width:720px)").matches){if(document.readyState==="complete")setTimeout(go,1500);else addEventListener("load",function(){setTimeout(go,1500)})}else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go()})();</script>
 <p class="dateline">2026-10-14 &rarr; 2026-10-15 &middot; brief 14 Oct → brief 15 Oct (evening pass 22:06) &middot; compared 20:07 Warsaw &middot; Piotr Wisniewski &middot; <a href="/">Back to the full brief</a></p></div><div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button></div></div>
 <p class="dstale" id="dstale" data-from="2026-10-14" data-to="2026-10-15" hidden></p>
 <div class="dwin" id="dwin"><p><b>What this page compares:</b> the state at the end of 14 Oct &rarr; the state at the end of 15 Oct &mdash; the morning pass (07:00 Warsaw) and the afternoon pass (21:16 Warsaw). <b>The main page shows the morning pass only</b>: each of its tabs counts what moved between the end of 14 Oct and this morning. In <a href="#bytab">What changed, by tab</a> the last column says how much of each row the main page already shows.</p></div>
