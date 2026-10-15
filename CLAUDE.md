@@ -870,11 +870,11 @@ tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--ink) 5%%,var(--su
 td:first-child{white-space:nowrap}.chart b{font-size:12px;font-weight:600}
 .tw{overflow-x:auto;margin:0 0 4px}.tw:focus-visible{outline:2px solid var(--accent)}
 @media print{.bar{display:none}body{background:#fff;color:#000}main{max-width:none;padding:0}table,.chart{break-inside:avoid}}
-h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-flex;flex:0 0 auto}.s5cx-mark img{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark img{height:96px}}
+h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-flex;flex:0 0 auto}.s5cx-mark img{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark img{height:96px}}.s5dy-pic{aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .s5cx-mark .s5cx-dark{display:none}@media (prefers-color-scheme:dark){.s5cx-mark .s5cx-dark{display:block}.s5cx-mark .s5cx-light{display:none}}
 @media print{.s5cx-mark .s5cx-dark{display:none}.s5cx-mark .s5cx-light{display:block}}
 </style></head><body><main role="main">
-<h1 class="s5cx-h1"><a class="s5cx-mark" href="%(u)s" aria-label="GuardZilla — today's brief"><img class="s5cx-light" src="../assets/logo-light.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display='none'"><img class="s5cx-dark" src="../assets/logo-dark.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display='none'"></a>The week in Microsoft security changes</h1>
+<h1 class="s5cx-h1"><a class="s5cx-mark" href="%(u)s" aria-label="GuardZilla — today's brief"><img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display='none'"></a>The week in Microsoft security changes</h1>
 <p class="sub">%(f)s → %(t)s · built from %(n)d daily files · <a href="%(u)s">today's brief</a> · <a href="%(u)sdiff/">what changed since yesterday</a></p>
 <div class="bar"><button type="button" onclick="print()">Save as PDF</button><a href="%(u)sfeed.xml">RSS</a></div>
 <h2>Day by day</h2>
@@ -6351,6 +6351,13 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}
  header.top h1.s5cx-h1 .s5cx-mark{position:absolute;left:0;top:0}}
 @media (min-width:721px) and (max-width:1099px){.s5cx-mark img{height:108px}header.top .title-row>div:first-child{padding-left:144px;min-height:108px}}
 @media (max-width:720px){.s5cx-mark img{height:96px}h1.s5cx-h1{gap:12px}}
+/* §5dy (16 X 2026): the logo is the last frame of the GUARDZILLA film (16:9, black): rounded, a shadow only in the
+   light theme; 108 px tall from 721 px (192 px wide), 96 px on the phone - the same picture as the portal */
+.s5cx-mark img.s5dy-pic{height:108px;width:auto;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+:root[data-theme=dark] .s5dy-pic{box-shadow:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .s5dy-pic{box-shadow:none!important}}
+@media (min-width:721px){header.top .title-row>div:first-child{padding-left:208px;min-height:108px}}
+@media (max-width:720px){.s5cx-mark img.s5dy-pic{height:96px;border-radius:10px}}
 """
 
 # Strona zmian NIE ma skryptow powloki (§3) — te dwa to jedyny wyjatek i sa nim z powodu:
@@ -7710,8 +7717,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                # §5cx (10 X 2026, owner: "the logo, also in diff"): the GuardZilla mark before the title, light and
                # dark picture switched by the theme (CSS .s5cx-*), a link back to the brief; a missing picture hides itself
                '<h1 class="s5cx-h1"><a class="s5cx-mark" href="%s" aria-label="GuardZilla &mdash; back to the brief">'
-               '<img class="s5cx-light" src="../assets/logo-light.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display=\'none\'">'
-               '<img class="s5cx-dark" src="../assets/logo-dark.webp" alt="GuardZilla" width="148" height="128" onerror="this.style.display=\'none\'">'
+               # §5dy (16 X 2026): the last frame of the GUARDZILLA film, the same picture as the portal's logo
+               '<img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display=\'none\'">'
                '</a>Microsoft SOC &mdash; what changed</h1>' % esc(home))
     out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
                'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p></div>'
@@ -28513,6 +28520,25 @@ kolumny czytelne). Wyjatki: `.s5dv-tab` (Baselines ma ten wyglad), `.mcb-grid`. 
 Pomiar: 17 zakladek z otwartymi pelnymi sekcjami, 1440 i 1920 px, ciemny i jasny — zadna tabela nie wychodzi poza
 kontener, strona bez przewijania w bok.
 
+**§5dy (16 X 2026, wlasciciel 00:30: „zamiast loga, ktore mamy w portalu — ten film; na desktopie ladnie widoczny,
+na telefonie tez"; 00:38: „Wdrazaj i na desktop, i na tel").** Logo portalu to film GUARDZILLA (8 s, 16:9, czarne
+tlo; oryginal z dzwiekiem: galaz `logo-video-src`, `assets-src/guardzilla_movie.mp4`, SHA-256 `610caa73…9873`).
+Pliki w `site/assets/`: `logo-anim.webm` (VP9) i `logo-anim.mp4` (H.264, `+faststart`) — **bez dzwieku**, ok. 400 KB
+kazdy; `logo-poster.webp` (ostatnia klatka, ok. 21 KB); `favicon-64.png` i `apple-touch-icon.png` (180 px) z kadru
+smoka z tarcza, bez napisu. SKRYPT 17 (warstwa §5cx) wstawia w oba miejsca logo obraz `logo-poster.webp` (jeden dla
+obu motywow) i JEDEN `<video muted playsinline>` w to logo, ktore jest widoczne (`.s5cx-logo` od 1360 px, `.s5cx-mark`
+ponizej; przy zmianie szerokosci film sie przenosi). Film gra raz i stoi na ostatniej klatce (ta sama co obraz);
+najechanie po zakonczeniu albo klikniecie odtwarza go ponownie. Filmu nie ma przy `prefers-reduced-motion` oraz gdy
+przegladarka odmowi odtworzenia (iPhone w trybie niskiego zuzycia energii) — wtedy zostaje obraz. Telefon (do 720 px)
+pokazuje najpierw obraz, a film laduje 1,5 s po zdarzeniu `load` (§5dl, §5ds: bez dodatkowych 400 KB na starcie).
+Wymiary: od 1360 px lewa kolumna naglowka 264 x 148; 721–1359 px znak przed tytulem 108 px wysokosci (192 px
+szerokosci, wiersz tytulu `padding-left:208px`); telefon 96 px (171 px) — wysokosc dawnego logo, naglowek nie rosnie.
+Ciemny motyw: czarna ramka filmu zlewa sie z naglowkiem; jasny: zaokraglone rogi i cien (plakietka, nie dziura).
+`/diff/` (make_diff.py) i `/week/` (mirror_artifact.py): sam obraz `logo-poster.webp`, bez filmu. Stare
+`logo-*.webp` i `mark-*.webp` zostaja w `site/assets/` nieuzywane (powrot = przywrocenie kodu §5cx). Pomiar 16 X
+(Chromium, 12 wariantow 360–1920 px, oba motywy, z ograniczeniem animacji): bez bledow JS, bez przewijania w bok,
+film konczy sie na 8 s (`ended`), przy `reduce` brak `<video>`. Nie sprawdzone na prawdziwym iPhonie.
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -37513,25 +37539,71 @@ odtad CZTERNASCIE (4-17).**
   function go() {
     var top = document.querySelector("header.top"), row = top && top.querySelector(".title-row"), h1 = row && row.querySelector("h1");
     if (!h1 || document.querySelector(".s5cx-mark")) return;
-    function pic(cls, base, alt) {
+    /* §5dy (16 X 2026, owner: "instead of the logo we have in the portal - this film; nicely visible on the
+       desktop, and on the phone"): one picture for both themes - the last frame of the GUARDZILLA film
+       (assets/logo-poster.webp) - and ONE muted <video> (assets/logo-anim.webm / .mp4, no sound) placed in the
+       logo that is shown (the big one from 1360 px, the mark before the title below). It plays once and stops on
+       its last frame (the same picture as the poster); hover or a click plays it again. No video at all with
+       prefers-reduced-motion or when the browser refuses to play (iPhone in Low Power Mode): the poster stays.
+       The phone shows the poster first and loads the film only after the page has loaded (§5dl, §5ds: no extra
+       400 KB at start). A missing picture hides the logo (the brief's preview on claude.ai). */
+    function pic(cls, alt) {
       var a = document.createElement("a"); a.className = cls; a.href = "#tab=overview"; a.title = "GuardZilla · Microsoft SOC Brief";
       a.setAttribute("aria-label", alt);
-      ["light", "dark"].forEach(function (v) {
-        var i = document.createElement("img"); i.className = "s5cx-" + v; i.alt = ""; i.decoding = "async";
-        i.src = "assets/" + base + "-" + v + ".webp";
-        i.onerror = function () { a.style.display = "none"; };
-        a.appendChild(i);
-      });
+      var i = document.createElement("img"); i.className = "s5dy-pic"; i.alt = ""; i.decoding = "async";
+      i.width = 640; i.height = 360; i.src = "assets/logo-poster.webp";
+      i.onerror = function () { a.style.display = "none"; };
+      a.appendChild(i);
       return a;
     }
-    var mark = pic("s5cx-mark", "logo", "GuardZilla — home");   /* 10 X 08:05, owner: the logo WITH its name, also on the phone */
+    var mark = pic("s5cx-mark", "GuardZilla — home");   /* 10 X 08:05, owner: the logo WITH its name, also on the phone */
     h1.classList.add("s5cx-h1"); row.classList.add("s5cx-row"); h1.insertBefore(mark, h1.firstChild);   /* inside the title: aligned with it on every width */
-    var big = pic("s5cx-logo", "logo", "GuardZilla — Microsoft SOC Brief, home");
+    var big = pic("s5cx-logo", "GuardZilla — Microsoft SOC Brief, home");
     top.insertBefore(big, top.firstChild);
+    film(big, mark);
     if (!document.querySelector('link[rel="icon"]')) {
       var l = document.createElement("link"); l.rel = "icon"; l.type = "image/png"; l.href = "assets/favicon-64.png"; document.head.appendChild(l);
       var l2 = document.createElement("link"); l2.rel = "apple-touch-icon"; l2.href = "assets/apple-touch-icon.png"; document.head.appendChild(l2);
     }
+  }
+  function film(big, mark) {
+    var mq = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    if (mq && mq.matches) return;
+    var wide = window.matchMedia ? window.matchMedia("(min-width:1360px)") : { matches: true };
+    var phone = window.matchMedia ? window.matchMedia("(max-width:720px)").matches : false;
+    var v = document.createElement("video"), done = false;
+    v.className = "s5dy-pic s5dy-vid"; v.muted = true; v.defaultMuted = true; v.setAttribute("muted", "");
+    v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.poster = "assets/logo-poster.webp";
+    v.width = 640; v.height = 360; v.setAttribute("aria-hidden", "true"); v.disablePictureInPicture = true;
+    [["assets/logo-anim.webm", "video/webm"], ["assets/logo-anim.mp4", "video/mp4"]].forEach(function (x) {
+      var so = document.createElement("source"); so.src = x[0]; so.type = x[1]; v.appendChild(so);
+    });
+    function drop() { if (v.parentNode) v.parentNode.classList.remove("s5dy-on"); if (v.parentNode) v.parentNode.removeChild(v); done = true; }
+    function host() { return wide.matches ? big : mark; }
+    function place() {
+      if (done) return;
+      var h = host();
+      if (v.parentNode === h) return;
+      if (v.parentNode) v.parentNode.classList.remove("s5dy-on");
+      h.appendChild(v); h.classList.add("s5dy-on");
+    }
+    function play() {
+      if (done) return;
+      try { if (v.ended || v.currentTime > 0) v.currentTime = 0; } catch (e) {}
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { drop(); });   /* Low Power Mode, autoplay blocked: the poster stays */
+    }
+    v.addEventListener("error", drop, true);
+    v.addEventListener("ended", function () { try { v.pause(); } catch (e) {} });   /* stays on the last frame */
+    [big, mark].forEach(function (a) {
+      a.addEventListener("mouseenter", function () { if (v.parentNode === a && v.ended) play(); });
+      a.addEventListener("click", function () { if (v.parentNode === a) play(); });
+    });
+    if (wide.addEventListener) wide.addEventListener("change", place); else if (wide.addListener) wide.addListener(place);
+    function start() { place(); v.preload = "auto"; play(); }
+    if (!phone) start();
+    else if (document.readyState === "complete") setTimeout(start, 1500);
+    else window.addEventListener("load", function () { setTimeout(start, 1500); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
@@ -41792,6 +41864,20 @@ a.s5czb-dlink:hover{background:var(--accent);color:#fff}
  header.top .title-row.s5cx-row{padding-left:0!important;min-height:150px!important}   /* the freshness frame (133 px from 10 px) must not reach the counters */
  header.top .top-inner{margin-left:300px!important;margin-right:0!important;max-width:min(1516px,calc(100vw - 300px))!important;box-sizing:border-box}
 }
+/* §5dy (16 X 2026, owner: "instead of the logo - this film; nicely visible on the desktop, and on the phone"). The
+   logo is the GUARDZILLA film (16:9, black background): the poster (its last frame) and, where it may play, one
+   muted <video> (SCRIPT 17). Dark theme: the black frame melts into the header; light theme: rounded corners and a
+   shadow, so it reads as a badge, not a hole. Sizes: from 1360 px the left column (264 x 148); 721-1359 px the
+   mark before the title 108 px tall (192 px wide); phone 96 px tall (171 px wide) - the old logo's height, so the
+   header does not grow. */
+.s5dy-pic{display:block;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+:root[data-theme="dark"] .s5dy-pic{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5dy-pic{box-shadow:none}}
+.s5dy-on>img.s5dy-pic{display:none!important}
+.s5cx-mark .s5dy-pic{height:108px;width:auto}
+@media (min-width:721px) and (max-width:1359px){header.top .title-row.s5cx-row{padding-left:208px!important;min-height:108px!important}}
+@media (max-width:720px){.s5cx-mark .s5dy-pic{height:96px;border-radius:10px}}
+@media (min-width:1360px){header.top .s5cx-logo .s5dy-pic{width:100%;height:auto;max-width:100%;max-height:100%}}
 /* §5da (10 X 2026, owner: "not a Christmas tree - the name, the title, the permission come first"): colour carries
    meaning only. Before -> after: the old value grey and struck through, the new one in the text colour, no red or
    green blocks. Badges (level, type, source, status words) are quiet outlines; only a danger badge keeps its red.

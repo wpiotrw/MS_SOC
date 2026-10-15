@@ -3966,6 +3966,20 @@ a.s5czb-dlink:hover{background:var(--accent);color:#fff}
  header.top .title-row.s5cx-row{padding-left:0!important;min-height:150px!important}   /* the freshness frame (133 px from 10 px) must not reach the counters */
  header.top .top-inner{margin-left:300px!important;margin-right:0!important;max-width:min(1516px,calc(100vw - 300px))!important;box-sizing:border-box}
 }
+/* §5dy (16 X 2026, owner: "instead of the logo - this film; nicely visible on the desktop, and on the phone"). The
+   logo is the GUARDZILLA film (16:9, black background): the poster (its last frame) and, where it may play, one
+   muted <video> (SCRIPT 17). Dark theme: the black frame melts into the header; light theme: rounded corners and a
+   shadow, so it reads as a badge, not a hole. Sizes: from 1360 px the left column (264 x 148); 721-1359 px the
+   mark before the title 108 px tall (192 px wide); phone 96 px tall (171 px wide) - the old logo's height, so the
+   header does not grow. */
+.s5dy-pic{display:block;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+:root[data-theme="dark"] .s5dy-pic{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5dy-pic{box-shadow:none}}
+.s5dy-on>img.s5dy-pic{display:none!important}
+.s5cx-mark .s5dy-pic{height:108px;width:auto}
+@media (min-width:721px) and (max-width:1359px){header.top .title-row.s5cx-row{padding-left:208px!important;min-height:108px!important}}
+@media (max-width:720px){.s5cx-mark .s5dy-pic{height:96px;border-radius:10px}}
+@media (min-width:1360px){header.top .s5cx-logo .s5dy-pic{width:100%;height:auto;max-width:100%;max-height:100%}}
 /* §5da (10 X 2026, owner: "not a Christmas tree - the name, the title, the permission come first"): colour carries
    meaning only. Before -> after: the old value grey and struck through, the new one in the text colour, no red or
    green blocks. Badges (level, type, source, status words) are quiet outlines; only a danger badge keeps its red.
@@ -22916,25 +22930,71 @@ IdentityDirectoryEvents
   function go() {
     var top = document.querySelector("header.top"), row = top && top.querySelector(".title-row"), h1 = row && row.querySelector("h1");
     if (!h1 || document.querySelector(".s5cx-mark")) return;
-    function pic(cls, base, alt) {
+    /* §5dy (16 X 2026, owner: "instead of the logo we have in the portal - this film; nicely visible on the
+       desktop, and on the phone"): one picture for both themes - the last frame of the GUARDZILLA film
+       (assets/logo-poster.webp) - and ONE muted <video> (assets/logo-anim.webm / .mp4, no sound) placed in the
+       logo that is shown (the big one from 1360 px, the mark before the title below). It plays once and stops on
+       its last frame (the same picture as the poster); hover or a click plays it again. No video at all with
+       prefers-reduced-motion or when the browser refuses to play (iPhone in Low Power Mode): the poster stays.
+       The phone shows the poster first and loads the film only after the page has loaded (§5dl, §5ds: no extra
+       400 KB at start). A missing picture hides the logo (the brief's preview on claude.ai). */
+    function pic(cls, alt) {
       var a = document.createElement("a"); a.className = cls; a.href = "#tab=overview"; a.title = "GuardZilla · Microsoft SOC Brief";
       a.setAttribute("aria-label", alt);
-      ["light", "dark"].forEach(function (v) {
-        var i = document.createElement("img"); i.className = "s5cx-" + v; i.alt = ""; i.decoding = "async";
-        i.src = "assets/" + base + "-" + v + ".webp";
-        i.onerror = function () { a.style.display = "none"; };
-        a.appendChild(i);
-      });
+      var i = document.createElement("img"); i.className = "s5dy-pic"; i.alt = ""; i.decoding = "async";
+      i.width = 640; i.height = 360; i.src = "assets/logo-poster.webp";
+      i.onerror = function () { a.style.display = "none"; };
+      a.appendChild(i);
       return a;
     }
-    var mark = pic("s5cx-mark", "logo", "GuardZilla — home");   /* 10 X 08:05, owner: the logo WITH its name, also on the phone */
+    var mark = pic("s5cx-mark", "GuardZilla — home");   /* 10 X 08:05, owner: the logo WITH its name, also on the phone */
     h1.classList.add("s5cx-h1"); row.classList.add("s5cx-row"); h1.insertBefore(mark, h1.firstChild);   /* inside the title: aligned with it on every width */
-    var big = pic("s5cx-logo", "logo", "GuardZilla — Microsoft SOC Brief, home");
+    var big = pic("s5cx-logo", "GuardZilla — Microsoft SOC Brief, home");
     top.insertBefore(big, top.firstChild);
+    film(big, mark);
     if (!document.querySelector('link[rel="icon"]')) {
       var l = document.createElement("link"); l.rel = "icon"; l.type = "image/png"; l.href = "assets/favicon-64.png"; document.head.appendChild(l);
       var l2 = document.createElement("link"); l2.rel = "apple-touch-icon"; l2.href = "assets/apple-touch-icon.png"; document.head.appendChild(l2);
     }
+  }
+  function film(big, mark) {
+    var mq = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    if (mq && mq.matches) return;
+    var wide = window.matchMedia ? window.matchMedia("(min-width:1360px)") : { matches: true };
+    var phone = window.matchMedia ? window.matchMedia("(max-width:720px)").matches : false;
+    var v = document.createElement("video"), done = false;
+    v.className = "s5dy-pic s5dy-vid"; v.muted = true; v.defaultMuted = true; v.setAttribute("muted", "");
+    v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "none"; v.poster = "assets/logo-poster.webp";
+    v.width = 640; v.height = 360; v.setAttribute("aria-hidden", "true"); v.disablePictureInPicture = true;
+    [["assets/logo-anim.webm", "video/webm"], ["assets/logo-anim.mp4", "video/mp4"]].forEach(function (x) {
+      var so = document.createElement("source"); so.src = x[0]; so.type = x[1]; v.appendChild(so);
+    });
+    function drop() { if (v.parentNode) v.parentNode.classList.remove("s5dy-on"); if (v.parentNode) v.parentNode.removeChild(v); done = true; }
+    function host() { return wide.matches ? big : mark; }
+    function place() {
+      if (done) return;
+      var h = host();
+      if (v.parentNode === h) return;
+      if (v.parentNode) v.parentNode.classList.remove("s5dy-on");
+      h.appendChild(v); h.classList.add("s5dy-on");
+    }
+    function play() {
+      if (done) return;
+      try { if (v.ended || v.currentTime > 0) v.currentTime = 0; } catch (e) {}
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { drop(); });   /* Low Power Mode, autoplay blocked: the poster stays */
+    }
+    v.addEventListener("error", drop, true);
+    v.addEventListener("ended", function () { try { v.pause(); } catch (e) {} });   /* stays on the last frame */
+    [big, mark].forEach(function (a) {
+      a.addEventListener("mouseenter", function () { if (v.parentNode === a && v.ended) play(); });
+      a.addEventListener("click", function () { if (v.parentNode === a) play(); });
+    });
+    if (wide.addEventListener) wide.addEventListener("change", place); else if (wide.addListener) wide.addListener(place);
+    function start() { place(); v.preload = "auto"; play(); }
+    if (!phone) start();
+    else if (document.readyState === "complete") setTimeout(start, 1500);
+    else window.addEventListener("load", function () { setTimeout(start, 1500); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
