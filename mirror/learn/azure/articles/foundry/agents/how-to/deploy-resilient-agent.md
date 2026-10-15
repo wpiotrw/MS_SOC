@@ -76,7 +76,7 @@ In an empty directory, initialize the resilient streaming agent from its `azure.
 
 ```bash
 azd auth login
-azd ai agent init -m https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/resilient-streaming/azure.yaml
+azd ai agent init -t https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/resilient-streaming/azure.yaml
 ```
 
 The command downloads the sample source, adopts its `azure.yaml`, creates an azd environment, and connects it to the Foundry project you select.
