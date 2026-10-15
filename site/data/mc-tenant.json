@@ -1,7 +1,7 @@
 {
  "read": "2026-10-15",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 703,
+ "count": 702,
  "note": null,
  "messages": [
   {
@@ -443,22 +443,22 @@
    "actionBy": null,
    "start": "2025-10-16",
    "end": "2026-11-30",
-   "modified": "2026-09-17",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 17, 2026: We have updated the timeline. This post has also been updated to remind customers that this feature is default-on for Copilot Dashboard users with full company-level data access . The export output remains de-identified , with each user represented by a hashed ID. Please review and take any actions as appropriate for your organization. Thank you for your patience. This …",
-   "when": "Public Preview: Begins in early October 2026 (previously early December 2025), completes by late October 2026 (previously late December 2025). General Availability (Worldwide): Begins in mid-October 2026 (previously early September), completes by end of October 2026 (previously late September).",
+   "summary": "Updated October 15, 2026: We have updated the timeline. This post has also been updated to remind customers that this feature is default-on for Copilot Dashboard users with full company-level data access . The export output remains de-identified , with each user represented by a hashed ID. Please review and take any actions as appropriate for your organization. Thank you for your patience. This MC…",
+   "when": "Public Preview: Begins in early October 2026 (previously early December 2025), completes by late October 2026 (previously late December 2025). General Availability (Worldwide): Begins in mid-November 2026 (previously mid-October), completes by end of November 2026 (previously end of October).",
    "prepare": "Review the assignment of the Copilot dashboard users with full company-wide data access and adjust VFAM policies as needed. Communicate the upcoming feature to eligible users so they know what to expect. No admin setup is required to start using the export. Admins can disable the feature at the tenant or group level at any time using VFAM settings.",
    "dates": [
-    "Updated September 17, 2026: We have updated the timeline.",
+    "Updated October 15, 2026: We have updated the timeline.",
     "Public Preview: Begins in early October 2026 (previously early December 2025), completes by late October 2026 (previously late December 2025).",
-    "General Availability (Worldwide): Begins in mid-October 2026 (previously early September), completes by end of October 2026 (previously late September)."
+    "General Availability (Worldwide): Begins in mid-November 2026 (previously mid-October), completes by end of November 2026 (previously end of October)."
    ],
-   "bodyHash": "7b4fdc3b510e5047"
+   "bodyHash": "789c9b0855c436ef"
   },
   {
    "id": "MC1173930",
@@ -3753,22 +3753,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-03-25",
-   "end": "2026-12-28",
-   "modified": "2026-10-01",
+   "end": "2026-12-31",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expos…",
-   "when": "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by mid-September 2026 (previously late July). General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by mid-November 2026 (previously mid-September).",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expo…",
+   "when": "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by mid-September 2026 (previously late July). General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by end of November 2026 (previously mid-November).",
    "prepare": "Review your organization’s data risk and retention strategy, especially for Copilot-generated content such as Teams transcripts. In Microsoft Purview, plan and configure a priority cleanup policy if permanent deletion is required for specific content types: Navigate to Microsoft Purview portal > Data Lifecycle Management > Priority cleanup . Create a new policy and select Delete data permanently in the policy settings. . Ensure appropriate eDisco…",
    "dates": [
-    "Updated October 1, 2026: We have updated the timeline.",
+    "Updated October 15, 2026: We have updated the timeline.",
     "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by mid-September 2026 (previously late July).",
-    "General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by mid-November 2026 (previously mid-September)."
+    "General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by end of November 2026 (previously mid-November)."
    ],
-   "bodyHash": "71c68e6444002505"
+   "bodyHash": "ae1f1bf65f486588"
   },
   {
    "id": "MC1261595",
@@ -4019,21 +4019,21 @@
    "actionBy": null,
    "start": "2026-04-03",
    "end": "2026-12-21",
-   "modified": "2026-09-21",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 21, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing two new system chat sections called Muted chats and Meeting chats . These sections allow users to organize their chat and channels list by grouping muted conversations and meeting chats into dedicated sections that users can turn on or off. The new Meeting chats sect…",
-   "when": "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in mid-October 2026 (previously early September) and is expected to complete by mid-November 2026 (previously end of October).",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing two new system chat sections called Muted chats and Meeting chats . These sections allow users to organize their chat and channels list by grouping muted conversations and meeting chats into dedicated sections that users can turn on or off. The new Meeting chats sectio…",
+   "when": "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early November 2026 (previously mid-October) and is expected to complete by mid-November 2026 (previously end of October).",
    "prepare": "No admin action is required. You may want to: Inform users that new chat sections are available and that they can turn them on or off. Notify helpdesk staff that muted chats may appear in a separate section by default. Direct users to Settings > Chats and channels to manage these sections.",
    "dates": [
-    "Updated September 21, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in mid-October 2026 (previously early September) and is expected to complete by mid-November 2026 (previously end of October)."
+    "Updated October 15, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early November 2026 (previously mid-October) and is expected to complete by mid-November 2026 (previously end of October)."
    ],
-   "bodyHash": "f450b3a4ba8231b1"
+   "bodyHash": "1dbf244c29983b76"
   },
   {
    "id": "MC1274349",
@@ -13873,30 +13873,6 @@
    "bodyHash": "2eec73d6fa8f45fa"
   },
   {
-   "id": "MC1472428",
-   "title": "Dynamics 365 Project Operations- Improve contract management usability",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing improvements to contract management usability in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This update transforms the contract into a central, intuitive workspace where all contract-related information is easier to access, understand, and act upon. The redesigned layout provides a clearer overview of co…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "b28e5a2c95f0fe72"
-  },
-  {
    "id": "MC1472429",
    "title": "Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
    "services": [
@@ -13925,54 +13901,6 @@
     "Take action before October 13, 2026, to help maintain security, compliance, and access to supported Office apps."
    ],
    "bodyHash": "80ffc4a906f2b070"
-  },
-  {
-   "id": "MC1472430",
-   "title": "Dynamics 365 Project Operations - Support subscription billing for Project Operations",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing support for subscription billing for Project Operations in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This feature automates recurring invoicing to reduce manual intervention. It improves financial control, supports flexibility, and positions businesses to scale subscription offerings and forecast monthl…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "b0f0f2d16efe26e3"
-  },
-  {
-   "id": "MC1472438",
-   "title": "Dynamics 365 Project Operations – View budget details from the project's left navigation (Preview)",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-10-15",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to access budget details directly from the left navigation pane with the new Project Budget management experience in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This feature enhances the Project Budget management experience by providing: Improved budget visibility: View budget information in a…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "ce158711c6672f19"
   },
   {
    "id": "MC1472443",
@@ -15729,22 +15657,20 @@
    "major": true,
    "actionBy": null,
    "start": "2026-09-25",
-   "end": "2026-12-23",
-   "modified": "2026-10-06",
+   "end": "2027-02-01",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the content. Thank you for your patience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This change only impacts tenants who have not adjusted the policy that controls file attachment in an external Teams chat.…",
+   "summary": "Updated October 15, 2026: We have decided not to move forward with this change at this time. We will announce via Message center when we are ready to proceed. We apologize for the inconvenience. [What and why] We’re improving the file-sharing experience in Microsoft Teams external (federated) chats by making the Attach file (paperclip) and drag-and-drop experiences available by default. This chang…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 6, 2026: We have updated the content.",
-    "Targeted Release: Beginning in late October 2026 and expected to complete by late November 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late October 2026 and expected to complete by late November 2026."
+    "Updated October 15, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "5642dfddf7eebec0"
+   "bodyHash": "a7f9b1ccde1cd431"
   },
   {
    "id": "MC1479516",
@@ -18508,6 +18434,58 @@
     "The rollout to Windows Server 2025 began in November 2025."
    ],
    "bodyHash": "fe0c9b8ef207681c"
+  },
+  {
+   "id": "MC1509121",
+   "title": "Choose the data sources AI-powered Data Enrichment uses, including CRM notes",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-11-15",
+   "modified": "2026-10-15",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to choose the data sources AI-powered Data Enrichment uses, including CRM notes in Dynamics 365 Apps. This feature will reach general availability on October 23, 2026. How does this affect me? This feature enables admins to choose which data sources agents use to enrich records. Outlook emails, Teams meetings, and the new CRM notes source each have their own control t…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will reach general availability on October 23, 2026."
+   ],
+   "bodyHash": "2520a01c5506ef9b"
+  },
+  {
+   "id": "MC1509128",
+   "title": "App-V server support extended through October 9, 2029",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2027-10-15",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft is returning Application Virtualization (App-V) server to extended support (as part of the Fixed Lifecycle policy) for an additional three years, through October 9, 2029. This extension gives your organization additional time to continue operating your existing App-V server deployments while evaluating a longer-term application delivery strategy. The long-term plan is to ad…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: Microsoft is returning Application Virtualization (App-V) server to extended support (as part of the Fixed Lifecycle policy) for an additional three years, through October 9, 2029.",
+    "Rollout schedule: April 2026: App-V server originally reached end of support.",
+    "October 2026: App-V server remains in fixed extended support.",
+    "October 9, 2029: App-V server extended support will end.",
+    "Learn more in App-V server support extended through October 9, 2029 and App-V in Windows support policy ."
+   ],
+   "bodyHash": "5771c1c49d2f3431"
   },
   {
    "id": "MC676299",
@@ -22291,6 +22269,97 @@
    "id": "MC1472252",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Enable on-account category in Dataverse",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1173208",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot Analytics: Data export public preview for Copilot metrics in the Copilot dashboard",
+   "fields": {
+    "bodyHash": [
+     "7b4fdc3b510e5047",
+     "789c9b0855c436ef"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1261587",
+   "type": "changed",
+   "title": "Microsoft Purview | Data Lifecycle Management - Hard delete OneDrive and SharePoint files with priority cleanup workflow",
+   "fields": {
+    "end": [
+     "2026-12-28",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "71c68e6444002505",
+     "ae1f1bf65f486588"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1269864",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: New chat sections for muted and meeting chats",
+   "fields": {
+    "bodyHash": [
+     "f450b3a4ba8231b1",
+     "1dbf244c29983b76"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1479514",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Improved file sharing experience in external chats",
+   "fields": {
+    "end": [
+     "2026-12-23",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "5642dfddf7eebec0",
+     "a7f9b1ccde1cd431"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1509121",
+   "type": "new",
+   "title": "Choose the data sources AI-powered Data Enrichment uses, including CRM notes",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1509128",
+   "type": "new",
+   "title": "App-V server support extended through October 9, 2029",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472428",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations- Improve contract management usability",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472430",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Support subscription billing for Project Operations",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-15",
+   "id": "MC1472438",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations – View budget details from the project's left navigation (Preview)",
    "fields": {}
   }
  ]
