@@ -4,7 +4,7 @@ monikers:
 - graph-rest-beta
 defaultMoniker: graph-rest-beta
 versioningType: Ranged
-title: List activitylogs - Microsoft Graph beta | Microsoft Learn
+title: List activityLogs - Microsoft Graph beta | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/graph/api/backuprestoreroot-list-activitylogs?view=graph-rest-beta
 config_moniker_range: graph-rest-beta
 feedback_system: Standard
@@ -47,7 +47,7 @@ spProducts:
 platformId: c8d4e54f-1a00-8b0b-02d9-51b63558da56
 ---
 
-# List activitylogs - Microsoft Graph beta | Microsoft Learn
+# List activityLogs - Microsoft Graph beta | Microsoft Learn
 
 Namespace: microsoft.graph
 
@@ -180,7 +180,7 @@ Content-Type: application/json
       "restoreSessionId": "c3456789-d012-3456-e789-f01234567890",
       "restoreSessionStatus": "completed",
       "destinationType": "inPlace",
-      "tags": "fastRestore",
+      "restoreJobType": "standard",
       "restoreArtifactDetails": {
         "totalArtifactsCount": 100,
         "restoredCount": 100,

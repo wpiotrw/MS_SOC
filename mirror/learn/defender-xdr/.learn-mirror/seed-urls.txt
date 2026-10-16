@@ -16,6 +16,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-tab
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-filemaliciouscontentinfo-table
@@ -32,6 +33,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-security-copilot-threat-hunting-assistant
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-take-action
+https://learn.microsoft.com/en-us/defender-xdr/alerts-incidents-correlation
 https://learn.microsoft.com/en-us/defender-xdr/autoad-results
 https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption
 https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption-exclusions
@@ -45,8 +47,10 @@ https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-mdr-reports
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-mdr-start-using
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-servers-overview
+https://learn.microsoft.com/en-us/defender-xdr/dlp-investigate-alerts-defender
 https://learn.microsoft.com/en-us/defender-xdr/dynamic-threat-detection-agent
 https://learn.microsoft.com/en-us/defender-xdr/entity-page-threat-intelligence
+https://learn.microsoft.com/en-us/defender-xdr/exclude-analytics-rules-correlation
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/coverage-maturity
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/identity-security-recommendations
 https://learn.microsoft.com/en-us/defender-xdr/incidents-overview

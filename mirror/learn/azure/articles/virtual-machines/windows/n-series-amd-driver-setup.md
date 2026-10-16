@@ -41,12 +41,12 @@ monikers: []
 item_type: Content
 source_path: articles/virtual-machines/windows/n-series-amd-driver-setup.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ec6774-09b8-473e-a17e-b17b518bbad7
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ade36b61-c646-4bd8-87ee-f3a843461962
 platformId: 5e645676-50b0-ed58-0ffb-9b3ebd4106bd
 ---
@@ -153,19 +153,6 @@ If you use build 1903/1909 then you may need to update the following group polic
 
 ### Driver installation
 
-Note
-
-Follow these steps if you see "Error 184 - AMD Installer cannot continue due to an unsupported Operating System" error on Windows 10 EMS / Windows 11 EMS.
-
-> 
-> Go to C:\AMD\AMD Software Azure NVv4 Guest Driver 23Q3\Packages\Drivers\Display\WT6A\_INF Right click and install on the \*.inf file.
-
-> 
-> For Windows10 EMS: u9397288.inf
-
-> 
-> For Windows11 EMS: u2397344.inf
-
 1. Connect by Remote Desktop to each NVv4-series VM.
 2. If you need to uninstall the previous driver version, download the [AMD cleanup utility](https://download.microsoft.com/download/4/f/1/4f19b714-9304-410f-9c64-826404e07857/AMDCleanupUtilityni.exe). Don't use the utility that comes with the previous version of the driver.
 3. Download and install the latest driver.
@@ -181,3 +168,13 @@ Follow these steps if you see "Error 184 - AMD Installer cannot continue due to 
 2. If you're running Windows 10 build 1903 or higher, dxdiag shows no information in the 'Display' tab. Use the 'Save All Information' option at the bottom and the output file shows the information related to AMD MI25 GPU.
 
 ![GPU driver properties](media/n-series-amd-driver-setup/dxdiag-details.png)
+
+## Note for Windows EMS installation
+
+Note
+
+Follow these steps if you see "Error 184 - AMD Installer cannot continue due to an unsupported Operating System" error on Windows 10 EMS or Windows 11 EMS.
+
+1. Make sure you extract the driver package. For an EXE package, run it to extract its content.
+2. Locate the `display-driver` folder in the extracted package. Example path: `C:\AMD\AMD-Software-Installer\Packages\Drivers\Display\WT6A_INF`.
+3. Right-click the applicable `.inf` file and select **Install**, then restart the VM.

@@ -1,6 +1,15 @@
 https://learn.microsoft.com/en-us/defender-endpoint
+https://learn.microsoft.com/en-us/defender-endpoint/access-mssp-portal
+https://learn.microsoft.com/en-us/defender-endpoint/address-unwanted-behaviors-mde
+https://learn.microsoft.com/en-us/defender-endpoint/admin-submissions-mde
+https://learn.microsoft.com/en-us/defender-endpoint/adv-tech-of-mdav
+https://learn.microsoft.com/en-us/defender-endpoint/advanced-features
+https://learn.microsoft.com/en-us/defender-endpoint/aggregated-reporting
 https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-runtime-protection-overview
 https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-support-matrix
+https://learn.microsoft.com/en-us/defender-endpoint/alerts-queue
+https://learn.microsoft.com/en-us/defender-endpoint/alerts-queue-endpoint-detection-response
+https://learn.microsoft.com/en-us/defender-endpoint/amsi-on-mdav
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
