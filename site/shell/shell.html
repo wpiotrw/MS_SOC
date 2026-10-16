@@ -1977,6 +1977,9 @@ details.mcsec>summary .mclab{font-size:10.5px;text-transform:uppercase;letter-sp
 nav.s5by-jump.s5ch-stick{position:sticky;z-index:5;background:var(--surface);box-shadow:0 1px 0 var(--border)}
 .s5ch-win{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 6px}
 .s5ch-res[hidden],.s5ch-win[hidden]{display:none}
+/* §5dz (16 X 2026): the author on its own line under the title (the dateline no longer carries the name) */
+header.top .title-row > .byline{flex:0 0 100%;order:0;margin:-4px 0 0;font-size:14px;font-weight:500;color:var(--text);line-height:1.4}
+header.top.compact .title-row > .byline{display:none}
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
 .tabpanel.s5ci-on:not(.s5ci-full) > :not(.s5ca-head):not(.s5ci):not(.s5ci-more){display:none !important}
@@ -3748,6 +3751,20 @@ a.s5czb-dlink:hover{background:var(--accent);color:#fff}
  header.top .title-row.s5cx-row{padding-left:0!important;min-height:150px!important}   /* the freshness frame (133 px from 10 px) must not reach the counters */
  header.top .top-inner{margin-left:300px!important;margin-right:0!important;max-width:min(1516px,calc(100vw - 300px))!important;box-sizing:border-box}
 }
+/* §5dy (16 X 2026, owner: "instead of the logo - this film; nicely visible on the desktop, and on the phone"). The
+   logo is the GUARDZILLA film (16:9, black background): the poster (its last frame) and, where it may play, one
+   muted <video> (SCRIPT 17). Dark theme: the black frame melts into the header; light theme: rounded corners and a
+   shadow, so it reads as a badge, not a hole. Sizes: from 1360 px the left column (264 x 148); 721-1359 px the
+   mark before the title 108 px tall (192 px wide); phone 96 px tall (171 px wide) - the old logo's height, so the
+   header does not grow. */
+.s5dy-pic{display:block;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+:root[data-theme="dark"] .s5dy-pic{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s5dy-pic{box-shadow:none}}
+.s5dy-on>img.s5dy-pic{display:none!important}
+.s5cx-mark .s5dy-pic{height:108px;width:auto}
+@media (min-width:721px) and (max-width:1359px){header.top .title-row.s5cx-row{padding-left:208px!important;min-height:108px!important}}
+@media (max-width:720px){.s5cx-mark .s5dy-pic{height:96px;border-radius:10px}}
+@media (min-width:1360px){header.top .s5cx-logo .s5dy-pic{width:100%;height:auto;max-width:100%;max-height:100%}}
 /* §5da (10 X 2026, owner: "not a Christmas tree - the name, the title, the permission come first"): colour carries
    meaning only. Before -> after: the old value grey and struck through, the new one in the text colour, no red or
    green blocks. Badges (level, type, source, status words) are quiet outlines; only a danger badge keeps its red.
@@ -4071,6 +4088,230 @@ tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
 .s5du-x:hover{background:rgba(255,255,255,.45)}
 /* §5du: a chip whose text wraps (phone) keeps a card shape, not a stretched pill */
 .gfbar .gf-chip{border-radius:12px}
+/* 15 X 2026 (morning run: "the Overview tab is 6px too wide at phone width"): a long Graph permission pill
+   ("no level · read-write · app-only + delegated …", 352 px, nowrap) pushed the Overview past 336-366 px - it wraps */
+.s5ci-pill,#tab-overview .s5cy-rh .s5ci-pill,#tab-overview .s5ci-card .s5ci-pill{max-width:100%;white-space:normal;overflow-wrap:anywhere;min-width:0}
+/* §5dv: Baselines (Maester and Tenable) - views, charts, test panel; tables with a frame on every cell (owner,
+   15 X: "the Frameworks table has no clear frames, everything blends - review every table") */
+.s5dv{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
+.s5dv-note{color:var(--muted);margin:6px 0}
+.s5dv-sub{margin:0 0 4px;color:var(--muted);line-height:1.55;max-width:1100px}
+.s5dv-fn{margin:6px 0 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.s5dv-sm{display:block;color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.s5dv-none{color:var(--faint)}
+.s5dv-warnt{color:var(--warn)}
+.s5dv-fresh{display:flex;flex-wrap:wrap;gap:6px 18px;border:1px solid var(--ok);background:var(--ok-soft);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--text)}
+.s5dv-fresh b{color:var(--ok);margin-right:4px}
+.s5dv-vnav{display:flex;flex-wrap:wrap;gap:6px}
+.s5dv-vb{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s5dv-vb:hover{border-color:var(--accent)}
+.s5dv-vb.on{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.s5dv-vh{margin:0;font-size:15px;font-weight:650}
+.s5dv-view{display:flex;flex-direction:column;gap:16px;min-width:0}
+.s5dv-blk{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.s5dv-blk h3,.s5dv-lag h3{margin:0;font-size:15px}
+.s5dv-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;background:transparent;border:0;padding:0}
+.s5dv-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.s5dv-kpi{font:inherit;text-align:left;display:flex;flex-direction:column;gap:2px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 12px;cursor:pointer;color:var(--text);min-width:0}
+.s5dv-kpi:hover{border-color:var(--accent)}
+.s5dv-kpi b{font-size:24px;line-height:1.1;color:var(--accent)}
+.s5dv-kl{font-weight:600;font-size:13px}
+.s5dv-ks{color:var(--muted);font-size:12px;line-height:1.35}
+.s5dv-vers{display:flex;flex-wrap:wrap;gap:8px}
+.s5dv-ver{font:inherit;display:inline-flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:999px;padding:5px 14px;background:var(--surface);color:var(--text);text-decoration:none;cursor:default;max-width:100%}
+button.s5dv-ver,a.s5dv-ver{cursor:pointer}
+button.s5dv-ver:hover,a.s5dv-ver:hover{border-color:var(--accent)}
+.s5dv-ver b{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.s5dv-ver span{font-size:11.5px;color:var(--muted)}
+.s5dv-ver-m{border-color:var(--accent)}
+.s5dv-ver-t{border-color:#e3a33b}
+.s5dv-ver-c{border-color:#3fb37f}
+.s5dv-ver-new{box-shadow:0 0 0 2px var(--ok-soft);border-color:var(--ok)}
+.s5dv-fig{margin:0;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;min-width:0}
+.s5dv-fig figcaption{font-weight:650;font-size:14px;margin:0 0 6px}
+.s5dv-svg{width:100%;height:auto;display:block}
+.s5dv-grid{stroke:var(--border);stroke-width:1}
+.s5dv-ax{fill:var(--muted);font-size:11px;font-family:var(--sans)}
+.s5dv-star{fill:var(--warn);font-size:14px;font-weight:700}
+.s5dv-leg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:12.5px;color:var(--muted)}
+.s5dv-lg{display:inline-flex;align-items:center;gap:6px}
+.s5dv-lg i{display:inline-block;width:12px;height:12px;border-radius:3px}
+.s5dv-hb{display:flex;flex-direction:column;gap:4px}
+.s5dv-hr{font:inherit;display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(0,2fr);gap:10px;align-items:center;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--border-soft);padding:5px 2px;color:var(--text)}
+button.s5dv-hr{cursor:pointer}
+button.s5dv-hr:hover{background:var(--surface-2)}
+.s5dv-hn{font-weight:600;overflow-wrap:anywhere}
+.s5dv-hbs{display:flex;flex-direction:column;gap:3px;min-width:0}
+.s5dv-hbar{display:flex;align-items:center;gap:6px;min-width:0}
+.s5dv-hbar i{display:block;height:10px;border-radius:3px}
+.s5dv-hbar b{font-size:12px;font-weight:600;color:var(--muted)}
+.s5dv-lag{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.s5dv-lagr{display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--border-soft);padding-top:8px}
+.s5dv-chips{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.s5dv-chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:1px 9px;font-size:12px;line-height:1.5;color:var(--text);background:var(--surface);max-width:100%;overflow-wrap:anywhere}
+.s5dv-chip-m{border-color:var(--accent)}
+.s5dv-chip-t{border-color:#e3a33b}
+.s5dv-chip-c{border-color:#3fb37f}
+.s5dv-chip-old{color:var(--muted)}
+.s5dv-chip-ty{font-size:11.5px;color:var(--muted)}
+.s5dv-chip-new{border-color:var(--ok);color:var(--ok);margin-left:6px;font-size:11px}
+.s5dv-chip-ai{border-color:#b48cff;color:#b48cff;margin-left:6px;font-size:11px}
+.s5dv-sev-h{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+.s5dv-sev-m{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.s5dv-sev-l{color:var(--muted)}
+.s5dv-sev-i{color:var(--faint)}
+/* tables: every cell framed, the head on its own colour, rows striped - nothing blends */
+.s5dv-tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5dv-tab{width:100%;border-collapse:collapse;font-size:13px}
+.s5dv-tab th{text-align:left;padding:9px 12px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font:600 11.5px/1.3 var(--cond,var(--sans));letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.s5dv-tab td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.45}
+.s5dv-tab tr:first-child th{border-top:0}
+.s5dv-tab th:first-child,.s5dv-tab td:first-child{border-left:0}
+.s5dv-tab th:last-child,.s5dv-tab td:last-child{border-right:0}
+.s5dv-tab tbody tr:last-child td{border-bottom:0}
+.s5dv-tab tbody tr:nth-child(even) td{background:var(--surface-2)}
+.s5dv-tab tbody tr:hover td{background:var(--accent-soft)}
+.s5dv-tab td:first-child{font-weight:600}
+.s5dv-tn{color:var(--muted);font-size:12.5px;max-width:420px}
+.s5dv-fw td:first-child{min-width:200px}
+.s5dv-fw .s5dv-sm{overflow-wrap:normal;white-space:nowrap}
+.s5dv-fw td:nth-child(4){min-width:190px}
+.s5dv-more{color:var(--accent);font-weight:600;justify-content:center}
+.s5dv-num{font:inherit;font-weight:700;color:var(--accent);background:transparent;border:0;padding:0;cursor:pointer;text-align:left}
+.s5dv-num:hover,.s5dv-lk:hover{text-decoration:underline;text-underline-offset:3px}
+.s5dv-lk{font:inherit;font-weight:600;color:var(--text);background:transparent;border:0;padding:0;cursor:pointer;text-align:left}
+.s5dv-lk::after{content:"\00a0\203a";color:var(--accent)}
+.s5dv-ext{color:var(--accent);overflow-wrap:anywhere}
+.s5dv-fb{display:flex;flex-direction:column;gap:8px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 12px}
+.s5dv-fr{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5dv-fl{font:600 11px/1.2 var(--cond,var(--sans));letter-spacing:.1em;text-transform:uppercase;color:var(--faint);min-width:84px}
+.s5dv-f{font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 11px;cursor:pointer}
+.s5dv-f b{color:var(--faint);font-weight:600;margin-left:6px}
+.s5dv-f:hover{border-color:var(--accent)}
+.s5dv-f.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.s5dv-f.on b{color:var(--ok)}
+.s5dv-q{font:inherit;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;min-width:260px;flex:1 1 260px}
+.s5dv-cnt{margin:0;color:var(--muted);font-size:12.5px}
+.s5dv-tg{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.s5dv-list{border:1px solid var(--border);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.s5dv-g{border-top:1px solid var(--border)}
+.s5dv-g:first-child{border-top:0}
+.s5dv-gh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 14px;background:var(--surface-2);cursor:pointer;font-size:14.5px}
+.s5dv-gn{color:var(--muted);font-weight:600}
+.s5dv-fh{padding:9px 14px 4px;font:600 11.5px/1.2 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.s5dv-tr{font:inherit;width:100%;display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;padding:8px 14px;border:0;border-top:1px solid var(--border-soft);background:transparent;color:var(--text);cursor:pointer}
+.s5dv-tr:hover{background:var(--surface-2)}
+.s5dv-tr.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.s5dv-id{font-family:var(--mono);font-size:12px;color:var(--accent);overflow-wrap:anywhere}
+.s5dv-tt{line-height:1.4;overflow-wrap:anywhere}
+.s5dv-pane{border:1px solid var(--accent);border-radius:12px;background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:12px;position:sticky;top:calc(var(--s5ca-top,0px) + 70px);max-height:calc(100vh - 90px);overflow:auto;min-width:0}
+.s5dv-pane-e{border-color:var(--border);border-style:dashed}
+.s5dv-ph{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.s5dv-ph h3{margin:2px 0 0;font-size:17px;line-height:1.35}
+.s5dv-pid{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+.s5dv-x{font:inherit;font-size:20px;line-height:1;background:transparent;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
+.s5dv-ps{display:flex;flex-direction:column;gap:4px}
+.s5dv-box{border:1px solid var(--border);border-radius:10px;background:var(--bg);padding:10px 12px}
+.s5dv-pk{margin:0;font-weight:650;font-size:13px}
+.s5dv-md{font-size:13.5px;line-height:1.55;color:var(--text);overflow-wrap:anywhere}
+.s5dv-md p{margin:4px 0}
+.s5dv-md ul,.s5dv-md ol{margin:4px 0;padding-left:20px}
+.s5dv-md code{font-family:var(--mono);font-size:12px;background:var(--surface-2);border-radius:4px;padding:0 4px}
+.s5dv-mdh{font-weight:650}
+.s5dv-pre{font-family:var(--mono);font-size:12px;line-height:1.5;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.s5dv-kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:6px 12px;font-size:13px}
+.s5dv-k{color:var(--muted)}
+.s5dv-v{min-width:0;overflow-wrap:anywhere}
+.s5dv-tcl{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.s5dv-sol summary{cursor:pointer;color:var(--accent);font-size:13px}
+.s5dv-links{display:flex;flex-wrap:wrap;gap:6px 16px;border-top:1px solid var(--border);padding-top:10px;font-size:13px}
+.s5dv-fam.on td{background:var(--accent-soft)!important}
+.s5dv-dr td{background:var(--bg)!important;font-weight:400!important}
+.s5dv-ib{display:flex;flex-direction:column;gap:6px;margin:4px 0 12px}
+.s5dv-iq{max-width:420px}
+.s5dv-items{border:1px solid var(--border);border-radius:10px;background:var(--surface);max-height:560px;overflow:auto}
+.s5dv-it{border-top:1px solid var(--border-soft)}
+.s5dv-it:first-child{border-top:0}
+.s5dv-it summary{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:7px 12px;cursor:pointer}
+.s5dv-itb{padding:4px 12px 12px;display:flex;flex-direction:column;gap:6px}
+.s5dv-num0{white-space:nowrap}
+.s5dv-ovk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:2px 0 6px}
+.s5dv-ovb{font:inherit;display:flex;flex-direction:column;align-items:flex-start;gap:1px;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:6px 9px;color:var(--muted);cursor:pointer;font-size:12px;min-width:0}
+.s5dv-ovb:hover{border-color:var(--accent)}
+.s5dv-ovb b{font-size:18px;color:var(--accent)}
+.s5dv-bn .s5do-chs{color:var(--muted);font-size:12.5px}
+@media (max-width:1100px){.s5dv-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.s5dv-two{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.s5dv-tg{grid-template-columns:minmax(0,1fr)}.s5dv-pane{position:static;max-height:none}}
+@media (max-width:760px){
+  .s5dv-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s5dv-q{min-width:0}
+  .s5dv-tr{grid-template-columns:minmax(0,1fr) auto}
+  .s5dv-tr .s5dv-id{grid-column:1 / -1}
+  .s5dv-kv{grid-template-columns:minmax(0,1fr)}
+  .s5dv-hr{grid-template-columns:minmax(0,1fr)}
+  .s5dv-ovk{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s5dv-it summary{grid-template-columns:minmax(0,1fr)}
+  /* a table on the phone is a stack of cards: one row, its cells under each other with their names (§5bv) */
+  .s5dv-tw{border:0;background:transparent;overflow:visible}
+  .s5dv-tab,.s5dv-tab tbody,.s5dv-tab tr,.s5dv-tab td{display:block;width:100%;box-sizing:border-box}
+  .s5dv-tab thead{display:none}
+  .s5dv-tab tr{border:1px solid var(--border);border-radius:10px;background:var(--surface);margin:0 0 8px;overflow:hidden}
+  .s5dv-tab td{border:0;border-top:1px solid var(--border-soft);padding:7px 12px}
+  .s5dv-tab td:first-child{border-top:0}
+  .s5dv-tab td[data-l]::before{content:attr(data-l);display:block;font:600 10.5px/1.3 var(--cond,var(--sans));letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:2px}
+  .s5dv-tab tbody tr:nth-child(even) td{background:transparent}
+  .s5dv-tn{max-width:none}
+}
+/* §5dw: Campaigns - what may become a campaign; Overview - the second link of a technology sentence */
+.s5dw{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px 16px;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+.s5dw h3{margin:0;font-size:16px}
+.s5dw h4{margin:6px 0 0;font-size:13.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.s5dw-lead{margin:0;color:var(--muted);font-size:13px;line-height:1.55;max-width:1100px}
+.s5dw-rules summary{cursor:pointer;color:var(--accent);font-size:13px}
+.s5dw-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.s5dw-c{border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:var(--bg);min-width:0}
+.s5dw-p{border-color:var(--ok)}
+.s5dw-ct{display:flex;gap:10px;align-items:flex-start}
+.s5dw-sc{flex:none;min-width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid var(--border);color:var(--text)}
+.s5dw-p .s5dw-sc{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.s5dw-n{font:inherit;font-weight:650;font-size:14px;text-align:left;background:transparent;border:0;padding:0;color:var(--text);cursor:pointer;overflow-wrap:anywhere}
+.s5dw-n::after{content:"\00a0\2192";color:var(--accent)}
+.s5dw-m{color:var(--muted);font-size:12.5px}
+.s5dw-cr{margin:0;padding-left:16px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.s5dw-cr .pos b{color:var(--ok)}
+.s5dw-cr .neg b{color:var(--bad)}
+.s5dw-none{margin:0;color:var(--muted);font-size:13px}
+.s5bk-it.s5dw-also{margin-top:6px}
+.s5dw-t0{color:var(--warn)}
+@media (max-width:760px){.s5dw-g{grid-template-columns:minmax(0,1fr)}}
+/* §5dx (15 X 2026, owner chose variant B of three shown on live tables: "Robimy B"). Every data table of the portal on
+   a desktop: a clear outer frame with rounded corners, a header on an accent-tinted band with a coloured rule under it,
+   a line between rows AND between columns, alternate rows tinted, the row under the pointer highlighted. Padding and
+   widths are NOT changed - the table keeps the width it had, so no column is pushed out (measured on the variant
+   preview: extra padding cut the last column). No overflow:hidden on the table: the rounded corners are drawn on the
+   corner cells. Colours are opaque (mixed into the surface) so sticky first columns stay readable. The phone keeps its
+   card layout (§5bv) - this is desktop only. The Baselines tab has the same look already (§5dv). */
+@media (min-width:761px){
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid){border-collapse:separate!important;border-spacing:0!important;
+    border:1.5px solid color-mix(in srgb,var(--text) 35%,var(--surface))!important;border-radius:12px!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr > th{
+    background:color-mix(in srgb,var(--accent) 16%,var(--surface))!important;color:var(--text)!important;
+    border-bottom:2px solid color-mix(in srgb,var(--accent) 60%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > td,
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr > th{
+    border-bottom:1px solid color-mix(in srgb,var(--text) 18%,var(--surface))!important;
+    border-right:1px solid color-mix(in srgb,var(--text) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > * > tr > :last-child{border-right:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > *{border-bottom:0!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:nth-child(even) > td{background-color:color-mix(in srgb,var(--text) 5%,var(--surface))}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:hover > td{background-color:color-mix(in srgb,var(--accent) 12%,var(--surface))!important}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :first-child{border-top-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > thead > tr:first-child > :last-child{border-top-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :first-child{border-bottom-left-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :last-child{border-bottom-right-radius:10px}
+  .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > caption{padding:6px 10px}
+}
 
 </style>
 <!--SOC-SHELL part=script1-->
@@ -6916,7 +7157,7 @@ tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 15 October 2026</b> &middot; published 07:00 Warsaw &middot; 1 &ndash; 15 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>49</b> deadlines in 60 days<span>&middot; 44 inside 30, 9 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>16</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>94</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>36</b> changes since 14 Oct<span>&middot; 20 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>4509</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 16 October 2026</b> &middot; published 06:55 Warsaw &middot; 2 &ndash; 16 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>42</b> deadlines in 60 days<span>&middot; 39 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>24</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>89</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>35</b> changes since 15 Oct<span>&middot; 13 at Microsoft, 22 in this report</span></a><a class="count" href="#chg14"><b>4690</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7117,7 +7358,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 15 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 16 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
