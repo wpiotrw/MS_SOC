@@ -1402,22 +1402,22 @@
    "major": true,
    "actionBy": null,
    "start": "2025-12-02",
-   "end": "2026-11-02",
-   "modified": "2026-06-10",
+   "end": "2026-10-21",
+   "modified": "2026-10-16",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated June 10, 2026: We have updated the timeline. Thank you for your patience. We're making some changes to Exchange Web Services (EWS). Starting October 1, 2026 (previously June 30), we will start to block EWS access for all mailboxes without license rights to EWS. This is another step in our ongoing commitment to enhance the security and control mechanisms of EWS. [How this will affect your o…",
+   "summary": "Updated October 16, 2026: We have decided not to move forward with this change. We apologize for any inconvenience. We're making some changes to Exchange Web Services (EWS). Starting October 1, 2026 (previously June 30), we will start to block EWS access for all mailboxes without license rights to EWS. This is another step in our ongoing commitment to enhance the security and control mechanisms of…",
    "when": null,
    "prepare": "If you wish these users to continue to use EWS, and your users are licensed with one of these noted above, you’ll need to assign a new license, one containing EWS access rights. For example, you could assign an Exchange Online Plan 1 or 2 license, or a Microsoft 365 or Office 365 E3 or E5 license. . Starting October 1, 2026 (previously June 30), requests to use EWS without a suitable license will result in a HTTP 403 response.",
    "dates": [
-    "Updated June 10, 2026: We have updated the timeline.",
+    "Updated October 16, 2026: We have decided not to move forward with this change.",
     "Starting October 1, 2026 (previously June 30), we will start to block EWS access for all mailboxes without license rights to EWS.",
     "Starting October 1, 2026 (previously June 30), requests to use EWS without a suitable license will result in a HTTP 403 response."
    ],
-   "bodyHash": "79ade85e12090426"
+   "bodyHash": "9e63ceee9de33349"
   },
   {
    "id": "MC1191924",
@@ -18514,6 +18514,10 @@
    "id": "MC1510951",
    "title": "(Updated) Windows updates are available for 2026 time zone changes in Canada",
    "services": [
+    "Dynamics 365 Apps",
+    "Exchange Online",
+    "Microsoft 365 suite",
+    "Power BI",
     "Windows"
    ],
    "category": "preventOrFixIssue",
@@ -22922,6 +22926,42 @@
    "type": "new",
    "title": "Microsoft Teams: Upcoming change to voicemail message delivery by email",
    "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1191578",
+   "type": "changed",
+   "title": "(Updated) Update to EWS Access for Kiosk / Frontline Worker Licenses",
+   "fields": {
+    "end": [
+     "2026-11-02",
+     "2026-10-21"
+    ],
+    "bodyHash": [
+     "79ade85e12090426",
+     "9e63ceee9de33349"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1510951",
+   "type": "changed",
+   "title": "(Updated) Windows updates are available for 2026 time zone changes in Canada",
+   "fields": {
+    "services": [
+     [
+      "Windows"
+     ],
+     [
+      "Dynamics 365 Apps",
+      "Exchange Online",
+      "Microsoft 365 suite",
+      "Power BI",
+      "Windows"
+     ]
+    ]
+   }
   }
  ]
 }
