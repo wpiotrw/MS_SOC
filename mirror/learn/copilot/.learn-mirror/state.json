@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/copilot/security/get-started-security-copilot",
   "pages": {
-    "https://learn.microsoft.com/en-us/copilot/security": {"etag":"\"aNnNso0EaQkZHHg61LD4ShHBYqA=\"","gitCommitId":"88c42b436ad71b851b058470a7fcba32f15f7659","path":"security-copilot/index.md","redirectedTo":"https://learn.microsoft.com/en-us/copilot/security/","sourcePath":"security-copilot/index.yml","updatedAt":"2026-06-01T22:32:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/copilot/security/get-started-security-copilot": {"etag":"\"qZzHLDKdaxGRY8g2DVqEIYmwMYA=\"","gitCommitId":"a84cc8d82a5b9d12a7e6abf5453bc4ed1d861e8f","path":"security-copilot/get-started-security-copilot.md","sourcePath":"security-copilot/get-started-security-copilot.md","updatedAt":"2026-06-18T22:33:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/copilot/security": {"etag":"\"tBwAN0dGKbL3QAzhimVMhPuz48E=\"","gitCommitId":"88c42b436ad71b851b058470a7fcba32f15f7659","path":"security-copilot/index.md","redirectedTo":"https://learn.microsoft.com/en-us/copilot/security/","sourcePath":"security-copilot/index.yml","updatedAt":"2026-06-01T22:32:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/copilot/security/get-started-security-copilot": {"etag":"\"hq7kBBYOiN24/P5jRmcGNch9lBY=\"","gitCommitId":"a84cc8d82a5b9d12a7e6abf5453bc4ed1d861e8f","path":"security-copilot/get-started-security-copilot.md","sourcePath":"security-copilot/get-started-security-copilot.md","updatedAt":"2026-06-18T22:33:00.0000000Z"}
   }
 }
