@@ -195,6 +195,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 103 | **rozmiar `site/` MIESCI SIE W LIMICIE, policzony PRZED pushem** — Azure Static Web Apps na planie Free przyjmuje najwyzej **262 144 000 B**, a push przechodzi niezaleznie od tego, wiec zasada 7 (`AFTER != BEFORE`) jest zielona na przebiegu, ktorego deploy zostal odrzucony | 0h | `gate.py <html> <site/>`: suma bajtow wszystkich plikow pod `site/` (bez `.git`) <= 262 144 000; brak katalogu `site/` daje `BRAK "nie podano site/"`, nigdy OK |
 | 122 | **budzet 16 MB NIE zjada zmian stron Learn** — gdy artefakt nie miesci sie w limicie, NIE wolno wyrzucac `nt.pages` ani `docText.pages` (16 X 2026 poranny przebieg wyrzucil 199 stron z `nt.pages` i dopisal w `pagesNote` „carried in site/data", co bylo nieprawda — Security Defaults zniknelo z zakladki Learn). Kolejnosc ciecia: (1) `nt.changes` starsze niz 6 miesiecy poza 180 najciezszymi (Sekcja B i tak pokazuje 180), (2) `hunks` stron BEZ `promote` i bez `itemIds`, (3) `ledger14` wpisy bez zmiany zrodla. Zadne zdanie w danych nie moze twierdzic, ze cos „jest gdzie indziej", jesli tego tam nie ma | §5ea | `len(nt.pages) > 0` albo `nt.pagesNote` mowi DLACZEGO kolektor nie dal stron (nie „przeniesione"); `docText.pages` niepuste, gdy `docText.readOn == briefDate` |
 | 123 | **kazda zmiana kodu strony przechodzi `tools/mobile_check.py` PRZED commitem** — wlasciciel kilka razy zglaszal z iPhone'a te same dwa bledy (wolne ladowanie, uciete sekcje), za kazdym razem po nowej funkcji. Sprawdzenie: `python3 tools/deploy_prep.py site _deploy`, serwer na `_deploy`, `python3 tools/mobile_check.py http://localhost:PORT/` (profil iPhone 13, CPU x4): zero przewijania w bok, zero elementow poza ekranem, zero przewijania w bok wewnatrz ramki (poza tabelami), zaden przycisk/link przykryty w swoim wierszu, zero bledow JS, zdania Overview w <= 25 s. Wynik w odpowiedzi (OK albo lista PROBLEM). Przebiegi routine, ktore nie zmieniaja kodu, sa zwolnione | §5eb | `mobile_check: OK` w odpowiedzi sesji, ktora zmienila kod |
+| 124 | **nowa zakladka albo nowy budowniczy tresci ukrytej zakladki idzie przez `window.__socLazy.run("tab-…", fn)`** (§5ec) — tresc zakladki powstaje przy jej otwarciu (aktywacja w powloce woła `__socTabCtx` synchronicznie, wiec kod, ktory otwiera zakladke, zastaje ja zbudowana) albo w przebiegu w tle po zdaniach Overview; warstwa, ktora dopisuje cos do istniejacych tabel/wierszy, slucha takze zdarzenia `soc:woke`; `?eager=1` wylacza mechanizm do porownan | §5ec | `function LZ(` w nowym budowniczym; porownanie eager/lazy (liczby wierszy, tabel, chipow MC na zakladce) bez roznic poza dopisanymi warstwami |
 
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -11332,6 +11333,69 @@ jak trzy skrypty powloki:
    ALL UI TEXT IS ENGLISH — the rest of the page is English and mixing languages
    in the chart titles was reported by the owner on 2 Sep 2026.
    =========================================================================== */
+/* §5ec (16 X 2026, owner from an iPhone: "the portal loads very slowly on iOS, sections never load" and "build the hidden
+   tabs only when they are opened - implement it"). Measured on the live page (iPhone-13 profile, CPU 4x): 108 614
+   elements after start, 90 000 of them built by scripts for tabs nobody had opened (Message Center 25 038, Graph API
+   17 164, New 14 189, Microsoft Learn 9 900 ...), ~12 s of main-thread work before the Overview sentences.
+   One mechanism, used by the builders of the heaviest hidden tabs:
+     window.__socLazy.run(panelId, fn) - runs fn now when that tab is awake, otherwise keeps it for later (once per fn);
+     a tab is awake when it is the tab on screen, when the shell activates it (every path - tab button, rail, phone
+     picker, #hash, __socGoTo - goes through the shell's activate(), which calls window.__socTabCtx(panel)
+     synchronously; that call is wrapped here, so the tab is built BEFORE the code that opened it looks inside),
+     or when the background pass reaches it: after the Overview sentences are on screen the remaining tabs wake one
+     at a time (desktop every 0.3 s, phone every 1.2 s), so cross-tab links, counters and searches find everything,
+     just later. __socGoTo(target) whose target is not on the page yet wakes every tab and tries again.
+   ?eager=1 in the address (or localStorage soc-eager=1) turns the mechanism off: every builder runs at once, as before. */
+(function () {
+  if (window.__socLazy) return;
+  var eager = false;
+  try { eager = /[?&]eager=1\b/.test(location.search) || localStorage.getItem("soc-eager") === "1"; } catch (e) {}
+  var awake = {}, queue = {}, order = [];
+  function panel(id) { return document.getElementById(id); }
+  function visible(id) { var p = panel(id); return !!(p && !p.hidden && p.getAttribute("aria-hidden") !== "true"); }
+  function isAwake(id) { return eager || awake[id] || visible(id); }
+  function wake(id) {
+    if (!id || awake[id]) return;
+    awake[id] = true;
+    var q = queue[id] || []; queue[id] = [];
+    q.forEach(function (fn) { try { fn(); } catch (e) { if (window.console) console.error("[5ec " + id + "]", e); } });
+    try { document.dispatchEvent(new CustomEvent("soc:woke", { detail: { id: id } })); } catch (e) {}
+  }
+  function run(id, fn) {
+    if (isAwake(id)) { awake[id] = true; return fn(); }
+    var q = queue[id] || (queue[id] = []);
+    if (q.indexOf(fn) < 0) q.push(fn);
+    if (order.indexOf(id) < 0) order.push(id);
+  }
+  function wakeAll() { Object.keys(queue).forEach(wake); }
+  window.__socLazy = { run: run, wake: wake, wakeAll: wakeAll, isAwake: isAwake, eager: eager,
+    pending: function () { return Object.keys(queue).filter(function (k) { return queue[k].length; }); } };
+  /* the shell defines both functions when it builds the tabs (DOMContentLoaded); a setter keeps our wrapper on top */
+  function hook(name, wrap) {
+    var inner = window[name];
+    try {
+      Object.defineProperty(window, name, { configurable: true,
+        get: function () { return inner ? wrap(inner) : inner; },
+        set: function (v) { inner = v; } });
+    } catch (e) {}
+  }
+  var wrapped = {};
+  hook("__socTabCtx", function (f) { return wrapped.ctx && wrapped.ctxF === f ? wrapped.ctx : (wrapped.ctxF = f, wrapped.ctx = function (p) { if (p && p.id) wake(p.id); return f.apply(this, arguments); }); });
+  hook("__socGoTo", function (f) { return wrapped.go && wrapped.goF === f ? wrapped.go : (wrapped.goF = f, wrapped.go = function (t) { if (t && !document.getElementById(t)) wakeAll(); return f.apply(this, arguments); }); });
+  window.addEventListener("hashchange", function () { var m = /tab[=-]([a-z0-9-]+)/i.exec(location.hash); if (m) wake("tab-" + m[1].replace(/^tab-/, "")); });
+  /* background: the rest, one tab at a time, once the first screen is drawn */
+  var t0 = Date.now(), narrow = false;
+  try { narrow = window.matchMedia("(max-width: 760px)").matches; } catch (e) {}
+  function next() {
+    var ids = order.filter(function (k) { return (queue[k] || []).length; });
+    if (!ids.length) { if (Date.now() - t0 < 60000) setTimeout(next, 2000); return; }
+    wake(ids[0]); setTimeout(next, narrow ? 1200 : 300);
+  }
+  (function idle() {
+    var ready = document.querySelector("#tab-overview .s5ci-ten .s5bk-3 > li") || (!visible("tab-overview") && document.readyState === "complete");
+    if (ready || Date.now() - t0 > 25000) setTimeout(next, ready ? (narrow ? 2500 : 800) : 0); else setTimeout(idle, 400);
+  })();
+})();
 /* §5dk (11 X 2026, owner on an iPhone: "the page loads very slowly; after a refresh in Safari it loads or it does not;
    some sections stay empty"). Measured that day with the CPU slowed 4x (a phone): 57 calls of JSON.parse on the two
    state blocks (10.2 MB and 5.3 MB), 6.5 s of parsing, load event at 21 s - every script parses the same text again,
@@ -23815,13 +23879,20 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
 
   function boot(){
     try{jsonBox();}catch(e){if(window.console)console.error("[nt json]",e);}
-    try{learnTab();}catch(e){if(window.console)console.error("[nt learn]",e);}
-    try{blogsTab();}catch(e){if(window.console)console.error("[nt blogs]",e);}
-    try{
-      var L=document.getElementById("tab-learn"),B=document.getElementById("tab-blogs");
-      if(L&&!L.querySelector(".ntfbar")) L.appendChild(corrTab("learn"));
-      if(B&&!B.querySelector(".ntfbar")) B.appendChild(corrTab("blogs"));
-    }catch(e){if(window.console)console.error("[nt corr]",e);}
+    /* §5ec: the two tabs are built when they are opened (or by the background pass); the fold and the bars of the
+       tab run again right after it is built */
+    function LZ(id, fn) { return window.__socLazy ? window.__socLazy.run(id, fn) : fn(); }
+    function after(){ try{foldEverySection();}catch(e){} try{mountEverywhere();}catch(e){} }
+    LZ("tab-learn", function(){
+      try{learnTab();}catch(e){if(window.console)console.error("[nt learn]",e);}
+      try{var L=document.getElementById("tab-learn"); if(L&&!L.querySelector(".ntfbar")) L.appendChild(corrTab("learn"));}catch(e){if(window.console)console.error("[nt corr]",e);}
+      after();
+    });
+    LZ("tab-blogs", function(){
+      try{blogsTab();}catch(e){if(window.console)console.error("[nt blogs]",e);}
+      try{var B=document.getElementById("tab-blogs"); if(B&&!B.querySelector(".ntfbar")) B.appendChild(corrTab("blogs"));}catch(e){if(window.console)console.error("[nt corr]",e);}
+      after();
+    });
     try{foldEverySection();}catch(e){if(window.console)console.error("[nt fold]",e);}
     /* paski po foldach: sekcje musza juz byc zwiniete, zeby licznik przy kazdej
        mial z czego wystartowac */
@@ -24646,8 +24717,10 @@ odtad CZTERNASCIE (4-17).**
     }, 180);
   };
 
+  /* §5ec: the Message Center tab is built when it is opened (or by the background pass) */
+  function LZ(id, fn) { return window.__socLazy ? window.__socLazy.run(id, fn) : fn(); }
   function boot() {
-    try { buildTab(); } catch (e) { if (window.console) console.error("[s16 tab]", e); }
+    try { LZ("tab-mc", buildTab); } catch (e) { if (window.console) console.error("[s16 tab]", e); }
     try { itemColumn(); } catch (e) { if (window.console) console.error("[s16 col]", e); }
     try { overviewColumn(); } catch (e) { if (window.console) console.error("[s16 ov]", e); }
     try { if (window.__socAuditOwners) window.__socAuditOwners(); } catch (e) {}
@@ -30700,6 +30773,8 @@ odtad CZTERNASCIE (4-17).**
     remeasure();
     var again = function () { setTimeout(function () { try { a11y2(); } catch (e) {} }, 400); };
     document.addEventListener("click", again); window.addEventListener("resize", again);
+    /* §5ec: a tab built later (opened, or by the background pass) gets its "how this is counted" bubbles too */
+    document.addEventListener("soc:woke", function () { setTimeout(function () { try { infoize(); a11y2(); } catch (e) {} }, 300); });
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1700); });
@@ -31030,6 +31105,8 @@ odtad CZTERNASCIE (4-17).**
        czytelnik nie widzi starego ukladu, ktory zmienia sie na jego oczach. Arkusz odslania
        je sam po 4,5 s, gdyby ten skrypt nie doszedl do tej linii. */
     document.documentElement.classList.add("s5ready");
+    /* §5ec: a tab built later gets its row history and CSV buttons too (both skip what they already did) */
+    document.addEventListener("soc:woke", function () { setTimeout(function () { try { histButtons(); csv(); } catch (e) {} }, 300); });
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2000); });
@@ -32964,7 +33041,9 @@ odtad CZTERNASCIE (4-17).**
     openTab();
     setTimeout(function () { if (build()) show(id); }, 200);
   }
-  function boot() { try { build(); } catch (e) { if (window.console) console.error("[5bp]", e); } }
+  /* §5ec: built when the Message Center tab is opened; show() still builds on demand for a jump */
+  function LZ(id, fn) { return window.__socLazy ? window.__socLazy.run(id, fn) : fn(); }
+  function boot() { try { LZ("tab-mc", build); } catch (e) { if (window.console) console.error("[5bp]", e); } }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 950); setTimeout(fromHash, 2300); });
   else { setTimeout(boot, 950); setTimeout(fromHash, 2300); }
   window.addEventListener("hashchange", fromHash);
@@ -34421,7 +34500,9 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(stampEarly, 500); });
   else setTimeout(stampEarly, 500);
-  function boot() { B.forEach(function (b) { try { b.build(); } catch (e) { if (window.console) console.error("[5bw]", e); } }); }
+  /* §5ec: each list is built when its tab is opened (or by the background pass) */
+  function LZ(id, fn) { return window.__socLazy ? window.__socLazy.run(id, fn) : fn(); }
+  function boot() { B.forEach(function (b, i) { try { LZ("tab-" + CONF[i].tab, b.build); } catch (e) { if (window.console) console.error("[5bw]", e); } }); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2350); });
   else setTimeout(boot, 2350);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item")) setTimeout(boot, 280); }, true);
@@ -34833,6 +34914,7 @@ odtad CZTERNASCIE (4-17).**
     try { sheetHint(); } catch (e) { if (window.console) console.error("[5bz sheet]", e); }
   }
   function boot() { run(); diffAge(); setTimeout(run, 2000); }
+  document.addEventListener("soc:woke", function () { setTimeout(function () { try { run(); } catch (e) {} }, 400); });   /* §5ec: a tab built later */
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2800); });
   else setTimeout(boot, 2800);
   document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab, .s5br-item, .s5by-mi, .gd summary, .mschg summary, details > summary")) setTimeout(run, 400); }, true);
@@ -43966,6 +44048,24 @@ Zmierzone i zrobione:
      przelaczaja sie na „All" dopiero po zdaniach Overview (albo przy otwarciu ich zakladki) — 0,8 s mniej przed zdaniami.
    Pomiar (CPU x4): zdania Overview 17–19 s na zywej stronie → 13–15 s na nowej kopii; problemow: 5 → 0.
    Wiekszy zysk wymaga leniwego budowania ukrytych zakladek (kazda zakladka buduje sie dzis przy starcie) — osobny etap.
+
+## 5ec. ZAKLADKI BUDOWANE PRZY OTWARCIU (16 X 2026)
+
+Wlasciciel 16 X z iPhone'a: Overview konczy sie na „Loading today's brief…", reszta sie nie laduje; na Chrome lepiej;
+„zaimplementuj budowanie ukrytych zakladek dopiero przy otwarciu". Zmierzone na zywej stronie (Chromium, profil iPhone 13,
+CPU x4): 108 614 elementow po starcie, z tego ~90 000 zbudowanych skryptami dla zakladek, ktorych nikt nie otworzyl
+(Message Center 25 038, Graph API 17 164, New 14 189, Microsoft Learn 9 900 ...), 14 MB danych JSON (stan 8,3 MB + katalog
+5,1 MB), ok. 12 s pracy watku przed zdaniami Overview. Wszystkie przegladarki na iPhonie to WebKit z ciasnym limitem pamieci
+karty — przy takiej stronie Safari zatrzymuje albo przeladowuje karte.
+
+Wdrozone: `window.__socLazy` (na poczatku SKRYPTU 4): `run(panelId, fn)` wykonuje fn od razu dla zakladki widocznej, inaczej
+odklada; zakladka budzi sie przy aktywacji w powloce (owiniete `__socTabCtx` — kazda droga: przycisk, rail, menu telefonu,
+#hash, `__socGoTo`), przy `hashchange`, a reszta w tle po zdaniach Overview (desktop co 0,3 s, telefon co 1,2 s);
+`__socGoTo` z celem, ktorego jeszcze nie ma, budzi wszystko. Przez `run` ida: zakladka Message Center (SKRYPT 16 i lista §5bp),
+Microsoft Learn i Microsoft Blogs (SKRYPT 15 v2) oraz listy artykulow Learn / Blogs / Community (SKRYPT 17). Warstwy §5bh
+(ⓘ), §5bi (historia wiersza, CSV) i §5bz (przyciete notatki) sluchaja `soc:woke`. Katalogi Graph/Roles i tabele z HTML buduje
+powloka (nie wolno jej edytowac, §5w) — zostaja bez zmian. Wynik (kopia do wdrozenia, CPU x4): elementow po 5 s 108 612 →
+80 781, zdania Overview 17–19 s → 10–14 s; porownanie eager/lazy na kazdej zakladce: te same wiersze, tabele i sekcje.
 
 ## 6. Kontrakt w stronie
 
