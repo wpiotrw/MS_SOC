@@ -1,7 +1,7 @@
 {
  "read": "2026-10-16",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 710,
+ "count": 702,
  "note": null,
  "messages": [
   {
@@ -3490,31 +3490,6 @@
     "General Availability (Worldwide): We will begin rolling out in late April 2026 and expect to complete by mid-May 2026 ."
    ],
    "bodyHash": "a9c963ed077fe426"
-  },
-  {
-   "id": "MC1253753",
-   "title": "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-03-16",
-   "end": "2026-10-16",
-   "modified": "2026-10-12",
-   "tags": [
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated October 12, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. Introduction To improve reliability, compliance, and collaboration, we’re updating where Microsoft Whiteboard files created from a Teams Channel tab are stored. Previously, these whiteboards were saved in the OneDrive of the user who created them, which could lead to acc…",
-   "when": "We have decided not to move forward with this change at this time.",
-   "prepare": "No action is required from administrators. Recommended optional steps: Review internal documentation or helpdesk guidance that references Whiteboard storage locations. Inform support teams that Whiteboards created in Teams Channels are now SharePoint-based for troubleshooting and access requests.",
-   "dates": [
-    "Updated October 12, 2026: We have decided not to move forward with this change at this time."
-   ],
-   "bodyHash": "53c53f5424b688b1"
   },
   {
    "id": "MC1254512",
@@ -9950,32 +9925,6 @@
    "bodyHash": "9031c294362ebe6b"
   },
   {
-   "id": "MC1454385",
-   "title": "Microsoft OneNote: Retirement of Loop components in OneNote for the web",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-08-14",
-   "end": "2026-10-16",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is retiring support for Microsoft Loop components in OneNote for the web. After this change, users will no longer be able to insert Loop components while using OneNote for the web. To support a smooth transition, existing Loop components on OneNote pages will not be removed and no data will be lost. Existing Loop components will be replaced with links that open the corresp…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Beginning in mid-September 2026 and expected to complete in mid-September 2026."
-   ],
-   "bodyHash": "743dde49994f5cf5"
-  },
-  {
    "id": "MC1454386",
    "title": "Simplified access to Copilot Chat on the Microsoft 365 Copilot mobile app",
    "services": [
@@ -14011,126 +13960,6 @@
    "bodyHash": "88eeb3c998717e56"
   },
   {
-   "id": "MC1472751",
-   "title": "Dynamics 365 Project Operations - Improve the project quote experience",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-10-16",
-   "modified": "2026-09-16",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use the improved project quote experience in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? The improvements to project quote provide usability enhancements designed for users to work more efficiently when creating and managing quotes. The updated interface features an optimized layout and imp…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "ea72be4e72348923"
-  },
-  {
-   "id": "MC1472778",
-   "title": "Dynamics 365 Project Operations - View partial cancellation of bookings from schedule board",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-10-16",
-   "modified": "2026-09-16",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to view partial cancellation of resource bookings from the schedule board, without needing to delete and recreate them in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This partial booking modification feature provides resource managers with reduced manual effort, improved scheduling accuracy, p…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "3b5950879ab206b7"
-  },
-  {
-   "id": "MC1472784",
-   "title": "Dynamics 365 Project Operations - Perform bulk reconciliation of bookings from UI",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-10-16",
-   "modified": "2026-09-16",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to reconcile multiple resources and date ranges in a single action in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? When this feature is enabled, users can select multiple time durations and resources on the Resource Reconciliation grid. This feature allows users to: Select multiple time duratio…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "17ae72d8b72fc1a2"
-  },
-  {
-   "id": "MC1472792",
-   "title": "Dynamics 365 Project Operations - Set a default booking method for the schedule board",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-10-16",
-   "modified": "2026-09-16",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to set a default booking method for the Schedule Board and Schedule Assistant in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? When this feature is enabled, administrators can configure a default booking method in the Schedule Board settings. The selected default booking method is automatically …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "3da92ec657a180f3"
-  },
-  {
-   "id": "MC1472799",
-   "title": "Dynamics 365 Project Operations - Speed up time phasing of estimates",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-10-16",
-   "modified": "2026-09-16",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We are announcing the ability to use the improved Time Phasing of Estimates experience in Dynamics 365 Project Operations. This feature will reach public preview on September 30, 2026. How does this affect me? This update enhances the Time Phasing of Estimates experience by delivering significant performance improvements across loading, recalculation, and user interactions. You can now work more e…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 30, 2026."
-   ],
-   "bodyHash": "a32e155b66056ef1"
-  },
-  {
    "id": "MC1473148",
    "title": "Microsoft 365 Usage Reporting Updates (Microsoft Browser and Visio)",
    "services": [
@@ -16527,32 +16356,6 @@
     "General Availability (Worldwide): Rollout begins in mid-October 2026 and is expected to complete by the end of October 2026."
    ],
    "bodyHash": "883178cb151114b7"
-  },
-  {
-   "id": "MC1486284",
-   "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-02",
-   "end": "2026-10-16",
-   "modified": "2026-10-09",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated October 9, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and why] We are extending existing Microsoft Entra Administrative Units (AUs) support in Microsoft Purview Data Loss Prevention (DLP) to DLP policies that apply to Microsoft Copilot and Copilot Chat. This enhancement allows organizations that use Administrative Unit…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated October 9, 2026: We have decided not to move forward with this change at this time."
-   ],
-   "bodyHash": "3413b6c77795f9e1"
   },
   {
    "id": "MC1486289",
@@ -22834,6 +22637,62 @@
    "id": "MC1509803",
    "type": "new",
    "title": "Microsoft PowerPoint: Publish and unpublish controls for official brand kits",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1253753",
+   "type": "removed",
+   "title": "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1454385",
+   "type": "removed",
+   "title": "Microsoft OneNote: Retirement of Loop components in OneNote for the web",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1472751",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Improve the project quote experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1472778",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - View partial cancellation of bookings from schedule board",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1472784",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Perform bulk reconciliation of bookings from UI",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1472792",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Set a default booking method for the schedule board",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1472799",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Speed up time phasing of estimates",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1486284",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
    "fields": {}
   }
  ]
