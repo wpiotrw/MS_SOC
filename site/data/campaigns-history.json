@@ -4556,14 +4556,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-14",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-15",
 "text":"August 1, 2026."
 },
@@ -4629,6 +4621,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-15",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-16",
 "text":"August 1, 2026."
 },
 {
@@ -5092,7 +5092,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"early February 2026."
 },
 {
@@ -5100,7 +5100,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"February 2027."
 },
 {
@@ -7897,7 +7897,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7905,7 +7905,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8234,6 +8234,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Separate device and work profile passwords on Android Enterprise devices",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-12T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-16"
 }
 },
 "final":"2027-02-25",
@@ -10170,6 +10178,16 @@
 "title":"I measured my OCR pipeline on 36 old book scans. The phone-photo fix was one division.",
 "source":"NeonTiger12",
 "link":"https://dev.to/prime619/i-measured-my-ocr-pipeline-on-36-old-book-scans-the-phone-photo-fix-was-one-division-360d"
+},
+{
+"day":"2026-10-16",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"microsoft",
+"title":"Separate device and work profile passwords on Android Enterprise devices",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"
 }
 ],
 "archive":{
