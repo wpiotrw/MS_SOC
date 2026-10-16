@@ -1,0 +1,20 @@
+// title: Atypical travel detections by timing type: when does your tenant start seeing them in real time
+// date: 2026-10-16
+// product: Microsoft 365
+// tables: 
+// purpose: Counts unlikelyTravel risk detections per day and DetectionTimingType over 30 days, with how many were remediated or dismissed. A shift from offline to realtime shows the change reaching your tenant; a rise in atRisk realtime rows tells you sign-in-risk policies are now challenging these sign-ins. T
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 16 Oct 2026 - atypical travel (unlikelyTravel) by DetectionTimingType
+// Log Analytics / Sentinel. Columns as on the AADUserRiskEvents table reference cited beside this query. Not run against a tenant in this pass.
+AADUserRiskEvents
+| where TimeGenerated > ago(30d)
+| where RiskEventType == "unlikelyTravel"
+| summarize arg_max(LastUpdatedDateTime, *) by Id
+| summarize Detections = count(),
+            AtRisk = countif(RiskState == "atRisk"),
+            Remediated = countif(RiskState == "remediated"),
+            Dismissed = countif(RiskState == "dismissed"),
+            Users = dcount(UserPrincipalName)
+          by Day = bin(DetectedDateTime, 1d), DetectionTimingType
+| order by Day asc, DetectionTimingType asc

@@ -1,5 +1,25 @@
 [
  {
+  "file": "2026-10-16-who-approved-post-delivery-email-remediation-using-the.kql",
+  "title": "Who approved post-delivery email remediation, using the new ApproverUpn column",
+  "date": "2026-10-16",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailPostDeliveryEvents"
+  ],
+  "purpose": "Lists manual remediation in the last 14 days by the account that approved it, with the actions and recipients touched. An approver outside the SOC or messaging team, or a burst of approvals from one account, is worth a look. ApproverUpn is read with column_ifexists because the EmailPostDeliveryEvent",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table"
+ },
+ {
+  "file": "2026-10-16-atypical-travel-detections-by-timing-type-when-does.kql",
+  "title": "Atypical travel detections by timing type: when does your tenant start seeing them in real time",
+  "date": "2026-10-16",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Counts unlikelyTravel risk detections per day and DetectionTimingType over 30 days, with how many were remediated or dismissed. A shift from offline to realtime shows the change reaching your tenant; a rise in atRisk realtime rows tells you sign-in-risk policies are now challenging these sign-ins. T",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents"
+ },
+ {
   "file": "2026-10-13-which-devices-carry-a-registry-tag-and-how.kql",
   "title": "Which devices carry a registry tag, and how it compares with their portal and dynamic tags",
   "date": "2026-10-13",
@@ -11,7 +31,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table",
   "reused": [
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -26,7 +47,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -44,7 +66,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -63,7 +86,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -84,7 +108,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -105,7 +130,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -127,7 +153,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -149,7 +176,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -174,7 +202,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -202,7 +231,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -253,7 +283,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -284,7 +315,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
@@ -314,7 +346,8 @@
    "2026-10-12",
    "2026-10-13",
    "2026-10-14",
-   "2026-10-15"
+   "2026-10-15",
+   "2026-10-16"
   ]
  },
  {
