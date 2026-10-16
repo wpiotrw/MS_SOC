@@ -1056,6 +1056,8 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             "version": "Baseline: version", "audit-new": "Baseline: new Tenable audit file",
             "audit-updated": "Baseline: Tenable audit file updated", "audit-gone": "Baseline: Tenable audit file withdrawn",
             "items": "Baseline: Tenable items changed"}
+    def _jw(v):
+        return ", ".join(str(x) for x in v) if isinstance(v, (list, tuple)) else str(v or "")
     for e in bj.get("events") or []:
         if str(e.get("day") or "") < since:
             continue
@@ -1063,7 +1065,9 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
         place = site_url + "#tab=baselines" + (("&t=" + _up.quote(str(e.get("id")), safe="")) if typ.startswith("test-") and typ != "test-removed" else "")
         add("baseline:%s:%s:%s" % (typ, e.get("id"), e.get("day")), blab.get(typ, "Baseline"), e.get("title") or e.get("id"),
             place, e.get("url"), e.get("day"),
-            desc("%s · %s%s" % (e.get("src") or "", e.get("tech") or "", (" · " + e["what"]) if e.get("what") else ""), place, e.get("url")),
+            # §5ea-b (16 X 2026): Tenable "items" events carry `what` as a LIST (09:53 UTC run) - the feed step
+            # died with "can only concatenate str (not list)" and stopped Code refresh; a list is joined, so is `tech`
+            desc("%s · %s%s" % (e.get("src") or "", _jw(e.get("tech")), (" · " + _jw(e["what"])) if e.get("what") else ""), place, e.get("url")),
             techs(e.get("tech"), e.get("title")))
     # 5. Learn "what's new" entries, 6. blog posts
     for e in nt.get("recent") or []:      # the Learn tab's own "recent and relevant" list, not all 1 000+ entries
