@@ -14,7 +14,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn how to configure devices to use Windows settings backup and restore.
-ms.date: 2026-09-29T00:00:00.0000000Z
+ms.date: 2026-10-15T00:00:00.0000000Z
 ms.topic: overview
 ms.author: shnaran
 author: shilpasawhney-beep
@@ -77,6 +77,13 @@ The backup feature is available to users signed in with Microsoft Entra ID on de
 - Windows 11, version 23H2 build [22631.5768](https://support.microsoft.com/topic/22631-5768-c67aac47-127c-4bd1-b92d-ebd9093f031d) or later
 - Windows 11, version 24H2 build [26100.4946](https://support.microsoft.com/topic/26100-4946-e4b87262-75c8-4fef-9df7-4a18099ee294) or later
 - Must be [Microsoft Entra joined](/en-us/entra/identity/devices/concept-directory-join) or [Microsoft Entra hybrid joined](/en-us/entra/identity/devices/concept-hybrid-join)
+
+The default-on behavior applies to devices that meet all these conditions:
+
+- Running Windows 11, version 26H2 or later. *Note*: Devices originally running Windows 11, version 26H1 will receive the same default-on treatment starting with the following feature update.
+- Not in privacy sensitive countries or regions.
+- Not in sovereign or restricted cloud environments.
+- With the backup policy in a **Not Configured** state under Windows settings backup and restore. *Note*: Devices with the backup policy explicitly enabled or disabled continue to honor that explicit setting.
 
 ### Restore requirements during device setup (OOBE)
 

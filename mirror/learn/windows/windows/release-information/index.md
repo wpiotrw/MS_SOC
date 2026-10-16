@@ -81,7 +81,7 @@ Overview
 
 ### Message center
 
-- [Windows updates are available for 2026 time zone changes in Canada](https://techcommunity.microsoft.com/category/windows/blog/dstblog)
+- [(Updated) Windows updates are available for 2026 time zone changes in Canada](https://techcommunity.microsoft.com/category/windows/blog/dstblog)
 - [Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard](https://support.microsoft.com/help/5066470)
 - [Windows Server 2022 has reached end of mainstream support](/en-us/lifecycle/products/windows-server-2022)
 - [See more](/en-us/windows/release-information/windows-message-center)
