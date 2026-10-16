@@ -1,7 +1,7 @@
 {
- "read": "2026-10-15",
+ "read": "2026-10-16",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 701,
+ "count": 710,
  "note": null,
  "messages": [
   {
@@ -1121,22 +1121,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-11-18",
-   "end": "2026-11-30",
-   "modified": "2026-10-01",
+   "end": "2026-12-31",
+   "modified": "2026-10-15",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction:] We’re introducing a simpler way to view conversations in Viva Engage communities , organized by recent posts rather than recent activity. This new view is designed to make it easier for users to follow discussions and will be available as an option, alongside the current system, for those who prefer…",
-   "when": "General Availability (Worldwide): We will begin rolling out in October 2026 (previously September).",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction:] We’re introducing a simpler way to view conversations in Viva Engage communities , organized by recent posts rather than recent activity. This new view is designed to make it easier for users to follow discussions and will be available as an option, alongside the current system, for those who prefe…",
+   "when": "General Availability (Worldwide): We will begin rolling out in October 2026 and expect to complete by the end of October 2026.",
    "prepare": "No action is required.",
    "dates": [
-    "Updated October 1, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in October 2026 (previously September)."
+    "Updated October 15, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in October 2026 and expect to complete by the end of October 2026."
    ],
-   "bodyHash": "2b065a6820293aa0"
+   "bodyHash": "bd6ba7fbed7288b3"
   },
   {
    "id": "MC1187786",
@@ -7474,21 +7474,21 @@
    "major": true,
    "actionBy": null,
    "start": "2026-07-07",
-   "end": "2027-01-25",
-   "modified": "2026-09-24",
+   "end": "2027-03-10",
+   "modified": "2026-10-15",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We're introducing IntelliFrame people labels in Microsoft Teams Rooms on Windows to improve meeting clarity and inclusivity for remote participants. When enabled, this feature identifies in-room participants by name and displays a contact card, helping remote attendees easily recognize speakers a…",
+   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We're introducing IntelliFrame people labels in Microsoft Teams Rooms on Windows to improve meeting clarity and inclusivity for remote participants. When enabled, this feature identifies in-room participants by name and displays a contact card, helping remote attendees easily recognize speakers and…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 24, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC): Beginning mid-November 2026 (previously mid-October) expected to complete by mid-December 2026 (previously late October)."
+    "Updated October 15, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC): Beginning late January 2027 (previously mid-November 2026) expected to complete by early February 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "42901d57fa309706"
+   "bodyHash": "8cc6fbd81731bc2d"
   },
   {
    "id": "MC1419802",
@@ -18464,6 +18464,250 @@
    "bodyHash": "5771c1c49d2f3431"
   },
   {
+   "id": "MC1509780",
+   "title": "Intune ending support for Windows MDM-only enrollment CNAME auto-discovery",
+   "services": [
+    "Microsoft Intune"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2027-01-15",
+   "start": "2026-10-15",
+   "end": "2027-03-31",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "Starting January 15, 2027 , or soon after, Intune will no longer support domain name server (DNS) CNAME-based auto-discovery for Windows MDM-only enrollment scenarios. Enrollments managed through Microsoft Entra ID or other identity platforms are not affected by this change. Organizations that currently rely on an EnterpriseEnrollment DNS CNAME record for Windows MDM-only enrollment will need user…",
+   "when": null,
+   "prepare": "If your organization uses Windows MDM-only enrollment with CNAME auto-discovery, review and update your enrollment guidance, documentation, provisioning instructions, or help desk procedures before this change. For more details, review the blog: Preparing for end of support for CNAME auto-discovery in Windows MDM-only enrollment.",
+   "dates": [
+    "Starting January 15, 2027 , or soon after, Intune will no longer support domain name server (DNS) CNAME-based auto-discovery for Windows MDM-only enrollment scenarios."
+   ],
+   "bodyHash": "8d5d7198fc0af457"
+  },
+  {
+   "id": "MC1509787",
+   "title": "Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2027-02-15",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Organizations can enhance meeting security with synthetic audio and video detection solutions provided by certified third-party providers. Third-party detection solutions analyze meeting media for signs of synthetic or manipulated audio and video and send detection signals to Teams, enabling integrated in-meeting experiences and controls. Important: Synthetic media detection is per…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "0755e6f6b9b89124"
+  },
+  {
+   "id": "MC1509789",
+   "title": "Microsoft Edge: Browser-native XSLT will be disabled by default",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2027-02-15",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Edge is deprecating browser-native Extensible Stylesheet Language Transformations (XSLT). Edge will disable the XSLTProcessor JavaScript API and XML processing instructions that reference XSLT stylesheets by default. XML processing instructions that reference CSS stylesheets are not affected. The native XSLT implementation depends on an aging native codebase that processe…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in mid-December 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "ff5e322b62c81e0b"
+  },
+  {
+   "id": "MC1509796",
+   "title": "Microsoft Teams: Enhanced channel meeting experience",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2027-11-30",
+   "modified": "2026-10-15",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Teams is introducing enhancements for channel meetings to make it easier to schedule meetings in the right context and help teams discover relevant meetings across their channels. Users will be able to create channel meetings directly from the Teams calendar and create and manage channel meetings from classic Outlook for Windows. Channel members will be able to more easil…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in early November 2026 and expect to complete by late November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by late January 2027.",
+    "General Availability (GCC): We will begin rolling out in mid-December 2026 and expect to complete by late July 2027.",
+    "General Availability (GCC High): We will begin rolling out in mid-December 2026 and expect to complete by late August 2027.",
+    "General Availability (DoD): We will begin rolling out in mid-December 2026 and expect to complete by late September 2027."
+   ],
+   "bodyHash": "9b42de70607988e0"
+  },
+  {
+   "id": "MC1509797",
+   "title": "Support for Office LTSC 2021 and additional apps ended on October 13, 2026",
+   "services": [
+    "Microsoft 365 apps",
+    "Microsoft 365 suite",
+    "Project for the web"
+   ],
+   "category": "planForChange",
+   "severity": "high",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-12-13",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and Why:] As previously communicated , support for Office LTSC 2021 ended on October 13, 2026. Microsoft no longer provides security updates, bug fixes, or technical support for this version of Office. Although the applications may continue to function, using unsupported software could expose your organization to potential security and compliance risks, system incompatibilities, and other is…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "As previously communicated , support for Office LTSC 2021 ended on October 13, 2026.",
+    "Support for Visio LTSC 2021, Project LTSC 2021, and several other products also ended on October 13, 2026.",
+    "General Availability (Worldwide): Support for Office LTSC 2021, Visio LTSC 2021, Project LTSC 2021, and other affected products ended on October 13, 2026.",
+    "Office LTSC 2024 is Microsoft's current supported on-premises version of Office for commercial customers and is supported until October 2029 under the Fixed Lifecycle Policy .",
+    "Support for Office LTSC 2021 and other affected products ended on October 13, 2026."
+   ],
+   "bodyHash": "bedf5f0980847ca5"
+  },
+  {
+   "id": "MC1509799",
+   "title": "Microsoft 365 Copilot: Legal plugins in Word and Cowork",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-11-29",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft 365 Copilot is introducing legal plugins in Word and Cowork . These plugins provide purpose-built skills to help legal professionals summarize, draft, review, and redline legal documents. They can use work context from Microsoft 365 and connect to supported third-party legal sources, helping legal professionals complete legal work in the Microsoft 365 experiences they alre…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): Rollout began in late April 2026 and is expected to complete by mid-December 2026.",
+    "General Availability (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "f8be3adbbc9c0a2f"
+  },
+  {
+   "id": "MC1509800",
+   "title": "Microsoft Outlook for Android: Multi-select and bulk actions in search results",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-12-01",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re introducing multi-select and bulk mail actions in Outlook search results on Android. Users can select multiple email results and take supported actions on those messages in one step, making it faster to organize and manage email found through search. This capability is already available in Outlook for iOS and is now coming to Android. [Rollout schedule] General Availability (W…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by late October 2026 ."
+   ],
+   "bodyHash": "ebc505b7ea9174a9"
+  },
+  {
+   "id": "MC1509801",
+   "title": "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-12-19",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is expanding admin controls for Weaponizable File Protection. Admins will be able to customize which file extensions are blocked in Teams based on their organization’s security needs or continue using the Microsoft-recommended default list. This change provides greater flexibility to tailor file protection policies while maintaining a secure collaboration experience.…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "036ea3f600391e1e"
+  },
+  {
+   "id": "MC1509803",
+   "title": "Microsoft PowerPoint: Publish and unpublish controls for official brand kits",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-15",
+   "end": "2026-11-16",
+   "modified": "2026-10-15",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We're introducing publish and unpublish controls for Official Brand Kits in Microsoft PowerPoint. This update gives Brand Managers greater control over the lifecycle and availability of brand assets within their organization. With these new controls, Brand Managers can temporarily remove a Brand Kit from end user access without deleting it or changing editor permissions. When the Br…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete in mid-October 2026."
+   ],
+   "bodyHash": "5dc023671b6838b3"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22495,6 +22739,101 @@
    "id": "MC1173103",
    "type": "removed",
    "title": "Secure Boot certificate deployment guide and tools",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1187781",
+   "type": "changed",
+   "title": "(Updated) Viva Engage: Community feeds improvements",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "2b065a6820293aa0",
+     "bd6ba7fbed7288b3"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1419798",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams Rooms: Identify in-room participants with IntelliFrame people labels",
+   "fields": {
+    "end": [
+     "2027-01-25",
+     "2027-03-10"
+    ],
+    "bodyHash": [
+     "42901d57fa309706",
+     "8cc6fbd81731bc2d"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509780",
+   "type": "new",
+   "title": "Intune ending support for Windows MDM-only enrollment CNAME auto-discovery",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509787",
+   "type": "new",
+   "title": "Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509789",
+   "type": "new",
+   "title": "Microsoft Edge: Browser-native XSLT will be disabled by default",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509796",
+   "type": "new",
+   "title": "Microsoft Teams: Enhanced channel meeting experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509797",
+   "type": "new",
+   "title": "Support for Office LTSC 2021 and additional apps ended on October 13, 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509799",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Legal plugins in Word and Cowork",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509800",
+   "type": "new",
+   "title": "Microsoft Outlook for Android: Multi-select and bulk actions in search results",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509801",
+   "type": "new",
+   "title": "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1509803",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Publish and unpublish controls for official brand kits",
    "fields": {}
   }
  ]
