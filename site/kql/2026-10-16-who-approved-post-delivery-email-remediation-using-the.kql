@@ -1,0 +1,21 @@
+// title: Who approved post-delivery email remediation, using the new ApproverUpn column
+// date: 2026-10-16
+// product: Defender for Office 365
+// tables: EmailPostDeliveryEvents
+// purpose: Lists manual remediation in the last 14 days by the account that approved it, with the actions and recipients touched. An approver outside the SOC or messaging team, or a burst of approvals from one account, is worth a look. ApproverUpn is read with column_ifexists because the EmailPostDeliveryEvent
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 16 Oct 2026 - post-delivery remediation by approver
+// Defender XDR advanced hunting. ApproverUpn per the MDO what's new page of 15 Oct 2026; not yet on the schema page, hence column_ifexists. Not run against a tenant in this pass.
+EmailPostDeliveryEvents
+| where Timestamp > ago(14d)
+| where ActionType == "Manual remediation"
+| extend Approver = tostring(column_ifexists("ApproverUpn", ""))
+| summarize Actions = count(),
+            Recipients = dcount(RecipientEmailAddress),
+            ActionList = make_set(Action, 10),
+            Results = make_set(ActionResult, 10),
+            Triggers = make_set(ActionTrigger, 5),
+            FirstSeen = min(Timestamp), LastSeen = max(Timestamp)
+          by Approver
+| order by Actions desc
