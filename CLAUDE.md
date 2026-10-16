@@ -848,6 +848,7 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
     page = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Microsoft SOC · week %(f)s → %(t)s</title>
 <link rel="icon" type="image/png" href="../assets/favicon-64.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+%(hx)s
 <style>
 :root{--bg:#f6f7f9;--surface:#fff;--ink:#17202a;--muted:#4e5867;--border:#dde2e8;--accent:#0b6bcb;--bad:#b42318;--ok:#067647}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1419;--surface:#172029;--ink:#e6edf3;--muted:#9fa9b6;--border:#2a3642;--accent:#58a6ff;--bad:#ff7b72;--ok:#3fb950}}
@@ -873,8 +874,10 @@ td:first-child{white-space:nowrap}.chart b{font-size:12px;font-weight:600}
 h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-flex;flex:0 0 auto}.s5cx-mark img{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark img{height:96px}}.s5dy-pic{aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}.s5cx-mark video.s5dy-pic{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark video.s5dy-pic{height:96px}}
 .s5cx-mark .s5cx-dark{display:none}@media (prefers-color-scheme:dark){.s5cx-mark .s5cx-dark{display:block}.s5cx-mark .s5cx-light{display:none}}
 @media print{.s5cx-mark .s5cx-dark{display:none}.s5cx-mark .s5cx-light{display:block}}
+.byline{margin:2px 0 6px;font-size:14px;font-weight:500}
 </style></head><body><main role="main">
 <h1 class="s5cx-h1"><a class="s5cx-mark" href="%(u)s" aria-label="GuardZilla — today's brief"><img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display='none'"></a>The week in Microsoft security changes</h1>
+<p class="byline">By Piotr Wiśniewski</p>
 <script>/* §5dy (16 X 2026, owner 01:19: "on diff and week, where you put the static logo, put our film too"): the logo picture is the film's last frame; a muted film replaces it, plays once and stops on that frame, plays again on hover. No film with prefers-reduced-motion or when the browser refuses to play; the phone loads it after the page. */(function(){var a=document.querySelector(".s5cx-mark"),i=a&&a.querySelector("img.s5dy-pic");if(!i||!window.matchMedia||matchMedia("(prefers-reduced-motion: reduce)").matches)return;function go(){var v=document.createElement("video");v.className="s5dy-pic";v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");v.playsInline=true;v.setAttribute("playsinline","");v.poster=i.src;v.width=640;v.height=360;v.setAttribute("aria-hidden","true");[["logo-anim.webm","video/webm"],["logo-anim.mp4","video/mp4"]].forEach(function(x){var s=document.createElement("source");s.src="../assets/"+x[0];s.type=x[1];v.appendChild(s)});function drop(){if(v.parentNode)v.parentNode.removeChild(v);i.style.display=""}function play(){try{v.currentTime=0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(drop)}v.addEventListener("error",drop,true);a.addEventListener("mouseenter",function(){if(v.ended)play()});i.style.display="none";a.insertBefore(v,i);play()}if(matchMedia("(max-width:720px)").matches){if(document.readyState==="complete")setTimeout(go,1500);else addEventListener("load",function(){setTimeout(go,1500)})}else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go()})();</script>
 <p class="sub">%(f)s → %(t)s · built from %(n)d daily files · <a href="%(u)s">today's brief</a> · <a href="%(u)sdiff/">what changed since yesterday</a></p>
 <div class="bar"><button type="button" onclick="print()">Save as PDF</button><a href="%(u)sfeed.xml">RSS</a></div>
@@ -894,6 +897,7 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-fl
 </main></body></html>
 """ % {
         "f": E(wk_from), "t": E(date), "n": len(snaps), "u": E(site_url), "bars": bars,
+        "hx": head_extras("The week in Microsoft security changes, %s to %s" % (wk_from, date), date, site_url),
         "days": "".join(tr([E(d), a, b, c, n]) for d, a, b, c, n in reversed(rows_days)),
         "due": "".join(tr([E(i.get("deadline")), ('<span class="d0">%d</span>' % left(i.get("deadline"))) if left(i.get("deadline")) <= 7 else left(i.get("deadline")),
                            E(i.get("product")), ('<a href="%s">%s</a>' % (E(i.get("url")), E(i.get("title")))) if i.get("url") else E(i.get("title")),
@@ -913,67 +917,265 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-fl
     return len(snaps)
 
 
+FEED_CHANNELS = (   # §5dz (16 X 2026): one RSS channel per technology the portal already groups by; site/feed-<key>.xml
+    ("entra", "Entra ID", ("entra", "azure ad", "conditional access", "external id", "graph", "role", "identity governance", "authentication")),
+    ("intune", "Intune", ("intune", "autopilot", "endpoint manager")),
+    ("defender", "Defender and Sentinel", ("defender", "mde", "mdi", "mdo", "mdca", "xdr", "sentinel", "threat intel", "exposure management", "security operations", "msrc")),
+    ("purview", "Purview", ("purview", "dlp", "information protection", "insider risk", "ediscovery", "compliance")),
+    ("exchange", "Exchange Online", ("exchange", "outlook", "ews")),
+    ("windows", "Windows", ("windows", "ad fs", "active directory", "kerberos", "ntlm")),
+    ("azure", "Azure", ("azure", "arc", "virtual desktop", "fslogix", "foundry", "defender for cloud")),
+    ("copilot", "Copilot", ("copilot",)),
+)
+
+
 def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
-    """§5bh R3: site/feed.xml — RSS 2.0 for a reader who will not open the portal every day:
-    items due within 7 days, items new since the last brief, and Microsoft changes in Graph
-    permissions and roles in the last 7 days. Written by every --brief mirror; the masthead's
-    RSS link points here. One <item> per subject and day, guid stable, so a feed reader shows
-    a deadline once per day it is still open rather than once per run."""
-    import html as _h, email.utils as _eu, datetime as _dt
+    """§5bh R3, rebuilt §5dz (16 X 2026, owner: "full-value RSS"): site/feed.xml (everything) and one channel per
+    technology, site/feed-<key>.xml (FEED_CHANNELS). Each item carries the brief's "why it matters" sentence (or the
+    source's own summary), a link to the place in the portal and a link to the Microsoft source. What goes in:
+      brief items due within 7 days (one item per day it is still open) and items first seen in the last 7 days;
+      Message Center posts first tracked in the last 7 days; campaign events of 7 days (site/data/campaigns.json);
+      Maester / Tenable baseline events of 7 days (site/data/baselines.json); Learn "what's new" entries the Learn tab marks as recent
+      (nt.recent) and blog posts dated within 7 days; Microsoft changes of Graph permissions and Entra roles of 7 days.
+    Written by every --brief mirror AND by tools/feed_refresh.py in code-refresh.yml after each published run
+    (morning and evening), so the afternoon state reaches the reader the same evening. Deterministic: guids are
+    stable, lastBuildDate is the newest item's date, so a run with no new data changes no file."""
+    import html as _h, email.utils as _eu, datetime as _dt, ast as _ast, hashlib as _hl, urllib.parse as _up
     st = state.get("soc-brief-state") or {}
     cat = state.get("soc-catalog") or {}
-    E = lambda s: _h.escape(str(s or ""), quote=True)
+    nt = st.get("nt") or {}
+    E = lambda s: _h.escape(str(s if s is not None else ""), quote=True)
+    d0 = _dt.date.fromisoformat(date)
+    since = (d0 - _dt.timedelta(days=7)).isoformat()
+    def day(s):
+        s = str(s or "")[:10]
+        try:
+            _dt.date.fromisoformat(s); return s
+        except ValueError:
+            return ""
     def rfc(d):
         try:
-            return _eu.format_datetime(_dt.datetime.fromisoformat(str(d)[:10]).replace(
-                hour=6, tzinfo=_dt.timezone.utc))
-        except Exception:
-            return _eu.format_datetime(_dt.datetime.now(_dt.timezone.utc))
-    def days(d):
+            return _eu.format_datetime(_dt.datetime.fromisoformat(day(d)).replace(hour=6, tzinfo=_dt.timezone.utc))
+        except ValueError:
+            return _eu.format_datetime(_dt.datetime.fromisoformat(date).replace(hour=6, tzinfo=_dt.timezone.utc))
+    def left(d):
         try:
-            return (_dt.date.fromisoformat(str(d)[:10]) - _dt.date.fromisoformat(date)).days
-        except Exception:
+            return (_dt.date.fromisoformat(day(d)) - d0).days
+        except ValueError:
             return None
-    out = []
+    def techs(*parts):
+        txt = " ".join(str(p) for p in parts if p).lower()
+        return [k for k, _, words in FEED_CHANNELS if any(re.search(r"\b" + re.escape(w) + r"\b", txt) for w in words)]
+    def mc_admin(mid):
+        return "https://admin.microsoft.com/#/MessageCenter/:/messages/%s" % mid
+    def desc(why, place, src, extra=""):
+        b = []
+        if why:
+            b.append("<p>%s</p>" % E(why))
+        if extra:
+            b.append("<p>%s</p>" % E(extra))
+        b.append('<p><a href="%s">Open in the Microsoft SOC Brief</a>%s</p>'
+                 % (E(place), (' &middot; <a href="%s">Microsoft source</a>' % E(src)) if src else ""))
+        return "".join(b)
+    out = {}
+    def add(guid, kind, title, place, src, when, body, tech):
+        if guid in out:
+            return
+        out[guid] = {"kind": kind, "title": "[%s] %s" % (kind, title), "link": place, "when": day(when) or date,
+                     "desc": body, "tech": sorted(set(tech))}
+    # 1. brief items
     new_ids = set(st.get("newToday") or [])
     for it in st.get("items") or []:
-        n = days(it.get("deadline")) if it.get("deadline") else None
-        tag = None
+        iid = it.get("id")
+        if not iid:
+            continue
+        place = site_url + "#tab=deadlines&item=" + _up.quote(str(iid), safe="")
+        tech = techs(it.get("product"), it.get("area"))
+        n = left(it.get("deadline")) if it.get("deadline") else None
         if n is not None and 0 <= n <= 7:
             tag = "Due today" if n == 0 else "Due in %d day%s" % (n, "" if n == 1 else "s")
-        elif it.get("id") in new_ids:
-            tag = "New"
-        if not tag:
+            add("brief:%s:due:%s" % (iid, date), tag, it.get("title") or iid, place, it.get("url"), date,
+                desc(it.get("why"), place, it.get("url"), "%s · deadline %s%s" % (it.get("product") or "", it["deadline"],
+                     (" · " + it["action"]) if it.get("action") else "")), tech)
+        first = day(it.get("firstSeen") or it.get("firstTracked"))
+        if iid in new_ids or (first and first >= since):
+            add("brief:%s:new" % iid, "New", it.get("title") or iid, place, it.get("url"), first or date,
+                desc(it.get("why"), place, it.get("url"), "%s%s" % (it.get("product") or "",
+                     (" · " + it["action"]) if it.get("action") else "")), tech)
+    # 2. Message Center
+    for e in (st.get("mc") or {}).get("entries") or []:
+        mid = str(e.get("id") or "")
+        first = day(e.get("firstTracked"))
+        if not mid or not first or first < since:
             continue
-        out.append((tag, it.get("title") or it.get("id"), it.get("url") or site_url,
-                    "%s|%s|%s" % (it.get("id"), tag, date), date,
-                    "%s · %s%s" % (it.get("product") or "", tag,
-                                   (" · deadline " + it["deadline"]) if it.get("deadline") else "")))
+        t = e.get("tech")
+        if isinstance(t, str) and t.startswith("["):
+            try:
+                t = _ast.literal_eval(t)
+            except (ValueError, SyntaxError):
+                t = [t]
+        t = t if isinstance(t, list) else [t] if t else []
+        place = site_url + "#" + mid
+        src = mc_admin(mid) if mid.upper().startswith("MC") else (e.get("link") or "")
+        add("mc:%s" % mid, "Message Center", "%s %s" % (mid, e.get("title") or ""), place, src, e.get("published") or first,
+            desc(e.get("dpSummary") or e.get("feedSummary") or "Message Center post first tracked by the portal on %s; no summary was read for it yet." % first, place, src,
+                 " · ".join(x for x in (", ".join(t), e.get("category"), ("act by " + e["action"]) if e.get("action") else "") if x)),
+            techs(" ".join(t), e.get("title")))
+    # 3. campaigns, 4. baselines - files written by the workflows next to the daily state
+    def load(name):
+        try:
+            return json.load(open(os.path.join(outdir, "data", name), encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
+    cj = load("campaigns.json")
+    ctech = {c.get("id"): c.get("tech") for c in cj.get("campaigns") or [] if isinstance(c, dict)}
+    clab = {"new": "Campaign: new", "moved": "Campaign: date moved", "milestone": "Campaign: milestone",
+            "closed": "Campaign: closed", "material": "Campaign: new material"}
+    for e in cj.get("events") or []:
+        if str(e.get("day") or "") < since:
+            continue
+        cid, typ = e.get("cid") or "", e.get("type") or ""
+        place = site_url + "#tab=campaigns&c=" + _up.quote(str(cid), safe="")
+        srcid = str(e.get("src") or "")
+        src = e.get("link") or (mc_admin(srcid) if srcid.upper().startswith("MC") else "")
+        if typ == "moved":
+            extra = "Date moved: %s → %s." % (e.get("was") or "?", e.get("now") or "?")
+        elif typ == "material":
+            extra = "New material: %s (%s)." % (e.get("title") or "", e.get("source") or "")
+        elif typ == "closed":
+            extra = "Closed: %s." % (e.get("final") or "")
+        else:
+            extra = ("Next: %s." % (e.get("next") or e.get("now"))) if (e.get("next") or e.get("now")) else ""
+        h = _hl.sha1(("%s|%s|%s|%s" % (cid, typ, e.get("day"), e.get("title") or e.get("now") or "")).encode()).hexdigest()[:10]
+        add("campaign:%s:%s:%s" % (cid, typ, h), clab.get(typ, "Campaign"), e.get("name") or cid, place, src, e.get("day"),
+            desc(e.get("text"), place, src, extra), techs(ctech.get(cid), e.get("tech"), e.get("name")))
+    bj = load("baselines.json")
+    blab = {"test-new": "Baseline: new Maester test", "test-changed": "Baseline: Maester test changed",
+            "test-removed": "Baseline: Maester test removed", "release": "Baseline: new Maester version",
+            "version": "Baseline: version", "audit-new": "Baseline: new Tenable audit file",
+            "audit-updated": "Baseline: Tenable audit file updated", "audit-gone": "Baseline: Tenable audit file withdrawn",
+            "items": "Baseline: Tenable items changed"}
+    for e in bj.get("events") or []:
+        if str(e.get("day") or "") < since:
+            continue
+        typ = e.get("type") or ""
+        place = site_url + "#tab=baselines" + (("&t=" + _up.quote(str(e.get("id")), safe="")) if typ.startswith("test-") and typ != "test-removed" else "")
+        add("baseline:%s:%s:%s" % (typ, e.get("id"), e.get("day")), blab.get(typ, "Baseline"), e.get("title") or e.get("id"),
+            place, e.get("url"), e.get("day"),
+            desc("%s · %s%s" % (e.get("src") or "", e.get("tech") or "", (" · " + e["what"]) if e.get("what") else ""), place, e.get("url")),
+            techs(e.get("tech"), e.get("title")))
+    # 5. Learn "what's new" entries, 6. blog posts
+    for e in nt.get("recent") or []:      # the Learn tab's own "recent and relevant" list, not all 1 000+ entries
+        d = day(e.get("msDate"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=learn"
+        h = _hl.sha1(("%s|%s|%s" % (e.get("url"), e.get("title"), d)).encode()).hexdigest()[:12]
+        add("learn:%s" % h, "Learn", "%s: %s" % (e.get("area") or "", e.get("title") or ""), place, e.get("url"), d,
+            desc(e.get("why") or e.get("text"), place, e.get("url")), techs(e.get("area"), e.get("title")))
+    for e in nt.get("items") or []:
+        d = day(e.get("date"))
+        if not d or d < since or d > date or not e.get("link"):
+            continue
+        place = site_url + "#tab=blogs"
+        add("blog:%s" % e["link"], "Blog", "%s: %s" % (e.get("source") or "", e.get("title") or ""), place, e.get("link"), d,
+            desc(str(e.get("summary") or "")[:600], place, e.get("link")), techs(e.get("source"), e.get("title"), e.get("tags")))
+    # 7. Microsoft changes of Graph permissions and Entra roles
     for w, lab in (("graph", "Graph"), ("roles", "Role")):
         for e in cat.get(w) or []:
-            if e.get("origin") != "microsoft" or "deployed in the service" in str(e.get("kind", "")).lower():
+            if not isinstance(e, dict) or e.get("origin") != "microsoft" or "deployed in the service" in str(e.get("kind", "")).lower():
                 continue
             if w == "graph" and e.get("surface") and e.get("surface") != "Microsoft Graph":
                 continue
-            ch = str(e.get("changed") or e.get("lastChanged") or "")
-            n = days(ch) if ch else None
-            if n is None or n < -7 or n > 0:
+            ch = day(e.get("changed") or e.get("lastChanged"))
+            if not ch or ch < since or ch > date:
                 continue
-            out.append(("%s: %s" % (lab, e.get("kind") or "changed"), e.get("name") or e.get("id"),
-                        e.get("url") or e.get("docSource") or site_url, "%s|%s" % (e.get("id"), ch), ch,
-                        str(e.get("after") or e.get("description") or "")[:400]))
-    rss = ['<?xml version="1.0" encoding="utf-8"?>',
-           '<rss version="2.0"><channel>',
-           '<title>Microsoft SOC Brief</title>', '<link>%s</link>' % E(site_url),
-           '<description>Due within 7 days, new since the last brief, Microsoft changes in Graph and roles</description>',
-           '<lastBuildDate>%s</lastBuildDate>' % rfc(date)]
-    for tag, title, link, guid, when, desc in out[:200]:
-        rss.append('<item><title>%s</title><link>%s</link><guid isPermaLink="false">%s</guid>'
-                   '<pubDate>%s</pubDate><category>%s</category><description>%s</description></item>'
-                   % (E("[%s] %s" % (tag, title)), E(link), E(guid), rfc(when), E(tag), E(desc)))
-    rss.append('</channel></rss>')
-    open(os.path.join(outdir, "feed.xml"), "w", encoding="utf-8").write("\n".join(rss) + "\n")
-    return len(out)
+            nm = e.get("name") or e.get("id")
+            place = site_url + ("#graph:perm=" if w == "graph" else "#roles:role=") + _up.quote(str(nm), safe="")
+            src = e.get("url") or e.get("docSource")
+            add("%s:%s:%s" % (w, e.get("id"), ch), "%s: %s" % (lab, e.get("kind") or "changed"), nm, place, src, ch,
+                desc(str(e.get("after") or e.get("description") or "")[:600], place, src), ["entra"])
+    items = sorted(out.items(), key=lambda kv: (kv[1]["when"], kv[0]), reverse=True)
+
+    def channel(fname, title, about, rows, cap):
+        rows = rows[:cap]
+        newest = rows[0][1]["when"] if rows else date
+        rss = ['<?xml version="1.0" encoding="utf-8"?>',
+               '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>',
+               '<title>%s</title>' % E(title), '<link>%s</link>' % E(site_url),
+               '<description>%s</description>' % E(about), '<language>en</language>',
+               '<atom:link href="%s%s" rel="self" type="application/rss+xml"/>' % (E(site_url), fname),
+               '<copyright>Piotr Wiśniewski</copyright>',
+               '<lastBuildDate>%s</lastBuildDate>' % rfc(newest), '<ttl>180</ttl>']
+        for guid, it in rows:
+            rss.append('<item><title>%s</title><link>%s</link><guid isPermaLink="false">%s</guid><pubDate>%s</pubDate>'
+                       '<category>%s</category>%s<description>%s</description></item>'
+                       % (E(it["title"]), E(it["link"]), E(guid), rfc(it["when"]), E(it["kind"]),
+                          "".join("<category>%s</category>" % E(t) for t in it["tech"]), E(it["desc"])))
+        rss.append('</channel></rss>')
+        data = "\n".join(rss) + "\n"
+        p = os.path.join(outdir, fname)
+        try:
+            same = open(p, encoding="utf-8").read() == data
+        except OSError:
+            same = False
+        if not same:
+            open(p, "w", encoding="utf-8").write(data)
+        return len(rows)
+    what = "brief items due within 7 days and new ones, Message Center, campaigns, baselines, Learn changes, blogs, Graph and role changes - last 7 days"
+    n = channel("feed.xml", "Microsoft SOC Brief", "All channels: " + what, items, 400)
+    for key, name, _ in FEED_CHANNELS:
+        channel("feed-%s.xml" % key, "Microsoft SOC Brief · %s" % name, "%s only: %s" % (name, what),
+                [kv for kv in items if key in kv[1]["tech"]], 200)
+    return n
+
+
+AUTHOR = "Piotr Wiśniewski"
+
+
+def head_extras(headline, date, root="/"):
+    """§5dz (16 X 2026): what every page's <head> carries for readers and search engines - one
+    <link rel="alternate"> per RSS channel (feed.xml and feed-<key>.xml, FEED_CHANNELS) and JSON-LD
+    Article data with the author as a Person (Google Search Central, "Article structured data": no
+    property is required; headline, datePublished and author.name are the ones that apply here)."""
+    import html as _h
+    links = ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - all" href="%sfeed.xml">' % root]
+    links += ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="%sfeed-%s.xml">'
+              % (_h.escape(name), root, key) for key, name, _ in FEED_CHANNELS]
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": str(headline)[:110],
+          "author": [{"@type": "Person", "name": AUTHOR}]}
+    if date:
+        ld["datePublished"] = str(date)[:10]
+    return "\n".join(links) + '\n<script type="application/ld+json">%s</script>' % json.dumps(
+        ld, ensure_ascii=False).replace("</", "<\\/")
+
+
+def sign_page(page, date, root="/"):
+    """§5dz: "By Piotr Wiśniewski" on its own line under the page title (no link, no company), the name
+    taken out of the dateline so it is not shown twice, and head_extras() in <head>. Idempotent: a page
+    that already carries the byline / the JSON-LD is left as it is, so it can run on any published page."""
+    m = re.search(r"<title>(.*?)</title>", page, re.S)
+    head_end = page.find("</head>")
+    if head_end > 0 and "application/ld+json" not in page[:head_end]:
+        hl = re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else "Microsoft SOC Brief"
+        import html as _h
+        css = "" if ".byline{" in page else "<style>.byline{margin:2px 0 6px;font-size:14px;font-weight:500}</style>\n"
+        page = page[:head_end] + head_extras(_h.unescape(hl), date, root) + "\n" + css + page[head_end:]
+    top = page.rfind('<header class="top"')
+    if top < 0:
+        top = page.find("<h1")                # /week/ has no masthead: the byline goes under its <h1>
+    if top >= 0:
+        dl = re.search(r'<p class="dateline">(.*?)</p>', page[top:], re.S)
+        if dl:
+            inner = re.sub(r"\s*Piotr Wi(?:&#347;|ś|s)niewski\s*&middot;", "", dl.group(1))
+            if inner != dl.group(1):
+                page = page[:top + dl.start(1)] + inner + page[top + dl.end(1):]
+        if 'class="byline"' not in page[top:top + 20000]:
+            h1 = page.find("</h1>", top)
+            if 0 <= h1 - top < 20000:
+                page = page[:h1 + 5] + '<p class="byline">By %s</p>' % AUTHOR + page[h1 + 5:]
+    return page
+
 
 
 if __name__ == "__main__":
@@ -986,12 +1188,12 @@ if __name__ == "__main__":
 
     if mode == "--diff":
         when = datetime.datetime.now().strftime("%H:%M")
-        page = build_diff(content, date, when)
+        page = sign_page(build_diff(content, date, when), date)    # §5dz byline, JSON-LD, RSS links
         errs = verify_diff(page)
         target = os.path.join(outdir, "diff", "index.html")
         os.makedirs(os.path.dirname(target), exist_ok=True)
     else:
-        page = build_page(content)
+        page = sign_page(build_page(content), date)                # §5dz byline, JSON-LD, RSS links
         errs = verify(page)
         target = os.path.join(outdir, "index.html")
 
@@ -1008,7 +1210,7 @@ if __name__ == "__main__":
         os.makedirs(os.path.join(outdir, "data"), exist_ok=True)
         json.dump(state, open(os.path.join(outdir, "data", date + ".json"), "w", encoding="utf-8"),
                   ensure_ascii=False)
-        print("OK  %s/feed.xml  %d items  (§5bh)" % (outdir, write_feed(state, outdir, date)))
+        print("OK  %s/feed.xml + %d channels  %d items  (§5bh, §5dz)" % (outdir, len(FEED_CHANNELS), write_feed(state, outdir, date)))
         print("OK  %s/data/history.json  %d entries with history  (§5bi)" % (outdir, write_history(outdir, date)))
         print("OK  %s/week/index.html  %d daily files  (§5bi)" % (outdir, write_week(state, outdir, date)))
     print("OK  %s  %d B  (%s)" % (target, len(page.encode()), mode))
@@ -3924,7 +4126,9 @@ ponizej zostala wyprowadzona z kodu tych skryptow, nie z upodoban.
 - Nigdy nie wymyslaj wlasnych klas `.inner`, `.meta` ani wlasnego `<nav>`.
 - **`dateline` zawsze niesie godzine generowania i autora.** `published HH:MM Warsaw` na stronie
   porannej, `re-checked HH:MM Warsaw` dopisywane przez kazdy przebieg diff — nigdy zastepowane.
-  Autor: `Piotr Wisniewski`. Ta sama para wraca w `<footer>`: autor, data i godzina, commit.
+  Autor: od §5dz (16 X 2026) NIE w `dateline`, tylko w osobnej linii `<p class="byline">By Piotr Wiśniewski</p>`
+  pod tytulem (dopisuje ja `sign_page()` w `mirror_artifact.py`, a `dateline` traci nazwisko, zeby nie stalo dwa
+  razy). Ta sama para wraca w `<footer>`: autor, data i godzina, commit.
   Strona bez godziny nie mowi czytelnikowi, czy patrzy na dzisiejszy przebieg czy na wczorajszy.
 - Pigulek jest teraz siedem. Kazda `.counts a.count` staje sie kafelkiem w Overview, wiec licznik
   dodajesz przez dopisanie pigulki, nigdy przez pisanie `.stat` recznie.
@@ -5851,6 +6055,7 @@ header .in{max-width:1120px;margin:0 auto}
 .themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 h1{font-size:22px;margin:0 0 6px}
 .dateline{margin:0;color:var(--muted);font-size:13.5px}
+.byline{margin:0 0 4px;color:var(--text);font-size:14px;font-weight:500}
 .dateline a{color:var(--accent)}
 .counts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
 .counts li{background:var(--surface2);border:1px solid var(--border);border-radius:999px;
@@ -6366,6 +6571,20 @@ h1.s5cx-h1{display:flex;align-items:center;gap:12px}
 # TAKIE SAMO jak przycisk `Theme` w briefie: przerzuca jasny/ciemny wzgledem tego, co widac teraz.
 # Dochodzi pamiec wyboru — strona zmian jest odswiezana, a wracanie do motywu systemu przy kazdym
 # odswiezeniu bylo by tym samym co brak przycisku.
+def DIFF_HEAD_EXTRAS(day):
+    """§5dz (16 X 2026): RSS channels and JSON-LD author, the same as mirror_artifact.head_extras()
+    (keep FEEDS equal to FEED_CHANNELS there: feed.xml + one file per technology)."""
+    FEEDS = (("entra", "Entra ID"), ("intune", "Intune"), ("defender", "Defender and Sentinel"), ("purview", "Purview"),
+             ("exchange", "Exchange Online"), ("windows", "Windows"), ("azure", "Azure"), ("copilot", "Copilot"))
+    links = ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - all" href="/feed.xml">']
+    links += ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="/feed-%s.xml">' % (n, k) for k, n in FEEDS]
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": "Microsoft SOC - what changed %s" % day,
+          "author": [{"@type": "Person", "name": "Piotr Wiśniewski"}]}
+    if re.match(r"\d{4}-\d\d-\d\d$", str(day or "")):
+        ld["datePublished"] = day
+    return "\n".join(links) + '\n<script type="application/ld+json">%s</script>' % json.dumps(ld, ensure_ascii=False).replace("</", "<\\/")
+
+
 THEME_HEAD = """<script>
 /* przywroc zapamietany motyw PRZED pierwszym malowaniem, zeby nie bylo mrugniecia */
 (function(){try{var v=localStorage.getItem('soc-diff-theme');
@@ -7721,9 +7940,11 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                # §5dy (16 X 2026): the last frame of the GUARDZILLA film, the same picture as the portal's logo
                '<img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display=\'none\'">'
                '</a>Microsoft SOC &mdash; what changed</h1>' % esc(home))
+    # §5dz (16 X 2026): the author on its own line under the title; the dateline no longer repeats the name
+    out.append('<p class="byline">By Piotr Wiśniewski</p>')
     out.append('<script>/* §5dy (16 X 2026, owner 01:19: "on diff and week, where you put the static logo, put our film too"): the logo picture is the film\'s last frame; a muted film replaces it, plays once and stops on that frame, plays again on hover. No film with prefers-reduced-motion or when the browser refuses to play; the phone loads it after the page. */(function(){var a=document.querySelector(".s5cx-mark"),i=a&&a.querySelector("img.s5dy-pic");if(!i||!window.matchMedia||matchMedia("(prefers-reduced-motion: reduce)").matches)return;function go(){var v=document.createElement("video");v.className="s5dy-pic";v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");v.playsInline=true;v.setAttribute("playsinline","");v.poster=i.src;v.width=640;v.height=360;v.setAttribute("aria-hidden","true");[["logo-anim.webm","video/webm"],["logo-anim.mp4","video/mp4"]].forEach(function(x){var s=document.createElement("source");s.src="../assets/"+x[0];s.type=x[1];v.appendChild(s)});function drop(){if(v.parentNode)v.parentNode.removeChild(v);i.style.display=""}function play(){try{v.currentTime=0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(drop)}v.addEventListener("error",drop,true);a.addEventListener("mouseenter",function(){if(v.ended)play()});i.style.display="none";a.insertBefore(v,i);play()}if(matchMedia("(max-width:720px)").matches){if(document.readyState==="complete")setTimeout(go,1500);else addEventListener("load",function(){setTimeout(go,1500)})}else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go()})();</script>')   # §5dy: the film in the logo (one play, last frame, hover replays)
     out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
-               'Piotr Wisniewski &middot; <a href="%s">Back to the full brief</a></p></div>'
+               '<a href="%s">Back to the full brief</a></p></div>'
                '<div class="hdr-tools"><button class="themebtn" id="themebtn" type="button">Theme</button>'
                '</div></div>'
                % (esc(prev_d), esc(curr_d), esc(label), esc(when), esc(home)))
@@ -8850,9 +9071,9 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
             '&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700'
             '&display=swap" rel="stylesheet">\n'
             '<link rel="icon" type="image/png" href="../assets/favicon-64.png">'
-            '<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">\n<style>%s</style>\n%s\n</head>\n'
+            '<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">\n%s\n<style>%s</style>\n%s\n</head>\n'
             '<body>\n%s\n%s\n</body>\n</html>\n'
-            % (esc(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY + STALE_BODY + DATES_BODY))
+            % (esc(curr_d), DIFF_HEAD_EXTRAS(curr_d), CSS, THEME_HEAD, body, THEME_BODY + FIND_BODY + NAV_BODY + MOBILE_BODY + STALE_BODY + DATES_BODY))
 
 # ---------- bramka ----------
 
@@ -28542,6 +28763,35 @@ ostatniej klatce, najechanie odtwarza ponownie; bez filmu przy ograniczeniu anim
 (Chromium, 12 wariantow 360–1920 px, oba motywy, z ograniczeniem animacji): bez bledow JS, bez przewijania w bok,
 film konczy sie na 8 s (`ended`), przy `reduce` brak `<video>`. Nie sprawdzone na prawdziwym iPhonie.
 
+**§5dz (16 X 2026, wlasciciel: podpis autora i pelnowartosciowy RSS).** (1) **Podpis**: na stronie glownej, `/diff/`
+i `/week/` pod tytulem stoi osobna linia `<p class="byline">By Piotr Wiśniewski</p>` — bez linku i bez firmy;
+nazwisko zniknelo z `dateline`, zeby nie stalo dwa razy. W `<head>` kazdej z trzech stron: JSON-LD
+`{"@context":"https://schema.org","@type":"Article","headline":…,"datePublished":…,"author":[{"@type":"Person","name":"Piotr Wiśniewski"}]}`
+(Google Search Central, „Article structured data": zadna wlasciwosc nie jest wymagana; `author.name` tylko nazwisko).
+Robi to `sign_page()` w `mirror_artifact.py` (oba tryby lustra; idempotentne), `make_diff.py` sam (`byline`,
+`DIFF_HEAD_EXTRAS`), `write_week()` w szablonie. (2) **RSS**: `write_feed()` pisze `site/feed.xml` (wszystko, do 400
+pozycji) i osobny kanal na technologie — `feed-entra.xml`, `feed-intune.xml`, `feed-defender.xml` (Defender i
+Sentinel), `feed-purview.xml`, `feed-exchange.xml`, `feed-windows.xml`, `feed-azure.xml`, `feed-copilot.xml`
+(`FEED_CHANNELS`, przypisanie po slowach z produktu, obszaru, technologii MC, kampanii, zrodla bloga; pozycja moze
+byc w kilku kanalach). Okno 7 dni: pozycje briefu z terminem ≤ 7 dni (jedna na dzien) i nowe, posty Message Center
+(`firstTracked`), zdarzenia kampanii (`site/data/campaigns.json`), zdarzenia Baselines (`site/data/baselines.json`),
+wpisy Learn z listy „recent" zakladki Learn (`nt.recent`), posty blogow (`nt.items`), zmiany Microsoftu w Graph i
+rolach. Kazda pozycja: opis = zdanie „why it matters" (albo streszczenie zrodla) + link do miejsca w portalu
+(`#tab=deadlines&item=`, `#MC…`, `#tab=campaigns&c=`, `#tab=baselines&t=`, `#tab=learn`, `#tab=blogs`,
+`#graph:perm=`, `#roles:role=`) + link do zrodla Microsoftu; `guid` stabilny, `lastBuildDate` = data najnowszej
+pozycji, plik zapisywany tylko przy zmianie tresci. `<link rel="alternate" type="application/rss+xml">` dla
+wszystkich dziewieciu kanalow w `<head>` trzech stron; zakladka About ma karte „RSS feeds and author".
+(3) **Odswiezanie po kazdym przebiegu**: lustro poranne pisze kanaly jak dotad; dodatkowo `tools/feed_refresh.py`
+w `code-refresh.yml` (ktory rusza po „Campaign tracking", a ten po kazdym „Publish routine output" — poranek i
+wieczor — oraz po migawce tenanta i Baselines) przebudowuje kanaly z najnowszego `site/data/<data>.json` i podpisuje
+strony, ktore podpisu jeszcze nie maja. Pomiar 16 X na stanie 15 X: `feed.xml` 400 pozycji, kanaly 23–138.
+
+```css
+/* §5dz (16 X 2026): the author on its own line under the title (the dateline no longer carries the name) */
+header.top .title-row > .byline{flex:0 0 100%;order:0;margin:-4px 0 0;font-size:14px;font-weight:500;color:var(--text);line-height:1.4}
+header.top.compact .title-row > .byline{display:none}
+```
+
 ```css
 /* §5ci (30 IX 2026): Overview, Today, Deadlines and New as in the approved mockups — one view on
    top, the full sections behind one button */
@@ -38336,6 +38586,13 @@ odtad CZTERNASCIE (4-17).**
     var c7 = card("Links");
     c7.appendChild(ul([link("What changed since yesterday (/diff/)", "diff/"), link("The week (/week/)", "week/"), link("RSS feed", "feed.xml")]));
     g.appendChild(c7);
+    /* §5dz (16 X 2026, owner: "author byline" and "full-value RSS") */
+    var c8 = card("RSS feeds and author");
+    c8.appendChild(el("p", null, "Every page is signed \u201cBy Piotr Wi\u015bniewski\u201d under its title. The RSS feeds carry the full value of the brief: each item has the \u201cwhy it matters\u201d sentence, a link to its place in this portal and a link to the Microsoft source. feed.xml carries everything of the last 7 days: brief items due within 7 days and new ones, Message Center, campaigns, baselines, Learn changes, blogs, and Microsoft changes of Graph permissions and roles; each technology feed carries only its own items. The feeds are rebuilt after the morning brief and after the evening pass."));
+    c8.appendChild(ul([link("All (feed.xml)", "feed.xml"), link("Entra ID", "feed-entra.xml"), link("Intune", "feed-intune.xml"),
+      link("Defender and Sentinel", "feed-defender.xml"), link("Purview", "feed-purview.xml"), link("Exchange Online", "feed-exchange.xml"),
+      link("Windows", "feed-windows.xml"), link("Azure", "feed-azure.xml"), link("Copilot", "feed-copilot.xml")]));
+    g.appendChild(c8);
     p.appendChild(g);
     var bb = backBtn(); bb.classList.add("s5cz-back-end"); p.appendChild(bb);
     var fl = backBtn(); fl.classList.add("s5cz-back-float"); p.appendChild(fl);

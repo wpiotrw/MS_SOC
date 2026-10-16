@@ -44,6 +44,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego](#12-tożsamości-uprawnienia-i-poświadczenia--pełny-wykaz-i-powód-każdego)
 - [13. O narzędziu i świeżość danych (zakładka About, ramka „Data freshness”, format dat)](#13-o-narzędziu-i-świeżość-danych-zakładka-about-ramka-data-freshness-format-dat)
 - [14. Zakładka Baselines — Maester i Tenable (od 15 X 2026, §5dv)](#14-zakładka-baselines--maester-i-tenable-od-15-x-2026-5dv)
+- [15. Kanały RSS i podpis autora (od 16 X 2026, §5dz)](#15-kanały-rss-i-podpis-autora-od-16-x-2026-5dz)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -71,6 +72,14 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 | CC BY 4.0 | Creative Commons Attribution 4.0 — licencja treści Microsoft Learn (wymaga podania autora) |
 | DCA | Defender for Cloud Apps |
 | ETag | Entity Tag — znacznik wersji strony z nagłówka HTTP; kopia Learn pobiera stronę ponownie tylko, gdy się zmienił |
+| JSON-LD | JavaScript Object Notation for Linked Data — dane strukturalne w `<head>` strony (autor, nagłówek) |
+| XDR | Extended Detection and Response — Defender XDR |
+| MDE / MDI / MDO / MDCA | Microsoft Defender for Endpoint / for Identity / for Office 365 / for Cloud Apps |
+| MSRC | Microsoft Security Response Center |
+| DLP | Data Loss Prevention — zapobieganie utracie danych |
+| EWS | Exchange Web Services |
+| AD FS | Active Directory Federation Services |
+| NTLM | NT LAN Manager — starszy protokół uwierzytelniania Windows |
 
 ## 0. Architektura w pigułce
 
@@ -800,7 +809,7 @@ Właściciel zaakceptował 29 IX 2026 makiety wszystkich zakładek (artefakt Des
 | `site/data/history.json` | lustro poranne (`write_history`) | historia wartości wpisów z 14 dni |
 | `site/data/fpa-tenant.json` | workflow `fpa-tenant.yml` | migawka tenanta (tylko aplikacje Microsoftu; inne jako liczba) |
 | `site/data/mc-tenant.json` | workflow `fpa-tenant.yml` (`tools/mc_tenant.py`) | Message Center tenanta z Graph i dziennik zmian 30 dni |
-| `site/feed.xml` | lustro poranne (`write_feed`) | RSS: terminy ≤ 7 dni, nowe, zmiany Graph i ról |
+| `site/feed.xml`, `site/feed-<technologia>.xml` | lustro poranne (`write_feed`) i `tools/feed_refresh.py` w `code-refresh.yml` po każdym przebiegu | RSS 2.0, dziewięć kanałów — rozdział 15 |
 | `site/week/index.html` | lustro poranne (`write_week`) | przegląd tygodnia, druk do PDF |
 | `site/data/fresh/<klucz>.json` | `tools/stamp.py` w workflow (`code`, `tenant`, `campaigns`, `learn`, `publish`) | kiedy ostatnio dany workflow zmienił to, co pokazuje strona — ramka „Data freshness”, chipy zakładek, About (pkt 13.5) |
 
@@ -1158,6 +1167,72 @@ Zdarzenia: test nowy / zmieniony (tytuł, waga, treść) / usunięty, nowe wydan
 
 425 testów Maestera w zakresie (MT 191, CISA 79, ORCA 67, CIS 44, EIDSCA 44; High 139; AI i agenci 22), 81 plików Tenable w zakresie z 1 785 na liście (43 najnowsze, 2 835 elementów), 122 testy sparowane z Tenable. CIS M365: obie strony v7.0.0, wspólne 44 rekomendacje, 116 tylko w Tenable. SCuBA: Tenable v1.5.0 (22/03/2025), ScubaGear 1.8.0, Maester — gałąź główna ScubaGear; wspólne 78, 1 tylko w Maesterze, 51 tylko w Tenable. Plik „MSCT M365 Apps for enterprise 2512” Tenable wystawia bez listy elementów — strona to mówi.
 
+## 15. Kanały RSS i podpis autora (od 16 X 2026, §5dz)
+
+### 15.1 Adresy kanałów
+
+Wszystkie kanały to RSS 2.0 (Really Simple Syndication), kodowanie UTF-8, pod adresem strony:
+
+| Kanał | Adres | Co zawiera |
+|---|---|---|
+| Wszystko | [/feed.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed.xml) | wszystkie pozycje z 7 dni, najwyżej 400 (najnowsze pierwsze) |
+| Entra ID | [/feed-entra.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-entra.xml) | Entra, dostęp warunkowy (Conditional Access), External ID, uwierzytelnianie, Graph API i role |
+| Intune | [/feed-intune.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-intune.xml) | Intune, Autopilot |
+| Defender i Sentinel | [/feed-defender.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-defender.xml) | Defender XDR, MDE, MDI, MDO, MDCA, Sentinel, Threat Intelligence, Exposure Management, MSRC |
+| Purview | [/feed-purview.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-purview.xml) | Purview, DLP, Information Protection, eDiscovery |
+| Exchange Online | [/feed-exchange.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-exchange.xml) | Exchange Online, Outlook, EWS |
+| Windows | [/feed-windows.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-windows.xml) | Windows, Windows Server, AD FS, Active Directory, Kerberos, NTLM |
+| Azure | [/feed-azure.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-azure.xml) | Azure, Azure Arc, Azure Virtual Desktop, FSLogix, AI Foundry, Defender for Cloud |
+| Copilot | [/feed-copilot.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-copilot.xml) | Microsoft 365 Copilot, Copilot Studio |
+
+Kanał technologii wybiera pozycje po słowach z produktu i obszaru pozycji briefu, z technologii posta Message Center,
+z technologii kampanii i z nazwy źródła bloga (lista `FEED_CHANNELS` w `mirror_artifact.py`, `CLAUDE.md` §5dz).
+Jedna pozycja może być w kilku kanałach (np. AD FS: Windows i Entra). Strona główna, `/diff/` i `/week/` mają w
+`<head>` znacznik `<link rel="alternate" type="application/rss+xml">` dla każdego z dziewięciu kanałów, więc czytnik
+RSS (i przeglądarka z rozszerzeniem) znajduje je sam po adresie portalu.
+
+### 15.2 Co trafia do kanału
+
+Okno: 7 dni wstecz od daty briefu. Źródła to dane, które portal już ma (`site/data/<data>.json`,
+`site/data/campaigns.json`, `site/data/baselines.json`):
+
+| Rodzaj (`<category>`) | Skąd | Link do portalu |
+|---|---|---|
+| `Due today`, `Due in N days` | pozycje briefu z terminem ≤ 7 dni — jedna pozycja na każdy dzień, w którym termin jest otwarty | `#tab=deadlines&item=<id>` |
+| `New` | pozycje briefu nowe od poprzedniego briefu albo zauważone w ostatnich 7 dniach | `#tab=deadlines&item=<id>` |
+| `Message Center` | posty Message Center po raz pierwszy zauważone w 7 dniach | `#MC…` |
+| `Campaign: …` | zdarzenia kampanii: nowa, przesunięta data, kamień milowy, nowy materiał, zamknięta | `#tab=campaigns&c=<id>` |
+| `Baseline: …` | zdarzenia Maester i Tenable (nowy/zmieniony test, wersja, plik audytu) | `#tab=baselines` |
+| `Learn` | wpisy „what's new” z listy „recent” zakładki Learn | `#tab=learn` |
+| `Blog` | posty blogów Microsoftu z datą w oknie | `#tab=blogs` |
+| `Graph: …`, `Role: …` | zmiany Microsoftu w uprawnieniach Graph i rolach Entra | `#graph:perm=…`, `#roles:role=…` |
+
+Każda pozycja ma tytuł `[rodzaj] tytuł`, `link` do miejsca w portalu, stały `guid` (czytnik nie pokaże tej samej
+pozycji dwa razy), `pubDate` w formacie RFC 822, `<category>` z rodzajem i z kluczami technologii, a `description`
+(HTML) zawiera: zdanie „why it matters” z briefu (dla Message Center — streszczenie posta, dla bloga — streszczenie
+źródła), dodatkowe informacje (produkt, termin, działanie, stara i nowa data kampanii) oraz dwa linki: „Open in the
+Microsoft SOC Brief” i „Microsoft source” (strona Learn, post Message Center w centrum administracyjnym, wpis bloga).
+`lastBuildDate` to data najnowszej pozycji, a plik jest zapisywany tylko, gdy zmieniła się jego treść.
+
+### 15.3 Kiedy kanały są odświeżane
+
+| Kiedy | Kto | Co |
+|---|---|---|
+| rano, po lustrze briefu (ok. 07:00–08:30 Warszawa) | routine „raport poranny v2” — `mirror_artifact.py --brief` (`write_feed`) | wszystkie kanały ze stanu porannego |
+| po każdej publikacji (rano i wieczorem, ok. 22:00) oraz po migawce tenanta, kampaniach i Baselines | workflow `code-refresh.yml`, krok „RSS feeds and byline” (`tools/feed_refresh.py`) | kanały z najnowszego `site/data/<data>.json` — wieczorem jest to stan końcowy dnia |
+
+Łańcuch wieczorny: routine zmian publikuje gałąź `claude/**` → „Publish routine output” → „Campaign tracking” →
+„Code refresh”, który przebudowuje kanały i wdraża stronę. Zmiana promptów routines nie była potrzebna.
+
+### 15.4 Podpis autora
+
+Strona główna, `/diff/` i `/week/` mają pod tytułem osobną linię „By Piotr Wiśniewski” (bez linku i bez firmy);
+nazwisko nie powtarza się już w linii z datą (`dateline`). W `<head>` każda z tych stron ma dane strukturalne
+JSON-LD (JavaScript Object Notation for Linked Data) typu `Article` z autorem `{"@type": "Person", "name": "Piotr
+Wiśniewski"}` — kształt według Google Search Central, „Article structured data” (żadna właściwość nie jest
+wymagana; `author.name` zawiera wyłącznie imię i nazwisko). Podpis i dane dopisuje `sign_page()` w
+`mirror_artifact.py`, a w `/diff/` i `/week/` także same generatory.
+
 ## Historia zmian
 
 | Data | Zmiana |
@@ -1190,6 +1265,7 @@ Zdarzenia: test nowy / zmieniony (tytuł, waga, treść) / usunięty, nowe wydan
 | 2026-10-15 | §5dw — Security Defaults (zmiana z 14 X, preview) była w danych, ale schowana. (1) `collect_nt.py`: Sekcja D zakładki Learn była pusta 14–15 X — szukała klonów w `repos` zamiast `SOC_REPOS`; poprawione, a strony do porównania linia po linii wybierane najpierw po temacie tożsamości/tier 0 i dacie, nie po liczbie linii (poprawki pisowni na końcu). (2) Zdania dnia: nowa pozycja tier 0 mówi za swoją technologię, druga (lub zmiana Graph/roli) jest drugim linkiem tego samego zdania. (3) Today: nowe pozycje tier 0 dochodzą do Top picks. (4) Kampanie: `tools/campaigns.py` liczy kandydatów na kampanie według nazwanych kryteriów (punkty, progi 6 „proposed” i 3 „watching”), sekcja „What may become a campaign” w zakładce Campaigns. Bez nowych uprawnień aplikacji. |
 | 2026-10-15 | §5dx — nowy wygląd tabel (wariant B wybrany przez właściciela z trzech pokazanych): wyraźna ramka z zaokrąglonymi rogami, nagłówek na pasie w kolorze akcentu z linią pod spodem, linie między wierszami i kolumnami, paski wierszy, podświetlenie wiersza — wszystkie tabele portalu na desktopie, `/diff/` i `/week/`; telefon bez zmian (karty). Szerokości i odstępy bez zmian; pomiar 17 zakładek (1440/1920, ciemny/jasny): bez przewijania w bok. |
 | 2026-10-16 | §5dy — logo portalu to film GUARDZILLA: bez dźwięku, odtwarza się raz i zatrzymuje na ostatniej klatce, najechanie lub kliknięcie odtwarza go ponownie; przy ograniczeniu animacji i w trybie niskiego zużycia energii iPhone'a zostaje obraz ostatniej klatki; na telefonie film ładuje się po wczytaniu strony. Desktop od 1360 px 264 × 148 w lewej kolumnie, 721–1359 px 192 × 108, telefon 171 × 96 (wysokość dawnego logo). Nowe pliki `site/assets/logo-anim.webm`, `logo-anim.mp4`, `logo-poster.webp`; nowy favicon i ikona iPhone'a z nowego smoka; `/diff/` i `/week/` z tym samym filmem (obraz ostatniej klatki podmieniany na film; najechanie odtwarza ponownie). Oryginał filmu: gałąź `logo-video-src`, `assets-src/guardzilla_movie.mp4`. Bez nowych uprawnień aplikacji. |
+| 2026-10-16 | §5dz — podpis „By Piotr Wiśniewski” pod tytułem strony głównej, `/diff/` i `/week/` (nazwisko usunięte z `dateline`), JSON-LD `Article` z autorem `Person`; pełnowartościowy RSS: `feed.xml` + osiem kanałów technologii (Entra, Intune, Defender, Purview, Exchange, Windows, Azure, Copilot), każda pozycja z „why it matters”, linkiem do portalu i do źródła Microsoftu, nowe rodzaje pozycji (Message Center, kampanie, Baselines, Learn, blogi); odświeżanie po każdym przebiegu (`tools/feed_refresh.py` w `code-refresh.yml`); `<link rel="alternate">` w `<head>`; karta „RSS feeds and author” w About; rozdział 15. Bez nowych uprawnień aplikacji. |
 | 2026-10-10 | §5db — „added” zamiast „changed” dla uprawnień, które stały się nadawalne w tenancie (np. CopilotCostManagement z 9 X, znane wcześniej tylko z mapy wdrożeń Microsoftu): `diff_catalog()` i rejestr w make_diff, normalizacja starszych wpisów rejestru na stronie (SKRYPT 4), opis „became grantable in this tenant”; 10 X: Graph +7 new / ~7 changed zamiast ~35 changed; słownik new/changed/removed w About i w pkt 13.7. |
 | 2026-10-10 | §5da — portal bez „choinki” i dopasowany do telefonu: kolory tylko dla znaczenia (przed/po bez czerwono-zielonych tła, neutralne plakietki, linki zewnętrzne bez niebieskich pigułek, nazwy uprawnień/ról/pozycji w kolorze tekstu), Graph API przeorganizowany (Find zaczyna się od wyszukiwarki; zmiany jednego uprawnienia w jednym wierszu; dziennik 14 dni od najnowszego; tabela API bez powtórzeń), na telefonie tabele jako karty i limit 40 pozycji z „Show all”; naprawione: chip źródła zasłaniający tytuł artykułu na telefonie, ucięta data w liście Message Center; `learn-mirror.yml` limit 60 min (przebieg 10 X przekroczył 40 min); pkt 13.7 (nowy), format dat → 13.8. |
 | 2026-10-10 | §5cz-c — logo GUARDZILLA na desktopie (od 1360 px) w lewej kolumnie nagłówka nad menu bocznym, duże (do ok. 260 × 230 px), zmniejsza się razem z przyklejonym nagłówkiem; treść nagłówka zaczyna się na linii treści strony; 1100–1359 px i telefon bez zmian. |
