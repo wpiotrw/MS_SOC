@@ -12,6 +12,7 @@ on:
       - 'CLAUDE.md'
       - 'tools/code_refresh.py'
       - 'tools/feed_refresh.py'
+      - 'tools/msrc_cves.py'
       - 'tools/site_retention.py'
       - '.github/workflows/code-refresh.yml'
   workflow_run:
@@ -62,12 +63,22 @@ jobs:
           python3 tools/feed_refresh.py CLAUDE.md site .refresh | tee feeds.log
           if grep -q '^feeds: changed' feeds.log; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
 
+      # CLAUDE.md 5eb (16 X 2026): MSRC Security Update Guide details (weakness/CWE, released, last updated, severity,
+      # CVSS, exploited) for every CVE the portal lists - the public MSRC API sends no CORS header, so the page cannot
+      # read it itself. Never fails the job; re-reads a recent CVE at most every 12 h.
+      - name: MSRC CVE details
+        id: msrc
+        run: |
+          set -uo pipefail
+          timeout 300 python3 tools/msrc_cves.py site --budget 240 | tee msrc.log || true
+          if grep -q '^msrc: changed' msrc.log; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
+
       - name: Gate (mirror mode - class B reported, not blocking)
         if: steps.swap.outputs.changed == '1'
         run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
 
       - name: Commit the refreshed page
-        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1'
+        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -77,7 +88,7 @@ jobs:
           git add site/index.html site/diff/index.html site/week/index.html
           git add -A -- 'site/feed*.xml'
           git add -A -- site/history site/data
-          git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log) $(tail -1 feeds.log)"
+          git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log) $(tail -1 feeds.log) $(tail -1 msrc.log 2>/dev/null)"
           git pull --rebase -q origin main
           git push origin main
 

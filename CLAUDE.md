@@ -194,6 +194,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 104 | **strona STARSZA niz dzien przebiegu MOWI o tym w `dateline`** — artefakt, ktorego tresci nie dalo sie pobrac (§0a, czwarty tryb awarii), zostawia wczorajsza strone pod wczorajsza data, a czytelnik nie ma jak odroznic „dzis nic sie nie zmienilo" od „dzis nikt nie patrzyl" | 0a | `gate.py <html>`: gdy `briefDate` bloku stanu jest wczesniejsza niz dzien przebiegu, `dateline` zawiera `No new brief was published on`; strona z dzisiejsza `briefDate` przechodzi bez warunku |
 | 103 | **rozmiar `site/` MIESCI SIE W LIMICIE, policzony PRZED pushem** — Azure Static Web Apps na planie Free przyjmuje najwyzej **262 144 000 B**, a push przechodzi niezaleznie od tego, wiec zasada 7 (`AFTER != BEFORE`) jest zielona na przebiegu, ktorego deploy zostal odrzucony | 0h | `gate.py <html> <site/>`: suma bajtow wszystkich plikow pod `site/` (bez `.git`) <= 262 144 000; brak katalogu `site/` daje `BRAK "nie podano site/"`, nigdy OK |
 | 122 | **budzet 16 MB NIE zjada zmian stron Learn** — gdy artefakt nie miesci sie w limicie, NIE wolno wyrzucac `nt.pages` ani `docText.pages` (16 X 2026 poranny przebieg wyrzucil 199 stron z `nt.pages` i dopisal w `pagesNote` „carried in site/data", co bylo nieprawda — Security Defaults zniknelo z zakladki Learn). Kolejnosc ciecia: (1) `nt.changes` starsze niz 6 miesiecy poza 180 najciezszymi (Sekcja B i tak pokazuje 180), (2) `hunks` stron BEZ `promote` i bez `itemIds`, (3) `ledger14` wpisy bez zmiany zrodla. Zadne zdanie w danych nie moze twierdzic, ze cos „jest gdzie indziej", jesli tego tam nie ma | §5ea | `len(nt.pages) > 0` albo `nt.pagesNote` mowi DLACZEGO kolektor nie dal stron (nie „przeniesione"); `docText.pages` niepuste, gdy `docText.readOn == briefDate` |
+| 123 | **kazda zmiana kodu strony przechodzi `tools/mobile_check.py` PRZED commitem** — wlasciciel kilka razy zglaszal z iPhone'a te same dwa bledy (wolne ladowanie, uciete sekcje), za kazdym razem po nowej funkcji. Sprawdzenie: `python3 tools/deploy_prep.py site _deploy`, serwer na `_deploy`, `python3 tools/mobile_check.py http://localhost:PORT/` (profil iPhone 13, CPU x4): zero przewijania w bok, zero elementow poza ekranem, zero przewijania w bok wewnatrz ramki (poza tabelami), zaden przycisk/link przykryty w swoim wierszu, zero bledow JS, zdania Overview w <= 25 s. Wynik w odpowiedzi (OK albo lista PROBLEM). Przebiegi routine, ktore nie zmieniaja kodu, sa zwolnione | §5eb | `mobile_check: OK` w odpowiedzi sesji, ktora zmienila kod |
 
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -13755,14 +13756,27 @@ a flaga trzyma jeden klik na katalog.
     done[key] = 1;
     if (b.getAttribute("aria-pressed") !== "true") b.click();
   }
+  /* §5eb (16 X 2026, owner: "the portal loads slowly on the phone again"). Measured on an iPhone-13 profile at 4x CPU:
+     pressing "All" redraws every row of the Graph API and Roles catalogs - 0.8 s of main thread at load, for two tabs
+     nobody is looking at. A catalog is pressed when its tab is on screen; a hidden one waits for its tab to open
+     (click or #tab= in the address), and every one is pressed once Overview has drawn its sentences (20 s at the latest), so search and counters that
+     read the catalog in "All" mode still find it there. */
+  var all = false;
   function run() {
-    [].forEach.call(document.querySelectorAll(".catalog[data-catalog]"), press);
+    [].forEach.call(document.querySelectorAll(".catalog[data-catalog]"), function (cat) { if (all || cat.offsetParent !== null) press(cat); });
   }
   function boot() {
     run();
     /* the shell builds its toolbar on its own schedule and SCRIPT 8 moves it
        afterwards; three cheap passes cost nothing and catch either ordering */
     setTimeout(run, 500); setTimeout(run, 1200); setTimeout(run, 2500);
+    document.addEventListener("click", function () { setTimeout(run, 60); setTimeout(run, 600); }, true);
+    window.addEventListener("hashchange", function () { setTimeout(run, 60); });
+    /* the hidden ones: right after Overview has drawn its sentences (the first thing a reader looks at), at the
+       latest 20 s after load */
+    var t0 = Date.now();
+    (function idle() { var ready = document.querySelector("#tab-overview .s5ci-ten .s5bk-3 > li");
+      if (ready || Date.now() - t0 > 20000) setTimeout(function () { all = true; run(); }, ready ? 800 : 0); else setTimeout(idle, 500); })();
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 300); });
@@ -31606,9 +31620,16 @@ odtad CZTERNASCIE (4-17).**
     [build, phoneFilters].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[s17 5bk]", e); } });
     document.addEventListener("click", function () { setTimeout(function () { try { phoneFilters(); } catch (e) {} }, 400); });
   }
+  /* §5eb (16 X 2026, owner: "the portal loads slowly on the phone again"): the day's sentences are the first thing a
+     reader looks for, and a fixed 2.2 s wait put them behind every other tab's work - on an iPhone-13 profile at 4x CPU
+     they appeared at 17-18 s. Everything they read exists when the scripts have run (state, __socGD, __socIdent);
+     the only DOM they read is the two "What Microsoft changed" blocks, for the same 14-day count. So: start as soon
+     as those blocks are on the page, and after 2.2 s at the latest (the old rule). */
+  function soon() { var t0 = Date.now();
+    (function w() { if (document.querySelector('details.mschg[data-mschg="graph"]') || Date.now() - t0 > 2200) boot(); else setTimeout(w, 100); })(); }
   if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 2200); });
-  else setTimeout(boot, 2200);
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(soon, 0); });
+  else setTimeout(soon, 0);
 })();
 /* ---------------------------------------------------------------------------
    §5bl (25 IX 2026) — the First-party apps tab. Microsoft's own Entra
@@ -33948,6 +33969,41 @@ odtad CZTERNASCIE (4-17).**
      c8aff6d012, 14 X) found by OUR git diff (docText.pages / nt.pages) never became a row here. Page edits are now
      rows of the same list: dated by their newest commit, "Found by: Page edit (our diff)", tier 0 from the item that
      cites the page, title from that item when one exists, else the page name and Microsoft's first added line. */
+  /* §5eb (16 X 2026): MSRC details for CVE rows - loaded once, on the first opened CVE row, never on page load */
+  var MSRC = null;
+  function msrcData() {
+    if (!MSRC) MSRC = fetch("/data/msrc-cves.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .catch(function (e) { if (window.console) console.warn("[5eb msrc]", e); return { cves: {} }; });
+    return MSRC;
+  }
+  function dmyS(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || "\u2014"); }
+  function msrcPanel(cve, box) {
+    box.appendChild(el("p", "mcb-none", "Reading " + cve + " from the MSRC Security Update Guide\u2026"));
+    msrcData().then(function (j) {
+      box.innerHTML = "";
+      var x = ((j || {}).cves || {})[cve];
+      var h = el("div", "s5eb-h"); h.appendChild(el("span", "mcb-k", "MSRC Security Update Guide"));
+      var a = el("a", "ab-lnk", cve + " \u2197"); a.href = "https://msrc.microsoft.com/update-guide/vulnerability/" + cve; a.target = "_blank"; a.rel = "noopener"; h.appendChild(a);
+      box.appendChild(h);
+      if (!x) { box.appendChild(el("p", "mcb-none", "No MSRC details for " + cve + " in this build yet (they are read every few hours) - open it at MSRC.")); return; }
+      var g = el("dl", "s5eb-kv");
+      function kv(k, v, cls) { if (v == null || v === "" || (v.length === 0)) return; g.appendChild(el("dt", null, k)); var dd = el("dd", cls || null); if (typeof v === "string") dd.textContent = v; else dd.appendChild(v); g.appendChild(dd); }
+      kv("Released", dmyS(x.released) + (x.release ? " \u00b7 " + x.release : ""));
+      kv("Last updated", dmyS(x.updated), x.updated && x.updated !== x.released ? "s5eb-upd" : null);
+      if (x.weakness && x.weakness.length) { var w = el("span"); x.weakness.forEach(function (c, i) { if (i) w.appendChild(document.createTextNode(" \u00b7 ")); var u = (x.weaknessUrl || [])[i];
+        if (u) { var l = el("a", "ab-lnk", c); l.href = u; l.target = "_blank"; l.rel = "noopener"; w.appendChild(l); } else w.appendChild(document.createTextNode(c)); }); kv("Weakness", w); }
+      kv("Severity", x.severity, "s5eb-sev s5eb-" + String(x.severity || "").toLowerCase());
+      kv("Impact", x.impact);
+      kv("CVSS 3.1", x.cvss ? x.cvss + (x.temporal ? " (temporal " + x.temporal + ")" : "") : "");
+      kv("Exploited", x.exploited, x.exploited === "Yes" ? "s5eb-yes" : null);
+      kv("Publicly disclosed", x.disclosed, x.disclosed === "Yes" ? "s5eb-yes" : null);
+      kv("Exploitability", x.exploitability);
+      kv("Product", x.product);
+      kv("Vector", x.vector, "s5eb-vec");
+      box.appendChild(g);
+      if (x.description) box.appendChild(el("p", "mcb-sum", x.description));
+    });
+  }
   function learnEdits() {
     var IT = {}; (ST.items || []).forEach(function (x) { if (x && x.id) IT[x.id] = x; });
     var seen = {}, out = [];
@@ -34030,7 +34086,7 @@ odtad CZTERNASCIE (4-17).**
             weight: a.weight, crit: a.criteria || [], tags: a.tags || [], links: a.links || [],
             /* the source of a Learn entry is the area's what's-new page it was read from */
             srcL: "Learn: " + (a.area || "what's new"), srcH: String(a.url || "").split("#")[0],
-            kind: "wn", f2: "What's new entry" };
+            kind: "wn", f2: "What's new entry", pageDate: a.msDate || "" };
         }).map(function (r) { r.f.kind = r.f2; return r; }).concat(learnEdits());
       },
       facets: [["kind", "Found by"], ["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
@@ -34260,7 +34316,17 @@ odtad CZTERNASCIE (4-17).**
       rb.setAttribute("aria-pressed", read ? "true" : "false");
       rb.addEventListener("click", function () { if (rd()[r.key]) delete READ[r.key]; else READ[r.key] = DAY || 1; rdSave(); render(); });
       head.appendChild(rb);
-      head.appendChild(el("span", "mcb-d", cfg.group === "month" ? (r.date && r.date.slice(8) !== "01" ? dm(r.date) : "") : dm(r.date)));
+      /* §5eb (16 X 2026, owner: "why do Purview, Copilot, Windows rows in Microsoft Learn have no date"): Microsoft's
+         what's-new pages date an entry by MONTH only (measured: 1 188 of 1 188 entries carry year+month, none a day), and
+         this cell printed nothing for a month-only date. It now prints the month, marked as such; a row with a real day
+         (our page diff, §5ea) keeps its day. */
+      var dCell;
+      if (cfg.group === "month" && r.date && r.date.slice(8) === "01" && r.kind !== "edit") {
+        dCell = el("span", "mcb-d mcb-dm", MONS[+r.date.slice(5, 7) - 1] + " " + r.date.slice(0, 4));
+        dCell.title = "Microsoft lists this entry under " + (r.month || dCell.textContent) + " on its what's-new page - it gives no day" +
+          (r.pageDate ? "; the page was last stamped " + dmy(r.pageDate) : "");
+      } else dCell = el("span", "mcb-d", dm(r.date));
+      head.appendChild(dCell);
       var main = el("span", "mcb-main");
       var t = el("button", "ab-t", r.title); t.type = "button"; t.setAttribute("aria-expanded", "false");
       main.appendChild(t);
@@ -34299,7 +34365,13 @@ odtad CZTERNASCIE (4-17).**
             r.links.forEach(function (x) { if (!x || !x.url) return; var a2 = el("a", "ab-lnk", x.text || x.url); a2.href = x.url; a2.target = "_blank"; a2.rel = "noopener"; lk.appendChild(a2); lk.appendChild(document.createTextNode(" ")); });
             d.appendChild(lk);
           }
-          d.appendChild(el("p", "mcb-none", [r.meta, r.date ? dmy(r.date) : ""].filter(Boolean).join(" · ")));
+          /* §5eb: a row naming a CVE gets the MSRC Security Update Guide facts (weakness, released, last updated,
+             severity, CVSS, exploited) from data/msrc-cves.json, written by tools/msrc_cves.py in Code refresh */
+          var cveM = /\bCVE-\d{4}-\d{4,7}\b/.exec(r.title + " " + (r.link || ""));
+          if (cveM) { var mbox = el("div", "s5eb-msrc"); d.appendChild(mbox); msrcPanel(cveM[0], mbox); }
+          var monthOnly = r.kind === "wn" && r.date && r.date.slice(8) === "01";
+          d.appendChild(el("p", "mcb-none", [r.meta, monthOnly ? "Microsoft gives the month only, no day" + (r.pageDate ? " · what's-new page stamped " + dmy(r.pageDate) : "")
+            : (r.date ? dmy(r.date) : "")].filter(Boolean).join(" · ")));
           li.appendChild(d);
         } else d.remove();
         t.setAttribute("aria-expanded", open ? "true" : "false");
@@ -36352,7 +36424,9 @@ odtad CZTERNASCIE (4-17).**
     (function take(n) {
       var sm = document.querySelector("#tab-overview .s5bk-sum");
       if (sm) { var h = sm.querySelector(".s5bk-h"); if (h) tent.textContent = h.textContent; tenb.innerHTML = ""; tenb.appendChild(sm); return; }
-      if (n < 20) setTimeout(function () { take(n + 1); }, 400); else tenb.innerHTML = "";
+      /* §5eb: a slow phone builds §5bk after more than 8 s (measured 13 s at 4x CPU throttling) - the card gave up at
+         20 x 400 ms and stayed empty; it now waits up to 90 s */
+      if (n < 225) setTimeout(function () { take(n + 1); }, 400); else tenb.innerHTML = "";
     })(0);
     /* §5ea (16 X 2026, owner: "can Overview show, besides today's 15 sentences, yesterday's 15 sentences too -
        collapsible under a +, below today's"). Built on demand: the + loads the previous brief's own data file
@@ -36501,7 +36575,9 @@ odtad CZTERNASCIE (4-17).**
       var dd = plus(DAY, i), n = cnt[dd] || 0, b = el("button", "s5ci-day" + (n ? "" : " s5ci-empty")); b.type = "button";
       b.appendChild(el("b", null, String(n))); var bar = el("span", "s5ci-barv"); bar.style.height = (n ? Math.max(6, Math.round(84 * n / mx)) : 2) + "px"; if (i <= 1 && n) bar.classList.add("s5ci-hot"); b.appendChild(bar);
       /* the day number only, the month where it starts (29 IX: fourteen "30 Sep" labels overlapped at 700 px) */
-      b.appendChild(el("span", "s5ci-dd", i === 0 || /-01$/.test(dd) ? dmy(dd) : String(+dd.slice(8)))); b.setAttribute("aria-label", n + " deadline" + (n === 1 ? "" : "s") + " on " + dmyl(dd));
+      /* §5eb (16 X 2026, phone): "16/10/2026" under a 28-px bar ran into "17" and the strip scrolled sideways with no
+         sign of it, so 27-29 X looked cut off - the first day and a month start now read "16/10", the rest the day */
+      b.appendChild(el("span", "s5ci-dd", i === 0 || /-01$/.test(dd) ? dd.slice(8) + "/" + dd.slice(5, 7) : String(+dd.slice(8)))); b.setAttribute("aria-label", n + " deadline" + (n === 1 ? "" : "s") + " on " + dmyl(dd));
       if (n) (function (d2) { b.addEventListener("click", function () { goTab("deadlines"); setTimeout(function () { if (window.__s5ciDeadlines) window.__s5ciDeadlines("30", d2); }, 60); }); })(dd); else b.disabled = true;
       days.appendChild(b);
     }
@@ -36951,7 +37027,8 @@ odtad CZTERNASCIE (4-17).**
     var n = document.getElementById("soc-brief-state"), s = null;
     try { s = n ? JSON.parse(n.textContent) : null; } catch (x) { s = null; }
     if (!s || !s.components) return null;
-    ST = { list: s.components, day: s.briefDate || "", chk: (s.componentStats || {}).checkedOn || s.briefDate || "", by: {} };
+    var cw = s.comparedWith || {};
+    ST = { list: s.components, day: s.briefDate || "", prev: typeof cw === "string" ? cw : (cw.date || ""), chk: (s.componentStats || {}).checkedOn || s.briefDate || "", by: {} };
     s.components.forEach(function (c) { if (c && c.id) ST.by[c.id] = c; });
     return ST;
   }
@@ -36985,6 +37062,56 @@ odtad CZTERNASCIE (4-17).**
     if (!I.old) return ["first recorded", "is-first"];
     return I.days != null && I.days >= 0 ? ["current " + I.days + " day" + (I.days === 1 ? "" : "s"), ""] : ["", ""];
   }
+  /* §5eb (16 X 2026, owner: "many rounded frames with versions, but no clear green / red / yellow saying which is
+     current and which was changed recently - a frame 'Current' or orange 'Recently updated'; the same in the details
+     below; and simple statistics before the cards"). ONE status per component, used by the card, the table and the
+     statistics: updated since the previous brief > updated in 7 days > current > first recorded > not read today. */
+  function dd(d) { return iso(d) ? d.slice(8) + "/" + d.slice(5, 7) + "/" + d.slice(0, 4) : ""; }
+  function status(c, I, st) {
+    var seen = iso(I.l.seen), ago = seen ? dn(st.day) - dn(seen) : null;
+    if (c.state === "unread") return { k: "unread", t: "Not read today", d: "the source did not answer in this run", ago: ago };
+    if (I.old && seen && st.prev && seen > st.prev) return { k: "since", t: "Updated since the last brief", d: "new version seen " + dd(seen) + ": " + I.old + " \u2192 " + I.now, ago: ago };
+    if (I.old && seen && ago != null && ago < 7) return { k: "recent", t: "Recently updated", d: "new version seen " + dd(seen) + " (" + ago + " day" + (ago === 1 ? "" : "s") + " ago)", ago: ago };
+    if (!I.old) return { k: "first", t: "First recorded", d: "the brief has no earlier version to compare with", ago: ago };
+    return { k: "current", t: "Current", d: "unchanged" + (ago != null ? " for " + ago + " day" + (ago === 1 ? "" : "s") + " since the brief saw it" : ""), ago: ago };
+  }
+  function badge(S) { var b = el("span", "s5ec-st s5ec-" + S.k); b.appendChild(el("i"));
+    var tail = S.ago == null ? "" : S.k === "current" ? " \u00b7 " + S.ago + " d" : (S.k === "recent" || S.k === "since") ? " \u00b7 " + (S.ago === 0 ? "today" : S.ago + " d ago") : "";
+    b.appendChild(document.createTextNode(S.t + tail)); b.title = S.d; return b; }
+  function stats(st) {
+    var host = document.querySelector("#tab-components .jumpwrap"); if (!host || document.getElementById("s5ec-stats")) return;
+    var L = st.list.map(function (c) { var I = info(c, st.day); return { c: c, I: I, S: status(c, I, st) }; });
+    function n(f) { return L.filter(f).length; }
+    var box = el("section", "s5ec-stats"); box.id = "s5ec-stats"; box.setAttribute("aria-label", "Component version statistics");
+    box.appendChild(el("h3", "s5ec-h", "Versions at a glance \u00b7 " + L.length + " components"));
+    var g = el("div", "s5ec-g");
+    var cut = function (d) { return function (o) { return o.I.old && o.S.ago != null && o.S.ago < d; }; };
+    [["current", "Current", n(function (o) { return o.S.k === "current"; }), "unchanged for 7 days or more", "current"],
+     ["since", "Updated since the last brief", n(function (o) { return o.S.k === "since"; }), st.prev ? "new version seen after " + dd(st.prev) : "", "since"],
+     ["d3", "Changed in 3 days", n(cut(3)), "a new version seen in the last 3 days", "d3"],
+     ["d7", "Changed in 7 days", n(cut(7)), "a new version seen in the last 7 days", "d7"],
+     ["d30", "Changed in 30 days", n(cut(30)), "a new version seen in the last 30 days", "d30"],
+     ["first", "First recorded", n(function (o) { return o.S.k === "first"; }), "no earlier version to compare with", "first"],
+     ["unread", "Not read today", n(function (o) { return o.S.k === "unread"; }), "the source did not answer", "unread"]
+    ].forEach(function (x) {
+      if (!x[2] && (x[0] === "first" || x[0] === "unread")) return;
+      var t = el("button", "s5ec-t s5ec-t-" + x[0] + (x[2] ? "" : " s5ec-zero")); t.type = "button"; t.title = x[3] + " - click to show only these cards";
+      t.appendChild(el("b", null, String(x[2]))); t.appendChild(el("span", null, x[1])); if (x[3]) t.appendChild(el("small", null, x[3]));
+      t.addEventListener("click", function () {
+        var on = host.getAttribute("data-s5ec") === x[4]; host.setAttribute("data-s5ec", on ? "" : x[4]);
+        [].forEach.call(box.querySelectorAll(".s5ec-t"), function (y) { y.classList.toggle("on", !on && y === t); });
+        [].forEach.call(host.querySelectorAll('a.jtile[href^="#cmp-"]'), function (a) {
+          var o = L.filter(function (z) { return a.getAttribute("href") === "#cmp-" + z.c.id; })[0]; if (!o) return;
+          var hit = x[4] === "d3" ? cut(3)(o) : x[4] === "d7" ? cut(7)(o) : x[4] === "d30" ? cut(30)(o) : o.S.k === x[4];
+          a.style.display = on || hit ? "" : "none";
+        });
+      });
+      g.appendChild(t);
+    });
+    box.appendChild(g);
+    box.appendChild(el("p", "s5ec-note", "Status of a card: Updated since the last brief (red) > Recently updated, within 7 days (amber) > Current (green) > First recorded (grey). Days count from the day the brief first saw the version. Click a number to show only those cards; click again to show all."));
+    host.parentNode.insertBefore(box, host);
+  }
   function tlRow(dot, what, when, none, title) {
     var r = el("span", "s5cr-tr"); r.appendChild(el("span", "s5cr-dot " + dot)); r.appendChild(el("span", "s5cr-w", what));
     r.appendChild(el("span", "s5cr-when" + (none ? " s5cr-m" : ""), when)); if (title) r.title = title; return r;
@@ -37002,8 +37129,10 @@ odtad CZTERNASCIE (4-17).**
     if (a.__s5cr) return; var id = (a.getAttribute("href") || "").replace(/^#cmp-/, ""), c = st.by[id]; if (!c) return;
     a.__s5cr = true; a.classList.add("s5cr");
     var I = info(c, st.day); if (I.fresh) a.classList.add("s5cr-fresh");
-    var p = a.querySelector(".jt-p"), ag = ageText(I, st.day);
+    var p = a.querySelector(".jt-p"), ag = ageText(I, st.day), S = status(c, I, st);
     if (p && ag[0]) p.appendChild(el("span", "s5cr-age " + ag[1], ag[0]));
+    a.classList.add("s5ec-c-" + S.k); var sb = badge(S); sb.classList.add("s5ec-card");
+    var ttl = a.querySelector(".jt-t, .jt-name, b, strong"); if (ttl && ttl.parentNode === a) a.insertBefore(sb, ttl); else a.insertBefore(sb, a.firstChild ? a.firstChild.nextSibling : null);
     var bd = el("span", "s5cr-b");
     var nw = el("span", "s5cr-now"); nw.appendChild(el("span", "s5cr-lab", "Now")); nw.appendChild(verSeg(I.now, I.old, "s5cr-vn")); bd.appendChild(nw);
     var bf = el("span", "s5cr-bef"); bf.appendChild(el("span", "s5cr-lab", "Before"));
@@ -37018,7 +37147,7 @@ odtad CZTERNASCIE (4-17).**
     var sm = el("summary"); sm.appendChild(el("b", null, "Comparison table")); sm.appendChild(document.createTextNode(" · all " + st.list.length + " components side by side: now, before, the vendor's release, the day the brief saw it")); d.appendChild(sm);
     var box = el("div", "s5cr-tw"), t = el("table", "s5cr-t"), th = el("thead"), tr = el("tr");
     t.setAttribute("data-s11", "1");
-    ["Component", "Now", "Before", "Released by vendor", "Seen by the brief", "Current for", "Today"].forEach(function (h, i) { var x = el("th", i === 5 ? "num" : null, h); x.scope = "col"; tr.appendChild(x); });
+    ["Component", "Status", "Now", "Before", "Released by vendor", "Seen by the brief", "Current for", "Today"].forEach(function (h, i) { var x = el("th", i === 6 ? "num" : null, h); x.scope = "col"; tr.appendChild(x); });
     th.appendChild(tr); t.appendChild(th);
     var tb = el("tbody");
     var rows = st.list.map(function (c) { var I = info(c, st.day); return { c: c, I: I, k: iso(I.l.seen) || I.rel || "" }; })
@@ -37028,6 +37157,7 @@ odtad CZTERNASCIE (4-17).**
       var td = el("td"), nb = el("button", "s5cr-tn", c.name); nb.type = "button"; nb.title = "Show the card of " + c.name;
       nb.addEventListener("click", function () { var a = document.querySelector('a.jtile[href="#cmp-' + c.id + '"]') || document.getElementById("cmp-" + c.id); if (a) { goTo(a, true); a.classList.add("s5cr-flash"); setTimeout(function () { a.classList.remove("s5cr-flash"); }, 1800); } });
       td.appendChild(nb); var pl = ((c.versions || [])[0] || {}).platform; if (pl) td.appendChild(el("span", "s5cr-tp", pl)); r.appendChild(td);
+      td = el("td"); td.appendChild(badge(status(c, I, st))); r.appendChild(td);
       td = el("td"); td.appendChild(verSeg(I.now, I.old, "s5cr-vn")); r.appendChild(td);
       td = el("td"); td.appendChild(I.old ? verSeg(I.old, I.now, "s5cr-vo") : el("span", "s5cr-m", "first recorded")); r.appendChild(td);
       td = el("td");
@@ -37055,7 +37185,13 @@ odtad CZTERNASCIE (4-17).**
     var st = load(); if (!st) return;
     var tiles = document.querySelectorAll('#tab-components a.jtile[href^="#cmp-"]');
     [].forEach.call(tiles, function (a) { tile(a, st); });
-    var wrap = document.querySelector("#tab-components .jumpwrap"); if (wrap) table(st, wrap);
+    var wrap = document.querySelector("#tab-components .jumpwrap"); if (wrap) { table(st, wrap); stats(st); }
+    /* §5eb: the same status on each component's detail card (article.cmp) under its name */
+    [].forEach.call(document.querySelectorAll("#tab-components article.cmp[id^=cmp-]"), function (ar) {
+      if (ar.__s5ec) return; var c = st.by[ar.id.replace(/^cmp-/, "")], h = ar.querySelector("h3"); if (!c || !h) return;
+      ar.__s5ec = true; var I = info(c, st.day), S = status(c, I, st); ar.classList.add("s5ec-c-" + S.k);
+      var b = badge(S); b.classList.add("s5ec-det"); h.parentNode.insertBefore(b, h.nextSibling);
+    });
     pointer();
   }
   function safe() { try { run(); } catch (e) { if (window.console) console.error("[5cr]", e); } }
@@ -42826,6 +42962,62 @@ details.s5ea-yday>summary::before{content:none!important}
 .s5ea-yb.s5ci-ten{padding:0 14px 12px;border-top:0}
 .s5ea-ysec{margin:0}
 details.s5ea-yday .s5bk-3{opacity:.92}
+/* §5eb: Microsoft Learn month-only date; MSRC details in a CVE row */
+.mcb-d.mcb-dm{font-size:11.5px;color:var(--faint,var(--muted));letter-spacing:.02em}
+.s5eb-msrc{margin:8px 0;padding:10px 12px;border:1px solid var(--border);border-left:4px solid var(--bad);border-radius:10px;background:color-mix(in srgb,var(--bad) 5%,var(--surface))}
+.s5eb-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.s5eb-kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 14px;margin:0;font-size:13px}
+.s5eb-kv dt{color:var(--muted);font-weight:600}
+.s5eb-kv dd{margin:0;overflow-wrap:anywhere}
+.s5eb-upd{color:var(--warn);font-weight:600}
+.s5eb-yes{color:var(--bad);font-weight:700}
+.s5eb-sev.s5eb-critical{color:var(--bad);font-weight:700}
+.s5eb-sev.s5eb-important{color:var(--warn);font-weight:700}
+.s5eb-vec{font-family:var(--mono,monospace);font-size:11.5px;color:var(--muted)}
+/* §5eb: Component versions - one status per component (card, detail card, table) and the statistics strip */
+.s5ec-st{display:inline-flex;align-items:center;gap:6px;width:max-content;max-width:100%;padding:3px 10px;border-radius:999px;border:1.5px solid;font:700 11.5px/1.35 var(--sans);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.s5ec-st i{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.s5ec-current{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+.s5ec-recent{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}
+.s5ec-since{color:var(--bad);border-color:var(--bad);background:var(--bad-soft)}
+.s5ec-first,.s5ec-unread{color:var(--muted);border-color:var(--border);background:var(--surface)}
+a.jtile .s5ec-card{margin:6px 0 4px}
+.s5ec-det{margin:4px 0 8px}
+a.jtile.s5cr .s5cr-age{display:none}
+a.jtile.s5ec-c-since{border-color:var(--bad)!important;box-shadow:0 0 0 1px var(--bad)}
+a.jtile.s5ec-c-recent{border-color:var(--warn)!important}
+.s5ec-stats{margin:0 0 14px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.s5ec-h{margin:0 0 10px;font-size:15px}
+.s5ec-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.s5ec-t{font:inherit;text-align:left;display:flex;flex-direction:column;gap:2px;padding:9px 12px;border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);cursor:pointer;min-width:0}
+.s5ec-t b{font-size:22px;line-height:1.1}
+.s5ec-t span{font-weight:650;font-size:13px}
+.s5ec-t small{color:var(--muted);font-size:11.5px;line-height:1.3}
+.s5ec-t-current{border-left-color:var(--ok)}.s5ec-t-current b{color:var(--ok)}
+.s5ec-t-since{border-left-color:var(--bad)}.s5ec-t-since b{color:var(--bad)}
+.s5ec-t-d3,.s5ec-t-d7,.s5ec-t-d30{border-left-color:var(--warn)}.s5ec-t-d3 b,.s5ec-t-d7 b,.s5ec-t-d30 b{color:var(--warn)}
+.s5ec-t.s5ec-zero b{color:var(--muted)}
+.s5ec-t:hover{border-color:var(--accent)}
+.s5ec-t.on{outline:2px solid var(--ok);outline-offset:1px}
+.s5ec-note{margin:8px 0 0;color:var(--muted);font-size:12px}
+@media (max-width:760px){.s5ec-g{grid-template-columns:repeat(2,minmax(0,1fr))}.s5eb-kv{grid-template-columns:minmax(0,1fr)}.s5eb-kv dt{margin-top:4px}}
+/* §5eb phone: the 14-day strip fits the card - 14 equal columns, no sideways scroll */
+@media (max-width:760px){.s5ci-days{overflow-x:visible;gap:1px}.s5ci-day{flex:1 1 0;min-width:0}.s5ci-barv{width:72%;max-width:18px}.s5ci-day b{font-size:11px}.s5ci-dd{font-size:10px}}
+/* §5eb phone (16 X 2026, measured at 390 px on the live page): in Microsoft Learn, Microsoft Blogs and Community the
+   source chip sat ON the title (".ab-src intercepts pointer events" - the title could not be tapped) and "Open" took the
+   title's line, because .mcb-main fell to row 2 under an older full-width rule. Every cell of the row head is placed
+   by name now: mark | title over the whole width, then source chip | Open on the second line. */
+@media (max-width:760px){
+  .mcb-list .ab-row>.ab-head{grid-template-columns:26px minmax(0,1fr) auto;grid-auto-rows:auto}
+  .mcb-list .ab-row>.ab-head>.ab-rd{grid-column:1;grid-row:1}
+  .mcb-list .ab-row>.ab-head>.mcb-d{display:none}
+  .mcb-list .ab-row>.ab-head>.mcb-main{grid-column:2/-1;grid-row:1;min-width:0}
+  .mcb-list .ab-row>.ab-head>.ab-src{grid-column:2;grid-row:2;justify-self:start;max-width:100%}
+  .mcb-list .ab-row>.ab-head>.ab-open{grid-column:3;grid-row:2;justify-self:end}
+  /* Campaigns: a source cell with several Message Center chips was nowrap and ran 40 px off the screen */
+  td.s5cu-srcc{white-space:normal!important;overflow-wrap:anywhere}
+  td.s5cu-srcc .mcchip{display:inline-block;margin:2px 4px 2px 0}
+}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -43742,6 +43934,38 @@ filtrow (`details.mcb-facets`, `details.ntfbar`, `div.s9find`, `div.tbar`, `.s5c
 pasie z zielona linia z lewej; lista artykulow: tytul w kolorze tekstu i polgruby, co drugi wiersz przyciemniony,
 czerwona linia przy tier 0, przerywany chip zrodla przy wierszach z naszego diffu, mocniejszy naglowek technologii.
 Bez nowych uprawnien aplikacji. `/diff/` bez zmian (nie ma tej listy ani tych pasow filtrow).
+
+## 5eb. DATY LEARN, SZCZEGOLY CVE Z MSRC, STATUS WERSJI KOMPONENTOW, TELEFON (16 X 2026)
+
+Wlasciciel 16 X: (1) „dlaczego w Microsoft Learn nie wszystkie wiersze maja date (Purview, Copilot, Windows)";
+(2) „w Microsoft Blogs, Vulnerabilities & threats, po rozwinieciu brak szczegolow CVE: Weakness, Released, Last updated";
+(3) „w Component versions brak jednoznacznej informacji, ktora wersja jest aktualna, a ktora niedawno zmieniona; statystyki
+przed kartami"; (4) „przetestuj ladowanie na telefonie — znowu wolno albo sekcje uciete; problem wraca po kazdej nowej rzeczy".
+
+Zmierzone i zrobione:
+1. Strony *what's new* Microsoftu datuja wpis MIESIACEM (1 188 z 1 188 wpisow: rok + miesiac, zaden dzien). Komorka daty
+   drukowala pusto — teraz „Oct 2026" z podpowiedzia, a stopka szczegolow mowi „Microsoft gives the month only" i date
+   ostatniego stempla strony. Wiersze z naszego diffu (§5ea) maja dzien.
+2. `tools/msrc_cves.py` (krok „MSRC CVE details" w `code-refresh.yml`): publiczne API MSRC (`api.msrc.microsoft.com/sug/v2.0`,
+   bez logowania, bez CORS — dlatego nie z przegladarki) → `site/data/msrc-cves.json` dla kazdego CVE z najnowszego stanu
+   (Blogs, Today, New, MC); swieze CVE (45 dni) czytane ponownie co >= 12 h; nigdy nie przerywa joba. Wiersz z numerem CVE
+   (Blogs, Learn, Community) po rozwinieciu laduje plik raz i pokazuje: Released, Last updated, Weakness (CWE z linkami),
+   Severity, Impact, CVSS 3.1, Exploited, Publicly disclosed, Exploitability, Product, Vector, opis. Bez nowych uprawnien.
+3. Component versions: JEDEN status na komponent (karta, karta szczegolow `article.cmp`, kolumna „Status" tabeli):
+   Updated since the last brief (czerwony) > Recently updated, < 7 dni (bursztynowy) > Current (zielony) > First recorded /
+   Not read today (szary); dni od dnia, w ktorym brief zobaczyl wersje. Nad kartami „Versions at a glance": Current, Updated
+   since the last brief, Changed in 3 / 7 / 30 days, First recorded — klik pokazuje tylko te karty.
+4. Telefon (profil iPhone 13, CPU x4; `tools/mobile_check.py`, pozycja 123 listy §0). Znalezione na zywej stronie:
+   - Learn / Blogs / Community: chip zrodla lezal NA tytule (tytulu nie dalo sie stuknac), „Open" zajmowal linie tytulu —
+     wiersz ma teraz nazwane pola: znacznik | tytul, potem chip zrodla | Open;
+   - Overview „The next 14 days": pasek przewijal sie w bok bez znaku (27–29 X wygladaly na uciete), „16/10/2026" nachodzilo
+     na „17" — 14 rownych kolumn, etykiety „16/10";
+   - Campaigns: komorka zrodel z kilkoma chipami MC wychodzila 40 px poza ekran — zawija sie;
+   - karta „Today in brief" poddawala sie po 8 s (na wolnym telefonie zostawala pusta) — czeka do 90 s;
+   - zdania dnia startuja, gdy sa bloki „What Microsoft changed" (najpozniej po 2,2 s, jak dotad), a katalogi Graph/Roles
+     przelaczaja sie na „All" dopiero po zdaniach Overview (albo przy otwarciu ich zakladki) — 0,8 s mniej przed zdaniami.
+   Pomiar (CPU x4): zdania Overview 17–19 s na zywej stronie → 13–15 s na nowej kopii; problemow: 5 → 0.
+   Wiekszy zysk wymaga leniwego budowania ukrytych zakladek (kazda zakladka buduje sie dzis przy starcie) — osobny etap.
 
 ## 6. Kontrakt w stronie
 
