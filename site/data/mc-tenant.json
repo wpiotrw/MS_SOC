@@ -1,7 +1,7 @@
 {
  "read": "2026-10-16",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 702,
+ "count": 707,
  "note": null,
  "messages": [
   {
@@ -15,22 +15,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-02-19",
-   "end": "2027-01-25",
-   "modified": "2026-09-09",
+   "end": "2027-02-22",
+   "modified": "2026-10-16",
    "tags": [
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. Microsoft Teams Events invite emails will be separated based on the role of the participant. Event organizers will get an email explaining the specific roles of participants in the event. Similarly, each presenter will get a separate calendar invite, allowing the organizers of town halls to maintain separate invi…",
-   "when": "Targeted Release: We will begin rolling out early November 2026 (previously mid-October) and expect to complete by mid-November 2026 (previously late October). General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-November 2026 (previously late October) and expect to complete by mid-December 2026 (previously late November).",
+   "summary": "Updated October 16, 2026: We have updated the timeline. Thank you for your patience. Microsoft Teams Events invite emails will be separated based on the role of the participant. Event organizers will get an email explaining the specific roles of participants in the event. Similarly, each presenter will get a separate calendar invite, allowing the organizers of town halls to maintain separate invit…",
+   "when": "Targeted Release: We will begin rolling out early December 2026 (previously early November) and expect to complete by mid-December 2026 (previously mid-November). General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-December 2026 (previously mid-November) and expect to complete by mid-January 2027 (previously mid-December).",
    "prepare": "This rollout will happen automatically with no admin action required. You may want to notify your users about this change and update any relevant documentation as appropriate.",
    "dates": [
-    "Updated September 9, 2026: We have updated the timeline.",
-    "Targeted Release: We will begin rolling out early November 2026 (previously mid-October) and expect to complete by mid-November 2026 (previously late October).",
-    "General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-November 2026 (previously late October) and expect to complete by mid-December 2026 (previously late November)."
+    "Updated October 16, 2026: We have updated the timeline.",
+    "Targeted Release: We will begin rolling out early December 2026 (previously early November) and expect to complete by mid-December 2026 (previously mid-November).",
+    "General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-December 2026 (previously mid-November) and expect to complete by mid-January 2027 (previously mid-December)."
    ],
-   "bodyHash": "d3697699ff9c55dc"
+   "bodyHash": "b9fad6c11ecd9b39"
   },
   {
    "id": "MC1045221",
@@ -1607,22 +1607,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-12-10",
-   "end": "2026-11-30",
-   "modified": "2026-09-16",
+   "end": "2026-12-31",
+   "modified": "2026-10-16",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 15, 2026: We have updated the timeline. Thank you for your patience. We’re introducing the ability for organizations to customize Microsoft 365 profile cards by adding up to 10 custom properties sourced from external systems such as HR platforms. This enhancement helps enrich user profiles with relevant organizational details, improving discoverability and context for collaborati…",
-   "when": "General Availability (Worldwide): We will begin rolling out in October 2026 (previously September) and expect to complete in October 2026 (previously September).",
+   "summary": "Updated October 16, 2026: We have updated the timeline. Thank you for your patience. We’re introducing the ability for organizations to customize Microsoft 365 profile cards by adding up to 10 custom properties sourced from external systems such as HR platforms. This enhancement helps enrich user profiles with relevant organizational details, improving discoverability and context for collaboration…",
+   "when": "General Availability (Worldwide): We will begin rolling out in November 2026 (previously October) and expect to complete in November 2026 (previously October).",
    "prepare": "Review external systems for properties you want displayed on profile cards. Ingest these properties using a Microsoft Graph People connector. Configure visibility and enable properties in the Microsoft 365 admin center . Communicate this change to helpdesk staff and update internal documentation if needed.",
    "dates": [
-    "Updated September 15, 2026: We have updated the timeline.",
-    "When this will happen: General Availability (Worldwide): We will begin rolling out in October 2026 (previously September) and expect to complete in October 2026 (previously September)."
+    "Updated October 16, 2026: We have updated the timeline.",
+    "When this will happen: General Availability (Worldwide): We will begin rolling out in November 2026 (previously October) and expect to complete in November 2026 (previously October)."
    ],
-   "bodyHash": "8bafa56badfa0447"
+   "bodyHash": "433e56095afea679"
   },
   {
    "id": "MC1194065",
@@ -7239,22 +7239,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-07-01",
-   "end": "2026-10-30",
-   "modified": "2026-08-03",
+   "end": "2026-12-14",
+   "modified": "2026-10-16",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 3, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Copilot Notebooks will intelligently recommend relevant artifacts based on your Microsoft 365 knowledge and the content in your notebook, helping you move work forward faster without leaving the notebook experience. By automatically leveraging existing context and background information, Copilot redu…",
+   "summary": "Updated October 16, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Copilot Notebooks will intelligently recommend relevant artifacts based on your Microsoft 365 knowledge and the content in your notebook, helping you move work forward faster without leaving the notebook experience. By automatically leveraging existing context and background information, Copilot re…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 3, 2026: We have updated the timeline.",
+    "Updated October 16, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): Beginning in early July 2026 ; expected to complete by late August 2026 .",
-    "General Availability (Worldwide): Beginning in late August 2026; (previously late July) expected to complete by l ate September 2026 ."
+    "General Availability (Worldwide): Beginning in late August 2026; (previously late July) expected to complete by early November 2026 (previously late September)."
    ],
-   "bodyHash": "84685b2849740f84"
+   "bodyHash": "cbb0b99e2a4ba4fe"
   },
   {
    "id": "MC1412655",
@@ -18511,6 +18511,151 @@
    "bodyHash": "5dc023671b6838b3"
   },
   {
+   "id": "MC1510951",
+   "title": "(Updated) Windows updates are available for 2026 time zone changes in Canada",
+   "services": [
+    "Windows"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-16",
+   "end": "2027-10-16",
+   "modified": "2026-10-16",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "(Updated October 16, 2026: Added guidance for managing the Alberta and British Columbia time zone changes in Outlook Time Zone Changes for Alberta and British Columbia .) What and why Windows updates are now available to support the 2026 time zone changes in Manitoba , Alberta , and British Columbia . On November 1, 2026, clocks in affected regions will not be set back by one hour. Manitoba will p…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "(Updated October 16, 2026: Added guidance for managing the Alberta and British Columbia time zone changes in Outlook Time Zone Changes for Alberta and British Columbia .).",
+    "On November 1, 2026, clocks in affected regions will not be set back by one hour.",
+    "September 22, 2026: The Alberta and British Columbia changes became available in the September 2026 non-security preview update for Windows 11, versions 25H2 and 24H2.",
+    "October 13, 2026: The Manitoba change became available for all supported versions of Windows.",
+    "These changes are included in the October 2026 security update.",
+    "November 1, 2026: The time zone transitions take effect at 2:00 a.m."
+   ],
+   "bodyHash": "8b1cad8ae592821c"
+  },
+  {
+   "id": "MC1511052",
+   "title": "Upcoming changes to Agents in SharePoint and OneDrive",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-16",
+   "end": "2027-04-30",
+   "modified": "2026-10-16",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] We are upgrading the agent experience in SharePoint and OneDrive to better align with the Microsoft Copilot extensibility ecosystem, specifically to ensure that these agents are part of Copilot app home experiences (MC1479277) and the Microsoft plugin registry (MC1484008), the shared catalog for discovering, publishing, and governing organization-approved and custom-built plugins a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Agents using .agent file format will continue to work across SharePoint, Teams, and Copilot app until the end of March 2027.",
+    "General Availability (Worldwide and Government clouds): This change consists of two rollouts: Agent creation and upgrade: Rollout begins mid-November and is expected to complete by early December 2026.",
+    "Agents in SharePoint and OneDrive using .agent file format stop working in SharePoint, Teams and Copilot app: Rollout begins early April and is expected to complete mid-April 2027.",
+    "After March 2027, agents using .agent file format will stop working in SharePoint, Teams and Copilot app; including Agent Link web part, immersive experience, chat pane in SharePoint.",
+    "Identify the teams that own or manage agents, share the March 2027 deadline, and ensure that site and agent owners understand the upgrade paths."
+   ],
+   "bodyHash": "19ee13d2cb95b7ff"
+  },
+  {
+   "id": "MC1511056",
+   "title": "Microsoft Copilot Studio – Teams app retirement",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-16",
+   "end": "2027-03-03",
+   "modified": "2026-10-16",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft is continuing the transition of Copilot Studio experiences from the Microsoft Teams app to the Copilot Studio web app at https://copilotstudio.microsoft.com/ . Users can continue to create, edit, publish, and manage classic-style chatbot agents in the Copilot Studio web app. Agent creation in the Teams app is already no longer supported. Beginning in January 2027, editing…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning in January 2027, editing agents in the Teams app will no longer be supported.",
+    "Beginning in February 2027, the Copilot Studio app will no longer be available in Microsoft Teams.",
+    "We will begin rolling out in early January 2027 and expect to complete by early February 2027.",
+    "Starting in January 2027, editing existing agents in the Copilot Studio app within Microsoft Teams will no longer be supported.",
+    "Starting in February 2027, the Copilot Studio app will be removed from Microsoft Teams and will no longer be available."
+   ],
+   "bodyHash": "3c80dd2d3fe82652"
+  },
+  {
+   "id": "MC1511071",
+   "title": "Action required: Review property changes for Exchange Online scenarios",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-11-15",
+   "start": "2026-10-16",
+   "end": "2027-02-15",
+   "modified": "2026-10-16",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and why:] As part of our ongoing Exchange Online management and directory modernization efforts, we're simplifying legacy management scenarios and removing properties. We are deprecating selected properties returned or used with the following Exchange Online PowerShell scenarios: Get-Mailbox -Migration New-Mailbox -Migration If your scripts, applications, or automation use these scenarios, r…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The change will be introduced in two phases: Beginning November 15, 2026: Selected properties will no longer be returned in applicable Get-Mailbox -Migration and New-Mailbox -Migration responses.",
+    "Beginning December 15, 2026: The affected properties will be blocked from being configured through applicable New-Mailbox -Migration scenarios.",
+    "We will begin rolling out mid-November 2026 and expect to complete by mid-November 2026.",
+    "For example, a script using: Get-Mailbox -Migration will no longer receive the affected properties in the returned object beginning November 10, 2026.",
+    "Before November 15, 2026: Review scripts, applications, and integrations that use Get-Mailbox -Migration, New-Mailbox -Migration, or Set-Mailbox -Migration.",
+    "Review your -Migration workflows and make any required changes before November 15, 2026."
+   ],
+   "bodyHash": "fbe4371cae0b909f"
+  },
+  {
+   "id": "MC1511072",
+   "title": "Microsoft Teams: Upcoming change to voicemail message delivery by email",
+   "services": [
+    "Exchange Online",
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-16",
+   "end": "2027-07-30",
+   "modified": "2026-10-16",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re changing how Microsoft Teams voicemail messages are delivered by email to improve security and give organizations more control over sender identity. Organizations will be able to send voicemail notifications from their own domain and apply existing SPF, DKIM, DMARC, and domain-protection policies to help prevent spoofing and impersonation. Supporting organization-owned sending…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout is currently estimated to begin in early March 2027 and complete by late June 2027 ."
+   ],
+   "bodyHash": "8853a26c11067a86"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22693,6 +22838,89 @@
    "id": "MC1486284",
    "type": "removed",
    "title": "(Updated) Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1009930",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Distinguish invites among Attendee, Presenter, and Co-organizer emails",
+   "fields": {
+    "end": [
+     "2027-01-25",
+     "2027-02-22"
+    ],
+    "bodyHash": [
+     "d3697699ff9c55dc",
+     "b9fad6c11ecd9b39"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1193692",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365: Enrich profile cards with custom properties from third-party systems",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "8bafa56badfa0447",
+     "433e56095afea679"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1411727",
+   "type": "changed",
+   "title": "(Updated) Copilot Notebooks: Suggested artifacts for faster content creation",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-12-14"
+    ],
+    "bodyHash": [
+     "84685b2849740f84",
+     "cbb0b99e2a4ba4fe"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1510951",
+   "type": "new",
+   "title": "(Updated) Windows updates are available for 2026 time zone changes in Canada",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1511052",
+   "type": "new",
+   "title": "Upcoming changes to Agents in SharePoint and OneDrive",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1511056",
+   "type": "new",
+   "title": "Microsoft Copilot Studio – Teams app retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1511071",
+   "type": "new",
+   "title": "Action required: Review property changes for Exchange Online scenarios",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-16",
+   "id": "MC1511072",
+   "type": "new",
+   "title": "Microsoft Teams: Upcoming change to voicemail message delivery by email",
    "fields": {}
   }
  ]
