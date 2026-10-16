@@ -11,7 +11,9 @@ Chromium with Playwright's "iPhone 13" profile (390 px, touch, DPR 3) and CPU th
 It prints: time to the data, to the Overview sentences, main-thread long tasks; and for EVERY tab: page-level
 sideways scroll, elements running past the right edge outside a scroll box, JS errors.
 Exit 1 when a tab scrolls sideways, an element runs off screen, a JS error is thrown, or the sentences take more than
---max-sentences seconds (default 25). WebKit (real Safari engine) is used when installed (--engine webkit).
+--max-sentences seconds (default 25). --engine webkit runs the Safari engine (the one every iPhone browser uses);
+it is installed on the owner's Windows PC in his user profile (16 X 2026: pip install --user playwright;
+python -m playwright install webkit), runs at full CPU speed (no throttling) and reports no long tasks.
 """
 import json, sys, time
 from playwright.sync_api import sync_playwright
@@ -92,7 +94,8 @@ def main():
     rep["problems"] = bad
     if "--json" in sys.argv:
         json.dump(rep, open(arg("--json", "mobile.json"), "w"), indent=1)
-    print("mobile_check: load %ss, Overview sentences %ss, long tasks %d (%d ms) at %dx CPU" % (rep["load_s"], rep["sentences_s"], rep["long_tasks"], rep["long_tasks_ms"], cpu))
+    how = ("%dx CPU" % cpu) if engine == "chromium" else ("%s, no CPU throttling, no long-task API" % engine)
+    print("mobile_check: load %ss, Overview sentences %ss, long tasks %d (%d ms) [%s]" % (rep["load_s"], rep["sentences_s"], rep["long_tasks"], rep["long_tasks_ms"], how))
     for x in bad:
         print("  PROBLEM " + x)
     print("mobile_check: %s" % ("FAIL" if bad else "OK"))
