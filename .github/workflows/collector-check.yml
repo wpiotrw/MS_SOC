@@ -67,3 +67,5 @@ jobs:
           name: collector-check
           path: out/
           retention-days: 7
+
+# probe
