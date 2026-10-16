@@ -23,6 +23,7 @@ description: Represents an activity log and its properties.
 ms.date: 2026-02-12T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
+toc.title: Activity log
 locale: en-us
 document_id: d8374a39-9fb4-2d4b-a213-5450676b14a0
 document_version_independent_id: f532ba4a-daf1-dec2-08aa-d3644f1376bc
@@ -73,7 +74,7 @@ Inherits from [entity](entity).
 
 | Property | Type | Description |
 | --- | --- | --- |
-| activityType | [activityLogOperationType](enums#activitylogoperationtype-values) | The type of activity performed. The possible values are: `backupPolicyCreated`, `backupPolicyActivated`, `backupPolicyModified`, `backupPolicyPaused`, `backupPolicyRenamed`, `dynamicRuleExecution`, `dynamicRuleDeletion`, `protectionUnitLevelOffboarding`, `policyLevelOffboarding`, `restoreTaskCreated`, `restoreTaskCompleted`, `unknownFutureValue`. |
+| activityType | [activityLogOperationType](enums#activitylogoperationtype-values) | The type of activity performed. The possible values are: `backupPolicyCreated`, `backupPolicyActivated`, `backupPolicyModified`, `backupPolicyPaused`, `backupPolicyRenamed`, `dynamicRuleExecution`, `dynamicRuleDeletion`, `protectionUnitLevelOffboarding`, `policyLevelOffboarding`, `restoreTaskCreated`, `restoreTaskCompleted`, `backupPolicyDeleted`, `unknownFutureValue`. |
 | error | [publicError](publicerror) | Contains error details if an error occurred while processing this activity. |
 | eventDateTime | DateTimeOffset | Timestamp of activity completion. |
 | id | String | The unique identifier of the activityLog. |

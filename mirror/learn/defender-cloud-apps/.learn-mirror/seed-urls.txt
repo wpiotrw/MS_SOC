@@ -1,4 +1,5 @@
 https://learn.microsoft.com/en-us/defender-cloud-apps
+https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-anomaly-detection-alerts
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-app-policies-create
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance
 https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-secure-apps-app-hygiene-features

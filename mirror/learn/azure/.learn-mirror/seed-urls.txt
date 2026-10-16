@@ -27,6 +27,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/extensions-troubleshooting
 https://learn.microsoft.com/en-us/azure/azure-arc/flux-gitops-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/gitops-flux2-parameters
 https://learn.microsoft.com/en-us/azure/azure-arc/identity-access-overview
+https://learn.microsoft.com/en-us/azure/azure-arc/ku
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-release
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubleshooting
@@ -68,6 +69,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/vmware-vsphere/support-matrix-
 https://learn.microsoft.com/en-us/azure/azure-arc/workload-orchestration/overview
 https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
+https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
@@ -134,6 +136,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containe
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-feature-access-patterns
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-private-clusters
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-troubleshoot
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-databases-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
@@ -305,6 +308,7 @@ https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/guida
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanced
 https://learn.microsoft.com/en-us/azure/governance/rhel-ado
 https://learn.microsoft.com/en-us/azure/governance/rocky-ado
+https://learn.microsoft.com/en-us/azure/governance/service-groups/overview
 https://learn.microsoft.com/en-us/azure/governance/suse-ado
 https://learn.microsoft.com/en-us/azure/governance/ubuntu-ado
 https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
@@ -315,6 +319,7 @@ https://learn.microsoft.com/en-us/azure/search/search-indexer-sharepoint-access-
 https://learn.microsoft.com/en-us/azure/sentin
 https://learn.microsoft.com/en-us/azure/sentinel
 https://learn.microsoft.com/en-us/azure/sentinel/anomalies-reference
+https://learn.microsoft.com/en-us/azure/sentinel/automation/create-playbooks
 https://learn.microsoft.com/en-us/azure/sentinel/automation/generate-playbook
 https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
 https://learn.microsoft.com/en-us/azure/sentinel/compare-analytics-rules-custom-detections
