@@ -4548,14 +4548,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-14",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-15",
 "text":"August 1, 2026."
 },
@@ -4621,6 +4613,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-15",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-16",
 "text":"August 1, 2026."
 },
 {
@@ -5076,7 +5076,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"early February 2026."
 },
 {
@@ -5084,7 +5084,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"February 2027."
 },
 {
@@ -5549,6 +5549,57 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-mc1511071":{
+"firstSeen":"2026-10-16",
+"lastSeen":"2026-10-16",
+"name":"Review property changes for Exchange Online scenarios",
+"status":"Active",
+"members":[
+"MC1511071"
+],
+"log":[],
+"milestones":{
+"MC1511071|posted":{
+"date":"2026-10-16",
+"label":"16 Oct 2026",
+"text":"Posted: Review property changes for Exchange Online scenarios"
+},
+"MC1511071|get mailbox migration will no longer receive the affected pr#0":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Get-Mailbox -Migration will no longer receive the affected properties in the returned object beginning November 10, 2026."
+},
+"MC1511071|beginning selected properties will no longer be returned in #0":{
+"date":"2026-11-15",
+"label":"15 Nov 2026",
+"text":"Beginning November 15, 2026: Selected properties will no longer be returned in applicable Get-Mailbox -Migration and New-Mailbox -Migration responses."
+},
+"MC1511071|beginning the affected properties will be blocked from being#0":{
+"date":"2026-12-15",
+"label":"15 Dec 2026",
+"text":"Beginning December 15, 2026: The affected properties will be blocked from being configured through applicable New-Mailbox -Migration scenarios."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071":{
+"title":"Review property changes for Exchange Online scenarios",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071",
+"source":"Message Center",
+"id":"MC1511071",
+"date":"2026-10-16",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-16"
+}
+},
+"final":"2026-12-15",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1511071"
 ]
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
@@ -7881,7 +7932,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -7889,7 +7940,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-15",
+"seen":"2026-10-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10188,6 +10239,16 @@
 "title":"Separate device and work profile passwords on Android Enterprise devices",
 "source":"Microsoft Learn · What's new · Microsoft Intune",
 "link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"
+},
+{
+"day":"2026-10-16",
+"cid":"c-mc1511071",
+"type":"new",
+"name":"Review property changes for Exchange Online scenarios",
+"ctype":"Retirement",
+"tech":"Exchange",
+"next":"10 Nov 2026",
+"text":"As part of our ongoing Exchange Online management and directory modernization efforts, we're simplifying legacy management scenarios and removing properties."
 }
 ],
 "archive":{
