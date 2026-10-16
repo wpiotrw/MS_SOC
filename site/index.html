@@ -4540,6 +4540,43 @@ button.s5dv-hr:hover{background:var(--surface-2)}
   .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > tbody > tr:last-child > :last-child{border-bottom-right-radius:10px}
   .tabpanel table:not(.s5dv-tab):not(.mcb-grid) > caption{padding:6px 10px}
 }
+/* §5ea (16 X 2026, owner: "the Microsoft Learn view looks weak, everything blends, hard to find anything" and "in
+   every tab and section with tables, show the filter section in another colour - now it all blends"). ONE look for
+   every filter surface of the portal: the facet panel of the article lists, the Advanced filtering bar, the
+   search-and-select bars over tables and the Campaigns filter buttons sit on a green-tinted band with a green rule
+   on the left - green is the colour of a filter since §5av, so the band says "this is where you filter" without a
+   new colour. The chips inside stay on the plain surface so they stand off the band. Lists: titles in the text
+   colour and semi-bold, alternate rows tinted, a red rule on tier-0 rows, a dashed source chip on rows OUR page
+   diff found (as opposed to Microsoft's what's-new entries), and a stronger band per technology heading. */
+details.mcb-facets,details.ntfbar,.tabpanel div.s9find,.tabpanel div.tbar,.s5cu-fb,.s5dv-fb{
+  background:color-mix(in srgb,var(--ok) 8%,var(--surface))!important;
+  border:1px solid color-mix(in srgb,var(--ok) 42%,var(--border))!important;
+  border-left:4px solid var(--ok)!important;border-radius:10px!important}
+.tabpanel div.s9find,.tabpanel div.tbar,.s5cu-fb,.s5dv-fb{padding:8px 10px!important}
+details.ntfbar.on{background:color-mix(in srgb,var(--ok) 14%,var(--surface))!important}
+details.mcb-facets>summary,details.ntfbar>summary{color:var(--ok)!important;font-weight:700}
+details.mcb-facets .mcb-flab{color:var(--ok)}
+details.mcb-facets .mcb-chip:not(.on),.s5cu-fb>button:not(.on){background:var(--surface)}
+.tabpanel div.s9find select,.tabpanel div.s9find input,.tabpanel div.tbar select{background-color:var(--surface)}
+.mcb-list>.ab-row .ab-t{color:var(--text);font-weight:600;font-size:14.5px}
+.mcb-list>.ab-row.is-read .ab-t{color:var(--muted);font-weight:400}
+.mcb-list>.ab-row:nth-child(even)>.ab-head{background:color-mix(in srgb,var(--text) 4%,var(--surface))}
+.mcb-list>.ab-row:hover>.ab-head{background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.mcb-list>.ab-row.ab-t0>.ab-head{box-shadow:inset 3px 0 0 var(--bad)}
+.ab-src.ab-src-edit{border-style:dashed}
+.s5dq-h{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-left:4px solid var(--accent);padding:12px 12px 9px}
+.s5dq-t{font-size:17px}
+/* §5ea: Overview - the previous brief's sentences under today's, opened with + */
+details.s5ea-yday{margin:12px 0 0;padding:0;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+details.s5ea-yday>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;font-weight:650}
+details.s5ea-yday>summary::-webkit-details-marker{display:none}
+details.s5ea-yday>summary::before{content:none!important}
+.s5ea-plus{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font:700 15px/1 var(--mono,monospace)}
+.s5ea-yt{color:var(--text)}
+.s5ea-yd{color:var(--muted);font-weight:400;font-size:13px}
+.s5ea-yb.s5ci-ten{padding:0 14px 12px;border-top:0}
+.s5ea-ysec{margin:0}
+details.s5ea-yday .s5bk-3{opacity:.92}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="byline">By Piotr Wiśniewski</p><p class="dateline"><b>Friday 16 October 2026</b> &middot; published 06:55 Warsaw &middot; 2 &ndash; 16 October 2026 &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>42</b> deadlines in 60 days<span>&middot; 39 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>957</b> undocumented at Microsoft<span>&middot; 957 permissions, 0 roles</span></a><a class="count" href="#graph"><b>352</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>24</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>89</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>35</b> changes since 15 Oct<span>&middot; 13 at Microsoft, 22 in this report</span></a><a class="count" href="#chg14"><b>4690</b> changes in 14 days<span>&middot; 14 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -13399,6 +13436,14 @@ IdentityDirectoryEvents
        lustra: MDI 64 pliki, MDE 246, Sentinel 274, XDR 157 w tym samym oknie.
        Obie strony, o ktore pytal, sa tu z linia po linii. */
     var pg=D.pages||[], pa=D.pageAreas||[];
+    /* §5ea: 16 X pageAreas came as an EMPTY OBJECT, pa.map threw ("[nt learn] TypeError: pa.map is not a function")
+       and Section D was never built - a list or a {area: row} map are both read now */
+    if(!Array.isArray(pa)) pa=Object.keys(pa||{}).map(function(k){var r=pa[k]||{};if(!r.area)r.area=k;return r;});
+    /* §5ea (16 X 2026): 14-15 X nt.pages was empty (collector bug, §5dw) and 16 X the morning run dropped it to stay
+       under 16 MB, writing "carried in site/data" - it was not. docText.pages has the same shape (hunks, promote,
+       socWeight) for the pages that matter, so Section D falls back to it instead of showing nothing. */
+    if(!pg.length){ try{ var stx=JSON.parse((document.getElementById("soc-brief-state")||{}).textContent||"{}");
+      pg=((stx.docText||{}).pages)||[]; }catch(e){ pg=[]; } }
     var withRule=pg.filter(function(x){return x.promote&&x.promote.length;});
     /* §5bb: JEDEN renderer zmiany tekstu na caly portal. Do 16 wrzesnia 2026 stala tu
        wlasna funkcja `lineBox()` z rodzina klas `.ntdiff*` — inna niz `.s12file`, ktore
@@ -16259,10 +16304,15 @@ IdentityDirectoryEvents
     return out;
   }
 
-  function build() {
+  /* §5ea (16 X 2026, owner: "under today's sentences, a section opened with + that shows yesterday's"). build(Y)
+     with Y = {st, cat} from the previous brief's site/data/<date>.json builds ONLY the sentence list and returns it;
+     the Graph-diff and identity pools (__socGD, __socIdent) are today's, so yesterday's run does without them. */
+  function build(Y) {
+    if (Y && !Y.st) Y = null;
     var panel = document.getElementById("tab-overview");
-    if (!panel || panel.querySelector(".s5bk-top")) return;
-    var st = json("soc-brief-state") || {}, cat = json("soc-catalog") || {};
+    if (!panel || (!Y && panel.querySelector(".s5bk-top"))) return;
+    var st = Y ? Y.st : (json("soc-brief-state") || {}), cat = Y ? (Y.cat || {}) : (json("soc-catalog") || {});
+    var GDW = Y ? null : window.__socGD, IDW = Y ? null : window.__socIdent;
     var today = String(st.briefDate || new Date().toISOString().slice(0, 10));
     var items = (st.items || []).filter(function (i) { return i && i.id; });
     var w = function (i) { return +i.socWeight || 9; };
@@ -16332,15 +16382,15 @@ IdentityDirectoryEvents
          each sentence was to carry one technology"). Graph API and roles are ONE sentence: the count,
          and under it the heaviest permission change of the week when there is one, else the latest. */
       /* §5ct: under the count, the changes that matter most for security this week and what they let an app do */
-      var gtop = window.__socGD && window.__socGD.top ? window.__socGD.top(7, 3) : [];
-      if (!gtop.length && window.__socGD && window.__socGD.top) gtop = window.__socGD.top(14, 3);
+      var gtop = GDW && GDW.top ? GDW.top(7, 3) : [];
+      if (!gtop.length && GDW && GDW.top) gtop = GDW.top(14, 3);
       if (gtop.length) {
         var gw = el("span", "s5bk-gw"); gw.appendChild(b3);
         var gl = el("span", "s5bk-gl");
         gl.appendChild(el("span", "s5bk-gh", "Most important for security this week:"));
         gtop.forEach(function (g) {
           var gi = el("span", "s5bk-gi"), gn = el("button", "s5bk-gn", g.name); gn.type = "button"; gn.title = "Open " + g.name + " in Graph API";
-          gn.addEventListener("click", function () { if (g.go) g.go(); else window.__socGD.open(g.name); });
+          gn.addEventListener("click", function () { if (g.go) g.go(); else GDW.open(g.name); });
           gi.appendChild(gn); gi.appendChild(el("span", "s5bk-gt", " " + g.tag)); gi.appendChild(el("span", "s5bk-gd", g.text));
           gl.appendChild(gi);
         });
@@ -16441,7 +16491,7 @@ IdentityDirectoryEvents
         sub: firstSentence(e.summary || e.dpSummary || e.feedSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
     /* §5bs: Microsoft's own updates to Graph permissions (collect_graph_diff.py), the heavy ones
        (level 3-4, or added, removed, returned) of the last seven days */
-    if (window.__socGD) window.__socGD.recent(7).forEach(function (g, gi) {
+    if (GDW) GDW.recent(7).forEach(function (g, gi) {
       var k = "perm:" + g.name; if (BYID[k]) return;
       BYID[k] = { kind: "perm", name: g.name };
       var x = { id: k, tech: "Graph API", text: g.text, sub: g.sub, meta: g.meta };
@@ -16449,14 +16499,14 @@ IdentityDirectoryEvents
     });
     /* §5cy (10 X 2026): a Graph permission or an Entra role change speaks for its technology too
        (CopilotCostManagement -> Copilot), ahead of the other entries of that technology */
-    if (window.__socIdent && window.__socIdent.pool) try { window.__socIdent.pool(7, typeof gtop !== "undefined" ? gtop : []).forEach(function (x) {
+    if (IDW && IDW.pool) try { IDW.pool(7, typeof gtop !== "undefined" ? gtop : []).forEach(function (x) {
       if (BYID[x.id]) return; BYID[x.id] = { kind: "ident", go: x.go }; if (x.fresh) pool.unshift(x); else pool.push(x); }); } catch (e) { if (window.console) console.error("[5cy pool]", e); }
     /* §5cn: Graph API already has its sentence above (number 3) */
     pool = pool.filter(function (x) { return x.tech && BYID[x.id] && x.tech !== "Graph API"; });
     function go(id) {
       var r = BYID[id]; if (!r) return;
       if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
-      if (r.kind === "perm" && window.__socGD) { window.__socGD.open(r.name); return; }
+      if (r.kind === "perm" && GDW) { GDW.open(r.name); return; }
       if (r.kind === "ident" && r.go) { r.go(); return; }
       if (!goItem(id) && r.it && r.it.url) window.open(r.it.url, "_blank", "noopener");
     }
@@ -16544,6 +16594,7 @@ IdentityDirectoryEvents
     var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     dress(ol);
+    if (Y) return ol;
     sum.appendChild(ol); top.appendChild(sum);
 
     /* one line per technology — only where something moved; no "nothing new" filler lines */
@@ -16733,6 +16784,7 @@ IdentityDirectoryEvents
     });
   }
 
+  window.__socSentencesFor = function (st, cat) { return build({ st: st, cat: cat }); };
   function boot() {
     if (booted) return; booted = true;
     [build, phoneFilters].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[s17 5bk]", e); } });
@@ -19074,6 +19126,47 @@ IdentityDirectoryEvents
 
   /* §5ca (29 IX, owner): every row names its SOURCE in a framed chip, in its own column */
   function siteOf(u) { var m = /^(https?:\/\/[^\/?#]+)/i.exec(String(u || "")); return m ? m[1] + "/" : ""; }
+  /* §5ea (16 X 2026, owner: "Security Defaults changed on Learn and I still do not see it in the Microsoft Learn
+     tab"). Measured: this list read ONLY `nt.changes` - entries Microsoft wrote on an area's what's-new page. The
+     Entra what's-new page was last stamped 26 VI 2026, so a new 100-line section on Security Defaults (commit
+     c8aff6d012, 14 X) found by OUR git diff (docText.pages / nt.pages) never became a row here. Page edits are now
+     rows of the same list: dated by their newest commit, "Found by: Page edit (our diff)", tier 0 from the item that
+     cites the page, title from that item when one exists, else the page name and Microsoft's first added line. */
+  function learnEdits() {
+    var IT = {}; (ST.items || []).forEach(function (x) { if (x && x.id) IT[x.id] = x; });
+    var seen = {}, out = [];
+    var src = (((ST.docText || {}).pages) || []).concat(((ST.nt || {}).pages) || []);
+    src.forEach(function (p) {
+      if (!p || !p.path || !p.url) return;
+      var k = p.path + "@" + (p.date || "");
+      if (seen[k]) return; seen[k] = 1;
+      var it = null; (p.itemIds || []).forEach(function (id) { if (!it && IT[id]) it = IT[id]; });
+      var adds = [], rems = [];
+      /* not prose: YAML front matter, a bare URL, a page <title> ("... | Microsoft Learn"), a table rule, an include */
+      var junk = /^[a-z][\w.-]*:\s|^https?:\/\/\S+$|\| Microsoft Learn$|^\|?[\s:|-]+\|?$|^\[!INCLUDE|^<!--|^:::|poolparty\.biz/i;
+      (p.hunks || []).forEach(function (h) {
+        (h.add || []).forEach(function (l) { l = String(l).replace(/^[-*+>#\s]+/, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\*\*|`/g, "").trim(); if (l.length > 20 && !junk.test(l) && adds.length < 6) adds.push(l); });
+        (h.rem || []).forEach(function (l) { l = String(l).replace(/^[-*+>#\s]+/, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\*\*|`/g, "").trim(); if (l.length > 20 && !junk.test(l) && rems.length < 3) rems.push(l); });
+      });
+      if (!it && !adds.length && !rems.length) return; /* formatting/metadata only: Section D still counts it */
+      var first = adds[0] || ("removed: " + (rems[0] || ""));
+      var title = it ? it.title : (p.name || p.path) + " — " + (first.length > 120 ? first.slice(0, 118) + "…" : first);
+      var t0 = !!(p.tier0 || (it && (it.tier0Touch || it.tier0)));
+      var isNew = !!((p.date && PREV && p.date >= PREV && (!DAY || p.date <= DAY)) || (it && it.firstSeen && PREV && it.firstSeen > PREV));
+      out.push({ key: "edit#" + p.url + "#" + (p.commit || p.date || ""), title: title, link: p.url, date: p.date || "",
+        isNew: isNew, kind: "edit",
+        f: { kind: "Page edit (our diff)", src: p.area || "", tag: p.tag || "", t0: t0 ? "Tier 0" : "" },
+        text: (adds.length ? "Added on the page: " + adds.map(function (l) { return "“" + (l.length > 220 ? l.slice(0, 218) + "…" : l) + "”"; }).join(" ") : "") +
+              (rems.length ? (adds.length ? "  " : "") + "Removed: " + rems.map(function (l) { return "“" + l.slice(0, 200) + "”"; }).join(" ") : ""),
+        why: it ? (it.why || "") : "", weight: p.socWeight, crit: p.promote || [], tags: p.tag ? [p.tag] : [],
+        /* commit link only for Microsoft's own repositories; defender-docs/memdocs come from merill's mirrors */
+        links: [{ url: p.url, text: "Live page" }]
+          .concat(p.commit && /^(entra-docs|microsoft-graph-docs-contrib)$/.test(p.repo || "") ? [{ url: "https://github.com/MicrosoftDocs/" + p.repo + "/commit/" + p.commit, text: "Commit " + p.commit }] : []),
+        meta: [p.area, "page edited " + (p.date || ""), "+" + (p.added || 0) + " / −" + (p.removed || 0) + " lines"].filter(Boolean).join(" · "),
+        srcL: "Learn page diff", srcH: p.url });
+    });
+    return out;
+  }
   var CONF = [
     { tab: "community", id: "ab-community", fold: ":scope > details.ntsec", group: "week",
       recs: function () {
@@ -19120,11 +19213,12 @@ IdentityDirectoryEvents
                the links "Where to check" — so the list can replace those two tables */
             weight: a.weight, crit: a.criteria || [], tags: a.tags || [], links: a.links || [],
             /* the source of a Learn entry is the area's what's-new page it was read from */
-            srcL: "Learn: " + (a.area || "what's new"), srcH: String(a.url || "").split("#")[0] };
-        });
+            srcL: "Learn: " + (a.area || "what's new"), srcH: String(a.url || "").split("#")[0],
+            kind: "wn", f2: "What's new entry" };
+        }).map(function (r) { r.f.kind = r.f2; return r; }).concat(learnEdits());
       },
-      facets: [["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
-      views: [["unread", "Unread"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
+      facets: [["kind", "Found by"], ["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
+      views: [["unread", "Unread"], ["new", "New since previous brief"], ["edits", "Page edits (our diff)"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
   ];
 
   function Browser(cfg) {
@@ -19139,6 +19233,7 @@ IdentityDirectoryEvents
     function inView(r, v) {
       if (v === "unread") return !rd()[r.key];
       if (v === "new") return r.isNew;
+      if (v === "edits") return r.kind === "edit";
       if (v === "week") return r.date >= addDays(DAY, -7);
       if (v === "month") return String(r.date).slice(0, 7) === latestMonth;
       if (v === "q3") return String(r.date).slice(0, 7) >= q3from;
@@ -19341,7 +19436,7 @@ IdentityDirectoryEvents
     }
     function row(r) {
       var read = !!rd()[r.key];
-      var li = el("li", "mcb-row ab-row" + (read ? " is-read" : "") + (r.isNew ? " is-new" : ""));
+      var li = el("li", "mcb-row ab-row" + (read ? " is-read" : "") + (r.isNew ? " is-new" : "") + (r.kind === "edit" ? " ab-edit" : "") + (r.f.t0 ? " ab-t0" : ""));
       var head = el("div", "ab-head");
       var rb = el("button", "ab-rd"); rb.type = "button";
       rb.textContent = read ? "●" : "○"; rb.title = read ? "Read — click to mark unread" : "Unread — click to mark read";
@@ -19356,13 +19451,15 @@ IdentityDirectoryEvents
       var meta = el("span", "mcb-meta");
       if (r.f.src && r.f.src !== r.srcL) meta.appendChild(el("span", "mcb-svc", r.f.src));
       if (r.f.site && r.f.site !== r.f.src) meta.appendChild(el("span", "mcb-cat", r.f.site));
-      if (r.f.tag) meta.appendChild(el("span", "mcb-cat", r.f.tag));
+      /* §5ea: the topic chip only when it says something the area chip does not ("Entra" + "Entra" was noise) */
+      if (r.f.tag && r.f.tag !== r.f.src) meta.appendChild(el("span", "mcb-cat", r.f.tag));
       if (r.f.t0) meta.appendChild(el("span", "mcb-p maj", "TIER 0"));
       if (r.isNew) meta.appendChild(el("span", "mcb-p new", "NEW"));
       main.appendChild(meta); head.appendChild(main);
       var sc = el(r.srcH ? "a" : "span", "ab-src", r.srcL || "—");
       if (r.srcH) { sc.href = r.srcH; sc.target = "_blank"; sc.rel = "noopener"; sc.title = "Source: " + (r.srcL || r.srcH) + " — " + r.srcH; }
       if (!r.srcL) sc.classList.add("none");
+      if (r.kind === "edit") sc.classList.add("ab-src-edit");
       head.appendChild(sc);
       if (r.link) { var a = el("a", "ab-open", "Open ↗"); a.href = r.link; a.target = "_blank"; a.rel = "noopener";
         a.addEventListener("click", function () { rd()[r.key] = DAY || 1; rdSave(); setTimeout(render, 50); }); head.appendChild(a); }
@@ -21441,7 +21538,46 @@ IdentityDirectoryEvents
       if (sm) { var h = sm.querySelector(".s5bk-h"); if (h) tent.textContent = h.textContent; tenb.innerHTML = ""; tenb.appendChild(sm); return; }
       if (n < 20) setTimeout(function () { take(n + 1); }, 400); else tenb.innerHTML = "";
     })(0);
-    root.appendChild(ten);
+    /* §5ea (16 X 2026, owner: "can Overview show, besides today's 15 sentences, yesterday's 15 sentences too -
+       collapsible under a +, below today's"). Built on demand: the + loads the previous brief's own data file
+       (site/data/<comparedWith>.json, the same file the /diff/ page compares with) and runs §5bk's sentence builder
+       on it (window.__socSentencesFor). Nothing is fetched until the + is opened - a phone pays nothing. The campaign
+       and Maester/Tenable sentences are added to TODAY's list by later layers and are not rebuilt for yesterday. */
+    (function () {
+      var stn = document.getElementById("soc-brief-state"), st0 = {};
+      try { st0 = JSON.parse(stn ? stn.textContent : "{}") || {}; } catch (e) { st0 = {}; }
+      var cw0 = st0.comparedWith || {}, yd = typeof cw0 === "string" ? cw0 : (cw0.date || "");
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(yd)) return;
+      var ddmm = yd.slice(8, 10) + "/" + yd.slice(5, 7) + "/" + yd.slice(0, 4);
+      var yw = el("details", "s5ci-card s5ea-yday"), ys = el("summary", "s5ea-ysum");
+      ys.appendChild(el("span", "s5ea-plus", "+"));
+      ys.appendChild(el("span", "s5ea-yt", "Previous brief in sentences"));
+      ys.appendChild(el("span", "s5ea-yd", ddmm));
+      yw.appendChild(ys);
+      /* inside a .s5ci-ten wrapper so the sentences get the same tiles as today's (every tile rule is scoped there);
+         today's card comes first in the DOM, so querySelector(".s5ci-ten ...") in later layers still finds today's */
+      var yb = el("div", "s5ea-yb s5ci-ten"); yw.appendChild(yb);
+      var loaded = false;
+      yw.addEventListener("toggle", function () {
+        yw.querySelector(".s5ea-plus").textContent = yw.open ? "−" : "+";
+        if (!yw.open || loaded) return; loaded = true;
+        yb.appendChild(el("p", "s5ci-note", "Loading the brief of " + ddmm + "…"));
+        fetch("/data/" + yd + ".json", { cache: "force-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+          .then(function (j) {
+            yb.innerHTML = "";
+            var ol = window.__socSentencesFor ? window.__socSentencesFor(j["soc-brief-state"] || {}, j["soc-catalog"] || {}) : null;
+            if (!ol || !ol.children.length) { yb.appendChild(el("p", "s5ci-note", "The brief of " + ddmm + " gave no sentence.")); return; }
+            var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"];
+            yw.querySelector(".s5ea-yt").textContent = "Previous brief in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+            var sec = el("section", "s5bk-sum s5ea-ysec"); ol.classList.add("s5ea-yol"); sec.appendChild(ol); yb.appendChild(sec);
+            yb.appendChild(el("p", "s5ci-note", "Built from the data of the brief of " + ddmm + ". A click opens the item in today's tabs when it is still there, else its source."));
+          })
+          .catch(function (e) { yb.innerHTML = ""; yb.appendChild(el("p", "s5ci-note", "The data of the brief of " + ddmm + " could not be read (" + e.message + ")."));
+            if (window.console) console.error("[5ea yday]", e); });
+      });
+      root.appendChild(ten); root.appendChild(yw);
+    })();
+    if (!ten.parentNode) root.appendChild(ten);
     var cards = el("div", "s5ci-cards");
     function card(tone2, title, list, all, go, goTxt, meta) {
       var c = el("section", "s5ci-card s5ci-c-" + tone2), h = el("div", "s5ci-ch");
