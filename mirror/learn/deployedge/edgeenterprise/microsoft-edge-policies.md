@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-07T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -60,7 +60,11 @@ This article applies to Microsoft Edge version 77 or later.
 
 There are no new policies in Microsoft Edge version 157.
 
-There are no new policies in Microsoft Edge version 156.
+The following table lists the new policies for Microsoft Edge version 156.
+
+| Policy Name | Caption |
+| --- | --- |
+| [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
 
 ## Deprecated policies
 
@@ -141,6 +145,7 @@ These tables list all of the browser-related group policies available in this re
 - Proxy server
 - Related Website Sets Settings
 - Relaunch
+- Remix settings
 - Scareware Blocker settings
 - Sleeping tabs settings
 - SmartScreen settings
@@ -746,6 +751,12 @@ These tables list all of the browser-related group policies available in this re
 | [RelaunchNotificationPeriod](microsoft-edge-policies/relaunchnotificationperiod) | Set the time period for update notifications |
 | [RelaunchWindow](microsoft-edge-policies/relaunchwindow) | Set the time interval for relaunch |
 | [UpdateOnZeroWindowEnabled](microsoft-edge-policies/updateonzerowindowenabled) | Controls background automatic relaunch when all browser windows are closed |
+
+### Remix settings
+
+| Policy Name | Caption |
+| --- | --- |
+| [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
 
 ### Scareware Blocker settings
 

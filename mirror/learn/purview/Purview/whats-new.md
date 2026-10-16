@@ -11,7 +11,7 @@ f1.keywords:
 ms.author: v-reezaali
 author: ReezaAli149
 manager: laurawi
-ms.date: 2026-09-21T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -43,11 +43,11 @@ source_path: Purview/whats-new.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7428317a-e6c2-4461-ad3e-8a8ad3608734
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e4f59707-f107-48f2-8d75-0afd91868cd7
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: b45015b9-3765-aad8-9adb-4bb64d9907b7
 ---
 
@@ -61,6 +61,12 @@ Microsoft Purview continues to add new solutions and features to help with data 
 
 - [Roadmap](https://go.microsoft.com/fwlink/?linkid=2339022) for data governance solutions.
 - [Roadmap](https://www.microsoft.com/microsoft-365/roadmap?msockid=305e5dff038362fc15a64e2f02396376&amp;filters=&amp;searchterms=Microsoft%2CPurview) for data security and risk and compliance solutions.
+
+## October 2026
+
+### Data Loss Prevention
+
+- **General availability**: Endpoint data loss prevention (DLP) can now monitor sensitive data transferred over FTP and SFTP from managed Windows devices. It can enforce restrictive actions to help prevent data exfiltration. Configure FTP and SFTP transfer activities in your Endpoint DLP policies to get started. See [Protect FTP and SFTP transfers with Microsoft Purview Endpoint DLP](endpoint-dlp-ftp-sftp-short).
 
 ## September 2026
 

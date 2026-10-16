@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-15T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -35,11 +35,9 @@ source_path: windows/release-information/index.yml
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ec6774-09b8-473e-a17e-b17b518bbad7
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ade36b61-c646-4bd8-87ee-f3a843461962
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
 2PlusCloud:
 - Azure
 - M365
@@ -83,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Windows updates are available for 2026 time zone changes in Canada](https://techcommunity.microsoft.com/category/windows/blog/dstblog)
 - [Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard](https://support.microsoft.com/help/5066470)
 - [Windows Server 2022 has reached end of mainstream support](/en-us/lifecycle/products/windows-server-2022)
-- [90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027](/en-us/lifecycle/products/windows-server-2016)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2
