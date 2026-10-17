@@ -1,7 +1,7 @@
 {
  "read": "2026-10-17",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 706,
+ "count": 702,
  "note": null,
  "messages": [
   {
@@ -348,32 +348,6 @@
     "General Availability: Begins mid-September 2026 (previously early January) and is expected to complete by late October 2026 (previously late July)."
    ],
    "bodyHash": "9ea78ed252d925a1"
-  },
-  {
-   "id": "MC1160188",
-   "title": "Retirement Announcement: Microsoft Education Learning Tools Interoperability (LTI) Integrations",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-09-26",
-   "end": "2026-10-17",
-   "modified": "2025-09-26",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "Introduction To streamline and improve integration experiences for education customers, we’re retiring several legacy Learning Tools Interoperability (LTI) integrations in Microsoft 365. These tools will be replaced by the unified Microsoft 365 LTI tool, which offers enhanced functionality and ongoing support. When this will happen: The following Education LTI tools will be retired worldwide on Se…",
-   "when": "The following Education LTI tools will be retired worldwide on September 17, 2026 : Teams Assignments LTI. OneDrive LTI. OneNote Class Notebook LTI. Reflect LTI.",
-   "prepare": "No admin action is required to remove the legacy tools—they will be retired automatically. Notify users about the upcoming retirement. Update internal documentation and training materials. Begin transitioning to the Microsoft 365 LTI unified tool. Review deployment guidance and transition resources: LTI Overview. Deployment Guide. .",
-   "dates": [
-    "When this will happen: The following Education LTI tools will be retired worldwide on September 17, 2026 : Teams Assignments LTI."
-   ],
-   "bodyHash": "aa02b745346b5596"
   },
   {
    "id": "MC1166852",
@@ -6191,34 +6165,6 @@
    "bodyHash": "17ea53e2cc3d47e9"
   },
   {
-   "id": "MC1385580",
-   "title": "Grouped notifications in Outlook",
-   "services": [
-    "Exchange Online",
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-09",
-   "end": "2026-10-17",
-   "modified": "2026-06-09",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] To help reduce notification fatigue and improve focus, Outlook will automatically group email notifications that arrive within a few seconds into a single alert. This enhancement supports personal and team productivity by minimizing interruptions while ensuring users stay informed of new messages. [Rollout Schedule:] General Availability (Production): Rollout will begin in late Jun…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Production): Rollout will begin in late June 2026 and is expected to complete by late-July2026.",
-    "General Availability (GCC): Rollout will begin in late July 2026 and is expected to complete by mid-August 2026.",
-    "General Availability (GCC High): Rollout will begin in mid-August 2026 and is expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "7cca296e5b15cab8"
-  },
-  {
    "id": "MC1385583",
    "title": "(Updated) Microsoft Purview | Data Lifecycle Management - Power Automate integration with records management",
    "services": [
@@ -7909,33 +7855,6 @@
     "What will happen: You can download and deploy the July 2026 Scan Cab via the usual processes."
    ],
    "bodyHash": "95149a1e71801b32"
-  },
-  {
-   "id": "MC1427970",
-   "title": "Microsoft Forms automated email sender domain is changing",
-   "services": [
-    "Microsoft Forms"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-07-14",
-   "end": "2026-10-17",
-   "modified": "2026-07-14",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft Forms will update the email address used for automated notifications from maccount@microsoft.com to no-reply@forms.mail.microsoft . This email address is used for Microsoft Forms automated emails, including response receipts, email notifications for new responses, and Forms response monitoring updates. For GCC, GCC High, and DoD environments, admins will now have the opti…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in mid-August 2026 and is expected to complete by early September 2026 .",
-    "General Availability (GCC, GCC High, DoD): Rollout begins in early September 2026 and is expected to complete by mid-September 2026 ."
-   ],
-   "bodyHash": "b5bc76c1e6e41bde"
   },
   {
    "id": "MC1427972",
@@ -14175,30 +14094,6 @@
     "General Availability, Worldwide: We will begin rolling out in late September 2026 and expect to complete by the end of September 2026."
    ],
    "bodyHash": "310c602fffbf1aba"
-  },
-  {
-   "id": "MC1473299",
-   "title": "Dynamics 365 Commerce - Print receipts using Adyen payment terminal printers",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-17",
-   "end": "2026-10-17",
-   "modified": "2026-09-17",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to print receipts using the built-in printer on supported Adyen payment terminals in Dynamics 365 Commerce. This feature will reach public preview on October 2, 2026. How does this affect me? This feature enables organizations to design and manage receipt formats in Commerce headquarters and print them directly from an Adyen payment terminal, without requiring a separ…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on October 2, 2026."
-   ],
-   "bodyHash": "baf0db7117575d8e"
   },
   {
    "id": "MC1473600",
@@ -22944,6 +22839,34 @@
    "id": "MC1465262",
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Secondary device for notifications in Digital Messaging conversations",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-17",
+   "id": "MC1160188",
+   "type": "removed",
+   "title": "Retirement Announcement: Microsoft Education Learning Tools Interoperability (LTI) Integrations",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-17",
+   "id": "MC1385580",
+   "type": "removed",
+   "title": "Grouped notifications in Outlook",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-17",
+   "id": "MC1427970",
+   "type": "removed",
+   "title": "Microsoft Forms automated email sender domain is changing",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-17",
+   "id": "MC1473299",
+   "type": "removed",
+   "title": "Dynamics 365 Commerce - Print receipts using Adyen payment terminal printers",
    "fields": {}
   }
  ]
