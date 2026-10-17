@@ -15,7 +15,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-16T00:00:00.0000000Z
+ms.date: 2026-10-17T00:00:00.0000000Z
 locale: en-us
 document_id: 47ae9d72-22fe-c892-d9e2-3d01e46d4d31
 document_version_independent_id: 47ae9d72-22fe-c892-d9e2-3d01e46d4d31
