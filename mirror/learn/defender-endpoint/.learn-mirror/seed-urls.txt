@@ -10,6 +10,9 @@ https://learn.microsoft.com/en-us/defender-endpoint/ai-agent-support-matrix
 https://learn.microsoft.com/en-us/defender-endpoint/alerts-queue
 https://learn.microsoft.com/en-us/defender-endpoint/alerts-queue-endpoint-detection-response
 https://learn.microsoft.com/en-us/defender-endpoint/amsi-on-mdav
+https://learn.microsoft.com/en-us/defender-endpoint/analyzer-feedback
+https://learn.microsoft.com/en-us/defender-endpoint/analyzer-report
+https://learn.microsoft.com/en-us/defender-endpoint/android-configure-mam
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration

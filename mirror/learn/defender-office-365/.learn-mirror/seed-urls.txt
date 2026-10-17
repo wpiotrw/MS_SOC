@@ -2,6 +2,7 @@ https://learn.microsoft.com/en-us/defender-office-365
 https://learn.microsoft.com/en-us/defender-office-365/air-about
 https://learn.microsoft.com/en-us/defender-office-365/alert-policies-defender-portal
 https://learn.microsoft.com/en-us/defender-office-365/anti-spam-bulk-complaint-level-bcl-about
+https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-faq
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new/anti-spam-bulk-complaint-level-bcl-about
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new/mdo-about
@@ -21,6 +22,7 @@ https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-about
 https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-quick-configure
 https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-sec-ops-guide
 https://learn.microsoft.com/en-us/defender-office-365/quarantine-admin-manage-messages-files
+https://learn.microsoft.com/en-us/defender-office-365/safe-links-about
 https://learn.microsoft.com/en-us/defender-office-365/scc-permissions
 https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/configure-unified-rbac-defender-office-365
 https://learn.microsoft.com/en-us/defender-office-365/step-by-step-guides/prompt-injection-protection-defender-for-office-365

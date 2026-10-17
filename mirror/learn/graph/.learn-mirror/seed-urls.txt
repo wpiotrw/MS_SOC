@@ -96,6 +96,7 @@ https://learn.microsoft.com/en-us/graph/api/security-incident-mergeincidents
 https://learn.microsoft.com/en-us/graph/api/security-security-gethuntingschematables
 https://learn.microsoft.com/en-us/graph/api/site-list
 https://learn.microsoft.com/en-us/graph/api/tenantprotectionscopecontainer-compute
+https://learn.microsoft.com/en-us/graph/api/unifiedroledefinition-delete
 https://learn.microsoft.com/en-us/graph/api/user-attest
 https://learn.microsoft.com/en-us/graph/api/userprotectionscopecontainer-compute
 https://learn.microsoft.com/en-us/graph/applications-authenticationbehaviors

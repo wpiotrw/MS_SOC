@@ -155,6 +155,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/file-integrity-monito
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/foundational-cspm-opt-in
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/identify-sql-servers-protected-by-monitor-agent
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-misconfiguration-enforcement
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-malware
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-overview
