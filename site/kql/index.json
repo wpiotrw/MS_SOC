@@ -1,5 +1,16 @@
 [
  {
+  "file": "2026-10-17-grants-of-the-twelve-newly-grantable-graph-permissions.kql",
+  "title": "Grants of the twelve newly grantable Graph permissions, and every write to certificateUserIds",
+  "date": "2026-10-17",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Finds app role assignments and delegated permission grants whose target carries one of the nineteen new GUIDs read from the 16 October service principal dump, and every Entra audit event whose modified properties name certificateUserIds, with who made the change. The columns are those of the AuditLo",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs"
+ },
+ {
   "file": "2026-10-16-who-approved-post-delivery-email-remediation-using-the.kql",
   "title": "Who approved post-delivery email remediation, using the new ApproverUpn column",
   "date": "2026-10-16",
@@ -8,7 +19,10 @@
    "EmailPostDeliveryEvents"
   ],
   "purpose": "Lists manual remediation in the last 14 days by the account that approved it, with the actions and recipients touched. An approver outside the SOC or messaging team, or a burst of approvals from one account, is worth a look. ApproverUpn is read with column_ifexists because the EmailPostDeliveryEvent",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table"
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table",
+  "reused": [
+   "2026-10-17"
+  ]
  },
  {
   "file": "2026-10-16-atypical-travel-detections-by-timing-type-when-does.kql",
@@ -17,7 +31,10 @@
   "product": "Microsoft 365",
   "tables": [],
   "purpose": "Counts unlikelyTravel risk detections per day and DetectionTimingType over 30 days, with how many were remediated or dismissed. A shift from offline to realtime shows the change reaching your tenant; a rise in atRisk realtime rows tells you sign-in-risk policies are now challenging these sign-ins. T",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents"
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents",
+  "reused": [
+   "2026-10-17"
+  ]
  },
  {
   "file": "2026-10-13-which-devices-carry-a-registry-tag-and-how.kql",
@@ -32,7 +49,8 @@
   "reused": [
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -48,7 +66,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -67,7 +86,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -87,7 +107,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -109,7 +130,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -131,7 +153,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -154,7 +177,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -177,7 +201,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -203,7 +228,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -232,7 +258,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -284,7 +311,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -316,7 +344,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {
@@ -347,7 +376,8 @@
    "2026-10-13",
    "2026-10-14",
    "2026-10-15",
-   "2026-10-16"
+   "2026-10-16",
+   "2026-10-17"
   ]
  },
  {

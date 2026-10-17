@@ -1,6 +1,87 @@
 {
 "updated":"2026-10-17",
 "campaigns":{
+"c-mc1511071":{
+"firstSeen":"2026-10-16",
+"lastSeen":"2026-10-17",
+"name":"Review property changes for Exchange Online scenarios",
+"status":"Active",
+"members":[
+"MC1511071",
+"item:MC1511071"
+],
+"log":[
+{
+"date":"2026-10-17",
+"id":"MC1511071",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Exchange Online stops returning selected properties from Get-Mailbox -Migration on 15 November and blocks setting them through New-Mailbox -Migration on 15 December",
+"title":"Exchange Online stops returning selected properties from Get-Mailbox -Migration on 15 November and blocks setting them through New-Mailbox -Migration on 15 December",
+"link":"https://deltapulse.app/item/MC1511071"
+}
+],
+"milestones":{
+"MC1511071|posted":{
+"date":"2026-10-16",
+"label":"16 Oct 2026",
+"text":"Posted: Review property changes for Exchange Online scenarios"
+},
+"MC1511071|get mailbox migration will no longer receive the affected pr#0":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Get-Mailbox -Migration will no longer receive the affected properties in the returned object beginning November 10, 2026."
+},
+"MC1511071|beginning selected properties will no longer be returned in #0":{
+"date":"2026-11-15",
+"label":"15 Nov 2026",
+"text":"Beginning November 15, 2026: Selected properties will no longer be returned in applicable Get-Mailbox -Migration and New-Mailbox -Migration responses."
+},
+"MC1511071|beginning the affected properties will be blocked from being#0":{
+"date":"2026-12-15",
+"label":"15 Dec 2026",
+"text":"Beginning December 15, 2026: The affected properties will be blocked from being configured through applicable New-Mailbox -Migration scenarios."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071":{
+"title":"Review property changes for Exchange Online scenarios",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071",
+"source":"Message Center",
+"id":"MC1511071",
+"date":"2026-10-16",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://mc.merill.net/message/MC1511071":{
+"title":"Review property changes for Exchange Online scenarios",
+"link":"https://mc.merill.net/message/MC1511071",
+"source":"Message Center",
+"id":"MC1511071",
+"date":"2026-10-16",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://deltapulse.app/item/MC1511071":{
+"title":"Review property changes for Exchange Online scenarios",
+"link":"https://deltapulse.app/item/MC1511071",
+"source":"Main list source",
+"id":"MC1511071",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+}
+},
+"final":"2026-12-15",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1511071"
+]
+},
 "c-mc1509780":{
 "firstSeen":"2026-10-16",
 "lastSeen":"2026-10-17",
@@ -1276,6 +1357,158 @@
 "date":"2026-10-15",
 "group":"microsoft",
 "found":"2026-10-16"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258":{
+"title":"Chromium CVE-2026-106258: Uninitialized resource",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263":{
+"title":"Chromium CVE-2026-106263: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264":{
+"title":"Chromium CVE-2026-106264: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268":{
+"title":"Chromium CVE-2026-106268: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270":{
+"title":"Chromium CVE-2026-106270: Incorrect authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271":{
+"title":"Chromium CVE-2026-106271: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273":{
+"title":"Chromium CVE-2026-106273: Uninitialized resource",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274":{
+"title":"Chromium CVE-2026-106274: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276":{
+"title":"Chromium CVE-2026-106276: UI misrepresentation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278":{
+"title":"Chromium CVE-2026-106278: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465":{
+"title":"CVE-2026-108465 Windows Update Delivery Optimization Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831":{
+"title":"CVE-2026-83831 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890":{
+"title":"CVE-2026-85890 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897":{
+"title":"CVE-2026-85897 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898":{
+"title":"CVE-2026-85898 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198":{
+"title":"CVE-2026-96198 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199":{
+"title":"CVE-2026-96199 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287":{
+"title":"Chromium CVE-2026-106287: Information loss",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288":{
+"title":"Chromium CVE-2026-106288: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
 }
 },
 "final":"2026-10-15",
@@ -1642,8 +1875,7 @@
 "status":"Active",
 "members":[
 "MC1448373",
-"MC1469551",
-"item:MC1469551"
+"MC1469551"
 ],
 "log":[
 {
@@ -1661,8 +1893,8 @@
 "what":"Title",
 "before":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
 "after":"(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
 },
 {
 "date":"2026-10-02",
@@ -1670,8 +1902,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
 },
 {
 "date":"2026-10-02",
@@ -1679,8 +1911,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
 },
 {
 "date":"2026-10-02",
@@ -1688,8 +1920,8 @@
 "what":"Microsoft moved the date",
 "before":"late Sep 2026",
 "after":"late Oct 2026",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
 },
 {
 "date":"2026-10-02",
@@ -1998,6 +2230,7 @@
 "status":"Active",
 "members":[
 "MC1191578",
+"item:MC1191578",
 "MC1227454",
 "MC1446796",
 "MC1447678",
@@ -2008,7 +2241,6 @@
 "item:MC1485116",
 "MC1486282",
 "MC1486288",
-"item:MC1486288",
 "item:573701",
 "MC1477180"
 ],
@@ -2019,8 +2251,8 @@
 "what":"Message Center end date",
 "before":"2026-11-02",
 "after":"2026-10-21",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
+"link":"https://deltapulse.app/item/MC1191578"
 },
 {
 "date":"2026-10-16",
@@ -2028,8 +2260,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
+"link":"https://deltapulse.app/item/MC1191578"
 },
 {
 "date":"2026-10-16",
@@ -2037,8 +2269,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have decided not to move forward with this change.",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
+"link":"https://deltapulse.app/item/MC1191578"
 },
 {
 "date":"2026-10-12",
@@ -2276,10 +2508,10 @@
 "label":"1 Oct 2026",
 "text":"Posted: Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
 },
-"MC1191578|starting previously we will start to block ews access for al#0":{
+"MC1227454|beginning ews will be blocked unless the tenant configures a#0":{
 "date":"2026-10-01",
 "label":"1 Oct 2026",
-"text":"Starting October 1, 2026 (previously June 30), we will start to block EWS access for all mailboxes without license rights to EWS."
+"text":"Beginning October 1, 2026 , EWS will be blocked unless the tenant configures an AppID AllowList and sets EWSEnabled=True."
 },
 "MC1486282|posted":{
 "date":"2026-10-02",
@@ -2533,6 +2765,33 @@
 "updated":"2026-09-23",
 "group":"microsoft",
 "found":"2026-10-12"
+},
+"https://mc.merill.net/message/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578",
+"source":"Message Center",
+"id":"MC1191578",
+"date":"2025-12-02",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://deltapulse.app/item/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://deltapulse.app/item/MC1191578",
+"source":"Main list source",
+"id":"MC1191578",
+"date":"2025-12-02",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Enable opaque origins for data URLs in Web Workers",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-12T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-17"
 }
 },
 "final":"2027-07-05",
@@ -2652,6 +2911,14 @@
 "date":"2026-10-08",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486":{
+"title":"B2B Direct Connect and File Sharing Support",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
 }
 },
 "final":"2026-11-30",
@@ -4543,14 +4810,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-14",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-15",
 "text":"August 1, 2026."
 },
@@ -4680,6 +4939,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-16",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-17",
 "text":"August 1, 2026."
 },
 {
@@ -5039,22 +5306,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-15",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-15",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-16",
 "text":"early February 2026."
 },
@@ -5176,6 +5427,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-16",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-17",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-17",
 "text":"February 2027."
 },
 {
@@ -5576,57 +5843,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-mc1511071":{
-"firstSeen":"2026-10-16",
-"lastSeen":"2026-10-17",
-"name":"Review property changes for Exchange Online scenarios",
-"status":"Active",
-"members":[
-"MC1511071"
-],
-"log":[],
-"milestones":{
-"MC1511071|posted":{
-"date":"2026-10-16",
-"label":"16 Oct 2026",
-"text":"Posted: Review property changes for Exchange Online scenarios"
-},
-"MC1511071|get mailbox migration will no longer receive the affected pr#0":{
-"date":"2026-11-10",
-"label":"10 Nov 2026",
-"text":"Get-Mailbox -Migration will no longer receive the affected properties in the returned object beginning November 10, 2026."
-},
-"MC1511071|beginning selected properties will no longer be returned in #0":{
-"date":"2026-11-15",
-"label":"15 Nov 2026",
-"text":"Beginning November 15, 2026: Selected properties will no longer be returned in applicable Get-Mailbox -Migration and New-Mailbox -Migration responses."
-},
-"MC1511071|beginning the affected properties will be blocked from being#0":{
-"date":"2026-12-15",
-"label":"15 Dec 2026",
-"text":"Beginning December 15, 2026: The affected properties will be blocked from being configured through applicable New-Mailbox -Migration scenarios."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071":{
-"title":"Review property changes for Exchange Online scenarios",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1511071",
-"source":"Message Center",
-"id":"MC1511071",
-"date":"2026-10-16",
-"updated":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-16"
-}
-},
-"final":"2026-12-15",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1511071"
 ]
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
@@ -6994,6 +7210,127 @@
 "tech":"Defender",
 "posts":[]
 },
+"c-item-mc1511056":{
+"firstSeen":"2026-10-17",
+"lastSeen":"2026-10-17",
+"name":"Microsoft Copilot Studio – Teams app retirement",
+"status":"Active",
+"members":[
+"MC1511056",
+"item:MC1511056"
+],
+"log":[
+{
+"date":"2026-10-17",
+"id":"MC1511056",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"The Copilot Studio app in Teams is retired by February 2027; editing agents there ends in January",
+"title":"The Copilot Studio app in Teams is retired by February 2027; editing agents there ends in January",
+"link":"https://deltapulse.app/item/MC1511056"
+}
+],
+"milestones":{
+"MC1511056|posted":{
+"date":"2026-10-16",
+"label":"16 Oct 2026",
+"text":"Posted: Microsoft Copilot Studio – Teams app retirement"
+},
+"MC1511056|we will begin rolling out in early and expect to complete by#0":{
+"date":"2027-01-05",
+"label":"early Jan 2027",
+"text":"We will begin rolling out in early January 2027 and expect to complete by early February 2027."
+},
+"MC1511056|beginning in editing agents in the teams app will no longer #0":{
+"date":"2027-01-15",
+"label":"Jan 2027",
+"text":"Beginning in January 2027, editing agents in the Teams app will no longer be supported."
+},
+"MC1511056|we will begin rolling out in early and expect to complete by#1":{
+"date":"2027-02-05",
+"label":"early Feb 2027",
+"text":"We will begin rolling out in early January 2027 and expect to complete by early February 2027."
+},
+"MC1511056|beginning in the copilot studio app will no longer be availa#0":{
+"date":"2027-02-15",
+"label":"Feb 2027",
+"text":"Beginning in February 2027, the Copilot Studio app will no longer be available in Microsoft Teams."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1511056":{
+"title":"Microsoft Copilot Studio – Teams app retirement",
+"link":"https://mc.merill.net/message/MC1511056",
+"source":"Message Center",
+"id":"MC1511056",
+"date":"2026-10-16",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://deltapulse.app/item/MC1511056":{
+"title":"Microsoft Copilot Studio – Teams app retirement",
+"link":"https://deltapulse.app/item/MC1511056",
+"source":"Main list source",
+"id":"MC1511056",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+}
+},
+"final":"2027-02-15",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1511056"
+]
+},
+"c-item-azure-keyvault-mhsm-external-key-management-ga-2026-10-":{
+"firstSeen":"2026-10-17",
+"lastSeen":"2026-10-17",
+"name":"Azure Key Vault Managed HSM external key management is generally available in all public regions",
+"status":"No date",
+"members":[
+"item:azure-keyvault-mhsm-external-key-management-ga-2026-10-16"
+],
+"log":[
+{
+"date":"2026-10-17",
+"id":"azure-keyvault-mhsm-external-key-management-ga-2026-10-16",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Azure Key Vault Managed HSM external key management is generally available in all public regions",
+"title":"Azure Key Vault Managed HSM external key management is generally available in all public regions",
+"link":"https://azure.microsoft.com/updates?id=574296"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://azure.microsoft.com/updates?id=574296":{
+"title":"Generally Available: External key management for Azure Key Vault Managed HSM",
+"link":"https://azure.microsoft.com/updates?id=574296",
+"source":"Main list source",
+"id":"azure-keyvault-mhsm-external-key-management-ga-2026-10-16",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://azure.microsoft.com/updates?id=576377":{
+"title":"[Launched] Generally Available: Azure Cloud HSM hardware audit logging",
+"link":"https://azure.microsoft.com/updates?id=576377",
+"source":"Azure Updates",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-17"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Azure",
+"posts":[]
+},
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-17",
@@ -7395,6 +7732,70 @@
 "date":"2026-09-29",
 "group":"microsoft",
 "found":"2026-10-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=576881":{
+"title":"Dynamics 365 Business Central: Financial Management - Use self-billed invoices",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576881",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=576873":{
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Enable subcontractor vendor invoice matching to actuals",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576873",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=576860":{
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Post project invoice proposals using multithreaded batch tasks",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576860",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://mc.merill.net/message/MC1511072":{
+"title":"MC1511072: Microsoft Teams: Upcoming change to voicemail message delivery by email",
+"link":"https://mc.merill.net/message/MC1511072",
+"source":"MC - Merill",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://mc.merill.net/message/RM576881":{
+"title":"RM576881: Dynamics 365 Business Central: Financial Management - Use self-billed invoices",
+"link":"https://mc.merill.net/message/RM576881",
+"source":"MC - Merill",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://mc.merill.net/message/RM576873":{
+"title":"RM576873: Dynamics 365 Project Operations: Optimize Project Operations - Enable subcontractor vendor invoice matching to actuals",
+"link":"https://mc.merill.net/message/RM576873",
+"source":"MC - Merill",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://mc.merill.net/message/RM576860":{
+"title":"RM576860: Dynamics 365 Project Operations: Optimize Project Operations - Post project invoice proposals using multithreaded batch tasks",
+"link":"https://mc.merill.net/message/RM576860",
+"source":"MC - Merill",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://daily.entra.news/day/2026-10-16/":{
+"title":"Customer sign-in guidance says provider removal blocks signup and invitation redemption — 16 October 2026",
+"link":"https://daily.entra.news/day/2026-10-16/",
+"source":"Daily Entra News",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
 }
 },
 "final":"2027-07-01",
@@ -7422,13 +7823,22 @@
 "MC1440968",
 "MC1450133",
 "item:MC1450133",
+"item:MC1459133",
 "MC1469555",
 "MC1459133",
-"item:MC1459133",
 "item:entra-external-idp-passkeys-system-browser-ga",
 "item:569432"
 ],
 "log":[
+{
+"date":"2026-10-17",
+"id":"MC1459133",
+"what":"Published",
+"before":"2026-09-14",
+"after":"2026-08-21",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133"
+},
 {
 "date":"2026-10-16",
 "id":"MC1426371",
@@ -7543,7 +7953,7 @@
 "what":"Microsoft revised the post",
 "before":"2026-09-14",
 "after":"2026-10-08",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -7552,7 +7962,7 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -7561,7 +7971,7 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -7903,22 +8313,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-15",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-15",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -8040,6 +8434,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-16",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-17",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8328,6 +8738,22 @@
 "date":"2026-10-12T00:00:00.0000000Z",
 "group":"microsoft",
 "found":"2026-10-16"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486":{
+"title":"B2B Direct Connect and File Sharing Support",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://daily.entra.news/day/2026-10-16/":{
+"title":"Customer sign-in guidance says provider removal blocks signup and invitation redemption — 16 October 2026",
+"link":"https://daily.entra.news/day/2026-10-16/",
+"source":"Daily Entra News",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
 }
 },
 "final":"2027-02-25",
@@ -10334,6 +10760,346 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1511071",
+"type":"material",
+"name":"Review property changes for Exchange Online scenarios",
+"group":"microsoft",
+"title":"Review property changes for Exchange Online scenarios",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1511071"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106258: Uninitialized resource",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106263: Improper input validation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106264: Missing authorization",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106268: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106270: Incorrect authorization",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106271: Missing authorization",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106273: Uninitialized resource",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106274: Incorrect reference resolution",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106276: UI misrepresentation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106278: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108465 Windows Update Delivery Optimization Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83831 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-85890 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-85897 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-85898 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96198 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96199 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106287: Information loss",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-106288: Missing authorization",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"Enable opaque origins for data URLs in Web Workers",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"
+},
+{
+"day":"2026-10-17",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"B2B Direct Connect and File Sharing Support",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486"
+},
+{
+"day":"2026-10-17",
+"cid":"c-item-mc1511056",
+"type":"new",
+"name":"Microsoft Copilot Studio – Teams app retirement",
+"ctype":"Retirement",
+"tech":"Teams",
+"next":"early Jan 2027",
+"text":"Microsoft is continuing the transition of Copilot Studio experiences from the Microsoft Teams app to the Copilot Studio web app at https://copilotstudio.microsoft.com/ ."
+},
+{
+"day":"2026-10-17",
+"cid":"c-item-azure-keyvault-mhsm-external-key-management-ga-2026-10-",
+"type":"new",
+"name":"Azure Key Vault Managed HSM external key management is generally available in all public regions",
+"ctype":"Rollout",
+"tech":"Azure",
+"next":null,
+"text":"Azure Key Vault Managed HSM external key management is generally available in all public regions"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Business Central: Financial Management - Use self-billed invoices",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576881"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Enable subcontractor vendor invoice matching to actuals",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576873"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Post project invoice proposals using multithreaded batch tasks",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=576860"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1511072: Microsoft Teams: Upcoming change to voicemail message delivery by email",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1511072"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"RM576881: Dynamics 365 Business Central: Financial Management - Use self-billed invoices",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM576881"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"RM576873: Dynamics 365 Project Operations: Optimize Project Operations - Enable subcontractor vendor invoice matching to actuals",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM576873"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"RM576860: Dynamics 365 Project Operations: Optimize Project Operations - Post project invoice proposals using multithreaded batch tasks",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM576860"
+},
+{
+"day":"2026-10-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Customer sign-in guidance says provider removal blocks signup and invitation redemption — 16 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-16/"
+},
+{
+"day":"2026-10-17",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"B2B Direct Connect and File Sharing Support",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486"
+},
+{
+"day":"2026-10-17",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Customer sign-in guidance says provider removal blocks signup and invitation redemption — 16 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-16/"
 }
 ],
 "archive":{
