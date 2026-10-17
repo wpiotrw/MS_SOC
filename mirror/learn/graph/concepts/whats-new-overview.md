@@ -33,12 +33,12 @@ monikers: []
 item_type: Content
 source_path: concepts/whats-new-overview.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 platformId: 6e6097c9-5516-d241-0299-2adc10e56ea2
 ---
@@ -78,13 +78,17 @@ Added support to identify recalled messages in message trace. Use `recalled` as 
 
 Updated the date when deprecated image properties on [cloudPcDeviceImage](/en-us/graph/api/resources/cloudpcdeviceimage?view=graph-rest-beta&amp;preserve-view=true), [cloudPcSourceDeviceImage](/en-us/graph/api/resources/cloudpcsourcedeviceimage?view=graph-rest-beta&amp;preserve-view=true), and [cloudPcGalleryImage](/en-us/graph/api/resources/cloudpcgalleryimage?view=graph-rest-beta&amp;preserve-view=true) will stop returning data from January 31, 2024 to December 7, 2026. No replacement is planned for **recommendedSku**. Review the replacement property guidance in these resource topics and update affected integrations before the deadline.
 
-### Mail | Message trace
-
-Added support to identify recalled messages in message trace. Use `recalled` as a supported value of the **status** property of the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace?view=graph-rest-beta&amp;preserve-view=true) resource.
-
 ### Files
 
 Updated the [getSharePointApiUsage](/en-us/graph/api/reportroot-getsharepointapiusage?view=graph-rest-beta&amp;preserve-view=true) method to support SharePoint service prioritization reports. Use this report to retrieve total, standard, heavy, billed standard, and billed heavy API request counts by application and date.
+
+### Identity and access | Governance
+
+- Added the [accessDriftSummary](/en-us/graph/api/resources/accessdriftsummary?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for identifying governed resources whose actual access differs from access-package intent. Use it to list and inspect drift summaries, retrieve drift details, and download bulk reconciliation reports. Access drift details identify whether each affected identity is a user or group through the **identityType** property of [entraDriftIdentityInfo](/en-us/graph/api/resources/entradriftidentityinfo?view=graph-rest-beta&amp;preserve-view=true).
+
+### Mail | Message trace
+
+Added support to identify recalled messages in message trace. Use `recalled` as a supported value of the **status** property of the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace?view=graph-rest-beta&amp;preserve-view=true) resource.
 
 ### Mailbox import and export
 
@@ -99,9 +103,17 @@ Added the **incidentConfiguration** property to the [detectionAction](/en-us/gra
 
 Added 35 members, from `PlannerCustomFieldDefinition` through `MESRawEmailContentMetadata`, to the [auditLogRecordType](/en-us/graph/api/resources/security-auditlogrecordtype?view=graph-rest-beta&amp;preserve-view=true) enumeration and added the matching [auditData derived types](/en-us/graph/api/resources/security-auditdata-derived-types?view=graph-rest-beta&amp;preserve-view=true) to represent workload-specific audit event payloads.
 
+### Security | Data security and compliance
+
+Updated the **evaluationErrorType** enumeration to use customer-facing reasons for incomplete policy evaluations, and removed the **errorMessage** property from the [evaluationErrorDetail](/en-us/graph/api/resources/evaluationerrordetail?view=graph-rest-beta&amp;preserve-view=true) complex type. Use **errorType** to identify why an evaluation couldn't be completed.
+
 ### Security | Workbooks
 
 - Added the [workbook](/en-us/graph/api/resources/security-workbook?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to manage tenant-scoped Microsoft Security workbook documents. Use stable IDs for repeatable deployments and replace a workbook's JSON content as a complete document.
+
+### Teamwork and communications | Messaging
+
+Added support for setting and unsetting custom emoji reactions on chat messages by specifying a display name (**displayName**), service-issued identifier (**reactionId**), or both. For more information, see [chatMessageReaction](/en-us/graph/api/resources/chatmessagereaction?view=graph-rest-beta&amp;preserve-view=true).
 
 ## September 2026: New and generally available
 
@@ -125,7 +137,8 @@ Added the **onPremisesExtensionAttributes** property to the [group](/en-us/graph
 
 ### Identity and access | Directory management
 
-Added the [provision](/en-us/graph/api/device-provision) action to the [device](/en-us/graph/api/resources/device) resource in v1.0 to enable approved Virtual Desktop Infrastructure (VDI) providers to provision devices in a customer's directory.
+- Added the [directoryRoleManagementDeletedItemContainer](/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer) resource type and related methods to v1.0. Use these APIs to list and inspect soft-deleted custom roles, restore them to the active role definitions collection, or permanently delete them.
+- Added the [provision](/en-us/graph/api/device-provision) action to the [device](/en-us/graph/api/resources/device) resource in v1.0 to enable approved Virtual Desktop Infrastructure (VDI) providers to provision devices in a customer's directory. Added the [provision](/en-us/graph/api/device-provision) action to the [device](/en-us/graph/api/resources/device) resource in v1.0 to enable approved Virtual Desktop Infrastructure (VDI) providers to provision devices in a customer's directory.
 
 ### Identity and access | Governance
 

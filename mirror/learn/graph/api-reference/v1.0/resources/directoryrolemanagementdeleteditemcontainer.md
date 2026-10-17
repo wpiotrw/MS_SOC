@@ -1,12 +1,12 @@
 ---
 layout: Conceptual
 monikers:
-- graph-rest-beta
-defaultMoniker: graph-rest-beta
+- graph-rest-1.0
+defaultMoniker: graph-rest-1.0
 versioningType: Ranged
-title: directoryRoleManagementDeletedItemContainer resource type - Microsoft Graph beta | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer?view=graph-rest-beta
-config_moniker_range: graph-rest-beta
+title: directoryRoleManagementDeletedItemContainer resource type - Microsoft Graph v1.0 | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer?view=graph-rest-1.0
+config_moniker_range: '>= graph-rest-1.0'
 feedback_system: Standard
 feedback_product_url: https://developer.microsoft.com/graph/support
 author: simransaxena21
@@ -20,14 +20,14 @@ breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
 description: Contains soft-deleted custom role definitions for Microsoft Entra directory role management.
-ms.date: 2026-09-29T00:00:00.0000000Z
+ms.date: 2026-10-07T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
 locale: en-us
-document_id: 2f6cdda3-de43-5454-1e3e-3fe0b5ccd28a
+document_id: 2c965a63-e22b-3f0f-c31a-231dc15d46d8
 document_version_independent_id: dc9853e4-af3c-1003-622e-fddac7a52308
-original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/beta/resources/directoryrolemanagementdeleteditemcontainer.md
-default_moniker: graph-rest-beta
+original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/v1.0/resources/directoryrolemanagementdeleteditemcontainer.md
+default_moniker: graph-rest-1.0
 site_name: Docs
 depot_name: MSDN.microsoft-graph-ref
 page_type: conceptual
@@ -35,11 +35,11 @@ toc_rel: ../toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
 asset_id: api/resources/directoryrolemanagementdeleteditemcontainer
-moniker_range_name: e91460ef4e2d3d4ee85e2756c1c65925
+moniker_range_name: 107bf06837724705de50667b407c0197
 monikers:
-- graph-rest-beta
+- graph-rest-1.0
 item_type: Content
-source_path: api-reference/beta/resources/directoryrolemanagementdeleteditemcontainer.md
+source_path: api-reference/v1.0/resources/directoryrolemanagementdeleteditemcontainer.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
@@ -49,13 +49,9 @@ spProducts:
 platformId: 827da2df-b551-3a74-22bf-f551f955e80f
 ---
 
-# directoryRoleManagementDeletedItemContainer resource type - Microsoft Graph beta | Microsoft Learn
+# directoryRoleManagementDeletedItemContainer resource type - Microsoft Graph v1.0 | Microsoft Learn
 
 Namespace: microsoft.graph
-
-Important
-
-APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
 Contains soft-deleted custom [unifiedRoleDefinition](unifiedroledefinition) objects for Microsoft Entra directory role management. Use this container to list, inspect, restore, or permanently delete custom role definitions that have been soft-deleted.
 
@@ -65,7 +61,7 @@ Inherits from [entity](entity).
 
 | Method | Return type | Description |
 | --- | --- | --- |
-| [List role definitions](../directoryrolemanagementdeleteditemcontainer-list-roledefinitions) | [unifiedRoleDefinition](unifiedroledefinition) collection | List soft-deleted custom role definitions. |
+| [List roleDefinitions](../directoryrolemanagementdeleteditemcontainer-list-roledefinitions) | [unifiedRoleDefinition](unifiedroledefinition) collection | List soft-deleted custom role definitions. |
 
 ## Properties
 
@@ -89,3 +85,9 @@ The following JSON representation shows the resource type.
   "id": "String (identifier)"
 }
 ```
+
+---
+
+## Other Supported Versions
+
+- [graph-rest-beta](https://learn.microsoft.com/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer?view=graph-rest-beta&accept=text/markdown)

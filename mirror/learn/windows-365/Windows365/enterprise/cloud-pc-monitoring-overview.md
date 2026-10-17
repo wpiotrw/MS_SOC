@@ -53,9 +53,9 @@ platformId: 9487a31d-a082-e520-6937-b54cc93ffe1d
 
 Important
 
-Cloud PC monitoring is in public preview. Preview features are tagged with **(preview)** in the admin user interface and might have restricted or limited functionality. These features are subject to change before general availability (GA) and are fully supported by Microsoft. Preview features are considered unfinished, might not be suitable for production workloads, and should be used with caution.
+Cloud PC monitoring is in public preview. Preview features are tagged with (preview) in the admin user interface and might have restricted or limited functionality. These features are subject to change before general availability (GA) and are fully supported by Microsoft. Preview features are considered unfinished, might not be suitable for production workloads, and should be used with caution.
 
-This overview is intended for Intune administrators who monitor and troubleshoot Windows 365, as well as help desk and operations center engineers. It explains how to use the Windows 365 monitoring and reporting platform for Cloud PCs managed in Microsoft Intune. This feature is available in public preview.
+This overview is intended for Intune administrators who monitor and troubleshoot Windows 365, as well as help desk and operations center engineers. It explains how to use the Windows 365 monitoring and reporting platform for Cloud PCs managed in Microsoft Intune. This feature is available in public preview. Note that scope tags are not supported in Public Preview.
 
 For the latest information and to engage with the community, see the [Windows 365 public preview documentation](/en-us/windows-365/public-preview).
 

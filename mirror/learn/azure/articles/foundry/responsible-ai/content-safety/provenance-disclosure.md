@@ -24,7 +24,7 @@ ms.update-cycle: 1825-days
 ms.service: azure-ai-content-safety
 description: Content provenance
 ms.topic: concept-article
-ms.date: 2026-10-09T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: bc523717-88a8-9d85-180e-e45d0e9f9443
@@ -144,11 +144,16 @@ Note
 
 Text provenance support varies by model. Where available, the underlying model provides invisible watermarking and surfaces it through Microsoft Foundry. Microsoft partners closely with model providers and shares the latest updates on supported models as they become available.
 
-The following models support invisible watermarking for text output.
+For Anthropic models, see [Claude models in Microsoft Foundry](../../foundry-models/concepts/claude-models#available-claude-models) for watermarking guidance and supported-model information. Check support for text watermarks in cloud partner output.
 
-| Model Provider | Models |
+For Azure OpenAI models, planned text watermarking support is limited to select models in the gpt-5.1 through gpt-5.6 families. There are no confirmed plans to support model families earlier than gpt-5.1. This page is updated as models with text watermarking become available.
+
+The following table lists current and planned invisible watermarking support for models with text output.
+
+| Model provider | Models |
 | --- | --- |
-| Anthropic | Claude Fable 5.1Claude Mythos 5.1Claude Opus 5Claude Opus 5.5 |
+| Anthropic | See [Claude watermarking guidance](../../foundry-models/concepts/claude-models#available-claude-models) for supported models. |
+| Azure OpenAI | Planned support for:gpt-5.1gpt-5.2gpt-5.4gpt-5.4-minigpt-5.4-nanogpt-5.5-reasoninggpt-5.5-chatgpt-5.6-solgpt-5.6-chatgpt-5.6-lunagpt-5.6-terra |
 
 ## What are the limitations?
 
