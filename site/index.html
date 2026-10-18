@@ -23389,7 +23389,8 @@ IdentityDirectoryEvents
      not here is a role change on its way: change "elsewhere", dated by the day that tenant got it. */
   /* §5ef: the same comparison with our own second (developer) tenant, when the owner has connected one */
   var ELS = null, ELSS = [];
-  ["data/roles-elsewhere.json", "data/roles-dev.json"].forEach(function (u) {
+  /* §5ej: and two public trackers that read their own tenant (Entra-Rolelens roles, merill/microsoft-info permissions) */
+  ["data/roles-elsewhere.json", "data/roles-dev.json", "data/roles-rolelens.json", "data/roles-merill.json"].forEach(function (u) {
     try {
       fetch(u, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
         .then(function (j) { if (j) { ELSS.push(j); ELS = j; } D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () {});
@@ -23669,7 +23670,7 @@ IdentityDirectoryEvents
     var sm = el("summary");
     sm.appendChild(el("span", "s5ed-t", "Last 3 days · " + (which === "graph" ? "Graph permissions" : "Entra roles")));
     sm.appendChild(el("span", "s5ed-n", String(gs.length)));
-    sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, another tenant (msadminroles.com) and the briefs"));
+    sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, other tenants (" + (ELSS.map(function (X) { return String(X.sourceLabel || "msadminroles.com").replace(/ \(.*$/, ""); }).join(", ") || "msadminroles.com") + ") and the briefs"));
     box.appendChild(sm);
     if (!gs.length) { box.appendChild(el("p", "s5ed-none", "Nothing moved in " + (which === "graph" ? "Graph permissions" : "built-in roles") + " in the last three days in any source we read.")); return; }
     var ul = el("ul", "s5ed-list");
