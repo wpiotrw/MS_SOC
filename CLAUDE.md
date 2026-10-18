@@ -33105,6 +33105,7 @@ odtad CZTERNASCIE (4-17).**
     var after = strip || head;
     if (after && after.parentNode === p) p.insertBefore(root, after.nextSibling); else p.insertBefore(root, p.firstChild);
     render(); readTenant();
+    try { dayTiles(); } catch (x) { if (window.console) console.error("[5ei tiles]", x); }
     /* the tab's number is the number of POSTS, not of table rows (Sections A-D counted 746
        rows for 414 posts on 26 IX 2026); same precedent as the First-party apps tab */
     var nMC = ALL.filter(function (r) { return !r.rm; }).length;
@@ -33119,6 +33120,100 @@ odtad CZTERNASCIE (4-17).**
     stamp(); setTimeout(stamp, 2500);
     return true;
   }
+  /* ---------- §5ei (18 X 2026): the day in tiles, like "Last 3 days" in Roles and Graph API ----------
+     Owner: "in Roles, Graph API and Component versions the top of the tab shows tiles with what was added or changed
+     that day, plus a separate section for the day before - does Message Center have it?" It did not: a day grid and
+     a table. Two blocks above the grid: posts NEW since the previous brief and posts CHANGED since it (revised at
+     source, or a field that moved in our tenant - "End date 30 Oct -> 14 Dec"), and the previous brief the same way,
+     folded. Each tile opens its post in the list below. At most TILE_MAX tiles a block (phone DOM budget, §5ed). */
+  var TILE_MAX = 24;
+  try { if (window.matchMedia("(max-width: 760px)").matches) TILE_MAX = 6; } catch (x) {}   /* phone: the list stays reachable */
+  var FLD = { end: "End date", start: "Start", actionBy: "Act by", title: "Title", services: "Services", category: "Category",
+              severity: "Severity", major: "Major change", tags: "Tags", bodyHash: "Text edited" };
+  function fieldTxt(k, v) {
+    var lab = FLD[k] || k;
+    if (k === "bodyHash") return lab;
+    if (!v || v.length !== 2) return lab;
+    var f = function (x) { return Array.isArray(x) ? x.join(", ") : (/^\d{4}-\d{2}-\d{2}/.test(String(x || "")) ? dm(x) : String(x === null || x === undefined || x === "" ? "none" : x)); };
+    var a = f(v[0]), b = f(v[1]);
+    return lab + " " + (a.length + b.length > 70 ? "changed" : a + " → " + b);
+  }
+  function prevOf(d) {
+    var best = "";
+    ALL.forEach(function (r) { var f = iso(r.e.firstTracked); if (f && f < d && f > best) best = f; });
+    return best || addDays(d, -1);
+  }
+  function dayRows(lo, hi, withTenant) {
+    var nw = [], ch = [];
+    ALL.forEach(function (r) {
+      if (r.rm) return;
+      var ft = iso(r.e.firstTracked);
+      if (ft && ft > lo && ft <= hi && !r.e.backfill) { nw.push(r); return; }
+      var tc = withTenant && r.e.tenantChange && Object.keys(r.e.tenantChange).length;
+      if ((r.rev && r.rev > lo && r.rev <= hi) || tc) ch.push(r);
+    });
+    var by = function (a, b) { return (b.major - a.major) || (b.high - a.high) || String(b.rev || b.pub).localeCompare(String(a.rev || a.pub)) || b.id.localeCompare(a.id); };
+    return { nw: nw.sort(by), ch: ch.sort(by) };
+  }
+  function tile(r, kind, withTenant) {
+    var c = el("li", "s5ei-tile s5ei-" + kind);
+    var top = el("div", "s5ei-top");
+    var b = el("button", "s5ei-id", r.id); b.type = "button";
+    b.addEventListener("click", function () { show(r.id); });
+    top.appendChild(b);
+    top.appendChild(el("span", "s5ei-kind", kind === "new" ? "NEW" : "CHANGED"));
+    if (r.major) top.appendChild(el("span", "s5ei-flag", "major"));
+    if (r.high) top.appendChild(el("span", "s5ei-flag", "high"));
+    c.appendChild(top);
+    c.appendChild(el("p", "s5ei-title", r.title || r.id));
+    var meta = [r.tech.slice(0, 2).join(", "), r.cat, r.dl ? "act by " + dm(r.dl) : ""].filter(Boolean).join(" · ");
+    if (meta) c.appendChild(el("p", "s5ei-meta", meta));
+    if (kind === "chg") {
+      var tc = withTenant && r.e.tenantChange, parts = [];
+      if (tc) Object.keys(tc).forEach(function (k) { parts.push(fieldTxt(k, tc[k])); });
+      c.appendChild(el("p", "s5ei-what", parts.length ? "In our tenant: " + parts.join(" · ") : "Revised at source " + dm(r.rev)));
+    }
+    return c;
+  }
+  function tileBlock(lab, d0, d1, withTenant, open) {
+    var rows = dayRows(d0, d1, withTenant);
+    var box = el("details", "s5ei-day"); box.open = !!open;
+    var sm = el("summary");
+    sm.appendChild(el("span", "s5ei-t", lab));
+    sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " new"));
+    sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " changed"));
+    sm.appendChild(el("span", "s5ei-s", "after " + dm(d0) + ", up to " + dm(d1)));
+    box.appendChild(sm);
+    function fill() {
+      if (box.__filled) return; box.__filled = true;
+      if (!rows.nw.length && !rows.ch.length) { box.appendChild(el("p", "s5ei-none", "No Message Center post was first seen or changed in this window.")); return; }
+      [["nw", "new", "New posts"], ["ch", "chg", "Changed posts"]].forEach(function (g) {
+        var L = rows[g[0]]; if (!L.length) return;
+        box.appendChild(el("h4", "s5ei-h", g[2] + " · " + L.length));
+        var ul = el("ul", "s5ei-grid");
+        L.slice(0, TILE_MAX).forEach(function (r) { ul.appendChild(tile(r, g[1], withTenant)); });
+        box.appendChild(ul);
+        if (L.length > TILE_MAX) {
+          var mb = el("button", "mcb-btn s5ei-all", "Show all " + L.length); mb.type = "button";
+          mb.addEventListener("click", function () { L.slice(TILE_MAX).forEach(function (r) { ul.appendChild(tile(r, g[1], withTenant)); }); mb.remove(); });
+          var mp = el("p", "s5ei-more"); mp.appendChild(mb); box.appendChild(mp);
+        }
+      });
+    }
+    if (box.open) fill();
+    box.addEventListener("toggle", function () { if (box.open) fill(); });
+    return box;
+  }
+  function dayTiles() {
+    if (!root || document.getElementById("s5ei-days")) return;
+    var p0 = PREV || prevOf(DAY), p1 = prevOf(p0);
+    var wrap = el("div", "s5ei"); wrap.id = "s5ei-days";
+    wrap.appendChild(tileBlock("Since the previous brief", p0, DAY, true, true));
+    wrap.appendChild(tileBlock("+ Previous brief", p1, p0, false, false));
+    var at = gridEl && gridEl.parentNode === root ? gridEl : (banner && banner.parentNode === root ? banner : null);
+    if (at) root.insertBefore(wrap, at); else root.insertBefore(wrap, root.firstChild ? root.firstChild.nextSibling : null);
+  }
+
   /* SCRIPT 16 and §5bn call in here: an MC number or a product opens the browser */
   function show(id) {
     var r = BYID[id]; if (!r) return false;
@@ -43312,6 +43407,32 @@ details.s5ed-l3>summary::-webkit-details-marker{display:none}
 .s5ed-name:hover{color:var(--accent);text-decoration:underline}
 .s5ed-tag{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
 .s5ed-txt{margin:4px 0 0;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+/* §5ei: Message Center - the day in tiles (new / changed since the previous brief, previous brief folded) */
+.s5ei{display:grid;gap:10px;margin:0 0 14px}
+details.s5ei-day{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;background:var(--surface)}
+details.s5ei-day>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:10px 14px}
+details.s5ei-day>summary::-webkit-details-marker{display:none}
+.s5ei-t{font-weight:700;font-size:15px;color:var(--text)}
+.s5ei-n{font-weight:700;font-size:13px}
+.s5ei-nn{color:var(--accent)}
+.s5ei-nc{color:var(--warn)}
+.s5ei-s{color:var(--muted);font-size:12px}
+.s5ei-none,.s5ei-more{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
+.s5ei-h{margin:2px 14px 6px;font-size:13px;color:var(--muted);font-weight:600}
+.s5ei-grid{list-style:none;margin:0;padding:0 14px 12px;display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.s5ei-tile{border:1px solid var(--border);border-radius:10px;padding:8px 12px;background:var(--bg);min-width:0}
+.s5ei-tile.s5ei-new{border-left:4px solid var(--accent)}
+.s5ei-tile.s5ei-chg{border-left:4px solid var(--warn)}
+.s5ei-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5ei-id{font:inherit;font-family:var(--mono,monospace);font-weight:700;font-size:13px;background:none;border:0;padding:2px 0;color:var(--text);cursor:pointer;min-height:24px}
+.s5ei-id:hover{color:var(--accent);text-decoration:underline}
+.s5ei-kind,.s5ei-flag{font-size:10.5px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:1px 6px;border:1px solid var(--border);color:var(--muted)}
+.s5ei-new .s5ei-kind{color:var(--accent);border-color:var(--accent)}
+.s5ei-chg .s5ei-kind{color:var(--warn);border-color:var(--warn)}
+.s5ei-title{margin:4px 0 0;font-size:13px;line-height:1.4;font-weight:600;overflow-wrap:anywhere}
+.s5ei-meta{margin:3px 0 0;font-size:11.5px;color:var(--muted);overflow-wrap:anywhere}
+.s5ei-what{margin:4px 0 0;font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+@media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -44404,6 +44525,23 @@ Strona: `mcSummary` w liscie streszczen wpisu MC i jako ostatni fallback zdania.
 Test 18 X (prev = stan 17 X): 1004 wpisy = brief 18 X, 0 utraconych, 0 nowych; index 335 MC (strona: 320);
 pola: category 940->953, published 595->608, tags 512->546, severity 934->949, mcSummary 0->335. Zapas sprawdzony
 (zly adres JSON -> `method: page`, 320 postow, nota).
+
+## 5ei. DZIEN W KAFELKACH: MESSAGE CENTER, LEARN, BLOGS, COMMUNITY (18 X 2026)
+
+Pytanie wlasciciela (18 X, 23:15): czy Message Center ma, jak Roles, Graph API i Component versions, kafelki z tym,
+co dodano / zmieniono danego dnia, i osobna sekcje poprzedniego dnia. Przeglad wszystkich zakladek na zywo: Roles
+i Graph — „Last 3 days"; Component versions — „Versions at a glance"; New, Deadlines, First-party apps — panel
+zmian; **Message Center, Learn, Blogs, Community — tylko wykres dzien po dniu i tabele**. Wlasciciel: robic po
+kolei, przed nastepna zakladka sprawdzic poprzednia na zywo.
+
+### Message Center (`#s5ei-days`, skrypt przegladarki MC, SCRIPT 17)
+Dwa bloki nad wykresem „Day by day": „Since the previous brief" (otwarty) i „+ Previous brief" (zwiniety,
+kafelki budowane dopiero po otwarciu). Nowe = `firstTracked` w oknie (bez `backfill`); zmienione = `revisedOn`/
+`updated` w oknie albo — tylko dla dzisiejszego okna — `tenantChange` z naszego tenanta, z opisem pola („End date
+28 Dec → 31 Dec", „Text edited"). Kolejnosc: major, high, data. Na telefonie 6 kafelkow + „Show all N", na
+komputerze 24. Kafelek otwiera wpis w liscie ponizej (`show(id)`).
+Test 18 X (lokalnie, Chromium 1440 i iPhone 13): dzis 0 nowych / 18 zmienionych, poprzedni brief 4 nowe; brak
+bledow konsoli; brak przewijania w bok; klikniecie otwiera wiersz MC1510951; `mobile_check.py` OK (92 714 elementow).
 
 ## 6. Kontrakt w stronie
 
