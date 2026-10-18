@@ -1022,7 +1022,7 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
         place = site_url + "#" + mid
         src = mc_admin(mid) if mid.upper().startswith("MC") else (e.get("link") or "")
         add("mc:%s" % mid, "Message Center", "%s %s" % (mid, e.get("title") or ""), place, src, e.get("published") or first,
-            desc(e.get("dpSummary") or e.get("feedSummary") or "Message Center post first tracked by the portal on %s; no summary was read for it yet." % first, place, src,
+            desc(e.get("dpSummary") or e.get("feedSummary") or e.get("mcSummary") or "Message Center post first tracked by the portal on %s; no summary was read for it yet." % first, place, src,
                  " · ".join(x for x in (", ".join(t), e.get("category"), ("act by " + e["action"]) if e.get("action") else "") if x)),
             techs(" ".join(t), e.get("title")))
     # 3. campaigns, 4. baselines - files written by the workflows next to the daily state
@@ -24867,8 +24867,11 @@ run and posts fell out. The owner: "do not filter - we must catch such messages"
 comes from code, and the brief ENRICHES it (summary, action, items), it does not choose it.
 
 Sources, each with its own state (ok / unread + note), none of them the only truth:
-  index   https://mc.merill.net/?type=mc - the 200 most recently UPDATED rows (MC and Roadmap
-          mixed; Roadmap rows are skipped). Row = id, title, service badges, "Last updated".
+  index   https://mc.merill.net/messages-index.json - since 5eh (18 X 2026) Merill's published JSON (MIT,
+          github.com/merill/mc): EVERY Message Center post of his multi-tenant archive (4 698 on 18 X) with
+          category, major, start/end/last-modified, tags and his summary (`mcSummary`); action date and
+          severity of the active posts come from github.com/merill/mc/@data/messages.json. Fallback: the
+          page's Next.js payload (active posts only), then the HTML table (200 rows).
   feed    https://msmessagecenter.com/feed.xml - RSS, the 100 most recent posts with the publication
           time and category (Plan for Change / Stay Informed / Prevent or Fix Issue).
   tenant  <SOC_REPO>/site/data/mc-tenant.json - Message Center of the owner's tenant through
@@ -24891,6 +24894,8 @@ import datetime, html, json, os, re, sys, urllib.request
 
 UA = "Mozilla/5.0 (compatible; MS-SOC-brief/1.0)"
 INDEX = "https://mc.merill.net/?type=mc"
+MCJSON = "https://mc.merill.net/messages-index.json"                                  # 5eh
+MCFULL = "https://raw.githubusercontent.com/merill/mc/main/@data/messages.json"       # 5eh: active posts, full fields
 FEED = "https://msmessagecenter.com/feed.xml"
 DPMCP = "https://deltapulse.app/mcp"
 DP_FETCH = 40
@@ -24945,6 +24950,41 @@ def read_index():
                     "tech": sv, "updated": iso(d[-1]) if d else None,
                     "link": "https://mc.merill.net/message/" + mid})
     return out, len(rows), int(total.group(2)) if total else None
+
+
+def read_mc_json():
+    """5eh (18 X 2026): Merill's archive as data, not as a page. On 18 X the page payload gave 320 posts updated
+    in the last 30 days, the JSON 335 (15 expired-but-updated posts were missing) - and the JSON carries the
+    fields the page does not (category, major, publication day, tags)."""
+    since = (datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.today().isoformat())
+             - datetime.timedelta(days=INDEX_DAYS)).isoformat()
+    req = urllib.request.Request(MCJSON, headers={"User-Agent": UA})
+    ix = json.load(urllib.request.urlopen(req, timeout=120))
+    mc = [r for r in ix if str(r.get("Id") or "").startswith("MC")]
+    if len(mc) < 500:
+        raise ValueError("only %d Message Center records in %s" % (len(mc), MCJSON))
+    full = {}
+    try:   # action date and severity live only in the full records (active posts); a miss is not fatal
+        req = urllib.request.Request(MCFULL, headers={"User-Agent": UA})
+        full = {m.get("Id"): m for m in json.load(urllib.request.urlopen(req, timeout=120)) if m.get("Id")}
+    except Exception:
+        full = {}
+    out = []
+    for r in mc:
+        upd = (r.get("LastModifiedDateTime") or "")[:10]
+        if upd < since:
+            continue
+        f = full.get(r["Id"]) or {}
+        x = {"id": r["Id"], "title": (r.get("Title") or "").strip(), "tech": r.get("Services") or [],
+             "updated": upd or None, "published": (r.get("StartDateTime") or "")[:10] or None,
+             "category": DPCAT.get(r.get("Category")) or r.get("Category") or None,
+             "isMajor": True if r.get("IsMajorChange") else None, "tags": r.get("Tags") or None,
+             "mcSummary": re.sub(r"\s+", " ", r.get("Summary") or "").strip()[:400] or None,
+             "action": (f.get("ActionRequiredByDateTime") or "")[:10] or None,
+             "severity": f.get("Severity") or None,
+             "link": "https://mc.merill.net/message/" + r["Id"]}
+        out.append(x)
+    return out, len(mc), len(full)
 
 
 def read_feed():
@@ -25007,11 +25047,17 @@ def main(out_path, prev_path=None):
     repo = os.environ.get("SOC_REPO") or "../chk"
     src = {}
     try:
-        idx, nrows, total = read_index()
-        src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": total, "url": INDEX, "note": ""}
-    except Exception as ex:
-        idx = []
-        src["index"] = {"state": "unread", "rows": 0, "mc": 0, "total": None, "url": INDEX, "note": str(ex)[:200]}
+        idx, nrows, nfull = read_mc_json()
+        src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": nrows, "url": MCJSON, "method": "json",
+                        "full": nfull, "note": "" if nfull else "full records (action date, severity) not read"}
+    except Exception as ex0:
+        try:
+            idx, nrows, total = read_index()
+            src["index"] = {"state": "ok", "rows": nrows, "mc": len(idx), "total": total, "url": INDEX, "method": "page",
+                            "note": "JSON unread (%s) - page payload used" % str(ex0)[:120]}
+        except Exception as ex:
+            idx = []
+            src["index"] = {"state": "unread", "rows": 0, "mc": 0, "total": None, "url": INDEX, "note": str(ex)[:200]}
     try:
         fd = read_feed()
         src["feed"] = {"state": "ok", "items": len(fd), "url": FEED, "note": ""}
@@ -25059,7 +25105,7 @@ def main(out_path, prev_path=None):
                  "updated": e.get("revisedOn") or e.get("published"), "tech": e.get("tech") or [],
                  "origin": "prev", "firstTracked": e.get("firstTracked") or day}
             for k in ("published", "category", "severity", "isMajor", "months", "tags", "dpLink",
-                      "feedLink", "feedSummary", "dpSummary", "late", "backfill"):
+                      "feedLink", "feedSummary", "dpSummary", "mcSummary", "action", "late", "backfill"):
                 if e.get(k) not in (None, "", []):
                     x[k] = e[k]                          # what an earlier run read is not lost
             ent[e["id"]] = x
@@ -25104,7 +25150,7 @@ def main(out_path, prev_path=None):
     n = 0
     for r in dp:
         x = ent[r["id"]]
-        if r["id"] in known or x.get("feedSummary") or x.get("dpSummary") or n >= DP_FETCH:
+        if r["id"] in known or x.get("feedSummary") or x.get("dpSummary") or x.get("mcSummary") or n >= DP_FETCH:
             continue
         try:
             f = dp_call("fetch", {"id": r["id"], "includeChangeHistory": False})
@@ -31476,7 +31522,7 @@ odtad CZTERNASCIE (4-17).**
     MCE.filter(function (e) { return e.firstTracked === today && !BYID[e.id].it; })
       .sort(function (a, b) { return (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0) || (b.deadline ? 1 : 0) - (a.deadline ? 1 : 0) || String(b.id).localeCompare(String(a.id)); })
       .forEach(function (e) { pool.push({ id: e.id, tech: techOf(e.tech || []), text: e.title || e.id,
-        sub: firstSentence(e.summary || e.dpSummary || e.feedSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
+        sub: firstSentence(e.summary || e.dpSummary || e.feedSummary || e.mcSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
     /* §5bs: Microsoft's own updates to Graph permissions (collect_graph_diff.py), the heavy ones
        (level 3-4, or added, removed, returned) of the last seven days */
     if (GDW) GDW.recent(7).forEach(function (g, gi) {
@@ -32768,7 +32814,7 @@ odtad CZTERNASCIE (4-17).**
   function a(href, t) { var x = el("a", null, t); x.href = href; x.target = "_blank"; x.rel = "noopener"; return x; }
   function detail(r) {
     var e = r.e, box = el("div", "mcb-det");
-    var sums = [["summary", "Microsoft"], ["feedSummary", "msmessagecenter.com summary"], ["dpSummary", "DeltaPulse summary"]];
+    var sums = [["summary", "Microsoft"], ["feedSummary", "msmessagecenter.com summary"], ["dpSummary", "DeltaPulse summary"], ["mcSummary", "mc.merill.net summary"]];
     var any = false;
     sums.forEach(function (s) {
       if (!e[s[0]]) return; any = true;
@@ -44336,6 +44382,28 @@ modyfikacji wykrytej przez learn-mirror (przebiegi 01:37, 07:37, 13:37, 19:37 UT
 
 Strona admin naklada sie na obszar „Microsoft 365" (jak Zero Trust na Microsoft Security) — ta sama zmiana jest
 w obu obszarach; to swiadome: „Microsoft 365 admin" jest widoczny z nazwy.
+
+## 5eh. MESSAGE CENTER Z JSON ARCHIWUM MERILLA ZAMIAST STRONY (18 X 2026)
+
+Pytanie wlasciciela (18 X): jak Merill zbiera i agreguje Message Center i czy mozemy lepiej. Analiza repozytorium
+`merill/mc` (MIT): workflow co godzine, tenanty: wlasny (sekret klienta), drugi (FIC), uczestnicy (lista w sekrecie,
+aplikacja multi-tenant, ID maskowane `::add-mask::`); scalanie po ID — nowszy `LastModifiedDateTime` wygrywa, przy
+remisie dluzsza tresc; posty tenanta, ktory nie odpowiedzial, wracaja z poprzedniego przebiegu do ich EndDateTime;
+historia wersji `@data/history/<Id>.json`. Publikuje `https://mc.merill.net/messages-index.json` (14,8 MB; 4 698 MC).
+
+Dlaczego dopiero teraz: §5bo/§5cc czytaly STRONE (tabela, potem payload Next.js z aktywnymi postami) — nikt nie
+sprawdzil, czy strona jest zbudowana z publicznego repozytorium i publicznych plikow danych. Regula od 18 X: dla
+kazdego zewnetrznego zrodla najpierw szukamy publicznego repozytorium / pliku danych, dopiero potem czytamy strone.
+
+Zmiana `collect_mc.py`: `read_mc_json()` — `messages-index.json` (posty zmienione w `INDEX_DAYS`=30 dniach) + pelne
+rekordy aktywnych postow `raw.githubusercontent.com/merill/mc/main/@data/messages.json` (data dzialania, waznosc).
+Pola: category (mapa DPCAT), isMajor, published (=StartDateTime), tags, `mcSummary` (streszczenie archiwum — osobne
+pole jak feedSummary/dpSummary, nigdy `summary`), action, severity. Zapas: `read_index()` (payload, potem tabela).
+Strona: `mcSummary` w liscie streszczen wpisu MC i jako ostatni fallback zdania.
+
+Test 18 X (prev = stan 17 X): 1004 wpisy = brief 18 X, 0 utraconych, 0 nowych; index 335 MC (strona: 320);
+pola: category 940->953, published 595->608, tags 512->546, severity 934->949, mcSummary 0->335. Zapas sprawdzony
+(zly adres JSON -> `method: page`, 320 postow, nota).
 
 ## 6. Kontrakt w stronie
 
