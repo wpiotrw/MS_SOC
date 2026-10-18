@@ -81,7 +81,10 @@ $me = Gr GET '/me?$select=userPrincipalName'
 
 # --- 1. aplikacja z uprawnieniami ---
 $graph = (Gr GET "/servicePrincipals?`$filter=appId eq '00000003-0000-0000-c000-000000000000'&`$select=id,appId,appRoles").value[0]
-$want  = @($Permissions)
+# pwsh -File przekazuje 'A,B' jako JEDEN napis (tablice rozumie tylko -Command) - 18 X 2026 skrypt szukal roli
+# "Application.Read.All,RoleManagement.Read.Directory" i znajdowal 0; dzielimy wiec po przecinku, sredniku i spacji
+$want  = @($Permissions | ForEach-Object { $_ -split '[,;\s]+' } | Where-Object { $_ } | Select-Object -Unique)
+Write-Output "UPRAWNIENIA: $($want -join ', ')"
 $roles = @($graph.appRoles | Where-Object { $_.value -in $want })
 if ($roles.Count -ne $want.Count) { throw "Nie znaleziono wszystkich rol Graph: $($want -join ', ') (znaleziono $($roles.Count))" }
 $rra = @(@{ resourceAppId = $graph.appId; resourceAccess = @($roles | ForEach-Object { @{ id = $_.id; type = 'Role' } }) })
