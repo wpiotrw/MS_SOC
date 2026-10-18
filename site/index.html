@@ -19209,6 +19209,8 @@ IdentityDirectoryEvents
             srcL: a.sourceName || a.source || "", srcH: srcUrl[a.sourceName || a.source] || siteOf(a.link) };
         });
       },
+      /* §5ei: the day in tiles - articles dated in the window */
+      tiles: { newHead: "Articles", newWord: "articles", newLab: "ARTICLE", todayIsNew: true, none: "No community article is new in this window." },
       facets: [["src", "Source"], ["site", "Site"]], grid: ["day", "Source"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "blogs", id: "ab-blogs", fold: ":scope > details.ntsec#nt-top", group: "week",
@@ -19562,7 +19564,10 @@ IdentityDirectoryEvents
     function tWin(lo, hi) {
       var nw = [], ch = [];
       RECS.forEach(function (r) {
-        var d = String(r.date || "").slice(0, 10); if (!(d >= lo && (hi === DAY ? d <= hi : d < hi))) return;
+        var d = String(r.date || "").slice(0, 10);
+        /* Community: "new" today is the brief's own list (newToday), the number the tab and its "New since previous brief" show */
+        if (cfg.tiles.todayIsNew && hi === DAY) { if (r.isNew) nw.push(r); return; }
+        if (!(d >= lo && (hi === DAY ? d <= hi : d < hi))) return;
         if (r.kind === "edit") ch.push(r); else if (!(cfg.group === "month" && d.slice(8) === "01")) nw.push(r);
       });
       if (cfg.tiles.extra) cfg.tiles.extra(lo, hi).forEach(function (x) { nw.push(x); });
@@ -19588,7 +19593,7 @@ IdentityDirectoryEvents
       sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " " + (cfg.tiles.newWord || "new")));
       if (cfg.tiles.chgWord) sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " " + cfg.tiles.chgWord));
       var e1 = hi === DAY ? hi : addDays(hi, -1);
-      sm.appendChild(el("span", "s5ei-s", "brief of " + dm(hi) + " · dated " + (lo === e1 ? dm(lo) : dm(lo) + "–" + dm(e1))));
+      sm.appendChild(el("span", "s5ei-s", "brief of " + dm(hi) + (cfg.tiles.todayIsNew && hi === DAY ? " · new in it" : " · dated " + (lo === e1 ? dm(lo) : dm(lo) + "–" + dm(e1)))));
       box.appendChild(sm);
       function fill() {
         if (box.__f) return; box.__f = true;
