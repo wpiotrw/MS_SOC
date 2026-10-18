@@ -100,8 +100,9 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
             "counts": {"rolesThere": len(there), "rolesDiffering": len(roles),
                        "thereOnly": sum(len(v["there"]) for v in roles.values()), "oursOnly": sum(len(v["ours"]) for v in roles.values())},
             "roles": roles, "events": ev}
-    old = {k: v for k, v in prev.items() if k != "read"}
-    if old == body:
+    # the times of the reads are not a change: without this the file (and a deploy) would follow every 3-hour run
+    strip = lambda d: {k: v for k, v in d.items() if k not in ("read", "ourRead")}
+    if strip(prev) == strip(body):
         print("roles_elsewhere: no change (%d roles there, %d differ)" % (len(there), len(roles)))
         return 0
     body = dict(read=now.strftime("%Y-%m-%dT%H:%MZ"), **body)
