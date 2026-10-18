@@ -4673,6 +4673,9 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-title{margin:4px 0 0;font-size:13px;line-height:1.4;font-weight:600;overflow-wrap:anywhere}
 .s5ei-meta{margin:3px 0 0;font-size:11.5px;color:var(--muted);overflow-wrap:anywhere}
 .s5ei-what{margin:4px 0 0;font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+.s5ei-tt{font:inherit;font-size:13px;line-height:1.4;font-weight:600;background:none;border:0;padding:4px 0 0;color:var(--text);cursor:pointer;text-align:left;overflow-wrap:anywhere;display:block;width:100%}
+.s5ei-tt:hover{color:var(--accent);text-decoration:underline}
+.s5ei-date{margin-left:auto}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 
 </style>
@@ -17996,7 +17999,7 @@ IdentityDirectoryEvents
       var ft = iso(r.e.firstTracked);
       if (ft && ft > lo && ft <= hi && !r.e.backfill) { nw.push(r); return; }
       var tc = withTenant && r.e.tenantChange && Object.keys(r.e.tenantChange).length;
-      if ((r.rev && r.rev > lo && r.rev <= hi) || tc) ch.push(r);
+      if ((r.rev && r.rev >= lo && (hi === DAY ? r.rev <= hi : r.rev < hi)) || tc) ch.push(r);
     });
     var by = function (a, b) { return (b.major - a.major) || (b.high - a.high) || String(b.rev || b.pub).localeCompare(String(a.rev || a.pub)) || b.id.localeCompare(a.id); };
     return { nw: nw.sort(by), ch: ch.sort(by) };
@@ -18028,7 +18031,8 @@ IdentityDirectoryEvents
     sm.appendChild(el("span", "s5ei-t", lab));
     sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " new"));
     sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " changed"));
-    sm.appendChild(el("span", "s5ei-s", "after " + dm(d0) + ", up to " + dm(d1)));
+    var e1 = withTenant ? d1 : addDays(d1, -1);
+    sm.appendChild(el("span", "s5ei-s", "brief of " + dm(d1) + " · first seen in it, or changed " + (d0 === e1 ? dm(d0) : dm(d0) + "–" + dm(e1))));
     box.appendChild(sm);
     function fill() {
       if (box.__filled) return; box.__filled = true;
@@ -19236,6 +19240,16 @@ IdentityDirectoryEvents
             kind: "wn", f2: "What's new entry", pageDate: a.msDate || "" };
         }).map(function (r) { r.f.kind = r.f2; return r; }).concat(learnEdits());
       },
+      /* §5ei: Learn's what's-new entries carry a month only, so the day comes from the brief's own Learn items
+         (firstSeen) and from our page diff (page edits) */
+      tiles: { newHead: "New in the brief from Learn", chgHead: "Learn pages edited (our diff)", newWord: "new in the brief", chgWord: "pages edited",
+        newLab: "IN THE BRIEF", chgLab: "PAGE EDITED", none: "Nothing from Microsoft Learn entered the brief and no tracked page was edited in this window.",
+        prevOf: function (d) { var b = ""; (ST.items || []).forEach(function (i) { var f = String(i.firstSeen || "").slice(0, 10); if (f && f < d && f > b) b = f; }); return b || addDays(d, -1); },
+        extra: function (lo, hi) {
+          return (ST.items || []).filter(function (i) { var f = String(i.firstSeen || "").slice(0, 10); return /learn\.microsoft\.com/.test(i.url || "") && (hi === DAY ? f === DAY : f === hi); })
+            .map(function (i) { return { key: null, title: i.title, link: i.url, date: String(i.firstSeen).slice(0, 10), why: i.why || "", weight: i.socWeight || 0,
+              f: { src: [i.product, i.area].filter(Boolean).join(" · ") }, srcL: "" }; });
+        } },
       facets: [["kind", "Found by"], ["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["edits", "Page edits (our diff)"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
   ];
@@ -19456,6 +19470,7 @@ IdentityDirectoryEvents
     function row(r) {
       var read = !!rd()[r.key];
       var li = el("li", "mcb-row ab-row" + (read ? " is-read" : "") + (r.isNew ? " is-new" : "") + (r.kind === "edit" ? " ab-edit" : "") + (r.f.t0 ? " ab-t0" : ""));
+      li.setAttribute("data-abk", r.key);   /* §5ei: a day tile finds its row by this key */
       var head = el("div", "ab-head");
       var rb = el("button", "ab-rd"); rb.type = "button";
       rb.textContent = read ? "●" : "○"; rb.title = read ? "Read — click to mark unread" : "Unread — click to mark read";
@@ -19525,6 +19540,77 @@ IdentityDirectoryEvents
       });
       return li;
     }
+    /* ---------- §5ei (18 X 2026): the day in tiles, as in Message Center, Roles and Graph API ----------
+       cfg.tiles: "new" = records dated in the window (Learn: brief items from Learn first seen in it), "changed" =
+       Learn page edits (our diff) dated in it. "Since the previous brief" open, "+ Previous brief" folded and built on
+       open. A tile opens its row in the list below (or its page when the row is not in the list). */
+    var TMAX = 24; try { if (window.matchMedia("(max-width: 760px)").matches) TMAX = 6; } catch (e) {}
+    function openRec(r) {
+      if (!r.key || !RECS.some(function (x) { return x.key === r.key; })) { if (r.link) window.open(r.link, "_blank", "noopener"); return; }
+      S.view = "all"; S.q = ""; S.per = ""; if (qIn) qIn.value = ""; cfg.facets.forEach(function (f) { S[f[0]] = ""; });
+      var all = RECS.filter(function (x) { return pass(x); }), i = all.indexOf(RECS.filter(function (x) { return x.key === r.key; })[0]);
+      S.shown = Math.max(PAGE, Math.ceil((i + 1) / PAGE) * PAGE); render();
+      var li = [].filter.call(list.querySelectorAll("li[data-abk]"), function (x) { return x.getAttribute("data-abk") === r.key; })[0];
+      if (!li) { if (r.link) window.open(r.link, "_blank", "noopener"); return; }
+      var t = li.querySelector(".ab-t"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
+      setTimeout(function () { var L = [].filter.call(list.querySelectorAll("li[data-abk]"), function (x) { return x.getAttribute("data-abk") === r.key; })[0] || li;
+        /* window.scrollTo, not scrollIntoView: the tab-views router (§5ci) takes scrollIntoView calls inside its tabs */
+        window.scrollTo({ top: Math.max(0, L.getBoundingClientRect().top + scrollY - pinTop() - 12) }); }, 120);
+    }
+    function tWin(lo, hi) {
+      var nw = [], ch = [];
+      RECS.forEach(function (r) {
+        var d = String(r.date || "").slice(0, 10); if (!(d >= lo && (hi === DAY ? d <= hi : d < hi))) return;
+        if (r.kind === "edit") ch.push(r); else if (!(cfg.group === "month" && d.slice(8) === "01")) nw.push(r);
+      });
+      if (cfg.tiles.extra) cfg.tiles.extra(lo, hi).forEach(function (x) { nw.push(x); });
+      var by = function (a, b) { return (b.weight || 0) - (a.weight || 0) || String(b.date).localeCompare(String(a.date)); };
+      return { nw: nw.sort(by), ch: ch.sort(by) };
+    }
+    function tTile(r, kind) {
+      var c = el("li", "s5ei-tile s5ei-" + kind), top = el("div", "s5ei-top");
+      top.appendChild(el("span", "s5ei-kind", kind === "new" ? (cfg.tiles.newLab || "NEW") : (cfg.tiles.chgLab || "CHANGED")));
+      if (r.f && r.f.t0) top.appendChild(el("span", "s5ei-flag", "tier 0"));
+      top.appendChild(el("span", "s5ei-flag s5ei-date", dm(r.date)));
+      c.appendChild(top);
+      var b = el("button", "s5ei-tt", r.title); b.type = "button"; b.addEventListener("click", function () { openRec(r); }); c.appendChild(b);
+      var meta = [r.f && r.f.src, r.srcL && r.srcL !== (r.f && r.f.src) && !/^Learn page diff$/.test(r.srcL) ? r.srcL : ""].filter(Boolean).join(" · ");
+      if (meta) c.appendChild(el("p", "s5ei-meta", meta));
+      var txt = String(r.why || r.text || "").replace(/\*+|`/g, "").replace(/\s+/g, " ").trim();
+      if (txt) c.appendChild(el("p", "s5ei-what", txt.length > 180 ? txt.slice(0, 178) + "…" : txt));
+      return c;
+    }
+    function tBlock(lab, lo, hi, open) {
+      var rows = tWin(lo, hi), box = el("details", "s5ei-day"); box.open = !!open;
+      var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab));
+      sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " " + (cfg.tiles.newWord || "new")));
+      if (cfg.tiles.chgWord) sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " " + cfg.tiles.chgWord));
+      var e1 = hi === DAY ? hi : addDays(hi, -1);
+      sm.appendChild(el("span", "s5ei-s", "brief of " + dm(hi) + " · dated " + (lo === e1 ? dm(lo) : dm(lo) + "–" + dm(e1))));
+      box.appendChild(sm);
+      function fill() {
+        if (box.__f) return; box.__f = true;
+        if (!rows.nw.length && !rows.ch.length) { box.appendChild(el("p", "s5ei-none", cfg.tiles.none)); return; }
+        [["nw", "new", cfg.tiles.newHead], ["ch", "chg", cfg.tiles.chgHead]].forEach(function (g) {
+          var L = rows[g[0]]; if (!L.length) return;
+          box.appendChild(el("h4", "s5ei-h", g[2] + " · " + L.length));
+          var ul = el("ul", "s5ei-grid"); L.slice(0, TMAX).forEach(function (r) { ul.appendChild(tTile(r, g[1])); }); box.appendChild(ul);
+          if (L.length > TMAX) { var mb = el("button", "mcb-btn s5ei-all", "Show all " + L.length); mb.type = "button";
+            mb.addEventListener("click", function () { L.slice(TMAX).forEach(function (r) { ul.appendChild(tTile(r, g[1])); }); mb.remove(); });
+            var mp = el("p", "s5ei-more"); mp.appendChild(mb); box.appendChild(mp); }
+        });
+      }
+      if (box.open) fill(); box.addEventListener("toggle", function () { if (box.open) fill(); });
+      return box;
+    }
+    function tiles() {
+      if (!cfg.tiles || !root) return;
+      var p0 = PREV || addDays(DAY, -1), p1 = cfg.tiles.prevOf ? cfg.tiles.prevOf(p0) : addDays(p0, -1);
+      var w = el("div", "s5ei"); w.id = "s5ei-" + cfg.tab;
+      w.appendChild(tBlock("Since the previous brief", p0, DAY, true));
+      w.appendChild(tBlock("+ Previous brief", p1, p0, false));
+      root.insertBefore(w, banner);
+    }
     this.build = function () {
       var p = document.getElementById("tab-" + cfg.tab);
       if (!p || document.getElementById(cfg.id) || !RECS.length) return;
@@ -19552,6 +19638,7 @@ IdentityDirectoryEvents
       /* the old open section folds ONCE; it stays whole and one click reopens it */
       var big = p.querySelector(cfg.fold); if (big && big.open) big.open = false;
       render();
+      try { tiles(); } catch (e) { if (window.console) console.error("[5ei tiles " + cfg.tab + "]", e); }
     };
   }
   var B = CONF.map(function (c) { return new Browser(c); });
