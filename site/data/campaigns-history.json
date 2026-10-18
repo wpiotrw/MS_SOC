@@ -4808,14 +4808,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-15",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-16",
 "text":"August 1, 2026."
 },
@@ -4937,6 +4929,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-17",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-18",
 "text":"August 1, 2026."
 },
 {
@@ -5416,7 +5416,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-17",
+"seen":"2026-10-18",
 "text":"early February 2026."
 },
 {
@@ -5424,7 +5424,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-17",
+"seen":"2026-10-18",
 "text":"February 2027."
 },
 {
@@ -8179,15 +8179,6 @@
 "link":"https://mc.merill.net/message/MC1423108"
 },
 {
-"date":"2026-09-01",
-"id":"MC1423108",
-"what":"Microsoft moved the date",
-"before":"Aug 2026",
-"after":"mid Sep 2026",
-"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
-"link":"https://mc.merill.net/message/MC1423108"
-},
-{
 "date":"2026-07-20",
 "id":"MC1282568",
 "what":"Microsoft's update note",
@@ -8204,6 +8195,15 @@
 "after":"We have updated the content.",
 "title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
 "link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1221452"
+},
+{
+"date":"2026-07-10",
+"id":"MC1423108",
+"what":"Microsoft moved the date",
+"before":"Aug 2026",
+"after":"mid Sep 2026",
+"title":"Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+"link":"https://mc.merill.net/message/MC1423108"
 }
 ],
 "milestones":{
@@ -8267,11 +8267,6 @@
 "label":"1 Sep 2026",
 "text":"Passkeys became the default authentication experience in Microsoft Entra on September 1, 2026."
 },
-"MC1469555|beginning in early and expected to complete by mid#0":{
-"date":"2026-09-05",
-"label":"early Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete by mid-September 2026."
-},
 "MC1469555|posted":{
 "date":"2026-09-09",
 "label":"9 Sep 2026",
@@ -8282,10 +8277,10 @@
 "label":"14 Sep 2026",
 "text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
 },
-"MC1469555|beginning in early and expected to complete by mid#1":{
+"MC1423108|mid previously#0":{
 "date":"2026-09-15",
 "label":"mid Sep 2026",
-"text":"Beginning in early September 2026 and expected to complete by mid-September 2026."
+"text":"Mid-September 2026 (previously August)."
 },
 "MC1437671|if your organization chooses to offer allowed password chang#0":{
 "date":"2026-10-15",
@@ -8431,7 +8426,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-17",
+"seen":"2026-10-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8439,7 +8434,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-17",
+"seen":"2026-10-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
