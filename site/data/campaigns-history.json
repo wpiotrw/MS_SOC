@@ -2235,10 +2235,8 @@
 "MC1446796",
 "MC1447678",
 "MC1469960",
-"item:MC1469960",
 "item:exchange-ews-hybrid-coexistence-2026-09-30",
 "MC1485116",
-"item:MC1485116",
 "MC1486282",
 "MC1486288",
 "item:573701",
@@ -2422,8 +2420,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the content.",
-"title":"EWS starts requiring a configured EWSAllowedAppIDs list, and Microsoft will generate one from 60 days of observed usage where none exists",
-"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960"
 },
 {
 "date":"2026-08-24",
@@ -2523,10 +2521,10 @@
 "label":"2 Oct 2026",
 "text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
 },
-"MC1485116|microsoft states three dates for worldwide tenants with ewse#0":{
+"MC1485116|#0":{
 "date":"2026-10-02",
 "label":"2 Oct 2026",
-"text":"2 October 2026 the affected tenants are identified, 8-9 October Microsoft populates EWSAllowedAppIDs from 60 days of observed EWS activity, 10 October the list "
+"text":"October 2, 2026."
 },
 "MC1485116|for identified worldwide tenants with ewsenabled true and no#0":{
 "date":"2026-10-03",
@@ -2538,10 +2536,10 @@
 "label":"early Oct 2026",
 "text":"Beginning in early October 2026 and expected to complete by late April 2027."
 },
-"MC1469960|deadline":{
+"MC1485116|starting exchange online tenants must configure ewsallowedap#0":{
 "date":"2026-10-10",
 "label":"10 Oct 2026",
-"text":"EWSAllowedAppIDs becomes required on 10 October 2026. Until today this brief carried its own reading, 1 October."
+"text":"Starting October 10, 2026, Exchange Online tenants must configure EWSAllowedAppIDs to allow Exchange Web Services (EWS) access; EWSEnabled=True alone will no lo"
 },
 "MC1477180|posted":{
 "date":"2026-10-12",
@@ -4818,14 +4816,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-15",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-16",
 "text":"August 1, 2026."
 },
@@ -4947,6 +4937,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-17",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-18",
 "text":"August 1, 2026."
 },
 {
@@ -5306,22 +5304,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-16",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-16",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-17",
 "text":"early February 2026."
 },
@@ -5443,6 +5425,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-17",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-18",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-18",
 "text":"February 2027."
 },
 {
@@ -7796,6 +7794,14 @@
 "date":"2026-10-16",
 "group":"community",
 "found":"2026-10-17"
+},
+"https://dev.to/nexageapps_tech/voice-journaling-and-talking-coding-agents-two-everyday-uses-for-yaazh-2nlg":{
+"title":"Voice Journaling and Talking Coding Agents: Two Everyday Uses for Yaazh",
+"link":"https://dev.to/nexageapps_tech/voice-journaling-and-talking-coding-agents-two-everyday-uses-for-yaazh-2nlg",
+"source":"NeonTiger12",
+"date":"2026-10-18",
+"group":"community",
+"found":"2026-10-18"
 }
 },
 "final":"2027-07-01",
@@ -8313,22 +8319,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-16",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-16",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -8450,6 +8440,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-17",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-18",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11150,6 +11156,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-18",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Voice Journaling and Talking Coding Agents: Two Everyday Uses for Yaazh",
+"source":"NeonTiger12",
+"link":"https://dev.to/nexageapps_tech/voice-journaling-and-talking-coding-agents-two-everyday-uses-for-yaazh-2nlg"
 }
 ],
 "archive":{
