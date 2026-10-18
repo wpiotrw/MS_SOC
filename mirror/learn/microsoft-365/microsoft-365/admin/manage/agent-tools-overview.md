@@ -1,0 +1,170 @@
+---
+layout: Conceptual
+monikers:
+- o365-21vianet
+- o365-worldwide
+defaultMoniker: o365-worldwide
+versioningType: Ranged
+title: Overview of the Tools page in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-tools-overview?view=o365-worldwide
+config_moniker_range: =o365-worldwide || =o365-21vianet
+feedback_system: Standard
+feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
+breadcrumb_path: /microsoft-365/breadcrumb/toc.json
+recommendations: false
+uhfHeaderId: MSDocsHeader-M365-IT
+description: Learn about the Tools page in the Microsoft 365 admin center, where you can view and manage agent tools and MCP servers available in your tenant.
+ai-usage: ai-assisted
+f1.keywords:
+- NOCSH
+ms.author: mkaur
+author: mduelae
+manager: tapanm
+ms.date: 2026-09-28T00:00:00.0000000Z
+ms.update-cycle: 180-days
+audience: Admin
+ms.topic: concept-article
+ms.service: microsoft-365-copilot
+ms.subservice: agent-management
+ms.localizationpriority: medium
+ms.collection:
+- Tier2
+- scotvorg
+- M365-subscription-management
+- Adm_O365
+- Adm_TOC
+- m365copilot
+- magic-ai-copilot
+- operations-pod
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+search.appverid:
+- BCS160
+- MET150
+- MOE150
+locale: en-us
+document_id: 855071d0-ec8e-e1cc-d128-d03418e29c8a
+document_version_independent_id: 855071d0-ec8e-e1cc-d128-d03418e29c8a
+original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-tools-overview.md
+default_moniker: o365-worldwide
+site_name: Docs
+depot_name: office.Microsoft-365-docs
+page_type: conceptual
+toc_rel: ../toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: admin/manage/agent-tools-overview
+moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
+monikers:
+- o365-21vianet
+- o365-worldwide
+item_type: Content
+source_path: microsoft-365/admin/manage/agent-tools-overview.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+platformId: 9483a3d4-4045-126f-aad4-d9f7559b300a
+---
+
+# Overview of the Tools page in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+
+The **Tools** page in the [Microsoft 365 admin center](https://admin.microsoft.com/) provides a centralized view of the AI-powered tools available in your organization, including plugins, skills, Model Context Protocol (MCP) servers, and connectors. Use this page to monitor tool availability, manage access, and help ensure compliance with organizational policies.
+
+Use the **Registry** tab to discover and manage tools available in your tenant. Use the **Requests** tab to review and approve user requests for tools.
+
+For more information about managing tools, see the following articles:
+
+- [Manage plugins, skills, and MCP servers](manage-plugins-skills-mcp-servers).
+- [Manage gateway](manage-tools-gateway).
+- [Govern tools with Microsoft Agent 365 and Azure API Management (preview)](https://go.microsoft.com/fwlink/?LinkId=2382608).
+- [Bring your own (BYO) MCP server](manage-byo-mcp-server).
+
+## Key concepts
+
+The Tools page brings together several types of tools that agents can use. The following table describes each tool type:
+
+| Tool type | Description |
+| --- | --- |
+| **Plugins** | Installable packages that bundle capabilities an agent can use, such as skills, MCP servers, and connectors. |
+| **Skills** | Reusable instructions or workflows that teach an agent how to do a task consistently. |
+| **MCP servers** | Standardized servers that expose tools and resources an agent can dynamically discover and use. |
+| **Connectors** | Prebuilt links to external systems and data sources that an agent can read from and write to. |
+
+## View the tools registry
+
+1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com/).
+2. In the left navigation pane, select **Agents** &gt; **Tools** &gt; **Registry**.
+
+    [![Screenshot showing the Tools registry in the Microsoft 365 admin center with tool categories, filters, and column headings.](../../media/agents/agent-tools-registry.png)](../../media/agents/agent-tools-registry.png#lightbox)
+
+## Key components of the Tools page
+
+The agent tools lists on the **Registry** and **Requests** tabs provide filters, columns, and actions to help you manage tools.
+
+### Actions
+
+Select actions directly from the list, or select a tool to view its overview page. You can take the following actions:
+
+| Action | Description |
+| --- | --- |
+| Block | Prevents the selected tool from being used by agents or workflows. |
+| Unblock | Restores access to a previously blocked tool. |
+
+### Filters
+
+The agent tools registry can contain a large and diverse inventory of tools. Filter the list to narrow the view to the agent tools you want to focus on.
+
+Filters are based on the following criteria:
+
+| Filter | Description |
+| --- | --- |
+| Status | Filter tools by their current state, such as **Available** or **Blocked**. |
+| Publisher | View tools published by Microsoft or other providers. |
+
+### Columns
+
+The following table describes the columns that are available in the agent tools registry:
+
+| Column | Description |
+| --- | --- |
+| Name | The tool's display name, such as **Microsoft Teams MCP Server**. |
+| Status | Shows whether the tool is **Available** or **Blocked**. |
+| Type | Shows the tool category, such as **MCP Server**. |
+| Publisher | Shows the publisher, such as Microsoft for first-party tools. |
+
+## View Power Platform connector usage (preview)
+
+Important
+
+- This feature is in preview.
+- Preview features aren't meant for production use and might have restricted functionality. These features are subject to [supplemental terms of use](/en-us/legal/microsoft-365/supplemental-terms), and are available before an official release so that customers can get early access and provide feedback.
+
+Use the Microsoft 365 admin center to view the Power Platform connectors that agents use in your organization. This view helps you understand which connectors are connected to agents.
+
+Viewing connector usage can help you:
+
+- Discover the Power Platform connectors used by agents in your organization.
+- Identify which agents use a specific connector.
+- Better understand how connectors are used before applying governance policies.
+
+Note
+
+This experience provides visibility into connector usage but doesn't include management controls.
+
+To view connector usage, follow these steps:
+
+1. Sign in to the [Microsoft 365 admin center](https://go.microsoft.com/fwlink/p/?linkid=2024339).
+2. Select **Agents** &gt; **Tools** &gt; **Registry**.
+3. Select **Connectors**.
+4. Review the list of Power Platform connectors used by agents in your organization.
+
+    [![Screenshot showing the Power Platform connectors filtered view in the agent tools registry.](media/tools-registry-connectors.png)](media/tools-registry-connectors.png#lightbox)
+5. Select a connector to view the agents that use it. The connector's overview page shows the agents associated with the selected connector, making it easier to understand how the connector is used across your organization.
+6. To manage the connector's policy, select **View in Power Platform** on the connector's overview page. In the Power Platform admin center, you can block, allow, and govern the connector's use. For more information, see [Advanced connector policies](/en-us/power-platform/admin/advanced-connector-policies).
+
+    [![Screenshot showing a connector's overview page with the list of agents that use the connector and the View in Power Platform link.](media/connector-overview-agents.png)](media/connector-overview-agents.png#lightbox)

@@ -55,14 +55,20 @@ def newest_state(repo):
 
 
 def collect(repo):
-    texts = []
+    texts, tocs = [], {}
     day, raw = newest_state(repo)
     texts.append(raw)
     src = os.path.join(repo, "microsoftlearn_sources.json")
     if os.path.exists(src):
         for e in json.load(open(src, encoding="utf-8-sig")):
             if isinstance(e, dict):
-                texts.append(" ".join(str(v) for v in e.values()))
+                texts.append(" ".join(str(v) for k, v in e.items() if k != "Toc"))
+                # §5eg (18 X 2026): an entry may name its section's toc.json ("Toc"); learn-mirror then copies
+                # EVERY page that table of contents lists, not only the pages the portal happens to cite
+                t = (e.get("Toc") or "").strip()
+                seg, _ = normalize((e.get("SourceURL") or "").strip())
+                if t and seg:
+                    tocs.setdefault(seg, set()).add(t)
     groups = {}
     for t in texts:
         # adresy w JSON bywaja z ucieczka "\/" — zdejmujemy ja przed dopasowaniem
@@ -70,7 +76,9 @@ def collect(repo):
             seg, url = normalize(u)
             if seg:
                 groups.setdefault(seg, set()).add(url)
-    return day, groups
+    for seg in tocs:
+        groups.setdefault(seg, set())
+    return day, groups, tocs
 
 
 def write_if_changed(path, content):
@@ -83,14 +91,14 @@ def write_if_changed(path, content):
 
 
 def build(repo):
-    day, groups = collect(repo)
+    day, groups, tocs = collect(repo)
     base = os.path.join(repo, "mirror", "learn")
     changed, total = 0, 0
     for seg, urls in sorted(groups.items()):
         d = os.path.join(base, seg)
         cfg = {
             "sitemaps": SITEMAP,
-            "tocs": [],
+            "tocs": sorted(tocs.get(seg, ())),
             "extraUrls": [],
             "include": "^https://learn\\.microsoft\\.com/en-us/%s/" % re.escape(seg),
             "exclude": [],

@@ -1,0 +1,143 @@
+---
+layout: Conceptual
+monikers:
+- o365-21vianet
+- o365-worldwide
+defaultMoniker: o365-worldwide
+versioningType: Ranged
+title: Sign in and set up Microsoft 365 Business Premium - Microsoft 365 Business Premium | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/business-premium/m365-business-premium-setup?view=o365-worldwide
+config_moniker_range: =o365-worldwide || =o365-21vianet
+feedback_system: Standard
+feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
+breadcrumb_path: /microsoft-365/breadcrumb/toc.json
+recommendations: true
+uhfHeaderId: MSDocsHeader-M365-IT
+description: How to set up Microsoft 365 Business Premium or work with a solution provider to do so.
+ms.author: chrisda
+author: chrisda
+manager: deniseb
+ms.topic: overview
+ms.service: microsoft-365-admin
+ms.date: 2024-06-07T00:00:00.0000000Z
+ms.localizationpriority: medium
+ms.reviewer: nehabha
+ms.collection:
+- m365-security
+- tier2
+- trust-pod
+ms.custom: intro-get-started
+locale: en-us
+document_id: 40903b55-0619-b28e-1383-119085c5892b
+document_version_independent_id: 40903b55-0619-b28e-1383-119085c5892b
+original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/business-premium/m365-business-premium-setup.md
+default_moniker: o365-worldwide
+site_name: Docs
+depot_name: office.Microsoft-365-docs
+page_type: conceptual
+toc_rel: toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: business-premium/m365-business-premium-setup
+moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
+monikers:
+- o365-21vianet
+- o365-worldwide
+item_type: Content
+source_path: microsoft-365/business-premium/m365-business-premium-setup.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/82f69bd7-5cb0-4163-9fd6-9103bb1a8352
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f003597a-dab2-429a-8639-1d2acd9c0371
+platformId: 5c619060-e564-4201-98c1-fb088d11c47b
+---
+
+# Sign in and set up Microsoft 365 Business Premium - Microsoft 365 Business Premium | Microsoft Learn
+
+This article describes how to get Microsoft 365 Business Premium, complete the basic setup process, and identify your next steps.
+
+[![Diagram showing the Sign in and set up phase highlighted.](media/mission1.png)](media/mission1.png#lightbox)
+
+Note
+
+If you have a Microsoft Customer Agreement (MCA) billing account type with Microsoft, you automatically receive a product called Microsoft Entra ID Free. This product improves your tenant management and security by tracking new tenants created with the same billing account. There's no charge for this product, and there's no other action you need to take. To learn more about this product, see [Microsoft Entra ID Free](/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free). [Find out what type of billing account you have](../commerce/manage-billing-accounts#view-my-billing-accounts).
+
+Tip
+
+If you're looking for Microsoft 365 for Campaigns, see [Set up Microsoft 365 for Campaigns](m365-campaigns-setup).
+
+## Sign up for Microsoft 365 Business Premium
+
+When you're ready to sign up for Microsoft 365 Business Premium, you have several options. You can:
+
+- Try or buy Microsoft 365 Business Premium on your own; or
+- Work with a Microsoft partner.
+
+# [Sign up on your own](#tab/GetOwn)
+1. Visit the [Microsoft 365 Business Premium product page](https://www.microsoft.com/microsoft-365/business/microsoft-365-business-premium?activetab=pivot%3aoverviewtab).
+2. Choose to try or buy your subscription. See [Try or buy a Microsoft 365 for business subscription](/en-us/microsoft-365/commerce/try-or-buy-microsoft-365). On the [Microsoft 365 Products site](https://www.aka.ms/office365signup), choose **Microsoft 365 Business Premium**.
+3. After you sign up for Microsoft 365 Business Premium, you receive an email message with a link to sign in and get started. Proceed to Set up Microsoft 365 Business Premium.
+
+# [Work with a Microsoft partner](#tab/Partner)
+Microsoft has a list of solution providers who are authorized to sell offerings, including Microsoft 365 Business Premium. If you're not already working with a solution provider, you can find one by following these steps:
+
+1. Go to the **Connect with partners** page at https://marketplace.microsoft.com/marketplace/partner-dir.
+2. In the **Filters** pane, specify search criteria. For example:
+
+    - Your location.
+    - Your organization's size.
+    - **Solution category**: For example, **Security** and/or **Threat Protection**
+    - **Services**: For example, **Licensing** or **Managed Services (MSP)**.
+
+    After you select one or more criteria, the list of partners updates.
+3. Review the list of results. Select a provider to learn more about their expertise and the services they provide.
+
+---
+
+## Set up Microsoft 365 Business Premium
+
+To complete the basic setup process, you can choose from several options available:
+
+- Start with the guided setup experience for basic setup and configuration, and then proceed to [set up your security protection](/en-us/microsoft-365/admin/security-and-compliance/m365bp-security-benefits); or
+- Work with a Microsoft partner who can help you get everything set up and configured.
+
+# [Guided setup process](#tab/Guided)
+Microsoft 365 Business Premium includes a guided setup process, as shown in the following video:
+
+### The guided setup process, step by step
+
+1. Go to the [Microsoft 365 admin center](https://admin.microsoft.com/) and sign in.
+2. A Business Advisor screen opens where you can select your top goals for Microsoft 365. Select and save your goals, or select **Skip for now**.
+3. By default, you're in the simplified view. In the upper left corner, select **Simplified view** &gt; **Dashboard view**, and then select **Go to guided setup**.
+4. To install your Microsoft 365 Apps (Word, Excel, PowerPoint, OneNote, and Outlook), select the download button, and then follow the prompts. Or, skip this step for now and install your apps later. Select **Continue**.
+5. To add your organization's domain (*recommended*) or to use your default `.onmicrosoft.com` domain, select an option and then follow the prompts. Then select **Use this domain**. To get help with this task, see [Add a domain to Microsoft 365](../admin/setup/add-domain).
+6. To add a user, fill in the user's first name, last name, and username, and then select **Add users and assign licenses**. Or, select **View all users** to go to your active users page, where you can view, add, and manage users. To get help with this task, see [Add users and assign licenses at the same time](../admin/add-users/add-users). We recommend adding your administrators and members of your security team now.
+7. If you added your domain in step 5, connect your domain to Microsoft 365. To get help with this task, see [Change nameservers to set up Microsoft 365 with any domain registrar](../admin/get-help-with-domains/change-nameservers-at-any-domain-registrar).
+8. When you see **Setup is complete**, it means you completed the basic setup process for your subscription. Use the feedback window to tell us how it went, and then visit your [Microsoft 365 admin center](../admin/admin-overview/admin-center-overview).
+
+Important
+
+Although your basic setup is complete, but you still need to set up and configure your security settings. **Proceed to [set up your security protection](/en-us/microsoft-365/admin/security-and-compliance/m365bp-security-benefits)**.
+
+### Employee quick setup guide
+
+[!\[Screenshot of employee setup guide steps.\](media/employee-setup-guide.png)](https://support.microsoft.com/office/employee-quick-setup-in-microsoft-365-for-business-7f34c318-e772-46a5-8c0a-ab86661542d1)
+
+After you add users to your Microsoft 365 subscription, give them a link to the [Employee quick setup guide](https://support.microsoft.com/office/7f34c318-e772-46a5-8c0a-ab86661542d1). The guide walks them through signing in, getting Microsoft 365 Apps, and saving, copying, and sharing files.
+
+# [Work with a Microsoft partner](#tab/UsePartner)
+If you'd prefer to have a Microsoft partner help you get and set up Microsoft 365 Business Premium, follow these steps:
+
+1. Go to the [Browse Partners](https://marketplace.microsoft.com/marketplace/partner-dir) page.
+2. In the **Filters** pane, specify search criteria, such as:
+
+    - Your location
+    - Your organization's size (**Microsoft Customer Size**)
+    - **Focus areas**, such as **Security** and/or **Threat Protection**
+    - **Services**, such as **Licensing** or **Managed Services (MSP)**
+
+    As soon as you select one or more criteria, the list of partners updates.
+3. Review the list of results. Select a provider to learn more about their expertise and the services they provide.
+
+---

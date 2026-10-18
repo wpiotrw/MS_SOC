@@ -21696,20 +21696,29 @@ def one(s):
     # §5ce: Microsoft retires its public documentation repositories (announced 23 IX 2026, "by the
     # end of December 2026"); a private one answers "Repository not found". Where a community mirror
     # rebuilds it from the published pages, at the same paths, the clone is taken from the mirror.
-    if not public(org,pub):
+    # §5eg (18 X 2026): a repository can also stay PUBLIC and simply stop - microsoft-365-docs got its last commit
+    # on 30 IV 2026, so the Microsoft 365 area said "ok, 0 commits" for months while Learn kept changing. A public
+    # repository whose newest commit is older than FROZEN_DAYS is treated exactly like a retired one.
+    gone=None
+    if not public(org,pub): gone="is no longer public"
+    else:
+        last=last_commit(org,pub)
+        if last and last<(__import__("datetime").date.today()-__import__("datetime").timedelta(days=FROZEN_DAYS)).isoformat():
+            gone="is public but frozen (last commit %s)"%last; rec["frozenSince"]=last
+    if gone:
         mir=MIRRORS.get(pub)
         if mir and public(*mir.split("/")):
             rec["cloneFrom"]=mir
-            rec["note"]=("%s/%s is no longer public; read from %s, rebuilt from the published Learn pages "
-                         "at the same paths (its history starts when the mirror did)"%(org,pub,mir))
+            rec["note"]=("%s/%s %s; read from %s, rebuilt from the published Learn pages "
+                         "at the same paths (its history starts when the mirror did)"%(org,pub,gone,mir))
         else:
             own=own_mirror(url,path)
             if own:
                 rec["ownMirror"]=own
-                rec["note"]=("%s/%s is no longer public; read from our own copy %s, rebuilt from the published "
-                             "Learn pages (§5cf; its history starts on 29 IX 2026)"%(org,pub,own))
+                rec["note"]=("%s/%s %s; read from our own copy %s, rebuilt from the published "
+                             "Learn pages (§5cf; its history starts when the copy did)"%(org,pub,gone,own))
             else:
-                rec["note"]="%s/%s is no longer public and no mirror of it is known"%(org,pub)
+                rec["note"]="%s/%s %s and no mirror of it is known"%(org,pub,gone)
     return rec
 
 # §5ce (29 IX 2026): public mirrors of retired MicrosoftDocs repositories, built by merill/learn-mirror
@@ -21731,6 +21740,26 @@ def own_mirror(url,path):
     rel="mirror/learn/%s"%segs[0].lower()
     d=path.rsplit("/",1)[0] if "/" in path else ""
     return rel if __import__("os").path.isdir(__import__("os").path.join(root,rel,d)) else None
+FROZEN_DAYS=30
+_LAST={}
+_LOCK=__import__("threading").Lock()
+def last_commit(org,repo):
+    """§5eg: the day of the newest commit on the default branch (a depth-1 blobless clone, a few seconds).
+    One lock: areas share a repository and run in parallel threads - without it the second thread read the
+    placeholder of the first and the Microsoft 365 area stayed "ok" (test 18 X)."""
+    k=org+"/"+repo
+    with _LOCK:
+      if k not in _LAST:
+        import tempfile,os
+        _LAST[k]=None
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                r=subprocess.run(["git","clone","-q","--depth","1","--filter=blob:none","--no-checkout","https://github.com/"+k,d],
+                                 capture_output=True,text=True,timeout=120,env=dict(os.environ,GIT_TERMINAL_PROMPT="0"))
+                if r.returncode==0:
+                    _LAST[k]=subprocess.run(["git","-C",d,"log","-1","--format=%cs"],capture_output=True,text=True,timeout=30).stdout.strip() or None
+        except Exception: pass
+    return _LAST[k]
 def public(org,repo):
     k=org+"/"+repo
     if k not in _PUB:
@@ -22024,6 +22053,7 @@ WN_HTML={
  "Microsoft Learn - Defender Vulnerability Management":[("https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",r"vulnerab|\bmdvm\b|\bdvm\b|exposure|software inventory|baseline")],
  "Microsoft Learn - Microsoft Graph Security":[("https://learn.microsoft.com/en-us/graph/whats-new-overview",r"^(security|identity and access|compliance)\b")],
  "Microsoft Learn - Microsoft 365":[("https://learn.microsoft.com/en-us/microsoft-365/admin/whats-new-in-preview",None)],
+ "Microsoft Learn - Microsoft 365 admin":[("https://learn.microsoft.com/en-us/microsoft-365/admin/whats-new-in-preview",None)],   # §5eg
  "Microsoft Learn - Exchange Online":[("https://learn.microsoft.com/en-us/exchange/whats-new",None)],
  "Microsoft Learn - Azure Arc":[("https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",None)],
  "Microsoft Learn - Azure AI Foundry":[("https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry",None)],
@@ -44270,6 +44300,42 @@ porownanie `roles_elsewhere.py --there-state` → `site/data/roles-dev.json` (ro
 ma tenant deweloperski, a nasz jeszcze nie); warstwa §5cy pokazuje je z etykieta „our developer tenant". Targeted release
 (Microsoft 365) dotyczy wylacznie wymienionych uslug M365 (Outlook, SharePoint, OneDrive, Teams, Office for the web, M365 admin
 center), od XI 2026 bez nowych zapisow, w I 2027 wycofany — nie steruje wdrazaniem definicji ról Entra.
+
+## 5eg. MICROSOFT 365 ADMIN W LEARN I ZAMROZONE PUBLICZNE REPOZYTORIA (18 X 2026)
+
+Pytanie wlasciciela (18 X, 21:49): „czy sledzimy https://learn.microsoft.com/en-gb/microsoft-365/admin/?view=o365-worldwide?
+Jesli nie, dodac i zaktualizowac portal".
+
+Odpowiedz po sprawdzeniu: **nie**. Obszar „Microsoft 365" byl w `microsoftlearn_sources.json`, ale:
+- `probe_learn.py` widzial `MicrosoftDocs/microsoft-365-docs` jako PUBLICZNE (ls-remote odpowiada), wiec obszar mial
+  status `ok`, metode `git`, 0 commitow — a repozytorium **stoi od 30 IV 2026** (ostatni commit: „Merge pull request
+  #31789 from MicrosoftDocs/main"). Learn w tym czasie publikowal strony admin (najnowsza 15 X 2026). Cisza wygladala
+  jak „brak zmian".
+- wlasna kopia `mirror/learn/microsoft-365/` miala 4 strony (tylko te, ktore portal zacytowal).
+- czytany byl jedynie `admin/whats-new-in-preview` (sekcja what's new).
+
+Zmiany:
+1. `probe_learn.py`: `last_commit()` (klon `--depth 1`, kilka sekund, jeden zamek — obszary dziela repozytorium
+   i ida w watkach) i `FROZEN_DAYS=30`. Repozytorium publiczne z ostatnim commitem starszym niz 30 dni jest traktowane
+   jak wycofane: mirror Merilla, potem wlasna kopia (`ownMirror`), z nota „is public but frozen (last commit RRRR-MM-DD)"
+   i polem `frozenSince`. Test 18 X na calej liscie (35 obszarow, 6,6 s): zamrozone tylko `microsoft-365-docs`;
+   entra-docs, azure-docs, azure-compute-docs, azure-management-docs, dataexplorer-docs, windows-dev-docs maja commity
+   z 14–18 X.
+2. `microsoftlearn_sources.json`: nowy obszar **„Microsoft Learn - Microsoft 365 admin"**
+   (`https://learn.microsoft.com/en-us/microsoft-365/admin/`, `RequiredFrom` 2026-10-20) z polem **`Toc`**
+   (`.../microsoft-365/admin/toc.json`). Adres en-gb z `?view=` to ta sama strona — portal trzyma en-us.
+3. `tools/mirror_scope.py`: pole `Toc` wpisu listy trafia do `tocs` konfiguracji grupy, wiec learn-mirror kopiuje
+   KAZDA strone ze spisu tresci sekcji, nie tylko cytowane. Test 18 X: grupa microsoft-365 4 -> 286 stron
+   (270 w `microsoft-365/admin/`), 1 blad pobrania, 45 s.
+4. `collect_nt.py WN_HTML`: nowy obszar czyta ten sam `admin/whats-new-in-preview` (81d).
+
+Test `learn_changes.py` na kopii repozytorium: commit dodajacy 286 stron + symulowana zmiana
+`microsoft-365/admin/whats-new-in-preview.md` -> obszary „Microsoft 365" i „Microsoft 365 admin": metoda git, 1 strona
+(dodania nie licza sie — `--diff-filter=MD`, §5cf). Zmiany stron admin pojawia sie w zakladce Learn od pierwszej
+modyfikacji wykrytej przez learn-mirror (przebiegi 01:37, 07:37, 13:37, 19:37 UTC).
+
+Strona admin naklada sie na obszar „Microsoft 365" (jak Zero Trust na Microsoft Security) — ta sama zmiana jest
+w obu obszarach; to swiadome: „Microsoft 365 admin" jest widoczny z nazwy.
 
 ## 6. Kontrakt w stronie
 

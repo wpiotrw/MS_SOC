@@ -84,6 +84,12 @@
     "SourceURL": "https://learn.microsoft.com/en-us/microsoft-365/"
   },
   {
+    "SourceName": "Microsoft Learn - Microsoft 365 admin",
+    "SourceURL": "https://learn.microsoft.com/en-us/microsoft-365/admin/",
+    "Toc": "https://learn.microsoft.com/en-us/microsoft-365/admin/toc.json",
+    "RequiredFrom": "2026-10-20"
+  },
+  {
     "SourceName": "Microsoft Learn - Windows",
     "SourceURL": "https://learn.microsoft.com/en-us/windows/"
   },
