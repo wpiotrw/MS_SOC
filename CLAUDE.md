@@ -34360,6 +34360,8 @@ odtad CZTERNASCIE (4-17).**
             srcL: a.sourceName || a.source || "", srcH: srcUrl[a.sourceName || a.source] || siteOf(a.link) };
         });
       },
+      /* §5ei: the day in tiles - articles dated in the window */
+      tiles: { newHead: "Articles", newWord: "articles", newLab: "ARTICLE", todayIsNew: true, none: "No community article is new in this window." },
       facets: [["src", "Source"], ["site", "Site"]], grid: ["day", "Source"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "blogs", id: "ab-blogs", fold: ":scope > details.ntsec#nt-top", group: "week",
@@ -34713,7 +34715,10 @@ odtad CZTERNASCIE (4-17).**
     function tWin(lo, hi) {
       var nw = [], ch = [];
       RECS.forEach(function (r) {
-        var d = String(r.date || "").slice(0, 10); if (!(d >= lo && (hi === DAY ? d <= hi : d < hi))) return;
+        var d = String(r.date || "").slice(0, 10);
+        /* Community: "new" today is the brief's own list (newToday), the number the tab and its "New since previous brief" show */
+        if (cfg.tiles.todayIsNew && hi === DAY) { if (r.isNew) nw.push(r); return; }
+        if (!(d >= lo && (hi === DAY ? d <= hi : d < hi))) return;
         if (r.kind === "edit") ch.push(r); else if (!(cfg.group === "month" && d.slice(8) === "01")) nw.push(r);
       });
       if (cfg.tiles.extra) cfg.tiles.extra(lo, hi).forEach(function (x) { nw.push(x); });
@@ -34739,7 +34744,7 @@ odtad CZTERNASCIE (4-17).**
       sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " " + (cfg.tiles.newWord || "new")));
       if (cfg.tiles.chgWord) sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " " + cfg.tiles.chgWord));
       var e1 = hi === DAY ? hi : addDays(hi, -1);
-      sm.appendChild(el("span", "s5ei-s", "brief of " + dm(hi) + " · dated " + (lo === e1 ? dm(lo) : dm(lo) + "–" + dm(e1))));
+      sm.appendChild(el("span", "s5ei-s", "brief of " + dm(hi) + (cfg.tiles.todayIsNew && hi === DAY ? " · new in it" : " · dated " + (lo === e1 ? dm(lo) : dm(lo) + "–" + dm(e1)))));
       box.appendChild(sm);
       function fill() {
         if (box.__f) return; box.__f = true;
@@ -44645,6 +44650,11 @@ Test 18 X lokalnie: dzis 5 edycji stron, poprzedni brief 2 elementy + 6 edycji; 
 ### Blogs (`#s5ei-blogs`)
 `cfg.tiles` bez czesci „zmienione": posty z data w oknie, najwyzsza waga najpierw. Test 18 X lokalnie: dzis 2 posty
 (Exchange Team Blog, 17 X), poprzedni brief 31 (16 X); klik → wiersz rozwiniety na 447 px / 73 px; bez bledow.
+
+### Community (`#s5ei-community`)
+Dzisiejsze „nowe" = lista briefu `community.newToday` (ta sama liczba co widok „New since previous brief" —
+po dacie bylo 21 i zgadzalo sie tylko przypadkiem), poprzedni brief — po dacie artykulu. Test 18 X lokalnie: dzis 21
+(= newToday 21), poprzedni 106; klik → wiersz rozwiniety; bez bledow.
 
 ## 6. Kontrakt w stronie
 
