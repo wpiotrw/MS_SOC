@@ -19,7 +19,7 @@ services: kusto
 description: Learn how to use the dax_request plugin to send a DAX query to a DAX server network endpoint.
 ms.reviewer: gabil
 ms.topic: reference
-ms.date: 2026-10-11T00:00:00.0000000Z
+ms.date: 2026-10-18T00:00:00.0000000Z
 locale: en-us
 document_id: 0290aa3c-be61-5bd8-bb9a-b5272619f8de
 document_version_independent_id: 0290aa3c-be61-5bd8-bb9a-b5272619f8de
@@ -41,11 +41,11 @@ monikers:
 item_type: Content
 source_path: data-explorer/kusto/query/dax-request-plugin.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/26e1a60c-4ce1-41de-b2d1-e5f3b7e68e6e
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/26e1a60c-4ce1-41de-b2d1-e5f3b7e68e6e
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad3bd485-5ca9-4865-afde-baec02586899
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad3bd485-5ca9-4865-afde-baec02586899
 platformId: dd7e55e5-231e-3e3a-2b7e-07f75a91038e
 ---
 
@@ -59,7 +59,7 @@ The plugin uses the Power BI [Execute DAX Queries API](/en-us/power-bi/developer
 
 - The semantic model must be in a workspace assigned to a Fabric or Power BI Premium capacity.
 - The **Dataset Execute Queries REST API**, **Allow XMLA endpoints and Analyze in Excel with on-premises semantic models** tenant settings must be enabled.
-- You must have [Build permission](/en-us/power-bi/connect-data/service-datasets-permissions) on the semantic model.
+- You must have [Build and Read permissions](/en-us/power-bi/connect-data/service-datasets-permissions) on the semantic model.
 - The cluster callout policy must allow `dax` callouts to `api.powerbi.com`. To change this policy, you need `AllDatabasesAdmin` or `Ops` permissions.
 
 ## Syntax
@@ -74,10 +74,10 @@ Learn more about syntax conventions in the [Syntax conventions for reference doc
 | --- | --- | --- | --- |
 | ConnectionString | `string` | Yes | The semantic model URL followed by `;Impersonate`. For the supported URL formats, see Connection string. |
 | DaxQuery | `string` | Yes | The DAX query to execute against the semantic model. |
-| OutputSchema | `string` | - | The names and types of the expected output columns. Use the syntax `(`*ColumnName*`:`*ColumnType* [`,` ...]`)`. |
+| OutputSchema | - | - | The names and types of the expected output columns. Use the syntax `(`*ColumnName*`:`*ColumnType* [`,` ...]`)`. |
 
 > 
-> ![NOTE] Specifying *OutputSchema* is recommended because it enables scenarios such as distributed queries and allows query optimizations. The plugin returns an error if the runtime schema doesn't match *OutputSchema*.
+> ![NOTE] Specifying *OutputSchema* is recommended. It lets Kusto determine the plugin’s output columns and types without sending the DAX query to Power BI during schema discovery. The Power BI request is instead deferred to query execution, alongside the rest of the KQL query. The plugin returns an error if the returned schema is incompatible with the declared schema.
 
 ## Connection string
 
@@ -90,7 +90,7 @@ The `myorg` path segment is literal. `*WorkspaceId*` and `*SemanticModelId*` mus
 
 ## Authentication and authorization
 
-The plugin uses Microsoft Entra on-behalf-of authentication. The engine obtains a token for the requesting user and sends the DAX query in that user's security context. The user must have Build permission on the semantic model. Any row-level security or object-level security configured for the user applies to the query.
+The plugin uses Microsoft Entra on-behalf-of authentication. The engine obtains a token for the requesting user and sends the DAX query in that user's security context. The user must have [Build and Read permissions](/en-us/power-bi/connect-data/service-datasets-permissions) on the semantic model. Any row-level security or object-level security configured for the user applies to the query.
 
 Use `;Impersonate` as the authentication directive. Managed identity, service principal, and application key authentication aren't supported.
 
@@ -124,11 +124,15 @@ The plugin returns the DAX query result as a KQL table. It preserves supported A
 
 Power BI returns bracketed column names, such as `[Category]`. In KQL, reference these names with the `['...']` syntax, such as `['[Category]']`.
 
+Warning
+
+The plugin uses the default row limit of the [Power BI Execute DAX Queries API](/en-us/rest/api/power-bi/datasets/execute-dax-queries#request-body) (`resultSetRowCountLimit`). If the DAX query produces more rows than this limit the returned table can be incomplete without an error. Filter or aggregate data in the DAX query to keep the result within the limit. Filtering or aggregating afterward in KQL does not recover omitted rows.
+
 ## Examples
 
 ### Return all rows from a table
 
-The following example returns all rows from the `Sales` table:
+The following example queries the `Sales` table. The returned result is subject to the API’s default row limit.
 
 ```kusto
 evaluate dax_request(
@@ -154,7 +158,7 @@ Filter and aggregate data in DAX when possible to reduce the amount of data retu
 
 ### Specify an output schema
 
-The following example declares an output schema to use the distributed execution path. The declared schema must match the live result schema.
+The following example declares the expected output schema so that Kusto can determine the schema without contacting Power BI during query analysis. The declared schema must match the live result schema.
 
 ```kusto
 evaluate dax_request(
@@ -169,5 +173,5 @@ evaluate dax_request(
 | --- | --- |
 | Invalid connection string | Confirm that the URL uses a supported format, the workspace and semantic model IDs are valid GUIDs, and the string ends with `;Impersonate`. |
 | Callout isn't permitted | Configure the cluster callout policy to allow `dax` calls to `api.powerbi.com`. |
-| Authentication or authorization error | Confirm that the required tenant settings are enabled and that the requesting user has Build permission on the semantic model. |
+| Authentication or authorization error | Confirm that the required tenant settings are enabled and that the requesting user has Build and Read permission on the semantic model. |
 | HTTP request error | Ensure Power BI service availability, endpoint accessibility, and the semantic model URL. |
