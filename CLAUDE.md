@@ -34372,6 +34372,8 @@ odtad CZTERNASCIE (4-17).**
             srcL: a.source || "", srcH: a.sourceUrl || siteOf(a.link) };
         });
       },
+      /* §5ei: the day in tiles - posts dated in the window, the strongest (weight) first */
+      tiles: { newHead: "Posts published", newWord: "posts", newLab: "POST", none: "No Microsoft blog post is dated in this window." },
       facets: [["src", "Blog"]], grid: ["day", "Blog"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "learn", id: "ab-learn", fold: ":scope > details.ntsec#nt-changes", group: "month",
@@ -44639,6 +44641,10 @@ zasada poprawiona w MC dla zmian (`rev`). Kafelek otwiera wiersz listy przez `wi
 przejmuje router widokow zakladek (§5ci) i nie przewijal (zmierzone: scrollY 0, wiersz 3 475 px nizej).
 Test 18 X lokalnie: dzis 5 edycji stron, poprzedni brief 2 elementy + 6 edycji; klik → wiersz rozwiniety na
 485 px (komputer) / 73 px (telefon); bez bledow konsoli; bez przewijania w bok.
+
+### Blogs (`#s5ei-blogs`)
+`cfg.tiles` bez czesci „zmienione": posty z data w oknie, najwyzsza waga najpierw. Test 18 X lokalnie: dzis 2 posty
+(Exchange Team Blog, 17 X), poprzedni brief 31 (16 X); klik → wiersz rozwiniety na 447 px / 73 px; bez bledow.
 
 ## 6. Kontrakt w stronie
 
