@@ -19221,6 +19221,8 @@ IdentityDirectoryEvents
             srcL: a.source || "", srcH: a.sourceUrl || siteOf(a.link) };
         });
       },
+      /* §5ei: the day in tiles - posts dated in the window, the strongest (weight) first */
+      tiles: { newHead: "Posts published", newWord: "posts", newLab: "POST", none: "No Microsoft blog post is dated in this window." },
       facets: [["src", "Blog"]], grid: ["day", "Blog"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["week", "Last 7 days"], ["all", "All"]] },
     { tab: "learn", id: "ab-learn", fold: ":scope > details.ntsec#nt-changes", group: "month",
