@@ -38276,11 +38276,14 @@ odtad CZTERNASCIE (4-17).**
      Administrator, 16 X at msadminroles.com) were not in it on 18 X. tools/roles_elsewhere.py (every 3 h) compares each
      built-in role with the definition another tenant shows on msadminroles.com (Daniel Bradley); an action there and
      not here is a role change on its way: change "elsewhere", dated by the day that tenant got it. */
-  var ELS = null;
-  try {
-    fetch("data/roles-elsewhere.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { ELS = j || null; D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () {});
-  } catch (e) {}
+  /* §5ef: the same comparison with our own second (developer) tenant, when the owner has connected one */
+  var ELS = null, ELSS = [];
+  ["data/roles-elsewhere.json", "data/roles-dev.json"].forEach(function (u) {
+    try {
+      fetch(u, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (j) { ELSS.push(j); ELS = j; } D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () {});
+    } catch (e) {}
+  });
   function data() {
     if (D) return D;
     var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {};
@@ -38360,17 +38363,24 @@ odtad CZTERNASCIE (4-17).**
       if (x.surface === "permission" && TM[x.change]) add({ surface: "permission", name: x.name, change: TM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.text, detail: x.change === "type-added" ? "gained its " + x.type + " type" : x.change === "type-removed" ? "lost its " + x.type + " type" : "" });
       if (x.surface === "role" && RM[x.change]) add({ surface: "role", name: x.name, change: RM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.after || x.text });
     });
-    var ER = (ELS || {}).roles || {};
-    Object.keys(ER).forEach(function (n) {
-      var r = ER[n]; if (!r || !(r.there || []).length) return;
-      var firsts = Object.keys(r.firstNoticed || {}).map(function (k) { return r.firstNoticed[k]; }).sort();
-      add({ surface: "role", name: n, change: "elsewhere", day: r.thereSince || firsts[0] || d.day, src: "elsewhere",
-        noticed: firsts[0] || "", acts: r.there.slice(), text: r.there.map(function (a) { return a.replace(/^microsoft\.directory\//, ""); }).join(", ") });
+    ELSS.forEach(function (X) {
+      var ER = X.roles || {}, lab = X.sourceLabel || "msadminroles.com";
+      Object.keys(ER).forEach(function (n) {
+        var r = ER[n]; if (!r || !(r.there || []).length) return;
+        var firsts = Object.keys(r.firstNoticed || {}).map(function (k) { return r.firstNoticed[k]; }).sort();
+        add({ surface: "role", name: n, change: "elsewhere", day: r.thereSince || firsts[0] || d.day, src: "elsewhere", where: lab,
+          noticed: firsts[0] || "", acts: r.there.slice(), text: r.there.map(function (a) { return a.replace(/^microsoft\.directory\//, ""); }).join(", ") });
+      });
+      /* §5ef: Graph permissions our developer tenant can grant and ours not yet */
+      (X.permsThereOnly || []).forEach(function (n) {
+        add({ surface: "permission", name: n, change: "elsewhere", day: (X.permsFirst || {})[n] || d.day, src: "elsewhere", where: lab,
+          noticed: (X.permsFirst || {})[n] || "", text: (X.permsText || {})[n] || "" });
+      });
     });
     list.forEach(function (e) { enrich(d, e); });
     return list;
   }
-  var BONUS = { permission: { grantable: 1000, removed: 800, "new": 700, consent: 600, changed: 400, documented: 100 },
+  var BONUS = { permission: { grantable: 1000, elsewhere: 950, removed: 800, "new": 700, consent: 600, changed: 400, documented: 100 },
     role: { added: 900, privileged: 800, "actions-added": 500, "actions-removed": 300, condition: 300, removed: 700, elsewhere: 650 }, app: { "new": 300 } };
   function enrich(d, e) {
     if (e.surface === "permission") {
@@ -38397,9 +38407,9 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---------- P1: one ranking ---------- */
   var VERB = { grantable: "became grantable", removed: "was removed from the service", "new": "is a new permission", consent: "changed its consent or privilege level",
-    changed: "changed in the service", documented: "is now documented by Microsoft" };
+    changed: "changed in the service", documented: "is now documented by Microsoft", elsewhere: "is grantable in our developer tenant, not yet in ours" };
   var VERBS = { grantable: "became grantable", removed: "were removed from the service", "new": "are new permissions", consent: "changed their consent or privilege level",
-    changed: "changed in the service", documented: "are now documented by Microsoft" };
+    changed: "changed in the service", documented: "are now documented by Microsoft", elsewhere: "are grantable in our developer tenant, not yet in ours" };
   var RVERB = { added: "is a new built-in role", privileged: "is now marked privileged", "actions-added": "gained actions", "actions-removed": "lost actions",
     condition: "changed a condition", removed: "was removed", elsewhere: "gained actions in another tenant, not yet in ours" };
   function typesShort(t) { return (t || []).map(function (x) { return x === "Application" ? "app-only" : x === "Delegated" ? "delegated" : x; }).join(" + "); }
@@ -38419,13 +38429,14 @@ odtad CZTERNASCIE (4-17).**
       /* §5dn: "X and 11 more permissions ARE now documented" - the verb agrees with the group, not the head */
       x.text = (n > 1 ? "and " + (n - 1) + " more " + family(e.name) + " permission" + (n === 2 ? "" : "s") + " " : "") + ((n > 1 ? VERBS[e.change] : VERB[e.change]) || VERB[e.change] || e.change) +
         (e.detail ? " (" + e.detail + ")" : "") + (e.undoc ? ", not yet documented" : "") +
-        (e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(day) + " brief") +
+        (e.change === "elsewhere" ? " · " + (e.where || "another tenant") + ", noticed " + dm(e.noticed || day) :
+         e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(day) + " brief") +
         (e.desc ? " — Microsoft: “" + firstSentence(e.desc, 150) + "”" : "");
       x.tag = (e.lv ? "L" + e.lv : "no level") + " · " + (e.write ? "read-write" : "read") + (e.types.length ? " · " + typesShort(e.types) : "") + " · " + dm(day);
       x.go = function () { openPerm(e.name); };
     } else if (e.surface === "role" && e.change === "elsewhere") {
       x.text = RVERB.elsewhere + " (" + (e.acts || []).length + " action" + ((e.acts || []).length === 1 ? "" : "s") + ": " + e.text + ")" +
-        " · another tenant since " + dm(e.day) + " (msadminroles.com), noticed here " + dm(e.noticed || e.day) + " — rolling out; ours will follow";
+        " · " + (e.where || "another tenant") + " since " + dm(e.day) + ", noticed here " + dm(e.noticed || e.day) + " — rolling out; ours will follow";
       x.tag = "role" + (e.priv ? " · PRIVILEGED" : "") + " · ahead in another tenant · " + dm(e.day);
       x.noticed = e.noticed || "";
       x.go = function () { openRole(e.name); };
@@ -38511,7 +38522,7 @@ odtad CZTERNASCIE (4-17).**
     var by = {}, skip = {}; (shown || []).forEach(function (g) { if (g && g.name) skip[g.name] = 1; });
     groups(days || 7).forEach(function (g) {
       var x = describe(g); if (!x.tech || x.surface === "app" || skip[x.name]) return;
-      if (x.surface === "permission" && !/grantable|removed|new|consent/.test(x.change)) return;
+      if (x.surface === "permission" && !/grantable|removed|new|consent|elsewhere/.test(x.change)) return;
       if (!by[x.tech] || x.score > by[x.tech].score) by[x.tech] = x;
     });
     return Object.keys(by).map(function (t) {
@@ -44252,6 +44263,13 @@ mapa 939 uprawnien. (2) `tools/graph_sp.py` czyta co 3 h katalog akcji uslugi
 `beta/roleManagement/directory/resourceNamespaces/{ns}/resourceActions` (RoleManagement.Read.Directory, ktore aplikacja juz
 ma) — kazda nowa akcja = zdarzenie `surface: action, change: added`, nawet gdy zadna rola jeszcze jej nie ma; liczba akcji
 bez roli w logu. (3) msadminroles.com (§5ed) zostaje jako porownanie z innym tenantem, nie jako zrodlo podstawowe.
+(4) Drugi WLASNY tenant (deweloperski wlasciciela): `tools/New-FpaReaderApp.ps1 -Permissions Application.Read.All,
+RoleManagement.Read.Directory -Name 'MS-SOC Dev tenant reader'` tworzy w nim aplikacje z federacja GitHub; zmienne repozytorium
+`DEV_TENANT_ID` i `DEV_CLIENT_ID` wlaczaja w `fpa-tenant.yml` odczyt `graph_sp.py` do `site/data/graph-sp-dev*.json` i
+porownanie `roles_elsewhere.py --there-state` → `site/data/roles-dev.json` (role, uprawnienia Graph i akcje katalogu, ktore
+ma tenant deweloperski, a nasz jeszcze nie); warstwa §5cy pokazuje je z etykieta „our developer tenant". Targeted release
+(Microsoft 365) dotyczy wylacznie wymienionych uslug M365 (Outlook, SharePoint, OneDrive, Teams, Office for the web, M365 admin
+center), od XI 2026 bez nowych zapisow, w I 2027 wycofany — nie steruje wdrazaniem definicji ról Entra.
 
 ## 6. Kontrakt w stronie
 

@@ -50,7 +50,14 @@ def roles_from(html):
     return out
 
 
-def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewhere.json"):
+def roles_from_state(path):
+    """5ef: the second tenant read by tools/graph_sp.py (graph-sp-dev.json) in the same shape as the msadminroles roles"""
+    st = json.load(open(path, encoding="utf-8"))
+    return {n: {"templateId": v.get("id"), "actions": sorted(v.get("actions") or []), "version": None, "since": None}
+            for n, v in (st.get("roles") or {}).items()}, st
+
+
+def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewhere.json", there_state=None, label=None):
     now = datetime.datetime.now(datetime.timezone.utc)
     day = now.date().isoformat()
     prev = {}
@@ -58,8 +65,12 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
         prev = json.load(open(out_path, encoding="utf-8"))
     except Exception:
         pass
+    there_st = None
     try:
-        there = roles_from(fetch())
+        if there_state:
+            there, there_st = roles_from_state(there_state)
+        else:
+            there = roles_from(fetch())
     except Exception as e:
         print("roles_elsewhere: skipped - %s" % e)
         return 0
@@ -93,15 +104,38 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
         if only_there or only_ours:
             roles[on] = {"templateId": t["templateId"], "there": only_there, "ours": only_ours, "firstNoticed": first,
                          "thereVersion": t.get("version"), "thereSince": t.get("since")}
+    # 5ef: with a second tenant of ours, also its Graph permissions and its catalog of directory actions that ours lacks
+    extra = {}
+    if there_st:
+        ours_p, ours_a = set(ours_state.get("perms") or {}), set(ours_state.get("actions") or {})
+        tp, ta = there_st.get("perms") or {}, there_st.get("actions") or {}
+        pfirst = {k: v for k, v in (prev.get("permsFirst") or {}).items() if k in tp and k not in ours_p}
+        afirst = {k: v for k, v in (prev.get("actionsFirst") or {}).items() if k in ta and k not in ours_a}
+        newp = [k for k in sorted(set(tp) - ours_p) if k not in pfirst]
+        newa = [k for k in sorted(set(ta) - ours_a) if k not in afirst] if ours_a else []
+        for k in newp: pfirst[k] = day
+        for k in newa: afirst[k] = day
+        if newp and prev:
+            events.append({"day": day, "name": "Graph permissions", "change": "perms-there-only", "actions": newp})
+        if newa and prev:
+            events.append({"day": day, "name": "Directory actions", "change": "actions-there-only", "actions": newa})
+        extra = {"permsThereOnly": sorted(pfirst), "permsFirst": pfirst, "actionsThereOnly": sorted(afirst), "actionsFirst": afirst,
+                 "permsText": {k: ((tp[k].get("Application") or tp[k].get("Delegated") or {}).get("text") or "")[:300] for k in pfirst},
+                 "actionsText": {k: (ta[k].get("text") or "")[:300] for k in afirst}}
     cut = (now.date() - datetime.timedelta(days=KEEP)).isoformat()
     ev = events + [x for x in prev.get("events") or [] if (x.get("day") or "") >= cut]
-    body = {"source": SRC, "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them",
+    body = {"source": SRC if not there_state else "our second tenant (tools/graph_sp.py)",
+            "sourceLabel": label or ("our developer tenant" if there_state else "msadminroles.com"),
+            "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them" if not there_state
+            else "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
+            "thereRead": (there_st or {}).get("rolesRead"),
             "ourRead": ours_state.get("rolesRead"), "keepDays": KEEP,
             "counts": {"rolesThere": len(there), "rolesDiffering": len(roles),
                        "thereOnly": sum(len(v["there"]) for v in roles.values()), "oursOnly": sum(len(v["ours"]) for v in roles.values())},
             "roles": roles, "events": ev}
+    body.update(extra)
     # the times of the reads are not a change: without this the file (and a deploy) would follow every 3-hour run
-    strip = lambda d: {k: v for k, v in d.items() if k not in ("read", "ourRead")}
+    strip = lambda d: {k: v for k, v in d.items() if k not in ("read", "ourRead", "thereRead")}
     if strip(prev) == strip(body):
         print("roles_elsewhere: no change (%d roles there, %d differ)" % (len(there), len(roles)))
         return 0
@@ -115,6 +149,10 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
 
 if __name__ == "__main__":
     try:
-        sys.exit(main(*sys.argv[1:3]))
+        a = sys.argv[1:]
+        ts = a[a.index("--there-state") + 1] if "--there-state" in a else None
+        lb = a[a.index("--label") + 1] if "--label" in a else None
+        pos = [x for i, x in enumerate(a) if not x.startswith("--") and (i == 0 or a[i - 1] not in ("--there-state", "--label"))]
+        sys.exit(main(*(pos[:2] or []), there_state=ts, label=lb))
     except Exception as e:
         print("roles_elsewhere: skipped - %s" % e)

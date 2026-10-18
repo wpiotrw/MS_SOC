@@ -26,6 +26,11 @@
   Application.ReadWrite.All, AppRoleAssignment.ReadWrite.All.
 
 .EXAMPLE
+  # drugi tenant (deweloperski, §5ef - 18 X 2026): tylko to, czego potrzebuje odczyt uprawnien Graph, rol i akcji
+  pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta deweloperskiego> `
+    -Name 'MS-SOC Dev tenant reader' -Permissions Application.Read.All,RoleManagement.Read.Directory `
+    -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
+.EXAMPLE
   pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta>
 .EXAMPLE
   # subject niezmienny - dokladnie ten, ktory workflow wypisuje w linii "OIDC claims"
@@ -40,6 +45,8 @@ param(
   # Pelny subject OIDC, gdy GitHub wystawia format niezmienny (repo:<owner>@<owner_id>/<repo>@<repo_id>:ref:...),
   # domyslny dla repozytoriow utworzonych po 15 VII 2026. Pusty = stary format nazwowy repo:<Repo>:ref:refs/heads/<Branch>.
   [string] $Subject = '',
+  # uprawnienia aplikacyjne Graph (rola aplikacji = admin consent w kroku 4); domyslnie zestaw tenanta glownego
+  [string[]] $Permissions = @('Application.Read.All', 'DelegatedPermissionGrant.Read.All', 'ServiceMessage.Read.All', 'RoleManagement.Read.Directory'),
   [string] $OutFile = (Join-Path ([IO.Path]::GetTempPath()) 'ms-soc-fpa-app.json')
 )
 $ErrorActionPreference = 'Stop'
@@ -74,7 +81,7 @@ $me = Gr GET '/me?$select=userPrincipalName'
 
 # --- 1. aplikacja z uprawnieniami ---
 $graph = (Gr GET "/servicePrincipals?`$filter=appId eq '00000003-0000-0000-c000-000000000000'&`$select=id,appId,appRoles").value[0]
-$want  = @('Application.Read.All', 'DelegatedPermissionGrant.Read.All', 'ServiceMessage.Read.All', 'RoleManagement.Read.Directory')
+$want  = @($Permissions)
 $roles = @($graph.appRoles | Where-Object { $_.value -in $want })
 if ($roles.Count -ne $want.Count) { throw "Nie znaleziono wszystkich rol Graph: $($want -join ', ') (znaleziono $($roles.Count))" }
 $rra = @(@{ resourceAppId = $graph.appId; resourceAccess = @($roles | ForEach-Object { @{ id = $_.id; type = 'Role' } }) })
