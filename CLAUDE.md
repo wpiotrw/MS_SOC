@@ -25377,6 +25377,25 @@ def ensure_clone(devx):
     return d
 
 
+def devx_daily(d, after):
+    """CLAUDE.md 5ef (18 X 2026). Since 1 X 2026 Microsoft's daily sync no longer reaches master: each day is a branch
+    permissions-update/YYYY-MM-DD = master + ONE commit "Weekly Permissions sync <day>" (measured 18 X: master at 1 X
+    with 932 permissions, the 18 X branch with 939 - CredentialProvenance.ReadWrite.All, HardDeletionSetting.ReadWrite.Enable,
+    IdentityVerification.Read / .Read.All / .ReadWrite.All, PrivilegedAccess-CustomExt.Read.All / .ReadWrite.All; five of
+    them in no tenant's service principal yet). Every branch head newer than master's last commit is one more snapshot of
+    the file, in the order of the branch dates - the walk below diffs them like commits."""
+    subprocess.run(["git", "-C", d, "fetch", "-q", "--filter=blob:none", "origin",
+                    "+refs/heads/permissions-update/*:refs/remotes/origin/permissions-update/*"], capture_output=True, text=True, timeout=900)
+    out = []
+    for line in git(d, "for-each-ref", "--format=%(refname:short)|%(objectname)|%(committerdate:short)|%(subject)",
+                    "refs/remotes/origin/permissions-update/").splitlines():
+        ref, sha, date, subj = (line.split("|", 3) + ["", "", "", ""])[:4]
+        if date and date > (after or ""):
+            out.append({"sha": sha, "date": date, "subject": subj + " (" + ref.replace("origin/", "") + ", not merged to master)"})
+    out.sort(key=lambda h: (h["date"], h["subject"]))
+    return out
+
+
 def load(d, sha):
     return json.loads(git(d, "show", "%s:%s" % (sha, FILE))).get("permissions") or {}
 
@@ -25434,6 +25453,7 @@ def main(out_path, prev_path=None, devx=None):
     d = ensure_clone(devx)
     log = git(d, "log", "--reverse", "--format=%H|%ad|%s", "--date=short", "--", FILE).strip().splitlines()
     hist = [dict(zip(("sha", "date", "subject"), x.split("|", 2))) for x in log]
+    hist += devx_daily(d, hist[-1]["date"] if hist else "")
     if not hist:
         raise SystemExit("FAIL: no history of %s in %s" % (FILE, d))
     start = None
@@ -27379,6 +27399,26 @@ def derive(endpoints, role_idx):
     return [r[:5] for r in rows[:TOP]], n
 
 
+def devx_newest(d):
+    """CLAUDE.md 5ef (18 X 2026): Microsoft's daily permission syncs sit on unmerged branches permissions-update/YYYY-MM-DD
+    (master stopped at 1 X 2026). The working tree is switched to the newest such branch when it is newer than HEAD."""
+    try:
+        r = subprocess.run(["git", "ls-remote", "--heads", "origin", "permissions-update/*"], cwd=d, capture_output=True, text=True, timeout=120)
+        refs = sorted(l.split("\t")[1].replace("refs/heads/", "") for l in r.stdout.splitlines() if "\t" in l)
+        if not refs:
+            return None
+        newest = refs[-1]
+        head = subprocess.run(["git", "-C", d, "log", "-1", "--format=%cs"], capture_output=True, text=True).stdout.strip()
+        if newest.split("/")[-1] <= head:
+            return None
+        subprocess.run(["git", "-C", d, "fetch", "-q", "--depth", "1", "--filter=blob:none", "origin", newest], check=True, capture_output=True, timeout=300)
+        subprocess.run(["git", "-C", d, "checkout", "-q", "FETCH_HEAD"], check=True, capture_output=True, timeout=120)
+        return newest
+    except Exception as ex:
+        print("UWAGA  5ef: daily DevX branch not read (%s) - master is used" % str(ex)[:120])
+        return None
+
+
 def sparse(d, url, path):
     if os.path.isdir(os.path.join(d, ".git")):
         subprocess.run(["git", "-C", d, "fetch", "-q", "--depth", "1", "--filter=blob:none", "origin"], capture_output=True, text=True, timeout=300)
@@ -27407,6 +27447,7 @@ def main():
     if not a.entra:
         a.entra = sparse(os.path.join(base, "gm-entra"), "https://github.com/MicrosoftDocs/entra-docs", "docs/identity/role-based-access-control")
 
+    devx_newest(a.devx)   # 5ef: the newest daily branch when master is behind it
     src = json.load(open(os.path.join(a.devx, "permissions/new/permissions.json"), encoding="utf-8"))["permissions"]
     sha = git(a.devx, "log", "-1", "--format=%h"); sdate = git(a.devx, "log", "-1", "--format=%cs")
     adate = git(a.devx, "log", "-1", "--format=%as")
@@ -43820,8 +43861,22 @@ KEEP_DAYS = 120
 CACHED = {}
 
 
+def devx_branch():
+    """CLAUDE.md 5ef: the newest unmerged daily branch permissions-update/YYYY-MM-DD of the DevX repo (master stopped at
+    1 X 2026); None when git cannot list it - then master is read, as before."""
+    try:
+        r = subprocess.run(["git", "ls-remote", "--heads", "https://github.com/microsoftgraph/microsoft-graph-devx-content.git",
+                            "permissions-update/*"], capture_output=True, text=True, timeout=120)
+        refs = sorted(l.split("\t")[1].replace("refs/heads/", "") for l in r.stdout.splitlines() if "\t" in l)
+        return refs[-1] if refs else None
+    except Exception:
+        return None
+
+
 def fetch(key):
     repo, br, path = SRC[key]
+    if key == "graph":
+        br = devx_branch() or br
     url = RAW + "%s/%s/%s" % (repo, br, path)
     req = urllib.request.Request(url, headers={"User-Agent": "MS_SOC collect_fpa"})
     try:
@@ -44176,6 +44231,27 @@ ktorej brak w jednym odczycie, zostaje przez 26 h (`missingSince`); „removed" 
 ma wszystko); Learn: ukryte od §5cd Sekcje A i B bez tabel. Wynik: 132 347 → 92 386 elementow, Message Center 43 913 →
 9 355, Learn 10 204 → 4 162. (5) `tools/mobile_check.py` pilnuje rozmiaru: zakladka > 25 000 albo strona > 120 000 elementow
 = FAIL (zywa strona przed poprawka: FAIL z oboma). Bez nowych uprawnien aplikacji; zrodlo msadminroles.com jest publiczne.
+
+## 5ef. SAMODZIELNOSC: CODZIENNE GALEZIE DEVX I KATALOG AKCJI KATALOGU (18 X 2026)
+
+Wlasciciel 18 X: „mamy byc samodzielni, nie zalezni od Bradleya; dlaczego nie wykrylismy nowych uprawnien Graph, ich opisow
+i akcji ról (microsoft.directory/...)? skad inni to wiedza?". Zmierzone: `microsoftgraph/microsoft-graph-devx-content` —
+master stoi na 1 X 2026 („Weekly Permissions sync 2026-10-01"); od tego dnia KAZDY dzien to osobna, niescalona galaz
+`permissions-update/YYYY-MM-DD` (master + jeden commit). Nasze trzy kolektory czytaly master, wiec od 1 X nie widzialy
+NICZEGO: na galezi 18 X jest 939 uprawnien wobec 932 na master — 16 X doszlo 5 (CredentialProvenance.ReadWrite.All,
+HardDeletionSetting.ReadWrite.Enable, IdentityVerification.Read / .Read.All / .ReadWrite.All), 17 X 2
+(PrivilegedAccess-CustomExt.Read.All / .ReadWrite.All), do tego zmiany endpointow 13, 15 i 17 X. Akcje ról
+`conditionalAccessPolicyPlans/*` NIE sa w DevX (51 plikow, wszystkie galezie przeszukane), NIE sa w `msgraph-metadata` (beta
+CSDL 16 X), NIE sa w `permissions-reference.md` (entra-docs 17 X) — DevX opisuje uprawnienia Graph, nie akcje katalogu.
+Akcje istnieja tylko w definicjach ról tenantow, ktore juz je dostaly, i w katalogu akcji uslugi.
+
+Wdrozone: (1) `collect_graph_diff.py` dokleja do historii master glowy galezi dziennych nowsze od ostatniego commita master
+(`devx_daily`); `collect_graph_map.py` przelacza klon na najnowsza galaz (`devx_newest`); `collect_fpa.py` czyta poziomy
+uprawnien z najnowszej galezi (`devx_branch`). Test 18 X: 17 nowych migawek, 5 + 2 nowe uprawnienia z datami 16 i 17 X,
+mapa 939 uprawnien. (2) `tools/graph_sp.py` czyta co 3 h katalog akcji uslugi
+`beta/roleManagement/directory/resourceNamespaces/{ns}/resourceActions` (RoleManagement.Read.Directory, ktore aplikacja juz
+ma) — kazda nowa akcja = zdarzenie `surface: action, change: added`, nawet gdy zadna rola jeszcze jej nie ma; liczba akcji
+bez roli w logu. (3) msadminroles.com (§5ed) zostaje jako porownanie z innym tenantem, nie jako zrodlo podstawowe.
 
 ## 6. Kontrakt w stronie
 

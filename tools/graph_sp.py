@@ -249,7 +249,42 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
             merged = dict(new); merged["actions"] = sorted(m)
             return merged
         roles = keep_missing(prev["roles"], roles, seen, missing, "role:", racts)
+    # CLAUDE.md 5ef (18 X 2026, owner: "we must be independent - where do others get new role permissions?"): every
+    # action the directory service DEFINES, whether or not a built-in role holds it yet:
+    #   GET beta/roleManagement/directory/resourceNamespaces -> GET .../{ns}/resourceActions
+    # (RoleManagement.Read.Directory, the permission the roles read already has). Conditional Access policy plans showed
+    # up as three role actions in another tenant on 16 X while our roles did not hold them; the catalog of actions is a
+    # separate list and can name an action before any role in this tenant gets it.
+    actions, actions_note = None, None
+    if roles is not None:
+        try:
+            nss = T.pages(tok, "https://graph.microsoft.com/beta/roleManagement/directory/resourceNamespaces?$select=id,name")
+            actions = {}
+            for ns in nss:
+                nid = ns.get("id") or ns.get("name")
+                if not nid:
+                    continue
+                for a in T.pages(tok, "https://graph.microsoft.com/beta/roleManagement/directory/resourceNamespaces/%s/resourceActions?$top=999" % nid):
+                    n = a.get("name")
+                    if n:
+                        actions[n] = {"text": (a.get("description") or "").strip(), "privileged": a.get("isPrivileged"), "verb": a.get("actionVerb")}
+            if len(actions) < 500:
+                actions_note = "only %d resource actions read - looks broken, the previous list is kept" % len(actions)
+                actions = None
+        except Exception as ex:
+            actions_note = "resource actions not read (%s)" % str(ex)[:120]
+            actions = None
+    if actions is not None and prev.get("actions"):
+        actions = keep_missing(prev["actions"], actions, seen, missing, "action:")
     events = []
+    if actions is not None and prev.get("actions"):
+        for n in sorted(set(actions) - set(prev["actions"])):
+            a = actions[n]
+            events.append({"seen": seen, "day": seen[:10], "surface": "action", "name": n, "change": "added", "type": "",
+                           "before": None, "after": ("privileged" if a.get("privileged") else ""), "text": a.get("text", "")[:400]})
+        for n in sorted(set(prev["actions"]) - set(actions)):
+            events.append({"seen": seen, "day": seen[:10], "surface": "action", "name": n, "change": "removed", "type": "",
+                           "before": "", "after": None, "text": ""})
     if prev.get("perms"):
         events += diff_perms(prev["perms"], perms, seen)
     if roles is not None and prev.get("roles"):
@@ -258,7 +293,9 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
              "counts": {"names": len(perms), "application": n_app, "delegated": n_del, "rsc": n_rsc,
                         "roles": len(roles) if roles is not None else (len(prev.get("roles") or {}) or None)},
              "rolesRead": seen if roles is not None else prev.get("rolesRead"), "rolesNote": roles_note,
-             "perms": perms, "roles": roles if roles is not None else prev.get("roles"), "missingSince": missing}
+             "perms": perms, "roles": roles if roles is not None else prev.get("roles"), "missingSince": missing,
+             "actions": actions if actions is not None else prev.get("actions"), "actionsNote": actions_note,
+             "counts_actions": len(actions) if actions is not None else len(prev.get("actions") or {})}
     cut = (datetime.date.fromisoformat(seen[:10]) - datetime.timedelta(days=KEEP_DAYS)).isoformat()
     old_ev = [x for x in hist.get("events") or [] if (x.get("day") or "") >= cut]
     old_ev, flips = drop_flaps(old_ev)   # 5ed: once, for the history written before the grace rule
@@ -271,7 +308,7 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
     # written only when something changed, so the repository does not take a 0.5 MB commit every three hours;
     # the history file carries the day of the last read (once a day) so the page can say when we last looked
     same = prev.get("perms") == state["perms"] and prev.get("roles") == state["roles"] and prev.get("rolesNote") == roles_note \
-        and (prev.get("missingSince") or {}) == missing
+        and (prev.get("missingSince") or {}) == missing and prev.get("actions") == state["actions"]
     if not same:
         json.dump(state, open(state_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     if events or flips or not os.path.exists(hist_path) or str(load(hist_path, {}).get("lastRead") or "")[:10] != seen[:10] \
@@ -287,6 +324,13 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
              "baseline" if not prev.get("perms") else "compared with " + str(prev.get("read")), len(events), by))
     if roles_note:
         print("graph_sp: " + roles_note)
+    print("graph_sp: resource actions %s%s" % (len(actions) if actions is not None else "not read", (" - " + actions_note) if actions_note else ""))
+    if actions is not None and state.get("roles"):
+        held = {x for r in state["roles"].values() for x in r.get("actions") or []}
+        free = sorted(n for n in actions if n.startswith("microsoft.directory/") and n not in held)
+        print("graph_sp: %d microsoft.directory actions held by no built-in role; e.g. %s" % (len(free), ", ".join(free[:8])))
+        pp = [n for n in actions if "policyplan" in n.lower()]
+        print("graph_sp: conditionalAccessPolicyPlans in the action catalog: %s" % (", ".join(pp) or "none"))
     return 0
 
 
