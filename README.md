@@ -705,6 +705,8 @@ Poprawny przebieg kończy się linią `OK site/data/fpa-tenant.json: …` i comm
 
 **Odtworzenie na innym tenancie — skrypt `tools/New-FpaReaderApp.ps1`**
 
+Bez lokalnego repozytorium: pobierz sam skrypt — `Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/wpiotrw/MS_SOC/main/tools/New-FpaReaderApp.ps1 -OutFile New-FpaReaderApp.ps1` — i uruchom go z tego katalogu (przykład dla drugiego tenanta: pkt 12.1b).
+
 Skrypt robi wszystko w jednym przebiegu i można go uruchamiać wielokrotnie (nie tworzy duplikatów): aplikacja z dwiema rolami Graph, service principal, poświadczenie federacyjne GitHub, zgoda administratora. Loguje się **raz, kodem urządzenia**, przez publicznego klienta Microsoft Graph Command Line Tools, a potem wywołuje Graph REST tym jednym tokenem. Nie potrzebuje modułów `Microsoft.Graph` ani okna logowania WAM, więc działa też z procesu bez okna. Wymaga PowerShell 7 (`pwsh`). Konto: Cloud Application Administrator (aplikacja) oraz Privileged Role Administrator albo Global Administrator (zgoda).
 
 ```powershell
@@ -969,6 +971,7 @@ Lista kroków, gdy cały portal ma powstać od nowa — np. w innym (także darm
 | 2 | Azure Static Web App | Azure Portal | pkt 3, „Odtworzenie w nowej subskrypcji / nowym tenancie Azure”: zasób, token wdrożeniowy, sekret `AZURE_STATIC_WEB_APPS_API_TOKEN_<NAZWA>` w repozytorium, zmiana adresu strony w `CLAUDE.md` |
 | 3 | Aplikacja Entra dla migawki tenanta | docelowy tenant | `pwsh -NoProfile -File tools/New-FpaReaderApp.ps1 -TenantId <ID tenanta> [-Subject <subject OIDC>]` kontem administratora (logowanie kodem urządzenia, pkt 5.3). Skrypt zakłada aplikację **MS-SOC First-party apps reader**, nadaje i zatwierdza **Application.Read.All**, **DelegatedPermissionGrant.Read.All**, **ServiceMessage.Read.All**, **RoleManagement.Read.Directory** (wszystkie tylko odczyt) i dodaje poświadczenie federacyjne GitHub OIDC. Role konta: Cloud Application Administrator + Privileged Role Administrator (albo Global Administrator). Subject: nowe repozytorium wystawia format niezmienny `repo:<właściciel>@<id>/<repo>@<id>:ref:refs/heads/main` — dokładną wartość workflow wypisuje w linii „OIDC claims” (pkt 5.2). Pełny wykaz uprawnień z powodami: pkt 12 |
 | 4 | Zmienne repozytorium | GitHub → Settings → Secrets and variables → Actions → **Variables** | `AZURE_TENANT_ID` i `AZURE_CLIENT_ID` z wyniku skryptu (to nie są sekrety, ale pełnych wartości nie wpisujemy do plików repozytorium — pkt 10) |
+| 4b | Drugi tenant (opcjonalnie) | drugi tenant + zmienne repozytorium | aplikacja „MS-SOC Dev tenant reader” tym samym skryptem z `-Name` i `-Permissions Application.Read.All,RoleManagement.Read.Directory` (12.1b), zmienne `DEV_TENANT_ID`, `DEV_CLIENT_ID`; bez nich portal działa, tylko bez porównania z drugim tenantem |
 | 5 | Workflow | GitHub → Actions | włącz workflow (fork ma je wyłączone); uruchom ręcznie kolejno: „First-party apps tenant snapshot”, „Learn mirror”, „Campaign tracking”, „Code refresh”; sprawdź „Collector check” (adnotacje przebiegu) |
 | 6 | Zadania Claude | claude.ai (scheduled tasks) i Claude Code (routines) | cztery zadania z pkt 4 — prompty są w projekcie Claude „SchedTasks & Routines” (`claude/prompts/`, kopie w `claude/backup/`), **nie w repozytorium**, bo zawierają e-mail właściciela i identyfikatory; w promptach zmień adres repozytorium i strony. Routines potrzebują integracji GitHub konta Claude z prawem zapisu do repozytorium |
 | 7 | Sprawdzenie | strona | `/`, `/diff/`, `/week/`, `/feed.xml`, `/kql/index.json`, `/data/campaigns.json`; bramka: `python3 gate.py site/index.html site --mirror --doc CLAUDE.md` (pkt 4a) |
@@ -1005,6 +1008,31 @@ Jedyna aplikacja Entra rozwiązania. Typ: single tenant. Używa jej wyłącznie 
 
 **Skąd w tenancie:** skrypt `tools/New-FpaReaderApp.ps1` (pkt 5.3) albo ręcznie w portalu (pkt 5.3, „Ręcznie w portalu”). Wartości `AZURE_TENANT_ID` i `AZURE_CLIENT_ID` idą do zmiennych repozytorium (12.2).
 
+### 12.1b Aplikacja Entra „MS-SOC Dev tenant reader” (drugi tenant, opcjonalna — §5ef-b, 18 X 2026)
+
+Druga, **niezależna** aplikacja w innym tenancie (u właściciela: tenant deweloperski). Aplikacja z 12.1 zostaje bez zmian i nadal czyta tenant główny. Po co: role i uprawnienia Microsoftu docierają do tenantów falami (pierścienie wdrożeń), więc drugi tenant często widzi nowość wcześniej. Typ: single tenant. Używa jej wyłącznie krok „Dev tenant” w `fpa-tenant.yml` — pomijany, dopóki nie ma zmiennych `DEV_TENANT_ID` i `DEV_CLIENT_ID`.
+
+| Uprawnienie Microsoft Graph (Application, tylko odczyt, zgoda administratora) | Do czego |
+|---|---|
+| **Application.Read.All** | lista uprawnień Microsoft Graph, które da się nadać w tym tenancie (`tools/graph_sp.py`) |
+| **RoleManagement.Read.Directory** | definicje ról wbudowanych Entra i katalog akcji katalogu (`resourceActions`) |
+
+**Poświadczenie:** to samo co w 12.1 — federacyjne GitHub OIDC, **ten sam subject** `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`, bez sekretu. Jedno repozytorium może logować się do wielu tenantów: każdy tenant ma własną aplikację z własnym poświadczeniem federacyjnym, a workflow wybiera tenant zmiennymi. Alternatywa (aplikacja z 12.1 jako multi-tenant + zgoda w drugim tenancie) — odrzucona: poszerza zasięg głównej aplikacji.
+
+**Utworzenie (bez lokalnego repozytorium, PowerShell 7):**
+
+```powershell
+$d = "$env:USERPROFILE\Downloads\soc_temp"; New-Item -ItemType Directory -Force $d | Out-Null
+Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/wpiotrw/MS_SOC/main/tools/New-FpaReaderApp.ps1" -OutFile "$d\New-FpaReaderApp.ps1"
+Set-Location $d
+pwsh -NoProfile -File .\New-FpaReaderApp.ps1 -TenantId <ID-drugiego-tenanta> `
+  -Name 'MS-SOC Dev tenant reader' `
+  -Permissions Application.Read.All,RoleManagement.Read.Directory `
+  -Subject 'repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main'
+```
+
+Wypisane wartości → zmienne repozytorium `DEV_TENANT_ID` i `DEV_CLIENT_ID` (12.2), potem ręczne uruchomienie „First-party apps tenant snapshot”. Wynik: `site/data/graph-sp-dev.json`, `graph-sp-dev-history.json`, `roles-dev.json` (bez identyfikatora tenanta).
+
 ### 12.2 GitHub — sekrety, zmienne i token przebiegu
 
 | Element | Rodzaj | Gdzie | Kto używa | Do czego | Sekret? |
@@ -1012,6 +1040,8 @@ Jedyna aplikacja Entra rozwiązania. Typ: single tenant. Używa jej wyłącznie 
 | `AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603` | sekret repozytorium | Settings → Secrets and variables → Actions → **Secrets** | `azure-static-web-apps-…yml`, `publish.yml`, `code-refresh.yml`, `fpa-tenant.yml` | token wdrożeniowy Azure Static Web App — jedyny sposób wgrania `site/` na stronę ([zarządzanie tokenem](https://learn.microsoft.com/azure/static-web-apps/deployment-token-management)) | **tak — jedyny sekret rozwiązania**; przy nowej Static Web App: nowy token (pkt 3) |
 | `AZURE_TENANT_ID` | zmienna repozytorium | Settings → … → **Variables** | `fpa-tenant.yml`, `fpa-compare.yml` | do którego tenanta logować się tokenem OIDC | nie (identyfikator), ale pełnej wartości nie wpisujemy do plików (pkt 10) |
 | `AZURE_CLIENT_ID` | zmienna repozytorium | jw. | jw. | która aplikacja Entra (12.1) | nie, jw. |
+| `DEV_TENANT_ID` | zmienna repozytorium (opcjonalna, §5ef-b) | jw. | `fpa-tenant.yml`, krok „Dev tenant” | drugi tenant (12.1b); bez niej krok jest pomijany | nie, jw. |
+| `DEV_CLIENT_ID` | zmienna repozytorium (opcjonalna) | jw. | jw. | aplikacja „MS-SOC Dev tenant reader” (12.1b) | nie, jw. |
 | `GITHUB_TOKEN` · `contents: write` | token przebiegu, nadawany przez GitHub na czas przebiegu | `permissions:` w pliku workflow | `campaigns.yml`, `code-refresh.yml`, `fpa-tenant.yml`, `learn-mirror.yml`, `publish.yml` | commit danych i strony na `main` | nie przechowywany |
 | `GITHUB_TOKEN` · `contents: read` | jw. | jw. | `collector-check.yml`, `fpa-compare.yml` | tylko odczyt repozytorium | jw. |
 | `GITHUB_TOKEN` · `id-token: write` | jw. | jw. | `fpa-tenant.yml`, `fpa-compare.yml` | prawo poproszenia GitHuba o token OIDC dla logowania do Entra (12.1); bez niego logowanie federacyjne jest niemożliwe | jw. |
