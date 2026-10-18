@@ -38540,7 +38540,8 @@ odtad CZTERNASCIE (4-17).**
      not here is a role change on its way: change "elsewhere", dated by the day that tenant got it. */
   /* §5ef: the same comparison with our own second (developer) tenant, when the owner has connected one */
   var ELS = null, ELSS = [];
-  ["data/roles-elsewhere.json", "data/roles-dev.json"].forEach(function (u) {
+  /* §5ej: and two public trackers that read their own tenant (Entra-Rolelens roles, merill/microsoft-info permissions) */
+  ["data/roles-elsewhere.json", "data/roles-dev.json", "data/roles-rolelens.json", "data/roles-merill.json"].forEach(function (u) {
     try {
       fetch(u, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
         .then(function (j) { if (j) { ELSS.push(j); ELS = j; } D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () {});
@@ -38820,7 +38821,7 @@ odtad CZTERNASCIE (4-17).**
     var sm = el("summary");
     sm.appendChild(el("span", "s5ed-t", "Last 3 days · " + (which === "graph" ? "Graph permissions" : "Entra roles")));
     sm.appendChild(el("span", "s5ed-n", String(gs.length)));
-    sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, another tenant (msadminroles.com) and the briefs"));
+    sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, other tenants (" + (ELSS.map(function (X) { return String(X.sourceLabel || "msadminroles.com").replace(/ \(.*$/, ""); }).join(", ") || "msadminroles.com") + ") and the briefs"));
     box.appendChild(sm);
     if (!gs.length) { box.appendChild(el("p", "s5ed-none", "Nothing moved in " + (which === "graph" ? "Graph permissions" : "built-in roles") + " in the last three days in any source we read.")); return; }
     var ul = el("ul", "s5ed-list");
@@ -44655,6 +44656,21 @@ Test 18 X lokalnie: dzis 5 edycji stron, poprzedni brief 2 elementy + 6 edycji; 
 Dzisiejsze „nowe" = lista briefu `community.newToday` (ta sama liczba co widok „New since previous brief" —
 po dacie bylo 21 i zgadzalo sie tylko przypadkiem), poprzedni brief — po dacie artykulu. Test 18 X lokalnie: dzis 21
 (= newToday 21), poprzedni 106; klik → wiersz rozwiniety; bez bledow.
+
+## 5ej. DWA KOLEJNE „INNE TENANTY" Z PUBLICZNYCH REPOZYTORIOW (18 X 2026)
+
+Decyzja wlasciciela (18 X, 23:49): „dolacz, sprawdzimy". `tools/public_trackers.py` (krok w `fpa-tenant.yml`, co 3 h, bez
+poswiadczen) czyta:
+- `arusso-aboutcloud/Entra-Rolelens` (MIT) `data/roles_graph_raw.json` z galezi **master** — 145 rol wbudowanych z
+  tenanta autora (v1.0 roleDefinitions, codziennie 01:00 UTC) -> `site/data/roles-rolelens.json`;
+- `merill/microsoft-info` (MIT) `_info/GraphAppRoles.json` + `GraphDelegateRoles.json` — 1 018 uprawnien Graph
+  z tenanta Merilla (05:30 i 17:30 UTC) -> `site/data/roles-merill.json` (tylko uprawnienia; `roles_elsewhere.py`
+  przyjmuje teraz zrodlo bez rol, gdy ma >= 80 uprawnien).
+Porownanie = to samo co msadminroles i tenant deweloperski (`roles_elsewhere.main(..., there_state, label)`); strona
+czyta oba pliki w `ELSS`, a naglowek „Last 3 days" wymienia wszystkie zrodla.
+Test 18 X: oba zrodla = nasz tenant (0 roznic, 0 zdarzen; linia bazowa). Symulacja (nasza kopia bez
+AccessReview.Read.All i bez jednej akcji Conditional Access Administrator): Rolelens -> zdarzenie there-only dla roli,
+Merill -> perms-there-only AccessReview.Read.All. Pierwszy odczyt uprawnien jest cichy (jak dla tenanta dev).
 
 ## 6. Kontrakt w stronie
 

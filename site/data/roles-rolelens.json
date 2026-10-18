@@ -1,0 +1,23 @@
+{
+ "read": "2026-10-18T21:50Z",
+ "source": "Entra-Rolelens (another tenant, daily)",
+ "sourceLabel": "Entra-Rolelens (another tenant, daily)",
+ "sourceNote": "public repository: Entra-Rolelens (another tenant, daily)",
+ "thereRead": null,
+ "ourRead": "2026-10-18T19:33Z",
+ "keepDays": 90,
+ "counts": {
+  "rolesThere": 145,
+  "rolesDiffering": 0,
+  "thereOnly": 0,
+  "oursOnly": 0
+ },
+ "roles": {},
+ "events": [],
+ "permsThereOnly": [],
+ "permsFirst": {},
+ "actionsThereOnly": [],
+ "actionsFirst": {},
+ "permsText": {},
+ "actionsText": {}
+}

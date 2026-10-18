@@ -74,7 +74,8 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
     except Exception as e:
         print("roles_elsewhere: skipped - %s" % e)
         return 0
-    if len(there) < 80:
+    # 5ej: a source that lists only Graph permissions (merill/microsoft-info) has no roles to compare
+    if len(there) < 80 and not (there_st and len(there_st.get("perms") or {}) >= 80):
         print("roles_elsewhere: only %d roles parsed from %s - looks broken, nothing written" % (len(there), SRC))
         return 0
     ours_state = json.load(open(ours_path, encoding="utf-8"))
@@ -124,10 +125,11 @@ def main(ours_path="site/data/graph-sp.json", out_path="site/data/roles-elsewher
                  "actionsText": {k: (ta[k].get("text") or "")[:300] for k in afirst}}
     cut = (now.date() - datetime.timedelta(days=KEEP)).isoformat()
     ev = events + [x for x in prev.get("events") or [] if (x.get("day") or "") >= cut]
-    body = {"source": SRC if not there_state else "our second tenant (tools/graph_sp.py)",
+    body = {"source": SRC if not there_state else ("our second tenant (tools/graph_sp.py)" if not label or "developer" in label else label),
             "sourceLabel": label or ("our developer tenant" if there_state else "msadminroles.com"),
             "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them" if not there_state
-            else "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
+            else ("built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions"
+                  if not label or "developer" in label else "public repository: " + label),
             "thereRead": (there_st or {}).get("rolesRead"),
             "ourRead": ours_state.get("rolesRead"), "keepDays": KEEP,
             "counts": {"rolesThere": len(there), "rolesDiffering": len(roles),
