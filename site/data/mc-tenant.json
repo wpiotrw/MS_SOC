@@ -1,7 +1,7 @@
 {
  "read": "2026-10-18",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 702,
+ "count": 700,
  "note": null,
  "messages": [
   {
@@ -7697,33 +7697,6 @@
    "bodyHash": "c6b842b04ac5571d"
   },
   {
-   "id": "MC1426709",
-   "title": "Microsoft Teams: Custom recording and transcription notifications now available for 1:1 calls",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-07-13",
-   "end": "2026-10-18",
-   "modified": "2026-07-15",
-   "tags": [
-    "Admin impact",
-    "Feature update"
-   ],
-   "summary": "[What and Why:] We're extending the ability to customize recording and transcription notifications—previously available only in meetings—to 1:1 calls in Microsoft Teams. This update helps organizations maintain consistent consent messaging and align with internal privacy policies and regional compliance requirements across all communication scenarios. By leveraging existing policy configurations, …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Targeted Release (Worldwide): We will begin rolling out in early August 2026 and expect to complete by early August 2026 .",
-    "General Availability (Worldwide, GCC): We will begin rolling out in mid-August 2026 and expect to complete by mid-August 2026 .",
-    "General Availability (GCC High, DoD): We will begin rolling out in mid-September 2026 and expect to complete by mid-September 2026 ."
-   ],
-   "bodyHash": "ab9e9a5b9a4676b2"
-  },
-  {
    "id": "MC1426714",
    "title": "(Updated) Microsoft Viva: Create and customize Power BI reports",
    "services": [
@@ -12721,32 +12694,6 @@
     "General Availability (Worldwide, GCC): We will begin rolling out late October 2026 (previously late September) and expect to complete by late October 2026 (previously late September)."
    ],
    "bodyHash": "33b453156c1e5350"
-  },
-  {
-   "id": "MC1469555",
-   "title": "Microsoft Entra: Optimized passkey registration campaign experience",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-09",
-   "end": "2026-10-18",
-   "modified": "2026-09-09",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] Following earlier announcements regarding passkey registration campaigns and targeting logic (MC1279092 and MC1440968), we're continuing to refine how Microsoft Entra identifies and guides eligible users toward passkey registration. These changes help increase adoption of phishing-resistant authentication while maintaining alignment with administrator-configured passkey policies. We…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC): Beginning in early September 2026 and expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "f23588d03caf5db2"
   },
   {
    "id": "MC1469557",
@@ -22867,6 +22814,20 @@
    "id": "MC1473299",
    "type": "removed",
    "title": "Dynamics 365 Commerce - Print receipts using Adyen payment terminal printers",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-18",
+   "id": "MC1426709",
+   "type": "removed",
+   "title": "Microsoft Teams: Custom recording and transcription notifications now available for 1:1 calls",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-18",
+   "id": "MC1469555",
+   "type": "removed",
+   "title": "Microsoft Entra: Optimized passkey registration campaign experience",
    "fields": {}
   }
  ]
