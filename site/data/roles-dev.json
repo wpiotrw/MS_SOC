@@ -1,0 +1,23 @@
+{
+ "read": "2026-10-18T20:24Z",
+ "source": "our second tenant (tools/graph_sp.py)",
+ "sourceLabel": "our developer tenant",
+ "sourceNote": "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
+ "thereRead": "2026-10-18T20:23Z",
+ "ourRead": "2026-10-18T19:33Z",
+ "keepDays": 90,
+ "counts": {
+  "rolesThere": 145,
+  "rolesDiffering": 0,
+  "thereOnly": 0,
+  "oursOnly": 0
+ },
+ "roles": {},
+ "events": [],
+ "permsThereOnly": [],
+ "permsFirst": {},
+ "actionsThereOnly": [],
+ "actionsFirst": {},
+ "permsText": {},
+ "actionsText": {}
+}
