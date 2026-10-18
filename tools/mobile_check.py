@@ -87,6 +87,16 @@ def main():
                 bad.append("%s: content scrolls sideways inside a box (looks cut off) %s" % (t, "; ".join(r["hiddenScroll"])))
             if r.get("offscreen"):
                 bad.append("%s: off screen %s" % (t, "; ".join(r["offscreen"])))
+        # 5ed (18 X 2026): the Message Center tab grew from 25 038 to 46 010 elements on a day without new posts (Section A fell
+        # back to the whole index) - size is checked too: a tab over --max-tab elements, or the page over --max-dom, fails
+        maxtab, maxdom = arg("--max-tab", 25000), arg("--max-dom", 120000)
+        sizes = pg.evaluate("()=>{var o={};document.querySelectorAll('.tabpanel').forEach(function(p){o[p.id]=p.getElementsByTagName('*').length});o.__all=document.getElementsByTagName('*').length;return o}")
+        rep["dom"] = sizes
+        if sizes.get("__all", 0) > maxdom:
+            bad.append("page has %d elements (limit %d)" % (sizes["__all"], maxdom))
+        for k, v in sizes.items():
+            if k != "__all" and v > maxtab:
+                bad.append("%s has %d elements (limit %d)" % (k, v, maxtab))
         rep["errors"] = errs
         if errs:
             bad.append("JS errors: %s" % " | ".join(errs[:3]))
@@ -95,7 +105,7 @@ def main():
     if "--json" in sys.argv:
         json.dump(rep, open(arg("--json", "mobile.json"), "w"), indent=1)
     how = ("%dx CPU" % cpu) if engine == "chromium" else ("%s, no CPU throttling, no long-task API" % engine)
-    print("mobile_check: load %ss, Overview sentences %ss, long tasks %d (%d ms) [%s]" % (rep["load_s"], rep["sentences_s"], rep["long_tasks"], rep["long_tasks_ms"], how))
+    print("mobile_check: load %ss, Overview sentences %ss, long tasks %d (%d ms) [%s], %d elements after every tab was opened" % (rep["load_s"], rep["sentences_s"], rep["long_tasks"], rep["long_tasks_ms"], how, rep.get("dom", {}).get("__all", 0)))
     for x in bad:
         print("  PROBLEM " + x)
     print("mobile_check: %s" % ("FAIL" if bad else "OK"))

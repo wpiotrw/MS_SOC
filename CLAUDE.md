@@ -196,6 +196,7 @@ w danych ani w powloce: **przebieg stosowal to, co wyliczyl prompt, zamiast tego
 | 122 | **budzet 16 MB NIE zjada zmian stron Learn** — gdy artefakt nie miesci sie w limicie, NIE wolno wyrzucac `nt.pages` ani `docText.pages` (16 X 2026 poranny przebieg wyrzucil 199 stron z `nt.pages` i dopisal w `pagesNote` „carried in site/data", co bylo nieprawda — Security Defaults zniknelo z zakladki Learn). Kolejnosc ciecia: (1) `nt.changes` starsze niz 6 miesiecy poza 180 najciezszymi (Sekcja B i tak pokazuje 180), (2) `hunks` stron BEZ `promote` i bez `itemIds`, (3) `ledger14` wpisy bez zmiany zrodla. Zadne zdanie w danych nie moze twierdzic, ze cos „jest gdzie indziej", jesli tego tam nie ma | §5ea | `len(nt.pages) > 0` albo `nt.pagesNote` mowi DLACZEGO kolektor nie dal stron (nie „przeniesione"); `docText.pages` niepuste, gdy `docText.readOn == briefDate` |
 | 123 | **kazda zmiana kodu strony przechodzi `tools/mobile_check.py` PRZED commitem** — wlasciciel kilka razy zglaszal z iPhone'a te same dwa bledy (wolne ladowanie, uciete sekcje), za kazdym razem po nowej funkcji. Sprawdzenie: `python3 tools/deploy_prep.py site _deploy`, serwer na `_deploy`, `python3 tools/mobile_check.py http://localhost:PORT/` (profil iPhone 13, CPU x4): zero przewijania w bok, zero elementow poza ekranem, zero przewijania w bok wewnatrz ramki (poza tabelami), zaden przycisk/link przykryty w swoim wierszu, zero bledow JS, zdania Overview w <= 25 s. Wynik w odpowiedzi (OK albo lista PROBLEM). Przebiegi routine, ktore nie zmieniaja kodu, sa zwolnione | §5eb | `mobile_check: OK` w odpowiedzi sesji, ktora zmienila kod |
 | 124 | **nowa zakladka albo nowy budowniczy tresci ukrytej zakladki idzie przez `window.__socLazy.run("tab-…", fn)`** (§5ec) — tresc zakladki powstaje przy jej otwarciu (aktywacja w powloce woła `__socTabCtx` synchronicznie, wiec kod, ktory otwiera zakladke, zastaje ja zbudowana) albo w przebiegu w tle po zdaniach Overview; warstwa, ktora dopisuje cos do istniejacych tabel/wierszy, slucha takze zdarzenia `soc:woke`; `?eager=1` wylacza mechanizm do porownan | §5ec | `function LZ(` w nowym budowniczym; porownanie eager/lazy (liczby wierszy, tabel, chipow MC na zakladce) bez roznic poza dopisanymi warstwami |
+| 125 | **zadna sekcja nie rysuje tabeli, ktorej widok zakladki nie pokazuje, i zadna nie rosnie z braku danych dnia** (§5ed) — fallback „brak wpisow dzis" ma okno i limit wierszy; `mobile_check.py`: zakladka <= 25 000, strona <= 120 000 elementow | §5ed | `mobile_check: OK` z liczba elementow w odpowiedzi |
 
 
 **Pozycja, ktorej nie da sie wykonac, bo zrodlo bylo niedostepne, jest `BRAK` z nazwa zrodla —
@@ -22809,6 +22810,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
     var fw=el("div");fw.appendChild(bw);fw.appendChild(ax);fig.appendChild(fw);
     p.appendChild(fig);
 
+    var HIDDEN_AB=true;   /* §5ed; set to false to draw the two tables again */
     var s1=sec("nt-changes","Section A","What Microsoft changed, and why it matters",rec.length,true,
       "Every row is an entry Microsoft published on the area's own <b>what's new</b> page, "+
       "not a count of edited lines. <b>Weight</b> is the security ladder of &sect;5p and "+
@@ -22816,6 +22818,9 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       "a certificate authority or a Global-Admin-equivalent role. The <b>Why</b> column is derived "+
       "by this brief from the criteria named beside it, not written by Microsoft — so you can "+
       "disagree with the reason without having to re-read the source.",
+      /* §5ed: Sections A and B are hidden by the tab's views since §5cd (the Latest list above holds every entry with
+         the same weight, grounds and links) - their 360 rows were drawn for nobody; heading and count stay */
+      HIDDEN_AB ? el("p","ntempty","Every entry is in the Latest list at the top of this tab, one row each, with weight, grounds and links.") :
       table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
         changeRows(rec),
         "<b>Changes Microsoft published</b> &middot; "+rec.length+" entries since "+(function(){var o=rec.reduce(function(m,e){var k=e.year*100+e.month;return m&&m.k<=k?m:{k:k,l:e.monthLabel};},null);return o?esc(o.l.replace(/\s*\(.*$/,"")):"—";})()+" &middot; "+
@@ -22825,6 +22830,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
     var s2=sec("nt-older","Section B","Everything else this run read, back to "+(function(){var o=all.reduce(function(m,e){var k=e.year*100+e.month;return m&&m.k<=k?m:{k:k,l:e.monthLabel};},null);return o?esc(o.l.replace(/\s*\(.*$/,"")):"—";})(),all.length-rec.length,false,
       "The same rule, applied to the rest of each what's new page. Kept because a retirement "+
       "announced in March still has its date in front of it.",
+      HIDDEN_AB ? el("p","ntempty","The earlier entries are in the Latest list at the top of this tab (view All).") :
       table(["Published","Area","Weight","What changed","Why it matters, and on what grounds","Technology","Where to check"],
         changeRows(all.filter(function(e){return D.recent.indexOf(e)<0;}).slice(0,180)),
         "<b>Earlier entries</b> &middot; heaviest first"),8);
@@ -24549,14 +24555,22 @@ odtad CZTERNASCIE (4-17).**
     var inwin = ENT.filter(function (e) {
       return !win.from || !e.published || (e.published >= win.from && e.published <= (win.to || "9999"));
     });
-    var pick = today.length ? today : inwin;
+    /* §5ed (18 X 2026, owner: "every new publication makes the page slow again on iOS"). Measured on 18 X: no post was
+       new, published or revised that day, so Section A fell back to the "window" - all 1 004 entries, 19 380 elements -
+       and Section C held the same 1 004 again (19 376 elements) although the tab's views hide it (§5cd: "#mc-all" ->
+       "none"). The Message Center tab went from 25 038 elements on 16 X to 46 010 - the phone's work depended on whether
+       Microsoft posted anything that day. Section A now falls back to the last 7 days, at most 100 entries (the Posts
+       list above holds all of them); Section C keeps its heading and count and draws no table. */
+    var wk = (function (d) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - 7); return t.toISOString().slice(0, 10); })(ST.briefDate || D.readOn || "2000-01-01");
+    var week = ENT.filter(function (e) { return (e.published || "") >= wk || (e.revisedOn || "") >= wk || (e.firstTracked || "") >= wk; });
+    var pick = today.length ? today : (week.length ? week : inwin);
     pick = pick.slice().sort(function (a, b) {
       return (a.action ? 0 : 1) - (b.action ? 0 : 1) ||
              String(b.published || "").localeCompare(String(a.published || ""));
-    });
+    }).slice(0, 100);
 
     p.appendChild(sec("mc-today", "Section A",
-      today.length ? "What Microsoft published today" : "What Microsoft published in this window",
+      today.length ? "What Microsoft published today" : week.length ? "What Microsoft published or revised in the last 7 days" : "What Microsoft published in this window",
       pick.length, !window.__socMCB,   /* §5bp: the browser above is the way in; this table stays */
       "Every entry Microsoft posted to Message Center or the Roadmap, read on " + esc(D.readOn || "") +
       ". An entry carrying a date to act by is listed first, because that is the one that needs a plan. " +
@@ -24582,12 +24596,8 @@ odtad CZTERNASCIE (4-17).**
 
     p.appendChild(sec("mc-all", "Section C", "Every entry this run read", ENT.length, false,
       "The whole index as it stood on " + esc(D.readOn || "") + ", including entries outside the window.",
-      table(["Published", "ID", "What it says", "Technology", "Action required by", "Where it came from", ""],
-        entryRows(ENT.slice().sort(function (a, b) {
-          return String(b.published || "").localeCompare(String(a.published || ""));
-        })),
-        "<b>Full index</b> &middot; " + ENT.length + " entries",
-        "The index was not read this run.")));
+      el("p", "mcempty", ENT.length ? "All " + ENT.length + " entries are in the Posts list at the top of this tab (search, filters, " +
+        "one row per post); this section no longer repeats them as a second table (§5ed)." : "The index was not read this run.")));
 
     var srows = [
       ["Entries in the index this run read", String(c.index === undefined ? D.indexRead || 0 : c.index)],
@@ -30357,7 +30367,7 @@ odtad CZTERNASCIE (4-17).**
         ? m.perms.length + " permission" + (m.perms.length === 1 ? "" : "s") + " · " + m.eps.length + " endpoint" + (m.eps.length === 1 ? "" : "s")
         : m.perms.length + " role" + (m.perms.length === 1 ? "" : "s");
     }
-    var WINS = [["since", since ? "Since the last brief" : null], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
+    var WINS = [["since", since ? "Since the last brief" : null], ["3", "3 days"], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
     var cur = null;
     ["since", "14", "30", "90", "all"].some(function (w) { if ((w !== "since" || since) && size(model(w))) { cur = w; return true; } return false; });
     if (!cur) cur = "14";
@@ -38218,8 +38228,18 @@ odtad CZTERNASCIE (4-17).**
   var D = null, TEN = null, TENT = 0;
   try {
     fetch("data/graph-sp-history.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (j) { TEN = j || { events: [] }; TENT = 1; D = null; refresh(); }).catch(function () { TENT = 1; });
+      .then(function (j) { TEN = j || { events: [] }; TENT = 1; D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () { TENT = 1; });
   } catch (e) { TENT = 1; }
+  /* §5ed (18 X 2026, owner: "did our scripts catch Conditional Access policy plans? I saw nothing in any tile"):
+     our tenant is a later ring - the three conditionalAccessPolicyPlans actions (Conditional Access, Security and Global
+     Administrator, 16 X at msadminroles.com) were not in it on 18 X. tools/roles_elsewhere.py (every 3 h) compares each
+     built-in role with the definition another tenant shows on msadminroles.com (Daniel Bradley); an action there and
+     not here is a role change on its way: change "elsewhere", dated by the day that tenant got it. */
+  var ELS = null;
+  try {
+    fetch("data/roles-elsewhere.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { ELS = j || null; D = null; refresh(); try { last3All(); } catch (e) {} }).catch(function () {});
+  } catch (e) {}
   function data() {
     if (D) return D;
     var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {};
@@ -38299,11 +38319,18 @@ odtad CZTERNASCIE (4-17).**
       if (x.surface === "permission" && TM[x.change]) add({ surface: "permission", name: x.name, change: TM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.text, detail: x.change === "type-added" ? "gained its " + x.type + " type" : x.change === "type-removed" ? "lost its " + x.type + " type" : "" });
       if (x.surface === "role" && RM[x.change]) add({ surface: "role", name: x.name, change: RM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.after || x.text });
     });
+    var ER = (ELS || {}).roles || {};
+    Object.keys(ER).forEach(function (n) {
+      var r = ER[n]; if (!r || !(r.there || []).length) return;
+      var firsts = Object.keys(r.firstNoticed || {}).map(function (k) { return r.firstNoticed[k]; }).sort();
+      add({ surface: "role", name: n, change: "elsewhere", day: r.thereSince || firsts[0] || d.day, src: "elsewhere",
+        noticed: firsts[0] || "", acts: r.there.slice(), text: r.there.map(function (a) { return a.replace(/^microsoft\.directory\//, ""); }).join(", ") });
+    });
     list.forEach(function (e) { enrich(d, e); });
     return list;
   }
   var BONUS = { permission: { grantable: 1000, removed: 800, "new": 700, consent: 600, changed: 400, documented: 100 },
-    role: { added: 900, privileged: 800, "actions-added": 500, "actions-removed": 300, condition: 300, removed: 700 }, app: { "new": 300 } };
+    role: { added: 900, privileged: 800, "actions-added": 500, "actions-removed": 300, condition: 300, removed: 700, elsewhere: 650 }, app: { "new": 300 } };
   function enrich(d, e) {
     if (e.surface === "permission") {
       var g = d.G[e.name] || {}, types = g.permTypes || [], desc = "";
@@ -38333,7 +38360,7 @@ odtad CZTERNASCIE (4-17).**
   var VERBS = { grantable: "became grantable", removed: "were removed from the service", "new": "are new permissions", consent: "changed their consent or privilege level",
     changed: "changed in the service", documented: "are now documented by Microsoft" };
   var RVERB = { added: "is a new built-in role", privileged: "is now marked privileged", "actions-added": "gained actions", "actions-removed": "lost actions",
-    condition: "changed a condition", removed: "was removed" };
+    condition: "changed a condition", removed: "was removed", elsewhere: "gained actions in another tenant, not yet in ours" };
   function typesShort(t) { return (t || []).map(function (x) { return x === "Application" ? "app-only" : x === "Delegated" ? "delegated" : x; }).join(" + "); }
   function groups(days) {
     var d = data(), from = plus(d.day, -(days || 7)), G = {}, order = [];
@@ -38355,6 +38382,12 @@ odtad CZTERNASCIE (4-17).**
         (e.desc ? " — Microsoft: “" + firstSentence(e.desc, 150) + "”" : "");
       x.tag = (e.lv ? "L" + e.lv : "no level") + " · " + (e.write ? "read-write" : "read") + (e.types.length ? " · " + typesShort(e.types) : "") + " · " + dm(day);
       x.go = function () { openPerm(e.name); };
+    } else if (e.surface === "role" && e.change === "elsewhere") {
+      x.text = RVERB.elsewhere + " (" + (e.acts || []).length + " action" + ((e.acts || []).length === 1 ? "" : "s") + ": " + e.text + ")" +
+        " · another tenant since " + dm(e.day) + " (msadminroles.com), noticed here " + dm(e.noticed || e.day) + " — rolling out; ours will follow";
+      x.tag = "role" + (e.priv ? " · PRIVILEGED" : "") + " · ahead in another tenant · " + dm(e.day);
+      x.noticed = e.noticed || "";
+      x.go = function () { openRole(e.name); };
     } else if (e.surface === "role") {
       x.text = (RVERB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + dm(e.tenant) : " · first seen in the " + dm(e.day) + " brief") + (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text, 140) : e.desc ? " — " + firstSentence(e.desc, 140) : "");
       x.tag = "role" + (e.priv ? " · PRIVILEGED" : "") + " · " + dm(e.day);
@@ -38445,12 +38478,48 @@ odtad CZTERNASCIE (4-17).**
       /* fresh = since the previous brief (or read in our tenant in the last day): it then leads its technology;
          an older change only fills a technology that has nothing else */
       var prevB = String(((data().ST.comparedWith || {}).date) || "") || plus(data().day, -1);
-      var fresh = (x.day && x.day > prevB) || (x.tenant && x.tenant.slice(0, 10) >= plus(data().day, -1));
+      var fresh = (x.day && x.day > prevB) || (x.tenant && x.tenant.slice(0, 10) >= plus(data().day, -1)) || (x.noticed && x.noticed > prevB);   /* §5ed */
       return { id: "ident:" + x.name + ":" + x.change, tech: t, score: x.score, go: x.go, fresh: !!fresh,
         text: e + " " + x.name + " " + x.text.split(" — ")[0],
         sub: (x.text.split(" — ")[1] || "").replace(/^Microsoft: /, ""), meta: x.tag };
     }).sort(function (a, b) { return b.score - a.score; });
   }
+
+  /* ---------- §5ed: "Last 3 days" at the top of Graph API and Roles ----------
+     Owner, 18 X 2026: "maybe add a Last 3 days section, not only in Graph API but also in Roles". The "What Microsoft
+     changed" blocks below read the morning brief's catalog; this one reads what moved in the last three days from every
+     source of the identity ranking - our tenant every 3 h (tools/graph_sp.py), another tenant (roles_elsewhere.py),
+     the briefs - newest first, each row opening its permission or role. */
+  function last3(which) {
+    var p = document.getElementById(which === "graph" ? "tab-graph" : "tab-roles"); if (!p) return;
+    var surf = which === "graph" ? "permission" : "role";
+    var d = data(), from = plus(d.day, -3);
+    var gs = groups(3).filter(function (g) { return g.head.surface === surf; }).map(describe)
+      .sort(function (a, b) { return String(b.day).localeCompare(String(a.day)) || b.score - a.score; });
+    var box = p.querySelector(":scope > details.s5ed-l3");
+    if (!box) {
+      box = el("details", "s5ed-l3"); box.open = true;
+      var after = p.querySelector(":scope > .s5bn");
+      if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+    }
+    box.innerHTML = "";
+    var sm = el("summary");
+    sm.appendChild(el("span", "s5ed-t", "Last 3 days · " + (which === "graph" ? "Graph permissions" : "Entra roles")));
+    sm.appendChild(el("span", "s5ed-n", String(gs.length)));
+    sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, another tenant (msadminroles.com) and the briefs"));
+    box.appendChild(sm);
+    if (!gs.length) { box.appendChild(el("p", "s5ed-none", "Nothing moved in " + (which === "graph" ? "Graph permissions" : "built-in roles") + " in the last three days in any source we read.")); return; }
+    var ul = el("ul", "s5ed-list");
+    gs.forEach(function (x) {
+      var li = el("li", "s5ed-row" + (x.change === "elsewhere" ? " s5ed-else" : ""));
+      var b = el("button", "s5ed-name", x.name); b.type = "button"; if (x.go) b.addEventListener("click", x.go); li.appendChild(b);
+      li.appendChild(el("span", "s5ed-tag", x.tag)); li.appendChild(el("p", "s5ed-txt", x.text));
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+  function last3All() { ["graph", "roles"].forEach(function (w) { try { last3(w); } catch (e) { if (window.console) console.error("[5ed last3 " + w + "]", e); } }); }
+  setTimeout(last3All, 1500); setTimeout(last3All, 4000);
 
   /* ---------- P3: the Overview card ---------- */
   function counts(days) {
@@ -43100,6 +43169,21 @@ a.jtile.s5ec-c-recent{border-color:var(--warn)!important}
   td.s5cu-srcc{white-space:normal!important;overflow-wrap:anywhere}
   td.s5cu-srcc .mcchip{display:inline-block;margin:2px 4px 2px 0}
 }
+/* §5ed: "Last 3 days" at the top of Graph API and Roles; a role ahead in another tenant is amber */
+details.s5ed-l3{margin:0 0 14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;background:var(--surface)}
+details.s5ed-l3>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:10px 14px}
+details.s5ed-l3>summary::-webkit-details-marker{display:none}
+.s5ed-t{font-weight:700;font-size:15px;color:var(--text)}
+.s5ed-n{font-weight:700;color:var(--accent)}
+.s5ed-s{color:var(--muted);font-size:12px}
+.s5ed-none{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
+.s5ed-list{list-style:none;margin:0;padding:0 14px 12px;display:grid;gap:8px}
+.s5ed-row{border:1px solid var(--border);border-radius:10px;padding:8px 12px;background:var(--bg);min-width:0}
+.s5ed-row.s5ed-else{border-left:4px solid var(--warn)}
+.s5ed-name{font:inherit;font-family:var(--mono,monospace);font-weight:700;font-size:13.5px;background:none;border:0;padding:0;color:var(--text);cursor:pointer;text-align:left;overflow-wrap:anywhere}
+.s5ed-name:hover{color:var(--accent);text-decoration:underline}
+.s5ed-tag{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.s5ed-txt{margin:4px 0 0;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -44066,6 +44150,32 @@ Microsoft Learn i Microsoft Blogs (SKRYPT 15 v2) oraz listy artykulow Learn / Bl
 (ⓘ), §5bi (historia wiersza, CSV) i §5bz (przyciete notatki) sluchaja `soc:woke`. Katalogi Graph/Roles i tabele z HTML buduje
 powloka (nie wolno jej edytowac, §5w) — zostaja bez zmian. Wynik (kopia do wdrozenia, CPU x4): elementow po 5 s 108 612 →
 80 781, zdania Overview 17–19 s → 10–14 s; porownanie eager/lazy na kazdej zakladce: te same wiersze, tabele i sekcje.
+
+## 5ed. ROLE Z INNEGO TENANTA, „LAST 3 DAYS", MIGOTANIE REPLIK, ROZMIAR MESSAGE CENTER (18 X 2026)
+
+Wlasciciel 18 X: (1) „czy nasze skrypty wykryly Conditional Access policy plans (ourcloudnetwork.com, Bradley: dodane 16-go)?
+nie widze tego w kafelkach ani w 15 zdaniach; moze sekcja Last 3 days w Graph API i Roles"; (2) „znowu wolno na iOS —
+kazda publikacja psuje wydajnosc"; (3) „czy Community znalazlo wszystkie nowe artykuly Bradleya?".
+
+Zmierzone: trzy akcje `microsoft.directory/conditionalAccessPolicyPlans/{create,delete,basic/update}` ma rola Conditional
+Access / Security / Global Administrator w tenancie msadminroles.com (`dateCreated` wersji 2026-10-16), a NASZ tenant (pozny
+pierscien) i dokumentacja Learn — jeszcze nie; portal mial wiec tylko jedno zrodlo i nic nie pokazal. Przy okazji:
+`graph-sp-history.json` mial 60 zdarzen z dwoch dni, 48 z nich to migotanie replik (12 uprawnien „added, removed, added..."
+co 3 h). Message Center 18 X: 46 010 elementow (16 X: 25 038) — dnia bez nowych postow Sekcja A brala CALY indeks (1 004
+wpisy), a ukryta Sekcja C rysowala go drugi raz. Community: wszystkie artykuly ourcloudnetwork.com do 14 X sa w danych;
+„What are Conditional Access Plans?" wyszedl 18 X 07:23 UTC, po porannym przebiegu (06:10).
+
+Wdrozone: (1) `tools/roles_elsewhere.py` (workflow tenanta co 3 h) — role z publicznej strony msadminroles.com porownane z
+naszymi → `site/data/roles-elsewhere.json` (akcje tylko tam, tylko u nas, `firstNoticed`, `thereSince`, zdarzenia
+there-only / caught-up / ours-only, 90 dni); warstwa §5cy wlacza je do rankingu tozsamosci jako zmiana roli `elsewhere`
+(„gained actions in another tenant, not yet in ours"), wiec trafiaja do kart, zdan dnia (Entra ID, Defender) i do nowej
+sekcji. (2) „Last 3 days" na gorze Graph API i Roles (`details.s5ed-l3`): wszystkie zrodla rankingu (nasz tenant co 3 h,
+inny tenant, briefy); okno „3 days" w blokach „What Microsoft changed". (3) `tools/graph_sp.py`: nazwa / typ / akcja,
+ktorej brak w jednym odczycie, zostaje przez 26 h (`missingSince`); „removed" dopiero po 26 h; stara historia oczyszczona
+(`drop_flaps`). (4) Message Center: Sekcja A bez wpisow z dnia = ostatnie 7 dni, max 100; Sekcja C bez tabeli (lista Posts
+ma wszystko); Learn: ukryte od §5cd Sekcje A i B bez tabel. Wynik: 132 347 → 92 386 elementow, Message Center 43 913 →
+9 355, Learn 10 204 → 4 162. (5) `tools/mobile_check.py` pilnuje rozmiaru: zakladka > 25 000 albo strona > 120 000 elementow
+= FAIL (zywa strona przed poprawka: FAIL z oboma). Bez nowych uprawnien aplikacji; zrodlo msadminroles.com jest publiczne.
 
 ## 6. Kontrakt w stronie
 

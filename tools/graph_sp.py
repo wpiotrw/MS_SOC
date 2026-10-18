@@ -148,6 +148,69 @@ def diff_roles(old, new, seen):
     return ev
 
 
+# CLAUDE.md 5ed (18 X 2026): Microsoft's Graph service principal is served by several replicas while a change rolls
+# out; reads three hours apart alternated between a replica with 12 new permissions and one without them, and the
+# history said "added, removed, added, removed, added" five times in 24 h (AdministrativeUnit.ReadBasic.All,
+# Policy.Read.SecurityDefaults, CopilotCostManagement.Read.All ...). A name, a permission type or a role action that is
+# missing from ONE read is kept for GRACE_H hours: "removed" is written only when it stayed away for that long, and the
+# first sighting is the one "added". `missingSince` in the state file remembers when each key was last missing.
+GRACE_H = 26
+
+
+def _hours(a, b):
+    try:
+        f = lambda x: datetime.datetime.strptime(x, "%Y-%m-%dT%H:%MZ")
+        return (f(b) - f(a)).total_seconds() / 3600.0
+    except Exception:
+        return 0.0
+
+
+def keep_missing(prev_map, cur_map, seen, missing, prefix, inner=None):
+    """cur_map with every key of prev_map that is absent now but missing for less than GRACE_H; `inner(old, new)`
+    merges an entry present in both (permission types, role actions). `missing` is updated in place."""
+    out = dict(cur_map)
+    for k, v in (prev_map or {}).items():
+        key = prefix + k
+        if k in cur_map:
+            missing.pop(key, None)
+            if inner:
+                out[k] = inner(k, v, cur_map[k])
+            continue
+        since = missing.setdefault(key, seen)
+        if _hours(since, seen) < GRACE_H:
+            out[k] = v
+        else:
+            missing.pop(key, None)
+    for k in cur_map:
+        missing.pop(prefix + k, None)
+    return out
+
+
+def drop_flaps(events, hours=30):
+    """history written before 5ed: a 'removed' followed by an 'added' of the same thing within `hours` is one replica
+    flip - both are dropped (the first 'added' stays)"""
+    pairs = {"removed": "added", "type-removed": "type-added", "actions-removed": "actions-added"}
+    ev = sorted(events, key=lambda x: x.get("seen") or "")
+    drop = set()
+    for i, a in enumerate(ev):
+        if a.get("change") not in pairs or i in drop:
+            continue
+        want = pairs[a["change"]]
+        for j in range(i + 1, len(ev)):
+            b = ev[j]
+            if j in drop or _hours(a.get("seen") or "", b.get("seen") or "") > hours:
+                continue
+            same = b.get("surface") == a.get("surface") and b.get("name") == a.get("name") and b.get("change") == want
+            if same and want == "type-added":
+                same = (b.get("type") or "") == (a.get("type") or "")
+            if same and want == "actions-added":
+                same = set((b.get("after") or "").split(", ")) == set((a.get("before") or "").split(", "))
+            if same:
+                drop.update((i, j)); break
+    keep = [x for k, x in enumerate(ev) if k not in drop]
+    return sorted(keep, key=lambda x: x.get("seen") or "", reverse=True), len(drop)
+
+
 def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-history.json"):
     tid, tok = T.token()
     G = "https://graph.microsoft.com/v1.0"
@@ -174,6 +237,18 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
     except urllib.error.HTTPError as ex:
         roles_note = ("GET /roleManagement/directory/roleDefinitions refused (%s) - the app needs RoleManagement.Read.Directory "
                       "(read-only, admin consent; README 5.2)" % ex.code)
+    missing = dict(prev.get("missingSince") or {})
+    if prev.get("perms"):
+        def ptypes(k, old, new):
+            return keep_missing(old, new, seen, missing, "perm-type:%s:" % k)
+        perms = keep_missing(prev["perms"], perms, seen, missing, "perm:", ptypes)
+    if roles is not None and prev.get("roles"):
+        def racts(k, old, new):
+            o = {a: 1 for a in old.get("actions") or []}
+            m = keep_missing(o, {a: 1 for a in new.get("actions") or []}, seen, missing, "role-action:%s:" % k)
+            merged = dict(new); merged["actions"] = sorted(m)
+            return merged
+        roles = keep_missing(prev["roles"], roles, seen, missing, "role:", racts)
     events = []
     if prev.get("perms"):
         events += diff_perms(prev["perms"], perms, seen)
@@ -183,19 +258,23 @@ def main(state_path="site/data/graph-sp.json", hist_path="site/data/graph-sp-his
              "counts": {"names": len(perms), "application": n_app, "delegated": n_del, "rsc": n_rsc,
                         "roles": len(roles) if roles is not None else (len(prev.get("roles") or {}) or None)},
              "rolesRead": seen if roles is not None else prev.get("rolesRead"), "rolesNote": roles_note,
-             "perms": perms, "roles": roles if roles is not None else prev.get("roles")}
+             "perms": perms, "roles": roles if roles is not None else prev.get("roles"), "missingSince": missing}
     cut = (datetime.date.fromisoformat(seen[:10]) - datetime.timedelta(days=KEEP_DAYS)).isoformat()
     old_ev = [x for x in hist.get("events") or [] if (x.get("day") or "") >= cut]
+    old_ev, flips = drop_flaps(old_ev)   # 5ed: once, for the history written before the grace rule
+    if flips:
+        print("graph_sp: %d replica flip events dropped from the history" % flips)
     hist = {"updated": seen, "baseline": hist.get("baseline") or (seen if not prev.get("perms") else prev.get("read")),
             "lastRead": seen, "rolesNote": roles_note, "keepDays": KEEP_DAYS,
             "counts": state["counts"], "events": events + old_ev}
     os.makedirs(os.path.dirname(state_path) or ".", exist_ok=True)
     # written only when something changed, so the repository does not take a 0.5 MB commit every three hours;
     # the history file carries the day of the last read (once a day) so the page can say when we last looked
-    same = prev.get("perms") == state["perms"] and prev.get("roles") == state["roles"] and prev.get("rolesNote") == roles_note
+    same = prev.get("perms") == state["perms"] and prev.get("roles") == state["roles"] and prev.get("rolesNote") == roles_note \
+        and (prev.get("missingSince") or {}) == missing
     if not same:
         json.dump(state, open(state_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    if events or not os.path.exists(hist_path) or str(load(hist_path, {}).get("lastRead") or "")[:10] != seen[:10] \
+    if events or flips or not os.path.exists(hist_path) or str(load(hist_path, {}).get("lastRead") or "")[:10] != seen[:10] \
             or load(hist_path, {}).get("rolesNote") != roles_note:
         json.dump(hist, open(hist_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if os.environ.get("GITHUB_OUTPUT"):
