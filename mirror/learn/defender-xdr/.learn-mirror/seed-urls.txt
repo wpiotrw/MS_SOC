@@ -51,6 +51,7 @@ https://learn.microsoft.com/en-us/defender-xdr/dlp-investigate-alerts-defender
 https://learn.microsoft.com/en-us/defender-xdr/dynamic-threat-detection-agent
 https://learn.microsoft.com/en-us/defender-xdr/entity-page-threat-intelligence
 https://learn.microsoft.com/en-us/defender-xdr/exclude-analytics-rules-correlation
+https://learn.microsoft.com/en-us/defender-xdr/governance-relationships
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/coverage-maturity
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/identity-security-recommendations
 https://learn.microsoft.com/en-us/defender-xdr/incidents-overview

@@ -17,9 +17,12 @@ https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/changes/whats-new-version-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site-and-site-system-prerequisites
+https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-adk
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/list-of-prerequisite-checks
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842
 https://learn.microsoft.com/en-us/intune/copilot
 https://learn.microsoft.com/en-us/intune/copilot/agents/change-review-agent
@@ -38,6 +41,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-devi
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-wifi-settings-apple
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-managed-google-play
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/ref-corporate-methods
+https://learn.microsoft.com/en-us/intune/device-enrollment/apple/manage-devices-tokens-macos
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/overview-automated-enrollment-apple
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-service-access
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-ios
@@ -61,10 +65,13 @@ https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/
 https://learn.microsoft.com/en-us/intune/device-management/overview
 https://learn.microsoft.com/en-us/intune/device-management/tools/management-extension-windows
 https://learn.microsoft.com/en-us/intune/device-management/tools/setup-teamviewer
+https://learn.microsoft.com/en-us/intune/device-management/tools/teamviewer-legacy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/create-policy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/custom-settings
 https://learn.microsoft.com/en-us/intune/device-security/compliance/monitor-policy
+https://learn.microsoft.com/en-us/intune/device-security/compliance/quickstart-password-compliance-android
 https://learn.microsoft.com/en-us/intune/device-security/compliance/third-party-partners
+https://learn.microsoft.com/en-us/intune/device-security/conditional-access-integration/block-no-modern-auth
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-devices
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/security-settings-management
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/overview
@@ -78,6 +85,9 @@ https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-windows-mdm-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline
 https://learn.microsoft.com/en-us/intune/device-updates/android/setup-samsung-knox
+https://learn.microsoft.com/en-us/intune/epm/create-elevation-rules
+https://learn.microsoft.com/en-us/intune/epm/deployment-planning
+https://learn.microsoft.com/en-us/intune/epm/manage-elevation-settings
 https://learn.microsoft.com/en-us/intune/epm/manage-support-approvals
 https://learn.microsoft.com/en-us/intune/epm/manage-system-settings
 https://learn.microsoft.com/en-us/intune/epm/overview

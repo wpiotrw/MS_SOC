@@ -63,6 +63,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxFolder
 https://learn.microsoft.com/en-us/graph/api/resources/microsoftappsfilestoragecontainerusage
 https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
+https://learn.microsoft.com/en-us/graph/api/resources/onpremisespublishing
 https://learn.microsoft.com/en-us/graph/api/resources/planner
 https://learn.microsoft.com/en-us/graph/api/resources/policyscopebase
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
@@ -106,6 +107,7 @@ https://learn.microsoft.com/en-us/graph/connecting-external-content-manage-conne
 https://learn.microsoft.com/en-us/graph/control-enhanced-personalization-privacy
 https://learn.microsoft.com/en-us/graph/known-issues
 https://learn.microsoft.com/en-us/graph/outlook-change-notifications-overview
+https://learn.microsoft.com/en-us/graph/outlook-share-or-delegate-calendar
 https://learn.microsoft.com/en-us/graph/permissions-overview
 https://learn.microsoft.com/en-us/graph/permissions-reference
 https://learn.microsoft.com/en-us/graph/query-parameters

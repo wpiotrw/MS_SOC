@@ -1,4 +1,5 @@
 https://learn.microsoft.com/en-us/windows
+https://learn.microsoft.com/en-us/windows/apps/publish/partner-center/assign-roles-to-account-users
 https://learn.microsoft.com/en-us/windows/apps/windows-sdk/release-notes
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-Connectivity
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-WindowsAI
