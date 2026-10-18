@@ -16342,7 +16342,7 @@ IdentityDirectoryEvents
     MCE.filter(function (e) { return e.firstTracked === today && !BYID[e.id].it; })
       .sort(function (a, b) { return (b.isMajor ? 1 : 0) - (a.isMajor ? 1 : 0) || (b.deadline ? 1 : 0) - (a.deadline ? 1 : 0) || String(b.id).localeCompare(String(a.id)); })
       .forEach(function (e) { pool.push({ id: e.id, tech: techOf(e.tech || []), text: e.title || e.id,
-        sub: firstSentence(e.summary || e.dpSummary || e.feedSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
+        sub: firstSentence(e.summary || e.dpSummary || e.feedSummary || e.mcSummary), meta: e.id + (e.isMajor ? " · major" : "") + (e.late ? " · caught late" : "") }); });
     /* §5bs: Microsoft's own updates to Graph permissions (collect_graph_diff.py), the heavy ones
        (level 3-4, or added, removed, returned) of the last seven days */
     if (GDW) GDW.recent(7).forEach(function (g, gi) {
@@ -17634,7 +17634,7 @@ IdentityDirectoryEvents
   function a(href, t) { var x = el("a", null, t); x.href = href; x.target = "_blank"; x.rel = "noopener"; return x; }
   function detail(r) {
     var e = r.e, box = el("div", "mcb-det");
-    var sums = [["summary", "Microsoft"], ["feedSummary", "msmessagecenter.com summary"], ["dpSummary", "DeltaPulse summary"]];
+    var sums = [["summary", "Microsoft"], ["feedSummary", "msmessagecenter.com summary"], ["dpSummary", "DeltaPulse summary"], ["mcSummary", "mc.merill.net summary"]];
     var any = false;
     sums.forEach(function (s) {
       if (!e[s[0]]) return; any = true;
