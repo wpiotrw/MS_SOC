@@ -4693,13 +4693,13 @@ details.s5ei-day.s5ei-f0{opacity:.72}
 .s5em-none[hidden]{display:none}
 .s5em-cnote{margin:0 0 8px;padding:0 4px;font-size:13px;font-weight:600;color:var(--ok)}
 .s5em-cnote[hidden],.jtile[hidden]{display:none}
-.kq[hidden],.s5el-card[hidden]{display:none}
+.kq[hidden],.s5el-row[hidden]{display:none}
 @keyframes s5emhit{0%{box-shadow:0 0 0 3px var(--ok)}100%{box-shadow:0 0 0 3px transparent}}
 .s5em-hit{animation:s5emhit 2.2s ease-out 1}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 /* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
 .s5el{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
-.s5el>*,details.s5el-box,.s5el-card,.s5el-det{min-width:0}
+.s5el>*,details.s5el-box,.s5el-row,.s5el-det{min-width:0}
 .s5el-fresh{margin:0;font-size:13px;color:var(--muted)}
 .s5el-fresh b{color:var(--text)}
 .s5el-note{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
@@ -4718,46 +4718,74 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-li{display:inline-flex;align-items:center;gap:6px}
 .s5el-li i{display:inline-block;width:16px;height:3px;border-radius:2px}
 .s5el-li i.bar{height:10px;width:10px;background:var(--accent-soft);border:1px solid var(--accent)}
-.s5el-cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr))}
-.s5el-card{border:1px solid var(--border);border-left:4px solid var(--border);border-radius:12px;background:var(--bg);padding:10px 14px;min-width:0}
-.s5el-card.is-new{border-left-color:var(--accent)}
-.s5el-card.is-upd{border-left-color:var(--warn)}
-.s5el-card.is-cur{grid-column:1/-1}
-.s5el-ctop,.s5el-chips{display:flex;flex-wrap:wrap;gap:5px;margin:0}
-.s5el-chips{margin-top:6px}
-.s5el-chip{font-size:11px;font-weight:600;border-radius:999px;padding:2px 8px;border:1px solid var(--border);color:var(--muted);background:var(--surface);white-space:nowrap}
-.s5el-chip.new{color:var(--accent);border-color:var(--accent)}
-.s5el-chip.upd{color:var(--warn);border-color:var(--warn)}
-.s5el-chip.ok{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
-.s5el-chip.warn{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}
-.s5el-chip.bad{color:var(--bad);border-color:var(--bad);background:var(--bad-soft)}
-.s5el-chip.cur{color:var(--accent);background:var(--accent-soft);border-color:var(--accent)}
-.s5el-chip.src{color:var(--ok);border-color:var(--ok)}
-.s5el-chip.ours{color:var(--warn);border-color:var(--warn)}
-.s5el-chip.area{color:var(--text)}
-.s5el-ct{font:inherit;font-size:14.5px;font-weight:700;line-height:1.35;color:var(--text);background:none;border:0;padding:6px 0 2px;text-align:left;cursor:pointer;width:100%;overflow-wrap:anywhere}
-.s5el-ct:hover{color:var(--accent)}
-.s5el-dates{margin:2px 0 0;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
-.s5el-dates b{font-weight:600;color:var(--text)}
-.s5el-det{margin-top:8px;border-top:1px solid var(--border);padding-top:8px;font-size:13px;line-height:1.5}
-.s5el-sum{margin:0 0 6px;text-align:justify}
-.s5el-h4{margin:12px 0 4px;font-size:13px;font-weight:700;color:var(--text)}
-.s5el-ul{margin:0;padding-left:18px}
-.s5el-ul li{margin:2px 0;overflow-wrap:anywhere}
-.s5el-mono li{font-family:var(--mono,monospace);font-size:12px}
-.s5el-rem{margin:0;padding-left:22px}
-.s5el-rem li{margin:4px 0;overflow-wrap:anywhere}
+/* §5en: incidents as rows; the analysis opens full width under its row, calm: facts, numbered parts, grey source words */
+.s5el-toc{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
+.s5el-tocl{font-size:12px;font-weight:700;color:var(--muted);margin-right:2px}
+.s5el-tocb{font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 12px;cursor:pointer;min-height:30px}
+.s5el-tocb:hover{border-color:var(--accent)}
+.s5el-why{margin:0 14px 8px;font-size:13px;color:var(--muted);line-height:1.45}
+.s5el-np{color:var(--muted)}
+.s5ei-tile.s5el-tpre{border-left:4px solid var(--border)}
+.s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:92px minmax(0,1fr) 96px 96px 96px 70px 18px;gap:10px;align-items:center;padding:8px 12px}
+.s5el-rhead{background:var(--surface);font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.s5el-row{border-bottom:1px solid var(--border);border-left:4px solid transparent;min-width:0}
+.s5el-row:last-child{border-bottom:0}
+.s5el-row.is-new{border-left-color:var(--accent)}
+.s5el-row.is-upd{border-left-color:var(--warn)}
+.s5el-rh{width:100%;font:inherit;font-size:13px;color:var(--text);background:none;border:0;text-align:left;cursor:pointer}
+.s5el-rh:hover{background:var(--accent-soft)}
+.s5el-row.open>.s5el-rh{background:var(--surface)}
+.s5el-c2{display:flex;flex-direction:column;gap:2px;min-width:0}
+.s5el-rt{font-weight:700;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.s5el-rm{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.s5el-c3,.s5el-c4{font-size:12.5px;white-space:nowrap}
+.s5el-c5,.s5el-c6{font-size:12.5px;font-weight:600}
+.s5el-ar{color:var(--muted);transition:transform .15s}
+.s5el-rd{display:none;font-size:12px;color:var(--muted)}
+.s5el-row.open .s5el-ar{transform:rotate(90deg)}
+.s5el-st{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;border-radius:6px;padding:2px 7px;border:1px solid var(--border);color:var(--muted)}
+.s5el-st.new{color:var(--accent);border-color:var(--accent)}
+.s5el-st.upd{color:var(--warn);border-color:var(--warn)}
+.s5el-st.none{border-color:transparent}
+.s5el-yes{color:var(--ok)}
+.s5el-no{color:var(--warn)}
+.s5el-det{padding:6px 18px 16px 18px;border-top:1px solid var(--border);background:var(--bg);font-size:13.5px;line-height:1.55}
+.s5el-det>*{max-width:1000px}
+.s5el-facts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 16px;margin:10px 0 4px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:13px}
+.s5el-facts dt{color:var(--muted);font-weight:600}
+.s5el-facts dd{margin:0;overflow-wrap:anywhere}
+.s5el-h4{display:flex;align-items:center;gap:8px;margin:18px 0 6px;padding-top:12px;border-top:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text)}
+.s5el-hn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--border);font-size:11.5px;color:var(--muted)}
+.s5el-sum{margin:0;text-align:justify}
+.s5el-sub{margin:6px 0 2px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.s5el-mut{color:var(--muted);font-size:12.5px}
+.s5el-ul{margin:0;padding-left:20px}
+.s5el-ul li{margin:3px 0;overflow-wrap:anywhere}
+.s5el-mono li{font-family:var(--mono,monospace);font-size:12.5px}
+.s5el-rem{margin:0;padding-left:24px}
+.s5el-rem li{margin:5px 0;overflow-wrap:anywhere}
 .s5el-kql{border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin:6px 0;background:var(--surface);position:relative}
 .s5el-kqt{margin:0 0 4px;font-weight:600;font-size:12.5px;padding-right:60px}
-.s5el-kql pre{margin:0;font-family:var(--mono,monospace);font-size:11.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.s5el-kql pre{margin:0;font-family:var(--mono,monospace);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}
 .s5el-kql .s5el-btn{position:absolute;top:6px;right:8px}
-.s5el-btn,.s5el-pbtn,.s5el-lnk{font:inherit;font-size:12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--accent);padding:4px 10px;cursor:pointer;min-height:28px}
-.s5el-pbtn{border-radius:999px;margin:2px}
+.s5el-btn,.s5el-pbtn,.s5el-lnk{font:inherit;font-size:12.5px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--accent);padding:4px 10px;cursor:pointer;min-height:28px}
+.s5el-pp{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.s5el-pbtn{max-width:100%;white-space:normal;text-align:left;overflow-wrap:anywhere}
 .s5el-lnk{border:0;background:none;padding:0;min-height:0;text-decoration:underline}
 .s5el-more{margin-top:10px}
-.s5el-d{color:var(--muted);font-size:12px}
 .s5el-ex{margin:2px 0 4px;color:var(--muted);font-size:12px}
-.s5el-warnp{margin:0;color:var(--warn);font-size:12.5px}
+@media (max-width:900px){
+ .s5el-rhead{display:none}
+ .s5el-rh{grid-template-columns:minmax(0,1fr) 18px;align-items:start;row-gap:4px;padding:8px 10px}
+ .s5el-c1,.s5el-c2{grid-column:1}.s5el-ar{grid-column:2;grid-row:1}
+ .s5el-st.none{display:none}
+ .s5el-rd{display:block}
+ .s5el-c3,.s5el-c4,.s5el-c5,.s5el-c6{display:none}
+ .s5el-det{padding:4px 8px 14px}
+ .s5el-facts{grid-template-columns:1fr;gap:0 0;padding:8px 10px}
+ .s5el-facts dd{margin-bottom:6px}
+}
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
 .s5el-q{flex:1 1 200px;min-width:0;font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--ok);border-radius:8px;background:var(--bg);color:var(--text)}
 .s5el-sel{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);max-width:100%}
@@ -4770,7 +4798,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-nw{white-space:nowrap}
 .s5el-past{color:var(--bad);font-weight:600}
 .s5el-soon{color:var(--warn);font-weight:600}
-@media (max-width:760px){.s5el-cards{grid-template-columns:1fr}.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
+@media (max-width:760px){.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
 
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="byline">By Piotr Wiśniewski</p><p class="dateline"><b>Monday 19 October 2026</b> &middot; published 08:58 Warsaw &middot; 5 &ndash; 19 October 2026 &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>42</b> deadlines in 60 days<span>&middot; 39 inside 30, 4 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>23</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>92</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>9</b> changes since 18 Oct<span>&middot; 5 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>2696</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
@@ -25911,7 +25939,7 @@ IdentityDirectoryEvents
     var nc = nb.querySelector(".navcount"); if (!nc) { nc = el("span", "navcount"); nb.appendChild(nc); }
     var since = addDays(day(D.generated), -30);
     nc.textContent = String((D.stories || []).filter(function (s) { return day(s.lastUpdate) >= since; }).length);
-    nb.setAttribute("data-count-of", "stories updated in the last 30 days");
+    nb.setAttribute("data-count-of", "incidents updated in the last 30 days");
   }
 
   function box(title, sub, cls) {
@@ -25925,35 +25953,66 @@ IdentityDirectoryEvents
       : chip("Not described by Microsoft yet", "warn", "Checked: " + s.microsoft.checked);
   }
 
-  /* ---- 1. the day in tiles (the §5ei shape) ---- */
+  /* ---- 1. the day in tiles (the §5ei shape) ----
+     §5en (19 X 2026, owner with screenshots: "Since the previous brief holds one incident while there are others below;
+     why is Since the previous brief there twice; what is the block under it?"). The two blocks now say their dates in
+     the title ("Since the previous brief · 18/10 → 19/10", "One brief earlier · 17/10 → 18/10", the second folded), each
+     says in a sentence what it lists and points at the full list, and on the day tracking started (D.started) the first
+     block also lists the incidents reported BEFORE that day as "new to this portal" - they were all new to the reader,
+     but calling them new events would have been false. */
+  function startedOn() { return D.started || "2026-10-19"; }
   function tilesBlock(lab, lo, hi, open) {
     var L = (D.stories || []).map(function (s) { return { s: s, k: storyKind(s, lo, hi) }; }).filter(function (x) { return x.k; });
     var nw = L.filter(function (x) { return x.k === "new"; }), up = L.filter(function (x) { return x.k === "upd"; });
+    var st = startedOn(), firstDay = !hi && st >= lo && st <= DAY;
+    var seen = {}; L.forEach(function (x) { seen[x.s.id] = 1; });
+    var pre = firstDay ? (D.stories || []).filter(function (s) { return !seen[s.id] && s.firstReported < st; }) : [];
     var arts = (D.articles || []).filter(function (a) { var d = day(a.firstSeen); return d >= lo && (hi ? d < hi : true); });
     var b = el("details", "s5ei-day"); b.open = !!open;
-    var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab));
-    sm.appendChild(el("span", "s5ei-n s5ei-nn", nw.length + " new stor" + (nw.length === 1 ? "y" : "ies")));
+    var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab + " · " + dm(lo) + " → " + dm(hi || DAY)));
+    sm.appendChild(el("span", "s5ei-n s5ei-nn", nw.length + " new"));
     sm.appendChild(el("span", "s5ei-n s5ei-nc", up.length + " updated"));
-    sm.appendChild(el("span", "s5ei-s", arts.length + " article" + (arts.length === 1 ? "" : "s") + " first seen " + (hi ? dm(lo) + "–" + dm(addDays(hi, -1)) : "since " + dm(lo))));
+    if (pre.length) sm.appendChild(el("span", "s5ei-n s5el-np", pre.length + " new to this portal"));
+    sm.appendChild(el("span", "s5ei-s", arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in"));
     b.appendChild(sm);
+    function tileOf(s, k) {
+      var c = el("li", "s5ei-tile " + (k === "new" ? "s5ei-new" : k === "upd" ? "s5ei-chg" : "s5el-tpre")), top = el("div", "s5ei-top");
+      top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED" : "REPORTED " + dm(s.firstReported)));
+      if (k !== "pre") top.appendChild(el("span", "s5ei-flag s5ei-date", "reported " + dm(s.firstReported)));
+      c.appendChild(top);
+      var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
+      c.appendChild(el("p", "s5ei-meta", (s.microsoft.status === "described" ? "Microsoft has described it" : "Microsoft has not described it yet") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
+      return c;
+    }
     function fill() {
       if (b.__f) return; b.__f = true;
-      if (!L.length) { b.appendChild(el("p", "s5ei-none", "No incident story was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event.")); return; }
-      var ul = el("ul", "s5ei-grid");
-      nw.concat(up).forEach(function (x) {
-        var s = x.s, c = el("li", "s5ei-tile " + (x.k === "new" ? "s5ei-new" : "s5ei-chg")), top = el("div", "s5ei-top");
-        top.appendChild(el("span", "s5ei-kind", x.k === "new" ? "NEW" : "UPDATED"));
-        top.appendChild(el("span", "s5ei-flag", s.microsoft.status === "described" ? "Microsoft: described" : "Microsoft: not yet"));
-        top.appendChild(el("span", "s5ei-flag s5ei-date", dm(s.firstReported)));
-        c.appendChild(top);
-        var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
-        c.appendChild(el("p", "s5ei-meta", [s.areas.slice(0, 3).join(" · "), s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")].join(" · ")));
-        ul.appendChild(c);
-      });
-      b.appendChild(ul);
+      var why = el("p", "s5el-why");
+      why.appendChild(document.createTextNode(hi
+        ? "Incidents first seen, or given a new article, between the brief of " + dmy(lo) + " and the brief of " + dmy(hi) + ". "
+        : "Incidents first seen, or given a new article, since the brief of " + dmy(lo) + ". "));
+      var all = el("button", "s5el-lnk", "All " + (D.stories || []).length + " incidents are in Incidents below"); all.type = "button";
+      all.addEventListener("click", function () { jump("s5el-inc"); }); why.appendChild(all);
+      b.appendChild(why);
+      if (L.length) {
+        b.appendChild(el("h4", "s5ei-h", "New or updated in this window · " + L.length));
+        var ul = el("ul", "s5ei-grid"); nw.concat(up).forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); b.appendChild(ul);
+      } else b.appendChild(el("p", "s5ei-none", "No incident was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event."));
+      if (pre.length) {
+        b.appendChild(el("h4", "s5ei-h", "New to this portal · " + pre.length + " — Threat Research started on " + dmy(st) + "; these were reported earlier, so they are not new events"));
+        var u2 = el("ul", "s5ei-grid"), LIM = phone() ? 4 : 8;
+        pre.slice(0, LIM).forEach(function (s) { u2.appendChild(tileOf(s, "pre")); }); b.appendChild(u2);
+        if (pre.length > LIM) { var mb = el("button", "mcb-btn s5ei-all", "Show all " + pre.length); mb.type = "button";
+          mb.addEventListener("click", function () { pre.slice(LIM).forEach(function (s) { u2.appendChild(tileOf(s, "pre")); }); mb.remove(); });
+          var mp = el("p", "s5ei-more"); mp.appendChild(mb); b.appendChild(mp); }
+      }
     }
     if (b.open) fill(); b.addEventListener("toggle", function () { if (b.open) fill(); });
     return b;
+  }
+  function jump(id) {
+    var t = document.getElementById(id); if (!t) return;
+    if (t.tagName === "DETAILS") t.open = true;
+    window.scrollTo({ top: Math.max(0, t.getBoundingClientRect().top + window.scrollY - 130), behavior: "smooth" });   /* not scrollIntoView (§5ci) */
   }
 
   /* ---- 2. trend lines: articles per area per day, stories started ---- */
@@ -25989,41 +26048,62 @@ IdentityDirectoryEvents
     return wrapC;
   }
 
-  /* ---- 3. incident cards ---- */
+  /* ---- 3. incidents: one row each, the analysis opens full width under its row ----
+     §5en: the card grid put twelve narrow cards side by side; an opened card ran its text out of its frame and the
+     reader could not tell which section the cards belonged to. Now: one list, one row per incident (status · title ·
+     reported · last update · Microsoft · analysis), and the analysis opens under its row across the whole width, in a
+     calm layout - facts first, then numbered sections with plain headings, the source of each step said in grey words
+     instead of coloured chips. */
   function openPortal(p) {
     var id = p.kind === "role" ? "roles" : "graph";
     var b = document.querySelector('nav.anchors .tab[aria-controls="tab-' + id + '"]'); if (b) b.click();
     setTimeout(function () { try { if (p.kind === "role" && window.__socOpenRole) window.__socOpenRole(p.label); else if (window.__socOpenPerm) window.__socOpenPerm(p.label); } catch (e) {} }, 350);
   }
   function list(items, cls) { var u = el("ul", cls || "s5el-ul"); items.forEach(function (t) { u.appendChild(el("li", null, t)); }); return u; }
-  function h4(t) { return el("h4", "s5el-h4", t); }
+  function part(d, n, t) { var h = el("h4", "s5el-h4"); h.appendChild(el("span", "s5el-hn", String(n))); h.appendChild(document.createTextNode(t)); d.appendChild(h); }
+  function aLink(text, href) { var a = el("a", null, text); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
   function details(s, d) {
-    var N = s.notes;
+    var N = s.notes, n = 0;
+    /* facts first: one small table the eye can read down */
+    var f = el("dl", "s5el-facts");
+    function fact(k, v) { f.appendChild(el("dt", null, k)); var dd = el("dd"); if (typeof v === "string") dd.textContent = v; else dd.appendChild(v); f.appendChild(dd); }
+    if (N && N.status) fact("Status", N.status === "active" ? "Active — still being investigated" : N.status === "contained" ? "Contained" : "Resolved");
+    fact("First reported", dmy(s.firstReported));
+    fact("Seen by this portal", dmy(day(s.firstSeen)));
+    fact("Last update", dmy(day(s.lastUpdate)));
+    fact("Areas", s.areas.join(", ") || "—");
+    fact("Sources", s.sources.join(", "));
+    var ms = el("span", s.microsoft.status === "described" ? "s5el-yes" : "s5el-no", s.microsoft.status === "described" ? "Described — see Microsoft below" : "Not described yet in: " + s.microsoft.checked);
+    fact("Microsoft", ms);
+    fact("Analysis", N ? "Written " + (N.updated ? dmy(N.updated) : "") + (N.by ? " by the " + N.by : " by a person") : "None yet — the morning run writes one for new incidents");
+    d.appendChild(f);
     if (N) {
-      if (N.summary) d.appendChild(el("p", "s5el-sum", N.summary));
+      if (N.summary) { part(d, ++n, "What happened"); d.appendChild(el("p", "s5el-sum", N.summary)); }
       if (N.timeline && N.timeline.length) {
-        d.appendChild(h4("Timeline"));
+        part(d, ++n, "Timeline");
         var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab"), th = el("thead"), tr = el("tr");
         tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1"); tb.setAttribute("data-s5bi-csv", "1");
         ["Date", "What happened", "Source"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); tb.appendChild(th);
-        var bd = el("tbody"); N.timeline.forEach(function (r) { var x = el("tr"); x.appendChild(el("td", "s5el-nw", dmy(r.date))); x.appendChild(el("td", null, r.text)); x.appendChild(el("td", "s5el-nw", r.src || "")); bd.appendChild(x); });
+        var bd = el("tbody"); N.timeline.forEach(function (r) { var x = el("tr"); x.appendChild(el("td", "s5el-nw", dmy(r.date))); x.appendChild(el("td", null, r.text)); x.appendChild(el("td", "s5el-nw s5el-mut", r.src || "")); bd.appendChild(x); });
         tb.appendChild(bd); tw.appendChild(tb); d.appendChild(tw);
       }
-      if (N.rootCause) { d.appendChild(h4("Root cause")); d.appendChild(el("p", null, N.rootCause)); }
-      if (N.attacker && N.attacker.length) { d.appendChild(h4("What the attacker did")); d.appendChild(list(N.attacker)); }
-      if (N.iocs && N.iocs.length) { d.appendChild(h4("Indicators")); d.appendChild(list(N.iocs, "s5el-ul s5el-mono")); }
+      if (N.rootCause) { part(d, ++n, "Root cause"); d.appendChild(el("p", null, N.rootCause)); }
+      if (N.attacker && N.attacker.length) { part(d, ++n, "What the attacker did"); d.appendChild(list(N.attacker)); }
+      if (N.iocs && N.iocs.length) { part(d, ++n, "Indicators of compromise"); d.appendChild(list(N.iocs, "s5el-ul s5el-mono")); }
       if (N.remediation && N.remediation.length) {
-        d.appendChild(h4("What to do now"));
-        var ol = el("ol", "s5el-rem");
-        N.remediation.forEach(function (r) {
-          var li = el("li"); li.appendChild(chip(r.from === "ours" ? "Ours (inferred)" : "From " + (r.src || "source"), r.from === "ours" ? "ours" : "src",
-            r.from === "ours" ? "Written by this portal from the facts above - not stated by a source" : "Stated by " + (r.src || "the source")));
-          li.appendChild(document.createTextNode(" " + r.text)); ol.appendChild(li);
-        });
-        d.appendChild(ol);
+        part(d, ++n, "What to do now");
+        var src = N.remediation.filter(function (r) { return r.from !== "ours"; }), ours = N.remediation.filter(function (r) { return r.from === "ours"; });
+        if (src.length) {
+          d.appendChild(el("p", "s5el-sub", "From the sources"));
+          var ol = el("ol", "s5el-rem"); src.forEach(function (r) { var li = el("li", null, r.text + " "); li.appendChild(el("span", "s5el-mut", "— " + (r.src || "source"))); ol.appendChild(li); }); d.appendChild(ol);
+        }
+        if (ours.length) {
+          d.appendChild(el("p", "s5el-sub", "Our suggestions — inferred by this portal, not stated by a source"));
+          var o2 = el("ol", "s5el-rem"); o2.start = src.length + 1; ours.forEach(function (r) { o2.appendChild(el("li", null, r.text)); }); d.appendChild(o2);
+        }
       }
       if (N.kql && N.kql.length) {
-        d.appendChild(h4("Hunting queries (KQL)"));
+        part(d, ++n, "Hunting queries (KQL)");
         N.kql.forEach(function (q) {
           var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title));
           var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
@@ -26033,60 +26113,59 @@ IdentityDirectoryEvents
         });
       }
       if (N.portal && N.portal.length) {
-        d.appendChild(h4("In this portal"));
-        var pp = el("p", "s5el-chips");
-        N.portal.forEach(function (p) { var b = el("button", "s5el-pbtn", (p.kind === "role" ? "Role · " : "Permission · ") + p.label); b.type = "button"; b.addEventListener("click", function () { openPortal(p); }); pp.appendChild(b); });
+        part(d, ++n, "Open in this portal");
+        var pp = el("p", "s5el-pp");
+        N.portal.forEach(function (p) { var b = el("button", "s5el-pbtn", (p.kind === "role" ? "Role: " : "Permission: ") + p.label); b.type = "button"; b.addEventListener("click", function () { openPortal(p); }); pp.appendChild(b); });
         d.appendChild(pp);
       }
-    } else d.appendChild(el("p", "s5el-note", "No curated analysis for this story yet — the articles below are what the sources say. The morning run adds a summary and steps for new stories."));
-    d.appendChild(h4("Microsoft"));
+    } else d.appendChild(el("p", "s5el-note", "No analysis for this incident yet — the articles below are what the sources say. The morning run writes a summary and steps for new incidents."));
     if (s.microsoft.items.length) {
-      var mu = el("ul", "s5el-ul"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(m.date) + " · " + m.what + " — ")); var a = el("a", null, m.title); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; li.appendChild(a); mu.appendChild(li); });
+      part(d, ++n, "What Microsoft published");
+      var mu = el("ul", "s5el-ul"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(m.date) + " · " + m.what + " — ")); li.appendChild(aLink(m.title, m.link)); mu.appendChild(li); });
       d.appendChild(mu);
-    } else d.appendChild(el("p", "s5el-warnp", "Microsoft has not described this yet in the places checked: " + s.microsoft.checked + "."));
-    d.appendChild(h4("Articles · " + s.articles.length));
-    var au = el("ul", "s5el-ul");
+    }
+    part(d, ++n, "Articles · " + s.articles.length);
+    var au = el("ul", "s5el-ul"), seenL = {};
     s.articles.map(function (id) { return ART[id]; }).filter(Boolean).forEach(function (a) {
-      var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(day(a.published || a.firstSeen)) + " · " + a.source + " — "));
-      var l = el("a", null, a.title); l.href = a.link; l.target = "_blank"; l.rel = "noopener"; li.appendChild(l);
+      seenL[a.link] = 1;
+      var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(day(a.published || a.firstSeen)) + " · " + a.source + " — ")); li.appendChild(aLink(a.title, a.link));
       if (a.summary && !N) li.appendChild(el("p", "s5el-ex", a.summary.slice(0, 260) + (a.summary.length > 260 ? "…" : "")));
       au.appendChild(li);
     });
+    if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(x.date) + " — ")); li.appendChild(aLink(x.text, x.url)); au.appendChild(li); });
     d.appendChild(au);
-    if (N && N.links && N.links.length) {
-      d.appendChild(h4("Read more"));
-      var lu = el("ul", "s5el-ul"); N.links.forEach(function (x) { var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(x.date) + " — ")); var a = el("a", null, x.text); a.href = x.url; a.target = "_blank"; a.rel = "noopener"; li.appendChild(a); lu.appendChild(li); });
-      d.appendChild(lu);
-    }
   }
-  function card(s) {
-    var k = storyKind(s, PREV, null), c = el("article", "s5el-card" + (k === "new" ? " is-new" : k === "upd" ? " is-upd" : "") + (s.curated ? " is-cur" : ""));
-    c.id = "s5el-" + s.id;
-    var top = el("div", "s5el-ctop");
-    if (k) top.appendChild(chip(k === "new" ? "NEW" : "UPDATED", k === "new" ? "new" : "upd"));
-    top.appendChild(msChip(s));
-    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story" + (s.notes && s.notes.by ? " by the " + s.notes.by : "") + (s.notes && s.notes.updated ? ", " + s.notes.updated : "")));
-    if (s.notes && s.notes.status === "active") top.appendChild(chip("Active", "bad"));
-    c.appendChild(top);
-    var t = el("button", "s5el-ct", s.title); t.type = "button"; t.setAttribute("aria-expanded", "false"); c.appendChild(t);
-    var dts = el("p", "s5el-dates");
-    [["First reported", s.firstReported], ["Seen by the portal", day(s.firstSeen)], ["Last update", day(s.lastUpdate)]].forEach(function (p) { var sp = el("span"); sp.appendChild(el("b", null, p[0] + " ")); sp.appendChild(document.createTextNode(dmy(p[1]))); dts.appendChild(sp); });
-    c.appendChild(dts);
-    var ch = el("p", "s5el-chips"); s.areas.forEach(function (a) { ch.appendChild(chip(a, "area")); }); s.sources.forEach(function (x) { ch.appendChild(chip(x, "srcn")); });
-    c.appendChild(ch);
-    var d = el("div", "s5el-det"); d.hidden = true; c.appendChild(d);
-    t.addEventListener("click", function () {
-      var on = d.hidden; d.hidden = !on; t.setAttribute("aria-expanded", on ? "true" : "false");
+  function row(s) {
+    var k = storyKind(s, PREV, null), r = el("div", "s5el-row" + (k === "new" ? " is-new" : k === "upd" ? " is-upd" : ""));
+    r.id = "s5el-" + s.id;
+    var h = el("button", "s5el-rh"); h.type = "button"; h.setAttribute("aria-expanded", "false");
+    var c1 = el("span", "s5el-c1"); c1.appendChild(el("span", "s5el-st " + (k === "new" ? "new" : k === "upd" ? "upd" : "none"), k === "new" ? "NEW" : k === "upd" ? "UPDATED" : "—"));
+    h.appendChild(c1);
+    var c2 = el("span", "s5el-c2"); c2.appendChild(el("span", "s5el-rt", s.title));
+    c2.appendChild(el("span", "s5el-rm", s.areas.join(" · ") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
+    c2.appendChild(el("span", "s5el-rd", "Reported " + dmy(s.firstReported) + " · updated " + dmy(day(s.lastUpdate)) + " · Microsoft: " + (s.microsoft.status === "described" ? "described" : "not yet") + (s.curated ? " · analysed" : "")));   /* the phone shows the columns here */
+    h.appendChild(c2);
+    var c3 = el("span", "s5el-c3"); c3.setAttribute("data-l", "Reported"); c3.textContent = dmy(s.firstReported); h.appendChild(c3);
+    var c4 = el("span", "s5el-c4"); c4.setAttribute("data-l", "Last update"); c4.textContent = dmy(day(s.lastUpdate)); h.appendChild(c4);
+    var c5 = el("span", "s5el-c5 " + (s.microsoft.status === "described" ? "s5el-yes" : "s5el-no")); c5.setAttribute("data-l", "Microsoft");
+    c5.textContent = s.microsoft.status === "described" ? "Described" : "Not yet"; h.appendChild(c5);
+    var c6 = el("span", "s5el-c6"); c6.setAttribute("data-l", "Analysis"); c6.textContent = s.curated ? "Yes" : "—"; h.appendChild(c6);
+    var ar = el("span", "s5el-ar", "▸"); ar.setAttribute("aria-hidden", "true"); h.appendChild(ar);
+    r.appendChild(h);
+    var d = el("div", "s5el-det"); d.hidden = true; r.appendChild(d);
+    h.addEventListener("click", function () {
+      var on = d.hidden; d.hidden = !on; h.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on);
       if (on && !d.__f) { d.__f = true; details(s, d); }
     });
-    return c;
+    return r;
   }
   function openStory(id) {
     goTab();
     var go = function () {
       var c = document.getElementById("s5el-" + id); if (!c) { var mb = panel.querySelector(".s5el-more"); if (mb) mb.click(); c = document.getElementById("s5el-" + id); }
       if (!c) return;
-      var t = c.querySelector(".s5el-ct"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
+      var box0 = document.getElementById("s5el-inc"); if (box0) box0.open = true;
+      var t = c.querySelector(".s5el-rh"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
       window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + scrollY - 120) });
       if (window.__socMark) try { window.__socMark(c); } catch (e) {}
     };
@@ -26121,10 +26200,10 @@ IdentityDirectoryEvents
       var qq = q.value.trim().toLowerCase(), rows = A.filter(function (a) { return (!qq || a.title.toLowerCase().indexOf(qq) >= 0) && (!sel.value || a.source === sel.value) && (!ar.value || a.areas.indexOf(ar.value) >= 0); });
       cnt.textContent = rows.length + " of " + A.length;
       host.textContent = "";
-      host.appendChild(table(["Published", "Source", "Article", "Areas", "Story"], rows.slice(0, shown).map(function (a) {
+      host.appendChild(table(["Published", "Source", "Article", "Areas", "Incident"], rows.slice(0, shown).map(function (a) {
         var r = el("tr"); r.appendChild(td(dmy(day(a.published || a.firstSeen)), "s5el-nw")); r.appendChild(td(a.source)); r.appendChild(tdA(a.title, a.link));
         r.appendChild(td(a.areas.join(" · "))); var s = SID[a.id], c = el("td");
-        if (s && s.articles.length > 1 || s && s.curated) { var b = el("button", "s5el-lnk", s.curated ? "Analysed story" : s.articles.length + " articles"); b.type = "button"; b.addEventListener("click", function () { openStory(s.id); }); c.appendChild(b); }
+        if (s && s.articles.length > 1 || s && s.curated) { var b = el("button", "s5el-lnk", s.curated ? "Incident · analysed" : "Incident · " + s.articles.length + " articles"); b.type = "button"; b.addEventListener("click", function () { openStory(s.id); }); c.appendChild(b); }
         r.appendChild(c); return r;
       })));
       if (rows.length > shown) { var mb = el("button", "s5el-btn", "Show " + Math.min(LIM, rows.length - shown) + " more"); mb.type = "button"; mb.addEventListener("click", function () { shown += LIM; draw(); }); host.appendChild(mb); }
@@ -26160,22 +26239,34 @@ IdentityDirectoryEvents
     if (built || !D) return; built = true;
     windows();
     body.textContent = "";
+    var S = (D.stories || []).slice(), K = D.kev || [], A = D.articles || [], SRC = D.sources || [];
     var fr = el("p", "s5el-fresh"); var bb = el("b", null, "Feeds read " + dmy(day(D.generated)) + " " + String(D.generated || "").slice(11, 16) + " UTC");
-    fr.appendChild(bb); fr.appendChild(document.createTextNode(" · " + (D.sources || []).length + " sources · " + (D.stories || []).length + " stories · " + (D.articles || []).length + " articles · refreshed every 3 hours"));
+    fr.appendChild(bb); fr.appendChild(document.createTextNode(" · " + SRC.length + " sources · refreshed every 3 hours · tracking since " + dmy(startedOn())));
     body.appendChild(fr);
-    var tiles = el("div", "s5ei"); tiles.appendChild(tilesBlock("Since the previous brief", PREV, null, true)); tiles.appendChild(tilesBlock("+ Previous brief", PREV2, PREV, false));
+    /* §5en: the sections of this tab named at the top, each a jump - "I do not know what this section is" */
+    var toc = el("nav", "s5el-toc"); toc.setAttribute("aria-label", "Sections of Threat Research");
+    toc.appendChild(el("span", "s5el-tocl", "In this tab:"));
+    [["s5el-today", "What changed"], ["s5el-inc", "Incidents · " + S.length], ["s5el-trend", "Trend"], ["s5el-art", "Articles · " + A.length],
+     ["s5el-kev", "Exploited Microsoft vulnerabilities · " + K.length], ["s5el-src", "Sources · " + SRC.length]].forEach(function (x) {
+      var b = el("button", "s5el-tocb", x[1]); b.type = "button"; b.addEventListener("click", function () { jump(x[0]); }); toc.appendChild(b); });
+    body.appendChild(toc);
+    var tiles = el("div", "s5ei"); tiles.id = "s5el-today";
+    tiles.appendChild(tilesBlock("Since the previous brief", PREV, null, true));
+    tiles.appendChild(tilesBlock("One brief earlier", PREV2, PREV, false));
     body.appendChild(tiles);
-    var tb = box("Trend", "last " + D.trend.days.length + " days"); tb.appendChild(trend()); body.appendChild(tb);
-    var S = (D.stories || []).slice(), cur = box("Current incidents", S.length + " stories · newest activity first · " + S.filter(function (s) { return s.microsoft.status !== "described"; }).length + " not described by Microsoft yet");
-    var grid = el("div", "s5el-cards"), LIM = phone() ? 6 : 12;
-    S.slice(0, LIM).forEach(function (s) { grid.appendChild(card(s)); });
-    cur.appendChild(grid);
-    if (S.length > LIM) { var mb = el("button", "s5el-btn s5el-more", "Show all " + S.length + " stories"); mb.type = "button"; mb.addEventListener("click", function () { S.slice(LIM).forEach(function (s) { grid.appendChild(card(s)); }); mb.remove(); }); cur.appendChild(mb); }
+    var cur = box("Incidents", S.length + " incidents · newest activity first · " + S.filter(function (s) { return s.microsoft.status !== "described"; }).length + " not described by Microsoft yet · click a row for the analysis");
+    cur.id = "s5el-inc";
+    var head = el("div", "s5el-rhead"); ["Status", "Incident", "Reported", "Last update", "Microsoft", "Analysis", ""].forEach(function (t, i) { head.appendChild(el("span", "s5el-c" + (i + 1), t)); });
+    var lst = el("div", "s5el-rows"), LIM = phone() ? 8 : 15;
+    lst.appendChild(head);
+    S.slice(0, LIM).forEach(function (s) { lst.appendChild(row(s)); });
+    cur.appendChild(lst);
+    if (S.length > LIM) { var mb = el("button", "s5el-btn s5el-more", "Show all " + S.length + " incidents"); mb.type = "button"; mb.addEventListener("click", function () { S.slice(LIM).forEach(function (s) { lst.appendChild(row(s)); }); mb.remove(); }); cur.appendChild(mb); }
     body.appendChild(cur);
-    body.appendChild(articlesBox());
-    body.appendChild(kevBox());
-    body.appendChild(sourcesBox());
-    var c0 = grid.querySelector(".s5el-card.is-cur .s5el-ct"); if (c0 && !phone()) c0.click();   /* the analysed story opens first */
+    var tb = box("Trend", "last " + D.trend.days.length + " days · articles per area and incidents started"); tb.id = "s5el-trend"; tb.appendChild(trend()); body.appendChild(tb);
+    var ab = articlesBox(); ab.id = "s5el-art"; body.appendChild(ab);
+    var kb = kevBox(); kb.id = "s5el-kev"; body.appendChild(kb);
+    var sb = sourcesBox(); sb.id = "s5el-src"; body.appendChild(sb);
   }
   function wake() { load(build); }
   document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('nav.anchors .tab[aria-controls="tab-threats"], #tabbtn-tab-threats'); if (t) setTimeout(wake, 30); }, true);
@@ -26199,7 +26290,7 @@ IdentityDirectoryEvents
    =========================================================================== */
 (function () {
   if (window.__s5em) return; window.__s5em = 1;
-  var CARDS = ".kq, .s5el-card, .s5ei-tile", LAST = {};
+  var CARDS = ".kq, .s5el-row, .s5ei-tile", LAST = {};
   function low(e) { return (e.textContent || "").toLowerCase(); }
   function mine(c) { return !c.closest(".mcb"); }
   function topGap() {
@@ -26220,7 +26311,7 @@ IdentityDirectoryEvents
     var tt = "";
     if (e.tagName === "TR") {   /* a row: its longest of the first three cells is its name (the first is often a date) */
       [].slice.call(e.cells, 0, 3).forEach(function (c) { var x = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim(); if (x.length > tt.length) tt = x; });
-    } else { var t = e.querySelector("h3,h4,.s5ei-tt,.s5ei-title"); tt = ((t && (t.innerText || t.textContent)) || e.innerText || e.textContent || "").replace(/\s+/g, " ").trim(); }
+    } else { var t = e.querySelector("h3,h4,.s5el-rt,.s5ei-tt,.s5ei-title"); tt = ((t && (t.innerText || t.textContent)) || e.innerText || e.textContent || "").replace(/\s+/g, " ").trim(); }
     var sec = e.closest("details.ntsec,details.s5el-box,details.s5ei-day,section"), sl = "";
     if (sec) { var sm = sec.querySelector("summary,h2,.sec-title"); sl = sm ? String(sm.innerText || sm.textContent || "").split("\n")[0].replace(/\s+/g, " ").trim() : ""; }
     if (tt.length > 70) tt = tt.slice(0, 68) + "\u2026";
@@ -26230,6 +26321,9 @@ IdentityDirectoryEvents
   function run(pid, q, on, raw) {
     var p = document.getElementById(pid); if (!p) return;
     raw = raw || q; LAST[pid] = { q: q, on: on, raw: raw };
+    /* a list shown in part (Threat Research › Incidents: 15 rows, 8 on a phone) is shown whole while a search is on -
+       otherwise the match sat behind "Show all" and the count said 0 */
+    if (q) [].forEach.call(p.querySelectorAll(".s5el-more"), function (b) { b.click(); });
     var cards = [].filter.call(p.querySelectorAll(CARDS), mine), nAll = 0, nHit = 0, parents = [];
     cards.forEach(function (c) {
       var hit = !q || low(c).indexOf(q) >= 0;
