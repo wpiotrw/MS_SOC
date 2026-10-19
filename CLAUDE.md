@@ -23728,6 +23728,8 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       });
       var f=document.getElementById(id+"-filter");
       if(f&&f.__render) f.__render();
+      /* §5em: the cards of the tab (KQL queries, incident cards, day tiles) are not table rows - they hear the same filter */
+      try{document.dispatchEvent(new CustomEvent("soc:tabfilter",{detail:{pid:id,q:st.q||"",raw:st.qRaw||"",on:!!on}}));}catch(e5){}
     });
     if(window.__socFilterBarSync)window.__socFilterBarSync();
     /* SKRYPT 11 i powloka przeliczaja swoje liczniki po zdarzeniu, ktorego cel lezy
@@ -32772,6 +32774,8 @@ odtad CZTERNASCIE (4-17).**
       bk.addEventListener("click", function () { gridEl.open = true; window.scrollTo({ top: Math.max(0, gridEl.getBoundingClientRect().top + scrollY - pinTop() - 10), behavior: "smooth" }); });
       banner.appendChild(bk);
     }
+    var go = el("button", "mcb-go", "\u2193 Results \u00b7 " + n); go.type = "button"; go.title = "Scroll to the posts this filter shows (§5em)";
+    go.addEventListener("click", toResults); banner.appendChild(go);
     var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
     c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; qIn.value = ""; S.shown = PAGE; render(); });
     banner.appendChild(c);
@@ -33024,18 +33028,27 @@ odtad CZTERNASCIE (4-17).**
   function render() {
     renderViews(); renderBar();
     var rows = sorted(ALL.filter(function (r) { return pass(r); }));
-    renderBanner(rows.length);
+    renderBanner(rows.length); arrange();
     var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
+    /* §5em: by technology needs more than 6 posts (below that the list is grouped by week) - the line says which one is shown */
+    var gtxt = window.__socFam && window.__socFam.mode() === "tech" ? (rows.length > 6 ? " · grouped by technology" : " · grouped by week (6 or fewer posts)") : " · grouped by week";
     info.textContent = rows.length + " post" + (rows.length === 1 ? "" : "s") + " · " + v[2] +
-      (S.view === "action" ? "" : window.__socFam && window.__socFam.mode() === "tech" ? " · grouped by technology" : " · grouped by week");
+      (S.view === "action" ? "" : gtxt);
     if (ACT.length) {   /* §5cq: the result line says what it is the result OF */
       info.textContent = "";
       info.appendChild(el("b", null, rows.length + " post" + (rows.length === 1 ? "" : "s") + " match"));
-      info.appendChild(document.createTextNode(" — " + ACT.join(", ") + (S.view === "action" ? "" : window.__socFam && window.__socFam.mode() === "tech" ? " · grouped by technology" : " · grouped by week")));
+      info.appendChild(document.createTextNode(" — " + ACT.join(", ") + (S.view === "action" ? "" : gtxt)));
     }
     renderFresh(); renderGrid();
     list.textContent = "";
-    if (!rows.length) { list.appendChild(el("li", "mcb-empty", "No post matches. Remove a filter above — zero here is a result, not an error.")); return; }
+    if (!rows.length) {
+      /* §5em: a search inside a narrow view (Needs action, New, Revised) used to say "no post matches" while All had it */
+      var inAll = S.view !== "all" ? ALL.filter(function (r) { return pass(r, null, "all"); }).length : 0, em = el("li", "mcb-empty");
+      if (inAll) { em.appendChild(document.createTextNode("Nothing in this view. " + inAll + " post" + (inAll === 1 ? "" : "s") + " in All match" + (inAll === 1 ? "es" : "") + " the filter — "));
+        var sa = el("button", "mcb-btn", "Show them in All"); sa.type = "button"; sa.addEventListener("click", function () { S.view = "all"; S.shown = PAGE; render(); }); em.appendChild(sa); }
+      else em.textContent = "No post matches. Remove a filter above — zero here is a result, not an error.";
+      list.appendChild(em); return;
+    }
     list.appendChild(colHead());
     /* §5dq-b: Technology | Week - by technology one section per technology (Microsoft's own service names), 8 rows each, "Show all" per section */
     var F = window.__socFam, gbl = el("li", "s5dq-bar"); if (F) gbl.appendChild(F.toggle("Week", function () { render(); }));
@@ -33161,7 +33174,7 @@ odtad CZTERNASCIE (4-17).**
     return { nw: nw.sort(by), ch: ch.sort(by) };
   }
   function tile(r, kind, withTenant) {
-    var c = el("li", "s5ei-tile s5ei-" + kind);
+    var c = el("li", "s5ei-tile s5ei-" + kind); c.__r = r; c.setAttribute("data-k", r.id);
     var top = el("div", "s5ei-top");
     var b = el("button", "s5ei-id", r.id); b.type = "button";
     b.addEventListener("click", function () { show(r.id); });
@@ -33182,7 +33195,7 @@ odtad CZTERNASCIE (4-17).**
   }
   function tileBlock(lab, d0, d1, withTenant, open) {
     var rows = dayRows(d0, d1, withTenant);
-    var box = el("details", "s5ei-day"); box.open = !!open;
+    var box = el("details", "s5ei-day"); box.open = !!open; box.__rows = rows;
     var sm = el("summary");
     sm.appendChild(el("span", "s5ei-t", lab));
     sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " new"));
@@ -33196,7 +33209,7 @@ odtad CZTERNASCIE (4-17).**
       [["nw", "new", "New posts"], ["ch", "chg", "Changed posts"]].forEach(function (g) {
         var L = rows[g[0]]; if (!L.length) return;
         box.appendChild(el("h4", "s5ei-h", g[2] + " · " + L.length));
-        var ul = el("ul", "s5ei-grid");
+        var ul = el("ul", "s5ei-grid"); ul.__L = L; ul.__mk = function (r) { return tile(r, g[1], withTenant); };
         L.slice(0, TILE_MAX).forEach(function (r) { ul.appendChild(tile(r, g[1], withTenant)); });
         box.appendChild(ul);
         if (L.length > TILE_MAX) {
@@ -33207,8 +33220,55 @@ odtad CZTERNASCIE (4-17).**
       });
     }
     if (box.open) fill();
-    box.addEventListener("toggle", function () { if (box.open) fill(); });
+    box.addEventListener("toggle", function () { if (box.open) { fill(); tileFilter(); } });
     return box;
+  }
+  /* ---------- §5em (19 X 2026): a search shows its result first ----------
+     Owner, with a screenshot of MC1506733 typed into the box: "the left side shows something was searched, but the tiles
+     still show other posts and the result is at the very bottom - easy to get lost". Measured: the one matching post sat
+     2,010 px below the search box, under 18 tiles of other posts, the day grid and the filter panel. While ANY filter is on:
+     the result list moves right under the green bar, the day tiles keep only the posts that pass the same filter and say
+     "N of M match the filter", and the bar carries "Results · N". Clearing the last filter puts the order back. */
+  function okT(r) { try { return pass(r, null, "all"); } catch (x) { return true; } }   /* the filter in the green bar, not the view */
+  function arrange() {
+    /* filtered: search · green bar · the filter panel (controls) · RESULT · then the context (tiles, day grid) */
+    var on = !!ACT.length, tw = document.getElementById("s5ei-days"), fd = root.querySelector(":scope > .mcb-facets");
+    if (on) {
+      var at = banner;
+      if (fd) { if (at.nextSibling !== fd) root.insertBefore(fd, at.nextSibling); at = fd; }
+      if (at.nextSibling !== info) root.insertBefore(info, at.nextSibling);
+      if (info.nextSibling !== list) root.insertBefore(list, info.nextSibling);
+      if (tw && tw.parentNode === root && list.nextSibling !== tw) root.insertBefore(tw, list.nextSibling);
+    } else if (root.lastChild !== list) {
+      if (tw && tw.parentNode === root && gridEl && gridEl.parentNode === root) root.insertBefore(tw, gridEl);
+      if (fd) root.appendChild(fd);
+      root.appendChild(info); root.appendChild(list);
+    }
+    tileFilter();
+  }
+  function tileFilter() {
+    var tw = document.getElementById("s5ei-days"); if (!tw) return;
+    var on = !!ACT.length;
+    [].forEach.call(tw.querySelectorAll("details.s5ei-day"), function (box) {
+      var all = box.__rows ? box.__rows.nw.concat(box.__rows.ch) : [], m = 0;
+      all.forEach(function (r) { if (okT(r)) m++; });
+      var sm = box.querySelector("summary"), fm = sm && sm.querySelector(".s5ei-fm");
+      if (on && sm && all.length) { if (!fm) { fm = el("span", "s5ei-fm"); sm.appendChild(fm); } fm.textContent = m + " of " + all.length + " match the filter"; }
+      else if (fm) fm.remove();
+      box.classList.toggle("s5ei-f0", on && !m);
+      [].forEach.call(box.querySelectorAll("ul.s5ei-grid"), function (ul) {
+        if (on && ul.__L) ul.__L.forEach(function (r) { if (okT(r) && !ul.querySelector('[data-k="' + r.id + '"]')) ul.appendChild(ul.__mk(r)); });
+        var shown = 0;
+        [].forEach.call(ul.children, function (t) { var hit = !on || !t.__r || okT(t.__r); t.hidden = !hit; if (hit) shown++; });
+        ul.hidden = on && !shown;
+        var h = ul.previousElementSibling; if (h && h.classList.contains("s5ei-h")) h.hidden = ul.hidden;
+        var mp = ul.nextElementSibling; if (mp && mp.classList.contains("s5ei-more")) mp.hidden = on;
+      });
+      var none = box.querySelector(".s5ei-fnone");
+      if (on && !m && box.__filled && all.length) { if (!none) { none = el("p", "s5ei-fnone"); box.appendChild(none); }
+        none.textContent = "None of the " + all.length + " posts here matches the filter — the result is above."; none.hidden = false; }
+      else if (none) none.hidden = true;
+    });
   }
   function dayTiles() {
     if (!root || document.getElementById("s5ei-days")) return;
@@ -33218,6 +33278,7 @@ odtad CZTERNASCIE (4-17).**
     wrap.appendChild(tileBlock("+ Previous brief", p1, p0, false, false));
     var at = gridEl && gridEl.parentNode === root ? gridEl : (banner && banner.parentNode === root ? banner : null);
     if (at) root.insertBefore(wrap, at); else root.insertBefore(wrap, root.firstChild ? root.firstChild.nextSibling : null);
+    arrange();
   }
 
   /* SCRIPT 16 and §5bn call in here: an MC number or a product opens the browser */
@@ -34507,7 +34568,7 @@ odtad CZTERNASCIE (4-17).**
       if (S.q) act.push(["q", "text: “" + S.q + "”"]);
       if (S.per) act.push(["per", S.per === "range" ? (cfg.grid && cfg.grid[0] === "day" ? "published in the last 7 days" : "last 6 months") :
         (S.per.length === 7 ? "month: " + MONS[+S.per.slice(5, 7) - 1] + " " + S.per.slice(0, 4) : "published on " + dmy(S.per))]);
-      banner.textContent = ""; banner.hidden = !act.length;
+      banner.textContent = ""; banner.hidden = !act.length; ACTN = act.length;
       root.classList.toggle("mcb-filtered", !!act.length);
       if (act.length) {
         banner.appendChild(el("b", null, "Filtered · " + rows.length + " shown"));
@@ -34523,8 +34584,11 @@ odtad CZTERNASCIE (4-17).**
           bk.addEventListener("click", function () { gridBox.open = true; window.scrollTo({ top: Math.max(0, gridBox.getBoundingClientRect().top + scrollY - pinTop() - 10), behavior: "smooth" }); });
           banner.appendChild(bk);
         }
+        var go = el("button", "mcb-go", "\u2193 Results \u00b7 " + rows.length); go.type = "button"; go.title = "Scroll to the articles this filter shows (§5em)";
+        go.addEventListener("click", toResults); banner.insertBefore(go, banner.querySelector(".mcb-back"));
         banner.appendChild(c);
       }
+      arrange();
       pinTop();
       renderGrid();
       info.textContent = "";
@@ -34538,7 +34602,15 @@ odtad CZTERNASCIE (4-17).**
       mk.addEventListener("click", function () { rows.slice(0, S.shown).forEach(function (r) { rd()[r.key] = DAY || 1; }); rdSave(); render(); });
       info.appendChild(mk);
       list.textContent = "";
-      if (!rows.length) { list.appendChild(el("li", "mcb-empty", S.view === "unread" ? "Nothing unread here — every article in this view is marked read." : "Nothing matches. Remove a filter above — zero here is a result, not an error.")); return; }
+      if (!rows.length) {
+        /* §5em: the tab opens on "New since previous brief" - a search there said "nothing matches" while All had it
+           (measured 19 X: "Conditional Access" in Learn, 0 shown) */
+        var inAll = S.view !== "all" ? RECS.filter(function (r) { return pass(r, "", "all"); }).length : 0, em = el("li", "mcb-empty");
+        if (inAll && act.length) { em.appendChild(document.createTextNode("Nothing in this view. " + inAll + " article" + (inAll === 1 ? "" : "s") + " in All match" + (inAll === 1 ? "es" : "") + " the filter — "));
+          var sa = el("button", "mcb-btn", "Show them in All"); sa.type = "button"; sa.addEventListener("click", function () { S.view = "all"; S.shown = PAGE; render(); }); em.appendChild(sa); }
+        else em.textContent = S.view === "unread" ? "Nothing unread here — every article in this view is marked read." : "Nothing matches. Remove a filter above — zero here is a result, not an error.";
+        list.appendChild(em); return;
+      }
       /* §5dq-b: Technology | Month/Week */
       var F = window.__socFam, gbl = el("li", "s5dq-bar"); if (F) gbl.appendChild(F.toggle(cfg.group === "month" ? "Month" : "Week", function () { render(); }));
       list.appendChild(gbl);
@@ -34731,7 +34803,7 @@ odtad CZTERNASCIE (4-17).**
       return { nw: nw.sort(by), ch: ch.sort(by) };
     }
     function tTile(r, kind) {
-      var c = el("li", "s5ei-tile s5ei-" + kind), top = el("div", "s5ei-top");
+      var c = el("li", "s5ei-tile s5ei-" + kind), top = el("div", "s5ei-top"); c.__r = r; c.setAttribute("data-k", r.key || r.link || r.title);
       top.appendChild(el("span", "s5ei-kind", kind === "new" ? (cfg.tiles.newLab || "NEW") : (cfg.tiles.chgLab || "CHANGED")));
       if (r.f && r.f.t0) top.appendChild(el("span", "s5ei-flag", "tier 0"));
       top.appendChild(el("span", "s5ei-flag s5ei-date", dm(r.date)));
@@ -34744,7 +34816,7 @@ odtad CZTERNASCIE (4-17).**
       return c;
     }
     function tBlock(lab, lo, hi, open) {
-      var rows = tWin(lo, hi), box = el("details", "s5ei-day"); box.open = !!open;
+      var rows = tWin(lo, hi), box = el("details", "s5ei-day"); box.open = !!open; box.__rows = rows;
       var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab));
       sm.appendChild(el("span", "s5ei-n s5ei-nn", rows.nw.length + " " + (cfg.tiles.newWord || "new")));
       if (cfg.tiles.chgWord) sm.appendChild(el("span", "s5ei-n s5ei-nc", rows.ch.length + " " + cfg.tiles.chgWord));
@@ -34757,14 +34829,60 @@ odtad CZTERNASCIE (4-17).**
         [["nw", "new", cfg.tiles.newHead], ["ch", "chg", cfg.tiles.chgHead]].forEach(function (g) {
           var L = rows[g[0]]; if (!L.length) return;
           box.appendChild(el("h4", "s5ei-h", g[2] + " · " + L.length));
-          var ul = el("ul", "s5ei-grid"); L.slice(0, TMAX).forEach(function (r) { ul.appendChild(tTile(r, g[1])); }); box.appendChild(ul);
+          var ul = el("ul", "s5ei-grid"); ul.__L = L; ul.__mk = function (r) { return tTile(r, g[1]); };
+          L.slice(0, TMAX).forEach(function (r) { ul.appendChild(tTile(r, g[1])); }); box.appendChild(ul);
           if (L.length > TMAX) { var mb = el("button", "mcb-btn s5ei-all", "Show all " + L.length); mb.type = "button";
             mb.addEventListener("click", function () { L.slice(TMAX).forEach(function (r) { ul.appendChild(tTile(r, g[1])); }); mb.remove(); });
             var mp = el("p", "s5ei-more"); mp.appendChild(mb); box.appendChild(mp); }
         });
       }
-      if (box.open) fill(); box.addEventListener("toggle", function () { if (box.open) fill(); });
+      if (box.open) fill(); box.addEventListener("toggle", function () { if (box.open) { fill(); tileFilter(); } });
       return box;
+    }
+    /* §5em (19 X 2026): a search shows its result first - same rule as Message Center: while a filter is on the result
+       list stands right under the green bar, the tiles keep only what passes the filter ("N of M match the filter"),
+       the bar carries "Results · N"; with no filter the tab is back in its usual order */
+    var ACTN = 0;
+    function okT(r) { try { return pass(r, "", "all"); } catch (e) { return true; } }
+    function tileFilter() {
+      var tw = document.getElementById("s5ei-" + cfg.tab); if (!tw) return;
+      var on = !!ACTN;
+      [].forEach.call(tw.querySelectorAll("details.s5ei-day"), function (box) {
+        var all = box.__rows ? box.__rows.nw.concat(box.__rows.ch) : [], m = 0;
+        all.forEach(function (r) { if (okT(r)) m++; });
+        var sm = box.querySelector("summary"), fm = sm && sm.querySelector(".s5ei-fm");
+        if (on && sm && all.length) { if (!fm) { fm = el("span", "s5ei-fm"); sm.appendChild(fm); } fm.textContent = m + " of " + all.length + " match the filter"; }
+        else if (fm) fm.remove();
+        box.classList.toggle("s5ei-f0", on && !m);
+        [].forEach.call(box.querySelectorAll("ul.s5ei-grid"), function (ul) {
+          if (on && ul.__L) ul.__L.forEach(function (r) { var k = r.key || r.link || r.title;
+            if (okT(r) && ![].some.call(ul.children, function (t) { return t.getAttribute("data-k") === k; })) ul.appendChild(ul.__mk(r)); });
+          var shown = 0;
+          [].forEach.call(ul.children, function (t) { var hit = !on || !t.__r || okT(t.__r); t.hidden = !hit; if (hit) shown++; });
+          ul.hidden = on && !shown;
+          var h = ul.previousElementSibling; if (h && h.classList.contains("s5ei-h")) h.hidden = ul.hidden;
+          var mp = ul.nextElementSibling; if (mp && mp.classList.contains("s5ei-more")) mp.hidden = on;
+        });
+        var none = box.querySelector(".s5ei-fnone");
+        if (on && !m && box.__f && all.length) { if (!none) { none = el("p", "s5ei-fnone"); box.appendChild(none); }
+          none.textContent = "None of the " + all.length + " here matches the filter — the result is above."; none.hidden = false; }
+        else if (none) none.hidden = true;
+      });
+    }
+    function arrange() {
+      var on = !!ACTN, tw = document.getElementById("s5ei-" + cfg.tab), fd = root.querySelector(":scope > .mcb-facets");
+      if (on) {
+        var at = banner;
+        if (fd) { if (at.nextSibling !== fd) root.insertBefore(fd, at.nextSibling); at = fd; }
+        if (at.nextSibling !== info) root.insertBefore(info, at.nextSibling);
+        if (info.nextSibling !== list) root.insertBefore(list, info.nextSibling);
+        if (tw && tw.parentNode === root && list.nextSibling !== tw) root.insertBefore(tw, list.nextSibling);
+      } else if (root.lastChild !== list) {
+        if (tw && tw.parentNode === root) root.insertBefore(tw, banner);
+        if (fd) root.appendChild(fd);
+        root.appendChild(info); root.appendChild(list);
+      }
+      tileFilter();
     }
     function tiles() {
       if (!cfg.tiles || !root) return;
@@ -34773,6 +34891,7 @@ odtad CZTERNASCIE (4-17).**
       w.appendChild(tBlock("Since the previous brief", p0, DAY, true));
       w.appendChild(tBlock("+ Previous brief", p1, p0, false));
       root.insertBefore(w, banner);
+      arrange();
     }
     this.build = function () {
       var p = document.getElementById("tab-" + cfg.tab);
@@ -41112,6 +41231,123 @@ odtad CZTERNASCIE (4-17).**
   setTimeout(function () { load(function () {}); }, 4500);
 })();
 
+/* ===========================================================================
+   §5em (19 X 2026) — THE TAB SEARCH REACHES THE CARDS AND SAYS WHERE ITS FIRST RESULT IS.
+   Owner, with a Message Center screenshot: "you type MCxxx, the left side shows that something was searched, but other
+   tiles stay and the result is at the bottom - easy to get lost; check the other tabs too". Measured the same afternoon
+   on the tabs with "Advanced filtering" (one search for every section of the tab): it narrowed TABLE ROWS only, so in
+   Hunting & actions the 16 KQL query cards stayed whole and the first matching row sat 10,159 px below the box, and in
+   Threat Research the incident cards and day tiles ignored it (10 cards that do not match between the box and the
+   first match). The filter now announces itself ("soc:tabfilter", sent by apply()); this block hides every card of the
+   tab whose text does not carry the search, says "N of M cards match", and puts a "First result" button into the bar
+   that opens the folded section holding it and scrolls there. Message Center and the article browsers have their own
+   search (§5em in their code) and are left alone here.
+   =========================================================================== */
+(function () {
+  if (window.__s5em) return; window.__s5em = 1;
+  var CARDS = ".kq, .s5el-card, .s5ei-tile", LAST = {};
+  function low(e) { return (e.textContent || "").toLowerCase(); }
+  function mine(c) { return !c.closest(".mcb"); }
+  function topGap() {
+    var hd = document.querySelector("header.top"), t = 0;
+    try { if (hd && /sticky|fixed/.test(getComputedStyle(hd).position)) t = Math.max(0, hd.getBoundingClientRect().bottom); } catch (e) {}
+    return t + 16;
+  }
+  function jumpTo(e) {
+    for (var d = e.parentElement; d; d = d.parentElement) if (d.tagName === "DETAILS" && !d.open) d.open = true;
+    setTimeout(function () {
+      var y = e.getBoundingClientRect().top + window.scrollY - topGap();
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });   /* not scrollIntoView: the tab router takes those (§5ci) */
+      e.classList.remove("s5em-hit"); void e.offsetWidth; e.classList.add("s5em-hit");
+      setTimeout(function () { e.classList.remove("s5em-hit"); }, 2400);
+    }, 60);
+  }
+  function label(e) {
+    var tt = "";
+    if (e.tagName === "TR") {   /* a row: its longest of the first three cells is its name (the first is often a date) */
+      [].slice.call(e.cells, 0, 3).forEach(function (c) { var x = (c.innerText || c.textContent || "").replace(/\s+/g, " ").trim(); if (x.length > tt.length) tt = x; });
+    } else { var t = e.querySelector("h3,h4,.s5ei-tt,.s5ei-title"); tt = ((t && (t.innerText || t.textContent)) || e.innerText || e.textContent || "").replace(/\s+/g, " ").trim(); }
+    var sec = e.closest("details.ntsec,details.s5el-box,details.s5ei-day,section"), sl = "";
+    if (sec) { var sm = sec.querySelector("summary,h2,.sec-title"); sl = sm ? String(sm.innerText || sm.textContent || "").split("\n")[0].replace(/\s+/g, " ").trim() : ""; }
+    if (tt.length > 70) tt = tt.slice(0, 68) + "\u2026";
+    if (sl.length > 40) sl = sl.slice(0, 38) + "\u2026";
+    return (sl ? sl + " \u203a " : "") + tt;
+  }
+  function run(pid, q, on, raw) {
+    var p = document.getElementById(pid); if (!p) return;
+    raw = raw || q; LAST[pid] = { q: q, on: on, raw: raw };
+    var cards = [].filter.call(p.querySelectorAll(CARDS), mine), nAll = 0, nHit = 0, parents = [];
+    cards.forEach(function (c) {
+      var hit = !q || low(c).indexOf(q) >= 0;
+      if (q) { nAll++; if (hit) nHit++; }
+      if (!hit) { c.hidden = true; c.setAttribute("data-s5em", "1"); }
+      else if (c.getAttribute("data-s5em")) { c.hidden = false; c.removeAttribute("data-s5em"); }
+      if (parents.indexOf(c.parentElement) < 0) parents.push(c.parentElement);
+    });
+    /* a group of cards with none left says so, instead of an empty frame */
+    parents.forEach(function (par) {
+      var kids = [].filter.call(par.children, function (k) { return k.matches && k.matches(CARDS); }), left = kids.filter(function (k) { return !k.hidden; }).length;
+      var note = par.nextElementSibling && par.nextElementSibling.classList.contains("s5em-none") ? par.nextElementSibling : null;
+      if (q && kids.length && !left) { if (!note) { note = document.createElement("p"); note.className = "s5em-none"; par.parentNode.insertBefore(note, par.nextSibling); }
+        note.textContent = "None of the " + kids.length + " here carries \u201c" + q + "\u201d."; note.hidden = false; }
+      else if (note) note.hidden = true;
+    });
+    /* a section with a search box of its own (Threat Research › Articles) takes the tab's search into that box, so its own
+       counter ("N of 33") says the same; a table nobody filters (Threat Research › KEV) is narrowed here by its text */
+    [].forEach.call(p.querySelectorAll("input.s5el-q"), function (inp) {
+      if (inp.value === (inp.__s5em || "")) { inp.value = raw; inp.__s5em = raw; inp.dispatchEvent(new Event("input")); }
+    });
+    [].forEach.call(p.querySelectorAll("table"), function (t) {
+      if (!t.tBodies[0] || t.closest(".mcb") || t.closest(".ntfbar")) return;
+      var box = t.closest("details,section"); if (box && box.querySelector("input.s5el-q")) return;
+      var rows = [].slice.call(t.tBodies[0].rows);
+      /* rows the tab filter marked (data-nt) are hidden by SCRIPT 11 - except in a table that opted out of SCRIPT 11
+         (data-s11="1", the Threat Research tables): nobody hid them, the KEV table stayed whole under any search */
+      var marked = rows.some(function (r) { return r.hasAttribute("data-nt"); });
+      if (marked && !t.closest('[data-s11="1"]')) return;
+      rows.forEach(function (r) {
+        var hit = marked ? (!on || r.getAttribute("data-nt") !== "0") : (!q || low(r).indexOf(q) >= 0);
+        if (!hit) { r.hidden = true; r.setAttribute("data-s5em", "1"); }
+        else if (r.getAttribute("data-s5em")) { r.hidden = false; r.removeAttribute("data-s5em"); }
+      });
+      var host = t.parentElement && t.parentElement.children.length === 1 ? t.parentElement : t;   /* the scroll wrapper, if any */
+      var nt = host.nextElementSibling && host.nextElementSibling.classList.contains("s5em-none") ? host.nextElementSibling : null;
+      var left = rows.filter(function (r) { return !r.hidden; }).length;
+      if (on && rows.length && !left) { if (!nt) { nt = document.createElement("p"); nt.className = "s5em-none"; host.parentNode.insertBefore(nt, host.nextSibling); }
+        nt.textContent = "None of the " + rows.length + " rows of this table matches the filter."; nt.hidden = false; }
+      else if (nt) nt.hidden = true;
+    });
+    var bar = document.getElementById(pid + "-filter"); if (!bar) return;
+    var j = bar.querySelector(".s5em-jump");
+    if (!on) { if (j) j.remove(); return; }
+    if (!j) { j = document.createElement("div"); j.className = "s5em-jump"; bar.appendChild(j); }
+    j.textContent = "";
+    var first = null;
+    [].some.call(p.querySelectorAll(CARDS + ", tbody tr"), function (e) {
+      if (e.hidden || !mine(e) || e.closest(".ntfbar")) return false;
+      if (e.tagName === "TR") {
+        if (e.hasAttribute("data-nt")) { if (e.getAttribute("data-nt") !== "1") return false;
+          if (q ? low(e).indexOf(q) < 0 : !e.closest("table").querySelector("tbody tr[data-nt='0']")) return false; }
+        else if (!q || low(e).indexOf(q) < 0 || !e.getClientRects().length && !e.closest("details:not([open])")) return false;
+      }
+      first = e; return true;
+    });
+    if (first) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "s5em-go";
+      b.textContent = "\u2193 First result: " + label(first);
+      b.title = "Opens the folded section that holds it and scrolls there";
+      b.addEventListener("click", function () { jumpTo(first); });
+      j.appendChild(b);
+    } else j.appendChild(document.createTextNode("No section of this tab holds a match."));
+    if (q && nAll) j.appendChild(document.createTextNode(" \u00b7 cards: " + nHit + " of " + nAll + " carry the search"));
+  }
+  document.addEventListener("soc:tabfilter", function (ev) { var d = ev.detail || {}; if (d.pid) run(d.pid, d.q || "", !!d.on, d.raw || ""); });
+  /* cards built later (a folded day block opened, a lazy tab) follow the filter already on */
+  document.addEventListener("toggle", function (ev) {
+    var t = ev.target, p = t && t.closest && t.closest(".tabpanel"); if (!p || !LAST[p.id] || !LAST[p.id].q) return;
+    setTimeout(function () { run(p.id, LAST[p.id].q, LAST[p.id].on, LAST[p.id].raw); }, 30);
+  }, true);
+})();
 /* §5dv (15 X 2026, owner: "add Tenable and Maester to our portal: from Tenable everything about M365, Entra, M365 Apps,
    Entra apps and AI, from Maester all of M365, Entra and AI, from both CIS, CISA SCuBA, NIS2; one tab with views
    inside; analyses, trends, test names and their fixes laid out like roles and Graph API; versions and dates in
@@ -42550,6 +42786,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5ca-win b{color:var(--text);font-weight:650}
 /* §5cr (8 X 2026): rail C — three aligned columns per tab (+ added, ~ changed, − removed) */
 @media (min-width:1100px){body.s5ca .s5ca-rail{width:300px}body.s5ca .wrap{margin-left:316px}}
+/* §5em (19 X 2026): the pinned "N filters are on" bar stood over the left rail (20-1480 px at 1500 px, rail 0-300, measured):
+   it covered the rail's first item. With the rail it spans the tab's own column, the same 336-1476 px as the panel. */
+@media (min-width:1100px){body.s5ca .gfbar{width:auto;max-width:none;margin-left:336px;margin-right:24px}}
 .s5ca-mv{display:none!important}
 .s5ca-it{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:6px;border:1px solid var(--border);background:var(--surface);margin-top:4px;padding:7px 6px 7px 10px}
 .s5ca-it:hover{border-color:var(--accent)}
@@ -43872,6 +44111,21 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-tt{font:inherit;font-size:13px;line-height:1.4;font-weight:600;background:none;border:0;padding:4px 0 0;color:var(--text);cursor:pointer;text-align:left;overflow-wrap:anywhere;display:block;width:100%}
 .s5ei-tt:hover{color:var(--accent);text-decoration:underline}
 .s5ei-date{margin-left:auto}
+/* §5em: a search shows its result first - tiles under a filter say how many match, a block with none dims */
+.s5ei-fm{font-size:12px;font-weight:700;color:var(--ok);background:var(--ok-soft);border:1px solid var(--ok);border-radius:999px;padding:1px 9px}
+details.s5ei-day.s5ei-f0{opacity:.72}
+.s5ei-fnone{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
+.s5ei-tile[hidden],.s5ei-grid[hidden],.s5ei-h[hidden],.s5ei-more[hidden],.s5ei-fnone[hidden]{display:none}
+.mcb-go{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.mcb-go+.mcb-back,.mcb-go+.mcb-clear{margin-left:0}
+/* §5em: the tab search names its first result */
+.s5em-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 2px;font-size:13px;color:var(--ok)}
+.s5em-go{font:600 13px/1.3 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere}
+.s5em-none{margin:6px 0 10px;color:var(--muted);font-size:13px}
+.s5em-none[hidden]{display:none}
+.kq[hidden],.s5el-card[hidden]{display:none}
+@keyframes s5emhit{0%{box-shadow:0 0 0 3px var(--ok)}100%{box-shadow:0 0 0 3px transparent}}
+.s5em-hit{animation:s5emhit 2.2s ease-out 1}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 /* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
 .s5el{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
@@ -45178,6 +45432,49 @@ przyczyna, dzialania atakujacego, IOCs, kroki naprawcze, KQL, „czy Microsoft o
 - Test 19 X: `todo` na danych 19 X — 0 `new`, 5 `backlog` (EvilTokens, OAuth token theft via Front Door, Beyond source
   code, Storm-3168, The hidden network), 4 kolejne czekaja; `check` na pliku z bledami — 10 bledow, exit 1; na
   poprawnym — exit 0; `threats.py` z dwoma plikami — 2 historie kuratorowane, przy powtorzonym `id` wygrywa notatka czlowieka.
+
+## 5em. WYSZUKIWANIE POKAZUJE WYNIK NAJPIERW — MESSAGE CENTER, LEARN, BLOGS, COMMUNITY, ZAKLADKI Z ADVANCED FILTERING, 19 X 2026
+
+Wlasciciel (19 X 14:57, zrzut Message Center z wpisanym MC1506733): „wpisujesz MCxxx, po lewej widac, ze cos zostalo
+wyszukane, ale dalej widac inne kafelki, a wynik jest na dole — latwo sie zgubic; przejrzyj inne zakladki".
+
+Pomiar przed poprawka (Chromium 1500x1000, lokalna kopia strony 19 X):
+- Message Center: wynik 2 010 px pod polem szukania; miedzy nimi 18 kafelkow innych postow, siatka dni i panel filtrow.
+- Learn / Community: ten sam uklad; dodatkowo zakladka otwiera sie na widoku „New since previous brief" (0), wiec szukanie
+  dawalo „0 shown", choc w All bylo 18 trafien („Conditional Access").
+- Hunting & actions: Advanced filtering zawezalo tylko wiersze tabel — 16 kart KQL zostawalo, pierwszy wynik 10 159 px nizej.
+- Threat Research: filtr zakladki nie obejmowal kart incydentow, kafelkow ani tabel Articles / KEV (10 niepasujacych kart
+  przed wynikiem).
+- Pasek „N filters are on" (`.gfbar`) przy lewym railu stal na 20–1480 px i zaslanial pierwsza pozycje railu (0–300 px).
+
+Zmiany (SKRYPT 17, SKRYPT 15, appended.css):
+- **Message Center i przegladarka artykulow (Learn, Blogs, Community)**, `arrange()`: gdy filtr jest wlaczony, kolejnosc to
+  pole szukania · zielony pasek · panel filtrow · WYNIK · kafelki dnia · siatka dni; bez filtra wraca uklad zwykly.
+  `tileFilter()`: kafelki „Since the previous brief" / „+ Previous brief" pokazuja tylko to, co przechodzi ten sam filtr
+  (filtr z zielonego paska, nie widok), z chipem „N of M match the filter"; blok bez trafien jest przygaszony i mowi
+  „None of the … here matches the filter — the result is above". Zielony pasek ma przycisk „↓ Results · N".
+  Pusty wynik w waskim widoku przy trafieniach w All: „Nothing in this view. N … in All match the filter — Show them in All".
+  Linia wyniku MC mowi „grouped by week (6 or fewer posts)", gdy przy Technology jest ≤ 6 postow (wtedy lista i tak
+  grupowala tygodniami).
+- **Advanced filtering** (SKRYPT 15, `apply()`): wysyla zdarzenie `soc:tabfilter` {pid, q, raw, on}. Nowy blok
+  `window.__s5em` (SKRYPT 17): chowa karty zakladki (`.kq`, `.s5el-card`, `.s5ei-tile`) bez szukanego tekstu, pusta grupa
+  kart mowi „None of the N here carries …"; pole „Find in titles" w Threat Research › Articles dostaje tekst filtra
+  zakladki (jego licznik mowi to samo); tabele z `data-s11="1"` (KEV, Sources w Threat Research) sa zawezane po `data-nt`;
+  w pasku filtra przycisk „↓ First result: <sekcja › pozycja>" otwiera zwinieta sekcje i przewija do pierwszego trafienia
+  (`window.scrollTo`, nie `scrollIntoView` — §5ci), plus „cards: N of M carry the search".
+- `.gfbar` przy railu (`body.s5ca`, ≥1100 px): `margin-left:336px; margin-right:24px` — ta sama kolumna co zakladka.
+
+Pomiar po poprawce: MC — wynik 383 px pod polem szukania, 0 obcych kafelkow, chip „0 of 18 match the filter"; facet
+„Windows" — 1 z 18 kafelkow; „Clear all" przywraca uklad (sprawdzone kolejnoscia elementow); klik w siatke dni i w kafelek
+dalej przewija do wiersza (1500 px i 390 px). Learn — „Show them in All" (18). Threat Research „EvilTokens" — 1 karta z 13,
+Articles 1 z 33, KEV 0 z 22 z notka; Hunting „device" — 4 z 16 kart, przycisk „First result" laduje wiersz w oknie
+(desktop i telefon); po wyczyszczeniu 0 elementow schowanych przez §5em. `.gfbar` 336–1476 px przy 1500 i 1100 px,
+telefon bez zmian. Bramka §0b w trybie mirror: 126 OK przed i po; `mobile_check.py` (iPhone 13, CPU 4x): OK; 0 bledow
+strony na kazdej zakladce.
+
+Nie zmienione (do decyzji): Component versions — kafelki komponentow stoja NAD polem szukania tabeli i nie sa filtrowane
+(wynik jest tuz pod polem, wiec nie gubi); w tej zakladce jeden filtr opisuja trzy paski (`.gfbar`, pasek SKRYPTU 11 i
+pasek tabeli) — mozna zostawic jeden.
 
 ## 6. Kontrakt w stronie
 
