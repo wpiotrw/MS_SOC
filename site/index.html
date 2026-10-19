@@ -11605,6 +11605,22 @@ IdentityDirectoryEvents
     var msg = ban.querySelector(".fb-msg");
     if (msg) msg.textContent = "Filtered by " + on.join(" · ") + " — showing " + shown +
       " of " + rec.rows.length + (shown ? "." : ". Nothing matches all of them at once.");
+    /* §5em (owner 19 X 16:11): over a table with the shell's own search bar, one text filter was told twice - the shell's
+       "Filtered to Text: "X" — showing 2 of 13 rows" and this bar's "Filtered by text "X" — showing 2 of 13". When this bar
+       says only what the shell's controls set (their text, their lists) - no filter from elsewhere, no choice in THIS bar's
+       own lists, no column scope - and the shell's bar stands visible in the same section (carrying the text), this one
+       steps aside. Anything more and it stays. Checked a tick later, after the shell has redrawn its bar. */
+    var vq = ownQuery(rec).trim();
+    ban.removeAttribute("data-s5emdup");
+    var ownSel = rec.sels.some(function (x) { return x.value; });
+    if (!tabSpec && !ownSel && (!rec.colSel || +rec.colSel.value < 0)) setTimeout(function () { dupHide(rec, ban, vq); }, 0);
+  }
+  function dupHide(rec, ban, vq) {
+    if (ownQuery(rec).trim() !== vq || ban.hidden) return;
+    var host = rec.table.closest("section,details,.sec-body") || document;
+    var sh = [].filter.call(host.querySelectorAll(".filterbanner"), function (b) {
+      return b !== ban && !b.classList.contains("s11") && !b.hidden && b.offsetParent; })[0];
+    if (sh && (!vq || (sh.textContent || "").toLowerCase().indexOf(vq.toLowerCase()) >= 0)) { ban.hidden = true; ban.setAttribute("data-s5emdup", "1"); }
   }
 
   function clearAll(rec) {
