@@ -1,3 +1,4 @@
 https://learn.microsoft.com/en-us/kusto/query
 https://learn.microsoft.com/en-us/kusto/query/coalesce-function
 https://learn.microsoft.com/en-us/kusto/query/dax-request-plugin
+https://learn.microsoft.com/en-us/kusto/query/evaluate-operator
