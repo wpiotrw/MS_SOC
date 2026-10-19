@@ -1,7 +1,7 @@
 {
  "read": "2026-10-19",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 694,
+ "count": 697,
  "note": null,
  "messages": [
   {
@@ -3679,6 +3679,34 @@
    "bodyHash": "2b44403a6280a73a"
   },
   {
+   "id": "MC1266027",
+   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-03-30",
+   "end": "2026-11-30",
+   "modified": "2026-10-19",
+   "tags": [
+    "Feature update",
+    "Updated message",
+    "User impact"
+   ],
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are improving the Microsoft Teams meeting experience when the active meeting window is minimized. This update helps users stay engaged in meetings while multitasking across other apps. With this change, users can perform key in-meeting actions—such as raising their hand and sending reactions—with…",
+   "when": "Targeted Release: Rollout begins mid-May 2026 (previously early May) and is expected to complete by late May 2026 (previously early May). General Availability (Worldwide): We expect to complete rollout by end of October, 2026.",
+   "prepare": "No action is required. Consider notifying users and helpdesk staff about the new minimized meeting views in Microsoft Teams. Update internal training or support documentation if it references Teams meeting window behavior.",
+   "dates": [
+    "Updated October 19, 2026: We have updated the timeline.",
+    "Targeted Release: Rollout begins mid-May 2026 (previously early May) and is expected to complete by late May 2026 (previously early May).",
+    "General Availability (Worldwide): We expect to complete rollout by end of October, 2026."
+   ],
+   "bodyHash": "d477a597a28fb73c"
+  },
+  {
    "id": "MC1266857",
    "title": "Take Action: Out-of-band update to address an issue affecting installation of the March 2026 non-security preview update",
    "services": [
@@ -4915,22 +4943,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-06",
-   "end": "2026-10-30",
-   "modified": "2026-05-29",
+   "end": "2027-04-30",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated May 29, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing integration of the Microsoft Purview SDK into the Microsoft Agent Framework SDK to help organizations build secure, enterprise-ready AI agents. This integration enables developers to apply Microsoft Purview compliance and data protection capabilities directly within agent runtimes . It…",
-   "when": "General Availability (Worldwide): We will begin rolling out in September 2026 (previously late-May) and expect to complete by end of September 2026 (previously late-June).",
+   "summary": "Updated October 19, 2026: We have paused rollout at this time. We will announce via Message center when we are ready to proceed. We apologize for any inconvenience. [Introduction] We’re introducing integration of the Microsoft Purview SDK into the Microsoft Agent Framework SDK to help organizations build secure, enterprise-ready AI agents. This integration enables developers to apply Microsoft Pur…",
+   "when": "General Availability (Worldwide): We will announce via Message center when we are ready to proceed.",
    "prepare": "No immediate admin action is required if your organization is not developing AI agents. If your organization builds AI agents: Share this update with your development and security teams. Review Microsoft Purview SDK documentation to understand supported compliance capabilities. Validate how existing Purview policies should be applied within agent workflows.",
    "dates": [
-    "Updated May 29, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in September 2026 (previously late-May) and expect to complete by end of September 2026 (previously late-June)."
+    "Updated October 19, 2026: We have paused rollout at this time."
    ],
-   "bodyHash": "c3b0b333793b2434"
+   "bodyHash": "0a817cb587b03ef5"
   },
   {
    "id": "MC1304291",
@@ -5065,6 +5092,35 @@
     "General Availability (Worldwide) : We will begin rolling out end of October 2026 (previously late September) and expect to complete end of October 2026 (previously mid-October)."
    ],
    "bodyHash": "e7ff62b716bff17c"
+  },
+  {
+   "id": "MC1307982",
+   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-05-12",
+   "end": "2026-12-14",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "Updated message",
+    "User impact"
+   ],
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations deliver more polished and branded town hall events, Microsoft Teams is introducing the ability for organizers and presenters to upload custom background images in the Manage what attendees see experience . This enhancement allows teams to replace default backgrounds with brande…",
+   "when": "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May). General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by early November 2026 (previously mid-September).",
+   "prepare": "No admin action is required before rollout. Consider notifying users who organize or present town halls about this new capability. Prepare branded background images that align with your organization’s visual identity guidelines. Update internal documentation or event playbooks if you provide guidance on hosting town halls. Optionally, run a test town hall event to familiarize presenters with the upload flow and attendee experience.",
+   "dates": [
+    "Updated October 19, 2026: We have updated the timeline.",
+    "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May).",
+    "General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by early November 2026 (previously mid-September)."
+   ],
+   "bodyHash": "3d8359249fb0b760"
   },
   {
    "id": "MC1308634",
@@ -5722,22 +5778,22 @@
    "actionBy": null,
    "start": "2026-05-28",
    "end": "2027-01-11",
-   "modified": "2026-10-12",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Data Lifecycle Management is introducing the ability to archive SharePoint files based on retention policies. This feature helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. By excluding arc…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Purview Data Lifecycle Management is introducing the ability to archive SharePoint files based on retention policies. This feature helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. By excluding arc…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 12, 2026: We have updated the timeline.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "Public Preview: We will begin rolling out early September 2026 (previously mid-August) and expect to complete by early October 2026 (previously early September).",
-    "General Availability (Worldwide): Rollout will begin in early November 2026 (previously early October) and is expected to complete by early December 2026 (previously early November)."
+    "General Availability (Worldwide): Rollout will begin in mid-November 2026 (previously early November) and is expected to complete by early December 2026 (previously early November)."
    ],
-   "bodyHash": "b42ab09c49723e92"
+   "bodyHash": "6cb6847eb874bcfe"
   },
   {
    "id": "MC1326509",
@@ -5779,23 +5835,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-01",
-   "end": "2026-10-30",
-   "modified": "2026-09-01",
+   "end": "2026-11-30",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 1, 2026: We have updated the content. Thank you for your patience. [Introduction] Microsoft Teams is expanding breakout room capacity to support larger meetings. With this update, breakout rooms can be used in meetings with up to 1,000 attendees, allowing organizers to run large meetings while still enabling smaller group collaboration. This change removes the need to limit meeti…",
-   "when": "Targeted Release: Rollout begins in early July 2026 and is expected to complete by late July 2026 . General Availability (Worldwide, GCC, GCCH, and DoD): Rollout begins in mid-August 2026 (previously July) and is expected to complete by late September 2026 (previously late July).",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is expanding breakout room capacity to support larger meetings. With this update, breakout rooms can be used in meetings with up to 1,000 attendees, allowing organizers to run large meetings while still enabling smaller group collaboration. This change removes the need to limit meeti…",
+   "when": "Targeted Release: Rollout begins in early July 2026 and is expected to complete by late July 2026 . General Availability (Worldwide, GCC, GCCH, and DoD): Rollout begins in mid-August 2026 (previously July) and is expected to complete by end of October 2026 (previously late September).",
    "prepare": "No action is required. Consider informing meeting organizers and training owners about the expanded breakout room capacity. Update any internal guidance or training materials that reference breakout room attendee limits.",
    "dates": [
-    "Updated September 1, 2026: We have updated the content.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "Targeted Release: Rollout begins in early July 2026 and is expected to complete by late July 2026 .",
-    "General Availability (Worldwide, GCC, GCCH, and DoD): Rollout begins in mid-August 2026 (previously July) and is expected to complete by late September 2026 (previously late July)."
+    "General Availability (Worldwide, GCC, GCCH, and DoD): Rollout begins in mid-August 2026 (previously July) and is expected to complete by end of October 2026 (previously late September)."
    ],
-   "bodyHash": "6b83c44c7cfa0eb8"
+   "bodyHash": "21b0095c3b5cb0c0"
   },
   {
    "id": "MC1330893",
@@ -6247,25 +6303,25 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-12",
-   "end": "2026-11-16",
-   "modified": "2026-08-26",
+   "end": "2027-01-25",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] Users will now be able to control their channel notification settings using three presets: All new messages, Mentions and replies, and Mute. Users can further customize the selected preset to manage notifications for unfollowed threads, tag mentions, channel mentions, and team mentions within each ch…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] Users will now be able to control their channel notification settings using three presets: All new messages, Mentions and replies, and Mute. Users can further customize the selected preset to manage notifications for unfollowed threads, tag mentions, channel mentions, and team mentions within each c…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated August 26, 2026: We have updated the timeline.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "General Availability Targeted release: Rollout will begin in early October 2026 (previously late September) and is expected to complete in early October 2026 (previously mid-August) .",
-    "Worldwide: Rollout will begin in early October 2026 (previously late August) and is expected to complete in mid-October 2026 (previously early September).",
-    "GCC and GCC High: Rollout will begin in mid-October 2026 (previously late August) and is expected to complete in late October 2026 (previously early September).",
-    "DoD: Rollout will begin in late October 2026 (previously early September) and is expected to complete by mid-November 2026 (previously mid-September)."
+    "Worldwide: Rollout will begin in early November 2026 (previously early October) and is expected to complete in mid-November 2026 (previously mid-October).",
+    "GCC and GCC High: Rollout will begin in mid-November 2026 (previously mid-October) and is expected to complete in late November 2026 (previously late October).",
+    "DoD: Rollout will begin in late November 2026 (previously late October) and is expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "0d8824fc674424cb"
+   "bodyHash": "171bb35755d62513"
   },
   {
    "id": "MC1388720",
@@ -8609,23 +8665,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-31",
-   "end": "2026-11-10",
-   "modified": "2026-09-15",
+   "end": "2026-12-14",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 15, 2026: We have updated the timeline. Thank you for your patience. [What and why] Organizations can now allow trusted external presenters to manage Microsoft Teams event production controls. Federated (B2B) users and guest users can be assigned through the Who has control of production tools setting, enabling them to manage the attendee viewing experience during Teams events. T…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] Organizations can now allow trusted external presenters to manage Microsoft Teams event production controls. Federated (B2B) users and guest users can be assigned through the Who has control of production tools setting, enabling them to manage the attendee viewing experience during Teams events. Thi…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 15, 2026: We have updated the timeline.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "Targeted Release: Beginning in early August 2026 and expected to complete by early October 2026 (previously early September) (previously mid-August).",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning early August 2026 and expected to complete by early October 2026 (previously early September)."
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning early August 2026 and expected to complete by early November 2026 (previously early October)."
    ],
-   "bodyHash": "0fc189a7c409a52c"
+   "bodyHash": "458839a3868e95c4"
   },
   {
    "id": "MC1443518",
@@ -8638,23 +8694,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-31",
-   "end": "2026-10-26",
-   "modified": "2026-09-09",
+   "end": "2026-11-30",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is expanding presenter visibility in Manage what attendees see for Teams events. Event organizers and producers can now drag and resize the presenter panel, allowing them to view more presenters simultaneously during event production. This improvement helps producers more easily mon…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is expanding presenter visibility in Manage what attendees see for Teams events. Event organizers and producers can now drag and resize the presenter panel, allowing them to view more presenters simultaneously during event production. This improvement helps producers more easily moni…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 9, 2026: We have updated the timeline.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "Targeted Release: Beginning mid-August 2026 and expected to complete by late August 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning late August 2026 and expected to complete by late September 2026 (previously early September)."
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning late August 2026 and expected to complete by end of October 2026 (previously late September)."
    ],
-   "bodyHash": "8f1d5410af7cc61b"
+   "bodyHash": "08e1dbbb629a8710"
   },
   {
    "id": "MC1443520",
@@ -13609,21 +13665,21 @@
    "actionBy": null,
    "start": "2026-09-15",
    "end": "2027-02-15",
-   "modified": "2026-10-12",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 12, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management now allows admins to archive SharePoint files based on retention policies. This helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. Archived content is excluded from…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management now allows admins to archive SharePoint files based on retention policies. This helps organizations reduce storage costs by moving inactive content to Microsoft 365 Archive while maintaining compliance and discoverability. Archived content is excluded from…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 12, 2026: We have updated the timeline.",
-    "General Availability (GCC, GCC High, DoD): Beginning in early December 2026 (previously early October) and expected to complete by early January 2027 (previously early November 2026)."
+    "Updated October 19, 2026: We have updated the timeline.",
+    "General Availability (GCC, GCC High, DoD): Beginning in early December 2026 and expected to complete by early January 2027 (previously early November 2026)."
    ],
-   "bodyHash": "88eeb3c998717e56"
+   "bodyHash": "43ac4c558a20f121"
   },
   {
    "id": "MC1473148",
@@ -13715,8 +13771,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-16",
-   "end": "2026-11-23",
-   "modified": "2026-10-13",
+   "end": "2026-12-28",
+   "modified": "2026-10-19",
    "tags": [
     "Feature update",
     "New feature",
@@ -13724,15 +13780,15 @@
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 18, 2026: We have updated the content. Thank you for your patience. [What and why] We are introducing a more consistent way for users to access and manage important resources in Microsoft Teams chats and channels. Users will be able to pin frequently used resources directly below the chat or channel header, pin multiple messages alongside other resources, and organize them into f…",
+   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing a more consistent way for users to access and manage important resources in Microsoft Teams chats and channels. Users will be able to pin frequently used resources directly below the chat or channel header, pin multiple messages alongside other resources, and organize them into fo…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 18, 2026: We have updated the content.",
+    "Updated October 19, 2026: We have updated the timeline.",
     "Targeted Release (Worldwide): Rollout begins in late September 2026 and is expected to complete by early October 2026.",
-    "General Availability (Worldwide, GCC, GCC High, and DoD): Rollout begins in early October 2026 and is expected to complete by mid-October 2026."
+    "General Availability (Worldwide, GCC, GCC High, and DoD): Rollout begins in early November 2026 (previously early October) and is expected to complete by mid-November 2026 (previously mid-October)."
    ],
-   "bodyHash": "f35b347f09be01fc"
+   "bodyHash": "733cb04717d0acf8"
   },
   {
    "id": "MC1473155",
@@ -17446,19 +17502,22 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2026-12-30",
-   "modified": "2026-10-13",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We’re removing the Agent 365 license requirement for observability data for supported agents built by Microsoft or on Microsoft platforms. This change expands access to usage and activity insights in the Microsoft 365 admin center , helping administrators monitor how agents are used. This change is limited to observability metrics. It does not remove licensing requirements for other…",
+   "summary": "Updated October 19, 2026: We have updated the content. Thank you for your patience. [What and why] Starting in late October 2026, Microsoft is expanding access to Agent 365 usage and activity insights in the Microsoft Admin Center for Microsoft pre-built agents and agents built on Microsoft platforms. This change expands access to the agent overview, active users, advanced usage (activity, session…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in late November 2026 and expected to complete by late November 2026."
+    "Updated October 19, 2026: We have updated the content.",
+    "Starting in late October 2026, Microsoft is expanding access to Agent 365 usage and activity insights in the Microsoft Admin Center for Microsoft pre-built agents and agents built on Microsoft platforms.",
+    "General Availability (Worldwide): Beginning in late October 2026 and expected to complete by late November 2026."
    ],
-   "bodyHash": "8b5a98081eeba0bb"
+   "bodyHash": "a8e3ae62aea9b89a"
   },
   {
    "id": "MC1506728",
@@ -18300,6 +18359,31 @@
     "General Availability (Worldwide): Rollout is currently estimated to begin in early March 2027 and complete by late June 2027 ."
    ],
    "bodyHash": "8853a26c11067a86"
+  },
+  {
+   "id": "MC1515270",
+   "title": "Quick machine recovery is now supported on Windows Server 2025",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2027-10-19",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: With the October 2026 Windows security update, Quick machine recovery is now available for Windows Server 2025. Quick machine recovery can help servers recover from critical boot failures by using Windows Recovery Environment (WinRE) to search Windows Update for an applicable remediation. Recovery is dependent on an applicable remediation being available. On Windows Server 2025, quic…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: With the October 2026 Windows security update, Quick machine recovery is now available for Windows Server 2025.",
+    "Quick machine recovery is available for Windows Server 2025 editions with the October 2026 security update or later installed."
+   ],
+   "bodyHash": "adc2ff9d2d57b0eb"
   },
   {
    "id": "MC676299",
@@ -22694,6 +22778,172 @@
    "id": "MC1440968",
    "type": "removed",
    "title": "(Updated) Microsoft Entra ID: Optimizations for passkey registration experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1266027",
+   "type": "new",
+   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1302905",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview compliance portal: Purview SDK embedded in Agent Framework SDK",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2027-04-30"
+    ],
+    "bodyHash": [
+     "c3b0b333793b2434",
+     "0a817cb587b03ef5"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1307982",
+   "type": "new",
+   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1325441",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
+   "fields": {
+    "bodyHash": [
+     "b42ab09c49723e92",
+     "6cb6847eb874bcfe"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1330891",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Breakout rooms now supported in meetings with up to 1,000 attendees",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "6b83c44c7cfa0eb8",
+     "21b0095c3b5cb0c0"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1388719",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Granular channel notification settings",
+   "fields": {
+    "end": [
+     "2026-11-16",
+     "2027-01-25"
+    ],
+    "bodyHash": [
+     "0d8824fc674424cb",
+     "171bb35755d62513"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1443517",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: External presenters can manage event production controls",
+   "fields": {
+    "end": [
+     "2026-11-10",
+     "2026-12-14"
+    ],
+    "bodyHash": [
+     "0fc189a7c409a52c",
+     "458839a3868e95c4"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1443518",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Expanded presenter visibility in Manage what attendees see",
+   "fields": {
+    "end": [
+     "2026-10-26",
+     "2026-11-30"
+    ],
+    "bodyHash": [
+     "8f1d5410af7cc61b",
+     "08e1dbbb629a8710"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1472601",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Archive SharePoint files under retention policies",
+   "fields": {
+    "bodyHash": [
+     "88eeb3c998717e56",
+     "43ac4c558a20f121"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1473153",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: New centralized experience for organizing important resources in chats and channels",
+   "fields": {
+    "end": [
+     "2026-11-23",
+     "2026-12-28"
+    ],
+    "bodyHash": [
+     "f35b347f09be01fc",
+     "733cb04717d0acf8"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1506727",
+   "type": "changed",
+   "title": "Microsoft Agent 365: Expanded access to Microsoft agent usage and activity insights in Microsoft 365 admin center",
+   "fields": {
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "8b5a98081eeba0bb",
+     "a8e3ae62aea9b89a"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1515270",
+   "type": "new",
+   "title": "Quick machine recovery is now supported on Windows Server 2025",
    "fields": {}
   }
  ]
