@@ -4678,7 +4678,8 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-date{margin-left:auto}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 /* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
-.s5el{display:grid;gap:12px}
+.s5el{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.s5el>*,details.s5el-box,.s5el-card,.s5el-det{min-width:0}
 .s5el-fresh{margin:0;font-size:13px;color:var(--muted)}
 .s5el-fresh b{color:var(--text)}
 .s5el-note{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
