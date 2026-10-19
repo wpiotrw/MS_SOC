@@ -1,0 +1,4 @@
+{
+  "about": "Threat Research notes written by the morning routine (CLAUDE.md 5el-b). Same shape as threat_notes.json in the repository root, which a person writes; on a repeated id the person's note wins. tools/threat_todo.py todo lists the stories to analyse, tools/threat_todo.py check validates this file before commit. Every note carries `by` and `updated`; every remediation step says `from: source` (with `src`) or `from: ours` (inferred, labelled on the page).",
+  "stories": []
+}

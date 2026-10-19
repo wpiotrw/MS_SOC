@@ -78,7 +78,7 @@ jobs:
       # CLAUDE.md 5el (19 X 2026): Threat Research - incidents, campaigns and vulnerabilities touching Entra and M365
       # from threat_sources.json, curated notes from threat_notes.json; its own file, never the brief state
       - name: Threat Research feeds (CLAUDE.md 5el)
-        run: timeout 420 python3 tools/threats.py threat_sources.json site/data/threats.json --notes threat_notes.json || true
+        run: timeout 420 python3 tools/threats.py threat_sources.json site/data/threats.json --notes threat_notes.json,site/data/threat-notes.json || true
       - name: Every Microsoft API and the permissions it offers, as our tenant sees them (CLAUDE.md 5dr)
         # Application.Read.All (already granted); a failure is recorded in the log and never stops the snapshot
         continue-on-error: true

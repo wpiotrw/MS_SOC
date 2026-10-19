@@ -204,11 +204,17 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         prev = json.load(open(out_path, encoding="utf-8"))
     except Exception:
         pass
+    # notes_path may list several files, comma separated (CLAUDE.md 5el-b): the hand-curated
+    # threat_notes.json first, then site/data/threat-notes.json written by the morning routine.
+    # On a repeated id the EARLIER file wins, so a person's edit is never overwritten by the routine.
     notes = {}
-    try:
-        notes = {n["id"]: n for n in json.load(open(notes_path, encoding="utf-8")).get("stories", [])}
-    except Exception:
-        notes = {}
+    for np_ in [x.strip() for x in str(notes_path).split(",") if x.strip()]:
+        try:
+            for n in json.load(open(np_, encoding="utf-8")).get("stories", []):
+                if n.get("id") and n["id"] not in notes:
+                    notes[n["id"]] = n
+        except Exception as e:
+            print("threats: notes file %s not read (%s)" % (np_, e))
     seen_before = {a["link"]: a for a in prev.get("articles") or []}
     cut = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
     arts, msitems, kev, srep = [], [], [], []

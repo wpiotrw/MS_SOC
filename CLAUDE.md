@@ -40992,7 +40992,7 @@ odtad CZTERNASCIE (4-17).**
     var top = el("div", "s5el-ctop");
     if (k) top.appendChild(chip(k === "new" ? "NEW" : "UPDATED", k === "new" ? "new" : "upd"));
     top.appendChild(msChip(s));
-    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story"));
+    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story" + (s.notes && s.notes.by ? " by the " + s.notes.by : "") + (s.notes && s.notes.updated ? ", " + s.notes.updated : "")));
     if (s.notes && s.notes.status === "active") top.appendChild(chip("Active", "bad"));
     c.appendChild(top);
     var t = el("button", "s5el-ct", s.title); t.type = "button"; t.setAttribute("aria-expanded", "false"); c.appendChild(t);
@@ -45133,7 +45133,7 @@ w ramce Source lists, nasze kroki naprawcze dozwolone (oznaczone), nazwa „Thre
 - `threat_notes.json` (repo): notatki kuratorowane na historie — summary, timeline, rootCause, attacker, iocs,
   remediation (`from: source|ours`), kql, portal (uprawnienia / role -> przyciski do Graph API / Roles), microsoft, links.
   Pierwsza: `connectwise-cloud-backup-2026-10` (napisana 19 X z Huntress, BleepingComputer, The Hacker News, SpecterOps).
-  Kolejne dopisuje poranna routine dla nowych historii (do ustalenia w prompcie) albo czlowiek.
+  Kolejne dopisuje poranna routine (§5el-b, plik `site/data/threat-notes.json`) albo czlowiek (ten plik).
 - Strona (SKRYPT 17, `window.__s5el`, zakladka `tab-threats`, grupa Act po Hunting): kafelki dnia (§5ei: nowe /
   zaktualizowane historie od poprzedniego briefu, poprzedni brief zwiniety), Trend (linie per obszar + slupki historii),
   Current incidents (karty: NEW/UPDATED, „Described by Microsoft" / „Not described by Microsoft yet", Analysed, daty
@@ -45146,6 +45146,38 @@ w ramce Source lists, nasze kroki naprawcze dozwolone (oznaczone), nazwa „Thre
   przycisk uprawnienia otwiera Graph API. Na zywo `mobile_check.py` (CPU 4x) zlapal przewijanie w bok o 95 px: element
   siatki `.s5el` ma `min-width:auto`, wiec szeroka tabela rozpychala cala kolumne — poprawka `grid-template-columns:
   minmax(0,1fr)` i `min-width:0` na ramkach i kartach; po niej OK.
+
+## 5el-b. THREAT RESEARCH — NOTATKI PISZE PORANNA ROUTINE, 19 X 2026
+
+Wlasciciel (19 X 13:25, „Tak dopisz"): nowe historie Threat Research dostaja analize co rano (streszczenie, os czasu,
+przyczyna, dzialania atakujacego, IOCs, kroki naprawcze, KQL, „czy Microsoft opisal"), bez czekania na czlowieka.
+
+- **Dwa pliki notatek**, czytane przez `tools/threats.py --notes threat_notes.json,site/data/threat-notes.json`
+  (w tej kolejnosci; przy tym samym `id` wygrywa pierwszy): `threat_notes.json` w korzeniu pisze czlowiek i routine go
+  NIE rusza; `site/data/threat-notes.json` pisze poranna routine (routine zmienia tylko `site/`). Ten sam ksztalt
+  co §5el plus `by` („morning routine") i `updated`; strona pokazuje autora i date w podpowiedzi chipa „Analysed".
+- `tools/threat_todo.py todo` — co dzis opisac, najlepsze pierwsze, najwyzej 5: `update` (notatka routine starsza niz
+  najnowszy artykul historii), `new` (historia bez notatki, widziana lub zaktualizowana w 3 dniach), `backlog` (gdy
+  zostaje miejsce: historia bez notatki z 30 dni, wg `score` — tak zakladka z 19 X dostaje notatki po kilka dziennie).
+  Notatka czlowieka z nowymi artykulami trafia tylko do `ownerNotes` (informacja, bez edycji).
+- `tools/threat_todo.py check` — exit 1 = NIE COMMITOWAC: brak linku zrodla, krok `from: source` bez `src`, slowo
+  `match` ogolne (lista `GENERIC`: phishing, oauth, token, entra…) albo krotsze niz 4 znaki albo trafiajace >15 artykulow,
+  `id` zajete przez notatke czlowieka, zly obszar / status / data, streszczenie < 80 znakow. Ostrzezenie (exit 0):
+  zadne slowo `match` nie trafia jeszcze artykulu.
+- **Zasady tresci** (te same co §5el i regula 6 briefu): kazde zdanie z przeczytanego zrodla, `src` = nazwa zrodla;
+  krok naprawczy ze zrodla = `from: source`, nasz = `from: ours` (strona oznacza „Ours (inferred)"); nie wymyslac IOC,
+  dat, CVE ani nazw grup; KQL tylko na tabelach sprawdzonych na Learn / KQL Search MCP (AuditLogs, SigninLogs,
+  AADServicePrincipalSignInLogs, AADNonInteractiveUserSignInLogs, MicrosoftGraphActivityLogs, CloudAppEvents…);
+  `match` = 1-3 slowa nazywajace TO zdarzenie (nazwa kampanii, produktu dostawcy, CVE, Storm-####), bo od nich zalezy,
+  ktore artykuly trafia do historii; `portal` tylko dla uprawnien / rol, ktore istnieja w katalogu portalu;
+  `microsoft` = linki do wpisow Microsoftu, jesli sa. Status `active` / `contained` / `resolved`.
+- Kolejnosc w routine (prompt „MS SOC BRIEF - raport poranny v2", krok STEP -1b): PO publikacji strony (osobny commit,
+  `content: threat notes <data>`), nigdy nie blokuje briefu; najwyzej 5 notatek, najwyzej 4 pobrania stron na historie;
+  przy duzym zuzyciu kontekstu konczy po biezacej notatce. `site/data/threat-notes.json` trafia na strone przy
+  nastepnym przebiegu `fpa-tenant.yml` (co 3 h), ktory przelicza `threats.json`.
+- Test 19 X: `todo` na danych 19 X — 0 `new`, 5 `backlog` (EvilTokens, OAuth token theft via Front Door, Beyond source
+  code, Storm-3168, The hidden network), 4 kolejne czekaja; `check` na pliku z bledami — 10 bledow, exit 1; na
+  poprawnym — exit 0; `threats.py` z dwoma plikami — 2 historie kuratorowane, przy powtorzonym `id` wygrywa notatka czlowieka.
 
 ## 6. Kontrakt w stronie
 
