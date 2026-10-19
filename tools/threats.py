@@ -382,7 +382,10 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     for a in arts:
         a.pop("names", None)
     body = {"source": "tools/threats.py (CLAUDE.md 5el)", "sources": srep, "stories": stories, "articles": arts,
-            "kev": kev[:60], "trend": trend, "notesFile": notes_path, "keepDays": KEEP_DAYS}
+            "kev": kev[:60], "trend": trend, "notesFile": notes_path, "keepDays": KEEP_DAYS,
+            # the day the portal started tracking (kept between runs): stories reported before it are "new to the portal"
+            # on that day, not new events (CLAUDE.md 5en)
+            "started": prev.get("started") or "2026-10-19"}
     strip_t = lambda d: {k: v for k, v in d.items() if k != "generated"}
     if prev and strip_t(prev) == body:
         print("threats: no change (%d stories, %d articles)" % (len(stories), len(arts)))
