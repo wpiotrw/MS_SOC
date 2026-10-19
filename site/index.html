@@ -4691,6 +4691,8 @@ details.s5ei-day.s5ei-f0{opacity:.72}
 .s5em-go{font:600 13px/1.3 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere}
 .s5em-none{margin:6px 0 10px;color:var(--muted);font-size:13px}
 .s5em-none[hidden]{display:none}
+.s5em-cnote{margin:0 0 8px;padding:0 4px;font-size:13px;font-weight:600;color:var(--ok)}
+.s5em-cnote[hidden],.jtile[hidden]{display:none}
 .kq[hidden],.s5el-card[hidden]{display:none}
 @keyframes s5emhit{0%{box-shadow:0 0 0 3px var(--ok)}100%{box-shadow:0 0 0 3px transparent}}
 .s5em-hit{animation:s5emhit 2.2s ease-out 1}
@@ -26277,6 +26279,28 @@ IdentityDirectoryEvents
     } else j.appendChild(document.createTextNode("No section of this tab holds a match."));
     if (q && nAll) j.appendChild(document.createTextNode(" \u00b7 cards: " + nHit + " of " + nAll + " carry the search"));
   }
+  /* Component versions (owner 19 X 15:57, "OK rob"): the 13 component tiles stand ABOVE the comparison table's search box and
+     stayed whole while the table narrowed to 2 rows. They now follow that box's text: a tile without it is hidden and a line
+     over the tiles says "N of 13 components match". Tiles sit above the box, so hiding them would pull the box up under the
+     typing hand - the box is kept where it was (Safari has no scroll anchoring to do it for us). */
+  function compTiles() {
+    var p = document.getElementById("tab-components"); if (!p) return;
+    var box = [].filter.call(p.querySelectorAll("input.tbar-search"), function (i) { return i.offsetParent; })[0];
+    var grid = p.querySelector(".jumpgrid"); if (!box || !grid) return;
+    var q = (box.value || "").trim().toLowerCase(), y0 = box.getBoundingClientRect().top;
+    var tiles = [].slice.call(grid.querySelectorAll(".jtile")), n = 0;
+    tiles.forEach(function (t) { var hit = !q || low(t).indexOf(q) >= 0; t.hidden = !hit; if (hit) n++; });
+    var host = grid.parentNode && grid.parentNode.classList.contains("jumpwrap") ? grid.parentNode : grid;   /* the wrap is a 2-column grid */
+    var note = host.previousElementSibling && host.previousElementSibling.classList.contains("s5em-cnote") ? host.previousElementSibling : null;
+    if (q) { if (!note) { note = document.createElement("p"); note.className = "s5em-cnote"; host.parentNode.insertBefore(note, host); }
+      note.textContent = n + " of " + tiles.length + " components match \u201c" + box.value.trim() + "\u201d (the search of the comparison table below)"; note.hidden = false; }
+    else if (note) note.hidden = true;
+    var dy = box.getBoundingClientRect().top - y0; if (Math.abs(dy) > 1) window.scrollBy(0, dy);
+  }
+  var cT = 0;
+  function compSoon() { clearTimeout(cT); cT = setTimeout(compTiles, 60); }
+  document.addEventListener("input", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("#tab-components")) compSoon(); }, true);
+  document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest("#tab-components .fb-clear, #tab-components .tbar button, .gfbar")) setTimeout(compSoon, 120); }, true);
   document.addEventListener("soc:tabfilter", function (ev) { var d = ev.detail || {}; if (d.pid) run(d.pid, d.q || "", !!d.on, d.raw || ""); });
   /* cards built later (a folded day block opened, a lazy tab) follow the filter already on */
   document.addEventListener("toggle", function (ev) {
