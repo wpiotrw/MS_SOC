@@ -1,7 +1,7 @@
 {
  "read": "2026-10-19",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 700,
+ "count": 694,
  "note": null,
  "messages": [
   {
@@ -1650,36 +1650,6 @@
    "bodyHash": "8e03e520008ac2d5"
   },
   {
-   "id": "MC1197146",
-   "title": "(Updated) Express voice enrollment in Microsoft Teams",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-12-15",
-   "end": "2026-10-19",
-   "modified": "2026-09-02",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Express voice enrollment in Microsoft Teams makes registering your voice profile quick and seamless. A voice profile enables features such as voice isolation, speaker recognition, identification in meeting rooms, improved transcripts, and enhanced meeting recaps and insights powered by Microsoft 36…",
-   "when": "Targeted Release: Rollout begins mid-June 2026 (previously early June) and is expected to complete by end of June (previously mid-June). General Availability: Rollout begins end of June 2026 (previously mid-June) and is expected to complete by mid-September 2026 (previously end of August).",
-   "prepare": "Review your organization’s Teams AI policy settings before rollout. If you want to disable this feature, update the PassiveVoiceEnrollment configuration using PowerShell. Communicate this change to your helpdesk and end users as needed. Update internal documentation to reflect this new capability.",
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Targeted Release: Rollout begins mid-June 2026 (previously early June) and is expected to complete by end of June (previously mid-June).",
-    "General Availability: Rollout begins end of June 2026 (previously mid-June) and is expected to complete by mid-September 2026 (previously end of August).",
-    "As of May 2026, all tenants that previously had EnrollVoice set to disabled, Microsoft applied the same value to PassiveVoiceEnrollment for consistency."
-   ],
-   "bodyHash": "e85b17b3511cd1f5"
-  },
-  {
    "id": "MC1199746",
    "title": "Take Action: Out-of-band update to address MSMQ service issues leading to queue operations and resource-related errors",
    "services": [
@@ -3059,36 +3029,6 @@
    "bodyHash": "1c36ed28a9968b5c"
   },
   {
-   "id": "MC1245225",
-   "title": "(Updated) Microsoft Teams: Ad-hoc room reservation from Teams Rooms on Windows console",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-05",
-   "end": "2026-10-19",
-   "modified": "2026-07-29",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 29, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing ad-hoc room reservation directly from the Microsoft Teams Rooms on Windows console. This update enables users to reserve an available room on the spot without relying on a personal device or hallway panel, supporting quick, spontaneous meetings and helping reduce scheduling conflicts.…",
-   "when": "General Availability (Worldwide, GCC): We will begin rolling out in early July 2026 (previously early June) and expect to complete by mid-July 2026 (previously late June). General Availability (GCC High): We will begin rolling out late in end of August 2026 (previously mid-July) and expect to complete by early September 2026 (previously late July). General Availability (DoD): We will begin rolling out in late August 2026 (previously late July) an…",
-   "prepare": "No action is required before rollout. Notify users of the new reservation workflow. Update internal training or documentation. Use Teams Rooms Pro Management portal or device settings if you want to restrict ad-hoc reservations.",
-   "dates": [
-    "Updated July 29, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC): We will begin rolling out in early July 2026 (previously early June) and expect to complete by mid-July 2026 (previously late June).",
-    "General Availability (GCC High): We will begin rolling out late in end of August 2026 (previously mid-July) and expect to complete by early September 2026 (previously late July).",
-    "General Availability (DoD): We will begin rolling out in late August 2026 (previously late July) and expect to complete by mid-September 2026 (previously mid-August)."
-   ],
-   "bodyHash": "92f179dce8e1489e"
-  },
-  {
    "id": "MC1245992",
    "title": "Upcoming events to help with Secure Boot updates",
    "services": [
@@ -3297,36 +3237,6 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "51f5ba6df067dafd"
-  },
-  {
-   "id": "MC1250273",
-   "title": "(Updated) Improved copy and paste support for @mentions and shared contacts in Microsoft Teams",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-12",
-   "end": "2026-10-19",
-   "modified": "2026-09-02",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is improving the copy and paste experience for messages that contain @mentions , shared contacts , and other supported @tags . Previously, when users copied and pasted messages containing mentions, those mentions could be converted into plain text and lose their interactivity. With …",
-   "when": "Targeted Release: Rollout begins mid-May (previously early May) and is expected to complete by late May 2026 (previously mid-May 2026). General Availability (Worldwide): Rollout begins late May 2026 (previously mid-May) and is expected to complete by early June 2026 (previously late May). General Availability (GCC, GCC High): Rollout begins early June 2026 (previously mid-May 2026 (previously early May) and is expected to complete by mid-June 202…",
-   "prepare": "No admin action is required. This feature is enabled by default and will be available automatically once the rollout reaches your tenant. Consider notifying helpdesk staff or end users about the improved copy and paste behavior to set expectations.",
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Targeted Release: Rollout begins mid-May (previously early May) and is expected to complete by late May 2026 (previously mid-May 2026).",
-    "General Availability (Worldwide): Rollout begins late May 2026 (previously mid-May) and is expected to complete by early June 2026 (previously late May).",
-    "General Availability (GCC, GCC High): Rollout begins early June 2026 (previously mid-May 2026 (previously early May) and is expected to complete by mid-June 2026 (previously early June).",
-    "General Availability (DoD): Rollout begins mid-June 2026 (previously early June) and is expected to complete by mid-September 2026 (previously end of August)."
-   ],
-   "bodyHash": "82f789b3a5d39350"
   },
   {
    "id": "MC1250927",
@@ -5157,35 +5067,6 @@
    "bodyHash": "e7ff62b716bff17c"
   },
   {
-   "id": "MC1307982",
-   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-12",
-   "end": "2026-10-19",
-   "modified": "2026-09-02",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations deliver more polished and branded town hall events, Microsoft Teams is introducing the ability for organizers and presenters to upload custom background images in the Manage what attendees see experience . This enhancement allows teams to replace default backgrounds with brand…",
-   "when": "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May). General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by mid-September 2026 (previously end of August).",
-   "prepare": "No admin action is required before rollout. Consider notifying users who organize or present town halls about this new capability. Prepare branded background images that align with your organization’s visual identity guidelines. Update internal documentation or event playbooks if you provide guidance on hosting town halls. Optionally, run a test town hall event to familiarize presenters with the upload flow and attendee experience.",
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May).",
-    "General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by mid-September 2026 (previously end of August)."
-   ],
-   "bodyHash": "5063b5b998bef7bb"
-  },
-  {
    "id": "MC1308634",
    "title": "The May 2026 Windows security update is now available",
    "services": [
@@ -5886,35 +5767,6 @@
     "General Availability (Worldwide) : We will begin rolling out late January 2027 and expect to complete by mid-November 2027."
    ],
    "bodyHash": "a9a68a752376aa78"
-  },
-  {
-   "id": "MC1330886",
-   "title": "(Updated) Microsoft 365 Copilot: Get suggested edits from Copilot in your Copilot Pages",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-01",
-   "end": "2026-10-19",
-   "modified": "2026-07-30",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 30, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing Copilot‑generated suggested edits in Copilot Pages to help users improve the clarity and quality of their content without leaving their workflow. This enhancement brings AI‑powered writing feedback directly into the page experience , enabling users to review and apply actionable sugg…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated July 30, 2026: We have updated the timeline.",
-    "Frontier: We will begin rolling out to Frontier Private and Public in early June 2026 .",
-    "General Availability (Worldwide): We will begin rolling out end of August 2026 (previously late July) and expect to complete by mid-September 2026 (previously early August)."
-   ],
-   "bodyHash": "9ce5547a12b740fa"
   },
   {
    "id": "MC1330891",
@@ -8423,34 +8275,6 @@
     "DoD: Late August 2026 through Late October 2026."
    ],
    "bodyHash": "756d6ac1d30841b1"
-  },
-  {
-   "id": "MC1440968",
-   "title": "(Updated) Microsoft Entra ID: Optimizations for passkey registration experience",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-27",
-   "end": "2026-10-19",
-   "modified": "2026-09-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 4, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're rolling out optimizations to passkey registration across Microsoft Entra ID. These changes improve how passkey registration is handled through Registration Campaign , Authentication Strengths , and My Sign-Ins . The updated registration logic will more consistently: Guide users to register pa…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 4, 2026: We have updated the timeline.",
-    "General Availability (Worldwide and GCC): Beginning in late August 2026 and expected to complete by mid-September 2026 (previously late August)."
-   ],
-   "bodyHash": "7845c4925934b3cc"
   },
   {
    "id": "MC1440972",
@@ -22828,6 +22652,48 @@
    "id": "MC1469555",
    "type": "removed",
    "title": "Microsoft Entra: Optimized passkey registration campaign experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1197146",
+   "type": "removed",
+   "title": "(Updated) Express voice enrollment in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1245225",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Ad-hoc room reservation from Teams Rooms on Windows console",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1250273",
+   "type": "removed",
+   "title": "(Updated) Improved copy and paste support for @mentions and shared contacts in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1307982",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1330886",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: Get suggested edits from Copilot in your Copilot Pages",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-19",
+   "id": "MC1440968",
+   "type": "removed",
+   "title": "(Updated) Microsoft Entra ID: Optimizations for passkey registration experience",
    "fields": {}
   }
  ]
