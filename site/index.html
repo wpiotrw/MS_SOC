@@ -25910,7 +25910,7 @@ IdentityDirectoryEvents
     var top = el("div", "s5el-ctop");
     if (k) top.appendChild(chip(k === "new" ? "NEW" : "UPDATED", k === "new" ? "new" : "upd"));
     top.appendChild(msChip(s));
-    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story"));
+    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story" + (s.notes && s.notes.by ? " by the " + s.notes.by : "") + (s.notes && s.notes.updated ? ", " + s.notes.updated : "")));
     if (s.notes && s.notes.status === "active") top.appendChild(chip("Active", "bad"));
     c.appendChild(top);
     var t = el("button", "s5el-ct", s.title); t.type = "button"; t.setAttribute("aria-expanded", "false"); c.appendChild(t);
