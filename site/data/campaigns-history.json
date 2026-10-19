@@ -248,10 +248,10 @@
 "name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
 "status":"Active",
 "members":[
-"item:MC1476122",
 "MC1476122",
-"item:MC1507808",
-"MC1507808"
+"item:MC1476122",
+"MC1507808",
+"item:MC1507808"
 ],
 "log":[
 {
@@ -260,7 +260,7 @@
 "what":"Entered the brief (Deadlines)",
 "before":"",
 "after":"Reminder: the Microsoft-managed 'Require risk remediation for high-risk users' policy switches itself On the week of 28 October",
-"title":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
+"title":"Reminder: the Microsoft-managed 'Require risk remediation for high-risk users' policy switches itself On the week of 28 October",
 "link":"https://mc.merill.net/message/MC1507808"
 },
 {
@@ -275,13 +275,13 @@
 ],
 "milestones":{
 "MC1476122|posted":{
-"date":"2026-10-12",
-"label":"12 Oct 2026",
+"date":"2026-09-21",
+"label":"21 Sep 2026",
 "text":"Posted: Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
 },
 "MC1507808|posted":{
-"date":"2026-10-15",
-"label":"15 Oct 2026",
+"date":"2026-10-14",
+"label":"14 Oct 2026",
 "text":"Posted: Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users"
 },
 "MC1476122|microsoft states week of end of evaluation period policy wil#0":{
@@ -2036,15 +2036,6 @@
 {
 "date":"2026-10-07",
 "id":"MC1479516",
-"what":"Microsoft revised the post",
-"before":"2026-09-25",
-"after":"2026-10-06",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
-},
-{
-"date":"2026-10-07",
-"id":"MC1479516",
 "what":"Title",
 "before":"Microsoft Outlook: Link preview retirement",
 "after":"(Updated) Microsoft Outlook: Link preview retirement",
@@ -2057,6 +2048,15 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
+"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
+"link":"https://deltapulse.app/item/MC1479516"
+},
+{
+"date":"2026-10-07",
+"id":"MC1479516",
+"what":"Microsoft revised the post",
+"before":"2026-09-25",
+"after":"2026-10-06",
 "title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
 "link":"https://deltapulse.app/item/MC1479516"
 },
@@ -2129,6 +2129,15 @@
 "item:MC1488839"
 ],
 "log":[
+{
+"date":"2026-10-19",
+"id":"MC1488834",
+"what":"Act-by date",
+"before":"",
+"after":"2026-11-03",
+"title":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
+"link":"https://mc.merill.net/message/MC1488834"
+},
 {
 "date":"2026-10-06",
 "id":"MC1488839",
@@ -2235,12 +2244,12 @@
 "MC1446796",
 "MC1447678",
 "MC1469960",
+"MC1477180",
 "item:exchange-ews-hybrid-coexistence-2026-09-30",
 "MC1485116",
 "MC1486282",
 "MC1486288",
-"item:573701",
-"MC1477180"
+"item:573701"
 ],
 "log":[
 {
@@ -2496,6 +2505,11 @@
 "label":"15 Sep 2026",
 "text":"We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy"
 },
+"MC1477180|posted":{
+"date":"2026-09-22",
+"label":"22 Sep 2026",
+"text":"Posted: Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance"
+},
 "MC1447678|actionBy":{
 "date":"2026-09-30",
 "label":"30 Sep 2026",
@@ -2540,11 +2554,6 @@
 "date":"2026-10-10",
 "label":"10 Oct 2026",
 "text":"Starting October 10, 2026, Exchange Online tenants must configure EWSAllowedAppIDs to allow Exchange Web Services (EWS) access; EWSEnabled=True alone will no lo"
-},
-"MC1477180|posted":{
-"date":"2026-10-12",
-"label":"12 Oct 2026",
-"text":"Posted: Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance"
 },
 "MC1227454|temporary scream tests occur before to help identify depende#0":{
 "date":"2026-10-15",
@@ -2801,7 +2810,7 @@
 "MC1446796",
 "MC1447678",
 "MC1469960",
-"MC1485116"
+"MC1477180"
 ]
 },
 "c-mc1243549":{
@@ -4848,14 +4857,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-17",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-18",
 "text":"August 1, 2026."
 },
@@ -4945,6 +4946,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-18",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-19",
 "text":"August 1, 2026."
 },
 {
@@ -5432,7 +5441,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-18",
+"seen":"2026-10-19",
 "text":"early February 2026."
 },
 {
@@ -5440,7 +5449,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-18",
+"seen":"2026-10-19",
 "text":"February 2027."
 },
 {
@@ -6075,47 +6084,6 @@
 "MC1325414"
 ]
 },
-"c-item-mdc-va-solution-recommendation-deprecation":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-19",
-"name":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026",
-"status":"Recently closed",
-"members":[
-"item:mdc-va-solution-recommendation-deprecation"
-],
-"log":[],
-"milestones":{
-"mdc-va-solution-recommendation-deprecation|deadline":{
-"date":"2026-10-11",
-"label":"11 Oct 2026",
-"text":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026"
-}
-},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation":{
-"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation",
-"source":"Main list source",
-"id":"mdc-va-solution-recommendation-deprecation",
-"date":"2026-09-10",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
-"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
-"source":"Microsoft Learn · What's new · Defender for Cloud",
-"date":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-10-11",
-"type":"Retirement",
-"tech":"Defender",
-"posts":[]
-},
 "c-item-mda-file-policies-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-19",
@@ -6644,9 +6612,19 @@
 "status":"No date",
 "members":[
 "item:mdi-auto-sensor-v3-windows-auditing-default",
-"MC1484018"
+"MC1484018",
+"item:mdi-auto-activation-existing-customers-30-day-banner-2026-10-18"
 ],
 "log":[
+{
+"date":"2026-10-19",
+"id":"mdi-auto-activation-existing-customers-30-day-banner-2026-10-18",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Defender for Identity: existing customers get a 30-day banner, after which sensor v3.x activation and Windows auditing are switched on even where the setting is Off, unless you opt out in the banner",
+"title":"Defender for Identity: existing customers get a 30-day banner, after which sensor v3.x activation and Windows auditing are switched on even where the setting is Off, unless you opt out in the banner",
+"link":"https://learn.microsoft.com/en-us/defender-for-identity/whats-new"
+},
 {
 "date":"2026-10-12",
 "id":"MC1484018",
@@ -6668,8 +6646,8 @@
 ],
 "milestones":{
 "MC1484018|posted":{
-"date":"2026-10-12",
-"label":"12 Oct 2026",
+"date":"2026-09-30",
+"label":"30 Sep 2026",
 "text":"Posted: Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement"
 }
 },
@@ -7853,9 +7831,9 @@
 "MC1440968",
 "MC1450133",
 "item:MC1450133",
+"MC1459133",
 "item:MC1459133",
 "MC1469555",
-"MC1459133",
 "item:entra-external-idp-passkeys-system-browser-ga",
 "item:569432"
 ],
@@ -7866,7 +7844,7 @@
 "what":"Published",
 "before":"2026-09-14",
 "after":"2026-08-21",
-"title":"Microsoft Entra ID: Passkey support for B2B users",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -7917,15 +7895,6 @@
 {
 "date":"2026-10-09",
 "id":"MC1437671",
-"what":"Microsoft revised the post",
-"before":"2026-10-07",
-"after":"2026-10-09",
-"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
-"link":"https://mc.merill.net/message/MC1437671"
-},
-{
-"date":"2026-10-09",
-"id":"MC1437671",
 "what":"Message Center end date",
 "before":"2026-11-30",
 "after":"2026-12-31",
@@ -7938,6 +7907,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the content.",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
+{
+"date":"2026-10-09",
+"id":"MC1437671",
+"what":"Microsoft revised the post",
+"before":"2026-10-07",
+"after":"2026-10-09",
 "title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
@@ -7980,19 +7958,10 @@
 {
 "date":"2026-10-08",
 "id":"MC1459133",
-"what":"Microsoft revised the post",
-"before":"2026-09-14",
-"after":"2026-10-08",
-"title":"Microsoft Entra ID: Passkey support for B2B users",
-"link":"https://mc.merill.net/message/MC1459133"
-},
-{
-"date":"2026-10-08",
-"id":"MC1459133",
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Microsoft Entra ID: Passkey support for B2B users",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -8001,26 +7970,17 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"Microsoft Entra ID: Passkey support for B2B users",
+"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
 "date":"2026-10-08",
-"id":"MC1450133",
-"what":"Status",
-"before":"Plan for change",
-"after":"Updated",
-"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
-"link":"https://mc.merill.net/message/MC1450133"
-},
-{
-"date":"2026-10-08",
-"id":"MC1450133",
+"id":"MC1459133",
 "what":"Microsoft revised the post",
 "before":"2026-09-14",
 "after":"2026-10-08",
-"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
-"link":"https://mc.merill.net/message/MC1450133"
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133"
 },
 {
 "date":"2026-10-08",
@@ -8055,6 +8015,24 @@
 "what":"Microsoft moved the date",
 "before":"mid Nov 2026",
 "after":"late Nov 2026",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Status",
+"before":"Plan for change",
+"after":"Updated",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft revised the post",
+"before":"2026-09-14",
+"after":"2026-10-08",
 "title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
 "link":"https://mc.merill.net/message/MC1450133"
 },
@@ -8286,6 +8264,11 @@
 "label":"7 Aug 2026",
 "text":"Posted: Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
 },
+"MC1459133|posted":{
+"date":"2026-08-21",
+"label":"21 Aug 2026",
+"text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
+},
 "MC1426371|passkeys became the default authentication experience in mic#0":{
 "date":"2026-09-01",
 "label":"1 Sep 2026",
@@ -8295,11 +8278,6 @@
 "date":"2026-09-09",
 "label":"9 Sep 2026",
 "text":"Posted: Microsoft Entra: Optimized passkey registration campaign experience"
-},
-"MC1459133|posted":{
-"date":"2026-09-14",
-"label":"14 Sep 2026",
-"text":"Posted: Microsoft Entra ID: Passkey support for B2B users"
 },
 "MC1423108|mid previously#0":{
 "date":"2026-09-15",
@@ -8466,7 +8444,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-18",
+"seen":"2026-10-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8474,7 +8452,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-18",
+"seen":"2026-10-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11939,6 +11917,47 @@
 "posts":[
 "MC716267"
 ]
+},
+"c-item-mdc-va-solution-recommendation-deprecation":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-19",
+"name":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026",
+"status":"Archive",
+"members":[
+"item:mdc-va-solution-recommendation-deprecation"
+],
+"log":[],
+"milestones":{
+"mdc-va-solution-recommendation-deprecation|deadline":{
+"date":"2026-10-11",
+"label":"11 Oct 2026",
+"text":"Defender for Cloud retires the grouped 'vulnerability assessment solution' recommendation on 11 Oct 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation":{
+"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes#upcoming-deprecation-of-the-machines-should-have-a-vulnerability-assessment-solution-recommendation",
+"source":"Main list source",
+"id":"mdc-va-solution-recommendation-deprecation",
+"date":"2026-09-10",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"Upcoming deprecation of the Machines should have a vulnerability assessment solution recommendation",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Microsoft Learn · What's new · Defender for Cloud",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-10-11",
+"type":"Retirement",
+"tech":"Defender",
+"posts":[]
 }
 }
 }
