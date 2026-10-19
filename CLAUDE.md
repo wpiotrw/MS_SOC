@@ -43874,7 +43874,8 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-date{margin-left:auto}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
 /* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
-.s5el{display:grid;gap:12px}
+.s5el{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.s5el>*,details.s5el-box,.s5el-card,.s5el-det{min-width:0}
 .s5el-fresh{margin:0;font-size:13px;color:var(--muted)}
 .s5el-fresh b{color:var(--text)}
 .s5el-note{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
@@ -45142,7 +45143,9 @@ w ramce Source lists, nasze kroki naprawcze dozwolone (oznaczone), nazwa „Thre
   Sources (zwiniete). Tabele `data-s5dd="own"` / `data-s11="1"`. `window.__socOpenThreat(id)` otwiera historie.
 - Test 19 X lokalnie: 19 zrodel ok, 33 artykuly, 22 historie (1 kuratorowana, 15 opisanych przez Microsoft), 22 CVE KEV;
   Chromium 1440 i iPhone 13: 0 bledow, bez przewijania w bok (po poprawce `minmax(min(340px,100%),1fr)` — przed nia 616 px),
-  przycisk uprawnienia otwiera Graph API.
+  przycisk uprawnienia otwiera Graph API. Na zywo `mobile_check.py` (CPU 4x) zlapal przewijanie w bok o 95 px: element
+  siatki `.s5el` ma `min-width:auto`, wiec szeroka tabela rozpychala cala kolumne — poprawka `grid-template-columns:
+  minmax(0,1fr)` i `min-width:0` na ramkach i kartach; po niej OK.
 
 ## 6. Kontrakt w stronie
 
