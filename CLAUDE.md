@@ -24979,7 +24979,8 @@ def read_mc_json():
              "updated": upd or None, "published": (r.get("StartDateTime") or "")[:10] or None,
              "category": DPCAT.get(r.get("Category")) or r.get("Category") or None,
              "isMajor": True if r.get("IsMajorChange") else None, "tags": r.get("Tags") or None,
-             "mcSummary": re.sub(r"\s+", " ", r.get("Summary") or "").strip()[:400] or None,
+             # 5eh-b (19 X 2026): NO mcSummary in the state - 335 summaries were +118 kB, the 18 X artifact had 57 kB
+             # left under the 16 MB limit, and the 19 X morning run ran out of context trimming the page by hand
              "action": (f.get("ActionRequiredByDateTime") or "")[:10] or None,
              "severity": f.get("Severity") or None,
              "link": "https://mc.merill.net/message/" + r["Id"]}
@@ -25105,7 +25106,7 @@ def main(out_path, prev_path=None):
                  "updated": e.get("revisedOn") or e.get("published"), "tech": e.get("tech") or [],
                  "origin": "prev", "firstTracked": e.get("firstTracked") or day}
             for k in ("published", "category", "severity", "isMajor", "months", "tags", "dpLink",
-                      "feedLink", "feedSummary", "dpSummary", "mcSummary", "action", "late", "backfill"):
+                      "feedLink", "feedSummary", "dpSummary", "action", "late", "backfill"):
                 if e.get(k) not in (None, "", []):
                     x[k] = e[k]                          # what an earlier run read is not lost
             ent[e["id"]] = x
@@ -44671,6 +44672,15 @@ czyta oba pliki w `ELSS`, a naglowek „Last 3 days" wymienia wszystkie zrodla.
 Test 18 X: oba zrodla = nasz tenant (0 roznic, 0 zdarzen; linia bazowa). Symulacja (nasza kopia bez
 AccessReview.Read.All i bez jednej akcji Conditional Access Administrator): Rolelens -> zdarzenie there-only dla roli,
 Merill -> perms-there-only AccessReview.Read.All. Pierwszy odczyt uprawnien jest cichy (jak dla tenanta dev).
+
+### §5eh-b (19 X 2026) — `mcSummary` USUNIETE ZE STANU: artefakt przekroczylby 16 MB
+Poranny scheduled task 19 X skonczyl sie „Length limit reached" po 11 poleceniach, artefakt 19 X nie powstal, routine
+nie miala czego lustrzyc. Pomiar: artefakty 15/17/18 X maja 16 748 268 / 16 674 140 / 16 720 374 B — limit Artifact to
+16 777 216 B, zapas 18 X = **56 842 B**. `mcSummary` (335 streszczen z JSON Merilla) dokladal **~118 kB** do `mc.entries`,
+wiec 19 X strona nie miescila sie w limicie i przebieg ciął ja recznie (pozycja 122), az zabraklo kontekstu.
+Poprawka: `read_mc_json()` nie zapisuje `mcSummary`; pola kategoria / data publikacji / tagi / action / severity
+zostaja (kilka kB). Wniosek trwaly: KAZDE nowe pole w `soc-brief-state` liczy sie w budzecie 16 MB — przed dodaniem
+pola zmierzyc przyrost bajtow na stanie z dnia i zapas ostatniego artefaktu.
 
 ## 6. Kontrakt w stronie
 
