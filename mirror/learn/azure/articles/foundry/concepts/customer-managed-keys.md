@@ -14,16 +14,16 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: s-polly
+author: nicholasdbrady
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: scottpolly
+ms.author: nbrady
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how customer-managed keys (CMKs) encrypt your data in Microsoft Foundry, which capabilities and compute layers they cover, and the effect of key revocation.
-ms.reviewer: deeikele
+ms.reviewer: jeffhollan
 ms.date: 2026-08-24T00:00:00.0000000Z
 ms.topic: concept-article
 ms.custom:

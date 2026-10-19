@@ -14,16 +14,16 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: chillatom
+author: sanjeev3
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: coreyhill
+ms.author: sajagtap
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Use Python examples for interactive-training sessions, SFT and RL data, optimizer updates, sampling, checkpoints, and asynchronous operations.
-ms.reviewer: williamliang
+ms.reviewer: chrhoder
 ms.subservice: foundry-model-inference
 ms.topic: reference
 ms.date: 2026-10-06T00:00:00.0000000Z
@@ -44,12 +44,12 @@ item_type: Content
 source_path: articles/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/86a4b315-a9f1-4577-b985-6fb0e0e67420
-- https://authoring-docs-microsoft.poolparty.biz/devrel/540ac133-a371-4dbb-8f94-28d6cc77a70b
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/96ac410d-d052-4707-8007-df31dd0fe041
-- https://authoring-docs-microsoft.poolparty.biz/devrel/60bfc045-f127-4841-9d00-ea35495a5800
 platformId: 558b4833-bbb5-eeaf-64d1-1006dac099ce
 ---
 

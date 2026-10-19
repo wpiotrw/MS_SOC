@@ -45,11 +45,11 @@ source_path: microsoft-365/admin/manage/apps/security-compliance.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
 platformId: 73b58d05-d351-74f6-cc14-4d115972b17e
 ---
 
@@ -143,22 +143,3 @@ Advanced connector policies control which connectors and connector actions apps 
 Policies configured for the environment or environment group apply automatically to apps built with Copilot Managed Runtime deployed there.
 
 For details on configuring advanced connector policies, see [Advanced connector policies](/en-us/power-platform/admin/advanced-connector-policies).
-
-## Auditing
-
-Microsoft Purview audits app lifecycle events in Copilot Managed Runtime. Administrators can search, filter, and build alerts for events in the `PowerPlatformAdminActivity` table.
-
-### Event types
-
-App events in Copilot Managed Runtime fall into two categories: structured events with named fields you can filter directly, and generic API call events where the operation is identified in the Properties JSON.
-
-| Lifecycle event | Event type | How to identify |
-| --- | --- | --- |
-| App launch (play) | `LaunchPowerApp` | Structured fields: app name, user, IP address, environment. |
-| App deletion | `DeletePowerApp` | Structured fields: app name, user, environment. User agent shows `node` for CLI deletions. |
-| App creation | `ApiEndpointCallEvent` + `CreateRoleAssignment` | Properties JSON `url.path`: `/appframework/apps`, method: POST. |
-| Build | `ApiEndpointCallEvent` | Properties JSON `url.path`: `/appframework/apps/{id}/build`, method: POST |
-| Deploy | `ApiEndpointCallEvent` | Properties JSON `url.path`: `/appframework/apps/{id}/deploy`, method: POST |
-| Environment added to group | `EnvironmentAddedToEnvironmentGroup` | Structured fields: environment ID, group ID. |
-| Governance policy changes | `UpdateRuleBasedPolicyOperation` / `UpdateRuleSetOperation` | Old and new rule state in event properties. |
-| Git push / code change | Not audited | No event generated. |

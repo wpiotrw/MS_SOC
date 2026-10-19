@@ -15,14 +15,15 @@ recommendations: true
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: vpattnaik
-author: vpattnai
+ms.author: demanne
+author: DeeptimanneContent
 manager: dansimp
 ms.date: 2026-08-07T00:00:00.0000000Z
 audience: Admin
 ms.reviewer: dansimp
 ms.topic: article
 ms.service: microsoft-365-enterprise
+ms.subservice: enhanced-engagements
 ms.localizationpriority: medium
 ms.collection:
 - m365admin
@@ -49,9 +50,11 @@ source_path: microsoft-365/enterprise/office-engineering-direct.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 38763c9e-6e50-841e-78f4-d6bb4d11c771
 ---
 

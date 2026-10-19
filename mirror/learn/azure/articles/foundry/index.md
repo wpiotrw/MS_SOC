@@ -18,8 +18,8 @@ ms.suite: office
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 description: The AI app and agent factory - build, optimize, and govern AI apps and agents at scale.
-author: sdgilley
-ms.author: sgilley
+author: nicholasdbrady
+ms.author: nbrady
 manager: mcleans
 ms.date: 2026-06-16T00:00:00.0000000Z
 ms.service: microsoft-foundry
@@ -27,6 +27,7 @@ ms.topic: hub-page
 ms.custom:
 - build-2025
 - build-aifnd
+ms.reviewer: jeffhollan
 locale: en-us
 document_id: 9a80e3c1-57a2-384a-22aa-6ae279d1180d
 document_version_independent_id: a39fe9a2-40d8-c991-a266-454ec4d9fdfa

@@ -15,14 +15,15 @@ recommendations: true
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: vpattnaik
-author: vpattnai
+ms.author: demanne
+author: DeeptimanneContent
 manager: dansimp
 ms.date: 2025-11-19T00:00:00.0000000Z
 audience: Admin
 ms.reviewer: dansimp
 ms.topic: article
 ms.service: microsoft-365-enterprise
+ms.subservice: enhanced-engagements
 ms.localizationpriority: medium
 ms.collection:
 - m365admin

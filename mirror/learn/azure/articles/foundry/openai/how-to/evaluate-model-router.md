@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: PatrickFarley
+author: sanjeev3
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: pafarley
+ms.author: sajagtap
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
@@ -27,6 +27,7 @@ ms.date: 2026-08-20T00:00:00.0000000Z
 ms.subservice: foundry-model-inference
 ms.topic: how-to
 ai-usage: ai-assisted
+ms.reviewer: chrhoder
 locale: en-us
 document_id: eecb2fb4-e5c0-2d68-2db8-72dd43f8b2bb
 document_version_independent_id: 829a8165-9594-9773-18e9-5177d72f9667

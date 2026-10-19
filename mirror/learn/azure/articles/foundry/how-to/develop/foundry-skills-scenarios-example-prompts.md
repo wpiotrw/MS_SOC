@@ -14,17 +14,17 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: bobtabor-msft
+author: nicholasdbrady
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: rotabor
+ms.author: nbrady
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Use Microsoft Foundry Skill example prompts to delegate common Foundry resource setup, hosted agent, Prompt Agent, evaluation, tracing, optimization, CI/CD, and cleanup workflows to a coding agent.
 keywords: microsoft foundry skill, azure skills plugin, coding agents, copilot, claude code, foundry mcp
-ms.reviewer: junjieli
+ms.reviewer: jeffhollan
 ms.date: 2026-08-06T00:00:00.0000000Z
 ms.topic: how-to
 ms.custom:
@@ -45,11 +45,11 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/how-to/develop/foundry-skills-scenarios-example-prompts.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 0dec23d1-52c0-ad52-398e-a05b3dfc970a
 ---
 

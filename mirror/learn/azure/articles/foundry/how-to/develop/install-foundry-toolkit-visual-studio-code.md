@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: bobtabor-msft
+author: qubitron
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: rotabor
+ms.author: dantaylo
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
@@ -29,7 +29,7 @@ content_well_notification:
 ai-usage: ai-assisted
 ms.topic: how-to
 ms.date: 2026-08-20T00:00:00.0000000Z
-ms.reviewer: erichen
+ms.reviewer: glennc
 ms.custom:
 - doc-kit-assisted
 locale: en-us

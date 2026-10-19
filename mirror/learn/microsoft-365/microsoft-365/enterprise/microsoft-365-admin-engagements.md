@@ -15,14 +15,15 @@ recommendations: true
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: vpattnaik
-author: vpattnai
+ms.author: demanne
+author: DeeptimanneContent
 manager: dansimp
 ms.date: 2026-08-27T00:00:00.0000000Z
 audience: Admin
 ms.reviewer: dansimp
 ms.topic: article
 ms.service: microsoft-365-enterprise
+ms.subservice: enhanced-engagements
 ms.localizationpriority: medium
 ms.collection:
 - m365admin
@@ -50,11 +51,11 @@ source_path: microsoft-365/enterprise/microsoft-365-admin-engagements.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: f016f200-ef1e-082f-6d2b-e4f432ca9c6b
 ---
 

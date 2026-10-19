@@ -28,8 +28,8 @@ recommendations: true
 breadcrumb_path: ../breadcrumb/toc.json
 ms.update-cycle: 365-days
 description: Learn about the Azure Data Studio retirement, and the recommended replacement options.
-author: rwestMSFT
-ms.author: randolphwest
+author: cwebb-msft
+ms.author: chweb
 ms.reviewer: tsiddique, roblescarlos
 ms.date: 2026-06-09T00:00:00.0000000Z
 ms.service: sql

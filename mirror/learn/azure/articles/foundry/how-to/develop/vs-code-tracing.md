@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: MuyangAmigo
+author: qubitron
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: junjieli
+ms.author: dantaylo
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
@@ -27,6 +27,7 @@ ms.subservice: foundry-sdk
 ms.topic: how-to
 ms.date: 2026-09-17T00:00:00.0000000Z
 ai-usage: ai-assisted
+ms.reviewer: glennc
 locale: en-us
 document_id: f60d956a-6396-3806-48a7-16fbd57cfddf
 document_version_independent_id: 94f3a63c-1687-3ff8-5f0f-f2b32bef6ef5
@@ -43,11 +44,11 @@ source_path: articles/foundry/how-to/develop/vs-code-tracing.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/911a44a7-2f6c-477c-810f-dc8b7d425cce
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://authoring-docs-microsoft.poolparty.biz/devrel/14f2b9d5-6f06-45a8-ac5f-313eaa351153
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 5512866d-c010-d476-6511-d2998eb3e1fe
 ---
 

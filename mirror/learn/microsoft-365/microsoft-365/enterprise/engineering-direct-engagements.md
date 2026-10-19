@@ -15,14 +15,15 @@ recommendations: true
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: vpattnaik
-author: vpattnai
+ms.author: demanne
+author: DeeptimanneContent
 manager: dansimp
 ms.date: 2025-11-19T00:00:00.0000000Z
 audience: Admin
 ms.reviewer: dansimp
 ms.topic: article
 ms.service: microsoft-365-enterprise
+ms.subservice: enhanced-engagements
 ms.localizationpriority: medium
 ms.collection:
 - m365admin
@@ -50,11 +51,11 @@ source_path: microsoft-365/enterprise/engineering-direct-engagements.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: b2b0aa98-e870-d6f7-5105-6731f401155e
 ---
 
