@@ -1,0 +1,68 @@
+{
+  "about": "Curated notes for the Threat Research tab (CLAUDE.md 5el). One entry per story: what happened, when, why, what to do. tools/threats.py joins every article whose title or summary carries one of `match` to the story. `remediation[].from` is `source` (quoted from a named source) or `ours` (written by this portal, inferred - always labelled on the page). The morning routine adds and updates entries; a person may edit them too.",
+  "stories": [
+    {
+      "id": "connectwise-cloud-backup-2026-10",
+      "title": "ConnectWise Cloud Backup (SkyKick): a vendor's multi-tenant app credential used to enter Microsoft 365 tenants",
+      "match": ["ConnectWise", "SkyKick"],
+      "areas": ["Apps & OAuth", "Roles & privilege", "M365 workloads"],
+      "status": "active",
+      "updated": "2026-10-19",
+      "summary": "An attacker used the shared credential of ConnectWise Cloud Backup's multi-tenant Entra application (formerly SkyKick) to sign in as the app in customer tenants. Because the sign-in was an app (client credentials) sign-in from a script, user MFA and user Conditional Access did not apply. In about 50 tenants the vendor's 'Cloud Management' service principals assigned themselves directory roles, mostly Exchange Administrator, and in at least one tenant Global Administrator, then added client secrets to other applications for persistence. ConnectWise says it found the activity on 14 October, disabled seven app identities on 17 October and invalidated the shared credentials on 18 October; its root-cause analysis was still open on 19 October.",
+      "timeline": [
+        {"date": "2026-10-13", "text": "Password spray from 144.172.64[.]128 against four law-firm tenants (13-14 Oct).", "src": "Huntress"},
+        {"date": "2026-10-14", "text": "ConnectWise detects the activity (its own statement).", "src": "The Hacker News"},
+        {"date": "2026-10-15", "text": "01:58 UTC: Cloud Management service principals start assigning themselves directory roles (mostly Exchange Administrator) in about 50 tenants; 06:13-08:34 UTC the backup app obtains Graph tokens tenant by tenant; a second, manual-looking wave follows.", "src": "Huntress"},
+        {"date": "2026-10-16", "text": "Huntress publishes: 162 affected tenants (173 later). Sign-in attempts in about 1,000 tenants, about 300 successful (The Hacker News).", "src": "Huntress"},
+        {"date": "2026-10-17", "text": "ConnectWise disables 7 application identities at 07:00 UTC and revokes their certificates; SpecterOps publishes a tenant check; Microsoft Threat Intelligence posts on X about an active supply-chain attack on a trusted OAuth app.", "src": "The Hacker News"},
+        {"date": "2026-10-18", "text": "ConnectWise: the shared Cloud Backup credentials are no longer valid; no sign backup data was compromised. Cloud Backup suspended.", "src": "BleepingComputer"}
+      ],
+      "rootCause": "One credential (client assertion / API secret) shared by the vendor's multi-tenant application across every customer tenant that had consented to it. Whoever held it could act as the app in all of them, with the application permissions the customers had granted (Directory.ReadWrite.All is named by Microsoft as likely abused) and the directory roles it could assign to itself.",
+      "attacker": [
+        "Signed in as the vendor's service principals with client credentials (scripted: Python-urllib/3.12, python-requests, curl/7.88.1).",
+        "Assigned directory roles to the vendor's service principals (Exchange Administrator; Global Administrator in one tenant).",
+        "Added client secrets valid until 2028 to other applications in the tenant (an MSP management app, a security vendor's app) for persistence.",
+        "Graph API reconnaissance; with Exchange Administrator, access to mailbox configuration (forwarding, inbox rules)."
+      ],
+      "iocs": [
+        "IP 144.172.64[.]128 (password spray and app sign-ins)",
+        "User agents Python-urllib/3.12, python-requests/2.31 and 2.34.2, curl/7.88.1 on service-principal sign-ins",
+        "Service principals named ConnectWise Cloud Backup, Cloud Management (Exchange / Teams / SharePoint), SkyKick Cloud Manager in older tenants",
+        "Audit events 'Add member to role', 'Update application', 'Add service principal credentials' initiated by an application after 13 Oct 2026"
+      ],
+      "remediation": [
+        {"text": "Disable (do not delete) every ConnectWise / SkyKick enterprise application in the tenant: Entra admin center > Enterprise applications > the app > Properties > Enabled for users to sign in = No. Deleting removes the evidence.", "from": "source", "src": "Huntress"},
+        {"text": "Remove any directory role the vendor's service principals hold (Roles and administrators > filter by the app) and check PIM for eligible assignments.", "from": "source", "src": "Huntress"},
+        {"text": "Review every credential added to any application or service principal since 13 Oct 2026 (Audit logs: 'Add service principal credentials', 'Update application - Certificates and secrets management') and remove the ones nobody in your team added.", "from": "source", "src": "Huntress"},
+        {"text": "Review service-principal sign-ins of the vendor's apps (Sign-in logs > Service principal sign-ins) for the IP and user agents above.", "from": "source", "src": "Huntress"},
+        {"text": "Check mailbox forwarding, inbox rules, federation trusts (domain federation settings) and new consent grants.", "from": "source", "src": "The Hacker News"},
+        {"text": "Existing tokens stay valid for up to 90 minutes after an app is disabled - repeat the checks after that window.", "from": "source", "src": "The Hacker News"},
+        {"text": "Turn on Microsoft Graph activity logs (diagnostic setting MicrosoftGraphActivityLogs) so the next app-only access is visible request by request.", "from": "source", "src": "The Hacker News"},
+        {"text": "Inventory every multi-tenant third-party app with application permissions that can write the directory (Directory.ReadWrite.All, RoleManagement.ReadWrite.Directory, AppRoleAssignment.ReadWrite.All, Application.ReadWrite.All) - each one is the same single point of failure; use the Graph API tab of this portal to see what each permission allows.", "from": "ours"},
+        {"text": "Apply an app management policy that blocks new password credentials (client secrets) on applications, and Conditional Access for workload identities (location / risk) on the vendor apps you keep.", "from": "ours"},
+        {"text": "Alert on a service principal adding itself or another service principal to a directory role, and on a credential added to an application by an application (KQL below).", "from": "ours"}
+      ],
+      "kql": [
+        {"title": "Role assignments made by applications (Sentinel / Defender: AuditLogs)", "query": "AuditLogs\n| where TimeGenerated > datetime(2026-10-13)\n| where OperationName == \"Add member to role\"\n| where isnotempty(tostring(InitiatedBy.app.servicePrincipalId))\n| extend Actor = tostring(InitiatedBy.app.displayName),\n         Role = tostring(TargetResources[0].modifiedProperties[1].newValue),\n         Target = tostring(TargetResources[0].displayName)\n| project TimeGenerated, Actor, Target, Role, CorrelationId"},
+        {"title": "Credentials added to applications or service principals", "query": "AuditLogs\n| where TimeGenerated > datetime(2026-10-13)\n| where OperationName has_any (\"Add service principal credentials\", \"Certificates and secrets management\")\n| extend Actor = coalesce(tostring(InitiatedBy.user.userPrincipalName), tostring(InitiatedBy.app.displayName)),\n         App = tostring(TargetResources[0].displayName)\n| project TimeGenerated, OperationName, Actor, App, Result"},
+        {"title": "Service-principal sign-ins from the reported IP or scripted user agents", "query": "AADServicePrincipalSignInLogs\n| where TimeGenerated > datetime(2026-10-13)\n| where IPAddress == \"144.172.64.128\"\n    or ServicePrincipalName has_any (\"ConnectWise\", \"SkyKick\", \"Cloud Management\")\n| summarize SignIns = count(), IPs = make_set(IPAddress, 20), First = min(TimeGenerated), Last = max(TimeGenerated)\n    by ServicePrincipalName, AppId, ResultType"}
+      ],
+      "portal": [
+        {"label": "Directory.ReadWrite.All", "kind": "permission"},
+        {"label": "RoleManagement.ReadWrite.Directory", "kind": "permission"},
+        {"label": "Application.ReadWrite.All", "kind": "permission"},
+        {"label": "Exchange Administrator", "kind": "role"},
+        {"label": "Global Administrator", "kind": "role"}
+      ],
+      "microsoft": [
+        {"what": "Microsoft Threat Intelligence on X", "title": "Microsoft is tracking an active supply chain attack involving the trusted OAuth app of ConnectWise Cloud Backup", "link": "https://x.com/MsftSecIntel/status/2111358888125878426", "date": "2026-10-17"}
+      ],
+      "links": [
+        {"text": "Huntress - ConnectWise (SkyKick) vendor credentials abused", "url": "https://www.huntress.com/blog/vendor-credential-enables-unauthorized-access", "date": "2026-10-16"},
+        {"text": "SpecterOps - ConnectWise SkyKick breach: tenant check", "url": "https://specterops.io/blog/2026/10/17/connectwise-skykick-breach-microsoft-365/", "date": "2026-10-17"},
+        {"text": "BleepingComputer - Hackers breach Microsoft 365 tenants via ConnectWise supply-chain attack", "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/", "date": "2026-10-17"},
+        {"text": "The Hacker News - ConnectWise suspends Cloud Backup", "url": "https://thehackernews.com/2026/10/connectwise-suspends-cloud-backup-after.html", "date": "2026-10-18"}
+      ]
+    }
+  ]
+}

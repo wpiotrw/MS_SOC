@@ -22640,7 +22640,10 @@ def main():
     jsons=[]
     for lab,f,what in [("JSON MS Learn","microsoftlearn_sources.json","documentation areas"),
                        ("JSON MS Blogs","microsoftblogs_sources.json","product blogs"),
-                       ("JSON Community sources","community_sources.json","community sources")]:
+                       ("JSON Community sources","community_sources.json","community sources"),
+                       # §5el (19 X 2026): the Threat Research list - owner: "a separate JSON with these sources, shown
+                       # in the Source lists tiles with its name and update date like the others"
+                       ("JSON Threat Research","threat_sources.json","threat research feeds")]:
         pth=os.path.join(REPO,f)
         n=len(json.load(open(pth,encoding="utf-8"))) if os.path.exists(pth) else 0
         hist=[x for x in git(REPO,"log","--since",since,"--format=%cI","--",f,timeout=90).split("\n") if x.strip()]
@@ -23797,7 +23800,8 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
     var box=el("div","jsonbox");
     box.appendChild(el("h3",null,"Source lists — when each was last updated"));
     var n=el("p","jb-note");
-    n.textContent="Three lists decide what this brief reads. Each date comes from the repository "+
+    var NW=["Zero","One","Two","Three","Four","Five","Six"][D.jsons.length]||String(D.jsons.length);   /* §5el: four since 19 X */
+    n.textContent=NW+" lists decide what this brief reads. Each date comes from the repository "+
       "history, never from a hand-kept field, so a list edited without touching that field cannot "+
       "claim to be fresher than it is.";
     box.appendChild(n);
@@ -30944,7 +30948,7 @@ odtad CZTERNASCIE (4-17).**
     ["Today", ["overview", "today", "deadlines", "mc"]],
     ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
-    ["Act", ["hunting", "products", "baselines"]]
+    ["Act", ["hunting", "threats", "products", "baselines"]]
   ];
   function tabGroups() {
     var navs = document.querySelectorAll(".navrow nav.anchors");
@@ -33301,7 +33305,7 @@ odtad CZTERNASCIE (4-17).**
   var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
                 ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
                 ["Sources", ["learn", "blogs", "community", "sources"]],
-                ["Act", ["hunting", "products", "baselines"]]];
+                ["Act", ["hunting", "threats", "products", "baselines"]]];
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
   function tabs() { return [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")); }
   function idOf(b) { return String(b.getAttribute("aria-controls") || "").replace(/^tab-/, ""); }
@@ -35265,7 +35269,7 @@ odtad CZTERNASCIE (4-17).**
     ["Today", ["overview", "today", "deadlines", "mc"]],
     ["Changes", ["new", "graph", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
-    ["Act", ["hunting", "products", "baselines"]]
+    ["Act", ["hunting", "threats", "products", "baselines"]]
   ];
   function buttons() {
     var all = [].slice.call(document.querySelectorAll("nav.anchors .tab[aria-controls]")), out = [], seen = {};
@@ -40768,6 +40772,346 @@ odtad CZTERNASCIE (4-17).**
 })();
 
 
+/* §5el (19 X 2026, owner: "next new feature: Threat Research - collect, summarise and analyse the most important recent
+   security incidents, attacks and vulnerabilities related to what our portal measures, Entra above all (the ConnectWise
+   cloud backup multi-tenant app, for example); show which are new, detection dates and remediation steps - found or
+   written by us, so we can react at once; check whether Microsoft already describes it; tables, reports, trend lines,
+   sections in rounded frames like the other tabs, so we never lose track of what was published when and which incidents
+   are current"). Tab "Threat Research", group Act. Data: /data/threats.json (tools/threats.py in GitHub Actions every
+   3 h: threat_sources.json feeds, CISA KEV, Microsoft feeds and Message Center as the "did Microsoft describe it" check,
+   curated notes from threat_notes.json). Its own file, never the brief state (16 MB budget, §5eh-b). The panel is
+   inserted NOW, synchronously, like Baselines, so the tab bar and the rail see it; the content is built when the tab
+   is first opened. */
+(function () {
+  "use strict";
+  if (window.__s5el) return; window.__s5el = 1;
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function sv(t, a) { var e = document.createElementNS(SVGNS, t); for (var k in a) if (a.hasOwnProperty(k)) e.setAttribute(k, a[k]); return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] : (d || ""); }
+  function day(x) { return String(x || "").slice(0, 10); }
+  function addDays(d, n) { var t = new Date(d + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+  function jb(id) { var s = document.getElementById(id); if (!s) return null; try { return JSON.parse(s.textContent); } catch (e) { return null; } }
+  function phone() { try { return window.matchMedia("(max-width: 760px)").matches; } catch (e) { return false; } }
+
+  /* ---- the panel, synchronously ---- */
+  var wrap = document.querySelector(".wrap");
+  if (!wrap || document.getElementById("tab-threats")) return;
+  var panel = el("div", "tabpanel"); panel.id = "tab-threats"; panel.setAttribute("data-tab", "Threat Research"); panel.hidden = true;
+  var sec = el("section"); sec.id = "threats"; sec.setAttribute("data-nav", "Threat Research");
+  var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Threat Research"));
+  sh.appendChild(el("p", "sec-title", "Incidents, attack campaigns and exploited vulnerabilities touching Entra ID and Microsoft 365 — what is new, when it was reported, whether Microsoft has described it, and what to do now"));
+  sec.appendChild(sh);
+  var body = el("div", "sec-body s5el"); body.appendChild(el("p", "s5el-note", "Loading Threat Research…")); sec.appendChild(body);
+  panel.appendChild(sec);
+  var after = document.getElementById("tab-hunting") || document.getElementById("tab-products");
+  if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
+  else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
+
+  var D = null, asked = false, built = false, ART = {}, DAY = "", PREV = "", PREV2 = "";
+  function goTab() { var b = document.getElementById("tabbtn-tab-threats") || document.querySelector('nav.anchors .tab[aria-controls="tab-threats"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
+  var waiters = [];
+  function load(cb) {
+    if (D) { cb(); return; }
+    waiters.push(cb);
+    if (asked) return; asked = true;
+    fetch("data/threats.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) { D = j; (D.articles || []).forEach(function (a) { ART[a.id] = a; }); stamp(); var w = waiters; waiters = []; w.forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[5el]", e); } }); })
+      .catch(function (e) { body.textContent = ""; body.appendChild(el("p", "s5el-note", "Threat Research data could not be read (" + e.message + "). It is written every 3 hours by the workflow “First-party apps tenant snapshot”.")); });
+  }
+  function windows() {
+    var ST = jb("soc-brief-state") || {}, cw = ST.comparedWith || {};
+    DAY = ST.briefDate || day(D.generated); PREV = (typeof cw === "string" ? cw : cw.date) || addDays(DAY, -1);
+    PREV2 = addDays(PREV, -1);
+  }
+  /* new = first seen by the portal in the window; updated = a story known before that gained an article in it */
+  function storyKind(s, lo, hi) {
+    var fs = day(s.firstSeen);
+    var inW = function (d) { return d >= lo && (hi ? d < hi : true); };
+    if (inW(fs)) return "new";
+    var upd = s.articles.some(function (id) { var a = ART[id]; return a && inW(day(a.firstSeen)) && day(a.firstSeen) > fs; });
+    return upd ? "upd" : "";
+  }
+  function stamp() {
+    var nb = document.querySelector('nav.anchors .tab[aria-controls="tab-threats"]'); if (!nb) return;
+    var nc = nb.querySelector(".navcount"); if (!nc) { nc = el("span", "navcount"); nb.appendChild(nc); }
+    var since = addDays(day(D.generated), -30);
+    nc.textContent = String((D.stories || []).filter(function (s) { return day(s.lastUpdate) >= since; }).length);
+    nb.setAttribute("data-count-of", "stories updated in the last 30 days");
+  }
+
+  function box(title, sub, cls) {
+    var b = el("details", "s5el-box" + (cls ? " " + cls : "")); b.open = true;
+    var sm = el("summary"); sm.appendChild(el("span", "s5el-bt", title)); if (sub) sm.appendChild(el("span", "s5el-bs", sub));
+    b.appendChild(sm); return b;
+  }
+  function chip(t, cls, title) { var c = el("span", "s5el-chip" + (cls ? " " + cls : ""), t); if (title) c.title = title; return c; }
+  function msChip(s) {
+    return s.microsoft.status === "described" ? chip("Described by Microsoft", "ok", "Found in: " + s.microsoft.items.map(function (x) { return x.what; }).join(", "))
+      : chip("Not described by Microsoft yet", "warn", "Checked: " + s.microsoft.checked);
+  }
+
+  /* ---- 1. the day in tiles (the §5ei shape) ---- */
+  function tilesBlock(lab, lo, hi, open) {
+    var L = (D.stories || []).map(function (s) { return { s: s, k: storyKind(s, lo, hi) }; }).filter(function (x) { return x.k; });
+    var nw = L.filter(function (x) { return x.k === "new"; }), up = L.filter(function (x) { return x.k === "upd"; });
+    var arts = (D.articles || []).filter(function (a) { var d = day(a.firstSeen); return d >= lo && (hi ? d < hi : true); });
+    var b = el("details", "s5ei-day"); b.open = !!open;
+    var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab));
+    sm.appendChild(el("span", "s5ei-n s5ei-nn", nw.length + " new stor" + (nw.length === 1 ? "y" : "ies")));
+    sm.appendChild(el("span", "s5ei-n s5ei-nc", up.length + " updated"));
+    sm.appendChild(el("span", "s5ei-s", arts.length + " article" + (arts.length === 1 ? "" : "s") + " first seen " + (hi ? dm(lo) + "–" + dm(addDays(hi, -1)) : "since " + dm(lo))));
+    b.appendChild(sm);
+    function fill() {
+      if (b.__f) return; b.__f = true;
+      if (!L.length) { b.appendChild(el("p", "s5ei-none", "No incident story was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event.")); return; }
+      var ul = el("ul", "s5ei-grid");
+      nw.concat(up).forEach(function (x) {
+        var s = x.s, c = el("li", "s5ei-tile " + (x.k === "new" ? "s5ei-new" : "s5ei-chg")), top = el("div", "s5ei-top");
+        top.appendChild(el("span", "s5ei-kind", x.k === "new" ? "NEW" : "UPDATED"));
+        top.appendChild(el("span", "s5ei-flag", s.microsoft.status === "described" ? "Microsoft: described" : "Microsoft: not yet"));
+        top.appendChild(el("span", "s5ei-flag s5ei-date", dm(s.firstReported)));
+        c.appendChild(top);
+        var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
+        c.appendChild(el("p", "s5ei-meta", [s.areas.slice(0, 3).join(" · "), s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")].join(" · ")));
+        ul.appendChild(c);
+      });
+      b.appendChild(ul);
+    }
+    if (b.open) fill(); b.addEventListener("toggle", function () { if (b.open) fill(); });
+    return b;
+  }
+
+  /* ---- 2. trend lines: articles per area per day, stories started ---- */
+  var AREAC = { "Apps & OAuth": "var(--bad)", "Identity attacks": "var(--warn)", "Roles & privilege": "var(--accent)",
+    "Hybrid & federation": "var(--info)", "M365 workloads": "var(--ok)", "Vulnerabilities": "var(--muted)" };
+  function trend() {
+    var T = D.trend, n = T.days.length, W = 760, H = 210, L = 34, R = 10, Tp = 12, B = 30;
+    var max = 1; Object.keys(T.areas).forEach(function (k) { T.areas[k].forEach(function (v) { if (v > max) max = v; }); });
+    T.stories.forEach(function (v) { if (v > max) max = v; });
+    var x = function (i) { return L + (W - L - R) * i / Math.max(1, n - 1); }, y = function (v) { return Tp + (H - Tp - B) * (1 - v / max); };
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, "class": "s5el-chart", role: "img", "aria-label": "Articles per area per day and incident stories started, last " + n + " days" });
+    for (var g = 0; g <= max; g += Math.max(1, Math.ceil(max / 4))) {
+      svg.appendChild(sv("line", { x1: L, x2: W - R, y1: y(g), y2: y(g), "class": "s5el-grid" }));
+      var tl = sv("text", { x: L - 6, y: y(g) + 4, "text-anchor": "end", "class": "s5el-ax" }); tl.textContent = g; svg.appendChild(tl);
+    }
+    T.days.forEach(function (d, i) { if (i % 5 === 0 || i === n - 1) { var t = sv("text", { x: x(i), y: H - 10, "text-anchor": "middle", "class": "s5el-ax" }); t.textContent = dm(d); svg.appendChild(t); } });
+    T.stories.forEach(function (v, i) { if (!v) return; var bw = (W - L - R) / n * 0.6; svg.appendChild(sv("rect", { x: x(i) - bw / 2, y: y(v), width: bw, height: y(0) - y(v), "class": "s5el-bar" })); });
+    Object.keys(T.areas).forEach(function (k) {
+      var pts = T.areas[k].map(function (v, i) { return x(i).toFixed(1) + "," + y(v).toFixed(1); }).join(" ");
+      if (!T.areas[k].some(function (v) { return v; })) return;
+      svg.appendChild(sv("polyline", { points: pts, fill: "none", stroke: AREAC[k] || "var(--muted)", "stroke-width": 2, "stroke-linejoin": "round" }));
+    });
+    var wrapC = el("div", "s5el-chartw"); wrapC.appendChild(svg);
+    var lg = el("div", "s5el-legend");
+    Object.keys(T.areas).forEach(function (k) {
+      var tot = T.areas[k].reduce(function (a, b) { return a + b; }, 0);
+      var i = el("span", "s5el-li"); var sw = el("i"); sw.style.background = AREAC[k]; i.appendChild(sw); i.appendChild(document.createTextNode(k + " · " + tot)); lg.appendChild(i);
+    });
+    var st = el("span", "s5el-li"); var sb = el("i", "bar"); st.appendChild(sb);
+    st.appendChild(document.createTextNode("incident stories started · " + T.stories.reduce(function (a, b) { return a + b; }, 0))); lg.appendChild(st);
+    wrapC.appendChild(lg);
+    wrapC.appendChild(el("p", "s5el-note", "Lines: relevant articles per day by area (an article can sit in several areas). Bars: incident stories whose first report fell on that day. Last " + n + " days, from " + dmy(T.days[0]) + " to " + dmy(T.days[n - 1]) + "."));
+    return wrapC;
+  }
+
+  /* ---- 3. incident cards ---- */
+  function openPortal(p) {
+    var id = p.kind === "role" ? "roles" : "graph";
+    var b = document.querySelector('nav.anchors .tab[aria-controls="tab-' + id + '"]'); if (b) b.click();
+    setTimeout(function () { try { if (p.kind === "role" && window.__socOpenRole) window.__socOpenRole(p.label); else if (window.__socOpenPerm) window.__socOpenPerm(p.label); } catch (e) {} }, 350);
+  }
+  function list(items, cls) { var u = el("ul", cls || "s5el-ul"); items.forEach(function (t) { u.appendChild(el("li", null, t)); }); return u; }
+  function h4(t) { return el("h4", "s5el-h4", t); }
+  function details(s, d) {
+    var N = s.notes;
+    if (N) {
+      if (N.summary) d.appendChild(el("p", "s5el-sum", N.summary));
+      if (N.timeline && N.timeline.length) {
+        d.appendChild(h4("Timeline"));
+        var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab"), th = el("thead"), tr = el("tr");
+        tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1"); tb.setAttribute("data-s5bi-csv", "1");
+        ["Date", "What happened", "Source"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); tb.appendChild(th);
+        var bd = el("tbody"); N.timeline.forEach(function (r) { var x = el("tr"); x.appendChild(el("td", "s5el-nw", dmy(r.date))); x.appendChild(el("td", null, r.text)); x.appendChild(el("td", "s5el-nw", r.src || "")); bd.appendChild(x); });
+        tb.appendChild(bd); tw.appendChild(tb); d.appendChild(tw);
+      }
+      if (N.rootCause) { d.appendChild(h4("Root cause")); d.appendChild(el("p", null, N.rootCause)); }
+      if (N.attacker && N.attacker.length) { d.appendChild(h4("What the attacker did")); d.appendChild(list(N.attacker)); }
+      if (N.iocs && N.iocs.length) { d.appendChild(h4("Indicators")); d.appendChild(list(N.iocs, "s5el-ul s5el-mono")); }
+      if (N.remediation && N.remediation.length) {
+        d.appendChild(h4("What to do now"));
+        var ol = el("ol", "s5el-rem");
+        N.remediation.forEach(function (r) {
+          var li = el("li"); li.appendChild(chip(r.from === "ours" ? "Ours (inferred)" : "From " + (r.src || "source"), r.from === "ours" ? "ours" : "src",
+            r.from === "ours" ? "Written by this portal from the facts above - not stated by a source" : "Stated by " + (r.src || "the source")));
+          li.appendChild(document.createTextNode(" " + r.text)); ol.appendChild(li);
+        });
+        d.appendChild(ol);
+      }
+      if (N.kql && N.kql.length) {
+        d.appendChild(h4("Hunting queries (KQL)"));
+        N.kql.forEach(function (q) {
+          var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title));
+          var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
+          var cb = el("button", "s5el-btn", "Copy"); cb.type = "button";
+          cb.addEventListener("click", function () { try { navigator.clipboard.writeText(q.query); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (e) {} });
+          k.appendChild(cb); d.appendChild(k);
+        });
+      }
+      if (N.portal && N.portal.length) {
+        d.appendChild(h4("In this portal"));
+        var pp = el("p", "s5el-chips");
+        N.portal.forEach(function (p) { var b = el("button", "s5el-pbtn", (p.kind === "role" ? "Role · " : "Permission · ") + p.label); b.type = "button"; b.addEventListener("click", function () { openPortal(p); }); pp.appendChild(b); });
+        d.appendChild(pp);
+      }
+    } else d.appendChild(el("p", "s5el-note", "No curated analysis for this story yet — the articles below are what the sources say. The morning run adds a summary and steps for new stories."));
+    d.appendChild(h4("Microsoft"));
+    if (s.microsoft.items.length) {
+      var mu = el("ul", "s5el-ul"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(m.date) + " · " + m.what + " — ")); var a = el("a", null, m.title); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; li.appendChild(a); mu.appendChild(li); });
+      d.appendChild(mu);
+    } else d.appendChild(el("p", "s5el-warnp", "Microsoft has not described this yet in the places checked: " + s.microsoft.checked + "."));
+    d.appendChild(h4("Articles · " + s.articles.length));
+    var au = el("ul", "s5el-ul");
+    s.articles.map(function (id) { return ART[id]; }).filter(Boolean).forEach(function (a) {
+      var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(day(a.published || a.firstSeen)) + " · " + a.source + " — "));
+      var l = el("a", null, a.title); l.href = a.link; l.target = "_blank"; l.rel = "noopener"; li.appendChild(l);
+      if (a.summary && !N) li.appendChild(el("p", "s5el-ex", a.summary.slice(0, 260) + (a.summary.length > 260 ? "…" : "")));
+      au.appendChild(li);
+    });
+    d.appendChild(au);
+    if (N && N.links && N.links.length) {
+      d.appendChild(h4("Read more"));
+      var lu = el("ul", "s5el-ul"); N.links.forEach(function (x) { var li = el("li"); li.appendChild(el("span", "s5el-d", dmy(x.date) + " — ")); var a = el("a", null, x.text); a.href = x.url; a.target = "_blank"; a.rel = "noopener"; li.appendChild(a); lu.appendChild(li); });
+      d.appendChild(lu);
+    }
+  }
+  function card(s) {
+    var k = storyKind(s, PREV, null), c = el("article", "s5el-card" + (k === "new" ? " is-new" : k === "upd" ? " is-upd" : "") + (s.curated ? " is-cur" : ""));
+    c.id = "s5el-" + s.id;
+    var top = el("div", "s5el-ctop");
+    if (k) top.appendChild(chip(k === "new" ? "NEW" : "UPDATED", k === "new" ? "new" : "upd"));
+    top.appendChild(msChip(s));
+    if (s.curated) top.appendChild(chip("Analysed", "cur", "Summary, timeline and steps written for this story"));
+    if (s.notes && s.notes.status === "active") top.appendChild(chip("Active", "bad"));
+    c.appendChild(top);
+    var t = el("button", "s5el-ct", s.title); t.type = "button"; t.setAttribute("aria-expanded", "false"); c.appendChild(t);
+    var dts = el("p", "s5el-dates");
+    [["First reported", s.firstReported], ["Seen by the portal", day(s.firstSeen)], ["Last update", day(s.lastUpdate)]].forEach(function (p) { var sp = el("span"); sp.appendChild(el("b", null, p[0] + " ")); sp.appendChild(document.createTextNode(dmy(p[1]))); dts.appendChild(sp); });
+    c.appendChild(dts);
+    var ch = el("p", "s5el-chips"); s.areas.forEach(function (a) { ch.appendChild(chip(a, "area")); }); s.sources.forEach(function (x) { ch.appendChild(chip(x, "srcn")); });
+    c.appendChild(ch);
+    var d = el("div", "s5el-det"); d.hidden = true; c.appendChild(d);
+    t.addEventListener("click", function () {
+      var on = d.hidden; d.hidden = !on; t.setAttribute("aria-expanded", on ? "true" : "false");
+      if (on && !d.__f) { d.__f = true; details(s, d); }
+    });
+    return c;
+  }
+  function openStory(id) {
+    goTab();
+    var go = function () {
+      var c = document.getElementById("s5el-" + id); if (!c) { var mb = panel.querySelector(".s5el-more"); if (mb) mb.click(); c = document.getElementById("s5el-" + id); }
+      if (!c) return;
+      var t = c.querySelector(".s5el-ct"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
+      window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + scrollY - 120) });
+      if (window.__socMark) try { window.__socMark(c); } catch (e) {}
+    };
+    if (built) setTimeout(go, 60); else load(function () { build(); setTimeout(go, 60); });
+  }
+  window.__socOpenThreat = openStory;
+
+  /* ---- 4. report tables ---- */
+  function table(heads, rows, opts) {
+    var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab"), th = el("thead"), tr = el("tr");
+    tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1");   /* this tab filters its own tables */
+    heads.forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); tb.appendChild(th);
+    var bd = el("tbody"); rows.forEach(function (r) { bd.appendChild(r); }); tb.appendChild(bd); tw.appendChild(tb);
+    return tw;
+  }
+  function td(t, cls) { return el("td", cls || null, t); }
+  function tdA(t, href) { var c = el("td"); var a = el("a", null, t); a.href = href; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a); return c; }
+  function articlesBox() {
+    var A = D.articles || [], bx = box("Articles", A.length + " relevant articles in " + (D.keepDays || 120) + " days · newest first");
+    var bar = el("div", "s5el-fbar"), q = el("input", "s5el-q"); q.type = "search"; q.placeholder = "Find in titles"; q.setAttribute("aria-label", "Find an article");
+    var sel = el("select", "s5el-sel"); sel.setAttribute("aria-label", "Source"); sel.appendChild(new Option("All sources", ""));
+    var srcs = {}; A.forEach(function (a) { srcs[a.source] = (srcs[a.source] || 0) + 1; });
+    Object.keys(srcs).sort().forEach(function (k) { sel.appendChild(new Option(k + " · " + srcs[k], k)); });
+    var ar = el("select", "s5el-sel"); ar.setAttribute("aria-label", "Area"); ar.appendChild(new Option("All areas", ""));
+    Object.keys(AREAC).concat(["Other"]).forEach(function (k) { ar.appendChild(new Option(k, k)); });
+    var cnt = el("span", "s5el-cnt");
+    bar.appendChild(q); bar.appendChild(sel); bar.appendChild(ar); bar.appendChild(cnt); bx.appendChild(bar);
+    var host = el("div"); bx.appendChild(host);
+    var SID = {}; (D.stories || []).forEach(function (s) { s.articles.forEach(function (id) { SID[id] = s; }); });
+    var LIM = phone() ? 25 : 60, shown = LIM;
+    function draw() {
+      var qq = q.value.trim().toLowerCase(), rows = A.filter(function (a) { return (!qq || a.title.toLowerCase().indexOf(qq) >= 0) && (!sel.value || a.source === sel.value) && (!ar.value || a.areas.indexOf(ar.value) >= 0); });
+      cnt.textContent = rows.length + " of " + A.length;
+      host.textContent = "";
+      host.appendChild(table(["Published", "Source", "Article", "Areas", "Story"], rows.slice(0, shown).map(function (a) {
+        var r = el("tr"); r.appendChild(td(dmy(day(a.published || a.firstSeen)), "s5el-nw")); r.appendChild(td(a.source)); r.appendChild(tdA(a.title, a.link));
+        r.appendChild(td(a.areas.join(" · "))); var s = SID[a.id], c = el("td");
+        if (s && s.articles.length > 1 || s && s.curated) { var b = el("button", "s5el-lnk", s.curated ? "Analysed story" : s.articles.length + " articles"); b.type = "button"; b.addEventListener("click", function () { openStory(s.id); }); c.appendChild(b); }
+        r.appendChild(c); return r;
+      })));
+      if (rows.length > shown) { var mb = el("button", "s5el-btn", "Show " + Math.min(LIM, rows.length - shown) + " more"); mb.type = "button"; mb.addEventListener("click", function () { shown += LIM; draw(); }); host.appendChild(mb); }
+    }
+    q.addEventListener("input", function () { shown = LIM; draw(); }); sel.addEventListener("change", function () { shown = LIM; draw(); }); ar.addEventListener("change", function () { shown = LIM; draw(); });
+    draw(); return bx;
+  }
+  function kevBox() {
+    var K = D.kev || [], bx = box("Exploited Microsoft vulnerabilities", K.length + " Microsoft CVEs added to CISA's Known Exploited Vulnerabilities catalog in 180 days");
+    if (!K.length) { bx.appendChild(el("p", "s5el-note", "No Microsoft CVE was added to the catalog in 180 days.")); return bx; }
+    var today = day(D.generated);
+    bx.appendChild(table(["Added", "CVE", "Product", "Vulnerability", "Fix by (CISA)", "Ransomware"], K.map(function (v) {
+      var r = el("tr"); r.appendChild(td(dmy(v.added), "s5el-nw")); r.appendChild(tdA(v.cve, v.link)); r.appendChild(td(v.product)); r.appendChild(td(v.name));
+      r.appendChild(td(dmy(v.due), "s5el-nw" + (v.due && v.due < today ? " s5el-past" : v.due && v.due <= addDays(today, 14) ? " s5el-soon" : "")));
+      r.appendChild(td(v.ransomware === "Known" ? "Known" : "—")); return r;
+    })));
+    bx.appendChild(el("p", "s5el-note", "Fix-by is the date CISA sets for US federal agencies — a fair yardstick for anyone. Red: passed; amber: within 14 days. Each CVE opens Microsoft's Security Update Guide."));
+    return bx;
+  }
+  function sourcesBox() {
+    var S = D.sources || [], bad = S.filter(function (s) { return s.state !== "ok"; }).length;
+    var bx = box("Sources", S.length + " feeds · " + (bad ? bad + " failed" : "all read") + " · last read " + dmy(day(D.generated)) + " " + String(D.generated || "").slice(11, 16) + " UTC");
+    bx.open = false;
+    bx.appendChild(table(["Source", "Tier", "State", "Read", "Kept", "Newest item"], S.map(function (s) {
+      var r = el("tr"); r.appendChild(tdA(s.name, s.site)); r.appendChild(td(s.tier)); r.appendChild(td(s.state === "ok" ? "ok" : "failed — " + s.error, s.state === "ok" ? "" : "s5el-past"));
+      r.appendChild(td(String(s.read))); r.appendChild(td(String(s.kept))); r.appendChild(td(dmy(day(s.newest)), "s5el-nw")); return r;
+    })));
+    bx.appendChild(el("p", "s5el-note", "Kept = articles about Entra or Microsoft 365 that report an attack, a compromise or a vulnerability. Microsoft feeds and Message Center are also searched for each story to answer “has Microsoft described it?”. The list lives in threat_sources.json in the repository; the Source lists frame on Overview shows when it last changed."));
+    return bx;
+  }
+
+  function build() {
+    if (built || !D) return; built = true;
+    windows();
+    body.textContent = "";
+    var fr = el("p", "s5el-fresh"); var bb = el("b", null, "Feeds read " + dmy(day(D.generated)) + " " + String(D.generated || "").slice(11, 16) + " UTC");
+    fr.appendChild(bb); fr.appendChild(document.createTextNode(" · " + (D.sources || []).length + " sources · " + (D.stories || []).length + " stories · " + (D.articles || []).length + " articles · refreshed every 3 hours"));
+    body.appendChild(fr);
+    var tiles = el("div", "s5ei"); tiles.appendChild(tilesBlock("Since the previous brief", PREV, null, true)); tiles.appendChild(tilesBlock("+ Previous brief", PREV2, PREV, false));
+    body.appendChild(tiles);
+    var tb = box("Trend", "last " + D.trend.days.length + " days"); tb.appendChild(trend()); body.appendChild(tb);
+    var S = (D.stories || []).slice(), cur = box("Current incidents", S.length + " stories · newest activity first · " + S.filter(function (s) { return s.microsoft.status !== "described"; }).length + " not described by Microsoft yet");
+    var grid = el("div", "s5el-cards"), LIM = phone() ? 6 : 12;
+    S.slice(0, LIM).forEach(function (s) { grid.appendChild(card(s)); });
+    cur.appendChild(grid);
+    if (S.length > LIM) { var mb = el("button", "s5el-btn s5el-more", "Show all " + S.length + " stories"); mb.type = "button"; mb.addEventListener("click", function () { S.slice(LIM).forEach(function (s) { grid.appendChild(card(s)); }); mb.remove(); }); cur.appendChild(mb); }
+    body.appendChild(cur);
+    body.appendChild(articlesBox());
+    body.appendChild(kevBox());
+    body.appendChild(sourcesBox());
+    var c0 = grid.querySelector(".s5el-card.is-cur .s5el-ct"); if (c0 && !phone()) c0.click();   /* the analysed story opens first */
+  }
+  function wake() { load(build); }
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('nav.anchors .tab[aria-controls="tab-threats"], #tabbtn-tab-threats'); if (t) setTimeout(wake, 30); }, true);
+  if (/tab=threats/.test(location.hash)) setTimeout(function () { goTab(); wake(); }, 900);
+  document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-threats") wake(); });
+  /* the count in the tab bar comes with the file, without building the tab */
+  setTimeout(function () { load(function () {}); }, 4500);
+})();
+
 /* §5dv (15 X 2026, owner: "add Tenable and Maester to our portal: from Tenable everything about M365, Entra, M365 Apps,
    Entra apps and AI, from Maester all of M365, Entra and AI, from both CIS, CISA SCuBA, NIS2; one tab with views
    inside; analyses, trends, test names and their fixes laid out like roles and Graph API; versions and dates in
@@ -43529,6 +43873,79 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-tt:hover{color:var(--accent);text-decoration:underline}
 .s5ei-date{margin-left:auto}
 @media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
+/* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
+.s5el{display:grid;gap:12px}
+.s5el-fresh{margin:0;font-size:13px;color:var(--muted)}
+.s5el-fresh b{color:var(--text)}
+.s5el-note{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+details.s5el-box{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:0 14px 12px}
+details.s5el-box>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:10px 0}
+details.s5el-box>summary::-webkit-details-marker{display:none}
+.s5el-bt{font-weight:700;font-size:15px;color:var(--text)}
+.s5el-bs{color:var(--muted);font-size:12px}
+.s5el-chartw{overflow-x:auto}
+.s5el-chart{width:100%;height:auto;display:block}
+@media (min-width:761px){.s5el-chart{min-width:520px}}
+.s5el-grid{stroke:var(--border);stroke-width:1}
+.s5el-ax{fill:var(--muted);font-size:10.5px;font-family:var(--sans)}
+.s5el-bar{fill:var(--accent-soft);stroke:var(--accent);stroke-width:.6}
+.s5el-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 0;font-size:12px;color:var(--text)}
+.s5el-li{display:inline-flex;align-items:center;gap:6px}
+.s5el-li i{display:inline-block;width:16px;height:3px;border-radius:2px}
+.s5el-li i.bar{height:10px;width:10px;background:var(--accent-soft);border:1px solid var(--accent)}
+.s5el-cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr))}
+.s5el-card{border:1px solid var(--border);border-left:4px solid var(--border);border-radius:12px;background:var(--bg);padding:10px 14px;min-width:0}
+.s5el-card.is-new{border-left-color:var(--accent)}
+.s5el-card.is-upd{border-left-color:var(--warn)}
+.s5el-card.is-cur{grid-column:1/-1}
+.s5el-ctop,.s5el-chips{display:flex;flex-wrap:wrap;gap:5px;margin:0}
+.s5el-chips{margin-top:6px}
+.s5el-chip{font-size:11px;font-weight:600;border-radius:999px;padding:2px 8px;border:1px solid var(--border);color:var(--muted);background:var(--surface);white-space:nowrap}
+.s5el-chip.new{color:var(--accent);border-color:var(--accent)}
+.s5el-chip.upd{color:var(--warn);border-color:var(--warn)}
+.s5el-chip.ok{color:var(--ok);border-color:var(--ok);background:var(--ok-soft)}
+.s5el-chip.warn{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}
+.s5el-chip.bad{color:var(--bad);border-color:var(--bad);background:var(--bad-soft)}
+.s5el-chip.cur{color:var(--accent);background:var(--accent-soft);border-color:var(--accent)}
+.s5el-chip.src{color:var(--ok);border-color:var(--ok)}
+.s5el-chip.ours{color:var(--warn);border-color:var(--warn)}
+.s5el-chip.area{color:var(--text)}
+.s5el-ct{font:inherit;font-size:14.5px;font-weight:700;line-height:1.35;color:var(--text);background:none;border:0;padding:6px 0 2px;text-align:left;cursor:pointer;width:100%;overflow-wrap:anywhere}
+.s5el-ct:hover{color:var(--accent)}
+.s5el-dates{margin:2px 0 0;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+.s5el-dates b{font-weight:600;color:var(--text)}
+.s5el-det{margin-top:8px;border-top:1px solid var(--border);padding-top:8px;font-size:13px;line-height:1.5}
+.s5el-sum{margin:0 0 6px;text-align:justify}
+.s5el-h4{margin:12px 0 4px;font-size:13px;font-weight:700;color:var(--text)}
+.s5el-ul{margin:0;padding-left:18px}
+.s5el-ul li{margin:2px 0;overflow-wrap:anywhere}
+.s5el-mono li{font-family:var(--mono,monospace);font-size:12px}
+.s5el-rem{margin:0;padding-left:22px}
+.s5el-rem li{margin:4px 0;overflow-wrap:anywhere}
+.s5el-kql{border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin:6px 0;background:var(--surface);position:relative}
+.s5el-kqt{margin:0 0 4px;font-weight:600;font-size:12.5px;padding-right:60px}
+.s5el-kql pre{margin:0;font-family:var(--mono,monospace);font-size:11.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.s5el-kql .s5el-btn{position:absolute;top:6px;right:8px}
+.s5el-btn,.s5el-pbtn,.s5el-lnk{font:inherit;font-size:12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--accent);padding:4px 10px;cursor:pointer;min-height:28px}
+.s5el-pbtn{border-radius:999px;margin:2px}
+.s5el-lnk{border:0;background:none;padding:0;min-height:0;text-decoration:underline}
+.s5el-more{margin-top:10px}
+.s5el-d{color:var(--muted);font-size:12px}
+.s5el-ex{margin:2px 0 4px;color:var(--muted);font-size:12px}
+.s5el-warnp{margin:0;color:var(--warn);font-size:12.5px}
+.s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+.s5el-q{flex:1 1 200px;min-width:0;font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--ok);border-radius:8px;background:var(--bg);color:var(--text)}
+.s5el-sel{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);max-width:100%}
+.s5el-cnt{font-size:12px;color:var(--muted)}
+.s5el-tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+.s5el-tab{width:100%;border-collapse:collapse;font-size:12.5px}
+.s5el-tab th{text-align:left;font-weight:600;color:var(--muted);background:var(--surface);padding:6px 8px;border-bottom:1px solid var(--border)}
+.s5el-tab td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+.s5el-tab tbody tr:hover td{background:var(--accent-soft)}
+.s5el-nw{white-space:nowrap}
+.s5el-past{color:var(--bad);font-weight:600}
+.s5el-soon{color:var(--warn);font-weight:600}
+@media (max-width:760px){.s5el-cards{grid-template-columns:1fr}.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -44689,6 +45106,43 @@ pola zmierzyc przyrost bajtow na stanie z dnia i zapas ostatniego artefaktu.
 Pomiar na artefakcie 18 X: `ledger14` 4 107 wpisow / 1 817 482 B -> 7 dni 2 177 wpisow / 957 171 B, czyli **-860 kB**;
 razem z §5eh-b strona ~15,85 MB, zapas ~0,9 MB pod limitem 16 777 216 B (byl 56 842 B). Nazwa klucza `ledger14`
 zostaje (kontrakt, bramka 45/46/50), zmienia sie tylko okno.
+
+## 5el. THREAT RESEARCH — INCYDENTY, KAMPANIE I WYKORZYSTYWANE PODATNOSCI (ENTRA / M365), 19 X 2026
+
+Wlasciciel (19 X): zbierac, podsumowywac i analizowac najwazniejsze ostatnie incydenty, ataki i podatnosci zwiazane z
+tym, co portal mierzy (Entra przede wszystkim; wzorzec: ConnectWise Cloud Backup — poswiadczenie aplikacji multi-tenant);
+pokazac nowe, daty wykrycia, kroki naprawcze (ze zrodla albo nasze, oznaczone), czy Microsoft juz to opisal; tabele,
+raporty, linie trendu, sekcje w zaokraglonych ramkach. Decyzje 19 X 11:29: lista zrodel OK, osobny JSON ze zrodlami
+w ramce Source lists, nasze kroki naprawcze dozwolone (oznaczone), nazwa „Threat Research".
+
+- `threat_sources.json` (repo, 19 zrodel: core — Microsoft Threat Intelligence, Microsoft Security Blog, MSRC SUG
+  (`CheckOnly` — tylko do sprawdzania „czy Microsoft opisal"), CISA KEV (Microsoft), Huntress, Invictus IR, SpecterOps,
+  Datadog Security Labs, Push Security, Sekoia, Volexity, BleepingComputer, The Hacker News; secondary — Microsoft IR,
+  Elastic, Dirk-jan Mollema, Google TI, Red Canary, AADInternals). W ramce Source lists (`nt.jsons`, collect_nt) jako
+  „JSON Threat Research" — od nastepnego porannego briefu.
+- `tools/threats.py` (krok w `fpa-tenant.yml`, co 3 h, bez poswiadczen, exit 0 zawsze) -> `site/data/threats.json`
+  (**osobny plik, nie stan briefu** — budzet 16 MB, §5eh-b): artykul zostaje, gdy dotyczy Microsoftu (MSCTX w tytule
+  albo >=2 w tresci) I ataku/podatnosci, bez marketingu („best", „ranking", „introducing"…); wpis Microsoft Threat
+  Intelligence zawsze. Obszary: Apps & OAuth, Identity attacks, Roles & privilege, Hybrid & federation, M365 workloads,
+  Vulnerabilities. Historie: kuratorowana (slowa `match` z `threat_notes.json`) albo wspolne CVE / Storm-#### / 2 rzadkie
+  nazwy w 14 dniach. „Czy Microsoft opisal": artykul Microsoftu w historii, wpis z feedow Microsoftu albo post Message
+  Center (mc.merill.net, 60 dni) z 1 slowem kuratorowanym / CVE / 2 slowami automatycznymi; plus linki z notatki (X MSTIC).
+  `firstSeen` artykulu pamietany miedzy przebiegami; **pierwszy przebieg = linia bazowa** (firstSeen = publikacja,
+  inaczej 22 historie byly „NEW"). Trend 30 dni: artykuly na obszar na dzien + historie rozpoczete.
+- `threat_notes.json` (repo): notatki kuratorowane na historie — summary, timeline, rootCause, attacker, iocs,
+  remediation (`from: source|ours`), kql, portal (uprawnienia / role -> przyciski do Graph API / Roles), microsoft, links.
+  Pierwsza: `connectwise-cloud-backup-2026-10` (napisana 19 X z Huntress, BleepingComputer, The Hacker News, SpecterOps).
+  Kolejne dopisuje poranna routine dla nowych historii (do ustalenia w prompcie) albo czlowiek.
+- Strona (SKRYPT 17, `window.__s5el`, zakladka `tab-threats`, grupa Act po Hunting): kafelki dnia (§5ei: nowe /
+  zaktualizowane historie od poprzedniego briefu, poprzedni brief zwiniety), Trend (linie per obszar + slupki historii),
+  Current incidents (karty: NEW/UPDATED, „Described by Microsoft" / „Not described by Microsoft yet", Analysed, daty
+  First reported / Seen by the portal / Last update, obszary, zrodla; rozwiniecie: streszczenie, os czasu, przyczyna,
+  dzialania, IOCs, kroki „From <source>" / „Ours (inferred)", KQL z Copy, przyciski do portalu, Microsoft, artykuly),
+  Articles (szukaj + zrodlo + obszar), Exploited Microsoft vulnerabilities (CISA KEV, termin naprawy czerwony/zolty),
+  Sources (zwiniete). Tabele `data-s5dd="own"` / `data-s11="1"`. `window.__socOpenThreat(id)` otwiera historie.
+- Test 19 X lokalnie: 19 zrodel ok, 33 artykuly, 22 historie (1 kuratorowana, 15 opisanych przez Microsoft), 22 CVE KEV;
+  Chromium 1440 i iPhone 13: 0 bledow, bez przewijania w bok (po poprawce `minmax(min(340px,100%),1fr)` — przed nia 616 px),
+  przycisk uprawnienia otwiera Graph API.
 
 ## 6. Kontrakt w stronie
 
