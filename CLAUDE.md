@@ -40974,6 +40974,24 @@ odtad CZTERNASCIE (4-17).**
     var since = addDays(day(D.generated), -30);
     nc.textContent = String((D.stories || []).filter(function (s) { return day(s.lastUpdate) >= since; }).length);
     nb.setAttribute("data-count-of", "incidents updated in the last 30 days");
+    railStrip();
+  }
+  /* §5en (owner 19 X 17:59: "this tab has no red, green and orange numbers in the left rail like the others"). The rail
+     (§5ca) reads each tab's "since the previous brief" strip, a .s5bn directly under the panel; this tab had none. It gets
+     one, hidden (the tab shows the same numbers in its "Since the previous brief" block): + new incidents, ~ incidents
+     given a new article, − none (an incident never leaves the list inside the 120-day window). The rail refills at 5.2 s
+     and 9 s and on every tab click; the file arrives at about 4.5 s. */
+  function railStrip() {
+    try {
+      windows();
+      var n = 0, u = 0; (D.stories || []).forEach(function (s) { var k = storyKind(s, PREV, null); if (k === "new") n++; else if (k === "upd") u++; });
+      var st = panel.querySelector(":scope > .s5bn.s5el-bn");
+      if (!st) { st = el("div", "s5bn s5el-bn"); st.hidden = true; st.setAttribute("aria-hidden", "true"); panel.insertBefore(st, panel.firstChild); }
+      st.textContent = "";
+      st.appendChild(el("span", "s5bn-n s5bn-added", "+" + n + " new"));
+      st.appendChild(el("span", "s5bn-n s5bn-changed", "~" + u + " updated"));
+      st.appendChild(el("span", "s5bn-n s5bn-removed", "\u22120 removed"));
+    } catch (e) { if (window.console) console.error("[5en rail]", e); }
   }
 
   function box(title, sub, cls) {
@@ -45651,6 +45669,10 @@ Zmiany (SKRYPT 17 `window.__s5el`, appended.css, `tools/threats.py`):
   kolumna; przyciski „Open in this portal" zawijaja tekst (wczesniej wystawaly o kilka px).
 - Kolejnosc ramek: What changed → Incidents → Trend → Articles → Exploited Microsoft vulnerabilities → Sources.
   Kolumna Articles „Story" → „Incident" („Incident · analysed" / „Incident · N articles").
+- Lewy rail (wlasciciel 17:59 „przy tej zakladce nie ma numerow czerwonych, zielonych i pomaranczowych"): rail czyta
+  pasek `.s5bn` bezposrednio pod panelem; zakladka dostaje ukryty `.s5bn.s5el-bn` (+ nowe incydenty od poprzedniego
+  briefu, ~ incydenty z nowym artykulem, − 0), wpisywany po wczytaniu `threats.json` (~4,5 s; rail odswieza sie 5,2 s,
+  9 s i po kazdym kliknieciu zakladki).
 - §5em: wyszukiwanie zakladki obejmuje wiersze `.s5el-row` (zamiast `.s5el-card`) i przy wlaczonym tekscie rozwija
   „Show all", zeby trafienie nie stalo za przyciskiem (telefon: wczesniej „cards: 0 of 13").
 
