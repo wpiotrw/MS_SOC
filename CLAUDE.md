@@ -44682,6 +44682,14 @@ Poprawka: `read_mc_json()` nie zapisuje `mcSummary`; pola kategoria / data publi
 zostaja (kilka kB). Wniosek trwaly: KAZDE nowe pole w `soc-brief-state` liczy sie w budzecie 16 MB — przed dodaniem
 pola zmierzyc przyrost bajtow na stanie z dnia i zapas ostatniego artefaktu.
 
+### §5ek (19 X 2026) — okno rejestru na stronie 7 dni zamiast 14 (decyzja wlasciciela)
+`site/data/changelog.json`: `pageWindowDays` 14 -> **7** (`retentionDays` 90 bez zmian — plik dalej trzyma 90 dni,
+`/diff/` i historia nie traca niczego). Przebieg wycina do `ledger14` okno `pageWindowDays`, a SKRYPT 8 bierze
+`WINDOW_DAYS` z `ledger14.pageWindowDays`, wiec podpisy („What changed in the last 7 days", wykres 7 slupkow) ida same.
+Pomiar na artefakcie 18 X: `ledger14` 4 107 wpisow / 1 817 482 B -> 7 dni 2 177 wpisow / 957 171 B, czyli **-860 kB**;
+razem z §5eh-b strona ~15,85 MB, zapas ~0,9 MB pod limitem 16 777 216 B (byl 56 842 B). Nazwa klucza `ledger14`
+zostaje (kontrakt, bramka 45/46/50), zmienia sie tylko okno.
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna
