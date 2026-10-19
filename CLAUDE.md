@@ -18720,6 +18720,22 @@ p.s11srcnote{color:var(--muted);font-size:12.5px;margin:0 0 10px}
     var msg = ban.querySelector(".fb-msg");
     if (msg) msg.textContent = "Filtered by " + on.join(" · ") + " — showing " + shown +
       " of " + rec.rows.length + (shown ? "." : ". Nothing matches all of them at once.");
+    /* §5em (owner 19 X 16:11): over a table with the shell's own search bar, one text filter was told twice - the shell's
+       "Filtered to Text: "X" — showing 2 of 13 rows" and this bar's "Filtered by text "X" — showing 2 of 13". When this bar
+       says only what the shell's controls set (their text, their lists) - no filter from elsewhere, no choice in THIS bar's
+       own lists, no column scope - and the shell's bar stands visible in the same section (carrying the text), this one
+       steps aside. Anything more and it stays. Checked a tick later, after the shell has redrawn its bar. */
+    var vq = ownQuery(rec).trim();
+    ban.removeAttribute("data-s5emdup");
+    var ownSel = rec.sels.some(function (x) { return x.value; });
+    if (!tabSpec && !ownSel && (!rec.colSel || +rec.colSel.value < 0)) setTimeout(function () { dupHide(rec, ban, vq); }, 0);
+  }
+  function dupHide(rec, ban, vq) {
+    if (ownQuery(rec).trim() !== vq || ban.hidden) return;
+    var host = rec.table.closest("section,details,.sec-body") || document;
+    var sh = [].filter.call(host.querySelectorAll(".filterbanner"), function (b) {
+      return b !== ban && !b.classList.contains("s11") && !b.hidden && b.offsetParent; })[0];
+    if (sh && (!vq || (sh.textContent || "").toLowerCase().indexOf(vq.toLowerCase()) >= 0)) { ban.hidden = true; ban.setAttribute("data-s5emdup", "1"); }
   }
 
   function clearAll(rec) {
@@ -45503,9 +45519,11 @@ kafelki do prawej kolumny, zmierzone); pole szukania zostaje w tym samym miejscu
 korygowane `scrollBy`, Safari nie ma scroll anchoring). Test: „Authenticator" — 2 z 13, pole 478 → 482 px (desktop),
 400 → 400 px (telefon), po wyczyszczeniu 13.
 
-Do decyzji: nad tabela z wlasnym paskiem szukania jeden filtr opisuja DWA zielone paski — pasek powloki („Filtered to
-Text: … — showing 2 of 13 rows") i pasek SKRYPTU 11 („Filtered by text … — showing 2 of 13") — plus przypiety `.gfbar`.
-Propozycja: gdy pasek SKRYPTU 11 mowi tylko o tym samym tekscie co pasek powloki, chowac go (zrzuty przed/po wyslane).
+Jeden pasek nad tabela (wlasciciel 19 X 16:11 „wdrazaj"): nad tabela z wlasnym paskiem szukania jeden filtr opisywaly DWA
+zielone paski — powloki („Filtered to Text: … — showing 2 of 13 rows") i SKRYPTU 11 („Filtered by text … — showing 2 of 13").
+SKRYPT 11 (`renderTable` → `dupHide`) chowa swoj, gdy mowi TYLKO to, co ustawily kontrolki powloki (jej tekst, jej listy) —
+bez filtra z innego miejsca, bez wyboru w WLASNYCH listach SKRYPTU 11, bez zakresu kolumny — a pasek powloki stoi widoczny
+w tej samej sekcji (i zawiera tekst); znacznik `data-s5emdup`. W kazdym innym przypadku zostaja oba. Przypiety `.gfbar` bez zmian.
 
 ## 6. Kontrakt w stronie
 
