@@ -1,6 +1,175 @@
 {
 "updated":"2026-10-20",
 "campaigns":{
+"c-mc1515929":{
+"firstSeen":"2026-10-20",
+"lastSeen":"2026-10-20",
+"name":"GitHub app consolidation and legacy GitHub app deprecation",
+"status":"Active",
+"members":[
+"MC1515929",
+"item:MC1515929"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"MC1515929",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Teams consolidates GitHub Notifications and GitHub Copilot into one GitHub app; the legacy app is deprecated by 16 November 2026",
+"title":"Teams consolidates GitHub Notifications and GitHub Copilot into one GitHub app; the legacy app is deprecated by 16 November 2026",
+"link":"https://deltapulse.app/item/MC1515929"
+}
+],
+"milestones":{
+"MC1515929|we will begin rolling out in mid and expect to complete by m#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"We will begin rolling out in mid-October 2026 and expect to complete by mid-November 2026."
+},
+"MC1515929|posted":{
+"date":"2026-10-19",
+"label":"19 Oct 2026",
+"text":"Posted: Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation"
+},
+"MC1515929|we will begin rolling out in mid and expect to complete by m#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"We will begin rolling out in mid-October 2026 and expect to complete by mid-November 2026."
+},
+"MC1515929|microsoft teams is consolidating github notifications and gi#0":{
+"date":"2026-11-16",
+"label":"16 Nov 2026",
+"text":"Microsoft Teams is consolidating GitHub Notifications and GitHub Copilot into a single GitHub app, deprecating the legacy app by November 16, 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1515929":{
+"title":"Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1515929",
+"source":"Message Center",
+"id":"MC1515929",
+"date":"2026-10-19",
+"updated":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://mc.merill.net/message/MC1515929":{
+"title":"Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+"link":"https://mc.merill.net/message/MC1515929",
+"source":"Message Center",
+"id":"MC1515929",
+"date":"2026-10-19",
+"updated":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://deltapulse.app/item/MC1515929":{
+"title":"Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+"link":"https://deltapulse.app/item/MC1515929",
+"source":"Main list source",
+"id":"MC1515929",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+}
+},
+"final":"2026-11-16",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1515929"
+]
+},
+"c-mc1469565":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-20",
+"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"status":"Active",
+"members":[
+"MC1469565"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"MC1469565",
+"what":"Microsoft revised the post",
+"before":"2026-09-09",
+"after":"2026-10-19",
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565"
+},
+{
+"date":"2026-09-29",
+"id":"MC1469565",
+"what":"Act-by date",
+"before":"",
+"after":"2026-10-01",
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565"
+}
+],
+"milestones":{
+"MC1469565|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes"
+},
+"MC1469565|actionBy":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1469565|exchange web services ews in exchange online will begin to b#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
+},
+"MC1469565|beginning in late and expected to complete by early#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
+},
+"MC1469565|beginning in late and expected to complete by early#1":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
+},
+"MC1469565|exchange web services ews in exchange online will begin to b#1":{
+"date":"2027-04-15",
+"label":"Apr 2027",
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1469565":{
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565",
+"source":"Message Center",
+"id":"MC1469565",
+"date":"2026-09-09",
+"updated":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573701",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-06",
+"group":"community",
+"found":"2026-10-09"
+}
+},
+"final":"2027-04-15",
+"type":"Retirement",
+"tech":"Purview",
+"posts":[
+"MC1469565"
+]
+},
 "c-mc1511071":{
 "firstSeen":"2026-10-16",
 "lastSeen":"2026-10-20",
@@ -504,7 +673,6 @@
 "name":"Manage Administrator protection within Windows 11 security baseline",
 "status":"Released",
 "members":[
-"item:win11-26h2-security-baseline-v2-2026-10-08",
 "MC1506291",
 "item:MC1506291"
 ],
@@ -1509,6 +1677,22 @@
 "date":"2026-10-16",
 "group":"microsoft",
 "found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092":{
+"title":"CVE-2026-80092 Microsoft Identity Web Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197":{
+"title":"CVE-2026-70197 .NET Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
 }
 },
 "final":"2026-10-15",
@@ -2252,6 +2436,15 @@
 "item:573701"
 ],
 "log":[
+{
+"date":"2026-10-20",
+"id":"MC1469960",
+"what":"Microsoft revised the post",
+"before":"2026-09-18",
+"after":"2026-09-09",
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960"
+},
 {
 "date":"2026-10-16",
 "id":"MC1191578",
@@ -3744,93 +3937,13 @@
 "MC1470871"
 ]
 },
-"c-mc1469565":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-20",
-"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"status":"Active",
-"members":[
-"MC1469565"
-],
-"log":[
-{
-"date":"2026-09-29",
-"id":"MC1469565",
-"what":"Act-by date",
-"before":"",
-"after":"2026-10-01",
-"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"link":"https://mc.merill.net/message/MC1469565"
-}
-],
-"milestones":{
-"MC1469565|posted":{
-"date":"2026-09-09",
-"label":"9 Sep 2026",
-"text":"Posted: Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes"
-},
-"MC1469565|actionBy":{
-"date":"2026-10-01",
-"label":"1 Oct 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1469565|exchange web services ews in exchange online will begin to b#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
-},
-"MC1469565|beginning in late and expected to complete by early#0":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026."
-},
-"MC1469565|beginning in late and expected to complete by early#1":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026."
-},
-"MC1469565|exchange web services ews in exchange online will begin to b#1":{
-"date":"2027-04-15",
-"label":"Apr 2027",
-"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1469565":{
-"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"link":"https://mc.merill.net/message/MC1469565",
-"source":"Message Center",
-"id":"MC1469565",
-"date":"2026-09-09",
-"updated":"2026-09-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=573701":{
-"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573701",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-06",
-"group":"community",
-"found":"2026-10-09"
-}
-},
-"final":"2027-04-15",
-"type":"Retirement",
-"tech":"Purview",
-"posts":[
-"MC1469565"
-]
-},
 "c-mc1465771":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-20",
 "name":"DLP alerts will be set as behaviors by default",
 "status":"Recently closed",
 "members":[
-"MC1465771",
-"item:MC1465771"
+"MC1465771"
 ],
 "log":[],
 "milestones":{
@@ -4897,14 +5010,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-18",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-19",
 "text":"August 1, 2026."
 },
@@ -4954,6 +5059,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-19",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-20",
 "text":"August 1, 2026."
 },
 {
@@ -5329,22 +5442,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-18",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-18",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-19",
 "text":"early February 2026."
 },
@@ -5450,6 +5547,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-19",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-20",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-20",
 "text":"February 2027."
 },
 {
@@ -5852,57 +5965,6 @@
 "MC1172446"
 ]
 },
-"c-mc1515929":{
-"firstSeen":"2026-10-20",
-"lastSeen":"2026-10-20",
-"name":"GitHub app consolidation and legacy GitHub app deprecation",
-"status":"Active",
-"members":[
-"MC1515929"
-],
-"log":[],
-"milestones":{
-"MC1515929|we will begin rolling out in mid and expect to complete by m#0":{
-"date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"We will begin rolling out in mid-October 2026 and expect to complete by mid-November 2026."
-},
-"MC1515929|posted":{
-"date":"2026-10-19",
-"label":"19 Oct 2026",
-"text":"Posted: Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation"
-},
-"MC1515929|we will begin rolling out in mid and expect to complete by m#1":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"We will begin rolling out in mid-October 2026 and expect to complete by mid-November 2026."
-},
-"MC1515929|as part of this consolidation the legacy github app will be #0":{
-"date":"2026-11-16",
-"label":"16 Nov 2026",
-"text":"As part of this consolidation, the legacy GitHub app will be deprecated by November 16, 2026 and displayed as GitH…"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1515929":{
-"title":"Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1515929",
-"source":"Message Center",
-"id":"MC1515929",
-"date":"2026-10-19",
-"updated":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-20"
-}
-},
-"final":"2026-11-16",
-"type":"Retirement",
-"tech":"Teams",
-"posts":[
-"MC1515929"
-]
-},
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
 "firstSeen":"2026-10-11",
 "lastSeen":"2026-10-20",
@@ -6243,59 +6305,6 @@
 "final":"2027-03-31",
 "type":"Retirement",
 "tech":"Defender",
-"posts":[]
-},
-"c-item-intune-ios-18-minimum-2609":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-20",
-"name":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
-"status":"No date",
-"members":[
-"item:intune-ios-18-minimum-2609"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"intune-ios-18-minimum-2609",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
-"title":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
-"link":"https://learn.microsoft.com/en-us/intune/whats-new/"
-}
-],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/intune/whats-new/":{
-"title":"Minimum supported version for iOS and iPadOS",
-"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
-"source":"Main list source",
-"id":"intune-ios-18-minimum-2609",
-"date":"2026-09-28",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-10-05T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/windows-365/whats-new":{
-"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
-"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
-"source":"Microsoft Learn · What's new · Windows 365",
-"date":"2026-09-24",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":null,
-"type":"Support end",
-"tech":"Intune",
 "posts":[]
 },
 "c-item-intune-google-play-strong-integrity":{
@@ -6966,41 +6975,31 @@
 "tech":"Defender",
 "posts":[]
 },
-"c-item-azure-arc-scvmm-new-deployments-closed-2026-10":{
-"firstSeen":"2026-10-09",
+"c-item-win11-26h2-security-baseline-v2-2026-10-08-2":{
+"firstSeen":"2026-10-20",
 "lastSeen":"2026-10-20",
-"name":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
-"status":"No date",
+"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
+"status":"Released",
 "members":[
-"item:azure-arc-scvmm-new-deployments-closed-2026-10"
+"item:win11-26h2-security-baseline-v2-2026-10-08"
 ],
-"log":[
-{
-"date":"2026-10-06",
-"id":"azure-arc-scvmm-new-deployments-closed-2026-10",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
-"title":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview"
-}
-],
+"log":[],
 "milestones":{},
 "moves":[],
 "materials":{
-"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview":{
-"title":"Azure Arc resource bridge overview — retirement notice for Azure Arc-enabled SCVMM",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview",
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
+"title":"Windows 11, version 26H2 security baseline",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
 "source":"Main list source",
-"id":"azure-arc-scvmm-new-deployments-closed-2026-10",
-"date":"2026-10-05",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"date":"2026-10-08",
 "group":"microsoft",
-"found":"2026-10-09"
+"found":"2026-10-20"
 }
 },
 "final":null,
-"type":"Retirement",
-"tech":"Azure",
+"type":"Baseline",
+"tech":"Windows",
 "posts":[]
 },
 "c-item-mc1506318":{
@@ -7367,6 +7366,141 @@
 "date":"2026-10-09",
 "group":"microsoft",
 "found":"2026-10-19"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Azure",
+"posts":[]
+},
+"c-item-security-blog-agents-guardian-agents-2026-10-19":{
+"firstSeen":"2026-10-20",
+"lastSeen":"2026-10-20",
+"name":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic…",
+"status":"No date",
+"members":[
+"item:security-blog-agents-guardian-agents-2026-10-19"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"security-blog-agents-guardian-agents-2026-10-19",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic Permissions and Conditional Access for agents under Project Perception",
+"title":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic Permissions and Conditional Access for agents under Project Perception",
+"link":"https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/":{
+"title":"Agents are your newest insiders. Security must move at their speed",
+"link":"https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/",
+"source":"Main list source",
+"id":"security-blog-agents-guardian-agents-2026-10-19",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+}
+},
+"final":null,
+"type":"Enforcement",
+"tech":"Defender",
+"posts":[]
+},
+"c-item-exchange-change-optics-report-ga-2026-10-19":{
+"firstSeen":"2026-10-20",
+"lastSeen":"2026-10-20",
+"name":"Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect,…",
+"status":"No date",
+"members":[
+"item:exchange-change-optics-report-ga-2026-10-19"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"exchange-change-optics-report-ga-2026-10-19",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect, is generally available",
+"title":"Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect, is generally available",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/the-change-optics-report-is-now-generally-available-in-exchange/ba-p/4565858"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/the-change-optics-report-is-now-generally-available-in-exchange/ba-p/4565858":{
+"title":"The Change Optics Report is now Generally Available in Exchange Online",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/the-change-optics-report-is-now-generally-available-in-exchange/ba-p/4565858",
+"source":"Main list source",
+"id":"exchange-change-optics-report-ga-2026-10-19",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Exchange",
+"posts":[]
+},
+"c-item-azure-confidential-vm-large-os-disk-encryption-ga-2026-":{
+"firstSeen":"2026-10-20",
+"lastSeen":"2026-10-20",
+"name":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations",
+"status":"No date",
+"members":[
+"item:azure-confidential-vm-large-os-disk-encryption-ga-2026-10-19"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"azure-confidential-vm-large-os-disk-encryption-ga-2026-10-19",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations",
+"title":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/large-os-disk-encryption-is-now-generally-available-for-azure/ba-p/4564613"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/microsoft-security-community/large-os-disk-encryption-is-now-generally-available-for-azure/ba-p/4564613":{
+"title":"Large OS Disk Encryption is now generally available for Azure Confidential VM migrations",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/large-os-disk-encryption-is-now-generally-available-for-azure/ba-p/4564613",
+"source":"Main list source",
+"id":"azure-confidential-vm-large-os-disk-encryption-ga-2026-10-19",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://techcommunity.microsoft.com/t5/azure-compute-blog/announcing-general-availability-of-ephemeral-os-disk-with-full/ba-p/4554797":{
+"title":"Announcing general availability of Ephemeral OS Disk with full caching for VM/VMSS",
+"link":"https://techcommunity.microsoft.com/t5/azure-compute-blog/announcing-general-availability-of-ephemeral-os-disk-with-full/ba-p/4554797",
+"source":"Azure Compute Blog",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://techcommunity.microsoft.com/t5/azure-compute-blog/public-preview-ephemeral-os-disk-with-full-caching-for-vm-vmss/ba-p/4500191":{
+"title":"Public Preview: Ephemeral OS Disk with full caching for VM/VMSS",
+"link":"https://techcommunity.microsoft.com/t5/azure-compute-blog/public-preview-ephemeral-os-disk-with-full-caching-for-vm-vmss/ba-p/4500191",
+"source":"Azure Compute Blog",
+"date":"2026-03-30",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new":{
+"title":"Ephemeral OS Disks",
+"link":"https://learn.microsoft.com/en-us/azure/virtual-desktop/whats-new",
+"source":"Microsoft Learn · What's new · Azure Virtual Desktop",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-20"
 }
 },
 "final":null,
@@ -7855,6 +7989,22 @@
 "date":"2026-10-18",
 "group":"community",
 "found":"2026-10-18"
+},
+"https://dev.to/usman_01/i-built-50-free-online-tools-for-seo-text-images-and-pdf-most-run-in-your-browser-4b35":{
+"title":"I built 50+ free online tools for SEO, text, images and PDF (most run in your browser)",
+"link":"https://dev.to/usman_01/i-built-50-free-online-tools-for-seo-text-images-and-pdf-most-run-in-your-browser-4b35",
+"source":"NeonTiger12",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
+},
+"https://dev.to/aipass/aipass-is-feature-complete-here-is-what-that-means-and-the-phone-app-on-top-56f9":{
+"title":"AIPass is feature-complete. Here is what that means, and the phone app on top",
+"link":"https://dev.to/aipass/aipass-is-feature-complete-here-is-what-that-means-and-the-phone-app-on-top-56f9",
+"source":"NeonTiger12",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
 }
 },
 "final":"2027-07-01",
@@ -7928,18 +8078,18 @@
 {
 "date":"2026-10-13",
 "id":"MC1437671",
-"what":"Microsoft revised the post",
-"before":"2026-10-09",
-"after":"2026-10-13",
+"what":"Title",
+"before":"(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
+"after":"(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
 "title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
 {
 "date":"2026-10-13",
 "id":"MC1437671",
-"what":"Title",
-"before":"(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
-"after":"(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
+"what":"Microsoft revised the post",
+"before":"2026-10-09",
+"after":"2026-10-13",
 "title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
 "link":"https://mc.merill.net/message/MC1437671"
 },
@@ -8383,22 +8533,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-18",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-18",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -8504,6 +8638,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-19",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-20",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11354,6 +11504,105 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1515929",
+"type":"milestone",
+"name":"GitHub app consolidation and legacy GitHub app deprecation",
+"src":"MC1515929",
+"now":"16 Nov 2026",
+"text":"Microsoft Teams is consolidating GitHub Notifications and GitHub Copilot into a single GitHub app, deprecating the legacy app by November 16, 2026."
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1515929",
+"type":"material",
+"name":"GitHub app consolidation and legacy GitHub app deprecation",
+"group":"microsoft",
+"title":"Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1515929"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-80092 Microsoft Identity Web Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70197 .NET Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-win11-26h2-security-baseline-v2-2026-10-08-2",
+"type":"new",
+"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
+"ctype":"Baseline",
+"tech":"Windows",
+"next":null,
+"text":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with credential prompts on the secure desktop"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-security-blog-agents-guardian-agents-2026-10-19",
+"type":"new",
+"name":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic…",
+"ctype":"Enforcement",
+"tech":"Defender",
+"next":null,
+"text":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic Permissions and Conditional Access for agents under Project Perception"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-exchange-change-optics-report-ga-2026-10-19",
+"type":"new",
+"name":"Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect,…",
+"ctype":"Rollout",
+"tech":"Exchange",
+"next":null,
+"text":"Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect, is generally available"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-azure-confidential-vm-large-os-disk-encryption-ga-2026-",
+"type":"new",
+"name":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations",
+"ctype":"Rollout",
+"tech":"Azure",
+"next":null,
+"text":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations"
+},
+{
+"day":"2026-10-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"I built 50+ free online tools for SEO, text, images and PDF (most run in your browser)",
+"source":"NeonTiger12",
+"link":"https://dev.to/usman_01/i-built-50-free-online-tools-for-seo-text-images-and-pdf-most-run-in-your-browser-4b35"
+},
+{
+"day":"2026-10-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"AIPass is feature-complete. Here is what that means, and the phone app on top",
+"source":"NeonTiger12",
+"link":"https://dev.to/aipass/aipass-is-feature-complete-here-is-what-that-means-and-the-phone-app-on-top-56f9"
 }
 ],
 "archive":{
@@ -12068,6 +12317,96 @@
 "final":"2026-10-11",
 "type":"Retirement",
 "tech":"Defender",
+"posts":[]
+},
+"c-item-intune-ios-18-minimum-2609":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-20",
+"name":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
+"status":"Archive",
+"members":[
+"item:intune-ios-18-minimum-2609"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"intune-ios-18-minimum-2609",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
+"title":"Intune raises the minimum supported iOS and iPadOS to 18, and devices below it lose standard management",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/intune/whats-new/":{
+"title":"Minimum supported version for iOS and iPadOS",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
+"source":"Main list source",
+"id":"intune-ios-18-minimum-2609",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-05T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":null,
+"type":"Support end",
+"tech":"Intune",
+"posts":[]
+},
+"c-item-azure-arc-scvmm-new-deployments-closed-2026-10":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-20",
+"name":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
+"status":"Archive",
+"members":[
+"item:azure-arc-scvmm-new-deployments-closed-2026-10"
+],
+"log":[
+{
+"date":"2026-10-06",
+"id":"azure-arc-scvmm-new-deployments-closed-2026-10",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
+"title":"Azure Arc-enabled SCVMM is closed to new customers from October 2026, ahead of its September 2029 retirement",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview":{
+"title":"Azure Arc resource bridge overview — retirement notice for Azure Arc-enabled SCVMM",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview",
+"source":"Main list source",
+"id":"azure-arc-scvmm-new-deployments-closed-2026-10",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Retirement",
+"tech":"Azure",
 "posts":[]
 }
 }
