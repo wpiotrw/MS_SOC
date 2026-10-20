@@ -4,6 +4,6 @@
   "pages": {
     "https://learn.microsoft.com/en-us/troubleshoot/entra/entra-id/ad-dmn-services/enable-support-tls-environment": {"etag":"\"Pg9dH81fEgpyMR/txriamGTRWAE=\"","gitCommitId":"e5acc51e976ac9e3d24322f9fb6d4b7ba9b1d0a5","path":"support/entra/entra-id/ad-dmn-services/enable-support-tls-environment.md","sourcePath":"support/entra/entra-id/ad-dmn-services/enable-support-tls-environment.md","updatedAt":"2026-04-23T18:06:00.0000000Z"},
     "https://learn.microsoft.com/en-us/troubleshoot/windows-365/health-checks": {"etag":"\"2skCaCJQGxJIccdecWe2S/uRROo=\"","gitCommitId":"50f72005985be6a9ec4a0d72ad5bebfdc6f6f118","path":"support/windows-365/health-checks.md","sourcePath":"support/windows-365/health-checks.md","updatedAt":"2026-07-21T02:05:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/troubleshoot/windows-365/known-issues-enterprise": {"etag":"\"yk/IKNrxegZ4Q9vJA9BMdUwxyu4=\"","gitCommitId":"0c4b52df7668719045328f14ab69be23bb9f1183","path":"support/windows-365/known-issues-enterprise.md","sourcePath":"support/windows-365/known-issues-enterprise.md","updatedAt":"2026-09-04T18:05:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/troubleshoot/windows-365/known-issues-enterprise": {"etag":"\"DreLP8HXwlhz0soz9Lk8U1CDTtg=\"","gitCommitId":"30ad87c23ddf98055ae298e1d3a3591b1ef8c4c7","path":"support/windows-365/known-issues-enterprise.md","sourcePath":"support/windows-365/known-issues-enterprise.md","updatedAt":"2026-10-20T18:05:00.0000000Z"}
   }
 }
