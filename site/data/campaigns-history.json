@@ -1693,6 +1693,54 @@
 "date":"2026-10-19",
 "group":"microsoft",
 "found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913":{
+"title":"CVE-2026-96913 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074":{
+"title":"CVE-2026-70074 Windows DNS Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839":{
+"title":"CVE-2026-83839 Windows Hyper-V Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782":{
+"title":"CVE-2026-83782 Windows Shell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204":{
+"title":"CVE-2026-102204 Windows Subsystem for Linux Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337":{
+"title":"CVE-2026-70337 Microsoft PowerShell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
 }
 },
 "final":"2026-10-15",
@@ -4983,14 +5031,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-18",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-19",
 "text":"August 1, 2026."
 },
@@ -5040,6 +5080,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-19",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-20",
 "text":"August 1, 2026."
 },
 {
@@ -5495,7 +5543,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-19",
+"seen":"2026-10-20",
 "text":"early February 2026."
 },
 {
@@ -5503,7 +5551,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-19",
+"seen":"2026-10-20",
 "text":"February 2027."
 },
 {
@@ -7140,6 +7188,14 @@
 "date":"2026-10-14",
 "group":"microsoft",
 "found":"2026-10-15"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/":{
+"title":"OpenAI says GPT-6.1 Sol is dramatically better at migrating legacy code",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/",
+"source":"BleepingComputer",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
 }
 },
 "final":"2026-11-12",
@@ -7371,6 +7427,14 @@
 "date":"2026-10-09",
 "group":"microsoft",
 "found":"2026-10-19"
+},
+"https://azure.microsoft.com/updates?id=577130":{
+"title":"[Launched] Generally Available: Keyless TLS on Application Gateway with Azure Key Vault Managed HSM",
+"link":"https://azure.microsoft.com/updates?id=577130",
+"source":"Azure Updates",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
 }
 },
 "final":null,
@@ -8010,6 +8074,30 @@
 "date":"2026-10-20",
 "group":"community",
 "found":"2026-10-20"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/building-an-on-device-voice-companion-with-foundry-local/ba-p/4563553":{
+"title":"Building an On-Device Voice Companion with Foundry Local",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/building-an-on-device-voice-companion-with-foundry-local/ba-p/4563553",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://dev.to/liveavabot/why-iphone-videos-silently-fail-as-telegram-avatars-2lo7":{
+"title":"Why iPhone Videos Silently Fail as Telegram Avatars",
+"link":"https://dev.to/liveavabot/why-iphone-videos-silently-fail-as-telegram-avatars-2lo7",
+"source":"NeonTiger12",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
+},
+"https://thehackernews.com/2026/10/pegasus-spyware-infection-confirmed-on.html":{
+"title":"Pegasus Spyware Infection Confirmed on Serbian University Rector's iPhone Days Before Election",
+"link":"https://thehackernews.com/2026/10/pegasus-spyware-infection-confirmed-on.html",
+"source":"Hacker News",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
 }
 },
 "final":"2027-07-01",
@@ -8586,7 +8674,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-19",
+"seen":"2026-10-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8594,7 +8682,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-19",
+"seen":"2026-10-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11608,6 +11696,116 @@
 "title":"AIPass is feature-complete. Here is what that means, and the phone app on top",
 "source":"NeonTiger12",
 "link":"https://dev.to/aipass/aipass-is-feature-complete-here-is-what-that-means-and-the-phone-app-on-top-56f9"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96913 Windows Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70074 Windows DNS Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83839 Windows Hyper-V Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83782 Windows Shell Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102204 Windows Subsystem for Linux Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204"
+},
+{
+"day":"2026-10-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70337 Microsoft PowerShell Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI says GPT-6.1 Sol is dramatically better at migrating legacy code",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/"
+},
+{
+"day":"2026-10-20",
+"cid":"c-item-azure-keyvault-mhsm-external-key-management-ga-2026-10-",
+"type":"material",
+"name":"Azure Key Vault Managed HSM external key management is generally available in all public regions",
+"group":"microsoft",
+"title":"[Launched] Generally Available: Keyless TLS on Application Gateway with Azure Key Vault Managed HSM",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=577130"
+},
+{
+"day":"2026-10-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Building an On-Device Voice Companion with Foundry Local",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/building-an-on-device-voice-companion-with-foundry-local/ba-p/4563553"
+},
+{
+"day":"2026-10-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Why iPhone Videos Silently Fail as Telegram Avatars",
+"source":"NeonTiger12",
+"link":"https://dev.to/liveavabot/why-iphone-videos-silently-fail-as-telegram-avatars-2lo7"
+},
+{
+"day":"2026-10-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Pegasus Spyware Infection Confirmed on Serbian University Rector's iPhone Days Before Election",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/pegasus-spyware-infection-confirmed-on.html"
 }
 ],
 "archive":{
