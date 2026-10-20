@@ -1,4 +1,168 @@
 {
-  "about": "Threat Research notes written by the morning routine (CLAUDE.md 5el-b). Same shape as threat_notes.json in the repository root, which a person writes; on a repeated id the person's note wins. tools/threat_todo.py todo lists the stories to analyse, tools/threat_todo.py check validates this file before commit. Every note carries `by` and `updated`; every remediation step says `from: source` (with `src`) or `from: ours` (inferred, labelled on the page).",
-  "stories": []
+ "about": "Threat Research notes written by the morning routine (CLAUDE.md 5el-b). Same shape as threat_notes.json in the repository root, which a person writes; on a repeated id the person's note wins. tools/threat_todo.py todo lists the stories to analyse, tools/threat_todo.py check validates this file before commit. Every note carries `by` and `updated`; every remediation step says `from: source` (with `src`) or `from: ours` (inferred, labelled on the page).",
+ "stories": [
+  {
+   "id": "eviltokens-device-code-2026-09",
+   "title": "EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing",
+   "match": [
+    "EvilTokens"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-10-20",
+   "by": "morning routine",
+   "summary": "EvilTokens is a phishing-as-a-service platform that appeared in February 2026 and abuses the OAuth device code flow. Microsoft says its campaigns compromised more than 12,000 inboxes in over 10,000 organizations. The victim is shown a real device code and sent to the genuine microsoft.com/devicelogin page, so the sign-in and MFA are done by the victim and the attacker receives the tokens without ever seeing a password. Stolen tokens were used to read and exfiltrate mail, create inbox rules and in some cases register a device to obtain a Primary Refresh Token. Microsoft's Digital Crimes Unit coordinated a disruption of the infrastructure.",
+   "timeline": [
+    {
+     "date": "2026-02-01",
+     "text": "EvilTokens emerges as a phishing-as-a-service platform sold through Telegram. (Microsoft gives the month only; the 1st is a placeholder.)",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-04-01",
+     "text": "Microsoft tracks a related campaign that used automation platforms to start short-lived polling nodes running Node.js backend logic. (Microsoft gives the month only; the 1st is a placeholder.)",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-09-22",
+     "text": "Microsoft Threat Intelligence publishes its analysis and describes the coordinated disruption by the Digital Crimes Unit.",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "rootCause": "The device code flow lets a third party start a sign-in that the victim completes on a legitimate Microsoft page. Where Conditional Access does not block the flow, the attacker's polling script receives valid tokens after the victim signs in with MFA.",
+   "attacker": [
+    "Developer and operator of the kit is tracked as Storm-2992; sold on Telegram for $1,500 plus $500 per month.",
+    "Lures by email (invoices, RFPs, shared files, password-expiry notices) with URLs, PDF or HTML attachments, behind fake CAPTCHA pages and multi-stage redirects on Vercel, Cloudflare Workers and AWS Lambda.",
+    "A background script requests a live device code, shows it with Copy Code and Continue buttons and polls the actor's /state endpoint every three to five seconds for up to 15 minutes.",
+    "After sign-in: Microsoft Graph reconnaissance, AI-assisted search for financial and executive mailboxes, wire-transfer and invoice keywords, malicious inbox rules, and device registration to obtain a Primary Refresh Token within about 10 minutes."
+   ],
+   "iocs": [
+    "Hosting abused: .vercel.app, .workers.dev, AWS Lambda (named by Microsoft)",
+    "Legitimate page abused: microsoft.com/devicelogin",
+    "Microsoft lists no IP addresses or file hashes in this post"
+   ],
+   "remediation": [
+    {
+     "text": "Block the device code flow with Conditional Access wherever possible; where Teams devices need it, scope the exception to the Teams device resource accounts and exclude the Device Registration Service resource.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Revoke refresh tokens with revokeSignInSessions for a suspected account and consider disabling it temporarily; access tokens can stay valid for up to an hour.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Require phishing-resistant MFA (FIDO, Authenticator with passkeys), enable sign-in risk policies and Continuous Access Evaluation, block legacy authentication.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Configure anti-phishing, Safe Links and ZAP, raise the Advanced Phishing Threshold to 2 or 3 and alert on suspicious inbox rule creation.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis of EvilTokens with detections and hunting guidance",
+     "title": "Unmasking EvilTokens: Getting to the root of device code phishing",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+     "date": "2026-09-22"
+    }
+   ],
+   "links": [
+    {
+     "text": "Unmasking EvilTokens: Getting to the root of device code phishing",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+     "date": "2026-09-22"
+    }
+   ]
+  },
+  {
+   "id": "storm-3168-agentic-azure-2026-09",
+   "title": "Storm-3168 (JADEPUFFER): agentic destructive attack in Azure through compromised service principals",
+   "match": [
+    "Storm-3168",
+    "JADEPUFFER"
+   ],
+   "areas": [
+    "Apps & OAuth",
+    "Identity attacks"
+   ],
+   "status": "active",
+   "updated": "2026-10-20",
+   "by": "morning routine",
+   "summary": "Microsoft investigated malicious Azure activity in one compromised tenant where two service principals were used: one for reconnaissance, the other for discovery, bulk deletion and credential collection. More than 150 destructive or credential-collection operations ran over 35 minutes, hitting storage accounts, a Key Vault, a Function App and an App Service plan; SQL deletions failed on an unsupported API version and some deletions were stopped by resource locks. Microsoft saw no ransom note and did not confirm data exfiltration. The actor is tracked as Storm-3168 and is associated with JADEPUFFER, which Sysdig reported in July 2026 as the first documented agentic ransomware operation.",
+   "timeline": [
+    {
+     "date": "2026-06-01",
+     "text": "Early June: the first service principal enumerates VMs, subscriptions and resources for about 15.5 hours; the second follows about 90 minutes later and later enumerates App Service configuration stores. (Microsoft gives the month only; the 1st is a placeholder.)",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-07-01",
+     "text": "Sysdig discovers JADEPUFFER (as reported by Microsoft). (Microsoft gives the month only; the 1st is a placeholder.)",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-09-25",
+     "text": "Microsoft Security Research publishes the analysis.",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "rootCause": "Initial access is unconfirmed. Microsoft found a client ID, secret and tenant ID posted in plaintext in a public GitHub issue by an employee and still visible in the edit history, but could not confirm that credential was used. The service principals held broad Azure RBAC roles (Contributor, Storage Account Contributor, SQL DB Contributor), which made the deletions possible.",
+   "attacker": [
+    "Used existing Azure RBAC assignments of the two service principals; five unique tokens for the destructive principal, two active in the same 70-second window, assessed as automated.",
+    "User agent python-requests/2.34.2 and shared infrastructure for both principals.",
+    "Tried to delete Azure Site Recovery and Azure Backup protection locks (failed), then listed storage account keys 30+ times after the destruction."
+   ],
+   "iocs": [
+    "45.131.66[.]106 (App Service probing and malicious ARM requests)",
+    "34.153.223[.]102 (App Service probing)",
+    "64.20.53[.]230 (App Service probing)",
+    "User agent python-requests/2.34.2"
+   ],
+   "remediation": [
+    {
+     "text": "Treat publicly exposed credentials as compromised even after the source is edited: rotate immediately and review historical use.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Apply least privilege to service principals through Azure RBAC and prefer mechanisms that reduce long-lived credentials.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Use resource locks and deletion protection, restrict access to backup and recovery resources and monitor attempts to change their protection.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Enable the Defender for Cloud plans for Resource Manager, Storage, Key Vault, App Service and Databases.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Security Research analysis with Defender alert coverage by tactic",
+     "title": "Storm-3168: Agentic-driven cloud attacks using compromised service principals",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/",
+     "date": "2026-09-25"
+    }
+   ],
+   "links": [
+    {
+     "text": "Storm-3168: Agentic-driven cloud attacks using compromised service principals",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/",
+     "date": "2026-09-25"
+    }
+   ]
+  }
+ ]
 }
