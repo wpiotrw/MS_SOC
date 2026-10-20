@@ -1,7 +1,7 @@
 {
- "read": "2026-10-19",
+ "read": "2026-10-20",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 697,
+ "count": 705,
  "note": null,
  "messages": [
   {
@@ -12648,7 +12648,7 @@
    "actionBy": "2026-10-01",
    "start": "2026-09-09",
    "end": "2026-12-01",
-   "modified": "2026-09-09",
+   "modified": "2026-10-19",
    "tags": [
     "Admin impact",
     "Retirement",
@@ -18386,6 +18386,219 @@
    "bodyHash": "adc2ff9d2d57b0eb"
   },
   {
+   "id": "MC1515917",
+   "title": "Database Hub in Fabric: Default enablement and admin opt-out",
+   "services": [
+    "Power BI"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2026-11-17",
+   "start": "2026-10-19",
+   "end": "2026-12-17",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Microsoft Fabric is updating the Database Hub tenant setting so Database Hub is enabled by default on November 17, 2026. Database Hub is currently in preview and gives database teams a central place in Microsoft Fabric to discover supported databases across Azure, Fabric, on-premises, and supported multicloud environments. Database Hub helps teams review available performance, secu…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Microsoft Fabric is updating the Database Hub tenant setting so Database Hub is enabled by default on November 17, 2026.",
+    "General Availability (Worldwide): Database Hub tenant setting default enablement will begin on November 17, 2026 and is expected to complete on November 17, 2026.",
+    "What will happen: The Database Hub tenant setting will be enabled by default on November 17, 2026.",
+    "If your organization does not want Database Hub enabled, admins can go to the Fabric admin portal, open Tenant settings , search for Database Hub , and disable the setting after it is enabled on November 17, 2026."
+   ],
+   "bodyHash": "31b8e7e03575ea55"
+  },
+  {
+   "id": "MC1515929",
+   "title": "Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2026-12-16",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We are consolidating GitHub Notifications and GitHub Copilot capabilities into a single GitHub app in Microsoft Teams. The new app brings repository updates and GitHub Copilot coding capabilities together, so users can follow GitHub activity and act on it within Teams. As part of this consolidation, the legacy GitHub app will be deprecated by November 16, 2026 and displayed as GitH…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "As part of this consolidation, the legacy GitHub app will be deprecated by November 16, 2026 and displayed as GitHub (deprecated) until it is retired.",
+    "General Availability (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by mid-November 2026.",
+    "Legacy GitHub app deprecation: The legacy app will be deprecated on November 16, 2026.",
+    "Users should remove it from their Teams conversations and add the new GitHub app to those conversations before November 16, 2026.",
+    "Notify affected users to remove the legacy GitHub app from Teams conversations and add the new GitHub app before November 16, 2026."
+   ],
+   "bodyHash": "9e306e0fb7994fa9"
+  },
+  {
+   "id": "MC1515930",
+   "title": "Cowork browser use setting renamed to Browser use in Microsoft Copilot",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2026-12-31",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[Introduction] We’re renaming the Cowork settings panel in Copilot Settings to Browser use in Microsoft Copilot. This panel contains the setting that lets admins manage whether Copilot apps can use the Microsoft Edge browser to perform tasks on behalf of users. This change makes the browser use setting easier for admins to find and manage as we organize Cowork-related controls into more discoverab…",
+   "when": "General Availability (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by mid October 2026. .",
+   "prepare": "No action is required. Existing configurations will remain unchanged. Admins should be aware that the setting previously found under Cowork will now appear as Browser use in Microsoft Copilot in Copilot Settings. .",
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by mid October 2026."
+   ],
+   "bodyHash": "66c0bdcf04f98e5a"
+  },
+  {
+   "id": "MC1515931",
+   "title": "Microsoft Teams: Simplified app enablement experience in Teams admin center",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2026-12-15",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is introducing a simplified app enablement experience in Teams admin center . The new guided flow brings together key app management actions, including setting who can access an app, choosing who should have the app installed, reviewing and accepting required permissions, and allowing or blocking the app. The flow adapts to the app’s current state and highlights steps that…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in mid-October 2026 and is expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "7660431d027b80a2"
+  },
+  {
+   "id": "MC1515932",
+   "title": "External Recipients Banner on Outlook Mobile",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2026-12-30",
+   "modified": "2026-10-19",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] When you add an attendee outside your organization to a meeting, Outlook will display a banner warning you that external recipients are included. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late October 2026 and expect to complete by late November 2026. [Impact on Your Organization:] Helps users avoid accidentally inviting external attendees t…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on late October 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "41372eae8a5d63eb"
+  },
+  {
+   "id": "MC1515937",
+   "title": "Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2027-03-30",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft Purview eDiscovery is introducing three read-only diagnostic checks for case access, security filters, and hold-policy distribution. These checks help admins understand and troubleshoot common access, search-scoping, and hold-distribution issues directly in the product. This message is associated with Microsoft 365 Roadmap ID 565222 [Rollout Schedule:] Public Preview (Wor…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in late October 2026 and expect to complete by mid November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid December 2026.",
+    "General Availability (GCC): We will begin rolling out in early December 2026 and expect to complete by mid January 2027.",
+    "General Availability (GCC High): We will begin rolling out in early December 2026 and expect to complete by early February 2027.",
+    "General Availability (DoD): We will begin rolling out in early December 2026 and expect to complete by late February 2027."
+   ],
+   "bodyHash": "b6fde5b959a538ed"
+  },
+  {
+   "id": "MC1515939",
+   "title": "Sending from Aliases",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2026-12-15",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We're pleased to announce that Sending from Aliases is now generally available for Exchange Online. We are continuing to investigate additional capabilities, including per-alias display names, further filtering and default controls, and calendar support post GA. For more details on the feature, review the blog post below. [Rollout Schedule:] Available now. [Impact on Your Organizat…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "32939d6826afd5bd"
+  },
+  {
+   "id": "MC1515940",
+   "title": "Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-19",
+   "end": "2027-01-01",
+   "modified": "2026-10-19",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We're simplifying how people use Copilot with their OneDrive files in File Explorer. As part of this change, we're retiring the OneDrive Copilot Summarize , Create FAQ , Compare Files , Ask a question, Explain image, Explain images, Compare images, Extract text actions from the File Explorer context menu. Users can continue to work with their OneDrive files in Copilot from one centr…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Retirement will begin in mid-November 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "a30b89fb317418a1"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -22944,6 +23157,62 @@
    "id": "MC1515270",
    "type": "new",
    "title": "Quick machine recovery is now supported on Windows Server 2025",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515917",
+   "type": "new",
+   "title": "Database Hub in Fabric: Default enablement and admin opt-out",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515929",
+   "type": "new",
+   "title": "Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515930",
+   "type": "new",
+   "title": "Cowork browser use setting renamed to Browser use in Microsoft Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515931",
+   "type": "new",
+   "title": "Microsoft Teams: Simplified app enablement experience in Teams admin center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515932",
+   "type": "new",
+   "title": "External Recipients Banner on Outlook Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515937",
+   "type": "new",
+   "title": "Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515939",
+   "type": "new",
+   "title": "Sending from Aliases",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1515940",
+   "type": "new",
+   "title": "Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
    "fields": {}
   }
  ]

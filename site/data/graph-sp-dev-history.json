@@ -1,13 +1,13 @@
 {
- "updated": "2026-10-19T04:40Z",
+ "updated": "2026-10-20T00:23Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-10-19T04:40Z",
+ "lastRead": "2026-10-20T00:23Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
   "names": 1078,
-  "application": 762,
-  "delegated": 847,
+  "application": 769,
+  "delegated": 859,
   "rsc": 60,
   "roles": 145
  },
