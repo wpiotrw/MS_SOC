@@ -66,7 +66,7 @@ Microsoft Purview continues to add new solutions and features to help with data 
 
 ### Data Loss Prevention
 
-- **General availability**: Endpoint data loss prevention (DLP) can now monitor sensitive data transferred over FTP and SFTP from managed Windows devices. It can enforce restrictive actions to help prevent data exfiltration. Configure FTP and SFTP transfer activities in your Endpoint DLP policies to get started. See [Protect FTP and SFTP transfers with Microsoft Purview Endpoint DLP](endpoint-dlp-ftp-sftp-short).
+- **General availability**: Endpoint data loss prevention (DLP) can now monitor sensitive data transferred over FTP and SFTP and apply restrictive actions based on your organization’s requirements. To get started, configure FTP and SFTP transfer activities in your Endpoint DLP policies. See [Protect FTP and SFTP transfers with Microsoft Purview Endpoint DLP](endpoint-dlp-ftp-sftp-short).
 
 ## September 2026
 

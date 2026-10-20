@@ -131,7 +131,6 @@ The following limitations apply when you use this configuration:
     - Android: Version 16.0.19426+
 - Files labeled with this configuration can only be moved or copied to another document library within the same site if users have SharePoint permissions to create or delete lists. The label isn't retained for the copied or moved file.
 - This configuration can override a previously manually applied label if the label isn't configured to apply encryption.
-- Files labeled with this configuration currently aren't displayed as labeled in [content explorer](data-classification-content-explorer).
 - Microsoft 365 Copilot can reference the labeled files if users have SharePoint read permissions to them, but won't summarize these files. Because files can't be summarized, they also can't be used by Copilot to generate new content.
 
 Note
