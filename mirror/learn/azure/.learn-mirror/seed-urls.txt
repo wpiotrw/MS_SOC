@@ -82,6 +82,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserri
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
 https://learn.microsoft.com/en-us/azure/cost-management-billing
@@ -153,6 +154,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-database
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-configure-malware-scan
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/defender-for-cloud-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-sensor-change-log
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-helm
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-plans

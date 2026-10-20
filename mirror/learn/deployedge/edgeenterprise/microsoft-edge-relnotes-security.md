@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: pchiquini
 author: Y-Kelly
 manager: robfranco
-ms.date: 2026-10-19T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 audience: ITPro
 ms.topic: release-notes
 ms.service: microsoft-edge
@@ -48,6 +48,10 @@ platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 # Release notes for Microsoft Edge Security Updates | Microsoft Learn
 
 These release notes provide information about security fixes that are included in updates to Microsoft Edge Stable channel.
+
+## October 20, 2026
+
+Microsoft is aware of the recent Chromium security fixes. We are actively working on releasing a security fix.
 
 ## October 19, 2026
 
