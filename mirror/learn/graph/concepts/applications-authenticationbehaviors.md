@@ -36,13 +36,13 @@ monikers: []
 item_type: Content
 source_path: concepts/applications-authenticationbehaviors.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: d9860451-4908-f3ae-ae02-dd0d08516846
 ---
 
@@ -59,7 +59,7 @@ You can configure the following behaviors:
 
 Note
 
-The **authenticationBehaviors** property (including **coopEnforcement**) is available in Microsoft Graph v1.0 and beta for the global service. **coopEnforcement** isn't available in national cloud deployments.
+The **authenticationBehaviors** property, including **coopEnforcement**, is available in Microsoft Graph v1.0 and beta for the global service and the supported national cloud deployments: US Government L4, US Government L5 (DoD), and China operated by 21Vianet.
 
 ## Read the authenticationBehaviors setting for an application
 
@@ -97,7 +97,7 @@ The property supports the following values:
 
 Note
 
-**coopEnforcement** is available only in the global service and isn't available in national cloud deployments.
+**coopEnforcement** is available in the global service and the supported national cloud deployments listed above.
 
 Important
 

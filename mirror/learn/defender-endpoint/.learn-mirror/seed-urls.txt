@@ -12,7 +12,12 @@ https://learn.microsoft.com/en-us/defender-endpoint/alerts-queue-endpoint-detect
 https://learn.microsoft.com/en-us/defender-endpoint/amsi-on-mdav
 https://learn.microsoft.com/en-us/defender-endpoint/analyzer-feedback
 https://learn.microsoft.com/en-us/defender-endpoint/analyzer-report
+https://learn.microsoft.com/en-us/defender-endpoint/android-configure
 https://learn.microsoft.com/en-us/defender-endpoint/android-configure-mam
+https://learn.microsoft.com/en-us/defender-endpoint/android-mobile-threat-defense-role
+https://learn.microsoft.com/en-us/defender-endpoint/android-new-ux
+https://learn.microsoft.com/en-us/defender-endpoint/android-privacy
+https://learn.microsoft.com/en-us/defender-endpoint/android-support-signin
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration

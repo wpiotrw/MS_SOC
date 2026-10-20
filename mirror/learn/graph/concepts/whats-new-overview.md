@@ -117,6 +117,10 @@ Added support for setting and unsetting custom emoji reactions on chat messages 
 
 ## September 2026: New and generally available
 
+### Applications
+
+- Updated the availability of the **coopEnforcement** property on the [authenticationBehaviors](/en-us/graph/api/resources/authenticationbehaviors) resource to include the supported national cloud deployments: US Government L4, US Government L5 (DoD), and China operated by 21Vianet.
+
 ### Calendars | Work hours and locations
 
 Added app-only support to the [workHoursAndLocationsSetting](/en-us/graph/api/resources/workhoursandlocationssetting), [workPlanOccurrence](/en-us/graph/api/resources/workplanoccurrence), and [workPlanRecurrence](/en-us/graph/api/resources/workplanrecurrence) resources and related methods. Apps can use the `Calendars.Read.All` application permission to read a user's setting, recurrences, and occurrences, and `Calendars.ReadWrite.All` to create, update, and delete them.
@@ -142,6 +146,7 @@ Added the **onPremisesExtensionAttributes** property to the [group](/en-us/graph
 
 ### Identity and access | Governance
 
+- Added the [roleManagementCustomCalloutExtension](/en-us/graph/api/resources/rolemanagementcustomcalloutextension) resource type and related methods for integrating external approval, ticketing, compliance, and audit workflows into Privileged Identity Management role assignment lifecycle events.
 - Promoted the **access reviews customer-provided data**APIs from beta to v1.0. Use them to review entitlement data that you upload for resources that Microsoft Entra doesn't discover itself, such as third-party applications. The promoted surface includes:
     - the **description** property on [accessReviewInstanceDecisionItemResource](/en-us/graph/api/resources/accessreviewinstancedecisionitemresource) to describe the resource under review.
     - [accessReviewInstanceDecisionItemPermission](/en-us/graph/api/resources/accessreviewinstancedecisionitempermission) complex type and the **permission** property on [accessReviewInstanceDecisionItem](/en-us/graph/api/resources/accessreviewinstancedecisionitem), which describe the permission that grants the principal access to the resource under review.
@@ -169,9 +174,10 @@ Updated the [getAllRetainedMessages](/en-us/graph/api/channel-getallretainedmess
 
 Added the **isDisabled** property to the [agentIdentityBlueprint](/en-us/graph/api/resources/agentidentityblueprint?view=graph-rest-beta&amp;preserve-view=true) resource. Use it to deactivate an agent identity blueprint without deleting it.
 
-### Application
+### Applications
 
-Added the **isDeviceAccessEnabled** property to the [onPremisesPublishing](/en-us/graph/api/resources/onpremisespublishing?view=graph-rest-beta&amp;preserve-view=true) resource to configure device access for Microsoft Entra Private Access.
+- Updated the availability of the **coopEnforcement** property on the [authenticationBehaviors](/en-us/graph/api/resources/authenticationbehaviors?view=graph-rest-beta&amp;preserve-view=true) resource to include the supported national cloud deployments: US Government L4, US Government L5 (DoD), and China operated by 21Vianet.
+- Added the **isDeviceAccessEnabled** property to the [onPremisesPublishing](/en-us/graph/api/resources/onpremisespublishing?view=graph-rest-beta&amp;preserve-view=true) resource to configure device access for Microsoft Entra Private Access.
 
 ### Backup and recovery | Microsoft 365 backup and storage
 

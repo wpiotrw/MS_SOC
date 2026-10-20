@@ -51,7 +51,7 @@ We recommend using **Cloud PC configurations** when configuring the **Enable loc
 
 Note
 
-Applicable only to devices with specs of 8vCPU/32GB/256GB and higher.
+The AI-enabled features are applicable only to devices with specs of 8vCPU/32GB/128GB and higher.
 
 ## **Add a new setting**
 

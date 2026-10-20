@@ -41,11 +41,13 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/authenticationbehaviors.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: ddff2a5f-38a5-7096-bc35-a4893332c68e
 ---
 
@@ -59,7 +61,7 @@ Applications can adopt new breaking changes by enabling a behavior (set the beha
 
 Note
 
-The **coopEnforcement** property isn't available in national cloud deployments. It's available only for the global service.
+The **coopEnforcement** property is available in the global service and the supported national cloud deployments: US Government L4, US Government L5 (DoD), and China operated by 21Vianet.
 
 ## Methods
 

@@ -45,6 +45,7 @@ https://learn.microsoft.com/en-us/intune/device-enrollment/apple/manage-devices-
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/overview-automated-enrollment-apple
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-service-access
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-ios
+https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-macos
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-tv-os
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-vision-os
 https://learn.microsoft.com/en-us/intune/device-enrollment/guide-linux
@@ -73,6 +74,7 @@ https://learn.microsoft.com/en-us/intune/device-security/compliance/quickstart-p
 https://learn.microsoft.com/en-us/intune/device-security/compliance/third-party-partners
 https://learn.microsoft.com/en-us/intune/device-security/conditional-access-integration/block-no-modern-auth
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-devices
+https://learn.microsoft.com/en-us/intune/device-security/laps/setup-macos
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/security-settings-management
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/overview
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/prerequisites
