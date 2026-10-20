@@ -3126,6 +3126,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5ca-win b{color:var(--text);font-weight:650}
 /* §5cr (8 X 2026): rail C — three aligned columns per tab (+ added, ~ changed, − removed) */
 @media (min-width:1100px){body.s5ca .s5ca-rail{width:300px}body.s5ca .wrap{margin-left:316px}}
+/* §5em (19 X 2026): the pinned "N filters are on" bar stood over the left rail (20-1480 px at 1500 px, rail 0-300, measured):
+   it covered the rail's first item. With the rail it spans the tab's own column, the same 336-1476 px as the panel. */
+@media (min-width:1100px){body.s5ca .gfbar{width:auto;max-width:none;margin-left:336px;margin-right:24px}}
 .s5ca-mv{display:none!important}
 .s5ca-it{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:6px;border:1px solid var(--border);background:var(--surface);margin-top:4px;padding:7px 6px 7px 10px}
 .s5ca-it:hover{border-color:var(--accent)}
@@ -4448,7 +4451,127 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 .s5ei-tt{font:inherit;font-size:13px;line-height:1.4;font-weight:600;background:none;border:0;padding:4px 0 0;color:var(--text);cursor:pointer;text-align:left;overflow-wrap:anywhere;display:block;width:100%}
 .s5ei-tt:hover{color:var(--accent);text-decoration:underline}
 .s5ei-date{margin-left:auto}
-@media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}</style>
+/* §5em: a search shows its result first - tiles under a filter say how many match, a block with none dims */
+.s5ei-fm{font-size:12px;font-weight:700;color:var(--ok);background:var(--ok-soft);border:1px solid var(--ok);border-radius:999px;padding:1px 9px}
+details.s5ei-day.s5ei-f0{opacity:.72}
+.s5ei-fnone{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
+.s5ei-tile[hidden],.s5ei-grid[hidden],.s5ei-h[hidden],.s5ei-more[hidden],.s5ei-fnone[hidden]{display:none}
+.mcb-go{margin-left:auto;font:600 12.5px/1.2 var(--sans);color:var(--ok);background:var(--surface);border:1px solid var(--ok);border-radius:6px;padding:5px 10px;cursor:pointer}
+.mcb-go+.mcb-back,.mcb-go+.mcb-clear{margin-left:0}
+/* §5em: the tab search names its first result */
+.s5em-jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 2px;font-size:13px;color:var(--ok)}
+.s5em-go{font:600 13px/1.3 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere}
+.s5em-none{margin:6px 0 10px;color:var(--muted);font-size:13px}
+.s5em-none[hidden]{display:none}
+.s5em-cnote{margin:0 0 8px;padding:0 4px;font-size:13px;font-weight:600;color:var(--ok)}
+.s5em-cnote[hidden],.jtile[hidden]{display:none}
+.kq[hidden],.s5el-row[hidden]{display:none}
+@keyframes s5emhit{0%{box-shadow:0 0 0 3px var(--ok)}100%{box-shadow:0 0 0 3px transparent}}
+.s5em-hit{animation:s5emhit 2.2s ease-out 1}
+@media (max-width:760px){.s5ei-grid{grid-template-columns:1fr}}
+/* §5el: Threat Research - rounded frames, cards, trend lines, report tables */
+.s5el{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.s5el>*,details.s5el-box,.s5el-row,.s5el-det{min-width:0}
+.s5el-fresh{margin:0;font-size:13px;color:var(--muted)}
+.s5el-fresh b{color:var(--text)}
+.s5el-note{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+details.s5el-box{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:0 14px 12px}
+details.s5el-box>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;padding:10px 0}
+details.s5el-box>summary::-webkit-details-marker{display:none}
+.s5el-bt{font-weight:700;font-size:15px;color:var(--text)}
+.s5el-bs{color:var(--muted);font-size:12px}
+.s5el-chartw{overflow-x:auto}
+.s5el-chart{width:100%;height:auto;display:block}
+@media (min-width:761px){.s5el-chart{min-width:520px}}
+.s5el-grid{stroke:var(--border);stroke-width:1}
+.s5el-ax{fill:var(--muted);font-size:10.5px;font-family:var(--sans)}
+.s5el-bar{fill:var(--accent-soft);stroke:var(--accent);stroke-width:.6}
+.s5el-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 0;font-size:12px;color:var(--text)}
+.s5el-li{display:inline-flex;align-items:center;gap:6px}
+.s5el-li i{display:inline-block;width:16px;height:3px;border-radius:2px}
+.s5el-li i.bar{height:10px;width:10px;background:var(--accent-soft);border:1px solid var(--accent)}
+/* §5en: incidents as rows; the analysis opens full width under its row, calm: facts, numbered parts, grey source words */
+.s5el-toc{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
+.s5el-tocl{font-size:12px;font-weight:700;color:var(--muted);margin-right:2px}
+.s5el-tocb{font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 12px;cursor:pointer;min-height:30px}
+.s5el-tocb:hover{border-color:var(--accent)}
+.s5el-why{margin:0 14px 8px;font-size:13px;color:var(--muted);line-height:1.45}
+.s5el-np{color:var(--muted)}
+.s5ei-tile.s5el-tpre{border-left:4px solid var(--border)}
+.s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:92px minmax(0,1fr) 96px 96px 96px 70px 18px;gap:10px;align-items:center;padding:8px 12px}
+.s5el-rhead{background:var(--surface);font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.s5el-row{border-bottom:1px solid var(--border);border-left:4px solid transparent;min-width:0}
+.s5el-row:last-child{border-bottom:0}
+.s5el-row.is-new{border-left-color:var(--accent)}
+.s5el-row.is-upd{border-left-color:var(--warn)}
+.s5el-rh{width:100%;font:inherit;font-size:13px;color:var(--text);background:none;border:0;text-align:left;cursor:pointer}
+.s5el-rh:hover{background:var(--accent-soft)}
+.s5el-row.open>.s5el-rh{background:var(--surface)}
+.s5el-c2{display:flex;flex-direction:column;gap:2px;min-width:0}
+.s5el-rt{font-weight:700;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.s5el-rm{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.s5el-c3,.s5el-c4{font-size:12.5px;white-space:nowrap}
+.s5el-c5,.s5el-c6{font-size:12.5px;font-weight:600}
+.s5el-ar{color:var(--muted);transition:transform .15s}
+.s5el-rd{display:none;font-size:12px;color:var(--muted)}
+.s5el-row.open .s5el-ar{transform:rotate(90deg)}
+.s5el-st{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;border-radius:6px;padding:2px 7px;border:1px solid var(--border);color:var(--muted)}
+.s5el-st.new{color:var(--accent);border-color:var(--accent)}
+.s5el-st.upd{color:var(--warn);border-color:var(--warn)}
+.s5el-st.none{border-color:transparent}
+.s5el-yes{color:var(--ok)}
+.s5el-no{color:var(--warn)}
+.s5el-det{padding:6px 18px 16px 18px;border-top:1px solid var(--border);background:var(--bg);font-size:13.5px;line-height:1.55}
+.s5el-det>*{max-width:1000px}
+.s5el-facts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 16px;margin:10px 0 4px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:13px}
+.s5el-facts dt{color:var(--muted);font-weight:600}
+.s5el-facts dd{margin:0;overflow-wrap:anywhere}
+.s5el-h4{display:flex;align-items:center;gap:8px;margin:18px 0 6px;padding-top:12px;border-top:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text)}
+.s5el-hn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--border);font-size:11.5px;color:var(--muted)}
+.s5el-sum{margin:0;text-align:justify}
+.s5el-sub{margin:6px 0 2px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.s5el-mut{color:var(--muted);font-size:12.5px}
+.s5el-ul{margin:0;padding-left:20px}
+.s5el-ul li{margin:3px 0;overflow-wrap:anywhere}
+.s5el-mono li{font-family:var(--mono,monospace);font-size:12.5px}
+.s5el-rem{margin:0;padding-left:24px}
+.s5el-rem li{margin:5px 0;overflow-wrap:anywhere}
+.s5el-kql{border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin:6px 0;background:var(--surface);position:relative}
+.s5el-kqt{margin:0 0 4px;font-weight:600;font-size:12.5px;padding-right:60px}
+.s5el-kql pre{margin:0;font-family:var(--mono,monospace);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.s5el-kql .s5el-btn{position:absolute;top:6px;right:8px}
+.s5el-btn,.s5el-pbtn,.s5el-lnk{font:inherit;font-size:12.5px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--accent);padding:4px 10px;cursor:pointer;min-height:28px}
+.s5el-pp{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.s5el-pbtn{max-width:100%;white-space:normal;text-align:left;overflow-wrap:anywhere}
+.s5el-lnk{border:0;background:none;padding:0;min-height:0;text-decoration:underline}
+.s5el-more{margin-top:10px}
+.s5el-ex{margin:2px 0 4px;color:var(--muted);font-size:12px}
+@media (max-width:900px){
+ .s5el-rhead{display:none}
+ .s5el-rh{grid-template-columns:minmax(0,1fr) 18px;align-items:start;row-gap:4px;padding:8px 10px}
+ .s5el-c1,.s5el-c2{grid-column:1}.s5el-ar{grid-column:2;grid-row:1}
+ .s5el-st.none{display:none}
+ .s5el-rd{display:block}
+ .s5el-c3,.s5el-c4,.s5el-c5,.s5el-c6{display:none}
+ .s5el-det{padding:4px 8px 14px}
+ .s5el-facts{grid-template-columns:1fr;gap:0 0;padding:8px 10px}
+ .s5el-facts dd{margin-bottom:6px}
+}
+.s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+.s5el-q{flex:1 1 200px;min-width:0;font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--ok);border-radius:8px;background:var(--bg);color:var(--text)}
+.s5el-sel{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);max-width:100%}
+.s5el-cnt{font-size:12px;color:var(--muted)}
+.s5el-tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+.s5el-tab{width:100%;border-collapse:collapse;font-size:12.5px}
+.s5el-tab th{text-align:left;font-weight:600;color:var(--muted);background:var(--surface);padding:6px 8px;border-bottom:1px solid var(--border)}
+.s5el-tab td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+.s5el-tab tbody tr:hover td{background:var(--accent-soft)}
+.s5el-nw{white-space:nowrap}
+.s5el-past{color:var(--bad);font-weight:600}
+.s5el-soon{color:var(--warn);font-weight:600}
+@media (max-width:760px){.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
+</style>
 <!--SOC-SHELL part=script1-->
 <script>
 (function () {
@@ -7292,7 +7415,7 @@ details.s5ei-day>summary::-webkit-details-marker{display:none}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 19 October 2026</b> &middot; published 08:58 Warsaw &middot; 5 &ndash; 19 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>42</b> deadlines in 60 days<span>&middot; 39 inside 30, 4 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>23</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>92</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>9</b> changes since 18 Oct<span>&middot; 5 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>2696</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 20 October 2026</b> &middot; published 06:56 Warsaw &middot; 6 &ndash; 20 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>42</b> deadlines in 60 days<span>&middot; 39 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>25</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>90</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>34</b> changes since 19 Oct<span>&middot; 13 at Microsoft, 21 in this report</span></a><a class="count" href="#chg14"><b>2604</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7493,7 +7616,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 19 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 20 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
