@@ -1,18 +1,55 @@
 {
- "read": "2026-10-18T20:24Z",
+ "read": "2026-10-21T11:49Z",
  "source": "our second tenant (tools/graph_sp.py)",
  "sourceLabel": "our developer tenant",
  "sourceNote": "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
- "thereRead": "2026-10-18T20:23Z",
- "ourRead": "2026-10-18T19:33Z",
+ "thereRead": "2026-10-19T20:39Z",
+ "ourRead": "2026-10-21T11:48Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 145,
-  "rolesDiffering": 0,
+  "rolesDiffering": 3,
   "thereOnly": 0,
-  "oursOnly": 0
+  "oursOnly": 9
  },
- "roles": {},
+ "roles": {
+  "Conditional Access Administrator": {
+   "templateId": "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9",
+   "there": [],
+   "ours": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ],
+   "firstNoticed": {},
+   "thereVersion": null,
+   "thereSince": null
+  },
+  "Global Administrator": {
+   "templateId": "62e90394-69f5-4237-9190-012177145e10",
+   "there": [],
+   "ours": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ],
+   "firstNoticed": {},
+   "thereVersion": null,
+   "thereSince": null
+  },
+  "Security Administrator": {
+   "templateId": "194ae4cb-b126-40b2-bd5b-6091b380977d",
+   "there": [],
+   "ours": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ],
+   "firstNoticed": {},
+   "thereVersion": null,
+   "thereSince": null
+  }
+ },
  "events": [],
  "permsThereOnly": [],
  "permsFirst": {},

@@ -1,68 +1,49 @@
 {
- "read": "2026-10-18T19:39Z",
+ "read": "2026-10-21T11:49Z",
  "source": "https://msadminroles.com/",
  "sourceLabel": "msadminroles.com",
  "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them",
  "thereRead": null,
- "ourRead": "2026-10-18T19:33Z",
+ "ourRead": "2026-10-21T11:48Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 145,
-  "rolesDiffering": 3,
-  "thereOnly": 9,
+  "rolesDiffering": 0,
+  "thereOnly": 0,
   "oursOnly": 0
  },
- "roles": {
-  "Conditional Access Administrator": {
-   "templateId": "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9",
-   "there": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "ours": [],
-   "firstNoticed": {
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/create": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete": "2026-10-18"
-   },
-   "thereVersion": 2,
-   "thereSince": "2026-10-16"
-  },
-  "Global Administrator": {
-   "templateId": "62e90394-69f5-4237-9190-012177145e10",
-   "there": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "ours": [],
-   "firstNoticed": {
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/create": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete": "2026-10-18"
-   },
-   "thereVersion": 7,
-   "thereSince": "2026-10-16"
-  },
-  "Security Administrator": {
-   "templateId": "194ae4cb-b126-40b2-bd5b-6091b380977d",
-   "there": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "ours": [],
-   "firstNoticed": {
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/create": "2026-10-18",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete": "2026-10-18"
-   },
-   "thereVersion": 5,
-   "thereSince": "2026-10-16"
-  }
- },
+ "roles": {},
  "events": [
+  {
+   "day": "2026-10-21",
+   "name": "Conditional Access Administrator",
+   "change": "caught-up",
+   "actions": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ]
+  },
+  {
+   "day": "2026-10-21",
+   "name": "Global Administrator",
+   "change": "caught-up",
+   "actions": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ]
+  },
+  {
+   "day": "2026-10-21",
+   "name": "Security Administrator",
+   "change": "caught-up",
+   "actions": [
+    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+    "microsoft.directory/conditionalAccessPolicyPlans/create",
+    "microsoft.directory/conditionalAccessPolicyPlans/delete"
+   ]
+  },
   {
    "day": "2026-10-18",
    "name": "Conditional Access Administrator",
