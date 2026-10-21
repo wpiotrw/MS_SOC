@@ -1,0 +1,26 @@
+// title: Suspicious rdp files in Outlook temporary folders · Microsoft Sentinel & Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This query is a hunting opportunity following Microsoft's threat intelligence report on Midnight Blizzard spear-phishing campaigns using RDP files. This query will identify *.rdp file creation in Outlook's temporary folders and covers both Windows 10 and Windows 11 OS endpoints. *Note*: If you have 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20For%20Endpoint/suspicious-rdp-files-in-outlook-temporary-folders.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Following part reflects Windows 10 endpoints
+let SuspiciousRdpFilesinOutlookWin10 = DeviceProcessEvents
+| where ProcessCommandLine has @'\AppData\Local\Microsoft\' 
+    and ProcessCommandLine has @'\Content.Outlook\' 
+    and ProcessCommandLine has @'.rdp';
+// Following part reflects Windows 11 endpoints
+let SuspiciousRdpFilesinOutlookWin11 = DeviceProcessEvents
+| where ProcessCommandLine has @'\AppData\Local\Microsoft\Olk\'
+    and ProcessCommandLine has @'.rdp';
+union SuspiciousRdpFilesinOutlookWin10,
+    SuspiciousRdpFilesinOutlookWin11
+| project TimeGenerated, 
+    DeviceName, 
+    ProcessCommandLine, 
+    AccountDomain, 
+    AccountName

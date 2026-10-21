@@ -1,0 +1,23 @@
+// title: Suspicious reconnaissance activity through WSL · Microsoft Defender XDR & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceProcessEvents
+// purpose: The following query will assist in hunting for suspicious activity similar to reconnaissance in WSL environments at endpoints.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/suspicious-reconnaissance-activity-through-wsl.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WSLSuspicousList = dynamic(["whoami", "uname", "find", "grep", "cron -l", "/etc/shadow", "/etc/passwd", "/etc/sudoers", "w"]); 
+let TimeFrame = 30d; // Choose the best timeframe for your investigation
+DeviceInfo
+    | where RegistryDeviceTag has "WSL2"
+    | project DeviceId
+| join ( DeviceProcessEvents
+    | where Timestamp > ago(TimeFrame)
+    | where ActionType == "ProcessCreated"
+    | where ProcessCommandLine has_any (WSLSuspicousList)
+    | project TimeGenerated, WSLDeviceID = DeviceId, DeviceName, FileName, FolderPath, ProcessId, ProcessCommandLine, AccountDomain, AccountName
+    )
+on $left.DeviceId == $right.WSLDeviceID
+| sort by TimeGenerated desc

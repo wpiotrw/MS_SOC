@@ -1,0 +1,25 @@
+// title:  · MITRE ATT&CK Technique(s)
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose:  · MITRE ATT&CK Technique(s)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Detect%20Potential%20Malicious%20Emails%20Based%20on%20InternetMessageId%20Dates.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Sergio Albea  19-04-2026 ©️
+EmailEvents
+| extend Timestamp_YYYYMMDD = format_datetime(Timestamp, "yyyyMMdd")
+| extend Timestamp_IM = format_datetime(Timestamp, "yyyyMM")
+| extend IMF = tostring(InternetMessageId)
+| where IMF contains Timestamp_IM
+| extend StartPos = indexof(IMF, Timestamp_IM)
+| extend Extracted_IMF_Date = iff(StartPos >= 0 and strlen(IMF) >= StartPos + 8, substring(IMF, StartPos, 8), "")
+| extend Extracted_IMF_Date_dt = todatetime(strcat(substring(Extracted_IMF_Date,0,4), "-", substring(Extracted_IMF_Date,4,2), "-", substring(Extracted_IMF_Date,6,2)))
+| where Timestamp > Extracted_IMF_Date_dt
+| extend case1 = iff(IMF contains Timestamp_YYYYMMDD, "valid", "other")
+| join kind=inner EmailUrlInfo on NetworkMessageId
+// comment the line below if you want to see all InternetMessageId with date populated and the cases detected as Threat
+| where case1 has 'other' and isempty(ThreatTypes)
+| summarize make_set(Url), make_set(SenderFromDomain) by case1, Timestamp_YYYYMMDD, Timestamp_IM, Extracted_IMF_Date, IMF, InternetMessageId, ThreatTypes, Subject,SenderIP=iff(isnotempty(SenderIPv4),SenderIPv4,SenderIPv6), ReportId

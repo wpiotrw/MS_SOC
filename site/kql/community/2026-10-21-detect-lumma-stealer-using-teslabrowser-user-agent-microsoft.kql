@@ -1,0 +1,19 @@
+// title: Detect lumma stealer using TeslaBrowser user agent · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Recently seen in the wild rising further, Lumma stealer has been observed to perform HTTP GET method, while using “TeslaBrowser/5.5” user agent.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/lumma-stealer-using-tesla-browser-useragent.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where ActionType == "HttpConnectionInspected"
+| extend json = todynamic(AdditionalFields)
+| extend direction = tostring(json.direction), method = tostring(json.method), user_agent = tostring(json.user_agent)
+ | where direction == "Out"
+ | where method == "GET"
+ | where user_agent contains @"TeslaBrowser"
+| project Timestamp, DeviceName, RemoteIP, RemotePort, RemoteUrl
+| sort by Timestamp desc

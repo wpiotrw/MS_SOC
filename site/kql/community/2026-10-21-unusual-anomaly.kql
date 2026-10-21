@@ -1,0 +1,23 @@
+// title: Unusual Anomaly
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Anomaly Rules generate events in the Anomalies table. This scheduled rule tries to detect Anomalies that are not usual, they could be a type of Anomaly that has recently been activated, or an infrequent type. The detected Anomaly should be reviewed, if it is relevant enough, eventually a separate sc
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/Anomalies/UnusualAnomaly.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// You can leave out Anomalies that are already monitored through other Analytics Rules
+//let _MonitoredRules = dynamic(["TestAlertName"]);
+let query_frequency = 1h;
+let query_lookback = 3d;
+Anomalies
+| where TimeGenerated > ago(query_frequency)
+//| where not(RuleName has_any (_MonitoredRules))
+| join kind = leftanti (
+    Anomalies
+    | where TimeGenerated between (ago(query_frequency + query_lookback)..ago(query_frequency))
+    | distinct RuleName
+) on RuleName
+| extend Name = tostring(split(UserPrincipalName, "@")[0]), UPNSuffix = tostring(split(UserPrincipalName, "@")[1])

@@ -1,0 +1,14 @@
+// title: Modifications to Azure DNS Zones
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Modifications to Azure DNS Zones
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Modifications%20to%20Azure%20DNS%20Zones.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Ensure you have read-only Resource Locks for critical DNS Zones and Azure Policy deny delete actions on all critical zones
+AzureActivity
+| where OperationNameValue == "privateDnsZones" or  OperationNameValue == "dnszones" //all modifications to DNS resources - you can drill down on recordsets or records e.g. dnszones/TXT. 
+//This query will also catch AVS privatecloud dnzones, getPrivateDnsZoneSuffix for DBfor SQL and privatednszonelinks and privateendpoints dns zones and links

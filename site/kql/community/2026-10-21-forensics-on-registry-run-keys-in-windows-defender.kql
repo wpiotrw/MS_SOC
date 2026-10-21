@@ -1,0 +1,17 @@
+// title: Forensics on Registry Run keys in Windows. · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Registry Run keys can be used to establish persistence on a device. The detection covers the following registry key paths: ``` HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run HKCU:\SOFTWAR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDE%20-%20Registry-Run-Keys-Forensics.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedDevices = dynamic (["workstation01", "server1"]);
+let SearchWindow = 7d; //Customizable h = hours, d = days
+DeviceRegistryEvents
+| where Timestamp > ago(SearchWindow)
+| where DeviceName has_any (CompromisedDevices)
+| where RegistryKey endswith @'\Software\Microsoft\Windows\CurrentVersion\Run' or  RegistryKey endswith @'\Microsoft\Windows\CurrentVersion\RunOnce'
+| project-reorder Timestamp, ActionType, DeviceId, DeviceName, RegistryKey, PreviousRegistryValueData, InitiatingProcessCommandLine

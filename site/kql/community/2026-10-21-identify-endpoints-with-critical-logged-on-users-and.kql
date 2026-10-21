@@ -1,0 +1,30 @@
+// title: Identify endpoints with critical logged on users, and shares with permission set to “Everyone” · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmSecureConfigurationAssessment, IdentityInfo
+// purpose: The following query leverages DeviceTvmSecureConfigurationAssessment table which is available at the MDVM add-on license. Results provided include endpoints where users marked as critical log in, and the associated endpoints have shares with permission set to "Everyone".
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/MDVM/identify-endpoints-with-critical-logged-on-users-and-shares-with-permission-set-to-everyone.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CriticalUsers = IdentityInfo 
+    | where CriticalityLevel == "1"
+    | project AccountName, AccountDisplayName
+    | join kind=inner (DeviceInfo
+    | extend AccountNameDev = parse_json(LoggedOnUsers)[0]["UserName"]
+    | extend AccountNameDevice = tostring(AccountNameDev)
+    | where isnotempty(AccountNameDevice)
+    | project DeviceId, DeviceName, AccountNameDevice)
+    on $left.AccountName == $right.AccountNameDevice
+    | summarize by DeviceId, DeviceName, AccountName, AccountDisplayName;
+DeviceTvmSecureConfigurationAssessment 
+    | where ConfigurationId has "scid-4001"
+    | where IsCompliant == "0"
+    | where IsApplicable == "1"
+    | extend Folder = parse_json(Context)[0][0]
+    | extend Path = parse_json(Context)[0][1]
+    | project DeviceId, DeviceName, OSPlatform, Folder, Path
+    | join kind=inner CriticalUsers on $left.DeviceId == $right.DeviceId
+    | project DeviceId, DeviceName, OSPlatform,
+        Folder, Path, AccountName, AccountDisplayName

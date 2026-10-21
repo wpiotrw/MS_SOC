@@ -1,0 +1,20 @@
+// title: Review recently received emails with phishing related subject keywords · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: The following query will go through a set of keywords included in a curated list that could be found in email’s subject, that could potentially be correlated to phishing emails. This query will most probably return a lot of false/positives, however it could potentially return results significant eno
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/recently-received-emails-with-phishing-related-subject-keywords.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromizedEmailAddress = ""; // Insert the email address of the compromised email address
+let SuspiciousKeywords = externaldata(Keywords: string)[@"https://raw.githubusercontent.com/cyb3rmik3/Hunting-Lists/main/phishing-keywords.csv"] with (format="csv", ignoreFirstRecord=True);
+let Timeframe = 2d; // Choose the best timeframe for your investigation
+EmailEvents 
+    | where RecipientEmailAddress == CompromizedEmailAddress
+    | where Timestamp > ago(Timeframe)
+    | where Subject has_any (SuspiciousKeywords)
+    | where DeliveryAction == "Delivered"
+    | project Timestamp, SenderMailFromAddress, SenderFromAddress, SenderDisplayName, SenderMailFromDomain, SenderFromDomain, SenderIPv4, AttachmentCount, UrlCount, LatestDeliveryAction
+    | sort by Timestamp desc

@@ -1,0 +1,18 @@
+// title: Network Shell command for firewall to allow incoming RDP connections · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Attackers can attempt to enable RDP, including leveraging multiple living-off-the-land tools. Once RDP is enabled, it allows the attackers to use any number of dual-use tools that leverage the RDP protocol. The following query will hunt for an attempt to create a firewall rule to specifically allow 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/netsh-command-for-firewall-to-allow-incoming-rdp-connections.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 1d; // Choose the best timeframe for your investigation
+let fwcommands = dynamic([@"advfirewall", @"firewall", @"add rule", @"dir=in", @"localport=3389", @"action=allow"]);
+DeviceProcessEvents
+| where Timestamp > ago(Timeframe)
+| where FileName has @"netsh.exe"
+| where ProcessCommandLine has_all (fwcommands)
+| where ActionType has "ProcessCreated"
+| project DeviceId, DeviceName, ProcessCommandLine

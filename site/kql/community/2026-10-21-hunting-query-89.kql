@@ -1,0 +1,20 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Detection%20of%20OOF%20message%20delivered%20externally.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+// add your automatic replies cases in your languages
+| where Subject startswith "Automatic reply:"
+| where DeliveryAction has "Delivered" and EmailDirection has "Outbound"
+| extend Username = split(RecipientEmailAddress, "@")[0], Domain = tostring(split(RecipientEmailAddress, "@")[1])
+| extend DomainParts = split(RecipientEmailAddress, ".")
+| extend DomainExtensions = tostring(DomainParts[-1])
+| summarize count() by DomainExtensions ,EmailDirection, DeliveryAction,DeliveryLocation, ThreatTypes
+// if you want to have deeper information instead of a general view, you can use the next line and remove/comment the previous one
+//| distinct SenderDisplayName, SenderMailFromDomain, SenderIPv4, RecipientEmailAddress,DomainExtensions,Domain,Subject, EmailDirection, DeliveryAction, DeliveryLocation, ThreatTypes

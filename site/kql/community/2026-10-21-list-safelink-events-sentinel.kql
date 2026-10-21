@@ -1,0 +1,13 @@
+// title: List SafeLink events · Sentinel
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: This query lists all events that have triggered a URL block by safelinks. Those actions can be from multiple workloads: Teams, Office Applications or from email events. The URL click of the user will also generate a indincident itself. This query lists all events in one single view. Note: This query
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Office%20365/ListSafeLinkEvents.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+UrlClickEvents
+| where ActionType == "ClickBlocked"
+| project TimeGenerated, Url, Workload, AccountUpn, ThreatTypes, IsClickedThrough

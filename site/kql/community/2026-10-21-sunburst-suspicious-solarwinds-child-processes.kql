@@ -1,0 +1,18 @@
+// title: SUNBURST suspicious SolarWinds child processes
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Identifies suspicious child processes of SolarWinds.Orion.Core.BusinessLayer.dll that may be evidence of the SUNBURST backdoor References: - https://www.fireeye.com/blog/threat-research/2020/12/evasive-attacker-leverages-solarwinds-supply-chain-compromises-with-sunburst-backdoor.html - https://gist.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/DeviceProcessEvents/SolarWinds_SUNBURST_Process-IOCs.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let excludeProcs = dynamic([@"\SolarWinds\Orion\APM\APMServiceControl.exe", @"\SolarWinds\Orion\ExportToPDFCmd.Exe", @"\SolarWinds.Credentials\SolarWinds.Credentials.Orion.WebApi.exe", @"\SolarWinds\Orion\Topology\SolarWinds.Orion.Topology.Calculator.exe", @"\SolarWinds\Orion\Database-Maint.exe", @"\SolarWinds.Orion.ApiPoller.Service\SolarWinds.Orion.ApiPoller.Service.exe", @"\Windows\SysWOW64\WerFault.exe"]);
+DeviceProcessEvents
+| where InitiatingProcessFileName =~ "solarwinds.businesslayerhost.exe"
+| where not(FolderPath has_any (excludeProcs))
+| extend
+    timestamp = TimeGenerated,
+    InitiatingProcessAccountUPNSuffix = tostring(split(InitiatingProcessAccountUpn, "@")[1]),
+    Algorithm = "MD5"

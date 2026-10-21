@@ -1,0 +1,25 @@
+// title: PIM Security Alerts · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Detects Microsoft Entra Privileged Identity Management (PIM) security alerts and assigns severity based on the official Microsoft documentation. Alert names from documentation: - Administrators aren't using their privileged roles - Roles don't require multifactor authentication for activation - The 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/PIMAlerts.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where OperationName =~ "Triggered PIM alert"
+| where Category =~ "RoleManagement"
+| extend AlertDescription = TargetResources[0].displayName
+| extend Severity = case(
+	AlertDescription =~ "Roles are being assigned outside of Privileged Identity Management" or AlertDescription =~ "Role assigned outside of PIM", "High",
+	AlertDescription =~ "Potential stale accounts in a privileged role", "Medium",
+	AlertDescription =~ "Administrators aren't using their privileged roles", "Low",
+	AlertDescription =~ "Roles don't require multifactor authentication for activation", "Low",
+	AlertDescription =~ "The organization doesn't have Microsoft Entra ID P2 or Microsoft Entra ID Governance", "Low",
+	AlertDescription =~ "There are too many Global Administrators", "Low",
+	AlertDescription =~ "Roles are being activated too frequently", "Low",
+	"Unknown"
+)
+| project-reorder TimeGenerated, OperationName, Category, AlertDescription, Severity

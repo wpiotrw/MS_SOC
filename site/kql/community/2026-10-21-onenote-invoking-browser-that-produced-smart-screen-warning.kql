@@ -1,0 +1,22 @@
+// title: OneNote invoking browser that produced smart screen warning · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceInfo, DeviceProcessEvents
+// purpose: A detection rule for OneNote files, invoking browser (inline URL) which produced a smart screen URL warning. Detection has been provided following public discussion with @DhaeyerWolf.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/onenote-invoking-browser-with-smartscreen-alert.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+let Process = DeviceProcessEvents
+| where InitiatingProcessFileName contains "onenote.exe"
+// Define any other browser files below that may be present in your environment
+| where FileName has_any ("firefox.exe","msedge.exe","chrome.exe")
+| project Timestamp, DeviceId, DeviceName, AccountDomain, AccountName;
+// Joining DeviceEvents table to correlate SmartScreen URL warnings
+Process
+| join (DeviceEvents
+| where ActionType == "SmartScreenUrlWarning"
+| project DeviceId, DeviceName, InitiatingProcessAccountUpn, RemoteUrl
+) on DeviceId

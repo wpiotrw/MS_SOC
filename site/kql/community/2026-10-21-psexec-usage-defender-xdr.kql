@@ -1,0 +1,20 @@
+// title: PsExec Usage · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: PsExec is a tool that can be used to execute remote commands. This can be done in a benign way by admins, however attackers can also use this tool for various techniques. This query lists all the PsExec executions by the Device that triggerd the actions. This is not a detection rule, but a hunting r
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/PSExecExecutions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+// Collect all executed psexec commands
+| where ProcessCommandLine contains "psexec.exe"
+// Extract the remove device
+| extend RemoteDevice = extract(@'\\\\(.*)c:', 1, ProcessCommandLine)
+// If in your device onboarding Enable-PsRemoting is executed filter the line below
+//| where not(ProcessCommandLine has_all ('powershell -command "Enable-PsRemoting -Force"', 'psexec.exe'))
+// Collect stats and lists with remote devices and executed commands
+| summarize TotalRemoteDevices = dcount(RemoteDevice), RemoteDeviceList = make_set(RemoteDevice), ExecutedCommands = make_set(ProcessCommandLine) by DeviceName
+| sort by TotalRemoteDevices

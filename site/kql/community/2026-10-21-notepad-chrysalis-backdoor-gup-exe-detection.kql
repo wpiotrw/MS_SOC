@@ -1,0 +1,28 @@
+// title: Notepad++   Chrysalis Backdoor gup.exe detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Notepad++ Chrysalis Backdoor gup.exe detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Notepad++%20-%20Chrysalis%20Backdoor%20gup.exe%20detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Reference: https://medium.com/capturedsignal/notepad-security-incident-threat-hunting-using-kql-and-defender-for-endpoint-logs-dd83b984fcc6
+//Credit goes to Bartosz Turek
+let AllowedRemoteUrls = dynamic([  
+    "notepad-plus-plus.org",  
+    "github.com",  // assumption that malware was not hosted on github
+    ".githubusercontent.com", // assumption that malware was not hosted on github
+    "sourceforge.net",  //assumption that malware was not hosted on sourceforge
+    "globalsign.com" // cert signing logs
+]);  
+DeviceNetworkEvents
+| where TimeGenerated > todatetime('2025-06-01T00:00:00.00Z') // "The incident began from June 2025"
+| where InitiatingProcessCommandLine startswith '"gup.exe"'
+| where not(RemoteUrl has_any (AllowedRemoteUrls))  
+| where RemoteIPType <> "Loopback"
+| where isnotempty( RemoteIP)
+| extend IPGeoLocation = geo_info_from_ip_address(RemoteIP) // adding geolocation context
+| extend RemoteIPLocation = tostring(IPGeoLocation.country)
+| project-reorder TimeGenerated, DeviceName, ActionType, InitiatingProcessCommandLine, InitiatingProcessFolderPath, RemoteIP, RemoteUrl, RemoteIPLocation, RemotePort

@@ -1,0 +1,24 @@
+// title: Review recent UrlClick events · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents, UrlClickEvents
+// purpose: The following query will help identify emails with URLs inline, where the user took action and clicked any of them and the URL wasn’t blocked.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/review-recent-urlclick-events.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromizedEmailAddress = ""; // Insert the email address of the compromised email address
+let Timeframe = 2d; // Choose the best timeframe for your investigation
+let EmailInformation = EmailEvents
+    | where RecipientEmailAddress == CompromizedEmailAddress
+    | where Timestamp > ago(Timeframe)
+    | where UrlCount != "0"
+    | project Timestamp, NetworkMessageId, SenderMailFromAddress, SenderFromAddress, SenderDisplayName, ThreatNames;
+EmailInformation
+    | join (UrlClickEvents
+    | where ActionType != "ClickBlocked"
+    | where Workload == "Email"
+    | project Timestamp, Url, IPAddress, NetworkMessageId
+) on NetworkMessageId
+| sort by Timestamp desc

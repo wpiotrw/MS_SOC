@@ -1,0 +1,20 @@
+// title: Alerts related to Deception in Microsoft Defender XDR · Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender XDR
+// tables: AlertEvidence
+// purpose: The following query will identify alerts in Microsoft Sentinel, related to the Deception capability of Microsoft Defender XDR.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/alerts-related-to-deception-in-microsoft-defender-xdr.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 7d; // Choose proper timeframe
+AlertEvidence
+| where TimeGenerated > ago(Timeframe)
+| mv-expand AdditionalFields
+| extend AlertTags = parse_json(AdditionalFields.Tags)
+| mv-expand AlertTags
+| extend DeceptionTags = parse_json(AlertTags.TagName)
+| where DeceptionTags == "Deception"
+| project TimeGenerated, DeceptionTags, AlertId, Title, Categories, AttackTechniques, ServiceSource, DetectionSource, EntityType, EvidenceRole, DeviceId, DeviceName, LocalIP
+| sort by TimeGenerated desc

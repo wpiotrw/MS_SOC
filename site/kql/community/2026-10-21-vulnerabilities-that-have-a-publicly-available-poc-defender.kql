@@ -1,0 +1,20 @@
+// title: Vulnerabilities that have a publicly available POC · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareVulnerabilities
+// purpose: A list has been made on Github with links to available POCs for CVE's. This query lists the vulnerabilities in your environment that have a publicly available POC. This might help to prioritize which vulnerabilities need to be patches first.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/VulnerabilitiesWithAvailablePOC.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Extract the CVE IDs that have an available POC
+let VulnerabilitiesWithPOC = externaldata(CVE: string, URL: string )[@"https://raw.githubusercontent.com/tg12/PoC_CVEs/main/cve_links.csv"] with (format="csv", ignoreFirstRecord=True);
+DeviceTvmSoftwareVulnerabilities
+// Join POC information with the Software Vulnerabilities based on CVE
+| join kind=inner (VulnerabilitiesWithPOC
+| summarize POCLinks = make_set(URL), POCTotal = dcount(URL) by CVE) on $left.CveId == $right.CVE
+// Summarize Results to get statistics
+| summarize TotalVulnerableDevices = dcount(DeviceName), arg_max(CveId, POCTotal, POCLinks) by CveId
+// Sort the results
+| sort by POCTotal, TotalVulnerableDevices

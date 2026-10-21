@@ -1,0 +1,24 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents, UrlClickEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/[IC]%20-%20Catching%20emojis%20on%20email%20Subjects.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sergio Albea 17-03-2026 ©️
+EmailEvents
+| where Timestamp > ago(7d)
+| where isnotempty(Subject)
+| extend Icons = extract_all(@"([\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}])", Subject)
+| where isnotempty(Icons)
+| join kind=inner UrlClickEvents on NetworkMessageId
+| where UserLevelPolicy !has 'Allow' 
+| where OrgLevelPolicy !has 'Allow'
+| extend SenderIP = iff(isnotempty( SenderIPv4),SenderIPv4,SenderIPv6)
+| extend geo_ip = tostring(geo_info_from_ip_address(SenderIP).country)
+//| where Subject contains "⚠️" 
+| summarize Distinct_Recipients=dcount(RecipientEmailAddress),make_set(RecipientEmailAddress),Emails=count() by Subject,SenderIP,geo_ip,ActionType, Workload, Url, ThreatTypes, LatestDeliveryLocation
+| order by Emails, Distinct_Recipients

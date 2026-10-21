@@ -1,0 +1,14 @@
+// title: MDA   IP Address Type
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: MDA IP Address Type
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/MDA%20-%20IP%20Address%20Type.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where isnotempty(IPAddress)
+| summarize count() by IPCategory
+| extend IPCategory = iff(isempty(IPCategory),IPCategory="Normal",IPCategory)

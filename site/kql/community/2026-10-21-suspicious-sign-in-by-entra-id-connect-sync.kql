@@ -1,0 +1,18 @@
+// title: Suspicious Sign In by Entra ID Connect Sync Account
+// date: 2026-10-21
+// product: Sentinel
+// tables: BehaviorAnalytics
+// purpose: This query looks for sign ins by the Microsoft Entra ID Connect Sync account to Azure where properties about the logon are anomalous. This query uses Microsoft Sentinel's UEBA features to detect these suspicious properties. A threat actor may attempt to steal the Sync account credentials and use the
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/BehaviorAnalytics/SuspiciousSigninByAADConnectAccount.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+BehaviorAnalytics
+// User modification is expected from this account so focus on logons
+| where ActivityType =~ "LogOn"
+| where UserName startswith "Sync_" and UsersInsights.AccountDisplayName =~ "On-Premises Directory Synchronization Service Account"
+// Filter out this expected activity
+| where ActivityInsights.App !~ "Microsoft Azure Active Directory Connect"
+| where InvestigationPriority > 0
+| extend Name = split(UserPrincipalName, "@")[0], UPNSuffix = split(UserPrincipalName, "@")[1]

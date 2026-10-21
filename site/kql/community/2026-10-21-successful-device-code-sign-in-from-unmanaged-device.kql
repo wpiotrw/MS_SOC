@@ -1,0 +1,20 @@
+// title: Successful device code sign-in from unmanaged device · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: This query lists successful Entra ID sign-ins were device code authentication is used from an unmanaged device. This means that a device which is not managed by your organization has succesfully met the conditions to sign-in to your tenant using a managment API In addition you can filter on the prev
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/SuccessfulDeviceCodeAuthenticationUnmanagedDevice.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+// Filter only successful sign-ins
+| where ResultType == 0
+| where AuthenticationProtocol == "deviceCode"
+// Filter on unmanaged devices
+| where isempty(DeviceDetail.deviceId)
+| extend operatingSystem = tostring(DeviceDetail.operatingSystem)
+// Optionally filter only on sign-ins with a risklevel associated with the sign-in
+//| where RiskLevelDuringSignIn != "none"
+| project-reorder TimeGenerated, UserPrincipalName, AuthenticationProtocol, ResultType, RiskLevelDuringSignIn, AppDisplayName, AppId, Location, IPAddress

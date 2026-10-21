@@ -1,0 +1,13 @@
+// title: Security Log Cleared · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: An attacker might delete the Security Log to hide the malicious activities. This rule only triggers on the deletion of the Security Events, however adversaries may also delete application, setup and system logs. The Windows Event log can become full, clearing the eventlog causes this rule to be trig
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/SecurityLogCleared.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType == 'SecurityLogCleared'
+| project Timestamp, DeviceName, ActionType

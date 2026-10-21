@@ -1,0 +1,19 @@
+// title: Device Deleted from Entra
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Device Deleted from Entra
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Device%20Deleted%20from%20Entra.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Delete device"
+| where Result == "success"
+| extend TargetId = tostring(TargetResources[0].id)
+| extend Target = substring(tostring(TargetResources[0].userPrincipalName),32)//replace_string(tostring(TargetResources[0].userPrincipalName),TargetId,'')
+| extend DisplayName = tostring(TargetResources[0].userPrincipalName)
+| extend Initiator =iff(isempty(parse_json(tostring(InitiatedBy.user)).userPrincipalName),parse_json(tostring(InitiatedBy.app)).displayName,(parse_json(tostring(InitiatedBy.user)).userPrincipalName))
+| extend IPAddress= parse_json(tostring(InitiatedBy.user)).ipAddress

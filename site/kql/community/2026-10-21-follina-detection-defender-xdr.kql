@@ -1,0 +1,24 @@
+// title: Follina Detection · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: Follina Detection
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Exploitation/Follina.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sources: https://www.reddit.com/r/blueteamsec/comments/v0wgqh/sentinel_kql_detections_for_microsoft_word_zero/ & https://github.com/reprise99/Sentinel-Queries/blob/main/Defender%20for%20Endpoint/Device-msdtPotentialExploit.kql
+    (union isfuzzy=true
+    (DeviceProcessEvents
+    | where ProcessCommandLine contains "msdt.exe"
+    | where InitiatingProcessFileName has_any (@"outlook.exe", @"winword.exe", @"excel.exe")),
+    (DeviceProcessEvents
+    | where InitiatingProcessCommandLine contains "msdt.exe" and ProcessCommandLine !contains "msdt.exe"),
+    (DeviceNetworkEvents
+    | where InitiatingProcessFileName has_any ("sdiagnhost.exe", "msdt.exe")
+    | where RemoteIPType == "Public"
+    | where ActionType == "ConnectionSuccess"
+    and RemoteUrl !endswith ".visualstudio.com"
+    and RemoteUrl !endswith ".microsoft.com")
+    )

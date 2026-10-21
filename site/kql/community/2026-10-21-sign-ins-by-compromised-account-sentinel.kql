@@ -1,0 +1,23 @@
+// title: Sign Ins by compromised account · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: List the interactive and noninteractive signins that have been performed by a compromised account. This can be done based on the UPN of the compromised account.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/EntraID%20-%20SignInsByCompromisedAccount.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedAccountUPN = "test@test.com";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+let aadFunc = (tableName: string, email: string) {
+    table(tableName)
+    | where TimeGenerated > ago(SearchWindow)
+    | where ResultType == 0
+    | where UserPrincipalName == email
+};
+let aadSignin = aadFunc("SigninLogs", CompromisedAccountUPN);
+let aadNonInt = aadFunc("AADNonInteractiveUserSignInLogs", CompromisedAccountUPN);
+union isfuzzy=true aadSignin, aadNonInt
+// In case of all details remove line below
+| project TimeGenerated, Category, Location, AppDisplayName, ClientAppUsed, RiskState

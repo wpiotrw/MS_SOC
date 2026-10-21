@@ -1,0 +1,15 @@
+// title: Modifications To ApplicationManagementPolicy for Entra App Registrations
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Modifications To ApplicationManagementPolicy for Entra App Registrations
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Modifications%20To%20ApplicationManagementPolicy%20for%20Entra%20App%20Registrations.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// This query looks for modifications to ApplicationManagementPolicy which could be someone attempting to bypass an app management policy that blocks client secrets being used for an app registration
+AuditLogs
+| where OperationName == "Add policy"
+| where TargetResources[0].displayName == "ApplicationManagementPolicy"
+//Ref https://learn.microsoft.com/en-us/graph/api/tenantappmanagementpolicy-update?view=graph-rest-1.0&tabs=http?WT.mc_id=MVP_473477

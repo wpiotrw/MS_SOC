@@ -1,0 +1,24 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Detecting%20emails%20sent%20by%20countries%20using%20non-oficial%20languages.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CountryLanguageMap = externaldata(ISO2:string,Country:string,ExpectedLanguages:string)
+    [@"https://raw.githubusercontent.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/refs/heads/main/Security-Lists/country_Language.csv"] with (format = "csv",ignoreFirstRecord = true)
+    | extend ExpectedLanguagesArray =   split(tolower(ExpectedLanguages), ";");
+EmailEvents
+| extend SenderIP = iff(isnotempty(SenderIPv4),SenderIPv4,SenderIPv6)
+| where isnotempty(SenderIP) and isnotempty(EmailLanguage)
+| extend GeoInfo = geo_info_from_ip_address(SenderIP)
+| extend Country = tostring(GeoInfo.country)
+| extend DetectedLanguage = tolower(substring(tostring(EmailLanguage), 0, 2)) | lookup kind=leftouter CountryLanguageMap on Country
+| where isnotempty(ExpectedLanguages) and isnotempty(DetectedLanguage) and DetectedLanguage !in ("un", "xx") and array_index_of( ExpectedLanguagesArray, DetectedLanguage) == -1
+| summarize 
+    EmailCount = count(),FirstSeen = min(Timestamp),LastSeen = max(Timestamp),Subjects = make_set(Subject, 10),ThreatTypes = make_set(ThreatTypes, 10),SenderDomains = make_set(SenderFromDomain, 10)
+    by SenderIP,Country,DetectedLanguage,EmailLanguage
+| where EmailCount < 10 and Country !in ("United States") and SenderDomains !in ("Domain1","Domain2")

@@ -1,0 +1,18 @@
+// title: GraphAPI Resource Request Statistics · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: he requests that are executed by the Graph API are standardized, thus we can use the RequestUri to get statistics on which Resource is requested. The *{resource}* parameter is used for the resource in Microsoft Graph that you're referencing. ``` {HTTP method} https://graph.microsoft.com/{version}/{r
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Graph%20API/GraphResourceAPIRequestStats.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+MicrosoftGraphActivityLogs
+| extend ParsedUri = tostring(parse_url(RequestUri).Path)
+// Normalize Data
+| extend GraphAPIPath = tolower(replace_string(ParsedUri, "//", "/"))
+// Extract 
+| extend GraphAPIResource = tostring(split(GraphAPIPath, "/")[2])
+| summarize TotalRequest = count() by GraphAPIResource
+| sort by TotalRequest

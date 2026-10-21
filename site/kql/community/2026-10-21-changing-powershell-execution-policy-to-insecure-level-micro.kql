@@ -1,0 +1,27 @@
+// title: Changing PowerShell execution policy to insecure level · Microsoft XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: PowerShell's execution policy is a safety feature that controls the conditions under which PowerShell loads configuration files and runs scripts. This query will help you identify execution policy changes. Also, you may fine tune the query by excluding InitiatingProcessFileName and InitiatingProcess
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/changing-powershell-execution-policy-to-insecure-level.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 7d; // Choose the best timeframe for your investigation
+let cmdlet = dynamic([@'-executionpolicy ', @' -ep ', @' -exec ']); 
+let parameters = dynamic([@'Bypass ', @'Unrestricted']); 
+let exinitapps = datatable(excludedinitapps :string)  // Add as many initiating process filenames you would like to exclude
+ ["applicationfilename1.exe",
+  "applicationfilename2.exe",
+  "applicationfilename3.exe"];
+  let exparinitapps = datatable(excludedparinitapps :string)  // Add as many initiating parent process filenames you would like to exclude
+ ["applicationfilename1.exe",
+  "applicationfilename2.exe",
+  "applicationfilename3.exe"];
+DeviceProcessEvents
+    | where Timestamp > ago(Timeframe)
+    | where ProcessCommandLine has_any(cmdlet) and ProcessCommandLine has_any(parameters)
+    | where not(InitiatingProcessFileName in (['exinitapps']))
+    | where not(InitiatingProcessParentFileName in (['exparinitapps']))
+    | sort by Timestamp desc

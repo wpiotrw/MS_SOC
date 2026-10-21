@@ -1,0 +1,24 @@
+// title: Audit B2B Guest Devices Trust Type
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: Audit B2B Guest Devices Trust Type
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Audit%20B2B%20Guest%20Devices%20Trust%20Type.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Shouthout johannesblog.com for the idea
+SigninLogs
+//| where AppDisplayName =~ "Microsoft Teams"
+| extend TrustType = tostring(DeviceDetail.trustType)
+| where CrossTenantAccessType == @"b2bCollaboration"
+| where AADTenantId != HomeTenantId //exclude B2b outbound
+| where UserType == "Guest"
+| project TimeGenerated, UserPrincipalName, AppDisplayName, IPAddress, TrustType,
+          DeviceId = tostring(DeviceDetail.deviceId),
+          DeviceName = tostring(DeviceDetail.displayName),
+          OperatingSystem = tostring(DeviceDetail.operatingSystem),
+          Browser = tostring(DeviceDetail.browser),
+          ConditionalAccessStatus, ResultType, ResultDescription
+| order by TimeGenerated desc

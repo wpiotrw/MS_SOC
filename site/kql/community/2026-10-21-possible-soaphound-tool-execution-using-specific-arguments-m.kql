@@ -1,0 +1,13 @@
+// title: Possible SOAPHound Tool execution using specific arguments · Microsoft Defender XDR & Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: SOAPHound is a custom-developed .NET data collector tool which can be used to enumerate Active Directory environments via the Active Directory Web Services (ADWS) protocol. The following query will detect possible SOAPHound activity, based on the execution options, and relevant arguments.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/possible-soaphound-tool-execution-using-specific-arguments.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where ProcessCommandLine has_any (" --buildcache "," --bhdump ", " --certdump "," --dnsdump ")
+  and ProcessCommandLine has_any (" -c "," --cachefilename ", " -o "," --outputdirectory")

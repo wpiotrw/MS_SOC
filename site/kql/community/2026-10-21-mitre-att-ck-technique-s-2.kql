@@ -1,0 +1,14 @@
+// title:  · MITRE ATT&CK Technique(s)
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose:  · MITRE ATT&CK Technique(s)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Detecting%20abuse%20of%20SyncThing%20tool%20to%20steal%20data.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| extend geo_info = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where InitiatingProcessCommandLine has "syncthing.exe --no-browser"
+| summarize by DeviceName,LocalIP, RemoteIP,geo_info, InitiatingProcessVersionInfoProductName, InitiatingProcessCommandLine, ActionType

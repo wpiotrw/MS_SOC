@@ -1,0 +1,19 @@
+// title: Potentially Ungoverned AI Domains such as chatgpt
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, Usage
+// purpose: Potentially Ungoverned AI Domains such as chatgpt
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Potentially%20Ungoverned%20AI%20Domains%20such%20as%20chatgpt.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This Query looks for usage of ungoverned AI Usage by using DeviceNetworkEvents
+let UngoverenedAI_IOCs = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/PotentiallyUngovernedAITools.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = UngoverenedAI_IOCs
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d) //| where Timestamp > ago(30d)  - if using Advanced Huntng use Timestamp instead of TimeGenerated
+| where RemoteUrl in~(DomainList )
+| summarize count() by RemoteUrl
+// After Hunting visit https://github.com/jkerai1/SoftwareCertificates/tree/main/Bulk-IOC-CSVs, download the CSV and consider uploading to MDE to block all domains. Remove any results that are legitimate usage.

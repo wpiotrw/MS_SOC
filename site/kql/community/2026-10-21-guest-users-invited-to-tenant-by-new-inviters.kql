@@ -1,0 +1,31 @@
+// title: Guest Users Invited to Tenant by New Inviters
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Detects when a Guest User is added by a user account that has not been seen adding a guest in the previous 14 days. Monitoring guest accounts and the access they are provided is important to detect potential account abuse. Accounts added should be investigated to ensure the activity was legitimate. 
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/GuestUsersInvitedtoTenantbyNewInviters.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let inviting_users = (AuditLogs
+  | where TimeGenerated between(ago(14d)..ago(1d))
+  | where OperationName =~ "Invite external user"
+  | where Result =~ "success"
+  | extend InitiatingUserPrincipalName = tostring(parse_json(tostring(InitiatedBy.user)).userPrincipalName)
+  | where isnotempty(InitiatingUserPrincipalName)
+  | summarize by InitiatingUserPrincipalName);
+  AuditLogs
+  | where TimeGenerated > ago(1d)
+  | where OperationName =~ "Invite external user"
+  | where Result =~ "success"
+  | extend InitiatingUserPrincipalName = tostring(parse_json(tostring(InitiatedBy.user)).userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+  | where isnotempty(InitiatingUserPrincipalName) and InitiatingUserPrincipalName !in (inviting_users)
+  | extend TargetUserPrincipalName = tostring(TargetResources[0].userPrincipalName)
+  | extend TargetAadUserId = tostring(TargetResources[0].id)
+  | extend invitingUser = InitiatingUserPrincipalName, invitedUserPrincipalName = TargetUserPrincipalName
+  | extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+  | extend TargetAccountName = tostring(split(TargetUserPrincipalName, "@")[0]), TargetAccountUPNSuffix = tostring(split(TargetUserPrincipalName, "@")[1])
+  | project-reorder TimeGenerated, OperationName, Result, TargetUserPrincipalName, TargetAadUserId, InitiatingUserPrincipalName, InitiatingAadUserId, InitiatingIPAddress

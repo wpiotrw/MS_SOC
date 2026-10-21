@@ -1,0 +1,20 @@
+// title: Potential Kerberos Encryption Downgrade · Sentinel
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: Adversaries can use older kerberos encryption algorithms which are vulnerable to brute force attacks to crack passwords. This query can be used to detect changes in the support of kerberos encryption standards on domain joined devices. This query will list all changes that are performed after a devi
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Identity/PotentialKerberosEncryptionDowngrade.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+IdentityDirectoryEvents
+| where ActionType == "Account Supported Encryption Types changed"
+| extend
+    ToAccountSupportedEncryptionTypes = tostring(parse_json(AdditionalFields).['TO AccountSupportedEncryptionTypes']),
+    FromAccountSupportedEncryptionTypes = tostring(parse_json(AdditionalFields).['FROM AccountSupportedEncryptionTypes']),
+    TargetDevice = tostring(parse_json(AdditionalFields).['TARGET_OBJECT.DEVICE']),
+    ActorDevice = tostring(parse_json(AdditionalFields).['ACTOR.DEVICE'])
+// Exclude the devices that did already have a supported encryption enabled. This is mostly due to the deployment of a device.
+| where FromAccountSupportedEncryptionTypes != "N/A"
+| project TimeGenerated, DeviceName, FromAccountSupportedEncryptionTypes, ToAccountSupportedEncryptionTypes, ActorDevice, TargetDevice

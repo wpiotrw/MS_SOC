@@ -1,0 +1,15 @@
+// title: Identify endpoints that run WSL · Microsoft Sentinel & Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: The following query will identify endpoints running Windows Subsystem for Linux (WSL).
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/identify-endpoints-running-wsl.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where ActionType has "ProcessCreated"
+| where ProcessVersionInfoOriginalFileName has "wsl.exe"
+| where ProcessVersionInfoFileDescription has "Windows Subsystem for Linux"
+| summarize by DeviceName

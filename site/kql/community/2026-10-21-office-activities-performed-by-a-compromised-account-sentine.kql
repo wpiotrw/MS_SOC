@@ -1,0 +1,28 @@
+// title: Office activities performed by a compromised account · Sentinel
+// date: 2026-10-21
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: This query can be used to get a quick overview of all office activities that have been performed by a compromised account. In a IR scenario this can be used to determine if more applications or users need to be investiated. In a Forensic scenario this query can be used to determine which actions hav
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/OfficeActivity%20-%20OfficeActivitiesCompromisedAccount.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Preferably use ObjectID
+let AccountObjectID = "00000000000";
+let AccountUPN = "test@test.com";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+// Collect the statistics for the office activities by the user
+let OfficeStats = OfficeActivity
+    | where TimeGenerated > ago(SearchWindow)
+    | where ((not(isempty(AccountObjectID)) and UserKey == AccountObjectID) or (isempty(AccountObjectID) and tolower(UserId) == tolower(AccountUPN)))
+    | summarize TotalActivities = count() by Operation, RecordType;
+// Collect the details for the office activities by the user. If this is to much do not show all results.
+let Details = OfficeActivity
+    | where TimeGenerated > ago(SearchWindow)
+    | where ((not(isempty(AccountObjectID)) and UserKey == AccountObjectID) or (isempty(AccountObjectID) and tolower(UserId) == tolower(AccountUPN)));
+// Join results of previous queries together into one and first show the statistics, followed by the details.
+union isfuzzy=true
+ (OfficeStats),
+ (Details)
+| sort  by TotalActivities

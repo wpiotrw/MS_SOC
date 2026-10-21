@@ -1,0 +1,22 @@
+// title: Identify CVEs in MDEASM web pages through Exposure Management · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender XDR
+// tables: ExposureGraphEdges, ExposureGraphNodes
+// purpose: The following query will help identify CVEs associated with web pages from MDEASM in the Advanced Hunting tables from Exposure Management.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/XSPM/identify-cves-in-mdeasm-web-pages-through-exposure-management.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WebPages = ExposureGraphNodes
+| where NodeLabel == "web-page"
+| project NodeId, NodeName;
+WebPages
+| join kind=inner (
+    ExposureGraphEdges
+    | where EdgeLabel == "affecting"
+    | where SourceNodeLabel == "Cve"
+    | project SourceNodeId, TargetNodeId, SourceNodeName
+) on $left.NodeId == $right.TargetNodeId
+| project Node=TargetNodeId, NodeName, VulnerabilityCVE=SourceNodeName
+| order by NodeName

@@ -1,0 +1,16 @@
+// title: Last Heartbeat Arc Machines · Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: Heartbeat
+// purpose: This query lists the latest heartbeat for each Azure Arc onboarded machine.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure/Arc/LastCheckInArcMachines.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ArcMachines = arg("").Resources
+| where type == "microsoft.hybridcompute/machines"
+| distinct id;
+Heartbeat
+| summarize arg_max(TimeGenerated, TimeGenerated, Computer, Resource, ResourceId) by Computer
+| where ResourceId in (ArcMachines)

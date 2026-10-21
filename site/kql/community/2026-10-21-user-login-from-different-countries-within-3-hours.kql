@@ -1,0 +1,38 @@
+// title: User login from different countries within 3 hours (Uses Authentication Normalization)
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This query searches for successful user logins from different countries within 3 hours. To use this analytics rule, make sure you have deployed the [ASIM normalization parsers](https://aka.ms/ASimAuthentication)
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/ASimAuthentication/imAuthSigninsMultipleCountries.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = ago(3h);
+let threshold = 2;
+imAuthentication
+| where TimeGenerated > timeframe
+| where EventType == 'Logon'
+    and EventResult == 'Success'
+| where isnotempty(SrcGeoCountry)
+| summarize
+    StartTime        = min(TimeGenerated)
+    , EndTime        = max(TimeGenerated)
+    , Vendors        = make_set(EventVendor, 128)
+    , Products       = make_set(EventProduct, 128)
+    , NumOfCountries = dcount(SrcGeoCountry)
+    , Countries      = make_set(SrcGeoCountry, 128)
+    by TargetUserId, TargetUsername, TargetUserType
+| where NumOfCountries >= threshold
+| where TargetUserType !in ("Application", "Service", "System", "Other", "Machine", "ServicePrincipal")
+| extend
+  Name = iif(
+      TargetUsername contains "@"
+          , tostring(split(TargetUsername, '@', 0)[0])
+          , TargetUsername
+      ),
+  UPNSuffix = iif(
+      TargetUsername contains "@"
+      , tostring(split(TargetUsername, '@', 1)[0])
+      , ""
+  )

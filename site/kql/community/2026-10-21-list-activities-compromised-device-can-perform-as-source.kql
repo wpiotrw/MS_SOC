@@ -1,0 +1,17 @@
+// title: List Activities Compromised Device Can Perform as Source · Sentinel
+// date: 2026-10-21
+// product: Defender XDR
+// tables: ExposureGraphEdges
+// purpose: List Activities Compromised Device Can Perform as Source · Sentinel
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/ExposureManagement%20-%20DeviceActivities.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// List activities device can do as source
+let DeviceName = "laptop.test.com";
+ExposureGraphEdges
+| where SourceNodeLabel == "device"
+| where SourceNodeName == DeviceName
+| summarize Total = dcount(TargetNodeName), Details = make_set(TargetNodeName) by EdgeLabel, SourceNodeName
+| project Source = SourceNodeName, Action = EdgeLabel, Details, Tota

@@ -1,0 +1,59 @@
+// title: Star Blizzard C2 Domains August 2022
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: AzureDiagnostics, CommonSecurityLog, DeviceNetworkEvents, EmailEvents, EmailUrlInfo
+// purpose: Identifies a match across various data feeds for domains related to an actor tracked by Microsoft as Star Blizzard.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/StarBlizzardDomainsAugust2022.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let iocs = externaldata(DateAdded:string,IoC:string,Type:string) [@"https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Sample%20Data/Feeds/SEABORGIUMIOC.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainNames = (iocs | where Type =~ "domainname"| project IoC);
+(union isfuzzy=true
+(CommonSecurityLog
+| parse Message with * '(' DNSName ')' *
+| where DNSName in~ (DomainNames)
+| extend Account = SourceUserID, Computer = DeviceName, IPAddress =  DestinationIP
+),
+(_Im_Dns (domain_has_any=DomainNames)
+| extend DNSName = DnsQuery
+| extend IPAddress =  SrcIpAddr, Computer = Dvc
+),
+(_Im_WebSession (url_has_any=DomainNames)
+| extend DNSName = tostring(parse_url(Url)["Host"])
+| extend IPAddress =  SrcIpAddr, Computer = Dvc
+),
+(VMConnection
+| parse RemoteDnsCanonicalNames with * '["' DNSName '"]' *
+| where DNSName  in~ (DomainNames)
+| extend IPAddress = RemoteIp
+),
+(DeviceNetworkEvents
+| where RemoteUrl  has_any (DomainNames)
+| extend IPAddress = RemoteIP
+| extend Computer = DeviceName
+),
+(EmailUrlInfo
+| where Url has_any (DomainNames)
+| join (EmailEvents
+| where EmailDirection == "Inbound" ) on NetworkMessageId
+| extend IPAddress = SenderIPv4
+| extend Account = RecipientEmailAddress
+),
+(AzureDiagnostics
+| where ResourceType == "AZUREFIREWALLS"
+| where Category == "AzureFirewallApplicationRule"
+| parse msg_s with Protocol 'request from ' SourceHost ':' SourcePort 'to ' DestinationHost ':' DestinationPort '. Action:' Action
+| where isnotempty(DestinationHost)
+| where DestinationHost has_any (DomainNames)
+| extend DNSName = DestinationHost
+| extend IPAddress = SourceHost
+)
+)
+| extend AccountName = tostring(split(Account, "@")[0]), AccountUPNSuffix = tostring(split(Account, "@")[1])
+| extend HostName = tostring(split(Computer, ".")[0]), DomainIndex = toint(indexof(Computer, '.'))
+| extend HostNameDomain = iff(DomainIndex != -1, substring(Computer, DomainIndex + 1), Computer)
+| extend AccountName = tostring(split(Account, "@")[0]), AccountUPNSuffix = tostring(split(Account, "@")[1])
+| extend HostName = tostring(split(Computer, ".")[0]), DomainIndex = toint(indexof(Computer, '.'))
+| extend HostNameDomain = iff(DomainIndex != -1, substring(Computer, DomainIndex + 1), Computer)

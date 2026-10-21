@@ -1,0 +1,14 @@
+// title: Visualisation of ActionTypes that have been seen in the Cloud App logs in the last 30 days · Sentinel
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Visualisation of ActionTypes that have been seen in the Cloud App logs in the last 30 days · Sentinel
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/Visualization%20-%20ActionsPerformed.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where TimeGenerated > ago(30d)
+| summarize count() by ActionType
+| render piechart with(title="ActionTypes triggered last 30 days")

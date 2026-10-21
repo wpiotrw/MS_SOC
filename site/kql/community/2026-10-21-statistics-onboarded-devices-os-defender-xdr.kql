@@ -1,0 +1,14 @@
+// title: Statistics onboarded devices (OS) · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: This query lists how many devices have been onboarded per operating system.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/OnboardedDeviceByOS.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+| where OnboardingStatus == "Onboarded"
+| summarize arg_max(Timestamp, *) by DeviceId
+| summarize TotalDevices = count() by OSPlatform

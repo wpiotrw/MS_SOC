@@ -1,0 +1,19 @@
+// title: PowerShell spawning MSHTA & initiating remote connection · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: MSHTA is heavily used by adversaries as it allows to execute arbitrary code using a Windows native application. A scenario observed includes powershell.exe spawning mshta.exe which by itself is suspicious but it is almost certainly malicious when a remote call initiates through an .hta file. The fol
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/powershell-spawning-mshta-initiating-connection.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Process = DeviceProcessEvents
+| where InitiatingProcessParentFileName has_any (@"powershell.exe", @"pwsh.exe", @"powershell_ise.exe") 
+| where InitiatingProcessFileName has @"mshta.exe"
+| project Timestamp, DeviceName, AccountDomain, AccountName;
+Process
+    | join (DeviceNetworkEvents
+    | where RemoteIP !has "" or RemoteUrl !has ""
+    | project DeviceName, RemoteIP, RemoteUrl
+) on DeviceName

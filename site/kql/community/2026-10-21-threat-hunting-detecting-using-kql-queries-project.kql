@@ -1,0 +1,14 @@
+// title: Threat hunting/detecting using KQL queries · project
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Threat hunting/detecting using KQL queries · project
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/README.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(1d)
+| where DeviceName has "ComputerName"
+| project Timestamp, ActionType, RemoteIP, RemotePort, RemoteUrl

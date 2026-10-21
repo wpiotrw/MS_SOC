@@ -1,0 +1,16 @@
+// title: Count devices based on OS version information · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: The following queries counts the devices onboard MDE based on the OS version information.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/count-devices-based-on-osversion.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+// Define timerange below
+| where Timestamp > ago(90d)
+| summarize arg_max(Timestamp, *) by DeviceName
+| summarize DeviceCount = dcount(DeviceName) by OSVersionInfo
+| sort by DeviceCount asc

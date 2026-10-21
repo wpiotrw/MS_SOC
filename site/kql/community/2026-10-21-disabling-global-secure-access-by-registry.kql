@@ -1,0 +1,15 @@
+// title: Disabling Global Secure Access by Registry
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Disabling Global Secure Access by Registry
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Disabling%20Global%20Secure%20Access%20by%20Registry.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+| where ActionType == "RegistryValueSet" //or ActionType == "RegistryKeyCreated"
+| where RegistryKey == @"HKEY_CURRENT_USER\Software\Microsoft\Global Secure Access Client"
+| where RegistryValueName == "IsPrivateAccessDisabledByUser"
+| where RegistryValueData == "1" ///If the registry value doesn't exist, the default value is 0x0, Private Access is enabled. https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-install-windows-client#disable-or-enable-private-access-on-the-client?WT.mc_id=MVP_473477

@@ -1,0 +1,21 @@
+// title: ASR Executable Content triggered · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, EmailAttachmentInfo, EmailEvents
+// purpose: The ASR rule in this query has the following description: This rule blocks the following file types from launching from email opened within the Microsoft Outlook application, or Outlook.com and other popular webmail providers: - Executable files (such as .exe, .dll, or .scr) - Script files (such as 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Office%20365/Email%20-%20ASRExecutableContentTriggered.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType in ("AsrExecutableEmailContentBlocked", "AsrExecutableEmailContentAudited")
+// join the information from the email attachment
+| join kind=inner (EmailAttachmentInfo
+     | project NetworkMessageId, FileName, SHA256, FileSize)
+     on $left.FileName == $right.FileName
+// join the email information     
+| join kind=inner (EmailEvents
+     | project SenderFromAddress, Subject, NetworkMessageId)
+     on $left.NetworkMessageId == $right.NetworkMessageId
+| project-reorder SenderFromAddress, Subject, FileName, FileSize, SHA256

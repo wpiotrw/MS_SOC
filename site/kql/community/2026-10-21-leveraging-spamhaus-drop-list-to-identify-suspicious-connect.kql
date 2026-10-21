@@ -1,0 +1,26 @@
+// title: Leveraging Spamhaus DROP list to identify suspicious connections in CommonSecurityLog table · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Sentinel
+// tables: CommonSecurityLog
+// purpose: The following query leverages Spamhaus Don't Route Or Peer Lists (DROP) to identify suspicious connections in CommonSecurityLog table. Based on the security controls onboarded your Unified Security Operations, this will allow to search for outgoing suspicious connections accross your estate. - Refer
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Syslog-CEF/leveraging-spamhaus-drop-list-to-identify-suspicious-connections-in-commonsecuritylog-table.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let DROPlist = externaldata(cidr: string)
+    [@"https://www.spamhaus.org/drop/drop_v4.json"] 
+    with (format="multijson", ignoreLastRecord=True);
+CommonSecurityLog
+| where not(
+    DestinationIP startswith "10." or
+    DestinationIP startswith "172." and toint(split(DestinationIP, ".")[1]) between (16 .. 31) or
+    DestinationIP startswith "192.168."
+)
+| extend DestinationIPAddr = tostring(DestinationIP)
+| join kind=inner (
+    DROPlist
+) 
+on $left.DestinationIPAddr == $right.cidr  // Join based on CIDR match
+| where ipv4_is_in_range(DestinationIPAddr, cidr)
+| project TimeGenerated, DestinationIPAddr, cidr

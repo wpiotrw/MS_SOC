@@ -1,0 +1,17 @@
+// title: MDA Custom Warn Indicators Report
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, IdentityInfo
+// purpose: MDA Custom Warn Indicators Report
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/MDA%20Custom%20Warn%20Indicators%20Report.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query reports on MDE Indicators in Warn mode and CASB/MDA warnings
+//Shows how MDA replicates "monitor/unsanction" tags to MDE Indicators
+DeviceEvents
+| where ActionType == "SmartScreenUrlWarning" 
+| where AdditionalFields.Experience == "CasbPolicy"
+//| join kind=leftouter IdentityInfo on $left.InitiatingProcessAccountUpn == $right.AccountUPN //use if you have UEBA Enabled
+| summarize count() by FileName, RemoteUrl, DeviceName, InitiatingProcessAccountUpn, InitiatingProcessFileName, TimeGenerated, InitiatingProcessVersionInfoProductName//, JobTitle

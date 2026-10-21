@@ -1,0 +1,17 @@
+// title: Hunt for devices with the most SMB connections · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This hunting query lists all the devices and the unique connections they have made with a remote SMB port. Devices with a large number of connected SMB sessions can be interesting to investigate.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/DevicesWithMostSMBConnections.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where RemotePort == 445
+| where ActionType == "ConnectionSuccess"
+// Collect the last event that a device has connected via SMB to a unique remote IP
+| summarize arg_max(Timestamp, *) by DeviceId, RemoteIP
+| summarize RemoteSMBUrls = make_set_if(RemoteUrl, isnotempty(RemoteUrl)), make_set_if(RemoteIP, isempty(RemoteUrl)), TotalConnections = dcount(RemoteIP) by DeviceName
+| sort by TotalConnections

@@ -1,0 +1,19 @@
+// title: Identify non-compliant controls with relevant remediation actions · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceBaselineComplianceAssessment, DeviceBaselineComplianceAssessmentKB
+// purpose: The following query leverages DeviceBaselineComplianceAssessment and DeviceBaselineComplianceAssessmentKB. You may choose a baseline assessment profile and then focus on controls that have been found not to be compliant with their relevant remediation options.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/MDVM/identify-non-compliant-controls-with-relevant-remediation-actions.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Profile = ""; // Insert ProfileId here
+DeviceBaselineComplianceAssessment
+| where ProfileId == Profile 
+| where IsCompliant == "0"
+| where IsExempt == "0"
+| join kind=inner (
+    DeviceBaselineComplianceAssessmentKB
+) on ConfigurationId
+| summarize by ConfigurationId, ConfigurationName, ConfigurationDescription, ConfigurationCategory, RemediationOptions, ConfigurationBenchmark

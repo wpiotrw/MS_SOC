@@ -1,0 +1,14 @@
+// title: PowerShell Defensive Evasion Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: PowerShell Defensive Evasion Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/PowerShell%20Defensive%20Evasion%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects PowerShell commands using hidden windows or silent continue
+//Helps identify attempts to hide malicious activity from users
+DeviceProcessEvents
+| where ProcessCommandLine has_all("SilentlyContinue","Start-Process -WindowStyle Hidden") //can switch to has_any also

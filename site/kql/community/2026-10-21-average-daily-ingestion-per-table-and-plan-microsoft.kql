@@ -1,0 +1,18 @@
+// title: Average Daily Ingestion per Table and Plan · Microsoft Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: Usage
+// purpose: The following query calculates the average daily ingestion for each table and plan over the last Timeframe of days as defined in the let statement. It also allows you to define the size of fractional part to fit your need and attention to detail. This query help baseline normal usage and identify ou
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Sentinel/average-daily-ingestion-per-table-and-plan.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 30d; // Define the required Timeframe
+let decfra = 2; // Determine the size of fractional part to fit your need
+Usage
+| where TimeGenerated >= startofday(ago(Timeframe))
+| where IsBillable == true
+| summarize DailyGB = sum(Quantity) / 1000.0 by bin(TimeGenerated, 1d), DataType, Plan
+| summarize AvgDailyGB = round(avg(DailyGB), decfra) by DataType, Plan
+| order by AvgDailyGB desc

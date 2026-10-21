@@ -1,0 +1,14 @@
+// title: Trust Monitor Event
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This query identifies when a new trust monitor event is detected.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/DuoSecurity/TrustMonitorEvent.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = ago(5m);
+DuoSecurityTrustMonitor_CL
+| where TimeGenerated >= timeframe
+| extend AccountName = tostring(split(surfaced_auth_user_name_s, "@")[0]), AccountUPNSuffix = tostring(split(surfaced_auth_user_name_s, "@")[1])

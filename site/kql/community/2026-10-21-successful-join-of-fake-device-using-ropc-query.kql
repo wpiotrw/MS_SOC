@@ -1,0 +1,32 @@
+// title: Successful join of fake device using ROPC (query by @goldjg)
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: Successful join of fake device using ROPC (query by @goldjg)
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Successful%20join%20of%20fake%20device%20using%20ROPC%20(query%20by%20@goldjg).kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query written by Graham Gold https://www.linkedin.com/in/graham-gold/ - Github: @goldjg
+let SigninEvents = SigninLogs
+| where TimeGenerated >= ago(90d)
+| where ResourceDisplayName has "Device Registration Service"
+| where AuthenticationProtocol has "ropc"
+| where ResultType == "0"
+| project SigninTime = CreatedDateTime,SigninUserPrincipalName = UserPrincipalName,SigninCorrelationId = CorrelationId,
+SigninUserAgent = UserAgent,
+StartTime = CreatedDateTime - 60s,
+EndTime = CreatedDateTime + 60s,
+dummy = 1;
+SigninEvents
+| join kind=inner (
+AuditLogs
+| where OperationName has "Add device"
+| where Result has "success"
+| project AuditTime = ActivityDateTime,FakeDeviceId = tostring(parse_json(tostring(TargetResources[0].id))),FakeDeviceDisplayName = tostring(TargetResources [0].displayName),
+AuditCorrelationId = CorrelationId,
+dummy = 1
+) on dummy
+| where AuditTime between (StartTime .. EndTime)
+| project SigninTime, AuditTime, SigninUserPrincipalName, SigninCorrelationId, SigninUserAgent, FakeDeviceId, FakeDeviceDisplayName, AuditCorrelationId

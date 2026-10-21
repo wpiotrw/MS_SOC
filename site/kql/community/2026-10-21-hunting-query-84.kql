@@ -1,0 +1,26 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/CloudAppEvents/Teams/Hunting%20OneOnOne%20chats%20by%20Domains.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where Application has "Microsoft Teams" and isnotempty(IPAddress)  
+| extend Geo_IP = tostring(geo_info_from_ip_address(IPAddress).country)
+| extend ChatName = todynamic(RawEventData).ChatName
+| extend TeamName = todynamic(RawEventData).TeamName
+| extend ChannelName = todynamic(RawEventData).ChannelName
+| extend Operation = todynamic(RawEventData).Operation
+| extend CommunicationType = todynamic(RawEventData).CommunicationType
+| where  Operation has "ChatCreated" and CommunicationType has "OneOnOne"
+| mv-expand  ParticipantsInfo = (todynamic(parse_json(RawEventData).ParticipantInfo))
+|  mv-expand  ParticipatingDomains =  (ParticipantsInfo).ParticipatingDomains
+|  mv-expand  ParticipatingSIPDomains =  (ParticipantsInfo).ParticipatingSIPDomains
+|  mv-expand  ParticipatingSIPDomains =  (ParticipatingSIPDomains).DomainName
+| where  Operation has "ChatCreated" and CommunicationType has "OneOnOne"
+| where (ParticipatingDomains!="" or  ParticipatingSIPDomains!="") and (ParticipatingDomains !in ("microsoft.com") or ParticipatingSIPDomains !in ("microsoft.com"))
+| project  AccountDisplayName,ChatCreatedFrom= IPAddress,ChannelName,ChatName, TeamName,Geo_IP, CountryCode,Operation,ParticipatingSIPDomains,ParticipatingDomains, ISP

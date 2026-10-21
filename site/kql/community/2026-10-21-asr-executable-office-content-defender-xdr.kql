@@ -1,0 +1,19 @@
+// title: ASR Executable Office Content · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: The discroption of this ASR rule: This rule prevents Office apps, including Word, Excel, and PowerPoint, from creating potentially malicious executable content, by blocking malicious code from being written to disk.Malware that abuses Office as a vector might attempt to break out of Office and save 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/ASR%20Rules/AsrExecutableOfficeContent.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// To prevent False Positives a FilePrevalanceThreshold is used.
+let FilePrevalanceThreshold = 100;
+DeviceEvents
+// Filter on the specific ActionTypes
+| where ActionType in~ ('AsrExecutableOfficeContentAudited', 'AsrExecutableOfficeContentBlocked')
+// Enrich results with File information
+| invoke FileProfile('SHA1', 10000)
+| where GlobalPrevalence <= FilePrevalanceThreshold
+| project Timestamp, DeviceName, DeviceId, InitiatingProcessAccountUpn, FileName, FolderPath, ActionType, Signer, GlobalFirstSeen, GlobalPrevalence, SHA1, InitiatingProcessCommandLine, InitiatingProcessFolderPath

@@ -1,0 +1,17 @@
+// title: EmailEvents   Sender TLD count
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: EmailEvents Sender TLD count
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/EmailEvents%20-%20Sender%20TLD%20count.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| extend FQDN = trim_end("(:|\\?).*", tostring(split(trim_start('http(.|)://', SenderFromDomain), "/")[0]))
+//| project-reorder FQDN, UrlDomain
+| where FQDN contains "."  // exclude singular hostnames used in local name resolution
+| where DeliveryAction == "Delivered"
+| extend TLD = tostring(split(FQDN, ".")[-1])
+| summarize count() by TLD, EmailDirection

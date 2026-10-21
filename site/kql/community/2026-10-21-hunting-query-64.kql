@@ -1,0 +1,27 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender XDR
+// tables: AlertEvidence
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/AlertEvidence/Potential%20False%20Positives%20related%20to%20Anomalous%20Token%20alerts.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CountryCodes 
+let CountryList = externaldata(Country:string, Code:string)
+[h@'https://raw.githubusercontent.com/Sergio-Albea-Git/-Defender-XDR-/main/Security-Lists/country_list.csv'] with (format="csv", ignoreFirstRecord=true, delimiter=",");
+AlertEvidence
+| where Timestamp > ago(1d)
+| where Title has "Anomalous Token"
+// joining SignIn table to verify if the user has Sign-in from the reported country
+| join kind=inner ( AADSignInEventsBeta) on $left.AccountUpn == $right.AccountUpn
+| extend CountrySigned = geo_info_from_ip_address(IPAddress).country
+| where AuthenticationRequirement has  "multiFactorAuthentication"
+| extend DFXDR_Alerted_Country = Country
+| extend Country_User_Sign_in = tostring(CountrySigned)
+| join kind=inner (CountryList) on $left.Country_User_Sign_in == $right.Country
+// identifying in a new column, Real and False positives depending on weather the IncidentAlertedCountry and User Sign-in country is the same
+| extend FalsePositive = iff(DFXDR_Alerted_Country == Code,"FP","Review")
+| summarize by AccountUpn,FalsePositive,Country_User_Sign_in,Code,DFXDR_Alerted_Country, AuthenticationRequirement
+| order by AccountUpn

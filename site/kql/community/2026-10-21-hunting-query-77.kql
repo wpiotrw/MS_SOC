@@ -1,0 +1,18 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityLogonEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/IdentityLogonEvents/Rating%20ISP%20to%20detect%20potential%20attacks%20and%20IOCs%20source.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+IdentityLogonEvents
+| where Timestamp > ago(30d)
+| summarize Different_IPs=make_set(IPAddress), Total_different_IPs=dcount(IPAddress) ,Total_sign_attempts = count(), Suspicious_Sign_attempt = countif((ActionType has "OldPassword") or (FailureReason has "WrongPassword") or ( FailureReason has "validating credentials due to invalid username or password.") or ( FailureReason has "The account is locked, you've tried to sign in too many times with an incorrect user ID or password.") or (FailureReason has "Authentication failed.") or (FailureReason has "UnknownUser") or ( FailureReason has "The user account is disabled." )),
+ Success_Sign_attempt = count( ActionType has "LogonSuccess"),
+ Issues_Sign_attempt = countif((FailureReason has "The session is not valid due to password expiration or recent password change.") or ( FailureReason has "General failure")) by ISP, Location
+| extend SuspiciousRatio = Suspicious_Sign_attempt * 1.0 / Total_sign_attempts, ValidRatio = Success_Sign_attempt * 1.0 / Total_sign_attempts, IssuesRatio = Issues_Sign_attempt * 1.0 / Total_sign_attempts
+| extend SuspiciousPercentage = SuspiciousRatio * 100, ValidPercentage = ValidRatio * 100, IssuesPercentatge = IssuesRatio * 100
+| order by SuspiciousPercentage

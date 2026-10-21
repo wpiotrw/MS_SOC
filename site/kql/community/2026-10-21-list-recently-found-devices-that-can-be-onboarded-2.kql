@@ -1,0 +1,16 @@
+// title: List recently found devices that can be onboarded · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: This query lists devices that can be onboarded to Defender For Endpoint and have recently been detected. You can determine what recently is by using the *RecentDetection* parameter.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/DevicesCanBeOnboarded.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RecentDetection = 10d;
+DeviceInfo
+| where Timestamp > ago(RecentDetection)
+| summarize arg_max(Timestamp, *) by DeviceId
+| where OnboardingStatus == "Can be onboarded"
+| summarize TotalDevices = dcount(DeviceId), DeviceNames = make_set(DeviceName) by OSPlatform, DeviceType

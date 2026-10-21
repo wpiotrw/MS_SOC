@@ -1,0 +1,25 @@
+// title: Leveraging Spamhaus DROP list to identify delivered emails from suspicious source IPs · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: The following query leverages Spamhaus Don't Route Or Peer Lists (DROP) to identify delivered emails from suspicious source IPs. While most probably communications from these IP blocks will be marked as spam, using this query will uncover any delivered emails from DROP lists. - Reference: https://ww
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/leveraging-spamhaus-drop-list-to-identify-delivered-emails-from-suspicious-source-ips.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Define Don't Route Or Peer Lists (DROP) json file from Spamhaus
+let DROPlist = externaldata(cidr: string)
+    [@"https://www.spamhaus.org/drop/drop_v4.json"] 
+    with (format="multijson", ignoreLastRecord=True);
+// Associate EmailEvents table, with Delivered as LatestDeliveryAction
+EmailEvents
+| extend SenderIPv4Str = tostring(SenderIPv4)
+| join kind=inner (
+    DROPlist
+) 
+on $left.SenderIPv4Str == $right.cidr  // Join based on CIDR match
+| where ipv4_is_in_range(SenderIPv4Str, cidr)
+| where LatestDeliveryAction == "Delivered"
+| project Timestamp, SenderIPv4Str, cidr, SenderDisplayName,
+    SenderFromAddress, SenderMailFromAddress, Subject

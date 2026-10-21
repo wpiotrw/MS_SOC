@@ -1,0 +1,22 @@
+// title: Zscalar IP Sign in Check
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: Zscalar IP Sign in Check
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Zscalar%20IP%20Sign-in%20Check.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Experimental, query needs optimization.
+let Zscaler = externaldata (prefixes: dynamic) [@'https://config.zscaler.com/api/zscaler.net/future/json'] with (format=json, ignoreFirstRecord=True)
+//| mv-expand prefixes
+//| summarize by ZscalerIP= tostring(prefixes)
+| extend Dummy = 1;
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where ResultType == 0
+| extend Dummy = 1
+| join kind=fullouter Zscaler on Dummy //map every sign-in to all zscaler Ips
+| where ipv4_is_in_any_range(IPAddress, prefixes)
+| project-away prefixes

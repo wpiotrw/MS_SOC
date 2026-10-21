@@ -1,0 +1,15 @@
+// title: *NTDS.DIT File Modifications* · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: NTDS.DIT stands for New Technology Directory Services Directory Information Tree. It serves as the primary database file within Microsoft’s Active Directory Domain Services (AD DS). Adversaries may attempt to access or modify the Active Directory domain database in order to steal credential informat
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/NTDSDitFileModifications.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Author: Alex Teixeira (alex@opstune.com)
+search in(DeviceFileEvents) "ntds" and "dit" and ActionType:"FileModified"
+| where TimeGenerated > ago(90d)
+| summarize Device_Count=dcount(DeviceId), Device_Sample=take_any(DeviceName), File_Count=dcount(FolderPath), File_Sample=take_any(FolderPath), Last_Seen=max(Timestamp) by InitiatingProcessParentFileName, InitiatingProcessFolderPath, InitiatingProcessAccountName
+| sort by Device_Count desc, File_Count desc

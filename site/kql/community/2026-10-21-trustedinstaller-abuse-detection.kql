@@ -1,0 +1,16 @@
+// title: TrustedInstaller Abuse Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: TrustedInstaller Abuse Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/TrustedInstaller%20Abuse%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects attempts to become TrustedInstaller
+//Such attempts could allow bypass of ACLs for endpoint tampering  . See https://www.youtube.com/watch?v=Vj1uh89v-Sc
+DeviceProcessEvents
+| where ProcessCommandLine contains "TrustedInstaller"
+| where ProcessCommandLine has_any("config", "sc", "sc.exe", "stop","del","binpath=") 
+| where ProcessCommandLine <> "SC config trustedinstaller start=auto"

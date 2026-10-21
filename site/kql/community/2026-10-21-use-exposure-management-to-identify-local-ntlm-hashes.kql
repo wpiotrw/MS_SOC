@@ -1,0 +1,22 @@
+// title: Use Exposure Management to identify local NTLM hashes from Sensitive Users · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: ExposureGraphEdges, IdentityInfo
+// purpose: Using the Exposure Management from Defender XDR, the following query with help identify locally available NTLM hashes from users marked as Sensitive.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/use-exposure-management-to-identify-local-ntlm-hashes-from-sensitive-users.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+ExposureGraphEdges
+    | where EdgeLabel has "has credentials of"
+    | extend parsedData = parse_json(EdgeProperties)
+    | extend NTLMHash = parsedData.rawData.ntlmHash.ntlmHash
+    | where NTLMHash == "true"
+    | project SourceNodeName, SourceNodeLabel, TargetNodeName
+| join (IdentityInfo
+    | where Tags has "Sensitive"
+    | project AccountDisplayName
+    )
+on $left.TargetNodeName == $right.AccountDisplayName
+| summarize by SourceNodeName, SourceNodeLabel, TargetNodeName, AccountDisplayName

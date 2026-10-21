@@ -1,0 +1,20 @@
+// title: WScript to VBS file invoking PowerShell · Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This hunting query is based on a GULOADER payload delivered through a .vbs file which invoked PowerShell to gain foothold on the device.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/wscript-vbs-spawning-suspicious-processes.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+// Define the time you are interested to look into
+| where TimeGenerated > ago(1d)
+| where InitiatingProcessParentFileName contains @"wscript.exe"
+// Command line includes VBS file execution
+| where InitiatingProcessCommandLine contains ".vbs"
+// Invoking PowerShell or Command Line
+| where InitiatingProcessFileName has_any (@"powershell.exe", @"pwsh.exe", @"powershell_ise.exe", @"cmd.exe")
+// Define elements that should be available in the results
+| project Timestamp, DeviceName, AccountName, InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessParentFileName

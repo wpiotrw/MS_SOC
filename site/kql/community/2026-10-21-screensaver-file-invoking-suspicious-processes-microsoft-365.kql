@@ -1,0 +1,15 @@
+// title: Screensaver file invoking suspicious processes · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This hunting query is based on a RedLine stealer malware delivered through a .scr file which invoked a suspicious processes including command prompt, powershell or any other .exe file.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/screensaver-file-invoking-suspicious-processes.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where FileName has_any (@"cmd.exe", @"powershell.exe", @".exe")
+| where InitiatingProcessFileName contains ".scr"
+| summarize arg_max(Timestamp, *) by DeviceName
+| project Timestamp, DeviceName

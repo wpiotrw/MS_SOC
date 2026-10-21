@@ -1,0 +1,17 @@
+// title: Suspicious RUNMRU Entry · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: This query should be implemented as custom detection, it triggers once a Suspicious Windows RUNMRU entry found on a device. These RUNMRU entries are one of the key indicators for ClickFix. The list of *Parameters* and *Executables* is limited, add additional entries according to your risk apetite.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/SuspiciousRUNMRUEntry.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Parameters = dynamic(['http', 'https', 'Encoded', 'EncodedCommand', '-e', '-eC', '-enc', "-w", '-i', '/i','/e', '/eC', '/enc', "/w", 'wind', 'nop', 'DownloadString', 'FromBase64String', 'iwr', '$env']);
+let Executables = dynamic(["cmd", "powershell", "curl", "mshta", "msiexec", 'SyncAppvPublishingServer']);
+DeviceRegistryEvents
+| where ActionType == "RegistryValueSet"
+| where RegistryKey has "RunMRU"
+| where RegistryValueData has_any (Parameters) and RegistryValueData has_any (Executables)
+| project-reorder TimeGenerated, DeviceId, DeviceName, RegistryValueData, RegistryKey

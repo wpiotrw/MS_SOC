@@ -1,0 +1,16 @@
+// title: Suspicious File Extension Upload to Office 365
+// date: 2026-10-21
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: Suspicious File Extension Upload to Office 365
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/Suspicious%20File%20Extension%20Upload%20to%20Office%20365.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SusFileExtensions = externaldata(Extension: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/MDA/SuspiciousFileExtensions.txt"] with (format="txt", ignoreFirstRecord=False); 
+OfficeActivity
+| where TimeGenerated > ago(90d)
+| where Operation == "FileUploaded" or Operation == "FileDownloaded"
+| where SourceFileExtension has_any(SusFileExtensions)
+| summarize count() by SourceFileExtension, SourceFileName

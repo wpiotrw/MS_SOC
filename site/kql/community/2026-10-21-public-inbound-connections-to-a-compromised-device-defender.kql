@@ -1,0 +1,24 @@
+// title: (Public) Inbound connections to a compromised device · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This query can be used to get a quick overview of all the inbound connections that have been accepted to a compromised device. This could indicate that the RemoteIP is used to gain access to the device itself. The query contains a filter to filter private IP addresses and to only search for public (
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDE%20-%20InboundConnectionsCompromisedDevice.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Add the device you are investigating in the CompromisedDevice variable
+let CompromisedDevice = "test.domain.tld";
+let SearchWindow = 10d; //Customizable h = hours, d = days
+DeviceNetworkEvents
+| where Timestamp > ago(SearchWindow)
+| where DeviceName == CompromisedDevice
+// Only list accepted inbound connections
+| where ActionType == "InboundConnectionAccepted"
+// Remove comment below if you only want to see inbound connections from public IP addresses.
+//| where RemoteIPType == "Public"
+// Enrich IP information
+| extend GeoIPInfo = geo_info_from_ip_address(RemoteIP)
+| extend country = tostring(parse_json(GeoIPInfo).country), state = tostring(parse_json(GeoIPInfo).state), city = tostring(parse_json(GeoIPInfo).city), latitude = tostring(parse_json(GeoIPInfo).latitude), longitude = tostring(parse_json(GeoIPInfo).longitude)
+| project Timestamp, DeviceName, RemoteIP, RemotePort, LocalIP, LocalPort, country, state

@@ -1,0 +1,28 @@
+// title: Detect inbound email domains from text list · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Following a challenging request from a fellow Microsoft Tech Community member, the query below will help you detect inbound emails which match the domains provided from a public text file. It also allows to exclude specific domains, if required.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/detect-inbound-email-domains-from-text-list.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let domainList = externaldata(domain: string) [@"https://raw.githubusercontent.com/tsirolnik/spam-domains-list/master/spamdomains.txt"] with (format="txt"); // Change the text file to whatever you want
+let excludedDomains = datatable(excludeddomain :string)  // Add as many domains you would like to exclude
+ ["domain1.tld",
+  "domain2.tld",
+  "domain3.tld"];   
+let Timeframe = 1d; // Choose the best timeframe for your investigation
+let SuspiciousEmails = EmailEvents
+    | where Timestamp > ago(Timeframe)
+    | where EmailDirection == "Inbound"
+    | extend EmailDomain = tostring(split(SenderMailFromAddress, '@')[1])
+    | join kind=inner (domainList) on $left.EmailDomain == $right.domain
+    | where not(EmailDomain in (['excludedDomains']))
+    | project Timestamp, NetworkMessageId, SenderMailFromAddress, SenderFromAddress, SenderDisplayName, RecipientEmailAddress, EmailDomain, domain, Subject, LatestDeliveryAction;
+SuspiciousEmails
+    | join (EmailEvents
+    | project NetworkMessageId
+)on NetworkMessageId
+    | sort by Timestamp desc

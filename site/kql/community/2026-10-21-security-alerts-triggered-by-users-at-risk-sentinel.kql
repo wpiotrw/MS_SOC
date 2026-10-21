@@ -1,0 +1,28 @@
+// title: Security Alerts triggered by users at risk · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AADRiskyUsers, SecurityAlert
+// purpose: This query identifies the users that are currently at risk. Based on that it performs a lookup on the security alerts that have been triggered with that user as entity. This can indicate that a useraccount has been compromised, because it has peformed risky sign in activities as well as malicious ac
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/SecurityAlertTriggeredByRiskyUser.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RiskyUsers = AADRiskyUsers
+     | where TimeGenerated > ago(90d)
+     // Only user active risky users. If you want to look for all users that have been risky, remove the line below.
+     | where RiskState in~ ('atRisk', 'confirmedCompromised')
+     | distinct UserPrincipalName;
+SecurityAlert
+// Only get the latest status of each alert
+| summarize arg_max(TimeGenerated, *) by SystemAlertId
+// Filter only on RiskyUsers
+| where Entities has_any (RiskyUsers)
+// Collect the user from the entities
+| extend
+     DisplayName = extract(@',"DisplayName":"(.*?)"', 1, Entities),
+     Upn = extract(@'"Upn":"(.*?)"', 1, Entities),
+     UserPrincipalName = extract(@'"UserPrincipalName":"(.*?)"', 1, Entities)
+// Combine the entity fields into one field
+| extend User = iff(isnotempty(DisplayName), DisplayName, iff(isnotempty(Upn), Upn, iff(isnotempty(UserPrincipalName), UserPrincipalName, 'See Entities')))
+| project AlertName, AlertSeverity, User, Entities

@@ -1,0 +1,16 @@
+// title: List Automatically Closed Incidents · Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: SecurityIncident
+// purpose: List the incidents that are automatically closed by Microsoft Defender XDR. It is good practice to get an overview of the automatically closed incidents and review them once every x period to determine if all the risks have been covered. The amount of automatically closed incidents depend on the Aut
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/XDRAutomaticallyClosedIncidents.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SecurityIncident
+| where ProviderName == "Microsoft 365 Defender" and ModifiedBy == "Microsoft 365 Defender"
+| extend OwnerObjectID = tostring(Owner.objectId)
+| where Status == "Closed" and Classification == "Undetermined"
+| where isempty(OwnerObjectID)
+| where isnotempty(ClassificationComment)

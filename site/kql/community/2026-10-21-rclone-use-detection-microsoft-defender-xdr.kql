@@ -1,0 +1,17 @@
+// title: Rclone use detection · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: The following query will detect execution of the Rclone command-line program which is related to ransomware exfiltration activity.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/rclone-use-detection.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 2d; // Choose the best timeframe for your investigation
+DeviceProcessEvents
+    | where TimeGenerated > ago(Timeframe)
+    | where ProcessVersionInfoProductName has "Rclone"
+    | where ProcessCommandLine contains @"rclone" or ProcessCommandLine contains @"--Launch"
+    | project TimeGenerated, DeviceName, FolderPath, FileName, ProcessCommandLine, ProcessCreationTime, AccountName, AccountUpn
+    | sort by TimeGenerated desc

@@ -1,0 +1,14 @@
+// title: MDI Sensor Deleted · Sentinel
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: This query returns results when a Defender For Identity Sensor has been deleted. This sensor would have been installed on your Domain Controller, ADCS, ADFS or Entra Connect server.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20XDR/MDISensorDeleted.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where ActionType == "SensorDeleted"
+| extend Sensor = tostring(parse_json(RawEventData).ResultDescription), InitiatorUpn = tostring(parse_json(RawEventData).UserId)
+| project-reorder TimeGenerated, Sensor, InitiatorUpn

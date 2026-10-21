@@ -1,0 +1,24 @@
+// title: Identification of risky users risk dismissal or account compromised confirmation · Microsoft Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: The following query will identify through Microsoft Entra ID Protection capacity, risky users operations that include risk dismissal or account compromised confirmation.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/identification-of-risky-users-risk-dismissal-or-account-compromised-confirmation.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 90d;
+AuditLogs
+    | where TimeGenerated > ago(Timeframe)
+    // Choose whether you want to focus on DissmissUser or ConfirmAccountCompromised operations
+    //| where OperationName == "DismissUser"
+    //| where OperationName == "ConfirmAccountCompromised"
+    | extend SuspUser = tostring(TargetResources[0].displayName)
+    // Add here the name of the user you want to focus on
+    //| where SuspUser contains @""
+    | extend SecUser = InitiatedBy.user.userPrincipalName
+    // Add here the name of the security operator that confirmed account compromized
+    //| where SecUser contains @""
+    | project TimeGenerated, SuspUser, SecUser
+    | sort by TimeGenerated desc

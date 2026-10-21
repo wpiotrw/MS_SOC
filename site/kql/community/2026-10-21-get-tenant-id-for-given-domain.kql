@@ -1,0 +1,15 @@
+// title: Get Tenant ID for Given Domain
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Get Tenant ID for Given Domain
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Get%20Tenant%20ID%20for%20Given%20Domain.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query will return the tenant ID for a domain. This has little use-case today but if externaldata allowed variables then this could be quite useful as a function
+let OIDC = externaldata(token_endpoint: string)["https://login.microsoftonline.com/google.com/.well-known/openid-configuration"] with (format="csv", ignoreFirstRecord=False); //replace "google.com" with domain you want to search
+OIDC 
+| extend TenantID = replace_string(replace_string(token_endpoint,"{\"token_endpoint\":\"https://login.microsoftonline.com/",""),"/oauth2/token\"","")
+| project-away token_endpoint

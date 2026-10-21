@@ -1,0 +1,45 @@
+// title:  · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Detects possible ransomware file changes by adding a custom extension to the encrypted files, such as ".docx.encrypted" or ".pdf.ezz". This is a technique that is used by multiple Ransomware groups, they do not change the currenct extention, but they add a new one to the current file. A false positi
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/Ransomware/RansomwareDoubleExtention.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Based on https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_rename/file_rename_win_ransomware.yml
+let OriginalExtension = dynamic(['.pdf', '.docx', '.jpg', '.xlsx', '.pptx', '.txt']);
+DeviceFileEvents
+| where ActionType == "FileRenamed"
+// Extract file extension
+| extend PreviousFileExtension = extract("\\.([a-z])*", 0, PreviousFileName)
+| extend NewFileExtension = extract(@'\.(.*)', 0, FileName)
+// File extension must be changed
+| where PreviousFileExtension != NewFileExtension
+| where PreviousFileExtension has_any (OriginalExtension)
+| extend RansomwareCheck = strcat(PreviousFileExtension, ".")
+// Check if the new file extension contains a possible ransomware extension (e.g. .docx.encrypted or .pdf.ezz
+| where NewFileExtension contains RansomwareCheck
+// Remove duplicate file extensions to limit false positives (e.g. .pdf.pdf or .docx.docx)
+| extend DuplicateExtensionCheck = split(NewFileExtension, ".")
+| where tostring(DuplicateExtensionCheck[1]) != tostring(DuplicateExtensionCheck[2])
+// Group by device and process to count renamed files
+| summarize 
+    FileCount = count(),
+    RenamedFiles = make_list(FileName),
+    Timestamp = arg_max(TimeGenerated, *) 
+    by DeviceName, InitiatingProcessAccountName
+// Filter for more than 10 files renamed
+| where FileCount > 10
+// Display results
+| project-reorder
+    Timestamp,
+    FileCount,
+    DeviceName,
+    InitiatingProcessAccountName,
+    RenamedFiles,
+    PreviousFileExtension,
+    PreviousFileName,
+    NewFileExtension,
+    FileName

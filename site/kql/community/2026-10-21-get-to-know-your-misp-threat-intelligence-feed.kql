@@ -1,0 +1,35 @@
+// title: Get to know your MISP threat intelligence feed · Microsoft Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: ThreatIntelligenceIndicator
+// purpose: If you are aggregating a MISP instance for your threat intelligence feed in Microsoft Sentinel (or Unified SecOps, then your ThreatIntelligenceIndicator table will be able to provide some fruitful numbers on how your MISP is overall contributing. The following queries are some ideas that will allow 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/get-to-know-your-misp-threat-intelligence-feed.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Piechart of MISP IoCs by Threat Type
+ThreatIntelligenceIndicator
+| where isnotempty(TimeGenerated) and SourceSystem == 'MISP'
+| summarize count() by ThreatType
+| render piechart with(title="MISP IoCs by Threat Type")
+
+// Piechart of MISP IoCs by TLP
+ThreatIntelligenceIndicator
+| where isnotempty(TimeGenerated) and SourceSystem == 'MISP'
+| summarize count() by TrafficLightProtocolLevel
+| render piechart with(title="MISP IoCs by Traffic Light Protocol Level")
+
+// Count of ingested IoCs over a period of time
+ThreatIntelligenceIndicator
+| where isnotempty(TimeGenerated) and SourceSystem == 'MISP'
+| where TimeGenerated between (datetime(2024-01-01) .. datetime(2024-11-30)) 
+| summarize IoCsCount=count_distinct(IndicatorId) by bin(TimeGenerated, 7d)
+| render timechart
+
+// A barchart of count of Tags
+ThreatIntelligenceIndicator
+| where isnotempty(TimeGenerated) and SourceSystem == 'MISP'
+| mv-expand todynamic(Tags)
+| summarize count() by tostring(Tags)
+| render barchart

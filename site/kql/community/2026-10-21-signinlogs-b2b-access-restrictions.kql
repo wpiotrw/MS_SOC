@@ -1,0 +1,17 @@
+// title: SignInLogs   B2B Access Restrictions
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: SignInLogs B2B Access Restrictions
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/SignInLogs%20-%20B2B%20Access%20Restrictions.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+//| where ResultType != 0
+//| where ResultSignature == "FAILURE"
+//| where CrossTenantAccessType == "passthrough"
+| where Status.failureReason == "The resource tenant\'s cross-tenant access policy does not allow this user to access this tenant."
+//use something Like AADInternalsOsint to look up ResourceTenantID from AppOwnerTenantId field.
+//This query covers B2b. For Tenant Restrictions see the other KQL in this Repo.

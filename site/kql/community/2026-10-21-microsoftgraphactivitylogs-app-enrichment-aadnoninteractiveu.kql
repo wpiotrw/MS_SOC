@@ -1,0 +1,19 @@
+// title: MicrosoftGraphActivityLogs App Enrichment AADNonInteractiveUserSignInLogs Based · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, MicrosoftGraphActivityLogs
+// purpose: This query enriches the *MicrosoftGraphActivityLogs* with Application information from the *AADNonInteractiveUserSignInLogs* table to get more context in the results. This query does have a limitation, a user must have signed in to the application to show up in the logs. An alternative KQL query is 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Graph%20API/AppEnrichmentAADNonInteractiveUserSignInLogs.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ApplicationName = AADNonInteractiveUserSignInLogs
+| where TimeGenerated > ago(30d)
+| summarize arg_max(TimeGenerated, *) by ResourceIdentity
+| project-rename ApplicationName = ResourceDisplayName
+| distinct ApplicationName, ResourceIdentity;
+MicrosoftGraphActivityLogs
+// Your filter here
+| lookup kind=leftouter ApplicationName on $left.AppId == $right.ResourceIdentity
+| project-reorder AppId, ApplicationName

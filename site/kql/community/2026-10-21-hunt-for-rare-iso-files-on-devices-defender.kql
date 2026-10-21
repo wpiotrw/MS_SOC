@@ -1,0 +1,34 @@
+// title: Hunt for rare ISO files on devices · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Adversaries may use ISO files to obfuscate their malicious intentions and gain initail access. Those files may be send via mail. A common Actor that sends ISO attachments is Lokibot. To reduce the attack surface consider disabling auto mounting of disk images. This hunting query lets you search for 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/RareISOFile.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Threshold = 100;
+DeviceFileEvents
+// Extract the FileExtentsion from the filename
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+// Filter only on ISO files
+| where FileExtension =~ 'iso'
+// Do not filter on File Rename activities, since this does not change 
+the hash of the file.
+| where ActionType != 'FileRenamed'
+| where isnotempty(SHA1)
+// Enrich file information
+| invoke FileProfile("SHA1", 10000)
+// Depending on your hunting activities you can alter the threshold for 
+applications that are less rare.
+| where GlobalPrevalence <= Threshold
+| project
+     DeviceName,
+     ActionType,
+     GlobalPrevalence,
+     GlobalFirstSeen,
+     FolderPath,
+     SHA1,
+     FileOriginUrl
+| sort by GlobalPrevalence, SHA1

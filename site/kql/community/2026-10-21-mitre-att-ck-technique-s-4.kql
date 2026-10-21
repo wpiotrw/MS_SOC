@@ -1,0 +1,23 @@
+// title:  · MITRE ATT&CK Technique(s)
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceNetworkEvents, DeviceNetworkInfo
+// purpose:  · MITRE ATT&CK Technique(s)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/[LM]%20-%20Internal%20Threat%20Hunting%20over%20Routers%20Devices.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Author Sergio Albea 30-10-2025
+DeviceInfo
+| where DeviceSubtype has "Router" 
+| join kind=inner (DeviceNetworkInfo | where isnotempty(IPAddresses)) on $left.DeviceName == $right.DeviceName
+| extend d = todynamic(IPAddresses)                          // works for string or dynamic
+| extend IP = tostring(iif(array_length(d) > 0, d[0].IPAddress, ""))
+| join kind=inner (DeviceNetworkEvents | where isnotempty(RemoteIP) and isnotempty(RemoteUrl)) on $left.IP == $right.RemoteIP
+| where RemoteUrl contains "IP"  and isnotempty(Vendor)
+// If there are devices identified as valid to connect/manage your routers, you can exclude them using the next condition
+// where DeviceName2 !in ("Device1","Device2")
+| extend Access_Type = case(RemoteUrl startswith "http", "🌎 Web","⚙️ Application")
+| extend Connection_Result = case(ActionType has "ConnectionSuccess", "✅ ConnectionSuccess","❌ ConnectionFailed")
+| summarize make_set(OSPlatform),make_set(InitiatingProcessFileName), Total_connections=count() by  Vendor,Connection_From=DeviceName2,LocalIP,Access_Type,Connection_To=RemoteUrl, RemoteIP,DeviceSubtype=strcat("🛜 ",DeviceSubtype), Connection_Result

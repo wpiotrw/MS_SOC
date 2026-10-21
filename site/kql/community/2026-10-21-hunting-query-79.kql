@@ -1,0 +1,18 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceRegistryEvents/Detect%20DefenderXDR%20services%20and%20features%20disabled%20on%20devices.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+//If you enable these policy settings (RegistryValueData == 1), Windows Defender will not take actions or report possible threats.
+//Windows Defender - Defender service itself.
+//Spynet = Microsoft Active Protection Service is an online community that helps you choose how to respond to potential threats. This feature ensures the device checks in real time with the Microsoft Active Protection Service (MAPS) before allowing certain content to be run or accessed. If this feature is disabled, the check will not occur, which will lower the protection state of the device.
+//Real-Time Protection = protection to scan for malware and other unwanted software. Once this has been disabled, it won’t scan anything of it.
+| where RegistryKey == "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender" or RegistryKey == "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\spynet" or RegistryKey == "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Microsoft Antimalware\\Real-Time Protection"
+| where RegistryValueData == 1
+| distinct Timestamp, DeviceName, RegistryKey, RegistryValueName, PreviousRegistryValueData, RegistryValueData, IsInitiatingProcessRemoteSession

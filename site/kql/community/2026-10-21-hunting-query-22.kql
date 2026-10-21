@@ -1,0 +1,31 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Detect%20unusual&suspicious%20RTT%20values%20based%20on%20DNS%20Answers.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| extend TTLs = todynamic(tostring(parse_json(AdditionalFields).TTLs))
+| mv-expand TTLs
+| extend answers = todynamic(tostring(parse_json(AdditionalFields).answers))
+| extend answersext = todynamic(tostring(parse_json(AdditionalFields).answers))
+| extend rtt = todynamic(tostring(parse_json(AdditionalFields).rtt))
+| extend query = (tostring(parse_json(AdditionalFields).query))
+| mv-expand answers
+| extend Type =
+    case(
+        answers matches regex @"^(\d{1,3}\.){3}\d{1,3}$", "IPv4",  
+        answers matches regex @"^([a-fA-F0-9:]+)$", "IPv6",        
+        answers contains ".", "URL",                               
+        "Unknown"                                                 
+    )
+| where Type has "IPv4"
+| extend tostring(answers)
+| extend Geo_info_answer = tostring(geo_info_from_ip_address(answers).country)
+| extend Geo_info_RemoteIP = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where rtt > 100
+| project   DeviceName, RemoteIP,answers,Geo_info_RemoteIP, Geo_info_answer,rtt, TTLs

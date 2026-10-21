@@ -1,0 +1,16 @@
+// title: Summary Rules - Unique Actions · Sentinel
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This summary rule saves all unique actions and how often they appear in your environment to the custom table or your choice. This allows for easy retrieval of statistics and trends on how many unique actions are found in the environment each day. **Recommended Schedule:** 24 hours. **Recommended Del
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Sentinel/Summary%20Rules/UniqueActions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+union * 
+| extend Action = coalesce(Operation, OperationName, OperationNameValue, ActionType) 
+| where isnotempty(Action) 
+| summarize TotalEvents = count() by Type, Action
+| extend RetrievalDate = StartDate
+| sort by Type

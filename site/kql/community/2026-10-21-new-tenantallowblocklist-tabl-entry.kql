@@ -1,0 +1,17 @@
+// title: New TenantAllowBlockList (TABL) entry
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: New TenantAllowBlockList (TABL) entry
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/New%20TenantAllowBlockList%20(TABL)%20entry.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents 
+| where ActionType == "New-TenantAllowBlockListItems"
+| extend Notes = extract(@'"Notes","Value":"(.*?)"', 1, tostring(ActivityObjects))
+| extend Url = replace_string(extract(@'Name":"Entries","Value":"(.*?)"', 1, tostring(ActivityObjects)), ".", "[.]")
+| extend Expiration = replace_string(extract(@'"Name":"ExpirationDate","Value":"(.*?)"', 1, tostring(ActivityObjects)), ".", "[.]")
+//| project-reorder Notes, Url, Expiration
+//| project TimeGenerated, ObjectName, Notes, Url, Expiration, IPAddress

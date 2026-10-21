@@ -1,0 +1,15 @@
+// title: Prioritize Secure Configuration · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSecureConfigurationAssessment, DeviceTvmSecureConfigurationAssessmentKB
+// purpose: This query helps you prioritize configuration changes that affect your devices based on the Microsoft Defender TVM modules.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/PrioritizeSecureConfiguration.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSecureConfigurationAssessment
+| summarize TotalDevices = dcount(DeviceId) by ConfigurationId, ConfigurationCategory
+| join kind=inner DeviceTvmSecureConfigurationAssessmentKB on ConfigurationId
+| sort by ConfigurationImpact, TotalDevices
+| project-reorder ConfigurationId, ConfigurationImpact, TotalDevices, ConfigurationName,  ConfigurationCategory, ConfigurationSubcategory

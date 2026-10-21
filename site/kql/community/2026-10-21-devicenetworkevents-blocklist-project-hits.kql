@@ -1,0 +1,40 @@
+// title: DeviceNetworkEvents Blocklist Project Hits
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: DeviceNetworkEvents Blocklist Project Hits
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/DeviceNetworkEvents%20Blocklist%20Project%20Hits.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query checks network traffic against multiple blocklists from the Blocklist Project
+//Includes checks for porn, piracy, torrent, phishing, malware, and ransomware domains
+let PornBlockListProj = externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/porn.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+let PiracyBlockListProj= externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/piracy.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+let TorrentBlockListProj = externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/torrent.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+let PhishingBlockListProj = externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+let MalwareBlockListProj = externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+let RansomBlockListProj = externaldata(type: string)[@"https://raw.githubusercontent.com/blocklistproject/Lists/master/ransomware.txt"] with (format="csv", ignoreFirstRecord=False)
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type,"0.0.0.0", "")," ","")
+| project RemoteUrl;
+DeviceNetworkEvents
+| where RemoteUrl in~(PornBlockListProj) or RemoteUrl in~(TorrentBlockListProj) or RemoteUrl in~(PiracyBlockListProj) or RemoteUrl in~(PhishingBlockListProj) or RemoteUrl in~(MalwareBlockListProj) or RemoteUrl in~(RansomBlockListProj)
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, VT_domain

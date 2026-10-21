@@ -1,0 +1,22 @@
+// title: List the top 100 accounts that have performed the most impersonated actions · Defender XDR
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: This query lists the top 100 accounts that have performed the most imporsonated actions. The definiation for this field is: *Indicates whether the activity was performed by one user for another (impersonated) user*.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/AccountsWithMostImpersonatedActions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where IsImpersonated == 1
+| extend
+     MailboxOwnerUPN = tostring(parse_json(RawEventData).MailboxOwnerUPN),
+     ActionPerformedBy = tostring(parse_json(RawEventData).UserId)
+| where MailboxOwnerUPN != ActionPerformedBy
+| summarize
+     TotalImpersonatedActivities = count(),
+     Impersonators = make_set(ActionPerformedBy),
+     PerformedActions = make_set(ActionType)
+     by MailboxOwnerUPN
+| top 100 by TotalImpersonatedActivities

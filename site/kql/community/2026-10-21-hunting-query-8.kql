@@ -1,0 +1,16 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceImageLoadEvents, DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/IOCs%20for%20SmartApeSG%20fake%20browser%20update%20leads%20to%20NetSupport%20RAT%20and%20StealC.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let URL_IOCs =DeviceNetworkEvents 
+| extend method = tostring(parse_json(AdditionalFields).method), uri = tostring(parse_json(AdditionalFields).uri)
+| where (method has "POST" and ("RemoteIP" startswith "62.164.130" or uri endswith "dll")) or RemoteUrl contains "cinaweine" or RemoteIP startswith "194.180.191" or RemoteUrl contains "poormet";
+let FILE_IOC = DeviceFileEvents | where SHA256 has "47f59d61beabd8f1dcbbdd190483271c7f596a277ecbe9fd227238a7ff74cbfc" or SHA256 has "b71f07964071f20aaeb5575d7273e2941853973defa6cb22160e126484d4a5d3" or SHA256 contains "e9eb934dad3f87ee581df72af265183f86fdfad87018eed358fb4d7f669e5b7d" or FileName has "rtworkq.dll" or FileName has "misk.zip" or (FileName startswith "update " and FileName endswith "js") ;
+let DLL_IOC = DeviceImageLoadEvents | where SHA256 has "021bb478b704abb95ac2040061b7d47d8e4b491e6d2633adb010c3b8b08bb4f4";
+union URL_IOCs, FILE_IOC, DLL_IOC

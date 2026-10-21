@@ -1,0 +1,17 @@
+// title: Hunt for Local Admins with the most RemoteInteractive logins · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents
+// purpose: Hunt for Local Admins with the most RemoteInteractive logins
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/LocalAdminsWithTheMostDevicesAccessed.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceLogonEvents
+| where IsLocalAdmin == "True"
+| where LogonType == "RemoteInteractive"
+| extend IsLocalLogon = tostring(todynamic(AdditionalFields).IsLocalLogon)
+| summarize DevicesAccessed = make_set(DeviceName) by AccountName, AccountDomain
+| extend TotalDevices = array_length(DevicesAccessed)
+| sort by TotalDevices

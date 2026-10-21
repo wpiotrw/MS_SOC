@@ -1,0 +1,21 @@
+// title: End-of-Life (EOL) reference → Microsoft Defender XDR mapping · 3. Operating systems — join against DeviceInfo
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: End-of-Life (EOL) reference → Microsoft Defender XDR mapping · 3. Operating systems — join against DeviceInfo
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/EOL_Products/README.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// abridged — full versions (status / past-EOL / upcoming) are in eol_products.kql
+DeviceInfo
+| summarize arg_max(Timestamp, OSVersion, OSVersionInfo) by DeviceId, DeviceName, OSPlatform
+| extend os_key = case(
+    OSPlatform startswith "WindowsServer", strcat("winsrv|", extract(@"(\d{4})", 1, OSPlatform)),
+    OSPlatform startswith "Windows",       strcat("win|", extract(@"(\d+)$", 1, OSPlatform), " ", OSVersionInfo),
+    OSPlatform =~ "macOS",                 strcat("mac|", tostring(split(OSVersion, ".")[0])),
+    OSPlatform =~ "iOS",                   strcat("ios|", tostring(split(OSVersion, ".")[0])),
+    OSPlatform =~ "Android",               strcat("android|", tostring(split(OSVersion, ".")[0])),
+    "")
+// | join to the normalized os rows of eol_products.csv on os_key — see CASE 4

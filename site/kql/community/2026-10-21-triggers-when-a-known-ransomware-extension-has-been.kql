@@ -1,0 +1,33 @@
+// title: Triggers when a known ransomware extension has been found · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: This query triggers when a file with a known ransomware extension has been found.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/Ransomware/RansomwareExtensionFound.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RansomwareExtensionsInput  = externaldata(Extension: string)[@"https://raw.githubusercontent.com/eshlomo1/Ransomware-NOTE/main/ransomware-extension-list.txt"] with (format="txt", ignoreFirstRecord=True);
+let RansomwareExtensionAddition = dynamic(['.misingfromabovelist']); // Add your missing / new extensions in this list.
+let RansomwareExtensions = materialize (
+     RansomwareExtensionsInput
+     | distinct Extension
+     | extend RawExtention = substring(Extension, 1, 
+string_size(Extension))
+     );
+DeviceFileEvents
+| where FileName has_any (RansomwareExtensions) or FileName has_any (RansomwareExtensionAddition)
+| summarize
+     arg_max(TimeGenerated, *),
+     EncryptedFiles = make_set(FileName),
+     Locations = make_set(FolderPath)
+     by DeviceName
+| extend TotalFileEncrypted = array_length(EncryptedFiles)
+| project-reorder
+     TimeGenerated,
+     TotalFileEncrypted,
+     EncryptedFiles,
+     Locations,
+     InitiatingProcessAccountName
+| sort by TotalFileEncrypted

@@ -1,0 +1,14 @@
+// title: Modifications to SafeLinks AllowClickThrough Policy
+// date: 2026-10-21
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: Modifications to SafeLinks AllowClickThrough Policy
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/Modifications%20to%20SafeLinks%20AllowClickThrough%20Policy.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+OfficeActivity
+| where TimeGenerated > ago(90d)
+| where Operation == "Set-SafeLinksPolicy"
+| where parse_json(Parameters)[13].Value == "True" and parse_json(Parameters)[13].Name == "AllowClickThrough"

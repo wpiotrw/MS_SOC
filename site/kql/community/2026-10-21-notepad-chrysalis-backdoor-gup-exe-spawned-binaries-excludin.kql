@@ -1,0 +1,35 @@
+// title: Notepad++   Chrysalis Backdoor gup.exe spawned binaries excluding known good Notepad++ hashes
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Notepad++ Chrysalis Backdoor gup.exe spawned binaries excluding known good Notepad++ hashes
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Notepad++%20-%20Chrysalis%20Backdoor%20gup.exe%20spawned%20binaries%20excluding%20known-good%20Notepad++%20hashes.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Credit: https://medium.com/capturedsignal/notepad-security-incident-threat-hunting-using-kql-and-defender-for-endpoint-logs-dd83b984fcc6
+//Credit to: Bartosz Turek and Florian Roth
+let NotepadHashes =
+externaldata(
+version_tag: string,
+release_title: string,
+release_date: datetime,
+prerelease: bool,
+release_url: string,
+hash_algorithm: string,
+hash_value: string,
+inferred_asset_name: string,
+source_location: string,
+checksum_asset_name: string,
+checksum_asset_url: string
+)
+[h@'https://raw.githubusercontent.com/Neo23x0/notepad-plus-plus-hashes/refs/heads/main/notepadpp_release_hashes.csv']
+with(format = "csv", ignoreFirstRecord = true)
+| distinct hash_value;
+DeviceProcessEvents
+| where TimeGenerated > todatetime('2025-06-01T00:00:00.00Z') // "The incident began from June 2025"
+| where InitiatingProcessCommandLine startswith '"gup.exe"'
+| where FolderPath <> "C:\\Windows\\explorer.exe"
+| where FolderPath <> "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+| where not(SHA256 has_any (NotepadHashes))

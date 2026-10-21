@@ -1,0 +1,23 @@
+// title: BloodHound Detection · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This query detects the use of bloodhound based on the processes it creates. This detection is based on Threat Report by RedCanary.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/BloodHoundProcessDetection.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// List with known bloodhound executions
+let BloodhoundCommands = dynamic(['-collectionMethod', 'invoke-bloodhound' ,'get-bloodHounddata']);
+DeviceProcessEvents
+| where ProcessCommandLine has_any (BloodhoundCommands)
+| project
+     TimeGenerated,
+     DeviceName,
+     AccountName,
+     AccountDomain,
+     ProcessCommandLine,
+     FileName,
+     InitiatingProcessCommandLine,
+     InitiatingProcessFileName

@@ -1,0 +1,14 @@
+// title: Visualise the outdated Operating Systems used to connect to your cloud environment · Defender XDR
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Visualise the outdated Operating Systems used to connect to your cloud environment · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/Visualization%20-%20OutdatedOSUsed.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where UserAgentTags contains "Outdated operating system"
+| summarize count() by OSPlatform
+| render piechart with(title="Outdated Operating Systems Used")

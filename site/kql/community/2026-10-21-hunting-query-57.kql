@@ -1,0 +1,18 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceEvents/Detecting%20Text%20and%20CSV%20Data%20Dumps%20via%20Command%20Line.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where isnotempty(AdditionalFields) 
+| extend Command = tostring(parse_json(AdditionalFields).Command)
+// search for commands exporting data into .txt or .csv format
+| where Command endswith ".txt" or Command endswith ".csv"
+// excluding known cases
+| where Command !startswith "Start-Process"
+| project Timestamp, DeviceName, ActionType, ProcessCommandLine, Command, InitiatingProcessAccountName, InitiatingProcessAccountUpn, ProcessRemoteSessionDeviceName, ReportId

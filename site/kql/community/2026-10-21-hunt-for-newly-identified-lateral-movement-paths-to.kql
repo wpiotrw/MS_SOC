@@ -1,0 +1,22 @@
+// title: Hunt for newly identified lateral movement paths to sensitive accounts · Sentinel
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: Defender For Identity identifies lateral movement paths to all sensitive accounts (if possible). This is similar to a Bloodhound output. A newly identified path can mean that a sensitive account can be taken over if the path is followed.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Identity/NewLateralMovementPathToSensitiveAccountIdentified.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+IdentityDirectoryEvents
+| where ActionType == "Potential lateral movement path identified"
+| extend AdditionalInfo = parse_json(AdditionalFields)
+| extend LateralMovementPathToSensitiveAccount = AdditionalFields.['ACTOR.ACCOUNT']
+| extend FromAccount = AdditionalFields.['FROM.ACCOUNT']
+| project
+     TimeGenerated,
+     LateralMovementPathToSensitiveAccount,
+     FromAccount,
+     DeviceName,
+     AccountName,
+     AccountDomain

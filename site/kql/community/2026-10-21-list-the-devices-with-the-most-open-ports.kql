@@ -1,0 +1,16 @@
+// title: List the devices with the most open ports · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: List the devices with the most open ports.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/Network%20-%20DevicesWithMostOpenPorts.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where ActionType == "ListeningConnectionCreated"
+| where LocalPort < 5000 //Remove open TCP ports
+| where LocalIP !="127.0.0.1" // Will generate a lot of false positives
+| summarize TotalOpenPorts = dcount(LocalPort), OpenPortsList = make_set(LocalPort) by DeviceName
+| sort by TotalOpenPorts

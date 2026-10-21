@@ -1,0 +1,29 @@
+// title: Local Group Created · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceInfo, DeviceNetworkEvents
+// purpose: This query lists all the local groups that have been created, this is done by listing all SecurityGroupCreated events and filtering all group creations on Domain Controllers. The GroupDomainName can be used to identify on which device the group has been created.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/LocalGroupCreation.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let AllDomainControllers =
+    DeviceNetworkEvents
+    | where LocalPort == 88
+    | where LocalIPType == "FourToSixMapping"
+    | summarize make_set(DeviceId);
+DeviceEvents
+| where ActionType == "SecurityGroupCreated"
+| where not(DeviceId in (AllDomainControllers))
+| extend Details = parse_json(AdditionalFields)
+| extend
+    GroupName = tostring(Details.GroupName),
+    GroupDomainName = tostring(Details.GroupDomainName),
+    GroupSid = tostring(Details.GroupSid)
+| join kind=inner (DeviceInfo
+    | where TimeGenerated > ago(30d)
+    | summarize arg_max(TimeGenerated, *) by DeviceId
+    | project DeviceId, OSPlatform, DeviceType)
+    on DeviceId
+| project TimeGenerated, DeviceId, DeviceName, GroupName, GroupDomainName, GroupSid, OSPlatform, DeviceType, ReportId

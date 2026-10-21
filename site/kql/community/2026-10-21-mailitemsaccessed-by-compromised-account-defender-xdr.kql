@@ -1,0 +1,27 @@
+// title: MailItemsAccessed by Compromised account · Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: CloudAppEvents, EmailEvents
+// purpose: This query lists the *MailItemsAccessed* actions performed by a suspicious/compromised account.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDCA%20MDO%20-%20MailItemsAccessedByCompromisedAccount.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let InputEmailDirection = pack_array("Inbound","Outbound","Intra-org","Unknown");
+let SearchWindow = 48h; //Customizable h = hours, d = days;
+let AccountObjectIdInput = "c0a9a020-xxxx-xxxx-xxxx-2b5f0f5aa860";
+CloudAppEvents
+| where Timestamp > ago(SearchWindow)
+| where ActionType == "MailItemsAccessed"
+| where AccountObjectId =~ AccountObjectIdInput
+| extend Folders = parse_json(RawEventData).Folders
+| extend FolderItems = Folders[0].FolderItems, OperationCount = tostring(RawEventData.OperationCount)
+| mv-expand FolderItems
+| extend InternetMessageId = tostring(FolderItems.InternetMessageId)
+| project InternetMessageId, AccountObjectId, AccountDisplayName, DeviceType, MailAccessedTime = Timestamp, OperationCount
+// Include MailItemsAccessed accessed mails that can and cannot be enriched with EmailEvents info
+| join kind=leftouter (EmailEvents 
+    | where EmailDirection in (InputEmailDirection) 
+    | project EmailRecieveTime = Timestamp, SenderFromAddress, RecipientEmailAddress, Subject, InternetMessageId, NetworkMessageId) on InternetMessageId
+| project-reorder MailAccessedTime, EmailRecieveTime, SenderFromAddress, RecipientEmailAddress, Subject, OperationCount

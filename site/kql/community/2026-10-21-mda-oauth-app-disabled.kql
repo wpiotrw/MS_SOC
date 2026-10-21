@@ -1,0 +1,16 @@
+// title: MDA   OAuth App Disabled
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: MDA OAuth App Disabled
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/MDA%20-%20OAuth%20App%20Disabled.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where Identity == "MAPG" //My Guess is this is Microsoft Application Goverance 
+| where OperationName == "Update service principal"
+| where Category == "ApplicationManagement"
+| where parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0] == false and parse_json(tostring(TargetResources[0].modifiedProperties))[0].displayName == "AccountEnabled"
+//In the background MDA Disables the SP preventing application Permission and disables the app for user sign-in preventing delegated permissions

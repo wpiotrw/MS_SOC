@@ -1,0 +1,16 @@
+// title: Top 100 critical browser extensions with the most permissions required · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: Top 100 critical browser extensions with the most permissions required · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/BrowserExtension%20-%20Top100MostPermissiveExtensionsInstalled.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmBrowserExtensions
+| where ExtensionRisk == "Critical"
+| summarize TotalExtentions = count(), ExtentionNames = make_set(ExtensionName) by DeviceId
+| join kind=leftouter DeviceInfo on DeviceId
+| project DeviceName, TotalExtentions, ExtentionNames
+| top 100 by TotalExtentions

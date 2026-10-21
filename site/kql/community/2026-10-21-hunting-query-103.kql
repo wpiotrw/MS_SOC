@@ -1,0 +1,13 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/KQL-Collectors/IP_KQL_Collectors/IP02%20-%20RDP%20connections%20attempts.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+{
+  "Query": " DeviceNetworkEvents |  where Timestamp > ago(1d) | where LocalPort == '3389' | extend geo_ip = tostring(geo_info_from_ip_address(RemoteIP).country) | where isnotempty(geo_ip) and geo_ip in ('Russia','China','Nigeria','Iran','North Korea')|  extend Time_ = format_datetime( Timestamp, 'dd-MM-yyyy') | project geo_ip, RemoteIP, RemotePort,ActionType, InitiatingProcessCommandLine,Time_ | extend rawHash = substring(tostring(hash_sha256(strcat(1, tostring(rand())))), 0, 32) | extend GeneratedUUID = strcat( substring(rawHash, 0, 8), '-', substring(rawHash, 8, 4), '-', substring(rawHash, 12, 4), '-', substring(rawHash, 16, 4), '-', substring(rawHash, 20, 12)) "
+}

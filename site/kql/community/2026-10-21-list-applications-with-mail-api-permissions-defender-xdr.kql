@@ -1,0 +1,17 @@
+// title: List applications with Mail.* API permissions · Defender XDR
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: OAuthAppInfo
+// purpose: The query below lists the applications that have Mail.* Graph API permissions. These permissions are highly sensitive as it can give access to individual or shared mailboxes.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/OAuthAppInfo/ApplicationMailPermission.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+OAuthAppInfo
+| where Permissions has "Mail."
+| summarize arg_max(Timestamp, *) by OAuthAppId
+| mv-expand Permissions
+| extend PermissionValue = tostring(Permissions.PermissionValue), InUse = tobool(Permissions.InUse), PrivilegeLevel = tostring(Permissions.PrivilegeLevel)
+| where PermissionValue startswith "Mail."
+| summarize TotalMailPermissions = dcount(PermissionValue), Permissions = make_set(PermissionValue) by OAuthAppId, AppName, AppOrigin

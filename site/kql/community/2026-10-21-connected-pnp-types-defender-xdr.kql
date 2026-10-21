@@ -1,0 +1,17 @@
+// title: Connected PnP types · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: List the different Plug and Play (PnP) device types that are used in your organisation. The results are sorted by the total ammount of events seen for each type.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/USB/ConnectedPnPTypes.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType == "PnpDeviceConnected"
+| extend PNPInfo = parse_json(AdditionalFields)
+| extend ClassName = tostring(PNPInfo.ClassName), DeviceDescription = tostring(PNPInfo.DeviceDescription), VendorIds = tostring(PNPInfo.VendorIds), DeviceId = tostring(PNPInfo.DeviceId)
+| extend PnPType = tostring(split(DeviceId, @"\", 0)[0])
+| summarize Total = count() by PnPType
+| sort by Total

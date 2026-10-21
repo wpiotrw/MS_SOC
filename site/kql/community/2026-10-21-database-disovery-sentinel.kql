@@ -1,0 +1,25 @@
+// title: Database Disovery · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Adversaries may attempt to get a listing of services running on remote hosts and local network infrastructure devices, including those that may be vulnerable to remote software exploitation. Databases are a particular interest to the adversaries because they might contain sensitive data, which is va
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/Discovery%20-%20DatabaseServices.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let DatabasePorts = dynamic([1433, 1434, 1583, 3050, 3306, 3351, 5432]);
+// Device List with devices that perform benign connections to SQL machines
+let BenignDeviceList = dynamic(['DeviceName1']);
+// Threshold for the amount of unique connections
+let AlertThreshold = 10;
+DeviceNetworkEvents
+| where ingestion_time() > ago(24h)
+// Filter Database ports
+| where RemotePort in (DatabasePorts)
+// Filter Benign Devices
+| where not(DeviceName in~(BenignDeviceList))
+// Summarize results and get statistics
+| summarize TotalIPsAccessed = dcount(RemoteIP), IPList = make_set(RemoteIP), PortList =  make_set(RemotePort), arg_max(TimeGenerated, *) by DeviceId, bin(TimeGenerated, 1h)
+| where TotalIPsAccessed >= AlertThreshold
+| project DeviceName, TimeGenerated, TotalIPsAccessed, IPList, PortList

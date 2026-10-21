@@ -1,0 +1,14 @@
+// title: DigitalSide Threat-Intel suspicious and/or malicious domains · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: DigitalSide Threat-Intel suspicious and/or malicious domains · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/TI%20Feed%20-%20DigitalSideDomains.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ThreatIntelFeed = externaldata(Domain: string)[@"https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt"] with (format="txt", ignoreFirstRecord=True);
+DeviceNetworkEvents
+| where RemoteUrl has_any (ThreatIntelFeed)
+| project Timestamp, RemoteUrl, RemoteIP, DeviceName, InitiatingProcessCommandLine, InitiatingProcessFileName, InitiatingProcessAccountDomain, InitiatingProcessAccountName

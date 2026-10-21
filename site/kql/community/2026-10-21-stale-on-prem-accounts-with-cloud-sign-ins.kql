@@ -1,0 +1,30 @@
+// title: Stale On Prem Accounts with Cloud Sign ins
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityInfo, IdentityLogonEvents
+// purpose: Stale On Prem Accounts with Cloud Sign ins
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Stale%20On-Prem%20Accounts%20with%20Cloud%20Sign-ins.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let OnPremUsers =
+IdentityLogonEvents
+| where TimeGenerated > ago(90d)
+| where Application == "Active Directory"
+| where ActionType == "LogonSuccess"
+| summarize LastOnPremLogon=max(TimeGenerated) by AccountUpn;
+let CloudUsers =
+IdentityLogonEvents
+| where TimeGenerated > ago(90d)
+| where Application != "Active Directory"
+| where ActionType == "LogonSuccess"
+| summarize LastCloudLogon=max(TimeGenerated) by AccountUpn;
+CloudUsers
+| join kind=leftouter OnPremUsers on AccountUpn
+| where isnull(LastOnPremLogon) or LastOnPremLogon < ago(90d) //null indicates they didnt sign-in onprem during the time range
+| join IdentityInfo on AccountUpn //Any account in use will have a record in this table within the timeframe 
+| where set_has_element(SourceProviders, "ActiveDirectory")
+| where set_has_element(SourceProviders, "AzureActiveDirectory") 
+| summarize arg_max(TimeGenerated,*) by AccountUpn
+| order by LastOnPremLogon desc

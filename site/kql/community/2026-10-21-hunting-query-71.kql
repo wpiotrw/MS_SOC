@@ -1,0 +1,17 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceImageLoadEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceImageLoadEvents/Detect%20Potential%20DLL%20Hijacking%20cases.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let dll_hijacking_source = externaldata
+(Name:string,Author:string,Created:string,Vendor:string,CVE:string,ExpectedLocations:string,VulnerableExecutablePath:string,VulnerableExecutableType:string,VulnerableExecutableAutoElevated:string,VulnerableExecutablePrivilegeEscalation:string,VulnerableExecutableCondition:string,VulnerableExecutableSHA256:string,VulnerableExecutableEnvironmentVariable:string,Resources:string,Acknowledgements:string,URL:string)
+[@"https://hijacklibs.net/api/hijacklibs.csv"] with (format="csv", ignoreFirstRecord=True);
+DeviceImageLoadEvents
+| join kind=inner ( dll_hijacking_source) on $left.SHA256 == $right.VulnerableExecutableSHA256
+| where isnotempty( VulnerableExecutableSHA256)
+| summarize by DeviceId, DeviceName, ActionType, FileName, FolderPath, SHA256,VulnerableExecutableSHA256,Resources, Acknowledgements,URL, FileSize, InitiatingProcessAccountName,InitiatingProcessAccountDomain, InitiatingProcessAccountUpn, InitiatingProcessIntegrityLevel, InitiatingProcessFileName, InitiatingProcessVersionInfoCompanyName, Name, Author, VulnerableExecutableType, VulnerableExecutableEnvironmentVariable

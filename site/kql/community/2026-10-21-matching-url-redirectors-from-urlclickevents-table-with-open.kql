@@ -1,0 +1,21 @@
+// title: Matching URL redirectors from UrlClickEvents table with OpenPhish external threat intel source · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: The following query leverages UrlClickEvents and more specifically the UrlChain column to unfold redirectors identified from user's clicks at Emails, Teams messages and Office 365 apps, and also matches these redirector URLs to OpenPhish theat intelligence source.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/matching-url-redirectors-from-urlclickevents-table-with-openphish-external-threat-intel-source.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let OpenPhish = externaldata(Domain: string)[@"https://raw.githubusercontent.com/openphish/public_feed/refs/heads/main/feed.txt"] with (format="txt", ignoreFirstRecord=True);
+UrlClickEvents
+| extend UrlChain = todynamic(UrlChain)
+| mv-expand UrlChain
+//| where Url != UrlChain // You can choose to remove the initial URL if you already use another analytic
+//| where ActionType == "ClickAllowed" // Click has been allowed by SafeLinks
+| extend ParsedUrl = parse_url(tostring(UrlChain))
+| extend ParsedUrl_Domain = parse_json(ParsedUrl)["Host"]
+| extend DomainParts = split(ParsedUrl_Domain, ".")  // Split the domain into parts by "."
+| extend CleanDomain = strcat_array(array_slice(DomainParts, array_length(DomainParts)-2, 2), ".")
+| where CleanDomain in~ (OpenPhish)

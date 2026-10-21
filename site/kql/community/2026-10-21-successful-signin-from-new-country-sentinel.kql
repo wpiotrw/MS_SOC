@@ -1,0 +1,22 @@
+// title: Successful signin from new country · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: This query detects successful signins from countries that have not been seen before. Depending on where you run this query the lookback period is different, M365D uses 30 days and Sentinel uses 90 days. If you have longer retention periods it is recommended to use longer thresholds.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/SuccessfulSignInFromNewCountry.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let KnownCountries = SigninLogs
+  | where TimeGenerated > ago(90d) and TimeGenerated < ago(3d)
+    //Only filter on successful logins
+    | where ResultType == 0
+    | where isnotempty(Location)
+    | distinct Location;
+SigninLogs
+| where TimeGenerated > ago(3d)
+| where ResultType == 0
+| where isnotempty(Location)
+| where Location !in (KnownCountries)
+| project TimeGenerated, Location, UserAgent, ResultType, Identity, UserPrincipalName, IPAddress

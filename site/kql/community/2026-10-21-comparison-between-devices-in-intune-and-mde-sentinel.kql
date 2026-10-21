@@ -1,0 +1,20 @@
+// title: Comparison between devices in Intune and MDE · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, IntuneDevices
+// purpose: This query lists the devices that are onboarded in Intune and classifies them based on the status of Defender For Endpoint. You can select your own *SearchPeriod* in this query. The MDE data is based on a process activities seen in the search window, if that is the case then the device is classified
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/ComparisonIntuneandMDEDevices.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SearchPeriod = 30d;
+let MDEDevices = DeviceProcessEvents
+    | where TimeGenerated > ago(SearchPeriod)
+    | extend DeviceNameWithoutDomain = tostring(split(DeviceName, ".", 0)[0])
+    | distinct DeviceNameWithoutDomain;
+IntuneDevices
+| where todatetime(LastContact) > ago(SearchPeriod)
+| summarize arg_max(TimeGenerated, DeviceName, LastContact) by DeviceId
+| extend MDEStatus = iff(DeviceName in~ (MDEDevices), "MDE Onboarded", "Not Onboarded")
+| summarize Total = count(), Devices = make_set(DeviceName) by MDEStatus

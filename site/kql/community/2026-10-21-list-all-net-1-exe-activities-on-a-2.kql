@@ -1,0 +1,24 @@
+// title: List all net(1).exe activities on a host · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: List all net(1).exe activities on a host · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDE%20-%20NetActivities.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedDevice = "azurewin2022";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+DeviceProcessEvents
+//| where DeviceName == CompromisedDevice
+| where Timestamp > ago(SearchWindow)
+| where FileName in ("net.exe", "net1.exe")
+| extend NetActionType = case(ProcessCommandLine has "accounts", "ACCOUNTS",
+    ProcessCommandLine has "group", "GROUP",
+    ProcessCommandLine has "user", "USER",
+    ProcessCommandLine has "localgroup", "LOCALGROUP",
+    "Other")
+| where NetActionType != "Other"
+| project-reorder Timestamp, ProcessCommandLine
+| sort by Timestamp

@@ -1,0 +1,27 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Identifying%20Devices%20by%20Vendor&Country%20based%20on%20Inbound%20Connections.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Importing the Vendor MAC Address table 
+let mac_info = externaldata(MAC: string,Vendor:string ,Country:string)[@"https://raw.githubusercontent.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/refs/heads/main/Security-Lists/mac_list.csv"] with (format="csv", ignoreFirstRecord=True);
+// selecting the Source MAC Address of the remote connections
+DeviceNetworkEvents 
+| extend AdditionalFields = parse_json( AdditionalFields)
+| extend direction =  AdditionalFields["direction"]
+| where direction has "In"
+| extend Source_Mac =  tostring(AdditionalFields["Source Mac"])
+// formatting the First 3 Octets of the MAC Address
+| extend MAC_Prefix_format = replace(":", "-", Source_Mac)
+| extend MAC_Prefix = substring(MAC_Prefix_format, 0, 8)
+// joining the Vendor MAC address info table
+| join kind=inner (mac_info) on $left.MAC_Prefix == $right.MAC
+// Getting the Country of the RemoteIPs
+| extend geo_ip = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where isnotempty (geo_ip)
+| distinct Source_Mac,Vendor, Device_Component_Country= Country, RemoteIP_Country = geo_ip , RemoteIP , ActionType, DeviceName

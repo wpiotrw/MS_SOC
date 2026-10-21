@@ -1,0 +1,22 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Email%20Bad%20Reputation%20ASN%20activities.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CIDRASN = (externaldata (CIDR:string, CIDRASN:int, CIDRASNName:string)
+['https://firewalliplists.gypthecat.com/lists/kusto/kusto-cidr-asn.csv.zip']
+with (ignoreFirstRecord=true));
+let Malicious_ASN= (externaldata (asn:string)['https://www.spamhaus.org/drop/asndrop.json']with(format="multijson"));
+EmailEvents
+| evaluate ipv4_lookup(CIDRASN, SenderIPv4, CIDR, return_unmatched=true)
+| extend GeoIPData = geo_info_from_ip_address(SenderIPv4)
+| where isnotempty( CIDR)
+| extend asn_info = tostring(CIDRASN)
+| where DeliveryLocation has "Inbox"
+| join kind=inner (Malicious_ASN) on $left.asn_info == $right.asn
+| project Timestamp, SenderFromAddress,SenderMailFromAddress, SenderDisplayName, SenderMailFromDomain, SenderIPv4, RecipientEmailAddress, Subject, DeliveryAction,DeliveryLocation, ThreatTypes, CIDR, CIDRASNName, asn_info, asn

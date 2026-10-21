@@ -1,0 +1,20 @@
+// title: SignIns with Country Name
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: SignIns with Country Name
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/SignIns%20with%20Country%20Name.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CountryCodes = externaldata (country: string,countryOrRegion:string) [@'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/refs/heads/master/all/all.csv'] with (format=csv, ignoreFirstRecord=True);
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where ResultType == 0
+| extend countryOrRegion = tostring(LocationDetails.countryOrRegion)
+| join kind = leftouter CountryCodes on countryOrRegion
+| where isnotempty(countryOrRegion)
+| extend VT_IP= iff(isnotempty(IPAddress),strcat(@"https://www.virustotal.com/gui/ip-address/",IPAddress),IPAddress)
+| summarize count() by country, UserPrincipalName, VT_IP
+| extend country = iif(country == "United Kingdom of Great Britain and Northern Ireland","United Kingdom",country)

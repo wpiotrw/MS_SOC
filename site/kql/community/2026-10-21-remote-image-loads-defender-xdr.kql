@@ -1,0 +1,19 @@
+// title: Remote Image Loads · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceImageLoadEvents
+// purpose: This query can be used to summarize the remote image loads to a (potentially) compromised domain. NOTE! For Unfied XDR and Sentinel the columns have not been deployed (yet), thus the query will fail.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDE%20-%20RemoteImageLoads.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedDevice = "laptop.contoso.com";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+let Threshold = 50; // Customizable
+DeviceImageLoadEvents
+| where Timestamp > ago(SearchWindow)
+| where DeviceName == CompromisedDevice
+| where IsInitiatingProcessRemoteSession == 1
+| summarize TotalEvents = count(), Commands = make_set(InitiatingProcessCommandLine) by InitiatingProcessRemoteSessionDeviceName, InitiatingProcessRemoteSessionIP, InitiatingProcessAccountUpn
+| where TotalEvents <= Threshold

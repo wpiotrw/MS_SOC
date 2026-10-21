@@ -1,0 +1,14 @@
+// title: Outbound MSHTA Connection · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Detects outbound network connections initiated by `mshta.exe`. `mshta.exe` is a legitimate Windows binary, but it is frequently abused by adversaries to execute malicious script content from local or remote HTA resources. This query helps identify suspicious executions. It is recommended to investig
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/OutboundMSHTA.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where InitiatingProcessFileName =~ "mshta.exe"
+| where RemoteIPType == "Public" or not(ipv4_is_private(RemoteIP))
+| project-reorder TimeGenerated, InitiatingProcessCommandLine, RemoteUrl, RemoteIP, DeviceName, InitiatingProcessAccountUpn

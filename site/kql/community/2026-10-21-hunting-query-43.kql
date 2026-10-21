@@ -1,0 +1,15 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceProcessEvents/Potential%20commands%20executed%20by%20a%20powerShell.exe%20renamed.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where   ProcessCommandLine !contains "powershell"  
+| where  ProcessCommandLine !contains "pwsh"
+| where  ProcessCommandLine contains "-NoProfile" or ProcessCommandLine contains "-ExecutionPolicy" or  ProcessCommandLine contains "Invoke-Expression" 
+| project DeviceName, FileName,ActionType, ProcessVersionInfoOriginalFileName, ProcessCommandLine, ProcessRemoteSessionIP

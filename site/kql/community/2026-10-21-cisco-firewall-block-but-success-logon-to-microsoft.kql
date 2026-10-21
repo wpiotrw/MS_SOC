@@ -1,0 +1,28 @@
+// title: Cisco - firewall block but success logon to Microsoft Entra ID
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, CommonSecurityLog, SigninLogs
+// purpose: Correlate IPs blocked by a Cisco firewall appliance with successful Microsoft Entra ID signins. Because the IP was blocked by the firewall, that same IP logging on successfully to Entra ID is potentially suspect and could indicate credential compromise for the user account.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/SigninFirewallCorrelation.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let aadFunc = (tableName:string){
+CommonSecurityLog
+| where DeviceVendor =~ "Cisco"
+| where DeviceAction =~ "denied"
+| where ipv4_is_private(SourceIP) == false
+| summarize count() by SourceIP
+| join (
+    // Successful signins from IPs blocked by the firewall solution are suspect
+    // Include fully successful sign-ins, but also ones that failed only at MFA stage
+    // as that supposes the password was sucessfully guessed.
+  table(tableName)
+  | where ResultType in ("0", "50074", "50076")
+) on $left.SourceIP == $right.IPAddress
+| extend AccountName = tostring(split(Account, "@")[0]), AccountUPNSuffix = tostring(split(Account, "@")[1])
+};
+let aadSignin = aadFunc("SigninLogs");
+let aadNonInt = aadFunc("AADNonInteractiveUserSignInLogs");
+union isfuzzy=true aadSignin, aadNonInt

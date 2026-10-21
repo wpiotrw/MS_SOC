@@ -1,0 +1,17 @@
+// title: Set Persistence using Event Viewer Microsoft Redirection Program
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents, Event
+// purpose: Set Persistence using Event Viewer Microsoft Redirection Program
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Set%20Persistence%20using%20Event%20Viewer%20Microsoft%20Redirection%20Program.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Ref:https://www.hexacorn.com/blog/2019/02/15/beyond-good-ol-run-key-part-103/
+DeviceRegistryEvents
+| where TimeGenerated > ago(90d)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey contains @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Event Viewer" // use of @ notation so string is interpreted literally
+| where RegistryValueName contains "Redirection" or RegistryValueData == 1 //ConfirmUrl of 1 to avoid prompt, redirection program to set the persistence method
+//this method was brought to my attention by https://www.linkedin.com/posts/nasreddinebencherchali_windows-persistence-activity-7032415514660376576-7YyT/

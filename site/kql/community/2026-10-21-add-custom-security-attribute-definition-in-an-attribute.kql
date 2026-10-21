@@ -1,0 +1,13 @@
+// title: Add custom security attribute definition in an attribute set
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Add custom security attribute definition in an attribute set
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Add%20custom%20security%20attribute%20definition%20in%20an%20attribute%20set.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AADCustomSecurityAttributeAuditLogs
+| where OperationName == "Add custom security attribute definition in an attribute set"
+//Custom Atribute Diagnostic log must be enabled. this can only be done by the Attribute Log Administrator Role (global admin is NOT able to perform this)

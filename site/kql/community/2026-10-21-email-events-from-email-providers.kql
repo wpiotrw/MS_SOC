@@ -1,0 +1,16 @@
+// title: Email Events from Email Providers
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: Email Events from Email Providers
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/Email%20Events%20from%20Email%20Providers.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//A list of all email provider domains (free, paid, blacklist etc). Some of these are probably not around anymore. I've combined a dozen lists from around the web. Current "major providers" should all be in here as of the date this is created.
+let EmailProviders = externaldata (EmailProvider: string) [@'https://gist.githubusercontent.com/ammarshah/f5c2624d767f91a7cbdc4e54db8dd0bf/raw/660fd949eba09c0b86574d9d3aa0f2137161fc7c/all_email_provider_domains.txt'] with (format=csv, ignoreFirstRecord=False);
+EmailEvents
+| where SenderFromDomain has_any (EmailProviders) or RecipientEmailAddress has_any(EmailProviders) 
+//| join kind=leftouter EmailAttachmentInfo on NetworkMessageId //left outer as we may not have any attachments
+//| summarize by SenderFromDomain, RecipientEmailAddress

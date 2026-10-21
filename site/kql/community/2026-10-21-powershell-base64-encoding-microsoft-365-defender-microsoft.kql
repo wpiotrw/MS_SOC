@@ -1,0 +1,16 @@
+// title: PowerShell Base64 encoding · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Hunting for Base64 encoded command lines in PowerShell is crucial to detect and mitigate potential cyber threats. While the analytic below will detect Base64 encoded commands, a fine tuning is required for your environment.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/powershell-base64-encoding.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+// Define timeframe
+| where Timestamp > ago(1d)
+| where FileName has_any (@"powershell.exe", @"pwsh.exe", @"powershell_ise.exe")
+| where ProcessCommandLine contains "base64"
+| summarize arg_max(Timestamp, *) by DeviceName

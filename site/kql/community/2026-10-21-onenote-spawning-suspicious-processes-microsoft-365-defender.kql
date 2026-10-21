@@ -1,0 +1,13 @@
+// title: OneNote spawning suspicious processes · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This query detects processes spawned by onenote.exe that could reflect malicious activity. Query has been created during 2/2023 where OneNote has been widely abused to deliver malware.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/onenote-spawning-suspicious-processes.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where InitiatingProcessParentFileName contains @"ONENOTE.EXE"
+| where InitiatingProcessFileName has_any (@"powershell.exe", @"pwsh.exe", @"wscript.exe", @"cscript.exe", @"mshta.exe", @"cmd.exe")

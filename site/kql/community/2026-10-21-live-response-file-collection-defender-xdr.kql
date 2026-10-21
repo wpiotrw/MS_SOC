@@ -1,0 +1,17 @@
+// title: Live Response File Collection · Defender XDR
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: This query lists all the Getfile activities that have been executed. This includes listing the SHA256 hash of the collected file (when available).
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20XDR/LiveResponseFileCollection.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where ActionType == "LiveResponseGetFile"
+| extend FileName = tostring(parse_json(RawEventData).FileName), FileSHA256 = tostring(parse_json(RawEventData).FileSHA256)
+| project-rename InitiatedByAccountName = AccountDisplayName, InitiatedByAccounttId = AccountId, SHA256 = FileSHA256
+| invoke FileProfile(SHA256, 1000)
+| project-reorder Timestamp, FileName, SHA256, InitiatedByAccountName, InitiatedByAccounttId, GlobalPrevalence, SignatureState

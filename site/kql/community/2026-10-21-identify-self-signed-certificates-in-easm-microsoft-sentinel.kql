@@ -1,0 +1,15 @@
+// title: Identify self-signed certificates in EASM · Microsoft Sentinel
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: The following query will identify and present Assets (Domain/Host) in External Attack Surface Management that are associated with self-signed certificates.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/EASM/self-signed-certificates.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EasmRisk_CL 
+| where MetricDisplayName_s == "ASI: Self Signed Certificates"
+| extend AssetType_Domain = tostring(parse_json(AssetDiscoveryAuditTrail_s)[0].AssetType)
+| extend AssetType_Host = tostring(parse_json(AssetDiscoveryAuditTrail_s)[1].AssetType)
+| project AssetType_Domain, AssetType_Host, WorkspaceName_s

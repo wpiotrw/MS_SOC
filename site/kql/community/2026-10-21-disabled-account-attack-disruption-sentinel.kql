@@ -1,0 +1,16 @@
+// title: Disabled Account Attack Disruption · Sentinel
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Attack disruption disabled a cloud/hybrid account due to suspicious activities. The query lists the accounts that have been disabled by MDI.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/DisabledAccountAttackDisruption.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where ActionType == "Disable account."
+// Disabled by Microsoft Defender for Identity
+| where AccountId == "60ca1954-583c-4d1f-86de-39d835f3e452"
+| extend DisabledAccount = tostring(RawEventData.ObjectId)
+| project TimeGenerated, ActionType, DisabledAccount

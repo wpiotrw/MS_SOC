@@ -1,0 +1,19 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Detecting%20domains%20where%20their%20emails%20will%20be%20routed%20to%20Junk%20folders%20due%20to%20new%20Outlook%20requirement.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| where Timestamp > ago(1d)
+| extend SPF = tostring(parse_json(AuthenticationDetails).SPF)
+| extend DMARC = tostring(parse_json(AuthenticationDetails).DMARC)
+| extend DKIM = tostring(parse_json(AuthenticationDetails).DKIM)
+| where SPF !has "pass" or DMARC !has "pass" or DKIM !has "pass"
+| summarize Total_Emails=count() by InternetMessageId, SenderFromDomain, SPF, DMARC, DKIM
+| where Total_Emails > 4000
+| order by Total_Emails

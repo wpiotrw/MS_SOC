@@ -1,0 +1,18 @@
+// title: Suspicious execution using WSL · Microsoft Defender XDR & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: The following query will assist in hunting for suspicious execution using WSL environments at endpoints.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/suspicious-execution-using-wsl.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WSLHostSuspicousList = dynamic(["curl", "/etc/shadow", "/etc/passwd", "cat", "--system", "root", "-e", "--exec", "bash", "/mnt/c/"]); 
+let TimeFrame = 30d; // Choose the best timeframe for your investigation
+DeviceProcessEvents
+    | where Timestamp > ago(TimeFrame)
+    | where InitiatingProcessFileName has "wsl.exe"
+    | where ProcessCommandLine has_any (WSLHostSuspicousList)
+    | project TimeGenerated, DeviceId, DeviceName, FileName, FolderPath, ProcessId, ProcessCommandLine, AccountDomain, AccountName
+    | sort by TimeGenerated desc

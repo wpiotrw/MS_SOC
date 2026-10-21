@@ -1,0 +1,16 @@
+// title: Request an actor token for graph.windows.net using Service to Service (S2S)
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Request an actor token for graph.windows.net using Service to Service (S2S)
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Request%20an%20actor%20token%20for%20graph.windows.net%20using%20Service%20to%20Service%20(S2S).kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where not(OperationName has "group")
+| where not(OperationName == "Set directory feature on tenant")
+| where InitiatedBy has_all ( "Office 365 Exchange Online","user")
+| where InitiatedBy.user.displayName == "Office 365 Exchange Online"
+//Ref: https://i.blackhat.com/BH-USA-25/Presentations/US-25-Mollema-Advanced-AD-to-Entra-ID-lateral-movement-techniques-Wednesday.pdf

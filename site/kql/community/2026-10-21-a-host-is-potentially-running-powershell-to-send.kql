@@ -1,0 +1,20 @@
+// title: A host is potentially running PowerShell to send HTTP(S) requests (ASIM Web Session schema)
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This rule identifies a web request with a user agent header known to belong PowerShell. <br>You can add custom Powershell indicating User-Agent headers using a watchlist, for more information refer to the [UnusualUserAgents Watchlist](https://aka.ms/ASimUnusualUserAgentsWatchlist).<br><br> This anal
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/ASimWebSession/UnusualUAPowershell.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let threatCategory="Powershell";
+let knownUserAgentsIndicators = materialize(externaldata(UserAgent:string, Category:string)
+    [ @"https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Sample%20Data/Feeds/UnusualUserAgents.csv"]
+        with(format="csv", ignoreFirstRecord=True));
+let knownUserAgents=toscalar(knownUserAgentsIndicators | where Category==threatCategory | where isnotempty(UserAgent) | summarize make_list(UserAgent));
+let customUserAgents=toscalar(_GetWatchlist("UnusualUserAgents") | where SearchKey==threatCategory | extend UserAgent=column_ifexists("UserAgent","") | where isnotempty(UserAgent) | summarize make_list(UserAgent));
+let fullUAList = array_concat(knownUserAgents,customUserAgents);
+_Im_WebSession(httpuseragent_has_any=fullUAList)
+| project SrcIpAddr, Url, TimeGenerated, HttpUserAgent, SrcUsername
+| extend AccountName = tostring(split(SrcUsername, "@")[0]), AccountUPNSuffix = tostring(split(SrcUsername, "@")[1])

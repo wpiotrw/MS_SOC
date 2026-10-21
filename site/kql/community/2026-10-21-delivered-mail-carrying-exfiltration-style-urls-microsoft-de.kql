@@ -1,0 +1,21 @@
+// title: Delivered mail carrying exfiltration-style URLs · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: This query joins delivered messages to their URLs and flags long, encoded-looking query parameters or collector-style paths, the shape an AI assistant would be instructed to call. - Note on field values: the exact DetectionMethods string can vary by tenant and evolve over time (in my data it appeare
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/delivered-mail-carrying-exfiltration-style-urls.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+EmailEvents
+| where Timestamp > ago(lookback)
+| where DeliveryAction == "Delivered"
+| join kind=inner (
+    EmailUrlInfo
+    | where Timestamp > ago(lookback)
+) on NetworkMessageId
+| where Url matches regex @"(?i)([?&](data|q|payload|d)=[A-Za-z0-9+/]{24,}={0,2}|/(collect|exfil|log)\b)"
+| project Timestamp, SenderFromAddress, RecipientEmailAddress, Subject, Url, DeliveryLocation
+| sort by Timestamp desc

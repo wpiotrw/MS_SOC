@@ -1,0 +1,17 @@
+// title: Parsed User Agent
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Parsed User Agent
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Parsed%20User%20Agent.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+union SigninLogs,AADNonInteractiveUserSignInLogs
+//| where TimeGenerated > ago(30d)
+| where isnotempty(UserAgent)
+| extend UserAgentDetail = todynamic(parse_user_agent(UserAgent, "browser"))
+| extend UserAgentFamily = tostring(parse_json(tostring(UserAgentDetail.Browser)).Family)
+| extend UserAgentMajorVersion = toint(parse_json(tostring(UserAgentDetail.Browser)).MajorVersion)
+//| summarize count() by UserAgent

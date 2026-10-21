@@ -1,0 +1,15 @@
+// title: Removal of Roles Post GDAP relationship ending
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Removal of Roles Post GDAP relationship ending
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Removal%20of%20Roles%20Post%20GDAP%20relationship%20ending.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs //Removal of roles after Granular admin relationship has ended 
+| where OperationName == @"Remove member from role"
+| extend App = InitiatedBy.app.displayName
+| where App == 'Partner Customer Delegated Admin Offline Processor'
+| extend PartnerID = AdditionalDetails[0].value

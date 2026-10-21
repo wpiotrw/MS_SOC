@@ -1,0 +1,49 @@
+// title: Vulnerabilities Year To Date CISA KEV Edge Devices · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This query uses the CISA Known Exploited Vulnerabilities Catalog to list the vulnerabilities year to date by vendor. This can be used to analyze how many vulnerabilities have been added for each vendor and their products. This specific query leverages a list of Edge Device products to filter specifi
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/CISA%20KEV%20Review/CISAKEV-YearToDateVulnerabilitiesEdgeDevices.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EdgeDevices = dynamic([
+  "Firebox",
+  "SMA100 Appliances",
+  "SMA1000 Appliances",
+  "SMA1000 appliance",
+  "SonicOS",
+  "FortiOS",
+  "FortiProxy",
+  "FortiWeb",
+  "DIR-859 Router",
+  "Routers",
+  "Multiple Routers",
+  "RT-AX55 Routers",
+  "Small Business RV Series Routers",
+  "Vigor Routers",
+  "NetScaler",
+  "NetScaler ADC",
+  "NetScaler Gateway",
+  "PAN-OS",
+  "ScreenOS",
+  "Junos OS",
+  "XG Firewall",
+  "Connect Secure",
+  "Policy Secure",
+  "ZTA Gateways",
+  "Secure Firewall Adaptive Security Appliance",
+  "Secure Firewall Threat Defense"
+]);
+let KnowExploitesVulnsCISA = externaldata(CVEId: string, Vendor: 
+    string, Product: string, VulnerabilityName: string, DateAdded: datetime, 
+    Description: string, RequiredAction: string, DueDate: datetime, 
+    Notes: string)
+    [@"https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv"] 
+    with (format="csv", ignoreFirstRecord=True);
+KnowExploitesVulnsCISA
+| where DateAdded between (startofyear(now()) .. startofweek(endofyear(now())))
+| where Product has_any (EdgeDevices)
+| summarize Total = dcount(CVEId) by Vendor
+| sort by Total

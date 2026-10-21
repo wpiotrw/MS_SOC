@@ -1,0 +1,26 @@
+// title: Malicious Browser Extension Downloads using DeviceFileEvents
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Malicious Browser Extension Downloads using DeviceFileEvents
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Malicious%20Browser%20Extension%20Downloads%20using%20DeviceFileEvents.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Credit https://github.com/toborrm9/malicious_extension_sentry
+let MaliciousExtensions = externaldata (ExtensionID: string) [@'https://raw.githubusercontent.com/toborrm9/malicious_extension_sentry/refs/heads/main/Malicious-Extensions.csv'] with (format=txt, ignoreFirstRecord = true)
+| extend ExtensionID = split(ExtensionID,",")
+| mv-expand ExtensionID
+| extend ExtensionID = tostring(ExtensionID);
+DeviceFileEvents
+| where TimeGenerated > ago(90d)
+| where ActionType == "FileCreated"
+| where FileName endswith ".crx"
+//| where InitiatingProcessFileName == "chrome.exe" //if you need to filter down to chrome vs edge
+| where FolderPath contains "Webstore Downloads"
+| extend ExtensionID = trim_end(@"_\d{2,6}.crx", FileName)
+| extend ExtensionURL = strcat("https://chrome.google.com/webstore/detail/",ExtensionID)
+| extend EdgeExtensionURL = strcat("https://microsoftedge.microsoft.com/addons/detail/",ExtensionID)
+| summarize count() by ExtensionID,ExtensionURL, EdgeExtensionURL
+| join kind=leftouter MaliciousExtensions on ExtensionID //if name is present in the risky list present it

@@ -1,0 +1,25 @@
+// title: Unusual identity creation using exchange powershell
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, SecurityEvent
+// purpose:  The query below identifies creation of unusual identity by the Europium actor to mimic Microsoft Exchange Health Manager Service account using Exchange PowerShell commands Reference: https://www.microsoft.com/security/blog/2022/09/08/microsoft-investigates-iranian-attacks-against-the-albanian-gover
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/EuropiumUnusualIdentity.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+(union isfuzzy=true
+(SecurityEvent
+| where EventID==4688
+| where CommandLine has_any ("New-Mailbox","Update-RoleGroupMember") and CommandLine has "HealthMailbox55x2yq"
+| project TimeGenerated, DeviceName = Computer, AccountName = SubjectUserName, AccountDomain = SubjectDomainName, ProcessName, ProcessNameFullPath = NewProcessName, EventID, Activity, CommandLine, EventSourceName, Type
+| extend InitiatingProcessAccount = strcat(AccountDomain, "\\", AccountName)
+),
+(DeviceProcessEvents
+| where ProcessCommandLine has_any ("New-Mailbox","Update-RoleGroupMember") and ProcessCommandLine has "HealthMailbox55x2yq"
+| extend timestamp = TimeGenerated, AccountDomain = InitiatingProcessAccountDomain, AccountName = InitiatingProcessAccountName
+| extend InitiatingProcessAccount = strcat(AccountDomain, "\\", AccountName)
+)
+)
+| extend HostName = tostring(split(DeviceName, ".")[0]), DomainIndex = toint(indexof(DeviceName, '.'))
+| extend HostNameDomain = iff(DomainIndex != -1, substring(DeviceName, DomainIndex + 1), DeviceName)

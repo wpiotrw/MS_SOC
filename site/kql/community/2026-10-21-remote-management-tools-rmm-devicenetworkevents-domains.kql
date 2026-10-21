@@ -1,0 +1,18 @@
+// title: Remote Management Tools (RMM)   DeviceNetworkEvents Domains
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Remote Management Tools (RMM) DeviceNetworkEvents Domains
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Remote%20Management%20Tools%20(RMM)%20-%20DeviceNetworkEvents%20Domains.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RMM_IOCs = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/RMM.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = RMM_IOCs
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d)
+| where RemoteUrl in~(DomainList)
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, VT_domain

@@ -1,0 +1,29 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Communication%20at%20risk%20due%20to%20the%20encryption%20algorithms%20(Ciphers)%20in%20use.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CVE = externaldata(Value:string,Description:string,DTLSOK:string,Recommended:string,Reference:string)
+[@"https://www.iana.org/assignments/tls-parameters/tls-parameters-4.csv"] with (format="csv");
+DeviceNetworkEvents
+| extend cipher = parse_json(AdditionalFields).cipher
+| extend cipher = tostring(cipher)
+| where isnotempty(cipher)
+| extend RemoteIPCountry = geo_info_from_ip_address(RemoteIP).country
+| extend RemoteIPCountry = tostring(RemoteIPCountry)
+| join kind=inner (CVE) on $left.cipher == $right.Description
+// just listing non-recommended TLS versions or communications where the Datagram Transport Layer Security (DTLS) is not OK
+| where DTLSOK has "N" or Recommended has "N"
+// creating a new column to have RFC URL Reference
+| extend RFCLink = tolower(Reference)
+| extend RFCLink = substring(RFCLink, 1, strlen(RFCLink) - 2)
+| extend RFCLink = strcat("rfc-editor.org/rfc/",RFCLink,".html")
+| extend RFCLink = tostring(RFCLink)
+// sorting by Totalconnections to find out if there are any repetitive connections using low encryption
+ | summarize Totalconnections=count() by RemoteIP, RemoteIPCountry, TenantId,DeviceName, LocalIP,ActionType, RemotePort, Protocol, cipher, Value,Description, DTLSOK, Recommended, Reference, RFCLink
+| order by Totalconnections

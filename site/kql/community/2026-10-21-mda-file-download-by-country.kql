@@ -1,0 +1,13 @@
+// title: MDA   File Download by Country
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: MDA File Download by Country
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/MDA%20-%20File%20Download%20by%20Country.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where ActionType startswith "FileDownloaded" //download or download from browser
+| summarize count() by CountryCode//, tostring(IPTags)

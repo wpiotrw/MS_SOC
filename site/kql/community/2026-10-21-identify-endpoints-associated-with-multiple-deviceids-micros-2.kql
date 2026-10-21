@@ -1,0 +1,17 @@
+// title: Identify endpoints associated with multiple DeviceIds · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: There are cases where devices might be formatted and get the same hostname as before, MDE will keep both devices in Security Center, however the depreciated machine's logs will be kept for 6 months. This query will help identify endpoint hostnames associated with multiple DeviceIds.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/endpoints-associated-with-multiple-deviceids.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+// Definde timeframe below
+| where TimeGenerated > ago(90d)
+| where isnotempty(DeviceId)
+| summarize DeviceCount = dcount(DeviceId) by DeviceName
+| where DeviceCount > 1
+| project DeviceName, DeviceCount

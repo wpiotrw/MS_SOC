@@ -1,0 +1,25 @@
+// title: Monitor ransomwarelive for companies of interest on ransowmare data leak sites (DLS) · Defender XDR & Sentinel
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This allows you to monitor the ransomware.live dataset for possible companies of interest being breached and posted by ransomware groups on data leak sites (DLS).
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/Ransomware%20-%20LeaksiteMontitoring.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Query group information
+let groups = externaldata(
+    name: string,
+    captcha: bool,
+    javascript_render: string,
+    parser: bool,
+    profile: dynamic,
+    locations: dynamic,
+    meta: string,)
+    [h@"https://api.ransomware.live/groups"]
+    with(format="multijson", ignoreFirstRecord=false);
+groups
+| where name contains "abyss"
+| mv-expand locations
+| project name, locations.["title"], locations.available, locations.fqdn, ["url"]=locations.slug, locations.updated, locations.version, profile

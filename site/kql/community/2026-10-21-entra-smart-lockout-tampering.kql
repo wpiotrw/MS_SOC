@@ -1,0 +1,21 @@
+// title: Entra Smart Lockout Tampering
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Entra Smart Lockout Tampering
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Entra%20Smart%20Lockout%20Tampering.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where OperationName == "Update company settings"
+| where Category == "DirectoryManagement"
+| extend User = tostring(parse_json(tostring(parse_json(InitiatedBy).user)).userPrincipalName)
+| extend NewLockoutPolicy = toint(parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0].Settings))[0].Properties))[4].Value)
+| extend OldLockoutPolicy  =toint(parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].oldValue))[0].Settings))[0].Properties))[4].Value)
+| extend NewLockoutDuration =toint(parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].newValue))[0].Settings))[0].Properties))[3].Value)
+| extend OldLockoutDuration =toint(parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(TargetResources[0].modifiedProperties))[0].oldValue))[0].Settings))[0].Properties))[4].Value)
+| where NewLockoutPolicy > 10 or NewLockoutDuration < 60
+| where OldLockoutDuration != NewLockoutDuration and NewLockoutPolicy != OldLockoutPolicy
+| summarize by NewLockoutPolicy, OldLockoutPolicy,NewLockoutDuration,OldLockoutDuration, User

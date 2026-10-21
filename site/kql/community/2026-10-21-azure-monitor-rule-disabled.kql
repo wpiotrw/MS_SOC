@@ -1,0 +1,13 @@
+// title: Azure Monitor Rule Disabled
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Azure Monitor Rule Disabled
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Monitor%20Rule%20Disabled.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where parse_json(Properties).message == "microsoft.insights/scheduledqueryrules/write"
+| where parse_json(tostring(parse_json(tostring(Properties_d.requestbody)).properties)).enabled == false

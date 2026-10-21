@@ -1,0 +1,44 @@
+// title: ADFS DKM Master Key Export
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, SecurityEvent
+// purpose: Identifies an export of the ADFS DKM Master Key from Active Directory. References: https://blogs.microsoft.com/on-the-issues/2020/12/13/customers-protect-nation-state-cyberattacks/, https://cloud.google.com/blog/topics/threat-intelligence/evasive-attacker-leverages-solarwinds-supply-chain-compromise
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/ADFS-DKM-MasterKey-Export.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+(union isfuzzy=true 
+(SecurityEvent 
+| where EventID == 4662 // You need to create a SACL on the ADFS Policy Store DKM group for this event to be created. 
+| where ObjectServer == 'DS'
+| where OperationType == 'Object Access'
+//| where ObjectName contains '<GUID of ADFS Policy Store DKM Group object' This is unique to the domain. Check description for more details.
+| where ObjectType contains '5cb41ed0-0e4c-11d0-a286-00aa003049e2' // Contact Class
+| where Properties contains '8d3bca50-1d7e-11d0-a081-00aa006c33ed' // Picture Attribute - Ldap-Display-Name: thumbnailPhoto
+| extend AccountName = SubjectUserName, AccountDomain = SubjectDomainName
+| extend timestamp = TimeGenerated, DeviceName = Computer
+),
+( WindowsEvent 
+| where EventID == 4662 // You need to create a SACL on the ADFS Policy Store DKM group for this event to be created. 
+| where EventData has_all('Object Access', '5cb41ed0-0e4c-11d0-a286-00aa003049e2','8d3bca50-1d7e-11d0-a081-00aa006c33ed') 
+| extend ObjectServer = tostring(EventData.ObjectServer)
+| where ObjectServer == 'DS'
+| extend OperationType = tostring(EventData.OperationType)
+| where OperationType == 'Object Access'
+//| where ObjectName contains '<GUID of ADFS Policy Store DKM Group object' This is unique to the domain. Check description for more details.
+| extend ObjectType = tostring(EventData.ObjectType)
+| where ObjectType contains '5cb41ed0-0e4c-11d0-a286-00aa003049e2' // Contact Class
+| extend Properties = tostring(EventData.Properties)
+| where Properties contains '8d3bca50-1d7e-11d0-a081-00aa006c33ed' // Picture Attribute - Ldap-Display-Name: thumbnailPhoto
+| extend AccountName = tostring(EventData.SubjectUserName), AccountDomain = tostring(EventData.SubjectDomainName)
+| extend timestamp = TimeGenerated, DeviceName = Computer
+),
+(DeviceEvents
+| where ActionType =~ "LdapSearch"
+| where AdditionalFields.AttributeList contains "thumbnailPhoto"
+| where AdditionalFields.DistinguishedName contains "CN=ADFS,CN=Microsoft,CN=Program Data" // Filter results to show only hits related to the ADFS AD container
+| extend timestamp = TimeGenerated, AccountName = InitiatingProcessAccountName, AccountDomain = InitiatingProcessAccountDomain
+)
+)
+| extend Account = strcat(AccountDomain, "\\", AccountName)

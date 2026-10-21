@@ -1,0 +1,17 @@
+// title: Tor Connections · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: While Tor has legitimate uses for protecting personal privacy and circumventing censorship, it is often unwanted that connections are being made to Tor nodes. Detecting connections to Tor nodes can be done using the dynamic IP list of Tor nodes provided by [dan.me.uk](https://www.dan.me.uk/), this w
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/TI%20Feed%20-%20TorConnections.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TorNodes = externaldata(IP:string )[@"https://www.dan.me.uk/Torlist/?full"] with (format="txt", ignoreFirstRecord=False);
+let IPs = TorNodes
+ | distinct IP;
+DeviceNetworkEvents
+| where ActionType == "ConnectionSuccess"
+| where RemoteIP in (IPs)
+| project-reorder TimeGenerated, DeviceName, RemoteIP, InitiatingProcessAccountName,InitiatingProcessCommandLine

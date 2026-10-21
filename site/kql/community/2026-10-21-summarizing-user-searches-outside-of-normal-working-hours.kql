@@ -1,0 +1,23 @@
+// title: summarizing user searches outside of normal working hours that contains sensitive keywords (CISA)
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: summarizing user searches outside of normal working hours that contains sensitive keywords (CISA)
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/summarizing%20user%20searches%20outside%20of%20normal%20working%20hours%20that%20contains%20sensitive%20keywords%20(CISA).kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query is from CISA Playbook https://www.cisa.gov/sites/default/files/2025-01/microsoft-expanded-cloud-logs-implementation-playbook-508c.pdf
+let keywords = dynamic(['secret','password','vpn']); //replace with orgspecific keywords or remove
+let utc_working_hours = range(2,13); //replace with org specific working hours
+CloudAppEvents
+| extend client_ip = tostring(RawEventData.ClientIP)
+| extend query_text = tostring(RawEventData.QueryText)
+| where ActionType == "SearchQueryInitiatedExchange" or ActionType ==
+"SearchQueryInitiatedSharePoint"
+| where not (datetime_part("Hour",Timestamp) in (utc_working_hours))
+| where query_text has_any (keywords)
+| take 100
+| summarize search_number=count(), make_set(query_text), make_set(client_ip)
+by AccountDisplayName

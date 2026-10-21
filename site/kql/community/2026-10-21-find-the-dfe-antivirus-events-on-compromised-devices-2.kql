@@ -1,0 +1,18 @@
+// title: Find the DFE Antivirus events on compromised devices. FileInfo is stored in JSON format. · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Find the DFE Antivirus events on compromised devices. FileInfo is stored in JSON format. · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDE%20-%20Antivirus-Detections-by-Compromised-Device.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedDevices = dynamic (["laptop1", "server2"]);
+let SearchWindow = 48h; //Customizable h = hours, d = days
+DeviceEvents
+| where Timestamp > ago(SearchWindow)
+| where DeviceName has_any (CompromisedDevices)
+| where ActionType == "AntivirusDetection"
+| extend FileInfo = pack_dictionary("FileName", FileName, "FileLocation", FolderPath, "SHA1", SHA1, "SHA256", SHA256, "MD5", MD5)
+| summarize TotalDetections = count(), MaliciousFiles = make_set(FileInfo) by DeviceName

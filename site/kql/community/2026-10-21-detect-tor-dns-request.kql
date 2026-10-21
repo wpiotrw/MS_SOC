@@ -1,0 +1,15 @@
+// title: Detect Tor DNS request
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Detect Tor DNS request
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Detect%20Tor%20DNS%20request.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents //Credit: Suraj Kumar. Modified from his query
+| where TimeGenerated > ago(90d)
+| extend AdditionalFields_query = tostring(parse_json(AdditionalFields)["query"]) 
+| where AdditionalFields_query endswith ".onion"
+| summarize count() by AdditionalFields_query, DeviceName

@@ -1,0 +1,46 @@
+// title: RansomwareToolMatrix Defender Lookup
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: RansomwareToolMatrix Defender Lookup
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/RansomwareToolMatrix%20Defender%20Lookup.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//WORK IN PROGRESS
+//This query tries to match up device procs to the ransomware toolbox matrix. Note this query is not perfect due to how the ransomwaretoolbox csv is formatted and tools are displayed.. some work will need to be done. Also bear in mind attackers can rename tools/binaries. Ref https://github.com/BushidoUK/Ransomware-Tool-Matrix/tree/main/Tools
+let RansomwareToolMatrix = externaldata (Discovery: string, RMMTools:string, DefenseEvasion:string,CredentialTheft:string,Offsec:string,Networking:string,LOLBAS:string,Exfiltration:string) [@'https://raw.githubusercontent.com/BushidoUK/Ransomware-Tool-Matrix/refs/heads/main/Tools/AllTools.csv'] with (format=csv, ignoreFirstRecord =true);
+let DiscoveryTools = RansomwareToolMatrix // split individual columns if required
+| project Discovery
+| where isnotempty(Discovery);
+let RMMTools = RansomwareToolMatrix
+| project RMMTools
+| where isnotempty(RMMTools);
+let DefenseEvasion= RansomwareToolMatrix
+| project DefenseEvasion
+| where isnotempty(DefenseEvasion);
+let CredentialTheft= RansomwareToolMatrix
+| project CredentialTheft
+| where isnotempty(CredentialTheft);
+let Offsec = RansomwareToolMatrix
+| project Offsec
+| where isnotempty(Offsec);
+let Networking = RansomwareToolMatrix
+| project Networking
+| where isnotempty(Networking);
+let LOLBAS = RansomwareToolMatrix
+| project LOLBAS
+| where isnotempty(LOLBAS);
+let Exfiltration = RansomwareToolMatrix
+| project Exfiltration
+| where isnotempty(Exfiltration);
+RansomwareToolMatrix
+let DeviceProcs = DeviceProcessEvents
+| where TimeGenerated > ago(90d)
+| where ProcessCommandLine has_any(DiscoveryTools) or ProcessCommandLine has_any(RMMTools) or ProcessCommandLine has_any(DefenseEvasion) or ProcessCommandLine has_any(CredentialTheft) or ProcessCommandLine has_any(Offsec) or ProcessCommandLine has_any(Networking) or ProcessCommandLine has_any(LOLBAS) or ProcessCommandLine has_any(Exfiltration)
+| summarize make_list(DeviceName) by FileName, InitiatingProcessFileName,ProcessVersionInfoCompanyName //, ProcessCommandLine;
+DeviceNetworkEvents
+| where RemoteUrl has_any(Exfiltration)
+| summarize make_list(DeviceName) by RemoteUrl, InitiatingProcessAccountUpn
+| union DeviceProcs

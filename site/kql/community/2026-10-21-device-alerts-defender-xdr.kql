@@ -1,0 +1,21 @@
+// title: Device Alerts · Defender XDR
+// date: 2026-10-21
+// product: Defender XDR
+// tables: AlertEvidence, AlertInfo
+// purpose: This query lists all the alerts that have triggered based on a specific UPN in the selected *TimeFrame*.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/XDR%20-%20UpnAlerts.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Upn = 'user@test.com';
+let TimeFrame = 7d;
+AlertEvidence
+| where Timestamp > ago(TimeFrame)
+| where EntityType in~ ('User', 'Mailbox')
+| summarize arg_max(Timestamp, *) by AlertId
+| project AlertId, EntityType
+| join kind=inner AlertInfo on AlertId
+| extend AlertLink = strcat('https://security.microsoft.com/alerts/', AlertId)
+| project-reorder Timestamp, EntityType, Title, Category, Severity, DetectionSource, AlertLink
+| sort by Timestamp desc

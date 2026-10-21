@@ -1,0 +1,20 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/CallActivityEvents/Threat%20Hunting%20Microsoft%20Teams%20Calls%20by%20TLD.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CountryList = externaldata(Country:string, Code:string)[
+    "https://raw.githubusercontent.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/d37d54bc90f833d5016c7105f6d7a42802b8d6fa/Security-Lists/country_list.csv"]
+with(format="csv", ignoreFirstRecord=true);
+CallActivityEvents
+| where isnotempty(OriginatorUpn)
+| extend Domain = tostring(split(OriginatorUpn, "@")[1])
+| extend TLDdomain = toupper(tostring(split(Domain, ".")[-1]))
+| where TLDdomain !in ('CH')
+| join kind=inner CountryList on $left.TLDdomain == $right.Code
+| summarize by  TimeGenerated,ActivityType, OriginatorUpn, Domain, Code, Country

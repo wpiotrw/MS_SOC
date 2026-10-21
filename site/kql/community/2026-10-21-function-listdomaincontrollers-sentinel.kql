@@ -1,0 +1,19 @@
+// title: Function: ListDomainControllers() · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This function list all the domain controllers in your environment. Which might be usefull if you are not aware of the syntax to identify them, alternatively this function can also be used to build detections specifically for or filter on domain controllers.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Functions/ListDomainControllers.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// This function list all domain controllers that have been active in the last 7 days. 
+let ListDomainControllers =
+    DeviceNetworkEvents
+    | where TimeGenerated > ago(7d)
+    | where LocalPort == 88
+    | where LocalIPType == "FourToSixMapping"
+    | distinct DeviceName;
+// Example    
+ListDomainControllers

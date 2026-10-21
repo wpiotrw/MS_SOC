@@ -1,0 +1,17 @@
+// title: Uncover every prompt-injection detection and its disposition · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: This query helps answer with regards to prompt-injection emails, how much is MDO catching, and is any of it still reaching mailboxes rather than quarantine?
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/uncover-every-prompt-injection-detection-and-its-disposition.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Prompt-injection detections over the last 30 days, by disposition
+let lookback = 30d;
+EmailEvents
+| where Timestamp > ago(lookback)
+| where DetectionMethods has "Prompt injection"
+| summarize Messages = count() by DeliveryAction, DeliveryLocation, bin(Timestamp, 1d)
+| sort by Timestamp desc

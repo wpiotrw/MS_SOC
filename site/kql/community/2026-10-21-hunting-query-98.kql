@@ -1,0 +1,21 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Rating%20ISPs%20to%20detect%20potential%20malicious%20domains%20sending%20threats.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CIDRASN = (externaldata (CIDR:string, CIDRASN:int, CIDRASNName:string)
+['https://firewalliplists.gypthecat.com/lists/kusto/kusto-cidr-asn.csv.zip']with (ignoreFirstRecord=true));
+EmailEvents
+| evaluate ipv4_lookup(CIDRASN, SenderIPv4, CIDR, return_unmatched=true)
+| extend GeoIPData = tostring(geo_info_from_ip_address(SenderIPv4).country)
+| summarize Different_IPs=make_set(SenderIPv4), Countries= make_set(GeoIPData), make_set(CIDR), make_set(SenderFromDomain), Total_different_IPs=dcount(SenderIPv4) ,Total_emails = count(),make_set(ThreatTypes),Delivered_on_Inbox= countif(DeliveryLocation has "Inbox/folder"), Email_Threat= count(isnotempty(ThreatTypes)),
+Email_Valid = count( isempty(ThreatTypes)) by GeoIPData, CIDR, CIDRASNName
+| extend SuspiciousRatio = Email_Threat * 1.0 / Total_emails, ValidRatio = Email_Valid * 1.0 / Total_emails
+| extend SuspiciousPercentage = SuspiciousRatio * 100, ValidPercentage = ValidRatio * 100
+| order by Email_Threat
+| project CIDRASNName,set_SenderFromDomain, set_CIDR, Different_IPs, Countries,Total_different_IPs, set_ThreatTypes,Total_emails, Delivered_on_Inbox, Email_Threat, Email_Valid, SuspiciousPercentage, ValidPercentage

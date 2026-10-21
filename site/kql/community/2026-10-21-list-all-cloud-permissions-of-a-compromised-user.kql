@@ -1,0 +1,18 @@
+// title: List all Cloud Permissions of a Compromised User · Sentinel
+// date: 2026-10-21
+// product: Defender XDR
+// tables: ExposureGraphEdges
+// purpose: List all Cloud Permissions of a Compromised User · Sentinel
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/ExposureManagement%20-%20CloudPermissionsUser.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Cloud Permissions Compromised User
+let UserName = "Bert-Jan Pals";
+ExposureGraphEdges
+| where EdgeLabel == "has permissions to"
+| where SourceNodeName == UserName
+| extend Type = extract(@'"name":"(.*?)"', 1, tostring(EdgeProperties))
+| project SourceNodeName, EdgeLabel, Type, TargetNodeName, TargetNodeLabel, EdgeProperties
+| sort by Type, TargetNodeLabel, TargetNodeName

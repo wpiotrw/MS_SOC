@@ -1,0 +1,19 @@
+// title: Azure ARC Related Persistence Detection · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: This detection rule aims to identify the unexpected installation of Azure ARC agents. Peach Sandstorm has been known to register their own Azure tenant and install Azure ARC agents on devices to maintain persistence. The rule includes two queries: one for detecting service installations and another 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/nf_ttp_t1543_peach-sandstorm_azure_arc_persistence.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Unexpected installation of azure arc agent - service installation
+let ServiceNames = datatable(name:string)["himds.exe","gc_arc_service.exe","gc_extension_service.exe"];
+DeviceEvents
+| where ActionType =~ "ServiceInstalled"
+| extend ServiceName = tostring(parse_json(AdditionalFields).ServiceName)
+| extend ServiceAccount = tostring(parse_json(AdditionalFields).ServiceAccount)
+| extend ServiceStartType = tostring(parse_json(AdditionalFields).ServiceStartType)
+| extend ServiceType = tostring(parse_json(AdditionalFields).ServiceType)
+| where ServiceName has_any (ServiceNames)

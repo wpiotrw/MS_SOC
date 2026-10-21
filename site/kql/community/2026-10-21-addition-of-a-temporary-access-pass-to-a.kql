@@ -1,0 +1,25 @@
+// title: Addition of a Temporary Access Pass to a Privileged Account
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: AuditLogs, IdentityInfo
+// purpose: Detects when a Temporary Access Pass (TAP) is created for a Privileged Account. A Temporary Access Pass is a time-limited passcode issued by an admin that satisfies strong authentication requirements and can be used to onboard other authentication methods, including Passwordless ones such as Microso
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/AdditionofaTemporaryAccessPasstoaPrivilegedAccount.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let admin_users = (IdentityInfo
+  | summarize arg_max(TimeGenerated, *) by AccountUPN
+  | where AssignedRoles contains "admin"
+  | summarize by tolower(AccountUPN));
+  AuditLogs
+  | where OperationName =~ "Admin registered security info"
+  | where ResultReason =~ "Admin registered temporary access pass method for user"
+  | extend TargetUserPrincipalName = tostring(TargetResources[0].userPrincipalName)
+  | where tolower(TargetUserPrincipalName) in (admin_users)
+  | extend TargetAadUserId = tostring(TargetResources[0].id)
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+  | extend TargetAccountName = tostring(split(TargetUserPrincipalName, "@")[0]), TargetAccountUPNSuffix = tostring(split(TargetUserPrincipalName, "@")[1])
+  | extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])

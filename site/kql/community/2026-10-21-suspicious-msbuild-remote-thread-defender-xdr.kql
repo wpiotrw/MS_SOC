@@ -1,0 +1,19 @@
+// title: Suspicious MSBuild Remote Thread · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceNetworkEvents, DeviceProcessEvents
+// purpose: Adversaries may use MSBuild.exe to execute/build code through a trusted windows lolbin. In this specific scenario a suspicious MSBuild remote threat is created which indicates Command & Control traffic or Reverse Shell activities. The enrichment based on *DeviceNetworkEvents* or *DeviceProcessEvents
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/SuspiciousMSBuildRemoteThread.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType =~ 'CreateRemoteThreadApiCall'
+| where FileName =~ 'MSBuild.exe'
+// Exclude Visual Studio
+| where not(FolderPath has_all ('Program Files', 'Microsoft Visual Studio', @'MSBuild\Current\Bin'))
+// Enrichment based on commandline
+| join kind=leftouter (DeviceNetworkEvents | project ConnectionTime = Timestamp, DeviceId, InitiatingProcessCommandLine, RemoteThreadIP = RemoteIP, RemotePort) on $left.ProcessCommandLine == $right.InitiatingProcessCommandLine, DeviceId
+| join kind=leftouter (DeviceProcessEvents | summarize ExecutedCommands = make_set(ProcessCommandLine) by DeviceId, InitiatingProcessCommandLine) on $left.ProcessCommandLine == $right.InitiatingProcessCommandLine, DeviceId
+| project-reorder Timestamp, ConnectionTime, RemoteThreadIP, ExecutedCommands

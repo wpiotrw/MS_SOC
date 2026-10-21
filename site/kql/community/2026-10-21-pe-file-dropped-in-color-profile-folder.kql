@@ -1,0 +1,14 @@
+// title: PE file dropped in Color Profile Folder
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: This query looks for writes of PE files to C:\Windows\System32\spool\drivers\color\. This is a common directory used by malware, as well as some legitimate programs, and writes of PE files to the folder should be monitored. Ref: https://www.microsoft.com/security/blog/2022/07/27/untangling-knotweed-
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/DeviceFileEvents/PEfiledroppedinColorDriversFolder.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+  | where ActionType =~ "FileCreated"
+  | where FolderPath has "C:\\Windows\\System32\\spool\\drivers\\color\\" 
+  | where FileName endswith ".exe" or FileName endswith ".dll"

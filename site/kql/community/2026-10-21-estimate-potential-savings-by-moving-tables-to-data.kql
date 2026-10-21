@@ -1,0 +1,23 @@
+// title: Estimate Potential Savings by Moving Tables to Data Lake · Microsoft Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: Usage
+// purpose: The following query simulates cost savings if high-volume tables currently on Analytics were moved to Data Lake, using hypothetical prices. While this query could help support cost optimization decisions, don't forget to take into account processing and retention costs.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Sentinel/estimate-potential-savings-by-moving-tables-to-data-lake.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let AnalyticsPricePerGB = 2.48; // Example price per GB for Analytics
+let DataLakePricePerGB = 0.05; // Example price per GB for Data Lake
+Usage
+| where TimeGenerated >= startofday(ago(30d))
+| where IsBillable == true
+| summarize IngestedGB = round(sum(Quantity) / 1000.0, 2) by DataType, Plan
+| where Plan == "Analytics"
+| extend CurrentCost = round(IngestedGB * AnalyticsPricePerGB, 2)
+| extend IfDataLakeCost = round(IngestedGB * DataLakePricePerGB, 2)
+| extend PotentialSavings = round(CurrentCost - IfDataLakeCost, 2)
+| where PotentialSavings > 0
+| project DataType, IngestedGB, CurrentCost, IfDataLakeCost, PotentialSavings
+| order by PotentialSavings desc

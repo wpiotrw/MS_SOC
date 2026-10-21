@@ -1,0 +1,27 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/CloudAppEvents/Teams/Monitoring%20M.Teams%20activities%20such%20as%20shared%20URLs,%20OneToOne%20chats%20and%20Domains%20participating%20into%20meetings.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where Application has "Microsoft Teams"
+| extend Geo_IP = tostring(geo_info_from_ip_address(IPAddress).country)
+| extend ChatName = todynamic(RawEventData).ChatName
+| extend TeamName = todynamic(RawEventData).TeamName
+| extend ChannelName = todynamic(RawEventData).ChannelName
+| extend Operation = todynamic(RawEventData).Operation
+| extend CommunicationType = todynamic(RawEventData).CommunicationType
+| extend MessageURLs = tostring(todynamic(RawEventData).MessageURLs)
+| mv-expand  ParticipantsInfo =(RawEventData).ParticipantInfo
+| extend HasGuestUsers = (ParticipantsInfo).HasGuestUsers
+| extend HasForeignTenantUsers = (ParticipantsInfo).HasForeignTenantUsers
+| extend ParticipatingDomains = (ParticipantsInfo).ParticipatingDomains
+// Case 1 Review URL's sent by Teams | where isnotempty (MessageURLs) and Operation has "MessageCreatedHasLink"
+// Case 2 Review Domains participating into meetings | where ParticipatingDomains contains "."
+// Case 3 Review One to One communications| where CommunicationType has "OneOnOne" and Operation has "MessageSent"
+| project ActionType, AccountDisplayName, IPAddress,Geo_IP, CountryCode,ChatName,Operation,TeamName,ChannelName, MessageURLs,HasForeignTenantUsers,HasGuestUsers,ParticipatingDomains, CommunicationType

@@ -1,0 +1,22 @@
+// title: identify mail items accessed by a specific IP address (CISA)
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: identify mail items accessed by a specific IP address (CISA)
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/identify%20mail%20items%20accessed%20by%20a%20specific%20IP%20address%20(CISA).kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query is from CISA Playbook https://www.cisa.gov/sites/default/files/2025-01/microsoft-expanded-cloud-logs-implementation-playbook-508c.pdf
+//Get sessions associated with suspicious IP address
+let bad_sessions = materialize (
+AADSignInEventsBeta
+| where IPAddress == 'x.x.x.x’ //Replace with IP of interest
+| where isempty(SessionId) == false
+| distinct SessionId
+);
+//Get any mail accessed during suspicious sessions
+CloudAppEvents
+| where ActionType == 'MailItemsAccessed'
+| where RawEventData.SessionId has_any (bad_sessions)

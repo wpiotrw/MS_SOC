@@ -1,0 +1,18 @@
+// title: Local Account Created · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Adversaries may create local accounts to perform malicious activities. Those accounts can then be used to logon to the compromised system, without the need of persistent tools on the victims device. This query lists all the local account additions in your search window. For Defender For Endpoint the
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/LocalAccountCreated.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Filter is not possible because the DeviceType is missing in Sentinel. For best performance use query in MDE.
+DeviceEvents
+| where ActionType == 'UserAccountCreated'
+// Extract the DeviceName without the domain name
+| extend DeviceNameWithoutDomain = extract(@'(.*?)\.', 1, DeviceName)
+// Filter on local additions, then the AccountDomain is equal on the DeviceName
+| where AccountDomain =~ DeviceNameWithoutDomain
+| project TimeGenerated, DeviceName, ActionType, AccountDomain, AccountName, AccountSid

@@ -1,0 +1,16 @@
+// title: Visualize the daily events for each table · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: In MDE or Sentinel there are plenty of tables that generate logs, in order to determine which tables ingest the most logs the queries below can be used. The *TimeRange* variable can be used to select the timerange for your visualization. Mainly important for Sentinel users is to get insight into the
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/Visualization%20-%20DailyTableEvents.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TimeRange = 10d;
+search *
+| where Timestamp > ago(TimeRange)
+| project Timestamp, $table
+| summarize Events = count() by $table, bin(Timestamp, 1d)
+| render linechart  with (title="Total Daily Events")

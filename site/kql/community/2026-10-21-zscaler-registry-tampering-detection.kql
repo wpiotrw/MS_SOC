@@ -1,0 +1,15 @@
+// title: Zscaler Registry Tampering Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Zscaler Registry Tampering Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Zscaler%20Registry%20Tampering%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects tampering of Zscaler registry keys for Start and State values
+DeviceRegistryEvents
+| where RegistryKey == "HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\ZSAService" or RegistryKey contains @"SOFTWARE\ZScaler\App"
+| where RegistryValueName == "Start" or RegistryValueName contains "State"
+| where RegistryValueData == "4" or RegistryValueData == "3" or RegistryValueData  == "OFF" or RegistryValueData  contains "None"//3 = Manual , 4 = Disabled

@@ -1,0 +1,15 @@
+// title: Identify and summarize processor families in your environment · Microsoft Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: The following query leverages DeviceTvmHardwareFirmware and will help you build an estate of your environment’s processors which will allow you to identify possibly old and non-reliable devices in your organization. DeviceTvmHardwareFirmware
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/MDVM/identify-and-summarize-processor-families-in-your-environment.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmHardwareFirmware 
+| where ComponentType == @"Processor"
+| project ProcFamily = parse_json(AdditionalFields)["Family"]
+| summarize count() by tostring(ProcFamily)
+| sort by ProcFamily asc

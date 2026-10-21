@@ -1,0 +1,19 @@
+// title: Detect when login is performed using a specified account (Cloud break glass account) · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: It is best practice to have break glass accounts, which are excluded from all conditional access policies. To monitor all login activities under a specified account, this Detection Rule can be used. If any activity is performed using the specified account, an alert will be generated.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/MonitorCloudBreakGlassAccount.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where UserDisplayName  == "Input display name of account here"
+| project UserDisplayName,
+     Location,
+     IPAddress,
+     TimeGenerated,
+     AppDisplayName,
+     DeviceDetail,
+     UserPrincipalName

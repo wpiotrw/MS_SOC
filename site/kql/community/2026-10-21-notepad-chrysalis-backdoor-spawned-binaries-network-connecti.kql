@@ -1,0 +1,22 @@
+// title: Notepad++   Chrysalis Backdoor Spawned binaries + network connections correlation
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: Notepad++ Chrysalis Backdoor Spawned binaries + network connections correlation
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Notepad++%20-%20Chrysalis%20Backdoor%20Spawned%20binaries%20+%20network%20connections%20correlation.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Credit: https://medium.com/capturedsignal/notepad-security-incident-threat-hunting-using-kql-and-defender-for-endpoint-logs-dd83b984fcc6
+//Credit to: Bartosz Turek
+DeviceProcessEvents
+| where TimeGenerated > todatetime('2025-06-01T00:00:00.00Z') // "The incident began from June 2025"
+| where InitiatingProcessCommandLine startswith '"gup.exe"'
+| project-reorder TimeGenerated, DeviceName, ActionType, FileName, FolderPath, ProcessCommandLine, SHA1, SHA256, MD5
+| where FolderPath <> "C:\\Windows\\explorer.exe"
+| where FolderPath <> "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+| distinct SHA256
+| join (DeviceNetworkEvents 
+| where TimeGenerated > todatetime('2025-06-01T00:00:00.00Z')) 
+on $left.SHA256 == $right.InitiatingProcessSHA256

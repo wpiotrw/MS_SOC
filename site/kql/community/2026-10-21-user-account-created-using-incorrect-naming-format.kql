@@ -1,0 +1,26 @@
+// title: User Account Created Using Incorrect Naming Format
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: This query looks for accounts being created where the name does not match a defined pattern. Attackers may attempt to add accounts as a means of establishing persistant access to an environment, looking for anomalies in created accounts may help identify illegitimately created accounts. Created acco
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/UserAccountCreatedUsingIncorrectNamingFormat.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Add the environments expected username format regex below before deploying
+let user_regex = "";
+AuditLogs
+| where OperationName =~ "Add user"
+| where Result =~ "success"
+| extend userAgent = tostring(AdditionalDetails[0].value)
+| extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+| extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+| extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+| extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+| extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+| extend InitiatedBy = tostring(iff(isnotempty(InitiatingUserPrincipalName),InitiatingUserPrincipalName, InitiatingAppName))
+| extend AddedUser = tostring(TargetResources[0].userPrincipalName)
+| where AddedUser matches regex user_regex
+| extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+| extend TargetAccountName = tostring(split(AddedUser, "@")[0]), TargetAccountUPNSuffix = tostring(split(AddedUser, "@")[1])

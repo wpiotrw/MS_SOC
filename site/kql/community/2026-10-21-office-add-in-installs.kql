@@ -1,0 +1,14 @@
+// title: office Add in Installs
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: office Add in Installs
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/office%20Add-in%20Installs.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This Query looks for office Add-in Installs
+CloudAppEvents
+| where ActionType == @"AppInstalled" //or ActionType == @"Add application."
+| summarize count() by tostring(parse_json(RawEventData)["AddOnName"]), Application

@@ -1,0 +1,18 @@
+// title: Defender  RedSun Detection   TieringEngineService created in AppData
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Defender RedSun Detection TieringEngineService created in AppData
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Defender%20-RedSun%20Detection%20-%20TieringEngineService%20created%20in%20AppData.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//https://github.com/Nightmare-Eclipse/RedSun
+//Uses a Defender detection to escalate to system. Note I couldn't get this exploit in MDE. It will fail to request a batch oplock on the update file.
+// The binary/code supplied in repo uses an EICAR signature but a threatactor could subs this for anything so long as defender is triggered.
+//Code will back out if real time monitoring is not enabled.
+DeviceFileEvents
+| where ActionType == "FileCreated"
+| where FileName == "TieringEngineService.exe" //Binary creates its own File in DoCloudStuff()
+| where FolderPath contains @"\AppData\" //File Created here but legitimate binary is in System32 path

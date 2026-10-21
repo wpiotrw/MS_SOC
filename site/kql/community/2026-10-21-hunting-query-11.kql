@@ -1,0 +1,26 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareInventory
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/Microsoft%20Office%20Security%20Feature%20Bypass%20Vulnerability%20CVE-2026-21509.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sergio Albea 27-01-2026
+let Fixed_Office2016 = "16.0.5539.1001";
+let Fixed_Office2019 = "16.0.10417.20095";
+DeviceTvmSoftwareInventory
+| where SoftwareName has_any ("Office")
+| extend V = tostring(SoftwareVersion)
+| extend IsOffice2016 = SoftwareName has "2016"
+| extend IsOffice2019 = SoftwareName has "2019"
+| extend IsVuln =
+ case(
+ IsOffice2016 and (parse_version(V) < parse_version(Fixed_Office2016)), true,
+ IsOffice2019 and (parse_version(V) < parse_version(Fixed_Office2019)), true,
+ false
+ )
+| where IsVuln == true
+| project DeviceName, SoftwareName, strcat('🚨', SoftwareVersion), Fixed_Office2016, iff(SoftwareName contains "2016",'📣 Fixed_Office2016','📣 Fixed_Office2019')

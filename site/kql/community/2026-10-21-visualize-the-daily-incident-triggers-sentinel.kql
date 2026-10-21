@@ -1,0 +1,16 @@
+// title: Visualize the daily incident triggers · Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: SecurityIncident
+// purpose: Visualize the daily triggers in MDE or Sentinel in a columnchart. This can give insight into spikes in the amount of triggers.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/Visualization%20-%20DailyIncidentTriggers.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SecurityIncident
+| where TimeGenerated > ago(30d)
+// Collect the first entry of each alert
+| summarize arg_min(TimeGenerated, *) by IncidentNumber
+| summarize Total = count() by bin(CreatedTime, 1d)
+| render columnchart with(title="Incident triggers last 30 days")

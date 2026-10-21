@@ -1,0 +1,15 @@
+// title: Suspicious commands hunting to remove files · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Recent analyses published, uncovered DarkGate operators removing malicious indicators. The followinq query has derived from malware analysis, however it should be considered as low precision hunting method and should be fine tuned based on your environment to achieve high precision.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/suspicious-commands-hunting-to-remove-files.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 1d; // Choose the best timeframe for your investigation
+DeviceProcessEvents
+| where Timestamp > ago(Timeframe)
+| where ProcessCommandLine contains "&& rmdir" and ProcessCommandLine contains "&& del"
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256, ProcessVersionInfoFileDescription, ProcessCommandLine, AccountName, InitiatingProcessParentFileName

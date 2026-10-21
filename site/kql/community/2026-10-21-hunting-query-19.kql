@@ -1,0 +1,15 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/non-familiar%20DHCPDomains%20configured%20in%20our%20devices.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+| where RegistryKey contains "tcpip"
+| where RegistryValueName contains "dhcpdomain"
+// to reduce the number of false positive, I moved out localIPs, results with "." to reduce the number of local home routers and specific country
+| where RegistryValueData !contains "192." and RegistryValueData contains "." and RegistryValueData !endswith ".es"

@@ -1,0 +1,15 @@
+// title: Resource Lock Deletion for Azure Monitor Rule
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Resource Lock Deletion for Azure Monitor Rule
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Resource%20Lock%20Deletion%20for%20Azure%20Monitor%20Rule.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Attempts to Delete Resource Locks on Azure Monitor Rules for a particular subscription and Resource group. KQL from https://www.linkedin.com/pulse/main-reason-you-shouldnt-exclude-break-glass-group-access-kerai-4dtve/
+AzureActivity
+| where OperationNameValue == "MICROSOFT.AUTHORIZATION/LOCKS/DELETE"
+| where _ResourceId startswith @"/<SUB ID>/resourcegroups/<RG NAME>/providers/microsoft.insights/scheduledqueryrules"
+| where ActivityStatusValue == "Start"

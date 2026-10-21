@@ -1,0 +1,21 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/Detect%20Windows%20Versions%20reaching%20end%20of%20service%20on%20October&November%202025.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+| where Timestamp > ago(1d)
+| extend OSaffected = strcat(OSDistribution, " ", OSVersionInfo)
+ // filter by the affected OS distributions
+| where OSaffected has "22H2" or OSaffected has "23h2"
+| extend Windows10_22H2 = iff(OSaffected has "Windows10 22h2", "🚨 October 14,2025","")
+| extend Windows11_22H2 = iff(OSaffected has "Windows11 22h2", "🚨 October 14,2025","")
+| extend Windows11_23H2 = iff( OSaffected has "Windows11 23h2" and OSBuild == 22631,"November 11,2025 (⚠️ If are Home or Pro versions,if not 2026-11-10)","")
+| summarize Total_Devices= dcount(DeviceId) by OSPlatform,OSaffected, Windows10_22H2,Windows11_22H2,Windows11_23H2
+//| summarize by DeviceName, DeviceId, OSaffected, Windows10_22H2,Windows11_22H2,Windows11_23H2
+| order by OSaffected

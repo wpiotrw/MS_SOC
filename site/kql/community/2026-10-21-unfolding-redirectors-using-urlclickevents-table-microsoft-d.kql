@@ -1,0 +1,26 @@
+// title: Unfolding redirectors using UrlClickEvents table · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: The following query leverages UrlClickEvents and more specifically the UrlChain column to unfold redirectors identified from user's clicks at Emails, Teams messages and Office 365 apps.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/unfolding-redirectors-using-urlclickevents-table.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+UrlClickEvents
+//| where ActionType == "ClickAllowed" // Uncomment if you need to filter by "ClickAllowed"
+| extend UrlChain = todynamic(UrlChain)
+| mv-expand UrlChain
+| where Url != UrlChain
+| extend UrlString = tostring(UrlChain)
+| summarize Count = count() by NetworkMessageId
+| where Count > 1
+| join kind=inner (
+    UrlClickEvents
+    | extend UrlChain = todynamic(UrlChain)
+    | mv-expand UrlChain
+//  | where Url != UrlChain
+    | extend UrlString = tostring(UrlChain)
+) on NetworkMessageId
+| sort by TimeGenerated asc

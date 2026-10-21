@@ -1,0 +1,14 @@
+// title: Hanada Group Crowdstrike Impersonation Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Hanada Group Crowdstrike Impersonation Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Hanada%20Group%20Crowdstrike%20Impersonation%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects activity from Hanada group malware impersonating Crowdstrike updates
+//Looks for attempts to identify installed antiviruses and create specific files/folders
+DeviceProcessEvents
+| where ProcessCommandLine has_any("avastui.exe","avgui.exe","bdservicehost.exe","nswscsvc.exe","sophoshealth.exe","Carroll Carroll","champion.pif",@"564784\L","locatedflattrendsoperating")

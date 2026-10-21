@@ -1,0 +1,49 @@
+// title: URL Added to Application from Unknown Domain
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: Detects a URL being added to an application where the domain is not one that is associated with the tenant. The query uses domains seen in sign in logs to determine if the domain is associated with the tenant. Applications associated with URLs not controlled by the organization can pose a security r
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/URLAddedtoApplicationfromUnknownDomain.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let domains =
+  SigninLogs
+  | where ResultType == 0
+  | extend domain = split(UserPrincipalName, "@")[1]
+  | extend domain = tostring(split(UserPrincipalName, "@")[1])
+  | summarize by tolower(tostring(domain));
+  AuditLogs
+  | where Category =~ "ApplicationManagement"
+  | where Result =~ "success"
+  | where OperationName =~ 'Update Application'
+  | mv-expand TargetResources
+  | mv-expand TargetResources.modifiedProperties
+  | where TargetResources_modifiedProperties.displayName =~ "AppAddress"
+  | extend Key = tostring(TargetResources_modifiedProperties.displayName)
+  | extend NewValue = TargetResources_modifiedProperties.newValue
+  | extend OldValue = TargetResources_modifiedProperties.oldValue
+  | where isnotempty(Key) and isnotempty(NewValue)
+  | project-reorder Key, NewValue, OldValue
+  | extend NewUrls = extract_all('"Address":([^,]*)', tostring(NewValue))
+  | extend OldUrls = extract_all('"Address":([^,]*)', tostring(OldValue))
+  | extend AddedUrls = set_difference(NewUrls, OldUrls)
+  | where array_length(AddedUrls) > 0
+  | extend UserAgent = iif(tostring(AdditionalDetails[0].key) == "User-Agent", tostring(AdditionalDetails[0].value), "")
+  | extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+  | extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+  | extend InitiatedBy = tostring(iff(isnotempty(InitiatingUserPrincipalName),InitiatingUserPrincipalName, InitiatingAppName))
+  | extend AppDisplayName = tostring(TargetResources.displayName)
+  | where isnotempty(AddedUrls)
+  | mv-expand AddedUrls
+  | extend AddedUrls = trim(@'"', tostring(AddedUrls))
+  | extend Domain = extract("^(?:https?:\\/\\/)?(?:[^@\\/\\n]+@)?(?:www\\.)?([^:\\/?\\n]+)/", 1, replace_string(tolower(AddedUrls), '"', ""))
+  | where isnotempty(Domain)
+  | extend Domain = strcat(split(Domain, ".")[-2], ".", split(Domain, ".")[-1])
+  | where Domain !in (domains)
+  | project-reorder TimeGenerated, AppDisplayName, AddedUrls, InitiatedBy, UserAgent, InitiatingIPAddress
+  | extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])

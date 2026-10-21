@@ -1,0 +1,18 @@
+// title: Top 100 devices with the most browser extensions installed · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: Top 100 devices with the most browser extensions installed · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/BrowserExtension%20-%20Top100DevicesWithTheMostBrowserExtensions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmBrowserExtensions
+| summarize
+     TotalExtensions = dcount(ExtensionId),
+     ExtensionNames = make_set(ExtensionName)
+     by DeviceId
+| join kind=inner DeviceInfo on DeviceId
+| project DeviceName, TotalExtensions, ExtensionNames
+| top 100 by TotalExtensions

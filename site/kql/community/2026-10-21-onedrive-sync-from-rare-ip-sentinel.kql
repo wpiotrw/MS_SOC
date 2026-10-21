@@ -1,0 +1,25 @@
+// title: OneDrive Sync From Rare IP · Sentinel
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents, SigninLogs
+// purpose: This query combines the CloudAppEvents table and the SignInLogs from Entra ID to hunt for OneDrive Sync activities from a rare IP address. The variables should be set based on your needs. False Positive Consideration: - Big file Uploads from new IPs
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/OneDriveSyncFromRareIP.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Threshold = 1500; // Change depeding on org needs.
+let TimeFrame = 10m;
+let EntraUserIPInfo = SigninLogs
+    // Filter only successful logins
+    | where ResultType == 0
+    | summarize IPEventCount = count() by IPAddress, UserId
+    | where IPEventCount < 500;
+CloudAppEvents
+| where ActionType == "FileSyncUploadedFull"
+| extend BaseFolder = split(parse_url(ObjectName).Path, "/")[3]
+| summarize TotalEvents = count(), BaseFolders = make_set(BaseFolder, 25) by bin(TimeGenerated, TimeFrame), AccountId, AccountDisplayName, DeviceType, OSPlatform, IPAddress
+| where TotalEvents >= Threshold
+// Filter if the activity happens in combination with a rare IP
+| join kind=inner EntraUserIPInfo on $left.AccountId == $right.UserId
+| project TimeGenerated, TotalEvents, BaseFolders,  AccountId, AccountDisplayName, DeviceType, OSPlatform, IPAddress, IPEventCount

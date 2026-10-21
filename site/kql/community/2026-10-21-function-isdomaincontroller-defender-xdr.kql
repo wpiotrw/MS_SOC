@@ -1,0 +1,27 @@
+// title: Function: IsDomainController() · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This function validates if a device is a Domain Controller. It will return true when it is a domain controller, alternatively false is returned.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Functions/IsDomainController.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// This function validates if a device is a Domain Controller. It will return true when it is a domain controller, alternatively false is returned.
+let IsDeviceDomainController = (DeviceNameInput: string) {
+    let AllDomainControllers =
+        DeviceNetworkEvents
+        | where Timestamp > ago(7d)
+        | where LocalPort == 88
+        | where LocalIPType == "FourToSixMapping"
+        | distinct DeviceName;
+    DeviceNetworkEvents
+    | summarize arg_max(Timestamp, *) by DeviceId
+    | where DeviceName =~ DeviceNameInput
+    | extend DomainController = iff(DeviceNameInput in~ (AllDomainControllers), true, false)
+    | extend DeviceName = DeviceNameInput
+    | distinct DomainController, DeviceName;
+};
+// Example
+IsDeviceDomainController("yourdevice.tld")

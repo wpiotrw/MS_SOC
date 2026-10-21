@@ -1,0 +1,21 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkInfo
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkInfo/Identify%20HotSpot%20connections%20shared%20via%20IPhone.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkInfo
+| where DefaultGateways has "172.20.10.1"
+| extend Network_Name = tostring(parse_json(ConnectedNetworks)[0]["Name"])
+| where isnotempty(Network_Name)
+| extend IP_info = (todynamic(parse_json(IPAddresses)))
+| mv-expand IP_info
+| extend Ip_Received = tostring(parse_json(IP_info).IPAddress)
+| extend IP_Type = tostring(parse_json(IP_info).AddressType)
+| extend geo_ip = tostring(geo_info_from_ip_address(Ip_Received).country)
+| where (Network_Name contains "Free" or Network_Name  contains "Open"  or Network_Name  contains "Airport" or Network_Name  contains "hotel")
+| summarize by  Network_Name, DefaultGateways,Ip_Received, IP_Type, geo_ip, DnsAddresses,DeviceName, NetworkAdapterName, NetworkAdapterStatus, NetworkAdapterType, NetworkAdapterVendor

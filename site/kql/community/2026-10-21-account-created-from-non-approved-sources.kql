@@ -1,0 +1,47 @@
+// title: Account created from non-approved sources
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: This query looks for an account being created from a domain that is not regularly seen in a tenant. Attackers may attempt to add accounts from these sources as a means of establishing persistant access to an environment. Created accounts should be investigated to confirm expected creation. Ref: http
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/Accountcreatedfromnon-approvedsources.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let core_domains = (SigninLogs
+  | where TimeGenerated > ago(7d)
+  | where ResultType == 0
+  | extend domain = tolower(split(UserPrincipalName, "@")[1])
+  | summarize by tostring(domain));
+  let alternative_domains = (SigninLogs
+  | where TimeGenerated > ago(7d)
+  | where isnotempty(AlternateSignInName)
+  | where ResultType == 0
+  | extend domain = tolower(split(AlternateSignInName, "@")[1])
+  | summarize by tostring(domain));
+  AuditLogs
+  | where TimeGenerated > ago(1d)
+  | where OperationName =~ "Add User"
+  | extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+  | extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIpAddress = tostring(iff(isnotempty(InitiatedBy.user.ipAddress), InitiatedBy.user.ipAddress, InitiatedBy.app.ipAddress))
+  | extend UserAdded = tostring(TargetResources[0].userPrincipalName)
+  | extend UserAddedDomain = case(
+  UserAdded has "#EXT#", tostring(split(tostring(split(UserAdded, "#EXT#")[0]), "_")[1]),
+  UserAdded !has "#EXT#", tostring(split(UserAdded, "@")[1]),
+  UserAdded)
+  | where UserAddedDomain !in (core_domains) and UserAddedDomain !in (alternative_domains)
+  | extend AddedByName = case(
+  InitiatingUserPrincipalName has "#EXT#", tostring(split(tostring(split(InitiatingUserPrincipalName, "#EXT#")[0]), "_")[0]),
+  InitiatingUserPrincipalName !has "#EXT#", tostring(split(InitiatingUserPrincipalName, "@")[0]),
+  InitiatingUserPrincipalName)
+  | extend AddedByUPNSuffix = case(
+  InitiatingUserPrincipalName has "#EXT#", tostring(split(tostring(split(InitiatingUserPrincipalName, "#EXT#")[0]), "_")[1]),
+  InitiatingUserPrincipalName !has "#EXT#", tostring(split(InitiatingUserPrincipalName, "@")[1]),
+  InitiatingUserPrincipalName)
+  | extend UserAddedName = case(
+  UserAdded has "#EXT#", tostring(split(tostring(split(UserAdded, "#EXT#")[0]), "_")[0]),
+  UserAdded !has "#EXT#", tostring(split(UserAdded, "@")[0]),
+  UserAdded)

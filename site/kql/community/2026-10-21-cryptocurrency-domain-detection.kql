@@ -1,0 +1,23 @@
+// title: Cryptocurrency Domain Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Cryptocurrency Domain Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Cryptocurrency%20Domain%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects network connections to known cryptocurrency domains
+let Crypto = externaldata(type:string)[@"https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/ZeroDot1_CoinBlockerLists/master/domains.list"] with (format="csv", ignoreFirstRecord=True);
+let CrytoDomains = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/Crypto.csv"] with (format="csv", ignoreFirstRecord=True); 
+let DomainList = Crypto
+| where type !startswith "#"
+| extend RemoteUrl = replace_string(replace_string(type, " ", ""),"0.0.0.0","")
+| project RemoteUrl;
+let DomainList2 = CrytoDomains //// After Hunting visit https://github.com/jkerai1/SoftwareCertificates/tree/main/Bulk-IOC-CSVs, download the CSV and consider uploading to MDE to block all domains. Remove any results that are legitimate usage.
+| project IndicatorValue;
+DeviceNetworkEvents
+| where RemoteUrl in~(DomainList) or RemoteUrl in~(DomainList2)
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, VT_domain

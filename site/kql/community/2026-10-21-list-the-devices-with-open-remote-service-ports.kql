@@ -1,0 +1,16 @@
+// title: List the devices with open remote service ports · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This query lists the devices with open remote service ports The database ports defined in the query: - 22: SSH - 139: SMB - 445: SMB - 3389: RDP - 5900: VNC - 5985: WinRM v2 - 5986: WinRM
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/Network%20-%20OpenRemoteServicePorts.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RemoteServices = dynamic([22, 139, 445, 3389, 5900, 5985, 5986]);
+DeviceNetworkEvents
+| where ActionType == "ListeningConnectionCreated"
+| where LocalPort in (RemoteServices)
+| summarize OpenPorts = make_set(LocalPort), TotalOpenRemoteServicesPorts = dcount(LocalPort) by DeviceName
+| sort by TotalOpenRemoteServicesPorts

@@ -1,0 +1,16 @@
+// title: Screensaver file invoking internet access · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: This hunting query is based on a RedLine stealer malware delivered through a .scr file which invoked a process accessing the internet to deliver payload.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/screensaver-file-invoking-internet-access.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Protocol contains "tcp"
+| where RemoteIPType contains "Public"
+| where InitiatingProcessFileName contains ".scr"
+| summarize arg_max(Timestamp, *) by DeviceName
+| project Timestamp, DeviceName

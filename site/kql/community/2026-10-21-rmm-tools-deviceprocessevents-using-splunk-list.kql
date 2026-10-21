@@ -1,0 +1,20 @@
+// title: RMM Tools DeviceProcessEvents using Splunk List
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: RMM Tools DeviceProcessEvents using Splunk List
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/RMM%20Tools%20DeviceProcessEvents%20using%20Splunk%20List.txt
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let RMMtools = externaldata (description: string, remote_domain: string, remote_utility: string, remote_utility_fileinfo: string) 
+    ["https://raw.githubusercontent.com/splunk/security_content/refs/heads/develop/lookups/csv/remote_access_software.csv"] with(format='csv', ignoreFirstRecord=true);
+RMMtools
+| where remote_utility != ""
+| join kind=inner DeviceProcessEvents on $left.remote_utility == $right.InitiatingProcessFileName
+| summarize by DeviceName, AccountName, InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessParentFileName, ProcessVersionInfoCompanyName, ProcessVersionInfoFileDescription, description
+| extend Host_0_HostName = DeviceName
+| extend Account_0_Name = AccountName
+| extend Process_0_CommandLine = InitiatingProcessCommandLine
+| extend File_0_Name = InitiatingProcessFileName

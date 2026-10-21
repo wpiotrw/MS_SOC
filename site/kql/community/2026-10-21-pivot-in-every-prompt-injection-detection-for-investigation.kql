@@ -1,0 +1,18 @@
+// title: Pivot in every prompt-injection detection for investigation · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: This query helps investigate further, once you've run [https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/main/Defender%20for%20Office365/uncover-every-prompt-injection-detection-and-its-disposition.md](Uncover every prompt-injection detection and its disposition).
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Defender%20for%20Office365/pivot-in-every-prompt-injection-detection-for-investigation.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Prompt-injection detections over the last 30 days, including details
+let lookback = 30d;
+EmailEvents
+| where Timestamp > ago(lookback)
+| where DetectionMethods has "Prompt injection"
+| project Timestamp, NetworkMessageId, SenderFromAddress, RecipientEmailAddress,
+          Subject, DeliveryAction, DeliveryLocation, DetectionMethods
+| sort by Timestamp desc

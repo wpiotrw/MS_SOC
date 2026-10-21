@@ -1,0 +1,15 @@
+// title: End of Life Software with File Paths using TVM
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareEvidenceBeta, DeviceTvmSoftwareInventory
+// purpose: End of Life Software with File Paths using TVM
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/End%20of%20Life%20Software%20with%20File%20Paths%20using%20TVM.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSoftwareInventory
+| where SoftwareName != ""
+| where EndOfSupportStatus in("EOS Version","Upcoming EOS Version")
+| join kind=leftouter DeviceTvmSoftwareEvidenceBeta on DeviceId,SoftwareName
+| summarize EarliestEndOfSupport=min(EndOfSupportDate) by SoftwareName,DeviceName,tostring(DiskPaths)

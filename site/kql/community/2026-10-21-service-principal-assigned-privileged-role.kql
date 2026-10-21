@@ -1,0 +1,32 @@
+// title: Service Principal Assigned Privileged Role
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Detects a privileged role being added to a Service Principal. Ensure that any assignment to a Service Principal is valid and appropriate - Service Principals should not be assigned to very highly privileged roles such as Global Admin. Ref: https://docs.microsoft.com/azure/active-directory/fundamenta
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/ServicePrincipalAssignedPrivilegedRole.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+  | where OperationName has_all ("member to role", "add")
+  | where Result =~ "Success"
+  | extend type_ = tostring(TargetResources[0].type)
+  | where type_ =~ "ServicePrincipal"
+  | where isnotempty(TargetResources)
+  | extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+  | extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+  | extend InitiatedBy = tostring(iff(isnotempty(InitiatingUserPrincipalName),InitiatingUserPrincipalName, InitiatingAppName))
+  | extend ServicePrincipalName = tostring(TargetResources[0].displayName)
+  | extend ServicePrincipalId = tostring(TargetResources[0].id)
+  | mv-expand TargetResources[0].modifiedProperties
+  | extend TargetResources_0_modifiedProperties = columnifexists("TargetResources_0_modifiedProperties", '')
+  | where isnotempty(TargetResources_0_modifiedProperties)
+  | extend displayName = tostring(TargetResources_0_modifiedProperties.displayName), newValue = tostring(parse_json(tostring(TargetResources_0_modifiedProperties.newValue)))
+  | where displayName == "Role.DisplayName" and newValue contains "admin"
+  | extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+  | extend TargetRole = newValue
+  | project-reorder TimeGenerated, ServicePrincipalName, ServicePrincipalId, InitiatedBy, TargetRole, InitiatingIPAddress

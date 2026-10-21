@@ -1,0 +1,53 @@
+// title: Macro attachment opened from rare sender · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, EmailAttachmentInfo, EmailEvents
+// purpose: Adversaries may use macro enabled files go gain access to the network. If the macros are not enabled the attacker will try to convice target to enable them to run the scripts in the background. This query detects when a macro attachment is opened that came from a rare sender from the last 7 days. Th
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Office%20365/Email%20-%20MacroAttachmentOpenedFromRareSender.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Adjust the threshold based on your organisation.
+let RareSenderThreshold = 10;
+let LookupPeriod = 7d;
+let MacroExtensions = dynamic(['xlsm', 'xstm', 'docm', 'dotm', 'pptm', 'ppsm', 'xll', 'xlsb']);
+// If you also want to include older attachments use
+// let MacroExtensions = dynamic(['xlsm', 'xstm', 'docm', 'dotm', 'pptm', 'ppsm', 'xll', 'xlsb', 'doc', 'xsl', 'svg']);
+// Step 1
+let RareMacroSenders = EmailAttachmentInfo
+| where Timestamp > ago(30d)
+// Extract the file extension for each filename
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+// Remove empty file extensions and SHA256 hashes, they will otherwise cause a lot of false positives
+| where isnotempty(FileExtension) and isnotempty(SHA256)
+// Filter only on marco extensions
+| where FileExtension in~ (MacroExtensions)
+| summarize TotalMacroAttachmentsSend = dcount(NetworkMessageId) by SenderObjectId
+// Filter on rare senders
+| where TotalMacroAttachmentsSend < RareSenderThreshold
+| project SenderObjectId;
+// Step 2
+let RecievedMacros = EmailAttachmentInfo
+| where Timestamp > ago(LookupPeriod)
+// Filter on rare senders. Senders that often user macro's are filtered.
+| where SenderObjectId in (RareMacroSenders)
+// Extract the file extension for each filename
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+// Remove empty file extensions and SHA256 hashes, they will otherwise cause a lot of false positives
+| where isnotempty(FileExtension) and isnotempty(SHA256)
+// Filter only on marco extensions
+| where FileExtension in~ (MacroExtensions)
+| project SHA256;
+// Step 3
+DeviceFileEvents
+| where ActionType == 'FileCreated'
+// Search for devices that have FileEvents with macros recieved from emails.
+| where SHA256 in (RecievedMacros)
+| summarize TotalDevices = dcount(DeviceName), FileLocations = make_set(FolderPath) by SHA256
+// Collect the email events, to enrich the results. Step 4
+| join kind=inner (EmailAttachmentInfo | project RecipientEmailAddress, NetworkMessageId, SHA256) on $left.SHA256 == $right.SHA256
+| join kind=inner (EmailEvents | project SenderFromAddress, Subject, NetworkMessageId, EmailDirection) on $left.NetworkMessageId == $right.NetworkMessageId
+// Only search for inbound mail
+| where EmailDirection == 'Inbound'
+| summarize ['Targeted Mailboxes'] = make_set(RecipientEmailAddress) by SHA256, TotalDevices, tostring(FileLocations), Subject, SenderFromAddress

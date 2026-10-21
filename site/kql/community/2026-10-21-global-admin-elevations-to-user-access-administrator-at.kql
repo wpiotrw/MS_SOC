@@ -1,0 +1,14 @@
+// title: Global Admin Elevations To User Access Administrator at Root Level
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Global Admin Elevations To User Access Administrator at Root Level
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Global%20Admin%20Elevations%20To%20User%20Access%20Administrator%20at%20Root%20Level.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where OperationName == "User has elevated their access to User Access Administrator for their Azure Resources"
+| extend User = tostring(InitiatedBy.user.userPrincipalName)
+| extend IP = tostring(InitiatedBy.user.ipAddress)

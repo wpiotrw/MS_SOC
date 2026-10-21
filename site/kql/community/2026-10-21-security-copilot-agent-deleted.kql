@@ -1,0 +1,14 @@
+// title: Security Copilot Agent Deleted
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Security Copilot Agent Deleted
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Security%20Copilot%20Agent%20Deleted.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//When an agent is removed from Entra, the agentic user behind the identity is also removed
+AuditLogs
+| where OperationName == @"Delete user"
+| where Identity == @"Security Copilot Agent Management"

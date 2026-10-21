@@ -1,0 +1,29 @@
+// title: Exchange Worker Process Making Remote Call
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, W3CIISLog
+// purpose: This query dynamically identifies Exchange servers and then looks for instances where the IIS worker process initiates a call out to a remote URL using either cmd.exe or powershell.exe. This behaviour was described as post-compromise behaviour following exploitation of CVE-2022-41040 and CVE-2022-41
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/ExchangeWorkerProcessMakingRemoteCall.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let suspiciousCmdLineKeywords = dynamic(["http://", "https://"]);
+// Identify exchange servers based on known paths
+// Summarize these to get a list of exchange server hostnames
+let exchangeServers = W3CIISLog
+| where csUriStem has_any("/owa/","/ews/","/ecp/","/autodiscover/")
+// Only where successful, rule out failed scanning
+| where scStatus startswith "2"
+| summarize by Computer;
+DeviceProcessEvents
+| where DeviceName in~ (exchangeServers)
+// Where the IIS worker process initiated CMD or PowerShell
+| where InitiatingProcessParentFileName == "w3wp.exe"
+| where InitiatingProcessFileName has_any("cmd.exe", "powershell.exe")
+// Where CMD or PowerShell command line included parameters associated with CVE-2022-41040/CVE-2022-41082 exploitation
+| where ProcessCommandLine has_any(suspiciousCmdLineKeywords)
+| project TimeGenerated, DeviceId, DeviceName, InitiatingProcessFileName, ProcessCommandLine, AccountDomain = InitiatingProcessAccountDomain, AccountName = InitiatingProcessAccountName
+| extend Account = strcat(AccountDomain, "\\", AccountName)
+| extend HostName = tostring(split(DeviceName, ".")[0]), DomainIndex = toint(indexof(DeviceName, '.'))
+| extend HostNameDomain = iff(DomainIndex != -1, substring(DeviceName, DomainIndex + 1), DeviceName)

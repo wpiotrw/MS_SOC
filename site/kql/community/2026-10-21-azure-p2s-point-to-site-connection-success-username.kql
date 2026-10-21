@@ -1,0 +1,22 @@
+// title: Azure P2S (Point to site) Connection Success username and IP Parser
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, AzureDiagnostics
+// purpose: Azure P2S (Point to site) Connection Success username and IP Parser
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20P2S%20(Point%20to%20site)%20Connection%20Success%20username%20and%20IP%20Parser.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This will parse out username and local IP for Azure VPN connection success logs. Diagnostic settings must be enabled
+let VPNlog = AzureDiagnostics
+| where Message contains "Connection successful. Username=***"
+| parse-kv Message as (Username:string,IP:string) with (pair_delimiter=' ', kv_delimiter='=')
+| extend RedactedUserName = tolower(replace_string(Username,"***",""))
+| project RedactedUserName,IP;
+VPNlog //join on noninteractivelog where app id is Azure Public VPN, change app ID if required https://learn.microsoft.com/en-us/azure/vpn-gateway/openvpn-azure-ad-tenant?WT.mc_id=MVP_473477
+| join (AADNonInteractiveUserSignInLogs | where AppId == "41b23e61-6c1e-4545-b367-cd054e0ed4b4" | extend newname = trim_start(@"\w{3}",UserPrincipalName)) on $left.RedactedUserName==$right.newname
+| extend Country = parse_json(LocationDetails).countryOrRegion
+| extend VT = iff(isnotempty(IPAddress),strcat(@"https://www.virustotal.com/gui/ip-address/",IPAddress),IPAddress)
+//| where IPAddress != "" //You may want to filter our your own VPN IP as we are working with non-interactive logs
+| project UserPrincipalName, IP, IPAddress, Country, VT, ResultType

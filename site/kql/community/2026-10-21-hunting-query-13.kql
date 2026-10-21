@@ -1,0 +1,16 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/Windows%20OLE%20Zero-Click%20Vulnerability%20Let%20Attacker%20to%20Execute%20Arbitrary%20Code.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailAttachmentInfo
+| where FileName endswith ".rtf"
+| join kind=inner (EmailEvents) on $left.NetworkMessageId == $right.NetworkMessageId
+| extend Geo_IP = tostring(geo_info_from_ip_address(SenderIPv4).country)
+| where SenderMailFromDomain !in ("trusteddomain1","trusteddomain2")
+| summarize make_set(RecipientEmailAddress) by SenderDisplayName, SenderFromAddress, SenderIPv4,Geo_IP, FileName, Subject

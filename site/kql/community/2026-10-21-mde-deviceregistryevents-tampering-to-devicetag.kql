@@ -1,0 +1,16 @@
+// title: MDE DeviceRegistryEvents Tampering To DeviceTag
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: MDE DeviceRegistryEvents Tampering To DeviceTag
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/MDE%20DeviceRegistryEvents%20Tampering%20To%20DeviceTag.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Modifications to this registry key could move a device into a different MDE Device Group
+DeviceRegistryEvents
+| where TimeGenerated > ago(90d)
+| where RegistryKey == "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows Advanced Threat Protection\\DeviceTagging"
+| where RegistryValueName == "Group"
+| where InitiatingProcessAccountDomain <> "nt authority" and InitiatingProcessAccountName <> "system"

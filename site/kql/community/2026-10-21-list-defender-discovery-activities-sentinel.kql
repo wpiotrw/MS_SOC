@@ -1,0 +1,21 @@
+// title: List Defender Discovery Activities · Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceProcessEvents
+// purpose: This query lists the execution of Get-MpPreference, this function lists the preferences for the Windows Defender scans and updates, including the configured exclusions. Adversaries may use the information from Security Software Discovery during automated discovery to shape follow-on behaviors, inclu
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/DefenderDiscoveryActivities.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ProcessBased = DeviceProcessEvents
+| where ProcessCommandLine has "Get-MpPreference"
+| extend Table = "DeviceProcessEvents"
+| project-reorder Table, Timestamp, DeviceName, ProcessCommandLine, InitiatingProcessFileName;
+let EventBased = DeviceEvents
+| extend Command = parse_json(AdditionalFields).Command
+| where  Command == "Get-MpPreference"
+| extend ScriptLocation = extract(@"literalPath '(.*?)'", 0, InitiatingProcessCommandLine)
+| extend Table = "DeviceEvents"
+| project-reorder Table, TimeGenerated, DeviceName, InitiatingProcessCommandLine, InitiatingProcessParentFileName, ScriptLocation;
+union ProcessBased, EventBased

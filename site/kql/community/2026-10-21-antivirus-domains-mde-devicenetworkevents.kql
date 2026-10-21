@@ -1,0 +1,19 @@
+// title: Antivirus Domains   MDE DeviceNetworkEvents
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Antivirus Domains MDE DeviceNetworkEvents
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Antivirus%20Domains%20-%20MDE%20DeviceNetworkEvents.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Additional AV Providers can turn off Defender. Ensure that Defender is running in "EDR in block mode". For brevity, softwarepackers have been scoped instead of each individual AV URL. These should be safe to unsanction as users/admins should be grabbing applications from official sources
+let AntivirusIOCs = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/Antivirus%20IOCs.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = AntivirusIOCs
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d)
+| where RemoteUrl in~(DomainList )
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, InitiatingProcessFileName, InitiatingProcessAccountUpn

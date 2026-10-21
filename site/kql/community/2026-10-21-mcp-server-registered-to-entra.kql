@@ -1,0 +1,14 @@
+// title: MCP Server Registered to Entra
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: MCP Server Registered to Entra
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/MCP%20Server%20Registered%20to%20Entra.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where ActivityDisplayName contains "permission grant"
+//| where parse_json(TargetResources)["0.displayName"] == 'Microsoft MCP Server for Enterprise' //Example https://learn.microsoft.com/en-us/graph/mcp-server/get-started?tabs=http%2Cvscode
+| where tostring(parse_json(TargetResources)[0].modifiedProperties) contains "MCP." //MCP permissions have MCP. prefix, for example "MCP.AccessReview.Read.All, MCP.AdministrativeUnit.Read.All, MCP.Application.Read.All"

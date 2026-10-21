@@ -1,0 +1,18 @@
+// title: Identify MITRE ATT&CK Techniques · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender XDR
+// tables: AlertInfo
+// purpose: The following queries provide for Microsoft Sentinel and Microsoft 365 Defender a graphic representation of MITRE ATT&CK techniques from alerts within the timerange defined.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/identify-mitreattack-techniques.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AlertInfo
+// Define timerange
+| where Timestamp > ago(30d)
+| where AttackTechniques != ""
+| mvexpand todynamic(AttackTechniques)
+| summarize count() by tostring(AttackTechniques)
+// Define graphic
+| render piechart

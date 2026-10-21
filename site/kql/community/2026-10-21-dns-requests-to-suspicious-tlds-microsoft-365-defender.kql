@@ -1,0 +1,20 @@
+// title: DNS requests to suspicious TLDs · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Zeek network layer signals for MDE includes the DnsConnectionInspected table which provides fruitful information about DNS connections. By taking into account netcraft's top 20 TLDs that are being used for cybercrime, you can hunt for suspicious DNS requests.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/dns-requests-to-suspicious-tlds.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuspiciousTLD = externaldata(TLD: string)[@"https://raw.githubusercontent.com/cyb3rmik3/Hunting-Lists/main/netcraft-tlds.csv"] with (format="csv", ignoreFirstRecord=True);
+DeviceNetworkEvents  
+| where ActionType == "DnsConnectionInspected"
+| extend AdditionalFields = todynamic(AdditionalFields)
+| extend DnsQuery = tostring(AdditionalFields.query), ResponseCode = tostring(AdditionalFields.rcode_name), Direction = tostring(AdditionalFields.direction)
+| extend TLDArray = split(DnsQuery,'.')
+| extend TLD = strcat(".",TLDArray[array_length(TLDArray)-1])
+| where Direction == "Out"
+| project DeviceName, DnsQuery, ResponseCode, TLDArray, TLD
+| join SuspiciousTLD on $left.TLD == $right.TLD

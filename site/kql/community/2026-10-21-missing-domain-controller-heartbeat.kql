@@ -1,0 +1,24 @@
+// title: Missing Domain Controller Heartbeat
+// date: 2026-10-21
+// product: Sentinel
+// tables: Heartbeat, Watchlist
+// purpose: This detection will go over the heartbeats received from the agents of Domain Controllers over the last hour, and will create alerts if the last heartbeats were received an hour ago.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/Heartbeat/MissingDCHearbeat.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let query_frequency = 15m;
+let missing_period = 1h;
+//Enter a reference list of hostnames for your DC servers
+let DCServersList = dynamic (["DC01.simulandlabs.com","DC02.simulandlabs.com"]);
+//Alternatively, a Watchlist can be used
+//let DCServersList = _GetWatchlist('HostName-DomainControllers') | project HostName;
+Heartbeat
+| summarize arg_max(TimeGenerated, *) by Computer
+| where Computer in (DCServersList)
+//You may specify the OS type of your Domain Controllers
+//| where OSType == 'Windows'
+| where TimeGenerated between (ago(query_frequency + missing_period) .. ago(missing_period))
+| project TimeGenerated, Computer, OSType, Version, ComputerEnvironment, Type, Solutions
+| sort by TimeGenerated asc

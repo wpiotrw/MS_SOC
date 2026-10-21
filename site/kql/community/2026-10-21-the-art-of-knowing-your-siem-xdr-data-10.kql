@@ -1,0 +1,22 @@
+// title: The art of Knowing Your SIEM & XDR Data · New sub-tables Defender For Endpoint
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileCertificateInfo, DeviceFileEvents, DeviceInfo, DeviceLogonEvents, DeviceNetworkEvents, DeviceProcessEvents, DeviceRegistryEvents
+// purpose: The art of Knowing Your SIEM & XDR Data · New sub-tables Defender For Endpoint
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Learning/TheArtOfKnowingYourData.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TimeFrame = 180d;
+let Schedule = 7d;
+let KnownActions = union DeviceEvents, DeviceFileEvents, DeviceFileCertificateInfo, DeviceInfo, DeviceLogonEvents, DeviceNetworkEvents, DeviceProcessEvents, DeviceRegistryEvents
+| where Timestamp between (startofday(ago(TimeFrame)) .. startofday(ago(Schedule))) 
+| where isnotempty(ActionType)
+| distinct ActionType;
+union withsource=TableName DeviceEvents, DeviceFileEvents, DeviceFileCertificateInfo, DeviceInfo, DeviceLogonEvents, DeviceNetworkEvents, DeviceProcessEvents, DeviceRegistryEvents
+| where Timestamp > startofday(ago(Schedule)) 
+| where isnotempty(ActionType) and ActionType !in (KnownActions)
+| distinct TableName, ActionType
+| project-rename DataType = TableName
+| sort by DataType, ActionType

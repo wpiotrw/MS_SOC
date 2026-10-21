@@ -1,0 +1,15 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceEvents/same%20infected%20files%20detected%20in%20multiple%20devices.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType contains "antivirusdetection"
+| summarize ['FileNames']=make_set(FileName), total= count() by SHA1,SHA256, DeviceName, ActionType
+| where total > 2
+| sort by total

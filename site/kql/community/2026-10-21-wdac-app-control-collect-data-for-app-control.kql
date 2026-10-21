@@ -1,0 +1,15 @@
+// title: WDAC App Control Collect Data for App Control Manager
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: WDAC App Control Collect Data for App Control Manager
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/WDAC%20App%20Control%20Collect%20Data%20for%20App%20Control%20Manager.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType startswith "AppControlCodeIntegrity"
+   or ActionType startswith "AppControlCIScriptBlocked"
+   or ActionType startswith "AppControlCIScriptAudited"
+//See https://github.com/HotCakeX/Harden-Windows-Security/wiki/How-to-Use-Microsoft-Defender-for-Endpoint-Advanced-Hunting-With-WDAC-App-Control#collecting-the-data-from-mde-advanced-hunting

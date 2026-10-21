@@ -1,0 +1,14 @@
+// title: Ingestion Delays · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: This query can be used to calculate ingestion delays of the unified security platform. In this specific case the GraphAPIAuditEvents and MicrosoftGraphActivityLogs are compared, but these tablenames can be changed to any other table. For all EDR logs you can for example use *union withsource=TableNa
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/IngestionDelays.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+union withsource=TableName GraphAPIAuditEvents, MicrosoftGraphActivityLogs
+| extend IngestionTime = ingestion_time()
+| extend IngestionDelay = datetime_diff('minute',  IngestionTime, TimeGenerated)
+| summarize Average = round(avg(IngestionDelay), 1), percentiles(IngestionDelay, 50, 75, 90, 95, 97, 99) by TableName

@@ -1,0 +1,19 @@
+// title: Users searching for VIP user activity
+// date: 2026-10-21
+// product: Sentinel
+// tables: LAQueryLogs
+// purpose: This query monitors for users running Log Analytics queries that contain filters for specific, defined VIP user accounts or the VIPUser watchlist template. Use this detection to alert for users specifically searching for activity of sensitive users.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/LAQueryLogs/UserSearchingForVIPUserActivity.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Replace these with the username or emails of your VIP users you wish to monitor for.
+let vips = dynamic(['vip1@email.com','vip2@email.com']);
+// Add users who are allowed to conduct these searches - this could be specific SOC team members
+let allowed_users = dynamic([]);
+LAQueryLogs
+| where QueryText has_any (vips) or QueryText has_any ('_GetWatchlist("VIPUsers")', "_GetWatchlist('VIPUsers')")
+| where AADEmail !in (allowed_users)
+| project TimeGenerated, AADEmail, RequestClientApp, QueryText, ResponseRowCount, RequestTarget
+| extend timestamp = TimeGenerated, AccountName = tostring(split(AADEmail, "@")[0]), AccountUPNSuffix = tostring(split(AADEmail, "@")[1])

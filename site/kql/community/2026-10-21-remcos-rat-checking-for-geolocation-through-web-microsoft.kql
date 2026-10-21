@@ -1,0 +1,20 @@
+// title: Remcos RAT checking for geolocation through web · Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: SANS ISC published a diary on 30/05/2023 where ModiLoader installs a Remcos RAT payload which checks for geolocation through web by geoplugin[.]net. The following query checks whether an attempt to connect to geoplugin[.]net has been made by a non-browser application. Query can be modified based on 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/remcos-rat-checking-for-geolocation.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Define browser executable filenames
+let Browser = dynamic(["firefox.exe", "msedge.exe", "chrome.exe", "opera.exe", "brave.exe"]);
+DeviceNetworkEvents
+// Define timeframe 
+| where TimeGenerated > ago(30d)
+| where not(InitiatingProcessFileName in (['Browser']))
+// Define service used to locate geographical information
+| where RemoteUrl contains 'geoplugin.net'
+| project Timestamp, DeviceName, LocalIP, RemoteUrl, RemoteIP, RemotePort, InitiatingProcessFileName, InitiatingProcessAccountUpn
+| sort by Timestamp desc

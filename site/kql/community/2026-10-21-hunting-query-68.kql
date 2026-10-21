@@ -1,0 +1,23 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EntraIdSignInEvents/Monitor%20Exclusion%20into%20Conditional%20Access%20Policies.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EntraIdSignInEvents
+| extend ca = todynamic(tostring(ConditionalAccessPolicies))
+| mv-expand Policies = parse_json(ConditionalAccessPolicies)
+| extend PolicyName = tostring(Policies.displayName),
+ PolicyId = tostring(Policies.id),
+ PolicyResult = tostring(Policies.result),
+ EnforcedGrantControls = tostring(Policies.enforcedGrantControls),
+ EnforcedSessionControls = tostring(Policies.enforcedSessionControls),
+ Excluded = tostring(Policies.excludeRulesSatisfied)
+| mv-expand CA_field_excluded = parse_json(Excluded)
+| extend CA_field_reason_excluded = tostring(todynamic(CA_field_excluded.ruleSatisfied))
+| where Excluded contains "conditional" and EnforcedGrantControls has '["Block"]'
+| summarize total_CA_excluded_times= count() by AccountDisplayName,AccountUpn,Country,CA_field_reason_excluded ,EnforcedGrantControls, PolicyName, PolicyId

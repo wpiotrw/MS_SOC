@@ -1,0 +1,22 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Potential%20Threats%20or%20network%20anomalies%20related%20to%20ICMP%20Inbound%20Connections.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| extend Source_IP_Country = tostring(geo_info_from_ip_address(LocalIP).country),
+ Destination_IP_Country = tostring(geo_info_from_ip_address(RemoteIP).country),
+ Direction = tostring(parse_json(AdditionalFields).direction), 
+ orig_bytes = toint(parse_json(AdditionalFields).orig_bytes),
+ resp_bytes = toint(parse_json(AdditionalFields).resp_bytes),
+ duration = todouble(parse_json(AdditionalFields).duration)
+// filtering by Inbound connections attempts where the IP is reported and there are difference between the received and the responded bytes
+| where Direction has "In" and isnotempty(Source_IP_Country) and isnotempty(Destination_IP_Country) and resp_bytes != orig_bytes
+| extend difference= abs(orig_bytes - resp_bytes)
+| summarize by Source_IP_connection=LocalIP,Source_IP_Country, Destination_IP=RemoteIP, Destination_IP_Country,orig_bytes,resp_bytes,difference, Protocol, ActionType, duration, Direction
+| order by duration

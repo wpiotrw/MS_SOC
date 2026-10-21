@@ -1,0 +1,19 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceFileEvents/Weaponized%20files%20extracting%20.DLL%20files%20after%20execution.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| extend FileOriginReferrerUrl_ext = extract(@"[^\\]+$", 0, FileOriginReferrerUrl)
+| where isnotempty( FileOriginReferrerUrl)
+| join kind=inner ( DeviceEvents) on $left.InitiatingProcessUniqueId == $right.InitiatingProcessUniqueId
+| extend FilesExtension = extract(@"\.([a-zA-Z0-9]+)$", 1, FileName)
+| extend OriginalFileExtension = extract(@"\.([a-zA-Z0-9]+)$", 1, FileOriginReferrerUrl_ext)
+| extend Source_Type = case(FileOriginReferrerUrl startswith "http","🌎 Web","📂 File")
+| where OriginalFileExtension !in ("zip","7z") and FilesExtension endswith ".dll"
+| summarize total_Files= dcount(FileName), Files_after_execution= strcat("🗂️ ",make_set(FileName)),make_set(FilesExtension),make_set(ActionType),make_set(FolderPath),SHA256_Group=make_set(SHA2561) by InitiatingProcessUniqueId,AccountUpn = strcat("👩🏻💻🧑🏾💻",InitiatingProcessAccountUpn), Device = strcat("💻 ",DeviceName), FileOriginReferrerUrl,Source_Type, OriginalFile=strcat("🚩 ",FileOriginReferrerUrl_ext), OriginalFileExtension, ReportId, TimeGenerated, Timestamp, DeviceId

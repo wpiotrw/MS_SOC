@@ -1,0 +1,23 @@
+// title: Encoded Powershell Executions by Device · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Encoded Powershell Executions by Device · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/PowerShellEncodedCommandsByDevice.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EncodedList = dynamic(['-encodedcommand', '-enc']); 
+// For more results use line below en filter one above. This will also return more FPs.
+// let EncodedList = dynamic(['-encodedcommand', '-enc', '-e']);
+let TimeFrame = 48h; //Customizable h = hours, d = days
+DeviceProcessEvents
+| where Timestamp > ago(TimeFrame)
+| where ProcessCommandLine contains "powershell" or InitiatingProcessCommandLine contains "powershell"
+| where ProcessCommandLine has_any (EncodedList) or InitiatingProcessCommandLine has_any (EncodedList)
+| extend base64String = extract(@'\s+([A-Za-z0-9+/]{20}\S+$)', 1, ProcessCommandLine)
+| extend DecodedCommandLine = base64_decode_tostring(base64String)
+| where not(isempty(base64String) and isempty(DecodedCommandLine))
+| summarize TotalEncodedExecutions = count() by DeviceName
+| sort by TotalEncodedExecutions

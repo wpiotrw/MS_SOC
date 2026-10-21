@@ -1,0 +1,20 @@
+// title: New Authentication App Detected · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Detect a new app that is used to send authentication request to your tenant. The authentication requests do not have to be successful. The app can eighter be an internal app, then the AppID is filled, if that is not the case then it is an external app. A false positive is a new app that is used with
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/NewAuthenticationAppDetected.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let KnownApps = AADSignInEventsBeta
+    // Adjust the timerange depending on the retention period
+    | where Timestamp  between (ago(30d) .. ago(2d))
+    | distinct Application;
+AADSignInEventsBeta
+| where Timestamp > ago(2d)
+| where not(Application in~ (KnownApps))
+// If the AppID is empty then it is a third party App.
+| extend IsExternalApp = iff(isempty(ApplicationId), 'True', 'False')
+| project-reorder Timestamp, AccountUpn, ErrorCode, IsExternalApp, Application, AccountObjectId, IPAddress, ClientAppUsed

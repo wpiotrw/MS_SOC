@@ -1,0 +1,20 @@
+// title: Risky Sign-in Followed by Key Vault Activity · Defender XDR
+// date: 2026-10-21
+// product: Entra
+// tables: CloudKeyVaultEvents, EntraIdSignInEvents
+// purpose: Identifies user sign-ins with a `RiskLevelDuringSignIn` value of 10 (low), 50 (medium), or 100 (high) that are followed by Azure Key Vault activity associated with the sign-in's unique token identifier. Review the account, source IP address, user agent, sign-in error code, accessed vault, and activi
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Cloud%20Infrastructure/RiskySign-inFollowedbyKeyVaultActivity.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EntraIdSignInEvents
+| where RiskLevelDuringSignIn in (10, 50, 100)
+| project SignInTime = Timestamp, IPAddress, UserAgent, AccountUpn, UniqueTokenId, ErrorCode
+| join kind=inner (
+    CloudKeyVaultEvents
+    | where AccountType == "user"
+    | extend UniqueTokenIdentifier = tostring(AdditionalFields.UniqueTokenIdentifier)
+    | project KeyVaultEventTime = Timestamp, UniqueTokenIdentifier, AzureResourceId, ActivityName
+) on $left.UniqueTokenId == $right.UniqueTokenIdentifier
+| where KeyVaultEventTime >= SignInTime

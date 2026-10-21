@@ -1,0 +1,23 @@
+// title: Microsoft Teams Emoji Reactions for each Department · Defender XDR
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: CloudAppEvents, IdentityInfo
+// purpose: This query lists the statistics of the Emoji reactions that have been send via Microsoft Teams for each Department.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Fun/TeamsEmojiReactionsByDepartment.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where Application == "Microsoft Teams"
+| where ActionType == "ReactedToMessage"
+| extend Emoji = tostring(RawEventData.MessageReactionType)
+| where isnotempty(Emoji)
+| project Emoji, AccountObjectId
+| join kind=inner (IdentityInfo
+    | where Timestamp > ago(30d)
+    | summarize arg_max(Timestamp, *) by AccountObjectId
+    | project AccountObjectId, Department)
+    on $left.AccountObjectId == $right.AccountObjectId
+| project Department, Emoji
+| evaluate pivot(Department) // If you want to have the Departments on the y axis use | evaluate pivot(Emoji)

@@ -1,0 +1,91 @@
+// title: Incidents to Mitre ATTACK navigator
+// date: 2026-10-21
+// product: Sentinel
+// tables: AlertInfo, SecurityIncident
+// purpose: Incidents to Mitre ATTACK navigator
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Incidents%20to%20Mitre%20ATTACK%20navigator.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query takes incidents from Defender, checks MITRE technique and then creates attack navigator format for upload to https://mitre-attack.github.io/attack-navigator/
+//Query Based on work from https://gokhansobay.medium.com/how-can-you-quickly-review-your-defender-rules-mitre-coverage-with-the-att-ck-navigator-map-6dbc84e73b63
+let dynamicAttributes_first = dynamic({
+    "name": "layer",
+    "versions": {
+        "attack": "17",
+        "navigator": "5.0.1",
+        "layer": "4.5"
+    },
+    "domain": "enterprise-attack",
+    "description": "",
+    "filters": {
+        "platforms": [
+            "Windows",
+            "Linux",
+            "macOS",
+            "Network",
+            "PRE",
+            "Containers",
+            "Office 365",
+            "SaaS",
+            "Google Workspace",
+            "IaaS",
+            "Azure AD"
+        ]
+    }
+});
+let  dynamicAttributes_last = dynamic({
+    "gradient": {
+        "colors": [
+            "#ff6666ff",
+            "#ffe766ff",
+            "#8ec843ff"
+        ],
+        "minValue": 0,
+        "maxValue": 100
+    },
+    "legendItems": [],
+    "metadata": [],
+    "links": [],
+    "showTacticRowBackground": false,
+    "tacticRowBackground": "#dddddd",
+    "selectTechniquesAcrossTactics": true,
+    "selectSubtechniquesWithParent": false,
+    "selectVisibleTechniques": false
+});
+let TechniqueID =SecurityIncident
+| where TimeGenerated > ago(90d)
+| summarize arg_max(TimeGenerated,AdditionalData) by IncidentNumber
+| mv-expand AdditionalData
+| where tostring(AdditionalData) contains "techniques" 
+| where parse_json(tostring(AdditionalData.techniques)) <> "[]" //Remove Empty
+| distinct tostring(AdditionalData.techniques);
+AlertInfo
+| where TimeGenerated > ago(90d)
+//| where DetectionSource == "Custom detection" //you can filter your source detection method
+| extend ParsedAttack = parse_json(AttackTechniques)
+| mv-expand ParsedAttack
+| extend techniqueID = extract("T[0-9]+(?:\\.[0-9]+)?", 0, tostring(ParsedAttack))
+| extend tactic = Category
+| extend color = "#e60d0d" //red background
+| extend comment = ""
+| extend enabled = true
+//| extend metadata = dynamic([])
+//| extend links = dynamic([])
+| extend showSubtechniques = true
+| project-away ParsedAttack
+| distinct techniqueID, tactic, color, comment, enabled, showSubtechniques //tostring(metadata), tostring(links)
+| summarize techniques = make_list(pack(
+    'techniqueID', techniqueID, //the important point here is that this ID value highlights what we have as coverage in our custom map.
+//    'tactic', tactic,
+    'color', color,
+    'comment', comment,
+    'enabled', enabled,
+//    'metadata', metadata,
+//    'links', links,
+    'showSubtechniques', showSubtechniques
+))
+| extend jsonOutput = bag_merge(dynamicAttributes_first, pack('techniques', techniques))
+| extend finalOutput = bag_merge(jsonOutput, dynamicAttributes_last)
+| project ourjsonOutput = tostring(finalOutput)

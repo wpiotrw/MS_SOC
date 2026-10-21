@@ -1,0 +1,19 @@
+// title: Vulnerabilities Year To Date CISA KEV Release Year · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This query uses the CISA Known Exploited Vulnerabilities Catalog to list the vulnerabilities year to date by year when the vulnerability was released.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/CISA%20KEV%20Review/CISAKEV-YearToDateVulnerabilitiesReleaseYear.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let KnowExploitesVulnsCISA = externaldata(CVEId: string, Vendor: 
+    string, Product: string, VulnerabilityName: string, DateAdded: datetime, 
+    Description: string, RequiredAction: string, DueDate: datetime, 
+    Notes: string)
+    [@"https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv"] 
+    with (format="csv", ignoreFirstRecord=True);
+KnowExploitesVulnsCISA
+| where DateAdded between (startofyear(now()) .. startofweek(endofyear(now())))
+| extend Year = toint((split(CVEId, "-")[1]))

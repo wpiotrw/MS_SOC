@@ -1,0 +1,19 @@
+// title: Living Off The Tunnels IOCS
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Living Off The Tunnels IOCS
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Living%20Off%20The%20Tunnels%20IOCS.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LivingOffTheTunnelsIOCs = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/Living%20Off%20The%20Tunnels%20%20IOCs.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = LivingOffTheTunnelsIOCs
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d)
+| where RemoteUrl in~(DomainList )
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, VT_domain
+// After Hunting visit https://github.com/jkerai1/SoftwareCertificates/tree/main/Bulk-IOC-CSVs, download the CSV and consider uploading to MDE to block all domains. Remove any results that are legitimate usage.

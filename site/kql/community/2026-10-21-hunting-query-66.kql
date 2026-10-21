@@ -1,0 +1,21 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EntraIdSignInEvents/Sign-in%20Attempts%20Using%20Deprecated%20TLS%20Versions.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EntraIdSignInEvents
+| where ErrorCode == 0
+| mv-apply d = parse_json(AuthenticationProcessingDetails) on (
+    extend key = tostring(d.key), value = tostring(d.value)
+    | summarize details = make_bag(pack(key, value))
+)
+| extend LegacyTLS = tostring(details['Legacy TLS (TLS 1.0, 1.1, 3DES)'])
+| where tolower(LegacyTLS) == "true"
+| summarize Sessions = count()  
+    by AccountUpn, ApplicationId, UserAgent, Timestamp,ReportId
+| order by Sessions desc

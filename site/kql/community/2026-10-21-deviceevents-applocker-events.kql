@@ -1,0 +1,16 @@
+// title: DeviceEvents   AppLocker Events
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: DeviceEvents AppLocker Events
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/DeviceEvents%20-%20AppLocker%20Events.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where TimeGenerated > ago(30d)
+| where ActionType startswith "AppLocker" //or ActionType startswith "AppControl" //for WDAC
+//See all the events using the inbuilt portal schema reference: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables#get-schema-information-in-the-security-center
+//Action Types include AppLockerBlockExecutable, AppLockerBlockPackagedApp, AppLockerBlockPackagedAppInstallation, AppLockerBlockScript
+// You may also want to exclude AppControlExecutableBlocked which is WDAC.

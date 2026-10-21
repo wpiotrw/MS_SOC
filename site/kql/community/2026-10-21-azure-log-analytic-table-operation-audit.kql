@@ -1,0 +1,16 @@
+// title: Azure Log Analytic Table Operation Audit
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Azure Log Analytic Table Operation Audit
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Log%20Analytic%20Table%20Operation%20Audit.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//For auditing Write/Delete actions upon LAW Tables
+AzureActivity
+| where TimeGenerated > ago(90d)
+| where OperationNameValue contains "MICROSOFT.OPERATIONALINSIGHTS/WORKSPACES/TABLES/"
+| extend TableName = Properties_d.resource
+| project-reorder TimeGenerated, TableName, Caller

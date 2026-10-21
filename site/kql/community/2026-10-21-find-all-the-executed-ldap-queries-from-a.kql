@@ -1,0 +1,24 @@
+// title: Find all the executed LDAP queries from a compromised device · Sentinel
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityQueryEvents
+// purpose: Find all the executed LDAP queries from a compromised device · Sentinel
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/MDI%20-%20LDAPQueriesByCompromisedDevice.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedDevice = "laptop1.com";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+IdentityQueryEvents
+| where TimeGenerated > ago(SearchWindow)
+| where DeviceName == CompromisedDevice
+| where Protocol == "Ldap"
+| project
+     TimeGenerated,
+     QueryType,
+     Query,
+     Protocol,
+     DeviceName,
+     DestinationDeviceName,
+     TargetAccountUpn

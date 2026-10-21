@@ -1,0 +1,16 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareInventory
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/Ivanti%20Vulnerabilities%20CVE-2025-0282%20and%20CVE-2025-0283.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSoftwareInventory
+| where SoftwareVendor has "ivanti"
+| extend SoftwareVersionD =replace_string(SoftwareVersion,".","")
+| extend firstDigits = toint(substring(SoftwareVersionD,0,5))
+| where firstDigits < 22731 and (SoftwareName startswith "ivanti_secure_access" or SoftwareName has "pulse_application_launcher" )
+| distinct DeviceName,SoftwareVersion, SoftwareName, SoftwareVendor

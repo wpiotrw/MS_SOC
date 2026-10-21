@@ -1,0 +1,23 @@
+// title: Cisco Umbrella - Rare User Agent Detected
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Rule helps to detect a rare user-agents indicating web browsing activity by an unusual process other than a web browser.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/CiscoUmbrella/CiscoUmbrellaRareUserAgentDetected.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookBack = 14d;
+let timeframe = 1d;
+let user_agents_list = Cisco_Umbrella
+| where EventType == "proxylogs"
+| where TimeGenerated > ago(lookBack) and TimeGenerated < ago(timeframe)
+| summarize count() by HttpUserAgentOriginal
+| summarize make_list(HttpUserAgentOriginal);
+Cisco_Umbrella
+| where EventType == "proxylogs"
+| where TimeGenerated > ago(timeframe)
+| where HttpUserAgentOriginal !in (user_agents_list)
+| extend Message = "Rare User Agent"
+| project Message, SrcIpAddr, DstIpAddr, UrlOriginal, TimeGenerated, HttpUserAgentOriginal

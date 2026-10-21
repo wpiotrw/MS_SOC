@@ -1,0 +1,14 @@
+// title: List Tampering Attempts · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: This query lists all the tampering attempts that have been observed by each device. This means that tampering protection acted and blocked the action. The action may be suspicious itself. The rule will generate false positives, which need filtering based on your environment.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/ListTamperingAttempts.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType == "TamperingAttempt"
+| extend TamperingAction = tostring(parse_json(AdditionalFields).TamperingAction), Status = tostring(parse_json(AdditionalFields).Status), Target = tostring(parse_json(AdditionalFields).Target)
+| summarize TotalActions = count(), Actions = make_set(TamperingAction), Targets = make_set(Target), RegistryNames = make_set(RegistryValueName), InitatingCommandLine = make_set(InitiatingProcessCommandLine) by DeviceName

@@ -1,0 +1,22 @@
+// title: Executable Fileattachment recieved · Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: Adversaries may use executable files to gain initial access. A tactic that is used is to send executable files, when opening the files a script is directly run. This query detects a subset of the exectuble file extensions in Windows. The list can be increaded by appending additional extensions that 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Office%20365/Email%20-%20ExecutableFileRecieved.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ExecutableFileExtentions = dynamic(['bat', 'cmd', 'com', 'cpl', 'dll', 'ex', 'exe', 'jse', 'lnk','msc', 'ps1', 'reg', 'vb', 'vbe', 'ws', 'wsf']);
+EmailEvents
+// Only display inbound emails
+| where EmailDirection == 'Inbound'
+// Join the email events with the attachment information, that the email must have an attachment.
+| join kind=inner EmailAttachmentInfo on NetworkMessageId
+// extract the file extension from the filename
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+| where isnotempty(FileExtension)
+// Filter on executable file extensions
+| where FileExtension in~ (ExecutableFileExtentions)
+| summarize ['Target Mailboxes'] = make_set(RecipientEmailAddress), ['Sender Addresses'] = make_set(SenderFromAddress), ['Email Subject'] = make_set(Subject) by SHA256, FileName

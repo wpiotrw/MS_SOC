@@ -1,0 +1,18 @@
+// title: Audit Justifications for PIM Requests
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Audit Justifications for PIM Requests
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Audit%20Justifications%20for%20PIM%20Requests.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query looks at the justification descriptions given for approval per role. use this to check users are PIM'ing up for the right roles for the right tasks
+// Where users have repeated the same justification over and over could indicate that they may have tried to script their PIM elevations. #TODO join "Add member to role request approved (PIM activation)" to pull approver (RequestID = tostring(AdditionalDetails[7].value))
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Add member to role requested (PIM activation)"
+| extend Role = tostring(TargetResources[0].displayName)
+| extend TicketNumber = tostring(AdditionalDetails[7].value)
+| summarize by ResultReason , tostring(parse_json((InitiatedBy.user)).userPrincipalName), Role, TicketNumber

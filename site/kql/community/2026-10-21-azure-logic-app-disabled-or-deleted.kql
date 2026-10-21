@@ -1,0 +1,14 @@
+// title: Azure Logic App Disabled or Deleted
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Azure Logic App Disabled or Deleted
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Logic%20App%20Disabled%20or%20Deleted.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where OperationNameValue == "MICROSOFT.LOGIC/WORKFLOWS/DISABLE/ACTION" or OperationName == "MICROSOFT.LOGIC/WORKFLOWS/DELETE"
+| where ActivityStatusValue startswith "Succe" or ActivityStatusValue startswith "accept" // Comment out if you want to look for attempts
+//Azure Activity must be enabled https://learn.microsoft.com/en-us/azure/azure-monitor/platform/activity-log?tabs=log-analytics?WT.mc_id=MVP_473477

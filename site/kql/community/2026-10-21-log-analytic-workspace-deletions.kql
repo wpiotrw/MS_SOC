@@ -1,0 +1,14 @@
+// title: Log Analytic Workspace Deletions
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Log Analytic Workspace Deletions
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Log%20Analytic%20Workspace%20Deletions.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Deletion of a workspace could lead to a loss of logging - though the queryable workspace may be deleted meaning you'll have no way to run this query
+AzureActivity
+| where OperationNameValue == "MICROSOFT.OPERATIONALINSIGHTS/WORKSPACES/DELETE"
+| where ActivityStatusValue <> "Start" //so we only see successes or failures, feel free to remove

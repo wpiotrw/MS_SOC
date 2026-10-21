@@ -1,0 +1,32 @@
+// title: Monitor ransomwarelive for companies of interest on ransowmare data leak sites (DLS) · Defender XDR & Sentinel
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This allows you to monitor the ransomware.live dataset for possible companies of interest being breached and posted by ransomware groups on data leak sites (DLS).
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/Ransomware%20-%20LeaksiteMontitoring.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//query to detect possible third party compromise via leak site data
+let clientkeyword = datatable(name:string)["client1","client2","client3","axip","elutia"]; //add clients
+let supplierkeyword = datatable(supplier:string)["supplier1","supplier2","supplier3","merchant.id"]; //add suppliers
+let thirdpartykeyword = datatable(supplier:string)["thirdparty1","thunderbirdcc"]; //add third parties
+let victims = externaldata(country:string,
+        description:string,
+        Country:string,
+        discovered:string,
+        discovered:datetime,
+        group_name:string,
+        post_title:string,
+        post_url:string,
+        published:string,
+        published:datetime,
+        screenshot:string,
+        website:string)
+        website:string,
+        infostealer:dynamic)
+[h@"https://api.ransomware.live/recentvictims"]
+with(format="multijson",ignoreFirstRecord=false);
+victims
+| where post_title has_any (clientkeyword) or post_title has_any (supplierkeyword) or post_title has_any (thirdpartykeyword)

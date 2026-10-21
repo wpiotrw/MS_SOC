@@ -1,0 +1,20 @@
+// title: Process Primary Token Elevated to SeDebugPrivilege · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: This query detects when a process's primary token is modified to include `SeDebugPrivilege` (privilege bit 20). `SeDebugPrivilege` grants a process the ability to open and manipulate any other process on the system, regardless of its security descriptor. This privilege is routinely abused by attacke
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/ProcessPrimaryTokenElevatedToSeDebugPriv.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Token elevated to SeDebugPriv
+let SeDebugPriv = binary_shift_left(1, 20);
+DeviceEvents
+| where Timestamp > ago(7d)
+| where ActionType == 'ProcessPrimaryTokenModified'
+| extend CurrentTokenPrivEnabled = tolong(parse_json(AdditionalFields).CurrentTokenPrivEnabled), OriginalTokenPrivEnabled = tolong(parse_json(AdditionalFields).OriginalTokenPrivEnabled)
+| extend PrivilegeDiff = binary_xor(OriginalTokenPrivEnabled, CurrentTokenPrivEnabled)
+| where PrivilegeDiff == SeDebugPriv
+| invoke FileProfile(InitiatingProcessSHA256)
+| project-reorder Timestamp, ActionType, InitiatingProcessFileName, InitiatingProcessSHA256, InitiatingProcessFolderPath, GlobalPrevalence, GlobalFirstSeen, InitiatingProcessCommandLine

@@ -1,0 +1,18 @@
+// title: RDP default listening port modification · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: Changing the default port 3389 to a non-standard port, could indicate a potential APT behaviour to avoid being detected abusing RDP connection.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/rdp-default-listening-port-modification.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Timeframe = 1d; // Choose the best timeframe for your investigation
+DeviceRegistryEvents
+| where Timestamp > ago(Timeframe)
+| where RegistryKey == @"HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Terminal Server\WinStations\RDP-Tcp"
+| where RegistryValueName == @"PortNumber"
+| where RegistryValueData != @"3389"
+| where ActionType == @"RegistryValueSet"
+| project Timestamp, DeviceName, PreviousRegistryValueName, PreviousRegistryValueData, InitiatingProcessFileName

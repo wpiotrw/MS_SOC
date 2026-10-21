@@ -1,0 +1,21 @@
+// title: Completed AV Scan · Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: The following query will check for the Devices declared, when was the last Antivirus Scan completed along with the Scan Type (Quick/Full) and which user initiated it.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/completed-av-scan.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Definde hosts of interest
+let Device = dynamic(["DeviceName1", "DeviceName2", "DeviceName3"]);
+DeviceEvents
+// Definde timeframe below
+| where TimeGenerated > ago(30d)
+| where DeviceName has_any (Device)
+| where ActionType has "AntivirusScanCompleted"
+| extend AdditionalFields = todynamic(AdditionalFields)
+| extend ScanType = AdditionalFields.["ScanTypeIndex"], StartedBy= AdditionalFields.["User"]
+| project Timestamp, DeviceName, ActionType, ScanType, StartedBy
+| sort by Timestamp desc

@@ -1,0 +1,19 @@
+// title: Unusual Software Certificate Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileCertificateInfo, DeviceFileEvents
+// purpose: Unusual Software Certificate Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Unusual%20Software%20Certificate%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query looks for software certificates with low prevalence
+//Helps identify potentially unapproved applications in the organization
+DeviceFileCertificateInfo
+| join DeviceFileEvents on SHA1
+//|extend VT_hash = iff(isnotempty(SHA1),strcat(@"https://www.virustotal.com/gui/file/",SHA1),SHA1)
+| summarize count() by Signer //FileName,SHA1,Issuer,FileOriginUrl
+| where Signer !contains "Google "
+| where not(Signer has_any("Intel","fortinet",".net","citrix","microsoft","HP Inc.","adobe","cisco","Avaya Inc.","Zoom Video Communications, Inc.","zscaler","oracle","Advanced Micro Devices Inc.","Lenovo","Hewlett-Packard Company","RingCentral","Symantec","Mozilla","Dell Technologies Inc.")) 
+| order by count_

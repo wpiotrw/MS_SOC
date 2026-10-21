@@ -1,0 +1,15 @@
+// title: Most Recent Sign in time for users in the last 30 days
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: Most Recent Sign in time for users in the last 30 days
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Most%20Recent%20Sign-in%20time%20for%20users%20in%20the%20last%2030%20days.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Note this will not work if the user has no sign-in at ALL in the last 30 days. For reporting on last sign-ins for all users regardless of timewindow I would check out https://o365reports.com/2023/06/21/microsoft-365-inactive-user-report-ms-graph-powershell/
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ResultType == "0" //Successes only
+| summarize arg_max(TimeGenerated,UserPrincipalName) by UserPrincipalName //Get Latest Time i.e. Maximize TimeGenerated

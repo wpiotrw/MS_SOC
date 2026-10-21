@@ -1,0 +1,23 @@
+// title: Function: LastPowerShellExecutions () · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: This function returns the last x amount of powershell executions that have been executed from a specified device. The function takes a *DeviceName* as input for which device the last executions need to be returned. The *Results* determines how many resuls are returned. Lastly the *TimeFrame* variabl
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Functions/LastPowerShellExecutions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Returns the last x amount of powershell executions based on a device and the timespan. Timespan examples can be seen in https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/scalar-data-types/timespan
+let LastPowerShellExecutions = (DeviceNameInput: string, Results: int, TimeFrame: timespan) {
+    DeviceProcessEvents
+    | where Timestamp > ago(TimeFrame)
+    | where DeviceName =~ DeviceNameInput
+    // Function does by default filter system executions, if you want them included exclude the line below.
+    | where not(AccountSid == "S-1-5-18")
+    | where ProcessCommandLine contains "powershell"
+    | top Results by Timestamp
+    | project Timestamp, ActionType, ProcessCommandLine
+};
+// Example
+LastPowerShellExecutions("devicename.tld", 100, 1d)

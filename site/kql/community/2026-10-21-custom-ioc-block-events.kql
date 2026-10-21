@@ -1,0 +1,24 @@
+// title: Custom IOC Block Events
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileCertificateInfo
+// purpose: Custom IOC Block Events
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Custom%20IOC%20Block%20Events.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query monitors for custom blocks from MDE Indicators (Hash, Certificate, URL)
+DeviceEvents
+| where (ActionType == "SmartScreenUrlWarning" and AdditionalFields.Experience == "CustomBlockList") or (AdditionalFields.ThreatName contains "EUS:Win32/Custom" and ActionType == "AntivirusDetection") or (AdditionalFields.ResponseCategory == "CustomBlockList" and ActionType == "ExploitGuardNetworkProtectionBlocked")
+| join kind=leftouter DeviceFileCertificateInfo on SHA1
+|extend VT_hash = iff(isnotempty(SHA1),strcat(@"https://www.virustotal.com/gui/file/",SHA1),SHA1)
+|extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize by FileName, RemoteUrl,DeviceName, Signer, InitiatingProcessAccountName, InitiatingProcessFileName, SHA1,VT_hash, VT_domain 
+//if you need the Advanced Hunting Equivalent or you dont ingest DeviceFileCertificateInfo To Sentinel
+//DeviceEvents
+//| where (ActionType == "SmartScreenUrlWarning" and todynamic(AdditionalFields).Experience == "CustomBlockList") or (todynamic(AdditionalFields).ThreatName contains "EUS:Win32/Custom" and ActionType == "AntivirusDetection") or ((todynamic(AdditionalFields).ResponseCategory) == "CustomBlockList" and ActionType == "ExploitGuardNetworkProtectionBlocked")
+//| join kind=leftouter DeviceFileCertificateInfo on SHA1
+//|extend VT_hash = iff(isnotempty(SHA1),strcat(@"https://www.virustotal.com/gui/file/",SHA1),SHA1)
+//|extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+//| summarize by FileName, RemoteUrl,DeviceName, Signer, InitiatingProcessAccountName, InitiatingProcessFileName, SHA1,VT_hash, VT_domain

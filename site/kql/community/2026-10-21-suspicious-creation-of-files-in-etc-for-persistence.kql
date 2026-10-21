@@ -1,0 +1,23 @@
+// title: Suspicious creation of files in /etc for persistence in WSL · Microsoft Defender XDR & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceInfo
+// purpose: The following query will assist in hunting for suspicious creation of files in /etc for persistence in WSL environments at endpoints.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/suspicious-creation-of-files-in-etc-for-persistance-in-wsl.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LinuxPerSuspicousCommands = dynamic(["/etc/ld.so.conf.d/", "/etc/cron.d/", "/etc/sudoers.d/", "/etc/rc.d/init.d/", "/etc/systemd/system/","/usr/lib/systemd/system/"]);
+let TimeFrame = 30d; // Choose the best timeframe for your investigation
+DeviceInfo
+    | where RegistryDeviceTag has "WSL2"
+    | project DeviceId
+| join ( DeviceFileEvents
+    | where Timestamp > ago(TimeFrame)
+    | where ActionType == "FileCreated"
+    | where FolderPath has_any (LinuxPerSuspicousCommands)
+    | project TimeGenerated, WSLDeviceID = DeviceId, DeviceName, FileName, FolderPath
+    )
+on $left.DeviceId == $right.WSLDeviceID
+| sort by TimeGenerated desc

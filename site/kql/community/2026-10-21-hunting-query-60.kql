@@ -1,0 +1,15 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceEvents/Devices%20with%20external%20RDP%20connections.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType contains "RemoteDesktopConnection"
+| extend Country_IP = tostring(geo_info_from_ip_address(LocalIP).country)
+| where isnotempty(Country_IP)
+| project Timestamp, DeviceName, ActionType, LocalIP, LocalPort, Country_IP,ReportId, DeviceId

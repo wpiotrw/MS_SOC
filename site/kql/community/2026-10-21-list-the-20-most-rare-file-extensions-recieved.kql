@@ -1,0 +1,20 @@
+// title: List the 20 most rare file extensions recieved from emails · Defender XDR
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: This query list the 20 rarest file extentions that have been used in email attachments.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Office%20365/Email%20-%20MostRareFileExtensionsRecieved.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+// Only display inbound emails
+| where EmailDirection == 'Inbound'
+// Join the email events with the attachment information, that the email must have an attachment.
+| join kind=inner EmailAttachmentInfo on NetworkMessageId
+// extract the file extension from the filename
+| extend FileExtension = tostring(extract(@'.*\.(.*)', 1, FileName))
+| where isnotempty(FileExtension)
+| summarize Total = count() by FileExtension
+| top 20 by Total asc

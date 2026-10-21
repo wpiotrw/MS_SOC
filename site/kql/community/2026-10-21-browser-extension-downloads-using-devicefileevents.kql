@@ -1,0 +1,27 @@
+// title: Browser Extension Downloads using DeviceFileEvents
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Browser Extension Downloads using DeviceFileEvents
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Browser%20Extension%20Downloads%20using%20DeviceFileEvents.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let UnsanctionedExtensions = externaldata (ExtensionID: string) [@'https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/Intune/Intune%20Browser%20Extension_IDs_the_user_should_be_prevented_from_installing.csv'] with (format=txt);
+let RiskyExtensionsWithNames = externaldata (ExtensionID: string,ExtensionURL:string, ExtensionName:string) [@'https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/Intune/Unsanctioned_extensions_with_names.csv'] with (format=csv, ignoreFirstRecord = true);
+DeviceFileEvents
+| where TimeGenerated > ago(90d)
+| where ActionType == "FileCreated"
+| where FileName endswith ".crx"
+//| where InitiatingProcessFileName == "chrome.exe" //if you need to filter down to chrome vs edge
+| where FolderPath contains "Webstore Downloads"
+| extend ExtensionID = trim_end(@"_\d{2,6}.crx", FileName)
+| extend ExtensionURL = strcat("https://chrome.google.com/webstore/detail/",ExtensionID)
+| extend EdgeExtensionURL = strcat("https://microsoftedge.microsoft.com/addons/detail/",ExtensionID)
+| extend RiskyExtension = iff((ExtensionID in~(UnsanctionedExtensions)), "Yes","N/A")
+| summarize count() by ExtensionID,ExtensionURL, EdgeExtensionURL, RiskyExtension
+//| where ExtensionID != "kbfnbcaeplbcioakkpcpgfkobkghlhen" //Grammarly
+//| where RiskyExtension == "Yes"
+| join kind=leftouter RiskyExtensionsWithNames on ExtensionID //if name is present in the risky list present it
+| project-away ExtensionID1,ExtensionURL1

@@ -1,0 +1,26 @@
+// title: Hunt for files that have been used by APTs since 2015 · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: This query uses a external csv that contains APT Ransomware note hashes. This list is used to search your environment for hash based matches on those ransomware notes.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/Ransomware%20-%20APTNotesSHA1IOC.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let APTInfo = externaldata(Filename: string, Title: string, Source: string, Link: string, SHA1: string, Date: datetime, Year: int)[@"https://raw.githubusercontent.com/aptnotes/data/master/APTnotes.csv"] 
+with (format="csv", ignoreFirstRecord=True);
+let SHA1IOC = APTInfo
+     | where Year > 2015 //first IOC reported in 2008
+     | distinct SHA1;
+DeviceFileEvents
+| where SHA1 has_any (SHA1IOC)
+| project
+     Timestamp,
+     DeviceName,
+     InitiatingProcessAccountName,
+     InitiatingProcessAccountDomain,
+     FileName,
+     FolderPath,
+     InitiatingProcessCommandLine,
+     SHA1

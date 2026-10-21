@@ -1,0 +1,16 @@
+// title: Assignment of Local Administrator Entra Role
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Assignment of Local Administrator Entra Role
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Assignment%20of%20Local%20Administrator%20Entra%20Role.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Assignment of Local Administrator Entra Role /Device administrator Role
+// Best Practice is to assign a LAPS Reader role (Custom) instead and assign to an admin unit
+AuditLogs
+| where ActivityDisplayName == "Add member to role"
+| where parse_json(tostring(TargetResources[0].modifiedProperties))[1].newValue contains "Device Local Administrator" or (parse_json(tostring(TargetResources[0].modifiedProperties))[3].newValue) == "\"DeviceAdministrators\""
+//| where parse_json(tostring(TargetResources[1].administrativeUnits)) == "[]" //if you want to Include only tenant wide assignments

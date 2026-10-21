@@ -1,0 +1,23 @@
+// title: Device Removed From Isolation · Sentinel
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: This query lists all the devices that are removed from isolation activities that have been performed by Defender For Endpoint. It is good practice to review those once every x period. The query extracts multiple events from the removal action, such as which device is isolated, what isolation comment
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20XDR/DeviceRemovedFromIsolation.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where TimeGenerated > ago(30d)
+| where ActionType == "ReleaseFromIsolation"
+| extend ReleasedDevice = tostring(parse_json(RawEventData).DeviceName), ReleaseComment = tostring(parse_json(RawEventData).ActionComment)
+| project-rename InitiatedByAccountName = AccountDisplayName, InitiatedByAccounttId = AccountId
+// Lookup Isolation Reason
+| lookup kind=leftouter (CloudAppEvents
+    | where TimeGenerated > ago(30d)
+    | where ActionType == "IsolateDevice"
+    | extend IsolatedDevice = tostring(parse_json(RawEventData).DeviceName), IsolationComment = tostring(parse_json(RawEventData).ActionComment), IsolationScope = tostring(parse_json(RawEventData).ActionScope)
+    | project-rename IsolationInitiatedByAccountName = AccountDisplayName, IsoaltionInitiatedByAccounttId = AccountId, IsolationTime = TimeGenerated
+    | project IsolationTime, IsolatedDevice, IsolationComment, IsolationScope, IsolationInitiatedByAccountName, IsoaltionInitiatedByAccounttId) on $left.ReleasedDevice == $right.IsolatedDevice
+|project-reorder TimeGenerated, ReleasedDevice, ReleaseComment, InitiatedByAccountName, InitiatedByAccounttId, IsolationTime, IsolationComment, IsolationScope, IsolationInitiatedByAccountName, IsoaltionInitiatedByAccounttId

@@ -1,0 +1,29 @@
+// title: Azure Diagnostic settings removed from a resource
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: This query looks for diagnostic settings that are removed from a resource. This could indicate an attacker or malicious internal trying to evade detection before malicious act is performed. If the diagnostic settings are being deleted as part of a parent resource deletion, the event is ignores.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AzureActivity/AzDiagSettingsDeleted.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where OperationNameValue =~ "MICROSOFT.INSIGHTS/DIAGNOSTICSETTINGS/DELETE"
+| summarize
+    TimeGenerated = arg_max(TimeGenerated, Properties),
+    ActivityStatusValue = make_set(ActivityStatusValue, 5),
+    take_any(Caller, CallerIpAddress, OperationName, ResourceGroup, Resource)
+    by CorrelationId, _ResourceId, OperationNameValue
+| extend ResourceHierarchy = split(_ResourceId, "/")
+| extend MonitoredResourcePath = strcat_array(array_slice(ResourceHierarchy, 0, array_length(ResourceHierarchy)-5), "/")
+| join kind=leftanti (
+    AzureActivity
+    | where OperationNameValue !~ "MICROSOFT.INSIGHTS/DIAGNOSTICSETTINGS/DELETE" and OperationNameValue endswith "/DELETE" and ActivityStatusValue has_any ("Success", "Succeeded")
+    | project _ResourceId
+) on $left.MonitoredResourcePath == $right._ResourceId
+| extend
+    Name = iif(Caller has "@", tostring(split(Caller, "@")[0]), ""),
+    UPNSuffix = iif(Caller has "@", tostring(split(Caller, "@")[1]), ""),
+    AadUserId = iif(Caller has "@", "", Caller)
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, OperationName, ActivityStatusValue, ResourceGroup, MonitoredResourcePath, Resource, Properties, Name, UPNSuffix, AadUserId, _ResourceId, CorrelationId

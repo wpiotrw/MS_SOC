@@ -1,0 +1,18 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/CloudAppEvents/Exchange/Anonymous%20access%20to%20files%20by%20suspicious%20IP%20addresses.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where IsAnonymousProxy == 1
+| where Application !has "Exchange"
+| where RawEventData !has "@"
+| extend userID = RawEventData.UserId
+| extend SourceRelativeUrl = RawEventData.SourceRelativeUrl
+| project Timestamp,ObjectName,ObjectType,SourceRelativeUrl,CountryCode,IPAddress,userID,ActionType, Application, DeviceType, OSPlatform, ISP,IsAdminOperation, AccountType, IsImpersonated, UserAgentTags, OAuthAppId, RawEventData
+| sort by ObjectName

@@ -1,0 +1,25 @@
+// title: AzureHound Detection · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: The query below uses the *GraphAPIAuditEvents* to collect potential AzureHound executions. This is done by filtering on GET requests with status 200 since AzureHound is a collector is submits GET requests to retrieve the data. Furthermore, statistics are applied to count the number of bytes retrieve
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Graph%20API/AzureHound.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WhitelistedObjects = dynamic(["obj1", "obj2"]);
+let UniqueRequestThreshold = 1000; // Depends on Entra ID tentant size. You can use the function 0.5 * TotalAzure Resources to get this number. KQL: arg("").Resources | count
+let ResourceThreshold = 4;
+let ReconResources = dynamic(["organization","groups","devices","applications","users","rolemanagement","serviceprincipals"]);
+GraphAPIAuditEvents
+| where RequestMethod == "GET"
+| where ResponseStatusCode == 200
+| extend ParsedUri = tostring(parse_url(RequestUri).Path)
+| extend GraphAPIPath = tolower(replace_string(ParsedUri, "//", "/"))
+| extend GraphAPIResource = tostring(split(GraphAPIPath, "/")[2])
+| where GraphAPIResource in (ReconResources)
+// Filter whitelist
+| where not(AccountObjectId in (WhitelistedObjects))
+| summarize UniqueRequests = dcount(ClientRequestId), Requests = make_set(RequestUri, 1000), Paths = make_set(GraphAPIPath), Resources = make_set(GraphAPIResource), UniqueResourceCount = dcount(GraphAPIResource) by AccountObjectId, bin(TimeGenerated, 1h)
+| where UniqueRequests >= UniqueRequestThreshold and UniqueResourceCount >= ResourceThreshold

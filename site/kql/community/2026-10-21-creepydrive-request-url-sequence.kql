@@ -1,0 +1,17 @@
+// title: CreepyDrive request URL sequence
+// date: 2026-10-21
+// product: Sentinel
+// tables: CommonSecurityLog
+// purpose: CreepyDrive uses OneDrive for command and control, however, it makes regular requests to predicatable paths. This detecton will alert when over 20 sequences are observed in a single day.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/CommonSecurityLog/CreepyDriveRequestSequence.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let eventsThreshold = 20;
+CommonSecurityLog
+| where isnotempty(RequestURL)
+| project TimeGenerated, RequestURL, RequestMethod, SourceIP, SourceHostName
+| evaluate sequence_detect(TimeGenerated, 5s, 8s, login=(RequestURL has "login.microsoftonline.com/consumers/oauth2/v2.0/token"), graph=(RequestURL has "graph.microsoft.com/v1.0/me/drive/"), SourceIP, SourceHostName)
+| summarize Events=count() by SourceIP, SourceHostName
+| where Events >= eventsThreshold

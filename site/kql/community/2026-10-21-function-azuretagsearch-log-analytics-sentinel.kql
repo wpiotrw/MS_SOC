@@ -1,0 +1,18 @@
+// title: Function: AzureTagSearch() · Log Analytics (Sentinel)
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: This function returns all resources based on the *SearchTag* variable that has been used as input. Note that only the resources that your account has access to are returned.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Resource%20Graph/Functions/AzureTagSearch.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let AzureTagSearch = (SearchTag: string) {
+    arg("").Resources
+    | extend StringTags = tolower(tostring(tags))
+    | extend SearchTagToLower = SearchTag
+    | where StringTags has SearchTagToLower
+    | project tags, type, name, kind, resourceGroup
+};
+AzureTagSearch("Test")

@@ -1,0 +1,20 @@
+// title: Possible webshell on the endpoint · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Attackers install web shells on servers by taking advantage of security gaps, typically vulnerabilities in web applications, in internet-facing servers. These attackers scan the internet, often using public scanning interfaces like shodan.io, to locate servers to target. They may use previously fixe
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/WebshellDetection.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let webservers = dynamic(["beasvc.exe", "coldfusion.exe", "httpd.exe", "owstimer.exe", "visualsvnserver.exe", "w3wp.exe", "tomcat", "apache2", "nginx"]);
+let linuxShells = dynamic(["/bin/bash", "/bin/sh", "python", "python3"]);
+let windowsShells = dynamic(["powershell.exe", "powershell_ise.exe", "cmd.exe"]);
+let exclusions = dynamic(["csc.exe", "php-cgi.exe", "vbc.exe", "conhost.exe"]);
+DeviceProcessEvents
+| where (InitiatingProcessParentFileName in~(webservers) or InitiatingProcessCommandLine in~(webservers))
+| where (InitiatingProcessFileName in~(windowsShells) or InitiatingProcessCommandLine has_any(linuxShells))
+| where FileName !in~ (exclusions)
+| extend Reason = iff(InitiatingProcessParentFileName in~ (webservers), "Suspicious web shell execution", "Suspicious webserver process")
+| summarize by FileName, DeviceName, Reason, InitiatingProcessParentFileName, InitiatingProcessCommandLine

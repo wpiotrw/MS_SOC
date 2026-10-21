@@ -1,0 +1,16 @@
+// title: Hunt for malicious files that have been identified by CERT-FR · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Hunt for malicious files that have been identified by CERT-FR · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/TI%20Feed%20-%20CERT-FR-MISPFeed.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CERTFRFeed = externaldata (SHA1: string, threatid :string) ["https://misp.cert.ssi.gouv.fr/feed-misp/hashes.csv"];
+DeviceFileEvents
+| join kind=inner CERTFRFeed on SHA1
+// Additional information about the hash is available by using the ThreatInfoLink field.
+| extend ThreatInfoLink = strcat("https://misp.cert.ssi.gouv.fr/feed-misp/", threatid, ".json")
+| project-reorder Timestamp, SHA1, ThreatInfoLink, DeviceName

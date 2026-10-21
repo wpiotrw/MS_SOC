@@ -1,0 +1,17 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EntraIdSignInEvents/Monitoring%20potential%20sign-In%20Attempts%20from%20Airport%20Networks.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Airport_Data = externaldata(AirportName:string, maxLatitude: decimal, minLatitude:decimal, maxLongitude:decimal, minLongitude:decimal,iata:string, country: string,maxlatindicator:int)[@"https://raw.githubusercontent.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/refs/heads/main/Security-Lists/Airport_polygon.csv"] with (format="csv", ignoreFirstRecord=True);
+EntraIdSignInEvents
+| extend Latitude0 = todecimal(Latitude), Longitude0 = todecimal(Longitude)
+| extend IntegerPart = toint(Latitude0)
+| join kind=inner   (Airport_Data) on $left.IntegerPart == $right.maxlatindicator
+| where Latitude0 > minLatitude and Latitude0 < maxLatitude and Longitude0 > minLongitude and Longitude0  < maxLongitude
+| summarize make_set(AirportName),  make_set(country),dcount(AirportName) by AccountDisplayName, ErrorCode

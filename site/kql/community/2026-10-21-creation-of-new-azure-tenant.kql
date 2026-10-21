@@ -1,0 +1,18 @@
+// title: Creation of new Azure Tenant
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Creation of new Azure Tenant
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Creation%20of%20new%20Azure%20Tenant.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where Category == "DirectoryManagement"
+| where OperationName == "Create Company"
+| where Result == "success"
+| extend AccountID = parse_json(tostring(InitiatedBy.user)).id
+| extend InitiatingIPAddress = parse_json(tostring(InitiatedBy.user)).ipAddress
+| extend InitiatingUPN = parse_json(tostring(InitiatedBy.user)).userPrincipalName
+| extend CreatedTenantID =  TargetResources[0].id

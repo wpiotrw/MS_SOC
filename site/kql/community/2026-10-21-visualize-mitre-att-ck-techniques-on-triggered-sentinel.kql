@@ -1,0 +1,25 @@
+// title: Visualize MITRE ATT&CK Techniques on triggered Sentinel incidents
+// date: 2026-10-21
+// product: Sentinel
+// tables: SecurityIncident
+// purpose: This query visualizes the incidents that have been triggered for each MITRE ATT&CK Tactic and technique. This will give an overview of the amount of techniques that have been triggered for each MITRE ATT&CK tactic. This can give an indication if specific techniques trigger a lot of incidents.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Sentinel/Visualization%20-%20IncidentsTriggeredByMitreTechniques.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SecurityIncident
+// Collect last argumtent of incident
+| summarize arg_max(TimeGenerated, *) by IncidentNumber
+| extend
+     MitreTactic = todynamic(parse_json(AdditionalData).tactics),
+     MitreTechnique = todynamic(parse_json(AdditionalData).techniques)
+// Filter only on incidents that contain Mitre Tactic and Technique
+| where MitreTactic != "[]" and MitreTechnique != "[]"
+// Add a row for each MitreTactic and MitreTechnique
+| mv-expand MitreTactic, MitreTechnique
+| extend MitreTactic = tostring(MitreTactic), MitreTechnique = tostring(MitreTechnique)
+| project MitreTactic, MitreTechnique
+// Count the total incidents by tactic and technique
+| summarize count() by MitreTactic, MitreTechnique
+| render columnchart with (title="MITRE ATT&CK Techniques triggered by Tactic", ytitle="Total Incidents")

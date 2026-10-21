@@ -1,0 +1,17 @@
+// title: Minimum characters for PIM activation justification · Microsoft Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: The following query will identify PIM activation justification, that don't meet your minimum characters requirement.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/minimum-characters-for-pim-activation-justification.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CharactersLength = 7; // Choose how many characters would be your mnimum justification
+let Timeframe = 90d; // Choose proper timeframe
+AuditLogs
+    | where TimeGenerated > ago(Timeframe)
+    | where OperationName == "Add member to role completed (PIM activation)"
+    | where strlen(ResultDescription) < CharactersLength
+    | summarize by Identity, ResultDescription

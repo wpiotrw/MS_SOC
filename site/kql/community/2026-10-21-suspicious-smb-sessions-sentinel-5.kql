@@ -1,0 +1,27 @@
+// title: Suspicious SMB Sessions · Sentinel
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: Suspicious SMB Sessions · Sentinel
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting%20Cases/Suspicious%20SMB%20Sessions.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WhitelistedAccounts = dynamic(['account1', 'account2']);
+IdentityDirectoryEvents
+| where ActionType == 'SMB file copy'
+| where not(AccountName has_any (WhitelistedAccounts))
+| extend 
+     SMBFileCopyCount = parse_json(AdditionalFields).Count,
+     FilePath = parse_json(AdditionalFields).FilePath,
+     FileName = parse_json(AdditionalFields).FileName
+| project-rename SourceDeviceName = DeviceName
+| project-reorder
+     TimeGenerated,
+     ActionType,
+     SourceDeviceName,
+     DestinationDeviceName,
+     FilePath,
+     FileName,
+     SMBFileCopyCount

@@ -1,0 +1,29 @@
+// title: Identify network shares with write permissions set to Everyone in highly exposed devices · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmSecureConfigurationAssessment
+// purpose: The following query leverages DeviceTvmSecureConfigurationAssessment table and specifically ConfigurationId "scid-4001" (Remove share write permission set to "Everyone"), a weakness which is available at the Microsoft Defender Vulnerability Management (MDVM) add-on license. Results provided include 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/MDVM/identify-network-shares-with-write-permissions-set-to-everyone-in-highly-exposed-devices.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let DevVulNetShares = DeviceTvmSecureConfigurationAssessment 
+    | where ConfigurationId has "scid-4001"
+    | where IsCompliant == "0"
+    | where IsApplicable == "1"
+    | extend Folder = parse_json(Context)[0][0]
+    | extend Path = parse_json(Context)[0][1]
+    | project DeviceId, DeviceName, OSPlatform, Folder, Path;
+let DeviceInformation = DeviceInfo
+    | where ExposureLevel has "High"
+    | distinct DeviceId, ExposureLevel;
+union DevVulNetShares, DeviceInformation
+    | summarize by DeviceId
+    | join ( DevVulNetShares ) on DeviceId
+    | join kind=leftouter ( DeviceInformation ) on DeviceId
+    | project DeviceId,
+            DeviceName,
+            OSPlatform, 
+            Folder, 
+            Path

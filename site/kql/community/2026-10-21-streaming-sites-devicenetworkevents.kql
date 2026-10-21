@@ -1,0 +1,19 @@
+// title: Streaming Sites   DeviceNetworkEvents
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Streaming Sites DeviceNetworkEvents
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Streaming%20Sites%20-%20DeviceNetworkEvents.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let StreamDomains = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/streaming-sites.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = StreamDomains
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d)
+| where RemoteUrl in~(DomainList)
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl, VT_domain
+// After Hunting visit https://github.com/jkerai1/SoftwareCertificates/tree/main/Bulk-IOC-CSVs, download the CSV and consider uploading to MDE to block all domains. Remove any results that are legitimate usage.

@@ -1,0 +1,18 @@
+// title: AADSignInEventsBeta   Suspicious User agent
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: AADSignInEventsBeta Suspicious User agent
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/AADSignInEventsBeta%20-%20Suspicious%20User%20agent.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Legacy Query, please use: https://github.com/jkerai1/KQL-Queries/blob/main/Defender/EntraIdSignInEvents%20-%20Suspicious%20User%20agent.kql
+//This query leverages AADSignInEventsBeta (XDR only table) to look for suspicious User agents
+let UserAgents = externaldata(UserAgent: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/MDA/BannedUserAgentsList.txt"] with (format="txt", ignoreFirstRecord=False); //I switched to txt after some time so ignore the inconsistency with the screenshot
+AADSignInEventsBeta
+//| where ErrorCode == 0 //Uncomment if you only want successes
+| where UserAgent has_any(UserAgents)
+| summarize count() by UserAgent //https://user-agents.net/lookup can be a good reason to lookup strings or https://useragents.io/parse
+//| summarize count() by UserAgent,AccountUpn,Application //Uncomment to see users and applications

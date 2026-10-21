@@ -1,0 +1,22 @@
+// title: Identify activities in log analytics workspace resource locks · Microsoft Sentinel
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: The following query which would identify activities related to your log analytics workspace relevant resource group locks. That way if someone decides to either edit or delete your lock, you would be able to detect it.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/Azure/identify-activities-in-log-analytics-workspace-resource-locks.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LAWResourceGroup = @"<your log analytics workspace resource group here>"; // Define Resource Group containing Sentinel's LAW
+AzureActivity
+| where ResourceGroup == LAWResourceGroup
+| where OperationNameValue startswith "MICROSOFT.AUTHORIZATION/LOCKS"
+| where ActivityStatusValue == "Success"
+| extend EventSubmissionTimeStamp = tostring(parse_json(Properties).eventSubmissionTimestamp)
+| extend EventCaller = tostring(parse_json(Properties).caller)
+| extend EventCallerIPAddress = tostring(parse_json(tostring(parse_json(Properties).httpRequest)).clientIpAddress)
+| extend EventMessage = tostring(parse_json(Properties).message)
+| extend LocksAction = extract(@"Microsoft\.Authorization\/locks\/(\w+)", 1, EventMessage)
+| extend EventRoleDefinitionId = tostring(parse_json(tostring(parse_json(tostring(parse_json(Properties).requestbody)).Properties)).RoleDefinitionId)
+| project EventSubmissionTimeStamp, EventCaller, EventCallerIPAddress, LocksAction

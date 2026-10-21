@@ -1,0 +1,15 @@
+// title: RunningRAT request parameters
+// date: 2026-10-21
+// product: Sentinel
+// tables: CommonSecurityLog
+// purpose: This detection will alert when RunningRAT URI parameters or paths are detect in an HTTP request. Id the device blocked this communication presence of this alert means the RunningRAT implant is likely still executing on the source host.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/CommonSecurityLog/CreepySnailURLParameters.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let runningRAT_parameters = dynamic(['/ui/chk', 'mactok=', 'UsRnMe=', 'IlocalP=', 'kMnD=']);
+CommonSecurityLog
+| where RequestMethod == "GET"
+| project TimeGenerated, DeviceVendor, DeviceProduct, DeviceAction, DestinationDnsDomain, DestinationIP, RequestURL, SourceIP, SourceHostName, RequestClientApplication
+| where RequestURL has_any (runningRAT_parameters)

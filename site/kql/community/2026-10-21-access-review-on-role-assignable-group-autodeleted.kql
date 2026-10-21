@@ -1,0 +1,15 @@
+// title: Access Review On Role Assignable Group AutoDeleted
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Access Review On Role Assignable Group AutoDeleted
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Access%20Review%20On%20Role%20Assignable%20Group%20AutoDeleted.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Delete access review"
+| where AdditionalDetails[0].value endswith "was auto-deleted because a group in this review was assigned to a privileged role" 
+//This happens when a role such as identity Governance Admin Tries to do an access review on a role assignable group.

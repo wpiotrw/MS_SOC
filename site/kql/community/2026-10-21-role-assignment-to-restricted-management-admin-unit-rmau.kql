@@ -1,0 +1,14 @@
+// title: Role Assignment to Restricted Management Admin Unit (RMAU)
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Role Assignment to Restricted Management Admin Unit (RMAU)
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Role%20Assignment%20to%20Restricted%20Management%20Admin%20Unit%20(RMAU).kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where OperationName == "Add member to role scoped over Restricted Management Administrative Unit"
+//TargetResources[1].id is the Object ID of the RMAU
+// The identity performing the action from a log PoV will be the MS-PIM identity as expected

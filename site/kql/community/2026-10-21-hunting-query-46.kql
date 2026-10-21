@@ -1,0 +1,14 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceFileEvents/Identifying%20File%20Exfiltration%20via%20RDP%20Sessions.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where FolderPath startswith "\\\\tsclient" and isnotempty(InitiatingProcessRemoteSessionIP)
+| extend geo_info= tostring(geo_info_from_ip_address(InitiatingProcessRemoteSessionIP).country)
+| project Timestamp,RemoteIP=InitiatingProcessRemoteSessionIP,geo_info,External_Device=InitiatingProcessRemoteSessionDeviceName,DeviceId,Connected_to=DeviceName, ActionType, FileName, FolderPath,InitiatingProcessVersionInfoFileDescription,RequestAccountName, RequestAccountDomain, IsInitiatingProcessRemoteSession, InitiatingProcessSessionId,ReportId

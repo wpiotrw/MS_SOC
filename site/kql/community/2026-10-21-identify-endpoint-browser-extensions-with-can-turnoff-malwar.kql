@@ -1,0 +1,25 @@
+// title: Identify endpoint browser extensions with “Can turnoff malware protections” permissions · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmBrowserExtensionsKB
+// purpose: The following query leverages DeviceTvmBrowserExtensions and DeviceTvmBrowserExtensionsKB tables wich are available at the Microsoft Defender Vulnerability Management (MDVM) add-on license. Results provided include endpoints which have browser extensions installed with “Can turnoff malware protectio
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/MDVM/identify-endpoint-browser-extensions-with-can-turnoff-malware-protections-permissions.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let BrowserExtMalwareProtectionKB = DeviceTvmBrowserExtensionsKB 
+    | where PermissionName contains "Can turn off malware protections"
+    | project ExtensionId, ExtensionName, ExtensionRisk, PermissionName;
+let BrowserExtMalwareProtection = DeviceTvmBrowserExtensions
+    | project ExtensionId, DeviceId;
+let DeviceInformation = DeviceInfo
+    | project DeviceId, DeviceName, Timestamp;
+union BrowserExtMalwareProtection, BrowserExtMalwareProtectionKB,
+        DeviceInformation
+    | summarize by ExtensionId, DeviceId
+    | join ( BrowserExtMalwareProtectionKB ) on ExtensionId
+    | join kind=rightouter ( BrowserExtMalwareProtection ) on ExtensionId
+    | join ( DeviceInformation ) on DeviceId
+    | summarize DeviceCount=dcount(DeviceName), arg_max(Timestamp, *) by ExtensionName, ExtensionRisk
+    | sort by DeviceCount asc, ExtensionRisk

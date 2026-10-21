@@ -1,0 +1,14 @@
+// title: KQLQuery Visits · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Visualize the visits to [KQLQuery.com](KQLQuery.com) in a columnchart.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Fun/KQLQueryVisits.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where RemoteUrl has "kqlquery.com"
+| summarize TotalDevices = dcount(DeviceId) by bin(Timestamp, 1d)
+| render columnchart with(title="kqlquery.com visits", xtitle="Date", ytitle="TotalDevices")

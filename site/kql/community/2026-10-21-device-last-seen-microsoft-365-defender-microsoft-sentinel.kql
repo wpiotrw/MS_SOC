@@ -1,0 +1,16 @@
+// title: Device last seen · Microsoft 365 Defender & Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: The following query check the "last seen" field and returnd when it was last connected.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/device-last-seen.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+| where DeviceName has "[insert devicename here]"
+| extend LastSeen = Timestamp
+| where Timestamp >= ago(1h)
+| summarize LastSeen = arg_max(Timestamp, *) by DeviceId
+| project LastSeen, DeviceId, DeviceName

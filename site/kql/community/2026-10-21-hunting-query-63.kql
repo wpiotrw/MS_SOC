@@ -1,0 +1,14 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceTvmBrowserExtensions/Classifying%20Browser%20Extension%20by%20Type%20and%20risk%20severity.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Browser_Extension_info = externaldata(browser_extension:string ,metadata_category:string ,metadata_type:string ,metadata_link:string ,metadata_comment:string)[@"https://raw.githubusercontent.com/mthcht/awesome-lists/refs/heads/main/Lists/Browser%20Extensions/browser_extensions_list.csv"] with (format="csv", ignoreFirstRecord=True);
+Browser_Extension_info
+| join kind= inner (DeviceTvmBrowserExtensions) on $left.browser_extension == $right.ExtensionName
+| project metadata_type, Extension_Group= browser_extension, Severity= metadata_link, metadata_comment, DeviceId, ExtensionDescription, ExtensionVersion

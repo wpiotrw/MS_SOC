@@ -1,0 +1,14 @@
+// title: OnionMail EmailAddresses
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: OnionMail EmailAddresses
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/OnionMail%20EmailAddresses.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let OnionMailAddresses = externaldata (onionmail: string) [@'https://raw.githubusercontent.com/jkerai1/TLD-TABL-Block/refs/heads/main/OnionMail.txt'] with (format=csv, ignoreFirstRecord=False);
+EmailEvents
+| where SenderFromDomain has_any (OnionMailAddresses) or RecipientEmailAddress has_any(OnionMailAddresses) 
+// See https://github.com/jkerai1/TLD-TABL-Block for Script to block

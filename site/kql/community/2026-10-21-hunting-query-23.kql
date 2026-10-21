@@ -1,0 +1,16 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Suspicious%20SSH%20connection%20inspections.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where ActionType has "SshConnectionInspected"
+| extend CountryIP = tostring(geo_info_from_ip_address(RemoteIP).country), server = tostring(parse_json(AdditionalFields).server)
+| where isnotempty(CountryIP)
+| where server contains "babeld" or server contains "conker"
+| project Timestamp,ActionType, RemoteIP, RemotePort,CountryIP, server, auth_success = tostring(parse_json(AdditionalFields).auth_success), client = tostring(parse_json(AdditionalFields).client)

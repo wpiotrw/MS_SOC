@@ -1,0 +1,19 @@
+// title: EntraTrace - Microsoft Graph UserAgent Matches · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: Hunts for Microsoft Graph API requests whose `UserAgent` matches an entry extracted from offensive tool profiles in [EntraTrace](https://github.com/Bert-JanP/EntraTrace). The query dynamically retrieves the [UserAgents.csv indicator list](https://github.com/Bert-JanP/EntraTrace/blob/main/Indicator%2
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Threat%20Hunting/EntraTrace%20-%20Microsoft%20Graph%20UserAgent%20Matches.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EntraTraceUserAgents = externaldata(Toolname:string,UserAgent:string)["https://raw.githubusercontent.com/Bert-JanP/EntraTrace/refs/heads/main/Indicator%20Lists/UserAgents.csv"] with (format="csv",ignoreFirstRecord=true);
+let UniqueUserAgents = EntraTraceUserAgents
+| distinct UserAgent;
+MicrosoftGraphActivityLogs
+| where UserAgent in~ (UniqueUserAgents)
+| extend ObjectId = coalesce(ServicePrincipalId, UserId)
+| summarize TotalEvents = count(), UniqueObject = dcount(ObjectId), UniqueUsers = dcount(UserId), UniqueServicePrincipals = dcount(ServicePrincipalId) by UserAgent
+| join kind=leftouter EntraTraceUserAgents on UserAgent
+| project-away *1

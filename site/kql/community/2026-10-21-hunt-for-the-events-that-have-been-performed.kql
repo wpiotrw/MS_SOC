@@ -1,0 +1,21 @@
+// title: Hunt for the events that have been performed while connected to a Anonymous Proxy · Defender XDR
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Adversaries may create a proxy to avoid direct connections to a specific environment, the proxies can be used to disguise the source of the malicious activities. In this case it contains all CloudAppEvents where a device was connected to a proxy. This query returns all activities that have been perf
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Cloud%20Apps/AnonymousProxyEvents.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where IsAnonymousProxy == 1
+| extend UserId = tostring(parse_json(RawEventData).UserId)
+| summarize
+     TotalActivities = count(),
+     ActionsPerformed = make_set(ActionType),
+     OSUsed = make_set(OSPlatform),
+     IPsUsed = make_set(IPAddress)
+     by AccountId, UserId
+| project AccountId, UserId, TotalActivities, ActionsPerformed, OSUsed, IPsUsed
+| sort by TotalActivities

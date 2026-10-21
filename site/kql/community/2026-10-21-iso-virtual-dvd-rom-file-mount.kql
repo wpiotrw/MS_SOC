@@ -1,0 +1,14 @@
+// title: ISO (Virtual DVD ROM) file mount
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: ISO (Virtual DVD ROM) file mount
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/ISO%20(Virtual%20DVD-ROM)%20file%20mount.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where ActionType == @"UsbDriveMounted"
+| where parse_json(AdditionalFields)["ProductName"] == 'Virtual DVD-ROM ' //Mounting of virtual Dvd ROM i.e. ISO files - useful for hunting Rougeplanet. 
+//Block mounting of ISO files in device Control Policies.

@@ -1,0 +1,22 @@
+// title: CloudWorker Abuse Detection
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: CloudWorker Abuse Detection
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/CloudWorker%20Abuse%20Detection.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This query detects network connections to known malicious Cloudflare workers
+let NetskopeCloudflareWorkers = externaldata(Url: string)[@"https://raw.githubusercontent.com/netskopeoss/NetskopeThreatLabsIOCs/main/Phishing/CloudflareWorkers/IOCs/README.md"] with (format="csv", ignoreFirstRecord=True);
+let CloudFlareWorkers = NetskopeCloudflareWorkers
+| where Url <> "```text" //ParseOutJunk
+| where Url <> "- **URLs**"
+| where Url <> "```"
+| extend domain = split(Url,'/')
+| extend RemoteUrl = replace_string(strcat(domain[1],domain[2]),'[.]','.')
+| distinct RemoteUrl; 
+DeviceNetworkEvents
+| where RemoteUrl in (CloudFlareWorkers) //example, use as you please 
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)

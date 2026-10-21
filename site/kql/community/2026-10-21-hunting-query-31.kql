@@ -1,0 +1,24 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/Identifying%20methods%20used%20to%20establish%20secure%20communication%20over%20insecure%20channels.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Courve_Source = externaldata(Value:int,Description:string,DTLSOK:string,Recommended:string,Reference:string)
+[@"https://www.iana.org/assignments/tls-parameters/tls-parameters-8.csv"] with (format="csv");
+DeviceNetworkEvents
+| extend AdditionalFieldsJson = parse_json(AdditionalFields)
+| extend curve = tostring(AdditionalFieldsJson.curve),
+        server_name = tostring(AdditionalFieldsJson.server_name)
+| extend RemoteIPCountry = tostring(geo_info_from_ip_address(RemoteIP).country)
+| join kind=inner (Courve_Source) on $left.curve == $right.Description
+// listing non-recommended curve versions or communications where the Datagram Transport Layer Security (DTLS) is not OK
+| where DTLSOK has "N" or Recommended has "N"
+// adding DeviceInfo table to show Device OS info
+| lookup kind=inner ( DeviceInfo) on $left.DeviceName == $right.DeviceName
+| summarize Totalconnections=count() by RemoteIP , RemoteIPCountry, OSDistribution, OSPlatform,OSVersion, ClientVersion, OSBuild, OSArchitecture,DeviceName, LocalIP,ActionType, RemotePort, Protocol, server_name,curve,DTLSOK, Recommended
+| order by Totalconnections

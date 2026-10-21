@@ -1,0 +1,17 @@
+// title: Audit Mandatory Office Days using Advanced Hunting
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Audit Mandatory Office Days using Advanced Hunting
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Audit%20Mandatory%20Office%20Days%20using%20Advanced%20Hunting.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AADSignInEventsBeta
+| where ErrorCode == "0" //Success only
+| where DeviceTrustType contains @"joined" //Corporate devices only for example, Adjust accordingly
+| extend dayofWeek = dayofweek(TimeGenerated)/1d // Monday is 1, Tuesday is 2 etc.
+| where dayofWeek == 2 or dayofWeek == 3 //Tuesday and wednesday are mandatory days for example
+| where not (ipv4_is_in_range(IPAddress, "10.0.0.0/8") or ipv4_is_in_range(IPAddress, "1.1.1.1/8") ) //add office Ranges to exclude them from the results
+| summarize count() by IPAddress, AccountUpn, City

@@ -1,0 +1,17 @@
+// title: Potential User Signed into Edge Browser From Unmanaged or Unregistered Device
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: Potential User Signed into Edge Browser From Unmanaged or Unregistered Device
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Potential%20User%20Signed%20into%20Edge%20Browser%20From%20Unmanaged%20or%20Unregistered%20Device.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where ResultType == "0" //Successes only
+| where isempty(DeviceDetail.deviceId) //ignore already joined/registered devices
+| where IncomingTokenType == "primaryRefreshToken" //Edge seems to cache a PRT
+| where DeviceDetail.browser startswith "Edge " //See if user signed into browser on non joined/registered device
+| summarize count() by UserPrincipalName //BYOD Edge sign-in is perfect use-case for Edge for Business (and MDA session proxy + MAM)

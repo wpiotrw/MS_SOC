@@ -1,0 +1,23 @@
+// title: Review recently received emails with attachments · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: The following query will list all emails received on the Timeframe specified that haven’t been blocked and have an attachment. This could help get an overview of the email attachments recently received that might rise suspicions.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/recently-received-emails-with-attachments.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromizedEmailAddress = ""; // Insert the email address of the compromised email address
+let Timeframe = 2d; // Choose the best timeframe for your investigation
+let EmailInformation = EmailEvents
+    | where RecipientEmailAddress == CompromizedEmailAddress
+    | where Timestamp > ago(Timeframe)
+    | where DeliveryAction != "Blocked"
+    | where AttachmentCount != "0"
+    | project Timestamp, NetworkMessageId, SenderMailFromAddress, SenderFromAddress, SenderDisplayName, ThreatNames;
+EmailInformation
+    | join (EmailAttachmentInfo
+    | project NetworkMessageId, FileName, FileType, FileSize
+) on NetworkMessageId
+| sort by Timestamp desc

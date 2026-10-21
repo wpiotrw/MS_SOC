@@ -1,0 +1,15 @@
+// title:  · MITRE ATT&CK Technique(s)
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose:  · MITRE ATT&CK Technique(s)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EmailEvents/Detect%20Microsoft%20OneTimePassCode%20Emails%20via%20InternetMessageId%20odspnotify%20value.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Sergio Albea  19-04-2026 ©️
+EmailEvents
+| where InternetMessageId contains "OneTimePasscode"
+| where RecipientDomain !in ('trustedomain.ch','trustedomain2.ch')
+| project InternetMessageId,Subject, RecipientDomain, RecipientEmailAddress, ReportId

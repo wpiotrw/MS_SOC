@@ -1,0 +1,18 @@
+// title: Total Succesful Sign-Ins by Operating System · Defender XDR
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: This query can be used to detect rare operating systems that are used to sign into your tenant. For example your company only has Windows company devices and you have sign ins with MacOS, those can ben intersting to investigate. This query can also be used to determine with Operting Systems need to 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/SignInsByOS.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EntraIdSignInEvents
+| where isnotempty(UserAgent)
+// Filter for successful sign ins only
+| where ErrorCode == 0
+| extend ParsedAgent = parse_json(parse_user_agent(UserAgent, "os"))
+| extend OperatingSystem = strcat(tostring(ParsedAgent.OperatingSystem.Family), " ", tostring(ParsedAgent.OperatingSystem.MajorVersion))
+| summarize Total = count() by OperatingSystem
+| sort by Total

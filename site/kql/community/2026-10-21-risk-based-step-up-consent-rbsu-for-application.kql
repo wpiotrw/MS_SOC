@@ -1,0 +1,17 @@
+// title: Risk Based Step Up Consent (RBSU) for Application
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Risk Based Step Up Consent (RBSU) for Application
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Entra/Risk%20Based%20Step%20Up%20Consent%20(RBSU)%20for%20Application.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where OperationName == "Consent to application"
+| where parse_json(tostring(TargetResources[0].modifiedProperties))[5].displayName == "ConsentAction.Reason"
+| where parse_json(tostring(TargetResources[0].modifiedProperties))[5].newValue contains "Risky application detected"
+//Risk Based Step up flow to Admin Flow. This will log even if the permissions being requested are already admin consentable.
+//https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent?WT.mc_id=MVP_473477
+//Ref: https://youtu.be/JBt-sB0qXqk?t=973

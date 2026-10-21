@@ -1,0 +1,15 @@
+// title: CA User SignIn Failures · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: This KQL query lists all users that trigger failed signin requests due to conditional access failures. This can indicate that a certain policy is not well configured and need to be changed in order for accounts to be able to access the application. On the other hand it can also be that the failed si
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/ConditionalAccess%20-%20UserFailures.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where ResultType != 0
+| where ResultDescription has "Conditional Access"
+| summarize Total = count(), ResultTypes = make_set(ResultType), ResultDescriptions = make_set(ResultDescription) by UserPrincipalName
+| sort by Total

@@ -1,0 +1,19 @@
+// title: Personal Messaging Domains   DeviceNetworkEvents
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Personal Messaging Domains DeviceNetworkEvents
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Personal%20Messaging%20Domains%20-%20DeviceNetworkEvents.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//This Query looks for the usage of chat websites. Once you have hunted considering downloading the list from https://github.com/jkerai1/SoftwareCertificates/blob/main/Bulk-IOC-CSVs/ChatSites.csv and uploading to Indicators in MDE
+let ChatIOCs = externaldata(type: string, IndicatorValue: string)[@"https://raw.githubusercontent.com/jkerai1/SoftwareCertificates/refs/heads/main/Bulk-IOC-CSVs/ChatSites.csv"] with (format="csv", ignoreFirstRecord=True);
+let DomainList = ChatIOCs
+| project IndicatorValue;
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d)
+| where RemoteUrl in~(DomainList)
+| extend VT_domain = iff(isnotempty(RemoteUrl),strcat(@"https://www.virustotal.com/gui/domain/",RemoteUrl),RemoteUrl)
+| summarize count() by RemoteUrl,VT_domain //,DeviceName, InitiatingProcessAccountUpn

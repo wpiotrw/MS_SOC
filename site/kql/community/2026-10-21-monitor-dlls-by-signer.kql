@@ -1,0 +1,16 @@
+// title: Monitor DLLs by Signer
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileCertificateInfo, DeviceImageLoadEvents
+// purpose: Monitor DLLs by Signer
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Monitor%20DLLs%20by%20Signer.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceImageLoadEvents
+| where TimeGenerated > ago(90d) //change to 30d if using advanced hunting with no sentinel
+| where FileName contains ".dll"
+| join kind=leftouter DeviceFileCertificateInfo on $left.SHA1 == $right.SHA1
+| where FileName contains ".dll"
+| summarize make_set(FileName) by Signer

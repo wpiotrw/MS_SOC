@@ -1,0 +1,18 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/EntraIdSignInEvents/Hunting%20Entra%20ID%20Sign-ins%20with%20JA4.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Sergio Albea 13-09-2026
+EntraIdSignInEvents | where Timestamp > ago(1d) and isnotempty(GatewayJA4)
+| extend JA4Parts = split(GatewayJA4, "_")
+| extend JA4_A = tostring(JA4Parts[0]), JA4_CipherHash = tostring(JA4Parts[1]), JA4_ExtensionHash = tostring(JA4Parts[2])
+| extend Transport = substring(JA4_A, 0, 1), TLSVersion = substring(JA4_A, 1, 2), SNI = substring(JA4_A, 3, 1), CipherCount = toint(substring(JA4_A, 4, 2)), ExtensionCount = toint(substring(JA4_A, 6, 2)),
+    ALPN = substring(JA4_A, 8, 2)
+| summarize SignIns = count(), Users = dcount(AccountUpn), IPs = dcount(IPAddress), Countries = dcount(Country)
+    by GatewayJA4, Transport, TLSVersion, SNI, CipherCount, ExtensionCount, ALPN, JA4_CipherHash, JA4_ExtensionHash

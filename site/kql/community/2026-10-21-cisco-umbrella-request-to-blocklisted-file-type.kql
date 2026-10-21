@@ -1,0 +1,20 @@
+// title: Cisco Umbrella - Request to blocklisted file type
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Detects request to potentially harmful file types (.ps1, .bat, .vbs, etc.).
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/CiscoUmbrella/CiscoUmbrellaRequestBlocklistedFileType.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let file_ext_blocklist = dynamic(['.ps1', '.vbs', '.bat', '.scr']);
+let lbtime = 10m;
+Cisco_Umbrella
+| where TimeGenerated > ago(lbtime)
+| where EventType == 'proxylogs'
+| where DvcAction =~ 'Allowed'
+| extend file_ext = extract(@'.*(\.\w+)$', 1, UrlOriginal)
+| extend Filename = extract(@'.*\/*\/(.*\.\w+)$', 1, UrlOriginal)
+| where file_ext in (file_ext_blocklist)
+| project TimeGenerated, SrcIpAddr, Identities, Filename

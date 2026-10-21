@@ -1,0 +1,18 @@
+// title: DNS events related to ToR proxies  (ASIM DNS Schema)
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: Identifies IP addresses performing DNS lookups associated with common ToR proxies. This analytic rule uses [ASIM](https://aka.ms/AboutASIM) and supports any built-in or custom source that supports the ASIM DNS schema
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/ASimDNS/imDNS_TorProxies.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let torProxies=dynamic(["tor2web.org", "tor2web.com", "torlink.co", "onion.to", "onion.ink", "onion.cab", "onion.nu", "onion.link", 
+"onion.it", "onion.city", "onion.direct", "onion.top", "onion.casa", "onion.plus", "onion.rip", "onion.dog", "tor2web.fi", 
+"tor2web.blutmagie.de", "onion.sh", "onion.lu", "onion.pet", "t2w.pw", "tor2web.ae.org", "tor2web.io", "tor2web.xyz", "onion.lt", 
+"s1.tor-gateways.de", "s2.tor-gateways.de", "s3.tor-gateways.de", "s4.tor-gateways.de", "s5.tor-gateways.de", "hiddenservice.net"]);
+_Im_Dns(domain_has_any=torProxies)
+| extend HostName = tostring(split(Dvc, ".")[0]), DomainIndex = toint(indexof(Dvc, '.'))
+| extend HostNameDomain = iff(DomainIndex != -1, substring(Dvc, DomainIndex + 1), Dvc)
+| project-away DomainIndex

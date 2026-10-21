@@ -1,0 +1,15 @@
+// title: Top 10 users with the most ips used to succesfully sign in · Sentinel
+// date: 2026-10-21
+// product: Entra
+// tables: SigninLogs
+// purpose: Collect the top 10 user with the most IP used to succefully sign in to a tenant. This query displays the 10 users that have used the most IP addresses so sign in. False positives can be a VPN that changes IP addresses, which results in a high number of IPs used to sign in.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/Top10UsersWithTheMostSignInIPsUsed.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| summarize IPsUsed = make_set(IPAddress), locations = make_set(LocationDetails) by Identity
+| extend CountIP = array_length(IPsUsed)
+| project-reorder CountIP
+| top 10 by CountIP

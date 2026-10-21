@@ -1,0 +1,32 @@
+// title: Conditional Access Policy Modified by New User
+// date: 2026-10-21
+// product: Entra
+// tables: AuditLogs
+// purpose: Detects a Conditional Access Policy being modified by a user who has not modified a policy in the last 14 days. A threat actor may try to modify policies to weaken the security controls in place. Investigate any change to ensure they are approved. Ref: https://docs.microsoft.com/azure/active-directo
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/AuditLogs/ConditionalAccessPolicyModifiedbyNewUser.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let known_users = (AuditLogs
+  | where TimeGenerated between(ago(14d)..ago(1d))
+  | where OperationName has "conditional access policy"
+  | where Result =~ "success"
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | summarize by InitiatingUserPrincipalName);
+  AuditLogs
+  | where TimeGenerated > ago(1d)
+  | where OperationName has "conditional access policy"
+  | where Result =~ "success"
+  | extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+  | extend InitiatingAppId = tostring(InitiatedBy.app.appId)
+  | extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+  | extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+  | extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+  | extend InitiatingIPAddress = tostring(InitiatedBy.user.ipAddress)
+  | extend CAPolicyName = tostring(TargetResources[0].displayName)
+  | where InitiatingUserPrincipalName !in (known_users)
+  | extend NewPolicyValues = TargetResources[0].modifiedProperties[0].newValue
+  | extend OldPolicyValues = TargetResources[0].modifiedProperties[0].oldValue
+  | extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+  | project-reorder TimeGenerated, OperationName, CAPolicyName, InitiatingAppId, InitiatingAppName, InitiatingAppServicePrincipalId, InitiatingUserPrincipalName, InitiatingAadUserId, InitiatingIPAddress, NewPolicyValues, OldPolicyValues

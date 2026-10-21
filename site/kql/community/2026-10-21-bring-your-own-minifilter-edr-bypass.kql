@@ -1,0 +1,26 @@
+// title: Bring Your Own Minifilter   EDR Bypass
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, DeviceRegistryEvents
+// purpose: Bring Your Own Minifilter EDR Bypass
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Bring%20Your%20Own%20Minifilter%20-%20EDR%20Bypass.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Detect Bring your own minifilter to bypass EDR.
+// by default windows can defend against this by preventing unsigned drivers however SYSTEM and stolen certificates would bypass. EDR vendors should use minifilters with a high altitude
+let Lookbackdays = 90d;
+let BringYourOwnMiniFilter_bceditProcs = DeviceProcessEvents
+| where TimeGenerated > ago(Lookbackdays)
+| where ProcessCommandLine contains "becedit.exe -set loadoptions DISABLE_INTEGRITY_CHECKS" or ProcessCommandLine contains "bcedit.exe -set TESTSIGNINGON";
+let BringYourOwnMiniFilter_ServiceCreation = DeviceProcessEvents
+| where TimeGenerated > ago(Lookbackdays)
+| where ProcessCommandLine contains @"sc create nullfilter type=filesys start=system binPath=C:\m.sys";
+let BringYourOwnMiniFilter_registryKeychange = DeviceRegistryEvents
+| where TimeGenerated > ago(Lookbackdays)
+| where ActionType == "RegistryKeyCreated" or ActionType == "RegistryValueSet"
+| where (RegistryKey startswith @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\" and RegistryKey endswith @"\Instances\AltitudeAndFlags") or RegistryKey == @"HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows NT\Driver Signing";
+BringYourOwnMiniFilter_bceditProcs
+| union BringYourOwnMiniFilter_ServiceCreation
+| union BringYourOwnMiniFilter_registryKeychange

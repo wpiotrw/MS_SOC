@@ -1,0 +1,18 @@
+// title: WMIC Antivirus Discovery · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Adversaries can use WMIC to run queries to detect which antivirus solution has been installed on the device. This is usefull for an adversary, because they know what the maturity of the solution is. More advanced groups might even test there malware samples in a contained environment, before running
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Endpoint/WMICAntivirusDiscovery.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+// Filter only on WMIC executions
+| where FileName =~ "WMIC.exe"
+// Only serach for AntiVirusProduct lists in the commandline, actual malicious activity could look like cmd.exe WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List
+| where ProcessCommandLine contains "AntiVirusProduct"
+| project Timestamp, DeviceName, ActionType, FolderPath, ProcessCommandLine, InitiatingProcessCommandLine, AccountUpn, InitiatingProcessFileName
+// Known Applications to trigger antiviruscheck, would be better to filter on hash but that needs to be done for your environment.
+| where not(InitiatingProcessFileName in~('pycharm64.exe', 'pycharm.exe', 'idea64.exe', 'rider64.exe'))

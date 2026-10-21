@@ -1,0 +1,18 @@
+// title: Group Membership Report · Defender XDR
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityInfo
+// purpose: This query can be used to draw an report of the Entra ID group memberships of all users. Note: if a users has more than 1000 memberships remove the 1000 limitation in the make_set to display all groupnames.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Azure%20Active%20Directory/GroupMembershipReport.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TimeFrame = 30d;
+IdentityInfo
+| where Timestamp > ago(TimeFrame)
+| summarize arg_max(TimeGenerated, *) by AccountObjectId
+| mv-expand GroupMembership
+| where isnotempty(GroupMembership)
+| summarize TotalMemberships = dcount(tostring(GroupMembership)), MemberOf = make_set(tostring(GroupMembership), 1000) by AccountObjectId, AccountDisplayName, AccountUPN
+| extend ReportDate = now()

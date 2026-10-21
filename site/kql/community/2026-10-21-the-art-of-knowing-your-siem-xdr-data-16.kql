@@ -1,0 +1,16 @@
+// title: The art of Knowing Your SIEM & XDR Data · Defender XDR
+// date: 2026-10-21
+// product: 
+// tables: 
+// purpose: The art of Knowing Your SIEM & XDR Data · Defender XDR
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Learning/TheArtOfKnowingYourData.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+union withsource=TableName *
+| where Timestamp > ago(90d) 
+| extend Action = coalesce(Operation, OperationName, OperationNameValue, ActionType) 
+| where isnotempty(Action) 
+| distinct TableName, Action
+| sort by TableName

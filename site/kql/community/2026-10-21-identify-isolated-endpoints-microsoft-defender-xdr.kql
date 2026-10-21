@@ -1,0 +1,18 @@
+// title: Identify isolated endpoints · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: The following query will return endpoints which have been isolated by looking into relevant registry modifications.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/03.SecOps/identify-isolated-endpoints.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+| where ActionType == "RegistryValueSet"
+| where RegistryKey == @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Advanced Threat Protection"
+| where RegistryValueType == "Dword"
+| where RegistryValueName == "DisableEnterpriseAuthProxyValueToRestoreAfterIsolation"
+| where RegistryValueData == "1"
+| where PreviousRegistryValueName == "DisableEnterpriseAuthProxyValueToRestoreAfterIsolation"
+| project Timestamp, DeviceId, DeviceName

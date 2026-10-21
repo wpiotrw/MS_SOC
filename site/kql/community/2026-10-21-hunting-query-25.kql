@@ -1,0 +1,33 @@
+// title: Hunting query
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/SMB%20&%20NTLM%20Negotiation%20to%20Unknown%20Remote%20IPs.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| extend af = parse_json(AdditionalFields)
+| extend SignatureName = tostring(af.SignatureName)
+| extend SigMatched = tostring(af.SignatureMatchedContent)
+| extend SamplePacket = tostring(af.SamplePacketContent)
+| where isnotempty(RemoteIP)
+ and (RemotePort in (139, 445) or LocalPort in(139,445) or SigMatched contains "%FESMB" or SigMatched contains "%FFSMB" or SigMatched contains "NTLMSSP" or SamplePacket contains "NTLMSSP")
+| where not(ipv4_is_private(RemoteIP)) and isnotempty(SignatureName)  // only public IPv4
+| extend geo_ip = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where isnotempty(geo_ip)
+| extend Combined = strcat(SigMatched, " ", SamplePacket)
+| extend MsgTypeNum = case(
+ Combined contains "%01%00%00%00" or Combined contains "\x01\x00\x00\x00", 1,
+ Combined contains "%02%00%00%00" or Combined contains "\x02\x00\x00\x00", 2,
+ Combined contains "%03%00%00%00" or Combined contains "\x03\x00\x00\x00", 3,
+ 0)
+| extend MsgType = case(
+ MsgTypeNum == 1, "Type 1 = client initiates (Negotiate)",
+ MsgTypeNum == 2, "Type 2 = server responds with Challenge",
+ MsgTypeNum == 3, "Type 3 = client sends response with credentials",
+ "Unknown / not extracted")
+| summarize make_set(RemotePort),Distinct_ports=dcount(RemotePort), count() by DeviceName,LocalPort, InitiatingProcessFileName,geo_ip,RemoteIP, SignatureName,MsgType, ActionType
+| order by Distinct_ports

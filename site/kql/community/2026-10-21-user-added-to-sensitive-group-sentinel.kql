@@ -1,0 +1,18 @@
+// title: User added to sensitive group · Sentinel
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityDirectoryEvents
+// purpose: In order to gain high priviliges an adversary can add themselfs to groups with high priviliges. Those priviliges allow the adversary to perform almost every action in your environment. This query is currently only used to detect three different sensitive groups, however other (custom) groups can be 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Defender%20For%20Identity/UserAddedToSensitiveGroup.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SensitiveGroups = dynamic(['Domain Admins', 'Enterprise Admins', 'Exchange Admins']); // Add your sensitive groups to this list
+IdentityDirectoryEvents
+| where TimeGenerated > ago(30d)
+| where ActionType == "Group Membership changed"
+| extend Group = parse_json(AdditionalFields).['TO.GROUP']
+| extend GroupAdditionInitiatedBy = parse_json(AdditionalFields).['ACTOR.ACCOUNT']
+| project-reorder Group, GroupAdditionInitiatedBy
+| where Group has_any (SensitiveGroups)

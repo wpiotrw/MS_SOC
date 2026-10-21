@@ -1,0 +1,26 @@
+// title: Endpoints accessing .zip or .mov websites · Microsoft Sentinel
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Google recently announced a series of new gTLDs available for registration amongst them, .zip and .mov. While Google saw an opportunity in providing public access to these domains, defenders are already worried that they could be used for malicious purposes. The following queries ~~might score high 
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/network-zipandmov-access.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+// Define the time you are interested to look into
+| where TimeGenerated > ago(1d)
+// Remove the line below in case you want to look into both successful and unsuccessful events
+| where ActionType == "ConnectionSuccess"
+// The line below refers to connections made when requesting a .zip through file explorer
+// | where InitiatingProcessFileName == @"svchost.exe"
+// Define RemoteURL
+| where RemoteUrl startswith "https://" or RemoteUrl startswith "http://"
+// Define domain as a string that includes a domain exclusively leaving outside .zip or .mov accessed files for download
+| extend domain = tostring(extract("https?://([^:/]*)(:?)(/|$)", 1, RemoteUrl)) 
+// String should exclusively look for .zip or .mov TLDs
+| where domain endswith ".zip" or domain endswith ".mov"
+| project Timestamp, DeviceName, ActionType, RemoteUrl
+// Sort by newsest events first
+| sort by Timestamp desc

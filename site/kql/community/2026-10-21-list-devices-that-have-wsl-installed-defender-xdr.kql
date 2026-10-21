@@ -1,0 +1,17 @@
+// title: List devices that have WSL installed · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceProcessEvents
+// purpose: Windows Subsystem for Linux may be used by adversaries to perform actions as root, or to download files. This query lists all devices that have WSL installed and it was active in the last 30 days. This may give an indidcation about the usage in your environment. Microsoft recommends listing WSL, if 
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/WSLInstallations.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WSLDevices = DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName == "wsl.exe"
+| distinct DeviceId;
+DeviceInfo
+| where DeviceId in (WSLDevices)
+| summarize arg_max(Timestamp, *) by DeviceId

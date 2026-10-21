@@ -1,0 +1,20 @@
+// title: Most Triggered Mitre Techniques · Defender XDR
+// date: 2026-10-21
+// product: Defender XDR
+// tables: AlertInfo
+// purpose: The results of this query provide insight in the top 10 MITRE ATT&CK Techniques that have been triggered in the past 10 days. This can indicate that adversaries use specific techniques to gain access to your environment. On the otherhand if this information is combined with FP/BP statistics it can g
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Security%20Operations/Statistics%20-%20MostTriggeredMitreTechniques.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = 7d;
+AlertInfo
+| where Timestamp > ago(timeframe)
+// Collect the last entry of each alert
+| summarize arg_max(Timestamp, *) by AlertId
+// Ensure that events with multiple techniques can be counted
+| extend MitreTechnique = todynamic(AttackTechniques)
+| mv-expand MitreTechnique
+| summarize TriggerCount = count() by tostring(MitreTechnique)
+| top 10 by TriggerCount

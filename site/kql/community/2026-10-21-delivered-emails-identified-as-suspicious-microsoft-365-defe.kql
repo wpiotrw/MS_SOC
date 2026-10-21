@@ -1,0 +1,23 @@
+// title: Delivered emails identified as suspicious · Microsoft 365 Defender
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents, EmailPostDeliveryEvents
+// purpose: The following query will present email details that have been identified as suspicious after delivery.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/02.ThreatDetection/delivered-emails-identified-as-suspicious.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromizedEmailAddress = ""; // Insert the email address of the compromised email address
+let Timeframe = 2d; // Choose the best timeframe for your investigation
+let EmailInformation = EmailEvents
+    | where RecipientEmailAddress == CompromizedEmailAddress
+    | where Timestamp > ago(Timeframe)
+    | where DeliveryAction != "Blocked"
+    | project Timestamp, NetworkMessageId, SenderMailFromAddress, SenderFromAddress, SenderDisplayName, ThreatNames;
+EmailInformation
+    | join (EmailPostDeliveryEvents 
+    | where ThreatTypes != ""
+    | project Timestamp, NetworkMessageId, Action, ActionType, ActionTrigger, ActionResult, DeliveryLocation, ThreatTypes, DetectionMethods
+) on NetworkMessageId
+| sort by Timestamp desc

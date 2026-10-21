@@ -1,0 +1,16 @@
+// title: End of Support software used · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareInventory
+// purpose: End of Support software used
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/Active-EOS-Software.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSoftwareInventory
+| where EndOfSupportStatus == "EOS Version" or EndOfSupportStatus == 
+"EOS Software"
+| summarize TotalDevices = count(), EOS_Devices = make_set(DeviceName) 
+by SoftwareName, SoftwareVersion
+| sort by TotalDevices

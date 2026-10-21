@@ -1,0 +1,17 @@
+// title: AzureActivity Compromised Account · Defender XDR
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: This query list all the actions (ACTION, DELETE, WRITE, etc) by a compromised account.
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/DFIR/Azure%20-%20AzureActivityCompromisedAccount.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedAccountUPN = "test@test.com";
+let SearchWindow = 48h; //Customizable h = hours, d = days
+AzureActivity
+| where Caller =~ CompromisedAccountUPN
+| where TimeGenerated > ago(SearchWindow)
+| summarize TotalEvents = count() by OperationNameValue
+| sort by TotalEvents desc

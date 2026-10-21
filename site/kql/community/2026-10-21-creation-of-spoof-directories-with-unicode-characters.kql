@@ -1,0 +1,51 @@
+// title: Creation of spoof directories with Unicode characters
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Creation of spoof directories with Unicode characters
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Creation%20of%20spoof%20directories%20with%20Unicode%20characters.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Custom detection for the creation of spoof directories with Unicode characters
+//Source: https://rogierdijkman.medium.com/detecting-edr-bypass-using-path-masquerading-fcfeb7339751
+  let unicodeWhitespace = dynamic([
+      "\u2000"
+      , "\u2001"
+      , "\u2002"
+      , "\u2003"
+      , "\u2004"
+      , "\u2005"
+      , "\u2006"
+      , "\u2007"
+      , "\u2008"
+      , "\u2009"
+      , "\u200A"
+  ]);
+  let suspiciousProcesses = dynamic([
+      "powershell.exe"
+      , "cmd.exe"
+      , "mshta.exe"
+      , "wscript.exe"
+      , "cscript.exe"
+  ]);
+  DeviceFileEvents
+  //| where Timestamp >= ago(1h)
+  // Exclude system-level processes
+  | where InitiatingProcessAccountName != "SYSTEM"
+  // Filter for known suspicious processes
+  | where InitiatingProcessFileName in (suspiciousProcesses)
+  | where FolderPath has_any (unicodeWhitespace)
+  | extend AccountDomain = tostring(split(InitiatingProcessAccountName, "\\")[0]), AccountName = tostring(split(InitiatingProcessAccountName, "\\")[1])
+  // Exclude NT AUTHORITY domain
+  | where AccountDomain != "NT AUTHORITY"
+  | project 
+    Timestamp
+    , DeviceName
+    , InitiatingProcessAccountName
+    , InitiatingProcessAccountUpn
+    , FolderPath
+    , InitiatingProcessFileName
+    , InitiatingProcessCommandLine
+  | order by Timestamp

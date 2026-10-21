@@ -1,0 +1,15 @@
+// title: Crowdstrike suspicious domains · EmailEvents
+// date: 2026-10-21
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Following Crowdstrike incident that paralyzed IT systems throughout the world, threat actors commenced phishing attacks towards organizations impersonating Crowdstrike support. The following query will take into account a curated hutning list from publick reports, looking for suspicious domains.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/crowdstrike-suspicious-domains.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ThreatIntelFeed = externaldata(Domain: string)[@"https://raw.githubusercontent.com/cyb3rmik3/Hunting-Lists/main/crowdstrike-phishing-domains.csv"] with (format="csv", ignoreFirstRecord=True)
+| project Domain = tolower(Domain);
+EmailEvents
+| join kind=inner ThreatIntelFeed on $left.SenderMailFromDomain == $right.Domain
+| join EmailEvents on NetworkMessageId

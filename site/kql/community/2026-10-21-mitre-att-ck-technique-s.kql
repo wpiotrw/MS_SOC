@@ -1,0 +1,18 @@
+// title:  · MITRE ATT&CK Technique(s)
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose:  · MITRE ATT&CK Technique(s)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/Microsoft_DefenderXDR/DeviceNetworkEvents/[IC]%20-Tor%20Exit%20Browser%20hunting%20based%20on%20Device%20Events.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Author Sergio Albea 18-11-2025
+let TorExitNodesHistoric = externaldata(IP:string, ActiveDates:string, Source:string) ['https://firewalliplists.gypthecat.com/lists/kusto/kusto-tor-exit-historic.json.zip'] with(format="multijson"); 
+TorExitNodesHistoric 
+| extend ActiveDates = split(ActiveDates, ','), Country = tostring(geo_info_from_ip_address(IP)['country'])
+| summarize ActiveDays = array_length(make_set(ActiveDates)) by Country,IP,Source
+| join kind=inner (DeviceNetworkEvents) on $left.IP == $right.RemoteIP
+| summarize  by Source,DeviceName,TOR_Exit_Node= LocalIP,Country,ActiveDays,RemoteUrl, InitiatingProcessAccountName, InitiatingProcessVersionInfoProductName, ActionType, Timestamp,ReportId
+| order by ActiveDays

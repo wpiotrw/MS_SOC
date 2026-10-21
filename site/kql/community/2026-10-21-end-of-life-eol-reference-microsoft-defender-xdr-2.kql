@@ -1,0 +1,16 @@
+// title: End-of-Life (EOL) reference → Microsoft Defender XDR mapping · 2. Exact match on CPE (most precise)
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareInventory
+// purpose: End-of-Life (EOL) reference → Microsoft Defender XDR mapping · 2. Exact match on CPE (most precise)
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/8008f4eade1b28bef406611896ace73ebec6548d/EOL_Products/README.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSoftwareInventory
+| where isnotempty(ProductCodeCpe) and ProductCodeCpe != "not available"
+| extend cpe_key = strcat(split(ProductCodeCpe, ":")[3], ":", split(ProductCodeCpe, ":")[4])
+| join kind=inner (
+    eol | extend cpe_key = strcat(defender_vendor, ":", defender_softwarename)
+) on cpe_key

@@ -1,0 +1,17 @@
+// title: Use Exposure Management to chart User Groups with Local Admin privileges · Microsoft Defender XDR
+// date: 2026-10-21
+// product: Defender XDR
+// tables: ExposureGraphEdges
+// purpose: Exposure Management offers the capacity to build a map of User Groups that have Local Admin rights on your devices. This could allow identify misconfigurations on privileges assigned to User Groups. You may choose to opt out spcific User Groups which are expected to have local admnin privileges.
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/6327d5a78455432e0dbd32cb5c8c281e6f7fda05/01.ThreatHunting/use-exposure-management-to-chart-user-groups-with-local-admin-privileges.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//let PriveledgedGroups = dynamic(['', '', '' ]); // Add User Groups that are legitemately allowed to have local admin priveledges on devices
+ExposureGraphEdges
+| where EdgeLabel == @"can authenticate to"
+| where SourceNodeLabel == @"group"
+//| where SourceNodeName !in~ (PriveledgedGroups)
+| where parse_json(EdgeProperties).rawData.userRightsOnDevice.isLocalAdmin == 'true'
+| summarize by SourceNodeName, TargetNodeName

@@ -1,0 +1,24 @@
+// title: VM Creation using Azure Activity
+// date: 2026-10-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: VM Creation using Azure Activity
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/VM%20Creation%20using%20Azure%20Activity.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Could be useful as part of rogue VM creation hunting, could add queries to check the tags and ensure is compliant with Org Tagging
+let operationList = dynamic(["microsoft.compute/virtualmachines/write", "microsoft.resources/deployments/write"]);
+//
+AzureActivity
+| where TimeGenerated > ago(90d)
+| where OperationNameValue in~ (operationList)
+| where ActivitySubstatusValue == "Created"
+| extend ProvisioningState = parse_json(tostring(parse_json(tostring(parse_json(Properties).responseBody)).properties)).provisioningState,
+VM_ID = parse_json(tostring(parse_json(tostring(parse_json(Properties).responseBody)).properties)).vmId,
+ImageReference_Offer = parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(Properties_d.responseBody)).properties)).storageProfile)).imageReference)).offer,
+ImageReference_Exact_version = parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(Properties_d.responseBody)).properties)).storageProfile)).imageReference)).exactVersion,
+ImageReference_SKU = parse_json(tostring(parse_json(tostring(parse_json(tostring(parse_json(tostring(Properties_d.responseBody)).properties)).storageProfile)).imageReference)).sku
+//Only search for Windows Server
+| where ImageReference_Offer == "WindowsServer"

@@ -1,0 +1,18 @@
+// title: Potential Entra Admin Synced back On premise
+// date: 2026-10-21
+// product: Defender for Identity
+// tables: IdentityInfo
+// purpose: Potential Entra Admin Synced back On premise
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Potential%20Entra%20Admin%20Synced%20back%20On-premise.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+IdentityInfo //Advanced Hunting table but can be ingested in sentinel
+| where TimeGenerated > ago(30d) //Will capture user if any change occured in last 30 days to user
+| where (isnotempty(AccountDomain))
+| where (isnotempty(tostring(AssignedRoles)))
+| where tostring(AssignedRoles) contains "admin"
+| where IdentityEnvironment == @"Hybrid"
+| sort by TimeGenerated desc
+| summarize by AccountUpn, OnPremObjectId, tostring(AssignedRoles), AccountDomain

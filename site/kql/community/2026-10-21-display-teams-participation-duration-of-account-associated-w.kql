@@ -1,0 +1,20 @@
+// title: Display Teams participation duration of account associated with a suspicious IP address
+// date: 2026-10-21
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Display Teams participation duration of account associated with a suspicious IP address
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Office%20365/Display%20Teams%20participation%20duration%20of%20account%20associated%20with%20a%20suspicious%20IP%20address.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query is from CISA Playbook https://www.cisa.gov/sites/default/files/2025-01/microsoft-expanded-cloud-logs-implementation-playbook-508c.pdf
+CloudAppEvents
+| where ActionType == 'MeetingParticipantDetail'
+| extend clientip = tostring(RawEventData.ClientIP)
+| extend meeting_id = tostring(RawEventData.MeetingDetailId)
+| extend join_time = todatetime(RawEventData.JoinTime)
+| extend leave_time = todatetime(RawEventData.LeaveTime)
+| extend min_duration = datetime_diff('minute',leave_time,join_time)
+| where clientip == 'x.x.x.x' //Replace with suspicious IP
+| project AccountDisplayName, meeting_id, join_time,leave_time,min_duration

@@ -1,0 +1,14 @@
+// title: Defender IOC Warning Bypass or Monitor Mode MDA bypass
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Defender IOC Warning Bypass or Monitor Mode MDA bypass
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Defender/Defender%20IOC%20Warning%20Bypass%20or%20Monitor%20Mode%20MDA%20bypass.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where TimeGenerated > ago(90d)
+| where ActionType  == "SmartScreenUserOverride" or (ActionType == "NetworkProtectionUserBypassEvent") // logs when users click past a warning given by MDE. This can be from MDE IOCs or MDA which creates MDE IOCs in the background
+| project-reorder RemoteUrl, InitiatingProcessAccountUpn, DeviceName,MachineGroup, ActionType,InitiatingProcessFileName

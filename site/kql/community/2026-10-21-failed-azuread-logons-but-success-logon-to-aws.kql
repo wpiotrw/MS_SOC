@@ -1,0 +1,43 @@
+// title: Failed AzureAD logons but success logon to AWS Console
+// date: 2026-10-21
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Identifies a list of IP addresses with a minimum number (defualt of 5) of failed logon attempts to Microsoft Entra ID. Uses that list to identify any successful AWS Console logons from these IPs within the same timeframe.
+// source: https://github.com/Azure/Azure-Sentinel/blob/9d1bb4c84ba7f3a0e525ba3674dc8314fbce6e97/Detections/MultipleDataSources/AADAWSConsoleCorrelation.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Adjust this threshold to fit your environment
+let signin_threshold = 5;
+//Make a list of IPs with AAD signin failures above our threshold
+let aadFunc = (tableName:string){
+let Suspicious_signins =
+table(tableName)
+| where ResultType !in ("0", "50125", "50140")
+| where IPAddress !in ("127.0.0.1", "::1")
+| summarize count() by IPAddress
+| where count_ >  signin_threshold
+| summarize make_set(IPAddress);
+Suspicious_signins
+};
+let aadSignin = aadFunc("SigninLogs");
+let aadNonInt = aadFunc("AADNonInteractiveUserSignInLogs");
+let Suspicious_signins =
+union isfuzzy=true aadSignin, aadNonInt
+| summarize make_set(set_IPAddress);
+//See if any of those IPs have sucessfully logged into the AWS console
+AWSCloudTrail
+| where EventName =~ "ConsoleLogin"
+| extend LoginResult = tostring(parse_json(ResponseElements).ConsoleLogin)
+| where LoginResult =~ "Success"
+| where SourceIpAddress in (Suspicious_signins)
+| extend Reason = "Multiple failed AAD logins from IP address"
+| extend MFAUsed = tostring(parse_json(AdditionalEventData).MFAUsed)
+| extend UserIdentityArn = iif(isempty(UserIdentityArn), tostring(parse_json(Resources)[0].ARN), UserIdentityArn)
+| extend UserName = tostring(split(UserIdentityArn, '/')[-1])
+| extend AccountName = case( UserIdentityPrincipalid == "Anonymous", "Anonymous", isempty(UserIdentityUserName), UserName, UserIdentityUserName)
+| extend AccountName = iif(AccountName contains "@", tostring(split(AccountName, '@', 0)[0]), AccountName),
+  AccountUPNSuffix = iif(AccountName contains "@", tostring(split(AccountName, '@', 1)[0]), "")
+| summarize StartTime = min(TimeGenerated), EndTime = max(TimeGenerated) by Reason, LoginResult, EventTypeName, UserIdentityType, RecipientAccountId, AccountName, AccountUPNSuffix, AWSRegion, SourceIpAddress, UserAgent, MFAUsed
+| extend timestamp = StartTime

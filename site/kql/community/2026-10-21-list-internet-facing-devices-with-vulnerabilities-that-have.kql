@@ -1,0 +1,25 @@
+// title: List internet facing devices with vulnerabilities that have an exploit available · Defender XDR
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmSoftwareVulnerabilities, DeviceTvmSoftwareVulnerabilitiesKB
+// purpose: This query list all internet facing devices that have a vulnerability that is exploitable. What exploitable means is that a vulnerability has been found and a PoC/Exploit for this vulnerability is available online. MDE classifies internet facing as a device that has a public IP address, depending on
+// source: https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/65d11700e1cb878403d87312acdd6b9a8dd622c1/Vulnerability%20Management/InternetFacingDevicesWithAvailableExploits.md
+// kind: repo
+// author: Bert-Jan Pals
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Collect all internet facing devices
+let InternetFacingDevices = DeviceInfo
+| summarize arg_max(Timestamp, *) by DeviceId
+| where IsInternetFacing
+| distinct DeviceId;
+// Collect all vulnerabilities for wich an exploit is available
+let ExploitableVulnerabilities = DeviceTvmSoftwareVulnerabilitiesKB
+| where IsExploitAvailable == 1
+| project CveId;
+DeviceTvmSoftwareVulnerabilities
+| where CveId in~ (ExploitableVulnerabilities)
+| where DeviceId in~ (InternetFacingDevices)
+// Summarize results to get the stastics for each device
+| summarize TotalExploitableVulnerabilities = dcount(CveId), CveIds = make_set(CveId), SoftwareNames = make_set(SoftwareName), RecommendedSecurityUpdates = make_set(RecommendedSecurityUpdate) by DeviceName
+| sort by TotalExploitableVulnerabilities
