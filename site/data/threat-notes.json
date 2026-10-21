@@ -163,6 +163,143 @@
      "date": "2026-09-25"
     }
    ]
+  },
+  {
+   "id": "devops-sspr-kubernetes-pipeline-2026-09",
+   "title": "Beyond source code: a self-service password reset on one account led to Azure DevOps pipelines and Kubernetes credentials",
+   "match": [
+    "Beyond source code",
+    "Storm-3068"
+   ],
+   "areas": [
+    "Identity attacks",
+    "Roles & privilege"
+   ],
+   "status": "resolved",
+   "updated": "2026-10-21",
+   "by": "morning routine",
+   "summary": "Microsoft's Detection and Response Team described an intrusion that began with a single user account taken over through self-service password reset (SSPR). The attacker registered their own authentication methods, then used legitimate admin tools and scripts to enumerate Azure DevOps repositories, projects and pipelines. A malicious pipeline harvested Kubernetes credentials (kubeconfig files); pipeline scripts were then changed to install the Atera remote management agent and the Chisel tunnelling tool. The page attributes the activity to Storm-3068 and gives no attack dates and no IOC values. The case shows how an identity weakness spreads when development platforms, pipelines and cloud infrastructure are tightly connected.",
+   "timeline": [
+    {
+     "date": "2026-09-29",
+     "text": "Microsoft publishes the incident-response write-up; the page gives no dates for the intrusion itself.",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "rootCause": "Initial access was abuse of self-service password reset on a user account, followed by registration of attacker-controlled authentication methods. The impact grew because the account's permissions reached Azure DevOps pipelines authorised for more than 50 resources. The page does not state a formal root cause.",
+   "attacker": [
+    "Took over a user account through self-service password reset and registered their own authentication methods.",
+    "Enumerated Azure DevOps repositories, projects, pipelines and deployment environments with legitimate tools and scripts.",
+    "Created a pipeline that deployed a kube agent and collected kubeconfig files at scale.",
+    "Modified pipeline scripts to install the Atera agent and download the Chisel tunnelling utility; Chisel opened a reverse tunnel to an external IP address (value not published).",
+    "Committed seven stolen kubeconfig files to a repository."
+   ],
+   "iocs": [],
+   "remediation": [
+    {
+     "text": "Monitor password reset activity for unusual patterns, such as repeated attempts or activity across multiple users.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Limit privileged accounts' exposure to self-service password reset and require phishing-resistant MFA.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Require approvals for code changes, enforce branch protection and restrict direct commits to critical branches.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Control who can create, modify or run build and deployment pipelines; apply least privilege across identities, development platforms and cloud resources.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Review recently registered authentication methods on accounts that completed a password reset, and review Azure DevOps audit logs for new or changed pipelines.",
+     "from": "ours"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft incident-response write-up of the intrusion, with mitigations",
+     "title": "Beyond source code: A path to the keys to the kingdom",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
+     "date": "2026-09-29"
+    }
+   ],
+   "links": [
+    {
+     "text": "Beyond source code: A path to the keys to the kingdom",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
+     "date": "2026-09-29"
+    }
+   ]
+  },
+  {
+   "id": "appx-webhost-oauth-token-theft-2026-09",
+   "title": "Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)",
+   "match": [
+    "Front Door",
+    "AppX web host"
+   ],
+   "areas": [
+    "Apps & OAuth",
+    "Identity attacks"
+   ],
+   "status": "active",
+   "updated": "2026-10-21",
+   "by": "morning routine",
+   "summary": "Huntress researcher Andrew Schwartz showed that a sideloaded AppX package can use Microsoft-signed AppX web hosts such as WWAHost.exe to show a genuine Microsoft sign-in, complete MFA and hand the authorization code to attacker JavaScript, which exchanges it for access and refresh tokens. It is post-compromise: it needs code execution in the user's session and Developer Mode or an enterprise sideloading policy. It was proven end to end on Windows 11 24H2 against a test tenant with MFA. Huntress names no threat actor and discloses no attacker infrastructure, so this is a technique, not an observed campaign. The Entra sign-in looks like a normal Office sign-in with no risk flags.",
+   "timeline": [
+    {
+     "date": "2026-09-23",
+     "text": "Huntress publishes the research; the page gives no date for the testing itself.",
+     "src": "Huntress"
+    }
+   ],
+   "rootCause": "A design issue in the shared WinRT activation layer: a sideloaded package with WindowsRuntimeAccess=\"all\" in ContentUriRules gives remote JavaScript the WinRT surface, with no caller validation, and the legacy WebAuthenticationBroker is reachable from inside the host. Developer Mode or the AllowAllTrustedApps policy is the gating condition.",
+   "attacker": [
+    "Registers a package with Add-AppxPackage -Register as a standard user; the manifest points ContentUriRules at an attacker server.",
+    "Calls WebAuthenticationBroker.authenticateAsync() with Microsoft Office's first-party client ID and the urn:ietf:wg:oauth:2.0:oob redirect URI.",
+    "The user sees a real Microsoft login with no address bar and completes MFA.",
+    "Receives the authorization code through the broker callback, exchanges it and exfiltrates the access and refresh tokens."
+   ],
+   "iocs": [
+    "User agent MSAppHost/3.0 (Edge/18) reaching non-Microsoft destinations (broker leg: MSAuthHost/1.0)",
+    "AppXDeploymentServer/Operational Event ID 400 (successful register)",
+    "Add-AppxPackage -Register from paths outside C:\\Program Files\\WindowsApps"
+   ],
+   "remediation": [
+    {
+     "text": "Deploy the Sigma proxy rule on user agent MSAppHost/3.0 with a Microsoft domain allow-list tuned to your environment.",
+     "from": "source",
+     "src": "Huntress"
+    },
+    {
+     "text": "Audit Developer Mode across the fleet and disable 'Allow all trusted apps to install' by GPO.",
+     "from": "source",
+     "src": "Huntress"
+    },
+    {
+     "text": "Require compliant or managed devices for token issuance with Conditional Access and pair with Token Protection where available.",
+     "from": "source",
+     "src": "Huntress"
+    },
+    {
+     "text": "Shorten refresh-token lifetimes and enable Continuous Access Evaluation.",
+     "from": "source",
+     "src": "Huntress"
+    }
+   ],
+   "links": [
+    {
+     "text": "OAuth Token Theft Through Microsoft's Front Door",
+     "url": "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door",
+     "date": "2026-09-23"
+    }
+   ]
   }
  ]
 }
