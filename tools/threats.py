@@ -65,6 +65,10 @@ AREAS = [
     ("Vulnerabilities", ["cve-", "vulnerab", "zero-day", "0-day", "exploit", "patch", "flaw"]),
     ("Hunting (KQL)", []),     # CLAUDE.md 5eu: set when the article carries Kusto queries
 ]
+M365SCOPE = ["entra", "azure ad", "azure active directory", "microsoft 365", "m365", "office 365", "o365", "exchange", "sharepoint",
+             "onedrive", "teams", "outlook", "copilot", "intune", "purview", "oauth", "conditional access", "service principal",
+             "microsoft graph", "graph api", "app registration", "enterprise app", "multi-tenant", "multitenant", "cross-tenant",
+             "adfs", "ad fs", "entra connect", "passkey", "mfa", "device code", "aitm", "token theft", "consent phishing"]
 KQL_PAGES = 25      # article pages read per run to look for Kusto queries the feed text does not carry
 KQL_KEEP = 365      # days a found query stays in site/data/kql-found.json
 STOP = set("""about above after again against also among another attack attacks attacker attackers azure being
@@ -225,7 +229,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     seen_before = {a["link"]: a for a in prev.get("articles") or []}
     cut = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
     arts, msitems, kev, srep = [], [], [], []
-    kq, budget = [], [KQL_PAGES]
+    kq, budget, feed_links = [], [KQL_PAGES], set()
     for s in srcs:
         rep = {"name": s["Name"], "site": s.get("Site") or s["SourceURL"], "feed": s["SourceURL"], "tier": s.get("Tier", ""),
                "kind": s.get("Kind", "rss"), "state": "ok", "read": 0, "kept": 0, "newest": None, "error": ""}
@@ -248,6 +252,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             rep["read"] = len(items)
             rep["newest"] = max([i["published"] or "" for i in items] or [""]) or None
             for i in items:
+                feed_links.add(i["link"])
                 if (i["published"] or "9999")[:10] < cut:
                     continue
                 if s.get("Microsoft"):
@@ -273,14 +278,14 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 elif not checked:
                     checked = stamp if found else ""
                 prevk = 0 if found else int(old.get("kql") or 0)   # found on an earlier run (the page is read once)
-                if prevk:
+                # 5ew: KQL makes an INCIDENT only when the article reports an attack, a compromise or a vulnerability -
+                # a product post or a lab walkthrough with queries ("Building a CCF connector") goes to the KQL library only
+                tl = (" " + i["title"] + " " + i["summary"][:900] + " ").lower()
+                if (found or prevk) and has(tl, ATTACK) and not MARKETING.search(i["title"]):
                     keep = True
                     if "Hunting (KQL)" not in areas:
                         areas = areas + ["Hunting (KQL)"]
-                if found:
-                    keep = True
-                    if "Hunting (KQL)" not in areas:
-                        areas = areas + ["Hunting (KQL)"]
+                if found:   # every query goes to the KQL library; the article is an incident only when kept
                     for qi, q in enumerate(found):
                         kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
                                        author=i.get("author") or "", published=(i["published"] or "")[:10]))
@@ -301,7 +306,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     # an article read before and missing from today's feed stays (a feed shows its newest 10-50 posts)
     have = {a["link"] for a in arts}
     for a in prev.get("articles") or []:
-        if a["link"] not in have and (a.get("published") or a.get("firstSeen") or "")[:10] >= cut:
+        # 5ew: only an article that LEFT its feed is carried; one still in the feed was judged again today
+        if a["link"] not in have and a["link"] not in feed_links and (a.get("published") or a.get("firstSeen") or "")[:10] >= cut:
             if "names" not in a:   # the saved file drops `names`; a carried article needs them for the story grouping
                 a["cves"], a["storms"], a["names"] = entities(a.get("title") or "", a.get("summary") or "")
             arts.append(a)
@@ -396,6 +402,10 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             "score": max(a["score"] for a in L) + 2 * len({a["source"] for a in L}) + (6 if note else 0),
             "articlesBefore": len(ps.get("articles") or []) if ps else 0,
             "kql": sum(a.get("kql") or 0 for a in L),
+            # CLAUDE.md 5ew (owner 22 X: "Microsoft 365 / Entra / Teams first, then the others - they are another kind and
+            # have KQL"): m365 = the story is about Entra or a Microsoft 365 workload; other = anything else (a PHP flaw,
+            # a GitHub enumeration) kept for its hunting queries
+            "scope": "m365" if note or any(has((" " + a["title"] + " " + a.get("summary", "")[:900] + " ").lower(), M365SCOPE) for a in L) else "other",
             # the curated text travels with the story, so the page reads one file
             "notes": {k: v for k, v in note.items() if k not in ("id", "match", "title", "areas", "microsoft")} if note else None,
         })
