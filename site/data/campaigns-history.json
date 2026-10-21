@@ -5071,14 +5071,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-19",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-20",
 "text":"August 1, 2026."
 },
@@ -5128,6 +5120,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-20",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-21",
 "text":"August 1, 2026."
 },
 {
@@ -5593,7 +5593,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"early February 2026."
 },
 {
@@ -5601,7 +5601,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"February 2027."
 },
 {
@@ -6130,6 +6130,52 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-mc1519861":{
+"firstSeen":"2026-10-21",
+"lastSeen":"2026-10-21",
+"name":"Copilot Prioritize feature will be retired",
+"status":"Active",
+"members":[
+"MC1519861"
+],
+"log":[],
+"milestones":{
+"MC1519861|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Outlook: Copilot Prioritize feature will be retired"
+},
+"MC1519861|starting we ll roll back the feature and remove the correspo#0":{
+"date":"2026-10-26",
+"label":"26 Oct 2026",
+"text":"Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort."
+},
+"MC1519861|we will begin this change on and expect to complete by mid#0":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"We will begin this change on October 26, 2026, and expect to complete by mid-November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861":{
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861",
+"source":"Message Center",
+"id":"MC1519861",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-21"
+}
+},
+"final":"2026-11-15",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1519861"
 ]
 },
 "c-item-mc1515940":{
@@ -8946,7 +8992,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8954,7 +9000,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12389,6 +12435,16 @@
 "title":"MC1518233: Copilot Studio - Enhanced support for Copilot Chat agents",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1518233"
+},
+{
+"day":"2026-10-21",
+"cid":"c-mc1519861",
+"type":"new",
+"name":"Copilot Prioritize feature will be retired",
+"ctype":"Retirement",
+"tech":"Exchange",
+"next":"26 Oct 2026",
+"text":"We're retiring the Copilot Prioritize feature in Outlook."
 }
 ],
 "archive":{
