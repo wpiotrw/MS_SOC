@@ -281,8 +281,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                     keep = True
                     if "Hunting (KQL)" not in areas:
                         areas = areas + ["Hunting (KQL)"]
-                    for q in found:
-                        kq.append(dict(q, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
+                    for qi, q in enumerate(found):
+                        kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
                                        author=i.get("author") or "", published=(i["published"] or "")[:10]))
                 if not keep:
                     continue
