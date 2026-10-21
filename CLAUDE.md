@@ -46494,6 +46494,10 @@ Zbudowane:
   wyszukiwanie, filtry produkt / tabela / autor, wiersz +/− otwiera pelne zapytanie z pliku, Copy, link do oryginalu,
   licencja, przejscie do incydentu); Threat Research — karta „Hunting queries (KQL)" ma zapytania analizy i, osobno,
   „Published by the sources" z autorem i linkiem.
+- **Naprawione przy okazji (21 X): Threat Research stal od 19 X 20:40 UTC.** `threats.py` padal na kazdym przebiegu z
+  `KeyError: 'names'` (log „threats: skipped - 'names'", workflow zielony, bo krok ma `|| true`): artykul przeniesiony z
+  poprzedniego pliku, gdy wypadl z kanalu, nie ma pola `names` (zapis je usuwa), a grupowanie w historie go wymaga.
+  Teraz przeniesiony artykul dostaje `names`, `cves`, `storms` od nowa z tytulu i streszczenia.
 - detections.ai: publicznego API ani opisu MCP nie znaleziono (21 X); polaczenie przez konektor claude.ai
   (Customize → Connectors → Add custom connector; logowanie w oknie dostawcy) albo — jesli dadza token API — sekret
   repozytorium GitHub, nigdy w czacie ani w pliku.

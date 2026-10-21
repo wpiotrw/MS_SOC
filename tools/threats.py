@@ -297,6 +297,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     have = {a["link"] for a in arts}
     for a in prev.get("articles") or []:
         if a["link"] not in have and (a.get("published") or a.get("firstSeen") or "")[:10] >= cut:
+            if "names" not in a:   # the saved file drops `names`; a carried article needs them for the story grouping
+                a["cves"], a["storms"], a["names"] = entities(a.get("title") or "", a.get("summary") or "")
             arts.append(a)
     arts.sort(key=lambda a: a.get("published") or a["firstSeen"], reverse=True)
 
