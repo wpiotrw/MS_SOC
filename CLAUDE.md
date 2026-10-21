@@ -30627,6 +30627,7 @@ odtad CZTERNASCIE (4-17).**
       seg.appendChild(b);
     });
     box.setAttribute("data-n14", String(size(model("14"))));
+    (window.__socMs = window.__socMs || {})[which] = model;   /* §5er: the Overview lists exactly what it counts */
     render();
     panel.insertBefore(box, panel.firstChild);
   }
@@ -31453,7 +31454,110 @@ odtad CZTERNASCIE (4-17).**
     var gb = document.querySelector('details.mschg[data-mschg="graph"]'), rb = document.querySelector('details.mschg[data-mschg="roles"]');
     var ms14 = ms.filter(function (x) { return x.age >= 0 && x.age < 14; });
     var nMs = gb || rb ? (gb && +gb.getAttribute("data-n14") || 0) + (rb && +rb.getAttribute("data-n14") || 0) : ms14.length;
-    if (ms14.length) {
+    /* §5er (21 X 2026, owner on the phone: "the Overview top sentence says 2 changed in Graph API + first-party apps,
+       but what it lists below does not reflect it at all - do the other sentences do that too? and when you say Graph
+       API and first-party apps changed, separate them nicely in the same section, a rounded frame"). Measured: the
+       headline counted 2 changes since the 20/10 brief (two IdentityRiskyAgent permissions gained an endpoint), the list
+       under it was the week's ranking (17/10 and 19/10) and named neither. Now ONE source per number: each surface -
+       Graph API, Roles, First-party apps - is its own rounded box, its number IS the list under it ("Since dd/mm"),
+       and the week's most important changes follow under their own label, never mixed with it. The lists join the
+       "What Microsoft changed" block of the tab (window.__socMs, the same window model) with what our tenant showed
+       (window.__socIdent events), so a role our tenant saw change today is counted under Roles, not only told
+       under a technology sentence (it was: "Defender: Security Administrator gained actions" while Roles said 0). */
+    var identShown = [];
+    function identSentence() {
+      if (!since || !(window.__socMs || IDW)) return false;
+      var MS = window.__socMs || {}, I = (IDW && IDW.events) ? IDW.events() : [];
+      var VB = { grantable: "became grantable", removed: "removed from the service", "new": "new permission", consent: "consent or privilege level changed",
+        changed: "changed in the service", "actions-added": "gained actions", "actions-removed": "lost actions", added: "new built-in role",
+        privileged: "now marked privileged", condition: "condition changed" };
+      var FW = { added: "new Microsoft application", renamed: "renamed", redirects: "redirect URIs changed", scopes: "delegated scopes changed", foci: "family of client IDs changed" };
+      function inW(d, w) { return w === "since" ? d > since && d <= today : days(d, today) >= 0 && days(d, today) < +w; }
+      function list(surf, w) {
+        var L = [], seen = {};
+        function add(name, what, go) { name = String(name || "").trim(); if (!name || seen[name]) return; seen[name] = 1; L.push({ name: name, what: what, go: go }); }
+        if (surf !== "fpa" && MS[surf]) {
+          var m = MS[surf](w);
+          m.perms.concat(m.eps).forEach(function (r) {
+            var gl = surf === "graph" && GDW && GDW.latest ? GDW.latest(r.name, w === "since" ? since : "") : "";
+            add(r.name, gl || [r.labels.join(", "), r.text].filter(Boolean).join(" — "), function () {
+              if (surf === "roles" && IDW && IDW.openRole) IDW.openRole(r.name);
+              else if (surf === "graph" && IDW && IDW.openPerm && !/^\//.test(r.name)) IDW.openPerm(r.name);
+              else goWin(surf, w); });
+          });
+        }
+        if (surf !== "fpa") I.forEach(function (e) {
+          if (!e || !e.day || !inW(String(e.day).slice(0, 10), w) || e.change === "documented" || e.change === "elsewhere") return;
+          if (e.surface !== (surf === "graph" ? "permission" : "role")) return;
+          var what = (VB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + fmt(String(e.tenant).slice(0, 10)) : "") +
+            (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text) : "");
+          add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); });
+        });
+        if (surf === "fpa") ((st.fpa || {}).chg || []).forEach(function (x) {
+          if (x && x.d && inW(x.d, w)) add(x.n || x.id, (FW[x.t] || x.t) + " · " + fmt(x.d), function () { goWin("fpa", w === "since" ? "7" : w); });
+        });
+        return L;
+      }
+      var SURF = [["graph", "Graph API", "14", "14 days", "permission"], ["roles", "Roles", "14", "14 days", "role"], ["fpa", "First-party apps", "7", "7 days", "app"]];
+      var week = [];
+      try { week = IDW && IDW.rank ? IDW.rank(7, 40, true) : []; } catch (e) { week = []; }
+      var total = 0, grantable = false, wrap = el("span", "s5er-wrap"), grid = el("span", "s5er-grid");
+      SURF.forEach(function (S) {
+        var L = list(S[0], "since"), W = list(S[0], S[2]); total += L.length;
+        if (L.some(function (x) { return /grantable/.test(x.what); })) grantable = true;
+        var box = el("span", "s5er-box" + (L.length ? " s5er-hot" : ""));
+        var hd = el("button", "s5er-bh"); hd.type = "button"; hd.title = "Open What Microsoft changed in " + S[1];
+        hd.appendChild(el("span", "s5er-lab", S[1])); hd.appendChild(el("span", "s5er-n", String(L.length)));
+        hd.appendChild(el("span", "s5er-sub", "since " + fmt(since) + " · " + W.length + " in " + S[3]));
+        hd.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(S[0], L.length && S[0] !== "fpa" ? "since" : S[2]); });
+        box.appendChild(hd);
+        if (L.length) {
+          var ul = el("span", "s5er-l");
+          /* one Microsoft change often lands on several roles or permissions at once (21 X: the same three
+             conditionalAccessPolicyPlans actions on three roles) - one row names them all, the change said once */
+          var byW = {}, rows = [];
+          L.forEach(function (x) { identShown.push({ name: x.name });
+            var k = x.what || x.name; if (!byW[k]) { byW[k] = { what: x.what, xs: [] }; rows.push(byW[k]); } byW[k].xs.push(x); });
+          rows.slice(0, 4).forEach(function (g) {
+            var r = el("span", "s5er-r"), nms = el("span", "s5er-nms");
+            g.xs.forEach(function (x) { var b = el("button", "s5er-nm", x.name); b.type = "button"; b.title = "Open " + x.name;
+              b.addEventListener("click", function (ev) { ev.stopPropagation(); x.go(); }); nms.appendChild(b); });
+            r.appendChild(nms);
+            var wt = String(g.what || ""); if (wt.length > 170) wt = wt.slice(0, 160).replace(/[\s,]+\S*$/, "") + " \u2026";
+            if (wt) { var ws = el("span", "s5er-w", wt); ws.title = g.what; r.appendChild(ws); }
+            ul.appendChild(r);
+          });
+          box.appendChild(ul);
+          if (rows.length > 4) { var nMore = rows.slice(4).reduce(function (a, g) { return a + g.xs.length; }, 0);
+            var mb = el("button", "s5er-more", "and " + nMore + " more →"); mb.type = "button";
+            mb.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(S[0], S[0] === "fpa" ? "7" : "since"); }); box.appendChild(mb); }
+        } else box.appendChild(el("span", "s5er-none", "Nothing since the " + fmt(since) + " brief."));
+        /* the week, under its own label: the most important changes of 7 days on this surface that the list above does not hold */
+        var shown = {}; L.forEach(function (x) { shown[x.name] = 1; });
+        var wk = week.filter(function (x) { return (x.surface || "permission") === S[4] && !shown[x.name] && x.change !== "documented"; }).slice(0, 2);
+        if (wk.length) {
+          box.appendChild(el("span", "s5er-wh", "Most important this week"));
+          wk.forEach(function (x) {
+            identShown.push({ name: x.name });
+            var r = el("span", "s5er-r s5er-old"), b = el("button", "s5er-nm", x.name); b.type = "button";
+            b.addEventListener("click", function (ev) { ev.stopPropagation(); if (x.go) x.go(); else if (GDW && GDW.open) GDW.open(x.name); });
+            var tg = String(x.tag || "").split(" · ").filter(function (t) { return !/seen in our tenant/.test(t); }).join(" · ");
+            r.appendChild(b); r.appendChild(el("span", "s5er-w", [tg, firstSentence(String(x.text || "").split(" — ")[0])].filter(Boolean).join(" · "))); box.appendChild(r);
+          });
+        }
+        grid.appendChild(box);
+      });
+      wrap.appendChild(el("span", "s5er-t", total ? total + " change" + (total === 1 ? "" : "s") + " in Graph API, roles and first-party apps since the " + fmt(since) + " brief"
+        : "Nothing moved in Graph API, roles or first-party apps since the " + fmt(since) + " brief"));
+      wrap.appendChild(grid);
+      if (grantable) wrap.appendChild(el("span", "s5bk-gf", "A permission that became grantable needs admin consent — Hunting & actions has the query for who grants it."));
+      sentence("Identity surface:", wrap);
+      return true;
+    }
+    var identDone = false;
+    if (!Y) try { identDone = identSentence(); } catch (e) { identDone = false; if (window.console) console.error("[5er identity]", e); }
+    if (identDone) { /* §5er */ }
+    else if (ms14.length) {
       /* §5dn (12 X 2026, owner: "the sentence says first-party apps changed, I click and land in Graph API; the
          First-party apps tab says nothing changed"). The sentence stays one (Identity surface, §5cy) but every
          part is its OWN link, and every number is the one the place it opens shows: Graph API and roles open
@@ -31610,7 +31714,7 @@ odtad CZTERNASCIE (4-17).**
     });
     /* §5cy (10 X 2026): a Graph permission or an Entra role change speaks for its technology too
        (CopilotCostManagement -> Copilot), ahead of the other entries of that technology */
-    if (IDW && IDW.pool) try { IDW.pool(7, typeof gtop !== "undefined" ? gtop : []).forEach(function (x) {
+    if (IDW && IDW.pool) try { IDW.pool(7, (typeof gtop !== "undefined" && gtop ? gtop : []).concat(identShown)).forEach(function (x) {
       if (BYID[x.id]) return; BYID[x.id] = { kind: "ident", go: x.go }; if (x.fresh) pool.unshift(x); else pool.push(x); }); } catch (e) { if (window.console) console.error("[5cy pool]", e); }
     /* §5cn: Graph API already has its sentence above (number 3) */
     pool = pool.filter(function (x) { return x.tech && BYID[x.id] && x.tech !== "Graph API"; });
@@ -33904,6 +34008,14 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---------- 4. for the Overview (§5bq): the heavy ones, newest first ---------- */
   window.__socGD = {
+    /* §5er: what Microsoft's newest commit after `from` did to one permission, in words, with its first endpoint */
+    latest: function (name, from) {
+      var r = ROWS.filter(function (x) { return x.name === name && (!from || x.e.date > from); })
+        .sort(function (a, b) { return b.e.date.localeCompare(a.e.date); })[0];
+      if (!r) return "";
+      var f = (r.e.ea || [])[0] || (r.e.er || [])[0];
+      return summary(r.e) + (f ? ": " + f[0] + " " + f[1] : "") + " · Microsoft commit " + r.e.sha + " · " + dm(r.e.date);
+    },
     recent: function (days) {
       if (!GD) return [];
       var day = ST.briefDate || GD.readOn || "";
@@ -42276,12 +42388,13 @@ odtad CZTERNASCIE (4-17).**
     var b = el("span", "s5bk-it s5bk-idl");
     b.appendChild(el("span", "s5bk-itt", evT.length ? plural(evT.length, "change") + " in Maester and Tenable today" : "Nothing moved in Maester or Tenable today"));
     var g = el("span", "s5bk-idg");
-    function tile(lab, nS, nW, fn) { var t = el("button", "s5bk-idtile" + (nS ? " s5bk-idhot" : "")); t.type = "button"; t.title = "Open " + lab;
-      t.appendChild(el("span", "s5bk-idl1", lab)); t.appendChild(el("span", "s5bk-idn", String(nS))); t.appendChild(el("span", "s5bk-idl2", "today · " + dmy(day).slice(0, 5)));
+    /* §5er: the "Last 14 days" tile said "today · 21/10" under a 14-day number - each tile names its own window */
+    function tile(lab, nS, nW, fn, win) { var t = el("button", "s5bk-idtile" + (nS ? " s5bk-idhot" : "")); t.type = "button"; t.title = "Open " + lab;
+      t.appendChild(el("span", "s5bk-idl1", lab)); t.appendChild(el("span", "s5bk-idn", String(nS))); t.appendChild(el("span", "s5bk-idl2", win || "today · " + dmy(day).slice(0, 5)));
       t.appendChild(el("span", "s5bk-idl3", nW)); t.addEventListener("click", function (ev) { ev.stopPropagation(); fn(); }); g.appendChild(t); }
     tile("Maester tests", mT.length, n((D.counts || {}).tests) + " tests · " + versionText().split(",")[0], function () { if (mT.length === 1) openEv(mT[0]); else go(mT.length ? "history" : "tests"); });
     tile("Tenable audits", tT.length, n((D.counts || {}).tenableCurrent) + " newest files", function () { if (tT.length === 1) openEv(tT[0]); else go(tT.length ? "history" : "tenable"); });
-    tile("Last 14 days", e14, "new, changed, removed", function () { go("history"); });
+    tile("Last 14 days", e14, "new, changed, removed", function () { go("history"); }, "14 days to " + dmy(day).slice(0, 5));
     b.appendChild(g); li.appendChild(b);
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { return x.classList.contains("s5cu-sen"); })[0];
     if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
@@ -43178,6 +43291,28 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-gt{font-size:12px;color:var(--faint)}
 .s5bk-gd{display:block}
 .s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}
+/* §5er: Identity surface - one rounded box per surface; its number is the list under it */
+.s5er-wrap{display:flex;flex-direction:column;gap:8px}
+.s5er-t{font-weight:650;font-size:15.5px;line-height:1.35;color:var(--text)}
+.s5er-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px}
+.s5er-box{display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+.s5er-hot{border-color:var(--accent)}
+.s5er-bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;background:none;border:0;padding:0 0 6px;margin:0;border-bottom:1px solid var(--border-soft);font:inherit;color:var(--text);text-align:left;cursor:pointer}
+.s5er-lab{flex:1 1 100%;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.s5er-n{font-size:26px;font-weight:700;line-height:1.05;color:var(--muted)}
+.s5er-hot .s5er-n{color:var(--accent)}
+.s5er-sub{font-size:12px;color:var(--muted)}
+.s5er-bh:hover .s5er-lab,.s5er-bh:focus-visible .s5er-lab{color:var(--accent)}
+.s5er-l{display:flex;flex-direction:column;gap:6px}
+.s5er-r{display:flex;flex-direction:column;gap:1px;min-width:0}
+.s5er-nms{display:flex;flex-wrap:wrap;gap:0 12px}
+.s5er-nm{font:600 13px/1.35 var(--mono);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer;overflow-wrap:anywhere}
+.s5er-nm:hover,.s5er-nm:focus-visible{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.s5er-w{font-size:12.5px;line-height:1.45;color:var(--muted);overflow-wrap:anywhere}
+.s5er-none{font-size:13px;color:var(--muted)}
+.s5er-more{align-self:flex-start;background:none;border:0;padding:0;font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);cursor:pointer}
+.s5er-wh{margin-top:4px;padding-top:6px;border-top:1px dashed var(--border);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.s5er-old .s5er-nm{font-weight:500;color:var(--muted)}
 /* §5cu: Campaigns — list, card, Overview card (layout A: text colour for names, accent arrow for links,
    red only within 7 days, amber only within 30) */
 .s5cu{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
@@ -45885,6 +46020,31 @@ Budowa (kod, nie model):
   „what changed RRRR-MM-DD" (wiek strony, §5bz) sa kopiowane z `full.html` do aplikacji (`carry()`); stare kotwice
   (`#mcenter`, `#fpa`, `#community`, `#added`, `#dwin`, `#blogsdiff`, `#docsdiff`) otwieraja odpowiednia zakladke.
 - `feed_refresh.py` podpisuje (byline, JSON-LD, RSS) `full.html` i `print.html`, nigdy strony ze znacznikiem aplikacji.
+
+## 5er. OVERVIEW „IDENTITY SURFACE": LICZBA = LISTA POD NIA, RAMKA NA KAZDA POWIERZCHNIE, 21 X 2026
+
+Wlasciciel 21 X 19:43 (telefon, zrzut): *„w zakladce Overview podajesz informacje w sekcji top sentences, ale widac, ze
+czesc z nich sie nie zgadza — piszesz, ze zmienione 2 + 1 app, ale tresc tego nie odzwierciedla. Czy inne zdania tez tak
+maja? Jak piszesz, ze zmienilo sie API i first-party app, nalezaloby to ladnie od siebie oddzielic w tej samej sekcji —
+zaokraglona ramka?"*
+
+Zmierzone na stronie 21 X: naglowek liczyl **2 zmiany od briefu 20/10** (dwa uprawnienia IdentityRiskyAgent dostaly
+endpoint `GET /identityprotection/riskyagents/summary`, commit 4158f29), a lista pod nim to byl ranking TYGODNIA
+(17/10, 19/10) — zadnej z tych dwoch zmian. Do tego zdanie „Defender" mowilo „Security Administrator gained actions ·
+seen in our tenant 21 Oct", a kafel Roles pokazywal **0** od 20/10: kafel czytal tylko katalog briefu, nie dzierzawe.
+
+Teraz (SCRIPT 17, `identSentence()`): trzy zaokraglone ramki — Graph API, Roles, First-party apps. W kazdej liczba
+„since dd/mm" **jest dlugoscia listy pod nia**: blok „What Microsoft changed" zakladki (`window.__socMs[which](okno)`, ten
+sam model okna) + to, co pokazala nasza dzierzawa (`window.__socIdent.events()`, bez „documented" i „elsewhere"), dla
+aplikacji `state.fpa.chg` z `d` > poprzedni brief. Zmiana Graph opisana przez `__socGD.latest()` (np. „+1 endpoint: GET
+/identityprotection/riskyagents/summary · Microsoft commit 4158f29"). Ta sama zmiana na kilku rolach/uprawnieniach =
+jeden wiersz z wszystkimi nazwami. Pod kreska „Most important this week" — najwyzej 2 z rankingu tygodnia na tej
+powierzchni, ktorych lista wyzej nie ma; nigdy nie mieszane z liczba. Nazwy pokazane w ramkach nie wracaja w zdaniach
+technologii (`IDW.pool(…, identShown)`). Wczorajsze zdania (build(Y)) zostaja na starym kodzie.
+
+Inne zdania sprawdzone tego dnia: Most urgent, Biggest new item („one of 23 new"), Component versions, News of the day,
+zdania technologii — liczba i tresc zgodne. Baselines: kafel „Last 14 days" mial podpis „today · 21/10" pod liczba z 14
+dni — teraz „14 days to 21/10". Campaigns: „4 campaign milestones" i lista ucieta wielokropkiem po trzecim — zgodne.
 
 ## 6. Kontrakt w stronie
 
