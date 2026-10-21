@@ -4781,6 +4781,25 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-why{margin:0 14px 8px;font-size:13px;color:var(--muted);line-height:1.45}
 .s5el-np{color:var(--muted)}
 .s5ei-tile.s5el-tpre{border-left:4px solid var(--border)}
+/* §5ew: Threat Research day block - two framed groups, tiles that stand out */
+.s5ew-grp{margin:4px 14px 14px;padding:12px 14px 14px;border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:14px;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.s5ew-grp.s5ew-other{border-left-color:var(--muted)}
+.s5ew-gh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.s5ew-gt{font-size:16px;font-weight:700;color:var(--text);margin-right:4px}
+.s5ew-c{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid var(--border);color:var(--muted)}
+.s5ew-c-active{color:var(--bad);border-color:var(--bad)}.s5ew-c-new,.s5ew-c-lastnew{color:var(--accent);border-color:var(--accent)}.s5ew-c-upd,.s5ew-c-lastupd{color:var(--warn);border-color:var(--warn)}
+.s5ew-gs{margin:4px 0 10px;font-size:12.5px;color:var(--muted)}
+.s5ew-grid{padding:0;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.s5ew-tile{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 13px 11px;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.s5ew-tile .s5ei-tt{font-size:14px;font-weight:700}
+.s5ew-tile.s5ew-act{border-left:5px solid var(--bad);background:color-mix(in srgb,var(--bad) 6%,var(--bg))}
+.s5ew-act .s5ei-kind{color:var(--bad);border-color:var(--bad)}
+.s5ew-tile.s5ew-late{border-left-color:var(--muted)}.s5ew-late .s5ei-kind{color:var(--muted);border-color:var(--border)}
+.s5ew-kql{color:var(--ok);border-color:var(--ok)}
+.s5ew-sum{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--text)}
+.s5ew-last{margin:8px 14px 2px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.s5ew-all{margin-top:10px}
+@media (max-width:760px){.s5ew-grp{margin:4px 0 12px;padding:10px 8px 10px 10px}.s5ew-grid{grid-template-columns:minmax(0,1fr)}}
 .s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .s5el-rhead,.s5el-rh{display:grid;grid-template-columns:24px 112px minmax(0,1fr) 96px 96px 96px 70px;gap:10px;align-items:center;padding:8px 12px}
 .s5el-rhead{background:var(--surface);font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
@@ -26568,51 +26587,88 @@ IdentityDirectoryEvents
     var arts = (D.articles || []).filter(function (a) { var d = day(a.firstSeen); return d >= lo && (hi ? d < hi : true); });
     var b = el("details", "s5ei-day"); b.open = !!open;
     var sm = el("summary"); sm.appendChild(el("span", "s5ei-t", lab + " · " + dm(lo) + " → " + dm(hi || DAY)));
-    sm.appendChild(el("span", "s5ei-n s5ei-nn", nw.length + " new"));
+    var lateN = nw.filter(function (x) { return x.s.firstReported < addDays(lo, -14); }).length;   /* §5ew */
+    sm.appendChild(el("span", "s5ei-n s5ei-nn", (nw.length - lateN) + " new"));
     sm.appendChild(el("span", "s5ei-n s5ei-nc", up.length + " updated"));
+    if (lateN) sm.appendChild(el("span", "s5ei-n s5el-np", lateN + " newly tracked"));
     if (pre.length) sm.appendChild(el("span", "s5ei-n s5el-np", pre.length + " new to this portal"));
     sm.appendChild(el("span", "s5ei-s", arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in"));
     b.appendChild(sm);
+    /* §5ew (22 X 2026, owner: "the incidents found since the previous brief should be grouped into the Microsoft 365 ones
+       and the others, which are on the list because they are another type and have KQL; why is ConnectWise not in this
+       list but below? For us the most important are M365 / Entra / Teams, then the rest; the rounded frames are hardly
+       visible, everything merges again - the earlier artifacts showed the ConnectWise incident more nicely"). The block
+       is now two framed groups - Microsoft 365 & Entra first, then Other incidents with hunting queries (KQL) - and an
+       incident still under investigation (analysis status "active", ConnectWise) stays at the top of its group as
+       STILL ACTIVE even on a day without a new article. An incident first seen now but reported more than 14 days
+       before is NEWLY TRACKED, not NEW (a source added on 21 X brought its back catalogue). Tiles carry the status of
+       the analysis, the number of KQL queries and the first sentence of the analysis. */
+    function act(s) { return day(s.lastUpdate) > day(s.firstSeen) ? day(s.lastUpdate) : day(s.firstSeen); }
     function tileOf(s, k) {
-      var c = el("li", "s5ei-tile " + (k === "new" || k === "lastnew" ? "s5ei-new" : k === "upd" || k === "lastupd" ? "s5ei-chg" : "s5el-tpre")), top = el("div", "s5ei-top");
-      top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED" : k === "lastnew" ? "FIRST SEEN " + dm(day(s.firstSeen)) : k === "lastupd" ? "UPDATED " + dm(day(s.lastUpdate)) : "REPORTED " + dm(s.firstReported)));
-      if (k !== "pre") top.appendChild(el("span", "s5ei-flag s5ei-date", "reported " + dm(s.firstReported)));
-      if (s.notes && s.notes.status) top.appendChild(el("span", "s5ei-flag s5et-stat s5et-" + s.notes.status, s.notes.status));
+      var cls = k === "new" || k === "lastnew" ? "s5ei-new" : k === "upd" || k === "lastupd" ? "s5ei-chg" : k === "active" ? "s5ew-act" : k === "late" ? "s5ei-new s5ew-late" : "s5el-tpre";
+      var c = el("li", "s5ei-tile s5ew-tile " + cls), top = el("div", "s5ei-top");
+      top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED " + dm(day(s.lastUpdate)) : k === "active" ? "STILL ACTIVE" : k === "late" ? "NEWLY TRACKED" :
+        k === "lastnew" ? "FIRST SEEN " + dm(day(s.firstSeen)) : k === "lastupd" ? "UPDATED " + dm(day(s.lastUpdate)) : "REPORTED " + dm(s.firstReported)));
+      if (s.notes && s.notes.status && k !== "active") top.appendChild(el("span", "s5ei-flag s5et-stat s5et-" + s.notes.status, s.notes.status));
+      if (s.kql) top.appendChild(el("span", "s5ei-flag s5ew-kql", s.kql + " KQL"));
+      top.appendChild(el("span", "s5ei-flag s5ei-date", "reported " + dm(s.firstReported)));
       c.appendChild(top);
       var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
-      c.appendChild(el("p", "s5ei-meta", (s.microsoft.status === "described" ? "Microsoft has described it" : "Microsoft has not described it yet") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
+      var sum = s.notes && s.notes.summary ? String(s.notes.summary) : "";
+      if (sum) { var fs = /^(.{40,220}?[.!?])(\s|$)/.exec(sum); c.appendChild(el("p", "s5ew-sum", fs ? fs[1] : sum.slice(0, 200) + "\u2026")); }
+      c.appendChild(el("p", "s5ei-meta", [s.areas.filter(function (a) { return a !== "Hunting (KQL)"; }).join(" \u00b7 "),
+        s.microsoft.status === "described" ? "Microsoft has described it" : "Microsoft has not described it yet",
+        s.sources.length + " source" + (s.sources.length === 1 ? "" : "s"), s.curated ? "analysis written" : ""].filter(Boolean).join(" \u00b7 ")));
       return c;
     }
+    var SCOPES = [["m365", "Microsoft 365 & Entra", "Identity, applications and the Microsoft 365 workloads — read these first"],
+      ["other", "Other incidents with hunting queries (KQL)", "Outside Microsoft 365 — on the list because the sources published queries you can run in Defender or Sentinel"]];
+    function groups(items, host) {
+      SCOPES.forEach(function (g) {
+        var its = items.filter(function (x) { return (x.s.scope || "m365") === g[0]; }); if (!its.length) return;
+        var box = el("section", "s5ew-grp s5ew-" + g[0]), h = el("div", "s5ew-gh");
+        h.appendChild(el("span", "s5ew-gt", g[1]));
+        var cnt = {}; its.forEach(function (x) { cnt[x.k] = (cnt[x.k] || 0) + 1; });
+        [["active", "still active"], ["new", "new"], ["lastnew", "first seen"], ["upd", "updated"], ["lastupd", "updated"], ["late", "newly tracked"]].forEach(function (q) {
+          if (cnt[q[0]]) h.appendChild(el("span", "s5ew-c s5ew-c-" + q[0], cnt[q[0]] + " " + q[1])); });
+        box.appendChild(h); box.appendChild(el("p", "s5ew-gs", g[2]));
+        var ul = el("ul", "s5ei-grid s5ew-grid"), LIM = phone() ? 4 : 9;
+        its.slice(0, LIM).forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); box.appendChild(ul);
+        if (its.length > LIM) { var mb = el("button", "s5el-btn s5ew-all", "Show all " + its.length); mb.type = "button";
+          mb.addEventListener("click", function () { its.slice(LIM).forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); mb.remove(); }); box.appendChild(mb); }
+        host.appendChild(box);
+      });
+    }
+    var ORD = { active: 0, "new": 1, upd: 2, lastnew: 3, lastupd: 3, late: 4 };
     function fill() {
       if (b.__f) return; b.__f = true;
       var why = el("p", "s5el-why");
       why.appendChild(document.createTextNode(hi
         ? "Incidents first seen, or given a new article, between the brief of " + dmy(lo) + " and the brief of " + dmy(hi) + ". "
-        : "Incidents first seen, or given a new article, since the brief of " + dmy(lo) + ". "));
+        : "Incidents first seen, or given a new article, since the brief of " + dmy(lo) + ", and those still being investigated. "));
       var all = el("button", "s5el-lnk", "All " + (D.stories || []).length + " incidents are in Incidents below"); all.type = "button";
       all.addEventListener("click", function () { jump("s5el-inc"); }); why.appendChild(all);
       b.appendChild(why);
-      if (L.length) {
-        /* §5ev: new and updated incidents under their own headings */
-        [[nw, "New incidents"], [up, "Updated — a new article about a known incident"]].forEach(function (g) {
-          if (!g[0].length) return;
-          b.appendChild(el("h4", "s5ei-h", g[1] + " · " + g[0].length));
-          var ul = el("ul", "s5ei-grid"); g[0].forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); b.appendChild(ul);
-        });
-      } else {
+      var lateCut = addDays(lo, -14);
+      var items = L.map(function (x) { return { s: x.s, k: x.k === "new" && x.s.firstReported < lateCut ? "late" : x.k }; });
+      var inL = {}; items.forEach(function (x) { inL[x.s.id] = 1; });
+      if (!hi) (D.stories || []).forEach(function (s) { if (!inL[s.id] && s.notes && s.notes.status === "active") items.push({ s: s, k: "active" }); });
+      items.sort(function (a, c) { return (ORD[a.k] || 0) - (ORD[c.k] || 0) || act(c.s).localeCompare(act(a.s)); });
+      var fresh = items.filter(function (x) { return x.k !== "active"; });
+      if (!fresh.length) {
         b.appendChild(el("p", "s5ei-none", "No incident was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event."));
-        /* §5et (owner 21 X: "if nothing new since the previous brief, always show the last one found - as the rounded
-           frames did on the day a new incident came in"): the latest incidents, by their last activity, as the same tiles */
+        /* §5et: a quiet window shows the last ones found, grouped the same way */
         if (!hi) {
-          var act = function (s) { return day(s.lastUpdate) > day(s.firstSeen) ? day(s.lastUpdate) : day(s.firstSeen); };
-          var lastL = (D.stories || []).filter(function (s) { return act(s) < lo; }).sort(function (a, c) { return act(c).localeCompare(act(a)); }).slice(0, phone() ? 3 : 6);
+          var lastL = (D.stories || []).filter(function (s) { return act(s) < lo && !(s.notes && s.notes.status === "active"); })
+            .sort(function (a, c) { return act(c).localeCompare(act(a)); }).slice(0, 8);
           if (lastL.length) {
             var ld = act(lastL[0]), ago = Math.round((Date.parse(DAY + "T12:00:00Z") - Date.parse(ld + "T12:00:00Z")) / 864e5);
-            b.appendChild(el("h4", "s5ei-h", "Last found · " + dmy(ld) + " · " + ago + " day" + (ago === 1 ? "" : "s") + " before this brief — the most recent incidents, newest activity first"));
-            var u3 = el("ul", "s5ei-grid"); lastL.forEach(function (s) { u3.appendChild(tileOf(s, day(s.firstSeen) === act(s) ? "lastnew" : "lastupd")); }); b.appendChild(u3);
+            b.appendChild(el("p", "s5ew-last", "Last found · " + dmy(ld) + " · " + ago + " day" + (ago === 1 ? "" : "s") + " before this brief"));
+            lastL.forEach(function (s) { items.push({ s: s, k: day(s.firstSeen) === act(s) ? "lastnew" : "lastupd" }); });
           }
         }
       }
+      groups(items, b);
       if (pre.length) {
         b.appendChild(el("h4", "s5ei-h", "New to this portal · " + pre.length + " — Threat Research started on " + dmy(st) + "; these were reported earlier, so they are not new events"));
         var u2 = el("ul", "s5ei-grid"), LIM = phone() ? 4 : 8;
@@ -26786,8 +26842,9 @@ IdentityDirectoryEvents
        brief, else the analysis status (Active, Contained, Resolved), else "Not analysed" */
     var tg = el("span", "s5et-tg", "+"); tg.setAttribute("aria-hidden", "true"); h.appendChild(tg);
     var stt = s.notes && s.notes.status ? s.notes.status : "";
-    var c1 = el("span", "s5el-c1"); c1.appendChild(el("span", "s5el-st " + (k === "new" ? "new" : k === "upd" ? "upd" : stt ? "s5et-" + stt : "none"),
-      k === "new" ? "NEW" : k === "upd" ? "UPDATED" : stt ? stt.toUpperCase() : "NOT ANALYSED"));
+    var late = k === "new" && s.firstReported < addDays(PREV, -14);   /* §5ew: reported long before, tracked now */
+    var c1 = el("span", "s5el-c1"); c1.appendChild(el("span", "s5el-st " + (late ? "none" : k === "new" ? "new" : k === "upd" ? "upd" : stt ? "s5et-" + stt : "none"),
+      late ? "NEWLY TRACKED" : k === "new" ? "NEW" : k === "upd" ? "UPDATED" : stt ? stt.toUpperCase() : "NOT ANALYSED"));
     h.appendChild(c1);
     var c2 = el("span", "s5el-c2"); c2.appendChild(el("span", "s5el-rt", s.title));
     c2.appendChild(el("span", "s5el-rm", s.areas.join(" · ") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
