@@ -1,0 +1,97 @@
+{
+ "generated": "2026-10-21T15:15:51Z",
+ "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
+ "sources": [
+  {
+   "name": "Our Learn copy (mirror/learn)",
+   "state": "ok",
+   "pages": 1532,
+   "events": 0,
+   "note": ""
+  },
+  {
+   "name": "Microsoft Entra documentation",
+   "url": "https://github.com/MicrosoftDocs/entra-docs",
+   "state": "ok",
+   "commits": 73,
+   "events": 8,
+   "since": "2026-08-22"
+  }
+ ],
+ "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-sap-integration",
+   "title": "Microsoft Entra SAP IAG integration",
+   "before": "Microsoft Entra SAP IAG integration (Preview)",
+   "date": "2026-10-18",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/c49e48f9053d22ac51c17be64c51aaed2052af1a",
+   "commitMsg": "Remove preview label from SAP IAG integration documentation",
+   "evidence": "Microsoft's commit of 2026-10-18 removed the preview label from the page title",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/configure-workload-identity-sap-successfactors-provisioning",
+   "title": "Configure workload identity-based authentication for SAP SuccessFactors provisioning",
+   "before": "Configure workload identity-based authentication for SAP SuccessFactors provisioning (Preview)",
+   "date": "2026-10-01",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/5afd86fba6c0340f6c268255f1ff2f1a4d99f26c",
+   "commitMsg": "GA updates",
+   "evidence": "Microsoft's commit of 2026-10-01 removed the preview label from the page heading",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/device-sync",
+   "title": "Configure device sync with Microsoft Entra Cloud Sync",
+   "before": "Configure device sync with Microsoft Entra Cloud Sync (preview)",
+   "date": "2026-09-29",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/8a1bca2fb88525b4b76e2b060ffbbdaeb0614474",
+   "commitMsg": "Remove preview labels from cloud sync device sync",
+   "evidence": "Microsoft's commit of 2026-09-29 removed the preview label from the page title",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/extend-application-attributes",
+   "title": "Reference for extending Microsoft Entra attribute mappings with custom call-outs using LCW extensibility workflows",
+   "before": "Reference for extending Microsoft Entra attribute mappings with custom call-outs using LCW extensibility workflows (preview)",
+   "date": "2026-09-22",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/976b93f82d228639611eeba87fd60b40e061fc7d",
+   "commitMsg": "Remove preview from custom call-outs article title",
+   "evidence": "Microsoft's commit of 2026-09-22 removed the preview label from the page heading",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-entra-passkeys-on-windows",
+   "title": "Enable Microsoft Entra passkey on Windows",
+   "before": "Enable Microsoft Entra passkey on Windows (preview)",
+   "date": "2026-09-03",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/d1b76d641778f2596a4fbd60e6c638064a4bf592",
+   "commitMsg": "Remove preview label from Entra passkey on Windows",
+   "evidence": "Microsoft's commit of 2026-09-03 removed the preview label from the page title",
+   "announced": false
+  }
+ ],
+ "window": {
+  "repoDays": 60,
+  "keepDays": 180
+ }
+}

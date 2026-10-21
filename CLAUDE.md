@@ -1979,9 +1979,14 @@ def gate(path, site=None, mirror=False, doc=None):
              "licznik rozny od liczby wierszy w %d zakladkach" % sum(1 for c,r in s.chg14 if c!=r))
     else:
         led46=(st["soc-brief-state"] or {}).get("ledger14") or {}
+        # §5eo (21 X 2026): `runs` musi byc LISTA przebiegow - 20 X artefakt niosl tu LICZBE, `bool(13)` przeszlo,
+        # a SKRYPT 8 wywrocil sie na forEach i blok 14 dni zniknal ze strony
+        runs46=led46.get("runs")
+        ok46=isinstance(runs46,list) and bool(runs46) and all(isinstance(r,dict) and r.get("date") for r in runs46)
         need("46","strona niesie rejestr 14 dni i SKRYPT 8, ktory go rysuje (render sprawdza §5h)",
-             bool(led46.get("runs")) and "SCRIPT 8" in h and "chg14" in h,
-             "brak ledger14 w bloku stanu" if not led46.get("runs") else "brak SKRYPTU 8 albo klasy chg14")
+             ok46 and "SCRIPT 8" in h and "chg14" in h,
+             ("ledger14.runs to %s, nie lista przebiegow {date, kind, at, entries}" % type(runs46).__name__) if not ok46
+             else "brak SKRYPTU 8 albo klasy chg14")
 
     # 48: §5ak — dane w bloku stanu nie sa renderem. Zmierzone 7 wrzesnia 2026: mapa kompletna,
     # bramka 45/46, a `details.eps` wyrenderowany RAZ poza panelem, wiec zaden z 1 076 wpisow
@@ -16142,7 +16147,9 @@ details.morefilters>.cat-toolbar{margin:0 12px 12px}
   var GM = ST.graphMap || null;
   var L = ST.ledger14 || null;
   var ENTRIES = (L && L.entries) || [];
-  var RUNS = {}; ((L && L.runs) || []).forEach(function (r) { RUNS[r.date] = r; });
+  /* §5eo (21 X 2026): `runs` must be a list of runs; the 20 X artifact carried a NUMBER there, forEach threw and the whole
+     14-day block was missing. A wrong shape now means "no runs known", never a crash. */
+  var RUNS = {}; (Array.isArray(L && L.runs) ? L.runs : []).forEach(function (r) { if (r && r.date) RUNS[r.date] = r; });
   var WINDOW_DAYS = (L && L.pageWindowDays) || 14;
   var TODAY = ST.briefDate || (new Date()).toISOString().slice(0, 10);
 
@@ -29990,7 +29997,7 @@ odtad CZTERNASCIE (4-17).**
     try { return JSON.parse(s.textContent); } catch (e) { return null; }
   }
   var ST = jb("soc-brief-state") || {}, CAT = jb("soc-catalog") || {};
-  var LED = (ST.ledger14 || {}).entries || [], RUNS = (ST.ledger14 || {}).runs || [];
+  var LED = Array.isArray((ST.ledger14 || {}).entries) ? ST.ledger14.entries : [], RUNS = Array.isArray((ST.ledger14 || {}).runs) ? ST.ledger14.runs : [];   /* §5eo */
   var TODAY = ST.briefDate || "";
   var WIN = 7;
 
@@ -31816,7 +31823,7 @@ odtad CZTERNASCIE (4-17).**
     var det = el("details", "s5bk-health"); var sm = el("summary");
     var stale = [].filter.call(document.querySelectorAll("#starthere .shrow"), function (b) { return /sources are stale/i.test(b.textContent); })[0];
     var n = stale ? +(stale.querySelector(".shn") || {}).textContent || 0 : 0;
-    var runs = st.runs || [], last = runs.length ? runs[runs.length - 1] : null;
+    var runs = Array.isArray(st.runs) ? st.runs : [], last = runs.length ? runs[runs.length - 1] : null;   /* §5eo */
     sm.appendChild(el("span", "s5bk-hh", "Collection health"));
     sm.appendChild(el("span", "s5bk-hs", [
       last && (last.date || last.at) ? "last run " + String(last.date || last.at).slice(0, 16).replace("T", " ") : null,
@@ -32391,7 +32398,7 @@ odtad CZTERNASCIE (4-17).**
        carries these four families (make_diff.py ledger()); when it holds a run of THIS day and the
        family is in the window, the strip reads the register like the tabs above. Otherwise the old
        per-tab rules below stay — never worse than before. */
-    var ranToday = ((ST.ledger14 || {}).runs || []).some(function (r) { return r.date === day; });
+    var ranToday = (Array.isArray((ST.ledger14 || {}).runs) ? ST.ledger14.runs : []).some(function (r) { return r && r.date === day; });   /* §5eo */
     function fromReg(tab, type, fallback) {
       if (!ranToday || !L.some(function (e) { return e.tab === tab; })) return null;
       var order = { added: 0, changed: 1, removed: 2 };
@@ -34485,7 +34492,12 @@ odtad CZTERNASCIE (4-17).**
         extra: function (lo, hi) {
           return (ST.items || []).filter(function (i) { var f = String(i.firstSeen || "").slice(0, 10); return /learn\.microsoft\.com/.test(i.url || "") && (hi === DAY ? f === DAY : f === hi); })
             .map(function (i) { return { key: null, title: i.title, link: i.url, date: String(i.firstSeen).slice(0, 10), why: i.why || "", weight: i.socWeight || 0,
-              f: { src: [i.product, i.area].filter(Boolean).join(" · ") }, srcL: "" }; });
+              f: { src: [i.product, i.area].filter(Boolean).join(" · ") }, srcL: "" }; })
+            /* §5eo: a page whose preview label came off in the window is a tile too ("PREVIEW → GA") */
+            .concat(((window.__docGA || {}).events || []).filter(function (e) { return e.date > lo && e.date <= hi; }).map(function (e) {
+              return { key: null, title: "Preview → GA: " + e.title, link: e.url, date: e.date, weight: 6,
+                why: (e.announced ? "Also in Entra's What's new. " : "Not announced in Entra's What's new. ") + (e.evidence || ""),
+                f: { src: "Documentation label" }, srcL: "" }; }));
         } },
       facets: [["kind", "Found by"], ["src", "Area"], ["tag", "Topic"], ["t0", "Flag"]], grid: ["month", "Area"],
       views: [["unread", "Unread"], ["new", "New since previous brief"], ["edits", "Page edits (our diff)"], ["month", "Latest month"], ["q3", "Last 3 months"], ["all", "All"]] }
@@ -41329,6 +41341,70 @@ odtad CZTERNASCIE (4-17).**
 })();
 
 /* ===========================================================================
+   §5eo (21 X 2026) — PREVIEW → GA IN THE DOCUMENTATION, ANNOUNCED OR NOT.
+   Owner: "I do not see that device sync in Entra Cloud Sync is now GA - when did Microsoft take the preview flag off,
+   and why did we not catch it?" Microsoft removed "(preview)" from that page on 29 IX 2026 (entra-docs commit 8a1bca2fb8)
+   and never wrote it in Entra's What's new; the page was not in our Learn copy either. tools/doc_ga.py (fpa-tenant.yml)
+   now compares titles - in our own Learn copy, and in Microsoft's doc repository while it is public - and writes
+   data/doc-ga.json. This frame stands at the top of the Microsoft Learn tab: one row per page, newest first, with the
+   date, the old and new title, whether Entra's What's new said so, and the evidence (Microsoft's commit, or the day our
+   copy saw it). The same events become "Preview → GA" tiles in the Learn tab's day blocks.
+   =========================================================================== */
+(function () {
+  "use strict";
+  if (window.__s5eo) return; window.__s5eo = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  var D = null, asked = false;
+  function load(cb) {
+    if (D) { cb(); return; }
+    if (asked) { setTimeout(function () { load(cb); }, 300); return; } asked = true;
+    fetch("data/doc-ga.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) { D = j; window.__docGA = j; cb(); }).catch(function () { D = { events: [], failed: true }; window.__docGA = D; });
+  }
+  function frame() {
+    var p = document.getElementById("tab-learn"); if (!p || document.getElementById("s5eo-ga") || !D || D.failed) return;
+    var E = D.events || [], silent = E.filter(function (e) { return e.announced === false; }).length;
+    var box = el("details", "s5el-box s5eo"); box.id = "s5eo-ga"; box.open = true;
+    var sm = el("summary"); sm.appendChild(el("span", "s5el-bt", "Preview → GA in the documentation"));
+    sm.appendChild(el("span", "s5el-bs", E.length + " page" + (E.length === 1 ? "" : "s") + " lost the preview label in " + ((D.window || {}).repoDays || 60) + " days · " + silent + " not announced in Entra's What's new"));
+    box.appendChild(sm);
+    box.appendChild(el("p", "s5el-note", "Microsoft sometimes makes a feature generally available only by removing “(preview)” from its documentation page, with no What's new entry and no Message Center post. This list compares page titles — in Microsoft's documentation repository (each row links the commit) and in our own copy of Learn — so such a change is not missed."));
+    if (!E.length) { box.appendChild(el("p", "s5el-note", "No page lost its preview label in this window.")); }
+    else {
+      var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab"), th = el("thead"), tr = el("tr");
+      tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1");
+      ["Date", "Page (now GA)", "Was", "Announced", "Evidence"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); tb.appendChild(th);
+      var bd = el("tbody"), LIM = 8;
+      E.forEach(function (e, i) {
+        var r = el("tr"); if (i >= LIM) { r.hidden = true; r.setAttribute("data-more", "1"); }
+        r.appendChild(el("td", "s5el-nw", dmy(e.date)));
+        var c = el("td"); var a = el("a", null, e.title); a.href = e.url; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a);
+        c.appendChild(el("div", "s5el-mut", e.url.replace(/^https:\/\/learn\.microsoft\.com\/en-us\//, ""))); r.appendChild(c);
+        r.appendChild(el("td", "s5el-mut", e.before));
+        r.appendChild(el("td", e.announced ? "s5el-yes" : "s5el-no", e.announced ? "In What's new" : e.announced === false ? "Not announced" : "not checked"));
+        var ev = el("td");
+        if (e.commit) { var ca = el("a", null, "Microsoft's commit"); ca.href = e.commit; ca.target = "_blank"; ca.rel = "noopener"; ev.appendChild(ca); if (e.commitMsg) ev.appendChild(el("div", "s5el-mut", "“" + e.commitMsg + "”")); }
+        else ev.appendChild(document.createTextNode(e.evidence || "our copy of Learn"));
+        r.appendChild(ev); bd.appendChild(r);
+      });
+      tb.appendChild(bd); tw.appendChild(tb); box.appendChild(tw);
+      if (E.length > LIM) { var mb = el("button", "s5el-btn s5el-more", "Show all " + E.length); mb.type = "button";
+        mb.addEventListener("click", function () { [].forEach.call(bd.querySelectorAll("tr[data-more]"), function (r) { r.hidden = false; }); mb.remove(); }); box.appendChild(mb); }
+    }
+    var fs = (D.sources || []).map(function (x) { return x.name + ": " + (x.state === "ok" ? "read" + (x.commits != null ? " (" + x.commits + " commits since " + dmy(x.since) + ")" : x.pages != null ? " (" + x.pages + " pages)" : "") : "failed — " + (x.error || "")); });
+    box.appendChild(el("p", "s5el-note", "Checked " + dmy(String(D.generated || "").slice(0, 10)) + " · " + fs.join(" · ")));
+    var head = p.querySelector(":scope > .s5ca-head") || p.querySelector(":scope > .panelhead");
+    var at = p.querySelector(":scope > .s5bn") || (head ? head.nextSibling : p.firstChild);
+    p.insertBefore(box, at);
+  }
+  setTimeout(function () { load(function () {}); }, 1500);   /* early: the Learn tiles read window.__docGA */
+  function wake() { load(frame); }
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('nav.anchors .tab[aria-controls="tab-learn"], #tabbtn-tab-learn, .s5ca-it[data-pid="tab-learn"]'); if (t) setTimeout(wake, 60); }, true);
+  if (/tab=learn/.test(location.hash)) setTimeout(wake, 1200);
+  document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-learn") wake(); });
+})();
+/* ===========================================================================
    §5em (19 X 2026) — THE TAB SEARCH REACHES THE CARDS AND SAYS WHERE ITS FIRST RESULT IS.
    Owner, with a Message Center screenshot: "you type MCxxx, the left side shows that something was searched, but other
    tiles stay and the result is at the bottom - easy to get lost; check the other tabs too". Measured the same afternoon
@@ -44245,6 +44321,7 @@ details.s5ei-day.s5ei-f0{opacity:.72}
 .s5em-go{font:600 13px/1.3 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere}
 .s5em-none{margin:6px 0 10px;color:var(--muted);font-size:13px}
 .s5em-none[hidden]{display:none}
+.s5eo{margin:0 0 12px}
 .s5em-cnote{margin:0 0 8px;padding:0 4px;font-size:13px;font-weight:600;color:var(--ok)}
 .s5em-cnote[hidden],.jtile[hidden]{display:none}
 .kq[hidden],.s5el-row[hidden]{display:none}
@@ -45679,6 +45756,45 @@ Zmiany (SKRYPT 17 `window.__s5el`, appended.css, `tools/threats.py`):
 Test 19 X (Chromium 1900x1000 ciemny i 390x844): 0 bledow strony, bez przewijania w bok; kafelek otwiera wiersz;
 „First result" dla „EvilTokens" laduje wiersz Incidents; Articles 1 z 33, KEV 0 z 22; po wyczyszczeniu wszystko wraca;
 bramka §0b OK; `mobile_check.py` OK.
+
+## 5eo. PREVIEW → GA W DOKUMENTACJI ORAZ ODPORNY REJESTR 14 DNI, 21 X 2026
+
+Wlasciciel (21 X 17:06): „nie widze, zebysmy dali info, ze device sync jest teraz GA w Entra Cloud Sync
+(learn.microsoft.com/entra/identity/hybrid/cloud-sync/device-sync) — przesledz, kiedy Microsoft zdjal flage preview,
+moze jest na GitHub; jesli jest, czemu tego nie wychwycilismy? Nie sledzimy zmian w dokumentacji Cloud Sync?"
+
+Ustalenia (zmierzone):
+- `MicrosoftDocs/entra-docs`, commit `8a1bca2fb8` z 29 IX 2026 „Remove preview labels from cloud sync device sync":
+  tytul „Configure device sync with Microsoft Entra Cloud Sync (preview)" → bez „(preview)", usunieta notka preview,
+  `ms.date` 07/21 → 09/29. Strona powstala 27 VII 2026 (commit `cdef8d9c7c`).
+- Entra What's new NIE wspomina o tym (ani o 4 innych takich zmianach z 60 dni — patrz nizej). Message Center tez nie.
+- Portal przegapil to z dwoch powodow: (1) kopia Learn (`mirror/learn`) obejmowala tylko strony cytowane przez brief
+  (15 stron Cloud Sync, bez `device-sync`); (2) nic nie porownywalo tytulow pod katem zdjetego „(preview)".
+
+Zmiany:
+- `tools/doc_ga.py` (krok w `fpa-tenant.yml`, co 3 h, exit 0 zawsze) → `site/data/doc-ga.json`; pamiec tytulow
+  `cache/doc-titles.json`. Dwa detektory: (1) nasza kopia Learn — tytul z „(preview)" w pamieci, bez niego teraz
+  (dziala takze po wycofaniu publicznych repozytoriow Microsoftu w grudniu 2026; pierwszy przebieg = linia bazowa);
+  (2) repozytorium `entra-docs` raz dziennie: klon `--shallow-since` 60 dni z `--filter=blob:limit=200k`, `git log -G
+  preview -p` czytany strumieniem (caly `log -p` zabil proces brakiem pamieci — zmierzone), zdarzenie = commit, ktory
+  zmienia tytul (frontmatter albo H1) z „X (preview)" na „X". Inny nowy tytul to przepisanie strony, nie GA (zmierzone:
+  revert „Microsoft Entra provisioning setup (Preview)" → inny tytul — odrzucony). Dla kazdej strony: czy Entra What's
+  new (nasza kopia) ja wymienia (`announced`). Okno listy 180 dni.
+- Wynik 21 X (60 dni, 73 commity): 5 stron, wszystkie NIEogloszone w What's new — SAP IAG integration (18 X),
+  SAP SuccessFactors workload identity (1 X), **device sync w Cloud Sync (29 IX)**, LCW custom call-outs (22 IX),
+  Entra passkey on Windows (3 IX).
+- Strona (SKRYPT 17, `window.__s5eo`): ramka „Preview → GA in the documentation" na gorze zakladki Microsoft Learn —
+  data, strona (link), poprzedni tytul, „Announced: Not announced / In What's new", dowod (link do commitu Microsoftu i
+  jego opis albo dzien, w ktorym zobaczyla to nasza kopia). Te same zdarzenia jako kafelki „Preview → GA: …" w blokach
+  dnia zakladki Learn (`cfg.tiles.extra`, `window.__docGA`).
+- Kopia Learn: pole `Toc` w `microsoftlearn_sources.json` moze byc lista; wpis Entra dostaje
+  `entra/identity/hybrid/toc.json` (278 stron: Connect, Cloud Sync) — `mirror_scope.py` przekazuje je learn-mirror.
+
+Rejestr 14 dni (poranny scheduled task 21 X: „wczorajsze dane zapisaly liste przebiegow jako liczbe, skrypt bloku
+„what changed" sie wywrocil i bloku nie bylo"): `ledger14` sklada model w scheduled tasku, nie kod — wiec ksztalt moze
+sie rozjechac. Czytelnicy (`SCRIPT 8` RUNS, Overview, Collection health, pasek §5bn) przyjmuja teraz tylko tablice
+(`Array.isArray`), zly ksztalt = „brak przebiegow", nie wyjatek. Bramka 46 wymaga LISTY przebiegow z `date` (dawniej
+`bool(runs)` — liczba 13 przechodzila).
 
 ## 6. Kontrakt w stronie
 

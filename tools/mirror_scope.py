@@ -65,10 +65,15 @@ def collect(repo):
                 texts.append(" ".join(str(v) for k, v in e.items() if k != "Toc"))
                 # §5eg (18 X 2026): an entry may name its section's toc.json ("Toc"); learn-mirror then copies
                 # EVERY page that table of contents lists, not only the pages the portal happens to cite
-                t = (e.get("Toc") or "").strip()
+                # §5eo (21 X 2026): "Toc" may be a list - Entra names its hybrid section (Connect, Cloud Sync), so every
+                # page there is copied and a dropped "(preview)" is seen (device sync went GA unnoticed on 29 IX 2026)
+                tl = e.get("Toc") or []
+                tl = [tl] if isinstance(tl, str) else tl
                 seg, _ = normalize((e.get("SourceURL") or "").strip())
-                if t and seg:
-                    tocs.setdefault(seg, set()).add(t)
+                for t in tl:
+                    t = (t or "").strip()
+                    if t and seg:
+                        tocs.setdefault(seg, set()).add(t)
     groups = {}
     for t in texts:
         # adresy w JSON bywaja z ucieczka "\/" — zdejmujemy ja przed dopasowaniem

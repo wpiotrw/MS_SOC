@@ -79,6 +79,9 @@ jobs:
       # from threat_sources.json, curated notes from threat_notes.json; its own file, never the brief state
       - name: Threat Research feeds (CLAUDE.md 5el)
         run: timeout 420 python3 tools/threats.py threat_sources.json site/data/threats.json --notes threat_notes.json,site/data/threat-notes.json || true
+      # CLAUDE.md 5eo (21 X 2026): a page that lost "(preview)" - in our Learn copy and, once a day, in Microsoft's doc repo
+      - name: Preview to GA in the documentation (CLAUDE.md 5eo)
+        run: timeout 600 python3 tools/doc_ga.py . || true
       - name: Every Microsoft API and the permissions it offers, as our tenant sees them (CLAUDE.md 5dr)
         # Application.Read.All (already granted); a failure is recorded in the log and never stops the snapshot
         continue-on-error: true
@@ -98,13 +101,14 @@ jobs:
           git add site/data/roles-elsewhere.json 2>/dev/null || true
           git add site/data/roles-rolelens.json site/data/roles-merill.json 2>/dev/null || true
           git add site/data/threats.json 2>/dev/null || true
+          git add site/data/doc-ga.json cache/doc-titles.json 2>/dev/null || true
           git add site/data/graph-sp-dev.json site/data/graph-sp-dev-history.json site/data/roles-dev.json 2>/dev/null || true
           git add site/data/api-surfaces.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py tenant || true; git add site/data/fresh   # CLAUDE.md 5cz
             # a new Graph permission or role change goes live now, not with the next morning run (5cy)
             # the history file changes only with new events, once a day (lastRead) or when the roles read changes
-            if git diff --cached --name-only | grep -q 'graph-sp-history.json\|api-surfaces.json\|roles-elsewhere.json\|roles-dev.json\|roles-rolelens.json\|roles-merill.json\|threats.json'; then echo "deploy=yes" >> "$GITHUB_OUTPUT"; fi
+            if git diff --cached --name-only | grep -q 'graph-sp-history.json\|api-surfaces.json\|roles-elsewhere.json\|roles-dev.json\|roles-rolelens.json\|roles-merill.json\|threats.json\|doc-ga.json'; then echo "deploy=yes" >> "$GITHUB_OUTPUT"; fi
             git commit -m "data: tenant snapshot (first-party apps, Message Center, Graph permissions) $(date -u +%F)"
             git pull --rebase -q origin main
             git push origin main
