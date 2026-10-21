@@ -1,7 +1,7 @@
 {
  "read": "2026-10-20",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 706,
+ "count": 709,
  "note": null,
  "messages": [
   {
@@ -3743,22 +3743,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-03-31",
-   "end": "2026-10-30",
-   "modified": "2026-08-26",
+   "end": "2026-12-31",
+   "modified": "2026-10-20",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 26, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Intelligent summaries in Copilot Dashboard help you quickly understand what’s driving Copilot adoption in your organization. These AI‑generated insights highlight key usage trends, areas of success, and opportunities where focused attention can accelerate value. Suggested prompts guide deeper explora…",
-   "when": "General Availability (Worldwide): Rollout will begin in mid-August 2026 (previously early July) and is expected to complete by late September 2026 (previously mid-September).",
+   "summary": "Updated October 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Intelligent summaries in Copilot Dashboard help you quickly understand what’s driving Copilot adoption in your organization. These AI‑generated insights highlight key usage trends, areas of success, and opportunities where focused attention can accelerate value. Suggested prompts guide deeper explor…",
+   "when": "General Availability (Worldwide): Rollout will begin in November 2026 (previously mid-August) and is expected to complete by end of November 2026 (previously late September).",
    "prepare": "No action is required before rollout. If helpful for your organization, you may: Notify helpdesk or training teams about the new summaries. Update internal documentation that references the Copilot Dashboard. Review updated online documentation, which will be refreshed as rollout begins in late April. If you choose not to use this feature, you can roll back by disabling intelligent summaries using available admin controls.",
    "dates": [
-    "Updated August 26, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout will begin in mid-August 2026 (previously early July) and is expected to complete by late September 2026 (previously mid-September)."
+    "Updated October 20, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Rollout will begin in November 2026 (previously mid-August) and is expected to complete by end of November 2026 (previously late September)."
    ],
-   "bodyHash": "e18c6917b51b317e"
+   "bodyHash": "f1426b0ed02948d1"
   },
   {
    "id": "MC1268714",
@@ -16355,28 +16355,6 @@
    "bodyHash": "47bebb6ea83c5d8f"
   },
   {
-   "id": "MC1489691",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-06",
-   "end": "2026-10-20",
-   "modified": "2026-10-06",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 6th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery …",
-   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 6th, 2026 (PST).",
-   "prepare": "To get more details about this update view the following release notes: Current Channel.",
-   "dates": [],
-   "bodyHash": "3aad7a25dad8740b"
-  },
-  {
    "id": "MC1489926",
    "title": "Microsoft Create: Improved sharing controls for Brand Kits",
    "services": [
@@ -18630,6 +18608,111 @@
     "General Availability (Worldwide): Retirement will begin in mid-November 2026 and is expected to complete by early December 2026."
    ],
    "bodyHash": "a30b89fb317418a1"
+  },
+  {
+   "id": "MC1518030",
+   "title": "Updated Photos experience on Windows 11",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-20",
+   "end": "2027-01-14",
+   "modified": "2026-10-20",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We're introducing an updated Photos experience on Windows 11 to help people browse, organize, and find photos and videos across their PC and OneDrive. The experience is coming to consumer and commercial devices and will continue to respect existing controls for app installation, updates, and OneDrive access. Starting October 15, 2026, the updated experience is expected to roll out …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting October 15, 2026, the updated experience is expected to roll out to Windows Insiders over the next few days.",
+    "General Availability (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by mid December 2026."
+   ],
+   "bodyHash": "faa3b712e0a8e56a"
+  },
+  {
+   "id": "MC1518032",
+   "title": "Microsoft 365 apps: Introducing Update Repair in Inventory",
+   "services": [
+    "Microsoft 365 apps",
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-20",
+   "end": "2026-12-25",
+   "modified": "2026-10-20",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing Update Repair in Inventory to help admins identify and remediate Windows devices with Microsoft 365 apps that are out of date or experiencing update issues. In the Microsoft 365 apps admin center, admins can review device status and recommended actions, remotely start Online Repair for eligible devices, and follow manual remediation guidance for devices that need …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): Rollout began in mid-October 2026 and is expected to complete by late October 2026.",
+    "General Availability (Worldwide): Rollout will begin in mid-November 2026 and is expected to complete by late November 2026."
+   ],
+   "bodyHash": "940ef05dd3d9ab5e"
+  },
+  {
+   "id": "MC1518033",
+   "title": "Microsoft Teams: Onboarding workflow for new team members",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-20",
+   "end": "2027-02-15",
+   "modified": "2026-10-20",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Teams is introducing an onboarding workflow that helps new team members get started faster by automatically connecting them to relevant channels when they join a team. This can improve engagement, accelerate onboarding, and make important information easier to find from the start. This message is associated with Microsoft 365 Roadmap ID 573452. [Rollout Schedule:] Targete…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out in early November 2026 and expect to complete in early November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "345f095539fdbc9e"
+  },
+  {
+   "id": "MC1518034",
+   "title": "Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
+   "services": [
+    "Microsoft Clipchamp "
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-20",
+   "end": "2027-02-08",
+   "modified": "2026-10-20",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft Clipchamp is introducing an admin policy control for the Clipchamp AI video creation experience, also known as Clipchamp Generate a video or Create a video in Copilot Create. This control helps organizations manage which users can access the AI-powered video creation capability. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in late Novemb…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "ce004839cf217c39"
   },
   {
    "id": "MC676299",
@@ -23393,6 +23476,57 @@
      "2026-11-30"
     ]
    }
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1266912",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Intelligent Summaries in Copilot Dashboard",
+   "fields": {
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "e18c6917b51b317e",
+     "f1426b0ed02948d1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1518030",
+   "type": "new",
+   "title": "Updated Photos experience on Windows 11",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1518032",
+   "type": "new",
+   "title": "Microsoft 365 apps: Introducing Update Repair in Inventory",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1518033",
+   "type": "new",
+   "title": "Microsoft Teams: Onboarding workflow for new team members",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1518034",
+   "type": "new",
+   "title": "Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-20",
+   "id": "MC1489691",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
   }
  ]
 }
