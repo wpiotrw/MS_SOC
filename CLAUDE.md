@@ -6223,6 +6223,21 @@ nav.dsubnav a[aria-current="true"] .n{color:var(--accent)}
 /* §3 punkt 19: podswietlony skrot ma byc WIDOCZNY, nie tylko pokolorowany */
 nav.dsubnav a[aria-current="true"]{box-shadow:inset 0 0 0 1px var(--accent)}
 @media (max-width:760px){.dnavrow .drowlab{display:none}.dnavrow{gap:6px}}
+/* §5ep: on a phone the two rows give way to ONE button and a sheet, the shape of the main page's tab button (§5br) */
+.dphone,.dsheet{display:none}
+@media (max-width:760px){
+ .dnavstack{display:none}
+ .dphone{display:flex;align-items:center;gap:8px;width:100%;margin:8px 0;padding:9px 12px;border:1px solid var(--accent);border-radius:10px;
+  background:var(--accent-soft);color:var(--text);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left}
+ .dph-l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+ .dph-c{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .dph-car{color:var(--accent)}
+ .dsheet:not([hidden]){display:block;max-height:65vh;overflow-y:auto;margin:0 0 8px;padding:6px 10px 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+ .dsh-g{margin:8px 0 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+ .dsh-a{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:8px;color:var(--text);text-decoration:none;font-size:14px}
+ .dsh-a b{color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+ .dsh-a[aria-current="true"]{background:var(--accent-soft);color:var(--accent)}
+}
 /* the jump target clears the sticky block, whose height the script measures and
    publishes as `--dstick-h` — a hard number here would be wrong the moment the
    banner appears and taller again when its text wraps on a phone (§0a) */
@@ -7821,6 +7836,21 @@ NAV_BODY = """<script>
       }
     }
     window.__socDiffMark = function (sid) { if (sid) markOne(sid); else mark(); };
+    /* §5ep: the phone's one button says where the reader is and opens the sheet of every section */
+    var dph = document.querySelector(".dphone"), dsh = document.getElementById("dsheet");
+    function phoneSync() {
+      if (!dph) return;
+      var on = document.querySelector('nav.dsubnav a[aria-current="true"]'), c = dph.querySelector(".dph-c");
+      if (on && c) { var t = on.cloneNode(true), n = t.querySelector(".n"); if (n) n.remove(); c.textContent = t.textContent.trim(); }
+      if (dsh) [].forEach.call(dsh.querySelectorAll("a"), function (a) { if (on && a.getAttribute("href") === on.getAttribute("href")) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+    }
+    if (dph && dsh) {
+      dph.addEventListener("click", function () { var open = dsh.hidden; dsh.hidden = !open; dph.setAttribute("aria-expanded", open ? "true" : "false"); });
+      dsh.addEventListener("click", function (ev) { if (ev.target.closest("a")) { dsh.hidden = true; dph.setAttribute("aria-expanded", "false"); setTimeout(phoneSync, 120); } });
+      document.addEventListener("click", function (ev) { if (!dsh.hidden && !ev.target.closest(".dsheet, .dphone")) { dsh.hidden = true; dph.setAttribute("aria-expanded", "false"); } });
+      new MutationObserver(phoneSync).observe(document.querySelector(".dnavstack") || document.body, { attributes: true, subtree: true, attributeFilter: ["aria-current"] });
+      phoneSync();
+    }
 
     /* ---- §3 punkt 21 (26 IX 2026): KAZDA ZAKLADKA TO OSOBNY PANEL ----
        Wlasciciel: „all tab has it own separate section instead of one to scroll down".
@@ -9070,10 +9100,23 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                 % (lab, lab,
                    "".join('<a href="#%s" data-goto="%s">%s<span class="n">%d</span></a>'
                            % (i, i, t, n) for i, t, n in got)))
+    # §5ep (21 X 2026, wlasciciel: „menu z zakladkami nie miesci sie na ekranie na urzadzeniach mobilnych — czemu nie ta
+    # sama metoda co na glownej stronie?"). Zmierzone przy 390 px: dwa rzedy skrotow mialy 719 i 1 541 px przy 344 px
+    # ekranu. Na telefonie rzedy chowa CSS, a w ich miejscu stoi JEDEN przycisk „Jump to · <sekcja> ▾", jak przycisk
+    # zakladek strony glownej (§5br); otwiera arkusz z oboma grupami. Linki arkusza nie maja `span.n`, wiec verify()
+    # liczy skroty tylko z rzedow.
+    def _sheet(lab, keys):
+        got = [x for x in nav if x[0] in keys]
+        return ('<p class="dsh-g">%s</p>' % lab + "".join(
+            '<a class="dsh-a" href="#%s" data-goto="%s">%s<b>%d</b></a>' % (i, i, t, n) for i, t, n in got))
+    phone = ('<button type="button" class="dphone" aria-expanded="false" aria-controls="dsheet">'
+             '<span class="dph-l">Jump to</span><span class="dph-c">%s</span><span class="dph-car">&#9662;</span></button>'
+             '<div class="dsheet" id="dsheet" hidden>%s%s</div>'
+             % (nav[0][1] if nav else "", _sheet("What moved", ROW1), _sheet("Where from", [x[0] for x in nav if x[0] not in ROW1])))
     subnav = ('<div class="dstick"><div class="dnavstack">'
               + _navrow("What moved", ROW1)
               + _navrow("Where from", [x[0] for x in nav if x[0] not in ROW1])
-              + "</div></div>")
+              + "</div>" + phone + "</div>")
     body = "\n".join(out).replace("@@SUBNAV@@", subnav)
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
