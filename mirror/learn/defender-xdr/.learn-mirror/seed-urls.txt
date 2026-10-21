@@ -35,6 +35,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-security-copilot-threat-hunting-assistant
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-take-action
 https://learn.microsoft.com/en-us/defender-xdr/alerts-incidents-correlation
+https://learn.microsoft.com/en-us/defender-xdr/api-advanced-hunting
 https://learn.microsoft.com/en-us/defender-xdr/autoad-results
 https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption
 https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption-exclusions
@@ -56,6 +57,7 @@ https://learn.microsoft.com/en-us/defender-xdr/governance-relationships
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/coverage-maturity
 https://learn.microsoft.com/en-us/defender-xdr/identity-security/identity-security-recommendations
 https://learn.microsoft.com/en-us/defender-xdr/incidents-overview
+https://learn.microsoft.com/en-us/defender-xdr/integrated-security-operations-data-billing-retention
 https://learn.microsoft.com/en-us/defender-xdr/investigate-alerts
 https://learn.microsoft.com/en-us/defender-xdr/investigate-incide
 https://learn.microsoft.com/en-us/defender-xdr/investigate-incidents
@@ -64,6 +66,7 @@ https://learn.microsoft.com/en-us/defender-xdr/investigate-respond-container-thr
 https://learn.microsoft.com/en-us/defender-xdr/investigate-users
 https://learn.microsoft.com/en-us/defender-xdr/isoc-overview
 https://learn.microsoft.com/en-us/defender-xdr/manage-rbac
+https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming
 https://learn.microsoft.com/en-us/defender-xdr/mto-distribution-profiles
 https://learn.microsoft.com/en-us/defender-xdr/mto-urbac
 https://learn.microsoft.com/en-us/defender-xdr/phishing-triage-agent

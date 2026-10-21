@@ -34,6 +34,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/linux-install-with-defender-
 https://learn.microsoft.com/en-us/defender-endpoint/linux-preferences
 https://learn.microsoft.com/en-us/defender-endpoint/linux-support-offline-security-intelligence-update
 https://learn.microsoft.com/en-us/defender-endpoint/local-agent-discovery-overview
+https://learn.microsoft.com/en-us/defender-endpoint/mac-resources
 https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update
 https://learn.microsoft.com/en-us/defender-endpoint/machine-tags
 https://learn.microsoft.com/en-us/defender-endpoint/mde-linux-prerequisites
@@ -45,6 +46,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/mtd
 https://learn.microsoft.com/en-us/defender-endpoint/network-isolation-exclusions
 https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
+https://learn.microsoft.com/en-us/defender-endpoint/onboard-server
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
 https://learn.microsoft.com/en-us/defender-endpoint/schedule-antivirus-scans-linux

@@ -91,7 +91,7 @@ Before you begin, you need:
 - The Python packages used in this path:
 
     ```bash
-    pip install "azure-ai-projects>=2.5.0" azure-ai-agentserver-optimization azure-identity python-dotenv
+    pip install "azure-ai-projects>=2.5.0" azure-ai-agentserver-optimization python-dotenv
     ```
 - An existing Foundry project that already contains the hosted agent, registered dataset, and evaluator you want to use for optimization.
 
@@ -314,7 +314,7 @@ USAGE:
 
     Before running the sample:
 
-    pip install azure-ai-projects azure-ai-agentserver-optimization azure-identity python-dotenv
+    pip install azure-ai-projects azure-ai-agentserver-optimization python-dotenv
 
     Set these environment variables with your own values:
     1) FOUNDRY_PROJECT_ENDPOINT - Required. The Microsoft Foundry project endpoint.

@@ -59,6 +59,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/deliver-extended-secur
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/license-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent-proxy-settings
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/prepare-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/troubleshoot-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/administer-arc-scvmm
@@ -82,6 +83,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserri
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
@@ -126,6 +128,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-model-security
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-ai-workloads
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/anti-malware
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/api-security-posture-overview
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/azure-portal-vs-defender-portal-comparison
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/binary-drift-detection
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/cloud-scopes-unified-rbac
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/cloud-security-reporting
@@ -154,7 +157,14 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-database
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-configure-malware-scan
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/connect-azure-environments-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/defender-for-cloud-defender-portal
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/enable-preview-features
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/estimate-track-costs
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/integration-faq
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/known-limitations
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/manage-plans-defender-portal
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/plan-management-changes-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-sensor-change-log
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-helm
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-plans
@@ -179,6 +189,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-over
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-va
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/migrate-classic-defender-for-sql-apis
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/on-demand-malware-scanning
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/onboard-machines-with-defender-for-endpoint
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/permissions-management
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/posture-for-serverless-containers
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-compute
@@ -382,10 +393,12 @@ https://learn.microsoft.com/en-us/azure/sentinel/normalization-parsers-list
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-email
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-process-event
 https://learn.microsoft.com/en-us/azure/sentinel/quickstart-onboard
+https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-sap-btp-solution
 https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/prerequisites-for-deploying-sap-continuous-threat-monitoring
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-agent-migrate
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-security-content
+https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-solution-overview
 https://learn.microsoft.com/en-us/azure/sentinel/scoping
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog

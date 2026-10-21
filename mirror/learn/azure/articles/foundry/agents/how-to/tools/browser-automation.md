@@ -48,12 +48,12 @@ item_type: Content
 source_path: articles/foundry/agents/how-to/tools/browser-automation.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43093068-2dda-408b-b3fe-dfd705c84f78
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a80a9b9c-867f-4f31-849c-3d5a10bc38c7
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/7ad90213-4c78-4f1b-974b-eb153f3e6608
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e453d60d-ba7e-43bc-8028-ec38e6b62512
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/089a3a3a-945d-428f-bc0c-2d4cef5ba934
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b2f0d354-8384-469a-b9ff-8a0f80d66e6b
 platformId: 56e49b87-e066-9ae8-6684-8c2261a9b726
 ---
 
@@ -471,10 +471,9 @@ async def main() -> None:
     )
 
     # 3. Attach the toolbox to the hosted agent as an MCP tool.
-, timeout=120.0)
     toolbox_tool = FoundryToolbox(credential, url=TOOLBOX_MCP_URL)
 
-agent = Agent(
+    agent = Agent(
         client=FoundryChatClient(credential=credential),
         instructions=(
             "You help with browser automation tasks. Use the Browser Automation tool "

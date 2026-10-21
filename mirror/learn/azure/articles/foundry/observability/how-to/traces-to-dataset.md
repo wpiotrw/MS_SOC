@@ -84,7 +84,7 @@ Private-content redaction is separate from sampling. By default, the service red
 
 ## Prerequisites
 
-- Python SDK version `2.8.0` or later: `pip install "azure-ai-projects>=2.8.0" azure-identity` (SDK path only)
+- Python SDK version `2.8.0` or later: `pip install "azure-ai-projects>=2.8.0"` (SDK path only)
 - JavaScript SDK version `2.8.0` or later: `npm install "@azure/ai-projects@^2.8.0" @azure/identity`
 - A Microsoft Foundry project endpoint URL in the format `https://<your-resource>.services.ai.azure.com/api/projects/<your-project>`
 - Foundry User role or higher on the project.

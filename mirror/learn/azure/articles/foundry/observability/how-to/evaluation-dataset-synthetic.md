@@ -94,7 +94,7 @@ You can combine sources in a single job. Simple Q&A evaluation requires an agent
 
 ## Prerequisites
 
-- Python SDK version `2.8.0` or later: `pip install "azure-ai-projects>=2.8.0" azure-identity`.
+- Python SDK version `2.8.0` or later: `pip install "azure-ai-projects>=2.8.0"`.
 - JavaScript SDK version `2.8.0` or later: `npm install "@azure/ai-projects@^2.8.0" @azure/identity`.
 - A Microsoft Foundry project endpoint URL in the format `https://<your-resource>.services.ai.azure.com/api/projects/<your-project>`.
 - Foundry User role or higher on the project.

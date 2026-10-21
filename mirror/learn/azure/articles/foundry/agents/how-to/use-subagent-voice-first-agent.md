@@ -26,7 +26,7 @@ description: Learn how to add, configure, and test a subagent that handles a foc
 ms.date: 2026-09-22T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview
+ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 97dfce7e-6541-a6f6-9b73-35783a7e9de2
@@ -42,9 +42,11 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/use-subagent-voice-first-agent.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 964dc73d-8d1b-a895-2945-f2efc3fa88d9
@@ -86,7 +88,7 @@ The following section shows how to create a prompt agent, and use it as a subage
 Install the Microsoft Foundry SDK version 2.7.0 or later with the `voice` extra, Azure Identity client library, and PyAudio in the same Python environment. The `voice` extra supplies `aiohttp` for asynchronous connections. PyAudio handles microphone capture and speaker playback.
 
 ```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity pyaudio
+python -m pip install "azure-ai-projects[voice]>=2.7.0" pyaudio
 ```
 
 For Python SDK setup details, see [Install the packages](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).

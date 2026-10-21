@@ -185,6 +185,7 @@ https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-properties
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
+https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/protect-against-consent-phishing
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/validate-oidc-multitenant-app-gallery
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-deployment-options-provision-to-active-directory
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-how-it-works

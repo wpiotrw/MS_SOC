@@ -26,7 +26,7 @@ description: Compare model support, hosting, and voice experiences in Voice Live
 ms.date: 2026-10-06T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview
+ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 51bf6fe7-aafa-e4a6-b120-195512ff1367
@@ -42,13 +42,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/migrate-from-voice-live.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fbc448d8-f51b-49e6-a28d-b0ed67a9b6ee
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a2d547e1-b5e2-4f22-ada5-397b95fd90be
 platformId: 209ad685-00a2-7fee-a9b9-c1802a952e7f
 ---
 
@@ -183,7 +183,7 @@ In Python, replace the `azure-ai-voicelive` live-session connection with `azure-
 Install the Azure AI Projects client library with its voice dependencies:
 
 ```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity
+python -m pip install "azure-ai-projects[voice]>=2.7.0"
 ```
 
 Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).

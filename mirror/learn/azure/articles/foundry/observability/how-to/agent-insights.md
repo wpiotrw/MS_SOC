@@ -28,6 +28,7 @@ ms.subservice: foundry-observability
 ms.topic: how-to
 ms.date: 2026-09-22T00:00:00.0000000Z
 ai-usage: ai-assisted
+ms.custom: doc-kit-assisted
 locale: en-us
 document_id: 02c7b775-9b0a-48ab-3b7c-2b891207575a
 document_version_independent_id: b9bbe2d6-72d1-959c-51cf-a21ebe1490c6
@@ -43,12 +44,12 @@ item_type: Content
 source_path: articles/foundry/observability/how-to/agent-insights.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 3766a926-7cba-0580-2403-aa8ca897d01b
 ---
 
@@ -325,7 +326,7 @@ Before you run the examples:
 Install version 2.6.1 or later of the Azure AI Projects client library and Azure Identity:
 
 ```bash
-python -m pip install "azure-ai-projects>=2.6.1" azure-identity
+python -m pip install "azure-ai-projects>=2.6.1"
 ```
 
 Create the client with `allow_preview=True` to use the preview operations under `beta.agent_insight_monitors`.

@@ -45,9 +45,11 @@ item_type: Content
 source_path: articles/foundry/agents/quickstarts/prompt-voice-agent.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: e41b0bfe-60a2-1223-768b-fc4ee35ed5cc
 ---
@@ -236,7 +238,7 @@ These examples target version 2.8.0 or later of the Azure AI Projects client lib
 Install the `voice` extra, which supplies `websockets` for synchronous connections and `aiohttp` for asynchronous connections.
 
 ```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity
+python -m pip install "azure-ai-projects[voice]>=2.7.0"
 ```
 
 Voice session and conversation operations use `project_client.beta.voice_agents`. Creating voice definitions through the standard `.agents` methods still requires `allow_preview=True` on `AIProjectClient`.

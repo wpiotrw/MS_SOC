@@ -26,7 +26,7 @@ description: Use Teams Phone extensibility or Twilio with a Microsoft Foundry vo
 ms.subservice: foundry-agent-service
 ms.topic: how-to
 ms.date: 2026-09-25T00:00:00.0000000Z
-ms.custom: preview
+ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 2d94f0ca-2fbc-eb2d-4b9a-215b266545c8
@@ -44,11 +44,11 @@ source_path: articles/foundry/agents/how-to/voice-agent-telephony-channels.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/54fcef21-b24a-4ef4-9c4a-a525c23ee9a3
-- https://authoring-docs-microsoft.poolparty.biz/devrel/467aaae1-e916-4fcd-a463-5b27f9d4745c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8ab60220-e56b-41ff-a8bf-45b8d7ab716f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fbd4eef5-2258-406b-95d3-2c68fa333b20
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: e7238e76-94cc-920c-8b79-6dea2afe3253
 ---
 
@@ -153,7 +153,7 @@ Open your project in the [Foundry portal](https://ai.azure.com). You don't need 
 Use Python 3.10 or later and install the packages:
 
 ```bash
-python -m pip install "azure-ai-projects>=2.7.0" azure-identity
+python -m pip install "azure-ai-projects>=2.7.0"
 ```
 
 For local development, sign in with `az login` before using `DefaultAzureCredential`. Replace the endpoint and agent name, then run this setup once in your Python session:

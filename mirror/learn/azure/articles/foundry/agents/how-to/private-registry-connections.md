@@ -43,9 +43,11 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/private-registry-connections.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/cb49e66a-8528-497d-adaa-eade2d009d1b
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/472c9d15-157b-443c-afa2-e209c8fecf58
 platformId: 7d8d2b1d-d600-61af-05de-a569b5369d0c
@@ -74,7 +76,7 @@ This approach works with non-Azure registries that support OIDC token exchange. 
 - For the Python SDK workflow, Python 3.10 or later and the Azure AI Projects and Azure Identity packages.
 
     ```bash
-    pip install azure-ai-projects azure-identity
+    pip install azure-ai-projects
     ```
 - A fully qualified prebuilt image in an authenticated container registry outside Azure or in a self-hosted Docker Distribution registry.
 - Permission to configure identity trust and read-only repository access in the registry or its authentication service.

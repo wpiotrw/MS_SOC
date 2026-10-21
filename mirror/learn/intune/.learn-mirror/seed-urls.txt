@@ -15,11 +15,13 @@ https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-mana
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
+https://learn.microsoft.com/en-us/intune/configmgr/core/get-started/2020/technical-preview-2011
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/changes/whats-new-version-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site-and-site-system-prerequisites
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-adk
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/list-of-prerequisite-checks
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/community-hub
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030

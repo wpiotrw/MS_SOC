@@ -45,8 +45,10 @@ item_type: Content
 source_path: articles/foundry/agents/how-to/send-image-input-voice-agent.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 04f9ce43-98f8-2796-9de4-5f5b12e5f617
 ---
 
@@ -77,7 +79,7 @@ Items marked preview in this article are currently in preview. This preview is p
 ::: zone pivot="python"
 
 - Python 3.10 or later.
-- Version 2.7.0 or later of the Azure AI Projects client library with the `voice` extra. Install it with `python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity`.
+- Version 2.7.0 or later of the Azure AI Projects client library with the `voice` extra. Install it with `python -m pip install "azure-ai-projects[voice]>=2.7.0"`.
 - The `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT_NAME` environment variables from the [Python voice-agent quickstart](../quickstarts/prompt-voice-agent?pivots=python#set-environment-variables).
 
 ::: zone-end

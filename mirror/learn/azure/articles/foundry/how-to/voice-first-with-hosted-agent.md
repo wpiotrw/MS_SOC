@@ -26,7 +26,7 @@ description: Learn how to create a voice-based agent in Microsoft Foundry that u
 ms.date: 2026-09-28T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview
+ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 3c5040c9-e9e7-7df2-a627-78c93550619e
@@ -93,7 +93,7 @@ The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner*
 The Python examples use version 2.7.0 or later of the Azure AI Projects client library. Install the `voice` extra and the audio dependencies:
 
 ```console
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity pyaudio
+python -m pip install "azure-ai-projects[voice]>=2.7.0" pyaudio
 ```
 
 Reference: [Azure AI Projects client library for Python](/en-us/python/api/overview/azure/ai-projects-readme).
