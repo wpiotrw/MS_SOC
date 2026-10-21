@@ -1,7 +1,7 @@
 {
  "read": "2026-10-21",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 711,
+ "count": 714,
  "note": null,
  "messages": [
   {
@@ -18763,6 +18763,86 @@
    "bodyHash": "dfbfc0a33ece2fa5"
   },
   {
+   "id": "MC1519860",
+   "title": "Intelligent Call Delegation in Teams",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2027-04-30",
+   "modified": "2026-10-21",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Incoming Teams calls don't wait for a break in your day. Intelligent call delegation provides AI-powered calling assistance so you can focus on the conversations that matter most. It answers calls and gathers context, helping you decide whether to pick up and engage the caller. It can also schedule follow-up appointments through an integration with Microsoft Bookings so you can rec…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in January 2027 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "5f5cf23470e78142"
+  },
+  {
+   "id": "MC1519861",
+   "title": "Outlook: Copilot Prioritize feature will be retired",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-12-15",
+   "modified": "2026-10-21",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "[What and Why:] We're retiring the Copilot Prioritize feature in Outlook. Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort. This change allows us to simplify the Outlook Copilot experience and focus our ongoing investments. [Rollout Schedule:] We will begin this change on October 26, 2026, and…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort.",
+    "We will begin this change on October 26, 2026, and expect to complete by mid-November 2026.",
+    "What will happen: Copilot Prioritize will be retired, with the rollback beginning October 26, 2026, and expected to be completed by mid-November 2026."
+   ],
+   "bodyHash": "7c9a93267f5dec56"
+  },
+  {
+   "id": "MC1519866",
+   "title": "Microsoft Teams: Phishing detection for messaging",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2027-01-17",
+   "modified": "2026-10-21",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is introducing AI-powered, context-aware phishing detection to help identify phishing, social engineering, impersonation attempts, and deceptive intent. The capability analyzes conversation context to identify suspicious behavior that may not include traditional indicators such as malicious links or files. [Rollout schedule] Targeted Release: Beginning in early Novem…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release: Beginning in early November 2026 and expected to complete by mid-November 2026.",
+    "General Availability (Worldwide): Beginning in early December 2026 and expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "ea373795202a0ad7"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -23718,6 +23798,27 @@
    "id": "MC1519857",
    "type": "new",
    "title": "Microsoft Teams: Chat for organizers and presenters in structured meetings and webinars on Teams Rooms on Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519860",
+   "type": "new",
+   "title": "Intelligent Call Delegation in Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519861",
+   "type": "new",
+   "title": "Outlook: Copilot Prioritize feature will be retired",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519866",
+   "type": "new",
+   "title": "Microsoft Teams: Phishing detection for messaging",
    "fields": {}
   }
  ]
