@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-08-20T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
@@ -222,12 +222,14 @@ The agents overview provides a dashboard view with cards containing specific inf
 
 Hero metrics provide a high-level summary of the most critical indicators of agent scale and engagement.
 
+Agent 365 licenses are required for data collection only for third-party agents, not for first-party agents.
+
 - **Agent registry** - The total count of all agents available in your organization's catalog, including Microsoft-built, partner-built, and custom "line-of-business" agents. In both registry and usage, we refer to these types of agents as "Built by your organization". This Agent registry reflects the breadth of agents deployed across your tenant. In the **Agent overview**, you can select **Explore All agents** &gt; **Registry** to view your inventory in detail.
 - **Active users**- The number of unique users who interacted with at least one agent up to the last 30 days by sending a prompt to an agent and receiving a response from that agent. These conversational interactions can occur in Microsoft experiences, such as Teams and Microsoft Copilot, as well as non-Microsoft channels. For Microsoft Copilot Studio agents, an active user is counted when a user sends a prompt to the agent. In most cases, prompts and responses have a one-to-one relationship. However, there are limited scenarios where a user may send a prompt but not receive a response. This difference is expected to have a minimal impact in practice. This definition will evolve in the future as we continue to improve how usage is measured.
-    - This metric begins when your organization activates Agent 365 licenses. It may reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
-    - Data collection starts at license activation. For related information, see [Microsoft Copilot Agents usage report](/en-us/microsoft-365/admin/activity-reports/microsoft-365-copilot-agents-new).
+    - For third-party agents, this metric begins when your organization activates Agent 365 licenses. It might reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
+    - Data collection for third-party agents starts at license activation. For related information, see [Microsoft Copilot Agents usage report](/en-us/microsoft-365/admin/activity-reports/microsoft-365-copilot-agents-new).
 - **Agent run-time**- Total hours worked by agents during the last 30 days, calculated from when a user request begins to when it is completed, and aggregated across all agent activities, such as executing tool calls and preparing responses.
-    - This metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
+    - For third-party agents, this metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
 - **Registry sync** - The external connected platforms that were scanned. You can connect to external platforms to find and monitor agents used in your organization. Your use of external non-Microsoft products is subject to the third-party service provider's terms of use. You're responsible for complying with each provider's terms of use. For more information, see [Registry sync in the Microsoft 365 agent registry](/en-us/microsoft-agent-365/admin/agent-registry).
 
 ## Top actions for you
@@ -260,7 +262,7 @@ View actionable governance cards that display urgent tasks for you (the administ
 - **Agents at risk** - View the total number of agents with security risks. These are aggregated high severity risks across Microsoft security platforms such as Microsoft Entra, Microsoft Defender, and Microsoft Purview. It closes a critical visibility gap for IT administrators responsible for governing AI agents. Select **Manage agent risks** to view agents filter by risk in the **Agent Registry**.
 - **Agents without owners** - View the total number of agents without an assigned owner and still pending owner assignment. Select **Assign Owner** to view a list of agents filtered by **Agents without owners**.
 - **Agent with exceptions** - View the total number of agents with errors in their conversations. Select **View details**to view a list of agents filtered by agents with errors.
-    - This metric begins when your organization activates Agent 365 licenses. It will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
+    - For third-party agents, this metric begins when your organization activates Agent 365 licenses. It will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
 
 ## Agent analytics
 
@@ -286,7 +288,7 @@ Get detailed insights into how agents are distributed and used. This information
     New agent platforms will be regularly be added, thus this list will continue to grow.
 - **Active users over time** - View a trend chart that shows daily active user engagement with agents over the last 30 days. This chart reveals usage momentum and helps you spot spikes or declines.
 
-    - This metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
+    - For third-party agents, this metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
 - **Trending agents by active users** - You can view the agents with the most active users in your organization over the last 30 days.
 
-    - This metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
+    - For third-party agents, this metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.

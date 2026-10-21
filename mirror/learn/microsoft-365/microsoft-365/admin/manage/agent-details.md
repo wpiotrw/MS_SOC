@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: trsinha
 author: mduelae
 manager: tapanm
-ms.date: 2026-08-24T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
@@ -62,13 +62,11 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/manage/agent-details.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: e4fadd4e-1dba-45a1-e6ca-98aa26efae1f
 ---
 
@@ -383,7 +381,7 @@ The **Activity** tab in the agent details of the Microsoft 365 admin center prov
 
 Note
 
-You need a Microsoft E7 or Agent 365 license to see the **Activity** tab details of an agent.
+You need a Microsoft E7 or Agent 365 license to see the **Activity** tab details of third-party agents.
 
 Additional details include the following information:
 

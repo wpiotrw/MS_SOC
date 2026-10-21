@@ -58,6 +58,12 @@ For information about Windows App and its features, see [What's new in Windows A
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
 
+## Week of October 19, 2026
+
+### Windows 365 cloud-native and Zero Trust deployment guidance
+
+New guidance is available to help you make key architecture and operating-model decisions when deploying Windows 365. It provides recommended cloud-native and Zero Trust-aligned approaches for identity, networking, images, updates, management, user data, clients, and supportability. For more information, see [Windows 365 cloud-native and Zero Trust deployment guidance](/en-us/windows-365/enterprise/windows-365-deployment-guidance).
+
 ## Week of October 12, 2026
 
 ### Default display settings for Cloud PCs now generally available

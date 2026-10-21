@@ -18,7 +18,7 @@ f1.keywords:
 ms.author: dansimp
 author: Dansimp
 manager: dansimp
-ms.date: 2026-02-02T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: microsoft-365-business
@@ -59,8 +59,10 @@ item_type: Content
 source_path: microsoft-365/admin/setup/customize-your-organization-theme.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 platformId: 32c801da-e681-178a-2311-ae3723d2d73c
 ---
 
@@ -68,7 +70,7 @@ platformId: 32c801da-e681-178a-2311-ae3723d2d73c
 
 Check out all of our small business content on [Small business help & learning](https://go.microsoft.com/fwlink/?linkid=2224585).
 
-As the admin of your organization, you can create multiple themes for the people in your organization, and select which themes apply to different members of your organization. The organization theme is what appears in the top navigation bar for people in your organization.
+As the admin of your organization, you can create multiple themes for the people in your organization, and select which themes apply to different members of your organization. The organization theme appears in the top navigation bar for people in your organization. You can also use the logo from your default theme to add a branded footer to the Chat screen in the Microsoft 365 Copilot app.
 
 You can add or update a default theme that applies to everyone in your organization. You can also create up to four additional group themes that can be assigned to multiple Microsoft 365 groups.
 
@@ -84,6 +86,7 @@ You can add or update a default theme that applies to everyone in your organizat
     | --- | --- |
     | General | Modify a theme name and assign to up to five groups (if applicable). |
     | Logos | Add your organization logo, including alternate logo for dark theme. |
+    | Copilot Chat | Add your organization's logo and an optional label to the footer in the Microsoft 365 Copilot app. This option is available for the default theme only. |
     | Colors | Customize a color scheme by specifying navigation bar, accent, text and icon colors. |
 
 ## General: Modify a theme
@@ -131,6 +134,31 @@ You can remove your logos at any time. Just return to the **Logos** page and sel
 Note
 
 The Microsoft 365 suite header is designed to accommodate a variety of screen sizes, window sizes, and display settings. The responsive behavior of the suite header sometimes results in the logo not showing to give space to other capabilities shown on the suite header. To reduce the likelihood of this behavior a narrower image file is recommended.
+
+## Copilot Chat: Add a branded footer
+
+You can display your organization's logo and an optional label at the bottom of the Chat screen in the Microsoft 365 Copilot app. The branded footer helps users identify their organization's trusted, work-managed Copilot experience.
+
+The footer is turned off by default. It uses the logo configured on the **Logos** page for your organization's default theme. Other theme settings don't apply to the footer.
+
+To add a branded footer:
+
+1. Select your **Default Theme**. If you don't have a **Default Theme**, see Add or update your organization's theme.
+2. On the **Logos** page, confirm that your organization's logo is configured.
+3. Open the **Copilot Chat** page.
+4. Select **Add your brand to Copilot Chat footer area**.
+5. In the **Footer style**dropdown, select one of the following options:
+    - **No label**
+    - **Approved by**
+    - **Provided by**
+    - **Managed by**
+6. Select **Save**.
+
+![Screenshot of the branded footer settings for Copilot Chat.](../../media/20003-1-copilot-branded-footer.png)
+
+Note
+
+The branded footer uses your organization's default theme and applies to all users. You can't currently target different logos to specific user groups.
 
 ## Colors: Choose theme colors
 
@@ -187,4 +215,4 @@ The recommended contrast ratio between text, icon or button color and background
 
 ### If I define a theme, which places in Microsoft 365 will this be used?
 
-Any theme appears in the top navigation bar for everyone in the organization as part of the Microsoft 365 suite header.
+Any theme appears in the top navigation bar for everyone in the organization as part of the Microsoft 365 suite header. If you enable the branded Copilot Chat footer for the default theme, its logo and selected label also appear at the bottom of the Chat screen in the Microsoft 365 Copilot app.

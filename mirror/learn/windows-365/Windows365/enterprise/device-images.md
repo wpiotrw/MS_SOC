@@ -122,33 +122,33 @@ There are three sets of images available to choose from across the different ver
 
 | # | Tool Name | Current Version |
 | --- | --- | --- |
-| 1 | PowerShell7 | 7.6.5 |
-| 2 | Visual Studio Code | 1.134.0 |
+| 1 | PowerShell7 | 7.6.6 |
+| 2 | Visual Studio Code | 1.141.0 (x64) |
 | 3 | Visual Studio Code Extensions for All Users | -- |
 |  | ms-vscode.powershell | 2025.4.0 |
-|  | ms-python.python | 2026.4.0 |
+|  | ms-python.python | 2026.480 |
 |  | ms-vscode-remote.remote-wsl | 0.104.3 |
-|  | github.vscode-pill-request-github | 0.162.0 |
-|  | ms-edgedevtools.vscode-edge-devtools | 2.1.10 |
+|  | github.vscode-pill-request-github | 0.168.0 |
+|  | ms-edgedevtools.vscode-edge-devtools | 2.1.12 |
 |  | mspythondeprem.python-dependency-remediation | 1.2.3 |
 | 4 | PowerToys | 0.101.2362.0 |
 | 5 | Python | 3.14.7150.0 |
-| 6 | Node.js | 24.19.0 |
-| 7 | npm | 11.17.0 |
-| 8 | nvm | 1.2.2 |
-| 9 | git | 2.55.0.windows.3 |
-| 10 | GitHub (gh) | 2.98.0 |
-| 11 | GitHub Copilot CLI | 2.98.0 |
+| 6 | Node.js | 24.20.0 |
+| 7 | npm | 11.19.0 |
+| 8 | nvm | 2.0.1 |
+| 9 | git | 2.55.0.windows.5 |
+| 10 | GitHub (gh) | 2.102.0 |
+| 11 | GitHub Copilot CLI | 1.0.97 |
 | 12 | Work IQ (GitHub Copilot CLI Plugin) | V2.0.2 |
-| 13 | Oh my posh | 30.7.0 |
-| 14 | UV tools | 0.12.5 (210d1f678 2026-08-14 x86\_64-pc-windows-msvc) |
-| 15 | Azure CLI | 2.89.1 |
-| 16 | .NET Runtime | Microsoft.AspNetCore.App 10.0.11 |
-| 17 | .NET SDK | 10.0.400 |
-| 18 | Unix Core Utils | 0.8.0 |
-| 19 | WinAppCLI | 0.6.1 |
-| 20 | Windows Dev Skill (GitHub Copilot CLI Plugin) | v0.5.0 |
-| 21 | Intelligent Terminal | 0.2.2192.0 |
+| 13 | Oh my posh | 31.8.0.0 |
+| 14 | UV tools | 0.13.0 (4ecd0eff2，2026-10-09，x86\_64-pc-windows-msvc) |
+| 15 | Azure CLI | 2.91.0 |
+| 16 | .NET Runtime | Microsoft.AspNetCore.App 10.0.13 |
+| 17 | .NET SDK | 10.0.402 |
+| 18 | Unix Core Utils | 0.11.0 |
+| 19 | WinAppCLI | 0.7.1 |
+| 20 | Windows Dev Skill (GitHub Copilot CLI Plugin) | v0.7.1 |
+| 21 | Intelligent Terminal | 0.2.2572.0 |
 
 Note
 
