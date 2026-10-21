@@ -272,6 +272,11 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                     checked = stamp
                 elif not checked:
                     checked = stamp if found else ""
+                prevk = 0 if found else int(old.get("kql") or 0)   # found on an earlier run (the page is read once)
+                if prevk:
+                    keep = True
+                    if "Hunting (KQL)" not in areas:
+                        areas = areas + ["Hunting (KQL)"]
                 if found:
                     keep = True
                     if "Hunting (KQL)" not in areas:
@@ -288,7 +293,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                              "tier": s.get("Tier", ""), "microsoft": bool(s.get("Microsoft")),
                              "published": i["published"], "firstSeen": old.get("firstSeen") or (stamp if prev else (i["published"] or stamp)),
                              "score": score, "areas": areas or ["Other"], "cves": cves, "storms": storms, "names": names,
-                             "summary": i["summary"][:420], "kql": len(found), "kqlChecked": checked})
+                             "summary": i["summary"][:420], "kql": len(found) or prevk, "kqlChecked": checked})
                 rep["kept"] += 1
         except Exception as e:
             rep["state"], rep["error"] = "failed", str(e)[:160]
