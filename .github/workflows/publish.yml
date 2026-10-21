@@ -38,6 +38,9 @@ jobs:
           # so keep main's copies (rm -rf above would drop or roll them back), then stamp this publication
           git checkout HEAD -- site/data/fresh 2>/dev/null || true
           if ! git diff --quiet HEAD -- site; then python3 tools/stamp.py publish "${GITHUB_REF_NAME}" || true; fi
+          # CLAUDE.md 5eq: a routine writes its page to site/diff/index.html (evening) or site/week/index.html (morning);
+          # the "What changed" app takes those addresses and the routine's page moves to diff/full.html / week/print.html
+          python3 tools/changes_page.py site || true
           git add -A site
           if git diff --cached --quiet; then
             echo "Brak zmian w site/ - nie commituje."

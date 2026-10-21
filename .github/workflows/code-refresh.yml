@@ -73,22 +73,33 @@ jobs:
           timeout 300 python3 tools/msrc_cves.py site --budget 240 | tee msrc.log || true
           if grep -q '^msrc: changed' msrc.log; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
 
+      # CLAUDE.md 5eq (21 X 2026): /diff/ and /week/ are the "What changed" app - site/data/changes-7d.json from the
+      # change register and the portal's data files; a routine's page found there is moved to diff/full.html or
+      # week/print.html. Never fails the job.
+      - name: What changed page
+        id: changes
+        run: |
+          set -uo pipefail
+          python3 tools/changes_page.py site | tee changes.log || true
+          if grep -q 'wrote\|records' changes.log && [ -n "$(git status --porcelain -- site/diff site/week site/data/changes-7d.json site/history)" ]; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
+
       - name: Gate (mirror mode - class B reported, not blocking)
         if: steps.swap.outputs.changed == '1'
         run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
 
       - name: Commit the refreshed page
-        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1'
+        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1' || steps.changes.outputs.changed == '1'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # CLAUDE.md 5cz: when the page code changed (header frame, About) - not for a retention-only commit
           if [ "${{ steps.swap.outputs.changed }}" = "1" ]; then python3 tools/stamp.py code || true; fi
-          git add site/index.html site/diff/index.html site/week/index.html
+          git add site/index.html
+          git add -A -- site/diff site/week
           git add -A -- 'site/feed*.xml'
           git add -A -- site/history site/data
-          git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log) $(tail -1 feeds.log) $(tail -1 msrc.log 2>/dev/null)"
+          git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log) $(tail -1 feeds.log) $(tail -1 msrc.log 2>/dev/null) $(tail -1 changes.log 2>/dev/null)"
           git pull --rebase -q origin main
           git push origin main
 

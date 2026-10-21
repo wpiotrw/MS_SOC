@@ -4221,6 +4221,10 @@ Panele `tab-roles` i `tab-graph` nie zawieraja tabel — tylko pusty
 
 ## 3. STRONA ZMIAN JEST LICZONA Z DANYCH, NIE ODBIJANA Z ARTEFAKTU
 
+> **Od §5eq (21 X 2026)** adres `/diff/` pokazuje aplikacje „What changed" (`tools/changes_page.py`); strona liczona tu
+> przez `make_diff.py` jest dalej zapisywana pod `site/diff/index.html` i po publikacji lezy jako `site/diff/full.html`
+> (pelne porownanie pole po polu). Routine nic nie zmienia w swoim przebiegu.
+
 Wlasciciel napisal 2 wrzesnia 2026 wprost: *„calym zamyslem diff jest pokazanie roznic.
 Wylistowanie co ubylo co przybylo. Podsumowanie zmian, a nie powiekanie znowu tego samego.
 Diff ma pokazac co sie dokladnie zmienilo i tylko to — zeby byl czytelny."* Obie sciezki robily
@@ -45838,6 +45842,49 @@ Rejestr 14 dni (poranny scheduled task 21 X: „wczorajsze dane zapisaly liste p
 sie rozjechac. Czytelnicy (`SCRIPT 8` RUNS, Overview, Collection health, pasek §5bn) przyjmuja teraz tylko tablice
 (`Array.isArray`), zly ksztalt = „brak przebiegow", nie wyjatek. Bramka 46 wymaga LISTY przebiegow z `date` (dawniej
 `bool(runs)` — liczba 13 przechodzila).
+
+## 5eq. STRONA „WHAT CHANGED" (/diff/ i /week/) JAKO APLIKACJA Z DANYCH, 21 X 2026
+
+Wlasciciel 21 X 2026: *„bardzo ciezko jest wychwycic jakiekolwiek zmiany — czy to w Graph API, czy w komponentach, czy w
+rolach… musisz przemyslec strone diff i week w calosci, zakladka po zakladce, sekcja po sekcji"* oraz *„chodzi o to, jak
+tam pokazujesz dane — w duzo gorszy sposob i nieprzystepny niz na stronie glownej"*. Decyzje po makiecie: **A** jeden
+przelacznik okresu „Since the previous brief | Last 7 days" (7 dni = okno strony glownej, `pageWindowDays` 7);
+**B** technologia jako pasek chipow filtrujacy WSZYSTKIE zakladki (jak globalny filtr produktu na stronie glownej), nie
+osobna sekcja; **C** „rob wszystko".
+
+Zmierzone przed zmiana (21 X, strona z 20 X): `/diff/` 376 kB HTML, 14 sekcji jedna pod druga, tabele pole po polu
+(jedna zmiana uprawnienia Graph = 3-4 wiersze: `endpoints`, `version`, `changed`), 1 737 z 3 432 wierszy rejestru z 7 dni
+to ksiegowosc (liczniki wersji, daty `changed`, sprawdzenia linkow, wiersze wypadajace z listy kroczacej).
+
+Budowa (kod, nie model):
+- `tools/changes_page.py` → `site/data/changes-7d.json` (ok. 600 kB, 7 dni): rejestr `changelog.json` bez ksiegowosci
+  (`DROP_FIELDS`, `DROP_KIND_FIELD`), pola jednej rzeczy scalone w JEDEN rekord `{d, tab, k, id, t, u, p, tc, w, t0, ms,
+  f:[[pole, przed, po, szczegol]]}`, plus zdarzenia, ktorych rejestr nie niesie: First-party apps (`state.fpa.chg`:
+  added / renamed / redirects / scopes / foci), Campaigns (`campaigns.json events`), Baselines (`baselines.json events`),
+  Threat Research (`threats.json stories`), Preview → GA (`doc-ga.json`). `tc` = rodzina technologii (lista `TECH`:
+  produkt, gdy go nazywa, inaczej pierwsza rodzina z tytulu/id) — bo `product` w Community Articles to ZRODLO
+  („MC - Merill", „Hacker News"), nie technologia.
+- `tools/changes_app.html` → `site/diff/index.html` (zakres `brief`) i `site/week/index.html` (zakres `week`), ten sam
+  plik, znacznik `data-changes-app`. Uklad strony glownej: szyna zakladek w kolejnosci portalu z kolorowymi `+ ~ −`
+  (≥1100 px), na telefonie jeden przycisk „Tab · <zakladka> ▾" z arkuszem (§5br/§5ep); Summary = „Most important"
+  (ranking: tier 0, waga SOC, Graph endpoints/privilege/consent, rola, przesuniety termin, Threat Research,
+  Preview → GA, komponenty; Community/Blogs i usuniete terminy w dol) + tabela „Every tab — what moved"; w zakladce kafelki
+  NEW / CHANGED / REMOVED / DATE MOVED z `<del>` → `<ins>`, w trybie 7 dni bloki dni (najnowszy otwarty), pelna tabela
+  zwinieta pod spodem. Wyszukiwanie wg §5em: baner „Filtered · N changes — in: <zakladki>", „Clear filter", filtr, ktory
+  oproznia otwarta zakladke, otwiera pierwsza z trafieniami. Druk: `beforeprint` rozwija wszystkie zakladki.
+- **Strony routine zostaja**: strona, ktora routine zapisze pod `site/diff/index.html` (`make_diff.py`, 22:00) albo
+  `site/week/index.html` (`write_week`, rano) — bez znacznika — `changes_page.py` przenosi do `site/diff/full.html` /
+  `site/week/print.html` (linki „Full comparison (all fields)", „Week summary to print"). Uruchamiaja go `publish.yml`
+  (zaraz po wzieciu `site/` z galezi routine, wiec opublikowana strona od razu jest aplikacja) i `code-refresh.yml`
+  (krok „What changed page", po RSS). **Prompty routine bez zmian** — routine pisze tam, gdzie pisala; to nie blad, ze
+  na `main` jej plik lezy potem jako `full.html`.
+- Archiwum: routine zmian robi `git mv site/diff/index.html site/history/…-diff.html` — od 5eq to bylaby aplikacja.
+  `fix_archive()` podmienia najnowszy `history/*-diff.html` ze znacznikiem na poprzedni `full.html` (porownanie, ktore
+  routine chciala zachowac). Test lokalny 21 X: archiwum = porownanie z 20 X, `full.html` = nowe, OK.
+- Co inne strony czytaja z `/diff/`, dziala dalej: `<div id="diff-meta">` (pozycje popoludniowe, §5cj) i tekst
+  „what changed RRRR-MM-DD" (wiek strony, §5bz) sa kopiowane z `full.html` do aplikacji (`carry()`); stare kotwice
+  (`#mcenter`, `#fpa`, `#community`, `#added`, `#dwin`, `#blogsdiff`, `#docsdiff`) otwieraja odpowiednia zakladke.
+- `feed_refresh.py` podpisuje (byline, JSON-LD, RSS) `full.html` i `print.html`, nigdy strony ze znacznikiem aplikacji.
 
 ## 6. Kontrakt w stronie
 

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-changes-app="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What changed — Microsoft SOC Brief</title>
+<meta name="description" content="What moved in the Microsoft SOC Brief since the previous brief and in the last 7 days, tab by tab.">
+<link rel="icon" href="@@HOME@@assets/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- CLAUDE.md 5eq (21 X 2026): the "What changed" page. Built by tools/changes_page.py from tools/changes_app.html; data from
+     data/changes-7d.json. Same look as the brief: tabs in the brief's order with + ~ − in the rail, tiles first, tables folded. -->
+<style>
+:root{--bg:#f2f4f7;--surface:#fff;--surface-2:#e9edf3;--border:#ccd4de;--border-soft:#e2e7ee;--text:#111721;--muted:#4e5867;--faint:#78838f;
+ --accent:#14479e;--accent-soft:#e2eafb;--ok:#0d6236;--ok-soft:#dbf0e3;--warn:#7d4d00;--warn-soft:#fceece;--bad:#9c1f1b;--bad-soft:#fbdedc;
+ --ins-bg:#d7f0de;--ins-fg:#0d5c31;--del-bg:#fbdcda;--del-fg:#96201c;--code-bg:#eaeef4;--on-accent:#fff;
+ --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1116;--surface:#161b22;--surface-2:#1e242d;--border:#2f3846;--border-soft:#222933;--text:#e8ecf1;--muted:#9fa9b6;--faint:#78838f;
+ --accent:#7fabf7;--accent-soft:#182a48;--ok:#63d495;--ok-soft:#0f3323;--warn:#efba60;--warn-soft:#382a0d;--bad:#f4867f;--bad-soft:#401718;--ins-bg:#123a24;--ins-fg:#79e0a5;--del-bg:#3f1618;--del-fg:#f79b95;--code-bg:#11151b;--on-accent:#0d1116}}
+:root[data-theme="dark"]{--bg:#0d1116;--surface:#161b22;--surface-2:#1e242d;--border:#2f3846;--border-soft:#222933;--text:#e8ecf1;--muted:#9fa9b6;--faint:#78838f;
+ --accent:#7fabf7;--accent-soft:#182a48;--ok:#63d495;--ok-soft:#0f3323;--warn:#efba60;--warn-soft:#382a0d;--bad:#f4867f;--bad-soft:#401718;--ins-bg:#123a24;--ins-fg:#79e0a5;--del-bg:#3f1618;--del-fg:#f79b95;--code-bg:#11151b;--on-accent:#0d1116}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button{font:inherit}
+header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;position:sticky;top:0;z-index:30}
+.hrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.logo{width:44px;height:44px;border-radius:10px;object-fit:cover}
+h1{font-size:21px;margin:0}
+.sub{color:var(--muted);font-size:13px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.hlinks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin-left:auto}
+.tbtn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.q{flex:1 1 260px;min-width:0;font:inherit;font-size:14px;padding:8px 12px;border:2px solid var(--ok);border-radius:10px;background:var(--surface);color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer}
+.chip b{color:var(--muted);font-weight:600;margin-left:4px}
+.chip[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:600}
+.morechips{font:inherit;font-size:12.5px;border:1px solid var(--border);border-radius:999px;padding:4px 8px;background:var(--surface);color:var(--text)}
+.banner{display:none;margin-top:10px;padding:8px 12px;border:2px solid var(--ok);border-radius:10px;background:var(--ok-soft);color:var(--ok);font-size:13.5px;align-items:center;gap:8px 12px;flex-wrap:wrap}
+.banner.on{display:flex}.banner .clr{margin-left:auto;background:var(--ok);color:var(--on-accent);border:0;border-radius:7px;padding:5px 12px;font-weight:600;cursor:pointer}
+.banner .tabhit{border:1px solid var(--ok);background:var(--surface);color:var(--ok);border-radius:999px;padding:2px 9px;font-size:12.5px;cursor:pointer}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1700px;margin:0 auto}
+nav.rail{position:sticky;top:var(--hh,120px);align-self:start;max-height:calc(100vh - var(--hh,120px));overflow:auto;padding:14px 10px;border-right:1px solid var(--border)}
+.rl{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:4px 8px 6px}
+.rl span:last-child{display:inline-flex;gap:8px}.rl span:last-child i{font-style:normal;min-width:24px;text-align:right}
+.ri{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:7px 10px;margin:4px 0;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);cursor:pointer;text-align:left;font-size:13.5px}
+.ri:hover{border-color:var(--accent)}.ri[aria-current="page"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.ks{display:inline-flex;gap:8px;font-weight:700;font-size:12.5px;font-variant-numeric:tabular-nums}.k{min-width:24px;text-align:right;color:var(--faint);font-weight:500}
+.k.a{color:var(--ok);font-weight:700}.k.c{color:var(--warn);font-weight:700}.k.r{color:var(--bad);font-weight:700}
+.jump{display:none}
+main{padding:18px 22px 80px;min-width:0}
+.panel[hidden]{display:none}
+.ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 6px}.ph h2{margin:0;font-size:23px}
+.n{font-weight:700;font-size:13.5px}.n.a{color:var(--ok)}.n.c{color:var(--warn)}.n.r{color:var(--bad)}
+.lead{margin:0 0 12px;color:var(--muted);max-width:1000px;font-size:13.5px}
+details.day{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;background:var(--surface);margin:0 0 12px}
+details.day>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:11px 14px}
+details.day>summary::-webkit-details-marker{display:none}
+details.day>summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:1px solid var(--accent);border-radius:5px;color:var(--accent);font-weight:700;font-size:13px}
+details.day[open]>summary::before{content:"\2212"}
+.dt{font-weight:700;font-size:15.5px}
+.grid{list-style:none;margin:0;padding:0 14px 14px;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
+.tile{border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;padding:9px 12px;background:var(--bg);min-width:0}
+.tile.new{border-left-color:var(--ok)}.tile.chg{border-left-color:var(--warn)}.tile.gone{border-left-color:var(--bad)}.tile.date{border-left-color:var(--accent)}
+.tt{display:flex;gap:6px 8px;align-items:center;flex-wrap:wrap}
+.kind{font-size:10.5px;font-weight:700;letter-spacing:.05em;border:1px solid currentColor;border-radius:6px;padding:1px 6px}
+.new .kind{color:var(--ok)}.chg .kind{color:var(--warn)}.gone .kind{color:var(--bad)}.date .kind{color:var(--accent)}
+.meta{font-size:12px;color:var(--muted)}.t0{font-size:10.5px;font-weight:700;color:var(--bad);border:1px solid var(--bad);border-radius:6px;padding:0 5px}
+.ti{display:block;margin-top:5px;font-weight:600;color:var(--text);overflow-wrap:anywhere}a.ti:hover{color:var(--accent)}
+.what{margin:4px 0 0;font-size:13px;overflow-wrap:anywhere}.what .fl{color:var(--muted)}
+del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;border-radius:3px;padding:0 3px}
+ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;font-weight:600;border-radius:3px;padding:0 3px}
+.det{display:block;margin-top:3px;font-family:var(--mono);font-size:11.5px;background:var(--code-bg);border-radius:5px;padding:3px 6px;overflow-wrap:anywhere}
+.more{padding:0 14px 12px}.btn{border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:13px}
+.none{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
+details.tbl{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
+details.tbl>summary{cursor:pointer;padding:10px 14px;font-weight:600}
+.tw{overflow-x:auto;padding:0 14px 14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:7px 9px;border-bottom:1px solid var(--border)}
+td{padding:7px 9px;border-bottom:1px solid var(--border-soft);vertical-align:top;overflow-wrap:anywhere}
+tbody tr:hover td{background:var(--accent-soft)}
+.sumtab td.num{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sumtab button{border:0;background:none;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:0;text-align:left}
+.foot{margin-top:24px;color:var(--muted);font-size:12.5px}
+.sheet[hidden]{display:none}
+@media (max-width:1099px){
+ .layout{grid-template-columns:1fr}nav.rail{display:none}
+ .jump{display:flex;align-items:center;gap:8px;width:calc(100% - 24px);margin:10px 12px 0;padding:9px 12px;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);color:var(--text);font-weight:600;cursor:pointer;text-align:left}
+ .jump .jl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}.jump .jc{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .sheet{margin:6px 12px 0;padding:6px 8px;border:1px solid var(--border);border-radius:10px;background:var(--surface);max-height:65vh;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+ .sheet .ri{margin:3px 0}
+ main{padding:12px 12px 60px}header.top{padding:10px 12px;position:static}.hlinks{margin-left:0}
+}
+@media (max-width:760px){
+ .logo{width:34px;height:34px}.hrow{gap:6px 10px}.hrow>div:nth-child(2){flex:1 1 200px;min-width:0}h1{font-size:18px}.sub{font-size:12.5px}
+ .seg{order:5;width:100%}.seg button{flex:1 1 50%;padding:6px 8px}
+ .hlinks{order:4;font-size:12.5px;gap:4px 12px;width:100%}.hlinks .pr{display:none}.tbtn{padding:3px 8px;font-size:12px}
+ .frow{flex-wrap:nowrap;flex-direction:column;align-items:stretch;gap:6px}.q{flex:0 0 auto}
+ .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}.chip,.morechips{flex:0 0 auto}
+ .lead{font-size:13px}
+}
+@media (max-width:600px){h1{font-size:18px}.ph h2{font-size:20px}.grid{padding:0 10px 10px}details.day>summary{padding:10px}}
+@media print{header.top{position:static}.jump,.sheet,nav.rail,.frow,.seg,.tbtn,.hlinks .np{display:none!important}.layout{display:block}.panel[hidden]{display:block!important}details.day>.grid{display:grid}main{padding:0}}
+</style>
+</head>
+<body>
+<!--@@META@@-->
+<header class="top" id="top">
+ <div class="hrow">
+  <a href="@@HOME@@"><img class="logo" src="@@HOME@@assets/mark-light.webp" alt="Microsoft SOC Brief"></a>
+  <div><h1>What changed</h1><div class="sub" id="periodtxt">Loading…</div></div>
+  <div class="seg" role="group" aria-label="Period"><button type="button" data-range="brief">Since the previous brief</button><button type="button" data-range="week">Last 7 days</button></div>
+  <div class="hlinks"><a href="@@HOME@@">&larr; Back to the brief</a><a class="np" href="@@HOME@@diff/full.html">Full comparison (all fields)</a><a class="np pr" href="@@HOME@@week/print.html">Week summary to print</a><button class="tbtn np" type="button" id="themebtn">Theme</button></div>
+ </div>
+ <div class="frow"><input class="q" id="q" type="search" placeholder="Search every change — title, ID, permission, product…" aria-label="Search every change"><div class="chips" id="chips" aria-label="Technology"></div></div>
+ <div class="banner" id="banner" role="status"></div>
+</header>
+<button class="jump" type="button" id="jump" aria-expanded="false" aria-controls="sheet"><span class="jl">Tab</span><span class="jc" id="jumpc">Summary</span><span aria-hidden="true">&#9662;</span></button>
+<div class="sheet" id="sheet" hidden></div>
+<div class="layout"><nav class="rail" id="rail" aria-label="Tabs"></nav><main id="main"><p class="sub">Loading the change register…</p></main></div>
+<script>
+(function () {
+  "use strict";
+  var RANGE = "@@RANGE@@" === "week" ? "week" : "brief";
+  var TABS = [["Summary", "The changes worth reading first"], ["New", "New items in the brief"], ["Deadlines", "Dated items: arrived, left, or date moved"],
+    ["Message Center", "Message Center and Roadmap posts"], ["Graph API", "Graph permissions: endpoints, privilege, consent"], ["Roles", "Entra directory roles"],
+    ["Component versions", "Agent and client versions"], ["First-party apps", "Microsoft's own Entra applications"], ["Campaigns", "Retirements, enforcements, rollouts"],
+    ["Baselines", "Maester and Tenable"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
+    ["Microsoft Blogs", "Microsoft product blogs"], ["Community Articles", "Community sources"]];
+  var D = null, S = { tab: "Summary", q: "", tech: "" };
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] : (d || ""); }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  try { var th = localStorage.getItem("soc-changes-theme"); if (th) document.documentElement.setAttribute("data-theme", th); } catch (e) {}
+  document.getElementById("themebtn").addEventListener("click", function () {
+    var cur = document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var nx = cur === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", nx); try { localStorage.setItem("soc-changes-theme", nx); } catch (e) {}
+  });
+  function hh() { var h = document.getElementById("top"); document.documentElement.style.setProperty("--hh", (getComputedStyle(h).position === "sticky" ? h.offsetHeight : 0) + "px"); }
+  addEventListener("resize", hh);
+  /* the record's kind for a tile: a moved date is its own colour, it rearranges the week */
+  function kindOf(r) {
+    if (r.k === "added") return "new"; if (r.k === "removed") return "gone";
+    if ((r.f || []).some(function (f) { return /deadline|action required|act by|due/i.test(f[0]); })) return "date";
+    return "chg";
+  }
+  var KL = { "new": "NEW", chg: "CHANGED", gone: "REMOVED", date: "DATE MOVED" };
+  function inRange(r) { return RANGE === "week" ? true : r.d === D.day; }
+  function hay(r) { return [r.id, r.t, r.p, r.tc || "", r.tab, r.x || ""].concat((r.f || []).map(function (f) { return f.join(" "); })).join(" ").toLowerCase(); }
+  function passes(r) { if (!inRange(r)) return false; if (S.tech && r.tc !== S.tech) return false; if (S.q && hay(r).indexOf(S.q.toLowerCase()) < 0) return false; return true; }
+  function recs(tab) { return D.records.filter(function (r) { return (!tab || r.tab === tab) && passes(r); }); }
+  function counts(L) { var c = { a: 0, c: 0, r: 0 }; L.forEach(function (r) { if (r.k === "added") c.a++; else if (r.k === "removed") c.r++; else c.c++; }); return c; }
+  /* §5eq ranking for "Most important": tier 0, the brief's weight, what the change does */
+  function score(r) {
+    var s = 0; if (r.t0) s += 10; if (r.w) s += Math.max(0, 8 - r.w);
+    var f = (r.f || []).map(function (x) { return x[0]; }).join(" ");
+    if (r.tab === "Graph API" && /endpoints|privilege|consent/.test(f)) s += 6;
+    if (r.tab === "Roles") s += 6;
+    if (kindOf(r) === "date") s += 6;
+    if (r.tab === "Threat Research") s += 7;
+    if (/^Preview → GA/.test(r.t)) s += 5;
+    if (r.tab === "Component versions") s += 4;
+    if (r.tab === "Deadlines" && r.k === "added") s += 4;
+    if (r.tab === "Community Articles" || r.tab === "Microsoft Blogs") s -= 4;
+    if (r.tab === "Microsoft Learn" && r.k === "removed") s -= 4;
+    if (r.tab === "Deadlines" && r.k === "removed") s -= 5;   /* an item leaving the dated list: mostly its date passed */
+    return s;
+  }
+  function cut(s) { s = String(s || ""); return s.length > 180 ? s.slice(0, 170).replace(/\s+\S*$/, "") + " …" : s; }
+  function fieldLine(f) {
+    var p = el("div", "what"), name = f[0], b = f[1], a = f[2], d = f[3];
+    p.appendChild(el("span", "fl", name + ": "));
+    if (name === "endpoints") { p.appendChild(el("b", null, (a || "") + " endpoint" + (/^[+−-]?1$/.test(a || "") ? "" : "s"))); }
+    else {
+      if (b) { var x1 = el("del", null, cut(b)); x1.title = b; p.appendChild(x1); p.appendChild(document.createTextNode(" → ")); }
+      if (a) { var x2 = el(b ? "ins" : "b", null, cut(a)); x2.title = a; p.appendChild(x2); }
+    }
+    if (d) p.appendChild(el("span", "det", cut(d).replace(/^endpoint (added|removed): /, function (m, x) { return (x === "added" ? "+ " : "− "); })));
+    return p;
+  }
+  function tile(r) {
+    var k = kindOf(r), li = el("li", "tile " + k), top = el("div", "tt");
+    top.appendChild(el("span", "kind", KL[k]));
+    if (r.t0) top.appendChild(el("span", "t0", "tier 0"));
+    top.appendChild(el("span", "meta", [r.tab !== S.tab ? r.tab : "", r.p || r.tc, dm(r.d)].filter(Boolean).join(" · ")));
+    li.appendChild(top);
+    var title = r.t || r.id, a;
+    if (r.u) { a = el("a", "ti", title); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; } else a = el("span", "ti", title);
+    li.appendChild(a);
+    if (r.t && r.id && r.id !== r.t && r.id.length < 80 && !/^https?:/.test(r.id)) li.appendChild(el("div", "meta", r.id));
+    (r.f || []).slice(0, 4).forEach(function (f) { li.appendChild(fieldLine(f)); });
+    if ((r.f || []).length > 4) li.appendChild(el("div", "meta", "and " + (r.f.length - 4) + " more fields"));
+    if (r.x) li.appendChild(el("div", "meta", r.x));
+    return li;
+  }
+  function block(title, L, open, cap) {
+    var b = el("details", "day"); b.open = !!open;
+    var sm = el("summary"); sm.appendChild(el("span", "dt", title));
+    var c = counts(L); sm.appendChild(el("span", "n a", c.a + " new")); sm.appendChild(el("span", "n c", c.c + " changed")); sm.appendChild(el("span", "n r", c.r + " removed"));
+    b.appendChild(sm);
+    function fill() {
+      if (b.__f) return; b.__f = true;
+      if (!L.length) { b.appendChild(el("p", "none", "Nothing moved here in this window" + (S.q || S.tech ? " that matches the filter." : "."))); return; }
+      var ul = el("ul", "grid"), M = cap || 24; L.slice(0, M).forEach(function (r) { ul.appendChild(tile(r)); }); b.appendChild(ul);
+      if (L.length > M) { var p = el("div", "more"), bt = el("button", "btn", "Show all " + L.length); bt.type = "button";
+        bt.addEventListener("click", function () { L.slice(M).forEach(function (r) { ul.appendChild(tile(r)); }); p.remove(); }); p.appendChild(bt); b.appendChild(p); }
+    }
+    if (b.open) fill(); b.addEventListener("toggle", function () { if (b.open) fill(); });
+    return b;
+  }
+  function sortRecs(L) { return L.slice().sort(function (x, y) { return y.d.localeCompare(x.d) || score(y) - score(x); }); }
+  function table(L) {
+    var d = el("details", "tbl"), sm = el("summary", null, "All " + L.length + " changes as a table");
+    d.appendChild(sm);
+    d.addEventListener("toggle", function () {
+      if (!d.open || d.__f) return; d.__f = true;
+      var w = el("div", "tw"), t = el("table"), hd = el("thead"), tr = el("tr");
+      ["Day", "What", "Item", "Product", "Field", "Before", "After"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
+      var bd = el("tbody");
+      L.forEach(function (r) {
+        var rows = (r.f && r.f.length) ? r.f : [["", "", r.x || "", ""]];
+        rows.forEach(function (f, i) {
+          var x = el("tr"); x.appendChild(el("td", null, i ? "" : dm(r.d))); x.appendChild(el("td", null, i ? "" : KL[kindOf(r)]));
+          var c = el("td"); if (!i) { if (r.u) { var a = el("a", null, r.t || r.id); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a); } else c.textContent = r.t || r.id; }
+          x.appendChild(c); x.appendChild(el("td", null, i ? "" : r.p)); x.appendChild(el("td", null, f[0])); x.appendChild(el("td", null, f[1])); x.appendChild(el("td", null, [f[2], f[3]].filter(Boolean).join(" — ")));
+          bd.appendChild(x);
+        });
+      });
+      t.appendChild(bd); w.appendChild(t); d.appendChild(w);
+    });
+    return d;
+  }
+  function days() { var o = []; for (var i = 0; i < D.days; i++) { var t = new Date(D.day + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - i); o.push(t.toISOString().slice(0, 10)); } return o; }
+  function panelFor(tab) {
+    var p = el("section", "panel"); p.id = "p-" + tab.replace(/\W+/g, "-");
+    var all = recs(tab === "Summary" ? null : tab), c = counts(all), meta = TABS.filter(function (x) { return x[0] === tab; })[0];
+    var ph = el("div", "ph"); ph.appendChild(el("h2", null, tab));
+    if (tab !== "Summary") { ph.appendChild(el("span", "n a", c.a + " new")); ph.appendChild(el("span", "n c", c.c + " changed")); ph.appendChild(el("span", "n r", c.r + " removed")); }
+    ph.appendChild(el("span", "sub", meta[1])); p.appendChild(ph);
+    if (tab === "Summary") {
+      var top = all.slice().sort(function (x, y) { return score(y) - score(x) || y.d.localeCompare(x.d); }).slice(0, 9);
+      p.appendChild(el("p", "lead", "The changes worth reading first, ranked: tier 0, the brief's SOC weight, then what the change does — a Graph permission that can reach more, a role, a date that moved, an incident, a feature leaving preview. Every tab is in the rail with what moved: + new, ~ changed, − removed."));
+      p.appendChild(block("Most important · " + (RANGE === "week" ? "last 7 days" : "since the previous brief"), top, true, 9));
+      var w = el("div", "tw"), t = el("table", "sumtab"), hd = el("thead"), tr = el("tr");
+      ["Tab", "New", "Changed", "Removed", "Last change"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
+      var bd = el("tbody");
+      TABS.slice(1).forEach(function (x) {
+        var L = recs(x[0]), k = counts(L), last = L.reduce(function (m, r) { return r.d > m ? r.d : m; }, "");
+        var row = el("tr"), c0 = el("td"), bt = el("button", null, x[0]); bt.type = "button"; bt.addEventListener("click", function () { go(x[0]); }); c0.appendChild(bt); row.appendChild(c0);
+        [["a", k.a, "+"], ["c", k.c, "~"], ["r", k.r, "−"]].forEach(function (q) { var td = el("td", "num"); if (q[1]) { var s = el("span", "n " + q[0], q[2] + q[1]); td.appendChild(s); } else td.textContent = "·"; row.appendChild(td); });
+        row.appendChild(el("td", null, last ? dmy(last) : "—")); bd.appendChild(row);
+      });
+      t.appendChild(bd); w.appendChild(t);
+      var tb = el("details", "tbl"); tb.open = true; tb.appendChild(el("summary", null, "Every tab — what moved")); tb.appendChild(w); p.appendChild(tb);
+      return p;
+    }
+    if (!all.length) { p.appendChild(el("p", "lead", "Nothing moved in this tab " + (RANGE === "week" ? "in the last 7 days" : "since the previous brief") + (S.q || S.tech ? " that matches the filter." : ".") + (RANGE === "brief" ? " Switch to Last 7 days for the week." : ""))); return p; }
+    if (RANGE === "brief") p.appendChild(block("Since the previous brief · " + dm(D.previousBrief || "") + " → " + dm(D.day), sortRecs(all), true));
+    else days().forEach(function (d, i) { var L = sortRecs(all.filter(function (r) { return r.d === d; })); if (L.length || i === 0) p.appendChild(block(dmy(d) + (i === 0 ? " · latest brief" : ""), L, i === 0 || (i === 1 && !all.some(function (r) { return r.d === days()[0]; })))); });
+    p.appendChild(table(sortRecs(all)));
+    return p;
+  }
+  function railItem(tab, inSheet) {
+    var b = el("button", "ri"); b.type = "button"; b.setAttribute("data-tab", tab);
+    b.appendChild(el("span", null, tab));
+    if (tab !== "Summary") { var c = counts(recs(tab)), ks = el("span", "ks");
+      [["a", c.a, "+"], ["c", c.c, "~"], ["r", c.r, "−"]].forEach(function (q) { ks.appendChild(el("span", "k" + (q[1] ? " " + q[0] : ""), q[1] ? q[2] + q[1] : "·")); }); b.appendChild(ks); }
+    if (tab === S.tab) b.setAttribute("aria-current", "page");
+    b.addEventListener("click", function () { go(tab); if (inSheet) toggleSheet(false); });
+    return b;
+  }
+  function renderNav() {
+    var rail = document.getElementById("rail"), sh = document.getElementById("sheet");
+    rail.textContent = ""; sh.textContent = "";
+    var rl = el("div", "rl"); rl.appendChild(el("span", null, "Tabs")); var h = el("span"); ["+", "~", "−"].forEach(function (x) { h.appendChild(el("i", null, x)); }); rl.appendChild(h); rail.appendChild(rl);
+    TABS.forEach(function (t) { rail.appendChild(railItem(t[0])); sh.appendChild(railItem(t[0], true)); });
+    document.getElementById("jumpc").textContent = S.tab;
+  }
+  function toggleSheet(on) { var sh = document.getElementById("sheet"), j = document.getElementById("jump"); sh.hidden = !on; j.setAttribute("aria-expanded", on ? "true" : "false"); }
+  document.getElementById("jump").addEventListener("click", function () { toggleSheet(document.getElementById("sheet").hidden); });
+  function renderChips() {
+    var box = document.getElementById("chips"); box.textContent = "";
+    var cnt = {}; D.records.forEach(function (r) { if (inRange(r) && r.tc) cnt[r.tc] = (cnt[r.tc] || 0) + 1; });
+    var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
+    keys.slice(0, 8).forEach(function (k) { var c = el("button", "chip", k); c.type = "button"; c.appendChild(el("b", null, String(cnt[k]))); c.setAttribute("aria-pressed", S.tech === k ? "true" : "false");
+      c.addEventListener("click", function () { S.tech = S.tech === k ? "" : k; refilter(); }); box.appendChild(c); });
+    if (keys.length > 8) { var s = el("select", "morechips"); s.setAttribute("aria-label", "More technologies"); s.appendChild(new Option("+" + (keys.length - 8) + " more…", ""));
+      keys.slice(8).forEach(function (k) { var o = new Option(k + " (" + cnt[k] + ")", k); if (S.tech === k) o.selected = true; s.appendChild(o); });
+      s.addEventListener("change", function () { S.tech = s.value; refilter(); }); box.appendChild(s); }
+  }
+  /* §5em on this page too: a filter names itself, says where its results are, and one press clears it */
+  function renderBanner() {
+    var b = document.getElementById("banner"); b.textContent = "";
+    var on = S.q || S.tech; b.classList.toggle("on", !!on); if (!on) return;
+    var L = recs(null), tabs = {}; L.forEach(function (r) { tabs[r.tab] = (tabs[r.tab] || 0) + 1; });
+    b.appendChild(el("b", null, "Filtered · " + L.length + " change" + (L.length === 1 ? "" : "s")));
+    b.appendChild(el("span", null, [S.q ? "text “" + S.q + "”" : "", S.tech ? "technology " + S.tech : ""].filter(Boolean).join(" · ") + " — in:"));
+    Object.keys(tabs).forEach(function (t) { var x = el("button", "tabhit", t + " · " + tabs[t]); x.type = "button"; x.addEventListener("click", function () { go(t); }); b.appendChild(x); });
+    if (!L.length) b.appendChild(el("span", null, "no tab"));
+    var c = el("button", "clr", "Clear filter"); c.type = "button"; c.addEventListener("click", function () { S.q = ""; S.tech = ""; document.getElementById("q").value = ""; render(); }); b.appendChild(c);
+  }
+  /* §5em: results first - a filter that leaves the open tab empty opens the first tab it hits */
+  function refilter() {
+    if ((S.q || S.tech) && S.tab !== "Summary" && !recs(S.tab).length) {
+      var hit = TABS.filter(function (t) { return t[0] !== "Summary" && recs(t[0]).length; })[0];
+      if (hit) { go(hit[0]); return; }
+    }
+    render();
+  }
+  function go(tab) { S.tab = tab; try { history.replaceState(null, "", "#tab=" + encodeURIComponent(tab) + (RANGE === "week" ? "&range=week" : "")); } catch (e) {} render(); window.scrollTo(0, 0); }
+  function render() {
+    var lo = RANGE === "week" ? D.from : D.day;
+    document.getElementById("periodtxt").textContent = RANGE === "week"
+      ? "Last 7 days · " + dmy(D.from) + " – " + dmy(D.day) + " · " + D.records.filter(inRange).length + " changes"
+      : "Brief of " + dmy(D.day) + " compared with " + (D.previousBrief ? dmy(D.previousBrief) : "the previous brief") + " · " + D.records.filter(inRange).length + " changes";
+    [].forEach.call(document.querySelectorAll(".seg button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-range") === RANGE ? "true" : "false"); });
+    renderChips(); renderBanner(); renderNav();
+    var m = document.getElementById("main"); m.textContent = "";
+    if (window.matchMedia && matchMedia("print").matches) TABS.forEach(function (t) { m.appendChild(panelFor(t[0])); });
+    else m.appendChild(panelFor(S.tab));
+    var f = el("p", "foot"); f.appendChild(document.createTextNode("Built " + String(D.generated || "").slice(0, 16).replace("T", " ") + " UTC from the change register (site/data/changelog.json) and the portal's data files. " + D.dropped + " bookkeeping rows (version counters, link checks, rows leaving a rolling list) are not shown as changes; the full comparison keeps every field. "));
+    var a = el("a", null, "Full comparison"); a.href = "@@HOME@@diff/full.html"; f.appendChild(a); m.appendChild(f);
+    hh();
+  }
+  [].forEach.call(document.querySelectorAll(".seg button"), function (b) { b.addEventListener("click", function () { RANGE = b.getAttribute("data-range"); go(S.tab); }); });
+  var qt; document.getElementById("q").addEventListener("input", function (e) { clearTimeout(qt); qt = setTimeout(function () { S.q = e.target.value.trim(); refilter(); }, 180); });
+  addEventListener("beforeprint", function () { var m = document.getElementById("main"); m.textContent = ""; TABS.forEach(function (t) { var p = panelFor(t[0]); [].forEach.call(p.querySelectorAll("details"), function (d) { d.open = true; }); m.appendChild(p); }); });
+  addEventListener("afterprint", render);
+  var h0 = decodeURIComponent(location.hash || ""), mt = /tab=([^&]+)/.exec(h0); if (mt && TABS.some(function (t) { return t[0] === mt[1]; })) S.tab = mt[1];
+  /* the brief's links into the old page's sections (§5bn "Everything that moved here", §5cj "#dwin") open the matching tab */
+  var OLD = { mcenter: "Message Center", fpa: "First-party apps", community: "Community Articles", added: "New", dwin: "New",
+    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Baselines", threats: "Threat Research" };
+  if (!mt && OLD[h0.replace(/^#/, "")]) S.tab = OLD[h0.replace(/^#/, "")];
+  addEventListener("hashchange", function () { var k = decodeURIComponent(location.hash || "").replace(/^#/, ""), m = /tab=([^&]+)/.exec(k);
+    var t = m ? m[1] : OLD[k]; if (t && t !== S.tab && TABS.some(function (x) { return x[0] === t; }) && D) { S.tab = t; render(); } });
+  if (/range=week/.test(h0)) RANGE = "week"; else if (/range=brief/.test(h0)) RANGE = "brief";
+  fetch("@@HOME@@data/changes-7d.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function (j) { D = j; render(); })
+    .catch(function (e) { document.getElementById("main").textContent = "The change register could not be read (" + e.message + "). The full comparison is at diff/full.html."; });
+})();
+</script>
+</body>
+</html>
