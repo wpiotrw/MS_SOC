@@ -1,7 +1,7 @@
 {
  "read": "2026-10-21",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 705,
+ "count": 711,
  "note": null,
  "messages": [
   {
@@ -18606,6 +18606,163 @@
    "bodyHash": "fe15957e6b3e8496"
   },
   {
+   "id": "MC1519841",
+   "title": "Microsoft OneNote: CSV and TSV references in Copilot Notebooks",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-12-04",
+   "modified": "2026-10-21",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and why] We are introducing support for using CSV and TSV files as knowledge sources in Microsoft Copilot Notebooks. This enhancement allows users to add structured lists and tabular data directly to notebooks alongside existing document types. By including CSV and TSV content as reference material, Copilot can generate more relevant and informed outputs such as presentations, reports, brief…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout began in mid-October 2026 and is expected to complete by late October 2026."
+   ],
+   "bodyHash": "8efdeae14264274b"
+  },
+  {
+   "id": "MC1519842",
+   "title": "Microsoft OneNote: JPG and PNG references in Copilot Notebooks",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-12-04",
+   "modified": "2026-10-21",
+   "tags": [
+    "Feature update",
+    "New feature"
+   ],
+   "summary": "[What and why] We are introducing support for using JPG and PNG files as knowledge sources in Microsoft Copilot Notebooks. This enhancement allows users to add images directly to notebooks alongside supported document types. Copilot can use content contained within these images, including text, charts, diagrams, and other visual elements, as grounding context to generate more relevant presentation…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout began in early October 2026 and is expected to complete by late October 2026."
+   ],
+   "bodyHash": "63ff53c81ea16531"
+  },
+  {
+   "id": "MC1519843",
+   "title": "New Outlook for Windows: All Accounts view brings email into a single inbox view",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-12-31",
+   "modified": "2026-10-21",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] The All Accounts view, also known as Unified Inbox, lets users see email from multiple connected accounts in a single inbox view in the new Outlook for Windows without merging their mailboxes. Each account's inbox stays separate, and All Accounts view brings messages together so users can triage mail from one place. Users can read, delete, search, move, archive, and mark messages a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We began rolling out in late September 2026 and expect to complete by late October 2026.",
+    "New admin controls for Unified Inbox are planned for release later in October 2026."
+   ],
+   "bodyHash": "cd9957255d4a35ff"
+  },
+  {
+   "id": "MC1519846",
+   "title": "Microsoft 365 apps: Updated Brand Kit management experience",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-11-21",
+   "modified": "2026-10-21",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is updating the Brand Kit management experience to make it easier for Brand Managers to set up and maintain their organization’s Brand Kits. The updated experience provides clearer setup guidance, streamlined management of brand assets, and improved workflows as an organization’s brand evolves. This reduces the time and effort required to bring approved brand assets togeth…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "a6a109b4b8c0a152"
+  },
+  {
+   "id": "MC1519855",
+   "title": "Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-11-30",
+   "modified": "2026-10-21",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available. CYOT enables organizations to use a supported third-party telecommunications provider for SMS and voice authentication. Organizations select a supported provider through Microsoft Security Store and manage their commercial relationship directly with the provider. Mi…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available.",
+    "General Availability (Worldwide): Beginning October 30, 2026.",
+    "Starting October 30, 2026, organizations can choose to configure a supported telephony provider for SMS and voice authentication.",
+    "Microsoft-provided SMS and voice authentication is scheduled to be retired on February 1, 2027, for all users except Global Administrators and external users.",
+    "The retirement date for Global Administrators and external users is July 1, 2027.",
+    "Internal guest users remain subject to the February 1, 2027 retirement date."
+   ],
+   "bodyHash": "cb417021771a04d5"
+  },
+  {
+   "id": "MC1519857",
+   "title": "Microsoft Teams: Chat for organizers and presenters in structured meetings and webinars on Teams Rooms on Android",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-21",
+   "end": "2026-12-26",
+   "modified": "2026-10-21",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] When a Teams meeting or event has green room enabled and a Teams Rooms on Android joins the meeting/event as an organizer, people in the room will have access to the private chat for presenters that appears as a separate chat tab on the meeting chat pane. The chat tab is labelled \"Event group\" for events and \"Planning group\" for meetings. Presenters can use this private chat for ba…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in late August 2025 and expect to complete by mid November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in mid November 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "dfbfc0a33ece2fa5"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -23519,6 +23676,48 @@
    "id": "MC1519247",
    "type": "new",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519841",
+   "type": "new",
+   "title": "Microsoft OneNote: CSV and TSV references in Copilot Notebooks",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519842",
+   "type": "new",
+   "title": "Microsoft OneNote: JPG and PNG references in Copilot Notebooks",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519843",
+   "type": "new",
+   "title": "New Outlook for Windows: All Accounts view brings email into a single inbox view",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519846",
+   "type": "new",
+   "title": "Microsoft 365 apps: Updated Brand Kit management experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519855",
+   "type": "new",
+   "title": "Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1519857",
+   "type": "new",
+   "title": "Microsoft Teams: Chat for organizers and presenters in structured meetings and webinars on Teams Rooms on Android",
    "fields": {}
   }
  ]
