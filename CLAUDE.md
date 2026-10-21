@@ -32468,14 +32468,24 @@ odtad CZTERNASCIE (4-17).**
       head.appendChild(b);
     });
     box.appendChild(head);
-    if (!spec.rows.length) {
-      box.appendChild(el("p", "s5bn-empty", spec.empty));
-    } else {
+    /* §5et (21 X 2026, owner: "if nothing new was found, always show what was found last - roles, first-party apps,
+       Graph API - so nothing slips past us, in rounded frames"): a quiet brief keeps its sentence and shows, under
+       "Last found here", the newest earlier day of this tab in the register with the same rows */
+    var R = spec.rows.length ? spec.rows : ((spec.last && spec.last.rows) || []);
+    if (!spec.rows.length) box.appendChild(el("p", "s5bn-empty", spec.empty));
+    if (!spec.rows.length && R.length) {
+      box.classList.add("s5bn-quiet");
+      var lt = el("p", "s5bn-lastl"); lt.appendChild(el("b", null, "Last found here · " + dmy(spec.last.date)));
+      var nI = {}; R.forEach(function (r) { nI[r.kind + "|" + (r.id || r.title || "")] = 1; }); var nI2 = Object.keys(nI).length;
+      lt.appendChild(document.createTextNode(" · " + (spec.last.ago === 1 ? "1 day" : spec.last.ago + " days") + " before this brief · " + nI2 + " item" + (nI2 === 1 ? "" : "s") + (R.length > nI2 ? ", " + R.length + " field changes" : "")));
+      box.appendChild(lt);
+    }
+    if (R.length) {
       var ul = el("ul", "s5bn-l");
       /* §5da (10 X 2026, owner: "the permission name is lost among colours"): the field changes of ONE item are one
          row - its name once, the fields under it - instead of the same name repeated for every field */
       var grp = [], gx = {};
-      spec.rows.forEach(function (r) {
+      R.forEach(function (r) {
         var gk = r.kind + "\u0001" + (r.id || r.title || "");
         if (r.kind === "changed" && (r.id || r.title) && gx[gk]) { gx[gk].more.push(r); return; }
         var g = { r: r, more: [] }; grp.push(g); if (r.id || r.title) gx[gk] = g;
@@ -32536,6 +32546,14 @@ odtad CZTERNASCIE (4-17).**
     var prev = typeof cw === "string" ? cw : (cw.date || "");
     var since = "Since the previous brief" + (prev ? " (" + dmy(prev) + (cw.when && /afternoon|21:/.test(cw.what + cw.when) ? ", afternoon pass" : "") + ")" : "");
     var items = {}; (ST.items || []).forEach(function (i) { if (i && i.id) items[i.id] = i; });
+    /* §5et: the newest earlier day of these tabs in the 14-day register, mapped like today's rows */
+    function lastOf(tabs, map) {
+      var E = ((ST.ledger14 || {}).entries || []).filter(function (e) { return e && tabs.indexOf(e.tab) >= 0 && e.seen && e.seen < day; });
+      if (!E.length) return null;
+      var d = E.reduce(function (m, e) { return e.seen > m ? e.seen : m; }, "");
+      var ago = Math.round((Date.parse(day + "T12:00:00Z") - Date.parse(d + "T12:00:00Z")) / 864e5);
+      return { date: d, ago: ago, rows: E.filter(function (e) { return e.seen === d; }).map(map) };
+    }
     function itemRow(kind, id, field, before, after) {
       var it = items[id] || {};
       return { kind: kind, id: id, title: it.title || "", link: it.url || "", field: field || "", before: before || "", after: after || "",
@@ -32548,16 +32566,24 @@ odtad CZTERNASCIE (4-17).**
     [["tab-new", ["New"], "added"], ["tab-deadlines", ["Deadlines"], "added"],
      ["tab-graph", ["Graph API", "Graph endpoints"], "catalog"], ["tab-roles", ["Roles"], "catalog"],
      ["tab-components", ["Component versions"], "components"]].forEach(function (t) {
-      var rows = today.filter(function (e) { return t[1].indexOf(e.tab) >= 0; }).map(function (e) {
+      var map = function (e) {
         /* an endpoint move carries its path in `detail`: that, not "+1", is the news */
         var r = e.detail ? itemRow(e.kind, e.id, "", "", e.detail) : itemRow(e.kind, e.id, e.field, e.before, e.after);
         if (!r.link && e.url) r.link = e.url;
         if (!items[e.id]) r.type = { "Graph API": "Graph permission", "Graph endpoints": "Graph endpoint", "Roles": "Role", "Component versions": "Component" }[e.tab] || r.type;
         if (!r.prod && e.product) r.prod = e.product;
+        if (!r.title && e.title) r.title = e.title;
         return r;
-      });
-      strip(document.getElementById(t[0]), { title: since, rows: rows, diff: t[2],
-        empty: "Nothing moved in this tab in this brief — the register recorded no change here on " + dmy(day) + ".",
+      };
+      var rows = today.filter(function (e) { return t[1].indexOf(e.tab) >= 0; }).map(map);
+      /* §5et: Graph API and Roles - the brief's register may be quiet while our tenant's 3-hourly read saw a change
+         (21 X: three roles gained conditionalAccessPolicyPlans actions at 11:48 UTC); the sentence says so */
+      var tenN = 0;
+      try { if ((t[0] === "tab-roles" || t[0] === "tab-graph") && window.__socIdent && window.__socIdent.events)
+        tenN = window.__socIdent.events().filter(function (e) { return e && e.tenant && e.surface === (t[0] === "tab-roles" ? "role" : "permission") && String(e.day || "") > prev && e.change !== "documented"; }).length; } catch (x) { tenN = 0; }
+      strip(document.getElementById(t[0]), { title: since, rows: rows, diff: t[2], last: rows.length ? null : lastOf(t[1], map),
+        empty: "Nothing moved in this tab in this brief — the register recorded no change here on " + dmy(day) + "." +
+          (tenN ? " Our tenant's own read (every 3 hours) saw " + tenN + " change" + (tenN === 1 ? "" : "s") + " since then — listed in “Last 3 days” and on Overview." : ""),
         more: "the full list is in “What changed in the last 14 days” below." });
     });
 
@@ -32569,15 +32595,16 @@ odtad CZTERNASCIE (4-17).**
        family is in the window, the strip reads the register like the tabs above. Otherwise the old
        per-tab rules below stay — never worse than before. */
     var ranToday = (Array.isArray((ST.ledger14 || {}).runs) ? ST.ledger14.runs : []).some(function (r) { return r && r.date === day; });   /* §5eo */
-    function fromReg(tab, type, fallback) {
-      if (!ranToday || !L.some(function (e) { return e.tab === tab; })) return null;
-      var order = { added: 0, changed: 1, removed: 2 };
-      return today.filter(function (e) { return e.tab === tab; }).map(function (e) {
+    function regRow(type) { return function (e) {
         /* an article's identifier is its URL: the title already links there, so no second copy */
         return { kind: e.kind, id: /^https?:/i.test(e.id || "") ? "" : (e.id || ""), title: e.title || "", link: e.url || "",
                  type: e.field === "source" ? "Community source" : type, prod: e.product || "",
-                 field: e.field || "", before: e.before || "", after: e.after || "" };
-      }).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (b.after > a.after ? 1 : b.after < a.after ? -1 : 0); });
+                 field: e.field || "", before: e.before || "", after: e.after || "" }; }; }
+    function lastReg(tab, type) { return lastOf([tab], regRow(type)); }
+    function fromReg(tab, type, fallback) {
+      if (!ranToday || !L.some(function (e) { return e.tab === tab; })) return null;
+      var order = { added: 0, changed: 1, removed: 2 };
+      return today.filter(function (e) { return e.tab === tab; }).map(regRow(type)).sort(function (a, b) { return (order[a.kind] - order[b.kind]) || (b.after > a.after ? 1 : b.after < a.after ? -1 : 0); });
     }
     var LISTED = { added: "added to the list", changed: "changed", removed: "left the list" };
     var REGMORE = "rows that left the list are not below any more — every row is on the changes page (link below).";
@@ -32603,7 +32630,7 @@ odtad CZTERNASCIE (4-17).**
     });
     mcRows.sort(function (a, b) { return a.kind === b.kind ? (b.id > a.id ? 1 : -1) : (a.kind === "added" ? -1 : 1); });
     var mcReg = fromReg("Message Center", "Message Center");
-    strip(document.getElementById("tab-mc"), { title: since, rows: mcReg || mcRows, diff: "mcenter", labels: mcReg ? LISTED : null,
+    strip(document.getElementById("tab-mc"), { title: since, rows: mcReg || mcRows, diff: "mcenter", labels: mcReg ? LISTED : null, last: lastReg("Message Center", "Message Center"),
       empty: mcReg ? REGEMPTY : "No Message Center post first seen or revised in this brief (" + dmy(day) + ").",
       more: mcReg ? REGMORE : "every post is in the Message Center list below — open the New view." });
 
@@ -32621,7 +32648,13 @@ odtad CZTERNASCIE (4-17).**
     var fRec = (F.chg || []).filter(function (x) { return x && x.t === "added" && x.d && x.d < F.built && x.d >= fCut; });
     var fRecTxt = fRec.length ? " Added in the last 7 days: " + fRec.slice(0, 3).map(function (x) { return (x.n || x.id) + " (" + dmy(x.d) + ")"; }).join(", ") +
       (fRec.length > 3 ? " and " + (fRec.length - 3) + " more" : "") + " — in What Microsoft changed below." : "";
-    strip(document.getElementById("tab-fpa"), { title: since, rows: fRows, diff: "fpa",
+    var fPrev = (F.chg || []).filter(function (x) { return x && x.d && x.d < F.built; }).reduce(function (m, x) { return x.d > m ? x.d : m; }, "");
+    var fLast = fPrev ? { date: fPrev, ago: Math.round((Date.parse(F.built + "T12:00:00Z") - Date.parse(fPrev + "T12:00:00Z")) / 864e5),
+      rows: (F.chg || []).filter(function (x) { return x.d === fPrev; }).map(function (x) {
+        var k = x.t === "added" ? "added" : x.t === "removed" ? "removed" : "changed";
+        return { kind: k, id: x.id || x.n, type: "First-party app", title: x.n || "", field: k === "changed" ? x.t : "",
+          before: x.a != null ? String(x.a) : (x.nr ? "\u2212" + x.nr : ""), after: x.b != null ? String(x.b) : (x.na ? "+" + x.na : "") }; }) } : null;
+    strip(document.getElementById("tab-fpa"), { title: since, rows: fRows, diff: "fpa", last: fLast,
       empty: F.apps ? "No first-party app added, removed or changed in this build (" + dmy(F.built) + ")." + fRecTxt :
                       "No first-party app data in this brief.",
       more: "the change list is in the tab below." });
@@ -32640,12 +32673,12 @@ odtad CZTERNASCIE (4-17).**
       return { kind: "added", id: "", type: a.sourceName || a.source || "Community article", title: a.title || t, link: a.link || (/^https?:/.test(t) ? t : "") };
     });
     var cReg = fromReg("Community Articles", "Community article");
-    strip(document.getElementById("tab-community"), { title: since, rows: cReg || cRows, diff: "community", labels: cReg ? LISTED : null,
+    strip(document.getElementById("tab-community"), { title: since, rows: cReg || cRows, diff: "community", labels: cReg ? LISTED : null, last: lastReg("Community Articles", "Community article"),
       empty: cReg ? REGEMPTY : "No new community article in this brief.", more: cReg ? REGMORE : "all of them are in the list below." });
 
     /* 5. Today: the items this brief added */
     var tRows = (ST.newToday || []).map(function (id) { return itemRow("added", id); });
-    strip(document.getElementById("tab-today"), { title: since, rows: tRows, diff: "added",
+    strip(document.getElementById("tab-today"), { title: since, rows: tRows, diff: "added", last: lastOf(["New"], function (e) { var r = itemRow(e.kind, e.id, e.field, e.before, e.after); if (!r.title) r.title = e.title || ""; if (!r.link) r.link = e.url || ""; return r; }),
       empty: "No new entry in this brief.", more: "all of them are in New." });
 
     /* 6. Learn and Blogs: no per-day key in the state; the changes page carries it */
@@ -32653,11 +32686,11 @@ odtad CZTERNASCIE (4-17).**
     var bRows = (((ST.nt || {}).items) || []).filter(function (a) { return a && a.date && prev && a.date >= prev && a.date <= day; })
       .map(function (a) { return { kind: "added", id: "", type: a.source || "Blog", title: a.title || a.link, link: a.link || "", prod: dmy(a.date) }; });
     var bReg = fromReg("Microsoft Blogs", "Blog");
-    strip(document.getElementById("tab-blogs"), { title: since, rows: bReg || bRows, diff: "blogsdiff", labels: bReg ? LISTED : null,
+    strip(document.getElementById("tab-blogs"), { title: since, rows: bReg || bRows, diff: "blogsdiff", labels: bReg ? LISTED : null, last: lastReg("Microsoft Blogs", "Blog"),
       empty: bReg ? REGEMPTY : "No blog post dated after the previous brief (" + dmy(prev) + ") in the " + ((((ST.nt || {}).blogs) || []).length || "tracked") + " blogs this brief reads.",
       more: bReg ? REGMORE : "all of them are in the list below." });
     var lReg = fromReg("Microsoft Learn", "Microsoft Learn");
-    strip(document.getElementById("tab-learn"), { title: since, rows: lReg || [], diff: "docsdiff",
+    strip(document.getElementById("tab-learn"), { title: since, rows: lReg || [], diff: "docsdiff", last: lastReg("Microsoft Learn", "Microsoft Learn"),
       empty: lReg ? REGEMPTY : "Microsoft dates what's-new entries by month, not by day — the Month by month grid below shows what arrived; line-by-line page changes are on the changes page.", more: lReg ? REGMORE : "" });
   }
 
@@ -35724,7 +35757,7 @@ odtad CZTERNASCIE (4-17).**
     if (t.added) parts.push(["a", "+" + fmt(t.added) + " added"]);
     if (t.changed) parts.push(["c", "~" + fmt(t.changed) + " changed"]);
     if (t.removed) parts.push(["r", "\u2212" + fmt(t.removed) + " removed"]);
-    return parts.length ? { d: d, parts: parts, brief: pid !== "tab-fpa" } : null;
+    return parts.length ? { d: d, parts: parts, brief: pid !== "tab-fpa", pid: pid } : null;
   }
   function sinceSpan(prev, parts, last) {
     var s = el("span", "s5ca-since");
@@ -35733,6 +35766,15 @@ odtad CZTERNASCIE (4-17).**
     if (!parts.length && last) {
       var l = el("span", "s5ca-last"); l.appendChild(document.createTextNode(" \u00b7 last moved " + (last.brief ? "in the " + dmy(last.d) + " brief" : "on " + dmy(last.d)) + ": "));
       last.parts.forEach(function (p, i) { if (i) l.appendChild(document.createTextNode(" \u00b7 ")); l.appendChild(el("span", "s5ca-w s5ca-" + p[0], p[1])); });
+      /* §5et: the words open what moved - the tab's "What changed" view, where the strip lists it under "Last found" */
+      var sb = last.pid && document.querySelector("#" + last.pid + " > .s5cd-bar button[data-v=\"chg\"]");
+      var tgt = last.pid && document.querySelector("#" + last.pid + " > .s5bn");
+      if (sb || tgt) {
+        var lb = el("button", "s5ca-lastb", "show what moved \u203a"); lb.type = "button";
+        lb.addEventListener("click", function (ev) { ev.stopPropagation(); if (sb) sb.click();
+          setTimeout(function () { var t = document.querySelector("#" + last.pid + " > .s5bn"); if (t) window.scrollTo({ top: Math.max(0, t.getBoundingClientRect().top + window.scrollY - 140), behavior: "smooth" }); }, 120); });
+        l.appendChild(document.createTextNode(" ")); l.appendChild(lb);
+      }
       s.appendChild(l);
     }
     parts.forEach(function (p, i) { if (i) s.appendChild(document.createTextNode(" · ")); s.appendChild(el("span", "s5ca-w s5ca-" + p[0], p[1])); });
@@ -39168,7 +39210,16 @@ odtad CZTERNASCIE (4-17).**
     sm.appendChild(el("span", "s5ed-n", String(gs.length)));
     sm.appendChild(el("span", "s5ed-s", "since " + from.slice(8) + "/" + from.slice(5, 7) + " · our tenant every 3 h, other tenants (" + (ELSS.map(function (X) { return String(X.sourceLabel || "msadminroles.com").replace(/ \(.*$/, ""); }).join(", ") || "msadminroles.com") + ") and the briefs"));
     box.appendChild(sm);
-    if (!gs.length) { box.appendChild(el("p", "s5ed-none", "Nothing moved in " + (which === "graph" ? "Graph permissions" : "built-in roles") + " in the last three days in any source we read.")); return; }
+    if (!gs.length) {
+      box.appendChild(el("p", "s5ed-none", "Nothing moved in " + (which === "graph" ? "Graph permissions" : "built-in roles") + " in the last three days in any source we read."));
+      /* §5et (owner 21 X: "if nothing new was found, always show what was found last"): the newest earlier day of the
+         last 30, the same rows under "Last found" */
+      var older = groups(30).filter(function (g) { return g.head.surface === surf; }).map(describe);
+      var ld = older.reduce(function (m, x) { return String(x.day || "") > m ? String(x.day || "") : m; }, "");
+      gs = older.filter(function (x) { return String(x.day || "") === ld; }).sort(function (a, b) { return b.score - a.score; });
+      if (!gs.length) return;
+      box.appendChild(el("p", "s5ed-lastl", "Last found · " + dm(ld) + " · " + gs.length + " change" + (gs.length === 1 ? "" : "s")));
+    }
     var ul = el("ul", "s5ed-list");
     gs.forEach(function (x) {
       var li = el("li", "s5ed-row" + (x.change === "elsewhere" ? " s5ed-else" : ""));
@@ -41280,9 +41331,10 @@ odtad CZTERNASCIE (4-17).**
     sm.appendChild(el("span", "s5ei-s", arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in"));
     b.appendChild(sm);
     function tileOf(s, k) {
-      var c = el("li", "s5ei-tile " + (k === "new" ? "s5ei-new" : k === "upd" ? "s5ei-chg" : "s5el-tpre")), top = el("div", "s5ei-top");
-      top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED" : "REPORTED " + dm(s.firstReported)));
+      var c = el("li", "s5ei-tile " + (k === "new" || k === "lastnew" ? "s5ei-new" : k === "upd" || k === "lastupd" ? "s5ei-chg" : "s5el-tpre")), top = el("div", "s5ei-top");
+      top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED" : k === "lastnew" ? "FIRST SEEN " + dm(day(s.firstSeen)) : k === "lastupd" ? "UPDATED " + dm(day(s.lastUpdate)) : "REPORTED " + dm(s.firstReported)));
       if (k !== "pre") top.appendChild(el("span", "s5ei-flag s5ei-date", "reported " + dm(s.firstReported)));
+      if (s.notes && s.notes.status) top.appendChild(el("span", "s5ei-flag s5et-stat s5et-" + s.notes.status, s.notes.status));
       c.appendChild(top);
       var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
       c.appendChild(el("p", "s5ei-meta", (s.microsoft.status === "described" ? "Microsoft has described it" : "Microsoft has not described it yet") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
@@ -41300,7 +41352,20 @@ odtad CZTERNASCIE (4-17).**
       if (L.length) {
         b.appendChild(el("h4", "s5ei-h", "New or updated in this window · " + L.length));
         var ul = el("ul", "s5ei-grid"); nw.concat(up).forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); b.appendChild(ul);
-      } else b.appendChild(el("p", "s5ei-none", "No incident was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event."));
+      } else {
+        b.appendChild(el("p", "s5ei-none", "No incident was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event."));
+        /* §5et (owner 21 X: "if nothing new since the previous brief, always show the last one found - as the rounded
+           frames did on the day a new incident came in"): the latest incidents, by their last activity, as the same tiles */
+        if (!hi) {
+          var act = function (s) { return day(s.lastUpdate) > day(s.firstSeen) ? day(s.lastUpdate) : day(s.firstSeen); };
+          var lastL = (D.stories || []).filter(function (s) { return act(s) < lo; }).sort(function (a, c) { return act(c).localeCompare(act(a)); }).slice(0, phone() ? 3 : 6);
+          if (lastL.length) {
+            var ld = act(lastL[0]), ago = Math.round((Date.parse(DAY + "T12:00:00Z") - Date.parse(ld + "T12:00:00Z")) / 864e5);
+            b.appendChild(el("h4", "s5ei-h", "Last found · " + dmy(ld) + " · " + ago + " day" + (ago === 1 ? "" : "s") + " before this brief — the most recent incidents, newest activity first"));
+            var u3 = el("ul", "s5ei-grid"); lastL.forEach(function (s) { u3.appendChild(tileOf(s, day(s.firstSeen) === act(s) ? "lastnew" : "lastupd")); }); b.appendChild(u3);
+          }
+        }
+      }
       if (pre.length) {
         b.appendChild(el("h4", "s5ei-h", "New to this portal · " + pre.length + " — Threat Research started on " + dmy(st) + "; these were reported earlier, so they are not new events"));
         var u2 = el("ul", "s5ei-grid"), LIM = phone() ? 4 : 8;
@@ -41366,84 +41431,103 @@ odtad CZTERNASCIE (4-17).**
   function list(items, cls) { var u = el("ul", cls || "s5el-ul"); items.forEach(function (t) { u.appendChild(el("li", null, t)); }); return u; }
   function part(d, n, t) { var h = el("h4", "s5el-h4"); h.appendChild(el("span", "s5el-hn", String(n))); h.appendChild(document.createTextNode(t)); d.appendChild(h); }
   function aLink(text, href) { var a = el("a", null, text); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  /* §5et (21 X 2026, owner: "the incident view and its details are terribly unreadable - everything merges into one
+     section, hard to read anything; work on it and modernise the UI"; "in the incident you list some roles and I have no
+     idea what that section is"). The analysis is now a set of rounded cards: the facts as small tiles, then two columns
+     on a wide screen - the story on the left (what happened, timeline, root cause, attacker, indicators), the response
+     on the right (what to do now, permissions and roles involved, what Microsoft published, articles) - and the hunting
+     queries across the full width. "Open in this portal" is now "Permissions and roles involved", split into Graph
+     permissions and Entra roles, with a sentence saying what they are and what a click opens. */
+  function card(host, title, sub, cls) {
+    var c = el("section", "s5et-card" + (cls ? " " + cls : "")); var h = el("h4", "s5et-ch", title); if (sub) h.appendChild(el("span", "s5et-cs", sub)); c.appendChild(h);
+    host.appendChild(c); return c;
+  }
   function details(s, d) {
-    var N = s.notes, n = 0;
-    /* facts first: one small table the eye can read down */
-    var f = el("dl", "s5el-facts");
-    function fact(k, v) { f.appendChild(el("dt", null, k)); var dd = el("dd"); if (typeof v === "string") dd.textContent = v; else dd.appendChild(v); f.appendChild(dd); }
-    if (N && N.status) fact("Status", N.status === "active" ? "Active — still being investigated" : N.status === "contained" ? "Contained" : "Resolved");
+    var N = s.notes;
+    var f = el("div", "s5et-facts");
+    function fact(k, v, cls) { var t = el("div", "s5et-fact" + (cls ? " " + cls : "")); t.appendChild(el("span", "s5et-fk", k)); var vv = el("span", "s5et-fv"); if (typeof v === "string") vv.textContent = v; else vv.appendChild(v); t.appendChild(vv); f.appendChild(t); }
+    if (N && N.status) fact("Status", N.status === "active" ? "Active — still being investigated" : N.status === "contained" ? "Contained" : "Resolved", "s5et-" + N.status);
     fact("First reported", dmy(s.firstReported));
     fact("Seen by this portal", dmy(day(s.firstSeen)));
     fact("Last update", dmy(day(s.lastUpdate)));
+    fact("Microsoft", s.microsoft.status === "described" ? "Described" : "Not described yet", s.microsoft.status === "described" ? "s5et-ok" : "s5et-warn");
     fact("Areas", s.areas.join(", ") || "—");
-    fact("Sources", s.sources.join(", "));
-    var ms = el("span", s.microsoft.status === "described" ? "s5el-yes" : "s5el-no", s.microsoft.status === "described" ? "Described — see Microsoft below" : "Not described yet in: " + s.microsoft.checked);
-    fact("Microsoft", ms);
-    fact("Analysis", N ? "Written " + (N.updated ? dmy(N.updated) : "") + (N.by ? " by the " + N.by : " by a person") : "None yet — the morning run writes one for new incidents");
+    fact("Sources", s.sources.length + " — " + s.sources.join(", "));
+    fact("Analysis", N ? "Written " + (N.updated ? dmy(N.updated) : "") + (N.by ? " by the " + N.by : " by a person") : "None yet");
     d.appendChild(f);
+    var cols = el("div", "s5et-cols"), A = el("div", "s5et-col"), B = el("div", "s5et-col"); cols.appendChild(A); cols.appendChild(B); d.appendChild(cols);
     if (N) {
-      if (N.summary) { part(d, ++n, "What happened"); d.appendChild(el("p", "s5el-sum", N.summary)); }
+      if (N.summary) { var c1 = card(A, "What happened"); c1.appendChild(el("p", "s5el-sum", N.summary)); }
       if (N.timeline && N.timeline.length) {
-        part(d, ++n, "Timeline");
-        var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab"), th = el("thead"), tr = el("tr");
-        tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1"); tb.setAttribute("data-s5bi-csv", "1");
-        ["Date", "What happened", "Source"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); th.appendChild(tr); tb.appendChild(th);
-        var bd = el("tbody"); N.timeline.forEach(function (r) { var x = el("tr"); x.appendChild(el("td", "s5el-nw", dmy(r.date))); x.appendChild(el("td", null, r.text)); x.appendChild(el("td", "s5el-nw s5el-mut", r.src || "")); bd.appendChild(x); });
-        tb.appendChild(bd); tw.appendChild(tb); d.appendChild(tw);
+        var c2 = card(A, "Timeline", N.timeline.length + " events");
+        var ol = el("ol", "s5et-tl");
+        N.timeline.forEach(function (r) { var li = el("li"); li.appendChild(el("span", "s5et-td", dmy(r.date))); var tx = el("span", "s5et-tt", r.text); li.appendChild(tx); if (r.src) li.appendChild(el("span", "s5et-tsrc", r.src)); ol.appendChild(li); });
+        c2.appendChild(ol);
       }
-      if (N.rootCause) { part(d, ++n, "Root cause"); d.appendChild(el("p", null, N.rootCause)); }
-      if (N.attacker && N.attacker.length) { part(d, ++n, "What the attacker did"); d.appendChild(list(N.attacker)); }
-      if (N.iocs && N.iocs.length) { part(d, ++n, "Indicators of compromise"); d.appendChild(list(N.iocs, "s5el-ul s5el-mono")); }
+      if (N.rootCause) { var c3 = card(A, "Root cause"); c3.appendChild(el("p", null, N.rootCause)); }
+      if (N.attacker && N.attacker.length) { var c4 = card(A, "What the attacker did"); c4.appendChild(list(N.attacker)); }
+      if (N.iocs && N.iocs.length) { var c5 = card(A, "Indicators of compromise", "look for these in your logs"); c5.appendChild(list(N.iocs, "s5el-ul s5el-mono s5et-ioc")); }
       if (N.remediation && N.remediation.length) {
-        part(d, ++n, "What to do now");
+        var c6 = card(B, "What to do now", N.remediation.length + " steps", "s5et-act");
         var src = N.remediation.filter(function (r) { return r.from !== "ours"; }), ours = N.remediation.filter(function (r) { return r.from === "ours"; });
         if (src.length) {
-          d.appendChild(el("p", "s5el-sub", "From the sources"));
-          var ol = el("ol", "s5el-rem"); src.forEach(function (r) { var li = el("li", null, r.text + " "); li.appendChild(el("span", "s5el-mut", "— " + (r.src || "source"))); ol.appendChild(li); }); d.appendChild(ol);
+          c6.appendChild(el("p", "s5el-sub", "From the sources"));
+          var o1 = el("ol", "s5el-rem"); src.forEach(function (r) { var li = el("li", null, r.text + " "); li.appendChild(el("span", "s5et-src", r.src || "source")); o1.appendChild(li); }); c6.appendChild(o1);
         }
         if (ours.length) {
-          d.appendChild(el("p", "s5el-sub", "Our suggestions — inferred by this portal, not stated by a source"));
-          var o2 = el("ol", "s5el-rem"); o2.start = src.length + 1; ours.forEach(function (r) { o2.appendChild(el("li", null, r.text)); }); d.appendChild(o2);
+          c6.appendChild(el("p", "s5el-sub", "Our suggestions — inferred by this portal, not stated by a source"));
+          var o2 = el("ol", "s5el-rem"); o2.start = src.length + 1; ours.forEach(function (r) { o2.appendChild(el("li", null, r.text)); }); c6.appendChild(o2);
         }
       }
-      if (N.kql && N.kql.length) {
-        part(d, ++n, "Hunting queries (KQL)");
-        N.kql.forEach(function (q) {
-          var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title));
-          var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
-          var cb = el("button", "s5el-btn", "Copy"); cb.type = "button";
-          cb.addEventListener("click", function () { try { navigator.clipboard.writeText(q.query); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (e) {} });
-          k.appendChild(cb); d.appendChild(k);
+      if (N.portal && N.portal.length) {
+        var c8 = card(B, "Permissions and roles involved", "open them in this portal");
+        c8.appendChild(el("p", "s5et-note", "What this incident puts at risk in a tenant: the Microsoft Graph permissions the abused application held (an attacker with its credential can do whatever they allow) and the Entra roles the attacker assigned or used. A button opens it in this portal — Graph API or Roles — with what it allows and, from our tenant's reading, where it is granted."));
+        [["permission", "Graph permissions"], ["role", "Entra roles"]].forEach(function (g) {
+          var P = N.portal.filter(function (p) { return (p.kind === "role" ? "role" : "permission") === g[0]; }); if (!P.length) return;
+          var gr = el("div", "s5et-pg"); gr.appendChild(el("span", "s5et-pgl", g[1]));
+          var pp = el("div", "s5el-pp");
+          P.forEach(function (p) { var b = el("button", "s5el-pbtn", p.label); b.type = "button"; if (p.why) b.title = p.why; b.addEventListener("click", function () { openPortal(p); }); pp.appendChild(b); });
+          gr.appendChild(pp); c8.appendChild(gr);
         });
       }
-      if (N.portal && N.portal.length) {
-        part(d, ++n, "Open in this portal");
-        var pp = el("p", "s5el-pp");
-        N.portal.forEach(function (p) { var b = el("button", "s5el-pbtn", (p.kind === "role" ? "Role: " : "Permission: ") + p.label); b.type = "button"; b.addEventListener("click", function () { openPortal(p); }); pp.appendChild(b); });
-        d.appendChild(pp);
-      }
-    } else d.appendChild(el("p", "s5el-note", "No analysis for this incident yet — the articles below are what the sources say. The morning run writes a summary and steps for new incidents."));
+    } else { var c0 = card(A, "No analysis yet"); c0.appendChild(el("p", "s5el-note", "The articles are what the sources say. The morning run writes a summary and steps for new incidents.")); }
     if (s.microsoft.items.length) {
-      part(d, ++n, "What Microsoft published");
-      var mu = el("ul", "s5el-ul"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(m.date) + " · " + m.what + " — ")); li.appendChild(aLink(m.title, m.link)); mu.appendChild(li); });
-      d.appendChild(mu);
+      var c9 = card(B, "What Microsoft published", s.microsoft.items.length + "");
+      var mu = el("ul", "s5et-links"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(aLink(m.title, m.link)); li.appendChild(el("span", "s5el-mut", dmy(m.date) + " · " + m.what)); mu.appendChild(li); });
+      c9.appendChild(mu);
     }
-    part(d, ++n, "Articles · " + s.articles.length);
-    var au = el("ul", "s5el-ul"), seenL = {};
+    var ca = card(B, "Articles", s.articles.length + "");
+    var au = el("ul", "s5et-links"), seenL = {};
     s.articles.map(function (id) { return ART[id]; }).filter(Boolean).forEach(function (a) {
       seenL[a.link] = 1;
-      var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(day(a.published || a.firstSeen)) + " · " + a.source + " — ")); li.appendChild(aLink(a.title, a.link));
+      var li = el("li"); li.appendChild(aLink(a.title, a.link)); li.appendChild(el("span", "s5el-mut", dmy(day(a.published || a.firstSeen)) + " · " + a.source));
       if (a.summary && !N) li.appendChild(el("p", "s5el-ex", a.summary.slice(0, 260) + (a.summary.length > 260 ? "…" : "")));
       au.appendChild(li);
     });
-    if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(el("span", "s5el-mut", dmy(x.date) + " — ")); li.appendChild(aLink(x.text, x.url)); au.appendChild(li); });
-    d.appendChild(au);
+    if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(aLink(x.text, x.url)); li.appendChild(el("span", "s5el-mut", dmy(x.date))); au.appendChild(li); });
+    ca.appendChild(au);
+    if (N && N.kql && N.kql.length) {
+      var ck = card(d, "Hunting queries (KQL)", N.kql.length + " · copy into Sentinel or Defender Advanced hunting", "s5et-wide");
+      N.kql.forEach(function (q) {
+        var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title));
+        var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
+        var cb = el("button", "s5el-btn", "Copy"); cb.type = "button";
+        cb.addEventListener("click", function () { try { navigator.clipboard.writeText(q.query); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (e) {} });
+        k.appendChild(cb); ck.appendChild(k);
+      });
+    }
   }
   function row(s) {
     var k = storyKind(s, PREV, null), r = el("div", "s5el-row" + (k === "new" ? " is-new" : k === "upd" ? " is-upd" : ""));
     r.id = "s5el-" + s.id;
     var h = el("button", "s5el-rh"); h.type = "button"; h.setAttribute("aria-expanded", "false");
-    var c1 = el("span", "s5el-c1"); c1.appendChild(el("span", "s5el-st " + (k === "new" ? "new" : k === "upd" ? "upd" : "none"), k === "new" ? "NEW" : k === "upd" ? "UPDATED" : "—"));
+    /* §5et (owner: "nothing says the row can be clicked to unfold - no plus; and Status always shows - , I do not know
+       what you mean"): a +/− box like every other section, and the state in words - NEW / UPDATED since the previous
+       brief, else the analysis status (Active, Contained, Resolved), else "Not analysed" */
+    var tg = el("span", "s5et-tg", "+"); tg.setAttribute("aria-hidden", "true"); h.appendChild(tg);
+    var stt = s.notes && s.notes.status ? s.notes.status : "";
+    var c1 = el("span", "s5el-c1"); c1.appendChild(el("span", "s5el-st " + (k === "new" ? "new" : k === "upd" ? "upd" : stt ? "s5et-" + stt : "none"),
+      k === "new" ? "NEW" : k === "upd" ? "UPDATED" : stt ? stt.toUpperCase() : "NOT ANALYSED"));
     h.appendChild(c1);
     var c2 = el("span", "s5el-c2"); c2.appendChild(el("span", "s5el-rt", s.title));
     c2.appendChild(el("span", "s5el-rm", s.areas.join(" · ") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
@@ -41453,12 +41537,11 @@ odtad CZTERNASCIE (4-17).**
     var c4 = el("span", "s5el-c4"); c4.setAttribute("data-l", "Last update"); c4.textContent = dmy(day(s.lastUpdate)); h.appendChild(c4);
     var c5 = el("span", "s5el-c5 " + (s.microsoft.status === "described" ? "s5el-yes" : "s5el-no")); c5.setAttribute("data-l", "Microsoft");
     c5.textContent = s.microsoft.status === "described" ? "Described" : "Not yet"; h.appendChild(c5);
-    var c6 = el("span", "s5el-c6"); c6.setAttribute("data-l", "Analysis"); c6.textContent = s.curated ? "Yes" : "—"; h.appendChild(c6);
-    var ar = el("span", "s5el-ar", "▸"); ar.setAttribute("aria-hidden", "true"); h.appendChild(ar);
+    var c6 = el("span", "s5el-c6" + (s.curated ? " s5el-yes" : " s5el-mut")); c6.setAttribute("data-l", "Analysis"); c6.textContent = s.curated ? "Written" : "Not yet"; h.appendChild(c6);
     r.appendChild(h);
     var d = el("div", "s5el-det"); d.hidden = true; r.appendChild(d);
     h.addEventListener("click", function () {
-      var on = d.hidden; d.hidden = !on; h.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on);
+      var on = d.hidden; d.hidden = !on; h.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on); tg.textContent = on ? "\u2212" : "+";
       if (on && !d.__f) { d.__f = true; details(s, d); }
     });
     return r;
@@ -41558,9 +41641,10 @@ odtad CZTERNASCIE (4-17).**
     tiles.appendChild(tilesBlock("Since the previous brief", PREV, null, true));
     tiles.appendChild(tilesBlock("One brief earlier", PREV2, PREV, false));
     body.appendChild(tiles);
-    var cur = box("Incidents", S.length + " incidents · newest activity first · " + S.filter(function (s) { return s.microsoft.status !== "described"; }).length + " not described by Microsoft yet · click a row for the analysis");
+    var cur = box("Incidents", S.length + " incidents · newest activity first · " + S.filter(function (s) { return s.microsoft.status !== "described"; }).length + " not described by Microsoft yet · press + on a row for the analysis");
     cur.id = "s5el-inc";
-    var head = el("div", "s5el-rhead"); ["Status", "Incident", "Reported", "Last update", "Microsoft", "Analysis", ""].forEach(function (t, i) { head.appendChild(el("span", "s5el-c" + (i + 1), t)); });
+    var head = el("div", "s5el-rhead"); head.appendChild(el("span", "s5et-tg0", ""));
+    ["State", "Incident", "Reported", "Last update", "Microsoft", "Analysis", ""].forEach(function (t, i) { head.appendChild(el("span", "s5el-c" + (i + 1), t)); });
     var lst = el("div", "s5el-rows"), LIM = phone() ? 8 : 15;
     lst.appendChild(head);
     S.slice(0, LIM).forEach(function (s) { lst.appendChild(row(s)); });
@@ -42694,6 +42778,11 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .s5bn-n.s5bn-changed{color:var(--warn);background:var(--warn-soft);border-color:transparent}
 .s5bn-n.s5bn-removed{color:var(--bad);background:var(--bad-soft);border-color:transparent}
 .s5bn-n.zero{color:var(--muted);background:transparent;border-color:var(--border)}
+/* §5et: a quiet brief shows what was found last, under its own date */
+.s5bn-lastl{margin:8px 0 6px;padding:8px 12px;border:1px dashed var(--border);border-radius:10px;font-size:13px;color:var(--muted)}
+.s5bn-lastl b{color:var(--text)}
+.s5ed-lastl{margin:4px 14px 6px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.s5ca-lastb{font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .s5bn-l{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .s5bn-r{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:13px;line-height:1.45;min-width:0}
 .s5bn-k{flex:0 0 auto;font:700 10.5px/1.6 var(--sans);letter-spacing:.06em;padding:0 6px;border-radius:4px}
@@ -44635,7 +44724,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-np{color:var(--muted)}
 .s5ei-tile.s5el-tpre{border-left:4px solid var(--border)}
 .s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:92px minmax(0,1fr) 96px 96px 96px 70px 18px;gap:10px;align-items:center;padding:8px 12px}
+.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:24px 112px minmax(0,1fr) 96px 96px 96px 70px;gap:10px;align-items:center;padding:8px 12px}
 .s5el-rhead{background:var(--surface);font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
 .s5el-row{border-bottom:1px solid var(--border);border-left:4px solid transparent;min-width:0}
 .s5el-row:last-child{border-bottom:0}
@@ -44695,6 +44784,50 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
  .s5el-facts dd{margin-bottom:6px}
 }
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+/* §5et: incident rows say they open; the analysis as rounded cards */
+.s5et-tg{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-weight:700;font-size:14px;line-height:1}
+.s5el-row.open .s5et-tg{background:var(--accent);color:var(--on-accent,#fff)}
+.s5el-st.s5et-active{color:var(--bad);border-color:var(--bad)}.s5el-st.s5et-contained{color:var(--warn);border-color:var(--warn)}.s5el-st.s5et-resolved{color:var(--ok);border-color:var(--ok)}
+.s5el-st.none{border-color:var(--border);border-style:dashed}
+.s5ei-flag.s5et-stat{text-transform:capitalize}.s5ei-flag.s5et-active{color:var(--bad)}.s5ei-flag.s5et-contained{color:var(--warn)}.s5ei-flag.s5et-resolved{color:var(--ok)}
+.s5el-det{padding:14px 16px 18px;background:var(--bg)}
+.s5el-det>*{max-width:none}
+.s5et-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:0 0 12px}
+.s5et-fact{display:flex;flex-direction:column;gap:2px;padding:8px 11px;border:1px solid var(--border);border-radius:10px;background:var(--surface);min-width:0}
+.s5et-fk{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.s5et-fv{font-size:13px;font-weight:600;color:var(--text);overflow-wrap:anywhere}
+.s5et-fact.s5et-active .s5et-fv,.s5et-fact.s5et-warn .s5et-fv{color:var(--warn)}.s5et-fact.s5et-active{border-left:4px solid var(--bad)}
+.s5et-fact.s5et-ok .s5et-fv,.s5et-fact.s5et-resolved .s5et-fv{color:var(--ok)}
+.s5et-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;align-items:start}
+.s5et-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.s5et-card{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;min-width:0;margin:0!important}
+.s5et-cols{margin-top:0}
+.s5et-card.s5et-act{border-left:4px solid var(--accent)}
+.s5et-card.s5et-wide{margin-top:12px}
+.s5et-ch{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 8px;font-size:14.5px;font-weight:700;color:var(--text)}
+.s5et-cs{font-size:12px;font-weight:500;color:var(--muted)}
+.s5et-card p{margin:0 0 6px;line-height:1.55}
+.s5et-tl{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:9px}
+.s5et-tl li{position:relative;display:flex;flex-direction:column;gap:1px}
+.s5et-tl li::before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+.s5et-td{font-size:12px;font-weight:700;color:var(--accent)}
+.s5et-tt{font-size:13.5px;line-height:1.5}
+.s5et-tsrc,.s5et-src{font-size:11.5px;color:var(--muted)}
+.s5et-src{display:inline-block;margin-left:4px;padding:0 6px;border:1px solid var(--border);border-radius:999px}
+.s5et-ioc{padding:8px 10px 8px 26px;border-radius:8px;background:var(--bg)}
+.s5et-note{font-size:12.5px;color:var(--muted)}
+.s5et-pg{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.s5et-pgl{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.s5et-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s5et-links li{display:flex;flex-direction:column;gap:1px;overflow-wrap:anywhere}
+.s5et-links a{font-weight:600;white-space:normal!important;overflow-wrap:anywhere;word-break:break-word;min-width:0;max-width:100%}
+.s5et-links li>*{min-width:0;max-width:100%}
+@media (max-width:1100px){.s5et-cols{grid-template-columns:minmax(0,1fr)}}
+/* §5et: on a phone the incident list had four nested frames (366 → 256 px of text); the frames give the width back */
+@media (max-width:760px){#tab-threats .ntbody{margin-left:0;margin-right:0;padding-left:4px;padding-right:4px}
+ #tab-threats details.s5el-box{padding-left:6px;padding-right:6px}#tab-threats .s5el-rows{margin-left:0;margin-right:0}
+ #tab-threats .s5el-rh{padding:8px 6px;column-gap:8px}.s5et-card{padding:10px 10px}.s5et-facts{gap:6px}.s5et-fact{padding:6px 8px}}
+@media (max-width:900px){.s5el-rh{grid-template-columns:24px minmax(0,1fr)!important}.s5el-rh .s5et-tg{grid-row:1/span 2;align-self:start}.s5el-rh .s5el-c1,.s5el-rh .s5el-c2{grid-column:2}.s5et-tg0{display:none}.s5el-det{padding:10px 8px 14px}.s5et-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .s5el-q{flex:1 1 200px;min-width:0;font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--ok);border-radius:8px;background:var(--bg);color:var(--text)}
 .s5el-sel{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);max-width:100%}
 .s5el-cnt{font-size:12px;color:var(--muted)}
@@ -46168,6 +46301,31 @@ dni w jednej linii nad nazwa; (b) i (c) — lista, jeden element na wiersz (+ zi
 w SKRYPCIE 17: komorka bez elementow, ≥240 znakow, ≥3 czesci po „; " (≥12 znakow kazda) → wstep + lista punktowana;
 dziala po zbudowaniu zakladek i po `soc:woke`. Proza z dwoma „;" zostaje proza; KQL (Hunting) i diff tekstu zrodla
 (s12line) nie sa ruszane.
+
+## 5et. THREAT RESEARCH CZYTELNIE I „LAST FOUND" W KAZDEJ ZAKLADCE, 21 X 2026
+
+Wlasciciel 21 X 22:26 (zrzuty): *„1. w incydencie podajesz jakies role, ale zupelnie nie wiem, co to za sekcja; 2. skoro
+nie znalazles od poprzedniego briefu zadnego incydentu, powinienes zawsze wyswietlac ostatni znaleziony — w zaokraglonych
+ramkach; 3. to samo w kazdej zakladce — role, first-party apps, Graph API — zeby nic nam nie umknelo; 4. na liscie
+incydentow nie wiadomo, ze wiersz mozna kliknac — nie ma plusika — a w statusie caly czas „—"; 5. widok incydentow i ich
+szczegoly sa strasznie nieczytelne, wszystko zlewa sie w jedna sekcje — popracuj nad UI"*.
+
+1. „Open in this portal" → **„Permissions and roles involved"**: zdanie, co to jest (uprawnienia Graph, ktore miala
+   naduzyta aplikacja, i role Entra, ktore atakujacy przypisal lub uzyl) i co otwiera klik; dwie grupy — Graph
+   permissions, Entra roles. Pole `why` w nocie (opcjonalne) staje sie podpowiedzia przycisku.
+2. „Since the previous brief" bez nowego incydentu pokazuje **„Last found · dd/mm · N days before this brief"** —
+   najnowsze incydenty wg ostatniej aktywnosci, te same kafelki (FIRST SEEN / UPDATED dd/mm, status analizy).
+3. Kazda zakladka: pasek §5bn (widok „What changed") przy cichym briefie pokazuje **„Last found here · data"** z wierszami
+   najnowszego wczesniejszego dnia z rejestru 14 dni (`lastOf`; First-party apps — `fpa.chg`); naglowek zakladki
+   („nothing moved · last moved in the … brief") ma przycisk „show what moved ›", ktory otwiera ten widok; „Last 3 days"
+   w Graph API i Roles przy pustych 3 dniach pokazuje „Last found" z 30 dni. Roles/Graph: gdy rejestr briefu jest cichy,
+   a odczyt dzierzawy co 3 h cos widzial (21 X: trzy role, akcje conditionalAccessPolicyPlans), zdanie paska to mowi.
+4. Wiersz incydentu: kwadrat **+/−** jak w innych sekcjach; kolumna State: NEW / UPDATED od poprzedniego briefu, inaczej
+   status analizy (ACTIVE / CONTAINED / RESOLVED), inaczej NOT ANALYSED; kolumna Analysis: Written / Not yet.
+5. Szczegoly jako **zaokraglone karty**: fakty jako kafelki; na szerokim ekranie dwie kolumny — historia (What happened,
+   Timeline jako os czasu, Root cause, What the attacker did, Indicators) i odpowiedz (What to do now z etykieta zrodla,
+   Permissions and roles involved, What Microsoft published, Articles) — zapytania KQL na pelna szerokosc. Telefon: cztery
+   zagniezdzone ramki oddaja szerokosc (lista 256 → 342 px przy 390).
 
 ## 6. Kontrakt w stronie
 
