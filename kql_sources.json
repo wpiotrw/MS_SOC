@@ -1,0 +1,40 @@
+[
+  {
+    "SourceName": "Bert-JanP Hunting Queries & Detection Rules",
+    "SourceURL": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules",
+    "Author": "Bert-Jan Pals",
+    "Kind": "git",
+    "Note": "Defender XDR, Sentinel and Entra hunting queries with MITRE mapping; kqlquery.com"
+  },
+  {
+    "SourceName": "Sergio Albea Threat Hunting KQL Queries",
+    "SourceURL": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries",
+    "Author": "Sergio Albea",
+    "Kind": "git",
+    "Note": "Defender XDR hunting; author of the detect.fyi PHP2Shell queries"
+  },
+  {
+    "SourceName": "jkerai1 KQL Queries",
+    "SourceURL": "https://github.com/jkerai1/KQL-Queries",
+    "Author": "Jay Kerai",
+    "Kind": "git",
+    "Note": "Defender XDR, Entra and Sentinel queries"
+  },
+  {
+    "SourceName": "cyb3rmik3 KQL threat hunting queries",
+    "SourceURL": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries",
+    "Author": "Michalis Michalos",
+    "Kind": "git",
+    "Note": "Defender XDR hunting queries"
+  },
+  {
+    "SourceName": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections",
+    "SourceURL": "https://github.com/Azure/Azure-Sentinel",
+    "Author": "Microsoft and contributors",
+    "Kind": "git",
+    "RecentDays": 30,
+    "MaxFiles": 300,
+    "Paths": ["Hunting Queries", "Detections", "Solutions"],
+    "Note": "only files changed in the last 30 days - the repository holds thousands of rules"
+  }
+]

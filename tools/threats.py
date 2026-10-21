@@ -25,6 +25,8 @@ Exit 0 always: a feed that fails is named in `sources[].error`, never a failed w
 """
 import datetime as dt, email.utils, hashlib, html, json, os, re, sys, urllib.request
 import xml.etree.ElementTree as ET
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kql_extract   # CLAUDE.md 5eu: Kusto queries in the articles
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
       " MS_SOC-portal (github.com/wpiotrw/MS_SOC)")
@@ -61,7 +63,10 @@ AREAS = [
     ("Hybrid & federation", ["adfs", "federat", "entra connect", "hybrid", "active directory", "kerberos", "on-prem"]),
     ("M365 workloads", ["exchange", "outlook", "sharepoint", "onedrive", "teams", "copilot", "mailbox", "inbox"]),
     ("Vulnerabilities", ["cve-", "vulnerab", "zero-day", "0-day", "exploit", "patch", "flaw"]),
+    ("Hunting (KQL)", []),     # CLAUDE.md 5eu: set when the article carries Kusto queries
 ]
+KQL_PAGES = 25      # article pages read per run to look for Kusto queries the feed text does not carry
+KQL_KEEP = 365      # days a found query stays in site/data/kql-found.json
 STOP = set("""about above after again against also among another attack attacks attacker attackers azure being
 between breach breaches campaign cloud companies company could credential credentials critical customers data
 defender during entra exchange exploit exploited flaw from global hacker hackers have hijack identity inside into
@@ -125,8 +130,9 @@ def parse_feed(raw):
             c = it.find("c:encoded", ns)
             if c is not None and c.text and len(c.text) > len(body):
                 body = c.text
+            cr = it.find("dc:creator", ns)
             out.append({"title": strip(t(it, "title")), "link": link.strip(), "published": pdate(t(it, "pubDate") or t(it, "dc:date")),
-                        "summary": strip(body)[:1500]})
+                        "summary": strip(body)[:1500], "html": body, "author": (cr.text or "").strip() if cr is not None and cr.text else ""})
     else:
         for it in root.findall("a:entry", ns):
             lk = ""
@@ -140,9 +146,10 @@ def parse_feed(raw):
                     body = x.text
             pub = it.find("a:published", ns)
             upd = it.find("a:updated", ns)
+            au = it.find("a:author/a:name", ns)
             out.append({"title": strip((it.find("a:title", ns).text if it.find("a:title", ns) is not None else "") or ""),
                         "link": lk, "published": pdate((pub.text if pub is not None else "") or (upd.text if upd is not None else "")),
-                        "summary": strip(body)[:1500]})
+                        "summary": strip(body)[:1500], "html": body, "author": (au.text or "").strip() if au is not None and au.text else ""})
     return [x for x in out if x["title"] and x["link"]]
 
 
@@ -218,6 +225,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     seen_before = {a["link"]: a for a in prev.get("articles") or []}
     cut = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
     arts, msitems, kev, srep = [], [], [], []
+    kq, budget = [], [KQL_PAGES]
     for s in srcs:
         rep = {"name": s["Name"], "site": s.get("Site") or s["SourceURL"], "feed": s["SourceURL"], "tier": s.get("Tier", ""),
                "kind": s.get("Kind", "rss"), "state": "ok", "read": 0, "kept": 0, "newest": None, "error": ""}
@@ -248,17 +256,39 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 if s.get("CheckOnly"):
                     continue      # MSRC: 5 000 CVE titles are a Microsoft reference to search, not incidents
                 keep, score, areas = relevance(i["title"], i["summary"], s)
+                # CLAUDE.md 5eu (owner 21 X: "an incident anywhere in the world described with KQL that helps the
+                # analysis - collect it, as a full incident, with the query's full text and the link"): Kusto in the
+                # feed text, else in the article page (new articles first, a budget per run); an article with Kusto
+                # queries is kept whatever product it is about
+                old = seen_before.get(i["link"]) or {}
+                found = kql_extract.blocks(i.get("html") or "")
+                checked = old.get("kqlChecked") or ""
+                if not found and not checked and (keep or s.get("Kind") == "kql") and budget[0] > 0:
+                    budget[0] -= 1
+                    try:
+                        found = kql_extract.blocks(get(i["link"], 25).decode("utf-8", "replace"))
+                    except Exception:
+                        found = []
+                    checked = stamp
+                elif not checked:
+                    checked = stamp if found else ""
+                if found:
+                    keep = True
+                    if "Hunting (KQL)" not in areas:
+                        areas = areas + ["Hunting (KQL)"]
+                    for q in found:
+                        kq.append(dict(q, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
+                                       author=i.get("author") or "", published=(i["published"] or "")[:10]))
                 if not keep:
                     continue
                 cves, storms, names = entities(i["title"], i["summary"])
-                old = seen_before.get(i["link"]) or {}
                 # the first run is a BASELINE: an article that existed before the portal read it is dated by its
                 # publication, not by today (otherwise 22 stories were "new" on 19 X)
                 arts.append({"id": aid(i["link"]), "title": i["title"], "link": i["link"], "source": s["Name"],
                              "tier": s.get("Tier", ""), "microsoft": bool(s.get("Microsoft")),
                              "published": i["published"], "firstSeen": old.get("firstSeen") or (stamp if prev else (i["published"] or stamp)),
                              "score": score, "areas": areas or ["Other"], "cves": cves, "storms": storms, "names": names,
-                             "summary": i["summary"][:420]})
+                             "summary": i["summary"][:420], "kql": len(found), "kqlChecked": checked})
                 rep["kept"] += 1
         except Exception as e:
             rep["state"], rep["error"] = "failed", str(e)[:160]
@@ -312,7 +342,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     for k, L in groups.items():
         L.sort(key=lambda a: a.get("published") or a["firstSeen"])
         note = notes.get(k) or {}
-        if not note and len(L) == 1 and L[0]["score"] < 6 and not L[0]["microsoft"]:
+        if not note and len(L) == 1 and L[0]["score"] < 6 and not L[0]["microsoft"] and not L[0].get("kql"):
             continue    # a single weak article is listed in Articles, it is not a story
         names = {}
         for a in L:
@@ -358,10 +388,36 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                           "checked": "Microsoft Threat Intelligence, Microsoft Security Blog, Microsoft Incident Response, MSRC Security Update Guide, Message Center (mc.merill.net, 60 days)"},
             "score": max(a["score"] for a in L) + 2 * len({a["source"] for a in L}) + (6 if note else 0),
             "articlesBefore": len(ps.get("articles") or []) if ps else 0,
+            "kql": sum(a.get("kql") or 0 for a in L),
             # the curated text travels with the story, so the page reads one file
             "notes": {k: v for k, v in note.items() if k not in ("id", "match", "title", "areas", "microsoft")} if note else None,
         })
     stories.sort(key=lambda s: (s["lastUpdate"], s["score"]), reverse=True)
+
+    # ---- CLAUDE.md 5eu: every Kusto query found in an article, with its story, kept KQL_KEEP days ----
+    story_by_art = {a: st["id"] for st in stories for a in st["articles"]}
+    kpath = os.path.join(os.path.dirname(out_path) or ".", "kql-found.json")
+    try:
+        kprev = json.load(open(kpath, encoding="utf-8")).get("queries") or []
+    except Exception:
+        kprev = []
+    kby = {q["key"]: q for q in kprev}
+    for q in kq:
+        o = kby.get(q["key"])
+        q = dict(q, story=story_by_art.get(q["article"]) or (o or {}).get("story") or "", firstSeen=(o or {}).get("firstSeen") or stamp,
+                 cves=sorted(set(re.findall(r"CVE-\d{4}-\d{4,7}", q["articleTitle"] + " " + q["query"], re.I))))
+        kby[q["key"]] = q
+    kcut = (now - dt.timedelta(days=KQL_KEEP)).strftime("%Y-%m-%d")
+    kall = sorted([q for q in kby.values() if (q.get("firstSeen") or "")[:10] >= kcut],
+                  key=lambda q: (q.get("published") or q.get("firstSeen") or "", q["key"]), reverse=True)
+    kbody = {"source": "tools/threats.py (CLAUDE.md 5eu)", "keepDays": KQL_KEEP, "queries": kall}
+    try:
+        old_k = json.load(open(kpath, encoding="utf-8"))
+    except Exception:
+        old_k = {}
+    if {k: v for k, v in old_k.items() if k != "generated"} != kbody:
+        json.dump(dict(generated=stamp, **kbody), open(kpath, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("threats: %d Kusto queries in articles (%d found this run, %d pages read)" % (len(kall), len(kq), KQL_PAGES - budget[0]))
 
     # ---- trend ----
     days = [(now.date() - dt.timedelta(days=i)).isoformat() for i in range(TREND_DAYS - 1, -1, -1)]

@@ -21,6 +21,9 @@ on:
       - 'campaigns.json'
       - 'youtube_sources.json'
       - 'tools/kql_archive.py'
+      - 'tools/kql_repos.py'
+      - 'tools/kql_extract.py'
+      - 'kql_sources.json'
       - '.github/workflows/campaigns.yml'
   workflow_dispatch:
 
@@ -41,7 +44,10 @@ jobs:
           fetch-depth: 1
       - name: Detect and update campaigns
         run: python3 tools/campaigns.py
-      - name: Archive the KQL queries of the published brief (CLAUDE.md 5l, 5cv-c)
+      # CLAUDE.md 5eu (21 X 2026): community KQL repositories (kql_sources.json), once a day; never fails the job
+      - name: Community KQL repositories (CLAUDE.md 5eu)
+        run: timeout 1500 python3 tools/kql_repos.py || true
+      - name: Archive every KQL query - brief, incident notes, articles, community (CLAUDE.md 5l, 5cv-c, 5eu)
         run: python3 tools/kql_archive.py
       - name: Commit when it changed
         run: |
@@ -49,6 +55,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/campaigns.json site/data/campaigns-history.json site/kql
+          git add cache/kql-repos.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py campaigns || true; git add site/data/fresh   # CLAUDE.md 5cz
             git commit -m "data: campaigns and KQL archive $(date -u +%F' '%H:%M) UTC"

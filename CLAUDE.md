@@ -38805,6 +38805,114 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
 
+/* §5eu (21 X 2026, owner: "the tab where we collect KQL - make sure it is updated and the queries are written to JSON;
+   save the KQL that incidents give as a way to analyse them; collect the community's KQL - full text and the link").
+   "KQL library" at the top of Hunting & actions: every query of the archive (site/kql/index.json, tools/kql_archive.py)
+   in four views - From today's brief, From incidents (Threat Research analyses and the queries their sources
+   published), From the community (articles such as detect.fyi and kqlquery.com, community repositories, recent
+   Azure-Sentinel rules) and All - with search, filters by product, table and author, newest first; a row opens the
+   full query (read from its .kql file), Copy, the author, the licence the repository states, the link where it was
+   published and, for an incident, the Threat Research row. Built when the tab is first opened. */
+(function () {
+  "use strict";
+  if (window.__s5eu) return; window.__s5eu = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  var IX = null, built = false;
+  var VIEWS = [["brief", "From the briefs", function (e) { return e.kind === "brief"; }],
+    ["incident", "From incidents", function (e) { return e.kind === "incident-note" || (e.kind === "article" && e.incident); }],
+    ["community", "From the community", function (e) { return e.kind === "repo" || (e.kind === "article" && !e.incident); }],
+    ["all", "All", function () { return true; }]];
+  var KL = { brief: "BRIEF", "incident-note": "INCIDENT ANALYSIS", article: "ARTICLE", repo: "COMMUNITY REPO" };
+  function host() { return document.querySelector("#tab-hunting #kql .sec-body") || document.querySelector("#tab-hunting"); }
+  function build() {
+    var h = host(); if (built || !h || !IX) return; built = true;
+    var box = el("details", "s5el-box s5eu-lib"); box.id = "s5eu-lib"; box.open = true;
+    var sm = el("summary"); sm.appendChild(el("span", "s5el-bt", "KQL library"));
+    var n = {}; IX.forEach(function (e) { n[e.kind] = (n[e.kind] || 0) + 1; });
+    var newest = IX.reduce(function (m, e) { return (e.date || "") > m ? e.date : m; }, "");
+    sm.appendChild(el("span", "s5el-bs", IX.length + " queries · " + (n.brief || 0) + " from the briefs · " + ((n["incident-note"] || 0) + IX.filter(function (e) { return e.kind === "article" && e.incident; }).length) + " from incidents · " +
+      ((n.repo || 0) + IX.filter(function (e) { return e.kind === "article" && !e.incident; }).length) + " from the community · newest " + dmy(newest)));
+    box.appendChild(sm);
+    box.appendChild(el("p", "s5el-note", "Every query is a file of this site (kql/…) and a row of kql/index.json. Community queries are copied with their author, the licence their repository states and a link to the original; check them against your own tables before you run them."));
+    var seg = el("div", "s5eu-seg"); seg.setAttribute("role", "group"); seg.setAttribute("aria-label", "Which queries");
+    var cur = "brief";
+    VIEWS.forEach(function (v) { var b = el("button", null, v[1] + " · " + IX.filter(v[2]).length); b.type = "button"; b.setAttribute("data-v", v[0]);
+      b.addEventListener("click", function () { cur = v[0]; shown = LIM; draw(); }); seg.appendChild(b); });
+    box.appendChild(seg);
+    var bar = el("div", "s5el-fbar"), q = el("input", "s5el-q"); q.type = "search"; q.placeholder = "Find a query — title, table, CVE, author, purpose"; q.setAttribute("aria-label", "Find a query");
+    function sel(lab, vals) { var s = el("select", "s5el-sel"); s.setAttribute("aria-label", lab); s.appendChild(new Option(lab, "")); vals.forEach(function (v) { s.appendChild(new Option(v[0] + " · " + v[1], v[0])); }); return s; }
+    function counts(f) { var c = {}; IX.forEach(function (e) { (f(e) || []).forEach(function (k) { if (k) c[k] = (c[k] || 0) + 1; }); }); return Object.keys(c).sort(function (a, b) { return c[b] - c[a] || a.localeCompare(b); }).map(function (k) { return [k, c[k]]; }); }
+    var sP = sel("All products", counts(function (e) { return [e.product]; })), sT = sel("All tables", counts(function (e) { return e.tables; }).slice(0, 60)),
+        sA = sel("All authors", counts(function (e) { return [e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")]; }));
+    var cnt = el("span", "s5el-cnt");
+    [q, sP, sT, sA, cnt].forEach(function (x) { bar.appendChild(x); }); box.appendChild(bar);
+    var list = el("div", "s5eu-list"); box.appendChild(list);
+    var LIM = 40, shown = LIM;
+    function hay(e) { return [e.title, e.purpose, e.product, (e.tables || []).join(" "), e.author, e.repo, (e.cves || []).join(" "), (e.mitre || []).join(" "), e.incident].join(" ").toLowerCase(); }
+    function row(e) {
+      var r = el("div", "s5el-row s5eu-row"), hd = el("button", "s5eu-rh"); hd.type = "button"; hd.setAttribute("aria-expanded", "false");
+      var tg = el("span", "s5et-tg", "+"); hd.appendChild(tg);
+      var mid = el("span", "s5eu-mid"); mid.appendChild(el("span", "s5el-rt", e.title));
+      var meta = [dmy(e.date), e.product, (e.tables || []).slice(0, 3).join(", "), e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")].filter(Boolean).join(" · ");
+      mid.appendChild(el("span", "s5el-rm", meta)); hd.appendChild(mid);
+      hd.appendChild(el("span", "s5el-st s5eu-k s5eu-" + e.kind, KL[e.kind] || e.kind)); r.appendChild(hd);
+      var det = el("div", "s5eu-det"); det.hidden = true; r.appendChild(det);
+      hd.addEventListener("click", function () {
+        var on = det.hidden; det.hidden = !on; tg.textContent = on ? "\u2212" : "+"; hd.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on);
+        if (!on || det.__f) return; det.__f = true;
+        if (e.purpose && e.purpose !== e.title) det.appendChild(el("p", "s5eu-p", e.purpose));
+        var links = el("p", "s5eu-links");
+        function a(t, h) { var x = el("a", null, t); x.href = h; x.target = "_blank"; x.rel = "noopener"; links.appendChild(x); }
+        if (e.link) a(e.kind === "repo" ? "Original in " + (e.repo || "the repository") + " \u2197" : "The article \u2197", e.link);
+        else if (e.source) a("Source \u2197", e.source);
+        if (e.incident) { var ib = el("button", "s5el-lnk", "Open the incident in Threat Research"); ib.type = "button";
+          ib.addEventListener("click", function () { if (window.__socOpenThreat) window.__socOpenThreat(e.incident); }); links.appendChild(ib); }
+        a("kql/" + e.file, "kql/" + e.file);
+        det.appendChild(links);
+        var facts = [e.license ? "Licence (as the repository states): " + e.license : "", (e.mitre || []).length ? "MITRE ATT&CK: " + e.mitre.join(", ") : "",
+          (e.cves || []).length ? "CVE: " + e.cves.join(", ") : "", (e.alsoIn || []).length ? "Also published as: " + e.alsoIn.join(", ") : ""].filter(Boolean);
+        if (facts.length) det.appendChild(el("p", "s5el-mut", facts.join(" · ")));
+        var k = el("div", "s5el-kql"), pre = el("pre", null, "Loading the query…"); k.appendChild(pre);
+        var cb = el("button", "s5el-btn", "Copy"); cb.type = "button"; k.appendChild(cb); det.appendChild(k);
+        fetch("kql/" + e.file.split("/").map(encodeURIComponent).join("/"), { cache: "no-cache" }).then(function (x) { return x.ok ? x.text() : Promise.reject(new Error("HTTP " + x.status)); })
+          .then(function (t) {
+            var body = t.split("\n").filter(function (l) { return !/^\/\/ (?:(?:title|date|product|tables|purpose|source|kind|author|license):|archived by )/.test(l); }).join("\n").replace(/^\s+/, "");
+            pre.textContent = body;
+            cb.addEventListener("click", function () { try { navigator.clipboard.writeText(body); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (x) {} });
+          }).catch(function (x) { pre.textContent = "The query file could not be read (" + x.message + ")."; });
+      });
+      return r;
+    }
+    function draw() {
+      [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === cur)); });
+      var vf = VIEWS.filter(function (v) { return v[0] === cur; })[0][2], qq = q.value.trim().toLowerCase();
+      var L = IX.filter(function (e) { return vf(e) && (!qq || hay(e).indexOf(qq) >= 0) && (!sP.value || e.product === sP.value) &&
+        (!sT.value || (e.tables || []).indexOf(sT.value) >= 0) && (!sA.value || (e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")) === sA.value); });
+      /* the community's first read is the repositories' back catalogue: newest first means the newest WE saw, initial last */
+      L.sort(function (a, b) { return (a.initial ? 1 : 0) - (b.initial ? 1 : 0) || String(b.date || "").localeCompare(String(a.date || "")); });
+      cnt.textContent = L.length + " of " + IX.length;
+      list.textContent = "";
+      if (!L.length) { list.appendChild(el("p", "s5ei-none", "No query matches.")); return; }
+      L.slice(0, shown).forEach(function (e) { list.appendChild(row(e)); });
+      if (L.length > shown) { var mb = el("button", "s5el-btn s5el-more", "Show " + Math.min(LIM, L.length - shown) + " more of " + (L.length - shown)); mb.type = "button";
+        mb.addEventListener("click", function () { shown += LIM; draw(); }); list.appendChild(mb); }
+    }
+    var qt; q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { shown = LIM; draw(); }, 200); });
+    [sP, sT, sA].forEach(function (x) { x.addEventListener("change", function () { shown = LIM; draw(); }); });
+    draw();
+    h.insertBefore(box, h.firstChild);
+  }
+  function wake() {
+    if (built) return;
+    if (IX) { build(); return; }
+    fetch("kql/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.length) { IX = j; build(); } }).catch(function () {});
+  }
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('nav.anchors .tab[aria-controls="tab-hunting"], #tabbtn-tab-hunting, .s5ca-it[data-pid="tab-hunting"]'); if (t) setTimeout(wake, 60); }, true);
+  document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-hunting") wake(); });
+  if (/tab=hunting/.test(location.hash)) setTimeout(wake, 1500);
+})();
+
 /* §5cx (10 X 2026, owner: "time for the logo - top left, where I marked it; also in /diff/ and on the phone, the
    brief and the whole portal"). GuardZilla: the full logo stands in the empty left margin of the header when the
    margin has room for it (wide screens, the box the owner marked); otherwise a compact mark stands before the
@@ -41247,7 +41355,7 @@ odtad CZTERNASCIE (4-17).**
   if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
   else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
 
-  var D = null, asked = false, built = false, ART = {}, DAY = "", PREV = "", PREV2 = "";
+  var D = null, asked = false, built = false, ART = {}, DAY = "", PREV = "", PREV2 = "", KQF = [];
   function goTab() { var b = document.getElementById("tabbtn-tab-threats") || document.querySelector('nav.anchors .tab[aria-controls="tab-threats"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
   var waiters = [];
   function load(cb) {
@@ -41255,7 +41363,10 @@ odtad CZTERNASCIE (4-17).**
     waiters.push(cb);
     if (asked) return; asked = true;
     fetch("data/threats.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function (j) { D = j; (D.articles || []).forEach(function (a) { ART[a.id] = a; }); stamp(); var w = waiters; waiters = []; w.forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[5el]", e); } }); })
+      .then(function (j) { D = j; (D.articles || []).forEach(function (a) { ART[a.id] = a; }); stamp();
+        /* §5eu: the Kusto queries the sources published with their articles (tools/threats.py) */
+        fetch("data/kql-found.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (k) { KQF = (k && k.queries) || []; }).catch(function () {});
+        var w = waiters; waiters = []; w.forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[5el]", e); } }); })
       .catch(function (e) { body.textContent = ""; body.appendChild(el("p", "s5el-note", "Threat Research data could not be read (" + e.message + "). It is written every 3 hours by the workflow “First-party apps tenant snapshot”.")); });
   }
   function windows() {
@@ -41506,15 +41617,27 @@ odtad CZTERNASCIE (4-17).**
     });
     if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(aLink(x.text, x.url)); li.appendChild(el("span", "s5el-mut", dmy(x.date))); au.appendChild(li); });
     ca.appendChild(au);
-    if (N && N.kql && N.kql.length) {
-      var ck = card(d, "Hunting queries (KQL)", N.kql.length + " · copy into Sentinel or Defender Advanced hunting", "s5et-wide");
-      N.kql.forEach(function (q) {
-        var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title));
+    /* §5eu: the analysis's own queries, then the ones the sources published (author and link), one card */
+    var own = (N && N.kql) || [], ids = {}; s.articles.forEach(function (x) { ids[x] = 1; });
+    var fromSrc = KQF.filter(function (q) { return q.story === s.id || ids[q.article]; });
+    if (own.length || fromSrc.length) {
+      var ck = card(d, "Hunting queries (KQL)", (own.length + fromSrc.length) + " · copy into Sentinel or Defender Advanced hunting", "s5et-wide");
+      function kq(q, by) {
+        var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title || q.articleTitle || "Hunting query"));
+        if (by) k.appendChild(by);
         var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
         var cb = el("button", "s5el-btn", "Copy"); cb.type = "button";
         cb.addEventListener("click", function () { try { navigator.clipboard.writeText(q.query); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (e) {} });
         k.appendChild(cb); ck.appendChild(k);
-      });
+      }
+      if (own.length) { if (fromSrc.length) ck.appendChild(el("p", "s5el-sub", "From this analysis")); own.forEach(function (q) { kq(q); }); }
+      if (fromSrc.length) {
+        ck.appendChild(el("p", "s5el-sub", "Published by the sources — starting points for a hunt, check them against your tables"));
+        fromSrc.forEach(function (q) {
+          var by = el("p", "s5el-mut s5eu-by"); by.appendChild(document.createTextNode([q.author, q.source, dmy(q.published)].filter(Boolean).join(" · ") + " — "));
+          by.appendChild(aLink(q.articleTitle || "the article", q.link)); kq(q, by);
+        });
+      }
     }
   }
   function row(s) {
@@ -44784,6 +44907,21 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
  .s5el-facts dd{margin-bottom:6px}
 }
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+/* §5eu: the KQL library on Hunting & actions */
+.s5eu-seg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.s5eu-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s5eu-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
+.s5eu-list{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.s5eu-rh{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:8px 12px;font:inherit;font-size:13px;color:var(--text);background:none;border:0;text-align:left;cursor:pointer}
+.s5eu-rh:hover{background:var(--accent-soft)}
+.s5eu-mid{display:flex;flex-direction:column;gap:2px;min-width:0}
+.s5eu-k{white-space:nowrap}.s5eu-k.s5eu-brief{color:var(--accent);border-color:var(--accent)}.s5eu-k.s5eu-incident-note{color:var(--bad);border-color:var(--bad)}
+.s5eu-k.s5eu-article{color:var(--warn);border-color:var(--warn)}.s5eu-k.s5eu-repo{color:var(--ok);border-color:var(--ok)}
+.s5eu-det{padding:8px 14px 14px 46px;border-top:1px solid var(--border);background:var(--bg)}
+.s5eu-p{margin:0 0 6px;font-size:13px}
+.s5eu-links{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 6px;font-size:12.5px}
+.s5eu-by{margin:0 0 4px}
+@media (max-width:760px){.s5eu-rh{grid-template-columns:24px minmax(0,1fr)}.s5eu-k{grid-column:2;justify-self:start}.s5eu-det{padding:8px 8px 12px}}
 /* §5et: incident rows say they open; the analysis as rounded cards */
 .s5et-tg{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-weight:700;font-size:14px;line-height:1}
 .s5el-row.open .s5et-tg{background:var(--accent);color:var(--on-accent,#fff)}
@@ -46326,6 +46464,39 @@ szczegoly sa strasznie nieczytelne, wszystko zlewa sie w jedna sekcje — poprac
    Timeline jako os czasu, Root cause, What the attacker did, Indicators) i odpowiedz (What to do now z etykieta zrodla,
    Permissions and roles involved, What Microsoft published, Articles) — zapytania KQL na pelna szerokosc. Telefon: cztery
    zagniezdzone ramki oddaja szerokosc (lista 256 → 342 px przy 390).
+
+## 5eu. KQL Z INCYDENTOW, ARTYKULOW I SPOLECZNOSCI — JEDNO ARCHIWUM I „KQL LIBRARY", 21 X 2026
+
+Wlasciciel 21 X 22:56: *„sledzimy incydenty w Threat Research, glownie M365 — ale jesli jest jakis incydent na swiecie,
+gdzie opisywane sa nie tylko elementy M365, ale tez np. KQL, ktory moze pomoc w analizie, to tez powinnismy to zbierac
+(najnowszy PHP2Shell na detect.fyi); jakie jeszcze sa top strony; detections.ai ma MCP; zakladka z KQL — upewnij sie,
+ze jest aktualizowana, a KQL zapisywane w JSON-ach, takze z incydentow"*. Decyzje 23:01: artykul spoza M365 z KQL =
+**pelny incydent**; **pelna tresc zapytania i link**; detections.ai — wlasciciel ma konto, dostep przez konektor.
+
+Zbudowane:
+- `tools/kql_extract.py` — Kusto, nie Kibana: blok musi miec operatory potoku (`| where`, `| summarize`…) i tabele
+  Defender XDR / Sentinel / Entra / Log Analytics (albo `let` / `union` / nazwe tabeli z potokiem); SPL, SQL i
+  zapytania Elastic odrzucone. Czyta `<pre>`, wieloliniowe `<code>`, `<li-code>` (Tech Community), bloki ```kql.
+- `tools/threats.py` — Kusto z tresci kanalu (Medium, kqlquery.com daja pelna tresc), inaczej ze strony artykulu
+  (najwyzej 25 stron na przebieg, kazda raz — `kqlChecked`); **artykul z Kusto zostaje zawsze**, obszar
+  „Hunting (KQL)", a pojedynczy artykul z KQL jest incydentem (decyzja 1). `site/data/kql-found.json`: kazde
+  zapytanie (pelny tekst, tytul = naglowek nad blokiem, tabele, produkt, autor, zrodlo, link, CVE, incydent), 365 dni.
+- Nowe zrodla `threat_sources.json` (`Kind: "kql"`): Detect FYI (`medium.com/feed/detect-fyi`), KQL Query
+  (`kqlquery.com/index.xml`), Microsoft Sentinel Blog i Microsoft Defender XDR Blog (Tech Community RSS).
+- `tools/kql_repos.py` + `kql_sources.json` — repozytoria spolecznosci raz dziennie (workflow „Campaign tracking"):
+  Bert-JanP (BSD-3-Clause), Sergio Albea (licencja nie podana), jkerai1 (MIT), cyb3rmik3 (MIT), Azure-Sentinel
+  (MIT; tylko pliki zmienione w 30 dniach, najwyzej 300). Pierwszy odczyt 21 X: 1 168 zapytan, oznaczone `initial`
+  (zaleglosc repozytorium, nie „nowe dzis"). `cache/kql-repos.json`.
+- `tools/kql_archive.py` — jedno archiwum `site/kql/`: `kind` brief | incident-note (zapytania analiz Threat Research) |
+  article | repo, podkatalogi `incidents/`, `articles/`, `community/`; w naglowku pliku autor i licencja; w
+  `index.json` `author`, `link`, `license`, `incident`, `mitre`, `cves`, `alsoIn`. Deduplikacja po tresci jak dotad.
+- Strona: Hunting & actions — „KQL library" (widoki From the briefs / From incidents / From the community / All,
+  wyszukiwanie, filtry produkt / tabela / autor, wiersz +/− otwiera pelne zapytanie z pliku, Copy, link do oryginalu,
+  licencja, przejscie do incydentu); Threat Research — karta „Hunting queries (KQL)" ma zapytania analizy i, osobno,
+  „Published by the sources" z autorem i linkiem.
+- detections.ai: publicznego API ani opisu MCP nie znaleziono (21 X); polaczenie przez konektor claude.ai
+  (Customize → Connectors → Add custom connector; logowanie w oknie dostawcy) albo — jesli dadza token API — sekret
+  repozytorium GitHub, nigdy w czacie ani w pliku.
 
 ## 6. Kontrakt w stronie
 

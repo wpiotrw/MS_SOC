@@ -100,7 +100,7 @@ jobs:
           git add site/data/graph-sp.json site/data/graph-sp-history.json 2>/dev/null || true
           git add site/data/roles-elsewhere.json 2>/dev/null || true
           git add site/data/roles-rolelens.json site/data/roles-merill.json 2>/dev/null || true
-          git add site/data/threats.json 2>/dev/null || true
+          git add site/data/threats.json site/data/kql-found.json 2>/dev/null || true
           git add site/data/doc-ga.json cache/doc-titles.json 2>/dev/null || true
           git add site/data/graph-sp-dev.json site/data/graph-sp-dev-history.json site/data/roles-dev.json 2>/dev/null || true
           git add site/data/api-surfaces.json 2>/dev/null || true

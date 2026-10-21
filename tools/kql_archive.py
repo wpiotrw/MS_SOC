@@ -12,6 +12,15 @@ This script does it from the published page itself, so it no longer depends on a
 
 A query identical to one already archived (same code once comments and spacing are removed) gets no new file:
 its index entry gains the date in "reused". Nothing is ever deleted.
+
+CLAUDE.md 5eu (21 X 2026, owner: "one place for every KQL - the brief's, the incidents' and the community's - full
+text and the link"). Besides the brief's page the archive now files, each entry with a `kind`:
+  brief          the Hunting & actions tab of a published brief (as before)
+  incident-note  the "Hunting queries (KQL)" of a Threat Research analysis (threat_notes.json, site/data/threat-notes.json)
+  article        a Kusto query found in a source article (site/data/kql-found.json, tools/threats.py)
+  repo           a query of a community repository (cache/kql-repos.json, tools/kql_repos.py)
+with `author`, `link` (where it was published), `license` (repositories), `incident` (Threat Research story id),
+`description`, `mitre`. The query text stays in its .kql file; index.json is the list the page reads.
 """
 import glob
 import gzip
@@ -119,6 +128,45 @@ def queries(page, day):
     return out
 
 
+def extra_queries():
+    """5eu: the incident notes, the article queries and the community repositories, in the shape main() files"""
+    out = []
+    for path, label in ((os.path.join(ROOT, "threat_notes.json"), "a person"), (os.path.join(SITE, "data", "threat-notes.json"), "the morning analysis")):
+        try:
+            notes = json.load(open(path, encoding="utf-8")).get("stories") or []
+        except (OSError, ValueError):
+            notes = []
+        for n in notes:
+            for q in n.get("kql") or []:
+                code = (q.get("query") or "").strip()
+                if not code:
+                    continue
+                tb = sorted(set(TABLE.findall(code)))
+                out.append({"kind": "incident-note", "title": q.get("title") or "Hunting query", "date": (n.get("updated") or "")[:10],
+                            "product": next((p for rx, p in PRODUCT for t in tb if re.search(rx, t)), "Microsoft 365"), "tables": tb,
+                            "purpose": "Threat Research: " + (n.get("title") or n.get("id") or ""), "source": (n.get("links") or [{}])[0].get("url"),
+                            "author": "Threat Research analysis (" + label + ")", "incident": n.get("id"), "link": None, "query": code, "key": body_key(code)})
+    try:
+        found = json.load(open(os.path.join(SITE, "data", "kql-found.json"), encoding="utf-8")).get("queries") or []
+    except (OSError, ValueError):
+        found = []
+    for q in found:
+        out.append({"kind": "article", "title": q.get("title") or q.get("articleTitle") or "Hunting query", "date": (q.get("published") or q.get("firstSeen") or "")[:10],
+                    "product": q.get("product") or "", "tables": q.get("tables") or [], "purpose": "From the article: " + (q.get("articleTitle") or ""),
+                    "source": q.get("link"), "link": q.get("link"), "author": " · ".join(x for x in (q.get("author"), q.get("source")) if x),
+                    "incident": q.get("story") or None, "cves": q.get("cves") or [], "query": q["query"], "key": body_key(q["query"])})
+    try:
+        rq = json.load(open(os.path.join(ROOT, "cache", "kql-repos.json"), encoding="utf-8")).get("queries") or []
+    except (OSError, ValueError):
+        rq = []
+    for q in rq:
+        out.append({"kind": "repo", "title": q.get("title") or "Hunting query", "date": (q.get("firstSeen") or "")[:10],
+                    "product": q.get("product") or "", "tables": q.get("tables") or [], "purpose": q.get("description") or q.get("title") or "",
+                    "source": q.get("link"), "link": q.get("link"), "author": q.get("author") or q.get("repo") or "", "repo": q.get("repo"),
+                    "license": q.get("license"), "mitre": q.get("mitre") or [], "initial": bool(q.get("initial")), "query": q["query"], "key": body_key(q["query"])})
+    return out
+
+
 def main(argv):
     os.makedirs(KQL, exist_ok=True)
     try:
@@ -141,35 +189,59 @@ def main(argv):
         pages.append((s, page_date(s, "")))
     added = reused = 0
     names = {e["file"] for e in index}
-    for page, day in pages:
-        for q in queries(page, day):
+    batches = [(day, queries(page, day)) for page, day in pages] + [("", extra_queries())]
+    for day, qs in batches:
+        for q in qs:
             e = keys.get(q["key"])
             if e:
+                # 5eu: the same query met again from another place keeps its first entry and names the other
+                k2 = q.get("kind") or "brief"
+                if k2 != (e.get("kind") or "brief") and k2 not in (e.get("alsoIn") or []):
+                    e.setdefault("alsoIn", []).append(k2)
+                if q.get("incident") and not e.get("incident"):
+                    e["incident"] = q["incident"]
                 if day and day != e.get("date") and day not in (e.get("reused") or []):
                     e.setdefault("reused", []).append(day)
                     reused += 1
                 continue
-            name = "%s-%s.kql" % (q["date"] or day or "undated", slug(q["title"]))
+            kind = q.get("kind") or "brief"
+            sub = {"brief": "", "incident-note": "incidents/", "article": "articles/", "repo": "community/"}.get(kind, "")
+            if sub:
+                os.makedirs(os.path.join(KQL, sub), exist_ok=True)
+            name = sub + "%s-%s.kql" % (q["date"] or day or "undated", slug(q["title"]))
             n = 2
             while name in names:
-                name = "%s-%s-%d.kql" % (q["date"] or day, slug(q["title"]), n)
+                name = sub + "%s-%s-%d.kql" % (q["date"] or day or "undated", slug(q["title"]), n)
                 n += 1
             head = ["// title: " + q["title"], "// date: " + (q["date"] or day), "// product: " + q["product"],
-                    "// tables: " + ", ".join(q["tables"]), "// purpose: " + (q["purpose"] or q["title"]),
-                    "// source: " + (q["source"] or "see the brief of that day"), "// archived by tools/kql_archive.py (CLAUDE.md 5l)", ""]
+                    "// tables: " + ", ".join(q["tables"]), "// purpose: " + re.sub(r"\s+", " ", q["purpose"] or q["title"])[:300],
+                    "// source: " + (q["source"] or "see the brief of that day")]
+            if kind != "brief":
+                head += ["// kind: " + kind, "// author: " + (q.get("author") or "not stated")]
+                if q.get("license"):
+                    head.append("// license: " + q["license"] + " (as stated by the repository)")
+            head += ["// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)", ""]
             with open(os.path.join(KQL, name), "w", encoding="utf-8") as f:
                 f.write("\n".join(head) + q["query"].rstrip() + "\n")
             e = {"file": name, "title": q["title"], "date": q["date"] or day, "product": q["product"], "tables": q["tables"],
-                 "purpose": q["purpose"] or q["title"], "source": q["source"]}
+                 "purpose": re.sub(r"\s+", " ", q["purpose"] or q["title"])[:300], "source": q["source"], "kind": kind}
+            for f2 in ("author", "link", "license", "incident", "mitre", "cves", "repo", "initial"):
+                if q.get(f2):
+                    e[f2] = q[f2]
             index.append(e)
             keys[q["key"]] = e
             names.add(name)
             added += 1
+    for e in index:
+        e.setdefault("kind", "brief")
     index.sort(key=lambda e: (e.get("date") or "", e["file"]), reverse=True)
     with open(INDEX, "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, indent=1)
         f.write("\n")
-    print("OK kql archive: %d queries, %d new, %d reused today" % (len(index), added, reused))
+    kinds = {}
+    for e in index:
+        kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1
+    print("OK kql archive: %d queries (%s), %d new, %d reused today" % (len(index), ", ".join("%s %d" % kv for kv in sorted(kinds.items())), added, reused))
 
 
 if __name__ == "__main__":

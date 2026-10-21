@@ -1,21 +1,179 @@
 [
-  {"SourceName": "Microsoft Threat Intelligence", "SourceURL": "https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/feed/", "Site": "https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/", "Tier": "core", "Kind": "rss", "Microsoft": true, "AllRelevant": true},
-  {"SourceName": "Microsoft Incident Response", "SourceURL": "https://www.microsoft.com/en-us/security/blog/topic/incident-response/feed/", "Site": "https://www.microsoft.com/en-us/security/blog/topic/incident-response/", "Tier": "secondary", "Kind": "rss", "Microsoft": true},
-  {"SourceName": "Microsoft Security Blog", "SourceURL": "https://www.microsoft.com/en-us/security/blog/feed/", "Site": "https://www.microsoft.com/en-us/security/blog/", "Tier": "core", "Kind": "rss", "Microsoft": true},
-  {"SourceName": "MSRC Security Update Guide", "SourceURL": "https://api.msrc.microsoft.com/update-guide/rss", "Site": "https://msrc.microsoft.com/update-guide", "Tier": "core", "Kind": "rss", "Microsoft": true, "CheckOnly": true},
-  {"SourceName": "CISA Known Exploited Vulnerabilities (Microsoft)", "SourceURL": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json", "Site": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog", "Tier": "core", "Kind": "kev"},
-  {"SourceName": "Huntress", "SourceURL": "https://www.huntress.com/blog/rss.xml", "Site": "https://www.huntress.com/blog", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Invictus IR", "SourceURL": "https://www.invictus-ir.com/news/rss.xml", "Site": "https://www.invictus-ir.com/news", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "SpecterOps", "SourceURL": "https://specterops.io/feed/", "Site": "https://specterops.io/blog/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Datadog Security Labs", "SourceURL": "https://securitylabs.datadoghq.com/rss/feed.xml", "Site": "https://securitylabs.datadoghq.com/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Push Security", "SourceURL": "https://pushsecurity.com/rss.xml", "Site": "https://pushsecurity.com/blog", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Sekoia", "SourceURL": "https://blog.sekoia.io/feed/", "Site": "https://blog.sekoia.io/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Volexity", "SourceURL": "https://www.volexity.com/feed/", "Site": "https://www.volexity.com/blog/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "BleepingComputer", "SourceURL": "https://www.bleepingcomputer.com/feed/", "Site": "https://www.bleepingcomputer.com/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "The Hacker News", "SourceURL": "https://feeds.feedburner.com/TheHackersNews", "Site": "https://thehackernews.com/", "Tier": "core", "Kind": "rss"},
-  {"SourceName": "Elastic Security Labs", "SourceURL": "https://www.elastic.co/security-labs/rss/feed.xml", "Site": "https://www.elastic.co/security-labs", "Tier": "secondary", "Kind": "rss"},
-  {"SourceName": "Dirk-jan Mollema", "SourceURL": "https://dirkjanm.io/feed.xml", "Site": "https://dirkjanm.io/", "Tier": "secondary", "Kind": "rss", "AllRelevant": true},
-  {"SourceName": "Google Threat Intelligence", "SourceURL": "https://cloudblog.withgoogle.com/topics/threat-intelligence/rss/", "Site": "https://cloud.google.com/blog/topics/threat-intelligence", "Tier": "secondary", "Kind": "rss"},
-  {"SourceName": "Red Canary", "SourceURL": "https://redcanary.com/feed/", "Site": "https://redcanary.com/blog/", "Tier": "secondary", "Kind": "rss"},
-  {"SourceName": "AADInternals", "SourceURL": "https://aadinternals.com/index.xml", "Site": "https://aadinternals.com/", "Tier": "secondary", "Kind": "rss", "AllRelevant": true}
+  {
+    "SourceName": "Microsoft Threat Intelligence",
+    "SourceURL": "https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/feed/",
+    "Site": "https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/",
+    "Tier": "core",
+    "Kind": "rss",
+    "Microsoft": true,
+    "AllRelevant": true
+  },
+  {
+    "SourceName": "Microsoft Incident Response",
+    "SourceURL": "https://www.microsoft.com/en-us/security/blog/topic/incident-response/feed/",
+    "Site": "https://www.microsoft.com/en-us/security/blog/topic/incident-response/",
+    "Tier": "secondary",
+    "Kind": "rss",
+    "Microsoft": true
+  },
+  {
+    "SourceName": "Microsoft Security Blog",
+    "SourceURL": "https://www.microsoft.com/en-us/security/blog/feed/",
+    "Site": "https://www.microsoft.com/en-us/security/blog/",
+    "Tier": "core",
+    "Kind": "rss",
+    "Microsoft": true
+  },
+  {
+    "SourceName": "MSRC Security Update Guide",
+    "SourceURL": "https://api.msrc.microsoft.com/update-guide/rss",
+    "Site": "https://msrc.microsoft.com/update-guide",
+    "Tier": "core",
+    "Kind": "rss",
+    "Microsoft": true,
+    "CheckOnly": true
+  },
+  {
+    "SourceName": "CISA Known Exploited Vulnerabilities (Microsoft)",
+    "SourceURL": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    "Site": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "Tier": "core",
+    "Kind": "kev"
+  },
+  {
+    "SourceName": "Huntress",
+    "SourceURL": "https://www.huntress.com/blog/rss.xml",
+    "Site": "https://www.huntress.com/blog",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Invictus IR",
+    "SourceURL": "https://www.invictus-ir.com/news/rss.xml",
+    "Site": "https://www.invictus-ir.com/news",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "SpecterOps",
+    "SourceURL": "https://specterops.io/feed/",
+    "Site": "https://specterops.io/blog/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Datadog Security Labs",
+    "SourceURL": "https://securitylabs.datadoghq.com/rss/feed.xml",
+    "Site": "https://securitylabs.datadoghq.com/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Push Security",
+    "SourceURL": "https://pushsecurity.com/rss.xml",
+    "Site": "https://pushsecurity.com/blog",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Sekoia",
+    "SourceURL": "https://blog.sekoia.io/feed/",
+    "Site": "https://blog.sekoia.io/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Volexity",
+    "SourceURL": "https://www.volexity.com/feed/",
+    "Site": "https://www.volexity.com/blog/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "BleepingComputer",
+    "SourceURL": "https://www.bleepingcomputer.com/feed/",
+    "Site": "https://www.bleepingcomputer.com/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "The Hacker News",
+    "SourceURL": "https://feeds.feedburner.com/TheHackersNews",
+    "Site": "https://thehackernews.com/",
+    "Tier": "core",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Elastic Security Labs",
+    "SourceURL": "https://www.elastic.co/security-labs/rss/feed.xml",
+    "Site": "https://www.elastic.co/security-labs",
+    "Tier": "secondary",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Dirk-jan Mollema",
+    "SourceURL": "https://dirkjanm.io/feed.xml",
+    "Site": "https://dirkjanm.io/",
+    "Tier": "secondary",
+    "Kind": "rss",
+    "AllRelevant": true
+  },
+  {
+    "SourceName": "Google Threat Intelligence",
+    "SourceURL": "https://cloudblog.withgoogle.com/topics/threat-intelligence/rss/",
+    "Site": "https://cloud.google.com/blog/topics/threat-intelligence",
+    "Tier": "secondary",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "Red Canary",
+    "SourceURL": "https://redcanary.com/feed/",
+    "Site": "https://redcanary.com/blog/",
+    "Tier": "secondary",
+    "Kind": "rss"
+  },
+  {
+    "SourceName": "AADInternals",
+    "SourceURL": "https://aadinternals.com/index.xml",
+    "Site": "https://aadinternals.com/",
+    "Tier": "secondary",
+    "Kind": "rss",
+    "AllRelevant": true
+  },
+  {
+    "SourceName": "Detect FYI (detection engineering, KQL)",
+    "SourceURL": "https://medium.com/feed/detect-fyi",
+    "Site": "https://detect.fyi",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": false,
+    "AllRelevant": null
+  },
+  {
+    "SourceName": "KQL Query (Bert-Jan Pals)",
+    "SourceURL": "https://kqlquery.com/index.xml",
+    "Site": "https://kqlquery.com",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": false,
+    "AllRelevant": null
+  },
+  {
+    "SourceName": "Microsoft Sentinel Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/board?board.id=MicrosoftSentinelBlog",
+    "Site": "https://techcommunity.microsoft.com/category/microsoft-sentinel/blog/microsoftsentinelblog",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": true,
+    "AllRelevant": null
+  },
+  {
+    "SourceName": "Microsoft Defender XDR Blog",
+    "SourceURL": "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/board?board.id=MicrosoftThreatProtectionBlog",
+    "Site": "https://techcommunity.microsoft.com/category/microsoft-defender-xdr/blog/MicrosoftThreatProtectionBlog",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": true,
+    "AllRelevant": null
+  }
 ]
