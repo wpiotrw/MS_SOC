@@ -55,7 +55,14 @@ nav.rail{position:sticky;top:var(--hh,120px);align-self:start;max-height:calc(10
 main{padding:18px 22px 80px;min-width:0}
 .panel[hidden]{display:none}
 .ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 6px}.ph h2{margin:0;font-size:23px}
-.n{font-weight:700;font-size:13.5px}.n.a{color:var(--ok)}.n.c{color:var(--warn)}.n.r{color:var(--bad)}
+.n{font-weight:700;font-size:13.5px}
+.nb{font:inherit;font-weight:700;font-size:13px;border:1px solid currentColor;border-radius:999px;padding:2px 10px;background:none;cursor:pointer}
+.nb:disabled{opacity:.45;cursor:default}.nb[aria-pressed="true"]{color:var(--on-accent)!important}
+.nb.a[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}.nb.c[aria-pressed="true"]{background:var(--warn);border-color:var(--warn)}.nb.r[aria-pressed="true"]{background:var(--bad);border-color:var(--bad)}
+.kh{display:flex;align-items:center;gap:8px;margin:4px 14px 8px;font-size:13px}.khn{font-weight:700;color:var(--muted)}
+.kh-new .kind{color:var(--ok)}.kh-chg .kind{color:var(--warn)}.kh-gone .kind{color:var(--bad)}.kh-date .kind{color:var(--accent)}
+.kfilter{margin:0 14px 10px;font-size:13px;color:var(--muted)}.lnk{font:inherit;border:0;background:none;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0}
+.sumtab .nb{padding:1px 8px}.n.a{color:var(--ok)}.n.c{color:var(--warn)}.n.r{color:var(--bad)}
 .lead{margin:0 0 12px;color:var(--muted);max-width:1000px;font-size:13.5px}
 details.day{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
 details.day>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:11px 14px}
@@ -133,7 +140,7 @@ tbody tr:hover td{background:var(--accent-soft)}
     ["Component versions", "Agent and client versions"], ["First-party apps", "Microsoft's own Entra applications"], ["Campaigns", "Retirements, enforcements, rollouts"],
     ["Baselines", "Maester and Tenable"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
     ["Microsoft Blogs", "Microsoft product blogs"], ["Community Articles", "Community sources"]];
-  var D = null, S = { tab: "Summary", q: "", tech: "" };
+  var D = null, S = { tab: "Summary", q: "", tech: "", kind: "" };
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] : (d || ""); }
   function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
@@ -199,17 +206,40 @@ tbody tr:hover td{background:var(--accent-soft)}
     if (r.x) li.appendChild(el("div", "meta", r.x));
     return li;
   }
-  function block(title, L, open, cap) {
+  /* §5ev (22 X 2026, owner: "you write 26 new · 2 changed · 7 removed, but I cannot click a status to see only the
+     removed, and you do not group by status - everything is mixed"): every count is a button that shows only that
+     status (again = all), and a block lists its changes under one heading per status - New, Date moved, Changed,
+     Removed - each with its own count */
+  var KGROUPS = [["new", "New", "a"], ["date", "Date moved", "c"], ["chg", "Changed", "c"], ["gone", "Removed", "r"]];
+  function pills(host, c) {
+    [["a", c.a, "new"], ["c", c.c, "changed"], ["r", c.r, "removed"]].forEach(function (q) {
+      var b = el("button", "n " + q[0] + " nb", q[1] + " " + q[2]); b.type = "button"; b.disabled = !q[1] && S.kind !== q[0];
+      b.setAttribute("aria-pressed", S.kind === q[0] ? "true" : "false"); b.title = S.kind === q[0] ? "Show every status again" : "Show only " + q[2];
+      b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); S.kind = S.kind === q[0] ? "" : q[0]; render(); });
+      host.appendChild(b);
+    });
+  }
+  function block(title, L, open, cap, ranked) {
     var b = el("details", "day"); b.open = !!open;
     var sm = el("summary"); sm.appendChild(el("span", "dt", title));
-    var c = counts(L); sm.appendChild(el("span", "n a", c.a + " new")); sm.appendChild(el("span", "n c", c.c + " changed")); sm.appendChild(el("span", "n r", c.r + " removed"));
+    pills(sm, counts(L));
     b.appendChild(sm);
     function fill() {
       if (b.__f) return; b.__f = true;
       if (!L.length) { b.appendChild(el("p", "none", "Nothing moved here in this window" + (S.q || S.tech ? " that matches the filter." : "."))); return; }
-      var ul = el("ul", "grid"), M = cap || 24; L.slice(0, M).forEach(function (r) { ul.appendChild(tile(r)); }); b.appendChild(ul);
-      if (L.length > M) { var p = el("div", "more"), bt = el("button", "btn", "Show all " + L.length); bt.type = "button";
-        bt.addEventListener("click", function () { L.slice(M).forEach(function (r) { ul.appendChild(tile(r)); }); p.remove(); }); p.appendChild(bt); b.appendChild(p); }
+      if (S.kind) { var fb = el("p", "kfilter"); fb.appendChild(document.createTextNode("Showing only " + { a: "new", c: "changed", r: "removed" }[S.kind] + " · "));
+        var x = el("button", "lnk", "show every status"); x.type = "button"; x.addEventListener("click", function () { S.kind = ""; render(); }); fb.appendChild(x); b.appendChild(fb); }
+      /* the Summary's "Most important" keeps its ranking, one grid; every other block groups by status */
+      var G = ranked ? [["", "", "", L.filter(function (r) { return !S.kind || ({ new: "a", date: "c", chg: "c", gone: "r" })[kindOf(r)] === S.kind; })]]
+        : KGROUPS.map(function (g) { return g.concat([L.filter(function (r) { return kindOf(r) === g[0]; })]); }).filter(function (g) { return g[3].length && (!S.kind || g[2] === S.kind); });
+      if (!G.length || !G.some(function (g) { return g[3].length; })) { b.appendChild(el("p", "none", "No " + { a: "new", c: "changed", r: "removed" }[S.kind] + " change here.")); return; }
+      G.forEach(function (g) {
+        var LL = g[3]; if (!LL.length) return;
+        if (g[1]) { var h = el("h3", "kh kh-" + g[0]); h.appendChild(el("span", "kind", g[1].toUpperCase())); h.appendChild(el("span", "khn", String(LL.length))); b.appendChild(h); }
+        var ul = el("ul", "grid"), M = cap || (G.length > 1 ? 12 : 24); LL.slice(0, M).forEach(function (r) { ul.appendChild(tile(r)); }); b.appendChild(ul);
+        if (LL.length > M) { var p = el("div", "more"), bt = el("button", "btn", "Show all " + LL.length + (g[1] ? " " + g[1].toLowerCase() : "")); bt.type = "button";
+          bt.addEventListener("click", function () { LL.slice(M).forEach(function (r) { ul.appendChild(tile(r)); }); p.remove(); }); p.appendChild(bt); b.appendChild(p); }
+      });
     }
     if (b.open) fill(); b.addEventListener("toggle", function () { if (b.open) fill(); });
     return b;
@@ -241,19 +271,20 @@ tbody tr:hover td{background:var(--accent-soft)}
     var p = el("section", "panel"); p.id = "p-" + tab.replace(/\W+/g, "-");
     var all = recs(tab === "Summary" ? null : tab), c = counts(all), meta = TABS.filter(function (x) { return x[0] === tab; })[0];
     var ph = el("div", "ph"); ph.appendChild(el("h2", null, tab));
-    if (tab !== "Summary") { ph.appendChild(el("span", "n a", c.a + " new")); ph.appendChild(el("span", "n c", c.c + " changed")); ph.appendChild(el("span", "n r", c.r + " removed")); }
+    if (tab !== "Summary") pills(ph, c);
     ph.appendChild(el("span", "sub", meta[1])); p.appendChild(ph);
     if (tab === "Summary") {
       var top = all.slice().sort(function (x, y) { return score(y) - score(x) || y.d.localeCompare(x.d); }).slice(0, 9);
       p.appendChild(el("p", "lead", "The changes worth reading first, ranked: tier 0, the brief's SOC weight, then what the change does — a Graph permission that can reach more, a role, a date that moved, an incident, a feature leaving preview. Every tab is in the rail with what moved: + new, ~ changed, − removed."));
-      p.appendChild(block("Most important · " + (RANGE === "week" ? "last 7 days" : "since the previous brief"), top, true, 9));
+      p.appendChild(block("Most important · " + (RANGE === "week" ? "last 7 days" : "since the previous brief"), top, true, 9, true));
       var w = el("div", "tw"), t = el("table", "sumtab"), hd = el("thead"), tr = el("tr");
       ["Tab", "New", "Changed", "Removed", "Last change"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
       var bd = el("tbody");
       TABS.slice(1).forEach(function (x) {
         var L = recs(x[0]), k = counts(L), last = L.reduce(function (m, r) { return r.d > m ? r.d : m; }, "");
         var row = el("tr"), c0 = el("td"), bt = el("button", null, x[0]); bt.type = "button"; bt.addEventListener("click", function () { go(x[0]); }); c0.appendChild(bt); row.appendChild(c0);
-        [["a", k.a, "+"], ["c", k.c, "~"], ["r", k.r, "−"]].forEach(function (q) { var td = el("td", "num"); if (q[1]) { var s = el("span", "n " + q[0], q[2] + q[1]); td.appendChild(s); } else td.textContent = "·"; row.appendChild(td); });
+        [["a", k.a, "+"], ["c", k.c, "~"], ["r", k.r, "−"]].forEach(function (q) { var td = el("td", "num"); if (q[1]) { var s = el("button", "n " + q[0] + " nb", q[2] + q[1]); s.type = "button"; s.title = "Open " + x[0] + ", only this status";
+          s.addEventListener("click", function () { S.kind = q[0]; go(x[0]); }); td.appendChild(s); } else td.textContent = "·"; row.appendChild(td); });
         row.appendChild(el("td", null, last ? dmy(last) : "—")); bd.appendChild(row);
       });
       t.appendChild(bd); w.appendChild(t);
@@ -272,7 +303,7 @@ tbody tr:hover td{background:var(--accent-soft)}
     if (tab !== "Summary") { var c = counts(recs(tab)), ks = el("span", "ks");
       [["a", c.a, "+"], ["c", c.c, "~"], ["r", c.r, "−"]].forEach(function (q) { ks.appendChild(el("span", "k" + (q[1] ? " " + q[0] : ""), q[1] ? q[2] + q[1] : "·")); }); b.appendChild(ks); }
     if (tab === S.tab) b.setAttribute("aria-current", "page");
-    b.addEventListener("click", function () { go(tab); if (inSheet) toggleSheet(false); });
+    b.addEventListener("click", function () { S.kind = ""; go(tab); if (inSheet) toggleSheet(false); });
     return b;
   }
   function renderNav() {

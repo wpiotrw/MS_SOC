@@ -2823,6 +2823,19 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .s5bn-n.s5bn-changed{color:var(--warn);background:var(--warn-soft);border-color:transparent}
 .s5bn-n.s5bn-removed{color:var(--bad);background:var(--bad-soft);border-color:transparent}
 .s5bn-n.zero{color:var(--muted);background:transparent;border-color:var(--border)}
+/* §5ev: status counts are filters; groups by status */
+.s5ev-pill{cursor:pointer;user-select:none}
+.tabpanel > .s5bn.s5ev-show,body .tabpanel.s5ci-on:not(.s5ci-full) > div.s5bn.s5ev-show.s5ev-show.s5ev-show.s5ev-show{display:block!important}
+.s5ev-pill:hover,.s5ev-pill:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.s5ev-pill[aria-pressed="true"]{outline:2px solid var(--accent);background:var(--accent-soft)!important}
+.s5ev-gh{list-style:none;display:flex;align-items:center;gap:8px;margin:10px 0 4px;font-size:12px;font-weight:700;color:var(--muted)}
+.s5do-grid>.s5ev-gh{grid-column:1/-1;margin:6px 0 0}
+.s5ev-gh-added .s5bn-k{color:var(--ok)}.s5ev-gh-changed .s5bn-k{color:var(--warn)}.s5ev-gh-removed .s5bn-k{color:var(--bad)}
+.s5bn[data-kf="added"] .s5bn-r:not(.s5bn-added),.s5bn[data-kf="changed"] .s5bn-r:not(.s5bn-changed),.s5bn[data-kf="removed"] .s5bn-r:not(.s5bn-removed),
+.s5bn[data-kf="added"] .s5do-tile:not(.s5do-added),.s5bn[data-kf="changed"] .s5do-tile:not(.s5do-changed),.s5bn[data-kf="removed"] .s5do-tile:not(.s5do-removed),
+.s5bn[data-kf="added"] .s5ev-gh:not(.s5ev-gh-added),.s5bn[data-kf="changed"] .s5ev-gh:not(.s5ev-gh-changed),.s5bn[data-kf="removed"] .s5ev-gh:not(.s5ev-gh-removed),
+details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-kf="chg"] .s5ei-tile.s5ei-new{display:none!important}
+.s5ei-n.s5ev-pill{padding:1px 8px;border-radius:999px;border:1px solid currentColor}
 /* §5et: a quiet brief shows what was found last, under its own date */
 .s5bn-lastl{margin:8px 0 6px;padding:8px 12px;border:1px dashed var(--border);border-radius:10px;font-size:13px;color:var(--muted)}
 .s5bn-lastl b{color:var(--text)}
@@ -17501,8 +17514,21 @@ IdentityDirectoryEvents
         if (r.kind === "changed" && (r.id || r.title) && gx[gk]) { gx[gk].more.push(r); return; }
         var g = { r: r, more: [] }; grp.push(g); if (r.id || r.title) gx[gk] = g;
       });
-      grp.slice(0, MAXROWS).forEach(function (g) {
+      /* §5ev (22 X 2026, owner: "you do not group by status - everything is mixed"): new, then changed, then removed,
+         each under its own heading line; the tile view (§5do) skips the headings and keeps this order */
+      var KO = { added: 0, changed: 1, removed: 2 };
+      grp.sort(function (a, b) { return (KO[a.r.kind] || 0) - (KO[b.r.kind] || 0); });
+      /* §5ev: up to MAXROWS of EACH status, so a status count opens its own rows (the cut used to keep only the first ones) */
+      var KN = {}, KS = {}; grp.forEach(function (g) { KN[g.r.kind] = (KN[g.r.kind] || 0) + 1; });
+      var shownG = grp.filter(function (g) { KS[g.r.kind] = (KS[g.r.kind] || 0) + 1; return KS[g.r.kind] <= MAXROWS; });
+      var lastK = "";
+      shownG.forEach(function (g) {
         var r = g.r;
+        if (r.kind !== lastK) { lastK = r.kind; var gh = el("li", "s5ev-gh s5ev-gh-" + r.kind); gh.setAttribute("data-kind", r.kind); gh.setAttribute("aria-hidden", "false");
+          var nf = spec.rows.filter(function (x) { return x.kind === r.kind; }).length;
+          gh.appendChild(el("span", "s5bn-k", r.kind === "added" ? "NEW" : r.kind === "removed" ? "REMOVED" : "CHANGED"));
+          gh.appendChild(el("span", "s5ev-ghn", (KS[r.kind] > MAXROWS ? MAXROWS + " of " : "") + KN[r.kind] + " item" + (KN[r.kind] === 1 ? "" : "s") + (nf > KN[r.kind] ? " · " + nf + " field changes" : "")));
+          ul.appendChild(gh); }
         var li = el("li", "s5bn-r s5bn-" + r.kind);
         /* §5do: the tile view of every tab reads these */
         if (r.id) li.setAttribute("data-id", r.id); li.setAttribute("data-kind", r.kind); if (r.type) li.setAttribute("data-type", r.type);
@@ -17537,8 +17563,8 @@ IdentityDirectoryEvents
         ul.appendChild(li);
       });
       box.appendChild(ul);
-      if (grp.length > MAXROWS) box.appendChild(el("p", "s5bn-more",
-        (grp.length - MAXROWS) + " more — " + spec.more));
+      if (grp.length > shownG.length) box.appendChild(el("p", "s5bn-more",
+        (grp.length - shownG.length) + " more — " + spec.more));
     }
     if (spec.diff) {
       var a = el("a", "s5bn-diff", "Everything that moved here, field by field, on the changes page →");
@@ -23924,6 +23950,101 @@ IdentityDirectoryEvents
   if (/tab=hunting/.test(location.hash)) setTimeout(wake, 1500);
 })();
 
+/* §5ev (22 X 2026, owner on the phone: "you write 26 new · 2 changed · 7 removed but I cannot click a status to see only
+   the removed, and nothing is grouped by status; check /diff/, /week/ and the whole portal"). Every status count of a
+   "since the previous brief" block - the strip of each tab (.s5bn: + new, ~ changed, − removed) and the day blocks of
+   Message Center, Learn, Blogs, Community and Threat Research (.s5ei-day: new, changed / updated) - is a button: it
+   shows only that status in its block (tiles and list alike), again shows all. The strip's list is grouped by status
+   in strip() itself; this layer adds the same headings to its tile view. */
+(function () {
+  "use strict";
+  if (window.__s5ev) return; window.__s5ev = 1;
+  var LAB = { added: "NEW", changed: "CHANGED", removed: "REMOVED" };
+  function mk(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function button(pill, onClick) {
+    if (pill.__s5ev) return; pill.__s5ev = true;
+    pill.setAttribute("role", "button"); pill.tabIndex = 0; pill.classList.add("s5ev-pill"); pill.setAttribute("aria-pressed", "false");
+    pill.title = "Show only these — again to show all";
+    function go(ev) { ev.preventDefault(); ev.stopPropagation(); onClick(); }
+    pill.addEventListener("click", go);
+    pill.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") go(ev); });
+  }
+  function strip(box) {
+    var pills = [].slice.call(box.querySelectorAll(".s5bn-h .s5bn-n"));
+    pills.forEach(function (p) {
+      var k = p.classList.contains("s5bn-added") ? "added" : p.classList.contains("s5bn-removed") ? "removed" : "changed";
+      if (p.classList.contains("zero")) return;
+      button(p, function () {
+        var on = box.getAttribute("data-kf") === k ? "" : k;
+        if (on) box.setAttribute("data-kf", on); else box.removeAttribute("data-kf");
+        pills.forEach(function (q) { q.setAttribute("aria-pressed", String(!!on && q === p)); });
+      });
+    });
+    /* headings in the tile view, in the list's order */
+    var grid = box.querySelector(".s5do-grid");
+    if (grid && !grid.__s5ev) {
+      grid.__s5ev = true; var last = "", n = {};
+      [].forEach.call(grid.children, function (t) { var k = /s5do-(added|changed|removed)/.exec(t.className); if (k) n[k[1]] = (n[k[1]] || 0) + 1; });
+      [].slice.call(grid.children).forEach(function (t) {
+        var k = /s5do-(added|changed|removed)/.exec(t.className); if (!k || k[1] === last) return; last = k[1];
+        var lh = box.querySelector("ul.s5bn-l > li.s5ev-gh-" + k[1] + " .s5ev-ghn");   /* the list's own words: "8 of 20 items" */
+        var h = mk("div", "s5ev-gh s5ev-gh-" + k[1]); h.appendChild(mk("span", "s5bn-k", LAB[k[1]])); h.appendChild(mk("span", "s5ev-ghn", lh ? lh.textContent : String(n[k[1]])));
+        grid.insertBefore(h, t);
+      });
+    }
+  }
+  function day(d) {
+    var pills = [].slice.call(d.querySelectorAll(":scope > summary .s5ei-n.s5ei-nn, :scope > summary .s5ei-n.s5ei-nc"));
+    pills.forEach(function (p) {
+      var k = p.classList.contains("s5ei-nn") ? "new" : "chg";
+      if (/^0\b/.test((p.textContent || "").trim())) return;
+      button(p, function () {
+        var on = d.getAttribute("data-kf") === k ? "" : k;
+        if (on) d.setAttribute("data-kf", on); else d.removeAttribute("data-kf");
+        if (on) d.open = true;
+        pills.forEach(function (q) { q.setAttribute("aria-pressed", String(!!on && q === p)); });
+        /* a heading whose grid keeps no tile hides with it */
+        [].forEach.call(d.querySelectorAll(".s5ei-grid"), function (g) {
+          var any = !on || g.querySelector(".s5ei-tile.s5ei-" + k + (k === "chg" ? ", .s5ei-tile.s5el-tpre" : ""));
+          g.hidden = !any; var h = g.previousElementSibling; if (h && h.classList.contains("s5ei-h")) h.hidden = !any;
+          var m = g.nextElementSibling; if (m && m.classList.contains("s5ei-more")) m.hidden = !any;
+        });
+      });
+    });
+  }
+  /* the tab header's "since …: +26 added · ~2 changed · −7 removed" opens the tab's What changed view on that status */
+  function head(h) {
+    var p = h.closest(".tabpanel"); if (!p) return;
+    [].forEach.call(h.querySelectorAll(".s5ca-since > .s5ca-w"), function (w) {
+      var k = w.classList.contains("s5ca-a") ? "added" : w.classList.contains("s5ca-r") ? "removed" : "changed";
+      button(w, function () {
+        var sb = p.querySelector(":scope > .s5cd-bar button[data-v=\"chg\"]"); if (sb) sb.click();
+        var box0 = p.querySelector(":scope > .s5bn");
+        /* a tab without a "What changed" view (New, Today, Deadlines show their card): the strip opens under the header */
+        if (!sb && box0) {
+          if (box0.classList.contains("s5ev-show") && box0.getAttribute("data-kf") === k) { box0.classList.remove("s5ev-show"); box0.removeAttribute("data-kf");
+            [].forEach.call(box0.querySelectorAll(".s5bn-h .s5bn-n"), function (q) { q.setAttribute("aria-pressed", "false"); }); return; }
+          box0.classList.add("s5ev-show"); var hd = p.querySelector(":scope > .s5ca-head"); if (hd && hd.nextSibling !== box0) p.insertBefore(box0, hd.nextSibling);
+        }
+        setTimeout(function () {
+          var box = p.querySelector(":scope > .s5bn"); if (!box) return; strip(box);
+          var pill = box.querySelector(".s5bn-h .s5bn-n.s5bn-" + k);
+          if (pill && box.getAttribute("data-kf") !== k) pill.click();
+          window.scrollTo({ top: Math.max(0, box.getBoundingClientRect().top + window.scrollY - 140), behavior: "smooth" });
+        }, 150);
+      });
+    });
+  }
+  function scan() {
+    [].forEach.call(document.querySelectorAll(".tabpanel > .s5ca-head"), function (h) { try { head(h); } catch (e) {} });
+    [].forEach.call(document.querySelectorAll(".s5bn"), function (b) { try { strip(b); } catch (e) {} });
+    [].forEach.call(document.querySelectorAll("details.s5ei-day"), function (d) { try { day(d); } catch (e) {} });
+  }
+  [1500, 4000, 9000, 16000, 30000].forEach(function (t) { setTimeout(scan, t); });
+  document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest(".s5ev-pill")) return; setTimeout(scan, 400); }, true);
+  document.addEventListener("soc:woke", function () { setTimeout(scan, 500); });
+})();
+
 /* §5cx (10 X 2026, owner: "time for the logo - top left, where I marked it; also in /diff/ and on the phone, the
    brief and the whole portal"). GuardZilla: the full logo stands in the empty left margin of the header when the
    margin has room for it (wide screens, the box the owner marked); otherwise a compact mark stands before the
@@ -25883,7 +26004,7 @@ IdentityDirectoryEvents
       if (tab === "fpa") recentFpa(box);
       return;
     }
-    var lis = [].slice.call(ul.children);
+    var lis = [].slice.call(ul.children).filter(function (li) { return !li.classList.contains("s5ev-gh"); });   /* §5ev: headings are not tiles */
     var grid = el("div", "s5do-grid"); lis.forEach(function (li) { grid.appendChild(tile(tab, li)); });
     ul.parentNode.insertBefore(grid, ul);
     var head = box.querySelector(".s5bn-h"), sw = el("span", "s5do-sw"); sw.setAttribute("role", "group"); sw.setAttribute("aria-label", "View");
@@ -26472,8 +26593,12 @@ IdentityDirectoryEvents
       all.addEventListener("click", function () { jump("s5el-inc"); }); why.appendChild(all);
       b.appendChild(why);
       if (L.length) {
-        b.appendChild(el("h4", "s5ei-h", "New or updated in this window · " + L.length));
-        var ul = el("ul", "s5ei-grid"); nw.concat(up).forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); b.appendChild(ul);
+        /* §5ev: new and updated incidents under their own headings */
+        [[nw, "New incidents"], [up, "Updated — a new article about a known incident"]].forEach(function (g) {
+          if (!g[0].length) return;
+          b.appendChild(el("h4", "s5ei-h", g[1] + " · " + g[0].length));
+          var ul = el("ul", "s5ei-grid"); g[0].forEach(function (x) { ul.appendChild(tileOf(x.s, x.k)); }); b.appendChild(ul);
+        });
       } else {
         b.appendChild(el("p", "s5ei-none", "No incident was first seen or updated in this window — " + arts.length + " article" + (arts.length === 1 ? "" : "s") + " came in, none of them a new event."));
         /* §5et (owner 21 X: "if nothing new since the previous brief, always show the last one found - as the rounded
