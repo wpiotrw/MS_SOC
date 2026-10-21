@@ -12,6 +12,8 @@ on:
       - 'CLAUDE.md'
       - 'tools/code_refresh.py'
       - 'tools/feed_refresh.py'
+      - 'tools/changes_page.py'
+      - 'tools/changes_app.html'
       - 'tools/msrc_cves.py'
       - 'tools/site_retention.py'
       - '.github/workflows/code-refresh.yml'
