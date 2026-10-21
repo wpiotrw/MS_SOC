@@ -5079,14 +5079,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-19",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-20",
 "text":"August 1, 2026."
 },
@@ -5136,6 +5128,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-20",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-21",
 "text":"August 1, 2026."
 },
 {
@@ -5609,7 +5609,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"early February 2026."
 },
 {
@@ -5617,7 +5617,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"February 2027."
 },
 {
@@ -7568,6 +7568,14 @@
 "date":"2026-10-21",
 "group":"community",
 "found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1518233":{
+"title":"MC1518233: Copilot Studio - Enhanced support for Copilot Chat agents",
+"link":"https://mc.merill.net/message/MC1518233",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
 }
 },
 "final":"2026-11-15",
@@ -8954,7 +8962,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8962,7 +8970,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12371,6 +12379,16 @@
 "title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/AZ577273"
+},
+{
+"day":"2026-10-21",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1518233: Copilot Studio - Enhanced support for Copilot Chat agents",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1518233"
 }
 ],
 "archive":{
