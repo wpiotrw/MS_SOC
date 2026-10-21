@@ -39,6 +39,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security
 https://learn.microsoft.com/en-us/defender-endpoint/machine-tags
 https://learn.microsoft.com/en-us/defender-endpoint/mde-linux-prerequisites
 https://learn.microsoft.com/en-us/defender-endpoint/mde-plugin-wsl
+https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-antivirus-windows
 https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases
 https://learn.microsoft.com/en-us/defender-endpoint/mobile-resources-defender-endpoint
 https://learn.microsoft.com/en-us/defender-endpoint/msda-updates-previous-versions-technical-upgrade-support

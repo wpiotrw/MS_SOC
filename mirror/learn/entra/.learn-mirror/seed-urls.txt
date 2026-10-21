@@ -187,8 +187,11 @@ https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-pro
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/protect-against-consent-phishing
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/validate-oidc-multitenant-app-gallery
+https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/cloud-sync-migration-faq
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-deployment-options-provision-to-active-directory
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/concept-how-it-works
+https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/connect-to-cloud-sync-decision-guide
+https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/device-sync
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-provisioning-to-active-directory-works
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-active-directory-object-enforcement
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-attribute-mapping-entra-to-active-directory
@@ -198,6 +201,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-preser
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/migrate-azure-ad-connect-to-cloud-sync
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/migrate-connect-sync-cloud-sync-tool
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/overview-provision-entra-id-to-active-directory
+https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/plan-cloud-sync-topologies
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/reference-version-history
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-directory-extension-group-provisioning
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-govern-on-premises-app

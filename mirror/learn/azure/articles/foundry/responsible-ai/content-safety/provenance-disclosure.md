@@ -24,7 +24,7 @@ ms.update-cycle: 1825-days
 ms.service: azure-ai-content-safety
 description: Content provenance
 ms.topic: concept-article
-ms.date: 2026-10-16T00:00:00.0000000Z
+ms.date: 2026-10-17T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: bc523717-88a8-9d85-180e-e45d0e9f9443
@@ -146,7 +146,7 @@ Text provenance support varies by model. Where available, the underlying model p
 
 For Anthropic models, see [Claude models in Microsoft Foundry](../../foundry-models/concepts/claude-models#available-claude-models) for watermarking guidance and supported-model information. Check support for text watermarks in cloud partner output.
 
-For Azure OpenAI models, planned text watermarking support is limited to select models in the gpt-5.1 through gpt-5.6 families. There are no confirmed plans to support model families earlier than gpt-5.1. This page is updated as models with text watermarking become available.
+For Azure OpenAI models, planned text watermarking support is limited to select models in the gpt-5.1 through gpt-5.6 families. There are no confirmed plans to support model families earlier than gpt-5.1. This article is updated as models with text watermarking become available. To turn on watermarking for a supported deployment, see [Enable text watermarking for Microsoft Foundry GPT model deployments](enable-text-watermarking-gpt-models).
 
 The following table lists current and planned invisible watermarking support for models with text output.
 

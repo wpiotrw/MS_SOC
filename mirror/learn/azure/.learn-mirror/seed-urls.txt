@@ -115,6 +115,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/reservation-trad
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/agent-pre-purchase
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/fabric-capacity
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/manage-reservations-rbac-powershell
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/nutanix-bare-metal
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-exchange-policy-changes
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan-overview
 https://learn.microsoft.com/en-us/azure/cost-management-billing/supported-payment-methods

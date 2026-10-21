@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-19T00:00:00.0000000Z
+ms.date: 2026-10-21T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -51,11 +51,11 @@ platformId: a266b635-a4c6-9c45-d46b-83459037ab56
 
 Find information on known issues and the status of the Windows 11, version 25H2 rollout. For immediate help with Windows update issues, [click here](ms-contact-support://smc-to-emerald/knownissues/) if you are using a Windows device to open the Get Help app or go to [support.microsoft.com](https://support.microsoft.com/). Follow [@WindowsUpdate](https://twitter.com/windowsupdate) on X for Windows release health updates. If you are an IT administrator and want to programmatically get information from this page, use the [Windows Updates API in Microsoft Graph](/en-us/graph/api/resources/windowsupdates-product?view=graph-rest-beta).
 
-**Current status as of September 29, 2026** 
+**Current status as of October 21, 2026** 
 
 [Windows 11, version 26H2](https://aka.ms/how-to-get-26H2), also known as the Windows 11 2026 Update, is now available. We recommend you move to version 26H2 to stay up to date, secure, and productive. 
 
-The rollout is phased and will expand over the next few months. Starting today, version 26H2 is available on eligible Windows 11, version 25H2 and version 24H2 devices for users who have turned on the setting [Get the latest updates as soon as they’re available](https://support.microsoft.com/windows/get-windows-updates-as-soon-as-they-re-available-for-your-device-cad7b32b-001e-435b-9110-f18309b54168). If the update is ready for your device, it will download and install automatically, and a single restart will complete the process. 
+The Windows 11, version 26H2 phased rollout has reached full availability for devices running Windows 11, versions 25H2 and 24H2. You can check for the update by going to **Settings **&gt;** Windows Update** and selecting [**Check for Windows updates**](https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsupport.microsoft.com%2Fwindows%2Fdeployment%2Fupdates-lifecycle%2Finstall-windows-updates&amp;data=05%7C02%7Cv-chwri%40microsoft.com%7C2330caca14ec4f6f4e4008df2f0453e0%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C639281367860710155%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=Ii5AqQAmKpFCl7Dv%2FUOoPEc%2BagEjN%2BoHIca810FnELw%3D&amp;reserved=0). If Windows 11, version 26H2 is available for your device, select **Download & install**. A single restart will complete the process. If you want updates to be installed as soon as they’re available, turn on [**Get the latest updates as soon as they’re available**](https://support.microsoft.com/windows/get-windows-updates-as-soon-as-they-re-available-for-your-device-cad7b32b-001e-435b-9110-f18309b54168). For more details, [watch this video](https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Faka.ms%2Fvideo%2FW11%2Fhow-to-get-26H2&amp;data=05%7C02%7Cv-chwri%40microsoft.com%7C2330caca14ec4f6f4e4008df2f0453e0%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C639281367860742527%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=0H5DWvsKWKYtVyEtQJLiiopBxpnOulJdmDlDyvFZHuQ%3D&amp;reserved=0).
 
 For more details on how to install Windows 11, version 26H2, [watch this video](https://aka.ms/video/W11/how-to-get-26H2).
 
@@ -80,7 +80,6 @@ See open issues, content updated in the last 30 days, and information on [safegu
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5124010](https://support.microsoft.com/help/5124010) | 2026-10-08 17:44 PT |
 | **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-30 16:42 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
-| **Remote Desktop Services might stop responding after Sept. 2026 security update**Some Windows devices with Remote Desktop enabled might experience Remote Desktop Services (RDS) instability. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5129195](https://support.microsoft.com/help/5129195) | 2026-09-17 19:22 PT |
 
 ## Issue details
 
@@ -245,31 +244,6 @@ This issue is limited to USB Audio Class 1.0 devices.
 **Affected platforms:**
 
 - ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
-- ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
-
-Back to top
-
-#### Remote Desktop Services might stop responding after Sept. 2026 security update
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved [KB5129195](https://support.microsoft.com/help/5129195) | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved: 2026-09-14, 10:00 PTOpened: 2026-09-11, 11:19 PT |
-
-After installing the September 2026 Windows security update ([KB5124008](https://support.microsoft.com/help/5124008)), some organizations might experience issues with Remote Desktop Services (RDS).
-
-In some environments, RDS might become unstable, resulting in RDP connections failing after several minutes, sign-in issues, or servers hanging at "Please wait for the Remote Desktop Configuration". Related tools, including Microsoft Management Console (MMC), RDS Licensing Diagnoser, and File Explorer might also become unresponsive. Additionally, the Windows Update page might stop responding and continuously display a loading indicator. 
-
-**Note: **This issue does not affect Windows 365 or Azure Virtual Desktop.
-
-**Resolution: **This issue is resolved by the out-of-band (OOB) update released on September 14, 2026 ([KB5129195](https://support.microsoft.com/help/5129195)), and in updates released after this date.
-
-IT administrators who deployed a temporary mitigation through Group Policy do not need to take any action before installing this OOB update.
-
-This OOB update is cumulative and includes all improvements and security protections contained in previous Windows updates. As a best practice, we recommend installing the latest update available for your devices, as it contains important improvements and issue resolutions, including this one.
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
 - ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
 
 Back to top
