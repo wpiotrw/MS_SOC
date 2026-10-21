@@ -3630,6 +3630,14 @@ ol.s5cu-todo li+li{margin-top:6px}
 .s5cu-ovn::after{content:"\00a0\2192";color:var(--accent)}
 .s5cu-ovn:hover{text-decoration:underline;text-underline-offset:3px}
 .s5cu-ovw{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+/* §5es: the Campaigns sentence on Overview - one row per milestone */
+.s5es-rows{display:flex;flex-direction:column;margin-top:6px}
+.s5es-row{grid-template-columns:78px minmax(0,1fr) auto}
+.s5es-foot{margin-top:6px;font-size:12.5px;color:var(--muted)}
+.s5es-row .s5cu-d{display:inline-block;padding:1px 7px;border-radius:6px;background:var(--surface-2)}
+.s5es-row .s5cu-d.r{background:var(--bad-soft)}.s5es-row .s5cu-d.a{background:var(--warn-soft)}
+@media (max-width:600px){.s5es-row{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"d w" "m m";row-gap:4px;align-items:center}
+ .s5es-row>.s5cu-d{grid-area:d}.s5es-row>.s5cu-ovd{grid-area:w;font-size:12.5px;color:var(--muted)}.s5es-row>span:nth-child(2){grid-area:m}}
 .s5cu-ovd{font-size:12.5px;color:var(--muted);white-space:nowrap}
 @media (max-width:900px){
   .s5cu-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
@@ -4301,6 +4309,12 @@ li.s5dq-h{list-style:none}
 .s5dr-lead,.s5dr-note,.s5dr-what{font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 10px}
 .s5dr-what{color:var(--text);padding:8px 12px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px}
 .s5dr-chg{font-size:13px;margin:4px 0 10px}
+/* §5es: a list that was one run-on line */
+.s5es-ul{margin:4px 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.s5es-ul li{line-height:1.45;overflow-wrap:anywhere}
+.s5es-lead{display:block;font-weight:600}
+ins .s5es-ul,del .s5es-ul{padding-left:16px}
+.s5es-add{color:var(--ok)}.s5es-rem{color:var(--bad)}.s5es-more{list-style:none;color:var(--muted)}
 .s5dr-tw{overflow-x:auto}
 .s5dr-t{width:100%;border-collapse:collapse;font-size:13.5px}
 .s5dr-t th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:7px 8px;border-bottom:1px solid var(--border)}
@@ -23013,7 +23027,8 @@ IdentityDirectoryEvents
           else if (e.type === "reopened") li.appendChild(document.createTextNode("Reopened: Microsoft posted a new date"));
           ul.appendChild(li);
         });
-        if (mats.length) { var lm = el("li"); lm.appendChild(el("b", null, "New material: ")); lm.appendChild(document.createTextNode(mats.map(function (r) { return r.e.title + (r.e.source ? " (" + r.e.source + ")" : ""); }).join("; "))); ul.appendChild(lm); }
+        if (mats.length) { var lm = el("li"); lm.appendChild(el("b", null, "New material")); var mul = el("ul", "s5es-ul");   /* §5es: one per line */
+          mats.forEach(function (r) { mul.appendChild(el("li", null, r.e.title + (r.e.source ? " (" + r.e.source + ")" : ""))); }); lm.appendChild(mul); ul.appendChild(lm); }
         td4.appendChild(ul); tr.appendChild(td4);
         var td5 = el("td", "s5cu-dt"); if (c.next) td5.appendChild(el("span", "s5cu-chip " + (toneOf(c.next) || "n"), c.next.label)); else td5.textContent = "\u2014"; tr.appendChild(td5);
         tb.appendChild(tr);
@@ -23585,14 +23600,28 @@ IdentityDirectoryEvents
     var li = el("li", "s5cu-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Campaigns"));
     var b = el("button", "s5bk-it s5bk-link"); b.type = "button"; b.title = "Open Campaigns";
     b.appendChild(el("span", "s5bk-itt", C.length ? plural(C.length, "campaign milestone") + " in the next 7 days" : "Next campaign milestone: " + nx.name));
-    var m = el("span", "s5bk-itm s5bk-dressed");
-    var txt = C.length ? C.slice(0, 3).map(function (c) { return c.name + " — " + dm(c.next.date) + ": " + c.next.text; }).join("; ") : nx.next.text;
-    if (txt.length > 330) txt = txt.slice(0, 330).replace(/\s+\S*$/, "") + "…";
-    m.appendChild(el("span", "s5bk-its", txt));
-    var pw = el("span", "s5bk-pills"); pw.appendChild(el("span", "s5bk-pill p-warn", C.length ? "first " + dm(C[0].next.date) : "due " + dm(nx.next.date)));
-    pw.appendChild(el("span", "s5bk-pill", (D.counts || {}).active + " active campaigns")); m.appendChild(pw); b.appendChild(m);
+    /* §5es (21 X 2026, owner on the phone: "look at the formatting of the Overview sentences - the Entra Connect
+       item is not visible at all"): the milestones were one run-on string joined by ";" and cut at 330 characters, so
+       the most urgent one (Entra Connect 2.5.79.0 leaves support in 2 days) read as the start of a paragraph and the
+       fourth was cut off. Now one row per milestone - the date (red within 7 days), the campaign, what happens, how far -
+       the same row as the "Campaigns · next 30 days" card; every row opens its campaign. */
     b.addEventListener("click", function () { if (C.length) { F = noF(); F.only = "in7"; goTab(); goList(); } else goCard(nx.id); });
     li.appendChild(b);
+    var rows = el("div", "s5es-rows");
+    (C.length ? C : [nx]).slice(0, 6).forEach(function (c) {
+      var n = daysTo(c.next.date), r = el("div", "s5cu-ovr s5es-row");
+      r.appendChild(el("span", "s5cu-d " + toneOf(c.next), approx(c.next) ? c.next.label.replace(/ \d{4}$/, "") : dm(c.next.date)));
+      var mid = el("span"), nb = el("button", "s5cu-ovn", c.name); nb.type = "button"; nb.title = "Open the campaign";
+      nb.addEventListener("click", function () { goCard(c.id); }); mid.appendChild(nb);
+      var wt = String(c.next.text || ""); if (wt.indexOf(c.name) === 0) wt = wt.slice(c.name.length).replace(/^[\s:—-]+/, "");
+      if (wt.length > 170) wt = wt.slice(0, 160).replace(/\s+\S*$/, "") + " \u2026";
+      mid.appendChild(el("span", "s5cu-ovw", [c.tech, wt].filter(Boolean).join(" · "))); r.appendChild(mid);
+      r.appendChild(el("span", "s5cu-ovd", approx(c.next) ? "approx." : inDays(n))); rows.appendChild(r);
+    });
+    if (C.length > 6) { var mr = el("button", "s5ci-inl", "All " + C.length + " in the next 7 days ›"); mr.type = "button";
+      mr.addEventListener("click", function () { F = noF(); F.only = "in7"; goTab(); goList(); }); rows.appendChild(mr); }
+    rows.appendChild(el("span", "s5es-foot", (D.counts || {}).active + " active campaigns"));
+    li.appendChild(rows);
     /* after the component sentence when there is one, else at the end */
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { var k = x.querySelector(":scope > b"); return k && /^component/i.test(k.textContent || ""); })[0];
     if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
@@ -24180,6 +24209,47 @@ IdentityDirectoryEvents
 
   window.__socIdent = { events: function () { return data().ev; }, rank: rank, pool: pool, counts: counts, openPerm: openPerm, openRole: openRole,
     techOfPerm: techOfPerm, tenant: function () { return TEN; } };
+})();
+/* §5es (21 X 2026, owner: "look how the Overview sentences are formatted - the Entra Connect item is not visible at
+   all; check the other tabs and sections too, whether information gets lost, becomes invisible, is not structured").
+   Measured on 21 X (every tab built, 390 px): the "what changed at source" cells of New, Products, Today and Deadlines
+   carry Microsoft's changes as ONE sentence joined by "; " - up to 2 500 characters and 10 parts in one table cell
+   (the macOS Defender release: five changes in a row). A cell whose own text is a list of three or more parts becomes
+   the lead and a bulleted list; links, chips and short cells are left alone. Runs after the tabs are built and again
+   when a lazy tab wakes (soc:woke). */
+(function () {
+  "use strict";
+  var TABS = ["tab-new", "tab-products", "tab-today", "tab-deadlines"];
+  function split(t) {
+    var parts = t.split(/;\s+(?![^(]*\))/).map(function (x) { return x.trim(); }).filter(Boolean);
+    if (parts.length < 3 || parts.length > 16) return null;
+    if (parts.some(function (x) { return x.length < 12; })) return null;
+    var lead = "", m = /^(.{8,160}?:)\s+(.+)$/.exec(parts[0]);
+    if (m && !/https?:$/.test(m[1])) { lead = m[1]; parts[0] = m[2]; }
+    else { var dot = /^(.{20,220}?[.])\s+(.+)$/.exec(parts[0]); if (dot) { lead = dot[1]; parts[0] = dot[2]; } }
+    return { lead: lead, parts: parts.map(function (x) { return x.replace(/[.;]\s*$/, ""); }) };
+  }
+  function fix(e) {
+    if (e.getAttribute("data-s5es")) return; e.setAttribute("data-s5es", "1");
+    if (e.children.length) return;
+    var t = (e.textContent || "").replace(/\s+/g, " ").trim();
+    if (t.length < 240 || (t.match(/; /g) || []).length < 2) return;
+    var r = split(t); if (!r) return;
+    e.textContent = "";
+    if (r.lead) { var l = document.createElement("span"); l.className = "s5es-lead"; l.textContent = r.lead + " "; e.appendChild(l); }
+    var ul = document.createElement("ul"); ul.className = "s5es-ul";
+    r.parts.forEach(function (x) { var li = document.createElement("li"); li.textContent = x; ul.appendChild(li); });
+    e.appendChild(ul);
+  }
+  function run() {
+    TABS.forEach(function (id) {
+      var p = document.getElementById(id); if (!p) return;
+      [].forEach.call(p.querySelectorAll("td:not([data-s5es]), td ins:not([data-s5es]), td del:not([data-s5es])"), function (e) {
+        if (e.children.length || (e.textContent || "").length < 240) return; try { fix(e); } catch (x) {} });
+    });
+  }
+  setTimeout(run, 3000); setTimeout(run, 12000); setTimeout(run, 30000);
+  document.addEventListener("soc:woke", function () { setTimeout(function () { try { run(); } catch (e) {} }, 500); });
 })();
 /* §5cz (10 X 2026, owner: "mark exactly - in a bigger frame top right - when our portal was updated; a tab that
    refreshes more often through GitHub Actions says its exact date and time; an About tab with what the tool is,
@@ -25679,10 +25749,16 @@ IdentityDirectoryEvents
       n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Read " + when(D.read) + "; a click on a row lists the permissions. An API is listed once its service principal exists in this tenant — Microsoft creates it the first time an app asks for it — so an API nobody here has used yet (e.g. Dynamics CRM, Power Platform API) is in the brief's list below but not in this table."));
     var ch = (D.changes || []).filter(function (x) { return x.day && x.day >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10); });
     if (ch.length) {
-      var cw = el("p", "s5dr-chg"); cw.appendChild(el("b", null, ch.length + " change" + (ch.length === 1 ? "" : "s") + " in 14 days: "));
-      cw.appendChild(document.createTextNode(ch.slice(0, 8).map(function (x) {
-        return x.change === "api-added" ? x.api + " appeared" : x.change === "api-removed" ? x.api + " disappeared" : (x.change === "added" ? "+" : "−") + x.permission + " (" + x.api + ", " + x.type + ")";
-      }).join(" · ") + (ch.length > 8 ? " · …" : ""))); sec.appendChild(cw);
+      /* §5es: one change per line, + green and − red (it was one line of eight joined by " · ") */
+      var cw = el("div", "s5dr-chg"); cw.appendChild(el("b", null, ch.length + " change" + (ch.length === 1 ? "" : "s") + " in 14 days"));
+      var cul = el("ul", "s5es-ul");
+      ch.slice(0, 8).forEach(function (x) {
+        var li = el("li", (x.change === "added" || x.change === "api-added") ? "s5es-add" : "s5es-rem");
+        li.textContent = x.change === "api-added" ? x.api + " appeared" : x.change === "api-removed" ? x.api + " disappeared" : (x.change === "added" ? "+ " : "\u2212 ") + x.permission + " (" + x.api + ", " + x.type + ")";
+        cul.appendChild(li);
+      });
+      if (ch.length > 8) cul.appendChild(el("li", "s5es-more", "and " + (ch.length - 8) + " more"));
+      cw.appendChild(cul); sec.appendChild(cw);
     }
     var tw = el("div", "s5dr-tw"), tb = el("table", "s5dr-t"), th = el("thead"), tr = el("tr");
     ["API", "Application", "Delegated", "of them admin consent", "Offered as both", "RSC", "Distinct names", "App ID"].forEach(function (h) { tr.appendChild(el("th", null, h)); });
