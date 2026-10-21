@@ -31467,7 +31467,7 @@ odtad CZTERNASCIE (4-17).**
     var identShown = [];
     function identSentence() {
       if (!since || !(window.__socMs || IDW)) return false;
-      var MS = window.__socMs || {}, I = (IDW && IDW.events) ? IDW.events() : [];
+      var MS = {}, I = (IDW && IDW.events) ? IDW.events() : [];
       var VB = { grantable: "became grantable", removed: "removed from the service", "new": "new permission", consent: "consent or privilege level changed",
         changed: "changed in the service", "actions-added": "gained actions", "actions-removed": "lost actions", added: "new built-in role",
         privileged: "now marked privileged", condition: "condition changed" };
@@ -31489,7 +31489,8 @@ odtad CZTERNASCIE (4-17).**
         if (surf !== "fpa") I.forEach(function (e) {
           if (!e || !e.day || !inW(String(e.day).slice(0, 10), w) || e.change === "documented" || e.change === "elsewhere") return;
           if (e.surface !== (surf === "graph" ? "permission" : "role")) return;
-          var what = (VB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + fmt(String(e.tenant).slice(0, 10)) : "") +
+          var gl2 = surf === "graph" && GDW && GDW.latest && /changed|consent/.test(e.change) ? GDW.latest(e.name, w === "since" ? since : "") : "";
+          var what = gl2 ? gl2 : (VB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + fmt(String(e.tenant).slice(0, 10)) : "") +
             (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text) : "");
           add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); });
         });
@@ -31499,9 +31500,15 @@ odtad CZTERNASCIE (4-17).**
         return L;
       }
       var SURF = [["graph", "Graph API", "14", "14 days", "permission"], ["roles", "Roles", "14", "14 days", "role"], ["fpa", "First-party apps", "7", "7 days", "app"]];
+      /* §5er-b (owner 19:59, phone: the boxes said "changed in the service" and "23 in 14 days" where the computer
+         said the endpoint and 68): on a slow phone this sentence ran before the "What Microsoft changed" blocks were
+         built, so their window model was missing. The box is drawn now and drawn again once both models exist. */
+      var wrap = el("span", "s5er-wrap");
+      function fill() {
+      MS = window.__socMs || {}; identShown.length = 0; wrap.textContent = "";
       var week = [];
       try { week = IDW && IDW.rank ? IDW.rank(7, 40, true) : []; } catch (e) { week = []; }
-      var total = 0, grantable = false, wrap = el("span", "s5er-wrap"), grid = el("span", "s5er-grid");
+      var total = 0, grantable = false, grid = el("span", "s5er-grid");
       SURF.forEach(function (S) {
         var L = list(S[0], "since"), W = list(S[0], S[2]); total += L.length;
         if (L.some(function (x) { return /grantable/.test(x.what); })) grantable = true;
@@ -31547,11 +31554,23 @@ odtad CZTERNASCIE (4-17).**
         }
         grid.appendChild(box);
       });
-      wrap.appendChild(el("span", "s5er-t", total ? total + " change" + (total === 1 ? "" : "s") + " in Graph API, roles and first-party apps since the " + fmt(since) + " brief"
+      /* §5er-b (owner 19:59: "you write 5 changes in Graph API, roles and first-party apps - misleading, a sum first and only
+         then 3 here, 2 there, 0 in apps"): the headline names no total; each box says its own number */
+      wrap.appendChild(el("span", "s5er-t", total ? "What Microsoft changed since the " + fmt(since) + " brief, by surface"
         : "Nothing moved in Graph API, roles or first-party apps since the " + fmt(since) + " brief"));
       wrap.appendChild(grid);
       if (grantable) wrap.appendChild(el("span", "s5bk-gf", "A permission that became grantable needs admin consent — Hunting & actions has the query for who grants it."));
+      return !!(MS.graph && MS.roles);
+      }
+      fill();
       sentence("Identity surface:", wrap);
+      /* the tenant's reading (graph-sp.json) arrives after the page too (6x CPU test: Roles 0 until it did) - the
+         boxes are redrawn whenever what they are made of changed, for 30 s */
+      function sig() { var M = window.__socMs || {}, n = 0; try { n = IDW && IDW.events ? IDW.events().length : 0; } catch (e) {}
+        return (M.graph ? "g" : "") + (M.roles ? "r" : "") + n; }
+      var last = sig(), tries = 0, tm = setInterval(function () {
+        var now = sig(); if (now !== last) { last = now; try { I = (IDW && IDW.events) ? IDW.events() : []; fill(); } catch (e) { if (window.console) console.error("[5er refill]", e); } }
+        if (++tries >= 30) clearInterval(tm); }, 1000);
       return true;
     }
     var identDone = false;
@@ -46045,6 +46064,15 @@ technologii (`IDW.pool(…, identShown)`). Wczorajsze zdania (build(Y)) zostaja 
 Inne zdania sprawdzone tego dnia: Most urgent, Biggest new item („one of 23 new"), Component versions, News of the day,
 zdania technologii — liczba i tresc zgodne. Baselines: kafel „Last 14 days" mial podpis „today · 21/10" pod liczba z 14
 dni — teraz „14 days to 21/10". Campaigns: „4 campaign milestones" i lista ucieta wielokropkiem po trzecim — zgodne.
+
+**§5er-b (21 X 19:59, telefon):** *„piszesz 5 changes in Graph API, roles and first-party apps — to mylace, bo podajesz
+sume, a dopiero potem, ze mam 3 zmiany tu, 2 tam, a w first-party apps 0"*. Naglowek nie podaje juz sumy: „What
+Microsoft changed since the dd/mm brief, by surface" (przy zerze — „Nothing moved … since …"); liczba stoi tylko w ramce.
+Na tym samym zrzucie telefon pokazal „changed in the service" i „23 in 14 days" (komputer: endpoint i 68): na wolnym
+telefonie zdanie powstawalo, zanim zbudowaly sie bloki „What Microsoft changed" (`__socMs`) i zanim doszedl odczyt
+dzierzawy. Ramki rysuja sie teraz od razu i ponownie, gdy zmieni sie to, z czego sa zrobione (co 1 s przez 30 s);
+zmiana Graph z odczytu dzierzawy tez dostaje opis z `__socGD.latest()`. Test 6x CPU: po 3 s Graph 2 / Roles 3 / Apps 0,
+endpoint i 68 — jak na komputerze.
 
 ## 6. Kontrakt w stronie
 
