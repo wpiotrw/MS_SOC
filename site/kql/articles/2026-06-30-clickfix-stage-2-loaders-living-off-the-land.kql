@@ -1,0 +1,62 @@
+// title: ClickFix Stage 2 Loaders: Living Off the Land Binary (LOLBIN) Abuse
+// date: 2026-06-30
+// product: 
+// tables: 
+// purpose: From the article: ClickFix: The Gift That Keeps On Giving
+// source: https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/
+// kind: article
+// author: KQL Query (Bert-Jan Pals)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let dropper_tokens = dynamic([
+    "powershell", "powershell.exe", "pwsh", "pwsh.exe", "iwr", "iex"
+    "cmd", "cmd.exe",
+    "msiexec", "msiexec.exe",
+    "curl", "curl.exe",
+    "wget", "wget.exe",
+    "rundll32", "rundll32.exe",
+    "regsvr32", "regsvr32.exe",
+    "wscript", "wscript.exe",
+    "cscript", "cscript.exe",
+    "schtasks", "schtasks.exe",
+    "bitsadmin", "bitsadmin.exe",
+    "mshta", "mshta.exe",
+    "certutil", "certutil.exe",
+    "wmic", "wmic.exe",
+    "net", "net.exe",
+    "ssh", "ssh.exe",
+    "syncappvpublishingserver.vbs"
+]);
+OrangeCon_ClickFix
+| extend Commandline = tolower(commandline)
+| extend TargetOS = case(
+    Commandline has @"/bin/bash", "MacOS",
+    "Windows"
+)
+| extend Parsedcommandline = parse_command_line(Commandline, "windows")
+| extend DropperPrograms = set_intersect(Parsedcommandline, dropper_tokens)
+| where TargetOS == "Windows"
+| project-away commandline
+| extend DropperPrograms = array_concat(DropperPrograms, pack_array(
+    iff(Commandline has "iex", "iex", ""),
+    iff(Commandline has "cmd", "cmd", ""),
+    iff(Commandline has "bitsadmin", "bitsadmin", ""),
+    iff(Commandline has "curl", "curl", ""),
+    iff(Commandline has "syncappvpublishingserver.vbs", "syncappvpublishingserver.vbs", "")))
+| mv-expand DropperPrograms
+| where isnotempty(DropperPrograms)
+| summarize count() by tostring(DropperPrograms)
+| extend Matches = dynamic([])
+| extend NormMatches = dynamic([])
+| extend NormMatches = iff(DropperPrograms has_any ("powershell", "powershell.exe", "iex", "invoke-expression", "iwr", "invoke-webrequest"),
+                           array_concat(NormMatches, dynamic(["powershell"])), NormMatches)
+| extend NormMatches = iff(DropperPrograms has_any ("cmd", "cmd.exe"),
+                           array_concat(NormMatches, dynamic(["cmd"])), NormMatches)
+| extend NormMatches = iff(DropperPrograms has "bitsadmin",
+                           array_concat(NormMatches, dynamic(["bitsadmin"])), NormMatches)
+| extend NormMatches = iff(DropperPrograms has_any ("curl", "curl.exe"),
+                           array_concat(NormMatches, dynamic(["curl"])), NormMatches)
+| extend NormMatches = iff(DropperPrograms has "syncappvpublishingserver.vbs",
+                           array_concat(NormMatches, dynamic(["appv_sync"])), NormMatches)
+| extend Final = iff(array_length(NormMatches) > 0, NormMatches[0], DropperPrograms)
+| summarize Total = sum(count_) by Stage2Loaders = Final
+| sort by Total

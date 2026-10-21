@@ -1,0 +1,12 @@
+// title: Deploy
+// date: 2026-08-11
+// product: 
+// tables: 
+// purpose: From the article: Building Microsoft Sentinel Connectors in Minutes with the Sentinel Connector Builder Agent
+// source: https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-microsoft-sentinel-connectors-in-minutes-with-the/ba-p/4544378
+// kind: article
+// author: Robert_Moriarty · Microsoft Sentinel Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+NetworkLogAPIGetNetworkLogs_CL
+| sort by TimeGenerated desc
+| take 10

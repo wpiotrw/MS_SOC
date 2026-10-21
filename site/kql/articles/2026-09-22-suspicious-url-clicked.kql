@@ -1,0 +1,41 @@
+// title: Suspicious URL clicked
+// date: 2026-09-22
+// product: Defender for Endpoint
+// tables: AlertEvidence, AlertInfo, DeviceEvents, EmailEvents, IdentityInfo
+// purpose: From the article: Unmasking EvilTokens: Getting to the root of device code phishing
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/
+// kind: article
+// author: Microsoft Threat Intelligence, Microsoft Defender Experts and Microsoft Security Research · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AlertInfo
+| where ServiceSource =~ "Microsoft Defender for Office 365"
+| join (
+AlertEvidence
+| where EntityType =="Url"
+| project AlertId, RemoteUrl
+)
+on AlertId
+| join (
+AlertEvidence
+| where EntityType =="MailMessage"
+| project AlertId, NetworkMessageId
+)
+on AlertId
+// Get the unique NetworkMessageId for the email containing the Url
+| distinct RemoteUrl, NetworkMessageId
+| join EmailEvents on NetworkMessageId
+// Get the email RecipientEmailAddress and ObjectId from the email
+| distinct RemoteUrl, NetworkMessageId, RecipientEmailAddress , RecipientObjectId
+| join kind = inner IdentityInfo on $left.RecipientObjectId == $right.AccountObjectId
+| distinct RemoteUrl, NetworkMessageId, RecipientEmailAddress , RecipientObjectId, OnPremSid
+// Get the Url click event on the recipient device.
+| join kind = inner
+(DeviceEvents
+| where ActionType == "BrowserLaunchedToOpenUrl"| where isnotempty(RemoteUrl)
+| project UrlDeviceClickTime = Timestamp , UrlClickedByUserSid = RemoteUrl,
+InitiatingProcessAccountSid, DeviceName, DeviceId, InitiatingProcessFileName
+)
+on $left.OnPremSid == $right.InitiatingProcessAccountSid and $left.RemoteUrl == $right.UrlClickedByUserSid
+| distinct UrlDeviceClickTime, RemoteUrl, NetworkMessageId, RecipientEmailAddress, RecipientObjectId,
+OnPremSid, UrlClickedByUserSid, DeviceName, DeviceId, InitiatingProcessFileName
+| sort by UrlDeviceClickTime desc

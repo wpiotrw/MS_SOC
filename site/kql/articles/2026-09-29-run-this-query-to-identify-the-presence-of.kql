@@ -1,0 +1,13 @@
+// title: // Run this query to identify the presence of MSP360 RMM agent
+// date: 2026-09-29
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Phishing Abuses RMM Tools for Persistent Access
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/
+// kind: article
+// author: Microsoft Security Research, Parasharan Raghavan, Deva Kanna Kannan, Sai Chakri and Microsoft Defender Experts · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let MSP360RMM = "108ef7e628d7a20bd6241a5b57149e27a6061f467123eb64061975559f8f73dc";
+DeviceFileEvents
+| where Timestamp >= ago(30d)
+| where SHA256 =~ MSP360RMM

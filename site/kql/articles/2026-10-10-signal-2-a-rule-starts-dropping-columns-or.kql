@@ -1,0 +1,45 @@
+// title: Signal 2 — A rule starts dropping columns or rows it never dropped before
+// date: 2026-10-10
+// product: 
+// tables: 
+// purpose: From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence
+// source: https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rohitashokgowd · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Colums Drop not seen in the past
+
+let Baseline = AzureMetrics
+| where TimeGenerated between (ago(14d) .. ago(1d))
+| where ResourceId has "DATACOLLECTIONRULES"
+| where MetricName == "ColumnsDropped_Count"
+| extend DCR = tostring(split(ResourceId, "/")[-1])
+| summarize PriorColums = sum(Total) by DCR;
+AzureMetrics
+| where TimeGenerated between (ago(1d) .. now())
+| where ResourceId has "DATACOLLECTIONRULES"
+| where MetricName == "ColumnsDropped_Count"
+| extend DCR = tostring(split(ResourceId, "/")[-1])
+| summarize TodayColumsDrop = sum(Total) by DCR
+| join kind=leftouter Baseline on DCR
+| extend PriorColums = coalesce(PriorColums, 0.0)
+| where TodayColumsDrop > 0 and PriorColums == 0
+| project DCR, TodayColumsDrop, PriorColums
+
+//Rows Drop not seen in the past
+let Baseline = AzureMetrics
+| where TimeGenerated between (ago(14d) .. ago(1d))
+| where ResourceId has "DATACOLLECTIONRULES"
+| where MetricName == "RowsDropped_Count"
+| extend DCR = tostring(split(ResourceId, "/")[-1])
+| summarize PriorRows = sum(Total) by DCR;
+AzureMetrics
+| where TimeGenerated between (ago(1d) .. now())
+| where ResourceId has "DATACOLLECTIONRULES"
+| where MetricName == "RowsDropped_Count"
+| extend DCR = tostring(split(ResourceId, "/")[-1])
+| summarize TodayRowsDrop = sum(Total) by DCR
+| join kind=leftouter Baseline on DCR
+| extend PriorRows = coalesce(PriorRows, 0.0)
+| where TodayRowsDrop > 0 and PriorRows == 0
+| project DCR, TodayRowsDrop, PriorRows

@@ -1,0 +1,20 @@
+// title: Core detection logic
+// date: 2026-08-05
+// product: Entra
+// tables: SigninLogs
+// purpose: From the article: Borrowing Windows Hello keys for authentication and persistence
+// source: https://dirkjanm.io/borrowing-windows-hello-keys/
+// kind: article
+// author: Dirk-jan Mollema · Dirk-jan Mollema
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where ResultType == 0
+// Core detection logic
+| where AuthenticationDetails has 'Windows Hello for Business'
+| where isempty(DeviceDetail.deviceId)
+// Filters some noise from B2B scenarios
+| where CrossTenantAccessType == "none"
+// Ignore anything where the AuthenticationDetails rely on previous information or a second step
+| where array_length(todynamic(AuthenticationDetails)) == 1
+// Ignore non-empty AuthContext as it also is an indicator for a non new session
+| where array_length(todynamic(AuthenticationContextClassReferences)) == 0

@@ -1,0 +1,38 @@
+// title: Zimbra persistence and privilege-escalation artifacts
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+ union
+ (
+     DeviceProcessEvents
+     | where Timestamp > ago(lookback)
+     | where ProcessCommandLine contains "zimlog.service"
+         or ProcessCommandLine contains "chronyd-helper.service"
+         or ProcessCommandLine contains "syslog_init.service"
+         or ProcessCommandLine contains "zimbraPreAuthKey"
+         or ProcessCommandLine contains "pam_exec"
+         or ProcessCommandLine contains "zmstat-fd"
+         or ProcessCommandLine contains "/etc/sudoers.d/81_metric"
+     | project Timestamp, DeviceId, DeviceName, EvidenceType="Process",
+               ActionType, FileName, FolderPath, ProcessCommandLine,
+               InitiatingProcessFileName, InitiatingProcessCommandLine, ReportId
+ ),
+ (
+     DeviceFileEvents
+     | where Timestamp > ago(lookback)
+     | where FileName in~
+         ("zimlog.service", "chronyd-helper.service", "syslog_init.service", "81_metric")
+         or FolderPath == "/etc/pam.d"
+         or FolderPath == "/etc/sudoers.d"
+     | project Timestamp, DeviceId, DeviceName, EvidenceType="File",
+               ActionType, FileName, FolderPath,
+               ProcessCommandLine=InitiatingProcessCommandLine,
+               InitiatingProcessFileName, InitiatingProcessCommandLine, ReportId
+ )
+ | order by Timestamp desc;

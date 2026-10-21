@@ -1,0 +1,30 @@
+// title: KQL examples
+// date: 2026-08-18
+// product: Sentinel
+// tables: BehaviorInfo, CommonSecurityLog
+// purpose: From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources
+// source: https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384
+// kind: article
+// author: SaraSamokovlija · Microsoft Sentinel Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query 1: Logon and Configuration Change by user for the first time
+
+BehaviorInfo
+| where Timestamp > ago(30d)
+| where ActionType == "BehaviorFortiGateReconfiguration"
+| where Insights has "FirstSeen"
+| extend AdditionalFields = todynamic(AdditionalFields)
+| extend Hostname = AdditionalFields.ApplianceId
+| extend User = AdditionalFields.ChangedBy[0]
+| extend uebaEnrichments = AdditionalFields ["ueba.enrichments"]
+| extend uebaInsights = todynamic(Insights).Explainability
+| project ActionType, Description, Categories, AttackTechniques, ServiceSource, DataSources, User, Hostname, AdditionalFields, uebaInsights, uebaEnrichments
+
+//Query 2: get HighVolumeAnomaly behaviors to detect high traffic for the suspicious host / IP
+
+BehaviorInfo
+| where Timestamp > ago(30d)
+| where DataSources has "CommonSecurityLog"
+| invoke GetAnomalousBehaviorsByValue(
+  "<Hostname>", //Extracted from Hostname in query 1
+  "HighVolumeAnomaly")

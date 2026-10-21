@@ -1,0 +1,37 @@
+// title: 2 – MicrosoftGraphActivityLogs → What observable Graph API activity followed?
+// date: 2026-10-21
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+// kind: article
+// author: Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let IPIndicators = dynamic([
+    "144.172.64.60",  // IP Indicator
+    "144.172.64.99",  // IP Indicator
+    "144.172.64.128"  // IP Indicator
+]);
+let ConnectWiseApps = dynamic([
+    "506e08f9-6e9a-4da4-942b-a099a03644ae", // ConnectWise Cloud Backup
+    "24205314-2b89-4e07-a2a4-579e898a5640", // ConnectWise - MS Teams
+    "0de14c77-b9b0-4137-9360-34878a929827", // ConnectWise - MS Graph
+    "c921256f-04a7-44e8-9b2a-69c33929ba19" // SkyKick Partner Portal
+]);
+MicrosoftGraphActivityLogs
+| where TimeGenerated >= datetime(2026-10-13)
+| where AppId in (ConnectWiseApps)
+| where IPAddress in (IPIndicators) // Comment out to review all Graph activity from these applications
+| project
+    TimeGenerated,
+    AppId,
+
+    IPAddress,
+    RequestMethod,
+    RequestUri,
+    ResponseStatusCode,
+    Scopes,
+    ClientRequestId,
+    OperationId,
+    RequestId
+| order by TimeGenerated asc

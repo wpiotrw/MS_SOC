@@ -1,0 +1,11 @@
+// title: CloudKeyVaultEvents Advanced Hunting Schema
+// date: 2026-10-12
+// product: Sentinel
+// tables: CloudKeyVaultEvents
+// purpose: From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting
+// source: https://kqlquery.com/posts/cloudkeyvaultevents/
+// kind: article
+// author: KQL Query (Bert-Jan Pals)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudKeyVaultEvents
+| getschema

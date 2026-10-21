@@ -12720,7 +12720,11 @@
    "T1078.004"
   ],
   "repo": "Sergio Albea Threat Hunting KQL Queries",
-  "initial": true
+  "initial": true,
+  "alsoIn": [
+   "article"
+  ],
+  "incident": "auto-threat-hunting-with-ja4-ja4s-practical-k-2026-09-14"
  },
  {
   "file": "community/2026-10-21-hunting-query-68.kql",
@@ -13866,7 +13870,11 @@
    "T1573"
   ],
   "repo": "Sergio Albea Threat Hunting KQL Queries",
-  "initial": true
+  "initial": true,
+  "alsoIn": [
+   "article"
+  ],
+  "incident": "auto-threat-hunting-with-ja4-ja4s-practical-k-2026-09-14"
  },
  {
   "file": "community/2026-10-21-hunting-query-16.kql",
@@ -14122,7 +14130,11 @@
    "T1566"
   ],
   "repo": "Sergio Albea Threat Hunting KQL Queries",
-  "initial": true
+  "initial": true,
+  "alsoIn": [
+   "article"
+  ],
+  "incident": "auto-hunting-invisible-unicode-in-emails-kql-2026-09-23"
  },
  {
   "file": "community/2026-10-21-hunting-query-100.kql",
@@ -21518,6 +21530,156 @@
   "initial": true
  },
  {
+  "file": "articles/2026-10-21-6-finding-new-child-processes-php-execution-baseline.kql",
+  "title": "6. Finding new child processes: PHP execution baseline",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-5-investigating-outbound-network-connections.kql",
+  "title": "5. Investigating outbound network connections",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-4-php-creating-files-in-suspicious-locations.kql",
+  "title": "4. PHP creating files in suspicious locations",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-3-looking-for-reconnaissance-command.kql",
+  "title": "3. Looking for reconnaissance command",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-2-php-spawning-suspicious-processes.kql",
+  "title": "2. PHP spawning suspicious processes",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-2-microsoftgraphactivitylogs-what-observable-graph-api-activ.kql",
+  "title": "2 – MicrosoftGraphActivityLogs → What observable Graph API activity followed?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-2-entraidspnsigninevents-graphapiauditevents-did-the-service.kql",
+  "title": "2 – EntraIdSpnSignInEvents + GraphAPIAuditEvents → Did the service principal authenticate, and what Microsoft Graph activity followed?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-1-signinlogs-did-a-service-principal-authenticate-from.kql",
+  "title": "1-SigninLogs → Did a service principal authenticate, from where, and against what resource?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-1-oauthappinfo-is-the-affected-app-present-enabled.kql",
+  "title": "1- OAuthAppInfo → Is the affected app present, enabled, and what permissions does it hold?",
+  "date": "2026-10-21",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "OAuthAppInfo"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-1-identifying-php-installations-and-versions.kql",
+  "title": "1. Identifying PHP installations and versions",
+  "date": "2026-10-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceTvmSoftwareInventory"
+  ],
+  "purpose": "From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…",
+  "source": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
   "file": "2026-10-21-tables-whose-ingestion-dropped-against-their-own-14.kql",
   "title": "Tables whose ingestion dropped against their own 14-day baseline",
   "date": "2026-10-21",
@@ -21528,6 +21690,19 @@
   "purpose": "Daily billable and non-billable volume per table from the Usage table, last 14 full days; flags a table whose last full day fell below 30 percent of its median, or that stopped reporting. Usage is hourly with StartTime and EndTime, Quantity in MB. Columns from the Usage table reference cited beside ",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage",
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-10-20-building-the-detection.kql",
+  "title": "Building the Detection",
+  "date": "2026-10-20",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Detecting GitHound Enumeration via the GitHub API",
+  "source": "https://detect.fyi/detecting-githound-enumeration-via-the-github-api-81e4a73c7ead?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/detecting-githound-enumeration-via-the-github-api-81e4a73c7ead?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-detecting-githound-enumeration-via-the-g-2026-10-20"
  },
  {
   "file": "2026-10-20-devices-defender-vulnerability-management-still-lists-for-cv.kql",
@@ -21663,6 +21838,99 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-10-12-summarize-cloudkeyvaultevents-for-each-keyvault.kql",
+  "title": "Summarize CloudKeyVaultEvents for each KeyVault",
+  "date": "2026-10-12",
+  "product": "Sentinel",
+  "tables": [
+   "CloudKeyVaultEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
+  "file": "articles/2026-10-12-query-2-suspicious-key-vault-enumuration-or-reads.kql",
+  "title": "Query 2: Suspicious Key Vault Enumuration or Reads",
+  "date": "2026-10-12",
+  "product": "Sentinel",
+  "tables": [
+   "CloudKeyVaultEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
+  "file": "articles/2026-10-12-query-1-risky-sign-in-followed-by-key.kql",
+  "title": "Query 1: Risky sign-in followed by Key Vault activity",
+  "date": "2026-10-12",
+  "product": "Entra",
+  "tables": [
+   "CloudKeyVaultEvents",
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
+  "file": "articles/2026-10-12-enriching-user-activity.kql",
+  "title": "Enriching User Activity",
+  "date": "2026-10-12",
+  "product": "Entra",
+  "tables": [
+   "CloudKeyVaultEvents",
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
+  "file": "articles/2026-10-12-enriching-service-principal-activity.kql",
+  "title": "Enriching Service Principal Activity",
+  "date": "2026-10-12",
+  "product": "Entra",
+  "tables": [
+   "CloudKeyVaultEvents",
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
+  "file": "articles/2026-10-12-cloudkeyvaultevents-advanced-hunting-schema.kql",
+  "title": "CloudKeyVaultEvents Advanced Hunting Schema",
+  "date": "2026-10-12",
+  "product": "Sentinel",
+  "tables": [
+   "CloudKeyVaultEvents"
+  ],
+  "purpose": "From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting",
+  "source": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/cloudkeyvaultevents/",
+  "incident": "auto-cloudkeyvaultevents-azure-key-vault-logs-2026-10-12"
+ },
+ {
   "file": "2026-10-11-which-arc-enabled-kubernetes-clusters-still-carry-the.kql",
   "title": "Which Arc-enabled Kubernetes clusters still carry the retiring Key Vault Secrets Provider extension",
   "date": "2026-10-11",
@@ -21683,6 +21951,88 @@
    "2026-10-21"
   ],
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-10-10-who-changed-what-check-the-activity-log.kql",
+  "title": "Who Changed What? Check the Activity Log",
+  "date": "2026-10-10",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
+ },
+ {
+  "file": "articles/2026-10-10-where-dropped-events-leave-a-trace.kql",
+  "title": "Where Dropped Events Leave a Trace",
+  "date": "2026-10-10",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
+ },
+ {
+  "file": "articles/2026-10-10-understanding-data-transformations.kql",
+  "title": "Understanding Data Transformations",
+  "date": "2026-10-10",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
+ },
+ {
+  "file": "articles/2026-10-10-the-error-table-where-failures-leave-clues.kql",
+  "title": "The Error Table: Where Failures Leave Clues",
+  "date": "2026-10-10",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
+ },
+ {
+  "file": "articles/2026-10-10-signal-2-a-rule-starts-dropping-columns-or.kql",
+  "title": "Signal 2 — A rule starts dropping columns or rows it never dropped before",
+  "date": "2026-10-10",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
+ },
+ {
+  "file": "articles/2026-10-10-signal-1-a-rule-s-drop-rate-jumps.kql",
+  "title": "Signal 1 — A rule’s drop rate jumps above its normal level",
+  "date": "2026-10-10",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence",
+  "source": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-before-it-reaches-sentinel-how-your-own-2026-10-10"
  },
  {
   "file": "2026-10-10-who-was-granted-one-of-the-graph-permissions.kql",
@@ -21882,6 +22232,133 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-09-30-zimbra-persistence-and-privilege-escalation-artifacts.kql",
+  "title": "Zimbra persistence and privilege-escalation artifacts",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-zimbra-java-or-jspawnhelper-launching-native-shells.kql",
+  "title": "Zimbra Java or jspawnhelper launching native shells",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-zimbra-collection-archive-staging-and-cloud-transfer-invocat.kql",
+  "title": "Zimbra collection, archive staging, and cloud-transfer invocation",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-suspicious-jsp-writes-in-zimbra-webroots.kql",
+  "title": "Suspicious JSP writes in Zimbra webroots",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-dns-and-out-of-band-callbacks-from-the.kql",
+  "title": "DNS and out-of-band callbacks from the Zimbra injection path",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-confirmed-shell-mediated-zimbra-snmp-command-injection.kql",
+  "title": "Confirmed shell-mediated Zimbra SNMP command injection",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
+  "file": "articles/2026-09-30-campaign-context-anonymous-memory-backed-execution.kql",
+  "title": "Campaign-context anonymous memory-backed execution",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30",
+  "cves": [
+   "CVE-2026-73570"
+  ]
+ },
+ {
   "file": "2026-09-30-conditional-access-policies-that-granted-access-on-an.kql",
   "title": "Conditional Access policies that granted access on an unmanaged device claiming a mobile or macOS platform",
   "date": "2026-09-30",
@@ -21915,6 +22392,224 @@
    "2026-10-21"
   ],
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-09-29-run-this-query-to-identify-the-suspicious-payloads.kql",
+  "title": "// Run this query to identify the suspicious payloads dropped and launched by the threat actor’s use of ScreenConnect",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Phishing Abuses RMM Tools for Persistent Access",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Parasharan Raghavan, Deva Kanna Kannan, Sai Chakri and Microsoft Defender Experts · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "incident": "auto-phishing-abuses-rmm-tools-for-persistent-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-run-this-query-to-identify-the-suspicious-network.kql",
+  "title": "// Run this query to identify the suspicious network connections from the threat actor’s use of ScreenConnect",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Phishing Abuses RMM Tools for Persistent Access",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Parasharan Raghavan, Deva Kanna Kannan, Sai Chakri and Microsoft Defender Experts · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "incident": "auto-phishing-abuses-rmm-tools-for-persistent-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-run-this-query-to-identify-the-remote-command.kql",
+  "title": "// Run this query to identify the remote command execution from MSP360 RMM Agent",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Phishing Abuses RMM Tools for Persistent Access",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Parasharan Raghavan, Deva Kanna Kannan, Sai Chakri and Microsoft Defender Experts · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "incident": "auto-phishing-abuses-rmm-tools-for-persistent-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-run-this-query-to-identify-the-presence-of.kql",
+  "title": "// Run this query to identify the presence of MSP360 RMM agent",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Phishing Abuses RMM Tools for Persistent Access",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Parasharan Raghavan, Deva Kanna Kannan, Sai Chakri and Microsoft Defender Experts · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+  "incident": "auto-phishing-abuses-rmm-tools-for-persistent-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-persistence-through-scheduled-tasks.kql",
+  "title": "Persistence through scheduled tasks",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceProcessEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-invoke-ssh-to-launch-local-command-line.kql",
+  "title": "Invoke SSH to launch local command line",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-detect-web-sessions-ip-and-file-hash-indicators.kql",
+  "title": "Detect Web Sessions IP and file hash indicators of compromise using ASIM",
+  "date": "2026-09-29",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-detect-network-ip-and-domain-indicators-of-compromise.kql",
+  "title": "Detect network IP and domain indicators of compromise using ASIM",
+  "date": "2026-09-29",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-29-conhost-exe-invokes-curl.kql",
+  "title": "Conhost.exe invokes curl",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
+ },
+ {
+  "file": "articles/2026-09-28-needymantis-masquerading-as-software.kql",
+  "title": "NeedyMantis masquerading as software",
+  "date": "2026-09-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-28-needymantis-communications-dll-hard-coded-user-agent.kql",
+  "title": "NeedyMantis communications DLL hard-coded user-agent",
+  "date": "2026-09-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents",
+   "EmailUrlInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-28-needymantis-communications-dll-hard-code-user-agent.kql",
+  "title": "NeedyMantis communications DLL hard-code user-agent",
+  "date": "2026-09-28",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-28-needymantis-c2.kql",
+  "title": "NeedyMantis C2",
+  "date": "2026-09-28",
+  "product": "Sentinel",
+  "tables": [
+   "AzureDiagnostics",
+   "CommonSecurityLog",
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-28-needymantis-c2-2.kql",
+  "title": "NeedyMantis C2",
+  "date": "2026-09-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents",
+   "EmailUrlInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
  },
  {
   "file": "2026-09-28-which-permissions-a-first-party-application-could-obtain.kql",
@@ -22063,6 +22758,38 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-09-24-hunt-for-renamed-meshagent-binaries-and-services.kql",
+  "title": "Hunt for renamed MeshAgent binaries and services",
+  "date": "2026-09-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
+  "incident": "auto-beyond-the-ransomware-tracking-storm-257-2026-09-24"
+ },
+ {
+  "file": "articles/2026-09-24-hunt-for-psexec-based-remote-execution-and-deployment.kql",
+  "title": "Hunt for PsExec-based remote execution and deployment",
+  "date": "2026-09-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
+  "incident": "auto-beyond-the-ransomware-tracking-storm-257-2026-09-24"
+ },
+ {
   "file": "2026-09-24-who-approved-which-email-remediation-now-that-advanced.kql",
   "title": "Who approved which email remediation, now that Advanced Hunting carries it",
   "date": "2026-09-24",
@@ -22131,6 +22858,40 @@
   "purpose": "Six permission families entered the Microsoft Graph service principal between the 17 and the 22 September dumps and nothing holds any of them yet. That makes this a tripwire rather than a hunt: the first row it returns is the first grant.",
   "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs",
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-09-22-suspicious-url-clicked.kql",
+  "title": "Suspicious URL clicked",
+  "date": "2026-09-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "AlertEvidence",
+   "AlertInfo",
+   "DeviceEvents",
+   "EmailEvents",
+   "IdentityInfo"
+  ],
+  "purpose": "From the article: Unmasking EvilTokens: Getting to the root of device code phishing",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence, Microsoft Defender Experts and Microsoft Security Research · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "incident": "eviltokens-device-code-2026-09"
+ },
+ {
+  "file": "articles/2026-09-22-determine-successfully-delivered-phishing-emails-to-inbox-ju.kql",
+  "title": "Determine successfully delivered phishing emails to Inbox/Junk folder.",
+  "date": "2026-09-22",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: Unmasking EvilTokens: Getting to the root of device code phishing",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence, Microsoft Defender Experts and Microsoft Security Research · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "incident": "eviltokens-device-code-2026-09"
  },
  {
   "file": "2026-09-20-which-ad-fs-servers-are-still-short-of.kql",
@@ -22212,6 +22973,21 @@
    "2026-09-19"
   ],
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-09-14-mapping-ja4-with-external-fingerprint-lists.kql",
+  "title": "Mapping JA4 with External Fingerprint Lists:",
+  "date": "2026-09-14",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Threat Hunting with JA4/JA4S (+ Practical KQL Queries)",
+  "source": "https://detect.fyi/threat-hunting-with-ja4-ja4s-practical-kql-queries-ef673fc5fcc0?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/threat-hunting-with-ja4-ja4s-practical-kql-queries-ef673fc5fcc0?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-threat-hunting-with-ja4-ja4s-practical-k-2026-09-14"
  },
  {
   "file": "2026-09-14-passkey-registration-events-around-the-optimised-campaign-ro.kql",
@@ -22391,5 +23167,134 @@
   "purpose": "Authentication-method deletions with no re-registration by the same user afterwards.",
   "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/auditlogs",
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-08-18-kql-examples.kql",
+  "title": "KQL examples",
+  "date": "2026-08-18",
+  "product": "Sentinel",
+  "tables": [
+   "BehaviorInfo",
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "kind": "article",
+  "author": "SaraSamokovlija · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "incident": "auto-smarter-signals-broader-coverage-ueba-an-2026-08-18"
+ },
+ {
+  "file": "articles/2026-08-18-kql-example.kql",
+  "title": "KQL example",
+  "date": "2026-08-18",
+  "product": "Sentinel",
+  "tables": [
+   "BehaviorAnalytics",
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "kind": "article",
+  "author": "SaraSamokovlija · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "incident": "auto-smarter-signals-broader-coverage-ueba-an-2026-08-18"
+ },
+ {
+  "file": "articles/2026-08-18-kql-example-2.kql",
+  "title": "KQL example",
+  "date": "2026-08-18",
+  "product": "Defender XDR",
+  "tables": [
+   "BehaviorInfo"
+  ],
+  "purpose": "From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "kind": "article",
+  "author": "SaraSamokovlija · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+  "incident": "auto-smarter-signals-broader-coverage-ueba-an-2026-08-18"
+ },
+ {
+  "file": "articles/2026-08-11-deploy.kql",
+  "title": "Deploy",
+  "date": "2026-08-11",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Building Microsoft Sentinel Connectors in Minutes with the Sentinel Connector Builder Agent",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-microsoft-sentinel-connectors-in-minutes-with-the/ba-p/4544378",
+  "kind": "article",
+  "author": "Robert_Moriarty · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-microsoft-sentinel-connectors-in-minutes-with-the/ba-p/4544378",
+  "incident": "auto-building-a-ccf-nested-api-pull-connector-2026-08-05"
+ },
+ {
+  "file": "articles/2026-08-05-high-and-critical-incidents.kql",
+  "title": "High and Critical incidents",
+  "date": "2026-08-05",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Building a CCF Nested API Pull Connector: A Technical Lab Walkthrough",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027",
+  "kind": "article",
+  "author": "Robert_Moriarty · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027",
+  "incident": "auto-building-a-ccf-nested-api-pull-connector-2026-08-05"
+ },
+ {
+  "file": "articles/2026-08-05-defenses.kql",
+  "title": "Defenses",
+  "date": "2026-08-05",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Borrowing Windows Hello keys for authentication and persistence",
+  "source": "https://dirkjanm.io/borrowing-windows-hello-keys/",
+  "kind": "article",
+  "author": "Dirk-jan Mollema · Dirk-jan Mollema",
+  "link": "https://dirkjanm.io/borrowing-windows-hello-keys/",
+  "incident": "auto-borrowing-windows-hello-keys-for-authent-2026-08-05"
+ },
+ {
+  "file": "articles/2026-08-05-core-detection-logic.kql",
+  "title": "Core detection logic",
+  "date": "2026-08-05",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Borrowing Windows Hello keys for authentication and persistence",
+  "source": "https://dirkjanm.io/borrowing-windows-hello-keys/",
+  "kind": "article",
+  "author": "Dirk-jan Mollema · Dirk-jan Mollema",
+  "link": "https://dirkjanm.io/borrowing-windows-hello-keys/",
+  "incident": "auto-borrowing-windows-hello-keys-for-authent-2026-08-05"
+ },
+ {
+  "file": "articles/2026-08-05-building-a-ccf-nested-api-pull-connector-a.kql",
+  "title": "Building a CCF Nested API Pull Connector: A Technical Lab Walkthrough",
+  "date": "2026-08-05",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Building a CCF Nested API Pull Connector: A Technical Lab Walkthrough",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027",
+  "kind": "article",
+  "author": "Robert_Moriarty · Microsoft Sentinel Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027",
+  "incident": "auto-building-a-ccf-nested-api-pull-connector-2026-08-05"
+ },
+ {
+  "file": "articles/2026-06-30-clickfix-stage-2-loaders-living-off-the-land.kql",
+  "title": "ClickFix Stage 2 Loaders: Living Off the Land Binary (LOLBIN) Abuse",
+  "date": "2026-06-30",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: ClickFix: The Gift That Keeps On Giving",
+  "source": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
+  "kind": "article",
+  "author": "KQL Query (Bert-Jan Pals)",
+  "link": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
+  "incident": "auto-clickfix-the-gift-that-keeps-on-giving-2026-06-30"
  }
 ]

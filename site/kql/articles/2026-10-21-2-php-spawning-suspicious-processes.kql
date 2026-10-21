@@ -1,0 +1,40 @@
+// title: 2. PHP spawning suspicious processes
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…
+// source: https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WebProcesses = dynamic([
+    "php", "php.exe",
+    "php-cgi", "php-cgi.exe",
+    "php-fpm",
+    "apache2", "httpd",
+    "nginx", "w3wp.exe"
+]);
+let SuspiciousProcesses = dynamic([
+    "sh", "bash", "dash", "zsh",
+    "cmd.exe", "powershell.exe", "pwsh.exe",
+    "curl", "curl.exe", "wget",
+    "python", "python3", "python.exe",
+    "perl", "nc", "ncat", "socat",
+    "certutil.exe", "bitsadmin.exe"
+]);
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessFileName in~ (WebProcesses)
+    or InitiatingProcessFileName startswith "php-fpm"
+| where FileName in~ (SuspiciousProcesses)
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    FileName,
+    ProcessCommandLine,
+    FolderPath,
+    SHA1
+| order by Timestamp desc

@@ -1,0 +1,32 @@
+// title: NeedyMantis masquerading as software
+// date: 2026-09-28
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(7d)
+| where (
+    (FolderPath matches regex @"^[A-Za-z]:\\Program Files\\Poedit" and FileName == "WinSparkle.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\Program Files \(x86\)\\Poedit" and FileName == "WinSparkle.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\USOShared" and FileName == "libcurl.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\VIM" and FileName == "vim64.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\TightVNC\\VIM" and FileName == "vim64.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\office" and FileName == "dbghelp.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\broadcom" and FileName == "dbghelp.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\Intel" and FileName == "jli.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\Program Files\\modifiable" and FileName == "nvml.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\Program Files \(x86\)\\modifiable" and FileName == "nvml.dll")
+    or (FolderPath matches regex @"^[A-Za-z]:\\ProgramData\\ics" and FileName == "nvml.dll")
+)
+| project Timestamp, DeviceId, DeviceName, ActionType, FolderPath, FileName,
+          SHA1, SHA256, MD5,
+          InitiatingProcessAccountDomain, InitiatingProcessAccountName, InitiatingProcessAccountSid,
+          InitiatingProcessAccountUpn,
+          InitiatingProcessMD5, InitiatingProcessSHA1, InitiatingProcessSHA256,
+          InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine,
+          InitiatingProcessCreationTime,
+          ReportId, TenantId

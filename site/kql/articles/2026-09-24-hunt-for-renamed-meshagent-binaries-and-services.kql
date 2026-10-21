@@ -1,0 +1,46 @@
+// title: Hunt for renamed MeshAgent binaries and services
+// date: 2026-09-24
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents, DeviceRegistryEvents
+// purpose: From the article: Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let MeshAgentTerms = dynamic(["meshagent", "meshagent64", "meshcentral"]);
+union isfuzzy=true
+(
+    DeviceProcessEvents
+    | where Timestamp > ago(30d)
+    | where FileName has_any (MeshAgentTerms)
+        or ProcessCommandLine has_any (MeshAgentTerms)
+        or InitiatingProcessCommandLine has_any (MeshAgentTerms)
+    | project Timestamp, DeviceName, ActionType, FileName, FolderPath,
+              ProcessCommandLine, InitiatingProcessFileName,
+              InitiatingProcessCommandLine, SHA256,
+              RegistryKey="", RegistryValueName="", SourceTable="DeviceProcessEvents"
+),
+(
+    DeviceFileEvents
+    | where Timestamp > ago(30d)
+    | where FileName has_any (MeshAgentTerms)
+        or FolderPath has_any (MeshAgentTerms)
+        or InitiatingProcessCommandLine has_any (MeshAgentTerms)
+    | project Timestamp, DeviceName, ActionType, FileName, FolderPath,
+              ProcessCommandLine="", InitiatingProcessFileName,
+              InitiatingProcessCommandLine, SHA256,
+              RegistryKey="", RegistryValueName="", SourceTable="DeviceFileEvents"
+),
+(
+    DeviceRegistryEvents
+    | where Timestamp > ago(30d)
+    | where RegistryKey has_any (MeshAgentTerms)
+        or RegistryValueName has_any (MeshAgentTerms)
+        or RegistryValueData has_any (MeshAgentTerms)
+        or InitiatingProcessCommandLine has_any (MeshAgentTerms)
+    | project Timestamp, DeviceName, ActionType, FileName="", FolderPath="",
+              ProcessCommandLine="", InitiatingProcessFileName,
+              InitiatingProcessCommandLine, SHA256="",
+              RegistryKey, RegistryValueName, SourceTable="DeviceRegistryEvents"
+)
+| order by Timestamp desc

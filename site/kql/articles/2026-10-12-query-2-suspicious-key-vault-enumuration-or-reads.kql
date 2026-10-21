@@ -1,0 +1,28 @@
+// title: Query 2: Suspicious Key Vault Enumuration or Reads
+// date: 2026-10-12
+// product: Sentinel
+// tables: CloudKeyVaultEvents
+// purpose: From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting
+// source: https://kqlquery.com/posts/cloudkeyvaultevents/
+// kind: article
+// author: KQL Query (Bert-Jan Pals)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EnumerationActivities = dynamic([
+    "SecretList",
+    "SecretListVersions",
+    "SecretListDeleted",
+    "KeyList",
+    "KeyListVersions",
+    "KeyListDeleted",
+    "CertificateList",
+    "CertificateListVersions",
+    "CertificateListDeleted"
+]);
+let ReadActivities = dynamic([
+    "SecretGet",
+    "KeyGet",
+    "CertificateGet"
+]);
+CloudKeyVaultEvents
+| where ActivityName in~ (EnumerationActivities) or ActivityName in~ (ReadActivities)
+| summarize Total = count(), UniqueKeyVaults = dcount(AzureResourceId), TotalEnumerationActivities = countif(ActivityName in~ (EnumerationActivities)), TotalReadActivities = countif(ActivityName in~ (ReadActivities)) by AccountObjectId, AccountType

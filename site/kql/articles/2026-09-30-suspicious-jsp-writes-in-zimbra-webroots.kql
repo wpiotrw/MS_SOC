@@ -1,0 +1,27 @@
+// title: Suspicious JSP writes in Zimbra webroots
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+ DeviceFileEvents
+ | where Timestamp > ago(lookback)
+ | where FileName endswith ".jsp" or FileName endswith "_jsp.java"
+ | where FolderPath contains "/jetty_base/webapps/"
+     or FolderPath contains "/jetty/webapps/"
+     or FolderPath contains "/mailboxd/webapps/"
+     or FolderPath contains "/work/zimbra/jsp/"
+ | where InitiatingProcessFileName in~
+     ("sh", "bash", "dash", "curl", "wget", "tee", "base64",
+      "rsync", "java", "jspawnhelper", "perl")
+     or InitiatingProcessCommandLine contains "snmptrap"
+     or InitiatingProcessCommandLine contains "Runtime.getRuntime().exec"
+ | project Timestamp, DeviceId, DeviceName, ActionType, FolderPath, FileName,
+           SHA1, SHA256, InitiatingProcessAccountName,
+           InitiatingProcessFileName, InitiatingProcessFolderPath,
+           InitiatingProcessCommandLine, ReportId
+ | order by Timestamp desc;

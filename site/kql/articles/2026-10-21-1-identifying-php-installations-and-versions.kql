@@ -1,0 +1,39 @@
+// title: 1. Identifying PHP installations and versions
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceTvmSoftwareInventory
+// purpose: From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…
+// source: https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceTvmSoftwareInventory
+| where SoftwareName matches regex
+    @"(?i)^php([0-9]+(\.[0-9]+)?)?(_for_linux)?$"
+    or SoftwareName matches regex
+    @"(?i)^php[0-9]+(\.[0-9]+)?-(cli|fpm|cgi|common)$"
+| extend VersionFromName =
+    extract(@"(?i)^php([0-9]+(?:\.[0-9]+)?)",
+        1, SoftwareName)
+| extend VersionFromPackage =
+    extract(@"^(?:\d+:)?(\d+\.\d+(?:\.\d+)?)",
+        1, SoftwareVersion)
+| extend PHPVersion = iff(
+    isnotempty(VersionFromName),
+    VersionFromName,
+    VersionFromPackage
+)
+| extend Major = toint(split(PHPVersion, ".")[0]),
+         Minor = toint(split(PHPVersion, ".")[1])
+| extend Priority = case(
+    Major < 8, "Legacy PHP",
+    Major == 8 and Minor <= 1, "End of Life",
+    Major == 8 and Minor >= 2, "Verify security updates",
+    "Unknown"
+)
+| summarize
+    Devices = dcount(DeviceId),
+    DeviceList = make_set(DeviceName, 100)
+    by SoftwareName, SoftwareVersion,
+       PHPVersion, Priority
+| order by Devices desc

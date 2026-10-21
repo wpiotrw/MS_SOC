@@ -1,0 +1,38 @@
+// title: Building the Detection
+// date: 2026-10-20
+// product: 
+// tables: 
+// purpose: From the article: Detecting GitHound Enumeration via the GitHub API
+// source: https://detect.fyi/detecting-githound-enumeration-via-the-github-api-81e4a73c7ead?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let route_threshold = 10;
+let url_path_threshold = 20;
+let routes_of_intrest = dynamic([@'/graphql', @'/organizations/:organization_id/organization-roles/:role_id/teams', @'/organizations/:organization_id/actions/secrets', @'/organizations/:organization_id/custom-repository-roles', @'/organizations/:organization_id/repos', @'/organizations/:organization_id/secret-scanning/alerts', @'/organizations/:organization_id/organization-roles/:role_id/users', @'/organizations/:organization_id/actions/permissions/self-hosted-runners', @'/organizations/:organization_id/actions/permissions', @'/organizations/:organization_id/actions/variables', @'/organizations/:organization_id', @'/organizations/:organization_id/actions/permissions/workflow', @'/organizations/:organization_id/organization-roles', @'/organizations/:organization_id/teams']);
+GitHubAuditLogsV3_CL
+| where Action == "api.request"
+| project-reorder UrlPath, Route, RequestMethod, QueryString, StatusCode, UserAgent
+| where Route in~ (routes_of_intrest)
+| summarize
+    c = count(),
+    RequestMethod = make_set(RequestMethod),
+    StatusCode = make_set(StatusCode),
+    Route = make_set(Route),
+    UrlPath = make_set(UrlPath),
+    UserAgent = make_set(UserAgent),
+    User = make_set(User),
+    OperationType = make_set(OperationType),
+    Org = make_set(Org),
+    OrgId = make_set(OrgId),
+    ActorId = make_set(ActorId),
+    ActorIsBot = make_set(ActorIsBot),
+    ProgrammaticAccessType = make_set(ProgrammaticAccessType),
+    TokenScopes = make_set(TokenScopes),
+    Type = make_set(Type),
+    Action = make_set(Action),
+    Business = make_set(Business)
+by Actor, TokenId
+| extend RouteCount = array_length(Route)
+| extend UrlPathCount = array_length(UrlPath)
+| where RouteCount > route_threshold or UrlPathCount > url_path_threshold

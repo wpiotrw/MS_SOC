@@ -1,0 +1,41 @@
+// title: Signal 1 — A rule’s drop rate jumps above its normal level
+// date: 2026-10-10
+// product: 
+// tables: 
+// purpose: From the article: Before It Reaches Sentinel: How Your Own Pipeline Can Silently Drop Security Evidence
+// source: https://detect.fyi/before-it-reaches-sentinel-how-your-own-pipeline-can-silently-drop-security-evidence-e4ab2640249d?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rohitashokgowd · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Window = 14d;
+let Recent = 1d;
+let DCRMetrics = AzureMetrics
+| where TimeGenerated between (ago(Window) .. now())
+| where ResourceId has "DATACOLLECTIONRULES"
+| where MetricName in ("RowsDropped_Count", "RowsReceived_Count")
+| extend DCR = tostring(split(ResourceId, "/")[-1])
+| summarize V = sum(Total) by MetricName, DCR, Period = iff(TimeGenerated > ago(Recent), "Recent", "Baseline")
+| evaluate pivot(MetricName, sum(V), DCR, Period);
+let Baseline = DCRMetrics
+| where Period == "Baseline"
+| extend
+    Received = coalesce(todouble(RowsReceived_Count), 0.0),
+    Dropped = coalesce(todouble(RowsDropped_Count), 0.0)
+| extend TotalRows = Received + Dropped
+| where TotalRows > 0
+| extend BaseDropPct = 100.0 * Dropped / TotalRows
+| project DCR, BaseDropPct;
+let Current = DCRMetrics
+| where Period == "Recent"
+| extend
+    Received = coalesce(todouble(RowsReceived_Count), 0.0),
+    Dropped = coalesce(todouble(RowsDropped_Count), 0.0)
+| extend TotalRows = Received + Dropped
+| where TotalRows > 0
+| extend CurrentDropPct = 100.0 * Dropped / TotalRows
+| project DCR,CurrentDropPct, Received, Dropped;
+Current
+| join kind=inner Baseline on DCR
+| extend Jump = round(CurrentDropPct - BaseDropPct, 1)
+| where CurrentDropPct > 10 and Jump > 15
+| project DCR, Received, Dropped, BaseDropPct = round(BaseDropPct, 1),CurrentDropPct = round(CurrentDropPct, 1),Jump

@@ -1,0 +1,29 @@
+// title: 3. Looking for reconnaissance command
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…
+// source: https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessFileName has_any (
+    "php", "apache", "httpd", "nginx", "w3wp"
+)
+| where FileName in~ (
+    "whoami", "whoami.exe",
+    "id", "uname", "hostname", "hostname.exe",
+    "ifconfig", "ipconfig.exe",
+    "systeminfo.exe"
+)
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    FileName,
+    ProcessCommandLine
+| order by Timestamp desc

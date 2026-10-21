@@ -1,0 +1,27 @@
+// title: Zimbra collection, archive staging, and cloud-transfer invocation
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+ DeviceProcessEvents
+ | where Timestamp > ago(lookback)
+ | where FileName in~
+     ("zmslapcat", "slapcat", "tar", "gzip", "find", "wget",
+      "curl", "azcopy", "bash", "sh", "nohup")
+ | where ProcessCommandLine contains "zmslapcat"
+     or ProcessCommandLine contains "/opt/zimbra/backup/"
+     or ProcessCommandLine contains "/opt/zimbra/final.tar.gz"
+     or ProcessCommandLine contains "downloadazcopy-v10-linux"
+     or ProcessCommandLine contains "azcopy copy"
+     or ProcessCommandLine contains "HISTFILE=/dev/null"
+ | project Timestamp, DeviceId, DeviceName, AccountName, FileName, FolderPath,
+           ProcessCommandLine, ProcessId, ProcessCreationTime, SHA1, SHA256,
+           InitiatingProcessFileName, InitiatingProcessFolderPath,
+           InitiatingProcessCommandLine, InitiatingProcessId,
+           InitiatingProcessCreationTime, ReportId
+ | order by Timestamp desc;

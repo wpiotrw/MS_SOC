@@ -1,0 +1,16 @@
+// title: Determine successfully delivered phishing emails to Inbox/Junk folder.
+// date: 2026-09-22
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: From the article: Unmasking EvilTokens: Getting to the root of device code phishing
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/
+// kind: article
+// author: Microsoft Threat Intelligence, Microsoft Defender Experts and Microsoft Security Research · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| where isnotempty(ThreatTypes) and DeliveryLocation in~ ("Inbox/folder","Junk folder")
+| extend Name = tostring(split(SenderFromAddress, '@', 0)[0]), UPNSuffix = tostring(split(SenderFromAddress, '@', 1)[0])
+| extend Account_0_Name = Name
+| extend Account_0_UPNSuffix = UPNSuffix
+| extend IP_0_Address = SenderIPv4
+| extend MailBox_0_MailboxPrimaryAddress = RecipientEmailAddress

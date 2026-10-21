@@ -1,0 +1,13 @@
+// title: Enriching Service Principal Activity
+// date: 2026-10-12
+// product: Entra
+// tables: CloudKeyVaultEvents, EntraIdSpnSignInEvents
+// purpose: From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting
+// source: https://kqlquery.com/posts/cloudkeyvaultevents/
+// kind: article
+// author: KQL Query (Bert-Jan Pals)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudKeyVaultEvents
+| where AccountType == "app"
+| extend UniqueTokenIdentifier = tostring(AdditionalFields.UniqueTokenIdentifier)
+| join kind=leftouter EntraIdSpnSignInEvents on $left.UniqueTokenIdentifier == $right.UniqueTokenId

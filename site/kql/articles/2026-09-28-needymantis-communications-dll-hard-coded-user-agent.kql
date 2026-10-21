@@ -1,0 +1,21 @@
+// title: NeedyMantis communications DLL hard-coded user-agent
+// date: 2026-09-28
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceNetworkEvents, EmailUrlInfo, UrlClickEvents
+// purpose: From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+search in (DeviceNetworkEvents, DeviceEvents, UrlClickEvents, EmailUrlInfo)
+  "Firefox/21.0"
+| where Timestamp > ago(7d)
+| extend SourceTable = $table
+| project Timestamp,
+          DeviceName = iff(isnull(DeviceName), "", DeviceName),
+          AccountUpn = coalesce(InitiatingProcessAccountUpn, AccountUpn, ""),
+          AccountName = coalesce(InitiatingProcessAccountName, AccountName, ""),
+          RemoteIP = coalesce(RemoteIP, IPAddress, ""),
+          Url = coalesce(RemoteUrl, Url, ""),
+          UserAgent = AdditionalFields,
+          SourceTable

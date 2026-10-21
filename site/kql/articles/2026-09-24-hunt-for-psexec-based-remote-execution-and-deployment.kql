@@ -1,0 +1,18 @@
+// title: Hunt for PsExec-based remote execution and deployment
+// date: 2026-09-24
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName in~ ("psexec.exe", "psexec64.exe")
+    or ProcessCommandLine has_any ("psexec.exe", "psexec64.exe")
+| where ProcessCommandLine has_any ("@ip.txt", "-accepteula", "\\")
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine,
+          InitiatingProcessFileName, InitiatingProcessCommandLine,
+          SHA256, DeviceId, ReportId
+| order by Timestamp desc

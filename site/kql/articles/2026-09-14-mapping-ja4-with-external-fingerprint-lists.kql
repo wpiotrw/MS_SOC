@@ -1,0 +1,27 @@
+// title: Mapping JA4 with External Fingerprint Lists:
+// date: 2026-09-14
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Threat Hunting with JA4/JA4S (+ Practical KQL Queries)
+// source: https://detect.fyi/threat-hunting-with-ja4-ja4s-practical-kql-queries-ef673fc5fcc0?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Sergio Albea 13-09-2026
+let FoxIO_JA4 = externaldata(Application:string, Library:string, Device:string, OS:string, ja4:string, ja4s:string, ja4h:string, ja4x:string, ja4t:string, ja4tscan:string, Notes:string)
+[@"https://raw.githubusercontent.com/FoxIO-LLC/ja4/main/ja4plus-mapping.csv"]
+with(format="csv", ignoreFirstRecord=true);
+DeviceNetworkEvents
+//| where ActionType == "SslConnectionInspected"
+| extend geo_ip = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where isnotempty(geo_ip)
+| extend AF = parse_json(AdditionalFields)
+| extend JA4 = tostring(AF.ja4), JA4S = tostring(AF.ja4s)
+| where isnotempty(JA4)
+| extend JA4_Parts = split(JA4, "_")
+| extend JA4_A = tostring(JA4_Parts[0]), JA4_B = tostring(JA4_Parts[1]), JA4_C = tostring(JA4_Parts[2])
+| extend Transport = substring(JA4_A, 0, 1), TLS_Version = substring(JA4_A, 1, 2), SNI = substring(JA4_A, 3, 1), Cipher_Count = toint(substring(JA4_A, 4, 2)), Extension_Count = toint(substring(JA4_A, 6, 2)), ALPN = substring(JA4_A, 8, 2)
+| extend Transport = case(Transport == "t", "TCP", Transport == "q", "QUIC", Transport), TLS_Version = case(TLS_Version == "13", "TLS 1.3", TLS_Version == "12", "TLS 1.2", TLS_Version == "11", "TLS 1.1", TLS_Version == "10", "TLS 1.0", TLS_Version), SNI = case(SNI == "d", "SNI Present", SNI == "i", "SNI Not Present", "Unknown"), ALPN = case(ALPN == "h2", "HTTP/2", ALPN == "h1", "HTTP/1.x", ALPN == "00", "No ALPN", ALPN)
+| join kind=leftouter (FoxIO_JA4 | where isnotempty(ja4) | project FoxJA4=ja4, FoxApplication=Application, FoxLibrary=Library, FoxDevice=Device, FoxOS=OS, FoxNotes=Notes) on $left.JA4 == $right.FoxJA4
+| extend FoxIO_Match = iff(isnotempty(FoxJA4), "Known", "Unknown")
+| project Timestamp, DeviceName, ActionType, RemoteUrl, RemoteIP, geo_ip, JA4, FoxIO_Match, FoxApplication, FoxLibrary, FoxDevice, FoxOS, FoxNotes, JA4S, Transport, TLS_Version, SNI, Cipher_Count, Extension_Count, ALPN, Cipher_Hash=JA4_B, Extension_Hash=JA4_C

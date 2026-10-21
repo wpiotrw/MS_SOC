@@ -1,0 +1,28 @@
+// title: NeedyMantis C2
+// date: 2026-09-28
+// product: Sentinel
+// tables: AzureDiagnostics, CommonSecurityLog, SecurityEvent
+// purpose: From the article: NeedyMantis: Unpacking a post-compromise malware family used in targeted operations
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+search in (CommonSecurityLog, SecurityEvent, AzureDiagnostics)
+  "corp.tripswithengine.com"
+| where TimeGenerated > ago(7d)
+| project TimeGenerated,
+          DeviceName,
+          Computer,
+          SourceIP,
+          SourcePort,
+          SourceUserName,
+          DestinationIP,
+          DestinationPort,
+          DestinationHostName,
+          DestinationDnsDomain,
+          RequestURL,
+          ProcessName,
+          DestinationUserName,
+          SourceHostName,
+          Message,
+          $table

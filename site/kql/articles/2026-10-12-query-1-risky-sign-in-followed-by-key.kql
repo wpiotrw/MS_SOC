@@ -1,0 +1,19 @@
+// title: Query 1: Risky sign-in followed by Key Vault activity
+// date: 2026-10-12
+// product: Entra
+// tables: CloudKeyVaultEvents, EntraIdSignInEvents
+// purpose: From the article: CloudKeyVaultEvents: Azure Key Vault Logs, Schema and KQL Hunting
+// source: https://kqlquery.com/posts/cloudkeyvaultevents/
+// kind: article
+// author: KQL Query (Bert-Jan Pals)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SearchPeriod = 7d;
+EntraIdSignInEvents
+| where TimeGenerated > ago(SearchPeriod)
+| where RiskLevelDuringSignIn in (10, 50, 100)
+| project SignInTime = TimeGenerated, IPAddress, UserAgent, AccountUpn, UniqueTokenId, ErrorCode
+| join kind=inner (CloudKeyVaultEvents
+    | where AccountType == "user"
+    | extend UniqueTokenIdentifier = tostring(AdditionalFields.UniqueTokenIdentifier)
+    | project TimeGenerated, UniqueTokenIdentifier, AzureResourceId, ActivityName)
+    on $left.UniqueTokenId == $right.UniqueTokenIdentifier

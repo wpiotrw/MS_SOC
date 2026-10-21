@@ -1,0 +1,32 @@
+// title: Campaign-context anonymous memory-backed execution
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava and Rajesh Kumar Natarajan · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+ DeviceProcessEvents
+ | where Timestamp > ago(lookback)
+ | extend FullPath = strcat(FolderPath, "/", FileName)
+ | where FileName startswith "memfd:"
+     or FullPath contains "/memfd:"
+     or FullPath startswith "/proc/self/fd/"
+     or ProcessCommandLine contains "/proc/self/fd/"
+ | where InitiatingProcessCommandLine contains ".swatchdog_script"
+     or InitiatingProcessCommandLine contains "snmptrap"
+     or ProcessCommandLine has_any
+         (".kworker_sys", ".lpe_core", "softwaretech", "ksmd",
+          "/tmp/init", "/dev/shm/systemd-resolved",
+          "chronyd-helper.service", "syslog_init.service")
+     or InitiatingProcessCommandLine has_any
+         (".kworker_sys", ".lpe_core", "softwaretech", "ksmd",
+          "/tmp/init", "/dev/shm/systemd-resolved")
+ | project Timestamp, DeviceId, DeviceName, AccountName, FileName, FolderPath,
+           ProcessCommandLine, ProcessId, ProcessCreationTime,
+           InitiatingProcessFileName, InitiatingProcessFolderPath,
+           InitiatingProcessCommandLine, InitiatingProcessId,
+           InitiatingProcessCreationTime, SHA1, SHA256, ReportId
+ | order by Timestamp desc;

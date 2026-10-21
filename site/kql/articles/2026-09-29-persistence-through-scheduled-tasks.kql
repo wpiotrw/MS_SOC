@@ -1,0 +1,39 @@
+// title: Persistence through scheduled tasks
+// date: 2026-09-29
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceProcessEvents, DeviceRegistryEvents
+// purpose: From the article: Star Blizzard refines phishing and malware delivery with the RedFlick technique
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+union isfuzzy=true
+(
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where ProcessCommandLine has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or AdditionalFields has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor")
+| project Timestamp, DeviceName, ActionType, ProcessCommandLine, AdditionalFields
+, RegistryKey = tostring(dynamic(null)), RegistryValueName = tostring(dynamic(null))
+, SourceTable = "DeviceProcessEvents"
+, ProcessId, AccountName, AccountDomain, AccountSid
+)
+,
+(
+DeviceEvents
+| where Timestamp > ago(7d)
+| where ProcessCommandLine has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or AdditionalFields has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or RegistryKey has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or RegistryValueName has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor")
+| project Timestamp, DeviceName, ActionType, ProcessCommandLine, AdditionalFields, RegistryKey, RegistryValueName
+, SourceTable = "DeviceEvents"
+, ProcessId = long(null), AccountName = "", AccountDomain = "", AccountSid = ""
+)
+,
+(
+DeviceRegistryEvents
+| where Timestamp > ago(7d)
+| where RegistryKey has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or RegistryValueName has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or RegistryValueData has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor") or InitiatingProcessCommandLine has_any ("Internet Quality Test Connection","Network Configuration Manager","System Health Monitor")
+| project Timestamp, DeviceName, ActionType
+, ProcessCommandLine = InitiatingProcessCommandLine, AdditionalFields = ""
+, RegistryKey, RegistryValueName
+, SourceTable = "DeviceRegistryEvents"
+, ProcessId = long(null), AccountName = "", AccountDomain = "", AccountSid = ""
+)

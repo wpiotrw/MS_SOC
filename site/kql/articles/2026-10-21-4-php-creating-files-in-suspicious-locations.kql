@@ -1,0 +1,36 @@
+// title: 4. PHP creating files in suspicious locations
+// date: 2026-10-21
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: PHP2Shell: Two Critical PHP Vulnerabilities (CVE-2026–109618 and CVE-2026–109619) — Are Your…
+// source: https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| where ActionType in~ (
+    "FileCreated",
+    "FileModified",
+    "FileRenamed"
+)
+| where FileName endswith ".php"
+    or FileName endswith ".phtml"
+| where InitiatingProcessFileName has_any (
+    "php", "apache", "httpd", "nginx", "w3wp"
+)
+| where FolderPath contains "/tmp/"
+    or FolderPath contains "/var/tmp/"
+    or FolderPath contains "/dev/shm/"
+    or FolderPath contains "/var/www/"
+    or FolderPath contains "wwwroot"
+| project
+    Timestamp,
+    DeviceName,
+    ActionType,
+    FileName,
+    FolderPath,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    SHA1
+| order by Timestamp desc

@@ -1,0 +1,12 @@
+// title: Building a CCF Nested API Pull Connector: A Technical Lab Walkthrough
+// date: 2026-08-05
+// product: 
+// tables: 
+// purpose: From the article: Building a CCF Nested API Pull Connector: A Technical Lab Walkthrough
+// source: https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027
+// kind: article
+// author: Robert_Moriarty · Microsoft Sentinel Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+ContosoIncidents_CL
+| sort by TimeGenerated desc
+| take 10

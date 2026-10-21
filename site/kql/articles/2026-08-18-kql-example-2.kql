@@ -1,0 +1,20 @@
+// title: KQL example
+// date: 2026-08-18
+// product: Defender XDR
+// tables: BehaviorInfo
+// purpose: From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources
+// source: https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384
+// kind: article
+// author: SaraSamokovlija · Microsoft Sentinel Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Query 4: FortiGate configuration backup activity
+
+BehaviorInfo
+| where ActionType == "BehaviorFortiGateBackup"
+| extend ParsedData = parse_json(AdditionalFields)
+| extend
+Device = tostring(ParsedData.ApplianceId),
+User = tostring(ParsedData.Account),
+SourceIP = tostring(ParsedData.LoginSourceIP)
+| project TimeGenerated, Device, User, SourceIP, Description, AdditionalFields
+| order by TimeGenerated

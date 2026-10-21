@@ -1,0 +1,31 @@
+// title: KQL example
+// date: 2026-08-18
+// product: Sentinel
+// tables: BehaviorAnalytics, CommonSecurityLog
+// purpose: From the article: Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources
+// source: https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384
+// kind: article
+// author: SaraSamokovlija · Microsoft Sentinel Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Query 3: First-time high-risk web category access from an unusual location or ISP
+Returns phishing, malware, spyware, or C2 category hits that are new for the user and come from an unusual location or network. Check RequestURL and UrlCategory for the destination.
+
+BehaviorAnalytics
+| where TimeGenerated > ago(7d)
+| where EventSource == "CommonSecurityLog"
+| where ActivityType == "UnusualHighRiskWebCategoryAccess"
+| where ActivityInsights.DeviceVendor == "Zscaler"
+| where ActivityInsights.DeviceProduct == "NSSWeblog"
+| extend UrlCategory = ActivityInsights.UrlCategory
+| extend RequestURL = ActivityInsights.RequestURL
+| extend ISP = DevicesInsights.ISP
+| extend ThreatIntel = DevicesInsights.ThreatIntelIndicatorType
+| extend RiskyCategory = ActivityInsights.FirstTimeUserAccessedHighRiskUrlCategory == True
+                      or ActivityInsights.FirstTimeHighRiskUrlCategoryObservedInTenant == True
+| extend UnusualLocation = ActivityInsights.FirstTimeUserConnectedFromCountry == True
+                        or ActivityInsights.FirstTimeConnectionFromCountryObservedInTenant == True
+                        or ActivityInsights.CountryUncommonlyConnectedFromByUser == True
+| extend UnusualISP = ActivityInsights.FirstTimeUserConnectedViaISP == True
+                   or ActivityInsights.ISPUncommonlyUsedByUser == True
+                   or ActivityInsights.IPRegOrgUncommonlyUsedByUser == True
+| where RiskyCategory and (UnusualLocation or UnusualISP or isnotempty(ThreatIntel))
