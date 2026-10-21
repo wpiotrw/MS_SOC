@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-21T11:48Z",
+ "updated": "2026-10-21T17:14Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-10-21T11:48Z",
+ "lastRead": "2026-10-21T17:14Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -12,6 +12,39 @@
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-10-21T17:14Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update basic properties for Conditional Access policy plans"
+  },
+  {
+   "seen": "2026-10-21T17:14Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/create",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Create Conditional Access policy plans"
+  },
+  {
+   "seen": "2026-10-21T17:14Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/delete",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Delete Conditional Access policy plans"
+  },
   {
    "seen": "2026-10-21T11:48Z",
    "day": "2026-10-21",

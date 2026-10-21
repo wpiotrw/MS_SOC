@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-21T00:00Z",
+ "updated": "2026-10-21T17:15Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-10-21T00:00Z",
+ "lastRead": "2026-10-21T17:15Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -11,5 +11,72 @@
   "rsc": 60,
   "roles": 145
  },
- "events": []
+ "events": [
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update basic properties for Conditional Access policy plans"
+  },
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/create",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Create Conditional Access policy plans"
+  },
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "action",
+   "name": "microsoft.directory/conditionalAccessPolicyPlans/delete",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Delete Conditional Access policy plans"
+  },
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "role",
+   "name": "Conditional Access Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/conditionalAccessPolicyPlans/basic/update, microsoft.directory/conditionalAccessPolicyPlans/create, microsoft.directory/conditionalAccessPolicyPlans/delete",
+   "text": ""
+  },
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "role",
+   "name": "Global Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/conditionalAccessPolicyPlans/basic/update, microsoft.directory/conditionalAccessPolicyPlans/create, microsoft.directory/conditionalAccessPolicyPlans/delete",
+   "text": ""
+  },
+  {
+   "seen": "2026-10-21T17:15Z",
+   "day": "2026-10-21",
+   "surface": "role",
+   "name": "Security Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/conditionalAccessPolicyPlans/basic/update, microsoft.directory/conditionalAccessPolicyPlans/create, microsoft.directory/conditionalAccessPolicyPlans/delete",
+   "text": ""
+  }
+ ]
 }

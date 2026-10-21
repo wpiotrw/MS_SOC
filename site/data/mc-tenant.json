@@ -12559,25 +12559,26 @@
    "major": true,
    "actionBy": "2026-10-01",
    "start": "2026-09-09",
-   "end": "2026-11-09",
-   "modified": "2026-09-09",
+   "end": "2027-01-31",
+   "modified": "2026-10-21",
    "tags": [
     "Admin impact",
     "Retirement",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] This post is a reminder that Microsoft Publisher will reach end of life in October 2026. After October 1, 2026, Publisher will no longer be included with Microsoft 365 subscriptions, and Microsoft 365 subscribers will no longer be able to open or edit Publisher (.pub) files using Publisher. To focus on delivering new value across Microsoft 365, Microsoft periodically retires product…",
+   "summary": "Updated October 21, 2026: Publisher removal is rolling out through Office updates. Microsoft Publisher reached end of support in October 2026 and is being removed from Microsoft 365 Apps. The removal reaches each device through regular Office updates, so the timing depends on the update channel your organization uses. Each channel receives new builds on its own schedule. Devices on Current Channel…",
    "when": null,
    "prepare": null,
    "dates": [
-    "This post is a reminder that Microsoft Publisher will reach end of life in October 2026.",
-    "After October 1, 2026, Publisher will no longer be included with Microsoft 365 subscriptions, and Microsoft 365 subscribers will no longer be able to open or edit Publisher (.pub) files using Publisher.",
-    "Key dates: October 1, 2026: Publisher will no longer be available to Microsoft 365 subscribers.",
-    "October 13, 2026: Support for the perpetual version of Publisher will end when Office LTSC 2021 reaches end of support.",
-    "Organizations that store or maintain Publisher (.pub) files that may need to be accessed after October 1, 2026.",
-    "Users can continue using Publisher with its current functionality until October 1, 2026."
+    "Updated October 21, 2026: Publisher removal is rolling out through Office updates.",
+    "Microsoft Publisher reached end of support in October 2026 and is being removed from Microsoft 365 Apps.",
+    "What this means for your users: Some users may keep access to Publisher for a period after October 1, 2026, until their channel's update rolls out.",
+    "Rollout timing: Removal starts with Version 2611 (Build 16.0.20625.xxxxx): Current Channel: starting mid-November 2026.",
+    "Monthly Enterprise Channel: starting early December 2026.",
+    "This post is a reminder that Microsoft Publisher will reach end of life in October 2026."
    ],
-   "bodyHash": "2c264a5fe5baaa8e"
+   "bodyHash": "0cbba8bf19b9a26c"
   },
   {
    "id": "MC1469565",
@@ -15127,7 +15128,7 @@
   },
   {
    "id": "MC1480869",
-   "title": "Microsoft 365 settings enabled by default for newly created Engage communities",
+   "title": "(Updated) Microsoft 365 settings enabled by default for newly created Engage communities",
    "services": [
     "Microsoft Viva"
    ],
@@ -15136,19 +15137,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2026-10-30",
-   "modified": "2026-09-28",
+   "end": "2026-12-31",
+   "modified": "2026-10-21",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft Viva Engage is updating newly created Engage communities so Microsoft 365 group settings for community member calendar and email subscriptions are enabled by default. This change helps community members receive community emails and calendar invitations by default for newly created communities, supporting awareness and participation in new Engage communities. [Rollout Sche…",
+   "summary": "Updated October 21, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Viva Engage is updating newly created Engage communities so Microsoft 365 group settings for community member calendar and email subscriptions are enabled by default. This change helps community members receive community emails and calendar invitations by default for newly created communi…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Rollout will complete by mid-October 2026."
+    "Updated October 21, 2026: We have updated the timeline.",
+    "Rollout will complete by end of November 2026 (previously mid-October)."
    ],
-   "bodyHash": "8d24b127ba8d67be"
+   "bodyHash": "58eae00247bc2df7"
   },
   {
    "id": "MC1480870",
@@ -23428,6 +23431,66 @@
    "type": "removed",
    "title": "Microsoft Defender for Office 365: View approver details for remediation actions in Advanced Hunting",
    "fields": {}
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1469564",
+   "type": "changed",
+   "title": "Microsoft Publisher: Reminder that support ends in October 2026",
+   "fields": {
+    "end": [
+     "2026-11-09",
+     "2027-01-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Retirement",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Retirement",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "2c264a5fe5baaa8e",
+     "0cbba8bf19b9a26c"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-21",
+   "id": "MC1480869",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 settings enabled by default for newly created Engage communities",
+   "fields": {
+    "title": [
+     "Microsoft 365 settings enabled by default for newly created Engage communities",
+     "(Updated) Microsoft 365 settings enabled by default for newly created Engage communities"
+    ],
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "8d24b127ba8d67be",
+     "58eae00247bc2df7"
+    ]
+   }
   }
  ]
 }
