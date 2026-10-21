@@ -1,0 +1,21 @@
+// title: Tables whose ingestion dropped against their own 14-day baseline
+// date: 2026-10-21
+// product: Sentinel
+// tables: Usage
+// purpose: Daily billable and non-billable volume per table from the Usage table, last 14 full days; flags a table whose last full day fell below 30 percent of its median, or that stopped reporting. Usage is hourly with StartTime and EndTime, Quantity in MB. Columns from the Usage table reference cited beside 
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 21 Oct 2026 - Sentinel/Log Analytics tables whose ingestion dropped (pairs with Unified Data Management preview)
+// Columns as on the Usage table reference cited beside this query. Not run against a tenant in this pass.
+let lookback = 14d;
+let daily = Usage
+| where TimeGenerated > ago(lookback + 1d)
+| where StartTime >= startofday(ago(lookback)) and EndTime < startofday(now())
+| summarize MB = sum(Quantity) by DataType, Day = bin(StartTime, 1d);
+let lastDay = startofday(ago(1d));
+daily
+| summarize MedianMB = percentile(MB, 50), LastSeen = max(Day), LastDayMB = sumif(MB, Day == lastDay) by DataType
+| where LastSeen < lastDay or LastDayMB < 0.3 * MedianMB
+| extend Status = iff(LastSeen < lastDay, "stopped reporting", "dropped below 30% of median")
+| project DataType, Status, MedianMB = round(MedianMB, 2), LastDayMB = round(LastDayMB, 2), LastSeen
+| order by MedianMB desc

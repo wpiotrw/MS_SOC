@@ -1,5 +1,16 @@
 [
  {
+  "file": "2026-10-21-tables-whose-ingestion-dropped-against-their-own-14.kql",
+  "title": "Tables whose ingestion dropped against their own 14-day baseline",
+  "date": "2026-10-21",
+  "product": "Sentinel",
+  "tables": [
+   "Usage"
+  ],
+  "purpose": "Daily billable and non-billable volume per table from the Usage table, last 14 full days; flags a table whose last full day fell below 30 percent of its median, or that stopped reporting. Usage is hourly with StartTime and EndTime, Quantity in MB. Columns from the Usage table reference cited beside ",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage"
+ },
+ {
   "file": "2026-10-20-devices-defender-vulnerability-management-still-lists-for-cv.kql",
   "title": "Devices Defender Vulnerability Management still lists for CVE-2026-70197",
   "date": "2026-10-20",
@@ -8,7 +19,10 @@
    "DeviceTvmSoftwareVulnerabilities"
   ],
   "purpose": "Counts devices per .NET product and version that Defender Vulnerability Management lists for CVE-2026-70197, with the update it recommends. Read it as the exposure list to keep under compensating controls until Microsoft ships the complete mitigation; a device that drops off the list after the Octob",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table"
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table",
+  "reused": [
+   "2026-10-21"
+  ]
  },
  {
   "file": "2026-10-17-grants-of-the-twelve-newly-grantable-graph-permissions.kql",
@@ -23,7 +37,8 @@
   "reused": [
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -40,7 +55,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -55,7 +71,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -75,7 +92,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -95,7 +113,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -118,7 +137,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -142,7 +162,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -168,7 +189,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -194,7 +216,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -221,7 +244,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -248,7 +272,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -278,7 +303,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -311,7 +337,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -367,7 +394,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -403,7 +431,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
@@ -438,7 +467,8 @@
    "2026-10-17",
    "2026-10-18",
    "2026-10-19",
-   "2026-10-20"
+   "2026-10-20",
+   "2026-10-21"
   ]
  },
  {
