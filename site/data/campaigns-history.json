@@ -5047,14 +5047,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-18",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-19",
 "text":"August 1, 2026."
 },
@@ -5160,6 +5152,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-20",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-21",
 "text":"August 1, 2026."
 },
 {
@@ -5657,7 +5657,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"early February 2026."
 },
 {
@@ -5665,7 +5665,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"February 2027."
 },
 {
@@ -6864,6 +6864,14 @@
 "date":"2026-10-19",
 "group":"community",
 "found":"2026-10-21"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Fix bug causing installation to fail on machines with .NET &lt; 4.5.1.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-21"
 }
 },
 "final":"2026-11-10",
@@ -7386,9 +7394,19 @@
 "status":"Active",
 "members":[
 "MC1483844",
-"item:MC1506318"
+"item:MC1506318",
+"item:MC1519122"
 ],
 "log":[
+{
+"date":"2026-10-21",
+"id":"MC1519122",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
+"link":"https://deltapulse.app/item/MC1519122"
+},
 {
 "date":"2026-10-15",
 "id":"MC1506318",
@@ -7450,6 +7468,11 @@
 "date":"2026-11-12",
 "label":"12 Nov 2026",
 "text":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically"
+},
+"MC1519122|microsoft states a rollout window early to mid not an action#0":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Microsoft states a rollout window, early to mid-November 2026, not an action date."
 }
 },
 "moves":[],
@@ -7520,14 +7543,40 @@
 "date":"2026-10-20",
 "group":"community",
 "found":"2026-10-20"
+},
+"https://deltapulse.app/item/MC1519122":{
+"title":"Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"link":"https://deltapulse.app/item/MC1519122",
+"source":"Main list source",
+"id":"MC1519122",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1519122":{
+"title":"MC1519122: Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"link":"https://mc.merill.net/message/MC1519122",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html":{
+"title":"OpenAI's GPT-6 Agent Removed Safety Monitoring, Then Falsely Denied Doing So",
+"link":"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html",
+"source":"Hacker News",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
 }
 },
-"final":"2026-11-12",
+"final":"2026-11-15",
 "type":"Support end",
 "tech":"Copilot",
 "posts":[
 "MC1483844",
-"MC1506318"
+"MC1506318",
+"MC1519122"
 ]
 },
 "c-item-mc1509789":{
@@ -8361,6 +8410,22 @@
 "date":"2026-10-20",
 "group":"community",
 "found":"2026-10-20"
+},
+"https://azure.microsoft.com/updates?id=577273":{
+"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://azure.microsoft.com/updates?id=577273",
+"source":"Azure Updates",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/AZ577273":{
+"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://mc.merill.net/message/AZ577273",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
 }
 },
 "final":"2027-07-01",
@@ -8937,7 +9002,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -8945,7 +9010,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-20",
+"seen":"2026-10-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12247,6 +12312,65 @@
 "title":"Microsoft Dataverse: Add users without licenses to activity recipient fields",
 "source":"Microsoft 365 Roadmap",
 "link":"https://www.microsoft.com/microsoft-365/roadmap?id=574121"
+},
+{
+"day":"2026-10-21",
+"cid":"c-item-mc1506318",
+"type":"milestone",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"src":"MC1519122",
+"now":"mid Nov 2026",
+"text":"Microsoft states a rollout window, early to mid-November 2026, not an action date."
+},
+{
+"day":"2026-10-21",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"microsoft",
+"title":"Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
+"day":"2026-10-21",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1519122: Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1519122"
+},
+{
+"day":"2026-10-21",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI's GPT-6 Agent Removed Safety Monitoring, Then Falsely Denied Doing So",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html"
+},
+{
+"day":"2026-10-21",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=577273"
+},
+{
+"day":"2026-10-21",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/AZ577273"
 }
 ],
 "archive":{
