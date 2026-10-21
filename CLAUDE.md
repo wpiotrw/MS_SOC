@@ -46724,6 +46724,18 @@ zgloszony >14 dni przed oknem — nie jest nowym zdarzeniem); kafelek: status, l
 obszary, Microsoft, zrodla. Licznik naglowka: new bez „newly tracked", osobna liczba newly tracked; lista incydentow
 pokazuje NEWLY TRACKED zamiast NEW.
 
+**§5ex (22 X 01:28, wlasciciel):** *„wiekszosc na tej liscie to nie sa incydenty takie jak PHP2Shell albo ConnectWise;
+mielismy zbierac incydenty albo M365 / Entra, albo te, ktore wiaza sie ze srodowiskiem M365 cloud, bo zawieraja KQL
+do analizy i detekcji"*. Historia jest incydentem tylko, gdy ma zdarzenie (`EVENT`: CVE — takze z polpauza
+„CVE-2026–109618", nazwany aktor Storm-/Blizzard/Typhoon…, kampania, wlamanie, kompromitacja, wykorzystanie, kradziez,
+malware, phishing kit, supply chain…) i jej tytul nie jest wpisem produktowym, poradnikiem, technika huntingu ani
+playbookiem (`EDU`: Introducing, Integrated, Smarter, Stop…, Protecting…, Hunting…, Detecting… (bez CVE), schema,
+walkthrough, lab, recommendations, „(+ KQL…)"); historia spoza M365 musi miec zapytania Kusto. Nota kuratorowana
+zawsze zostaje. Zmierzone na danych z 22 X 01:33: 31 → 16 historii; zostaly m.in. ConnectWise, PHP2Shell (6 KQL),
+ARTEX (8 KQL), NeedyMantis (10 KQL), CVE-2026-73570 (7 KQL), EvilTokens; odpadly m.in. „Integrated Security Operations
+Center", „Building a CCF … Lab", „Hunting Invisible Unicode", „Threat Hunting with JA4", „CloudKeyVaultEvents … Schema",
+„Introducing Attack Path Management", playbooki. Ich zapytania zostaja w KQL library („From the community").
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna

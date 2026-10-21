@@ -69,6 +69,25 @@ M365SCOPE = ["entra", "azure ad", "azure active directory", "microsoft 365", "m3
              "onedrive", "teams", "outlook", "copilot", "intune", "purview", "oauth", "conditional access", "service principal",
              "microsoft graph", "graph api", "app registration", "enterprise app", "multi-tenant", "multitenant", "cross-tenant",
              "adfs", "ad fs", "entra connect", "passkey", "mfa", "device code", "aitm", "token theft", "consent phishing"]
+# CLAUDE.md 5ex (owner 22 X: "most of these are not incidents like PHP2Shell or ConnectWise - collect incidents about
+# M365 / Entra, or incidents elsewhere that relate to the M365 cloud through the KQL they give for analysis and
+# detection"): a STORY needs an event - a CVE, a named actor, or words of an attack that happened - and is not a
+# product post, a how-to, a hunting technique or a playbook; an "other" story also needs Kusto queries
+EVENT = re.compile(r"cve-\d{4}[-\u2013\u2014]\d+|\bstorm-\d+|\b\w+ (?:blizzard|typhoon|tempest|sleet|sandstorm|hail|dust|flood|cyclone|frost)\b|"
+                   r"campaign|breach|compromis|exploit|hijack|\babus(?:e|es|ed|ing)\b|\bst(?:eal|ole|olen)\b|ransomware|malware|"
+                   r"phishing kit|phishing-as-a-service|backdoor|zero-day|0-day|supply[- ]chain|intrusion|threat actor|in the wild|"
+                   r"exposed|leak|victims|attacked|attackers used|nation-state", re.I)
+EDU = re.compile(r"(?i)^(?:introducing|integrated|smarter|stop |protecting|the next frontier|building|how to|a guide|guide to|"
+                 r"threat hunting|hunting|detecting (?!cve)|before it|unlock|what's new|announcing)|\bplaybook\b|\bschema\b|"
+                 r"walkthrough|\blab\b|best practices|recommendations|what to watch|\(\+ ?kql|practical kql|kql queries")
+
+
+def incident_like(title, text):
+    if EDU.search(title) and not re.search(r"(?i)cve-\d{4}[-\u2013\u2014]\d+|\bstorm-\d+", title):
+        return False
+    return bool(EVENT.search(title + " " + text))
+
+
 KQL_PAGES = 25      # article pages read per run to look for Kusto queries the feed text does not carry
 KQL_KEEP = 365      # days a found query stays in site/data/kql-found.json
 STOP = set("""about above after again against also among another attack attacks attacker attackers azure being
@@ -357,6 +376,12 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         note = notes.get(k) or {}
         if not note and len(L) == 1 and L[0]["score"] < 6 and not L[0]["microsoft"] and not L[0].get("kql"):
             continue    # a single weak article is listed in Articles, it is not a story
+        txt = " ".join(a["title"] + " " + a.get("summary", "")[:600] for a in L)
+        scope = "m365" if note or any(has((" " + a["title"] + " " + a.get("summary", "")[:900] + " ").lower(), M365SCOPE) for a in L) else "other"
+        nkql = sum(a.get("kql") or 0 for a in L)
+        if not note and (not incident_like(L[-1]["title"] if len(L) == 1 else max(L, key=lambda a: a["score"])["title"], txt)
+                         or (scope == "other" and not nkql)):
+            continue    # 5ex: not an incident (or, outside M365, no query to run) - its articles stay in Articles
         names = {}
         for a in L:
             for n in a["names"]:
@@ -401,11 +426,11 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                           "checked": "Microsoft Threat Intelligence, Microsoft Security Blog, Microsoft Incident Response, MSRC Security Update Guide, Message Center (mc.merill.net, 60 days)"},
             "score": max(a["score"] for a in L) + 2 * len({a["source"] for a in L}) + (6 if note else 0),
             "articlesBefore": len(ps.get("articles") or []) if ps else 0,
-            "kql": sum(a.get("kql") or 0 for a in L),
+            "kql": nkql,
             # CLAUDE.md 5ew (owner 22 X: "Microsoft 365 / Entra / Teams first, then the others - they are another kind and
             # have KQL"): m365 = the story is about Entra or a Microsoft 365 workload; other = anything else (a PHP flaw,
             # a GitHub enumeration) kept for its hunting queries
-            "scope": "m365" if note or any(has((" " + a["title"] + " " + a.get("summary", "")[:900] + " ").lower(), M365SCOPE) for a in L) else "other",
+            "scope": scope,
             # the curated text travels with the story, so the page reads one file
             "notes": {k: v for k, v in note.items() if k not in ("id", "match", "title", "areas", "microsoft")} if note else None,
         })
