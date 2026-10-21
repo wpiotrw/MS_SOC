@@ -26630,7 +26630,8 @@ IdentityDirectoryEvents
     ca.appendChild(au);
     /* §5eu: the analysis's own queries, then the ones the sources published (author and link), one card */
     var own = (N && N.kql) || [], ids = {}; s.articles.forEach(function (x) { ids[x] = 1; });
-    var fromSrc = KQF.filter(function (q) { return q.story === s.id || ids[q.article]; });
+    var fromSrc = KQF.filter(function (q) { return q.story === s.id || ids[q.article]; })
+      .sort(function (a, b) { return String(a.article).localeCompare(String(b.article)) || (a.pos || 0) - (b.pos || 0) || String(a.title).localeCompare(String(b.title)); });   /* the article's own order */
     if (own.length || fromSrc.length) {
       var ck = card(d, "Hunting queries (KQL)", (own.length + fromSrc.length) + " · copy into Sentinel or Defender Advanced hunting", "s5et-wide");
       function kq(q, by) {
