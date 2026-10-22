@@ -1,55 +1,18 @@
 {
- "read": "2026-10-21T11:49Z",
+ "read": "2026-10-22T07:18Z",
  "source": "Entra-Rolelens (another tenant, daily)",
  "sourceLabel": "Entra-Rolelens (another tenant, daily)",
  "sourceNote": "public repository: Entra-Rolelens (another tenant, daily)",
  "thereRead": null,
- "ourRead": "2026-10-21T11:48Z",
+ "ourRead": "2026-10-21T17:14Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 145,
-  "rolesDiffering": 3,
+  "rolesDiffering": 0,
   "thereOnly": 0,
-  "oursOnly": 9
+  "oursOnly": 0
  },
- "roles": {
-  "Conditional Access Administrator": {
-   "templateId": "b1be1c3e-b65d-4f19-8427-f6fa0d97feb9",
-   "there": [],
-   "ours": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "firstNoticed": {},
-   "thereVersion": null,
-   "thereSince": null
-  },
-  "Global Administrator": {
-   "templateId": "62e90394-69f5-4237-9190-012177145e10",
-   "there": [],
-   "ours": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "firstNoticed": {},
-   "thereVersion": null,
-   "thereSince": null
-  },
-  "Security Administrator": {
-   "templateId": "194ae4cb-b126-40b2-bd5b-6091b380977d",
-   "there": [],
-   "ours": [
-    "microsoft.directory/conditionalAccessPolicyPlans/basic/update",
-    "microsoft.directory/conditionalAccessPolicyPlans/create",
-    "microsoft.directory/conditionalAccessPolicyPlans/delete"
-   ],
-   "firstNoticed": {},
-   "thereVersion": null,
-   "thereSince": null
-  }
- },
+ "roles": {},
  "events": [],
  "permsThereOnly": [],
  "permsFirst": {},
