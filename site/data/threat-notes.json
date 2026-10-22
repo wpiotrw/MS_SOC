@@ -300,6 +300,123 @@
      "date": "2026-09-23"
     }
    ]
+  },
+  {
+   "id": "storm-0940-artex-connectwise-2026-10",
+   "title": "Storm-0940 and the ARTEX AI framework: Microsoft ties the ConnectWise Cloud Backup compromise to a China-aligned actor",
+   "match": [
+    "Storm-0940",
+    "ARTEX"
+   ],
+   "areas": [
+    "Apps & OAuth",
+    "Roles & privilege",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-10-22",
+   "by": "morning routine",
+   "summary": "On 21 October Microsoft Threat Intelligence published its analysis of a large, AI-automated campaign by Storm-0940, which it describes as a China-state aligned actor active since 2021, using the open-source ARTEX penetration-testing framework. Microsoft says it assesses that Storm-0940 was responsible for the ConnectWise supply-chain compromise of the multi-tenant Cloud Backup application, and that the actor reached privileged cloud access in some cases less than three hours after first targeting. After taking control of ConnectWise application identities, the actor signed in to more than 2,250 downstream tenants through applications those customers had already trusted, and in some tenants moved on to Graph reconnaissance, credential additions to applications and privileged role changes, including one application that gave itself Global Administrator. Microsoft states this was not caused by a vulnerability in or compromise of Microsoft systems, and that a sign-in does not by itself prove data was accessed. The page does not say how the ConnectWise identities were first compromised.",
+   "timeline": [
+    {
+     "date": "2026-10-10",
+     "text": "Password-spray campaign starts from 144.172.64[.]99 against 327 accounts in eight organizations (10-14 Oct); about 151,000 failed logons, peak 2,900 failures per minute on 11 Oct.",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-10-15",
+     "text": "Public reports of the ConnectWise compromise appear, citing IOCs in the same network range.",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-10-16",
+     "text": "ConnectWise publishes an initial advisory, later expanded; one of its IPs matches 144.172.64[.]99.",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-10-21",
+     "text": "Microsoft publishes the attribution and the hunting and detection guidance.",
+     "src": "Microsoft Security blog"
+    }
+   ],
+   "rootCause": "Microsoft names no software vulnerability. The contributing factors it lists are compromised multi-tenant application identities holding high privileges, the trust and consent customers had already granted to those applications, password spraying against Microsoft 365 accounts, and machine-speed automation. It does not describe how the ConnectWise identities were initially compromised.",
+   "attacker": [
+    "Used ARTEX, a multi-agent LLM framework that can run autonomous tests from reconnaissance to data exfiltration, to speed up targeting.",
+    "Ran a cross-tenant password spray against Microsoft 365 and Exchange Online (10-14 Oct).",
+    "Took control of identities of several ConnectWise cloud applications and used them to authenticate to customer tenants without interactive user sign-in (about 2,900 attempts per minute).",
+    "In some tenants: Graph and directory reconnaissance, application credential changes for persistence, changes to identities, groups and privileged roles; one application self-assigned Global Administrator (T1098.003).",
+    "Microsoft notes that backdoor credentials added to applications can survive remediation of the compromised application."
+   ],
+   "iocs": [
+    "IP 144.172.64[.]128 (app sign-ins and Graph activity)",
+    "IP 144.172.64[.]99 (password spray; matches a ConnectWise advisory IP)",
+    "IP 144.172.64[.]60 (sign-ins and Graph activity)",
+    "VPN IPs 187.15.88[.]186, 187.15.90[.]217, 187.15.89[.]186 (transient, relevant for 15-16 Oct)",
+    "User agents Python-urllib/3.12, python-requests/2.31.0, python-requests/2.34.2, curl/7.88.1, azure-toolkit/1.0",
+    "ConnectWise application IDs 506e08f9-6e9a-4da4-942b-a099a03644ae (Cloud Backup), 24205314-2b89-4e07-a2a4-579e898a5640 (MS Teams), 0de14c77-b9b0-4137-9360-34878a929827 (MS Graph)"
+   ],
+   "remediation": [
+    {
+     "text": "Keep the affected ConnectWise application connections disabled until ConnectWise gives formal restoration instructions; do not delete the enterprise applications first, preserve configuration and evidence.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Inventory the application IDs above and record the local service principal object IDs in each tenant; search by application ID, not display name.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Preserve Entra sign-in and audit logs, Purview Audit records and Graph telemetry; review service-principal sign-ins from at least 15 Oct, extended to 1 Oct, successes and failures separately and not only the published IPs.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Review Entra audit records for credential additions, new apps, service principals or owners, app-role assignments, consent grants, privileged role assignments and changes to authentication methods or Conditional Access; review mailbox forwarding, inbox and transport rules and delegate permissions.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "After preserving evidence, have an authorized responder remove confirmed unauthorized credentials, grants, owners, assignments and identities, revoke unneeded permissions and rotate credentials.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "Apply least privilege to multi-tenant application permissions and consent grants; alert on credential additions, privileged role assignment and anomalous app-only activity.",
+     "from": "source",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "text": "An empty hunting result is not proof of no access: Microsoft says so explicitly, so check the audit trail as well.",
+     "from": "ours"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Service-principal sign-ins from the published IPs and user agents (Defender XDR advanced hunting)",
+     "query": "// Schema: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table\nlet badIPs = dynamic([\"144.172.64.128\",\"144.172.64.99\",\"144.172.64.60\",\"187.15.88.186\",\"187.15.90.217\",\"187.15.89.186\"]);\nlet badApps = dynamic([\"506e08f9-6e9a-4da4-942b-a099a03644ae\",\"24205314-2b89-4e07-a2a4-579e898a5640\",\"0de14c77-b9b0-4137-9360-34878a929827\"]);\nEntraIdSpnSignInEvents\n| where Timestamp >= datetime(2026-10-01)\n| where IPAddress in (badIPs) or ApplicationId in (badApps) or UserAgent has_any (\"Python-urllib/3.12\",\"python-requests/2.31.0\",\"python-requests/2.34.2\",\"curl/7.88.1\",\"azure-toolkit/1.0\")\n| summarize Attempts=count(), Failures=countif(ErrorCode != 0), FirstSeen=min(Timestamp), LastSeen=max(Timestamp) by ServicePrincipalName, ApplicationId, IPAddress, UserAgent\n| order by LastSeen desc"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with attribution, IOCs, detections and hunting guidance",
+     "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+     "date": "2026-10-21"
+    }
+   ],
+   "links": [
+    {
+     "text": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+     "date": "2026-10-21"
+    },
+    {
+     "text": "EntraIdSpnSignInEvents table reference",
+     "url": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table",
+     "date": "2026-10-22"
+    }
+   ]
   }
  ]
 }
