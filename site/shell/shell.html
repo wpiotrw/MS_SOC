@@ -2595,6 +2595,24 @@ html:not(.s5ready) header .counts,html:not(.s5ready) header .kpi5,html:not(.s5re
 .s5bn-n.s5bn-changed{color:var(--warn);background:var(--warn-soft);border-color:transparent}
 .s5bn-n.s5bn-removed{color:var(--bad);background:var(--bad-soft);border-color:transparent}
 .s5bn-n.zero{color:var(--muted);background:transparent;border-color:var(--border)}
+/* §5ev: status counts are filters; groups by status */
+.s5ev-pill{cursor:pointer;user-select:none}
+.tabpanel > .s5bn.s5ev-show,body .tabpanel.s5ci-on:not(.s5ci-full) > div.s5bn.s5ev-show.s5ev-show.s5ev-show.s5ev-show{display:block!important}
+.s5ev-pill:hover,.s5ev-pill:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.s5ev-pill[aria-pressed="true"]{outline:2px solid var(--accent);background:var(--accent-soft)!important}
+.s5ev-gh{list-style:none;display:flex;align-items:center;gap:8px;margin:10px 0 4px;font-size:12px;font-weight:700;color:var(--muted)}
+.s5do-grid>.s5ev-gh{grid-column:1/-1;margin:6px 0 0}
+.s5ev-gh-added .s5bn-k{color:var(--ok)}.s5ev-gh-changed .s5bn-k{color:var(--warn)}.s5ev-gh-removed .s5bn-k{color:var(--bad)}
+.s5bn[data-kf="added"] .s5bn-r:not(.s5bn-added),.s5bn[data-kf="changed"] .s5bn-r:not(.s5bn-changed),.s5bn[data-kf="removed"] .s5bn-r:not(.s5bn-removed),
+.s5bn[data-kf="added"] .s5do-tile:not(.s5do-added),.s5bn[data-kf="changed"] .s5do-tile:not(.s5do-changed),.s5bn[data-kf="removed"] .s5do-tile:not(.s5do-removed),
+.s5bn[data-kf="added"] .s5ev-gh:not(.s5ev-gh-added),.s5bn[data-kf="changed"] .s5ev-gh:not(.s5ev-gh-changed),.s5bn[data-kf="removed"] .s5ev-gh:not(.s5ev-gh-removed),
+details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-kf="chg"] .s5ei-tile.s5ei-new{display:none!important}
+.s5ei-n.s5ev-pill{padding:1px 8px;border-radius:999px;border:1px solid currentColor}
+/* §5et: a quiet brief shows what was found last, under its own date */
+.s5bn-lastl{margin:8px 0 6px;padding:8px 12px;border:1px dashed var(--border);border-radius:10px;font-size:13px;color:var(--muted)}
+.s5bn-lastl b{color:var(--text)}
+.s5ed-lastl{margin:4px 14px 6px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.s5ca-lastb{font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .s5bn-l{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
 .s5bn-r{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:13px;line-height:1.45;min-width:0}
 .s5bn-k{flex:0 0 auto;font:700 10.5px/1.6 var(--sans);letter-spacing:.06em;padding:0 6px;border-radius:4px}
@@ -3273,6 +3291,28 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5bk-gt{font-size:12px;color:var(--faint)}
 .s5bk-gd{display:block}
 .s5bk-gf{font-size:12px;color:var(--faint);font-style:italic}
+/* §5er: Identity surface - one rounded box per surface; its number is the list under it */
+.s5er-wrap{display:flex;flex-direction:column;gap:8px}
+.s5er-t{font-weight:650;font-size:15.5px;line-height:1.35;color:var(--text)}
+.s5er-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px}
+.s5er-box{display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+.s5er-hot{border-color:var(--accent)}
+.s5er-bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;background:none;border:0;padding:0 0 6px;margin:0;border-bottom:1px solid var(--border-soft);font:inherit;color:var(--text);text-align:left;cursor:pointer}
+.s5er-lab{flex:1 1 100%;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.s5er-n{font-size:26px;font-weight:700;line-height:1.05;color:var(--muted)}
+.s5er-hot .s5er-n{color:var(--accent)}
+.s5er-sub{font-size:12px;color:var(--muted)}
+.s5er-bh:hover .s5er-lab,.s5er-bh:focus-visible .s5er-lab{color:var(--accent)}
+.s5er-l{display:flex;flex-direction:column;gap:6px}
+.s5er-r{display:flex;flex-direction:column;gap:1px;min-width:0}
+.s5er-nms{display:flex;flex-wrap:wrap;gap:0 12px}
+.s5er-nm{font:600 13px/1.35 var(--mono);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer;overflow-wrap:anywhere}
+.s5er-nm:hover,.s5er-nm:focus-visible{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.s5er-w{font-size:12.5px;line-height:1.45;color:var(--muted);overflow-wrap:anywhere}
+.s5er-none{font-size:13px;color:var(--muted)}
+.s5er-more{align-self:flex-start;background:none;border:0;padding:0;font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);cursor:pointer}
+.s5er-wh{margin-top:4px;padding-top:6px;border-top:1px dashed var(--border);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.s5er-old .s5er-nm{font-weight:500;color:var(--muted)}
 /* §5cu: Campaigns — list, card, Overview card (layout A: text colour for names, accent arrow for links,
    red only within 7 days, amber only within 30) */
 .s5cu{display:flex;flex-direction:column;gap:14px;font-size:13.5px;color:var(--text)}
@@ -3380,6 +3420,14 @@ ol.s5cu-todo li+li{margin-top:6px}
 .s5cu-ovn::after{content:"\00a0\2192";color:var(--accent)}
 .s5cu-ovn:hover{text-decoration:underline;text-underline-offset:3px}
 .s5cu-ovw{display:block;font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+/* §5es: the Campaigns sentence on Overview - one row per milestone */
+.s5es-rows{display:flex;flex-direction:column;margin-top:6px}
+.s5es-row{grid-template-columns:78px minmax(0,1fr) auto}
+.s5es-foot{margin-top:6px;font-size:12.5px;color:var(--muted)}
+.s5es-row .s5cu-d{display:inline-block;padding:1px 7px;border-radius:6px;background:var(--surface-2)}
+.s5es-row .s5cu-d.r{background:var(--bad-soft)}.s5es-row .s5cu-d.a{background:var(--warn-soft)}
+@media (max-width:600px){.s5es-row{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"d w" "m m";row-gap:4px;align-items:center}
+ .s5es-row>.s5cu-d{grid-area:d}.s5es-row>.s5cu-ovd{grid-area:w;font-size:12.5px;color:var(--muted)}.s5es-row>span:nth-child(2){grid-area:m}}
 .s5cu-ovd{font-size:12.5px;color:var(--muted);white-space:nowrap}
 @media (max-width:900px){
   .s5cu-row{grid-template-columns:minmax(0,1fr) auto;row-gap:5px}
@@ -4051,6 +4099,12 @@ li.s5dq-h{list-style:none}
 .s5dr-lead,.s5dr-note,.s5dr-what{font-size:13.5px;color:var(--muted);line-height:1.5;margin:6px 0 10px}
 .s5dr-what{color:var(--text);padding:8px 12px;border-left:3px solid var(--accent);background:var(--bg);border-radius:6px}
 .s5dr-chg{font-size:13px;margin:4px 0 10px}
+/* §5es: a list that was one run-on line */
+.s5es-ul{margin:4px 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.s5es-ul li{line-height:1.45;overflow-wrap:anywhere}
+.s5es-lead{display:block;font-weight:600}
+ins .s5es-ul,del .s5es-ul{padding-left:16px}
+.s5es-add{color:var(--ok)}.s5es-rem{color:var(--bad)}.s5es-more{list-style:none;color:var(--muted)}
 .s5dr-tw{overflow-x:auto}
 .s5dr-t{width:100%;border-collapse:collapse;font-size:13.5px}
 .s5dr-t th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:7px 8px;border-bottom:1px solid var(--border)}
@@ -4463,6 +4517,7 @@ details.s5ei-day.s5ei-f0{opacity:.72}
 .s5em-go{font:600 13px/1.3 var(--sans);color:var(--on-accent);background:var(--ok);border:1px solid var(--ok);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left;max-width:100%;overflow-wrap:anywhere}
 .s5em-none{margin:6px 0 10px;color:var(--muted);font-size:13px}
 .s5em-none[hidden]{display:none}
+.s5eo{margin:0 0 12px}
 .s5em-cnote{margin:0 0 8px;padding:0 4px;font-size:13px;font-weight:600;color:var(--ok)}
 .s5em-cnote[hidden],.jtile[hidden]{display:none}
 .kq[hidden],.s5el-row[hidden]{display:none}
@@ -4498,8 +4553,27 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-why{margin:0 14px 8px;font-size:13px;color:var(--muted);line-height:1.45}
 .s5el-np{color:var(--muted)}
 .s5ei-tile.s5el-tpre{border-left:4px solid var(--border)}
+/* §5ew: Threat Research day block - two framed groups, tiles that stand out */
+.s5ew-grp{margin:4px 14px 14px;padding:12px 14px 14px;border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:14px;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.s5ew-grp.s5ew-other{border-left-color:var(--muted)}
+.s5ew-gh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.s5ew-gt{font-size:16px;font-weight:700;color:var(--text);margin-right:4px}
+.s5ew-c{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid var(--border);color:var(--muted)}
+.s5ew-c-active{color:var(--bad);border-color:var(--bad)}.s5ew-c-new,.s5ew-c-lastnew{color:var(--accent);border-color:var(--accent)}.s5ew-c-upd,.s5ew-c-lastupd{color:var(--warn);border-color:var(--warn)}
+.s5ew-gs{margin:4px 0 10px;font-size:12.5px;color:var(--muted)}
+.s5ew-grid{padding:0;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.s5ew-tile{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 13px 11px;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.s5ew-tile .s5ei-tt{font-size:14px;font-weight:700}
+.s5ew-tile.s5ew-act{border-left:5px solid var(--bad);background:color-mix(in srgb,var(--bad) 6%,var(--bg))}
+.s5ew-act .s5ei-kind{color:var(--bad);border-color:var(--bad)}
+.s5ew-tile.s5ew-late{border-left-color:var(--muted)}.s5ew-late .s5ei-kind{color:var(--muted);border-color:var(--border)}
+.s5ew-kql{color:var(--ok);border-color:var(--ok)}
+.s5ew-sum{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--text)}
+.s5ew-last{margin:8px 14px 2px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.s5ew-all{margin-top:10px}
+@media (max-width:760px){.s5ew-grp{margin:4px 0 12px;padding:10px 8px 10px 10px}.s5ew-grid{grid-template-columns:minmax(0,1fr)}}
 .s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:92px minmax(0,1fr) 96px 96px 96px 70px 18px;gap:10px;align-items:center;padding:8px 12px}
+.s5el-rhead,.s5el-rh{display:grid;grid-template-columns:24px 112px minmax(0,1fr) 96px 96px 96px 70px;gap:10px;align-items:center;padding:8px 12px}
 .s5el-rhead{background:var(--surface);font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
 .s5el-row{border-bottom:1px solid var(--border);border-left:4px solid transparent;min-width:0}
 .s5el-row:last-child{border-bottom:0}
@@ -4559,6 +4633,65 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
  .s5el-facts dd{margin-bottom:6px}
 }
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+/* §5eu: the KQL library on Hunting & actions */
+.s5eu-seg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.s5eu-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
+.s5eu-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
+.s5eu-list{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.s5eu-rh{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:8px 12px;font:inherit;font-size:13px;color:var(--text);background:none;border:0;text-align:left;cursor:pointer}
+.s5eu-rh:hover{background:var(--accent-soft)}
+.s5eu-mid{display:flex;flex-direction:column;gap:2px;min-width:0}
+.s5eu-k{white-space:nowrap}.s5eu-k.s5eu-brief{color:var(--accent);border-color:var(--accent)}.s5eu-k.s5eu-incident-note{color:var(--bad);border-color:var(--bad)}
+.s5eu-k.s5eu-article{color:var(--warn);border-color:var(--warn)}.s5eu-k.s5eu-repo{color:var(--ok);border-color:var(--ok)}
+.s5eu-det{padding:8px 14px 14px 46px;border-top:1px solid var(--border);background:var(--bg)}
+.s5eu-p{margin:0 0 6px;font-size:13px}
+.s5eu-links{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 6px;font-size:12.5px}
+.s5eu-by{margin:0 0 4px}
+@media (max-width:760px){.s5eu-rh{grid-template-columns:24px minmax(0,1fr)}.s5eu-k{grid-column:2;justify-self:start}.s5eu-det{padding:8px 8px 12px}}
+/* §5et: incident rows say they open; the analysis as rounded cards */
+.s5et-tg{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font-weight:700;font-size:14px;line-height:1}
+.s5el-row.open .s5et-tg{background:var(--accent);color:var(--on-accent,#fff)}
+.s5el-st.s5et-active{color:var(--bad);border-color:var(--bad)}.s5el-st.s5et-contained{color:var(--warn);border-color:var(--warn)}.s5el-st.s5et-resolved{color:var(--ok);border-color:var(--ok)}
+.s5el-st.none{border-color:var(--border);border-style:dashed}
+.s5ei-flag.s5et-stat{text-transform:capitalize}.s5ei-flag.s5et-active{color:var(--bad)}.s5ei-flag.s5et-contained{color:var(--warn)}.s5ei-flag.s5et-resolved{color:var(--ok)}
+.s5el-det{padding:14px 16px 18px;background:var(--bg)}
+.s5el-det>*{max-width:none}
+.s5et-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:0 0 12px}
+.s5et-fact{display:flex;flex-direction:column;gap:2px;padding:8px 11px;border:1px solid var(--border);border-radius:10px;background:var(--surface);min-width:0}
+.s5et-fk{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.s5et-fv{font-size:13px;font-weight:600;color:var(--text);overflow-wrap:anywhere}
+.s5et-fact.s5et-active .s5et-fv,.s5et-fact.s5et-warn .s5et-fv{color:var(--warn)}.s5et-fact.s5et-active{border-left:4px solid var(--bad)}
+.s5et-fact.s5et-ok .s5et-fv,.s5et-fact.s5et-resolved .s5et-fv{color:var(--ok)}
+.s5et-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;align-items:start}
+.s5et-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.s5et-card{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:12px 14px;min-width:0;margin:0!important}
+.s5et-cols{margin-top:0}
+.s5et-card.s5et-act{border-left:4px solid var(--accent)}
+.s5et-card.s5et-wide{margin-top:12px}
+.s5et-ch{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 8px;font-size:14.5px;font-weight:700;color:var(--text)}
+.s5et-cs{font-size:12px;font-weight:500;color:var(--muted)}
+.s5et-card p{margin:0 0 6px;line-height:1.55}
+.s5et-tl{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:9px}
+.s5et-tl li{position:relative;display:flex;flex-direction:column;gap:1px}
+.s5et-tl li::before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+.s5et-td{font-size:12px;font-weight:700;color:var(--accent)}
+.s5et-tt{font-size:13.5px;line-height:1.5}
+.s5et-tsrc,.s5et-src{font-size:11.5px;color:var(--muted)}
+.s5et-src{display:inline-block;margin-left:4px;padding:0 6px;border:1px solid var(--border);border-radius:999px}
+.s5et-ioc{padding:8px 10px 8px 26px;border-radius:8px;background:var(--bg)}
+.s5et-note{font-size:12.5px;color:var(--muted)}
+.s5et-pg{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.s5et-pgl{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.s5et-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s5et-links li{display:flex;flex-direction:column;gap:1px;overflow-wrap:anywhere}
+.s5et-links a{font-weight:600;white-space:normal!important;overflow-wrap:anywhere;word-break:break-word;min-width:0;max-width:100%}
+.s5et-links li>*{min-width:0;max-width:100%}
+@media (max-width:1100px){.s5et-cols{grid-template-columns:minmax(0,1fr)}}
+/* §5et: on a phone the incident list had four nested frames (366 → 256 px of text); the frames give the width back */
+@media (max-width:760px){#tab-threats .ntbody{margin-left:0;margin-right:0;padding-left:4px;padding-right:4px}
+ #tab-threats details.s5el-box{padding-left:6px;padding-right:6px}#tab-threats .s5el-rows{margin-left:0;margin-right:0}
+ #tab-threats .s5el-rh{padding:8px 6px;column-gap:8px}.s5et-card{padding:10px 10px}.s5et-facts{gap:6px}.s5et-fact{padding:6px 8px}}
+@media (max-width:900px){.s5el-rh{grid-template-columns:24px minmax(0,1fr)!important}.s5el-rh .s5et-tg{grid-row:1/span 2;align-self:start}.s5el-rh .s5el-c1,.s5el-rh .s5el-c2{grid-column:2}.s5et-tg0{display:none}.s5el-det{padding:10px 8px 14px}.s5et-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .s5el-q{flex:1 1 200px;min-width:0;font:inherit;font-size:13px;padding:6px 10px;border:1px solid var(--ok);border-radius:8px;background:var(--bg);color:var(--text)}
 .s5el-sel{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);max-width:100%}
 .s5el-cnt{font-size:12px;color:var(--muted)}
@@ -4571,6 +4704,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-past{color:var(--bad);font-weight:600}
 .s5el-soon{color:var(--warn);font-weight:600}
 @media (max-width:760px){.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
+
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -7415,7 +7549,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 21 October 2026</b> &middot; published 16:55 Warsaw &middot; 7 &ndash; 21 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>45</b> deadlines in 60 days<span>&middot; 42 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>98</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>61</b> changes since 20 Oct<span>&middot; 24 at Microsoft, 37 in this report</span></a><a class="count" href="#chg14"><b>2623</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 22 October 2026</b> &middot; published 06:45 Warsaw &middot; 8 October &ndash; 22 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>46</b> deadlines in 60 days<span>&middot; 43 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>100</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>25</b> changes since 21 Oct<span>&middot; 9 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>2782</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7616,7 +7750,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 21 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 22 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.

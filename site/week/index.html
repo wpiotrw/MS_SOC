@@ -1,379 +1,59 @@
-<!DOCTYPE html>
-<html lang="en" data-changes-app="1">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What changed — Microsoft SOC Brief</title>
-<meta name="description" content="What moved in the Microsoft SOC Brief since the previous brief and in the last 7 days, tab by tab.">
-<link rel="icon" href="../assets/favicon-64.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- CLAUDE.md 5eq (21 X 2026): the "What changed" page. Built by tools/changes_page.py from tools/changes_app.html; data from
-     data/changes-7d.json. Same look as the brief: tabs in the brief's order with + ~ − in the rail, tiles first, tables folded. -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft SOC · week 2026-10-16 → 2026-10-22</title>
+<link rel="icon" type="image/png" href="../assets/favicon-64.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - all" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Entra ID" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-entra.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Intune" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-intune.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Defender and Sentinel" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-defender.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Purview" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-purview.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Exchange Online" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-exchange.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Windows" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-windows.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Azure" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-azure.xml">
+<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - Copilot" href="https://orange-ground-019f30603.7.azurestaticapps.net/feed-copilot.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The week in Microsoft security changes, 2026-10-16 to 2026-10-22", "author": [{"@type": "Person", "name": "Piotr Wiśniewski"}], "datePublished": "2026-10-22"}</script>
 <style>
-:root{--bg:#f2f4f7;--surface:#fff;--surface-2:#e9edf3;--border:#ccd4de;--border-soft:#e2e7ee;--text:#111721;--muted:#4e5867;--faint:#78838f;
- --accent:#14479e;--accent-soft:#e2eafb;--ok:#0d6236;--ok-soft:#dbf0e3;--warn:#7d4d00;--warn-soft:#fceece;--bad:#9c1f1b;--bad-soft:#fbdedc;
- --ins-bg:#d7f0de;--ins-fg:#0d5c31;--del-bg:#fbdcda;--del-fg:#96201c;--code-bg:#eaeef4;--on-accent:#fff;
- --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1116;--surface:#161b22;--surface-2:#1e242d;--border:#2f3846;--border-soft:#222933;--text:#e8ecf1;--muted:#9fa9b6;--faint:#78838f;
- --accent:#7fabf7;--accent-soft:#182a48;--ok:#63d495;--ok-soft:#0f3323;--warn:#efba60;--warn-soft:#382a0d;--bad:#f4867f;--bad-soft:#401718;--ins-bg:#123a24;--ins-fg:#79e0a5;--del-bg:#3f1618;--del-fg:#f79b95;--code-bg:#11151b;--on-accent:#0d1116}}
-:root[data-theme="dark"]{--bg:#0d1116;--surface:#161b22;--surface-2:#1e242d;--border:#2f3846;--border-soft:#222933;--text:#e8ecf1;--muted:#9fa9b6;--faint:#78838f;
- --accent:#7fabf7;--accent-soft:#182a48;--ok:#63d495;--ok-soft:#0f3323;--warn:#efba60;--warn-soft:#382a0d;--bad:#f4867f;--bad-soft:#401718;--ins-bg:#123a24;--ins-fg:#79e0a5;--del-bg:#3f1618;--del-fg:#f79b95;--code-bg:#11151b;--on-accent:#0d1116}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-button{font:inherit}
-header.top{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;position:sticky;top:0;z-index:30}
-.hrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
-.logo{width:44px;height:44px;border-radius:10px;object-fit:cover}
-h1{font-size:21px;margin:0}
-.sub{color:var(--muted);font-size:13px}
-.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:var(--surface)}
-.seg button{border:0;background:none;padding:6px 14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
-.hlinks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin-left:auto}
-.tbtn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px}
-.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
-.q{flex:1 1 260px;min-width:0;font:inherit;font-size:14px;padding:8px 12px;border:2px solid var(--ok);border-radius:10px;background:var(--surface);color:var(--text)}
-.chips{display:flex;flex-wrap:wrap;gap:5px}
-.chip{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer}
-.chip b{color:var(--muted);font-weight:600;margin-left:4px}
-.chip[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:600}
-.morechips{font:inherit;font-size:12.5px;border:1px solid var(--border);border-radius:999px;padding:4px 8px;background:var(--surface);color:var(--text)}
-.banner{display:none;margin-top:10px;padding:8px 12px;border:2px solid var(--ok);border-radius:10px;background:var(--ok-soft);color:var(--ok);font-size:13.5px;align-items:center;gap:8px 12px;flex-wrap:wrap}
-.banner.on{display:flex}.banner .clr{margin-left:auto;background:var(--ok);color:var(--on-accent);border:0;border-radius:7px;padding:5px 12px;font-weight:600;cursor:pointer}
-.banner .tabhit{border:1px solid var(--ok);background:var(--surface);color:var(--ok);border-radius:999px;padding:2px 9px;font-size:12.5px;cursor:pointer}
-.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1700px;margin:0 auto}
-nav.rail{position:sticky;top:var(--hh,120px);align-self:start;max-height:calc(100vh - var(--hh,120px));overflow:auto;padding:14px 10px;border-right:1px solid var(--border)}
-.rl{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:4px 8px 6px}
-.rl span:last-child{display:inline-flex;gap:8px}.rl span:last-child i{font-style:normal;min-width:24px;text-align:right}
-.ri{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:7px 10px;margin:4px 0;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);cursor:pointer;text-align:left;font-size:13.5px}
-.ri:hover{border-color:var(--accent)}.ri[aria-current="page"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
-.ks{display:inline-flex;gap:8px;font-weight:700;font-size:12.5px;font-variant-numeric:tabular-nums}.k{min-width:24px;text-align:right;color:var(--faint);font-weight:500}
-.k.a{color:var(--ok);font-weight:700}.k.c{color:var(--warn);font-weight:700}.k.r{color:var(--bad);font-weight:700}
-.jump{display:none}
-main{padding:18px 22px 80px;min-width:0}
-.panel[hidden]{display:none}
-.ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 6px}.ph h2{margin:0;font-size:23px}
-.n{font-weight:700;font-size:13.5px}
-.nb{font:inherit;font-weight:700;font-size:13px;border:1px solid currentColor;border-radius:999px;padding:2px 10px;background:none;cursor:pointer}
-.nb:disabled{opacity:.45;cursor:default}.nb[aria-pressed="true"]{color:var(--on-accent)!important}
-.nb.a[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}.nb.c[aria-pressed="true"]{background:var(--warn);border-color:var(--warn)}.nb.r[aria-pressed="true"]{background:var(--bad);border-color:var(--bad)}
-.kh{display:flex;align-items:center;gap:8px;margin:4px 14px 8px;font-size:13px}.khn{font-weight:700;color:var(--muted)}
-.kh-new .kind{color:var(--ok)}.kh-chg .kind{color:var(--warn)}.kh-gone .kind{color:var(--bad)}.kh-date .kind{color:var(--accent)}
-.kfilter{margin:0 14px 10px;font-size:13px;color:var(--muted)}.lnk{font:inherit;border:0;background:none;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0}
-.sumtab .nb{padding:1px 8px}.n.a{color:var(--ok)}.n.c{color:var(--warn)}.n.r{color:var(--bad)}
-.lead{margin:0 0 12px;color:var(--muted);max-width:1000px;font-size:13.5px}
-details.day{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
-details.day>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:11px 14px}
-details.day>summary::-webkit-details-marker{display:none}
-details.day>summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:1px solid var(--accent);border-radius:5px;color:var(--accent);font-weight:700;font-size:13px}
-details.day[open]>summary::before{content:"\2212"}
-.dt{font-weight:700;font-size:15.5px}
-.grid{list-style:none;margin:0;padding:0 14px 14px;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
-.tile{border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;padding:9px 12px;background:var(--bg);min-width:0}
-.tile.new{border-left-color:var(--ok)}.tile.chg{border-left-color:var(--warn)}.tile.gone{border-left-color:var(--bad)}.tile.date{border-left-color:var(--accent)}
-.tt{display:flex;gap:6px 8px;align-items:center;flex-wrap:wrap}
-.kind{font-size:10.5px;font-weight:700;letter-spacing:.05em;border:1px solid currentColor;border-radius:6px;padding:1px 6px}
-.new .kind{color:var(--ok)}.chg .kind{color:var(--warn)}.gone .kind{color:var(--bad)}.date .kind{color:var(--accent)}
-.meta{font-size:12px;color:var(--muted)}.t0{font-size:10.5px;font-weight:700;color:var(--bad);border:1px solid var(--bad);border-radius:6px;padding:0 5px}
-.ti{display:block;margin-top:5px;font-weight:600;color:var(--text);overflow-wrap:anywhere}a.ti:hover{color:var(--accent)}
-.what{margin:4px 0 0;font-size:13px;overflow-wrap:anywhere}.what .fl{color:var(--muted)}
-del{background:var(--del-bg);color:var(--del-fg);text-decoration:line-through;border-radius:3px;padding:0 3px}
-ins{background:var(--ins-bg);color:var(--ins-fg);text-decoration:none;font-weight:600;border-radius:3px;padding:0 3px}
-.det{display:block;margin-top:3px;font-family:var(--mono);font-size:11.5px;background:var(--code-bg);border-radius:5px;padding:3px 6px;overflow-wrap:anywhere}
-.more{padding:0 14px 12px}.btn{border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:13px}
-.none{margin:0;padding:0 14px 12px;color:var(--muted);font-size:13px}
-details.tbl{border:1px solid var(--border);border-radius:12px;background:var(--surface);margin:0 0 12px}
-details.tbl>summary{cursor:pointer;padding:10px 14px;font-weight:600}
-.tw{overflow-x:auto;padding:0 14px 14px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:7px 9px;border-bottom:1px solid var(--border)}
-td{padding:7px 9px;border-bottom:1px solid var(--border-soft);vertical-align:top;overflow-wrap:anywhere}
-tbody tr:hover td{background:var(--accent-soft)}
-.sumtab td.num{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.sumtab button{border:0;background:none;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:0;text-align:left}
-.foot{margin-top:24px;color:var(--muted);font-size:12.5px}
-.sheet[hidden]{display:none}
-@media (max-width:1099px){
- .layout{grid-template-columns:1fr}nav.rail{display:none}
- .jump{display:flex;align-items:center;gap:8px;width:calc(100% - 24px);margin:10px 12px 0;padding:9px 12px;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);color:var(--text);font-weight:600;cursor:pointer;text-align:left}
- .jump .jl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}.jump .jc{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
- .sheet{margin:6px 12px 0;padding:6px 8px;border:1px solid var(--border);border-radius:10px;background:var(--surface);max-height:65vh;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,.18)}
- .sheet .ri{margin:3px 0}
- main{padding:12px 12px 60px}header.top{padding:10px 12px;position:static}.hlinks{margin-left:0}
-}
-@media (max-width:760px){
- .logo{width:34px;height:34px}.hrow{gap:6px 10px}.hrow>div:nth-child(2){flex:1 1 200px;min-width:0}h1{font-size:18px}.sub{font-size:12.5px}
- .seg{order:5;width:100%}.seg button{flex:1 1 50%;padding:6px 8px}
- .hlinks{order:4;font-size:12.5px;gap:4px 12px;width:100%}.hlinks .pr{display:none}.tbtn{padding:3px 8px;font-size:12px}
- .frow{flex-wrap:nowrap;flex-direction:column;align-items:stretch;gap:6px}.q{flex:0 0 auto}
- .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}.chip,.morechips{flex:0 0 auto}
- .lead{font-size:13px}
-}
-@media (max-width:600px){h1{font-size:18px}.ph h2{font-size:20px}.grid{padding:0 10px 10px}details.day>summary{padding:10px}}
-@media print{header.top{position:static}.jump,.sheet,nav.rail,.frow,.seg,.tbtn,.hlinks .np{display:none!important}.layout{display:block}.panel[hidden]{display:block!important}details.day>.grid{display:grid}main{padding:0}}
-</style>
-</head>
-<body>
-
-<header class="top" id="top">
- <div class="hrow">
-  <a href="../"><img class="logo" src="../assets/mark-light.webp" alt="Microsoft SOC Brief"></a>
-  <div><h1>What changed</h1><div class="sub" id="periodtxt">Loading…</div></div>
-  <div class="seg" role="group" aria-label="Period"><button type="button" data-range="brief">Since the previous brief</button><button type="button" data-range="week">Last 7 days</button></div>
-  <div class="hlinks"><a href="../">&larr; Back to the brief</a><a class="np" href="../diff/full.html">Full comparison (all fields)</a><a class="np pr" href="../week/print.html">Week summary to print</a><button class="tbtn np" type="button" id="themebtn">Theme</button></div>
- </div>
- <div class="frow"><input class="q" id="q" type="search" placeholder="Search every change — title, ID, permission, product…" aria-label="Search every change"><div class="chips" id="chips" aria-label="Technology"></div></div>
- <div class="banner" id="banner" role="status"></div>
-</header>
-<button class="jump" type="button" id="jump" aria-expanded="false" aria-controls="sheet"><span class="jl">Tab</span><span class="jc" id="jumpc">Summary</span><span aria-hidden="true">&#9662;</span></button>
-<div class="sheet" id="sheet" hidden></div>
-<div class="layout"><nav class="rail" id="rail" aria-label="Tabs"></nav><main id="main"><p class="sub">Loading the change register…</p></main></div>
-<script>
-(function () {
-  "use strict";
-  var RANGE = "week" === "week" ? "week" : "brief";
-  var TABS = [["Summary", "The changes worth reading first"], ["New", "New items in the brief"], ["Deadlines", "Dated items: arrived, left, or date moved"],
-    ["Message Center", "Message Center and Roadmap posts"], ["Graph API", "Graph permissions: endpoints, privilege, consent"], ["Roles", "Entra directory roles"],
-    ["Component versions", "Agent and client versions"], ["First-party apps", "Microsoft's own Entra applications"], ["Campaigns", "Retirements, enforcements, rollouts"],
-    ["Baselines", "Maester and Tenable"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
-    ["Microsoft Blogs", "Microsoft product blogs"], ["Community Articles", "Community sources"]];
-  var D = null, S = { tab: "Summary", q: "", tech: "", kind: "" };
-  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
-  function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] : (d || ""); }
-  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
-  try { var th = localStorage.getItem("soc-changes-theme"); if (th) document.documentElement.setAttribute("data-theme", th); } catch (e) {}
-  document.getElementById("themebtn").addEventListener("click", function () {
-    var cur = document.documentElement.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    var nx = cur === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", nx); try { localStorage.setItem("soc-changes-theme", nx); } catch (e) {}
-  });
-  function hh() { var h = document.getElementById("top"); document.documentElement.style.setProperty("--hh", (getComputedStyle(h).position === "sticky" ? h.offsetHeight : 0) + "px"); }
-  addEventListener("resize", hh);
-  /* the record's kind for a tile: a moved date is its own colour, it rearranges the week */
-  function kindOf(r) {
-    if (r.k === "added") return "new"; if (r.k === "removed") return "gone";
-    if ((r.f || []).some(function (f) { return /deadline|action required|act by|due/i.test(f[0]); })) return "date";
-    return "chg";
-  }
-  var KL = { "new": "NEW", chg: "CHANGED", gone: "REMOVED", date: "DATE MOVED" };
-  function inRange(r) { return RANGE === "week" ? true : r.d === D.day; }
-  function hay(r) { return [r.id, r.t, r.p, r.tc || "", r.tab, r.x || ""].concat((r.f || []).map(function (f) { return f.join(" "); })).join(" ").toLowerCase(); }
-  function passes(r) { if (!inRange(r)) return false; if (S.tech && r.tc !== S.tech) return false; if (S.q && hay(r).indexOf(S.q.toLowerCase()) < 0) return false; return true; }
-  function recs(tab) { return D.records.filter(function (r) { return (!tab || r.tab === tab) && passes(r); }); }
-  function counts(L) { var c = { a: 0, c: 0, r: 0 }; L.forEach(function (r) { if (r.k === "added") c.a++; else if (r.k === "removed") c.r++; else c.c++; }); return c; }
-  /* §5eq ranking for "Most important": tier 0, the brief's weight, what the change does */
-  function score(r) {
-    var s = 0; if (r.t0) s += 10; if (r.w) s += Math.max(0, 8 - r.w);
-    var f = (r.f || []).map(function (x) { return x[0]; }).join(" ");
-    if (r.tab === "Graph API" && /endpoints|privilege|consent/.test(f)) s += 6;
-    if (r.tab === "Roles") s += 6;
-    if (kindOf(r) === "date") s += 6;
-    if (r.tab === "Threat Research") s += 7;
-    if (/^Preview → GA/.test(r.t)) s += 5;
-    if (r.tab === "Component versions") s += 4;
-    if (r.tab === "Deadlines" && r.k === "added") s += 4;
-    if (r.tab === "Community Articles" || r.tab === "Microsoft Blogs") s -= 4;
-    if (r.tab === "Microsoft Learn" && r.k === "removed") s -= 4;
-    if (r.tab === "Deadlines" && r.k === "removed") s -= 5;   /* an item leaving the dated list: mostly its date passed */
-    return s;
-  }
-  function cut(s) { s = String(s || ""); return s.length > 180 ? s.slice(0, 170).replace(/\s+\S*$/, "") + " …" : s; }
-  function fieldLine(f) {
-    var p = el("div", "what"), name = f[0], b = f[1], a = f[2], d = f[3];
-    p.appendChild(el("span", "fl", name + ": "));
-    if (name === "endpoints") { p.appendChild(el("b", null, (a || "") + " endpoint" + (/^[+−-]?1$/.test(a || "") ? "" : "s"))); }
-    else {
-      if (b) { var x1 = el("del", null, cut(b)); x1.title = b; p.appendChild(x1); p.appendChild(document.createTextNode(" → ")); }
-      if (a) { var x2 = el(b ? "ins" : "b", null, cut(a)); x2.title = a; p.appendChild(x2); }
-    }
-    if (d) p.appendChild(el("span", "det", cut(d).replace(/^endpoint (added|removed): /, function (m, x) { return (x === "added" ? "+ " : "− "); })));
-    return p;
-  }
-  function tile(r) {
-    var k = kindOf(r), li = el("li", "tile " + k), top = el("div", "tt");
-    top.appendChild(el("span", "kind", KL[k]));
-    if (r.t0) top.appendChild(el("span", "t0", "tier 0"));
-    top.appendChild(el("span", "meta", [r.tab !== S.tab ? r.tab : "", r.p || r.tc, dm(r.d)].filter(Boolean).join(" · ")));
-    li.appendChild(top);
-    var title = r.t || r.id, a;
-    if (r.u) { a = el("a", "ti", title); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; } else a = el("span", "ti", title);
-    li.appendChild(a);
-    if (r.t && r.id && r.id !== r.t && r.id.length < 80 && !/^https?:/.test(r.id)) li.appendChild(el("div", "meta", r.id));
-    (r.f || []).slice(0, 4).forEach(function (f) { li.appendChild(fieldLine(f)); });
-    if ((r.f || []).length > 4) li.appendChild(el("div", "meta", "and " + (r.f.length - 4) + " more fields"));
-    if (r.x) li.appendChild(el("div", "meta", r.x));
-    return li;
-  }
-  /* §5ev (22 X 2026, owner: "you write 26 new · 2 changed · 7 removed, but I cannot click a status to see only the
-     removed, and you do not group by status - everything is mixed"): every count is a button that shows only that
-     status (again = all), and a block lists its changes under one heading per status - New, Date moved, Changed,
-     Removed - each with its own count */
-  var KGROUPS = [["new", "New", "a"], ["date", "Date moved", "c"], ["chg", "Changed", "c"], ["gone", "Removed", "r"]];
-  function pills(host, c) {
-    [["a", c.a, "new"], ["c", c.c, "changed"], ["r", c.r, "removed"]].forEach(function (q) {
-      var b = el("button", "n " + q[0] + " nb", q[1] + " " + q[2]); b.type = "button"; b.disabled = !q[1] && S.kind !== q[0];
-      b.setAttribute("aria-pressed", S.kind === q[0] ? "true" : "false"); b.title = S.kind === q[0] ? "Show every status again" : "Show only " + q[2];
-      b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); S.kind = S.kind === q[0] ? "" : q[0]; render(); });
-      host.appendChild(b);
-    });
-  }
-  function block(title, L, open, cap, ranked) {
-    var b = el("details", "day"); b.open = !!open;
-    var sm = el("summary"); sm.appendChild(el("span", "dt", title));
-    pills(sm, counts(L));
-    b.appendChild(sm);
-    function fill() {
-      if (b.__f) return; b.__f = true;
-      if (!L.length) { b.appendChild(el("p", "none", "Nothing moved here in this window" + (S.q || S.tech ? " that matches the filter." : "."))); return; }
-      if (S.kind) { var fb = el("p", "kfilter"); fb.appendChild(document.createTextNode("Showing only " + { a: "new", c: "changed", r: "removed" }[S.kind] + " · "));
-        var x = el("button", "lnk", "show every status"); x.type = "button"; x.addEventListener("click", function () { S.kind = ""; render(); }); fb.appendChild(x); b.appendChild(fb); }
-      /* the Summary's "Most important" keeps its ranking, one grid; every other block groups by status */
-      var G = ranked ? [["", "", "", L.filter(function (r) { return !S.kind || ({ new: "a", date: "c", chg: "c", gone: "r" })[kindOf(r)] === S.kind; })]]
-        : KGROUPS.map(function (g) { return g.concat([L.filter(function (r) { return kindOf(r) === g[0]; })]); }).filter(function (g) { return g[3].length && (!S.kind || g[2] === S.kind); });
-      if (!G.length || !G.some(function (g) { return g[3].length; })) { b.appendChild(el("p", "none", "No " + { a: "new", c: "changed", r: "removed" }[S.kind] + " change here.")); return; }
-      G.forEach(function (g) {
-        var LL = g[3]; if (!LL.length) return;
-        if (g[1]) { var h = el("h3", "kh kh-" + g[0]); h.appendChild(el("span", "kind", g[1].toUpperCase())); h.appendChild(el("span", "khn", String(LL.length))); b.appendChild(h); }
-        var ul = el("ul", "grid"), M = cap || (G.length > 1 ? 12 : 24); LL.slice(0, M).forEach(function (r) { ul.appendChild(tile(r)); }); b.appendChild(ul);
-        if (LL.length > M) { var p = el("div", "more"), bt = el("button", "btn", "Show all " + LL.length + (g[1] ? " " + g[1].toLowerCase() : "")); bt.type = "button";
-          bt.addEventListener("click", function () { LL.slice(M).forEach(function (r) { ul.appendChild(tile(r)); }); p.remove(); }); p.appendChild(bt); b.appendChild(p); }
-      });
-    }
-    if (b.open) fill(); b.addEventListener("toggle", function () { if (b.open) fill(); });
-    return b;
-  }
-  function sortRecs(L) { return L.slice().sort(function (x, y) { return y.d.localeCompare(x.d) || score(y) - score(x); }); }
-  function table(L) {
-    var d = el("details", "tbl"), sm = el("summary", null, "All " + L.length + " changes as a table");
-    d.appendChild(sm);
-    d.addEventListener("toggle", function () {
-      if (!d.open || d.__f) return; d.__f = true;
-      var w = el("div", "tw"), t = el("table"), hd = el("thead"), tr = el("tr");
-      ["Day", "What", "Item", "Product", "Field", "Before", "After"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
-      var bd = el("tbody");
-      L.forEach(function (r) {
-        var rows = (r.f && r.f.length) ? r.f : [["", "", r.x || "", ""]];
-        rows.forEach(function (f, i) {
-          var x = el("tr"); x.appendChild(el("td", null, i ? "" : dm(r.d))); x.appendChild(el("td", null, i ? "" : KL[kindOf(r)]));
-          var c = el("td"); if (!i) { if (r.u) { var a = el("a", null, r.t || r.id); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a); } else c.textContent = r.t || r.id; }
-          x.appendChild(c); x.appendChild(el("td", null, i ? "" : r.p)); x.appendChild(el("td", null, f[0])); x.appendChild(el("td", null, f[1])); x.appendChild(el("td", null, [f[2], f[3]].filter(Boolean).join(" — ")));
-          bd.appendChild(x);
-        });
-      });
-      t.appendChild(bd); w.appendChild(t); d.appendChild(w);
-    });
-    return d;
-  }
-  function days() { var o = []; for (var i = 0; i < D.days; i++) { var t = new Date(D.day + "T12:00:00Z"); t.setUTCDate(t.getUTCDate() - i); o.push(t.toISOString().slice(0, 10)); } return o; }
-  function panelFor(tab) {
-    var p = el("section", "panel"); p.id = "p-" + tab.replace(/\W+/g, "-");
-    var all = recs(tab === "Summary" ? null : tab), c = counts(all), meta = TABS.filter(function (x) { return x[0] === tab; })[0];
-    var ph = el("div", "ph"); ph.appendChild(el("h2", null, tab));
-    if (tab !== "Summary") pills(ph, c);
-    ph.appendChild(el("span", "sub", meta[1])); p.appendChild(ph);
-    if (tab === "Summary") {
-      var top = all.slice().sort(function (x, y) { return score(y) - score(x) || y.d.localeCompare(x.d); }).slice(0, 9);
-      p.appendChild(el("p", "lead", "The changes worth reading first, ranked: tier 0, the brief's SOC weight, then what the change does — a Graph permission that can reach more, a role, a date that moved, an incident, a feature leaving preview. Every tab is in the rail with what moved: + new, ~ changed, − removed."));
-      p.appendChild(block("Most important · " + (RANGE === "week" ? "last 7 days" : "since the previous brief"), top, true, 9, true));
-      var w = el("div", "tw"), t = el("table", "sumtab"), hd = el("thead"), tr = el("tr");
-      ["Tab", "New", "Changed", "Removed", "Last change"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
-      var bd = el("tbody");
-      TABS.slice(1).forEach(function (x) {
-        var L = recs(x[0]), k = counts(L), last = L.reduce(function (m, r) { return r.d > m ? r.d : m; }, "");
-        var row = el("tr"), c0 = el("td"), bt = el("button", null, x[0]); bt.type = "button"; bt.addEventListener("click", function () { go(x[0]); }); c0.appendChild(bt); row.appendChild(c0);
-        [["a", k.a, "+"], ["c", k.c, "~"], ["r", k.r, "−"]].forEach(function (q) { var td = el("td", "num"); if (q[1]) { var s = el("button", "n " + q[0] + " nb", q[2] + q[1]); s.type = "button"; s.title = "Open " + x[0] + ", only this status";
-          s.addEventListener("click", function () { S.kind = q[0]; go(x[0]); }); td.appendChild(s); } else td.textContent = "·"; row.appendChild(td); });
-        row.appendChild(el("td", null, last ? dmy(last) : "—")); bd.appendChild(row);
-      });
-      t.appendChild(bd); w.appendChild(t);
-      var tb = el("details", "tbl"); tb.open = true; tb.appendChild(el("summary", null, "Every tab — what moved")); tb.appendChild(w); p.appendChild(tb);
-      return p;
-    }
-    if (!all.length) { p.appendChild(el("p", "lead", "Nothing moved in this tab " + (RANGE === "week" ? "in the last 7 days" : "since the previous brief") + (S.q || S.tech ? " that matches the filter." : ".") + (RANGE === "brief" ? " Switch to Last 7 days for the week." : ""))); return p; }
-    if (RANGE === "brief") p.appendChild(block("Since the previous brief · " + dm(D.previousBrief || "") + " → " + dm(D.day), sortRecs(all), true));
-    else days().forEach(function (d, i) { var L = sortRecs(all.filter(function (r) { return r.d === d; })); if (L.length || i === 0) p.appendChild(block(dmy(d) + (i === 0 ? " · latest brief" : ""), L, i === 0 || (i === 1 && !all.some(function (r) { return r.d === days()[0]; })))); });
-    p.appendChild(table(sortRecs(all)));
-    return p;
-  }
-  function railItem(tab, inSheet) {
-    var b = el("button", "ri"); b.type = "button"; b.setAttribute("data-tab", tab);
-    b.appendChild(el("span", null, tab));
-    if (tab !== "Summary") { var c = counts(recs(tab)), ks = el("span", "ks");
-      [["a", c.a, "+"], ["c", c.c, "~"], ["r", c.r, "−"]].forEach(function (q) { ks.appendChild(el("span", "k" + (q[1] ? " " + q[0] : ""), q[1] ? q[2] + q[1] : "·")); }); b.appendChild(ks); }
-    if (tab === S.tab) b.setAttribute("aria-current", "page");
-    b.addEventListener("click", function () { S.kind = ""; go(tab); if (inSheet) toggleSheet(false); });
-    return b;
-  }
-  function renderNav() {
-    var rail = document.getElementById("rail"), sh = document.getElementById("sheet");
-    rail.textContent = ""; sh.textContent = "";
-    var rl = el("div", "rl"); rl.appendChild(el("span", null, "Tabs")); var h = el("span"); ["+", "~", "−"].forEach(function (x) { h.appendChild(el("i", null, x)); }); rl.appendChild(h); rail.appendChild(rl);
-    TABS.forEach(function (t) { rail.appendChild(railItem(t[0])); sh.appendChild(railItem(t[0], true)); });
-    document.getElementById("jumpc").textContent = S.tab;
-  }
-  function toggleSheet(on) { var sh = document.getElementById("sheet"), j = document.getElementById("jump"); sh.hidden = !on; j.setAttribute("aria-expanded", on ? "true" : "false"); }
-  document.getElementById("jump").addEventListener("click", function () { toggleSheet(document.getElementById("sheet").hidden); });
-  function renderChips() {
-    var box = document.getElementById("chips"); box.textContent = "";
-    var cnt = {}; D.records.forEach(function (r) { if (inRange(r) && r.tc) cnt[r.tc] = (cnt[r.tc] || 0) + 1; });
-    var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
-    keys.slice(0, 8).forEach(function (k) { var c = el("button", "chip", k); c.type = "button"; c.appendChild(el("b", null, String(cnt[k]))); c.setAttribute("aria-pressed", S.tech === k ? "true" : "false");
-      c.addEventListener("click", function () { S.tech = S.tech === k ? "" : k; refilter(); }); box.appendChild(c); });
-    if (keys.length > 8) { var s = el("select", "morechips"); s.setAttribute("aria-label", "More technologies"); s.appendChild(new Option("+" + (keys.length - 8) + " more…", ""));
-      keys.slice(8).forEach(function (k) { var o = new Option(k + " (" + cnt[k] + ")", k); if (S.tech === k) o.selected = true; s.appendChild(o); });
-      s.addEventListener("change", function () { S.tech = s.value; refilter(); }); box.appendChild(s); }
-  }
-  /* §5em on this page too: a filter names itself, says where its results are, and one press clears it */
-  function renderBanner() {
-    var b = document.getElementById("banner"); b.textContent = "";
-    var on = S.q || S.tech; b.classList.toggle("on", !!on); if (!on) return;
-    var L = recs(null), tabs = {}; L.forEach(function (r) { tabs[r.tab] = (tabs[r.tab] || 0) + 1; });
-    b.appendChild(el("b", null, "Filtered · " + L.length + " change" + (L.length === 1 ? "" : "s")));
-    b.appendChild(el("span", null, [S.q ? "text “" + S.q + "”" : "", S.tech ? "technology " + S.tech : ""].filter(Boolean).join(" · ") + " — in:"));
-    Object.keys(tabs).forEach(function (t) { var x = el("button", "tabhit", t + " · " + tabs[t]); x.type = "button"; x.addEventListener("click", function () { go(t); }); b.appendChild(x); });
-    if (!L.length) b.appendChild(el("span", null, "no tab"));
-    var c = el("button", "clr", "Clear filter"); c.type = "button"; c.addEventListener("click", function () { S.q = ""; S.tech = ""; document.getElementById("q").value = ""; render(); }); b.appendChild(c);
-  }
-  /* §5em: results first - a filter that leaves the open tab empty opens the first tab it hits */
-  function refilter() {
-    if ((S.q || S.tech) && S.tab !== "Summary" && !recs(S.tab).length) {
-      var hit = TABS.filter(function (t) { return t[0] !== "Summary" && recs(t[0]).length; })[0];
-      if (hit) { go(hit[0]); return; }
-    }
-    render();
-  }
-  function go(tab) { S.tab = tab; try { history.replaceState(null, "", "#tab=" + encodeURIComponent(tab) + (RANGE === "week" ? "&range=week" : "")); } catch (e) {} render(); window.scrollTo(0, 0); }
-  function render() {
-    var lo = RANGE === "week" ? D.from : D.day;
-    document.getElementById("periodtxt").textContent = RANGE === "week"
-      ? "Last 7 days · " + dmy(D.from) + " – " + dmy(D.day) + " · " + D.records.filter(inRange).length + " changes"
-      : "Brief of " + dmy(D.day) + " compared with " + (D.previousBrief ? dmy(D.previousBrief) : "the previous brief") + " · " + D.records.filter(inRange).length + " changes";
-    [].forEach.call(document.querySelectorAll(".seg button"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-range") === RANGE ? "true" : "false"); });
-    renderChips(); renderBanner(); renderNav();
-    var m = document.getElementById("main"); m.textContent = "";
-    if (window.matchMedia && matchMedia("print").matches) TABS.forEach(function (t) { m.appendChild(panelFor(t[0])); });
-    else m.appendChild(panelFor(S.tab));
-    var f = el("p", "foot"); f.appendChild(document.createTextNode("Built " + String(D.generated || "").slice(0, 16).replace("T", " ") + " UTC from the change register (site/data/changelog.json) and the portal's data files. " + D.dropped + " bookkeeping rows (version counters, link checks, rows leaving a rolling list) are not shown as changes; the full comparison keeps every field. "));
-    var a = el("a", null, "Full comparison"); a.href = "../diff/full.html"; f.appendChild(a); m.appendChild(f);
-    hh();
-  }
-  [].forEach.call(document.querySelectorAll(".seg button"), function (b) { b.addEventListener("click", function () { RANGE = b.getAttribute("data-range"); go(S.tab); }); });
-  var qt; document.getElementById("q").addEventListener("input", function (e) { clearTimeout(qt); qt = setTimeout(function () { S.q = e.target.value.trim(); refilter(); }, 180); });
-  addEventListener("beforeprint", function () { var m = document.getElementById("main"); m.textContent = ""; TABS.forEach(function (t) { var p = panelFor(t[0]); [].forEach.call(p.querySelectorAll("details"), function (d) { d.open = true; }); m.appendChild(p); }); });
-  addEventListener("afterprint", render);
-  var h0 = decodeURIComponent(location.hash || ""), mt = /tab=([^&]+)/.exec(h0); if (mt && TABS.some(function (t) { return t[0] === mt[1]; })) S.tab = mt[1];
-  /* the brief's links into the old page's sections (§5bn "Everything that moved here", §5cj "#dwin") open the matching tab */
-  var OLD = { mcenter: "Message Center", fpa: "First-party apps", community: "Community Articles", added: "New", dwin: "New",
-    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Baselines", threats: "Threat Research" };
-  if (!mt && OLD[h0.replace(/^#/, "")]) S.tab = OLD[h0.replace(/^#/, "")];
-  addEventListener("hashchange", function () { var k = decodeURIComponent(location.hash || "").replace(/^#/, ""), m = /tab=([^&]+)/.exec(k);
-    var t = m ? m[1] : OLD[k]; if (t && t !== S.tab && TABS.some(function (x) { return x[0] === t; }) && D) { S.tab = t; render(); } });
-  if (/range=week/.test(h0)) RANGE = "week"; else if (/range=brief/.test(h0)) RANGE = "brief";
-  fetch("../data/changes-7d.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function (j) { D = j; render(); })
-    .catch(function (e) { document.getElementById("main").textContent = "The change register could not be read (" + e.message + "). The full comparison is at diff/full.html."; });
-})();
-</script>
-</body>
-</html>
+:root{--bg:#f6f7f9;--surface:#fff;--ink:#17202a;--muted:#4e5867;--border:#dde2e8;--accent:#0b6bcb;--bad:#b42318;--ok:#067647}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1419;--surface:#172029;--ink:#e6edf3;--muted:#9fa9b6;--border:#2a3642;--accent:#58a6ff;--bad:#ff7b72;--ok:#3fb950}}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:24px;margin:0 0 2px}h2{font-size:17px;margin:26px 0 8px}
+.sub{color:var(--muted);margin:0 0 14px}a{color:var(--accent)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}.bar a,.bar button{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border)}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--border);vertical-align:top;font-size:13px}
+th{font-size:12px;color:var(--muted);font-weight:600}
+th,td{border-right:1px solid color-mix(in srgb,var(--ink) 12%,var(--surface))}th:last-child,td:last-child{border-right:0}
+table{border:1.5px solid color-mix(in srgb,var(--ink) 35%,var(--surface))}
+th{background:color-mix(in srgb,var(--accent) 16%,var(--surface));color:var(--ink);border-bottom:2px solid color-mix(in srgb,var(--accent) 60%,var(--surface))}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--ink) 5%,var(--surface))}
+.chart{display:flex;gap:8px;align-items:flex-end;height:120px;background:var(--surface);border:1px solid var(--border);padding:10px}
+.chart .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.chart i{display:block;width:70%;background:var(--accent);border-radius:3px 3px 0 0}.chart span{font-size:12px;color:var(--muted)}
+.d0{color:var(--bad);font-weight:600}
+td:first-child{white-space:nowrap}.chart b{font-size:12px;font-weight:600}
+.tw{overflow-x:auto;margin:0 0 4px}.tw:focus-visible{outline:2px solid var(--accent)}
+@media print{.bar{display:none}body{background:#fff;color:#000}main{max-width:none;padding:0}table,.chart{break-inside:avoid}}
+h1.s5cx-h1{display:flex;align-items:center;gap:12px}.s5cx-mark{display:inline-flex;flex:0 0 auto}.s5cx-mark img{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark img{height:96px}}.s5dy-pic{aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.25)}.s5cx-mark video.s5dy-pic{height:120px;width:auto;display:block}@media (max-width:720px){.s5cx-mark video.s5dy-pic{height:96px}}
+.s5cx-mark .s5cx-dark{display:none}@media (prefers-color-scheme:dark){.s5cx-mark .s5cx-dark{display:block}.s5cx-mark .s5cx-light{display:none}}
+@media print{.s5cx-mark .s5cx-dark{display:none}.s5cx-mark .s5cx-light{display:block}}
+.byline{margin:2px 0 6px;font-size:14px;font-weight:500}
+</style></head><body><main role="main">
+<h1 class="s5cx-h1"><a class="s5cx-mark" href="https://orange-ground-019f30603.7.azurestaticapps.net/" aria-label="GuardZilla — today's brief"><img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display='none'"></a>The week in Microsoft security changes</h1>
+<p class="byline">By Piotr Wiśniewski</p>
+<script>/* §5dy (16 X 2026, owner 01:19: "on diff and week, where you put the static logo, put our film too"): the logo picture is the film's last frame; a muted film replaces it, plays once and stops on that frame, plays again on hover. No film with prefers-reduced-motion or when the browser refuses to play; the phone loads it after the page. */(function(){var a=document.querySelector(".s5cx-mark"),i=a&&a.querySelector("img.s5dy-pic");if(!i||!window.matchMedia||matchMedia("(prefers-reduced-motion: reduce)").matches)return;function go(){var v=document.createElement("video");v.className="s5dy-pic";v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");v.playsInline=true;v.setAttribute("playsinline","");v.poster=i.src;v.width=640;v.height=360;v.setAttribute("aria-hidden","true");[["logo-anim.webm","video/webm"],["logo-anim.mp4","video/mp4"]].forEach(function(x){var s=document.createElement("source");s.src="../assets/"+x[0];s.type=x[1];v.appendChild(s)});function drop(){if(v.parentNode)v.parentNode.removeChild(v);i.style.display=""}function play(){try{v.currentTime=0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(drop)}v.addEventListener("error",drop,true);a.addEventListener("mouseenter",function(){if(v.ended)play()});i.style.display="none";a.insertBefore(v,i);play()}if(matchMedia("(max-width:720px)").matches){if(document.readyState==="complete")setTimeout(go,1500);else addEventListener("load",function(){setTimeout(go,1500)})}else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go()})();</script>
+<p class="sub">2026-10-16 → 2026-10-22 · built from 7 daily files · <a href="https://orange-ground-019f30603.7.azurestaticapps.net/">today's brief</a> · <a href="https://orange-ground-019f30603.7.azurestaticapps.net/diff/">what changed since yesterday</a></p>
+<div class="bar"><button type="button" onclick="print()">Save as PDF</button><a href="https://orange-ground-019f30603.7.azurestaticapps.net/feed.xml">RSS</a></div>
+<h2>Day by day</h2>
+<p class="sub">Bars: items due within seven days, as each morning saw them. A day without a daily file has no bar.</p>
+<div class="chart" role="img" aria-label="Items due within 7 days, per day"><div class="b" title="2026-10-16: 7 due within 7 days"><b>7</b><i style="height:74%"></i><span>10-16</span></div><div class="b" title="2026-10-17: 6 due within 7 days"><b>6</b><i style="height:64%"></i><span>10-17</span></div><div class="b" title="2026-10-18: 8 due within 7 days"><b>8</b><i style="height:85%"></i><span>10-18</span></div><div class="b" title="2026-10-19: 8 due within 7 days"><b>8</b><i style="height:85%"></i><span>10-19</span></div><div class="b" title="2026-10-20: 5 due within 7 days"><b>5</b><i style="height:53%"></i><span>10-20</span></div><div class="b" title="2026-10-21: 7 due within 7 days"><b>7</b><i style="height:74%"></i><span>10-21</span></div><div class="b" title="2026-10-22: 7 due within 7 days"><b>7</b><i style="height:74%"></i><span>10-22</span></div></div>
+<div class="tw" tabindex="0" role="region" aria-label="Day by day, table"><table><thead><tr><th>Day</th><th>New in that morning's brief</th><th>Due within 7 days</th><th>Due within 30 days</th><th>Items tracked</th></tr></thead><tbody><tr><td>2026-10-22</td><td>6</td><td>7</td><td>43</td><td>329</td></tr><tr><td>2026-10-21</td><td>29</td><td>7</td><td>42</td><td>332</td></tr><tr><td>2026-10-20</td><td>13</td><td>5</td><td>41</td><td>326</td></tr><tr><td>2026-10-19</td><td>7</td><td>8</td><td>40</td><td>326</td></tr><tr><td>2026-10-18</td><td>1</td><td>8</td><td>39</td><td>321</td></tr><tr><td>2026-10-17</td><td>21</td><td>6</td><td>38</td><td>322</td></tr><tr><td>2026-10-16</td><td>13</td><td>7</td><td>37</td><td>315</td></tr></tbody></table></div>
+<h2>Ten items due soonest</h2>
+<div class="tw" tabindex="0" role="region" aria-label="Due soonest, table"><table><thead><tr><th>Due</th><th>Days left</th><th>Product</th><th>Item</th><th>Reference</th></tr></thead><tbody><tr><td>2026-10-23</td><td><span class="d0">1</span></td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history">Entra Connect 2.5.79.0 end of support</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-24</td><td><span class="d0">2</span></td><td>Power Platform</td><td><a href="https://deltapulse.app/item/MC1478384">Dataverse MCP tool execution moves to usage-based billing on 24 October</a></td><td>MC1478384</td></tr><tr><td>2026-10-25</td><td><span class="d0">3</span></td><td>Copilot Studio</td><td><a href="https://deltapulse.app/item/MC1472007">Admins get a control over who can upload advanced agents and plugins; uploads stay open by default from 25 Oct</a></td><td>MC1472007</td></tr><tr><td>2026-10-25</td><td><span class="d0">3</span></td><td>Defender XDR</td><td><a href="https://deltapulse.app/item/MC1478463">Teams user reporting switches on by default unless you opt out before 25 October</a></td><td>MC1478463</td></tr><tr><td>2026-10-26</td><td><span class="d0">4</span></td><td>Copilot Studio</td><td><a href="https://deltapulse.app/item/MC1518233">Copilot Studio adds topics, connected agents, evaluations, monitoring and lifecycle management to Copilot Chat (declarative) agents, GA 26 October</a></td><td>MC1518233</td></tr><tr><td>2026-10-28</td><td><span class="d0">6</span></td><td>Entra</td><td><a href="https://mc.merill.net/message/MC1476122">A Microsoft-managed Conditional Access policy, Require risk remediation for high-risk users, starts in report-only mode and switches On the week of 28 October</a></td><td>MC1476122</td></tr><tr><td>2026-10-28</td><td><span class="d0">6</span></td><td>Entra</td><td><a href="https://mc.merill.net/message/MC1507808">Reminder: the Microsoft-managed &#x27;Require risk remediation for high-risk users&#x27; policy switches itself On the week of 28 October</a></td><td>MC1507808</td></tr><tr><td>2026-10-30</td><td>8</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1446796">Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled</a></td><td>MC1446796</td></tr><tr><td>2026-10-30</td><td>8</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers">Third-party telephony provider configuration opens on 30 October, with Soprano and Telesign first</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-30</td><td>8</td><td>Entra</td><td><a href="https://deltapulse.app/item/MC1519855">Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)</a></td><td>MC1519855</td></tr></tbody></table></div>
+<h2>New this week · 87</h2>
+<div class="tw" tabindex="0" role="region" aria-label="New this week, table"><table><thead><tr><th>First seen</th><th>Product</th><th>Item</th><th>Reference</th></tr></thead><tbody><tr><td>2026-10-22</td><td>Entra</td><td><a href="https://deltapulse.app/item/MC1519855">Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)</a></td><td>MC1519855</td></tr><tr><td>2026-10-22</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1519866">Teams adds AI-based phishing and social-engineering detection to external first-contact chats: Targeted Release early to mid-November, worldwide early to mid-December</a></td><td>MC1519866</td></tr><tr><td>2026-10-22</td><td>Copilot</td><td><a href="https://deltapulse.app/item/MC1519871">Copilot Code reaches Frontier users from late October: users build and publish apps grounded on Work IQ data, cloud coding on by default, local coding and GitHub off until an admin enables them</a></td><td>MC1519871</td></tr><tr><td>2026-10-22</td><td>Threat Intel</td><td><a href="https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/">Storm-0940 used the ARTEX agentic framework and compromised ConnectWise multi-tenant apps to act app-only in customer tenants; one app self-assigned Global Administrator</a></td><td>no MC/RM post — Microsoft Security Blog</td></tr><tr><td>2026-10-22</td><td>Exchange Online</td><td><a href="https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online">Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027</a></td><td>no MC/RM post — Exchange Team Blog and Microsoft Learn</td></tr><tr><td>2026-10-22</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks#suspicious-credential-addition">Entra ID Protection documents a new real-time risk detection, Suspicious credential addition (riskEventType suspiciousCredentialAddition), for an authentication method added under suspicious circumstances</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-21</td><td>Copilot</td><td><a href="https://deltapulse.app/item/MC1519122">GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November</a></td><td>MC1519122</td></tr><tr><td>2026-10-21</td><td>Microsoft 365 Apps</td><td><a href="https://deltapulse.app/item/MC1519247">Microsoft 365 Apps Current Channel Version 2610 (Build 20527.20088) starts rolling out on 21 October with non-security fixes only</a></td><td>MC1519247</td></tr><tr><td>2026-10-21</td><td>Microsoft 365 Apps</td><td><a href="https://deltapulse.app/item/MC1469564">Publisher is now being removed from Microsoft 365 Apps through Office updates from November 2026, after support ended in October</a></td><td>MC1469564</td></tr><tr><td>2026-10-21</td><td>Viva</td><td><a href="https://deltapulse.app/item/MC1480869">Microsoft 365 group settings on by default for new Viva Engage communities now finish rolling out by end of November, not mid-October</a></td><td>MC1480869</td></tr><tr><td>2026-10-21</td><td>SharePoint</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97783">SharePoint Server spoofing CVE-2026-97783: the fix shipped in July but was left out of that release; Microsoft recommends the current SharePoint Server update</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://azure.microsoft.com/updates?id=576716">Azure Cosmos DB shows when each account key was last used, so a key can be confirmed idle before it is rotated or retired</a></td><td>AZ576716</td></tr><tr><td>2026-10-21</td><td>Copilot</td><td><a href="https://deltapulse.app/item/MC1518036">Work IQ can ground Copilot on business-application data; admin controls in Microsoft 365 and Power Platform admin centers reach public preview by 17 November</a></td><td>MC1518036</td></tr><tr><td>2026-10-21</td><td>M365 Apps</td><td><a href="https://deltapulse.app/item/MC1518034">Clipchamp &#x27;Create a video&#x27; AI experience gets an admin policy, rolling out late November to early December</a></td><td>MC1518034</td></tr><tr><td>2026-10-21</td><td>M365 Apps</td><td><a href="https://deltapulse.app/item/MC1518032">Microsoft 365 apps admin center can remotely repair Office installations that fall behind on updates (Update Repair in Inventory)</a></td><td>MC1518032</td></tr><tr><td>2026-10-21</td><td>Copilot Studio</td><td><a href="https://deltapulse.app/item/MC1518233">Copilot Studio adds topics, connected agents, evaluations, monitoring and lifecycle management to Copilot Chat (declarative) agents, GA 26 October</a></td><td>MC1518233</td></tr><tr><td>2026-10-21</td><td>Copilot Studio</td><td><a href="https://deltapulse.app/item/MC1518085">Copilot Studio agent Evaluations show reasoning traces and cited sources, compare runs and generate test sets from knowledge sources</a></td><td>MC1518085</td></tr><tr><td>2026-10-21</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1518033">Teams adds an onboarding workflow for new team members</a></td><td>MC1518033</td></tr><tr><td>2026-10-21</td><td>Windows</td><td><a href="https://deltapulse.app/item/MC1518030">Updated Photos experience on Windows 11 (posted under OneDrive)</a></td><td>MC1518030</td></tr><tr><td>2026-10-21</td><td>OneDrive</td><td><a href="https://deltapulse.app/item/MC1515940">OneDrive Copilot actions (Summarize, Compare files, Extract text and five more) leave the File Explorer context menu mid-November to early December</a></td><td>MC1515940</td></tr><tr><td>2026-10-21</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1446796">Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled</a></td><td>MC1446796</td></tr><tr><td>2026-10-21</td><td>Defender XDR</td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/expanded-cross-tenant-delegated-access-in-microsoft-defender-is/ba-p/4565941">Cross-tenant delegated administration in Defender is generally available, extends to Sentinel and runs on Entra Tenant Governance relationships</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-21</td><td>Sentinel</td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/manage-all-your-microsoft-sentinel-data-in-one-place-with/ba-p/4565940">Sentinel Unified Data Management (public preview) puts connector health, table ingestion and spikes or drops on one page in the Defender portal</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-21</td><td>Windows Server</td><td><a href="https://techcommunity.microsoft.com/t5/windows-it-pro-blog/strengthening-key-management-service-kms-with-hardware-based/ba-p/4539465">KMS Hardware-Secured: KMS hosts will have to prove their hardware with TPM attestation before activating clients, mandatory from the next Windows Server LTSC</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://azure.microsoft.com/updates?id=577130">Application Gateway terminates TLS without holding the private key: keyless TLS with Key Vault Managed HSM is generally available</a></td><td>no MC/RM post — Azure update only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://azure.microsoft.com/updates?id=577156">Azure Front Door Premium WAF custom rules can match on Azure service tags (generally available)</a></td><td>no MC/RM post — Azure update only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://azure.microsoft.com/updates?id=576242">Route tables can suppress system peering routes on a subnet (Disable VNet peering route, public preview)</a></td><td>no MC/RM post — Azure update only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/cloud-security-billing-simplified-introducing-the-defender/ba-p/4559743">Defender for Cloud announces the Defender Workload Unit, one billing unit across all protected workloads</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-21</td><td>Windows</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204">CVE-2026-102204 (WSL elevation of privilege) now names Windows Subsystem for Linux as the affected product; update WSL to the latest version</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-21</td><td>MDE</td><td><a href="https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases">Defender for Endpoint on macOS 101.26082.0012 adds AI agent runtime protection configuration and Bluetooth permission health reporting</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-21</td><td>Azure</td><td><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes">Defender for Cloud plan management moves into the Defender portal (public preview): plans become view-only in the Azure portal and migrated subscriptions bill in Defender Workload Units</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-21</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/protect-against-consent-phishing">Entra docs: an app Microsoft disabled cannot be re-enabled by any tenant admin, even in its home tenant; only a support case can reverse it</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-21</td><td>Sentinel</td><td><a href="https://learn.microsoft.com/en-us/azure/sentinel/whats-new">Sentinel SAP BTP solution adds a rule that flags interactive use of custom apps with open high or critical vulnerabilities</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-21</td><td>Graph</td><td><a href="https://github.com/microsoftgraph/microsoft-graph-devx-content/commit/4158f29">IdentityRiskyAgent.Read.All and .ReadWrite.All gain the risky-agents summary endpoint in Microsoft&#x27;s 21 October permission sync</a></td><td>no MC/RM post — permission file only</td></tr><tr><td>2026-10-20</td><td>MDE</td><td><a href="https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases">Defender for Endpoint on Linux 101.26091.0003 hardens quarantine against path-manipulation privilege escalation and updates libcurl for CVE-2026-9546</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-20</td><td>.NET</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197">CVE-2026-70197 (.NET remote code execution, CVSS 8.1): Microsoft now says the October fix does not address the vulnerability and a complete mitigation is still being prepared</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-20</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1515939">Exchange Online: users can send from any of their mailbox&#x27;s aliases once an admin turns it on (generally available)</a></td><td>MC1515939</td></tr><tr><td>2026-10-20</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1515932">Outlook mobile warns with a banner when an external attendee is added to a meeting, rolling out late October to late November</a></td><td>MC1515932</td></tr><tr><td>2026-10-20</td><td>Purview</td><td><a href="https://deltapulse.app/item/MC1515937">Purview eDiscovery adds three read-only diagnostics for case access, security filters and hold-policy distribution</a></td><td>MC1515937</td></tr><tr><td>2026-10-20</td><td>Viva</td><td><a href="https://deltapulse.app/item/MC1515926">Viva Glint: the Service Admin role gets access to every report attribute from 17 November 2026</a></td><td>MC1515926</td></tr><tr><td>2026-10-20</td><td>Viva</td><td><a href="https://deltapulse.app/item/MC1515919">Viva Glint: report attribute access is managed only at the user-role level, client-level restrictions are removed in November 2026</a></td><td>MC1515919</td></tr><tr><td>2026-10-20</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1515929">Teams consolidates GitHub Notifications and GitHub Copilot into one GitHub app; the legacy app is deprecated by 16 November 2026</a></td><td>MC1515929</td></tr><tr><td>2026-10-20</td><td>Copilot</td><td><a href="https://deltapulse.app/item/MC1515930">The Cowork settings panel in Microsoft Copilot is renamed Browser use, mid-October 2026; settings are unchanged</a></td><td>MC1515930</td></tr><tr><td>2026-10-20</td><td>Defender XDR</td><td><a href="https://www.microsoft.com/en-us/security/blog/2026/10/19/agents-are-your-newest-insiders-security-must-move-at-their-speed/">Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic Permissions and Conditional Access for agents under Project Perception</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-20</td><td>Exchange Online</td><td><a href="https://techcommunity.microsoft.com/t5/exchange-team-blog/the-change-optics-report-is-now-generally-available-in-exchange/ba-p/4565858">Exchange Online: the Change Optics report, which shows the traffic an upcoming service change would affect, is generally available</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-20</td><td>Graph</td><td><a href="https://github.com/microsoftgraph/microsoft-graph-devx-content/tree/permissions-update/2026-10-20/permissions/new">CrossTenantContentMigration.Read.All and .ReadWrite.All gain two group endpoints of cross-tenant migration jobs on 20 October</a></td><td>no MC/RM post — permission file only</td></tr><tr><td>2026-10-20</td><td>Azure</td><td><a href="https://techcommunity.microsoft.com/t5/microsoft-security-community/large-os-disk-encryption-is-now-generally-available-for-azure/ba-p/4564613">Large OS Disk Encryption is generally available for Azure Confidential VM migrations</a></td><td>no MC/RM post — blog only</td></tr><tr><td>2026-10-19</td><td>Defender XDR</td><td><a href="https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-clouddnsevents-table">CloudDnsEvents: Microsoft now documents the columns EventType and EventSubType, not DnsEventType and DnsEventSubType</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-19</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history">Global Secure Access client for Windows 2.34.222 adds web sign-in for Windows and Conditional Access sign-in frequency for Private Access apps</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-19</td><td>Windows Server</td><td><a href="https://deltapulse.app/item/MC1515270">Quick machine recovery reaches Windows Server 2025 with the October 2026 security update, switched off by default</a></td><td>MC1515270</td></tr><tr><td>2026-10-19</td><td>Power Platform</td><td><a href="https://deltapulse.app/item/MC1515315">Dataverse plug-ins and custom workflow activities can target .NET Framework 4.8 from 26 October; 4.8.1 and later stay unsupported</a></td><td>MC1515315</td></tr><tr><td>2026-10-19</td><td>Entra</td><td><a href="https://msadminroles.com/">Conditional Access policy plans: three new directory actions reach the Conditional Access, Security and Global Administrator roles in another tenant, not yet in this one or in Microsoft&#x27;s reference</a></td><td>no MC/RM post — role definitions only</td></tr><tr><td>2026-10-19</td><td>MDI</td><td><a href="https://learn.microsoft.com/en-us/defender-for-identity/whats-new">Defender for Identity: existing customers get a 30-day banner, after which sensor v3.x activation and Windows auditing are switched on even where the setting is Off, unless you opt out in the banner</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-19</td><td>Graph</td><td><a href="https://github.com/microsoftgraph/microsoft-graph-devx-content/tree/permissions-update/2026-10-17/permissions/new">Microsoft&#x27;s Graph permission file gains seven permissions on 16 and 17 October, among them CredentialProvenance.ReadWrite.All, HardDeletionSetting.ReadWrite.Enable and PrivilegedAccess-CustomExt.ReadWrite.All</a></td><td>no MC/RM post — permission file only</td></tr><tr><td>2026-10-18</td><td>Graph</td><td><a href="https://github.com/merill/microsoft-info/commit/e9706fa4bc80fbe3ae643ae4f01d5a294b1950ce">The twelve Graph permission names that appeared on 16 October flapped on 17 October: gone from one tenant&#x27;s export, removed and re-added in this tenant&#x27;s service principal</a></td><td>no MC/RM post — service principal only</td></tr><tr><td>2026-10-17</td><td>Graph</td><td><a href="https://github.com/merill/microsoft-info/commit/5d642242ec423b747945bffb5bcc2aee35945b4d">Twelve more Graph permissions became grantable, among them UserCertificateIds.ReadWrite.All, which can bind a certificate to any user, and AdministrativeUnitMember.ReadWrite.All</a></td><td>no MC/RM post — service principal only</td></tr><tr><td>2026-10-17</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1511071">Exchange Online stops returning selected properties from Get-Mailbox -Migration on 15 November and blocks setting them through New-Mailbox -Migration on 15 December</a></td><td>MC1511071</td></tr><tr><td>2026-10-17</td><td>Exchange Online</td><td><a href="https://deltapulse.app/item/MC1191578">Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026</a></td><td>MC1191578</td></tr><tr><td>2026-10-17</td><td>SharePoint</td><td><a href="https://deltapulse.app/item/MC1511052">SharePoint and OneDrive .agent agents stop working after March 2027; new agents move to the Copilot Agent Builder from mid-November</a></td><td>MC1511052</td></tr><tr><td>2026-10-17</td><td>Copilot Studio</td><td><a href="https://deltapulse.app/item/MC1511056">The Copilot Studio app in Teams is retired by February 2027; editing agents there ends in January</a></td><td>MC1511056</td></tr><tr><td>2026-10-17</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1511072">Teams voicemail emails move the caller from the From field to the Subject and can be sent from your own domain from March 2027</a></td><td>MC1511072</td></tr><tr><td>2026-10-17</td><td>Purview</td><td><a href="https://deltapulse.app/item/560075">Insider Risk Management alerts in Defender XDR slip from September 2026 to February 2027 (roadmap)</a></td><td>RM560075</td></tr><tr><td>2026-10-17</td><td>Power Platform</td><td><a href="https://deltapulse.app/item/576863">Dataverse audit events reach Purview without customer data: before-and-after column values stay in Dataverse only</a></td><td>RM576863</td></tr><tr><td>2026-10-17</td><td>Graph</td><td><a href="https://learn.microsoft.com/en-us/graph/api/unifiedroledefinition-delete?view=graph-rest-1.0">Deleting an Entra custom role now soft-deletes it, and Graph v1.0 can list, restore or permanently delete soft-deleted custom roles</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-17</td><td>Graph</td><td><a href="https://learn.microsoft.com/en-us/graph/whats-new-overview">Graph v1.0 gains a device provision action that lets approved VDI providers create devices in a customer directory</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-17</td><td>Azure</td><td><a href="https://azure.microsoft.com/updates?id=574296">Azure Key Vault Managed HSM external key management is generally available in all public regions</a></td><td>no MC/RM post — Azure update</td></tr><tr><td>2026-10-17</td><td>Windows Server</td><td><a href="https://techcommunity.microsoft.com/blog/exchange/exchange-servers-may-become-unstable-after-installation-of-october-2026-windows-/4565382">Exchange Server can become unstable after the October 2026 Windows updates; OWA may fail with MapiExceptionMdbOffline</a></td><td>no MC/RM post — Exchange Team Blog only</td></tr><tr><td>2026-10-16</td><td>Windows</td><td><a href="https://deltapulse.app/item/MC1508562">October security update switches NTLMv1-derived SSO credentials from audit to block on devices without Credential Guard</a></td><td>MC1508562</td></tr><tr><td>2026-10-16</td><td>M365 Apps</td><td><a href="https://msrc.microsoft.com/update-guide/releaseNote/2026-Oct">Microsoft adds 30 Office CVEs it left out of October Patch Tuesday, three of them Critical, and ships the Office for Mac fixes</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-16</td><td>Entra</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092">Two identity-library CVEs published on 15 October: Microsoft Identity Web elevation of privilege and MSAL for Node.js information disclosure</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-16</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks">ID Protection&#x27;s atypical travel detection is now documented as real-time, not offline, and the 14-day learning period is gone from the page</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha">Entra may now show a risk-based CAPTCHA from Arkose Labs before sending an SMS or placing a voice call for sign-in</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Entra</td><td><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-properties">Enterprise app &#x27;Activation status&#x27; is now documented: Deactivated can mean tenant sign-in off, the app registration deactivated, or Microsoft disabling the app</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Intune</td><td><a href="https://deltapulse.app/item/MC1509780">Intune ends CNAME auto-discovery for Windows MDM-only enrollment on 15 January 2027</a></td><td>MC1509780</td></tr><tr><td>2026-10-16</td><td>M365 Apps</td><td><a href="https://deltapulse.app/item/MC1509797">Office LTSC 2021, Visio LTSC 2021 and Project LTSC 2021 left support on 13 October 2026 — no more security updates</a></td><td>MC1509797</td></tr><tr><td>2026-10-16</td><td>Edge</td><td><a href="https://deltapulse.app/item/MC1509789">Edge 159 switches browser-native XSLT off by default from mid-December; the temporary XSLTEnabled policy goes in Edge 176</a></td><td>MC1509789</td></tr><tr><td>2026-10-16</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1509801">Teams admins can customise the extensions Weaponizable File Protection blocks from November — and lose Microsoft&#x27;s list updates if they do</a></td><td>MC1509801</td></tr><tr><td>2026-10-16</td><td>Teams</td><td><a href="https://deltapulse.app/item/MC1509787">Teams meetings can take deepfake-detection signals from certified third-party providers from mid-November</a></td><td>MC1509787</td></tr><tr><td>2026-10-16</td><td>Defender XDR</td><td><a href="https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new">EmailPostDeliveryEvents gains an ApproverUpn column naming who approved a post-delivery remediation</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>MDE</td><td><a href="https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint">Vulnerability assessment for Microsoft Store applications is generally available in Defender Vulnerability Management</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>MDE</td><td><a href="https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-endpoint-releases">Defender Antivirus platform 4.18.26090.9 and engine 1.1.26090.9 fix dropped ASR exclusions and a sensor left switched off</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Defender XDR</td><td><a href="https://learn.microsoft.com/en-us/defender-xdr/mto-urbac">Defender XDR multitenant Unified RBAC: creating, deleting and importing custom roles across tenants is no longer preview</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Sentinel</td><td><a href="https://learn.microsoft.com/en-us/defender-xdr/manage-rbac">Sentinel permissions in Defender Unified RBAC can now be assigned to GDAP user groups; service principals still cannot</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Defender XDR</td><td><a href="https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-real-time-protection">Defender real-time protection for AI agents names four threat scenarios it can block: malicious content, secret exfiltration, evasion and unsafe email domains</a></td><td>no MC/RM post — Learn only</td></tr><tr><td>2026-10-16</td><td>Windows</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96202">Critical remote code execution in the Windows Raw Image Extension is fixed through a Microsoft Store update, not Windows Update</a></td><td>CVE-2026-96202</td></tr><tr><td>2026-10-16</td><td>Edge</td><td><a href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890">Four Microsoft-assigned remote code execution CVEs in Edge published on 16 October</a></td><td>no MC/RM post — MSRC only</td></tr><tr><td>2026-10-16</td><td>Azure</td><td><a href="https://learn.microsoft.com/en-us/azure/defender-for-cloud/identify-sql-servers-protected-by-monitor-agent">Defender for Cloud replaces the Resource Graph query that finds SQL servers protected through Azure Monitor Agent</a></td><td>no MC/RM post — Learn only</td></tr></tbody></table></div>
+<h2>Microsoft changes in Graph API and roles · 16</h2>
+<div class="tw" tabindex="0" role="region" aria-label="Microsoft changes, table"><table><thead><tr><th>Changed</th><th>Where</th><th>Entry</th><th>Change</th></tr></thead><tbody><tr><td>2026-10-21</td><td>Graph API</td><td>IdentityRiskyAgent.ReadWrite.All</td><td>Existing permission gained reach</td></tr><tr><td>2026-10-21</td><td>Graph API</td><td>IdentityRiskyAgent.Read.All</td><td>Existing permission gained reach</td></tr><tr><td>2026-10-20</td><td>Graph API</td><td>CrossTenantContentMigration.ReadWrite.All</td><td>Existing permission gained reach</td></tr><tr><td>2026-10-20</td><td>Graph API</td><td>CrossTenantContentMigration.Read.All</td><td>Existing permission gained reach</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>UserCertificateIds.ReadWrite.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>Repository.ReadWrite.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>Repository.Read.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>Policy.Read.SecurityDefaults</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>CrossTenantIdentityMapping.ReadWrite.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>CrossTenantIdentityMapping.Read.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>CopilotCostManagement.Read.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>CopilotCostManagement-CreditReq.ReadWrite.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>CopilotCostManagement-CreditReq.Read.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>AdministrativeUnitMember.ReadWrite.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>AdministrativeUnit.ReadWriteBasic.All</td><td>New in service, not yet documented</td></tr><tr><td>2026-10-16</td><td>Graph API</td><td>AdministrativeUnit.ReadBasic.All</td><td>New in service, not yet documented</td></tr></tbody></table></div>
+<h2>Baselines: Maester and Tenable · 24</h2>
+<p class="sub">Tests added, changed or removed in Maester, new versions, Tenable audit files published, updated or withdrawn - recorded once a day (<a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines">Baselines tab</a>).</p>
+<div class="tw" tabindex="0" role="region" aria-label="Baselines, table"><table><thead><tr><th>Recorded</th><th>Source</th><th>What</th><th>Test or audit file</th></tr></thead><tbody><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.1">Ensure Microsoft Authenticator is configured to protect against MFA fatigue</a> <small>CIS.M365.5.2.3.1</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.2">Ensure custom banned passwords lists are used</a> <small>CIS.M365.5.2.3.2</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.3">Ensure password protection is enabled for on-prem Active Directory</a> <small>CIS.M365.5.2.3.3</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.4">Ensure all member users are &#x27;MFA capable&#x27;</a> <small>CIS.M365.5.2.3.4</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.6">Ensure system-preferred multifactor authentication is enabled</a> <small>CIS.M365.5.2.3.6</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.7">Ensure the email OTP authentication method is disabled</a> <small>CIS.M365.5.2.3.7</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.8">Ensure that Account &#x27;Lockout threshold&#x27; is &#x27;10&#x27; or less</a> <small>CIS.M365.5.2.3.8</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.9">Ensure that Account &#x27;Lockout duration in seconds&#x27; is at least 60 seconds</a> <small>CIS.M365.5.2.3.9</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.2.3.10">Ensure Microsoft Authenticator on companion applications is disabled</a> <small>CIS.M365.5.2.3.10</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.3.1">Ensure privileged role assignments are activated and not assigned</a> <small>CIS.M365.5.3.1</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.3.2">Ensure &#x27;Access reviews&#x27; for guest users are configured</a> <small>CIS.M365.5.3.2</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.3.3">Ensure &#x27;Access reviews&#x27; for privileged roles are configured</a> <small>CIS.M365.5.3.3</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.3.4">Ensure approval is required for Global Administrator role activation</a> <small>CIS.M365.5.3.4</small></td></tr><tr><td>2026-10-21</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=CIS.M365.5.3.5">Ensure approval is required for Privileged Role Administrator activation</a> <small>CIS.M365.5.3.5</small></td></tr><tr><td>2026-10-18</td><td>Maester</td><td>Test changed</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=MT.1210">Agent Users should not have privileged directory roles or membership in role-assignable groups (Preview).</a> <small>MT.1210</small></td></tr><tr><td>2026-10-18</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=MT.1225">Users should not be able to create Agent Identity Blueprints.</a> <small>MT.1225</small></td></tr><tr><td>2026-10-18</td><td>Maester</td><td>New Maester version</td><td>Maester 3.0.0-preview9 (preview)</td></tr><tr><td>2026-10-17</td><td>Maester</td><td>Test changed</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=MT.1024">Entra recommendations should be completed.</a> <small>MT.1024</small></td></tr><tr><td>2026-10-17</td><td>Maester</td><td>New test</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=MT.1224">Microsoft-managed Conditional Access policies should not be left in report-only mode.</a> <small>MT.1224</small></td></tr><tr><td>2026-10-17</td><td>Maester</td><td>New Maester version</td><td>Maester 3.0.0-preview8 (preview)</td></tr><tr><td>2026-10-17</td><td>Maester</td><td>New Maester version</td><td>Maester 3.0.0-preview7 (preview)</td></tr><tr><td>2026-10-17</td><td>Maester</td><td>New Maester version</td><td>Maester 3.0.0-preview6 (preview)</td></tr><tr><td>2026-10-16</td><td>Maester</td><td>Test changed</td><td><a href="https://orange-ground-019f30603.7.azurestaticapps.net/#tab=baselines&amp;t=MT.1024">Entra recommendations should be completed.</a> <small>MT.1024</small></td></tr><tr><td>2026-10-16</td><td>Maester</td><td>New Maester version</td><td>Maester 3.0.0-preview5 (preview)</td></tr></tbody></table></div>
+</main></body></html>
