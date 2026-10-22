@@ -1,7 +1,7 @@
 {
  "read": "2026-10-22",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 713,
+ "count": 714,
  "note": null,
  "messages": [
   {
@@ -18826,6 +18826,29 @@
    "bodyHash": "ea373795202a0ad7"
   },
   {
+   "id": "MC1520901",
+   "title": "Insights Agent V2 Frontier",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2027-04-30",
+   "modified": "2026-10-22",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Insights Agent V2 is now available in Frontier Insights Agent V2 gives M365 admins tenant-level visibility into agent adoption. M365 admins retain control over whether user feedback is shared with agent owners. Learn more: Explore user feedback with Microsoft 365 Insights Agent [Rollout Schedule:] Public Preview (Worldwide): Roll out is completed. [Impact on Your Organization:] If …",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "5cd991444672b644"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -23922,6 +23945,13 @@
    "id": "MC1177767",
    "type": "removed",
    "title": "How Windows 11 and AI are transforming the future of work",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1520901",
+   "type": "new",
+   "title": "Insights Agent V2 Frontier",
    "fields": {}
   }
  ]
