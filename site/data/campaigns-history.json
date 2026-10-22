@@ -1,6 +1,72 @@
 {
 "updated":"2026-10-22",
 "campaigns":{
+"c-mc1519861":{
+"firstSeen":"2026-10-21",
+"lastSeen":"2026-10-22",
+"name":"Copilot Prioritize feature will be retired",
+"status":"Active",
+"members":[
+"MC1519861"
+],
+"log":[
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Outlook: Copilot Prioritize feature will be retired",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+}
+],
+"milestones":{
+"MC1519861|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Outlook: Copilot Prioritize feature will be retired"
+},
+"MC1519861|the outlook copilot prioritize feature will be retired start#1":{
+"date":"2026-10-26",
+"label":"26 Oct 2026",
+"text":"The Outlook Copilot Prioritize feature will be retired starting October 26, 2026, with removal completed by mid-November 2026 across all Outlook clients."
+},
+"MC1519861|the outlook copilot prioritize feature will be retired start#0":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"The Outlook Copilot Prioritize feature will be retired starting October 26, 2026, with removal completed by mid-November 2026 across all Outlook clients."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861":{
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861",
+"source":"Message Center",
+"id":"MC1519861",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1519861":{
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861",
+"source":"Message Center",
+"id":"MC1519861",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+}
+},
+"final":"2026-11-15",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1519861"
+]
+},
 "c-mc676299":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-22",
@@ -16,12 +82,21 @@
 "MC1469960",
 "item:exchange-crosstenant-freebusy-to-cta",
 "MC1477180",
-"item:exchange-ews-hybrid-coexistence-2026-09-30",
 "MC1485116",
 "MC1486282",
-"MC1486288"
+"MC1486288",
+"item:exchange-online-ews-disablement-starts-2026-10-21"
 ],
 "log":[
+{
+"date":"2026-10-22",
+"id":"exchange-online-ews-disablement-starts-2026-10-21",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
+"title":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
+"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+},
 {
 "date":"2026-10-20",
 "id":"MC1469960",
@@ -606,6 +681,39 @@
 "date":"2026-10-12T00:00:00.0000000Z",
 "group":"microsoft",
 "found":"2026-10-17"
+},
+"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
+"title":"EWS Deprecation Is Here – What This Means To You",
+"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
+"source":"Main list source",
+"id":"exchange-online-ews-disablement-starts-2026-10-21",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215":{
+"title":"Exchange Online EWS application stopped working? Do this.",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215",
+"source":"Exchange Team Blog",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431":{
+"title":"EWS Deprecation Is Here – What This Means To You",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431",
+"source":"Exchange Team Blog",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"What this means for you",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
 }
 },
 "final":"2027-07-05",
@@ -2353,6 +2461,30 @@
 "date":"2026-10-20",
 "group":"microsoft",
 "found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359":{
+"title":"CVE-2026-61359 Windows Storage Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709":{
+"title":"CVE-2026-83709 Windows NTLM Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902":{
+"title":"CVE-2026-69902 Windows NTFS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
 }
 },
 "final":"2026-10-15",
@@ -3627,77 +3759,99 @@
 "MC1474124"
 ]
 },
-"c-item-entra-telephony-risk-captcha-2026-10-14":{
-"firstSeen":"2026-10-16",
+"c-item-mc1519855":{
+"firstSeen":"2026-10-22",
 "lastSeen":"2026-10-22",
-"name":"Retirement of CAPTCHA for meeting join",
-"status":"No date",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"status":"Active",
 "members":[
-"MC1262588",
-"MC1400824",
-"item:entra-telephony-risk-captcha-2026-10-14"
+"MC1519855",
+"item:MC1519855"
 ],
 "log":[
 {
-"date":"2026-10-16",
-"id":"entra-telephony-risk-captcha-2026-10-14",
-"what":"Entered the brief (New)",
+"date":"2026-10-22",
+"id":"MC1519855",
+"what":"Entered the brief (Deadlines)",
 "before":"",
-"after":"Entra may now show a risk-based CAPTCHA from Arkose Labs before sending an SMS or placing a voice call for sign-in",
-"title":"Entra may now show a risk-based CAPTCHA from Arkose Labs before sending an SMS or placing a voice call for sign-in",
-"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha"
+"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
 }
 ],
 "milestones":{
-"MC1262588|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Microsoft Teams: Retirement of CAPTCHA for meeting join"
+"MC1519855|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication"
 },
-"MC1400824|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Microsoft Entra: Self-service password reset CAPTCHA protection updated"
+"MC1519855|starting microsoft entra id allows organizations to choose a#0":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Mic"
+},
+"MC1519855|microsoft provided sms voice authentication retires by excep#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+},
+"MC1519855|microsoft provided sms voice authentication retires by excep#1":{
+"date":"2027-07-01",
+"label":"1 Jul 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
 }
 },
 "moves":[],
 "materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1262588":{
-"title":"Microsoft Teams: Retirement of CAPTCHA for meeting join",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1262588",
+"https://mc.merill.net/message/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855",
 "source":"Message Center",
-"id":"MC1262588",
-"date":"2026-09-29",
-"updated":null,
+"id":"MC1519855",
+"date":"2026-10-21",
+"updated":"2026-10-21",
 "group":"microsoft",
-"found":"2026-10-16"
+"found":"2026-10-22"
 },
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824":{
-"title":"Microsoft Entra: Self-service password reset CAPTCHA protection updated",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824",
-"source":"Message Center",
-"id":"MC1400824",
-"date":"2026-09-29",
-"updated":null,
-"group":"microsoft",
-"found":"2026-10-16"
-},
-"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha":{
-"title":"Risk-based anti-bot verification (CAPTCHA) for telephony-based sign-in",
-"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha",
+"https://deltapulse.app/item/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1519855",
 "source":"Main list source",
-"id":"entra-telephony-risk-captcha-2026-10-14",
-"date":"2026-10-15",
+"id":"MC1519855",
+"date":"2026-10-21",
 "group":"microsoft",
-"found":"2026-10-16"
+"found":"2026-10-22"
+},
+"https://azure.microsoft.com/updates?id=577273":{
+"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://azure.microsoft.com/updates?id=577273",
+"source":"Azure Updates",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://mc.merill.net/message/AZ577273":{
+"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://mc.merill.net/message/AZ577273",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-22"
 }
 },
-"final":null,
+"final":"2027-07-01",
 "type":"Retirement",
 "tech":"Entra",
 "posts":[
-"MC1262588",
-"MC1400824"
+"MC1519855"
 ]
 },
 "c-mc1278920":{
@@ -5055,14 +5209,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-19",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-20",
 "text":"August 1, 2026."
 },
@@ -5192,6 +5338,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-21",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-22",
 "text":"August 1, 2026."
 },
 {
@@ -5721,7 +5875,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"early February 2026."
 },
 {
@@ -5729,7 +5883,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"February 2027."
 },
 {
@@ -6035,6 +6189,14 @@
 "date":"2026-10-08",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - Improved enforcement for All resources policies with resource exclusions",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
 }
 },
 "final":null,
@@ -6130,52 +6292,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-mc1519861":{
-"firstSeen":"2026-10-21",
-"lastSeen":"2026-10-22",
-"name":"Copilot Prioritize feature will be retired",
-"status":"Active",
-"members":[
-"MC1519861"
-],
-"log":[],
-"milestones":{
-"MC1519861|posted":{
-"date":"2026-10-21",
-"label":"21 Oct 2026",
-"text":"Posted: Outlook: Copilot Prioritize feature will be retired"
-},
-"MC1519861|starting we ll roll back the feature and remove the correspo#0":{
-"date":"2026-10-26",
-"label":"26 Oct 2026",
-"text":"Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort."
-},
-"MC1519861|we will begin this change on and expect to complete by mid#0":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"We will begin this change on October 26, 2026, and expect to complete by mid-November 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861":{
-"title":"Outlook: Copilot Prioritize feature will be retired",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1519861",
-"source":"Message Center",
-"id":"MC1519861",
-"date":"2026-10-21",
-"updated":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-21"
-}
-},
-"final":"2026-11-15",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1519861"
 ]
 },
 "c-item-mc1515940":{
@@ -7956,9 +8072,19 @@
 "MC1465763",
 "MC1474104",
 "item:MC1474104",
-"item:entra-telephony-provider-configuration-2026-10-30"
+"item:entra-telephony-provider-configuration-2026-10-30",
+"MC1519855"
 ],
 "log":[
+{
+"date":"2026-10-22",
+"id":"MC1519855",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855"
+},
 {
 "date":"2026-10-16",
 "id":"MC1426371",
@@ -8021,20 +8147,25 @@
 "label":"18 Sep 2026",
 "text":"Posted: Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
 },
-"MC1426371|customers who need to continue to use sms or voice will be a#0":{
+"MC1519855|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication"
+},
+"MC1519855|starting microsoft entra id allows organizations to choose a#0":{
 "date":"2026-10-30",
 "label":"30 Oct 2026",
-"text":"October 30, 2026: Customers who need to continue to use SMS or voice will be able to choose from a list of telecom providers available through the Microsoft Sec"
+"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Mic"
 },
-"MC1426371|as part of this transition sms and voice will no longer be a#0":{
+"MC1519855|microsoft provided sms voice authentication retires by excep#0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
-"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
 },
-"MC1426371|for most users for global administrators and external users#1":{
+"MC1519855|microsoft provided sms voice authentication retires by excep#1":{
 "date":"2027-07-01",
 "label":"1 Jul 2027",
-"text":"1 Jul 2027 for Global Administrators and external users."
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
 }
 },
 "moves":[],
@@ -8480,6 +8611,16 @@
 "date":"2026-10-21",
 "group":"community",
 "found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855",
+"source":"Message Center",
+"id":"MC1519855",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
 }
 },
 "final":"2027-07-01",
@@ -8488,7 +8629,8 @@
 "posts":[
 "MC1426371",
 "MC1465763",
-"MC1474104"
+"MC1474104",
+"MC1519855"
 ]
 },
 "c-passkeys-by-default":{
@@ -9120,7 +9262,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9128,7 +9270,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9433,6 +9575,14 @@
 "date":"2026-10-16",
 "group":"community",
 "found":"2026-10-17"
+},
+"https://mc.merill.net/message/MC1519855":{
+"title":"MC1519855: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-22"
 }
 },
 "final":"2027-02-25",
@@ -12495,6 +12645,131 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1519861",
+"type":"milestone",
+"name":"Copilot Prioritize feature will be retired",
+"src":"MC1519861",
+"now":"26 Oct 2026",
+"text":"The Outlook Copilot Prioritize feature will be retired starting October 26, 2026, with removal completed by mid-November 2026 across all Outlook clients."
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1519861",
+"type":"milestone",
+"name":"Copilot Prioritize feature will be retired",
+"src":"MC1519861",
+"now":"mid Nov 2026",
+"text":"The Outlook Copilot Prioritize feature will be retired starting October 26, 2026, with removal completed by mid-November 2026 across all Outlook clients."
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"EWS Deprecation Is Here – What This Means To You",
+"source":"Main list source",
+"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"Exchange Online EWS application stopped working? Do this.",
+"source":"Exchange Team Blog",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"EWS Deprecation Is Here – What This Means To You",
+"source":"Exchange Team Blog",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-61359 Windows Storage Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83709 Windows NTLM Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69902 Windows NTFS Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902"
+},
+{
+"day":"2026-10-22",
+"cid":"c-item-mc1519855",
+"type":"new",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"ctype":"Retirement",
+"tech":"Entra",
+"next":"30 Oct 2026",
+"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Microsoft Security Store."
+},
+{
+"day":"2026-10-22",
+"cid":"c-sms-voice-retirement",
+"type":"milestone",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"src":"MC1519855",
+"now":"30 Oct 2026",
+"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Microsoft Security Store."
+},
+{
+"day":"2026-10-22",
+"cid":"c-sms-voice-retirement",
+"type":"milestone",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"src":"MC1519855",
+"now":"1 Feb 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+},
+{
+"day":"2026-10-22",
+"cid":"c-sms-voice-retirement",
+"type":"milestone",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"src":"MC1519855",
+"now":"1 Jul 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+},
+{
+"day":"2026-10-22",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1519855: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1519855"
 }
 ],
 "archive":{
@@ -13361,6 +13636,79 @@
 "type":"Rollout",
 "tech":"Azure",
 "posts":[]
+},
+"c-item-entra-telephony-risk-captcha-2026-10-14":{
+"firstSeen":"2026-10-16",
+"lastSeen":"2026-10-22",
+"name":"Retirement of CAPTCHA for meeting join",
+"status":"Archive",
+"members":[
+"MC1262588",
+"MC1400824",
+"item:entra-telephony-risk-captcha-2026-10-14"
+],
+"log":[
+{
+"date":"2026-10-16",
+"id":"entra-telephony-risk-captcha-2026-10-14",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Entra may now show a risk-based CAPTCHA from Arkose Labs before sending an SMS or placing a voice call for sign-in",
+"title":"Entra may now show a risk-based CAPTCHA from Arkose Labs before sending an SMS or placing a voice call for sign-in",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha"
+}
+],
+"milestones":{
+"MC1262588|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Teams: Retirement of CAPTCHA for meeting join"
+},
+"MC1400824|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Entra: Self-service password reset CAPTCHA protection updated"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1262588":{
+"title":"Microsoft Teams: Retirement of CAPTCHA for meeting join",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1262588",
+"source":"Message Center",
+"id":"MC1262588",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824":{
+"title":"Microsoft Entra: Self-service password reset CAPTCHA protection updated",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824",
+"source":"Message Center",
+"id":"MC1400824",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha":{
+"title":"Risk-based anti-bot verification (CAPTCHA) for telephony-based sign-in",
+"link":"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha",
+"source":"Main list source",
+"id":"entra-telephony-risk-captcha-2026-10-14",
+"date":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+}
+},
+"final":null,
+"type":"Retirement",
+"tech":"Entra",
+"posts":[
+"MC1262588",
+"MC1400824"
+]
 }
 }
 }

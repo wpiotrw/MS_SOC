@@ -1,0 +1,24 @@
+// title: Storm-0940: ConnectWise app sign-ins and Graph calls in this tenant since 1 October
+// date: 2026-10-22
+// product: Entra
+// tables: AADServicePrincipalSignInLogs, MicrosoftGraphActivityLogs
+// purpose: Service principal sign-ins and Microsoft Graph requests for the three ConnectWise application IDs Microsoft published, or from the six IP addresses it lists, since 1 October 2026; one row per service principal with sign-in counts, failures, IPs, resources and write calls. Microsoft says the immediat
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 22 Oct 2026 - Storm-0940: ConnectWise multi-tenant apps and published IPs, service principal sign-ins and Graph calls since 1 October
+// Columns as on the AADServicePrincipalSignInLogs and MicrosoftGraphActivityLogs references cited beside this query. Not run against a tenant in this pass.
+let cwApps = dynamic(["506e08f9-6e9a-4da4-942b-a099a03644ae", "24205314-2b89-4e07-a2a4-579e898a5640", "0de14c77-b9b0-4137-9360-34878a929827"]);
+let iocIPs = dynamic(["144.172.64.128", "144.172.64.99", "144.172.64.60", "187.15.88.186", "187.15.90.217", "187.15.89.186"]);
+let since = datetime(2026-10-01);
+let signins = AADServicePrincipalSignInLogs
+| where TimeGenerated >= since
+| where AppId in (cwApps) or IPAddress in (iocIPs)
+| summarize SignIns = count(), Failures = countif(ResultType != "0"), SignInIPs = make_set(IPAddress, 50), Resources = make_set(ResourceDisplayName, 20), First = min(TimeGenerated), Last = max(TimeGenerated) by AppId, ServicePrincipalId, ServicePrincipalName;
+let graph = MicrosoftGraphActivityLogs
+| where TimeGenerated >= since
+| where AppId in (cwApps) or IPAddress in (iocIPs)
+| summarize GraphCalls = count(), Writes = countif(RequestMethod in ("POST", "PATCH", "PUT", "DELETE")), GraphIPs = make_set(IPAddress, 50), SampleUris = make_set(RequestUri, 25) by AppId, ServicePrincipalId;
+signins
+| join kind=fullouter graph on AppId, ServicePrincipalId
+| project AppId = coalesce(AppId, AppId1), ServicePrincipalId = coalesce(ServicePrincipalId, ServicePrincipalId1), ServicePrincipalName, SignIns, Failures, First, Last, SignInIPs, Resources, GraphCalls, Writes, GraphIPs, SampleUris
+| order by Writes desc, SignIns desc

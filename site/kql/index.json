@@ -1,5 +1,32 @@
 [
  {
+  "file": "incidents/2026-10-22-service-principal-sign-ins-from-the-published-ips.kql",
+  "title": "Service-principal sign-ins from the published IPs and user agents (Defender XDR advanced hunting)",
+  "date": "2026-10-22",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "Threat Research: Storm-0940 and the ARTEX AI framework: Microsoft ties the ConnectWise Cloud Backup compromise to a China-aligned actor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "2026-10-22-storm-0940-connectwise-app-sign-ins-and-graph.kql",
+  "title": "Storm-0940: ConnectWise app sign-ins and Graph calls in this tenant since 1 October",
+  "date": "2026-10-22",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "Service principal sign-ins and Microsoft Graph requests for the three ConnectWise application IDs Microsoft published, or from the six IP addresses it lists, since 1 October 2026; one row per service principal with sign-in counts, failures, IPs, resources and write calls. Microsoft says the immediat",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs",
+  "kind": "brief"
+ },
+ {
   "file": "community/2026-10-21-zscaler-registry-tampering-detection.kql",
   "title": "Zscaler Registry Tampering Detection",
   "date": "2026-10-21",
@@ -21620,6 +21647,21 @@
   "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
  },
  {
+  "file": "articles/2026-10-21-2-microsoftgraphactivitylogs-what-observable-graph-api-activ-2.kql",
+  "title": "2 – MicrosoftGraphActivityLogs → What observable Graph API activity followed?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
   "file": "articles/2026-10-21-2-entraidspnsigninevents-graphapiauditevents-did-the-service.kql",
   "title": "2 – EntraIdSpnSignInEvents + GraphAPIAuditEvents → Did the service principal authenticate, and what Microsoft Graph activity followed?",
   "date": "2026-10-21",
@@ -21633,6 +21675,21 @@
   "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
   "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
   "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-2-entraidspnsigninevents-graphapiauditevents-did-the-service-2.kql",
+  "title": "2 – EntraIdSpnSignInEvents + GraphAPIAuditEvents → Did the service principal authenticate, and what Microsoft Graph activity followed?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
   "file": "articles/2026-10-21-1-signinlogs-did-a-service-principal-authenticate-from.kql",
@@ -21650,6 +21707,21 @@
   "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
  },
  {
+  "file": "articles/2026-10-21-1-signinlogs-did-a-service-principal-authenticate-from-2.kql",
+  "title": "1-SigninLogs → Did a service principal authenticate, from where, and against what resource?",
+  "date": "2026-10-21",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
   "file": "articles/2026-10-21-1-oauthappinfo-is-the-affected-app-present-enabled.kql",
   "title": "1- OAuthAppInfo → Is the affected app present, enabled, and what permissions does it hold?",
   "date": "2026-10-21",
@@ -21663,6 +21735,21 @@
   "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
   "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
   "incident": "auto-ai-driven-large-scale-nation-state-campa-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-21-1-oauthappinfo-is-the-affected-app-present-enabled-2.kql",
+  "title": "1- OAuthAppInfo → Is the affected app present, enabled, and what permissions does it hold?",
+  "date": "2026-10-21",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "OAuthAppInfo"
+  ],
+  "purpose": "From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
   "file": "articles/2026-10-21-1-identifying-php-installations-and-versions.kql",
@@ -21689,7 +21776,10 @@
   ],
   "purpose": "Daily billable and non-billable volume per table from the Usage table, last 14 full days; flags a table whose last full day fell below 30 percent of its median, or that stopped reporting. Usage is hourly with StartTime and EndTime, Quantity in MB. Columns from the Usage table reference cited beside ",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-10-22"
+  ]
  },
  {
   "file": "articles/2026-10-20-building-the-detection.kql",
@@ -21715,7 +21805,8 @@
   "purpose": "Counts devices per .NET product and version that Defender Vulnerability Management lists for CVE-2026-70197, with the update it recommends. Read it as the exposure list to keep under compensating controls until Microsoft ships the complete mitigation; a device that drops off the list after the Octob",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table",
   "reused": [
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -21775,7 +21866,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -21794,7 +21886,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -21811,7 +21904,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -21833,7 +21927,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -21948,7 +22043,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22055,7 +22151,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22081,7 +22178,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22109,7 +22207,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22137,7 +22236,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22166,7 +22266,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22195,7 +22296,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22227,7 +22329,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22389,7 +22492,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22666,7 +22770,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22704,7 +22809,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },
@@ -22741,7 +22847,8 @@
    "2026-10-18",
    "2026-10-19",
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "kind": "brief"
  },

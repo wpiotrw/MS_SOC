@@ -1,0 +1,17 @@
+// title: Service-principal sign-ins from the published IPs and user agents (Defender XDR advanced hunting)
+// date: 2026-10-22
+// product: Entra
+// tables: EntraIdSpnSignInEvents
+// purpose: Threat Research: Storm-0940 and the ARTEX AI framework: Microsoft ties the ConnectWise Cloud Backup compromise to a China-aligned actor
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Schema: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table
+let badIPs = dynamic(["144.172.64.128","144.172.64.99","144.172.64.60","187.15.88.186","187.15.90.217","187.15.89.186"]);
+let badApps = dynamic(["506e08f9-6e9a-4da4-942b-a099a03644ae","24205314-2b89-4e07-a2a4-579e898a5640","0de14c77-b9b0-4137-9360-34878a929827"]);
+EntraIdSpnSignInEvents
+| where Timestamp >= datetime(2026-10-01)
+| where IPAddress in (badIPs) or ApplicationId in (badApps) or UserAgent has_any ("Python-urllib/3.12","python-requests/2.31.0","python-requests/2.34.2","curl/7.88.1","azure-toolkit/1.0")
+| summarize Attempts=count(), Failures=countif(ErrorCode != 0), FirstSeen=min(Timestamp), LastSeen=max(Timestamp) by ServicePrincipalName, ApplicationId, IPAddress, UserAgent
+| order by LastSeen desc

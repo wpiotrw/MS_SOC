@@ -1,0 +1,25 @@
+// title: 2 – EntraIdSpnSignInEvents + GraphAPIAuditEvents → Did the service principal authenticate, and what Microsoft Graph activity followed?
+// date: 2026-10-21
+// product: Entra
+// tables: EntraIdSpnSignInEvents
+// purpose: From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+// kind: article
+// author: Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Apps = dynamic([
+    "506e08f9-6e9a-4da4-942b-a099a03644ae",
+    "24205314-2b89-4e07-a2a4-579e898a5640",
+    "0de14c77-b9b0-4137-9360-34878a929827"
+]);
+let IPs = dynamic(["144.172.64.60", "144.172.64.99", "144.172.64.128"]);
+union kind=outer
+    (EntraIdSpnSignInEvents
+     | extend EventType = "Sign-in"),
+    (GraphAPIAuditEvents
+     | extend EventType = "Graph API", IPAddress = IpAddress)
+| where Timestamp >= datetime(2026-10-13)
+| where ApplicationId in (Apps)
+| where IPAddress in (IPs) // Comment out for broader hunting
+| project-away IpAddress
+| order by Timestamp asc
