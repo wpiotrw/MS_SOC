@@ -1,0 +1,39 @@
+// title: Detection 3: Storm-3168: Service Principal Bulk Resource Deletion Across Multiple Resource Types
+// date: 2026-09-29
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Tuesday, September 29, 2026
+// source: https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where TimeGenerated > ago(1h)
+| where OperationName has "delete"
+| where ActivityStatusValue == "Success"
+| where Caller !has "@"
+| extend ResourceType = tostring(coalesce(split(ResourceId, "/")[6], ""))
+| where isnotempty(ResourceType)
+| summarize
+    DeleteCount = count(),
+    DistinctResourceTypes = dcount(ResourceType),
+    ResourceTypeList = make_set(ResourceType, 20),
+    DeletedResources = make_set(ResourceId, 20),
+    CallerIPs = make_set(CallerIpAddress, 5),
+    ResourceGroup = take_any(ResourceGroup),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+  by Caller, SubscriptionId, bin(TimeGenerated, 30m)
+| where DistinctResourceTypes >= 3
+| project
+    FirstSeen,
+    LastSeen,
+    Caller,
+    SubscriptionId,
+    ResourceGroup,
+    DeleteCount,
+    DistinctResourceTypes,
+    ResourceTypeList,
+    DeletedResources,
+    CallerIPs
+| order by DeleteCount desc

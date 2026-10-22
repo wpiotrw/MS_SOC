@@ -1,0 +1,56 @@
+// title: Detection 1: Storm-3168: Service Principal Bulk Resource Deletion Following Reconnaissance
+// date: 2026-09-29
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Tuesday, September 29, 2026
+// source: https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ReconWindow = 4h;
+let DestructionWindow = 60min;
+let MinReadOps = 10;
+let MinResourceTypes = 3;
+let ReconActivity =
+    AzureActivity
+    | where TimeGenerated > ago(ReconWindow)
+    | where OperationName has_any ("list", "get", "read")
+    | where ActivityStatusValue == "Success"
+    | where Caller !has "@"
+    | extend ResourceType = tostring(coalesce(split(ResourceId, "/")[6], ""))
+    | where isnotempty(ResourceType)
+    | summarize
+        ReadOpCount = count(),
+        DistinctResourceTypes = dcount(ResourceType),
+        ReconStart = min(TimeGenerated),
+        ReconEnd = max(TimeGenerated),
+        CallerIPs = make_set(CallerIpAddress, 5),
+        ResourceGroup = take_any(ResourceGroup)
+      by Caller, SubscriptionId
+    | where ReadOpCount >= MinReadOps and DistinctResourceTypes >= MinResourceTypes;
+let DeletionActivity =
+    AzureActivity
+    | where TimeGenerated > ago(ReconWindow + DestructionWindow)
+    | where OperationName has "delete"
+    | where ActivityStatusValue == "Success"
+    | where Caller !has "@"
+    | summarize
+        DeleteOpCount = count(),
+        DeletedResources = make_set(ResourceId, 10),
+        FirstDelete = min(TimeGenerated)
+      by Caller, SubscriptionId;
+ReconActivity
+| join kind=inner DeletionActivity on Caller, SubscriptionId
+| where FirstDelete between (ReconEnd .. (ReconEnd + DestructionWindow))
+| project
+    ReconStart,
+    ReconEnd,
+    FirstDelete,
+    Caller,
+    SubscriptionId,
+    ResourceGroup,
+    ReadOpCount,
+    DistinctResourceTypes,
+    DeleteOpCount,
+    DeletedResources,
+    CallerIPs

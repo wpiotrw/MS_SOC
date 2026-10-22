@@ -1,0 +1,55 @@
+// title: Detection 2: Storm-3168: Service Principal Reconnaissance Followed by Destructive Action
+// date: 2026-09-28
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Monday, September 28, 2026
+// source: https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackWindow = 4h;
+let DestructionLookforward = 60m;
+let ReconMinOps = 20;
+let ReconMinTypes = 3;
+let ReconPrincipals =
+    AzureActivity
+    | where TimeGenerated >= ago(LookbackWindow)
+    | where tolower(OperationName) has_any ("list", "get", "read")
+    | where ActivityStatus =~ "Succeeded"
+    | where Caller !contains "@"
+    | summarize
+        ReconOps = count(),
+        DistinctReconTypes = dcount(ResourceType),
+        ReconStart = min(TimeGenerated)
+        by Caller
+    | where ReconOps >= ReconMinOps and DistinctReconTypes >= ReconMinTypes;
+let DestructivePrincipals =
+    AzureActivity
+    | where TimeGenerated >= ago(LookbackWindow)
+    | where tolower(OperationName) has "delete"
+    | where ActivityStatus =~ "Succeeded"
+    | where Caller !contains "@"
+    | summarize
+        DeleteOps = count(),
+        DeleteStart = min(TimeGenerated),
+        DeleteResourceTypes = make_set(ResourceType, 20),
+        CallerIpAddress = take_any(CallerIpAddress),
+        SubscriptionId = take_any(SubscriptionId)
+        by Caller;
+ReconPrincipals
+| join kind=inner DestructivePrincipals on Caller
+| where DeleteStart > ReconStart
+| where DeleteStart <= ReconStart + DestructionLookforward
+| extend MinutesFromReconToDelete = datetime_diff('minute', DeleteStart, ReconStart)
+| project
+    Caller,
+    ReconStart,
+    ReconOps,
+    DistinctReconTypes,
+    DeleteStart,
+    DeleteOps,
+    DeleteResourceTypes,
+    MinutesFromReconToDelete,
+    CallerIpAddress,
+    SubscriptionId
+| sort by MinutesFromReconToDelete asc

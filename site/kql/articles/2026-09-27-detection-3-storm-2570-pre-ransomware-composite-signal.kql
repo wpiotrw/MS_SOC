@@ -1,0 +1,56 @@
+// title: Detection 3: Storm-2570: Pre-Ransomware Composite Signal - Credential Dumping, Lateral Movement, and Shadow Copy Deletion
+// date: 2026-09-27
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, September 27, 2026
+// source: https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TimeWindow = 4h;
+let CredDump = DeviceProcessEvents
+    | where Timestamp > ago(24h)
+    | where ProcessCommandLine has_any ("sekurlsa", "mimikatz", "MiniDump", "procdump")
+        or (FileName =~ "comsvcs.dll" and ProcessCommandLine has "MiniDump")
+        or (ProcessCommandLine has "lsass" and ProcessCommandLine has_any ("dump", "minidump", "full"))
+    | summarize
+        CredDumpTime = min(Timestamp),
+        CredDumpProcess = take_any(FileName),
+        CredDumpCommandLine = take_any(ProcessCommandLine)
+        by DeviceId, AccountName;
+let LateralMove = DeviceLogonEvents
+    | where Timestamp > ago(24h)
+    | where LogonType in (3, 10)
+    | where isnotempty(RemoteIP)
+    | where RemoteIP !startswith "127."
+    | summarize
+        LateralTime = min(Timestamp),
+        LateralTargetDevice = take_any(DeviceId),
+        RemoteIP = take_any(RemoteIP)
+        by AccountName;
+let ShadowDelete = DeviceProcessEvents
+    | where Timestamp > ago(24h)
+    | where (FileName =~ "vssadmin.exe" and ProcessCommandLine has "delete")
+        or (FileName =~ "wmic.exe" and ProcessCommandLine has_all ("shadowcopy", "delete"))
+        or (FileName =~ "powershell.exe" and ProcessCommandLine has_all ("Win32_ShadowCopy", "Delete"))
+    | summarize
+        ShadowTime = min(Timestamp),
+        ShadowCommandLine = take_any(ProcessCommandLine)
+        by DeviceId;
+CredDump
+| join kind=inner LateralMove on AccountName
+| join kind=inner ShadowDelete on $left.DeviceId == $right.DeviceId
+| where ShadowTime > CredDumpTime
+| where ShadowTime <= CredDumpTime + TimeWindow
+| project
+    SourceDeviceId = DeviceId,
+    AccountName,
+    CredDumpTime,
+    CredDumpProcess,
+    CredDumpCommandLine,
+    LateralTargetDevice,
+    LateralTime,
+    RemoteIP,
+    ShadowDeviceId = DeviceId1,
+    ShadowTime,
+    ShadowCommandLine

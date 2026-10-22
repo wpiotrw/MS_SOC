@@ -1,0 +1,42 @@
+// title: Detection 4: BEC: External Forwarding Rule Created After Anomalous Mailbox Operation
+// date: 2026-09-27
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: From the article: Detection Engineering Brief - Sunday, September 27, 2026
+// source: https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CorrelationWindow = 2h;
+let LookbackPeriod = 24h;
+let ForwardingRules = OfficeActivity
+    | where TimeGenerated > ago(LookbackPeriod)
+    | where Operation in ("New-InboxRule", "Set-InboxRule")
+    | where tostring(Parameters) has_any ("ForwardTo", "ForwardAsAttachmentTo", "RedirectTo")
+    | extend RuleParams = tostring(Parameters)
+    | where RuleParams matches regex @"@(?!.*\.onmicrosoft\.com)[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+    | project RuleTime = TimeGenerated, UserId, RuleClientIP = ClientIP, RuleParams, MailboxOwnerUPN;
+let MailboxAccess = OfficeActivity
+    | where TimeGenerated > ago(LookbackPeriod)
+    | where Operation in ("MailItemsAccessed", "FolderBind", "MessageBind")
+    | summarize
+        AccessIPs = make_set(ClientIP, 20),
+        AccessIPCount = dcount(ClientIP),
+        FirstAccess = min(TimeGenerated),
+        LastAccess = max(TimeGenerated)
+        by UserId;
+ForwardingRules
+| join kind=inner MailboxAccess on UserId
+| where LastAccess < RuleTime
+| where RuleTime <= LastAccess + CorrelationWindow
+| where RuleClientIP !in (AccessIPs)
+| project
+    RuleTime,
+    UserId,
+    MailboxOwnerUPN,
+    RuleClientIP,
+    RuleParams,
+    AccessIPs,
+    AccessIPCount,
+    FirstAccess,
+    LastAccess

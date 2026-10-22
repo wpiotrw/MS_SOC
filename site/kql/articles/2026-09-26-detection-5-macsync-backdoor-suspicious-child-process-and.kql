@@ -1,0 +1,69 @@
+// title: Detection 5: MacSync Backdoor - Suspicious Child Process and Outbound Connection on macOS Endpoint
+// date: 2026-09-26
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, September 26, 2026
+// source: https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let c2_window = 5m;
+let suspicious_parents = dynamic(["bash", "zsh", "python3", "python", "osascript", "curl", "wget", "sh"]);
+let excluded_children = dynamic(["bash", "zsh", "sh", "python3", "python", "dash"]);
+let new_procs = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where OSPlatform =~ "macOS"
+| where tolower(InitiatingProcessFileName) has_any (suspicious_parents)
+| where tolower(FileName) !in (excluded_children)
+| where isnotempty(FileName)
+| project
+    ProcTime = TimeGenerated,
+    DeviceId,
+    DeviceName,
+    ProcessId,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    AccountName,
+    AccountDomain;
+let outbound = DeviceNetworkEvents
+| where TimeGenerated >= ago(lookback)
+| where OSPlatform =~ "macOS"
+| where ActionType == "ConnectionSuccess"
+| where isnotempty(RemoteIP)
+| where RemoteIP !startswith "127."
+| where RemoteIP !startswith "169.254."
+| where RemoteIP != "::1"
+| where not(ipv4_is_private(RemoteIP))
+| project
+    NetTime = TimeGenerated,
+    DeviceId,
+    InitiatingProcessId,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort;
+new_procs
+| join kind=inner outbound on DeviceId
+| where NetTime >= ProcTime
+| where NetTime <= ProcTime + c2_window
+| where InitiatingProcessId == InitiatingProcessId1
+    or tolower(InitiatingProcessFileName1) == tolower(FileName)
+| summarize
+    RemoteIPs = make_set(RemoteIP, 50),
+    RemotePorts = make_set(RemotePort, 20),
+    Commands = make_set(ProcessCommandLine, 20),
+    ProcTime = min(ProcTime)
+    by DeviceName, DeviceId, AccountName, AccountDomain, FileName, InitiatingProcessFileName
+| project
+    DeviceName,
+    DeviceId,
+    AccountName,
+    AccountDomain,
+    FileName,
+    InitiatingProcessFileName,
+    Commands,
+    RemoteIPs,
+    RemotePorts,
+    ProcTime
+| sort by ProcTime desc

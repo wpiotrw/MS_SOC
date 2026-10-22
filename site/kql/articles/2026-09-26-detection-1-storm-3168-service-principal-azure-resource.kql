@@ -1,0 +1,52 @@
+// title: Detection 1: Storm-3168 - Service Principal Azure Resource Deletion Following Reconnaissance
+// date: 2026-09-26
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Saturday, September 26, 2026
+// source: https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1h;
+let recon_window = 30m;
+let min_recon_count = 10;
+let min_delete_count = 1;
+let recon_ops = AzureActivity
+| where TimeGenerated >= ago(lookback)
+| where tolower(OperationName) has_any ("list", "read", "get")
+| where ActivityStatus =~ "Succeeded"
+| where isnotempty(Caller)
+| summarize
+    ReconCount = count(),
+    ReconStart = min(TimeGenerated),
+    ReconIPs = make_set(CallerIpAddress, 50)
+    by Caller, ResourceGroup, SubscriptionId;
+let delete_ops = AzureActivity
+| where TimeGenerated >= ago(lookback)
+| where tolower(OperationName) has "delete"
+| where ActivityStatus =~ "Succeeded"
+| where isnotempty(Caller)
+| summarize
+    DeleteCount = count(),
+    DeleteTime = min(TimeGenerated),
+    DeletedResources = make_set(OperationName, 20),
+    DeleteIPs = make_set(CallerIpAddress, 50)
+    by Caller, ResourceGroup, SubscriptionId;
+recon_ops
+| join kind=inner delete_ops on Caller, ResourceGroup, SubscriptionId
+| where DeleteTime >= ReconStart
+| where DeleteTime <= ReconStart + recon_window
+| where ReconCount >= min_recon_count
+| where DeleteCount >= min_delete_count
+| project
+    Caller,
+    ResourceGroup,
+    SubscriptionId,
+    ReconCount,
+    DeleteCount,
+    ReconStart,
+    DeleteTime,
+    TimeDeltaMinutes = datetime_diff('minute', DeleteTime, ReconStart),
+    ReconIPs,
+    DeleteIPs,
+    DeletedResources

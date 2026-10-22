@@ -1,0 +1,61 @@
+// title: Detection 3: Storm-2570 - Pre-Ransomware Lateral Movement and Discovery Preceding Known Ransomware Family Activity
+// date: 2026-09-26
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceLogonEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, September 26, 2026
+// source: https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 48h;
+let ransomware_families = dynamic(["qilin", "dragonforce", "anubis", "bert"]);
+let discovery_commands = dynamic(["net view", "nltest", "whoami", "ipconfig", "net user", "net group", "arp -a", "net localgroup", "tasklist", "systeminfo"]);
+let ransomware_devices = DeviceFileEvents
+| where TimeGenerated >= ago(lookback)
+| where ActionType == "FileCreated"
+| where tolower(FileName) has_any (ransomware_families)
+| summarize
+    RansomwareTime = min(TimeGenerated),
+    RansomwareFileName = take_any(FileName),
+    RansomwareFolderPath = take_any(FolderPath)
+    by DeviceId, DeviceName;
+let discovery_cmds = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where tolower(ProcessCommandLine) has_any (discovery_commands)
+| project
+    DiscoveryTime = TimeGenerated,
+    DeviceId,
+    DeviceName,
+    ProcessCommandLine,
+    AccountName,
+    InitiatingProcessFileName;
+let lateral_logons = DeviceLogonEvents
+| where TimeGenerated >= ago(lookback)
+| where LogonType in (3, 10)
+| where ActionType == "LogonSuccess"
+| summarize LateralLogonCount = count() by DeviceId, DeviceName;
+discovery_cmds
+| join kind=inner ransomware_devices on DeviceId
+| where DiscoveryTime < RansomwareTime
+| summarize
+    DiscoveryCommands = make_set(ProcessCommandLine, 50),
+    EarliestDiscovery = min(DiscoveryTime),
+    RansomwareTime = max(RansomwareTime),
+    RansomwareFileName = take_any(RansomwareFileName),
+    RansomwareFolderPath = take_any(RansomwareFolderPath)
+    by DeviceId, DeviceName, AccountName
+| extend MinutesBeforeRansomware = datetime_diff('minute', RansomwareTime, EarliestDiscovery)
+| where MinutesBeforeRansomware > 5
+| join kind=leftouter lateral_logons on DeviceId
+| project
+    DeviceName,
+    DeviceId,
+    AccountName,
+    DiscoveryCommands,
+    LateralLogonCount = coalesce(LateralLogonCount, 0),
+    EarliestDiscovery,
+    RansomwareTime,
+    MinutesBeforeRansomware,
+    RansomwareFileName,
+    RansomwareFolderPath
+| sort by MinutesBeforeRansomware asc

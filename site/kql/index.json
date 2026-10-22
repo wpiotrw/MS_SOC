@@ -23119,6 +23119,82 @@
   "incident": "auto-star-blizzard-refines-phishing-and-malwa-2026-09-29"
  },
  {
+  "file": "articles/2026-09-29-detection-5-cve-2026-88771-cve-2026-88772.kql",
+  "title": "Detection 5: CVE-2026-88771 / CVE-2026-88772: Anomalous HTTP Activity Against NetScaler Management or Authentication Endpoints",
+  "date": "2026-09-29",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, September 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/"
+ },
+ {
+  "file": "articles/2026-09-29-detection-4-needymantis-persistence-via-registry-run-key.kql",
+  "title": "Detection 4: NeedyMantis: Persistence via Registry Run Key or Scheduled Task by Unsigned or Atypical Process",
+  "date": "2026-09-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, September 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-29-detection-3-storm-3168-service-principal-bulk-resource.kql",
+  "title": "Detection 3: Storm-3168: Service Principal Bulk Resource Deletion Across Multiple Resource Types",
+  "date": "2026-09-29",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, September 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-29-detection-2-storm-3168-service-principal-credential-access.kql",
+  "title": "Detection 2: Storm-3168: Service Principal Credential Access Followed by Anomalous Resource Operations",
+  "date": "2026-09-29",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, September 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-29-detection-1-storm-3168-service-principal-bulk-resource.kql",
+  "title": "Detection 1: Storm-3168: Service Principal Bulk Resource Deletion Following Reconnaissance",
+  "date": "2026-09-29",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, September 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
   "file": "articles/2026-09-29-detect-web-sessions-ip-and-file-hash-indicators.kql",
   "title": "Detect Web Sessions IP and file hash indicators of compromise using ASIM",
   "date": "2026-09-29",
@@ -23243,6 +23319,66 @@
   "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
   "link": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
   "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-28-detection-4-cve-2026-88771-88772-anomalous-external.kql",
+  "title": "Detection 4: CVE-2026-88771/88772: Anomalous External HTTP Requests to NetScaler Management Interfaces",
+  "date": "2026-09-28",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, September 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/"
+ },
+ {
+  "file": "articles/2026-09-28-detection-3-storm-3168-service-principal-credential-access.kql",
+  "title": "Detection 3: Storm-3168: Service Principal Credential Access Activity in Entra ID",
+  "date": "2026-09-28",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, September 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-28-detection-2-storm-3168-service-principal-reconnaissance-foll.kql",
+  "title": "Detection 2: Storm-3168: Service Principal Reconnaissance Followed by Destructive Action",
+  "date": "2026-09-28",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, September 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-28-detection-1-storm-3168-service-principal-bulk-azure.kql",
+  "title": "Detection 1: Storm-3168: Service Principal Bulk Azure Resource Deletion",
+  "date": "2026-09-28",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, September 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
  },
  {
   "file": "2026-09-28-which-permissions-a-first-party-application-could-obtain.kql",
@@ -23380,6 +23516,159 @@
    "2026-10-22"
   ],
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-09-27-detection-5-macsync-backdoor-macos-process-making-outbound.kql",
+  "title": "Detection 5: MacSync Backdoor: macOS Process Making Outbound C2 Connection After Execution from Non-Standard Path",
+  "date": "2026-09-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, September 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/"
+ },
+ {
+  "file": "articles/2026-09-27-detection-4-bec-external-forwarding-rule-created-after.kql",
+  "title": "Detection 4: BEC: External Forwarding Rule Created After Anomalous Mailbox Operation",
+  "date": "2026-09-27",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, September 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/"
+ },
+ {
+  "file": "articles/2026-09-27-detection-3-storm-2570-pre-ransomware-composite-signal.kql",
+  "title": "Detection 3: Storm-2570: Pre-Ransomware Composite Signal - Credential Dumping, Lateral Movement, and Shadow Copy Deletion",
+  "date": "2026-09-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, September 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "incident": "auto-beyond-the-ransomware-tracking-storm-257-2026-09-24"
+ },
+ {
+  "file": "articles/2026-09-27-detection-2-storm-3168-service-principal-credential-access.kql",
+  "title": "Detection 2: Storm-3168: Service Principal Credential Access Operations in Entra ID Audit Logs",
+  "date": "2026-09-27",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "AuditLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, September 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-27-detection-1-storm-3168-service-principal-resource-deletion.kql",
+  "title": "Detection 1: Storm-3168: Service Principal Resource Deletion Following Reconnaissance",
+  "date": "2026-09-27",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, September 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-26-detection-5-macsync-backdoor-suspicious-child-process-and.kql",
+  "title": "Detection 5: MacSync Backdoor - Suspicious Child Process and Outbound Connection on macOS Endpoint",
+  "date": "2026-09-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, September 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/"
+ },
+ {
+  "file": "articles/2026-09-26-detection-4-bec-mailbox-access-by-non-owner.kql",
+  "title": "Detection 4: BEC - Mailbox Access by Non-Owner with Subsequent Inbox Rule Creation",
+  "date": "2026-09-26",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, September 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/"
+ },
+ {
+  "file": "articles/2026-09-26-detection-3-storm-2570-pre-ransomware-lateral-movement.kql",
+  "title": "Detection 3: Storm-2570 - Pre-Ransomware Lateral Movement and Discovery Preceding Known Ransomware Family Activity",
+  "date": "2026-09-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceLogonEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, September 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "incident": "auto-beyond-the-ransomware-tracking-storm-257-2026-09-24"
+ },
+ {
+  "file": "articles/2026-09-26-detection-2-storm-3168-service-principal-credential-access.kql",
+  "title": "Detection 2: Storm-3168 - Service Principal Credential Access via Key Vault Following Cloud Sign-In",
+  "date": "2026-09-26",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, September 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
+ },
+ {
+  "file": "articles/2026-09-26-detection-1-storm-3168-service-principal-azure-resource.kql",
+  "title": "Detection 1: Storm-3168 - Service Principal Azure Resource Deletion Following Reconnaissance",
+  "date": "2026-09-26",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, September 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/",
+  "incident": "storm-3168-agentic-azure-2026-09"
  },
  {
   "file": "2026-09-25-device-code-sign-ins-in-the-last-30.kql",

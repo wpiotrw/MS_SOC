@@ -1,0 +1,38 @@
+// title: Detection 1: Storm-3168: Service Principal Bulk Azure Resource Deletion
+// date: 2026-09-28
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Monday, September 28, 2026
+// source: https://devsecopsdadattack.com/2026-09-28-detection-engineering-brief-monday-september-28-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where TimeGenerated >= ago(1h)
+| where tolower(OperationName) has "delete"
+| where ActivityStatus =~ "Succeeded"
+// Exclude UPN-format callers (interactive users); retain GUIDs and app display names used by service principals
+| where Caller !contains "@"
+| extend TimeBin = bin(TimeGenerated, 10m)
+| summarize
+    DeleteCount = count(),
+    DistinctResourceTypes = dcount(ResourceType),
+    ResourceTypeList = make_set(ResourceType, 20),
+    CallerIpAddress = take_any(CallerIpAddress),
+    SubscriptionId = take_any(SubscriptionId),
+    ResourceGroup = take_any(ResourceGroup),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by Caller, TimeBin
+| where DistinctResourceTypes >= 3
+| project
+    FirstSeen,
+    LastSeen,
+    Caller,
+    DeleteCount,
+    DistinctResourceTypes,
+    ResourceTypeList,
+    CallerIpAddress,
+    SubscriptionId,
+    ResourceGroup
+| sort by DistinctResourceTypes desc, DeleteCount desc

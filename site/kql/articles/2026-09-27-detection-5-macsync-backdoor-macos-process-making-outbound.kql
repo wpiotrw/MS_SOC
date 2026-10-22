@@ -1,0 +1,68 @@
+// title: Detection 5: MacSync Backdoor: macOS Process Making Outbound C2 Connection After Execution from Non-Standard Path
+// date: 2026-09-27
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, September 27, 2026
+// source: https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let C2Window = 5m;
+let NonStandardPaths = dynamic(["/Users/", "/tmp/", "/var/folders/", "/private/tmp/"]);
+let ExcludedProcesses = dynamic(["Google Chrome", "Safari", "Firefox", "softwareupdate", "curl", "wget"]);
+let NewBinaries = DeviceProcessEvents
+    | where Timestamp > ago(7d)
+    | where OSPlatform == "macOS"
+    | where not(FileName has_any (ExcludedProcesses))
+    | where FolderPath has_any (NonStandardPaths)
+    | project
+        ProcessStart = Timestamp,
+        DeviceId,
+        FileName,
+        FolderPath,
+        ProcessCommandLine,
+        InitiatingProcessFileName;
+let OutboundConns = DeviceNetworkEvents
+    | where Timestamp > ago(7d)
+    | where RemotePort !in (80, 443)
+    | where not(
+        RemoteIP startswith "10."
+        or RemoteIP startswith "192.168."
+        or RemoteIP startswith "172.16."
+        or RemoteIP startswith "172.17."
+        or RemoteIP startswith "172.18."
+        or RemoteIP startswith "172.19."
+        or RemoteIP startswith "172.20."
+        or RemoteIP startswith "172.21."
+        or RemoteIP startswith "172.22."
+        or RemoteIP startswith "172.23."
+        or RemoteIP startswith "172.24."
+        or RemoteIP startswith "172.25."
+        or RemoteIP startswith "172.26."
+        or RemoteIP startswith "172.27."
+        or RemoteIP startswith "172.28."
+        or RemoteIP startswith "172.29."
+        or RemoteIP startswith "172.30."
+        or RemoteIP startswith "172.31."
+        or RemoteIP startswith "127."
+    )
+    | project
+        ConnTime = Timestamp,
+        DeviceId,
+        InitiatingProcessFileName,
+        RemoteIP,
+        RemotePort;
+NewBinaries
+| join kind=inner OutboundConns on DeviceId, $left.FileName == $right.InitiatingProcessFileName
+| where ConnTime > ProcessStart
+| where ConnTime <= ProcessStart + C2Window
+| project
+    ProcessStart,
+    ConnTime,
+    DeviceId,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort

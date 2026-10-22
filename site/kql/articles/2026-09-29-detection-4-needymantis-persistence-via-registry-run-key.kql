@@ -1,0 +1,58 @@
+// title: Detection 4: NeedyMantis: Persistence via Registry Run Key or Scheduled Task by Unsigned or Atypical Process
+// date: 2026-09-29
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, DeviceRegistryEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, September 29, 2026
+// source: https://devsecopsdadattack.com/2026-09-29-detection-engineering-brief-tuesday-september-29-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuspiciousPaths = dynamic(["\\AppData\\", "\\Temp\\", "\\ProgramData\\", "\\Users\\Public\\"]);
+let RunKeys = dynamic([
+    "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
+]);
+let RegistryPersistence =
+    DeviceRegistryEvents
+    | where Timestamp > ago(7d)
+    | where ActionType == "RegistryValueSet"
+    | where RegistryKey has_any (RunKeys)
+    | where InitiatingProcessFolderPath has_any (SuspiciousPaths)
+    | project
+        Timestamp,
+        DeviceId,
+        DeviceName,
+        AccountName,
+        AccountDomain,
+        RegistryKey,
+        RegistryValueName,
+        RegistryValueData,
+        InitiatingProcessFileName,
+        InitiatingProcessFolderPath,
+        InitiatingProcessCommandLine,
+        InitiatingProcessParentFileName,
+        PersistenceType = "RegistryRunKey";
+let ScheduledTaskPersistence =
+    DeviceProcessEvents
+    | where Timestamp > ago(7d)
+    | where FileName =~ "schtasks.exe"
+    | where ProcessCommandLine has "/create"
+    | where ProcessCommandLine has_any ("/tr ", "/sc ", "/ru ")
+    | where InitiatingProcessFolderPath has_any (SuspiciousPaths)
+    | project
+        Timestamp,
+        DeviceId,
+        DeviceName,
+        AccountName,
+        AccountDomain,
+        RegistryKey = "",
+        RegistryValueName = "",
+        RegistryValueData = "",
+        InitiatingProcessFileName,
+        InitiatingProcessFolderPath,
+        InitiatingProcessCommandLine = ProcessCommandLine,
+        InitiatingProcessParentFileName,
+        PersistenceType = "ScheduledTask";
+union RegistryPersistence, ScheduledTaskPersistence
+| order by Timestamp desc

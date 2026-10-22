@@ -1,0 +1,52 @@
+// title: Detection 1: Storm-3168: Service Principal Resource Deletion Following Reconnaissance
+// date: 2026-09-27
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Detection Engineering Brief - Sunday, September 27, 2026
+// source: https://devsecopsdadattack.com/2026-09-27-detection-engineering-brief-sunday-september-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ReconWindow = 1h;
+let DeleteWindow = 2h;
+let MinReadOps = 20;
+let LookbackPeriod = 24h;
+let ReconActivity = AzureActivity
+    | where TimeGenerated > ago(LookbackPeriod)
+    | where tolower(OperationName) has_any ("list", "get", "read")
+    | where ActivityStatusValue =~ "Success"
+    | where isnotempty(Caller)
+    | summarize
+        ReadCount = count(),
+        ReconStart = min(TimeGenerated),
+        ReconEnd = max(TimeGenerated),
+        ReadIPs = make_set(CallerIpAddress, 10),
+        ResourceGroups = make_set(ResourceGroup, 10)
+        by Caller, SubscriptionId
+    | where ReadCount >= MinReadOps
+    | where (ReconEnd - ReconStart) <= ReconWindow;
+let DeleteActivity = AzureActivity
+    | where TimeGenerated > ago(LookbackPeriod)
+    | where tolower(OperationName) has "delete"
+    | where ActivityStatusValue =~ "Success"
+    | where isnotempty(Caller)
+    | summarize
+        DeleteCount = count(),
+        FirstDelete = min(TimeGenerated),
+        DeletedResources = make_set(ResourceId, 20)
+        by Caller, SubscriptionId;
+ReconActivity
+| join kind=inner DeleteActivity on Caller, SubscriptionId
+| where FirstDelete > ReconEnd
+| where FirstDelete <= ReconEnd + DeleteWindow
+| project
+    Caller,
+    SubscriptionId,
+    ResourceGroups,
+    ReadCount,
+    ReconStart,
+    ReconEnd,
+    DeleteCount,
+    FirstDelete,
+    ReadIPs,
+    DeletedResources

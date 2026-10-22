@@ -1,0 +1,66 @@
+// title: Detection 4: BEC - Mailbox Access by Non-Owner with Subsequent Inbox Rule Creation
+// date: 2026-09-26
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: From the article: Detection Engineering Brief - Saturday, September 26, 2026
+// source: https://devsecopsdadattack.com/2026-09-26-detection-engineering-brief-saturday-september-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let correlation_window = 60m;
+let mailbox_access = OfficeActivity
+| where TimeGenerated >= ago(lookback)
+| where Operation in ("MailboxLogin", "FolderBind")
+| where LogonType =~ "Delegate" or LogonType =~ "Admin"
+| where UserId != MailboxOwnerUPN
+| where isnotempty(UserId)
+| where isnotempty(MailboxOwnerUPN)
+| where isnotempty(ClientIP)
+| project
+    AccessTime = TimeGenerated,
+    UserId,
+    MailboxOwnerUPN,
+    AccessIP = ClientIP;
+let rule_changes = OfficeActivity
+| where TimeGenerated >= ago(lookback)
+| where Operation in (
+    "New-InboxRule",
+    "Set-InboxRule",
+    "UpdateCalendarDelegation",
+    "ModifyFolderPermissions",
+    "AddFolderPermissions",
+    "RemoveFolderPermissions"
+    )
+| where ResultStatus =~ "Succeeded" or ResultStatus =~ "True"
+| where isnotempty(UserId)
+| where isnotempty(MailboxOwnerUPN)
+| project
+    ChangeTime = TimeGenerated,
+    UserId,
+    MailboxOwnerUPN,
+    Operation,
+    ChangeIP = ClientIP;
+mailbox_access
+| join kind=inner rule_changes on UserId, MailboxOwnerUPN
+| where ChangeTime >= AccessTime
+| where ChangeTime <= AccessTime + correlation_window
+| summarize
+    Operations = make_set(Operation, 20),
+    OperationCount = dcount(Operation),
+    EarliestAccess = min(AccessTime),
+    FirstChange = min(ChangeTime),
+    AccessIP = take_any(AccessIP),
+    ChangeIPs = make_set(ChangeIP, 10)
+    by UserId, MailboxOwnerUPN
+| extend MinutesFromAccessToChange = datetime_diff('minute', FirstChange, EarliestAccess)
+| project
+    UserId,
+    MailboxOwnerUPN,
+    Operations,
+    OperationCount,
+    EarliestAccess,
+    FirstChange,
+    MinutesFromAccessToChange,
+    AccessIP,
+    ChangeIPs
