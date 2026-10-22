@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-16T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,13 +58,15 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
-There are no new policies in Microsoft Edge version 157.
+There are no new policies in Microsoft Edge version 158.
 
-The following table lists the new policies for Microsoft Edge version 156.
+The following table lists the new policies for Microsoft Edge version 157.
 
 | Policy Name | Caption |
 | --- | --- |
-| [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
+| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
+| [CloudManagementEnrollmentToken](microsoft-edge-policies/cloudmanagementenrollmenttoken) | The enrollment token of cloud policy |
+| [CopilotOnSensitiveContentEnabled](microsoft-edge-policies/copilotonsensitivecontentenabled) | Allow Copilot to work on sensitive content in a protected session |
 
 ## Deprecated policies
 
@@ -84,7 +86,9 @@ The following table lists all deprecated policies.
 | [ProxyServer](microsoft-edge-policies/proxyserver) | Configure address or URL of proxy server (deprecated) |
 | [AutofillAddressEnabled](microsoft-edge-policies/autofilladdressenabled) | Enable AutoFill for addresses (deprecated) |
 | [AutofillCreditCardEnabled](microsoft-edge-policies/autofillcreditcardenabled) | Enable AutoFill for payment instruments (deprecated) |
+| [BackForwardCacheForWebSocketsAllowed](microsoft-edge-policies/backforwardcacheforwebsocketsallowed) | Allow Back/Forward Cache for WebSockets (deprecated) |
 | [BackgroundTemplateListUpdatesEnabled](microsoft-edge-policies/backgroundtemplatelistupdatesenabled) | Enables background updates to the list of available templates for Collections and other features that use templates (deprecated) |
+| [EdgeWalletCheckoutEnabled](microsoft-edge-policies/edgewalletcheckoutenabled) | Enable Wallet Checkout feature (deprecated) |
 | [EdgeWalletEtreeEnabled](microsoft-edge-policies/edgewalletetreeenabled) | Edge Wallet E-Tree Enabled (deprecated) |
 | [InsecureFormsWarningsEnabled](microsoft-edge-policies/insecureformswarningsenabled) | Enable warnings for insecure forms (deprecated) |
 | [NativeWindowOcclusionEnabled](microsoft-edge-policies/nativewindowocclusionenabled) | Enable Native Window Occlusion (deprecated) |
@@ -95,9 +99,9 @@ The following table lists all deprecated policies.
 
 ## Obsolete policies
 
-There are no obsoleted policies in Microsoft Edge version 157.
+There are no obsoleted policies in Microsoft Edge version 158.
 
-There are no obsoleted policies in Microsoft Edge version 156.
+There are no obsoleted policies in Microsoft Edge version 157.
 
 ## Available policies
 
@@ -870,12 +874,13 @@ These tables list all of the browser-related group policies available in this re
 | [AutoplayAllowed](microsoft-edge-policies/autoplayallowed) | Allow media autoplay for websites |
 | [AutoplayAllowlist](microsoft-edge-policies/autoplayallowlist) | Allow media autoplay on specific sites |
 | [BackForwardCacheEnabled](microsoft-edge-policies/backforwardcacheenabled) | Control the BackForwardCache feature. |
-| [BackForwardCacheForWebSocketsAllowed](microsoft-edge-policies/backforwardcacheforwebsocketsallowed) | Allow Back/Forward Cache for WebSockets |
+| [BackForwardCacheForWebSocketsAllowed](microsoft-edge-policies/backforwardcacheforwebsocketsallowed) | Allow Back/Forward Cache for WebSockets (deprecated) |
 | [BackgroundModeEnabled](microsoft-edge-policies/backgroundmodeenabled) | Continue running background apps after Microsoft Edge closes |
 | [BackgroundTemplateListUpdatesEnabled](microsoft-edge-policies/backgroundtemplatelistupdatesenabled) | Enables background updates to the list of available templates for Collections and other features that use templates (deprecated) |
 | [BeforeunloadEventCancelByPreventDefaultEnabled](microsoft-edge-policies/beforeunloadeventcancelbypreventdefaultenabled) | Control the behavior for the cancel dialog produced by the beforeunload event (obsolete) |
 | [BingAdsSuppression](microsoft-edge-policies/bingadssuppression) | Block all ads on Bing search results |
 | [BlockThirdPartyCookies](microsoft-edge-policies/blockthirdpartycookies) | Block third party cookies |
+| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
 | [BrowserAddProfileEnabled](microsoft-edge-policies/browseraddprofileenabled) | Enable profile creation from the Identity flyout menu or the Settings page |
 | [BrowserCodeIntegritySetting](microsoft-edge-policies/browsercodeintegritysetting) | Configure browser process code integrity guard setting |
 | [BrowserGuestModeEnabled](microsoft-edge-policies/browserguestmodeenabled) | Enable guest mode |
@@ -896,6 +901,7 @@ These tables list all of the browser-related group policies available in this re
 | [ClickOnceEnabled](microsoft-edge-policies/clickonceenabled) | Allow users to open files using the ClickOnce protocol |
 | [ClipboardAllowedForUrls](microsoft-edge-policies/clipboardallowedforurls) | Allow clipboard use on specific sites |
 | [ClipboardBlockedForUrls](microsoft-edge-policies/clipboardblockedforurls) | Block clipboard use on specific sites |
+| [CloudManagementEnrollmentToken](microsoft-edge-policies/cloudmanagementenrollmenttoken) | The enrollment token of cloud policy |
 | [CollectionsServicesAndExportsBlockList](microsoft-edge-policies/collectionsservicesandexportsblocklist) | Block access to a specified list of services and export targets in Collections (obsolete) |
 | [CommandLineFlagSecurityWarningsEnabled](microsoft-edge-policies/commandlineflagsecuritywarningsenabled) | Enable security warnings for command-line flags |
 | [ComponentUpdatesEnabled](microsoft-edge-policies/componentupdatesenabled) | Enable component updates in Microsoft Edge |
@@ -910,6 +916,7 @@ These tables list all of the browser-related group policies available in this re
 | [CopilotAddressBarSuggestionsEnabled](microsoft-edge-policies/copilotaddressbarsuggestionsenabled) | Enable Copilot address bar suggestions |
 | [CopilotCoworkToolActionsEnabled](microsoft-edge-policies/copilotcoworktoolactionsenabled) | Allow Cowork to take actions on your behalf |
 | [CopilotNewTabPageEnabled](microsoft-edge-policies/copilotnewtabpageenabled) | Enable the Copilot new tab page |
+| [CopilotOnSensitiveContentEnabled](microsoft-edge-policies/copilotonsensitivecontentenabled) | Allow Copilot to work on sensitive content in a protected session |
 | [CpuPerformanceTierOverride](microsoft-edge-policies/cpuperformancetieroverride) | Override for the CPU performance tier |
 | [CreatePasskeysInICloudKeychain](microsoft-edge-policies/createpasskeysinicloudkeychain) | Control whether passkey creation will default to iCloud Keychain. |
 | [CredentialProviderPromoEnabled](microsoft-edge-policies/credentialproviderpromoenabled) | Allows users to be shown the Credential Provider Extension promo |
@@ -968,7 +975,7 @@ These tables list all of the browser-related group policies available in this re
 | [EdgeSidebarAppUrlHostForceList](microsoft-edge-policies/edgesidebarappurlhostforcelist) | Control which apps are forced to be shown in Microsoft Edge sidebar |
 | [EdgeSidebarCustomizeEnabled](microsoft-edge-policies/edgesidebarcustomizeenabled) | Enable sidebar customize |
 | [EdgeThemeEnabled](microsoft-edge-policies/edgethemeenabled) | Enable Theme and Wallpaper customization in Microsoft Edge |
-| [EdgeWalletCheckoutEnabled](microsoft-edge-policies/edgewalletcheckoutenabled) | Enable Wallet Checkout feature |
+| [EdgeWalletCheckoutEnabled](microsoft-edge-policies/edgewalletcheckoutenabled) | Enable Wallet Checkout feature (deprecated) |
 | [EdgeWalletEtreeEnabled](microsoft-edge-policies/edgewalletetreeenabled) | Edge Wallet E-Tree Enabled (deprecated) |
 | [EditFavoritesEnabled](microsoft-edge-policies/editfavoritesenabled) | Allows users to edit favorites |
 | [EnableDeprecatedWebPlatformFeatures](microsoft-edge-policies/enabledeprecatedwebplatformfeatures) | Re-enable deprecated web platform features for a limited time (obsolete) |

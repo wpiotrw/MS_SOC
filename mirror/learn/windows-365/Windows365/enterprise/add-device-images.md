@@ -82,7 +82,18 @@ Admins can also import custom images directly from an Azure Compute Gallery.
 
 **Role/permissions required:**
 
-[Compute Gallery Image Reader](/en-us/azure/role-based-access-control/built-in-roles/compute#compute-gallery-image-reader)
+Before you import an image, grant the **Windows 365** service principal [Compute Gallery Image Reader](/en-us/azure/role-based-access-control/built-in-roles/compute#compute-gallery-image-reader) access to the gallery.
+
+**Who assigns it:** you must be signed in with an account that can create role assignments on the gallery — for example **Owner**, **User Access Administrator**, or **Role Based Access Control Administrator**.
+
+**Who receives it:** the **Windows 365** service principal (application ID `0af06dc6-e4b5-4f28-818e-e78e62d137a5`). In some tenants this application is named **Cloud PC**.
+
+To assign the role:
+
+1. In the [Azure portal](https://portal.azure.com), open the Azure Compute Gallery that contains your image.
+2. Select **Access control (IAM)** &gt; **Add** &gt; **Add role assignment**.
+3. Assign the role. For detailed steps, see [Assign Azure Role Based Access](/en-us/azure/role-based-access-control/role-assignments-portal).
+4. Select **Review + assign**.
 
 You can upload the custom image to the Windows 365 service by following these steps:
 
