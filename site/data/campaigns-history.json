@@ -22,6 +22,15 @@
 {
 "date":"2026-10-22",
 "id":"MC1519861",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-10-22",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
 "what":"Title",
 "before":"Outlook: Copilot Prioritize feature will be retired",
 "after":"(Updated) Outlook: Copilot Prioritize feature will be retired",
@@ -106,6 +115,57 @@
 "tech":"Exchange",
 "posts":[
 "MC1519861"
+]
+},
+"c-mc1450127":{
+"firstSeen":"2026-10-22",
+"lastSeen":"2026-10-22",
+"name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"status":"Recently closed",
+"members":[
+"MC1450127"
+],
+"log":[
+{
+"date":"2026-10-22",
+"id":"MC1450127",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"link":"https://mc.merill.net/message/MC1450127"
+}
+],
+"milestones":{
+"MC1450127|posted":{
+"date":"2026-08-07",
+"label":"7 Aug 2026",
+"text":"Posted: End-of-support Android devices may not be manageable through the Pro Management Portal"
+},
+"MC1450127|microsoft is transitioning teams android device management f#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Microsoft is transitioning Teams Android device management from the Teams admin center to the Teams Rooms Pro Management Portal by October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1450127":{
+"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"link":"https://mc.merill.net/message/MC1450127",
+"source":"Message Center",
+"id":"MC1450127",
+"date":"2026-08-07",
+"updated":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-22"
+}
+},
+"final":"2026-10-15",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1450127"
 ]
 },
 "c-mc676299":{
@@ -5258,14 +5318,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-20",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-21",
 "text":"August 1, 2026."
 },
@@ -5339,6 +5391,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-21",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-22",
 "text":"August 1, 2026."
 },
 {
@@ -5483,6 +5543,14 @@
 "date":"2026-10-20",
 "group":"community",
 "found":"2026-10-21"
+},
+"https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html":{
+"title":"eMudhra to Exit Global SSL/TLS Business After 8 Intermediate CA Keys Found Easily Guessable",
+"link":"https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html",
+"source":"Hacker News",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-22"
 }
 },
 "final":"2026-12-31",
@@ -5820,7 +5888,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"early February 2026."
 },
 {
@@ -5828,7 +5896,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"February 2027."
 },
 {
@@ -7995,6 +8063,14 @@
 "date":"2026-10-19",
 "group":"microsoft",
 "found":"2026-10-20"
+},
+"https://thehackernews.com/2026/10/the-ai-agent-nobody-owns-watch-expert.html":{
+"title":"The AI Agent Nobody Owns: Watch Expert Webinar On Your Newest Insider Threat",
+"link":"https://thehackernews.com/2026/10/the-ai-agent-nobody-owns-watch-expert.html",
+"source":"Hacker News",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-22"
 }
 },
 "final":null,
@@ -8662,6 +8738,14 @@
 "updated":"2026-10-21",
 "group":"microsoft",
 "found":"2026-10-22"
+},
+"https://dev.to/locatenext/normalizing-us-phone-numbers-to-e164-in-python-and-excel-before-a-crm-import-2hi":{
+"title":"Normalizing US phone numbers to E.164 in Python and Excel before a CRM import",
+"link":"https://dev.to/locatenext/normalizing-us-phone-numbers-to-e164-in-python-and-excel-before-a-crm-import-2hi",
+"source":"NeonTiger12",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-22"
 }
 },
 "final":"2027-07-01",
@@ -9207,7 +9291,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9215,7 +9299,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12820,6 +12904,36 @@
 "src":"MC1519861",
 "now":"end of Mar 2027",
 "text":"We will begin this change on October 26, 2026, and expect to complete by end of March 2027."
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1293480",
+"type":"material",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"group":"community",
+"title":"eMudhra to Exit Global SSL/TLS Business After 8 Intermediate CA Keys Found Easily Guessable",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html"
+},
+{
+"day":"2026-10-22",
+"cid":"c-item-security-blog-agents-guardian-agents-2026-10-19",
+"type":"material",
+"name":"Microsoft Security Blog: Defender agent discovery grows to 60 agent types, plus Guardian Agents, Dynamic…",
+"group":"community",
+"title":"The AI Agent Nobody Owns: Watch Expert Webinar On Your Newest Insider Threat",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/the-ai-agent-nobody-owns-watch-expert.html"
+},
+{
+"day":"2026-10-22",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Normalizing US phone numbers to E.164 in Python and Excel before a CRM import",
+"source":"NeonTiger12",
+"link":"https://dev.to/locatenext/normalizing-us-phone-numbers-to-e164-in-python-and-excel-before-a-crm-import-2hi"
 }
 ],
 "archive":{
