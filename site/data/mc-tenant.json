@@ -1,7 +1,7 @@
 {
  "read": "2026-10-22",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 714,
+ "count": 713,
  "note": null,
  "messages": [
   {
@@ -433,28 +433,6 @@
     "Rollout started in early October and is expected to complete by mid-October 2025."
    ],
    "bodyHash": "68dc1abd6c6f3572"
-  },
-  {
-   "id": "MC1177767",
-   "title": "How Windows 11 and AI are transforming the future of work",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-22",
-   "end": "2026-10-22",
-   "modified": "2025-10-22",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Windows 11 now integrates AI deeply into the operating system (OS), enabling secure, scalable, and agentic work environments. Multiple new features are coming to Windows 11 devices where Copilot is available, starting with Windows Insiders in Copilot Labs. Additionally, Copilot+ PCs deliver native AI experiences with features like Click to Do, Copilot Voice, Copilot Vision, and Copilot Action. Win…",
-   "when": null,
-   "prepare": "No action is needed. .",
-   "dates": [],
-   "bodyHash": "3050354492f469f7"
   },
   {
    "id": "MC1178653",
@@ -5167,7 +5145,7 @@
   },
   {
    "id": "MC1309743",
-   "title": "(Updated) Viva Engage: Email updates for frontline users without an active Exchange mailbox",
+   "title": "(Updated) Viva Engage: Email updates for users without a routable mailbox",
    "services": [
     "Microsoft Viva"
    ],
@@ -5177,7 +5155,7 @@
    "actionBy": null,
    "start": "2026-05-13",
    "end": "2027-02-01",
-   "modified": "2026-09-30",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -15155,7 +15133,7 @@
   },
   {
    "id": "MC1480870",
-   "title": "New SharePoint Mobile Experience on iOS and Android",
+   "title": "(Updated) New SharePoint Mobile Experience on iOS and Android",
    "services": [
     "SharePoint Online"
    ],
@@ -15164,19 +15142,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2026-11-30",
-   "modified": "2026-09-28",
+   "end": "2026-12-31",
+   "modified": "2026-10-22",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] The SharePoint mobile app for iOS and Android is redesigned around the personalized SharePoint Discover experience, bringing your most relevant files, sites, people, and news together in one place, with improved site browsing, in-app file previews, refreshed news and search, dark mode, and better performance. [Rollout Schedule:] General Availability (Worldwide, GCC, GCC High, DoD):…",
+   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] The SharePoint mobile app for iOS and Android is redesigned around the personalized SharePoint Discover experience, bringing your most relevant files, sites, people, and news together in one place, with improved site browsing, in-app file previews, refreshed news and search, dark mode, and better p…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out on mid October 2026 and expect to complete by mid October 2026."
+    "Updated October 22, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out late October 2026 (previously mid-October) and expect to complete by end of November 2026 (previously mid-October)."
    ],
-   "bodyHash": "b1001a294b8ae966"
+   "bodyHash": "10f16c703aad9628"
   },
   {
    "id": "MC1480873",
@@ -17875,7 +17855,7 @@
   },
   {
    "id": "MC1509787",
-   "title": "Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+   "title": "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings",
    "services": [
     "Microsoft Teams"
    ],
@@ -17885,20 +17865,21 @@
    "actionBy": null,
    "start": "2026-10-15",
    "end": "2027-02-15",
-   "modified": "2026-10-15",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Organizations can enhance meeting security with synthetic audio and video detection solutions provided by certified third-party providers. Third-party detection solutions analyze meeting media for signs of synthetic or manipulated audio and video and send detection signals to Teams, enabling integrated in-meeting experiences and controls. Important: Synthetic media detection is per…",
+   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Organizations can enhance meeting security with synthetic audio and video detection solutions provided by certified third-party providers. Third-party detection solutions analyze meeting media for signs of synthetic or manipulated audio and video and send detection signals to Teams, enabling integr…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026.",
-    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by mid-December 2026."
+    "Updated October 22, 2026: We have updated the timeline.",
+    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026."
    ],
-   "bodyHash": "0755e6f6b9b89124"
+   "bodyHash": "4d9cd23ffffd5aaa"
   },
   {
    "id": "MC1509789",
@@ -18791,7 +18772,7 @@
   },
   {
    "id": "MC1519861",
-   "title": "Outlook: Copilot Prioritize feature will be retired",
+   "title": "(Updated) Outlook: Copilot Prioritize feature will be retired",
    "services": [
     "Exchange Online"
    ],
@@ -18800,20 +18781,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-21",
-   "end": "2026-12-15",
-   "modified": "2026-10-21",
+   "end": "2027-05-03",
+   "modified": "2026-10-22",
    "tags": [
-    "Retirement"
+    "Retirement",
+    "Updated message"
    ],
-   "summary": "[What and Why:] We're retiring the Copilot Prioritize feature in Outlook. Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort. This change allows us to simplify the Outlook Copilot experience and focus our ongoing investments. [Rollout Schedule:] We will begin this change on October 26, 2026, and…",
+   "summary": "Updated October 22, 2026: We have updated the timeline and content. Thank you for your patience. [What and Why:] We're retiring the Copilot Prioritize feature in Outlook. Starting October 26, 2026, we'll begin to roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort. This change allows us to simplify the Outlook Copilot experience…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Starting October 26, 2026, we'll roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort.",
-    "We will begin this change on October 26, 2026, and expect to complete by mid-November 2026.",
-    "What will happen: Copilot Prioritize will be retired, with the rollback beginning October 26, 2026, and expected to be completed by mid-November 2026."
+    "Updated October 22, 2026: We have updated the timeline and content.",
+    "Starting October 26, 2026, we'll begin to roll back the feature and remove the corresponding user experience from all Outlook clients as part of the cleanup effort.",
+    "We will begin this change on October 26, 2026, and expect to complete by end of March 2027.",
+    "What will happen: Copilot Prioritize will be retired, with the rollback beginning October 26, 2026, and expected to be completed by end of March 2027."
    ],
-   "bodyHash": "7c9a93267f5dec56"
+   "bodyHash": "6740aeaa77573256"
   },
   {
    "id": "MC1519866",
@@ -23832,6 +23815,114 @@
      "Filter Messages by Events on Outlook Mobile"
     ]
    }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1309743",
+   "type": "changed",
+   "title": "(Updated) Viva Engage: Email updates for users without a routable mailbox",
+   "fields": {
+    "title": [
+     "(Updated) Viva Engage: Email updates for frontline users without an active Exchange mailbox",
+     "(Updated) Viva Engage: Email updates for users without a routable mailbox"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1480870",
+   "type": "changed",
+   "title": "(Updated) New SharePoint Mobile Experience on iOS and Android",
+   "fields": {
+    "title": [
+     "New SharePoint Mobile Experience on iOS and Android",
+     "(Updated) New SharePoint Mobile Experience on iOS and Android"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "b1001a294b8ae966",
+     "10f16c703aad9628"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1509787",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+     "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "0755e6f6b9b89124",
+     "4d9cd23ffffd5aaa"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1519861",
+   "type": "changed",
+   "title": "(Updated) Outlook: Copilot Prioritize feature will be retired",
+   "fields": {
+    "title": [
+     "Outlook: Copilot Prioritize feature will be retired",
+     "(Updated) Outlook: Copilot Prioritize feature will be retired"
+    ],
+    "end": [
+     "2026-12-15",
+     "2027-05-03"
+    ],
+    "tags": [
+     [
+      "Retirement"
+     ],
+     [
+      "Retirement",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "7c9a93267f5dec56",
+     "6740aeaa77573256"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1177767",
+   "type": "removed",
+   "title": "How Windows 11 and AI are transforming the future of work",
+   "fields": {}
   }
  ]
 }
