@@ -41567,10 +41567,12 @@ odtad CZTERNASCIE (4-17).**
       top.appendChild(el("span", "s5ei-kind", k === "new" ? "NEW" : k === "upd" ? "UPDATED " + dm(day(s.lastUpdate)) : k === "active" ? "STILL ACTIVE" : k === "late" ? "NEWLY TRACKED" :
         k === "lastnew" ? "FIRST SEEN " + dm(day(s.firstSeen)) : k === "lastupd" ? "UPDATED " + dm(day(s.lastUpdate)) : "REPORTED " + dm(s.firstReported)));
       if (s.notes && s.notes.status && k !== "active") top.appendChild(el("span", "s5ei-flag s5et-stat s5et-" + s.notes.status, s.notes.status));
-      if (s.kql) top.appendChild(el("span", "s5ei-flag s5ew-kql", s.kql + " KQL"));
+      var kq = kqlOf(s);
+      if (kq.t) { var kc = el("span", "s5ei-flag s5ew-kql", kq.t + " KQL"); kc.title = kqlWords(kq); top.appendChild(kc); }
       top.appendChild(el("span", "s5ei-flag s5ei-date", "reported " + dm(s.firstReported)));
       c.appendChild(top);
       var t = el("button", "s5ei-tt", s.title); t.type = "button"; t.addEventListener("click", function () { openStory(s.id); }); c.appendChild(t);
+      c.appendChild(whyLine(s));
       var sum = s.notes && s.notes.summary ? String(s.notes.summary) : "";
       if (sum) { var fs = /^(.{40,220}?[.!?])(\s|$)/.exec(sum); c.appendChild(el("p", "s5ew-sum", fs ? fs[1] : sum.slice(0, 200) + "\u2026")); }
       c.appendChild(el("p", "s5ei-meta", [s.areas.filter(function (a) { return a !== "Hunting (KQL)"; }).join(" \u00b7 "),
@@ -41790,6 +41792,27 @@ odtad CZTERNASCIE (4-17).**
       }
     }
   }
+  /* §5ey (22 X 2026, owner: "ConnectWise has KQL when you unfold it - why do you not show it? Does KQL mean the
+     incident is on the list because it has KQL and is not M365? If so, distinguish it and store both"). Two separate
+     facts, stored by tools/threats.py and shown on every tile and row: WHY the incident is listed (about Microsoft 365 /
+     Entra, or outside Microsoft 365 and listed for its hunting queries) and HOW MANY queries it has, split into the ones
+     written in our analysis and the ones the sources published. Older threats.json without the fields: worked out here. */
+  function kqlOf(s) {
+    var a = s.kqlAnalysis != null ? s.kqlAnalysis : ((s.notes && s.notes.kql) || []).length;
+    var src = s.kqlSources != null ? s.kqlSources : (s.kql || 0);
+    return { a: a, s: src, t: a + src };
+  }
+  function kqlWords(k) {
+    return [k.a ? k.a + " in our analysis" : "", k.s ? k.s + " from the sources" : ""].filter(Boolean).join(" \u00b7 ");
+  }
+  function whyLine(s) {
+    var k = kqlOf(s), m = (s.why ? s.why.indexOf("m365") >= 0 : (s.scope || "m365") === "m365");
+    var p = el("p", "s5ey-why"); p.appendChild(el("span", "s5ey-wl", "On the list:"));
+    p.appendChild(el("span", "s5ey-w " + (m ? "s5ey-m365" : "s5ey-out"), m ? "Microsoft 365 / Entra" : "Outside Microsoft 365"));
+    if (k.t) p.appendChild(el("span", "s5ey-w s5ey-k" + (m ? "" : " s5ey-reason"), (m ? "" : "listed for its ") + k.t + " KQL \u2014 " + kqlWords(k)));
+    else p.appendChild(el("span", "s5ey-w s5ey-nok", "no KQL yet"));
+    return p;
+  }
   function row(s) {
     var k = storyKind(s, PREV, null), r = el("div", "s5el-row" + (k === "new" ? " is-new" : k === "upd" ? " is-upd" : ""));
     r.id = "s5el-" + s.id;
@@ -41805,6 +41828,7 @@ odtad CZTERNASCIE (4-17).**
     h.appendChild(c1);
     var c2 = el("span", "s5el-c2"); c2.appendChild(el("span", "s5el-rt", s.title));
     c2.appendChild(el("span", "s5el-rm", s.areas.join(" · ") + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s")));
+    c2.appendChild(whyLine(s));   /* §5ey */
     c2.appendChild(el("span", "s5el-rd", "Reported " + dmy(s.firstReported) + " · updated " + dmy(day(s.lastUpdate)) + " · Microsoft: " + (s.microsoft.status === "described" ? "described" : "not yet") + (s.curated ? " · analysed" : "")));   /* the phone shows the columns here */
     h.appendChild(c2);
     var c3 = el("span", "s5el-c3"); c3.setAttribute("data-l", "Reported"); c3.textContent = dmy(s.firstReported); h.appendChild(c3);
@@ -45028,6 +45052,22 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5ew-sum{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--text)}
 .s5ew-last{margin:8px 14px 2px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
 .s5ew-all{margin-top:10px}
+/* §5ey (22 X 2026, owner: "why the double stripes again? check the whole portal"): one coloured edge only - on the
+   innermost item. A frame that holds tiles or rows with their own coloured edge (the "what changed" strip .s5bn on
+   every tab, the Threat Research groups .s5ew-grp) has an even, tinted border all round; its title carries a dot. */
+.s5bn{border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border))}
+.s5ew-grp{border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border));border-left-width:1px}
+.s5ew-grp.s5ew-other{border-color:color-mix(in srgb,var(--muted) 45%,var(--border))}
+.s5ew-gt::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
+.s5ew-other .s5ew-gt::before{background:var(--muted)}
+.s5ey-why{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:6px 0 0;font-size:11.5px;line-height:1.35}
+.s5ey-wl{color:var(--muted);font-weight:600}
+.s5ey-w{border:1px solid var(--border);border-radius:999px;padding:1px 8px;font-weight:650;color:var(--muted);white-space:normal}
+.s5ey-m365{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+.s5ey-out{color:var(--text)}
+.s5ey-k{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 55%,var(--border))}
+.s5ey-k.s5ey-reason{background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.s5el-c2 .s5ey-why{margin-top:4px}
 @media (max-width:760px){.s5ew-grp{margin:4px 0 12px;padding:10px 8px 10px 10px}.s5ew-grid{grid-template-columns:minmax(0,1fr)}}
 .s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .s5el-rhead,.s5el-rh{display:grid;grid-template-columns:24px 112px minmax(0,1fr) 96px 96px 96px 70px;gap:10px;align-items:center;padding:8px 12px}
@@ -46735,6 +46775,20 @@ zawsze zostaje. Zmierzone na danych z 22 X 01:33: 31 → 16 historii; zostaly m.
 ARTEX (8 KQL), NeedyMantis (10 KQL), CVE-2026-73570 (7 KQL), EvilTokens; odpadly m.in. „Integrated Security Operations
 Center", „Building a CCF … Lab", „Hunting Invisible Unicode", „Threat Hunting with JA4", „CloudKeyVaultEvents … Schema",
 „Introducing Attack Path Management", playbooki. Ich zapytania zostaja w KQL library („From the community").
+
+**§5ey (22 X 09:00, wlasciciel):** *„a dlaczego znowu te podwojne paski? przesledz caly portal; incydent taki jak
+ConnectWise tez ma KQL po rozwinieciu - dlaczego tego nie pokazujesz? czy KQL oznacza, ze incydent sie tam znalazl,
+bo ma KQL, a nie jest M365? jesli tak, trzeba rozroznienie i zapisywac obie informacje"*.
+(1) Jeden kolorowy pasek — tylko na najbardziej wewnetrznym elemencie. Audyt calej strony (Playwright, kazda zakladka,
+widok domyslny i „What changed", 1500 i 390 px, /diff/ i /week/) znalazl zagniezdzone paski w dwoch miejscach: pasek
+zmian `.s5bn` (MC, Graph, Roles, First-party apps, Components, Learn, Blogs, Community, Baselines) z kafelkami
+`.s5do-tile`/`.s5dc-tile` i komunikatem `.s5bn-empty`, oraz grupy Threat Research `.s5ew-grp` z kafelkami. Ramka
+z kafelkami ma teraz rowna, zabarwiona obwodke; grupa Threat Research — kropke w kolorze przy tytule.
+(2) tools/threats.py zapisuje w historii: `kql` = wszystkie zapytania, `kqlSources` = opublikowane przez zrodla,
+`kqlAnalysis` = z naszej analizy (threat-notes), `why` = powody na liscie: `m365`, `kql`, `analysis`. Kafelek i
+wiersz incydentu pokazuja linie „On the list: Microsoft 365 / Entra | Outside Microsoft 365 · N KQL — a in our
+analysis · s from the sources" (poza M365: „listed for its N KQL"). Starszy threats.json: strona liczy to sama
+(notes.kql, scope).
 
 ## 6. Kontrakt w stronie
 

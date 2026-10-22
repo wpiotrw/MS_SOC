@@ -426,7 +426,14 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                           "checked": "Microsoft Threat Intelligence, Microsoft Security Blog, Microsoft Incident Response, MSRC Security Update Guide, Message Center (mc.merill.net, 60 days)"},
             "score": max(a["score"] for a in L) + 2 * len({a["source"] for a in L}) + (6 if note else 0),
             "articlesBefore": len(ps.get("articles") or []) if ps else 0,
-            "kql": nkql,
+            # CLAUDE.md 5ey (owner 22 X: "ConnectWise has KQL when expanded - why is it not shown? Does KQL mean the incident
+            # is on the list because it has KQL and is not M365? Then distinguish it and store both"): kql = all queries,
+            # kqlSources = published by the sources, kqlAnalysis = written in our analysis; why = the reasons the incident
+            # is listed - m365 (about Entra / a Microsoft 365 workload), kql (queries to run), analysis (we analysed it)
+            "kql": nkql + len(note.get("kql") or []),
+            "kqlSources": nkql,
+            "kqlAnalysis": len(note.get("kql") or []),
+            "why": [w for w, on in (("m365", scope == "m365"), ("kql", bool(nkql or note.get("kql"))), ("analysis", bool(note))) if on],
             # CLAUDE.md 5ew (owner 22 X: "Microsoft 365 / Entra / Teams first, then the others - they are another kind and
             # have KQL"): m365 = the story is about Entra or a Microsoft 365 workload; other = anything else (a PHP flaw,
             # a GitHub enumeration) kept for its hunting queries
