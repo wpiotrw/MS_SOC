@@ -1,0 +1,42 @@
+// title: Your sanctioned ScreenConnect instance(s). Everything else
+// date: 2026-10-05
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1d;
+let baseline = 30d;
+// Your sanctioned ScreenConnect instance(s). Everything else
+// is someone else's server.
+let ApprovedRelays = dynamic(["instance-yourco-relay.screenconnect.com"]);
+DeviceProcessEvents
+| where Timestamp >= ago(baseline)
+// Guest participant + a relay host. The session type (e=) is
+// extracted, not filtered: Access (unattended) and Support
+// (ad hoc) are both abused, and the attacker picks which.
+| where ProcessCommandLine contains "y=Guest"
+| extend RelayHost   = tolower(extract(@"[?&]h=([^&\s""]+)", 1, ProcessCommandLine)),
+         RelayPort   = extract(@"[?&]p=(\d+)", 1, ProcessCommandLine),
+         SessionType = extract(@"[?&]e=([A-Za-z]+)", 1, ProcessCommandLine)
+| where isnotempty(RelayHost)
+| summarize
+    FirstSeen = min(Timestamp),
+    LastSeen  = max(Timestamp),
+    Images    = make_set(FileName, 5),
+    Paths     = make_set(FolderPath, 5),
+    Parents   = make_set(InitiatingProcessFileName, 5),
+    SHA256s   = make_set(SHA256, 5),
+    SessionTypes = make_set(SessionType, 5)
+  by DeviceId, DeviceName, RelayHost, RelayPort
+// THE ACTUAL "WITHOUT PRIOR INSTALLATION RECORD":
+// this device + relay pair did not exist in the prior 29 days.
+| where FirstSeen >= ago(lookback)
+| extend Approved      = RelayHost in~ (ApprovedRelays)
+| extend RenamedClient = tostring(Images) !contains "screenconnect"
+| where not(Approved)
+| project FirstSeen, LastSeen, DeviceName, RelayHost, RelayPort,
+          SessionTypes, RenamedClient, Images, Paths, Parents, SHA256s
+| order by FirstSeen desc

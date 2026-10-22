@@ -14,6 +14,82 @@
   "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
+  "file": "articles/2026-10-22-detection-5-lazarus-crossweb-ex-financial-software-spawning.kql",
+  "title": "Detection 5: Lazarus CrossWeb EX Financial Software Spawning Unexpected Child Process",
+  "date": "2026-10-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/"
+ },
+ {
+  "file": "articles/2026-10-22-detection-4-connectwise-agent-spawning-unexpected-child-proc.kql",
+  "title": "Detection 4: ConnectWise Agent Spawning Unexpected Child Process Post Supply Chain Compromise",
+  "date": "2026-10-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-10-22-detection-3-storm-0940-m365-application-credential-abuse.kql",
+  "title": "Detection 3: Storm-0940 M365 Application Credential Abuse via OAuth Service Principal",
+  "date": "2026-10-22",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-10-22-detection-2-php-web-shell-drop-by-web.kql",
+  "title": "Detection 2: PHP Web Shell Drop by Web Worker Process",
+  "date": "2026-10-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
+  "file": "articles/2026-10-22-detection-1-php-worker-process-spawning-unexpected-shell.kql",
+  "title": "Detection 1: PHP Worker Process Spawning Unexpected Shell or Interpreter",
+  "date": "2026-10-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/",
+  "incident": "auto-php2shell-two-critical-php-vulnerabiliti-2026-10-21"
+ },
+ {
   "file": "2026-10-22-storm-0940-connectwise-app-sign-ins-and-graph.kql",
   "title": "Storm-0940: ConnectWise app sign-ins and Graph calls in this tenant since 1 October",
   "date": "2026-10-22",
@@ -22302,6 +22378,267 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-10-05-your-sanctioned-screenconnect-instance-s-everything-else.kql",
+  "title": "Your sanctioned ScreenConnect instance(s). Everything else",
+  "date": "2026-10-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-validate-before-you-deploy.kql",
+  "title": "Validate before you deploy",
+  "date": "2026-10-05",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-the-shadow-of-the-reads.kql",
+  "title": "The shadow of the reads",
+  "date": "2026-10-05",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-and-the-script-was-never-a-sh.kql",
+  "title": "And the script was never a .sh",
+  "date": "2026-10-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-act-ii-the-name-is-not-the-binary.kql",
+  "title": "🥈 Act II: The Name Is Not the Binary",
+  "date": "2026-10-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-act-i-six-detections-one-log-zero-reads.kql",
+  "title": "🥇 Act I: Six Detections, One Log, Zero Reads",
+  "date": "2026-10-05",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-act-i-six-detections-one-log-zero-reads-3.kql",
+  "title": "🥇 Act I: Six Detections, One Log, Zero Reads",
+  "date": "2026-10-05",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-act-i-six-detections-one-log-zero-reads-2.kql",
+  "title": "🥇 Act I: Six Detections, One Log, Zero Reads",
+  "date": "2026-10-05",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-3-what-does-the-original-reconnaissance-filter-actually.kql",
+  "title": "3. What does the original \"reconnaissance\" filter actually match?",
+  "date": "2026-10-05",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-05-2-what-verbs-does-azureactivity-record.kql",
+  "title": "2. What verbs does AzureActivity record?",
+  "date": "2026-10-05",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: The Activity Log Is Not the Activity",
+  "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+ },
+ {
+  "file": "articles/2026-10-04-detection-4-screenconnect-client-execution-on-host-without.kql",
+  "title": "Detection 4: ScreenConnect Client Execution on Host Without Prior Installation Record",
+  "date": "2026-10-04",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 4, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/"
+ },
+ {
+  "file": "articles/2026-10-04-detection-3-bpfdoor-shell-script-written-and-executed.kql",
+  "title": "Detection 3: BPFDoor - Shell Script Written and Executed by Non-Interactive Dropper Process",
+  "date": "2026-10-04",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 4, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/"
+ },
+ {
+  "file": "articles/2026-10-04-detection-2-bpfdoor-execute-then-delete-binary-launched.kql",
+  "title": "Detection 2: BPFDoor - Execute-Then-Delete: Binary Launched from /sbin and Deleted Within 30 Seconds",
+  "date": "2026-10-04",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 4, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/"
+ },
+ {
+  "file": "articles/2026-10-04-detection-1-bpfdoor-payload-staged-in-sbin-as.kql",
+  "title": "Detection 1: BPFDoor - Payload Staged in /sbin as ntpdate or udevds",
+  "date": "2026-10-04",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 4, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/"
+ },
+ {
+  "file": "articles/2026-10-03-detection-4-cve-2026-76504-unauthenticated-admin-level.kql",
+  "title": "Detection 4: CVE-2026-76504 - Unauthenticated Admin-Level API Access on Cisco SD-WAN Manager",
+  "date": "2026-10-03",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 3, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/"
+ },
+ {
+  "file": "articles/2026-10-03-detection-3-bpfdoor-shell-script-written-and-executed.kql",
+  "title": "Detection 3: BPFDoor - Shell Script Written and Executed by Non-Interactive Process on Linux Appliance",
+  "date": "2026-10-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 3, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/"
+ },
+ {
+  "file": "articles/2026-10-03-detection-2-bpfdoor-process-execution-followed-by-self.kql",
+  "title": "Detection 2: BPFDoor - Process Execution Followed by Self-Deletion in /sbin Within 30 Seconds",
+  "date": "2026-10-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 3, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/"
+ },
+ {
+  "file": "articles/2026-10-03-detection-1-bpfdoor-masqueraded-binaries-staged-in-sbin.kql",
+  "title": "Detection 1: BPFDoor - Masqueraded Binaries Staged in /sbin (ntpdate or udevds)",
+  "date": "2026-10-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 3, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/"
+ },
+ {
   "file": "2026-10-03-who-edits-email-threat-policies-and-the-tenant.kql",
   "title": "Who edits email threat policies and the Tenant Allow/Block List today, before Security Operator loses that access in November",
   "date": "2026-10-03",
@@ -22333,6 +22670,123 @@
    "2026-10-22"
   ],
   "kind": "brief"
+ },
+ {
+  "file": "articles/2026-10-02-detection-3-screenconnect-process-spawning-shell-or-establis.kql",
+  "title": "Detection 3: ScreenConnect Process Spawning Shell or Establishing Outbound Connection to Non-Corporate Relay",
+  "date": "2026-10-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/"
+ },
+ {
+  "file": "articles/2026-10-02-detection-2-unauthorized-screenconnect-client-installation-o.kql",
+  "title": "Detection 2: Unauthorized ScreenConnect Client Installation on Endpoint",
+  "date": "2026-10-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/"
+ },
+ {
+  "file": "articles/2026-10-02-detection-1-cisco-sd-wan-manager-api-auth.kql",
+  "title": "Detection 1: Cisco SD-WAN Manager API Auth Bypass - Unauthenticated Admin API Access (CVE-2026-76504)",
+  "date": "2026-10-02",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/"
+ },
+ {
+  "file": "articles/2026-10-01-detection-5-netscaler-zero-day-inbound-exploitation-attempt.kql",
+  "title": "Detection 5: NetScaler Zero-Day - Inbound Exploitation Attempt Followed by Anomalous Process Activity (CVE-2026-88771, CVE-2026-88772)",
+  "date": "2026-10-01",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/"
+ },
+ {
+  "file": "articles/2026-10-01-detection-4-cisco-sd-wan-manager-unauthenticated-external.kql",
+  "title": "Detection 4: Cisco SD-WAN Manager - Unauthenticated External Access to Admin API Endpoints (CVE-2026-76504)",
+  "date": "2026-10-01",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/"
+ },
+ {
+  "file": "articles/2026-10-01-detection-3-zimbra-exploitation-anomalous-post-to-mail.kql",
+  "title": "Detection 3: Zimbra Exploitation - Anomalous POST to Mail Server from External IP with Successful Response (CVE-2026-73570)",
+  "date": "2026-10-01",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30"
+ },
+ {
+  "file": "articles/2026-10-01-detection-2-rmm-abuse-screenconnect-spawned-or-co.kql",
+  "title": "Detection 2: RMM Abuse - ScreenConnect Spawned or Co-Executed with MSP360 for Redundant Remote Access",
+  "date": "2026-10-01",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/"
+ },
+ {
+  "file": "articles/2026-10-01-detection-1-zimbra-command-injection-shell-spawned-from.kql",
+  "title": "Detection 1: Zimbra Command Injection - Shell Spawned from Web Service Process (CVE-2026-73570)",
+  "date": "2026-10-01",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "incident": "auto-unauthenticated-command-injection-on-int-2026-09-30"
  },
  {
   "file": "articles/2026-09-30-zimbra-persistence-and-privilege-escalation-artifacts.kql",
@@ -22424,6 +22878,81 @@
   "cves": [
    "CVE-2026-73570"
   ]
+ },
+ {
+  "file": "articles/2026-09-30-detection-5-needymantis-unsigned-or-unknown-binary-establish.kql",
+  "title": "Detection 5: NeedyMantis - Unsigned or Unknown Binary Establishing Persistence via Registry Run Key or Scheduled Task",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, September 30, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-30-detection-4-needymantis-loader-process-writing-encrypted-or.kql",
+  "title": "Detection 4: NeedyMantis - Loader Process Writing Encrypted or Unusually Named Archive Files to User or Temp Directories",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, September 30, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "incident": "auto-needymantis-unpacking-a-post-compromise-2026-09-28"
+ },
+ {
+  "file": "articles/2026-09-30-detection-3-storm-3068-compromised-identity-performing-cloud.kql",
+  "title": "Detection 3: Storm-3068 - Compromised Identity Performing Cloud Role Assignment and Multi-Resource Access Expansion",
+  "date": "2026-09-30",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, September 30, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "incident": "devops-sspr-kubernetes-pipeline-2026-09"
+ },
+ {
+  "file": "articles/2026-09-30-detection-2-concurrent-multi-rmm-tool-installation-on.kql",
+  "title": "Detection 2: Concurrent Multi-RMM Tool Installation on Single Endpoint",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, September 30, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/"
+ },
+ {
+  "file": "articles/2026-09-30-detection-1-rmm-chaining-screenconnect-spawned-by-msp360.kql",
+  "title": "Detection 1: RMM Chaining - ScreenConnect Spawned by MSP360 Agent Process",
+  "date": "2026-09-30",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, September 30, 2026",
+  "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/"
  },
  {
   "file": "articles/2026-09-30-confirmed-shell-mediated-zimbra-snmp-command-injection.kql",

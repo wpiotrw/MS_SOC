@@ -1,0 +1,63 @@
+// title: Detection 2: Unauthorized ScreenConnect Client Installation on Endpoint
+// date: 2026-10-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, October 2, 2026
+// source: https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let screenconnectNames = dynamic(["ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe", "ScreenConnect.WindowsBackstageShell.exe", "ConnectWiseControl.ClientService.exe"]);
+let suspiciousPaths = dynamic(["\\AppData\\", "\\Temp\\", "\\Downloads\\", "\\Users\\Public\\"]);
+let fileDrops =
+    DeviceFileEvents
+    | where TimeGenerated >= ago(24h)
+    | where ActionType in ("FileCreated", "FileRenamed")
+    | where isnotempty(FolderPath)
+    | where FileName has_any (screenconnectNames)
+        or (FileName has "screenconnect" and FileName endswith ".exe")
+        or (FileName has "connectwisecontrol" and FileName endswith ".exe")
+    | where FolderPath has_any (suspiciousPaths)
+    | project
+        DeviceName,
+        FileName,
+        FolderPath,
+        InitiatingProcessFileName,
+        InitiatingProcessCommandLine,
+        AccountName,
+        FileDropTime = TimeGenerated,
+        SHA256,
+        FileReportId = ReportId;
+let processExec =
+    DeviceProcessEvents
+    | where TimeGenerated >= ago(24h)
+    | where isnotempty(FolderPath)
+    | where FileName has_any (screenconnectNames)
+        or ProcessCommandLine has_any (screenconnectNames)
+        or (FileName has "screenconnect" and FileName endswith ".exe")
+    | where FolderPath has_any (suspiciousPaths)
+    | project
+        DeviceName,
+        FileName,
+        ProcessCommandLine,
+        InitiatingProcessFileName,
+        AccountName,
+        ExecTime = TimeGenerated,
+        ProcReportId = ReportId;
+fileDrops
+| join kind=leftouter processExec on DeviceName, FileName
+| where isnotempty(FileDropTime)
+| project
+    DeviceName,
+    FileName,
+    FolderPath,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    ProcessCommandLine,
+    AccountName,
+    FileDropTime,
+    ExecTime,
+    SHA256,
+    FileReportId,
+    ProcReportId
+| sort by FileDropTime desc

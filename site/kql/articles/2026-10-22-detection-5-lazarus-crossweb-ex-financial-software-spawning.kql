@@ -1,0 +1,40 @@
+// title: Detection 5: Lazarus CrossWeb EX Financial Software Spawning Unexpected Child Process
+// date: 2026-10-22
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, October 22, 2026
+// source: https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuspiciousChildren = dynamic([
+    "cmd.exe", "powershell.exe", "wscript.exe", "cscript.exe",
+    "mshta.exe", "rundll32.exe", "regsvr32.exe", "certutil.exe",
+    "bitsadmin.exe", "msiexec.exe", "wmic.exe", "net.exe",
+    "whoami.exe", "nltest.exe", "schtasks.exe", "at.exe"
+]);
+DeviceProcessEvents
+| where Timestamp >= ago(14d)
+| where (
+    InitiatingProcessFileName contains "CrossWeb"
+    or InitiatingProcessFileName contains "crossweb"
+    or InitiatingProcessFileName contains "CrossWebEx"
+    )
+    or (
+    InitiatingProcessParentFileName contains "CrossWeb"
+    or InitiatingProcessParentFileName contains "crossweb"
+    or InitiatingProcessParentFileName contains "CrossWebEx"
+    )
+| where FileName in~ (SuspiciousChildren)
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    InitiatingProcessId,
+    FileName,
+    ProcessCommandLine,
+    ProcessId
+| order by Timestamp desc

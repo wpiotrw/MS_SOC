@@ -1,0 +1,17 @@
+// title: Validate before you deploy
+// date: 2026-10-05
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 1. Which of the columns these queries depend on does your
+//    AzureActivity actually have?
+AzureActivity
+| getschema
+| where ColumnName in ("ActivityStatus", "ActivityStatusValue",
+                       "OperationNameValue", "ResourceType",
+                       "Claims", "Claims_d")
+| project ColumnName, ColumnType

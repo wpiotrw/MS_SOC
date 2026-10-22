@@ -1,0 +1,182 @@
+// title: 🥈 Act II: The Name Is Not the Binary
+// date: 2026-10-05
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback       = 1d;
+let unlinkWindow   = 60s;   // exec → unlink
+let stageWindow    = 5m;    // write → exec
+let survivalWindow = 30m;   // unlink → evidence of life
+// ============================================================
+// LOCATION TIERS, NOT FILENAMES.
+//
+// Binaries in these directories are installed by a package
+// manager and stay on disk. One that is executed and unlinked
+// within a minute is anomalous whatever it's called.
+// ============================================================
+let SystemBinDirs = dynamic([
+    "/sbin", "/usr/sbin", "/bin", "/usr/bin",
+    "/usr/local/sbin", "/usr/local/bin", "/lib", "/usr/lib"
+]);
+// ============================================================
+// STAGE A: UNLINKS (smaller side of the join — goes left).
+//
+// FolderPath semantics vary (some events include the file
+// name, some don't); normalise to a full path either way.
+// ============================================================
+let Unlinks =
+    DeviceFileEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType == "FileDeleted"
+    | extend ImagePath = iff(FolderPath endswith strcat("/", FileName),
+                             FolderPath,
+                             strcat(trim_end("/", FolderPath), "/", FileName))
+    | where ImagePath startswith "/"           // Linux paths only
+    | project DeleteTime = Timestamp, DeviceId, ImagePath,
+              DeleterName = InitiatingProcessFileName,
+              DeleterCommandLine = InitiatingProcessCommandLine;
+let Execs =
+    DeviceProcessEvents
+    | where Timestamp >= ago(lookback)
+    | extend ImagePath = iff(FolderPath endswith strcat("/", FileName),
+                             FolderPath,
+                             strcat(trim_end("/", FolderPath), "/", FileName))
+    | where ImagePath startswith "/"
+    // Semi-join: keep only executions of paths that were
+    // deleted on the same device. This is the expensive scan —
+    // every Linux process creation in the lookback — and it
+    // shrinks to candidates before the time-window join runs.
+    | join kind=leftsemi (Unlinks | distinct DeviceId, ImagePath)
+        on DeviceId, ImagePath
+    | project ExecTime = Timestamp, DeviceId, DeviceName, ImagePath,
+              FileName, ProcessId, ProcessCreationTime,
+              ProcessCommandLine, SHA256, AccountName,
+              ParentName = InitiatingProcessFileName,
+              ParentCommandLine = InitiatingProcessCommandLine;
+// ============================================================
+// THE ANCHOR: executed, then unlinked within the window.
+// Correlate → constrain → collapse, one row per process.
+// (DeviceId, ProcessId, ProcessCreationTime) identifies a
+// process; PIDs alone recycle.
+// ============================================================
+let ExecThenUnlink =
+    Unlinks
+    | join kind=inner Execs on DeviceId, ImagePath
+    | where DeleteTime between (ExecTime .. (ExecTime + unlinkWindow))
+    | summarize arg_min(DeleteTime, *)
+        by DeviceId, ProcessId, ProcessCreationTime;
+// ============================================================
+// ENRICHMENT 1: WHO PUT IT THERE, AND FROM WHERE.
+//
+// In the reported chain the stager is `cp`, and its command
+// line names the SOURCE — the copy still on disk in the
+// appliance's package directory. That's the file the
+// responder can actually hash and quarantine.
+// ============================================================
+let Stagings =
+    DeviceFileEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType in ("FileCreated", "FileRenamed", "FileModified")
+    | extend ImagePath = iff(FolderPath endswith strcat("/", FileName),
+                             FolderPath,
+                             strcat(trim_end("/", FolderPath), "/", FileName))
+    | where ImagePath startswith "/"
+    | project StageTime = Timestamp, DeviceId, ImagePath,
+              StagerName = InitiatingProcessFileName,
+              StagerCommandLine = InitiatingProcessCommandLine,
+              StagerParent = InitiatingProcessParentFileName;
+let CorrelatedStaging =
+    ExecThenUnlink
+    | project DeviceId, ProcessId, ProcessCreationTime, ImagePath, ExecTime
+    | join kind=inner Stagings on DeviceId, ImagePath
+    | where StageTime between ((ExecTime - stageWindow) .. ExecTime)
+    | summarize arg_max(StageTime, StagerName, StagerCommandLine, StagerParent)
+        by DeviceId, ProcessId, ProcessCreationTime
+    | extend CopySource = iff(StagerName in~ ("cp", "mv", "install", "busybox"),
+          extract(@"\s(/[^\s]+)\s+/[^\s]+\s*$", 1, StagerCommandLine), "");
+// ============================================================
+// ENRICHMENT 2: DID IT SURVIVE ITS OWN DELETION?
+//
+// Any network, file, or child-process event initiated by the
+// same process AFTER its image was unlinked. This is what
+// separates the implant (unlinked while running) from
+// conftest (exited, then cleaned up).
+//
+// Enrichment, not a gate: a passive BPF sniffer may emit
+// nothing until it receives a magic packet.
+// ============================================================
+// PIDs are device-local and recycled, so candidates are
+// (DeviceId, ProcessId) pairs, applied as a semi-join — not a
+// global PID list, which make_set() can silently truncate.
+let CandidateProcs = ExecThenUnlink | distinct DeviceId, ProcessId;
+let ProcessActivity =
+    union
+      (DeviceNetworkEvents
+       | where Timestamp >= ago(lookback)
+       | project ActTime = Timestamp, DeviceId,
+                 ProcessId = InitiatingProcessId,
+                 ActCreationTime = InitiatingProcessCreationTime,
+                 ActKind = "Network",
+                 ActDetail = strcat(RemoteIP, ":", RemotePort)
+       | join kind=leftsemi CandidateProcs on DeviceId, ProcessId),
+      (DeviceFileEvents
+       | where Timestamp >= ago(lookback)
+       | project ActTime = Timestamp, DeviceId,
+                 ProcessId = InitiatingProcessId,
+                 ActCreationTime = InitiatingProcessCreationTime,
+                 ActKind = "File", ActDetail = FolderPath
+       | join kind=leftsemi CandidateProcs on DeviceId, ProcessId),
+      (DeviceProcessEvents
+       | where Timestamp >= ago(lookback)
+       | project ActTime = Timestamp, DeviceId,
+                 ProcessId = InitiatingProcessId,
+                 ActCreationTime = InitiatingProcessCreationTime,
+                 ActKind = "ChildProcess", ActDetail = ProcessCommandLine
+       | join kind=leftsemi CandidateProcs on DeviceId, ProcessId);
+let CorrelatedSurvival =
+    ExecThenUnlink
+    | project DeviceId, ProcessId, ProcessCreationTime, DeleteTime
+    | join kind=inner ProcessActivity on DeviceId, ProcessId
+    | where abs(datetime_diff('second', ActCreationTime, ProcessCreationTime)) <= 1
+    | where ActTime > DeleteTime and ActTime <= DeleteTime + survivalWindow
+    | summarize
+        PostUnlinkEvents = count(),
+        PostUnlinkKinds  = make_set(ActKind),
+        FirstPostUnlink  = min(ActTime),
+        PostUnlinkSample = make_set(ActDetail, 10)
+      by DeviceId, ProcessId, ProcessCreationTime;
+// ============================================================
+// THE VERDICT.
+// ============================================================
+ExecThenUnlink
+| join kind=leftouter CorrelatedStaging  on DeviceId, ProcessId, ProcessCreationTime
+| join kind=leftouter CorrelatedSurvival on DeviceId, ProcessId, ProcessCreationTime
+| extend ImageDir       = extract(@"^(.*)/[^/]+$", 1, ImagePath)
+| extend LocationTier   = case(
+      ImageDir in (SystemBinDirs),                                    "SystemBin",
+      ImageDir startswith "/tmp" or ImageDir startswith "/var/tmp"
+        or ImageDir startswith "/dev/shm",                            "Temp",
+                                                                      "Other")
+| extend SurvivedUnlink = coalesce(PostUnlinkEvents, 0) > 0
+| extend SecondsToUnlink = datetime_diff('second', DeleteTime, ExecTime)
+| extend Verdict = case(
+      SurvivedUnlink and LocationTier == "SystemBin", "ResidentFromDeletedSystemImage",
+      SurvivedUnlink,                                 "ResidentFromDeletedImage",
+      LocationTier == "SystemBin",                    "SystemBinExecThenUnlink",
+                                                      "ExecThenUnlink")
+// Outside system dirs, require proof of life — this is the
+// line that removes conftest and installer noise.
+| where LocationTier == "SystemBin" or SurvivedUnlink
+| project
+    ExecTime, DeleteTime, SecondsToUnlink, Verdict, LocationTier,
+    DeviceName, ImagePath, FileName, SHA256, ProcessId,
+    ProcessCommandLine, AccountName, ParentName, ParentCommandLine,
+    StageTime, StagerName, StagerCommandLine, StagerParent, CopySource,
+    DeleterName, DeleterCommandLine,
+    SurvivedUnlink, PostUnlinkEvents, PostUnlinkKinds,
+    FirstPostUnlink, PostUnlinkSample
+| order by SurvivedUnlink desc, ExecTime desc

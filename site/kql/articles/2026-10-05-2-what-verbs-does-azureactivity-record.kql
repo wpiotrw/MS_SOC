@@ -1,0 +1,16 @@
+// title: 2. What verbs does AzureActivity record?
+// date: 2026-10-05
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 2. What verbs does AzureActivity record?
+AzureActivity
+| where TimeGenerated >= ago(7d)
+| where CategoryValue =~ "Administrative"
+| extend Verb = extract(@"/([^/]+)$", 1, toupper(OperationNameValue))
+| summarize Events = count(), Example = take_any(OperationNameValue) by Verb
+| order by Events desc

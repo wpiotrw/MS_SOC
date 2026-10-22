@@ -1,0 +1,26 @@
+// title: Detection 3: BPFDoor - Shell Script Written and Executed by Non-Interactive Dropper Process
+// date: 2026-10-04
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, October 4, 2026
+// source: https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ShellInterpreters = dynamic(["sh", "bash", "dash", "zsh", "ksh", "fish"]);
+let ScriptWrites = DeviceFileEvents
+| where ActionType == "FileCreated"
+| where FileName endswith ".sh"
+| where InitiatingProcessFileName !in~ (ShellInterpreters)
+| project WriteTime = Timestamp, DeviceName, ScriptPath = FolderPath, ScriptName = FileName, WriterProcess = InitiatingProcessFileName, WriterCommandLine = InitiatingProcessCommandLine, AccountName;
+let ShellExecs = DeviceProcessEvents
+| where FileName in~ (ShellInterpreters)
+| where ProcessCommandLine has ".sh"
+| extend NormalizedScriptRef = extract(@"([^\s]+\.sh)", 1, ProcessCommandLine)
+| project ExecTime = Timestamp, DeviceName, ProcessCommandLine, NormalizedScriptRef, ExecAccountName = AccountName;
+ScriptWrites
+| join kind=inner ShellExecs on DeviceName
+| where ExecTime > WriteTime and ExecTime <= WriteTime + 60s
+| where NormalizedScriptRef has ScriptName or NormalizedScriptRef has ScriptPath
+| extend TimeDeltaSeconds = datetime_diff('second', ExecTime, WriteTime)
+| project WriteTime, ExecTime, TimeDeltaSeconds, DeviceName, ScriptName, ScriptPath, WriterProcess, WriterCommandLine, ProcessCommandLine, AccountName, ExecAccountName

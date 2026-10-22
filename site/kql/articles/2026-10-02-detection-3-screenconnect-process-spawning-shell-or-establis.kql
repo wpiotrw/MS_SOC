@@ -1,0 +1,58 @@
+// title: Detection 3: ScreenConnect Process Spawning Shell or Establishing Outbound Connection to Non-Corporate Relay
+// date: 2026-10-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, October 2, 2026
+// source: https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let scProcessNames = dynamic(["ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe", "ConnectWiseControl.ClientService.exe", "ScreenConnect.WindowsBackstageShell.exe"]);
+let shellChildren = dynamic(["cmd.exe", "powershell.exe", "wscript.exe", "cscript.exe", "mshta.exe"]);
+let timeWindow = 15;
+let shellSpawns =
+    DeviceProcessEvents
+    | where TimeGenerated >= ago(7d)
+    | where InitiatingProcessFileName has_any (scProcessNames)
+    | where FileName has_any (shellChildren)
+    | project
+        DeviceName,
+        AccountName,
+        ShellSpawnTime = TimeGenerated,
+        ChildProcess = FileName,
+        CommandLine = ProcessCommandLine,
+        ParentProcess = InitiatingProcessFileName,
+        ShellReportId = ReportId;
+let outboundConns =
+    DeviceNetworkEvents
+    | where TimeGenerated >= ago(7d)
+    | where InitiatingProcessFileName has_any (scProcessNames)
+    | where RemotePort in (443, 8040, 8041)
+    | where isnotempty(RemoteIP)
+    | project
+        DeviceName,
+        ConnTime = TimeGenerated,
+        RemoteIP,
+        RemotePort,
+        RemoteUrl,
+        InitiatingProcess = InitiatingProcessFileName,
+        NetReportId = ReportId;
+shellSpawns
+| join kind=leftouter outboundConns on DeviceName
+| extend HasNetworkActivity = isnotempty(ConnTime)
+| where not(HasNetworkActivity) or abs(datetime_diff('minute', ShellSpawnTime, ConnTime)) <= timeWindow
+| project
+    DeviceName,
+    AccountName,
+    ShellSpawnTime,
+    ChildProcess,
+    CommandLine,
+    ParentProcess,
+    ConnTime,
+    RemoteIP,
+    RemotePort,
+    RemoteUrl,
+    HasNetworkActivity,
+    ShellReportId,
+    NetReportId
+| sort by ShellSpawnTime desc

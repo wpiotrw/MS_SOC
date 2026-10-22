@@ -1,0 +1,48 @@
+// title: And the script was never a .sh
+// date: 2026-10-05
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback   = 1d;
+let execWindow = 60s;
+let Shells = dynamic(["sh", "bash", "dash", "ash", "ksh", "zsh", "busybox"]);
+// Every absolute path passed to a shell — `sh -c /path`,
+// `/bin/sh /path`, or a shebang exec, which surfaces as the
+// interpreter with the script path as an argument.
+let ShellRuns =
+    DeviceProcessEvents
+    | where Timestamp >= ago(lookback)
+    | where FileName in~ (Shells)
+    | extend ScriptArgs = extract_all(@"\s(/[^\s'""]+)", ProcessCommandLine)
+    | mv-expand WrittenPath = ScriptArgs to typeof(string)
+    | project ExecTime = Timestamp, DeviceId, DeviceName, WrittenPath,
+              ShellCommandLine = ProcessCommandLine,
+              ShellParent = InitiatingProcessFileName;
+let Writes =
+    DeviceFileEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType in ("FileCreated", "FileModified")
+    | extend WrittenPath = iff(FolderPath endswith strcat("/", FileName),
+                               FolderPath,
+                               strcat(trim_end("/", FolderPath), "/", FileName))
+    | project WriteTime = Timestamp, DeviceId, WrittenPath,
+              WriterName = InitiatingProcessFileName,
+              WriterCommandLine = InitiatingProcessCommandLine;
+ShellRuns
+| join kind=inner Writes on DeviceId, WrittenPath
+| where ExecTime between (WriteTime .. (WriteTime + execWindow))
+| summarize arg_min(ExecTime, *) by DeviceId, WrittenPath
+// The extension is enrichment, not a filter — and a script
+// whose extension claims to be something else is a stronger
+// signal, not a reason to skip it.
+| extend ScriptExt     = tolower(extract(@"\.([A-Za-z0-9]+)$", 1, WrittenPath))
+| extend ExtensionLies = isnotempty(ScriptExt) and ScriptExt !in ("sh", "bash")
+| extend WriterIsShell = WriterName in~ (Shells)
+| project WriteTime, ExecTime, DeviceName, WrittenPath, ScriptExt,
+          ExtensionLies, WriterName, WriterIsShell, WriterCommandLine,
+          ShellCommandLine, ShellParent
+| order by ExtensionLies desc, ExecTime desc

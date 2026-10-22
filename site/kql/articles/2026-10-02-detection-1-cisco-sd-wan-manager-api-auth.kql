@@ -1,0 +1,56 @@
+// title: Detection 1: Cisco SD-WAN Manager API Auth Bypass - Unauthenticated Admin API Access (CVE-2026-76504)
+// date: 2026-10-02
+// product: Sentinel
+// tables: CommonSecurityLog
+// purpose: From the article: Detection Engineering Brief - Friday, October 2, 2026
+// source: https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1h;
+let adminWindow = 30m;
+let sdwanVendor = "Cisco";
+let sdwanProduct = "SD-WAN";
+let apiPath = "/dataservice/";
+let unauthRequests =
+    CommonSecurityLog
+    | where TimeGenerated >= ago(lookback)
+    | where DeviceVendor has sdwanVendor and DeviceProduct has sdwanProduct
+    | where RequestURL has apiPath
+    | where tostring(ResponseCode) == "200"
+    | where isempty(UserName) or UserName == "-"
+    | where isnotempty(SourceIP)
+    | summarize
+        FirstUnauthRequest = min(TimeGenerated),
+        RequestCount = count(),
+        SampleRequestURL = any(RequestURL),
+        DeviceProduct = any(DeviceProduct)
+        by SourceIP;
+let adminActivity =
+    CommonSecurityLog
+    | where TimeGenerated >= ago(lookback + adminWindow)
+    | where DeviceVendor has sdwanVendor and DeviceProduct has sdwanProduct
+    | where Activity has_any ("admin", "configuration", "write", "delete", "create")
+    | where isnotempty(SourceIP)
+    | summarize
+        FirstAdminActivity = min(TimeGenerated),
+        AdminActions = count(),
+        Activity = any(Activity),
+        UserName = any(UserName)
+        by SourceIP;
+unauthRequests
+| join kind=inner adminActivity on SourceIP
+| where FirstAdminActivity >= FirstUnauthRequest
+| where FirstAdminActivity <= FirstUnauthRequest + adminWindow
+| project
+    SourceIP,
+    FirstUnauthRequest,
+    FirstAdminActivity,
+    RequestCount,
+    AdminActions,
+    UserName,
+    Activity,
+    SampleRequestURL,
+    DeviceProduct
+| extend AlertDetail = strcat("Unauthenticated API request followed by admin activity from ", SourceIP)
+| sort by FirstUnauthRequest desc

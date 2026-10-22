@@ -1,0 +1,57 @@
+// title: Detection 4: ConnectWise Agent Spawning Unexpected Child Process Post Supply Chain Compromise
+// date: 2026-10-22
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, October 22, 2026
+// source: https://devsecopsdadattack.com/2026-10-22-detection-engineering-brief-thursday-october-22-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ConnectWiseParents = dynamic([
+    "ScreenConnect.ClientService.exe",
+    "ScreenConnect.WindowsClient.exe",
+    "ConnectWiseControl.ClientService.exe",
+    "cwagent.exe"
+]);
+let SuspiciousChildren = dynamic([
+    "cmd.exe", "powershell.exe", "wscript.exe", "cscript.exe",
+    "mshta.exe", "rundll32.exe", "regsvr32.exe", "certutil.exe",
+    "bitsadmin.exe", "net.exe", "whoami.exe", "nltest.exe"
+]);
+let LookbackWindow = ago(7d);
+let ProcessEvents = DeviceProcessEvents
+| where Timestamp >= LookbackWindow
+| where InitiatingProcessFileName in~ (ConnectWiseParents)
+| where FileName in~ (SuspiciousChildren)
+| project
+    Timestamp,
+    EventType = "ChildProcess",
+    DeviceName,
+    InitiatingProcessAccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    FileName,
+    ProcessCommandLine,
+    RemoteIP = "",
+    RemotePort = int(null),
+    RemoteUrl = "",
+    RemoteIPType = "";
+let NetworkEvents = DeviceNetworkEvents
+| where Timestamp >= LookbackWindow
+| where InitiatingProcessFileName in~ (ConnectWiseParents)
+| where RemotePort !in (443, 8041, 8040, 80)
+| project
+    Timestamp,
+    EventType = "NetworkAnomaly",
+    DeviceName,
+    InitiatingProcessAccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    FileName = "",
+    ProcessCommandLine = "",
+    RemoteIP,
+    RemotePort,
+    RemoteUrl,
+    RemoteIPType;
+union ProcessEvents, NetworkEvents
+| order by Timestamp desc

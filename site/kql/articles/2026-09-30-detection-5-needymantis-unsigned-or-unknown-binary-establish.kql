@@ -1,0 +1,68 @@
+// title: Detection 5: NeedyMantis - Unsigned or Unknown Binary Establishing Persistence via Registry Run Key or Scheduled Task
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceRegistryEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, September 30, 2026
+// source: https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let persistenceRunKeys = dynamic([
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
+    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Run"
+]);
+let suspiciousPaths = dynamic(["\\temp\\", "\\tmp\\", "\\appdata\\local\\temp\\", "\\appdata\\roaming\\", "\\users\\public\\"]);
+let registryPersistence = DeviceRegistryEvents
+| where Timestamp > ago(lookback)
+| where ActionType in ("RegistryValueSet", "RegistryKeyCreated")
+| where RegistryKey has_any (persistenceRunKeys)
+| where tolower(InitiatingProcessFolderPath) has_any (suspiciousPaths)
+| project
+    DeviceName,
+    EventTime = Timestamp,
+    PersistenceType = "RegistryRunKey",
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    RegistryKey,
+    RegistryValueName,
+    TaskCommandLine = "",
+    AccountName;
+let scheduledTaskPersistence = DeviceEvents
+| where Timestamp > ago(lookback)
+| where ActionType == "ScheduledTaskCreated"
+| where tolower(InitiatingProcessFolderPath) has_any (suspiciousPaths)
+| project
+    DeviceName,
+    EventTime = Timestamp,
+    PersistenceType = "ScheduledTask",
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    RegistryKey = "",
+    RegistryValueName = "",
+    TaskCommandLine = InitiatingProcessCommandLine,
+    AccountName;
+let allPersistence = union registryPersistence, scheduledTaskPersistence;
+let compoundActors = allPersistence
+| summarize PersistenceTypes = make_set(PersistenceType) by DeviceName, InitiatingProcessFileName
+| where array_length(PersistenceTypes) >= 2
+| project DeviceName, InitiatingProcessFileName, BothPersistenceTypes = true;
+allPersistence
+| join kind=leftouter compoundActors on DeviceName, InitiatingProcessFileName
+| extend BothPersistenceTypes = coalesce(BothPersistenceTypes, false)
+| project
+    DeviceName,
+    EventTime,
+    PersistenceType,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    RegistryKey,
+    RegistryValueName,
+    TaskCommandLine,
+    AccountName,
+    BothPersistenceTypes
+| order by BothPersistenceTypes desc, EventTime desc

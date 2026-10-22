@@ -1,0 +1,41 @@
+// title: Detection 1: RMM Chaining - ScreenConnect Spawned by MSP360 Agent Process
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, September 30, 2026
+// source: https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let msp360Processes = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where FileName in~ ("BackupAgent.exe", "BackupAgentService.exe", "MSP360.exe", "CloudBerry.exe")
+| project DeviceName, msp360Time = Timestamp, msp360Process = FileName, AccountName, msp360FolderPath = InitiatingProcessFolderPath;
+let screenConnectProcesses = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where FileName in~ ("ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe", "ConnectWiseControl.ClientService.exe")
+    or ProcessCommandLine has_any ("screenconnect", "connectwise")
+| where InitiatingProcessFileName in~ ("BackupAgent.exe", "BackupAgentService.exe", "MSP360.exe", "CloudBerry.exe")
+    or InitiatingProcessFileName =~ ""
+| summarize
+    scTime = min(Timestamp),
+    scProcess = any(FileName),
+    scCommandLine = any(ProcessCommandLine),
+    InitiatingProcessCommandLine = any(InitiatingProcessCommandLine)
+    by DeviceName;
+msp360Processes
+| join kind=inner screenConnectProcesses on DeviceName
+| where scTime between (msp360Time .. (msp360Time + 1h))
+| extend TimeDeltaMinutes = datetime_diff('minute', scTime, msp360Time)
+| project
+    DeviceName,
+    AccountName,
+    msp360Process,
+    msp360Time,
+    scProcess,
+    scTime,
+    scCommandLine,
+    InitiatingProcessCommandLine,
+    TimeDeltaMinutes
+| order by msp360Time desc

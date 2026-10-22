@@ -1,0 +1,49 @@
+// title: Detection 3: BPFDoor - Shell Script Written and Executed by Non-Interactive Process on Linux Appliance
+// date: 2026-10-03
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 3, 2026
+// source: https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let scriptCreations = DeviceFileEvents
+| where ActionType == "FileCreated"
+| where FileName endswith ".sh"
+| where InitiatingProcessFileName !in (
+    "bash", "sh", "zsh", "dash", "sshd", "sudo",
+    "python3", "python", "ruby", "perl", "node"
+)
+| project
+    CreateTime = Timestamp,
+    DeviceName,
+    ScriptName = FileName,
+    ScriptPath = FolderPath,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessParentFileName,
+    CreateReportId = ReportId;
+let shellExecs = DeviceProcessEvents
+| where FileName in ("bash", "sh", "zsh", "dash")
+| project
+    ExecTime = Timestamp,
+    DeviceName,
+    ShellProcess = FileName,
+    ProcessCommandLine;
+scriptCreations
+| join kind=inner shellExecs on DeviceName
+| where ExecTime >= CreateTime and ExecTime <= datetime_add('second', 60, CreateTime)
+| where ProcessCommandLine has ScriptName
+| project
+    CreateTime,
+    ExecTime,
+    DeviceName,
+    ScriptName,
+    ScriptPath,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessParentFileName,
+    ShellProcess,
+    ProcessCommandLine,
+    CreateReportId
+| order by CreateTime desc

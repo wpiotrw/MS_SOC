@@ -1,0 +1,27 @@
+// title: Detection 4: Cisco SD-WAN Manager - Unauthenticated External Access to Admin API Endpoints (CVE-2026-76504)
+// date: 2026-10-01
+// product: Sentinel
+// tables: CommonSecurityLog
+// purpose: From the article: Detection Engineering Brief - Thursday, October 1, 2026
+// source: https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let sdwanPorts = dynamic([443, 8443, 8080, 9090]);
+let adminPaths = dynamic(["/dataservice", "/api", "/admin", "/j_security_check"]);
+CommonSecurityLog
+| where TimeGenerated > ago(24h)
+| where DestinationPort in (sdwanPorts)
+| where not (ipv4_is_private(SourceIP))
+| where ResponseCode == 200
+| where RequestURL has_any (adminPaths)
+| summarize
+    RequestCount = count(),
+    DistinctPaths = dcount(RequestURL),
+    SamplePaths = make_set(RequestURL, 20),
+    SampleMethods = make_set(RequestMethod, 5),
+    SampleUserAgents = make_set(UserAgent, 5),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by SourceIP, DestinationIP
+| order by RequestCount desc

@@ -1,0 +1,190 @@
+// title: 🥇 Act I: Six Detections, One Log, Zero Reads
+// date: 2026-10-05
+// product: Entra
+// tables: AADServicePrincipalSignInLogs, AzureActivity
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 2h;
+// ── Thresholds: starting positions — baseline before scheduling ──
+let DestroyVolumeThreshold    = 10;  // delete attempts by one principal
+let DestroyDiversityThreshold = 3;   // distinct ARM resource types deleted
+let ResourceGroupThreshold    = 2;   // whole resource groups deleted
+let HarvestTargetThreshold    = 10;  // distinct resources whose secrets were requested
+// ============================================================
+// THE GRAMMAR.
+//
+// OperationNameValue is a path, not a sentence:
+//   {PROVIDER}/{TYPE}[/{CHILD TYPE}...]/{VERB}
+//
+// The verb is the last segment. The resource type is
+// everything before it. Neither depends on display-name
+// wording. Administrative verbs are overwhelmingly WRITE,
+// DELETE, ACTION. The Activity Log doesn't typically capture
+// reads, and the ARM enumeration GETs used for recon aren't
+// here to match.
+//
+// CredentialActions are ARM POST actions whose response body
+// contains a secret. Unlike reads, these ARE logged — they are
+// the attacker's credential collection, visible on the
+// control plane.
+// ============================================================
+let CredentialActions = dynamic([
+    "LISTKEYS", "LISTACCOUNTSAS", "LISTSERVICESAS",
+    "LISTCONNECTIONSTRINGS", "LISTCREDENTIALS", "LISTCREDENTIAL",
+    "LISTCLUSTERADMINCREDENTIAL", "LISTCLUSTERUSERCREDENTIAL",
+    "LISTAUTHKEYS", "REGENERATEKEY", "PUBLISHXML", "BEGINGETACCESS"
+]);
+let RecoveryProviders = dynamic([
+    "MICROSOFT.RECOVERYSERVICES", "MICROSOFT.DATAPROTECTION"
+]);
+AzureActivity
+| where TimeGenerated >= ago(lookback)
+| where CategoryValue =~ "Administrative"
+// Positive assertion: the caller IS a GUID (a workload
+// identity) — not "isn't a UPN", which also admits empty
+// callers and platform-generated events.
+| where Caller matches regex
+    @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+// ============================================================
+// TERMINAL OUTCOMES — BOTH OF THEM.
+//
+// Long-running ARM operations log Started/Accepted and then
+// Succeeded or Failed. Counting terminal events only avoids
+// triple-counting one delete. Keeping Failed is the point: a
+// delete that a resource lock refused is still an attempt.
+//
+// Status values differ by ingestion path ("Success" vs
+// "Succeeded", "Failure" vs "Failed"); a prefix match covers
+// both. column_ifexists tolerates workspaces where only the
+// legacy ActivityStatus column is populated.
+// ============================================================
+| extend Status = coalesce(ActivityStatusValue,
+                           column_ifexists("ActivityStatus", ""))
+| extend Outcome = case(
+      Status startswith "Succe", "Succeeded",
+      Status startswith "Fail",  "Failed",
+                                 "NonTerminal")
+| where Outcome != "NonTerminal"
+// ── Parse the grammar ──
+| extend OpPath     = toupper(OperationNameValue)
+| extend Verb       = extract(@"/([^/]+)$", 1, OpPath)
+| extend TargetType = extract(@"^(.+)/[^/]+$", 1, OpPath)
+| extend Provider   = extract(@"^([^/]+)/", 1, OpPath)
+| extend ActionName = iff(Verb == "ACTION",
+                          extract(@"/([^/]+)/ACTION$", 1, OpPath), "")
+// ============================================================
+// CLASSIFY BY MEANING, NOT BY WORDING.
+//
+// ProtectionTamper is checked first so a lock or backup
+// delete is never counted as ordinary destruction. It is
+// deliberately broader than recovery infrastructure: ANY
+// resource-lock deletion lands here, because a lock is a
+// protective control whatever it protects. TamperKind below
+// separates lock removals from Recovery Services / Data
+// Protection deletes.
+// ============================================================
+| extend OpClass = case(
+      Verb == "DELETE"
+        and (OpPath startswith "MICROSOFT.AUTHORIZATION/LOCKS"
+             or Provider in (RecoveryProviders)),         "ProtectionTamper",
+      Verb == "DELETE",                                    "Destroy",
+      Verb == "ACTION"
+        and (ActionName in (CredentialActions)
+             or OpPath endswith "/CONFIG/LIST/ACTION"),    "CredentialHarvest",
+                                                           "Other")
+| where OpClass != "Other"
+// AppId from the token claims — stable across tables, used to
+// pivot into AADServicePrincipalSignInLogs (see below).
+// Claims_d is the preferred dynamic column; the string
+// Claims column is the fallback for older ingestion paths.
+| extend AppId = coalesce(
+      tostring(column_ifexists("Claims_d", dynamic({})).appid),
+      tostring(parse_json(column_ifexists("Claims", "{}")).appid))
+// ============================================================
+// ONE ROW PER IDENTITY.
+// ============================================================
+| summarize
+    DestroyAttempts      = countif(OpClass == "Destroy"),
+    DestroySucceeded     = countif(OpClass == "Destroy" and Outcome == "Succeeded"),
+    DestroyFailed        = countif(OpClass == "Destroy" and Outcome == "Failed"),
+    DestroyTypes         = dcountif(TargetType, OpClass == "Destroy"),
+    DestroyTypeList      = make_set_if(TargetType, OpClass == "Destroy", 20),
+    ResourceGroupDeletes = countif(OpClass == "Destroy"
+                             and TargetType == "MICROSOFT.RESOURCES/SUBSCRIPTIONS/RESOURCEGROUPS"),
+    TamperAttempts       = countif(OpClass == "ProtectionTamper"),
+    TamperFailed         = countif(OpClass == "ProtectionTamper" and Outcome == "Failed"),
+    LockDeletes          = countif(OpClass == "ProtectionTamper"
+                             and OpPath startswith "MICROSOFT.AUTHORIZATION/LOCKS"),
+    RecoveryDeletes      = countif(OpClass == "ProtectionTamper"
+                             and Provider in (RecoveryProviders)),
+    TamperOps            = make_set_if(OperationNameValue, OpClass == "ProtectionTamper", 10),
+    HarvestAttempts      = countif(OpClass == "CredentialHarvest"),
+    HarvestSucceeded     = countif(OpClass == "CredentialHarvest" and Outcome == "Succeeded"),
+    HarvestTargets       = dcountif(ResourceId, OpClass == "CredentialHarvest"),
+    HarvestOps           = make_set_if(OperationNameValue, OpClass == "CredentialHarvest", 10),
+    FirstDestroy         = minif(TimeGenerated, OpClass == "Destroy"),
+    LastDestroy          = maxif(TimeGenerated, OpClass == "Destroy"),
+    FirstTamper          = minif(TimeGenerated, OpClass == "ProtectionTamper"),
+    FirstHarvest         = minif(TimeGenerated, OpClass == "CredentialHarvest"),
+    LastHarvest          = maxif(TimeGenerated, OpClass == "CredentialHarvest"),
+    Subscriptions        = make_set(SubscriptionId, 10),
+    CallerIPs            = make_set(CallerIpAddress, 10),
+    AppId                = take_anyif(AppId, isnotempty(AppId)),
+    SampleTargets        = make_set_if(ResourceId, OpClass != "CredentialHarvest", 20)
+  by Caller
+// ============================================================
+// THE VERDICT.
+//
+// Three independent signals. Destruction is volume OR
+// diversity OR whole resource groups — a 100-account storage
+// wipe is one resource type and must not slip under a
+// diversity-only threshold. Protection tampering fires on ANY
+// attempt, successful or not — but a lock removal with
+// nothing else around it gets its own, lower verdict, because
+// IaC pipelines legitimately manage locks. Harvest needs
+// breadth, because one ListKeys is an app starting up; thirty
+// is a sweep.
+// ============================================================
+| extend DestroyWindowMin  = datetime_diff('minute', LastDestroy, FirstDestroy)
+| extend DestroysPerMinute = round(todouble(DestroyAttempts)
+                                   / max_of(1, DestroyWindowMin), 1)
+| extend HasMassDestroy    = DestroyAttempts >= DestroyVolumeThreshold
+                          or DestroyTypes >= DestroyDiversityThreshold
+                          or ResourceGroupDeletes >= ResourceGroupThreshold
+| extend HasProtectionTamper = TamperAttempts > 0
+| extend HasHarvestSweep     = HarvestTargets >= HarvestTargetThreshold
+| extend BlockedByControls   = (DestroyFailed + TamperFailed) > 0
+| extend TamperKind = case(
+      LockDeletes > 0 and RecoveryDeletes > 0, "LocksAndRecovery",
+      RecoveryDeletes > 0,                     "RecoveryOnly",
+      LockDeletes > 0,                         "LocksOnly",
+                                               "")
+| extend ChainScore = toint(HasMassDestroy)
+                    + toint(HasProtectionTamper)
+                    + toint(HasHarvestSweep)
+| extend Verdict = case(
+      HasMassDestroy and HasProtectionTamper and HasHarvestSweep, "FullImpactChain",
+      HasMassDestroy and HasProtectionTamper,                      "DestroyAndTamperProtection",
+      HasMassDestroy and HasHarvestSweep,                          "DestroyAndHarvest",
+      HasMassDestroy,                                              "MassDestruction",
+      HasProtectionTamper and RecoveryDeletes > 0,                 "RecoveryTamper",
+      HasProtectionTamper and HasHarvestSweep,                     "LockRemovalAndHarvest",
+      HasProtectionTamper,                                         "LockRemovalOnly",
+                                                                   "CredentialHarvestSweep")
+| where ChainScore > 0
+| extend OutcomeMix = strcat(
+      "destroy ", DestroySucceeded, " ok / ", DestroyFailed, " failed; ",
+      "tamper ",  TamperAttempts - TamperFailed, " ok / ", TamperFailed, " failed; ",
+      "harvest ", HarvestSucceeded, " ok / ", HarvestAttempts - HarvestSucceeded, " failed")
+| project
+    Verdict, ChainScore, OutcomeMix, BlockedByControls,
+    Caller, AppId, Subscriptions, CallerIPs,
+    FirstDestroy, LastDestroy, DestroyAttempts, DestroysPerMinute,
+    DestroyTypes, DestroyTypeList, ResourceGroupDeletes,
+    FirstTamper, TamperAttempts, TamperKind, LockDeletes, RecoveryDeletes, TamperOps,
+    FirstHarvest, LastHarvest, HarvestAttempts, HarvestTargets, HarvestOps,
+    SampleTargets
+| order by ChainScore desc, DestroyAttempts desc

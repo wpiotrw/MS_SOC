@@ -1,0 +1,43 @@
+// title: Detection 4: ScreenConnect Client Execution on Host Without Prior Installation Record
+// date: 2026-10-04
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, October 4, 2026
+// source: https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ScreenConnectProcs = DeviceProcessEvents
+| where FileName has_any ("ScreenConnect", "screenconnect", "ConnectWise")
+    or ProcessCommandLine has_any ("ScreenConnect", "screenconnect", "ConnectWise")
+| summarize
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    ExecutionCount = count(),
+    SHA256Values = make_set(SHA256),
+    CommandLines = make_set(ProcessCommandLine)
+    by DeviceName, FileName, AccountName, AccountDomain, InitiatingProcessFileName;
+let ScreenConnectNet = DeviceNetworkEvents
+| where InitiatingProcessFileName has_any ("ScreenConnect", "screenconnect", "ConnectWise")
+| summarize
+    RemoteIPs = make_set(RemoteIP),
+    RemotePorts = make_set(RemotePort),
+    RemoteUrls = make_set(RemoteUrl)
+    by DeviceName;
+ScreenConnectProcs
+| join kind=leftouter ScreenConnectNet on DeviceName
+| project
+    FirstSeen,
+    LastSeen,
+    ExecutionCount,
+    DeviceName,
+    FileName,
+    AccountName,
+    AccountDomain,
+    InitiatingProcessFileName,
+    SHA256Values,
+    CommandLines,
+    RemoteIPs,
+    RemotePorts,
+    RemoteUrls
+| order by FirstSeen desc

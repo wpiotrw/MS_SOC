@@ -1,0 +1,51 @@
+// title: Detection 2: RMM Abuse - ScreenConnect Spawned or Co-Executed with MSP360 for Redundant Remote Access
+// date: 2026-10-01
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, October 1, 2026
+// source: https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookbackWindow = 24h;
+let correlationWindowSec = 1800;
+let msp360Events = DeviceProcessEvents
+| where Timestamp > ago(lookbackWindow)
+| where FileName in~ ("MSP360.exe", "CloudBerry.exe", "MBS.exe", "OnlineBackup.exe")
+    or ProcessCommandLine has_any ("msp360", "cloudberry")
+| summarize
+    msp360Time = min(Timestamp),
+    msp360Process = take_any(FileName),
+    msp360Cmdline = take_any(ProcessCommandLine),
+    msp360InitiatingProcess = take_any(InitiatingProcessFileName),
+    msp360FolderPath = take_any(FolderPath)
+    by DeviceName;
+let scEvents = DeviceProcessEvents
+| where Timestamp > ago(lookbackWindow)
+| where FileName in~ ("ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe", "ConnectWiseControl.exe")
+    or ProcessCommandLine has "screenconnect"
+| summarize
+    scTime = min(Timestamp),
+    scProcess = take_any(FileName),
+    scCmdline = take_any(ProcessCommandLine),
+    scInitiatingProcess = take_any(InitiatingProcessFileName),
+    scFolderPath = take_any(FolderPath)
+    by DeviceName;
+msp360Events
+| join kind=inner scEvents on DeviceName
+| extend TimeDeltaSeconds = abs(datetime_diff('second', msp360Time, scTime))
+| where TimeDeltaSeconds <= correlationWindowSec
+| project
+    DeviceName,
+    msp360Time,
+    msp360Process,
+    msp360InitiatingProcess,
+    msp360FolderPath,
+    msp360Cmdline,
+    scTime,
+    scProcess,
+    scInitiatingProcess,
+    scFolderPath,
+    scCmdline,
+    TimeDeltaSeconds
+| order by TimeDeltaSeconds asc

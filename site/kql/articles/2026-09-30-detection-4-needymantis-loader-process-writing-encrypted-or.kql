@@ -1,0 +1,42 @@
+// title: Detection 4: NeedyMantis - Loader Process Writing Encrypted or Unusually Named Archive Files to User or Temp Directories
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, September 30, 2026
+// source: https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let knownArchivers = dynamic(["7z.exe", "winrar.exe", "winzip32.exe", "msiexec.exe", "setup.exe", "installer.exe", "expand.exe", "tar.exe"]);
+let suspiciousWritePaths = dynamic(["\\temp\\", "\\tmp\\", "\\appdata\\local\\temp\\", "\\appdata\\roaming\\", "\\users\\public\\"]);
+let suspiciousLoaderPaths = dynamic(["\\temp\\", "\\tmp\\", "\\appdata\\local\\temp\\", "\\appdata\\roaming\\", "\\users\\public\\"]);
+DeviceFileEvents
+| where Timestamp > ago(lookback)
+| where ActionType in ("FileCreated", "FileModified")
+| where tolower(FolderPath) has_any (suspiciousWritePaths)
+| where FileName endswith_any (".enc", ".bin", ".dat", ".pak", ".cab", ".zip", ".7z", ".rar")
+| where tolower(InitiatingProcessFileName) !in (knownArchivers)
+| where InitiatingProcessFileName !startswith "MpCmdRun"
+| where tolower(InitiatingProcessFolderPath) has_any (suspiciousLoaderPaths)
+| summarize
+    FilesWritten = count(),
+    FileNames = make_set(FileName),
+    FolderPaths = make_set(FolderPath),
+    WrittenFileSHA256s = make_set(SHA256),
+    InitiatingProcessCommandLine = any(InitiatingProcessCommandLine),
+    InitiatingProcessFolderPath = any(InitiatingProcessFolderPath),
+    WindowStart = min(Timestamp)
+    by DeviceName, InitiatingProcessFileName, bin(Timestamp, 30m)
+| where FilesWritten >= 2
+| project
+    DeviceName,
+    WindowStart,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    FilesWritten,
+    FileNames,
+    FolderPaths,
+    WrittenFileSHA256s
+| order by FilesWritten desc

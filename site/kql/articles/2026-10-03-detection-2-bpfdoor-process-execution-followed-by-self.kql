@@ -1,0 +1,43 @@
+// title: Detection 2: BPFDoor - Process Execution Followed by Self-Deletion in /sbin Within 30 Seconds
+// date: 2026-10-03
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 3, 2026
+// source: https://devsecopsdadattack.com/2026-10-03-detection-engineering-brief-saturday-october-3-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let executions = DeviceProcessEvents
+| where FolderPath startswith "/sbin"
+| where FileName in ("ntpdate", "udevds")
+| project
+    ExecTime = Timestamp,
+    DeviceName,
+    FileName,
+    ProcessId,
+    ProcessCommandLine,
+    InitiatingProcessFileName;
+let deletions = DeviceFileEvents
+| where ActionType == "FileDeleted"
+| where FolderPath startswith "/sbin"
+| where FileName in ("ntpdate", "udevds")
+| project
+    DelTime = Timestamp,
+    DeviceName,
+    FileName,
+    DeletingProcessFileName = InitiatingProcessFileName,
+    DelReportId = ReportId;
+executions
+| join kind=inner deletions on DeviceName, FileName
+| where DelTime >= ExecTime and DelTime <= datetime_add('second', 30, ExecTime)
+| project
+    ExecTime,
+    DelTime,
+    DeviceName,
+    FileName,
+    ProcessId,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    DeletingProcessFileName,
+    DelReportId
+| order by ExecTime desc

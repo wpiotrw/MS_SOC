@@ -1,0 +1,41 @@
+// title: The shadow of the reads
+// date: 2026-10-05
+// product: Entra
+// tables: AADServicePrincipalSignInLogs
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Service principals obtaining ARM tokens from an IP not seen
+// for that app in the prior 30 days. Requires the
+// AADServicePrincipalSignInLogs diagnostic category.
+let lookback = 1d;
+let ArmResourceId = "797f4846-ba00-4fd7-ba43-dac1f8f63013"; // Azure Resource Manager
+let Recent =
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated >= ago(lookback)
+    | where ResourceIdentity == ArmResourceId
+    // tostring() works whether ResultType is typed as int or
+    // string in your workspace — don't bet on the representation.
+    | where tostring(ResultType) in ("0", "Success")
+    | summarize
+        TokenIssuances = count(),
+        IPs            = make_set(IPAddress, 20),
+        FirstToken     = min(TimeGenerated),
+        LastToken      = max(TimeGenerated)
+      by AppId, ServicePrincipalName;
+let Baseline =
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated between (ago(30d) .. ago(lookback))
+    | where ResourceIdentity == ArmResourceId
+    | where tostring(ResultType) in ("0", "Success")
+    | summarize BaselineIPs = make_set(IPAddress, 200) by AppId;
+Recent
+| join kind=leftouter Baseline on AppId
+| extend NewIPs = set_difference(IPs, coalesce(BaselineIPs, dynamic([])))
+| where array_length(NewIPs) > 0
+| extend NeverSeenBefore = isnull(BaselineIPs)
+| project FirstToken, LastToken, ServicePrincipalName, AppId,
+          TokenIssuances, NewIPs, NeverSeenBefore
+| order by FirstToken desc

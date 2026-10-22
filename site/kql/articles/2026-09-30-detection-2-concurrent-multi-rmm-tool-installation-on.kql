@@ -1,0 +1,46 @@
+// title: Detection 2: Concurrent Multi-RMM Tool Installation on Single Endpoint
+// date: 2026-09-30
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, September 30, 2026
+// source: https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let rmmProcessNames = dynamic([
+    "ScreenConnect.ClientService.exe", "ConnectWiseControl.ClientService.exe",
+    "BackupAgent.exe", "BackupAgentService.exe", "MSP360.exe", "CloudBerry.exe",
+    "AnyDesk.exe", "TeamViewer.exe", "TeamViewer_Service.exe",
+    "LTService.exe", "LTSvc.exe", "Automate.exe",
+    "NinjaRMMAgent.exe", "NinjaRMM.exe",
+    "Atera.exe", "AteraAgent.exe",
+    "SplashtopSOS.exe", "SRService.exe"
+]);
+let rmmEvents = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where FileName in~ (rmmProcessNames)
+| summarize
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    AccountName = any(AccountName)
+    by DeviceName, FileName;
+rmmEvents
+| join kind=inner (
+    rmmEvents
+    | project DeviceName, FileName2 = FileName, Time2 = FirstSeen
+) on DeviceName
+| where FileName != FileName2
+| where abs(datetime_diff('minute', FirstSeen, Time2)) <= 120
+| summarize
+    RMMTools = make_set(pack_array(FileName, FileName2)),
+    FirstSeen = min(FirstSeen),
+    LastSeen = max(LastSeen),
+    AccountName = any(AccountName)
+    by DeviceName
+| extend
+    DistinctToolCount = array_length(RMMTools),
+    WindowMinutes = datetime_diff('minute', LastSeen, FirstSeen)
+| where DistinctToolCount >= 2
+| project DeviceName, AccountName, FirstSeen, LastSeen, WindowMinutes, DistinctToolCount, RMMTools
+| order by FirstSeen desc

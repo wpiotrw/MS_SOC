@@ -1,0 +1,53 @@
+// title: Detection 3: Storm-3068 - Compromised Identity Performing Cloud Role Assignment and Multi-Resource Access Expansion
+// date: 2026-09-30
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: From the article: Detection Engineering Brief - Wednesday, September 30, 2026
+// source: https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1h;
+let roleAssignments = AuditLogs
+| where TimeGenerated > ago(lookback)
+| where OperationName in ("Add member to role", "Add eligible member to role", "Add app role assignment to service principal", "Add delegated permission grant")
+| where Result =~ "success"
+| extend Actor = tostring(InitiatedBy.user.userPrincipalName)
+| where isnotempty(Actor)
+| project AssignTime = TimeGenerated, Actor, OperationName, TargetResource = tostring(TargetResources[0].displayName);
+let resourceAccess = AuditLogs
+| where TimeGenerated > ago(lookback)
+| where Result =~ "success"
+| extend Actor = tostring(InitiatedBy.user.userPrincipalName)
+| where isnotempty(Actor)
+| summarize
+    DistinctResources = dcount(tostring(TargetResources[0].displayName)),
+    ResourceList = make_set(tostring(TargetResources[0].displayName)),
+    LastAccess = max(TimeGenerated),
+    EarliestAccess = min(TimeGenerated)
+    by Actor;
+roleAssignments
+| join kind=inner resourceAccess on Actor
+| where DistinctResources >= 3
+| where LastAccess >= AssignTime
+| join kind=leftouter (
+    SigninLogs
+    | where TimeGenerated > ago(lookback)
+    | where ResultType == 0
+    | summarize
+        RiskLevel = max(RiskLevelDuringSignIn),
+        SigninIP = take_any(IPAddress)
+        by UserPrincipalName
+) on $left.Actor == $right.UserPrincipalName
+| project
+    Actor,
+    AssignTime,
+    OperationName,
+    TargetResource,
+    DistinctResources,
+    ResourceList,
+    EarliestAccess,
+    LastAccess,
+    RiskLevel,
+    SigninIP
+| order by AssignTime desc

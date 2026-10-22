@@ -1,0 +1,13 @@
+// title: 🥇 Act I: Six Detections, One Log, Zero Reads
+// date: 2026-10-05
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: KQL Detection of the Week: The Activity Log Is Not the Activity
+// source: https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CredentialOps =
+    AzureActivity
+    | where OperationName has_any ("Microsoft.KeyVault/vaults/secrets", ...)
+        or OperationName has_any ("GetSecret", "ListSecrets", "GetCertificate", ...)
