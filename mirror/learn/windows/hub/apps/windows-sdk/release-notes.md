@@ -16,7 +16,7 @@ ms.subservice: apps
 ms.update-cycle: 365-days
 description: Provides information about release notes for the Windows SDK.
 ms.topic: release-notes
-ms.date: 2026-09-30T00:00:00.0000000Z
+ms.date: 2026-10-22T00:00:00.0000000Z
 keywords: windows win32, windows app development, Windows SDK, Windows Platform SDK, windows 11
 ms.localizationpriority: medium
 locale: en-us
@@ -37,10 +37,10 @@ item_type: Content
 source_path: hub/apps/windows-sdk/release-notes.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/caec7b7f-4941-4578-b79f-c63b1c1f5af4
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d60601b9-cd69-41ec-9f65-f97ad6558d0f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/754dea88-f800-4835-b6b5-280cb5d81e88
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f253a353-6715-4532-9f09-079221557251
 platformId: b8fe4c56-6940-2d68-4785-9bf76c314645
 ---
 
@@ -88,33 +88,34 @@ WinRT API additions and updates
 > - `UserAgeRange`: Class exposing the `Lower` and `Upper` bounds of a user's age range
 > - `UserAgeVerificationStatus`: Enumeration describing the user's age verification status
 > 
-
-Note
-
-The age signal APIs (`User.GetUserAgeRangeAsync`, `User.GetAgeVerificationStatusAsync`, `UserAgeRange`, and `UserAgeVerificationStatus`) are documented ahead of availability. They aren't enabled at runtime yet, and are planned to be turned on in a future release later this year. Calls made before then return no age data, so design your app to fall back to its default behavior.
-
-**Windows.System.RemoteDesktop.Provider**:  Graduated from experimental to stable:
-
-- `IRemoteDesktopRegistrarStatics2`: The `RemoteDesktopRegistrar` static members added in build 10.0.28000.2526 are no longer experimental
-
-**Windows.UI.Input**:  New:
-
-- `GamepadKeyRoutingConfiguration`: Runtime class that configures gamepad key routing
-- `GamepadKeyRoutingConfiguration.IsSupported`: Indicates whether gamepad key routing configuration is supported
-- `GamepadKeyRoutingConfiguration.IsKeyRoutingEnabled`: Gets whether gamepad key routing is enabled
-- `GamepadKeyRoutingConfiguration.TrySetKeyRoutingEnabled`: Attempts to enable or disable gamepad key routing
-
-Removed (experimental):
-
-- `GamepadNavigationConfiguration`: The experimental class added in build 10.0.28000.2526 was removed and replaced by `GamepadKeyRoutingConfiguration`
-
-**Windows.ApplicationModel.Contacts**:  Removed (experimental):
-
-- `ContactAnnotationOperations.Activity`: The experimental enumeration value was removed
-
-**Windows.Devices.WiFiDirect.Services**:  Deprecated:
-
-- The Wi-Fi Direct Services APIs are now deprecated and might not work on all platforms
+> 
+> **Windows.System.RemoteDesktop.Provider**:  Graduated from experimental to stable:
+> 
+> - `IRemoteDesktopRegistrarStatics2`: The `RemoteDesktopRegistrar` static members added in build 10.0.28000.2526 are no longer experimental
+> 
+> 
+> **Windows.UI.Input**:  New:
+> 
+> - `GamepadKeyRoutingConfiguration`: Runtime class that configures gamepad key routing
+> - `GamepadKeyRoutingConfiguration.IsSupported`: Indicates whether gamepad key routing configuration is supported
+> - `GamepadKeyRoutingConfiguration.IsKeyRoutingEnabled`: Gets whether gamepad key routing is enabled
+> - `GamepadKeyRoutingConfiguration.TrySetKeyRoutingEnabled`: Attempts to enable or disable gamepad key routing
+> 
+> 
+> Removed (experimental):
+> 
+> - `GamepadNavigationConfiguration`: The experimental class added in build 10.0.28000.2526 was removed and replaced by `GamepadKeyRoutingConfiguration`
+> 
+> 
+> **Windows.ApplicationModel.Contacts**:  Removed (experimental):
+> 
+> - `ContactAnnotationOperations.Activity`: The experimental enumeration value was removed
+> 
+> 
+> **Windows.Devices.WiFiDirect.Services**:  Deprecated:
+> 
+> - The Wi-Fi Direct Services APIs are now deprecated and might not work on all platforms
+> 
 
 Win32 API additions and updates
 
@@ -1014,25 +1015,24 @@ WinRT API additions and updates
 > - `UserAgeRange`: Enumeration describing the user's age range
 > - `UserAgeVerificationStatus`: Enumeration describing the user's age verification status
 > 
-
-Note
-
-The age signal APIs (`User.GetUserAgeRangeAsync`, `User.GetAgeVerificationStatusAsync`, `UserAgeRange`, and `UserAgeVerificationStatus`) are documented ahead of availability. They aren't enabled at runtime yet, and are planned to be turned on in a future release later this year. Calls made before then return no age data, so design your app to fall back to its default behavior.
-
-**Windows.UI.Notifications**:  New:
-
-- `ToastNotification.IsExpandableContentSupported`: Indicates whether expandable toast content is supported
-
-**Windows.UI.Input**:  New:
-
-- `GamepadKeyRoutingConfiguration`: Runtime class that configures gamepad key routing
-- `GamepadKeyRoutingConfiguration.IsSupported`: Indicates whether gamepad key routing configuration is supported
-- `GamepadKeyRoutingConfiguration.IsKeyRoutingEnabled`: Gets whether gamepad key routing is enabled
-- `GamepadKeyRoutingConfiguration.TrySetKeyRoutingEnabled`: Attempts to enable or disable gamepad key routing
-
-**Windows.Devices.WiFiDirect.Services**:  Deprecated:
-
-- The Wi-Fi Direct Services APIs are now deprecated and might not work on all platforms
+> 
+> **Windows.UI.Notifications**:  New:
+> 
+> - `ToastNotification.IsExpandableContentSupported`: Indicates whether expandable toast content is supported
+> 
+> 
+> **Windows.UI.Input**:  New:
+> 
+> - `GamepadKeyRoutingConfiguration`: Runtime class that configures gamepad key routing
+> - `GamepadKeyRoutingConfiguration.IsSupported`: Indicates whether gamepad key routing configuration is supported
+> - `GamepadKeyRoutingConfiguration.IsKeyRoutingEnabled`: Gets whether gamepad key routing is enabled
+> - `GamepadKeyRoutingConfiguration.TrySetKeyRoutingEnabled`: Attempts to enable or disable gamepad key routing
+> 
+> 
+> **Windows.Devices.WiFiDirect.Services**:  Deprecated:
+> 
+> - The Wi-Fi Direct Services APIs are now deprecated and might not work on all platforms
+> 
 
 Win32 API additions and updates
 

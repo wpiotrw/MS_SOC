@@ -43,6 +43,7 @@ https://learn.microsoft.com/en-us/defender-xdr/compare-rbac-roles
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-manage
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-rules
 https://learn.microsoft.com/en-us/defender-xdr/custom-detections-overview
+https://learn.microsoft.com/en-us/defender-xdr/custom-permissions-details
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-hunts
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-onboarding
 https://learn.microsoft.com/en-us/defender-xdr/defender-experts/defender-experts-hunting-report

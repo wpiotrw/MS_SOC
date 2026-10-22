@@ -35,11 +35,11 @@ monikers: []
 item_type: Content
 source_path: Windows365/enterprise/rdp-multipath.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
 platformId: 8c14b9d2-6bdd-d5a3-2d69-aa73835e691d
 ---
 
@@ -77,11 +77,7 @@ RDP Multipath is available for Windows 365 across the following Azure environmen
 | Environment | Redundant UDP transport paths | Redundant TCP transport paths |
 | --- | --- | --- |
 | Azure public cloud | Generally available | Generally available |
-| Azure Government | Generally available | Phased GA rollout started |
-
-Note
-
-RDP Multipath with redundant TCP transport paths is being enabled in Azure Government through a phased, quality-driven rollout. Until the rollout is complete, redundant TCP transport paths might not be consistently available across all Cloud PCs.
+| Azure Government | Generally available | Generally available |
 
 ### Requirements
 
@@ -111,14 +107,10 @@ The required network endpoints vary by cloud environment. Select your environmen
 | 3 | UDP-based RDP using STUN | N/A | `51.5.0.0/16` | UDP 1024-65535Default: 49152-65535 | Direct one-to-one UDP connection between the user device and the session host or Cloud PC. |
 
 # [Azure for US Government](#tab/azure-government)
-Important
-
-The phased GA rollout of RDP Shortpath connectivity using STUN and TURN has started for Windows 365 in Azure Government. Azure Government uses the dedicated `20.140.236.0/22` IP range for STUN and TURN connectivity. Availability will expand progressively as the phased rollout continues.
-
 | # | RDP method | FQDN | IP address | Protocol/port | Description |
 | --- | --- | --- | --- | --- | --- |
 | 1 | TCP-based RDP | N/A | `20.159.80.0/24` | TCP 443 | TCP-based RDP connection. The initial connection to every session host or Cloud PC uses this connection. |
-| 2 | UDP-based RDP via TURN | N/A | `20.140.236.0/22` | UDP 3478 | Relayed UDP-based RDP connection using TURN servers. Phased rollout started. |
+| 2 | UDP-based RDP via TURN | N/A | `20.140.236.0/22` | UDP 3478 | Relayed UDP-based RDP connection using TURN servers. |
 | 3 | UDP-based RDP using STUN | N/A | `20.140.236.0/22` | UDP 1024-65535Default: 49152-65535 | Direct one-to-one UDP connection between the user device and the session host. |
 
 ### Port scaling considerations

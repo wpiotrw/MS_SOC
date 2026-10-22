@@ -66,6 +66,14 @@ See [What's new in documentation](whats-new-documentation), where we highlight n
 
 Here's what changed in October 2026:
 
+### RDP Multipath and RDP Shortpath with TURN relay are now generally available in Azure Government
+
+RDP Multipath with redundant TCP and UDP transport paths is now generally available in Azure Government. RDP Multipath improves connection resiliency by maintaining multiple network paths and automatically switching to an available path when network conditions change. For more information, see [Use RDP Multipath to improve connection reliability](/en-us/azure/virtual-desktop/rdp-multipath).
+
+RDP Shortpath with TURN relay is also now generally available in Azure Government, enabling relayed UDP connectivity when a direct connection isn't possible. For Azure Government, TURN relay uses the dedicated IP range **20.140.236.0/22 over UDP port 3478**. Make sure your network configuration allows this range to use RDP Shortpath with TURN relay. For more information, see [RDP Shortpath for Azure Virtual Desktop](rdp-shortpath).
+
+Together, RDP Multipath and TURN relay provide a more resilient connection experience for Azure Government customers by expanding the available transport paths and helping sessions stay connected when network conditions change.
+
 ### iOS support for external identities is now generally available
 
 External identity support is now generally available for the Windows App on iOS. For more information on client versions and capabilities, see [Compare Windows App features across platforms and devices](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#identity).

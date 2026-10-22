@@ -60,6 +60,16 @@ For more information about public preview items, see [Public preview in Windows 
 
 ## Week of October 19, 2026
 
+### RDP Multipath and RDP Shortpath with TURN relay are now generally available in Azure Government
+
+RDP Multipath with redundant TCP and UDP transport paths is now generally available in Azure Government. RDP Multipath improves connection resiliency by maintaining multiple network paths and automatically switching to an available path when network conditions change. For more information, see [Use RDP Multipath to improve connection reliability](rdp-multipath).
+
+RDP Shortpath with TURN relay is also now generally available in Azure Government, enabling relayed UDP connectivity when a direct connection isn't possible.
+
+For Azure Government, TURN relay uses the dedicated IP range **20.140.236.0/22 over UDP port 3478**. Make sure your network configuration allows this range to use RDP Shortpath with TURN relay. For more information, see [RDP Shortpath for Windows 365](rdp-shortpath-public-networks).
+
+Together, RDP Multipath and TURN relay provide a more resilient connection experience for Azure Government customers by expanding the available transport paths and helping sessions stay connected when network conditions change.
+
 ### Windows 365 cloud-native and Zero Trust deployment guidance
 
 New guidance is available to help you make key architecture and operating-model decisions when deploying Windows 365. It provides recommended cloud-native and Zero Trust-aligned approaches for identity, networking, images, updates, management, user data, clients, and supportability. For more information, see [Windows 365 cloud-native and Zero Trust deployment guidance](/en-us/windows-365/enterprise/windows-365-deployment-guidance).

@@ -34,10 +34,8 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/rdp-multipath.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
 platformId: f0fb3d84-7a29-4898-30e1-2f3c02e363c0
 ---
@@ -67,11 +65,7 @@ RDP Multipath capabilities are available across the following Azure environments
 | Environment | Multiple UDP transport paths | Redundant TCP transport paths |
 | --- | --- | --- |
 | Azure public cloud | Generally available | Generally available |
-| Azure Government | Generally available | Phased rollout started |
-
-Note
-
-RDP Multipath with redundant TCP is being enabled through a phased GA rollout in Azure Government. Until the rollout is complete, customers can try the feature by enabling their host pool for the validation ring.
+| Azure Government | Generally available | Generally available |
 
 ## Prerequisites
 
@@ -104,8 +98,8 @@ RDP Shortpath connectivity through the endpoints listed in this tab is currently
 | # | RDP method | FQDN | IP address | Protocol/port | Description |
 | --- | --- | --- | --- | --- | --- |
 | 1 | TCP-based RDP | N/A | `20.159.80.0/24` | TCP 443 | TCP-based RDP connection. The initial connection to every session host or Cloud PC uses this connection. |
-| 2 | UDP-based RDP via TURN | N/A | `20.140.236.0/22` | UDP 3478 | Relayed UDP-based RDP connection using TURN servers. Available in the validation ring. |
-| 3 | UDP-based RDP using STUN | N/A | `20.140.236.0/22` | UDP 1024-65535Default: 49152-65535 | Direct one-to-one UDP connection between the user device and the session host. Available in the validation ring. |
+| 2 | UDP-based RDP via TURN | N/A | `20.140.236.0/22` | UDP 3478 | Relayed UDP-based RDP connection using TURN servers. |
+| 3 | UDP-based RDP using STUN | N/A | `20.140.236.0/22` | UDP 1024-65535Default: 49152-65535 | Direct one-to-one UDP connection between the user device and the session host. |
 
 ### Port scaling considerations
 
