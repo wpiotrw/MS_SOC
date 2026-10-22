@@ -39,6 +39,14 @@ GENERIC = {"microsoft", "entra", "azure", "office", "m365", "microsoft 365", "ph
            "password spray", "supply chain", "threat", "security", "cloud", "windows", "admin", "global admin"}
 URL = re.compile(r"^https?://[^\s]+$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# 5ez (22 X 2026): the morning routine's scheduled-task prompt is edited by hand by the owner, so the rules for the
+# fields added that day travel in the `todo` output itself - the routine reads it before writing any note
+RULES = [
+    "5ez - every note where a service principal, enterprise application, app registration, managed identity or OAuth app is involved MUST carry `apps`: one entry per application with `name`, `appId` (the application (client) ID as a lowercase GUID copied character for character from the source - never typed from memory, omitted when the source prints none), `kind`, `did` (what it did), `roles`, `permissions`, `action` (what the sources say, e.g. 'Disable - do not delete'), `src`, `link`. A tenant ID or object ID goes in `appsNote`. `appsFoundInArticles` is a hint found by code: verify each ID in the source.",
+    "5ez - every remediation step MUST carry `phase`: contain | investigate | eradicate | harden | detect. Steps `from: ours` are shown in their own 'Our proposal' box - write them as concrete actions.",
+    "5ez - before writing your own KQL, search for queries already published for THIS incident by the vendor (Microsoft Threat Intelligence / Security / Sentinel / Defender XDR blogs, the affected vendor's advisory) and the community (detect.fyi, kqlquery.com, devsecopsdadattack.com, Steven Lim x.com/0x534c and github.com/SlimKQL, KQL Search MCP): WebSearch with the incident name / CVE / app ID plus 'KQL'. Record each in `kqlPublished` (`title`, `query` as published, `by`, `src`, `link`, `date`, `vendor: true` for Microsoft or the affected vendor). x.com cannot be fetched - record the post link and only what the search result shows. Never rewrite a published query as theirs, never invent one. Nothing found: `kqlSearched: \"YYYY-MM-DD\"`. Queries already in the story's articles are shown automatically - do not copy them.",
+    "5ez - action `enrich`: an older note of yours; add only the fields named in `missing`, keep the rest, set `updated` to today.",
+]
 GUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 PHASES = {"contain", "investigate", "eradicate", "harden", "detect"}
 
@@ -110,7 +118,7 @@ def todo(days, maxn, backlog=30):
         out.append(row)
     rank = {"update": 0, "new": 1, "enrich": 2, "backlog": 3}
     out.sort(key=lambda r: (rank[r["action"]], -(r["score"] or 0)))
-    print(json.dumps({"date": dt.date.today().isoformat(), "days": days, "max": maxn, "todo": out[:maxn],
+    print(json.dumps({"date": dt.date.today().isoformat(), "days": days, "max": maxn, "rules": RULES, "todo": out[:maxn],
                       "notListed": max(0, len(out) - maxn), "ownerNotes": info}, ensure_ascii=False, indent=1))
     return 0
 
@@ -202,7 +210,10 @@ def check():
             if r.get("phase") and r["phase"] not in PHASES:
                 E("remediation `phase` must be one of %s" % sorted(PHASES))
 
-        if any(not r.get("phase") for r in rem):
+        fresh = (n.get("updated") or "") >= "2026-10-23"    # 5ez: notes written from 23 X on must carry the new fields
+        if fresh and any(not r.get("phase") for r in rem):
+            E("remediation step without `phase` (required from 23 Oct 2026 - see `rules` in the todo output)")
+        elif any(not r.get("phase") for r in rem):
             warns.append("%s: %d remediation step(s) without `phase` (the page guesses it from the first verb)" % (i, sum(1 for r in rem if not r.get("phase"))))
         for a in n.get("apps") or []:
             if not a.get("name") or not a.get("src"):
@@ -215,7 +226,9 @@ def check():
                 if a.get(k) is not None and not isinstance(a[k], list):
                     E("apps `%s` must be a list" % k)
         blob = json.dumps(n).lower()
-        if re.search(r"service principal|app registration|multi-tenant app|enterprise app|oauth app|client credential", blob) and not n.get("apps"):
+        if fresh and re.search(r"service principal|app registration|multi-tenant app|enterprise app|oauth app|client credential", blob) and not n.get("apps"):
+            E("the note involves service principals / app registrations but has no `apps` list (required from 23 Oct 2026)")
+        elif re.search(r"service principal|app registration|multi-tenant app|enterprise app|oauth app|client credential", blob) and not n.get("apps"):
             warns.append("%s: the note talks about service principals / app registrations but has no `apps` list" % i)
         for q in n.get("kqlPublished") or []:
             for k in ("title", "query", "src", "link"):
@@ -223,6 +236,8 @@ def check():
                     E("kqlPublished entry needs `%s`" % k)
             if q.get("link") and not URL.match(q["link"]):
                 E("kqlPublished link %r is not an http(s) URL" % q["link"])
+        if fresh and not n.get("kqlPublished") and not n.get("kqlSearched"):
+            E("no `kqlPublished` and no `kqlSearched` date - search for the vendor's and the community's queries first (required from 23 Oct 2026)")
     for w in warns:
         print("check: WARN " + w)
     for e in errs:

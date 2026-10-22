@@ -47003,7 +47003,10 @@ wiersz: „+ N via the related incident". Notatka ConnectWise (threat_notes.json
 sprawdzone 22 X), 2 inne aplikacje z nowym sekretem, tenant wlasciciela w `appsNote`, fazy, 2 nowe kroki Huntress.
 Rutyna (STEP -1b): `apps` obowiazkowe przy SPN / app registration, `phase` na kazdym kroku, `kqlPublished` (vendor i
 community, z linkiem; `kqlSearched` gdy nic); tools/threat_todo.py: `todo` ma akcje `enrich` (stare notatki bez tych
-pol), `check` je waliduje.
+pol), `check` je waliduje. Zadanie rutyny porannej (trig_01WgAAz5UkKaKwE49VY6Y6XG) zostalo utworzone przez interfejs,
+wiec agent nie moze zmienic jego promptu - wkleja go wlasciciel. Do tego czasu zasady 5ez jada w wyniku `todo` (klucz
+`rules`), a `check` od notatek z `updated` >= 2026-10-23 wymaga `phase`, `apps` (gdy notatka mowi o SPN / app
+registration) i `kqlPublished` albo `kqlSearched` - blad = notatka nie wchodzi.
 
 ## 6. Kontrakt w stronie
 
