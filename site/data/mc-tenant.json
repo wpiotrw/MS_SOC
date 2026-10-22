@@ -4225,23 +4225,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-04-15",
-   "end": "2027-02-01",
-   "modified": "2026-09-02",
+   "end": "2027-03-29",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a…",
-   "when": "Public Preview: We will begin rolling out mid-October 2026 (previously mid-September) and expect to complete by late October 2026 (previously late September). Worldwide: We will begin rolling out early December 2026 (previously late October) and expect to complete by late December 2026 (previously mid-November).",
+   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a …",
+   "when": "Public Preview: We will begin rolling out mid-October 2026 (previously mid-September) and expect to complete by late October 2026 (previously late September). Worldwide: We will begin rolling out late January 2027 (previously early December 2026) and expect to complete by late February 2027 (previously late December 2026).",
    "prepare": "Ensure your Azure storage account and container exist and are reachable; the endpoint creation cmdlet validates both during setup. Grant the Storage Blob Data Reader role to the Office 365 Import Service app on the target storage account. Without this permission, creating the Azure PST Import endpoint will fail. Prepare your batch input files (XML and/or CSV) and run the migration batch in Analyze mode first so the service can validate readiness …",
    "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
+    "Updated October 22, 2026: We have updated the timeline.",
     "Public Preview: We will begin rolling out mid-October 2026 (previously mid-September) and expect to complete by late October 2026 (previously late September).",
-    "Worldwide: We will begin rolling out early December 2026 (previously late October) and expect to complete by late December 2026 (previously mid-November)."
+    "Worldwide: We will begin rolling out late January 2027 (previously early December 2026) and expect to complete by late February 2027 (previously late December 2026)."
    ],
-   "bodyHash": "fd36607ffed5624e"
+   "bodyHash": "3d713175238d191e"
   },
   {
    "id": "MC1282567",
@@ -9864,21 +9864,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-14",
-   "end": "2026-12-31",
-   "modified": "2026-09-02",
+   "end": "2027-05-31",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in …",
+   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Global: We will begin rolling out early December 2026 (previously late August) and expect to complete by late December 2026 (previously early September)."
+    "Updated October 22, 2026: We have updated the timeline.",
+    "Global: We will begin rolling out late March 2027 (previously early December 2026) and expect to complete by late April 2027 (previously late December 2026)."
    ],
-   "bodyHash": "0ceaba0dd05f5d02"
+   "bodyHash": "5db3b4abe4b916ef"
   },
   {
    "id": "MC1455014",
@@ -14683,7 +14683,7 @@
   },
   {
    "id": "MC1478965",
-   "title": "Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
    "services": [
     "Microsoft Purview"
    ],
@@ -14693,18 +14693,20 @@
    "actionBy": null,
    "start": "2026-09-24",
    "end": "2026-11-14",
-   "modified": "2026-09-24",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Microsoft Purview Data Lifecycle Management is introducing retention support for Microsoft 365 Copilot memory. Copilot memory includes saved memories, details inferred from chat history, and custom instructions that help provide personalized and context-aware Copilot experiences. With this update, organizations will be able to retain inactive versions of Copilot memory items for co…",
+   "summary": "Updated October 22, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Purview Data Lifecycle Management is introducing retention support for Microsoft 365 Copilot memory. With this update, organizations will be able to retain saved memories from Copilot memory for compliance, governance, and investigation purposes. When memory items are updated or deleted, h…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Global: Rollout will begin in late September 2026 and is expected to complete by mid-October 2026."
+    "Updated October 22, 2026: We have updated the content.",
+    "Global: Completed in October 2026."
    ],
-   "bodyHash": "9bce48327f332797"
+   "bodyHash": "6552e1830ac7bfe1"
   },
   {
    "id": "MC1478966",
@@ -15525,7 +15527,7 @@
   },
   {
    "id": "MC1483844",
-   "title": "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "title": "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
    "services": [
     "Microsoft 365 apps"
    ],
@@ -15535,19 +15537,21 @@
    "actionBy": null,
    "start": "2026-09-30",
    "end": "2027-01-25",
-   "modified": "2026-10-01",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol and Claude Sonnet 5.5 will also begin rolling out in phases across Word, Excel, Power…",
+   "summary": "Updated October 22, 2026: We have updated the content. Thank you for your patience. [What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol a…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 22, 2026: We have updated the content.",
     "General Availability: Cowork and Copilot Studio : Rollout begins today, September 30, 2026."
    ],
-   "bodyHash": "384e73e036001287"
+   "bodyHash": "c983619376c5a539"
   },
   {
    "id": "MC1483886",
@@ -18950,22 +18954,22 @@
    "major": false,
    "actionBy": null,
    "start": "2024-05-08",
-   "end": "2027-01-25",
-   "modified": "2026-09-24",
+   "end": "2027-03-01",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 24, 2026: We have updated the timeline. Thank you for your patience. Coming soon for Microsoft Purview: We are announcing the public preview of the integration of Adaptive protection with Data Lifecycle Management (DLM) to help you find the right balance to protect against data sabotage while enabling productivity. This new integration leverages DLM features to provide an additio…",
-   "when": "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July). General Availability: We will begin rolling out late November 2026 (previously late October) and expect to complete by mid-December 2026 (previously mid-November).",
+   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. Coming soon for Microsoft Purview: We are announcing the public preview of the integration of Adaptive protection with Data Lifecycle Management (DLM) to help you find the right balance to protect against data sabotage while enabling productivity. This new integration leverages DLM features to provide an additiona…",
+   "when": "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July). General Availability: We will begin rolling out late December 2026 (previously late November) and expect to complete by mid-January 2027 (previously mid-December).",
    "prepare": "Learn more: Learn about retention policies & labels to retain or delete | Microsoft Learn. If you're using Adaptive protection and want to automatically retain content deleted by elevated risk users, follow these steps to turn on this new integration. Sign in to the Microsoft Purview compliance portal . Navigate to Data lifecycle management > Microsoft 365 > Adaptive protection settings in the top right corner. Turn the setting ON and select Save…",
    "dates": [
-    "Updated September 24, 2026: We have updated the timeline.",
+    "Updated October 22, 2026: We have updated the timeline.",
     "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July).",
-    "General Availability: We will begin rolling out late November 2026 (previously late October) and expect to complete by mid-December 2026 (previously mid-November)."
+    "General Availability: We will begin rolling out late December 2026 (previously late November) and expect to complete by mid-January 2027 (previously mid-December)."
    ],
-   "bodyHash": "1d3fde6bfc28b8f7"
+   "bodyHash": "4975f22f206c5947"
   },
   {
    "id": "MC796790",
@@ -19009,8 +19013,8 @@
    "major": false,
    "actionBy": null,
    "start": "2024-10-28",
-   "end": "2026-11-30",
-   "modified": "2026-03-09",
+   "end": "2027-02-26",
+   "modified": "2026-10-22",
    "tags": [
     "Admin impact",
     "New feature",
@@ -23953,6 +23957,122 @@
    "type": "new",
    "title": "Insights Agent V2 Frontier",
    "fields": {}
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1281505",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
+   "fields": {
+    "end": [
+     "2027-02-01",
+     "2027-03-29"
+    ],
+    "bodyHash": [
+     "fd36607ffed5624e",
+     "3d713175238d191e"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1455013",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-05-31"
+    ],
+    "bodyHash": [
+     "0ceaba0dd05f5d02",
+     "5db3b4abe4b916ef"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1478965",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
+   "fields": {
+    "title": [
+     "Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
+     "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "9bce48327f332797",
+     "6552e1830ac7bfe1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1483844",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "fields": {
+    "title": [
+     "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+     "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "384e73e036001287",
+     "c983619376c5a539"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC791110",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Lifecycle Management: New integration with Adaptive protection",
+   "fields": {
+    "end": [
+     "2027-01-25",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "1d3fde6bfc28b8f7",
+     "4975f22f206c5947"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC920304",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Communication Compliance: Policy alerts improvements",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-02-26"
+    ]
+   }
   }
  ]
 }
