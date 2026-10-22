@@ -175,5 +175,17 @@
     "Kind": "kql",
     "Microsoft": true,
     "AllRelevant": null
+  },
+  {
+    "SourceName": "DevSecOpsDad (detection engineering briefs, KQL)",
+    "SourceURL": "https://devsecopsdadattack.com/feed.xml",
+    "Site": "https://devsecopsdadattack.com",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": false,
+    "AllRelevant": null,
+    "Digest": true,
+    "Author": "Ian Hanley (DevSecOpsDad)",
+    "Note": "Daily Detection Engineering Brief and Threat Intelligence Brief: several incidents per post, each with KQL; the post is a digest (5ez) - its queries are attached to the incidents their sections name, the post itself is not an incident"
   }
 ]

@@ -85,13 +85,63 @@ def blocks(page_html):
             last = m.end(); continue
         seen.add(k)
         seg = h[max(last, m.start() - 6000):m.start()]   # only what stands between the previous block and this one
-        hs = re.findall(r"(?is)<(?:h[1-5]|strong|b)\b[^>]*>(.*?)</(?:h[1-5]|strong|b)>", seg)
-        hs = [re.sub(r"\s+", " ", text(x)).strip() for x in hs]
-        hs = [x for x in hs if 6 <= len(x) <= 160]
+        # a real heading first (h1-h5); a bold line only when there is none ("Required telemetry:" is not a title)
+        hs = []
+        for pat in (r"(?is)<h[1-5]\b[^>]*>(.*?)</h[1-5]>", r"(?is)<(?:strong|b)\b[^>]*>(.*?)</(?:strong|b)>"):
+            hs = [re.sub(r"\s+", " ", text(x)).strip() for x in re.findall(pat, seg)]
+            hs = [x for x in hs if 6 <= len(x) <= 160 and not x.endswith(":")]
+            if hs:
+                break
         com = [l.strip()[2:].strip() for l in code.splitlines() if l.strip().startswith("//") and len(l.strip()) > 8]
         title = hs[-1] if hs else (com[0] if com else "")
-        out.append({"key": k, "title": title[:160], "query": code, "tables": tables(code), "product": product(tables(code))})
+        # 5ez: a section heading that only names the part ("KQL", "Query", "Deployment Gates") is not a title - take
+        # the h2 above it ("Detection 4: ConnectWise Agent Spawning ..."), and the text under that h2 is the context
+        h2s = [x for x in re.finditer(r"(?is)<h[12]\b[^>]*>(.*?)</h[12]>", h[:m.start()]) if len(text(x.group(1)).strip()) >= 6]
+        sec = h2s[-1] if h2s else None
+        if sec and (not title or len(title) < 20 or re.match(r"(?i)^(kql|query|queries|hunting quer|detection logic|deployment gates?|code|sentinel|defender)", title)):
+            title = re.sub(r"\s+", " ", text(sec.group(1))).strip()
+        if sec:
+            seg = h[sec.start():m.start()]
+        # 5ez: the text between the previous block and this one - a digest post (one page, several incidents) is
+        # matched to an incident by it
+        ctx = re.sub(r"\s+", " ", text(seg)).strip()[:1500]
+        out.append({"key": k, "title": title[:160], "query": code, "tables": tables(code), "product": product(tables(code)), "context": ctx})
         last = m.end()
+    return out
+
+
+GUID = re.compile(r"\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b")
+APPWORD = re.compile(r"(?i)app(?:lication)?\s*(?:\(client\)\s*)?id|client\s*id|\bappid\b|service principal|enterprise app|"
+                     r"app registration|multi-?tenant|oauth app|application")
+
+
+def app_ids(page_html):
+    """5ez (owner 22 X: "many sites describe the ConnectWise incident and show the application IDs involved - why do you
+    not even mention them?"): every GUID in an article that stands beside application words, with the text of its
+    table row / list item / paragraph as the name. A GUID beside the word tenant is a tenant ID (an indicator), not an
+    application. Returned as found in the source - the page labels them so; the analysis confirms them."""
+    h = re.sub(r"(?is)<(script|style|nav|footer|header)\b.*?</\1>", " ", page_html or "")
+    out, seen = [], set()
+    for m in re.finditer(r"(?is)<(tr|li|p|h[2-5]|td|pre|code)\b[^>]*>(.*?)</\1>", h):
+        raw = m.group(2)
+        cells = [re.sub(r"\s+", " ", text(c)).strip() for c in re.findall(r"(?is)<t[dh]\b[^>]*>(.*?)</t[dh]>", raw)] if m.group(1).lower() == "tr" else []
+        line = " | ".join(c for c in cells if c) if cells else re.sub(r"\s+", " ", text(raw)).strip()
+        for g in GUID.findall(line):
+            gl = g.lower()
+            if gl in seen:
+                continue
+            ctx = h[max(0, m.start() - 1500):m.end()]
+            if not APPWORD.search(text(ctx)):
+                continue
+            seen.add(gl)
+            if cells:
+                nm = [c for c in cells if not GUID.search(c) and 3 <= len(c) <= 90]
+            else:   # a sentence: the capitalised name right before the GUID ("... ConnectWise Cloud Backup (506e08f9-...)")
+                pre = line[:line.lower().find(gl)].replace("\u200b", "")
+                mm = re.search(r"([A-Z][\w.&/]*(?:\s*[-\u2013]?\s*[A-Z0-9][\w.&/]*){0,7})[\s:(\[\u2013\u2014-]*$", pre)
+                nm = [mm.group(1)] if mm and len(mm.group(1)) >= 4 else []
+            kind = "tenant" if re.search(r"(?i)tenant\s*id|owner tenant|tenant", line) and not re.search(r"(?i)app(?:lication)?\b", line) else "app"
+            out.append({"appId": gl, "name": (nm[0].strip() if nm else ""), "kind": kind, "context": line[:240]})
     return out
 
 

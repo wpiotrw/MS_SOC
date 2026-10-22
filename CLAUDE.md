@@ -41716,7 +41716,12 @@ odtad CZTERNASCIE (4-17).**
     fact("Areas", s.areas.join(", ") || "—");
     fact("Sources", s.sources.length + " — " + s.sources.join(", "));
     fact("Analysis", N ? "Written " + (N.updated ? dmy(N.updated) : "") + (N.by ? " by the " + N.by : " by a person") : "None yet");
+    if (s.related && s.related.length) {   /* §5ez: the same event seen from another side */
+      var rl = el("span"); s.related.forEach(function (r, i) { if (i) rl.appendChild(document.createTextNode(" · ")); var b = el("button", "s5ez-rel", r.title); b.type = "button"; b.addEventListener("click", function () { openStory(r.id); }); rl.appendChild(b); });
+      fact("Related incident", rl);
+    }
     d.appendChild(f);
+    appsCard(s, d);   /* §5ez */
     var cols = el("div", "s5et-cols"), A = el("div", "s5et-col"), B = el("div", "s5et-col"); cols.appendChild(A); cols.appendChild(B); d.appendChild(cols);
     if (N) {
       if (N.summary) { var c1 = card(A, "What happened"); c1.appendChild(el("p", "s5el-sum", N.summary)); }
@@ -41729,18 +41734,6 @@ odtad CZTERNASCIE (4-17).**
       if (N.rootCause) { var c3 = card(A, "Root cause"); c3.appendChild(el("p", null, N.rootCause)); }
       if (N.attacker && N.attacker.length) { var c4 = card(A, "What the attacker did"); c4.appendChild(list(N.attacker)); }
       if (N.iocs && N.iocs.length) { var c5 = card(A, "Indicators of compromise", "look for these in your logs"); c5.appendChild(list(N.iocs, "s5el-ul s5el-mono s5et-ioc")); }
-      if (N.remediation && N.remediation.length) {
-        var c6 = card(B, "What to do now", N.remediation.length + " steps", "s5et-act");
-        var src = N.remediation.filter(function (r) { return r.from !== "ours"; }), ours = N.remediation.filter(function (r) { return r.from === "ours"; });
-        if (src.length) {
-          c6.appendChild(el("p", "s5el-sub", "From the sources"));
-          var o1 = el("ol", "s5el-rem"); src.forEach(function (r) { var li = el("li", null, r.text + " "); li.appendChild(el("span", "s5et-src", r.src || "source")); o1.appendChild(li); }); c6.appendChild(o1);
-        }
-        if (ours.length) {
-          c6.appendChild(el("p", "s5el-sub", "Our suggestions — inferred by this portal, not stated by a source"));
-          var o2 = el("ol", "s5el-rem"); o2.start = src.length + 1; ours.forEach(function (r) { o2.appendChild(el("li", null, r.text)); }); c6.appendChild(o2);
-        }
-      }
       if (N.portal && N.portal.length) {
         var c8 = card(B, "Permissions and roles involved", "open them in this portal");
         c8.appendChild(el("p", "s5et-note", "What this incident puts at risk in a tenant: the Microsoft Graph permissions the abused application held (an attacker with its credential can do whatever they allow) and the Entra roles the attacker assigned or used. A button opens it in this portal — Graph API or Roles — with what it allows and, from our tenant's reading, where it is granted."));
@@ -41768,29 +41761,177 @@ odtad CZTERNASCIE (4-17).**
     });
     if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(aLink(x.text, x.url)); li.appendChild(el("span", "s5el-mut", dmy(x.date))); au.appendChild(li); });
     ca.appendChild(au);
-    /* §5eu: the analysis's own queries, then the ones the sources published (author and link), one card */
-    var own = (N && N.kql) || [], ids = {}; s.articles.forEach(function (x) { ids[x] = 1; });
-    var fromSrc = KQF.filter(function (q) { return q.story === s.id || ids[q.article]; })
-      .sort(function (a, b) { return String(a.article).localeCompare(String(b.article)) || (a.pos || 0) - (b.pos || 0) || String(a.title).localeCompare(String(b.title)); });   /* the article's own order */
-    if (own.length || fromSrc.length) {
-      var ck = card(d, "Hunting queries (KQL)", (own.length + fromSrc.length) + " · copy into Sentinel or Defender Advanced hunting", "s5et-wide");
-      function kq(q, by) {
-        var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title || q.articleTitle || "Hunting query"));
-        if (by) k.appendChild(by);
-        var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre);
-        var cb = el("button", "s5el-btn", "Copy"); cb.type = "button";
-        cb.addEventListener("click", function () { try { navigator.clipboard.writeText(q.query); cb.textContent = "Copied"; setTimeout(function () { cb.textContent = "Copy"; }, 1500); } catch (e) {} });
-        k.appendChild(cb); ck.appendChild(k);
+    if (N && N.remediation && N.remediation.length) todoCard(N, d);   /* §5ez */
+    kqlCard(s, N, d);                                                   /* §5ez */
+  }
+  /* §5ez (22 X 2026, owner: "a decent incident - ConnectWise: tons of sites describe it and show the application IDs
+     involved, and you did not even mention them; all of them say block them, do not delete; you describe the roles but
+     did not track that crucial information - show it nicely formatted, for every incident where a service principal or
+     an app registration is involved"; "in What to do it is hard to find what WE propose - nicely formatted for each
+     incident"; "you propose only your own KQL - show also the KQL proposed by the vendor and the community"). Three
+     cards, the same for every incident, new ones included:
+     - Applications and identities involved: name, application (client) ID with Copy, what it did, roles and Graph
+       permissions (a click opens them in this portal), the action (Disable - do not delete) and the source; app IDs an
+       article names that the analysis has not confirmed are listed apart, labelled so. Below: every ID in one Copy, and
+       a KQL and a Microsoft Graph PowerShell check built from the IDs (find first, the disable line commented out).
+     - What to do now, by phase (Contain / Investigate / Eradicate / Harden / Detect): what the sources say, then OUR
+       PROPOSAL in its own coloured box.
+     - Hunting queries, by origin: our analysis, Microsoft, the community (articles, digests such as DevSecOpsDad,
+       repositories such as Steven Lim's), and the queries of a related incident (ConnectWise <-> Storm-0940). */
+  function zcopy(text, label) {
+    var b = el("button", "s5el-btn s5ez-copy", label || "Copy"); b.type = "button";
+    b.addEventListener("click", function (e) { e.stopPropagation(); try { navigator.clipboard.writeText(text); var o = b.textContent; b.textContent = "Copied"; setTimeout(function () { b.textContent = o; }, 1400); } catch (x) {} });
+    return b;
+  }
+  function zchip(t, cls, onClick, title) {
+    var c = el(onClick ? "button" : "span", "s5ez-chip" + (cls ? " " + cls : ""), t);
+    if (onClick) { c.type = "button"; c.addEventListener("click", onClick); }
+    if (title) c.title = title;
+    return c;
+  }
+  function appsCard(s, d) {
+    var L = s.apps || (s.notes && s.notes.apps) || [];
+    if (!L.length) return;
+    var conf = L.filter(function (a) { return a.origin !== "source"; }), found = L.filter(function (a) { return a.origin === "source"; });
+    var ids = L.filter(function (a) { return a.appId && a.kind !== "tenant"; }).map(function (a) { return a.appId; });
+    var c = card(d, "Applications and identities involved", ids.length + " application ID" + (ids.length === 1 ? "" : "s") + " · search by ID, not by name", "s5et-wide s5ez-apps");
+    c.appendChild(el("p", "s5et-note", "Service principals and app registrations this incident touches. Look each one up in your tenant (Entra admin center › Enterprise applications › Application ID). Where the sources say so, disable — do not delete: deleting removes the consent and the evidence."));
+    function row(a, host) {
+      var r = el("div", "s5ez-app");
+      var h = el("div", "s5ez-ah"); h.appendChild(el("span", "s5ez-an", a.name || "Name not given in the source"));
+      if (a.kind) h.appendChild(zchip(a.kind === "app" ? "Application" : a.kind === "tenant" ? "Tenant ID" : a.kind, "s5ez-kind"));
+      r.appendChild(h);
+      if (a.appId) { var idl = el("div", "s5ez-id"); idl.appendChild(el("code", null, a.appId)); idl.appendChild(zcopy(a.appId)); r.appendChild(idl); }
+      if (a.did) r.appendChild(el("p", "s5ez-did", a.did));
+      else if (a.context) r.appendChild(el("p", "s5ez-did s5el-mut", "\u201c" + a.context + "\u201d"));
+      var rp = (a.roles || []).map(function (x) { return { label: x, kind: "role" }; }).concat((a.permissions || []).map(function (x) { return { label: x.replace(/\s*\(.*$/, ""), kind: "permission", why: x }; }));
+      if (rp.length) {
+        var pp = el("div", "s5ez-rp"); pp.appendChild(el("span", "s5ez-l", "Roles / permissions"));
+        rp.forEach(function (p) { pp.appendChild(zchip(p.label, p.kind === "role" ? "s5ez-role" : "s5ez-perm", function () { openPortal(p); }, p.why || ("Open " + p.label + " in this portal"))); });
+        r.appendChild(pp);
       }
-      if (own.length) { if (fromSrc.length) ck.appendChild(el("p", "s5el-sub", "From this analysis")); own.forEach(function (q) { kq(q); }); }
-      if (fromSrc.length) {
-        ck.appendChild(el("p", "s5el-sub", "Published by the sources — starting points for a hunt, check them against your tables"));
-        fromSrc.forEach(function (q) {
-          var by = el("p", "s5el-mut s5eu-by"); by.appendChild(document.createTextNode([q.author, q.source, dmy(q.published)].filter(Boolean).join(" · ") + " — "));
-          by.appendChild(aLink(q.articleTitle || "the article", q.link)); kq(q, by);
-        });
-      }
+      var ft = el("div", "s5ez-af");
+      if (a.action) ft.appendChild(zchip(a.action, /delete/i.test(a.action) ? "s5ez-act s5ez-nodel" : "s5ez-act"));
+      var srcs = [a.src].concat(a.alsoIn || []).filter(Boolean).join(", ");
+      if (srcs) { var sp = el("span", "s5el-mut s5ez-src"); sp.appendChild(document.createTextNode("Source: ")); if (a.link) sp.appendChild(aLink(srcs, a.link)); else sp.appendChild(document.createTextNode(srcs)); ft.appendChild(sp); }
+      r.appendChild(ft);
+      host.appendChild(r);
     }
+    var g1 = el("div", "s5ez-apl"); conf.forEach(function (a) { row(a, g1); }); if (conf.length) c.appendChild(g1);
+    if (found.length) {
+      c.appendChild(el("p", "s5el-sub", (conf.length ? "Also named in the articles — " : "Named in the articles — ") + "found automatically, not yet confirmed by an analysis"));
+      var g2 = el("div", "s5ez-apl"); found.forEach(function (a) { row(a, g2); }); c.appendChild(g2);
+    }
+    if (s.appsNote || (s.notes && s.notes.appsNote)) c.appendChild(el("p", "s5et-note", s.appsNote || s.notes.appsNote));
+    if (ids.length) {
+      var tools = el("details", "s5ez-tools"); tools.appendChild(el("summary", null, "Check these IDs in your tenant — KQL and PowerShell"));
+      var q = "// Sign-ins of the applications named in this incident (Sentinel / Log Analytics: AADServicePrincipalSignInLogs)\n" +
+        "// Built by this portal from the application IDs above - review before you run it\n" +
+        "let apps = dynamic([" + ids.map(function (x) { return '"' + x + '"'; }).join(", ") + "]);\n" +
+        "AADServicePrincipalSignInLogs\n| where TimeGenerated > ago(30d)\n| where AppId in (apps)\n" +
+        "| summarize SignIns = count(), Failures = countif(ResultType != \"0\"), FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated),\n" +
+        "    IPs = make_set(IPAddress, 20), UserAgents = make_set(UserAgent, 10) by AppId, ServicePrincipalName\n| order by LastSeen desc";
+      var ps = "# Find the applications named in this incident in your tenant (Microsoft Graph PowerShell) - read only\n" +
+        "# Built by this portal from the application IDs above. Docs: learn.microsoft.com/entra/identity/enterprise-apps/disable-user-sign-in-portal\n" +
+        "Connect-MgGraph -Scopes \"Application.Read.All\"\n" +
+        "$appIds = @(" + ids.map(function (x) { return "'" + x + "'"; }).join(", ") + ")\n" +
+        "foreach ($id in $appIds) {\n  $sp = Get-MgServicePrincipal -Filter \"appId eq '$id'\"\n" +
+        "  if ($sp) { $sp | Select-Object DisplayName, AppId, Id, AccountEnabled, AppOwnerOrganizationId }\n  else { \"$id - not in this tenant\" }\n" +
+        "  # To DISABLE (not delete) after review: Connect-MgGraph -Scopes \"Application.ReadWrite.All\"\n" +
+        "  # Update-MgServicePrincipal -ServicePrincipalId $sp.Id -AccountEnabled:$false\n}";
+      [["All application IDs", ids.join("\n")], ["KQL — sign-ins of these applications", q], ["PowerShell — find them (and how to disable)", ps]].forEach(function (x) {
+        var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", x[0])); var pre = el("pre"); pre.textContent = x[1]; k.appendChild(pre); k.appendChild(zcopy(x[1])); tools.appendChild(k);
+      });
+      c.appendChild(tools);
+    }
+  }
+  var PHASES = [["contain", "Contain now", "stop the access"], ["investigate", "Investigate", "find out what happened in your tenant"],
+    ["eradicate", "Eradicate", "remove what the attacker left"], ["harden", "Harden", "close the path for next time"], ["detect", "Detect", "be alerted next time"]];
+  function phaseOf(r) {
+    if (r.phase) return r.phase;
+    var t = (r.text || "").toLowerCase();
+    if (/^(disable|block|revoke|stop|isolate|reset|rotate|do not re-enable|keep .* disabled)/.test(t)) return "contain";
+    if (/^(remove|delete|clean|after preserving)/.test(t)) return "eradicate";
+    if (/^(alert|detect|monitor|turn on|enable .*log|hunt)/.test(t)) return "detect";
+    if (/^(apply|enforce|require|inventory|restrict|limit|configure|harden|least privilege)/.test(t)) return "harden";
+    return "investigate";
+  }
+  function todoCard(N, d) {
+    var R = N.remediation, src = R.filter(function (r) { return r.from !== "ours"; }), ours = R.filter(function (r) { return r.from === "ours"; });
+    var c = card(d, "What to do now", R.length + " steps · " + src.length + " from the sources · " + ours.length + " our proposal", "s5et-wide s5ez-todo");
+    var n = 0;
+    function block(list, host, mine) {
+      PHASES.forEach(function (ph) {
+        var L = list.filter(function (r) { return phaseOf(r) === ph[0]; }); if (!L.length) return;
+        var g = el("div", "s5ez-ph s5ez-ph-" + ph[0]); var h = el("p", "s5ez-pht"); h.appendChild(el("span", "s5ez-phn", ph[1])); h.appendChild(el("span", "s5el-mut", " — " + ph[2])); g.appendChild(h);
+        var ol = el("ol", "s5ez-steps"); ol.start = n + 1;
+        L.forEach(function (r) { n++; var li = el("li"); li.appendChild(el("span", "s5ez-st", r.text)); li.appendChild(mine ? zchip("our proposal", "s5ez-ours") : zchip(r.src || "source", "s5ez-from")); ol.appendChild(li); });
+        g.appendChild(ol); host.appendChild(g);
+      });
+    }
+    if (src.length) { var a = el("div", "s5ez-say"); a.appendChild(el("p", "s5ez-bh", "What the sources tell you to do")); block(src, a, false); c.appendChild(a); }
+    if (ours.length) { var b = el("div", "s5ez-our"); b.appendChild(el("p", "s5ez-bh", "Our proposal — added by this portal, not stated by a source")); block(ours, b, true); c.appendChild(b); }
+  }
+  function kqlCard(s, N, d) {
+    var ids = {}; s.articles.forEach(function (x) { ids[x] = 1; });
+    var ordr = function (a, b) { return String(a.article).localeCompare(String(b.article)) || (a.pos || 0) - (b.pos || 0) || String(a.title).localeCompare(String(b.title)); };
+    var mine = KQF.filter(function (q) { return q.story === s.id || ids[q.article]; });
+    var vend = mine.filter(function (q) { return q.vendor || /^Microsoft/.test(q.source || ""); }).sort(ordr);
+    var comm = mine.filter(function (q) { return !(q.vendor || /^Microsoft/.test(q.source || "")); }).sort(ordr);
+    var pub = (N && N.kqlPublished) || [];
+    pub.forEach(function (q) { (q.vendor ? vend : comm).push({ title: q.title, query: q.query, author: q.by, source: q.src, link: q.link, articleTitle: q.src, published: q.date }); });
+    (s.kqlCommunity || []).forEach(function (q) { comm.push({ title: q.title, query: q.query, author: q.author, source: q.repo + (q.license ? " (" + q.license + ")" : ""), link: q.link, articleTitle: "the repository file", why: q.why }); });
+    var own = ((N && N.kql) || []).slice(), seenK = {};
+    mine.forEach(function (q) { seenK[q.key] = 1; });
+    /* a related incident (the same event seen from another side - ConnectWise and Storm-0940) lends its queries, each
+       filed under its origin and labelled "via the related incident" */
+    var relN = [];
+    (s.related || []).forEach(function (r) {
+      var o = (D.stories || []).filter(function (x) { return x.id === r.id; })[0]; if (!o) return;
+      relN.push(o.title);
+      var oi = {}; o.articles.forEach(function (x) { oi[x] = 1; });
+      ((o.notes && o.notes.kql) || []).forEach(function (q) { own.push({ title: q.title, query: q.query, via: o.title }); });
+      KQF.filter(function (q) { return (q.story === o.id || oi[q.article]) && !seenK[q.key]; }).sort(ordr).forEach(function (q) {
+        seenK[q.key] = 1; var x = {}; for (var k in q) x[k] = q[k]; x.via = o.title;
+        ((q.vendor || /^Microsoft/.test(q.source || "")) ? vend : comm).push(x);
+      });
+    });
+    /* the same query published twice (two posts of one Microsoft write-up) is shown once */
+    function dedup(L) { var seen = {}; return L.filter(function (q) {
+      var k = String(q.query || "").replace(/\s+/g, "").slice(0, 400), t = String(q.title || "").toLowerCase().replace(/\W+/g, "");
+      if (seen[k] || (t.length > 15 && seen["t:" + t])) return false; seen[k] = 1; if (t.length > 15) seen["t:" + t] = 1; return true; }); }
+    own = dedup(own); vend = dedup(vend); comm = dedup(comm);
+    var total = own.length + vend.length + comm.length;
+    if (!total) return;
+    var ck = card(d, "Hunting queries (KQL)", total + " · copy into Sentinel or Defender Advanced hunting — check the tables exist in your workspace", "s5et-wide s5ez-kq");
+    var sum = el("div", "s5ez-ksum");
+    [[own.length, "ours"], [vend.length, "Microsoft"], [comm.length, "community"]].forEach(function (x) { if (x[0]) sum.appendChild(zchip(x[0] + " " + x[1], "s5ez-k-" + x[1])); });
+    if (relN.length) sum.appendChild(el("span", "s5el-mut s5ez-ks", "including the related incident: " + relN.join("; ")));
+    ck.appendChild(sum);
+    function kq(q, host, by) {
+      var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title || q.articleTitle || "Hunting query"));
+      if (by) k.appendChild(by);
+      var pre = el("pre"); pre.textContent = q.query; k.appendChild(pre); k.appendChild(zcopy(q.query)); host.appendChild(k);
+    }
+    function byline(q) {
+      var by = el("p", "s5el-mut s5eu-by"); by.appendChild(document.createTextNode([q.author, q.source, q.published ? dmy(q.published) : ""].filter(Boolean).join(" · ") + (q.link ? " — " : "")));
+      if (q.link) by.appendChild(aLink(q.articleTitle || "the source", q.link));
+      if (q.why && q.why.length) by.appendChild(document.createTextNode(" · matched on " + q.why.join(", ")));
+      if (q.via) by.appendChild(el("span", "s5ez-via", "via the related incident: " + q.via));
+      return by;
+    }
+    function ownline(q) { return q.via ? el("p", "s5el-mut s5eu-by s5ez-via", "our analysis of the related incident: " + q.via) : null; }
+    function group(title, sub, L, cls, mk) {
+      if (!L.length) return;
+      var g = el("div", "s5ez-kg " + cls); var h = el("p", "s5ez-bh", title + " · " + L.length); g.appendChild(h);
+      if (sub) g.appendChild(el("p", "s5el-mut s5ez-ks", sub));
+      var LIM = 3; L.slice(0, LIM).forEach(function (q) { kq(q, g, mk(q)); });
+      if (L.length > LIM) { var mb = el("button", "s5el-btn s5ez-more", "Show " + (L.length - LIM) + " more"); mb.type = "button"; mb.addEventListener("click", function () { L.slice(LIM).forEach(function (q) { kq(q, g, mk(q)); }); mb.remove(); }); g.appendChild(mb); }
+      ck.appendChild(g);
+    }
+    group("Our analysis", "written by this portal, tables checked on Microsoft Learn", own, "s5ez-kg-ours", ownline);
+    group("Published by Microsoft", "Microsoft Threat Intelligence, Security blog, Sentinel and Defender XDR blogs", vend, "s5ez-kg-ms", byline);
+    group("Published by the community", "articles, detection-engineering digests and public query repositories — starting points, check them against your tables", comm, "s5ez-kg-comm", byline);
   }
   /* §5ey (22 X 2026, owner: "ConnectWise has KQL when you unfold it - why do you not show it? Does KQL mean the
      incident is on the list because it has KQL and is not M365? If so, distinguish it and store both"). Two separate
@@ -41800,10 +41941,13 @@ odtad CZTERNASCIE (4-17).**
   function kqlOf(s) {
     var a = s.kqlAnalysis != null ? s.kqlAnalysis : ((s.notes && s.notes.kql) || []).length;
     var src = s.kqlSources != null ? s.kqlSources : (s.kql || 0);
-    return { a: a, s: src, t: a + src };
+    var cm = s.kqlCommunityN || 0;     /* §5ez: community repositories */
+    var rl = 0; (s.related || []).forEach(function (r) { var o = ((D && D.stories) || []).filter(function (x) { return x.id === r.id; })[0]; if (o) rl += (o.kqlAnalysis || 0) + (o.kqlSources || 0); });
+    return { a: a, s: src, c: cm, r: rl, t: a + src + cm };
   }
   function kqlWords(k) {
-    return [k.a ? k.a + " in our analysis" : "", k.s ? k.s + " from the sources" : ""].filter(Boolean).join(" \u00b7 ");
+    return [k.a ? k.a + " in our analysis" : "", k.s ? k.s + " from the sources" : "", k.c ? k.c + " from community repositories" : "",
+      k.r ? "+ " + k.r + " via the related incident" : ""].filter(Boolean).join(" \u00b7 ");
   }
   function whyLine(s) {
     var k = kqlOf(s), m = (s.why ? s.why.indexOf("m365") >= 0 : (s.scope || "m365") === "m365");
@@ -45060,6 +45204,44 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5ew-grp.s5ew-other{border-color:color-mix(in srgb,var(--muted) 45%,var(--border))}
 .s5ew-gt::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
 .s5ew-other .s5ew-gt::before{background:var(--muted)}
+/* §5ez: applications involved, what to do by phase (our proposal apart), hunting queries by origin */
+.s5ez-apps .s5ez-apl{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;margin:8px 0}
+.s5ez-app{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5ez-ah{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5ez-an{font-weight:700;font-size:14px;color:var(--text);overflow-wrap:anywhere}
+.s5ez-id{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.s5ez-id code{font-size:12.5px;padding:3px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--border);overflow-wrap:anywhere}
+.s5ez-copy{padding:2px 9px!important;font-size:12px!important}
+.s5ez-did{margin:0;font-size:13px;line-height:1.45;color:var(--text)}
+.s5ez-rp{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.s5ez-l{font-size:11.5px;font-weight:700;color:var(--muted);margin-right:2px}
+.s5ez-chip{display:inline-block;font:inherit;font-size:11.5px;font-weight:650;padding:1px 8px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);text-align:left;white-space:normal}
+button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-soft)}
+.s5ez-kind{color:var(--text)}.s5ez-role{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,var(--border))}.s5ez-perm{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,var(--border))}
+.s5ez-af{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:auto}
+.s5ez-act{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--border));background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.s5ez-src{font-size:12px}
+.s5ez-tools{margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:var(--bg)}
+.s5ez-tools>summary{cursor:pointer;font-weight:650;font-size:13px;color:var(--accent)}
+.s5ez-todo .s5ez-say,.s5ez-todo .s5ez-our{border-radius:10px;padding:8px 12px 4px;margin-top:8px}
+.s5ez-todo .s5ez-say{border:1px solid var(--border);background:var(--bg)}
+.s5ez-todo .s5ez-our{border:1px solid color-mix(in srgb,var(--accent) 55%,var(--border));background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
+.s5ez-bh{margin:2px 0 6px;font-size:13.5px;font-weight:800;color:var(--text)}
+.s5ez-our>.s5ez-bh{color:var(--accent)}
+.s5ez-ph{margin:0 0 8px}.s5ez-pht{margin:6px 0 2px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.s5ez-phn{font-weight:800;color:var(--text)}
+.s5ez-ph-contain .s5ez-phn{color:var(--bad)}.s5ez-ph-investigate .s5ez-phn{color:var(--warn)}.s5ez-ph-harden .s5ez-phn,.s5ez-ph-detect .s5ez-phn{color:var(--ok)}
+.s5ez-steps{margin:0;padding-left:24px}.s5ez-steps li{margin:4px 0;line-height:1.5}.s5ez-st{margin-right:6px}
+.s5ez-ours{color:#fff;background:var(--accent);border-color:var(--accent)}
+.s5ez-ksum{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+.s5ez-k-ours{color:var(--accent);border-color:var(--accent)}.s5ez-k-Microsoft{color:var(--ok);border-color:var(--ok)}.s5ez-k-community{color:var(--warn);border-color:var(--warn)}
+.s5ez-kg{margin-top:10px}.s5ez-ks{margin:-4px 0 6px;font-size:12px}
+.s5ez-more{margin-top:4px}
+.s5ez-rel{font:inherit;font-weight:650;color:var(--accent);background:none;border:0;padding:0;text-align:left;cursor:pointer;text-decoration:underline}
+.s5ez-via{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;border:1px dashed var(--border);font-size:11.5px}
+.s5ez-kq .s5el-kql pre,.s5ez-tools .s5el-kql pre{max-height:340px;overflow:auto}
+@media (max-width:760px){.s5ez-apps .s5ez-apl{grid-template-columns:minmax(0,1fr)}.s5ez-app{padding:8px 9px}.s5ez-steps{padding-left:20px}
+ .s5ez-todo .s5ez-say,.s5ez-todo .s5ez-our{padding:6px 8px 2px}
+ #tab-threats .s5el-det{padding-left:0!important;padding-right:0!important;border-left:0!important;border-right:0!important}}
 .s5ey-why{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:6px 0 0;font-size:11.5px;line-height:1.35}
 .s5ey-wl{color:var(--muted);font-weight:600}
 .s5ey-w{border:1px solid var(--border);border-radius:999px;padding:1px 8px;font-weight:650;color:var(--muted);white-space:normal}
@@ -46789,6 +46971,39 @@ z kafelkami ma teraz rowna, zabarwiona obwodke; grupa Threat Research — kropke
 wiersz incydentu pokazuja linie „On the list: Microsoft 365 / Entra | Outside Microsoft 365 · N KQL — a in our
 analysis · s from the sources" (poza M365: „listed for its N KQL"). Starszy threats.json: strona liczy to sama
 (notes.kql, scope).
+
+**§5ez (22 X 19:44, wlasciciel):** *„dobry przyklad: incydent ConnectWise. Mnostwo stron go opisuje i pokazuje app ID
+zaangazowane w incydent (BleepingComputer, Huntress) - czemu nawet o nich nie wspomniales? Wszystkie mowia, zeby je
+blokowac, a nie usuwac. Opisujesz role, ale nie sledzisz tej kluczowej informacji - pokaz ja ladnie sformatowana, takze
+dla innych incydentow z SPN / app registrations. W «What to do» trudno znalezc, co MY proponujemy. Proponujesz tylko
+swoje KQL - pokaz tez KQL oficjalnie zaproponowane przez vendora i community. Sledz devsecopsdadattack.com i Stevena
+Lima (x.com/0x534c). Ma to dotyczyc takze przyszlych incydentow"*.
+Dane (tools/threats.py, tools/kql_extract.py): `app_ids()` czyta GUID-y stojace przy slowach aplikacji z tekstu kanalu
+i ze strony artykulu incydentu M365 (budzet APP_PAGES 15 na przebieg, raz na artykul: `apps`, `appsChecked`); historia
+ma `apps` (najpierw lista z analizy - `name`, `appId`, `kind`, `did`, `roles`, `permissions`, `action`, `src`, `link`
+- potem ID znalezione w artykulach, `origin: "source"`), `appsNote`, `related` (historie dzielace app ID, CVE albo
+nazwe zdarzenia - ConnectWise <-> Storm-0940/ARTEX), `kqlCommunity` (zapytania z cache/kql-repos.json z app ID / CVE
+w tresci albo nazwa zdarzenia w tytule), liczniki `kqlAnalysis` / `kqlSources` / `kqlVendor` / `kqlCommunityN`.
+Zrodlo `Digest: true` (DevSecOpsDad, devsecopsdadattack.com/feed.xml): wpis nigdy nie jest incydentem; kazdy blok KQL
+ma tytul z naglowka h2 sekcji („Detection 4: ConnectWise Agent …") i kontekst, i jest przypinany do incydentu po CVE /
+app ID w sekcji albo nazwie zdarzenia w tytule sekcji - co przebieg od nowa (`digests` w threats.json pamieta
+przeczytane wpisy). kql_sources.json: repozytorium Stevena Lima (github.com/SlimKQL/Hunting-Queries-Detection-Rules);
+jego posty na X nie sa czytelne dla kodu (x.com odmawia) - rutyna szuka ich WebSearch.
+Strona (SCRIPT 17): (1) karta „Applications and identities involved" zaraz pod faktami: nazwa, Application (client) ID
+z Copy, co zrobila, role i uprawnienia (klik otwiera je w portalu), akcja na czerwono („Disable - do not delete"),
+zrodlo; ID znalezione tylko w artykulach osobno, oznaczone; pod spodem wszystkie ID jednym Copy, KQL
+(AADServicePrincipalSignInLogs, kolumny sprawdzone na Learn) i PowerShell Microsoft Graph (Get-MgServicePrincipal
+-Filter "appId eq '…'", wylaczenie Update-MgServicePrincipal -AccountEnabled:$false zakomentowane - wg Learn
+„disable-user-sign-in-portal"). (2) „What to do now" na cala szerokosc: „What the sources tell you to do" po fazach
+Contain now / Investigate / Eradicate / Harden / Detect, a „Our proposal" w osobnej niebieskiej ramce z chipem „our
+proposal"; brak `phase` = faza z pierwszego czasownika. (3) „Hunting queries" wg pochodzenia: Our analysis, Published by
+Microsoft, Published by the community (artykuly, digesty, repozytoria), z zapytaniami incydentu powiazanego
+(„via the related incident"), bez duplikatow, po 3 + „Show N more". Fakt „Related incident" z przyciskiem. Kafelek i
+wiersz: „+ N via the related incident". Notatka ConnectWise (threat_notes.json): 7 app ID (Huntress + BleepingComputer,
+sprawdzone 22 X), 2 inne aplikacje z nowym sekretem, tenant wlasciciela w `appsNote`, fazy, 2 nowe kroki Huntress.
+Rutyna (STEP -1b): `apps` obowiazkowe przy SPN / app registration, `phase` na kazdym kroku, `kqlPublished` (vendor i
+community, z linkiem; `kqlSearched` gdy nic); tools/threat_todo.py: `todo` ma akcje `enrich` (stare notatki bez tych
+pol), `check` je waliduje.
 
 ## 6. Kontrakt w stronie
 

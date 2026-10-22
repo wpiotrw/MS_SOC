@@ -12,12 +12,16 @@ Two notes files, read by tools/threats.py in this order (the first one wins on a
   new     - a story NOT yet analysed, first seen or updated in the last --days days (a first run's baseline of
             older stories is never a to-do: the owner asked for what is happening now);
   update  - a story analysed by the routine whose newest article is newer than the note's `updated` date.
+  enrich  - (5ez) a routine note written before `apps`, `phase` and `kqlPublished` existed: `missing` names what to add,
+            `appsFoundInArticles` the application IDs the articles name (verify them against the source before copying).
   backlog - when fewer than --max are new or updated, a story not yet analysed from the last --backlog days, highest
             score first, so the stories that were already on the tab on its first day get their notes a few a day.
 A story analysed by a person that gained articles is listed under `ownerNotes` for information only.
 
 `check` refuses (exit 1) a routine note that the page could not render honestly: no source link, a remediation step
-`from: source` with no named source, a `match` word so common that it would pull unrelated articles into the story,
+`from: source` with no named source, a `phase` outside contain|investigate|eradicate|harden|detect, an `apps` entry
+without `name`/`src` or with an appId that is not a lowercase GUID, a `kqlPublished` entry without title/query/src/link
+(5ez), a `match` word so common that it would pull unrelated articles into the story,
 an id already used by a person's note. Warnings (exit 0) for a `match` that hits no article yet.
 """
 import datetime as dt, json, re, sys
@@ -35,6 +39,8 @@ GENERIC = {"microsoft", "entra", "azure", "office", "m365", "microsoft 365", "ph
            "password spray", "supply chain", "threat", "security", "cloud", "windows", "admin", "global admin"}
 URL = re.compile(r"^https?://[^\s]+$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+GUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+PHASES = {"contain", "investigate", "eradicate", "harden", "detect"}
 
 
 def load(p, default):
@@ -78,6 +84,22 @@ def todo(days, maxn, backlog=30):
                 elif s["id"] in owner:
                     info.append({"id": s["id"], "lastUpdate": last, "noteUpdated": upd,
                                  "say": "a person's note; new articles since it was written - not edited by the routine"})
+            elif s["id"] in mine:
+                # 5ez: a note written before the fields existed - add the applications involved, the phases and the KQL
+                # the vendor / community published (an `enrich` pass reads the same articles once more)
+                n = mine[s["id"]]
+                miss = []
+                if not n.get("apps") and (s.get("apps") or re.search(r"service principal|app registration|multi-tenant app|enterprise app|oauth app",
+                                                                      json.dumps(n).lower())):
+                    miss.append("apps")
+                if any(not r.get("phase") for r in n.get("remediation") or []):
+                    miss.append("phase")
+                if not n.get("kqlPublished") and not n.get("kqlSearched"):
+                    miss.append("kqlPublished")
+                if miss:
+                    row["action"], row["missing"], row["noteUpdated"] = "enrich", miss, upd
+                    row["appsFoundInArticles"] = [{k: a.get(k) for k in ("appId", "name", "src", "link")} for a in s.get("apps") or [] if a.get("origin") == "source"]
+                    out.append(row)
             continue
         if max(last, seen) >= cut:
             row["action"] = "new"
@@ -86,7 +108,7 @@ def todo(days, maxn, backlog=30):
         else:
             continue
         out.append(row)
-    rank = {"update": 0, "new": 1, "backlog": 2}
+    rank = {"update": 0, "new": 1, "enrich": 2, "backlog": 3}
     out.sort(key=lambda r: (rank[r["action"]], -(r["score"] or 0)))
     print(json.dumps({"date": dt.date.today().isoformat(), "days": days, "max": maxn, "todo": out[:maxn],
                       "notListed": max(0, len(out) - maxn), "ownerNotes": info}, ensure_ascii=False, indent=1))
@@ -175,6 +197,32 @@ def check():
         for p in n.get("portal") or []:
             if p.get("kind") not in ("permission", "role") or not p.get("label"):
                 E("portal entry needs `label` and `kind` permission|role")
+        # 5ez: applications involved, phases, KQL the vendor or the community published
+        for r in rem:
+            if r.get("phase") and r["phase"] not in PHASES:
+                E("remediation `phase` must be one of %s" % sorted(PHASES))
+
+        if any(not r.get("phase") for r in rem):
+            warns.append("%s: %d remediation step(s) without `phase` (the page guesses it from the first verb)" % (i, sum(1 for r in rem if not r.get("phase"))))
+        for a in n.get("apps") or []:
+            if not a.get("name") or not a.get("src"):
+                E("apps entry needs `name` and `src` (the source that names it)")
+            if a.get("appId") and not GUID.match(a["appId"]):
+                E("apps `appId` %r is not a GUID" % a["appId"])
+            if a.get("appId") and a["appId"] != a["appId"].lower():
+                E("apps `appId` %r must be lowercase" % a["appId"])
+            for k in ("roles", "permissions"):
+                if a.get(k) is not None and not isinstance(a[k], list):
+                    E("apps `%s` must be a list" % k)
+        blob = json.dumps(n).lower()
+        if re.search(r"service principal|app registration|multi-tenant app|enterprise app|oauth app|client credential", blob) and not n.get("apps"):
+            warns.append("%s: the note talks about service principals / app registrations but has no `apps` list" % i)
+        for q in n.get("kqlPublished") or []:
+            for k in ("title", "query", "src", "link"):
+                if not q.get(k):
+                    E("kqlPublished entry needs `%s`" % k)
+            if q.get("link") and not URL.match(q["link"]):
+                E("kqlPublished link %r is not an http(s) URL" % q["link"])
     for w in warns:
         print("check: WARN " + w)
     for e in errs:

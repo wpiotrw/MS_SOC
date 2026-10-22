@@ -89,6 +89,7 @@ def incident_like(title, text):
 
 
 KQL_PAGES = 25      # article pages read per run to look for Kusto queries the feed text does not carry
+APP_PAGES = 15      # 5ez: article pages read per run to look for the application IDs an M365 incident names
 KQL_KEEP = 365      # days a found query stays in site/data/kql-found.json
 STOP = set("""about above after again against also among another attack attacks attacker attackers azure being
 between breach breaches campaign cloud companies company could credential credentials critical customers data
@@ -197,7 +198,8 @@ def relevance(title, summary, src):
 
 def entities(title, summary):
     text = title + " " + summary[:600]
-    cves = sorted(set(re.findall(r"CVE-\d{4}-\d{4,7}", text, re.I)))
+    # 5ez: en / em dash too ("CVE-2026–109618" on detect.fyi), written back with a hyphen
+    cves = sorted(set(re.sub(r"[\u2013\u2014]", "-", c) for c in re.findall(r"CVE-\d{4}[-\u2013\u2014]\d{4,7}", text, re.I)))
     storms = sorted(set(x.lower() for x in re.findall(r"Storm-\d{3,4}", text, re.I)))
     names = set()
     for w in re.findall(r"\b[A-Z][A-Za-z0-9]{3,}\b", title + " " + summary[:300]):
@@ -249,6 +251,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     cut = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
     arts, msitems, kev, srep = [], [], [], []
     kq, budget, feed_links = [], [KQL_PAGES], set()
+    app_budget, digest_seen = [APP_PAGES], []
+    dprev = {d["link"]: d for d in prev.get("digests") or []}
     for s in srcs:
         rep = {"name": s["Name"], "site": s.get("Site") or s["SourceURL"], "feed": s["SourceURL"], "tier": s.get("Tier", ""),
                "kind": s.get("Kind", "rss"), "state": "ok", "read": 0, "kept": 0, "newest": None, "error": ""}
@@ -286,16 +290,48 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 # queries is kept whatever product it is about
                 old = seen_before.get(i["link"]) or {}
                 found = kql_extract.blocks(i.get("html") or "")
-                checked = old.get("kqlChecked") or ""
+                checked = old.get("kqlChecked") or (dprev.get(i["link"]) or {}).get("kqlChecked") or ""
+                page = [None]
+                def read_page():
+                    if page[0] is None:
+                        try:
+                            page[0] = get(i["link"], 25).decode("utf-8", "replace")
+                        except Exception:
+                            page[0] = ""
+                    return page[0]
                 if not found and not checked and (keep or s.get("Kind") == "kql") and budget[0] > 0:
                     budget[0] -= 1
-                    try:
-                        found = kql_extract.blocks(get(i["link"], 25).decode("utf-8", "replace"))
-                    except Exception:
-                        found = []
+                    found = kql_extract.blocks(read_page())
                     checked = stamp
                 elif not checked:
                     checked = stamp if found else ""
+                # 5ez: the application IDs an article names (ConnectWise: seven app IDs in BleepingComputer and Huntress),
+                # read once per article - from the feed text, else from the page of an M365 incident article
+                apps = old.get("apps")
+                appsChecked = old.get("appsChecked") or ""
+                if apps is None or not appsChecked:
+                    apps = kql_extract.app_ids(i.get("html") or "")
+                    t0 = (" " + i["title"] + " " + i["summary"][:900] + " ").lower()
+                    if not apps and keep and has(t0, M365SCOPE) and incident_like(i["title"], i["summary"]) and (page[0] is not None or app_budget[0] > 0):
+                        if page[0] is None:
+                            app_budget[0] -= 1
+                        apps = kql_extract.app_ids(read_page())
+                        appsChecked = stamp
+                    elif apps:
+                        appsChecked = stamp
+                if s.get("Digest"):
+                    # 5ez (owner 22 X: "devsecopsdadattack.com - a site we should track for incidents, following our
+                    # agreements"): a DIGEST post covers several incidents in one page; it is never an incident itself -
+                    # each of its queries is attached to the incident its section names (below, after the stories)
+                    if not found and not checked and budget[0] > 0:
+                        budget[0] -= 1
+                        found = kql_extract.blocks(read_page()); checked = stamp
+                    for qi, q in enumerate(found):
+                        kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
+                                       author=i.get("author") or s.get("Author") or "", published=(i["published"] or "")[:10], digest=True))
+                    digest_seen.append({"link": i["link"], "kqlChecked": checked, "n": len(found)})
+                    rep["kept"] += 1 if found else 0
+                    continue
                 prevk = 0 if found else int(old.get("kql") or 0)   # found on an earlier run (the page is read once)
                 # 5ew: KQL makes an INCIDENT only when the article reports an attack, a compromise or a vulnerability -
                 # a product post or a lab walkthrough with queries ("Building a CCF connector") goes to the KQL library only
@@ -307,7 +343,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 if found:   # every query goes to the KQL library; the article is an incident only when kept
                     for qi, q in enumerate(found):
                         kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
-                                       author=i.get("author") or "", published=(i["published"] or "")[:10]))
+                                       author=i.get("author") or "", published=(i["published"] or "")[:10], vendor=bool(s.get("Microsoft"))))
                 if not keep:
                     continue
                 cves, storms, names = entities(i["title"], i["summary"])
@@ -317,7 +353,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                              "tier": s.get("Tier", ""), "microsoft": bool(s.get("Microsoft")),
                              "published": i["published"], "firstSeen": old.get("firstSeen") or (stamp if prev else (i["published"] or stamp)),
                              "score": score, "areas": areas or ["Other"], "cves": cves, "storms": storms, "names": names,
-                             "summary": i["summary"][:420], "kql": len(found) or prevk, "kqlChecked": checked})
+                             "summary": i["summary"][:420], "kql": len(found) or prevk, "kqlChecked": checked,
+                             "apps": apps or [], "appsChecked": appsChecked})
                 rep["kept"] += 1
         except Exception as e:
             rep["state"], rep["error"] = "failed", str(e)[:160]
@@ -415,6 +452,30 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             for ar in a["areas"]:
                 if ar not in areas:
                     areas.append(ar)
+        # 5ez: the applications / service principals the incident involves - the analysis's list first (name, app ID,
+        # what it did, the action), then every app ID an article names that the analysis does not list
+        apps = {}
+        for x in note.get("apps") or []:
+            k = (x.get("appId") or x.get("name") or "").lower()
+            if k:
+                apps[k] = dict(x, origin="analysis")
+        for a in L:
+            ntext = json.dumps(note, ensure_ascii=False) if note else ""
+            for x in a.get("apps") or []:
+                k = x["appId"]
+                if k not in apps and k in (note.get("appsNote") or "").lower():
+                    continue      # the analysis files it as something else (the vendor's owner tenant)
+                if not x.get("name"):    # the analysis names it in an indicator: "506e08f9-... (Cloud Backup)"
+                    mm = re.search(re.escape(k) + r"\s*\(([^)]{3,80})\)", ntext, re.I)
+                    if mm:
+                        x = dict(x, name=mm.group(1))
+                if k in apps:
+                    apps[k].setdefault("alsoIn", [])
+                    if a["source"] not in apps[k]["alsoIn"] and a["source"] != apps[k].get("src"):
+                        apps[k]["alsoIn"].append(a["source"])
+                    continue
+                apps[k] = {"appId": k, "name": x.get("name") or "", "kind": x.get("kind") or "app", "context": x.get("context") or "",
+                           "origin": "source", "src": a["source"], "link": a["link"]}
         ps = prev_st.get(sid) or {}
         stories.append({
             "id": sid, "curated": bool(note), "title": note.get("title") or lead["title"],
@@ -438,6 +499,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             # have KQL"): m365 = the story is about Entra or a Microsoft 365 workload; other = anything else (a PHP flaw,
             # a GitHub enumeration) kept for its hunting queries
             "scope": scope,
+            "apps": sorted(apps.values(), key=lambda x: (x.get("origin") != "analysis", not x.get("appId"), x.get("kind") == "tenant")),
+            "appsNote": note.get("appsNote") or "",
             # the curated text travels with the story, so the page reads one file
             "notes": {k: v for k, v in note.items() if k not in ("id", "match", "title", "areas", "microsoft")} if note else None,
         })
@@ -453,12 +516,90 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     kby = {q["key"]: q for q in kprev}
     for q in kq:
         o = kby.get(q["key"])
-        q = dict(q, story=story_by_art.get(q["article"]) or (o or {}).get("story") or "", firstSeen=(o or {}).get("firstSeen") or stamp,
+        q = dict(q, story=(q.get("story") if q.get("digest") else story_by_art.get(q["article"])) or (o or {}).get("story") or "", firstSeen=(o or {}).get("firstSeen") or stamp,
                  cves=sorted(set(re.findall(r"CVE-\d{4}-\d{4,7}", q["articleTitle"] + " " + q["query"], re.I))))
         kby[q["key"]] = q
+    # ---- 5ez: incidents that are one event seen twice (ConnectWise and Storm-0940/ARTEX), community and digest KQL ----
+    def stext(st):
+        n = notes.get(st["id"]) or {}
+        A = {a["id"]: a for a in arts}
+        return (" ".join([st["title"], n.get("summary") or ""] + [(A[x]["title"] + " " + A[x].get("summary", "")) for x in st["articles"] if x in A])).lower()
+    COMMON_CAPS = {"KQL", "HTTP", "HTTPS", "AZURE", "ENTRA", "OAUTH", "MSRC", "CISA", "NTLM", "SAML", "LDAP", "TEAMS", "WEBDAV", "API", "APIS",
+                   "AITM", "SSPR", "OTP", "MFA", "FIDO", "PHISH", "SAAS", "IAAS", "EDR", "XDR", "SIEM", "SOAR", "RMM", "VPN", "DLL", "UEFI"}
+    def wb(w, t):      # a whole word: "artex" must not hit "cleartext"
+        return re.search(r"(?<![a-z0-9])" + re.escape(w) + r"(?![a-z0-9])", t) is not None
+    def skeys(st):
+        n = notes.get(st["id"]) or {}
+        hard = {c.lower() for c in st["cves"]} | {x["appId"] for x in st.get("apps") or [] if x.get("appId") and x.get("kind") != "tenant"}
+        words = {w.lower() for w in (n.get("match") or []) if len(w) >= 4} | {w for w in re.findall(r"storm-\d{3,5}", st["title"].lower())}
+        # a name the title coins (PHP2Shell, NeedyMantis, ARTEX) - never an ordinary word the grouping happened to pick
+        for w in re.findall(r"\b(?:\w*\d\w*[A-Za-z]\w*|[A-Z][a-z]+[A-Z]\w+|[A-Z]{4,})\b", st["title"]):
+            if w.upper() not in COMMON_CAPS and not re.match(r"(?i)^(cve|\d)", w) and len(w) >= 4:
+                words.add(w.lower())
+        return hard, words
+    ST = {st["id"]: (stext(st), ) + skeys(st) for st in stories}
+    for st in stories:
+        t, hard, words = ST[st["id"]]
+        rel = []
+        for o in stories:
+            if o["id"] == st["id"]:
+                continue
+            ot, oh, ow = ST[o["id"]]
+            why = sorted(hard & oh) or [w for w in words if wb(w, ot)] or [w for w in ow if wb(w, t)]
+            if why:
+                rel.append({"id": o["id"], "title": o["title"], "why": why[:3]})
+        st["related"] = rel[:5]
+    # digest queries (one post, several incidents): attached to the incident their section names - re-matched every run
+    def best_story(title_, ctx_):
+        # the section's own heading decides; its body counts only for an app ID or a CVE (hard keys)
+        norm = lambda x: re.sub(r"[\u2013\u2014]", "-", x or "").lower()
+        tt, tc, best = norm(title_), norm(ctx_), (0, "")
+        for st in stories:
+            _, hard, words = ST[st["id"]]
+            sc = 3 * sum(1 for h in hard if h in tt or h in tc) + 3 * sum(1 for w in words if wb(w, tt))
+            if sc > best[0]:
+                best = (sc, st["id"])
+        return best[1] if best[0] >= 3 else ""
+    for q in kq:
+        if q.get("digest"):
+            q["story"] = best_story(q.get("title", ""), q.get("context", ""))
+    for q in kby.values():
+        if q.get("digest"):
+            q["story"] = best_story(q.get("title", ""), q.get("context", ""))
+    # community repositories (cache/kql-repos.json, tools/kql_repos.py): a query naming the incident's app ID, CVE or name
+    try:
+        repo_q = json.load(open(os.path.join(os.path.dirname(os.path.abspath(src_path)), "cache", "kql-repos.json"), encoding="utf-8")).get("queries") or []
+    except Exception:
+        repo_q = []
+    for st in stories:
+        _, hard, words = ST[st["id"]]
+        hit = []
+        for q in repo_q:
+            # an app ID or a CVE anywhere in the query; a name only in its title or description (a list of RMM tools
+            # that happens to include ConnectWise is not a query about this incident)
+            tq = (q.get("title", "") + " " + q.get("description", "") + " " + q.get("query", "")).lower()
+            th = (q.get("title", "") + " " + q.get("description", "")).lower()
+            w = [k for k in hard if k in tq] + [k for k in words if len(k) >= 5 and wb(k, th)]
+            if w:
+                hit.append({"key": q["key"], "title": q["title"], "query": q["query"], "repo": q.get("repo"), "author": q.get("author"),
+                            "license": q.get("license"), "link": q.get("link"), "tables": q.get("tables") or [], "why": w[:3]})
+        st["kqlCommunity"] = hit[:8]
     kcut = (now - dt.timedelta(days=KQL_KEEP)).strftime("%Y-%m-%d")
     kall = sorted([q for q in kby.values() if (q.get("firstSeen") or "")[:10] >= kcut],
                   key=lambda q: (q.get("published") or q.get("firstSeen") or "", q["key"]), reverse=True)
+    # 5ez: the counts every tile and row shows - analysis / sources (articles, digests, the analysis's kqlPublished) /
+    # community repositories; a related incident's queries are shown under it, counted on their own incident
+    for st in stories:
+        n = notes.get(st["id"]) or {}
+        arts_ = set(st["articles"])
+        src_keys = {q["key"] for q in kall if q.get("story") == st["id"] or q.get("article") in arts_}
+        st["kqlAnalysis"] = len(n.get("kql") or [])
+        st["kqlSources"] = len(src_keys) + len(n.get("kqlPublished") or [])
+        st["kqlVendor"] = len({q["key"] for q in kall if q["key"] in src_keys and q.get("vendor")}) + \
+            sum(1 for x in n.get("kqlPublished") or [] if x.get("vendor"))
+        st["kqlCommunityN"] = len(st.get("kqlCommunity") or [])
+        st["kql"] = st["kqlAnalysis"] + st["kqlSources"] + st["kqlCommunityN"]
+        st["why"] = [w for w, on in (("m365", st["scope"] == "m365"), ("kql", st["kql"] > 0), ("analysis", bool(n))) if on]
     kbody = {"source": "tools/threats.py (CLAUDE.md 5eu)", "keepDays": KQL_KEEP, "queries": kall}
     try:
         old_k = json.load(open(kpath, encoding="utf-8"))
@@ -490,7 +631,9 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             "kev": kev[:60], "trend": trend, "notesFile": notes_path, "keepDays": KEEP_DAYS,
             # the day the portal started tracking (kept between runs): stories reported before it are "new to the portal"
             # on that day, not new events (CLAUDE.md 5en)
-            "started": prev.get("started") or "2026-10-19"}
+            "started": prev.get("started") or "2026-10-19",
+            # 5ez: digest posts read (they are not articles) - the page is read once
+            "digests": digest_seen + [d for l_, d in dprev.items() if l_ not in {x["link"] for x in digest_seen}][:60]}
     strip_t = lambda d: {k: v for k, v in d.items() if k != "generated"}
     if prev and strip_t(prev) == body:
         print("threats: no change (%d stories, %d articles)" % (len(stories), len(arts)))

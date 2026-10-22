@@ -34,7 +34,18 @@
     "Kind": "git",
     "RecentDays": 30,
     "MaxFiles": 300,
-    "Paths": ["Hunting Queries", "Detections", "Solutions"],
+    "Paths": [
+      "Hunting Queries",
+      "Detections",
+      "Solutions"
+    ],
     "Note": "only files changed in the last 30 days - the repository holds thousands of rules"
+  },
+  {
+    "SourceName": "SlimKQL Hunting Queries & Detection Rules (Steven Lim)",
+    "SourceURL": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules",
+    "Author": "Steven Lim",
+    "Kind": "git",
+    "Note": "Steven Lim (KQLWizard, x.com/0x534c): Defender XDR and Sentinel queries; his X posts are not readable by code (x.com refuses robots), the repository is - 5ez"
   }
 ]
