@@ -18,6 +18,42 @@
 "after":"Outlook: Copilot Prioritize feature will be retired",
 "title":"Outlook: Copilot Prioritize feature will be retired",
 "link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Title",
+"before":"Outlook: Copilot Prioritize feature will be retired",
+"after":"(Updated) Outlook: Copilot Prioritize feature will be retired",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Message Center end date",
+"before":"2026-12-15",
+"after":"2027-05-03",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline and content.",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
 }
 ],
 "milestones":{
@@ -35,6 +71,11 @@
 "date":"2026-11-15",
 "label":"mid Nov 2026",
 "text":"The Outlook Copilot Prioritize feature will be retired starting October 26, 2026, with removal completed by mid-November 2026 across all Outlook clients."
+},
+"MC1519861|we will begin this change on and expect to complete by end o#0":{
+"date":"2027-03-31",
+"label":"end of Mar 2027",
+"text":"We will begin this change on October 26, 2026, and expect to complete by end of March 2027."
 }
 },
 "moves":[],
@@ -60,7 +101,7 @@
 "found":"2026-10-22"
 }
 },
-"final":"2026-11-15",
+"final":"2027-03-31",
 "type":"Retirement",
 "tech":"Exchange",
 "posts":[
@@ -5241,14 +5282,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-20",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-21",
 "text":"August 1, 2026."
 },
@@ -5322,6 +5355,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-21",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-22",
 "text":"August 1, 2026."
 },
 {
@@ -5827,7 +5868,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"early February 2026."
 },
 {
@@ -5835,7 +5876,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"February 2027."
 },
 {
@@ -9214,7 +9255,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9222,7 +9263,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-21",
+"seen":"2026-10-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12770,6 +12811,15 @@
 "title":"MC1519855: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1519855"
+},
+{
+"day":"2026-10-22",
+"cid":"c-mc1519861",
+"type":"milestone",
+"name":"Copilot Prioritize feature will be retired",
+"src":"MC1519861",
+"now":"end of Mar 2027",
+"text":"We will begin this change on October 26, 2026, and expect to complete by end of March 2027."
 }
 ],
 "archive":{
