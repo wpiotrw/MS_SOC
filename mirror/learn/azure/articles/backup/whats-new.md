@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-09-15T00:00:00.0000000Z
+ms.date: 2026-10-22T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -59,6 +59,7 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 
 - October 2026
 
+    - Item-level recovery support for Premium SSD v2 and Ultra disks
     - Vaulted backup support for Azure PostgreSQL flexible server and elastic cluster (v2) (preview)
 - September 2026
 
@@ -140,6 +141,14 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 - January 2024
 
     - Cross Region Restore support for PostgreSQL by using Azure Backup is now generally available
+
+## Item-level recovery support for Premium SSD v2 and Ultra disks
+
+Azure Backup now supports item-level recovery (ILR) for Azure virtual machines using Premium SSD v2 and Ultra disks with 512-byte or 4-KB logical sector sizes. You can recover individual files and folders without restoring an entire disk or virtual machine. ILR supports Azure VMs on Windows and Linux running Ubuntu, RHEL, Debian, Oracle Linux, SLES, or openSUSE, including VMs with mixed disk types.
+
+You can generate a file-recovery executable or script through the Azure portal, CLI, or PowerShell, then run it on a compatible machine to access the recovery point, selectively browse, and copy individual files or folders. The generated script can be run only by an administrator in elevated mode and doesn't need any input from an external source except a password, with a 12-hour auto-disconnection and session timeout policy by default. This experience is in parity with the existing ILR workflow for Standard HDD, Standard SSD, and Premium SSD v1 disks, bringing parity across all Azure managed disk SKUs. This functionality improves the recovery time when only specific files or folders need to be restored from Premium SSD v2 or Ultra disks.
+
+Learn more about [recovering files and folders from Azure VM backup](backup-azure-restore-files-from-vm).
 
 ## Vaulted backup support for Azure PostgreSQL flexible server and elastic cluster (v2) (preview)
 

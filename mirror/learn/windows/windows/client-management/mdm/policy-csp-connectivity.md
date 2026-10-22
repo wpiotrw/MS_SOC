@@ -18,7 +18,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn more about the Connectivity Area in Policy CSP.
-ms.date: 2025-03-12T00:00:00.0000000Z
+ms.date: 2026-10-11T00:00:00.0000000Z
 locale: en-us
 document_id: 2e70a68f-210c-b27a-3224-2cfd80028e60
 document_version_independent_id: c6a94ff0-9ab2-cd09-c053-e09304d0d16a
@@ -37,9 +37,11 @@ item_type: Content
 source_path: windows/client-management/mdm/policy-csp-connectivity.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e0ffb20c-01c6-407b-a9bd-29111652a1dc
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/3904bce4-d817-48cf-85fd-b6146fca83b7
 platformId: 5f31d39e-b5e6-16a7-4441-55bcd15b7c0f
 ---
@@ -464,7 +466,7 @@ This policy makes all configurable settings in the 'Cellular' Settings page read
 
 | Scope | Editions | Applicable OS |
 | --- | --- | --- |
-| ❌ Device  ✅ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
+| ❌ Device  ✅ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 [10.0.26100] and later |
 
 ```User
 ./User/Vendor/MSFT/Policy/Config/Connectivity/DisableCrossDeviceResume
@@ -673,7 +675,7 @@ Determines whether a user can install and configure the Network Bridge.
 
 Important
 
-This settings is location aware. It only applies when a computer is connected to the same DNS domain network it was connected to when the setting was refreshed on that computer. If a computer is connected to a DNS domain network other than the one it was connected to when the setting was refreshed, this setting doesn't apply.
+This setting is location aware on AD domain-joined devices. It only applies when a computer is connected to the same DNS domain network it was connected to when the setting was refreshed on that computer. If a computer is connected to a DNS domain network other than the one it was connected to when the setting was refreshed, this setting doesn't apply. On Entra-joined devices, this setting will apply to all networks.
 
 The Network Bridge allows users to create a layer 2 MAC bridge, enabling them to connect two or more network segements together. This connection appears in the Network Connections folder.
 
@@ -695,7 +697,7 @@ This is an ADMX-backed policy and requires SyncML format for configuration. For 
 | Name | Value |
 | --- | --- |
 | Name | NC\_AllowNetBridge\_NLA |
-| Friendly Name | Prohibit installation and configuration of Network Bridge on your DNS domain network |
+| Friendly Name | Prohibit installation and configuration of Network Bridge on your network. |
 | Location | Computer Configuration |
 | Path | Network &gt; Network Connections |
 | Registry Key Name | Software\Policies\Microsoft\Windows\Network Connections |
