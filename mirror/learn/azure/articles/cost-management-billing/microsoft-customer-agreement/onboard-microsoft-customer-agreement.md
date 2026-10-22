@@ -42,8 +42,10 @@ item_type: Content
 source_path: articles/cost-management-billing/microsoft-customer-agreement/onboard-microsoft-customer-agreement.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1d9b4802-f23d-41f1-9e27-65deeceacb8d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/820483fb-3aa1-4b86-bc99-9a906a24f579
 platformId: ab16d5af-37ff-efef-c817-7f3a5670bc50
 ---
 

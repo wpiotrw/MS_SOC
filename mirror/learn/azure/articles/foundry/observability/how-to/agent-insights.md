@@ -26,7 +26,7 @@ description: Learn how to run Insights scans, review recurring production behavi
 ms.reviewer: hanch
 ms.subservice: foundry-observability
 ms.topic: how-to
-ms.date: 2026-09-22T00:00:00.0000000Z
+ms.date: 2026-10-21T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: doc-kit-assisted
 locale: en-us
@@ -71,8 +71,9 @@ Use Insights in Foundry to move from reviewing individual traces to answering br
 In this article, you learn how to:
 
 - Prepare an agent and its telemetry for Insights in Foundry.
+- Configure analysis priorities, custom categories, and instructions.
 - Run an Insights scan in the Microsoft Foundry portal.
-- Review an Insight and validate its supporting evidence.
+- Review metrics, Insights, and supporting evidence.
 - Pull generated Insights into a local coding agent.
 - Route a confirmed Insight to the appropriate next action.
 - Run on-demand analysis and configure a schedule with the Python SDK.
@@ -153,20 +154,38 @@ Depending on the available trace data and supported configuration, an Insight ca
 | Highlighted traces | Representative examples selected for review, including a summary, duration, and token count. |
 | Proposed action or fix | A recommended investigation or improvement path. Availability and specificity vary by Insight and configuration. |
 
+## Configure Insights analysis
+
+Configure Insights to focus analysis on the categories and requirements that matter for your agent.
+
+1. In the Foundry portal, open the project that contains your agent.
+2. Select **Build** &gt; **Agents**, select the agent, and then select the **Insights** tab.
+3. Select **Settings**, and then select **Insights** under **Monitor settings**.
+4. Select the supported **Judge model** that analyzes traces and generates Insights.
+5. Under **Priorities**, keep the built-in categories that are relevant to your scenario, and remove categories that you don't want to prioritize.
+6. To focus analysis on an application-specific or business-specific requirement, select **+ Custom category**, and then enter a category name.
+7. Under **Instructions**, enter any additional guidance for the analysis. For example:
+
+    - Prioritize unexpected token usage or cost spikes.
+    - Focus on failures that prevent users from completing a task.
+    - Identify responses that are unclear or not human-readable.
+    - Ignore low-severity issues.
+    - Flag repeated tool calls that add latency without improving the result.
+8. Select **Save**.
+
+[![Screenshot of Insights monitor settings with a judge model, built-in category priorities, the Custom category action, and an Instructions box.](../../media/observability/agent-insights/insights-settings.png)](../../media/observability/agent-insights/insights-settings.png#lightbox)
+
+To enable scheduled Insight generation, turn on scheduled analysis in the Insights settings.
+
 ## Run an Insights scan in the portal
 
 1. Sign in to [Microsoft Foundry](https://ai.azure.com/?cid=learnDocs).
 2. Open the Foundry project that contains your agent.
 3. Select **Build** &gt; **Agents**, and then select the agent.
 4. Select the **Insights** tab.
-5. Under **Configuration**, select a supported **Judge model** to generate Insights.
-6. Select **Run scan now**.
-
-[![Screenshot of the Insights page before its first analysis, showing model configuration and the Run scan now action.](../../media/observability/agent-insights/empty-state.png)](../../media/observability/agent-insights/empty-state.png#lightbox)
+5. Select **Run now**.
 
 The scan starts asynchronously. Processing time varies based on traffic volume, telemetry completeness, service capacity, and the selected Judge model. You can leave the page and return later.
-
-To enable scheduled Insight generation, select **Settings**, and then select **Insights**.
 
 ## Review generated Insights
 
@@ -176,11 +195,20 @@ When the analysis finishes, the **Insights** tab shows generated Insights for th
 
 Filter the list by **Severity**, **Category**, or **Status**. You can also search or sort the list.
 
+Select **Metrics** to open a dashboard with:
+
+- Active and total insights.
+- Traces and runs analyzed.
+- Token usage and estimated cost.
+- Insight trends over time.
+- Insights grouped by category.
+- Severity distribution.
+
+[![Screenshot of the Insights page with the Metrics panel showing active Insights, analyzed traces, token usage, estimated cost, trends, categories, and severity.](../../media/observability/agent-insights/insights-metrics.png)](../../media/observability/agent-insights/insights-metrics.png#lightbox)
+
 Select **Run now** to start another scan.
 
 Select the **History** icon next to **Run now** to review previous analysis runs.
-
-[![Screenshot of the Insights toolbar with the Run now action and History icon.](../../media/observability/agent-insights/insights-history-button.png)](../../media/observability/agent-insights/insights-history-button.png#lightbox)
 
 The **Insights generation history** window includes both on-demand and scheduled runs. For each run, you can review its status, start and end times, duration, token usage, traces analyzed, new Insights, and updated Insights. Use the search box to find a run, or use **Prev** and **Next** to move between pages.
 

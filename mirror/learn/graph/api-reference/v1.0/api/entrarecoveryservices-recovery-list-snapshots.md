@@ -41,13 +41,13 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/api/entrarecoveryservices-recovery-list-snapshots.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 8f963d0e-f12d-6d4e-4ae4-665c2d984406
 ---
 
@@ -61,7 +61,7 @@ This API is available in the following [national cloud deployments](/en-us/graph
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |
 | --- | --- | --- | --- |
-| ✅ | ❌ | ❌ | ❌ |
+| ✅ | ✅ | ✅ | ❌ |
 
 ## Permissions
 

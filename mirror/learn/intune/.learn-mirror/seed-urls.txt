@@ -21,8 +21,11 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-adk
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/list-of-prerequisite-checks
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/cmpivot
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/community-hub
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/37942646
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38232642
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842

@@ -57,6 +57,12 @@ APIs under the `/beta` version in Microsoft Graph are subject to change. Use of 
 
 Attest to the continued need for a guest [user](resources/user) in the organization.
 
+This API is available in the following [national cloud deployments](/en-us/graph/deployments).
+
+| Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |
+| --- | --- | --- | --- |
+| ✅ | ❌ | ❌ | ❌ |
+
 ## Permissions
 
 Choose the permission or permissions marked as least privileged for this API. Use a higher privileged permission or permissions [only if your app requires it](/en-us/graph/permissions-overview#best-practices-for-using-microsoft-graph-permissions). For details about delegated and application permissions, see [Permission types](/en-us/graph/permissions-overview#permission-types). To learn more about these permissions, see the [permissions reference](/en-us/graph/permissions-reference).

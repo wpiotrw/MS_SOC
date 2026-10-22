@@ -1,6 +1,16 @@
 https://learn.microsoft.com/en-us/microsoft-365
 https://learn.microsoft.com/en-us/microsoft-365/admin
+https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview
+https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-details
+https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/security-compliance
+https://learn.microsoft.com/en-us/microsoft-365/admin/setup/customize-your-organization-theme
 https://learn.microsoft.com/en-us/microsoft-365/admin/whats-new-in-preview
 https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/copilot-extension
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/engineering-direct-diagnostics
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/engineering-direct-engagements
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/engineering-direct-overview
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-diagnostics
 https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-engagements
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-enhanced-engagements
 https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-overview-enhanced-engagements
+https://learn.microsoft.com/en-us/microsoft-365/enterprise/office-engineering-direct

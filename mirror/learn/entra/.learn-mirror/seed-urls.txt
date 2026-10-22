@@ -165,6 +165,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentic
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-passkeys-fido2
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentication-track-linkable-identifiers
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-enable-authenticator-passkey
+https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-number-match
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-server-key-rotation
 https://learn.microsoft.com/en-us/entra/identity/authentication/multi-factor-authentication-faq

@@ -57,16 +57,32 @@ Features in *preview* status are subject to change without notice, and might not
 
 ## October 2026: New and generally available
 
+### Backup and recovery | Microsoft 365 backup and storage
+
+Added the [getStatisticsByPolicy](/en-us/graph/api/backupreport-getstatisticsbypolicy) method to the [backupReport](/en-us/graph/api/resources/backupreport) resource type in v1.0. Use it to retrieve policy-level protection statistics for Microsoft 365 Backup Storage.
+
 ### Calendars
 
 - Promoted the **isSharedWithMe** property of [calendar](/en-us/graph/api/resources/calendar) resource from beta to v1.0. The property is used to identify the shared calendars.
 - Added the [delta](/en-us/graph/api/calendar-delta) method to the [calendar](/en-us/graph/api/resources/calendar) resource type. Use it to track calendars added, deleted, or updated in a user's mailbox.
 
+### Calendars | Places
+
+Use the **lastUpdatedTime** and **customProperties** properties on the [place](/en-us/graph/api/resources/place) resource to read when a place was last updated and manage custom string key-value metadata.
+
 ### Mail | Message trace
 
 Added support to identify recalled messages in message trace. Use `recalled` as a supported value of the **status** property of the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace) resource.
 
+### Tasks and plans
+
+Added support for single-value extended properties on [todoTask](/en-us/graph/api/resources/todotask) and [todoTaskList](/en-us/graph/api/resources/todotasklist) resources, enabling apps to store and retrieve custom data for Microsoft To Do tasks and task lists.
+
 ## October 2026: New in preview only
+
+### Applications
+
+Added the `audit` member to the **appManagementRestrictionState** enumeration type used by the [appManagementPolicy](/en-us/graph/api/resources/appmanagementpolicy?view=graph-rest-beta&amp;preserve-view=true) resource. Use this value to evaluate application management policy restrictions without enforcing them.
 
 ### Backup and recovery | Microsoft 365 backup and storage
 
@@ -85,6 +101,11 @@ Updated the [getSharePointApiUsage](/en-us/graph/api/reportroot-getsharepointapi
 ### Identity and access | Governance
 
 - Added the [accessDriftSummary](/en-us/graph/api/resources/accessdriftsummary?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for identifying governed resources whose actual access differs from access-package intent. Use it to list and inspect drift summaries, retrieve drift details, and download bulk reconciliation reports. Access drift details identify whether each affected identity is a user or group through the **identityType** property of [entraDriftIdentityInfo](/en-us/graph/api/resources/entradriftidentityinfo?view=graph-rest-beta&amp;preserve-view=true).
+- Added the **gracePeriodInDays** property to the [lifecyclePolicyRule](/en-us/graph/api/resources/identitygovernance-lifecyclepolicyrule?view=graph-rest-beta&amp;preserve-view=true) resource. Use it to configure an optional grace period for each lifecycle policy rule before the policy action sequence starts.
+
+### Identity and access | Identity and sign-in
+
+- Added public preview support for OnPasswordUpdate custom authentication extensions. Use the [onPasswordUpdateCustomExtension](/en-us/graph/api/resources/onpasswordupdatecustomextension?view=graph-rest-beta&amp;preserve-view=true) resource to notify external systems after a self-service password reset and the [onPasswordUpdateListener](/en-us/graph/api/resources/onpasswordupdatelistener?view=graph-rest-beta&amp;preserve-view=true) resource to configure when the notification occurs.
 
 ### Mail | Message trace
 
@@ -94,6 +115,10 @@ Added support to identify recalled messages in message trace. Use `recalled` as 
 
 - Added the **isHidden** property to the [mailboxFolder](/en-us/graph/api/resources/mailboxfolder?view=graph-rest-beta&amp;preserve-view=true) resource to identify hidden mailbox folders.
 - Use the existing **includeHiddenFolders** query parameter for [listing folders](/en-us/graph/api/mailbox-list-folders?view=graph-rest-beta&amp;preserve-view=true) and [listing child folders](/en-us/graph/api/mailboxfolder-list-childfolders?view=graph-rest-beta&amp;preserve-view=true). Set it to `true` to include both hidden and nonhidden folders.
+
+### Reports | Identity and access reports
+
+- Added the `passwordUpdate` member to the **eventType** property of the [appliedAuthenticationEventListener](/en-us/graph/api/resources/appliedauthenticationeventlistener?view=graph-rest-beta&amp;preserve-view=true) resource to identify OnPasswordUpdate custom extension listeners triggered during sign-ins.
 
 ### Security
 
@@ -214,7 +239,7 @@ Added the `unknownFutureValue` member to the **changeType** enumeration used by 
 
 ### Identity and access | Directory management
 
-- Added the [directoryRoleManagementDeletedItemContainer](/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for recovering custom role definitions that have been deleted. Use these APIs to list and inspect soft-deleted custom roles, restore them to the active role definitions collection, or permanently delete them.
+- Added the [directoryRoleManagementDeletedItemContainer](/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for recovering custom role definitions that have been deleted. Use these APIs to list and inspect soft-deleted custom roles, including when they were deleted through the **deletedDateTime** property, restore them to the active role definitions collection, or permanently delete them.
 - Added the [provision](/en-us/graph/api/device-provision?view=graph-rest-beta&amp;preserve-view=true) action to the [device](/en-us/graph/api/resources/device?view=graph-rest-beta&amp;preserve-view=true) resource to enable approved Virtual Desktop Infrastructure (VDI) providers to provision devices in a customer's directory.
 
 ### Groups
@@ -229,6 +254,7 @@ Added the `unknownFutureValue` member to the **changeType** enumeration used by 
 
 - Clarified that the [Get accessPackageResourceEnvironment](/en-us/graph/api/accesspackageresourceenvironment-get?view=graph-rest-beta&amp;preserve-view=true) method returns SharePoint Online resource environments only when it's called with delegated permissions. A SharePoint Online resource environment corresponds to a SharePoint root site, so to retrieve root site information with application permissions, use the [List sites](/en-us/graph/api/site-list?view=graph-rest-beta&amp;preserve-view=true) method with the `$filter=siteCollection/root ne null` query option.
 - Added public preview support for lifecycle policies that govern agent identities and guest users. Use [lifecyclePolicy](/en-us/graph/api/resources/identitygovernance-lifecyclepolicy?view=graph-rest-beta&amp;preserve-view=true) and its derived policy types to configure scope, rules, workflow enforcement, impact evaluation, and processing reports.
+- Added the [selectedAgentBuilderPlatformsSubjectSet](/en-us/graph/api/resources/identitygovernance-selectedagentbuilderplatformssubjectset?view=graph-rest-beta&amp;preserve-view=true) resource type to include only agent identities created by selected builder platforms in an agent identity lifecycle policy scope.
 - Added guest-user lifecycle actions to [attest](/en-us/graph/api/user-attest?view=graph-rest-beta&amp;preserve-view=true), [add the signed-in user as a sponsor](/en-us/graph/api/user-addselfassponsor?view=graph-rest-beta&amp;preserve-view=true), and [remove the signed-in user as a sponsor](/en-us/graph/api/user-removeselfassponsor?view=graph-rest-beta&amp;preserve-view=true).
 
 ### Identity and access | Identity and sign-in

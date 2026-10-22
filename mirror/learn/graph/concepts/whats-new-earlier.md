@@ -34,13 +34,13 @@ monikers: []
 item_type: Content
 source_path: concepts/whats-new-earlier.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: a265a77a-5fbb-b142-d11c-20badbf2e88e
 ---
 
@@ -89,6 +89,7 @@ Find information about previous additions and updates to Microsoft Graph APIs, d
 - Added the **errors** property to [accessReviewInstance](/en-us/graph/api/resources/accessreviewinstance) and the [accessReviewError](/en-us/graph/api/resources/accessreviewerror) resource type to report errors that occur during the review instance lifecycle.
 - Added the [accessReviewPrincipalScope](/en-us/graph/api/resources/accessreviewprincipalscope), [accessReviewResourceScope](/en-us/graph/api/resources/accessreviewresourcescope), and [accessReviewAccessPackageAssignmentPolicyScope](/en-us/graph/api/resources/accessreviewaccesspackageassignmentpolicyscope) resource types. Use them in the **principalScopes** and **resourceScopes** properties of [principalResourceMembershipsScope](/en-us/graph/api/resources/principalresourcemembershipsscope) to state which principals have their access to which resources reviewed without writing a query expression.
 - Added the **accessReviewPrincipalScopeType**, **accessReviewResourceScopeType**, and **accessReviewReviewerScopeType** enumeration types to identify well-known principal, resource, and reviewer scopes.
+- Added the **parameters** property to the [accessPackageAssignmentRequest](/en-us/graph/api/resources/accesspackageassignmentrequest) resource, typed as the new [accessPackageAssignmentRequestParameters](/en-us/graph/api/resources/accesspackageassignmentrequestparameters) complex type, to bypass the approval requirement configured on the access package policy when creating an assignment request.
 
 ### Identity and access | Identity and sign-in
 
