@@ -89,6 +89,7 @@ def incident_like(title, text):
 
 
 KQL_PAGES = 25      # article pages read per run to look for Kusto queries the feed text does not carry
+DIGEST_PAGES = 12   # 5ez: digest posts (DevSecOpsDad) read per run - their own budget, the article budget runs out first
 APP_PAGES = 15      # 5ez: article pages read per run to look for the application IDs an M365 incident names
 KQL_KEEP = 365      # days a found query stays in site/data/kql-found.json
 STOP = set("""about above after again against also among another attack attacks attacker attackers azure being
@@ -251,7 +252,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     cut = (now - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d")
     arts, msitems, kev, srep = [], [], [], []
     kq, budget, feed_links = [], [KQL_PAGES], set()
-    app_budget, digest_seen = [APP_PAGES], []
+    app_budget, digest_seen, digest_budget = [APP_PAGES], [], [DIGEST_PAGES]
     dprev = {d["link"]: d for d in prev.get("digests") or []}
     for s in srcs:
         rep = {"name": s["Name"], "site": s.get("Site") or s["SourceURL"], "feed": s["SourceURL"], "tier": s.get("Tier", ""),
@@ -299,7 +300,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                         except Exception:
                             page[0] = ""
                     return page[0]
-                if not found and not checked and (keep or s.get("Kind") == "kql") and budget[0] > 0:
+                if not found and not checked and not s.get("Digest") and (keep or s.get("Kind") == "kql") and budget[0] > 0:
                     budget[0] -= 1
                     found = kql_extract.blocks(read_page())
                     checked = stamp
@@ -323,8 +324,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                     # 5ez (owner 22 X: "devsecopsdadattack.com - a site we should track for incidents, following our
                     # agreements"): a DIGEST post covers several incidents in one page; it is never an incident itself -
                     # each of its queries is attached to the incident its section names (below, after the stories)
-                    if not found and not checked and budget[0] > 0:
-                        budget[0] -= 1
+                    if not found and not checked and digest_budget[0] > 0:
+                        digest_budget[0] -= 1
                         found = kql_extract.blocks(read_page()); checked = stamp
                     for qi, q in enumerate(found):
                         kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
