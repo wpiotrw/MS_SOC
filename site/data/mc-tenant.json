@@ -1,5 +1,5 @@
 {
- "read": "2026-10-21",
+ "read": "2026-10-22",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
  "count": 714,
  "note": null,
@@ -10403,7 +10403,7 @@
   },
   {
    "id": "MC1458484",
-   "title": "Filter Messages by Events",
+   "title": "Filter Messages by Events on Outlook Mobile",
    "services": [
     "Exchange Online"
    ],
@@ -10413,7 +10413,7 @@
    "actionBy": null,
    "start": "2026-08-21",
    "end": "2026-11-16",
-   "modified": "2026-08-21",
+   "modified": "2026-10-21",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -23820,6 +23820,18 @@
    "type": "new",
    "title": "Microsoft Teams: Phishing detection for messaging",
    "fields": {}
+  },
+  {
+   "date": "2026-10-22",
+   "id": "MC1458484",
+   "type": "changed",
+   "title": "Filter Messages by Events on Outlook Mobile",
+   "fields": {
+    "title": [
+     "Filter Messages by Events",
+     "Filter Messages by Events on Outlook Mobile"
+    ]
+   }
   }
  ]
 }
