@@ -332,6 +332,12 @@ def main():
         return not c or c[:10] <= (t0 - dt.timedelta(days=days)).strftime("%Y-%m-%d")
     order = sorted(I.values(), key=lambda x: ((x.get("vt") or {}).get("checked") or "", "analysis" not in x["origins"], x["key"]))
 
+    # ---- 3a. carried indicators join BEFORE the checks (pivot and certificate finds of earlier runs stay "not checked
+    # yet" forever otherwise - seen 23 X: 5 pivot domains never reached VirusTotal) ----
+    for k, o in old.items():
+        if k not in I and (o.get("first") or "") >= (t0 - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d"):
+            I[k] = dict(o)
+
     # ---- 3b. VirusTotal pivot: other domains that resolved to an incident's bad IP (passive DNS) ----
     # crt.sh substring search returns a different, truncated slice each time (862 rows, then 125; it missed
     # copilot-cloud-microsoft[.]com), so new campaign domains are found by pivoting from what is known bad.
