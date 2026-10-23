@@ -58,7 +58,7 @@
     "Secret": "VT_API_KEY",
     "Limits": "500 requests a day, 4 a minute (public API)",
     "Terms": "public API: not for commercial products or services, not in business workflows that contribute no files; one account per person. This portal is a private, non-commercial project of Piotr Wiśniewski. Reverse search, feeds, Livehunt / Retrohunt are premium - not used",
-    "Use": "Verification: for every domain / IP of our incidents and every crt.sh candidate - engine verdicts (malicious / suspicious / harmless / undetected), categories, creation date, last analysis; one snapshot a day -> trend",
+    "Use": "Verification: for every domain / IP of our incidents and every crt.sh candidate - engine verdicts (malicious / suspicious / harmless / undetected), categories, creation date, last analysis; one snapshot a day -> trend Also: per-engine verdicts (which engine says phishing/malware), the date a domain was first flagged, and passive-DNS pivots (domains that resolved to an incident's malicious IP, 6 a run).",
     "Status": "active",
     "Checked": "2026-10-23",
     "Docs": "https://docs.virustotal.com/reference/public-vs-premium-api"
@@ -97,13 +97,28 @@
     "Site": "https://www.greynoise.io",
     "Api": "https://api.greynoise.io/v3/community/<ip>",
     "Auth": "api-key",
-    "Secret": "GREYNOISE_API_KEY",
+    "Secret": "GN_API_KEY",
     "Limits": "50 lookups a week with the key (the owner's key, 23 X 2026); 10 a day without one",
     "Terms": "community API",
     "Use": "Context for the IPs of our incidents: internet-wide scanner (noise) or not, classification, last seen",
     "Status": "active",
     "Checked": "2026-10-23",
-    "Docs": "https://docs.greynoise.io/docs/using-the-greynoise-community-api"
+    "Docs": "https://docs.greynoise.io/docs/using-the-greynoise-community-api",
+    "SecretNote": "The workflows read GN_API_KEY (the owner's secret name) and fall back to GREYNOISE_API_KEY."
+  },
+  {
+    "SourceName": "Microsoft Threat Intelligence (Graph host reputation)",
+    "Kind": "reputation",
+    "Site": "https://learn.microsoft.com/graph/api/security-hostreputation-get",
+    "Docs": "https://learn.microsoft.com/graph/api/security-hostreputation-get",
+    "Api": "GET https://graph.microsoft.com/v1.0/security/threatIntelligence/hosts/{host}/reputation",
+    "Auth": "tenant-app",
+    "Secret": "vars.AZURE_TENANT_ID + vars.AZURE_CLIENT_ID (GitHub OIDC, no secret)",
+    "Limits": "Graph throttling; 150 lookups a run",
+    "Terms": "the owner's tenant; needs a Defender XDR or Sentinel licence and the application permission ThreatIntelligence.Read.All (admin consent)",
+    "Use": "Microsoft's own verdict on each domain / IP of our incidents: classification unknown / neutral / suspicious / malicious, score 0-100, the rules behind it",
+    "Status": "planned - waits for the permission ThreatIntelligence.Read.All",
+    "Checked": "2026-10-23"
   },
   {
     "SourceName": "ANY.RUN Threat Intelligence Lookup",

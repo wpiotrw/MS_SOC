@@ -35,6 +35,6 @@ jobs:
         env:
           VT_API_KEY: ${{ secrets.VT_API_KEY }}
           ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
-          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GN_API_KEY || secrets.GREYNOISE_API_KEY }}
           Q: ${{ github.event.inputs.q }}
         run: node tools/lookup_selftest.js $Q

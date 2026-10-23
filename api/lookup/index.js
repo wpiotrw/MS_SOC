@@ -104,14 +104,14 @@ async function threatfox(k, x) {
 
 async function greynoise(k, x) {
   if (x.type !== "ip") return { state: "n/a", note: "GreyNoise knows IP addresses only" };
-  const h = process.env.GREYNOISE_API_KEY ? { key: process.env.GREYNOISE_API_KEY } : {};
+  const h = (process.env.GN_API_KEY || process.env.GREYNOISE_API_KEY) ? { key: (process.env.GN_API_KEY || process.env.GREYNOISE_API_KEY) } : {};
   const r = await call("https://api.greynoise.io/v3/community/" + encodeURIComponent(x.v), { headers: h });
   if (r.status === 404) return { state: "ok", seen: false, note: "not seen scanning the internet", link: k.link };
   if (r.status === 429) return { state: "limited", note: "GreyNoise community quota reached" };
   if (r.status !== 200 || !r.json) return { state: "error", note: r.error || "HTTP " + r.status };
   const j = r.json;
   return { state: "ok", seen: !!j.noise, riot: !!j.riot, classification: j.classification || null, name: j.name || null,
-           lastSeen: j.last_seen || null, link: k.link, keyed: !!process.env.GREYNOISE_API_KEY };
+           lastSeen: j.last_seen || null, link: k.link, keyed: !!(process.env.GN_API_KEY || process.env.GREYNOISE_API_KEY) };
 }
 
 async function crtsh(k, x) {

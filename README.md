@@ -1292,7 +1292,7 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 |---|---|---|---|
 | `threat_sources.json` | kanały incydentów i kampanii (Microsoft Threat Intelligence, Huntress, BleepingComputer…), kanały z KQL (`Kind: "kql"`: detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR) i digesty (`Digest: true`: **DevSecOpsDad** — devsecopsdadattack.com, od 22 X 2026) | `tools/threats.py` | `fpa-tenant.yml`, co 3 godziny |
 | `kql_sources.json` | publiczne repozytoria zapytań KQL (Bert-Jan Pals, Sergio Albea, jkerai1, cyb3rmik3, Azure-Sentinel, **Steven Lim — github.com/SlimKQL**, od 22 X 2026) | `tools/kql_repos.py` | `campaigns.yml`, raz dziennie |
-| `ti_sources.json` | **narzędzia wywiadu o zagrożeniach (threat intelligence, TI)** — wzbogacanie domen i IP z naszych incydentów (od 23 X 2026) | przyszłe narzędzie „IOC watch” (planowane `tools/ioc_watch.py`) | raz dziennie, po zbudowaniu |
+| `ti_sources.json` | **narzędzia wywiadu o zagrożeniach (threat intelligence, TI)** — wzbogacanie domen i IP z naszych incydentów (od 23 X 2026) | `tools/ioc_watch.py` (IOC watch) i funkcja `api/lookup` (wyszukiwarka właściciela) | `ioc-watch.yml` dwa razy dziennie; wyszukiwarka na żądanie |
 
 **Steven Lim na X** (x.com/0x534c): x.com nie pozwala czytać postów programowo, więc jego zapytania z X szuka poranna rutyna przez wyszukiwarkę (pole `kqlPublished` w analizie incydentu); repozytorium GitHub czyta kod.
 
@@ -1315,7 +1315,8 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 | VirusTotal (publiczne API v3) | reputation | `VT_API_KEY` | 500 zapytań/dzień, 4/min; nie do produktów i usług komercyjnych (projekt prywatny); wyszukiwanie odwrotne i feedy są płatne — nie używamy | ocena każdej domeny i IP: werdykty silników, kategorie, data utworzenia, ostatnia analiza; migawka dzienna → trend |
 | ThreatFox (abuse.ch) | ioc-feed | `ABUSECH_AUTH_KEY` | fair use | wskaźniki rodzin malware i tagów z naszych incydentów, z datą pierwszego wykrycia |
 | URLhaus (abuse.ch) | ioc-feed | `ABUSECH_AUTH_KEY` | fair use | adresy dystrybucji malware na hostach i tagach incydentów |
-| GreyNoise Community | ip-context | brak (klucz tylko dla e-maila firmowego) | 10 zapytań/dzień bez klucza | czy IP z incydentu to masowy skaner internetu |
+| GreyNoise Community | ip-context | `GN_API_KEY` (od 23 X 2026; zapasowo `GREYNOISE_API_KEY`) | 10 zapytań/dzień bez klucza | czy IP z incydentu to masowy skaner internetu |
+| Microsoft Threat Intelligence (Graph) | reputation | aplikacja w tenancie (OIDC, bez sekretu) + uprawnienie `ThreatIntelligence.Read.All` | licencja Defender XDR lub Sentinel | werdykt Microsoftu dla domeny / IP (unknown / neutral / suspicious / malicious, wynik 0–100) — czeka na uprawnienie |
 | ANY.RUN TI Lookup | link | — | darmowy plan bez API | link przy wskaźniku |
 | Silent Push Community | manual | konto | API niedokumentowane dla Community | ręcznie |
 | detections.ai | manual | konto | brak opisanego API i MCP | ręcznie; ewentualny token tylko jako sekret GitHub |
@@ -1337,6 +1338,57 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 2. **abuse.ch:** https://auth.abuse.ch/ → logowanie przez GitHub / Google / LinkedIn / X (abuse.ch zaleca podpięcie drugiego dostawcy) → „Save profile” → w sekcji „Optional” utwórz Auth-Key → skopiuj.
 3. **GitHub:** https://github.com/wpiotrw/MS_SOC → **Settings** → **Secrets and variables** → **Actions** → karta **Secrets** → **New repository secret** → Name `VT_API_KEY`, Secret = klucz → **Add secret**; tak samo `ABUSECH_AUTH_KEY`.
 4. Klucza nie wkleja się do czatu ani do żadnego pliku.
+5. **GreyNoise:** sekret nazywa się `GN_API_KEY` (nazwa właściciela); workflowy podają go skryptom jako `GREYNOISE_API_KEY`, a starej nazwy używają tylko wtedy, gdy `GN_API_KEY` nie istnieje.
+
+### 16.5 Kampanie i obserwowane słowa (od 23 X 2026, §5fc)
+
+Rozwiązanie jest **skalowalne**: lista słów nie jest ręczna.
+
+| Skąd słowo | Przykład | Kto dodaje |
+|---|---|---|
+| wymyślona nazwa w tytule **każdego** incydentu Threat Research (CamelCase, litery z cyframi, słowo pisane wielkimi literami; ≥ 6 znaków) | PHP2Shell, NeedyMantis, EvilTokens, JadePuffer, ConnectWise, SkyKick | `ioc_watch.py`, automatycznie dla nowych incydentów |
+| słowa `match` notatek | connectwise, skykick, eviltokens | notatka incydentu |
+| stała lista marek Microsoft podrabianych przez kity phishingowe (`WatchKeywords` we wpisie crt.sh) | copilot, passkey, authenticator, onedrive, sharepoint, outlook, office365, microsoft365 | `ti_sources.json`; słowo przypina się do każdego incydentu, który je wymienia |
+
+Wskaźniki: z pola `iocs` analiz **oraz** z tekstów artykułów każdego incydentu (tylko zapisane bezpiecznie, `evil[.]com`).
+
+**Nowe domeny kampanii** — dwa sposoby:
+1. **Pivot VirusTotal (passive DNS)**: dla złośliwego IP z incydentu `ip_addresses/{ip}/resolutions` → inne domeny na tym samym serwerze (6 pivotów na przebieg, ponownie po 3 dniach). Oznaczone „same server, not confirmed”.
+2. **crt.sh** (`identity=%słowo%`): nowe certyfikaty ze słowem w nazwie. **Ograniczenie sprawdzone 23 X 2026:** wyszukiwanie po fragmencie zwraca za każdym razem inny, ucięty wycinek (dla `%copilot%`: 862, potem 125 wierszy) i pominęło znaną domenę copilot-cloud-microsoft[.]com z certyfikatem z 7 X 2026, którą dokładne zapytanie znajduje od razu. Liczby z crt.sh to więc **dolna granica**, nie spis.
+
+**Statystyki** (`campaigns` w `ioc-watch.json`, `words` w historii): na słowo — liczba domen na dzień i tydzień (`volume`, `volumeWeeks`: unikalne domeny rejestrowe wg daty certyfikatu; dla pivotu wg daty rozwiązania DNS), ile sprawdzono, ile **oznaczonych** (malicious / suspicious) i **które silniki** VirusTotal je oznaczają; przy każdym wskaźniku data pierwszego oznaczenia (`flaggedOn`) i lista silników z ich werdyktem (np. „Fortinet (phishing)”).
+
+**Na stronie** (ramka Infrastructure watch): karta na kampanię (incydenty, liczby, słupki tygodniowe, kto oznacza); słowa bez wyników w jednej linii „Watched, nothing new yet”.
+
+**Wiarygodność werdyktu VirusTotal:** VirusTotal agreguje ~90 silników i list; „malicious” = przynajmniej jeden silnik tak twierdzi, a pojedyncze trafienie bywa fałszywym alarmem, dlatego portal uznaje domenę za *malicious* od 2 silników albo gdy potwierdza ją niezależne źródło (URLhaus, ThreatFox, Microsoft TI), a 1 silnik = *suspicious*. „Undetected” nie znaczy „bezpieczna” — świeża domena często nie ma jeszcze żadnego werdyktu, stąd ponowne sprawdzanie co 3 dni i data pierwszego oznaczenia.
+
+### 16.6 Wyszukiwarka domen, IP i wildcardów (od 23 X 2026, §5fd)
+
+Ramka Infrastructure watch → **Look up a domain, IP or wildcard**. Przyjmuje domenę (także `evil[.]com`), adres IP, URL (bierze nazwę hosta) albo wildcard ze słowem od 4 liter (`*copilot*.com`, `%passkey%`).
+
+1. **In our data** — wyszukiwanie w `ioc-watch.json`, działa dla każdego (dane i tak są publiczne).
+2. **Usługi na żywo** — funkcja `api/lookup` (Azure Static Web Apps, managed functions, Node 22): sekcja na źródło — VirusTotal (statystyki, silniki z werdyktem, kategorie, rejestracja, rejestrator / sieć, głosy, passive DNS), URLhaus, ThreatFox, GreyNoise (tylko IP), crt.sh (certyfikaty, wystawcy, nazwy). Wildcard: VirusTotal pominięty (wyszukiwanie wzorców tylko w płatnej licencji Intelligence), URLhaus i ThreatFox szukają tagu, crt.sh fragmentu nazwy (dolna granica).
+3. **Tylko właściciel**: `site/staticwebapp.config.json` wpuszcza `/api/*` wyłącznie z rolą `owner`, funkcja sprawdza rolę drugi raz. Klucze są **ustawieniami aplikacji** Static Web App (nie w repo, nie w przeglądarce). Nic, co wpiszesz, nie jest zapisywane.
+4. Test bez przeglądarki: workflow **Lookup self-test** (`lookup-selftest.yml`, ręcznie z polem `q` albo po zmianie `api/**`) uruchamia funkcję z sekretami repozytorium i wypisuje tylko stany i liczby.
+
+**Kroki właściciela (jednorazowo):**
+1. Azure Portal → zasób Static Web App (orange-ground-019f30603) → **Settings → Environment variables** → środowisko **Production** → **+ Add**: `VT_API_KEY`, `ABUSECH_AUTH_KEY`, `GN_API_KEY` (te same wartości co sekrety GitHub) → **Apply** → jeszcze raz **Apply**, żeby zapisać (kroki z dokumentacji Learn „Configure application settings for Azure Static Web Apps”).
+2. Ten sam zasób → **Settings → Role management** → **Invite** → Authorization provider **GitHub**, Invitee `wpiotrw`, Domain: adres strony, Role `owner`, ważność np. 24 h → **Generate** → otwórz link w przeglądarce i zaloguj się GitHubem.
+3. Na stronie: Threat Research → Infrastructure watch → pole wyszukiwania; nad nim powinno być „Signed in as the owner”.
+
+### 16.7 Twój tenant: Microsoft Threat Intelligence i Defender (od 23 X 2026, §5fc)
+
+| Co | API | Uprawnienie aplikacji | Stan |
+|---|---|---|---|
+| reputacja hosta (werdykt Microsoftu dla domeny / IP) | `GET /security/threatIntelligence/hosts/{id}/reputation` | `ThreatIntelligence.Read.All` | kod gotowy w `ioc_watch.py` (krok 6b, OIDC jak `fpa-tenant.yml`), pomijany do czasu nadania uprawnienia |
+| czy nasze IOC pojawiły się w Twoim tenancie | `POST /security/runHuntingQuery` (30 dni danych) | `ThreatHunting.Read.All` | nie zbudowane — wynik byłby prywatny; na stronie najwyżej liczby zbiorcze; wymaga Twojej decyzji |
+| raporty Threat analytics | — | — | brak API (tylko portal Defender) |
+
+Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privileged Role Administrator albo Global Administrator). Skrypt **nadpisuje** całą listę, więc podaj wszystkie dotychczasowe uprawnienia plus nowe:
+
+```powershell
+.\tools\New-FpaReaderApp.ps1 -TenantId <id-tenanta> -Permissions 'Application.Read.All','DelegatedPermissionGrant.Read.All','ServiceMessage.Read.All','RoleManagement.Read.Directory','ThreatIntelligence.Read.All'
+```
 
 ## Historia zmian
 
@@ -1399,6 +1451,9 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 | 2026-10-23 | §5fa — nowa lista `ti_sources.json` (9 źródeł wywiadu o zagrożeniach: crt.sh, VirusTotal, ThreatFox, URLhaus, GreyNoise, ANY.RUN, Silent Push, detections.ai, urlscan.io — limity i warunki sprawdzone 23 X), nowy punkt 16 README (wszystkie listy źródeł Threat Research, w tym DevSecOpsDad i Steven Lim, pola, plan „IOC watch”, klucze krok po kroku), planowane sekrety `VT_API_KEY` i `ABUSECH_AUTH_KEY` w pkt 12.2. |
 | 2026-10-23 | Przepisana historia repozytorium (git filter-repo, `--sensitive-data-removal`): ze wszystkich 942 commitów, także z archiwów `.gz`, usunięte pełne ID tenanta, aplikacji i obiektów (zostaje pierwszy blok, pkt 10), nazwy i domeny tenantów, nazwa firmy; prywatny e-mail w metadanych commitów zamieniony na adres GitHub noreply. Usunięte 56 starych gałęzi `claude/*` i `zz-wf-scope-probe` (ich treść była już na `main`); `logo-video-src` i tag `before-portal-v2-2026-10-05` odtworzone na nowej historii (jednorazowy workflow, usunięty). Stare skróty commitów w tym pliku i w CLAUDE.md nie wskazują już commitów. Pełna kopia historii sprzed zmiany: kopia zapasowa właściciela (lokalnie, nie w repozytorium). |
 | 2026-10-23 | §5fb — **IOC watch**: `tools/ioc_watch.py` + workflow `ioc-watch.yml` (2× dziennie): domeny i IP z analiz incydentów oraz domeny podszywające się (crt.sh, tagi ThreatFox) sprawdzane w VirusTotal, GreyNoise, URLhaus i ThreatFox (klucze `VT_API_KEY`, `ABUSECH_AUTH_KEY`, `GREYNOISE_API_KEY`); `site/data/ioc-watch.json` + historia; na stronie karta „Infrastructure” w incydencie i ramka „Infrastructure watch” z trendem. `ti_sources.json`: źródła aktywne, pole `WatchKeywords`. Wdrożenie po przebiegu przez `code-refresh.yml`. |
+| 2026-10-23 | Naprawa „Code refresh”: SCRIPT 17 przekroczył 1 000 000 znaków (1 009 898), a `tools/code_refresh.py` pomijał bloki > 1 MB („not found: SCRIPT 17 block”); próg 4 MB. |
+| 2026-10-23 | §5fc — kampanie skalowalne: słowa z tytułu każdego incydentu i stała lista marek Microsoft, wskaźniki z artykułów, crt.sh `identity=` z liczbą domen na dzień / tydzień (dolna granica — ograniczenie crt.sh opisane w 16.5), pivot passive DNS w VirusTotal, silniki VirusTotal z werdyktem, data pierwszego oznaczenia, karty kampanii; Microsoft TI (reputacja hosta) gotowe, czeka na `ThreatIntelligence.Read.All`; GreyNoise czyta sekret `GN_API_KEY`. README 16.5, 16.7. |
+| 2026-10-23 | §5fd — wyszukiwarka domen / IP / URL / wildcardów: funkcja `api/lookup` (tylko rola `owner`, klucze w ustawieniach aplikacji SWA), sekcje według źródła, „In our data” dla każdego; `api_location: "api"` we wszystkich 4 wdrożeniach; workflow Lookup self-test. README 16.6. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |

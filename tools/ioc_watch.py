@@ -360,6 +360,8 @@ def main():
             time.sleep(VT_GAP)
 
     # ---- 4. VirusTotal ----
+    # the pivot added domains after the queue was built - rebuild it so they are checked in this run
+    order = sorted(I.values(), key=lambda x: ((x.get("vt") or {}).get("checked") or "", not ({"analysis", "article"} & set(x["origins"])), x["key"]))
     if keys["vt"]:
         r = {"state": "ok", "checked": 0, "notFound": 0, "note": "", "pivots": pv_used}
         for x in order:

@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write      # 5fc: Microsoft Threat Intelligence host reputation - the GitHub OIDC token signs in the tenant app
 
 concurrency:
   group: swa-deploy
@@ -37,16 +38,18 @@ jobs:
         env:
           VT_API_KEY: ${{ secrets.VT_API_KEY }}
           ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
-          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GN_API_KEY || secrets.GREYNOISE_API_KEY }}
         run: |
           for k in VT_API_KEY ABUSECH_AUTH_KEY GREYNOISE_API_KEY; do
             if [ -n "${!k}" ]; then echo "$k: set"; else echo "$k: NOT SET"; fi
           done
-      - name: Check the indicators (CLAUDE.md 5fb)
+      - name: Check the indicators (CLAUDE.md 5fb, 5fc)
         env:
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
           VT_API_KEY: ${{ secrets.VT_API_KEY }}
           ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
-          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GN_API_KEY || secrets.GREYNOISE_API_KEY }}
         run: timeout 2100 python3 tools/ioc_watch.py || true
       - name: Commit when it changed
         run: |
