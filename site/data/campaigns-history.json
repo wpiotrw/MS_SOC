@@ -989,6 +989,14 @@
 "date":"2026-10-06",
 "group":"community",
 "found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1521615":{
+"title":"MC1521615: Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
+"link":"https://mc.merill.net/message/MC1521615",
+"source":"MC - Merill",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2027-04-15",
@@ -2586,6 +2594,30 @@
 "date":"2026-10-21",
 "group":"microsoft",
 "found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785":{
+"title":"CVE-2026-97785 AAD App Proxy Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251":{
+"title":"CVE-2026-96251 Microsoft PowerShell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303":{
+"title":"CVE-2026-96303 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
 }
 },
 "final":"2026-10-15",
@@ -3315,8 +3347,7 @@
 "name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
 "status":"Active",
 "members":[
-"MC1243549",
-"item:MC1243549"
+"MC1243549"
 ],
 "log":[
 {
@@ -3325,8 +3356,8 @@
 "what":"Message Center end date",
 "before":"2026-12-07",
 "after":"2026-12-31",
-"title":"SharePoint one-time passcode retirement slips: Phase 2 now starts mid-October and runs to the end of November",
-"link":"https://deltapulse.app/item/MC1243549"
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
 },
 {
 "date":"2026-10-02",
@@ -3334,8 +3365,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"SharePoint one-time passcode retirement slips: Phase 2 now starts mid-October and runs to the end of November",
-"link":"https://deltapulse.app/item/MC1243549"
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
 },
 {
 "date":"2026-10-01",
@@ -3343,8 +3374,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"Phase 1, which enables Entra B2B for new external sharing, is now fully rolled out for Production environments.",
-"title":"SharePoint one-time passcode retirement slips: Phase 2 now starts mid-October and runs to the end of November",
-"link":"https://deltapulse.app/item/MC1243549"
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
 },
 {
 "date":"2026-09-28",
@@ -3361,11 +3392,6 @@
 "date":"2026-03-04",
 "label":"4 Mar 2026",
 "text":"Posted: Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B"
-},
-"MC1243549|inferred microsoft s update says phase begins in mid and com#2":{
-"date":"2026-10-01",
-"label":"1 Oct 2026",
-"text":"(inferred) Microsoft's 1 October 2026 update says Phase 2 begins in mid-October 2026 and completes by end of November 2026 for Production environments"
 },
 "MC1243549|to ensure a smooth transition phase the retirement of sharep#0":{
 "date":"2026-10-15",
@@ -5366,14 +5392,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-21",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-22",
 "text":"August 1, 2026."
 },
@@ -5447,6 +5465,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-22",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-23",
 "text":"August 1, 2026."
 },
 {
@@ -5984,7 +6010,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"early February 2026."
 },
 {
@@ -5992,7 +6018,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"February 2027."
 },
 {
@@ -7020,7 +7046,6 @@
 "status":"Active",
 "members":[
 "MC1465692",
-"item:MC1465692",
 "item:azure-functions-inprocess-eos",
 "item:dotnet8-powershell74-end-of-servicing",
 "item:MC1515315",
@@ -7143,6 +7168,22 @@
 "date":"2026-03-24",
 "group":"microsoft",
 "found":"2026-10-21"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577815":{
+"title":"Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577815",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://mc.merill.net/message/RM577815":{
+"title":"RM577815: Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"link":"https://mc.merill.net/message/RM577815",
+"source":"MC - Merill",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2026-11-10",
@@ -7670,6 +7711,15 @@
 ],
 "log":[
 {
+"date":"2026-10-23",
+"id":"MC1483844",
+"what":"Microsoft revised the post",
+"before":"2026-10-01",
+"after":"2026-10-22",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
 "date":"2026-10-22",
 "id":"MC1483844",
 "what":"Title",
@@ -7865,6 +7915,14 @@
 "date":"2026-10-21",
 "group":"community",
 "found":"2026-10-21"
+},
+"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi":{
+"title":"OpenAI Moderation API vs GPT-4o-mini Chat Completions: JSON Schema Moderation (and Cost)",
+"link":"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi",
+"source":"NeonTiger12",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2026-11-15",
@@ -9405,7 +9463,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9413,7 +9471,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -13002,6 +13060,76 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-23",
+"cid":"c-mc1469565",
+"type":"material",
+"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"group":"community",
+"title":"MC1521615: Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1521615"
+},
+{
+"day":"2026-10-23",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-97785 AAD App Proxy Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785"
+},
+{
+"day":"2026-10-23",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96251 Microsoft PowerShell Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251"
+},
+{
+"day":"2026-10-23",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96303 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577815"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"RM577815: Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM577815"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI Moderation API vs GPT-4o-mini Chat Completions: JSON Schema Moderation (and Cost)",
+"source":"NeonTiger12",
+"link":"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi"
 }
 ],
 "archive":{
