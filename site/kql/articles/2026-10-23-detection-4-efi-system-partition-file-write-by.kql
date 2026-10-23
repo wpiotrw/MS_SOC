@@ -1,0 +1,40 @@
+// title: Detection 4: EFI System Partition File Write by Non-Bootloader Process - BlackX UEFI Bootkit Installation
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, October 23, 2026
+// source: https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LegitBootTools = dynamic(["bcdedit.exe", "mountvol.exe", "diskpart.exe", "bcdboot.exe", "reagentc.exe", "TrustedInstaller.exe", "svchost.exe", "wuauclt.exe", "UsoClient.exe", "MoUsoCoreWorker.exe"]);
+let EfiWrites = DeviceFileEvents
+| where Timestamp > ago(7d)
+| where FolderPath has_any ("\\EFI\\", "\\Boot\\", "bootmgr", "bootmgfw.efi", "\\grub")
+| where ActionType in ("FileCreated", "FileRenamed", "FileCopied")
+| where not(InitiatingProcessFileName in~ (LegitBootTools))
+| where not(InitiatingProcessFileName startswith "TiWorker")
+| project EfiWriteTime = Timestamp, DeviceId, DeviceName,
+    FolderPath, FileName, InitiatingProcessFileName, SHA256;
+let SuspiciousPrecursor = DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where ProcessCommandLine has_any (
+    "SeLoadDriverPrivilege",
+    "bootmgr",
+    "\\EFI\\",
+    "-exec bypass",
+    "shimx64",
+    "grubx64",
+    "bootx64"
+  )
+| where not(InitiatingProcessFileName in~ (LegitBootTools))
+| project ProcTime = Timestamp, DeviceId, AccountName, ProcessCommandLine,
+    PrecursorProcess = InitiatingProcessFileName;
+EfiWrites
+| join kind=innerunique (
+    SuspiciousPrecursor
+) on DeviceId
+| where ProcTime < EfiWriteTime and EfiWriteTime <= (ProcTime + 1h)
+| project EfiWriteTime, ProcTime, DeviceId, DeviceName, FolderPath, FileName,
+    SHA256, InitiatingProcessFileName, AccountName, ProcessCommandLine, PrecursorProcess
+| sort by EfiWriteTime desc

@@ -1,0 +1,29 @@
+// title: Detection 2: PHP Worker Spawning Shell Correlated with HTTP 200 Response - CVE-2026-109618/109619 PoC Exploitation
+// date: 2026-10-23
+// product: Sentinel
+// tables: CommonSecurityLog, Syslog
+// purpose: From the article: Detection Engineering Brief - Friday, October 23, 2026
+// source: https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let PhpWorkerSpawns = Syslog
+| where TimeGenerated > ago(1d)
+| where ProcessName in ("php-fpm", "php-cgi", "php")
+| where SyslogMessage has_any ("NOTICE: child", "WARNING: [pool", "exec", "sh", "bash", "python", "perl", "curl", "wget", "spawn")
+| project SpawnTime = TimeGenerated, Computer = tolower(Computer), SyslogMessage, ProcessName;
+let SuccessfulRequests = CommonSecurityLog
+| where TimeGenerated > ago(1d)
+| where DeviceVendor has_any ("Apache", "nginx", "LiteSpeed", "apache", "NGINX")
+| extend ResponseCode = coalesce(
+    toint(FieldDeviceCustomNumber1),
+    toint(extract(@"responseCode=(\d+)", 1, AdditionalExtensions))
+  )
+| where ResponseCode == 200
+| project ReqTime = TimeGenerated, Computer = tolower(DeviceName), SourceIP, RequestURL;
+PhpWorkerSpawns
+| join kind=inner (
+    SuccessfulRequests
+) on Computer
+| where SpawnTime between ((ReqTime - 30s) .. (ReqTime + 2m))
+| project ReqTime, SpawnTime, Computer, SourceIP, RequestURL, ProcessName, SyslogMessage

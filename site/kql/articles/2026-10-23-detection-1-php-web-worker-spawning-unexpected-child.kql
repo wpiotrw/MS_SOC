@@ -1,0 +1,36 @@
+// title: Detection 1: PHP Web Worker Spawning Unexpected Child Process - CVE-2026-109618/109619
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, October 23, 2026
+// source: https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WebWorkers = dynamic(["php-fpm", "php-cgi", "apache2", "httpd", "litespeed", "lshttpd", "frankenphp"]);
+let SuspiciousChildren = dynamic(["sh", "bash", "dash", "zsh", "cmd.exe", "powershell.exe", "python", "python3", "perl", "ruby", "curl", "wget"]);
+let LookbackWindow = 5m;
+let SuspiciousProcs = DeviceProcessEvents
+| where Timestamp > ago(1d)
+| where InitiatingProcessFileName in~ (WebWorkers)
+| where FileName in~ (SuspiciousChildren)
+| project SpawnTime = Timestamp, DeviceId, DeviceName, AccountName,
+    ParentProcess = InitiatingProcessFileName,
+    ChildProcess = FileName,
+    ChildProcessId = ProcessId,
+    ProcessCommandLine;
+let NetworkCorrelation = DeviceNetworkEvents
+| where Timestamp > ago(1d)
+| where InitiatingProcessFileName in~ (dynamic(["sh", "bash", "dash", "zsh", "cmd.exe", "powershell.exe", "python", "python3", "perl", "ruby", "curl", "wget"]))
+| where not(ipv4_is_private(RemoteIP)) and RemoteIP != "127.0.0.1" and RemoteIP != "::1"
+| project NetTime = Timestamp, DeviceId, RemoteIP, RemotePort,
+    NetProcessName = InitiatingProcessFileName,
+    NetProcessId = InitiatingProcessId;
+SuspiciousProcs
+| join kind=inner (
+    NetworkCorrelation
+) on DeviceId
+| where NetProcessId == ChildProcessId
+| where NetTime between (SpawnTime .. (SpawnTime + LookbackWindow))
+| project SpawnTime, NetTime, DeviceId, DeviceName, AccountName, ParentProcess,
+    ChildProcess, ProcessCommandLine, RemoteIP, RemotePort

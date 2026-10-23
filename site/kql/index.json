@@ -6434,6 +6434,69 @@
   "initial": true
  },
  {
+  "file": "articles/2026-10-23-detection-4-efi-system-partition-file-write-by.kql",
+  "title": "Detection 4: EFI System Partition File Write by Non-Bootloader Process - BlackX UEFI Bootkit Installation",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/"
+ },
+ {
+  "file": "articles/2026-10-23-detection-3-anomalous-service-principal-credential-use-with.kql",
+  "title": "Detection 3: Anomalous Service Principal Credential Use with Unusual Resource Access - Storm-0940 M365 Abuse",
+  "date": "2026-10-23",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-10-23-detection-2-php-worker-spawning-shell-correlated-with.kql",
+  "title": "Detection 2: PHP Worker Spawning Shell Correlated with HTTP 200 Response - CVE-2026-109618/109619 PoC Exploitation",
+  "date": "2026-10-23",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "incident": "php2shell-php-rce-2026-10"
+ },
+ {
+  "file": "articles/2026-10-23-detection-1-php-web-worker-spawning-unexpected-child.kql",
+  "title": "Detection 1: PHP Web Worker Spawning Unexpected Child Process - CVE-2026-109618/109619",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, October 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
+  "incident": "php2shell-php-rce-2026-10"
+ },
+ {
   "file": "incidents/2026-10-22-service-principal-sign-ins-from-the-published-ips.kql",
   "title": "Service-principal sign-ins from the published IPs and user agents (Defender XDR advanced hunting)",
   "date": "2026-10-22",
