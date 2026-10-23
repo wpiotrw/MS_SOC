@@ -3,7 +3,7 @@
     "SourceName": "crt.sh (Certificate Transparency)",
     "Kind": "ct-log",
     "Site": "https://crt.sh",
-    "Api": "https://crt.sh/?q=%25<word>%25&output=json",
+    "Api": "https://crt.sh/?identity=%25<word>%25&output=json&exclude=expired",
     "Auth": "none",
     "Secret": "",
     "Limits": "no published quota; one query per keyword, slow at peak - read with a 50 s timeout",
@@ -13,8 +13,41 @@
     "Checked": "2026-10-23",
     "CheckNote": "query %skykick% returned 7 certificates from the build container; 23 X: the incident words connectwise, skykick, eviltokens, jadepuffer gave 0 look-alike certificates in 30 days",
     "Docs": "https://crt.sh",
-    "WatchKeywords": [],
-    "WatchNote": "Owner-editable: extra words (6+ characters, no spaces) to watch in new certificates besides the curated incident words, e.g. a brand look-alike part. crt.sh splits on punctuation, so hyphenated phrases (microsoft-copilot) return nothing - use a single token."
+    "WatchKeywords": [
+      {
+        "word": "copilot",
+        "label": "Copilot look-alikes"
+      },
+      {
+        "word": "passkey",
+        "label": "Passkey look-alikes"
+      },
+      {
+        "word": "authenticator",
+        "label": "Authenticator look-alikes"
+      },
+      {
+        "word": "onedrive",
+        "label": "OneDrive look-alikes"
+      },
+      {
+        "word": "sharepoint",
+        "label": "SharePoint look-alikes"
+      },
+      {
+        "word": "outlook",
+        "label": "Outlook look-alikes"
+      },
+      {
+        "word": "office365",
+        "label": "Office 365 look-alikes"
+      },
+      {
+        "word": "microsoft365",
+        "label": "Microsoft 365 look-alikes"
+      }
+    ],
+    "WatchNote": "Always watched: Microsoft brands phishing kits copy (WatchKeywords). Added automatically, no edit needed: the coined names in every Threat Research story title (PHP2Shell, NeedyMantis, EvilTokens...) and the curated notes' match words. identity= finds the word inside a name (q= only whole tokens). Volume = distinct registrable domains per certificate day."
   },
   {
     "SourceName": "VirusTotal (public API v3)",

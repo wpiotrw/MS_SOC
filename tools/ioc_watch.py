@@ -34,8 +34,10 @@ OUT = os.path.join(ROOT, "site", "data", "ioc-watch.json")
 HIST = os.path.join(ROOT, "site", "data", "ioc-watch-history.json")
 UA = "MS_SOC-ioc-watch/1.0 (+https://github.com/wpiotrw/MS_SOC)"
 VT_MAX, VT_GAP = 60, 16            # public API: 4 a minute, 500 a day; two runs a day stay far below
+VT_PIVOT = 6                       # passive-DNS pivots per run (each one VirusTotal request)
 GN_MAX, GN_DAYS = 6, 7             # 50 a week with a key
 AB_MAX = 120                       # abuse.ch lookups per run (fair use)
+MS_MAX = 150                       # Microsoft Threat Intelligence reputation lookups per run
 RECHECK_DAYS = 3
 CT_DAYS, CT_PER_WORD = 30, 40
 KEEP_DAYS, HIST_DAYS = 120, 120
@@ -114,6 +116,71 @@ def load(p, default):
         return default
 
 
+COMMON_CAPS = {"AITM", "ADFS", "OAUTH", "AZURE", "ENTRA", "CISA", "CVE", "MFA", "SSPR", "DPAPI", "PHISHING", "MICROSOFT",
+               "WINDOWS", "DEFENDER", "SENTINEL", "INTUNE", "GITHUB", "DEVOPS", "KUBERNETES", "HUNTRESS", "RANSOMWARE",
+               "CLOUDFLARE", "CYBERARK", "BLIZZARD", "TYPHOON", "TEMPEST", "SLEET", "TOKENS", "ACCESS", "ACTIVE", "DATABASE"}
+
+
+def title_words(title):
+    """Coined names in a title: CamelCase (NeedyMantis), letters with digits (PHP2Shell), a capitalised word of 5+
+    letters written in capitals (ARTEX). Never Storm-NNNN or a CVE, never a common product or security word."""
+    out = []
+    for t in re.findall(r"[A-Za-z][A-Za-z0-9]+", title):
+        u = t.upper()
+        if len(t) < 5 or u in COMMON_CAPS or re.match(r"(?i)^(storm|cve)\d*$", t):
+            continue
+        camel = re.search(r"[a-z][A-Z]", t) is not None
+        mixed = re.search(r"[A-Za-z]\d|\d[A-Za-z]", t) is not None
+        caps = t.isupper() and t.isalpha()
+        if camel or mixed or caps:
+            w = t.lower()
+            if len(w) >= 6 or mixed:
+                out.append(w)
+    return list(dict.fromkeys(out))
+
+
+def ms_reputation(order, due, stamp):
+    """Microsoft's own verdict on a host (Graph threatIntelligence/hosts/{id}/reputation: classification unknown /
+    neutral / suspicious / malicious, score 0-100). Needs the tenant app (GitHub OIDC, the same federated credential as
+    fpa-tenant.yml) with the application permission ThreatIntelligence.Read.All - available with a Defender XDR or Sentinel
+    licence. Without them the source is skipped with the reason."""
+    req = ("AZURE_TENANT_ID", "AZURE_CLIENT_ID", "ACTIONS_ID_TOKEN_REQUEST_URL", "ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+    if not all(os.environ.get(k) for k in req):
+        return {"state": "skipped", "note": "no tenant sign-in in this run (OIDC variables missing)"}
+    try:
+        st, b = http(os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] + "&audience=api://AzureADTokenExchange",
+                     headers={"Authorization": "bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]})
+        oidc = json.loads(b)["value"]
+        st, b = http("https://login.microsoftonline.com/%s/oauth2/v2.0/token" % os.environ["AZURE_TENANT_ID"], "POST",
+                     {"Content-Type": "application/x-www-form-urlencoded"},
+                     urllib.parse.urlencode({"client_id": os.environ["AZURE_CLIENT_ID"], "scope": "https://graph.microsoft.com/.default",
+                                             "grant_type": "client_credentials",
+                                             "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                                             "client_assertion": oidc}).encode())
+        tok = json.loads(b)["access_token"]
+    except Exception as e:
+        return {"state": "failed", "note": "sign-in: %s" % str(e)[:120]}
+    r = {"state": "ok", "checked": 0, "note": ""}
+    for x in order:
+        if r["checked"] >= MS_MAX or not due(x, "ms", RECHECK_DAYS):
+            continue
+        st, b = http("https://graph.microsoft.com/v1.0/security/threatIntelligence/hosts/" + urllib.parse.quote(refang(x["v"])) + "/reputation",
+                     headers={"Authorization": "Bearer " + tok})
+        r["checked"] += 1
+        if st == 403:
+            return {"state": "skipped", "checked": r["checked"], "note": "HTTP 403 - the app needs ThreatIntelligence.Read.All (admin consent) and a Defender XDR or Sentinel licence"}
+        if st == 200:
+            j = json.loads(b or b"{}")
+            x["ms"] = {"checked": stamp, "cls": j.get("classification") or "", "score": j.get("score"),
+                       "rules": [z.get("name") or z.get("description") or "" for z in (j.get("rules") or [])][:4]}
+        elif st == 404:
+            x["ms"] = {"checked": stamp, "cls": "unknown"}
+        else:
+            r["note"] += "%s HTTP %s; " % (x["v"], st)
+        time.sleep(0.4)
+    return r
+
+
 def main():
     t0 = now()
     today = t0.strftime("%Y-%m-%d")
@@ -135,7 +202,7 @@ def main():
         o = old.get(k) or {}
         x = I.get(k) or {"key": k, "type": kind, "v": defang(value, kind), "stories": [], "origins": [],
                          "first": o.get("first") or today}
-        for f in ("vt", "gn", "uh", "tf", "ct"):
+        for f in ("vt", "gn", "uh", "tf", "ct", "ms", "flaggedOn", "pv", "pivoted", "verdict"):
             if f in o and f not in x:
                 x[f] = o[f]
         if story and story not in x["stories"]:
@@ -146,11 +213,20 @@ def main():
             x.update(extra)
         I[k] = x
     words = {}
+    arts = {a.get("id"): a for a in T.get("articles") or []}
     for st in T.get("stories") or []:
         n = st.get("notes") or {}
         txt = "\n".join(n.get("iocs") or [])
         for kind, v in extract(txt):
             add(kind, v, st["id"], "analysis")
+        # every story, curated or not: defanged indicators the source articles print in their text
+        for aid in st.get("articles") or []:
+            for kind, v in extract((arts.get(aid) or {}).get("summary") or ""):
+                add(kind, v, st["id"], "article")
+        # every story: the coined names in its title (PHP2Shell, NeedyMantis, EvilTokens, ARTEX) - what a campaign's
+        # domains copy; scales to any new incident that enters the filters, no list to keep
+        for w in title_words(st.get("title") or ""):
+            words.setdefault(w, set()).add(st["id"])
         # the event's own words (curated match words; never a field word - threat_todo.py check refuses those)
         for w in ((st.get("words") or []) if st.get("curated") else []):   # threats.py: the note's match words, lowercased
             if " " in w.strip():
@@ -159,17 +235,29 @@ def main():
             if len(w2) >= 6 and not re.match(r"^(storm|cve)-?\d", w2):
                 words.setdefault(w2, set()).add(st["id"])
     ct = src("crt.sh")
-    for w in ct.get("WatchKeywords") or []:
-        w2 = re.sub(r"[^a-z0-9-]", "", str(w).lower())
+    labels = {}
+    for w in ct.get("WatchKeywords") or []:          # "copilot" or {"word": "copilot", "label": "Copilot look-alikes"}
+        lab = w.get("label") if isinstance(w, dict) else None
+        w = w.get("word") if isinstance(w, dict) else w
+        w2 = re.sub(r"[^a-z0-9-]", "", str(w or "").lower())
         if len(w2) >= 6:
             words.setdefault(w2, set()).add("_watch")
+            labels[w2] = lab or w2
+    # a watched brand (copilot, passkey, onedrive...) belongs to every story that names it
+    for st in T.get("stories") or []:
+        blob = ((st.get("title") or "") + " " + " ".join(st.get("words") or [])).lower()
+        for w2 in labels:
+            if w2 in blob:
+                words[w2].add(st["id"])
 
     # ---- 2. Certificate Transparency look-alikes ----
     cut = (t0 - dt.timedelta(days=CT_DAYS)).strftime("%Y-%m-%d")
     r = {"state": "ok", "queries": 0, "candidates": 0, "note": ""}
+    ctvol = {}
     for w, sids in sorted(words.items()):
         for attempt in (1, 2):    # crt.sh answers 502 under load; one retry
-            st, body = http("https://crt.sh/?q=%25" + urllib.parse.quote(w) + "%25&output=json&exclude=expired", timeout=60)
+            # identity= matches the word inside a name (q= matches whole tokens only: %copilot% found 0, identity= 862)
+            st, body = http("https://crt.sh/?identity=%25" + urllib.parse.quote(w) + "%25&output=json&exclude=expired", timeout=120)
             if st == 200:
                 break
             time.sleep(8)
@@ -182,7 +270,7 @@ def main():
         except Exception:
             r["note"] += "%s: not JSON; " % w
             continue
-        seen = 0
+        seen, vol = 0, set()
         for row in sorted(rows, key=lambda x: x.get("not_before") or "", reverse=True):
             if (row.get("not_before") or "")[:10] < cut:
                 continue
@@ -193,13 +281,19 @@ def main():
                 rd = regdom(host)
                 if w.replace("-", "") not in rd.replace("-", "") or rd.split(".")[0] == w.replace("-", "") or BENIGN.search(rd):
                     continue      # the vendor's own domain (connectwise.com) and its subdomains are not look-alikes
+                vol.add((rd, (row.get("not_before") or "")[:10]))
                 if seen >= CT_PER_WORD:
-                    break
+                    continue      # keep counting the volume; only the newest CT_PER_WORD go on to the reputation checks
                 for sid in sids:
                     add("domain", host, None if sid == "_watch" else sid, "crtsh",
                         {"ct": {"word": w, "notBefore": (row.get("not_before") or "")[:10], "issuer": (row.get("issuer_name") or "")[:80]}})
                 seen += 1
         r["candidates"] += seen
+        # volume per certificate day: distinct registrable domains (a.example.com and b.example.com count once)
+        vd = {}
+        for rd_, d_ in vol:
+            vd.setdefault(d_, set()).add(rd_)
+        ctvol[w] = {d_: len(v) for d_, v in vd.items()}
         time.sleep(2)
     rep["crt.sh"] = r
 
@@ -238,9 +332,36 @@ def main():
         return not c or c[:10] <= (t0 - dt.timedelta(days=days)).strftime("%Y-%m-%d")
     order = sorted(I.values(), key=lambda x: ((x.get("vt") or {}).get("checked") or "", "analysis" not in x["origins"], x["key"]))
 
+    # ---- 3b. VirusTotal pivot: other domains that resolved to an incident's bad IP (passive DNS) ----
+    # crt.sh substring search returns a different, truncated slice each time (862 rows, then 125; it missed
+    # copilot-cloud-microsoft[.]com), so new campaign domains are found by pivoting from what is known bad.
+    pv_used = 0
+    if keys["vt"]:
+        for x in sorted(I.values(), key=lambda x: (x.get("pivoted") or "", x["key"])):
+            if pv_used >= VT_PIVOT:
+                break
+            if x["type"] != "ip" or not ({"analysis", "article"} & set(x["origins"])) or x.get("verdict", (old.get(x["key"]) or {}).get("verdict")) != "malicious":
+                continue
+            if (x.get("pivoted") or "") > (t0 - dt.timedelta(days=RECHECK_DAYS)).strftime("%Y-%m-%dT"):
+                continue
+            st, body = http("https://www.virustotal.com/api/v3/ip_addresses/%s/resolutions?limit=40" % refang(x["v"]), headers={"x-apikey": keys["vt"]})
+            pv_used += 1
+            x["pivoted"] = stamp
+            if st == 200:
+                for d in json.loads(body).get("data") or []:
+                    a = d.get("attributes") or {}
+                    host = (a.get("host_name") or "").lower()
+                    when = dt.datetime.fromtimestamp(a["date"], dt.timezone.utc).strftime("%Y-%m-%d") if a.get("date") else today
+                    if host and not BENIGN.search(regdom(host)) and when >= (t0 - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d"):
+                        for sid in x["stories"]:
+                            add("domain", host, sid, "vt-pivot", {"pv": {"from": x["v"], "date": when}})
+            elif st == 429:
+                break
+            time.sleep(VT_GAP)
+
     # ---- 4. VirusTotal ----
     if keys["vt"]:
-        r = {"state": "ok", "checked": 0, "notFound": 0, "note": ""}
+        r = {"state": "ok", "checked": 0, "notFound": 0, "note": "", "pivots": pv_used}
         for x in order:
             if r["checked"] >= VT_MAX:
                 break
@@ -262,6 +383,10 @@ def main():
                            "created": dt.datetime.fromtimestamp(a["creation_date"], dt.timezone.utc).strftime("%Y-%m-%d") if a.get("creation_date") else None,
                            "last": dt.datetime.fromtimestamp(a["last_analysis_date"], dt.timezone.utc).strftime("%Y-%m-%d") if a.get("last_analysis_date") else None,
                            "cats": sorted(set((a.get("categories") or {}).values()))[:4],
+                           # which engines call it malicious / suspicious, and what they call it ("Fortinet: phishing")
+                           "engines": sorted([{"e": e, "r": (v.get("result") or v.get("category") or "")[:40], "c": v.get("category")}
+                                              for e, v in (a.get("last_analysis_results") or {}).items()
+                                              if v.get("category") in ("malicious", "suspicious")], key=lambda z: (z["c"] != "malicious", z["e"]))[:12],
                            "owner": a.get("as_owner") or a.get("registrar") or "", "country": a.get("country") or ""}
             else:
                 r["note"] += "%s HTTP %s; " % (x["v"], st)
@@ -340,21 +465,26 @@ def main():
     else:
         rep["URLhaus"] = rep["ThreatFox"] = {"state": "skipped", "note": "no ABUSECH_AUTH_KEY"}
 
+    # ---- 6b. Microsoft Threat Intelligence host reputation (the owner's tenant, Graph, ThreatIntelligence.Read.All) ----
+    rep["Microsoft TI"] = ms_reputation(order, due, stamp)
+
     # ---- 7. verdicts, carried indicators, history ----
     for k, o in old.items():          # an indicator no longer in an analysis stays until KEEP_DAYS after it was first seen
         if k not in I and (o.get("first") or "") >= (t0 - dt.timedelta(days=KEEP_DAYS)).strftime("%Y-%m-%d"):
             I[k] = o
     for x in I.values():
-        vt, uh, tf, gn = x.get("vt") or {}, x.get("uh") or {}, x.get("tf") or {}, x.get("gn") or {}
-        if (vt.get("m") or 0) >= 2 or uh.get("online") or tf.get("count"):
+        vt, uh, tf, gn, ms = x.get("vt") or {}, x.get("uh") or {}, x.get("tf") or {}, x.get("gn") or {}, x.get("ms") or {}
+        if (vt.get("m") or 0) >= 2 or uh.get("online") or tf.get("count") or ms.get("cls") == "malicious":
             verdict = "malicious"
-        elif (vt.get("m") or 0) == 1 or (vt.get("s") or 0) >= 1 or uh.get("count") or gn.get("cls") == "malicious":
+        elif (vt.get("m") or 0) == 1 or (vt.get("s") or 0) >= 1 or uh.get("count") or gn.get("cls") == "malicious" or ms.get("cls") == "suspicious":
             verdict = "suspicious"
         elif vt and not vt.get("notFound"):
             verdict = "no detections"
         else:
             verdict = "not checked yet" if not vt else "unknown to VirusTotal"
         x["verdict"] = verdict
+        if verdict in ("malicious", "suspicious") and not x.get("flaggedOn"):
+            x["flaggedOn"] = today          # the day a service first called it bad (the trend "already flagged" counts these)
     inds = sorted(I.values(), key=lambda x: ({"malicious": 0, "suspicious": 1}.get(x["verdict"], 2), x["first"], x["key"]))
     H = load(HIST, {"days": {}})
     row = {}
@@ -366,12 +496,47 @@ def main():
             c["suspicious"] += x["verdict"] == "suspicious"
             c["new"] += x["first"] == today
     H["days"][today] = row
+    # per watched word (a campaign: copilot, passkey, an incident's brand): new look-alike domains per certificate day,
+    # how many a service already calls bad, which engines say so
+    camp = {}
+    stitle = {st["id"]: st.get("title") or st["id"] for st in T.get("stories") or []}
+    for x in inds:
+        w = (x.get("ct") or {}).get("word")
+        if not w and x.get("pv") and x["stories"]:
+            w = "story:" + x["stories"][0]          # pivot discoveries: one series per incident
+            labels.setdefault(w, "Same IP as " + stitle.get(x["stories"][0], x["stories"][0])[:70])
+            words.setdefault(w, set()).update(x["stories"])
+        if not w:
+            continue
+        c = camp.setdefault(w, {"label": labels.get(w) or w, "stories": sorted(words.get(w, [])), "days": {}, "weeks": {},
+                                "total": 0, "flagged": 0, "malicious": 0, "engines": {}})
+        d0 = (x.get("ct") or {}).get("notBefore") or (x.get("pv") or {}).get("date") or x["first"]
+        wk = dt.date.fromisoformat(d0).strftime("%G-W%V")
+        c["days"][d0] = c["days"].get(d0, 0) + 1
+        c["weeks"][wk] = c["weeks"].get(wk, 0) + 1
+        c["total"] += 1
+        c["flagged"] += x["verdict"] in ("malicious", "suspicious")
+        c["malicious"] += x["verdict"] == "malicious"
+        for e in (x.get("vt") or {}).get("engines") or []:
+            c["engines"][e["e"]] = c["engines"].get(e["e"], 0) + 1
+    for w, vd in ctvol.items():      # a word with no candidate kept still shows its volume
+        c = camp.setdefault(w, {"label": labels.get(w) or w, "stories": sorted(words.get(w, [])), "days": {}, "weeks": {},
+                                "total": 0, "flagged": 0, "malicious": 0, "engines": {}})
+        c["volume"] = dict(sorted(vd.items()))          # distinct look-alike domains per certificate day, last CT_DAYS
+        wk = {}
+        for d_, k_ in vd.items():
+            z = dt.date.fromisoformat(d_).strftime("%G-W%V"); wk[z] = wk.get(z, 0) + k_
+        c["volumeWeeks"] = dict(sorted(wk.items()))
+    for w, c in camp.items():
+        c["engines"] = sorted(c["engines"].items(), key=lambda z: -z[1])[:10]
+        c["vtChecked"] = sum(1 for x in inds if (x.get("ct") or {}).get("word") == w and x.get("vt"))
+    H.setdefault("words", {})[today] = {w: {"total": c["total"], "flagged": c["flagged"]} for w, c in camp.items()}
     keep = sorted(H["days"])[-HIST_DAYS:]
     H["days"] = {d: H["days"][d] for d in keep}
     H["source"] = "tools/ioc_watch.py (CLAUDE.md 5fb)"
     titles = {st["id"]: st["title"] for st in T.get("stories") or []}
     body = {"source": "tools/ioc_watch.py (CLAUDE.md 5fb)", "sources": rep, "words": {w: sorted(s) for w, s in sorted(words.items())},
-            "titles": titles, "counts": {v: sum(1 for x in inds if x["verdict"] == v) for v in
+            "titles": titles, "campaigns": camp, "counts": {v: sum(1 for x in inds if x["verdict"] == v) for v in
                                          ("malicious", "suspicious", "no detections", "unknown to VirusTotal", "not checked yet")},
             "indicators": inds}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
