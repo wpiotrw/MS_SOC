@@ -1,0 +1,7 @@
+{
+  "name": "ms-soc-lookup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MS_SOC owner-only lookup of a domain, IP, URL or wildcard across the threat-intel sources of ti_sources.json (CLAUDE.md 5fd)",
+  "dependencies": {}
+}

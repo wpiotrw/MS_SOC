@@ -1,0 +1,40 @@
+name: Lookup self-test
+
+# CLAUDE.md 5fd: runs the owner-only lookup function (api/lookup) on this runner with the repository secrets and prints
+# per source only the state and counts. The live function reads the same keys from the Static Web App's application
+# settings - this run proves the code against the real services before the owner looks it up on the page.
+on:
+  workflow_dispatch:
+    inputs:
+      q:
+        description: "domains, IPs or wildcards separated by spaces (empty = the built-in set)"
+        required: false
+        default: ""
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+      - 'tools/lookup_selftest.js'
+      - '.github/workflows/lookup-selftest.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Look up (states and counts only)
+        env:
+          VT_API_KEY: ${{ secrets.VT_API_KEY }}
+          ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+          Q: ${{ github.event.inputs.q }}
+        run: node tools/lookup_selftest.js $Q

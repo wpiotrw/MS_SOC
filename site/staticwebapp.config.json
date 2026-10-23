@@ -1,7 +1,14 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/diff/*", "/history/*", "/data/*", "*.json"]
+    "exclude": [
+      "*.json",
+      "/.auth/*",
+      "/api/*",
+      "/data/*",
+      "/diff/*",
+      "/history/*"
+    ]
   },
   "globalHeaders": {
     "cache-control": "public, max-age=300, must-revalidate",
@@ -12,5 +19,19 @@
   "mimeTypes": {
     ".json": "application/json",
     ".html": "text/html"
+  },
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": [
+        "owner"
+      ],
+      "headers": {
+        "Cache-Control": "no-store"
+      }
+    }
+  ],
+  "platform": {
+    "apiRuntime": "node:22"
   }
 }
