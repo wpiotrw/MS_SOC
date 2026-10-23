@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview",
+  "cursor": "https://learn.microsoft.com/en-us/graph/outlook-share-or-delegate-calendar",
   "pages": {
     "https://learn.microsoft.com/en-us/graph/alertsv1-alertsv2-migration": {"etag":"\"b6ecGbyGTq5WYVzvIAn82eSzAhw=\"","gitCommitId":"30bd5c818cf9b2f9608601d45580e9603ddfed75","path":"concepts/alertsv1-alertsv2-migration.md","sourcePath":"concepts/alertsv1-alertsv2-migration.md","updatedAt":"2026-09-26T00:40:00.0000000Z"},
     "https://learn.microsoft.com/en-us/graph/api/accesspackageresourceenvironment-get": {"etag":"\"MWTPiMK7qBkJfcKKt0eGxDftQKA=\"","gitCommitId":"ad93ec7728f1a3985b5e0d805df5f68501b62252","path":"api-reference/beta/api/accesspackageresourceenvironment-get.md","redirectedTo":"https://learn.microsoft.com/en-us/graph/api/accesspackageresourceenvironment-get?view=graph-rest-beta","sourcePath":"api-reference/beta/api/accesspackageresourceenvironment-get.md","updatedAt":"2026-09-04T00:36:00.0000000Z"},
