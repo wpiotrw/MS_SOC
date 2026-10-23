@@ -9911,7 +9911,7 @@
   },
   {
    "id": "MC1456780",
-   "title": "Plan for Change: New device page experience will become the default view",
+   "title": "(Updated) Plan for Change: New device page experience will become the default view",
    "services": [
     "Microsoft Intune"
    ],
@@ -9920,16 +9920,19 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-17",
-   "end": "2026-10-30",
-   "modified": "2026-08-17",
+   "end": "2026-12-11",
+   "modified": "2026-10-23",
    "tags": [
-    "Admin impact"
+    "Admin impact",
+    "Updated message"
    ],
-   "summary": "Earlier this year , we released the new single device experience that provides a single, consolidated view for device management, making it easier to access device information, monitor activity, use management tools, and perform device actions The new single device page is turned on by default. You can use the \"Preview new device toggle\" to turn it off and return to the original device page. Start…",
+   "summary": "Updated October 23, 2026: The content has been updated to provide additional clarity on admin permissions for the new device experience. Earlier this year , we released the new single device experience that provides a single, consolidated view for device management, making it easier to access device information, monitor activity, use management tools, and perform device actions The new single devi…",
    "when": null,
-   "prepare": "Update your documentation as needed. We recommend becoming familiar with the updated interface before it becomes the default view. To preview the new experience today: In the Microsoft Intune admin center, navigate to Devices > All devices . Select a device to view device-specific information, such as device properties, device activity, tools, and reports.",
-   "dates": [],
-   "bodyHash": "b9be61f5a287d1c2"
+   "prepare": "Update your documentation and review your admin permissions for device management actions as needed. We recommend becoming familiar with the updated interface before it becomes the default view. To preview the new experience today: In the Microsoft Intune admin center, navigate to Devices > All devices . Select a device to view device-specific information, such as device properties, device activity, tools, and reports.",
+   "dates": [
+    "Updated October 23, 2026: The content has been updated to provide additional clarity on admin permissions for the new device experience."
+   ],
+   "bodyHash": "cc592700dd1679b3"
   },
   {
    "id": "MC1457106",
@@ -18340,9 +18343,10 @@
    "actionBy": null,
    "start": "2026-10-20",
    "end": "2027-01-14",
-   "modified": "2026-10-20",
+   "modified": "2026-10-23",
    "tags": [
     "Feature update",
+    "Updated message",
     "User impact"
    ],
    "summary": "[What and Why:] We're introducing an updated Photos experience on Windows 11 to help people browse, organize, and find photos and videos across their PC and OneDrive. The experience is coming to consumer and commercial devices and will continue to respect existing controls for app installation, updates, and OneDrive access. Starting October 15, 2026, the updated experience is expected to roll out …",
@@ -18350,9 +18354,9 @@
    "prepare": null,
    "dates": [
     "Starting October 15, 2026, the updated experience is expected to roll out to Windows Insiders over the next few days.",
-    "General Availability (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by mid December 2026."
+    "General Availability (Worldwide): We will begin rolling out mid-October 2026 and expect to complete by mid-December 2026."
    ],
-   "bodyHash": "faa3b712e0a8e56a"
+   "bodyHash": "971c58b39a470053"
   },
   {
    "id": "MC1518032",
@@ -24234,6 +24238,58 @@
    "type": "removed",
    "title": "Microsoft SharePoint Online: Select page canvas elements for Copilot-assisted editing",
    "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1456780",
+   "type": "changed",
+   "title": "(Updated) Plan for Change: New device page experience will become the default view",
+   "fields": {
+    "title": [
+     "Plan for Change: New device page experience will become the default view",
+     "(Updated) Plan for Change: New device page experience will become the default view"
+    ],
+    "end": [
+     "2026-10-30",
+     "2026-12-11"
+    ],
+    "tags": [
+     [
+      "Admin impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "b9be61f5a287d1c2",
+     "cc592700dd1679b3"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1518030",
+   "type": "changed",
+   "title": "Updated Photos experience on Windows 11",
+   "fields": {
+    "tags": [
+     [
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "faa3b712e0a8e56a",
+     "971c58b39a470053"
+    ]
+   }
   }
  ]
 }
