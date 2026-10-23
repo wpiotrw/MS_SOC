@@ -1,0 +1,640 @@
+{
+"https://cloud.google.com/blog/topics/threat-intelligence/recovering-active-adfs-signing-keys-machine-dpapi/": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://pushsecurity.com/blog/authorization-phishing": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://specterops.io/blog/2026/10/17/connectwise-skykick-breach-microsoft-365/": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"In the text: As of October 19, Huntress has identified nearly 1,000 Entra tenants with sign-in activity from the IP address associated with the unauthorized activity ( 144.172.64[.]128 ), with "
+]
+],
+"read": "2026-10-23"
+},
+"https://thehackernews.com/2026/10/connectwise-suspends-cloud-backup-after.html": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"In the text: However, if the threat actor was able to add credentials to applications in Microsoft tenants, those credentials would let them keep access and act as the application.\" Huntress sa"
+],
+[
+"ip",
+"144.172.64.99",
+"In the text: None of these replace reviewing credentials, but they make a planted secret harder to use or easier to spot.\" Update ConnectWise has shared two new IP addresses linked to the activ"
+],
+[
+"ip",
+"144.172.64.60",
+"In the text: None of these replace reviewing credentials, but they make a planted secret harder to use or easier to spot.\" Update ConnectWise has shared two new IP addresses linked to the activ"
+]
+],
+"read": "2026-10-23"
+},
+"https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"In the text: The incident impacts every organization that has the app installed, and the credential works against every tenant the app is consented in. \"The app's credential is in hostile hands"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"In the text: Based on reports from Microsoft, Huntress, and administrators, the malicious activity started at least on October 15 from a single IP address: 144.172.64[.]128 ."
+]
+],
+"read": "2026-10-23"
+},
+"https://www.huntress.com/blog/conditional-access-misconfigurations": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://www.huntress.com/blog/inside-knight-office-m365-aitm-attack": {
+"iocs": [
+[
+"ip",
+"154.127.53.78",
+"IOC table: IP address of the lure sender in example case"
+],
+[
+"ip",
+"104.37.188.94",
+"IOC table: IP address of the phishing control panel host found by pivoting from the phishing page title"
+],
+[
+"domain",
+"idoej.com",
+"IOC table: Domain of the phishing control panel host found via reverse IP lookup of 104.37.188[.]94 ."
+],
+[
+"domain",
+"advancedplacyncement.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"amstardmzsmc.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"arandasoftzfdware.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"avisoretentiunionllc.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"capitalflwxinancialpartners.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"certififiycationedge.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"connectivnqzityltd.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"crrbcearegroup.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"digitaltrafwwrficsystems.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"exceltecbusinessbwpsolutions.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"genamewwgdiamarketing.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"globaieflsoftinc.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"globalmixeucbdmodetechnologyinc.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"globalprojectspvtltd.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"joinbusinessmanagementconsdjeulting.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"kentmanqhfufacturingcompany.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"kleepxrnlinecorporation.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"knsinternacshtional.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"monttmmlrustcompany.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"mtprormtductions.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"realestatecotblrp.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"siottxgroup.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"summitcapitaltrapojininggroup.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"techcompositnkoes.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"techromixsolutionlonsinc.vu",
+"IOC table: Phishing domains used by the threat actors involved in this campaign"
+],
+[
+"domain",
+"monday.com",
+"IOC table: Resource Development \u00b7 Stage Capabilities: Link Target ( T1608.005 )"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://www.huntress.com/blog/vendor-credential-enables-unauthorized-access": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"IOC table: Infrastructure used in the unauthorized activity Huntress observed a hosting provider (AS14956, RouterHosting). Used for the October 13 to 14 password spray and"
+],
+[
+"ip",
+"144.172.64.99",
+"IOC table: Additional IP indicator shared by ConnectWise in its advisory (part of its update on 10/18 at 18:45 UTC)."
+],
+[
+"ip",
+"144.172.64.60",
+"IOC table: Additional IP indicator shared by ConnectWise in its advisory (part of its update on 10/18 at 18:45 UTC)."
+],
+[
+"ip",
+"144.172.94.243",
+"IOC table: Broad failed login spray, ongoing, many organizations"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/": {
+"iocs": [
+[
+"domain",
+"passkeyhelpdesk.com",
+"IOC table: Passkey support lure"
+],
+[
+"domain",
+"secure-passkey.com",
+"IOC table: Passkey security"
+],
+[
+"domain",
+"setupmypasskey.com",
+"IOC table: Passkey setup"
+],
+[
+"domain",
+"add-passkey.com",
+"IOC table: Passkey enrollment"
+],
+[
+"domain",
+"integratedsso.com",
+"IOC table: SSO and identity provider"
+],
+[
+"domain",
+"oktasession.com",
+"IOC table: SSO and identity provider"
+],
+[
+"domain",
+"keysyncos.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"oskeysync.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"oskeysetup.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"oskeyregister.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"syncmykey.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"myconnectkey.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"oskeyconnect.com",
+"IOC table: Key setup and synchronization"
+],
+[
+"domain",
+"validationsetupac.com",
+"IOC table: Account validation and setup"
+],
+[
+"domain",
+"portalsetuphub.com",
+"IOC table: Setup and verification"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/": {
+"iocs": [
+[
+"ip",
+"45.131.66.106",
+"IOC table: App Service probing and malicious ARM requests"
+],
+[
+"ip",
+"34.153.223.102",
+"IOC table: App Service probing"
+],
+[
+"ip",
+"64.20.53.230",
+"IOC table: App Service probing"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/": {
+"iocs": [
+[
+"domain",
+"corp.tripswithengine.com",
+"IOC table: Host name \u00b7 C2 host name"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/": {
+"iocs": [],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/": {
+"iocs": [
+[
+"domain",
+"adswre.cfd",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"trews.cfd",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"swedcorry.stefneyv.com",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"ojsuyw.niyari.org",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"bunstar.harej.si",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"adsaw.cfd",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+],
+[
+"domain",
+"sdfghj.rd-team.ru",
+"IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/": {
+"iocs": [
+[
+"domain",
+"etia.ca",
+"IOC table: Host for RedFlick MSI installer in January 2026 campaign"
+],
+[
+"ip",
+"103.245.231.248",
+"IOC table: Host for CosmicPulse downloader DLL in January 2026 campaign"
+],
+[
+"domain",
+"groy.cc",
+"IOC table: Host for RedFlick MSI installer in February 2026 campaign"
+],
+[
+"ip",
+"2.57.241.246",
+"IOC table: Host for CosmicPulse downloader DLL in February 2026 campaign"
+],
+[
+"domain",
+"gliderrompercycl.com",
+"IOC table: Host for CosmicPulse backdoor download"
+],
+[
+"domain",
+"muvb.net",
+"IOC table: Host for RedFlick MSI installer in February 2026 campaign"
+],
+[
+"ip",
+"89.125.209.168",
+"IOC table: Host for CosmicPulse downloader DLL in February 2026 campaign"
+],
+[
+"domain",
+"divekickspolic.org",
+"IOC table: Host for CosmicPulse backdoor download"
+],
+[
+"domain",
+"matjk.click",
+"IOC table: Host for RedFlick MSI installer in March 2026 campaign"
+],
+[
+"domain",
+"bpdaersa.click",
+"IOC table: Host for RedFlick MSI installer in March 2026 campaign"
+],
+[
+"ip",
+"103.245.231.79",
+"IOC table: Host for CosmicPulse downloader DLL in March 2026 campaign"
+],
+[
+"domain",
+"stuseamandesilt.org",
+"IOC table: Host for CosmicPulse backdoor download"
+],
+[
+"domain",
+"itechx.tel",
+"IOC table: Host for RedFlick MSI installer in April 2026 campaign"
+],
+[
+"ip",
+"45.84.59.66",
+"IOC table: Host for CosmicPulse downloader DLL in April 2026 campaign"
+],
+[
+"domain",
+"guach.net",
+"IOC table: Host for RedFlick PowerShell code installer in June 2026 campaign"
+],
+[
+"domain",
+"ruten.observer",
+"IOC table: Host for CosmicPulse downloader DLL in June-July 2026 campaigns"
+],
+[
+"domain",
+"byveo.org",
+"IOC table: Host for RedFlick PowerShell code installer in July 2026 campaign"
+],
+[
+"domain",
+"secure-dns-hub.com",
+"IOC table: Host for CosmicPulse downloader DLL in July 2026-current campaigns"
+],
+[
+"ip",
+"103.160.59.97",
+"IOC table: Host for CosmicPulse downloader DLL in July 2026 campaign"
+],
+[
+"domain",
+"qumel.link",
+"IOC table: Host for CosmicPulse downloader DLL in July 2026 campaign"
+],
+[
+"domain",
+"cyrna.top",
+"IOC table: Host for RedFlick MSI installer in August 2026 campaign"
+],
+[
+"domain",
+"drasw.club",
+"IOC table: Host for CosmicPulse downloader DLL in August 2026 campaign"
+],
+[
+"domain",
+"proton.me",
+"In the text: Star Blizzard also continues using email from free providers such as Proton @proton[.]me , particularly in Evilginx spear-phishing operations observed throughout 2026."
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/": {
+"iocs": [
+[
+"domain",
+"psk1zim.abrdns.com",
+"IOC table: Dynamic-DNS domain \u00b7 zimclient2 WebSocket (port 80, /agentws) and raw TCP (8080) command channel"
+],
+[
+"ip",
+"117.107.25.243",
+"IOC table: IPv4 (C2) \u00b7 Dropper C2, serving de.sh"
+],
+[
+"ip",
+"192.255.193.111",
+"IOC table: IPv4 (C2) \u00b7 Miner C2, serving the build_amd64 cryptominer staged as .kworker_sys"
+],
+[
+"domain",
+"transzimbra.linkpc.net",
+"IOC table: Dynamic-DNS domain \u00b7 Dropper C2, serving agent.sh/agent2.sh/zimdown2"
+],
+[
+"domain",
+"tls.psk1zim.abrdns.com",
+"IOC table: Domain (C2) \u00b7 zimclient2 TLS command channel (port 443)"
+],
+[
+"domain",
+"wslogzimbra.linkpc.net",
+"IOC table: WebSocket URL \u00b7 zimdown2 installer status reporting; separate from payload hosting"
+],
+[
+"ip",
+"45.32.30.235",
+"IOC table: IPv4:port (C2) \u00b7 Same C2 IP, different port; interactive session + mail-store staging"
+],
+[
+"ip",
+"193.42.40.135",
+"IOC table: IPv4:port (C2) \u00b7 Organization-wide reverse-shell/recon wave"
+],
+[
+"ip",
+"3.209.137.175",
+"IOC table: IPv4:port (C2) \u00b7 Secondary C2, rotated-infrastructure event"
+],
+[
+"domain",
+"oast.fun",
+"In the text: The operators first validated command execution using lightweight out-of-band probes to unique subdomains hosted on public interaction and collaborator services, including oast[.]f"
+],
+[
+"domain",
+"oast.online",
+"In the text: The operators first validated command execution using lightweight out-of-band probes to unique subdomains hosted on public interaction and collaborator services, including oast[.]f"
+],
+[
+"domain",
+"dnslog.pp.ua",
+"In the text: The operators first validated command execution using lightweight out-of-band probes to unique subdomains hosted on public interaction and collaborator services, including oast[.]f"
+],
+[
+"domain",
+"requestrepo.com",
+"In the text: The operators first validated command execution using lightweight out-of-band probes to unique subdomains hosted on public interaction and collaborator services, including oast[.]f"
+],
+[
+"domain",
+"bypass.eu.org",
+"In the text: The operators first validated command execution using lightweight out-of-band probes to unique subdomains hosted on public interaction and collaborator services, including oast[.]f"
+],
+[
+"domain",
+"aka.ms",
+"In the text: The actor then downloaded AzCopy from hxxps://aka[.]ms/downloadazcopy-v10-linux and invoked it with an operator-supplied Azure Blob SAS URL targeting wsweb03[.]blob[.]core[.]window"
+]
+],
+"read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/": {
+"iocs": [
+[
+"ip",
+"144.172.64.128",
+"IOC table: These IPs were seen performing Sign-ins and Graph API activity in customer environments of ConnectWise apps."
+],
+[
+"ip",
+"144.172.64.99",
+"IOC table: These IPs were seen performing Sign-ins and Graph API activity in customer environments of ConnectWise apps."
+],
+[
+"ip",
+"144.172.64.60",
+"IOC table: These IPs were seen performing Sign-ins and Graph API activity in customer environments of ConnectWise apps."
+],
+[
+"ip",
+"187.15.88.186",
+"IOC table: These IPs were seen accessing the Graph API via the compromised apps. However, since they are VPN IPs, it is transient and relevant for investigation on October"
+],
+[
+"ip",
+"187.15.90.217",
+"IOC table: These IPs were seen accessing the Graph API via the compromised apps. However, since they are VPN IPs, it is transient and relevant for investigation on October"
+],
+[
+"ip",
+"187.15.89.186",
+"IOC table: These IPs were seen accessing the Graph API via the compromised apps. However, since they are VPN IPs, it is transient and relevant for investigation on October"
+]
+],
+"read": "2026-10-23"
+}
+}
