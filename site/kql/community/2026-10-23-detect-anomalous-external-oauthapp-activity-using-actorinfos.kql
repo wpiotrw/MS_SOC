@@ -1,0 +1,22 @@
+// title: Detect anomalous external OAuthApp activity using ActorInfoString
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents, OAuthAppInfo
+// purpose: Detect anomalous external OAuthApp activity using ActorInfoString
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Detect%20anomalous%20external%20OAuthApp%20activity%20using%20ActorInfoString.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect anomalous external OAuthApp activity using ActorInfoString
+// https://techcommunity.microsoft.com/blog/microsoft-security-blog/introducing-actorinfostring-a-new-era-of-audit-log-accuracy-in-exchange-online/4408093
+
+CloudAppEvents
+| where Timestamp > ago(1h)
+| where Application == @"Microsoft Exchange Online"
+| where isnotempty(parse_json(RawEventData)["ActorInfoString"])
+| extend ActorInfoString = tostring(parse_json(RawEventData)["ActorInfoString"])
+| where UncommonForUser has "CountryCode" and UncommonForUser has "UserAgent"
+| where isnotempty(OAuthAppId)
+| join OAuthAppInfo on OAuthAppId
+| where AppOrigin == @"External"

@@ -1,0 +1,20 @@
+// title: AWS NoSuchBucket Check
+// date: 2026-10-23
+// product: 
+// tables: 
+// purpose: AWS NoSuchBucket Check
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/AWS%20NoSuchBucket%20Check.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// AWS NoSuchBucket Check
+
+// https://labs.watchtowr.com/8-million-requests-later-we-made-the-solarwinds-supply-chain-attack-look-amateur/
+
+AWSCloudTrail
+| where TimeGenerated > ago(90d)
+| where ErrorCode == "NoSuchBucketPolicy"
+| extend BucketName = tostring(parse_json(RequestParameters).bucketName)
+| extend Host = tostring(parse_json(RequestParameters).Host)
+| project TimeGenerated, BucketName, Host

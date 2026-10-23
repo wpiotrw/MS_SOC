@@ -1,0 +1,20 @@
+// title: Hunting IngressNightmare (CVSS 9.8)
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceProcessEvents
+// purpose: Hunting IngressNightmare (CVSS 9.8)
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Hunting%20IngressNightmare%20(CVSS%209.8).kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://www.wiz.io/blog/ingress-nginx-kubernetes-vulnerabilities
+
+let InternetFacing =
+DeviceInfo
+| where IsInternetFacing == true and isnotempty(PublicIP)
+| distinct DeviceId;
+DeviceProcessEvents
+| where InitiatingProcessCommandLine has "nginx-ingress"
+| summarize arg_max(TimeGenerated, *) by DeviceId
+| where DeviceId has_any(InternetFacing)

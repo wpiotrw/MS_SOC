@@ -1,0 +1,17 @@
+// title: ClickFix social engineering attack detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: ClickFix social engineering attack detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/ClickFix%20social%20engineering%20attack%20detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// ClickFix social engineering attack detection
+// https://www.proofpoint.com/us/blog/threat-insight/security-brief-clickfix-social-engineering-technique-floods-threat-landscape
+// Threat actors are increasingly using 'ClickFix' social engineering attacks to deploy malware. Proofpoint's latest analysis reveals multiple campaigns since March 2024, targeting popular software like Microsoft Word and Google Chrome. Malware such as AsyncRAT, Danabot, DarkGate, Lumma Stealer, and NetSupport have been identified.
+
+DeviceEvents
+| where (ActionType == "GetClipboardData" and InitiatingProcessFileName has "powershell.exe") or
+(InitiatingProcessCommandLine has "powershell" and InitiatingProcessCommandLine has "-enc")

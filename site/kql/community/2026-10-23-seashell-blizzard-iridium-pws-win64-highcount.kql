@@ -1,0 +1,32 @@
+// title: Seashell Blizzard (IRIDIUM)   PWS:Win64 HighCount
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceRegistryEvents, Event
+// purpose: Seashell Blizzard (IRIDIUM) PWS:Win64 HighCount
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Seashell%20Blizzard%20(IRIDIUM)%20-%20PWS:Win64-HighCount.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Seashell Blizzard (IRIDIUM) - PWS:Win64-HighCount
+// https://www.linkedin.com/posts/activity-7198555614627651584-z6C7/
+
+// Seashell Blizzard (IRIDIUM) is high-impact threat actor linked to the Russian Federation and conducts global activities on behalf of Russian Military Intelligence Unit 74455 (GRU). Below are some KQL detections to complement the Threat Analytics Report.
+
+// Persistance KQL Detection:
+
+DeviceRegistryEvents 
+| where ActionType == @"RegistryKeyCreated"
+| where RegistryValueData contains "win32msa.exe"
+
+
+// PWS:Win64/HighCount KQL Detection:
+
+DeviceFileEvents 
+| where SHA256 == "e62e418ffa87fdcfe14125ab8b429cb9d91a07088e13cd15423bd084c713564e" or FileName == "win32msa.exe"
+
+
+// MITRE ATT&CK Mapping
+
+// Registry Key Creation Detection: Maps to T1547.001.
+// File Event Detection: Maps to T1036.005.

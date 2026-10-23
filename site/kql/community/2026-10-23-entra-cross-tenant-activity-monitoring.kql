@@ -1,0 +1,26 @@
+// title: Entra Cross Tenant Activity Monitoring
+// date: 2026-10-23
+// product: 
+// tables: 
+// purpose: Entra Cross Tenant Activity Monitoring
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Entra%20Cross-Tenant%20Activity%20Monitoring.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Entra Cross-Tenant Activity Monitoring
+
+// The AADSpnSignInEventsBeta table is currently in beta and available for a limited time, enabling you to explore Microsoft Entra sign-in events. To collect and view activities in this table, a Microsoft Entra ID P2 license is required. This table, part of the advanced hunting schema, contains details about sign-ins by Microsoft Entra service principals and managed identities. Below is a custom KQL detection for DefenderXDR to monitor cross-tenant activity, which can help detect potential OAUTH app compromises. (E.g Midnight Blizzard Case)
+
+// Entra Cross-Tenant Activity (Potential App Compromise)
+// Please set your Entra Home Tenant ID
+
+let EntraHomeTenantID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+AADSpnSignInEventsBeta
+| where Timestamp > ago (1h)
+| where ResourceTenantId != EntraHomeTenantID
+| project Timestamp, ReportId, Application, ApplicationId, ServicePrincipalName, ServicePrincipalId, ResourceTenantId, IPAddress, Country
+
+// After you obtained the target tenant ID
+// Use Microsoft Graph to gather more info on the tenant ID
+// https://learn.microsoft.com/en-us/graph/api/tenantrelationship-findtenantinformationbytenantid?view=graph-rest-1.0&tabs=http

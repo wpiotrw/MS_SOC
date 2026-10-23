@@ -1,0 +1,30 @@
+// title: The Hunt for Top 10 Self Hosted AI
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, ExposureGraphNodes
+// purpose: The Hunt for Top 10 Self Hosted AI
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/The%20Hunt%20for%20Top%2010%20Self%20Hosted%20AI.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// The Hunt for Top 10 Self Hosted AI
+
+// https://www.wiz.io/state-of-ai-in-the-cloud
+
+let Top10AIModels = dynamic(["BERT","DistilBERT","RoBERTa","T5","Llama","MPNet","GPT-2",
+"XLM-RoBERTa","CLIP","BART","Mistral","DeBERTa-v2","Qwen2"]);
+let LLM_ModelName =
+ExposureGraphNodes
+| where NodeLabel == "baseModel"
+| extend ModelName = parse_json(NodeProperties)["rawData"]["aiModelMetadata"]["modelName"]
+| where ModelName has_any(Top10AIModels)
+| project ModelName;
+DeviceFileEvents
+| where Timestamp > ago (30d)
+| where InitiatingProcessVersionInfoFileDescription has_any (LLM_ModelName) 
+or InitiatingProcessFolderPath has_any (LLM_ModelName)
+or InitiatingProcessFileName has_any (LLM_ModelName)
+or InitiatingProcessVersionInfoFileDescription has_any (Top10AIModels) 
+or InitiatingProcessFolderPath has_any (Top10AIModels)
+or InitiatingProcessFileName has_any (Top10AIModels)

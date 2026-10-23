@@ -1,0 +1,20 @@
+// title: Outlook New Requirements for High‐Volume Senders
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Outlook New Requirements for High‐Volume Senders
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Outlook%20New%20Requirements%20for%20High‐Volume%20Senders.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://techcommunity.microsoft.com/blog/microsoftdefenderforoffice365blog/strengthening-email-ecosystem-outlook%e2%80%99s-new-requirements-for-high%e2%80%90volume-senders/4399730
+
+EmailEvents
+| where Timestamp > ago(3d) // Enforcement started on 5th May 2025
+| where EmailDirection == "Inbound"
+| where DeliveryAction == "Blocked"
+| where DeliveryLocation == @"Failed"
+| where SenderFromAddress == @"postmaster@outlook.com"
+| summarize RejectionCount=count() by RecipientEmailAddress // Impacted Users
+| sort by RejectionCount desc

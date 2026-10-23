@@ -1,0 +1,39 @@
+// title: Insider Threat   Monitor sensitive bulk download data email to external
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: AuditLogs, EmailAttachmentInfo
+// purpose: Insider Threat Monitor sensitive bulk download data email to external
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Insider%20Threat%20-%20Monitor%20sensitive%20bulk%20download%20data%20email%20to%20external%20.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Insider Threat - Monitor sensitive bulk download data email to external 
+// https://www.linkedin.com/posts/activity-7193119880718520320-RO72/
+
+// This scheduled hourly Sentinel analytic rule is particular useful in detecting O365/Azure/Entra admins performing bulk download of users/groups/devices information from portal and sending that piece of information out to external via email.
+
+let BulkDataFileNames =
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Download group members - finished (bulk)" or  OperationName == "Download devices - finished (bulk)" or  OperationName == "Download service principals - finished (bulk)" or  OperationName == "started (bulk)"
+| where ResultDescription contains "Filename"
+| extend AccountUPN = tostring(InitiatedBy.user.userPrincipalName)
+| parse ResultDescription with * "Filename:" Filename ". Activity" Blank
+| project Filename;
+EmailAttachmentInfo
+| where TimeGenerated > ago(1h)
+| where FileName has_any(BulkDataFileNames)
+| where RecipientEmailAddress !contains "contoso.com" // Corporate Domain
+
+
+// MITRE ATT&CK Mapping
+
+// Based on the operations and data involved, the following MITRE ATT&CK techniques are relevant:
+
+// Data from Information Repositories (T1213):
+// The query identifies bulk downloads of group members, devices, and service principals, which aligns with adversaries accessing data from information repositories1.
+// Exfiltration Over Web Service (T1567):
+// The query checks for email attachments sent outside the corporate domain, indicating potential data exfiltration via email2.
+// Automated Collection (T1119):
+// The use of automated scripts to download bulk data suggests automated collection techniques3.

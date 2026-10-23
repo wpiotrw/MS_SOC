@@ -1,0 +1,21 @@
+// title: Using GraphPreConsentExplorer data for Microsoft Graph Threat Hunting
+// date: 2026-10-23
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: Using GraphPreConsentExplorer data for Microsoft Graph Threat Hunting
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Using%20GraphPreConsentExplorer%20data%20for%20Microsoft%20Graph%20Threat%20Hunting.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Using GraphPreConsentExplorer data for Microsoft Graph Threat Hunting
+
+let GraphPreConsent=externaldata(Name:string, Client_Id:string, Enabled:string, Graph_api_permissions:string, 
+Auth_code:string, Device_code:string, Brk_refresh:string, Foci:string, Reply_addresses:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/GraphPreConsent.csv'];
+//
+// Microsoft Graph Threat Hunting
+// 
+MicrosoftGraphActivityLogs
+| join GraphPreConsent on $left.AppId == $right.Client_Id
+// Threat hunting Query

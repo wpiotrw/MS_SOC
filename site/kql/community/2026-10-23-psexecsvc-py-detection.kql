@@ -1,0 +1,28 @@
+// title: psexecsvc.py detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileEvents
+// purpose: psexecsvc.py detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/psexecsvc.py%20detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detecting psexecsvc.py
+// https://sensepost.com/blog/2025/psexecing-the-right-way-and-why-zero-trust-is-mandatory/
+// https://github.com/sensepost/susinternals
+
+let QueryPeriod = 1h;
+let DeviceWithPSEXECSVC =
+DeviceFileEvents
+| where Timestamp > ago(QueryPeriod)
+| where FolderPath has "\\ADMIN$"
+| where ActionType == "FileCreated"
+| where FileName has "PSEXECSVC"
+| project DeviceId;
+DeviceEvents
+| where Timestamp > ago(QueryPeriod)
+| where ActionType == "ServiceInstalled"
+| where parse_json(AdditionalFields)["ServiceName"] has "PSEXECSVC" 
+or InitiatingProcessVersionInfoOriginalFileName == "PSEXECSVC1.9.exe"
+| where DeviceId has_any(DeviceWithPSEXECSVC)

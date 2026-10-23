@@ -1,0 +1,21 @@
+// title: AppSheet.com abused to send Phish
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: AppSheet.com abused to send Phish
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/AppSheet.com%20abused%20to%20send%20Phish.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// AppSheet.com abused to send Phish
+// https://blog.knowbe4.com/impersonating-meta-powered-by-appsheet-a-rising-phishing-campaign-exploits-trusted-platforms-to-evade-detection
+
+let MonitorKeywords = dynamic(["intellectual property", "campaign", "infringement", "disabled"]);
+EmailEvents
+| where TimeGenerated > ago(90d)
+| where EmailDirection == "Inbound"
+| where DeliveryAction != "Blocked"
+| where SenderFromAddress == "noreply@appsheet.com"
+| where SenderDisplayName has "facebook" or SenderDisplayName has "meta"
+| where Subject has_any(MonitorKeywords)

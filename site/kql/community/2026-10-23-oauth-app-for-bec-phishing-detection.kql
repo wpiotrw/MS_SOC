@@ -1,0 +1,17 @@
+// title: OAuth App for BEC & Phishing Detection
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: OAuthAppInfo
+// purpose: OAuth App for BEC & Phishing Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/OAuth%20App%20for%20BEC%20&%20Phishing%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// The new OAuthAppInfo table now included in DefenderXDR, enabling SecOps to monitor potential rogue OAuth app activity related to BEC and phishing threats. The custom hourly DefenderXDR detection outlined below ensures comprehensive detection coverage.
+
+OAuthAppInfo
+| where AddedOnTime > ago(1h)
+| where AppOrigin == "External"
+| where VerifiedPublisher == "{}"
+| where Permissions has "mail.readwrite"

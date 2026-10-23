@@ -1,0 +1,36 @@
+// title: EchoSpoofing
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: CloudAppEvents, EmailEvents
+// purpose: EchoSpoofing
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/EchoSpoofing.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//By leveraging Defender threat intelligence data to first identify abused Proofpoint email gateways and correlating this with emails that have passed authentication checks (SPF/DKIM/DMARC) from these gateways, you can quickly spot abnormal inbound email counts from legitimate non-business partner domains by reviewing the email statistics. (E.g Disney.com)
+
+let HighRiskProofpointEmailGateways =
+CloudAppEvents 
+| where ActionType == @"TIMailData-Inline"
+| where RawEventData has "pphosted.com" or ISP == @"proofpoint inc."
+| extend SenderIP = tostring(RawEventData.SenderIp)
+| distinct SenderIP;
+EmailEvents
+| where SenderIPv4 has_any(HighRiskProofpointEmailGateways)
+| extend SenderInfo = geo_info_from_ip_address(SenderIPv4)
+| extend AuthDetail = parse_json(AuthenticationDetails)
+| where AuthDetail.SPF=="pass" and AuthDetail.DKIM=="pass" and AuthDetail.DMARC=="pass"
+| summarize Count=count() by SenderFromDomain
+| sort by Count desc
+
+// https://labs.guard.io/echospoofing-a-massive-phishing-campaign-exploiting-proofpoints-email-protection-to-dispatch-3dd6b5417db6
+
+// MITRE ATT&CK Mapping
+
+// The KQL code is designed to detect potentially malicious email activities by focusing on high-risk Proofpoint email gateways and ensuring the emails pass key authentication checks. The associated MITRE ATT&CK techniques include:
+
+// T1071.001: Application Layer Protocol - Web Protocols
+// T1071.003: Application Layer Protocol - Email Protocols
+// T1589.002: Gather Victim Network Information - DNS
+// T1078.003: Valid Accounts - Cloud Accounts

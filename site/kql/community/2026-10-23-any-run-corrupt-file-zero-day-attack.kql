@@ -1,0 +1,23 @@
+// title: Any.Run Corrupt File Zero Day Attack
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: Any.Run Corrupt File Zero Day Attack
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Any.Run%20Corrupt%20File%20Zero%20Day%20Attack.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Any.Run Corrupt File Zero Day Attack
+
+// https://www.linkedin.com/posts/0x534c_httpsxcomanyrunappstatus1861024272463909018-activity-7269357711639633920-4xZK/
+
+// 𝗖𝘂𝘀𝘁𝗼𝗺 𝗠𝗗𝗢 𝗞𝗤𝗟 𝗗𝗲𝘁𝗲𝗰𝘁𝗶𝗼𝗻 𝗳𝗼𝗿 𝗽𝗼𝘁𝗲𝗻𝘁𝗶𝗮𝗹 𝗭𝗘𝗥𝗢-𝗗𝗔𝗬 𝗔𝘁𝘁𝗮𝗰𝗸:
+
+EmailAttachmentInfo
+| where Timestamp> ago(1h)
+| where FileName endswith ".docx"
+| where FileType == "zip" or FileType == "unknown;"
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound"
+| where DeliveryAction == "Delivered"

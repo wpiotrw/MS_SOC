@@ -1,0 +1,20 @@
+// title: Blob URI Unique Domain Count
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Blob URI Unique Domain Count
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Blob%20URI%20Unique%20Domain%20Count.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Blob URI Unique Domain Count
+
+DeviceFileEvents
+| where TimeGenerated > ago(90d)
+| where FileOriginUrl startswith "blob:https://"
+| extend dURL = trim_start("blob:https", FileOriginUrl)
+| extend dURL2 = strcat("https" , dURL)
+| extend Domain = tostring(parse_url(dURL2).Host)
+| summarize Count=count() by Domain
+| sort by Count desc

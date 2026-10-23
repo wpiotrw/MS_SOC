@@ -1,0 +1,19 @@
+// title: Golden Chickens TerraLogger Detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Golden Chickens TerraLogger Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Golden%20Chickens%20TerraLogger%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://www.recordedfuture.com/research/terrastealerv2-and-terralogger
+
+DeviceFileEvents
+| where Timestamp > ago(1h)
+| where ActionType == "FileCreated"
+| where FileName endswith ".txt"
+| where FolderPath startswith "c:\\programdata\\"
+| where InitiatingProcessCommandLine has "regsvr32" and
+InitiatingProcessCommandLine has ".ocx"

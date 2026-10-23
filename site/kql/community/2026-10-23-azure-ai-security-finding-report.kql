@@ -1,0 +1,18 @@
+// title: Azure AI Security Finding Report
+// date: 2026-10-23
+// product: Defender XDR
+// tables: ExposureGraphEdges
+// purpose: Azure AI Security Finding Report
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Azure%20AI%20Security%20Finding%20Report.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Azure AI Security Finding Report
+
+ExposureGraphEdges 
+| where TargetNodeCategories[0] == "AI"
+| where SourceNodeCategories[1] == "security_finding"
+| extend FindingDate = parse_json(EdgeProperties)["rawData"]["publishedDate"]
+| extend SecurityRiskLevel = parse_json(EdgeProperties)["rawData"]["risk"]["riskLevel"]
+| project FindingDate, SecurityRiskLevel, TargetNodeName, SourceNodeName

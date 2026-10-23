@@ -1,0 +1,33 @@
+// title: Hunting Malicious Copilot Agent
+// date: 2026-10-23
+// product: Sentinel
+// tables: BehaviorAnalytics
+// purpose: Hunting Malicious Copilot Agent
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Hunting%20Malicious%20Copilot%20Agent.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Hunting Malicious Copilot Agent
+
+// The "Copilot Agent" was a highlight at the recent Microsoft Ignite event. This AI-powered assistant is designed to help with a variety of tasks, such as answering questions, providing information, assisting with productivity tasks, and engaging in meaningful conversations.
+
+// Consider a scenario where a user account is compromised, and a threat actor uses this account to create a Copilot Agent on a highly sensitive SharePoint site that the compromised user has access to. The threat actor could then exfiltrate data by accessing the private link created by the Copilot Agent, slowly extracting information as needed by providing the relevant prompts.
+
+// To address such threats, I have created a KQL detection using Sentinel Behaviour Analytics and Power Platform solutions to monitor any potential malicious Copilot Agent creation.
+
+let HighRiskUsers =
+BehaviorAnalytics
+| where InvestigationPriority > 0
+| where UsersInsights.BlastRadius == "High"
+| where ActivityType == "LogOn"
+| where ActionType == "ResourceAccess"
+| distinct UserPrincipalName;
+PowerPlatformAdminActivity
+| where EventOriginalType in ("BotCreate", "BotComponentCreate", "BotUpdateOperation-BotPublish")
+| where ActorName has_any(HighRiskUsers)
+
+
+
+
+// MITRE ATT&CK

@@ -1,0 +1,34 @@
+// title: Entra ID Administrative Role (AD Sync)
+// date: 2026-10-23
+// product: Defender for Identity
+// tables: IdentityInfo
+// purpose: Entra ID Administrative Role (AD Sync)
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Entra%20ID%20Administrative%20Role%20(AD-Sync).kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Entra ID Administrative Role (AD-Sync)
+
+IdentityInfo
+| where Timestamp > ago(30d)
+| where AssignedRoles != ""
+| mv-expand AssignedRoles
+| extend EntraAdminRole = tostring(AssignedRoles)
+| where OnPremSid != ""
+| distinct EntraAdminRole, AccountUpn
+| where AccountUpn != ""
+| sort by EntraAdminRole asc
+
+// MITRE ATT&CK Mapping
+
+// Based on the operations and objectives of the KQL code, the following MITRE ATT&CK techniques are relevant:
+
+// T1078 - Valid Accounts:
+// The query filters and expands assigned roles, which can help identify the use of valid accounts with specific roles.
+// T1087 - Account Discovery:
+// The query retrieves distinct combinations of roles and UPNs, which aligns with discovering accounts and their associated roles.
+// T1071 - Application Layer Protocol:
+// Filtering by OnPremSid and AccountUpn can help detect unusual or unauthorized use of application layer protocols for accessing resources.
+// T1556 - Modify Authentication Process:
+// The query’s focus on assigned roles and on-premises SIDs can help detect modifications to authentication processes or roles.

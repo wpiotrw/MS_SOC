@@ -1,0 +1,28 @@
+// title: Hunting DragonForce with ANY.RUN Threat Intelligence
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, EmailAttachmentInfo
+// purpose: Hunting DragonForce with ANY.RUN Threat Intelligence
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Hunting%20DragonForce%20with%20ANY.RUN%20Threat%20Intelligence.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Hunting DragonForce with ANY.RUN Threat Intelligence
+
+let WeeklyOSINT=externaldata(Type:string, Value:string, Source:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/DragonForce_AnyRun.csv'];
+let OSINTSHA256 =
+WeeklyOSINT
+| where Type == "hash_sha256"
+| project Value;
+let ScanEmailAttachments =
+EmailAttachmentInfo
+| where Timestamp > ago(30d)
+| where SHA256 has_any(OSINTSHA256);
+let ScanEndpointFiles =
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| where ActionType == "FileCreated"
+| where SHA256 has_any(OSINTSHA256);
+union ScanEmailAttachments, ScanEndpointFiles

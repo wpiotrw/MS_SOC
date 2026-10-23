@@ -1,0 +1,20 @@
+// title: Suspicious CLI Obfuscation
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Suspicious CLI Obfuscation
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Suspicious%20CLI%20Obfuscation.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Goal is to catch powershell and bash obfuscation techniques. Mostly powershell.
+// If the intention is to use this as a detection, it will most likely need tuned to your environment but it has been succesful in mine though multiple tests.
+// If you have questions or reccomendations, please email me at eatinsundip@ccaves.net
+
+DeviceProcessEvents
+| where ProcessCommandLine matches regex @"'[^']+'\s*\+\s*'[^']+'" or //Checking for 'A'+'B' style obfuscation
+    ProcessCommandLine matches regex @'"[^"]+"\s*\+\s*"[^"]+"' or //Checking for "A"+"B" style obfuscation
+    ProcessCommandLine matches regex @".Replace\s*\(" // Checking for .replace obfuscation
+| project Timestamp, AccountName, InitiatingProcessFileName, ProcessCommandLine, DeviceId, ReportId
+| sort by Timestamp desc

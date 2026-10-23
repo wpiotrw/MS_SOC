@@ -1,0 +1,39 @@
+// title: Part 1: Custom DefenderXDR KQL detection for fake CrowdStrike email domain
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Part 1: Custom DefenderXDR KQL detection for fake CrowdStrike email domain
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Part%201:%20Custom%20DefenderXDR%20KQL%20detection%20for%20fake%20CrowdStrike%20email%20domain.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Part 1: Custom DefenderXDR KQL detection for fake CrowdStrike email domain
+// https://www.linkedin.com/posts/activity-7220616094514917377-a-lR/
+
+// Configure as Detect & Purge:
+
+EmailEvents
+| where Timestamp > ago(1h)
+| where EmailDirection == "Inbound"
+| where LatestDeliveryAction == "Delivered"
+| where SenderFromDomain contains "crowdstrike"
+| where SenderFromDomain !endswith "crowdstrike.com" and
+SenderFromDomain !endswith "litmos.com" and
+SenderFromDomain !endswith "zoom.us"
+
+// MITRE ATT&CK Mapping
+
+// Based on the filtering criteria, the following MITRE ATT&CK techniques are relevant:
+
+// Phishing (T1566):
+// T1566.001: Spearphishing Attachment
+// T1566.002: Spearphishing Link
+// T1566.003: Spearphishing via Service
+// The query is looking for inbound emails that might be part of a phishing campaign, especially those masquerading as legitimate emails from known domains but with slight variations.
+// Impersonation (T1071):
+// T1071.003: Application Layer Protocol
+// The query checks for emails from domains that contain “crowdstrike” but are not from the legitimate “crowdstrike.com” domain, indicating potential impersonation attempts.
+// Command and Control (T1071):
+// T1071.001: Web Protocols
+// The query might help identify emails that could be part of a command and control communication setup, especially if the emails are from suspicious domains.

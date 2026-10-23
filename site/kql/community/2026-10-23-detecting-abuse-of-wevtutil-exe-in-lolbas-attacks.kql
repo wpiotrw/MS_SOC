@@ -1,0 +1,22 @@
+// title: Detecting Abuse of Wevtutil.exe in LOLBAS Attacks
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Detecting Abuse of Wevtutil.exe in LOLBAS Attacks
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Detecting%20Abuse%20of%20Wevtutil.exe%20in%20LOLBAS%20Attacks.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detecting Abuse of Wevtutil.exe in LOLBAS Attacks
+
+// https://denwp.com/unexplored-lolbas-technique-wevtutil-exe/
+// The article discusses how attackers exploit the Windows event log utility, wevtutil.exe, in Living Off the Land Binaries and Scripts (LOLBAS) attacks. This tool, typically used for managing event logs, can be misused to export, query, or clear logs, aiding in data exfiltration and evasion of detection. By leveraging wevtutil.exe, attackers can hide their tracks and extract sensitive information, making it a potent tool for post-exploitation activities. Enhanced monitoring and audit policies are recommended to mitigate these risks. I will be sharing a KQL to detect this type of abuse.
+
+DeviceProcessEvents 
+| where TimeGenerated > ago(1h)
+| where FileName == "wevtutil.exe"
+| where ProcessTokenElevation == "TokenElevationTypeFull" or 
+InitiatingProcessCommandLine in ("cl", "qe")
+
+// MITRE ATT&CK

@@ -1,0 +1,27 @@
+// title: Hunting Aqua Blizzards
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting Aqua Blizzards
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Hunting%20Aqua%20Blizzards.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 𝗔𝗰𝘁𝗶𝘃𝗶𝘁𝘆 𝗣𝗿𝗼𝗳𝗶𝗹𝗲: 𝗔𝗾𝘂𝗮 𝗕𝗹𝗶𝘇𝘇𝗮𝗿𝗱 𝗶𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁𝗶𝗻𝗴 𝗖𝗹𝗼𝘂𝗱𝗳𝗹𝗮𝗿𝗲 𝗧𝘂𝗻𝗻𝗲𝗹 𝘀𝗲𝗿𝘃𝗶𝗰𝗲 𝘁𝗼 𝗰𝗼𝗻𝗰𝗲𝗮𝗹 𝗖2
+// https://security.microsoft.com/threatanalytics3/48213822-f322-424f-9f0d-c619cefad8c9/analystreport
+
+// ⏺️T1572 Protocol Tunneling | Aqua Blizzard uses Cloudflare Tunnel to tunnel network communications to and from a target system within a separate protocol to avoid detection or network filtering
+// ⏺️T1102 Web Service | Aqua Blizzard uses Cloudflare services for C2 communications
+// ⏺️T1090 Proxy | Aqua Blizzard uses Cloudflare Tunnel to obfuscate the host IP address of HTTP GET requests for malicious scripts/payloads
+
+// 𝗞𝗤𝗟 𝘁𝗼 𝗰𝗵𝗲𝗰𝗸 𝗳𝗼𝗿 𝗔𝗾𝘂𝗮 𝗕𝗹𝗶𝘇𝘇𝗮𝗿𝗱 𝗮𝗰𝘁𝗶𝘃𝗶𝘁𝗶𝗲𝘀:
+
+let AquaBlizzardIPs = dynamic(["167.71.193.19","146.190.129.82","137.184.50.238","146.190.173.21","143.244.162.106","128.199.170.197","147.182.245.94","167.99.73.109","139.59.227.7","159.65.226.187","137.184.86.236","137.184.142.176","146.190.33.206","68.183.185.84","68.183.226.96","157.230.83.122","67.205.171.195","139.59.236.13","147.182.235.190","146.190.129.82"]);
+DeviceNetworkEvents
+| where TimeGenerated > ago(90d) 
+| where ActionType == @"HttpConnectionInspected"
+| extend ConnectInfo = todynamic(AdditionalFields)
+| extend HttpHost = ConnectInfo.host
+| where RemoteIP has_any(AquaBlizzardIPs)
+| project TimeGenerated, DeviceId, DeviceName, LocalIP, RemoteIP, HttpHost, AdditionalFields, ConnectInfo

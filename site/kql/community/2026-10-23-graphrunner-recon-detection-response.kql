@@ -1,0 +1,30 @@
+// title: GraphRunner Recon Detection & Response
+// date: 2026-10-23
+// product: Entra
+// tables: SigninLogs
+// purpose: GraphRunner Recon Detection & Response
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/GraphRunner%20Recon%20Detection%20&%20Response.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// GraphRunner Recon Detection & Response
+// https://www.linkedin.com/posts/activity-7186279751127334912-zjwN/
+
+// We create a Sentinel NRT rule to detect the "Get-GraphTokens" and perform an automation rule of revoking the token. 🔥 
+
+SigninLogs
+| where AuthenticationProtocol == "deviceCode"
+| where ResourceDisplayName == "Microsoft Graph"
+| extend DeviceName = tostring(DeviceDetail.displayName)
+| extend TrustType = tostring(DeviceDetail.trustType)
+| where TrustType != "Hybrid Azure AD joined" and TrustType != "Azure AD joined"
+
+// MITRE ATT&CK Mapping
+
+// Based on the query, the following MITRE ATT&CK techniques are relevant:
+
+// T1078 - Valid Accounts: The query focuses on authentication logs, which can help detect the use of valid accounts for unauthorized access.
+// T1078.004 - Cloud Accounts: Specifically, the query targets Azure AD logs, which are related to cloud accounts.
+// T1078.001 - Default Accounts: By filtering out specific trust types, the query might help identify the use of default or less secure accounts.
+// T1556 - Modify Authentication Process: The use of “deviceCode” as an authentication protocol could be related to attempts to modify or bypass standard authentication processes.

@@ -1,0 +1,19 @@
+// title: Suspicious OAuth applications used to retrieve and send emails
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: OAuthAppInfo
+// purpose: Suspicious OAuth applications used to retrieve and send emails
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Suspicious%20OAuth%20applications%20used%20to%20retrieve%20and%20send%20emails.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Suspicious OAuth applications used to retrieve and send emails
+// https://security.microsoft.com/threatanalytics3/ba008625-320a-4c71-b996-977049575144/analystreport
+
+let MonitoredScope = dynamic(["Files.ReadWrite","IMAP.AccessAsUser.All","Mail.Read","Mail.ReadBasic","Mail.ReadWrite","Mail.Send","POP.AccessAsUser.All","SMTP.Send","User.Read"]);
+OAuthAppInfo
+| where AddedOnTime > ago(1h)
+| where AppOrigin == "External"
+| where VerifiedPublisher == "{}"
+| where Permissions has_any(MonitoredScope)

@@ -1,0 +1,19 @@
+// title: KQLWiz PDF NTLM Leak Detector
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents
+// purpose: KQLWiz PDF NTLM Leak Detector
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/KQLWiz%20PDF%20NTLM%20Leak%20Detector.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// KQLWiz PDF NTLM Leak Detector
+// https://cybersecuritynews.com/zero-day-vulnerability-in-pdf-files-leaking-ntlm-data-in-adobe-foxit-reader/
+
+DeviceFileEvents 
+| where ActionType == "FileCreated" and FileName endswith ".pdf"
+| where parse_json(AdditionalFields)["FileType"] == 'PDF'
+| where InitiatingProcessUniqueId != 0
+| join DeviceNetworkEvents on InitiatingProcessUniqueId
+| where RemotePort == "445" and Protocol == "Tcp"

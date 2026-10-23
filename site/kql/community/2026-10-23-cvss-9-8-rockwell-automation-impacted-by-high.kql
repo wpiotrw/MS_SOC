@@ -1,0 +1,16 @@
+// title: CVSS 9.8 Rockwell Automation Impacted by High Severity log4net Vulnerability
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: CVSS 9.8 Rockwell Automation Impacted by High Severity log4net Vulnerability
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/CVSS%209.8%20Rockwell%20Automation%20Impacted%20by%20High-Severity%20log4net%20Vulnerability.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://securityonline.info/9-8-cvss-score-rockwell-automation-impacted-by-high-severity-log4net-vulnerability/
+// https://www.rockwellautomation.com/en-us/trust-center/security-advisories/advisory.SD1728.html
+
+DeviceInfo
+| where Vendor has "rockwell"
+| summarize arg_max(TimeGenerated, *) by DeviceId

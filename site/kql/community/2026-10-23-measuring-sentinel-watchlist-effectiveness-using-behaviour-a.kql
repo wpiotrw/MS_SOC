@@ -1,0 +1,26 @@
+// title: Measuring Sentinel WatchList Effectiveness using Behaviour Analytics
+// date: 2026-10-23
+// product: Sentinel
+// tables: BehaviorAnalytics
+// purpose: Measuring Sentinel WatchList Effectiveness using Behaviour Analytics
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Measuring%20Sentinel%20WatchList%20Effectiveness%20using%20Behaviour%20Analytics.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Measuring Sentinel WatchList Effectiveness using Behaviour Analytics
+
+// Watchlists in Microsoft Sentinel enable you to correlate data from your provided sources with events in your Sentinel environment. For instance, you can create a watchlist containing high-value assets, terminated employees, or service accounts. These watchlists can be utilized in searches, detection rules, threat hunting, and response playbooks. If Sentinel UEBA is enabled, running the following KQL will generate a dashboard chart showing the number of watchlist triggers over the past three months. Notable spikes in watchlist hits can offer valuable insights and may indicate the need for further action.
+
+BehaviorAnalytics
+| where TimeGenerated > ago(90d)
+| where ActivityType == "FailedLogOn" and EventSource == "Azure AD"
+| where DevicesInsights has "ThreatIntelIndicatorType"
+| extend ThreatType = tostring(DevicesInsights.ThreatIntelIndicatorType)
+| where ThreatType has "WatchList"
+| summarize WatchListHits=count() by bin(TimeGenerated,1d)
+
+// Mitre ATT&CK Mapping
+// Cloud Service Provider (T1078.004)
+// Brute Force (T1110)
+// Threat Intelligence (T1595)

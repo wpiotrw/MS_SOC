@@ -1,0 +1,33 @@
+// title: Hunting chrome extension with hidden tracking
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Hunting chrome extension with hidden tracking
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Hunting%20chrome%20extension%20with%20hidden%20tracking.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// KQL 1 - First Version
+let SecureAnnex=externaldata(extension_id:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/SecureAnnexIOCs.csv'];
+let MID =
+SecureAnnex
+| project extension_id;
+DeviceFileEvents
+| where ActionType == "FileCreated" or ActionType == "FileModified" or ActionType == "FileRenamed"
+| where FileName endswith ".crx"
+| where FileName has_any(MID)
+
+// KQL 2 - Optimized Version
+
+let SecureAnnex=externaldata(extension_id:string, extension_name:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/SecureAnnexIOCs.csv']
+with (format='csv', ignoreFirstRecord=true);
+DeviceFileEvents
+| where ActionType == "FileCreated" or ActionType == "FileModified"
+| where FileName endswith ".crx"
+| extend ExtensionIDVersion = tostring(split(FileName, '.')[0])
+| extend ExtensionID = tolower(split(ExtensionIDVersion, '_')[0])
+| summarize arg_max(TimeGenerated, *) by DeviceName, ExtensionID
+| join SecureAnnex on $left.ExtensionID == $right.extension_id

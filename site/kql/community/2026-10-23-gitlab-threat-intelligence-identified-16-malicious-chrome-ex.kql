@@ -1,0 +1,23 @@
+// title: GitLab Threat Intelligence Identified 16 Malicious Chrome extensions
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: GitLab Threat Intelligence Identified 16 Malicious Chrome extensions
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/GitLab%20Threat%20Intelligence%20Identified%2016%20Malicious%20Chrome%20extensions.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// GitLab Threat Intelligence Identified 16 Malicious Chrome extensions
+
+// https://gitlab-com.gitlab.io/gl-security/security-tech-notes/threat-intelligence-tech-notes/malicious-browser-extensions-feb-2025/
+
+let GitLabTI=externaldata(MaliciousChromeID:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/GitLabTI-MaliciousChromeExtID.csv'];
+let MID =
+GitLabTI
+| project MaliciousChromeID;
+DeviceFileEvents
+| where ActionType == "FileCreated" or ActionType == "FileModified" or ActionType == "FileRenamed"
+| where FileName endswith ".crx"
+| where FileName has_any(MID)

@@ -1,0 +1,32 @@
+// title: M365 Copilot Chat SafeLink Monitoring
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: CloudAppEvents, UrlClickEvents
+// purpose: M365 Copilot Chat SafeLink Monitoring
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/M365%20Copilot%20Chat%20SafeLink%20Monitoring.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// M365 Copilot Chat SafeLink Monitoring
+// https://admin.microsoft.com/AdminPortal/home?#/MessageCenter/:/messages/MC1013453
+
+let M365CopilotChatURL =
+CloudAppEvents
+| where Timestamp > ago(1h)
+| where ActionType == @"CopilotInteraction"
+| extend UserID = tostring(RawEventData.UserId)
+| extend CopilotData = todynamic(RawEventData.CopilotEventData)
+| extend CopilotAccessResources = (CopilotData.AccessedResources)
+| extend CopilotAppHost = tostring(CopilotData.AppHost)
+| extend CopilotContexts = tostring(CopilotData.Contexts)
+| extend CopilotType = tostring(CopilotData.Type)
+| extend CopilotMessageIds = tostring(CopilotData.MessageIds)
+| extend CopilotThreadId = tostring(CopilotData.ThreadId)
+| mv-expand CopilotAccessResources
+| where CopilotAppHost == "Bing" and isnotempty(CopilotAccessResources.SiteUrl)
+| project CopilotAccessResources.SiteUrl;
+UrlClickEvents
+| where Timestamp > ago(1h)
+| where ActionType == "ClickBlocked"
+| where Url has_any(M365CopilotChatURL)

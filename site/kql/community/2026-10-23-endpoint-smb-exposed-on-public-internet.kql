@@ -1,0 +1,33 @@
+// title: Endpoint SMB exposed on Public Internet
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Endpoint SMB exposed on Public Internet
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Endpoint%20SMB%20exposed%20on%20Public%20Internet.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Endpoint SMB exposed on Public Internet
+
+// Actor Profile: Seashell Blizzard
+
+// Seashell Blizzard (IRIDIUM) is a Russian cyber threat actor linked to the GRU. Active since 2013, they have conducted high-profile cyber attacks, including KillDisk, NotPetya, and FoxBlade. Their operations target critical infrastructure and support geopolitical objectives, using tools like Cobalt Strike and DarkCrystalRAT for espionage and sabotage.
+
+// The following list has some of the vulnerabilities this group has exploited recently.
+
+// CVE-2017-0143-Microsoft Server Message Block 1.0 (SMBv1)
+// CVE-2017-0145-Microsoft Server Message Block 1.0 (SMBv1)
+
+// I have provided a KQL detection for Endpoint SMB exposed on Public Internet for defenders to tighten their attack surface area against IRIDIUM
+
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where ActionType == @"InboundConnectionAccepted"
+| where LocalPort == "445"
+| where RemoteIPType == @"Public"
+| where not (ipv4_is_private(LocalIP))
+
+
+
+// Mitre ATT&CK

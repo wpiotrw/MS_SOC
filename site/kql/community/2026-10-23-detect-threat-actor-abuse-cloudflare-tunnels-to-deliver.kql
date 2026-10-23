@@ -1,0 +1,32 @@
+// title: Detect threat actor abuse CloudFlare tunnels to deliver RATS
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents, UrlClickEvents
+// purpose: Detect threat actor abuse CloudFlare tunnels to deliver RATS
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Detect%20threat%20actor%20abuse%20CloudFlare%20tunnels%20to%20deliver%20RATS.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect threat actor abuse CloudFlare tunnels to deliver RATS
+// https://www.linkedin.com/posts/activity-7225744862875152384-whO8/
+
+UrlClickEvents
+| where Timestamp > ago(30d)
+| extend domain = tostring(parse_url(Url).Host)
+| where domain endswith ".trycloudflare.com"
+| join EmailEvents on NetworkMessageId
+| project Timestamp, Url, RecipientEmailAddress, SenderMailFromAddress, SenderFromAddress, Subject, AttachmentCount, UrlCount
+
+// MITRE ATT&CK Mapping
+
+// Based on the KQL code, the following MITRE ATT&CK techniques are relevant:
+
+// T1071.001 - Application Layer Protocol: Web Protocols:
+// The query is analyzing URL click events, which involves web protocols.
+// T1566.002 - Phishing: Spearphishing Link:
+// The query filters for specific domains and joins with email events, indicating an investigation into potential phishing attempts via malicious links.
+// T1071.003 - Application Layer Protocol: Email Protocols:
+// The join with EmailEvents suggests the use of email protocols to identify malicious activities.
+// T1204.001 - User Execution: Malicious Link:
+// The focus on URL clicks and specific domains indicates detection of user execution of potentially malicious links.

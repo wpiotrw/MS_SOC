@@ -1,0 +1,35 @@
+// title: Exploring M365 Accounts Investigation
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: AuditLogs, CloudAppEvents, SigninLogs
+// purpose: Exploring M365 Accounts Investigation
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Exploring%20M365%20Accounts%20Investigation.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Exploring M365 Accounts Investigation
+
+// https://www.linkedin.com/posts/0x534c_cybersecurity-m365investigation-kql-activity-7300859391950344192-xedq/
+
+let UserSSPR =
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName has "Self-service password reset"
+| distinct tostring(TargetResources[0].userPrincipalName);
+let UserEPNonManaged =
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where UserPrincipalName has_any(UserSSPR)
+| extend DeviceName = tostring(DeviceDetail.displayName)
+| extend TrustType = tostring(DeviceDetail.trustType)
+| extend OS = tostring(DeviceDetail.operatingSystem)
+| where OS !has "ios" and OS !has "android"
+| where TrustType !has "AD"
+| distinct UserPrincipalName;
+CloudAppEvents
+| where TimeGenerated > ago(90d)
+| where IPCategory has "VPN" or IPTags has "Anonymous proxy"
+| where tostring(RawEventData.UserId) has_any(UserEPNonManaged)
+| summarize Count=count() by ActionType, UserAgent, tostring(RawEventData.UserId)
+| sort by Count desc

@@ -1,0 +1,44 @@
+// title: Detect API Spray Attack on your Entra High Value Assets
+// date: 2026-10-23
+// product: Entra
+// tables: BehaviorAnalytics, SigninLogs
+// purpose: Detect API Spray Attack on your Entra High Value Assets
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Detect%20API%20Spray%20Attack%20on%20your%20Entra%20High%20Value%20Assets.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect API Spray Attack on your Entra High Value Assets
+
+// In recent months, a threat actor has been leveraging Amazon Data Services Nova (Ashburn, US) to perform API spray attacks on corporate Entra accounts. This activity can be identified in your sign-in logs by filtering for the user agent ‘AmazonAPIGateway_’. The following KQL query utilizes Sentinel UEBA behavior analytics to pinpoint which high-value Entra assets (BlastRadius = High) are involved in the API spray attack. You can then apply a conditional access rule to block this IP, enhancing protection for your high-value assets.
+
+let APISpray =
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where ResultType == "50126" or ResultType == "50053"
+| where UserAgent has "AmazonAPIGateway_"
+| distinct IPAddress;
+BehaviorAnalytics
+| where SourceIPAddress has_any (APISpray)
+| extend BlastRadius = UsersInsights.BlastRadius
+| where BlastRadius == "High"
+
+// #Sentinel #UEBA #BehaviourAnalytics #APISpray #BlastRadius #AWS #APIGateway
+
+// MITRE ATT&ACK Mapping
+
+// Tactic: Credential Access
+// Technique: Valid Accounts (T1078)
+// Sub-technique: Cloud Accounts (T1078.004)
+
+// Tactic: Initial Access
+// Technique: Exploit Public-Facing Application (T1190)
+// Reason: The presence of “AmazonAPIGateway_” in the UserAgent string suggests interaction with a public-facing API, which could be exploited.
+
+// Tactic: Discovery
+// Technique: Account Discovery (T1087)
+// Reason: The query is looking for behaviors associated with specific IP addresses, which could indicate reconnaissance activities.
+
+// Tactic: Impact
+// Technique: Data Destruction (T1485)
+// Reason: High blast radius indicates a significant impact, potentially related to destructive actions.

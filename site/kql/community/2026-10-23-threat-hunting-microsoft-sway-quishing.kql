@@ -1,0 +1,30 @@
+// title: Threat Hunting Microsoft Sway Quishing
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: Threat Hunting Microsoft Sway Quishing
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Threat%20Hunting%20Microsoft%20Sway%20Quishing.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Threat Hunting Microsoft Sway Quishing
+//  Article: https://thehackernews.com/2024/08/new-qr-code-phishing-campaign-exploits.html
+// This query summarizes all inbound emails from senders whose emails contain URLs with the new sway.cloud.microsoft domain. Additionally, it identifies the URL location (e.g., body, attachment, or QR code). A quick look at the statistics will reveal whether your tenant has been affected by the recent QR code phishing campaign exploiting Microsoft Sway to steal credentials.
+// Prequiste: MDO 
+
+EmailUrlInfo
+| where TimeGenerated > ago(90d)
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound" 
+| where Url startswith "https://sway.cloud.microsoft"
+| summarize Count=count() by SenderFromAddress, UrlLocation
+| sort by Count desc 
+
+// MITRE ATT&CK Mapping
+
+// Initial Access Techniques:
+// T1078.004 (Valid Accounts - Cloud Accounts): Detection related to cloud accounts.
+// T1190 (Exploit Public-Facing Application): Detecting exploits on internet-facing devices.
+// T1566.001 (Phishing - Spearphishing Attachment): Monitoring email attachments.
+// T1566.002 (Phishing - Spearphishing Link): Analyzing safe links in emails.

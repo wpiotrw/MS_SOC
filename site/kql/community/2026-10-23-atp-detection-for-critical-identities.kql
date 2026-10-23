@@ -1,0 +1,39 @@
+// title: ATP Detection for Critical Identities
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents, ExposureGraphNodes
+// purpose: ATP Detection for Critical Identities
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/ATP%20Detection%20for%20Critical%20Identities.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// ATP Detection for Critical Identities
+// https://www.linkedin.com/posts/activity-7190937404625584128-hgdO/
+
+// Custom DefenderXDR detection for CloudApp Advanced Threat Protection for Tier 0 Critical Identities giving you a comprehensive all-round threat monitoring. 
+
+let HighlyPrivilegedAdmins =
+ExposureGraphNodes
+| where set_has_element(Categories, "identity")
+| where isnotnull(NodeProperties.rawData.criticalityLevel) and 
+NodeProperties.rawData.criticalityLevel.criticalityLevel==0 
+| extend EntraObjectID = NodeProperties.rawData.accountObjectId
+| project EntraObjectID;
+CloudAppEvents
+| where ActionType == "AtpDetection"
+| extend DetectionMethod = tostring(RawEventData.DetectionMethod)
+| extend AccountUpn = RawEventData.UserId
+| where AccountUpn has_any(HighlyPrivilegedAdmins)
+
+//MITRE ATT&CK Mapping
+//Based on the KQL code, the following MITRE ATT&CK techniques are relevant:
+
+// T1078 - Valid Accounts:
+// The query is identifying and monitoring highly privileged accounts, which aligns with the technique of using valid accounts for persistence and privilege escalation1.
+// T1071 - Application Layer Protocol:
+// The CloudAppEvents table and the AtpDetection action type suggest monitoring for suspicious activities in cloud applications, which can involve the use of application layer protocols2.
+// T1087 - Account Discovery:
+// The query involves discovering highly privileged accounts, which aligns with the technique of account discovery3.
+// T1057 - Process Discovery:
+// The detection method and user ID extensions indicate monitoring for specific processes or actions taken by privileged accounts4.

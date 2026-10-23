@@ -1,0 +1,28 @@
+// title: Ottercookie Detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents
+// purpose: Ottercookie Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Ottercookie%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://any.run/cybersecurity-blog/ottercookie-malware-analysis/
+
+let QueryLookup = 1h;
+let CompressData =
+DeviceFileEvents
+| where Timestamp > ago(QueryLookup)
+| where ActionType == "FileCreated"
+| where InitiatingProcessFileName has "tar"
+| distinct DeviceName;
+DeviceNetworkEvents
+| where Timestamp > ago(QueryLookup)
+| where ActionType == "HttpConnectionInspected"
+| where parse_json(AdditionalFields)["direction"] == 'Out'
+| where parse_json(AdditionalFields)["status_code"] == '200'
+| extend GeoCtry = tostring(geo_info_from_ip_address(RemoteIP).country)
+| where GeoCtry == "United States"
+| where RemotePort == "1224"
+| where DeviceName has_any(CompressData)

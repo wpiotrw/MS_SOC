@@ -1,0 +1,27 @@
+// title: Hunting Rockstar 2FA
+// date: 2026-10-23
+// product: Entra
+// tables: BehaviorAnalytics, SigninLogs
+// purpose: Hunting Rockstar 2FA
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Hunting%20Rockstar%202FA.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Hunting Rockstar 2FA: A Key Player in Phishing-as-a-Service (PaaS)
+
+// Trustwave SpiderLabs highlights the rise of Phishing-as-a-Service (PaaS) platforms, focusing on the Rockstar 2FA phishing kit. This kit uses adversary-in-the-middle (AiTM) attacks to bypass MFA, targeting Microsoft 365 credentials. The blog (link provided at comment section) provides insights into the attack flow and techniques used in the phishing campaign.
+//  I've crafted a Sentinel KQL to check if your Entra tenant is impacted by Rockstar 2FA.
+
+let NationStateIP = 
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where RiskEventTypes_V2 has "estsNationStateIP"
+| project IPAddress;
+BehaviorAnalytics
+| where SourceIPAddress has_any(NationStateIP)
+| where DevicesInsights.ThreatIntelIndicatorDescription has "Storm-1575"
+| project TimeGenerated, UserPrincipalName, ActivityType, 
+SourceIPAddress, SourceIPLocation, DevicesInsights.ThreatIntelIndicatorDescription
+
+// MITRE ATT&CK

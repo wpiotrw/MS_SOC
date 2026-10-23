@@ -1,0 +1,22 @@
+// title: OAuth app using the OD file picker permission
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: OAuthAppInfo
+// purpose: OAuth app using the OD file picker permission
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/OAuth%20app%20using%20the%20OD%20file%20picker%20permission.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// OAuth app using the OD file picker permission
+// https://thehackernews.com/2025/05/microsoft-onedrive-file-picker-flaw.html
+
+OAuthAppInfo
+| where Timestamp > ago(30d) 
+| where AppStatus == "Enabled"
+| mv-expand Permissions
+| where parse_json(Permissions)["TargetAppDisplayName"] == 'Microsoft Graph'
+| where parse_json(Permissions)["PermissionValue"] == 'MyFiles.Write' or
+parse_json(Permissions)["PermissionValue"] == 'Files.ReadWrite.All' or
+parse_json(Permissions)["PermissionValue"] == 'Sites.ReadWrite.All' or
+parse_json(Permissions)["PermissionValue"] == 'AllSites.Write'

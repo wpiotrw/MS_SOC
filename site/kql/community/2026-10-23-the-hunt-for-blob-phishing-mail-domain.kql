@@ -1,0 +1,22 @@
+// title: The Hunt for Blob Phishing Mail Domain
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: The Hunt for Blob Phishing Mail Domain
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/The%20Hunt%20for%20Blob%20Phishing%20Mail%20Domain.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 𝗧𝗵𝗲 𝗛𝘂𝗻𝘁 𝗳𝗼𝗿 𝗕𝗹𝗼𝗯 𝗣𝗵𝗶𝘀𝗵𝗶𝗻𝗴 𝗠𝗮𝗶𝗹 𝗗𝗼𝗺𝗮𝗶𝗻
+
+// In some phishing kit, the attacker generated the landing page in a blob to remain stealthy and all of these emails usually passes the SPF/DKIM/DMNARC/CompAuth. However the blob URL has a URL detonation reputation. Using the below KQL to reverse find all the malicious mail domains that are sending blob phishing URLs and block these mail domains at the Tenant Block List.
+
+EmailUrlInfo
+| where TimeGenerated > ago(90d)
+| where Url contains "web.core.windows.net/"
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound"
+| where DeliveryAction == "Blocked"
+| summarize Count=count() by SenderFromDomain
+| sort by Count desc

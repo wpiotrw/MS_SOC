@@ -1,0 +1,17 @@
+// title: 4 – Key Vault, Storage and ARM activity from the IOC IPs
+// date: 2026-10-21
+// product: Sentinel
+// tables: CloudAuditEvents, CloudKeyVaultEvents, CloudStorageAggregatedEvents
+// purpose: From the article: AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+// kind: article
+// author: Microsoft Security Research and Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let IPs = dynamic(["144.172.64.128","144.172.64.60","144.172.64.99"]);
+union
+ (CloudKeyVaultEvents | where IPAddress in (IPs) | extend Source = "KeyVault", Operation = ActivityName),
+ (CloudStorageAggregatedEvents | where IPAddress in (IPs) | extend Source = "Storage", Operation = tostring(OperationNamesList)),
+ (CloudAuditEvents | where IPAddress in (IPs) | extend Source = "ARM", Operation = OperationName)
+| where Timestamp > ago(30d)
+| project Timestamp, Source, IPAddress, Operation, AzureResourceId
+| order by Timestamp asc

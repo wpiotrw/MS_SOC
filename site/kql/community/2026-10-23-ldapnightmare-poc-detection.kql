@@ -1,0 +1,29 @@
+// title: LDAPNightmare POC Detection
+// date: 2026-10-23
+// product: 
+// tables: 
+// purpose: LDAPNightmare POC Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/LDAPNightmare%20POC%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// LDAPNightmare POC Detection
+
+// https://www.safebreach.com/blog/ldapnightmare-safebreach-labs-publishes-first-proof-of-concept-exploit-for-cve-2024-49113/
+
+// SafeBreach Labs Researchers developed a zero-click PoC exploit that crashes unpatched Windows Servers using the Windows Lightweight Directory Access Protocol (LDAP) remote code execution vulnerability.
+
+DnsEvents
+| where TimeGenerated > ago(1h)
+| where Name has "_ldap._tcp.dc._msdcs." or Name has "_ldap._tcp.Default-First-Site-Name._sites.dc._msdcs."
+| extend LDAPQueryHost = iff((Name has "_ldap._tcp.dc._msdcs."),
+tostring(split(Name, "_ldap._tcp.dc._msdcs.", 1)),
+tostring(split(Name, "_ldap._tcp.Default-First-Site-Name._sites.dc._msdcs.", 1)))
+| where isnotempty(LDAPQueryHost)
+| where not (LDAPQueryHost has ".local" or LDAPQueryHost has "workgroup" or LDAPQueryHost has "-DC")
+| where QueryType == "33"
+| where ResultCode == 0
+
+
+// MITRE ATT&CK

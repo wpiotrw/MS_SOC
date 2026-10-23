@@ -1,0 +1,32 @@
+// title: Social Engineering Attack Detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, EmailEvents
+// purpose: Social Engineering Attack Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Social%20Engineering%20Attack%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Social Engineering Attack (Mail Bomb followed by Social Engineered Call - Initial access via RMM Tool)
+// https://admin.microsoft.com/?ref=MessageCenter/:/messages/MC1096885
+
+let MailBombVictim =
+EmailEvents
+| where TimeGenerated > ago(1h)
+| where isnotempty(DetectionMethods)
+| where tostring(DetectionMethods) has "Mail Bombing"
+| distinct RecipientEmailAddress;
+let ApprovedRMM = dynamic("bomgarcloud.com"); // E.g Approved Corporate RMM - Whitelisting
+let RMMList=externaldata(URI: string, RMMTool: string) // Lookup list of RMM Tools Url from Microsoft
+[h'https://raw.githubusercontent.com/jischell-msft/RemoteManagementMonitoringTools/refs/heads/main/Network%20Indicators/RMM_SummaryNetworkURI.csv'];
+let RMMUrl =
+RMMList
+| project URI;
+DeviceNetworkEvents
+| where TimeGenerated > ago(1h)
+| where ActionType == @"ConnectionSuccess"
+| where RemoteUrl has_any(RMMUrl)
+| where not (RemoteUrl has_any(ApprovedRMM)) // Unauthorized Outbound RMM Tool Connection
+| summarize arg_max(TimeGenerated, *) by DeviceId
+| where InitiatingProcessAccountUpn has_any(MailBombVictim) // RMM Tool Connection made by Mail Bomb Victim

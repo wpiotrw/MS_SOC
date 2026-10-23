@@ -1,0 +1,29 @@
+// title: ANY.RUN Obfuscated BAT Dropper Delivers NetSupport RAT post
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, DeviceRegistryEvents
+// purpose: ANY.RUN Obfuscated BAT Dropper Delivers NetSupport RAT post
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/ANY.RUN%20Obfuscated%20BAT%20Dropper%20Delivers%20NetSupport%20RAT%20post.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// ANY.RUN Obfuscated BAT Dropper Delivers NetSupport RAT post
+// https://www.linkedin.com/posts/any-run_obfuscated-virustotal-powershell-activity-7336393368698028034-cayg/
+
+let QueryLookup = 1h;
+let ObfuscatedBAT =
+DeviceProcessEvents
+| where Timestamp > ago(QueryLookup)
+| where InitiatingProcessFileName =~ "cmd.exe" and 
+InitiatingProcessCommandLine has ".bat"
+| where FileName =~ "powershell.exe" and 
+ProcessCommandLine has "-WindowsStyle Hidden" and 
+ProcessCommandLine has "Invoke-WebRequest"
+| distinct DeviceName;
+DeviceRegistryEvents
+| where Timestamp > ago(QueryLookup)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey has "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+| where RegistryValueData has "client32.exe"
+| where DeviceName has_any(ObfuscatedBAT)

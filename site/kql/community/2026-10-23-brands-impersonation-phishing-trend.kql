@@ -1,0 +1,22 @@
+// title: Brands Impersonation Phishing Trend
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Brands Impersonation Phishing Trend
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Brands%20Impersonation%20Phishing%20Trend.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Brands Impersonation Phishing Trend
+
+// Are you aware of the types of brand impersonation targeting your Entra users? Threat actors are exploiting SaaS platforms to evade detection and phish your users. I’ve developed a KQL to analyze MDO email threats and summarized the impersonation threats facing your Entra tenant. Educating your users about these threats is crucial for cyber defense. Keeping them informed about the specific threats your organization faces is vital.
+
+let BrandAbuse = dynamic(["Docusign", "Sharepoint", "Norton", "Microsoft", "OneDrive", "CloudFlare", "Adobe"]);
+EmailEvents
+| where TimeGenerated > ago(90d)
+| where EmailDirection == "Inbound" and ThreatNames != ""
+| where ThreatNames has_any(BrandAbuse)
+| extend IPLocation = tostring(geo_info_from_ip_address(SenderIPv4).country)
+| summarize Count=count() by SenderIPv4, IPLocation, ThreatNames
+| sort by Count desc

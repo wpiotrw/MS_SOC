@@ -1,0 +1,18 @@
+// title: Suspicious MSHTA Usage
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Suspicious MSHTA Usage
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Suspicious%20MSHTA%20Usage.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// I have found in the various environments I have been in that mshta in the modern world is far and few between. 
+// More often than not, it is used for malicious activity over odd edge cases.
+// Edge cases can be tuned out and this could become an effective detection for most environments.
+
+DeviceProcessEvents
+| where ProcessCommandLine contains "mshta.exe"
+| project Timestamp, AccountName, InitiatingProcessFileName, ProcessCommandLine, DeviceId, ReportId
+| sort by Timestamp desc

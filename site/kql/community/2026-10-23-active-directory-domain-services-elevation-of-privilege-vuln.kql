@@ -1,0 +1,28 @@
+// title: Active Directory Domain Services Elevation of Privilege Vulnerability (CVE 2025 21293)
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceInfo, DeviceRegistryEvents
+// purpose: Active Directory Domain Services Elevation of Privilege Vulnerability (CVE 2025 21293)
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Active%20Directory%20Domain%20Services%20Elevation%20of%20Privilege%20Vulnerability%20(CVE-2025-21293).kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Active Directory Domain Services Elevation of Privilege Vulnerability (CVE-2025-21293) CVSS 8.8
+
+// https://birkep.github.io/posts/Windows-LPE/
+
+let WindowsServer =
+DeviceInfo
+| where DeviceType == "Server" and OSPlatform has "windows"
+| distinct DeviceName;
+let DLLLoaded =
+DeviceEvents
+| where Timestamp > ago(3h)
+| where DeviceName has_any (WindowsServer)
+| where ActionType == @"DriverLoad"
+| where FileName endswith ".dll"
+| distinct FileName;
+DeviceRegistryEvents
+| where ActionType == @"RegistryKeyCreated" or ActionType == @"RegistryValueSet"
+| where RegistryValueName has_any(DLLLoaded) or RegistryValueData has_any(DLLLoaded)

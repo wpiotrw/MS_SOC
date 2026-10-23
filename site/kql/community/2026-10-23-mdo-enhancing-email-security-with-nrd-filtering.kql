@@ -1,0 +1,25 @@
+// title: MDO   Enhancing Email Security with NRD Filtering
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: MDO Enhancing Email Security with NRD Filtering
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/MDO%20-%20Enhancing%20Email%20Security%20with%20NRD%20Filtering.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// DefenderXDR Custom Detection Rule
+// Newly Registered Domains (NRD) A daily updated list of newly registered domains from the past 14 and 30 days
+// All inbound email URL domains scanned against NRD, if found move to junk first wait for analyst further triage
+
+let NRDTable=externaldata(RawData:string)
+[h'https://raw.githubusercontent.com/xRuffKez/NRD/refs/heads/main/lists/30-day_phishing/domains-only/nrd-phishing-30day.txt']
+| parse RawData with NRD:string;
+EmailUrlInfo
+| where Timestamp > ago(1h)
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound" and DeliveryAction != "Blocked"
+| join NRDTable on $left.UrlDomain == $right.NRD
+
+// MITRE ATT&CK Technique
+// Acquire Infrastructure: Domains technique, specifically T1583.0011

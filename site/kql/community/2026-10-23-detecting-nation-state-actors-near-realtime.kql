@@ -1,0 +1,25 @@
+// title: Detecting Nation State Actors @ Near Realtime
+// date: 2026-10-23
+// product: Entra
+// tables: AADUserRiskEvents
+// purpose: Detecting Nation State Actors @ Near Realtime
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Detecting%20Nation%20State%20Actors%20@%20Near%20Realtime.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//Detecting Nation State Actors @ Near Realtime
+//https://www.linkedin.com/feed/update/urn:li:activity:7172463683351113728/
+
+//In view of recent updates from Microsoft on Midnight Blizzard, for those on Microsoft Entra ID P2 running the below Sentinel KQL analytic rule at NRT (Near real-time) will give you the best detection if your tenant is impacted by any nation state actors based on Microsoft Security Intelligence (MSTIC) telemetry data. 
+
+AADUserRiskEvents
+| where RiskEventType == "nationStateIP"
+
+
+// MITRE ATT&CK Mapping
+
+// Based on the operations and objectives of the KQL code, the following MITRE ATT&CK techniques are relevant:
+
+// Technique ID: T1071.001 - Application Layer Protocol: Web Protocols: This technique involves adversaries using web protocols to communicate with systems under their control. Nation-state actors often use such methods to gain initial access to systems1.
+// Technique ID: T1078.004 - Valid Accounts: Cloud Accounts: This technique involves adversaries using valid cloud accounts to gain access. Nation-state actors may use compromised cloud accounts to infiltrate systems2.

@@ -1,0 +1,36 @@
+// title: Global Admin Entra Cookie with Chrome ZeroDay
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, ExposureGraphEdges, ExposureGraphNodes
+// purpose: Global Admin Entra Cookie with Chrome ZeroDay
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Global%20Admin%20Entra%20Cookie%20with%20Chrome%20ZeroDay.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Global Admin Entra Cookie with Chrome Zero-Day
+// CVE-2025-4664 Chrome flaw with public exploit
+// https://www.bleepingcomputer.com/news/security/cisa-tags-recently-patched-chrome-bug-as-actively-exploited-zero-day/
+// https://www.bleepingcomputer.com/news/security/google-fixes-high-severity-chrome-flaw-with-public-exploit/
+
+let CriticalIdentities =
+ExposureGraphNodes
+| where set_has_element(Categories, "identity")
+| where isnotnull(NodeProperties.rawData.criticalityLevel) 
+and NodeProperties.rawData.criticalityLevel.criticalityLevel < 4
+| where NodeProperties has "Global Administrator" // Remove this line to include all Critical Identities
+| distinct NodeName;
+let VulnerableEndPointwithBCookie =
+ExposureGraphEdges
+| where EdgeLabel == @"has credentials of"
+| where EdgeProperties has "BrowserCookies"
+| where TargetNodeName has_any (CriticalIdentities)
+// SourceNodeName = Devices that contains GA browser cookie 
+| distinct SourceNodeName;
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where ProcessVersionInfoProductName == "Google Chrome"
+| where ProcessVersionInfoProductVersion != "136.0.7103.114" and
+ProcessVersionInfoProductVersion != "136.0.7103.113"
+| summarize arg_max(Timestamp, *) by DeviceId
+| where DeviceName has_any(VulnerableEndPointwithBCookie)

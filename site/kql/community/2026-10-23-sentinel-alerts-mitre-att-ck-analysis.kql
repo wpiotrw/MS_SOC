@@ -1,0 +1,33 @@
+// title: Sentinel Alerts & MITRE ATT&CK Analysis
+// date: 2026-10-23
+// product: Sentinel
+// tables: SecurityAlert
+// purpose: Sentinel Alerts & MITRE ATT&CK Analysis
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Sentinel%20Alerts%20&%20MITRE%20ATT&CK%20Analysis.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sentinel Alerts & MITRE ATT&CK Analysis
+// https://www.linkedin.com/posts/activity-7195301674301759488-rMQS/
+
+// The Microsoft Sentinel MITRE ATT&CK (Preview) blade offers a comprehensive overview of all Sentinel detections aligned with the MITRE ATT&CK technique matrix. As a Security Operations Center (SOC) analyst overseeing analytic rules, are you aware of which MITRE Techniques are activated most frequently or infrequently? Running the subsequent KQL query will unveil the technique adversaries most commonly employ. Evaluate which techniques are triggered most or least often in comparison to your Microsoft Sentinel MITRE ATT&CK (preview) coverage. This analysis is crucial to determine if your analytic rules are sufficiently robust to identify these frequently used techniques.
+
+// KQL - Summarization of Techniques Triggered
+
+SecurityAlert
+| where TimeGenerated > ago(90d)
+| mv-expand todynamic(Techniques)
+| extend MitreAttackTechniques = tostring(Techniques)
+| where MitreAttackTechniques != ""
+| summarize Technique_Count=count() by MitreAttackTechniques
+| sort by Technique_Count desc
+
+// MITRE ATT&CK Mapping
+
+//The KQL code is designed to map security alerts to specific MITRE ATT&CK techniques. Each technique identified in the Techniques field corresponds to a specific tactic or technique in the MITRE ATT&CK framework. Here are some common techniques that might be detected:
+
+// T1078: Valid Accounts: Detection of compromised accounts.
+// T1059: Command and Scripting Interpreter: Detection of script execution.
+// T1105: Ingress Tool Transfer: Detection of tools being transferred into the environment.
+// T1027: Obfuscated Files or Information: Detection of obfuscated files or information.

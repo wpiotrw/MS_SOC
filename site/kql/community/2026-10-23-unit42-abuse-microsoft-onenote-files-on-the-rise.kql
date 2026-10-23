@@ -1,0 +1,28 @@
+// title: UNIT42   Abuse Microsoft OneNote files on the rise
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailAttachmentInfo, EmailEvents
+// purpose: UNIT42 Abuse Microsoft OneNote files on the rise
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/UNIT42%20-%20Abuse%20Microsoft%20OneNote%20files%20on%20the%20rise.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// UNIT42 - Abuse Microsoft OneNote files on the rise
+// https://www.linkedin.com/posts/activity-7199081015439495168-zjvc/
+
+// Analyzing onenote files sent into your tenant as email attachment.
+
+EmailAttachmentInfo
+| where TimeGenerated > ago(90d)
+| where FileType=="one;onenote"
+| join EmailEvents on NetworkMessageId
+
+// MITRE ATT&CK Mapping
+
+// T1566.001 - Phishing: Spearphishing Attachment:
+// This technique involves adversaries sending emails with malicious attachments to gain access to victim systems. Your query filters for specific file types in email attachments, which can be used to detect spearphishing attempts.
+// T1071.003 - Application Layer Protocol: Mail Protocols:
+// This technique involves using email protocols for command and control. By joining email events, your query can help identify suspicious email activities that might be part of a command and control operation.
+// T1114.002 - Email Collection: Remote Email Collection:
+// This technique involves adversaries collecting emails from remote servers. Your query can help detect unusual email attachment activities that might indicate email collection efforts.

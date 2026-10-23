@@ -1,0 +1,21 @@
+// title: MDO Email Threat Classification By Country
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: MDO Email Threat Classification By Country
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/MDO%20Email%20Threat%20Classification%20By%20Country.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// MDO Email Threat Classification By Country
+
+// https://admin.microsoft.com/AdminPortal/Home?#/MessageCenter/:/messages/MC973503
+
+EmailEvents 
+| where isnotempty(ThreatClassification)
+| extend IPInfo = iff(isnotempty(SenderIPv4),
+geo_info_from_ip_address(SenderIPv4),
+geo_info_from_ip_address(SenderIPv6))
+| summarize Count=count() by ThreatClassification, tostring(IPInfo.country)
+| sort by Count desc

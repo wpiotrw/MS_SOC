@@ -1,0 +1,22 @@
+// title: DefenderXDR Medusa Ransomware Detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: DefenderXDR Medusa Ransomware Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/DefenderXDR%20Medusa%20Ransomware%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// DefenderXDR: Medusa Ransomware Detection
+
+// https://www.cisa.gov/sites/default/files/2025-03/aa25-071a-stopransomware-medusa-ransomware.pdf
+
+let MedusaDiscovery = dynamic(["21", "22", "23", "80", "115", "443", "1433", "3050", "3128", "3306", "3389"]);
+DeviceNetworkEvents
+| where Timestamp > ago(1h)
+| where ActionType == @"ConnectionAttempt"
+| where parse_json(AdditionalFields)["direction"] == 'In'
+| where LocalPort in (MedusaDiscovery)
+| summarize TargetDevice=dcount(DeviceName), TargetPort=dcount(LocalPort) by RemoteIP
+| where TargetPort == 11 // Matched all the MedusaDiscovery ports

@@ -1,0 +1,26 @@
+// title: EDR and AV Killer   A Large Scale Driver Exploitation Detection
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: EDR and AV Killer A Large Scale Driver Exploitation Detection
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/EDR%20and%20AV%20Killer%20-%20A%20Large%20Scale%20Driver%20Exploitation%20Detection.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// EDR and AV Killer - A Large Scale Driver Exploitation Detection
+// https://research.checkpoint.com/2025/large-scale-exploitation-of-legacy-driver/
+
+let Truesight202Variants=externaldata(FileHash:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/SHA-256-Truesight-Driver-Variants-Ver202.txt'];
+let EDRKillerFileHashes =
+Truesight202Variants
+| project FileHash;
+DeviceFileEvents
+| where TimeGenerated > ago(90d)
+| where InitiatingProcessSHA256 has_any(EDRKillerFileHashes) or SHA256 has_any(EDRKillerFileHashes)
+//
+// EDR & AV Killer
+// The legacy Truesight.sys driver (version 2.0.2) has 2,500+ variants bypassing the latest
+// Microsoft Vulnerable Driver Blocklist and common detection mechanisms. The above KQL scan
+// across DeviceFileEvents for the past 90 days for potential truesight.sys variant presence.

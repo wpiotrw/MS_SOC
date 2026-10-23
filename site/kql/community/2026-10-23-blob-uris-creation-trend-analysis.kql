@@ -1,0 +1,18 @@
+// title: Blob URIs creation trend analysis
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: Blob URIs creation trend analysis
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Blob%20URIs%20creation%20trend%20analysis.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://hackread.com/phishing-attack-blob-uri-fake-login-pages-browser/
+
+// Switch to Chart Mode to visualize
+
+DeviceFileEvents
+| where TimeGenerated > ago(90d)
+| where FileOriginUrl startswith "blob:https://"
+| summarize Count=count() by bin(TimeGenerated,1d)

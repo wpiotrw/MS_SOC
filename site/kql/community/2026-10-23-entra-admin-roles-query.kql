@@ -1,0 +1,34 @@
+// title: Entra Admin Roles Query
+// date: 2026-10-23
+// product: Defender XDR
+// tables: ExposureGraphNodes
+// purpose: Entra Admin Roles Query
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Entra%20Admin%20Roles%20Query.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Exposure Management - Entra Admin Roles Query
+// https://www.linkedin.com/posts/activity-7189252312106700800-boXn/
+
+
+// This KQL is even better than Entra PIM Dashboard! 😎 Just run this KQL in DefenderXDR Advanced Hunting, it will instantly tell you how many admin roles has been assigned out. If you comment out the last line of the KQL code, it will give you a comprehensive view of each admin and the number of roles assigned to him/her. Now with this roles assignment information available, you can also combine composite threat hunting KQL inclusive of admin roles 🤯
+
+ExposureGraphNodes
+| where set_has_element(Categories, "identity")
+| extend AccountUPN = NodeProperties.rawData.accountUpn
+| extend AdminRoles = NodeProperties.rawData.assignedRoles
+| extend NumberofRoles = array_length(AdminRoles)
+| where NumberofRoles > 0
+| summarize TotalRolesAssigned = sum(NumberofRoles)
+
+// MITRE ATT&CK Mapping
+
+// The KQL query focuses on identifying accounts with administrative roles, which can be mapped to the following MITRE ATT&CK techniques:
+
+// T1078 - Valid Accounts:
+// This technique involves the use of valid accounts to gain access to systems. The query identifies accounts with administrative roles, which could be targeted by adversaries to gain elevated privileges1.
+// T1078.004 - Valid Accounts: Cloud Accounts:
+// If the accounts are cloud-based, this sub-technique is relevant. Adversaries may target cloud accounts with administrative roles to gain access to cloud resources1.
+// T1087 - Account Discovery:
+// This technique involves discovering accounts and their roles. The query helps in identifying accounts with administrative roles, which is a form of account discovery1.

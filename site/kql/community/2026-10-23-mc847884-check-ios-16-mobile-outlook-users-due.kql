@@ -1,0 +1,34 @@
+// title: MC847884   Check iOS 16 mobile outlook users due to out of support in Sep 2024
+// date: 2026-10-23
+// product: Entra
+// tables: SigninLogs
+// purpose: MC847884 Check iOS 16 mobile outlook users due to out of support in Sep 2024
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/MC847884%20-%20Check%20iOS%2016%20mobile%20outlook%20users%20due%20to%20out%20of%20support%20in%20Sep%202024.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// MC847884 - Check iOS 16 mobile outlook users due to out of support in Sep 2024
+
+// With iOS 18 releasing in mid September, the minimum supported iOS version would be iOS 17 as over time, Outlook for iOS on iOS 16 devices will eventually stop synchronizing email and calendar data. Do you know how many of your organization users are impacted by this new iOS released ? Use the below KQL to determine the list of impacted users.
+
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where ResultType == "0"
+| extend OS = tostring(DeviceDetail.operatingSystem)
+| where OS contains "Ios 16."
+| where AppDisplayName == "Outlook Mobile"
+| distinct UserPrincipalName, OS
+
+// MITRE ATT&CK Mapping
+
+// Based on the query, the following MITRE ATT&CK techniques are relevant:
+
+// T1078 - Valid Accounts:
+// The query focuses on successful sign-ins, which involves the use of valid accounts1.
+// T1071.001 - Application Layer Protocol: Web Protocols:
+// Since the query filters for the Outlook Mobile app, it involves web protocols for communication2.
+// T1087 - Account Discovery:
+// By identifying distinct user principal names, the query aligns with account discovery techniques3.
+// T1201 - Password Policy Discovery:
+// Although not directly related, successful sign-ins can imply adherence to password policies4.

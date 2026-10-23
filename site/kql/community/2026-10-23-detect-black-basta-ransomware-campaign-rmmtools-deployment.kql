@@ -1,0 +1,26 @@
+// title: Detect Black Basta Ransomware Campaign RMMTools Deployment
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Detect Black Basta Ransomware Campaign RMMTools Deployment
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Detect%20Black%20Basta%20Ransomware%20Campaign%20RMMTools%20Deployment.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect Black Basta Ransomware Campaign
+// Social Engineering Attack via Teams
+
+// https://www.rapid7.com/blog/post/2024/12/04/black-basta-ransomware-campaign-drops-zbot-darkgate-and-custom-malware/
+
+// Exclude Corporate Sharepoint
+let CorporateSharepoint = "xxx.sharepoint.com";
+CloudAppEvents
+| where Application == @"Microsoft Teams"
+| where ActionType == @"MessageSent"
+| where AccountId contains "@"
+| where parse_json(RawEventData)["CommunicationType"] == 'OneOnOne'
+| where isnotempty(parse_json(RawEventData)["MessageURLs"])
+| where (parse_json(RawEventData)["MessageURLs"]) contains ".sharepoint.com"
+// External Teams Tenant sending a sharepoint link to download RMM tools to evade detections
+| where (parse_json(RawEventData)["MessageURLs"]) !contains CorporateSharepoint

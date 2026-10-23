@@ -1,0 +1,22 @@
+// title: DefenderXDR MITRE ATT&CK Technique Analysis
+// date: 2026-10-23
+// product: Defender XDR
+// tables: AlertEvidence
+// purpose: DefenderXDR MITRE ATT&CK Technique Analysis
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/DefenderXDR%20MITRE%20ATT&CK%20Technique%20Analysis.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// DefenderXDR MITRE ATT&CK Technique Analysis
+
+AlertEvidence
+|where Timestamp > ago(30d)
+| mv-expand parse_json(AttackTechniques)
+| where isnotempty(AttackTechniques)
+| summarize TechniqueCount=count() by tostring(AttackTechniques)
+| sort by TechniqueCount
+
+// Export the result as a CSV
+// Copilot Prompt:
+// Can you help me generate MITRE ATT&CK Techniques heatmap using standard MITRE ATT&CK Enterprise framework with the attached CSV data?

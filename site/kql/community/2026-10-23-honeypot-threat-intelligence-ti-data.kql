@@ -1,0 +1,24 @@
+// title: Honeypot Threat Intelligence (TI) Data
+// date: 2026-10-23
+// product: Sentinel
+// tables: BehaviorAnalytics
+// purpose: Honeypot Threat Intelligence (TI) Data
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Sentinel/Honeypot%20Threat%20Intelligence%20(TI)%20Data.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Honeypot Threat Intelligence (TI) Data
+
+// Mastering the Art of Cyber Deception: Turning the Tables on Attackers with Honeypot Intelligence
+//Deception is an active defense strategy designed to mislead attackers through the use of traps, lures, decoys, and other tactics. Its purpose is to increase the attackers’ costs and reduce the defenders’ workload. The objective is to gather actionable Threat Intelligence (TI) and utilize this intelligence in our detection processes. The provided KQL sample extracts Honeypot TI from Sentinel UEBA associated with your Entra Tenant.
+
+BehaviorAnalytics
+| where TimeGenerated > ago(90d)
+| where EventSource == "Azure AD"
+| where tostring(DevicesInsights.ThreatIntelIndicatorType) has "HoneypotAccess"
+| summarize arg_max(TimeGenerated, *) by SourceIPAddress
+| project TimeGenerated, SourceIPAddress, tostring(DevicesInsights.ThreatIntelIndicatorDescription)
+
+// MITRE ATT&CK
+// Network Service Discovery (T1046)

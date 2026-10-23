@@ -1,0 +1,32 @@
+// title: SAP NetWeaver Attack by Chinese Threat Actor Impact Assessment
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceNetworkEvents, DeviceProcessEvents
+// purpose: SAP NetWeaver Attack by Chinese Threat Actor Impact Assessment
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/SAP%20NetWeaver%20Attack%20by%20Chinese%20Threat%20Actor%20Impact%20Assessment.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// SAP NetWeaver Attack by Chinese Threat Actor Impact Assessment
+// https://www.forescout.com/blog/threat-analysis-sap-vulnerability-exploited-in-the-wild-by-chinese-threat-actor/
+
+let InternetFacing =
+DeviceInfo
+| where IsInternetFacing == true and isnotempty(PublicIP)
+| distinct DeviceId;
+let SAPNetweaver =
+DeviceProcessEvents
+| where TimeGenerated > ago(90d)
+| where InitiatingProcessVersionInfoProductName has "netweaver"
+| summarize arg_max(TimeGenerated, *) by DeviceId
+| where DeviceId has_any(InternetFacing);
+let ForescoutIOC=externaldata(Type:string, Value:string, Source:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/Chaya_004-IOC10May2025.csv'];
+DeviceNetworkEvents
+| where TimeGenerated > ago(30d)
+| join ForescoutIOC on $left.RemoteIP == $right.Value
+| where ActionType has "ConnectionSuccess" or ActionType has "InboundConnectionAccepted"
+| where DeviceId has_any(SAPNetweaver)
+| summarize NoOfHits=count() by DeviceName, ActionType, RemoteIP
+| sort by NoOfHits desc

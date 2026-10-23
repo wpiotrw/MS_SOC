@@ -1,0 +1,26 @@
+// title: Monitor Copilot Agent for SharePoint
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Monitor Copilot Agent for SharePoint
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Monitor%20Copilot%20Agent%20for%20SharePoint.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// https://www.pentestpartners.com/security-blog/exploiting-copilot-ai-for-sharepoint/
+
+// Monitoring excessive prompts, a potential sign of prompt testing.
+
+let MonitorThreshold = 8;
+CloudAppEvents
+| where Timestamp > ago(1d)
+| where ActionType == @"CopilotInteraction"
+| extend UserID = tostring(RawEventData.UserId)
+| extend CopilotData = todynamic(RawEventData.CopilotEventData)
+| extend CopilotPlugin = tostring(CopilotData.AISystemPlugin[0].Id)
+| where CopilotPlugin == "EnterpriseSearch"
+| where parse_json(CopilotData)["Messages"][0]["isPrompt"] == 'true'
+| extend AccountUPN = UserID
+| summarize PromptCount=count() by AccountUPN
+| where PromptCount > MonitorThreshold

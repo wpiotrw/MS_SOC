@@ -1,0 +1,27 @@
+// title: KQL query to oversee the privileged OAuth grants allocated to the Microsoft Graph Command Line Tools OAuth App
+// date: 2026-10-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: KQL query to oversee the privileged OAuth grants allocated to the Microsoft Graph Command Line Tools OAuth App
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/KQL%20query%20to%20oversee%20the%20privileged%20OAuth%20grants%20allocated%20to%20the%20Microsoft%20Graph%20Command%20Line%20Tools%20OAuth%20App.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// KQL query to oversee the privileged OAuth grants allocated to the Microsoft Graph Command Line Tools OAuth App
+// https://www.linkedin.com/posts/activity-7212728685601116161-qmd4/
+
+// The Microsoft Graph Command Line Tools OAuth App, which possesses a High permission level, has received verification from Microsoft. It’s crucial for Security Operations teams to monitor the usage and consent of this tool within your organization’s M365/Azure admin framework to guarantee compliance with established change control procedures. Utilize the following KQL query to oversee the privileged OAuth grants allocated to this tool.
+
+CloudAppEvents
+| where TimeGenerated > ago(90d)
+| where ActionType == "Consent to application." and AccountType == "Admin"
+| where ObjectName contains "Microsoft Graph"
+
+// MITRE ATT&CK Mapping
+
+// This query is related to the following MITRE ATT&CK techniques:
+
+// T1078 - Valid Accounts: The use of valid accounts to gain access to resources. In this case, an admin account consenting to an application.
+// T1098 - Account Manipulation: The consent to an application by an admin could be seen as a form of account manipulation, especially if the consent is unauthorized.
+// T1071 - Application Layer Protocol: The use of Microsoft Graph API, which is an application layer protocol.

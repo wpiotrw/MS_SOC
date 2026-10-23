@@ -1,0 +1,37 @@
+// title: regreSSHion   Remote Unauthenticated Code Execution Vulnerability in OpenSSH server
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: regreSSHion Remote Unauthenticated Code Execution Vulnerability in OpenSSH server
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/Azure/regreSSHion%20-%20Remote%20Unauthenticated%20Code%20Execution%20Vulnerability%20in%20OpenSSH%20server.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// regreSSHion - Remote Unauthenticated Code Execution Vulnerability in OpenSSH server
+// https://www.linkedin.com/posts/activity-7213658125323681793-p0wl/
+
+// Azure Resource Graph KQL Query to check Azure Linux server running OpenSSH: 
+
+resources
+| where type =~ 'Microsoft.Compute/virtualMachines'
+| extend osType = properties.storageProfile.osDisk.osType
+| where osType =~ 'Linux'
+| mvexpand sshKey = properties.osProfile.linuxConfiguration.ssh.publicKeys
+| where sshKey.keyData contains 'ssh-rsa' or sshKey.keyData contains 'ssh-dss'
+| project name, location, osType, sshKey.keyData
+
+// Microsoft Defender for Endpoint device discovery capabilities KQL to detect Linux machines (probably with SSH enabled) connected to on-prem & cloud environments (Not onboarded to MDE) to further identify any other possible attack surface.
+
+DeviceInfo
+| where OnboardingStatus != "Onboarded"
+| where OSPlatform == "Linux"
+| where DeviceName != ""
+| where DeviceCategory == "Endpoint"
+
+// MITRE ATT&CK Mapping
+
+// T1078.003: Valid Accounts: SSH 1
+// T1136.001: Create Account: Local Account 1
+// T1082: System Information Discovery 1
+// T1018: Remote System Discovery 1

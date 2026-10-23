@@ -1,0 +1,36 @@
+// title: Defending against dot zip domain phishing attack
+// date: 2026-10-23
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: Defending against dot zip domain phishing attack
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Defending%20against%20dot%20zip%20domain%20phishing%20attack.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Defending against dot zip domain phishing attack with Microsoft 365 Defender Advanced Hunting
+// https://www.linkedin.com/pulse/defending-against-zip-domain-phishing-attack-microsoft-steven-lim/
+
+EmailUrlInfo
+| where Timestamp > ago(1h)
+| where UrlDomain endswith ".zip"
+| where Url contains "@"
+| join EmailEvents on $left.NetworkMessageId == $right.NetworkMessageId
+| project Timestamp, NetworkMessageId, SenderFromAddress, RecipientEmailAddress, Subject, Url, UrlDomain, ThreatTypes, EmailAction, ReportId
+
+
+// MITRE ATT&CK Mapping
+
+// Based on the query, the following MITRE ATT&CK techniques are relevant:
+
+// Phishing (T1566):
+// The query is designed to detect phishing attempts by identifying suspicious URLs in emails.
+// Sub-technique: Spearphishing Link (T1566.002).
+
+// Command and Control (T1071):
+// The use of URLs that end with “.zip” and contain “@” could be indicative of command and control communication attempts.
+// Sub-technique: Application Layer Protocol (T1071.001).
+
+// Exfiltration Over Web Service (T1567):
+// The presence of URLs in emails might indicate attempts to exfiltrate data via web services.
+// Sub-technique: Exfiltration Over Web Service (T1567.002).

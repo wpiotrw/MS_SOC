@@ -1,0 +1,26 @@
+// title: Sniffing Out UNC3944 on Teams
+// date: 2026-10-23
+// product: Defender for Identity
+// tables: IdentityInfo, MessageEvents, MessageUrlInfo
+// purpose: Sniffing Out UNC3944 on Teams
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Sniffing%20Out%20UNC3944%20on%20Teams.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Spidey Senses Tingling: Sniffing Out UNC3944 on Teams
+
+let M365Domains =
+IdentityInfo
+| summarize arg_max(Timestamp, *) by AccountUpn
+| where isnotempty(AccountDomain)
+| distinct tolower(AccountDomain);
+let MonitorDomainKeyword =dynamic(["connect","corp","duo","help","he1p","helpdesk",
+"helpnow","info","internal","mfa","my","okta","onelogin","schedule","service","servicedesk","servicenow",
+"rci","rsa","sso","ssp","support","usa","vpn","work","dev","workspace","it","ops"]);
+MessageEvents
+| where Timestamp > ago(1h)
+| join MessageUrlInfo on TeamsMessageId
+| extend SenderDomain = tolower(tostring(split(SenderEmailAddress, '@')[1]))
+| where not(SenderDomain has_any(M365Domains))        // External Teams Inbound Message Detected
+| where SenderDomain has_any(MonitorDomainKeyword)    // Check domain keyword match for Scattered Spider TTPs

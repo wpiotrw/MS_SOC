@@ -1,0 +1,35 @@
+// title: KQL to detect if Polyfill malicious payload was loaded
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: KQL to detect if Polyfill malicious payload was loaded
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/KQL%20to%20detect%20if%20Polyfill%20malicious%20payload%20was%20loaded.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// KQL to detect if Polyfill malicious payload was loaded
+// https://www.linkedin.com/posts/activity-7211650346522173440-988L/
+
+// Polyfill supply chain attack hits 100K+ sites.The polyfill.js is a popular open source library to support older browsers. 100K+ sites embed it using the cdn.polyfill.io domain.
+
+// KQL to detect if Polyfill malicious payload was loaded.
+
+DeviceNetworkEvents 
+| where ActionType == @"HttpConnectionInspected"
+| extend ConnectInfo = todynamic(AdditionalFields)
+| extend HttpHost = ConnectInfo.host
+| where HttpHost contains "googie-anaiytics.com" or HttpHost contains "kuurza.com"
+
+// MITRE ATT&CK Mapping
+
+// Based on the analysis, the KQL query can be associated with the following MITRE ATT&CK techniques:
+
+// T1071.001 - Application Layer Protocol: Web Protocols:
+// The query inspects HTTP connections, which falls under the use of web protocols for communication1.
+// T1071 - Application Layer Protocol:
+// More broadly, the query is looking at network traffic using application layer protocols1.
+// T1566.002 - Phishing: Spearphishing Link:
+// The suspicious domains (“googie-anaiytics.com” and “kuurza.com”) suggest potential phishing attempts1.
+// T1071.003 - Application Layer Protocol: Mail Protocols:
+// If the suspicious domains are used in email communications, this technique might also be relevant1.

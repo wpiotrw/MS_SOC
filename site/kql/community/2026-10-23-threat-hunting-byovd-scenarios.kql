@@ -1,0 +1,47 @@
+// title: Threat Hunting BYOVD Scenarios
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileCertificateInfo, DeviceFileEvents, Event
+// purpose: Threat Hunting BYOVD Scenarios
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/9c838dc165ac602c525321c6f475e5c90f2fd7d2/DefenderXDR/Threat%20Hunting%20BYOVD%20Scenarios.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Threat Hunting BYOVD Scenarios
+
+// This query identifies recently created driver files on an endpoint with low global prevalence. It then cross-references these files with Windows Event ID 3004, where Windows Code Integrity validates the digital signature of kernel-mode drivers during memory loading. This detection can potentially highlight BYOVD (Bring Your Own Vulnerable Driver) scenarios.
+
+let DriverwithLowPrevalence =
+DeviceFileEvents
+| where ActionType == "FileCreated"
+| where FileName endswith ".sys"
+| invoke FileProfile(SHA1,1000)
+| where GlobalPrevalence <= 150 or isempty(GlobalPrevalence)
+| join kind=leftouter DeviceFileCertificateInfo on SHA1
+| project FileName;
+DeviceEvents
+// Event ID 3004 — Kernel-mode Driver Validation
+| where ReportId == "3004"
+| where ActionType == @"DriverLoad"
+| where FileName has_any(DriverwithLowPrevalence)
+
+
+// #DefenderXDR #MDE #BYOVD #ThreatHunting #FileProfile #KQL
+
+// MITRE ATT&CK Mapping
+
+// Initial Access:
+// Technique: T1190 (Exploit Public-Facing Application)
+// The query may help detect exploitation attempts against public-facing applications.
+// Technique: T1566.001 (Phishing: Spearphishing Attachment)
+// The query could be relevant for detecting malicious attachments in spear-phishing emails.
+// Execution:
+// Technique: T1047 (Windows Management Instrumentation)
+// The query involves using WMI for remote command execution.
+// Persistence:
+// Technique: T1136.001 (Create Account: Local Account)
+// The query identifies local account creations.
+// Defense Evasion:
+// Technique: T1556 (Modify Authentication Process)
+// The query may be related to conditional access policy changes.
