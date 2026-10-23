@@ -226,7 +226,7 @@ def main():
                 if not kind or not v:
                     continue
                 for sid in sids:
-                    add(kind, v.lower(), None if sid == "_watch" else sid, "threatfox-tag")
+                    add(kind, v.lower(), None if sid == "_watch" else sid, "threatfox-tag", {"tfTag": w})
                 r["iocs"] += 1
             time.sleep(1)
         rep["ThreatFox tags"] = r
