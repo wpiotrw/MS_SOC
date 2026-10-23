@@ -107,6 +107,23 @@
     "SecretNote": "The workflows read GN_API_KEY (the owner's secret name) and fall back to GREYNOISE_API_KEY."
   },
   {
+    "SourceName": "SlimKQL IOC lists (Steven Lim)",
+    "Kind": "ioc-repo",
+    "Author": "Steven Lim",
+    "Site": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules",
+    "Repo": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules",
+    "Path": "IOC",
+    "Docs": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/tree/main/IOC",
+    "Api": "git clone --depth 1",
+    "Auth": "none",
+    "Secret": "",
+    "Limits": "public GitHub repository; 60 indicators per file and run",
+    "Terms": "public repository of a community researcher (KQLWizard, x.com/0x534c); his X posts cannot be read by code (x.com disallows robots), the same lists are uploaded here",
+    "Use": "Campaign indicator lists (207 files on 23 X 2026: greynoise_php2shell_attacker_ips.csv, EvilTokenIOC.csv, EvilTokens26Apr.csv...). A file whose name carries an incident's word gives that incident its domains / IPs, the file named as the reason.",
+    "Status": "active",
+    "Checked": "2026-10-23"
+  },
+  {
     "SourceName": "Microsoft Threat Intelligence (Graph host reputation)",
     "Kind": "reputation",
     "Site": "https://learn.microsoft.com/graph/api/security-hostreputation-get",

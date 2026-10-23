@@ -1362,6 +1362,20 @@ Wskaźniki: z pola `iocs` analiz **oraz** z tekstów artykułów każdego incyde
 
 **Wiarygodność werdyktu VirusTotal:** VirusTotal agreguje ~90 silników i list; „malicious” = przynajmniej jeden silnik tak twierdzi, a pojedyncze trafienie bywa fałszywym alarmem, dlatego portal uznaje domenę za *malicious* od 2 silników albo gdy potwierdza ją niezależne źródło (URLhaus, ThreatFox, Microsoft TI), a 1 silnik = *suspicious*. „Undetected” nie znaczy „bezpieczna” — świeża domena często nie ma jeszcze żadnego werdyktu, stąd ponowne sprawdzanie co 3 dni i data pierwszego oznaczenia.
 
+### 16.5a Skąd wskaźniki i dlaczego są na liście (od 23 X 2026, §5fe)
+
+| Źródło | Co daje | Powód zapisany przy wskaźniku |
+|---|---|---|
+| analiza incydentu (`threat_notes.json`, pole `iocs`) | IP / domeny z naszej analizy | linia analizy, np. „IP 144.172.64[.]99 (password spray; matches a ConnectWise advisory IP)” |
+| **pełna treść artykułów** każdego incydentu (co 7 dni, ≤ 25 stron na przebieg, pamięć `cache/ioc-pages.json`) | wiersze **tabel IOC** (wskaźnik zapisany bezpiecznie + opis z pozostałych komórek, także z komórki łączonej `rowspan`) oraz wskaźniki zapisane bezpiecznie w zdaniach; przykłady (contoso, company-name) pomijane | „IOC table — Passkey support lure”, „IOC table — Broad failed login spray, ongoing, many organizations”, „in the text — …” |
+| **listy IOC społeczności** (`Kind: "ioc-repo"` w `ti_sources.json`; pierwsza: Steven Lim, github.com/SlimKQL/…/IOC, 207 plików) | plik, którego nazwa zawiera słowo incydentu (np. `greynoise_php2shell_attacker_ips.csv` → PHP2Shell, `EvilTokenIOC.csv` → EvilTokens), ≤ 60 wskaźników na plik | „list greynoise_php2shell_attacker_ips.csv — Organization: Hyonix · CVEs_Associated: CVE-2026-109619 · …” i link do pliku |
+| ThreatFox (tag = słowo incydentu, każde słowo) | wskaźniki z tym tagiem | „botnet command-and-control server · Unknown RAT · tagged “connectwise” · confidence 100%” |
+| pivot VirusTotal, crt.sh | domeny na tym samym serwerze / z certyfikatem ze słowem | sposób znalezienia („resolved to … — same server, not confirmed”) |
+
+Kolejność powodów na stronie: analiza → tabela IOC → lista społeczności → ThreatFox → cytat z tekstu (zapisywanych jest 5 najważniejszych, nie najnowszych).
+
+**Posty na X** (np. Steven Lim o domenach passkey O-UNC-066) i strony detections.ai nie są czytelne dla kodu (x.com blokuje roboty, detections.ai wymaga logowania) — te same listy Steven Lim wgrywa do repozytorium, które czytamy. Kampania passkey ma od 23 X 2026 15 domen z tabeli IOC artykułu Microsoft Threat Intelligence z 9 IX 2026.
+
 ### 16.6 Wyszukiwarka domen, IP i wildcardów (od 23 X 2026, §5fd)
 
 Ramka Infrastructure watch → **Look up a domain, IP or wildcard**. Przyjmuje domenę (także `evil[.]com`), adres IP, URL (bierze nazwę hosta) albo wildcard ze słowem od 4 liter (`*copilot*.com`, `%passkey%`).
@@ -1454,6 +1468,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-10-23 | Naprawa „Code refresh”: SCRIPT 17 przekroczył 1 000 000 znaków (1 009 898), a `tools/code_refresh.py` pomijał bloki > 1 MB („not found: SCRIPT 17 block”); próg 4 MB. |
 | 2026-10-23 | §5fc — kampanie skalowalne: słowa z tytułu każdego incydentu i stała lista marek Microsoft, wskaźniki z artykułów, crt.sh `identity=` z liczbą domen na dzień / tydzień (dolna granica — ograniczenie crt.sh opisane w 16.5), pivot passive DNS w VirusTotal, silniki VirusTotal z werdyktem, data pierwszego oznaczenia, karty kampanii; Microsoft TI (reputacja hosta) gotowe, czeka na `ThreatIntelligence.Read.All`; GreyNoise czyta sekret `GN_API_KEY`. README 16.5, 16.7. |
 | 2026-10-23 | §5fd — wyszukiwarka domen / IP / URL / wildcardów: funkcja `api/lookup` (tylko rola `owner`, klucze w ustawieniach aplikacji SWA), sekcje według źródła, „In our data” dla każdego; `api_location: "api"` we wszystkich 4 wdrożeniach; workflow Lookup self-test. README 16.6. |
+| 2026-10-23 | §5fe — Threat Research czytelna: skala czcionek zakładki (treść 15 px, drugorzędne 14 px, etykiety 13 px; było 10,5–13,5 px), tytuły ramek 21 px, Infrastructure watch w 5 numerowanych sekcjach z paskiem skoków (Summary, By incident, Campaigns, Look up, Sources of this run), wskaźniki pogrupowane według incydentu, kolumna „Why it is listed”; wskaźniki z pełnych artykułów (tabele IOC) i z list IOC Stevena Lima; zdanie „Threat Research” w Overview („Today in N sentences”); pasek „In this tab” przyklejony, na telefonie w jednym wierszu. README 16.5a. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |

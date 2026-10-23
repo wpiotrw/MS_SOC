@@ -116,6 +116,124 @@ def load(p, default):
         return default
 
 
+PAGES = "cache/ioc-pages.json"
+PAGE_DAYS, PAGE_MAX = 7, 25           # re-read an article after a week; at most 25 page reads a run
+EXAMPLE = re.compile(r"(?i)contoso|company-?name|example|yourdomain|tenant-?name|fabrikam")
+_page_reads = [0]
+
+
+def page_iocs(link, pages, today):
+    if not link:
+        return []
+    c = pages.get(link)
+    if c and c.get("read", "") >= (dt.date.fromisoformat(today) - dt.timedelta(days=PAGE_DAYS)).isoformat():
+        return [tuple(z) for z in c.get("iocs") or []]
+    if _page_reads[0] >= PAGE_MAX:
+        return [tuple(z) for z in (c or {}).get("iocs") or []]
+    _page_reads[0] += 1
+    st, body = http(link, timeout=30)
+    if st != 200:
+        return [tuple(z) for z in (c or {}).get("iocs") or []]
+    h = (body or b"").decode("utf-8", "replace")
+    h = re.sub(r"(?is)<(script|style|noscript)\b.*?</\1>", " ", h)
+    found, seen = [], set()
+    def txt(x):
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", x)).replace("&nbsp;", " ").replace("&#8211;", "-").replace("&amp;", "&").strip()
+    # table rows: the indicator and what the other cells say about it ("Passkey support lure", "C2 server")
+    for tbl in re.findall(r"(?is)<table\b.*?</table>", h):
+      last = ""                          # a description cell spanning several rows (rowspan) belongs to all of them
+      for row in re.findall(r"(?is)<tr\b.*?</tr>", tbl):
+        cells = [txt(c) for c in re.findall(r"(?is)<t[dh]\b.*?</t[dh]>", row)]
+        line = " | ".join(cells)
+        if "[.]" not in line and "hxxp" not in line.lower():
+            continue
+        for kind, v in extract(line):
+            if EXAMPLE.search(v):
+                continue
+            rest = [c for c in cells if refang(c).lower().strip() != v and v not in refang(c).lower()]
+            desc = " · ".join(z for z in rest if z and z.lower() not in ("domain", "domains", "ip", "ip address", "ipv4", "url"))[:160]
+            if desc and not re.search(r"(?i)^(ip|domain|url)s?$", desc):
+                last = desc
+            desc = desc or last
+            # the same indicator in two tables (a themed list of examples, then the IOC table): keep the fuller description
+            old_ = next((f for f in found if f[0] == kind and f[1] == v), None)
+            if old_:
+                if len(desc) > len(old_[2]) - len("IOC table: "):
+                    old_[2] = "IOC table: " + desc
+                continue
+            seen.add((kind, v))
+            found.append([kind, v, "IOC table: " + (desc or "listed without a description")])
+    # defanged mentions in the text: the sentence around it
+    plain = txt(re.sub(r"(?is)<tr\b.*?</tr>", " ", h))
+    for sent in re.split(r"(?<=[.!?])\s+(?=[A-Z])", plain):
+        if "[.]" not in sent and "hxxp" not in sent.lower():
+            continue
+        for kind, v in extract(sent):
+            if (kind, v) in seen or EXAMPLE.search(v) or EXAMPLE.search(sent[:0]):
+                continue
+            seen.add((kind, v))
+            found.append([kind, v, "In the text: " + sent[:180]])
+    pages[link] = {"read": today, "iocs": found[:200]}
+    return [tuple(z) for z in found[:200]]
+
+
+def ioc_repos(repos, words, add):
+    """Shallow-clone each community IOC repository and read the files whose name carries an incident's word."""
+    import subprocess, csv, io, tempfile
+    r = {"state": "ok", "files": 0, "iocs": 0, "note": ""}
+    if not repos:
+        return {"state": "skipped", "note": "no Kind ioc-repo in ti_sources.json"}
+    for rp in repos:
+        d = tempfile.mkdtemp(prefix="iocrepo-")
+        url = rp.get("Repo") or ""
+        p = subprocess.run(["git", "clone", "-q", "--depth", "1", url, d], capture_output=True, text=True, timeout=180)
+        if p.returncode != 0:
+            r["note"] += "%s: clone failed; " % url; continue
+        base = os.path.join(d, rp.get("Path") or "")
+        for fn in sorted(os.listdir(base)) if os.path.isdir(base) else []:
+            key = re.sub(r"[^a-z0-9]", "", fn.lower())
+            hit = [w for w in words if not w.startswith("story:") and len(w) >= 6 and (w in key or (len(w) >= 8 and w.rstrip("s") in key))]
+            if not hit:
+                continue
+            try:
+                raw = open(os.path.join(base, fn), encoding="utf-8-sig", errors="replace").read()
+            except Exception:
+                continue
+            r["files"] += 1
+            n = 0
+            rows_ = list(csv.reader(io.StringIO(raw)))
+            head = [h.strip() for h in rows_[0]] if rows_ and not IP_RX.fullmatch(refang((rows_[0] or [""])[0].strip().lower())) and "." not in (rows_[0] or [""])[0] else None
+            for row_ in rows_[(1 if head else 0):REPO_MAX + 1]:
+                if not row_:
+                    continue
+                line = ",".join(row_)
+                cols = " · ".join("%s: %s" % (head[i] if head and i < len(head) else "col%d" % i, v.strip()) for i, v in enumerate(row_[1:], 1) if v.strip())[:150]
+                cell = row_[0].strip().strip('"').lower()
+                cell = refang(cell)
+                kind = None
+                if IP_RX.fullmatch(cell):
+                    try:
+                        kind = "ip" if ipaddress.ip_address(cell).is_global else None
+                    except ValueError:
+                        kind = None
+                elif re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)+", cell) and not BENIGN.search(regdom(cell)):
+                    kind = "domain"
+                if not kind:
+                    continue
+                for w in hit:
+                    for sid in words[w]:
+                        add(kind, cell, None if sid == "_watch" else sid, "ioc-list",
+                            {"list": {"repo": rp.get("SourceName"), "file": fn, "url": (rp.get("Site") or "").rstrip("/") + "/blob/main/" + (rp.get("Path") or "") + "/" + fn}},
+                            why=(rp.get("Author") or rp.get("SourceName") or "IOC list", "list “%s”%s" % (fn, (" — " + cols) if cols else " — campaign domain list")))
+                n += 1
+                if n >= REPO_MAX:
+                    break
+            r["iocs"] += n
+    return r
+
+
+REPO_MAX = 60                         # indicators per community file (VirusTotal can check 60 a run)
+
 COMMON_CAPS = {"AITM", "ADFS", "OAUTH", "AZURE", "ENTRA", "CISA", "CVE", "MFA", "SSPR", "DPAPI", "PHISHING", "MICROSOFT",
                "WINDOWS", "DEFENDER", "SENTINEL", "INTUNE", "GITHUB", "DEVOPS", "KUBERNETES", "HUNTRESS", "RANSOMWARE",
                "CLOUDFLARE", "CYBERARK", "BLIZZARD", "TYPHOON", "TEMPEST", "SLEET", "TOKENS", "ACCESS", "ACTIVE", "DATABASE"}
@@ -197,12 +315,12 @@ def main():
 
     # ---- 1. indicators of our analyses ----
     I = {}
-    def add(kind, value, story, origin, extra=None):
+    def add(kind, value, story, origin, extra=None, why=None):
         k = kind + ":" + value
         o = old.get(k) or {}
         x = I.get(k) or {"key": k, "type": kind, "v": defang(value, kind), "stories": [], "origins": [],
                          "first": o.get("first") or today}
-        for f in ("vt", "gn", "uh", "tf", "ct", "ms", "flaggedOn", "pv", "pivoted", "verdict"):
+        for f in ("vt", "gn", "uh", "tf", "ct", "ms", "flaggedOn", "pv", "pivoted", "verdict", "why"):
             if f in o and f not in x:
                 x[f] = o[f]
         if story and story not in x["stories"]:
@@ -211,18 +329,28 @@ def main():
             x["origins"].append(origin)
         if extra:
             x.update(extra)
+        if why:      # 5fe: WHY this indicator is listed - its role in the attack, in the source's words
+            w0 = {"src": why[0], "t": re.sub(r"\s+", " ", why[1]).strip()[:220]}
+            W = [z for z in (x.get("why") or []) if z.get("t") != w0["t"]] + [w0]
+            rank = lambda z: 0 if z["src"] == "Our analysis" else 1 if z["t"].startswith("IOC table") else 2 if "list “" in z["t"] else 3 if z["src"] == "ThreatFox" else 4
+            x["why"] = sorted(W, key=rank)[:5]      # the most telling reasons survive, not the latest
         I[k] = x
     words = {}
     arts = {a.get("id"): a for a in T.get("articles") or []}
+    pages = load(PAGES, {})          # 5fe: article link -> {"read": day, "iocs": [[kind, value, why]]}
     for st in T.get("stories") or []:
         n = st.get("notes") or {}
-        txt = "\n".join(n.get("iocs") or [])
-        for kind, v in extract(txt):
-            add(kind, v, st["id"], "analysis")
+        for line in n.get("iocs") or []:
+            for kind, v in extract(line):
+                add(kind, v, st["id"], "analysis", why=("Our analysis", line))
         # every story, curated or not: defanged indicators the source articles print in their text
         for aid in st.get("articles") or []:
-            for kind, v in extract((arts.get(aid) or {}).get("summary") or ""):
-                add(kind, v, st["id"], "article")
+            a = arts.get(aid) or {}
+            for kind, v in extract(a.get("summary") or ""):
+                add(kind, v, st["id"], "article", why=(a.get("source") or "Article", "named in the article summary"))
+            # 5fe: the whole article - IOC tables (indicator + the role the author gives it) and defanged mentions
+            for kind, v, why in page_iocs(a.get("link"), pages, today):
+                add(kind, v, st["id"], "article", {"art": a.get("link")}, why=(a.get("source") or "Article", why))
         # every story: the coined names in its title (PHP2Shell, NeedyMantis, EvilTokens, ARTEX) - what a campaign's
         # domains copy; scales to any new incident that enters the filters, no list to keep
         for w in title_words(st.get("title") or ""):
@@ -249,6 +377,11 @@ def main():
         for w2 in labels:
             if w2 in blob:
                 words[w2].add(st["id"])
+
+    # ---- 1b. community IOC lists (ti_sources.json Kind "ioc-repo": Steven Lim's SlimKQL IOC folder...) ----
+    # a file whose name carries an incident's word (greynoise_php2shell_attacker_ips.csv -> PHP2Shell,
+    # EvilTokens26Apr.csv -> EvilTokens) gives that incident its indicators, with the file as the reason
+    rep["IOC lists"] = ioc_repos([s_ for s_ in srcs.values() if s_.get("Kind") == "ioc-repo"], words, add)
 
     # ---- 2. Certificate Transparency look-alikes ----
     cut = (t0 - dt.timedelta(days=CT_DAYS)).strftime("%Y-%m-%d")
@@ -300,7 +433,9 @@ def main():
     # ---- 3. ThreatFox tags (needs the abuse.ch key) ----
     if keys["ab"]:
         r = {"state": "ok", "tags": 0, "iocs": 0, "note": ""}
-        for w, sids in sorted(words.items())[:10]:
+        for w, sids in sorted(words.items()):       # every watched word (5fe: was the first 10 alphabetically)
+            if w.startswith("story:"):
+                continue
             st, body = http("https://threatfox-api.abuse.ch/api/v1/", "POST", {"Auth-Key": keys["ab"], "Content-Type": "application/json"},
                             json.dumps({"query": "taginfo", "tag": w, "limit": 50}).encode())
             r["tags"] += 1
@@ -320,7 +455,11 @@ def main():
                 if not kind or not v:
                     continue
                 for sid in sids:
-                    add(kind, v.lower(), None if sid == "_watch" else sid, "threatfox-tag", {"tfTag": w})
+                    add(kind, v.lower(), None if sid == "_watch" else sid, "threatfox-tag", {"tfTag": w},
+                        why=("ThreatFox", "%s · %s · tagged “%s” · confidence %s%% · reported %s" % (
+                            {"botnet_cc": "botnet command-and-control server", "payload_delivery": "serves malware payloads",
+                             "cc_skimming": "card-skimming server", "payload": "malware file"}.get(d.get("threat_type"), d.get("threat_type") or "indicator"),
+                            d.get("malware_printable") or "unknown malware", w, d.get("confidence_level"), (d.get("first_seen") or "")[:10])))
                 r["iocs"] += 1
             time.sleep(1)
         rep["ThreatFox tags"] = r
@@ -543,6 +682,7 @@ def main():
     H["days"] = {d: H["days"][d] for d in keep}
     H["source"] = "tools/ioc_watch.py (CLAUDE.md 5fb)"
     titles = {st["id"]: st["title"] for st in T.get("stories") or []}
+    json.dump(pages, open(PAGES, "w"), indent=0, sort_keys=True)
     body = {"source": "tools/ioc_watch.py (CLAUDE.md 5fb)", "sources": rep, "words": {w: sorted(s) for w, s in sorted(words.items())},
             "titles": titles, "campaigns": camp, "counts": {v: sum(1 for x in inds if x["verdict"] == v) for v in
                                          ("malicious", "suspicious", "no detections", "unknown to VirusTotal", "not checked yet")},
