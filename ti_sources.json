@@ -9,10 +9,12 @@
     "Limits": "no published quota; one query per keyword, slow at peak - read with a 50 s timeout",
     "Terms": "public service of Sectigo; no key",
     "Use": "Discovery: new TLS certificates whose names carry an incident keyword (the vendor brand, the campaign name) or a Microsoft brand look-alike (e.g. copilot-cloud-microsoft[.]com) - candidate phishing / malware domains",
-    "Status": "planned",
+    "Status": "active",
     "Checked": "2026-10-23",
-    "CheckNote": "query %skykick% returned 7 certificates from the build container",
-    "Docs": "https://crt.sh"
+    "CheckNote": "query %skykick% returned 7 certificates from the build container; 23 X: the incident words connectwise, skykick, eviltokens, jadepuffer gave 0 look-alike certificates in 30 days",
+    "Docs": "https://crt.sh",
+    "WatchKeywords": [],
+    "WatchNote": "Owner-editable: extra words (6+ characters, no spaces) to watch in new certificates besides the curated incident words, e.g. a brand look-alike part. crt.sh splits on punctuation, so hyphenated phrases (microsoft-copilot) return nothing - use a single token."
   },
   {
     "SourceName": "VirusTotal (public API v3)",
@@ -24,7 +26,7 @@
     "Limits": "500 requests a day, 4 a minute (public API)",
     "Terms": "public API: not for commercial products or services, not in business workflows that contribute no files; one account per person. This portal is a private, non-commercial project of Piotr Wiśniewski. Reverse search, feeds, Livehunt / Retrohunt are premium - not used",
     "Use": "Verification: for every domain / IP of our incidents and every crt.sh candidate - engine verdicts (malicious / suspicious / harmless / undetected), categories, creation date, last analysis; one snapshot a day -> trend",
-    "Status": "planned - waits for the secret",
+    "Status": "active",
     "Checked": "2026-10-23",
     "Docs": "https://docs.virustotal.com/reference/public-vs-premium-api"
   },
@@ -38,7 +40,7 @@
     "Limits": "fair use",
     "Terms": "free under the abuse.ch fair-use principles and Terms of Use; commercial use may need the paid API",
     "Use": "IOCs (domains, IPs, URLs) of the malware families and tags our incidents name, with first-seen dates - second series on the trend chart",
-    "Status": "planned - waits for the secret",
+    "Status": "active",
     "Checked": "2026-10-23",
     "Docs": "https://threatfox.abuse.ch/api/"
   },
@@ -52,7 +54,7 @@
     "Limits": "fair use",
     "Terms": "the same abuse.ch key and Terms of Use as ThreatFox",
     "Use": "Malware-distribution URLs on the hosts and tags of our incidents; online / offline state",
-    "Status": "planned - waits for the secret",
+    "Status": "active",
     "Checked": "2026-10-23",
     "Docs": "https://abuse.ch/blog/community-first/"
   },
@@ -61,12 +63,12 @@
     "Kind": "ip-context",
     "Site": "https://www.greynoise.io",
     "Api": "https://api.greynoise.io/v3/community/<ip>",
-    "Auth": "none",
-    "Secret": "",
-    "Limits": "10 lookups a day without a key (a free key - 50 a week - is issued only to a business e-mail; not used, the project is private)",
+    "Auth": "api-key",
+    "Secret": "GREYNOISE_API_KEY",
+    "Limits": "50 lookups a week with the key (the owner's key, 23 X 2026); 10 a day without one",
     "Terms": "community API",
     "Use": "Context for the IPs of our incidents: internet-wide scanner (noise) or not, classification, last seen",
-    "Status": "planned",
+    "Status": "active",
     "Checked": "2026-10-23",
     "Docs": "https://docs.greynoise.io/docs/using-the-greynoise-community-api"
   },

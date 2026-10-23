@@ -18,7 +18,7 @@ on:
       - 'tools/site_retention.py'
       - '.github/workflows/code-refresh.yml'
   workflow_run:
-    workflows: ["First-party apps tenant snapshot", "Campaign tracking", "Baselines tracking"]
+    workflows: ["First-party apps tenant snapshot", "Campaign tracking", "Baselines tracking", "IOC watch"]
     types: [completed]
   workflow_dispatch:
 

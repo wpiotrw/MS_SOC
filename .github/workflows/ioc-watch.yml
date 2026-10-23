@@ -1,0 +1,62 @@
+name: IOC watch
+
+# CLAUDE.md 5fb (23 X 2026): the infrastructure of our incidents - domains and IPs from the analyses, look-alike
+# certificates (crt.sh), checked in VirusTotal, GreyNoise, URLhaus and ThreatFox (ti_sources.json, README section 16).
+# Writes site/data/ioc-watch.json and site/data/ioc-watch-history.json; commits when something changed. The keys are
+# repository secrets - a missing one means that source is skipped and named in the file, never a failed job.
+# A push made with GITHUB_TOKEN starts no other workflow, so "Code refresh" deploys the site after this one.
+on:
+  schedule:
+    - cron: "25 6 * * *"     # after the morning routine and its threat notes
+    - cron: "25 18 * * *"
+  push:
+    branches: [main]
+    paths:
+      - 'tools/ioc_watch.py'
+      - 'ti_sources.json'
+      - '.github/workflows/ioc-watch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: swa-deploy
+  cancel-in-progress: false
+
+jobs:
+  ioc-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Which keys this run has (names only, never values)
+        env:
+          VT_API_KEY: ${{ secrets.VT_API_KEY }}
+          ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+        run: |
+          for k in VT_API_KEY ABUSECH_AUTH_KEY GREYNOISE_API_KEY; do
+            if [ -n "${!k}" ]; then echo "$k: set"; else echo "$k: NOT SET"; fi
+          done
+      - name: Check the indicators (CLAUDE.md 5fb)
+        env:
+          VT_API_KEY: ${{ secrets.VT_API_KEY }}
+          ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
+          GREYNOISE_API_KEY: ${{ secrets.GREYNOISE_API_KEY }}
+        run: timeout 2100 python3 tools/ioc_watch.py || true
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/ioc-watch.json site/data/ioc-watch-history.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "No change."; else
+            python3 tools/stamp.py iocwatch || true; git add site/data/fresh
+            git commit -m "data: IOC watch $(date -u +%F' '%H:%M) UTC"
+            git pull --rebase -q origin main
+            git push origin main
+          fi

@@ -12,7 +12,7 @@ it describes. One small file per workflow - site/data/fresh/<key>.json - so two 
   {"key", "at" (UTC, minutes), "workflow", "run" (GitHub run id), "sha" (commit the run started from, 7 chars),
    "note", "spec" (code only: the newest stage of CLAUDE.md, e.g. "5da")}
 
-Keys in use: code (code-refresh.yml), tenant (fpa-tenant.yml), campaigns (campaigns.yml), baselines (baselines.yml, 5dv), publish (publish.yml),
+Keys in use: code (code-refresh.yml), tenant (fpa-tenant.yml), campaigns (campaigns.yml), baselines (baselines.yml, 5dv), publish (publish.yml), iocwatch (ioc-watch.yml, 5fb),
 learn (learn-mirror.yml). The page reads them (data/fresh/*.json) for the header frame, the chips on the tabs and
 the About tab. Nothing secret: workflow names, run numbers and commit ids are public in a public repository."""
 import datetime, json, os, re, sys
