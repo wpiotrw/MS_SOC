@@ -110,7 +110,7 @@ To configure SMTP e-mail to deliver e-mail messages immediately, use the followi
 
 Warning
 
-It looks like the sample you are looking for has moved! Rest assured we are working on resolving this.
+It looks like the sample you are looking for does not exist.
 
 The variable **from***string* is the e-mail address of the sender. The variable **/deliveryMethod:network** configures IIS to deliver e-mail messages immediately. The variable **/network.port***int* sets the TCP port that is used by IIS to deliver e-mail messages. The variable **/network.host***string* specifies the host used for SMTP transactions. The variable **network.defaultCredentials:True**|**False** enables or disables authentication using the default network credentials. If **defaultCredentials** is set to **True**, Kerberos or NTLM are used if the server supports these protocols. The variables **network.userName:***string* and **network. password:***string* set a basic authentication user name and password.
 
@@ -120,7 +120,7 @@ To configure SMTP e-mail to store e-mails in a file location on disk for later d
 
 Warning
 
-It looks like the sample you are looking for has moved! Rest assured we are working on resolving this.
+It looks like the sample you are looking for does not exist.
 
 The variable from string is the e-mail address of the sender. The variable/deliveryMethod:PickupDirectoryFromIis|SpecifiedPickupDirectory string configures IIS to store e-mails in a file location on disk for later delivery. The variable /SpecifiedPickupDirectory string sets the file location on disk in which to store the e-mail messages for later delivery.
 
@@ -132,12 +132,12 @@ Note that when you use Appcmd.exe to configure the `<mailSettings>` element at t
 
     Warning
 
-    It looks like the sample you are looking for has moved! Rest assured we are working on resolving this.
+    It looks like the sample you are looking for does not exist.
 2. Set the following values:
 
     Warning
 
-    It looks like the sample you are looking for has moved! Rest assured we are working on resolving this.
+    It looks like the sample you are looking for does not exist.
 
     Note that the default value is localhost, so there is no need to change this if SMTP is installed locally.
 
@@ -163,7 +163,7 @@ Create a test script to see whether you can send e-mail using PHP. Copy the foll
 
 Warning
 
-It looks like the sample you are looking for has moved! Rest assured we are working on resolving this.
+It looks like the sample you are looking for does not exist.
 
 Run the file at **mydomain.com/email\_test.php**.
 

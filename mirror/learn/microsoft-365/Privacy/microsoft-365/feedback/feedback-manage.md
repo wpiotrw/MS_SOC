@@ -49,10 +49,6 @@ platformId: f30d50b9-25ac-3edc-cc6d-804a3e05d5cc
 
 # Manage Microsoft feedback for your organization - Microsoft 365 | Microsoft Learn
 
-Note
-
-Microsoft 365 Copilot is now named Microsoft Copilot.
-
 As the admin of a Microsoft 365 organization, there are several policies to help you manage the feedback collection and the customer engagement experience of your users when using Microsoft 365 applications and Microsoft Copilot. All policies described in this article govern feedback for both Microsoft 365 applications and Microsoft Copilot. You can create and use existing Microsoft Entra groups in your organization for each of these policies. With these policies, you can control how different departments in your organization can send feedback to Microsoft.
 
 Microsoft reviews all feedback submitted by customers. Microsoft uses this feedback to improve the product experiences for users, including by improving the quality of AI-generated responses and troubleshooting product issues. Keeping the feedback experiences enabled allows you to see what your users are saying about the Microsoft products they're using. The feedback we collect from your users is available in the [Microsoft 365 admin center](https://admin.microsoft.com).

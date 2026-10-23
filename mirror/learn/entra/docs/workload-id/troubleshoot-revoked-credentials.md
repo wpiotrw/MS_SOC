@@ -60,7 +60,7 @@ A revoked credential error doesn't, by itself, mean Microsoft revoked the creden
 
 ## Understand why a credential was revoked
 
-Microsoft can revoke a credential in your tenant after detecting that a threat actor compromised it. The threat actor might have stolen an existing credential or added a credential to an application or service principal to gain access.
+Tenant administrators or Microsoft can revoke credentials. Microsoft can revoke a credential in your tenant after detecting that a threat actor compromised it. This can include a threat actor stealing an existing credential or adding a credential to a service principal or application object.
 
 The `tokenRevocations` property records revocations on an application or service principal. Revoking a credential has the following effects:
 

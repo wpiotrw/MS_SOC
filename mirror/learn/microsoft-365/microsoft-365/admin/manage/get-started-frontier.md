@@ -170,3 +170,5 @@ To learn more about AI-enabled Cloud PCs, including minimum requirements that mu
 Important
 
 Frontier experiences are governed by your existing customer agreements, including the Product Terms and Microsoft Data Protection Addendum (DPA). Frontier experiences are preview features that allow for personal data processing, as described in the DPA. As preview features, Frontier experiences may be modified, suspended, or discontinued, may not be covered by standard support commitments or service level agreements, and may be subject to additional Frontier-specific preview terms where applicable. HIPAA Business Associate Agreement coverage is not included for Frontier experiences. Certain Frontier experiences may only be available on a paid basis. Copilot credit consumption requirements are described in the [Microsoft Copilot Credits Guide](https://go.microsoft.com/fwlink/?linkid=2368800).
+
+Frontier features do not comply with ISO 27001, ISO 27002, or ISO 27018 requirements.

@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/entra
 https://learn.microsoft.com/en-us/entra/agent-id
 https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint
+https://learn.microsoft.com/en-us/entra/agent-id/disable-agent-identities
 https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id
 https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id
 https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-employee-access
