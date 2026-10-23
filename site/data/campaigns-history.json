@@ -3972,6 +3972,14 @@
 "date":"2026-10-21",
 "group":"community",
 "found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2027-07-01",
@@ -5368,14 +5376,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-21",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-22",
 "text":"August 1, 2026."
 },
@@ -5449,6 +5449,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-22",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-23",
 "text":"August 1, 2026."
 },
 {
@@ -5962,7 +5970,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"early February 2026."
 },
 {
@@ -5970,7 +5978,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"February 2027."
 },
 {
@@ -6427,6 +6435,72 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-item-mc1454973":{
+"firstSeen":"2026-10-23",
+"lastSeen":"2026-10-23",
+"name":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"status":"Active",
+"members":[
+"MC1454973",
+"item:MC1454973"
+],
+"log":[
+{
+"date":"2026-10-23",
+"id":"MC1454973",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
+"title":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
+"link":"https://deltapulse.app/item/MC1454973"
+}
+],
+"milestones":{
+"MC1454973|posted":{
+"date":"2026-08-14",
+"label":"14 Aug 2026",
+"text":"Posted: Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring"
+},
+"MC1454973|microsoft s update of moves every date in the post to#0":{
+"date":"2026-10-23",
+"label":"23 Oct 2026",
+"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
+},
+"MC1454973|microsoft s update of moves every date in the post to#1":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1454973":{
+"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"link":"https://mc.merill.net/message/MC1454973",
+"source":"Message Center",
+"id":"MC1454973",
+"date":"2026-08-14",
+"updated":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://deltapulse.app/item/MC1454973":{
+"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"link":"https://deltapulse.app/item/MC1454973",
+"source":"Main list source",
+"id":"MC1454973",
+"date":"2026-08-14",
+"group":"microsoft",
+"found":"2026-10-23"
+}
+},
+"final":"2026-10-30",
+"type":"Retirement",
+"tech":"Copilot",
+"posts":[
+"MC1454973"
 ]
 },
 "c-item-mc1515940":{
@@ -6928,6 +7002,14 @@
 "date":"2026-09-25",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5":{
+"title":"Your app unlocked the purchase. Did Google Play get the confirmation?",
+"link":"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5",
+"source":"NeonTiger12",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2026-10-31",
@@ -8822,6 +8904,14 @@
 "date":"2026-10-22",
 "group":"community",
 "found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2027-07-01",
@@ -9415,7 +9505,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9423,7 +9513,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-22",
+"seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9784,6 +9874,14 @@
 "date":"2026-10-21",
 "group":"community",
 "found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
 }
 },
 "final":"2027-02-25",
@@ -13130,6 +13228,56 @@
 "title":"OpenAI Moderation API vs GPT-4o-mini Chat Completions: JSON Schema Moderation (and Cost)",
 "source":"NeonTiger12",
 "link":"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"group":"community",
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-mc1454973",
+"type":"new",
+"name":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"ctype":"Retirement",
+"tech":"Copilot",
+"next":"23 Oct 2026",
+"text":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October"
+},
+{
+"day":"2026-10-23",
+"cid":"c-item-intune-google-play-strong-integrity",
+"type":"material",
+"name":"Google Play Strong Integrity enforcement for Android 13+",
+"group":"community",
+"title":"Your app unlocked the purchase. Did Google Play get the confirmation?",
+"source":"NeonTiger12",
+"link":"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5"
+},
+{
+"day":"2026-10-23",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500"
+},
+{
+"day":"2026-10-23",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500"
 }
 ],
 "archive":{
