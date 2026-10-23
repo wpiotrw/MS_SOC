@@ -41463,7 +41463,7 @@ odtad CZTERNASCIE (4-17).**
   if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling);
   else { var tps = wrap.querySelectorAll(":scope > .tabpanel"); if (tps.length) wrap.insertBefore(panel, tps[tps.length - 1].nextSibling); else wrap.appendChild(panel); }
 
-  var D = null, asked = false, built = false, ART = {}, DAY = "", PREV = "", PREV2 = "", KQF = [];
+  var D = null, asked = false, built = false, ART = {}, DAY = "", PREV = "", PREV2 = "", KQF = [], IOW = null, IOH = null;
   function goTab() { var b = document.getElementById("tabbtn-tab-threats") || document.querySelector('nav.anchors .tab[aria-controls="tab-threats"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
   var waiters = [];
   function load(cb) {
@@ -41474,6 +41474,9 @@ odtad CZTERNASCIE (4-17).**
       .then(function (j) { D = j; (D.articles || []).forEach(function (a) { ART[a.id] = a; }); stamp();
         /* §5eu: the Kusto queries the sources published with their articles (tools/threats.py) */
         fetch("data/kql-found.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (k) { KQF = (k && k.queries) || []; }).catch(function () {});
+        /* §5fb: the infrastructure of the incidents (tools/ioc_watch.py) and its daily history */
+        fetch("data/ioc-watch.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (k) { IOW = k; }).catch(function () {});
+        fetch("data/ioc-watch-history.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (k) { IOH = k; }).catch(function () {});
         var w = waiters; waiters = []; w.forEach(function (f) { try { f(); } catch (e) { if (window.console) console.error("[5el]", e); } }); })
       .catch(function (e) { body.textContent = ""; body.appendChild(el("p", "s5el-note", "Threat Research data could not be read (" + e.message + "). It is written every 3 hours by the workflow “First-party apps tenant snapshot”.")); });
   }
@@ -41722,6 +41725,7 @@ odtad CZTERNASCIE (4-17).**
     }
     d.appendChild(f);
     appsCard(s, d);   /* §5ez */
+    infraCard(s, d);  /* §5fb */
     var cols = el("div", "s5et-cols"), A = el("div", "s5et-col"), B = el("div", "s5et-col"); cols.appendChild(A); cols.appendChild(B); d.appendChild(cols);
     if (N) {
       if (N.summary) { var c1 = card(A, "What happened"); c1.appendChild(el("p", "s5el-sum", N.summary)); }
@@ -41763,6 +41767,130 @@ odtad CZTERNASCIE (4-17).**
     ca.appendChild(au);
     if (N && N.remediation && N.remediation.length) todoCard(N, d);   /* §5ez */
     kqlCard(s, N, d);                                                   /* §5ez */
+  }
+  /* §5fb (23 X 2026, owner: "use VirusTotal to follow the domains of a campaign or incident we describe - many phishing
+     and malware domains appear; show them, say whether they are real or not, statistics and trend lines"). Data:
+     data/ioc-watch.json and data/ioc-watch-history.json (tools/ioc_watch.py, workflow "IOC watch", twice a day, sources
+     in ti_sources.json). An indicator is always printed DEFANGED (evil[.]com) - the links lead to the report about it
+     at VirusTotal / URLhaus / ThreatFox / GreyNoise, never to the domain itself. Verdict: malicious = 2+ engines in
+     VirusTotal, an online URL in URLhaus or a ThreatFox entry; suspicious = 1 engine or a suspicious vote, an offline URL
+     in URLhaus or GreyNoise "malicious"; no detections = VirusTotal knows it and no engine flags it. */
+  var VCLS = { "malicious": "s5fb-bad", "suspicious": "s5fb-warn", "no detections": "s5fb-ok", "unknown to VirusTotal": "s5fb-mut", "not checked yet": "s5fb-mut" };
+  function iocLinks(x) {
+    var v = x.v.replace(/\[\.\]/g, ".").replace(/^hxxp/, "http"), sp = el("span", "s5fb-links");
+    var L = [["VirusTotal", "https://www.virustotal.com/gui/" + (x.type === "ip" ? "ip-address/" : "domain/") + encodeURIComponent(v)],
+      ["URLhaus", "https://urlhaus.abuse.ch/host/" + encodeURIComponent(v) + "/"],
+      ["ThreatFox", "https://threatfox.abuse.ch/browse.php?search=ioc%3A" + encodeURIComponent(v)]];
+    if (x.type === "ip") L.push(["GreyNoise", "https://viz.greynoise.io/ip/" + encodeURIComponent(v)]);
+    L.forEach(function (l, i) { if (i) sp.appendChild(document.createTextNode(" · ")); sp.appendChild(aLink(l[0], l[1])); });
+    return sp;
+  }
+  function iocOrigin(x) {
+    var o = [];
+    if (x.origins.indexOf("analysis") >= 0) o.push("in the analysis");
+    if (x.origins.indexOf("crtsh") >= 0 && x.ct) o.push("look-alike certificate " + dmy(x.ct.notBefore) + " (word “" + x.ct.word + "”)");
+    if (x.origins.indexOf("threatfox-tag") >= 0) o.push("ThreatFox tag");
+    return o.join(" · ");
+  }
+  function iocFacts(x) {
+    var f = [], vt = x.vt || {}, gn = x.gn || {}, uh = x.uh || {}, tf = x.tf || {};
+    if (vt.checked && !vt.notFound) f.push("VirusTotal " + (vt.m || 0) + " malicious · " + (vt.s || 0) + " suspicious of " + ((vt.m || 0) + (vt.s || 0) + (vt.h || 0) + (vt.u || 0)) + (vt.created ? " · registered " + dmy(vt.created) : "") + (vt.owner ? " · " + vt.owner : "") + (vt.country ? " (" + vt.country + ")" : ""));
+    else if (vt.notFound) f.push("VirusTotal: not known");
+    if (gn.checked) f.push("GreyNoise: " + (gn.noise ? "internet scanner" : gn.riot ? "common business service" : "not a mass scanner") + (gn.cls && gn.cls !== "unknown" ? " · " + gn.cls : "") + (gn.name ? " · " + gn.name : ""));
+    if (uh.checked && uh.count) f.push("URLhaus: " + uh.count + " malware URL" + (uh.count === 1 ? "" : "s") + " (" + uh.online + " online)" + (uh.threats && uh.threats.length ? " · " + uh.threats.join(", ") : ""));
+    if (tf.checked && tf.count) f.push("ThreatFox: " + (tf.malware || []).join(", ") + (tf.first ? " · first " + dmy(tf.first) : ""));
+    return f;
+  }
+  function iocTable(L, showStory) {
+    var tw = el("div", "s5el-tw"), tb = el("table", "s5el-tab s5fb-tab"), th = el("thead"), tr = el("tr");
+    tb.setAttribute("data-s5dd", "own"); tb.setAttribute("data-s11", "1");
+    (showStory ? ["Indicator", "Verdict", "What the checks say", "Incident", "Where from", "Reports"] : ["Indicator", "Verdict", "What the checks say", "Where from", "Reports"]).forEach(function (h) { tr.appendChild(el("th", null, h)); });
+    th.appendChild(tr); tb.appendChild(th);
+    var bd = el("tbody");
+    L.forEach(function (x, i) {
+      var r = el("tr"); if (i >= 12) { r.hidden = true; r.setAttribute("data-more", "1"); }
+      var c0 = el("td"); c0.appendChild(el("code", "s5fb-v" + (x.type === "ip" ? "" : " s5fb-dom"), x.v)); c0.appendChild(el("div", "s5el-mut", x.type === "ip" ? "IP address" : "domain")); r.appendChild(c0);
+      var c1 = el("td"); c1.appendChild(zchip(x.verdict, "s5fb-vd " + (VCLS[x.verdict] || ""))); r.appendChild(c1);
+      var c2 = el("td", "s5fb-facts"); var ff = iocFacts(x); if (ff.length) c2.appendChild(list(ff, "s5el-ul s5fb-ul")); else c2.appendChild(el("span", "s5el-mut", "not checked yet")); r.appendChild(c2);
+      if (showStory) {
+        var c3 = el("td");
+        (x.stories || []).forEach(function (sid) { var t = (IOW.titles || {})[sid] || sid; var b = el("button", "s5ez-rel", t.length > 70 ? t.slice(0, 68) + "\u2026" : t); b.type = "button"; b.addEventListener("click", function () { openStory(sid); }); c3.appendChild(b); c3.appendChild(el("br")); });
+        if (!(x.stories || []).length) c3.appendChild(el("span", "s5el-mut", "watch list"));
+        r.appendChild(c3);
+      }
+      r.appendChild(el("td", "s5el-mut", iocOrigin(x)));
+      var c5 = el("td"); c5.appendChild(iocLinks(x)); r.appendChild(c5);
+      bd.appendChild(r);
+    });
+    tb.appendChild(bd); tw.appendChild(tb);
+    var out = el("div"); out.appendChild(tw);
+    if (L.length > 12) { var mb = el("button", "s5el-btn s5el-more", "Show all " + L.length); mb.type = "button"; mb.addEventListener("click", function () { [].forEach.call(bd.querySelectorAll("tr[data-more]"), function (r) { r.hidden = false; }); mb.remove(); }); out.appendChild(mb); }
+    return out;
+  }
+  function iocCounts(L) {
+    var c = {}; L.forEach(function (x) { c[x.verdict] = (c[x.verdict] || 0) + 1; });
+    var sp = el("div", "s5ez-ksum");
+    ["malicious", "suspicious", "no detections", "unknown to VirusTotal", "not checked yet"].forEach(function (k) { if (c[k]) sp.appendChild(zchip(c[k] + " " + k, "s5fb-vd " + VCLS[k])); });
+    return sp;
+  }
+  function iocTrend(sid) {
+    var H = (IOH && IOH.days) || {}, days = Object.keys(H).sort(); if (days.length < 1) return null;
+    var get = function (d, k) { var row = H[d] || {}; if (sid) return (row[sid] || {})[k] || 0; var t = 0; for (var x in row) t += (row[x] || {})[k] || 0; return t; };
+    var W = 760, Hh = 170, L = 34, R = 10, Tp = 12, B = 28, n = days.length;
+    var tot = days.map(function (d) { return get(d, "total"); }), mal = days.map(function (d) { return get(d, "malicious"); }), sus = days.map(function (d) { return get(d, "suspicious"); });
+    var max = Math.max(1, Math.max.apply(null, tot));
+    var x = function (i) { return L + (W - L - R) * (n === 1 ? 0.5 : i / (n - 1)); }, y = function (v) { return Tp + (Hh - Tp - B) * (1 - v / max); };
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + Hh, "class": "s5el-chart", role: "img", "aria-label": "Indicators per day: total, malicious, suspicious" });
+    for (var g = 0; g <= max; g += Math.max(1, Math.ceil(max / 4))) { svg.appendChild(sv("line", { x1: L, x2: W - R, y1: y(g), y2: y(g), "class": "s5el-grid" })); var tl = sv("text", { x: L - 6, y: y(g) + 4, "text-anchor": "end", "class": "s5el-ax" }); tl.textContent = g; svg.appendChild(tl); }
+    days.forEach(function (d, i) { if (n <= 8 || i % Math.ceil(n / 8) === 0 || i === n - 1) { var t = sv("text", { x: x(i), y: Hh - 8, "text-anchor": "middle", "class": "s5el-ax" }); t.textContent = dm(d); svg.appendChild(t); } });
+    [[tot, "var(--accent)"], [sus, "var(--warn)"], [mal, "var(--bad)"]].forEach(function (s0) {
+      if (n === 1) { svg.appendChild(sv("circle", { cx: x(0), cy: y(s0[0][0]), r: 4, fill: s0[1] })); return; }
+      svg.appendChild(sv("polyline", { points: s0[0].map(function (v, i) { return x(i).toFixed(1) + "," + y(v).toFixed(1); }).join(" "), fill: "none", stroke: s0[1], "stroke-width": 2, "stroke-linejoin": "round" }));
+    });
+    var w = el("div", "s5el-chartw"); w.appendChild(svg);
+    var lg = el("div", "s5el-legend");
+    [["indicators", "var(--accent)", tot], ["suspicious", "var(--warn)", sus], ["malicious", "var(--bad)", mal]].forEach(function (l) { var i = el("span", "s5el-li"); var sw = el("i"); sw.style.background = l[1]; i.appendChild(sw); i.appendChild(document.createTextNode(l[0] + " · " + l[2][n - 1] + " now")); lg.appendChild(i); });
+    w.appendChild(lg);
+    w.appendChild(el("p", "s5el-note", n === 1 ? "The watch started on " + dmy(days[0]) + " — the trend line grows with every daily run." : "One point a day, " + dmy(days[0]) + " to " + dmy(days[n - 1]) + "."));
+    return w;
+  }
+  function infraCard(s, d) {
+    if (!IOW) return;
+    var L = (IOW.indicators || []).filter(function (x) { return (x.stories || []).indexOf(s.id) >= 0; });
+    var wordsHere = Object.keys(IOW.words || {}).filter(function (w) { return (IOW.words[w] || []).indexOf(s.id) >= 0; });
+    if (!L.length && !wordsHere.length) return;
+    var c = card(d, "Infrastructure", L.length + " domain" + (L.length === 1 ? "" : "s") + " / IP" + (L.length === 1 ? "" : "s") + " · checked in VirusTotal, URLhaus, ThreatFox, GreyNoise", "s5et-wide s5fb-card");
+    c.appendChild(el("p", "s5et-note", "The domains and IP addresses of this incident — the ones the analysis names and new look-alike certificates" + (wordsHere.length ? " with the word " + wordsHere.map(function (w) { return "“" + w + "”"; }).join(", ") : "") + " — checked every day. Written defanged (evil[.]com) so nothing here is a live link; the links open the reports about them."));
+    if (!L.length) { c.appendChild(el("p", "s5el-note", "No domain or IP of this incident yet: the analysis names none, and no look-alike certificate appeared in the last 30 days.")); return; }
+    c.appendChild(iocCounts(L));
+    var tr = iocTrend(s.id); if (tr) c.appendChild(tr);
+    c.appendChild(iocTable(L, false));
+  }
+  function infraBox(host) {
+    var tries = 0;
+    (function wait() {
+      if (!IOW) { if (++tries < 40) setTimeout(wait, 250); return; }
+      var L = IOW.indicators || [];
+      var b = box("Infrastructure watch", L.length + " domains and IPs of our incidents · checked " + dmy(day(IOW.generated)) + " · VirusTotal, URLhaus, ThreatFox, GreyNoise, Certificate Transparency");
+      b.id = "s5fb-box";
+      b.appendChild(el("p", "s5el-note", "Every domain and IP address our incident analyses name, plus new certificates for look-alike domains of the incident's words, checked twice a day. A verdict is what the services say today, not ours. The list of services and their limits: ti_sources.json (README, section 16)."));
+      b.appendChild(iocCounts(L));
+      var tr = iocTrend(null); if (tr) b.appendChild(tr);
+      var by = {}; L.forEach(function (x) { (x.stories && x.stories.length ? x.stories : ["_watch"]).forEach(function (sid) { var r = by[sid] = by[sid] || { t: 0, m: 0, s: 0 }; r.t++; if (x.verdict === "malicious") r.m++; if (x.verdict === "suspicious") r.s++; }); });
+      var ul = el("ul", "s5el-ul s5fb-by");
+      Object.keys(by).sort(function (a, z) { return by[z].m - by[a].m || by[z].t - by[a].t; }).forEach(function (sid) {
+        var li = el("li"); var t = sid === "_watch" ? "Watch list" : ((IOW.titles || {})[sid] || sid);
+        if (sid !== "_watch") { var bt = el("button", "s5ez-rel", t); bt.type = "button"; bt.addEventListener("click", function () { openStory(sid); }); li.appendChild(bt); } else li.appendChild(document.createTextNode(t));
+        li.appendChild(el("span", "s5el-mut", " — " + by[sid].t + " indicator" + (by[sid].t === 1 ? "" : "s") + (by[sid].m ? " · " + by[sid].m + " malicious" : "") + (by[sid].s ? " · " + by[sid].s + " suspicious" : "")));
+        ul.appendChild(li);
+      });
+      b.appendChild(ul);
+      if (L.length) b.appendChild(iocTable(L, true));
+      var S = IOW.sources || {}, sl = el("p", "s5el-note s5fb-src");
+      sl.textContent = "Sources this run: " + Object.keys(S).map(function (k) { var v = S[k]; return k + " " + v.state + (v.checked != null ? " (" + v.checked + " checked)" : v.candidates != null ? " (" + v.candidates + " candidates)" : "") + (v.state !== "ok" && v.note ? " — " + v.note : ""); }).join(" · ");
+      b.appendChild(sl);
+      host.appendChild(b);
+    })();
   }
   /* §5ez (22 X 2026, owner: "a decent incident - ConnectWise: tons of sites describe it and show the application IDs
      involved, and you did not even mention them; all of them say block them, do not delete; you describe the roles but
@@ -42093,6 +42221,7 @@ odtad CZTERNASCIE (4-17).**
     cur.appendChild(lst);
     if (S.length > LIM) { var mb = el("button", "s5el-btn s5el-more", "Show all " + S.length + " incidents"); mb.type = "button"; mb.addEventListener("click", function () { S.slice(LIM).forEach(function (s) { lst.appendChild(row(s)); }); mb.remove(); }); cur.appendChild(mb); }
     body.appendChild(cur);
+    var iw = el("div"); iw.id = "s5fb-wrap"; body.appendChild(iw); infraBox(iw);   /* §5fb */
     var tb = box("Trend", "last " + D.trend.days.length + " days · articles per area and incidents started"); tb.id = "s5el-trend"; tb.appendChild(trend()); body.appendChild(tb);
     var ab = articlesBox(); ab.id = "s5el-art"; body.appendChild(ab);
     var kb = kevBox(); kb.id = "s5el-kev"; body.appendChild(kb);
@@ -45242,6 +45371,22 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 @media (max-width:760px){.s5ez-apps .s5ez-apl{grid-template-columns:minmax(0,1fr)}.s5ez-app{padding:8px 9px}.s5ez-steps{padding-left:20px}
  .s5ez-todo .s5ez-say,.s5ez-todo .s5ez-our{padding:6px 8px 2px}
  #tab-threats .s5el-det{padding-left:0!important;padding-right:0!important;border-left:0!important;border-right:0!important}}
+/* §5fb: infrastructure watch */
+.s5fb-v{font-size:12.5px;padding:2px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--border);overflow-wrap:anywhere}
+.s5fb-vd{font-weight:700}
+.s5fb-bad{color:var(--bad);border-color:var(--bad);background:color-mix(in srgb,var(--bad) 9%,transparent)}
+.s5fb-warn{color:var(--warn);border-color:var(--warn);background:color-mix(in srgb,var(--warn) 9%,transparent)}
+.s5fb-ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,var(--border))}
+.s5fb-mut{color:var(--muted)}
+.s5fb-ul{margin:0;padding-left:16px;font-size:12.5px}
+.s5fb-links{font-size:12.5px;white-space:normal}
+.s5fb-by{margin:8px 0}
+.s5fb-src{font-size:12px}
+.s5fb-tab .s5fb-vd{white-space:nowrap}
+.s5fb-tab code.s5fb-v{white-space:nowrap}
+.s5fb-tab code.s5fb-v.s5fb-dom{white-space:normal;overflow-wrap:anywhere}
+.s5fb-card .s5el-chartw,#s5fb-box .s5el-chartw{max-width:640px}
+@media (max-width:760px){.s5fb-tab td,.s5fb-tab th{font-size:12.5px}}
 .s5ey-why{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:6px 0 0;font-size:11.5px;line-height:1.35}
 .s5ey-wl{color:var(--muted);font-weight:600}
 .s5ey-w{border:1px solid var(--border);border-radius:999px;padding:1px 8px;font-weight:650;color:var(--muted);white-space:normal}
@@ -47016,6 +47161,20 @@ przyszlego `tools/ioc_watch.py`: czyta zrodla WYLACZNIE z tego pliku (nowe zrodl
 `Kind` `manual` / `link` i te, ktorych sekret nie jest ustawiony (z powodem w raporcie, nigdy przerwany przebieg),
 trzyma sie `Limits` (VirusTotal <= 450/dzien, 4/min), domeny na stronie tylko defanged, link do raportu, nigdy do
 domeny. Projekt prywatny Piotra Wisniewskiego (warunek VirusTotal „nie komercyjnie"). README pkt 16.
+
+**§5fb (23 X 13:52, wlasciciel):** *„klucze VirusTotal, abuse.ch i GreyNoise dodane do GitHub - kontynuuj plan"*. IOC
+watch: `tools/ioc_watch.py` (workflow `ioc-watch.yml`, 06:25 i 18:25 UTC, sekrety VT_API_KEY, ABUSECH_AUTH_KEY,
+GREYNOISE_API_KEY; zrodla i limity tylko z `ti_sources.json`). Wskazniki: IP i domeny (tylko defanged) z `notes.iocs`
+incydentow; kandydaci crt.sh (certyfikaty 30 dni, domena zawiera slowo `match` kuratorowanej analizy, pojedyncze slowo
+>= 6 znakow, nie storm-/cve-, albo `WatchKeywords`; bez wlasnej domeny dostawcy i domen Microsoft); ThreatFox `taginfo`.
+Sprawdzenia: VirusTotal <= 60/przebieg co 16 s, ponownie po 3 dniach; GreyNoise <= 6/przebieg, po 7 dniach; URLhaus
+`host` i ThreatFox `search_ioc` <= 120/przebieg, po 3 dniach. Werdykt: malicious (VT >= 2 albo URLhaus online albo
+ThreatFox), suspicious (VT 1 / suspicious, URLhaus offline, GreyNoise malicious), no detections, unknown to VirusTotal,
+not checked yet. `site/data/ioc-watch.json` (zawsze defanged, `sources` ze stanem kazdego zrodla) +
+`site/data/ioc-watch-history.json` (dzien -> incydent -> total/malicious/suspicious/new, 120 dni). Strona: karta
+„Infrastructure" w incydencie (po „Applications and identities involved") i ramka „Infrastructure watch" pod lista
+incydentow; linki do raportow VirusTotal / URLhaus / ThreatFox / GreyNoise, nigdy do domeny. Wdrozenie: `code-refresh.yml`
+po `workflow_run` „IOC watch"; znacznik swiezosci `iocwatch`. README pkt 16.3.
 
 ## 6. Kontrakt w stronie
 

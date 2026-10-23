@@ -217,6 +217,7 @@ Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
 | `tools/changes_page.py` | strona „What changed” (`/diff/` i `/week/`): `site/data/changes-7d.json` z rejestru zmian i plików danych portalu (7 dni, bez księgowości, jedno pole = jeden rekord) + aplikacja z `tools/changes_app.html`; stronę routine przenosi do `diff/full.html` / `week/print.html`; uruchamiają go `publish.yml` i `code-refresh.yml` (§5eq) |
 | `tools/changes_app.html` | szablon strony „What changed” (przełącznik okresu, szyna zakładek z + ~ −, kafelki, filtr technologii, wyszukiwanie, druk) (§5eq) |
 | `tools/kql_extract.py` | rozpoznaje zapytania Kusto (KQL) w artykule HTML, Markdown lub pliku — z tabelami Defender XDR / Sentinel / Entra, bez Kibana KQL, SPL i SQL; używany przez `threats.py`, `kql_repos.py`, `kql_archive.py` (§5eu) |
+| `tools/ioc_watch.py` | infrastruktura incydentów (§5fb, pkt 16): domeny i IP z analiz + kandydaci z certyfikatów (crt.sh) → VirusTotal, GreyNoise, URLhaus, ThreatFox → `site/data/ioc-watch.json`, `site/data/ioc-watch-history.json`; źródła i limity wyłącznie z `ti_sources.json`; uruchamia go `ioc-watch.yml` |
 | `tools/kql_repos.py` | zapytania KQL z publicznych repozytoriów społeczności (`kql_sources.json`), raz dziennie w `campaigns.yml` → `cache/kql-repos.json`; pełna treść, autor, licencja repozytorium, link (§5eu) |
 | `tools/threat_todo.py` | dla porannej routine: `todo` — które historie Threat Research opisać dziś (update / new / backlog, najwyżej 5), `check` — walidacja `site/data/threat-notes.json` przed commitem, exit 1 = nie commitować (§5el-b) |
 | `tools/mobile_check.py` | sprawdzenie telefonu przed commitem kodu (Playwright, profil iPhone 13, CPU ×4): przewijanie w bok, elementy poza ekranem, przykryte przyciski, błędy JS, czas zdań Overview (§5eb, pozycja 123 listy §0) |
@@ -1051,8 +1052,9 @@ Wypisane wartości → zmienne repozytorium `DEV_TENANT_ID` i `DEV_CLIENT_ID` (1
 | `AZURE_CLIENT_ID` | zmienna repozytorium | jw. | jw. | która aplikacja Entra (12.1) | nie, jw. |
 | `DEV_TENANT_ID` | zmienna repozytorium (opcjonalna, §5ef-b) | jw. | `fpa-tenant.yml`, krok „Dev tenant” | drugi tenant (12.1b); bez niej krok jest pomijany | nie, jw. |
 | `DEV_CLIENT_ID` | zmienna repozytorium (opcjonalna) | jw. | jw. | aplikacja „MS-SOC Dev tenant reader” (12.1b) | nie, jw. |
-| `VT_API_KEY` | sekret repozytorium (planowany, §5fa) | Settings → Secrets and variables → Actions → **Secrets** | przyszły krok „IOC watch” | klucz darmowego publicznego API VirusTotal (500 zapytań/dzień, 4/min) — ocena domen i IP z incydentów (pkt 16) | **tak**; wpisuje właściciel, nigdy w czacie ani w pliku |
-| `ABUSECH_AUTH_KEY` | sekret repozytorium (planowany, §5fa) | jw. | przyszły krok „IOC watch” | Auth-Key abuse.ch — ThreatFox i URLhaus (pkt 16) | **tak**, jw. |
+| `VT_API_KEY` | sekret repozytorium (§5fa, wpisany 23 X 2026) | Settings → Secrets and variables → Actions → **Secrets** | `ioc-watch.yml` | klucz darmowego publicznego API VirusTotal (500 zapytań/dzień, 4/min) — ocena domen i IP z incydentów (pkt 16) | **tak**; wpisuje właściciel, nigdy w czacie ani w pliku |
+| `ABUSECH_AUTH_KEY` | sekret repozytorium (§5fa, wpisany 23 X 2026) | jw. | `ioc-watch.yml` | Auth-Key abuse.ch — ThreatFox i URLhaus (pkt 16) | **tak**, jw. |
+| `GREYNOISE_API_KEY` | sekret repozytorium (§5fb, wpisany 23 X 2026) | jw. | `ioc-watch.yml` | klucz GreyNoise Community (50 zapytań/tydzień) — kontekst adresów IP z incydentów (pkt 16) | **tak**, jw. |
 | `GITHUB_TOKEN` · `contents: write` | token przebiegu, nadawany przez GitHub na czas przebiegu | `permissions:` w pliku workflow | `campaigns.yml`, `code-refresh.yml`, `fpa-tenant.yml`, `learn-mirror.yml`, `publish.yml` | commit danych i strony na `main` | nie przechowywany |
 | `GITHUB_TOKEN` · `contents: read` | jw. | jw. | `collector-check.yml`, `fpa-compare.yml` | tylko odczyt repozytorium | jw. |
 | `GITHUB_TOKEN` · `id-token: write` | jw. | jw. | `fpa-tenant.yml`, `fpa-compare.yml` | prawo poproszenia GitHuba o token OIDC dla logowania do Entra (12.1); bez niego logowanie federacyjne jest niemożliwe | jw. |
@@ -1101,6 +1103,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra | workflow `fpa-tenant.yml` |
 | 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie i archiwum KQL | workflow `campaigns.yml` |
 | 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
+| 2× dziennie (06:25 i 18:25 UTC) | infrastruktura incydentów: domeny i IP sprawdzane w VirusTotal, GreyNoise, URLhaus, ThreatFox (§5fb) | workflow `ioc-watch.yml` |
 | po każdej zmianie `CLAUDE.md` | kod strony | workflow `code-refresh.yml` |
 
 ### 13.4 Zakładki — co robią i skąd świeżość
@@ -1136,6 +1139,7 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | `code` | `code-refresh.yml` | każde odświeżenie kodu strony (nie sam commit retencji) (dodatkowo pole `spec` = najnowszy etap §) |
 | `tenant` | `fpa-tenant.yml` | migawka tenanta, która coś zmieniła |
 | `campaigns` | `campaigns.yml` | kampanie / archiwum KQL się zmieniły |
+| `iocwatch` | `ioc-watch.yml` | wynik sprawdzenia domen i IP incydentów się zmienił (§5fb) |
 | `learn` | `learn-mirror.yml` | kopia Learn się zmieniła (commit tokenem `GITHUB_TOKEN` nie wdraża — strona pokaże znacznik przy najbliższym wdrożeniu) |
 | `publish` | `publish.yml` | brief routine skopiowany na `main`; workflow najpierw przywraca `site/data/fresh` z `main`, bo klon routine bywa starszy i cofnąłby znaczniki innych workflow |
 
@@ -1317,13 +1321,15 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 | detections.ai | manual | konto | brak opisanego API i MCP | ręcznie; ewentualny token tylko jako sekret GitHub |
 | urlscan.io | reputation | `URLSCAN_API_KEY` (opcjonalny) | limity niesprawdzone | opcjonalnie: zrzuty stron phishingowych |
 
-### 16.3 Jak będzie działać „IOC watch” (po wpisaniu kluczy)
+### 16.3 „IOC watch” — jak działa (od 23 X 2026, §5fb)
 
-1. Zebranie: domeny i IP z analiz incydentów (`iocs`, `apps`) + kandydaci z crt.sh + wskaźniki z ThreatFox / URLhaus.
-2. Ocena raz dziennie w GitHub Actions (VirusTotal, GreyNoise dla IP), w limitach z `ti_sources.json` (VirusTotal ≤ 450 zapytań/dzień).
-3. Zapis: `site/data/ioc-watch.json` + historia dzienna.
-4. Strona: w karcie incydentu sekcja „Infrastructure” — domeny tylko w postaci `evil[.]com` (nie da się kliknąć), status, link do raportu VirusTotal i ANY.RUN; w Threat Research wykresy nowych domen dziennie, udział złośliwych, trend.
-5. Brak klucza = źródło pominięte z powodem w tabeli źródeł, nigdy przerwany przebieg.
+1. **Zebranie** (`tools/ioc_watch.py`): adresy IP i domeny z pola `iocs` analiz incydentów (domeny tylko zapisane jako `evil[.]com` lub `hxxps://…`, adresy IP tylko publiczne); kandydaci z crt.sh — certyfikaty z ostatnich 30 dni, których domena zawiera słowo incydentu (`match` analizy: ConnectWise, SkyKick, EvilTokens…, tylko pojedyncze słowa od 6 znaków) albo słowo z `WatchKeywords` we wpisie crt.sh, z pominięciem własnej domeny dostawcy (connectwise.com); wskaźniki ThreatFox z tagiem takiego słowa (30 dni).
+2. **Sprawdzenie** dwa razy dziennie (workflow `ioc-watch.yml`, 06:25 i 18:25 UTC): VirusTotal (≤ 60 zapytań na przebieg, 4/min; ponownie po 3 dniach), GreyNoise dla IP (≤ 6 na przebieg, ponownie po 7 dniach), URLhaus i ThreatFox dla każdego wskaźnika (ponownie po 3 dniach).
+3. **Werdykt**: *malicious* — co najmniej 2 silniki VirusTotal albo aktywny adres w URLhaus, albo wpis w ThreatFox; *suspicious* — 1 silnik lub głos podejrzany, nieaktywny adres w URLhaus albo GreyNoise „malicious”; *no detections* — VirusTotal zna wskaźnik i żaden silnik go nie oznacza; *unknown to VirusTotal* / *not checked yet*.
+4. **Zapis**: `site/data/ioc-watch.json` (wskaźniki zawsze w postaci zabezpieczonej `evil[.]com`, stan każdego źródła w `sources`) i `site/data/ioc-watch-history.json` (dzień → incydent → total / malicious / suspicious / new, 120 dni) — z niego linia trendu.
+5. **Strona**: w szczegółach incydentu karta **Infrastructure** (liczby werdyktów, trend incydentu, tabela: wskaźnik, werdykt, co mówią serwisy, skąd się wziął, linki do raportów VirusTotal / URLhaus / ThreatFox / GreyNoise — nigdy do samej domeny); w zakładce Threat Research ramka **Infrastructure watch** (wszystkie wskaźniki, trend łączny, incydenty wg liczby złośliwych, stan źródeł z ostatniego przebiegu).
+6. **Brak klucza** = źródło pominięte z powodem w `sources` i na stronie; krok workflow wypisuje tylko, czy klucz jest ustawiony („set” / „NOT SET”), nigdy wartość. Zadanie nigdy nie kończy się błędem z powodu źródła.
+7. VirusTotal dodaje każde zapytanie do swojej bazy — pytamy wyłącznie o publiczne wskaźniki z artykułów i domeny z certyfikatów, nigdy o nic z tenanta.
 
 ### 16.4 Klucze — krok po kroku (właściciel)
 
@@ -1392,6 +1398,7 @@ Zakładka Threat Research korzysta z trzech list źródeł. Każda jest plikiem 
 | 2026-10-23 | Usunięta nazwa firmy z README.md, mirror/README.md, tools/New-FpaReaderApp.ps1 i CLAUDE.md — autor to tylko Piotr Wiśniewski (projekt prywatny). Strona, dane i archiwum nie zawierały jej. |
 | 2026-10-23 | §5fa — nowa lista `ti_sources.json` (9 źródeł wywiadu o zagrożeniach: crt.sh, VirusTotal, ThreatFox, URLhaus, GreyNoise, ANY.RUN, Silent Push, detections.ai, urlscan.io — limity i warunki sprawdzone 23 X), nowy punkt 16 README (wszystkie listy źródeł Threat Research, w tym DevSecOpsDad i Steven Lim, pola, plan „IOC watch”, klucze krok po kroku), planowane sekrety `VT_API_KEY` i `ABUSECH_AUTH_KEY` w pkt 12.2. |
 | 2026-10-23 | Przepisana historia repozytorium (git filter-repo, `--sensitive-data-removal`): ze wszystkich 942 commitów, także z archiwów `.gz`, usunięte pełne ID tenanta, aplikacji i obiektów (zostaje pierwszy blok, pkt 10), nazwy i domeny tenantów, nazwa firmy; prywatny e-mail w metadanych commitów zamieniony na adres GitHub noreply. Usunięte 56 starych gałęzi `claude/*` i `zz-wf-scope-probe` (ich treść była już na `main`); `logo-video-src` i tag `before-portal-v2-2026-10-05` odtworzone na nowej historii (jednorazowy workflow, usunięty). Stare skróty commitów w tym pliku i w CLAUDE.md nie wskazują już commitów. Pełna kopia historii sprzed zmiany: kopia zapasowa właściciela (lokalnie, nie w repozytorium). |
+| 2026-10-23 | §5fb — **IOC watch**: `tools/ioc_watch.py` + workflow `ioc-watch.yml` (2× dziennie): domeny i IP z analiz incydentów oraz domeny podszywające się (crt.sh, tagi ThreatFox) sprawdzane w VirusTotal, GreyNoise, URLhaus i ThreatFox (klucze `VT_API_KEY`, `ABUSECH_AUTH_KEY`, `GREYNOISE_API_KEY`); `site/data/ioc-watch.json` + historia; na stronie karta „Infrastructure” w incydencie i ramka „Infrastructure watch” z trendem. `ti_sources.json`: źródła aktywne, pole `WatchKeywords`. Wdrożenie po przebiegu przez `code-refresh.yml`. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |
