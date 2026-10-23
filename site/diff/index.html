@@ -113,6 +113,14 @@ tbody tr:hover td{background:var(--accent-soft)}
 }
 @media (max-width:600px){h1{font-size:18px}.ph h2{font-size:20px}.grid{padding:0 10px 10px}details.day>summary{padding:10px}}
 @media print{header.top{position:static}.jump,.sheet,nav.rail,.frow,.seg,.tbtn,.hlinks .np{display:none!important}.layout{display:block}.panel[hidden]{display:block!important}details.day>.grid{display:grid}main{padding:0}}
+
+/* §5fg (23 X 2026): the portal's reading scale on /diff and /week - 10.5-11.5px -> 13, 12-12.5 -> 14, 13-13.5 -> 15 (measured with Playwright) */
+body .det,body .kind,body .rl > span,body .t0,body th{font-size:13px}
+body .chip,body .chip > b,body .foot,body .foot > a,body .k,body .meta{font-size:14px}
+body .fl,body .hlinks > a,body .lead,body .n,body .np,body .ri > span,body .seg > button,body .sub,body .tbtn,body .what > b,body .what > del,body .what > ins,body button,body td{font-size:15px}
+body th{font-size:13.5px;white-space:normal}
+body h2{font-size:20px}
+body h3{font-size:18px}
 </style>
 </head>
 <body>
